@@ -108,12 +108,13 @@ class _PluginChecker(threading.Thread):
         import logging
         while True:
             try:
-                for repo in REPOS:
-                    self._repo_data[repo] = self._download_zip(repo)
-                    self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
+                if options.use_plugin_update:   
+                    for repo in REPOS:
+                        self._repo_data[repo] = self._download_zip(repo)
+                        self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
 
                 status = options.plugin_status
-                if options.auto_plugin_update and not log.active_runs():
+                if options.auto_plugin_update and options.use_plugin_update and not log.active_runs():
                     for plugin in available():
                         update = self.available_version(plugin)
                         if update is not None and status[plugin]['hash'] != update['hash']:
