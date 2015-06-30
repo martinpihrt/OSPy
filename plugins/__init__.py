@@ -7,8 +7,8 @@ import types
 import threading
 
 __running = {}
-REPOS = ['https://github.com/Rimco/OSPy-plugins-core/archive/master.zip',
-         'https://github.com/Rimco/OSPy-plugins-temp/archive/master.zip']
+REPOS = ['https://github.com/martinpihrt/OSPy-plugins-core/archive/master.zip',
+         'https://github.com/martinpihrt/OSPy-plugins-temp/archive/master.zip']
 
 ################################################################################
 # Plugin Options                                                               #
