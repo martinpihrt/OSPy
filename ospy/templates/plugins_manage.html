@@ -39,7 +39,10 @@ $var page: plugins
                     $if available_info is not None:
                         <a class="button open" href="/plugins_install?repo=${available_info['repo_index']}&plugin=${plugin}&install">
                             $if plugin in current_info and current_info[plugin]['hash'] == available_info['hash']:
-                                Up-to-date
+                                $if options.use_plugin_update:
+                                    Up-to-date
+                                $else:
+                                    Not-use
                             $else:
                                 Update
                         </a>
