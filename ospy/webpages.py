@@ -332,6 +332,7 @@ class plugins_manage_page(ProtectedPage):
         enable = get_input(qdict, 'enable', None, lambda x: x == '1')
         disable_all = get_input(qdict, 'disable_all', False, lambda x: True)
         auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
+        use_update = get_input(qdict, 'use', None, lambda x: x == '1')
 
         if disable_all:
             options.enabled_plugins = []
@@ -359,6 +360,10 @@ class plugins_manage_page(ProtectedPage):
         if auto_update is not None:
             options.auto_plugin_update = auto_update
             raise web.seeother('/plugins_manage')
+        
+        if use_update is not None:
+            options.use_plugin_update = use_update
+            raise web.seeother('/plugins_manage')    
 
         return self.core_render.plugins_manage()
 
