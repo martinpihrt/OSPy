@@ -72,6 +72,11 @@ class _Options(object):
             "name": "Automatic plug-in updates",
             "default": True
         },
+        {
+            "key": "use_plugin_update",
+            "name": "Enable plug-in check status updates",
+            "default": False
+        },
 
         #######################################################################
         # Security ############################################################
