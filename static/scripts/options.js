@@ -11,10 +11,15 @@ jQuery(document).ready(function(){
         jQuery("#optionsForm").submit();
     });
 
+     jQuery("#cUpload").click(function() {
+        jQuery("#uploadForm").submit();
+    });
+
     jQuery(".collapsible h4").click(function(event){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
     });
 
+         
     switch (errorCode) {
         case "pw_wrong":
             jQuery("#erroropw").text("The password given was incorrect.");
