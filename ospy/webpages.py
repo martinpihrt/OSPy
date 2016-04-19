@@ -496,6 +496,40 @@ class help_page(ProtectedPage):
         docs = get_help_files()
         return self.core_render.help(docs)
 
+class download_page(ProtectedPage):
+    """Download OSPy DB file with settings"""
+    def GET(self):
+       OPTIONS_FILE = './ospy/data/options.db'
+
+       def _read_log():
+          """Read OSPy DB file"""
+          try:                
+             logf = open(OPTIONS_FILE,'r')
+             return logf.read()
+          except IOError:
+             return []
+
+       try:
+          import mimetypes
+         
+          download_name = 'options.db'
+          content = mimetypes.guess_type(OPTIONS_FILE)[0]
+          web.header('Content-type', content)
+          web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
+          web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+          return _read_log()
+          raise web.seeother('/')
+
+       except Exception:
+          return self.core_render.home()
+
+
+class upload_page(ProtectedPage):
+    """Upload OSPy DB file with settings"""
+    
+    def GET(self):
+       # TODO
+       return self.core_render.home()
 
 ################################################################################
 # APIs                                                                         #
