@@ -9,6 +9,7 @@ import logging
 import random
 import time
 import errno
+import re
 from threading import Lock
 
 BRUTEFORCE_LOCK = Lock()
@@ -513,3 +514,47 @@ def get_help_file(id):
     except Exception:
         pass
     return ''
+
+def ASCI_convert(name):
+  if re.search(r"[^\x00-\x7F]", name):
+     # digraphs.  May be culturally sensitive
+     name=re.sub(r"\xc3\x9f", 'ss', name)
+     name=re.sub(r"\xc3\xa4|a\xcc\x88", 'ae', name)
+     name=re.sub(r"\xc3\xa5|a\xcc\x8a", 'aa', name)
+     name=re.sub(r"\xc3\xa6", 'ae', name)
+     name=re.sub(r"\xc3\xb1|n\xcc\x83", 'ny', name)
+     name=re.sub(r"\xc3\xb6|o\xcc\x88", 'oe', name)
+     name=re.sub(r"\xc3\xbc|u\xcc\x88", 'ue', name)
+     # latin 1
+     name=re.sub(r"\xc3[\xa0-\xa5]", 'a', name)
+     name=re.sub(r"\xc3\xa7", 'c', name)
+     name=re.sub(r"\xc3[\xa8-\xab]", 'e', name)
+     name=re.sub(r"\xc3[\xac-\xaf]", 'i', name)
+     name=re.sub(r"\xc3[\xb2-\xb6]|\xc3\xb8", 'o', name)
+     name=re.sub(r"\xc3[\xb9-\xbc]", 'u', name)
+     name=re.sub(r"\xc3[\xbd\xbf]", 'y', name)
+     # Latin Extended-A
+     name=re.sub(r"\xc4[\x80-\x85]", 'a', name)
+     name=re.sub(r"\xc4[\x86-\x8d]", 'c', name)
+     name=re.sub(r"\xc4[\x8e-\x91]", 'd', name)
+     name=re.sub(r"\xc4[\x92-\x9b]", 'e', name)
+     name=re.sub(r"\xc4[\x9c-\xa3]", 'g', name)
+     name=re.sub(r"\xc4[\xa4-\xa7]", 'h', name)
+     name=re.sub(r"\xc4[\xa8-\xb1]", 'i', name)
+     name=re.sub(r"\xc4[\xb2-\xb3]", 'ij', name)
+     name=re.sub(r"\xc4[\xb4-\xb5]", 'j', name)
+     name=re.sub(r"\xc4[\xb6-\xb8]", 'k', name)
+     name=re.sub(r"\xc4[\xb9-\xff]|\xc5[\x80-\x82]", 'l', name)
+     name=re.sub(r"\xc5[\x83-\x8b]", 'n', name)
+     name=re.sub(r"\xc5[\x8c-\x91]", 'o', name)
+     name=re.sub(r"\xc5[\x92-\x93]", 'oe', name)
+     name=re.sub(r"\xc5[\x94-\x99]", 'r', name)
+     name=re.sub(r"\xc5[\x9a-\xa2]", 's', name)
+     name=re.sub(r"\xc5[\xa2-\xa7]", 't', name)
+     name=re.sub(r"\xc5[\xa8-\xb3]", 'u', name)
+     name=re.sub(r"\xc5[\xb4-\xb5]", 'w', name)
+     name=re.sub(r"\xc5[\xb6-\xb8]", 'y', name)
+     name=re.sub(r"\xc5[\xb9-\xbe]", 'z', name)
+     # denormalized diacritics
+     name=re.sub(r"\xcc[\x80-\xff]|\xcd[\x80-\xaf]", '', name)
+  return re.sub(r"[^.\w]+", '-', name)
