@@ -108,11 +108,11 @@ $var page: options
     </form>
 </div>
 
-<form id="uploadForm" name="of" action="/upload" method="post">
+<form id="uploadForm" name="of" action="/upload" method="post" enctype="multipart/form-data">
    <a id="cSubmit" class="button submit">Submit Changes</a>
    <a href="" class="button cancel danger">Cancel</a>
    <a href="/download" class="button backup">Download backup</a>
-   <input type="file" class="upload" />
+   <input type="file" name="uploadfile" class="upload" />
    <a id="cUpload" class="button upload">Upload backup</a> (file: options.db)
 </form>
    
