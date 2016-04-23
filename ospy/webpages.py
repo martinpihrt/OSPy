@@ -9,7 +9,7 @@ import web
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart
 from ospy.inputs import inputs
 from ospy.log import log
 from ospy.options import options
@@ -528,9 +528,20 @@ class upload_page(ProtectedPage):
     """Upload OSPy DB file with settings"""
     
     def GET(self):
-       # TODO
-       return self.core_render.home()
+        raise web.seeother('/')
 
+    def POST(self):
+        OPTIONS_FILE = './ospy/data/options.db'
+        i = web.input(uploadfile={})
+        if i.uploadfile.filename == 'options.db':
+            fout = open(OPTIONS_FILE,'w') 
+            fout.write(i.uploadfile.file.read()) 
+            fout.close() 
+            log.debug('webpages.py', 'Uploading and saving options.db file sucesfully, now restarting OSPy...')
+            restart(3)
+            return self.core_render.restarting(home_page)
+        self._redirect_back()
+        
 ################################################################################
 # APIs                                                                         #
 ################################################################################
