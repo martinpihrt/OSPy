@@ -103,18 +103,31 @@ $var page: options
                     output += "<input name='check_password' type='password' size='31'><span class='inputError' id='errorcpw'></span>\n"
                     output += "<span class='tooltip'>Confirm the new password.</span>\n"
                     output += "</div>\n"
+
+        output += categoryCloser + "<div class='category collapsible collapsed'><h4>"+ ('System Restart')+ "</h4>\n"
+        output += "<div class='option'>"
+        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(('Restart OSPy software!'), ensure_ascii=False)+">" + ('Restart')+"</button>"
+        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(('Reboot hardware!'), ensure_ascii=False) + ">" + ('Reboot')+"</button>"
+        output += "</div>\n"
+        output += "<input type=\"hidden\" name=\"rbt\" value=\"0\">"
+        output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
+        output += categoryCloser + "</form>"
+
+        output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += "<div class='category collapsible collapsed'><h4>"+ ('System Backup')+ "</h4>\n"
+        output += "<div class='option'>"
+        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(('Download options.db file'), ensure_ascii=False) + ">" + "Download</a>\n"
+        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
+        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(('Upload options.db file'), ensure_ascii=False) + ">" + "Upload</a>\n"
+        output += "</div></form>\n"
+
         output += categoryCloser
     $:{output}
-    </form>
+    
 </div>
-
-<form id="uploadForm" name="of" action="/upload" method="post" enctype="multipart/form-data">
    <a id="cSubmit" class="button submit">Submit Changes</a>
-   <a href="" class="button cancel danger">Cancel</a>
-   <a href="/download" class="button backup">Download backup</a>
-   <input type="file" name="uploadfile" class="upload" />
-   <a id="cUpload" class="button upload">Upload backup</a> (file: options.db)
-</form>
+   <a href="" class="button cancel danger">Cancel</a> 
+
    
 
 
