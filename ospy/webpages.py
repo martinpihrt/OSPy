@@ -9,7 +9,7 @@ import web
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot
 from ospy.inputs import inputs
 from ospy.log import log
 from ospy.options import options
@@ -460,6 +460,14 @@ class options_page(ProtectedPage):
                     raise web.seeother('/options?errorCode=pw_wrong')
             except KeyError:
                 pass
+   
+        if 'rbt' in qdict and qdict['rbt'] == '1':
+            reboot(True) # Linux HW software 
+            return self.core_render.home()
+
+        if 'rstrt' in qdict and qdict['rstrt'] == '1':
+            restart()    # OSPy software
+            return self.core_render.restarting(home_page)
 
         raise web.seeother('/')
 
@@ -533,14 +541,18 @@ class upload_page(ProtectedPage):
     def POST(self):
         OPTIONS_FILE = './ospy/data/options.db'
         i = web.input(uploadfile={})
-        if i.uploadfile.filename == 'options.db':
-            fout = open(OPTIONS_FILE,'w') 
-            fout.write(i.uploadfile.file.read()) 
-            fout.close() 
-            log.debug('webpages.py', 'Uploading and saving options.db file sucesfully, now restarting OSPy...')
-            restart(3)
-            return self.core_render.restarting(home_page)
-        self._redirect_back()
+        try:
+            if i.uploadfile.filename == 'options.db':
+               fout = open(OPTIONS_FILE,'w') 
+               fout.write(i.uploadfile.file.read()) 
+               fout.close() 
+               log.debug('webpages.py', 'Uploading and saving options.db file sucesfully, now restarting OSPy...')
+               restart(3)
+               return self.core_render.restarting(home_page)
+            self._redirect_back()
+
+        except Exception:
+            self._redirect_back()
         
 ################################################################################
 # APIs                                                                         #
