@@ -19,6 +19,17 @@ jQuery(document).ready(function(){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
     });
 
+   
+    jQuery("button#cReboot").click(function(){
+        jQuery("input[name='rbt']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+    
+    jQuery("button#cRestart").click(function(){
+        jQuery("input[name='rstrt']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+
          
     switch (errorCode) {
         case "pw_wrong":
