@@ -5,7 +5,9 @@ An improved Python port of the Arduino based OpenSprinkler firmware.
 
 Because the web interface is based on the original firmware,
 the basics described in the [user manual](http://rayshobby.net/opensprinkler/svc-use/svc-web) are still applicable.  
-This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.
+This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.  
+## More information visit
+HW PCB board: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
 
 ## Installation
 
@@ -25,9 +27,26 @@ This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifica
 A setup file has been provided to help you setting up your environment to contain all required packages.
 This setup also helps you in case you want to run the program as a service (on Raspbian).
 
-1. Go to the folder where the setup.py file is located.
+1. Go to the folder where the setup.py file is located (cd OSPy).
+2. Execute: sudo apt-get update and follow the procedures
+3. Execute: sudo apt-get upgrade and follow the procedures
+2. Execute: sudo apt-get install python-setuptools and follow the procedures
 2. Execute: python setup.py install
 3. Follow the procedures of the script.
+
+## For enable I2C device (LCD plugin and more I2C plugins)  
+1. Execute: sudo nano /etc/modules
+2. Add in to the file:  
+i2c-bcm2708  
+i2c-dev  
+3. Execute: sudo nano /etc/modprobe.d/raspi-blacklist.conf  
+4. Change to:  
+#blacklist spi-bcm2708  
+#blacklist i2c-bcm2708  
+5. Execute: sudo apt-get install python-SMBus  
+6. Execute: sudo apt-get install i2c-tools  
+7. Reboo OS system: sudo reboot
+8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program
