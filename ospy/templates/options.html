@@ -108,9 +108,11 @@ $var page: options
         output += "<div class='option'>"
         output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(('Restart OSPy software!'), ensure_ascii=False)+">" + ('Restart')+"</button>"
         output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(('Reboot hardware!'), ensure_ascii=False) + ">" + ('Reboot')+"</button>"
+        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(('Shutdown hardware!'), ensure_ascii=False) + ">" + ('Shutdown')+"</button>"
         output += "</div>\n"
         output += "<input type=\"hidden\" name=\"rbt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
+        output += "<input type=\"hidden\" name=\"pwrdwn\" value=\"0\">"
         output += categoryCloser + "</form>"
 
         output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
