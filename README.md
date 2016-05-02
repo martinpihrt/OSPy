@@ -45,7 +45,7 @@ i2c-dev
 #blacklist i2c-bcm2708  
 5. Execute: sudo apt-get install python-SMBus  
 6. Execute: sudo apt-get install i2c-tools  
-7. Reboo OS system: sudo reboot
+7. Reboot OS system: sudo reboot
 8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
 
 ## License
