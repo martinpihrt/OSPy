@@ -9,7 +9,7 @@ import web
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff
 from ospy.inputs import inputs
 from ospy.log import log
 from ospy.options import options
@@ -468,6 +468,10 @@ class options_page(ProtectedPage):
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             restart()    # OSPy software
             return self.core_render.restarting(home_page)
+        
+        if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
+            poweroff()    # shutdown HW system
+            return self.core_render.restarting(home_page)    
 
         raise web.seeother('/')
 
