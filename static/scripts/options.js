@@ -29,6 +29,11 @@ jQuery(document).ready(function(){
         jQuery("input[name='rstrt']").val(1);
         jQuery("form[name='of']").submit();
     });
+    
+    jQuery("button#cDown").click(function(){
+        jQuery("input[name='pwrdwn']").val(1);
+        jQuery("form[name='of']").submit();
+    });
 
          
     switch (errorCode) {
