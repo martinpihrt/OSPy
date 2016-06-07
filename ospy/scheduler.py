@@ -7,6 +7,7 @@ from threading import Thread
 import datetime
 import time
 import logging
+import i18n 
 
 # Local imports
 from ospy.inputs import inputs
@@ -58,7 +59,7 @@ def predicted_schedule(start_time, end_time):
             new_schedule = {
                 'active': None,
                 'program': -1,
-                'program_name': "Run-Once",
+                'program_name': _('Run-Once'),
                 'fixed': True,
                 'cut_off': 0,
                 'manual': True,

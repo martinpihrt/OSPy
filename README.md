@@ -9,7 +9,8 @@ This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifica
 ## More information visit
 HW PCB board: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
 
-## Installation
+INSTALLATION:
+===========
 
 ### Preferred option (using Git)
 (This option does support automatic updating.)

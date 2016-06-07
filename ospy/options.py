@@ -7,12 +7,11 @@ from datetime import datetime
 from threading import Timer
 import logging
 import shelve
-
+import i18n
 import helpers
 import traceback
 
 OPTIONS_FILE = './ospy/data/options.db'
-
 
 class _Options(object):
     # Using an array to preserve order
@@ -21,98 +20,103 @@ class _Options(object):
         # System ##############################################################
         {
             "key": "name",
-            "name": "System name",
+            "name": _('System name'),
             "default": "OpenSprinkler Pi",
-            "help": "Unique name of this OpenSprinkler system.",
-            "category": "System"
+            "help": _('Unique name of this OpenSprinkler system.'),
+            "category": _('System')
         },
         {
             "key": "theme",
-            "name": "System theme",
+            "name": _('System theme'),
             "default": "basic",
             "options": helpers.themes,
-            "help": "Determines the look of the GUI.",
-            "category": "System"
+            "help": _('Determines the look of the GUI.'),
+            "category": _('System')
         },
         {
             "key": "location",
-            "name": "Location",
+            "name": _('Location'),
             "default": "",
-            "help": "City name or zip code. Use comma or + in place of space.",
-            "category": "System"
+            "help": _('City name or zip code. Use comma or + in place of space.'),
+            "category": _('System')
         },
         {
             "key": "time_format",
-            "name": "24-hour clock",
+            "name": _('24-hour clock'),
             "default": True,
-            "help": "Display times in 24 hour format (as opposed to AM/PM style.)",
-            "category": "System"
+            "help": _('Display times in 24 hour format (as opposed to AM/PM style.)'),
+            "category": _('System')
         },
         {
             "key": "web_port",
-            "name": "HTTP port",
+            "name": _('HTTP port'),
             "default": 8080,
-            "help": "HTTP port (effective after reboot.)",
-            "category": "System",
+            "help": _('HTTP port (effective after reboot.)'),
+            "category": _('System'),
             "min": 1,
             "max": 65535
         },
         {
             "key": "enabled_plugins",
-            "name": "Enabled plug-ins",
+            "name": _('Enabled plug-ins'),
             "default": []
         },
         {
             "key": "plugin_status",
-            "name": "Plug-in status",
+            "name": _('Plug-in status'),
             "default": {}
         },
         {
             "key": "auto_plugin_update",
-            "name": "Automatic plug-in updates",
+            "name": _('Automatic plug-in updates'),
             "default": True
         },
         {
             "key": "use_plugin_update",
-            "name": "Enable plug-in check status updates",
+            "name": _('Enable plug-in check status updates'),
             "default": False
         },
-
+        {
+            "key": "lang",
+            "name": "", #_('System language'),
+            "default": "default",
+            "help": "", #_('Language localizations for this OpenSprinkler system. (effective after reboot.)'),
+            "category": _('System')
+        },
         #######################################################################
         # Security ############################################################
         {
             "key": "no_password",
-            "name": "Disable security",
+            "name": _('Disable security'),
             "default": False,
-            "help": "Allow anonymous users to access the system without a password.",
-            "category": "Security"
+            "help": _('Allow anonymous users to access the system without a password.'),
+            "category": _('Security')
         },
 
         #######################################################################
         # Station Handling ####################################################
         {
             "key": "max_usage",
-            "name": "Maximum usage",
+            "name": _('Maximum usage'),
             "default": 1.0,
-            "help": "Determines how schedules of different stations are combined. "
-                    "0 is no limit. 1 is sequential in case all stations have a usage of 1.",
-            "category": "Station Handling"
+            "help": _('Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1.'),
+            "category": _('Station Handling')
         },
         {
             "key": "output_count",
-            "name": "Number of outputs",
+            "name": _('Number of outputs'),
             "default": 8,
-            "help": "The number of outputs available (8 + 8*extensions)",
-            "category": "Station Handling",
+            "help": _('The number of outputs available (8 + 8*extensions)'),
+            "category": _('Station Handling'),
             "min": 8,
             "max": 1000
         },
         {
             "key": "station_delay",
-            "name": "Station delay",
+            "name": _('Station delay'),
             "default": 0,
-            "help": "Station delay time (in seconds), between 0 and 3600.",
-            "category": "Station Handling",
+            "help": _('Station delay time (in seconds), between 0 and 3600.'),
+            "category": _('Station Handling'),
             "min": 0,
             "max": 3600
         },
@@ -121,26 +125,26 @@ class _Options(object):
         # Configure Master ####################################################
         {
             "key": "master_relay",
-            "name": "Activate relay",
+            "name": _('Activate relay'),
             "default": False,
-            "help": "Also activate the relay as master output.",
-            "category": "Configure Master"
+            "help": _('Also activate the relay as master output.'),
+            "category": _('Configure Master')
         },
         {
             "key": "master_on_delay",
-            "name": "Master on delay",
+            "name": _('Master on delay'),
             "default": 0,
-            "help": "Master on delay (in seconds), between -1800 and +1800.",
-            "category": "Configure Master",
+            "help": _('Master on delay (in seconds), between -1800 and +1800.'),
+            "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
         },
         {
             "key": "master_off_delay",
-            "name": "Master off delay",
+            "name": _('Master off delay'),
             "default": 0,
-            "help": "Master off delay (in seconds), between -1800 and +1800.",
-            "category": "Configure Master",
+            "help": _('Master off delay (in seconds), between -1800 and +1800.'),
+            "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
         },
@@ -149,43 +153,43 @@ class _Options(object):
         # Rain Sensor #########################################################
         {
             "key": "rain_sensor_enabled",
-            "name": "Use rain sensor",
+            "name": _('Use rain sensor'),
             "default": False,
-            "help": "Use rain sensor.",
-            "category": "Rain Sensor"
+            "help": _('Use rain sensor.'),
+            "category": _('Rain Sensor')
         },
         {
             "key": "rain_sensor_no",
-            "name": "Normally open",
+            "name": _('Normally open'),
             "default": True,
-            "help": "Rain sensor default.",
-            "category": "Rain Sensor"
+            "help": _('Rain sensor default.'),
+            "category": _('Rain Sensor')
         },
 
         #######################################################################
         # Logging #############################################################
         {
             "key": "run_log",
-            "name": "Enable run log",
+            "name": _('Enable run log'),
             "default": False,
-            "help": "Log all runs - note that repetitive writing to an SD card can shorten its lifespan.",
-            "category": "Logging"
+            "help": _('Log all runs - note that repetitive writing to an SD card can shorten its lifespan.'),
+            "category": _('Logging')
         },
         {
             "key": "run_entries",
-            "name": "Max run entries",
+            "name": _('Max run entries'),
             "default": 100,
-            "help": "Number of run entries to save to disk, 0=no limit.",
-            "category": "Logging",
+            "help": _('Number of run entries to save to disk, 0=no limit.'),
+            "category": _('Logging'),
             "min": 0,
             "max": 1000
         },
         {
             "key": "debug_log",
-            "name": "Enable debug log",
+            "name": _('Enable debug log'),
             "default": False,
-            "help": "Log all internal events (for debugging purposes).",
-            "category": "Logging"
+            "help": _('Log all internal events (for debugging purposes).'),
+            "category": _('Logging')
         },
 
 
@@ -193,48 +197,48 @@ class _Options(object):
         # Not in Options page as-is ###########################################
         {
             "key": "scheduler_enabled",
-            "name": "Enable scheduler",
+            "name": _('Enable scheduler'),
             "default": True,
         },
         {
             "key": "manual_mode",
-            "name": "Manual operation",
+            "name": _('Manual operation'),
             "default": False,
         },
         {
             "key": "level_adjustment",
-            "name": "Level adjustment set by the user (fraction)",
+            "name": _('Level adjustment set by the user (fraction)'),
             "default": 1.0,
         },
         {
             "key": "rain_block",
-            "name": "Rain block (rain delay) set by the user (datetime)",
+            "name": _('Rain block (rain delay) set by the user (datetime)'),
             "default": datetime(1970, 1, 1),
         },
         {
             "key": "temp_unit",
-            "name": "C/F",
+            "name": _('C/F'),
             "default": 'C',
         },
 
         {
             "key": "password_hash",
-            "name": "Current password hash",
+            "name": _('Current password hash'),
             "default": "opendoor",
         },
         {
             "key": "password_salt",
-            "name": "Current password salt",
+            "name": _('Current password salt'),
             "default": "",
         },
         {
             "key": "password_time",
-            "name": "Current password decryption time",
+            "name": _('Current password decryption time'),
             "default": 0,
         },
         {
             "key": "logged_runs",
-            "name": "The runs that have been logged",
+            "name": _('The runs that have been logged'),
             "default": []
         }
     ]

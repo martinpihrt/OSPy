@@ -1,16 +1,76 @@
 $def with (errorCode)
 
-$var title: Options
+$var title: $_('Options')
 $var page: options
 
+$code:
+    languages = i18n.languages
+    langKeys = i18n.languages.keys()
+    langKeys.sort()
 
 <script>
     var errorCode = "${errorCode}";
+
+    jQuery(document).ready(function(){
+
+    jQuery("button#tooltips").click(function(){
+        var visible = jQuery(this).text() == "Hide Tooltips";
+        jQuery(this).text(visible ? $:{json.dumps(_('Show Tooltips'), ensure_ascii=False)} : $:{json.dumps(_('Hide Tooltips'), ensure_ascii=False)});
+        jQuery(".tooltip").toggle();
+    });
+
+    jQuery("#cSubmit").click(function() {
+        jQuery("#optionsForm").submit();
+    });
+
+     jQuery("#cUpload").click(function() {
+        jQuery("#uploadForm").submit();
+    });
+
+    jQuery(".collapsible h4").click(function(event){
+        jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
+    });
+
+   
+    jQuery("button#cReboot").click(function(){
+        jQuery("input[name='rbt']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+    
+    jQuery("button#cRestart").click(function(){
+        jQuery("input[name='rstrt']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+    
+    jQuery("button#cDown").click(function(){
+        jQuery("input[name='pwrdwn']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+
+         
+    switch (errorCode) {
+        case "pw_wrong":
+            jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False)});
+            jQuery("#erroropw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;
+        case "pw_blank":
+            jQuery("#errornpw").text($:{json.dumps(_('Please enter a password.'), ensure_ascii=False)});
+            jQuery("#errornpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;
+        case "pw_mismatch":
+            jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False)});
+            jQuery("#errorcpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;
+    }
+
+    jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
+
+});
 </script>
-<script src="/static/scripts/options.js"></script>
+
 <div id="options">
-    <div class="title">Edit Options</div>
-    <button id="tooltips">Show Tooltips</button>
+    <div class="title">$_('Edit Options')</div>
+    <button id="tooltips">$_('Show Tooltips')</button>
     <form id="optionsForm" name="of" action="/options" method="post">
     $code:
         output = ""
@@ -23,7 +83,7 @@ $var page: options
                 category = option['category']
                 tooltip = option['help']
                 value = options[option['key']]
-
+      
                 enum = option.get('options')
                 if hasattr(enum, '__call__'):
                     enum = enum()
@@ -50,24 +110,38 @@ $var page: options
                     oldcategory = category
 
                 if name == 'master_relay':
-                    output += "<div class='option' title='Specify which output should be used as master station.'><span class='label'>Master station:</span>\n"
+                    output += "<div class='option' title=_('Specify which output should be used as master station.')><span class='label'>" + _('Master station') + ":</span>\n"
                     output += "<select name='master'>\n"
                     if stations.master is None:
-                        output += "<option value='-1' selected='selected'>None</option>"
+                        output += "<option value='-1' selected='selected'>" + _('None') + "</option>"
                     else:
-                        output += "<option value='-1'>None</option>"
+                        output += "<option value='-1'>" + _('None') + "</option>"
                     for station in stations.get():
                         sel = " selected='selected'" if station.index == stations.master else ""
-                        output += "<option value='" + str(station.index) + "'" + sel + ">" + station.name + " (Output " + str(station.index+1) + ")</option>"
+                        output += "<option value='" + str(station.index) + "'" + sel + ">" + station.name + " (" + _('Output') + str(station.index+1) + ")</option>"
                     output += "</select>\n"
-                    output += "<span class='tooltip'>Specify which output should be used as master station.</span>\n"
+                    output += "<span class='tooltip'>" + _('Specify which output should be used as master station.') + "</span>\n"
                     output += "</div>\n"
 
-                output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + ":</span>\n"
+                if name == 'lang':
+                    output += "<div class='option' title=" + _('System language') + "><span class='label'>" + _('System language') + ":</span>\n"
+                    output += "<select name= 'lang'>\n"
+                    output += "<option " + ("selected " if value=='default' else "") + "value='default'>"+_('Default')+"</option>\n"
+                    for L in langKeys:
+                        output += "<option " + ("selected " if value==L else "") + "value='"+L+"'>"+languages[L]+"</option>\n"
+                    output += "</select>\n"
+                    output += "<span class='tooltip'>" + _('Language localizations for this OpenSprinkler system. (effective after reboot.)') + "</span>\n"     
+                    output += "</div>\n"
+    
+                if name is not 'lang':
+                    output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + ":</span>\n"
+                else:
+                    output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + "</span>\n"
+    
                 if enum is not None:
                     output += "<select name='" + name + "'>\n"
                     if not enum:
-                        output += "None available"
+                        output += _('None available')
                     for e in enum:
                         sel = " selected='selected'" if value == e else ""
                         output += "<option value='" + e + "'" + sel + ">" + e + "</option>"
@@ -75,7 +149,7 @@ $var page: options
                 elif multi_enum is not None:
                     output += "<div style='display: inline-block'>\n"
                     if not multi_enum:
-                        output += "None available"
+                        output += _('None available')
                     for e in multi_enum:
                         sel = " checked" if e in value else ""
                         output += "<input name='" + name + "_" + e + "' type='checkbox'" + sel + ">" + multi_enum_names[e] + "<br>\n"
@@ -85,30 +159,31 @@ $var page: options
                 elif isinstance(value, int) or isinstance(value, float):
                     output += "<input name='" + name + "' type='number'" + minv + maxv + " size='3' maxlength='3' value='" + str(value) + "'>\n"
                 else:
-                    output += "<input name='" + name + "' type='text' size='31' value='" + str(value) + "'>\n"
-
+                    if name is not 'lang':
+                       output += "<input name='" + name + "' type='text' size='31' value='" + str(value) + "'>\n"
 
                 output += "<span class='tooltip'>" + tooltip + "</span>\n"
                 output += "</div>\n\n"
+                
                 if name == 'no_password':
-                    output += "<div class='option' title='Re-enter the current password.'><span class='label'>Current password:</span>\n"
+                    output += "<div class='option' title=" + _('Re-enter the current password.') + "><span class='label'>" + _('Current password') + ":</span>\n"
                     output += "<input name='old_password' type='password' size='31'><span class='inputError' id='erroropw'></span>\n"
-                    output += "<span class='tooltip'>Re-enter the current password.</span>\n"
+                    output += "<span class='tooltip'>" + _('Re-enter the current password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title='Enter a new password.'><span class='label'>New password:</span>\n"
+                    output += "<div class='option' title=" + _('Enter a new password.') + "><span class='label'>" + _('New password') + ":</span>\n"
                     output += "<input name='new_password' type='password' size='31'><span class='inputError' id='errornpw'></span>\n"
-                    output += "<span class='tooltip'>Enter a new password.</span>\n"
+                    output += "<span class='tooltip'>" + _('Enter a new password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title='Confirm the new password.'><span class='label'>Confirm password:</span>\n"
+                    output += "<div class='option' title=" + _('Confirm the new password.') + "><span class='label'>" + _('Confirm password') + ":</span>\n"
                     output += "<input name='check_password' type='password' size='31'><span class='inputError' id='errorcpw'></span>\n"
-                    output += "<span class='tooltip'>Confirm the new password.</span>\n"
-                    output += "</div>\n"
+                    output += "<span class='tooltip'>" + _('Confirm the new password.') + "</span>\n"
+                    output += "</div>\n"     
 
-        output += categoryCloser + "<div class='category collapsible collapsed'><h4>"+ ('System Restart')+ "</h4>\n"
+        output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(('Restart OSPy software!'), ensure_ascii=False)+">" + ('Restart')+"</button>"
-        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(('Reboot hardware!'), ensure_ascii=False) + ">" + ('Reboot')+"</button>"
-        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(('Shutdown hardware!'), ensure_ascii=False) + ">" + ('Shutdown')+"</button>"
+        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False) + ">" + _('Restart')+"</button>"
+        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False) + ">" + _('Reboot')+"</button>"
+        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(_('Shutdown hardware!'), ensure_ascii=False) + ">" + _('Shutdown')+"</button>"
         output += "</div>\n"
         output += "<input type=\"hidden\" name=\"rbt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
@@ -116,19 +191,19 @@ $var page: options
         output += categoryCloser + "</form>"
 
         output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
-        output += "<div class='category collapsible collapsed'><h4>"+ ('System Backup')+ "</h4>\n"
+        output += "<div class='category collapsible collapsed'><h4>" + _('System Backup') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(('Download options.db file'), ensure_ascii=False) + ">" + "Download</a>\n"
+        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download options.db file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
-        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(('Upload options.db file'), ensure_ascii=False) + ">" + "Upload</a>\n"
+        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload options.db file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
         output += "</div></form>\n"
 
         output += categoryCloser
     $:{output}
     
 </div>
-   <a id="cSubmit" class="button submit">Submit Changes</a>
-   <a href="" class="button cancel danger">Cancel</a> 
+   <a id="cSubmit" class="button submit">$_('Submit Changes')</a>
+   <a href="/" class="button cancel danger">$_('Cancel')</a> 
 
    
 

@@ -6,6 +6,7 @@ import os
 import datetime
 import json
 import web
+import ast
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
@@ -20,15 +21,16 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler
 import plugins
+import i18n
 
 from web import form
 
 
 signin_form = form.Form(
-    form.Password('password', description='Password:'),
+    form.Password('password', description=_('Password:')),
     validators=[
         form.Validator(
-            "Incorrect password, please try again",
+            _('Incorrect password, please try again'),
             lambda x: test_password(x["password"])
         )
     ]
@@ -177,7 +179,7 @@ class action_page(ProtectedPage):
                     'active': True,
                     'program': -1,
                     'station': sid,
-                    'program_name': "Manual",
+                    'program_name': _('Manual'),
                     'fixed': True,
                     'cut_off': 0,
                     'manual': True,
@@ -436,7 +438,20 @@ class options_page(ProtectedPage):
 
     def POST(self):
         qdict = web.input()
+  
+        change = False # if change language -> restart ospy
 
+        if 'lang' in qdict and qdict['lang']:
+            if options.lang != qdict['lang']:
+               change = True
+
+        newname = qdict['name'] # if name is asci char
+        try:
+           from ospy.helpers import ASCI_convert
+           qdict['name'] = ASCI_convert(newname)
+        except:
+           qdict['name'] = ' '
+            
         save_to_options(qdict)
 
         if 'master' in qdict:
@@ -470,8 +485,12 @@ class options_page(ProtectedPage):
             return self.core_render.restarting(home_page)
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
-            poweroff()    # shutdown HW system
+            poweroff()   # shutdown HW system
             return self.core_render.restarting(home_page)    
+
+        if change:
+            restart()    # OSPy software
+            return self.core_render.restarting(home_page)
 
         raise web.seeother('/')
 

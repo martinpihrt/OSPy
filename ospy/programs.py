@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Add i18n Martin Pihrt
 __author__ = 'Rimco'
 
 # System imports
@@ -8,7 +9,7 @@ import datetime
 # Local imports
 from ospy.helpers import minute_time_str, short_day
 from ospy.options import options
-
+import i18n
 
 class ProgramType(object):
     DAYS_SIMPLE = 0
@@ -19,12 +20,12 @@ class ProgramType(object):
     CUSTOM = 5
 
     FRIENDLY_NAMES = {
-        DAYS_SIMPLE: 'Selected days (Simple)',
-        DAYS_ADVANCED: 'Selected days (Advanced)',
-        REPEAT_SIMPLE: 'Repeating (Simple)',
-        REPEAT_ADVANCED: 'Repeating (Advanced)',
-        WEEKLY_ADVANCED: 'Weekly (Advanced)',
-        CUSTOM: 'Custom',
+        DAYS_SIMPLE: _('Selected days (Simple)'), 
+        DAYS_ADVANCED: _('Selected days (Advanced)'),
+        REPEAT_SIMPLE: _('Repeating (Simple)'),
+        REPEAT_ADVANCED: _('Repeating (Advanced)'),
+        WEEKLY_ADVANCED: _('Weekly (Advanced)'),
+        CUSTOM: _('Custom'),
     }
 
 ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith('_') and
@@ -37,7 +38,7 @@ class _Program(object):
         self._programs = programs_instance
         self._loading = True
 
-        self.name = "Program %02d" % (index+1 if index >= 0 else abs(index))
+        self.name =  _('Program') + " %02d" % (index+1 if index >= 0 else abs(index))
         self.stations = []
         self.enabled = True
 
@@ -98,54 +99,54 @@ class _Program(object):
         if self.type != ProgramType.CUSTOM and self.type != ProgramType.REPEAT_ADVANCED:
             return short_day(index)
         else:
-            return "Day %d" % (index + 1)
+            return _('Day') + " %d" % (index + 1)
 
     def summary(self):
-        result = "Unknown schedule"
+        result = _('Unknown schedule')
         if self.type == ProgramType.CUSTOM:
             if self.manual:
-                result = "Custom schedule running once on %s" % self.start.strftime("%Y-%m-%d")
+                result = _('Custom schedule running once on') + " %s" % self.start.strftime("%Y-%m-%d")
             else:
                 if self._modulo % 1440 == 0 and self._modulo > 0:
                     days = (self._modulo / 1440)
                     if days == 1:
-                        result = "Custom schedule repeating daily"
+                        result = _('Custom schedule repeating daily')
                     else:
-                        result = "Custom schedule repeating every %d days" % (self._modulo / 1440)
+                        result = _('Custom schedule repeating every') + " %d " % (self._modulo / 1440) + _('days')
                 else:
-                    result = "Custom schedule repeating every %d minutes" % self._modulo
+                    result = _('Custom schedule repeating every') + " %d " % self._modulo + _('minutes')
         elif self.type == ProgramType.REPEAT_SIMPLE:
             if self.type_data[4] == 1:
-                result = "Simple daily schedule"
+                result = _('Simple daily schedule')
             else:
-                result = "Simple schedule repeating every %d days" % self.type_data[4]
+                result = _('Simple schedule repeating every') + " %d " % self.type_data[4] +  _('days') 
         elif self.type == ProgramType.REPEAT_ADVANCED:
             if self.type_data[1] == 1:
-                result = "Advanced daily schedule"
+                result = _('Advanced daily schedule')
             else:
-                result = "Advanced schedule repeating every %d days" % self.type_data[1]
+                result = _('Advanced schedule repeating every') + " %d " % self.type_data[1] + _('days') 
         elif self.type == ProgramType.DAYS_SIMPLE:
-            result = "Simple schedule on " + ' '.join([self._day_str(x) for x in self.type_data[4]])
+            result = _('Simple schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[4]])
         elif self.type == ProgramType.DAYS_ADVANCED:
-            result = "Advanced schedule on " + ' '.join([self._day_str(x) for x in self.type_data[1]])
+            result = _('Advanced schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[1]])
         elif self.type == ProgramType.WEEKLY_ADVANCED:
-            result = "Advanced weekly schedule"
+            result = _('Advanced weekly schedule')
         return result
 
     def details(self):
-        result = "Unknown schedule"
+        result = _('Unknown schedule')
 
         if len(self._schedule) == 0:
-            result = "Empty schedule"
+            result = _('Empty schedule')
         elif self.type == ProgramType.REPEAT_SIMPLE or self.type == ProgramType.DAYS_SIMPLE:
             start_time = minute_time_str(self.type_data[0])
             duration = self.type_data[1]
             pause = self.type_data[2]
             repeat = self.type_data[3]
-            result = "Starting: <span class='val'>%s</span> for <span class='val'>%d</span> minutes<br>" % (start_time, duration)
+            result = _('Starting:') + " <span class='val'>%s</span>" % start_time + " " + _('For') + " <span class='val'>%d</span>" % duration + " " + _('minutes') + "<br>" 
             if repeat:
-                result += ("Repeat: <span class='val'>%s</span> " + ("times" if repeat > 1 else "time") +
-                           " with a <span class='val'>%d</span> minute delay<br>") % (repeat, pause)
+                result += (_('Repeat:') + " <span class='val'>%s</span> "  % repeat + (_('times') if repeat > 1 else _('time')) +
+                           " " + _('with a') + " <span class='val'>%d</span> " % pause + _('minute delay') + "<br>") 
 
         elif self.type == ProgramType.CUSTOM or \
                 self.type == ProgramType.REPEAT_ADVANCED or \
@@ -161,7 +162,7 @@ class _Program(object):
                 intervals = self.type_data[0]
 
             if days == 1:
-                result = "Intervals: "
+                result = _('Intervals:') + " "
                 for interval in intervals:
                     result += "<span class='val'>%s-%s</span> " % (minute_time_str(interval[0]),
                                                                    minute_time_str(interval[1]))
@@ -187,7 +188,7 @@ class _Program(object):
                 result = '<br>'.join(day_strs.values())
 
         elif self.type == ProgramType.DAYS_ADVANCED:
-            result = 'Intervals: '
+            result = _('Intervals:') + " "
             for interval in self.type_data[0]:
                 result += "<span class='val'>%s-%s</span> " % (minute_time_str(interval[0]),
                                                                minute_time_str(interval[1]))

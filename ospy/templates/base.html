@@ -11,8 +11,79 @@ $def with (content)
     $if content.page == 'help':
         <link href="/static/css/github.css" rel="stylesheet" type="text/css">
     <link href="/static/themes/${options.theme}/theme.css" rel="stylesheet" type="text/css">
-    <script src="/static/scripts/jquery-1.8.2.min.js"></script>
-    <script src="/static/scripts/basic.js"></script>
+    <script src="/static/scripts/jquery-2.2.4.min.js"></script>
+   
+<script>
+        // Set up a live clock based on device time
+function dateString(d) {
+    var dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False)}, $:{json.dumps(_('Monday'), ensure_ascii=False)}, $:{json.dumps(_('Tuesday'), ensure_ascii=False)}, $:{json.dumps(_('Wednesday'), ensure_ascii=False)}, $:{json.dumps(_('Thursday'), ensure_ascii=False)}, $:{json.dumps(_('Friday'), ensure_ascii=False)}, $:{json.dumps(_('Saturday'), ensure_ascii=False)}][d.getDay()];
+    dateString += " " + d.getDate() + " ";
+    dateString += [$:{json.dumps(_('January'), ensure_ascii=False)}, $:{json.dumps(_('February'), ensure_ascii=False)}, $:{json.dumps(_('March'), ensure_ascii=False)}, $:{json.dumps(_('April'), ensure_ascii=False)}, $:{json.dumps(_('May'), ensure_ascii=False)}, $:{json.dumps(_('June'), ensure_ascii=False)}, $:{json.dumps(_('July'), ensure_ascii=False)}, $:{json.dumps(_('August'), ensure_ascii=False)}, $:{json.dumps(_('September'), ensure_ascii=False)}, $:{json.dumps(_('October'), ensure_ascii=False)}, $:{json.dumps(_('November'), ensure_ascii=False)}, $:{json.dumps(_('December'), ensure_ascii=False)}][d.getMonth()];
+    return dateString;
+}
+
+function toXSDate(d) {
+    var r = d.getFullYear() + "-" +
+            (d.getMonth() < 9 ? "0" : "") + (d.getMonth()+1) + "-" +
+            (d.getDate() < 10 ? "0" : "") + d.getDate();
+    return r;
+}
+
+function toClock(duration, tf) {
+    var h = Math.floor(duration/60);
+    var m = Math.floor(duration - (h*60));
+    if (tf == 0) {
+        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False)} : $:{json.dumps(_('pm'), ensure_ascii=False)});
+    } else {
+        return (h<10 ? "0" : "") + h + ":" + (m<10 ? "0" : "") + m;
+    }
+}
+
+function fromClock(clock) {
+    var components = clock.split(":");
+    var duration = 0;
+    for (var c in components) {
+        duration = duration*60 + parseInt(components[c], 10);
+    }
+    return duration;
+}
+
+function updateClock() {
+    var now = new Date((new Date()).getTime() + to_device_time);
+    if (timeFormat) {
+        jQuery("#deviceTime span.hour").text((now.getHours() < 10 ? "0" : "") + now.getHours());
+        jQuery("#deviceTime span.ampm").text("");
+    } else {
+        jQuery("#deviceTime span.hour").text(now.getHours()%12 == 0 ? "12" : now.getHours() % 12);
+        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False)} : $:{json.dumps(_('am'), ensure_ascii=False)}));
+    }
+    jQuery("#deviceTime span.minute").text((now.getMinutes() < 10 ? "0" : "") + now.getMinutes());
+    jQuery("#deviceTime span.second").text(":" + (now.getSeconds() < 10 ? "0" : "") + now.getSeconds());
+
+    jQuery("#deviceDate").text(dateString(now));
+
+    setTimeout(updateClock, 500);
+}
+
+jQuery(document).ready(function(){
+
+    jQuery("#bPlugins").click(function(e) {
+        var btn = jQuery("#bPlugins");
+        jQuery("#pluginMenu").css({
+            position: 'absolute',
+            top: btn.offset().top + btn.outerHeight() + 10,
+            left: btn.offset().left
+        }).slideToggle();
+        e.stopPropagation();
+    });
+    jQuery(document).click(function(){
+        jQuery("#pluginMenu").slideUp();
+    });
+
+    updateClock();
+});
+
+    </script>
     <script>
         // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
         var device_time = ${now()} * 1000 + (new Date()).getTimezoneOffset() * 60 * 1000;
@@ -25,14 +96,14 @@ $def with (content)
 <body>
     <div class="content">
         <div id="pluginMenu">
-            <a class="button" href="/plugins_manage">Manage</a><br/>
+            <a class="button" href="/plugins_manage">$_('Manage')</a><br/>
             $for plugin in plugins.running():
                 $if plugins.get(plugin).LINK:
                     <a class="button execute" href="${plugins.plugin_url(plugins.get(plugin).LINK)}">${plugins.get(plugin).NAME}</a><br/>
         </div>
 
         <div class="header">
-            <div class="title">${options.name if options.name != "OpenSprinkler Py" else ""}</div>
+            <div class="title">${options.name if options.name != _('OpenSprinkler Py') else ""}</div>
         </div>
 
         <div class="body">
@@ -45,17 +116,17 @@ $def with (content)
 
                 $if content.page != 'login':
                     <div id="nav">
-                        <a href="/" class="button home${' here' if content.page=='home' else ''}" title="Home"></a>
-                        <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title="Define Programs">Programs</a>
+                        <a href="/" class="button home${' here' if content.page=='home' else ''}" title="$_('Home')"></a>
+                        <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title="$_('Define Programs')">$_('Programs')</a>
                         $if not options.manual_mode:
-                            <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title="Define Run Once Program">Run Once</a>
-                        <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title="Access Plugins">Plugins</a>
-                        <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title="View Log">Log</a>
-                        <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title="Options">Options</a>
-                        <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title="Configure Stations">Stations</a>
-                        <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title="Help">Help</a>
+                            <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title="$_('Define Run Once Program')">$_('Run Once')</a>
+                        <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title="$_('Access Plugins')">$_('Plugins')</a>
+                        <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title="$_('View Log')">$_('Log')</a>
+                        <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title="$_('Options')">$_('Options')</a>
+                        <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title="$_('Configure Stations')">$_('Stations')</a>
+                        <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title="$_('Help')">$_('Help')</a>
                         $if not options.no_password:
-                            <a href="/logout" id="bLogout" class="button logout" title="Logout">Logout</a>
+                            <a href="/logout" id="bLogout" class="button logout" title="$_('Logout')">$_('Logout')</a>
                     </div>
 
                 $:content
@@ -64,10 +135,10 @@ $def with (content)
         </div>
 
         <div class="footer">
-            <p>CPU Temp: <b>
-                <a href="/ttu?${urllib.urlencode({'tunit': options.temp_unit})}" title="Click to toggle Celsius &lt;&gt; Fahrenheit">${get_cpu_temp(options.temp_unit)} ${options.temp_unit}</span>
+            <p>$_('CPU Temp'): <b>
+                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False)} + ' Celsius &lt;&gt; Fahrenheit'> ${get_cpu_temp(options.temp_unit)} ${options.temp_unit}</span>
             </b></p>
-            <p><a href="https://github.com/martinpihrt/OSPy">Software</a> version: <b>${version.ver_str} (${version.ver_date})</b></p>
+            <p><a href="https://github.com/martinpihrt/OSPy">$_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
         </div>
     </div>
 </body>

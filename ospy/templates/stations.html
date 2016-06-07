@@ -1,22 +1,22 @@
 $def with ()
 
-$var title: Stations
+$var title: $_('Stations')
 $var page: stations
 
 
 <script src="/static/scripts/stations.js"></script>
 <div id="stations">
-    <div class="title">Configure Stations</div>
+    <div class="title">$_('Configure Stations')</div>
     <form id="stationsForm" name="stationsForm" action="/stations" method="post">
         <table class="stationList">
             <tr>
-                <th class="stationNumber">Station</th>
-                <th class="stationName">Name</th>
-                <th class="stationUsage">Usage</th>
-                <th class="stationShow">Connected?</th>
-                <th class="stationIgnore">Ignore Rain?</th>
+                <th class="stationNumber">$_('Station')</th>
+                <th class="stationName">$_('Name')</th>
+                <th class="stationUsage">$_('Usage')</th>
+                <th class="stationShow">$_('Connected?')</th>
+                <th class="stationIgnore">$_('Ignore Rain?')</th>
                 $if stations.master is not None or options.master_relay:
-                    <th class="stationMaster">Activate Master?</th>
+                    <th class="stationMaster">$_('Activate Master?')</th>
             </tr>
             $for station in stations.get():
                 <tr>
@@ -28,7 +28,7 @@ $var page: stations
                         <input type="number" size="3" maxlength="3" value="${str(station.usage)}" name="${station.index}_usage">
                     </td>
                     $if station.is_master:
-                        <td class="stationMaster" colspan="4">(Master station)</td>
+                        <td class="stationMaster" colspan="4">($_('Master station'))</td>
                     $else:
                         <td class="stationShow">
                             <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
@@ -48,6 +48,6 @@ $var page: stations
     </form>
 </div>
 
-<a id="cSubmit" class="button submit"><b>Submit Changes</b></a>
-<a id="cResetNames" class="button refresh">Reset Names</a>
-<a href="/" class="button cancel danger">Cancel</a>
+<a id="cSubmit" class="button submit"><b>$_('Submit Changes')</b></a>
+<a id="cResetNames" class="button refresh">$_('Reset Names')</a>
+<a href="/" class="button cancel danger">$_('Cancel')</a>

@@ -1,37 +1,37 @@
 $def with ()
 
-$var title: Manage Plugins
+$var title: $_('Manage Plugins')
 $var page: plugins
 
 
 <div id="controls">
     <div style="display: inline-block; padding: 0; float: right;">
-        Enable check updates:
+        $_('Enable check updates'):
         <a href="/plugins_manage?use=${'0' if options.use_plugin_update else '1'}" class="button cDisable toggle ${'on' if options.use_plugin_update else 'off'}">
-            <span class='toggleleft'>On</span>
+            <span class='toggleleft'>$_('On')</span>
             <span class='togglesep'>&nbsp;</span>
-            <span class='toggleright'>Off</span>
+            <span class='toggleright'>$_('Off')</span>
         </a>
     </div>
     <div style="display: inline-block; padding: 0; float: right;">
-        Automatic updates:
+        $_('Automatic updates'):
         <a href="/plugins_manage?auto=${'0' if options.auto_plugin_update else '1'}" class="button cDisable toggle ${'on' if options.auto_plugin_update else 'off'}">
-            <span class='toggleleft'>On</span>
+            <span class='toggleleft'>$_('On')</span>
             <span class='togglesep'>&nbsp;</span>
-            <span class='toggleright'>Off</span>
+            <span class='toggleright'>$_('Off')</span>
         </a>
     </div>
-    <a href="/plugins_install" class="button add">Install new plugin</a>
-    <a href="/plugins_manage?disable_all" class="button danger">Disable All</a>
+    <a href="/plugins_install" class="button add">$_('Install new plugin')</a>
+    <a href="/plugins_manage?disable_all" class="button danger">$_('Disable All')</a>
     $ running_list = plugins.running()
     $ current_info = options.plugin_status
     $for plugin in plugins.available():
         $ running = plugin in running_list
-        <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'}">
+        <div id="${plugin}" class="controlBlock plugin ${'' if running else _('disabled')}">
             <div style="display: inline-block; padding: 0; float: right;">
                 <div style="display: inline-block; padding: 0; width: 90px;">
                 $if running and plugins.get(plugin).LINK:
-                    <a class="button open" href="${plugins.plugin_url(plugins.get(plugin).LINK)}">Open</a>
+                    <a class="button open" href="${plugins.plugin_url(plugins.get(plugin).LINK)}">$_('Open')</a>
                 </div>
 
                 <div style="display: inline-block; padding: 0; width: 140px;">
@@ -40,26 +40,26 @@ $var page: plugins
                         <a class="button open" href="/plugins_install?repo=${available_info['repo_index']}&plugin=${plugin}&install">
                             $if plugin in current_info and current_info[plugin]['hash'] == available_info['hash']:
                                 $if options.use_plugin_update:
-                                    Up-to-date
+                                    $_('Up-to-date')
                                 $else:
-                                    Not-use
+                                    $_('Not-use')
                             $else:
-                                Update
+                                $_('Update')
                         </a>
                     $else:
-                        <a class="button open">No update</a>
+                        <a class="button open">$_('No update')</a>
                 </div>
 
                 <div style="display: inline-block; padding: 0; width: 90px;">
-                    <a href="/plugins_manage?plugin=${plugin}&delete" class="button danger">Delete</a>
+                    <a href="/plugins_manage?plugin=${plugin}&delete" class="button danger">$_('Delete')</a>
                 </div>
             </div>
 
             <div style="display: inline-block; padding: 0; width: 150px;">
                 <a href="/plugins_manage?plugin=${plugin}&enable=${'0' if running else '1'}" class="button cDisable toggle ${'on' if running else 'off'}">
-                    <span class='toggleleft'>On</span>
+                    <span class='toggleleft'>$_('On')</span>
                     <span class='togglesep'>&nbsp;</span>
-                    <span class='toggleright'>Off</span>
+                    <span class='toggleright'>$_('Off')</span>
                 </a>
             </div>
 

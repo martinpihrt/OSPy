@@ -1,6 +1,20 @@
 OSPy Changelog
 ====
 
+June 7 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added languages in the Options and all pages i18n (Czech, English).<br/>  
+  - Changes helpers.py, options.py, program.py, runonce.py, server.py, scheduler.py, version.py, webpages.py.<br/>
+  - Changes base.html, help.html, home.html, log.html, login.html, options.html, plugins_install.html, plugins_manage.html, programs.html, program.html, restarting.html, runonce.html, stations.html.<br/>
+  - Move to html code: static/scripts/basic.js, help.js, program.js, base.js.<br/>
+  - Change jquery on to 2.2.4.min.js.<br/>
+2. Added languages (Czech, English) in plugins/lcd_display.<br/>
+3. Added in the Options backup configuration (file.db) - upload and download configuration file.<br/>
+4. Fixed togle button on the home page for change temperature C/K.<br/>
+
+
 September 10 2014
 ----------
 (martinpihrt)<br/>

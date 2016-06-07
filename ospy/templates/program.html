@@ -1,6 +1,6 @@
 $def with (program)
 
-$var title: Modify Program
+$var title: $_('Modify Program')
 $var page: programs
 
 <script>
@@ -15,9 +15,312 @@ $var page: programs
     });
 </script>
 <script src="/static/scripts/intervalSelect.js"></script>
-<script src="/static/scripts/program.js"></script>
+<script>
+
+function check_repeat() {
+    if (jQuery("#simple_repeat").prop('checked')) {
+        jQuery(".repeat").show()
+    } else {
+        jQuery(".repeat").hide()
+    }
+}
+
+function create_delay_selector(dayInterval, delayInterval) {
+    jQuery("#intervalDelaySelector").html("");
+    for (var i=0; i<dayInterval; i++) {
+        jQuery("#intervalDelaySelector").append(
+                jQuery("<span class='intervalSelect'>" + i + "</span>")
+                    .on("click", intervalSelectClick)
+                    .on("mouseover", intervalSelectMouseover)
+                    .on("mouseout", intervalSelectMouseout)
+        );
+        if (i == 16) {
+            jQuery("#intervalDelaySelector").append("<br/>");
+        }
+    }
+    jQuery("#intervalDelaySelector .intervalSelect").each(function() {
+        if (jQuery(this).text() == delayInterval) {
+            jQuery(this).trigger("click");
+        }
+    });
+}
+
+function create_custom_schedule(dayInterval) {
+    var sched = jQuery("#custom_schedule");
+    sched.find("tr:not(:first-child)").remove();
+
+    for (var i=0; i < dayInterval; i++) {
+        var html = '<tr class="daySchedule ' + ((i%2)==0?'odd':'even') + '" id="custom_schedule' + i + '">';
+        html += '<td class="station_name" style="border-right: solid">' + $:{json.dumps(_('Day'), ensure_ascii=False)} + " " + (i+1) + ':</td>';
+        for (var tick=0; tick < 24; tick++)
+            html += '<td class="scheduleTick" data="' + tick + '"></td>';
+        html += '</tr>';
+
+        sched.append(jQuery(html));
+    }
+
+    sched.find("tr.daySchedule td.scheduleTick")
+        .mousemove(addScheduleMouseover)
+        .mouseout(addScheduleMouseout)
+        .click(addScheduleClick);
+    update_schedule("custom_schedule");
+}
+
+function update_schedules() {
+    update_schedule("advanced_schedule");
+    update_schedule("weekly_schedule");
+    update_schedule("custom_schedule");
+}
+
+function deleteScheduleClick(e) {
+    var info = jQuery(this).parent().attr("data").split(',');
+    var name = info[0];
+    var interval = [info[1], info[2]];
+
+    var data = JSON.parse(jQuery("#" + name + "_data").val());
+    var result = [];
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][0] != interval[0] || data[i][1] != interval[1]) {
+            result.push(data[i]);
+        }
+    }
+    jQuery("#" + name + "_data").val(JSON.stringify(result));
+
+    update_schedule(name);
+    return false;
+}
+
+function update_schedule(name) {
+    jQuery(".addStartMarker").remove();
+    jQuery(".newStart").remove();
+    jQuery(".addStopMarker").remove();
+    var sched = jQuery("#" + name);
+    var data = JSON.parse(jQuery("#" + name + "_data").val());
+
+    sched.find("tr:not(:first-child)").find(".scheduleTick").html("");
+
+    for (var i=0; i < data.length; i++) {
+        var start = data[i][0];
+        var end = data[i][1] - 1;
+
+        var start_day = Math.floor(start / 1440);
+        var start_hour = Math.floor((start % 1440) / 60);
+        var start_min = start % 60;
+
+        var end_day = Math.floor(end / 1440);
+        var end_hour = Math.floor((end % 1440) / 60);
+        var end_min = end % 60;
+
+        for (var day=start_day; day <= end_day; day++) {
+            for (var hour=start_hour; hour <= (day == end_day ? end_hour : 24); hour++) {
+                if (hour == 24) { hour = 0; day++; }
+
+                var slice_start = (day == start_day && hour == start_hour ? start_min : 0);
+                var slice_end = (day == end_day && hour == end_hour ? end_min : 60);
+                var el = sched.find("#" + name + day).find(".scheduleTick[data='" + hour + "']");
+
+                var cross = (day == end_day && hour == end_hour ? jQuery('<div class="deleteProgram"></div>').click(deleteScheduleClick) : '');
+
+                el.append(jQuery('<div class="existingProgram" style="left:'+(slice_start / .6)+'%;width:'+((slice_end-slice_start) / .6)+'%" data="'+name+','+data[i][0]+','+data[i][1]+'"></div>')
+                        .append(cross));
+            }
+        }
+    }
+}
+
+
+function pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+function x_to_min(x, width) {
+    var max_steps = Math.max(1, width / 4);
+    var step_options = [12, 6, 4, 2, 1];
+    var steps = step_options.filter(function (x) {return x < max_steps})[0];
+    return Math.min(steps-1, Math.floor(x / width * steps)) * Math.round(60/steps);
+}
+
+function addScheduleMouseover(e) {
+    var hour = parseInt(jQuery(this).attr("data"));
+    var x = e.pageX - this.offsetLeft;
+    var width = jQuery(this).width();
+    var minute = x_to_min(x, width);
+    var left = x-30;
+
+    jQuery(".newDetails").remove();
+    if (jQuery(".newStart").length) {
+        if (jQuery(".newStart").closest("tr").attr("id") == jQuery(this).closest("tr").attr("id")) {
+            var marker = jQuery(".addStartMarker:first");
+            var marker_width = e.pageX - marker.offset().left;
+            marker.width(Math.max(0, marker_width));
+            jQuery(".addStopMarker").remove();
+            if (x >= 0 && x <= width && marker_width > 0) {
+                jQuery(this).append('<span class="newDetails programStop" style="left: ' + left.toString() + 'px;">' + pad(hour, 2) + ':' + pad(minute, 2) + '</span>');
+                jQuery(this).append('<div class="addStopMarker" style="left: '+ x.toString() +'px;"></div>');
+                jQuery(this).children(".newDetails").mousemove(function(){ return false; });
+                jQuery(this).children(".newDetails").mouseout(function(){ return false; });
+            }
+        }
+    } else {
+        jQuery(".addStartMarker").remove();
+        if (x >= 0 && x <= width) {
+            jQuery(this).append('<span class="newDetails programStart" style="left: ' + left.toString() + 'px;">' + pad(hour, 2) + ':' + pad(minute, 2) + '</span>');
+            jQuery(this).append('<div class="addStartMarker" style="left: '+ x.toString() +'px;"></div>');
+            jQuery(this).children(".newDetails").mousemove(function(){ return false; });
+            jQuery(this).children(".newDetails").mouseout(function(){ return false; });
+        }
+    }
+
+}
+function addScheduleMouseout(e) {
+    jQuery(this).children(".newDetails").remove();
+}
+function addScheduleClick(e) {
+    var hour = parseInt(jQuery(this).attr("data"));
+    var x = e.pageX - this.offsetLeft;
+    var width = jQuery(this).width();
+    var minute = x_to_min(x, width);
+    var left = x-30;
+    var start_el = jQuery(".newStart");
+
+    jQuery(".newDetails").remove();
+    if (start_el.length) {
+        var current_row = jQuery(this).closest("tr");
+        if (jQuery(".newStart").closest("tr").attr("id") == current_row.attr("id")) {
+            var name = start_el.closest("table").attr("id");
+            var day = parseInt(current_row.attr("id").replace(current_row.closest("table").attr("id"), ""));
+            var start_parts = start_el.text().split(':');
+            var start_min = day * 1440 + parseInt(start_parts[0]) * 60 + parseInt(start_parts[1]);
+            var stop_min = day * 1440 + hour * 60 + minute;
+
+            var data = JSON.parse(jQuery("#" + name + "_data").val());
+            data.push([start_min, stop_min]);
+            jQuery("#" + name + "_data").val(JSON.stringify(data));
+            update_schedule(name);
+        }
+        jQuery(".addStartMarker").remove();
+        start_el.remove();
+        jQuery(".addStopMarker").remove();
+    } else {
+        jQuery(this).append('<span class="newStart programStart" style="left: ' + left.toString() + 'px;">' + pad(hour, 2) + ':' + pad(minute, 2) + '</span>');
+        jQuery(this).append('<div class="addStartMarker" style="left: '+ x.toString() +'px;"></div>');
+        jQuery(this).children(".newStart").mousemove(function(){ return false; });
+        jQuery(this).children(".newStart").mouseout(function(){ return false; });
+    }
+}
+
+function check_type() {
+    var schedule_type = jQuery("#schedule_type").val();
+    if (schedule_type == DAYS_SIMPLE || schedule_type == DAYS_ADVANCED) {
+        jQuery("#days_controls").show()
+    } else {
+        jQuery("#days_controls").hide()
+    }
+    if (schedule_type == REPEAT_SIMPLE || schedule_type == REPEAT_ADVANCED || schedule_type == CUSTOM) {
+        jQuery("#repeat_controls").show()
+    } else {
+        jQuery("#repeat_controls").hide()
+    }
+    if (schedule_type == REPEAT_SIMPLE || schedule_type == DAYS_SIMPLE) {
+        jQuery("#simple_controls").show()
+    } else {
+        jQuery("#simple_controls").hide()
+    }
+    if (schedule_type == REPEAT_ADVANCED || schedule_type == DAYS_ADVANCED) {
+        jQuery("#advanced_controls").show()
+    } else {
+        jQuery("#advanced_controls").hide()
+    }
+    if (schedule_type == WEEKLY_ADVANCED) {
+        jQuery("#weekly_controls").show()
+    } else {
+        jQuery("#weekly_controls").hide()
+    }
+    if (schedule_type == CUSTOM) {
+        jQuery("#custom_controls").show()
+    } else {
+        jQuery("#custom_controls").hide()
+    }
+    jQuery(".addStartMarker, .newStart").remove();
+}
+
+jQuery(document).ready(function(){
+    jQuery("#cSubmit").click(function() {
+        jQuery("#programForm").submit();
+    });
+    jQuery("button#cCancel").click(function(){
+        window.location="/programs";
+    });
+    jQuery("button.station.toggle").click(function(){
+        var id = jQuery(this).attr("id");
+        var state = jQuery(this).hasClass("on");
+        jQuery(this)
+            .addClass(state ? "off": "on")
+            .removeClass(state ? "on" : "off");
+        var stations = jQuery(".station.on").map(function() {
+            return parseInt(jQuery(this).attr("id").replace("station", ""));
+        }).get();
+        jQuery("#stations").val(JSON.stringify(stations));
+        return false;
+    });
+    jQuery("button.weekday.pushon").click(function(){
+        var id = jQuery(this).attr("id");
+        var state = jQuery(this).hasClass("on");
+        jQuery(this)
+            .addClass(state ? "off": "on")
+            .removeClass(state ? "on" : "off");
+        var days = jQuery(".weekday.on").map(function() {
+            return parseInt(jQuery(this).attr("id").replace("day", ""));
+        }).get();
+        jQuery("#days").val(JSON.stringify(days));
+        return false;
+    });
+    jQuery("#schedule_type").change(check_type);
+    check_type();
+    jQuery("#simple_repeat").change(check_repeat);
+    check_repeat();
+
+    jQuery("#intervalSelector").click(function() {
+        var dayInterval = parseInt(jQuery("#intervalSelector .intervalSelect.distance0").text());
+        var delayInterval = parseInt(jQuery("#intervalDelaySelector .intervalSelect.distance0").text());
+        if (isNaN(delayInterval)) {
+            delayInterval = 0;
+        } else if (delayInterval >= 1 && delayInterval >= dayInterval) {
+            delayInterval = dayInterval - 1;
+        }
+        create_delay_selector(dayInterval, delayInterval);
+        create_custom_schedule(dayInterval);
+        jQuery("#interval").val(jQuery("#intervalSelector .intervalSelect.distance0").text());
+        jQuery("#interval_delay").val(jQuery("#intervalDelaySelector .intervalSelect.distance0").text());
+    });
+    jQuery("#intervalDelaySelector").click(function() {
+        jQuery("#interval_delay").val(jQuery("#intervalDelaySelector .intervalSelect.distance0").text());
+    });
+    jQuery("#intervalSelector .intervalSelect").each(function() {
+        var thisValue = parseInt(jQuery(this).text());
+        if (thisValue == repeat_days) {
+            jQuery(this).trigger("click");
+            jQuery("#intervalSelector").trigger("click");
+        }
+    });
+    jQuery("#intervalDelaySelector .intervalSelect").each(function() {
+        var thisValue = parseInt(jQuery(this).text());
+        if (thisValue == program_delay) {
+            jQuery(this).trigger("click");
+            jQuery("#intervalSelector").trigger("click");
+        }
+    });
+
+    jQuery("tr.daySchedule td.scheduleTick")
+            .mousemove(addScheduleMouseover)
+            .mouseout(addScheduleMouseout)
+            .click(addScheduleClick);
+
+});
+</script>
 <div id="programs">
-    <div class="title">${"Add a New Program" if program.index < 0 else "Edit Program #" + str(program.index+1)}</div>
+    <div class="title">${_('Add a New Program') if program.index < 0 else _('Edit Program') + (' #') + str(program.index+1)}</div>
     <form name="programForm" id="programForm" method="post">
         <input type="hidden" name="index" value="${program.index}">
         <input type="hidden" id="stations" name="stations" value="${program.stations}">
@@ -25,17 +328,17 @@ $var page: programs
         <div class="simpleblock">
             <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
                 <div class='option' style="white-space: nowrap">
-                    <span class="program_label">Name:</span>
+                    <span class="program_label">$_('Name'):</span>
                     <input name="name" type="text" value="${program.name}" style="width: 140px">
                 </div>
 
                 <div class='option' style="white-space: nowrap">
-                    <span class="program_label">Enabled:</span>
+                    <span class="program_label">$_('Enabled'):</span>
                     <input name="enabled" type="checkbox" ${'checked' if program.enabled else ''}>
                 </div>
 
                 <div class='option' style="white-space: nowrap">
-                    <span class="program_label">Schedule type:</span>
+                    <span class="program_label">$_('Schedule type'):</span>
                     <select id="schedule_type" name="schedule_type" style="width: 140px">
                         $for value in sorted(ProgramType.FRIENDLY_NAMES.keys()):
                             <option value="${value}" ${'selected' if program.type == value else ''}>${ProgramType.FRIENDLY_NAMES[value]}</option>
@@ -44,12 +347,12 @@ $var page: programs
                 <br>
 
 
-                <div class='option' style="white-space: nowrap" title="Don't apply any adjustments to intervals of this program.">
-                    <span class="program_label">No adjustments:</span>
+                <div class='option' style="white-space: nowrap" title=$_('Do not apply any adjustments to intervals of this program.')>
+                    <span class="program_label">$_('No adjustments'):</span>
                     <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
                 </div>
-                <div class='option' style="white-space: nowrap" title="Skip the program if the total adjustment is lower than this percentage.">
-                    <span class="program_label">Cut-off:</span>
+                <div class='option' style="white-space: nowrap" title=$_('Skip the program if the total adjustment is lower than this percentage.')>
+                    <span class="program_label">$_('Cut-off'):</span>
                     <input name="cut_off" type="number" min="0" max="100" size="3" maxlength="3" value="${program.cut_off}">
                 </div>
 
@@ -60,9 +363,9 @@ $var page: programs
                     <div class="program_label">${station.name}:</div>
                     <div style="display: inline-block;">
                         <button id="station${station.index}" class="station toggle narrow ${'on' if station.index in program.stations else 'off'}">
-                            <span class="toggleleft">On</span>
+                            <span class="toggleleft">$_('On')</span>
                             <span class="togglesep">&nbsp;</span>
-                            <span class="toggleright">Off</span>
+                            <span class="toggleright">$_('Off')</span>
                         </button>
                     </div>
                 </div>
@@ -72,7 +375,7 @@ $var page: programs
         <div class="simpleblock" id="days_controls" style="display: none;">
             <input type="hidden" id="days" name="days" value="${program.days()}">
             <div class='option'>
-                <span class="program_label">Days:</span>
+                <span class="program_label">$_('Days'):</span>
                 <div style="display: inline-block;">
                     $for day in xrange(7):
                         <button id="day${day}" class="weekday pushon ${'on' if day in program.days() else 'off'}">${long_day(day)}</button>
@@ -84,7 +387,7 @@ $var page: programs
             <input type="hidden" id="interval" name="interval" value="">
             <input type="hidden" id="interval_delay" name="interval_delay" value="">
             <div class='option'>
-                <span class="program_label">Water interval:</span>
+                <span class="program_label">$_('Water interval'):</span>
                 <div id="intervalSelector" class="animatedSelector simpleinlineblock" >
                     <!--  Customize this with any set of intervals you like up to 127 -->
                     $for days in range(1, 8) + [10, 12, 14, 15, 21, 30]:
@@ -92,7 +395,7 @@ $var page: programs
                 </div>
             </div>
             <div class='option'>
-                <span class="program_label">Starting in:</span>
+                <span class="program_label">$_('Starting in'):</span>
                 <div id="intervalDelaySelector" class="animatedSelector simpleinlineblock">
                     <span class="intervalSelect distance0">0</span>
                     <span class="intervalSelect distance1">1</span>
@@ -102,28 +405,28 @@ $var page: programs
 
         <div class="simpleblock" id="simple_controls" style="display: none;">
             <div class='option' style="white-space: nowrap">
-                <span class="program_label">Start time:</span>
+                <span class="program_label">$_('Start time'):</span>
                 <input name="simple_hour" type="number" maxlength="2" value="${two_digits(program.start_min()/60)}" style="width: 60px" min="0" max="23"> :
                 <input name="simple_minute" type="number" maxlength="2" value="${two_digits(program.start_min()%60)}" style="width: 60px" min="0" max="59">
             </div>
             <div class='option' style="white-space: nowrap">
-                <span class="program_label">Duration:</span>
+                <span class="program_label">$_('Duration'):</span>
                 <input name="simple_duration" type="number" maxlength="4" value="${program.duration_min()}" style="width: 60px" min="0" max="1440">
-                minute(s)
+                $_('minute(s)')
             </div>
             <div class='option' style="white-space: nowrap">
-                <span class="program_label">Repeat:</span>
+                <span class="program_label">$_('Repeat'):</span>
                 <input id="simple_repeat" name="simple_repeat" type="checkbox" ${'checked' if program.repeat_times() > 0 else ''}>
             </div>
             <div class='repeat option' style="white-space: nowrap">
-                <span class="program_label">Repetitions:</span>
+                <span class="program_label">$_('Repetitions'):</span>
                 <input name="simple_rcount" type="number" maxlength="1" value="${max(program.repeat_times(), 1)}" style="width: 60px" min="1" max="9">
-                time(s)
+                $_('time(s)')
             </div>
             <div class='repeat option' style="white-space: nowrap">
-                <span class="program_label">Pause:</span>
+                <span class="program_label">$_('Pause'):</span>
                 <input name="simple_pause" type="number" maxlength="1" value="${program.pause_min()}" style="width: 60px" min="1" max="1440">
-                minute(s)
+                $_('minute(s)')
             </div>
         </div>
 
@@ -140,7 +443,7 @@ $var page: programs
                             <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
                 </tr>
                 <tr class="daySchedule odd" id='advanced_schedule0'>
-                    <td class='station_name' style="border-right: solid">Schedule:</td>
+                    <td class='station_name' style="border-right: solid">$_('Schedule:')</td>
                     $for tick in xrange(0,24):
                         <td class="scheduleTick" data="$tick"></td>
                 </tr>
@@ -187,7 +490,7 @@ $var page: programs
 </div>
 
 <div id="controls">
-    <button id="cSubmit" class="submit"><b>Save</b></button>
-    <button id="cCancel" class="cancel danger">Cancel</button>
+    <button id="cSubmit" class="submit"><b>$_('Save')</b></button>
+    <button id="cCancel" class="cancel danger">$_('Cancel')</button>
     <span id="errorHint"></span>
 </div>

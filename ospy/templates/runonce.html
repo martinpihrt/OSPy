@@ -1,12 +1,41 @@
 $def with ()
 
-$var title: Run-Once
+$var title: $_('Run-Once')
 $var page: runonce
 
+<script>
+    jQuery(document).ready(function(){
 
-<script src="/static/scripts/runonce.js"></script>
+    jQuery("#cSubmit").click(function() {
+        var hours = jQuery("input[id^='mm']").map(function() {
+            return jQuery(this).attr("id");
+        }).get();
+        var minutes = jQuery("input[id^='ss']").map(function() {
+            return jQuery(this).attr("id");
+        }).get();
+        for (var i = 0; i < hours.length; i++) {
+            var hour = parseInt(jQuery('#' + hours[i]).val());
+            var minute = parseInt(jQuery('#' + minutes[i]).val());
+            hour = (isNaN(hour) ? 0 : hour);
+            minute = (isNaN(minute) ? 0 : minute);
+            if (hour < 0 || minute < 0 || minute > 59) {
+                alert($:{json.dumps(_('All values should be positive and seconds should not exceed 59.'), ensure_ascii=False)});
+                return false;
+            }
+            if (hour > 0 || minute > 0) anything = true;
+        }
+        jQuery("#runonceForm").submit();
+    });
+
+    jQuery("#cResetTime").click(function(){
+        jQuery("input[type='number']").val(0);
+    });
+
+    });
+</script>
+
 <div id="runonce">
-    <div class="title">Run Once Program</div>
+    <div class="title">$_('Run Once Program')</div>
     <form id="runonceForm" method="post">
         <table class="stationList">
             $for station in stations.enabled_stations():
@@ -22,6 +51,6 @@ $var page: runonce
     </form>
 </div>
 
-<a id="cSubmit" class="button submit"><b>Run Now</b></a>
-<a id="cResetTime" class="button refresh">Reset Time</a>
-<a href="/" class="button cancel danger">Cancel</a>
+<a id="cSubmit" class="button submit"><b>$_('Run Now')</b></a>
+<a id="cResetTime" class="button refresh">$_('Reset Time')</a>
+<a href="/" class="button cancel danger">$_('Cancel')</a>

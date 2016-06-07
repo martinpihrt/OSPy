@@ -293,17 +293,19 @@ def minute_time_str(minute_time, with_seconds=False):
 
 
 def short_day(index):
-    return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index]
+    import i18n
+    return [_('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat'), _('Sun')][index]
 
 
 def long_day(index):
-    return ["Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"][index]
+    import i18n
+    return [_('Monday'),
+            _('Tuesday'),
+            _('Wednesday'),
+            _('Thursday'),
+            _('Friday'),
+            _('Saturday'),
+            _('Sunday')][index]
 
 
 def stop_onrain():
@@ -418,6 +420,7 @@ def get_input(qdict, key, default=None, cast=None):
 
 
 def template_globals():
+    import i18n
     import json
     import plugins
     import urllib
@@ -440,7 +443,8 @@ def template_globals():
         'isinstance': isinstance,
         'sorted': sorted,
         'hasattr': hasattr,
-
+        '_': _,
+        'i18n': i18n,
         'now': now
     }
 
@@ -513,48 +517,11 @@ def get_help_file(id):
                     return web.template.Template(converted, globals=template_globals())()
     except Exception:
         pass
-    return ''
+    return '' 
 
 def ASCI_convert(name):
-  if re.search(r"[^\x00-\x7F]", name):
-     # digraphs.  May be culturally sensitive
-     name=re.sub(r"\xc3\x9f", 'ss', name)
-     name=re.sub(r"\xc3\xa4|a\xcc\x88", 'ae', name)
-     name=re.sub(r"\xc3\xa5|a\xcc\x8a", 'aa', name)
-     name=re.sub(r"\xc3\xa6", 'ae', name)
-     name=re.sub(r"\xc3\xb1|n\xcc\x83", 'ny', name)
-     name=re.sub(r"\xc3\xb6|o\xcc\x88", 'oe', name)
-     name=re.sub(r"\xc3\xbc|u\xcc\x88", 'ue', name)
-     # latin 1
-     name=re.sub(r"\xc3[\xa0-\xa5]", 'a', name)
-     name=re.sub(r"\xc3\xa7", 'c', name)
-     name=re.sub(r"\xc3[\xa8-\xab]", 'e', name)
-     name=re.sub(r"\xc3[\xac-\xaf]", 'i', name)
-     name=re.sub(r"\xc3[\xb2-\xb6]|\xc3\xb8", 'o', name)
-     name=re.sub(r"\xc3[\xb9-\xbc]", 'u', name)
-     name=re.sub(r"\xc3[\xbd\xbf]", 'y', name)
-     # Latin Extended-A
-     name=re.sub(r"\xc4[\x80-\x85]", 'a', name)
-     name=re.sub(r"\xc4[\x86-\x8d]", 'c', name)
-     name=re.sub(r"\xc4[\x8e-\x91]", 'd', name)
-     name=re.sub(r"\xc4[\x92-\x9b]", 'e', name)
-     name=re.sub(r"\xc4[\x9c-\xa3]", 'g', name)
-     name=re.sub(r"\xc4[\xa4-\xa7]", 'h', name)
-     name=re.sub(r"\xc4[\xa8-\xb1]", 'i', name)
-     name=re.sub(r"\xc4[\xb2-\xb3]", 'ij', name)
-     name=re.sub(r"\xc4[\xb4-\xb5]", 'j', name)
-     name=re.sub(r"\xc4[\xb6-\xb8]", 'k', name)
-     name=re.sub(r"\xc4[\xb9-\xff]|\xc5[\x80-\x82]", 'l', name)
-     name=re.sub(r"\xc5[\x83-\x8b]", 'n', name)
-     name=re.sub(r"\xc5[\x8c-\x91]", 'o', name)
-     name=re.sub(r"\xc5[\x92-\x93]", 'oe', name)
-     name=re.sub(r"\xc5[\x94-\x99]", 'r', name)
-     name=re.sub(r"\xc5[\x9a-\xa2]", 's', name)
-     name=re.sub(r"\xc5[\xa2-\xa7]", 't', name)
-     name=re.sub(r"\xc5[\xa8-\xb3]", 'u', name)
-     name=re.sub(r"\xc5[\xb4-\xb5]", 'w', name)
-     name=re.sub(r"\xc5[\xb6-\xb8]", 'y', name)
-     name=re.sub(r"\xc5[\xb9-\xbe]", 'z', name)
-     # denormalized diacritics
-     name=re.sub(r"\xcc[\x80-\xff]|\xcd[\x80-\xaf]", '', name)
-  return re.sub(r"[^.\w]+", '-', name)
+  if name == None:
+     return None
+  name = re.sub(r"[^A-Za-z0-9]+", ' ', name)
+  return name
+  

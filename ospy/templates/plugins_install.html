@@ -1,20 +1,20 @@
 $def with ()
 
-$var title: Manage Plugins
+$var title: $_('Manage Plugins')
 $var page: plugins
 
 
 <script src="/static/scripts/plugins_install.js"></script>
 <div id="controls">
     <form method="POST" enctype="multipart/form-data" action="/plugins_install">
-        Custom plug-in (ZIP):
+        $_('Custom plug-in (ZIP)'):
         <input type="file" name="zipfile" />
-        <button id="cSubmit" class="submit">Install</button>
+        <button id="cSubmit" class="submit">$_('Install')</button>
     </form>
     $for repo_index, repo in enumerate(plugins.REPOS):
         <div style="vertical-align:middle;" class='category collapsible collapsed'>
             <h4>
-                <a style="float:right;" href="/plugins_install?repo=${repo_index}&install" class="minibutton open">Install all</a>
+                <a style="float:right;" href="/plugins_install?repo=${repo_index}&install" class="minibutton open">$_('Install all')</a>
                 ${repo}
             </h4>
 

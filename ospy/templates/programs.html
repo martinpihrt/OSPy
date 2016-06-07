@@ -1,31 +1,31 @@
 $def with ()
 
-$var title: Programs
+$var title: $_('Programs')
 $var page: programs
 
 
 <div id="controls">
-    <a href="/program/new" class="button add">Add a New Program</a>
-    <a href="/programs?delete_all" class="button deleteAll danger">Delete All</a>
+    <a href="/program/new" class="button add">$_('Add a New Program')</a>
+    <a href="/programs?delete_all" class="button deleteAll danger">$_('Delete All')</a>
     $for program in programs.get():
         <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
         <p>
             <a href="/program/${program.index}?enable=${'0' if program.enabled else '1'}" class="button cDisable toggle ${'on' if program.enabled else 'off'}">
-                <span class='toggleleft'>On</span>
+                <span class='toggleleft'>$_('On')</span>
                 <span class='togglesep'>&nbsp;</span>
-                <span class='toggleright'>Off</span>
+                <span class='toggleright'>$_('Off')</span>
             </a>
         ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
         </p>
-        <p class="stationList">Run: <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
+        <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
         $if len(program.schedule) > 0:
             <p class="stationList">$:{program.details()}</p>
 
         <p>
             $if not options.manual_mode and program.type != ProgramType.WEEKLY_ADVANCED and program.type != ProgramType.CUSTOM:
-                <a href="/program/${program.index}?runnow" class="button cRunNow">Run Now</a>
-            <a href="/program/${program.index}" class="button cModify">Edit</a>
-            <a href="/program/${program.index}?delete" class="button cDelete danger">Delete</a>
+                <a href="/program/${program.index}?runnow" class="button cRunNow">$_('Run Now')</a>
+            <a href="/program/${program.index}" class="button cModify">$_('Edit')</a>
+            <a href="/program/${program.index}?delete" class="button cDelete danger">$_('Delete')</a>
         </p>
         </div>
 </div>
