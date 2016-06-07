@@ -24,9 +24,9 @@ $var page: plugins
                     <h5>
                         <a style="float:right;" href="/plugins_install?repo=${repo_index}&plugin=${plugin}&install" class="minibutton open">
                         $if plugin in available_list:
-                            Reinstall
+                            $_('Reinstall')
                         $else:
-                            Install
+                            $_('Install')
                         </a>
                         ${info['name']}
                     </h5>
