@@ -48,6 +48,12 @@ i2c-dev
 6. Execute: sudo apt-get install i2c-tools  
 7. Reboot OS system: sudo reboot
 8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
+ 
+## For translate OSPy to other language  
+https://github.com/martinpihrt/OSPy/tree/refactor/i18n and step by step, how to use is typed in MD file
+
+## For OSPy Changelog      
+https://github.com/martinpihrt/OSPy/blob/refactor/ospy/docs/Changelog.md
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program
