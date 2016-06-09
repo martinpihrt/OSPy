@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+June 9 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added languages support for all OSPy-core-plugins (now Czech, English) and for LCD plugin from OSPy-temp-plugins.<br>
+2. Changes OSPy font style in css and add buttons gap in plugins manager (Thanks janboreczech.)<br>
+
 June 7 2016
 ----------
 (martinpihrt)<br/>
