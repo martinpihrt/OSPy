@@ -29,7 +29,7 @@ $var page: plugins
         $ running = plugin in running_list
         <div id="${plugin}" class="controlBlock plugin ${'' if running else _('disabled')}">
             <div style="display: inline-block; padding: 0; float: right;">
-                <div style="display: inline-block; padding: 0; width: 90px;">
+                <div style="display: inline-block; padding: 0; width: 130px;">
                 $if running and plugins.get(plugin).LINK:
                     <a class="button open" href="${plugins.plugin_url(plugins.get(plugin).LINK)}">$_('Open')</a>
                 </div>
