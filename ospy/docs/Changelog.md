@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 15 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added languages support for all OSPy-temp-plugins (now Czech, English) without plugins: air_temp_humi, button_control, sms_adj, volt_temp_da, water_meter, webcam.<br>
+
 June 9 2016
 ----------
 (martinpihrt)<br/>
