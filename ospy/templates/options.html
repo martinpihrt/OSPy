@@ -46,6 +46,11 @@ $code:
         jQuery("input[name='pwrdwn']").val(1);
         jQuery("form[name='of']").submit();
     });
+    
+    jQuery("button#cDefault").click(function(){
+        jQuery("input[name='deldef']").val(1);
+        jQuery("form[name='of']").submit();
+    });
 
          
     switch (errorCode) {
@@ -196,6 +201,7 @@ $code:
         output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download options.db file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
         output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload options.db file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
+        output += "&nbsp;<button id='cDefault' class='restart danger' title=" + json.dumps(_('Delete OSPy settings to default!'), ensure_ascii=False) + ">" + _('Default') + "</button>"
         output += "</div></form>\n"
 
         output += categoryCloser
