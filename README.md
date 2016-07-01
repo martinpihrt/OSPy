@@ -1,11 +1,10 @@
 OSPy Readme
 ====
 
-An improved Python port of the Arduino based OpenSprinkler firmware.
+OSPy - OpenSprinklerPython An improved Python port of the Arduino based OpenSprinkler firmware.
 
-Because the web interface is based on the original firmware,
-the basics described in the [user manual](http://rayshobby.net/opensprinkler/svc-use/svc-web) are still applicable.  
 This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.  
+
 ## More information visit
 HW PCB board: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
 
@@ -16,7 +15,8 @@ INSTALLATION:
 (This option does support automatic updating.)
 
 1. Ensure git is installed (and the git executable is in your path).
-2. Use git to clone https://github.com/martinpihrt/OSPy.git to a location of your choice.
+2. Use git to clone: git clone -b refactor https://github.com/martinpihrt/OSPy.
+3. Next use step "Setup"
 
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
@@ -52,7 +52,7 @@ i2c-dev
 ## For translate OSPy to other language  
 https://github.com/martinpihrt/OSPy/tree/refactor/i18n and step by step, how to use is typed in MD file
 
-## For OSPy Changelog      
+## For OSPy and plugins (plugins-temp and plugins-core) Changelog      
 https://github.com/martinpihrt/OSPy/blob/refactor/ospy/docs/Changelog.md
 
 ## License
