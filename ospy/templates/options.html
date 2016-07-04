@@ -186,13 +186,15 @@ $code:
 
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False) + ">" + _('Restart')+"</button>"
-        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False) + ">" + _('Reboot')+"</button>"
-        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(_('Shutdown hardware!'), ensure_ascii=False) + ">" + _('Shutdown')+"</button>"
+        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False) + ">" + _('Restart') + "</button>"
+        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False) + ">" + _('Reboot') + "</button>"
+        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(_('Shutdown hardware!'), ensure_ascii=False) + ">" + _('Shutdown') + "</button>"
+        output += "&nbsp;<button id='cDefault' class='reboot danger' title=" + json.dumps(_('Delete OSPy settings to default!'), ensure_ascii=False) + ">" + _('Default') + "</button>"
         output += "</div>\n"
         output += "<input type=\"hidden\" name=\"rbt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"pwrdwn\" value=\"0\">"
+        output += "<input type=\"hidden\" name=\"deldef\" value=\"0\">"
         output += categoryCloser + "</form>"
 
         output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
@@ -201,9 +203,7 @@ $code:
         output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download options.db file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
         output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload options.db file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
-        output += "&nbsp;<button id='cDefault' class='button cancel danger' title=" + json.dumps(_('Delete OSPy settings to default!'), ensure_ascii=False) + ">" + _('Default') + "</button>"
         output += "</div></form>\n"
-
         output += categoryCloser
     $:{output}
     
