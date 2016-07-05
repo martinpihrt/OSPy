@@ -131,7 +131,7 @@ $code:
                 if name == 'lang':
                     output += "<div class='option' title=" + _('System language') + "><span class='label'>" + _('System language') + ":</span>\n"
                     output += "<select name= 'lang'>\n"
-                    output += "<option " + ("selected " if value=='default' else "") + "value='default'>"+_('Default')+"</option>\n"
+                    output += "<option " + ("selected " if value=='default' else "") + "value='default'>"+_('Default language')+"</option>\n"
                     for L in langKeys:
                         output += "<option " + ("selected " if value==L else "") + "value='"+L+"'>"+languages[L]+"</option>\n"
                     output += "</select>\n"
