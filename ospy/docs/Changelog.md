@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+July 5 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added languages support for all OSPy-temp-plugins (now Czech, English) without plugins: sms_adj, water_meter.<br>
+2. Added new button in options for delete options.db file (delete all user settings and restore default value.<br> 
+
 June 15 2016
 ----------
 (martinpihrt)<br/>
