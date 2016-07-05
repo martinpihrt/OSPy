@@ -486,7 +486,19 @@ class options_page(ProtectedPage):
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             poweroff()   # shutdown HW system
-            return self.core_render.restarting(home_page)    
+            return self.core_render.restarting(home_page) 
+
+        if 'deldef' in qdict and qdict['deldef'] == '1':
+            OPTIONS_FILE = './ospy/data'
+            try:
+                import shutil, time
+                shutil.rmtree(OPTIONS_FILE) # delete data folder
+                time.sleep(2)
+                os.makedirs(OPTIONS_FILE)   # create data folder
+                restart()                   # restart OSPy software
+                return self.core_render.restarting(home_page)
+            except:
+                pass 
 
         if change:
             restart()    # OSPy software
