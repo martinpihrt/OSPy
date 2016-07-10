@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 10 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Fixed relay on the board (rele output 9) without stations 1-8 relay. Now is in test relay plugin function ready.<br>
+
 July 5 2016
 ----------
 (martinpihrt)<br/>
