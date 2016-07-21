@@ -49,13 +49,21 @@ class _Options(object):
         },
         {
             "key": "web_port",
-            "name": _('HTTP port'),
+            "name": _('HTTP/S port'),
             "default": 8080,
-            "help": _('HTTP port (effective after reboot.)'),
+            "help": _('HTTP/S port (effective after reboot.)'),
             "category": _('System'),
             "min": 1,
             "max": 65535
         },
+        {
+            "key": "use_ssl",
+            "name": _('Use HTTPS access'),
+            "default": False,
+            "help": _('SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)'),
+            "category": _('System')
+        },
+
         {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),
