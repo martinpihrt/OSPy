@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 21 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added SSL support for HTTPS connections in options. For howto setup SSL read file https://github.com/martinpihrt/OSPy/blob/refactor/README.md.<br>
+
 July 10 2016
 ----------
 (martinpihrt)<br/>
