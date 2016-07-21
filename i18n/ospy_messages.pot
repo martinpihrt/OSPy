@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-07-04 15:09+CEST\n"
+"POT-Creation-Date: 2016-07-21 22:58+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgid "Unique name of this OpenSprinkler system."
 msgstr ""
 
 #: ospy/options.py:26 ospy/options.py:34 ospy/options.py:41 ospy/options.py:48
-#: ospy/options.py:55 ospy/options.py:84
+#: ospy/options.py:55 ospy/options.py:64 ospy/options.py:92
 msgid "System"
 msgstr ""
 
@@ -109,178 +109,186 @@ msgid "Display times in 24 hour format (as opposed to AM/PM style.)"
 msgstr ""
 
 #: ospy/options.py:52
-msgid "HTTP port"
+msgid "HTTP/S port"
 msgstr ""
 
 #: ospy/options.py:54
-msgid "HTTP port (effective after reboot.)"
+msgid "HTTP/S port (effective after reboot.)"
 msgstr ""
 
 #: ospy/options.py:61
+msgid "Use HTTPS access"
+msgstr ""
+
+#: ospy/options.py:63
+msgid "SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)"
+msgstr ""
+
+#: ospy/options.py:69
 msgid "Enabled plug-ins"
 msgstr ""
 
-#: ospy/options.py:66
+#: ospy/options.py:74
 msgid "Plug-in status"
 msgstr ""
 
-#: ospy/options.py:71
+#: ospy/options.py:79
 msgid "Automatic plug-in updates"
 msgstr ""
 
-#: ospy/options.py:76
+#: ospy/options.py:84
 msgid "Enable plug-in check status updates"
 msgstr ""
 
-#: ospy/options.py:90
+#: ospy/options.py:98
 msgid "Disable security"
 msgstr ""
 
-#: ospy/options.py:92
+#: ospy/options.py:100
 msgid "Allow anonymous users to access the system without a password."
 msgstr ""
 
-#: ospy/options.py:93
+#: ospy/options.py:101
 msgid "Security"
 msgstr ""
 
-#: ospy/options.py:100
+#: ospy/options.py:108
 msgid "Maximum usage"
 msgstr ""
 
-#: ospy/options.py:102
+#: ospy/options.py:110
 msgid "Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1."
 msgstr ""
 
-#: ospy/options.py:103 ospy/options.py:110 ospy/options.py:119
+#: ospy/options.py:111 ospy/options.py:118 ospy/options.py:127
 msgid "Station Handling"
 msgstr ""
 
-#: ospy/options.py:107
+#: ospy/options.py:115
 msgid "Number of outputs"
 msgstr ""
 
-#: ospy/options.py:109
+#: ospy/options.py:117
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr ""
 
-#: ospy/options.py:116
+#: ospy/options.py:124
 msgid "Station delay"
 msgstr ""
 
-#: ospy/options.py:118
+#: ospy/options.py:126
 msgid "Station delay time (in seconds), between 0 and 3600."
 msgstr ""
 
-#: ospy/options.py:128
+#: ospy/options.py:136
 msgid "Activate relay"
 msgstr ""
 
-#: ospy/options.py:130
+#: ospy/options.py:138
 msgid "Also activate the relay as master output."
 msgstr ""
 
-#: ospy/options.py:131 ospy/options.py:138 ospy/options.py:147
+#: ospy/options.py:139 ospy/options.py:146 ospy/options.py:155
 msgid "Configure Master"
 msgstr ""
 
-#: ospy/options.py:135
+#: ospy/options.py:143
 msgid "Master on delay"
 msgstr ""
 
-#: ospy/options.py:137
+#: ospy/options.py:145
 msgid "Master on delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:144
+#: ospy/options.py:152
 msgid "Master off delay"
 msgstr ""
 
-#: ospy/options.py:146
+#: ospy/options.py:154
 msgid "Master off delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:156
+#: ospy/options.py:164
 msgid "Use rain sensor"
 msgstr ""
 
-#: ospy/options.py:158
+#: ospy/options.py:166
 msgid "Use rain sensor."
 msgstr ""
 
-#: ospy/options.py:159 ospy/options.py:166
+#: ospy/options.py:167 ospy/options.py:174
 msgid "Rain Sensor"
 msgstr ""
 
-#: ospy/options.py:163
+#: ospy/options.py:171
 msgid "Normally open"
 msgstr ""
 
-#: ospy/options.py:165
+#: ospy/options.py:173
 msgid "Rain sensor default."
 msgstr ""
 
-#: ospy/options.py:173
+#: ospy/options.py:181
 msgid "Enable run log"
 msgstr ""
 
-#: ospy/options.py:175
+#: ospy/options.py:183
 msgid "Log all runs - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:176 ospy/options.py:183 ospy/options.py:192
+#: ospy/options.py:184 ospy/options.py:191 ospy/options.py:200
 msgid "Logging"
 msgstr ""
 
-#: ospy/options.py:180
+#: ospy/options.py:188
 msgid "Max run entries"
 msgstr ""
 
-#: ospy/options.py:182
+#: ospy/options.py:190
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:189
+#: ospy/options.py:197
 msgid "Enable debug log"
 msgstr ""
 
-#: ospy/options.py:191
+#: ospy/options.py:199
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:200
+#: ospy/options.py:208
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:205
+#: ospy/options.py:213
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:210
+#: ospy/options.py:218
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:215
+#: ospy/options.py:223
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:220
+#: ospy/options.py:228
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:226
+#: ospy/options.py:234
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:231
+#: ospy/options.py:239
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:236
+#: ospy/options.py:244
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:241
+#: ospy/options.py:249
 msgid "The runs that have been logged"
 msgstr ""
 
@@ -767,10 +775,6 @@ msgstr ""
 msgid "Default language"
 msgstr ""
 
-#: ospy/templates/options.html:192
-msgid "Default"
-msgstr ""
-
 #: ospy/templates/options.html:138
 msgid "Language localizations for this OpenSprinkler system. (effective after reboot.)"
 msgstr ""
@@ -829,6 +833,10 @@ msgstr ""
 
 #: ospy/templates/options.html:191
 msgid "Shutdown hardware!"
+msgstr ""
+
+#: ospy/templates/options.html:192
+msgid "Default"
 msgstr ""
 
 #: ospy/templates/options.html:192
