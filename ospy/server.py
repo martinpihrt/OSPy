@@ -67,6 +67,22 @@ def start():
     ##############################
     web.config.debug = False  # Improves page load speed', ]
 
+    #### SSL for https #### http://www.8bitavenue.com/2015/05/webpy-ssl-support/
+    ssl_patch = '././ssl/'
+    if options.use_ssl:
+       try:
+          import os.path
+          if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key') :
+             print 'SSL certificate OK starting HTTPS.'
+             from web.wsgiserver import CherryPyWSGIServer
+             CherryPyWSGIServer.ssl_certificate = "././ssl/server.crt"
+             CherryPyWSGIServer.ssl_private_key = "././ssl/server.key"
+
+       except:
+          print 'SSL certificate not found.'
+          pass
+    #############################
+
     from ospy.urls import urls
     app = web.application(urls, globals())
     app.notfound = lambda: web.seeother('/', True)
