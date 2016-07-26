@@ -71,7 +71,6 @@ def start():
     ssl_patch = '././ssl/'
     if options.use_ssl:
        try:
-          import os.path
           if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key') :
              print 'SSL certificate OK starting HTTPS.'
              from web.wsgiserver import CherryPyWSGIServer
