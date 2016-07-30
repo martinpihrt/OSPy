@@ -64,6 +64,9 @@ https://github.com/martinpihrt/OSPy/tree/refactor/i18n and step by step, how to 
 ## For OSPy and plugins (plugins-temp and plugins-core) Changelog      
 https://github.com/martinpihrt/OSPy/blob/refactor/ospy/docs/Changelog.md
 
+## For OSPy and plugins Issues
+https://github.com/martinpihrt/OSPy/issues
+
 ## License
 OpenSprinkler Py (OSPy) Interval Program
 
