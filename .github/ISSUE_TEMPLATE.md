@@ -1,0 +1,5 @@
+- [ ] before sending the mistakes I read page: <https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady>
+- [ ] is a hardware problem with Pihrt.com printed board (<https://pihrt.com/images/pihrt/raspberry/sprinkler/__ospy_nova_verze/IMG_20151009_113805.jpg>)
+- [ ] is a software OSPy <https://github.com/martinpihrt/OSPy> problem
+- [ ] is a plugin <https://github.com/martinpihrt/OSPy-plugins-core> problem
+- [ ] is a plugin <https://github.com/martinpihrt/OSPy-plugins-temp> problem
