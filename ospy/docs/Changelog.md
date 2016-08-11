@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 11 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Added [new FTP control plugin](https://github.com/martinpihrt/OSPy-plugins-temp/tree/master/plugins/remote_ftp_control) for remote control your OSPy without public IP addresses and [PHP script for control](https://github.com/martinpihrt/OSPy-PHPfileFTP).<br>
+
 July 21 2016
 ----------
 (martinpihrt)<br/>
