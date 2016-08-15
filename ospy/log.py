@@ -12,6 +12,7 @@ from os import path
 import threading
 import time
 import sys
+import codecs
 
 # Local imports
 from ospy.options import options
@@ -53,8 +54,7 @@ class _Log(logging.Handler):
 
     @staticmethod
     def _save_log(msg, level, event_type):
-        msg = msg.encode('ascii', 'replace')
-
+       
         # Print if it is important:
         if level >= logging.WARNING:
             print(msg, file=sys.stderr)
@@ -65,8 +65,9 @@ class _Log(logging.Handler):
 
         # Save it if we are debugging
         if options.debug_log:
-            with open(EVENT_FILE, 'a') as fh:
+            with codecs.open(EVENT_FILE, 'a', encoding='utf-8') as fh:
                 fh.write(msg + '\n')
+
 
     def _prune(self, event_type):
         if event_type not in self._log:
