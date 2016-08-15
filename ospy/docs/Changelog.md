@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Aug 15 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. fix logging (czech string to debug file).<br>
+
+
 Aug 11 2016
 ----------
 (martinpihrt)<br/>
