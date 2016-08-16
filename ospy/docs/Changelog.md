@@ -8,6 +8,7 @@ Changes:<br/>
 1. Add support for master 2 station.<br>
 2. Fix error in czech translate (home page, stations).<br>
 3. Add support for master 2 stations to pressure_monitor plugin.<br>
+4. Fix in helpers and lcd plugin Add cz string uptime.<br>
 
 Aug 15 2016
 ----------
