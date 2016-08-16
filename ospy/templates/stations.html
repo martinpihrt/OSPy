@@ -44,7 +44,7 @@ $var page: stations
                             <td class="stationMaster">
                                 <input type="checkbox" ${"checked" if station.activate_master else ""} name="${station.index}_activate_master">
                             </td>
-                        $if stations.master_two is not None or options.master_relay_two or stations.master is not None:
+                        $if stations.master_two is not None or options.master_relay or stations.master is not None:
                             <td class="stationMaster">
                                 <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
                             </td> 
