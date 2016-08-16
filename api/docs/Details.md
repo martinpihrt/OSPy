@@ -119,6 +119,7 @@ Single station is represented like :
     "ignore_rain": bool,
     "enabled": bool,
     "is_master": bool,
+    "is_master_two": bool,
     "state": string, Read-Only
     "reason": string Read-Only
 }
@@ -135,6 +136,7 @@ Returns
     "ignore_rain": "false",
     "enabled": "true",
     "is_master": "true",
+    "is_master_two": "false",
     "state": "Running",
     "reason": "Manual start"
 }
@@ -150,7 +152,8 @@ This is the "edit station" method. Takes a "station_info" object and updates sta
     "name": "Station One With a Nice New Name",
     "ignore_rain": "false",
     "enabled": "true",
-    "is_master": "true"
+    "is_master": "true",
+    "is_master_two: "false"
 }
 ```
 Renames station 1 to "Station One With a Nice New Name".
@@ -170,14 +173,16 @@ Returns a list of station_info entries, e.g. :
             "name": "Station One",
             "ignore_rain": "false",
             "enabled": "true",
-            "is_master": "true"
+            "is_master": "true",
+            "is_master_two: "false"
         },
         {
             "id": 2,
             "name": "Station Two",
             "ignore_rain": "false",
             "enabled": "true",
-            "is_master": "false"
+            "is_master": "false",
+            "is_master_two: "false"
         },
         ...
     ]
