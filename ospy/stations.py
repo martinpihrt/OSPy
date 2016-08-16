@@ -11,11 +11,12 @@ from ospy.options import options
 
 
 class _Station(object):
-    SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', 'is_master', 'active', 'remaining_seconds']
+    SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', 'is_master', 'is_master_two', 'active', 'remaining_seconds']
 
     def __init__(self, stations_instance, index):
         self._stations = stations_instance
         self.activate_master = False
+        self.activate_master_two = False
 
         self.name = "Station %02d" % (index+1)
         self.enabled = True
@@ -27,6 +28,8 @@ class _Station(object):
             opts = options[options.cls_name(self, index)]
             if 'is_master' in opts:
                 del opts['is_master']
+            if 'is_master_two' in opts:
+                del opts['is_master_two']
             options[options.cls_name(self, index)] = opts
 
         options.load(self, index)
@@ -39,12 +42,23 @@ class _Station(object):
     def is_master(self):
         return self.index == self._stations.master
 
+    @property
+    def is_master_two(self):
+        return self.index == self._stations.master_two
+
     @is_master.setter
     def is_master(self, value):
         if value:
             self._stations.master = self.index
         elif self.is_master:
             self._stations.master = None
+    
+    @is_master_two.setter
+    def is_master_two(self, value):
+        if value:
+            self._stations.master_two = self.index
+        elif self.is_master_two:
+            self._stations.master_two = None
 
     @property
     def active(self):
@@ -91,6 +105,7 @@ class _BaseStations(object):
     def __init__(self, count):
         self._loading = True
         self.master = None
+        self.master_two = None
         options.load(self)
         self._loading = False
 
@@ -118,6 +133,9 @@ class _BaseStations(object):
             if self.master >= count:
                 self.master = None
 
+            if self.master_two >= count:
+                self.master_two = None
+
             # Make sure we turn them off before they become unreachable
             for index in range(count, len(self._stations)):
                 self._state[index] = False
@@ -133,7 +151,7 @@ class _BaseStations(object):
         return len(self._stations)
 
     def enabled_stations(self):
-        return [s for s in self._stations if s.enabled and not s.is_master]
+        return [s for s in self._stations if s.enabled and not s.is_master and not s.is_master_two]
 
     def get(self, index=None):
         if index is None:

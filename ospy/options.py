@@ -156,6 +156,25 @@ class _Options(object):
             "min": -1800,
             "max": +1800
         },
+        {
+            "key": "master_on_delay_two",
+            "name": _('Master two on delay'),
+            "default": 0,
+            "help": _('Master two on delay (in seconds), between -1800 and +1800.'),
+            "category": _('Configure Master'),
+            "min": -1800,
+            "max": +1800
+        },
+        {
+            "key": "master_off_delay_two",
+            "name": _('Master two off delay'),
+            "default": 0,
+            "help": _('Master two off delay (in seconds), between -1800 and +1800.'),
+            "category": _('Configure Master'),
+            "min": -1800,
+            "max": +1800
+        },
+
 
         #######################################################################
         # Rain Sensor #########################################################

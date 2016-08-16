@@ -78,7 +78,7 @@ def predicted_schedule(start_time, end_time):
         run_now_intervals = program.active_intervals(start_time, end_time)
         for station in sorted(program.stations):
             for interval in run_now_intervals:
-                if station >= stations.count() or stations.master == station or not stations[station].enabled:
+                if station >= stations.count() or stations.master == station or stations.master_two == station or not stations[station].enabled:
                     continue
 
                 if station not in station_schedules:
@@ -110,7 +110,7 @@ def predicted_schedule(start_time, end_time):
         program_intervals = program.active_intervals(start_time, end_time)
 
         for station in sorted(program.stations):
-            if station >= stations.count() or stations.master == station or not stations[station].enabled:
+            if station >= stations.count() or stations.master == station or stations.master_two == station or not stations[station].enabled:
                 continue
 
             if station not in station_schedules:
@@ -387,6 +387,43 @@ class _Scheduler(Thread):
             if options.master_relay:
                 if master_on != outputs.relay_output:
                     outputs.relay_output = master_on
+
+
+        if stations.master_two is not None or options.master_relay:
+            master_two_on = False
+
+            # It's easy if we don't have to use delays:
+            if options.master_on_delay_two == options.master_off_delay_two == 0:
+                for entry in active:
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_two:
+                        master_two_on = True
+                        break
+
+            else:
+                # In manual mode we cannot predict, we only know what is currently running and the history
+                if options.manual_mode:
+                    active = log.finished_runs() + active
+                else:
+                    active = combined_schedule(check_start, check_end)
+
+                for entry in active:
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_two:
+                        if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
+                                <= current_time < \
+                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                            master_two_on = True
+                            break
+
+            if stations.master_two is not None:
+                master_station_two = stations.get(stations.master_two)
+
+                if master_two_on != master_station_two.active:
+                    master_station_two.active = master_two_on
+
+            if options.master_relay:
+                if master_two_on != outputs.relay_output:
+                    outputs.relay_output = master_two_on
+
 
 scheduler = _Scheduler()
 

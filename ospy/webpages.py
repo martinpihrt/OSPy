@@ -461,6 +461,13 @@ class options_page(ProtectedPage):
             elif m < stations.count():
                 stations.master = m
 
+        if 'master_two' in qdict:
+            m = int(qdict['master_two'])
+            if m < 0:
+                stations.master_two = None
+            elif m < stations.count():
+                stations.master_two = m
+
         if 'old_password' in qdict and qdict['old_password'] != "":
             try:
                 if test_password(qdict['old_password']):
@@ -523,6 +530,8 @@ class stations_page(ProtectedPage):
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
             if stations.master is not None or options.master_relay:
                 stations[s].activate_master = True if qdict.get("%d_activate_master" % s, 'off') == 'on' else False
+            if stations.master_two is not None or options.master_relay:
+                stations[s].activate_master_two = True if qdict.get("%d_activate_master_two" % s, 'off') == 'on' else False
 
         raise web.seeother('/')
 
@@ -604,6 +613,7 @@ class api_status_json(ProtectedPage):
                     'status': 'on' if station.active else 'off',
                     'reason': 'master' if station.is_master else '',
                     'master': 1 if station.is_master else 0,
+                    'master_two': 1 if station.is_master_two else 0,
                     'programName': '',
                     'remaining': 0}
 
