@@ -128,6 +128,19 @@ $code:
                     output += "<span class='tooltip'>" + _('Specify which output should be used as master station.') + "</span>\n"
                     output += "</div>\n"
 
+                    output += "<div class='option' title=_('Specify which output should be used as master two station.')><span class='label'>" + _('Master two station') + ":</span>\n"
+                    output += "<select name='master_two'>\n"
+                    if stations.master_two is None:
+                        output += "<option value='-1' selected='selected'>" + _('None') + "</option>"
+                    else:
+                        output += "<option value='-1'>" + _('None') + "</option>"
+                    for station in stations.get():
+                        sel = " selected='selected'" if station.index == stations.master_two else ""
+                        output += "<option value='" + str(station.index) + "'" + sel + ">" + station.name + " (" + _('Output') + str(station.index+1) + ")</option>"
+                    output += "</select>\n"
+                    output += "<span class='tooltip'>" + _('Specify which output should be used as master two station.') + "</span>\n"
+                    output += "</div>\n"
+
                 if name == 'lang':
                     output += "<div class='option' title=" + _('System language') + "><span class='label'>" + _('System language') + ":</span>\n"
                     output += "<select name= 'lang'>\n"

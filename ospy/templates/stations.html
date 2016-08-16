@@ -17,6 +17,8 @@ $var page: stations
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
                 $if stations.master is not None or options.master_relay:
                     <th class="stationMaster">$_('Activate Master?')</th>
+                $if stations.master_two is not None or options.master_relay:
+                    <th class="stationMaster">$_('Activate Master Two?')</th>
             </tr>
             $for station in stations.get():
                 <tr>
@@ -29,6 +31,8 @@ $var page: stations
                     </td>
                     $if station.is_master:
                         <td class="stationMaster" colspan="4">($_('Master station'))</td>
+                    $elif station.is_master_two:
+                        <td class="stationMaster" colspan="4">($_('Master two station'))</td>
                     $else:
                         <td class="stationShow">
                             <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
@@ -36,10 +40,15 @@ $var page: stations
                         <td class="stationIgnore">
                             <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
                         </td>
-                        $if stations.master is not None or options.master_relay:
+                        $if stations.master is not None or options.master_relay or stations.master_two is not None:
                             <td class="stationMaster">
                                 <input type="checkbox" ${"checked" if station.activate_master else ""} name="${station.index}_activate_master">
                             </td>
+                        $if stations.master_two is not None or options.master_relay_two or stations.master is not None:
+                            <td class="stationMaster">
+                                <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
+                            </td> 
+                        
                 </tr>
 
         </table>

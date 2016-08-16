@@ -35,7 +35,7 @@ function displaySchedule(schedule) {
                         if (schedule[s].manual) {
                             programClass = "programManual";
                         } else {
-							programClass = "program" + (parseInt(schedule[s].program)+1)%10;
+				programClass = "program" + (parseInt(schedule[s].program)+1)%10;
                         }
                         programClassesUsed[schedule[s].program_name] = programClass;
                         var markerClass = (schedule[s].active == null ? "schedule" : "history");
@@ -282,7 +282,7 @@ $if options.manual_mode:
         <table id="stations" class="stationList">
         $# Manual program control formatting
         $for station in stations:
-            $if station.enabled or station.is_master:
+            $if station.enabled or station.is_master or station.is_master_two:
                 <tr>
                     <td class='station_name'>${station.name}</td>
                     $if station.is_master:
@@ -290,6 +290,13 @@ $if options.manual_mode:
                             <td class="master station_on" colspan="6">$_('On (Master)')</td>
                         $else:
                             <td class="master station_off" colspan="6">$_('Off (Master)')</td>
+
+                    $elif station.is_master_two:
+                        $if station.active:
+                            <td class="master two station_on" colspan="6">$_('On (Master Two)')</td>
+                        $else:
+                            <td class="master two station_off" colspan="6">$_('Off (Master Two)')</td>
+
                     $else:
                         $if station.active:
                             $ rem = station.remaining_seconds
@@ -341,7 +348,7 @@ $else:
                     $else:
                         <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
             </tr>
-            $for station in [station for station in stations if station.enabled or station.is_master]:
+            $for station in [station for station in stations if station.enabled or station.is_master or station.is_master_two]:
                 <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">
                     <td class='station_name'>${station.name}</td>
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
