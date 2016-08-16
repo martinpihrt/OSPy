@@ -607,17 +607,17 @@ class api_status_json(ProtectedPage):
     def GET(self):
         statuslist = []
         for station in stations.get():
-            if station.enabled or station.is_master:
+            if station.enabled or station.is_master or station.is_master_two: 
                 status = {
                     'station': station.index,
                     'status': 'on' if station.active else 'off',
-                    'reason': 'master' if station.is_master else '',
+                    'reason': 'master' if station.is_master or station.is_master_two else '',
                     'master': 1 if station.is_master else 0,
                     'master_two': 1 if station.is_master_two else 0,
                     'programName': '',
                     'remaining': 0}
 
-                if not station.is_master:
+                if not station.is_master or not station.is_master_two:
                     if options.manual_mode:
                         status['programName'] = 'Manual Mode'
                     else:
