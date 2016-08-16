@@ -187,6 +187,7 @@ def uptime():
                    string = string.replace('day', 'den')
                 
     except Exception:
+        from ospy.options import options
         if (options.lang == 'cs_CZ'):
             string = 'Nelze zjistit'
         string = 'Unknown'
