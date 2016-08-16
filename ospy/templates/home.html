@@ -119,10 +119,19 @@ function updateStatus(status) {
             case "master" :
                 classes += " master";
                 if (station.status == "on") {
-                    display = $:{json.dumps(_('Master On'), ensure_ascii=False)}; 
+                    if (station.master){ 
+                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False)}; 
+                       }
+                    else {
+                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False)};
+                       }
                 } else {
-                    display = $:{json.dumps(_('Master Off'), ensure_ascii=False)};
-                    classes += " strike";
+                    if (station.master){ 
+                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False)};
+                       }
+                    else {
+                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False)};
+                       } 
                 }
                 break;
             case "rain_delay" :
