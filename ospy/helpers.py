@@ -176,7 +176,19 @@ def uptime():
         with open("/proc/uptime") as f:
             total_sec = float(f.read().split()[0])
             string = str(datetime.timedelta(seconds=total_sec)).split('.')[0]
+            
+            from ospy.options import options
+            if (options.lang == 'cs_CZ'):
+                if total_sec > 345600:
+                   string = string.replace('days', 'dnu')
+                if total_sec > 172800:
+                   string = string.replace('days', 'dny')
+                if total_sec <= 172800:
+                   string = string.replace('day', 'den')
+                
     except Exception:
+        if (options.lang == 'cs_CZ'):
+            string = 'Nelze zjistit'
         string = 'Unknown'
 
     return string
