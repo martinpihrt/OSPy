@@ -3,7 +3,7 @@ OSPy Changelog
 
 Aug 18 2016
 ----------
-(Václav Hrabě)<br/>
+(Vaclav Hrabe)<br/>
 Changes:<br/>
 1. Add NetAtmo support - read data from NetAtmo API of Rain module in weather_based_water_level plugin (martinpihrt: Checked, Tested and improved).<br>
 2. Add czech translate for plugin (martinpihrt).<br>
