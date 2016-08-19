@@ -352,8 +352,8 @@ class _Scheduler(Thread):
                     log.start_run(entry)
                     if not entry['blocked']:
                         stations.activate(entry['station'])
-
-        if stations.master is not None or options.master_relay:
+        
+        if stations.master is not None:
             master_on = False
 
             # It's easy if we don't have to use delays:
@@ -385,11 +385,10 @@ class _Scheduler(Thread):
                     master_station.active = master_on
 
             if options.master_relay:
-                if master_on != outputs.relay_output:
-                    outputs.relay_output = master_on
+                outputs.relay_output = master_on
 
 
-        if stations.master_two is not None or options.master_relay:
+        if stations.master_two is not None:
             master_two_on = False
 
             # It's easy if we don't have to use delays:
@@ -420,35 +419,5 @@ class _Scheduler(Thread):
                 if master_two_on != master_station_two.active:
                     master_station_two.active = master_two_on
 
-            if options.master_relay:
-                if master_two_on != outputs.relay_output:
-                    outputs.relay_output = master_two_on
-
 
 scheduler = _Scheduler()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
