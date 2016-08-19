@@ -6,6 +6,9 @@ Aug 19 2016
 Changes:<br/>
 1. Add NetAtmo support - read data from NetAtmo API of Rain module in weather_based_rain_delay plugin.<br>
 2. Add czech translate for plugin.<br>
+(martinpihrt)<br/>
+Changes:<br/>
+1. Fix error in stations.html checked master 2, fix in scheduler.py master_relay on/off, fix debug print only if relay has changed.<br>
 
 Aug 18 2016
 ----------
