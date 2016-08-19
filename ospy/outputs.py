@@ -16,13 +16,16 @@ class _DummyOutputs(object):
 
 class _IOOutputs(object):
     _initialized = False
+    _last = True
 
     def __init__(self):
         self._mapping = {}
         
     def __setattr__(self, key, value):
         super(_IOOutputs, self).__setattr__(key, value)
-        logging.debug("Real Outputs Set %s to %s", key, value)
+        if value != self._last:
+           logging.debug("Real Outputs Set %s to %s", key, value) 
+           self._last = value
 
         if not self._initialized:
            self._initialized = True
