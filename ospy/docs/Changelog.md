@@ -1,5 +1,11 @@
 OSPy Changelog
 ====
+Aug 22 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Add info on running stations xx in LCD plugin. Ex: If stations 1+2+3 is ON -> LCD print 1, 2, 3.<br>
+
 Aug 19 2016
 ----------
 (Vaclav Hrabe)<br/>
