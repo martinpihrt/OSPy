@@ -21,7 +21,7 @@ INSTALLATION:
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
 
-1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/master.zip.
+1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/refactor.zip.
 2. Extract the contents to a location of your choice.
 
 ## Setup
