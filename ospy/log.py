@@ -54,14 +54,16 @@ class _Log(logging.Handler):
 
     @staticmethod
     def _save_log(msg, level, event_type):
+        
+        msg_print = msg.encode('ascii', 'replace')
        
         # Print if it is important:
         if level >= logging.WARNING:
-            print(msg, file=sys.stderr)
+            print(msg_print, file=sys.stderr)
 
         # Or print it we are debugging or if it is general information
         elif options.debug_log or (event_type == 'Event' and level >= logging.INFO):
-            print(msg)
+            print(msg_print)
 
         # Save it if we are debugging
         if options.debug_log:
