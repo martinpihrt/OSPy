@@ -171,6 +171,7 @@ if __name__ == '__main__':
         except ImportError:
             if yes_no('Could not find setuptools which is needed to install packages, do you want to install it now?'):
                 import urllib
+                from ospy.helpers import del_rw
                 shutil.rmtree('tmp', onerror=del_rw)
                 os.mkdir('tmp')
                 urllib.urlretrieve('https://bootstrap.pypa.io/ez_setup.py', 'tmp/ez_setup.py')
