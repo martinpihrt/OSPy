@@ -56,10 +56,12 @@ def predicted_schedule(start_time, end_time):
             if station.index not in station_schedules:
                 station_schedules[station.index] = []
 
+            program_name = _('Run-Once')
+
             new_schedule = {
                 'active': None,
                 'program': -1,
-                'program_name': _('Run-Once'),
+                'program_name': program_name,
                 'fixed': True,
                 'cut_off': 0,
                 'manual': True,
@@ -67,7 +69,7 @@ def predicted_schedule(start_time, end_time):
                 'start': interval['start'],
                 'original_start': interval['start'],
                 'end': interval['end'],
-                'uid': '%s-%s-%d' % (str(interval['start']), "Run-Once", station.index),
+                'uid': '%s-%s-%d' % (str(interval['start']), str(program_name), station.index),
                 'usage': station.usage
             }
             station_schedules[station.index].append(new_schedule)
@@ -84,20 +86,20 @@ def predicted_schedule(start_time, end_time):
                 if station not in station_schedules:
                     station_schedules[station] = []
 
-                program_name = "%s (Run-Now)" % program.name
+                program_name = "%s " % program.name + _('Run-Now')
 
                 new_schedule = {
                     'active': None,
                     'program': -1,
                     'program_name': program_name,
-                    'fixed': True,
+                    'fixed': program.fixed, # True for ignore water level else program.fixed for use water level in run now-program xx
                     'cut_off': 0,
                     'manual': True,
                     'blocked': False,
                     'start': interval['start'],
                     'original_start': interval['start'],
                     'end': interval['end'],
-                    'uid': '%s-%s-%d' % (str(interval['start']), program_name, station),
+                    'uid': '%s-%s-%d' % (str(interval['start']), str(program_name), station),
                     'usage': stations.get(station).usage
                 }
                 station_schedules[station].append(new_schedule)
