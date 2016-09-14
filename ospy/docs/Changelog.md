@@ -1,5 +1,12 @@
 OSPy Changelog
 ====
+Sep 14 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Fix scheduler.py Run-Now program (if is set water level, program run time calculated with water level in "Run-Now" program.)<br>
+2. Fix scheduler.py string Run-Now in program name.<br>
+
 Aug 22 2016
 ----------
 (martinpihrt)<br/>
