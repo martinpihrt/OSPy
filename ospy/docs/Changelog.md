@@ -1,5 +1,12 @@
 OSPy Changelog
 ====
+
+Oct 18 2016
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Add function first version plugin "button control".<br>
+
 Sep 14 2016
 ----------
 (martinpihrt)<br/>
