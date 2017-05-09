@@ -204,8 +204,9 @@ class _Log(logging.Handler):
             interval = self._log['Run'][index]['data']
 
             # If this entry cannot have influence on the current state anymore:
-            if (first_start - interval['end']).total_seconds() > max(options.station_delay,
-                                                                     options.master_off_delay, 60):
+            if (first_start - interval['end']).total_seconds() > max(options.station_delay + options.min_runtime,
+                                                                     options.master_off_delay,
+                                                                     60):
                 del self._log['Run'][index]
 
         self._save_logs()
