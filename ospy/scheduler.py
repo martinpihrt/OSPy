@@ -258,10 +258,32 @@ def predicted_schedule(start_time, end_time):
 
                             # Lower usage at this starting point:
                             if next_change < 0:
-                                time_to_next = next_option + delay_delta - interval['start']
+                                skip_delay = False
+                                if options.min_runtime > 0:
+                                    # Try to determine how long we have been running at this point:
+                                    min_runtime_delta = datetime.timedelta(seconds=options.min_runtime)
+                                    temp_usage = 0
+                                    running_since = next_option
+                                    not_running_since = next_option
+                                    for temp_index in range(0, start_key_index):
+                                        temp_usage_key = usage_keys[temp_index]
+                                        if temp_usage < 0.01 and usage_changes[temp_usage_key] > 0 and temp_usage_key - not_running_since > datetime.timedelta(seconds=1):
+                                            running_since = temp_usage_key
+                                        temp_usage += usage_changes[temp_usage_key]
+                                        if temp_usage < 0.01 and usage_changes[temp_usage_key] < 0:
+                                            not_running_since = temp_usage_key
+                                    if next_option - running_since < min_runtime_delta:
+                                        skip_delay = True
+
+                                if skip_delay:
+                                    time_to_next = next_option - interval['start']
+                                else:
+                                    time_to_next = next_option + delay_delta - interval['start']
+
                                 interval['start'] += time_to_next
                                 interval['end'] += time_to_next
                                 break
+
 
             if failed:
                 logging.warning('Could not schedule %s.', interval['uid'])
