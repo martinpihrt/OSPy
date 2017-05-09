@@ -15,13 +15,13 @@ INSTALLATION:
 (This option does support automatic updating.)
 
 1. Ensure git is installed (and the git executable is in your path).
-2. Use git to clone: git clone -b refactor https://github.com/martinpihrt/OSPy.
+2. Use git to clone: git clone -b master https://github.com/martinpihrt/OSPy.
 3. Next use step "Setup"
 
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
 
-1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/refactor.zip.
+1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/master.zip.
 2. Extract the contents to a location of your choice.
 
 ## Setup
@@ -59,10 +59,10 @@ i2c-dev
 8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
  
 ## For translate OSPy to other language  
-https://github.com/martinpihrt/OSPy/tree/refactor/i18n and step by step, how to use is typed in MD file
+https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file
 
 ## For OSPy and plugins (plugins-temp and plugins-core) Changelog      
-https://github.com/martinpihrt/OSPy/blob/refactor/ospy/docs/Changelog.md
+https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog.md
 
 ## For OSPy and plugins Issues
 https://github.com/martinpihrt/OSPy/issues
