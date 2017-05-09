@@ -73,6 +73,8 @@ class PluginOptions(dict):
                     self[key] = float(qdict.get(key, old_value))
                 elif isinstance(default_value, str) or isinstance(old_value, unicode):
                     self[key] = qdict.get(key, old_value)
+                elif isinstance(default_value, list):
+                    self[key] = [int(x) for x in qdict.get(key, old_value)]           
             except ValueError:
                 import web
                 raise web.badrequest('Invalid value for \'%s\': \'%s\'' % (key, qdict.get(key)))
