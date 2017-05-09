@@ -181,7 +181,7 @@ def predicted_schedule(start_time, end_time):
         while index < len(all_intervals):
             interval = all_intervals[index]
 
-            if interval['original_start'] < to_skip['original_start']:
+            if interval['original_start'] < to_skip['original_start']  and (not to_skip['blocked'] or interval['blocked']):
                 del all_intervals[index]
             elif interval['uid'] == to_skip['uid']:
                 del all_intervals[index]
@@ -343,7 +343,8 @@ class _Scheduler(Thread):
             ignore_rain = stations.get(entry['station']).ignore_rain
             if entry['end'] <= current_time or (rain and not ignore_rain and not entry['blocked'] and not entry['manual']):
                 log.finish_run(entry)
-                stations.deactivate(entry['station'])
+                if not entry['blocked']:
+                    stations.deactivate(entry['station'])
 
         if not options.manual_mode:
             schedule = predicted_schedule(check_start, check_end)
