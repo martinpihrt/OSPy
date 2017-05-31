@@ -7,6 +7,12 @@ Changes:<br/>
 1. Add support to skip station delay after short runs. Create favicon.ico. Scheduler fix where runs would be forgotten in case another blocked (…un would be at the same time). Update theme.css.<br> 
 2. Fix - limited event log output in "System Debug Information" plugin.<br>
 
+May 10 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Add text selector in "LCD plugin". Fix speed for text.<br>
+
 Oct 18 2016
 ----------
 (martinpihrt)<br/>
