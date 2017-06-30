@@ -1,5 +1,12 @@
 OSPy Changelog
 ====
+June 30 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Add MQTT plugin. adds an MQTT client to the OSPy daemon for other plugins to use to publish information and / or receive commands over MQTT. On this page, the shared client is configured. Having a shared MQTT client simplifies configuration and lowers overhead on the OSPy process, network and broker.<br>
+2. Fix bug in button control plugin. If a connection to the i2c bus is lost, 1 button has been triggered spontaneously.<br>
+
 May 30 2017
 ----------
 (martinpihrt)<br/>
