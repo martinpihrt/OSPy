@@ -1,5 +1,12 @@
 OSPy Changelog
 ====
+July 19 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+1. Fix name in manifest app -> Sprinkler.<br>
+2. Fix bug in real time plugin (+Add secondary NTP server).<br>
+
 June 30 2017
 ----------
 (martinpihrt)<br/>
