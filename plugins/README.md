@@ -1,10 +1,7 @@
 OSPy Plug-ins
 ====
 
-Currently all plug-ins are in this repository.
-In the near future, the plug-ins will be separated from the main repository to provide easier plug-in installation.
-To support this, plug-ins have been standardized and put in individual folders.
-A plug-in is only allowed to install/store files in its own folder.
+Plug-ins have been moved to https://github.com/martinpihrt/OSPy-plugins-core and https://github.com/martinpihrt/OSPy-plugins-temp.
 
 The basic structure is as follows:
 

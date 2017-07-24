@@ -119,7 +119,7 @@ class _PluginChecker(threading.Thread):
                 if options.auto_plugin_update and options.use_plugin_update and not log.active_runs():
                     for plugin in available():
                         update = self.available_version(plugin)
-                        if update is not None and status[plugin]['hash'] != update['hash']:
+                        if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
                             logging.info('Updating the {} plug-in.'.format(plugin))
                             self.install_repo_plugin(update['repo'], plugin)
 
