@@ -30,6 +30,12 @@ def now():
     return time.time() + (datetime.datetime.now() - datetime.datetime.utcnow()).total_seconds()
 
 
+def try_float(val, default=0):
+    try:
+        return float(val)
+    except ValueError:
+        return default
+
 def datetime_string(timestamp=None):
     if timestamp:
         if hasattr(timestamp, 'strftime'):
@@ -196,7 +202,7 @@ def uptime():
 
 
 def get_ip():
-    """Returns the IP adress if available."""
+    """Returns the IP address if available."""
     try:
         import subprocess
         arg = 'ip route list'
@@ -210,7 +216,7 @@ def get_ip():
 
 
 def get_mac():
-    """Retrun MAC from file"""
+    """Return MAC from file"""
     try:
         return str(open('/sys/class/net/eth0/address').read())
     except Exception:
@@ -530,6 +536,7 @@ def get_help_file(id):
                     return web.template.Template(converted, globals=template_globals())()
     except Exception:
         pass
+
     return '' 
 
 def ASCI_convert(name):

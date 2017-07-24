@@ -22,15 +22,26 @@ class _Station(object):
         self.enabled = True
         self.ignore_rain = False
         self.usage = 1.0
+        self.precipitation = 10.0
+        self.capacity = 10.0
+        self.balance = {}
 
-        # Remove (old) master info:
+        # Remove (old) balance info:
         if options.cls_name(self, index) in options:
             opts = options[options.cls_name(self, index)]
-            if 'is_master' in opts:
-                del opts['is_master']
-            if 'is_master_two' in opts:
-                del opts['is_master_two']
-            options[options.cls_name(self, index)] = opts
+            if 'last_balance_date' in opts and 'last_balance' in opts:
+                self.balance[opts['last_balance_date']] = {
+                    'eto': 0.0,
+                    'rain': 0.0,
+                    'intervals': [],
+                    'total': opts['last_balance'],
+                    'valid': True
+                }
+
+            if 'last_balance_date' in opts:
+                del opts['last_balance_date']
+            if 'last_balance' in opts:
+                del opts['last_balance']
 
         options.load(self, index)
 

@@ -28,6 +28,7 @@ urls = [
 
     '/status.json', 'ospy.webpages.api_status_json',
     '/log.json', 'ospy.webpages.api_log_json',
+    '/balance.json', 'ospy.webpages.api_balance_json',
 
     '/api', api.get_app(),
     '/plugins', plugins.get_app(),

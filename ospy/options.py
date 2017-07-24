@@ -10,6 +10,8 @@ import shelve
 import i18n
 import helpers
 import traceback
+import os
+import time
 
 OPTIONS_FILE = './ospy/data/options.db'
 
@@ -38,6 +40,22 @@ class _Options(object):
             "name": _('Location'),
             "default": "",
             "help": _('City name or zip code. Use comma or + in place of space.'),
+            "category": _('System')
+        },
+        {
+            "key": "elevation",
+            "name": _('Elevation (m)'),
+            "default": 0,
+            "help": _('Elevation of this location in meters.'),
+            "category": _('System'),
+            "min": 0,
+            "max": 10000
+        },
+        {
+            "key": "wunderground_key",
+            "name": _('Wunderground API key'),
+            "default": "",
+            "help": _('To make use of local weather conditions, a weather underground API key is needed.'),
             "category": _('System')
         },
         {
@@ -276,6 +294,11 @@ class _Options(object):
             "key": "logged_runs",
             "name": _('The runs that have been logged'),
             "default": []
+        },
+        {
+            "key": "weather_cache",
+            "name": _('ETo and rain value cache'),
+            "default": {}
         }
     ]
 
@@ -288,12 +311,17 @@ class _Options(object):
         for info in self.OPTIONS:
             self._values[info["key"]] = info["default"]
 
-        try:
-            db = shelve.open(OPTIONS_FILE)
-            self._values.update(db)
-            db.close()
-        except Exception:
-            pass
+        for ext in ['', '.tmp', '.bak']:
+            try:
+                db = shelve.open(OPTIONS_FILE + ext)
+                if db.keys():
+                    self._values.update(db)
+                    db.close()
+                    break
+                else:
+                    db.close()
+            except Exception:
+                pass
 
         if not self.password_salt:  # Password is not hashed yet
             from ospy.helpers import password_salt
@@ -301,6 +329,11 @@ class _Options(object):
 
             self.password_salt = password_salt()
             self.password_hash = password_hash(self.password_hash, self.password_salt)
+
+    def __del__(self):
+        if self._write_timer is not None:
+            self._write_timer.cancel()
+
 
     def add_callback(self, key, function):
         if key not in self._callbacks:
@@ -377,10 +410,22 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
-        db = shelve.open(OPTIONS_FILE)
+        db = shelve.open(OPTIONS_FILE + '.tmp')
         db.clear()
         db.update(self._values)
         db.close()
+
+        if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
+                and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
+            os.remove(OPTIONS_FILE + '.bak')
+
+        if os.path.isfile(OPTIONS_FILE):
+            if not os.path.isfile(OPTIONS_FILE + '.bak'):
+                os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
+            else:
+                os.remove(OPTIONS_FILE)
+                
+        os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
 
     def get_categories(self):
         result = []

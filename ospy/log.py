@@ -32,9 +32,6 @@ class _Log(logging.Handler):
         self._lock = threading.RLock()
         self._plugin_time = time.time() + 3
 
-        # Remove old entries:
-        self._prune('Run')
-
     @property
     def level(self):
         return logging.DEBUG if options.debug_log else logging.INFO
@@ -44,12 +41,10 @@ class _Log(logging.Handler):
         pass  # Override level using options
 
     def _save_logs(self):
+        from ospy.programs import programs, ProgramType
         result = []
-        if options.run_log:
-            for entry in self._log['Run']:
-                result.append(entry)
-                if 0 < options.run_entries <= len(result):
-                    break
+        if options.run_log or any(program.type == ProgramType.WEEKLY_WEATHER for program in programs.get()):
+            result = self._log['Run']
         options.logged_runs = result
 
     @staticmethod
@@ -189,6 +184,8 @@ class _Log(logging.Handler):
         self.log_event(event_type, message, logging.ERROR)
 
     def clear_runs(self, all_entries=True):
+        from ospy.programs import programs, ProgramType
+        from ospy.stations import stations
         if all_entries or not options.run_log:  # User request or logging is disabled
             minimum = 0
         elif options.run_entries > 0:
@@ -198,15 +195,26 @@ class _Log(logging.Handler):
 
         # determine the start of the first active run:
         first_start = min([datetime.datetime.now()] + [interval['start'] for interval in self.active_runs()])
+        min_eto = datetime.date.today() + datetime.timedelta(days=1)
+        for program in programs.get():
+            if program.type == ProgramType.WEEKLY_WEATHER:
+                for station in program.stations:
+                    min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + stations.get(station).balance.keys()))
 
         # Now try to remove as much as we can
         for index in reversed(xrange(len(self._log['Run']) - minimum)):
             interval = self._log['Run'][index]['data']
 
+            delete = True
             # If this entry cannot have influence on the current state anymore:
-            if (first_start - interval['end']).total_seconds() > max(options.station_delay + options.min_runtime,
-                                                                     options.master_off_delay,
-                                                                     60):
+            if (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
+                                                                      options.master_off_delay,
+                                                                      60):
+                delete = False
+            elif interval['end'].date() >= min_eto:
+                delete = False
+
+            if delete:
                 del self._log['Run'][index]
 
         self._save_logs()

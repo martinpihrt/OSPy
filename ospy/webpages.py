@@ -7,6 +7,7 @@ import datetime
 import json
 import web
 import ast
+from threading import Timer
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
@@ -229,12 +230,15 @@ class program_page(ProtectedPage):
             enable = get_input(qdict, 'enable', None, lambda x: x == '1')
             if delete:
                 programs.remove_program(index)
+                Timer(0.1, programs.calculate_balances).start()
                 raise web.seeother('/programs')
             elif runnow:
                 programs.run_now(index)
+                Timer(0.1, programs.calculate_balances).start()
                 raise web.seeother('/programs')
             elif enable is not None:
                 programs[index].enabled = enable
+                Timer(0.1, programs.calculate_balances).start()
                 raise web.seeother('/programs')
         except ValueError:
             pass
@@ -260,8 +264,13 @@ class program_page(ProtectedPage):
         program.name = qdict['name']
         program.stations = json.loads(qdict['stations'])
         program.enabled = True if qdict.get('enabled', 'off') == 'on' else False
-        program.cut_off = int(qdict['cut_off'])
-        program.fixed = True if qdict.get('fixed', 'off') == 'on' else False
+
+        if qdict['schedule_type'] == ProgramType.WEEKLY_WEATHER:
+            program.cut_off = 0
+            program.fixed = True
+        else:
+            program.cut_off = int(qdict['cut_off'])
+            program.fixed = True if qdict.get('fixed', 'off') == 'on' else False
 
         simple = [int(qdict['simple_hour']) * 60 + int(qdict['simple_minute']),
                   int(qdict['simple_duration']),
@@ -292,6 +301,14 @@ class program_page(ProtectedPage):
         elif qdict['schedule_type'] == ProgramType.WEEKLY_ADVANCED:
             program.set_weekly_advanced(json.loads(qdict['weekly_schedule_data']))
 
+        elif qdict['schedule_type'] == ProgramType.WEEKLY_WEATHER:
+            program.set_weekly_weather(int(qdict['weather_irrigation_min']),
+                                       int(qdict['weather_irrigation_max']),
+                                       int(qdict['weather_run_max']),
+                                       int(qdict['weather_pause_ratio'])/100.0,
+                                       json.loads(qdict['weather_pems_data']),
+                                       )
+
         elif qdict['schedule_type'] == ProgramType.CUSTOM:
             program.modulo = int(qdict['interval'])*1440
             program.manual = False
@@ -301,6 +318,7 @@ class program_page(ProtectedPage):
         if program.index < 0:
             programs.add_program(program)
 
+        Timer(0.1, programs.calculate_balances).start()
         raise web.seeother('/programs')
 
 
@@ -526,6 +544,8 @@ class stations_page(ProtectedPage):
         for s in xrange(0, stations.count()):
             stations[s].name = qdict["%d_name" % s]
             stations[s].usage = float(qdict.get("%d_usage" % s, 1.0))
+            stations[s].precipitation = float(qdict.get("%d_precipitation" % s, 10.0))
+            stations[s].capacity = float(qdict.get("%d_capacity" % s, 10.0))
             stations[s].enabled = True if qdict.get("%d_enabled" % s, 'off') == 'on' else False
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
             if stations.master is not None or options.master_relay:
@@ -682,3 +702,20 @@ class api_log_json(ProtectedPage):
                 'start': interval['start'].strftime("%H:%M:%S"),
                 'duration': "%02d:%02d" % (minutes, seconds)
             }
+
+
+class api_balance_json(ProtectedPage):
+    """Balance API"""
+
+    def GET(self):
+        statuslist = []
+        epoch = datetime.date(1970, 1, 1)
+
+        for station in stations.get():
+            if station.enabled and any(station.index in program.stations for program in programs.get()):
+                statuslist.append({
+                    'station': station.name,
+                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.iteritems()}})
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(statuslist, indent=2)
