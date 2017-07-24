@@ -1,5 +1,48 @@
 OSPy Changelog
 ====
+
+July 24 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add all Rimco modifications:<br>
+420dfc7 Fixed dynamics around current time. Fixed cache clean-up.<br>
+7ee0572 Added support to skip station delay after short runs.<br>
+28490a6 Fixed temperature unit switching.<br>
+230f0fe Consider small gaps to be part of consecutive runs.<br>
+3e1bc71 Scheduler fix where runs would be forgotten in case another blocked run would be at the same time.<br>
+eeb4ffa Added new style favicons.<br>
+976478c Better support for manual touch control.<br>
+d25dec8 1. Added native weather module using Weather Underground data.<br>
+d25dec8 2. Added ETo calculations based on Weather Underground data.<br>
+d25dec8 3. Added precipitation in mm/h per station.<br>
+d25dec8 4. Added new schedule type which sprinkles based on ETo calculations.<br>
+93ba751 Small fixes.<br>
+4e48b14 Small CSS fix.<br>
+5f7214f Added station capacity.<br>
+ff0f41c Critical fix for weather based program.<br>
+8e3f468 Updated weather based schedule to partially take manual runs into account.<br> 
+0d79b7e Fixed problems with saving run information for weather based schedules.<br>
+bf4e3e4 Improved weather based scheduling looking at all constraints. Small robustness improvement in plug-in loader.<br>
+81e8636 More correct scheduling and options database corruption protection.<br>
+f36d2c0  Still improving db handling.<br>
+399f36b Better fallback mechanism and caching for weather information.<br>
+3fc5377 Improved weather caching.<br>
+5ed5ebb Added plot for weather based water balance overview.<br>
+68c224c Improved caption.<br>
+09c68a6 Fix in predicted balance.<br>
+627efff Added some rounding.<br>
+425801f Increased recalculation frequency.<br>
+e4dfec4 Hide graph in manual mode.<br>
+22021fa Added weather based schedule logic to sprinkle less while it is raining.<br>
+adf653a Added balance fix in schedule.<br>
+d646d7f Fixed scheduling and graph updating.<br>
+7a4fe64 Even more refreshing.<br>
+66696d7 Prevent double planning.<br>
+84dc4a8 Not sure yet what to pick as constant.<br>
+420dfc7 Fixed dynamics around current time. Fixed cache clean-up.<br>
+28ecda7 Schedule shortest runs first.<br>
+
 July 19 2017
 ----------
 (martinpihrt)<br/>
