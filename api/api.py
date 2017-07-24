@@ -126,7 +126,8 @@ class Programs(object):
             ProgramType.REPEAT_SIMPLE: prog.set_repeat_simple,
             ProgramType.DAYS_ADVANCED: prog.set_days_advanced,
             ProgramType.REPEAT_ADVANCED: prog.set_repeat_advanced,
-            ProgramType.WEEKLY_ADVANCED: prog.set_weekly_advanced
+            ProgramType.WEEKLY_ADVANCED: prog.set_weekly_advanced,
+            ProgramType.WEEKLY_WEATHER: prog.set_weekly_weather
         }
 
         for k, v in data.iteritems():
