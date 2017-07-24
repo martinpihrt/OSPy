@@ -242,7 +242,27 @@ function check_type() {
     } else {
         jQuery("#custom_controls").hide()
     }
+    if (schedule_type == WEEKLY_WEATHER) {
+        jQuery("#weather_controls").show()
+        jQuery("#weather_pems").show()
+        jQuery("#adjustment_controls").hide()
+    } else {
+        jQuery("#weather_controls").hide()
+        jQuery("#weather_pems").hide()
+        jQuery("#adjustment_controls").show()
+    }
     jQuery(".addStartMarker, .newStart").remove();
+}
+
+function create_weather_schedule() {
+    var pems = jQuery("#pemList tbody tr.pemEntry").map(function() {
+        var day = parseInt(jQuery(this).find('.weather_pem_day').first().val());
+        var hour = parseInt(jQuery(this).find('.weather_pem_hour').first().val());
+        var min = parseInt(jQuery(this).find('.weather_pem_min').first().val());
+        var prio = parseInt(jQuery(this).find('.weather_pem_prio').first().val());
+        return [[day*1440+hour*60+min, prio]];
+    }).get();
+    jQuery("#weather_pems_data").val(JSON.stringify(pems));
 }
 
 jQuery(document).ready(function(){
@@ -317,6 +337,22 @@ jQuery(document).ready(function(){
             .mouseout(addScheduleMouseout)
             .click(addScheduleClick);
 
+    jQuery("button#weather_pem_add").click(function(){
+        jQuery("#pemList tbody tr:first").clone().attr('style', '').attr('class', 'pemEntry').appendTo("#pemList tbody");
+        create_weather_schedule();
+        return false;
+    });
+
+    jQuery('#pemList').on('click', '.weather_pem_delete', function(){
+        jQuery(this).closest('tr').remove();
+        create_weather_schedule();
+        return false;
+    });
+
+    jQuery('#pemList').on('change', 'select,input', function(){
+        create_weather_schedule();
+    });
+
 });
 </script>
 <div id="programs">
@@ -347,15 +383,34 @@ jQuery(document).ready(function(){
                 <br>
 
 
-                <div class='option' style="white-space: nowrap" title=$_('Do not apply any adjustments to intervals of this program.')>
-                    <span class="program_label">$_('No adjustments'):</span>
-                    <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
-                </div>
-                <div class='option' style="white-space: nowrap" title=$_('Skip the program if the total adjustment is lower than this percentage.')>
-                    <span class="program_label">$_('Cut-off'):</span>
-                    <input name="cut_off" type="number" min="0" max="100" size="3" maxlength="3" value="${program.cut_off}">
-                </div>
+                <div id="adjustment_controls" style="display: none;">
+                    <div class='option' style="white-space: nowrap" title=$_('Do not apply any adjustments to intervals of this program.')>
+                        <span class="program_label">$_('No adjustments'):</span>
+                        <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
+                    </div>
+                    <div class='option' style="white-space: nowrap" title=$_('Skip the program if the total adjustment is lower than this percentage.')>
+                        <span class="program_label">$_('Cut-off'):</span>
+                        <input name="cut_off" type="number" min="0" max="100" size="3" maxlength="3" value="${program.cut_off}">
+                    </div>
 
+            </div>
+            <div id="weather_controls" style="display: none;">
+                    <div class='option' style="white-space: nowrap" title=$_('Start sprinkling if the deficit is at least this value.')>
+                        <span class="program_label">$_('Irrigation min'):</span>
+                        <input name="weather_irrigation_min" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_min()}">mm
+                    </div>
+                    <div class='option' style="white-space: nowrap" title=$_('If sprinkling, never sprinkle more than this amount per station per execution moment.')>
+                        <span class="program_label">$_('Irrigation max'):</span>
+                        <input name="weather_irrigation_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_max()}">mm
+                    </div>
+                    <div class='option' style="white-space: nowrap" title=$_('If sprinkling, never sprinkle more than this amount continuously.')>
+                        <span class="program_label">$_('Run max'):</span>
+                        <input name="weather_run_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.run_max()}">mm
+                    </div>
+                    <div class='option' style="white-space: nowrap" title=$_('If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running).')>
+                        <span class="program_label">$_('Pause ratio'):</span>
+                        <input name="weather_pause_ratio" type="number" min="0" max="100" size="3" maxlength="3" value="${int(program.pause_ratio()*100)}">%
+                    </div>
             </div>
             <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
             $for station in stations.enabled_stations():
@@ -486,6 +541,65 @@ jQuery(document).ready(function(){
             </table>
         </div>
 
+        <div class="simpleblock" id="weather_pems" style="padding: 5px; display: none;">
+            <input type="hidden" id="weather_pems_data" name="weather_pems_data" value="${[[x, y] for x, y in sorted(program.pems())]}">
+            <b>Preferred Execution Moments</b>
+            <table id="pemList" class="pemList">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start time</th>
+                    <th>Priority</th>
+                    <th><button id="weather_pem_add" class="minibutton">Add</button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="display: none;">
+                    <td>
+                        <select class="weather_pem_day">
+                            $for day in xrange(7):
+                                <option value="${str(day)}">${long_day(day)}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="weather_pem_hour" type="number" maxlength="2" value="06" style="width: 60px" min="0" max="23"> :
+                        <input class="weather_pem_min" type="number" maxlength="2" value="00" style="width: 60px" min="0" max="59">
+                    </td>
+                    <td>
+                        <select class="weather_pem_prio">
+                            $for prio_opt in xrange(1, 11):
+                                <option value="${str(prio_opt)}">${str(prio_opt)}${" (Least preferred)" if prio_opt == 1 else ""}${" (Most preferred)" if prio_opt == 10 else ""}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="weather_pem_delete minibutton danger">Delete</button>
+                    </td>
+                </tr>
+                $for index, (pem, prio) in enumerate(sorted(program.pems())):
+                    <tr class="pemEntry">
+                        <td>
+                            <select class="weather_pem_day">
+                                $for day in xrange(7):
+                                    <option value="${str(day)}" ${"selected" if int(pem)/1440 == day else ""}>${long_day(day)}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="weather_pem_hour" type="number" maxlength="2" value="${two_digits((pem%1440)/60)}" style="width: 60px" min="0" max="23"> :
+                            <input class="weather_pem_min" type="number" maxlength="2" value="${two_digits((pem%1440)%60)}" style="width: 60px" min="0" max="59">
+                        </td>
+                        <td>
+                            <select class="weather_pem_prio">
+                                $for prio_opt in xrange(1, 11):
+                                    <option value="${str(prio_opt)}" ${"selected" if prio == prio_opt else ""}>${str(prio_opt)}${" (Least preferred)" if prio_opt == 1 else ""}${" (Most preferred)" if prio_opt == 10 else ""}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="weather_pem_delete minibutton danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </form>
 </div>
 

@@ -13,6 +13,8 @@ $var page: stations
                 <th class="stationNumber">$_('Station')</th>
                 <th class="stationName">$_('Name')</th>
                 <th class="stationUsage">$_('Usage')</th>
+                <th class="stationUsage">$_('Precipitation (mm/h)')</th>
+                <th class="stationUsage">$_('Capacity (mm)')</th>
                 <th class="stationShow">$_('Connected?')</th>
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
                 $if stations.master is not None:
@@ -28,6 +30,12 @@ $var page: stations
                     </td>
                     <td class="stationUsage">
                         <input type="number" size="3" maxlength="3" value="${str(station.usage)}" name="${station.index}_usage">
+                    </td>
+                    <td class="stationUsage">
+                        <input type="number" size="3" maxlength="3" value="${str(station.precipitation)}" name="${station.index}_precipitation">
+                    </td>
+                    <td class="stationUsage">
+                        <input type="number" size="3" maxlength="3" value="${str(station.capacity)}" name="${station.index}_capacity">
                     </td>
                     $if station.is_master:
                         <td class="stationMaster" colspan="4">($_('Master station'))</td>
