@@ -334,7 +334,7 @@ class _Program(object):
         elif self.type == ProgramType.WEEKLY_WEATHER:
             irrigation_min = self.type_data[0]
             irrigation_max = self.type_data[1]
-            result = "For <span class='val'>%d</span> to <span class='val'>%d</span> mm<br>" % (irrigation_min, irrigation_max)
+            result = _('For min') + "<span class='val'> %d </span>" % (irrigation_min) + _('to max') + "<span class='val'> %d</span> mm<br>" % (irrigation_max)
 
         return result
 
