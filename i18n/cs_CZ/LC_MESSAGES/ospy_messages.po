@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
 "POT-Creation-Date: 2016-05-24 09:03+0200\n"
-"PO-Revision-Date: 2017-05-09 18:34+0200\n"
+"PO-Revision-Date: 2017-07-28 10:30+0200\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -507,11 +507,11 @@ msgstr "Restartování"
 
 #: ospy/templates/restarting.html:
 msgid "OSPy is restarting"
-msgstr "OSPy se restartuje"
+msgstr "OSPy se restartuje (nebo se vypíná systém)"
 
 #: ospy/templates/restarting.html:
 msgid "You will be redirected as soon as possible..."
-msgstr "Budete přesměrováni zpět co nejdříve..."
+msgstr "Budete přesměrováni zpět co nejdříve (pokud je to možné)..."
 
 #: ospy/templates/runonce.html:
 msgid "Run-Once"
@@ -523,7 +523,7 @@ msgstr "Jednorázový program"
 
 #: ospy/templates/runonce.html:
 msgid "Reset Time"
-msgstr "Smazat Čas"
+msgstr "Smazat čas"
 
 #: ospy/templates/runonce.html:
 msgid "All values should be positive and seconds should not exceed 59."
@@ -589,6 +589,22 @@ msgstr "Umístění"
 msgid "City name or zip code. Use comma or + in place of space."
 msgstr "Název města, nebo poštovní směrovací číslo. Čárka nebo + v mezeře (nepoužívejte diakritiku)."
 
+#: ospy/options.py:47
+msgid "Elevation (m)"
+msgstr "Nadmořská výška (m)"
+
+#: ospy/options.py:49
+msgid "Elevation of this location in meters."
+msgstr "Nadmořská výška pro vaše umístění v metrech."
+
+#: ospy/options.py:56
+msgid "Wunderground API key"
+msgstr "API klíč Wunderground"
+
+#: ospy/options.py:58
+msgid "To make use of local weather conditions, a weather underground API key is needed."
+msgstr "Pro získání místní předpovědi počasí je vyžadován API klíč nutný pro přístup do služby weather underground."
+
 #: ospy/options.py:
 msgid "24-hour clock"
 msgstr "24-hodinový čas"
@@ -647,7 +663,7 @@ msgstr "Maximální využití"
 
 #: ospy/options.py:
 msgid "Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1."
-msgstr "Určuje, jak se jednotlivé stanice kombinují. 0 žádný limit, 1 je sekvenční. V případě, že všechny stanice mají sekvenční využití­."
+msgstr "Určuje, jak se jednotlivé stanice kombinují. Souběh = 0 nebo sekvence = 1. V případě, že všechny stanice mají nastavené sekvenční použití­."
 
 #: ospy/options.py:
 msgid "Station Handling"
@@ -785,6 +801,10 @@ msgstr "Aktuální heslo šifrovací čas"
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
+#: ospy/options.py:300
+msgid "ETo and rain value cache"
+msgstr ""
+
 #: ospy/webpages.py:
 msgid "Password:"
 msgstr "Heslo:"
@@ -836,6 +856,14 @@ msgstr "Týdenní (rozšířené)"
 #: ospy/programs.py:
 msgid "Custom"
 msgstr "Vlastní"
+
+#: ospy/programs.py:36
+msgid "Weekly (Weather based)"
+msgstr "Týdenní (předpověď počasí)"
+
+#: ospy/programs.py:272
+msgid "Weather based schedule on"
+msgstr "Plánovač dle počasí ve dnech "
 
 #: ospy/programs.py:
 msgid "Unknown schedule"
@@ -980,6 +1008,38 @@ msgstr "Poběží:"
 #: ospy/templates/program.html:
 msgid "Schedule:"
 msgstr "Plánovač:"
+
+#: ospy/templates/program.html:398
+msgid "Start sprinkling if the deficit is at least this value."
+msgstr "Začít zavlažovat, pokud je deficit alespoň touto hodnotou."
+
+#: ospy/templates/program.html:399
+msgid "Irrigation min"
+msgstr "Minimální zavlažování"
+
+#: ospy/templates/program.html:402
+msgid "If sprinkling, never sprinkle more than this amount per station per execution moment."
+msgstr "Při zavlažovaní nikdy nezavlažovat více než je toto množství na stanici v danou dobu."
+
+#: ospy/templates/program.html:403
+msgid "Irrigation max"
+msgstr "Maximální zavlažování"
+
+#: ospy/templates/program.html:406
+msgid "If sprinkling, never sprinkle more than this amount continuously."
+msgstr "Při zavlažování nikdy nezavlažovat nepřetržitě více než je toto množství."
+
+#: ospy/templates/program.html:407
+msgid "Run max"
+msgstr "Maximální dávka"
+
+#: ospy/templates/program.html:410
+msgid "If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running)."
+msgstr "Je-li dosaženo maximální dávky tak zde určíme jak dlouho by měla být přestávka (v procentech délky času běhu)."
+
+#: ospy/templates/program.html:411
+msgid "Pause ratio"
+msgstr "Poměr pauzy"
 
 #: ospy/helpers.py:
 msgid "Mon"
@@ -1132,3 +1192,47 @@ msgstr "Zap (hlavní 2)"
 #: ospy/templates/home.html:298
 msgid "Off (Master Two)"
 msgstr "Vyp (hlavní 2)"
+
+#: ospy/templates/program.html:546
+msgid "Preferred Execution Moments"
+msgstr "Upřednostnění okamžiku provedení"
+
+#: ospy/templates/program.html:552
+msgid "Priority"
+msgstr "Přednost"
+
+#: ospy/templates/program.html:553
+msgid "Add"
+msgstr "Přidat"
+
+#: ospy/templates/program.html:573 ospy/templates/program.html:600
+msgid " (Least preferred)"
+msgstr " (Nejméně upřednostněné)"
+
+#: ospy/templates/program.html:575 ospy/templates/program.html:602
+msgid " (Most preferred)"
+msgstr " (Nejvíce upřednostněné)"
+
+#: ospy/templates/stations.html:16
+msgid "Precipitation (mm/h)"
+msgstr "Závlaha (mm/h)"
+
+#: ospy/templates/stations.html:17
+msgid "Capacity (mm)"
+msgstr "Zásoba (mm)"
+
+#: proč se negeneruje do šablony?
+msgid "Previous"
+msgstr "Předešlé"
+
+msgid "Rain"
+msgstr "Déšť"
+
+msgid "Reason"
+msgstr "Statistika"
+
+msgid "Water balance (mm)"
+msgstr "Statistika zavlažování (mm)"
+
+msgid "ETo"
+msgstr "ETo"
