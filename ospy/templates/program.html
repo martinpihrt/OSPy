@@ -384,30 +384,30 @@ jQuery(document).ready(function(){
 
 
                 <div id="adjustment_controls" style="display: none;">
-                    <div class='option' style="white-space: nowrap" title=$_('Do not apply any adjustments to intervals of this program.')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Do not apply any adjustments to intervals of this program.'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('No adjustments'):</span>
                         <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$_('Skip the program if the total adjustment is lower than this percentage.')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Skip the program if the total adjustment is lower than this percentage.'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('Cut-off'):</span>
                         <input name="cut_off" type="number" min="0" max="100" size="3" maxlength="3" value="${program.cut_off}">
                     </div>
 
             </div>
             <div id="weather_controls" style="display: none;">
-                    <div class='option' style="white-space: nowrap" title=$_('Start sprinkling if the deficit is at least this value.')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Start sprinkling if the deficit is at least this value.'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('Irrigation min'):</span>
                         <input name="weather_irrigation_min" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_min()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$_('If sprinkling, never sprinkle more than this amount per station per execution moment.')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount per station per execution moment.'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('Irrigation max'):</span>
                         <input name="weather_irrigation_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_max()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$_('If sprinkling, never sprinkle more than this amount continuously.')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount continuously.'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('Run max'):</span>
                         <input name="weather_run_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.run_max()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$_('If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running).')>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running).'), ensure_ascii=False).encode('utf8')}>
                         <span class="program_label">$_('Pause ratio'):</span>
                         <input name="weather_pause_ratio" type="number" min="0" max="100" size="3" maxlength="3" value="${int(program.pause_ratio()*100)}">%
                     </div>
