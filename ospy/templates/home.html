@@ -84,9 +84,9 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False)} + ") " + log[l].blocked + ")";
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')} + ") " + log[l].blocked + ")";
             } else {
-                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False)} + " " + toClock(log[l].duration, 1);
+                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8')} + " " + toClock(log[l].duration, 1);
             }
         }
         displaySchedule(log);
@@ -126,31 +126,31 @@ function updateStatus(status) {
                 classes += " master";
                 if (station.status == "on") {
                     if (station.master){ 
-                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False)}; 
+                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8')}; 
                        }
                     else {
-                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False)};
+                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8')};
                        }
                 } else {
                     if (station.master){ 
-                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False)};
+                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8')};
                        }
                     else {
-                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False)};
+                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8')};
                        } 
                 }
                 break;
             case "rain_delay" :
-                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False)};
+                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8')};
                 break;
             case "rain_sensed" :
-                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False)};
+                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8')};
                 break;
             case "system_off" :
-                display = $:{json.dumps(_('Disabled'), ensure_ascii=False)};
+                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8')};
                 break;
             default:
-                display = $:{json.dumps(_('Off'), ensure_ascii=False)};
+                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8')};
         }
         jQuery("td#status" + station.station)
             .text(display)
@@ -168,10 +168,10 @@ function water_level_prompt(current){
     if (current != 1.0) {
         var w = 100;
     } else {
-        var w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False)}, current*100);
+        var w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
     }
     if (w < 0) {
-        var w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False)},"0");
+        var w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (w != null) {
         window.location="/action?level_adjustment=" + w;
@@ -182,10 +182,10 @@ function rain_delay_prompt(current){
     if (current != 0) {
         var h = 0;
     } else {
-        var h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False)},"0");
+        var h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
     }
     if (h < 0) {
-        var h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False)},"0");
+        var h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (h != null) {
         window.location="/action?rain_block=" + h;
@@ -215,24 +215,24 @@ function draw_graph(result) {
     for (var i = 0; i < result.length; i++) {
         var balances = [];
         var texts = [];
-        var txt_header = "<table class=\"balanceList\"><tr><th>Reason</th><th>(mm)</th></tr>";
+        var txt_header = "<table class=\"balanceList\"><tr><th>$_('Reason')</th><th>(mm)</th></tr>";
         var txt_body = "";
         var txt_footer = "</table>";
         for (timestamp in result[i]['balances']) {
             var balance = result[i]['balances'][timestamp];
             balances.push([1000*parseInt(timestamp), balance['total']]);
-            txt_body += "<tr><td>ETo</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
-            txt_body += "<tr><td>Rain</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>$_('ETo')</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>$_('Rain')</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
 
             for (var j = 0; j < balance['intervals'].length; j++) {
                 var interval = balance['intervals'][j]
                 txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
             }
 
-            txt_body += "<tr><th>Total</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
+            txt_body += "<tr><th>$_('Total')</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
             texts.push(result[i]['station'] + " @ " + toXSDate(new Date(1000*parseInt(timestamp))) + "<br>" + txt_header + txt_body + txt_footer);
 
-            txt_body = "<tr><td>Previous</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
+            txt_body = "<tr><td>$_('Previous')</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
         }
 
         if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
@@ -271,7 +271,7 @@ function draw_graph(result) {
         },
         yaxes: [{
             position: 'left',
-            axisLabel: 'Water balance (mm)',
+            axisLabel: '$_('Water balance (mm)')',
         }]
     });
 }
@@ -341,7 +341,7 @@ jQuery(document).ready(function(){
                 var mm = (strmm == "" ? 0 : parseInt(strmm));
                 var ss = (strss == "" ? 0 : parseInt(strss));
                 if (!(mm >= 0 && ss >= 0 && ss < 60)) {
-                    alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False)} + " " + strmm + ":" + strss);
+                    alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8')} + " " + strmm + ":" + strss);
                     return;
                 }
                 window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss);  // turn it off with timer

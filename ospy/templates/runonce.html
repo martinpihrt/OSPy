@@ -19,7 +19,7 @@ $var page: runonce
             hour = (isNaN(hour) ? 0 : hour);
             minute = (isNaN(minute) ? 0 : minute);
             if (hour < 0 || minute < 0 || minute > 59) {
-                alert($:{json.dumps(_('All values should be positive and seconds should not exceed 59.'), ensure_ascii=False)});
+                alert($:{json.dumps(_('All values should be positive and seconds should not exceed 59.'), ensure_ascii=False).encode('utf8')});
                 return false;
             }
             if (hour > 0 || minute > 0) anything = true;

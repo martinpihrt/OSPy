@@ -15,7 +15,7 @@ $code:
 
     jQuery("button#tooltips").click(function(){
         var visible = jQuery(this).text() == "Hide Tooltips";
-        jQuery(this).text(visible ? $:{json.dumps(_('Show Tooltips'), ensure_ascii=False)} : $:{json.dumps(_('Hide Tooltips'), ensure_ascii=False)});
+        jQuery(this).text(visible ? $:{json.dumps(_('Show Tooltips'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('Hide Tooltips'), ensure_ascii=False).encode('utf8')});
         jQuery(".tooltip").toggle();
     });
 
@@ -55,15 +55,15 @@ $code:
          
     switch (errorCode) {
         case "pw_wrong":
-            jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False)});
+            jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False).encode('utf8')});
             jQuery("#erroropw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_blank":
-            jQuery("#errornpw").text($:{json.dumps(_('Please enter a password.'), ensure_ascii=False)});
+            jQuery("#errornpw").text($:{json.dumps(_('Please enter a password.'), ensure_ascii=False).encode('utf8')});
             jQuery("#errornpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_mismatch":
-            jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False)});
+            jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False).encode('utf8')});
             jQuery("#errorcpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
     }

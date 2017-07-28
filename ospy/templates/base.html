@@ -31,9 +31,9 @@ $def with (content)
 <script>
         // Set up a live clock based on device time
 function dateString(d) {
-    var dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False)}, $:{json.dumps(_('Monday'), ensure_ascii=False)}, $:{json.dumps(_('Tuesday'), ensure_ascii=False)}, $:{json.dumps(_('Wednesday'), ensure_ascii=False)}, $:{json.dumps(_('Thursday'), ensure_ascii=False)}, $:{json.dumps(_('Friday'), ensure_ascii=False)}, $:{json.dumps(_('Saturday'), ensure_ascii=False)}][d.getDay()];
+    var dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Monday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Tuesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Wednesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Thursday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Friday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Saturday'), ensure_ascii=False).encode('utf8')}][d.getDay()];
     dateString += " " + d.getDate() + " ";
-    dateString += [$:{json.dumps(_('January'), ensure_ascii=False)}, $:{json.dumps(_('February'), ensure_ascii=False)}, $:{json.dumps(_('March'), ensure_ascii=False)}, $:{json.dumps(_('April'), ensure_ascii=False)}, $:{json.dumps(_('May'), ensure_ascii=False)}, $:{json.dumps(_('June'), ensure_ascii=False)}, $:{json.dumps(_('July'), ensure_ascii=False)}, $:{json.dumps(_('August'), ensure_ascii=False)}, $:{json.dumps(_('September'), ensure_ascii=False)}, $:{json.dumps(_('October'), ensure_ascii=False)}, $:{json.dumps(_('November'), ensure_ascii=False)}, $:{json.dumps(_('December'), ensure_ascii=False)}][d.getMonth()];
+    dateString += [$:{json.dumps(_('January'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('February'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('March'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('April'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('May'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('June'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('July'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('August'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('September'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('October'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('November'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('December'), ensure_ascii=False).encode('utf8')}][d.getMonth()];
     return dateString;
 }
 
@@ -48,7 +48,7 @@ function toClock(duration, tf) {
     var h = Math.floor(duration/60);
     var m = Math.floor(duration - (h*60));
     if (tf == 0) {
-        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False)} : $:{json.dumps(_('pm'), ensure_ascii=False)});
+        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8')});
     } else {
         return (h<10 ? "0" : "") + h + ":" + (m<10 ? "0" : "") + m;
     }
@@ -70,7 +70,7 @@ function updateClock() {
         jQuery("#deviceTime span.ampm").text("");
     } else {
         jQuery("#deviceTime span.hour").text(now.getHours()%12 == 0 ? "12" : now.getHours() % 12);
-        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False)} : $:{json.dumps(_('am'), ensure_ascii=False)}));
+        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8')}));
     }
     jQuery("#deviceTime span.minute").text((now.getMinutes() < 10 ? "0" : "") + now.getMinutes());
     jQuery("#deviceTime span.second").text(":" + (now.getSeconds() < 10 ? "0" : "") + now.getSeconds());
@@ -151,7 +151,7 @@ jQuery(document).ready(function(){
 
         <div class="footer">
             <p>$_('CPU Temp'): <b>
-                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False)} + ' Celsius &lt;&gt; Fahrenheit'> ${get_cpu_temp(options.temp_unit)} ${options.temp_unit}</span>
+                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> ${get_cpu_temp(options.temp_unit)} ${options.temp_unit}</span>
             </b></p>
             <p><a href="https://github.com/martinpihrt/OSPy">$_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
         </div>
