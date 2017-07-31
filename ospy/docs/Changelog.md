@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+July 31 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+81e8636 options database corruption protection not function 100% not used.<br>
+Fixed LCD plug-in and email plug-in.<br>
+Add Czech string for weather.<br>
+
 July 24 2017
 ----------
 (martinpihrt)<br/>
