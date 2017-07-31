@@ -95,7 +95,7 @@ class _Options(object):
         {
             "key": "auto_plugin_update",
             "name": _('Automatic plug-in updates'),
-            "default": True
+            "default": False
         },
         {
             "key": "use_plugin_update",
@@ -311,17 +311,24 @@ class _Options(object):
         for info in self.OPTIONS:
             self._values[info["key"]] = info["default"]
 
-        for ext in ['', '.tmp', '.bak']:
-            try:
-                db = shelve.open(OPTIONS_FILE + ext)
-                if db.keys():
-                    self._values.update(db)
-                    db.close()
-                    break
-                else:
-                    db.close()
-            except Exception:
-                pass
+        try:
+            db = shelve.open(OPTIONS_FILE)
+            self._values.update(db)
+            db.close()
+        except Exception:
+            pass
+
+        #for ext in ['', '.tmp', '.bak']:
+        #    try:
+        #        db = shelve.open(OPTIONS_FILE + ext)
+        #        if db.keys():
+        #            self._values.update(db)
+        #            db.close()
+        #            break
+        #        else:
+        #            db.close()
+        #    except Exception:
+        #        pass
 
         if not self.password_salt:  # Password is not hashed yet
             from ospy.helpers import password_salt
@@ -333,7 +340,6 @@ class _Options(object):
     def __del__(self):
         if self._write_timer is not None:
             self._write_timer.cancel()
-
 
     def add_callback(self, key, function):
         if key not in self._callbacks:
@@ -372,6 +378,7 @@ class _Options(object):
             if key in self._callbacks:
                 if value != self._callbacks[key]['last_value']:
                     for cb in self._callbacks[key]['functions']:
+
                         try:
                             cb(key, self._callbacks[key]['last_value'], value)
                         except Exception:
@@ -410,22 +417,29 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
-        db = shelve.open(OPTIONS_FILE + '.tmp')
+        db = shelve.open(OPTIONS_FILE)
         db.clear()
         db.update(self._values)
         db.close()
 
-        if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
-                and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
-            os.remove(OPTIONS_FILE + '.bak')
+#        db = shelve.open(OPTIONS_FILE + '.tmp')
+#        db.clear()
+#        db.update(self._values)
+#        db.close()
+#
+#        if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
+#                and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or
+#                                                      time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
+#            os.remove(OPTIONS_FILE + '.bak')
+#
+#        if os.path.isfile(OPTIONS_FILE):
+#            if not os.path.isfile(OPTIONS_FILE + '.bak'):
+#                os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
+#            else:
+#                os.remove(OPTIONS_FILE)
+#
+#        os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
 
-        if os.path.isfile(OPTIONS_FILE):
-            if not os.path.isfile(OPTIONS_FILE + '.bak'):
-                os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
-            else:
-                os.remove(OPTIONS_FILE)
-                
-        os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
 
     def get_categories(self):
         result = []
