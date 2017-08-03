@@ -3,6 +3,7 @@
 
 # System imports
 import os
+from shutil import copyfile
 import datetime
 import json
 import web
@@ -23,6 +24,7 @@ from ospy.stations import stations
 from ospy import scheduler
 import plugins
 import i18n
+
 
 from web import form
 
@@ -610,9 +612,15 @@ class upload_page(ProtectedPage):
                fout = open(OPTIONS_FILE,'w') 
                fout.write(i.uploadfile.file.read()) 
                fout.close() 
-               log.debug('webpages.py', 'Uploading and saving options.db file sucesfully, now restarting OSPy...')
-               restart(3)
-               return self.core_render.restarting(home_page)
+
+               if os.path.isfile(OPTIONS_FILE):                   # exists options.db after upload?
+                 if os.path.isfile(OPTIONS_FILE + '.bak'):        # exists old options.db.bak
+                    os.remove(OPTIONS_FILE + '.bak')              # remove old options.db.bak
+                 copyfile(OPTIONS_FILE, OPTIONS_FILE + '.bak')    # copy new options.db to old options.db.bak
+
+                 log.debug('webpages.py', 'Upload, save, copy options.db file sucesfully, now restarting OSPy...')
+                 restart(3)
+                 return self.core_render.restarting(home_page)
             self._redirect_back()
 
         except Exception:
