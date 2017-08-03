@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Aug 1 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed options database corruption protection.<br>
+Fixed webpages upload backup options.db back to server.<br>
+
 July 31 2017
 ----------
 (martinpihrt)<br/>
