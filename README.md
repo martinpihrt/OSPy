@@ -6,7 +6,10 @@ OSPy - OpenSprinklerPython An improved Python port of the Arduino based OpenSpri
 This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.  
 
 ## More information visit
-HW PCB board: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
+Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
+
+## Hardware
+<a href="blockconnection.png"><img src="blockconnection.png" width="100%"></a>
 
 INSTALLATION:
 ===========
@@ -31,9 +34,8 @@ This setup also helps you in case you want to run the program as a service (on R
 1. Go to the folder where the setup.py file is located (cd OSPy).
 2. Execute: sudo apt-get update and follow the procedures
 3. Execute: sudo apt-get upgrade and follow the procedures
-2. Execute: sudo apt-get install python-setuptools and follow the procedures
-2. Execute: python setup.py install
-3. Follow the procedures of the script.
+4. Execute: python setup.py install
+5. Follow the procedures of the script.
 
 ## For enable SSL access in options (for HTTPS connections)
 1. Execute: sudo apt-get install openssl
