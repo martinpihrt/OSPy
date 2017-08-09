@@ -410,6 +410,10 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
+        if os.path.isfile(OPTIONS_FILE + '.tmp'):
+           if os.path.getsize(OPTIONS_FILE + '.tmp') == 0:
+              os.remove(OPTIONS_FILE + '.tmp')
+
         db = shelve.open(OPTIONS_FILE + '.tmp')
         db.clear()
         db.update(self._values)
@@ -432,7 +436,6 @@ class _Options(object):
         if os.path.isfile(OPTIONS_FILE):
             if os.path.isfile(OPTIONS_FILE + '.copy'):
                  os.remove(OPTIONS_FILE + '.copy')
-
             copyfile(OPTIONS_FILE, OPTIONS_FILE + '.copy')
 
     def get_categories(self):
