@@ -1,6 +1,18 @@
 OSPy Changelog
 ====
 
+Aug 22 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added reverse proxied.py for nginx.<br>
+Fixed language in helpers.py.<br>
+Fixed saving and loading files in options.py.<br>
+Added new repository for plugins (OSPy-plugins). Removing core and temporary plugins.<br>
+Change address for plugins repository in server.py.<br>
+Updated date in version.py.<br>
+Added MQTT zone brodcaster and fixed error in MQTT plugin.<br>
+
 Aug 1 2017
 ----------
 (martinpihrt)<br/>
