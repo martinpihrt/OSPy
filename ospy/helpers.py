@@ -185,18 +185,19 @@ def uptime():
             
             from ospy.options import options
             if (options.lang == 'cs_CZ'):
-                if total_sec > 345600:
-                   string = string.replace('days', 'dnu')
-                if total_sec > 172800:
-                   string = string.replace('days', 'dny')
-                if total_sec <= 172800:
+                if total_sec < 172800:                          # <  1 day and 23:59
                    string = string.replace('day', 'den')
+                if total_sec >= 172800 and total_sec < 432000:  # <  4 days and 23:59
+                   string = string.replace('days', 'dny')
+                if total_sec >= 432000:                         # >  5 days and more
+                   string = string.replace('days', 'dnu')
                 
     except Exception:
         from ospy.options import options
         if (options.lang == 'cs_CZ'):
             string = 'Nelze zjistit'
-        string = 'Unknown'
+        else:
+            string = 'Unknown'
 
     return string
 
@@ -211,17 +212,28 @@ def get_ip():
         split_data = data[0].split()
         ipaddr = split_data[split_data.index('src') + 1]
         return ipaddr
+
     except Exception:
-        return 'Unknown'
+        from ospy.options import options
+        if (options.lang == 'cs_CZ'):
+            string = 'Nelze zjistit'
+        else:
+            string = 'Unknown'
+        return string   
 
 
 def get_mac():
     """Return MAC from file"""
     try:
         return str(open('/sys/class/net/eth0/address').read())
-    except Exception:
-        return 'Unknown'
 
+    except Exception:
+        from ospy.options import options
+        if (options.lang == 'cs_CZ'):
+            string = 'Nelze zjistit'
+        else:  
+            string = 'Unknown'
+        return string
 
 def get_meminfo():
     """Return the information in /proc/meminfo as a dictionary"""
@@ -231,11 +243,19 @@ def get_meminfo():
             for line in f:
                 meminfo[line.split(':')[0]] = line.split(':')[1].strip()
         return meminfo
+
     except Exception:
-        return {
-            'MemTotal': 'Unknown',
-            'MemFree': 'Unknown'
-        }
+        from ospy.options import options
+        if (options.lang == 'cs_CZ'):
+            return {
+              'MemTotal': 'Nelze zjistit',
+              'MemFree': 'Nelze zjistit'
+            }
+        else:
+            return {
+              'MemTotal': 'Unknown',
+              'MemFree': 'Unknown'
+            }
 
 
 def get_netdevs():

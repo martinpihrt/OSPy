@@ -9,6 +9,7 @@ import os
 # Local imports
 from ospy.options import options
 from ospy.scheduler import scheduler
+from ospy.reverse_proxied import reverse_proxied
 
 import plugins
 
@@ -90,6 +91,8 @@ def start():
     wsgifunc = web.httpserver.StaticMiddleware(wsgifunc)
     wsgifunc = PluginStaticMiddleware(wsgifunc)
     wsgifunc = DebugLogMiddleware(wsgifunc)
+    wsgifunc = reverse_proxied(wsgifunc)
+
     __server = web.httpserver.WSGIServer(("0.0.0.0", options.web_port), wsgifunc)
     __server.timeout = 1  # Speed-up restarting
 
