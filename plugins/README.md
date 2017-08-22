@@ -1,7 +1,7 @@
 OSPy Plug-ins
 ====
 
-Plug-ins have been moved to https://github.com/martinpihrt/OSPy-plugins-core and https://github.com/martinpihrt/OSPy-plugins-temp.
+Plug-ins have been moved to https://github.com/martinpihrt/OSPy-plugins.
 
 The basic structure is as follows:
 
