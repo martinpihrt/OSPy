@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Dec 28 2017
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Air Temperature and Humidity Monitor - plugin. Repair negative temperature measurement with DS18B20 probe.
+Beware of this update, it is necessary to change the version of the program in ATMEGA 328 from 1.0 version to 1.1 (if we use temperature measurement using DS18B20)!
+
 Aug 22 2017
 ----------
 (martinpihrt)<br/>
