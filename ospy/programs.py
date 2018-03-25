@@ -269,7 +269,7 @@ class _Program(object):
         elif self.type == ProgramType.WEEKLY_ADVANCED:
             result = _('Advanced weekly schedule')
         elif self.type == ProgramType.WEEKLY_WEATHER:
-            result = _('Weather based schedule on') + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
+            result = _('Weather based schedule on') + " " + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
         return result
 
     def details(self):
