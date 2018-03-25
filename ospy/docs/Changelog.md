@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+Mar 25 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+OSPy/ospy/programs.py
+Fixed the missing space in the text "Weather Schedule" and the following string of days.
+Thanks https://github.com/lthill
+
 Dec 28 2017
 ----------
 (martinpihrt)<br/>
