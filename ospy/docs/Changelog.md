@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Apr 6 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+OSPy-plugins/plugins/air_temp_humi/ new HW2 board plugin DS18B20 
+Add labels for DS1-6 sensors. Fixed errors. Change structure for log file.
+
 Mar 25 2018
 ----------
 (martinpihrt)<br/>
