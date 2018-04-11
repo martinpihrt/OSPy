@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Apr 11 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+OSPy-plugins/plugins/air_temp_humi/ and /plugins/lcd_display/ 
+Add print from 6 sensors to LCD plugin. Fixed errors. Translations to Czech.
+
 Apr 6 2018
 ----------
 (martinpihrt)<br/>
