@@ -123,6 +123,7 @@ class _Weather(Thread):
 
         self._location = options.location
         self._wunderground_key = options.wunderground_key
+        self._use_wunderground = options.use_wunderground
         self._requests = []
         self._lid = ""
         self._tz = None
@@ -185,7 +186,7 @@ class _Weather(Thread):
                 self._sleep(6*3600)
 
     def _find_location(self):
-        if self._location and self._wunderground_key:
+        if self._location and self._wunderground_key and self._use_wunderground:
             lid = ""
             if re.search("pws:", self._location):
                 lid = self._location

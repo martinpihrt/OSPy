@@ -24,7 +24,7 @@ class _Options(object):
         {
             "key": "name",
             "name": _('System name'),
-            "default": "OpenSprinkler Pi",
+            "default": u'OpenSprinkler Pi',
             "help": _('Unique name of this OpenSprinkler system.'),
             "category": _('System')
         },
@@ -39,7 +39,7 @@ class _Options(object):
         {
             "key": "location",
             "name": _('Location'),
-            "default": "",
+            "default": u' ',
             "help": _('City name or zip code. Use comma or + in place of space.'),
             "category": _('System')
         },
@@ -53,9 +53,16 @@ class _Options(object):
             "max": 10000
         },
         {
+            "key": "use_wunderground",
+            "name": _('Use Wunderground'),
+            "default": False,
+            "help": _('Enabling or disabling connection to service Weather underground.'),
+            "category": _('System')
+        },
+        {
             "key": "wunderground_key",
             "name": _('Wunderground API key'),
-            "default": "",
+            "default": u' ',
             "help": _('To make use of local weather conditions, a weather underground API key is needed.'),
             "category": _('System')
         },
@@ -65,6 +72,13 @@ class _Options(object):
             "default": True,
             "help": _('Display times in 24 hour format (as opposed to AM/PM style.)'),
             "category": _('System')
+        },
+        {
+            "key": "HTTP_web_ip",
+            "name": _('HTTP IP addr'),
+            "default": "0.0.0.0",
+            "help": _('IP Address used for HTTP server socket.  IPv4 or IPv6 address (effective after reboot.)'),
+            "category": _('System'),
         },
         {
             "key": "web_port",

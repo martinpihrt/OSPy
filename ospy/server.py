@@ -93,7 +93,7 @@ def start():
     wsgifunc = DebugLogMiddleware(wsgifunc)
     wsgifunc = reverse_proxied(wsgifunc)
 
-    __server = web.httpserver.WSGIServer(("0.0.0.0", options.web_port), wsgifunc)
+    __server = web.httpserver.WSGIServer((options.HTTP_web_ip, options.web_port), wsgifunc)
     __server.timeout = 1  # Speed-up restarting
 
     sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
