@@ -1,6 +1,15 @@
 OSPy Changelog
 ====
 
+May 16 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+programs.py: The PEM might be removed before it has been executed. This change allows up to 3 hours of delay (instead of 1) before a PEM is considered old and will not be reported by the program to the scheduler anymore.
+options.py: Add option Use Wunderground. Add option to set IP addres to bind to for HTTP server.
+server.py: Add IP addres to bind to for HTTP server.
+version.py: date version 16.5.2018.
+
 Apr 11 2018
 ----------
 (martinpihrt)<br/>
