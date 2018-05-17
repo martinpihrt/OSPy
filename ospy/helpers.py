@@ -562,6 +562,6 @@ def get_help_file(id):
 def ASCI_convert(name):
   if name == None:
      return None
-  name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", ' ', name)
+  name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", '_', name)
   return name
   

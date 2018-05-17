@@ -465,14 +465,31 @@ class options_page(ProtectedPage):
             if options.lang != qdict['lang']:
                change = True
 
-        newname = qdict['name'] # if name is asci char
+# TODO: OSPy does not have unicode support for save and read from database, this code is not 100% solution
         try:
            from ospy.helpers import ASCI_convert
+
+           newname = qdict['name'] 
            qdict['name'] = ASCI_convert(newname)
+
+           newname = qdict['location']
+           qdict['location'] = ASCI_convert(newname)
+
+           newname = qdict['wunderground_key']
+           qdict['wunderground_key'] = ASCI_convert(newname)
+
+           newname = qdict['HTTP_web_ip']
+           qdict['HTTP_web_ip'] = ASCI_convert(newname)
+
         except:
            qdict['name'] = ' '
+           qdict['location'] = ' '
+           qdict['wunderground_key'] = ' '
+           qdict['HTTP_web_ip'] = '0.0.0.0'
             
         save_to_options(qdict)
+
+# end TODO---------------------------------------------------------------
 
         if 'master' in qdict:
             m = int(qdict['master'])
