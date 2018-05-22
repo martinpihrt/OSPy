@@ -60,10 +60,10 @@ i2c-dev
 7. Reboot OS system: sudo reboot
 8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
  
-## For translate OSPy to other language  
-https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file
+## For translate OSPy to other language
+The OSPy system is currently in two languages: English and Czech. For other languages: https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file
 
-## For OSPy and plugins (plugins-temp and plugins-core) Changelog      
+## For OSPy and plugins (ospy-plugins) Changelog      
 https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog.md
 
 ## For OSPy and plugins Issues
