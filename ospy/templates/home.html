@@ -84,7 +84,7 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')} + ") " + log[l].blocked + ")";
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')}  + " " + log[l].blocked + ")";
             } else {
                 log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8')} + " " + toClock(log[l].duration, 1);
             }
@@ -139,6 +139,7 @@ function updateStatus(status) {
                        display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8')};
                        } 
                 }
+                updateInterval = 1000;
                 break;
             case "rain_delay" :
                 display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8')};
