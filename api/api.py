@@ -5,7 +5,7 @@ from utils import *
 
 from ospy import version
 from ospy.stations import stations
-from ospy.options import options
+from ospy.options import options, level_adjustments
 from ospy.programs import programs, ProgramType
 from ospy.log import log
 from ospy import helpers
@@ -335,7 +335,8 @@ class System(object):
             'release_date': version.ver_date,
             'uptime': helpers.uptime(),
             'platform': helpers.determine_platform(),
-            'rpi_revision': helpers.get_rpi_revision()
+            'rpi_revision': helpers.get_rpi_revision(),
+            'total_adjustment': level_adjustments.total_adjustment()
         }
 
     @auth
@@ -378,4 +379,4 @@ def get_app():
         # System
         r'/system/?', 'System',
     )
-    return web.application(urls, locals())
+    return web.application(urls, globals())
