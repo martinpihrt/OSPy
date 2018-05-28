@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+May 28 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+programs.py: Fix in PEM: https://github.com/martinpihrt/OSPy/issues/2. Thank's Ithill.
+api.py: Extend and fix system API. Thank's Rimco.
+OSPy-plugins/plugins/lcd_display/: Adding more type for hardware LCD I2C boards.
+
 May 16 2018
 ----------
 (martinpihrt)<br/>
