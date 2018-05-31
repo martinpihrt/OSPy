@@ -424,7 +424,7 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
-        db = shelve.open(OPTIONS_FILE + '.tmp')
+        db = shelve.open(OPTIONS_FILE + '.tmp', flag='n') # https://docs.python.org/2/library/gdbm.html
         db.clear()
         db.update(self._values)
         db.close()
@@ -440,7 +440,8 @@ class _Options(object):
             else:
                 os.remove(OPTIONS_FILE)
 
-        os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
+        if os.path.isfile(OPTIONS_FILE + '.tmp'):
+            os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
 
     def get_categories(self):
         result = []
