@@ -714,7 +714,7 @@ class _Programs(object):
                         'valid': False
                     }
                 try:
-                    if not station.balance[calc_day]['valid'] or calc_day >= now.date():
+                    if not station.balance[calc_day]['valid'] or calc_day >= now.date() - datetime.timedelta(days=1):
                         station.balance[calc_day]['eto'] = weather.get_eto(calc_day)
                         station.balance[calc_day]['rain'] = weather.get_rain(calc_day)
                         station.balance[calc_day]['valid'] = True
