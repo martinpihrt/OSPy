@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 31 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+programs.py, weather.py: Be more robust against temporary Wunderground hiccups, recalculate yesterday instead of using cached value. Thank's Rimco. Fix logging, check on directory wunderground. 
+
 May 28 2018
 ----------
 (martinpihrt)<br/>
