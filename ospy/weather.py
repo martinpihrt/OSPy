@@ -34,7 +34,7 @@ def _cache(cache_name):
             if cache_name not in self._result_cache:
                 self._result_cache[cache_name] = {}
 
-            if check_date not in self._result_cache[cache_name] or (datetime.date.today() - check_date).days < 1:
+            if check_date not in self._result_cache[cache_name] or (datetime.date.today() - check_date).days <= 1:
                 try:
                     self._result_cache[cache_name][check_date] = func(self, check_date)
                     options.weather_cache = self._result_cache
@@ -346,12 +346,15 @@ class _Weather(Thread):
             'wind_ms': try_float(day_info['wind_kph']) / 3.6,
             'humidity': try_float(day_info['relative_humidity'].replace('%', ''), 50)
         }
-
         return result
 
     def get_wunderground_forecast(self, days_forecast):
         datestring = datetime.date.today().strftime('%Y%m%d')
-        data = self._get_wunderground_data("forecast10day", "forecast10day_" + datestring)
+        request = "forecast10day", "forecast10day_" + datestring
+        data = self._get_wunderground_data(*request)
+
+        if data and len(data['forecast']['simpleforecast']['forecastday']) == 0:
+            data = self._get_wunderground_data(*request, force=True)
 
         info = {}
         for day_index, entry in enumerate(data['forecast']['simpleforecast']['forecastday']):
@@ -576,7 +579,12 @@ class _Weather(Thread):
 
     def _get_future_eto(self, check_date):
         datestring = datetime.date.today().strftime('%Y%m%d')
-        hourly_data = self._get_wunderground_data("hourly10day", "hourly10day_" + datestring)
+        request = "hourly10day", "hourly10day_" + datestring
+        hourly_data = self._get_wunderground_data(*request)
+
+        if hourly_data and len(hourly_data['hourly_forecast']) == 0:
+            hourly_data = self._get_wunderground_data(*request, force=True)
+        
         today_data = self._get_wunderground_data("conditions", "conditions_" + datestring)
 
         if isinstance(check_date, datetime.datetime):
@@ -644,19 +652,31 @@ class _Weather(Thread):
             check_date = check_date.date()
 
         result = 0.0
-        if check_date < datetime.date.today():
-            data = self._get_history(check_date)
-            if data and len(data['history']['dailysummary']) > 0:
-                result = try_float(data['history']['dailysummary'][0]['precipm'])
-        else:
+        if check_date < datetime.date.today() or (check_date == datetime.date.today() and datetime.datetime.now().hour >= 12):
+            history_data = self._get_history(check_date)
+            if history_data and len(history_data['history']['dailysummary']) > 0:
+                result = try_float(history_data['history']['dailysummary'][0]['precipm'])
+
+        if check_date >= datetime.date.today():
             datestring = datetime.date.today().strftime('%Y%m%d')
-            data = self._get_wunderground_data("forecast10day", "forecast10day_" + datestring)
-            for entry in data['forecast']['simpleforecast']['forecastday']:
+            request = "forecast10day", "forecast10day_" + datestring
+            future_data = self._get_wunderground_data(*request)
+
+            if future_data and len(future_data['forecast']['simpleforecast']['forecastday']) == 0:
+                future_data = self._get_wunderground_data(*request, force=True)
+
+            day_left = 1.0
+            if check_date == datetime.date.today():
+                day_time = datetime.datetime.now().time()
+                day_left -= (day_time.hour * 60 + day_time.minute) / 24.0 / 60
+
+            for entry in future_data['forecast']['simpleforecast']['forecastday']:
                 if self._datetime(entry['date']).date() == check_date:
                     if entry['qpf_allday']['mm'] is None:
                         entry['qpf_allday']['mm'] = 0
-                    result = try_float(entry['qpf_allday']['mm'])
+                    result += day_left * try_float(entry['qpf_allday']['mm'])
                     break
+                    
         return result
 
 
