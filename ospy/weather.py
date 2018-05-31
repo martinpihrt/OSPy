@@ -215,6 +215,17 @@ class _Weather(Thread):
         query += '/q/' + self.get_lid() + '.json'
         name += '/q/' + self.get_lid() + '.json'
 
+        try:        
+            path = os.path.join('ospy', 'data', 'wunderground', name.replace(':', '_'))
+            return query, path
+
+        except Exception:
+            directory = './ospy/data/wunderground' 
+            if not os.path.exists(directory):
+                mkdir_p(os.path.dirname(directory))
+                logging.info('Creating wunderground directory.')
+            pass
+
         path = os.path.join('ospy', 'data', 'wunderground', name.replace(':', '_'))
         return query, path
 
@@ -237,7 +248,7 @@ class _Weather(Thread):
                                 time.sleep(60 - (self._requests[-1] - self._requests[0]))
 
                         with open(path, 'wb') as fh:
-                            print query
+                            logging.info('Weather query: %s', str(query))
                             req = urllib2.urlopen("http://api.wunderground.com/api/" + self._wunderground_key + "/" + query)
                             while True:
                                 chunk = req.read(20480)
