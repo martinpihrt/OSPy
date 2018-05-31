@@ -673,11 +673,11 @@ class _Weather(Thread):
             request = "forecast10day", "forecast10day_" + datestring
             future_data = self._get_wunderground_data(*request)
 
-            if future_data and len(future_data['forecast']['simpleforecast']['forecastday']) == 0:
+            if future_data and (len(future_data['forecast']['simpleforecast']['forecastday']) == 0 or not future_data['forecast']['txt_forecast']['forecastday'][0]['fcttext']):
                 future_data = self._get_wunderground_data(*request, force=True)
 
             day_left = 1.0
-            if check_date == datetime.date.today():
+            if check_date == datetime.date.today() and datetime.datetime.now().hour >= 12:
                 day_time = datetime.datetime.now().time()
                 day_left -= (day_time.hour * 60 + day_time.minute) / 24.0 / 60
 
