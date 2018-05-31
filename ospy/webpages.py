@@ -642,6 +642,22 @@ class upload_page(ProtectedPage):
 
         except Exception:
             self._redirect_back()
+
+class blockconnection_png(ProtectedPage):
+    """Return pictures with information about board connection - for help page."""
+
+    def GET(self):
+
+          import mimetypes
+
+          download_name = 'blockconnection.png'
+          content = mimetypes.guess_type(download_name)[0]
+          web.header('Content-type', content)
+          web.header('Content-Length', os.path.getsize(download_name))    
+          web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+          img = open(download_name,'r')
+ 
+          return img.read()
         
 ################################################################################
 # APIs                                                                         #
