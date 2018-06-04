@@ -15,6 +15,8 @@ $var page: stations
                 <th class="stationUsage">$_('Usage')</th>
                 <th class="stationUsage">$_('Precipitation (mm/h)')</th>
                 <th class="stationUsage">$_('Capacity (mm)')</th>
+                <th class="stationUsage">$_('ETo factor')</th>
+                <th class="stationUsage">$_('Balance adjustment')</th>
                 <th class="stationShow">$_('Connected?')</th>
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
                 $if stations.master is not None:
@@ -25,17 +27,23 @@ $var page: stations
             $for station in stations.get():
                 <tr>
                     <td class="stationNumber">${station.index + 1}</td>
-                    <td class="stationName">
-                        <input type="text" size="32" value="${station.name}" name="${station.index}_name">
+                    <td class="stationName" title="$_('Station Name.')">
+                        <input type="text" size="16" value="${station.name}" name="${station.index}_name">
                     </td>
-                    <td class="stationUsage">
-                        <input type="number" size="3" maxlength="3" value="${str(station.usage)}" name="${station.index}_usage">
+                    <td class="stationUsage" title="$_('Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options).')">
+                        <input type="number" size="3" min="0" max="1000" value="${str(station.usage)}" name="${station.index}_usage">
                     </td>
-                    <td class="stationUsage">
-                        <input type="number" size="3" maxlength="3" value="${str(station.precipitation)}" name="${station.index}_precipitation">
+                    <td class="stationUsage" title="$_('Amount of water per hour in mm. Used for weather based programs.')">
+                        <input type="number" size="3" min="0" max="1000" value="${str(station.precipitation)}" name="${station.index}_precipitation">
                     </td>
-                    <td class="stationUsage">
-                        <input type="number" size="3" maxlength="3" value="${str(station.capacity)}" name="${station.index}_capacity">
+                     <td class="stationUsage" title="$_('Amount of water that the soil can store above 0 level. Used for weather based programs.')">
+                        <input type="number" size="3" min="0" max="100" value="${str(station.capacity)}" name="${station.index}_capacity">
+                    </td>
+                    <td class="stationUsage" title="$_('Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil.')">
+                        <input type="number" size="3" min="0" max="10" value="${str(station.eto_factor)}" name="${station.index}_eto_factor">
+                    </td>
+                    <td class="stationUsage" title="$_('Increase or decrease weather based water balance by given amount (if not 0).')">
+                        <input type="number" size="3" min="-100" max="100" value="0" name="${station.index}_balance_adjust">
                     </td>
                     $if station.is_master:
                         <td class="stationMaster" colspan="4">($_('Master station'))</td>
