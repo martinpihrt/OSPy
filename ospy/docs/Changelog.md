@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 4 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+programs.py, stations.py, webpages.py, stations.html, i18n: Better controls for weather based programs. Thank's Rimco. 
+
 May 31 2018
 ----------
 (martinpihrt)<br/>
