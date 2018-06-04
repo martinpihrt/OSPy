@@ -6,13 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
 "POT-Creation-Date: 2016-05-24 09:03+0200\n"
-"PO-Revision-Date: 2018-05-30 13:39+0200\n"
+"PO-Revision-Date: 2018-06-04 14:36+0200\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Poedit 2.0.8\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "Language: cs_CZ\n"
@@ -166,7 +166,7 @@ msgstr "Navždy"
 
 #: ospy/templates/home.html: ospy/programs.py:
 msgid "For"
-msgstr "doba"
+msgstr "Doba"
 
 #: ospy/templates/home.html:
 msgid "Stop All Stations"
@@ -174,7 +174,7 @@ msgstr "Zastavit všechny stanice"
 
 #: ospy/templates/home.html:
 msgid " Prev Day"
-msgstr "Včera"
+msgstr " Včera"
 
 #: ospy/templates/home.html:
 msgid "Today"
@@ -186,7 +186,7 @@ msgstr "Zítra"
 
 #: ospy/templates/home.html:
 msgid "loading..."
-msgstr "Nahrávám..."
+msgstr "nahrávám..."
 
 #: ospy/templates/log.html:
 msgid "Log "
@@ -499,7 +499,7 @@ msgstr "Opakování"
 
 #: ospy/templates/program.html:
 msgid "time(s)"
-msgstr "Čas(y)"
+msgstr "čas(y)"
 
 #: ospy/templates/program.html:
 msgid "Pause"
@@ -557,25 +557,69 @@ msgstr "Všechny hodnoty by měly být pozitivní a sekundy nesmí přesáhnout 
 msgid "Configure Stations"
 msgstr "Nastavení stanic"
 
-#: ospy/templates/stations.html:
+#: ospy/templates/stations.html:15
 msgid "Usage"
-msgstr "Režim (souběh 0/sekvence 1)"
+msgstr "Využití"
 
-#: ospy/templates/stations.html:
+#: ospy/templates/stations.html:16
+msgid "Precipitation (mm/h)"
+msgstr "Závlaha (mm/h)"
+
+#: ospy/templates/stations.html:17
+msgid "Capacity (mm)"
+msgstr "Zásoba (mm)"
+
+#: ospy/templates/stations.html:18
+msgid "ETo factor"
+msgstr "ETo faktor"
+
+#: ospy/templates/stations.html:19
+msgid "Balance adjustment"
+msgstr "Zůstatek"
+
+#: ospy/templates/stations.html:20
 msgid "Connected?"
 msgstr "Připojeno?"
 
-#: ospy/templates/stations.html:
+#: ospy/templates/stations.html:21
 msgid "Ignore Rain?"
 msgstr "Ignorovat déšť?"
 
-#: ospy/templates/stations.html:
+#: ospy/templates/stations.html:23
 msgid "Activate Master?"
-msgstr "Aktivovat hlavní?"
+msgstr "ZAP Hlavní ?"
 
-#: ospy/templates/stations.html:
+#: ospy/templates/stations.html:25
+msgid "Activate Master Two?"
+msgstr "ZAP 2 Hlavní?"
+
+#: ospy/templates/stations.html:30
+msgid "Station Name."
+msgstr "Jméno stanice."
+
+#: ospy/templates/stations.html:33
+msgid "Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options)."
+msgstr "Souběh stanic (0), nebo sekvence (>1). Pokud jsou stanice aktivní lze omezit jejich souběžný počet (viz maximální využití v menu nastavení)."
+
+#: ospy/templates/stations.html:36
+msgid "Amount of water per hour in mm. Used for weather based programs."
+msgstr "Množství vody za hodinu v mm. Používá se pro programy založené na počasí."
+
+#: ospy/templates/stations.html:39
+msgid "Amount of water that the soil can store above 0 level. Used for weather based programs."
+msgstr "Množství vody, které může půda uložit nad úroveň 0. Používá se pro programy založené na počasí."
+
+#: ospy/templates/stations.html:42
+msgid "Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
+msgstr "Faktor používaný k násobení faktoru ETo pro programy založené na počasí. Použijte hodnotu vyšší než 1 v případě slunečné/suché půdy, použijte hodnotu nižší než 1 pro stín/vlhkou půdu."
+
+#: ospy/templates/stations.html:45
+msgid "Increase or decrease weather based water balance by given amount (if not 0)."
+msgstr "Zvýšit nebo snížit vodní bilanci pro programy založené na počasí (pokud není nastaveno na 0)."
+
+#: ospy/templates/stations.html:78
 msgid "Reset Names"
-msgstr "Smazat názvy"
+msgstr "Smazat jména"
 
 #: ospy/options.py:
 msgid "System name"
@@ -687,7 +731,7 @@ msgstr "Maximální využití"
 
 #: ospy/options.py:
 msgid "Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1."
-msgstr "Určuje, jak se jednotlivé stanice kombinují. Souběh = 0 nebo sekvence = 1. V případě, že všechny stanice mají nastavené sekvenční použití­."
+msgstr "Určuje, jak se jednotlivé stanice kombinují. Souběh 0 nebo sekvence 1. V případě, že všechny stanice mají nastavené sekvenční použití­."
 
 #: ospy/options.py:
 msgid "Station Handling"
@@ -699,7 +743,7 @@ msgstr "Počet výstupů"
 
 #: ospy/options.py:
 msgid "The number of outputs available (8 + 8*extensions)"
-msgstr "Celkový počet výstupů k dispozici je (8 + 8 * rozšíření.)"
+msgstr "Celkový počet výstupů k dispozici je (8 výstupů + x rozšíření.)"
 
 #: ospy/options.py:
 msgid "Station delay"
@@ -887,7 +931,7 @@ msgstr "Týdenní (předpověď počasí)"
 
 #: ospy/programs.py:272
 msgid "Weather based schedule on"
-msgstr "Plánovač dle počasí ve dnech "
+msgstr "Plánovač dle počasí ve dnech"
 
 #: ospy/programs.py:
 msgid "Unknown schedule"
@@ -995,7 +1039,7 @@ msgstr "Hodnota procent musí být kladné číslo"
 
 #: ospy/home.html:
 msgid "Timer values wrong:"
-msgstr "Časovač má vloženu nesprávnou hodnotu"
+msgstr "Časovač má vloženu nesprávnou hodnotu:"
 
 #: ospy/home.html:
 msgid "Master On"
@@ -1023,7 +1067,7 @@ msgstr "Potlačeno dešťovým senzorem"
 
 #: ospy/home.html:
 msgid "blocked by"
-msgstr "Zablokováno"
+msgstr "zablokováno"
 
 #: ospy/templates/programs.html:
 msgid "Run:"
@@ -1171,19 +1215,15 @@ msgstr "Prosinec"
 
 #: ospy/template/base.html:
 msgid "am"
-msgstr "Dopo"
+msgstr "dopo"
 
 #: ospy/template/base.html:
 msgid "pm"
-msgstr "Odpo"
+msgstr "odpo"
 
 #: ospy/template/plugins_install.html:
 msgid "Reinstall"
 msgstr "Přeinstalovat"
-
-#: ospy/templates/stations.html:21
-msgid "Activate Master Two?"
-msgstr "Aktivovat hlavní 2?"
 
 #: ospy/templates/options.html:131 ospy/templates/stations.html:35
 msgid "Master two station"
@@ -1236,14 +1276,6 @@ msgstr " (Nejméně upřednostněné)"
 #: ospy/templates/program.html:575 ospy/templates/program.html:602
 msgid " (Most preferred)"
 msgstr " (Nejvíce upřednostněné)"
-
-#: ospy/templates/stations.html:16
-msgid "Precipitation (mm/h)"
-msgstr "Závlaha (mm/h)"
-
-#: ospy/templates/stations.html:17
-msgid "Capacity (mm)"
-msgstr "Zásoba (mm)"
 
 #: ospy/programs.py:337
 msgid "For min"
