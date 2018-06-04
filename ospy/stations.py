@@ -24,6 +24,7 @@ class _Station(object):
         self.usage = 1.0
         self.precipitation = 10.0
         self.capacity = 10.0
+        self.eto_factor = 1.0
         self.balance = {}
 
         # Remove (old) balance info:

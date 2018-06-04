@@ -560,17 +560,33 @@ class stations_page(ProtectedPage):
     def POST(self):
         qdict = web.input()
 
+        recalc = False
         for s in xrange(0, stations.count()):
             stations[s].name = qdict["%d_name" % s]
             stations[s].usage = float(qdict.get("%d_usage" % s, 1.0))
             stations[s].precipitation = float(qdict.get("%d_precipitation" % s, 10.0))
             stations[s].capacity = float(qdict.get("%d_capacity" % s, 10.0))
+            stations[s].eto_factor = float(qdict.get("%d_eto_factor" % s, 1.0))
             stations[s].enabled = True if qdict.get("%d_enabled" % s, 'off') == 'on' else False
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
             if stations.master is not None or options.master_relay:
                 stations[s].activate_master = True if qdict.get("%d_activate_master" % s, 'off') == 'on' else False
             if stations.master_two is not None or options.master_relay:
                 stations[s].activate_master_two = True if qdict.get("%d_activate_master_two" % s, 'off') == 'on' else False
+            balance_adjust = float(qdict.get("%d_balance_adjust" % s, 0.0))
+            if balance_adjust != 0.0:
+                calc_day = datetime.datetime.now().date() - datetime.timedelta(days=1)
+                stations[s].balance[calc_day]['intervals'].append({
+                                'program': -1,
+                                'program_name': 'Balance adjustment',
+                                'done': True,
+                                'irrigation': balance_adjust
+                            })
+                stations[s].balance[calc_day]['total'] += balance_adjust
+                recalc = True
+
+        if recalc:
+            Timer(0.1, programs.calculate_balances).start()
 
         raise web.seeother('/')
 
