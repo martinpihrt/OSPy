@@ -591,7 +591,7 @@ class stations_page(ProtectedPage):
         raise web.seeother('/')
 
 class help_page(ProtectedPage):
-    """Stations page"""
+    """Help page"""
 
     def GET(self):
         qdict = web.input()
