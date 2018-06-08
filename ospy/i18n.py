@@ -23,6 +23,7 @@ except:
 languages = ({
     "en_US": "English",
     "cs_CZ": "Czech",
+    "sk_SK": "Slovak",
 })
 ###############################
 
