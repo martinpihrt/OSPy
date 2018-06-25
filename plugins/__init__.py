@@ -439,12 +439,14 @@ def start_enabled_plugins():
     from ospy.helpers import mkdir_p
     from ospy.options import options
     import logging
-
+    import time
+    
     for module in available():
         if module in options.enabled_plugins and module not in __running:
             plugin_n = module
             import_name = __name__ + '.' + module
             try:
+                time.sleep(1)
                 plugin = getattr(__import__(import_name), module)
                 plugin = reload(plugin)
                 plugin_n = plugin.NAME

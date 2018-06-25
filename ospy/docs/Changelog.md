@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+June 25 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add slovak translate for all plugins and OSPy.
+Fix in __init.py__ (plugins) loading modules after 1 sec.
+Add traceback in scheduler.py Thank's Rimco. 
+
 June 4 2018
 ----------
 (martinpihrt)<br/>
