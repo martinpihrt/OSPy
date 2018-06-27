@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 27 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in options.py Ensure clean options file is created such that we don't get stuck in case it was corrupted. Thank's Rimco.                                                                                                      
+
 June 25 2018
 ----------
 (martinpihrt)<br/>
