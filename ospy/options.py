@@ -424,24 +424,31 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
-        db = shelve.open(OPTIONS_FILE + '.tmp', flag='n') # https://docs.python.org/2/library/gdbm.html
-        db.clear()
-        db.update(self._values)
-        db.close()
+        try:
+            logging.debug('Saving options to disk')
 
-        if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
-                and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or
-                                                      time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
-            os.remove(OPTIONS_FILE + '.bak')
+            if os.path.isfile(OPTIONS_FILE + '.tmp'):
+                os.remove(OPTIONS_FILE + '.tmp')
+                
+            db = shelve.open(OPTIONS_FILE + '.tmp')
+            db.clear()
+            db.update(self._values)
+            db.close()
 
-        if os.path.isfile(OPTIONS_FILE):
-            if not os.path.isfile(OPTIONS_FILE + '.bak'):
-                os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
-            else:
-                os.remove(OPTIONS_FILE)
+            if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
+                    and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or
+                                                          time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
+                os.remove(OPTIONS_FILE + '.bak')
 
-        if os.path.isfile(OPTIONS_FILE + '.tmp'):
+            if os.path.isfile(OPTIONS_FILE):
+                if not os.path.isfile(OPTIONS_FILE + '.bak'):
+                    os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
+                else:
+                    os.remove(OPTIONS_FILE)
+
             os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
+        except Exception:
+            logging.warning('Saving error:\n' + traceback.format_exc())
 
     def get_categories(self):
         result = []
