@@ -12,9 +12,10 @@ import helpers
 import traceback
 import os
 import time
-from shutil import copyfile
+import glob
 
 OPTIONS_FILE = './ospy/data/options.db'
+OPTIONS_GLOB = './ospy/data/*options.db'
 
 class _Options(object):
     # Using an array to preserve order
@@ -426,6 +427,9 @@ class _Options(object):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
         try:
             logging.debug('Saving options to disk')
+            
+            for tmp_file in glob.glob(OPTIONS_GLOB + '.tmp'):
+                os.remove(tmp_file)
 
             if os.path.isfile(OPTIONS_FILE + '.tmp'):
                 os.remove(OPTIONS_FILE + '.tmp')
