@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 29 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in options.py Some even more temporary file might block saving. Thank's Rimco.
+
 June 27 2018
 ----------
 (martinpihrt)<br/>
