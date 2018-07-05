@@ -446,7 +446,7 @@ def start_enabled_plugins():
             plugin_n = module
             import_name = __name__ + '.' + module
             try:
-                time.sleep(1)
+                time.sleep(0.1)
                 plugin = getattr(__import__(import_name), module)
                 plugin = reload(plugin)
                 plugin_n = plugin.NAME

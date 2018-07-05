@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 5 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in weather.py Reduce startup delay to be faster than plugins. Make the weather module more robust in determining the location. Thank's Rimco.
+
 June 29 2018
 ----------
 (martinpihrt)<br/>
