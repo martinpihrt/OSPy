@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 11 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add in webpages.py and plugins_manage.html Adding new button for enabling all plugins in manage.
+
 July 5 2018
 ----------
 (martinpihrt)<br/>
