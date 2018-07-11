@@ -353,11 +353,18 @@ class plugins_manage_page(ProtectedPage):
         delete = get_input(qdict, 'delete', False, lambda x: True)
         enable = get_input(qdict, 'enable', None, lambda x: x == '1')
         disable_all = get_input(qdict, 'disable_all', False, lambda x: True)
+        enable_all = get_input(qdict, 'enable_all', False, lambda x: True)
         auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
         use_update = get_input(qdict, 'use', None, lambda x: x == '1')
 
         if disable_all:
             options.enabled_plugins = []
+            plugins.start_enabled_plugins()
+
+        if enable_all:
+            for plugin in plugins.available():
+               if plugin not in options.enabled_plugins:
+                  options.enabled_plugins.append(plugin)
             plugins.start_enabled_plugins()
 
         if plugin is not None and plugin in plugins.available():
