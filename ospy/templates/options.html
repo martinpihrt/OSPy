@@ -187,7 +187,7 @@ $code:
                     output += "<input name='" + name + "' type='number'" + minv + maxv + " size='3' maxlength='3' value='" + str(value) + "'>\n"
                 else:
                     if name is not 'lang':
-                       output += "<input name='" + name + "' type='text' size='31' value='" + str(value) + "'>\n"
+                       output += "<input name='" + name + "' type='text' size='31' value='" + u"{}".format(value) + "'>\n"
 
                 output += "<span class='tooltip'>" + tooltip + "</span>\n"
                 output += "</div>\n\n"

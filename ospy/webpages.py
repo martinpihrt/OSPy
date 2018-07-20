@@ -14,7 +14,7 @@ from threading import Timer
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff
 from ospy.inputs import inputs
-from ospy.log import log
+from ospy.log import log, logEM
 from ospy.options import options
 from ospy.options import rain_blocks
 from ospy.programs import programs
@@ -24,10 +24,50 @@ from ospy.stations import stations
 from ospy import scheduler
 import plugins
 import i18n
+from blinker import signal
+
+loggedin = signal('loggedin')
+def report_login():
+    loggedin.send()
+
+value_change = signal('value_change')
+def report_value_change():
+    value_change.send()
+
+option_change = signal('option_change')
+def report_option_change():
+    option_change.send()
+
+rebooted = signal('rebooted')
+def report_rebooted():
+    rebooted.send()
+
+restart = signal('restart')
+def report_restart():
+    restart.send()
+
+station_names = signal('station_names')
+def report_station_names():
+    station_names.send()
+
+program_change = signal('program_change')
+def report_program_change():
+    program_change.send()
+
+program_deleted = signal('program_deleted')
+def report_program_deleted():
+    program_deleted.send()
+
+program_toggled = signal('program_toggled')
+def report_program_toggle():
+    program_toggled.send()
+
+program_runnow = signal('program_runnow')
+def report_program_runnow():
+    program_runnow.send()
 
 
 from web import form
-
 
 signin_form = form.Form(
     form.Password('password', description=_('Password:')),
@@ -117,6 +157,7 @@ class login_page(WebPage):
         else:
             from ospy import server
             server.session.validated = True
+            report_login()
             self._redirect_back()
 
 
@@ -206,6 +247,7 @@ class action_page(ProtectedPage):
                     if interval['station'] == sid:
                         log.finish_run(interval)
 
+        report_value_change()
         self._redirect_back()
 
 class programs_page(ProtectedPage):
@@ -217,6 +259,7 @@ class programs_page(ProtectedPage):
         if delete_all:
             while programs.count() > 0:
                 programs.remove_program(programs.count()-1)
+            report_program_deleted()
         return self.core_render.programs()
 
 
@@ -233,14 +276,17 @@ class program_page(ProtectedPage):
             if delete:
                 programs.remove_program(index)
                 Timer(0.1, programs.calculate_balances).start()
+                report_program_deleted()
                 raise web.seeother('/programs')
             elif runnow:
                 programs.run_now(index)
                 Timer(0.1, programs.calculate_balances).start()
+                report_program_runnow()
                 raise web.seeother('/programs')
             elif enable is not None:
                 programs[index].enabled = enable
                 Timer(0.1, programs.calculate_balances).start()
+                report_program_toggle()
                 raise web.seeother('/programs')
         except ValueError:
             pass
@@ -251,6 +297,7 @@ class program_page(ProtectedPage):
             program = programs.create_program()
             program.set_days_simple(6*60, 30, 30, 0, [])
 
+        report_program_change()
         return self.core_render.program(program)
 
     def POST(self, index):
@@ -321,6 +368,7 @@ class program_page(ProtectedPage):
             programs.add_program(program)
 
         Timer(0.1, programs.calculate_balances).start()
+        report_program_toggle()
         raise web.seeother('/programs')
 
 
@@ -340,7 +388,9 @@ class runonce_page(ProtectedPage):
                 seconds = int(qdict[mm_str] or 0) * 60 + int(qdict[ss_str] or 0)
                 station_seconds[station.index] = seconds
 
+        
         run_once.set(station_seconds)
+        report_program_toggle()
         raise web.seeother('/')
 
 
@@ -431,6 +481,10 @@ class log_page(ProtectedPage):
             log.clear_runs()
             raise web.seeother('/log')
 
+        if 'clearEM' in qdict:
+            logEM.clear_email()
+            raise web.seeother('/log')
+
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
             data = "Date, Start Time, Zone, Duration, Program\n"
@@ -451,7 +505,27 @@ class log_page(ProtectedPage):
             web.header('Content-Disposition', 'attachment; filename="log.csv"')
             return data
 
-        return self.core_render.log()
+        if 'csvEM' in qdict:
+            events = logEM.finished_email()
+            data = "Date, Time, Subject, Body, Status\n"
+            for interval in events:
+                data += ', '.join([
+                    interval['time'],
+                    interval['date'],
+                    str(interval['subject']),
+                    str(interval['body']),
+                    str(interval['status']),
+                ]) + '\n'
+
+            web.header('Content-Type', 'text/csv')
+            web.header('Content-Disposition', 'attachment; filename="log_email.csv"')
+            return data
+
+
+        watering_records = log.finished_runs()
+        email_records = logEM.finished_email()
+
+        return self.core_render.log(watering_records, email_records)
 
 
 class options_page(ProtectedPage):
@@ -472,31 +546,19 @@ class options_page(ProtectedPage):
             if options.lang != qdict['lang']:
                change = True
 
-# TODO: OSPy does not have unicode support for save and read from database, this code is not 100% solution
-        try:
-           from ospy.helpers import ASCI_convert
+        nm = qdict['name'] 
+        qdict['name'] = nm
 
-           newname = qdict['name'] 
-           qdict['name'] = ASCI_convert(newname)
+        lc = qdict['location']
+        qdict['location'] = lc
 
-           newname = qdict['location']
-           qdict['location'] = ASCI_convert(newname)
+        wd = qdict['wunderground_key']
+        qdict['wunderground_key'] = wd
 
-           newname = qdict['wunderground_key']
-           qdict['wunderground_key'] = ASCI_convert(newname)
-
-           newname = qdict['HTTP_web_ip']
-           qdict['HTTP_web_ip'] = ASCI_convert(newname)
-
-        except:
-           qdict['name'] = ' '
-           qdict['location'] = ' '
-           qdict['wunderground_key'] = ' '
-           qdict['HTTP_web_ip'] = '0.0.0.0'
+        ni = qdict['HTTP_web_ip']
+        qdict['HTTP_web_ip'] = ni
             
         save_to_options(qdict)
-
-# end TODO---------------------------------------------------------------
 
         if 'master' in qdict:
             m = int(qdict['master'])
@@ -528,10 +590,12 @@ class options_page(ProtectedPage):
                 pass
    
         if 'rbt' in qdict and qdict['rbt'] == '1':
+            report_rebooted()
             reboot(True) # Linux HW software 
             return self.core_render.home()
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
+            report_restart()
             restart()    # OSPy software
             return self.core_render.restarting(home_page)
         
@@ -555,6 +619,7 @@ class options_page(ProtectedPage):
             restart()    # OSPy software
             return self.core_render.restarting(home_page)
 
+        report_option_change()
         raise web.seeother('/')
 
 
@@ -591,10 +656,12 @@ class stations_page(ProtectedPage):
                             })
                 stations[s].balance[calc_day]['total'] += balance_adjust
                 recalc = True
+            stations[s].notes = qdict["%d_notes" % s]
 
         if recalc:
             Timer(0.1, programs.calculate_balances).start()
 
+        report_station_names()
         raise web.seeother('/')
 
 class help_page(ProtectedPage):

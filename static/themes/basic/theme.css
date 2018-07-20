@@ -8,6 +8,7 @@
  - blue:       #4F62D8
 */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
 body {
     margin:0px;
     padding:0px;
@@ -15,10 +16,13 @@ body {
     font-family: 'Open Sans', calibri;
     font-size:12pt;
 }
+
 div, p {
     margin:0px;
 }
+
 /******** Overall Layout Styles **********/
+
 /* Ported from base: */
 .bluebg {background-color:lightblue;}
 .opOn, .wlOn, .rsOff {color:green;}
@@ -40,13 +44,16 @@ button#tooltip {height:24px;}
 .option {margin: 6px 0px; clear:both;}
 td.stationNumber, td.stationShow, td.stationIgnore, td.activateMaster {text-align:center}
 td.stationName {text-align:left; padding-left:1em;}
+
 table td.shrink {
     width: 1px;
     white-space:nowrap
 }
+
 table td.expand {
     width: 99%
 }
+
 div.header {
     background-image: url('logo.png');
     background-repeat: no-repeat;
@@ -54,6 +61,7 @@ div.header {
     background-color: #32A620;
     height:80px;
 }
+
 div.header div.title {
     font-family: 'Open Sans', sans-serif;
     font-size: 24pt;
@@ -63,11 +71,13 @@ div.header div.title {
     padding-top:35px;
     padding-right:16px;
 }
+
 div.header div.titlenote {
     font-size: 10pt;
     color:white;
     padding-left:8px;
 }
+
 div.footer {
     background-image: url(grass.jpg);
     background-position: top right -200px;
@@ -79,75 +89,96 @@ div.footer {
     font-size:9pt;
     clear: both;
 }
+
 div.content {
     background-color: #FCFAEB;
     color:black;
 }
+
 div.body {
     margin:0px;
     padding:0px;
     background-image: url(grass.jpg);
 }
+
 div.panel {
     margin-left: 240px;
     padding:12px;
     background-color: white;
     min-height: 200px;
 }
+
 div.panel div.title {
     font-weight: 700;
     font-size: 20pt;
     margin-bottom: 8px;
 }
+
 div.controlblock, div.simpleblock, div.simpleinlineblock {
     border:3px solid #2E3959;
     border-radius: 12px;
     margin: 8px 0px;
 }
+
 div.simpleinlineblock {
     display: inline-block;
 }
+
 div.controlblock p, div.controlblock div {
     padding: 2px 24px;
 }
+
 span.stationName:after {
     content: ",";
 }
+
 span.stationName:last-child:after {
     content: "";
 }
+
 .program {
     width:50%;
 }
+
 .program p:first-child {
     background-color: #2E3959;
     color: white
 }
+
 .program.disabled {
     border-color: #7D1921;
 }
+
 .program.disabled p:first-child {
     background-color: #7D1921;
     color: white
 }
+
 /******** General Global Styles **********/
+
 #errorHint {
     color: #7D1921;
 }
+
 .inputError {
     color: #7D1921;
 }
+
 .showInterval {
     text-align:center;
 }
+
 .program p:first-child .val {
     color: white;
 }
+
 .val {
     font-weight: 700;
     color: #397F19;
 }
+
 /******** Clock Styles **********/
+
 div#status {
     float:left;
     width: 240px;
@@ -160,9 +191,11 @@ div#status {
     background-color: #397F19;
     opacity: .85;
 }
+
 #deviceTime {
     font-size: 24pt;
 }
+
 #deviceTime span {
     display:inline-block;
     position:relative;
@@ -172,15 +205,18 @@ div#status {
     text-align:center;
     letter-spacing: -3px;
 }
+
 #deviceTime span.sep {
     text-align: center;
     width: 8px;
     font-size: 24pt;
     top: -4px;
 }
+
 #deviceTime span.hour {
     text-align:right;
 }
+
 #deviceTime span.second {
     text-align:left;
     font-size:18pt;
@@ -189,6 +225,7 @@ div#status {
     left: 6px;
     width: 36px;
 }
+
 #deviceTime span.ampm {
     position:relative;
     top:6px;
@@ -199,10 +236,12 @@ div#status {
     letter-spacing: 0px;
     text-align: right;
 }
+
 #deviceDate {
     margin-top:16px;
     font-weight:400;
 }
+
 .countdown, .rainsense {
     color: #7D1921;
     font-family: 'Open Sans', sans-serif;
@@ -210,10 +249,13 @@ div#status {
     font-weight: 700;
     text-transform:uppercase;
 }
+
 /******** Navigation Button Styles **********/
+
 #nav {
     margin-bottom:16px;
 }
+
 #nav .button {
     background-color: #2E3959;
     border: 0px;
@@ -237,9 +279,12 @@ div#status {
     vertical-align: middle;
     word-spacing: normal;
 }
+
 #nav .button.here {
     background-color: #32A620;
+    height: 34px;
 }
+
 #nav .button.home {
     background-image: url('home.png');
     background-repeat: no-repeat;
@@ -247,7 +292,9 @@ div#status {
     width: 0px;
     height: 18px;
 }
+
 /******** Button Styles **********/
+
 button, .button {
     padding: 4px 12px;
     font-family: 'Open Sans', sans-serif;
@@ -265,18 +312,23 @@ button, .button {
     margin: 2px 0;
     display: inline-block;
 }
+
 button:hover, .button:hover {
     color: #F7F1CD;
 }
+
 button.on, .button.on {
     background-color: #397F19;
 }
+
 button.off, .button.off {
     background-color: #7D1921;
 }
+
 button.execute, .button.execute {
     background-color: #2E3959;
 }
+
 button.toggle, .button.toggle {
     background-repeat: no-repeat;
     background-position: center center;
@@ -285,74 +337,94 @@ button.toggle, .button.toggle {
     text-align: center;
     color: #DDD;
 }
+
 button.toggle.on, .button.toggle.on {
     background-color: #397F19;
     background-image: url('on.png');
 }
+
 button.toggle.on:hover, .button.toggle.on:hover {
     color: #F7F1CD;
     background-image: url('off.png');
 }
+
 button.toggle.off, .button.toggle.off {
     background-color: #7D1921;
     background-image: url('off.png');
 }
+
 button.toggle.off.choice, .button.toggle.off.choice {
     background-color: #397F19;
     background-image: url('off.png');
 }
+
 button.toggle.off:hover, .button.toggle.off:hover {
     color: #F7F1CD;
     background-image: url('on.png');
 }
+
 button.toggle span.togglesep, .button.toggle span.togglesep {
     display: inline-block;
     width: 50px;
 }
+
 button.toggle span.toggleleft, .button.toggle span.toggleleft {
     display: inline-block;
     text-align: right;
     width: 120px;
 }
+
 button.toggle span.toggleright, .button.toggle span.toggleright {
     display: inline-block;
     text-align:left;
     width: 120px;
 }
+
 button.toggle.on span.toggleright, button.toggle.off span.toggleleft, .button.toggle.on span.toggleright, .button.toggle.off span.toggleleft {
     font-weight: 400;
 }
+
 button.toggle.off span.toggleright, button.toggle.on span.toggleleft, .button.toggle.off span.toggleright, .button.toggle.on span.toggleleft {
     font-weight: 700;
     color: white;
 }
+
 #controls button#cSubmit, #controls .button#cSubmit {
     background-color: #397F19;
 }
+
 #controls button#cSubmit:disabled, #controls .button#cSubmit:disabled {
     background-color: #AAA;
 }
+
 button.danger, .button.danger, .minibutton.danger {
     background-color: #7D1921;
 }
+
 button.backup, .button.backup, .minibutton.backup {
     background-color: #FFC900;
 }
+
 button.upload, .button.upload, .minibutton.upload {
     background-color: #4F62D8;
 }
+
 button.toggle.narrow, .button.toggle.narrow {
     width: 140px;
 }
+
 button.toggle.narrow span.toggleright, button.toggle.narrow span.toggleleft, .button.toggle.narrow span.toggleright, .button.toggle.narrow span.toggleleft {
     width: 36px;
 }
+
 #options button, #controls button, #options .button, #controls .button {
     margin: 4px 0px;
 }
+
 button.pushon.on, .button.pushon.on {
     font-weight: 700;
 }
+
 .program .button.toggle {float:right; width:130px; margin:0px !important; padding:0px; background-color:transparent}
 .program .button.toggle span.toggleleft {width: 30px;}
 .program .button.toggle span.toggleright {width: 30px;}
@@ -373,16 +445,21 @@ button.pushon.on, .button.pushon.on {
     margin: 1px 0;
     display: inline-block;
 }
+
 input.timeInput {
     font-size:12pt;
 }
+
 input[type=number] {
     width: 60px;
 }
+
 /******** Station Table Styles **********/
+
 #programmode {
     overflow: auto;
 }
+
 table.optionList {
     border:3px solid #2E3959;
     border-radius: 12px;
@@ -391,6 +468,7 @@ table.optionList {
     empty-cells: show;
     border-collapse: separate;
 }
+
 table.advancedSchedule {
     padding: 4px;
     border-spacing: 0px;
@@ -398,6 +476,7 @@ table.advancedSchedule {
     border-collapse: separate;
     width: 100%;
 }
+
 table.stationList {
     border:3px solid #2E3959;
     border-radius: 12px;
@@ -406,6 +485,7 @@ table.stationList {
     empty-cells: show;
     border-collapse: separate;
 }
+
 td.station_name {
     text-align: right;
     padding: 0px 12px;
@@ -415,34 +495,43 @@ td.station_name {
     height: 30px;
     white-space: nowrap;
 }
+
 table.stationList td {
     text-transform: uppercase;
     margin-bottom: 1px;
 }
+
 table.stationList td.station_name {
     text-transform: none;
 }
+
 tr.even {
     background-color: #DDD;
 }
+
 td.stationStatus {
     color: white;
     background-color: #7D1921;
     padding: 0px 12px;
     border-bottom: 2px solid white;
 }
+
 td.stationStatus.station_on {
     background-color: #32A620;
 }
+
 td.stationStatus.station_off {
     background-color: #7D1921;
 }
+
 td.stationStatus.station_waiting {
     background-color: #397F19;
 }
+
 td.stationStatus.station_disabled {
     background-color: #AAA;
 }
+
 td.stationOn.dayOn {
     background-color: #32A620;
     text-align:center;
@@ -452,52 +541,66 @@ td.stationOn.dayOn {
     background-position: center center;
     background-repeat: no-repeat;
 }
+
 td.stationOn {
     background-color: #F7F1CD;
     border-radius: 8px;
 }
+
 td.dayOn {
     background-color: #F7F1CD;
     border-radius: 8px;
 }
+
 table.logList {
     padding: 4px;
     margin: 1em 0em;
 }
+
 table.logList td {
     padding: 0px 12px;
 }
+
 table.logList th {
     padding: 0px 12px;
     border-bottom: 2px solid #2E3959;
 }
+
 table.adjustmentList {
     padding: 8px 0px;
 }
+
 table.adjustmentList td {
     padding: 2px;
 }
+
 table.adjustmentList td.adjValue, table.adjustmentList th.adjValue {
     text-align: right;
 }
+
 table.adjustmentList th {
     padding: 2px;
     border-top: 2px solid #2E3959;
     text-align: left;
 }
+
 table.pemList {
     padding: 8px 0px;
     width: 100%;
 }
+
 table.pemList td {
     padding: 2px;
 }
+
 table.pemList th {
     padding: 2px;
     border-bottom: 2px solid #2E3959;
     text-align: left;
 }
+
 /******** Interval Selector Styles **********/
+
 .animatedSelector {
     font-size: 26px;
     text-align:center;
@@ -505,23 +608,29 @@ table.pemList th {
     display: inline-block;
     vertical-align: middle;
 }
+
 .intervalSelect {
     line-height: 60px;
     border-radius: 12pt;
     padding: 3px;
     cursor: pointer;
 }
+
 .intervalSelect.distance0 {
     background-color: #32A620;
     color: white;
 }
+
 .intervalSelect:hover {
     border: 2px solid #32A620;
 }
+
 .intervalSelect.distance1 {
 }
+
 .intervalSelect.distance2 {
 }
+
 .graph-container {
     margin: 5px 0;
 	font-size: 14px;
@@ -533,32 +642,42 @@ table.pemList th {
     empty-cells: show;
     border-collapse: separate;
 }
+
 .graph-placeholder {
 	height: 300px;
 }
+
 #legend-visible tr {
     cursor: pointer;
 }
+
 table.balanceList {
     padding: 8px 0px;
 }
+
 table.balanceList td {
     padding: 2px;
 }
+
 table.balanceList th {
     padding: 2px;
     text-align: left;
 }
+
 table.balanceList td.balValue, table.balanceList th.balValue {
     text-align: right;
 }
+
 table.balanceList tr:first-child th {
     border-bottom: 2px solid #2E3959;
 }
+
 table.balanceList tr:last-child th {
     border-top: 2px solid #2E3959;
 }
+
 /******** Collapsible Styles **********/
+
 .collapsible > h4, .collapsible > h5 {
     color:white;
     background-color: #2E3959;
@@ -568,35 +687,45 @@ table.balanceList tr:last-child th {
     margin: 3px;
     cursor: pointer;
 }
+
 .collapsible > h5 {
     margin-left: 10px;
 }
+
 .collapsible.collapsed > h4, .collapsible.collapsed > h5 {
     background-image:url(collapsed.png)
 }
+
 .collapsible.expanded > h4, .collapsible.expanded > h5 {
     background-image:url(expanded.png)
 }
+
 .collapsible.collapsed div {
     display:none;
 }
+
 .collapsible.expanded div {
 }
+
 /******** Schedule graph Styles **********/
+
 td.stationSchedule {
     padding: 0px;
 }
+
 .scheduleMarkerContainer {
     margin:0px;
     padding:0px;
     height:28px;
     position:relative;
 }
+
 .scheduleMarker, .existingProgram {
     position:absolute;
     top: 0px;
     height:28px;
 }
+
 .addStartMarker {
     position:absolute;
     top: 10px;
@@ -604,6 +733,7 @@ td.stationSchedule {
     height:18px;
     width: 2px;
 }
+
 .addStopMarker {
     position:absolute;
     top: 10px;
@@ -611,18 +741,22 @@ td.stationSchedule {
     height:18px;
     width: 2px;
 }
+
 .nowMarker {
     position:absolute;
     top: 0px;
     background-color: #7D1921;
     height:28px;
 }
+
 .nowMarker.on {
     background-color: #397F19;
 }
+
 .scheduleMarker .markerDetail {
     display:none;
 }
+
 .scheduleTick {
     position: relative;
     font-size: 9px;
@@ -630,9 +764,11 @@ td.stationSchedule {
     color: #2E3959;
     border-right:1px solid #2E3959;
 }
+
 .scheduleTick:last-child {
     border-right: none;
 }
+
 .program0 {background-color: hsl(50,80%,40%)}
 .program1 {background-color: hsl(150,80%,40%)}
 .program2 {background-color: hsl(225,80%,40%)}
@@ -649,6 +785,7 @@ td.stationSchedule {
 .existingProgram {
     background-color: hsl(75,80%,40%);
 }
+
 .deleteProgram{
     display:block;
     float:right;
@@ -657,12 +794,15 @@ td.stationSchedule {
     background:url("redcross.png") no-repeat center center;
     cursor: pointer;
 }
+
 .schedule {
     background-image:url("whitestripes.png");
 }
+
 .blocked {
     background-image:url("redcross.png");
 }
+
 .showDetails, .newDetails, .newStart, .newStop{
     position: absolute;
     top: 100%;
@@ -675,26 +815,32 @@ td.stationSchedule {
     margin: 3px;
     padding: 3px;
 }
+
 .showDetails{
     width: 100px;
 }
+
 .newDetails, .newStart, .newStop{
     width: 60px;
 }
+
 #displayScheduleDate {
     text-transform:none;
 }
+
 #legend span {
     padding:2px 6px;
     color:white;
     margin: 0px 4px;
     font-size:9pt;
 }
+
 #pluginLinks
 {
     list-style-type: none;
     padding:0;
 }
+
 #pluginMenu
 {
     border:3px solid #2E3959;
@@ -703,6 +849,7 @@ td.stationSchedule {
     border-spacing: 0px;
     background-color: white;
 }
+
 .program_label {
     text-align: right;
 	padding: 0px 12px;
@@ -712,44 +859,52 @@ td.stationSchedule {
 	white-space: nowrap;
     display:inline-block;
 }
+
 #help_container {
     min-height: 350px;
     display: table;
     box-sizing: border-box;
     width: 100%
 }
+
 #help_menu {
     vertical-align:top;
     display: table-cell;
     padding: 5px;
     border-right: solid 1px;
 }
+
 #help_contents {
     vertical-align:top;
     display: table-cell;
     width: 80%;
     padding:5px;
 }
+
 .help_link_1{
     margin-top: 10pt;
     font-size: 16pt;
     white-space: nowrap;
 }
+
 .help_link_2 {
     margin-top: 2pt;
     margin-left: 5pt;
     font-size: 12pt;
     white-space: nowrap;
 }
+
 .help_link_3 {
     margin-left: 10pt;
     font-size: 10pt;
     white-space: nowrap;
 }
+
 .help_link_1 a,.help_link_2 a, .help_link_3 a {
     text-decoration: none;
     color: #2E3959;
 }
+
 .plugin {
     border-color: #2E3959;
     background-color: #2E3959;
@@ -757,70 +912,87 @@ td.stationSchedule {
     vertical-align: middle;
     margin: 4px 0 !important;
 }
+
 .plugin.disabled {
     border-color: #7D1921;
     background-color: #7D1921;
 }
+
 .plugin .button.toggle {
     width:130px;
     background-color:transparent;
     margin: 0 !important;
 }
+
 .plugin .button.toggle span.toggleleft {width: 30px;}
 .plugin .button.toggle span.toggleright {width: 30px;}
 .plugin .button.open {
     border: 1px solid #397F19;
     margin: 0 !important;
 }
+
 .plugin .button.danger {
     border: 1px solid #7D1921;
     margin: 0 !important;
 }
+
 .plugin.disabled .danger {
     border: 1px solid #FFF;
     margin: 0 !important;
 }
+
 @media only screen and (max-width: 1024px) {
    body {
       font-size: 10pt;
    }
+
    div.panel {
       margin-left: 0;
    }
+
    div.panel div.title {
       font-size: 14pt;
    }
+
    div.header div.title {
       font-size: 16pt;
    }
+
    div#status {
       float: none;
       width: 100%;
       padding: 0;
       display: inline-block;
    }
+
    #deviceTime {
       float: left;
    }
+
    #deviceTime span {
       font-size: 21pt;
       width: 35px;
    }
+
    #deviceTime span.sep {
       font-size: 12pt;
       top: 0;
       width: 4px;
    }
+
    #deviceTime span.second, #deviceTime span.ampm {
       font-size: 9pt;
    }
+
    #deviceTime span.second {
       top: -5px;
       left: auto;
    }
+
    #deviceTime span.ampm {
       left: -55px;
    }
+
    #deviceDate {
       float: right;
       padding: 0 5px 5px 5px;
@@ -829,29 +1001,40 @@ td.stationSchedule {
    button, .button {
       font-size: 11pt;
    }
+
    .minibutton {
       padding: 0px 6px;
       font-size: 6pt;
    }
+
    #nav .button {
       padding: 4px 12px;
       margin: 4px 0;
       font-size: 9pt;
    }
+
+   #nav button.here {
+      height: 40px;
+   }
+
    td.stationStatus {
       padding: 0 6px;
       font-size: 10pt;
    }
+
    td.station_name {
       font-size: 10pt;
    }
+
    .program {
       min-width: 400px;
    }
+
    #programs table tr:nth-child(2).showWeekly td {
       height: 90px;
       max-width: 26px;
    }
+
    #programs table tr:nth-child(2).showWeekly td button.weekday {
       -webkit-transform: rotate(-90deg);
       font-size: 8pt;
@@ -860,16 +1043,20 @@ td.stationSchedule {
       text-align: left;
       margin-left: -24px;
    }
+
     .help_link_1 {
         margin-top: 8pt;
         font-size: 14pt;
     }
+
     .help_link_2 {
         font-size: 10pt;
     }
+
     .help_link_3 {
         font-size: 8pt;
     }
+
     /* The current browser from firefox 54.0.1 still does not support this feature */	
     @media (pointer: coarse) {
        td.station_running {

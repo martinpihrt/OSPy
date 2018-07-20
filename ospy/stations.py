@@ -26,6 +26,7 @@ class _Station(object):
         self.capacity = 10.0
         self.eto_factor = 1.0
         self.balance = {}
+        self.notes = " "
 
         # Remove (old) balance info:
         if options.cls_name(self, index) in options:

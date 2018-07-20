@@ -5,10 +5,10 @@ $var page: stations
 
 
 <script src="/static/scripts/stations.js"></script>
-<div id="stations">
-    <div class="title">$_('Configure Stations')</div>
+<div class="title">$_('Configure Stations')</div>
+    <div id="stationsdiv">
     <form id="stationsForm" name="stationsForm" action="/stations" method="post">
-        <table class="stationList">
+        <table id="stations" class="stationList">
             <tr>
                 <th class="stationNumber">$_('Station')</th>
                 <th class="stationName">$_('Name')</th>
@@ -23,6 +23,7 @@ $var page: stations
                     <th class="stationMaster">$_('Activate Master?')</th>
                 $if stations.master_two is not None:
                     <th class="stationMaster">$_('Activate Master Two?')</th>
+                <th class="stationName">$_('Notes')</th>
             </tr>
             $for station in stations.get():
                 <tr>
@@ -64,12 +65,11 @@ $var page: stations
                             <td class="stationMaster">
                                 <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
                             </td> 
-
-                        
+                    <td class="stationNotes" title="$_('Station Notes.')">
+                        <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
+                    </td>      
                 </tr>
-
         </table>
-
         <p></p>
     </form>
 </div>

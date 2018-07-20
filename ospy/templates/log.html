@@ -1,4 +1,4 @@
-$def with ()
+$def with (wrecords, erecords)
 
 $var title: $_('Log')
 $var page: log
@@ -8,8 +8,7 @@ $var page: log
 </div>
 
 <div id="log">
-    $ records = log.finished_runs()
-    <p>$_('Total number of records'): ${len(records)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
+    <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
     <p>$_('Download log as') <a href="?csv">Excel log.csv</a>.</p>
 
     <table class="logList">
@@ -20,7 +19,7 @@ $var page: log
             <th>$_('Duration')</th>
             <th>$_('Program')</th>
         </tr>
-        $for interval in reversed(records):
+        $for interval in reversed(wrecords):
             $ duration = (interval['end'] - interval['start']).total_seconds()
             $ minutes, seconds = divmod(duration, 60)
             <tr class="log_rec ${loop.parity}">
@@ -31,9 +30,35 @@ $var page: log
                 <td align='center'>${interval["program_name"]}</td>
             </tr>
     </table>
+<div>
 
+<div class="title">$_('Log ') $_('Email') (${_('Enabled') if options.run_logEM else _('Disabled')})</div>
+
+
+    <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
+    <p>$_('Download log as') <a href="?csvEM">Excel log_email.csv</a>.</p>
+
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Time')</th>
+            <th>$_('Email Status')</th>
+            <th>$_('Subject')</th>
+            <th>$_('Body')</th>
+        </tr>
+        $ odd = 1
+        $for interval in reversed(erecords):
+            <tr class="log_rec ${'odd' if odd else 'even'}">
+                <td align='center'>${interval["date"]}</td>
+                <td align='center'>${formatTime(interval["time"])}</td>
+                <td align='center'>${interval["status"]}</td>
+                <td align='center'>${interval["subject"]}</td>
+                <td align='center'>${interval["body"]}</td>
+            </tr>
+            $ odd = 1 - odd
+    </table>
 </div>
 
 <a href="" class="button refresh">$_('Refresh')</a>
 <a href="?clear" class="button delete danger">$_('Clear Log')</a>
-
+<a href="?clearEM" class="button delete danger">$_('Clear Log') $_('Email')</a>

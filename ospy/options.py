@@ -97,7 +97,6 @@ class _Options(object):
             "help": _('SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)'),
             "category": _('System')
         },
-
         {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),
@@ -134,7 +133,6 @@ class _Options(object):
             "help": _('Allow anonymous users to access the system without a password.'),
             "category": _('Security')
         },
-
         #######################################################################
         # Station Handling ####################################################
         {
@@ -171,7 +169,6 @@ class _Options(object):
             "min": 0,
             "max": 86400
         },
-        
         #######################################################################
         # Configure Master ####################################################
         {
@@ -217,8 +214,6 @@ class _Options(object):
             "min": -1800,
             "max": +1800
         },
-
-
         #######################################################################
         # Rain Sensor #########################################################
         {
@@ -235,7 +230,6 @@ class _Options(object):
             "help": _('Rain sensor default.'),
             "category": _('Rain Sensor')
         },
-
         #######################################################################
         # Logging #############################################################
         {
@@ -254,6 +248,22 @@ class _Options(object):
             "min": 0,
             "max": 1000
         },
+        {  
+            "key": "run_logEM",
+            "name": _('Enable email log'),
+            "default": False,
+            "help": _('Log all emails - note that repetitive writing to an SD card can shorten its lifespan.'),
+            "category": _('Logging')
+        },
+        {
+            "key": "run_entriesEM",
+            "name": _('Max email entries'),
+            "default": 100,
+            "help": _('Number of email entries to save to disk, 0=no limit.'),
+            "category": _('Logging'),
+            "min": 0,
+            "max": 1000
+        },
         {
             "key": "debug_log",
             "name": _('Enable debug log'),
@@ -261,8 +271,6 @@ class _Options(object):
             "help": _('Log all internal events (for debugging purposes).'),
             "category": _('Logging')
         },
-
-
         #######################################################################
         # Not in Options page as-is ###########################################
         {
@@ -290,7 +298,6 @@ class _Options(object):
             "name": _('C/F'),
             "default": 'C',
         },
-
         {
             "key": "password_hash",
             "name": _('Current password hash'),
@@ -309,6 +316,11 @@ class _Options(object):
         {
             "key": "logged_runs",
             "name": _('The runs that have been logged'),
+            "default": []
+        },
+        {
+            "key": "logged_email",
+            "name": _('The email that have been logged'),
             "default": []
         },
         {

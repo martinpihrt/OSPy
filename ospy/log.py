@@ -47,6 +47,7 @@ class _Log(logging.Handler):
             result = self._log['Run']
         options.logged_runs = result
 
+
     @staticmethod
     def _save_log(msg, level, event_type):
         
@@ -236,7 +237,70 @@ class _Log(logging.Handler):
         txt = self.format(record) if options.debug_log else record.getMessage()
         self.log_event(record.event_type, txt, record.levelno, False)
 
+
+class _LogEM():
+    def __init__(self):
+        self._logEM = {
+            'RunEM': options.logged_email[:]
+        }
+        self._lock = threading.RLock()
+
+
+    def finished_email(self):
+        try:
+            for option in options.OPTIONS:
+                if 'key' in option:
+                   name = option['key']
+                   if name == 'logged_email':
+                      value = options[option['key']]
+                      return(value)
+
+        except Exception:
+            print(traceback.format_exc())
+            pass
+            return []
+
+    def _save_logsEM(self):
+        result = []
+        if options.run_logEM:
+            result = self._logEM['RunEM']
+        options.logged_email = result
+
+    def clear_email(self, all_entries=True):
+        if all_entries or not options.run_logEM:  # User request or logging is disabled
+            minimum = 0
+        elif options.run_entriesEM > 0:
+            minimum = options.run_entriesEM
+        else:
+            return  # We should not prune in this case
+
+        for index in reversed(xrange(len(self._logEM['RunEM']) - minimum)):
+            interval = self._logEM['RunEM'][index]
+            del self._logEM['RunEM'][index]
+
+        self._save_logsEM()
+
+    def save_email_log(self, subject, body, status):  
+        subject_print = subject.encode('utf-8')
+        body_print = body.encode('utf-8')
+        status_print = status.encode('utf-8')
+
+        with self._lock:
+            self._logEM['RunEM'].append({
+                'time': datetime.datetime.now().strftime("%H:%M:%S"),
+                'date': datetime.datetime.now().strftime("%Y-%m-%d"),
+                'subject': subject_print,
+                'body': body_print,
+                'status': status_print
+            })
+        
+            self._save_logsEM()     # save email
+            self.clear_email(False) # count only options.run_entriesEM
+
+
 log = _Log()
+logEM = _LogEM()
+
 log.setFormatter(logging.Formatter(EVENT_FORMAT))
 
 
