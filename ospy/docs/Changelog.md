@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 20 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add notes in station.html, Add email logging in log.html and options.html, Add function for email logging, Add blinker, Fix unicode error in options.html.
+
 July 11 2018
 ----------
 (martinpihrt)<br/>
