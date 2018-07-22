@@ -10,10 +10,10 @@ import random
 import time
 import errno
 import re
+import subprocess
 from threading import Lock
 
 BRUTEFORCE_LOCK = Lock()
-
 
 def del_rw(action, name, exc):
     import os
@@ -387,6 +387,24 @@ def save_to_options(qdict):
             else:
                 if isinstance(option['default'], bool):
                     options[key] = False
+
+last_ip_check_time = 0
+external_ip_address = ''
+def get_external_ip():
+    """Return the externally visible IP address for this OSPy system."""
+
+    global last_ip_check_time, external_ip_address
+    try:
+        if now() - last_ip_check_time > 5*60:
+            last_ip_check_time = now()
+            ip_info = subprocess.check_output(['/usr/bin/curl', '-ks', 'bot.whatismyipaddress.com'])
+            if ip_info != '':
+                external_ip_address = ip_info
+    except:
+        pass
+        return "err"
+
+    return str(external_ip_address)
 
 
 ########################
