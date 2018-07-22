@@ -47,7 +47,7 @@ $var page: stations
                         <input type="number" size="3" min="-100" max="100" value="0" name="${station.index}_balance_adjust">
                     </td>
                     $if station.is_master:
-                        <td class="stationMaster" colspan="4">($_('Master station'))</td>
+                        <td class="stationMaster" colspan="3">($_('Master station'))</td>
                     $elif station.is_master_two:
                         <td class="stationMaster" colspan="4">($_('Master two station'))</td>
                     $else:
