@@ -42,9 +42,9 @@ rebooted = signal('rebooted')
 def report_rebooted():
     rebooted.send()
 
-restart = signal('restart')
-def report_restart():
-    restart.send()
+restarted = signal('restarted')
+def report_restarted():
+    restarted.send()
 
 station_names = signal('station_names')
 def report_station_names():
@@ -595,7 +595,7 @@ class options_page(ProtectedPage):
             return self.core_render.home()
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
-            report_restart()
+            report_restarted()
             restart()    # OSPy software
             return self.core_render.restarting(home_page)
         
@@ -610,12 +610,14 @@ class options_page(ProtectedPage):
                 shutil.rmtree(OPTIONS_FILE) # delete data folder
                 time.sleep(2)
                 os.makedirs(OPTIONS_FILE)   # create data folder
+                report_restarted()
                 restart()                   # restart OSPy software
                 return self.core_render.restarting(home_page)
             except:
                 pass 
 
         if change:
+            report_restarted()
             restart()    # OSPy software
             return self.core_render.restarting(home_page)
 
@@ -726,6 +728,7 @@ class upload_page(ProtectedPage):
                  copyfile(OPTIONS_FILE, OPTIONS_FILE + '.bak')    # copy new options.db to old options.db.bak
 
                  log.debug('webpages.py', 'Upload, save, copy options.db file sucesfully, now restarting OSPy...')
+                 report_restarted()
                  restart(3)
                  return self.core_render.restarting(home_page)
             self._redirect_back()
