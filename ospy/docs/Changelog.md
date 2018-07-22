@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 22 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add email logging to all plugins (where is email used). Add subject into email to all plugins (where is email used). Add email to system update plugin. Fix blinker signal (restart) in webpages.
+
 July 20 2018
 ----------
 (martinpihrt)<br/>
