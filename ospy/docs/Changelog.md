@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 9 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Prepare i2c function in helper.py - add pigpio (for future and better use in plugins), change getip() function, add cz and sk string. Plugins: Voice (add more voices), Email (add temperature)
+
 July 22 2018
 ----------
 (martinpihrt)<br/>
