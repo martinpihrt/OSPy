@@ -21,10 +21,11 @@ INSTALLATION:
 2. Use git to clone: git clone -b master https://github.com/martinpihrt/OSPy.
 3. Next use step "Setup"
 
-### Manual OSPy system update (using Git, without system update plugin if plugin not work)
-1. sudo git config core.filemode false
-2. sudo git reset --hard
-3. sudo git pull
+### Manual OSPy-system update (using Git, without system update plugin if plugin not work)
+1. Go to the folder where the run.py file is located (cd OSPy).
+2. Execute: sudo git config core.filemode false
+3. Execute: sudo git reset --hard
+4. Execute: sudo git pull
 
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
