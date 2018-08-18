@@ -3,7 +3,7 @@
  - darkgreen:  #505050
  - tan:        #F7F1CD
  - rust:       #7D1921
- - navy:       #2E3959
+ - navy:       #404040
  - orange:     #FFC900
  - blue:       #4F62D8
 */
@@ -67,7 +67,7 @@ div.header div.title {
     font-size: 24pt;
     text-transform:uppercase;
     text-align:right;
-    color:white;
+    color:#ddd;
     padding-top:35px;
     padding-right:16px;
 }
@@ -83,7 +83,7 @@ div.footer {
     background-position: top right -200px;
     background-repeat: no-repeat;
     background-color: #808080;
-    color:white;
+    color:black;
     text-align: right;
     padding: 16px 170px 16px 16px;
     font-size:9pt;
@@ -141,7 +141,7 @@ span.stationName:last-child:after {
 }
 
 .program p:first-child {
-    background-color: #2E3959;
+    background-color: #404040;
     color: white
 }
 
@@ -386,7 +386,7 @@ button.toggle.on span.toggleright, button.toggle.off span.toggleleft, .button.to
 
 button.toggle.off span.toggleright, button.toggle.on span.toggleleft, .button.toggle.off span.toggleright, .button.toggle.on span.toggleleft {
     font-weight: 700;
-    color: white;
+    color: #ddd;
 }
 
 #controls button#cSubmit, #controls .button#cSubmit {
@@ -446,12 +446,98 @@ button.pushon.on, .button.pushon.on {
     display: inline-block;
 }
 
+/******** Input Styles **********/
+
 input.timeInput {
     font-size:12pt;
+    background-color: #808080;
 }
 
 input[type=number] {
     width: 60px;
+    background-color: #ddd;
+}
+
+input[type=text] {
+    background-color: #ddd;
+}
+
+input[type="text"], textarea {
+    background-color : #ddd; 
+}
+
+input[type=password] {
+    background-color: #ddd;
+}
+
+select{
+    background-color: #ddd;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+  background: lightgray;
+  height: 16px;
+  width: 16px;
+  border: 1px solid white;
+}
+
+input[type="checkbox"]:checked {
+  background: #ddd;
+}
+
+input[type="checkbox"]:hover {
+  filter: brightness(90%);
+}
+
+input[type="checkbox"]:disabled {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+input[type="checkbox"]:after {
+  content: '';
+  position: relative;
+  left: 40%;
+  top: 20%;
+  width: 15%;
+  height: 40%;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+input[type="checkbox"]:checked:after {
+  display: block;
+}
+
+input[type="checkbox"]:disabled:after {
+  border-color: #7b7b7b;
+}
+
+/******** Changes the appearance of a link **********/
+
+a:link { 
+  color: lightgray;
+  text-decoration: none;
+}
+a:visited {
+  color: lightgray;
+  text-decoration: none;
+}
+a:hover {
+  color: #7D1921;
+  text-decoration: underline;
+}
+a:active {
+  color: #7D1921;
+  text-decoration: underline;
 }
 
 /******** Station Table Styles **********/
@@ -461,7 +547,7 @@ input[type=number] {
 }
 
 table.optionList {
-    border:3px solid #2E3959;
+    border:3px solid #404040;
     border-radius: 12px;
     padding: 4px;
     border-spacing: 0px;
@@ -489,7 +575,7 @@ table.stationList {
 td.station_name {
     text-align: right;
     padding: 0px 12px;
-    color: #2E3959;
+    color: #404040;
     font-weight: 700;
     width: 12em;
     height: 30px;
@@ -563,7 +649,7 @@ table.logList td {
 
 table.logList th {
     padding: 0px 12px;
-    border-bottom: 2px solid #2E3959;
+    border-bottom: 2px solid #404040;
 }
 
 table.adjustmentList {
@@ -580,7 +666,7 @@ table.adjustmentList td.adjValue, table.adjustmentList th.adjValue {
 
 table.adjustmentList th {
     padding: 2px;
-    border-top: 2px solid #2E3959;
+    border-top: 2px solid #404040;
     text-align: left;
 }
 
@@ -595,7 +681,7 @@ table.pemList td {
 
 table.pemList th {
     padding: 2px;
-    border-bottom: 2px solid #2E3959;
+    border-bottom: 2px solid #404040;
     text-align: left;
 }
 
@@ -617,12 +703,12 @@ table.pemList th {
 }
 
 .intervalSelect.distance0 {
-    background-color: #32A620;
+    background-color: #404040;
     color: white;
 }
 
 .intervalSelect:hover {
-    border: 2px solid #32A620;
+    border: 2px solid #404040;
 }
 
 .intervalSelect.distance1 {
@@ -635,7 +721,7 @@ table.pemList th {
     margin: 5px 0;
 	font-size: 14px;
 	line-height: 1.2em;
-    border:3px solid #2E3959;
+    border:3px solid #404040;
     border-radius: 12px;
     padding: 4px;
     border-spacing: 0px;
@@ -669,18 +755,18 @@ table.balanceList td.balValue, table.balanceList th.balValue {
 }
 
 table.balanceList tr:first-child th {
-    border-bottom: 2px solid #2E3959;
+    border-bottom: 2px solid #404040;
 }
 
 table.balanceList tr:last-child th {
-    border-top: 2px solid #2E3959;
+    border-top: 2px solid #404040;
 }
 
 /******** Collapsible Styles **********/
 
 .collapsible > h4, .collapsible > h5 {
     color:white;
-    background-color: #2E3959;
+    background-color: #404040;
     background-repeat: no-repeat;
     background-position: 3px center;
     padding: 4px 4px 4px 24px;
@@ -745,7 +831,7 @@ td.stationSchedule {
 .nowMarker {
     position:absolute;
     top: 0px;
-    background-color: #7D1921;
+    background-color: #808080;
     height:28px;
 }
 
@@ -762,7 +848,7 @@ td.stationSchedule {
     font-size: 9px;
     text-align:center;
     color: #2E3959;
-    border-right:1px solid #2E3959;
+    border-right:1px solid #404040;
 }
 
 .scheduleTick:last-child {
@@ -853,7 +939,7 @@ td.stationSchedule {
 .program_label {
     text-align: right;
 	padding: 0px 12px;
-	color: #7D7D7D;
+	color: #404040;
 	font-weight: 700;
 	width: 10em;
 	white-space: nowrap;
@@ -902,7 +988,7 @@ td.stationSchedule {
 
 .help_link_1 a,.help_link_2 a, .help_link_3 a {
     text-decoration: none;
-    color: #7D7D7D;
+    color: #404040;
 }
 
 .plugin {

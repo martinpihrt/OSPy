@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 18 2018
+----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add new dark theme in templates. Add info on homepage if wunderground graph data is not correct.
+
 Aug 9 2018
 ----------
 (martinpihrt)<br/>

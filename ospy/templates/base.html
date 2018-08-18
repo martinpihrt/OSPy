@@ -122,7 +122,7 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="header">
-            <div class="title">${options.name if options.name != _('OpenSprinkler Py') else ""}</div>
+            <div class="title">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""}</div>
         </div>
 
         <div class="body">
@@ -157,7 +157,7 @@ jQuery(document).ready(function(){
             <p>$_('CPU Temp'): <b>
                 <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> ${get_cpu_temp(options.temp_unit)} ${options.temp_unit}</span>
             </b></p>
-            <p><a href="https://github.com/martinpihrt/OSPy">$_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
+            <p><a href="https://github.com/martinpihrt/OSPy"><b>$_('Software')</b></a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
             <p>$_('External IP'): <b> ${get_external_ip()}</b></p>
         </div>
     </div>
