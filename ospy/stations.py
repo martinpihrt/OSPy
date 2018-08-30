@@ -9,6 +9,9 @@ import logging
 # Local imports
 from ospy.options import options
 
+from blinker import signal
+zone_change = signal('zone_change')
+
 
 class _Station(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', 'is_master', 'is_master_two', 'active', 'remaining_seconds']
@@ -242,6 +245,7 @@ class _ShiftStations(_BaseStations):
         self._io.output(self._sr_lat, self._io.HIGH)
         self._io.output(self._sr_noe, self._io.LOW)
         logging.debug("Activated shift outputs")
+        zone_change.send()
 
     def resize(self, count):
         super(_ShiftStations, self).resize(count)
