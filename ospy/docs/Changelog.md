@@ -1,6 +1,15 @@
 OSPy Changelog
 ====
 
+Sep 6 2018
+Changes:<br/>
+Fix for download in options if file is not ready for download.(options.db).<br>
+Add msg for upload options.db if file name is not options.db.<br>
+Add new plugin: CLI Control. Add status in pressure monitor plugin.<br>
+Add signaling examples plugin.<br>
+LCD plugin change: insert stations running info in to loop.<br>
+Fix home page in manual mode for msg graph.
+
 Aug 18 2018
 ----------
 (martinpihrt)<br/>

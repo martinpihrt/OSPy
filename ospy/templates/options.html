@@ -70,6 +70,10 @@ $code:
             jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False).encode('utf8')});
             jQuery("#errorcpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
+        case "pw_filename":
+            jQuery("#errorfn").text($:{json.dumps(_("File name is not options.db, please retry."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfn").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;
     }
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -225,6 +229,7 @@ $code:
         output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download options.db file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
         output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload options.db file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
+        output += "<span class='inputError' id='errorfn'></span>\n"
         output += "</div></form>\n"
         output += categoryCloser
     $:{output}

@@ -678,6 +678,13 @@ class help_page(ProtectedPage):
 
         docs = get_help_files()
         return self.core_render.help(docs)
+        
+class db_unreachable_page(ProtectedPage):
+    """Failed to reach download."""
+
+    def GET(self):
+       return self.core_render.unreachable('/download')
+       
 
 class download_page(ProtectedPage):
     """Download OSPy DB file with settings"""
@@ -693,18 +700,22 @@ class download_page(ProtectedPage):
              return []
 
        try:
-          import mimetypes
+          if os.path.getsize(OPTIONS_FILE)>= 12288: # default db file size is 12288
+          
+             import mimetypes
          
-          download_name = 'options.db'
-          content = mimetypes.guess_type(OPTIONS_FILE)[0]
-          web.header('Content-type', content)
-          web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
-          web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-          return _read_log()
-          raise web.seeother('/')
-
+             download_name = 'options.db'
+             content = mimetypes.guess_type(OPTIONS_FILE)[0]
+             web.header('Content-type', content)
+             web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
+             web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+             return _read_log()
+             
+          else:   
+             return self.core_render.unreachable('/download')
+             
        except Exception:
-          return self.core_render.home()
+          raise web.seeother('/')
 
 
 class upload_page(ProtectedPage):
@@ -731,10 +742,12 @@ class upload_page(ProtectedPage):
                  report_restarted()
                  restart(3)
                  return self.core_render.restarting(home_page)
-            self._redirect_back()
+            else:        
+               errorCode = "pw_filename" 
+               return self.core_render.options(errorCode)
 
         except Exception:
-            self._redirect_back()
+            return self.core_render.options()
 
 class blockconnection_png(ProtectedPage):
     """Return pictures with information about board connection - for help page."""
