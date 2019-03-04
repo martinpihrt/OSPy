@@ -1,10 +1,13 @@
-﻿[Unit]
+#Service for OSPy running on Pidora (or other RHEL/Fedora variant) as a SystemD service
+#
+[Unit]
 Description=OpenSprinkler Python
-
+After=syslog.target network.target
 [Service]
+ExecStart=/usr/bin/python -u /home/pi/OSPy/run.py
+Restart=on-abort
+#KillMode=process
 WorkingDirectory="{{OSPY_DIR}}"
-ExecStart=/usr/bin/python run.py
-KillMode=process
-
+SyslogIdentifier=OSPy
 [Install]
 WantedBy=multi-user.target
