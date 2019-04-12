@@ -715,9 +715,15 @@ class _Programs(object):
                     }
                 try:
                     if not station.balance[calc_day]['valid'] or calc_day >= now.date() - datetime.timedelta(days=1):
-                        station.balance[calc_day]['eto'] = station.eto_factor * weather.get_eto(calc_day)
-                        station.balance[calc_day]['rain'] = 0.0 if station.ignore_rain else weather.get_rain(calc_day)
-                        station.balance[calc_day]['valid'] = True
+                        if options.use_wunderground and options.wunderground_key:
+                            station.balance[calc_day]['eto'] = station.eto_factor * weather.get_eto(calc_day)
+                            station.balance[calc_day]['rain'] = 0.0 if station.ignore_rain else weather.get_rain(calc_day)
+                            station.balance[calc_day]['valid'] = True
+                        else:
+                            station.balance[calc_day]['eto'] = station.eto_factor
+                            station.balance[calc_day]['rain'] = 0.0
+                            station.balance[calc_day]['valid'] = True                   
+
                 except Exception:
                     station.balance[calc_day]['valid'] = False
                     logging.warning('Could not get weather information, using fallbacks:\n' + traceback.format_exc())
