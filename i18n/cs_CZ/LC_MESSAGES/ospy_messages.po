@@ -6,17 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
 "POT-Creation-Date: 2016-05-24 09:03+0200\n"
-"PO-Revision-Date: 2018-09-06 19:47+0200\n"
+"PO-Revision-Date: 2019-04-15 13:50+0200\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "Language: cs_CZ\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: ospy/options.py:101
+msgid "Use Weather"
+msgstr "Použít počasí"
 
 #: ospy/templates/base.html:
 msgid "OpenSprinkler Py"
@@ -130,13 +134,26 @@ msgstr "Zap (hlavní)"
 msgid "Off (Master)"
 msgstr "Vyp (hlavní)"
 
-#: ospy/options.py:57
-msgid "Use Wunderground"
-msgstr "Použít Wunderground"
+#: ospy/options.py:103
+msgid "Enabling or disabling connection to service Dark Sky."
+msgstr "Povolení připojení k službě Dark Sky."
 
-#: ospy/options.py:59
-msgid "Enabling or disabling connection to service Weather underground."
-msgstr "Povolit, nebo zakázat službu Weather underground."
+#: ospy/options.py:104 ospy/options.py:111 ospy/options.py:118
+#: ospy/options.py:125
+msgid "Weather"
+msgstr "Počasí"
+
+#: ospy/options.py:108
+msgid "Dark Sky API key"
+msgstr "Dark Sky API klíč"
+
+#: ospy/options.py:110
+msgid "To make use of local weather conditions, a Dark Sky API key is needed."
+msgstr "Pro použití místních povětrnostních podmínek je nutný klíč rozhraní API Dark Sky."
+
+#: ospy/options.py:117
+msgid "City name or zip code. Used to determine location via OpenStreetMap for weather information."
+msgstr "Název města nebo PSČ. Používá se k určení místa prostřednictvím OpenStreetMap pro informace o počasí."
 
 #: ospy/options.py:78
 msgid "HTTP IP addr"
@@ -275,14 +292,6 @@ msgstr "Nepoužito"
 #: ospy/templates/options.html:
 msgid "Specify which output should be used as master station."
 msgstr "Určete, který výstup by měl být použit jako hlavní stanice."
-
-#: ospy/templates/options.html:118
-msgid "Wundermap"
-msgstr "Mapa umístění"
-
-#: ospy/templates/options.html:118 ospy/templates/options.html:119
-msgid "Open Weather underground map in new tab."
-msgstr "Otevřít stránku s mapou Weather underground v nové záložce."
 
 #: ospy/templates/options.html:
 msgid "None available"
@@ -657,10 +666,6 @@ msgstr "Jazyková lokalizace pro tento OpenSprinkler systém (projeví se až po
 msgid "Location"
 msgstr "Umístění"
 
-#: ospy/options.py:
-msgid "City name or zip code. Use comma or + in place of space."
-msgstr "Název města, nebo poštovní směrovací číslo. Čárka nebo + v mezeře (nepoužívejte diakritiku)."
-
 #: ospy/options.py:47
 msgid "Elevation (m)"
 msgstr "Nadmořská výška (m)"
@@ -668,14 +673,6 @@ msgstr "Nadmořská výška (m)"
 #: ospy/options.py:49
 msgid "Elevation of this location in meters."
 msgstr "Nadmořská výška pro vaše umístění v metrech."
-
-#: ospy/options.py:56
-msgid "Wunderground API key"
-msgstr "API klíč Wunderground"
-
-#: ospy/options.py:58
-msgid "To make use of local weather conditions, a weather underground API key is needed."
-msgstr "Pro získání místní předpovědi počasí je vyžadován API klíč nutný pro přístup do služby weather underground."
 
 #: ospy/options.py:
 msgid "24-hour clock"

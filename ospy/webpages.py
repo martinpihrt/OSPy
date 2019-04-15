@@ -546,18 +546,11 @@ class options_page(ProtectedPage):
             if options.lang != qdict['lang']:
                change = True
 
-        nm = qdict['name'] 
-        qdict['name'] = nm
+        qdict['name'] = qdict['name']
+        qdict['location'] = qdict['location']
+        qdict['darksky_key'] = qdict['darksky_key']
+        qdict['HTTP_web_ip'] = qdict['HTTP_web_ip']
 
-        lc = qdict['location']
-        qdict['location'] = lc
-
-        wd = qdict['wunderground_key']
-        qdict['wunderground_key'] = wd
-
-        ni = qdict['HTTP_web_ip']
-        qdict['HTTP_web_ip'] = ni
-            
         save_to_options(qdict)
 
         if 'master' in qdict:

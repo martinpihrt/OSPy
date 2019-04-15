@@ -38,36 +38,6 @@ class _Options(object):
             "category": _('System')
         },
         {
-            "key": "location",
-            "name": _('Location'),
-            "default": u' ',
-            "help": _('City name or zip code. Use comma or + in place of space.'),
-            "category": _('System')
-        },
-        {
-            "key": "elevation",
-            "name": _('Elevation (m)'),
-            "default": 0,
-            "help": _('Elevation of this location in meters.'),
-            "category": _('System'),
-            "min": 0,
-            "max": 10000
-        },
-        {
-            "key": "use_wunderground",
-            "name": _('Use Wunderground'),
-            "default": False,
-            "help": _('Enabling or disabling connection to service Weather underground.'),
-            "category": _('System')
-        },
-        {
-            "key": "wunderground_key",
-            "name": _('Wunderground API key'),
-            "default": u' ',
-            "help": _('To make use of local weather conditions, a weather underground API key is needed.'),
-            "category": _('System')
-        },
-        {
             "key": "time_format",
             "name": _('24-hour clock'),
             "default": True,
@@ -123,6 +93,38 @@ class _Options(object):
             "default": "default",
             "help": "", #_('Language localizations for this OpenSprinkler system. (effective after reboot.)'),
             "category": _('System')
+        },
+        #######################################################################
+        # Weather  ############################################################
+        {
+            "key": "use_weather",
+            "name": _('Use Weather'),
+            "default": False,
+            "help": _('Enabling or disabling connection to service Dark Sky.'),
+            "category": _('Weather')
+        },
+        {
+            "key": "darksky_key",
+            "name": _('Dark Sky API key'),
+            "default": "",
+            "help": _('To make use of local weather conditions, a Dark Sky API key is needed.'),
+            "category": _('Weather')
+        },
+        {
+            "key": "location",
+            "name": _('Location'),
+            "default": u' ',
+            "help": _('City name or zip code. Used to determine location via OpenStreetMap for weather information.'),
+            "category": _('Weather')
+        },
+        {
+            "key": "elevation",
+            "name": _('Elevation (m)'),
+            "default": 0,
+            "help": _('Elevation of this location in meters.'),
+            "category": _('Weather'),
+            "min": 0,
+            "max": 10000
         },
         #######################################################################
         # Security ############################################################

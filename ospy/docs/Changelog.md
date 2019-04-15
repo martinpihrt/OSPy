@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Apr 15 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Weather Underground has been replaced with Dark Sky API. Thank'sRimco<br/>
+
 Sep 6 2018
 Changes:<br/>
 Fix for download in options if file is not ready for download.(options.db).<br>

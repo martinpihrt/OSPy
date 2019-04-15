@@ -89,3 +89,7 @@ The program makes use of gfm (https://github.com/dart-lang/py-gfm) to render the
 
 The program makes use of pygments (http://pygments.org) to provide syntax highlighting in the help pages.
 
+The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
+
+The program makes use of Dark Sky API ([Powered by Dark Sky](https://darksky.net/poweredby/)) for weather information.
+

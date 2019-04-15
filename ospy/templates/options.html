@@ -31,11 +31,6 @@ $code:
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
     });
 
-   
-    jQuery("button#cWundermap").click(function(){
-       window.open('https://www.wunderground.com/wundermap', '_blank');      
-    });
-
     jQuery("button#cReboot").click(function(){
         jQuery("input[name='rbt']").val(1);
         jQuery("form[name='of']").submit();
@@ -117,11 +112,6 @@ $code:
                 minv = " min='" + str(option['min']) + "'" if 'min' in option else ""
                 maxv = " max='" + str(option['max']) + "'" if 'max' in option else ""
 
-                if category == _('System') and name == 'elevation':
-                    output += "<div class='option'><span class='label'>"
-                    output += "<button id='cWundermap' class='button upload' title=" + json.dumps(_('Open Weather underground map in new tab.'), ensure_ascii=False) + ">" + _('Wundermap') + "</button></span>"
-                    output += "<span class='tooltip'>" + _('Open Weather underground map in new tab.') + "</span></div>"
-
                 if category != oldcategory:
                     output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + category + "</h4>"
                     categoryCloser = "</div>"
@@ -165,6 +155,7 @@ $code:
                     output += "</div>\n"
     
                 if name is not 'lang':
+
                     output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + ":</span>\n"
                 else:
                     output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + "</span>\n"

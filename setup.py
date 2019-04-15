@@ -22,7 +22,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
         __import__(module)
         print '%s is available' % module
         return
-    except ImportError:
+    except Exception:
         if not yes_no('%s not available, do you want to install it?' % module):
             return
 
@@ -190,9 +190,9 @@ if __name__ == '__main__':
                             [[sys.executable, 'setup.py', 'install']])
 
             install_package('gfm', None, None,
-                            'https://github.com/dart-lang/py-gfm.git',
+                            'https://github.com/Zopieux/py-gfm.git',
                             [[sys.executable, 'setup.py', 'install']],
-                            'https://github.com/dart-lang/py-gfm/archive/master.zip', 'py-gfm-master',
+                            'https://github.com/Zopieux/py-gfm/archive/master.zip', 'py-gfm-master',
                             [[sys.executable, 'setup.py', 'install']])
 
             install_package('pygments', 'pygments', 'python-pygments',

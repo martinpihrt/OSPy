@@ -513,10 +513,6 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
     </div>
-$else:
-    $if options.use_wunderground and not options.manual_mode:
-       <div id="graph-container" class="graph-container">
-       <p>$_('Not valid data for graph. Set correct value for Wunderground in options.')</p>
-       </div>
+
 
 
