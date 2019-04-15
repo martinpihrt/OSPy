@@ -172,7 +172,7 @@ class _Weather(Thread):
         return self._get_darksky_data(datetime.date.today() + datetime.timedelta(days=1))['currently']
 
     def _calc_radiation(self, coverage, fractional_day, local_hour):
-        gmt_hour = local_hour + self._tz_offset
+        gmt_hour = local_hour - self._tz_offset
         f = math.radians(fractional_day)
         declination = 0.396372 - 22.91327 * math.cos(f) + 4.02543  * math.sin(f) - 0.387205 * math.cos(2*f) + 0.051967 * math.sin(2*f) - 0.154527 * math.cos(3*f) + 0.084798 * math.sin(3*f)
         time_correction = 0.004297 + 0.107029 * math.cos(f) - 1.837877 * math.sin(f) - 0.837378 * math.cos(2*f) - 2.340475 * math.sin(2*f)
