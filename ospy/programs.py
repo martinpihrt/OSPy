@@ -126,7 +126,7 @@ class _Program(object):
                         -1: stations.get(station).balance[now.date() - datetime.timedelta(days=1)]['rain']
                     }
 
-                    for day_index in range(0, 10):
+                    for day_index in range(0, 7):
                         overall_balance = stations.get(station).balance[now.date() + datetime.timedelta(days=day_index)]
                         station_balance[day_index] = station_balance[day_index-1] \
                                                      - overall_balance['eto'] \
