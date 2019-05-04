@@ -1,11 +1,17 @@
 OSPy Changelog
 ====
 
+May 4 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed I2C range in LCD plugin. Fixed range in programs.py. Thank's user ITDPG4<br/>
+
 Apr 15 2019
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Weather Underground has been replaced with Dark Sky API. Thank'sRimco<br/>
+Weather Underground has been replaced with Dark Sky API. Thank's user Rimco<br/>
 
 Sep 6 2018
 Changes:<br/>
