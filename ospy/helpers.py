@@ -330,7 +330,52 @@ def get_cpu_temp(unit=None):
         else:
             return temp
     except Exception:
-        return '!!'
+        return '-'
+
+
+prev_time_doing_things  = 0  
+prev_time_doing_nothing = 0
+def get_cpu_usage():
+    """Return the CPU usage."""
+    # Read first line from /proc/stat. It should start with "cpu" and contains times spend in various modes by all CPU's totalled.
+    cpustats = ''
+    global prev_time_doing_things 
+    global prev_time_doing_nothing 
+
+    try:
+        import os.path
+        with open("/proc/stat") as procfile:
+            cpustats = procfile.readline().split()
+    except Exception:
+        return '-'            
+
+    # Sanity check
+    if cpustats[0] != 'cpu':
+        raise ValueError("First line of /proc/stat not recognised")
+
+    # Refer to "man 5 proc" (search for /proc/stat) for information about which field means what.
+    # Here we do calculation as simple as possible: CPU% = 100 * time-doing-things / (time_doing_things + time_doing_nothing)
+
+    user_time = int(cpustats[1])    # time spent in user space
+    nice_time = int(cpustats[2])    # 'nice' time spent in user space
+    system_time = int(cpustats[3])  # time spent in kernel space
+
+    idle_time = int(cpustats[4])    # time spent idly
+    iowait_time = int(cpustats[5])  # time spent waiting is also doing nothing
+
+    time_doing_things = user_time + nice_time + system_time
+    time_doing_nothing = idle_time + iowait_time
+
+    diff_time_doing_things = time_doing_things - prev_time_doing_things
+    diff_time_doing_nothing = time_doing_nothing - prev_time_doing_nothing
+    cpu_percentage = 100.0 * diff_time_doing_things/ (diff_time_doing_things + diff_time_doing_nothing)
+
+    # remember current values to subtract next iteration of the loop
+    prev_time_doing_things = time_doing_things
+    prev_time_doing_nothing = time_doing_nothing
+
+    # Output latest perccentage
+    return round(cpu_percentage ,1)  # To one digits     
 
 
 def mkdir_p(path):
@@ -435,6 +480,8 @@ def get_external_ip():
             ip_info = subprocess.check_output(['/usr/bin/curl', '-ks', 'bot.whatismyipaddress.com'])
             if ip_info != '':
                 external_ip_address = ip_info
+            else:
+                external_ip_address = '-'
     except:
         pass
         return "err"

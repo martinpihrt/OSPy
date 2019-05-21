@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 21 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed CPU usage in plugins, Fixed MQTT PIP isue, Ignore *.mp3 user file modification. Add CPU usage to home page.<br/>
+
 May 4 2019
 -----------
 (martinpihrt)<br/>
