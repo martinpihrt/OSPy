@@ -23,11 +23,11 @@ $var page: log
             $ duration = (interval['end'] - interval['start']).total_seconds()
             $ minutes, seconds = divmod(duration, 60)
             <tr class="log_rec ${loop.parity}">
-                <td align='center'>${interval["start"].strftime("%Y-%m-%d")}</td>
-                <td align='center'>${formatTime(interval["start"].strftime("%H:%M:%S"))}</td>
-                <td align='center'>${stations[interval["station"]].name}</td>
-                <td align='center'>${"%02d:%02d" % (minutes, seconds)}</td>
-                <td align='center'>${interval["program_name"]}</td>
+                <td align='left'>${interval["start"].strftime("%Y-%m-%d")}</td>
+                <td align='left'>${formatTime(interval["start"].strftime("%H:%M:%S"))}</td>
+                <td align='left'>${stations[interval["station"]].name}</td>
+                <td align='left'>${"%02d:%02d" % (minutes, seconds)}</td>
+                <td align='left'>${interval["program_name"]}</td>
             </tr>
     </table>
 <div>
@@ -49,11 +49,11 @@ $var page: log
         $ odd = 1
         $for interval in reversed(erecords):
             <tr class="log_rec ${'odd' if odd else 'even'}">
-                <td align='center'>${interval["date"]}</td>
-                <td align='center'>${formatTime(interval["time"])}</td>
-                <td align='center'>${interval["status"]}</td>
-                <td align='center'>${interval["subject"]}</td>
-                <td align='center'>${interval["body"]}</td>
+                <td align='left'>${interval["date"]}</td>
+                <td align='left'>${formatTime(interval["time"])}</td>
+                <td align='left'>${interval["status"]}</td>
+                <td align='left'>${interval["subject"]}</td>
+                <td align='left'>${interval["body"]}</td>
             </tr>
             $ odd = 1 - odd
     </table>
