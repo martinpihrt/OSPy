@@ -368,7 +368,10 @@ class _Scheduler(Thread):
         for entry in active:
             ignore_rain = stations.get(entry['station']).ignore_rain
             if entry['end'] <= current_time or (rain and not ignore_rain and not entry['blocked'] and not entry['manual']):
-                log.finish_run(entry)
+                if not rain:
+                    log.finish_run(entry)
+                if ignore_rain:
+                    log.finish_run(entry)
                 if not entry['blocked']:
                     stations.deactivate(entry['station'])
 
@@ -377,8 +380,11 @@ class _Scheduler(Thread):
             #import pprint
             #logging.debug("Schedule: %s", pprint.pformat(schedule))
             for entry in schedule:
-                if entry['start'] <= current_time < entry['end']:
-                    log.start_run(entry)
+                if entry['start'] <= current_time < entry['end']: 
+                    if rain and stations.get(entry['station']).ignore_rain:
+                        log.start_run(entry)
+                    if not rain:
+                        log.start_run(entry)
                     if not entry['blocked']:
                         stations.activate(entry['station'])
         

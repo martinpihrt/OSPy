@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 21 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add new plugin water consumption counter. Fix in scheduller if rain (or rain delay) and stations has not ignore rain -> not logging.<br/>
+
 May 21 2019
 -----------
 (martinpihrt)<br/>
