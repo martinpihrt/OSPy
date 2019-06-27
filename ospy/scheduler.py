@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Rimco'
 
+from blinker import signal
+
 # System imports
 from threading import Thread
 import datetime
@@ -21,6 +23,16 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy.outputs import outputs
 
+rain_active = signal('rain_active')
+rain_not_active = signal('rain_not_active')
+
+def report_rain():
+    rain_active.send()      # send rain signal
+
+def report_no_rain():
+    rain_not_active.send()  # send not rain signal  
+
+pom_last_rain = False       # send signal only if rain change
 
 def predicted_schedule(start_time, end_time):
     """Determines all schedules for the given time range.
@@ -362,7 +374,17 @@ class _Scheduler(Thread):
         check_end = current_time + datetime.timedelta(days=1)
 
         rain = not options.manual_mode and (rain_blocks.block_end() > datetime.datetime.now() or
-                                            inputs.rain_sensed())
+                                            inputs.rain_sensed())          
+
+        global pom_last_rain
+        
+        if inputs.rain_sensed() and not pom_last_rain:
+            report_rain()
+            pom_last_rain = True
+        
+        if not inputs.rain_sensed() and pom_last_rain:   
+            report_no_rain()
+            pom_last_rain = False
 
         active = log.active_runs()
         for entry in active:

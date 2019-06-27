@@ -10,7 +10,12 @@ import logging
 from ospy.options import options
 
 from blinker import signal
+
 zone_change = signal('zone_change')
+master_one_on = signal('master_one_on')
+master_one_off = signal('master_one_off')
+master_two_on = signal('master_two_on')
+master_two_off = signal('master_two_off')
 
 
 class _Station(object):
@@ -178,6 +183,7 @@ class _BaseStations(object):
 
     __getitem__ = get
 
+
     def activate(self, index):
         if not isinstance(index, list):
             index = [index]
@@ -185,7 +191,13 @@ class _BaseStations(object):
             if i < len(self._state):
                 self._state[i] = True
                 logging.debug("Activated output %d", i)
-
+                if self._stations[i].is_master:
+                    logging.debug("Activated master one")
+                    master_one_on.send()                   # send signal master ON
+                if self._stations[i].is_master_two:
+                    logging.debug("Activated master two")    
+                    master_two_on.send()                   # send signal master 2 ON                
+                 
     def deactivate(self, index):
         if not isinstance(index, list):
             index = [index]
@@ -193,6 +205,12 @@ class _BaseStations(object):
             if i < len(self._state):
                 self._state[i] = False
                 logging.debug("Deactivated output %d", i)
+                if self._stations[i].is_master:
+                    logging.debug("Deactivated master one")
+                    master_one_off.send()                   # send signal master OFF
+                if self._stations[i].is_master_two:
+                    logging.debug("Deactivated master two")    
+                    master_two_off.send()                   # send signal master 2 OFF                
 
     def active(self, index=None):
         if index is None:
@@ -246,6 +264,7 @@ class _ShiftStations(_BaseStations):
         self._io.output(self._sr_noe, self._io.LOW)
         logging.debug("Activated shift outputs")
         zone_change.send()
+        
 
     def resize(self, count):
         super(_ShiftStations, self).resize(count)

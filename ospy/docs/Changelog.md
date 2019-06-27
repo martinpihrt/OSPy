@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+June 27 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add new signal for system signalling (master station one and master station two in stations, rain detect in scheduller).<br/>
+Fixed CPU usage in plugin water consumption counter. Add new signals in plugin signaling examples.
+
 June 21 2019
 -----------
 (martinpihrt)<br/>
