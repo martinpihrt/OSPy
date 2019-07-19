@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 19 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixing in helpers.py markdown (conversion UTF-8 string) for help page. Preparing files for Web Interface Guide.<br/>
+
 June 27 2019
 -----------
 (martinpihrt)<br/>
