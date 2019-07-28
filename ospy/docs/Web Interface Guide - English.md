@@ -402,6 +402,7 @@ Naming the system is useful when working with several controllers.
 When the system name has been changed from OpenSprinkler Pi, the default, it will be displayed in the header of each page for easy system identification.
 
 ### Select System theme
+There are several topics to choose from in the list (green mode, black and white mode...)
 
 ### Clock format
 The 24-Hour clock option selects between the international 24 hour clock format, sometimes referred to as military time, and the 12 hour-AM/PM format.
@@ -432,6 +433,7 @@ You will be returned to the home page. The system will reboot but there is no vi
 
 ### Use HTTPS access 
 In case we have configured OSPy server for higher security of data transmission by SSL certificate, check "Use HTTPS access". If the "Use HTTPS access" option is checked and the server is not set up correctly, OSPy will start as http.
+The SSL certificate is created automatically. 
 
 ### Select Language  
 The language option can change the language used in the web interface.
@@ -496,13 +498,27 @@ Enter the number of seconds to delay between station operations.
 
 ## Configure Master Section
 
+
 ### Master station
+Selection of the first main station (for pump or main valve).
+
 ### Master two station
+Selection of the next main station (for pump 2 or main valve 2).
+
 ### Activate relay
+If checked, the relay will also be activated as the main output. The relay has activating from first or second master stations.
+
 ### Master on delay
+Delay ON for master station (in seconds), between -1800 and +1800.
+
 ### Master off delay
+Delay OFF for master station (in seconds), between -1800 and +1800.
+
 ### Master two on delay
+Delay ON for master two station (in seconds), between -1800 and +1800.
+
 ### Master two off delay 
+Delay OFF for master two station (in seconds), between -1800 and +1800.
 
 ## Rain Sensor Section
 Enable and set the switch type of a rain sensor. If you are using a Raspberry Pi and want to connect a Rain Sensor directly to the GPIO pins use pins 8 and 6 (ground).

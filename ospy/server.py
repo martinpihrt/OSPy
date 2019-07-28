@@ -1,15 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = 'Rimco' # edited: 'Martin Pihrt' 
 
 import shelve
 import web
 import os
+import traceback
 
 # Local imports
 from ospy.options import options
 from ospy.scheduler import scheduler
 from ospy.reverse_proxied import reverse_proxied
+from ospy.log import log
+
+# SSL generating
+from OpenSSL import crypto, SSL
+from socket import gethostname
+from pprint import pprint
+from time import gmtime, mktime
+from os.path import exists, join
 
 import plugins
 
@@ -68,19 +77,34 @@ def start():
     ##############################
     web.config.debug = False  # Improves page load speed', ]
 
-    #### SSL for https #### http://www.8bitavenue.com/2015/05/webpy-ssl-support/
+    #### SSL for https #### http://webpy.org/cookbook/ssl
     ssl_patch = '././ssl/'
+
     if options.use_ssl:
        try:
-          if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key') :
-             print 'SSL certificate OK starting HTTPS.'
-             from web.wsgiserver import CherryPyWSGIServer
-             CherryPyWSGIServer.ssl_certificate = "././ssl/server.crt"
-             CherryPyWSGIServer.ssl_private_key = "././ssl/server.key"
+          if not os.path.isfile(ssl_patch + 'server.crt') and not os.path.isfile(ssl_patch + 'server.key'):
+             create_self_signed_cert(ssl_patch)
+
+          if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key'):
+             log.info('server.py', 'Files: server.crt and server.key found, try starting HTTPS.')
+
+             # web.py 0.40 version
+             from cheroot.server import HTTPServer
+             from cheroot.ssl.builtin import BuiltinSSLAdapter
+
+             HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+             certificate= ssl_patch + 'server.crt', 
+             private_key= ssl_patch + 'server.key')
+
+             log.info('server.py', 'SSL OK.')
+
+          else:
+             log.info('server.py', 'SSL Files: server.crt and server.key nofound, starting HTTP!')
 
        except:
-          print 'SSL certificate not found.'
+          log.info('server.py', traceback.format_exc())
           pass
+
     #############################
 
     from ospy.urls import urls
@@ -105,7 +129,7 @@ def start():
     atexit.register(sessions.close)
 
     def exit_msg():
-        print 'OSPy is closing, saving sessions.'
+        log.info('server.py', 'OSPy is closing, saving sessions.') 
     atexit.register(exit_msg)
 
     scheduler.start()
@@ -122,3 +146,44 @@ def stop():
     if __server is not None:
         __server.stop()
         __server = None
+
+
+def create_self_signed_cert(cert_dir):
+    """
+    If server.crt and server.key don't exist in cert_dir, create a new
+    self-signed cert and keypair and write them into that directory.
+    """
+
+    CERT_FILE = "server.crt"
+    KEY_FILE = "server.key"
+
+    if not exists(join(cert_dir, CERT_FILE)) or not exists(join(cert_dir, KEY_FILE)):
+        try:
+            log.info('server.py', 'SSL Creating a key pair...') 
+            k = crypto.PKey()
+            k.generate_key(crypto.TYPE_RSA, 2048)
+
+            log.info('server.py', 'SSL Creating a self-signed cert...')
+            cert = crypto.X509()
+            cert.get_subject().C = "CR"
+            cert.get_subject().ST = "PRAGUE"
+            cert.get_subject().L = "PRAGUE"
+            cert.get_subject().O = "OSPY-FW"
+            cert.get_subject().OU = "www.pihrt.com"
+            cert.get_subject().CN = gethostname()
+            cert.get_subject().emailAddress = "admin@pihrt.com"
+            cert.set_serial_number(1000)
+            cert.gmtime_adj_notBefore(0)
+            cert.gmtime_adj_notAfter(10*365*24*60*60)
+            cert.set_issuer(cert.get_subject())
+            cert.set_pubkey(k)
+            cert.sign(k, 'sha256')
+
+            log.info('server.py', 'SSL Writing files...') 
+            open(join(cert_dir, CERT_FILE), "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+            open(join(cert_dir, KEY_FILE), "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+
+            log.info('server.py', 'OK')
+
+        except Exception:
+                log.error(server.py, traceback.format_exc())

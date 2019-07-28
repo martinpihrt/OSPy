@@ -44,13 +44,7 @@ This setup also helps you in case you want to run the program as a service (on R
 5. Follow the procedures of the script.
 
 ## For enable SSL access in options (for HTTPS connections)
-1. Execute: sudo apt-get install openssl
-2. Execute: sudo openssl version
-3. Execute: sudo cd OSPy/ssl
-4. Execute: sudo openssl genrsa -des3 -out server.key 1024
-5. Execute: sudo openssl req -new -key server.key -out server.csr
-6. Execute: sudo openssl x509 -req -days 365123 -in server.csr -signkey server.key -out server.crt
-7. Execute: sudo openssl rsa -in server.key -out server.key
+If "https" is selected in OSPy settings, server.crt and sever.key files are created automatically. Warning: OSPy must be next restarted. 
 
 ## For enable I2C device (LCD plugin and more I2C plugins)  
 1. Execute: sudo nano /etc/modules

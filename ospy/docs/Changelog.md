@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 28 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixing in server.py for last web.py (0.40) version. The SSL certificate is now created automatically after checking the "https" option in OSPy settings. If you already have your server.crt and server.key files nothing changes.<br/>
+
 July 19 2019
 -----------
 (martinpihrt)<br/>
