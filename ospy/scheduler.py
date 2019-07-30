@@ -404,12 +404,16 @@ class _Scheduler(Thread):
             for entry in schedule:
                 if entry['start'] <= current_time < entry['end']: 
                     if rain and stations.get(entry['station']).ignore_rain:
-                        log.start_run(entry)
+                        if not entry['blocked']:
+                            log.start_run(entry)
+                            stations.activate(entry['station'])
                     if not rain:
-                        log.start_run(entry)
-                    if not entry['blocked']:
-                        stations.activate(entry['station'])
-        
+                        if not entry['blocked']:
+                            log.start_run(entry)
+                            stations.activate(entry['station'])
+               
+
+
         if stations.master is not None:
             master_on = False
 
