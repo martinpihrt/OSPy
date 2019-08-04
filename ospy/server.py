@@ -102,6 +102,7 @@ def start():
 
           if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key'):
              log.info('server.py', 'Files: server.crt and server.key found, try starting HTTPS.')
+             print 'Files: server.crt and server.key found, try starting HTTPS.'
 
              # web.py 0.40 version
              from cheroot.server import HTTPServer
@@ -112,12 +113,15 @@ def start():
              private_key= ssl_patch + 'server.key')
 
              log.info('server.py', 'SSL OK.')
+             print 'SSL OK.'
 
           else:
              log.info('server.py', 'SSL Files: server.crt and server.key nofound, starting HTTP!')
+             print 'SSL Files: server.crt and server.key nofound, starting HTTP!'
 
        except:
           log.info('server.py', traceback.format_exc())
+          print traceback.format_exc()
           pass
 
     #############################
@@ -146,6 +150,7 @@ def start():
 
     def exit_msg():
         log.info('server.py', 'OSPy is closing, saving sessions.') 
+        print 'OSPy is closing, saving sessions.'
     atexit.register(exit_msg)
 
     scheduler.start()
@@ -176,10 +181,12 @@ def create_self_signed_cert(cert_dir):
     if not exists(join(cert_dir, CERT_FILE)) or not exists(join(cert_dir, KEY_FILE)):
         try:
             log.info('server.py', 'SSL Creating a key pair...') 
+            print 'SSL Creating a key pair...'
             k = crypto.PKey()
             k.generate_key(crypto.TYPE_RSA, 2048)
 
             log.info('server.py', 'SSL Creating a self-signed cert...')
+            print 'SSL Creating a self-signed cert...'
             cert = crypto.X509()
             cert.get_subject().C = "CR"
             cert.get_subject().ST = "PRAGUE"
@@ -196,18 +203,22 @@ def create_self_signed_cert(cert_dir):
             cert.sign(k, 'sha256')
 
             log.info('server.py', 'SSL Writing files...') 
+            print 'SSL Writing files...'
             open(join(cert_dir, CERT_FILE), "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
             open(join(cert_dir, KEY_FILE), "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
 
-            log.info('server.py', 'OK')
+            log.info('server.py', 'SSL OK')
+            print 'SSL OK'
 
         except Exception:
                 log.error('server.py', traceback.format_exc())
+                print traceback.format_exc()
 
 
 def create_statistics():
     try:
         log.info('server.py', 'Creating statistics...')
+        print 'Creating statistics...'
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
@@ -222,3 +233,4 @@ def create_statistics():
 
     except Exception:
         log.error('server.py', traceback.format_exc())
+        print traceback.format_exc()
