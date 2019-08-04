@@ -7,10 +7,24 @@ __author__ = 'remram44' # https://github.com/remram44/usagestats
 import logging
 import os
 import platform
-import requests
 import time
 import sys
+import subprocess
 
+try:
+    import requests
+
+except ImportError:
+    print "Requests not found, installing. Please wait..."
+    cmd = "sudo apt-get install python-requests"
+    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
+    output = proc.communicate()[0]
+    print output
+       
+    try: 
+        import requests
+    except:
+        pass
 
 __version__ = '0.7'
 
