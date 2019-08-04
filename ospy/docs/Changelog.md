@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 4 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in plugins "water tank, email, lcd". Add anonymous usage statistics collector for statistics (python version, general information about the operating system - architecture, distribution, system). Fix program name in scheduler.<br/>
+
 July 28 2019
 -----------
 (martinpihrt)<br/>

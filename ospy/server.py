@@ -20,6 +20,21 @@ from pprint import pprint
 from time import gmtime, mktime
 from os.path import exists, join
 
+# statistics generating
+from ospy import usagestats
+from ospy import version
+import sys
+
+optin_prompt = usagestats.Prompt(enable='cool_program --enable-stats',
+                                 disable='cool_program --disable-stats')
+
+stats = usagestats.Stats('./ospy/statistics/',
+                         optin_prompt,
+                         'https://pihrt.com/ospystats/php_server.php',
+                         unique_user_id=True,
+                         version='0.1'
+                         )
+
 import plugins
 
 __server = None
@@ -124,6 +139,7 @@ def start():
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
                                                'pages': []})
+    create_statistics()
 
     import atexit
     atexit.register(sessions.close)
@@ -140,7 +156,7 @@ def start():
     except (KeyboardInterrupt, SystemExit):
         stop()
 
-
+   
 def stop():
     global __server
     if __server is not None:
@@ -186,4 +202,23 @@ def create_self_signed_cert(cert_dir):
             log.info('server.py', 'OK')
 
         except Exception:
-                log.error(server.py, traceback.format_exc())
+                log.error('server.py', traceback.format_exc())
+
+
+def create_statistics():
+    try:
+        log.info('server.py', 'Creating statistics...')
+
+        stats.enable_reporting()
+        stats.note({'mode': 'compatibility'})
+        ospyFW = 'version ' + str(version.ver_str) + ' date ' + str(version.ver_date)
+
+        stats.submit(
+        {'ospyfw': ospyFW},           # OSPy version
+        usagestats.OPERATING_SYSTEM,  # Operating system/distribution
+        usagestats.PYTHON_VERSION,    # Python version info
+        usagestats.SESSION_TIME,      # Time since Stats object was created
+        )
+
+    except Exception:
+        log.error('server.py', traceback.format_exc())

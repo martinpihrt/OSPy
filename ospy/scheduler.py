@@ -69,8 +69,8 @@ def predicted_schedule(start_time, end_time):
             if station.index not in station_schedules:
                 station_schedules[station.index] = []
 
-            program_name = _('Run-Once')
-
+            pname = _('Run-Once')
+            program_name = "%s " % pname.encode("utf-8", errors="ignore")
             new_schedule = {
                 'active': None,
                 'program': -1,
@@ -99,8 +99,8 @@ def predicted_schedule(start_time, end_time):
                 if station not in station_schedules:
                     station_schedules[station] = []
 
-                program_name = "%s " % program.name + _('Run-Now')
-
+                pname = _('Run-Now')
+                program_name = "%s " % program.name + pname.encode("utf-8", errors="ignore") 
                 new_schedule = {
                     'active': None,
                     'program': -1,
