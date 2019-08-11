@@ -6,6 +6,7 @@ import shelve
 import web
 import os
 import traceback
+import subprocess
 
 # Local imports
 from ospy.options import options
@@ -14,7 +15,21 @@ from ospy.reverse_proxied import reverse_proxied
 from ospy.log import log
 
 # SSL generating
-from OpenSSL import crypto, SSL
+try:
+    from OpenSSL import crypto, SSL
+except ImportError:
+	print "OpenSSL not found, installing. Please wait..."
+    cmd = "sudo apt-get install python-openssl"
+    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
+    output = proc.communicate()[0]
+    print output
+       
+    try: 
+        import crypto, SSL
+        print "Import from OpenSSL OK..."
+    except:
+        pass
+	
 from socket import gethostname
 from pprint import pprint
 from time import gmtime, mktime
@@ -90,39 +105,40 @@ def start():
     ##############################
     #### web.py setup         ####
     ##############################
-    web.config.debug = False  # Improves page load speed', ]
+    web.config.debug = False  # Improves page load speed
 
     #### SSL for https #### http://webpy.org/cookbook/ssl
     ssl_patch = '././ssl/'
 
     if options.use_ssl:
-       try:
-          if not os.path.isfile(ssl_patch + 'server.crt') and not os.path.isfile(ssl_patch + 'server.key'):
-             create_self_signed_cert(ssl_patch)
+        try:
+            if not os.path.isfile(ssl_patch + 'server.crt') and not os.path.isfile(ssl_patch + 'server.key'):
+                create_self_signed_cert(ssl_patch)
 
-          if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key'):
-             log.info('server.py', 'Files: server.crt and server.key found, try starting HTTPS.')
-             print 'Files: server.crt and server.key found, try starting HTTPS.'
+            if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key'):
+                log.info('server.py', 'Files: server.crt and server.key found, try starting HTTPS.')
+                print 'Files: server.crt and server.key found, try starting HTTPS.'
 
-             # web.py 0.40 version
-             from cheroot.server import HTTPServer
-             from cheroot.ssl.builtin import BuiltinSSLAdapter
+                # web.py 0.40 version
+                from cheroot.server import HTTPServer
+                from cheroot.ssl.builtin import BuiltinSSLAdapter
 
-             HTTPServer.ssl_adapter = BuiltinSSLAdapter(
-             certificate= ssl_patch + 'server.crt', 
-             private_key= ssl_patch + 'server.key')
+                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+                certificate= ssl_patch + 'server.crt', 
+                private_key= ssl_patch + 'server.key')
 
-             log.info('server.py', 'SSL OK.')
-             print 'SSL OK.'
+                log.info('server.py', 'SSL OK.')
+                print 'SSL OK.'
 
-          else:
-             log.info('server.py', 'SSL Files: server.crt and server.key nofound, starting HTTP!')
-             print 'SSL Files: server.crt and server.key nofound, starting HTTP!'
+            else:
+                log.info('server.py', 'SSL Files: server.crt and server.key nofound, starting HTTP!')
+                print 'SSL Files: server.crt and server.key nofound, starting HTTP!'
 
-       except:
-          log.info('server.py', traceback.format_exc())
-          print traceback.format_exc()
-          pass
+        except:
+            log.info('server.py', traceback.format_exc())
+            print traceback.format_exc()
+            print "Do you have an up-to-date operating system? OSPy works reliably since version: Raspbian Buster and later (with desktop and recommended software version)..."
+            pass
 
     #############################
 
