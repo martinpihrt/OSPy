@@ -18,7 +18,7 @@ from ospy.log import log
 try:
     from OpenSSL import crypto, SSL
 except ImportError:
-	print "OpenSSL not found, installing. Please wait..."
+    print "OpenSSL not found, installing. Please wait..."
     cmd = "sudo apt-get install python-openssl"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
