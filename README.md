@@ -1,7 +1,7 @@
-OSPy Readme
+OSPy (Open Sprinkler Python) Readme 
 ====
 
-OSPy - OpenSprinklerPython An improved Python port of the Arduino based OpenSprinkler firmware.
+OSPy - Open Sprinkler Python An improved Python port of the Arduino based OpenSprinkler firmware.
 
 This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.  
 
@@ -14,15 +14,31 @@ Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-za
 INSTALLATION:
 ===========
 
+### Operating system (debian) for Raspberry Pi
+1. Install latest operating system: "Raspbian Buster or next new version -  with desktop and recommended software". https://www.raspberrypi.org/downloads/raspbian/
+2. Change password for acces from "raspberry" to own
+3. Enabling in raspi-config SSH, I2C
+4. Install OSPy using Git
+
+## Setup
+A setup file has been provided to help you setting up your environment to contain all required packages.
+This setup also helps you in case you want to run the program as a service (on Raspbian).
+
+1. Go to the folder where the setup.py file is located (cd OSPy)
+2. Execute: sudo apt-get update and follow the procedures
+3. Execute: sudo apt-get upgrade and follow the procedures
+4. Execute: python setup.py install and follow the procedures
+5. Follow the procedures of the script.
+
 ### Preferred option (using Git)
 (This option does support automatic updating.)
 
-1. Ensure git is installed (and the git executable is in your path).
-2. Use git to clone: git clone -b master https://github.com/martinpihrt/OSPy.
+1. Ensure git is installed (and the git executable is in your path)
+2. Use git to clone: git clone -b master https://github.com/martinpihrt/OSPy
 3. Next use step "Setup"
 
 ### Manual OSPy-system update (using Git, without system update plugin if plugin not work)
-1. Go to the folder where the run.py file is located (cd OSPy).
+1. Go to the folder where the run.py file is located (cd OSPy)
 2. Execute: sudo git config core.filemode false
 3. Execute: sudo git reset --hard
 4. Execute: sudo git pull
@@ -30,44 +46,31 @@ INSTALLATION:
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
 
-1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/master.zip.
-2. Extract the contents to a location of your choice.
-
-## Setup
-A setup file has been provided to help you setting up your environment to contain all required packages.
-This setup also helps you in case you want to run the program as a service (on Raspbian).
-
-1. Go to the folder where the setup.py file is located (cd OSPy).
-2. Execute: sudo apt-get update and follow the procedures
-3. Execute: sudo apt-get upgrade and follow the procedures
-4. Execute: python setup.py install
-5. Follow the procedures of the script.
+1. Download a copy of the program from https://github.com/martinpihrt/OSPy/archive/master.zip
+2. Extract the contents to a location of your choice
 
 ## For enable SSL access in options (for HTTPS connections)
 If "https" is selected in OSPy settings, server.crt and sever.key files are created automatically. Warning: OSPy must be next restarted. 
 
-## For enable I2C device (LCD plugin and more I2C plugins)  
-1. Execute: sudo nano /etc/modules
-2. Add in to the file:  
-i2c-bcm2708  
-i2c-dev  
-3. Execute: sudo nano /etc/modprobe.d/raspi-blacklist.conf  
-4. Change to:  
-#blacklist spi-bcm2708  
-#blacklist i2c-bcm2708  
-5. Execute: sudo apt-get install python-SMBus  
-6. Execute: sudo apt-get install i2c-tools  
-7. Reboot OS system: sudo reboot
-8. Try find I2C devices: sudo i2cdetect -y 1 (for RPi-1 HW sudo i2cdetect -y 0)
+## For enable I2C device (I2C LCD plugin and more I2C plugins)  
+1. Execute: sudo raspi-config and follow enabling I2C bus
+2. Reboot OS system: sudo reboot
  
 ## For translate OSPy to other language
-The OSPy system is currently in two languages: English and Czech. For other languages: https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file
+The OSPy system is currently in three languages: English, Czech, Slovak. For other languages: https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file
+Any user who joins the "OSPy" project is welcome! Translation of strings into other languages is not demanding (using the https://poedit.net/)
 
 ## For OSPy and plugins (ospy-plugins) Changelog      
 https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog.md
 
 ## For OSPy and plugins Issues
 https://github.com/martinpihrt/OSPy/issues
+
+## Help with to user web Interfaces
+* Czech
+https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech.md
+* English
+https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20English.md
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program

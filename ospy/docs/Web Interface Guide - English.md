@@ -154,6 +154,7 @@ OSPy Web Interface Guide in English
             Details
         Plug-ins
             Readme
+            Usage Statistics
             LCD Display
             Pressure Monitor
             Voice Notification
@@ -184,7 +185,8 @@ OSPy Web Interface Guide in English
             System Debug Information
             Weather-based Water Level
             Real Time and NTP time
-            Water Tank and Humidity Monitor
+            Water Tank
+            Humidity Monitor
             Monthly Water Level
     Logging out
 
@@ -271,7 +273,7 @@ The Running time of the system Raspberry pi's.
 #### Repeat
     
 #### Repetitions
-     
+    
 #### Pause
 
 ### Selected days (Advanced)
@@ -279,13 +281,13 @@ The Running time of the system Raspberry pi's.
 #### Schedule
 
 ### Repeating (Simple)
-     
+    
 #### Water interval
-     
+    
 #### Starting in
-     
+    
 #### Start time
-     
+    
 #### Duration
     
 #### Repeat
@@ -295,11 +297,11 @@ The Running time of the system Raspberry pi's.
 #### Pause
 
 ### Repeating (Advanced)
-             
+   
 #### Water interval
-     
+    
 #### Starting in
-     
+    
 #### Schedule
 
 ### Weekly (Advanced)
@@ -309,32 +311,33 @@ The Running time of the system Raspberry pi's.
 ### Custom
 
 #### Water interval
-     
+    
 #### Starting in
     
 #### Day 1 - Day 7
 
 ### Weekly (Weather based)
-         
+
 #### Irrigation min
-     
+    
 #### Irrigation max
-     
-#### Run max
-     
+    
+#### Run max     
+
 #### Pause ratio
-     
+    
 #### Preferred Execution Moments
-     
+    
 #### Day
-     
+    
 #### Start time
-     
+   
 #### Priority
     
 #### Add - Delete
 
 ## No adjustments
+
 ## Cut-off
 
 ----
@@ -351,32 +354,51 @@ This button delete all presets time for all stations.
 ----
 
 # Plugins page
+Use the Plugins page to configure or controll all plugins in OSPy system.
   
 ## Manage
+After clicking the "Manage" button, the OSPy Extension Manager window will open. All available extensions can be turned on, off, installed from a repository, etc...
   
 ## Install New Plugin
+After clicking on the button "Install New Plugin" a window with a remote repository will open, where we can choose available plugins for OSPy installation and read general information about all plugins.
   
 ### Custom plug-in (ZIP)
+The Extension Manager allows you to install custom plugin that are not published to the remote repository (such as your personal plugin) on OSPy. Use the "browse" button to select the desired file in our computer for installation in the OSPy system. The plugin file (zip) must contain the complete plugin structure (init, templates, i18n, readme, etc.)
 
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
+The above location has a repository with available OSPy plugins.
 
 ## Disable All
+The button disables all installed extensions.
    
 ## Enable All 
+The button enables all installed extensions.
   
 ## Enable check updates
+When the button is active, a new version of the plugin is automatically checked in remote storage after an hour. "Update" message appears when new version is available.
   
 ## Automatic updates
+When the button is active, when a new version of an plugin is available, the plugin is automatically updated. Note: The OSPy system is constantly evolving and if the OSPy system changes significantly and the user does not update the OSPy system, the upgrade may not work after the upgrade. Always update the OSPy system first and then all plugins!
 
 ----
 
 # Log page
+Use the Log page to view logs in OSPy system. The number of records is set on the "Options page".
     
 ## Download log as
+The "Download log as Excel log.csv" link allows you to save the irrigation log as a csv file (Excel program) to your computer.
+* The table structure is: Date, Start Time, Zone, Duration, Program. Data is separated by a comma.
+* Example: 2019-08-12 	05:00:00 	Filtrace 	60:00 	Filtrace
+
+The "Download log as Excel log email.csv" link allows you to save a record of sent emails as a csv file (Excel program) on your computer.
+* The table structure is: Date, Time, Subject, Body, Status. Data is separated by a comma.
+* Example: 2019-08-12 	06:00:04 	Odesláno 	CHATA SYSTÉM 	Ukončené zalévání-> Program: Filtrace , Stanice: Filtrace , Začátek: 2019-08-12 05:00:00 , Trvání: 60:00 , Water-> Množství vody v zásobníku: Level: 170 cm (90 %), Ping: 95 cm, Volume: 1.28 m3 , Temperature DS1-DS6-> SKLEP: 21.1 ℃ ČERPADLO: 33.5 ℃ BOJLER: 26.6 ℃ UVNITŘ: 22.1 ℃ STUDNA: 12.2 ℃ 
    
 ## Clear Log
+After pressing the "Clear Log" button all records of the irrigation run are deleted. The action is irreversible.
 
 ## Clear Log Email
+After pressing the "Clear Log Email" button all records of sent emails will be deleted from the system. The action is irreversible.
 
 ----
 
@@ -484,20 +506,27 @@ Enter your new password into the the boxes labeled New password.
 Enter your Confirm into the the boxes labeled Confirm password.
 
 ## Station Handling Section
+The Station Handling section contains settings for stations.
 
 ### Maximum usage
+Determines how the stations combine. Concurrency 0 or sequential >= 1 (2, 3 ...) If all stations have sequential use.
 
 #### About Sequential and Concurrent modes
+* When setting the sequence (Maximum usage > = 1), only one (or more stations if set> = 1) station (output) - for example: main station 1 and station 3 flower beds is always started. After the program time has elapsed, the main station 1 and the station 3 turn off. The main station 1 and the station 4 lawn will start. The two stations (for example, the flower beds and the lawn shown in our example) will never sleep together. Sequence mode is important if we do not have such a water source (pressure and water quantity) available to cover all stations simultaneously.
+* When you set up concurrency (Maximum usage = 0), an unlimited number of stations are set to run at any given time. For example, the main station 1 (pump) and the stations 2, 3, 4 are switched on. Concurrent irrigation reduces the irrigation time but requires a larger water source.
 
 ### Number of outputs
+The total number of outputs available is (8 outputs + x extension board.) The number of outputs can be set higher than we actually have the number of physical outputs (we create the virtual outputs).
 
 ### Station delay
-Enter the number of seconds to delay between station operations.
+Enter the number of seconds to delay between station operations. Time in seconds between 0 and 3600.
 
 ### Minimum runtime
+Skip station delay if run time is less than this value (in seconds) between 0 and 86400.
 
 ## Configure Master Section
-
+The section "Configure Master Section" contains settings for all master stations. The master station is activated when any station is activated.
+* The master station is a pump or the main valve with water as the water supply to the system.
 
 ### Master station
 Selection of the first main station (for pump or main valve).
@@ -574,32 +603,90 @@ The Upload button allows you to insert and restore OSPy system (for example, whe
 ----
 
 # Stations page
+On the "Stations" page, we set the names of stations, properties around the use of water, control of the master stations.
+
 ## Station 
+Automatic numbering to mark stations. For example 1 = station 1, 2 = station 2...
+
 ## Name
+User name of stations for better identification in the system, for example "lawn".
+
 ## Usage
+Set concurrency (0) or sequence (> = 1) for certain stations. More about concurrency or sequence in the text above in the section "Settings / About sequential and concurrent modes".
+
 ## Precipitation
+The amount of water per hour in mm that atomises the sprinklers at the station. Used for weather-based programs. To measure this value, it is advisable to obtain, for example, a plastic rain gauge.
+
 ## Capacity
+The amount of water that the soil can store above level 0. Used for weather-based programs.
+
 ## ETo factor
+Factor used to multiply the ETo factor for weather-based programs. Use a value higher than 1 for sunny / dry soil, use a value lower than 1 for shade / wet soil.
+* Type of soil
+
+Soils have different properties that make them unique. Knowing the type of soil you have will help you identify its strengths and weaknesses. While soil consists of many elements, the place to start is with your soil type. You only need to monitor the composition of the soil particles. OSPy allows users to determine the soil type for each zone (station), allowing for more accurate and efficient watering calculations. Different soil types react differently to water; clay soils tend to drain, while clay soils can retain water for a long time, etc. The amount of water contained in the soil after the excess water is drained and the soil retention capacity is referred to as field capacity (measured in inches or millimeters).
+
+### Bottle test
+How to find approximate proportions of sand, mud and clay? This is a simple test that will give you a general idea of ​​the proportions of sand, mud and clay present in the soil. Place 5 cm of soil in the bottle and fill with water.
+Mix the water and soil well, remove the bottle and do not touch it for an hour. After an hour the water becomes clear and you will see that larger particles have settled:
+
+- Pieces of organic matter may float on the water surface
+- There's a layer of clay on top.
+If the water is still not clear, it is because some of the finest clays are still mixed with water
+- In the middle is a layer of mud
+- There is a layer of sand at the bottom
+
+* Measure the depth of sand, mud and clay and estimate their approximate ratio.
+
+The following three types of particles can form your soil: clay, sand and mud. Most soils are a combination of these three particles, but the type of particle that dominates dictates many of the properties of your soil. The ratio of these sizes determines the type of soil: clay, clay, clay, mud, etc.
+
+* Ideal soil is 40% sand, 40% mud and 20% clay. This mixture is referred to as aluminum. It takes the best of any type of soil particles. It has good drainage of water and allows air to penetrate the soil like sand, but also maintains moisture well and is fertile as mud and clay.
+
 ## Balance adjustment
+Increase or decrease the water balance for weather-based programs (unless set to 0).
+
 ## Connected
+If we have a station connected (it is physically connected) and we want to use it (it is visible in the selection in the programs, on the homepage ...), check "Connected". If you do not use the station and do not want to publish in the OSPy system leave the "Connected" unchecked. If a station is used as "master station" or "2 master stations" in the system, it cannot be checked or unchecked (deactivated) in the table.
+The main station is assigned in the system settings "Options / master station".
+
 ## Ignore Rain
+If you check "Ignore Rain" for a station, the station will be activated according to the program regardless of whether the rain delay is set or whether the rain sensor detects rain. We can use this option, for example: in a greenhouse where it does not rain and we need to water it regularly or, for example: to trigger pool filtration, which we also clean regardless of whether it rains.
+
 ## Activate Master
+If you want the master station (eg pump or main water valve) to be activated when a station is activated, check the "Activate Master" Box.
+
 ## Activate Master Two
+If you want the second master station (eg second pump or other water source) to be activated when a certain station is activated, check the "Activate Master Two" box.
+
 ## Notes  
+Notes are for operating the OSPy system. It can be noted for example: what types of el. valve, sprinkler etc. we have used in the system.
 
 ----
 
 # Help page
+On the "Help" page we can find documentation for all Plugins, system OSPs, system changes, API access, web interface.
+
 ## OSPy
 ### Readme
+Main documentation for OSPy, system installation, board interconnection, license.
+
 ### Changelog
+Changes to OSPs or Plug-ins.
+
 ### Programs
+
 ### Web Interface Guide - Czech
+Web interface help in Czech language.
+
 ### Web Interface Guide - English
+Web Interface Help in English.
 
 ## API
 ### Readme
+The proposal is to have a proper, modern web-API built on the CRUD principle using JSON as data-container format.
+
 ### Details
+HTTP/s Method Mapping.
 
 ## Plug-ins
 Readme
@@ -615,10 +702,11 @@ plugins
   \ README.md
 
 The static files will be made accessible automatically at the following location: /plugins/plugin_name/static/...
-All *.md files in the docs directory will be visible in the help page. 
+All * .md files in the docs directory will be visible in the help page. *
 
 Available plug-ins:
 
+* Usage Statistics
 * LCD Display
 * Pressure Monitor
 * Voice Notification
@@ -649,12 +737,14 @@ Available plug-ins:
 * System Debug Information
 * Weather-based Water Level
 * Real Time and NTP time
-* Water Tank and Humidity Monitor
+* Water Tank
+* Humidity Monitor
 * Monthly Water Level
 
 ----
 
 # Logging out
+After clicking the "Logging out" button, the user logs out of the system.
 
 
 
