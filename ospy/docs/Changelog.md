@@ -1,11 +1,18 @@
 OSPy Changelog
 ====
 
+Aug 16 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in plugins: "LCD" Add button for re-find I2C bus, "System info" Fix UTF8 code. Add english and czech Web Interface Guide to help page.<br/>
+Fix readme.md, Add images for czech Web Interface Guide, Fix help string in options page, Fix string czech translation in options page.<br/>
+
 Aug 4 2019
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Fix in plugins "water tank, email, lcd". Add anonymous usage statistics collector for statistics (python version, general information about the operating system - architecture, distribution, system). Fix program name in scheduler.<br/>
+Fix in plugins "water tank, email, LCD". Add anonymous usage statistics collector for statistics (python version, general information about the operating system - architecture, distribution, system). Fix program name in scheduler.<br/>
 
 July 28 2019
 -----------
@@ -36,7 +43,7 @@ May 21 2019
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Fixed CPU usage in plugins, Fixed MQTT PIP isue, Ignore *.mp3 user file modification. Add CPU usage to home page.<br/>
+Fixed CPU usage in plugins, Fixed MQTT PIP isue, Ignore in mp3 user file modification. Add CPU usage to home page.<br/>
 
 May 4 2019
 -----------
@@ -51,6 +58,8 @@ Changes:<br/>
 Weather Underground has been replaced with Dark Sky API. Thank's user Rimco<br/>
 
 Sep 6 2018
+-----------
+(martinpihrt)<br/>
 Changes:<br/>
 Fix for download in options if file is not ready for download.(options.db).<br>
 Add msg for upload options.db if file name is not options.db.<br>

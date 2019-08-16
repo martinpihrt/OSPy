@@ -106,6 +106,7 @@ $code:
                 if multi_enum and not multi_enum_names:
                     multi_enum_names = {}
                     for opt in multi_enum:
+
                         multi_enum_names[opt] = opt
 
 
@@ -118,7 +119,7 @@ $code:
                     oldcategory = category
 
                 if name == 'master_relay':
-                    output += "<div class='option' title=_('Specify which output should be used as master station.')><span class='label'>" + _('Master station') + ":</span>\n"
+                    output += "<div class='option' title='" + _('Specify which output should be used as master station.') + "'><span class='label'>" + _('Master station') + ":</span>\n"
                     output += "<select name='master'>\n"
                     if stations.master is None:
                         output += "<option value='-1' selected='selected'>" + _('None') + "</option>"
@@ -131,7 +132,7 @@ $code:
                     output += "<span class='tooltip'>" + _('Specify which output should be used as master station.') + "</span>\n"
                     output += "</div>\n"
 
-                    output += "<div class='option' title=_('Specify which output should be used as master two station.')><span class='label'>" + _('Master two station') + ":</span>\n"
+                    output += "<div class='option' title='" + _('Specify which output should be used as master two station.') + "'><span class='label'>" + _('Master two station') + ":</span>\n"
                     output += "<select name='master_two'>\n"
                     if stations.master_two is None:
                         output += "<option value='-1' selected='selected'>" + _('None') + "</option>"

@@ -14,8 +14,8 @@ Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-za
 INSTALLATION:
 ===========
 
-### Operating system (debian) for Raspberry Pi
-1. Install latest operating system: "Raspbian Buster or next new version -  with desktop and recommended software". https://www.raspberrypi.org/downloads/raspbian/
+### Operating system (Debian >= 9) for Raspberry Pi
+1. Install latest operating system: "Raspbian Buster or next new version -  with desktop and recommended software" https://www.raspberrypi.org/downloads/raspbian/
 2. Change password for acces from "raspberry" to own
 3. Enabling in raspi-config SSH, I2C
 4. Install OSPy using Git
@@ -24,24 +24,49 @@ INSTALLATION:
 A setup file has been provided to help you setting up your environment to contain all required packages.
 This setup also helps you in case you want to run the program as a service (on Raspbian).
 
-1. Go to the folder where the setup.py file is located (cd OSPy)
-2. Execute: sudo apt-get update and follow the procedures
-3. Execute: sudo apt-get upgrade and follow the procedures
-4. Execute: python setup.py install and follow the procedures
-5. Follow the procedures of the script.
+Go to the folder where the setup.py file is located (cd OSPy)
+
+Execute: 
+```bash
+sudo apt-get update
+```
+and follow the procedures
+
+```bash
+sudo apt-get upgrade
+```
+and follow the procedures
+
+```bash
+sudo python setup.py install 
+```
+and follow the procedures of the script
+
 
 ### Preferred option (using Git)
 (This option does support automatic updating.)
 
-1. Ensure git is installed (and the git executable is in your path)
-2. Use git to clone: git clone -b master https://github.com/martinpihrt/OSPy
-3. Next use step "Setup"
+Ensure git is installed (and the git executable is in your path)
+Use git to clone:
+
+```bash
+git clone -b master https://github.com/martinpihrt/OSPy
+```
+Next use step "Setup"
 
 ### Manual OSPy-system update (using Git, without system update plugin if plugin not work)
-1. Go to the folder where the run.py file is located (cd OSPy)
-2. Execute: sudo git config core.filemode false
-3. Execute: sudo git reset --hard
-4. Execute: sudo git pull
+Go to the folder where the run.py file is located (cd OSPy)
+
+Execute:
+```bash
+sudo git config core.filemode false
+```
+```bash
+sudo git reset --hard
+```
+```bash
+sudo git pull
+```
 
 ### Second option (without Git)
 (This option does *not* support automatic updating.)
@@ -53,8 +78,16 @@ This setup also helps you in case you want to run the program as a service (on R
 If "https" is selected in OSPy settings, server.crt and sever.key files are created automatically. Warning: OSPy must be next restarted. 
 
 ## For enable I2C device (I2C LCD plugin and more I2C plugins)  
-1. Execute: sudo raspi-config and follow enabling I2C bus
-2. Reboot OS system: sudo reboot
+
+Execute:
+```bash
+sudo raspi-config
+```
+and follow enabling I2C bus
+```bash
+sudo reboot
+```
+and reboot OS system
  
 ## For translate OSPy to other language
 The OSPy system is currently in three languages: English, Czech, Slovak. For other languages: https://github.com/martinpihrt/OSPy/tree/master/i18n and step by step, how to use is typed in MD file

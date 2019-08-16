@@ -103,7 +103,7 @@ OSPy Průvodce webovým rozhraním v češtině
                 O sekvenčních a souběžných režimech
             Počet výstupů
             Zpoždění stanice
-            Minimum runtime
+            Min čas běhu
         Nastavení hl. stanice
             Hlavní stanice
             Hlavní stanice 2
@@ -193,13 +193,18 @@ OSPy Průvodce webovým rozhraním v češtině
 ----
 
 # Přihlásit se
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/login.png" rel="Přihlásit se" target="_blank">![Přihlásit se - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/login.png)</a>
+
 Přihlašovací stránka představuje textové pole pro zadání hesla. Výchozí heslo je ** opendoor **.
 Na stránce - záložce "Nastavení" se doporučuje změnit si heslo na Vaše nové heslo.
 Zadejte heslo a klikněte na tlačítko **PŘIHLÁSIT SE**.
 
+
 ----
 
 # Domácí stránka
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/home.png" rel="Domácí stránka" target="_blank">![Domácí stránka - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/home.png)</a>
+
 Domovská stránka je hlavním ovládacím centrem webového rozhraní. To zahrnuje:
 
 * Hodiny zobrazující aktuální čas Na všech stránkách.
@@ -208,6 +213,7 @@ Domovská stránka je hlavním ovládacím centrem webového rozhraní. To zahrn
 * Časová osa, která poskytuje informace o dokončených a naplánovaných zavlažovacích událostech.
 * Graf, který poskytuje informace o zavlažovacích událostech.
 * Zápatí, které je přítomno na všech stránkách (pokud je přihlášený uživatel). Zápatí obsahuje: Teplota procesoru, Využití procesoru, Verze softwaru, Externí IP adresa, Doba provozu OS.
+
 
 ## Normální - Hladina vody
 Tlačítko, které umožňuje nastavit „hladinu vody“ jako celkové procento doby běhu pro všechny zavlažovací programy.
@@ -251,6 +257,8 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ----
 
 # Programy
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png" rel="Programy" target="_blank">![Programy - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png)</a>
+
 ## Přidat nový program
 
 ## Spustit nyní
@@ -264,6 +272,7 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ## Typ plánovače
 
 ### Vybrané dny (Jednoduchý)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png" rel="Vybrané dny (Jednoduchý)" target="_blank">![Vybrané dny (Jednoduchý) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png)</a>
    
 #### Čas startu
     
@@ -276,10 +285,12 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 #### Pauza
 
 ### Vybrané dny (Rozšířené)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20rozsireny.png" rel="Vybrané dny (Rozšířené)" target="_blank">![Vybrané dny (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20rozsireny.png)</a>
     
 #### Plánovač
 
 ### Opakování (Jednoduché)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20jednoduchy.png" rel="Opakování (Jednoduché)" target="_blank">![Opakování (Jednoduché) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20jednoduchy.png)</a>
     
 #### Interval zavlažování
 
@@ -296,6 +307,7 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 #### Pauza
     
 ### Opakování (Rozšířené)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20rozsireny.png" rel="Opakování (Rozšířené)" target="_blank">![Opakování (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20rozsireny.png)</a>
     
 #### Interval zavlažování
   
@@ -304,6 +316,7 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 #### Plánovač
     
 ### Týdenní (Rozšířené)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20rozsireny.png" rel="Týdenní (Rozšířené)" target="_blank">![Týdenní (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20rozsireny.png)</a>
 
 #### Pondělí-Neděle
 
@@ -316,6 +329,7 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 #### Den 1 - Den 7
 
 ### Týdenní (Předpověď počasí)
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20predpoved.png" rel="Týdenní (Předpověď počasí)" target="_blank">![Týdenní (Předpověď počasí) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20predpoved.png)</a>
     
 #### Minimální zavlažování
 
@@ -342,6 +356,8 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ----
 
 # Jednorázový
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/jednorazovy.png" rel="Jednorázový" target="_blank">![Jednorázový - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/jednorazovy.png)</a>
+
 Stránka "Jednorázový" představuje seznam povolených stanic s polem minuty a sekundy pro každou z nich. Tato stránka může být použita pro testování a poskytnutí dodatečného zavlažování jednorázově.
 
 ## Spustit nyní
@@ -353,12 +369,18 @@ Tlačítko odstraní veškeré přednastavené časy u všech stanic.
 ----
 
 # Rozšíření
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni.png" rel="Rozšíření" target="_blank">![Rozšíření - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni.png)</a>
+
 Na stránce "Rozšíření" můžeme nakonfigurovat nebo ovládat všechna rozšíření v systému OSPy.
 
 ## Spravovat
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20seznam.png" rel="Spravovat" target="_blank">![Spravovat - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20seznam.png)</a>
+
 Po kliknutí na tlačítko "Spravovat" se otevře okno správce rozšíření v systému OSPy. Všechna dostupná rozšíření lze zapínat, vypínat, instalovat z repozitáře atd...
   
 ## Instalovat nové rozšíření
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20instal.png" rel="Instalovat" target="_blank">![Instalovat - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20instal.png)</a>
+
 Po kliknutí na tlačítko "Instalovat nové rozšíření" se otevře okno se vzdáleným repozitářem, kde si můžeme vybrat dostupná rozšíření pro instalaci do systému OSPy a přečíst si všeobecné informace k rozšířením.
   
 ### Vlastní rozšíření (ZIP)
@@ -382,6 +404,8 @@ Když je tlačítko aktivní, tak se při dostupnosti nové verze rozšíření 
 ----
 
 # Záznam
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/zaznam.png" rel="Programy" target="_blank">![Záznam - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/zaznam.png)</a>
+
 Pomocí stránky "Záznam" můžeme zobrazit veškeré protokoly zaznamenané v systému OSPy. Počet záznamů se nastavuje na stránce "Nastavení".
     
 ## Stáhnout záznam jako
@@ -402,6 +426,10 @@ Po stisknutí tlačítka "Smazat záznam Email" dojde k vymazání všechn zázn
 ----
 
 # Nastavení
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%201.png" rel="Nastavení" target="_blank">![Nastavení - obrázek 1](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%201.png)</a>
+
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%202.png" rel="Nastavení" target="_blank">![Nastavení - obrázek 2](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%202.png)</a>
+
 Na stránce "Nastavení" můžeme upravovat nastavení celého OSPy systému.
 Stránka obsahuje několik skládacích oddílů. Kliknutím na pruh otevřeme nebo zavřeme požadovanou část.
 
@@ -516,7 +544,7 @@ Celkový počet dostupných výstupů je (8 výstupů + x rozšiřujících dese
 ### Zpoždění stanice
 Zadejte počet sekund pro zpoždění mezi operacemi stanic. Čas v sekundách mezi 0 a 3600.
 
-### Minimum runtime
+### Min čas běhu
 Přeskočit zpoždění stanice, pokud by doba běhu byla menší než tato hodnota (v sekundách), mezi 0 a 86400.
 
 ## Nastavení hl. stanice
@@ -599,6 +627,8 @@ Tlačítko "Nahrát" umožňuje vložit a obnovit systém OSPy ze zálohy, nebo 
 ----
 
 # Stanice
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/stanice.png" rel="Stanice" target="_blank">![Stanice - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/stanice.png)</a>
+
 Na stránce "Stanice" nastavujeme nazvy stanic, vlastnosti okolo využívání množství vody, ovládání hlavních stanic.
 
 ## Stanice 
@@ -612,14 +642,18 @@ Nastavení souběhu (0), nebo sekvence (>=1) pro určité stanice. Více o soub�
 
 ## Závlaha
 Množství vody za hodinu v mm, které rozpráší rozstřikovače na dané stanici. Používá se pro programy založené na počasí. Pro změření této hodnoty je vhodné si pořídit například plastový srážkoměr.
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/srazkomer.png" rel="plastový srážkoměr" target="_blank">![plastový srážkoměr - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/srazkomer.png)</a>
+
 * Vztahuje se na čas potřebný k infiltraci daného množství vody do konkrétního typu půdy. Obecně je rychlost příjmu lehčí texturované (písčité) půdy vyšší než rychlost těžší texturované (jílovité) půdy. Zavlažování postřikovačů velkým množstvím vody však může vést k povrchovému odtoku i na písčitých půdách. Rychlost příjmu půdy pod zavlažováním je ovlivněna mnoha faktory, jako je struktura půdy, struktura půdy, zhutnění, organická hmota, stratifikované půdy, soli v půdě, kvalita vody, sedimenty ve zavlažovací vodě atd.
 
 ## Zásoba
 Množství vody, které může půda uložit nad úroveň 0. Používá se pro programy založené na počasí.
+
 * Vztahuje se na množství půdní vlhkosti nebo obsahu vody zadržené v půdě po odtoku přebytečné vody a snížení rychlosti pohybu dolů. K tomu obvykle dochází 2–3 dny po dešti nebo zavlažování v předchozích půdách s jednotnou strukturou a strukturou.
 
 ## ETo faktor
 Faktor používaný k násobení faktoru ETo pro programy založené na počasí. Použijte hodnotu vyšší než 1 v případě slunečné/suché půdy, použijte hodnotu nižší než 1 pro stín/vlhkou půdu.
+
 * Typ půdy
 
 Půdy mají různé vlastnosti, díky nimž jsou jedinečné. Znát druh půdy, kterou máte, vám pomůže určit její silné a slabé stránky. Zatímco půda se skládá z mnoha prvků, místo, kde začít, je s vaším typem půdy. Musíte pouze sledovat složení půdních částic. OSPy umožňuje uživatelům určit typ půdy pro každou zónu (stanici), což umožňuje přesnější a efektivnější výpočty zalévání. Různé typy půdy reagují odlišně na vodu; jílovité půdy mají sklon k odtoku, zatímco hlinité půdy mohou zadržovat vodu po dlouhou dobu atd. Množství vody obsažené v půdě po odtoku přebytečné vody a schopnost půdy zadržovat vodu se označuje jako kapacita pole (měřeno v palcích nebo milimetrech).
@@ -662,6 +696,8 @@ Poznámky slouží pro obsluhu systému OSPy. Lze si například poznamenat: jak
 ----
 
 #  Nápověda
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/napoveda.png" rel="Nápověda" target="_blank">![Nápověda - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/napoveda.png)</a>
+
 Na stránce "Nápověda" nalezneme dokumentaci ke všem rozšířením, OSPy systému, změny v systému, přístup pomocí API, webové rozhraní.
 
 ## OSPy
@@ -672,6 +708,26 @@ Hlavní dokumentace k OSPy, instalace systému, propojení desky, licence.
 Změny v systému OSPy, nebo v rozšířeních
 
 ### Programs
+Interně všechny programy udržují plán, který lze přímo upravit (stejně jako vlastní program).
+Pro snadnější manipulaci byly vytvořeny následující typy programů.
+Každý program může být jedním z těchto typů. Nakonec lze každý program napsat také jako vlastní program.<br/>
+
+Prog/type_data  |             0                |     1          |      2         |     3         |      4         |     5  
+             --:|:--                           |:--             |:--             |:--            |:--             |  
+DAYS_SIMPLE     |start_time                    |duration        |repeat pause    |repeat times   |list days to run|  
+REPEAT_SIMPLE   |start_time                    |duration        |repeat pause    |repeat times   |repeat days     |start_date  
+DAYS_ADVANCED   |list of intervals [start, end]|list days to run|                |               |                |     
+REPEAT_ADVANCED |list of intervals [start, end]|repeat days     |                |               |                |  
+WEEKLY_ADVANCED |list of intervals [start, end]|                |                |               |                |   
+CUSTOM          |list of intervals [start, end]|                |                |               |                |   
+WEEKLY_WEATHER  |                              |                |                |               |                |  
+
+set_days_simple start_min, duration_min, pause_min, repeat_times, [days]  
+set_repeat_simple start_min, duration_min, pause_min, repeat_times, repeat_days, start_date  
+set_days_advanced [schedule], [days]  
+set_repeat_advanced [schedule], repeat_days, start_date  
+set_weekly_advanced [schedule]  
+set_weekly_weather  irrigation_min, irrigation_max, run_max, pause_min, pems  
 
 ### Web Interface Guide - Czech
 Nápověda k webovému rozhraní v češtině.
