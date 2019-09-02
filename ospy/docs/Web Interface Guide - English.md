@@ -188,6 +188,7 @@ OSPy Web Interface Guide in English
             Water Tank
             Humidity Monitor
             Monthly Water Level
+            Pressurizer
     Logging out
 
 ----
@@ -734,12 +735,14 @@ Available plug-ins:
 * Weather-based Water Level Netatmo
 * Direct 16 Relay Outputs
 * MQTT Zone Broadcaster
+* MQTT Slave
 * System Debug Information
 * Weather-based Water Level
 * Real Time and NTP time
 * Water Tank
 * Humidity Monitor
 * Monthly Water Level
+* Pressurizer
 
 ----
 

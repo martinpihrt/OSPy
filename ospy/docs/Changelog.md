@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sep 2 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add new plugins: "MQTT slave" and "Pressurizer". Not finish version (working on it).<br/>
+
 Aug 16 2019
 -----------
 (martinpihrt)<br/>

@@ -188,6 +188,7 @@ OSPy Průvodce webovým rozhraním v češtině
             Water Tank
             Humidity Monitor
             Monthly Water Level
+            Pressurizer
     Odhlásit se
 
 ----
@@ -788,12 +789,14 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Weather-based Water Level Netatmo (nastavení množství vody pro zavlažování z meteostanice Netatmo)
 * Direct 16 Relay Outputs (pomocí tohoto rozšíření můžeme ovládat 16 relé (stanic) připojených přímo k Raspberry Pi, ovšem některá ostatní rozšíření nebudou dostupná)
 * MQTT Zone Broadcaster (hlášení stavů stanic pomocí MQTT protokolu)
+* MQTT Slave (vzdálené ovládání podřízených zalévačů přes MQTT protokol)
 * System Debug Information (informace o dění v systému OSPy, pokud máme v nastavení povolen debug "Povolit ladění", tak zde v rozšíření se zobrazuje uložený záznam)
 * Weather-based Water Level (nastavení množství vody pro zavlažování založený na předpovědi počasí)
 * Real Time and NTP time (rozšíření, které nastavuje systémový čas - Linux a HW RTC čas z NTP serveru, HW RTC používá I2C sběrnici)
 * Water Tank (měření hladiny vody pomocí ultrazvuku - například ve studni pomocí I2C sběrnice)
 * Humidity Monitor (měření vlhkosti půdy, používá I2C sběrnici)
 * Monthly Water Level (nastavení množství vody pro jednotlivé měsíce)
+* Pressurizer (tlakování čerpadla před spuštěním programů)
 
 ----
 
