@@ -34,6 +34,25 @@ def report_no_rain():
 
 pom_last_rain = False       # send signal only if rain change
 
+blocking_from_pressurizer = False
+
+### read pressurizer plugin master relay on state ###
+def notify_pressurizer_master_relay_on(name, **kw):
+    global blocking_from_pressurizer
+    blocking_from_pressurizer = True
+
+### read pressurizer plugin master relay off state ###
+def notify_pressurizer_master_relay_off(name, **kw):
+    global blocking_from_pressurizer
+    blocking_from_pressurizer = False
+
+pressurizer_master_relay_on = signal('pressurizer_master_relay_on')
+pressurizer_master_relay_on.connect(notify_pressurizer_master_relay_on)
+pressurizer_master_relay_off = signal('pressurizer_master_relay_off')
+pressurizer_master_relay_off.connect(notify_pressurizer_master_relay_off)
+
+
+### determines all schedules ###
 def predicted_schedule(start_time, end_time):
     """Determines all schedules for the given time range.
     To calculate what should currently be active, a start time of some time (a day) ago should be used."""
@@ -369,6 +388,8 @@ class _Scheduler(Thread):
 
     @staticmethod
     def _check_schedule():
+        global blocking_from_pressurizer
+
         current_time = datetime.datetime.now()
         check_start = current_time - datetime.timedelta(days=1)
         check_end = current_time + datetime.timedelta(days=1)
@@ -445,8 +466,8 @@ class _Scheduler(Thread):
                 if master_on != master_station.active:
                     master_station.active = master_on
 
-            if options.master_relay:
-                outputs.relay_output = master_on
+            if options.master_relay and not blocking_from_pressurizer: # if pressurizer plugin running blocking outputs.relay_output = master_on
+               outputs.relay_output = master_on
 
 
         if stations.master_two is not None:

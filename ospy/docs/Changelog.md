@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sep 3 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+New plugin: "Pressurizer" is ready to use. The pressurizer plugin used to switch on the main relay (pump) before starting the set program (switching on the station). Some valves require pressure in pipe to reliably open/close. Update: "signaling examples plugin" - for pressurizer plugin. Update the OSPy and affected extensions to the latest version.<br/>
+
 Sep 2 2019
 -----------
 (martinpihrt)<br/>
