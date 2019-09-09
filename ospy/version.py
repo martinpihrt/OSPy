@@ -24,4 +24,4 @@ try:
     ver_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
 except Exception:
     logging.warning("Could not use git to determine date of last commit!")
-    ver_date = '03-09-2019'
+    ver_date = '09-09-2019'

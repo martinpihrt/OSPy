@@ -87,6 +87,7 @@ OSPy Web Interface Guide in English
                 About the port number 
             HTTP/S port
             Use HTTPS access 
+            Show plugins on home
             Select Language          
         Weather Section
             Use Weather
@@ -457,6 +458,10 @@ You will be returned to the home page. The system will reboot but there is no vi
 ### Use HTTPS access 
 In case we have configured OSPy server for higher security of data transmission by SSL certificate, check "Use HTTPS access". If the "Use HTTPS access" option is checked and the server is not set up correctly, OSPy will start as http.
 The SSL certificate is created automatically. 
+
+### Show plugins on home
+If you want to display measured data from the extension (wind, temperature, level ...) on the home page, check the box. If we don't want to show data from the extension, we uncheck it.
+* Please note that it is necessary to have the extension enabled and properly set in order for the data to be displayed correctly.
 
 ### Select Language  
 The language option can change the language used in the web interface.

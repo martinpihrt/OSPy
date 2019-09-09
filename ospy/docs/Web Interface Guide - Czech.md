@@ -87,6 +87,7 @@ OSPy Průvodce webovým rozhraním v češtině
                 O čísle portu 
             HTTP/S port
             Použít HTTPS 
+            Zobrazit rozšíření na home
             Jazyk          
         Počasí
             Použít počasí
@@ -479,6 +480,10 @@ Vrátíte se na domovskou stránku. Systém se restartuje, ale ve webovém rozhr
 ### Použít HTTPS 
 V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení přenosu dat pomocí certifikátu SSL, zaškrtněte políčko "Použít HTTPS". Pokud je zaškrtnuta volba "Použít HTTPS" a server není správně nastaven, OSPy se spustí jako http server bez zabezpečení. Certifikát SSL se vytvoří v systému OSPy automaticky.
 * Certifikát nalezneme v systému OSPy: ospy/ssl/server.crt a ospy/ssl/server.key (použití https se projeví až po restartu OSPy).
+
+### Zobrazit rozšíření na home
+Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data z rozšíření (vítr, teplota, hladina...) zaškrtneme políčko. V případě, že nechceme zobrazovat data z rozšíření zrušíme zaškrtnutí.
+* Upozornění: aby se data zobrazovala v pořádku je nezbytné mít rozšíření povolené a správně nastavené.
 
 ### Jazyk  
 Volbou jazyka můžeme změnit jazyk používaný ve webovém rozhraní.

@@ -68,6 +68,13 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "show_plugin_data",
+            "name": _('Show plugins on home'),
+            "default": False,
+            "help": _('Show data from plugins on home page.'),
+            "category": _('System')
+        },
+        {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),
             "default": []

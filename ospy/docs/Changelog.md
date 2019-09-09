@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sep 9 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add data from plugins "Air Temperature and Humidity Monitor, Water Tank Monitor, Wind Speed Monitor" to home page under graph. For use you must update plugins and enable this function in options "Show plugins on home". For demo see: https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/plugins%20home.png. Add get data_json to "Air Temperature and Humidity Monitor, Water Tank Monitor, Wind Speed Monitor" for others use.</br>
+
 Sep 3 2019
 -----------
 (martinpihrt)<br/>

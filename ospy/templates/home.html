@@ -161,8 +161,62 @@ function updateStatus(status) {
     setTimeout(statusTimer, updateInterval);
 }
 
+function updateAirTemp(status){
+   var nameDS0 = status['label_ds0'];
+   var nameDS1 = status['label_ds1'];
+   var nameDS2 = status['label_ds2'];
+   var nameDS3 = status['label_ds3'];
+   var nameDS4 = status['label_ds4'];
+   var nameDS5 = status['label_ds5'];
+   var temperDS0 = status['temp_ds0'];
+   var temperDS1 = status['temp_ds1'];
+   var temperDS2 = status['temp_ds2'];
+   var temperDS3 = status['temp_ds3'];
+   var temperDS4 = status['temp_ds4'];
+   var temperDS5 = status['temp_ds5'];
+   var temperDS6 = status['temp_ds6'];
+   var nameDHT =  status['label'];
+   var temperDHT =  status['temp_dht'];
+   var humiDHT =  status['humi_dht'];
+
+   var text = "";
+   if (temperDS0 > -127) text += nameDS0 + ": " +  temperDS0 + "\xB0C, ";
+   if (temperDS1 > -127) text += nameDS1 + ": " +  temperDS1 + "\xB0C, ";
+   if (temperDS2 > -127) text += nameDS2 + ": " +  temperDS2 + "\xB0C, ";
+   if (temperDS3 > -127) text += nameDS3 + ": " +  temperDS3 + "\xB0C, ";
+   if (temperDS4 > -127) text += nameDS4 + ": " +  temperDS4 + "\xB0C, ";
+   if (temperDS5 > -127) text += nameDS5 + ": " +  temperDS5 + "\xB0C, ";
+
+   text += nameDHT + ": " +  temperDHT + "\xB0C " + humiDHT + "%RV";
+   jQuery("#airtemphumi").text(text);
+}
+
+function updateTankMonit(status){
+   var level = status['level'];
+   var percent = status['percent'];
+   var volume = status['volume'];
+   var label = status['label'];
+
+   var text = label + ": " +  level + "cm " + percent + "% " + volume + "m\xB3";
+   jQuery("#tankmonitor").text(text);
+}
+
+function updateWindMonit(status){
+   var log_maxspeed = status['log_maxspeed'];
+   var log_speed = status['log_speed'];
+   var log_date_maxspeed = status['log_date_maxspeed'];
+   var label = status['label'];
+
+   var text = label + ": " +  log_speed + "m/s (" + log_maxspeed + "m/s " + log_date_maxspeed + ")";
+   jQuery("#windmonitor").text(text);
+}
+
+
 function statusTimer() {
     jQuery.getJSON("/status.json", updateStatus)
+    jQuery.getJSON("/plugins/air_temp_humi/data_json", updateAirTemp)
+    jQuery.getJSON("/plugins/tank_monitor/data_json", updateTankMonit) 
+    jQuery.getJSON("/plugins/wind_monitor/data_json", updateWindMonit)
 }
 
 function water_level_prompt(current){
@@ -512,6 +566,13 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <div id="legend-visible" style="float: right; width: auto;"></div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
+    </div>
+
+$if options.show_plugin_data:
+    <div id="pluginFooter" class="plugins-container">
+    <p><span id="airtemphumi"></span></p>
+    <p><span id="tankmonitor"></span></p>
+    <p><span id="windmonitor"></span></p>
     </div>
 
 
