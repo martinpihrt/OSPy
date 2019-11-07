@@ -368,8 +368,12 @@ def get_cpu_usage():
 
     diff_time_doing_things = time_doing_things - prev_time_doing_things
     diff_time_doing_nothing = time_doing_nothing - prev_time_doing_nothing
-    cpu_percentage = 100.0 * diff_time_doing_things/ (diff_time_doing_things + diff_time_doing_nothing)
 
+    try:
+       cpu_percentage = 100.0 * diff_time_doing_things/ (diff_time_doing_things + diff_time_doing_nothing)
+    except:
+       cpu_percentage = 0.0
+       
     # remember current values to subtract next iteration of the loop
     prev_time_doing_things = time_doing_things
     prev_time_doing_nothing = time_doing_nothing

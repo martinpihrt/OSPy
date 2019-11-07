@@ -90,8 +90,9 @@ def PYTHON_VERSION(stats, info):
     This is a flag you can pass to `Stats.submit()`.
     """
     # Some versions of Python have a \n in sys.version!
-    version = sys.version.replace(' \n', ' ').replace('\n', ' ')
-    python = ';'.join([str(c) for c in sys.version_info] + [version])
+    #version = sys.version.replace(' \n', ' ').replace('\n', ' ')
+    #python = ';'.join([str(c) for c in sys.version_info] + [version])
+    python = platform.python_version()
     info.append(('python', python))
 
 

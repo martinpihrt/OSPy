@@ -13,22 +13,6 @@ from ospy.options import options
 from ospy.scheduler import scheduler
 from ospy.reverse_proxied import reverse_proxied
 from ospy.log import log
-
-# SSL generating
-try:
-    from OpenSSL import crypto, SSL
-except ImportError:
-    print "OpenSSL not found, installing. Please wait..."
-    cmd = "sudo apt-get install python-openssl"
-    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-    output = proc.communicate()[0]
-    print output
-       
-    try: 
-        import crypto, SSL
-        print "Import from OpenSSL OK..."
-    except:
-        pass
 	
 from socket import gethostname
 from pprint import pprint
@@ -49,7 +33,7 @@ stats = usagestats.Stats('./ospy/statistics/',
                          unique_user_id=True,
                          version='0.1'
                          )
-
+         
 import plugins
 
 __server = None
@@ -107,38 +91,67 @@ def start():
     ##############################
     web.config.debug = False  # Improves page load speed
 
-    #### SSL for https #### http://webpy.org/cookbook/ssl
-    ssl_patch = '././ssl/'
+    #### SSL for https #### http://webpy.org/cookbook/ssl  
 
-    if options.use_ssl:
-        try:
-            if not os.path.isfile(ssl_patch + 'server.crt') and not os.path.isfile(ssl_patch + 'server.key'):
-                create_self_signed_cert(ssl_patch)
+    # for SSL certificate via letsencrypt                         
+    ssl_patch_fullchain = '/etc/letsencrypt/live/' + options.domain_ssl + '/fullchain.pem' 
+    ssl_patch_privkey   = '/etc/letsencrypt/live/' + options.domain_ssl + '/privkey.pem'   
 
-            if os.path.isfile(ssl_patch + 'server.crt') and os.path.isfile(ssl_patch + 'server.key'):
-                log.info('server.py', 'Files: server.crt and server.key found, try starting HTTPS.')
-                print 'Files: server.crt and server.key found, try starting HTTPS.'
+    # for own SSL certificate in OSPy folder
+    ssl_own_patch_fullchain =  '././ssl/fullchain.pem'
+    ssl_own_patch_privkey   =  '././ssl/privkey.pem'          
 
-                # web.py 0.40 version
-                from cheroot.server import HTTPServer
-                from cheroot.ssl.builtin import BuiltinSSLAdapter
+    if options.use_ssl and not options.use_own_ssl:
+       try:
+           if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
+               log.info('server.py', 'Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
+               print 'Files: fullchain.pem and privkey.pem found, try starting HTTPS.'
 
-                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
-                certificate= ssl_patch + 'server.crt', 
-                private_key= ssl_patch + 'server.key')
+               # web.py 0.40 version
+               from cheroot.server import HTTPServer
+               from cheroot.ssl.builtin import BuiltinSSLAdapter
 
-                log.info('server.py', 'SSL OK.')
-                print 'SSL OK.'
+               HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+               certificate = ssl_patch_fullchain,  
+               private_key = ssl_patch_privkey)   
 
-            else:
-                log.info('server.py', 'SSL Files: server.crt and server.key nofound, starting HTTP!')
-                print 'SSL Files: server.crt and server.key nofound, starting HTTP!'
+               log.info('server.py', 'SSL OK.')
+               print 'SSL OK.'
 
-        except:
-            log.info('server.py', traceback.format_exc())
-            print traceback.format_exc()
-            print "Do you have an up-to-date operating system? OSPy works reliably since version: Raspbian Buster and later (with desktop and recommended software version)..."
-            pass
+           else:
+               log.info('server.py', 'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
+               print 'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'
+
+       except:
+           log.info('server.py', traceback.format_exc())
+           print traceback.format_exc()
+           pass       
+    
+    if options.use_own_ssl and not options.use_ssl:
+       try:
+           if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
+               log.info('server.py', 'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
+               print 'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'
+
+               # web.py 0.40 version
+               from cheroot.server import HTTPServer
+               from cheroot.ssl.builtin import BuiltinSSLAdapter
+
+               HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+               certificate = ssl_own_patch_fullchain,  
+               private_key = ssl_own_patch_privkey)   
+
+               log.info('server.py', 'Own SSL OK.')
+               print 'Own SSL OK.'
+
+           else:
+               log.info('server.py', 'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
+               print 'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'
+
+       except:
+           log.info('server.py', traceback.format_exc())
+           print traceback.format_exc()
+           pass
 
     #############################
 
@@ -159,8 +172,7 @@ def start():
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
                                                'pages': []})
-    create_statistics()
-
+                                               
     import atexit
     atexit.register(sessions.close)
 
@@ -169,13 +181,17 @@ def start():
         print 'OSPy is closing, saving sessions.'
     atexit.register(exit_msg)
 
+    print 'Starting scheduler and plugins...'
     scheduler.start()
     plugins.start_enabled_plugins()
+
+    create_statistics()
+    print 'OK' 
 
     try:
         __server.start()
     except (KeyboardInterrupt, SystemExit):
-        stop()
+        stop()   
 
    
 def stop():
@@ -183,52 +199,6 @@ def stop():
     if __server is not None:
         __server.stop()
         __server = None
-
-
-def create_self_signed_cert(cert_dir):
-    """
-    If server.crt and server.key don't exist in cert_dir, create a new
-    self-signed cert and keypair and write them into that directory.
-    """
-
-    CERT_FILE = "server.crt"
-    KEY_FILE = "server.key"
-
-    if not exists(join(cert_dir, CERT_FILE)) or not exists(join(cert_dir, KEY_FILE)):
-        try:
-            log.info('server.py', 'SSL Creating a key pair...') 
-            print 'SSL Creating a key pair...'
-            k = crypto.PKey()
-            k.generate_key(crypto.TYPE_RSA, 2048)
-
-            log.info('server.py', 'SSL Creating a self-signed cert...')
-            print 'SSL Creating a self-signed cert...'
-            cert = crypto.X509()
-            cert.get_subject().C = "CR"
-            cert.get_subject().ST = "PRAGUE"
-            cert.get_subject().L = "PRAGUE"
-            cert.get_subject().O = "OSPY-FW"
-            cert.get_subject().OU = "www.pihrt.com"
-            cert.get_subject().CN = gethostname()
-            cert.get_subject().emailAddress = "admin@pihrt.com"
-            cert.set_serial_number(1000)
-            cert.gmtime_adj_notBefore(0)
-            cert.gmtime_adj_notAfter(10*365*24*60*60)
-            cert.set_issuer(cert.get_subject())
-            cert.set_pubkey(k)
-            cert.sign(k, 'sha256')
-
-            log.info('server.py', 'SSL Writing files...') 
-            print 'SSL Writing files...'
-            open(join(cert_dir, CERT_FILE), "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
-            open(join(cert_dir, KEY_FILE), "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
-
-            log.info('server.py', 'SSL OK')
-            print 'SSL OK'
-
-        except Exception:
-                log.error('server.py', traceback.format_exc())
-                print traceback.format_exc()
 
 
 def create_statistics():
@@ -250,3 +220,4 @@ def create_statistics():
     except Exception:
         log.error('server.py', traceback.format_exc())
         print traceback.format_exc()
+        

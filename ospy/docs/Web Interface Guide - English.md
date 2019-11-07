@@ -86,7 +86,6 @@ OSPy Web Interface Guide in English
             HTTP IP addr
                 About the port number 
             HTTP/S port
-            Use HTTPS access 
             Show plugins on home
             Select Language          
         Weather Section
@@ -98,7 +97,10 @@ OSPy Web Interface Guide in English
             Disable security
             Current password
             New password
-            Confirm password           
+            Confirm password 
+            Use HTTPS access
+            Domain name 
+            Use Own HTTPS access          
         Station Handling Section
             Maximum usage
                 About Sequential and Concurrent modes
@@ -455,10 +457,6 @@ The HTTP/S port number is part of the system's URL. Port 80 is the default numbe
 
 You will be returned to the home page. The system will reboot but there is no visible indication of the reboot in the web interface. Wait at least 60 seconds, then add the new port number to the URL of the Pi, preceded by a colon (:), and try re-connecting to OSPy.
 
-### Use HTTPS access 
-In case we have configured OSPy server for higher security of data transmission by SSL certificate, check "Use HTTPS access". If the "Use HTTPS access" option is checked and the server is not set up correctly, OSPy will start as http.
-The SSL certificate is created automatically. 
-
 ### Show plugins on home
 If you want to display measured data from the extension (wind, temperature, level ...) on the home page, check the box. If we don't want to show data from the extension, we uncheck it.
 * Please note that it is necessary to have the extension enabled and properly set in order for the data to be displayed correctly.
@@ -497,7 +495,21 @@ For improved security it is recommended that you change the system password from
 * Enter your new password into the the boxes labeled New password and Confirm password.
 * Click the Submit Changes button at the bottom of the page.
 
+### Use HTTPS access 
+If we have configured the OSPy server for enhanced security of SSL data transmission, select the "Use HTTPS" checkbox. If the "Use HTTPS" option is checked and the server is not set up correctly, OSPy will run as an http server without security.
+
+### Domain Name
+The certificate is located on the system in the '/etc/letsencrypt/live/' domain name '/fullchain.pem' and '/etc/letsencrypt/live/' domain name '/privkey.pem' directories. It is necessary to install the certificate manually into the system (Linux) using the "Certbot" tool (the use of https will not be reflected in OSPy until the OSPy is restarted).
+* The procedure for installing Certificate Services can be found in the "Readme" help file or on Github.
+
 You will return to the home page. Your new password will be required the next time you log in.
+
+### Use Own HTTPS access
+If "Use Own HTTPS access" is selected in OSPy settings, file: fullchain.pem and privkey.pem must You insert to folder ssl in OSPy location. Warning: OSPy must be next restarted.
+For manual generating certificate example:
+```bash
+sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
+```
 
 ### Disable security
 Leave the Disable security box unchecked unless you have a very good reason to disable password protection.

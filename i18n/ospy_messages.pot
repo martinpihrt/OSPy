@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-04-15 13:34+CEST\n"
+"POT-Creation-Date: 2019-11-07 11:41+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,71 +15,59 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: ospy/templates/base.html:164
-msgid "Show plugins on home"
-msgstr ""
-
-#: ospy/templates/base.html:164
-msgid "Show data from plugins on home page."
-msgstr ""
-
-#: ospy/templates/base.html:164
-msgid "CPU Usage"
-msgstr ""
-
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Fri"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Mon"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Sat"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Sun"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Thu"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Tue"
 msgstr ""
 
-#: ospy/helpers.py:371
+#: ospy/helpers.py:420
 msgid "Wed"
 msgstr ""
 
-#: ospy/helpers.py:376 ospy/templates/base.html:42
+#: ospy/helpers.py:425 ospy/templates/base.html:42
 msgid "Monday"
 msgstr ""
 
-#: ospy/helpers.py:377 ospy/templates/base.html:42
+#: ospy/helpers.py:426 ospy/templates/base.html:42
 msgid "Tuesday"
 msgstr ""
 
-#: ospy/helpers.py:378 ospy/templates/base.html:42
+#: ospy/helpers.py:427 ospy/templates/base.html:42
 msgid "Wednesday"
 msgstr ""
 
-#: ospy/helpers.py:379 ospy/templates/base.html:42
+#: ospy/helpers.py:428 ospy/templates/base.html:42
 msgid "Thursday"
 msgstr ""
 
-#: ospy/helpers.py:380 ospy/templates/base.html:42
+#: ospy/helpers.py:429 ospy/templates/base.html:42
 msgid "Friday"
 msgstr ""
 
-#: ospy/helpers.py:381 ospy/templates/base.html:42
+#: ospy/helpers.py:430 ospy/templates/base.html:42
 msgid "Saturday"
 msgstr ""
 
-#: ospy/helpers.py:382 ospy/templates/base.html:42
+#: ospy/helpers.py:431 ospy/templates/base.html:42
 msgid "Sunday"
 msgstr ""
 
@@ -129,11 +117,11 @@ msgid "HTTP/S port (effective after reboot.)"
 msgstr ""
 
 #: ospy/options.py:65
-msgid "Use HTTPS access"
+msgid "Show plugins on home"
 msgstr ""
 
 #: ospy/options.py:67
-msgid "SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)"
+msgid "Show data from plugins on home page."
 msgstr ""
 
 #: ospy/options.py:72
@@ -197,199 +185,236 @@ msgstr ""
 msgid "Allow anonymous users to access the system without a password."
 msgstr ""
 
-#: ospy/options.py:136
+#: ospy/options.py:136 ospy/options.py:143 ospy/options.py:150
+#: ospy/options.py:157
 msgid "Security"
 msgstr ""
 
+#: ospy/options.py:140
+msgid "Use HTTPS access"
+msgstr ""
+
 #: ospy/options.py:142
-msgid "Maximum usage"
+msgid "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:144
-msgid "Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1."
-msgstr ""
-
-#: ospy/options.py:145 ospy/options.py:152 ospy/options.py:161
-#: ospy/options.py:170
-msgid "Station Handling"
+#: ospy/options.py:147
+msgid "Domain name"
 msgstr ""
 
 #: ospy/options.py:149
+msgid "Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com"
+msgstr ""
+
+#: ospy/options.py:154
+msgid "Use Own HTTPS access"
+msgstr ""
+
+#: ospy/options.py:156
+msgid "SSL certificate via own file without certification authority (effective after reboot.)"
+msgstr ""
+
+#: ospy/options.py:163
+msgid "Maximum usage"
+msgstr ""
+
+#: ospy/options.py:165
+msgid "Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1."
+msgstr ""
+
+#: ospy/options.py:166 ospy/options.py:173 ospy/options.py:182
+#: ospy/options.py:191
+msgid "Station Handling"
+msgstr ""
+
+#: ospy/options.py:170
 msgid "Number of outputs"
 msgstr ""
 
-#: ospy/options.py:151
+#: ospy/options.py:172
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr ""
 
-#: ospy/options.py:158
+#: ospy/options.py:179
 msgid "Station delay"
 msgstr ""
 
-#: ospy/options.py:160
+#: ospy/options.py:181
 msgid "Station delay time (in seconds), between 0 and 3600."
 msgstr ""
 
-#: ospy/options.py:167
+#: ospy/options.py:188
 msgid "Minimum runtime"
 msgstr ""
 
-#: ospy/options.py:169
+#: ospy/options.py:190
 msgid "Skip the station delay if the run time was less than this value (in seconds), between 0 and 86400."
 msgstr ""
 
-#: ospy/options.py:178
+#: ospy/options.py:199
 msgid "Activate relay"
 msgstr ""
 
-#: ospy/options.py:180
+#: ospy/options.py:201
 msgid "Also activate the relay as master output."
 msgstr ""
 
-#: ospy/options.py:181 ospy/options.py:188 ospy/options.py:197
-#: ospy/options.py:206 ospy/options.py:215
+#: ospy/options.py:202 ospy/options.py:209 ospy/options.py:218
+#: ospy/options.py:227 ospy/options.py:236
 msgid "Configure Master"
 msgstr ""
 
-#: ospy/options.py:185
+#: ospy/options.py:206
 msgid "Master on delay"
 msgstr ""
 
-#: ospy/options.py:187
+#: ospy/options.py:208
 msgid "Master on delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:194
+#: ospy/options.py:215
 msgid "Master off delay"
 msgstr ""
 
-#: ospy/options.py:196
+#: ospy/options.py:217
 msgid "Master off delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:203
+#: ospy/options.py:224
 msgid "Master two on delay"
 msgstr ""
 
-#: ospy/options.py:205
+#: ospy/options.py:226
 msgid "Master two on delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:212
+#: ospy/options.py:233
 msgid "Master two off delay"
 msgstr ""
 
-#: ospy/options.py:214
+#: ospy/options.py:235
 msgid "Master two off delay (in seconds), between -1800 and +1800."
 msgstr ""
 
-#: ospy/options.py:223
+#: ospy/options.py:244
 msgid "Use rain sensor"
 msgstr ""
 
-#: ospy/options.py:225
+#: ospy/options.py:246
 msgid "Use rain sensor."
 msgstr ""
 
-#: ospy/options.py:226 ospy/options.py:233
+#: ospy/options.py:247 ospy/options.py:254
 msgid "Rain Sensor"
 msgstr ""
 
-#: ospy/options.py:230
+#: ospy/options.py:251
 msgid "Normally open"
 msgstr ""
 
-#: ospy/options.py:232
+#: ospy/options.py:253
 msgid "Rain sensor default."
 msgstr ""
 
-#: ospy/options.py:239
+#: ospy/options.py:260
 msgid "Enable run log"
 msgstr ""
 
-#: ospy/options.py:241
+#: ospy/options.py:262
 msgid "Log all runs - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:242 ospy/options.py:249 ospy/options.py:258
-#: ospy/options.py:265 ospy/options.py:274
+#: ospy/options.py:263 ospy/options.py:270 ospy/options.py:279
+#: ospy/options.py:286 ospy/options.py:295
 msgid "Logging"
 msgstr ""
 
-#: ospy/options.py:246
+#: ospy/options.py:267
 msgid "Max run entries"
 msgstr ""
 
-#: ospy/options.py:248
+#: ospy/options.py:269
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:255
+#: ospy/options.py:276
 msgid "Enable email log"
 msgstr ""
 
-#: ospy/options.py:257
+#: ospy/options.py:278
 msgid "Log all emails - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:262
+#: ospy/options.py:283
 msgid "Max email entries"
 msgstr ""
 
-#: ospy/options.py:264
+#: ospy/options.py:285
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:271
+#: ospy/options.py:292
 msgid "Enable debug log"
 msgstr ""
 
-#: ospy/options.py:273
+#: ospy/options.py:294
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:280
+#: ospy/options.py:301
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:285
+#: ospy/options.py:306
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:290
+#: ospy/options.py:311
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:295
+#: ospy/options.py:316
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:300
+#: ospy/options.py:321
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:305
+#: ospy/options.py:326
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:310
+#: ospy/options.py:331
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:315
+#: ospy/options.py:336
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:320
+#: ospy/options.py:341
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:325
+#: ospy/options.py:346
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:330
+#: ospy/options.py:351
 msgid "ETo and rain value cache"
+msgstr ""
+
+#: ospy/options.py:356
+msgid "Information from weather"
+msgstr ""
+
+#: ospy/options.py:361
+msgid "Location latitude"
+msgstr ""
+
+#: ospy/options.py:366
+msgid "Location longtitude"
 msgstr ""
 
 #: ospy/programs.py:30
@@ -494,7 +519,7 @@ msgid "Starting:"
 msgstr ""
 
 #: ospy/programs.py:284 ospy/templates/home.html:89
-#: ospy/templates/home.html:456
+#: ospy/templates/home.html:510
 msgid "For"
 msgstr ""
 
@@ -530,11 +555,11 @@ msgstr ""
 msgid "to max"
 msgstr ""
 
-#: ospy/scheduler.py:60 ospy/templates/runonce.html:3
+#: ospy/scheduler.py:91 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr ""
 
-#: ospy/scheduler.py:90
+#: ospy/scheduler.py:121
 msgid "Run-Now"
 msgstr ""
 
@@ -644,22 +669,26 @@ msgid "Click to toggle"
 msgstr ""
 
 #: ospy/templates/base.html:164
+msgid "CPU Usage"
+msgstr ""
+
+#: ospy/templates/base.html:167
 msgid "Click for redirecting to github software"
 msgstr ""
 
-#: ospy/templates/base.html:164
+#: ospy/templates/base.html:167
 msgid "Software"
 msgstr ""
 
-#: ospy/templates/base.html:164
+#: ospy/templates/base.html:167
 msgid "version"
 msgstr ""
 
-#: ospy/templates/base.html:165
+#: ospy/templates/base.html:169
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:166
+#: ospy/templates/base.html:170
 msgid "Working"
 msgstr ""
 
@@ -671,19 +700,19 @@ msgstr ""
 msgid "blocked by"
 msgstr ""
 
-#: ospy/templates/home.html:129 ospy/templates/home.html:430
+#: ospy/templates/home.html:129 ospy/templates/home.html:484
 msgid "On (Master)"
 msgstr ""
 
-#: ospy/templates/home.html:132 ospy/templates/home.html:436
+#: ospy/templates/home.html:132 ospy/templates/home.html:490
 msgid "On (Master Two)"
 msgstr ""
 
-#: ospy/templates/home.html:136 ospy/templates/home.html:432
+#: ospy/templates/home.html:136 ospy/templates/home.html:486
 msgid "Off (Master)"
 msgstr ""
 
-#: ospy/templates/home.html:139 ospy/templates/home.html:438
+#: ospy/templates/home.html:139 ospy/templates/home.html:492
 msgid "Off (Master Two)"
 msgstr ""
 
@@ -695,120 +724,124 @@ msgstr ""
 msgid "Suppressed by Rain Sensor"
 msgstr ""
 
-#: ospy/templates/home.html:151 ospy/templates/home.html:394
+#: ospy/templates/home.html:151 ospy/templates/home.html:448
 #: ospy/templates/log.html:7 ospy/templates/log.html:35
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/home.html:154 ospy/templates/home.html:444
-#: ospy/templates/home.html:455 ospy/templates/plugins_manage.html:13
+#: ospy/templates/home.html:154 ospy/templates/home.html:498
+#: ospy/templates/home.html:509 ospy/templates/plugins_manage.html:13
 #: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:63
 #: ospy/templates/program.html:423 ospy/templates/programs.html:16
 msgid "Off"
 msgstr ""
 
-#: ospy/templates/home.html:172
+#: ospy/templates/home.html:226
 msgid "Enter percentage adjustment"
 msgstr ""
 
-#: ospy/templates/home.html:175
+#: ospy/templates/home.html:229
 msgid "Percentage must be a positive value"
 msgstr ""
 
-#: ospy/templates/home.html:186
+#: ospy/templates/home.html:240
 msgid "Enter hours to delay"
 msgstr ""
 
-#: ospy/templates/home.html:189
+#: ospy/templates/home.html:243
 msgid "Delay must be a positive value"
 msgstr ""
 
-#: ospy/templates/home.html:345
+#: ospy/templates/home.html:399
 msgid "Timer values wrong:"
 msgstr ""
 
-#: ospy/templates/home.html:382
+#: ospy/templates/home.html:436
 msgid "% Level"
 msgstr ""
 
-#: ospy/templates/home.html:382
+#: ospy/templates/home.html:436
 msgid "Normal"
 msgstr ""
 
-#: ospy/templates/home.html:382
+#: ospy/templates/home.html:436
 msgid "Water Level"
 msgstr ""
 
-#: ospy/templates/home.html:384
+#: ospy/templates/home.html:438
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/home.html:384
+#: ospy/templates/home.html:438
 msgid "Rain Delay"
 msgstr ""
 
-#: ospy/templates/home.html:388
+#: ospy/templates/home.html:442
 msgid "Rain sensed"
 msgstr ""
 
-#: ospy/templates/home.html:391
+#: ospy/templates/home.html:445
 msgid "Schedule"
 msgstr ""
 
-#: ospy/templates/home.html:391 ospy/webpages.py:226
+#: ospy/templates/home.html:445 ospy/webpages.py:226
 msgid "Manual"
 msgstr ""
 
-#: ospy/templates/home.html:394 ospy/templates/log.html:7
+#: ospy/templates/home.html:448 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/home.html:399
+#: ospy/templates/home.html:453
 msgid "Water Level adjustments"
 msgstr ""
 
-#: ospy/templates/home.html:403
+#: ospy/templates/home.html:457
 msgid "User"
 msgstr ""
 
-#: ospy/templates/home.html:413
+#: ospy/templates/home.html:467
 msgid "Total"
 msgstr ""
 
-#: ospy/templates/home.html:444 ospy/templates/home.html:455
+#: ospy/templates/home.html:498 ospy/templates/home.html:509
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:421
 #: ospy/templates/programs.html:14
 msgid "On"
 msgstr ""
 
-#: ospy/templates/home.html:446
+#: ospy/templates/home.html:500
 msgid "in"
 msgstr ""
 
-#: ospy/templates/home.html:452
+#: ospy/templates/home.html:506
 msgid "Forever"
 msgstr ""
 
-#: ospy/templates/home.html:464 ospy/templates/home.html:500
+#: ospy/templates/home.html:518 ospy/templates/home.html:554
 msgid "Stop All Stations"
 msgstr ""
 
-#: ospy/templates/home.html:478
+#: ospy/templates/home.html:532
 msgid " Prev Day"
 msgstr ""
 
-#: ospy/templates/home.html:479
+#: ospy/templates/home.html:533
 msgid "Today"
 msgstr ""
 
-#: ospy/templates/home.html:480
+#: ospy/templates/home.html:534
 msgid "Next Day"
 msgstr ""
 
-#: ospy/templates/home.html:494
+#: ospy/templates/home.html:548
 msgid "loading..."
+msgstr ""
+
+#: ospy/templates/home.html:580
+msgid "Map"
 msgstr ""
 
 #: ospy/templates/log.html:7 ospy/templates/log.html:35
@@ -908,132 +941,132 @@ msgstr ""
 msgid "Edit Options"
 msgstr ""
 
-#: ospy/templates/options.html:121 ospy/templates/stations.html:50
-msgid "Master station"
-msgstr ""
-
-#: ospy/templates/options.html:124 ospy/templates/options.html:126
-#: ospy/templates/options.html:137 ospy/templates/options.html:139
-msgid "None"
-msgstr ""
-
-#: ospy/templates/options.html:129 ospy/templates/options.html:142
-msgid "Output"
-msgstr ""
-
-#: ospy/templates/options.html:131
+#: ospy/templates/options.html:122 ospy/templates/options.html:132
 msgid "Specify which output should be used as master station."
 msgstr ""
 
-#: ospy/templates/options.html:134 ospy/templates/stations.html:52
-msgid "Master two station"
+#: ospy/templates/options.html:122 ospy/templates/stations.html:50
+msgid "Master station"
 msgstr ""
 
-#: ospy/templates/options.html:144
+#: ospy/templates/options.html:125 ospy/templates/options.html:127
+#: ospy/templates/options.html:138 ospy/templates/options.html:140
+msgid "None"
+msgstr ""
+
+#: ospy/templates/options.html:130 ospy/templates/options.html:143
+msgid "Output"
+msgstr ""
+
+#: ospy/templates/options.html:135 ospy/templates/options.html:145
 msgid "Specify which output should be used as master two station."
 msgstr ""
 
-#: ospy/templates/options.html:148
+#: ospy/templates/options.html:135 ospy/templates/stations.html:52
+msgid "Master two station"
+msgstr ""
+
+#: ospy/templates/options.html:149
 msgid "System language"
 msgstr ""
 
-#: ospy/templates/options.html:150
+#: ospy/templates/options.html:151
 msgid "Default language"
 msgstr ""
 
-#: ospy/templates/options.html:154
+#: ospy/templates/options.html:155
 msgid "Language localizations for this OpenSprinkler system. (effective after reboot.)"
 msgstr ""
 
-#: ospy/templates/options.html:166 ospy/templates/options.html:174
+#: ospy/templates/options.html:167 ospy/templates/options.html:175
 msgid "None available"
 msgstr ""
 
-#: ospy/templates/options.html:191
+#: ospy/templates/options.html:192
 msgid "Current password"
 msgstr ""
 
-#: ospy/templates/options.html:191 ospy/templates/options.html:193
+#: ospy/templates/options.html:192 ospy/templates/options.html:194
 msgid "Re-enter the current password."
 msgstr ""
 
-#: ospy/templates/options.html:195
+#: ospy/templates/options.html:196
 msgid "New password"
 msgstr ""
 
-#: ospy/templates/options.html:195 ospy/templates/options.html:197
+#: ospy/templates/options.html:196 ospy/templates/options.html:198
 msgid "Enter a new password."
 msgstr ""
 
-#: ospy/templates/options.html:199
+#: ospy/templates/options.html:200
 msgid "Confirm password"
 msgstr ""
 
-#: ospy/templates/options.html:199 ospy/templates/options.html:201
+#: ospy/templates/options.html:200 ospy/templates/options.html:202
 msgid "Confirm the new password."
 msgstr ""
 
-#: ospy/templates/options.html:204
+#: ospy/templates/options.html:205
 msgid "System Restart"
 msgstr ""
 
-#: ospy/templates/options.html:206
+#: ospy/templates/options.html:207
 msgid "Restart"
 msgstr ""
 
-#: ospy/templates/options.html:206
+#: ospy/templates/options.html:207
 msgid "Restart OSPy software!"
 msgstr ""
 
-#: ospy/templates/options.html:207
+#: ospy/templates/options.html:208
 msgid "Reboot"
 msgstr ""
 
-#: ospy/templates/options.html:207
+#: ospy/templates/options.html:208
 msgid "Reboot hardware!"
 msgstr ""
 
-#: ospy/templates/options.html:208
+#: ospy/templates/options.html:209
 msgid "Shutdown"
 msgstr ""
 
-#: ospy/templates/options.html:208
+#: ospy/templates/options.html:209
 msgid "Shutdown hardware!"
 msgstr ""
 
-#: ospy/templates/options.html:209
+#: ospy/templates/options.html:210
 msgid "Default"
 msgstr ""
 
-#: ospy/templates/options.html:209
+#: ospy/templates/options.html:210
 msgid "Delete OSPy settings to default!"
 msgstr ""
 
-#: ospy/templates/options.html:218
+#: ospy/templates/options.html:219
 msgid "System Backup"
 msgstr ""
 
-#: ospy/templates/options.html:220
+#: ospy/templates/options.html:221
 msgid "Download"
 msgstr ""
 
-#: ospy/templates/options.html:220
+#: ospy/templates/options.html:221
 msgid "Download options.db file"
 msgstr ""
 
-#: ospy/templates/options.html:222
+#: ospy/templates/options.html:223
 msgid "Upload"
 msgstr ""
 
-#: ospy/templates/options.html:222
+#: ospy/templates/options.html:223
 msgid "Upload options.db file"
 msgstr ""
 
-#: ospy/templates/options.html:229 ospy/templates/stations.html:77
+#: ospy/templates/options.html:230 ospy/templates/stations.html:77
 msgid "Submit Changes"
 msgstr ""
 
-#: ospy/templates/options.html:230 ospy/templates/program.html:618
+#: ospy/templates/options.html:231 ospy/templates/program.html:618
 #: ospy/templates/runonce.html:56 ospy/templates/stations.html:79
 msgid "Cancel"
 msgstr ""
@@ -1330,6 +1363,30 @@ msgstr ""
 
 #: ospy/templates/unreachable.html:32
 msgid "System component is unreachable or busy. Please wait (try again later)."
+msgstr ""
+
+#: ospy/weather.py:119
+msgid "Weather - No location found!"
+msgstr ""
+
+#: ospy/weather.py:126
+msgid "Weather - Location"
+msgstr ""
+
+#: ospy/weather.py:126
+msgid "found:"
+msgstr ""
+
+#: ospy/weather.py:126
+msgid "lat"
+msgstr ""
+
+#: ospy/weather.py:126
+msgid "lon"
+msgstr ""
+
+#: ospy/weather.py:132
+msgid "Weather - No location coordinates available!"
 msgstr ""
 
 #: ospy/webpages.py:73

@@ -1,9 +1,9 @@
 OSPy (Open Sprinkler Python) Readme 
 ====
 
-OSPy - Open Sprinkler Python An improved Python port of the Arduino based OpenSprinkler firmware.
+OSPy is a free Raspberry Pi based Python program for controlling irrigation systems ( sprinkler, drip, etc ).
 
-This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) with My modifications.  
+This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) and Dan-in-CA/SIP (https://github.com/Dan-in-CA/SIP) with My modifications.  
 
 ## More information visit
 Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
@@ -75,7 +75,59 @@ sudo git pull
 2. Extract the contents to a location of your choice
 
 ## For enable SSL access in options (for HTTPS connections)
-If "https" is selected in OSPy settings, server.crt and sever.key files are created automatically. Warning: OSPy must be next restarted. 
+For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
+The Certbot (https://certbot.eff.org/) and Let’s Encrypt (https://letsencrypt.org/) for enabling SSL security.
+
+Execute:
+```bash
+sudo apt-get install certbot
+```
+
+```bash
+certbot --version
+```
+
+```bash
+sudo certbot certonly --standalone -d your_domain_name
+```
+
+```bash
+sudo certbot renew
+```
+Notice: 
+Before starting the certification service, make sure that you have correctly configured your NAT network router (redirecting external port 80 to Raspberry Pi's internal IP address 80 for certification service.) 
+After the certificate is generated, it is necessary to route port 443 to the OSPy port in the router (the default OSPy port is 8080).
+
+The certification service is trying to use a connection using IP version 6. If we do not use IPV6 (we do not have a router set for IPV6, or do not want to use IPV6 for any other reason), we must disable the use of IPV6 addreses in Raspberry Pi!
+
+```bash
+sudo nano /etc/modprobe.d/ipv6.conf
+```
+Add to file
+# Don't load ipv6 by default
+alias net-pf-10 off
+#alias ipv6 off
+# added to disable ipv6
+options ipv6 disable_ipv6=1
+# added to prevent ipv6 driver from loading
+blacklist ipv6
+
+```bash
+sudo reboot
+```
+
+If "Use Own HTTPS access" is selected in OSPy options, file: fullchain.pem and privkey.pem must You insert to folder ssl in OSPy location. 
+For manual generating certificate example:
+
+```bash
+cd ssl  
+```
+
+```bash
+sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
+```
+
+Warning: OSPy must be next restarted. 
 
 ## For enable I2C device (I2C LCD plugin and more I2C plugins)  
 
@@ -104,6 +156,12 @@ https://github.com/martinpihrt/OSPy/issues
 https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech.md
 * English
 https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20English.md
+
+
+## Communication with other systems
+OSPy can be controlled and monitored using HTTP GET commands. With the addition of available plugins OSPy can communicate with other systems via MQTT. 
+OSPy can also issue Linux shell commands when a station is turned on or off. This is useful for controlling wireless remote devices and for I2C relay hats and boards.
+The Blinker package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status. See the signaling examples file in OSPy's plugins folder for examples.
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program

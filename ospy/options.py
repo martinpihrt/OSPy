@@ -61,13 +61,6 @@ class _Options(object):
             "max": 65535
         },
         {
-            "key": "use_ssl",
-            "name": _('Use HTTPS access'),
-            "default": False,
-            "help": _('SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)'),
-            "category": _('System')
-        },
-        {
             "key": "show_plugin_data",
             "name": _('Show plugins on home'),
             "default": False,
@@ -142,6 +135,27 @@ class _Options(object):
             "help": _('Allow anonymous users to access the system without a password.'),
             "category": _('Security')
         },
+        {
+            "key": "use_ssl",
+            "name": _('Use HTTPS access'),
+            "default": False,
+            "help": _('Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)'),
+            "category": _('Security')
+        },
+        {
+            "key": "domain_ssl",
+            "name": _('Domain name'),
+            "default": "",
+            "help": _('Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com'),
+            "category": _('Security')
+        },    
+        {
+            "key": "use_own_ssl",
+            "name": _('Use Own HTTPS access'),
+            "default": False,
+            "help": _('SSL certificate via own file without certification authority (effective after reboot.)'),
+            "category": _('Security')
+        },            
         #######################################################################
         # Station Handling ####################################################
         {
@@ -336,7 +350,22 @@ class _Options(object):
             "key": "weather_cache",
             "name": _('ETo and rain value cache'),
             "default": {}
-        }
+        },
+        {
+            "key": "weather_error_location",
+            "name": _('Information from weather'),
+            "default": {}
+        },   
+        {
+            "key": "weather_lat",
+            "name": _('Location latitude'),
+            "default": {}
+        },
+        {
+            "key": "weather_lon",
+            "name": _('Location longtitude'),
+            "default": {}
+        }     
     ]
 
     def __init__(self):
@@ -471,7 +500,8 @@ class _Options(object):
                 else:
                     os.remove(OPTIONS_FILE)
 
-            os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
+            if os.path.isfile(OPTIONS_FILE + '.tmp'):
+                os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
         except Exception:
             logging.warning('Saving error:\n' + traceback.format_exc())
 

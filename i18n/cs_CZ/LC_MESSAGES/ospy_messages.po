@@ -6,17 +6,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
 "POT-Creation-Date: 2016-05-24 09:03+0200\n"
-"PO-Revision-Date: 2019-09-09 11:14+0200\n"
+"PO-Revision-Date: 2019-11-07 12:03+0100\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "Language: cs_CZ\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: ospy/templates/home.html:580
+msgid "Map"
+msgstr "Zobrazit mapu"
+
+#: ospy/weather.py:115
+msgid "Weather - No location found!"
+msgstr "Počasí - nenalezeno ID vašeho umístění!"
+
+#: ospy/weather.py:120
+msgid "Weather - Location"
+msgstr "Počasí - umístění"
+
+#: ospy/weather.py:120
+msgid "found:"
+msgstr "nalezeno:"
+
+#: ospy/weather.py:120
+msgid "lat"
+msgstr "zeměpisná šířka"
+
+#: ospy/weather.py:120
+msgid "lon"
+msgstr "zeměpisná délka"
+
+#: ospy/weather.py:126
+msgid "Weather - No location coordinates available!"
+msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
+
+#: ospy/options.py:154
+msgid "Use Own HTTPS access"
+msgstr "Použít vlastní HTTPS"
+
+#: ospy/options.py:156
+msgid "SSL certificate via own file without certification authority (effective after reboot.)"
+msgstr "SSL zabezpečení pomocí vlastního certifikátu bez certifikační autority (po vložení souborů fullchain.pem a privkey.pem do složky ssl v umístění OSPy je nutný restart OSPy.)"
 
 #: ospy/templates/base.html:164
 msgid "Show plugins on home"
@@ -292,6 +328,18 @@ msgstr "Prosím zadejte heslo."
 #: static/scripts/options.js:
 msgid "Passwords don't match, please re-enter."
 msgstr "Hesla nesouhlasí, zadejte znovu."
+
+#: ospy/options.py:147
+msgid "Domain name"
+msgstr "Jméno domény"
+
+#: ospy/options.py:142
+msgid "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)"
+msgstr "Přečtěte si NÁPOVĚDU a příručku k webovému rozhraní. SSL certifikát je generován prostřednictvím certifikační autority (po instalaci je nutné restartování OSPy)."
+
+#: ospy/options.py:149
+msgid "Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com"
+msgstr "Jméno domény, které bylo použito pro generování certifikátu SSL prostřednictvím certifikační autority. Příklad: home.sprinkler.com"
 
 #: ospy/templates/options.html: ospy/templates/stations.html:
 msgid "Master station"
@@ -705,10 +753,6 @@ msgstr "HTTP/S port (projeví se až po restartu.)"
 #: ospy/options.py:61
 msgid "Use HTTPS access"
 msgstr "Použít HTTPS"
-
-#: ospy/options.py:63
-msgid "SSL certificate in folder ospy/ssl/server.crt and ospy/ssl/server.key (effective after reboot.)"
-msgstr "SSL certifikát ve složce: ospy/ssl/server.crt a ospy/ssl/server.key (projeví se až po restartu)."
 
 #: ospy/options.py:
 msgid "Enabled plug-ins"

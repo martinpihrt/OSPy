@@ -85,8 +85,7 @@ OSPy Průvodce webovým rozhraním v češtině
             24-hodinový čas
             HTTP IP adresa
                 O čísle portu 
-            HTTP/S port
-            Použít HTTPS 
+            HTTP/S port 
             Zobrazit rozšíření na home
             Jazyk          
         Počasí
@@ -98,7 +97,10 @@ OSPy Průvodce webovým rozhraním v češtině
             Bez hesla
             Aktuální heslo
             Nové heslo
-            Potvrďte heslo           
+            Potvrďte heslo 
+            Použít HTTPS
+            Jméno domény
+            Použít vlastní HTTPS          
         Nastavení stanic
             Maximální využití
                 O sekvenčních a souběžných režimech
@@ -477,10 +479,6 @@ Konfliktu se můžete vyhnout změnou čísla portu OSPy na stránce Možnosti n
 
 Vrátíte se na domovskou stránku. Systém se restartuje, ale ve webovém rozhraní není viditelná indikace restartu. Počkejte alespoň 60 sekund, poté přidejte nové číslo portu do adresy URL Pi, před kterým je dvojtečka (:), a zkuste se znovu připojit k OSPy.
 
-### Použít HTTPS 
-V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení přenosu dat pomocí certifikátu SSL, zaškrtněte políčko "Použít HTTPS". Pokud je zaškrtnuta volba "Použít HTTPS" a server není správně nastaven, OSPy se spustí jako http server bez zabezpečení. Certifikát SSL se vytvoří v systému OSPy automaticky.
-* Certifikát nalezneme v systému OSPy: ospy/ssl/server.crt a ospy/ssl/server.key (použití https se projeví až po restartu OSPy).
-
 ### Zobrazit rozšíření na home
 Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data z rozšíření (vítr, teplota, hladina...) zaškrtneme políčko. V případě, že nechceme zobrazovat data z rozšíření zrušíme zaškrtnutí.
 * Upozornění: aby se data zobrazovala v pořádku je nezbytné mít rozšíření povolené a správně nastavené.
@@ -521,6 +519,19 @@ Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy z v
 * Klikněte na tlačítko "Potvrdit změny" ve spodní části stránky.
 
 Vrátíte se na domovskou stránku. Vaše nové heslo bude vyžadováno při příštím přihlášení.
+
+### Použít HTTPS 
+V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení přenosu dat pomocí certifikátu SSL, zaškrtněte políčko "Použít HTTPS". Pokud je zaškrtnuta volba "Použít HTTPS" a server není správně nastaven, OSPy se spustí jako http server bez zabezpečení.
+
+### Jméno domény
+Certifikát je umístěn v systému v adresáři '/etc/letsencrypt/live/' jméno domény '/fullchain.pem' a '/etc/letsencrypt/live/' jméno domény '/privkey.pem'. Certifikát je nutné pomocí nástroje "Certbot" nainstalovat do systému (Linux) ručně (použití https se projeví v OSPy až po restartu OSPy).
+* Postup pro instalaci Certifikační služby nalezneme v souboru "Readme" nápovědy, nebo na Githubu.
+
+### Použít vlastní HTTPS
+Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTPS“, musíte do adresáře ssl v umístění OSPy vložit soubor: fullchain.pem a privkey.pem. Varování: OSPy musí být znovu restartováno.
+```bash
+sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
+```
 
 ### Bez hesla
 Pokud je zaškrtnuté políčko "Bez hesla" povolíme přístup do systému anonymním uživatelům bez hesla.

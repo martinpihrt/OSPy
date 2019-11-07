@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 6 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add to options domain name for SSL (certificate via Lets Encrypt certification authority) and for own certificate. Fix in options. Update language. Add weather status msg to home page.</br>
+
 Sep 9 2019
 -----------
 (martinpihrt)<br/>
