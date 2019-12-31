@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = 'Rimco'
 
@@ -24,4 +23,4 @@ try:
     ver_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
 except Exception:
     logging.warning("Could not use git to determine date of last commit!")
-    ver_date = '11-06-2019'
+    ver_date = '31-12-2019'

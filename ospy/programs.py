@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Add i18n Martin Pihrt
 __author__ = 'Rimco'

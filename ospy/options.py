@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = 'Rimco'
 
@@ -352,11 +351,6 @@ class _Options(object):
             "default": {}
         },
         {
-            "key": "weather_error_location",
-            "name": _('Information from weather'),
-            "default": {}
-        },   
-        {
             "key": "weather_lat",
             "name": _('Location latitude'),
             "default": {}
@@ -365,6 +359,11 @@ class _Options(object):
             "key": "weather_lon",
             "name": _('Location longtitude'),
             "default": {}
+        },
+        {
+            "key": "weather_status",
+            "name": _('Weather status'),
+            "default": 0
         }     
     ]
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 __author__ = 'Rimco'
@@ -65,9 +64,9 @@ class _Weather(Thread):
         options.add_callback('location', self._option_cb)
         options.add_callback('darksky_key', self._option_cb)
         options.add_callback('elevation', self._option_cb)
-        options.add_callback('weather_error_location', self._option_cb) # from home page weather status (msg with errors)
         options.add_callback('weather_lat', self._option_cb)            # from home page weather status (latitude)
         options.add_callback('weather_lon', self._option_cb)            # from home page weather status (longtitude)
+        options.add_callback('weather_status', self._option_cb)         # from home page weather status (msg code)
 
         self._sleep_time = 0
         self.start()
@@ -104,6 +103,8 @@ class _Weather(Thread):
                 finally:
                     for function in self._callbacks:
                         function()
+ 
+                    options.weather_status = 1
 
                 self._sleep(3600)
             except Exception:
@@ -116,20 +117,20 @@ class _Weather(Thread):
                 "https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.quote_plus(options.location))
             data = json.load(data)
             if not data:
-                options.weather_error_location = _('Weather - No location found!')
+                options.weather_status = 0 # Weather - No location found!
                 raise Exception('No location found: ' + options.location + '.')
             else:
                 self._lat = float(data[0]['lat'])
                 self._lon = float(data[0]['lon'])
                 options.weather_lat = str(float(data[0]['lat']))
                 options.weather_lon = str(float(data[0]['lon']))
-                options.weather_error_location = _('Weather - Location') + ' "' + options.location + '" ' + _('found:') + ' ' + str(self._lat) + ' ' + _('lat') + ', ' + str(self._lon) +  ' ' +_('lon') 
+                options.weather_status = 1 # found
                 logging.debug('Location found: %s, %s', self._lat, self._lon)
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:
             self._determine_location = True  # Let the weather thread try again when it wakes up
-            options.weather_error_location = _('Weather - No location coordinates available!')
+            options.weather_status = 2 # Weather - No location coordinates available!
             raise Exception('No location coordinates available!')
         return self._lat, self._lon
 
@@ -156,6 +157,7 @@ class _Weather(Thread):
             self._result_cache['darksky_json'][url] = {'time': datetime.datetime.now(),
                                                        'data': json.load(urllib2.urlopen(url))}
             options.weather_cache = self._result_cache
+
 
         if 'offset' in self._result_cache['darksky_json'][url]['data']:
             self._tz_offset = self._result_cache['darksky_json'][url]['data']['offset']

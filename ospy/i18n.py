@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # encoding: utf-8
 # First Author Dan <dkimberling59@gmail.com>
 # for OSPy by Martin Pihrt

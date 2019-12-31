@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # System imports
@@ -539,17 +538,6 @@ class options_page(ProtectedPage):
 
     def POST(self):
         qdict = web.input()
-  
-        change = False # if change language -> restart ospy
-
-        if 'lang' in qdict and qdict['lang']:
-            if options.lang != qdict['lang']:
-               change = True
-
-        qdict['name'] = qdict['name']
-        qdict['location'] = qdict['location']
-        qdict['darksky_key'] = qdict['darksky_key']
-        qdict['HTTP_web_ip'] = qdict['HTTP_web_ip']
 
         save_to_options(qdict)
 
@@ -608,11 +596,6 @@ class options_page(ProtectedPage):
                 return self.core_render.restarting(home_page)
             except:
                 pass 
-
-        if change:
-            report_restarted()
-            restart()    # OSPy software
-            return self.core_render.restarting(home_page)
 
         report_option_change()
         raise web.seeother('/')

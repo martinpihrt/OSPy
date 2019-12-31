@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 31 2019
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in water tank plugin and wind plugin. Update language. Fix weather status msg on home page. Prepare for python 3.</br>
+
 Nov 6 2019
 -----------
 (martinpihrt)<br/>
