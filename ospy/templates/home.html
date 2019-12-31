@@ -574,10 +574,17 @@ $if options.show_plugin_data:
     <p><span id="tankmonitor"></span></p>
     <p><span id="windmonitor"></span></p>
     $if options.use_weather:
-       <p>${options.weather_error_location} 
-       $if options.weather_lat and options.weather_lon:
-          $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
-          <a href="${patch}" class="button upload" target="_blank">$_('Map')</a> 
+       <p>
+       $if options.weather_status == 0: 
+          $_('Weather - No location found!')
+       $if options.weather_status == 1: 
+          $_('Weather - Location') $_('found:') $options.location
+          $if options.weather_lat and options.weather_lon:
+              $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
+              <a href="${patch}" class="button upload" target="_blank">$_('Map')</a> 
+              ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
+       $if options.weather_status == 2:
+          $_('Weather - No location coordinates available!')       
        </p>
     </div>
 
