@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 
 __author__ = 'Rimco'
 
 # System imports
 import logging
 import traceback
-import urllib2
 import json
-import urllib
 import datetime
 import time
 import math
@@ -15,7 +14,12 @@ from threading import Thread, Lock
 
 from ospy.options import options
 
-import i18n
+from . import i18n
+
+try:       # python > 2.7
+   import urllib.request, urllib.error, urllib.parse
+except:    # python 2.7
+   import urllib, urllib2
 
 
 def _cache(cache_name):
@@ -113,8 +117,10 @@ class _Weather(Thread):
 
     def _find_location(self):
         if options.location and options.darksky_key:
-            data = urllib2.urlopen(
-                "https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.quote_plus(options.location))
+            try:
+                data = urllib.request.urlopen("https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.parse.quote_plus(options.location))
+            except:
+                data = urllib2.urlopen("https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.quote_plus(options.location))
             data = json.load(data)
             if not data:
                 options.weather_status = 0 # Weather - No location found!

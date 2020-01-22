@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
+
 __author__ = 'Rimco'
 
 import sys
@@ -17,9 +19,9 @@ def yes_no(msg):
 def install_package(module, easy_install=None, package=None, git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None):
     from ospy.helpers import del_rw
     try:
-        print 'Checking %s' % module
+        print('Checking %s' % module)
         __import__(module)
-        print '%s is available' % module
+        print('%s is available' % module)
         return
     except Exception:
         if not yes_no('%s not available, do you want to install it?' % module):
@@ -31,7 +33,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             subprocess.check_call(['easy_install', easy_install])
             done = True
         except Exception as err:
-            print 'Failed to use easy_install:', err
+            print('Failed to use easy_install:', err)
 
     if sys.platform.startswith('linux'):
         if not done and package is not None:
@@ -39,14 +41,14 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
                 subprocess.check_call('apt-get install'.split() + [package])
                 done = True
             except Exception as err:
-                print 'Failed to use apt-get:', err
+                print('Failed to use apt-get:', err)
 
         if not done and package is not None:
             try:
                 subprocess.check_call('yum install'.split() + [package])
                 done = True
             except Exception as err:
-                print 'Failed to use yum:', err
+                print('Failed to use yum:', err)
 
     if not done and git is not None and git_execs is not None:
         try:
@@ -57,7 +59,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print 'Failed to use git:', err
+            print('Failed to use git:', err)
 
     if not done and zipfile is not None and zip_cwd is not None and zip_execs is not None:
         try:
@@ -76,10 +78,10 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print 'Failed to use zip file:', err
+            print('Failed to use zip file:', err)
 
     if not done:
-        print 'Failed to install %s.' % module
+        print('Failed to install %s.' % module)
 
 
 def install_service():
@@ -90,12 +92,12 @@ def install_service():
 
             with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
                 with open(path, 'w') as target:
-                    target.write(source.read().replace('{{OSPY_DIR}}', my_dir))
-            os.chmod(path, 0755)
+                    target.write(source.read().replace('/home/pi/OSPy', my_dir))
+            os.chmod(path, 0o755)
             subprocess.check_call(['update-rc.d', 'ospy', 'defaults'])
-            print 'Done installing service.'
+            print('Done installing service.')
     else:
-        print 'Service installation is only possible on unix systems.'
+        print('Service installation is only possible on unix systems.')
 
 
 def uninstall_service():
@@ -104,14 +106,14 @@ def uninstall_service():
             try:
                 subprocess.Popen(['service', 'ospy', 'stop'])
             except Exception:
-                print 'Could not stop service.'
+                print('Could not stop service.')
         else:
-            print 'OSPy was not running.'
+            print('OSPy was not running.')
 
         try:
             subprocess.check_call(['update-rc.d', '-f', 'ospy', 'remove'])
         except Exception:
-            print 'Could not remove service using update-rc.d'
+            print('Could not remove service using update-rc.d')
 
         import glob
         old_paths = glob.glob(os.path.join('/etc', 'init.d', '*ospy*'))
@@ -119,16 +121,16 @@ def uninstall_service():
             os.unlink(old_path)
 
         if old_paths:
-            print 'Service removed'
+            print('Service removed')
         else:
-            print 'Service not found'
+            print('Service not found')
     else:
-        print 'Service uninstall is only possible on unix systems.'
+        print('Service uninstall is only possible on unix systems.')
 
 
 def check_password():
     from ospy.options import options
-    from ospy.helpers import test_password, password_salt, password_hash
+    from ospy.helpers import test_password, password_hash
     if not options.no_password and test_password('opendoor'):
         if yes_no('You are still using the default password, you should change it! Do you want to change it now?'):
             from getpass import getpass
@@ -138,10 +140,9 @@ def check_password():
                 pw2 = getpass('Repeat password: ')
                 if pw1 != '' and pw1 == pw2:
                     break
-                print 'Invalid input!'
+                print('Invalid input!')
 
-            options.password_salt = password_salt()  # Make a new salt
-            options.password_hash = password_hash(pw1, options.password_salt)
+            options.password_hash = password_hash(pw1)
 
 
 def start():
@@ -179,15 +180,9 @@ if __name__ == '__main__':
                 pkg = True
 
         if not pkg:
-            print 'Cannot install packages without setuptools.'
+            print('Cannot install packages without setuptools.')
         else:
             # Check if packages are available:
-            install_package('web', 'web.py', 'python-webpy',
-                            'https://github.com/webpy/webpy.git',
-                            [[sys.executable, 'setup.py', 'install']],
-                            'https://github.com/webpy/webpy/archive/master.zip', 'webpy-master',
-                            [[sys.executable, 'setup.py', 'install']])
-
             install_package('gfm', None, None,
                             'https://github.com/Zopieux/py-gfm.git',
                             [[sys.executable, 'setup.py', 'install']],
@@ -206,7 +201,7 @@ if __name__ == '__main__':
 
         start()
 
-        print 'Done'
+        print('Done')
 
     elif len(sys.argv) == 2 and sys.argv[1] == 'uninstall':
         uninstall_service()

@@ -1,6 +1,19 @@
 OSPy Changelog
 ====
 
+Jan 22 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Upgrade the OSPy to version to 4.0.0. Preparation for python 3. Add select in air temp plugin (in graph). Add graph for water tank plugin.</br>
+Add select in graph on home page.
+
+Jan 10 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in ospy service (Thank's Dan Kimberling).</br>
+
 Dec 31 2019
 -----------
 (martinpihrt)<br/>

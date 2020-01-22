@@ -7,6 +7,7 @@ $var page: home
 <script src="/static/scripts/jquery.flot.time.js"></script>
 <script src="/static/scripts/jquery.flot.resize.js"></script>
 <script src="/static/scripts/jquery.flot.axislabels.js"></script>
+<script src="/static/scripts/jquery.flot.selection.js"></script>
 
 <script>
 // Global vars
@@ -327,7 +328,10 @@ function draw_graph(result) {
         yaxes: [{
             position: 'left',
             axisLabel: '$_('Water balance (mm)')',
-        }]
+        }],
+        selection: {
+            mode: 'x'
+        }
     });
 }
 
@@ -338,6 +342,7 @@ function create_graph(result) {
     plot.resize();
     plot.setupGrid();
     plot.draw();
+    plot.clearSelection();
 
     jQuery('#legend-visible').find('.legendColorBox').children().children().css({
         color: "#ddd"
@@ -379,6 +384,22 @@ function create_graph(result) {
         } else {
             jQuery("#tooltip").hide();
         }
+    });
+
+    jQuery("#graph-placeholder").bind("plotselected", function (event, ranges) {
+        jQuery("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+        jQuery.each(plot.getXAxes(), function(_, axis) {
+                var opts = axis.options;
+                opts.min = ranges.xaxis.from;
+                opts.max = ranges.xaxis.to;
+        });
+        plot.setupGrid();
+        plot.draw();
+        plot.clearSelection(); 
+    });
+
+    jQuery('#clearSelection').on('click', function(){
+        jQuery.getJSON("/balance.json", create_graph)
     });
 }
 
@@ -566,6 +587,7 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <div id="legend-visible" style="float: right; width: auto;"></div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
+        <button id="clearSelection">$_('Clear selection')</button>
     </div>
 
 $if options.show_plugin_data:

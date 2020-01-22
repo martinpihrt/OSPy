@@ -16,7 +16,7 @@ DESC="OpenSprinkler Python"
 NAME=ospy
 DAEMON=/usr/bin/python
 DAEMON_ARGS="run.py"
-HOMEDIR="{{OSPY_DIR}}"
+HOMEDIR=/home/pi/OSPy
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
