@@ -527,6 +527,38 @@ V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení p�
 Certifikát je umístěn v systému v adresáři '/etc/letsencrypt/live/' jméno domény '/fullchain.pem' a '/etc/letsencrypt/live/' jméno domény '/privkey.pem'. Certifikát je nutné pomocí nástroje "Certbot" nainstalovat do systému (Linux) ručně (použití https se projeví v OSPy až po restartu OSPy).
 * Postup pro instalaci Certifikační služby nalezneme v souboru "Readme" nápovědy, nebo na Githubu.
 
+### Použít HTTPS pomocí Certbot
+SSL certifikát pomocí Let’s Encrypt certifikační autority.
+Certbot (https://certbot.eff.org/) a Let’s Encrypt (https://letsencrypt.org/).
+
+```bash
+sudo apt-get install certbot
+```
+
+```bash
+certbot --version
+```
+
+```bash
+sudo certbot certonly --standalone -d your_domain_name
+```
+
+```bash
+sudo certbot renew
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/fullchain.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/privkey.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo service ospy restart
+```
+
 ### Použít vlastní HTTPS
 Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTPS“, musíte do adresáře ssl v umístění OSPy vložit soubor: fullchain.pem a privkey.pem. Varování: OSPy musí být znovu restartováno.
 ```bash

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from functools import reduce
 __author__ = 'Rimco'
 
 # System imports
@@ -6,8 +8,8 @@ from datetime import datetime
 from threading import Timer
 import logging
 import shelve
-import i18n
-import helpers
+from . import i18n
+from . import helpers
 import traceback
 import os
 import time

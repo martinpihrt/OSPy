@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
 __author__ = 'Rimco' # additional changes Martin Pihrt
 
 # System imports
@@ -61,7 +62,7 @@ def program_delay(program):
 
 
 def formatTime(t):
-    from options import options
+    from .options import options
     if options.time_format:
         return t
     else:
@@ -415,12 +416,12 @@ def minute_time_str(minute_time, with_seconds=False):
 
 
 def short_day(index):
-    import i18n
+    from . import i18n
     return [_('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat'), _('Sun')][index]
 
 
 def long_day(index):
-    import i18n
+    from . import i18n
     return [_('Monday'),
             _('Tuesday'),
             _('Wednesday'),
@@ -562,7 +563,7 @@ def get_input(qdict, key, default=None, cast=None):
 
 
 def template_globals():
-    import i18n
+    from . import i18n
     import json
     import plugins
     import urllib

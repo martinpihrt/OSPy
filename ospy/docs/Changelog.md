@@ -1,6 +1,16 @@
 OSPy Changelog
 ====
 
+Feb 5 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Preparation for Python 3.
+Stage 1 does not add any imports from the future package. The output of stage 1 will probably not (yet) run on Python 3.</br>
+The goal for this stage is to create most of the diff for the entire porting process, but without introducing any bugs.</br>
+It should be uncontroversial and safe to apply to every Python 2 package.</br>
+The subsequent patches introducing Python 3 compatibility should then be shorter and easier to review.
+
 Jan 22 2020
 -----------
 (martinpihrt)<br/>

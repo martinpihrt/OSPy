@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # System imports
+from __future__ import absolute_import
 import os
 from shutil import copyfile
 import datetime
@@ -22,7 +23,7 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler
 import plugins
-import i18n
+from . import i18n
 from blinker import signal
 
 loggedin = signal('loggedin')

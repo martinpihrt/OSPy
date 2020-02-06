@@ -504,6 +504,39 @@ The certificate is located on the system in the '/etc/letsencrypt/live/' domain 
 
 You will return to the home page. Your new password will be required the next time you log in.
 
+### Use Certbot
+For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
+The Certbot (https://certbot.eff.org/) and Let’s Encrypt (https://letsencrypt.org/) for enabling SSL security.
+
+Execute:
+```bash
+sudo apt-get install certbot
+```
+
+```bash
+certbot --version
+```
+
+```bash
+sudo certbot certonly --standalone -d your_domain_name
+```
+
+```bash
+sudo certbot renew
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/fullchain.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/privkey.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo service ospy restart
+```
+
 ### Use Own HTTPS access
 If "Use Own HTTPS access" is selected in OSPy settings, file: fullchain.pem and privkey.pem must You insert to folder ssl in OSPy location. Warning: OSPy must be next restarted.
 For manual generating certificate example:

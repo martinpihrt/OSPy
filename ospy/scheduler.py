@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 __author__ = 'Rimco'
 
 from blinker import signal
@@ -9,7 +10,7 @@ import datetime
 import time
 import logging
 import traceback
-import i18n 
+from . import i18n 
 
 # Local imports
 from ospy.inputs import inputs

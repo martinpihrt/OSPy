@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 __author__ = 'remram44' # https://github.com/remram44/usagestats
 
 # usagestats = Anonymous usage statistics collector
@@ -14,11 +15,11 @@ try:
     import requests
 
 except ImportError:
-    print "Requests not found, installing. Please wait..."
+    print("Requests not found, installing. Please wait...")
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
-    print output
+    print(output)
        
     try: 
         import requests

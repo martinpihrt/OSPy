@@ -114,7 +114,7 @@ def hashable_identity(obj):
     if hasattr(obj, '__func__'):
         return (id(obj.__func__), id(obj.__self__))
     elif hasattr(obj, 'im_func'):
-        return (id(obj.im_func), id(obj.im_self))
+        return (id(obj.__func__), id(obj.__self__))
     elif isinstance(obj, text):
         return obj
     else:
@@ -141,7 +141,7 @@ def reference(object, callback=None, **annotations):
 
 def callable_reference(object, callback=None):
     """Return an annotated weak ref, supporting bound instance methods."""
-    if hasattr(object, 'im_self') and object.im_self is not None:
+    if hasattr(object, 'im_self') and object.__self__ is not None:
         return BoundMethodWeakref(target=object, on_delete=callback)
     elif hasattr(object, '__self__') and object.__self__ is not None:
         return BoundMethodWeakref(target=object, on_delete=callback)

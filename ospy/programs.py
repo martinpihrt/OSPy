@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Add i18n Martin Pihrt
+from __future__ import absolute_import
 __author__ = 'Rimco'
 
 # System imports
@@ -14,7 +15,7 @@ from ospy.options import options
 from ospy.weather import weather
 from ospy.stations import stations
 from ospy.log import log
-import i18n
+from . import i18n
 
 class ProgramType(object):
     DAYS_SIMPLE = 0
@@ -687,7 +688,7 @@ class _Programs(object):
             program.stations = [station for station in program.stations if 0 <= station < new]
 
     def calculate_balances(self):
-        from scheduler import predicted_schedule
+        from .scheduler import predicted_schedule
         now = datetime.datetime.now()
         for station in stations.get():
             station.balance = {key: value for key, value in station.balance.iteritems()

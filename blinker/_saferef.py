@@ -33,6 +33,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 """Refactored 'safe reference from dispatcher.py"""
+from __future__ import print_function
 
 import operator
 import sys
@@ -185,7 +186,7 @@ class BoundMethodWeakref(object):
         self.weak_self = weakref.ref(im_self, remove)
         self.weak_func = weakref.ref(im_func, remove)
         self.self_name = str(im_self)
-        self.func_name = str(im_func.__name__)
+        self.__name__ = str(im_func.__name__)
 
     def calculate_key(cls, target):
         """Calculate the reference key for this reference.
@@ -201,7 +202,7 @@ class BoundMethodWeakref(object):
         return "%s(%s.%s)" % (
             self.__class__.__name__,
             self.self_name,
-            self.func_name,
+            self.__name__,
             )
 
     __repr__ = __str__

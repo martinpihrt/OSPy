@@ -16,11 +16,11 @@ from ospy.options import options
 
 from . import i18n
 
-try:       # python > 2.7
-   import urllib.request, urllib.error, urllib.parse
-except:    # python 2.7
+try:       # python 2.7
    import urllib, urllib2
-
+except:    # > python 2.7
+   import urllib.request, urllib.error, urllib.parse
+   
 
 def _cache(cache_name):
     def cache_decorator(func):

@@ -1,7 +1,8 @@
+from __future__ import absolute_import
 
 __author__ = 'Teodor Yantcheff'
 
-from utils import *
+from .utils import *
 
 from ospy import version
 from ospy.stations import stations

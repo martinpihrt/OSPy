@@ -94,9 +94,22 @@ sudo certbot certonly --standalone -d your_domain_name
 ```bash
 sudo certbot renew
 ```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/fullchain.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/privkey.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo service ospy restart
+```
+
 Notice: 
-Before starting the certification service, make sure that you have correctly configured your NAT network router (redirecting external port 80 to Raspberry Pi's internal IP address 80 for certification service.) 
-After the certificate is generated, it is necessary to route port 443 to the OSPy port in the router (the default OSPy port is 8080).
+Before starting the certification service, make sure that you have correctly configured your NAT network router (redirecting external port 443 to Raspberry Pi's internal IP address 80 for certification service.) 
+After the certificate is generated, it is necessary to route your port to the OSPy port in the router (the default OSPy port is 8080).
 
 The certification service is trying to use a connection using IP version 6. If we do not use IPV6 (we do not have a router set for IPV6, or do not want to use IPV6 for any other reason), we must disable the use of IPV6 addreses in Raspberry Pi!
 
@@ -104,12 +117,8 @@ The certification service is trying to use a connection using IP version 6. If w
 sudo nano /etc/modprobe.d/ipv6.conf
 ```
 Add to file
-# Don't load ipv6 by default
 alias net-pf-10 off
-#alias ipv6 off
-# added to disable ipv6
 options ipv6 disable_ipv6=1
-# added to prevent ipv6 driver from loading
 blacklist ipv6
 
 ```bash
