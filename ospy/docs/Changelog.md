@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+feb 21 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Caution: sha1 has been changed to sha256 for safety reasons. If you are updating the OSPy version, you must delete the options.db file in the folder "OSPy/data/". You will then need to set up the entire system again. It is up to the user to make this security update. Sha1 is out of date and is not secure. The current password is in sha1 and after updating to sha256 you will not be able to log in to OSPy.</br>
+Added option to upload own certificate into settings (certificate files will be saved to "ssl/" folder).
+
 Feb 5 2020
 -----------
 (martinpihrt)<br/>

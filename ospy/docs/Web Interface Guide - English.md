@@ -132,6 +132,8 @@ OSPy Web Interface Guide in English
         System Backup Section
             Download
             Upload 
+        SSL certificate
+            Upload            
     Stations page
         Station 
         Name
@@ -650,6 +652,12 @@ The Download button is used to download the configuration file to your computer 
 
 ### Upload 
 The Upload button allows you to insert and restore OSPy system (for example, when you reinstall a Linux system). The uploaded file must be filename "options.db"!
+
+## SSL Certificate
+If we have our own SSL (https) security certificate (fullchain.pem and privkey.pem) we can upload it here using the form.
+
+### Upload
+The "Upload" button sends the attached files (fullchain.pem and privkey.pem) to the ssl folder in the OSPy directory.
 
 ----
 

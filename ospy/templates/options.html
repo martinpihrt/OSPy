@@ -27,6 +27,10 @@ $code:
         jQuery("#uploadForm").submit();
     });
 
+     jQuery("#cUploadSSL").click(function() {
+        jQuery("#uploadFormSSL").submit();
+    });     
+
     jQuery(".collapsible h4").click(function(event){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
     });
@@ -69,6 +73,14 @@ $code:
             jQuery("#errorfn").text($:{json.dumps(_("File name is not options.db, please retry."), ensure_ascii=False).encode('utf8')});
             jQuery("#errorfn").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
+        case "pw_filenameSSL":
+            jQuery("#errorfnssl").text($:{json.dumps(_("File name is not fullchain.pem or privkey.pem, please retry."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;      
+        case "pw_filenameSSLOK":
+            jQuery("#errorfnssl").text($:{json.dumps(_("File has uploaded."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;       
     }
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -224,6 +236,16 @@ $code:
         output += "<span class='inputError' id='errorfn'></span>\n"
         output += "</div></form>\n"
         output += categoryCloser
+
+        output += "<form id='uploadFormSSL' name='of3' action='uploadSSL' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += "<div class='category collapsible collapsed'><h4>" + _('SSL certificate') + "</h4>\n"
+        output += "<div class='option'>"
+        output += "<span class='label'>" + _('Upload SSL files') + ":</span>\n"
+        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' /><br>\n "
+        output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
+        output += "<span class='inputError' id='errorfnssl'></span>\n"
+        output += "</div></form>\n"
+        output += categoryCloser        
     $:{output}
     
 </div>

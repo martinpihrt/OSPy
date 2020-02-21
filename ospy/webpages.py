@@ -726,6 +726,46 @@ class upload_page(ProtectedPage):
         except Exception:
             return self.core_render.options()
 
+
+class upload_page_SSL(ProtectedPage):
+    """Upload certificate file to SSL dir, fullchain.pem or privkey.pem"""
+    
+    def GET(self):
+        raise web.seeother('/')
+
+    def POST(self):
+        OPTIONS_FILE_FULL = './ssl/fullchain.pem'
+        OPTIONS_FILE_PRIV = './ssl/privkey.pem'
+        i = web.input(uploadfile={})
+        try:
+            if i.uploadfile.filename == 'fullchain.pem' or i.uploadfile.filename == 'privkey.pem':
+               
+                if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
+                    if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
+                        os.remove(OPTIONS_FILE_FULL)             # remove file
+                        log.debug('webpages.py', 'Remove fullchain.pem...')
+                if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
+                    if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
+                        os.remove(OPTIONS_FILE_PRIV)             # remove file  
+                        log.debug('webpages.py', 'Remove privkey.pem....')                      
+
+                fout = open('./ssl/' + i.uploadfile.filename,'w') 
+                fout.write(i.uploadfile.file.read()) 
+                fout.close() 
+
+                log.debug('webpages.py', 'Upload SSL file %s' %i.uploadfile.filename) 
+                #report_restarted()
+                #restart(3)
+                #return self.core_render.restarting(home_page)
+                errorCode = "pw_filenameSSLOK"
+                return self.core_render.options(errorCode)
+            else:        
+                errorCode = "pw_filenameSSL" 
+                return self.core_render.options(errorCode)
+
+        except Exception:
+            return self.core_render.options()            
+
 class blockconnection_png(ProtectedPage):
     """Return pictures with information about board connection - for help page."""
 
@@ -737,7 +777,7 @@ class blockconnection_png(ProtectedPage):
           content = mimetypes.guess_type(download_name)[0]
           web.header('Content-type', content)
           web.header('Content-Length', os.path.getsize(download_name))    
-          web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+          web.header('Content-Disposition', 'attachment; filename=%s'%str(download_name))
           img = open(download_name,'r')
  
           return img.read()

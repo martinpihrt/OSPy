@@ -35,6 +35,7 @@ urls = [
     '/download', 'ospy.webpages.download_page',
     '/upload', 'ospy.webpages.upload_page',
     '/db_unreachable', 'ospy.webpages.db_unreachable_page',
+    '/uploadSSL', 'ospy.webpages.upload_page_SSL',
 
     '/blockconnection.png', 'ospy.webpages.blockconnection_png', 
 ]

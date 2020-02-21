@@ -132,6 +132,8 @@ OSPy Průvodce webovým rozhraním v češtině
         Záloha a obnovení
             Stáhnout
             Nahrát
+        Certifikát SSL
+            Nahrát            
     Stanice
         Stanice 
         Jméno
@@ -672,6 +674,12 @@ Tlačítko "Stáhnout" se používá ke stažení konfiguračního souboru do po
 
 ### Nahrát 
 Tlačítko "Nahrát" umožňuje vložit a obnovit systém OSPy ze zálohy, nebo jiného OSPy systému (například při přeinstalování systému Linux). Nahraný soubor s názvem "options.db". Toto jméno neměňte!
+
+## Certifikát SSL
+Pokud máme svůj vlastní certifikát pro SSL (https) zabezpečení (fullchain.pem a privkey.pem) můžeme ho zde pomocí formuláře nahrát.
+
+### Nahrát
+Tlačítko "Nahrát" odešle do složky ssl v adresáři OSPy přiložené soubory (fullchain.pem a privkey.pem).
 
 ----
 

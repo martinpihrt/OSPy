@@ -473,22 +473,24 @@ def save_to_options(qdict):
                     options[key] = False
 
 last_ip_check_time = 0
-external_ip_address = ''
+external_ip_address = '-'
 def get_external_ip():
     """Return the externally visible IP address for this OSPy system."""
 
     global last_ip_check_time, external_ip_address
-    try:
-        if now() - last_ip_check_time > 5*60:
-            last_ip_check_time = now()
-            ip_info = subprocess.check_output(['/usr/bin/curl', '-ks', 'bot.whatismyipaddress.com'])
-            if ip_info != '':
-                external_ip_address = ip_info
-            else:
-                external_ip_address = '-'
-    except:
-        pass
-        return "err"
+
+    check_time = 0
+    if external_ip_address is '-':
+        check_time = 10
+    else:
+        check_time = 5*60   
+
+    if now() - last_ip_check_time > check_time:
+        last_ip_check_time = now()
+        try:
+            external_ip_address = subprocess.check_output(['/usr/bin/curl', '-ks', 'https://pihrt.com/ipbot.php'])
+        except:
+            external_ip_address = '-'
 
     return str(external_ip_address)
 
@@ -502,7 +504,7 @@ def password_salt():
 
 def password_hash(password, salt):
     import hashlib
-    m = hashlib.sha1()
+    m = hashlib.sha256() # old use sha1
     m.update(password + salt)
     return m.hexdigest()
 
