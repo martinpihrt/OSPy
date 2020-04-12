@@ -1,7 +1,13 @@
 OSPy Changelog
 ====
 
-feb 21 2020
+Apr 12 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added to ospy folder: 3d box for ospy, circuit master board and slave board (hardware 3.3 version). Fixed plugin "measurement of water in tank". Added hardware and software to plugins (scheme, circuit boards and possibly 3D add-ons).
+
+Feb 21 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
