@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Apr 30 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added to home page: PRESSURE MONITOR plugin, UPS plugin, added buttons for opening plugins. Added in PRESSURE MONITOR plugin and UPS plugin data json status.</br> 
+Fix: if the plugin is not enabled in the plugin settings, the data will not be displayed on the home page.
+
 Apr 12 2020
 -----------
 (martinpihrt)<br/>
