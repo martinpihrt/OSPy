@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 4 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix: do not display data from plugins if manual mode.
+
 Apr 30 2020
 -----------
 (martinpihrt)<br/>
