@@ -621,7 +621,8 @@ $if not options.manual_mode and options.show_plugin_data and options.enabled_plu
        <hr>
     $if "ups_adj" in options.enabled_plugins:
        <a href="/plugins/ups_adj/settings" class="button upload">?</a>&nbsp;<span id="upsmonitor"></span>    
-
+       <hr>
+       
     $if options.use_weather:
        $if options.weather_status == 0: 
           $_('Weather - No location found!')
