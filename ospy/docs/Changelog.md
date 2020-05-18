@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 18 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix: display data from plugins on home page. Add Python 3 compatible in i18n and helpers (for future Python 3).
+
 May 4 2020
 -----------
 (martinpihrt)<br/>

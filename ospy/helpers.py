@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import absolute_import
+
 __author__ = 'Rimco' # additional changes Martin Pihrt
 
 # System imports
@@ -499,13 +499,13 @@ def get_external_ip():
 #### Login Handling ####
 
 def password_salt():
-    return "".join(chr(random.randint(33, 127)) for _ in xrange(64))
+    return "".join(chr(random.randint(33, 127)) for _ in range(64))
 
 
 def password_hash(password, salt):
     import hashlib
-    m = hashlib.sha256() # old use sha1
-    m.update(password + salt)
+    m = hashlib.sha256() 
+    m.update((password+salt).encode('utf-8')) 
     return m.hexdigest()
 
 

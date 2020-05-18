@@ -2,7 +2,7 @@
 # First Author Dan <dkimberling59@gmail.com>
 # for OSPy by Martin Pihrt
 
-__author__ = 'Martin Pihrt'
+__author__ = u'Martin Pihrt'
 
 import os
 import locale
@@ -40,19 +40,19 @@ curdir = os.path.realpath('i18n')
 # i18n directory.
 localedir = curdir + '/'
 
-gettext.install('ospy_messages', localedir, unicode=True)
+gettext.install(u'ospy_messages', localedir)
 
 sys_lang = get_system_lang()
 
-if sd_lang == 'default':
+if sd_lang == u'default':
     if sys_lang in languages:
         ui_lang = sys_lang
     else:
-        ui_lang = 'en_US'
+        ui_lang = u'en_US'
 else:
     ui_lang = sd_lang
 
 try:
-    gettext.translation('ospy_messages', localedir, languages=[ui_lang]).install(True)
+    gettext.translation(u'ospy_messages', localedir, languages=[ui_lang]).install(True)
 except IOError:
     pass

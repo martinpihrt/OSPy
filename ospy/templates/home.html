@@ -605,21 +605,24 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <button id="clearSelection">$_('Clear selection')</button>
     </div>
 
-$if not options.manual_mode and options.show_plugin_data:
-    <div id="pluginFooter" class="graph-container">
+$if not options.manual_mode and options.show_plugin_data and options.enabled_plugins:
+    <div id="graph-container" class="graph-container">
     $if "air_temp_humi" in options.enabled_plugins:
-       <p><a href="/plugins/air_temp_humi/settings" class="button upload">?</a>&nbsp;<span id="airtemphumi"></span></p>
+       <a href="/plugins/air_temp_humi/settings" class="button upload">?</a>&nbsp;<span id="airtemphumi"></span>
+       <hr>
     $if "tank_monitor" in options.enabled_plugins:
-       <p><a href="/plugins/tank_monitor/settings" class="button upload">?</a>&nbsp;<span id="tankmonitor"></span></p>
+       <a href="/plugins/tank_monitor/settings" class="button upload">?</a>&nbsp;<span id="tankmonitor"></span>
+       <hr>
     $if "wind_monitor" in options.enabled_plugins:
-       <p><a href="/plugins/wind_monitor/settings" class="button upload">?</a>&nbsp;<span id="windmonitor"></span></p>
+       <a href="/plugins/wind_monitor/settings" class="button upload">?</a>&nbsp;<span id="windmonitor"></span>
+       <hr>
     $if "pressure_monitor" in options.enabled_plugins:
-       <p><a href="/plugins/pressure_monitor/settings" class="button upload">?</a>&nbsp;<span id="presmonitor"></span></p>
+       <a href="/plugins/pressure_monitor/settings" class="button upload">?</a>&nbsp;<span id="presmonitor"></span>
+       <hr>
     $if "ups_adj" in options.enabled_plugins:
-       <p><a href="/plugins/ups_adj/settings" class="button upload">?</a>&nbsp;<span id="upsmonitor"></span></p>
+       <a href="/plugins/ups_adj/settings" class="button upload">?</a>&nbsp;<span id="upsmonitor"></span>    
 
     $if options.use_weather:
-       <p>
        $if options.weather_status == 0: 
           $_('Weather - No location found!')
        $if options.weather_status == 1: 
@@ -630,7 +633,6 @@ $if not options.manual_mode and options.show_plugin_data:
               ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
        $if options.weather_status == 2:
           $_('Weather - No location coordinates available!')       
-       </p>
     </div>
 
 
