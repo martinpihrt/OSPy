@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 10 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add to plugin "water tank" switch for displaing liters or m3. Fix displaing liters or m3 in LCD, e-mail and home page. New plugin: MQTT secondary remote control for more OSPy systems via MQTT protocol.
+
 May 18 2020
 -----------
 (martinpihrt)<br/>

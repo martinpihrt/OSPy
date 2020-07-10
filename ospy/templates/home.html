@@ -197,8 +197,15 @@ function updateTankMonit(status){
    var percent = status['percent'];
    var volume = status['volume'];
    var label = status['label'];
+   var unit = status['unit'];
+   var text = label + ": " +  level + "cm " + percent + "% " + volume
 
-   var text = label + ": " +  level + "cm " + percent + "% " + volume + "m\xB3";
+   if (unit){
+   	   text += "l";
+   }
+   else{
+   	   text += "m\xB3";
+   }    
    jQuery("#tankmonitor").text(text);
 }
 
@@ -608,19 +615,19 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
 $if not options.manual_mode and options.show_plugin_data and options.enabled_plugins:
     <div id="graph-container" class="graph-container">
     $if "air_temp_humi" in options.enabled_plugins:
-       <a href="/plugins/air_temp_humi/settings" class="button upload">?</a>&nbsp;<span id="airtemphumi"></span>
+       <a href="/plugins/air_temp_humi/settings" class="button upload">→</a>&nbsp;<span id="airtemphumi"></span>
        <hr>
     $if "tank_monitor" in options.enabled_plugins:
-       <a href="/plugins/tank_monitor/settings" class="button upload">?</a>&nbsp;<span id="tankmonitor"></span>
+       <a href="/plugins/tank_monitor/settings" class="button upload">→</a>&nbsp;<span id="tankmonitor"></span>
        <hr>
     $if "wind_monitor" in options.enabled_plugins:
-       <a href="/plugins/wind_monitor/settings" class="button upload">?</a>&nbsp;<span id="windmonitor"></span>
+       <a href="/plugins/wind_monitor/settings" class="button upload">→</a>&nbsp;<span id="windmonitor"></span>
        <hr>
     $if "pressure_monitor" in options.enabled_plugins:
-       <a href="/plugins/pressure_monitor/settings" class="button upload">?</a>&nbsp;<span id="presmonitor"></span>
+       <a href="/plugins/pressure_monitor/settings" class="button upload">→</a>&nbsp;<span id="presmonitor"></span>
        <hr>
     $if "ups_adj" in options.enabled_plugins:
-       <a href="/plugins/ups_adj/settings" class="button upload">?</a>&nbsp;<span id="upsmonitor"></span>    
+       <a href="/plugins/ups_adj/settings" class="button upload">→</a>&nbsp;<span id="upsmonitor"></span>    
        <hr>
        
     $if options.use_weather:
