@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+July 27 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixing: common warnings (SameSite=None requires SecureThe SameSite attribute of the Set-Cookie HTTP response header allows you to declare if your cookie should be restricted to a first-party or same-site context. None requires the Secure attribute in latest browser versions. See below for more information. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite).<br />
+Fixing: Markdown only accepts unicode input in plug-in manager (for README.md files).
+
 July 10 2020
 -----------
 (martinpihrt)<br/>

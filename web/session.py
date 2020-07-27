@@ -36,7 +36,7 @@ web.config.session_parameters = utils.storage(
         "secret_key": "fLjUfxqXtfNoIldA0A0J",
         "expired_message": "Session expired",
         "httponly": True,
-        "secure": False,
+        "secure": True,
     }
 )
 
