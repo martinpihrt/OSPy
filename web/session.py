@@ -29,14 +29,14 @@ web.config.session_parameters = utils.storage(
         "cookie_name": "webpy_session_id",
         "cookie_domain": None,
         "cookie_path": None,
-        "samesite": None,
+        "samesite": 'Lax', # None
         "timeout": 86400,  # 24 * 60 * 60, # 24 hours in seconds
         "ignore_expiry": True,
         "ignore_change_ip": True,
         "secret_key": "fLjUfxqXtfNoIldA0A0J",
         "expired_message": "Session expired",
         "httponly": True,
-        "secure": True,
+        "secure": False,
     }
 )
 
