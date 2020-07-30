@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 30 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fonts are no longer loaded from fonts.googleapis.com/css?family=Open+Sans:400,300,600,700, but directly from the /static/fonts folder of the local web server. If the Internet connection fails, the fonts from google would not be loaded.
+
 July 28 2020
 -----------
 (martinpihrt)<br/>
