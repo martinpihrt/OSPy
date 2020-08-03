@@ -5,6 +5,13 @@ Aug 3 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
+Machine translation without checking strings into languages: Slovak, German, French, Greek, Italian, Portuguese, Slovenian, Spanish, Tamil, Arabic, Afrikaans.<br />
+If you find an error in the translation, report it to: admin@pihrt.com
+
+Aug 3 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
 All plugins use the local i18n translation file in all plugins. All language mutations are now merged into one file within the i18n OSPy system. Update all plugins first, then the system OSPs, and then restart the operating system (linux). Slovak will have to be translated (does anyone want to help for other languages?)
 
 July 30 2020

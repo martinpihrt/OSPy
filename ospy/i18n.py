@@ -20,9 +20,19 @@ except:
 
 ### here add next languages ###
 languages = ({
-    "en_US": "English",
-    "cs_CZ": "Czech",
-    "sk_SK": "Slovak",
+    u"en_US": u"English",
+    u"cs_CZ": u"Czech",
+    u"sk_SK": u"Slovak",
+    u"de_DE": u"German",
+    u"fr_FR": u"French",
+    u"gr_GR": u"Greek",
+    u"it_IT": u"Italian",
+    u"pt_PT": u"Portuguese",
+    u"sl_SL": u"Slovenian",
+    u"es_ES": u"Spanish",
+    u"ta_TA": u"Tamil",
+    u"ar_SA": u"Arabic",
+    u"af_AF": u"Afrikaans",
 })
 ###############################
 
