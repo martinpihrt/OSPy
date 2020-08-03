@@ -5,7 +5,7 @@ Aug 3 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-All plugins use the local i18n translation file in all plugins. All language mutations are now merged into one file within the i18n OSPy system. Update all plugins first, then the system OSPs, and then restart the operating system (linux).
+All plugins use the local i18n translation file in all plugins. All language mutations are now merged into one file within the i18n OSPy system. Update all plugins first, then the system OSPs, and then restart the operating system (linux). Slovak will have to be translated (does anyone want to help for other languages?)
 
 July 30 2020
 -----------
