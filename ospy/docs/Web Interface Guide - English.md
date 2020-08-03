@@ -756,7 +756,6 @@ plugins
   + docs
   + static
   + templates
-  + i18n
   + __init__.py
   \ README.md
 
@@ -801,6 +800,7 @@ Available plug-ins:
 * Humidity Monitor
 * Monthly Water Level
 * Pressurizer
+* Ping monitor
 
 ----
 

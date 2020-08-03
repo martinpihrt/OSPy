@@ -808,7 +808,6 @@ plugins
   + docs
   + static
   + templates
-  + i18n
   + __init__.py
   \ README.md
 
@@ -853,6 +852,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Humidity Monitor (měření vlhkosti půdy, používá I2C sběrnici)
 * Monthly Water Level (nastavení množství vody pro jednotlivé měsíce)
 * Pressurizer (tlakování čerpadla před spuštěním programů)
+* Ping monitor (měření výpadků sítě)
 
 ----
 

@@ -11,7 +11,6 @@ The basic structure is as follows:
       + docs
       + static
       + templates
-      + i18n
       + __init__.py
       \ README.md
 
