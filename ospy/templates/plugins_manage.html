@@ -24,6 +24,7 @@ $var page: plugins
     <a href="/plugins_install" class="button add">$_('Install new plugin')</a>
     <a href="/plugins_manage?disable_all" class="button danger">$_('Disable All')</a>
     <a href="/plugins_manage?enable_all" class="button upload">$_('Enable All')</a>
+    <a href="/plugins_manage?delete_all" class="button danger">$_('Delete All')</a>
     $ running_list = plugins.running()
     $ current_info = options.plugin_status
     $for plugin in plugins.available():

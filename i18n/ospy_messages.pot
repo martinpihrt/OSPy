@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-02 23:13+CEST\n"
+"POT-Creation-Date: 2020-08-04 11:46+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: ospy/options.py:28 plugins/system_info/__init__.py:41
+#: ospy/options.py:28 plugins/system_info/__init__.py:42
 msgid "System name"
 msgstr ""
 
@@ -81,10 +81,10 @@ msgstr ""
 
 #: ospy/options.py:31 ospy/options.py:39 ospy/options.py:46 ospy/options.py:53
 #: ospy/options.py:60 ospy/options.py:69 ospy/options.py:96
-#: plugins/email_notifications/__init__.py:93
-#: plugins/email_notifications/__init__.py:114
-#: plugins/email_notifications/__init__.py:130
-#: plugins/usage_statistics/__init__.py:70
+#: plugins/email_notifications/__init__.py:94
+#: plugins/email_notifications/__init__.py:115
+#: plugins/email_notifications/__init__.py:131
+#: plugins/usage_statistics/__init__.py:71
 msgid "System"
 msgstr ""
 
@@ -452,8 +452,8 @@ msgid "Weekly (Weather based)"
 msgstr ""
 
 #: ospy/programs.py:48 ospy/templates/log.html:20
-#: plugins/email_notifications/__init__.py:132
-#: plugins/email_notifications/__init__.py:136 plugins/sms_adj/__init__.py:397
+#: plugins/email_notifications/__init__.py:133
+#: plugins/email_notifications/__init__.py:137 plugins/sms_adj/__init__.py:398
 msgid "Program"
 msgstr ""
 
@@ -479,8 +479,8 @@ msgid "Custom schedule repeating every"
 msgstr ""
 
 #: ospy/programs.py:251 ospy/programs.py:258 ospy/programs.py:263
-#: plugins/weather_based_water_level/__init__.py:111
-#: plugins/weather_based_water_level_netatmo/__init__.py:161
+#: plugins/weather_based_water_level/__init__.py:112
+#: plugins/weather_based_water_level_netatmo/__init__.py:162
 msgid "days"
 msgstr ""
 
@@ -661,75 +661,95 @@ msgstr ""
 msgid "OSPy - OpenSprinkler Python"
 msgstr ""
 
-#: ospy/templates/base.html:143 ospy/templates/programs.html:3
+#: ospy/templates/base.html:142 ospy/templates/home.html:3
+msgid "Home"
+msgstr ""
+
+#: ospy/templates/base.html:144
+msgid "Define Programs"
+msgstr ""
+
+#: ospy/templates/base.html:144 ospy/templates/programs.html:3
 msgid "Programs"
 msgstr ""
 
-#: ospy/templates/base.html:145
-msgid "Run Once"
+#: ospy/templates/base.html:146
+msgid "Define Run Once Program"
 msgstr ""
 
 #: ospy/templates/base.html:146
+msgid "Run Once"
+msgstr ""
+
+#: ospy/templates/base.html:147
+msgid "Access Plugins"
+msgstr ""
+
+#: ospy/templates/base.html:147
 msgid "Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:147 ospy/templates/log.html:3
-#: plugins/usage_statistics/__init__.py:66
+#: ospy/templates/base.html:148
+msgid "View Log"
+msgstr ""
+
+#: ospy/templates/base.html:148 ospy/templates/log.html:3
+#: plugins/usage_statistics/__init__.py:67
 msgid "Log"
 msgstr ""
 
-#: ospy/templates/base.html:148 ospy/templates/options.html:3
+#: ospy/templates/base.html:149 ospy/templates/options.html:3
 msgid "Options"
 msgstr ""
 
-#: ospy/templates/base.html:149 ospy/templates/stations.html:3
+#: ospy/templates/base.html:150 ospy/templates/stations.html:3
 msgid "Stations"
 msgstr ""
 
-#: ospy/templates/base.html:150 ospy/templates/help.html:3
+#: ospy/templates/base.html:150 ospy/templates/stations.html:8
+msgid "Configure Stations"
+msgstr ""
+
+#: ospy/templates/base.html:151 ospy/templates/help.html:3
 #: ospy/templates/help.html:9 plugins/relay_16/templates/relay_16.html:22
 msgid "Help"
 msgstr ""
 
-#: ospy/templates/base.html:152
+#: ospy/templates/base.html:153
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:161
+#: ospy/templates/base.html:162
 #: plugins/lcd_display/templates/lcd_display.html:79
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:162
+#: ospy/templates/base.html:163
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:164
+#: ospy/templates/base.html:165
 msgid "CPU Usage"
 msgstr ""
 
-#: ospy/templates/base.html:167
+#: ospy/templates/base.html:168
 msgid "Click for redirecting to github software"
 msgstr ""
 
-#: ospy/templates/base.html:167
+#: ospy/templates/base.html:168
 msgid "Software"
 msgstr ""
 
-#: ospy/templates/base.html:167
+#: ospy/templates/base.html:168
 msgid "version"
 msgstr ""
 
-#: ospy/templates/base.html:169
+#: ospy/templates/base.html:170
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:170
+#: ospy/templates/base.html:171
 msgid "Working"
-msgstr ""
-
-#: ospy/templates/home.html:3
-msgid "Home"
 msgstr ""
 
 #: ospy/templates/home.html:88
@@ -767,7 +787,7 @@ msgstr ""
 
 #: ospy/templates/home.html:155 ospy/templates/home.html:541
 #: ospy/templates/home.html:552 ospy/templates/plugins_manage.html:13
-#: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:63
+#: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:64
 #: ospy/templates/program.html:423 ospy/templates/programs.html:16
 msgid "Off"
 msgstr ""
@@ -845,7 +865,7 @@ msgstr ""
 
 #: ospy/templates/home.html:541 ospy/templates/home.html:552
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
-#: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:421
+#: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
 #: ospy/templates/programs.html:14
 msgid "On"
 msgstr ""
@@ -959,16 +979,16 @@ msgstr ""
 
 #: ospy/templates/log.html:18 ospy/templates/stations.html:13
 #: plugins/cli_control/templates/cli_control.html:36
-#: plugins/email_notifications/__init__.py:133
-#: plugins/email_notifications/__init__.py:137
-#: plugins/relay_16/__init__.py:119 plugins/relay_16/__init__.py:126
-#: plugins/relay_16/__init__.py:136 plugins/relay_16/__init__.py:143
+#: plugins/email_notifications/__init__.py:134
+#: plugins/email_notifications/__init__.py:138
+#: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
+#: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 msgid "Station"
 msgstr ""
 
 #: ospy/templates/log.html:19 ospy/templates/program.html:468
-#: plugins/email_notifications/__init__.py:135
-#: plugins/email_notifications/__init__.py:139
+#: plugins/email_notifications/__init__.py:136
+#: plugins/email_notifications/__init__.py:140
 msgid "Duration"
 msgstr ""
 
@@ -1056,7 +1076,7 @@ msgid "None"
 msgstr ""
 
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
-#: plugins/air_temp_humi/__init__.py:138
+#: plugins/air_temp_humi/__init__.py:139
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
 msgid "Output"
@@ -1264,28 +1284,32 @@ msgstr ""
 msgid "Enable All"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:35
+#: ospy/templates/plugins_manage.html:27 ospy/templates/programs.html:9
+msgid "Delete All"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:36
 msgid "Open"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:44
+#: ospy/templates/plugins_manage.html:45
 #: plugins/system_update/templates/system_update.html:88
 msgid "Up-to-date"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:46
+#: ospy/templates/plugins_manage.html:47
 msgid "Not-use"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:48
+#: ospy/templates/plugins_manage.html:49
 msgid "Update"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:51
+#: ospy/templates/plugins_manage.html:52
 msgid "No update"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:55 ospy/templates/program.html:580
+#: ospy/templates/plugins_manage.html:56 ospy/templates/program.html:580
 #: ospy/templates/program.html:607 ospy/templates/programs.html:28
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
 msgid "Delete"
@@ -1372,8 +1396,8 @@ msgid "Starting in"
 msgstr ""
 
 #: ospy/templates/program.html:463 ospy/templates/program.html:551
-#: plugins/email_notifications/__init__.py:134
-#: plugins/email_notifications/__init__.py:138
+#: plugins/email_notifications/__init__.py:135
+#: plugins/email_notifications/__init__.py:139
 msgid "Start time"
 msgstr ""
 
@@ -1425,10 +1449,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ospy/templates/programs.html:9
-msgid "Delete All"
-msgstr ""
-
 #: ospy/templates/programs.html:20
 msgid "Run:"
 msgstr ""
@@ -1464,10 +1484,6 @@ msgstr ""
 
 #: ospy/templates/runonce.html:55
 msgid "Reset Time"
-msgstr ""
-
-#: ospy/templates/stations.html:8
-msgid "Configure Stations"
 msgstr ""
 
 #: ospy/templates/stations.html:15
@@ -1538,57 +1554,61 @@ msgstr ""
 msgid "Incorrect password, please try again"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:129
+#: plugins/air_temp_humi/__init__.py:31
+msgid "Package: Air Temperature and Humidity Monitor"
+msgstr ""
+
+#: plugins/air_temp_humi/__init__.py:130
 msgid "DHT11 data is not valid"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:134 plugins/air_temp_humi/__init__.py:168
-#: plugins/weather_based_water_level/__init__.py:122
+#: plugins/air_temp_humi/__init__.py:135 plugins/air_temp_humi/__init__.py:169
+#: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:135
+#: plugins/air_temp_humi/__init__.py:136
 msgid "Humidity"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:137 plugins/relay_16/__init__.py:119
-#: plugins/relay_16/__init__.py:126
+#: plugins/air_temp_humi/__init__.py:138 plugins/relay_16/__init__.py:120
+#: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:137 plugins/relay_16/__init__.py:136
-#: plugins/relay_16/__init__.py:143
+#: plugins/air_temp_humi/__init__.py:138 plugins/relay_16/__init__.py:137
+#: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:148
+#: plugins/air_temp_humi/__init__.py:149
 msgid "Station output was turned on."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:156
+#: plugins/air_temp_humi/__init__.py:157
 msgid "Station output was turned off."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:180 plugins/air_temp_humi/__init__.py:256
+#: plugins/air_temp_humi/__init__.py:181 plugins/air_temp_humi/__init__.py:257
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:230
+#: plugins/air_temp_humi/__init__.py:231
 msgid "Data is not correct. Please try again later."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:376
-#: plugins/pressure_monitor/__init__.py:304 plugins/ups_adj/__init__.py:308
-#: plugins/wind_monitor/__init__.py:385
+#: plugins/air_temp_humi/__init__.py:377
+#: plugins/pressure_monitor/__init__.py:305 plugins/ups_adj/__init__.py:309
+#: plugins/wind_monitor/__init__.py:386
 msgid "Creating default graph log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:418
+#: plugins/air_temp_humi/__init__.py:419
 msgid "Saving to log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:475 plugins/ping_monitor/__init__.py:342
-#: plugins/tank_monitor/__init__.py:433 plugins/wind_monitor/__init__.py:428
+#: plugins/air_temp_humi/__init__.py:476 plugins/ping_monitor/__init__.py:343
+#: plugins/tank_monitor/__init__.py:434 plugins/wind_monitor/__init__.py:429
 msgid "Deleted all log files OK"
 msgstr ""
 
@@ -1799,105 +1819,109 @@ msgstr ""
 msgid "Delete all logs"
 msgstr ""
 
-#: plugins/button_control/__init__.py:84
+#: plugins/button_control/__init__.py:25
+msgid "Package: Button Control"
+msgstr ""
+
+#: plugins/button_control/__init__.py:85
 msgid "System reboot"
 msgstr ""
 
-#: plugins/button_control/__init__.py:90
+#: plugins/button_control/__init__.py:91
 msgid "System shutdown"
 msgstr ""
 
-#: plugins/button_control/__init__.py:96
+#: plugins/button_control/__init__.py:97
 msgid "All stations now stopped"
 msgstr ""
 
-#: plugins/button_control/__init__.py:102
+#: plugins/button_control/__init__.py:103
 msgid "Scheduler is now enabled"
 msgstr ""
 
-#: plugins/button_control/__init__.py:107
+#: plugins/button_control/__init__.py:108
 msgid "Scheduler is now disabled"
 msgstr ""
 
-#: plugins/button_control/__init__.py:112
+#: plugins/button_control/__init__.py:113
 msgid "Run now program 1"
 msgstr ""
 
-#: plugins/button_control/__init__.py:123
+#: plugins/button_control/__init__.py:124
 msgid "Run now program 2"
 msgstr ""
 
-#: plugins/button_control/__init__.py:134
+#: plugins/button_control/__init__.py:135
 msgid "Run now program 3"
 msgstr ""
 
-#: plugins/button_control/__init__.py:145
+#: plugins/button_control/__init__.py:146
 msgid "Run now program 4"
 msgstr ""
 
-#: plugins/button_control/__init__.py:156
+#: plugins/button_control/__init__.py:157
 msgid "Run now program 5"
 msgstr ""
 
-#: plugins/button_control/__init__.py:167
+#: plugins/button_control/__init__.py:168
 msgid "Run now program 6"
 msgstr ""
 
-#: plugins/button_control/__init__.py:178
+#: plugins/button_control/__init__.py:179
 msgid "Run now program 7"
 msgstr ""
 
-#: plugins/button_control/__init__.py:189
+#: plugins/button_control/__init__.py:190
 msgid "Run now program 8"
 msgstr ""
 
-#: plugins/button_control/__init__.py:205
+#: plugins/button_control/__init__.py:206
 msgid "Button plug-in is disabled."
 msgstr ""
 
-#: plugins/button_control/__init__.py:213
-#: plugins/button_control/__init__.py:304
-#: plugins/button_control/__init__.py:323
+#: plugins/button_control/__init__.py:214
+#: plugins/button_control/__init__.py:305
+#: plugins/button_control/__init__.py:324
 msgid "Button plug-in"
 msgstr ""
 
-#: plugins/button_control/__init__.py:278
+#: plugins/button_control/__init__.py:279
 msgid "Switch 8 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:281
+#: plugins/button_control/__init__.py:282
 msgid "Switch 7 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:284
+#: plugins/button_control/__init__.py:285
 msgid "Switch 6 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:287
+#: plugins/button_control/__init__.py:288
 msgid "Switch 5 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:290
+#: plugins/button_control/__init__.py:291
 msgid "Switch 4 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:293
+#: plugins/button_control/__init__.py:294
 msgid "Switch 3 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:296
+#: plugins/button_control/__init__.py:297
 msgid "Switch 2 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:299
+#: plugins/button_control/__init__.py:300
 msgid "Switch 1 pressed"
 msgstr ""
 
-#: plugins/button_control/__init__.py:304
+#: plugins/button_control/__init__.py:305
 msgid "Read button - FAULT"
 msgstr ""
 
-#: plugins/button_control/__init__.py:323
+#: plugins/button_control/__init__.py:324
 msgid "Set LED - FAULT"
 msgstr ""
 
@@ -1990,19 +2014,23 @@ msgstr ""
 msgid "Run program 8"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:63
+#: plugins/cli_control/__init__.py:22
+msgid "Package: CLI Control"
+msgstr ""
+
+#: plugins/cli_control/__init__.py:64
 msgid "CLI Control is enabled."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:70 plugins/cli_control/__init__.py:169
+#: plugins/cli_control/__init__.py:71 plugins/cli_control/__init__.py:170
 msgid "CLI Control plug-in"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:75
+#: plugins/cli_control/__init__.py:76
 msgid "CLI Control is disabled."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:113
+#: plugins/cli_control/__init__.py:114
 msgid "Zone change signaled..."
 msgstr ""
 
@@ -2039,40 +2067,44 @@ msgstr ""
 msgid "Stop Command"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:50
+#: plugins/email_notifications/__init__.py:31
+msgid "Package: E-mail Notifications"
+msgstr ""
+
+#: plugins/email_notifications/__init__.py:51
 msgid "Report from OSPy SYSTEM"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:94
 #: plugins/email_notifications/__init__.py:95
+#: plugins/email_notifications/__init__.py:96
 msgid "System was powered on."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:102
+#: plugins/email_notifications/__init__.py:103
 msgid "Error -  events.log file not exists!"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:115
 #: plugins/email_notifications/__init__.py:116
+#: plugins/email_notifications/__init__.py:117
 msgid "System detected rain."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:131
-#: plugins/email_notifications/__init__.py:136
+#: plugins/email_notifications/__init__.py:132
+#: plugins/email_notifications/__init__.py:137
 msgid "Finished run"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:153
+#: plugins/email_notifications/__init__.py:154
 msgid "Level"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:153
-#: plugins/email_notifications/__init__.py:155
-#: plugins/tank_monitor/__init__.py:116 plugins/tank_monitor/__init__.py:118
-#: plugins/tank_monitor/__init__.py:120 plugins/tank_monitor/__init__.py:121
-#: plugins/tank_monitor/__init__.py:122 plugins/tank_monitor/__init__.py:169
-#: plugins/tank_monitor/__init__.py:183 plugins/tank_monitor/__init__.py:184
-#: plugins/tank_monitor/__init__.py:198 plugins/tank_monitor/__init__.py:199
+#: plugins/email_notifications/__init__.py:154
+#: plugins/email_notifications/__init__.py:156
+#: plugins/tank_monitor/__init__.py:117 plugins/tank_monitor/__init__.py:119
+#: plugins/tank_monitor/__init__.py:121 plugins/tank_monitor/__init__.py:122
+#: plugins/tank_monitor/__init__.py:123 plugins/tank_monitor/__init__.py:170
+#: plugins/tank_monitor/__init__.py:184 plugins/tank_monitor/__init__.py:185
+#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
 #: plugins/tank_monitor/templates/tank_monitor.html:187
 #: plugins/tank_monitor/templates/tank_monitor.html:193
 #: plugins/tank_monitor/templates/tank_monitor.html:199
@@ -2080,117 +2112,117 @@ msgstr ""
 msgid "cm"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:155
-#: plugins/tank_monitor/__init__.py:118 plugins/tank_monitor/__init__.py:120
+#: plugins/email_notifications/__init__.py:156
+#: plugins/tank_monitor/__init__.py:119 plugins/tank_monitor/__init__.py:121
 msgid "Ping"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:157
-#: plugins/email_notifications/__init__.py:159
-#: plugins/tank_monitor/__init__.py:118 plugins/tank_monitor/__init__.py:120
-#: plugins/tank_monitor/__init__.py:424 plugins/tank_monitor/__init__.py:552
+#: plugins/email_notifications/__init__.py:158
+#: plugins/email_notifications/__init__.py:160
+#: plugins/tank_monitor/__init__.py:119 plugins/tank_monitor/__init__.py:121
+#: plugins/tank_monitor/__init__.py:425 plugins/tank_monitor/__init__.py:553
 msgid "Volume"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:157
-#: plugins/tank_monitor/__init__.py:118
+#: plugins/email_notifications/__init__.py:158
+#: plugins/tank_monitor/__init__.py:119
 msgid "liters"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:159
-#: plugins/email_notifications/__init__.py:189
-#: plugins/email_notifications/__init__.py:197
-#: plugins/tank_monitor/__init__.py:120
+#: plugins/email_notifications/__init__.py:160
+#: plugins/email_notifications/__init__.py:190
+#: plugins/email_notifications/__init__.py:198
+#: plugins/tank_monitor/__init__.py:121
 msgid "m3"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:161
+#: plugins/email_notifications/__init__.py:162
 msgid "Error - I2C device not found!"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:163
-#: plugins/email_notifications/__init__.py:165
+#: plugins/email_notifications/__init__.py:164
+#: plugins/email_notifications/__init__.py:166
 msgid "Water"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:164
 #: plugins/email_notifications/__init__.py:165
+#: plugins/email_notifications/__init__.py:166
 msgid "Water level in tank"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:182
+#: plugins/email_notifications/__init__.py:183
 msgid "Measured from day"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:183
+#: plugins/email_notifications/__init__.py:184
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:28
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:52
 msgid "Master Station"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:186
-#: plugins/email_notifications/__init__.py:194
+#: plugins/email_notifications/__init__.py:187
+#: plugins/email_notifications/__init__.py:195
 msgid "Liter"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:191
+#: plugins/email_notifications/__init__.py:192
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:34
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:61
 msgid "Second Master Station"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:199
-#: plugins/email_notifications/__init__.py:201
+#: plugins/email_notifications/__init__.py:200
+#: plugins/email_notifications/__init__.py:202
 msgid "Water Consumption Counter"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:210
 #: plugins/email_notifications/__init__.py:211
+#: plugins/email_notifications/__init__.py:212
 msgid "Temperature DS1-DS6"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:239
+#: plugins/email_notifications/__init__.py:240
 msgid "Unsent E-mails in queue (in file)"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:242
+#: plugins/email_notifications/__init__.py:243
 msgid "sending from queue."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:250
+#: plugins/email_notifications/__init__.py:251
 msgid "All unsent E-mails in the queue have been sent."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:256
-#: plugins/email_notifications/__init__.py:261
+#: plugins/email_notifications/__init__.py:257
+#: plugins/email_notifications/__init__.py:262
 msgid "E-mail plug-in"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:337
+#: plugins/email_notifications/__init__.py:338
 msgid "E-mail plug-in is not properly configured!"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:370
+#: plugins/email_notifications/__init__.py:371
 msgid "E-mail was sent"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:372
-#: plugins/email_notifications/__init__.py:380
+#: plugins/email_notifications/__init__.py:373
+#: plugins/email_notifications/__init__.py:381
 msgid "E-mail logging is disabled in options..."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:374
-#: plugins/water_consumption_counter/__init__.py:126
+#: plugins/email_notifications/__init__.py:375
+#: plugins/water_consumption_counter/__init__.py:127
 msgid "Sent"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:377
 #: plugins/email_notifications/__init__.py:378
+#: plugins/email_notifications/__init__.py:379
 msgid "E-mail was not sent! Connection to Internet not ready."
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:412
 #: plugins/email_notifications/__init__.py:413
+#: plugins/email_notifications/__init__.py:414
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr ""
 
@@ -2283,14 +2315,18 @@ msgstr ""
 msgid "Send a test E-mail"
 msgstr ""
 
-#: plugins/humi_monitor/__init__.py:92 plugins/humi_monitor/__init__.py:102
-#: plugins/humi_monitor/__init__.py:112 plugins/humi_monitor/__init__.py:122
-#: plugins/humi_monitor/__init__.py:132 plugins/humi_monitor/__init__.py:142
-#: plugins/humi_monitor/__init__.py:152 plugins/humi_monitor/__init__.py:162
+#: plugins/humi_monitor/__init__.py:26
+msgid "Package: Humidity Monitor"
+msgstr ""
+
+#: plugins/humi_monitor/__init__.py:93 plugins/humi_monitor/__init__.py:103
+#: plugins/humi_monitor/__init__.py:113 plugins/humi_monitor/__init__.py:123
+#: plugins/humi_monitor/__init__.py:133 plugins/humi_monitor/__init__.py:143
+#: plugins/humi_monitor/__init__.py:153 plugins/humi_monitor/__init__.py:163
 msgid "Error I2C device not found."
 msgstr ""
 
-#: plugins/humi_monitor/__init__.py:169
+#: plugins/humi_monitor/__init__.py:170
 msgid "Humidity Monitor plug-in"
 msgstr ""
 
@@ -2326,21 +2362,25 @@ msgstr ""
 msgid "Frequenci from sensor for 100% humidity"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:110
+#: plugins/lcd_display/__init__.py:29
+msgid "Package: LCD Display"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:111
 msgid "LCD display plug-in:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:840 plugins/system_info/__init__.py:110
-#: plugins/volt_temp_da/__init__.py:84 plugins/water_meter/__init__.py:70
-#: plugins/wind_monitor/__init__.py:95
+#: plugins/lcd_display/__init__.py:841 plugins/system_info/__init__.py:111
+#: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
+#: plugins/wind_monitor/__init__.py:96
 msgid "Could not import smbus."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:853
+#: plugins/lcd_display/__init__.py:854
 msgid "Could not find any PCF8574 controller."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:907
+#: plugins/lcd_display/__init__.py:908
 msgid "I2C address has re-finded."
 msgstr ""
 
@@ -2434,7 +2474,7 @@ msgid "Time and Date"
 msgstr ""
 
 #: plugins/lcd_display/templates/lcd_display.html:91
-#: plugins/system_info/__init__.py:53
+#: plugins/system_info/__init__.py:54
 msgid "Uptime"
 msgstr ""
 
@@ -2470,7 +2510,11 @@ msgstr ""
 msgid "Re-find I2C address"
 msgstr ""
 
-#: plugins/monthly_water_level/__init__.py:55
+#: plugins/monthly_water_level/__init__.py:15
+msgid "Package: Monthly Water Level"
+msgstr ""
+
+#: plugins/monthly_water_level/__init__.py:56
 msgid "Monthly Adjust: Setting water level to"
 msgstr ""
 
@@ -2483,93 +2527,97 @@ msgstr ""
 msgid "Enter an adjustment for each month (% irrigation time)"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:88 plugins/mqtt/__init__.py:197
-#: plugins/mqtt/__init__.py:199
+#: plugins/mqtt/__init__.py:28
+msgid "Package: MQTT"
+msgstr ""
+
+#: plugins/mqtt/__init__.py:89 plugins/mqtt/__init__.py:198
+#: plugins/mqtt/__init__.py:200
 msgid "MQTT plug-in"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:93
+#: plugins/mqtt/__init__.py:94
 msgid "MQTT plug-in is disabled."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:128
+#: plugins/mqtt/__init__.py:129
 msgid "Message received"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:135
+#: plugins/mqtt/__init__.py:136
 msgid "You must this OSPy switch to manual mode!"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:139
+#: plugins/mqtt/__init__.py:140
 msgid "Skipping command, rain sense is detected!"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:143
+#: plugins/mqtt/__init__.py:144
 msgid "Skipping command, rain delay is activated!"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:150
+#: plugins/mqtt/__init__.py:151
 msgid "Could not decode command:"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:167
+#: plugins/mqtt/__init__.py:168
 msgid "MQTT Manual"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:197
+#: plugins/mqtt/__init__.py:198
 msgid "Setup stations count is smaler! Set correct first station and station count."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:213
+#: plugins/mqtt/__init__.py:214
 msgid "PIP is not installed."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:214
+#: plugins/mqtt/__init__.py:215
 msgid "Please wait installing pip..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:215 plugins/mqtt/__init__.py:225
+#: plugins/mqtt/__init__.py:216 plugins/mqtt/__init__.py:226
 msgid "This operation takes longer (minutes)..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:222
+#: plugins/mqtt/__init__.py:223
 msgid "MQTT Plugin requires paho mqtt."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:223
+#: plugins/mqtt/__init__.py:224
 msgid "Paho-mqtt is not installed."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:224
+#: plugins/mqtt/__init__.py:225
 msgid "Please wait installing paho-mqtt..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:232
+#: plugins/mqtt/__init__.py:233
 msgid "Error try install paho-mqtt manually."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:242
+#: plugins/mqtt/__init__.py:243
 msgid "Connecting to broker"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:246 plugins/ups_adj/__init__.py:103
-#: plugins/ups_adj/__init__.py:356
+#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:104
+#: plugins/ups_adj/__init__.py:357
 msgid "OK"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:250
+#: plugins/mqtt/__init__.py:251
 msgid "MQTT plugin couldnot initalize client"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:260 plugins/mqtt/__init__.py:263
+#: plugins/mqtt/__init__.py:261 plugins/mqtt/__init__.py:264
 msgid "Subscribing to topic"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:276
+#: plugins/mqtt/__init__.py:277
 msgid "Subscribe topic"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:298 plugins/mqtt/__init__.py:306
+#: plugins/mqtt/__init__.py:299 plugins/mqtt/__init__.py:307
 msgid "Client stop"
 msgstr ""
 
@@ -2665,27 +2713,31 @@ msgstr ""
 msgid "The number of station this secondary uses."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:66
+#: plugins/mqtt_zones/__init__.py:26
+msgid "Package: MQTT Zone Broadcaster"
+msgstr ""
+
+#: plugins/mqtt_zones/__init__.py:67
 msgid "MQTT Zones Plugin started."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:106
+#: plugins/mqtt_zones/__init__.py:107 plugins/mqtt_zones/__init__.py:141
 msgid "MQTT Zones Plugin requires MQTT plugin."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:116
+#: plugins/mqtt_zones/__init__.py:117
 msgid "MQTT Zones Plugin public"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:120
+#: plugins/mqtt_zones/__init__.py:121
 msgid "Not setup Zone Topic"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:126
+#: plugins/mqtt_zones/__init__.py:127
 msgid "MQTT Zones plug-in"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:131
+#: plugins/mqtt_zones/__init__.py:132
 msgid "MQTT Zones Plugin is disabled."
 msgstr ""
 
@@ -2710,43 +2762,47 @@ msgstr ""
 msgid "The topic to broadcast zone updates on"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:48
+#: plugins/ping_monitor/__init__.py:34
+msgid "Package: Ping Monitor"
+msgstr ""
+
+#: plugins/ping_monitor/__init__.py:49
 msgid "Report from OSPy PING plugin"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:114 plugins/ping_monitor/__init__.py:123
-#: plugins/ping_monitor/__init__.py:132
+#: plugins/ping_monitor/__init__.py:115 plugins/ping_monitor/__init__.py:124
+#: plugins/ping_monitor/__init__.py:133
 msgid "is available."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:117 plugins/ping_monitor/__init__.py:126
-#: plugins/ping_monitor/__init__.py:135
+#: plugins/ping_monitor/__init__.py:118 plugins/ping_monitor/__init__.py:127
+#: plugins/ping_monitor/__init__.py:136
 msgid "is not available."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:168
+#: plugins/ping_monitor/__init__.py:169
 msgid "Ping has fault. Restarting system!"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:185
+#: plugins/ping_monitor/__init__.py:186
 msgid "Ping Monitor send statistics at the day and time"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:195 plugins/ping_monitor/__init__.py:202
-#: plugins/ping_monitor/__init__.py:368
+#: plugins/ping_monitor/__init__.py:196 plugins/ping_monitor/__init__.py:203
+#: plugins/ping_monitor/__init__.py:369
 msgid "Ping Monitor plug-in"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:316
+#: plugins/ping_monitor/__init__.py:317
 msgid "Saving to log files OK."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:405
+#: plugins/ping_monitor/__init__.py:406
 msgid "Ping monitor is disabled."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:407 plugins/pressurizer/__init__.py:218
-#: plugins/tank_monitor/__init__.py:497 plugins/wind_monitor/__init__.py:447
+#: plugins/ping_monitor/__init__.py:408 plugins/pressurizer/__init__.py:219
+#: plugins/tank_monitor/__init__.py:498 plugins/wind_monitor/__init__.py:448
 msgid "Options has updated."
 msgstr ""
 
@@ -2767,32 +2823,64 @@ msgstr ""
 msgid "Use ping monitoring"
 msgstr ""
 
+#: plugins/ping_monitor/templates/ping_monitor.html:180
+msgid "Activate this extension use for ping testing."
+msgstr ""
+
 #: plugins/ping_monitor/templates/ping_monitor.html:184
 msgid "Ping address 1"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:185
+msgid "First address for testing."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:189
 msgid "Ping address 2"
 msgstr ""
 
+#: plugins/ping_monitor/templates/ping_monitor.html:190
+msgid "Second address for testing."
+msgstr ""
+
 #: plugins/ping_monitor/templates/ping_monitor.html:194
 msgid "Ping address 3"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:195
+msgid "Third address for testing."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:199
 msgid "Ping interval"
 msgstr ""
 
+#: plugins/ping_monitor/templates/ping_monitor.html:200
+msgid "After what time do we want to repeat the ping. From 2 to 600 seconds."
+msgstr ""
+
 #: plugins/ping_monitor/templates/ping_monitor.html:204
 msgid "Number of invalid pings to restart the device"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:205
+msgid "If enabled restart this device, then this item affects how many unsuccessful pings will be performed before a restart. From 2 to 60."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:209
 msgid "Restart this device"
 msgstr ""
 
+#: plugins/ping_monitor/templates/ping_monitor.html:210
+msgid "When enabled, the device will be restarted after a certain number of unsuccessful pings (HW restart)."
+msgstr ""
+
 #: plugins/ping_monitor/templates/ping_monitor.html:214
 msgid "Send an E-mail with statistics (csv file)"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:215
+msgid "Send a csv file with statistics via E-mail."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:216
@@ -2805,73 +2893,93 @@ msgstr ""
 msgid "Interval for sending statistics"
 msgstr ""
 
+#: plugins/ping_monitor/templates/ping_monitor.html:220
+msgid "Interval for sending statistics by email. From 1 to 48 hours."
+msgstr ""
+
 #: plugins/ping_monitor/templates/ping_monitor.html:224
 msgid "Delete statistics after send"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:34
+#: plugins/ping_monitor/templates/ping_monitor.html:225
+msgid "Delete the csv file with statistics after sending the E-mail and create a new clean file."
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:230
+msgid "The subject of the message being sent."
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor.html:240
+msgid "When logging is enabled, a log file is created (required for the graph and for sending an e-mail at the same time)."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:25
+msgid "Package: Pressure Monitor"
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:35
 msgid "Report from OSPy PRESSURE MONITOR plugin"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:102
+#: plugins/pressure_monitor/__init__.py:103
 msgid "Master station is ON."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:112
+#: plugins/pressure_monitor/__init__.py:113
 msgid "Time to test pressure sensor"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:113 plugins/ups_adj/__init__.py:134
+#: plugins/pressure_monitor/__init__.py:114 plugins/ups_adj/__init__.py:135
 msgid "sec"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:121
+#: plugins/pressure_monitor/__init__.py:122
 msgid "Pressure sensor is not activated in time -> stops all stations and send email."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:136
+#: plugins/pressure_monitor/__init__.py:137
 msgid "Master station is OFF."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:146
+#: plugins/pressure_monitor/__init__.py:147
 msgid "Pressure monitor plug-in is disabled."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:152
+#: plugins/pressure_monitor/__init__.py:153
 msgid "Not used master station."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:156
 #: plugins/pressure_monitor/__init__.py:157
+#: plugins/pressure_monitor/__init__.py:158
 msgid "System detected error: pressure sensor."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:156
 #: plugins/pressure_monitor/__init__.py:157
-#: plugins/pressure_monitor/__init__.py:163
-#: plugins/pressure_monitor/__init__.py:174
+#: plugins/pressure_monitor/__init__.py:158
+#: plugins/pressure_monitor/__init__.py:164
+#: plugins/pressure_monitor/__init__.py:175
 msgid "Pressure monitor plug-in"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:167
-#: plugins/pressure_monitor/__init__.py:353
+#: plugins/pressure_monitor/__init__.py:168
+#: plugins/pressure_monitor/__init__.py:354
 msgid "INACTIVE"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:169
-#: plugins/pressure_monitor/__init__.py:355
+#: plugins/pressure_monitor/__init__.py:170
+#: plugins/pressure_monitor/__init__.py:356
 msgid "ACTIVE"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:292
-#: plugins/tank_monitor/__init__.py:413 plugins/ups_adj/__init__.py:296
-#: plugins/wind_monitor/__init__.py:371
+#: plugins/pressure_monitor/__init__.py:293
+#: plugins/tank_monitor/__init__.py:414 plugins/ups_adj/__init__.py:297
+#: plugins/wind_monitor/__init__.py:372
 msgid "Saving to log  files OK"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:298
-#: plugins/pressure_monitor/__init__.py:386 plugins/ups_adj/__init__.py:302
-#: plugins/ups_adj/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:299
+#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
+#: plugins/ups_adj/__init__.py:390
 msgid "State"
 msgstr ""
 
@@ -2913,44 +3021,48 @@ msgstr ""
 msgid "Pressure state"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:73 plugins/pressurizer/__init__.py:216
+#: plugins/pressurizer/__init__.py:31
+msgid "Package: Pressurizer"
+msgstr ""
+
+#: plugins/pressurizer/__init__.py:74 plugins/pressurizer/__init__.py:217
 msgid "Pressurizer is disabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:75 plugins/pressurizer/__init__.py:213
+#: plugins/pressurizer/__init__.py:76 plugins/pressurizer/__init__.py:214
 msgid "Pressurizer is enabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:94
+#: plugins/pressurizer/__init__.py:95
 #: plugins/pressurizer/templates/pressurizer.html:41
 msgid "This plugin requires setting master station to enabled. Setup this in options! And also enable the relay as master station in options!"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:102
+#: plugins/pressurizer/__init__.py:103
 msgid "Is time for pump running..."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:107 plugins/pressurizer/__init__.py:171
+#: plugins/pressurizer/__init__.py:108 plugins/pressurizer/__init__.py:172
 msgid "Pressurizer plug-in"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:139
+#: plugins/pressurizer/__init__.py:140
 msgid "Activating relay."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:146 plugins/pressurizer/__init__.py:159
+#: plugins/pressurizer/__init__.py:147 plugins/pressurizer/__init__.py:160
 msgid "Waiting"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:146 plugins/pressurizer/__init__.py:159
+#: plugins/pressurizer/__init__.py:147 plugins/pressurizer/__init__.py:160
 msgid "second."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:152
+#: plugins/pressurizer/__init__.py:153
 msgid "Deactivating relay."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:155
+#: plugins/pressurizer/__init__.py:156
 msgid "Ready."
 msgstr ""
 
@@ -2982,28 +3094,52 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
+#: plugins/pressurizer/templates/pressurizer.html:48
+msgid "If the check box is marked, the master pump is activated before turning on the stations."
+msgstr ""
+
 #: plugins/pressurizer/templates/pressurizer.html:52
 #: plugins/voice_notification/templates/voice_notification.html:45
 msgid "Pre run time"
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer.html:53
+msgid "How many seconds before turning on station has turning on master station."
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:57
 msgid "Run time"
 msgstr ""
 
+#: plugins/pressurizer/templates/pressurizer.html:58
+msgid "For what time will turn on the master station."
+msgstr ""
+
 #: plugins/pressurizer/templates/pressurizer.html:62
 msgid "Wait after activation"
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer.html:63
+msgid "How long after the relay is activated wait for another stations (in order not to activate the pressurizer before each switch is stations on)."
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:69
 msgid "Activated relay"
 msgstr ""
 
-#: plugins/pulse/__init__.py:47
+#: plugins/pressurizer/templates/pressurizer.html:70
+msgid "If the check box is marked, the relay is activated before turning on the stations."
+msgstr ""
+
+#: plugins/pulse/__init__.py:19
+msgid "Package: Pulse Output Test"
+msgstr ""
+
+#: plugins/pulse/__init__.py:48
 msgid "Test started for"
 msgstr ""
 
-#: plugins/pulse/__init__.py:59
+#: plugins/pulse/__init__.py:60
 msgid "Test stopped."
 msgstr ""
 
@@ -3027,53 +3163,57 @@ msgstr ""
 msgid "Stop test"
 msgstr ""
 
-#: plugins/real_time/__init__.py:77
+#: plugins/real_time/__init__.py:29
+msgid "Package: Real Time and NTP time"
+msgstr ""
+
+#: plugins/real_time/__init__.py:78
 msgid "Local time"
 msgstr ""
 
-#: plugins/real_time/__init__.py:83 plugins/real_time/__init__.py:99
-#: plugins/real_time/__init__.py:108 plugins/real_time/__init__.py:119
-#: plugins/real_time/__init__.py:127 plugins/real_time/__init__.py:141
-#: plugins/real_time/__init__.py:153
+#: plugins/real_time/__init__.py:84 plugins/real_time/__init__.py:100
+#: plugins/real_time/__init__.py:109 plugins/real_time/__init__.py:120
+#: plugins/real_time/__init__.py:128 plugins/real_time/__init__.py:142
+#: plugins/real_time/__init__.py:154
 msgid "Real Time plug-in"
 msgstr ""
 
-#: plugins/real_time/__init__.py:88 plugins/real_time/__init__.py:95
+#: plugins/real_time/__init__.py:89 plugins/real_time/__init__.py:96
 msgid "NTP time"
 msgstr ""
 
-#: plugins/real_time/__init__.py:91
+#: plugins/real_time/__init__.py:92
 msgid "Primary NTP server has fault, now trying secondary NTP server."
 msgstr ""
 
-#: plugins/real_time/__init__.py:105
+#: plugins/real_time/__init__.py:106
 msgid "RTC time"
 msgstr ""
 
-#: plugins/real_time/__init__.py:113
+#: plugins/real_time/__init__.py:114
 msgid "Saving NTP time to RTC time."
 msgstr ""
 
-#: plugins/real_time/__init__.py:116
+#: plugins/real_time/__init__.py:117
 msgid "RTC time is now"
 msgstr ""
 
-#: plugins/real_time/__init__.py:123
+#: plugins/real_time/__init__.py:124
 msgid "Saving NTP time to local system time."
 msgstr ""
 
-#: plugins/real_time/__init__.py:131
+#: plugins/real_time/__init__.py:132
 msgid "Read RTC time and save to local system time."
 msgstr ""
 
-#: plugins/real_time/__init__.py:143
+#: plugins/real_time/__init__.py:144
 msgid "Waiting one hour for the next update."
 msgstr ""
 
-#: plugins/real_time/__init__.py:149
-#: plugins/weather_based_rain_delay/__init__.py:129
-#: plugins/weather_based_water_level/__init__.py:143
-#: plugins/weather_based_water_level_netatmo/__init__.py:173
+#: plugins/real_time/__init__.py:150
+#: plugins/weather_based_rain_delay/__init__.py:130
+#: plugins/weather_based_water_level/__init__.py:144
+#: plugins/weather_based_water_level_netatmo/__init__.py:174
 msgid "Plug-in is disabled."
 msgstr ""
 
@@ -3118,45 +3258,53 @@ msgstr ""
 msgid "default 123"
 msgstr ""
 
-#: plugins/relay_16/__init__.py:67
+#: plugins/relay/__init__.py:13
+msgid "Package: Relay Test"
+msgstr ""
+
+#: plugins/relay_16/__init__.py:21
+msgid "Package: Direct 16 Relay Outputs"
+msgstr ""
+
+#: plugins/relay_16/__init__.py:68
 msgid "is disabled."
 msgstr ""
 
-#: plugins/relay_16/__init__.py:67 plugins/relay_16/__init__.py:74
-#: plugins/relay_16/__init__.py:87 plugins/relay_16/__init__.py:93
-#: plugins/relay_16/__init__.py:95 plugins/relay_16/__init__.py:98
-#: plugins/relay_16/__init__.py:102 plugins/relay_16/__init__.py:119
-#: plugins/relay_16/__init__.py:126 plugins/relay_16/__init__.py:136
-#: plugins/relay_16/__init__.py:143 plugins/relay_16/__init__.py:161
+#: plugins/relay_16/__init__.py:68 plugins/relay_16/__init__.py:75
+#: plugins/relay_16/__init__.py:88 plugins/relay_16/__init__.py:94
+#: plugins/relay_16/__init__.py:96 plugins/relay_16/__init__.py:99
+#: plugins/relay_16/__init__.py:103 plugins/relay_16/__init__.py:120
+#: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
+#: plugins/relay_16/__init__.py:144 plugins/relay_16/__init__.py:162
 msgid "Relay 16 plug-in"
 msgstr ""
 
-#: plugins/relay_16/__init__.py:74
+#: plugins/relay_16/__init__.py:75
 msgid "Outputs set."
 msgstr ""
 
-#: plugins/relay_16/__init__.py:87
+#: plugins/relay_16/__init__.py:88
 msgid "Possible GPIO pins"
 msgstr ""
 
-#: plugins/relay_16/__init__.py:95
+#: plugins/relay_16/__init__.py:96
 msgid "Sorry Raspberry Pi 1 is old version."
 msgstr ""
 
-#: plugins/relay_16/__init__.py:98
+#: plugins/relay_16/__init__.py:99
 msgid "Relay board plugin only supported on Raspberry Pi."
 msgstr ""
 
-#: plugins/relay_16/__init__.py:119 plugins/relay_16/__init__.py:126
-#: plugins/relay_16/__init__.py:136 plugins/relay_16/__init__.py:143
+#: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
+#: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 msgid "Setings Relay Output"
 msgstr ""
 
-#: plugins/relay_16/__init__.py:119 plugins/relay_16/__init__.py:143
+#: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:144
 msgid "to HIGH"
 msgstr ""
 
-#: plugins/relay_16/__init__.py:126 plugins/relay_16/__init__.py:136
+#: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
 msgid "to LOW"
 msgstr ""
 
@@ -3208,81 +3356,85 @@ msgstr ""
 msgid "Low level trigger means the relay turns on when the input is low and turns off when the input is high. Hith level trigger does the opposite."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:75
+#: plugins/remote_ftp_control/__init__.py:28
+msgid "Package: Remote FTP Control"
+msgstr ""
+
+#: plugins/remote_ftp_control/__init__.py:76
 msgid "Creating ramdisk into"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:78
-#: plugins/remote_ftp_control/__init__.py:94
-#: plugins/remote_ftp_control/__init__.py:112
-#: plugins/remote_ftp_control/__init__.py:120
-#: plugins/remote_ftp_control/__init__.py:217
-#: plugins/remote_ftp_control/__init__.py:385
+#: plugins/remote_ftp_control/__init__.py:79
+#: plugins/remote_ftp_control/__init__.py:95
+#: plugins/remote_ftp_control/__init__.py:113
+#: plugins/remote_ftp_control/__init__.py:121
+#: plugins/remote_ftp_control/__init__.py:218
+#: plugins/remote_ftp_control/__init__.py:386
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:3
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:19
 msgid "Remote FTP control settings"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:85
+#: plugins/remote_ftp_control/__init__.py:86
 msgid "Adding into fstab"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:86
+#: plugins/remote_ftp_control/__init__.py:87
 msgid "Saving config to"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:91
+#: plugins/remote_ftp_control/__init__.py:92
 msgid "Now please restart your operating system!"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:105
+#: plugins/remote_ftp_control/__init__.py:106
 msgid "FTP connection established."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:149
+#: plugins/remote_ftp_control/__init__.py:150
 msgid "FTP received data from file data.txt"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:155
-#: plugins/remote_ftp_control/__init__.py:184
+#: plugins/remote_ftp_control/__init__.py:156
+#: plugins/remote_ftp_control/__init__.py:185
 msgid "Scheduler mode is activated."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:160
-#: plugins/remote_ftp_control/__init__.py:167
-#: plugins/remote_ftp_control/__init__.py:175
+#: plugins/remote_ftp_control/__init__.py:161
+#: plugins/remote_ftp_control/__init__.py:168
+#: plugins/remote_ftp_control/__init__.py:176
 msgid "Manual mode is activated."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:169
+#: plugins/remote_ftp_control/__init__.py:170
 msgid "Activated stations"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:177
+#: plugins/remote_ftp_control/__init__.py:178
 msgid "Deactivated stations"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:186
+#: plugins/remote_ftp_control/__init__.py:187
 msgid "Activated program"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:197
+#: plugins/remote_ftp_control/__init__.py:198
 msgid "Stop all stations and disable system."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:202
+#: plugins/remote_ftp_control/__init__.py:203
 msgid "Enable system."
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:373
+#: plugins/remote_ftp_control/__init__.py:374
 msgid "Could not save stavy.php to ramdisk!"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:377
+#: plugins/remote_ftp_control/__init__.py:378
 msgid "Data file stavy.php has send on to FTP server"
 msgstr ""
 
-#: plugins/remote_ftp_control/__init__.py:380
+#: plugins/remote_ftp_control/__init__.py:381
 msgid "Data file data.txt has send on to FTP server"
 msgstr ""
 
@@ -3318,27 +3470,31 @@ msgstr ""
 msgid "The FTP server location for files"
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:65
+#: plugins/remote_notifications/__init__.py:25
+msgid "Package: Remote Notifications"
+msgstr ""
+
+#: plugins/remote_notifications/__init__.py:66
 msgid "Remote was sent"
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:67
+#: plugins/remote_notifications/__init__.py:68
 msgid "Remote was not sent"
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:220
+#: plugins/remote_notifications/__init__.py:221
 msgid "Test data..."
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:227
+#: plugins/remote_notifications/__init__.py:228
 msgid "Remote plug-in"
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:262
+#: plugins/remote_notifications/__init__.py:263
 msgid "Remote server reply"
 msgstr ""
 
-#: plugins/remote_notifications/__init__.py:264
+#: plugins/remote_notifications/__init__.py:265
 msgid "Remote plug-in is not properly configured"
 msgstr ""
 
@@ -3379,79 +3535,83 @@ msgstr ""
 msgid "Send test data to server"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:121
+#: plugins/signaling_examples/__init__.py:19
+msgid "Package: Signaling Examples"
+msgstr ""
+
+#: plugins/signaling_examples/__init__.py:122
 msgid "Someone logged in"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:125
+#: plugins/signaling_examples/__init__.py:126
 msgid "Value_change"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:129
+#: plugins/signaling_examples/__init__.py:130
 msgid "Options settings changed"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:133
+#: plugins/signaling_examples/__init__.py:134
 msgid "System rebooted"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:137
+#: plugins/signaling_examples/__init__.py:138
 msgid "System restarted"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:141
+#: plugins/signaling_examples/__init__.py:142
 msgid "Station names changed"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:145
+#: plugins/signaling_examples/__init__.py:146
 msgid "Programs changed"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:149
+#: plugins/signaling_examples/__init__.py:150
 msgid "Program deleted"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:153
+#: plugins/signaling_examples/__init__.py:154
 msgid "Program toggled on or off"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:157
+#: plugins/signaling_examples/__init__.py:158
 msgid "Program runnow"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:161
+#: plugins/signaling_examples/__init__.py:162
 msgid "Zone change"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:165
+#: plugins/signaling_examples/__init__.py:166
 msgid "Rain active"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:169
+#: plugins/signaling_examples/__init__.py:170
 msgid "Rain not active"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:173
+#: plugins/signaling_examples/__init__.py:174
 msgid "Master one on"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:177
+#: plugins/signaling_examples/__init__.py:178
 msgid "Master one off"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:181
+#: plugins/signaling_examples/__init__.py:182
 msgid "Master two on"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:185
+#: plugins/signaling_examples/__init__.py:186
 msgid "Master two off"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:189
+#: plugins/signaling_examples/__init__.py:190
 msgid "Pressurizer plugin master relay on"
 msgstr ""
 
-#: plugins/signaling_examples/__init__.py:193
+#: plugins/signaling_examples/__init__.py:194
 msgid "Pressurizer plugin master relay off"
 msgstr ""
 
@@ -3468,139 +3628,143 @@ msgstr ""
 msgid "Example signals from webpages.py"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:89
+#: plugins/sms_adj/__init__.py:28
+msgid "Package: SMS Modem"
+msgstr ""
+
+#: plugins/sms_adj/__init__.py:90
 msgid "SMS Modem plug-in is enabled"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:97
+#: plugins/sms_adj/__init__.py:98
 msgid "Gammu is not installed."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:98
+#: plugins/sms_adj/__init__.py:99
 msgid "Please wait installing Gammu..."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:101
+#: plugins/sms_adj/__init__.py:102
 msgid "Please wait installing Python-Gammu..."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:104
+#: plugins/sms_adj/__init__.py:105
 msgid "Testing attached GSM ttyUSB..."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:108
+#: plugins/sms_adj/__init__.py:109
 msgid "Saving Gammu config to /root/.gammurc..."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:122
+#: plugins/sms_adj/__init__.py:123
 msgid "SMS Modem plug-in is disabled"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:129 plugins/sms_adj/__init__.py:166
-#: plugins/sms_adj/__init__.py:186
+#: plugins/sms_adj/__init__.py:130 plugins/sms_adj/__init__.py:167
+#: plugins/sms_adj/__init__.py:187
 msgid "SMS Modem plug-in"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:184
+#: plugins/sms_adj/__init__.py:185
 msgid "Checking SMS..."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:191
+#: plugins/sms_adj/__init__.py:192
 msgid "Signal"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:214
+#: plugins/sms_adj/__init__.py:215
 msgid "SMS from admin"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:218 plugins/sms_adj/__init__.py:263
-#: plugins/sms_adj/__init__.py:268 plugins/sms_adj/__init__.py:280
-#: plugins/sms_adj/__init__.py:285 plugins/sms_adj/__init__.py:294
-#: plugins/sms_adj/__init__.py:299 plugins/sms_adj/__init__.py:307
-#: plugins/sms_adj/__init__.py:313 plugins/sms_adj/__init__.py:321
-#: plugins/sms_adj/__init__.py:327 plugins/sms_adj/__init__.py:335
-#: plugins/sms_adj/__init__.py:347 plugins/sms_adj/__init__.py:355
-#: plugins/sms_adj/__init__.py:375 plugins/sms_adj/__init__.py:383
-#: plugins/sms_adj/__init__.py:390 plugins/sms_adj/__init__.py:412
+#: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:264
+#: plugins/sms_adj/__init__.py:269 plugins/sms_adj/__init__.py:281
+#: plugins/sms_adj/__init__.py:286 plugins/sms_adj/__init__.py:295
+#: plugins/sms_adj/__init__.py:300 plugins/sms_adj/__init__.py:308
+#: plugins/sms_adj/__init__.py:314 plugins/sms_adj/__init__.py:322
+#: plugins/sms_adj/__init__.py:328 plugins/sms_adj/__init__.py:336
+#: plugins/sms_adj/__init__.py:348 plugins/sms_adj/__init__.py:356
+#: plugins/sms_adj/__init__.py:376 plugins/sms_adj/__init__.py:384
+#: plugins/sms_adj/__init__.py:391 plugins/sms_adj/__init__.py:413
 msgid "Command"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:218 plugins/sms_adj/__init__.py:268
-#: plugins/sms_adj/__init__.py:285 plugins/sms_adj/__init__.py:299
-#: plugins/sms_adj/__init__.py:313 plugins/sms_adj/__init__.py:327
-#: plugins/sms_adj/__init__.py:347 plugins/sms_adj/__init__.py:375
-#: plugins/sms_adj/__init__.py:390
+#: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:269
+#: plugins/sms_adj/__init__.py:286 plugins/sms_adj/__init__.py:300
+#: plugins/sms_adj/__init__.py:314 plugins/sms_adj/__init__.py:328
+#: plugins/sms_adj/__init__.py:348 plugins/sms_adj/__init__.py:376
+#: plugins/sms_adj/__init__.py:391
 msgid "is processed"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:263 plugins/sms_adj/__init__.py:280
-#: plugins/sms_adj/__init__.py:294 plugins/sms_adj/__init__.py:307
-#: plugins/sms_adj/__init__.py:321 plugins/sms_adj/__init__.py:335
-#: plugins/sms_adj/__init__.py:355 plugins/sms_adj/__init__.py:383
-#: plugins/sms_adj/__init__.py:412
+#: plugins/sms_adj/__init__.py:264 plugins/sms_adj/__init__.py:281
+#: plugins/sms_adj/__init__.py:295 plugins/sms_adj/__init__.py:308
+#: plugins/sms_adj/__init__.py:322 plugins/sms_adj/__init__.py:336
+#: plugins/sms_adj/__init__.py:356 plugins/sms_adj/__init__.py:384
+#: plugins/sms_adj/__init__.py:413
 msgid "was processed and confirmation was sent as SMS to"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:265 plugins/sms_adj/__init__.py:282
-#: plugins/sms_adj/__init__.py:296 plugins/sms_adj/__init__.py:385
-#: plugins/sms_adj/__init__.py:415
+#: plugins/sms_adj/__init__.py:266 plugins/sms_adj/__init__.py:283
+#: plugins/sms_adj/__init__.py:297 plugins/sms_adj/__init__.py:386
+#: plugins/sms_adj/__init__.py:416
 msgid "Received SMS was deleted"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:309
+#: plugins/sms_adj/__init__.py:310
 msgid "Received SMS was deleted and system is now reboot"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:323
+#: plugins/sms_adj/__init__.py:324
 msgid "Received SMS was deleted and system is now poweroff"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:340
+#: plugins/sms_adj/__init__.py:341
 msgid "Received SMS was deleted, update was performed and program will restart"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:342
+#: plugins/sms_adj/__init__.py:343
 msgid "Received SMS was deleted, but could not perform update"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:360
+#: plugins/sms_adj/__init__.py:361
 msgid "SMS plug-in send image file from webcam."
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:365
+#: plugins/sms_adj/__init__.py:366
 msgid "Received SMS was deleted, but could not send email with photo from webcam"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:397
+#: plugins/sms_adj/__init__.py:398
 msgid "now run"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:419
+#: plugins/sms_adj/__init__.py:420
 msgid "Received command"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:419
+#: plugins/sms_adj/__init__.py:420
 msgid "is not defined!"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:423
+#: plugins/sms_adj/__init__.py:424
 msgid "Received SMS was deleted - SMS was read"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:426
+#: plugins/sms_adj/__init__.py:427
 msgid "Received SMS was deleted - SMS was not from admin"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:435
-#: plugins/water_consumption_counter/__init__.py:128
+#: plugins/sms_adj/__init__.py:436
+#: plugins/water_consumption_counter/__init__.py:129
 msgid "Email was sent"
 msgstr ""
 
-#: plugins/sms_adj/__init__.py:437
-#: plugins/water_consumption_counter/__init__.py:134
-#: plugins/water_consumption_counter/__init__.py:136
-#: plugins/water_consumption_counter/__init__.py:166
-#: plugins/water_consumption_counter/__init__.py:196
+#: plugins/sms_adj/__init__.py:438
+#: plugins/water_consumption_counter/__init__.py:135
+#: plugins/water_consumption_counter/__init__.py:137
+#: plugins/water_consumption_counter/__init__.py:167
+#: plugins/water_consumption_counter/__init__.py:197
 msgid "Email was not sent"
 msgstr ""
 
@@ -3689,7 +3853,11 @@ msgstr ""
 msgid "Example: runxx = run now program xx if exists"
 msgstr ""
 
-#: plugins/system_debug/__init__.py:73
+#: plugins/system_debug/__init__.py:17
+msgid "Package: System Debug Information"
+msgstr ""
+
+#: plugins/system_debug/__init__.py:74
 msgid "Error: Log file missing. Enable it in system options."
 msgstr ""
 
@@ -3714,87 +3882,91 @@ msgstr ""
 msgid "Download event-log as"
 msgstr ""
 
-#: plugins/system_info/__init__.py:40
+#: plugins/system_info/__init__.py:21
+msgid "Package: System Information"
+msgstr ""
+
+#: plugins/system_info/__init__.py:41
 msgid "System release"
 msgstr ""
 
-#: plugins/system_info/__init__.py:42
+#: plugins/system_info/__init__.py:43
 msgid "Node"
 msgstr ""
 
-#: plugins/system_info/__init__.py:43
+#: plugins/system_info/__init__.py:44
 msgid "Machine"
 msgstr ""
 
-#: plugins/system_info/__init__.py:44 plugins/usage_statistics/__init__.py:69
+#: plugins/system_info/__init__.py:45 plugins/usage_statistics/__init__.py:70
 msgid "Distribution"
 msgstr ""
 
-#: plugins/system_info/__init__.py:45
+#: plugins/system_info/__init__.py:46
 msgid "Total memory"
 msgstr ""
 
-#: plugins/system_info/__init__.py:46
+#: plugins/system_info/__init__.py:47
 msgid "Free memory"
 msgstr ""
 
-#: plugins/system_info/__init__.py:47 plugins/usage_statistics/__init__.py:71
+#: plugins/system_info/__init__.py:48 plugins/usage_statistics/__init__.py:72
 msgid "Python"
 msgstr ""
 
-#: plugins/system_info/__init__.py:52
+#: plugins/system_info/__init__.py:53
 msgid "Network: Unknown"
 msgstr ""
 
-#: plugins/system_info/__init__.py:54
+#: plugins/system_info/__init__.py:55
 msgid "CPU temp"
 msgstr ""
 
-#: plugins/system_info/__init__.py:55
+#: plugins/system_info/__init__.py:56
 msgid "CPU usage"
 msgstr ""
 
-#: plugins/system_info/__init__.py:56
+#: plugins/system_info/__init__.py:57
 msgid "MAC adress"
 msgstr ""
 
-#: plugins/system_info/__init__.py:58
+#: plugins/system_info/__init__.py:59
 msgid "I2C HEX Adress"
 msgstr ""
 
-#: plugins/system_info/__init__.py:63 plugins/system_info/__init__.py:100
+#: plugins/system_info/__init__.py:64 plugins/system_info/__init__.py:101
 msgid "System info plug-in"
 msgstr ""
 
-#: plugins/system_info/__init__.py:67
+#: plugins/system_info/__init__.py:68
 msgid "Found ATMEGA328 for Air Temperature and Humidity Monitor plugin (0x03)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:71
+#: plugins/system_info/__init__.py:72
 msgid "Found ATMEGA328 for Water Tank Monitor plugin (0x04)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:75
+#: plugins/system_info/__init__.py:76
 msgid "Found ATMEGA328 for Humidity Monitor plugin (0x05)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:79
+#: plugins/system_info/__init__.py:80
 msgid "Found MCP23017 for Button Control plugin (0x27)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:86
+#: plugins/system_info/__init__.py:87
 msgid "Warning: MCP23017 found for Button Control plugin (0x27). The address for PCF8574 must be different, not 0x27! If it is the same, change it on the LCD display board."
 msgstr ""
 
-#: plugins/system_info/__init__.py:87
+#: plugins/system_info/__init__.py:88
 msgid "Found PCF8574 for LCD Display plugin (0x20-0x28, 0x38-0x3F)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:92
+#: plugins/system_info/__init__.py:93
 msgid "Found PCF8583 for Wind Speed Monitor or Water Meter plugin (0x50-0x51)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:96
+#: plugins/system_info/__init__.py:97
 msgid "Found DS1307 for Real Time and NTP time plugin (0x68)."
 msgstr ""
 
@@ -3807,51 +3979,55 @@ msgstr ""
 msgid "This plugin prints all available system information"
 msgstr ""
 
-#: plugins/system_update/__init__.py:30
+#: plugins/system_update/__init__.py:22
+msgid "Package: System Update"
+msgstr ""
+
+#: plugins/system_update/__init__.py:31
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr ""
 
-#: plugins/system_update/__init__.py:46
+#: plugins/system_update/__init__.py:47
 msgid "None!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:98
+#: plugins/system_update/__init__.py:99
 msgid "Up-to-date."
 msgstr ""
 
-#: plugins/system_update/__init__.py:101
+#: plugins/system_update/__init__.py:102
 msgid "New version is available!"
-msgstr ""
-
-#: plugins/system_update/__init__.py:102 plugins/system_update/__init__.py:108
-#: plugins/system_update/__init__.py:111 plugins/system_update/__init__.py:126
-msgid "Currently running revision"
 msgstr ""
 
 #: plugins/system_update/__init__.py:103 plugins/system_update/__init__.py:109
 #: plugins/system_update/__init__.py:112 plugins/system_update/__init__.py:127
+msgid "Currently running revision"
+msgstr ""
+
+#: plugins/system_update/__init__.py:104 plugins/system_update/__init__.py:110
+#: plugins/system_update/__init__.py:113 plugins/system_update/__init__.py:128
 msgid "Available revision"
 msgstr ""
 
-#: plugins/system_update/__init__.py:104
+#: plugins/system_update/__init__.py:105
 msgid "Changes"
 msgstr ""
 
-#: plugins/system_update/__init__.py:106 plugins/system_update/__init__.py:110
-#: plugins/system_update/__init__.py:120 plugins/system_update/__init__.py:149
-#: plugins/system_update/__init__.py:181
+#: plugins/system_update/__init__.py:107 plugins/system_update/__init__.py:111
+#: plugins/system_update/__init__.py:121 plugins/system_update/__init__.py:150
+#: plugins/system_update/__init__.py:182
 msgid "System update plug-in"
 msgstr ""
 
-#: plugins/system_update/__init__.py:107 plugins/system_update/__init__.py:111
+#: plugins/system_update/__init__.py:108 plugins/system_update/__init__.py:112
 msgid "New OSPy version is available!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:125
+#: plugins/system_update/__init__.py:126
 msgid "Running unknown version!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:177
+#: plugins/system_update/__init__.py:178
 msgid "Update result"
 msgstr ""
 
@@ -3911,22 +4087,26 @@ msgstr ""
 msgid "Restart OSPy"
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:56
+#: plugins/system_watchdog/__init__.py:23
+msgid "Package: System Watchdog"
+msgstr ""
+
+#: plugins/system_watchdog/__init__.py:57
 msgid "Watchdog is not installed. For continue press button install watchdog."
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:75
-#: plugins/system_watchdog/__init__.py:91
-#: plugins/system_watchdog/__init__.py:122
-#: plugins/system_watchdog/__init__.py:125
+#: plugins/system_watchdog/__init__.py:76
+#: plugins/system_watchdog/__init__.py:92
+#: plugins/system_watchdog/__init__.py:123
+#: plugins/system_watchdog/__init__.py:126
 msgid "System watchodg plug-in"
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:125
+#: plugins/system_watchdog/__init__.py:126
 msgid "Error in Converting"
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:173
+#: plugins/system_watchdog/__init__.py:174
 msgid "Saving config to /etc/watchdog.conf"
 msgstr ""
 
@@ -3967,62 +4147,66 @@ msgstr ""
 msgid "Start Watchdog Service"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:41
+#: plugins/tank_monitor/__init__.py:29
+msgid "Package: Water Tank Monitor"
+msgstr ""
+
+#: plugins/tank_monitor/__init__.py:42
 msgid "Report from OSPy TANK plugin"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:102 plugins/tank_monitor/__init__.py:492
+#: plugins/tank_monitor/__init__.py:103 plugins/tank_monitor/__init__.py:493
 msgid "Water tank monitor is enabled."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:116
+#: plugins/tank_monitor/__init__.py:117
 msgid "Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:121 plugins/tank_monitor/__init__.py:183
+#: plugins/tank_monitor/__init__.py:122 plugins/tank_monitor/__init__.py:184
 msgid "Maximum Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:122 plugins/tank_monitor/__init__.py:184
+#: plugins/tank_monitor/__init__.py:123 plugins/tank_monitor/__init__.py:185
 msgid "Minimum Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:169
+#: plugins/tank_monitor/__init__.py:170
 msgid "ERROR: Water in Tank"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:182
+#: plugins/tank_monitor/__init__.py:183
 msgid "Water level: Error."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:198 plugins/tank_monitor/__init__.py:199
+#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:198 plugins/tank_monitor/__init__.py:199
-#: plugins/tank_monitor/__init__.py:206 plugins/tank_monitor/__init__.py:211
+#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
+#: plugins/tank_monitor/__init__.py:207 plugins/tank_monitor/__init__.py:212
 msgid "Water Tank Monitor plug-in"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:421 plugins/tank_monitor/__init__.py:549
-msgid "Minimum"
-msgstr ""
-
 #: plugins/tank_monitor/__init__.py:422 plugins/tank_monitor/__init__.py:550
-#: plugins/wind_monitor/__init__.py:377 plugins/wind_monitor/__init__.py:498
-msgid "Maximum"
+msgid "Minimum"
 msgstr ""
 
 #: plugins/tank_monitor/__init__.py:423 plugins/tank_monitor/__init__.py:551
 #: plugins/wind_monitor/__init__.py:378 plugins/wind_monitor/__init__.py:499
+msgid "Maximum"
+msgstr ""
+
+#: plugins/tank_monitor/__init__.py:424 plugins/tank_monitor/__init__.py:552
+#: plugins/wind_monitor/__init__.py:379 plugins/wind_monitor/__init__.py:500
 msgid "Actual"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:471
+#: plugins/tank_monitor/__init__.py:472
 msgid "Minimum and maximum has reseted."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:495
+#: plugins/tank_monitor/__init__.py:496
 msgid "Water tank monitor is disabled."
 msgstr ""
 
@@ -4079,43 +4263,47 @@ msgstr ""
 msgid "Reset min/max level"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:33
+#: plugins/ups_adj/__init__.py:25
+msgid "Package: UPS Monitor"
+msgstr ""
+
+#: plugins/ups_adj/__init__.py:34
 msgid "Report from OSPy UPS plugin"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:105 plugins/ups_adj/__init__.py:358
+#: plugins/ups_adj/__init__.py:106 plugins/ups_adj/__init__.py:359
 msgid "FAULT"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:115 plugins/ups_adj/__init__.py:116
+#: plugins/ups_adj/__init__.py:116 plugins/ups_adj/__init__.py:117
 msgid "Detected fault on power line."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:115 plugins/ups_adj/__init__.py:116
-#: plugins/ups_adj/__init__.py:124 plugins/ups_adj/__init__.py:145
-#: plugins/ups_adj/__init__.py:146 plugins/ups_adj/__init__.py:152
-#: plugins/ups_adj/__init__.py:163 plugins/ups_adj/__init__.py:164
-#: plugins/ups_adj/__init__.py:172 plugins/ups_adj/__init__.py:183
+#: plugins/ups_adj/__init__.py:116 plugins/ups_adj/__init__.py:117
+#: plugins/ups_adj/__init__.py:125 plugins/ups_adj/__init__.py:146
+#: plugins/ups_adj/__init__.py:147 plugins/ups_adj/__init__.py:153
+#: plugins/ups_adj/__init__.py:164 plugins/ups_adj/__init__.py:165
+#: plugins/ups_adj/__init__.py:173 plugins/ups_adj/__init__.py:184
 msgid "UPS plug-in"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:134
+#: plugins/ups_adj/__init__.py:135
 msgid "Time to shutdown"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:140
+#: plugins/ups_adj/__init__.py:141
 msgid "Power line is not restore in time -> sends email and shutdown system."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:145 plugins/ups_adj/__init__.py:146
+#: plugins/ups_adj/__init__.py:146 plugins/ups_adj/__init__.py:147
 msgid "Power line is not restore in time -> shutdown system!"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:163 plugins/ups_adj/__init__.py:164
+#: plugins/ups_adj/__init__.py:164 plugins/ups_adj/__init__.py:165
 msgid "Power line has restored - OK."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:197
+#: plugins/ups_adj/__init__.py:198
 msgid "UPS plugin is started."
 msgstr ""
 
@@ -4156,36 +4344,40 @@ msgstr ""
 msgid "Output on GPIO 24 - pin 18 (via optocoupler open colector and ground) to UPS for shutdown battery in UPS."
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:30
-#: plugins/usage_statistics/__init__.py:86
+#: plugins/usage_statistics/__init__.py:20
+msgid "Package: Usage Statistics"
+msgstr ""
+
+#: plugins/usage_statistics/__init__.py:31
+#: plugins/usage_statistics/__init__.py:87
 msgid "Error: data cannot be downloaded from"
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:65
+#: plugins/usage_statistics/__init__.py:66
 msgid "ID"
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:67
+#: plugins/usage_statistics/__init__.py:68
 msgid "OSPy"
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:68
+#: plugins/usage_statistics/__init__.py:69
 msgid "CPU"
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:73
+#: plugins/usage_statistics/__init__.py:74
 msgid "The data from"
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:73
+#: plugins/usage_statistics/__init__.py:74
 msgid "was downloaded correctly."
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:79
+#: plugins/usage_statistics/__init__.py:80
 msgid "Your ID is: "
 msgstr ""
 
-#: plugins/usage_statistics/__init__.py:98
+#: plugins/usage_statistics/__init__.py:99
 msgid "Usage statistics plug-in"
 msgstr ""
 
@@ -4206,23 +4398,27 @@ msgstr ""
 msgid "Read from source www.pihrt.com"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:202
+#: plugins/voice_notification/__init__.py:27
+msgid "Package: Voice Notification"
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:203
 msgid "Voice notification is disabled."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:204
+#: plugins/voice_notification/__init__.py:205
 msgid "Voice notification is enabled."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:220
+#: plugins/voice_notification/__init__.py:221
 msgid "Pygame is not installed."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:221
+#: plugins/voice_notification/__init__.py:222
 msgid "Please wait installing pygame..."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:225
+#: plugins/voice_notification/__init__.py:226
 msgid "Pygame is now installed."
 msgstr ""
 
@@ -4239,8 +4435,8 @@ msgid "Repeating playing nr. 3..."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:290
-#: plugins/voice_notification/__init__.py:354
-#: plugins/voice_notification/__init__.py:413
+#: plugins/voice_notification/__init__.py:358
+#: plugins/voice_notification/__init__.py:417
 msgid "Voice Notification plug-in"
 msgstr ""
 
@@ -4252,23 +4448,23 @@ msgstr ""
 msgid "Set master volume to"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:344
+#: plugins/voice_notification/__init__.py:348
 msgid "Playing..."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:351
+#: plugins/voice_notification/__init__.py:355
 msgid "Stopping..."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:374
+#: plugins/voice_notification/__init__.py:378
 msgid "Testing button %s..."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:407
+#: plugins/voice_notification/__init__.py:411
 msgid "Saving MP3 %s file OK."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:410
+#: plugins/voice_notification/__init__.py:414
 msgid "Error. MP3 file: %s name is not voice.mp3 or voice0.mp3...voice20.mp3"
 msgstr ""
 
@@ -4300,8 +4496,16 @@ msgstr ""
 msgid "Enable voice"
 msgstr ""
 
+#: plugins/voice_notification/templates/voice_notification.html:33
+msgid "If the check box is marked, the extension will be active."
+msgstr ""
+
 #: plugins/voice_notification/templates/voice_notification.html:37
 msgid "Enable pre start voice"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:38
+msgid "The sound is played before turning on the station."
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:41
@@ -4309,39 +4513,75 @@ msgstr ""
 msgid "Test playing"
 msgstr ""
 
+#: plugins/voice_notification/templates/voice_notification.html:46
+msgid "How many seconds before turning on stations play sound."
+msgstr ""
+
 #: plugins/voice_notification/templates/voice_notification.html:50
 msgid "Repeat playback"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:51
+msgid "How many times to repeat the same message."
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:55
 msgid "Master volume"
 msgstr ""
 
+#: plugins/voice_notification/templates/voice_notification.html:56
+msgid "Setting the Raspberry Pi output volume (0-100%)."
+msgstr ""
+
 #: plugins/voice_notification/templates/voice_notification.html:60
 msgid "Play only from"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:61
+msgid "Play notifications only from this time (hours)."
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:65
 msgid "Play only to"
 msgstr ""
 
+#: plugins/voice_notification/templates/voice_notification.html:66
+msgid "Play notifications only to this time (hours)."
+msgstr ""
+
 #: plugins/voice_notification/templates/voice_notification.html:70
 msgid "Skip stations"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:74
+msgid "Skip voice notification for these stations."
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:82
 msgid "Select voice for stations"
 msgstr ""
 
+#: plugins/voice_notification/templates/voice_notification.html:87
+msgid "Select voice for this station."
+msgstr ""
+
 #: plugins/voice_notification/templates/voice_notification.html:112
 msgid "Upload mp3 file"
 msgstr ""
 
-#: plugins/volt_temp_da/__init__.py:112
+#: plugins/voice_notification/templates/voice_notification.html:113
+msgid "MP3 file must have a name"
+msgstr ""
+
+#: plugins/volt_temp_da/__init__.py:21
+msgid "Package: Voltage and Temperature Monitor"
+msgstr ""
+
+#: plugins/volt_temp_da/__init__.py:113
 msgid "Voltage and Temperature Monitor plug-in"
 msgstr ""
 
-#: plugins/volt_temp_da/__init__.py:262
+#: plugins/volt_temp_da/__init__.py:263
 msgid "Deleted log file"
 msgstr ""
 
@@ -4390,61 +4630,65 @@ msgstr ""
 msgid "Volt"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:34
+#: plugins/water_consumption_counter/__init__.py:23
+msgid "Package: Water Consumption Counter"
+msgstr ""
+
+#: plugins/water_consumption_counter/__init__.py:35
 msgid "Report from OSPy Water Consumption Counter plugin"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:78
-#: plugins/water_consumption_counter/__init__.py:110
-#: plugins/water_consumption_counter/__init__.py:160
+#: plugins/water_consumption_counter/__init__.py:79
+#: plugins/water_consumption_counter/__init__.py:111
 #: plugins/water_consumption_counter/__init__.py:161
-#: plugins/water_consumption_counter/__init__.py:190
+#: plugins/water_consumption_counter/__init__.py:162
 #: plugins/water_consumption_counter/__init__.py:191
+#: plugins/water_consumption_counter/__init__.py:192
 msgid "Water Consumption Counter plug-in"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:124
-#: plugins/water_consumption_counter/__init__.py:132
+#: plugins/water_consumption_counter/__init__.py:125
+#: plugins/water_consumption_counter/__init__.py:133
 msgid "Email logging is disabled in options..."
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:143
+#: plugins/water_consumption_counter/__init__.py:144
 msgid "Master station 1 running, please wait..."
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:148
+#: plugins/water_consumption_counter/__init__.py:149
 msgid "Master station 1 stopped, counter finished..."
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:160
 #: plugins/water_consumption_counter/__init__.py:161
-#: plugins/water_consumption_counter/__init__.py:190
+#: plugins/water_consumption_counter/__init__.py:162
 #: plugins/water_consumption_counter/__init__.py:191
+#: plugins/water_consumption_counter/__init__.py:192
 msgid "liter"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:160
-#: plugins/water_consumption_counter/__init__.py:190
+#: plugins/water_consumption_counter/__init__.py:161
+#: plugins/water_consumption_counter/__init__.py:191
 msgid "Water Consumption"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:161
+#: plugins/water_consumption_counter/__init__.py:162
 msgid "Water Consumption for master 1"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:173
+#: plugins/water_consumption_counter/__init__.py:174
 msgid "Master station 2 running, please wait..."
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:178
+#: plugins/water_consumption_counter/__init__.py:179
 msgid "Master station 2 stopped, counter finished..."
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:191
+#: plugins/water_consumption_counter/__init__.py:192
 msgid "Water Consumption for master 2"
 msgstr ""
 
-#: plugins/water_consumption_counter/__init__.py:226
+#: plugins/water_consumption_counter/__init__.py:227
 msgid "Counter has reseted"
 msgstr ""
 
@@ -4507,56 +4751,60 @@ msgstr ""
 msgid "Reset Counter"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:96
+#: plugins/water_meter/__init__.py:21
+msgid "Package: Water Meter"
+msgstr ""
+
+#: plugins/water_meter/__init__.py:97
 msgid "Water Meter plug-in is enabled."
 msgstr ""
 
-#: plugins/water_meter/__init__.py:100
+#: plugins/water_meter/__init__.py:101
 msgid "Could not find PCF8583."
 msgstr ""
 
-#: plugins/water_meter/__init__.py:102 plugins/water_meter/__init__.py:270
+#: plugins/water_meter/__init__.py:103 plugins/water_meter/__init__.py:271
 msgid "Please wait for min/hour data..."
 msgstr ""
 
-#: plugins/water_meter/__init__.py:104 plugins/water_meter/__init__.py:116
+#: plugins/water_meter/__init__.py:105 plugins/water_meter/__init__.py:117
 msgid "Water in liters"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:105
+#: plugins/water_meter/__init__.py:106
 msgid "Saved water summary"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:117
+#: plugins/water_meter/__init__.py:118
 msgid "Water per minutes"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:118
+#: plugins/water_meter/__init__.py:119
 msgid "Water per hours"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:119
+#: plugins/water_meter/__init__.py:120
 msgid "Water summary"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:140
+#: plugins/water_meter/__init__.py:141
 msgid "Water Meter plug-in is disabled."
 msgstr ""
 
-#: plugins/water_meter/__init__.py:148 plugins/water_meter/__init__.py:210
-#: plugins/water_meter/__init__.py:211 plugins/water_meter/__init__.py:240
+#: plugins/water_meter/__init__.py:149 plugins/water_meter/__init__.py:211
+#: plugins/water_meter/__init__.py:212 plugins/water_meter/__init__.py:241
 msgid "Water Meter plug-in"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:207
+#: plugins/water_meter/__init__.py:208
 msgid "Setup PCF8583 as event counter is OK"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:210 plugins/wind_monitor/__init__.py:247
+#: plugins/water_meter/__init__.py:211 plugins/wind_monitor/__init__.py:248
 msgid "Setup PCF8583 as event counter - FAULT"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:269
+#: plugins/water_meter/__init__.py:270
 msgid "Water summary was reseting..."
 msgstr ""
 
@@ -4614,31 +4862,35 @@ msgstr ""
 msgid "Reset summary"
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:100
+#: plugins/weather_based_rain_delay/__init__.py:34
+msgid "Package: Weather-based Rain Delay"
+msgstr ""
+
+#: plugins/weather_based_rain_delay/__init__.py:101
 msgid "Checking rain status"
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:113
+#: plugins/weather_based_rain_delay/__init__.py:114
 msgid "Rain detected"
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:118
+#: plugins/weather_based_rain_delay/__init__.py:119
 msgid "No action."
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:118
+#: plugins/weather_based_rain_delay/__init__.py:119
 msgid "No rain detected"
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:121
+#: plugins/weather_based_rain_delay/__init__.py:122
 msgid "Good weather detected"
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:121
+#: plugins/weather_based_rain_delay/__init__.py:122
 msgid "Removing rain delay."
 msgstr ""
 
-#: plugins/weather_based_rain_delay/__init__.py:135
+#: plugins/weather_based_rain_delay/__init__.py:136
 msgid "Weather-based Rain Delay plug-in"
 msgstr ""
 
@@ -4711,47 +4963,51 @@ msgstr ""
 msgid "Use Cleanup delay"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:72
-#: plugins/weather_based_water_level_netatmo/__init__.py:93
+#: plugins/weather_based_water_level/__init__.py:23
+msgid "Package: Weather-based Water Level"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:73
+#: plugins/weather_based_water_level_netatmo/__init__.py:94
 msgid "Checking weather status"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:86
-#: plugins/weather_based_water_level_netatmo/__init__.py:124
+#: plugins/weather_based_water_level/__init__.py:87
+#: plugins/weather_based_water_level_netatmo/__init__.py:125
 msgid "Using"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:86
-#: plugins/weather_based_water_level_netatmo/__init__.py:124
+#: plugins/weather_based_water_level/__init__.py:87
+#: plugins/weather_based_water_level_netatmo/__init__.py:125
 msgid "days of information."
-msgstr ""
-
-#: plugins/weather_based_water_level/__init__.py:111
-#: plugins/weather_based_water_level_netatmo/__init__.py:161
-msgid "Water needed"
 msgstr ""
 
 #: plugins/weather_based_water_level/__init__.py:112
 #: plugins/weather_based_water_level_netatmo/__init__.py:162
-msgid "Total rainfall"
+msgid "Water needed"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:114
-#: plugins/weather_based_water_level_netatmo/__init__.py:164
-msgid "Irrigation needed"
+#: plugins/weather_based_water_level/__init__.py:113
+#: plugins/weather_based_water_level_netatmo/__init__.py:163
+msgid "Total rainfall"
 msgstr ""
 
 #: plugins/weather_based_water_level/__init__.py:115
 #: plugins/weather_based_water_level_netatmo/__init__.py:165
+msgid "Irrigation needed"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:116
+#: plugins/weather_based_water_level_netatmo/__init__.py:166
 msgid "Weather Adjustment"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:136
+#: plugins/weather_based_water_level/__init__.py:137
 msgid "Protection activated."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:149
-#: plugins/weather_based_water_level_netatmo/__init__.py:179
+#: plugins/weather_based_water_level/__init__.py:150
+#: plugins/weather_based_water_level_netatmo/__init__.py:180
 msgid "Weather-based water level plug-in"
 msgstr ""
 
@@ -4828,12 +5084,16 @@ msgstr ""
 msgid "Protect months"
 msgstr ""
 
-#: plugins/weather_based_water_level_netatmo/__init__.py:163
-#: plugins/weather_based_water_level_netatmo/__init__.py:166
+#: plugins/weather_based_water_level_netatmo/__init__.py:40
+msgid "Package: Weather-based Water Level Netatmo"
+msgstr ""
+
+#: plugins/weather_based_water_level_netatmo/__init__.py:164
+#: plugins/weather_based_water_level_netatmo/__init__.py:167
 msgid "_______________________________"
 msgstr ""
 
-#: plugins/weather_based_water_level_netatmo/__init__.py:167
+#: plugins/weather_based_water_level_netatmo/__init__.py:168
 msgid "History rain by Netatmo"
 msgstr ""
 
@@ -4847,35 +5107,39 @@ msgstr ""
 msgid "Daily water level in mm"
 msgstr ""
 
-#: plugins/webcam/__init__.py:63
-msgid "Fswebcam is not installed."
+#: plugins/webcam/__init__.py:19
+msgid "Package: Webcam Monitor"
 msgstr ""
 
 #: plugins/webcam/__init__.py:64
+msgid "Fswebcam is not installed."
+msgstr ""
+
+#: plugins/webcam/__init__.py:65
 msgid "Please wait installing...."
 msgstr ""
 
-#: plugins/webcam/__init__.py:78
+#: plugins/webcam/__init__.py:79
 msgid "Please wait..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:90
+#: plugins/webcam/__init__.py:91
 msgid "Ready..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:93
+#: plugins/webcam/__init__.py:94
 msgid "Cannot find USB camera (/dev/video0)."
 msgstr ""
 
-#: plugins/webcam/__init__.py:98
+#: plugins/webcam/__init__.py:99
 msgid "Plugin is disabled..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:102
+#: plugins/webcam/__init__.py:103
 msgid "Webcam plug-in"
 msgstr ""
 
-#: plugins/webcam/__init__.py:142
+#: plugins/webcam/__init__.py:143
 msgid "No image file from downloading. Retry"
 msgstr ""
 
@@ -4916,77 +5180,81 @@ msgstr ""
 msgid "OpenSprinkler camera"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:37
+#: plugins/wind_monitor/__init__.py:26
+msgid "Package: Wind Speed Monitor"
+msgstr ""
+
+#: plugins/wind_monitor/__init__.py:38
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:40
+#: plugins/wind_monitor/__init__.py:41
 msgid "Measuring..."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:132
+#: plugins/wind_monitor/__init__.py:133
 msgid "Please wait 10 sec..."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:133
+#: plugins/wind_monitor/__init__.py:134
 msgid "Speed"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:133 plugins/wind_monitor/__init__.py:136
+#: plugins/wind_monitor/__init__.py:134 plugins/wind_monitor/__init__.py:137
 msgid "m/sec"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:134
+#: plugins/wind_monitor/__init__.py:135
 msgid "Pulses"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:134
+#: plugins/wind_monitor/__init__.py:135
 msgid "pulses/sec"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:136
+#: plugins/wind_monitor/__init__.py:137
 msgid "Maximal speed"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:139
+#: plugins/wind_monitor/__init__.py:140
 msgid "Wind speed > 150 km/h (42 m/sec)"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:147
+#: plugins/wind_monitor/__init__.py:148
 msgid "Stops all stations and sends email if enabled sends email."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:164
+#: plugins/wind_monitor/__init__.py:165
 msgid "Wind speed monitor plug-in is disabled."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:169 plugins/wind_monitor/__init__.py:170
+#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:171
 msgid "System detected error: wind speed monitor. All stations set to OFF. Wind is"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:169 plugins/wind_monitor/__init__.py:244
-#: plugins/wind_monitor/__init__.py:247 plugins/wind_monitor/__init__.py:248
-#: plugins/wind_monitor/__init__.py:278
+#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:245
+#: plugins/wind_monitor/__init__.py:248 plugins/wind_monitor/__init__.py:249
+#: plugins/wind_monitor/__init__.py:279
 msgid "Wind speed monitor plug-in"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:177 plugins/wind_monitor/__init__.py:183
+#: plugins/wind_monitor/__init__.py:178 plugins/wind_monitor/__init__.py:184
 msgid "Wind Speed monitor plug-in"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:244
+#: plugins/wind_monitor/__init__.py:245
 msgid "Setup PCF8583 as event counter - OK"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:421
+#: plugins/wind_monitor/__init__.py:422
 msgid "Maximal speed has reseted."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:442
+#: plugins/wind_monitor/__init__.py:443
 msgid "Wind monitor is enabled."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:445
+#: plugins/wind_monitor/__init__.py:446
 msgid "Wind monitor is disabled."
 msgstr ""
 

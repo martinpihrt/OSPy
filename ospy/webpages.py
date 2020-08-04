@@ -404,6 +404,7 @@ class plugins_manage_page(ProtectedPage):
         enable = get_input(qdict, 'enable', None, lambda x: x == '1')
         disable_all = get_input(qdict, 'disable_all', False, lambda x: True)
         enable_all = get_input(qdict, 'enable_all', False, lambda x: True)
+        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
         auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
         use_update = get_input(qdict, 'use', None, lambda x: x == '1')
 
@@ -416,6 +417,17 @@ class plugins_manage_page(ProtectedPage):
                if plugin not in options.enabled_plugins:
                   options.enabled_plugins.append(plugin)
             plugins.start_enabled_plugins()
+
+        if delete_all:
+            from ospy.helpers import del_rw
+            import shutil
+            for plugin in plugins.available():
+            	if plugin in options.enabled_plugins:
+            		options.enabled_plugins.remove(plugin)
+                shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
+            options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
+            plugins.start_enabled_plugins()    
+            raise web.seeother('/plugins_manage')        
 
         if plugin is not None and plugin in plugins.available():
             if delete:

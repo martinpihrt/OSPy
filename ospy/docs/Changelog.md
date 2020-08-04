@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+Aug 4 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added "delete all" button to the plugin manager (you can delete all installed plugins at once). Added missing untranslated strings.
+Added strings for translating the name of plugins in the list of plugins. Languages other than Czech are not checked!
+WARNING: BEFORE THIS UPDATE, FIRST UPDATE ALL PLUGINS, FOLLOW OSPY AND THEN RESTART THE SYSTEM!
+
 Aug 3 2020
 -----------
 (martinpihrt)<br/>
