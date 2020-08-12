@@ -162,84 +162,9 @@ function updateStatus(status) {
     setTimeout(statusTimer, updateInterval);
 }
 
-function updateAirTemp(status){
-   var nameDS0 = status['label_ds0'];
-   var nameDS1 = status['label_ds1'];
-   var nameDS2 = status['label_ds2'];
-   var nameDS3 = status['label_ds3'];
-   var nameDS4 = status['label_ds4'];
-   var nameDS5 = status['label_ds5'];
-   var temperDS0 = status['temp_ds0'];
-   var temperDS1 = status['temp_ds1'];
-   var temperDS2 = status['temp_ds2'];
-   var temperDS3 = status['temp_ds3'];
-   var temperDS4 = status['temp_ds4'];
-   var temperDS5 = status['temp_ds5'];
-   var temperDS6 = status['temp_ds6'];
-   var nameDHT =  status['label'];
-   var temperDHT =  status['temp_dht'];
-   var humiDHT =  status['humi_dht'];
-
-   var text = "";
-   if (temperDS0 > -127) text += nameDS0 + ": " +  temperDS0 + "\xB0C, ";
-   if (temperDS1 > -127) text += nameDS1 + ": " +  temperDS1 + "\xB0C, ";
-   if (temperDS2 > -127) text += nameDS2 + ": " +  temperDS2 + "\xB0C, ";
-   if (temperDS3 > -127) text += nameDS3 + ": " +  temperDS3 + "\xB0C, ";
-   if (temperDS4 > -127) text += nameDS4 + ": " +  temperDS4 + "\xB0C, ";
-   if (temperDS5 > -127) text += nameDS5 + ": " +  temperDS5 + "\xB0C, ";
-
-   text += nameDHT + ": " +  temperDHT + "\xB0C " + humiDHT + "%RV";
-   jQuery("#airtemphumi").text(text);
-}
-
-function updateTankMonit(status){
-   var level = status['level'];
-   var percent = status['percent'];
-   var volume = status['volume'];
-   var label = status['label'];
-   var unit = status['unit'];
-   var text = label + ": " +  level + "cm " + percent + "% " + volume
-
-   if (unit){
-   	   text += "l";
-   }
-   else{
-   	   text += "m\xB3";
-   }    
-   jQuery("#tankmonitor").text(text);
-}
-
-function updateWindMonit(status){
-   var log_maxspeed = status['log_maxspeed'];
-   var log_speed = status['log_speed'];
-   var log_date_maxspeed = status['log_date_maxspeed'];
-   var label = status['label'];
-
-   var text = label + ": " +  log_speed + "m/s (" + log_maxspeed + "m/s " + log_date_maxspeed + ")";
-   jQuery("#windmonitor").text(text);
-}
-
-function updatePresMonit(status){
-   var label = status['label'];
-   var pres_state = status['pres_state'];
-   var text = label + ": " + pres_state;
-   jQuery("#presmonitor").text(text);
-}
-
-function updateUpsMonit(status){
-   var label = status['label'];
-   var ups_state = status['ups_state'];
-   var text = label + ": " + ups_state;
-   jQuery("#upsmonitor").text(text);
-}
 
 function statusTimer() {
     jQuery.getJSON("/status.json", updateStatus)
-    jQuery.getJSON("/plugins/air_temp_humi/data_json", updateAirTemp)
-    jQuery.getJSON("/plugins/tank_monitor/data_json", updateTankMonit) 
-    jQuery.getJSON("/plugins/wind_monitor/data_json", updateWindMonit)
-    jQuery.getJSON("/plugins/pressure_monitor/data_json", updatePresMonit)
-    jQuery.getJSON("/plugins/ups_adj/data_json", updateUpsMonit)
 }
 
 function water_level_prompt(current){
@@ -471,6 +396,23 @@ jQuery(document).ready(function(){
     if (jQuery("#graph-placeholder").length > 0) {
         setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
     }
+
+    $if options.show_plugin_data and pluginFtr:
+        $for i, d in enumerate(pluginFtr):
+            $if pluginFtr[i]["button"] != '-':
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+            $else:
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+                
+        setInterval(dataTimer, 2000);
+
+        function dataTimer() {
+            // Call to get plugin data
+            jQuery.getJSON("/plugindata", function(piVals) {
+                var parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
+                jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
+            } 
+        )}        
 });
 
 </script>
@@ -612,24 +554,10 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <button id="clearSelection">$_('Clear selection')</button>
     </div>
 
-$if not options.manual_mode and options.show_plugin_data and options.enabled_plugins:
-    <div id="graph-container" class="graph-container">
-    $if "air_temp_humi" in options.enabled_plugins:
-       <a href="/plugins/air_temp_humi/settings" class="button upload">$_('OPEN')</a>&nbsp;<span id="airtemphumi"></span>
-       <hr>
-    $if "tank_monitor" in options.enabled_plugins:
-       <a href="/plugins/tank_monitor/settings" class="button upload">$_('OPEN')</a>&nbsp;<span id="tankmonitor"></span>
-       <hr>
-    $if "wind_monitor" in options.enabled_plugins:
-       <a href="/plugins/wind_monitor/settings" class="button upload">$_('OPEN')</a>&nbsp;<span id="windmonitor"></span>
-       <hr>
-    $if "pressure_monitor" in options.enabled_plugins:
-       <a href="/plugins/pressure_monitor/settings" class="button upload">$_('OPEN')</a>&nbsp;<span id="presmonitor"></span>
-       <hr>
-    $if "ups_adj" in options.enabled_plugins:
-       <a href="/plugins/ups_adj/settings" class="button upload">$_('OPEN')</a>&nbsp;<span id="upsmonitor"></span>    
-       <hr>
-       
+$if options.show_plugin_data:
+    <div id="graph-container" class="graph-container">             
+        <div class="piDatFooter" id="pluginPars"></div>
+              
     $if options.use_weather:
        $if options.weather_status == 0: 
           $_('Weather - No location found!')

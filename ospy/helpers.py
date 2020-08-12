@@ -579,6 +579,8 @@ def template_globals():
     from ospy.stations import stations
     from ospy import version
     from ospy.server import session
+    from ospy.webpages import pluginFtr
+    from ospy.webpages import pluginStn
 
     result = {
         'str': str,
@@ -681,4 +683,5 @@ def ASCI_convert(name):
      return None
   name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", ' ', name)
   return name
+
   

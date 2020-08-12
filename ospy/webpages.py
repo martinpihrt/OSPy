@@ -26,6 +26,10 @@ import plugins
 from . import i18n
 from blinker import signal
 
+plugin_data = {}  # Empty dictionary to hold plugin based global data
+pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
+pluginStn = []    # Empty list of dicts to hold plugin data for display on timeline
+
 loggedin = signal('loggedin')
 def report_login():
     loggedin.send()
@@ -895,3 +899,127 @@ class api_balance_json(ProtectedPage):
 
         web.header('Content-Type', 'application/json')
         return json.dumps(statuslist, indent=2)
+
+
+class api_plugin_data(ProtectedPage):
+    """Simple plugin data API"""
+
+    def GET(self):
+        footer_data = []
+        station_data = []
+        data = {}
+        for i, v in enumerate(pluginFtr):
+            footer_data.append((i, v[u"val"]))           
+        for v in pluginStn:
+            station_data.append(v[1])       
+        data["fdata"] = footer_data
+        data["sdata"] = station_data
+        return json.dumps(data)     
+
+
+class showInFooter(object):
+    """Enables plugins to display e.g. sensor reagings in the footer of OSPy's UI"""
+    
+    def __init__(self, label = "", val = "", unit = "", button = ""):
+        self._label = label
+        self._val = val
+        self._unit = unit
+        self._button = button
+        self._idx = None
+        
+        self._idx = len(pluginFtr)
+        pluginFtr.append({u"label": self._label, u"val": self._val, u"unit": self._unit, u"button": self._button})
+           
+    @property
+    def label(self):
+        if not self._label:
+            return _('Label not set')
+        else:
+            return self._label
+    
+    @label.setter
+    def label(self, text):
+        self._label = text
+        if self._label:
+            pluginFtr[self._idx][u"label"] = self._label + ": "
+    
+    @property
+    def val(self):
+        if self._val == "":
+            return _('Value not set')
+        else:
+            return self._val
+    
+    @val.setter
+    def val(self, num):
+        self._val = num
+        pluginFtr[self._idx][u"val"] = self._val
+
+    @property
+    def unit(self):
+        if not self.unit:
+            return _('Unit not set')
+        else:
+            return self._unit
+    
+    @unit.setter
+    def unit(self, text):
+        self._unit = text
+        pluginFtr[self._idx][u"unit"] = " " + self._unit 
+
+
+    @property
+    def button(self):
+        if not self.button:
+            return '-'
+        else:
+            return self._button
+    
+    @button.setter
+    def button(self, text):
+        self._button = text
+        pluginFtr[self._idx][u"button"] = self._button
+
+
+class showOnTimeline:
+    """ Used to display plugin data next to station time countdown on home page timeline. 
+        use [instance name].unit = [unit name] to set unit for data e.g. "lph".
+        use [instance name].val = [plugin data] to display plugin data
+        use [instance name].clear to remove from display e.g. if station not included in plugin.
+    """
+    
+    def __init__(self, val = "", unit = ""):
+        self._val = val
+        self._unit = unit
+        self._idx = None
+    
+        self._idx = len(pluginStn)
+        pluginStn.append([self._unit, self._val])
+        
+    @property
+    def clear(self):
+        del pluginStn[self._idx][:] #  Remove elements of list but keep empty list
+            
+    @property
+    def unit(self):
+        if not self.unit:
+            return _('Unit not set')
+        else:
+            return self._unit
+    
+    @unit.setter
+    def unit(self, text):
+        self._unit = text
+        pluginStn[self._idx][0] = self._unit
+        
+    @property
+    def val(self):
+        if not self._val:
+            return _('Value not set')
+        else:
+            return self._val
+    
+    @val.setter
+    def val(self, num):
+        self._val = num
+        pluginStn[self._idx][1] = self._val

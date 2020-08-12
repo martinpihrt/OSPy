@@ -31,6 +31,7 @@ urls = [
 
     '/api', api.get_app(),
     '/plugins', plugins.get_app(),
+    '/plugindata', 'ospy.webpages.api_plugin_data',
 
     '/download', 'ospy.webpages.download_page',
     '/upload', 'ospy.webpages.upload_page',

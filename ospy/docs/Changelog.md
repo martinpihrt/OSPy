@@ -6,6 +6,7 @@ Aug 12 2020
 (martinpihrt)<br/>
 Changes:<br/>
 Added strings for translation into all graphs, translation into Czech and into other language translations (machine translations).
+Add plugin data display (any plugin now allows you to display data on the home screen). Better loading of data from plugins. Completion of translations. Netatmo delay fix.
 
 Aug 4 2020
 -----------
