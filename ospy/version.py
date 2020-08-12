@@ -17,7 +17,7 @@ try:
     revision = int(subprocess.check_output([u"git", u"rev-list", u"--count", u"--first-parent", u"HEAD"]))
     ver_str = u"%d.%d.%d" % (major_ver, minor_ver, (revision-old_count))
 except Exception:
-    logging.warning(_(u"Could not use git to determine revision!"))
+    logging.warning(_(u'Could not use git to determine revision!'))
     revision = 999
     ver_str = u"{}.{}.{}".format(major_ver, minor_ver, revision)
 
@@ -25,5 +25,5 @@ try:
     ver_date = subprocess.check_output([u"git", u"log", u"-1", u"--format=%cd", u"--date=short"]).strip()
     ver_date = ver_date.decode('utf-8')
 except Exception:
-    logging.warning(_(u"Could not use git to determine date of last commit!"))
-    ver_date = u"2020-08-04"
+    logging.warning(_(u'Could not use git to determine date of last commit!'))
+    ver_date = u"2020-08-12"

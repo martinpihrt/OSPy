@@ -293,24 +293,24 @@ function draw_graph(result) {
     for (var i = 0; i < result.length; i++) {
         var balances = [];
         var texts = [];
-        var txt_header = "<table class=\"balanceList\"><tr><th>$_('Reason')</th><th>(mm)</th></tr>";
+        var txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
         var txt_body = "";
         var txt_footer = "</table>";
         for (timestamp in result[i]['balances']) {
             var balance = result[i]['balances'][timestamp];
             balances.push([1000*parseInt(timestamp), balance['total']]);
-            txt_body += "<tr><td>$_('ETo')</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
-            txt_body += "<tr><td>$_('Rain')</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
 
             for (var j = 0; j < balance['intervals'].length; j++) {
                 var interval = balance['intervals'][j]
                 txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
             }
 
-            txt_body += "<tr><th>$_('Total')</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
+            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
             texts.push(result[i]['station'] + " @ " + toXSDate(new Date(1000*parseInt(timestamp))) + "<br>" + txt_header + txt_body + txt_footer);
 
-            txt_body = "<tr><td>$_('Previous')</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
+            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
         }
 
         if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
@@ -323,7 +323,7 @@ function draw_graph(result) {
             graph_text.push(texts);
         }
     }
-
+    var yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
     return jQuery.plot("#graph-placeholder", data, {
         series: {
             lines: {
@@ -349,7 +349,7 @@ function draw_graph(result) {
         },
         yaxes: [{
             position: 'left',
-            axisLabel: '$_('Water balance (mm)')',
+            axisLabel: yLabels
         }],
         selection: {
             mode: 'x'

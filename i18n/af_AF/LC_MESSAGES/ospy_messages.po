@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-04 11:46+CEST\n"
-"PO-Revision-Date: 2020-08-04 12:34+0200\n"
+"POT-Creation-Date: 2020-08-12 07:51+CEST\n"
+"PO-Revision-Date: 2020-08-12 08:48+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: af\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ospy/helpers.py:420
@@ -815,6 +815,11 @@ msgstr "Nm"
 msgid "Manage"
 msgstr "Bestuur"
 
+#: ospy/templates/base.html:125
+#, fuzzy
+msgid "Package name"
+msgstr "Pakket: Relay Test"
+
 #: ospy/templates/base.html:129
 #, fuzzy
 msgid "OSPy - OpenSprinkler Python"
@@ -913,9 +918,8 @@ msgid "Software"
 msgstr "Sagteware"
 
 #: ospy/templates/base.html:168
-#, fuzzy
 msgid "version"
-msgstr "Weergawe"
+msgstr "weergawe"
 
 #: ospy/templates/base.html:170
 #, fuzzy
@@ -994,6 +998,51 @@ msgstr "Tik ure om te vertraag"
 msgid "Delay must be a positive value"
 msgstr "Vertraging moet 'n positiewe waarde"
 
+#: ospy/templates/home.html:296
+#, fuzzy
+msgid "(mm)"
+msgstr "mm"
+
+#: ospy/templates/home.html:296
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#: plugins/ping_monitor/templates/ping_monitor.html:22
+#: plugins/pressure_monitor/templates/pressure_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/ups_adj/templates/ups_adj.html:22
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+msgid "Reason"
+msgstr "Rede"
+
+#: ospy/templates/home.html:302
+#, fuzzy
+msgid "ETo"
+msgstr "ETo"
+
+#: ospy/templates/home.html:303
+#, fuzzy
+msgid "Rain"
+msgstr "Reën"
+
+#: ospy/templates/home.html:310 ospy/templates/home.html:510
+#, fuzzy
+msgid "Total"
+msgstr "Totale"
+
+#: ospy/templates/home.html:313
+#: plugins/ping_monitor/templates/ping_monitor.html:36
+#: plugins/pressure_monitor/templates/pressure_monitor.html:36
+#: plugins/tank_monitor/templates/tank_monitor.html:36
+#: plugins/ups_adj/templates/ups_adj.html:36
+#: plugins/wind_monitor/templates/wind_monitor.html:36
+#, fuzzy
+msgid "Previous Value"
+msgstr "Vorige waarde"
+
+#: ospy/templates/home.html:326
+#, fuzzy
+msgid "Water balance (mm)"
+msgstr "Water balans (mm)"
+
 #: ospy/templates/home.html:442
 #, fuzzy
 msgid "Timer values wrong:"
@@ -1051,11 +1100,6 @@ msgstr "Watervlak aanpassings"
 msgid "User"
 msgstr "Gebruiker"
 
-#: ospy/templates/home.html:510
-#, fuzzy
-msgid "Total"
-msgstr "Totale"
-
 #: ospy/templates/home.html:541 ospy/templates/home.html:552
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
@@ -1101,7 +1145,7 @@ msgstr "Laai tans..."
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
 #: plugins/tank_monitor/templates/tank_monitor.html:277
 #: plugins/ups_adj/templates/ups_adj.html:249
-#: plugins/wind_monitor/templates/wind_monitor.html:278
+#: plugins/wind_monitor/templates/wind_monitor.html:280
 #, fuzzy
 msgid "Clear selection"
 msgstr "Vee seleksie uit"
@@ -1172,7 +1216,7 @@ msgstr "nee"
 #: plugins/tank_monitor/templates/tank_monitor.html:174
 #: plugins/ups_adj/templates/ups_adj.html:176
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
-#: plugins/wind_monitor/templates/wind_monitor.html:176
+#: plugins/wind_monitor/templates/wind_monitor.html:178
 #, fuzzy
 msgid "Download log as"
 msgstr "Laai log af as"
@@ -1495,7 +1539,7 @@ msgstr "Dien veranderinge in"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/webcam/templates/webcam.html:70
-#: plugins/wind_monitor/templates/wind_monitor.html:267
+#: plugins/wind_monitor/templates/wind_monitor.html:269
 msgid "Cancel"
 msgstr "Kanselleer"
 
@@ -1961,6 +2005,28 @@ msgstr "Geskrap alle loglêers OK"
 msgid "Air Temperature and Humidity Monitor"
 msgstr "Lugtemperatuur en humiditeit monitor"
 
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#, fuzzy
+msgid "(&deg;C)"
+msgstr "(&deg; C)"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:34
+#, fuzzy
+#| msgid "Temperature"
+msgid "Actual Temperature"
+msgstr "Temperatuur"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:36
+#, fuzzy
+msgid "Previous Temperature"
+msgstr "Beskerm temperatuur"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:49
+#, fuzzy
+#| msgid "Temperature"
+msgid "Temperatures &deg;C"
+msgstr "Temperatuur"
+
 #: plugins/air_temp_humi/templates/air_temp_humi.html:173
 #, fuzzy
 msgid ""
@@ -1993,7 +2059,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:174
 #: plugins/tank_monitor/templates/tank_monitor.html:175
 #: plugins/ups_adj/templates/ups_adj.html:174
-#: plugins/wind_monitor/templates/wind_monitor.html:177
+#: plugins/wind_monitor/templates/wind_monitor.html:179
 #, fuzzy
 msgid ""
 "If logging is enabled, a graph with measured data will be displayed at the "
@@ -2017,7 +2083,7 @@ msgstr "Aktiveer die inprop en dan aktiveer die DHT, ds18b20 en Logging"
 #: plugins/tank_monitor/templates/tank_monitor.html:238
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:238
+#: plugins/wind_monitor/templates/wind_monitor.html:240
 msgid "Enable logging"
 msgstr "Aktiveer in/uiteken"
 
@@ -2026,7 +2092,7 @@ msgstr "Aktiveer in/uiteken"
 #: plugins/tank_monitor/templates/tank_monitor.html:244
 #: plugins/ups_adj/templates/ups_adj.html:221
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
-#: plugins/wind_monitor/templates/wind_monitor.html:244
+#: plugins/wind_monitor/templates/wind_monitor.html:246
 #, fuzzy
 msgid "Maximum number of log records"
 msgstr "Maksimum aantal logrekords"
@@ -2036,7 +2102,7 @@ msgstr "Maksimum aantal logrekords"
 #: plugins/tank_monitor/templates/tank_monitor.html:246
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
-#: plugins/wind_monitor/templates/wind_monitor.html:246
+#: plugins/wind_monitor/templates/wind_monitor.html:248
 #, fuzzy
 msgid "0 = unlimited"
 msgstr "0 = Unlimited"
@@ -2044,7 +2110,7 @@ msgstr "0 = Unlimited"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:204
 #: plugins/tank_monitor/templates/tank_monitor.html:250
 #: plugins/volt_temp_da/templates/volt_temp_da.html:53
-#: plugins/wind_monitor/templates/wind_monitor.html:250
+#: plugins/wind_monitor/templates/wind_monitor.html:252
 #, fuzzy
 msgid "Interval for logging"
 msgstr "Interval vir Logging"
@@ -2052,7 +2118,7 @@ msgstr "Interval vir Logging"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:206
 #: plugins/tank_monitor/templates/tank_monitor.html:252
 #: plugins/volt_temp_da/templates/volt_temp_da.html:55
-#: plugins/wind_monitor/templates/wind_monitor.html:252
+#: plugins/wind_monitor/templates/wind_monitor.html:254
 #, fuzzy
 msgid "minutes (Minimum is 1)"
 msgstr "minute (minimum is 1)"
@@ -2152,7 +2218,7 @@ msgstr "Gebruik DS18B20"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:73
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:105
 #: plugins/webcam/templates/webcam.html:54
-#: plugins/wind_monitor/templates/wind_monitor.html:257
+#: plugins/wind_monitor/templates/wind_monitor.html:259
 msgid "Status"
 msgstr "Status"
 
@@ -2186,7 +2252,7 @@ msgstr "Status"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
 #: plugins/webcam/templates/webcam.html:69
-#: plugins/wind_monitor/templates/wind_monitor.html:266
+#: plugins/wind_monitor/templates/wind_monitor.html:268
 msgid "Submit"
 msgstr "Dien in"
 
@@ -2195,7 +2261,7 @@ msgstr "Dien in"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:246
 #: plugins/tank_monitor/templates/tank_monitor.html:268
 #: plugins/ups_adj/templates/ups_adj.html:240
-#: plugins/wind_monitor/templates/wind_monitor.html:269
+#: plugins/wind_monitor/templates/wind_monitor.html:271
 #, fuzzy
 msgid "Delete all logs"
 msgstr "Skrap alle logboeke"
@@ -2812,7 +2878,7 @@ msgstr "Stuur e-pos aan"
 #: plugins/tank_monitor/templates/tank_monitor.html:221
 #: plugins/ups_adj/templates/ups_adj.html:204
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
-#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:234
 #, fuzzy
 msgid "E-mail subject"
 msgstr "E-pos onderwerp"
@@ -3509,6 +3575,23 @@ msgstr "Opsies is bygewerk."
 msgid "Ping monitor settings"
 msgstr "Ping monitor instellings"
 
+#: plugins/ping_monitor/templates/ping_monitor.html:34
+#: plugins/pressure_monitor/templates/pressure_monitor.html:34
+#: plugins/tank_monitor/templates/tank_monitor.html:34
+#: plugins/ups_adj/templates/ups_adj.html:34
+#: plugins/wind_monitor/templates/wind_monitor.html:34
+#, fuzzy
+msgid "Actual Value"
+msgstr "Werklike"
+
+#: plugins/ping_monitor/templates/ping_monitor.html:49
+#: plugins/pressure_monitor/__init__.py:299
+#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
+#: plugins/ups_adj/__init__.py:390
+#, fuzzy
+msgid "State"
+msgstr "Staat"
+
 #: plugins/ping_monitor/templates/ping_monitor.html:172
 #, fuzzy
 msgid ""
@@ -3735,7 +3818,7 @@ msgstr "Onaktief"
 #: plugins/pressure_monitor/__init__.py:356
 #, fuzzy
 msgid "ACTIVE"
-msgstr "Aktiewe"
+msgstr "Aktief"
 
 #: plugins/pressure_monitor/__init__.py:293
 #: plugins/tank_monitor/__init__.py:414 plugins/ups_adj/__init__.py:297
@@ -3744,18 +3827,16 @@ msgstr "Aktiewe"
 msgid "Saving to log  files OK"
 msgstr "Stoor na loglêers OK"
 
-#: plugins/pressure_monitor/__init__.py:299
-#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
-#: plugins/ups_adj/__init__.py:390
-#, fuzzy
-msgid "State"
-msgstr "Staat"
-
 #: plugins/pressure_monitor/templates/pressure_monitor.html:3
 #: plugins/pressure_monitor/templates/pressure_monitor.html:171
 #, fuzzy
 msgid "Pressure monitor settings"
 msgstr "Druk monitor instellings"
+
+#: plugins/pressure_monitor/templates/pressure_monitor.html:49
+#, fuzzy
+msgid "2 master on, 1 pres check, 0 stop"
+msgstr "2 Meester op, 1 druk tjek, 0 stop"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:172
 #, fuzzy
@@ -5090,7 +5171,7 @@ msgstr "Verslag van OSPy stelsel UPDATE plugin"
 #: plugins/system_update/__init__.py:47
 #, fuzzy
 msgid "None!"
-msgstr "Geen!"
+msgstr "Geen"
 
 #: plugins/system_update/__init__.py:99
 #, fuzzy
@@ -5194,7 +5275,7 @@ msgstr "Stuur e-pos indien bywerking beskikbaar is"
 #: plugins/system_update/templates/system_update.html:63
 #: plugins/tank_monitor/templates/tank_monitor.html:217
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
-#: plugins/wind_monitor/templates/wind_monitor.html:195
+#: plugins/wind_monitor/templates/wind_monitor.html:197
 #, fuzzy
 msgid "For this function required email plugin"
 msgstr "Vir hierdie funksie vereis e-pos plugin"
@@ -5399,6 +5480,12 @@ msgstr "Die watertenkmonitor is versper."
 msgid "Water tank monitor settings"
 msgstr "Watertenk monitor instellings"
 
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:49
+#, fuzzy
+msgid "cm, liters or m<sup>3</sup>"
+msgstr "cm, liter of m<sup>3</sup>"
+
 #: plugins/tank_monitor/templates/tank_monitor.html:172
 #, fuzzy
 msgid "This plugin check water level in water tank via ultrasonic sensor on"
@@ -5523,6 +5610,11 @@ msgstr "Onderbrekinglose kragtoevoer-inprop is begin."
 #, fuzzy
 msgid "UPS monitor settings"
 msgstr "Onderbrekinglose kragtoevoer monitor instellings"
+
+#: plugins/ups_adj/templates/ups_adj.html:49
+#, fuzzy
+msgid "Measured status on/off"
+msgstr "Meesterstasie"
 
 #: plugins/ups_adj/templates/ups_adj.html:172
 #, fuzzy
@@ -5999,7 +6091,7 @@ msgstr "Meester stasie 1 gestop, toonbank voltooi ..."
 #: plugins/water_consumption_counter/__init__.py:192
 #, fuzzy
 msgid "liter"
-msgstr "liter"
+msgstr "Liter"
 
 #: plugins/water_consumption_counter/__init__.py:161
 #: plugins/water_consumption_counter/__init__.py:191
@@ -6078,7 +6170,7 @@ msgstr "Stuur e-pos met water verbruik"
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:64
 #, fuzzy
 msgid "liter."
-msgstr "liter."
+msgstr "Liter"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:57
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:66
@@ -6174,19 +6266,19 @@ msgid "Water meter settings"
 msgstr "Water meter-instellings"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "This plugin needs an enabled"
 msgstr "Hierdie inprop benodig 'n geaktiveerde"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "address 0x50 or 0x51."
 msgstr "adres 0x50 of 0x51."
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "bus and connected counter PCF8583 on"
 msgstr "bus en verbind toonbank PCF8583 op"
@@ -6206,13 +6298,13 @@ msgid "Use Water Meter"
 msgstr "Gebruik watermeter"
 
 #: plugins/water_meter/templates/water_meter.html:33
-#: plugins/wind_monitor/templates/wind_monitor.html:187
+#: plugins/wind_monitor/templates/wind_monitor.html:189
 #, fuzzy
 msgid "address 0x50"
 msgstr "adres 0x50"
 
 #: plugins/water_meter/templates/water_meter.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:189
+#: plugins/wind_monitor/templates/wind_monitor.html:191
 #, fuzzy
 msgid "if checked 0x51"
 msgstr "as nagegaan 0x51"
@@ -6247,10 +6339,21 @@ msgstr "Weer gebaseer Reënvertraging"
 msgid "Checking rain status"
 msgstr "Kontroleer reënstatus"
 
+#: plugins/weather_based_rain_delay/__init__.py:107
+#, fuzzy
+msgid "Netatmo detected Rain"
+msgstr "Stelsel het reën bespeur."
+
+#: plugins/weather_based_rain_delay/__init__.py:107
 #: plugins/weather_based_rain_delay/__init__.py:114
 #, fuzzy
-msgid "Rain detected"
-msgstr "Reën bespeur"
+msgid "Adding delay of"
+msgstr "Voeg vertraging van"
+
+#: plugins/weather_based_rain_delay/__init__.py:114
+#, fuzzy
+msgid "Weather detected Rain"
+msgstr "Goeie weer bespeur"
 
 #: plugins/weather_based_rain_delay/__init__.py:119
 #, fuzzy
@@ -6726,12 +6829,22 @@ msgid "Wind monitor is disabled."
 msgstr "Wind monitor is versper."
 
 #: plugins/wind_monitor/templates/wind_monitor.html:3
-#: plugins/wind_monitor/templates/wind_monitor.html:171
+#: plugins/wind_monitor/templates/wind_monitor.html:173
 #, fuzzy
 msgid "Wind Speed Monitor settings"
 msgstr "Wind spoed monitor instellings"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:172
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+#, fuzzy
+msgid "(m/sec)"
+msgstr "m/sec"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:50
+#, fuzzy
+msgid "Wind m/sec"
+msgstr "m/sec"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:174
 #, fuzzy
 msgid ""
 "This plugin checked wind speed, if station is switched on and actual wind "
@@ -6742,59 +6855,63 @@ msgstr ""
 "spoed is > wind spoed waarde in opsies, skakel alle stasie en stuur e-pos "
 "met fout. Voorkom veiligheid vir skuld natmaak."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:174
+#: plugins/wind_monitor/templates/wind_monitor.html:176
 #, fuzzy
 msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
 msgstr "(1m/s = 3, 6 km/h/1m/s = 2 237 myl/h)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor.html:177
 #, fuzzy
 msgid "Maximum detected speed is 150 km/h (42 m/sec)."
 msgstr "Maksimum bespeurde spoed is 150 km/h (42 m/sec)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:181
+#: plugins/wind_monitor/templates/wind_monitor.html:183
 #, fuzzy
 msgid "Use wind monitor"
 msgstr "Gebruik wind monitor"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:193
+#: plugins/wind_monitor/templates/wind_monitor.html:195
 #, fuzzy
 msgid "Send email with error"
 msgstr "Stuur e-pos met fout"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:199
+#: plugins/wind_monitor/templates/wind_monitor.html:201
 #, fuzzy
 msgid "Number of pulses"
 msgstr "Aantal Pulse"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:201
+#: plugins/wind_monitor/templates/wind_monitor.html:203
 #, fuzzy
 msgid "pulses/rotation"
 msgstr "Pulse/rotasie"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:205
+#: plugins/wind_monitor/templates/wind_monitor.html:207
 #, fuzzy
 msgid "Number of wind speed per rotation"
 msgstr "Aantal windspoed per rotasie"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:207
-#: plugins/wind_monitor/templates/wind_monitor.html:213
-#: plugins/wind_monitor/templates/wind_monitor.html:226
+#: plugins/wind_monitor/templates/wind_monitor.html:209
+#: plugins/wind_monitor/templates/wind_monitor.html:215
+#: plugins/wind_monitor/templates/wind_monitor.html:228
 #, fuzzy
 msgid "m/s"
 msgstr "m/s"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:211
+#: plugins/wind_monitor/templates/wind_monitor.html:213
 #, fuzzy
 msgid "Max wind speed for stop stations"
 msgstr "Maksimum windspoed vir stopstasies"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:217
+#: plugins/wind_monitor/templates/wind_monitor.html:219
 #, fuzzy
 msgid "Wind speed state (every 10 sec)"
 msgstr "Wind spoed staat (elke 10 sec)"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:268
+#: plugins/wind_monitor/templates/wind_monitor.html:270
 #, fuzzy
 msgid "Reset max speed"
 msgstr "Stel maksimum spoed terug"
+
+#, fuzzy
+#~ msgid "Rain detected"
+#~ msgstr "Reën bespeur"

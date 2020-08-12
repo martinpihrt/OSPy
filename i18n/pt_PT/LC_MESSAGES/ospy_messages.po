@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-04 11:46+CEST\n"
-"PO-Revision-Date: 2020-08-04 13:14+0200\n"
+"POT-Creation-Date: 2020-08-12 07:51+CEST\n"
+"PO-Revision-Date: 2020-08-12 08:57+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ospy/helpers.py:420
@@ -800,6 +800,10 @@ msgstr "pm"
 msgid "Manage"
 msgstr "Gerenciar"
 
+#: ospy/templates/base.html:125
+msgid "Package name"
+msgstr "Nome do pacote"
+
 #: ospy/templates/base.html:129
 #, fuzzy
 msgid "OSPy - OpenSprinkler Python"
@@ -974,6 +978,49 @@ msgstr "Insira horas para atrasar"
 msgid "Delay must be a positive value"
 msgstr "O atraso deve ser um valor positivo"
 
+#: ospy/templates/home.html:296
+#, fuzzy
+msgid "(mm)"
+msgstr "(mm)"
+
+#: ospy/templates/home.html:296
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#: plugins/ping_monitor/templates/ping_monitor.html:22
+#: plugins/pressure_monitor/templates/pressure_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/ups_adj/templates/ups_adj.html:22
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+msgid "Reason"
+msgstr "Razão"
+
+#: ospy/templates/home.html:302
+#, fuzzy
+msgid "ETo"
+msgstr "Eto"
+
+#: ospy/templates/home.html:303
+msgid "Rain"
+msgstr "Chuva"
+
+#: ospy/templates/home.html:310 ospy/templates/home.html:510
+msgid "Total"
+msgstr "Total"
+
+#: ospy/templates/home.html:313
+#: plugins/ping_monitor/templates/ping_monitor.html:36
+#: plugins/pressure_monitor/templates/pressure_monitor.html:36
+#: plugins/tank_monitor/templates/tank_monitor.html:36
+#: plugins/ups_adj/templates/ups_adj.html:36
+#: plugins/wind_monitor/templates/wind_monitor.html:36
+#, fuzzy
+msgid "Previous Value"
+msgstr "Valor anterior"
+
+#: ospy/templates/home.html:326
+#, fuzzy
+msgid "Water balance (mm)"
+msgstr "Equilíbrio hídrico (mm)"
+
 #: ospy/templates/home.html:442
 #, fuzzy
 msgid "Timer values wrong:"
@@ -1031,10 +1078,6 @@ msgstr "Ajustes no nível da água"
 msgid "User"
 msgstr "Usuário"
 
-#: ospy/templates/home.html:510
-msgid "Total"
-msgstr "Total"
-
 #: ospy/templates/home.html:541 ospy/templates/home.html:552
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
@@ -1077,7 +1120,7 @@ msgstr "carregando..."
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
 #: plugins/tank_monitor/templates/tank_monitor.html:277
 #: plugins/ups_adj/templates/ups_adj.html:249
-#: plugins/wind_monitor/templates/wind_monitor.html:278
+#: plugins/wind_monitor/templates/wind_monitor.html:280
 msgid "Clear selection"
 msgstr "Limpar seleção"
 
@@ -1143,7 +1186,7 @@ msgstr "não"
 #: plugins/tank_monitor/templates/tank_monitor.html:174
 #: plugins/ups_adj/templates/ups_adj.html:176
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
-#: plugins/wind_monitor/templates/wind_monitor.html:176
+#: plugins/wind_monitor/templates/wind_monitor.html:178
 #, fuzzy
 msgid "Download log as"
 msgstr "Baixe o registro como"
@@ -1450,7 +1493,7 @@ msgstr "Salvar alterações"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/webcam/templates/webcam.html:70
-#: plugins/wind_monitor/templates/wind_monitor.html:267
+#: plugins/wind_monitor/templates/wind_monitor.html:269
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1892,6 +1935,28 @@ msgstr "Excluiu todos os arquivos de log OK"
 msgid "Air Temperature and Humidity Monitor"
 msgstr "Monitor de Temperatura e Umidade do Ar"
 
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#, fuzzy
+msgid "(&deg;C)"
+msgstr "(&deg;C)"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:34
+#, fuzzy
+#| msgid "Temperature"
+msgid "Actual Temperature"
+msgstr "Temperatura"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:36
+#, fuzzy
+msgid "Previous Temperature"
+msgstr "Proteger a temperatura"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:49
+#, fuzzy
+#| msgid "Temperature"
+msgid "Temperatures &deg;C"
+msgstr "Temperatura"
+
 #: plugins/air_temp_humi/templates/air_temp_humi.html:173
 #, fuzzy
 msgid ""
@@ -1924,7 +1989,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:174
 #: plugins/tank_monitor/templates/tank_monitor.html:175
 #: plugins/ups_adj/templates/ups_adj.html:174
-#: plugins/wind_monitor/templates/wind_monitor.html:177
+#: plugins/wind_monitor/templates/wind_monitor.html:179
 #, fuzzy
 msgid ""
 "If logging is enabled, a graph with measured data will be displayed at the "
@@ -1948,7 +2013,7 @@ msgstr "Habilite o plugin e, em seguida, habilite o dht, ds18b20 e o registro"
 #: plugins/tank_monitor/templates/tank_monitor.html:238
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:238
+#: plugins/wind_monitor/templates/wind_monitor.html:240
 msgid "Enable logging"
 msgstr "Ativar Logs"
 
@@ -1957,7 +2022,7 @@ msgstr "Ativar Logs"
 #: plugins/tank_monitor/templates/tank_monitor.html:244
 #: plugins/ups_adj/templates/ups_adj.html:221
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
-#: plugins/wind_monitor/templates/wind_monitor.html:244
+#: plugins/wind_monitor/templates/wind_monitor.html:246
 #, fuzzy
 msgid "Maximum number of log records"
 msgstr "Número máximo de registros de registros"
@@ -1967,7 +2032,7 @@ msgstr "Número máximo de registros de registros"
 #: plugins/tank_monitor/templates/tank_monitor.html:246
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
-#: plugins/wind_monitor/templates/wind_monitor.html:246
+#: plugins/wind_monitor/templates/wind_monitor.html:248
 #, fuzzy
 msgid "0 = unlimited"
 msgstr "0 = ilimitado"
@@ -1975,7 +2040,7 @@ msgstr "0 = ilimitado"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:204
 #: plugins/tank_monitor/templates/tank_monitor.html:250
 #: plugins/volt_temp_da/templates/volt_temp_da.html:53
-#: plugins/wind_monitor/templates/wind_monitor.html:250
+#: plugins/wind_monitor/templates/wind_monitor.html:252
 #, fuzzy
 msgid "Interval for logging"
 msgstr "Intervalo para registro"
@@ -1983,7 +2048,7 @@ msgstr "Intervalo para registro"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:206
 #: plugins/tank_monitor/templates/tank_monitor.html:252
 #: plugins/volt_temp_da/templates/volt_temp_da.html:55
-#: plugins/wind_monitor/templates/wind_monitor.html:252
+#: plugins/wind_monitor/templates/wind_monitor.html:254
 #, fuzzy
 msgid "minutes (Minimum is 1)"
 msgstr "minutos (O mínimo é 1)"
@@ -2082,7 +2147,7 @@ msgstr "Usado DS18B20"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:73
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:105
 #: plugins/webcam/templates/webcam.html:54
-#: plugins/wind_monitor/templates/wind_monitor.html:257
+#: plugins/wind_monitor/templates/wind_monitor.html:259
 msgid "Status"
 msgstr "Status"
 
@@ -2116,7 +2181,7 @@ msgstr "Status"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
 #: plugins/webcam/templates/webcam.html:69
-#: plugins/wind_monitor/templates/wind_monitor.html:266
+#: plugins/wind_monitor/templates/wind_monitor.html:268
 msgid "Submit"
 msgstr "Enviar"
 
@@ -2125,7 +2190,7 @@ msgstr "Enviar"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:246
 #: plugins/tank_monitor/templates/tank_monitor.html:268
 #: plugins/ups_adj/templates/ups_adj.html:240
-#: plugins/wind_monitor/templates/wind_monitor.html:269
+#: plugins/wind_monitor/templates/wind_monitor.html:271
 msgid "Delete all logs"
 msgstr "Excluir todos os registros"
 
@@ -2730,7 +2795,7 @@ msgstr "Enviar e-mail para"
 #: plugins/tank_monitor/templates/tank_monitor.html:221
 #: plugins/ups_adj/templates/ups_adj.html:204
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
-#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:234
 msgid "E-mail subject"
 msgstr "Assunto do e-mail"
 
@@ -3421,6 +3486,21 @@ msgstr "As opções foram atualizadas."
 msgid "Ping monitor settings"
 msgstr "Configurações do monitor de ping"
 
+#: plugins/ping_monitor/templates/ping_monitor.html:34
+#: plugins/pressure_monitor/templates/pressure_monitor.html:34
+#: plugins/tank_monitor/templates/tank_monitor.html:34
+#: plugins/ups_adj/templates/ups_adj.html:34
+#: plugins/wind_monitor/templates/wind_monitor.html:34
+msgid "Actual Value"
+msgstr "Valor Atual"
+
+#: plugins/ping_monitor/templates/ping_monitor.html:49
+#: plugins/pressure_monitor/__init__.py:299
+#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
+#: plugins/ups_adj/__init__.py:390
+msgid "State"
+msgstr "Estado"
+
 #: plugins/ping_monitor/templates/ping_monitor.html:172
 #, fuzzy
 msgid ""
@@ -3653,17 +3733,16 @@ msgstr "ATIVO"
 msgid "Saving to log  files OK"
 msgstr "Salvando para registrar arquivos OK"
 
-#: plugins/pressure_monitor/__init__.py:299
-#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
-#: plugins/ups_adj/__init__.py:390
-msgid "State"
-msgstr "Estado"
-
 #: plugins/pressure_monitor/templates/pressure_monitor.html:3
 #: plugins/pressure_monitor/templates/pressure_monitor.html:171
 #, fuzzy
 msgid "Pressure monitor settings"
 msgstr "Configurações do monitor de pressão"
+
+#: plugins/pressure_monitor/templates/pressure_monitor.html:49
+#, fuzzy
+msgid "2 master on, 1 pres check, 0 stop"
+msgstr "2 mestre em, 1 pres check, 0 stop"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:172
 #, fuzzy
@@ -5002,7 +5081,7 @@ msgstr "Nenhum"
 #: plugins/system_update/__init__.py:99
 #, fuzzy
 msgid "Up-to-date."
-msgstr "Atualizado."
+msgstr "Moderno"
 
 #: plugins/system_update/__init__.py:102
 #, fuzzy
@@ -5099,7 +5178,7 @@ msgstr "Envie e-mail se a atualização estiver disponível"
 #: plugins/system_update/templates/system_update.html:63
 #: plugins/tank_monitor/templates/tank_monitor.html:217
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
-#: plugins/wind_monitor/templates/wind_monitor.html:195
+#: plugins/wind_monitor/templates/wind_monitor.html:197
 #, fuzzy
 msgid "For this function required email plugin"
 msgstr "Para esta função, o plugin de e-mail necessário"
@@ -5302,6 +5381,12 @@ msgstr "O monitor do tanque de água está desativado."
 msgid "Water tank monitor settings"
 msgstr "Configurações do monitor do reservatório de água"
 
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:49
+#, fuzzy
+msgid "cm, liters or m<sup>3</sup>"
+msgstr "cm, litros ou m<sup>3</sup>"
+
 #: plugins/tank_monitor/templates/tank_monitor.html:172
 #, fuzzy
 msgid "This plugin check water level in water tank via ultrasonic sensor on"
@@ -5429,6 +5514,11 @@ msgstr "O plugin UPS está iniciado."
 #, fuzzy
 msgid "UPS monitor settings"
 msgstr "Configurações do monitor UPS"
+
+#: plugins/ups_adj/templates/ups_adj.html:49
+#, fuzzy
+msgid "Measured status on/off"
+msgstr "Estação mestre"
 
 #: plugins/ups_adj/templates/ups_adj.html:172
 #, fuzzy
@@ -6078,19 +6168,19 @@ msgid "Water meter settings"
 msgstr "Configurações do medidor de água"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "This plugin needs an enabled"
 msgstr "Este plugin precisa de um habilitado"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "address 0x50 or 0x51."
 msgstr "endereço 0x50 ou 0x51."
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "bus and connected counter PCF8583 on"
 msgstr "ônibus e contador conectado PCF8583 em"
@@ -6110,13 +6200,13 @@ msgid "Use Water Meter"
 msgstr "Use medidor de água"
 
 #: plugins/water_meter/templates/water_meter.html:33
-#: plugins/wind_monitor/templates/wind_monitor.html:187
+#: plugins/wind_monitor/templates/wind_monitor.html:189
 #, fuzzy
 msgid "address 0x50"
 msgstr "endereço 0x50"
 
 #: plugins/water_meter/templates/water_meter.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:189
+#: plugins/wind_monitor/templates/wind_monitor.html:191
 #, fuzzy
 msgid "if checked 0x51"
 msgstr "se verificado 0x51"
@@ -6151,10 +6241,21 @@ msgstr "Atraso de chuva baseado no tempo"
 msgid "Checking rain status"
 msgstr "Verificando o estado da chuva"
 
+#: plugins/weather_based_rain_delay/__init__.py:107
+#, fuzzy
+msgid "Netatmo detected Rain"
+msgstr "O sistema detectou chuva."
+
+#: plugins/weather_based_rain_delay/__init__.py:107
 #: plugins/weather_based_rain_delay/__init__.py:114
 #, fuzzy
-msgid "Rain detected"
-msgstr "Chuva detectada"
+msgid "Adding delay of"
+msgstr "Adicionando atraso de"
+
+#: plugins/weather_based_rain_delay/__init__.py:114
+#, fuzzy
+msgid "Weather detected Rain"
+msgstr "Bom tempo detectado"
 
 #: plugins/weather_based_rain_delay/__init__.py:119
 #, fuzzy
@@ -6625,12 +6726,22 @@ msgid "Wind monitor is disabled."
 msgstr "O monitor de vento está desativado."
 
 #: plugins/wind_monitor/templates/wind_monitor.html:3
-#: plugins/wind_monitor/templates/wind_monitor.html:171
+#: plugins/wind_monitor/templates/wind_monitor.html:173
 #, fuzzy
 msgid "Wind Speed Monitor settings"
 msgstr "Configurações do Monitor de Velocidade do Vento"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:172
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+#, fuzzy
+msgid "(m/sec)"
+msgstr "m/seg"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:50
+#, fuzzy
+msgid "Wind m/sec"
+msgstr "m/seg"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:174
 #, fuzzy
 msgid ""
 "This plugin checked wind speed, if station is switched on and actual wind "
@@ -6642,58 +6753,62 @@ msgstr ""
 "desliga toda a estação e envia e-mail com erro. Evite a segurança para rega "
 "por falhas."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:174
+#: plugins/wind_monitor/templates/wind_monitor.html:176
 #, fuzzy
 msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
 msgstr "(1m/s = 3,6 km/h ou 1m/s = 2.237 milhas/h)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor.html:177
 #, fuzzy
 msgid "Maximum detected speed is 150 km/h (42 m/sec)."
 msgstr "A velocidade máxima detectada é de 150 km/h (42 m/seg)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:181
+#: plugins/wind_monitor/templates/wind_monitor.html:183
 #, fuzzy
 msgid "Use wind monitor"
 msgstr "Use monitor de vento"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:193
+#: plugins/wind_monitor/templates/wind_monitor.html:195
 #, fuzzy
 msgid "Send email with error"
 msgstr "Envie e-mail com erro"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:199
+#: plugins/wind_monitor/templates/wind_monitor.html:201
 #, fuzzy
 msgid "Number of pulses"
 msgstr "Número de pulsos"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:201
+#: plugins/wind_monitor/templates/wind_monitor.html:203
 #, fuzzy
 msgid "pulses/rotation"
 msgstr "pulsos/rotação"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:205
+#: plugins/wind_monitor/templates/wind_monitor.html:207
 #, fuzzy
 msgid "Number of wind speed per rotation"
 msgstr "Número de velocidade do vento por rotação"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:207
-#: plugins/wind_monitor/templates/wind_monitor.html:213
-#: plugins/wind_monitor/templates/wind_monitor.html:226
+#: plugins/wind_monitor/templates/wind_monitor.html:209
+#: plugins/wind_monitor/templates/wind_monitor.html:215
+#: plugins/wind_monitor/templates/wind_monitor.html:228
 msgid "m/s"
 msgstr "m/s"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:211
+#: plugins/wind_monitor/templates/wind_monitor.html:213
 #, fuzzy
 msgid "Max wind speed for stop stations"
 msgstr "Velocidade máxima do vento para estações de parada"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:217
+#: plugins/wind_monitor/templates/wind_monitor.html:219
 #, fuzzy
 msgid "Wind speed state (every 10 sec)"
 msgstr "Estado de velocidade do vento (a cada 10 segundos)"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:268
+#: plugins/wind_monitor/templates/wind_monitor.html:270
 #, fuzzy
 msgid "Reset max speed"
 msgstr "Velocidade máxima de reset"
+
+#, fuzzy
+#~ msgid "Rain detected"
+#~ msgstr "Chuva detectada"

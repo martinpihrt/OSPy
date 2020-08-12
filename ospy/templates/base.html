@@ -122,7 +122,7 @@ jQuery(document).ready(function(){
             <a class="button" href="/plugins_manage">$_('Manage')</a><br/>
             $for plugin in plugins.running():
                 $if plugins.get(plugin).LINK:
-                    <a class="button execute" href="${plugins.plugin_url(plugins.get(plugin).LINK)}" title="$_('Package name:') ${plugins.get(plugin).NAME}">${plugins.get(plugin).MENU}</a><br/>
+                    <a class="button execute" href="${plugins.plugin_url(plugins.get(plugin).LINK)}" title="${plugins.get(plugin).NAME}">${plugins.get(plugin).MENU}</a><br/>
         </div>
 
         <div class="header">

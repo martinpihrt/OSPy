@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 12 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added strings for translation into all graphs, translation into Czech and into other language translations (machine translations).
+
 Aug 4 2020
 -----------
 (martinpihrt)<br/>

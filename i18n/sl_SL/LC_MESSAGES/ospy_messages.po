@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-04 11:46+CEST\n"
-"PO-Revision-Date: 2020-08-04 13:19+0200\n"
+"POT-Creation-Date: 2020-08-12 07:51+CEST\n"
+"PO-Revision-Date: 2020-08-12 09:04+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sl\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
 
@@ -713,7 +713,7 @@ msgstr "Zaženi enkrat"
 #: ospy/scheduler.py:121
 #, fuzzy
 msgid "Run-Now"
-msgstr "Zaženi zdaj"
+msgstr "Zaženi Zdaj"
 
 #: ospy/templates/base.html:44
 #: plugins/monthly_water_level/templates/monthly_water_level.html:26
@@ -798,6 +798,11 @@ msgstr "pop."
 #: ospy/templates/base.html:122
 msgid "Manage"
 msgstr "Upravljaj"
+
+#: ospy/templates/base.html:125
+#, fuzzy
+msgid "Package name"
+msgstr "Paket: Test releja"
 
 #: ospy/templates/base.html:129
 #, fuzzy
@@ -912,7 +917,7 @@ msgstr "blokirana s strani"
 #: ospy/templates/home.html:130 ospy/templates/home.html:527
 #, fuzzy
 msgid "On (Master)"
-msgstr "Naprej (mojster)"
+msgstr "Glavna glasnost"
 
 #: ospy/templates/home.html:133 ospy/templates/home.html:533
 #, fuzzy
@@ -971,6 +976,49 @@ msgstr "Vnesite ure za zakasnitev"
 msgid "Delay must be a positive value"
 msgstr "Zakasnitev mora biti pozitivna vrednost"
 
+#: ospy/templates/home.html:296
+msgid "(mm)"
+msgstr "(mm)"
+
+#: ospy/templates/home.html:296
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#: plugins/ping_monitor/templates/ping_monitor.html:22
+#: plugins/pressure_monitor/templates/pressure_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/ups_adj/templates/ups_adj.html:22
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+msgid "Reason"
+msgstr "Razlog"
+
+#: ospy/templates/home.html:302
+#, fuzzy
+msgid "ETo"
+msgstr "Eto"
+
+#: ospy/templates/home.html:303
+#, fuzzy
+msgid "Rain"
+msgstr "Dež"
+
+#: ospy/templates/home.html:310 ospy/templates/home.html:510
+msgid "Total"
+msgstr "Skupaj"
+
+#: ospy/templates/home.html:313
+#: plugins/ping_monitor/templates/ping_monitor.html:36
+#: plugins/pressure_monitor/templates/pressure_monitor.html:36
+#: plugins/tank_monitor/templates/tank_monitor.html:36
+#: plugins/ups_adj/templates/ups_adj.html:36
+#: plugins/wind_monitor/templates/wind_monitor.html:36
+#, fuzzy
+msgid "Previous Value"
+msgstr "Prejšnja vrednost"
+
+#: ospy/templates/home.html:326
+#, fuzzy
+msgid "Water balance (mm)"
+msgstr "Vodna bilanca (mm)"
+
 #: ospy/templates/home.html:442
 #, fuzzy
 msgid "Timer values wrong:"
@@ -1027,10 +1075,6 @@ msgstr "Prilagoditve nivoja vode"
 msgid "User"
 msgstr "Uporabnik"
 
-#: ospy/templates/home.html:510
-msgid "Total"
-msgstr "Skupaj"
-
 #: ospy/templates/home.html:541 ospy/templates/home.html:552
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
@@ -1074,7 +1118,7 @@ msgstr "nalaganje..."
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
 #: plugins/tank_monitor/templates/tank_monitor.html:277
 #: plugins/ups_adj/templates/ups_adj.html:249
-#: plugins/wind_monitor/templates/wind_monitor.html:278
+#: plugins/wind_monitor/templates/wind_monitor.html:280
 msgid "Clear selection"
 msgstr "Odznači"
 
@@ -1141,7 +1185,7 @@ msgstr "ne"
 #: plugins/tank_monitor/templates/tank_monitor.html:174
 #: plugins/ups_adj/templates/ups_adj.html:176
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
-#: plugins/wind_monitor/templates/wind_monitor.html:176
+#: plugins/wind_monitor/templates/wind_monitor.html:178
 #, fuzzy
 msgid "Download log as"
 msgstr "Dnevnik prenosa kot"
@@ -1448,7 +1492,7 @@ msgstr "Pošlji spremembe"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/webcam/templates/webcam.html:70
-#: plugins/wind_monitor/templates/wind_monitor.html:267
+#: plugins/wind_monitor/templates/wind_monitor.html:269
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -1898,6 +1942,28 @@ msgstr "Izbrisane vse dnevniške datoteke V redu"
 msgid "Air Temperature and Humidity Monitor"
 msgstr "Monitor temperature in vlažnosti zraka"
 
+#: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#, fuzzy
+msgid "(&deg;C)"
+msgstr "(&amp;deg;C)"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:34
+#, fuzzy
+#| msgid "Temperature"
+msgid "Actual Temperature"
+msgstr "Temperatura"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:36
+#, fuzzy
+msgid "Previous Temperature"
+msgstr "Zaščitite temperaturo"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:49
+#, fuzzy
+#| msgid "Temperature"
+msgid "Temperatures &deg;C"
+msgstr "Temperatura"
+
 #: plugins/air_temp_humi/templates/air_temp_humi.html:173
 #, fuzzy
 msgid ""
@@ -1930,7 +1996,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:174
 #: plugins/tank_monitor/templates/tank_monitor.html:175
 #: plugins/ups_adj/templates/ups_adj.html:174
-#: plugins/wind_monitor/templates/wind_monitor.html:177
+#: plugins/wind_monitor/templates/wind_monitor.html:179
 #, fuzzy
 msgid ""
 "If logging is enabled, a graph with measured data will be displayed at the "
@@ -1955,7 +2021,7 @@ msgstr "Omogočite plugin in nato omogočite dht, ds18b20 in sečnje"
 #: plugins/tank_monitor/templates/tank_monitor.html:238
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:238
+#: plugins/wind_monitor/templates/wind_monitor.html:240
 msgid "Enable logging"
 msgstr "Omogočite zapisovanje v dnevnik - angl. logging"
 
@@ -1964,7 +2030,7 @@ msgstr "Omogočite zapisovanje v dnevnik - angl. logging"
 #: plugins/tank_monitor/templates/tank_monitor.html:244
 #: plugins/ups_adj/templates/ups_adj.html:221
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
-#: plugins/wind_monitor/templates/wind_monitor.html:244
+#: plugins/wind_monitor/templates/wind_monitor.html:246
 #, fuzzy
 msgid "Maximum number of log records"
 msgstr "Največje število zapisov dnevnika"
@@ -1974,7 +2040,7 @@ msgstr "Največje število zapisov dnevnika"
 #: plugins/tank_monitor/templates/tank_monitor.html:246
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
-#: plugins/wind_monitor/templates/wind_monitor.html:246
+#: plugins/wind_monitor/templates/wind_monitor.html:248
 #, fuzzy
 msgid "0 = unlimited"
 msgstr "0 = neomejeno"
@@ -1982,7 +2048,7 @@ msgstr "0 = neomejeno"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:204
 #: plugins/tank_monitor/templates/tank_monitor.html:250
 #: plugins/volt_temp_da/templates/volt_temp_da.html:53
-#: plugins/wind_monitor/templates/wind_monitor.html:250
+#: plugins/wind_monitor/templates/wind_monitor.html:252
 #, fuzzy
 msgid "Interval for logging"
 msgstr "Interval za pisanje dnevnika"
@@ -1990,7 +2056,7 @@ msgstr "Interval za pisanje dnevnika"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:206
 #: plugins/tank_monitor/templates/tank_monitor.html:252
 #: plugins/volt_temp_da/templates/volt_temp_da.html:55
-#: plugins/wind_monitor/templates/wind_monitor.html:252
+#: plugins/wind_monitor/templates/wind_monitor.html:254
 #, fuzzy
 msgid "minutes (Minimum is 1)"
 msgstr "minut (najmanj 1)"
@@ -2089,7 +2155,7 @@ msgstr "Uporabljen ds18B20"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:73
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:105
 #: plugins/webcam/templates/webcam.html:54
-#: plugins/wind_monitor/templates/wind_monitor.html:257
+#: plugins/wind_monitor/templates/wind_monitor.html:259
 msgid "Status"
 msgstr "Stanje"
 
@@ -2123,7 +2189,7 @@ msgstr "Stanje"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
 #: plugins/webcam/templates/webcam.html:69
-#: plugins/wind_monitor/templates/wind_monitor.html:266
+#: plugins/wind_monitor/templates/wind_monitor.html:268
 msgid "Submit"
 msgstr "Pošlji"
 
@@ -2132,7 +2198,7 @@ msgstr "Pošlji"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:246
 #: plugins/tank_monitor/templates/tank_monitor.html:268
 #: plugins/ups_adj/templates/ups_adj.html:240
-#: plugins/wind_monitor/templates/wind_monitor.html:269
+#: plugins/wind_monitor/templates/wind_monitor.html:271
 #, fuzzy
 msgid "Delete all logs"
 msgstr "Izbriši vse dnevnike"
@@ -2744,7 +2810,7 @@ msgstr "Pošlji e-pošto"
 #: plugins/tank_monitor/templates/tank_monitor.html:221
 #: plugins/ups_adj/templates/ups_adj.html:204
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
-#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:234
 #, fuzzy
 msgid "E-mail subject"
 msgstr "Zadeva e-pošte"
@@ -3435,6 +3501,23 @@ msgstr "Možnosti so se posodobile."
 msgid "Ping monitor settings"
 msgstr "Nastavitve monitorja za preverjanje dosegljivosti"
 
+#: plugins/ping_monitor/templates/ping_monitor.html:34
+#: plugins/pressure_monitor/templates/pressure_monitor.html:34
+#: plugins/tank_monitor/templates/tank_monitor.html:34
+#: plugins/ups_adj/templates/ups_adj.html:34
+#: plugins/wind_monitor/templates/wind_monitor.html:34
+#, fuzzy
+#| msgid "Actual"
+msgid "Actual Value"
+msgstr "Dejansko"
+
+#: plugins/ping_monitor/templates/ping_monitor.html:49
+#: plugins/pressure_monitor/__init__.py:299
+#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
+#: plugins/ups_adj/__init__.py:390
+msgid "State"
+msgstr "Stanje"
+
 #: plugins/ping_monitor/templates/ping_monitor.html:172
 #, fuzzy
 msgid ""
@@ -3667,17 +3750,16 @@ msgstr "AKTIVNO"
 msgid "Saving to log  files OK"
 msgstr "Shranjevanje v dnevniške datoteke V redu"
 
-#: plugins/pressure_monitor/__init__.py:299
-#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
-#: plugins/ups_adj/__init__.py:390
-msgid "State"
-msgstr "Stanje"
-
 #: plugins/pressure_monitor/templates/pressure_monitor.html:3
 #: plugins/pressure_monitor/templates/pressure_monitor.html:171
 #, fuzzy
 msgid "Pressure monitor settings"
 msgstr "Nastavitve tlačnega monitorja"
+
+#: plugins/pressure_monitor/templates/pressure_monitor.html:49
+#, fuzzy
+msgid "2 master on, 1 pres check, 0 stop"
+msgstr "2 poveljnika, 1 pres ček, 0 stop"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:172
 #, fuzzy
@@ -5104,7 +5186,7 @@ msgstr "Pošlji e-pošto, če je na voljo posodobitev"
 #: plugins/system_update/templates/system_update.html:63
 #: plugins/tank_monitor/templates/tank_monitor.html:217
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
-#: plugins/wind_monitor/templates/wind_monitor.html:195
+#: plugins/wind_monitor/templates/wind_monitor.html:197
 #, fuzzy
 msgid "For this function required email plugin"
 msgstr "Za to funkcijo zahteva email plugin"
@@ -5302,6 +5384,12 @@ msgstr "Monitor rezervoarja za vodo je onemogočen."
 msgid "Water tank monitor settings"
 msgstr "Nastavitve monitorja rezervoarja za vodo"
 
+#: plugins/tank_monitor/templates/tank_monitor.html:22
+#: plugins/tank_monitor/templates/tank_monitor.html:49
+#, fuzzy
+msgid "cm, liters or m<sup>3</sup>"
+msgstr "cm, litrov ali m<sup>3</sup>"
+
 #: plugins/tank_monitor/templates/tank_monitor.html:172
 #, fuzzy
 msgid "This plugin check water level in water tank via ultrasonic sensor on"
@@ -5427,6 +5515,11 @@ msgstr "Ups plugin je začel."
 #, fuzzy
 msgid "UPS monitor settings"
 msgstr "Nastavitve monitorja UPS"
+
+#: plugins/ups_adj/templates/ups_adj.html:49
+#, fuzzy
+msgid "Measured status on/off"
+msgstr "Glavna postaja"
 
 #: plugins/ups_adj/templates/ups_adj.html:172
 #, fuzzy
@@ -5974,7 +6067,7 @@ msgstr "Pošljite e-pošto s porabo vode"
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:64
 #, fuzzy
 msgid "liter."
-msgstr "v redu."
+msgstr "Liter"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:57
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:66
@@ -6070,19 +6163,19 @@ msgid "Water meter settings"
 msgstr "Nastavitve merilnika vode"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "This plugin needs an enabled"
 msgstr "Ta vtičnik potrebuje omogočeno"
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "address 0x50 or 0x51."
 msgstr "naslov 0x50 ali 0x51."
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:173
+#: plugins/wind_monitor/templates/wind_monitor.html:175
 #, fuzzy
 msgid "bus and connected counter PCF8583 on"
 msgstr "in priključenim števec PCF8583 na"
@@ -6102,13 +6195,13 @@ msgid "Use Water Meter"
 msgstr "Uporaba merilnika vode"
 
 #: plugins/water_meter/templates/water_meter.html:33
-#: plugins/wind_monitor/templates/wind_monitor.html:187
+#: plugins/wind_monitor/templates/wind_monitor.html:189
 #, fuzzy
 msgid "address 0x50"
 msgstr "naslov 0x50"
 
 #: plugins/water_meter/templates/water_meter.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:189
+#: plugins/wind_monitor/templates/wind_monitor.html:191
 #, fuzzy
 msgid "if checked 0x51"
 msgstr "če je preverjeno 0x51"
@@ -6143,10 +6236,21 @@ msgstr "Vremenska zakasnitev dežja"
 msgid "Checking rain status"
 msgstr "Preverjanje stanja dežja"
 
+#: plugins/weather_based_rain_delay/__init__.py:107
+#, fuzzy
+msgid "Netatmo detected Rain"
+msgstr "Sistem je zaznal dež."
+
+#: plugins/weather_based_rain_delay/__init__.py:107
 #: plugins/weather_based_rain_delay/__init__.py:114
 #, fuzzy
-msgid "Rain detected"
-msgstr "Zaznan dež"
+msgid "Adding delay of"
+msgstr "Dodajanje zakasnitve"
+
+#: plugins/weather_based_rain_delay/__init__.py:114
+#, fuzzy
+msgid "Weather detected Rain"
+msgstr "Zaznano je bilo dobro vreme"
 
 #: plugins/weather_based_rain_delay/__init__.py:119
 msgid "No action."
@@ -6612,12 +6716,22 @@ msgid "Wind monitor is disabled."
 msgstr "Monitor vetra je onemogočen."
 
 #: plugins/wind_monitor/templates/wind_monitor.html:3
-#: plugins/wind_monitor/templates/wind_monitor.html:171
+#: plugins/wind_monitor/templates/wind_monitor.html:173
 #, fuzzy
 msgid "Wind Speed Monitor settings"
 msgstr "Nastavitve merilnika hitrosti vetra"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:172
+#: plugins/wind_monitor/templates/wind_monitor.html:22
+#, fuzzy
+msgid "(m/sec)"
+msgstr "m/s"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:50
+#, fuzzy
+msgid "Wind m/sec"
+msgstr "m/s"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:174
 #, fuzzy
 msgid ""
 "This plugin checked wind speed, if station is switched on and actual wind "
@@ -6628,57 +6742,61 @@ msgstr ""
 "hitrost vetra je \" hitrost vetra vrednost v možnosti, izklopi vse postaje "
 "in pošlje e-pošto z napako. Preprečite varnost za zalivanje napak."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:174
+#: plugins/wind_monitor/templates/wind_monitor.html:176
 #, fuzzy
 msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
 msgstr "(1m/s = 3,6 km/h ali 1m/s = 2237 milj/h)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor.html:177
 #, fuzzy
 msgid "Maximum detected speed is 150 km/h (42 m/sec)."
 msgstr "Največja zaznana hitrost je 150 km/h (42 m/s)."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:181
+#: plugins/wind_monitor/templates/wind_monitor.html:183
 #, fuzzy
 msgid "Use wind monitor"
 msgstr "Uporaba monitorja za veter"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:193
+#: plugins/wind_monitor/templates/wind_monitor.html:195
 #, fuzzy
 msgid "Send email with error"
 msgstr "Pošiljanje e-pošte z napako"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:199
+#: plugins/wind_monitor/templates/wind_monitor.html:201
 msgid "Number of pulses"
 msgstr "Število impulzov"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:201
+#: plugins/wind_monitor/templates/wind_monitor.html:203
 #, fuzzy
 msgid "pulses/rotation"
 msgstr "impulzi/vrtenje"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:205
+#: plugins/wind_monitor/templates/wind_monitor.html:207
 #, fuzzy
 msgid "Number of wind speed per rotation"
 msgstr "Število hitrosti vetra na vrtenje"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:207
-#: plugins/wind_monitor/templates/wind_monitor.html:213
-#: plugins/wind_monitor/templates/wind_monitor.html:226
+#: plugins/wind_monitor/templates/wind_monitor.html:209
+#: plugins/wind_monitor/templates/wind_monitor.html:215
+#: plugins/wind_monitor/templates/wind_monitor.html:228
 msgid "m/s"
 msgstr "m/s"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:211
+#: plugins/wind_monitor/templates/wind_monitor.html:213
 #, fuzzy
 msgid "Max wind speed for stop stations"
 msgstr "Največja hitrost vetra za postaje za ustavitev"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:217
+#: plugins/wind_monitor/templates/wind_monitor.html:219
 #, fuzzy
 msgid "Wind speed state (every 10 sec)"
 msgstr "Stanje hitrosti vetra (vsakih 10 sekund)"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:268
+#: plugins/wind_monitor/templates/wind_monitor.html:270
 #, fuzzy
 msgid "Reset max speed"
 msgstr "Ponastavi največjo hitrost"
+
+#, fuzzy
+#~ msgid "Rain detected"
+#~ msgstr "Zaznan dež"
