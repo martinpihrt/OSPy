@@ -15,7 +15,7 @@ try:
     import requests
 
 except ImportError:
-    print(_('Requests not found, installing. Please wait...'))
+    print(_('Requests not found, installing. Please wait...').encode('utf-8'))
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
