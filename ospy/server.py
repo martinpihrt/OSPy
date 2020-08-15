@@ -105,7 +105,7 @@ def start():
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
                log.info('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print(_('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print(_('Files: fullchain.pem and privkey.pem found, try starting HTTPS.').encode('utf-8'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -116,11 +116,11 @@ def start():
                private_key = ssl_patch_privkey)   
 
                log.info('server.py', _('SSL OK.'))
-               print(_('SSL OK.'))
+               print(_('SSL OK.').encode('utf-8'))
 
            else:
                log.info('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print(_('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print(_('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!').encode('utf-8'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -131,7 +131,7 @@ def start():
        try:
            if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
                log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print(_('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print(_('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.').encode('utf-8'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -142,11 +142,11 @@ def start():
                private_key = ssl_own_patch_privkey)   
 
                log.info('server.py', 'Own SSL OK.')
-               print('Own SSL OK.')
+               print(_('Own SSL OK.').encode('utf-8'))
 
            else:
                log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print(_('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print(_('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!').encode('utf-8'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -178,15 +178,15 @@ def start():
 
     def exit_msg():
         log.info('server.py', _('OSPy is closing, saving sessions.')) 
-        print(_('OSPy is closing, saving sessions.'))
+        print(_('OSPy is closing, saving sessions.').encode('utf-8'))
     atexit.register(exit_msg)
 
-    print(_('Starting scheduler and plugins...'))
+    print(_('Starting scheduler and plugins...').encode('utf-8'))
     scheduler.start()
     plugins.start_enabled_plugins()
 
     create_statistics()
-    print(_('Ready'))
+    print(_('Ready').encode('utf-8'))
 
     try:
         __server.start()
@@ -204,7 +204,7 @@ def stop():
 def create_statistics():
     try:
         log.info('server.py', _('Creating statistics...'))
-        print(_('Creating statistics...'))
+        print(_('Creating statistics...').encode('utf-8'))
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
