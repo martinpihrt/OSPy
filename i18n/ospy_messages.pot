@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-12 16:32+CEST\n"
+"POT-Creation-Date: 2020-08-14 13:49+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -423,6 +423,30 @@ msgstr ""
 msgid "Weather status"
 msgstr ""
 
+#: ospy/options.py:444
+msgid "Callback failed"
+msgstr ""
+
+#: ospy/options.py:480
+msgid "Saving options to disk"
+msgstr ""
+
+#: ospy/options.py:507
+msgid "Saving error"
+msgstr ""
+
+#: ospy/outputs.py:13
+msgid "Dummy Outputs Set"
+msgstr ""
+
+#: ospy/outputs.py:13 ospy/outputs.py:26
+msgid "to"
+msgstr ""
+
+#: ospy/outputs.py:26
+msgid "Real Outputs Set"
+msgstr ""
+
 #: ospy/programs.py:30
 msgid "Selected days (Simple)"
 msgstr ""
@@ -571,6 +595,90 @@ msgstr ""
 
 #: ospy/scheduler.py:121
 msgid "Run-Now"
+msgstr ""
+
+#: ospy/server.py:107 ospy/server.py:108
+msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
+msgstr ""
+
+#: ospy/server.py:118 ospy/server.py:119
+msgid "SSL OK."
+msgstr ""
+
+#: ospy/server.py:122 ospy/server.py:123
+msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
+msgstr ""
+
+#: ospy/server.py:133 ospy/server.py:134
+msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
+msgstr ""
+
+#: ospy/server.py:148 ospy/server.py:149
+msgid "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
+msgstr ""
+
+#: ospy/server.py:180 ospy/server.py:181
+msgid "OSPy is closing, saving sessions."
+msgstr ""
+
+#: ospy/server.py:184
+msgid "Starting scheduler and plugins..."
+msgstr ""
+
+#: ospy/server.py:189
+msgid "Ready"
+msgstr ""
+
+#: ospy/server.py:206 ospy/server.py:207
+msgid "Creating statistics..."
+msgstr ""
+
+#: ospy/stations.py:120
+msgid "The usage of"
+msgstr ""
+
+#: ospy/stations.py:120
+msgid "is more than the maximum allowed usage. Scheduling it will be impossible."
+msgstr ""
+
+#: ospy/stations.py:141
+msgid "Activated outputs"
+msgstr ""
+
+#: ospy/stations.py:167
+msgid "Resized to"
+msgstr ""
+
+#: ospy/stations.py:191
+msgid "Activated output"
+msgstr ""
+
+#: ospy/stations.py:193
+msgid "Activated master one"
+msgstr ""
+
+#: ospy/stations.py:196
+msgid "Activated master two"
+msgstr ""
+
+#: ospy/stations.py:205
+msgid "Deactivated output"
+msgstr ""
+
+#: ospy/stations.py:207
+msgid "Deactivated master one"
+msgstr ""
+
+#: ospy/stations.py:210
+msgid "Deactivated master two"
+msgstr ""
+
+#: ospy/stations.py:223
+msgid "Cleared all outputs"
+msgstr ""
+
+#: ospy/stations.py:263
+msgid "Activated shift outputs"
 msgstr ""
 
 #: ospy/templates/base.html:44
@@ -1105,7 +1213,7 @@ msgid "None"
 msgstr ""
 
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
-#: plugins/air_temp_humi/__init__.py:143
+#: plugins/air_temp_humi/__init__.py:146
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
 msgid "Output"
@@ -1180,11 +1288,11 @@ msgid "Reboot hardware!"
 msgstr ""
 
 #: ospy/templates/options.html:221
-msgid "Shutdown"
+msgid "Shutdown hardware!"
 msgstr ""
 
-#: ospy/templates/options.html:221
-msgid "Shutdown hardware!"
+#: ospy/templates/options.html:221 ospy/templates/shutdown.html:3
+msgid "Shutdown"
 msgstr ""
 
 #: ospy/templates/options.html:222
@@ -1494,12 +1602,12 @@ msgstr ""
 msgid "Restarting"
 msgstr ""
 
-#: ospy/templates/restarting.html:32
-msgid "OSPy is restarting"
+#: ospy/templates/restarting.html:34
+msgid "OSPy is restarting. You will be redirected as soon as possible..."
 msgstr ""
 
-#: ospy/templates/restarting.html:33
-msgid "You will be redirected as soon as possible..."
+#: ospy/templates/restarting.html:34
+msgid "Warning!"
 msgstr ""
 
 #: ospy/templates/runonce.html:22
@@ -1513,6 +1621,14 @@ msgstr ""
 
 #: ospy/templates/runonce.html:55
 msgid "Reset Time"
+msgstr ""
+
+#: ospy/templates/shutdown.html:8
+msgid "Danger!"
+msgstr ""
+
+#: ospy/templates/shutdown.html:8
+msgid "The OSPy system shuts down."
 msgstr ""
 
 #: ospy/templates/stations.html:15
@@ -1567,12 +1683,90 @@ msgstr ""
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
+#: ospy/usagestats.py:18
+msgid "Requests not found, installing. Please wait..."
+msgstr ""
+
+#: ospy/usagestats.py:224
+msgid "Could not create %s, usage statistics won not be collected"
+msgstr ""
+
+#: ospy/usagestats.py:254
+msgid "Unknown reporting state %r"
+msgstr ""
+
+#: ospy/usagestats.py:266
+msgid "Can not enable reporting"
+msgstr ""
+
+#: ospy/usagestats.py:281
+msgid "Can not disable reporting"
+msgstr ""
+
+#: ospy/usagestats.py:291
+msgid "Deleted %d pending reports"
+msgstr ""
+
+#: ospy/usagestats.py:310 ospy/usagestats.py:331
+msgid "This report has already been submitted"
+msgstr ""
+
+#: ospy/usagestats.py:346
+msgid ""
+"Generated report:\n"
+"%r"
+msgstr ""
+
+#: ospy/usagestats.py:380
+msgid "Could not upload %s: %s"
+msgstr ""
+
+#: ospy/usagestats.py:383
+msgid "Submitted report %s"
+msgstr ""
+
+#: ospy/usagestats.py:393
+msgid "Could not upload report: %s"
+msgstr ""
+
+#: ospy/usagestats.py:401
+msgid "Submitted report"
+msgstr ""
+
+#: ospy/usagestats.py:403
+msgid "Server rejected report: %s"
+msgstr ""
+
 #: ospy/version.py:20
 msgid "Could not use git to determine revision!"
 msgstr ""
 
 #: ospy/version.py:28
 msgid "Could not use git to determine date of last commit!"
+msgstr ""
+
+#: ospy/weather.py:115
+msgid "Weather error:"
+msgstr ""
+
+#: ospy/weather.py:127
+msgid "No location found:"
+msgstr ""
+
+#: ospy/weather.py:134
+msgid "Location found: %s, %s"
+msgstr ""
+
+#: ospy/weather.py:140
+msgid "No location coordinates available!"
+msgstr ""
+
+#: ospy/weather.py:171
+msgid "No timezone offset found, ETo might be incorrect."
+msgstr ""
+
+#: ospy/weather.py:298
+msgid "This interface was removed because Weather Underground API has stopped, please update the plug-in!"
 msgstr ""
 
 #: ospy/webpages.py:77
@@ -1583,15 +1777,31 @@ msgstr ""
 msgid "Incorrect password, please try again"
 msgstr ""
 
-#: ospy/webpages.py:936
+#: ospy/webpages.py:734
+msgid "Upload, save, copy options.db file sucesfully, now restarting OSPy..."
+msgstr ""
+
+#: ospy/webpages.py:762
+msgid "Remove fullchain.pem..."
+msgstr ""
+
+#: ospy/webpages.py:766
+msgid "Remove privkey.pem..."
+msgstr ""
+
+#: ospy/webpages.py:772
+msgid "Upload SSL file %s"
+msgstr ""
+
+#: ospy/webpages.py:941
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:949 ospy/webpages.py:1018
+#: ospy/webpages.py:954 ospy/webpages.py:1023
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:961 ospy/webpages.py:1006
+#: ospy/webpages.py:966 ospy/webpages.py:1011
 msgid "Unit not set"
 msgstr ""
 
@@ -1599,58 +1809,58 @@ msgstr ""
 msgid "Package: Air Temperature and Humidity Monitor"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:134
-msgid "DHT11 data is not valid"
-msgstr ""
-
-#: plugins/air_temp_humi/__init__.py:139 plugins/air_temp_humi/__init__.py:172
-#: plugins/air_temp_humi/__init__.py:178
+#: plugins/air_temp_humi/__init__.py:114 plugins/air_temp_humi/__init__.py:142
+#: plugins/air_temp_humi/__init__.py:177
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:140
+#: plugins/air_temp_humi/__init__.py:137
+msgid "DHT11 data is not valid"
+msgstr ""
+
+#: plugins/air_temp_humi/__init__.py:143
 msgid "Humidity"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:142 plugins/relay_16/__init__.py:120
+#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:142 plugins/relay_16/__init__.py:137
+#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:153
+#: plugins/air_temp_humi/__init__.py:156
 msgid "Station output was turned on."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:161
+#: plugins/air_temp_humi/__init__.py:164
 msgid "Station output was turned off."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:194 plugins/air_temp_humi/__init__.py:270
+#: plugins/air_temp_humi/__init__.py:193 plugins/air_temp_humi/__init__.py:269
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:244
+#: plugins/air_temp_humi/__init__.py:243
 msgid "Data is not correct. Please try again later."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:390
-#: plugins/pressure_monitor/__init__.py:316 plugins/ups_adj/__init__.py:318
-#: plugins/wind_monitor/__init__.py:403
+#: plugins/air_temp_humi/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:315 plugins/ups_adj/__init__.py:317
+#: plugins/wind_monitor/__init__.py:400
 msgid "Creating default graph log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:432
+#: plugins/air_temp_humi/__init__.py:431
 msgid "Saving to log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:489 plugins/ping_monitor/__init__.py:343
-#: plugins/tank_monitor/__init__.py:448 plugins/wind_monitor/__init__.py:465
+#: plugins/air_temp_humi/__init__.py:488 plugins/ping_monitor/__init__.py:343
+#: plugins/tank_monitor/__init__.py:446 plugins/wind_monitor/__init__.py:462
 msgid "Deleted all log files OK"
 msgstr ""
 
@@ -2158,12 +2368,12 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:127 plugins/tank_monitor/__init__.py:129
-#: plugins/tank_monitor/__init__.py:130 plugins/tank_monitor/__init__.py:132
-#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:134
-#: plugins/tank_monitor/__init__.py:135 plugins/tank_monitor/__init__.py:182
-#: plugins/tank_monitor/__init__.py:197 plugins/tank_monitor/__init__.py:198
-#: plugins/tank_monitor/__init__.py:213 plugins/tank_monitor/__init__.py:214
+#: plugins/tank_monitor/__init__.py:126 plugins/tank_monitor/__init__.py:128
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:131
+#: plugins/tank_monitor/__init__.py:132 plugins/tank_monitor/__init__.py:133
+#: plugins/tank_monitor/__init__.py:134 plugins/tank_monitor/__init__.py:181
+#: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:197
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
 #: plugins/tank_monitor/templates/tank_monitor.html:187
 #: plugins/tank_monitor/templates/tank_monitor.html:193
 #: plugins/tank_monitor/templates/tank_monitor.html:199
@@ -2172,26 +2382,26 @@ msgid "cm"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:130 plugins/tank_monitor/__init__.py:133
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:132
 msgid "Ping"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:160
-#: plugins/tank_monitor/__init__.py:130 plugins/tank_monitor/__init__.py:133
-#: plugins/tank_monitor/__init__.py:439 plugins/tank_monitor/__init__.py:567
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:132
+#: plugins/tank_monitor/__init__.py:437 plugins/tank_monitor/__init__.py:565
 msgid "Volume"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
-#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:130
+#: plugins/tank_monitor/__init__.py:128 plugins/tank_monitor/__init__.py:129
 msgid "liters"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
-#: plugins/tank_monitor/__init__.py:133
+#: plugins/tank_monitor/__init__.py:132
 msgid "m3"
 msgstr ""
 
@@ -2431,7 +2641,7 @@ msgstr ""
 
 #: plugins/lcd_display/__init__.py:841 plugins/system_info/__init__.py:111
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
-#: plugins/wind_monitor/__init__.py:104
+#: plugins/wind_monitor/__init__.py:103
 msgid "Could not import smbus."
 msgstr ""
 
@@ -2659,8 +2869,8 @@ msgstr ""
 msgid "Connecting to broker"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:108
-#: plugins/ups_adj/__init__.py:366
+#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:110
+#: plugins/ups_adj/__init__.py:365
 msgid "OK"
 msgstr ""
 
@@ -2861,7 +3071,7 @@ msgid "Ping monitor is disabled."
 msgstr ""
 
 #: plugins/ping_monitor/__init__.py:408 plugins/pressurizer/__init__.py:219
-#: plugins/tank_monitor/__init__.py:512 plugins/wind_monitor/__init__.py:484
+#: plugins/tank_monitor/__init__.py:510 plugins/wind_monitor/__init__.py:481
 msgid "Options has updated."
 msgstr ""
 
@@ -2879,9 +3089,9 @@ msgid "Actual Value"
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:49
-#: plugins/pressure_monitor/__init__.py:310
-#: plugins/pressure_monitor/__init__.py:398 plugins/ups_adj/__init__.py:312
-#: plugins/ups_adj/__init__.py:399
+#: plugins/pressure_monitor/__init__.py:309
+#: plugins/pressure_monitor/__init__.py:397 plugins/ups_adj/__init__.py:311
+#: plugins/ups_adj/__init__.py:398
 msgid "State"
 msgstr ""
 
@@ -2995,65 +3205,65 @@ msgstr ""
 msgid "Report from OSPy PRESSURE MONITOR plugin"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:107
-msgid "Master station is ON."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:117
-msgid "Time to test pressure sensor"
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:118 plugins/ups_adj/__init__.py:144
-msgid "sec"
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:126
-msgid "Pressure sensor is not activated in time -> stops all stations and send email."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:141
-msgid "Master station is OFF."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:151
-msgid "Pressure monitor plug-in is disabled."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:157
-msgid "Not used master station."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:161
-#: plugins/pressure_monitor/__init__.py:162
-msgid "System detected error: pressure sensor."
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:161
-#: plugins/pressure_monitor/__init__.py:162
-#: plugins/pressure_monitor/__init__.py:168
-#: plugins/pressure_monitor/__init__.py:186
-msgid "Pressure monitor plug-in"
-msgstr ""
-
-#: plugins/pressure_monitor/__init__.py:172
+#: plugins/pressure_monitor/__init__.py:99
 msgid "Pressure"
 msgstr ""
 
+#: plugins/pressure_monitor/__init__.py:109
+msgid "Master station is ON."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:119
+msgid "Time to test pressure sensor"
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:120 plugins/ups_adj/__init__.py:143
+msgid "sec"
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:128
+msgid "Pressure sensor is not activated in time -> stops all stations and send email."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:143
+msgid "Master station is OFF."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:153
+msgid "Pressure monitor plug-in is disabled."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:159
+msgid "Not used master station."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:163
+#: plugins/pressure_monitor/__init__.py:164
+msgid "System detected error: pressure sensor."
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:163
+#: plugins/pressure_monitor/__init__.py:164
+#: plugins/pressure_monitor/__init__.py:170
+#: plugins/pressure_monitor/__init__.py:185
+msgid "Pressure monitor plug-in"
+msgstr ""
+
+#: plugins/pressure_monitor/__init__.py:175
 #: plugins/pressure_monitor/__init__.py:176
-#: plugins/pressure_monitor/__init__.py:177
-#: plugins/pressure_monitor/__init__.py:365
+#: plugins/pressure_monitor/__init__.py:364
 msgid "INACTIVE"
 msgstr ""
 
+#: plugins/pressure_monitor/__init__.py:178
 #: plugins/pressure_monitor/__init__.py:179
-#: plugins/pressure_monitor/__init__.py:180
-#: plugins/pressure_monitor/__init__.py:367
+#: plugins/pressure_monitor/__init__.py:366
 msgid "ACTIVE"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:304
-#: plugins/tank_monitor/__init__.py:428 plugins/ups_adj/__init__.py:306
-#: plugins/wind_monitor/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:303
+#: plugins/tank_monitor/__init__.py:426 plugins/ups_adj/__init__.py:305
+#: plugins/wind_monitor/__init__.py:386
 msgid "Saving to log  files OK"
 msgstr ""
 
@@ -4233,71 +4443,71 @@ msgstr ""
 msgid "Report from OSPy TANK plugin"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:107 plugins/tank_monitor/__init__.py:507
-msgid "Water tank monitor is enabled."
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:115
+#: plugins/tank_monitor/__init__.py:102
 msgid "Tank"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:127
+#: plugins/tank_monitor/__init__.py:109 plugins/tank_monitor/__init__.py:505
+msgid "Water tank monitor is enabled."
+msgstr ""
+
+#: plugins/tank_monitor/__init__.py:126
 msgid "Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:132
+#: plugins/tank_monitor/__init__.py:131
 msgid "m<sup>3</sup>"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:134 plugins/tank_monitor/__init__.py:197
+#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:196
 msgid "Maximum Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:135 plugins/tank_monitor/__init__.py:198
+#: plugins/tank_monitor/__init__.py:134 plugins/tank_monitor/__init__.py:197
 msgid "Minimum Water level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:182
+#: plugins/tank_monitor/__init__.py:181
 msgid "ERROR: Water in Tank"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:194 plugins/ups_adj/__init__.py:110
-#: plugins/ups_adj/__init__.py:368
+#: plugins/tank_monitor/__init__.py:193 plugins/ups_adj/__init__.py:112
+#: plugins/ups_adj/__init__.py:367
 msgid "FAULT"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:196
+#: plugins/tank_monitor/__init__.py:195
 msgid "Water level: Error."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:213 plugins/tank_monitor/__init__.py:214
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:213 plugins/tank_monitor/__init__.py:214
-#: plugins/tank_monitor/__init__.py:221 plugins/tank_monitor/__init__.py:226
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
+#: plugins/tank_monitor/__init__.py:220 plugins/tank_monitor/__init__.py:225
 msgid "Water Tank Monitor plug-in"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:436 plugins/tank_monitor/__init__.py:564
+#: plugins/tank_monitor/__init__.py:434 plugins/tank_monitor/__init__.py:562
 msgid "Minimum"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:437 plugins/tank_monitor/__init__.py:565
-#: plugins/wind_monitor/__init__.py:395 plugins/wind_monitor/__init__.py:535
+#: plugins/tank_monitor/__init__.py:435 plugins/tank_monitor/__init__.py:563
+#: plugins/wind_monitor/__init__.py:392 plugins/wind_monitor/__init__.py:532
 msgid "Maximum"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:438 plugins/tank_monitor/__init__.py:566
-#: plugins/wind_monitor/__init__.py:396 plugins/wind_monitor/__init__.py:536
+#: plugins/tank_monitor/__init__.py:436 plugins/tank_monitor/__init__.py:564
+#: plugins/wind_monitor/__init__.py:393 plugins/wind_monitor/__init__.py:533
 msgid "Actual"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:486
+#: plugins/tank_monitor/__init__.py:484
 msgid "Minimum and maximum has reseted."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:510
+#: plugins/tank_monitor/__init__.py:508
 msgid "Water tank monitor is disabled."
 msgstr ""
 
@@ -4367,39 +4577,39 @@ msgstr ""
 msgid "Report from OSPy UPS plugin"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:114
+#: plugins/ups_adj/__init__.py:102
 msgid "UPS"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:125 plugins/ups_adj/__init__.py:126
+#: plugins/ups_adj/__init__.py:124 plugins/ups_adj/__init__.py:125
 msgid "Detected fault on power line."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:125 plugins/ups_adj/__init__.py:126
-#: plugins/ups_adj/__init__.py:134 plugins/ups_adj/__init__.py:155
-#: plugins/ups_adj/__init__.py:156 plugins/ups_adj/__init__.py:162
-#: plugins/ups_adj/__init__.py:173 plugins/ups_adj/__init__.py:174
-#: plugins/ups_adj/__init__.py:182 plugins/ups_adj/__init__.py:193
+#: plugins/ups_adj/__init__.py:124 plugins/ups_adj/__init__.py:125
+#: plugins/ups_adj/__init__.py:133 plugins/ups_adj/__init__.py:154
+#: plugins/ups_adj/__init__.py:155 plugins/ups_adj/__init__.py:161
+#: plugins/ups_adj/__init__.py:172 plugins/ups_adj/__init__.py:173
+#: plugins/ups_adj/__init__.py:181 plugins/ups_adj/__init__.py:192
 msgid "UPS plug-in"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:144
+#: plugins/ups_adj/__init__.py:143
 msgid "Time to shutdown"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:150
+#: plugins/ups_adj/__init__.py:149
 msgid "Power line is not restore in time -> sends email and shutdown system."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:155 plugins/ups_adj/__init__.py:156
+#: plugins/ups_adj/__init__.py:154 plugins/ups_adj/__init__.py:155
 msgid "Power line is not restore in time -> shutdown system!"
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:173 plugins/ups_adj/__init__.py:174
+#: plugins/ups_adj/__init__.py:172 plugins/ups_adj/__init__.py:173
 msgid "Power line has restored - OK."
 msgstr ""
 
-#: plugins/ups_adj/__init__.py:207
+#: plugins/ups_adj/__init__.py:206
 msgid "UPS plugin is started."
 msgstr ""
 
@@ -4900,7 +5110,7 @@ msgstr ""
 msgid "Setup PCF8583 as event counter is OK"
 msgstr ""
 
-#: plugins/water_meter/__init__.py:211 plugins/wind_monitor/__init__.py:265
+#: plugins/water_meter/__init__.py:211 plugins/wind_monitor/__init__.py:262
 msgid "Setup PCF8583 as event counter - FAULT"
 msgstr ""
 
@@ -5316,75 +5526,75 @@ msgstr ""
 msgid "Measuring..."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:89 plugins/wind_monitor/__init__.py:411
+#: plugins/wind_monitor/__init__.py:89 plugins/wind_monitor/__init__.py:408
 msgid "Wind Speed"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:141
+#: plugins/wind_monitor/__init__.py:140
 msgid "Please wait 10 sec..."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:142
+#: plugins/wind_monitor/__init__.py:141
 msgid "Speed"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:142 plugins/wind_monitor/__init__.py:145
-#: plugins/wind_monitor/__init__.py:168 plugins/wind_monitor/__init__.py:170
-#: plugins/wind_monitor/__init__.py:413
+#: plugins/wind_monitor/__init__.py:141 plugins/wind_monitor/__init__.py:144
+#: plugins/wind_monitor/__init__.py:167 plugins/wind_monitor/__init__.py:169
+#: plugins/wind_monitor/__init__.py:410
 msgid "m/sec"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:143
+#: plugins/wind_monitor/__init__.py:142
 msgid "Pulses"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:143
+#: plugins/wind_monitor/__init__.py:142
 msgid "pulses/sec"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:145 plugins/wind_monitor/__init__.py:168
+#: plugins/wind_monitor/__init__.py:144 plugins/wind_monitor/__init__.py:167
 msgid "Maximal speed"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:148
+#: plugins/wind_monitor/__init__.py:147
 msgid "Wind speed > 150 km/h (42 m/sec)"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:156
+#: plugins/wind_monitor/__init__.py:155
 msgid "Stops all stations and sends email if enabled sends email."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:182
+#: plugins/wind_monitor/__init__.py:179
 msgid "Wind speed monitor plug-in is disabled."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:187 plugins/wind_monitor/__init__.py:188
+#: plugins/wind_monitor/__init__.py:184 plugins/wind_monitor/__init__.py:185
 msgid "System detected error: wind speed monitor. All stations set to OFF. Wind is"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:187 plugins/wind_monitor/__init__.py:262
-#: plugins/wind_monitor/__init__.py:265 plugins/wind_monitor/__init__.py:266
-#: plugins/wind_monitor/__init__.py:296
+#: plugins/wind_monitor/__init__.py:184 plugins/wind_monitor/__init__.py:259
+#: plugins/wind_monitor/__init__.py:262 plugins/wind_monitor/__init__.py:263
+#: plugins/wind_monitor/__init__.py:293
 msgid "Wind speed monitor plug-in"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:195 plugins/wind_monitor/__init__.py:201
+#: plugins/wind_monitor/__init__.py:192 plugins/wind_monitor/__init__.py:198
 msgid "Wind Speed monitor plug-in"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:262
+#: plugins/wind_monitor/__init__.py:259
 msgid "Setup PCF8583 as event counter - OK"
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:458
+#: plugins/wind_monitor/__init__.py:455
 msgid "Maximal speed has reseted."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:479
+#: plugins/wind_monitor/__init__.py:476
 msgid "Wind monitor is enabled."
 msgstr ""
 
-#: plugins/wind_monitor/__init__.py:482
+#: plugins/wind_monitor/__init__.py:479
 msgid "Wind monitor is disabled."
 msgstr ""
 

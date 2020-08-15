@@ -15,7 +15,7 @@ try:
     import requests
 
 except ImportError:
-    print("Requests not found, installing. Please wait...")
+    print(_('Requests not found, installing. Please wait...'))
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
@@ -221,8 +221,7 @@ class Stats(object):
             try:
                 os.makedirs(self.location, 0o700)
             except OSError:
-                logger.warning("Couldn't create %s, usage statistics won't be "
-                               "collected", self.location)
+                logger.warning(_('Could not create %s, usage statistics won not be collected'), self.location)
                 self.status = Stats.ERRORED
 
         status_file = os.path.join(self.location, 'status')
@@ -252,7 +251,7 @@ class Stats(object):
             elif enabled is Stats.DISABLED:
                 fp.write('DISABLED')
             else:
-                raise ValueError("Unknown reporting state %r" % enabled)
+                raise ValueError(_('Unknown reporting state %r') % enabled)
 
     def enable_reporting(self):
         """Call this method to explicitly enable reporting.
@@ -264,7 +263,7 @@ class Stats(object):
         if self.status == Stats.ENABLED:
             return
         if not self.enableable:
-            logger.critical("Can't enable reporting")
+            logger.critical(_('Can not enable reporting'))
             return
         self.status = Stats.ENABLED
         self.write_config(self.status)
@@ -279,7 +278,7 @@ class Stats(object):
         if self.status == Stats.DISABLED:
             return
         if not self.disableable:
-            logger.critical("Can't disable reporting")
+            logger.critical(_('Can not disable reporting'))
             return
         self.status = Stats.DISABLED
         self.write_config(self.status)
@@ -289,7 +288,7 @@ class Stats(object):
             for old_filename in old_reports:
                 fullname = os.path.join(self.location, old_filename)
                 os.remove(fullname)
-            logger.info("Deleted %d pending reports", len(old_reports))
+            logger.info(_('Deleted %d pending reports'), len(old_reports))
 
     @staticmethod
     def _to_notes(info):
@@ -308,7 +307,7 @@ class Stats(object):
         """
         if self.recording:
             if self.notes is None:
-                raise ValueError("This report has already been submitted")
+                raise ValueError(_('This report has already been submitted'))
             self.notes.extend(self._to_notes(info))
 
     def submit(self, info, *flags):
@@ -329,7 +328,7 @@ class Stats(object):
             return
 
         if self.notes is None:
-            raise ValueError("This report has already been submitted")
+            raise ValueError(_('This report has already been submitted'))
 
         all_info, self.notes = self.notes, None
         all_info.extend(self._to_notes(info))
@@ -344,7 +343,7 @@ class Stats(object):
         if self.user_id:
             all_info.insert(1, ('user', self.user_id))
 
-        logger.debug("Generated report:\n%r", (all_info,))
+        logger.debug(_('Generated report:\n%r'), (all_info,))
 
         # Current report
         def generator():
@@ -378,10 +377,10 @@ class Stats(object):
                                       timeout=1, verify=self.ssl_verify)
                     r.raise_for_status()
             except Exception as e:
-                logger.warning("Couldn't upload %s: %s", old_filename, str(e))
+                logger.warning(_('Could not upload %s: %s'), old_filename, str(e))
                 break
             else:
-                logger.info("Submitted report %s", old_filename)
+                logger.info(_('Submitted report %s'), old_filename)
                 os.remove(fullname)
 
         # Post current report
@@ -391,7 +390,7 @@ class Stats(object):
             r = requests.post(self.drop_point, data=b''.join(generator()),
                               timeout=1, verify=self.ssl_verify)
         except requests.RequestException as e:
-            logger.warning("Couldn't upload report: %s", str(e))
+            logger.warning(_('Could not upload report: %s'), str(e))
             fullname = os.path.join(self.location, filename)
             with open(fullname, 'wb') as fp:
                 for l in generator():
@@ -399,6 +398,6 @@ class Stats(object):
         else:
             try:
                 r.raise_for_status()
-                logger.info("Submitted report")
+                logger.info(_('Submitted report'))
             except requests.RequestException as e:
-                logger.warning("Server rejected report: %s", str(e))
+                logger.warning(_('Server rejected report: %s'), str(e))

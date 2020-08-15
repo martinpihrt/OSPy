@@ -430,7 +430,7 @@ class plugins_manage_page(ProtectedPage):
             		options.enabled_plugins.remove(plugin)
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
-            plugins.start_enabled_plugins()    
+            plugins.start_enabled_plugins()              
             raise web.seeother('/plugins_manage')        
 
         if plugin is not None and plugin in plugins.available():
@@ -590,7 +590,7 @@ class options_page(ProtectedPage):
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
             reboot(True) # Linux HW software 
-            return self.core_render.home()
+            return self.core_render.restarting(home_page)
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
@@ -598,8 +598,8 @@ class options_page(ProtectedPage):
             return self.core_render.restarting(home_page)
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
-            poweroff()   # shutdown HW system
-            return self.core_render.restarting(home_page) 
+            poweroff(True)   # shutdown HW system
+            return self.core_render.shutdown() 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
             OPTIONS_FILE = './ospy/data'
@@ -731,7 +731,7 @@ class upload_page(ProtectedPage):
                     os.remove(OPTIONS_FILE + '.bak')              # remove old options.db.bak
                  copyfile(OPTIONS_FILE, OPTIONS_FILE + '.bak')    # copy new options.db to old options.db.bak
 
-                 log.debug('webpages.py', 'Upload, save, copy options.db file sucesfully, now restarting OSPy...')
+                 log.debug('webpages.py', _('Upload, save, copy options.db file sucesfully, now restarting OSPy...'))
                  report_restarted()
                  restart(3)
                  return self.core_render.restarting(home_page)
@@ -759,17 +759,17 @@ class upload_page_SSL(ProtectedPage):
                 if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
                     if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
                         os.remove(OPTIONS_FILE_FULL)             # remove file
-                        log.debug('webpages.py', 'Remove fullchain.pem...')
+                        log.debug('webpages.py', _('Remove fullchain.pem...'))
                 if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
                         os.remove(OPTIONS_FILE_PRIV)             # remove file  
-                        log.debug('webpages.py', 'Remove privkey.pem....')                      
+                        log.debug('webpages.py', _('Remove privkey.pem...'))                      
 
                 fout = open('./ssl/' + i.uploadfile.filename,'w') 
                 fout.write(i.uploadfile.file.read()) 
                 fout.close() 
 
-                log.debug('webpages.py', 'Upload SSL file %s' %i.uploadfile.filename) 
+                log.debug('webpages.py', _('Upload SSL file %s') %i.uploadfile.filename) 
                 #report_restarted()
                 #restart(3)
                 #return self.core_render.restarting(home_page)
@@ -901,22 +901,6 @@ class api_balance_json(ProtectedPage):
         return json.dumps(statuslist, indent=2)
 
 
-class api_plugin_data(ProtectedPage):
-    """Simple plugin data API"""
-
-    def GET(self):
-        footer_data = []
-        station_data = []
-        data = {}
-        for i, v in enumerate(pluginFtr):
-            footer_data.append((i, v[u"val"]))           
-        for v in pluginStn:
-            station_data.append(v[1])       
-        data["fdata"] = footer_data
-        data["sdata"] = station_data
-        return json.dumps(data)     
-
-
 class showInFooter(object):
     """Enables plugins to display e.g. sensor reagings in the footer of OSPy's UI"""
     
@@ -929,11 +913,12 @@ class showInFooter(object):
         
         self._idx = len(pluginFtr)
         pluginFtr.append({u"label": self._label, u"val": self._val, u"unit": self._unit, u"button": self._button})
+  
            
     @property
     def label(self):
         if not self._label:
-            return _('Label not set')
+            return _(u'Label not set')
         else:
             return self._label
     
@@ -946,7 +931,7 @@ class showInFooter(object):
     @property
     def val(self):
         if self._val == "":
-            return _('Value not set')
+            return _(u'Value not set')
         else:
             return self._val
     
@@ -958,7 +943,7 @@ class showInFooter(object):
     @property
     def unit(self):
         if not self.unit:
-            return _('Unit not set')
+            return _(u'Unit not set')
         else:
             return self._unit
     
@@ -994,7 +979,7 @@ class showOnTimeline:
         self._idx = None
     
         self._idx = len(pluginStn)
-        pluginStn.append([self._unit, self._val])
+        pluginStn.append([self._val, self._unit])
         
     @property
     def clear(self):
@@ -1003,7 +988,7 @@ class showOnTimeline:
     @property
     def unit(self):
         if not self.unit:
-            return _('Unit not set')
+            return _(u'Unit not set')
         else:
             return self._unit
     
@@ -1015,7 +1000,7 @@ class showOnTimeline:
     @property
     def val(self):
         if not self._val:
-            return _('Value not set')
+            return _(u'Value not set')
         else:
             return self._val
     
@@ -1023,3 +1008,25 @@ class showOnTimeline:
     def val(self, num):
         self._val = num
         pluginStn[self._idx][1] = self._val
+
+
+class api_plugin_data(ProtectedPage):
+    """Simple plugin data API"""
+
+    def GET(self):
+        footer_data = []
+        station_data = []
+        data = {}
+        if options.show_plugin_data:
+            for i, v in enumerate(pluginFtr):
+                footer_data.append((i, v[u"val"]))          
+            #for v in pluginStn:
+                #station_data.append((0, v[0]))   #station_data.append(v[1])   
+        data["fdata"] = footer_data
+        data["sdata"] = station_data
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(data, indent=2)
+     
+
+

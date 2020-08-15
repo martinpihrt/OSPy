@@ -10,7 +10,7 @@ class _DummyOutputs(object):
 
     def __setattr__(self, key, value):
         super(_DummyOutputs, self).__setattr__(key, value)
-        logging.debug("Dummy Outputs Set %s to %s", key, value)
+        logging.debug(_('Dummy Outputs Set') + ' ' + str(key) + ' ' + _('to') + str(value))
 
 
 class _IOOutputs(object):
@@ -23,7 +23,7 @@ class _IOOutputs(object):
     def __setattr__(self, key, value):
         super(_IOOutputs, self).__setattr__(key, value)
         if value != self._last:
-           logging.debug("Real Outputs Set %s to %s", key, value) 
+           logging.debug(_('Real Outputs Set') + ' ' + str(key) + ' ' + _('to') + str(value)) 
            self._last = value
 
         if not self._initialized:

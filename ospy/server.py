@@ -104,8 +104,8 @@ def start():
     if options.use_ssl and not options.use_own_ssl:
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
-               log.info('server.py', 'Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
-               print('Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
+               log.info('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print(_('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -115,12 +115,12 @@ def start():
                certificate = ssl_patch_fullchain,  
                private_key = ssl_patch_privkey)   
 
-               log.info('server.py', 'SSL OK.')
-               print('SSL OK.')
+               log.info('server.py', _('SSL OK.'))
+               print(_('SSL OK.'))
 
            else:
-               log.info('server.py', 'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
-               print('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
+               log.info('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print(_('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -130,8 +130,8 @@ def start():
     if options.use_own_ssl and not options.use_ssl:
        try:
            if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
-               log.info('server.py', 'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
-               print('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.')
+               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print(_('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -145,8 +145,8 @@ def start():
                print('Own SSL OK.')
 
            else:
-               log.info('server.py', 'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
-               print('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!')
+               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print(_('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -177,16 +177,16 @@ def start():
     atexit.register(sessions.close)
 
     def exit_msg():
-        log.info('server.py', 'OSPy is closing, saving sessions.') 
-        print('OSPy is closing, saving sessions.')
+        log.info('server.py', _('OSPy is closing, saving sessions.')) 
+        print(_('OSPy is closing, saving sessions.'))
     atexit.register(exit_msg)
 
-    print('Starting scheduler and plugins...')
+    print(_('Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
 
     create_statistics()
-    print('OK') 
+    print(_('Ready'))
 
     try:
         __server.start()
@@ -203,8 +203,8 @@ def stop():
 
 def create_statistics():
     try:
-        log.info('server.py', 'Creating statistics...')
-        print('Creating statistics...')
+        log.info('server.py', _('Creating statistics...'))
+        print(_('Creating statistics...'))
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})

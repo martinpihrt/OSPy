@@ -441,7 +441,7 @@ class _Options(object):
                         try:
                             cb(key, self._callbacks[key]['last_value'], value)
                         except Exception:
-                            logging.error('Callback failed:\n' + traceback.format_exc())
+                            logging.error(_('Callback failed') + ': ' + str(traceback.format_exc()))
                     self._callbacks[key]['last_value'] = value
 
             # Only write after 1 second without any more changes
@@ -477,7 +477,7 @@ class _Options(object):
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
         try:
-            logging.debug('Saving options to disk')
+            logging.debug(_('Saving options to disk'))
             
             for tmp_file in glob.glob(OPTIONS_GLOB + '.tmp'):
                 os.remove(tmp_file)
@@ -504,7 +504,7 @@ class _Options(object):
             if os.path.isfile(OPTIONS_FILE + '.tmp'):
                 os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
         except Exception:
-            logging.warning('Saving error:\n' + traceback.format_exc())
+            logging.warning(_('Saving error') + ': ' + str(traceback.format_exc()))
 
     def get_categories(self):
         result = []

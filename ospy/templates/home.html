@@ -14,6 +14,7 @@ $var page: home
 var displayScheduleDate = new Date(device_time); // dk
 var displayScheduleTimeout;
 var graph_text;
+let pluginStn = $:{json.dumps(pluginStn, ensure_ascii=False)};
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -120,6 +121,14 @@ function updateStatus(status) {
                 if (seconds < 10) {seconds = "0"+seconds;}
                 if (station.status == "on") {
                     display = minutes+":"+seconds;
+//                    if (typeof pluginStn !== 'undefined' && pluginStn.length) {
+//                          console.log("pluginStn pre: ", pluginStn)
+//                          pluginStn =  pluginStn.filter(function(e){return e.length});
+//                          console.log("pluginStn filtered: ", pluginStn)
+//                            pluginStn.forEach(function(item) {
+//                                display = display + ", " +  item[0] + " " + item[1];
+//                            });
+//                    }
                 }
                 updateInterval = 1000;
                 break;
@@ -162,8 +171,13 @@ function updateStatus(status) {
     setTimeout(statusTimer, updateInterval);
 }
 
+function showData(data) { // for test plugin data
+    console.log("data: ", data)
+}
 
 function statusTimer() {
+    // Add call to get plugin data
+//  jQuery.getJSON("/plugindata", showData)
     jQuery.getJSON("/status.json", updateStatus)
 }
 
@@ -352,7 +366,7 @@ function create_graph(result) {
 
 
 jQuery(document).ready(function(){
-    if (manual_mode) {
+    if (manual_mode) { // manual mode
         jQuery("button.manual").click(function () {
             sid = parseInt(jQuery(this).attr("id"));
             sbit = jQuery(this).hasClass("on");
@@ -370,7 +384,7 @@ jQuery(document).ready(function(){
                 window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss);  // turn it off with timer
             }
         });
-    } else {
+    } else { // scheduler mode
         displayProgram()
         setTimeout(statusTimer, 1000);
 
@@ -388,31 +402,34 @@ jQuery(document).ready(function(){
             displayScheduleDate.setDate(displayScheduleDate.getDate() + 1);
             displayProgram();
         });
-    }
+
+        $if (options.show_plugin_data and pluginFtr):
+            $for i, d in enumerate(pluginFtr):
+                $if (pluginFtr[i]["button"] != '-'):
+                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+                
+                $else:
+                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');    
+
+            //setInterval(dataTimer, 2000);
+
+            //function dataTimer() {
+                // Call to get plugin data
+              //  jQuery.getJSON("/plugindata", function(piVals) {
+                //    var parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
+                  //  jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
+               // } 
+           // )}       
+                
+    }//end else scheduler mode
 
     jQuery(".countdown").each(function() {
         countdownTimer(jQuery(this).attr('id'));
     });
+
     if (jQuery("#graph-placeholder").length > 0) {
         setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
-    }
-
-    $if options.show_plugin_data and pluginFtr:
-        $for i, d in enumerate(pluginFtr):
-            $if pluginFtr[i]["button"] != '-':
-                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
-            $else:
-                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
-                
-        setInterval(dataTimer, 2000);
-
-        function dataTimer() {
-            // Call to get plugin data
-            jQuery.getJSON("/plugindata", function(piVals) {
-                var parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
-                jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
-            } 
-        )}        
+    }        
 });
 
 </script>
@@ -556,7 +573,7 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
 
 $if options.show_plugin_data:
     <div id="graph-container" class="graph-container">             
-        <div class="piDatFooter" id="pluginPars"></div>
+    <div class="piDatFooter" id="pluginPars"></div>
               
     $if options.use_weather:
        $if options.weather_status == 0: 

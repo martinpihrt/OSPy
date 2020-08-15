@@ -139,7 +139,7 @@ def poweroff(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info("Powering off...")
+        logging.info(_('Powering off...'))
 
         import subprocess
         if determine_platform() == 'nt':
@@ -162,7 +162,7 @@ def restart(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info("Restarting...")
+        logging.info(_('Restarting...'))
 
         import sys
         if determine_platform() == 'nt':

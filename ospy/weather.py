@@ -112,7 +112,7 @@ class _Weather(Thread):
 
                 self._sleep(3600)
             except Exception:
-                logging.warning('Weather error:\n' + traceback.format_exc())
+                logging.warning(_('Weather error:') + ' ' + traceback.format_exc())
                 self._sleep(6*3600)
 
     def _find_location(self):
@@ -124,20 +124,20 @@ class _Weather(Thread):
             data = json.load(data)
             if not data:
                 options.weather_status = 0 # Weather - No location found!
-                raise Exception('No location found: ' + options.location + '.')
+                raise Exception(_('No location found:') + ' ' + options.location + '.')
             else:
                 self._lat = float(data[0]['lat'])
                 self._lon = float(data[0]['lon'])
                 options.weather_lat = str(float(data[0]['lat']))
                 options.weather_lon = str(float(data[0]['lon']))
                 options.weather_status = 1 # found
-                logging.debug('Location found: %s, %s', self._lat, self._lon)
+                logging.debug(_('Location found: %s, %s'), self._lat, self._lon)
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:
             self._determine_location = True  # Let the weather thread try again when it wakes up
             options.weather_status = 2 # Weather - No location coordinates available!
-            raise Exception('No location coordinates available!')
+            raise Exception(_('No location coordinates available!'))
         return self._lat, self._lon
 
     @_cache('darksky_data')
@@ -168,7 +168,7 @@ class _Weather(Thread):
         if 'offset' in self._result_cache['darksky_json'][url]['data']:
             self._tz_offset = self._result_cache['darksky_json'][url]['data']['offset']
         elif self._tz_offset == 0:
-            logging.warning('No timezone offset found, ETo might be incorrect.')
+            logging.warning(_('No timezone offset found, ETo might be incorrect.'))
 
         return self._result_cache['darksky_json'][url]['data']
 
@@ -295,7 +295,7 @@ class _Weather(Thread):
 
     #Deprecated interfaces:
     def _deprecated(self, *args, **kwargs):
-        raise Exception('This interface was removed because Weather Underground API has stopped, please update the plug-in!')
+        raise Exception(_('This interface was removed because Weather Underground API has stopped, please update the plug-in!'))
 
     get_wunderground_history = _deprecated
     get_wunderground_forecast = _deprecated

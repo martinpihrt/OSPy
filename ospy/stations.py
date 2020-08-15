@@ -117,8 +117,7 @@ class _Station(object):
             pass
 
         if key == 'usage' and value > options.max_usage:
-            logging.warning('The usage of %s is more than the maximum allowed usage, '
-                            'scheduling it will be impossible.', self.name)
+            logging.warning(_('The usage of') + ' %s' + _('is more than the maximum allowed usage. Scheduling it will be impossible.'), self.name)
 
 
 class _BaseStations(object):
@@ -139,7 +138,7 @@ class _BaseStations(object):
 
     def _activate(self):
         """This function should be used to update real outputs according to self._state."""
-        logging.debug("Activated outputs")
+        logging.debug(_('Activated outputs'))
 
     def _resize_cb(self, key, old, new):
         self.resize(new)
@@ -165,7 +164,7 @@ class _BaseStations(object):
                 del self._stations[-1]
                 del self._state[-1]
 
-        logging.debug("Resized to %d", count)
+        logging.debug(_('Resized to') + ' %d', count)
 
     def count(self):
         return len(self._stations)
@@ -189,12 +188,12 @@ class _BaseStations(object):
         for i in index:
             if i < len(self._state):
                 self._state[i] = True
-                logging.debug("Activated output %d", i)
+                logging.debug(_('Activated output') + ' %d', i)
                 if self._stations[i].is_master:
-                    logging.debug("Activated master one")
+                    logging.debug(_('Activated master one'))
                     master_one_on.send()                   # send signal master ON
                 if self._stations[i].is_master_two:
-                    logging.debug("Activated master two")    
+                    logging.debug(_('Activated master two'))    
                     master_two_on.send()                   # send signal master 2 ON                
                  
     def deactivate(self, index):
@@ -203,12 +202,12 @@ class _BaseStations(object):
         for i in index:
             if i < len(self._state):
                 self._state[i] = False
-                logging.debug("Deactivated output %d", i)
+                logging.debug(_('Deactivated output') + ' %d', i)
                 if self._stations[i].is_master:
-                    logging.debug("Deactivated master one")
+                    logging.debug(_('Deactivated master one'))
                     master_one_off.send()                   # send signal master OFF
                 if self._stations[i].is_master_two:
-                    logging.debug("Deactivated master two")    
+                    logging.debug(_('Deactivated master two'))    
                     master_two_off.send()                   # send signal master 2 OFF                
 
     def active(self, index=None):
@@ -221,7 +220,7 @@ class _BaseStations(object):
     def clear(self):
         for i in range(len(self._state)):
             self._state[i] = False
-        logging.debug("Cleared all outputs")
+        logging.debug(_('Cleared all outputs'))
 
     def __setattr__(self, key, value):
         super(_BaseStations, self).__setattr__(key, value)
@@ -261,7 +260,7 @@ class _ShiftStations(_BaseStations):
             self._io.output(self._sr_clk, self._io.HIGH)
         self._io.output(self._sr_lat, self._io.HIGH)
         self._io.output(self._sr_noe, self._io.LOW)
-        logging.debug("Activated shift outputs")
+        logging.debug(_('Activated shift outputs'))
         zone_change.send()
         
 

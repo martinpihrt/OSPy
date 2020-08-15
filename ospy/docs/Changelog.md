@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Aug 15 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added strings for translation, translation into Czech and into other language translations (machine translations).
+Add plugin data to display (any plugin now allows you to display data on the home screen and time line). Not 100% ready to use. Working on it. Fixing in restart and power down in menu (new notifications windows). 
+
 Aug 12 2020
 -----------
 (martinpihrt)<br/>

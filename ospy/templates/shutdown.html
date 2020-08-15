@@ -1,0 +1,22 @@
+$def with ()
+
+$var title: $_('Shutdown')
+$var page: shutdown
+
+<div class="alert">
+  <span class="closebtn">&times;</span>  
+  <strong>$_('Danger!')</strong> $_('The OSPy system shuts down.')
+</div>
+
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>

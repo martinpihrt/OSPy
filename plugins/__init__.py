@@ -7,7 +7,7 @@ import types
 import threading
 
 __running = {}
-REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip']
+REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
 ################################################################################
 # Plugin Options                                                               #
@@ -76,7 +76,7 @@ class PluginOptions(dict):
                     self[key] = [int(x) for x in qdict.get(key, old_value)]           
             except ValueError:
                 import web
-                raise web.badrequest('Invalid value for \'%s\': \'%s\'' % (key, qdict.get(key)))
+                raise web.badrequest(_('Invalid value for') + ' ' + '%s:%s' % (key, qdict.get(key)))
 
 
 ################################################################################
@@ -119,11 +119,11 @@ class _PluginChecker(threading.Thread):
                     for plugin in available():
                         update = self.available_version(plugin)
                         if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
-                            logging.info('Updating the {} plug-in.'.format(plugin))
+                            logging.info(_('Updating the {} plug-in.').format(plugin))
                             self.install_repo_plugin(update['repo'], plugin)
 
             except Exception:
-                logging.error('Failed to update the plug-ins information:\n' + traceback.format_exc())
+                logging.error(_('Failed to update the plug-ins information:') + ' ' + str(traceback.format_exc()))
             finally:
                 self._sleep(3600)
 
@@ -146,7 +146,7 @@ class _PluginChecker(threading.Thread):
 
         response = urllib2.urlopen(repo)
         zip_data = response.read()
-        logging.debug('Downloaded ' + repo)
+        logging.debug(_('Downloaded') + ' ' + str(repo))
 
         return io.BytesIO(zip_data)
 
@@ -208,7 +208,7 @@ class _PluginChecker(threading.Thread):
                     }
 
         except Exception:
-            logging.error('Failed to read a plug-in zip file:\n' + traceback.format_exc())
+            logging.error(_('Failed to read a plug-in zip file:') + ' ' + str(traceback.format_exc()))
 
         return result
 
@@ -218,7 +218,7 @@ class _PluginChecker(threading.Thread):
             if repo not in self._repo_contents:
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
         except Exception:
-            logging.error('Failed to get contents of {}:'.format(repo) + '\n' + traceback.format_exc())
+            logging.error(_('Failed to get contents of') + ': ' + str(repo) + str(traceback.format_exc()))
             return {}
 
         return self._repo_contents[repo]
@@ -454,13 +454,13 @@ def start_enabled_plugins():
 
                 plugin.start()
                 __running[module] = plugin
-                logging.info('Started the {} plug-in.'.format(plugin_n))
+                logging.info(_('Started the') + ': ' + str(plugin_n))
 
                 if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
                     plugin.LINK = module + '.' + plugin.LINK
 
             except Exception:
-                logging.error('Failed to load the {} plug-in:'.format(plugin_n) + '\n' + traceback.format_exc())
+                logging.error(_('Failed to load the') + ' ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
                 options.enabled_plugins.remove(module)
 
     for module, plugin in __running.copy().iteritems():
@@ -469,9 +469,9 @@ def start_enabled_plugins():
             try:
                 plugin.stop()
                 del __running[module]
-                logging.info('Stopped the {} plug-in.'.format(plugin_n))
+                logging.info(_('Stopped the') + ': ' + str(plugin_n))
             except Exception:
-                logging.error('Failed to stop the {} plug-in:'.format(plugin_n) + '\n' + traceback.format_exc())
+                logging.error(_('Failed to stop the') + ': ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
 
 
 def running():
@@ -480,7 +480,7 @@ def running():
 
 def get(name):
     if name not in __running:
-        raise Exception('The %s plug-in is not running.' % name)
+        raise Exception(_('The plug-in') + ': ' + str(name) + ' ' + _('is not running.'))
     return __running[name]
 
 

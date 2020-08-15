@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-12 07:51+CEST\n"
-"PO-Revision-Date: 2020-08-12 09:02+0200\n"
+"POT-Creation-Date: 2020-08-14 13:49+CEST\n"
+"PO-Revision-Date: 2020-08-15 09:24+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -159,7 +159,7 @@ msgid "Enabling or disabling connection to service Dark Sky."
 msgstr "Zapnutie alebo vypnutie pripojenia k službe Dark Sky."
 
 #: ospy/options.py:105 ospy/options.py:112 ospy/options.py:119
-#: ospy/options.py:126
+#: ospy/options.py:126 plugins/weather_based_rain_delay/__init__.py:83
 msgid "Weather"
 msgstr "Počasie"
 
@@ -464,6 +464,30 @@ msgstr "Zemepisná dĺžka"
 msgid "Weather status"
 msgstr "Stav počasia"
 
+#: ospy/options.py:444
+msgid "Callback failed"
+msgstr "Spätné volanie zlyhalo"
+
+#: ospy/options.py:480
+msgid "Saving options to disk"
+msgstr "Ukladanie do log súborov OK"
+
+#: ospy/options.py:507
+msgid "Saving error"
+msgstr "Chyba pri ukladaní"
+
+#: ospy/outputs.py:13
+msgid "Dummy Outputs Set"
+msgstr "Fiktývna množina výstupov"
+
+#: ospy/outputs.py:13 ospy/outputs.py:26
+msgid "to"
+msgstr "do"
+
+#: ospy/outputs.py:26
+msgid "Real Outputs Set"
+msgstr "Reálna množina výstupov"
+
 #: ospy/programs.py:30
 msgid "Selected days (Simple)"
 msgstr "Vybraté dni (jednoduché)"
@@ -570,7 +594,7 @@ msgid "Starting:"
 msgstr "Začína:"
 
 #: ospy/programs.py:284 ospy/templates/home.html:90
-#: ospy/templates/home.html:553
+#: ospy/templates/home.html:495
 msgid "For"
 msgstr "Na dobu"
 
@@ -613,6 +637,96 @@ msgstr "Spustiť jednorázovo"
 #: ospy/scheduler.py:121
 msgid "Run-Now"
 msgstr "Spustiť teraz"
+
+#: ospy/server.py:107 ospy/server.py:108
+msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
+msgstr "Súbory: fullchain.pem a privkey.pem našiel, skúste spustiť HTTPS."
+
+#: ospy/server.py:118 ospy/server.py:119
+msgid "SSL OK."
+msgstr "SSL OK."
+
+#: ospy/server.py:122 ospy/server.py:123
+msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
+msgstr ""
+"SSL súbory: fullchain.pem a privkey.pem nebol nájdený, počnúc len HTTP!"
+
+#: ospy/server.py:133 ospy/server.py:134
+msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
+msgstr ""
+"Vlastné SSL súbory: fullchain.pem a privkey.pem našiel, skúste spustiť HTTPS."
+
+#: ospy/server.py:148 ospy/server.py:149
+msgid ""
+"Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
+msgstr ""
+"Vlastné SSL súbory: fullchain.pem a privkey.pem nebol nájdený, počnúc iba "
+"HTTP!"
+
+#: ospy/server.py:180 ospy/server.py:181
+msgid "OSPy is closing, saving sessions."
+msgstr "OSPy sa zatvára, ukladá relácie."
+
+#: ospy/server.py:184
+msgid "Starting scheduler and plugins..."
+msgstr "Spúšťa sa plánovač a zásuvné moduly..."
+
+#: ospy/server.py:189
+msgid "Ready"
+msgstr "Pripravení"
+
+#: ospy/server.py:206 ospy/server.py:207
+msgid "Creating statistics..."
+msgstr "Vytvárajú sa štatistiky..."
+
+#: ospy/stations.py:120
+msgid "The usage of"
+msgstr "Použitie"
+
+#: ospy/stations.py:120
+msgid ""
+"is more than the maximum allowed usage. Scheduling it will be impossible."
+msgstr "je viac ako maximálne povolené použitie. Plánovanie bude nemožné."
+
+#: ospy/stations.py:141
+msgid "Activated outputs"
+msgstr "Aktivované výstupy"
+
+#: ospy/stations.py:167
+msgid "Resized to"
+msgstr "Zmeniť veľkosť na"
+
+#: ospy/stations.py:191
+msgid "Activated output"
+msgstr "Aktivovaný výstup"
+
+#: ospy/stations.py:193
+msgid "Activated master one"
+msgstr "Aktivovaný hlavný 1"
+
+#: ospy/stations.py:196
+msgid "Activated master two"
+msgstr "Aktivovaný hlavný 2"
+
+#: ospy/stations.py:205
+msgid "Deactivated output"
+msgstr "Deaktivovaný výstup"
+
+#: ospy/stations.py:207
+msgid "Deactivated master one"
+msgstr "Deaktivovaný hlavný 1"
+
+#: ospy/stations.py:210
+msgid "Deactivated master two"
+msgstr "Deaktivovaný hlavný 2"
+
+#: ospy/stations.py:223
+msgid "Cleared all outputs"
+msgstr "Vymazané všetky výstupy"
+
+#: ospy/stations.py:263
+msgid "Activated shift outputs"
+msgstr "Aktivovaný posuvný register"
 
 #: ospy/templates/base.html:44
 #: plugins/monthly_water_level/templates/monthly_water_level.html:26
@@ -697,10 +811,6 @@ msgstr "popo"
 #: ospy/templates/base.html:122
 msgid "Manage"
 msgstr "Spravovať"
-
-#: ospy/templates/base.html:125
-msgid "Package name"
-msgstr "Názov balíka"
 
 #: ospy/templates/base.html:129
 msgid "OSPy - OpenSprinkler Python"
@@ -801,19 +911,19 @@ msgstr "Pracuje"
 msgid "blocked by"
 msgstr "zablokované"
 
-#: ospy/templates/home.html:130 ospy/templates/home.html:527
+#: ospy/templates/home.html:130 ospy/templates/home.html:469
 msgid "On (Master)"
 msgstr "Zap (Majster)"
 
-#: ospy/templates/home.html:133 ospy/templates/home.html:533
+#: ospy/templates/home.html:133 ospy/templates/home.html:475
 msgid "On (Master Two)"
 msgstr "Zap (Majster 2)"
 
-#: ospy/templates/home.html:137 ospy/templates/home.html:529
+#: ospy/templates/home.html:137 ospy/templates/home.html:471
 msgid "Off (Master)"
 msgstr "Vyp (Majster)"
 
-#: ospy/templates/home.html:140 ospy/templates/home.html:535
+#: ospy/templates/home.html:140 ospy/templates/home.html:477
 msgid "Off (Master Two)"
 msgstr "Vyp (Majster 2)"
 
@@ -825,39 +935,39 @@ msgstr "Potlačená dážďovým oneskorením"
 msgid "Suppressed by Rain Sensor"
 msgstr "Potlačená senzorom dažďa"
 
-#: ospy/templates/home.html:152 ospy/templates/home.html:491
+#: ospy/templates/home.html:152 ospy/templates/home.html:433
 #: ospy/templates/log.html:7 ospy/templates/log.html:35
 msgid "Disabled"
 msgstr "Zakázané"
 
-#: ospy/templates/home.html:155 ospy/templates/home.html:541
-#: ospy/templates/home.html:552 ospy/templates/plugins_manage.html:13
+#: ospy/templates/home.html:155 ospy/templates/home.html:483
+#: ospy/templates/home.html:494 ospy/templates/plugins_manage.html:13
 #: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:64
 #: ospy/templates/program.html:423 ospy/templates/programs.html:16
 msgid "Off"
 msgstr "Vyp"
 
-#: ospy/templates/home.html:249
+#: ospy/templates/home.html:174
 msgid "Enter percentage adjustment"
 msgstr "Zadajte percentuálnu úpravu"
 
-#: ospy/templates/home.html:252
+#: ospy/templates/home.html:177
 msgid "Percentage must be a positive value"
 msgstr "Percentuálny podiel musí byť kladná hodnota"
 
-#: ospy/templates/home.html:263
+#: ospy/templates/home.html:188
 msgid "Enter hours to delay"
 msgstr "Zadať hodiny na oneskorenie"
 
-#: ospy/templates/home.html:266
+#: ospy/templates/home.html:191
 msgid "Delay must be a positive value"
 msgstr "Oneskorenie musí byť pozitívna hodnota"
 
-#: ospy/templates/home.html:296
+#: ospy/templates/home.html:221
 msgid "(mm)"
 msgstr "(mm)"
 
-#: ospy/templates/home.html:296
+#: ospy/templates/home.html:221
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
 #: plugins/ping_monitor/templates/ping_monitor.html:22
 #: plugins/pressure_monitor/templates/pressure_monitor.html:22
@@ -867,19 +977,19 @@ msgstr "(mm)"
 msgid "Reason"
 msgstr "Štatistika"
 
-#: ospy/templates/home.html:302
+#: ospy/templates/home.html:227
 msgid "ETo"
 msgstr "ETo"
 
-#: ospy/templates/home.html:303
+#: ospy/templates/home.html:228
 msgid "Rain"
 msgstr "Dážď"
 
-#: ospy/templates/home.html:310 ospy/templates/home.html:510
+#: ospy/templates/home.html:235 ospy/templates/home.html:452
 msgid "Total"
 msgstr "Celkom"
 
-#: ospy/templates/home.html:313
+#: ospy/templates/home.html:238
 #: plugins/ping_monitor/templates/ping_monitor.html:36
 #: plugins/pressure_monitor/templates/pressure_monitor.html:36
 #: plugins/tank_monitor/templates/tank_monitor.html:36
@@ -888,97 +998,97 @@ msgstr "Celkom"
 msgid "Previous Value"
 msgstr "Predchádzajúca hodnota"
 
-#: ospy/templates/home.html:326
+#: ospy/templates/home.html:251
 msgid "Water balance (mm)"
 msgstr "Štatistika zavlažovanie (mm)"
 
-#: ospy/templates/home.html:442
+#: ospy/templates/home.html:367
 msgid "Timer values wrong:"
 msgstr "Nesprávne hodnoty časovača:"
 
-#: ospy/templates/home.html:479
+#: ospy/templates/home.html:421
 msgid "% Level"
 msgstr "% Úroveň"
 
-#: ospy/templates/home.html:479
+#: ospy/templates/home.html:421
 msgid "Normal"
 msgstr "Normálne"
 
-#: ospy/templates/home.html:479
+#: ospy/templates/home.html:421
 msgid "Water Level"
 msgstr "Vodná hladina"
 
-#: ospy/templates/home.html:481
+#: ospy/templates/home.html:423
 msgid "Active"
 msgstr "Aktívny"
 
-#: ospy/templates/home.html:481
+#: ospy/templates/home.html:423
 msgid "Rain Delay"
 msgstr "Dážď oneskorenie"
 
-#: ospy/templates/home.html:485
+#: ospy/templates/home.html:427
 msgid "Rain sensed"
 msgstr "Dážď"
 
-#: ospy/templates/home.html:488
+#: ospy/templates/home.html:430
 msgid "Schedule"
 msgstr "Plánovať"
 
-#: ospy/templates/home.html:488 ospy/webpages.py:226
+#: ospy/templates/home.html:430 ospy/webpages.py:230
 msgid "Manual"
 msgstr "Manuálne"
 
-#: ospy/templates/home.html:491 ospy/templates/log.html:7
+#: ospy/templates/home.html:433 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
 #: plugins/webcam/templates/webcam.html:29
 msgid "Enabled"
 msgstr "Povolené"
 
-#: ospy/templates/home.html:496
+#: ospy/templates/home.html:438
 msgid "Water Level adjustments"
 msgstr "Úpravy úrovne vody"
 
-#: ospy/templates/home.html:500
+#: ospy/templates/home.html:442
 msgid "User"
 msgstr "Užívateľ"
 
-#: ospy/templates/home.html:541 ospy/templates/home.html:552
+#: ospy/templates/home.html:483 ospy/templates/home.html:494
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
 #: ospy/templates/programs.html:14
 msgid "On"
 msgstr "Zap"
 
-#: ospy/templates/home.html:543
+#: ospy/templates/home.html:485
 msgid "in"
 msgstr "zostáva"
 
-#: ospy/templates/home.html:549
+#: ospy/templates/home.html:491
 msgid "Forever"
 msgstr "Navždy"
 
-#: ospy/templates/home.html:561 ospy/templates/home.html:597
+#: ospy/templates/home.html:503 ospy/templates/home.html:539
 msgid "Stop All Stations"
 msgstr "Zastaviť všetky stanice"
 
-#: ospy/templates/home.html:575
+#: ospy/templates/home.html:517
 msgid " Prev Day"
 msgstr " Včera"
 
-#: ospy/templates/home.html:576
+#: ospy/templates/home.html:518
 msgid "Today"
 msgstr "Dnes"
 
-#: ospy/templates/home.html:577
+#: ospy/templates/home.html:519
 msgid "Next Day"
 msgstr "Ďalší"
 
-#: ospy/templates/home.html:591
+#: ospy/templates/home.html:533
 msgid "loading..."
 msgstr "načítava sa..."
 
-#: ospy/templates/home.html:612
+#: ospy/templates/home.html:554
 #: plugins/air_temp_humi/templates/air_temp_humi.html:343
 #: plugins/ping_monitor/templates/ping_monitor.html:264
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
@@ -988,37 +1098,31 @@ msgstr "načítava sa..."
 msgid "Clear selection"
 msgstr "Vyčistiť výber"
 
-#: ospy/templates/home.html:618 ospy/templates/home.html:621
-#: ospy/templates/home.html:624 ospy/templates/home.html:627
-#: ospy/templates/home.html:630
-msgid "OPEN"
-msgstr "OTVORIŤ"
-
-#: ospy/templates/home.html:635
+#: ospy/templates/home.html:563
 msgid "Weather - No location found!"
 msgstr "Počasie - nenájdené ID vášho umiestnenia!"
 
-#: ospy/templates/home.html:637
+#: ospy/templates/home.html:565
 msgid "Weather - Location"
 msgstr "Počasie-umiestnenie"
 
-#: ospy/templates/home.html:637
+#: ospy/templates/home.html:565
 msgid "found:"
 msgstr "našiel:"
 
-#: ospy/templates/home.html:640
+#: ospy/templates/home.html:568
 msgid "Map"
 msgstr "Vyhľadať umiestnenie"
 
-#: ospy/templates/home.html:641
+#: ospy/templates/home.html:569
 msgid "lat"
 msgstr "zemepisná šírka"
 
-#: ospy/templates/home.html:641
+#: ospy/templates/home.html:569
 msgid "lon"
 msgstr "zemepisná dĺžka"
 
-#: ospy/templates/home.html:643
+#: ospy/templates/home.html:571
 msgid "Weather - No location coordinates available!"
 msgstr "Počasie - nie sú k dispozícii žiadne súradnice pre vaše umiestnenie!"
 
@@ -1158,7 +1262,7 @@ msgid "None"
 msgstr "Neurčené"
 
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
-#: plugins/air_temp_humi/__init__.py:139
+#: plugins/air_temp_humi/__init__.py:146
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
 msgid "Output"
@@ -1236,12 +1340,12 @@ msgid "Reboot hardware!"
 msgstr "Reštartovať hardvér!"
 
 #: ospy/templates/options.html:221
-msgid "Shutdown"
-msgstr "Vypnúť"
-
-#: ospy/templates/options.html:221
 msgid "Shutdown hardware!"
 msgstr "Vypnúť hardvér!"
+
+#: ospy/templates/options.html:221 ospy/templates/shutdown.html:3
+msgid "Shutdown"
+msgstr "Vypnúť"
 
 #: ospy/templates/options.html:222
 msgid "Default"
@@ -1558,13 +1662,13 @@ msgstr "Editovať"
 msgid "Restarting"
 msgstr "Reštartovanie"
 
-#: ospy/templates/restarting.html:32
-msgid "OSPy is restarting"
-msgstr "OSPy sa reštartuje"
+#: ospy/templates/restarting.html:34
+msgid "OSPy is restarting. You will be redirected as soon as possible..."
+msgstr "OSPy sa reštartuje. Budete presmerovaný čo najskôr ..."
 
-#: ospy/templates/restarting.html:33
-msgid "You will be redirected as soon as possible..."
-msgstr "Budete presmerovaný čo najskôr..."
+#: ospy/templates/restarting.html:34
+msgid "Warning!"
+msgstr "Upozornenie!"
 
 #: ospy/templates/runonce.html:22
 #: plugins/pressurizer/templates/pressurizer.html:23
@@ -1579,6 +1683,14 @@ msgstr "Spustiť jednorazový program"
 #: ospy/templates/runonce.html:55
 msgid "Reset Time"
 msgstr "Obnoviť čas"
+
+#: ospy/templates/shutdown.html:8
+msgid "Danger!"
+msgstr "Nebezpečenstvo!"
+
+#: ospy/templates/shutdown.html:8
+msgid "The OSPy system shuts down."
+msgstr "Systém OSPy sa vypne."
 
 #: ospy/templates/stations.html:15
 msgid "Usage"
@@ -1634,6 +1746,62 @@ msgstr ""
 "Systémová súčasť je nedosiahnuteľná alebo zaneprázdnená. Počkajte, prosím "
 "(skúste to znova neskôr)."
 
+#: ospy/usagestats.py:18
+msgid "Requests not found, installing. Please wait..."
+msgstr "Požiadavky sa nenašli, inštalácia. prosím počkajte..."
+
+#: ospy/usagestats.py:224
+msgid "Could not create %s, usage statistics won not be collected"
+msgstr "Nepodarilo sa vytvoriť %s, štatistiky používania sa nezbierajú"
+
+#: ospy/usagestats.py:254
+msgid "Unknown reporting state %r"
+msgstr "Neznámy stav hlásenia %r"
+
+#: ospy/usagestats.py:266
+msgid "Can not enable reporting"
+msgstr "Nie je možné povoliť vykazovanie"
+
+#: ospy/usagestats.py:281
+msgid "Can not disable reporting"
+msgstr "Nie je možné zakázať vykazovanie"
+
+#: ospy/usagestats.py:291
+msgid "Deleted %d pending reports"
+msgstr "Odstránené %d čakajúcich zostáv"
+
+#: ospy/usagestats.py:310 ospy/usagestats.py:331
+msgid "This report has already been submitted"
+msgstr "Táto správa už bola predložená"
+
+#: ospy/usagestats.py:346
+msgid ""
+"Generated report:\n"
+"%r"
+msgstr ""
+"Generovaná zostava:\n"
+"%r"
+
+#: ospy/usagestats.py:380
+msgid "Could not upload %s: %s"
+msgstr "Nepodarilo sa odovzdať %s: %s"
+
+#: ospy/usagestats.py:383
+msgid "Submitted report %s"
+msgstr "Predložená zostava %s"
+
+#: ospy/usagestats.py:393
+msgid "Could not upload report: %s"
+msgstr "Nepodarilo sa odovzdať zostavu: %s"
+
+#: ospy/usagestats.py:401
+msgid "Submitted report"
+msgstr "Predložená správa"
+
+#: ospy/usagestats.py:403
+msgid "Server rejected report: %s"
+msgstr "Server odmietol správu: %s"
+
 #: ospy/version.py:20
 msgid "Could not use git to determine revision!"
 msgstr "Nepodarilo sa použiť git na určenie revízie!"
@@ -1642,82 +1810,133 @@ msgstr "Nepodarilo sa použiť git na určenie revízie!"
 msgid "Could not use git to determine date of last commit!"
 msgstr "Nepodarilo sa použiť git na určenie dátumu posledného potvrdenia!"
 
-#: ospy/webpages.py:73
+#: ospy/weather.py:115
+msgid "Weather error:"
+msgstr "Chyba počasia:"
+
+#: ospy/weather.py:127
+msgid "No location found:"
+msgstr "Nenašlo sa žiadne umiestnenie:"
+
+#: ospy/weather.py:134
+msgid "Location found: %s, %s"
+msgstr "Nájdené umiestnenie: %s, %s"
+
+#: ospy/weather.py:140
+msgid "No location coordinates available!"
+msgstr "Nie sú k dispozícii žiadne súradnice polohy!"
+
+#: ospy/weather.py:171
+msgid "No timezone offset found, ETo might be incorrect."
+msgstr "Nenašiel sa žiadny posun časového pásma, ETo môže byť nesprávne."
+
+#: ospy/weather.py:298
+msgid ""
+"This interface was removed because Weather Underground API has stopped, "
+"please update the plug-in!"
+msgstr ""
+"Toto rozhranie bolo odstránené, pretože Počasie Underground API sa zastavil, "
+"aktualizujte plug-in!"
+
+#: ospy/webpages.py:77
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:76
+#: ospy/webpages.py:80
 msgid "Incorrect password, please try again"
 msgstr "Nesprávne heslo, skúste znova"
 
-#: plugins/air_temp_humi/__init__.py:31
-#, fuzzy
+#: ospy/webpages.py:734
+msgid "Upload, save, copy options.db file sucesfully, now restarting OSPy..."
+msgstr ""
+"Upload, uložiť, kopírovať options.db súboru provedeno, teraz sa reštartuje "
+"OSPy ..."
+
+#: ospy/webpages.py:762
+msgid "Remove fullchain.pem..."
+msgstr "Odstrániť fullchain.pem ..."
+
+#: ospy/webpages.py:766
+msgid "Remove privkey.pem..."
+msgstr "Odstrániť privkey.pem..."
+
+#: ospy/webpages.py:772
+msgid "Upload SSL file %s"
+msgstr "Odovzdať súbor SSL %s"
+
+#: ospy/webpages.py:941
+msgid "Label not set"
+msgstr "Menovka nie je nastavená"
+
+#: ospy/webpages.py:954 ospy/webpages.py:1023
+msgid "Value not set"
+msgstr "Hodnota nie je nastavená"
+
+#: ospy/webpages.py:966 ospy/webpages.py:1011
+msgid "Unit not set"
+msgstr "Jednotka nie je nastavená"
+
+#: plugins/air_temp_humi/__init__.py:33
 msgid "Package: Air Temperature and Humidity Monitor"
-msgstr "Monitor teploty a vlhkosti vzduchu"
+msgstr "Balenie: Monitor teploty a vlhkosti vzduchu"
 
-#: plugins/air_temp_humi/__init__.py:130
-#, fuzzy
-msgid "DHT11 data is not valid"
-msgstr "DHT11 údaje nie sú platné"
-
-#: plugins/air_temp_humi/__init__.py:135 plugins/air_temp_humi/__init__.py:169
+#: plugins/air_temp_humi/__init__.py:114 plugins/air_temp_humi/__init__.py:142
+#: plugins/air_temp_humi/__init__.py:177
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
 
-#: plugins/air_temp_humi/__init__.py:136
+#: plugins/air_temp_humi/__init__.py:137
+msgid "DHT11 data is not valid"
+msgstr "Údaje DHT11 nie sú platné"
+
+#: plugins/air_temp_humi/__init__.py:143
 msgid "Humidity"
 msgstr "Vlhkosť"
 
-#: plugins/air_temp_humi/__init__.py:138 plugins/relay_16/__init__.py:120
+#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr "Zapnúť"
 
-#: plugins/air_temp_humi/__init__.py:138 plugins/relay_16/__init__.py:137
+#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr "Vypnúť"
 
-#: plugins/air_temp_humi/__init__.py:149
-#, fuzzy
+#: plugins/air_temp_humi/__init__.py:156
 msgid "Station output was turned on."
 msgstr "Výstup stanice bol zapnutý."
 
-#: plugins/air_temp_humi/__init__.py:157
-#, fuzzy
+#: plugins/air_temp_humi/__init__.py:164
 msgid "Station output was turned off."
 msgstr "Výstup stanice bol vypnutý."
 
-#: plugins/air_temp_humi/__init__.py:181 plugins/air_temp_humi/__init__.py:257
-#, fuzzy
+#: plugins/air_temp_humi/__init__.py:193 plugins/air_temp_humi/__init__.py:269
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Doplnok monitora teploty a vlhkosti vzduchu"
 
-#: plugins/air_temp_humi/__init__.py:231
-#, fuzzy
-#| msgid "Incorrect password, please try again"
+#: plugins/air_temp_humi/__init__.py:243
 msgid "Data is not correct. Please try again later."
 msgstr "Údaje nie sú správne. Skúste to znova neskôr."
 
-#: plugins/air_temp_humi/__init__.py:377
-#: plugins/pressure_monitor/__init__.py:305 plugins/ups_adj/__init__.py:309
-#: plugins/wind_monitor/__init__.py:386
+#: plugins/air_temp_humi/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:315 plugins/ups_adj/__init__.py:317
+#: plugins/wind_monitor/__init__.py:400
 msgid "Creating default graph log files OK"
 msgstr "Vytváranie predvolených súborov denníka grafov OK"
 
-#: plugins/air_temp_humi/__init__.py:419
+#: plugins/air_temp_humi/__init__.py:431
 msgid "Saving to log files OK"
-msgstr "Ukladanie do log súborov OK."
+msgstr "Ukladanie do log súborov OK"
 
-#: plugins/air_temp_humi/__init__.py:476 plugins/ping_monitor/__init__.py:343
-#: plugins/tank_monitor/__init__.py:434 plugins/wind_monitor/__init__.py:429
+#: plugins/air_temp_humi/__init__.py:488 plugins/ping_monitor/__init__.py:343
+#: plugins/tank_monitor/__init__.py:446 plugins/wind_monitor/__init__.py:462
 msgid "Deleted all log files OK"
 msgstr "Odstránené všetky súbory denníka OK"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:3
 #: plugins/air_temp_humi/templates/air_temp_humi.html:172
-#, fuzzy
 msgid "Air Temperature and Humidity Monitor"
 msgstr "Monitor teploty a vlhkosti vzduchu"
 
@@ -1726,24 +1945,18 @@ msgid "(&deg;C)"
 msgstr "(&deg;C)"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:34
-#, fuzzy
-#| msgid "Temperature"
 msgid "Actual Temperature"
-msgstr "Teplota"
+msgstr "Skutočná teplota"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:36
-#, fuzzy
 msgid "Previous Temperature"
-msgstr "Chráňte teplotu"
+msgstr "Predchádzajúca teplota"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:49
-#, fuzzy
-#| msgid "Temperature"
 msgid "Temperatures &deg;C"
-msgstr "Teplota"
+msgstr "Teploty &deg;C"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:173
-#, fuzzy
 msgid ""
 "This plugin needs DHT11 sensor connected to GPIO 10 (pin 19 MOSI). Range for "
 "Humidity: 20 - 90 %RH. Range for Temperature 0 - 50 Celsius"
@@ -1752,7 +1965,6 @@ msgstr ""
 "Rozsah vlhkosti: 20 – 90 % relatívnej vlhkosti. Rozsah teploty 0 - 50 Celzia"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:174
-#, fuzzy
 msgid ""
 "This plugin allows the control of some stations (eg Fan) depending on the "
 "humidity of the sensor"
@@ -1761,7 +1973,6 @@ msgstr ""
 "na vlhkosti senzora"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:175
-#, fuzzy
 msgid ""
 "This plug-in allows you to connect 1-6 DS18B20 sensors connected to the "
 "external hardware board via an I2C bus (address 0x03)"
@@ -1783,15 +1994,12 @@ msgstr ""
 "graf s nameranými údajmi"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:181
-#, fuzzy
-#| msgid "Enabled plug-ins"
 msgid "Enable plugin"
 msgstr "Povoliť plugin"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:183
-#, fuzzy
 msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
-msgstr "Povoliť plugin a potom povoliť DHT, DS18B20 a zapisovanie do denníka"
+msgstr "Povoliť plugin a potom povoliť dht, ds18b20 a zapisovanie do denníka"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:192
 #: plugins/ping_monitor/templates/ping_monitor.html:239
@@ -1836,8 +2044,6 @@ msgid "minutes (Minimum is 1)"
 msgstr "minút (minimálne 1)"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:215
-#, fuzzy
-#| msgid "Enable All"
 msgid "Enable DHT11"
 msgstr "Povoliť DHT11"
 
@@ -1848,13 +2054,10 @@ msgstr "Povoliť DHT11"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:298
 #: plugins/air_temp_humi/templates/air_temp_humi.html:305
 #: plugins/air_temp_humi/templates/air_temp_humi.html:312
-#, fuzzy
-#| msgid "Use rain sensor"
 msgid "Label for sensor"
 msgstr "Štítok pre snímač"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:227
-#, fuzzy
 msgid "Allow regulation"
 msgstr "Povoliť reguláciu"
 
@@ -1863,39 +2066,31 @@ msgid "Hysteresis"
 msgstr "Hysteréza"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
-#, fuzzy
 msgid "Humidity for output ON"
-msgstr "Vlhkosť pre výstup ON"
+msgstr "Vlhkosť pre výstup ZAP"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:241
-#, fuzzy
 msgid "Humidity + hysteresis/2 > ON"
 msgstr "Vlhkosť + hysteréza/2 > ZAPNUTÉ"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:245
-#, fuzzy
 msgid "Humidity for output OFF"
-msgstr "Vlhkosť pre výstup OFF"
+msgstr "Vlhkosť pre výstup VYP"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:247
-#, fuzzy
 msgid "Humidity - hysteresis/2 < OFF"
-msgstr "Vlhkosť - hysteréza/2 <a0> OFF"
+msgstr "Vlhkosť - hysteréza/2 < VYPNUTÉ"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:251
 #: plugins/pulse/templates/pulse.html:27
-#, fuzzy
-#| msgid "Output"
 msgid "Select Output"
 msgstr "Vybrať výstup"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:265
-#, fuzzy
 msgid "Enable DS18B20"
 msgstr "Povoliť DS18B20"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:271
-#, fuzzy
 msgid "Used DS18B20"
 msgstr "Použité DS18B20"
 
@@ -1980,156 +2175,117 @@ msgid "Delete all logs"
 msgstr "Odstrániť všetky protokoly"
 
 #: plugins/button_control/__init__.py:25
-#, fuzzy
 msgid "Package: Button Control"
-msgstr "Použiť ovládanie tlačia- u"
+msgstr "Balenie: Ovládanie tlačných tlačieb"
 
 #: plugins/button_control/__init__.py:85
-#, fuzzy
-#| msgid "System name"
 msgid "System reboot"
 msgstr "Reštartovanie systému"
 
 #: plugins/button_control/__init__.py:91
-#, fuzzy
-#| msgid "Shutdown"
 msgid "System shutdown"
 msgstr "Vypnutie systému"
 
 #: plugins/button_control/__init__.py:97
-#, fuzzy
 msgid "All stations now stopped"
 msgstr "Všetky stanice sa teraz zastavili"
 
 #: plugins/button_control/__init__.py:103
-#, fuzzy
 msgid "Scheduler is now enabled"
 msgstr "Plánovač je teraz povolený"
 
 #: plugins/button_control/__init__.py:108
-#, fuzzy
 msgid "Scheduler is now disabled"
 msgstr "Plánovač je teraz vypnutý"
 
 #: plugins/button_control/__init__.py:113
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 1"
 msgstr "Spustiť teraz program 1"
 
 #: plugins/button_control/__init__.py:124
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 2"
 msgstr "Spustiť teraz program 2"
 
 #: plugins/button_control/__init__.py:135
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 3"
 msgstr "Spustiť teraz program 3"
 
 #: plugins/button_control/__init__.py:146
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 4"
 msgstr "Spustiť teraz program 4"
 
 #: plugins/button_control/__init__.py:157
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 5"
 msgstr "Spustiť teraz program 5"
 
 #: plugins/button_control/__init__.py:168
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 6"
 msgstr "Spustiť teraz program 6"
 
 #: plugins/button_control/__init__.py:179
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 7"
 msgstr "Spustiť teraz program 7"
 
 #: plugins/button_control/__init__.py:190
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run now program 8"
 msgstr "Spustiť teraz program 8"
 
 #: plugins/button_control/__init__.py:206
-#, fuzzy
 msgid "Button plug-in is disabled."
 msgstr "Doplnok tlačidla je vypnutý."
 
 #: plugins/button_control/__init__.py:214
 #: plugins/button_control/__init__.py:305
 #: plugins/button_control/__init__.py:324
-#, fuzzy
-#| msgid "Custom plug-in (ZIP)"
 msgid "Button plug-in"
 msgstr "Tlačidlo plug-in"
 
 #: plugins/button_control/__init__.py:279
-#, fuzzy
 msgid "Switch 8 pressed"
 msgstr "Prepínač 8 stlačené"
 
 #: plugins/button_control/__init__.py:282
-#, fuzzy
 msgid "Switch 7 pressed"
 msgstr "Prepínač 7 stlačené"
 
 #: plugins/button_control/__init__.py:285
-#, fuzzy
 msgid "Switch 6 pressed"
 msgstr "Prepínač 6 stlačené"
 
 #: plugins/button_control/__init__.py:288
-#, fuzzy
 msgid "Switch 5 pressed"
 msgstr "Prepínač 5 stlačené"
 
 #: plugins/button_control/__init__.py:291
-#, fuzzy
 msgid "Switch 4 pressed"
 msgstr "Prepínač 4 stlačené"
 
 #: plugins/button_control/__init__.py:294
-#, fuzzy
 msgid "Switch 3 pressed"
 msgstr "Prepínač 3 stlačené"
 
 #: plugins/button_control/__init__.py:297
-#, fuzzy
 msgid "Switch 2 pressed"
 msgstr "Prepínač 2 stlačené"
 
 #: plugins/button_control/__init__.py:300
-#, fuzzy
 msgid "Switch 1 pressed"
 msgstr "Prepínač 1 stlačený"
 
 #: plugins/button_control/__init__.py:305
-#, fuzzy
 msgid "Read button - FAULT"
 msgstr "Tlačidlo čítať - FAULT"
 
 #: plugins/button_control/__init__.py:324
-#, fuzzy
 msgid "Set LED - FAULT"
 msgstr "Nastaviť LED - CHYBA"
 
 #: plugins/button_control/templates/button_control.html:3
 #: plugins/button_control/templates/button_control.html:19
-#, fuzzy
 msgid "Button control settings"
 msgstr "Nastavenia ovládacieho prvku tlačidla"
 
 #: plugins/button_control/templates/button_control.html:20
-#, fuzzy
 msgid ""
 "This plugin uses a circuit board with MCP23017 controller connected to the "
 "OSPy Sprinkler board via the I2C interface"
@@ -2138,7 +2294,6 @@ msgstr ""
 "doske OSPy Sprinkler cez rozhranie I2C"
 
 #: plugins/button_control/templates/button_control.html:21
-#, fuzzy
 msgid ""
 "This plug-in includes eight buttons with optional functions and "
 "signalisating via eicht LEDs"
@@ -2159,14 +2314,12 @@ msgstr "Navštíviť"
 #: plugins/sms_adj/templates/sms_adj.html:25
 #: plugins/voice_notification/templates/voice_notification.html:28
 #: plugins/water_meter/templates/water_meter.html:23
-#, fuzzy
 msgid "for more information"
 msgstr "pre viac informácií"
 
 #: plugins/button_control/templates/button_control.html:26
-#, fuzzy
 msgid "Use button control"
-msgstr "Použiť ovládanie tlačia- u"
+msgstr "Použiť ovládanie tlačiadel"
 
 #: plugins/button_control/templates/button_control.html:33
 msgid "Button"
@@ -2177,109 +2330,79 @@ msgid "controls"
 msgstr "ovládanie"
 
 #: plugins/button_control/templates/button_control.html:36
-#, fuzzy
 msgid "Reboot OS system"
 msgstr "Reštartovať OS systém"
 
 #: plugins/button_control/templates/button_control.html:37
-#, fuzzy
-#| msgid "Shutdown"
 msgid "Shutdown OS system"
 msgstr "Vypnutie OS systému"
 
 #: plugins/button_control/templates/button_control.html:38
-#, fuzzy
-#| msgid "Stop All Stations"
 msgid "Stop all station"
-msgstr "Zastaviť celú stanicu"
+msgstr "Zastaviť všetky stanice"
 
 #: plugins/button_control/templates/button_control.html:40
-#, fuzzy
-#| msgid "Enable scheduler"
 msgid "Disable scheduler"
 msgstr "Vypnúť plánovač"
 
 #: plugins/button_control/templates/button_control.html:41
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 1"
 msgstr "Spustenie programu 1"
 
 #: plugins/button_control/templates/button_control.html:42
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 2"
 msgstr "Spustenie programu 2"
 
 #: plugins/button_control/templates/button_control.html:43
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 3"
 msgstr "Spustenie programu 3"
 
 #: plugins/button_control/templates/button_control.html:44
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 4"
 msgstr "Spustenie programu 4"
 
 #: plugins/button_control/templates/button_control.html:45
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 5"
 msgstr "Spustenie programu 5"
 
 #: plugins/button_control/templates/button_control.html:46
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 6"
 msgstr "Spustenie programu 6"
 
 #: plugins/button_control/templates/button_control.html:47
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 7"
 msgstr "Spustenie programu 7"
 
 #: plugins/button_control/templates/button_control.html:48
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Run program 8"
 msgstr "Spustenie programu 8"
 
 #: plugins/cli_control/__init__.py:22
-#, fuzzy
 msgid "Package: CLI Control"
-msgstr "Použiť ovládací prvok CLI"
+msgstr "Balík: CLI Control"
 
 #: plugins/cli_control/__init__.py:64
-#, fuzzy
 msgid "CLI Control is enabled."
-msgstr "Cli Control je zapnutá."
+msgstr "CLI Control je zapnutá."
 
 #: plugins/cli_control/__init__.py:71 plugins/cli_control/__init__.py:170
-#, fuzzy
 msgid "CLI Control plug-in"
-msgstr "Cli Ovládací doplnok"
+msgstr "CLI Ovládací doplnok"
 
 #: plugins/cli_control/__init__.py:76
-#, fuzzy
 msgid "CLI Control is disabled."
-msgstr "Cli Control je vypnutá."
+msgstr "CLI Control je vypnutá."
 
 #: plugins/cli_control/__init__.py:114
-#, fuzzy
 msgid "Zone change signaled..."
 msgstr "Zmena zóny signalizovala..."
 
 #: plugins/cli_control/templates/cli_control.html:3
 #: plugins/cli_control/templates/cli_control.html:21
-#, fuzzy
 msgid "CLI Control settings"
-msgstr "CLI Control settings CLI Control settings CLI Ovládacie nastavenia"
+msgstr "CLI nastavenia"
 
 #: plugins/cli_control/templates/cli_control.html:22
-#, fuzzy
 msgid ""
 "This plugin can be used to control devices such as remote RF units via Linux "
 "commands."
@@ -2288,7 +2411,6 @@ msgstr ""
 "jednotky cez linuxové príkazy."
 
 #: plugins/cli_control/templates/cli_control.html:23
-#, fuzzy
 msgid ""
 "Enter command line commands to be issued when a station is to be started or "
 "stopped."
@@ -2297,14 +2419,12 @@ msgstr ""
 "zastavení stanice."
 
 #: plugins/cli_control/templates/cli_control.html:24
-#, fuzzy
 msgid ""
 "For example a command might look like: wget http://xxx.xxx.xxx.xxx/relay1on"
 msgstr ""
 "Napríklad príkaz môže vyzerať takto: wget http://xxx.xxx.xxx.xxx/relay1on"
 
 #: plugins/cli_control/templates/cli_control.html:25
-#, fuzzy
 msgid ""
 "Leave fields blank for any stations not to be controlled from the command "
 "line."
@@ -2313,26 +2433,20 @@ msgstr ""
 "príkazového riadka."
 
 #: plugins/cli_control/templates/cli_control.html:30
-#, fuzzy
 msgid "Use CLI Control"
 msgstr "Použiť ovládací prvok CLI"
 
 #: plugins/cli_control/templates/cli_control.html:37
-#, fuzzy
-#| msgid "Start Time"
 msgid "Start Command"
-msgstr "Spustiť príkaz"
+msgstr "Príkaz spustiť"
 
 #: plugins/cli_control/templates/cli_control.html:38
-#, fuzzy
 msgid "Stop Command"
-msgstr "Príkaz Zastaviť"
+msgstr "Príkaz zastaviť"
 
 #: plugins/email_notifications/__init__.py:31
-#, fuzzy
-#| msgid "E-mail Notifications"
 msgid "Package: E-mail Notifications"
-msgstr "E-mailové upozornenia"
+msgstr "Balík: E-mailové upozornenia"
 
 #: plugins/email_notifications/__init__.py:51
 msgid "Report from OSPy SYSTEM"
@@ -2363,11 +2477,12 @@ msgstr "Úroveň"
 
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:117 plugins/tank_monitor/__init__.py:119
-#: plugins/tank_monitor/__init__.py:121 plugins/tank_monitor/__init__.py:122
-#: plugins/tank_monitor/__init__.py:123 plugins/tank_monitor/__init__.py:170
-#: plugins/tank_monitor/__init__.py:184 plugins/tank_monitor/__init__.py:185
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
+#: plugins/tank_monitor/__init__.py:126 plugins/tank_monitor/__init__.py:128
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:131
+#: plugins/tank_monitor/__init__.py:132 plugins/tank_monitor/__init__.py:133
+#: plugins/tank_monitor/__init__.py:134 plugins/tank_monitor/__init__.py:181
+#: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:197
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
 #: plugins/tank_monitor/templates/tank_monitor.html:187
 #: plugins/tank_monitor/templates/tank_monitor.html:193
 #: plugins/tank_monitor/templates/tank_monitor.html:199
@@ -2376,26 +2491,26 @@ msgid "cm"
 msgstr "cm"
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:119 plugins/tank_monitor/__init__.py:121
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:132
 msgid "Ping"
 msgstr "Ping"
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:160
-#: plugins/tank_monitor/__init__.py:119 plugins/tank_monitor/__init__.py:121
-#: plugins/tank_monitor/__init__.py:425 plugins/tank_monitor/__init__.py:553
+#: plugins/tank_monitor/__init__.py:129 plugins/tank_monitor/__init__.py:132
+#: plugins/tank_monitor/__init__.py:437 plugins/tank_monitor/__init__.py:565
 msgid "Volume"
 msgstr "Obem"
 
 #: plugins/email_notifications/__init__.py:158
-#: plugins/tank_monitor/__init__.py:119
+#: plugins/tank_monitor/__init__.py:128 plugins/tank_monitor/__init__.py:129
 msgid "liters"
 msgstr "litre"
 
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
-#: plugins/tank_monitor/__init__.py:121
+#: plugins/tank_monitor/__init__.py:132
 msgid "m3"
 msgstr "m3"
 
@@ -2586,25 +2701,22 @@ msgid "Send a test E-mail"
 msgstr "Odoslanie testovacieho E-mailu"
 
 #: plugins/humi_monitor/__init__.py:26
-#, fuzzy
 msgid "Package: Humidity Monitor"
-msgstr "Doplnok monitora vlhkosti"
+msgstr "Balík: Monitor vlhkosti"
 
 #: plugins/humi_monitor/__init__.py:93 plugins/humi_monitor/__init__.py:103
 #: plugins/humi_monitor/__init__.py:113 plugins/humi_monitor/__init__.py:123
 #: plugins/humi_monitor/__init__.py:133 plugins/humi_monitor/__init__.py:143
 #: plugins/humi_monitor/__init__.py:153 plugins/humi_monitor/__init__.py:163
 msgid "Error I2C device not found."
-msgstr "Chyba - I2C zariadenie sa nenašlo!"
+msgstr "Chyba - I2C zariadenie sa nenašlo."
 
 #: plugins/humi_monitor/__init__.py:170
-#, fuzzy
 msgid "Humidity Monitor plug-in"
 msgstr "Doplnok monitora vlhkosti"
 
 #: plugins/humi_monitor/templates/humi_monitor.html:3
 #: plugins/humi_monitor/templates/humi_monitor.html:21
-#, fuzzy
 msgid "Humidity monitor settings"
 msgstr "Nastavenia monitora vlhkosti"
 
@@ -2614,10 +2726,9 @@ msgid ""
 "time for stations according to moisture on "
 msgstr ""
 "Tento plugin skontrolujte vlhkosť na 8 senzoroch pre 8 staníc a upravuje "
-"dobu prevádzky staníc podľa vlhkosti na"
+"dobu prevádzky staníc podľa vlhkosti na "
 
 #: plugins/humi_monitor/templates/humi_monitor.html:22
-#, fuzzy
 msgid "address 0x05."
 msgstr "adresa 0x05."
 
@@ -2629,78 +2740,65 @@ msgstr "adresa 0x05."
 #: plugins/humi_monitor/templates/humi_monitor.html:56
 #: plugins/humi_monitor/templates/humi_monitor.html:62
 #: plugins/humi_monitor/templates/humi_monitor.html:68
-#, fuzzy
 msgid "Use measuring frequenci probe"
-msgstr "Použitie meracej frekvencie sondy"
+msgstr "Použitie meracej frekvenčné sondy"
 
 #: plugins/humi_monitor/templates/humi_monitor.html:74
-#, fuzzy
 msgid "Frequenci from sensor for 0% humidity"
-msgstr "Frequenci zo snímača pre 0% vlhkosť"
+msgstr "Frequencia zo snímača pre 0% vlhkosť"
 
 #: plugins/humi_monitor/templates/humi_monitor.html:80
-#, fuzzy
 msgid "Frequenci from sensor for 100% humidity"
-msgstr "Frequenci zo snímača pre 100% vlhkosť"
+msgstr "Frequencia zo snímača pre 100% vlhkosť"
 
 #: plugins/lcd_display/__init__.py:29
-#, fuzzy
 msgid "Package: LCD Display"
-msgstr "Balenie: LCD displej"
+msgstr "Balík: LCD displej"
 
 #: plugins/lcd_display/__init__.py:111
-#, fuzzy
 msgid "LCD display plug-in:"
-msgstr "LCD displej plug-in:"
+msgstr "Balík: LCD displej:"
 
 #: plugins/lcd_display/__init__.py:841 plugins/system_info/__init__.py:111
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
-#: plugins/wind_monitor/__init__.py:96
+#: plugins/wind_monitor/__init__.py:103
 msgid "Could not import smbus."
 msgstr "Nepodarilo sa importovať SMBus."
 
 #: plugins/lcd_display/__init__.py:854
-#, fuzzy
 msgid "Could not find any PCF8574 controller."
 msgstr "Nepodarilo sa nájsť žiadny radič PCF8574."
 
 #: plugins/lcd_display/__init__.py:908
-#, fuzzy
 msgid "I2C address has re-finded."
 msgstr "Adresa I2C sa znovu vyhľadala."
 
 #: plugins/lcd_display/templates/lcd_display.html:3
 #: plugins/lcd_display/templates/lcd_display.html:21
-#, fuzzy
 msgid "LCD settings"
 msgstr "Nastavenia LCD displeja"
 
 #: plugins/lcd_display/templates/lcd_display.html:22
-#, fuzzy
 msgid "This plugin shows information on a 16x2 character LCD with"
 msgstr "Tento plugin zobrazuje informácie na 16x2 znakov LCD s"
 
 #: plugins/lcd_display/templates/lcd_display.html:23
-#, fuzzy
 msgid "Automatically detects the display at the following"
 msgstr "Automaticky rozpozná displej pri nasledujúcich"
 
 #: plugins/lcd_display/templates/lcd_display.html:23
 msgid "addresses"
-msgstr "Adresy"
+msgstr "adresy"
 
 #: plugins/lcd_display/templates/lcd_display.html:24
-#, fuzzy
 msgid "Compatible with the HD44780 controller"
 msgstr "Kompatibilné s radičom HD44780"
 
 #: plugins/lcd_display/templates/lcd_display.html:25
-#, fuzzy
 msgid "Warning: The LCD display must not have the same"
-msgstr "Výstraha: LCD displej nesmie mať rovnaké"
+msgstr "Výstraha: LCD displej nesmie mať rovnakú"
 
 #: plugins/lcd_display/templates/lcd_display.html:25
-#, fuzzy
 msgid ""
 "address as other extensions. For example, if you use the Button Control "
 "extension, it has a 0x27 address, like some LCD displays. If you have the "
@@ -2719,17 +2817,14 @@ msgid "Use"
 msgstr "Použiť"
 
 #: plugins/lcd_display/templates/lcd_display.html:36
-#, fuzzy
 msgid "HW version I2C PCF8574<->LCD"
-msgstr "HW verzia I2C PCF8574<->LCD</->"
+msgstr "HW verzia I2C PCF8574<->LCD"
 
 #: plugins/lcd_display/templates/lcd_display.html:39
-#, fuzzy
 msgid "Lower 4 bits of expander are commands bits"
 msgstr "Nižšie 4 bity expandéra sú príkazy bitov"
 
 #: plugins/lcd_display/templates/lcd_display.html:40
-#, fuzzy
 msgid ""
 "Top 4 bits of expander are commands bits AND P0-4 P1-5 P2-6 (Use for LCD2004 "
 "board)"
@@ -2738,22 +2833,18 @@ msgstr ""
 "doska)"
 
 #: plugins/lcd_display/templates/lcd_display.html:41
-#, fuzzy
 msgid "Top 4 bits of expander are commands bits AND P0-6 P1-5 P2-4"
 msgstr "Top 4 bity expanderu sú príkazy bitov A P0-6 P1-5 P2-4"
 
 #: plugins/lcd_display/templates/lcd_display.html:42
-#, fuzzy
 msgid "LCD2004 board where lower 4 are commands, but backlight is pin 3"
 msgstr "LCD2004 doska, kde nižšie 4 sú príkazy, ale podsvietenie je pin 3"
 
 #: plugins/lcd_display/templates/lcd_display.html:43
-#, fuzzy
 msgid "LCD board www.pihrt.com"
-msgstr "Lcd doska www.pihrt.com"
+msgstr "LCD doska www.pihrt.com"
 
 #: plugins/lcd_display/templates/lcd_display.html:48
-#, fuzzy
 msgid "Use print lines to debug files"
 msgstr "Použitie tlačových riadkov na ladenie súborov"
 
@@ -2766,7 +2857,6 @@ msgid "System Name"
 msgstr "Názov systému"
 
 #: plugins/lcd_display/templates/lcd_display.html:61
-#, fuzzy
 msgid "SW Version Date"
 msgstr "Sw Dátum verzie"
 
@@ -2788,69 +2878,51 @@ msgid "Uptime"
 msgstr "Doba provádzky"
 
 #: plugins/lcd_display/templates/lcd_display.html:103
-#, fuzzy
-#| msgid "Run Once Program"
 msgid "Last Run Program"
-msgstr "Program posledného spustenia"
+msgstr "Posledná spustenia"
 
 #: plugins/lcd_display/templates/lcd_display.html:109
 msgid "Pressure Sensor"
 msgstr "Snímač tlaku"
 
 #: plugins/lcd_display/templates/lcd_display.html:115
-#, fuzzy
-#| msgid "Water Level"
 msgid "Water Tank Level"
 msgstr "Hladina nádrže na vodu"
 
 #: plugins/lcd_display/templates/lcd_display.html:121
-#, fuzzy
 msgid "DS18B20 Temperature"
 msgstr "Teplota DS18B20"
 
 #: plugins/lcd_display/templates/lcd_display.html:127
-#, fuzzy
-#| msgid "Configure Stations"
 msgid "Running Stations"
 msgstr "Bežiace stanice"
 
 #: plugins/lcd_display/templates/lcd_display.html:133
-#, fuzzy
-#| msgid "Schedule"
 msgid "Schedule - Manual"
 msgstr "Rozvrh-manual"
 
 #: plugins/lcd_display/templates/lcd_display.html:139
-#, fuzzy
-#| msgid "System name"
 msgid "System enabled"
 msgstr "Systém zapnutý"
 
 #: plugins/lcd_display/templates/lcd_display.html:158
-#, fuzzy
 msgid "Re-find I2C address"
 msgstr "Znova vyhľadať adresu I2C"
 
 #: plugins/monthly_water_level/__init__.py:15
-#, fuzzy
-#| msgid "Water Level"
 msgid "Package: Monthly Water Level"
-msgstr "Mesačná hladina vody"
+msgstr "Balík: Mesačná hladina vody"
 
 #: plugins/monthly_water_level/__init__.py:56
-#, fuzzy
 msgid "Monthly Adjust: Setting water level to"
 msgstr "Mesačná úprava: Nastavenie hladiny vody na"
 
 #: plugins/monthly_water_level/templates/monthly_water_level.html:3
 #: plugins/monthly_water_level/templates/monthly_water_level.html:21
-#, fuzzy
-#| msgid "Water Level"
 msgid "Monthly Water Level"
 msgstr "Mesačná hladina vody"
 
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
-#, fuzzy
 msgid "Enter an adjustment for each month (% irrigation time)"
 msgstr "Zadajte úpravu pre každý mesiac (% času zavlažovania)"
 
@@ -2860,127 +2932,101 @@ msgstr "Balík: MQTT"
 
 #: plugins/mqtt/__init__.py:89 plugins/mqtt/__init__.py:198
 #: plugins/mqtt/__init__.py:200
-#, fuzzy
 msgid "MQTT plug-in"
-msgstr "Doplnok MQTT"
+msgstr "Balík: MQTT"
 
 #: plugins/mqtt/__init__.py:94
-#, fuzzy
 msgid "MQTT plug-in is disabled."
 msgstr "MQTT doplnok je vypnutý."
 
 #: plugins/mqtt/__init__.py:129
-#, fuzzy
 msgid "Message received"
 msgstr "Prijatá správa"
 
 #: plugins/mqtt/__init__.py:136
-#, fuzzy
 msgid "You must this OSPy switch to manual mode!"
 msgstr "Musíte tento OSPy prepnúť do manuálneho režimu!"
 
 #: plugins/mqtt/__init__.py:140
-#, fuzzy
 msgid "Skipping command, rain sense is detected!"
-msgstr "Preskočenie príkaz, dážď zmysel je detekovaný!"
+msgstr "Preskočenie príkaz, dážď je detekovaný!"
 
 #: plugins/mqtt/__init__.py:144
-#, fuzzy
 msgid "Skipping command, rain delay is activated!"
 msgstr "Preskočenie príkaz, dážď meškanie je aktivovaný!"
 
 #: plugins/mqtt/__init__.py:151
-#, fuzzy
 msgid "Could not decode command:"
 msgstr "Nepodarilo sa dekódovať príkaz:"
 
 #: plugins/mqtt/__init__.py:168
-#, fuzzy
-#| msgid "Manual"
 msgid "MQTT Manual"
 msgstr "MQTT Manuál"
 
 #: plugins/mqtt/__init__.py:198
-#, fuzzy
 msgid ""
 "Setup stations count is smaler! Set correct first station and station count."
 msgstr ""
-"Počet inštalačných staníc je smaler! Nastavte správny počet staníc a staníc."
+"Počet inštalačných staníc je menšie! Nastavte správny počet staníc a staníc."
 
 #: plugins/mqtt/__init__.py:214
-#, fuzzy
 msgid "PIP is not installed."
 msgstr "PIP nie je nainštalovaný."
 
 #: plugins/mqtt/__init__.py:215
-#, fuzzy
 msgid "Please wait installing pip..."
 msgstr "Počkajte, prosím, inštaláciu pip ..."
 
 #: plugins/mqtt/__init__.py:216 plugins/mqtt/__init__.py:226
-#, fuzzy
 msgid "This operation takes longer (minutes)..."
 msgstr "Táto operácia trvá dlhšie (minúty)..."
 
 #: plugins/mqtt/__init__.py:223
-#, fuzzy
 msgid "MQTT Plugin requires paho mqtt."
 msgstr "MQTT Plugin vyžaduje paho mqtt."
 
 #: plugins/mqtt/__init__.py:224
-#, fuzzy
 msgid "Paho-mqtt is not installed."
 msgstr "Paho-mqtt nie je nainštalovaný."
 
 #: plugins/mqtt/__init__.py:225
-#, fuzzy
 msgid "Please wait installing paho-mqtt..."
 msgstr "Prosím, počkajte inštaláciu paho-mqtt ..."
 
 #: plugins/mqtt/__init__.py:233
-#, fuzzy
 msgid "Error try install paho-mqtt manually."
 msgstr "Chyba skúste nainštalovať paho-mqtt manuálne."
 
 #: plugins/mqtt/__init__.py:243
-#, fuzzy
 msgid "Connecting to broker"
 msgstr "Pripojenie k maklérovi"
 
-#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:104
-#: plugins/ups_adj/__init__.py:357
+#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:110
+#: plugins/ups_adj/__init__.py:365
 msgid "OK"
 msgstr "OK"
 
 #: plugins/mqtt/__init__.py:251
-#, fuzzy
 msgid "MQTT plugin couldnot initalize client"
-msgstr ""
-"MQTT plugin couldnot initalize client MQTT plugin couldnot initalize client "
-"MQTT plugin couldnot initalize client MQ"
+msgstr "Plugin MQTT nemohl inicializovat klienta"
 
 #: plugins/mqtt/__init__.py:261 plugins/mqtt/__init__.py:264
-#, fuzzy
 msgid "Subscribing to topic"
 msgstr "Prihlásenie na odber témy"
 
 #: plugins/mqtt/__init__.py:277
-#, fuzzy
 msgid "Subscribe topic"
 msgstr "Prihlásiť sa k téme"
 
 #: plugins/mqtt/__init__.py:299 plugins/mqtt/__init__.py:307
-#, fuzzy
 msgid "Client stop"
 msgstr "Zastavenie klienta"
 
 #: plugins/mqtt/templates/mqtt.html:3 plugins/mqtt/templates/mqtt.html:21
-#, fuzzy
 msgid "MQTT settings"
 msgstr "Nastavenia MQTT"
 
 #: plugins/mqtt/templates/mqtt.html:23
-#, fuzzy
 msgid ""
 "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins to "
 "use to publish information and or receive commands over MQTT. On this page, "
@@ -2991,7 +3037,6 @@ msgstr ""
 "stránke je zdieľaný klient nakonfigurovaný"
 
 #: plugins/mqtt/templates/mqtt.html:24
-#, fuzzy
 msgid ""
 "Having a shared MQTT client simplifies configuration and lowers overhead on "
 "the OSPy process, network and broker"
@@ -3000,7 +3045,6 @@ msgstr ""
 "na proces OSPy, siete a maklér"
 
 #: plugins/mqtt/templates/mqtt.html:25
-#, fuzzy
 msgid ""
 "This plugin needs paho-mqtt. If not installed paho-mqtt, plugin installs "
 "paho-mqtt in to the system himself. On first use (if run installation paho-"
@@ -3011,12 +3055,10 @@ msgstr ""
 "spustiť paho-mqtt) počkajte na stav"
 
 #: plugins/mqtt/templates/mqtt.html:26
-#, fuzzy
 msgid "We can use a public Broker server to test"
 msgstr "Môžeme použiť verejný broker server na testovanie"
 
 #: plugins/mqtt/templates/mqtt.html:28
-#, fuzzy
 msgid ""
 "The MQTT plugin allows multiple secondary OSPy controlers to be running with "
 "the control OSPy system running. This means that one OSPy system can act as "
@@ -3055,134 +3097,107 @@ msgstr ""
 "režimu! Ak zmeníte nastavenia, musíte reštartovať OSPy!"
 
 #: plugins/mqtt/templates/mqtt.html:32
-#, fuzzy
 msgid "MQTT client"
 msgstr "MQTT klient"
 
 #: plugins/mqtt/templates/mqtt.html:33
-#, fuzzy
 msgid "Required to receive and send MQTT messages."
 msgstr "Vyžaduje sa na prijímanie a odosielanie správ MQTT."
 
 #: plugins/mqtt/templates/mqtt.html:38
-#, fuzzy
 msgid "MQTT Broker Host"
 msgstr "MQTT maklér hosť"
 
 #: plugins/mqtt/templates/mqtt.html:42
-#, fuzzy
 msgid "MQTT Broker Username"
 msgstr "MQTT Broker užívateľské meno"
 
 #: plugins/mqtt/templates/mqtt.html:46
-#, fuzzy
 msgid "MQTT Broker Password"
 msgstr "MQTT maklér heslo"
 
 #: plugins/mqtt/templates/mqtt.html:50
-#, fuzzy
 msgid "MQTT Broker Port"
 msgstr "MQTT Broker Port"
 
 #: plugins/mqtt/templates/mqtt.html:54
-#, fuzzy
 msgid "MQTT Publish up/down topic"
 msgstr "MQTT Publikovať hore / dole tému"
 
 #: plugins/mqtt/templates/mqtt.html:55
-#, fuzzy
 msgid "Leave blank to not publish OSPy status"
-msgstr "Ponechať prázdne, aby sa nezverejní stav OSPy"
+msgstr "Ponechať prázdne, aby sa nezverejníl stav OSPy"
 
 #: plugins/mqtt/templates/mqtt.html:59
-#, fuzzy
 msgid "MQTT Client ID"
 msgstr "MQTT identifikácia klienta"
 
 #: plugins/mqtt/templates/mqtt.html:68
-#, fuzzy
 msgid "Use MQTT secondary"
 msgstr "Použiť MQTT sekundárne"
 
 #: plugins/mqtt/templates/mqtt.html:69
-#, fuzzy
 msgid "Required to receive secondary MQTT messages."
 msgstr "Vyžaduje sa na prijímanie sekundárnych správ MQTT."
 
 #: plugins/mqtt/templates/mqtt.html:74
-#, fuzzy
 msgid "Zone topic"
 msgstr "Téma zóny"
 
 #: plugins/mqtt/templates/mqtt.html:75
-#, fuzzy
 msgid "The topic to subscribe to for control commands."
-msgstr "Téma sa prihlásiť na odber ovládacích príkazov."
+msgstr "Téma na odber ovládacích príkazov."
 
 #: plugins/mqtt/templates/mqtt.html:80
-#, fuzzy
 msgid "First station number"
 msgstr "Číslo prvej stanice"
 
 #: plugins/mqtt/templates/mqtt.html:81
-#, fuzzy
 msgid "The number from the master of this secondary first station."
 msgstr "Číslo od majstra tejto sekundárnej prvej stanice."
 
 #: plugins/mqtt/templates/mqtt.html:86
-#, fuzzy
-#| msgid "Station Notes."
 msgid "Station count"
 msgstr "Počet staníc"
 
 #: plugins/mqtt/templates/mqtt.html:87
-#, fuzzy
 msgid "The number of station this secondary uses."
-msgstr "Počet staníc, ktoré toto sekundárne použitie používa."
+msgstr "Počet staníc, ktoré toto sekundárne OSPy používa."
 
 #: plugins/mqtt_zones/__init__.py:26
-#, fuzzy
 msgid "Package: MQTT Zone Broadcaster"
-msgstr "Balenie: MQTT Zone Broadcaster"
+msgstr "Balík: MQTT Zone Broadcaster"
 
 #: plugins/mqtt_zones/__init__.py:67
-#, fuzzy
 msgid "MQTT Zones Plugin started."
 msgstr "MQTT zóny Plugin začal."
 
 #: plugins/mqtt_zones/__init__.py:107 plugins/mqtt_zones/__init__.py:141
-#, fuzzy
 msgid "MQTT Zones Plugin requires MQTT plugin."
 msgstr "MQTT zóny Plugin vyžaduje MQTT plugin."
 
 #: plugins/mqtt_zones/__init__.py:117
-#, fuzzy
 msgid "MQTT Zones Plugin public"
-msgstr "MQTT zóny Plugin verejnosti"
+msgstr "MQTT zóny plugin publikuje"
 
 #: plugins/mqtt_zones/__init__.py:121
-#, fuzzy
 msgid "Not setup Zone Topic"
-msgstr "Nie je nastavenie zóna tému"
+msgstr "Nie je nastavenie zóna tématu"
 
 #: plugins/mqtt_zones/__init__.py:127
-#, fuzzy
 msgid "MQTT Zones plug-in"
 msgstr "MQTT Zóny plug-in"
 
 #: plugins/mqtt_zones/__init__.py:132
-#, fuzzy
 msgid "MQTT Zones Plugin is disabled."
-msgstr "MQTT zóny Plugin je vypnutá."
+msgstr "MQTT zóny plugin je vypnutá."
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:3
 #: plugins/mqtt_zones/templates/mqtt_zones.html:19
-#, fuzzy
 msgid "MQTT Zones settings"
 msgstr "Nastavenia zón MQTT"
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:20
-#, fuzzy
 msgid ""
 "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status of "
 "all zones."
@@ -3191,25 +3206,20 @@ msgstr ""
 "zón."
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:24
-#, fuzzy
 msgid "Use MQTT"
 msgstr "Použitie MQTT"
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:30
-#, fuzzy
 msgid "MQTT Publish Zones topic"
 msgstr "Téma MQTT Publish Zones"
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:31
-#, fuzzy
 msgid "The topic to broadcast zone updates on"
 msgstr "Téma pre vysielanie zóny aktualizuje na"
 
 #: plugins/ping_monitor/__init__.py:34
-#, fuzzy
-#| msgid "Use ping monitoring"
 msgid "Package: Ping Monitor"
-msgstr "Použite sledovanie pingom"
+msgstr "Balík: Ping Monitor"
 
 #: plugins/ping_monitor/__init__.py:49
 msgid "Report from OSPy PING plugin"
@@ -3247,7 +3257,7 @@ msgid "Ping monitor is disabled."
 msgstr "Doplnok je zakázaný."
 
 #: plugins/ping_monitor/__init__.py:408 plugins/pressurizer/__init__.py:219
-#: plugins/tank_monitor/__init__.py:498 plugins/wind_monitor/__init__.py:448
+#: plugins/tank_monitor/__init__.py:510 plugins/wind_monitor/__init__.py:481
 msgid "Options has updated."
 msgstr "Možnosti sa aktualizovali."
 
@@ -3265,9 +3275,9 @@ msgid "Actual Value"
 msgstr "Skutočná hodnota"
 
 #: plugins/ping_monitor/templates/ping_monitor.html:49
-#: plugins/pressure_monitor/__init__.py:299
-#: plugins/pressure_monitor/__init__.py:387 plugins/ups_adj/__init__.py:303
-#: plugins/ups_adj/__init__.py:390
+#: plugins/pressure_monitor/__init__.py:309
+#: plugins/pressure_monitor/__init__.py:397 plugins/ups_adj/__init__.py:311
+#: plugins/ups_adj/__init__.py:398
 msgid "State"
 msgstr "Stav"
 
@@ -3398,29 +3408,31 @@ msgstr ""
 "Keď je zapnuté zapisovanie do denníka, vytvorí sa súbor denníka (vyžaduje sa "
 "pre graf a na odosielanie e-mailov súčasne)."
 
-#: plugins/pressure_monitor/__init__.py:25
-#, fuzzy
-#| msgid "Pressure monitor plug-in"
+#: plugins/pressure_monitor/__init__.py:27
 msgid "Package: Pressure Monitor"
-msgstr "Doplnok monitorovania tlaku"
+msgstr "Balík: Monitor tlaku"
 
-#: plugins/pressure_monitor/__init__.py:35
+#: plugins/pressure_monitor/__init__.py:37
 msgid "Report from OSPy PRESSURE MONITOR plugin"
 msgstr "Hlásenie z OSPy PRESSURE MONITOR plugin"
 
-#: plugins/pressure_monitor/__init__.py:103
+#: plugins/pressure_monitor/__init__.py:99
+msgid "Pressure"
+msgstr "Tlak"
+
+#: plugins/pressure_monitor/__init__.py:109
 msgid "Master station is ON."
 msgstr "Hlavná stanica je zapnutá."
 
-#: plugins/pressure_monitor/__init__.py:113
+#: plugins/pressure_monitor/__init__.py:119
 msgid "Time to test pressure sensor"
 msgstr "Čas do testovanie snímača tlaku"
 
-#: plugins/pressure_monitor/__init__.py:114 plugins/ups_adj/__init__.py:135
+#: plugins/pressure_monitor/__init__.py:120 plugins/ups_adj/__init__.py:143
 msgid "sec"
 msgstr "sekund"
 
-#: plugins/pressure_monitor/__init__.py:122
+#: plugins/pressure_monitor/__init__.py:128
 msgid ""
 "Pressure sensor is not activated in time -> stops all stations and send "
 "email."
@@ -3428,43 +3440,45 @@ msgstr ""
 "Snímač tlaku nie je aktivovaný včas -> teraz zastavím všetky stanice a "
 "pošlem E-mail."
 
-#: plugins/pressure_monitor/__init__.py:137
+#: plugins/pressure_monitor/__init__.py:143
 msgid "Master station is OFF."
 msgstr "Hlavná stanica je vypnutá."
 
-#: plugins/pressure_monitor/__init__.py:147
+#: plugins/pressure_monitor/__init__.py:153
 msgid "Pressure monitor plug-in is disabled."
 msgstr "Doplnok monitorovania tlaku je zakázaný."
 
-#: plugins/pressure_monitor/__init__.py:153
+#: plugins/pressure_monitor/__init__.py:159
 msgid "Not used master station."
 msgstr "Hlavná stanica nieje použitá."
 
-#: plugins/pressure_monitor/__init__.py:157
-#: plugins/pressure_monitor/__init__.py:158
+#: plugins/pressure_monitor/__init__.py:163
+#: plugins/pressure_monitor/__init__.py:164
 msgid "System detected error: pressure sensor."
 msgstr "Systémová chyba: snímač tlaku."
 
-#: plugins/pressure_monitor/__init__.py:157
-#: plugins/pressure_monitor/__init__.py:158
+#: plugins/pressure_monitor/__init__.py:163
 #: plugins/pressure_monitor/__init__.py:164
-#: plugins/pressure_monitor/__init__.py:175
+#: plugins/pressure_monitor/__init__.py:170
+#: plugins/pressure_monitor/__init__.py:185
 msgid "Pressure monitor plug-in"
 msgstr "Doplnok monitorovania tlaku"
 
-#: plugins/pressure_monitor/__init__.py:168
-#: plugins/pressure_monitor/__init__.py:354
+#: plugins/pressure_monitor/__init__.py:175
+#: plugins/pressure_monitor/__init__.py:176
+#: plugins/pressure_monitor/__init__.py:364
 msgid "INACTIVE"
 msgstr "NEAKTÍVNE"
 
-#: plugins/pressure_monitor/__init__.py:170
-#: plugins/pressure_monitor/__init__.py:356
+#: plugins/pressure_monitor/__init__.py:178
+#: plugins/pressure_monitor/__init__.py:179
+#: plugins/pressure_monitor/__init__.py:366
 msgid "ACTIVE"
 msgstr "AKTÍVNY"
 
-#: plugins/pressure_monitor/__init__.py:293
-#: plugins/tank_monitor/__init__.py:414 plugins/ups_adj/__init__.py:297
-#: plugins/wind_monitor/__init__.py:372
+#: plugins/pressure_monitor/__init__.py:303
+#: plugins/tank_monitor/__init__.py:426 plugins/ups_adj/__init__.py:305
+#: plugins/wind_monitor/__init__.py:386
 msgid "Saving to log  files OK"
 msgstr "Ukladanie do log súborov OK"
 
@@ -3474,10 +3488,8 @@ msgid "Pressure monitor settings"
 msgstr "Nastavenie monitorovania tlaku"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:49
-#, fuzzy
 msgid "2 master on, 1 pres check, 0 stop"
-msgstr ""
-"2 master on, 1 pres check, 0 stop 2 majster na, 1 pres kontrola, 0 stop"
+msgstr "2 majster zap, 1 kontr. tlaka, 0 stop"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:172
 msgid ""
@@ -3521,23 +3533,19 @@ msgid "Pressure state"
 msgstr "Stav sondy"
 
 #: plugins/pressurizer/__init__.py:31
-#, fuzzy
 msgid "Package: Pressurizer"
-msgstr "Tlakový pod tlakom"
+msgstr "Balík: Pressurizer"
 
 #: plugins/pressurizer/__init__.py:74 plugins/pressurizer/__init__.py:217
-#, fuzzy
 msgid "Pressurizer is disabled."
 msgstr "Tlakový izertátor je vypnutý."
 
 #: plugins/pressurizer/__init__.py:76 plugins/pressurizer/__init__.py:214
-#, fuzzy
 msgid "Pressurizer is enabled."
 msgstr "Tlakový izertátor je zapnutý."
 
 #: plugins/pressurizer/__init__.py:95
 #: plugins/pressurizer/templates/pressurizer.html:41
-#, fuzzy
 msgid ""
 "This plugin requires setting master station to enabled. Setup this in "
 "options! And also enable the relay as master station in options!"
@@ -3546,20 +3554,16 @@ msgstr ""
 "tohto v možnostiach! A tiež umožniť relé ako hlavná stanica v možnostiach!"
 
 #: plugins/pressurizer/__init__.py:103
-#, fuzzy
 msgid "Is time for pump running..."
 msgstr "Je čas na čerpadlo beží ..."
 
 #: plugins/pressurizer/__init__.py:108 plugins/pressurizer/__init__.py:172
-#, fuzzy
 msgid "Pressurizer plug-in"
-msgstr "Doplnok pre tlakové utláčadlá"
+msgstr "Balík: Pressurizer"
 
 #: plugins/pressurizer/__init__.py:140
-#, fuzzy
-#| msgid "Activate relay"
 msgid "Activating relay."
-msgstr "Aktivujem relé."
+msgstr "Aktivacia relé."
 
 #: plugins/pressurizer/__init__.py:147 plugins/pressurizer/__init__.py:160
 msgid "Waiting"
@@ -3570,8 +3574,6 @@ msgid "second."
 msgstr "druhej."
 
 #: plugins/pressurizer/__init__.py:153
-#, fuzzy
-#| msgid "Activate relay"
 msgid "Deactivating relay."
 msgstr "Deaktivácia relé."
 
@@ -3580,26 +3582,22 @@ msgid "Ready."
 msgstr "Pozor."
 
 #: plugins/pressurizer/templates/pressurizer.html:3
-#, fuzzy
 msgid "Pressurizer"
-msgstr "Tlakový pod tlakom"
+msgstr "Tlakovač"
 
 #: plugins/pressurizer/templates/pressurizer.html:38
-#, fuzzy
 msgid "Pressurizer - Settings"
-msgstr "Pressurizer - Nastavenia"
+msgstr "Tlakovač - Nastavenia"
 
 #: plugins/pressurizer/templates/pressurizer.html:39
-#, fuzzy
 msgid ""
 "This plugin allows the main station (master pump relay on OSPy board) to be "
 "activated for a certain time before the station starts."
 msgstr ""
-"Tento plugin umožňuje hlavné stanice (hlavné čerpadlo relé na DOSKE OSPy), "
+"Tento plugin umožňuje hlavní stanici (hlavní čerpadlo - relé na DOSKE OSPy), "
 "ktoré majú byť aktivované na určitú dobu pred spustením stanice."
 
 #: plugins/pressurizer/templates/pressurizer.html:40
-#, fuzzy
 msgid ""
 "This is to ensure that there is pressure in the pipeline before the valves "
 "are opened. Some valves require some switching pressure."
@@ -3608,7 +3606,6 @@ msgstr ""
 "ventily vyžadujú určitý spínací tlak."
 
 #: plugins/pressurizer/templates/pressurizer.html:42
-#, fuzzy
 msgid ""
 "The set \"Run time\" of the main station must not be longer than the set "
 "time before switching on the stations."
@@ -3617,7 +3614,6 @@ msgstr ""
 "pred zapnutím staníc."
 
 #: plugins/pressurizer/templates/pressurizer.html:43
-#, fuzzy
 msgid ""
 "Example: \"Pre station run time\" = 10 sec, \"Run time\" = max 10 seconds!"
 msgstr ""
@@ -3629,86 +3625,71 @@ msgid "Enable"
 msgstr "Povoliť"
 
 #: plugins/pressurizer/templates/pressurizer.html:48
-#, fuzzy
 msgid ""
 "If the check box is marked, the master pump is activated before turning on "
 "the stations."
 msgstr ""
-"Ak je políčko začiarknuté, hlavné čerpadlo sa aktivuje pred zapnutím staníc."
+"Ak je začiarkavacie políčko označené, hlavné čerpadlo sa aktivuje pred "
+"zapnutím staníc."
 
 #: plugins/pressurizer/templates/pressurizer.html:52
 #: plugins/voice_notification/templates/voice_notification.html:45
-#, fuzzy
 msgid "Pre run time"
 msgstr "Čas pred spustením"
 
 #: plugins/pressurizer/templates/pressurizer.html:53
-#, fuzzy
 msgid ""
 "How many seconds before turning on station has turning on master station."
-msgstr "Koľko sekúnd pred zapnutím stanice má zapnutá hlavná stanica."
+msgstr "Koľko sekúnd pred zapnutím stanice má zapnutie hlavnej stanice."
 
 #: plugins/pressurizer/templates/pressurizer.html:57
 msgid "Run time"
 msgstr "Prevádzková doba"
 
 #: plugins/pressurizer/templates/pressurizer.html:58
-#, fuzzy
-#| msgid "Not used master station."
 msgid "For what time will turn on the master station."
-msgstr "Hlavná stanica nieje použitá."
+msgstr "Za akú dobu sa zapne hlavná stanica."
 
 #: plugins/pressurizer/templates/pressurizer.html:62
-#, fuzzy
-#| msgid "Master station"
 msgid "Wait after activation"
 msgstr "Počkajte po aktivácii"
 
 #: plugins/pressurizer/templates/pressurizer.html:63
-#, fuzzy
 msgid ""
 "How long after the relay is activated wait for another stations (in order "
 "not to activate the pressurizer before each switch is stations on)."
 msgstr ""
-"Ako dlho po aktivácii relé čakajte na ďalšie stanice (aby ste neaktivovali "
-"natlakovač pred každým zapnutím staníc)."
+"Ako dlho po aktivácii relé počkajte na iné stanice (aby ste tlakový prístroj "
+"neaktivovali skôr, ako je každý spínač zasunutím)."
 
 #: plugins/pressurizer/templates/pressurizer.html:69
-#, fuzzy
-#| msgid "Activate relay"
 msgid "Activated relay"
-msgstr "Aktivované relé"
+msgstr "Aktivovať relé"
 
 #: plugins/pressurizer/templates/pressurizer.html:70
-#, fuzzy
 msgid ""
 "If the check box is marked, the relay is activated before turning on the "
 "stations."
-msgstr "Ak je políčko začiarknuté, relé sa aktivuje pred zapnutím stanice."
+msgstr ""
+"Ak je začiarkavacie políčko označené, relé sa aktivuje pred zapnutím staníc."
 
 #: plugins/pulse/__init__.py:19
-#, fuzzy
 msgid "Package: Pulse Output Test"
-msgstr "Balenie: Pulzný výstupný test"
+msgstr "Balík: Pulzný výstupný test"
 
 #: plugins/pulse/__init__.py:48
-#, fuzzy
 msgid "Test started for"
-msgstr "Test začal pre"
+msgstr "Test začal"
 
 #: plugins/pulse/__init__.py:60
-#, fuzzy
 msgid "Test stopped."
 msgstr "Test sa zastavil."
 
 #: plugins/pulse/templates/pulse.html:3 plugins/pulse/templates/pulse.html:21
-#, fuzzy
-#| msgid "Number of outputs"
 msgid "Pulse output"
 msgstr "Pulzný výstup"
 
 #: plugins/pulse/templates/pulse.html:22
-#, fuzzy
 msgid ""
 "This plugin pulses a selected circuit with a 1 Hz signal with adjusted time. "
 "(For discover the location of a valve)"
@@ -3717,29 +3698,22 @@ msgstr ""
 "objavenie umiestnenia ventilu)"
 
 #: plugins/pulse/templates/pulse.html:36
-#, fuzzy
 msgid "Time to test"
 msgstr "Čas na testovanie"
 
 #: plugins/pulse/templates/pulse.html:52
-#, fuzzy
-#| msgid "Start time"
 msgid "Start test"
 msgstr "Spustiť test"
 
 #: plugins/pulse/templates/pulse.html:53
-#, fuzzy
 msgid "Stop test"
 msgstr "Zastaviť test"
 
 #: plugins/real_time/__init__.py:29
-#, fuzzy
 msgid "Package: Real Time and NTP time"
-msgstr "Reálny čas a NTP čas synchronizácie systémový čas"
+msgstr "Balík: Reálny čas a NTP čas"
 
 #: plugins/real_time/__init__.py:78
-#, fuzzy
-#| msgid "Location"
 msgid "Local time"
 msgstr "Miestny čas"
 
@@ -3747,69 +3721,54 @@ msgstr "Miestny čas"
 #: plugins/real_time/__init__.py:109 plugins/real_time/__init__.py:120
 #: plugins/real_time/__init__.py:128 plugins/real_time/__init__.py:142
 #: plugins/real_time/__init__.py:154
-#, fuzzy
-#| msgid "Enabled plug-ins"
 msgid "Real Time plug-in"
-msgstr "Doplnok v reálnom čase"
+msgstr "Doplnok reálny čas"
 
 #: plugins/real_time/__init__.py:89 plugins/real_time/__init__.py:96
-#, fuzzy
-#| msgid "time"
 msgid "NTP time"
 msgstr "Čas NTP"
 
 #: plugins/real_time/__init__.py:92
-#, fuzzy
 msgid "Primary NTP server has fault, now trying secondary NTP server."
 msgstr "Primárny server NTP má chybu, teraz sa pokúša sekundárny server NTP."
 
 #: plugins/real_time/__init__.py:106
-#, fuzzy
-#| msgid "time"
 msgid "RTC time"
-msgstr "RtC čas"
+msgstr "RTC čas"
 
 #: plugins/real_time/__init__.py:114
-#, fuzzy
 msgid "Saving NTP time to RTC time."
-msgstr "Šetrí ntp čas rtc čas."
+msgstr "Uklada NTP čas do RTC časa."
 
 #: plugins/real_time/__init__.py:117
-#, fuzzy
 msgid "RTC time is now"
 msgstr "RTC čas je teraz"
 
 #: plugins/real_time/__init__.py:124
-#, fuzzy
 msgid "Saving NTP time to local system time."
-msgstr "Šetrí čas NTP na lokálny systémový čas."
+msgstr "Uklada NTP čas do systémového časa."
 
 #: plugins/real_time/__init__.py:132
-#, fuzzy
 msgid "Read RTC time and save to local system time."
-msgstr "Prečítajte si čas RTC a ušetrite do lokálneho systémového času."
+msgstr "Čítam RTC čas a ukladam ho do lokálneho systémového času."
 
 #: plugins/real_time/__init__.py:144
-#, fuzzy
 msgid "Waiting one hour for the next update."
 msgstr "Čakanie na jednu hodinu ďalšej aktualizácie."
 
 #: plugins/real_time/__init__.py:150
-#: plugins/weather_based_rain_delay/__init__.py:130
+#: plugins/weather_based_rain_delay/__init__.py:150
 #: plugins/weather_based_water_level/__init__.py:144
 #: plugins/weather_based_water_level_netatmo/__init__.py:174
-#, fuzzy
 msgid "Plug-in is disabled."
 msgstr "Doplnok je vypnutý."
 
 #: plugins/real_time/templates/real_time.html:3
 #: plugins/real_time/templates/real_time.html:20
-#, fuzzy
 msgid "Real Time and NTP Time sync system time"
-msgstr "Reálny čas a NTP čas synchronizácie systémový čas"
+msgstr "Reálny čas a NTP čas pro synchronizáciu systémového času"
 
 #: plugins/real_time/templates/real_time.html:21
-#, fuzzy
 msgid ""
 "When is enabled synchronization RTC Time and NTP time, system time adjusted "
 "every hour from NTP server (is posible) or RTC time (if exists). Time from "
@@ -3820,58 +3779,44 @@ msgstr ""
 "NTP je uložený v reálnom čase DS 1307 (na I2C bus) ako HW čas."
 
 #: plugins/real_time/templates/real_time.html:22
-#, fuzzy
 msgid "NTP servers in Czech Republic"
 msgstr "NTP servery v Českej republike"
 
 #: plugins/real_time/templates/real_time.html:22
-#, fuzzy
 msgid "NTP servers in World"
 msgstr "NTP servery vo svete"
 
 #: plugins/real_time/templates/real_time.html:26
-#, fuzzy
-#| msgid "Reset Time"
 msgid "Use Real Time"
 msgstr "Použiť reálny čas"
 
 #: plugins/real_time/templates/real_time.html:32
-#, fuzzy
-#| msgid "Reset Time"
 msgid "Use NTP Time"
 msgstr "Použiť čas NTP"
 
 #: plugins/real_time/templates/real_time.html:38
-#, fuzzy
 msgid "Primary NTP server IP adress"
-msgstr "Primárna ip adresa ntp servera"
+msgstr "Primárna IP adresa NTP servera"
 
 #: plugins/real_time/templates/real_time.html:44
-#, fuzzy
 msgid "Secondary NTP server IP adress"
 msgstr "Sekundárna IP adresa servera NTP"
 
 #: plugins/real_time/templates/real_time.html:50
-#, fuzzy
-#| msgid "HTTP/S port"
 msgid "NTP port"
 msgstr "Port NTP"
 
 #: plugins/real_time/templates/real_time.html:52
-#, fuzzy
-#| msgid "Default"
 msgid "default 123"
 msgstr "predvolené nastavenie 123"
 
 #: plugins/relay/__init__.py:13
-#, fuzzy
 msgid "Package: Relay Test"
-msgstr "Balenie: reléový test"
+msgstr "Balík: Reléový test"
 
 #: plugins/relay_16/__init__.py:21
-#, fuzzy
 msgid "Package: Direct 16 Relay Outputs"
-msgstr "Priame 16 relé výstupy"
+msgstr "Balík: 16 priamych relé výstupov"
 
 #: plugins/relay_16/__init__.py:68
 msgid "is disabled."
@@ -3883,54 +3828,43 @@ msgstr "je vypnutá."
 #: plugins/relay_16/__init__.py:103 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144 plugins/relay_16/__init__.py:162
-#, fuzzy
 msgid "Relay 16 plug-in"
 msgstr "Relé 16 plug-in"
 
 #: plugins/relay_16/__init__.py:75
-#, fuzzy
-#| msgid "Output"
 msgid "Outputs set."
 msgstr "Množina výstupov."
 
 #: plugins/relay_16/__init__.py:88
-#, fuzzy
 msgid "Possible GPIO pins"
 msgstr "Možné kolíky GPIO"
 
 #: plugins/relay_16/__init__.py:96
-#, fuzzy
 msgid "Sorry Raspberry Pi 1 is old version."
 msgstr "Ospravedlňujeme sa Raspberry Pi 1 je stará verzia."
 
 #: plugins/relay_16/__init__.py:99
-#, fuzzy
 msgid "Relay board plugin only supported on Raspberry Pi."
 msgstr "Relé doska plugin len podporované na Raspberry Pi."
 
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
-#, fuzzy
 msgid "Setings Relay Output"
-msgstr "Výstup relé setings"
+msgstr "Výstup relé nastavenia"
 
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:144
-#, fuzzy
 msgid "to HIGH"
 msgstr "na vysokú"
 
 #: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
-#, fuzzy
 msgid "to LOW"
 msgstr "na nízku"
 
 #: plugins/relay_16/templates/relay_16.html:3
-#, fuzzy
 msgid "Direct 16 Relay Outputs"
 msgstr "Priame 16 relé výstupy"
 
 #: plugins/relay_16/templates/relay_16.html:21
-#, fuzzy
 msgid "Direct 16 Relay Outputs - Settings"
 msgstr "Priame 16 relé výstupy - Nastavenia"
 
@@ -3939,36 +3873,28 @@ msgid "Warning"
 msgstr "Upozornenie"
 
 #: plugins/relay_16/templates/relay_16.html:23
-#, fuzzy
 msgid "please readme in HELP."
 msgstr "prosím readme v HELP."
 
 #: plugins/relay_16/templates/relay_16.html:24
-#, fuzzy
 msgid "This plugin allows OSPy to control relay boards with up to 16 relays."
 msgstr "Tento plugin umožňuje OSPy ovládať relé dosky s až 16 relé."
 
 #: plugins/relay_16/templates/relay_16.html:28
-#, fuzzy
-#| msgid "Enable All"
 msgid "Enable relays"
 msgstr "Povoliť relé"
 
 #: plugins/relay_16/templates/relay_16.html:32
-#, fuzzy
 msgid "Relay channels"
 msgstr "Prenosové kanály"
 
 #: plugins/relay_16/templates/relay_16.html:53
-#, fuzzy
 msgid ""
 "Number of relays connected to the Raspberry Pi (relay boards are commonly "
 "1-16)."
 msgstr "Počet relé pripojených k Malinové Pi (relé dosky sú bežne 1-16)."
 
 #: plugins/relay_16/templates/relay_16.html:58
-#, fuzzy
-#| msgid "Water Level"
 msgid "Trigger Level"
 msgstr "Úroveň spúšťača"
 
@@ -3981,21 +3907,18 @@ msgid "High"
 msgstr "Vysoké"
 
 #: plugins/relay_16/templates/relay_16.html:63
-#, fuzzy
 msgid ""
 "Low level trigger means the relay turns on when the input is low and turns "
 "off when the input is high. Hith level trigger does the opposite."
 msgstr ""
 "Nízka úroveň spúšť znamená, že relé sa zapne, keď je vstup nízky a vypne sa, "
-"keď je vstup vysoký. Hith úroveň spúšť robí opak."
+"keď je vstup vysoký. Vysoká úroveň spúšť robí opak."
 
 #: plugins/remote_ftp_control/__init__.py:28
-#, fuzzy
 msgid "Package: Remote FTP Control"
-msgstr "Nastavenia vzdialeného ovládania FTP"
+msgstr "Balík: Diaľkové ovládanie FTP"
 
 #: plugins/remote_ftp_control/__init__.py:76
-#, fuzzy
 msgid "Creating ramdisk into"
 msgstr "Vytvorenie ramdisk do"
 
@@ -4007,95 +3930,73 @@ msgstr "Vytvorenie ramdisk do"
 #: plugins/remote_ftp_control/__init__.py:386
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:3
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:19
-#, fuzzy
 msgid "Remote FTP control settings"
 msgstr "Nastavenia vzdialeného ovládania FTP"
 
 #: plugins/remote_ftp_control/__init__.py:86
-#, fuzzy
 msgid "Adding into fstab"
 msgstr "Pridanie do fstab"
 
 #: plugins/remote_ftp_control/__init__.py:87
-#, fuzzy
 msgid "Saving config to"
 msgstr "Ukladanie config do"
 
 #: plugins/remote_ftp_control/__init__.py:92
-#, fuzzy
 msgid "Now please restart your operating system!"
 msgstr "Teraz reštartujte operačný systém!"
 
 #: plugins/remote_ftp_control/__init__.py:106
-#, fuzzy
 msgid "FTP connection established."
 msgstr "FTP spojenie nadviazané."
 
 #: plugins/remote_ftp_control/__init__.py:150
-#, fuzzy
 msgid "FTP received data from file data.txt"
 msgstr "FTP prijaté údaje zo súboru data.txt"
 
 #: plugins/remote_ftp_control/__init__.py:156
 #: plugins/remote_ftp_control/__init__.py:185
-#, fuzzy
 msgid "Scheduler mode is activated."
 msgstr "Režim plánovača je aktivovaný."
 
 #: plugins/remote_ftp_control/__init__.py:161
 #: plugins/remote_ftp_control/__init__.py:168
 #: plugins/remote_ftp_control/__init__.py:176
-#, fuzzy
 msgid "Manual mode is activated."
 msgstr "Manuálny režim je aktivovaný."
 
 #: plugins/remote_ftp_control/__init__.py:170
-#, fuzzy
-#| msgid "Master station"
 msgid "Activated stations"
 msgstr "Aktivované stanice"
 
 #: plugins/remote_ftp_control/__init__.py:178
-#, fuzzy
-#| msgid "Master station"
 msgid "Deactivated stations"
 msgstr "Deaktivované stanice"
 
 #: plugins/remote_ftp_control/__init__.py:187
-#, fuzzy
-#| msgid "Activate relay"
 msgid "Activated program"
 msgstr "Aktivovaný program"
 
 #: plugins/remote_ftp_control/__init__.py:198
-#, fuzzy
 msgid "Stop all stations and disable system."
-msgstr "Zastavte všetky stanice a vypnite systém."
+msgstr "Zastavte všetky stanice a vypnite plánovač."
 
 #: plugins/remote_ftp_control/__init__.py:203
-#, fuzzy
-#| msgid "Enable scheduler"
 msgid "Enable system."
 msgstr "Zapnúť systém."
 
 #: plugins/remote_ftp_control/__init__.py:374
-#, fuzzy
-#| msgid "Could not use git to determine revision!"
 msgid "Could not save stavy.php to ramdisk!"
 msgstr "Nepodarilo sa zachrániť stavy.php na ramdisk!"
 
 #: plugins/remote_ftp_control/__init__.py:378
-#, fuzzy
 msgid "Data file stavy.php has send on to FTP server"
 msgstr "Dátový súbor stavy.php má poslať na FTP server"
 
 #: plugins/remote_ftp_control/__init__.py:381
-#, fuzzy
 msgid "Data file data.txt has send on to FTP server"
 msgstr "Dátový súbor data.txt má poslať na FTP server"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:20
-#, fuzzy
 msgid ""
 "This plug-in makes downloading and uploading text file on the remotely via "
 "FTP for remotely control OSPy system every 30 seconds"
@@ -4104,7 +4005,6 @@ msgstr ""
 "cez FTP pre vzdialene ovládať OSPy systém každých 30 sekúnd"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:21
-#, fuzzy
 msgid ""
 "When you first start the plug-in detects whether ramdisk is present, "
 "otherwise it creates and writes fstab"
@@ -4113,7 +4013,6 @@ msgstr ""
 "píše fstab"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:22
-#, fuzzy
 msgid ""
 "If plug-in says: \"restart your linux os system\" You must manual reboot os "
 "via options/reboot os"
@@ -4126,72 +4025,55 @@ msgid "Use plug-in"
 msgstr "Použiť plugin"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:32
-#, fuzzy
 msgid "The FTP server address"
 msgstr "Adresa servera FTP"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:38
-#, fuzzy
 msgid "The FTP user name"
 msgstr "Meno používateľa FTP"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:44
-#, fuzzy
-#| msgid "Enter a new password."
 msgid "The FTP user password"
 msgstr "Heslo používateľa FTP"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:50
-#, fuzzy
 msgid "The FTP server location for files"
 msgstr "Umiestnenie servera FTP pre súbory"
 
 #: plugins/remote_notifications/__init__.py:25
-#, fuzzy
-#| msgid "Repetitions"
 msgid "Package: Remote Notifications"
-msgstr "Vzdialené upozornenia"
+msgstr "Balíček: Diaľkové upozornenia"
 
 #: plugins/remote_notifications/__init__.py:66
-#, fuzzy
 msgid "Remote was sent"
 msgstr "Diaľkové ovládanie bolo odoslané"
 
 #: plugins/remote_notifications/__init__.py:68
-#, fuzzy
 msgid "Remote was not sent"
 msgstr "Vzdialený ovládač nebol odoslaný"
 
 #: plugins/remote_notifications/__init__.py:221
-#, fuzzy
 msgid "Test data..."
 msgstr "Testovacie údaje..."
 
 #: plugins/remote_notifications/__init__.py:228
-#, fuzzy
-#| msgid "Enabled plug-ins"
 msgid "Remote plug-in"
 msgstr "Vzdialený doplnok"
 
 #: plugins/remote_notifications/__init__.py:263
-#, fuzzy
 msgid "Remote server reply"
 msgstr "Odpoveď vzdialeného servera"
 
 #: plugins/remote_notifications/__init__.py:265
-#, fuzzy
 msgid "Remote plug-in is not properly configured"
 msgstr "Vzdialený doplnok nie je správne nakonfigurovaný"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:3
 #: plugins/remote_notifications/templates/remote_notifications.html:25
-#, fuzzy
-#| msgid "Repetitions"
 msgid "Remote Notifications"
 msgstr "Vzdialené upozornenia"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:26
-#, fuzzy
 msgid ""
 "This plugin can send Notifications on the Remote Webserver. This plugin "
 "requre SQL server and Webserver with PHP."
@@ -4200,14 +4082,12 @@ msgstr ""
 "plugin requre SQL server a Webserver s PHP."
 
 #: plugins/remote_notifications/templates/remote_notifications.html:27
-#, fuzzy
 msgid "This plugin send data as get command to remote PHP web pages."
 msgstr ""
 "Tento plugin poslať dáta ako dostať príkaz na vzdialených webových stránkach "
 "PHP."
 
 #: plugins/remote_notifications/templates/remote_notifications.html:28
-#, fuzzy
 msgid ""
 "This plugin requred correct settings this plugins: UPS Monitor, Tank Humi "
 "Monitor, Air Temperature and Humidity Monitor."
@@ -4216,149 +4096,111 @@ msgstr ""
 "Humi Monitor, Teplota vzduchu a vlhkosti Monitor."
 
 #: plugins/remote_notifications/templates/remote_notifications.html:32
-#, fuzzy
-#| msgid "Install new plugin"
 msgid "Use plugin"
 msgstr "Použiť plugin"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:38
-#, fuzzy
 msgid "Remote server address"
 msgstr "Adresa vzdialeného servera"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:40
-#, fuzzy
 msgid "ex: https://server.com/automatOSPy/"
 msgstr "napr.: https://server.com/automatOSPy/"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:44
-#, fuzzy
 msgid "API for access"
 msgstr "Rozhranie API pre prístup"
 
 #: plugins/remote_notifications/templates/remote_notifications.html:60
-#, fuzzy
 msgid "Send test data to server"
 msgstr "Odoslanie testovacích údajov na server"
 
 #: plugins/signaling_examples/__init__.py:19
-#, fuzzy
 msgid "Package: Signaling Examples"
-msgstr "Nastavenie príkladov signalizujúci"
+msgstr "Balík: Signalizačné príklady"
 
 #: plugins/signaling_examples/__init__.py:122
-#, fuzzy
 msgid "Someone logged in"
 msgstr "Niekto prihlásený"
 
 #: plugins/signaling_examples/__init__.py:126
-#, fuzzy
 msgid "Value_change"
-msgstr "Value_change"
+msgstr "Změna hodnoty"
 
 #: plugins/signaling_examples/__init__.py:130
-#, fuzzy
 msgid "Options settings changed"
 msgstr "Nastavenia možností sa zmenili"
 
 #: plugins/signaling_examples/__init__.py:134
-#, fuzzy
-#| msgid "System theme"
 msgid "System rebooted"
 msgstr "Systém sa reštartoval"
 
 #: plugins/signaling_examples/__init__.py:138
-#, fuzzy
-#| msgid "System Restart"
 msgid "System restarted"
 msgstr "Systém sa reštartoval"
 
 #: plugins/signaling_examples/__init__.py:142
-#, fuzzy
-#| msgid "Station Name."
 msgid "Station names changed"
 msgstr "Zmenili sa názvy staníc"
 
 #: plugins/signaling_examples/__init__.py:146
-#, fuzzy
-#| msgid "Programs"
 msgid "Programs changed"
 msgstr "Programy sa zmenili"
 
 #: plugins/signaling_examples/__init__.py:150
-#, fuzzy
-#| msgid "Program"
 msgid "Program deleted"
 msgstr "Program bol odstránený"
 
 #: plugins/signaling_examples/__init__.py:154
-#, fuzzy
 msgid "Program toggled on or off"
-msgstr "Program je vypnutý alebo vypnutý"
+msgstr "Program je prepnutý do zap alebo vyp"
 
 #: plugins/signaling_examples/__init__.py:158
-#, fuzzy
-#| msgid "Program"
 msgid "Program runnow"
-msgstr "Program runnow"
+msgstr "Jednorazový program"
 
 #: plugins/signaling_examples/__init__.py:162
-#, fuzzy
 msgid "Zone change"
 msgstr "Zmena zóny"
 
 #: plugins/signaling_examples/__init__.py:166
-#, fuzzy
 msgid "Rain active"
 msgstr "Dážď aktívny"
 
 #: plugins/signaling_examples/__init__.py:170
-#, fuzzy
 msgid "Rain not active"
 msgstr "Dážď nie je aktívny"
 
 #: plugins/signaling_examples/__init__.py:174
-#, fuzzy
-#| msgid "Master on delay"
 msgid "Master one on"
-msgstr "Majster jeden na"
+msgstr "Majster jeden zap"
 
 #: plugins/signaling_examples/__init__.py:178
-#, fuzzy
-#| msgid "Master two off delay"
 msgid "Master one off"
-msgstr "Majster jeden off"
+msgstr "Majster jeden vyp"
 
 #: plugins/signaling_examples/__init__.py:182
-#, fuzzy
-#| msgid "Master two station"
 msgid "Master two on"
-msgstr "Zap (Majster 2)"
+msgstr "Majster dva zap"
 
 #: plugins/signaling_examples/__init__.py:186
-#, fuzzy
-#| msgid "Master two off delay"
 msgid "Master two off"
-msgstr "Oneskorenie vypnutie 2"
+msgstr "Majster dva vyp"
 
 #: plugins/signaling_examples/__init__.py:190
-#, fuzzy
 msgid "Pressurizer plugin master relay on"
-msgstr "Hlavný relé tlakového zásuvu na"
+msgstr "Tlakový modul hlavné relé zap"
 
 #: plugins/signaling_examples/__init__.py:194
-#, fuzzy
 msgid "Pressurizer plugin master relay off"
-msgstr "Tlakový modul hlavné relé off"
+msgstr "Tlakový modul hlavné relé vyp"
 
 #: plugins/signaling_examples/templates/signaling_examples.html:3
 #: plugins/signaling_examples/templates/signaling_examples.html:21
-#, fuzzy
 msgid "Signaling Examples settings"
 msgstr "Nastavenie príkladov signalizujúci"
 
 #: plugins/signaling_examples/templates/signaling_examples.html:22
-#, fuzzy
 msgid ""
 "This is Example signal plugin provides functions triggered by signals from "
 "core program."
@@ -4367,58 +4209,47 @@ msgstr ""
 "programu."
 
 #: plugins/signaling_examples/templates/signaling_examples.html:23
-#, fuzzy
 msgid "Example signals from webpages.py"
 msgstr "Príklad signálov z webpages.py"
 
 #: plugins/sms_adj/__init__.py:28
-#, fuzzy
 msgid "Package: SMS Modem"
-msgstr "Používanie SMS modemu"
+msgstr "Balík: SMS modem"
 
 #: plugins/sms_adj/__init__.py:90
-#, fuzzy
 msgid "SMS Modem plug-in is enabled"
 msgstr "Sms modem plug-in je povolená"
 
 #: plugins/sms_adj/__init__.py:98
-#, fuzzy
 msgid "Gammu is not installed."
 msgstr "Gammu nie je nainštalovaný."
 
 #: plugins/sms_adj/__init__.py:99
-#, fuzzy
 msgid "Please wait installing Gammu..."
 msgstr "Počkajte, prosím, inštaláciu riešenia Gammu..."
 
 #: plugins/sms_adj/__init__.py:102
-#, fuzzy
 msgid "Please wait installing Python-Gammu..."
 msgstr "Počkajte, prosím, inštaláciu Python-Gammu..."
 
 #: plugins/sms_adj/__init__.py:105
-#, fuzzy
 msgid "Testing attached GSM ttyUSB..."
 msgstr "Testovanie pripojené GSM ttyUSB ..."
 
 #: plugins/sms_adj/__init__.py:109
-#, fuzzy
 msgid "Saving Gammu config to /root/.gammurc..."
 msgstr "Ukladá sa konfiguračný súbor Gammu do /root/.gammurc..."
 
 #: plugins/sms_adj/__init__.py:123
-#, fuzzy
 msgid "SMS Modem plug-in is disabled"
 msgstr "SMS modem plug-in je vypnutá"
 
 #: plugins/sms_adj/__init__.py:130 plugins/sms_adj/__init__.py:167
 #: plugins/sms_adj/__init__.py:187
-#, fuzzy
 msgid "SMS Modem plug-in"
 msgstr "Sms modem plug-in"
 
 #: plugins/sms_adj/__init__.py:185
-#, fuzzy
 msgid "Checking SMS..."
 msgstr "Kontroluje sa SMS..."
 
@@ -4427,9 +4258,8 @@ msgid "Signal"
 msgstr "Signál"
 
 #: plugins/sms_adj/__init__.py:215
-#, fuzzy
 msgid "SMS from admin"
-msgstr "SMS od admin"
+msgstr "SMS od spravca"
 
 #: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:264
 #: plugins/sms_adj/__init__.py:269 plugins/sms_adj/__init__.py:281
@@ -4448,7 +4278,6 @@ msgstr "Prikaz"
 #: plugins/sms_adj/__init__.py:314 plugins/sms_adj/__init__.py:328
 #: plugins/sms_adj/__init__.py:348 plugins/sms_adj/__init__.py:376
 #: plugins/sms_adj/__init__.py:391
-#, fuzzy
 msgid "is processed"
 msgstr "sa spracúva"
 
@@ -4457,46 +4286,38 @@ msgstr "sa spracúva"
 #: plugins/sms_adj/__init__.py:322 plugins/sms_adj/__init__.py:336
 #: plugins/sms_adj/__init__.py:356 plugins/sms_adj/__init__.py:384
 #: plugins/sms_adj/__init__.py:413
-#, fuzzy
 msgid "was processed and confirmation was sent as SMS to"
 msgstr "bola spracovaná a potvrdenie bolo zaslané ako SMS"
 
 #: plugins/sms_adj/__init__.py:266 plugins/sms_adj/__init__.py:283
 #: plugins/sms_adj/__init__.py:297 plugins/sms_adj/__init__.py:386
 #: plugins/sms_adj/__init__.py:416
-#, fuzzy
 msgid "Received SMS was deleted"
 msgstr "Prijatá SMS bola odstránená"
 
 #: plugins/sms_adj/__init__.py:310
-#, fuzzy
 msgid "Received SMS was deleted and system is now reboot"
 msgstr "Prijaté SMS bola odstránená a systém je teraz reštart"
 
 #: plugins/sms_adj/__init__.py:324
-#, fuzzy
 msgid "Received SMS was deleted and system is now poweroff"
 msgstr "Received SMS bola odstránená a systém je teraz poweroff"
 
 #: plugins/sms_adj/__init__.py:341
-#, fuzzy
 msgid "Received SMS was deleted, update was performed and program will restart"
 msgstr ""
 "Prijaté SMS bola odstránená, aktualizácia bola vykonaná a program sa "
 "reštartuje"
 
 #: plugins/sms_adj/__init__.py:343
-#, fuzzy
 msgid "Received SMS was deleted, but could not perform update"
 msgstr "Prijatá SMS bola odstránená, ale nepodarilo sa vykonať aktualizáciu"
 
 #: plugins/sms_adj/__init__.py:361
-#, fuzzy
 msgid "SMS plug-in send image file from webcam."
 msgstr "SMS plug-in poslať obrazový súbor z webovej kamery."
 
 #: plugins/sms_adj/__init__.py:366
-#, fuzzy
 msgid ""
 "Received SMS was deleted, but could not send email with photo from webcam"
 msgstr ""
@@ -4504,29 +4325,24 @@ msgstr ""
 "webovej kamery"
 
 #: plugins/sms_adj/__init__.py:398
-#, fuzzy
 msgid "now run"
 msgstr "teraz spustiť"
 
 #: plugins/sms_adj/__init__.py:420
-#, fuzzy
 msgid "Received command"
 msgstr "Prijatý príkaz"
 
 #: plugins/sms_adj/__init__.py:420
-#, fuzzy
 msgid "is not defined!"
 msgstr "nie je definovaný!"
 
 #: plugins/sms_adj/__init__.py:424
-#, fuzzy
 msgid "Received SMS was deleted - SMS was read"
 msgstr "Prijaté SMS bola odstránená - SMS bola prečítaná"
 
 #: plugins/sms_adj/__init__.py:427
-#, fuzzy
 msgid "Received SMS was deleted - SMS was not from admin"
-msgstr "Received SMS bola odstránená - SMS nebolo od admin"
+msgstr "Received SMS bola odstránená - SMS nebolo od spravca"
 
 #: plugins/sms_adj/__init__.py:436
 #: plugins/water_consumption_counter/__init__.py:129
@@ -4542,8 +4358,6 @@ msgid "Email was not sent"
 msgstr "E-mail nebol odoslaný"
 
 #: plugins/sms_adj/templates/sms_adj.html:3
-#, fuzzy
-#| msgid "OSPy is restarting"
 msgid "SMS settings"
 msgstr "Nastavenia SMS"
 
@@ -4552,14 +4366,12 @@ msgid "SMS Settings"
 msgstr "Nastavenia SMS"
 
 #: plugins/sms_adj/templates/sms_adj.html:22
-#, fuzzy
 msgid ""
 "For this plugin is needed to SMS modem with the telephone service provider"
 msgstr ""
 "Pre tento plugin je potrebné SMS modem s poskytovateľom telefónnych služieb"
 
 #: plugins/sms_adj/templates/sms_adj.html:23
-#, fuzzy
 msgid ""
 "This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin "
 "installs Gammu and Python-Gammu in to the system himself"
@@ -4569,17 +4381,14 @@ msgstr ""
 
 #: plugins/sms_adj/templates/sms_adj.html:24
 #: plugins/webcam/templates/webcam.html:24
-#, fuzzy
 msgid "On first use please wait for status"
 msgstr "Pri prvom použití počkajte na stav"
 
 #: plugins/sms_adj/templates/sms_adj.html:29
-#, fuzzy
 msgid "Use SMS modem"
 msgstr "Používanie SMS modemu"
 
 #: plugins/sms_adj/templates/sms_adj.html:35
-#, fuzzy
 msgid "Signal strength in the status window"
 msgstr "Intenzita signálu v stavovom okne"
 
@@ -4592,111 +4401,85 @@ msgid "Number 2"
 msgstr "Číslo 2"
 
 #: plugins/sms_adj/templates/sms_adj.html:53
-#, fuzzy
 msgid "Command for info"
 msgstr "Príkaz pre informácie"
 
 #: plugins/sms_adj/templates/sms_adj.html:59
-#, fuzzy
 msgid "Command for stop irrigation"
 msgstr "Príkaz na zastavenie zavlažovania"
 
 #: plugins/sms_adj/templates/sms_adj.html:65
-#, fuzzy
 msgid "Command for start irrigation"
 msgstr "Príkaz na začatie zavlažovania"
 
 #: plugins/sms_adj/templates/sms_adj.html:71
-#, fuzzy
 msgid "Command for reboot system"
 msgstr "Príkaz pre reštart systému"
 
 #: plugins/sms_adj/templates/sms_adj.html:77
-#, fuzzy
 msgid "Command for poweroff system"
 msgstr "Príkaz pre systém poweroff"
 
 #: plugins/sms_adj/templates/sms_adj.html:83
-#, fuzzy
 msgid "Command for update OSPi from GITHUB"
 msgstr "Príkaz na aktualizáciu OSPi z GITHUB"
 
 #: plugins/sms_adj/templates/sms_adj.html:89
-#, fuzzy
 msgid "Command for send foto from webcam"
 msgstr "Príkaz na odoslanie foto z webovej kamery"
 
 #: plugins/sms_adj/templates/sms_adj.html:91
-#, fuzzy
 msgid "For this function required email and webcam plugin"
 msgstr "Pre túto funkciu vyžaduje e-mail a webová kamera plugin"
 
 #: plugins/sms_adj/templates/sms_adj.html:95
-#, fuzzy
 msgid "Command for help"
 msgstr "Príkaz pre pomoc"
 
 #: plugins/sms_adj/templates/sms_adj.html:97
-#, fuzzy
 msgid "Send SMS with all available commands"
-msgstr ""
-"Send SMS with all available commands Poslať SMS so všetkými dostupnými "
-"príkazmi"
+msgstr "Poslať SMS so všetkými dostupnými príkazmi"
 
 #: plugins/sms_adj/templates/sms_adj.html:101
-#, fuzzy
 msgid "Command for run now program"
 msgstr "Príkaz na spustenie programu"
 
 #: plugins/sms_adj/templates/sms_adj.html:103
-#, fuzzy
 msgid "Example: runxx = run now program xx if exists"
 msgstr "Príklad: runxx = spustiť teraz program xx, ak existuje"
 
 #: plugins/system_debug/__init__.py:17
-#, fuzzy
 msgid "Package: System Debug Information"
-msgstr "Informácie o ladení systému"
+msgstr "Balík: Informácie o systémovom ladení"
 
 #: plugins/system_debug/__init__.py:74
-#, fuzzy
 msgid "Error: Log file missing. Enable it in system options."
 msgstr "Chyba: Súbor denníka chýba. Povoľte ho v systémových možnostiach."
 
 #: plugins/system_debug/templates/system_debug.html:3
 #: plugins/system_debug/templates/system_debug.html:19
-#, fuzzy
 msgid "System Debug Information"
 msgstr "Informácie o ladení systému"
 
 #: plugins/system_debug/templates/system_debug.html:20
-#, fuzzy
 msgid "This plugin prints debug information from events.log file"
 msgstr "Tento plugin tlačí informácie o ladení zo súboru events.log"
 
 #: plugins/system_debug/templates/system_debug.html:24
-#, fuzzy
-#| msgid "Total number of records"
 msgid "Maximum number of records"
-msgstr "Maximálny počet záznamov denníka"
+msgstr "Maximálny počet záznamov"
 
 #: plugins/system_debug/templates/system_debug.html:40
-#, fuzzy
-#| msgid "Delete All"
 msgid "Delete file"
 msgstr "Odstrániť súbor"
 
 #: plugins/system_debug/templates/system_debug.html:43
-#, fuzzy
-#| msgid "Download log as"
 msgid "Download event-log as"
 msgstr "Stiahnuť denník udalostí ako"
 
 #: plugins/system_info/__init__.py:21
-#, fuzzy
-#| msgid "System Information"
 msgid "Package: System Information"
-msgstr "Systémové informácie"
+msgstr "Balík: Systémové informácie"
 
 #: plugins/system_info/__init__.py:41
 msgid "System release"
@@ -4768,7 +4551,6 @@ msgid "Found MCP23017 for Button Control plugin (0x27)."
 msgstr "Nájdené MCP23017 pre ovládanie tlačidiel plugin (0x27)."
 
 #: plugins/system_info/__init__.py:87
-#, fuzzy
 msgid ""
 "Warning: MCP23017 found for Button Control plugin (0x27). The address for "
 "PCF8574 must be different, not 0x27! If it is the same, change it on the LCD "
@@ -4800,12 +4582,10 @@ msgid "This plugin prints all available system information"
 msgstr "Tento plugin vytlačí všetky dostupné systémové informácie"
 
 #: plugins/system_update/__init__.py:22
-#, fuzzy
 msgid "Package: System Update"
 msgstr "Balík: Aktualizácia systému"
 
 #: plugins/system_update/__init__.py:31
-#, fuzzy
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr "Správa z doplnku OSPY SYSTEM UPDATE"
 
@@ -4815,23 +4595,19 @@ msgstr "Žiadny!"
 
 #: plugins/system_update/__init__.py:99
 msgid "Up-to-date."
-msgstr "Aktuálny"
+msgstr "Aktuálny."
 
 #: plugins/system_update/__init__.py:102
-#, fuzzy
-#| msgid "None available"
 msgid "New version is available!"
 msgstr "Nová verzia je k dispozícii!"
 
 #: plugins/system_update/__init__.py:103 plugins/system_update/__init__.py:109
 #: plugins/system_update/__init__.py:112 plugins/system_update/__init__.py:127
-#, fuzzy
 msgid "Currently running revision"
 msgstr "Aktuálne spustená revízia"
 
 #: plugins/system_update/__init__.py:104 plugins/system_update/__init__.py:110
 #: plugins/system_update/__init__.py:113 plugins/system_update/__init__.py:128
-#, fuzzy
 msgid "Available revision"
 msgstr "Dostupná revízia"
 
@@ -4842,34 +4618,27 @@ msgstr "Zmeny"
 #: plugins/system_update/__init__.py:107 plugins/system_update/__init__.py:111
 #: plugins/system_update/__init__.py:121 plugins/system_update/__init__.py:150
 #: plugins/system_update/__init__.py:182
-#, fuzzy
 msgid "System update plug-in"
 msgstr "Doplnok na aktualizáciu systému"
 
 #: plugins/system_update/__init__.py:108 plugins/system_update/__init__.py:112
-#, fuzzy
 msgid "New OSPy version is available!"
 msgstr "Nová verzia OSPy je k dispozícii!"
 
 #: plugins/system_update/__init__.py:126
-#, fuzzy
 msgid "Running unknown version!"
 msgstr "Beží neznáma verzia!"
 
 #: plugins/system_update/__init__.py:178
-#, fuzzy
-#| msgid "Update"
 msgid "Update result"
 msgstr "Výsledok aktualizácie"
 
 #: plugins/system_update/templates/system_update.html:3
 #: plugins/system_update/templates/system_update.html:20
-#, fuzzy
 msgid "System update from GitHub"
 msgstr "Aktualizácia systému z GitHubu"
 
 #: plugins/system_update/templates/system_update.html:21
-#, fuzzy
 msgid ""
 "This plugin compares the local copy with the remote repository and can "
 "automatically update the local copy"
@@ -4878,38 +4647,30 @@ msgstr ""
 "automaticky aktualizovať lokálnu kópiu"
 
 #: plugins/system_update/templates/system_update.html:25
-#, fuzzy
 msgid "Use update plugin"
 msgstr "Použiť doplnok aktualizácie"
 
 #: plugins/system_update/templates/system_update.html:31
-#, fuzzy
 msgid "Remote repository"
 msgstr "Vzdialený repozitár"
 
 #: plugins/system_update/templates/system_update.html:37
-#, fuzzy
 msgid "Remote branch"
 msgstr "Vzdialená vetva"
 
 #: plugins/system_update/templates/system_update.html:43
-#, fuzzy
 msgid "Local OSPy version"
 msgstr "Lokálna verzia OSPy"
 
 #: plugins/system_update/templates/system_update.html:49
-#, fuzzy
 msgid "Local OSPy date"
 msgstr "Dátum lokálneho OSPy"
 
 #: plugins/system_update/templates/system_update.html:55
-#, fuzzy
-#| msgid "Automatic updates"
 msgid "Automatic update"
 msgstr "Automatická aktualizácia"
 
 #: plugins/system_update/templates/system_update.html:61
-#, fuzzy
 msgid "Send E-mail if update is available"
 msgstr "Odoslať e-mail, ak je k dispozícii aktualizácia"
 
@@ -4921,31 +4682,22 @@ msgid "For this function required email plugin"
 msgstr "Pre túto funkciu je potrebný doplnok E-mail notification"
 
 #: plugins/system_update/templates/system_update.html:76
-#, fuzzy
-#| msgid "Weather status"
 msgid "Update Status"
 msgstr "Stav aktualizácie"
 
 #: plugins/system_update/templates/system_update.html:86
-#, fuzzy
-#| msgid "Update"
 msgid "Update OSPy"
 msgstr "Aktualizovať OSPy"
 
 #: plugins/system_update/templates/system_update.html:89
-#, fuzzy
-#| msgid "Restart"
 msgid "Restart OSPy"
 msgstr "Reštartovať OSPy"
 
 #: plugins/system_watchdog/__init__.py:23
-#, fuzzy
-#| msgid "System theme"
 msgid "Package: System Watchdog"
-msgstr "Systém Strážny pes"
+msgstr "Balík: System Watchdog"
 
 #: plugins/system_watchdog/__init__.py:57
-#, fuzzy
 msgid "Watchdog is not installed. For continue press button install watchdog."
 msgstr ""
 "Strážny pes nie je nainštalovaný. Pre pokračovanie stlačte tlačidlo "
@@ -4955,29 +4707,23 @@ msgstr ""
 #: plugins/system_watchdog/__init__.py:92
 #: plugins/system_watchdog/__init__.py:123
 #: plugins/system_watchdog/__init__.py:126
-#, fuzzy
 msgid "System watchodg plug-in"
 msgstr "Doplnok systémového watchodg"
 
 #: plugins/system_watchdog/__init__.py:126
-#, fuzzy
 msgid "Error in Converting"
 msgstr "Chyba pri konverzii"
 
 #: plugins/system_watchdog/__init__.py:174
-#, fuzzy
 msgid "Saving config to /etc/watchdog.conf"
 msgstr "Ukladanie config na / etc / watchdog.conf"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:3
 #: plugins/system_watchdog/templates/system_watchdog.html:29
-#, fuzzy
-#| msgid "System theme"
 msgid "System Watchdog"
 msgstr "Systém Strážny pes"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:30
-#, fuzzy
 msgid ""
 "This plugin enable or disable HW Watchdog daemon in OSPy system. On the "
 "Raspberry Pi is hardware watchdog - Broadcom BCM2708 chip"
@@ -4986,7 +4732,6 @@ msgstr ""
 "Malina Pi je hardvér strážny pes - Broadcom BCM2708 čip"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:31
-#, fuzzy
 msgid ""
 "This can be very useful if your Raspberry Pi is located remotely and locks "
 "up. However, this would not the preferred method of restarting the unit and"
@@ -4995,7 +4740,6 @@ msgstr ""
 "uzamkne. To by však nebolo uprednostňovaným spôsobom reštartovania jednotky a"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:32
-#, fuzzy
 msgid ""
 "in extreme cases this can result in file-system damage that could prevent "
 "the Raspberry Pi from booting. If this occurs regularly you better find the "
@@ -5006,7 +4750,6 @@ msgstr ""
 "pravidelne, radšej nájsť koreň"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:33
-#, fuzzy
 msgid ""
 "cause of the problem rather than fight the symptoms. The watchdog daemon "
 "will send /dev/watchdog a heartbeat every 4 seconds. If /dev/watchdog does "
@@ -5016,7 +4759,6 @@ msgstr ""
 "dev/watchdog tlkot srdca každé 4 sekundy. Ak /dev/watchdog"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:34
-#, fuzzy
 msgid ""
 "receive this signal it will brute-force restart your Raspberry Pi. This "
 "plugin needs Watchdog. If not installed, plugin installs Watchdog in to the "
@@ -5027,83 +4769,90 @@ msgstr ""
 "do systému sám"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:44
-#, fuzzy
-#| msgid "Install all"
 msgid "Install Watchdog"
 msgstr "Inštalácia strážneho psa"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:54
-#, fuzzy
 msgid "Stop Watchdog Service"
 msgstr "Zastaviť strážny pes service"
 
 #: plugins/system_watchdog/templates/system_watchdog.html:56
-#, fuzzy
 msgid "Start Watchdog Service"
 msgstr "Spustiť službu Strážneho psa"
 
-#: plugins/tank_monitor/__init__.py:29
-#, fuzzy
-#| msgid "Water Tank Monitor plug-in"
+#: plugins/tank_monitor/__init__.py:31
 msgid "Package: Water Tank Monitor"
-msgstr "Doplnok nádrž pre vodu"
+msgstr "Balík: Monitor nádrže na vodu"
 
-#: plugins/tank_monitor/__init__.py:42
+#: plugins/tank_monitor/__init__.py:44
 msgid "Report from OSPy TANK plugin"
 msgstr "Hlásenie z OSPy nádrže"
 
-#: plugins/tank_monitor/__init__.py:103 plugins/tank_monitor/__init__.py:493
+#: plugins/tank_monitor/__init__.py:102
+msgid "Tank"
+msgstr "Nádrž"
+
+#: plugins/tank_monitor/__init__.py:109 plugins/tank_monitor/__init__.py:505
 msgid "Water tank monitor is enabled."
 msgstr "Monitor vodnej nádrže je zapnutý."
 
-#: plugins/tank_monitor/__init__.py:117
+#: plugins/tank_monitor/__init__.py:126
 msgid "Water level"
 msgstr "Úroveň vody"
 
-#: plugins/tank_monitor/__init__.py:122 plugins/tank_monitor/__init__.py:184
+#: plugins/tank_monitor/__init__.py:131
+msgid "m<sup>3</sup>"
+msgstr "m<sup>3</sup>"
+
+#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:196
 msgid "Maximum Water level"
 msgstr "Maximálna úroveň vody"
 
-#: plugins/tank_monitor/__init__.py:123 plugins/tank_monitor/__init__.py:185
+#: plugins/tank_monitor/__init__.py:134 plugins/tank_monitor/__init__.py:197
 msgid "Minimum Water level"
 msgstr "Minimálna úroveň vody"
 
-#: plugins/tank_monitor/__init__.py:170
+#: plugins/tank_monitor/__init__.py:181
 msgid "ERROR: Water in Tank"
 msgstr "Chyba: zásoby vody v nádrži"
 
-#: plugins/tank_monitor/__init__.py:183
+#: plugins/tank_monitor/__init__.py:193 plugins/ups_adj/__init__.py:112
+#: plugins/ups_adj/__init__.py:367
+msgid "FAULT"
+msgstr "CHYBA"
+
+#: plugins/tank_monitor/__init__.py:195
 msgid "Water level: Error."
 msgstr "Hladina vody: Chyba."
 
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr "Systém zistil chybu: vodná nádrž má minimálnu hladinu vody"
 
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:200
-#: plugins/tank_monitor/__init__.py:207 plugins/tank_monitor/__init__.py:212
+#: plugins/tank_monitor/__init__.py:212 plugins/tank_monitor/__init__.py:213
+#: plugins/tank_monitor/__init__.py:220 plugins/tank_monitor/__init__.py:225
 msgid "Water Tank Monitor plug-in"
 msgstr "Doplnok nádrž pre vodu"
 
-#: plugins/tank_monitor/__init__.py:422 plugins/tank_monitor/__init__.py:550
+#: plugins/tank_monitor/__init__.py:434 plugins/tank_monitor/__init__.py:562
 msgid "Minimum"
 msgstr "Min"
 
-#: plugins/tank_monitor/__init__.py:423 plugins/tank_monitor/__init__.py:551
-#: plugins/wind_monitor/__init__.py:378 plugins/wind_monitor/__init__.py:499
+#: plugins/tank_monitor/__init__.py:435 plugins/tank_monitor/__init__.py:563
+#: plugins/wind_monitor/__init__.py:392 plugins/wind_monitor/__init__.py:532
 msgid "Maximum"
 msgstr "Max"
 
-#: plugins/tank_monitor/__init__.py:424 plugins/tank_monitor/__init__.py:552
-#: plugins/wind_monitor/__init__.py:379 plugins/wind_monitor/__init__.py:500
+#: plugins/tank_monitor/__init__.py:436 plugins/tank_monitor/__init__.py:564
+#: plugins/wind_monitor/__init__.py:393 plugins/wind_monitor/__init__.py:533
 msgid "Actual"
 msgstr "Aktuálny"
 
-#: plugins/tank_monitor/__init__.py:472
+#: plugins/tank_monitor/__init__.py:484
 msgid "Minimum and maximum has reseted."
 msgstr "Min a max sa smazalo."
 
-#: plugins/tank_monitor/__init__.py:496
+#: plugins/tank_monitor/__init__.py:508
 msgid "Water tank monitor is disabled."
 msgstr "Doplnok je zakázaný."
 
@@ -5114,7 +4863,6 @@ msgstr "Doplnok nádrž pre vodu - nastavenie"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:22
 #: plugins/tank_monitor/templates/tank_monitor.html:49
-#, fuzzy
 msgid "cm, liters or m<sup>3</sup>"
 msgstr "cm, litre alebo m<sup>3</sup>"
 
@@ -5172,49 +4920,48 @@ msgstr "Stop plánovača ak je minimálna voda v nádrži"
 msgid "Reset min/max level"
 msgstr "Smazat min/max úroveň"
 
-#: plugins/ups_adj/__init__.py:25
-#, fuzzy
+#: plugins/ups_adj/__init__.py:27
 msgid "Package: UPS Monitor"
-msgstr "Balenie: UPS Monitor"
+msgstr "Balík: UPS Monitor"
 
-#: plugins/ups_adj/__init__.py:34
+#: plugins/ups_adj/__init__.py:36
 msgid "Report from OSPy UPS plugin"
 msgstr "Hlásenie z OSPy UPS plugin"
 
-#: plugins/ups_adj/__init__.py:106 plugins/ups_adj/__init__.py:359
-msgid "FAULT"
-msgstr "CHYBA"
+#: plugins/ups_adj/__init__.py:102
+msgid "UPS"
+msgstr "UPS"
 
-#: plugins/ups_adj/__init__.py:116 plugins/ups_adj/__init__.py:117
+#: plugins/ups_adj/__init__.py:124 plugins/ups_adj/__init__.py:125
 msgid "Detected fault on power line."
 msgstr "Zistená chyba na elektrickom vedení."
 
-#: plugins/ups_adj/__init__.py:116 plugins/ups_adj/__init__.py:117
-#: plugins/ups_adj/__init__.py:125 plugins/ups_adj/__init__.py:146
-#: plugins/ups_adj/__init__.py:147 plugins/ups_adj/__init__.py:153
-#: plugins/ups_adj/__init__.py:164 plugins/ups_adj/__init__.py:165
-#: plugins/ups_adj/__init__.py:173 plugins/ups_adj/__init__.py:184
+#: plugins/ups_adj/__init__.py:124 plugins/ups_adj/__init__.py:125
+#: plugins/ups_adj/__init__.py:133 plugins/ups_adj/__init__.py:154
+#: plugins/ups_adj/__init__.py:155 plugins/ups_adj/__init__.py:161
+#: plugins/ups_adj/__init__.py:172 plugins/ups_adj/__init__.py:173
+#: plugins/ups_adj/__init__.py:181 plugins/ups_adj/__init__.py:192
 msgid "UPS plug-in"
 msgstr "Doplnok UPS"
 
-#: plugins/ups_adj/__init__.py:135
+#: plugins/ups_adj/__init__.py:143
 msgid "Time to shutdown"
 msgstr "Čas do vypnutia"
 
-#: plugins/ups_adj/__init__.py:141
+#: plugins/ups_adj/__init__.py:149
 msgid "Power line is not restore in time -> sends email and shutdown system."
 msgstr ""
 "Napájacia linka sa neobnovila v čase -> posielam e-mail a vypínam systém."
 
-#: plugins/ups_adj/__init__.py:146 plugins/ups_adj/__init__.py:147
+#: plugins/ups_adj/__init__.py:154 plugins/ups_adj/__init__.py:155
 msgid "Power line is not restore in time -> shutdown system!"
 msgstr "Elektrické vedenie nie je obnoviť v čase -> vypnutie systému!"
 
-#: plugins/ups_adj/__init__.py:164 plugins/ups_adj/__init__.py:165
+#: plugins/ups_adj/__init__.py:172 plugins/ups_adj/__init__.py:173
 msgid "Power line has restored - OK."
 msgstr "Elektrické vedenie sa obnovilo - OK."
 
-#: plugins/ups_adj/__init__.py:198
+#: plugins/ups_adj/__init__.py:206
 msgid "UPS plugin is started."
 msgstr "Doplnok UPS naštartoval."
 
@@ -5224,10 +4971,8 @@ msgid "UPS monitor settings"
 msgstr "Doplnok UPS - nastavenie"
 
 #: plugins/ups_adj/templates/ups_adj.html:49
-#, fuzzy
-#| msgid "Master station"
 msgid "Measured status on/off"
-msgstr "Hlavná stanica"
+msgstr "Nameraný stav zapnuté/vypnuté"
 
 #: plugins/ups_adj/templates/ups_adj.html:172
 msgid ""
@@ -5237,13 +4982,12 @@ msgstr ""
 "napájania)."
 
 #: plugins/ups_adj/templates/ups_adj.html:173
-#, fuzzy
 msgid ""
 "If is error with power line in a certain time, sends plugin E-mail with "
 "error and shutdown system (and generate pulse to GPIO)."
 msgstr ""
-"Ak je chyba s napájacím riadkom v určitom čase, odošle plugin E-mail s "
-"chybou a vypnutie systému (a generovať pulz gpio)."
+"Ak sa v určitom čase vyskytne chyba s napájacou linkou, pošle sa e-mail s "
+"chybou a vypne systém (a generuje impulz na GPIO)."
 
 #: plugins/ups_adj/templates/ups_adj.html:180
 msgid "Use UPS"
@@ -5277,10 +5021,8 @@ msgstr ""
 "ako signal pre UPS na vypínanie batérie v UPS."
 
 #: plugins/usage_statistics/__init__.py:20
-#, fuzzy
-#| msgid "Usage Statistics"
 msgid "Package: Usage Statistics"
-msgstr "Štatistika používania"
+msgstr "Balík: Štatistika používania"
 
 #: plugins/usage_statistics/__init__.py:31
 #: plugins/usage_statistics/__init__.py:87
@@ -5341,133 +5083,108 @@ msgid "Read from source www.pihrt.com"
 msgstr "Čítať zo zdroja www.pihrt.com"
 
 #: plugins/voice_notification/__init__.py:27
-#, fuzzy
 msgid "Package: Voice Notification"
-msgstr "Hlasové upozornenie"
+msgstr "Balík: Hlasové oznámenie"
 
 #: plugins/voice_notification/__init__.py:203
-#, fuzzy
 msgid "Voice notification is disabled."
 msgstr "Hlasové upozornenie je vypnuté."
 
 #: plugins/voice_notification/__init__.py:205
-#, fuzzy
 msgid "Voice notification is enabled."
 msgstr "Hlasové upozornenie je povolené."
 
 #: plugins/voice_notification/__init__.py:221
-#, fuzzy
 msgid "Pygame is not installed."
 msgstr "Pygame nie je nainštalovaný."
 
 #: plugins/voice_notification/__init__.py:222
-#, fuzzy
 msgid "Please wait installing pygame..."
 msgstr "Prosím, počkajte inštaláciu pygame..."
 
 #: plugins/voice_notification/__init__.py:226
-#, fuzzy
 msgid "Pygame is now installed."
 msgstr "Pygame je teraz nainštalovaný."
 
 #: plugins/voice_notification/__init__.py:246
-#, fuzzy
 msgid "Skiping playing on station"
-msgstr "Preskočenie prehrávania na stanici"
+msgstr "Preskočenie hrania na stanici"
 
 #: plugins/voice_notification/__init__.py:274
-#, fuzzy
 msgid "Repeating playing nr. 2..."
-msgstr "Opakujúce sa prehrávanie č. 2..."
+msgstr "Opakované prehrávanie č. 2 ..."
 
 #: plugins/voice_notification/__init__.py:282
-#, fuzzy
 msgid "Repeating playing nr. 3..."
-msgstr "Opakujúce sa prehrávanie č. 3..."
+msgstr "Opakované prehrávanie č. 3 ..."
 
 #: plugins/voice_notification/__init__.py:290
 #: plugins/voice_notification/__init__.py:358
 #: plugins/voice_notification/__init__.py:417
-#, fuzzy
 msgid "Voice Notification plug-in"
 msgstr "Doplnok hlasového upozornenia"
 
 #: plugins/voice_notification/__init__.py:332
-#, fuzzy
-#| msgid "loading..."
 msgid "Loading: %s..."
 msgstr "Načítava sa: %s..."
 
 #: plugins/voice_notification/__init__.py:340
-#, fuzzy
 msgid "Set master volume to"
-msgstr "Nastavte hlavný zväzok na"
+msgstr "Nastavena hlasitost na"
 
 #: plugins/voice_notification/__init__.py:348
-#, fuzzy
-#| msgid "loading..."
 msgid "Playing..."
-msgstr "Hrá..."
+msgstr "Prehrávanie..."
 
 #: plugins/voice_notification/__init__.py:355
 msgid "Stopping..."
 msgstr "Zastavujem..."
 
 #: plugins/voice_notification/__init__.py:378
-#, fuzzy
 msgid "Testing button %s..."
-msgstr "Testuje sa tlačidlo %s..."
+msgstr "Testovacie tlačidlo%s ..."
 
 #: plugins/voice_notification/__init__.py:411
-#, fuzzy
 msgid "Saving MP3 %s file OK."
-msgstr "Ukladá sa súbor MP3 %s ok."
+msgstr "Uloženie súboru MP3 %s je v poriadku."
 
 #: plugins/voice_notification/__init__.py:414
-#, fuzzy
 msgid "Error. MP3 file: %s name is not voice.mp3 or voice0.mp3...voice20.mp3"
-msgstr ""
-"Chyba. MP3 súbor: %s meno nie je voice.mp3 alebo voice0.mp3... Hlasový súbor "
-"mp3"
+msgstr "Chyba. Súbor MP3: %s nie je voice.mp3 alebo voice0.mp3...voice20.mp3"
 
 #: plugins/voice_notification/templates/voice_notification.html:3
-#, fuzzy
 msgid "Voice Notification"
 msgstr "Hlasové upozornenie"
 
 #: plugins/voice_notification/templates/voice_notification.html:24
-#, fuzzy
 msgid "Voice Notification - Settings"
-msgstr "Hlasové upozornenie - Nastavenia"
+msgstr "Hlasové upozornenie - nastavenia"
 
 #: plugins/voice_notification/templates/voice_notification.html:25
-#, fuzzy
 msgid ""
 "This plugin allows you to use voice notifications for different events in "
 "the OSPy system."
 msgstr ""
-"Tento plugin vám umožní používať hlasové oznámenia pre rôzne udalosti v "
+"Tento doplnok umožňuje používať hlasové upozornenia na rôzne udalosti v "
 "systéme OSPy."
 
 #: plugins/voice_notification/templates/voice_notification.html:26
-#, fuzzy
 msgid ""
 "Into the Connector from Output on Raspberry Pi connect Amplifier and "
 "Speakers for voice notification."
 msgstr ""
-"Do konektora z výstupu na Raspberry Pi pripojiť zosilňovač a reproduktory "
-"pre hlasové oznámenia."
+"Do konektora z výstupu Raspberry Pi pripojte zosilňovač a reproduktory na "
+"hlasové oznámenie."
 
 #: plugins/voice_notification/templates/voice_notification.html:27
-#, fuzzy
 msgid ""
 "This plugin requires pygame installed. If pygame is not installed on the "
 "system, plugin it will install it himself. Pygame is comes already installed "
 "on the default raspberian installation."
 msgstr ""
-"Tento plugin vyžaduje pygame nainštalovaný. Ak pygame nie je nainštalovaný v "
-"systéme, plugin to nainštaluje sám. Pygame je už nainštalovaný na predvolenú "
-"inštaláciu raspberian."
+"Tento doplnok vyžaduje nainštalovaný pygame. Ak pygame nie je nainštalovaný "
+"v systéme, plugin ho nainštaluje sám. Pygame je už nainštalovaný na "
+"predvolenej raspberiánskej inštalácii."
 
 #: plugins/voice_notification/templates/voice_notification.html:28
 msgid "and"
@@ -5478,38 +5195,31 @@ msgid "Enable voice"
 msgstr "Povoliť hlasový modul"
 
 #: plugins/voice_notification/templates/voice_notification.html:33
-#, fuzzy
 msgid "If the check box is marked, the extension will be active."
 msgstr "Ak je políčko začiarknuté, rozšírenie bude aktívne."
 
 #: plugins/voice_notification/templates/voice_notification.html:37
-#, fuzzy
 msgid "Enable pre start voice"
-msgstr "Povoliť pred spustenie hlasu"
+msgstr "Povoliť hlas pred spustením"
 
 #: plugins/voice_notification/templates/voice_notification.html:38
-#, fuzzy
 msgid "The sound is played before turning on the station."
 msgstr "Zvuk sa prehrá pred zapnutím stanice."
 
 #: plugins/voice_notification/templates/voice_notification.html:41
 #: plugins/voice_notification/templates/voice_notification.html:96
-#, fuzzy
 msgid "Test playing"
-msgstr "Skúšobné prehrávanie"
+msgstr "Skúšobné hranie"
 
 #: plugins/voice_notification/templates/voice_notification.html:46
-#, fuzzy
 msgid "How many seconds before turning on stations play sound."
 msgstr "Koľko sekúnd pred zapnutím stanice prehráva zvuk."
 
 #: plugins/voice_notification/templates/voice_notification.html:50
-#, fuzzy
 msgid "Repeat playback"
 msgstr "Opakované prehrávanie"
 
 #: plugins/voice_notification/templates/voice_notification.html:51
-#, fuzzy
 msgid "How many times to repeat the same message."
 msgstr "Koľkokrát opakovať tú istú správu."
 
@@ -5518,33 +5228,26 @@ msgid "Master volume"
 msgstr "Hlavná hlasitosť"
 
 #: plugins/voice_notification/templates/voice_notification.html:56
-#, fuzzy
 msgid "Setting the Raspberry Pi output volume (0-100%)."
-msgstr "Nastavenie výstupného objemu Raspberry Pi (0 - 100%)."
+msgstr "Nastavenie výstupné hlasitosti Raspberry Pi (0 - 100%)."
 
 #: plugins/voice_notification/templates/voice_notification.html:60
-#, fuzzy
 msgid "Play only from"
-msgstr "Hrať iba z"
+msgstr "Hrať iba od"
 
 #: plugins/voice_notification/templates/voice_notification.html:61
-#, fuzzy
 msgid "Play notifications only from this time (hours)."
 msgstr "Upozornenia prehrávať iba od tohto času (hodiny)."
 
 #: plugins/voice_notification/templates/voice_notification.html:65
-#, fuzzy
 msgid "Play only to"
-msgstr "Prehrať len na"
+msgstr "Hrať iba do"
 
 #: plugins/voice_notification/templates/voice_notification.html:66
-#, fuzzy
 msgid "Play notifications only to this time (hours)."
 msgstr "Prehrávať upozornenia iba do tohto času (hodiny)."
 
 #: plugins/voice_notification/templates/voice_notification.html:70
-#, fuzzy
-#| msgid "Stations"
 msgid "Skip stations"
 msgstr "Preskočiť stanice"
 
@@ -5553,109 +5256,89 @@ msgid "Skip voice notification for these stations."
 msgstr "Preskočiť hlasové upozornenie pre tieto stanice."
 
 #: plugins/voice_notification/templates/voice_notification.html:82
-#, fuzzy
 msgid "Select voice for stations"
-msgstr "Výber hlasu pre stanice"
+msgstr "Vyberte hlas pre stanice"
 
 #: plugins/voice_notification/templates/voice_notification.html:87
 msgid "Select voice for this station."
 msgstr "Vyberte hlas pre túto stanicu."
 
 #: plugins/voice_notification/templates/voice_notification.html:112
-#, fuzzy
-#| msgid "Upload SSL files"
 msgid "Upload mp3 file"
-msgstr "Nahrať mp3 súbor"
+msgstr "Nahrajte súbor mp3"
 
 #: plugins/voice_notification/templates/voice_notification.html:113
-#, fuzzy
 msgid "MP3 file must have a name"
 msgstr "Súbor MP3 musí mať názov"
 
 #: plugins/volt_temp_da/__init__.py:21
-#, fuzzy
 msgid "Package: Voltage and Temperature Monitor"
-msgstr "Monitor napätia a teploty"
+msgstr "Balík: monitor napätia a teploty"
 
 #: plugins/volt_temp_da/__init__.py:113
-#, fuzzy
 msgid "Voltage and Temperature Monitor plug-in"
-msgstr "Doplnok monitora napätia a teploty"
+msgstr "Plug-in monitor napätia a teploty"
 
 #: plugins/volt_temp_da/__init__.py:263
-#, fuzzy
-#| msgid "Delete All"
 msgid "Deleted log file"
 msgstr "Odstránený súbor denníka"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:3
 #: plugins/volt_temp_da/templates/volt_temp_da.html:21
-#, fuzzy
 msgid "Voltage and Temperature Monitor"
 msgstr "Monitor napätia a teploty"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:22
-#, fuzzy
 msgid ""
 "This plugin needs an enabled I2C bus and connected I2C A/D converter PCF8591 "
 "on I2C address 0x48"
 msgstr ""
-"Tento plugin potrebuje povolené I2C zbernice a pripojený I2C A / D konvertor "
-"PCF8591 na I2C adresu 0x48"
+"Tento doplnok vyžaduje povolenú zbernicu I2C a pripojený konvertor I2C A / D "
+"PCF8591 na adrese I2C 0x48"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:23
-#, fuzzy
 msgid "C) on AD0-3 converter"
-msgstr "C) na AD0-3 konvertor"
+msgstr "C) na prevodníku AD0-3"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:23
-#, fuzzy
 msgid "For measuring temperature use temp probe LM35D (0-100"
-msgstr "Na meranie teploty použite teplotný sondu LM35D (0-100"
+msgstr "Na meranie teploty použite dočasnú sondu LM35D (0-100"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:24
-#, fuzzy
 msgid "If the label is not blank, the value is displayed in the value display"
-msgstr "Ak menovka nie je prázdna, hodnota sa zobrazí na displeji hodnoty"
+msgstr "Ak štítok nie je prázdny, hodnota sa zobrazí na displeji hodnoty"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
 msgid "log file"
 msgstr "protokolový súbor"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:47
-#, fuzzy
 msgid "I/O Voltage"
-msgstr "I/O napätie"
+msgstr "Napätie I / O"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:60
-#, fuzzy
 msgid "Label for input"
 msgstr "Štítok pre vstup"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:62
-#, fuzzy
 msgid "Measure as temperature"
 msgstr "Zmerajte ako teplotu"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:72
-#, fuzzy
 msgid "DA output value"
-msgstr "Výstupná hodnota DA"
+msgstr "DA výstupná hodnota"
 
 #: plugins/volt_temp_da/templates/volt_temp_da.html:74
 msgid "Volt"
 msgstr "V"
 
 #: plugins/water_consumption_counter/__init__.py:23
-#, fuzzy
-#| msgid "Water Consumption Counter"
 msgid "Package: Water Consumption Counter"
-msgstr "Počítadlo spotreby vody"
+msgstr "Balík: Počítadlo spotreby vody"
 
 #: plugins/water_consumption_counter/__init__.py:35
-#, fuzzy
 msgid "Report from OSPy Water Consumption Counter plugin"
-msgstr "Správa z OSPy Spotreba vody Counter plugin"
+msgstr "Správa z doplnku Počítadlo spotreby vody OSPy"
 
 #: plugins/water_consumption_counter/__init__.py:79
 #: plugins/water_consumption_counter/__init__.py:111
@@ -5663,9 +5346,8 @@ msgstr "Správa z OSPy Spotreba vody Counter plugin"
 #: plugins/water_consumption_counter/__init__.py:162
 #: plugins/water_consumption_counter/__init__.py:191
 #: plugins/water_consumption_counter/__init__.py:192
-#, fuzzy
 msgid "Water Consumption Counter plug-in"
-msgstr "Zásudok na spotrebu vody"
+msgstr "Doplnok počítadla spotreby vody"
 
 #: plugins/water_consumption_counter/__init__.py:125
 #: plugins/water_consumption_counter/__init__.py:133
@@ -5673,14 +5355,12 @@ msgid "Email logging is disabled in options..."
 msgstr "E-mail zapisovania do denníka je zakázaný v možnostiach..."
 
 #: plugins/water_consumption_counter/__init__.py:144
-#, fuzzy
 msgid "Master station 1 running, please wait..."
-msgstr "Master stanica 1 beží, počkajte, prosím..."
+msgstr "Hlavná stanica beží, čakajte prosím..."
 
 #: plugins/water_consumption_counter/__init__.py:149
-#, fuzzy
 msgid "Master station 1 stopped, counter finished..."
-msgstr "Hlavná stanica 1 zastavil, počítadlo hotové ..."
+msgstr "Hlavná stanica sa zastavila, počítadlo dokončené..."
 
 #: plugins/water_consumption_counter/__init__.py:161
 #: plugins/water_consumption_counter/__init__.py:162
@@ -5695,70 +5375,59 @@ msgid "Water Consumption"
 msgstr "Spotreba vody"
 
 #: plugins/water_consumption_counter/__init__.py:162
-#, fuzzy
 msgid "Water Consumption for master 1"
-msgstr "Spotreba vody pre master 1"
+msgstr "Spotreba vody pre hlavnú stanicu"
 
 #: plugins/water_consumption_counter/__init__.py:174
-#, fuzzy
 msgid "Master station 2 running, please wait..."
-msgstr "Master stanica 2 beží, počkajte, prosím..."
+msgstr "Hlavná stanica 2 beží, čakajte prosím..."
 
 #: plugins/water_consumption_counter/__init__.py:179
-#, fuzzy
 msgid "Master station 2 stopped, counter finished..."
-msgstr "Hlavná stanica 2 zastavil, počítadlo hotové ..."
+msgstr "Hlavná stanica 2 sa zastavila, počítadlo dokončené ..."
 
 #: plugins/water_consumption_counter/__init__.py:192
-#, fuzzy
 msgid "Water Consumption for master 2"
-msgstr "Spotreba vody pre master 2"
+msgstr "Spotreba vody pre druhú hlavnú stanicu"
 
 #: plugins/water_consumption_counter/__init__.py:227
-#, fuzzy
 msgid "Counter has reseted"
-msgstr "Počítadlo sa obnovilo"
+msgstr "Počítadlo sa resetovalo"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:3
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:20
-#, fuzzy
 msgid "Water Consumption Counter settings"
-msgstr "Nastavenie počítadla spotreby vody"
+msgstr "Nastavenia počítadla spotreby vody"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:21
-#, fuzzy
 msgid ""
 "This plugin read Water consumption on master station or second master "
 "station."
 msgstr ""
-"Tento plugin čítať Spotreba vody na hlavnej stanici alebo druhej hlavnej "
+"Tento doplnok čítal spotrebu vody na hlavnej stanici alebo na druhej hlavnej "
 "stanici."
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:22
-#, fuzzy
 msgid "Total sum is the calculated as run of the main (or second) station."
-msgstr "Celková suma je vypočítaná ako beh hlavnej (alebo druhej) stanice."
+msgstr ""
+"Celková suma je vypočítaná ako prevádzka hlavnej (alebo druhej) stanice."
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:23
-#, fuzzy
 msgid "This is not an actual flow meter (physical flow sensor)."
 msgstr "Toto nie je skutočný prietokomer (snímač fyzického prietoku)."
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:24
-#, fuzzy
 msgid "Used for an overview of water consumption."
-msgstr "Používa sa pre prehľad spotreby vody."
+msgstr "Používa sa na prehľad o spotrebe vody."
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:30
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:36
-#, fuzzy
 msgid "Liters per second"
 msgstr "Litre za sekundu"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:40
-#, fuzzy
 msgid "Send email with water consumption"
-msgstr "Poslať e-mail so spotrebou vody"
+msgstr "Pošlite e-mail so spotrebou vody"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:55
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:64
@@ -5771,320 +5440,267 @@ msgid "m3."
 msgstr "m3."
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:70
-#, fuzzy
 msgid "Last counter reset"
-msgstr "Posledné vynulovanie počítadla"
+msgstr "Posledný reset počítadla"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:88
 msgid "Reset Counter"
 msgstr "Vynulovať počítadlo"
 
 #: plugins/water_meter/__init__.py:21
-#, fuzzy
-#| msgid "Use Weather"
 msgid "Package: Water Meter"
-msgstr "Použitie vodomeru"
+msgstr "Balík: Vodomer"
 
 #: plugins/water_meter/__init__.py:97
-#, fuzzy
 msgid "Water Meter plug-in is enabled."
-msgstr "Je povolený doplnok vodomeru."
+msgstr "Doplnok vodomeru je povolený."
 
 #: plugins/water_meter/__init__.py:101
-#, fuzzy
 msgid "Could not find PCF8583."
 msgstr "Nepodarilo sa nájsť PCF8583."
 
 #: plugins/water_meter/__init__.py:103 plugins/water_meter/__init__.py:271
-#, fuzzy
 msgid "Please wait for min/hour data..."
-msgstr "Počkajte, prosím, na údaje min/hodín..."
+msgstr "Čakajte prosím na údaje za minútu / hodinu..."
 
 #: plugins/water_meter/__init__.py:105 plugins/water_meter/__init__.py:117
-#, fuzzy
-#| msgid "Water interval"
 msgid "Water in liters"
 msgstr "Voda v litroch"
 
 #: plugins/water_meter/__init__.py:106
-#, fuzzy
 msgid "Saved water summary"
 msgstr "Súhrn uloženej vody"
 
 #: plugins/water_meter/__init__.py:118
-#, fuzzy
-#| msgid "Water interval"
 msgid "Water per minutes"
 msgstr "Voda za minútu"
 
 #: plugins/water_meter/__init__.py:119
-#, fuzzy
 msgid "Water per hours"
-msgstr "Voda za hodiny"
+msgstr "Voda za hodinu"
 
 #: plugins/water_meter/__init__.py:120
-#, fuzzy
 msgid "Water summary"
-msgstr "Prehľad vody"
+msgstr "Súhrn vody"
 
 #: plugins/water_meter/__init__.py:141
-#, fuzzy
 msgid "Water Meter plug-in is disabled."
-msgstr "Vodomer plug-in je zakázaný."
+msgstr "Doplnok vodomeru je deaktivovaný."
 
 #: plugins/water_meter/__init__.py:149 plugins/water_meter/__init__.py:211
 #: plugins/water_meter/__init__.py:212 plugins/water_meter/__init__.py:241
-#, fuzzy
-#| msgid "Water interval"
 msgid "Water Meter plug-in"
 msgstr "Doplnok vodomeru"
 
 #: plugins/water_meter/__init__.py:208
-#, fuzzy
 msgid "Setup PCF8583 as event counter is OK"
-msgstr "Nastavenie PCF8583 ako počítadlo udalostí je OK"
+msgstr "Nastavte PCF8583 ako počítadlo udalostí v poriadku"
 
-#: plugins/water_meter/__init__.py:211 plugins/wind_monitor/__init__.py:248
-#, fuzzy
+#: plugins/water_meter/__init__.py:211 plugins/wind_monitor/__init__.py:262
 msgid "Setup PCF8583 as event counter - FAULT"
-msgstr "Nastavenie PCF8583 ako počítadlo udalostí - FAULT"
+msgstr "Nastaviť PCF8583 ako počítadlo udalostí - CHYBA"
 
 #: plugins/water_meter/__init__.py:270
-#, fuzzy
 msgid "Water summary was reseting..."
-msgstr "Vodné zhrnutie bolo resetovanie ..."
+msgstr "Súhrn vody sa resetoval ..."
 
 #: plugins/water_meter/templates/water_meter.html:3
 #: plugins/water_meter/templates/water_meter.html:20
-#, fuzzy
-#| msgid "Master two station"
 msgid "Water meter settings"
 msgstr "Nastavenia vodomeru"
 
 #: plugins/water_meter/templates/water_meter.html:21
 #: plugins/wind_monitor/templates/wind_monitor.html:175
-#, fuzzy
 msgid "This plugin needs an enabled"
-msgstr "Tento plugin potrebuje povolené"
+msgstr "Tento doplnok potrebuje povolený"
 
 #: plugins/water_meter/templates/water_meter.html:21
 #: plugins/wind_monitor/templates/wind_monitor.html:175
-#, fuzzy
 msgid "address 0x50 or 0x51."
-msgstr "0x50 alebo 0x51."
+msgstr "adresa 0x50 alebo 0x51."
 
 #: plugins/water_meter/templates/water_meter.html:21
 #: plugins/wind_monitor/templates/wind_monitor.html:175
-#, fuzzy
 msgid "bus and connected counter PCF8583 on"
-msgstr "zbernica a pripojené počítadlo PCF8583 na"
+msgstr "zbernica a pripojené počítadlo PCF8583 zapnuté"
 
 #: plugins/water_meter/templates/water_meter.html:22
-#, fuzzy
 msgid ""
 "This plugin measures the amount of water flowing per sec, min, hour and the "
 "total amount of water"
 msgstr ""
-"Tento plugin meria množstvo vody tečúcej za sekundu, min, hodinu a celkové "
+"Tento doplnok meria množstvo tečúcej vody za sekundu, min, hodinu a celkové "
 "množstvo vody"
 
 #: plugins/water_meter/templates/water_meter.html:27
-#, fuzzy
-#| msgid "Use Weather"
 msgid "Use Water Meter"
-msgstr "Použitie vodomeru"
+msgstr "Použite vodomer"
 
 #: plugins/water_meter/templates/water_meter.html:33
 #: plugins/wind_monitor/templates/wind_monitor.html:189
-#, fuzzy
 msgid "address 0x50"
 msgstr "adresa 0x50"
 
 #: plugins/water_meter/templates/water_meter.html:35
 #: plugins/wind_monitor/templates/wind_monitor.html:191
-#, fuzzy
 msgid "if checked 0x51"
-msgstr "ak je zaškrtáte 0x51"
+msgstr "ak je zaškrtnuté 0x51"
 
 #: plugins/water_meter/templates/water_meter.html:39
-#, fuzzy
-#| msgid "Number of outputs"
 msgid "Number of pulses per liter"
 msgstr "Počet impulzov na liter"
 
 #: plugins/water_meter/templates/water_meter.html:45
-#, fuzzy
-#| msgid "Weather status"
 msgid "Water meter state"
 msgstr "Stav vodomeru"
 
 #: plugins/water_meter/templates/water_meter.html:47
-#, fuzzy
 msgid "liter per second"
 msgstr "liter za sekundu"
 
 #: plugins/water_meter/templates/water_meter.html:62
-#, fuzzy
-#| msgid "Reset Time"
 msgid "Reset summary"
-msgstr "Obnoviť súhrn"
+msgstr "Obnoviť zhrnutie"
 
-#: plugins/weather_based_rain_delay/__init__.py:34
-#, fuzzy
-#| msgid "Suppressed by Rain Delay"
+#: plugins/weather_based_rain_delay/__init__.py:36
 msgid "Package: Weather-based Rain Delay"
-msgstr "Počasie-založené dážď Delay"
+msgstr "Balík: Dažďové oneskorenie podľa počasia"
 
-#: plugins/weather_based_rain_delay/__init__.py:101
-#, fuzzy
+#: plugins/weather_based_rain_delay/__init__.py:108
 msgid "Checking rain status"
-msgstr "Kontrola stavu dažďa"
+msgstr "Prebieha kontrola stavu dažďa"
 
-#: plugins/weather_based_rain_delay/__init__.py:107
+#: plugins/weather_based_rain_delay/__init__.py:115
+#: plugins/weather_based_rain_delay/__init__.py:117
 msgid "Netatmo detected Rain"
 msgstr "Netatmo zistené dážď"
 
-#: plugins/weather_based_rain_delay/__init__.py:107
-#: plugins/weather_based_rain_delay/__init__.py:114
-#, fuzzy
+#: plugins/weather_based_rain_delay/__init__.py:115
+#: plugins/weather_based_rain_delay/__init__.py:117
+msgid "hours"
+msgstr "hodín"
+
+#: plugins/weather_based_rain_delay/__init__.py:115
+#: plugins/weather_based_rain_delay/__init__.py:117
+msgid "mm"
+msgstr "mm"
+
+#: plugins/weather_based_rain_delay/__init__.py:115
+#: plugins/weather_based_rain_delay/__init__.py:117
+#: plugins/weather_based_rain_delay/__init__.py:127
 msgid "Adding delay of"
-msgstr "Pridanie oneskorenia"
+msgstr "Pridáva sa oneskorenie o"
 
-#: plugins/weather_based_rain_delay/__init__.py:114
-#, fuzzy
+#: plugins/weather_based_rain_delay/__init__.py:127
+#: plugins/weather_based_rain_delay/__init__.py:131
 msgid "Weather detected Rain"
-msgstr "Zistilo sa dobré počasie"
+msgstr "Zistené počasie Dážď"
 
-#: plugins/weather_based_rain_delay/__init__.py:119
+#: plugins/weather_based_rain_delay/__init__.py:134
 msgid "No action."
 msgstr "Žiadne opatrenie."
 
-#: plugins/weather_based_rain_delay/__init__.py:119
-#, fuzzy
+#: plugins/weather_based_rain_delay/__init__.py:134
+#: plugins/weather_based_rain_delay/__init__.py:136
 msgid "No rain detected"
 msgstr "Nezistil sa žiadny dážď"
 
-#: plugins/weather_based_rain_delay/__init__.py:122
-#, fuzzy
-msgid "Good weather detected"
-msgstr "Zistilo sa dobré počasie"
-
-#: plugins/weather_based_rain_delay/__init__.py:122
-#, fuzzy
-#| msgid "Rain Delay"
+#: plugins/weather_based_rain_delay/__init__.py:139
 msgid "Removing rain delay."
-msgstr "Odstránenie dažďa meškanie."
+msgstr "Odstránenie oneskorenia dažďa."
 
-#: plugins/weather_based_rain_delay/__init__.py:136
-#, fuzzy
+#: plugins/weather_based_rain_delay/__init__.py:139
+#: plugins/weather_based_rain_delay/__init__.py:141
+msgid "Good weather detected"
+msgstr "Bolo zistené dobré počasie"
+
+#: plugins/weather_based_rain_delay/__init__.py:156
 msgid "Weather-based Rain Delay plug-in"
-msgstr "Doplnok Na oneskorenie dažďa na základe počasia"
+msgstr "Doplnok Rain Delay podľa počasia"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:3
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:21
-#, fuzzy
-#| msgid "Suppressed by Rain Delay"
 msgid "Weather-based Rain Delay"
-msgstr "Počasie-založené dážď Delay"
+msgstr "Dešťové oneskorenie podľa počasia"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:22
-#, fuzzy
 msgid ""
 "When weather-based rain delay is enabled, the weather will be checked for "
 "rain every hour. If the weather reports any condition suggesting rain, a "
 "rain delay is automatically issued using the below set delay duration"
 msgstr ""
-"Keď je zapnuté počasie-založené dážď meškanie, počasie bude kontrolovať dážď "
-"každú hodinu. Ak počasie hlási akýkoľvek stav naznačujúci dážď, oneskorenie "
-"dažďa sa automaticky vydá s použitím nižšie nastaveného oneskorenia"
+"Ak je povolené oneskorenie dažďa v závislosti od počasia, bude sa každú "
+"hodinu skontrolovať počasie. Ak počasie ohlási akýkoľvek stav naznačujúci "
+"dážď, automaticky sa vydá oneskorenie dažďa pomocou nižšie nastaveného "
+"trvania oneskorenia"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:26
-#, fuzzy
 msgid "Use Automatic Rain Delay"
-msgstr "Použiť automatické oneskorenie dažďa"
+msgstr "Použite automatické oneskorenie dažďa"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:32
-#, fuzzy
 msgid "Delay Duration (hours)"
 msgstr "Trvanie oneskorenia (hodiny)"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:38
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:56
-#, fuzzy
 msgid "Use NetAtmo Real data"
-msgstr "Použiť údaje NetAtmo Real"
+msgstr "Použite údaje NetAtmo Real"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:44
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:62
-#, fuzzy
 msgid "NetAtmo Client ID"
-msgstr "Identifikácia klienta NetAtmo"
+msgstr "ID klienta NetAtmo"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:50
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:68
-#, fuzzy
 msgid "NetAtmo Client Secret"
-msgstr "NetAtmo klienta tajomstvo"
+msgstr "NetAtmo Client Secret"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:56
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:74
-#, fuzzy
 msgid "NetAtmo User Name"
-msgstr "Meno používateľa programu NetAtmo"
+msgstr "Používateľské meno NetAtmo"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:62
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:80
-#, fuzzy
-#| msgid "New password"
 msgid "NetAtmo password"
-msgstr "Heslo siete NetAtmo"
+msgstr "Heslo NetAtmo"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:68
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:86
-#, fuzzy
 msgid "NetAtmo MAC"
-msgstr "Sieť Mac"
+msgstr "NetAtmo MAC"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:74
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:92
-#, fuzzy
 msgid "NetAtmo Rain module MAC"
-msgstr "NetAtmo Dážď modul MAC"
+msgstr "MAC modulu NetAtmo Rain"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:80
-#, fuzzy
 msgid "Delay apply to water level in mm"
-msgstr "Oneskorenie sa vzťahuje na hladinu vody v mm"
+msgstr "Oneskorenie sa týka hladiny vody v mm"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:86
-#, fuzzy
 msgid "Delay apply based on history rain in hours"
-msgstr "Oneskorenie platí na základe histórie dažďa v hodinách"
+msgstr "Oneskorenie sa uplatňuje na základe historických dažďov v hodinách"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:92
-#, fuzzy
-#| msgid "Water interval"
 msgid "Check interval"
 msgstr "Interval kontroly"
 
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:102
-#, fuzzy
-#| msgid "Master on delay"
 msgid "Use Cleanup delay"
-msgstr "Použiť oneskorenie čistenia"
+msgstr "Použite oneskorenie čistenia"
 
 #: plugins/weather_based_water_level/__init__.py:23
-#, fuzzy
-#| msgid "Water Level"
 msgid "Package: Weather-based Water Level"
-msgstr "Hladina vody na základe počasia"
+msgstr "Balík: Vodová hladina založená na počasí"
 
 #: plugins/weather_based_water_level/__init__.py:73
 #: plugins/weather_based_water_level_netatmo/__init__.py:94
-#, fuzzy
-#| msgid "Weather status"
 msgid "Checking weather status"
-msgstr "Kontrola stavu počasia"
+msgstr "Prebieha kontrola stavu počasia"
 
 #: plugins/weather_based_water_level/__init__.py:87
 #: plugins/weather_based_water_level_netatmo/__init__.py:125
@@ -6093,140 +5709,109 @@ msgstr "Používaním"
 
 #: plugins/weather_based_water_level/__init__.py:87
 #: plugins/weather_based_water_level_netatmo/__init__.py:125
-#, fuzzy
 msgid "days of information."
-msgstr "dní od informácií."
+msgstr "dni informácií."
 
 #: plugins/weather_based_water_level/__init__.py:112
 #: plugins/weather_based_water_level_netatmo/__init__.py:162
-#, fuzzy
-#| msgid "Water Level"
 msgid "Water needed"
-msgstr "Vodu potrebnú"
+msgstr "Potrebná voda"
 
 #: plugins/weather_based_water_level/__init__.py:113
 #: plugins/weather_based_water_level_netatmo/__init__.py:163
-#, fuzzy
 msgid "Total rainfall"
-msgstr "Celkové zrážky"
+msgstr "Úhrn zrážok celkom"
 
 #: plugins/weather_based_water_level/__init__.py:115
 #: plugins/weather_based_water_level_netatmo/__init__.py:165
-#, fuzzy
-#| msgid "Irrigation min"
 msgid "Irrigation needed"
 msgstr "Potrebné zavlažovanie"
 
 #: plugins/weather_based_water_level/__init__.py:116
 #: plugins/weather_based_water_level_netatmo/__init__.py:166
-#, fuzzy
-#| msgid "Water Level adjustments"
 msgid "Weather Adjustment"
-msgstr "Nastavenie počasia"
+msgstr "Úprava počasia"
 
 #: plugins/weather_based_water_level/__init__.py:137
-#, fuzzy
-#| msgid "Location latitude"
 msgid "Protection activated."
 msgstr "Ochrana aktivovaná."
 
 #: plugins/weather_based_water_level/__init__.py:150
 #: plugins/weather_based_water_level_netatmo/__init__.py:180
-#, fuzzy
-#| msgid "Weather based schedule on"
 msgid "Weather-based water level plug-in"
-msgstr "Doplnok hladiny vody na úrovni vody na úrovni počasia"
+msgstr "Doplnok pre hladinu vody podľa počasia"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:3
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:17
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:21
-#, fuzzy
-#| msgid "Water Level"
 msgid "Weather-based Water Level"
 msgstr "Hladina vody na základe počasia"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:18
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:22
-#, fuzzy
 msgid ""
 "When weather-based water level is enabled, the weather will be checked every "
 "hour and the water level will be adjusted accordingly"
 msgstr ""
-"Keď je zapnutá hladina vody na úrovni počasia, počasie sa kontroluje každú "
-"hodinu a hladina vody sa zodpovedajúcim spôsobom upraví."
+"Ak je povolená hladina vody na základe počasia, počasie sa bude kontrolovať "
+"každú hodinu a hladina vody sa bude zodpovedajúcim spôsobom upravovať"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:19
-#, fuzzy
 msgid ""
 "In addition, it is now able to protect plants from frost during the selected "
 "months"
 msgstr ""
-"Okrem toho je teraz schopný chrániť rastliny pred mrazom počas vybraných "
+"Okrem toho je teraz schopná chrániť rastliny pred mrazom počas zvolených "
 "mesiacov"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:23
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:26
-#, fuzzy
-#| msgid "Water Level adjustments"
 msgid "Use Automatic Water Level Adjustment"
-msgstr "Použiť automatické nastavenie hladiny vody"
+msgstr "Použite automatické nastavenie hladiny vody"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:27
-#, fuzzy
 msgid "Protect against freezing"
-msgstr "Chráňte sa pred mrazom"
+msgstr "Chráňte pred mrazom"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:33
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:32
-#, fuzzy
 msgid "Min percentage"
-msgstr "Min percento"
+msgstr "Min. Percento"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:37
-#, fuzzy
 msgid "Protect temperature"
 msgstr "Chráňte teplotu"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:44
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:38
-#, fuzzy
-#| msgid "Max run entries"
 msgid "Max percentage"
-msgstr "Maximálne percento"
+msgstr "Max. Percento"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:48
-#, fuzzy
-#| msgid "minutes"
 msgid "Protect minutes"
-msgstr "Ochrana minút"
+msgstr "Chráňte minúty"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:54
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:44
-#, fuzzy
 msgid "History days used"
-msgstr "Použité dni histórie"
+msgstr "Použité historické dni"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:60
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:50
-#, fuzzy
 msgid "Forecast days used"
-msgstr "Použité prognózové dni"
+msgstr "Použité predpovedné dni"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:64
-#, fuzzy
-#| msgid "Master station"
 msgid "Protect stations"
-msgstr "Ochrana staníc"
+msgstr "Chráňte stanice"
 
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:77
-#, fuzzy
 msgid "Protect months"
-msgstr "Chrániť mesiace"
+msgstr "Chráňte mesiace"
 
 #: plugins/weather_based_water_level_netatmo/__init__.py:40
-#, fuzzy
 msgid "Package: Weather-based Water Level Netatmo"
-msgstr "Hladina vody na hladine vody na základe počasia Netatmo"
+msgstr "Balík: Vodová hladina založená na počasí Netatmo"
 
 #: plugins/weather_based_water_level_netatmo/__init__.py:164
 #: plugins/weather_based_water_level_netatmo/__init__.py:167
@@ -6234,86 +5819,70 @@ msgid "_______________________________"
 msgstr "_______________________________"
 
 #: plugins/weather_based_water_level_netatmo/__init__.py:168
-#, fuzzy
 msgid "History rain by Netatmo"
-msgstr "História dažďa Netatmo"
+msgstr "História dažďa od Netatmo"
 
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:3
-#, fuzzy
 msgid "Weather-based Water Level Netatmo"
-msgstr "Hladina vody na hladine vody na základe počasia Netatmo"
+msgstr "Hladina vody na hladine Netatmo"
 
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:99
-#, fuzzy
 msgid "Daily water level in mm"
 msgstr "Denná hladina vody v mm"
 
 #: plugins/webcam/__init__.py:19
-#, fuzzy
 msgid "Package: Webcam Monitor"
-msgstr "Monitor webovej kamery"
+msgstr "Balík: Webcam Monitor"
 
 #: plugins/webcam/__init__.py:64
-#, fuzzy
 msgid "Fswebcam is not installed."
 msgstr "Fswebcam nie je nainštalovaný."
 
 #: plugins/webcam/__init__.py:65
-#, fuzzy
 msgid "Please wait installing...."
-msgstr "Počkajte, prosím, inštaláciu...."
+msgstr "Čakajte prosím na inštaláciu ...."
 
 #: plugins/webcam/__init__.py:79
 msgid "Please wait..."
 msgstr "Čakajte prosím..."
 
 #: plugins/webcam/__init__.py:91
-#, fuzzy
 msgid "Ready..."
-msgstr "Pozor."
+msgstr "Pripravený..."
 
 #: plugins/webcam/__init__.py:94
-#, fuzzy
 msgid "Cannot find USB camera (/dev/video0)."
-msgstr "Nepodarilo sa nájsť fotoaparát USB (/dev/video0)."
+msgstr "Nie je možné nájsť fotoaparát USB (/ dev / video0)."
 
 #: plugins/webcam/__init__.py:99
-#, fuzzy
 msgid "Plugin is disabled..."
-msgstr "Plugin je zakázaný ..."
+msgstr "Tento plugin je zakázaný."
 
 #: plugins/webcam/__init__.py:103
-#, fuzzy
-#| msgid "Enabled plug-ins"
 msgid "Webcam plug-in"
 msgstr "Doplnok webovej kamery"
 
 #: plugins/webcam/__init__.py:143
-#, fuzzy
 msgid "No image file from downloading. Retry"
-msgstr "Žiadny súbor s obrázkom z sťahovania. Znova"
+msgstr "Neexistuje žiadny súbor na stiahnutie. Skúsiť znova"
 
 #: plugins/webcam/templates/webcam.html:3
 #: plugins/webcam/templates/webcam.html:21
-#, fuzzy
 msgid "Webcam Monitor"
 msgstr "Monitor webovej kamery"
 
 #: plugins/webcam/templates/webcam.html:22
-#, fuzzy
 msgid "This plugin needs fswebcam"
-msgstr "Tento plugin potrebuje fswebcam"
+msgstr "Tento doplnok vyžaduje fswebcam"
 
 #: plugins/webcam/templates/webcam.html:23
-#, fuzzy
 msgid ""
 "If not installed fswebcam, plugin installs fswebcam in to the system himself"
 msgstr ""
-"Ak nie je nainštalovaný fswebcam, plugin nainštaluje fswebcam do systému sám"
+"Ak nie je nainštalovaný fswebcam, plugin nainštaluje fswebcam do samotného "
+"systému"
 
 #: plugins/webcam/templates/webcam.html:25
-#, fuzzy
-#| msgid "Download log as"
 msgid "Download image as"
 msgstr "Stiahnuť obrázok ako"
 
@@ -6322,9 +5891,8 @@ msgid "Resolution"
 msgstr "Rozlíšenie"
 
 #: plugins/webcam/templates/webcam.html:37
-#, fuzzy
 msgid "default is 1280x720"
-msgstr "predvolená hodnota je 1280x720"
+msgstr "predvolená hodnota je 1280 x 720"
 
 #: plugins/webcam/templates/webcam.html:41
 msgid "Flip image horizontally"
@@ -6335,110 +5903,95 @@ msgid "Flip image vertically"
 msgstr "Preklopí obrázok vertukálne"
 
 #: plugins/webcam/templates/webcam.html:64
-#, fuzzy
-#| msgid "OpenSprinkler Py"
 msgid "OpenSprinkler camera"
-msgstr "OpenSprinkler fotoaparát"
+msgstr "OpenSprinkler kamera"
 
-#: plugins/wind_monitor/__init__.py:26
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:28
 msgid "Package: Wind Speed Monitor"
-msgstr "Nastavenia monitora rýchlosti vetra"
+msgstr "Balík: Monitor rýchlosti vetra"
 
-#: plugins/wind_monitor/__init__.py:38
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:40
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
-msgstr "Správa z pluginu OSPY WIND SPEED MONITOR"
+msgstr "Správa z doplnku OSPy WIND SPEED MONITOR"
 
-#: plugins/wind_monitor/__init__.py:41
-#, fuzzy
-#| msgid "loading..."
+#: plugins/wind_monitor/__init__.py:43
 msgid "Measuring..."
 msgstr "Meranie..."
 
-#: plugins/wind_monitor/__init__.py:133
-#, fuzzy
-msgid "Please wait 10 sec..."
-msgstr "Počkajte 10 sekúnd..."
+#: plugins/wind_monitor/__init__.py:89 plugins/wind_monitor/__init__.py:408
+msgid "Wind Speed"
+msgstr "Rýchlosť vetra"
 
-#: plugins/wind_monitor/__init__.py:134
+#: plugins/wind_monitor/__init__.py:140
+msgid "Please wait 10 sec..."
+msgstr "Počkajte 10 sekúnd ..."
+
+#: plugins/wind_monitor/__init__.py:141
 msgid "Speed"
 msgstr "Rýchlosť"
 
-#: plugins/wind_monitor/__init__.py:134 plugins/wind_monitor/__init__.py:137
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:141 plugins/wind_monitor/__init__.py:144
+#: plugins/wind_monitor/__init__.py:167 plugins/wind_monitor/__init__.py:169
+#: plugins/wind_monitor/__init__.py:410
 msgid "m/sec"
-msgstr "m/s"
+msgstr "m/sec"
 
-#: plugins/wind_monitor/__init__.py:135
+#: plugins/wind_monitor/__init__.py:142
 msgid "Pulses"
 msgstr "Strukoviny"
 
-#: plugins/wind_monitor/__init__.py:135
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:142
 msgid "pulses/sec"
-msgstr "pulzy za sekundu"
+msgstr "pulzov/sec"
 
-#: plugins/wind_monitor/__init__.py:137
-#, fuzzy
-#| msgid "Maximum usage"
+#: plugins/wind_monitor/__init__.py:144 plugins/wind_monitor/__init__.py:167
 msgid "Maximal speed"
 msgstr "Maximálna rýchlosť"
 
-#: plugins/wind_monitor/__init__.py:140
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:147
 msgid "Wind speed > 150 km/h (42 m/sec)"
-msgstr "Rýchlosť vetra » 150 km/h (42 m/s)"
+msgstr "Rýchlosť vetra> 150 km/h (42 m/s)"
 
-#: plugins/wind_monitor/__init__.py:148
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:155
 msgid "Stops all stations and sends email if enabled sends email."
-msgstr "Zastaví všetky stanice a odošle e-mail, ak je povolené odošle e-mail."
+msgstr "Zastaví všetky stanice a odošle e-mail, ak je povolený, odošle e-mail."
 
-#: plugins/wind_monitor/__init__.py:165
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:179
 msgid "Wind speed monitor plug-in is disabled."
-msgstr "Doplnok monitora rýchlosti vetra je vypnutý."
+msgstr "Doplnok monitora rýchlosti vetra je deaktivovaný."
 
-#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:171
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:184 plugins/wind_monitor/__init__.py:185
 msgid ""
 "System detected error: wind speed monitor. All stations set to OFF. Wind is"
 msgstr ""
-"Chyba zistené v systéme: monitor rýchlosti vetra. Všetky stanice sú "
-"nastavené na OFF (Vyp.). Vietor je"
+"Chyba zistená systémom: monitor rýchlosti vetra. Všetky stanice sú vypnuté. "
+"Vietor je"
 
-#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:245
-#: plugins/wind_monitor/__init__.py:248 plugins/wind_monitor/__init__.py:249
-#: plugins/wind_monitor/__init__.py:279
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:184 plugins/wind_monitor/__init__.py:259
+#: plugins/wind_monitor/__init__.py:262 plugins/wind_monitor/__init__.py:263
+#: plugins/wind_monitor/__init__.py:293
 msgid "Wind speed monitor plug-in"
-msgstr "Zásu3/4ky monitora rýchlosti vetra"
+msgstr "Plug-in monitor pre rýchlosť vetra"
 
-#: plugins/wind_monitor/__init__.py:178 plugins/wind_monitor/__init__.py:184
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:192 plugins/wind_monitor/__init__.py:198
 msgid "Wind Speed monitor plug-in"
-msgstr "Zásu3/4ky monitora rýchlosti vetra"
+msgstr "Plug-in monitor monitora rýchlosti vetra"
 
-#: plugins/wind_monitor/__init__.py:245
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:259
 msgid "Setup PCF8583 as event counter - OK"
-msgstr "Nastavenie PCF8583 ako počítadlo udalostí - OK"
+msgstr "Nastaviť PCF8583 ako počítadlo udalostí - OK"
 
-#: plugins/wind_monitor/__init__.py:422
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:455
 msgid "Maximal speed has reseted."
 msgstr "Maximálna rýchlosť sa obnovila."
 
-#: plugins/wind_monitor/__init__.py:443
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:476
 msgid "Wind monitor is enabled."
-msgstr "Monitor vetra je zapnutý."
+msgstr "Je povolený monitor vetra."
 
-#: plugins/wind_monitor/__init__.py:446
-#, fuzzy
+#: plugins/wind_monitor/__init__.py:479
 msgid "Wind monitor is disabled."
-msgstr "Monitor vetra je vypnutý."
+msgstr "Monitor vetra je deaktivovaný."
 
 #: plugins/wind_monitor/templates/wind_monitor.html:3
 #: plugins/wind_monitor/templates/wind_monitor.html:173
@@ -6508,6 +6061,15 @@ msgstr "Stav rýchlosti vetra (každých 10 sekúnd)"
 #: plugins/wind_monitor/templates/wind_monitor.html:270
 msgid "Reset max speed"
 msgstr "Vynulovať maximálnu rýchlosť"
+
+#~ msgid "Package name"
+#~ msgstr "Názov balíka"
+
+#~ msgid "OPEN"
+#~ msgstr "OTVORIŤ"
+
+#~ msgid "OSPy is restarting"
+#~ msgstr "OSPy sa reštartuje"
 
 #, fuzzy
 #~| msgid "Rain sensed"
