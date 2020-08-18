@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 18 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed redirection when displaying data from plugins on the home page. Automatic loading of data from plugins (on the home page). Fix translation (in czech language). Add print function in to helpers.py
+
 Aug 15 2020
 -----------
 (martinpihrt)<br/>

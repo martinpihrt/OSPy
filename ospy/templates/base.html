@@ -4,11 +4,12 @@ $def with (content)
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>${options.name + " - " + content.title}</title>
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-icon-72x72.png">
@@ -39,22 +40,22 @@ $def with (content)
 <script>
         // Set up a live clock based on device time
 function dateString(d) {
-    var dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Monday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Tuesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Wednesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Thursday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Friday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Saturday'), ensure_ascii=False).encode('utf8')}][d.getDay()];
+    let dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Monday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Tuesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Wednesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Thursday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Friday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Saturday'), ensure_ascii=False).encode('utf8')}][d.getDay()];
     dateString += " " + d.getDate() + " ";
     dateString += [$:{json.dumps(_('January'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('February'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('March'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('April'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('May'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('June'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('July'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('August'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('September'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('October'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('November'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('December'), ensure_ascii=False).encode('utf8')}][d.getMonth()];
     return dateString;
 }
 
 function toXSDate(d) {
-    var r = d.getFullYear() + "-" +
+    let r = d.getFullYear() + "-" +
             (d.getMonth() < 9 ? "0" : "") + (d.getMonth()+1) + "-" +
             (d.getDate() < 10 ? "0" : "") + d.getDate();
     return r;
 }
 
 function toClock(duration, tf) {
-    var h = Math.floor(duration/60);
-    var m = Math.floor(duration - (h*60));
+    let h = Math.floor(duration/60);
+    let m = Math.floor(duration - (h*60));
     if (tf == 0) {
         return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8')});
     } else {
@@ -63,16 +64,16 @@ function toClock(duration, tf) {
 }
 
 function fromClock(clock) {
-    var components = clock.split(":");
-    var duration = 0;
-    for (var c in components) {
+    let components = clock.split(":");
+    let duration = 0;
+    for (let c in components) {
         duration = duration*60 + parseInt(components[c], 10);
     }
     return duration;
 }
 
 function updateClock() {
-    var now = new Date((new Date()).getTime() + to_device_time);
+    let now = new Date((new Date()).getTime() + to_device_time);
     if (timeFormat) {
         jQuery("#deviceTime span.hour").text((now.getHours() < 10 ? "0" : "") + now.getHours());
         jQuery("#deviceTime span.ampm").text("");
@@ -91,7 +92,7 @@ function updateClock() {
 jQuery(document).ready(function(){
 
     jQuery("#bPlugins").click(function(e) {
-        var btn = jQuery("#bPlugins");
+        let btn = jQuery("#bPlugins");
         jQuery("#pluginMenu").css({
             position: 'absolute',
             top: btn.offset().top + btn.outerHeight() + 10,
@@ -104,16 +105,16 @@ jQuery(document).ready(function(){
     });
 
     updateClock();
-});
+}); 
 
     </script>
     <script>
         // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
-        var device_time = ${now()} * 1000 + (new Date()).getTimezoneOffset() * 60 * 1000;
-        var to_device_time = (new Date()).getTimezoneOffset() * 60 * 1000 + (${now()} * 1000 - (new Date).getTime());
-        var timeFormat = ${str(options.time_format).lower()};
+        let device_time = ${now()} * 1000 + (new Date()).getTimezoneOffset() * 60 * 1000;
+        let to_device_time = (new Date()).getTimezoneOffset() * 60 * 1000 + (${now()} * 1000 - (new Date).getTime());
+        let timeFormat = ${str(options.time_format).lower()};
         $if content.page != 'login':
-            var manual_mode = ${str(options.manual_mode).lower()};
+            let manual_mode = ${str(options.manual_mode).lower()};
     </script>
 </head>
 <body>
@@ -153,10 +154,10 @@ jQuery(document).ready(function(){
                             <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False)}>$_(u'Logout')</a>
                     </div>
 
-                $:content
+                $:content 
 
             </div>
-        </div>
+        </div>   
 
         <div class="footer">
             <p>$_('CPU Temp'): <b>

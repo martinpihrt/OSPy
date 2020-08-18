@@ -11,42 +11,41 @@ $var page: home
 
 <script>
 // Global vars
-var displayScheduleDate = new Date(device_time); // dk
-var displayScheduleTimeout;
-var graph_text;
-let pluginStn = $:{json.dumps(pluginStn, ensure_ascii=False)};
+let displayScheduleDate = new Date(device_time); // dk
+let displayScheduleTimeout;
+let graph_text;
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
         clearTimeout(displayScheduleTimeout);
     }
-    var now = new Date((new Date()).getTime() + to_device_time);
-    var nowMark = now.getHours()*60 + now.getMinutes();
-    var isToday = toXSDate(displayScheduleDate) == toXSDate(now);
-    var programClassesUsed = {};
+    let now = new Date((new Date()).getTime() + to_device_time);
+    let nowMark = now.getHours()*60 + now.getMinutes();
+    let isToday = toXSDate(displayScheduleDate) == toXSDate(now);
+    let programClassesUsed = {};
     jQuery(".stationSchedule .scheduleTick").each(function() {
         jQuery(this).empty();
-        var sid = jQuery(this).parent().attr("data");
-        var slice = parseInt(jQuery(this).attr("data"))*60;
-        var boxes = jQuery("<div class='scheduleMarkerContainer'></div>");
-        for (var s in schedule) {
+        let sid = jQuery(this).parent().attr("data");
+        let slice = parseInt(jQuery(this).attr("data"))*60;
+        let boxes = jQuery("<div class='scheduleMarkerContainer'></div>");
+        for (let s in schedule) {
             if (schedule[s].station == parseInt(sid, 10)) {
                 if (!(isToday && schedule[s].date == undefined && schedule[s].start + schedule[s].duration/60 < nowMark)) {
-                    var relativeStart = schedule[s].start - slice;
-                    var relativeEnd = schedule[s].start + schedule[s].duration/60 - slice;
+                    let relativeStart = schedule[s].start - slice;
+                    let relativeEnd = schedule[s].start + schedule[s].duration/60 - slice;
                     if (0 <= relativeStart && relativeStart < 60 ||
                         0.05 < relativeEnd && relativeEnd <= 60 ||
                         relativeStart < 0 && relativeEnd >= 60) {
-                        var barStart = Math.max(0,relativeStart)/60;
-                        var barWidth = Math.max(0.05,Math.min(relativeEnd, 60)/60 - barStart);
-                        var programClass;
+                        let barStart = Math.max(0,relativeStart)/60;
+                        let barWidth = Math.max(0.05,Math.min(relativeEnd, 60)/60 - barStart);
+                        let programClass;
                         if (schedule[s].manual) {
                             programClass = "programManual";
                         } else {
 				programClass = "program" + (parseInt(schedule[s].program)+1)%10;
                         }
                         programClassesUsed[schedule[s].program_name] = programClass;
-                        var markerClass = (schedule[s].active == null ? "schedule" : "history");
+                        let markerClass = (schedule[s].active == null ? "schedule" : "history");
                         if (schedule[s].blocked) {
                             markerClass = 'blocked'
                         }
@@ -56,7 +55,7 @@ function displaySchedule(schedule) {
             }
         }
         if (isToday && slice <= nowMark && nowMark < slice+60) {
-            var stationOn = jQuery(this).parent().children(".stationStatus").hasClass("station_on");
+            let stationOn = jQuery(this).parent().children(".stationStatus").hasClass("station_on");
             boxes.append("<div class='nowMarker" + (stationOn?" on":"")+ "' style='width:2px;left:"+ (nowMark-slice)/60*100 + "%;'>");
         }
         if (boxes.children().length > 0) {
@@ -64,7 +63,7 @@ function displaySchedule(schedule) {
         }
     });
     jQuery("#legend").empty();
-    for (var p in programClassesUsed) {
+    for (let p in programClassesUsed) {
         jQuery("#legend").append("<span class='" + programClassesUsed[p] + "'>" + p + "</span>");
     }
     jQuery(".scheduleMarker").mouseover(scheduleMarkerMouseover);
@@ -79,7 +78,7 @@ function displaySchedule(schedule) {
 function displayProgram() {
     var visibleDate = toXSDate(displayScheduleDate);
     jQuery.getJSON("/log.json?date=" + visibleDate, function(log) {
-        for (var l in log) {
+        for (let l in log) {
             log[l].duration = fromClock(log[l].duration);
             log[l].start = fromClock(log[l].start)/60;
             if (log[l].date != visibleDate) {
@@ -96,8 +95,8 @@ function displayProgram() {
 }
 
 function scheduleMarkerMouseover() {
-    var description = jQuery(this).attr("data");
-    var markerClass = jQuery(this).attr("class");
+    let description = jQuery(this).attr("data");
+    let markerClass = jQuery(this).attr("class");
     markerClass = markerClass.substring(markerClass.indexOf("program"));
     markerClass = markerClass.substring(0,markerClass.indexOf(" "));
     jQuery(this).append('<span class="showDetails ' + markerClass + '">' + description + '</span>');
@@ -109,26 +108,25 @@ function scheduleMarkerMouseout() {
 }
 
 function updateStatus(status) {
-    var display, updateInterval = 30000;
-    for (var s=0; s<status.length; s++) {
-        var station = status[s];
-        var classes = "stationStatus station_" + station.status;
+    let display, updateInterval = 30000;
+    let pluginStn = $:{json.dumps(pluginStn, ensure_ascii=False)};
+    for (let s=0; s<status.length; s++) {
+        let station = status[s];
+        let classes = "stationStatus station_" + station.status;
         switch (station.reason) {
             case "program" :
-                var minutes = Math.floor(station.remaining/60);
-                var seconds = Math.floor(station.remaining - 60*minutes);
+                let minutes = Math.floor(station.remaining/60);
+                let seconds = Math.floor(station.remaining - 60*minutes);
                 if (minutes < 10) {minutes = "0"+minutes;}
                 if (seconds < 10) {seconds = "0"+seconds;}
                 if (station.status == "on") {
                     display = minutes+":"+seconds;
-//                    if (typeof pluginStn !== 'undefined' && pluginStn.length) {
-//                          console.log("pluginStn pre: ", pluginStn)
-//                          pluginStn =  pluginStn.filter(function(e){return e.length});
-//                          console.log("pluginStn filtered: ", pluginStn)
-//                            pluginStn.forEach(function(item) {
-//                                display = display + ", " +  item[0] + " " + item[1];
-//                            });
-//                    }
+                    if (typeof pluginStn !== 'UNDEFINED' && pluginStn.length) {
+                        pluginStn.forEach(
+                        function(item) {
+                            display = display + " " +  item[0] + " " + item[1];
+                        });
+                    }
                 }
                 updateInterval = 1000;
                 break;
@@ -171,24 +169,18 @@ function updateStatus(status) {
     setTimeout(statusTimer, updateInterval);
 }
 
-function showData(data) { // for test plugin data
-    console.log("data: ", data)
-}
-
 function statusTimer() {
-    // Add call to get plugin data
-//  jQuery.getJSON("/plugindata", showData)
-    jQuery.getJSON("/status.json", updateStatus)
+    jQuery.getJSON("/status.json", updateStatus)  
 }
 
 function water_level_prompt(current){
     if (current != 1.0) {
-        var w = 100;
+        let w = 100;
     } else {
-        var w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
+        let w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
     }
     if (w < 0) {
-        var w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        let w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (w != null) {
         window.location="/action?level_adjustment=" + w;
@@ -197,12 +189,12 @@ function water_level_prompt(current){
 
 function rain_delay_prompt(current){
     if (current != 0) {
-        var h = 0;
+        let h = 0;
     } else {
-        var h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
+        let h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
     }
     if (h < 0) {
-        var h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        let h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (h != null) {
         window.location="/action?rain_block=" + h;
@@ -225,24 +217,24 @@ function countdownTimer(timerId) {
 }
 
 function draw_graph(result) {
-    var data = [];
+    let data = [];
     graph_text = [];
-    var legend_items = jQuery('#legend-visible').find('.legendColorBox');
+    let legend_items = jQuery('#legend-visible').find('.legendColorBox');
 
-    for (var i = 0; i < result.length; i++) {
-        var balances = [];
-        var texts = [];
-        var txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
-        var txt_body = "";
-        var txt_footer = "</table>";
+    for (let i = 0; i < result.length; i++) {
+        let balances = [];
+        let texts = [];
+        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
+        let txt_body = "";
+        let txt_footer = "</table>";
         for (timestamp in result[i]['balances']) {
-            var balance = result[i]['balances'][timestamp];
+            let balance = result[i]['balances'][timestamp];
             balances.push([1000*parseInt(timestamp), balance['total']]);
             txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
             txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
 
-            for (var j = 0; j < balance['intervals'].length; j++) {
-                var interval = balance['intervals'][j]
+            for (let j = 0; j < balance['intervals'].length; j++) {
+                let interval = balance['intervals'][j]
                 txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
             }
 
@@ -262,7 +254,7 @@ function draw_graph(result) {
             graph_text.push(texts);
         }
     }
-    var yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
+    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
     return jQuery.plot("#graph-placeholder", data, {
         series: {
             lines: {
@@ -310,7 +302,7 @@ function create_graph(result) {
     }).attr("data", 1);
 
     jQuery('#legend-visible').on('click', 'tr', function(){
-        var colorbox = jQuery(this).find('.legendColorBox').children().children();
+        let colorbox = jQuery(this).find('.legendColorBox').children().children();
         colorbox.css({
             "border-color": colorbox.css("color"),
             "color": colorbox.css("border-left-color")
@@ -350,7 +342,7 @@ function create_graph(result) {
     jQuery("#graph-placeholder").bind("plotselected", function (event, ranges) {
         jQuery("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
         jQuery.each(plot.getXAxes(), function(_, axis) {
-                var opts = axis.options;
+                let opts = axis.options;
                 opts.min = ranges.xaxis.from;
                 opts.max = ranges.xaxis.to;
         });
@@ -364,19 +356,28 @@ function create_graph(result) {
     });
 }
 
+function dataTimer() {
+    // Call to get plugin data
+    jQuery.getJSON("/plugindata", function(piVals) {
+        let parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
+        jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
+        //console.log(piVals)
+    }) 
+    setTimeout(dataTimer, 2000);
+}   
 
 jQuery(document).ready(function(){
     if (manual_mode) { // manual mode
         jQuery("button.manual").click(function () {
-            sid = parseInt(jQuery(this).attr("id"));
-            sbit = jQuery(this).hasClass("on");
+            let sid = parseInt(jQuery(this).attr("id"));
+            let sbit = jQuery(this).hasClass("on");
             if (sbit) {
                 window.location = "/action?sid="+(sid+1)+"&set_to=0"; // turn off station
             } else {
-                var strmm = jQuery("#mm"+sid).val();
-                var strss = jQuery("#ss"+sid).val();
-                var mm = (strmm == "" ? 0 : parseInt(strmm));
-                var ss = (strss == "" ? 0 : parseInt(strss));
+                let strmm = jQuery("#mm"+sid).val();
+                let strss = jQuery("#ss"+sid).val();
+                let mm = (strmm == "" ? 0 : parseInt(strmm));
+                let ss = (strss == "" ? 0 : parseInt(strss));
                 if (!(mm >= 0 && ss >= 0 && ss < 60)) {
                     alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8')} + " " + strmm + ":" + strss);
                     return;
@@ -385,7 +386,7 @@ jQuery(document).ready(function(){
             }
         });
     } else { // scheduler mode
-        displayProgram()
+        displayProgram();
         setTimeout(statusTimer, 1000);
 
         jQuery(".button#pPrev").click(function() {
@@ -401,26 +402,7 @@ jQuery(document).ready(function(){
         jQuery(".button#pNext").click(function() {
             displayScheduleDate.setDate(displayScheduleDate.getDate() + 1);
             displayProgram();
-        });
-
-        $if (options.show_plugin_data and pluginFtr):
-            $for i, d in enumerate(pluginFtr):
-                $if (pluginFtr[i]["button"] != '-'):
-                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
-                
-                $else:
-                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');    
-
-            //setInterval(dataTimer, 2000);
-
-            //function dataTimer() {
-                // Call to get plugin data
-              //  jQuery.getJSON("/plugindata", function(piVals) {
-                //    var parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
-                  //  jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
-               // } 
-           // )}       
-                
+        });                        
     }//end else scheduler mode
 
     jQuery(".countdown").each(function() {
@@ -429,7 +411,16 @@ jQuery(document).ready(function(){
 
     if (jQuery("#graph-placeholder").length > 0) {
         setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
-    }        
+    }    
+
+    $if (options.show_plugin_data and pluginFtr):
+        $for i, d in enumerate(pluginFtr):
+            $if (pluginFtr[i]["button"] != '-'):
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+            $else:
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');  
+
+        dataTimer();                    
 });
 
 </script>
@@ -571,22 +562,19 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <button id="clearSelection">$_('Clear selection')</button>
     </div>
 
-$if options.show_plugin_data:
+$if options.show_plugin_data:  
     <div id="graph-container" class="graph-container">             
-    <div class="piDatFooter" id="pluginPars"></div>
+        <div class="piDatFooter" id="pluginPars"></div>
               
     $if options.use_weather:
-       $if options.weather_status == 0: 
-          $_('Weather - No location found!')
-       $if options.weather_status == 1: 
-          $_('Weather - Location') $_('found:') $options.location
-          $if options.weather_lat and options.weather_lon:
-              $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
-              <a href="${patch}" class="button upload" target="_blank">$_('Map')</a> 
-              ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
-       $if options.weather_status == 2:
-          $_('Weather - No location coordinates available!')       
-    </div>
-
-
-
+        $if options.weather_status == 0: 
+            $_('Weather - No location found!')
+        $if options.weather_status == 1: 
+            $_('Weather - Location') $_('found:') $options.location
+        $if options.weather_lat and options.weather_lon:
+            $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
+            <a href="${patch}" class="button upload" target="_blank">$_('Map')</a> 
+            ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
+        $if options.weather_status == 2:
+            $_('Weather - No location coordinates available!')       
+    </div>    

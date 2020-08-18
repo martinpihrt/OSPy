@@ -26,7 +26,21 @@ $var page: unreachable
             }, 1000);
         }, 5000);
     });
+
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        setTimeout(function(){ div.style.display = "none"; }, 600);
+        }
+    }
 </script>
-<div id="unreachable">
-    <div class="title">$_('Unreachable')</div>
-    $_('System component is unreachable or busy. Please wait (try again later).')
+
+
+<div class="alert info">
+  <span class="closebtn">&times;</span>  
+  <strong>$_('Unreachable!')</strong> $_('System component is unreachable or busy. Please wait (try again later).')
+</div>

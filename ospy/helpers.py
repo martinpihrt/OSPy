@@ -678,10 +678,22 @@ def get_help_file(id):
 
     return '' 
 
+
 def ASCI_convert(name):
   if name == None:
      return None
   name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", ' ', name)
   return name
+
+
+def print_report(title, message=None):
+    """
+    All prints are reported here
+    """
+    try:
+        print('{}: {}'.format(title, message))
+    except:
+        print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))  
+    return
 
   

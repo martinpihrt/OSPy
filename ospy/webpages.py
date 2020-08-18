@@ -252,7 +252,7 @@ class action_page(ProtectedPage):
                         log.finish_run(interval)
 
         report_value_change()
-        self._redirect_back()
+        raise web.seeother(u"/")  # Send browser back to home page
 
 class programs_page(ProtectedPage):
     """Open programs page."""
@@ -967,18 +967,14 @@ class showInFooter(object):
 
 
 class showOnTimeline:
-    """ Used to display plugin data next to station time countdown on home page timeline. 
-        use [instance name].unit = [unit name] to set unit for data e.g. "lph".
-        use [instance name].val = [plugin data] to display plugin data
-        use [instance name].clear to remove from display e.g. if station not included in plugin.
-    """
-    
+    """ Used to display plugin data next to station time countdown on home page timeline. """ 
+
     def __init__(self, val = "", unit = ""):
         self._val = val
         self._unit = unit
-        self._idx = None
+        self._idxs = None
     
-        self._idx = len(pluginStn)
+        self._idxs = len(pluginStn)
         pluginStn.append([self._val, self._unit])
         
     @property
@@ -996,6 +992,7 @@ class showOnTimeline:
     def unit(self, text):
         self._unit = text
         pluginStn[self._idx][0] = self._unit
+
         
     @property
     def val(self):
@@ -1009,7 +1006,6 @@ class showOnTimeline:
         self._val = num
         pluginStn[self._idx][1] = self._val
 
-
 class api_plugin_data(ProtectedPage):
     """Simple plugin data API"""
 
@@ -1020,13 +1016,11 @@ class api_plugin_data(ProtectedPage):
         if options.show_plugin_data:
             for i, v in enumerate(pluginFtr):
                 footer_data.append((i, v[u"val"]))          
-            #for v in pluginStn:
-                #station_data.append((0, v[0]))   #station_data.append(v[1])   
+            for v in pluginStn:
+                station_data.append((v[1]))
+
         data["fdata"] = footer_data
         data["sdata"] = station_data
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(data, indent=2)
-     
-
-
+        return json.dumps(data)

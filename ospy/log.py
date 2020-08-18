@@ -15,6 +15,7 @@ import codecs
 
 # Local imports
 from ospy.options import options
+from ospy.helpers import print_report
 
 EVENT_FILE = './ospy/data/events.log'
 EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno)d: %(message)s"
@@ -255,7 +256,7 @@ class _LogEM():
                       return(value)
 
         except Exception:
-            print(traceback.format_exc())
+            print_report('log.py', traceback.format_exc())
             pass
             return []
 
