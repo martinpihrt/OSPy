@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-08-14 13:49+CEST\n"
-"PO-Revision-Date: 2020-08-16 14:57+0200\n"
+"POT-Creation-Date: 2020-08-19 08:55+CEST\n"
+"PO-Revision-Date: 2020-08-19 09:05+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -17,6 +17,14 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: ospy/helpers.py:142
+msgid "Powering off..."
+msgstr "Vypínání..."
+
+#: ospy/helpers.py:165
+msgid "Restarting..."
+msgstr "Restartování..."
 
 #: ospy/helpers.py:420
 msgid "Fri"
@@ -46,31 +54,31 @@ msgstr "Út"
 msgid "Wed"
 msgstr "St"
 
-#: ospy/helpers.py:425 ospy/templates/base.html:42
+#: ospy/helpers.py:425 ospy/templates/base.html:43
 msgid "Monday"
 msgstr "Pondělí"
 
-#: ospy/helpers.py:426 ospy/templates/base.html:42
+#: ospy/helpers.py:426 ospy/templates/base.html:43
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: ospy/helpers.py:427 ospy/templates/base.html:42
+#: ospy/helpers.py:427 ospy/templates/base.html:43
 msgid "Wednesday"
 msgstr "Středa"
 
-#: ospy/helpers.py:428 ospy/templates/base.html:42
+#: ospy/helpers.py:428 ospy/templates/base.html:43
 msgid "Thursday"
 msgstr "Čtvrtek"
 
-#: ospy/helpers.py:429 ospy/templates/base.html:42
+#: ospy/helpers.py:429 ospy/templates/base.html:43
 msgid "Friday"
 msgstr "Pátek"
 
-#: ospy/helpers.py:430 ospy/templates/base.html:42
+#: ospy/helpers.py:430 ospy/templates/base.html:43
 msgid "Saturday"
 msgstr "Sobota"
 
-#: ospy/helpers.py:431 ospy/templates/base.html:42
+#: ospy/helpers.py:431 ospy/templates/base.html:43
 msgid "Sunday"
 msgstr "Neděle"
 
@@ -599,7 +607,7 @@ msgid "Starting:"
 msgstr "Začátek:"
 
 #: ospy/programs.py:284 ospy/templates/home.html:90
-#: ospy/templates/home.html:495
+#: ospy/templates/home.html:505
 msgid "For"
 msgstr "Doba"
 
@@ -643,45 +651,49 @@ msgstr "Jednorázový"
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
-#: ospy/server.py:107 ospy/server.py:108
+#: ospy/server.py:108 ospy/server.py:109
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:118 ospy/server.py:119
+#: ospy/server.py:119 ospy/server.py:120
 msgid "SSL OK."
 msgstr "SSL OK."
 
-#: ospy/server.py:122 ospy/server.py:123
+#: ospy/server.py:123 ospy/server.py:124
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako HTTP!"
 
-#: ospy/server.py:133 ospy/server.py:134
+#: ospy/server.py:134 ospy/server.py:135
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:148 ospy/server.py:149
+#: ospy/server.py:146
+msgid "Own SSL OK."
+msgstr "Vlastní SSL OK."
+
+#: ospy/server.py:149 ospy/server.py:150
 msgid ""
 "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako "
 "HTTP!"
 
-#: ospy/server.py:180 ospy/server.py:181
+#: ospy/server.py:181 ospy/server.py:182
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:184
+#: ospy/server.py:185
 msgid "Starting scheduler and plugins..."
 msgstr "Spuštění plánovače a pluginů..."
 
-#: ospy/server.py:189
+#: ospy/server.py:190
 msgid "Ready"
 msgstr "Připraven"
 
-#: ospy/server.py:206 ospy/server.py:207
+#: ospy/server.py:207 ospy/server.py:208
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -736,182 +748,182 @@ msgstr "Vymazány všechny výstupy"
 msgid "Activated shift outputs"
 msgstr "Aktivovaný posuvný registr"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:26
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:80
 msgid "January"
 msgstr "Leden"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:30
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:81
 msgid "February"
 msgstr "Únor"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:34
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:82
 msgid "March"
 msgstr "Březen"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:38
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:83
 msgid "April"
 msgstr "Duben"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:42
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:84
 msgid "May"
 msgstr "Květen"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:46
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:85
 msgid "June"
 msgstr "Červen"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:50
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:86
 msgid "July"
 msgstr "Červenec"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:54
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:87
 msgid "August"
 msgstr "Srpen"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:58
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:88
 msgid "September"
 msgstr "Září"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:62
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:89
 msgid "October"
 msgstr "Říjen"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:66
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:90
 msgid "November"
 msgstr "Listopad"
 
-#: ospy/templates/base.html:44
+#: ospy/templates/base.html:45
 #: plugins/monthly_water_level/templates/monthly_water_level.html:70
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:91
 msgid "December"
 msgstr "Prosinec"
 
-#: ospy/templates/base.html:59 ospy/templates/base.html:81
+#: ospy/templates/base.html:60 ospy/templates/base.html:82
 msgid "am"
 msgstr "dopo"
 
-#: ospy/templates/base.html:59 ospy/templates/base.html:81
+#: ospy/templates/base.html:60 ospy/templates/base.html:82
 msgid "pm"
 msgstr "odpo"
 
-#: ospy/templates/base.html:122
+#: ospy/templates/base.html:123
 msgid "Manage"
 msgstr "Spravovat"
 
-#: ospy/templates/base.html:129
+#: ospy/templates/base.html:130
 msgid "OSPy - OpenSprinkler Python"
 msgstr "OSPy - OpenSprinkler Python"
 
-#: ospy/templates/base.html:142 ospy/templates/home.html:3
+#: ospy/templates/base.html:143 ospy/templates/home.html:3
 msgid "Home"
 msgstr "Domů"
 
-#: ospy/templates/base.html:144
+#: ospy/templates/base.html:145
 msgid "Define Programs"
 msgstr "Nastavení a úprava programů"
 
-#: ospy/templates/base.html:144 ospy/templates/programs.html:3
+#: ospy/templates/base.html:145 ospy/templates/programs.html:3
 msgid "Programs"
 msgstr "Programy"
 
-#: ospy/templates/base.html:146
+#: ospy/templates/base.html:147
 msgid "Define Run Once Program"
 msgstr "Nastavení jednorázového programu"
 
-#: ospy/templates/base.html:146
+#: ospy/templates/base.html:147
 msgid "Run Once"
 msgstr "Jednorázový"
 
-#: ospy/templates/base.html:147
+#: ospy/templates/base.html:148
 msgid "Access Plugins"
 msgstr "Nastavení rozšíření"
 
-#: ospy/templates/base.html:147
+#: ospy/templates/base.html:148
 msgid "Plugins"
 msgstr "Rozšíření"
 
-#: ospy/templates/base.html:148
+#: ospy/templates/base.html:149
 msgid "View Log"
 msgstr "Zobrazení záznamů"
 
-#: ospy/templates/base.html:148 ospy/templates/log.html:3
+#: ospy/templates/base.html:149 ospy/templates/log.html:3
 #: plugins/usage_statistics/__init__.py:67
 msgid "Log"
 msgstr "Záznam"
 
-#: ospy/templates/base.html:149 ospy/templates/options.html:3
+#: ospy/templates/base.html:150 ospy/templates/options.html:3
 msgid "Options"
 msgstr "Nastavení"
 
-#: ospy/templates/base.html:150 ospy/templates/stations.html:3
+#: ospy/templates/base.html:151 ospy/templates/stations.html:3
 msgid "Stations"
 msgstr "Stanice"
 
-#: ospy/templates/base.html:150 ospy/templates/stations.html:8
+#: ospy/templates/base.html:151 ospy/templates/stations.html:8
 msgid "Configure Stations"
 msgstr "Nastavení stanic"
 
-#: ospy/templates/base.html:151 ospy/templates/help.html:3
+#: ospy/templates/base.html:152 ospy/templates/help.html:3
 #: ospy/templates/help.html:9 plugins/relay_16/templates/relay_16.html:22
 msgid "Help"
 msgstr "Nápověda"
 
-#: ospy/templates/base.html:153
+#: ospy/templates/base.html:154
 msgid "Logout"
 msgstr "Odhlásit se"
 
-#: ospy/templates/base.html:162
+#: ospy/templates/base.html:163
 #: plugins/lcd_display/templates/lcd_display.html:79
 msgid "CPU Temp"
 msgstr "Teplota CPU"
 
-#: ospy/templates/base.html:163
+#: ospy/templates/base.html:164
 msgid "Click to toggle"
 msgstr "Stiskněte pro změnu Fahrenheit nebo Celsius"
 
-#: ospy/templates/base.html:165
+#: ospy/templates/base.html:166
 msgid "CPU Usage"
 msgstr "Využití CPU"
 
-#: ospy/templates/base.html:168
+#: ospy/templates/base.html:169
 msgid "Click for redirecting to github software"
 msgstr "Stiskněte pro přechod na github"
 
-#: ospy/templates/base.html:168
+#: ospy/templates/base.html:169
 msgid "Software"
 msgstr "Program OSPy"
 
-#: ospy/templates/base.html:168
+#: ospy/templates/base.html:169
 msgid "version"
 msgstr "verze"
 
-#: ospy/templates/base.html:170
+#: ospy/templates/base.html:171
 msgid "External IP"
 msgstr "Vnější IP adresa"
 
-#: ospy/templates/base.html:171
+#: ospy/templates/base.html:172
 msgid "Working"
 msgstr "V provozu"
 
@@ -919,63 +931,63 @@ msgstr "V provozu"
 msgid "blocked by"
 msgstr "zablokováno"
 
-#: ospy/templates/home.html:130 ospy/templates/home.html:469
+#: ospy/templates/home.html:137 ospy/templates/home.html:479
 msgid "On (Master)"
 msgstr "Zap (hlavní)"
 
-#: ospy/templates/home.html:133 ospy/templates/home.html:475
+#: ospy/templates/home.html:140 ospy/templates/home.html:485
 msgid "On (Master Two)"
 msgstr "Zap (hlavní 2)"
 
-#: ospy/templates/home.html:137 ospy/templates/home.html:471
+#: ospy/templates/home.html:144 ospy/templates/home.html:481
 msgid "Off (Master)"
 msgstr "Vyp (hlavní)"
 
-#: ospy/templates/home.html:140 ospy/templates/home.html:477
+#: ospy/templates/home.html:147 ospy/templates/home.html:487
 msgid "Off (Master Two)"
 msgstr "Vyp (hlavní 2)"
 
-#: ospy/templates/home.html:146
+#: ospy/templates/home.html:153
 msgid "Suppressed by Rain Delay"
 msgstr "Potlačeno dešťovým zpožděním"
 
-#: ospy/templates/home.html:149
+#: ospy/templates/home.html:156
 msgid "Suppressed by Rain Sensor"
 msgstr "Potlačeno dešťovým senzorem"
 
-#: ospy/templates/home.html:152 ospy/templates/home.html:433
+#: ospy/templates/home.html:159 ospy/templates/home.html:443
 #: ospy/templates/log.html:7 ospy/templates/log.html:35
 msgid "Disabled"
 msgstr "Zakázáno"
 
-#: ospy/templates/home.html:155 ospy/templates/home.html:483
-#: ospy/templates/home.html:494 ospy/templates/plugins_manage.html:13
+#: ospy/templates/home.html:162 ospy/templates/home.html:493
+#: ospy/templates/home.html:504 ospy/templates/plugins_manage.html:13
 #: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:64
 #: ospy/templates/program.html:423 ospy/templates/programs.html:16
 msgid "Off"
 msgstr "Vyp"
 
-#: ospy/templates/home.html:174
+#: ospy/templates/home.html:181
 msgid "Enter percentage adjustment"
 msgstr "Vložte procenta pro úpravu množství vody"
 
-#: ospy/templates/home.html:177
+#: ospy/templates/home.html:184
 msgid "Percentage must be a positive value"
 msgstr "Hodnota procent musí být kladné číslo"
 
-#: ospy/templates/home.html:188
+#: ospy/templates/home.html:196
 msgid "Enter hours to delay"
 msgstr "Vložte počet hodin pro zpoždění"
 
-#: ospy/templates/home.html:191
+#: ospy/templates/home.html:199
 msgid "Delay must be a positive value"
 msgstr "Hodnota zpoždění musí být kladné číslo"
 
-#: ospy/templates/home.html:221
+#: ospy/templates/home.html:229
 msgid "(mm)"
 msgstr "(mm)"
 
-#: ospy/templates/home.html:221
+#: ospy/templates/home.html:229
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
 #: plugins/ping_monitor/templates/ping_monitor.html:22
 #: plugins/pressure_monitor/templates/pressure_monitor.html:22
@@ -985,19 +997,19 @@ msgstr "(mm)"
 msgid "Reason"
 msgstr "Statistika"
 
-#: ospy/templates/home.html:227
+#: ospy/templates/home.html:235
 msgid "ETo"
 msgstr "ETo"
 
-#: ospy/templates/home.html:228
+#: ospy/templates/home.html:236
 msgid "Rain"
 msgstr "Déšť"
 
-#: ospy/templates/home.html:235 ospy/templates/home.html:452
+#: ospy/templates/home.html:243 ospy/templates/home.html:462
 msgid "Total"
 msgstr "Celkem"
 
-#: ospy/templates/home.html:238
+#: ospy/templates/home.html:246
 #: plugins/ping_monitor/templates/ping_monitor.html:36
 #: plugins/pressure_monitor/templates/pressure_monitor.html:36
 #: plugins/tank_monitor/templates/tank_monitor.html:36
@@ -1006,97 +1018,97 @@ msgstr "Celkem"
 msgid "Previous Value"
 msgstr "Předchozí hodnota"
 
-#: ospy/templates/home.html:251
+#: ospy/templates/home.html:259
 msgid "Water balance (mm)"
 msgstr "Vodní bilance (mm)"
 
-#: ospy/templates/home.html:367
+#: ospy/templates/home.html:384
 msgid "Timer values wrong:"
 msgstr "Časovač má vloženu nesprávnou hodnotu:"
 
-#: ospy/templates/home.html:421
+#: ospy/templates/home.html:431
 msgid "% Level"
 msgstr "% množství"
 
-#: ospy/templates/home.html:421
+#: ospy/templates/home.html:431
 msgid "Normal"
 msgstr "Normální"
 
-#: ospy/templates/home.html:421
+#: ospy/templates/home.html:431
 msgid "Water Level"
 msgstr "Hladina vody"
 
-#: ospy/templates/home.html:423
+#: ospy/templates/home.html:433
 msgid "Active"
 msgstr "Aktivní"
 
-#: ospy/templates/home.html:423
+#: ospy/templates/home.html:433
 msgid "Rain Delay"
 msgstr "Zpoždění při dešti"
 
-#: ospy/templates/home.html:427
+#: ospy/templates/home.html:437
 msgid "Rain sensed"
 msgstr "Detekován déšť"
 
-#: ospy/templates/home.html:430
+#: ospy/templates/home.html:440
 msgid "Schedule"
 msgstr "Plánovač"
 
-#: ospy/templates/home.html:430 ospy/webpages.py:230
+#: ospy/templates/home.html:440 ospy/webpages.py:230
 msgid "Manual"
 msgstr "Ručně"
 
-#: ospy/templates/home.html:433 ospy/templates/log.html:7
+#: ospy/templates/home.html:443 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
 #: plugins/webcam/templates/webcam.html:29
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: ospy/templates/home.html:438
+#: ospy/templates/home.html:448
 msgid "Water Level adjustments"
 msgstr "Nastavení úrovně vody"
 
-#: ospy/templates/home.html:442
+#: ospy/templates/home.html:452
 msgid "User"
 msgstr "Uživatel"
 
-#: ospy/templates/home.html:483 ospy/templates/home.html:494
+#: ospy/templates/home.html:493 ospy/templates/home.html:504
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
 #: ospy/templates/programs.html:14
 msgid "On"
 msgstr "Zap"
 
-#: ospy/templates/home.html:485
+#: ospy/templates/home.html:495
 msgid "in"
 msgstr "v čase"
 
-#: ospy/templates/home.html:491
+#: ospy/templates/home.html:501
 msgid "Forever"
 msgstr "Navždy"
 
-#: ospy/templates/home.html:503 ospy/templates/home.html:539
+#: ospy/templates/home.html:513 ospy/templates/home.html:549
 msgid "Stop All Stations"
 msgstr "Zastavit všechny stanice"
 
-#: ospy/templates/home.html:517
+#: ospy/templates/home.html:527
 msgid " Prev Day"
 msgstr " Včera"
 
-#: ospy/templates/home.html:518
+#: ospy/templates/home.html:528
 msgid "Today"
 msgstr "Dnes"
 
-#: ospy/templates/home.html:519
+#: ospy/templates/home.html:529
 msgid "Next Day"
 msgstr "Zítra"
 
-#: ospy/templates/home.html:533
+#: ospy/templates/home.html:543
 msgid "loading..."
 msgstr "nahrávám..."
 
-#: ospy/templates/home.html:554
+#: ospy/templates/home.html:564
 #: plugins/air_temp_humi/templates/air_temp_humi.html:343
 #: plugins/ping_monitor/templates/ping_monitor.html:264
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
@@ -1106,31 +1118,31 @@ msgstr "nahrávám..."
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/home.html:563
+#: ospy/templates/home.html:573
 msgid "Weather - No location found!"
 msgstr "Počasí - nenalezeno ID vašeho umístění!"
 
-#: ospy/templates/home.html:565
+#: ospy/templates/home.html:575
 msgid "Weather - Location"
 msgstr "Počasí - umístění"
 
-#: ospy/templates/home.html:565
+#: ospy/templates/home.html:575
 msgid "found:"
 msgstr "nalezeno:"
 
-#: ospy/templates/home.html:568
+#: ospy/templates/home.html:578
 msgid "Map"
 msgstr "Zobrazit mapu"
 
-#: ospy/templates/home.html:569
+#: ospy/templates/home.html:579
 msgid "lat"
 msgstr "zeměpisná šířka"
 
-#: ospy/templates/home.html:569
+#: ospy/templates/home.html:579
 msgid "lon"
 msgstr "zeměpisná délka"
 
-#: ospy/templates/home.html:571
+#: ospy/templates/home.html:581
 msgid "Weather - No location coordinates available!"
 msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
 
@@ -1268,7 +1280,7 @@ msgid "None"
 msgstr "Nepoužito"
 
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
-#: plugins/air_temp_humi/__init__.py:146
+#: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
 msgid "Output"
@@ -1409,6 +1421,7 @@ msgstr "Potvrdit změny"
 #: plugins/lcd_display/templates/lcd_display.html:157
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
 #: plugins/mqtt/templates/mqtt.html:107
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:254
 #: plugins/pressure_monitor/templates/pressure_monitor.html:244
@@ -1743,43 +1756,47 @@ msgstr "Poznámky"
 msgid "Reset Names"
 msgstr "Smazat jména"
 
-#: ospy/templates/unreachable.html:3 ospy/templates/unreachable.html:31
+#: ospy/templates/unreachable.html:3
 msgid "Unreachable"
 msgstr "Nedostupné"
 
-#: ospy/templates/unreachable.html:32
+#: ospy/templates/unreachable.html:45
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/usagestats.py:18
+#: ospy/templates/unreachable.html:45
+msgid "Unreachable!"
+msgstr "Nedostupné!"
+
+#: ospy/usagestats.py:19
 msgid "Requests not found, installing. Please wait..."
 msgstr "Requests nebylo nalezeno, instaluji. Počkejte prosím..."
 
-#: ospy/usagestats.py:224
+#: ospy/usagestats.py:225
 msgid "Could not create %s, usage statistics won not be collected"
 msgstr "Nebylo možné vytvořit %s, statistiky využití nebyly shromážděny"
 
-#: ospy/usagestats.py:254
+#: ospy/usagestats.py:255
 msgid "Unknown reporting state %r"
 msgstr "Neznámý stav sestavy %r"
 
-#: ospy/usagestats.py:266
+#: ospy/usagestats.py:267
 msgid "Can not enable reporting"
 msgstr "Nelze povolit hlášení sestav"
 
-#: ospy/usagestats.py:281
+#: ospy/usagestats.py:282
 msgid "Can not disable reporting"
 msgstr "Nelze zakázat hlášení sestav"
 
-#: ospy/usagestats.py:291
+#: ospy/usagestats.py:292
 msgid "Deleted %d pending reports"
 msgstr "Odstraněné %d čekající sestavy"
 
-#: ospy/usagestats.py:310 ospy/usagestats.py:331
+#: ospy/usagestats.py:311 ospy/usagestats.py:332
 msgid "This report has already been submitted"
 msgstr "Tato zpráva již byla odeslána"
 
-#: ospy/usagestats.py:346
+#: ospy/usagestats.py:347
 msgid ""
 "Generated report:\n"
 "%r"
@@ -1787,23 +1804,23 @@ msgstr ""
 "Vygenerovaná sestava:\n"
 "%r"
 
-#: ospy/usagestats.py:380
+#: ospy/usagestats.py:381
 msgid "Could not upload %s: %s"
 msgstr "Nelze odeslat %s: %s"
 
-#: ospy/usagestats.py:383
+#: ospy/usagestats.py:384
 msgid "Submitted report %s"
 msgstr "Odeslaná sestava %s"
 
-#: ospy/usagestats.py:393
+#: ospy/usagestats.py:394
 msgid "Could not upload report: %s"
 msgstr "Sestavu nelze odeslat: %s"
 
-#: ospy/usagestats.py:401
+#: ospy/usagestats.py:402
 msgid "Submitted report"
 msgstr "Sestava statistiky byla odeslaná"
 
-#: ospy/usagestats.py:403
+#: ospy/usagestats.py:404
 msgid "Server rejected report: %s"
 msgstr "Server odmítl sestavu: %s"
 
@@ -1869,73 +1886,73 @@ msgstr "Odebrán privkey.pem..."
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:941
+#: ospy/webpages.py:921
 msgid "Label not set"
 msgstr "Popisek nastaven"
 
-#: ospy/webpages.py:954 ospy/webpages.py:1023
+#: ospy/webpages.py:934 ospy/webpages.py:1000
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:966 ospy/webpages.py:1011
+#: ospy/webpages.py:946 ospy/webpages.py:987
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
-#: plugins/air_temp_humi/__init__.py:33
+#: plugins/air_temp_humi/__init__.py:34
 msgid "Package: Air Temperature and Humidity Monitor"
 msgstr "Balíček: Monitor teploty a vlhkosti vzduchu"
 
-#: plugins/air_temp_humi/__init__.py:114 plugins/air_temp_humi/__init__.py:142
-#: plugins/air_temp_humi/__init__.py:177
+#: plugins/air_temp_humi/__init__.py:115 plugins/air_temp_humi/__init__.py:148
+#: plugins/air_temp_humi/__init__.py:183
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
 
-#: plugins/air_temp_humi/__init__.py:137
+#: plugins/air_temp_humi/__init__.py:143
 msgid "DHT11 data is not valid"
 msgstr "Data z čidla DHT11 nejsou v pořádku"
 
-#: plugins/air_temp_humi/__init__.py:143
+#: plugins/air_temp_humi/__init__.py:149
 msgid "Humidity"
 msgstr "Vlhkost"
 
-#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:120
+#: plugins/air_temp_humi/__init__.py:151 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr "ZAP"
 
-#: plugins/air_temp_humi/__init__.py:145 plugins/relay_16/__init__.py:137
+#: plugins/air_temp_humi/__init__.py:151 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr "VYP"
 
-#: plugins/air_temp_humi/__init__.py:156
+#: plugins/air_temp_humi/__init__.py:162
 msgid "Station output was turned on."
 msgstr "Stanice byla zapnuta."
 
-#: plugins/air_temp_humi/__init__.py:164
+#: plugins/air_temp_humi/__init__.py:170
 msgid "Station output was turned off."
 msgstr "Stanice byla vypnuta."
 
-#: plugins/air_temp_humi/__init__.py:193 plugins/air_temp_humi/__init__.py:269
+#: plugins/air_temp_humi/__init__.py:198 plugins/air_temp_humi/__init__.py:274
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
-#: plugins/air_temp_humi/__init__.py:243
+#: plugins/air_temp_humi/__init__.py:248
 msgid "Data is not correct. Please try again later."
 msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 
-#: plugins/air_temp_humi/__init__.py:389
+#: plugins/air_temp_humi/__init__.py:394
 #: plugins/pressure_monitor/__init__.py:315 plugins/ups_adj/__init__.py:317
 #: plugins/wind_monitor/__init__.py:400
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
-#: plugins/air_temp_humi/__init__.py:431
+#: plugins/air_temp_humi/__init__.py:436
 msgid "Saving to log files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
-#: plugins/air_temp_humi/__init__.py:488 plugins/ping_monitor/__init__.py:343
+#: plugins/air_temp_humi/__init__.py:493 plugins/ping_monitor/__init__.py:343
 #: plugins/tank_monitor/__init__.py:446 plugins/wind_monitor/__init__.py:462
 msgid "Deleted all log files OK"
 msgstr "Odstraněny všechny soubory protokolu OK"
@@ -2106,6 +2123,7 @@ msgstr "Počet DS18B20"
 #: plugins/humi_monitor/templates/humi_monitor.html:86
 #: plugins/lcd_display/templates/lcd_display.html:147
 #: plugins/mqtt/templates/mqtt.html:97
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:36
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:244
 #: plugins/pressure_monitor/templates/pressure_monitor.html:234
@@ -2144,6 +2162,7 @@ msgstr "Stav"
 #: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:106
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:45
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:253
 #: plugins/pressure_monitor/templates/pressure_monitor.html:243
@@ -3172,6 +3191,94 @@ msgstr "Počet stanic"
 msgid "The number of station this secondary uses."
 msgstr "Počet stanic, které tato sekundární stanice používá."
 
+#: plugins/mqtt_runonce/__init__.py:25
+msgid "Package: MQTT Run-once"
+msgstr "Balíček: MQTT jednorázový program"
+
+#: plugins/mqtt_runonce/__init__.py:65
+msgid "MQTT Run-once Plugin started."
+msgstr "Rozšíření MQTT jednorázový program bylo spuštěno."
+
+#: plugins/mqtt_runonce/__init__.py:78
+msgid "MQTT Run-once plug-in"
+msgstr "Rozšíření MQTT jednorázový program"
+
+#: plugins/mqtt_runonce/__init__.py:83
+msgid "MQTT Run-once Plugin is disabled."
+msgstr "Rozšíření MQTT jednorázový program je zakázáno."
+
+#: plugins/mqtt_runonce/__init__.py:109
+msgid "System OSPy is not switched to enabled. Skipping decoding command."
+msgstr "Systém OSPy není přepnut na povoleno. Přeskočení dekódovacího příkazu."
+
+#: plugins/mqtt_runonce/__init__.py:112
+msgid "Received message"
+msgstr "Přijatá zpráva"
+
+#: plugins/mqtt_runonce/__init__.py:112
+msgid "on topic"
+msgstr "na téma"
+
+#: plugins/mqtt_runonce/__init__.py:112
+msgid "with QoS"
+msgstr "s QoS"
+
+#: plugins/mqtt_runonce/__init__.py:118
+msgid "MQTT Run-once could not decode command:"
+msgstr "MQTT jednorázový program, příkaz nelze dekódovat:"
+
+#: plugins/mqtt_runonce/__init__.py:125
+msgid "MQTT Run-once, not enough stations specified, assuming first {} of {}"
+msgstr ""
+"MQTT jednorázový program, není zadán dostatek stanic, za předpokladu, že "
+"první {} z {}"
+
+#: plugins/mqtt_runonce/__init__.py:128
+msgid "MQTT Run-once, too many stations specified, truncating to {}"
+msgstr ""
+"MQTT jednorázový program, je zadáno příliš mnoho stanic, zkrácení na {}"
+
+#: plugins/mqtt_runonce/__init__.py:133
+msgid "MQTT Run-once unexpected command: "
+msgstr "MQTT jednorázový program neočekávaný příkaz: "
+
+#: plugins/mqtt_runonce/__init__.py:137
+msgid "MQTT Run-once: "
+msgstr "MQTT jednorázový program"
+
+#: plugins/mqtt_runonce/__init__.py:170
+msgid "MQTT Run-once Plugin subscribe"
+msgstr "MQTT jednorázový program přihlášení k odběru"
+
+#: plugins/mqtt_runonce/__init__.py:176
+msgid "MQTT Run-once Plugin requires MQTT plugin."
+msgstr "Rozšíření MQTT jednorázový program vyžaduje rozšíření MQTT."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:3
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:19
+msgid "MQTT Runonce settings"
+msgstr "Rozšíření MQTT jednorázový program nastavení"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:20
+msgid ""
+"Relies on the base MQTT plugin, allows runonce programs to be set over MQTT"
+msgstr ""
+"Toto rozšíření vyžaduje rozšíření MQTT, umožňuje spouštět jednorázové "
+"programy přes MQTT"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:24
+#: plugins/mqtt_zones/templates/mqtt_zones.html:24
+msgid "Use MQTT"
+msgstr "Použít MQTT"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:30
+msgid "MQTT Scheduling topic"
+msgstr "MQTT téma pro jednorázové programy"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:31
+msgid "The topic subscribe to for run once commands."
+msgstr "Téma, které chcete přihlásit k odběru řídicích příkazů."
+
 #: plugins/mqtt_zones/__init__.py:26
 msgid "Package: MQTT Zone Broadcaster"
 msgstr "Balíček: MQTT Zone Broadcaster"
@@ -3212,10 +3319,6 @@ msgid ""
 msgstr ""
 "Rozšíření MQTT stanice závisí na rozšíření MQTT, vysílá aktuální stav všech "
 "zón."
-
-#: plugins/mqtt_zones/templates/mqtt_zones.html:24
-msgid "Use MQTT"
-msgstr "Použít MQTT"
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:30
 msgid "MQTT Publish Zones topic"

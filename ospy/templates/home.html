@@ -174,13 +174,14 @@ function statusTimer() {
 }
 
 function water_level_prompt(current){
+	var w
     if (current != 1.0) {
-        let w = 100;
+        w = 100;
     } else {
-        let w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
+        w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
     }
     if (w < 0) {
-        let w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (w != null) {
         window.location="/action?level_adjustment=" + w;
@@ -188,13 +189,14 @@ function water_level_prompt(current){
 }
 
 function rain_delay_prompt(current){
+	var h
     if (current != 0) {
-        let h = 0;
+        h = 0;
     } else {
-        let h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
+        h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
     }
     if (h < 0) {
-        let h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
                }
     if (h != null) {
         window.location="/action?rain_block=" + h;

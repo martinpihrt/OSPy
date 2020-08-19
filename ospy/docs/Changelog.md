@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 19 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed buttons "water level" and "rain delay" on the home page after update from 18.8.2020 (Thank you for the report by V. Hrabe). Added new plugin MQTT run-once (run-now schedulling via MQTT protocol). Plugin is not ready for using!
+
 Aug 18 2020
 -----------
 (martinpihrt)<br/>
