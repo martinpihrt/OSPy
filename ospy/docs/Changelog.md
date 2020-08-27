@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Aug 27 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed webpages stations.html (translating strings and css style for checkbox).
+
 Aug 19 2020
 -----------
 (martinpihrt)<br/>

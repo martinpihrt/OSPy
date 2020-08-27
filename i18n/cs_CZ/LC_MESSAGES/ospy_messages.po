@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-08-19 08:55+CEST\n"
-"PO-Revision-Date: 2020-08-19 09:05+0200\n"
-"Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
+"POT-Creation-Date: 2020-08-27 08:41+CEST\n"
+"PO-Revision-Date: 2020-08-27 10:07+0200\n"
+"Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -1290,7 +1290,7 @@ msgstr "Výstup"
 msgid "Specify which output should be used as master two station."
 msgstr "Určete, který výstup by měl být použit jako druhá hlavní stanice."
 
-#: ospy/templates/options.html:147 ospy/templates/stations.html:52
+#: ospy/templates/options.html:147 ospy/templates/stations.html:56
 msgid "Master two station"
 msgstr "Hlavní stanice 2"
 
@@ -1407,12 +1407,12 @@ msgstr "Nahrát soubory SSL"
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr "Nahrání souboru fullchain.pem nebo privkey.pem"
 
-#: ospy/templates/options.html:252 ospy/templates/stations.html:77
+#: ospy/templates/options.html:252 ospy/templates/stations.html:85
 msgid "Submit Changes"
 msgstr "Potvrdit změny"
 
 #: ospy/templates/options.html:253 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:79
+#: ospy/templates/runonce.html:56 ospy/templates/stations.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:333
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1752,7 +1752,77 @@ msgstr "ZAP 2 Hlavní?"
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ospy/templates/stations.html:78
+#: ospy/templates/stations.html:31
+msgid "Station Name."
+msgstr "Jméno stanice."
+
+#: ospy/templates/stations.html:34
+msgid ""
+"Relative usage when this station is active. Can be used to limit the amount "
+"of simultaneously active stations (see maximum usage in options)."
+msgstr ""
+"Souběh stanic (0), nebo sekvence (>1). Pokud jsou stanice aktivní lze omezit "
+"jejich souběžný počet (viz maximální využití v menu nastavení)."
+
+#: ospy/templates/stations.html:37
+msgid "Amount of water per hour in mm. Used for weather based programs."
+msgstr ""
+"Množství vody za hodinu v mm. Používá se pro programy založené na počasí."
+
+#: ospy/templates/stations.html:40
+msgid ""
+"Amount of water that the soil can store above 0 level. Used for weather "
+"based programs."
+msgstr ""
+"Množství vody, které může půda uložit nad úroveň 0. Používá se pro programy "
+"založené na počasí. Více v nápovědě."
+
+#: ospy/templates/stations.html:43
+msgid ""
+"Factor used to multiply ETo factor for weather based programs. Use value "
+"above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
+msgstr ""
+"Faktor používaný k násobení faktoru ETo pro programy založené na počasí. "
+"Použijte hodnotu vyšší než 1 v případě slunečné/suché půdy, použijte hodnotu "
+"nižší než 1 pro stín/vlhkou půdu."
+
+#: ospy/templates/stations.html:46
+msgid ""
+"Increase or decrease weather based water balance by given amount (if not 0)."
+msgstr ""
+"Zvýšit nebo snížit vodní bilanci pro programy založené na počasí (pokud není "
+"nastaveno na 0)."
+
+#: ospy/templates/stations.html:62
+msgid ""
+"Is this station physically connected? If unchecked, the station will not be "
+"displayed in the system."
+msgstr ""
+"Je tato stanice fyzicky propojená? Pokud není zaškrtnutá, stanice se v "
+"systému nezobrazí."
+
+#: ospy/templates/stations.html:65
+msgid ""
+"If ignore rain is checked, then in case of rain this station is activated "
+"(rain sensor and time delay will be ignored)."
+msgstr ""
+"Pokud je zaškrtnuto ignorovat déšť, tak se v případě deště tato stanice "
+"aktivuje dle plánu (dešťový senzor a časové zpoždění budou ignorovány)."
+
+#: ospy/templates/stations.html:69
+msgid "When switching on this station, also activate the master station."
+msgstr "Při zapnutí této stanice aktivovat také hlavní stanici."
+
+#: ospy/templates/stations.html:73
+msgid ""
+"When switching on this station, also activate the secondary master station."
+msgstr "Při zapnutí této stanice aktivovat také sekundární hlavní stanici."
+
+#: ospy/templates/stations.html:76
+msgid "Station Notes."
+msgstr "Poznámkový blok pro další užitečné informace k stanici."
+
+#: ospy/templates/stations.html:86
 msgid "Reset Names"
 msgstr "Smazat jména"
 
@@ -3244,7 +3314,7 @@ msgstr "MQTT jednorázový program neočekávaný příkaz: "
 
 #: plugins/mqtt_runonce/__init__.py:137
 msgid "MQTT Run-once: "
-msgstr "MQTT jednorázový program"
+msgstr "MQTT jednorázový program: "
 
 #: plugins/mqtt_runonce/__init__.py:170
 msgid "MQTT Run-once Plugin subscribe"
@@ -3279,31 +3349,31 @@ msgstr "MQTT téma pro jednorázové programy"
 msgid "The topic subscribe to for run once commands."
 msgstr "Téma, které chcete přihlásit k odběru řídicích příkazů."
 
-#: plugins/mqtt_zones/__init__.py:26
+#: plugins/mqtt_zones/__init__.py:27
 msgid "Package: MQTT Zone Broadcaster"
 msgstr "Balíček: MQTT Zone Broadcaster"
 
-#: plugins/mqtt_zones/__init__.py:67
+#: plugins/mqtt_zones/__init__.py:68
 msgid "MQTT Zones Plugin started."
 msgstr "Rozšíření MQTT stanice bylo spuštěno."
 
-#: plugins/mqtt_zones/__init__.py:107 plugins/mqtt_zones/__init__.py:141
+#: plugins/mqtt_zones/__init__.py:108 plugins/mqtt_zones/__init__.py:142
 msgid "MQTT Zones Plugin requires MQTT plugin."
 msgstr "Rozšíření MQTT stanice vyžaduje MQTT plugin."
 
-#: plugins/mqtt_zones/__init__.py:117
+#: plugins/mqtt_zones/__init__.py:118
 msgid "MQTT Zones Plugin public"
 msgstr "Rozšíření MQTT stanice publikuje"
 
-#: plugins/mqtt_zones/__init__.py:121
+#: plugins/mqtt_zones/__init__.py:122
 msgid "Not setup Zone Topic"
 msgstr "Téma pro stanice není nastaveno"
 
-#: plugins/mqtt_zones/__init__.py:127
+#: plugins/mqtt_zones/__init__.py:128
 msgid "MQTT Zones plug-in"
 msgstr "Rozšíření MQTT stanice"
 
-#: plugins/mqtt_zones/__init__.py:132
+#: plugins/mqtt_zones/__init__.py:133
 msgid "MQTT Zones Plugin is disabled."
 msgstr "Rozšíření MQTT stanice je zakázáno."
 
@@ -6209,39 +6279,6 @@ msgstr "Smazat max rychlost"
 
 #~ msgid "Rain detected"
 #~ msgstr "Detekován déšť"
-
-#~ msgid ""
-#~ "Relative usage when this station is active. Can be used to limit the "
-#~ "amount of simultaneously active stations (see maximum usage in options)."
-#~ msgstr ""
-#~ "Souběh stanic (0), nebo sekvence (>1). Pokud jsou stanice aktivní lze "
-#~ "omezit jejich souběžný počet (viz maximální využití v menu nastavení)."
-
-#~ msgid "Amount of water per hour in mm. Used for weather based programs."
-#~ msgstr ""
-#~ "Množství vody za hodinu v mm. Používá se pro programy založené na počasí."
-
-#~ msgid ""
-#~ "Amount of water that the soil can store above 0 level. Used for weather "
-#~ "based programs."
-#~ msgstr ""
-#~ "Množství vody, které může půda uložit nad úroveň 0. Používá se pro "
-#~ "programy založené na počasí. Více v nápovědě."
-
-#~ msgid ""
-#~ "Factor used to multiply ETo factor for weather based programs. Use value "
-#~ "above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
-#~ msgstr ""
-#~ "Faktor používaný k násobení faktoru ETo pro programy založené na počasí. "
-#~ "Použijte hodnotu vyšší než 1 v případě slunečné/suché půdy, použijte "
-#~ "hodnotu nižší než 1 pro stín/vlhkou půdu."
-
-#~ msgid ""
-#~ "Increase or decrease weather based water balance by given amount (if not "
-#~ "0)."
-#~ msgstr ""
-#~ "Zvýšit nebo snížit vodní bilanci pro programy založené na počasí (pokud "
-#~ "není nastaveno na 0)."
 
 #~ msgid "Unsent"
 #~ msgstr "Neodeslán"

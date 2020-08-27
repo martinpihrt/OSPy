@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-19 08:55+CEST\n"
+"POT-Creation-Date: 2020-08-27 08:41+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1235,7 +1235,7 @@ msgstr ""
 msgid "Specify which output should be used as master two station."
 msgstr ""
 
-#: ospy/templates/options.html:147 ospy/templates/stations.html:52
+#: ospy/templates/options.html:147 ospy/templates/stations.html:56
 msgid "Master two station"
 msgstr ""
 
@@ -1348,12 +1348,12 @@ msgstr ""
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr ""
 
-#: ospy/templates/options.html:252 ospy/templates/stations.html:77
+#: ospy/templates/options.html:252 ospy/templates/stations.html:85
 msgid "Submit Changes"
 msgstr ""
 
 #: ospy/templates/options.html:253 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:79
+#: ospy/templates/runonce.html:56 ospy/templates/stations.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:333
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1684,7 +1684,51 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: ospy/templates/stations.html:78
+#: ospy/templates/stations.html:31
+msgid "Station Name."
+msgstr ""
+
+#: ospy/templates/stations.html:34
+msgid "Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options)."
+msgstr ""
+
+#: ospy/templates/stations.html:37
+msgid "Amount of water per hour in mm. Used for weather based programs."
+msgstr ""
+
+#: ospy/templates/stations.html:40
+msgid "Amount of water that the soil can store above 0 level. Used for weather based programs."
+msgstr ""
+
+#: ospy/templates/stations.html:43
+msgid "Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
+msgstr ""
+
+#: ospy/templates/stations.html:46
+msgid "Increase or decrease weather based water balance by given amount (if not 0)."
+msgstr ""
+
+#: ospy/templates/stations.html:62
+msgid "Is this station physically connected? If unchecked, the station will not be displayed in the system."
+msgstr ""
+
+#: ospy/templates/stations.html:65
+msgid "If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored)."
+msgstr ""
+
+#: ospy/templates/stations.html:69
+msgid "When switching on this station, also activate the master station."
+msgstr ""
+
+#: ospy/templates/stations.html:73
+msgid "When switching on this station, also activate the secondary master station."
+msgstr ""
+
+#: ospy/templates/stations.html:76
+msgid "Station Notes."
+msgstr ""
+
+#: ospy/templates/stations.html:86
 msgid "Reset Names"
 msgstr ""
 
@@ -3083,31 +3127,31 @@ msgstr ""
 msgid "The topic subscribe to for run once commands."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:26
+#: plugins/mqtt_zones/__init__.py:27
 msgid "Package: MQTT Zone Broadcaster"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:67
+#: plugins/mqtt_zones/__init__.py:68
 msgid "MQTT Zones Plugin started."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:107 plugins/mqtt_zones/__init__.py:141
+#: plugins/mqtt_zones/__init__.py:108 plugins/mqtt_zones/__init__.py:142
 msgid "MQTT Zones Plugin requires MQTT plugin."
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:117
+#: plugins/mqtt_zones/__init__.py:118
 msgid "MQTT Zones Plugin public"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:121
+#: plugins/mqtt_zones/__init__.py:122
 msgid "Not setup Zone Topic"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:127
+#: plugins/mqtt_zones/__init__.py:128
 msgid "MQTT Zones plug-in"
 msgstr ""
 
-#: plugins/mqtt_zones/__init__.py:132
+#: plugins/mqtt_zones/__init__.py:133
 msgid "MQTT Zones Plugin is disabled."
 msgstr ""
 

@@ -28,44 +28,64 @@ $var page: stations
             $for station in stations.get():
                 <tr>
                     <td class="stationNumber">${station.index + 1}</td>
-                    <td class="stationName" title="$_('Station Name.')">
+                    <td class="stationName" title=$:{json.dumps(_('Station Name.'), ensure_ascii=False).encode('utf8')}>
                         <input type="text" size="16" value="${station.name}" name="${station.index}_name">
                     </td>
-                    <td class="stationUsage" title="$_('Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options).')">
+                    <td class="stationUsage" title=$:{json.dumps(_('Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options).'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="0" max="1000" value="${str(station.usage)}" name="${station.index}_usage">
                     </td>
-                    <td class="stationUsage" title="$_('Amount of water per hour in mm. Used for weather based programs.')">
+                    <td class="stationUsage" title=$:{json.dumps(_('Amount of water per hour in mm. Used for weather based programs.'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="0" max="1000" value="${str(station.precipitation)}" name="${station.index}_precipitation">
                     </td>
-                     <td class="stationUsage" title="$_('Amount of water that the soil can store above 0 level. Used for weather based programs.')">
+                     <td class="stationUsage" title=$:{json.dumps(_('Amount of water that the soil can store above 0 level. Used for weather based programs.'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="0" max="100" value="${str(station.capacity)}" name="${station.index}_capacity">
                     </td>
-                    <td class="stationUsage" title="$_('Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil.')">
+                    <td class="stationUsage" title=$:{json.dumps(_('Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil.'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="0" max="10" value="${str(station.eto_factor)}" name="${station.index}_eto_factor">
                     </td>
-                    <td class="stationUsage" title="$_('Increase or decrease weather based water balance by given amount (if not 0).')">
+                    <td class="stationUsage" title=$:{json.dumps(_('Increase or decrease weather based water balance by given amount (if not 0).'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="-100" max="100" value="0" name="${station.index}_balance_adjust">
                     </td>
                     $if station.is_master:
-                        <td class="stationMaster" colspan="3">($_('Master station'))</td>
+                        <td class="stationMaster">($_('Master station'))</td>
+                        $if stations.master_two is None:
+                            <td></td><td></td>
+                        $else:
+                            <td></td><td></td><td></td>
                     $elif station.is_master_two:
-                        <td class="stationMaster" colspan="4">($_('Master two station'))</td>
+                        <td class="stationMaster">($_('Master two station'))</td>
+                        $if stations.master is None:
+                            <td></td><td></td>
+                        $else:    
+                            <td></td><td></td><td></td>
                     $else:
-                        <td class="stationShow">
-                            <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
+                        <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8')}>
+                        <label class="container">
+                        <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
+                        <span class="checkmark"></span>
+                        </label>
                         </td>
-                        <td class="stationIgnore">
+                        <td class="stationIgnore" title=$:{json.dumps(_('If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored).'), ensure_ascii=False).encode('utf8')}>
+                            <label class="container">
                             <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
+                            <span class="checkmark"></span>
+                            </label>                             
                         </td>
                         $if stations.master is not None:
-                            <td class="stationMaster">
-                                <input type="checkbox" ${"checked" if station.activate_master else ""} name="${station.index}_activate_master">
+                            <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the master station.'), ensure_ascii=False).encode('utf8')}>
+                            <label class="container">    
+                            <input type="checkbox" ${"checked" if station.activate_master else ""} name="${station.index}_activate_master">
+                            <span class="checkmark"></span>
+                            </label>                            
                             </td>
                         $if stations.master_two is not None:
-                            <td class="stationMaster">
-                                <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
+                            <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the secondary master station.'), ensure_ascii=False).encode('utf8')}>
+                            <label class="container">
+                            <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
+                            <span class="checkmark"></span>
+                            </label>
                             </td> 
-                    <td class="stationNotes" title="$_('Station Notes.')">
+                    <td class="stationNotes" title=$:{json.dumps(_('Station Notes.'), ensure_ascii=False).encode('utf8')}>
                         <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
                     </td>      
                 </tr>
