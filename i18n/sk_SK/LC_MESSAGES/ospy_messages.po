@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-19 08:55+CEST\n"
-"PO-Revision-Date: 2020-08-19 09:08+0200\n"
-"Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
+"POT-Creation-Date: 2020-09-02 07:54+CEST\n"
+"PO-Revision-Date: 2020-09-02 08:25+0200\n"
+"Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Vypnutie..."
 
 #: ospy/helpers.py:165
 msgid "Restarting..."
-msgstr "Reštartovanie"
+msgstr "Reštartovanie."
 
 #: ospy/helpers.py:420
 msgid "Fri"
@@ -1277,6 +1277,9 @@ msgstr "Neurčené"
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:65
+#: plugins/temperature_switch/templates/temperature_switch.html:115
+#: plugins/temperature_switch/templates/temperature_switch.html:165
 msgid "Output"
 msgstr "Výstup"
 
@@ -1284,7 +1287,7 @@ msgstr "Výstup"
 msgid "Specify which output should be used as master two station."
 msgstr "Určte, ktorý výstup by sa mal použiť ako 2 hlavná (majster) stanica."
 
-#: ospy/templates/options.html:147 ospy/templates/stations.html:52
+#: ospy/templates/options.html:147 ospy/templates/stations.html:56
 msgid "Master two station"
 msgstr "Hlavná 2 stanica"
 
@@ -1400,12 +1403,12 @@ msgstr "Náhrát súbory SSL"
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr "Nahrát fullchain. pem alebo privkey. pem súbor"
 
-#: ospy/templates/options.html:252 ospy/templates/stations.html:77
+#: ospy/templates/options.html:252 ospy/templates/stations.html:97
 msgid "Submit Changes"
 msgstr "Odoslať zmeny"
 
 #: ospy/templates/options.html:253 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:79
+#: ospy/templates/runonce.html:56 ospy/templates/stations.html:99
 #: plugins/air_temp_humi/templates/air_temp_humi.html:333
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1431,6 +1434,7 @@ msgstr "Odoslať zmeny"
 #: plugins/system_update/templates/system_update.html:90
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:266
+#: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/usage_statistics/templates/usage_statistics.html:44
 #: plugins/voice_notification/templates/voice_notification.html:127
@@ -1745,7 +1749,78 @@ msgstr "Aktivovať majstra 2?"
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ospy/templates/stations.html:78
+#: ospy/templates/stations.html:31
+msgid "Station Name."
+msgstr "Názov stanice."
+
+#: ospy/templates/stations.html:34
+msgid ""
+"Relative usage when this station is active. Can be used to limit the amount "
+"of simultaneously active stations (see maximum usage in options)."
+msgstr ""
+"Relatívne použitie, keď je táto stanica aktívna. Môže sa použiť na "
+"obmedzenie množstva súčasne aktívnych staníc (pozri maximálne využitie v "
+"možnostiach)."
+
+#: ospy/templates/stations.html:37
+msgid "Amount of water per hour in mm. Used for weather based programs."
+msgstr ""
+"Množstvo vody za hodinu v mm. Používa sa pre programy založené na počasí."
+
+#: ospy/templates/stations.html:40
+msgid ""
+"Amount of water that the soil can store above 0 level. Used for weather "
+"based programs."
+msgstr ""
+"Množstvo vody, ktoré môže pôda uložiť nad úroveň 0. Používa sa pre programy "
+"založené na počasí."
+
+#: ospy/templates/stations.html:43
+msgid ""
+"Factor used to multiply ETo factor for weather based programs. Use value "
+"above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
+msgstr ""
+"Faktor použitý na násobenie faktora ETo pre programy založené na počasí. "
+"Použite hodnotu nad 1 v prípade slnečnej/suchej pôdy, použite hodnotu nižšiu "
+"ako 1 pre tieňovanú/mokrá pôda."
+
+#: ospy/templates/stations.html:46
+msgid ""
+"Increase or decrease weather based water balance by given amount (if not 0)."
+msgstr ""
+"Zvýšte alebo znížte v závislosti od počasia bilanciu vody podľa danej sumy "
+"(ak nie je 0)."
+
+#: ospy/templates/stations.html:62
+msgid ""
+"Is this station physically connected? If unchecked, the station will not be "
+"displayed in the system."
+msgstr ""
+"Je táto stanica fyzicky prepojená? Ak nie je zaečaté, stanica sa v systéme "
+"nezobrazí."
+
+#: ospy/templates/stations.html:68
+msgid ""
+"If ignore rain is checked, then in case of rain this station is activated "
+"(rain sensor and time delay will be ignored)."
+msgstr ""
+"Ak sa skontroluje ignorovanie dažďa, potom sa v prípade dažďa aktivuje táto "
+"stanica (dažďový senzor a časové oneskorenie sa budú ignorovať)."
+
+#: ospy/templates/stations.html:75
+msgid "When switching on this station, also activate the master station."
+msgstr "Pri zapnutí tejto stanice aktivujte aj hlavnú stanicu."
+
+#: ospy/templates/stations.html:82
+msgid ""
+"When switching on this station, also activate the secondary master station."
+msgstr "Pri zapnutí tejto stanice aktivujte aj sekundárnu hlavnú stanicu."
+
+#: ospy/templates/stations.html:88
+msgid "Station Notes."
+msgstr "Poznámky k stanici."
+
+#: ospy/templates/stations.html:98
 msgid "Reset Names"
 msgstr "Obnoviť mená"
 
@@ -2135,6 +2210,7 @@ msgstr "Použité DS18B20"
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:256
+#: plugins/temperature_switch/templates/temperature_switch.html:170
 #: plugins/ups_adj/templates/ups_adj.html:227
 #: plugins/usage_statistics/templates/usage_statistics.html:35
 #: plugins/voice_notification/templates/voice_notification.html:100
@@ -2171,6 +2247,7 @@ msgstr "Stav"
 #: plugins/system_debug/templates/system_debug.html:41
 #: plugins/system_update/templates/system_update.html:84
 #: plugins/tank_monitor/templates/tank_monitor.html:265
+#: plugins/temperature_switch/templates/temperature_switch.html:179
 #: plugins/ups_adj/templates/ups_adj.html:237
 #: plugins/voice_notification/templates/voice_notification.html:126
 #: plugins/volt_temp_da/templates/volt_temp_da.html:81
@@ -3236,7 +3313,7 @@ msgstr "MQTT Run-once unexpected command: "
 
 #: plugins/mqtt_runonce/__init__.py:137
 msgid "MQTT Run-once: "
-msgstr "MQTT Run-once:"
+msgstr "MQTT Run-once: "
 
 #: plugins/mqtt_runonce/__init__.py:170
 msgid "MQTT Run-once Plugin subscribe"
@@ -3271,31 +3348,31 @@ msgstr "MQTT plánovanie tému"
 msgid "The topic subscribe to for run once commands."
 msgstr "Téma sa prihlásiť na spustenie raz príkazy."
 
-#: plugins/mqtt_zones/__init__.py:26
+#: plugins/mqtt_zones/__init__.py:27
 msgid "Package: MQTT Zone Broadcaster"
 msgstr "Balík: MQTT Zone Broadcaster"
 
-#: plugins/mqtt_zones/__init__.py:67
+#: plugins/mqtt_zones/__init__.py:68
 msgid "MQTT Zones Plugin started."
 msgstr "MQTT zóny Plugin začal."
 
-#: plugins/mqtt_zones/__init__.py:107 plugins/mqtt_zones/__init__.py:141
+#: plugins/mqtt_zones/__init__.py:108 plugins/mqtt_zones/__init__.py:142
 msgid "MQTT Zones Plugin requires MQTT plugin."
 msgstr "MQTT zóny Plugin vyžaduje MQTT plugin."
 
-#: plugins/mqtt_zones/__init__.py:117
+#: plugins/mqtt_zones/__init__.py:118
 msgid "MQTT Zones Plugin public"
 msgstr "MQTT zóny plugin publikuje"
 
-#: plugins/mqtt_zones/__init__.py:121
+#: plugins/mqtt_zones/__init__.py:122
 msgid "Not setup Zone Topic"
 msgstr "Nie je nastavenie zóna tématu"
 
-#: plugins/mqtt_zones/__init__.py:127
+#: plugins/mqtt_zones/__init__.py:128
 msgid "MQTT Zones plug-in"
 msgstr "MQTT Zóny plug-in"
 
-#: plugins/mqtt_zones/__init__.py:132
+#: plugins/mqtt_zones/__init__.py:133
 msgid "MQTT Zones Plugin is disabled."
 msgstr "MQTT zóny plugin je vypnutá."
 
@@ -5023,6 +5100,176 @@ msgstr "Stop plánovača ak je minimálna voda v nádrži"
 msgid "Reset min/max level"
 msgstr "Smazat min/max úroveň"
 
+#: plugins/temperature_switch/__init__.py:26
+msgid "Package: Temperature Switch"
+msgstr "Balenie: Teplotný spínač"
+
+#: plugins/temperature_switch/__init__.py:99
+#: plugins/temperature_switch/templates/temperature_switch.html:3
+#: plugins/temperature_switch/templates/temperature_switch.html:19
+msgid "Temperature Switch"
+msgstr "Teplotný spínač"
+
+#: plugins/temperature_switch/__init__.py:124
+msgid ""
+"Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
+"the plugin Air Temperature and Humidity Monitor installed and set up?"
+msgstr ""
+"Nie je možné načítať nastavenia z pluginu Monitor teploty a vlhkosti "
+"vzduchu! Je doplnok Monitor teploty a vlhkosti vzduchu nainštalovaný a "
+"nastavený?"
+
+#: plugins/temperature_switch/__init__.py:139
+#: plugins/temperature_switch/__init__.py:167
+#: plugins/temperature_switch/__init__.py:195
+msgid "was turned on."
+msgstr "bol zapnutý."
+
+#: plugins/temperature_switch/__init__.py:147
+#: plugins/temperature_switch/__init__.py:175
+#: plugins/temperature_switch/__init__.py:203
+msgid "was turned off."
+msgstr "bol vypnutý."
+
+#: plugins/temperature_switch/__init__.py:215
+msgid "Regulation A set OFF"
+msgstr "Ragulácia A nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:217
+msgid "Regulation A set ON"
+msgstr "Ragulácia A nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:221
+msgid "Regulation B set OFF"
+msgstr "Ragulácia B nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:223
+msgid "Regulation B set ON"
+msgstr "Ragulácia A nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:227
+msgid "Regulation C set OFF"
+msgstr "Ragulácia C nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:229
+msgid "Regulation C set ON"
+msgstr "Ragulácia A nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:231
+msgid "No change"
+msgstr "Bez zmeny"
+
+#: plugins/temperature_switch/__init__.py:243
+msgid "Temperature Switch plug-in"
+msgstr "Doplnok teplotný spínač"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:20
+msgid ""
+"This plugin needs enabled and corect setup the Air Temperature and Humidity "
+"Monitor. Allows regulation from DS18B20 sensors connected to the external "
+"hardware board"
+msgstr ""
+"Tento plugin potrebuje povolené a corect nastavenie teploty vzduchu a "
+"vlhkosti Monitor. Umožňuje reguláciu zo snímačov DS18B20 pripojených k "
+"externej hardvérovej doske"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:21
+msgid "All temperatures is in degree Celsia."
+msgstr "Všetky teploty sú vo stupni Celsia."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:25
+msgid "Enable Control A"
+msgstr "Povoliť ovládanie A"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:26
+msgid "If the box is checked, regulation A will be enabled."
+msgstr "Ak je políčko začiarknuté, zapne sa ovládanie A."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:81
+#: plugins/temperature_switch/templates/temperature_switch.html:131
+msgid "Probe input for ON"
+msgstr "Vstup pre ZAP"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:47
+#: plugins/temperature_switch/templates/temperature_switch.html:82
+#: plugins/temperature_switch/templates/temperature_switch.html:97
+#: plugins/temperature_switch/templates/temperature_switch.html:132
+#: plugins/temperature_switch/templates/temperature_switch.html:147
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr "Vyberte snímač teploty (jeho názov), ktorý chcete použiť."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:40
+#: plugins/temperature_switch/templates/temperature_switch.html:90
+#: plugins/temperature_switch/templates/temperature_switch.html:140
+msgid "Temperature for output ON"
+msgstr "Teplota pre výstup ZAP"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:41
+#: plugins/temperature_switch/templates/temperature_switch.html:91
+#: plugins/temperature_switch/templates/temperature_switch.html:141
+msgid "When this temperature is exceeded, the output will be activated."
+msgstr "Po prekročení tejto teploty sa aktivuje výstup."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:46
+#: plugins/temperature_switch/templates/temperature_switch.html:96
+#: plugins/temperature_switch/templates/temperature_switch.html:146
+msgid "Probe input for OFF"
+msgstr "Vstup pre VYP"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:55
+#: plugins/temperature_switch/templates/temperature_switch.html:105
+#: plugins/temperature_switch/templates/temperature_switch.html:155
+msgid "Temperature for output OFF"
+msgstr "Teplota pre výstup VYP"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:56
+#: plugins/temperature_switch/templates/temperature_switch.html:106
+#: plugins/temperature_switch/templates/temperature_switch.html:156
+msgid "When falling below this temperature, the output will be deactivated."
+msgstr "Pri poklese pod túto teplotu sa výstup deaktivuje."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:61
+msgid "Select Output for A"
+msgstr "Vyberte výstup pre A"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:62
+msgid "Select the output you want to control with regulation A."
+msgstr "Vyberte výstup, ktorý chcete ovládať s reguláciou A."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:75
+msgid "Enable Control B"
+msgstr "Povoliť ovládanie B"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:76
+msgid "If the box is checked, regulation B will be enabled."
+msgstr "Ak je políčko začiarknuté, zapne sa ovládanie B."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:111
+msgid "Select Output for B"
+msgstr "Vyberte výstup pre B"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:112
+msgid "Select the output you want to control with regulation B."
+msgstr "Vyberte výstup, ktorý chcete ovládať s reguláciou B."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:125
+msgid "Enable Control C"
+msgstr "Povoliť ovládanie C"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:126
+msgid "If the box is checked, regulation C will be enabled."
+msgstr "Ak je políčko začiarknuté, zapne sa ovládanie C."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:161
+msgid "Select Output for C"
+msgstr "Vyberte výstup pre C"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:162
+msgid "Select the output you want to control with regulation C."
+msgstr "Vyberte výstup, ktorý chcete ovládať s reguláciou C."
+
 #: plugins/ups_adj/__init__.py:27
 msgid "Package: UPS Monitor"
 msgstr "Balík: UPS Monitor"
@@ -6210,40 +6457,6 @@ msgstr "Vynulovať maximálnu rýchlosť"
 
 #~ msgid "Open Weather underground map in new tab."
 #~ msgstr "Otvorte Weather underground mapu na novej karte."
-
-#~ msgid ""
-#~ "Relative usage when this station is active. Can be used to limit the "
-#~ "amount of simultaneously active stations (see maximum usage in options)."
-#~ msgstr ""
-#~ "Relatívne použitie, keď je táto stanica aktívna. Môže sa použiť na "
-#~ "obmedzenie množstva súčasne aktívnych staníc (pozri maximálne využitie v "
-#~ "možnostiach)."
-
-#~ msgid "Amount of water per hour in mm. Used for weather based programs."
-#~ msgstr ""
-#~ "Množstvo vody za hodinu v mm. Používa sa pre programy založené na počasí."
-
-#~ msgid ""
-#~ "Amount of water that the soil can store above 0 level. Used for weather "
-#~ "based programs."
-#~ msgstr ""
-#~ "Množstvo vody, ktoré môže pôda uložiť nad úroveň 0. Používa sa pre "
-#~ "programy založené na počasí."
-
-#~ msgid ""
-#~ "Factor used to multiply ETo factor for weather based programs. Use value "
-#~ "above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil."
-#~ msgstr ""
-#~ "Faktor použitý na násobenie faktora ETo pre programy založené na počasí. "
-#~ "Použite hodnotu nad 1 v prípade slnečnej/suchej pôdy, použite hodnotu "
-#~ "nižšiu ako 1 pre tieňovanú/mokrá pôda."
-
-#~ msgid ""
-#~ "Increase or decrease weather based water balance by given amount (if not "
-#~ "0)."
-#~ msgstr ""
-#~ "Zvýšte alebo znížte v závislosti od počasia bilanciu vody podľa danej "
-#~ "sumy (ak nie je 0)."
 
 #~ msgid "Unsent"
 #~ msgstr "Neodoslané"

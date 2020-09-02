@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-27 08:41+CEST\n"
+"POT-Creation-Date: 2020-09-02 07:54+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1228,6 +1228,9 @@ msgstr ""
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:65
+#: plugins/temperature_switch/templates/temperature_switch.html:115
+#: plugins/temperature_switch/templates/temperature_switch.html:165
 msgid "Output"
 msgstr ""
 
@@ -1348,12 +1351,12 @@ msgstr ""
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr ""
 
-#: ospy/templates/options.html:252 ospy/templates/stations.html:85
+#: ospy/templates/options.html:252 ospy/templates/stations.html:97
 msgid "Submit Changes"
 msgstr ""
 
 #: ospy/templates/options.html:253 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:87
+#: ospy/templates/runonce.html:56 ospy/templates/stations.html:99
 #: plugins/air_temp_humi/templates/air_temp_humi.html:333
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1379,6 +1382,7 @@ msgstr ""
 #: plugins/system_update/templates/system_update.html:90
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:266
+#: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/usage_statistics/templates/usage_statistics.html:44
 #: plugins/voice_notification/templates/voice_notification.html:127
@@ -1712,23 +1716,23 @@ msgstr ""
 msgid "Is this station physically connected? If unchecked, the station will not be displayed in the system."
 msgstr ""
 
-#: ospy/templates/stations.html:65
+#: ospy/templates/stations.html:68
 msgid "If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored)."
 msgstr ""
 
-#: ospy/templates/stations.html:69
+#: ospy/templates/stations.html:75
 msgid "When switching on this station, also activate the master station."
 msgstr ""
 
-#: ospy/templates/stations.html:73
+#: ospy/templates/stations.html:82
 msgid "When switching on this station, also activate the secondary master station."
 msgstr ""
 
-#: ospy/templates/stations.html:76
+#: ospy/templates/stations.html:88
 msgid "Station Notes."
 msgstr ""
 
-#: ospy/templates/stations.html:86
+#: ospy/templates/stations.html:98
 msgid "Reset Names"
 msgstr ""
 
@@ -2092,6 +2096,7 @@ msgstr ""
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:256
+#: plugins/temperature_switch/templates/temperature_switch.html:170
 #: plugins/ups_adj/templates/ups_adj.html:227
 #: plugins/usage_statistics/templates/usage_statistics.html:35
 #: plugins/voice_notification/templates/voice_notification.html:100
@@ -2128,6 +2133,7 @@ msgstr ""
 #: plugins/system_debug/templates/system_debug.html:41
 #: plugins/system_update/templates/system_update.html:84
 #: plugins/tank_monitor/templates/tank_monitor.html:265
+#: plugins/temperature_switch/templates/temperature_switch.html:179
 #: plugins/ups_adj/templates/ups_adj.html:237
 #: plugins/voice_notification/templates/voice_notification.html:126
 #: plugins/volt_temp_da/templates/volt_temp_da.html:81
@@ -4708,6 +4714,165 @@ msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Reset min/max level"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:26
+msgid "Package: Temperature Switch"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:99
+#: plugins/temperature_switch/templates/temperature_switch.html:3
+#: plugins/temperature_switch/templates/temperature_switch.html:19
+msgid "Temperature Switch"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:124
+msgid "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is the plugin Air Temperature and Humidity Monitor installed and set up?"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:139
+#: plugins/temperature_switch/__init__.py:167
+#: plugins/temperature_switch/__init__.py:195
+msgid "was turned on."
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:147
+#: plugins/temperature_switch/__init__.py:175
+#: plugins/temperature_switch/__init__.py:203
+msgid "was turned off."
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:215
+msgid "Regulation A set OFF"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:217
+msgid "Regulation A set ON"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:221
+msgid "Regulation B set OFF"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:223
+msgid "Regulation B set ON"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:227
+msgid "Regulation C set OFF"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:229
+msgid "Regulation C set ON"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:231
+msgid "No change"
+msgstr ""
+
+#: plugins/temperature_switch/__init__.py:243
+msgid "Temperature Switch plug-in"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:20
+msgid "This plugin needs enabled and corect setup the Air Temperature and Humidity Monitor. Allows regulation from DS18B20 sensors connected to the external hardware board"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:21
+msgid "All temperatures is in degree Celsia."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:25
+msgid "Enable Control A"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:26
+msgid "If the box is checked, regulation A will be enabled."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:81
+#: plugins/temperature_switch/templates/temperature_switch.html:131
+msgid "Probe input for ON"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:47
+#: plugins/temperature_switch/templates/temperature_switch.html:82
+#: plugins/temperature_switch/templates/temperature_switch.html:97
+#: plugins/temperature_switch/templates/temperature_switch.html:132
+#: plugins/temperature_switch/templates/temperature_switch.html:147
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:40
+#: plugins/temperature_switch/templates/temperature_switch.html:90
+#: plugins/temperature_switch/templates/temperature_switch.html:140
+msgid "Temperature for output ON"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:41
+#: plugins/temperature_switch/templates/temperature_switch.html:91
+#: plugins/temperature_switch/templates/temperature_switch.html:141
+msgid "When this temperature is exceeded, the output will be activated."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:46
+#: plugins/temperature_switch/templates/temperature_switch.html:96
+#: plugins/temperature_switch/templates/temperature_switch.html:146
+msgid "Probe input for OFF"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:55
+#: plugins/temperature_switch/templates/temperature_switch.html:105
+#: plugins/temperature_switch/templates/temperature_switch.html:155
+msgid "Temperature for output OFF"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:56
+#: plugins/temperature_switch/templates/temperature_switch.html:106
+#: plugins/temperature_switch/templates/temperature_switch.html:156
+msgid "When falling below this temperature, the output will be deactivated."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:61
+msgid "Select Output for A"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:62
+msgid "Select the output you want to control with regulation A."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:75
+msgid "Enable Control B"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:76
+msgid "If the box is checked, regulation B will be enabled."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:111
+msgid "Select Output for B"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:112
+msgid "Select the output you want to control with regulation B."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:125
+msgid "Enable Control C"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:126
+msgid "If the box is checked, regulation C will be enabled."
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:161
+msgid "Select Output for C"
+msgstr ""
+
+#: plugins/temperature_switch/templates/temperature_switch.html:162
+msgid "Select the output you want to control with regulation C."
 msgstr ""
 
 #: plugins/ups_adj/__init__.py:27

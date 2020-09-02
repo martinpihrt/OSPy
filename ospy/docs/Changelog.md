@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 2 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+A new temperature switch extension has been added to the plugins.
+
 Aug 27 2020
 -----------
 (martinpihrt)<br/>

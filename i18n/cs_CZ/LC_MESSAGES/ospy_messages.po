@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-08-27 08:41+CEST\n"
-"PO-Revision-Date: 2020-08-27 10:07+0200\n"
+"POT-Creation-Date: 2020-09-02 07:54+CEST\n"
+"PO-Revision-Date: 2020-09-02 08:09+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1283,6 +1283,9 @@ msgstr "Nepoužito"
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pulse/templates/pulse.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:65
+#: plugins/temperature_switch/templates/temperature_switch.html:115
+#: plugins/temperature_switch/templates/temperature_switch.html:165
 msgid "Output"
 msgstr "Výstup"
 
@@ -1407,12 +1410,12 @@ msgstr "Nahrát soubory SSL"
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr "Nahrání souboru fullchain.pem nebo privkey.pem"
 
-#: ospy/templates/options.html:252 ospy/templates/stations.html:85
+#: ospy/templates/options.html:252 ospy/templates/stations.html:97
 msgid "Submit Changes"
 msgstr "Potvrdit změny"
 
 #: ospy/templates/options.html:253 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:87
+#: ospy/templates/runonce.html:56 ospy/templates/stations.html:99
 #: plugins/air_temp_humi/templates/air_temp_humi.html:333
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1438,6 +1441,7 @@ msgstr "Potvrdit změny"
 #: plugins/system_update/templates/system_update.html:90
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:266
+#: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/usage_statistics/templates/usage_statistics.html:44
 #: plugins/voice_notification/templates/voice_notification.html:127
@@ -1801,7 +1805,7 @@ msgstr ""
 "Je tato stanice fyzicky propojená? Pokud není zaškrtnutá, stanice se v "
 "systému nezobrazí."
 
-#: ospy/templates/stations.html:65
+#: ospy/templates/stations.html:68
 msgid ""
 "If ignore rain is checked, then in case of rain this station is activated "
 "(rain sensor and time delay will be ignored)."
@@ -1809,20 +1813,20 @@ msgstr ""
 "Pokud je zaškrtnuto ignorovat déšť, tak se v případě deště tato stanice "
 "aktivuje dle plánu (dešťový senzor a časové zpoždění budou ignorovány)."
 
-#: ospy/templates/stations.html:69
+#: ospy/templates/stations.html:75
 msgid "When switching on this station, also activate the master station."
 msgstr "Při zapnutí této stanice aktivovat také hlavní stanici."
 
-#: ospy/templates/stations.html:73
+#: ospy/templates/stations.html:82
 msgid ""
 "When switching on this station, also activate the secondary master station."
 msgstr "Při zapnutí této stanice aktivovat také sekundární hlavní stanici."
 
-#: ospy/templates/stations.html:76
+#: ospy/templates/stations.html:88
 msgid "Station Notes."
 msgstr "Poznámkový blok pro další užitečné informace k stanici."
 
-#: ospy/templates/stations.html:86
+#: ospy/templates/stations.html:98
 msgid "Reset Names"
 msgstr "Smazat jména"
 
@@ -2210,6 +2214,7 @@ msgstr "Počet DS18B20"
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:256
+#: plugins/temperature_switch/templates/temperature_switch.html:170
 #: plugins/ups_adj/templates/ups_adj.html:227
 #: plugins/usage_statistics/templates/usage_statistics.html:35
 #: plugins/voice_notification/templates/voice_notification.html:100
@@ -2246,6 +2251,7 @@ msgstr "Stav"
 #: plugins/system_debug/templates/system_debug.html:41
 #: plugins/system_update/templates/system_update.html:84
 #: plugins/tank_monitor/templates/tank_monitor.html:265
+#: plugins/temperature_switch/templates/temperature_switch.html:179
 #: plugins/ups_adj/templates/ups_adj.html:237
 #: plugins/voice_notification/templates/voice_notification.html:126
 #: plugins/volt_temp_da/templates/volt_temp_da.html:81
@@ -5120,6 +5126,175 @@ msgstr "Zastavit plánovač, pokud je v nádrži minimum vody"
 #: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Reset min/max level"
 msgstr "Vymazat min/max"
+
+#: plugins/temperature_switch/__init__.py:26
+msgid "Package: Temperature Switch"
+msgstr "Balíček: Teplotní spínač"
+
+#: plugins/temperature_switch/__init__.py:99
+#: plugins/temperature_switch/templates/temperature_switch.html:3
+#: plugins/temperature_switch/templates/temperature_switch.html:19
+msgid "Temperature Switch"
+msgstr "Teplotní spínač"
+
+#: plugins/temperature_switch/__init__.py:124
+msgid ""
+"Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
+"the plugin Air Temperature and Humidity Monitor installed and set up?"
+msgstr ""
+"Nelze načíst nastavení z rozšíření Air Temperature and Humidity Monitor! Je "
+"rozšíření Air Temperature and Humidity Monitor nainstalováno a nastaveno?"
+
+#: plugins/temperature_switch/__init__.py:139
+#: plugins/temperature_switch/__init__.py:167
+#: plugins/temperature_switch/__init__.py:195
+msgid "was turned on."
+msgstr "bylo zapnuto."
+
+#: plugins/temperature_switch/__init__.py:147
+#: plugins/temperature_switch/__init__.py:175
+#: plugins/temperature_switch/__init__.py:203
+msgid "was turned off."
+msgstr "bylo vypnuto."
+
+#: plugins/temperature_switch/__init__.py:215
+msgid "Regulation A set OFF"
+msgstr "Regulace A nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:217
+msgid "Regulation A set ON"
+msgstr "Regulace A nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:221
+msgid "Regulation B set OFF"
+msgstr "Regulace B nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:223
+msgid "Regulation B set ON"
+msgstr "Regulace B nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:227
+msgid "Regulation C set OFF"
+msgstr "Regulace C nastavila VYP"
+
+#: plugins/temperature_switch/__init__.py:229
+msgid "Regulation C set ON"
+msgstr "Regulace C nastavila ZAP"
+
+#: plugins/temperature_switch/__init__.py:231
+msgid "No change"
+msgstr "Beze změny"
+
+#: plugins/temperature_switch/__init__.py:243
+msgid "Temperature Switch plug-in"
+msgstr "Rozšíření teplotní spínač"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:20
+msgid ""
+"This plugin needs enabled and corect setup the Air Temperature and Humidity "
+"Monitor. Allows regulation from DS18B20 sensors connected to the external "
+"hardware board"
+msgstr ""
+"Toto rozšíření vyžaduje povolené a správně nastavené rozšíření pro měření "
+"teploty Air Temperature and Humidity Monitor. Umožňuje regulaci A (BC) dle "
+"teplot ze senzorů DS18B20 připojených k externí hardwarové desce"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:21
+msgid "All temperatures is in degree Celsia."
+msgstr "Všechny teploty jsou ve stupních Celsia."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:25
+msgid "Enable Control A"
+msgstr "Povolit regulaci A"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:26
+msgid "If the box is checked, regulation A will be enabled."
+msgstr "Pokud je políčko zaškrtnuto, bude povolena regulace A."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:31
+#: plugins/temperature_switch/templates/temperature_switch.html:81
+#: plugins/temperature_switch/templates/temperature_switch.html:131
+msgid "Probe input for ON"
+msgstr "Vstupní čidlo pro ZAPnutí"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:47
+#: plugins/temperature_switch/templates/temperature_switch.html:82
+#: plugins/temperature_switch/templates/temperature_switch.html:97
+#: plugins/temperature_switch/templates/temperature_switch.html:132
+#: plugins/temperature_switch/templates/temperature_switch.html:147
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr "Vyberte snímač teploty (jeho název), který chcete použít."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:40
+#: plugins/temperature_switch/templates/temperature_switch.html:90
+#: plugins/temperature_switch/templates/temperature_switch.html:140
+msgid "Temperature for output ON"
+msgstr "Teplota pro zapnutí výstupu"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:41
+#: plugins/temperature_switch/templates/temperature_switch.html:91
+#: plugins/temperature_switch/templates/temperature_switch.html:141
+msgid "When this temperature is exceeded, the output will be activated."
+msgstr "Po překročení této teploty se aktivuje výstup."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:46
+#: plugins/temperature_switch/templates/temperature_switch.html:96
+#: plugins/temperature_switch/templates/temperature_switch.html:146
+msgid "Probe input for OFF"
+msgstr "Vstupní čidlo pro VYPnutí"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:55
+#: plugins/temperature_switch/templates/temperature_switch.html:105
+#: plugins/temperature_switch/templates/temperature_switch.html:155
+msgid "Temperature for output OFF"
+msgstr "Teplota pro vypnutí výstupu"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:56
+#: plugins/temperature_switch/templates/temperature_switch.html:106
+#: plugins/temperature_switch/templates/temperature_switch.html:156
+msgid "When falling below this temperature, the output will be deactivated."
+msgstr "Při poklesu pod tuto teplotu bude výstup deaktivován."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:61
+msgid "Select Output for A"
+msgstr "Vyberte výstup pro A"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:62
+msgid "Select the output you want to control with regulation A."
+msgstr "Vyberte výstup, který chcete ovládat regulací A."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:75
+msgid "Enable Control B"
+msgstr "Povolit regulaci B"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:76
+msgid "If the box is checked, regulation B will be enabled."
+msgstr "Pokud je políčko zaškrtnuto, bude povolena regulace B."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:111
+msgid "Select Output for B"
+msgstr "Vyberte výstup pro B"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:112
+msgid "Select the output you want to control with regulation B."
+msgstr "Vyberte výstup, který chcete ovládat regulací B."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:125
+msgid "Enable Control C"
+msgstr "Povolit regulaci C"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:126
+msgid "If the box is checked, regulation C will be enabled."
+msgstr "Pokud je políčko zaškrtnuto, bude povolena regulace C."
+
+#: plugins/temperature_switch/templates/temperature_switch.html:161
+msgid "Select Output for C"
+msgstr "Vyberte výstup pro C"
+
+#: plugins/temperature_switch/templates/temperature_switch.html:162
+msgid "Select the output you want to control with regulation C."
+msgstr "Vyberte výstup, který chcete ovládat regulací C."
 
 #: plugins/ups_adj/__init__.py:27
 msgid "Package: UPS Monitor"
