@@ -853,6 +853,8 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Monthly Water Level (nastavení množství vody pro jednotlivé měsíce)
 * Pressurizer (tlakování čerpadla před spuštěním programů)
 * Ping monitor (měření výpadků sítě)
+* Temperature Switch (regulátor teploty, který umožnuje 3 nezávislé zóny)
+* Pool Heating (regulace teploty bazénu dle solárního ohřevu)
 
 ----
 

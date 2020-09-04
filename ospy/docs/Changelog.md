@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 4 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+A new pool heating extension has been added to the plugins.
+
 Sept 2 2020
 -----------
 (martinpihrt)<br/>

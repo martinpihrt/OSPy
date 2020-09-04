@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-09-02 07:54+CEST\n"
-"PO-Revision-Date: 2020-09-02 08:25+0200\n"
+"POT-Creation-Date: 2020-09-04 13:45+CEST\n"
+"PO-Revision-Date: 2020-09-04 13:54+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -1276,6 +1276,7 @@ msgstr "Neurčené"
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
+#: plugins/pool_heating/templates/pool_heating.html:66
 #: plugins/pulse/templates/pulse.html:31
 #: plugins/temperature_switch/templates/temperature_switch.html:65
 #: plugins/temperature_switch/templates/temperature_switch.html:115
@@ -1420,6 +1421,7 @@ msgstr "Odoslať zmeny"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:254
+#: plugins/pool_heating/templates/pool_heating.html:81
 #: plugins/pressure_monitor/templates/pressure_monitor.html:244
 #: plugins/pressurizer/templates/pressurizer.html:83
 #: plugins/pulse/templates/pulse.html:54
@@ -2174,6 +2176,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr "Vlhkosť - hysteréza/2 < VYPNUTÉ"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:251
+#: plugins/pool_heating/templates/pool_heating.html:62
 #: plugins/pulse/templates/pulse.html:27
 msgid "Select Output"
 msgstr "Vybrať výstup"
@@ -2196,6 +2199,7 @@ msgstr "Použité DS18B20"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:36
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:244
+#: plugins/pool_heating/templates/pool_heating.html:71
 #: plugins/pressure_monitor/templates/pressure_monitor.html:234
 #: plugins/pressurizer/templates/pressurizer.html:74
 #: plugins/pulse/templates/pulse.html:42
@@ -2236,6 +2240,7 @@ msgstr "Stav"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:45
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:253
+#: plugins/pool_heating/templates/pool_heating.html:80
 #: plugins/pressure_monitor/templates/pressure_monitor.html:243
 #: plugins/pressurizer/templates/pressurizer.html:82
 #: plugins/real_time/templates/real_time.html:65
@@ -3587,6 +3592,134 @@ msgid ""
 msgstr ""
 "Keď je zapnuté zapisovanie do denníka, vytvorí sa súbor denníka (vyžaduje sa "
 "pre graf a na odosielanie e-mailov súčasne)."
+
+#: plugins/pool_heating/__init__.py:26
+msgid "Package: Pool Heating"
+msgstr "Balík: Kúrenie bazéna"
+
+#: plugins/pool_heating/__init__.py:87
+#: plugins/pool_heating/templates/pool_heating.html:3
+#: plugins/pool_heating/templates/pool_heating.html:19
+msgid "Pool Heating"
+msgstr "Vykurovanie bazéna"
+
+#: plugins/pool_heating/__init__.py:94
+msgid "Waiting to turned on or off."
+msgstr "Čaká sa na zapnutie alebo vypnutie."
+
+#: plugins/pool_heating/__init__.py:112
+#: plugins/temperature_switch/__init__.py:124
+msgid ""
+"Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
+"the plugin Air Temperature and Humidity Monitor installed and set up?"
+msgstr ""
+"Nie je možné načítať nastavenia z pluginu Monitor teploty a vlhkosti "
+"vzduchu! Je doplnok Monitor teploty a vlhkosti vzduchu nainštalovaný a "
+"nastavený?"
+
+#: plugins/pool_heating/__init__.py:127
+#: plugins/temperature_switch/__init__.py:139
+#: plugins/temperature_switch/__init__.py:167
+#: plugins/temperature_switch/__init__.py:195
+msgid "was turned on."
+msgstr "bol zapnutý."
+
+#: plugins/pool_heating/__init__.py:135
+#: plugins/temperature_switch/__init__.py:147
+#: plugins/temperature_switch/__init__.py:175
+#: plugins/temperature_switch/__init__.py:203
+msgid "was turned off."
+msgstr "bol vypnutý."
+
+#: plugins/pool_heating/__init__.py:148
+msgid "Regulation set OFF"
+msgstr "Ragulácia nastavila VYP"
+
+#: plugins/pool_heating/__init__.py:150
+msgid "Regulation set ON"
+msgstr "Ragulácia nastavila ZAP"
+
+#: plugins/pool_heating/__init__.py:152
+#: plugins/temperature_switch/__init__.py:227
+msgid "No change"
+msgstr "Bez zmeny"
+
+#: plugins/pool_heating/__init__.py:164
+msgid "Pool Heating plug-in"
+msgstr "Doplnok Vykurovanie bazéna"
+
+#: plugins/pool_heating/templates/pool_heating.html:20
+msgid ""
+"This plugin needs enabled and corect setup the Air Temperature and Humidity "
+"Monitor. Allows pool heating regulation. Reading temperature using from "
+"DS18B20 sensors connected to the external hardware board"
+msgstr ""
+"Tento plugin potrebuje povolené a corect nastavenie teploty vzduchu a "
+"vlhkosti Monitor. Umožňuje reguláciu vykurovania bazénov. Teplota čítania "
+"pomocou snímačov DS18B20 pripojených k externej hardvérovej doske"
+
+#: plugins/pool_heating/templates/pool_heating.html:21
+msgid ""
+"Example: for heating a swimming pool with a solar panel. If the temperature "
+"difference (solar panel and pool water) is higher, the output (filter pump) "
+"is switched on. If the temperature difference from the solar panel is lower "
+"than the set temperature, the output (filter pump) is switched off."
+msgstr ""
+"Príklad: na vykurovanie bazéna so solárnym panelom. Ak je teplotný rozdiel "
+"(solárny panel a bazénová voda) vyšší, zapne sa výstup (filtračné čerpadlo). "
+"Ak je teplotný rozdiel oproti solárnemu panelu nižší ako nastavená teplota, "
+"výstup (filtračné čerpadlo) sa vypne."
+
+#: plugins/pool_heating/templates/pool_heating.html:22
+msgid "All temperatures is in"
+msgstr "Všetky teploty sú v"
+
+#: plugins/pool_heating/templates/pool_heating.html:26
+msgid "Enable Control"
+msgstr "Povoliť ovládanie"
+
+#: plugins/pool_heating/templates/pool_heating.html:27
+msgid "If the box is checked, regulation will be enabled."
+msgstr "Ak je políčko začiarknuté, zapne sa regulácia."
+
+#: plugins/pool_heating/templates/pool_heating.html:32
+msgid "Probe input from swimming pool"
+msgstr "Vstup sondy z bazéna"
+
+#: plugins/pool_heating/templates/pool_heating.html:33
+#: plugins/pool_heating/templates/pool_heating.html:42
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:47
+#: plugins/temperature_switch/templates/temperature_switch.html:82
+#: plugins/temperature_switch/templates/temperature_switch.html:97
+#: plugins/temperature_switch/templates/temperature_switch.html:132
+#: plugins/temperature_switch/templates/temperature_switch.html:147
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr "Vyberte snímač teploty (jeho názov), ktorý chcete použiť."
+
+#: plugins/pool_heating/templates/pool_heating.html:41
+msgid "Probe input from Solar"
+msgstr "Vstup sondy zo solárnej energie"
+
+#: plugins/pool_heating/templates/pool_heating.html:50
+msgid "Temperature difference for ON"
+msgstr "Teplotný rozdiel pre ON"
+
+#: plugins/pool_heating/templates/pool_heating.html:51
+msgid "Temperature difference for switch ON (filtration pump)."
+msgstr "Teplotný rozdiel pre zapnutie (filtračné čerpadlo)."
+
+#: plugins/pool_heating/templates/pool_heating.html:56
+msgid "Temperature difference for OFF"
+msgstr "Teplotný rozdiel pre OFF"
+
+#: plugins/pool_heating/templates/pool_heating.html:57
+msgid "Temperature difference for switch OFF (filtration pump)."
+msgstr "Teplotný rozdiel pre vypnutie (filtračné čerpadlo)."
+
+#: plugins/pool_heating/templates/pool_heating.html:63
+msgid "Select the output you want to control with regulation."
+msgstr "Vyberte výstup, ktorý chcete ovládať pomocou regulácie."
 
 #: plugins/pressure_monitor/__init__.py:27
 msgid "Package: Pressure Monitor"
@@ -5110,27 +5243,6 @@ msgstr "Balenie: Teplotný spínač"
 msgid "Temperature Switch"
 msgstr "Teplotný spínač"
 
-#: plugins/temperature_switch/__init__.py:124
-msgid ""
-"Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
-"the plugin Air Temperature and Humidity Monitor installed and set up?"
-msgstr ""
-"Nie je možné načítať nastavenia z pluginu Monitor teploty a vlhkosti "
-"vzduchu! Je doplnok Monitor teploty a vlhkosti vzduchu nainštalovaný a "
-"nastavený?"
-
-#: plugins/temperature_switch/__init__.py:139
-#: plugins/temperature_switch/__init__.py:167
-#: plugins/temperature_switch/__init__.py:195
-msgid "was turned on."
-msgstr "bol zapnutý."
-
-#: plugins/temperature_switch/__init__.py:147
-#: plugins/temperature_switch/__init__.py:175
-#: plugins/temperature_switch/__init__.py:203
-msgid "was turned off."
-msgstr "bol vypnutý."
-
 #: plugins/temperature_switch/__init__.py:215
 msgid "Regulation A set OFF"
 msgstr "Ragulácia A nastavila VYP"
@@ -5139,27 +5251,23 @@ msgstr "Ragulácia A nastavila VYP"
 msgid "Regulation A set ON"
 msgstr "Ragulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:221
+#: plugins/temperature_switch/__init__.py:219
 msgid "Regulation B set OFF"
 msgstr "Ragulácia B nastavila VYP"
 
-#: plugins/temperature_switch/__init__.py:223
+#: plugins/temperature_switch/__init__.py:221
 msgid "Regulation B set ON"
 msgstr "Ragulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:227
+#: plugins/temperature_switch/__init__.py:223
 msgid "Regulation C set OFF"
 msgstr "Ragulácia C nastavila VYP"
 
-#: plugins/temperature_switch/__init__.py:229
+#: plugins/temperature_switch/__init__.py:225
 msgid "Regulation C set ON"
 msgstr "Ragulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:231
-msgid "No change"
-msgstr "Bez zmeny"
-
-#: plugins/temperature_switch/__init__.py:243
+#: plugins/temperature_switch/__init__.py:239
 msgid "Temperature Switch plug-in"
 msgstr "Doplnok teplotný spínač"
 
@@ -5190,15 +5298,6 @@ msgstr "Ak je políčko začiarknuté, zapne sa ovládanie A."
 #: plugins/temperature_switch/templates/temperature_switch.html:131
 msgid "Probe input for ON"
 msgstr "Vstup pre ZAP"
-
-#: plugins/temperature_switch/templates/temperature_switch.html:32
-#: plugins/temperature_switch/templates/temperature_switch.html:47
-#: plugins/temperature_switch/templates/temperature_switch.html:82
-#: plugins/temperature_switch/templates/temperature_switch.html:97
-#: plugins/temperature_switch/templates/temperature_switch.html:132
-#: plugins/temperature_switch/templates/temperature_switch.html:147
-msgid "Select the temperature sensor (its name) you want to use."
-msgstr "Vyberte snímač teploty (jeho názov), ktorý chcete použiť."
 
 #: plugins/temperature_switch/templates/temperature_switch.html:40
 #: plugins/temperature_switch/templates/temperature_switch.html:90

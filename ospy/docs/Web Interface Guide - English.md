@@ -801,6 +801,8 @@ Available plug-ins:
 * Monthly Water Level
 * Pressurizer
 * Ping monitor
+* Temperature Switch
+* Pool Heating
 
 ----
 

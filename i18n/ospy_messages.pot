@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-09-02 07:54+CEST\n"
+"POT-Creation-Date: 2020-09-04 13:45+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1227,6 +1227,7 @@ msgstr ""
 #: ospy/templates/options.html:142 ospy/templates/options.html:155
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:255
+#: plugins/pool_heating/templates/pool_heating.html:66
 #: plugins/pulse/templates/pulse.html:31
 #: plugins/temperature_switch/templates/temperature_switch.html:65
 #: plugins/temperature_switch/templates/temperature_switch.html:115
@@ -1368,6 +1369,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:254
+#: plugins/pool_heating/templates/pool_heating.html:81
 #: plugins/pressure_monitor/templates/pressure_monitor.html:244
 #: plugins/pressurizer/templates/pressurizer.html:83
 #: plugins/pulse/templates/pulse.html:54
@@ -2060,6 +2062,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:251
+#: plugins/pool_heating/templates/pool_heating.html:62
 #: plugins/pulse/templates/pulse.html:27
 msgid "Select Output"
 msgstr ""
@@ -2082,6 +2085,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:36
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:244
+#: plugins/pool_heating/templates/pool_heating.html:71
 #: plugins/pressure_monitor/templates/pressure_monitor.html:234
 #: plugins/pressurizer/templates/pressurizer.html:74
 #: plugins/pulse/templates/pulse.html:42
@@ -2122,6 +2126,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:45
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:253
+#: plugins/pool_heating/templates/pool_heating.html:80
 #: plugins/pressure_monitor/templates/pressure_monitor.html:243
 #: plugins/pressurizer/templates/pressurizer.html:82
 #: plugins/real_time/templates/real_time.html:65
@@ -3342,6 +3347,115 @@ msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:240
 msgid "When logging is enabled, a log file is created (required for the graph and for sending an e-mail at the same time)."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:26
+msgid "Package: Pool Heating"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:87
+#: plugins/pool_heating/templates/pool_heating.html:3
+#: plugins/pool_heating/templates/pool_heating.html:19
+msgid "Pool Heating"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:94
+msgid "Waiting to turned on or off."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:112
+#: plugins/temperature_switch/__init__.py:124
+msgid "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is the plugin Air Temperature and Humidity Monitor installed and set up?"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:127
+#: plugins/temperature_switch/__init__.py:139
+#: plugins/temperature_switch/__init__.py:167
+#: plugins/temperature_switch/__init__.py:195
+msgid "was turned on."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:135
+#: plugins/temperature_switch/__init__.py:147
+#: plugins/temperature_switch/__init__.py:175
+#: plugins/temperature_switch/__init__.py:203
+msgid "was turned off."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:148
+msgid "Regulation set OFF"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:150
+msgid "Regulation set ON"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:152
+#: plugins/temperature_switch/__init__.py:227
+msgid "No change"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:164
+msgid "Pool Heating plug-in"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:20
+msgid "This plugin needs enabled and corect setup the Air Temperature and Humidity Monitor. Allows pool heating regulation. Reading temperature using from DS18B20 sensors connected to the external hardware board"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:21
+msgid "Example: for heating a swimming pool with a solar panel. If the temperature difference (solar panel and pool water) is higher, the output (filter pump) is switched on. If the temperature difference from the solar panel is lower than the set temperature, the output (filter pump) is switched off."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:22
+msgid "All temperatures is in"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:26
+msgid "Enable Control"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:27
+msgid "If the box is checked, regulation will be enabled."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:32
+msgid "Probe input from swimming pool"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:33
+#: plugins/pool_heating/templates/pool_heating.html:42
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:47
+#: plugins/temperature_switch/templates/temperature_switch.html:82
+#: plugins/temperature_switch/templates/temperature_switch.html:97
+#: plugins/temperature_switch/templates/temperature_switch.html:132
+#: plugins/temperature_switch/templates/temperature_switch.html:147
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:41
+msgid "Probe input from Solar"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:50
+msgid "Temperature difference for ON"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:51
+msgid "Temperature difference for switch ON (filtration pump)."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:56
+msgid "Temperature difference for OFF"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:57
+msgid "Temperature difference for switch OFF (filtration pump)."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:63
+msgid "Select the output you want to control with regulation."
 msgstr ""
 
 #: plugins/pressure_monitor/__init__.py:27
@@ -4726,22 +4840,6 @@ msgstr ""
 msgid "Temperature Switch"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:124
-msgid "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is the plugin Air Temperature and Humidity Monitor installed and set up?"
-msgstr ""
-
-#: plugins/temperature_switch/__init__.py:139
-#: plugins/temperature_switch/__init__.py:167
-#: plugins/temperature_switch/__init__.py:195
-msgid "was turned on."
-msgstr ""
-
-#: plugins/temperature_switch/__init__.py:147
-#: plugins/temperature_switch/__init__.py:175
-#: plugins/temperature_switch/__init__.py:203
-msgid "was turned off."
-msgstr ""
-
 #: plugins/temperature_switch/__init__.py:215
 msgid "Regulation A set OFF"
 msgstr ""
@@ -4750,27 +4848,23 @@ msgstr ""
 msgid "Regulation A set ON"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:221
+#: plugins/temperature_switch/__init__.py:219
 msgid "Regulation B set OFF"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:223
+#: plugins/temperature_switch/__init__.py:221
 msgid "Regulation B set ON"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:227
+#: plugins/temperature_switch/__init__.py:223
 msgid "Regulation C set OFF"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:229
+#: plugins/temperature_switch/__init__.py:225
 msgid "Regulation C set ON"
 msgstr ""
 
-#: plugins/temperature_switch/__init__.py:231
-msgid "No change"
-msgstr ""
-
-#: plugins/temperature_switch/__init__.py:243
+#: plugins/temperature_switch/__init__.py:239
 msgid "Temperature Switch plug-in"
 msgstr ""
 
@@ -4794,15 +4888,6 @@ msgstr ""
 #: plugins/temperature_switch/templates/temperature_switch.html:81
 #: plugins/temperature_switch/templates/temperature_switch.html:131
 msgid "Probe input for ON"
-msgstr ""
-
-#: plugins/temperature_switch/templates/temperature_switch.html:32
-#: plugins/temperature_switch/templates/temperature_switch.html:47
-#: plugins/temperature_switch/templates/temperature_switch.html:82
-#: plugins/temperature_switch/templates/temperature_switch.html:97
-#: plugins/temperature_switch/templates/temperature_switch.html:132
-#: plugins/temperature_switch/templates/temperature_switch.html:147
-msgid "Select the temperature sensor (its name) you want to use."
 msgstr ""
 
 #: plugins/temperature_switch/templates/temperature_switch.html:40
