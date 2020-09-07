@@ -3,7 +3,7 @@ OSPy Průvodce webovým rozhraním v češtině
 
     Přihlásit se
     Domácí stránka
-        Normální - Hladina vody
+        Normální - % doby programu
         Aktivní - Zpoždění při dešti
         Plánovač - Ručně
         Povoleno - Zakázáno
@@ -194,6 +194,9 @@ OSPy Průvodce webovým rozhraním v češtině
             Humidity Monitor
             Monthly Water Level
             Pressurizer
+            Ping monitor
+            Temperature Switch
+            Pool Heating
     Odhlásit se
 
 ----
@@ -221,8 +224,8 @@ Domovská stránka je hlavním ovládacím centrem webového rozhraní. To zahrn
 * Zápatí, které je přítomno na všech stránkách (pokud je přihlášený uživatel). Zápatí obsahuje: Teplota procesoru, Využití procesoru, Verze softwaru, Externí IP adresa, Doba provozu OS.
 
 
-## Normální - Hladina vody
-Tlačítko, které umožňuje nastavit „hladinu vody“ jako celkové procento doby běhu pro všechny zavlažovací programy.
+## Normální - % doby programu
+Tlačítko, které umožňuje nastavit „hladinu vody“ jako celkové procento doby běhu pro všechny zavlažovací programy (u programů prodloužit, nebo zkrátit jejich nastavenou dobu).
 
 ## Aktivní - Zpoždění při dešti
 Zpoždění při dešti. Tlačítko, které umožňuje na zadanou dobu pozastavení zavlažování pro všechny stanice kromě těch, které byly nastaveny tak, aby ignorovaly déšť na stránce Stanice.

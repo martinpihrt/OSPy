@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 7 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added option to stop the scheduler in the water tank plugin if the correct value is not returned from the sensor (must > 0). OSPy Language fix in cz string.
+
 Sept 4 2020
 -----------
 (martinpihrt)<br/>

@@ -194,6 +194,9 @@ OSPy Web Interface Guide in English
             Humidity Monitor
             Monthly Water Level
             Pressurizer
+            Ping monitor
+            Temperature Switch
+            Pool Heating            
     Logging out
 
 ----
