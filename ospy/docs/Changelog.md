@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 9 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Changes in wind monitor plugin. OSPy Language fix in cz string.
+
 Sept 7 2020
 -----------
 (martinpihrt)<br/>
