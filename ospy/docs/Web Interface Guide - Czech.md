@@ -133,7 +133,8 @@ OSPy Průvodce webovým rozhraním v češtině
             Stáhnout
             Nahrát
         Certifikát SSL
-            Nahrát            
+            Nahrát  
+            Generovat          
     Stanice
         Stanice 
         Jméno
@@ -569,6 +570,7 @@ Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTP
 ```bash
 sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
 ```
+Druhý způsob je pomocí tlačítka "generovat" v záložce SSL certifikát.
 
 ### Bez hesla
 Pokud je zaškrtnuté políčko "Bez hesla" povolíme přístup do systému anonymním uživatelům bez hesla.
@@ -680,6 +682,9 @@ Tlačítko "Nahrát" umožňuje vložit a obnovit systém OSPy ze zálohy, nebo 
 
 ## Certifikát SSL
 Pokud máme svůj vlastní certifikát pro SSL (https) zabezpečení (fullchain.pem a privkey.pem) můžeme ho zde pomocí formuláře nahrát.
+
+## Generovat
+Pokud chceme vygenerovat SSL certifikát, stiskneme tlačítko "generovat". Do adresáře ssl se vygeneruje certifikát. Následně v nastavení/bezpečnost zaškrtneme možnost "vlastní HTTPS" a následně restartujeme OSPy.
 
 ### Nahrát
 Tlačítko "Nahrát" odešle do složky ssl v adresáři OSPy přiložené soubory (fullchain.pem a privkey.pem).

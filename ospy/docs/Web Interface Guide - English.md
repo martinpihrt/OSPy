@@ -133,7 +133,8 @@ OSPy Web Interface Guide in English
             Download
             Upload 
         SSL certificate
-            Upload            
+            Upload    
+            Generate        
     Stations page
         Station 
         Name
@@ -549,6 +550,8 @@ For manual generating certificate example:
 sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
 ```
 
+The second way is to use the "generate" button in the SSL certificate tab.
+
 ### Disable security
 Leave the Disable security box unchecked unless you have a very good reason to disable password protection.
 
@@ -658,6 +661,9 @@ The Upload button allows you to insert and restore OSPy system (for example, whe
 
 ## SSL Certificate
 If we have our own SSL (https) security certificate (fullchain.pem and privkey.pem) we can upload it here using the form.
+
+## Generate
+If we want to generate an SSL certificate, press the "generate" button. A certificate is generated in the ssl directory. Then in the settings/security we check the "own HTTPS" option and then restart the OSPy.
 
 ### Upload
 The "Upload" button sends the attached files (fullchain.pem and privkey.pem) to the ssl folder in the OSPy directory.

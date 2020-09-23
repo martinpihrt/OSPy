@@ -760,10 +760,12 @@ class upload_page_SSL(ProtectedPage):
             try:
                 print_report('webpages.py', _('Try-ing generating SSL certificate...'))
                 log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
+
                 from OpenSSL import crypto, SSL  
                 # openssl version # sudo apt-get install openssl
                 from socket import gethostname
                 from time import gmtime, mktime
+                import random
   
                 # create a key pair
                 k = crypto.PKey()
@@ -771,13 +773,14 @@ class upload_page_SSL(ProtectedPage):
  
                 # create a self-signed cert
                 cert = crypto.X509()
-                cert.get_subject().C = ".."               # your country
-                cert.get_subject().ST = ".."              # your state
-                cert.get_subject().L = ".."               # location 
-                cert.get_subject().O = "OSPy"             # organization
+                cert.get_subject().C = "EU"               # your country
+                cert.get_subject().ST = "Czechia"         # your state
+                cert.get_subject().L = "Prague"           # location 
+                cert.get_subject().O = "OSPy sprinkler"   # organization
                 cert.get_subject().OU = "pihrt.com"       # this field is the name of the department or organization unit making the request
-                cert.get_subject().CN = gethostname()
-                cert.set_serial_number(1000)
+                cert.get_subject().CN = gethostname()     # common name
+                cert.get_subject().emailAddress = "admin@pihrt.com" # e-mail
+                cert.set_serial_number(random.randint(1000, 1000000))
                 cert.gmtime_adj_notBefore(0)
                 cert.gmtime_adj_notAfter(10*365*24*60*60)
                 cert.set_issuer(cert.get_subject())
@@ -786,6 +789,9 @@ class upload_page_SSL(ProtectedPage):
 
                 open(OPTIONS_FILE_FULL, "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
                 open(OPTIONS_FILE_PRIV, "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+
+                print_report('webpages.py', _('OK'))
+                log.debug('webpages.py', _('OK'))
 
                 errorCode = "pw_generateSSLOK"
                 return self.core_render.options(errorCode)
