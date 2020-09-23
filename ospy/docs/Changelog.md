@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 23 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added "generate" buton in "options SSL certificate" for own SSL certificate generating. OSPy Language fix in cz string. Fix 24 hour reseting max speed in wind speed monitor.
+
 Sept 9 2020
 -----------
 (martinpihrt)<br/>

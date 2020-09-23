@@ -9,10 +9,11 @@ import json
 import web
 import ast
 from threading import Timer
+import traceback
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
 from ospy.inputs import inputs
 from ospy.log import log, logEM
 from ospy.options import options
@@ -612,7 +613,7 @@ class options_page(ProtectedPage):
                 restart()                   # restart OSPy software
                 return self.core_render.restarting(home_page)
             except:
-                pass 
+                pass           
 
         report_option_change()
         raise web.seeother('/')
@@ -750,8 +751,52 @@ class upload_page_SSL(ProtectedPage):
         raise web.seeother('/')
 
     def POST(self):
-        OPTIONS_FILE_FULL = './ssl/fullchain.pem'
-        OPTIONS_FILE_PRIV = './ssl/privkey.pem'
+        SSL_FOLDER = './ssl'
+        OPTIONS_FILE_FULL = SSL_FOLDER + '/fullchain.pem' # cert file
+        OPTIONS_FILE_PRIV = SSL_FOLDER + '/privkey.pem'   # key file
+
+        qdict = web.input()
+        if 'generate' in qdict and qdict['generate'] == '1':   # generating own SSL certificate to ssl folder
+            try:
+                print_report('webpages.py', _('Try-ing generating SSL certificate...'))
+                log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
+                from OpenSSL import crypto, SSL  
+                # openssl version # sudo apt-get install openssl
+                from socket import gethostname
+                from time import gmtime, mktime
+  
+                # create a key pair
+                k = crypto.PKey()
+                k.generate_key(crypto.TYPE_RSA, 2048)
+ 
+                # create a self-signed cert
+                cert = crypto.X509()
+                cert.get_subject().C = ".."               # your country
+                cert.get_subject().ST = ".."              # your state
+                cert.get_subject().L = ".."               # location 
+                cert.get_subject().O = "OSPy"             # organization
+                cert.get_subject().OU = "pihrt.com"       # this field is the name of the department or organization unit making the request
+                cert.get_subject().CN = gethostname()
+                cert.set_serial_number(1000)
+                cert.gmtime_adj_notBefore(0)
+                cert.gmtime_adj_notAfter(10*365*24*60*60)
+                cert.set_issuer(cert.get_subject())
+                cert.set_pubkey(k)
+                cert.sign(k, 'sha256')
+
+                open(OPTIONS_FILE_FULL, "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+                open(OPTIONS_FILE_PRIV, "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+
+                errorCode = "pw_generateSSLOK"
+                return self.core_render.options(errorCode)
+
+            except Exception:
+                pass     
+                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
+                errorCode = "pw_generateSSLERR"
+                return self.core_render.options(errorCode)
+
         i = web.input(uploadfile={})
         try:
             if i.uploadfile.filename == 'fullchain.pem' or i.uploadfile.filename == 'privkey.pem':

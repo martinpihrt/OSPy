@@ -29,7 +29,7 @@ $code:
 
      jQuery("#cUploadSSL").click(function() {
         jQuery("#uploadFormSSL").submit();
-    });     
+    });    
 
     jQuery(".collapsible h4").click(function(event){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -55,7 +55,11 @@ $code:
         jQuery("form[name='of']").submit();
     });
 
-         
+    jQuery("button#cGenerate").click(function(){
+        jQuery("input[name='generate']").val(1);
+        jQuery("form[name='of4']").submit();
+    });    
+
     switch (errorCode) {
         case "pw_wrong":
             jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False).encode('utf8')});
@@ -80,7 +84,15 @@ $code:
         case "pw_filenameSSLOK":
             jQuery("#errorfnssl").text($:{json.dumps(_("File has uploaded."), ensure_ascii=False).encode('utf8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
-            break;       
+            break;  
+        case "pw_generateSSLOK":
+            jQuery("#errorfnssl").text($:{json.dumps(_("SSL certificate has generated. Tick own HTTPS in options and restart OSPy."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;  
+        case "pw_generateSSLERR":
+            jQuery("#errorfnssl").text($:{json.dumps(_("Error: SSL certificate has not generated!"), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;                           
     }
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -242,9 +254,18 @@ $code:
         output += "<div class='option'>"
         output += "<span class='label'>" + _('Upload SSL files') + ":</span>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' /><br>\n "
-        output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
-        output += "<span class='inputError' id='errorfnssl'></span>\n"
-        output += "</div></form>\n"
+        output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False) + ">" + _('Upload') + "</a>"
+        output += "<span class='tooltip'>" + _('Upload SSL file.') + "</span>\n"
+        output += "</form>"
+
+        output += "<form id='GenerateSSL' name='of4' action='uploadSSL' method=\"post\">\n"
+        output += "&nbsp;<button id='cGenerate' class='reboot danger' title=" + json.dumps(_('Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder'), ensure_ascii=False) + ">" + _('Generate') + "</button>"
+        output += "<span class='tooltip'>" + _('Generate own SSL certificat.') + "</span>\n"
+        output += "<br><span class='inputError' id='errorfnssl'></span>\n"
+        output += "</div>\n"
+        output += "<input type=\"hidden\" name=\"generate\" value=\"0\">"
+        output += "</form>"
+
         output += categoryCloser        
     $:{output}
     
