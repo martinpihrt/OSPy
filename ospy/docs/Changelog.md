@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Sept 27 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added "Regulate the maximum water level" into tank monitor plugin. Added czech strings into language.
+
 Sept 23 2020
 -----------
 (martinpihrt)<br/>
