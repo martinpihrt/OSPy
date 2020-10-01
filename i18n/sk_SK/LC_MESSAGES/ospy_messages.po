@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-09-23 13:19+CEST\n"
-"PO-Revision-Date: 2020-09-30 13:38+0200\n"
+"POT-Creation-Date: 2020-10-01 21:23+CEST\n"
+"PO-Revision-Date: 2020-10-01 21:29+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -1105,7 +1105,7 @@ msgstr "načítava sa..."
 #: plugins/air_temp_humi/templates/air_temp_humi.html:344
 #: plugins/ping_monitor/templates/ping_monitor.html:265
 #: plugins/pressure_monitor/templates/pressure_monitor.html:255
-#: plugins/tank_monitor/templates/tank_monitor.html:284
+#: plugins/tank_monitor/templates/tank_monitor.html:334
 #: plugins/ups_adj/templates/ups_adj.html:249
 #: plugins/wind_monitor/templates/wind_monitor.html:305
 msgid "Clear selection"
@@ -1289,7 +1289,9 @@ msgstr "Neurčené"
 #: plugins/air_temp_humi/__init__.py:152
 #: plugins/air_temp_humi/templates/air_temp_humi.html:256
 #: plugins/pool_heating/templates/pool_heating.html:66
-#: plugins/pulse/templates/pulse.html:31
+#: plugins/pulse/templates/pulse.html:31 plugins/tank_monitor/__init__.py:158
+#: plugins/tank_monitor/__init__.py:164
+#: plugins/tank_monitor/templates/tank_monitor.html:268
 #: plugins/temperature_switch/templates/temperature_switch.html:65
 #: plugins/temperature_switch/templates/temperature_switch.html:115
 #: plugins/temperature_switch/templates/temperature_switch.html:165
@@ -1466,7 +1468,7 @@ msgstr "Odoslať zmeny"
 #: plugins/system_info/templates/system_info.html:30
 #: plugins/system_update/templates/system_update.html:90
 #: plugins/system_watchdog/templates/system_watchdog.html:57
-#: plugins/tank_monitor/templates/tank_monitor.html:273
+#: plugins/tank_monitor/templates/tank_monitor.html:323
 #: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/usage_statistics/templates/usage_statistics.html:44
@@ -1975,27 +1977,32 @@ msgstr ""
 msgid "Try-ing generating SSL certificate..."
 msgstr "Pokus o generovanie SSL certifikátu..."
 
-#: ospy/webpages.py:807
+#: ospy/webpages.py:793 ospy/webpages.py:794 plugins/mqtt/__init__.py:247
+#: plugins/ups_adj/__init__.py:110 plugins/ups_adj/__init__.py:365
+msgid "OK"
+msgstr "V poriadku"
+
+#: ospy/webpages.py:813
 msgid "Remove fullchain.pem..."
 msgstr "Odstrániť fullchain.pem ..."
 
-#: ospy/webpages.py:811
+#: ospy/webpages.py:817
 msgid "Remove privkey.pem..."
 msgstr "Odstrániť privkey.pem..."
 
-#: ospy/webpages.py:817
+#: ospy/webpages.py:823
 msgid "Upload SSL file %s"
 msgstr "Nahratý súbor SSL %s"
 
-#: ospy/webpages.py:966
+#: ospy/webpages.py:972
 msgid "Label not set"
 msgstr "Popis nieje nastavený"
 
-#: ospy/webpages.py:979 ospy/webpages.py:1045
+#: ospy/webpages.py:985 ospy/webpages.py:1051
 msgid "Value not set"
 msgstr "Hodnota nie je nastavená"
 
-#: ospy/webpages.py:991 ospy/webpages.py:1032
+#: ospy/webpages.py:997 ospy/webpages.py:1038
 msgid "Unit not set"
 msgstr "Jednotka nie je nastavená"
 
@@ -2054,7 +2061,7 @@ msgid "Saving to log files OK"
 msgstr "Ukladanie do denníka súborov OK"
 
 #: plugins/air_temp_humi/__init__.py:493 plugins/ping_monitor/__init__.py:343
-#: plugins/tank_monitor/__init__.py:469 plugins/wind_monitor/__init__.py:519
+#: plugins/tank_monitor/__init__.py:504 plugins/wind_monitor/__init__.py:519
 msgid "Deleted all log files OK"
 msgstr "Odstránené všetky súbory denníka OK"
 
@@ -2127,7 +2134,7 @@ msgstr "Povolte doplnok a potom povolte dht, ds18b20 a zapisovanie do denníka"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:193
 #: plugins/ping_monitor/templates/ping_monitor.html:240
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
-#: plugins/tank_monitor/templates/tank_monitor.html:245
+#: plugins/tank_monitor/templates/tank_monitor.html:278
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
 #: plugins/wind_monitor/templates/wind_monitor.html:248
@@ -2136,7 +2143,7 @@ msgstr "Povoliť záznam do denníka"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:199
 #: plugins/pressure_monitor/templates/pressure_monitor.html:228
-#: plugins/tank_monitor/templates/tank_monitor.html:251
+#: plugins/tank_monitor/templates/tank_monitor.html:284
 #: plugins/ups_adj/templates/ups_adj.html:221
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
 #: plugins/wind_monitor/templates/wind_monitor.html:266
@@ -2145,7 +2152,7 @@ msgstr "Maximálny počet záznamov denníka"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:201
 #: plugins/pressure_monitor/templates/pressure_monitor.html:230
-#: plugins/tank_monitor/templates/tank_monitor.html:253
+#: plugins/tank_monitor/templates/tank_monitor.html:286
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
 #: plugins/wind_monitor/templates/wind_monitor.html:267
@@ -2153,14 +2160,14 @@ msgid "0 = unlimited"
 msgstr "0 = neobmedzené"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:205
-#: plugins/tank_monitor/templates/tank_monitor.html:257
+#: plugins/tank_monitor/templates/tank_monitor.html:290
 #: plugins/volt_temp_da/templates/volt_temp_da.html:53
 #: plugins/wind_monitor/templates/wind_monitor.html:272
 msgid "Interval for logging"
 msgstr "Interval pre záznam"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:207
-#: plugins/tank_monitor/templates/tank_monitor.html:259
+#: plugins/tank_monitor/templates/tank_monitor.html:292
 #: plugins/volt_temp_da/templates/volt_temp_da.html:55
 msgid "minutes (Minimum is 1)"
 msgstr "minút (minimálne 1)"
@@ -2241,7 +2248,7 @@ msgstr "Počet DS18B20"
 #: plugins/system_info/templates/system_info.html:21
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/system_watchdog/templates/system_watchdog.html:38
-#: plugins/tank_monitor/templates/tank_monitor.html:263
+#: plugins/tank_monitor/templates/tank_monitor.html:313
 #: plugins/temperature_switch/templates/temperature_switch.html:170
 #: plugins/ups_adj/templates/ups_adj.html:227
 #: plugins/usage_statistics/templates/usage_statistics.html:35
@@ -2279,7 +2286,7 @@ msgstr "Stav"
 #: plugins/sms_adj/templates/sms_adj.html:116
 #: plugins/system_debug/templates/system_debug.html:41
 #: plugins/system_update/templates/system_update.html:84
-#: plugins/tank_monitor/templates/tank_monitor.html:272
+#: plugins/tank_monitor/templates/tank_monitor.html:322
 #: plugins/temperature_switch/templates/temperature_switch.html:179
 #: plugins/ups_adj/templates/ups_adj.html:237
 #: plugins/voice_notification/templates/voice_notification.html:126
@@ -2297,7 +2304,7 @@ msgstr "Odoslať"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:335
 #: plugins/ping_monitor/templates/ping_monitor.html:256
 #: plugins/pressure_monitor/templates/pressure_monitor.html:246
-#: plugins/tank_monitor/templates/tank_monitor.html:275
+#: plugins/tank_monitor/templates/tank_monitor.html:325
 #: plugins/ups_adj/templates/ups_adj.html:240
 #: plugins/wind_monitor/templates/wind_monitor.html:296
 msgid "Delete all logs"
@@ -2604,40 +2611,42 @@ msgstr "Úroveň"
 
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:130 plugins/tank_monitor/__init__.py:132
-#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:135
-#: plugins/tank_monitor/__init__.py:136 plugins/tank_monitor/__init__.py:137
-#: plugins/tank_monitor/__init__.py:138 plugins/tank_monitor/__init__.py:185
-#: plugins/tank_monitor/__init__.py:200 plugins/tank_monitor/__init__.py:201
-#: plugins/tank_monitor/__init__.py:235 plugins/tank_monitor/__init__.py:236
+#: plugins/tank_monitor/__init__.py:140 plugins/tank_monitor/__init__.py:142
+#: plugins/tank_monitor/__init__.py:143 plugins/tank_monitor/__init__.py:145
+#: plugins/tank_monitor/__init__.py:146 plugins/tank_monitor/__init__.py:147
+#: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:218
+#: plugins/tank_monitor/__init__.py:233 plugins/tank_monitor/__init__.py:234
+#: plugins/tank_monitor/__init__.py:268 plugins/tank_monitor/__init__.py:269
 #: plugins/tank_monitor/templates/tank_monitor.html:188
 #: plugins/tank_monitor/templates/tank_monitor.html:194
 #: plugins/tank_monitor/templates/tank_monitor.html:200
 #: plugins/tank_monitor/templates/tank_monitor.html:213
+#: plugins/tank_monitor/templates/tank_monitor.html:254
+#: plugins/tank_monitor/templates/tank_monitor.html:260
 msgid "cm"
 msgstr "cm"
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:136
+#: plugins/tank_monitor/__init__.py:143 plugins/tank_monitor/__init__.py:146
 msgid "Ping"
 msgstr "Ping"
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:160
-#: plugins/tank_monitor/__init__.py:133 plugins/tank_monitor/__init__.py:136
-#: plugins/tank_monitor/__init__.py:460 plugins/tank_monitor/__init__.py:588
+#: plugins/tank_monitor/__init__.py:143 plugins/tank_monitor/__init__.py:146
+#: plugins/tank_monitor/__init__.py:495 plugins/tank_monitor/__init__.py:657
 msgid "Volume"
 msgstr "Objem"
 
 #: plugins/email_notifications/__init__.py:158
-#: plugins/tank_monitor/__init__.py:132 plugins/tank_monitor/__init__.py:133
+#: plugins/tank_monitor/__init__.py:142 plugins/tank_monitor/__init__.py:143
 msgid "liters"
 msgstr "litre"
 
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
-#: plugins/tank_monitor/__init__.py:135 plugins/tank_monitor/__init__.py:136
+#: plugins/tank_monitor/__init__.py:145 plugins/tank_monitor/__init__.py:146
 msgid "m3"
 msgstr "m3"
 
@@ -3129,11 +3138,6 @@ msgstr "Chyba, skúste nainštalovať paho-mqtt manuálne."
 msgid "Connecting to broker"
 msgstr "Pripojenie k maklérovi"
 
-#: plugins/mqtt/__init__.py:247 plugins/ups_adj/__init__.py:110
-#: plugins/ups_adj/__init__.py:365
-msgid "OK"
-msgstr "V poriadku"
-
 #: plugins/mqtt/__init__.py:251
 msgid "MQTT plugin couldnot initalize client"
 msgstr "Doplnok MQTT nemohl inicializovat klienta"
@@ -3472,7 +3476,7 @@ msgid "Ping monitor is disabled."
 msgstr "Doplnok ping monitor je zakázaný."
 
 #: plugins/ping_monitor/__init__.py:408 plugins/pressurizer/__init__.py:219
-#: plugins/tank_monitor/__init__.py:533 plugins/wind_monitor/__init__.py:538
+#: plugins/tank_monitor/__init__.py:570 plugins/wind_monitor/__init__.py:538
 msgid "Options has updated."
 msgstr "Nastavenie bolo aktualizované."
 
@@ -3587,6 +3591,8 @@ msgstr "Pošlite súbor CSV so štatistikami prostredníctvom e-mailu."
 
 #: plugins/ping_monitor/templates/ping_monitor.html:217
 #: plugins/pressure_monitor/templates/pressure_monitor.html:195
+#: plugins/tank_monitor/templates/tank_monitor.html:224
+#: plugins/tank_monitor/templates/tank_monitor.html:230
 #: plugins/ups_adj/templates/ups_adj.html:188
 msgid "For this function required E-mail plugin"
 msgstr "Pre túto funkciu je potrebný doplnok pre E-mail"
@@ -3820,7 +3826,7 @@ msgid "ACTIVE"
 msgstr "AKTÍVNY"
 
 #: plugins/pressure_monitor/__init__.py:303
-#: plugins/tank_monitor/__init__.py:449 plugins/ups_adj/__init__.py:305
+#: plugins/tank_monitor/__init__.py:484 plugins/ups_adj/__init__.py:305
 #: plugins/wind_monitor/__init__.py:457
 msgid "Saving to log  files OK"
 msgstr "Ukladanie do denníka udalostí OK"
@@ -5019,8 +5025,6 @@ msgid "Send E-mail if update is available"
 msgstr "Odoslať e-mail, ak je k dispozícii aktualizácia"
 
 #: plugins/system_update/templates/system_update.html:63
-#: plugins/tank_monitor/templates/tank_monitor.html:224
-#: plugins/tank_monitor/templates/tank_monitor.html:230
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
 #: plugins/wind_monitor/templates/wind_monitor.html:204
 msgid "For this function required email plugin"
@@ -5124,85 +5128,97 @@ msgstr "Zastaviť Watchdog"
 msgid "Start Watchdog Service"
 msgstr "Spustiť Watchdog"
 
-#: plugins/tank_monitor/__init__.py:32
+#: plugins/tank_monitor/__init__.py:33
 msgid "Package: Water Tank Monitor"
 msgstr "Balík: Monitor nádrže na vodu"
 
-#: plugins/tank_monitor/__init__.py:45
+#: plugins/tank_monitor/__init__.py:46
 msgid "Report from OSPy TANK plugin"
 msgstr "Hlásenie z OSPy nádrž s vodou"
 
-#: plugins/tank_monitor/__init__.py:105
+#: plugins/tank_monitor/__init__.py:110
+msgid "Regulation NONE."
+msgstr "Ragulácia nepoužito."
+
+#: plugins/tank_monitor/__init__.py:115
 msgid "Tank"
 msgstr "Nádrž"
 
-#: plugins/tank_monitor/__init__.py:112 plugins/tank_monitor/__init__.py:528
+#: plugins/tank_monitor/__init__.py:122 plugins/tank_monitor/__init__.py:565
 msgid "Water tank monitor is enabled."
 msgstr "Monitor vodnej nádrže je povolené."
 
-#: plugins/tank_monitor/__init__.py:130
+#: plugins/tank_monitor/__init__.py:140
 msgid "Water level"
 msgstr "Hladina vody"
 
-#: plugins/tank_monitor/__init__.py:137 plugins/tank_monitor/__init__.py:200
+#: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:233
 msgid "Maximum Water level"
 msgstr "Maximálna hladina vody"
 
-#: plugins/tank_monitor/__init__.py:138 plugins/tank_monitor/__init__.py:201
+#: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:234
 msgid "Minimum Water level"
 msgstr "Minimálna hladina vody"
 
-#: plugins/tank_monitor/__init__.py:185
+#: plugins/tank_monitor/__init__.py:158
+msgid "Regulation set ON."
+msgstr "Ragulácia nastavila ZAP."
+
+#: plugins/tank_monitor/__init__.py:164
+msgid "Regulation set OFF."
+msgstr "Ragulácia nastavila VYP."
+
+#: plugins/tank_monitor/__init__.py:218
 msgid "ERROR: Water in Tank"
 msgstr "Chyba: Nádrž s vodou"
 
-#: plugins/tank_monitor/__init__.py:197 plugins/ups_adj/__init__.py:112
+#: plugins/tank_monitor/__init__.py:230 plugins/ups_adj/__init__.py:112
 #: plugins/ups_adj/__init__.py:367
 msgid "FAULT"
 msgstr "CHYBA"
 
-#: plugins/tank_monitor/__init__.py:199
+#: plugins/tank_monitor/__init__.py:232
 msgid "Water level: Error."
 msgstr "Hladina vody: Chyba."
 
-#: plugins/tank_monitor/__init__.py:209
+#: plugins/tank_monitor/__init__.py:242
 msgid "ERROR: Water probe has fault?"
 msgstr "CHYBA: Vodná sonda má chybu?"
 
-#: plugins/tank_monitor/__init__.py:211 plugins/tank_monitor/__init__.py:212
+#: plugins/tank_monitor/__init__.py:244 plugins/tank_monitor/__init__.py:245
 msgid "System detected error: Water probe has fault?"
 msgstr "Systém zistil chybu: Vodná sonda má chybu?"
 
-#: plugins/tank_monitor/__init__.py:211 plugins/tank_monitor/__init__.py:212
-#: plugins/tank_monitor/__init__.py:218 plugins/tank_monitor/__init__.py:235
-#: plugins/tank_monitor/__init__.py:236 plugins/tank_monitor/__init__.py:243
-#: plugins/tank_monitor/__init__.py:248
+#: plugins/tank_monitor/__init__.py:244 plugins/tank_monitor/__init__.py:245
+#: plugins/tank_monitor/__init__.py:251 plugins/tank_monitor/__init__.py:268
+#: plugins/tank_monitor/__init__.py:269 plugins/tank_monitor/__init__.py:276
+#: plugins/tank_monitor/__init__.py:281
 msgid "Water Tank Monitor plug-in"
 msgstr "Doplnok Meranie hladiny vody v nádrži"
 
-#: plugins/tank_monitor/__init__.py:235 plugins/tank_monitor/__init__.py:236
+#: plugins/tank_monitor/__init__.py:268 plugins/tank_monitor/__init__.py:269
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr "Systém zistil chybu: nádrž na vodu má minimálnu hladinu vody"
 
-#: plugins/tank_monitor/__init__.py:457 plugins/tank_monitor/__init__.py:585
+#: plugins/tank_monitor/__init__.py:492 plugins/tank_monitor/__init__.py:654
 msgid "Minimum"
 msgstr "Min"
 
-#: plugins/tank_monitor/__init__.py:458 plugins/tank_monitor/__init__.py:586
+#: plugins/tank_monitor/__init__.py:493 plugins/tank_monitor/__init__.py:655
 #: plugins/wind_monitor/__init__.py:463 plugins/wind_monitor/__init__.py:589
 msgid "Maximum"
 msgstr "Max"
 
-#: plugins/tank_monitor/__init__.py:459 plugins/tank_monitor/__init__.py:587
+#: plugins/tank_monitor/__init__.py:494 plugins/tank_monitor/__init__.py:656
 #: plugins/wind_monitor/__init__.py:464 plugins/wind_monitor/__init__.py:590
 msgid "Actual"
 msgstr "Aktuálna"
 
-#: plugins/tank_monitor/__init__.py:507
+#: plugins/tank_monitor/__init__.py:544
 msgid "Minimum and maximum has reseted."
 msgstr "Min a max sa bolo vymazané."
 
-#: plugins/tank_monitor/__init__.py:531
+#: plugins/tank_monitor/__init__.py:568
 msgid "Water tank monitor is disabled."
 msgstr "Doplnok je zakázaný."
 
@@ -5273,10 +5289,10 @@ msgstr "Minimálna hladina vody v nádrži (odo dna nádrže) pre report"
 #: plugins/tank_monitor/templates/tank_monitor.html:199
 msgid ""
 "Distance from the bottom (ie the minimum water) to the set this minimum "
-"level, when it is this activated (send an e-mail)"
+"level, when it is this activated (send an E-mail)"
 msgstr ""
 "Vzdialenosť od dna (tj minimálna voda) k nastavenej tejto minimálnej úrovni, "
-"keď je to povolené (poslať E-mail)"
+"keď je to aktivovaný (poslať e-mail)"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:204
 msgid "Stop scheduller if is minimum water in the tank"
@@ -5295,15 +5311,78 @@ msgid "Display as liters or m"
 msgstr "Zobraziť ako litre alebo m"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:223
-msgid "Send an e-mail with an error that there is minimum water in the tank"
-msgstr "Odoslať E-mail s chybou ak je v nádrži minimálna hladina vody"
+msgid "Send an E-mail with an error that there is minimum water in the tank"
+msgstr "Odoslanie e-mailu s chybou, že v nádrži je minimálna voda"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:229
 msgid ""
-"Send an e-mail with an error if sonic probe has fault and stop scheduler!"
-msgstr "Poslať E-mail s chybou, ak sonic sonda má chybu a zastaviť plánovač!"
+"Send an E-mail with an error if sonic probe has fault and stop scheduler!"
+msgstr "Poslať e-mail s chybou, ak sonic sonda má chybu a zastaviť plánovač!"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:274
+#: plugins/tank_monitor/templates/tank_monitor.html:246
+msgid "Regulate the maximum water level"
+msgstr "Regulovať maximálnu hladinu vody"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:247
+msgid "If checked, regulation is enabled"
+msgstr "Ak je políčko začiarknuté, zapne sa regulácia"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:252
+msgid "Maximum maintained water level"
+msgstr "Maximálna udržiavaná hladina vody"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:253
+msgid ""
+"If the measured water level exceeds this set value, the output is activated"
+msgstr ""
+"Ak nameraná hladina vody prekročí túto nastavenú hodnotu, výstup sa aktivuje"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:258
+msgid "Minimum maintained water level"
+msgstr "Minimálna udržiavaná hladina vody"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:259
+msgid ""
+"If the measured water level falls below this set value, the output is "
+"deactivated"
+msgstr ""
+"Ak nameraná hladina vody klesne pod túto nastavenú hodnotu, výstup sa "
+"deaktivuje"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:264
+msgid "Select Output for regulation"
+msgstr "Vyberte výstup pre reguláciu"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:265
+msgid "Select Output for controled zones"
+msgstr "Vyberte výstup, ktorý chcete ovládať pomocou regulácie"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:296
+#: plugins/tank_monitor/templates/tank_monitor.html:297
+msgid "Select filter for graph history"
+msgstr "Výber filtra pre históriu grafov"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:299
+msgid "Without limits"
+msgstr "Bez obmedzení"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:300
+msgid "Day filter"
+msgstr "Denný filter"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:301
+msgid "Week filter"
+msgstr "Týždeňí filter"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:302
+msgid "Month filter"
+msgstr "Mesačný filter"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:303
+msgid "Year filter"
+msgstr "Ročný filter"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:324
 msgid "Reset min/max level"
 msgstr "Zmazať min/max úroveň"
 

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 1 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added option for regulation "Minimum maintained water level" and selection of interval for reading data into the graph (plugin tank monitor). Added language string (CZ and SK).
+
 Sept 27 2020
 -----------
 (martinpihrt)<br/>
