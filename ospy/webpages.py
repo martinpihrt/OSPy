@@ -555,7 +555,13 @@ class options_page(ProtectedPage):
         return self.core_render.options(errorCode)
 
     def POST(self):
+    	changing_language = False
+
         qdict = web.input()
+
+        if 'lang' in qdict:                         
+            if qdict['lang'] != options.lang:     # if changed languages
+                changing_language = True          
 
         save_to_options(qdict)
 
@@ -591,16 +597,19 @@ class options_page(ProtectedPage):
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
             reboot(True) # Linux HW software 
-            return self.core_render.restarting(home_page)
+            msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            return self.core_render.notice(home_page, msg) 
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
             restart()    # OSPy software
-            return self.core_render.restarting(home_page)
+            msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            return self.core_render.notice(home_page, msg)            
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             poweroff(True)   # shutdown HW system
-            return self.core_render.shutdown() 
+            msg = _('The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
+            return self.core_render.notice(home_page, msg) 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
             OPTIONS_FILE = './ospy/data'
@@ -611,9 +620,16 @@ class options_page(ProtectedPage):
                 os.makedirs(OPTIONS_FILE)   # create data folder
                 report_restarted()
                 restart()                   # restart OSPy software
-                return self.core_render.restarting(home_page)
+                msg = _('All system OSPy settings have been cleared in the settings, the OSPy will now restart and load the default settings.')
+                return self.core_render.notice(home_page, msg)          
             except:
-                pass           
+                pass      
+
+        if changing_language:      
+            report_restarted()
+            restart()    # OSPy software
+            msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
+            return self.core_render.notice(home_page, msg)          
 
         report_option_change()
         raise web.seeother('/')
@@ -677,8 +693,8 @@ class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
     def GET(self):
-       return self.core_render.unreachable('/download')
-       
+        msg = _('System component is unreachable or busy. Please wait (try again later).')
+        return self.core_render.notice('/download', msg)    	      
 
 class download_page(ProtectedPage):
     """Download OSPy DB file with settings"""
@@ -706,7 +722,8 @@ class download_page(ProtectedPage):
              return _read_log()
              
           else:   
-             return self.core_render.unreachable('/download')
+             msg = _('System component is unreachable or busy. Please wait (try again later).')
+             return self.core_render.notice('/download', msg)
              
        except Exception:
           raise web.seeother('/')
@@ -735,7 +752,8 @@ class upload_page(ProtectedPage):
                  log.debug('webpages.py', _('Upload, save, copy options.db file sucesfully, now restarting OSPy...'))
                  report_restarted()
                  restart(3)
-                 return self.core_render.restarting(home_page)
+                 msg = _('Upload, save, copy options.db file sucesfully, now restarting OSPy...')
+                 return self.core_render.notice(home_page, msg)                 
             else:        
                errorCode = "pw_filename" 
                return self.core_render.options(errorCode)
@@ -762,8 +780,8 @@ class upload_page_SSL(ProtectedPage):
                 log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
 
                 from OpenSSL import crypto, SSL  
-                # openssl version # sudo apt-get install openssl
-                from socket import gethostname
+                # openssl version
+                # sudo apt-get install openssl
                 from time import gmtime, mktime
                 import random
   
@@ -773,12 +791,12 @@ class upload_page_SSL(ProtectedPage):
  
                 # create a self-signed cert
                 cert = crypto.X509()
-                cert.get_subject().C = "EU"               # your country
-                cert.get_subject().ST = "Czechia"         # your state
-                cert.get_subject().L = "Prague"           # location 
-                cert.get_subject().O = "OSPy sprinkler"   # organization
-                cert.get_subject().OU = "pihrt.com"       # this field is the name of the department or organization unit making the request
-                cert.get_subject().CN = gethostname()     # common name
+                cert.get_subject().C = "EU"                # your country
+                cert.get_subject().ST = "Czechia"          # your state
+                cert.get_subject().L = "Prague"            # location 
+                cert.get_subject().O = "OSPy sprinkler"    # organization
+                cert.get_subject().OU = "pihrt.com"        # this field is the name of the department or organization unit making the request
+                cert.get_subject().CN = options.domain_ssl # common name
                 cert.get_subject().emailAddress = "admin@pihrt.com" # e-mail
                 cert.set_serial_number(random.randint(1000, 1000000))
                 cert.gmtime_adj_notBefore(0)

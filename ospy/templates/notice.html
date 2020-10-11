@@ -1,6 +1,6 @@
-$def with(go_to)
+$def with(go_to, msg)
 
-$var title: $_('Restarting')
+$var title: $_('Notice')
 $var page: home
 
 
@@ -31,7 +31,7 @@ $var page: home
 
 <div class="alert warning">
   <span class="closebtn">&times;</span>  
-  <strong>$_('Warning!')</strong> $_('OSPy is restarting. You will be redirected as soon as possible...')
+  <strong>$_('Warning!')</strong> ${msg}
 </div>
 
 <script>

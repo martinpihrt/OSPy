@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 11 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Update to jQuery 3.5.1 min, added file "notice.html" for viewing messaging in OSPy (restarting, updating, deleteting, uploading...)
+
 Oct 1 2020
 -----------
 (martinpihrt)<br/>

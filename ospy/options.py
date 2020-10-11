@@ -146,7 +146,7 @@ class _Options(object):
         {
             "key": "domain_ssl",
             "name": _('Domain name'),
-            "default": "",
+            "default": "Localhost",
             "help": _('Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com'),
             "category": _('Security')
         },    
