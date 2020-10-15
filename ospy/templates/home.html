@@ -11,7 +11,7 @@ $var page: home
 
 <script>
 // Global vars
-let displayScheduleDate = new Date(device_time); // dk
+let displayScheduleDate = new Date(device_time); 
 let displayScheduleTimeout;
 let graph_text;
 
@@ -420,7 +420,7 @@ jQuery(document).ready(function(){
     $if (options.show_plugin_data and pluginFtr):
         $for i, d in enumerate(pluginFtr):
             $if (pluginFtr[i]["button"] != '-'):
-                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&#9210;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
             $else:
                 jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');  
 
