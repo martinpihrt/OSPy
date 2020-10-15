@@ -361,9 +361,11 @@ function create_graph(result) {
 function dataTimer() {
     // Call to get plugin data
     jQuery.getJSON("/plugindata", function(piVals) {
-        let parID = 'piData'  + piVals.fdata[0][0] // + '.add(span[name="val"])'
-        jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[0][1])
-        //console.log(piVals)
+        let i;
+        for(i = 0; i < piVals.fdata.length; i++) { // we update all data from plugins
+            let parID = 'piData'  + piVals.fdata[i][0]
+            jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[i][1])
+        } 
     }) 
     setTimeout(dataTimer, 2000);
 }   

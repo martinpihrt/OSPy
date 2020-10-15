@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 15 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating and add new language strings, fix loading and changind data from plugins on the home page.
+
 Oct 11 2020
 -----------
 (martinpihrt)<br/>
