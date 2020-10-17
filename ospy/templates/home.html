@@ -382,15 +382,17 @@ function updateOStimer() {
         // plugin_name
         var pl_state = osVals.plugins_state  
 
-        modal.style.display = "block";
+        modal.style.display = "block"; // blocking pop-up window
+        //$('#modal-header').hide();
+            
         let msg = '';
        
-        if(os_state > 0){
+        if(os_state > 1){ // 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that an OSPy update is available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
             msg += $:{json.dumps(_('Local OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_curr + '<br>';
             msg += $:{json.dumps(_('Available OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_aval + '<br></p>';
             }
-        if(pl_state > 0){
+        if(pl_state > 0){ // 0= No update plugin, >0 plugin count
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
             msg += $:{json.dumps(_('Number of available updates for plugins'), ensure_ascii=False).encode('utf8')} + ': ' + pl_state + '<br>';
             let i;
@@ -399,7 +401,14 @@ function updateOStimer() {
             }
             msg += '</p>';
         } 
-        jQuery("#modal-msg").append(msg);
+
+        if((os_state > 1) || (pl_state > 0)){ // only if updates
+            jQuery("#modal-hdr").append("<h2>$_('System notification')</h2>");
+            jQuery("#modal-msg").append(msg); // add to modal-msg div
+        } 
+        else{
+            modal.style.display = "none";     // hide pop-up
+        }  
     }) 
     setTimeout(updateOStimer, 3600000);
 }  
@@ -407,8 +416,6 @@ function updateOStimer() {
 jQuery(document).ready(function(){
     // modal pop-up
     modal = document.getElementById("OSPyModal");
-    span_modal = document.getElementsByClassName("closeModal")[0];
-    span_modal.onclick = function() { modal.style.display = "none"; }
     window.onclick = function(event) {
         if(event.target == modal) {
             modal.style.display = "none";
@@ -478,8 +485,7 @@ jQuery(document).ready(function(){
 <div id="OSPyModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <span class="closeModal">&times;</span>
-      <h2>$_('System notification')</h2>
+        <div class="modal-hdr" id="modal-hdr"></div>
     </div>
     <div class="modal-body">
       <div class="modal-msg" id="modal-msg"></div>
