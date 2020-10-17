@@ -1111,12 +1111,11 @@ class api_update_status(ProtectedPage):
 
         for plugin in plugins.available():
             running = plugin in running_list
-            if running and plugins.get(plugin).LINK:
-                available_info = plugins.checker.available_version(plugin)
-                if available_info is not None:
-                    if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
-                        must_update += 1
-                        pl_data.append(plugin, plugins.plugin_name(plugin))
+            available_info = plugins.checker.available_version(plugin)
+            if available_info is not None:
+                if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
+                    pl_data.append((must_update, plugins.plugin_name(plugin)))
+                    must_update += 1
                         
 
         data["plugin_name"]   = pl_data     # name of plugins where must be updated

@@ -397,7 +397,7 @@ function updateOStimer() {
             msg += $:{json.dumps(_('Number of available updates for plugins'), ensure_ascii=False).encode('utf8')} + ': ' + pl_state + '<br>';
             let i;
             for(i = 0; i < osVals.plugin_name.length; i++) { 
-                msg += $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': ' + osVals.plugin_name[i][0] + '<br>';
+                msg += '<p><b>' + $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': </b>' + osVals.plugin_name[i][1] + '</p>';
             }
             msg += '</p>';
         } 
