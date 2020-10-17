@@ -653,6 +653,7 @@ class stations_page(ProtectedPage):
             stations[s].eto_factor = float(qdict.get("%d_eto_factor" % s, 1.0))
             stations[s].enabled = True if qdict.get("%d_enabled" % s, 'off') == 'on' else False
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
+            stations[s].ignore_plugins = True if qdict.get("%d_ignore_plugins" % s, 'off') == 'on' else False
             if stations.master is not None or options.master_relay:
                 stations[s].activate_master = True if qdict.get("%d_activate_master" % s, 'off') == 'on' else False
             if stations.master_two is not None or options.master_relay:
@@ -1093,3 +1094,50 @@ class api_plugin_data(ProtectedPage):
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
+
+class api_update_status(ProtectedPage):
+    """Simple plugins and system update status API"""
+
+    def GET(self):
+        pl_data = []
+        data = {}
+        must_update = 0
+        os_state = 0
+        os_avail = '0.0.0'
+
+        from ospy import version
+        os_curr  = version.ver_str # Current local OSPy version
+
+        running_list = plugins.running()
+        current_info = options.plugin_status
+
+        for plugin in plugins.available():
+            running = plugin in running_list
+            if running and plugins.get(plugin).LINK:
+                available_info = plugins.checker.available_version(plugin)
+                if available_info is not None:
+                    if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
+                        must_update += 1
+                        pl_data.append(plugin, plugins.plugin_name(plugin))
+                        
+
+        data["plugin_name"]   = pl_data     # name of plugins where must be updated
+        data["plugins_state"] = must_update # status whether it is necessary to update the plugins (count plugins)
+
+        try:
+            from plugins import system_update
+            os_state = system_update.get_all_values()[0] # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
+            os_avail = system_update.get_all_values()[1] # Available new OSPy version
+
+            data["ospy_state"] = os_state  
+            data["ospy_aval"]  = os_avail       
+
+        except:    
+            data["ospy_state"] = os_state  
+            data["ospy_aval"]  = os_avail       
+        
+        data["ospy_curr"]  = os_curr
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(data)    
+        

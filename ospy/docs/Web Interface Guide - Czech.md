@@ -145,6 +145,7 @@ OSPy Průvodce webovým rozhraním v češtině
         Zůstatek
         Připojeno
         Ignorovat Déšť
+        Ignorovat Rozšíření
         ZAP Hlavní
         ZAP Hlavní 2
         Poznámky  
@@ -748,6 +749,9 @@ Hlavní stanice se přiřazuje v nastavení systému "Nastavení / nastavení hl
 
 ## Ignorovat Déšť
 Pokud u některé stanice zaškrtneme "Ignorovat Déšť", tak se stanice aktivuje dle programu bez ohledu zda je nastaveno dešťové zpoždění, nebo zda dešťový senzor detekuje déšť. Tuto možnost využijeme například ve skleníku, do kterého neprší a potřebujeme zavlažovat pravidelně. nebo například ke spouštění filtrace bazénu, který také čistíme bez ohledu zda prší.
+
+## Ignorovat Rozšíření
+Pokud u některé stanice zaškrtneme políčko „Ignorovat Rozšíření“, bude stanice aktivována podle programu bez ohledu zda jsou rozšíření aktivní. Tuto možnost můžeme použít například ke spuštění filtrace bazénu, kterou také čistíme bez ohledu na to, zda fouká vítr (rozšíření Wind monitor...).
 
 ## ZAP Hlavní
 Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i hlavní stanice (například čerpadlo, nebo hlavní ventil s vodou) zaškrtneme okénko "ZAP hlavní?".

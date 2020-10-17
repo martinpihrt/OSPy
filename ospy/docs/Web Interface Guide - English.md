@@ -145,6 +145,7 @@ OSPy Web Interface Guide in English
         Balance adjustment
         Connected
         Ignore Rain
+        Ignore Plugins
         Activate Master
         Activate Master Two
         Notes  
@@ -719,6 +720,9 @@ The main station is assigned in the system settings "Options / master station".
 
 ## Ignore Rain
 If you check "Ignore Rain" for a station, the station will be activated according to the program regardless of whether the rain delay is set or whether the rain sensor detects rain. We can use this option, for example: in a greenhouse where it does not rain and we need to water it regularly or, for example: to trigger pool filtration, which we also clean regardless of whether it rains.
+
+## Ignore Plugins
+If you check "Ignore Plugins" for a station, the station will be activated according to the program regardless of whether the plugins . We can use this option, for example: to trigger pool filtration, which we also clean regardless of whether it Wind flow (plugin Wind monitor...).
 
 ## Activate Master
 If you want the master station (eg pump or main water valve) to be activated when a station is activated, check the "Activate Master" Box.

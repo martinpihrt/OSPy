@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 17 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new language strings, in web page "stations" is added new button "ignore plugins" for later use (as the ignore rain button now has). The option to turn on and off the display on the home page in the footer section has been added to the "system update" plugin. Preparation for notifications was performed (pop-up window with information about the availability of updates for plugins and OSPy of the system). Fix css style for checker.
+
 Oct 15 2020
 -----------
 (martinpihrt)<br/>

@@ -19,6 +19,7 @@ $var page: stations
                 <th class="stationUsage">$_('Balance adjustment')</th>
                 <th class="stationShow">$_('Connected?')</th>
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
+                <th class="stationIgnore">$_('Ignore Plugins?')</th>
                 $if stations.master is not None:
                     <th class="stationMaster">$_('Activate Master?')</th>
                 $if stations.master_two is not None:
@@ -49,15 +50,15 @@ $var page: stations
                     $if station.is_master:
                         <td class="stationMaster">($_('Master station'))</td>
                         $if stations.master_two is None:
-                            <td></td><td></td>
-                        $else:
                             <td></td><td></td><td></td>
+                        $else:
+                            <td></td><td></td><td></td><td></td>
                     $elif station.is_master_two:
                         <td class="stationMaster">($_('Master two station'))</td>
                         $if stations.master is None:
-                            <td></td><td></td>
-                        $else:    
                             <td></td><td></td><td></td>
+                        $else:    
+                            <td></td><td></td><td></td><td></td>
                     $else:
                         <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8')}>
                         <label class="container">
@@ -71,6 +72,12 @@ $var page: stations
                             <span class="checkmark"></span>
                             </label>                             
                         </td>
+                        <td class="stationIgnore" title=$:{json.dumps(_('If ignore plugins is checked, then in case of an event in the plugin, this station is still activated (events from the wind plugin and other plugins will be ignored).'), ensure_ascii=False).encode('utf8')}>
+                            <label class="container">
+                            <input type="checkbox" ${"checked" if station.ignore_plugins else ""} name="${station.index}_ignore_plugins">
+                            <span class="checkmark"></span>
+                            </label>                             
+                        </td>                        
                         $if stations.master is not None:
                             <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the master station.'), ensure_ascii=False).encode('utf8')}>
                             <label class="container">    
