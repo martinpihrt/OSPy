@@ -14,6 +14,8 @@ $var page: home
 let displayScheduleDate = new Date(device_time); 
 let displayScheduleTimeout;
 let graph_text;
+var modal;
+var span_modal 
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -367,10 +369,52 @@ function dataTimer() {
             jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[i][1])
         } 
     }) 
-    setTimeout(dataTimer, 2000);
-}   
+    setTimeout(dataTimer, 3000);
+} 
+
+function updateOStimer() {
+    // Call to get system updates and plugins data
+    jQuery.getJSON("/update_status", function(osVals) {
+           // os
+        var os_curr  = osVals.ospy_curr
+        var os_aval  = osVals.ospy_aval
+        var os_state = osVals.ospy_state
+        // plugin_name
+        var pl_state = osVals.plugins_state  
+
+        modal.style.display = "block";
+        let msg = '';
+       
+        if(os_state > 0){
+            msg += '<p><b>' + $:{json.dumps(_('The system has detected that an OSPy update is available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
+            msg += $:{json.dumps(_('Local OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_curr + '<br>';
+            msg += $:{json.dumps(_('Available OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_aval + '<br></p>';
+            }
+        if(pl_state > 0){
+            msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
+            msg += $:{json.dumps(_('Number of available updates for plugins'), ensure_ascii=False).encode('utf8')} + ': ' + pl_state + '<br>';
+            let i;
+            for(i = 0; i < osVals.plugin_name.length; i++) { 
+                msg += $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': ' + osVals.plugin_name[i][0] + '<br>';
+            }
+            msg += '</p>';
+        } 
+        jQuery("#modal-msg").append(msg);
+    }) 
+    setTimeout(updateOStimer, 3600000);
+}  
 
 jQuery(document).ready(function(){
+    // modal pop-up
+    modal = document.getElementById("OSPyModal");
+    span_modal = document.getElementsByClassName("closeModal")[0];
+    span_modal.onclick = function() { modal.style.display = "none"; }
+    window.onclick = function(event) {
+        if(event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
     if (manual_mode) { // manual mode
         jQuery("button.manual").click(function () {
             let sid = parseInt(jQuery(this).attr("id"));
@@ -424,10 +468,24 @@ jQuery(document).ready(function(){
             $else:
                 jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');  
 
-        dataTimer();                    
+        dataTimer();    // data timer for footer plugins data
+ 
+    updateOStimer();    // timer for os and plugins update info                       
 });
 
 </script>
+
+<div id="OSPyModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closeModal">&times;</span>
+      <h2>$_('System notification')</h2>
+    </div>
+    <div class="modal-body">
+      <div class="modal-msg" id="modal-msg"></div>
+    </div>
+  </div>
+</div>
 
 <div id="options" style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
     <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}"><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>

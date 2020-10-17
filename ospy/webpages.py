@@ -1104,9 +1104,7 @@ class api_update_status(ProtectedPage):
         must_update = 0
         os_state = 0
         os_avail = '0.0.0'
-
-        from ospy import version
-        os_curr  = version.ver_str # Current local OSPy version
+        os_curr  = '0.0.0'
 
         running_list = plugins.running()
         current_info = options.plugin_status
@@ -1128,15 +1126,16 @@ class api_update_status(ProtectedPage):
             from plugins import system_update
             os_state = system_update.get_all_values()[0] # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
             os_avail = system_update.get_all_values()[1] # Available new OSPy version
+            os_curr  = system_update.get_all_values()[2] # Actual OSPy version
 
             data["ospy_state"] = os_state  
-            data["ospy_aval"]  = os_avail       
+            data["ospy_aval"]  = os_avail   
+            data["ospy_curr"]  = os_curr   
 
-        except:    
+        except Exception:
             data["ospy_state"] = os_state  
-            data["ospy_aval"]  = os_avail       
-        
-        data["ospy_curr"]  = os_curr
+            data["ospy_aval"]  = os_avail 
+            data["ospy_curr"]  = os_curr             
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)    
