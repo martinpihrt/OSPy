@@ -70,13 +70,7 @@ $var page: stations
                             <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
                             <span class="checkmark"></span>
                             </label>                             
-                        </td>
-                        <td class="stationIgnore" title=$:{json.dumps(_('If ignore plugins is checked, then in case of an event in the plugin, this station is still activated (events from the wind plugin and other plugins will be ignored).'), ensure_ascii=False).encode('utf8')}>
-                            <label class="container">
-                            <input type="checkbox" ${"checked" if station.ignore_plugins else ""} name="${station.index}_ignore_plugins">
-                            <span class="checkmark"></span>
-                            </label>                             
-                        </td>                        
+                        </td>                      
                         $if stations.master is not None:
                             <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the master station.'), ensure_ascii=False).encode('utf8')}>
                             <label class="container">    
