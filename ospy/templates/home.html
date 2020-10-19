@@ -383,14 +383,15 @@ function updateOStimer() {
         var pl_state = osVals.plugins_state  
 
         modal.style.display = "block"; // blocking pop-up window
-        //$('#modal-header').hide();
             
         let msg = '';
+        let hdr = '';
        
         if(os_state > 1){ // 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that an OSPy update is available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
             msg += $:{json.dumps(_('Local OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_curr + '<br>';
             msg += $:{json.dumps(_('Available OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_aval + '<br></p>';
+            msg += '<a href="/plugins/system_update/update" class="button"><b>'+ $:{json.dumps(_('Update system'), ensure_ascii=False).encode('utf8')} + '</b></a>';
             }
         if(pl_state > 0){ // 0= No update plugin, >0 plugin count
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
@@ -398,12 +399,14 @@ function updateOStimer() {
             let i;
             for(i = 0; i < osVals.plugin_name.length; i++) { 
                 msg += '<p><b>' + $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': </b>' + osVals.plugin_name[i][1] + '</p>';
+                msg += '<a href="/plugins_manage" class="button"><b>'+ $:{json.dumps(_('Open plugins'), ensure_ascii=False).encode('utf8')} + '</b></a>';
             }
             msg += '</p>';
         } 
 
         if((os_state > 1) || (pl_state > 0)){ // only if updates
-            jQuery("#modal-hdr").append("<h2>$_('System notification')</h2>");
+            hdr += '<h2>' + $:{json.dumps(_('System notification'), ensure_ascii=False).encode('utf8')} + '</h2>';
+            jQuery("#modal-hdr").append(hdr); // add text to header in modal div
             jQuery("#modal-msg").append(msg); // add to modal-msg div
         } 
         else{
