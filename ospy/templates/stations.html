@@ -19,7 +19,6 @@ $var page: stations
                 <th class="stationUsage">$_('Balance adjustment')</th>
                 <th class="stationShow">$_('Connected?')</th>
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
-                <th class="stationIgnore">$_('Ignore Plugins?')</th>
                 $if stations.master is not None:
                     <th class="stationMaster">$_('Activate Master?')</th>
                 $if stations.master_two is not None:
@@ -50,9 +49,9 @@ $var page: stations
                     $if station.is_master:
                         <td class="stationMaster">($_('Master station'))</td>
                         $if stations.master_two is None:
-                            <td></td><td></td><td></td>
+                            <td></td><td></td>
                         $else:
-                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td>
                     $elif station.is_master_two:
                         <td class="stationMaster">($_('Master two station'))</td>
                         $if stations.master is None:

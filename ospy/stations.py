@@ -28,7 +28,6 @@ class _Station(object):
         self.name = "Station %02d" % (index+1)
         self.enabled = True
         self.ignore_rain = False
-        self.ignore_plugins = False
         self.usage = 1.0
         self.precipitation = 10.0
         self.capacity = 10.0

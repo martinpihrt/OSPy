@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 19 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+The option to turn off the selected stations in the scheduler has been added to the extension of wind speed measurement. Added language strings and translating to czech. in web page "stations" is removed new button "ignore plugins".
+
 Oct 17 2020
 -----------
 (martinpihrt)<br/>
