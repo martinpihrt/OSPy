@@ -478,7 +478,13 @@ class plugins_install_page(ProtectedPage):
             self._redirect_back()
 
         plugins.checker.update()
-        return self.core_render.plugins_install()
+
+        if options.plugin_readme_error: # true if is ImportError: Failed loading extension partial_gfm               
+            errorCode = qdict.get('errorCode', 'gfm')
+        else:    
+            errorCode = qdict.get('errorCode', 'none')    
+        return self.core_render.plugins_install(errorCode)
+
 
     def POST(self):
         qdict = web.input(zipfile={})

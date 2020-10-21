@@ -399,8 +399,8 @@ function updateOStimer() {
             let i;
             for(i = 0; i < osVals.plugin_name.length; i++) { 
                 msg += '<p><b>' + $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': </b>' + osVals.plugin_name[i][1] + '</p>';
-                msg += '<a href="/plugins_manage" class="button"><b>'+ $:{json.dumps(_('Open plugins'), ensure_ascii=False).encode('utf8')} + '</b></a>';
             }
+            msg += '<a href="/plugins_manage" class="button"><b>'+ $:{json.dumps(_('Open plugins'), ensure_ascii=False).encode('utf8')} + '</b></a>';
             msg += '</p>';
         } 
 

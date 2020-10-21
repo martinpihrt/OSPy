@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Oct 21 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+The option to turn off the selected stations in the scheduler has been added to the extension of pressure monitor, tank monitor. Added language strings and translating to czech.<br/>
+Fixed ImportError: Failed loading extension "partial_gfm" in web page plugins install.
+
 Oct 19 2020
 -----------
 (martinpihrt)<br/>

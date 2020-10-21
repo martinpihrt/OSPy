@@ -193,11 +193,23 @@ class _PluginChecker(threading.Thread):
                                 plugin_hash += hex(zip_info.CRC)
 
                     if load_read_me:
-                        import web
-                        import markdown
-                        from ospy.helpers import template_globals
-                        converted = markdown.markdown(zip_file.read(init_dir + '/README.md').decode('utf-8'), extensions=['partial_gfm', 'markdown.extensions.codehilite'])
-                        read_me = web.template.Template(converted, globals=template_globals())()
+                        from ospy.options import options
+                        has_error = False
+                        
+                        try:
+                            import web
+                            import markdown
+                            from ospy.helpers import template_globals
+
+                            converted = markdown.markdown(zip_file.read(init_dir + '/README.md').decode('utf-8'), extensions=['partial_gfm', 'markdown.extensions.codehilite'])
+                            read_me = web.template.Template(converted, globals=template_globals())()
+                        except Exception:
+                            has_error = True
+                            converted = zip_file.read(init_dir + '/README.md').decode('utf-8')
+                            read_me = web.template.Template(converted, globals=template_globals())()  
+
+                        options.plugin_readme_error = has_error                             
+                                 
 
                     result[plugin_id] = {
                         'name': _plugin_name(zip_file.read(init).splitlines()),
