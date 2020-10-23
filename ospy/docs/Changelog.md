@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 23 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added language translating to Slovak (Thank you Tomáš Szepesi).
+
 Oct 21 2020
 -----------
 (martinpihrt)<br/>
