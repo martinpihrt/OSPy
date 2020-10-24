@@ -210,9 +210,12 @@ def create_statistics():
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
         ospyFW = 'version ' + str(version.ver_str) + ' date ' + str(version.ver_date)
+        ospyNUM = version.ver_str
 
         stats.submit(
-        {'ospyfw': ospyFW},           # OSPy version
+        {'ospyfw': ospyFW,            # OSPy version
+         'ospynum': ospyNUM           # OSPy version only numeric ver
+        },          
         usagestats.OPERATING_SYSTEM,  # Operating system/distribution
         usagestats.PYTHON_VERSION,    # Python version info
         usagestats.SESSION_TIME,      # Time since Stats object was created

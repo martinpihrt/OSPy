@@ -116,7 +116,7 @@ def reboot(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info("Rebooting...")
+        logging.info(_(u'Rebooting...'))
 
         import subprocess
         if determine_platform() == 'nt':
@@ -139,7 +139,7 @@ def poweroff(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info(_('Powering off...'))
+        logging.info(_(u'Powering off...'))
 
         import subprocess
         if determine_platform() == 'nt':
@@ -162,7 +162,7 @@ def restart(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info(_('Restarting...'))
+        logging.info(_(u'Restarting...'))
 
         import sys
         if determine_platform() == 'nt':
@@ -184,30 +184,23 @@ def uptime():
     try:
         with open("/proc/uptime") as f:
             total_sec = float(f.read().split()[0])
-            string = str(datetime.timedelta(seconds=total_sec)).split('.')[0]
-            
-            from ospy.options import options
-            if (options.lang == 'cs_CZ'):
-                if total_sec < 172800:                          # <  1 day and 23:59
-                   string = string.replace('day', 'den')
-                if total_sec >= 172800 and total_sec < 432000:  # <  4 days and 23:59
-                   string = string.replace('days', 'dny')
-                if total_sec >= 432000:                         # >  5 days and more
-                   string = string.replace('days', 'dnu')
-                
+            s = datetime.timedelta(seconds=int(total_sec))
+            d = datetime.datetime(1,1,1) + s
+            if d.day-1 == 1:
+                string = u'%d ' % (d.day-1) + _(u'day')    # den
+            if d.day-1 > 1 and d.day-1 < 5:
+                string = u'%d ' % (d.day-1) + _(u'days')   # dny 
+            if d.day-1 > 4:
+                string = u'%d ' % (d.day-1) + _(u'days ')  # dnu  
+            string += u' %s:%s:%s' % (two_digits(d.hour), two_digits(d.minute), two_digits(d.second))
     except Exception:
-        from ospy.options import options
-        if (options.lang == 'cs_CZ'):
-            string = 'Nelze zjistit'
-        else:
-            string = 'Unknown'
-
+       string = _(u'Unknown')
+       print traceback.format_exc()
     return string
     
 
 def split_ip(ip):
     """If this is a valid IP address, return the 4 octets (or all zeros if a problem)"""
-
     octets = []
     ip += '.'
     try:
@@ -216,8 +209,7 @@ def split_ip(ip):
             if dot_idx == -1:
                 return ('0','0','0','0')
             octets.append(ip[0:dot_idx])
-            ip = ip[dot_idx+1:]
-            
+            ip = ip[dot_idx+1:]           
     except:
         return ('0','0','0','0')
     return (octets[0], octets[1], octets[2], octets[3])
@@ -243,19 +235,11 @@ def get_ip(net=''):
                 except:
                     pass
         
-        if (options.lang == 'cs_CZ'):
-            string = 'IP neni nastavena'
-        else:
-            string = 'No IP Settings'
+            string = _(u'No IP Settings')
         return string
         
     except:
-        if (options.lang == 'cs_CZ'):
-            string = 'IP neni nastavena'
-        else:
-            string = 'No IP Settings'
-        return string       
-
+        return _('No IP Settings') 
 
 def get_mac():
     """Return MAC from file"""
@@ -263,12 +247,7 @@ def get_mac():
         return str(open('/sys/class/net/eth0/address').read())
 
     except Exception:
-        from ospy.options import options
-        if (options.lang == 'cs_CZ'):
-            string = 'Nelze zjistit'
-        else:  
-            string = 'Unknown'
-        return string
+        return _(u'Unknown')
 
 def get_meminfo():
     """Return the information in /proc/meminfo as a dictionary"""
@@ -280,18 +259,11 @@ def get_meminfo():
         return meminfo
 
     except Exception:
-        from ospy.options import options
-        if (options.lang == 'cs_CZ'):
-            return {
-              'MemTotal': 'Nelze zjistit',
-              'MemFree': 'Nelze zjistit'
-            }
-        else:
-            return {
-              'MemTotal': 'Unknown',
-              'MemFree': 'Unknown'
-            }
-
+        return {
+              'MemTotal': _(u'Unknown'),
+              'MemFree': _(u'Unknown')
+              }
+ 
 
 def get_netdevs():
     """RX and TX bytes for each of the network devices"""
@@ -330,7 +302,7 @@ def get_cpu_temp(unit=None):
         else:
             return temp
     except Exception:
-        return '-'
+        return _(u'-')
 
 
 prev_time_doing_things  = 0  
@@ -347,7 +319,7 @@ def get_cpu_usage():
         with open("/proc/stat") as procfile:
             cpustats = procfile.readline().split()
     except Exception:
-        return '-'            
+        return _(u'-')            
 
     # Sanity check
     if cpustats[0] != 'cpu':
@@ -416,19 +388,17 @@ def minute_time_str(minute_time, with_seconds=False):
 
 
 def short_day(index):
-    from . import i18n
-    return [_('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat'), _('Sun')][index]
+    return [_(u'Mon'), _(u'Tue'), _(u'Wed'), _(u'Thu'), _(u'Fri'), _(u'Sat'), _(u'Sun')][index]
 
 
 def long_day(index):
-    from . import i18n
-    return [_('Monday'),
-            _('Tuesday'),
-            _('Wednesday'),
-            _('Thursday'),
-            _('Friday'),
-            _('Saturday'),
-            _('Sunday')][index]
+    return [_(u'Monday'),
+            _(u'Tuesday'),
+            _(u'Wednesday'),
+            _(u'Thursday'),
+            _(u'Friday'),
+            _(u'Saturday'),
+            _(u'Sunday')][index]
 
 
 def stop_onrain():
@@ -565,7 +535,6 @@ def get_input(qdict, key, default=None, cast=None):
 
 
 def template_globals():
-    from . import i18n
     import json
     import plugins
     import urllib
@@ -581,6 +550,7 @@ def template_globals():
     from ospy.server import session
     from ospy.webpages import pluginFtr
     from ospy.webpages import pluginStn
+    from ospy import i18n
 
     result = {
         'str': str,
@@ -650,6 +620,9 @@ def get_help_files():
 
 def get_help_file(id):
     import web
+    from ospy.options import options
+
+    has_error = False
 
     try:
         id = int(id)
@@ -671,25 +644,37 @@ def get_help_file(id):
 
                     import markdown
 
-                    converted = markdown.markdown(my_unicode_string, extensions=['partial_gfm', 'markdown.extensions.codehilite'])
-                    return web.template.Template(converted, globals=template_globals())()
-    except Exception:
-        pass 
+                    try: 
+                        converted = markdown.markdown(my_unicode_string, extensions=['partial_gfm', 'markdown.extensions.codehilite'])
+                        return web.template.Template(converted, globals=template_globals())()
 
-    return '' 
+                    except:    
+                        has_error = True
+                        options.ospy_readme_error = has_error
+                        return web.template.Template(my_unicode_string, globals=template_globals())()   
+   
+    except Exception:
+        return ''                          
 
 
 def ASCI_convert(name):
-  if name == None:
-     return None
-  name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", ' ', name)
-  return name
+  try:
+     if name == None:
+        return None
+     import unicodedata    
+     convert_text = unicodedata.normalize('NFKD', name).encode('ascii','ignore')
+     return convert_text
+
+  except: 
+     if name == None:
+        return None
+     import re
+     name = re.sub(r"[^A-Za-z0-9_+-.:?!/ ]+", '_', name)
+     return name
 
 
 def print_report(title, message=None):
-    """
-    All prints are reported here
-    """
+    """ All prints are reported here """
     try:
         print('{}: {}'.format(title, message))
     except:

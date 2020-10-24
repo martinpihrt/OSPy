@@ -84,6 +84,11 @@ class _Options(object):
             "default": False
         },
         {
+            "key": "ospy_readme_error",
+            "name": _('ImportError: Failed loading extension partial_gfm'),
+            "default": False
+        },        
+        {
             "key": "auto_plugin_update",
             "name": _('Automatic plug-in updates'),
             "default": False

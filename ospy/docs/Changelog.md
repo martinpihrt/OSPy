@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 24 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added support for multiple languages in the helpers.py file. Better display of uptime in home page. Added warning to page "help.html" Error: Failed loading Python extension partial gfm in markdown! README.md information in help not be displayed correctly. Added support for multiple languages and fixed "when no I2C circuit is found" bug in lcd_display extension. Fixed a bug in the "system info" extension when the I2C bus was not found.
+
 Oct 23 2020
 -----------
 (martinpihrt)<br/>

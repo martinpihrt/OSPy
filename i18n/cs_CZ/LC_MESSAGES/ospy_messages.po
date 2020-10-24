@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-10-21 11:26+CEST\n"
-"PO-Revision-Date: 2020-10-21 11:35+0200\n"
+"POT-Creation-Date: 2020-10-24 22:33+CEST\n"
+"PO-Revision-Date: 2020-10-24 22:38+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -18,6 +18,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
+#: ospy/helpers.py:119
+msgid "Rebooting..."
+msgstr "Restartování..."
+
 #: ospy/helpers.py:142
 msgid "Powering off..."
 msgstr "Vypínání..."
@@ -26,59 +30,86 @@ msgstr "Vypínání..."
 msgid "Restarting..."
 msgstr "Restartování..."
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:190
+msgid "day"
+msgstr "dny"
+
+#: ospy/helpers.py:192 ospy/programs.py:251 ospy/programs.py:258
+#: ospy/programs.py:263 plugins/weather_based_water_level/__init__.py:112
+#: plugins/weather_based_water_level_netatmo/__init__.py:162
+msgid "days"
+msgstr "dny"
+
+#: ospy/helpers.py:194
+msgid "days "
+msgstr "dnů "
+
+#: ospy/helpers.py:197 ospy/helpers.py:250 ospy/helpers.py:263
+#: ospy/helpers.py:264
+msgid "Unknown"
+msgstr "Neznámé"
+
+#: ospy/helpers.py:238 ospy/helpers.py:242
+msgid "No IP Settings"
+msgstr "IP není nastavena"
+
+#: ospy/helpers.py:305 ospy/helpers.py:322
+msgid "-"
+msgstr "-"
+
+#: ospy/helpers.py:391
 msgid "Fri"
 msgstr "Pá"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Mon"
 msgstr "Po"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Sat"
 msgstr "So"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Sun"
 msgstr "Ne"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Thu"
 msgstr "Čt"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Tue"
 msgstr "Út"
 
-#: ospy/helpers.py:420
+#: ospy/helpers.py:391
 msgid "Wed"
 msgstr "St"
 
-#: ospy/helpers.py:425 ospy/templates/base.html:43
+#: ospy/helpers.py:395 ospy/templates/base.html:43
 msgid "Monday"
 msgstr "Pondělí"
 
-#: ospy/helpers.py:426 ospy/templates/base.html:43
+#: ospy/helpers.py:396 ospy/templates/base.html:43
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: ospy/helpers.py:427 ospy/templates/base.html:43
+#: ospy/helpers.py:397 ospy/templates/base.html:43
 msgid "Wednesday"
 msgstr "Středa"
 
-#: ospy/helpers.py:428 ospy/templates/base.html:43
+#: ospy/helpers.py:398 ospy/templates/base.html:43
 msgid "Thursday"
 msgstr "Čtvrtek"
 
-#: ospy/helpers.py:429 ospy/templates/base.html:43
+#: ospy/helpers.py:399 ospy/templates/base.html:43
 msgid "Friday"
 msgstr "Pátek"
 
-#: ospy/helpers.py:430 ospy/templates/base.html:43
+#: ospy/helpers.py:400 ospy/templates/base.html:43
 msgid "Saturday"
 msgstr "Sobota"
 
-#: ospy/helpers.py:431 ospy/templates/base.html:43
+#: ospy/helpers.py:401 ospy/templates/base.html:43
 msgid "Sunday"
 msgstr "Neděle"
 
@@ -93,7 +124,7 @@ msgstr ""
 "ohledem na LCD rozšíření)."
 
 #: ospy/options.py:31 ospy/options.py:39 ospy/options.py:46 ospy/options.py:53
-#: ospy/options.py:60 ospy/options.py:69 ospy/options.py:101
+#: ospy/options.py:60 ospy/options.py:69 ospy/options.py:106
 #: plugins/email_notifications/__init__.py:94
 #: plugins/email_notifications/__init__.py:115
 #: plugins/email_notifications/__init__.py:131
@@ -152,46 +183,46 @@ msgstr "Povolit rozšíření"
 msgid "Plug-in status"
 msgstr "Stav rozšíření"
 
-#: ospy/options.py:83
+#: ospy/options.py:83 ospy/options.py:88
 msgid "ImportError: Failed loading extension partial_gfm"
 msgstr "ImportError: Načítání partial_gfm se nezdařilo"
 
-#: ospy/options.py:88
+#: ospy/options.py:93
 msgid "Automatic plug-in updates"
 msgstr "Automatická aktualizace rozšíření"
 
-#: ospy/options.py:93
+#: ospy/options.py:98
 msgid "Enable plug-in check status updates"
 msgstr "Povolení aktualizací pro rozšíření"
 
-#: ospy/options.py:107
+#: ospy/options.py:112
 msgid "Use Weather"
 msgstr "Použít počasí"
 
-#: ospy/options.py:109
+#: ospy/options.py:114
 msgid "Enabling or disabling connection to service Dark Sky."
 msgstr "Povolení připojení k službě Dark Sky."
 
-#: ospy/options.py:110 ospy/options.py:117 ospy/options.py:124
-#: ospy/options.py:131 plugins/weather_based_rain_delay/__init__.py:83
+#: ospy/options.py:115 ospy/options.py:122 ospy/options.py:129
+#: ospy/options.py:136 plugins/weather_based_rain_delay/__init__.py:83
 msgid "Weather"
 msgstr "Počasí"
 
-#: ospy/options.py:114
+#: ospy/options.py:119
 msgid "Dark Sky API key"
 msgstr "Dark Sky API klíč"
 
-#: ospy/options.py:116
+#: ospy/options.py:121
 msgid "To make use of local weather conditions, a Dark Sky API key is needed."
 msgstr ""
 "Pro použití místních povětrnostních podmínek je nutný klíč rozhraní API Dark "
 "Sky."
 
-#: ospy/options.py:121
+#: ospy/options.py:126
 msgid "Location"
 msgstr "Umístění"
 
-#: ospy/options.py:123
+#: ospy/options.py:128
 msgid ""
 "City name or zip code. Used to determine location via OpenStreetMap for "
 "weather information."
@@ -199,32 +230,32 @@ msgstr ""
 "Název města nebo PSČ. Používá se k určení místa prostřednictvím "
 "OpenStreetMap pro informace o počasí."
 
-#: ospy/options.py:128
+#: ospy/options.py:133
 msgid "Elevation (m)"
 msgstr "Nadmořská výška (m)"
 
-#: ospy/options.py:130
+#: ospy/options.py:135
 msgid "Elevation of this location in meters."
 msgstr "Nadmořská výška pro vaše umístění v metrech."
 
-#: ospy/options.py:139
+#: ospy/options.py:144
 msgid "Disable security"
 msgstr "Bez hesla"
 
-#: ospy/options.py:141
+#: ospy/options.py:146
 msgid "Allow anonymous users to access the system without a password."
 msgstr "Povolit anonymním uživatelům přístup do systému bez hesla."
 
-#: ospy/options.py:142 ospy/options.py:149 ospy/options.py:156
-#: ospy/options.py:163
+#: ospy/options.py:147 ospy/options.py:154 ospy/options.py:161
+#: ospy/options.py:168
 msgid "Security"
 msgstr "Bezpečnost"
 
-#: ospy/options.py:146
+#: ospy/options.py:151
 msgid "Use HTTPS access"
 msgstr "Použít HTTPS"
 
-#: ospy/options.py:148
+#: ospy/options.py:153
 msgid ""
 "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt "
 "certification authority (effective after reboot.)"
@@ -233,11 +264,11 @@ msgstr ""
 "generován prostřednictvím certifikační autority (po instalaci je nutné "
 "restartování OSPy)."
 
-#: ospy/options.py:153
+#: ospy/options.py:158
 msgid "Domain name"
 msgstr "Jméno domény"
 
-#: ospy/options.py:155
+#: ospy/options.py:160
 msgid ""
 "Domain name for generating SSL certificate via Lets Encrypt certification "
 "authority. Example: home.sprinkler.com"
@@ -245,11 +276,11 @@ msgstr ""
 "Jméno domény, které bylo použito pro generování certifikátu SSL "
 "prostřednictvím certifikační autority. Příklad: home.sprinkler.com"
 
-#: ospy/options.py:160
+#: ospy/options.py:165
 msgid "Use Own HTTPS access"
 msgstr "Použít vlastní HTTPS"
 
-#: ospy/options.py:162
+#: ospy/options.py:167
 msgid ""
 "SSL certificate via own file without certification authority (effective "
 "after reboot.)"
@@ -258,11 +289,11 @@ msgstr ""
 "vložení souborů fullchain.pem a privkey.pem do složky ssl v umístění OSPy je "
 "nutný restart OSPy.)"
 
-#: ospy/options.py:169
+#: ospy/options.py:174
 msgid "Maximum usage"
 msgstr "Maximální využití"
 
-#: ospy/options.py:171
+#: ospy/options.py:176
 msgid ""
 "Determines how schedules of different stations are combined. 0 is no limit. "
 "1 is sequential in case all stations have a usage of 1."
@@ -270,32 +301,32 @@ msgstr ""
 "Určuje, jak se jednotlivé stanice kombinují. Souběh 0 nebo sekvence 1. V "
 "případě, že všechny stanice mají nastavené sekvenční použití­."
 
-#: ospy/options.py:172 ospy/options.py:179 ospy/options.py:188
-#: ospy/options.py:197
+#: ospy/options.py:177 ospy/options.py:184 ospy/options.py:193
+#: ospy/options.py:202
 msgid "Station Handling"
 msgstr "Nastavení stanic"
 
-#: ospy/options.py:176
+#: ospy/options.py:181
 msgid "Number of outputs"
 msgstr "Počet výstupů"
 
-#: ospy/options.py:178
+#: ospy/options.py:183
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr "Celkový počet výstupů k dispozici je (8 výstupů + x rozšíření.)"
 
-#: ospy/options.py:185
+#: ospy/options.py:190
 msgid "Station delay"
 msgstr "Zpoždění stanice"
 
-#: ospy/options.py:187
+#: ospy/options.py:192
 msgid "Station delay time (in seconds), between 0 and 3600."
 msgstr "Zpoždění stanice - čas (v sekundách), mezi 0 a 3600."
 
-#: ospy/options.py:194
+#: ospy/options.py:199
 msgid "Minimum runtime"
 msgstr "Min čas běhu"
 
-#: ospy/options.py:196
+#: ospy/options.py:201
 msgid ""
 "Skip the station delay if the run time was less than this value (in "
 "seconds), between 0 and 86400."
@@ -303,80 +334,80 @@ msgstr ""
 "Přeskočit zpoždění stanice, pokud doba běhu byla menší než tato hodnota (v "
 "sekundách), mezi 0 a 86400."
 
-#: ospy/options.py:205
+#: ospy/options.py:210
 msgid "Activate relay"
 msgstr "Aktivovat relé"
 
-#: ospy/options.py:207
+#: ospy/options.py:212
 msgid "Also activate the relay as master output."
 msgstr "Aktivovat také relé jako hlavní výstup."
 
-#: ospy/options.py:208 ospy/options.py:215 ospy/options.py:224
-#: ospy/options.py:233 ospy/options.py:242
+#: ospy/options.py:213 ospy/options.py:220 ospy/options.py:229
+#: ospy/options.py:238 ospy/options.py:247
 msgid "Configure Master"
 msgstr "Nastavení hl. stanice"
 
-#: ospy/options.py:212
+#: ospy/options.py:217
 msgid "Master on delay"
 msgstr "T zapnutí"
 
-#: ospy/options.py:214
+#: ospy/options.py:219
 msgid "Master on delay (in seconds), between -1800 and +1800."
 msgstr "Hlavní stanice zpoždění sepnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:221
+#: ospy/options.py:226
 msgid "Master off delay"
 msgstr "T vypnutí"
 
-#: ospy/options.py:223
+#: ospy/options.py:228
 msgid "Master off delay (in seconds), between -1800 and +1800."
 msgstr "Hlavní stanice zpoždění vypnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:230
+#: ospy/options.py:235
 msgid "Master two on delay"
 msgstr "T2 zapnutí"
 
-#: ospy/options.py:232
+#: ospy/options.py:237
 msgid "Master two on delay (in seconds), between -1800 and +1800."
 msgstr ""
 "Druhá hlavní stanice zpoždění sepnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:239
+#: ospy/options.py:244
 msgid "Master two off delay"
 msgstr "T2 vypnutí"
 
-#: ospy/options.py:241
+#: ospy/options.py:246
 msgid "Master two off delay (in seconds), between -1800 and +1800."
 msgstr ""
 "Druhá hlavní stanice zpoždění vypnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:250
+#: ospy/options.py:255
 msgid "Use rain sensor"
 msgstr "Používat senzor"
 
-#: ospy/options.py:252
+#: ospy/options.py:257
 msgid "Use rain sensor."
 msgstr "Používat děšťový senzor."
 
-#: ospy/options.py:253 ospy/options.py:260
+#: ospy/options.py:258 ospy/options.py:265
 #: plugins/lcd_display/templates/lcd_display.html:97
 msgid "Rain Sensor"
 msgstr "Dešťový senzor"
 
-#: ospy/options.py:257
+#: ospy/options.py:262
 #: plugins/pressure_monitor/templates/pressure_monitor.html:186
 msgid "Normally open"
 msgstr "V klidu rozpojen"
 
-#: ospy/options.py:259
+#: ospy/options.py:264
 msgid "Rain sensor default."
 msgstr "Dešťový senzor má bez deště kontakt rozpojen."
 
-#: ospy/options.py:266
+#: ospy/options.py:271
 msgid "Enable run log"
 msgstr "Aktivovat záznam"
 
-#: ospy/options.py:268
+#: ospy/options.py:273
 msgid ""
 "Log all runs - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -384,112 +415,112 @@ msgstr ""
 "Zaznamenávat všechny běhy stanic - berte na vědomí, že opakující se psaní na "
 "SD kartu může zkrátit její životnost."
 
-#: ospy/options.py:269 ospy/options.py:276 ospy/options.py:285
-#: ospy/options.py:292 ospy/options.py:301
+#: ospy/options.py:274 ospy/options.py:281 ospy/options.py:290
+#: ospy/options.py:297 ospy/options.py:306
 msgid "Logging"
 msgstr "Protokolování"
 
-#: ospy/options.py:273
+#: ospy/options.py:278
 msgid "Max run entries"
 msgstr "Max záznamů"
 
-#: ospy/options.py:275
+#: ospy/options.py:280
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr "Počet záznamů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:282
+#: ospy/options.py:287
 msgid "Enable email log"
-msgstr "Aktivovat záznam Emailů"
+msgstr "Aktivovat záznam E-mailů"
 
-#: ospy/options.py:284
+#: ospy/options.py:289
 msgid ""
 "Log all emails - note that repetitive writing to an SD card can shorten its "
 "lifespan."
 msgstr ""
-"Zaznamenávat všechny e-maily - berte na vědomí, že opakující se psaní na SD "
+"Zaznamenávat všechny E-maily - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:289
+#: ospy/options.py:294
 msgid "Max email entries"
-msgstr "Max záznamů"
+msgstr "Max záznamů E-mailu"
 
-#: ospy/options.py:291
+#: ospy/options.py:296
 msgid "Number of email entries to save to disk, 0=no limit."
-msgstr "Počet záznamů emailů v logu na disku, 0 = bez omezení."
+msgstr "Počet záznamů E-mailů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:298
+#: ospy/options.py:303
 msgid "Enable debug log"
 msgstr "Povolit ladění"
 
-#: ospy/options.py:300
+#: ospy/options.py:305
 msgid "Log all internal events (for debugging purposes)."
 msgstr "Zaznamenávat všechny interní události (pro účely ladění)."
 
-#: ospy/options.py:307 plugins/button_control/templates/button_control.html:39
+#: ospy/options.py:312 plugins/button_control/templates/button_control.html:39
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:312
+#: ospy/options.py:317
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
-#: ospy/options.py:317
+#: ospy/options.py:322
 msgid "Level adjustment set by the user (fraction)"
 msgstr "Nastavení úrovně nastavení uživatelem (zlomek)"
 
-#: ospy/options.py:322
+#: ospy/options.py:327
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
-#: ospy/options.py:327
+#: ospy/options.py:332
 msgid "C/F"
 msgstr "C/F"
 
-#: ospy/options.py:332
+#: ospy/options.py:337
 msgid "Current password hash"
 msgstr "Aktuální heslo hash"
 
-#: ospy/options.py:337
+#: ospy/options.py:342
 msgid "Current password salt"
 msgstr "Aktuální heslo salt"
 
-#: ospy/options.py:342
+#: ospy/options.py:347
 msgid "Current password decryption time"
 msgstr "Aktuální heslo šifrovací čas"
 
-#: ospy/options.py:347
+#: ospy/options.py:352
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
-#: ospy/options.py:352
+#: ospy/options.py:357
 msgid "The email that have been logged"
 msgstr "E-maily, které byly zaznamenány"
 
-#: ospy/options.py:357
+#: ospy/options.py:362
 msgid "ETo and rain value cache"
 msgstr "Vyrovnávací paměť pro ETo a srážky"
 
-#: ospy/options.py:362
+#: ospy/options.py:367
 msgid "Location latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/options.py:367
+#: ospy/options.py:372
 msgid "Location longtitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/options.py:372
+#: ospy/options.py:377
 msgid "Weather status"
 msgstr "Stav počasí"
 
-#: ospy/options.py:449
+#: ospy/options.py:454
 msgid "Callback failed"
 msgstr "Zpětné volání se nezdařilo"
 
-#: ospy/options.py:485
+#: ospy/options.py:490
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:512
+#: ospy/options.py:517
 msgid "Saving error"
 msgstr "Chyba při ukládání"
 
@@ -559,12 +590,6 @@ msgstr "Vlastní plánovač opakování denně"
 #: ospy/programs.py:251 ospy/programs.py:253
 msgid "Custom schedule repeating every"
 msgstr "Vlastní plánovač opakování každý(é)"
-
-#: ospy/programs.py:251 ospy/programs.py:258 ospy/programs.py:263
-#: plugins/weather_based_water_level/__init__.py:112
-#: plugins/weather_based_water_level_netatmo/__init__.py:162
-msgid "days"
-msgstr "dny"
 
 #: ospy/programs.py:253 ospy/programs.py:284
 msgid "minutes"
@@ -890,7 +915,7 @@ msgid "Configure Stations"
 msgstr "Nastavení stanic"
 
 #: ospy/templates/base.html:152 ospy/templates/help.html:3
-#: ospy/templates/help.html:9 plugins/relay_16/templates/relay_16.html:22
+#: ospy/templates/help.html:19 plugins/relay_16/templates/relay_16.html:22
 msgid "Help"
 msgstr "Nápověda"
 
@@ -931,6 +956,14 @@ msgstr "Vnější IP adresa"
 msgid "Working"
 msgstr "V provozu"
 
+#: ospy/templates/help.html:11
+msgid ""
+"Error: Failed loading Python extension partial gfm in markdown! README.md "
+"information in help not be displayed correctly."
+msgstr ""
+"Chyba: Neúspěšné načítání rozšíření Pythonu partial gfm v markdown! "
+"Informace README.md se v nápovědě níže nezobrazí správně."
+
 #: ospy/templates/home.html:90
 msgid "blocked by"
 msgstr "zablokováno"
@@ -961,6 +994,7 @@ msgstr "Potlačeno dešťovým senzorem"
 
 #: ospy/templates/home.html:161 ospy/templates/home.html:512
 #: ospy/templates/log.html:7 ospy/templates/log.html:35
+#: plugins/lcd_display/__init__.py:386
 msgid "Disabled"
 msgstr "Zakázáno"
 
@@ -1055,7 +1089,7 @@ msgstr "Počet dostupných aktualizací pro rozšíření"
 msgid "Plugin name"
 msgstr "Název rozšíření"
 
-#: ospy/templates/home.html:402
+#: ospy/templates/home.html:403
 msgid "Open plugins"
 msgstr "Otevřít rozšíření"
 
@@ -1083,7 +1117,8 @@ msgstr "% doby programu"
 msgid "Rain Delay"
 msgstr "Zpoždění při dešti"
 
-#: ospy/templates/home.html:502 plugins/pressure_monitor/__init__.py:188
+#: ospy/templates/home.html:502 plugins/lcd_display/__init__.py:272
+#: plugins/lcd_display/__init__.py:305 plugins/pressure_monitor/__init__.py:188
 #: plugins/pressure_monitor/__init__.py:189
 msgid "Active"
 msgstr "Aktivní"
@@ -1096,12 +1131,13 @@ msgstr "Detekován déšť"
 msgid "Schedule"
 msgstr "Plánovač"
 
-#: ospy/templates/home.html:509 ospy/webpages.py:231
+#: ospy/templates/home.html:509 ospy/webpages.py:230
 msgid "Manual"
 msgstr "Ručně"
 
 #: ospy/templates/home.html:512 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
+#: plugins/lcd_display/__init__.py:384
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
 #: plugins/webcam/templates/webcam.html:29
 msgid "Enabled"
@@ -1155,7 +1191,7 @@ msgstr "nahrávám..."
 #: plugins/ping_monitor/templates/ping_monitor.html:282
 #: plugins/pressure_monitor/templates/pressure_monitor.html:285
 #: plugins/tank_monitor/templates/tank_monitor.html:365
-#: plugins/ups_adj/templates/ups_adj.html:266
+#: plugins/ups_adj/templates/ups_adj.html:272
 #: plugins/wind_monitor/templates/wind_monitor.html:357
 msgid "Clear selection"
 msgstr "Zrušit výběr"
@@ -1209,7 +1245,7 @@ msgstr "žádný záznam"
 #: plugins/ping_monitor/templates/ping_monitor.html:176
 #: plugins/pressure_monitor/templates/pressure_monitor.html:176
 #: plugins/tank_monitor/templates/tank_monitor.html:176
-#: plugins/ups_adj/templates/ups_adj.html:176
+#: plugins/ups_adj/templates/ups_adj.html:177
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
 #: plugins/wind_monitor/templates/wind_monitor.html:187
 msgid "Download log as"
@@ -1240,7 +1276,7 @@ msgstr "Trvání"
 
 #: ospy/templates/log.html:35 ospy/templates/log.html:64
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: ospy/templates/log.html:44
 msgid "Time"
@@ -1248,7 +1284,7 @@ msgstr "Čas"
 
 #: ospy/templates/log.html:45
 msgid "Email Status"
-msgstr "Stav Emailu"
+msgstr "Stav E-mailu"
 
 #: ospy/templates/log.html:46
 msgid "Subject"
@@ -1337,6 +1373,7 @@ msgstr "Hlavní stanice"
 
 #: ospy/templates/options.html:149 ospy/templates/options.html:151
 #: ospy/templates/options.html:162 ospy/templates/options.html:164
+#: plugins/lcd_display/__init__.py:289
 msgid "None"
 msgstr "Nepoužito"
 
@@ -1530,7 +1567,7 @@ msgstr "Potvrdit změny"
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:354
 #: plugins/temperature_switch/templates/temperature_switch.html:201
-#: plugins/ups_adj/templates/ups_adj.html:255
+#: plugins/ups_adj/templates/ups_adj.html:261
 #: plugins/usage_statistics/templates/usage_statistics.html:44
 #: plugins/voice_notification/templates/voice_notification.html:127
 #: plugins/volt_temp_da/templates/volt_temp_da.html:82
@@ -1998,15 +2035,15 @@ msgstr ""
 "Toto rozhraní bylo odstraněno, protože Weather Underground API se zastavil, "
 "prosím aktualizujte plug-in!"
 
-#: ospy/webpages.py:78
+#: ospy/webpages.py:77
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:81
+#: ospy/webpages.py:80
 msgid "Incorrect password, please try again"
 msgstr "Nesprávné heslo, opakujte prosím"
 
-#: ospy/webpages.py:606
+#: ospy/webpages.py:605
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2014,7 +2051,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:612
+#: ospy/webpages.py:611
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2022,7 +2059,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:617
+#: ospy/webpages.py:616
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -2030,7 +2067,7 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:629
+#: ospy/webpages.py:628
 msgid ""
 "All system OSPy settings have been cleared in the settings, the OSPy will "
 "now restart and load the default settings."
@@ -2038,7 +2075,7 @@ msgstr ""
 "Všechna nastavení systému OSPy byla v nastavení vymazána, OSPy se nyní "
 "restartuje a načte výchozí nastavení."
 
-#: ospy/webpages.py:637
+#: ospy/webpages.py:636
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -2046,46 +2083,46 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:702 ospy/webpages.py:731
+#: ospy/webpages.py:707 ospy/webpages.py:736
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:758 ospy/webpages.py:761
+#: ospy/webpages.py:763 ospy/webpages.py:766
 msgid "Upload, save, copy options.db file sucesfully, now restarting OSPy..."
 msgstr ""
 "Nahrát, uložit, kopírovat soubor options.db bylo provedeno, nyní restartuji "
 "OSPy..."
 
-#: ospy/webpages.py:785 ospy/webpages.py:786
+#: ospy/webpages.py:790 ospy/webpages.py:791
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:817 ospy/webpages.py:818 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:822 ospy/webpages.py:823 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:837
+#: ospy/webpages.py:842
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:841
+#: ospy/webpages.py:846
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:847
+#: ospy/webpages.py:852
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:996
+#: ospy/webpages.py:1001
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1009 ospy/webpages.py:1075
+#: ospy/webpages.py:1014 ospy/webpages.py:1080
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1021 ospy/webpages.py:1062
+#: ospy/webpages.py:1026 ospy/webpages.py:1067
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -2202,7 +2239,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:174
 #: plugins/pressure_monitor/templates/pressure_monitor.html:174
 #: plugins/tank_monitor/templates/tank_monitor.html:174
-#: plugins/ups_adj/templates/ups_adj.html:174
+#: plugins/ups_adj/templates/ups_adj.html:175
 #: plugins/wind_monitor/templates/wind_monitor.html:185
 msgid ""
 "If logging is enabled, a graph with measured data will be displayed at the "
@@ -2223,7 +2260,7 @@ msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 #: plugins/ping_monitor/templates/ping_monitor.html:240
 #: plugins/pressure_monitor/templates/pressure_monitor.html:229
 #: plugins/tank_monitor/templates/tank_monitor.html:309
-#: plugins/ups_adj/templates/ups_adj.html:215
+#: plugins/ups_adj/templates/ups_adj.html:216
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
 #: plugins/wind_monitor/templates/wind_monitor.html:273
 msgid "Enable logging"
@@ -2232,14 +2269,14 @@ msgstr "Povolit záznam"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:199
 #: plugins/pressure_monitor/templates/pressure_monitor.html:235
 #: plugins/tank_monitor/templates/tank_monitor.html:315
-#: plugins/ups_adj/templates/ups_adj.html:221
+#: plugins/ups_adj/templates/ups_adj.html:222
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
 #: plugins/wind_monitor/templates/wind_monitor.html:291
 msgid "Maximum number of log records"
 msgstr "Maximální počet záznamů"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:201
-#: plugins/pressure_monitor/templates/pressure_monitor.html:237
+#: plugins/pressure_monitor/templates/pressure_monitor.html:236
 #: plugins/tank_monitor/templates/tank_monitor.html:316
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
@@ -2268,8 +2305,8 @@ msgstr "minutě/tách (minimum je 1)"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:242
 #: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/tank_monitor/templates/tank_monitor.html:328
-#: plugins/ups_adj/templates/ups_adj.html:227
 #: plugins/ups_adj/templates/ups_adj.html:228
+#: plugins/ups_adj/templates/ups_adj.html:229
 #: plugins/wind_monitor/templates/wind_monitor.html:304
 #: plugins/wind_monitor/templates/wind_monitor.html:305
 msgid "Select filter for graph history"
@@ -2279,7 +2316,7 @@ msgstr "Vybrat filtr pro historii grafů"
 #: plugins/ping_monitor/templates/ping_monitor.html:248
 #: plugins/pressure_monitor/templates/pressure_monitor.html:244
 #: plugins/tank_monitor/templates/tank_monitor.html:330
-#: plugins/ups_adj/templates/ups_adj.html:230
+#: plugins/ups_adj/templates/ups_adj.html:231
 #: plugins/wind_monitor/templates/wind_monitor.html:307
 msgid "Without limits"
 msgstr "Bez omezení"
@@ -2288,7 +2325,7 @@ msgstr "Bez omezení"
 #: plugins/ping_monitor/templates/ping_monitor.html:249
 #: plugins/pressure_monitor/templates/pressure_monitor.html:245
 #: plugins/tank_monitor/templates/tank_monitor.html:331
-#: plugins/ups_adj/templates/ups_adj.html:231
+#: plugins/ups_adj/templates/ups_adj.html:232
 #: plugins/wind_monitor/templates/wind_monitor.html:308
 msgid "Day filter"
 msgstr "Filtr den"
@@ -2297,7 +2334,7 @@ msgstr "Filtr den"
 #: plugins/ping_monitor/templates/ping_monitor.html:250
 #: plugins/pressure_monitor/templates/pressure_monitor.html:246
 #: plugins/tank_monitor/templates/tank_monitor.html:332
-#: plugins/ups_adj/templates/ups_adj.html:232
+#: plugins/ups_adj/templates/ups_adj.html:233
 #: plugins/wind_monitor/templates/wind_monitor.html:309
 msgid "Week filter"
 msgstr "Filtr týden"
@@ -2306,7 +2343,7 @@ msgstr "Filtr týden"
 #: plugins/ping_monitor/templates/ping_monitor.html:251
 #: plugins/pressure_monitor/templates/pressure_monitor.html:247
 #: plugins/tank_monitor/templates/tank_monitor.html:333
-#: plugins/ups_adj/templates/ups_adj.html:233
+#: plugins/ups_adj/templates/ups_adj.html:234
 #: plugins/wind_monitor/templates/wind_monitor.html:310
 msgid "Month filter"
 msgstr "Filtr měsíc"
@@ -2315,7 +2352,7 @@ msgstr "Filtr měsíc"
 #: plugins/ping_monitor/templates/ping_monitor.html:252
 #: plugins/pressure_monitor/templates/pressure_monitor.html:248
 #: plugins/tank_monitor/templates/tank_monitor.html:334
-#: plugins/ups_adj/templates/ups_adj.html:234
+#: plugins/ups_adj/templates/ups_adj.html:235
 #: plugins/wind_monitor/templates/wind_monitor.html:311
 msgid "Year filter"
 msgstr "Filtr rok"
@@ -2420,7 +2457,7 @@ msgstr "Počet DS18B20"
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:344
 #: plugins/temperature_switch/templates/temperature_switch.html:191
-#: plugins/ups_adj/templates/ups_adj.html:244
+#: plugins/ups_adj/templates/ups_adj.html:251
 #: plugins/usage_statistics/templates/usage_statistics.html:35
 #: plugins/voice_notification/templates/voice_notification.html:100
 #: plugins/volt_temp_da/templates/volt_temp_da.html:66
@@ -2458,7 +2495,7 @@ msgstr "Stav"
 #: plugins/system_update/templates/system_update.html:93
 #: plugins/tank_monitor/templates/tank_monitor.html:353
 #: plugins/temperature_switch/templates/temperature_switch.html:200
-#: plugins/ups_adj/templates/ups_adj.html:254
+#: plugins/ups_adj/templates/ups_adj.html:260
 #: plugins/voice_notification/templates/voice_notification.html:126
 #: plugins/volt_temp_da/templates/volt_temp_da.html:81
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:86
@@ -2475,7 +2512,7 @@ msgstr "POTVRDIT"
 #: plugins/ping_monitor/templates/ping_monitor.html:273
 #: plugins/pressure_monitor/templates/pressure_monitor.html:276
 #: plugins/tank_monitor/templates/tank_monitor.html:356
-#: plugins/ups_adj/templates/ups_adj.html:257
+#: plugins/ups_adj/templates/ups_adj.html:263
 #: plugins/wind_monitor/templates/wind_monitor.html:348
 msgid "Delete all logs"
 msgstr "Smazat všechny logy"
@@ -2776,19 +2813,21 @@ msgid "Finished run"
 msgstr "Ukončené zalévání"
 
 #: plugins/email_notifications/__init__.py:154
-msgid "Level"
-msgstr "Úroveň"
-
-#: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:145 plugins/tank_monitor/__init__.py:147
-#: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:150
-#: plugins/tank_monitor/__init__.py:151 plugins/tank_monitor/__init__.py:152
-#: plugins/tank_monitor/__init__.py:153 plugins/tank_monitor/__init__.py:250
-#: plugins/tank_monitor/__init__.py:265 plugins/tank_monitor/__init__.py:266
-#: plugins/tank_monitor/__init__.py:302 plugins/tank_monitor/__init__.py:303
+#: plugins/lcd_display/__init__.py:325 plugins/tank_monitor/__init__.py:145
+#: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
+#: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
+#: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
+#: plugins/tank_monitor/__init__.py:250 plugins/tank_monitor/__init__.py:265
+#: plugins/tank_monitor/__init__.py:266 plugins/tank_monitor/__init__.py:302
+#: plugins/tank_monitor/__init__.py:303
 msgid "cm"
 msgstr "cm"
+
+#: plugins/email_notifications/__init__.py:154
+#: plugins/lcd_display/__init__.py:325
+msgid "Level"
+msgstr "Úroveň"
 
 #: plugins/email_notifications/__init__.py:156
 #: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:151
@@ -2810,7 +2849,8 @@ msgstr "litrů"
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
-#: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
+#: plugins/lcd_display/__init__.py:329 plugins/tank_monitor/__init__.py:150
+#: plugins/tank_monitor/__init__.py:151
 msgid "m3"
 msgstr "m3"
 
@@ -2986,7 +3026,7 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:218
 #: plugins/system_update/templates/system_update.html:70
 #: plugins/tank_monitor/templates/tank_monitor.html:259
-#: plugins/ups_adj/templates/ups_adj.html:204
+#: plugins/ups_adj/templates/ups_adj.html:205
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
 #: plugins/wind_monitor/templates/wind_monitor.html:238
 msgid "E-mail subject"
@@ -3059,17 +3099,144 @@ msgstr "Balíček: LCD displej"
 msgid "LCD display plug-in:"
 msgstr "Rozšíření LCD displej:"
 
-#: plugins/lcd_display/__init__.py:841 plugins/system_info/__init__.py:111
+#: plugins/lcd_display/__init__.py:178
+msgid ","
+msgstr ","
+
+#: plugins/lcd_display/__init__.py:190
+msgid "System:"
+msgstr "Systém:"
+
+#: plugins/lcd_display/__init__.py:200
+msgid "SW Version:"
+msgstr "SW verze:"
+
+#: plugins/lcd_display/__init__.py:210
+msgid "My IP is:"
+msgstr "Moje IP adresa je:"
+
+#: plugins/lcd_display/__init__.py:215
+msgid "http"
+msgstr "http"
+
+#: plugins/lcd_display/__init__.py:217
+msgid "https"
+msgstr "https"
+
+#: plugins/lcd_display/__init__.py:218
+msgid ":"
+msgstr ":"
+
+#: plugins/lcd_display/__init__.py:218
+msgid "://"
+msgstr "://"
+
+#: plugins/lcd_display/__init__.py:224
+msgid "My Port is:"
+msgstr "Můj port je:"
+
+#: plugins/lcd_display/__init__.py:234
+msgid "CPU Temperature:"
+msgstr "Teplota procesoru:"
+
+#: plugins/lcd_display/__init__.py:244
+msgid "Date:"
+msgstr "Datum:"
+
+#: plugins/lcd_display/__init__.py:250
+msgid "Time:"
+msgstr "Čas:"
+
+#: plugins/lcd_display/__init__.py:256
+msgid "System Uptime:"
+msgstr "Doba provozu:"
+
+#: plugins/lcd_display/__init__.py:266
+msgid "Rain Sensor:"
+msgstr "Dešťový senzor:"
+
+#: plugins/lcd_display/__init__.py:274 plugins/lcd_display/__init__.py:303
+#: plugins/pressure_monitor/__init__.py:185
+#: plugins/pressure_monitor/__init__.py:186
+msgid "Inactive"
+msgstr "Neaktivní"
+
+#: plugins/lcd_display/__init__.py:279
+msgid "Last Program:"
+msgstr "Poslední program:"
+
+#: plugins/lcd_display/__init__.py:294
+msgid "Pressure Sensor:"
+msgstr "Snímač tlaku:"
+
+#: plugins/lcd_display/__init__.py:307 plugins/lcd_display/__init__.py:333
+#: plugins/lcd_display/__init__.py:354
+msgid "Not Available"
+msgstr "Není k dispozici"
+
+#: plugins/lcd_display/__init__.py:312
+msgid "Water Tank Level:"
+msgstr "Hladina vody v nádrži:"
+
+#: plugins/lcd_display/__init__.py:325
+msgid "%"
+msgstr "%"
+
+#: plugins/lcd_display/__init__.py:327
+#: plugins/water_consumption_counter/__init__.py:161
+#: plugins/water_consumption_counter/__init__.py:162
+#: plugins/water_consumption_counter/__init__.py:191
+#: plugins/water_consumption_counter/__init__.py:192
+msgid "liter"
+msgstr "litr"
+
+#: plugins/lcd_display/__init__.py:331
+msgid "Error - I2C Device Not Found!"
+msgstr "Chyba - I2C zařízení nenalezeno!"
+
+#: plugins/lcd_display/__init__.py:338
+msgid "DS Temperature:"
+msgstr "DS Teplota:"
+
+#: plugins/lcd_display/__init__.py:352
+msgid "DS temperature not use"
+msgstr "DS teplota se nepoužívá"
+
+#: plugins/lcd_display/__init__.py:359
+msgid "Station running:"
+msgstr "Stanice v provozu:"
+
+#: plugins/lcd_display/__init__.py:364
+msgid "Nothing running"
+msgstr "Nic neběží"
+
+#: plugins/lcd_display/__init__.py:369
+msgid "Control:"
+msgstr "Ovládání:"
+
+#: plugins/lcd_display/__init__.py:374
+msgid "Manual mode"
+msgstr "Manuální režim"
+
+#: plugins/lcd_display/__init__.py:376
+msgid "Scheduler"
+msgstr "Plánovač"
+
+#: plugins/lcd_display/__init__.py:379
+msgid "Scheduler:"
+msgstr "Plánovač:"
+
+#: plugins/lcd_display/__init__.py:411
+msgid "Could not find any PCF8574 controller."
+msgstr "Nebyl nalezl žádný řadič PCF8574."
+
+#: plugins/lcd_display/__init__.py:414 plugins/system_info/__init__.py:133
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
 #: plugins/wind_monitor/__init__.py:115
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
-#: plugins/lcd_display/__init__.py:854
-msgid "Could not find any PCF8574 controller."
-msgstr "Nebyl nalezl žádný řadič PCF8574."
-
-#: plugins/lcd_display/__init__.py:908
+#: plugins/lcd_display/__init__.py:468
 msgid "I2C address has re-finded."
 msgstr "Adresa I2C byla znovu vyhledána."
 
@@ -3758,7 +3925,7 @@ msgstr "Odeslat E-mailem soubor statistik (csv)."
 #: plugins/pressure_monitor/templates/pressure_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:248
 #: plugins/tank_monitor/templates/tank_monitor.html:254
-#: plugins/ups_adj/templates/ups_adj.html:188
+#: plugins/ups_adj/templates/ups_adj.html:200
 #: plugins/wind_monitor/templates/wind_monitor.html:233
 msgid "For this function required E-mail plugin"
 msgstr ""
@@ -3770,7 +3937,7 @@ msgstr "Interval pro odesílání statistiky (logu)"
 
 #: plugins/ping_monitor/templates/ping_monitor.html:221
 msgid "Interval for sending statistics by email. From 1 to 48 hours."
-msgstr "Interval pro odesílání statistik e-mailem. Od 1 do 48 hodin."
+msgstr "Interval pro odesílání statistik E-mailem. Od 1 do 48 hodin."
 
 #: plugins/ping_monitor/templates/ping_monitor.html:225
 msgid "Delete statistics after send"
@@ -3967,11 +4134,6 @@ msgstr ""
 "E-mail nebyl odeslán! Rozšíření Email Notifications nebylo v OSPy nalezeno "
 "nebo nebylo správně nastaveno."
 
-#: plugins/pressure_monitor/__init__.py:185
-#: plugins/pressure_monitor/__init__.py:186
-msgid "Inactive"
-msgstr "Neaktivní"
-
 #: plugins/pressure_monitor/__init__.py:269
 #: plugins/tank_monitor/__init__.py:566 plugins/wind_monitor/__init__.py:388
 msgid "Stoping stations in scheduler"
@@ -4055,7 +4217,7 @@ msgstr ""
 "stanice, které chceme vypnout v plánovači"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:212
-#: plugins/ups_adj/templates/ups_adj.html:186
+#: plugins/ups_adj/templates/ups_adj.html:199
 msgid "Send E-mail with error"
 msgstr "Odeslat E-mail s chybou"
 
@@ -4870,7 +5032,7 @@ msgstr "Rozšíření SMS odeslalo obrazový soubor z webové kamery."
 msgid ""
 "Received SMS was deleted, but could not send email with photo from webcam"
 msgstr ""
-"Přijatá SMS byla smazána, ale nemohla odeslat e-mail s fotografií z webové "
+"Přijatá SMS byla smazána, ale nemohla odeslat E-mail s fotografií z webové "
 "kamery"
 
 #: plugins/sms_adj/__init__.py:398
@@ -5078,31 +5240,31 @@ msgstr "Využití CPU"
 msgid "MAC adress"
 msgstr "MAC adresa"
 
-#: plugins/system_info/__init__.py:59
+#: plugins/system_info/__init__.py:58
 msgid "I2C HEX Adress"
 msgstr "I2C adresy v HEX"
 
-#: plugins/system_info/__init__.py:64 plugins/system_info/__init__.py:101
-msgid "System info plug-in"
-msgstr "Rozšíření systémové informace"
+#: plugins/system_info/__init__.py:63 plugins/system_info/__init__.py:67
+msgid "Could not open any i2c device!"
+msgstr "Nelze otevřít žádné zařízení i2c!"
 
-#: plugins/system_info/__init__.py:68
+#: plugins/system_info/__init__.py:71
 msgid "Found ATMEGA328 for Air Temperature and Humidity Monitor plugin (0x03)."
 msgstr "Nalezen ATMEGA328 pro Air Temperature and Humidity Monitor  (0x03)."
 
-#: plugins/system_info/__init__.py:72
+#: plugins/system_info/__init__.py:75
 msgid "Found ATMEGA328 for Water Tank Monitor plugin (0x04)."
 msgstr "Nalezen ATMEGA328 pro Water Tank Monitor (0x04)."
 
-#: plugins/system_info/__init__.py:76
+#: plugins/system_info/__init__.py:79
 msgid "Found ATMEGA328 for Humidity Monitor plugin (0x05)."
 msgstr "Nalezen ATMEGA328 pro rozšíření Humidity Monitor na adrese (0x05)."
 
-#: plugins/system_info/__init__.py:80
+#: plugins/system_info/__init__.py:83
 msgid "Found MCP23017 for Button Control plugin (0x27)."
 msgstr "Nalezen MCP23017 pro Button Control (0x27)."
 
-#: plugins/system_info/__init__.py:87
+#: plugins/system_info/__init__.py:90
 msgid ""
 "Warning: MCP23017 found for Button Control plugin (0x27). The address for "
 "PCF8574 must be different, not 0x27! If it is the same, change it on the LCD "
@@ -5112,15 +5274,15 @@ msgstr ""
 "(0x27). Adresa pro LCD PCF8574 musí být odlišná, ne 0x27! Pokud je stejná, "
 "změňte ji na desce LCD displeje."
 
-#: plugins/system_info/__init__.py:88
+#: plugins/system_info/__init__.py:91
 msgid "Found PCF8574 for LCD Display plugin (0x20-0x28, 0x38-0x3F)."
 msgstr "Nalezen PCF8574 pro LCD Display (0x20-0x28, 0x38-0x3F)."
 
-#: plugins/system_info/__init__.py:93
+#: plugins/system_info/__init__.py:96
 msgid "Found PCF8583 for Wind Speed Monitor or Water Meter plugin (0x50-0x51)."
 msgstr "Nalezen PCF8583 pro Wind Speed Monitor nebo Water Meter (0x50-0x51)."
 
-#: plugins/system_info/__init__.py:97
+#: plugins/system_info/__init__.py:100
 msgid "Found DS1307 for Real Time and NTP time plugin (0x68)."
 msgstr "Nalezen DS1307 pro Real Time and NTP time (0x68)."
 
@@ -5909,7 +6071,16 @@ msgstr ""
 "doby, zašle toto rozšíření E-mail s chybou a následně vypne operační systém "
 "(zároveň se vygeneruje krátký puls na GPIO konektoru)."
 
-#: plugins/ups_adj/templates/ups_adj.html:180
+#: plugins/ups_adj/templates/ups_adj.html:174
+msgid ""
+"Output on GPIO 24 - pin 18 (via optocoupler open colector and ground) to UPS "
+"for shutdown battery in UPS."
+msgstr ""
+"Výstup z konektoru GPIO-24 pin 18 je přes optočlen (otevřený kolektor) možné "
+"použít pro vypnutí a odstavení záložního zdroje UPS - tedy baterií zdroje "
+"UPS (pokud tuto funkci Vaše UPS podporuje)."
+
+#: plugins/ups_adj/templates/ups_adj.html:181
 msgid "Use UPS"
 msgstr "Použít UPS rozšíření"
 
@@ -5920,26 +6091,17 @@ msgstr ""
 "Napájecí napětí 230V je přivedeno na optočlen, který spíná konektor GPIO-23 "
 "pin 16 na zem"
 
-#: plugins/ups_adj/templates/ups_adj.html:192
+#: plugins/ups_adj/templates/ups_adj.html:188
 msgid "Max time for shutdown countdown"
 msgstr "Maximální doba pro obnovení napájení"
 
-#: plugins/ups_adj/templates/ups_adj.html:194
+#: plugins/ups_adj/templates/ups_adj.html:189
 msgid "max 999 minutes"
 msgstr "maximum 999 minut"
 
-#: plugins/ups_adj/templates/ups_adj.html:198
+#: plugins/ups_adj/templates/ups_adj.html:245
 msgid "Power line state"
 msgstr "Stav napájení (síť 230V)"
-
-#: plugins/ups_adj/templates/ups_adj.html:250
-msgid ""
-"Output on GPIO 24 - pin 18 (via optocoupler open colector and ground) to UPS "
-"for shutdown battery in UPS."
-msgstr ""
-"Výstup z konektoru GPIO-24 pin 18 je přes optočlen (otevřený kolektor) možné "
-"použít pro vypnutí a odstavení záložního zdroje UPS - tedy baterií zdroje "
-"UPS (pokud tuto funkci Vaše UPS podporuje)."
 
 #: plugins/usage_statistics/__init__.py:20
 msgid "Package: Usage Statistics"
@@ -6274,7 +6436,7 @@ msgstr "Rozšíření spotřeba vody"
 #: plugins/water_consumption_counter/__init__.py:125
 #: plugins/water_consumption_counter/__init__.py:133
 msgid "Email logging is disabled in options..."
-msgstr "V možnostech je zakázáno protokolování e-mailů..."
+msgstr "V možnostech je zakázáno protokolování E-mailů..."
 
 #: plugins/water_consumption_counter/__init__.py:144
 msgid "Master station 1 running, please wait..."
@@ -6283,13 +6445,6 @@ msgstr "Hlavní stanice 1 běží, počkejte prosím..."
 #: plugins/water_consumption_counter/__init__.py:149
 msgid "Master station 1 stopped, counter finished..."
 msgstr "Hlavní stanice 1 zastavena, počítadlo dokončeno..."
-
-#: plugins/water_consumption_counter/__init__.py:161
-#: plugins/water_consumption_counter/__init__.py:162
-#: plugins/water_consumption_counter/__init__.py:191
-#: plugins/water_consumption_counter/__init__.py:192
-msgid "liter"
-msgstr "litr"
 
 #: plugins/water_consumption_counter/__init__.py:161
 #: plugins/water_consumption_counter/__init__.py:191
@@ -6348,7 +6503,7 @@ msgstr "Litry za sekundu"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:40
 msgid "Send email with water consumption"
-msgstr "Odeslání e-mailu se spotřebou vody"
+msgstr "Odeslání E-mailu se spotřebou vody"
 
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:55
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:64
@@ -7131,6 +7286,18 @@ msgstr "Aktuální rychlost větru (zobrazuje se každých 10 sekund)"
 #: plugins/wind_monitor/templates/wind_monitor.html:347
 msgid "Reset max speed"
 msgstr "Smazat max rychlost"
+
+#~ msgid "Irrigation system:"
+#~ msgstr "Systém:"
+
+#~ msgid "ping"
+#~ msgstr "ping"
+
+#~ msgid "scheduler"
+#~ msgstr "plánovač"
+
+#~ msgid "System info plug-in"
+#~ msgstr "Rozšíření systémové informace"
 
 #~ msgid ""
 #~ "If water level is small plugins stop irigation system and sends email "

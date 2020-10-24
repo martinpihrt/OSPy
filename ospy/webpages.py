@@ -24,7 +24,6 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler
 import plugins
-from . import i18n
 from blinker import signal
 
 plugin_data = {}  # Empty dictionary to hold plugin based global data
@@ -685,7 +684,7 @@ class stations_page(ProtectedPage):
 class help_page(ProtectedPage):
     """Help page"""
 
-    def GET(self):
+    def GET(self):        
         qdict = web.input()
         id = get_input(qdict, 'id')
         if id is not None:
@@ -693,7 +692,13 @@ class help_page(ProtectedPage):
             return get_help_file(id)
 
         docs = get_help_files()
-        return self.core_render.help(docs)
+
+        if options.ospy_readme_error: # true if is ImportError: Failed loading extension partial_gfm               
+            errorCode = qdict.get('errorCode', 'gfm')
+        else:    
+            errorCode = qdict.get('errorCode', 'none')         
+
+        return self.core_render.help(docs, errorCode)
         
 class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
