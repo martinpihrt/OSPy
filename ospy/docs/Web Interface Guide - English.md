@@ -93,11 +93,14 @@ OSPy Web Interface Guide in English
             Dark Sky API key
             Location
             Elevation
-        Security Section
+        Users Section
             Disable security
+            Admin login name
             Current password
             New password
-            Confirm password 
+            Confirm password
+            Aditional users
+        Security Section             
             Use HTTPS access
             Domain name 
             Use Own HTTPS access          
@@ -492,14 +495,23 @@ City name or zip code. Used to determine location via OpenStreetMap for weather 
 ### Elevation
 Elevation of this location in meters. (need not be filled)
 
-## Security Section
-For improved security it is recommended that you change the system password from the default opendoor. You can also disable the password requirement if desired.
+## Users Section
+Here is the credentials of a system administrator (main user) who can manage the entire system.
+For improved security it is recommended that you change the system password from the default opendoor and user name default admin. You can also disable the password requirement if desired.
 
 * Click the triangle at the left of the bar labled Change password to expand the section.
-* Leave the Disable security box unchecked unless you have a very good reason to disable password protection.
+* Check the "No password" box if you have a very good reason to disable password and name protection. The system will no longer require the user to log in. Access to all sections will be allowed.
+* Enter your login name the the boxes labeled Administrator name.
 * Enter the current password in the first text box This will be opendoor on a new installation.
 * Enter your new password into the the boxes labeled New password and Confirm password.
 * Click the Submit Changes button at the bottom of the page.
+You will return to the home page. Your new password and name will be required the next time you log in.
+
+### Aditional users
+After clicking on the button, a page will open where we can create and possibly edit new users to access the system.
+
+## Security Section
+In this section you can customize a secure connection using SSL and a certificate.
 
 ### Use HTTPS access 
 If we have configured the OSPy server for enhanced security of SSL data transmission, select the "Use HTTPS" checkbox. If the "Use HTTPS" option is checked and the server is not set up correctly, OSPy will run as an http server without security.
@@ -507,8 +519,6 @@ If we have configured the OSPy server for enhanced security of SSL data transmis
 ### Domain Name
 The certificate is located on the system in the '/etc/letsencrypt/live/' domain name '/fullchain.pem' and '/etc/letsencrypt/live/' domain name '/privkey.pem' directories. It is necessary to install the certificate manually into the system (Linux) using the "Certbot" tool (the use of https will not be reflected in OSPy until the OSPy is restarted).
 * The procedure for installing Certificate Services can be found in the "Readme" help file or on Github.
-
-You will return to the home page. Your new password will be required the next time you log in.
 
 ### Use Certbot
 For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.

@@ -138,14 +138,23 @@ class _Options(object):
             "max": 10000
         },
         #######################################################################
-        # Security ############################################################
+        # Users ############################################################
         {
             "key": "no_password",
             "name": _('Disable security'),
             "default": False,
             "help": _('Allow anonymous users to access the system without a password.'),
-            "category": _('Security')
+            "category": _('Users')
         },
+        {
+            "key": "admin_user",
+            "name": _('Administrator name'),
+            "default": "admin",
+            "help": _('Administrator login name for login to the OSPy.'),
+            "category": _('Users')
+        },
+        #######################################################################
+        # Security ############################################################        
         {
             "key": "use_ssl",
             "name": _('Use HTTPS access'),

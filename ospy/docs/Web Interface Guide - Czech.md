@@ -93,11 +93,14 @@ OSPy Průvodce webovým rozhraním v češtině
             Dark Sky API klíč
             Umístění
             Nadmořská výška
-        Bezpečnost
+        Uživatelé
             Bez hesla
+            Jméno správce
             Aktuální heslo
             Nové heslo
             Potvrďte heslo 
+            Další uživatelé
+        Bezpečnost            
             Použít HTTPS
             Jméno domény
             Použít vlastní HTTPS          
@@ -515,16 +518,22 @@ Název města nebo PSČ. Slouží k určení polohy pomocí OpenStreetMap pro in
 ### Nadmořská výška
 Nadmořská výška místa v metrech, kde je umístěn zavlažovací systém (nemusí být vyplněno).
 
-## Bezpečnost
-Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy z výchozího "opendoor". V případě potřeby můžete také požadavek na heslo deaktivovat.
+## Uživatelé
+Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy z výchozího "opendoor" a uživatelské jméno z výchozího "admin". V případě potřeby můžete také požadavek na heslo deaktivovat.
 
-* Klepnutím na trojúhelník nalevo od lišty s popiskem "Bezpečnost" rozbalte sekci.
-* Zrušte zaškrtnutí políčko "Bez hesla", pokud nemáte velmi dobrý důvod k deaktivaci ochrany heslem.
-* Do prvního textového pole zadejte aktuální heslo. 
+* Klepnutím na trojúhelník nalevo od lišty s popiskem "Uživatelé" rozbalte sekci.
+* Označte zaškrtnutím políčko "Bez hesla", pokud máte velmi dobrý důvod k deaktivaci ochrany heslem a jménem. Systém již nebude vyžadovat přihlášení uživatele. Bude umožnen přístup do všech sekcí.
+* Zadejte Vaše uživatelské jméno (výchozí "admin").
+* Zadejte Vaše aktuální heslo (výchozí "opendoor". 
 * Zadejte nové heslo do polí označených "Nové heslo" a "Potvrďte heslo".
 * Klikněte na tlačítko "Potvrdit změny" ve spodní části stránky.
 
-Vrátíte se na domovskou stránku. Vaše nové heslo bude vyžadováno při příštím přihlášení.
+Vrátíte se na domovskou stránku. Vaše nové heslo s jméno bude vyžadováno při příštím přihlášení.
+
+### Další uživatelé
+Po kliknutí na tlačítko se otevře stránka, kde můžeme vytvářet a případně upravovat nové uživatele pro přístup do systému.
+
+## Bezpečnost
 
 ### Použít HTTPS 
 V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení přenosu dat pomocí certifikátu SSL, zaškrtněte políčko "Použít HTTPS". Pokud je zaškrtnuta volba "Použít HTTPS" a server není správně nastaven, OSPy se spustí jako http server bez zabezpečení.

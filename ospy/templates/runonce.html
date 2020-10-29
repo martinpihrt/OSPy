@@ -37,16 +37,15 @@ $var page: runonce
 <div id="runonce">
     <div class="title">$_('Run Once Program')</div>
     <form id="runonceForm" method="post">
-        <table class="stationList">
+        <table class="stationList" style="background: #F5F5F5;">
             $for station in stations.enabled_stations():
                 <tr>
                     <td class='station_name'>${station.name}</td>
-                    <td>
+                    <td title=$:{json.dumps(_(u'Type time for run in minutes and seconds'), ensure_ascii=False)}>
                         <input id="mm${station.index}" name="mm${station.index}" type="number" size="3" maxlength="3" value="0" min="0" max="999">:
-                        <input id="ss${station.index}" name="ss${station.index}" type="number" size="2" maxlength="2" value="0" min="0" max="59"> (mm:ss)
-                    </td>
+                        <input id="ss${station.index}" name="ss${station.index}" type="number" size="2" maxlength="2" value="0" min="0" max="59">
+                    </td>    
                 </tr>
-
         </table>
     </form>
 </div>

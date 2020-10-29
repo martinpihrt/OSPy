@@ -186,16 +186,18 @@ def uptime():
             total_sec = float(f.read().split()[0])
             s = datetime.timedelta(seconds=int(total_sec))
             d = datetime.datetime(1,1,1) + s
-            if d.day-1 == 1:
-                string = u'%d ' % (d.day-1) + _(u'day')    # den
-            if d.day-1 > 1 and d.day-1 < 5:
-                string = u'%d ' % (d.day-1) + _(u'days')   # dny 
+            string = ''
+            if d.day-1 == 1 and d.hour < 23 and d.minute < 59:
+                string = u'%d' % (d.day-1) + _(u'. day')    # den
+            if d.day-1 >= 2 and d.day-1 < 5:
+                string = u'%d' % (d.day-1) + _(u'. days')   # dny 
             if d.day-1 > 4:
-                string = u'%d ' % (d.day-1) + _(u'days ')  # dnu  
+                string = u'%d' % (d.day-1) + _(u'. days ')  # dnu  
+
             string += u' %s:%s:%s' % (two_digits(d.hour), two_digits(d.minute), two_digits(d.second))
     except Exception:
        string = _(u'Unknown')
-       print traceback.format_exc()
+       print_report('helpers.py', traceback.format_exc())
     return string
     
 
@@ -211,6 +213,7 @@ def split_ip(ip):
             octets.append(ip[0:dot_idx])
             ip = ip[dot_idx+1:]           
     except:
+        print_report('helpers.py', traceback.format_exc())
         return ('0','0','0','0')
     return (octets[0], octets[1], octets[2], octets[3])
 
@@ -239,6 +242,7 @@ def get_ip(net=''):
         return string
         
     except:
+        print_report('helpers.py', traceback.format_exc())
         return _('No IP Settings') 
 
 def get_mac():
@@ -247,6 +251,7 @@ def get_mac():
         return str(open('/sys/class/net/eth0/address').read())
 
     except Exception:
+        print_report('helpers.py', traceback.format_exc())
         return _(u'Unknown')
 
 def get_meminfo():
@@ -259,6 +264,7 @@ def get_meminfo():
         return meminfo
 
     except Exception:
+        print_report('helpers.py', traceback.format_exc())
         return {
               'MemTotal': _(u'Unknown'),
               'MemFree': _(u'Unknown')
@@ -278,6 +284,7 @@ def get_netdevs():
                                                 'tx': float(line[1].split()[8])/(1024.0*1024.0)}
         return device_data
     except Exception:
+        print_report('helpers.py', traceback.format_exc())
         return {}
 
 
@@ -302,6 +309,7 @@ def get_cpu_temp(unit=None):
         else:
             return temp
     except Exception:
+        print_report('helpers.py', traceback.format_exc())
         return _(u'-')
 
 
@@ -460,6 +468,7 @@ def get_external_ip():
         try:
             external_ip_address = subprocess.check_output(['/usr/bin/curl', '-ks', 'https://pihrt.com/ipbot.php'])
         except:
+            print_report('helpers.py', traceback.format_exc())
             external_ip_address = '-'
 
     return str(external_ip_address)
@@ -481,21 +490,63 @@ def password_hash(password, salt):
 
 def test_password(password):
     from ospy.options import options
+    from ospy.users import users
+
+    result_admin = False
+    result_users = False
 
     # Brute-force protection:
-    with BRUTEFORCE_LOCK:
-        if options.password_time > 0:
+    with BRUTEFORCE_LOCK: 
+        if options.password_time > 0:                                           # for OSPY main administrator
             time.sleep(options.password_time)
 
-    result = options.password_hash == password_hash(password, options.password_salt)
+        for user in users.get():                                                # for others OSPy users
+            if user.password_time > 0:
+                time.sleep(user.password_time)            
 
-    if result:
+    if options.password_hash == password_hash(password, options.password_salt): # for OSPY main administrator
+        result_admin = True
+
+    if result_admin:
         options.password_time = 0
     else:
         if options.password_time < 30:
-            options.password_time += 1
+            options.password_time += 1        
 
-    return result
+    for user in users.get():
+        if user.password_hash == password_hash(password, user.password_salt):   # for others OSPy users
+            result_users = True  
+
+        if result_users:
+            user.password_time = 0
+        else:
+            if user.password_time < 30:
+                user.password_time += 1          
+
+    if result_admin or result_users: 
+        return True
+    else:
+        return False
+    
+
+def test_username(username):
+    from ospy.options import options 
+    from ospy.users import users
+
+    result_admin = False
+    result_users = False
+
+    if options.admin_user == username: # for administrator login name
+        result_admin = True
+
+    for user in users.get():           # for others login name
+        if user.name == username:
+            result_users = True
+
+    if result_admin or result_users:
+        return True
+    else:
+        return False      
 
 
 def check_login(redirect=False):
@@ -551,6 +602,7 @@ def template_globals():
     from ospy.webpages import pluginFtr
     from ospy.webpages import pluginStn
     from ospy import i18n
+    from ospy.users import users
 
     result = {
         'str': str,

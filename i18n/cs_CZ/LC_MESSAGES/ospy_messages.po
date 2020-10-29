@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-10-24 22:33+CEST\n"
-"PO-Revision-Date: 2020-10-24 22:38+0200\n"
+"POT-Creation-Date: 2020-10-29 12:45+CET\n"
+"PO-Revision-Date: 2020-10-29 12:51+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -30,86 +30,84 @@ msgstr "Vypínání..."
 msgid "Restarting..."
 msgstr "Restartování..."
 
-#: ospy/helpers.py:190
-msgid "day"
-msgstr "dny"
+#: ospy/helpers.py:191
+msgid ". day"
+msgstr ". den"
 
-#: ospy/helpers.py:192 ospy/programs.py:251 ospy/programs.py:258
-#: ospy/programs.py:263 plugins/weather_based_water_level/__init__.py:112
-#: plugins/weather_based_water_level_netatmo/__init__.py:162
-msgid "days"
-msgstr "dny"
+#: ospy/helpers.py:193
+msgid ". days"
+msgstr ". dny"
 
-#: ospy/helpers.py:194
-msgid "days "
+#: ospy/helpers.py:195
+msgid ". days "
 msgstr "dnů "
 
-#: ospy/helpers.py:197 ospy/helpers.py:250 ospy/helpers.py:263
-#: ospy/helpers.py:264
+#: ospy/helpers.py:199 ospy/helpers.py:255 ospy/helpers.py:269
+#: ospy/helpers.py:270
 msgid "Unknown"
 msgstr "Neznámé"
 
-#: ospy/helpers.py:238 ospy/helpers.py:242
+#: ospy/helpers.py:241 ospy/helpers.py:246
 msgid "No IP Settings"
 msgstr "IP není nastavena"
 
-#: ospy/helpers.py:305 ospy/helpers.py:322
+#: ospy/helpers.py:313 ospy/helpers.py:330
 msgid "-"
 msgstr "-"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Fri"
 msgstr "Pá"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Mon"
 msgstr "Po"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Sat"
 msgstr "So"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Sun"
 msgstr "Ne"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Thu"
 msgstr "Čt"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Tue"
 msgstr "Út"
 
-#: ospy/helpers.py:391
+#: ospy/helpers.py:399
 msgid "Wed"
 msgstr "St"
 
-#: ospy/helpers.py:395 ospy/templates/base.html:43
+#: ospy/helpers.py:403 ospy/templates/base.html:43
 msgid "Monday"
 msgstr "Pondělí"
 
-#: ospy/helpers.py:396 ospy/templates/base.html:43
+#: ospy/helpers.py:404 ospy/templates/base.html:43
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: ospy/helpers.py:397 ospy/templates/base.html:43
+#: ospy/helpers.py:405 ospy/templates/base.html:43
 msgid "Wednesday"
 msgstr "Středa"
 
-#: ospy/helpers.py:398 ospy/templates/base.html:43
+#: ospy/helpers.py:406 ospy/templates/base.html:43
 msgid "Thursday"
 msgstr "Čtvrtek"
 
-#: ospy/helpers.py:399 ospy/templates/base.html:43
+#: ospy/helpers.py:407 ospy/templates/base.html:43
 msgid "Friday"
 msgstr "Pátek"
 
-#: ospy/helpers.py:400 ospy/templates/base.html:43
+#: ospy/helpers.py:408 ospy/templates/base.html:43
 msgid "Saturday"
 msgstr "Sobota"
 
-#: ospy/helpers.py:401 ospy/templates/base.html:43
+#: ospy/helpers.py:409 ospy/templates/base.html:43
 msgid "Sunday"
 msgstr "Neděle"
 
@@ -246,16 +244,23 @@ msgstr "Bez hesla"
 msgid "Allow anonymous users to access the system without a password."
 msgstr "Povolit anonymním uživatelům přístup do systému bez hesla."
 
-#: ospy/options.py:147 ospy/options.py:154 ospy/options.py:161
-#: ospy/options.py:168
-msgid "Security"
-msgstr "Bezpečnost"
+#: ospy/options.py:147 ospy/options.py:154
+msgid "Users"
+msgstr "Uživatelé"
 
 #: ospy/options.py:151
+msgid "Administrator name"
+msgstr "Jméno správce"
+
+#: ospy/options.py:153
+msgid "Administrator login name for login to the OSPy."
+msgstr "Přihlašovací jméno správce pro přihlášení k OSPy."
+
+#: ospy/options.py:160
 msgid "Use HTTPS access"
 msgstr "Použít HTTPS"
 
-#: ospy/options.py:153
+#: ospy/options.py:162
 msgid ""
 "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt "
 "certification authority (effective after reboot.)"
@@ -264,11 +269,15 @@ msgstr ""
 "generován prostřednictvím certifikační autority (po instalaci je nutné "
 "restartování OSPy)."
 
-#: ospy/options.py:158
+#: ospy/options.py:163 ospy/options.py:170 ospy/options.py:177
+msgid "Security"
+msgstr "Bezpečnost"
+
+#: ospy/options.py:167
 msgid "Domain name"
 msgstr "Jméno domény"
 
-#: ospy/options.py:160
+#: ospy/options.py:169
 msgid ""
 "Domain name for generating SSL certificate via Lets Encrypt certification "
 "authority. Example: home.sprinkler.com"
@@ -276,11 +285,11 @@ msgstr ""
 "Jméno domény, které bylo použito pro generování certifikátu SSL "
 "prostřednictvím certifikační autority. Příklad: home.sprinkler.com"
 
-#: ospy/options.py:165
+#: ospy/options.py:174
 msgid "Use Own HTTPS access"
 msgstr "Použít vlastní HTTPS"
 
-#: ospy/options.py:167
+#: ospy/options.py:176
 msgid ""
 "SSL certificate via own file without certification authority (effective "
 "after reboot.)"
@@ -289,11 +298,11 @@ msgstr ""
 "vložení souborů fullchain.pem a privkey.pem do složky ssl v umístění OSPy je "
 "nutný restart OSPy.)"
 
-#: ospy/options.py:174
+#: ospy/options.py:183
 msgid "Maximum usage"
 msgstr "Maximální využití"
 
-#: ospy/options.py:176
+#: ospy/options.py:185
 msgid ""
 "Determines how schedules of different stations are combined. 0 is no limit. "
 "1 is sequential in case all stations have a usage of 1."
@@ -301,32 +310,32 @@ msgstr ""
 "Určuje, jak se jednotlivé stanice kombinují. Souběh 0 nebo sekvence 1. V "
 "případě, že všechny stanice mají nastavené sekvenční použití­."
 
-#: ospy/options.py:177 ospy/options.py:184 ospy/options.py:193
-#: ospy/options.py:202
+#: ospy/options.py:186 ospy/options.py:193 ospy/options.py:202
+#: ospy/options.py:211
 msgid "Station Handling"
 msgstr "Nastavení stanic"
 
-#: ospy/options.py:181
+#: ospy/options.py:190
 msgid "Number of outputs"
 msgstr "Počet výstupů"
 
-#: ospy/options.py:183
+#: ospy/options.py:192
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr "Celkový počet výstupů k dispozici je (8 výstupů + x rozšíření.)"
 
-#: ospy/options.py:190
+#: ospy/options.py:199
 msgid "Station delay"
 msgstr "Zpoždění stanice"
 
-#: ospy/options.py:192
+#: ospy/options.py:201
 msgid "Station delay time (in seconds), between 0 and 3600."
 msgstr "Zpoždění stanice - čas (v sekundách), mezi 0 a 3600."
 
-#: ospy/options.py:199
+#: ospy/options.py:208
 msgid "Minimum runtime"
 msgstr "Min čas běhu"
 
-#: ospy/options.py:201
+#: ospy/options.py:210
 msgid ""
 "Skip the station delay if the run time was less than this value (in "
 "seconds), between 0 and 86400."
@@ -334,80 +343,80 @@ msgstr ""
 "Přeskočit zpoždění stanice, pokud doba běhu byla menší než tato hodnota (v "
 "sekundách), mezi 0 a 86400."
 
-#: ospy/options.py:210
+#: ospy/options.py:219
 msgid "Activate relay"
 msgstr "Aktivovat relé"
 
-#: ospy/options.py:212
+#: ospy/options.py:221
 msgid "Also activate the relay as master output."
 msgstr "Aktivovat také relé jako hlavní výstup."
 
-#: ospy/options.py:213 ospy/options.py:220 ospy/options.py:229
-#: ospy/options.py:238 ospy/options.py:247
+#: ospy/options.py:222 ospy/options.py:229 ospy/options.py:238
+#: ospy/options.py:247 ospy/options.py:256
 msgid "Configure Master"
 msgstr "Nastavení hl. stanice"
 
-#: ospy/options.py:217
+#: ospy/options.py:226
 msgid "Master on delay"
 msgstr "T zapnutí"
 
-#: ospy/options.py:219
+#: ospy/options.py:228
 msgid "Master on delay (in seconds), between -1800 and +1800."
 msgstr "Hlavní stanice zpoždění sepnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:226
+#: ospy/options.py:235
 msgid "Master off delay"
 msgstr "T vypnutí"
 
-#: ospy/options.py:228
+#: ospy/options.py:237
 msgid "Master off delay (in seconds), between -1800 and +1800."
 msgstr "Hlavní stanice zpoždění vypnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:235
+#: ospy/options.py:244
 msgid "Master two on delay"
 msgstr "T2 zapnutí"
 
-#: ospy/options.py:237
+#: ospy/options.py:246
 msgid "Master two on delay (in seconds), between -1800 and +1800."
 msgstr ""
 "Druhá hlavní stanice zpoždění sepnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:244
+#: ospy/options.py:253
 msgid "Master two off delay"
 msgstr "T2 vypnutí"
 
-#: ospy/options.py:246
+#: ospy/options.py:255
 msgid "Master two off delay (in seconds), between -1800 and +1800."
 msgstr ""
 "Druhá hlavní stanice zpoždění vypnutí (v sekundách), mezi -1800 a +1800."
 
-#: ospy/options.py:255
+#: ospy/options.py:264
 msgid "Use rain sensor"
 msgstr "Používat senzor"
 
-#: ospy/options.py:257
+#: ospy/options.py:266
 msgid "Use rain sensor."
 msgstr "Používat děšťový senzor."
 
-#: ospy/options.py:258 ospy/options.py:265
+#: ospy/options.py:267 ospy/options.py:274
 #: plugins/lcd_display/templates/lcd_display.html:97
 msgid "Rain Sensor"
 msgstr "Dešťový senzor"
 
-#: ospy/options.py:262
+#: ospy/options.py:271
 #: plugins/pressure_monitor/templates/pressure_monitor.html:186
 msgid "Normally open"
 msgstr "V klidu rozpojen"
 
-#: ospy/options.py:264
+#: ospy/options.py:273
 msgid "Rain sensor default."
 msgstr "Dešťový senzor má bez deště kontakt rozpojen."
 
-#: ospy/options.py:271
+#: ospy/options.py:280
 msgid "Enable run log"
 msgstr "Aktivovat záznam"
 
-#: ospy/options.py:273
+#: ospy/options.py:282
 msgid ""
 "Log all runs - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -415,24 +424,24 @@ msgstr ""
 "Zaznamenávat všechny běhy stanic - berte na vědomí, že opakující se psaní na "
 "SD kartu může zkrátit její životnost."
 
-#: ospy/options.py:274 ospy/options.py:281 ospy/options.py:290
-#: ospy/options.py:297 ospy/options.py:306
+#: ospy/options.py:283 ospy/options.py:290 ospy/options.py:299
+#: ospy/options.py:306 ospy/options.py:315
 msgid "Logging"
 msgstr "Protokolování"
 
-#: ospy/options.py:278
+#: ospy/options.py:287
 msgid "Max run entries"
 msgstr "Max záznamů"
 
-#: ospy/options.py:280
+#: ospy/options.py:289
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr "Počet záznamů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:287
+#: ospy/options.py:296
 msgid "Enable email log"
 msgstr "Aktivovat záznam E-mailů"
 
-#: ospy/options.py:289
+#: ospy/options.py:298
 msgid ""
 "Log all emails - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -440,87 +449,87 @@ msgstr ""
 "Zaznamenávat všechny E-maily - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:294
+#: ospy/options.py:303
 msgid "Max email entries"
 msgstr "Max záznamů E-mailu"
 
-#: ospy/options.py:296
+#: ospy/options.py:305
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr "Počet záznamů E-mailů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:303
+#: ospy/options.py:312
 msgid "Enable debug log"
 msgstr "Povolit ladění"
 
-#: ospy/options.py:305
+#: ospy/options.py:314
 msgid "Log all internal events (for debugging purposes)."
 msgstr "Zaznamenávat všechny interní události (pro účely ladění)."
 
-#: ospy/options.py:312 plugins/button_control/templates/button_control.html:39
+#: ospy/options.py:321 plugins/button_control/templates/button_control.html:39
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:317
+#: ospy/options.py:326
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
-#: ospy/options.py:322
+#: ospy/options.py:331
 msgid "Level adjustment set by the user (fraction)"
 msgstr "Nastavení úrovně nastavení uživatelem (zlomek)"
 
-#: ospy/options.py:327
+#: ospy/options.py:336
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
-#: ospy/options.py:332
+#: ospy/options.py:341
 msgid "C/F"
 msgstr "C/F"
 
-#: ospy/options.py:337
+#: ospy/options.py:346
 msgid "Current password hash"
 msgstr "Aktuální heslo hash"
 
-#: ospy/options.py:342
+#: ospy/options.py:351
 msgid "Current password salt"
 msgstr "Aktuální heslo salt"
 
-#: ospy/options.py:347
+#: ospy/options.py:356
 msgid "Current password decryption time"
 msgstr "Aktuální heslo šifrovací čas"
 
-#: ospy/options.py:352
+#: ospy/options.py:361
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
-#: ospy/options.py:357
+#: ospy/options.py:366
 msgid "The email that have been logged"
 msgstr "E-maily, které byly zaznamenány"
 
-#: ospy/options.py:362
+#: ospy/options.py:371
 msgid "ETo and rain value cache"
 msgstr "Vyrovnávací paměť pro ETo a srážky"
 
-#: ospy/options.py:367
+#: ospy/options.py:376
 msgid "Location latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/options.py:372
+#: ospy/options.py:381
 msgid "Location longtitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/options.py:377
+#: ospy/options.py:386
 msgid "Weather status"
 msgstr "Stav počasí"
 
-#: ospy/options.py:454
+#: ospy/options.py:463
 msgid "Callback failed"
 msgstr "Zpětné volání se nezdařilo"
 
-#: ospy/options.py:490
+#: ospy/options.py:499
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:517
+#: ospy/options.py:526
 msgid "Saving error"
 msgstr "Chyba při ukládání"
 
@@ -591,6 +600,12 @@ msgstr "Vlastní plánovač opakování denně"
 msgid "Custom schedule repeating every"
 msgstr "Vlastní plánovač opakování každý(é)"
 
+#: ospy/programs.py:251 ospy/programs.py:258 ospy/programs.py:263
+#: plugins/weather_based_water_level/__init__.py:112
+#: plugins/weather_based_water_level_netatmo/__init__.py:162
+msgid "days"
+msgstr "dny"
+
 #: ospy/programs.py:253 ospy/programs.py:284
 msgid "minutes"
 msgstr "minuta(y)"
@@ -636,7 +651,7 @@ msgid "Starting:"
 msgstr "Začátek:"
 
 #: ospy/programs.py:284 ospy/templates/home.html:92
-#: ospy/templates/home.html:574
+#: ospy/templates/home.html:577
 msgid "For"
 msgstr "Doba"
 
@@ -998,8 +1013,8 @@ msgstr "Potlačeno dešťovým senzorem"
 msgid "Disabled"
 msgstr "Zakázáno"
 
-#: ospy/templates/home.html:164 ospy/templates/home.html:562
-#: ospy/templates/home.html:573 ospy/templates/plugins_manage.html:13
+#: ospy/templates/home.html:164 ospy/templates/home.html:563
+#: ospy/templates/home.html:576 ospy/templates/plugins_manage.html:13
 #: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:64
 #: ospy/templates/program.html:423 ospy/templates/programs.html:16
 msgid "Off"
@@ -1106,6 +1121,10 @@ msgid "% Level"
 msgstr "% množství"
 
 #: ospy/templates/home.html:500
+msgid "Add or subtract the total program run time in % of time"
+msgstr "Přidání nebo odečtení celkové doby běhu programů v % času"
+
+#: ospy/templates/home.html:500
 msgid "Normal"
 msgstr "Normální"
 
@@ -1116,6 +1135,13 @@ msgstr "% doby programu"
 #: ospy/templates/home.html:502
 msgid "Rain Delay"
 msgstr "Zpoždění při dešti"
+
+#: ospy/templates/home.html:502
+msgid ""
+"Settings the time countdown (rain delay) and block programs during this time"
+msgstr ""
+"Nastavit dobu odpočítávání (dešťového zpoždění) a blokovat po tuto dobu "
+"programy"
 
 #: ospy/templates/home.html:502 plugins/lcd_display/__init__.py:272
 #: plugins/lcd_display/__init__.py:305 plugins/pressure_monitor/__init__.py:188
@@ -1131,9 +1157,17 @@ msgstr "Detekován déšť"
 msgid "Schedule"
 msgstr "Plánovač"
 
-#: ospy/templates/home.html:509 ospy/webpages.py:230
+#: ospy/templates/home.html:509
+msgid "Switching from scheduler to manual mode and vice versa"
+msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
+
+#: ospy/templates/home.html:509 ospy/webpages.py:304
 msgid "Manual"
 msgstr "Ručně"
+
+#: ospy/templates/home.html:512
+msgid "Enable or disable the scheduler running"
+msgstr "Povolit nebo zakázat provoz plánovače"
 
 #: ospy/templates/home.html:512 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
@@ -1147,46 +1181,68 @@ msgstr "Povoleno"
 msgid "Water Level adjustments"
 msgstr "Nastavení úrovně vody"
 
-#: ospy/templates/home.html:521
+#: ospy/templates/home.html:521 ospy/templates/user.html:31
+#: ospy/templates/user.html:53 ospy/templates/users.html:30
 msgid "User"
 msgstr "Uživatel"
 
-#: ospy/templates/home.html:562 ospy/templates/home.html:573
+#: ospy/templates/home.html:563 ospy/templates/home.html:576
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
 #: ospy/templates/programs.html:14
 msgid "On"
 msgstr "Zap"
 
-#: ospy/templates/home.html:564
+#: ospy/templates/home.html:565
 msgid "in"
 msgstr "v čase"
 
-#: ospy/templates/home.html:570
+#: ospy/templates/home.html:566 ospy/templates/home.html:578
+msgid "Type time for run in minutes"
+msgstr "Vložte dobu pro spuštění v minutách"
+
+#: ospy/templates/home.html:569 ospy/templates/home.html:581
+msgid "Type time for run in seconds"
+msgstr "Vložte dobu pro spuštění v sekundách"
+
+#: ospy/templates/home.html:573
 msgid "Forever"
 msgstr "Navždy"
 
-#: ospy/templates/home.html:582 ospy/templates/home.html:618
+#: ospy/templates/home.html:587
+msgid "Press to stop all running stations"
+msgstr "Stisknutím tlačítka zastavíte všechny běžící stanice"
+
+#: ospy/templates/home.html:587 ospy/templates/home.html:623
 msgid "Stop All Stations"
 msgstr "Zastavit všechny stanice"
 
-#: ospy/templates/home.html:596
+#: ospy/templates/home.html:601
 msgid " Prev Day"
 msgstr " Včera"
 
-#: ospy/templates/home.html:597
+#: ospy/templates/home.html:602
 msgid "Today"
 msgstr "Dnes"
 
-#: ospy/templates/home.html:598
+#: ospy/templates/home.html:603
 msgid "Next Day"
 msgstr "Zítra"
 
-#: ospy/templates/home.html:612
+#: ospy/templates/home.html:617
 msgid "loading..."
 msgstr "nahrávám..."
 
-#: ospy/templates/home.html:633
+#: ospy/templates/home.html:623
+msgid "Press to stop all running stations and turn off the scheduler!"
+msgstr ""
+"Stisknutím tlačítka zastavíte všechny běžící stanice a vypnete plánovač!"
+
+#: ospy/templates/home.html:638
+msgid "Deselecting the selected area in the chart"
+msgstr "Odznačit vybranou oblast v grafu"
+
+#: ospy/templates/home.html:638
 #: plugins/air_temp_humi/templates/air_temp_humi.html:363
 #: plugins/ping_monitor/templates/ping_monitor.html:282
 #: plugins/pressure_monitor/templates/pressure_monitor.html:285
@@ -1196,31 +1252,35 @@ msgstr "nahrávám..."
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/home.html:642
+#: ospy/templates/home.html:647
 msgid "Weather - No location found!"
 msgstr "Počasí - nenalezeno ID vašeho umístění!"
 
-#: ospy/templates/home.html:644
+#: ospy/templates/home.html:649
 msgid "Weather - Location"
 msgstr "Počasí - umístění"
 
-#: ospy/templates/home.html:644
+#: ospy/templates/home.html:649
 msgid "found:"
 msgstr "nalezeno:"
 
-#: ospy/templates/home.html:647
+#: ospy/templates/home.html:652
+msgid "Displaying the found area on the map"
+msgstr "Zobrazit nalezenou oblast na mapě"
+
+#: ospy/templates/home.html:652
 msgid "Map"
 msgstr "Zobrazit mapu"
 
-#: ospy/templates/home.html:648
+#: ospy/templates/home.html:653
 msgid "lat"
 msgstr "zeměpisná šířka"
 
-#: ospy/templates/home.html:648
+#: ospy/templates/home.html:653
 msgid "lon"
 msgstr "zeměpisná délka"
 
-#: ospy/templates/home.html:650
+#: ospy/templates/home.html:655
 msgid "Weather - No location coordinates available!"
 msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
 
@@ -1303,8 +1363,8 @@ msgstr "Obnovit"
 msgid "Clear Log"
 msgstr "Smazat záznam"
 
-#: ospy/templates/login.html:3 ospy/templates/login.html:8
-#: ospy/templates/login.html:11
+#: ospy/templates/login.html:3 ospy/templates/login.html:15
+#: ospy/templates/login.html:26
 msgid "Login"
 msgstr "Přihlásit se"
 
@@ -1446,100 +1506,117 @@ msgstr "Potvrďte heslo"
 msgid "Confirm the new password."
 msgstr "Potvrďte nové heslo."
 
+#: ospy/templates/options.html:228
+msgid "Aditional users"
+msgstr "Další uživatelé"
+
+#: ospy/templates/options.html:228 ospy/templates/options.html:230
+msgid "Edit aditional users for login to the OSPy."
+msgstr "Přidat další uživatele pro přihlášení do OSPy."
+
 #: ospy/templates/options.html:229
+msgid "Edit Users"
+msgstr "Upravit uživatele"
+
+#: ospy/templates/options.html:229
+msgid "Edit aditional users for login to the OSPy"
+msgstr "Přidat další uživatele pro přihlášení do OSPy"
+
+#: ospy/templates/options.html:233
 msgid "System Restart"
 msgstr "Restartovat systém"
 
-#: ospy/templates/options.html:231
+#: ospy/templates/options.html:235
 msgid "Restart"
 msgstr "Restart OSPy"
 
-#: ospy/templates/options.html:231
+#: ospy/templates/options.html:235
 msgid "Restart OSPy software!"
 msgstr "Restartovat OSPy Sprinkler!"
 
-#: ospy/templates/options.html:232
+#: ospy/templates/options.html:236
 msgid "Reboot"
 msgstr "Restart HW"
 
-#: ospy/templates/options.html:232
+#: ospy/templates/options.html:236
 msgid "Reboot hardware!"
 msgstr "Restartovat HW zařízení!"
 
-#: ospy/templates/options.html:233
+#: ospy/templates/options.html:237
 msgid "Shutdown"
 msgstr "Vypnout"
 
-#: ospy/templates/options.html:233
+#: ospy/templates/options.html:237
 msgid "Shutdown hardware!"
 msgstr "Vypnout HW zařízení!"
 
-#: ospy/templates/options.html:234
+#: ospy/templates/options.html:238
 msgid "Default"
 msgstr "Smazat nastavení"
 
-#: ospy/templates/options.html:234
+#: ospy/templates/options.html:238
 msgid "Delete OSPy settings to default!"
 msgstr "Smazat v OSPy všechna vaše nastavení a restartovat!"
 
-#: ospy/templates/options.html:243
+#: ospy/templates/options.html:247
 msgid "System Backup"
 msgstr "Záloha a obnovení"
 
-#: ospy/templates/options.html:245
+#: ospy/templates/options.html:249
 msgid "Download"
 msgstr "Stáhnout"
 
-#: ospy/templates/options.html:245
+#: ospy/templates/options.html:249
 msgid "Download options.db file"
 msgstr "Stáhnout soubor options.db"
 
-#: ospy/templates/options.html:247
+#: ospy/templates/options.html:251
 msgid "Upload options.db file"
 msgstr "Nahrát soubor options.db"
 
-#: ospy/templates/options.html:247 ospy/templates/options.html:257
+#: ospy/templates/options.html:251 ospy/templates/options.html:261
 #: plugins/voice_notification/templates/voice_notification.html:117
 msgid "Upload"
 msgstr "Nahrát"
 
-#: ospy/templates/options.html:253
+#: ospy/templates/options.html:257
 msgid "SSL certificate"
 msgstr "Certifikát SSL"
 
-#: ospy/templates/options.html:255
+#: ospy/templates/options.html:259
 msgid "Upload SSL files"
 msgstr "Nahrát soubory SSL"
 
-#: ospy/templates/options.html:257
+#: ospy/templates/options.html:261
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr "Nahrání souboru fullchain.pem nebo privkey.pem"
 
-#: ospy/templates/options.html:258
+#: ospy/templates/options.html:262
 msgid "Upload SSL file."
 msgstr "Nahrát soubor SSL."
 
-#: ospy/templates/options.html:262
+#: ospy/templates/options.html:266
 msgid "Generate"
 msgstr "Generovat"
 
-#: ospy/templates/options.html:262
+#: ospy/templates/options.html:266
 msgid ""
 "Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder"
 msgstr ""
 "Generovat vlastní SSL certifikát (soubory: fullchain.pem a privkey.pem) do "
 "složky ssl"
 
-#: ospy/templates/options.html:263
+#: ospy/templates/options.html:267
 msgid "Generate own SSL certificat."
 msgstr "Generovat vlastní SSL certifikát."
 
-#: ospy/templates/options.html:273 ospy/templates/stations.html:97
+#: ospy/templates/options.html:277 ospy/templates/stations.html:97
 msgid "Submit Changes"
 msgstr "Potvrdit změny"
 
-#: ospy/templates/options.html:274 ospy/templates/program.html:618
-#: ospy/templates/runonce.html:56 ospy/templates/stations.html:99
+#: ospy/templates/options.html:278 ospy/templates/program.html:618
+#: ospy/templates/runonce.html:54 ospy/templates/stations.html:99
+#: ospy/templates/user.html:71
 #: plugins/air_temp_humi/templates/air_temp_humi.html:353
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
@@ -1800,7 +1877,7 @@ msgstr " (Nejméně upřednostněné)"
 msgid " (Most preferred)"
 msgstr " (Nejvíce upřednostněné)"
 
-#: ospy/templates/program.html:617
+#: ospy/templates/program.html:617 ospy/templates/user.html:70
 msgid "Save"
 msgstr "Uložit"
 
@@ -1808,7 +1885,7 @@ msgstr "Uložit"
 msgid "Run:"
 msgstr "Poběží:"
 
-#: ospy/templates/programs.html:26 ospy/templates/runonce.html:54
+#: ospy/templates/programs.html:26 ospy/templates/runonce.html:52
 msgid "Run Now"
 msgstr "Spustit nyní"
 
@@ -1825,7 +1902,11 @@ msgstr "Všechny hodnoty by měly být pozitivní a sekundy nesmí přesáhnout 
 msgid "Run Once Program"
 msgstr "Jednorázový program"
 
-#: ospy/templates/runonce.html:55
+#: ospy/templates/runonce.html:44
+msgid "Type time for run in minutes and seconds"
+msgstr "Vložte dobu pro spuštění v minutách a sekundách"
+
+#: ospy/templates/runonce.html:53
 msgid "Reset Time"
 msgstr "Smazat čas"
 
@@ -1943,6 +2024,117 @@ msgstr "Poznámkový blok pro další užitečné informace k stanici."
 msgid "Reset Names"
 msgstr "Smazat jména"
 
+#: ospy/templates/user.html:3
+msgid "Modify User"
+msgstr "Upravit uživatele"
+
+#: ospy/templates/user.html:18
+msgid "Error: Username not entered! Please try again"
+msgstr "Chyba: Uživatelské jméno nebylo zadáno! Zkuste to znovu"
+
+#: ospy/templates/user.html:21
+msgid "Error: Password not entered! Please try again"
+msgstr "Chyba: Heslo nebylo zadáno! Zkuste to prosím znovu"
+
+#: ospy/templates/user.html:28 ospy/templates/users.html:8
+msgid "Add a New User"
+msgstr "Přidat nového uživatele"
+
+#: ospy/templates/user.html:28 ospy/templates/users.html:18
+#: ospy/templates/users.html:37
+msgid "Edit User"
+msgstr "Upravit uživatele"
+
+#: ospy/templates/user.html:30
+msgid "= only a viewer with restricted settings."
+msgstr "= pouze prohlížeč s omezeným nastavením."
+
+#: ospy/templates/user.html:30 ospy/templates/user.html:52
+#: ospy/templates/users.html:29
+msgid "Public"
+msgstr "Veřejnost"
+
+#: ospy/templates/user.html:31
+msgid "= instructed user with limited settings."
+msgstr "= instruovaný uživatel s omezeným nastavením."
+
+#: ospy/templates/user.html:32
+msgid "= system administrator without restrictions."
+msgstr "= správce systému bez omezení."
+
+#: ospy/templates/user.html:32 ospy/templates/user.html:54
+#: ospy/templates/users.html:31
+msgid "Administrator"
+msgstr "Správce"
+
+#: ospy/templates/user.html:37
+msgid "New User Name"
+msgstr "Nové uživatelské jméno"
+
+#: ospy/templates/user.html:38
+msgid "Type new User Name for new user"
+msgstr "Zadejte nové uživatelské jméno pro nového uživatele."
+
+#: ospy/templates/user.html:43
+msgid "New User Password"
+msgstr "Nové uživatelské heslo"
+
+#: ospy/templates/user.html:44
+msgid "Type new User Password for new user"
+msgstr "Zadejte nové uživatelské heslo pro nového uživatele."
+
+#: ospy/templates/user.html:45
+msgid "6 characters minimum "
+msgstr "Minimálně 6 znaků "
+
+#: ospy/templates/user.html:49
+msgid "User Category"
+msgstr "Kategorie uživatele"
+
+#: ospy/templates/user.html:50
+msgid "Select permissions for the new user"
+msgstr "Výběr oprávnění pro nového uživatele"
+
+#: ospy/templates/user.html:59
+msgid "Notes about user"
+msgstr "Poznámky k uživateli"
+
+#: ospy/templates/user.html:60
+msgid "Here we can make our notes"
+msgstr "Zde si můžeme dělat poznámky"
+
+#: ospy/templates/users.html:3
+msgid "A list of users"
+msgstr "Seznam uživatelů"
+
+#: ospy/templates/users.html:9
+msgid "Delete All users"
+msgstr "Odstranit všechny uživatele"
+
+#: ospy/templates/users.html:14 plugins/usage_statistics/__init__.py:66
+msgid "ID"
+msgstr "ID"
+
+#: ospy/templates/users.html:15
+msgid "User Name"
+msgstr "Uživatelské jméno"
+
+#: ospy/templates/users.html:16
+msgid "Category"
+msgstr "Kategorie"
+
+#: ospy/templates/users.html:17
+msgid "User Note"
+msgstr "Poznámka uživatele"
+
+#: ospy/templates/users.html:38
+msgid "Delete User"
+msgstr "Smazat uživatele"
+
+#: ospy/templates/users.html:46
+msgid "Back to options"
+msgstr "Zpět do nastavení"
+
 #: ospy/usagestats.py:19
 msgid "Requests not found, installing. Please wait..."
 msgstr "Requests nebylo nalezeno, instaluji. Počkejte prosím..."
@@ -2035,15 +2227,23 @@ msgstr ""
 "Toto rozhraní bylo odstraněno, protože Weather Underground API se zastavil, "
 "prosím aktualizujte plug-in!"
 
-#: ospy/webpages.py:77
+#: ospy/webpages.py:78
+msgid "Username:"
+msgstr "Uživatelské jméno:"
+
+#: ospy/webpages.py:79
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:80
+#: ospy/webpages.py:82
 msgid "Incorrect password, please try again"
 msgstr "Nesprávné heslo, opakujte prosím"
 
-#: ospy/webpages.py:605
+#: ospy/webpages.py:86
+msgid "Incorrect username, please try again"
+msgstr "Nesprávné uživatelské jméno, zkuste to prosím znovu"
+
+#: ospy/webpages.py:680
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2051,7 +2251,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:611
+#: ospy/webpages.py:686
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2059,7 +2259,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:616
+#: ospy/webpages.py:691
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -2067,7 +2267,7 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:628
+#: ospy/webpages.py:703
 msgid ""
 "All system OSPy settings have been cleared in the settings, the OSPy will "
 "now restart and load the default settings."
@@ -2075,7 +2275,7 @@ msgstr ""
 "Všechna nastavení systému OSPy byla v nastavení vymazána, OSPy se nyní "
 "restartuje a načte výchozí nastavení."
 
-#: ospy/webpages.py:636
+#: ospy/webpages.py:711
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -2083,46 +2283,46 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:707 ospy/webpages.py:736
+#: ospy/webpages.py:782 ospy/webpages.py:811
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:763 ospy/webpages.py:766
+#: ospy/webpages.py:838 ospy/webpages.py:841
 msgid "Upload, save, copy options.db file sucesfully, now restarting OSPy..."
 msgstr ""
 "Nahrát, uložit, kopírovat soubor options.db bylo provedeno, nyní restartuji "
 "OSPy..."
 
-#: ospy/webpages.py:790 ospy/webpages.py:791
+#: ospy/webpages.py:865 ospy/webpages.py:866
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:822 ospy/webpages.py:823 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:897 ospy/webpages.py:898 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:842
+#: ospy/webpages.py:917
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:846
+#: ospy/webpages.py:921
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:852
+#: ospy/webpages.py:927
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:1001
+#: ospy/webpages.py:1076
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1014 ospy/webpages.py:1080
+#: ospy/webpages.py:1089 ospy/webpages.py:1155
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1026 ospy/webpages.py:1067
+#: ospy/webpages.py:1101 ospy/webpages.py:1142
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -6112,10 +6312,6 @@ msgstr "Balíček: Statistika využití"
 msgid "Error: data cannot be downloaded from"
 msgstr "Chyba: data nelze stáhnout z"
 
-#: plugins/usage_statistics/__init__.py:66
-msgid "ID"
-msgstr "ID"
-
 #: plugins/usage_statistics/__init__.py:68
 msgid "OSPy"
 msgstr "OSPy"
@@ -7286,6 +7482,9 @@ msgstr "Aktuální rychlost větru (zobrazuje se každých 10 sekund)"
 #: plugins/wind_monitor/templates/wind_monitor.html:347
 msgid "Reset max speed"
 msgstr "Smazat max rychlost"
+
+#~ msgid "day"
+#~ msgstr "dny"
 
 #~ msgid "Irrigation system:"
 #~ msgstr "Systém:"

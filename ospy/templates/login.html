@@ -3,11 +3,27 @@ $def with (form)
 $var title: $_('Login')
 $var page: login
 
+<script>
+    jQuery(document).ready(function(){
+        jQuery("#cSubmit").click(function() {
+            jQuery("#login").submit();
+        });
+    });    
+</script>        
 
 <div class="panel" style="height:300px; padding-top:100px; padding-left: 50px">
     <div class="title">$_('Login')</div>
-    <form name="login" method="POST">
-        $:form.render()
-        <button id="cSubmit" class="submit"><b>$_('Login')</b></button>
-    </form>
+    <table class="stationList" style="background: #F5F5F5; width:400px;">
+    <tr>	
+    <td>	
+        <form name="login" id="login" method="POST"> 
+            $:form.render()
+        </form>
+    </td>
+    </tr>   
+    </table>
+    <div>
+	    <button id="cSubmit" class="submit"><b>$_('Login')</b></button>
+    </div>
 </div>
+

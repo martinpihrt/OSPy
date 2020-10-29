@@ -12,7 +12,7 @@ from threading import Timer
 import traceback
 
 # Local imports
-from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
+from ospy.helpers import test_password, test_username, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
 from ospy.inputs import inputs
 from ospy.log import log, logEM
@@ -25,6 +25,7 @@ from ospy.stations import stations
 from ospy import scheduler
 import plugins
 from blinker import signal
+from ospy.users import users
 
 plugin_data = {}  # Empty dictionary to hold plugin based global data
 pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
@@ -74,13 +75,19 @@ def report_program_runnow():
 from web import form
 
 signin_form = form.Form(
+	form.Textbox('username', description=_('Username:')),
     form.Password('password', description=_('Password:')),
     validators=[
         form.Validator(
             _('Incorrect password, please try again'),
             lambda x: test_password(x["password"])
-        )
+        ),  
+        form.Validator(
+            _('Incorrect username, please try again'),
+            lambda x: test_username(x["username"])
+        )       
     ]
+
 )
 
 
@@ -142,6 +149,73 @@ class ProtectedPage(WebPage):
             check_login(True)
         except web.seeother:
             raise
+            
+
+class users_page(ProtectedPage):
+    """Open all users page. /users"""
+
+    def GET(self):
+        qdict = web.input()
+        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
+        if delete_all:
+            while users.count() > 0:
+                users.remove_users(users.count()-1)
+  
+        return self.core_render.users()
+
+
+class user_page(ProtectedPage):
+    """Open page to allow user modification. /user """
+    def GET(self, index):
+        qdict = web.input()
+        try:
+            index = int(index)
+            delete = get_input(qdict, 'delete', False, lambda x: True)
+            if delete:
+                users.remove_users(index)
+                raise web.seeother('/users')
+
+        except ValueError:
+            pass        
+
+        if isinstance(index, int):
+            user = users.get(index)
+        else:
+            user = users.create_users()       
+
+        errorCode = qdict.get('errorCode', 'None')
+        return self.core_render.user(user, errorCode)
+
+
+    def POST(self, index):
+        qdict = web.input()
+        try:
+            index = int(index)
+            user = users.get(index)
+
+        except ValueError:
+            user = users.create_users()
+
+        user.name = qdict['name']
+        password = qdict['password']
+        user.category = qdict['category']    
+        user.notes = qdict['notes']   
+
+        if user.name == '':
+            errorCode = qdict.get('errorCode', 'uname')
+            return self.core_render.user(user, errorCode) 
+        
+        if password == '':
+            errorCode = qdict.get('errorCode', 'upass')
+            return self.core_render.user(user, errorCode)    
+
+        if user.index < 0:
+            salt = password_salt()
+            user.password_salt = salt
+            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
+            users.add_users(user)    
+
+        raise web.seeother('/users')
 
 
 class login_page(WebPage):
@@ -253,6 +327,7 @@ class action_page(ProtectedPage):
 
         report_value_change()
         raise web.seeother(u"/")  # Send browser back to home page
+
 
 class programs_page(ProtectedPage):
     """Open programs page."""
@@ -1127,9 +1202,12 @@ class api_update_status(ProtectedPage):
                     pl_data.append((must_update, plugins.plugin_name(plugin)))
                     must_update += 1
                         
-
-        data["plugin_name"]   = pl_data     # name of plugins where must be updated
-        data["plugins_state"] = must_update # status whether it is necessary to update the plugins (count plugins)
+        if options.use_plugin_update:                    # if not enable update for plugin -> NO POP-UP on home page
+            data["plugin_name"]   = pl_data              # name of plugins where must be updated
+            data["plugins_state"] = must_update          # status whether it is necessary to update the plugins (count plugins)
+        else:
+            data["plugin_name"]   = []    
+            data["plugins_state"] = 0   
 
         try:
             from plugins import system_update

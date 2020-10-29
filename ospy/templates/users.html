@@ -1,0 +1,47 @@
+$def with ()
+
+$var title: $_(u'A list of users')
+$var page: users
+
+<div id="users">
+    <div id="controls">
+        <a href="/user/new" class="button add">$_(u'Add a New User')</a>
+        <a href="/users?delete_all" class="button deleteAll danger">$_(u'Delete All users')</a>
+    </div> 
+    <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">  
+        <table class="stationList" style="background: #F5F5F5;">  
+            <tr style="background-color:#FFFFE0;">
+                <td style="width: 140px"><b>$_(u'ID')</b></td> 
+                <td style="width: 140px"><b>$_(u'User Name')</b></td>
+                <td style="width: 140px"><b>$_(u'Category')</b></td>
+                <td style="width: 140px"><b>$_(u'User Note')</b></td>
+                <td style="width: 250px"><b>$_(u'Edit User')</b></td>
+            <tr>   
+            $for user in users.get():            
+                <tr>
+                <td> 
+                ${user.index+1}
+                </td>
+                <td> 
+                ${user.name}   
+                </td>
+                <td>
+                ${_(u'Public') if user.category=="0" else ''}
+                ${_(u'User') if user.category=="1" else ''}
+                ${_(u'Administrator') if user.category=="2" else ''}                                       
+                </td>    
+                <td> 
+                ${user.notes}
+                </td>
+                <td>  
+                <a href="/user/${user.index}" class="button cModify"> $_(u'Edit User') </a>
+                <a href="/user/${user.index}?delete" class="button cDelete danger"> $_(u'Delete User')</a>
+                </td>              
+                </tr> 
+        </table>          
+    </div>         
+</div>
+
+<div id="controls">
+    <a href="options" class="button add">$_('Back to options')</a>
+</div>    

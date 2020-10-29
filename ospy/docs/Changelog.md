@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Oct 29 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+WARNING! Default name is now "admin"!<br/>
+Added prepare support for multiple users (public, user, administrator) for logging to OSPy. NOT READY TO USE! Fixed a bug in the "plugins update" if not enabled not check updates (fix for pop-up notification on home page if plugin has update). New field for logging to ospy "user name". Default name is "admin". Name change is posible in OSPy options/user. Fixed device up time on home page.
+
 Oct 24 2020
 -----------
 (martinpihrt)<br/>

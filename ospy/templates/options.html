@@ -212,19 +212,23 @@ $code:
                 output += "<span class='tooltip'>" + tooltip + "</span>\n"
                 output += "</div>\n\n"
                 
-                if name == 'no_password':
-                    output += "<div class='option' title=" + _('Re-enter the current password.') + "><span class='label'>" + _('Current password') + ":</span>\n"
+                if name == 'admin_user':
+                    output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False) + "><span class='label'>" + _('Current password') + ":</span>\n"
                     output += "<input name='old_password' type='password' size='31'><span class='inputError' id='erroropw'></span>\n"
                     output += "<span class='tooltip'>" + _('Re-enter the current password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title=" + _('Enter a new password.') + "><span class='label'>" + _('New password') + ":</span>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Enter a new password.'), ensure_ascii=False) + "><span class='label'>" + _('New password') + ":</span>\n"
                     output += "<input name='new_password' type='password' size='31'><span class='inputError' id='errornpw'></span>\n"
                     output += "<span class='tooltip'>" + _('Enter a new password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title=" + _('Confirm the new password.') + "><span class='label'>" + _('Confirm password') + ":</span>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Confirm the new password.'), ensure_ascii=False) + "><span class='label'>" + _('Confirm password') + ":</span>\n"
                     output += "<input name='check_password' type='password' size='31'><span class='inputError' id='errorcpw'></span>\n"
                     output += "<span class='tooltip'>" + _('Confirm the new password.') + "</span>\n"
-                    output += "</div>\n"     
+                    output += "</div>\n"  
+                    output += "<div class='option' title=" + json.dumps(_('Edit aditional users for login to the OSPy.'), ensure_ascii=False) + "><span class='label'>" + _('Aditional users') + "</span>\n"   
+                    output += "&nbsp;<a href='users' class='button backup' title=" + json.dumps(_('Edit aditional users for login to the OSPy'), ensure_ascii=False) + ">" + _('Edit Users') + "</a>\n"
+                    output += "<span class='tooltip'>" + _('Edit aditional users for login to the OSPy.') + "</span>\n"
+                    output += "</div>\n"
 
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"

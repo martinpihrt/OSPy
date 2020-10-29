@@ -497,19 +497,19 @@ jQuery(document).ready(function(){
 </div>
 
 <div id="options" style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}"><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>
+    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False)}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>
     <br>
-    <a href="javascript:rain_delay_prompt(${max(0, (options.rain_block - datetime.datetime.now()).total_seconds())});" class="button toggle ${'off' if rain_blocks.seconds_left() else 'on'}"><span class='toggleleft'>$_('Active')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Rain Delay')</span></a>
+    <a href="javascript:rain_delay_prompt(${max(0, (options.rain_block - datetime.datetime.now()).total_seconds())});" class="button toggle ${'off' if rain_blocks.seconds_left() else 'on'}" title=$:{json.dumps(_(u'Settings the time countdown (rain delay) and block programs during this time'), ensure_ascii=False)}><span class='toggleleft'>$_('Active')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Rain Delay')</span></a>
     $if rain_blocks.seconds_left():
         <span id="rain_block_time" class="countdown" data="${str(rain_blocks.seconds_left())}"></span>
     $if inputs.rain_sensed():
         <span class="rainsense">$_('Rain sensed')</span>
     <br>
     <br>
-    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}" class="button toggle choice ${'off' if options.manual_mode else 'on'}"><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
+    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}" class="button toggle choice ${'off' if options.manual_mode else 'on'}" title=$:{json.dumps(_(u'Switching from scheduler to manual mode and vice versa'), ensure_ascii=False)}><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
     $if not options.manual_mode:
         <br>
-        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
+        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"  title=$:{json.dumps(_(u'Enable or disable the scheduler running'), ensure_ascii=False)}><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
     <br>&nbsp;
 </div>
 <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
@@ -558,31 +558,36 @@ $if options.manual_mode:
                     $else:
                         $if station.active:
                             $ rem = station.remaining_seconds
-                            <td class="shrink station_running"><button class='toggle manual narrow on' id='${station.index}'>
+                            <td class="shrink station_running">
+                            <button class='toggle manual narrow on' id='${station.index}'>
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
                             $if rem >= 0:
                                 <td class="shrink station_running">$_('in')</td>
-                                <td class="shrink station_running"><input type='text' id='mm${station.index}' size='2' maxlength='3' value='${two_digits(rem/60)}' readonly/></td>
+                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False)}>
+                                <input type='text' id='mm${station.index}' size='2' maxlength='3' value='${two_digits(rem/60)}' readonly/></td>
                                 <td class="shrink station_running">:</td>
-                                <td class="shrink station_running"><input type='text' id='ss${station.index}' size='2' maxlength='2' value='${two_digits(rem%60)}' readonly/></td>
-                                <td class="station_running">(mm:ss)</td>
+                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False)}>
+                                <input type='text' id='ss${station.index}' size='2' maxlength='2' value='${two_digits(rem%60)}' readonly/></td>
+                                <td class="station_running"></td>
                             $else:
-                                <td class="shrink station_running" colspan="5">$_('Forever')</td>
+                                <td class="shrink station_running" colspan="5" style="text-align:left;">$_('Forever')</td>
                         $else:
                             <td class="shrink station_running"><button class='toggle manual narrow off' id='${station.index}'>
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
                             <td class="shrink station_running">$_('For')</td>
-                            <td class="shrink station_running"><input type='text' id='mm${station.index}' size='2' maxlength='3' value='00'/></td>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False)}>
+                            <input type='text' id='mm${station.index}' size='2' maxlength='3' value='00'/></td>
                             <td class="shrink station_running">:</td>
-                            <td class="shrink station_running"><input type='text' id='ss${station.index}' size='2' maxlength='2' value='00'/></td>
-                            <td class="station_running">(mm:ss)</td>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False)}>
+                            <input type='text' id='ss${station.index}' size='2' maxlength='2' value='00'/></td>
+                            <td class="station_running"></td>
                 </tr>
         <tr>
-            <td colspan="7">
-                <a href="/action?stop_all" class="button execute delete">$_('Stop All Stations')</a>
+            <td colspan="3">
+                <a href="/action?stop_all" class="button execute delete" style="text-align:left;" title=$:{json.dumps(_(u'Press to stop all running stations'), ensure_ascii=False)}>$_('Stop All Stations')</a>
             </td>
-        </tr>
-        </table>
+        </tr>        
+        </table>  
     </div>
 $else:
     <div id="programmode">
@@ -615,7 +620,7 @@ $else:
                 </tr>
             <tr>
                 <td colspan="2">
-                <a href="/action?stop_all" class="button execute delete">$_('Stop All Stations')</a>
+                <a href="/action?stop_all" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False)}>$_('Stop All Stations')</a>
                 </td>
                 <td colspan="24" id="legend" style="text-align:center">
                 </td>
@@ -630,7 +635,7 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <div id="legend-visible" style="float: right; width: auto;"></div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
-        <button id="clearSelection">$_('Clear selection')</button>
+        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False)}>$_('Clear selection')</button>
     </div>
 
 $if options.show_plugin_data:  
@@ -644,7 +649,7 @@ $if options.show_plugin_data:
             $_('Weather - Location') $_('found:') $options.location
         $if options.weather_lat and options.weather_lon:
             $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
-            <a href="${patch}" class="button upload" target="_blank">$_('Map')</a> 
+            <a href="${patch}" class="button upload" target="_blank" title=$:{json.dumps(_(u'Displaying the found area on the map'), ensure_ascii=False)}>$_('Map')</a> 
             ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
         $if options.weather_status == 2:
             $_('Weather - No location coordinates available!')       
