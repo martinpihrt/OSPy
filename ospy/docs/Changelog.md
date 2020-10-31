@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Oct 31 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new plugin "E-mail reader" for controling OSPy via E-mails. Warning: Control via dict {} not completed! Others is posible (command, list).
+
 Oct 29 2020
 -----------
 (martinpihrt)<br/>

@@ -507,6 +507,21 @@ For improved security it is recommended that you change the system password from
 * Click the Submit Changes button at the bottom of the page.
 You will return to the home page. Your new password and name will be required the next time you log in.
 
+### Disable security
+Leave the Disable security box unchecked unless you have a very good reason to disable password protection.
+
+### Login name
+Enter the Login name. This will be admin on a new installation.
+
+### Current password
+Enter the current password in the first text box. This will be opendoor on a new installation.
+
+### New password
+Enter your new password into the the boxes labeled New password.
+
+### Confirm password           
+Enter your Confirm into the the boxes labeled Confirm password.
+
 ### Aditional users
 After clicking on the button, a page will open where we can create and possibly edit new users to access the system.
 
@@ -561,18 +576,6 @@ sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out full
 ```
 
 The second way is to use the "generate" button in the SSL certificate tab.
-
-### Disable security
-Leave the Disable security box unchecked unless you have a very good reason to disable password protection.
-
-### Current password
-Enter the current password in the first text box This will be opendoor on a new installation.
-
-### New password
-Enter your new password into the the boxes labeled New password.
-
-### Confirm password           
-Enter your Confirm into the the boxes labeled Confirm password.
 
 ## Station Handling Section
 The Station Handling section contains settings for stations.
@@ -803,7 +806,7 @@ Available plug-ins:
 * Water Consumption Counter
 * SMS Modem
 * Signaling Examples
-* Email Notifications
+* E-mail Notifications
 * Remote FTP Control
 * System Update
 * Water Meter
@@ -822,6 +825,7 @@ Available plug-ins:
 * Ping monitor
 * Temperature Switch
 * Pool Heating
+* E-mail Reader
 
 ----
 

@@ -530,6 +530,21 @@ Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy z v
 
 Vrátíte se na domovskou stránku. Vaše nové heslo s jméno bude vyžadováno při příštím přihlášení.
 
+### Bez hesla
+Pokud je zaškrtnuté políčko "Bez hesla" povolíme přístup do systému anonymním uživatelům bez hesla.
+
+### Uživatelské jméno
+Do textového pole zadejte uživatelské jméno. To je při nové instalaci "admin".
+
+### Aktuální heslo
+Do textového pole zadejte aktuální heslo. To je při nové instalaci "opendoor".
+
+### Nové heslo
+Zadejte nové heslo do pole označeného "Nové heslo".
+
+### Potvrďte heslo           
+Do pole označeného "Potvrďte heslo" zadejte stejné nové heslo jak v poli "Nové heslo".
+
 ### Další uživatelé
 Po kliknutí na tlačítko se otevře stránka, kde můžeme vytvářet a případně upravovat nové uživatele pro přístup do systému.
 
@@ -580,18 +595,6 @@ Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTP
 sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
 ```
 Druhý způsob je pomocí tlačítka "generovat" v záložce SSL certifikát.
-
-### Bez hesla
-Pokud je zaškrtnuté políčko "Bez hesla" povolíme přístup do systému anonymním uživatelům bez hesla.
-
-### Aktuální heslo
-Do prvního textového pole zadejte aktuální heslo. To bude při nové instalaci "opendoor".
-
-### Nové heslo
-Zadejte nové heslo do pole označeného "Nové heslo".
-
-### Potvrďte heslo           
-Do pole označeného "Potvrďte heslo" zadejte stejné nové heslo jak v poli "Nové heslo".
 
 ## Nastavení stanic
 Sekce "Nastavení stanic" obsahuje všeobecná nastavení pro všechny stanice.
@@ -655,11 +658,11 @@ Zaškrtněte políčko "Aktivovat záznam". Tím se zapne protokolování a zapn
 ### Max záznamů
 Zadejte počet záznamů, které chcete uložit do protokolu. Nastavte počet, který pokryje přiměřenou dobu, například týden nebo měsíc. To bude záviset na počtu programů a stanic, které máte. Při každém spuštění stanice bude existovat jeden záznam. 0 = bez omezení.
 
-### Aktivovat záznam Emailů
-Zaškrtněte políčko "Aktivovat záznam Emailů". Tím se zapne protokolování a povolí se historie zavlažování prostřednictvím e-mailu.
+### Aktivovat záznam E-mailů
+Zaškrtněte políčko "Aktivovat záznam E-mailů". Tím se zapne protokolování a povolí se historie zavlažování prostřednictvím E-mailu.
 
 ### Max záznamů
-Zadejte počet záznamů, které chcete uložit do protokolu. Nastavte počet, který pokryje přiměřenou dobu, například týden nebo měsíc. To bude záviset na počtu programů a stanic, které máte. Pro každý e-mail bude existovat jeden záznam. 0 = bez omezení.
+Zadejte počet záznamů, které chcete uložit do protokolu. Nastavte počet, který pokryje přiměřenou dobu, například týden nebo měsíc. To bude záviset na počtu programů a stanic, které máte. Pro každý E-mail bude existovat jeden záznam. 0 = bez omezení.
 
 ### Povolit ladění
 Klepnutím na "Povolit ladění" uložíte veškeré interní operace v OSPy do souboru pro lepší ladění. * Poznámka: * příliš časté ukládání dat do souboru může po delší době poškodit SD kartu nebo snížit kapacitu SD karty (úložiště). Vypisují se veškeré operace (i ze všech rozšíření).
@@ -853,7 +856,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Water Consumption Counter (virtuální měřič průtoku vody založený na výpočtu běhu hlavní stanice)
 * SMS Modem (vzdálené ovládání pomocí SMS a USB modemu)
 * Signaling Examples (příklad notifikací tupu "signal" v systému OSPy)
-* Email Notifications (odesílání emailů ze systému - toto rozšíření využívají i některá jiná rozšíření, například: Wind Speed Monitor, Pressure Monitor, Air Temperature and Humidity Monitor...)
+* E-mail Notifications (odesílání E-mailů ze systému - toto rozšíření využívají i některá jiná rozšíření, například: Wind Speed Monitor, Pressure Monitor, Air Temperature and Humidity Monitor...)
 * Remote FTP Control (zjednodušené vzdálené ovládání OSPy pomocí serveru s PHP a FTP)
 * System Update (pomocí tohoto rozšíření lze jednoduše aktualizovat systém OSPy z GIThubu namísto systémových příkazů)
 * Water Meter (měření průtoku pomocí vodoměru s pulsním výstupem pomocí I2C sběrnice)
@@ -872,6 +875,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Ping monitor (měření výpadků sítě)
 * Temperature Switch (regulátor teploty, který umožnuje 3 nezávislé zóny)
 * Pool Heating (regulace teploty bazénu dle solárního ohřevu)
+* E-mail reader (ovládání OSPy pomocí E-mailových zpráv)
 
 ----
 
