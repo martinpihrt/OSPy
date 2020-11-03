@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 3 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added subject to plugin "E-mail reader" for control more OSPy systems. Czech language translate for new strings.
+
 Oct 31 2020
 -----------
 (martinpihrt)<br/>
