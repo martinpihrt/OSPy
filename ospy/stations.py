@@ -117,7 +117,7 @@ class _Station(object):
             pass
 
         if key == 'usage' and value > options.max_usage:
-            logging.warning(_('The usage of') + ' %s' + _('is more than the maximum allowed usage. Scheduling it will be impossible.'), self.name)
+            logging.warning(_('The usage of') + ' %s ' + _('is more than the maximum allowed usage. Scheduling it will be impossible.'), self.name)
 
 
 class _BaseStations(object):
