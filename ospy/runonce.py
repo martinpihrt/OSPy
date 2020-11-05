@@ -9,7 +9,7 @@ import datetime
 
 class _RunOnceProgram(object):
     def __init__(self):
-        self.name = "Run-Once"
+        self.name = _(u'Run-Once')
 
         self._start = datetime.datetime.now()
         self._station_seconds = {}

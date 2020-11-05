@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 5 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added selectors to plugin "E-mail reader" for control more programs and reboot (shuttdown). Czech language translate for new strings. Fixing unicode in scheduler.py, runonce.py, webpages.py
+
 Nov 4 2020
 -----------
 (martinpihrt)<br/>

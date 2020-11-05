@@ -139,7 +139,7 @@ class WebPage(object):
         for page in reversed(session.pages):
             if page != web.ctx.fullpath:
                 raise web.seeother(page)
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
 
 class ProtectedPage(WebPage):
@@ -173,7 +173,7 @@ class user_page(ProtectedPage):
             delete = get_input(qdict, 'delete', False, lambda x: True)
             if delete:
                 users.remove_users(index)
-                raise web.seeother('/users')
+                raise web.seeother(u'/users')
 
         except ValueError:
             pass        
@@ -215,7 +215,7 @@ class user_page(ProtectedPage):
             user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
             users.add_users(user)    
 
-        raise web.seeother('/users')
+        raise web.seeother(u'/users')
 
 
 class login_page(WebPage):
@@ -223,7 +223,7 @@ class login_page(WebPage):
 
     def GET(self):
         if check_login(False):
-            raise web.seeother('/')
+            raise web.seeother(u'/')
         else:
             return self.core_render.login(signin_form())
 
@@ -243,7 +243,7 @@ class logout_page(WebPage):
     def GET(self):
         from ospy import server
         server.session.kill()
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
 
 class home_page(ProtectedPage):
@@ -326,7 +326,7 @@ class action_page(ProtectedPage):
                         log.finish_run(interval)
 
         report_value_change()
-        raise web.seeother(u"/")  # Send browser back to home page
+        raise web.seeother(u'/')  # Send browser back to home page
 
 
 class programs_page(ProtectedPage):
@@ -356,17 +356,17 @@ class program_page(ProtectedPage):
                 programs.remove_program(index)
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_deleted()
-                raise web.seeother('/programs')
+                raise web.seeother(u'/programs')
             elif runnow:
                 programs.run_now(index)
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_runnow()
-                raise web.seeother('/programs')
+                raise web.seeother(u'/')
             elif enable is not None:
                 programs[index].enabled = enable
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_toggle()
-                raise web.seeother('/programs')
+                raise web.seeother(u'/programs')
         except ValueError:
             pass
 
@@ -448,7 +448,7 @@ class program_page(ProtectedPage):
 
         Timer(0.1, programs.calculate_balances).start()
         report_program_toggle()
-        raise web.seeother('/programs')
+        raise web.seeother(u'/programs')
 
 
 class runonce_page(ProtectedPage):
@@ -470,7 +470,7 @@ class runonce_page(ProtectedPage):
         
         run_once.set(station_seconds)
         report_program_toggle()
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
 
 class plugins_manage_page(ProtectedPage):
@@ -506,7 +506,7 @@ class plugins_manage_page(ProtectedPage):
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
             plugins.start_enabled_plugins()              
-            raise web.seeother('/plugins_manage')        
+            raise web.seeother(u'/plugins_manage')        
 
         if plugin is not None and plugin in plugins.available():
             if delete:
@@ -525,15 +525,15 @@ class plugins_manage_page(ProtectedPage):
                 import shutil
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
 
-            raise web.seeother('/plugins_manage')
+            raise web.seeother(u'/plugins_manage')
 
         if auto_update is not None:
             options.auto_plugin_update = auto_update
-            raise web.seeother('/plugins_manage')
+            raise web.seeother(u'/plugins_manage')
         
         if use_update is not None:
             options.use_plugin_update = use_update
-            raise web.seeother('/plugins_manage')    
+            raise web.seeother(u'/plugins_manage')    
 
         return self.core_render.plugins_manage()
 
@@ -576,11 +576,11 @@ class log_page(ProtectedPage):
         qdict = web.input()
         if 'clear' in qdict:
             log.clear_runs()
-            raise web.seeother('/log')
+            raise web.seeother(u'/log')
 
         if 'clearEM' in qdict:
             logEM.clear_email()
-            raise web.seeother('/log')
+            raise web.seeother(u'/log')
 
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
@@ -663,14 +663,14 @@ class options_page(ProtectedPage):
             try:
                 if test_password(qdict['old_password']):
                     if qdict['new_password'] == "":
-                        raise web.seeother('/options?errorCode=pw_blank')
+                        raise web.seeother(u'/options?errorCode=pw_blank')
                     elif qdict['new_password'] == qdict['check_password']:
                         options.password_salt = password_salt()  # Make a new salt
                         options.password_hash = password_hash(qdict['new_password'], options.password_salt)
                     else:
-                        raise web.seeother('/options?errorCode=pw_mismatch')
+                        raise web.seeother(u'/options?errorCode=pw_mismatch')
                 else:
-                    raise web.seeother('/options?errorCode=pw_wrong')
+                    raise web.seeother(u'/options?errorCode=pw_wrong')
             except KeyError:
                 pass
    
@@ -712,7 +712,7 @@ class options_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)          
 
         report_option_change()
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
 
 class stations_page(ProtectedPage):
@@ -754,7 +754,7 @@ class stations_page(ProtectedPage):
             Timer(0.1, programs.calculate_balances).start()
 
         report_station_names()
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
 class help_page(ProtectedPage):
     """Help page"""
@@ -812,14 +812,14 @@ class download_page(ProtectedPage):
              return self.core_render.notice('/download', msg)
              
        except Exception:
-          raise web.seeother('/')
+          raise web.seeother(u'/')
 
 
 class upload_page(ProtectedPage):
     """Upload OSPy DB file with settings"""
     
     def GET(self):
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
     def POST(self):
         OPTIONS_FILE = './ospy/data/options.db'
@@ -852,7 +852,7 @@ class upload_page_SSL(ProtectedPage):
     """Upload certificate file to SSL dir, fullchain.pem or privkey.pem"""
     
     def GET(self):
-        raise web.seeother('/')
+        raise web.seeother(u'/')
 
     def POST(self):
         SSL_FOLDER = './ssl'

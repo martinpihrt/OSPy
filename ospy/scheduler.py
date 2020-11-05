@@ -88,8 +88,7 @@ def predicted_schedule(start_time, end_time):
             if station.index not in station_schedules:
                 station_schedules[station.index] = []
 
-            pname = _(u'Run-Once')
-            program_name = "%s " % pname.encode("utf-8", errors="ignore")
+            program_name = _(u'Run-Once')
             new_schedule = {
                 'active': None,
                 'program': -1,
@@ -101,7 +100,7 @@ def predicted_schedule(start_time, end_time):
                 'start': interval['start'],
                 'original_start': interval['start'],
                 'end': interval['end'],
-                'uid': '%s-%s-%d' % (str(interval['start']), str(program_name), station.index),
+                'uid': u'%s-%s-%d' % (str(interval['start']), program_name, station.index),
                 'usage': station.usage
             }
             station_schedules[station.index].append(new_schedule)
@@ -118,8 +117,7 @@ def predicted_schedule(start_time, end_time):
                 if station not in station_schedules:
                     station_schedules[station] = []
 
-                pname = _(u'Run-Now')
-                program_name = "%s " % program.name + pname.encode("utf-8", errors="ignore") 
+                program_name = _(u'Run-Now') + u' %s' % program.name 
                 new_schedule = {
                     'active': None,
                     'program': -1,
@@ -131,7 +129,7 @@ def predicted_schedule(start_time, end_time):
                     'start': interval['start'],
                     'original_start': interval['start'],
                     'end': interval['end'],
-                    'uid': '%s-%s-%d' % (str(interval['start']), str(program_name), station),
+                    'uid': u'%s-%s-%d' % (str(interval['start']), program_name, station),
                     'usage': stations.get(station).usage
                 }
                 station_schedules[station].append(new_schedule)
