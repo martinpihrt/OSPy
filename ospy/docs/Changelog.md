@@ -5,7 +5,7 @@ Nov 6 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Correction in options.html (autocomplete = "new-password"). Fixed Users in users.py (now it is possible to add new and delete old users who have access to the OSPy system). Assignment of rights to users is still unresolved (all users are administrators). Added new strings to czech translation.
+Correction in options.html (autocomplete = "new-password"). Fixed Users in users.py (now it is possible to add new and delete old users who have access to the OSPy system). Assignment of rights to users is still unresolved (all users are administrators). Added new strings to Czech translation. Updating language translating to Slovak (Thank you Tomáš Szepesi).
 
 Nov 5 2020
 -----------

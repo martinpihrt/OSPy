@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-11-03 19:28+CET\n"
-"PO-Revision-Date: 2020-11-04 11:37+0100\n"
+"POT-Creation-Date: 2020-11-06 08:11+CET\n"
+"PO-Revision-Date: 2020-11-06 09:06+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -31,15 +31,15 @@ msgstr "Reštartovanie."
 
 #: ospy/helpers.py:191
 msgid ". day"
-msgstr ".den"
+msgstr ". den"
 
 #: ospy/helpers.py:193
 msgid ". days"
-msgstr "dni"
+msgstr ". dni"
 
 #: ospy/helpers.py:195
 msgid ". days "
-msgstr "dní "
+msgstr ". dní "
 
 #: ospy/helpers.py:199 ospy/helpers.py:255 ospy/helpers.py:269
 #: ospy/helpers.py:270
@@ -50,8 +50,8 @@ msgstr "Neznáme"
 msgid "No IP Settings"
 msgstr "IP nieje nastavená"
 
-#: ospy/helpers.py:313 ospy/helpers.py:330 plugins/email_reader/__init__.py:205
-#: plugins/email_reader/__init__.py:209
+#: ospy/helpers.py:313 ospy/helpers.py:330 plugins/email_reader/__init__.py:230
+#: plugins/email_reader/__init__.py:234
 msgid "-"
 msgstr "-"
 
@@ -683,11 +683,11 @@ msgstr "V prevádzke"
 msgid "to max"
 msgstr "do max"
 
-#: ospy/scheduler.py:91 ospy/templates/runonce.html:3
+#: ospy/runonce.py:12 ospy/scheduler.py:91 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr "Spustiť raz"
 
-#: ospy/scheduler.py:121
+#: ospy/scheduler.py:120
 msgid "Run-Now"
 msgstr "Spustiť teraz"
 
@@ -1199,7 +1199,7 @@ msgstr "Vložte dobu pre spustenie v minútach"
 msgid "Type time for run in seconds"
 msgstr "Vložte dobu pre spustenie v sekundách"
 
-#: ospy/templates/home.html:573 plugins/email_reader/__init__.py:211
+#: ospy/templates/home.html:573 plugins/email_reader/__init__.py:236
 msgid "Forever"
 msgstr "Navždy"
 
@@ -1374,7 +1374,7 @@ msgstr "Varovanie!"
 msgid "Hide Tooltips"
 msgstr "Skryť tipy"
 
-#: ospy/templates/options.html:18 ospy/templates/options.html:105
+#: ospy/templates/options.html:18 ospy/templates/options.html:106
 msgid "Show Tooltips"
 msgstr "Zobraziť tipy"
 
@@ -1415,25 +1415,25 @@ msgstr ""
 msgid "Error: SSL certificate has not generated!"
 msgstr "Chyba: Certifikát SSL sa nevygeneroval!"
 
-#: ospy/templates/options.html:104
+#: ospy/templates/options.html:105
 msgid "Edit Options"
 msgstr "Úprava nastavení"
 
-#: ospy/templates/options.html:146 ospy/templates/options.html:156
+#: ospy/templates/options.html:147 ospy/templates/options.html:157
 msgid "Specify which output should be used as master station."
 msgstr "Určte, ktorý výstup by sa mal použiť ako hlavná stanica."
 
-#: ospy/templates/options.html:146 ospy/templates/stations.html:50
+#: ospy/templates/options.html:147 ospy/templates/stations.html:50
 msgid "Master station"
 msgstr "Hlavná stanica"
 
-#: ospy/templates/options.html:149 ospy/templates/options.html:151
-#: ospy/templates/options.html:162 ospy/templates/options.html:164
+#: ospy/templates/options.html:150 ospy/templates/options.html:152
+#: ospy/templates/options.html:163 ospy/templates/options.html:165
 #: plugins/lcd_display/__init__.py:289
 msgid "None"
 msgstr "Neurčené"
 
-#: ospy/templates/options.html:154 ospy/templates/options.html:167
+#: ospy/templates/options.html:155 ospy/templates/options.html:168
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:275
 #: plugins/pool_heating/__init__.py:125 plugins/pool_heating/__init__.py:156
@@ -1450,23 +1450,23 @@ msgstr "Neurčené"
 msgid "Output"
 msgstr "Výstup"
 
-#: ospy/templates/options.html:159 ospy/templates/options.html:169
+#: ospy/templates/options.html:160 ospy/templates/options.html:170
 msgid "Specify which output should be used as master two station."
 msgstr "Určte, ktorý výstup by sa mal použiť ako Druhá hlavná stanica."
 
-#: ospy/templates/options.html:159 ospy/templates/stations.html:56
+#: ospy/templates/options.html:160 ospy/templates/stations.html:56
 msgid "Master two station"
 msgstr "Druhá hlavná stanica"
 
-#: ospy/templates/options.html:173
+#: ospy/templates/options.html:174
 msgid "System language"
 msgstr "Jazyk systému"
 
-#: ospy/templates/options.html:175
+#: ospy/templates/options.html:176
 msgid "Default language"
 msgstr "Predvolený jazyk"
 
-#: ospy/templates/options.html:179
+#: ospy/templates/options.html:180
 msgid ""
 "Language localizations for this OpenSprinkler system. (effective after "
 "reboot.)"
@@ -1474,149 +1474,149 @@ msgstr ""
 "Jazykové lokalizácie pre tento systém OpenSprinkler. (zmeny sa prejavia po "
 "reštarte)"
 
-#: ospy/templates/options.html:191 ospy/templates/options.html:199
+#: ospy/templates/options.html:192 ospy/templates/options.html:200
 msgid "None available"
 msgstr "Nie je k dispozícii"
 
-#: ospy/templates/options.html:216
+#: ospy/templates/options.html:217
 msgid "Current password"
 msgstr "Aktuálne heslo"
 
-#: ospy/templates/options.html:216 ospy/templates/options.html:218
+#: ospy/templates/options.html:217 ospy/templates/options.html:219
 msgid "Re-enter the current password."
 msgstr "Zadajte aktuálne heslo."
 
-#: ospy/templates/options.html:220
+#: ospy/templates/options.html:221
 msgid "New password"
 msgstr "Nové heslo"
 
-#: ospy/templates/options.html:220 ospy/templates/options.html:222
+#: ospy/templates/options.html:221 ospy/templates/options.html:223
 msgid "Enter a new password."
 msgstr "Zadajte nové heslo."
 
-#: ospy/templates/options.html:224
+#: ospy/templates/options.html:225
 msgid "Confirm password"
 msgstr "Potvrďte heslo"
 
-#: ospy/templates/options.html:224 ospy/templates/options.html:226
+#: ospy/templates/options.html:225 ospy/templates/options.html:227
 msgid "Confirm the new password."
 msgstr "Potvrďte nové heslo."
 
-#: ospy/templates/options.html:228
+#: ospy/templates/options.html:229
 msgid "Aditional users"
 msgstr "Ďalši užívateľia"
 
-#: ospy/templates/options.html:228 ospy/templates/options.html:230
+#: ospy/templates/options.html:229 ospy/templates/options.html:231
 msgid "Edit aditional users for login to the OSPy."
 msgstr "Pridať ďalších užívateľov pre prihlásenie do OSPy."
 
-#: ospy/templates/options.html:229
+#: ospy/templates/options.html:230
 msgid "Edit Users"
 msgstr "Upraviť užívateľov"
 
-#: ospy/templates/options.html:229
+#: ospy/templates/options.html:230
 msgid "Edit aditional users for login to the OSPy"
 msgstr "Pridať ďalších užívateľov pre prihlásenie do OSPy"
 
-#: ospy/templates/options.html:233
+#: ospy/templates/options.html:234
 msgid "System Restart"
 msgstr "Reštartovať systém"
 
-#: ospy/templates/options.html:235
+#: ospy/templates/options.html:236
 msgid "Restart"
 msgstr "Reštart OSPy"
 
-#: ospy/templates/options.html:235
+#: ospy/templates/options.html:236
 msgid "Restart OSPy software!"
 msgstr "Reštartovať softvér OSPy!"
 
-#: ospy/templates/options.html:236
+#: ospy/templates/options.html:237
 msgid "Reboot"
 msgstr "Reštart HW"
 
-#: ospy/templates/options.html:236
+#: ospy/templates/options.html:237
 msgid "Reboot hardware!"
 msgstr "Reštartovať hardvér!"
 
-#: ospy/templates/options.html:237
+#: ospy/templates/options.html:238
 msgid "Shutdown"
 msgstr "Vypnúť"
 
-#: ospy/templates/options.html:237
+#: ospy/templates/options.html:238
 msgid "Shutdown hardware!"
 msgstr "Vypnúť hardvér!"
 
-#: ospy/templates/options.html:238
+#: ospy/templates/options.html:239
 msgid "Default"
 msgstr "Predvolené nastavenia"
 
-#: ospy/templates/options.html:238
+#: ospy/templates/options.html:239
 msgid "Delete OSPy settings to default!"
 msgstr "Vymazať v OSPy všetky nastavenia a reštartovať!"
 
-#: ospy/templates/options.html:247
+#: ospy/templates/options.html:248
 msgid "System Backup"
 msgstr "Záloha a obnovenie"
 
-#: ospy/templates/options.html:249
+#: ospy/templates/options.html:250
 msgid "Download"
 msgstr "Stiahnuť"
 
-#: ospy/templates/options.html:249
+#: ospy/templates/options.html:250
 msgid "Download options.db file"
 msgstr "Stiahnúť súbor options.db"
 
-#: ospy/templates/options.html:251
+#: ospy/templates/options.html:252
 msgid "Upload options.db file"
 msgstr "Nahrať súbor options.db"
 
-#: ospy/templates/options.html:251 ospy/templates/options.html:261
+#: ospy/templates/options.html:252 ospy/templates/options.html:262
 #: plugins/voice_notification/templates/voice_notification.html:117
 msgid "Upload"
 msgstr "Nahrať"
 
-#: ospy/templates/options.html:257
+#: ospy/templates/options.html:258
 msgid "SSL certificate"
 msgstr "Certifikát SSL"
 
-#: ospy/templates/options.html:259
+#: ospy/templates/options.html:260
 msgid "Upload SSL files"
 msgstr "Náhrát súbory SSL"
 
-#: ospy/templates/options.html:261
+#: ospy/templates/options.html:262
 msgid "Upload fullchain.pem or privkey.pem file"
 msgstr "Nahrát fullchain. pem alebo privkey. pem súbor"
 
-#: ospy/templates/options.html:262
+#: ospy/templates/options.html:263
 msgid "Upload SSL file."
 msgstr "Nahrajte súbor SSL."
 
-#: ospy/templates/options.html:266
+#: ospy/templates/options.html:267
 msgid "Generate"
 msgstr "Generovať"
 
-#: ospy/templates/options.html:266
+#: ospy/templates/options.html:267
 msgid ""
 "Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder"
 msgstr ""
 "Generovať vlastný SSL certifikát fullchain.pem a privkey.pem do ssl zložky"
 
-#: ospy/templates/options.html:267
+#: ospy/templates/options.html:268
 msgid "Generate own SSL certificat."
 msgstr "Generovať vlastný SSL certifikát."
 
-#: ospy/templates/options.html:277 ospy/templates/stations.html:97
+#: ospy/templates/options.html:278 ospy/templates/stations.html:97
 msgid "Submit Changes"
 msgstr "Potvrdiť zmeny"
 
-#: ospy/templates/options.html:278 ospy/templates/program.html:618
+#: ospy/templates/options.html:279 ospy/templates/program.html:618
 #: ospy/templates/runonce.html:55 ospy/templates/stations.html:99
 #: ospy/templates/user.html:71
 #: plugins/air_temp_humi/templates/air_temp_humi.html:353
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
 #: plugins/email_notifications/templates/email_notifications.html:140
-#: plugins/email_reader/templates/email_reader.html:161
+#: plugins/email_reader/templates/email_reader.html:179
 #: plugins/humi_monitor/templates/humi_monitor.html:96
 #: plugins/lcd_display/templates/lcd_display.html:157
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
@@ -2184,6 +2184,18 @@ msgstr "Predložená správa"
 msgid "Server rejected report: %s"
 msgstr "Server odmietol správu: %s"
 
+#: ospy/users.py:50
+msgid "Loading users..."
+msgstr "Načítávanie používateľov..."
+
+#: ospy/users.py:65
+msgid "Adding new user: {} with id: {}"
+msgstr "Pridanie nového použivateľa: {} s id: {}"
+
+#: ospy/users.py:87
+msgid "Removing user id: {}"
+msgstr "Odobratie užívateľa s id: {}"
+
 #: ospy/version.py:20
 msgid "Could not use git to determine revision!"
 msgstr "Nepodarilo sa použiť git na určenie revízie!"
@@ -2272,7 +2284,7 @@ msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
 msgstr ""
-"V nastavenia bola vykonaná zmena jazyka, OSPy sa teraz reštartuje a načíta "
+"V nastaveniach bola vykonaná zmena jazyka, OSPy sa teraz reštartuje a načíta "
 "zvolený jazyk."
 
 #: ospy/webpages.py:782 ospy/webpages.py:811
@@ -2627,7 +2639,7 @@ msgstr "Počet DS18B20"
 #: plugins/button_control/templates/button_control.html:53
 #: plugins/cli_control/templates/cli_control.html:51
 #: plugins/email_notifications/templates/email_notifications.html:129
-#: plugins/email_reader/templates/email_reader.html:150
+#: plugins/email_reader/templates/email_reader.html:168
 #: plugins/humi_monitor/templates/humi_monitor.html:86
 #: plugins/lcd_display/templates/lcd_display.html:147
 #: plugins/mqtt/templates/mqtt.html:97
@@ -2668,7 +2680,7 @@ msgstr "Stav"
 #: plugins/button_control/templates/button_control.html:62
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/email_notifications/templates/email_notifications.html:138
-#: plugins/email_reader/templates/email_reader.html:160
+#: plugins/email_reader/templates/email_reader.html:178
 #: plugins/humi_monitor/templates/humi_monitor.html:95
 #: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
@@ -2867,10 +2879,16 @@ msgid "controls"
 msgstr "ovládanie"
 
 #: plugins/button_control/templates/button_control.html:36
+#: plugins/email_reader/__init__.py:70
+#: plugins/email_reader/templates/email_reader.html:132
+#: plugins/email_reader/templates/email_reader.html:205
 msgid "Reboot OS system"
 msgstr "Reštartovať operačný systém"
 
 #: plugins/button_control/templates/button_control.html:37
+#: plugins/email_reader/__init__.py:79
+#: plugins/email_reader/templates/email_reader.html:133
+#: plugins/email_reader/templates/email_reader.html:205
 msgid "Shutdown OS system"
 msgstr "Vypnutie operačného systému"
 
@@ -2883,34 +2901,50 @@ msgid "Disable scheduler"
 msgstr "Vypnúť plánovač"
 
 #: plugins/button_control/templates/button_control.html:41
+#: plugins/email_reader/__init__.py:71
+#: plugins/email_reader/templates/email_reader.html:134
 msgid "Run program 1"
 msgstr "Spustenie programu 1"
 
 #: plugins/button_control/templates/button_control.html:42
+#: plugins/email_reader/__init__.py:72
+#: plugins/email_reader/templates/email_reader.html:135
 msgid "Run program 2"
 msgstr "Spustenie programu 2"
 
 #: plugins/button_control/templates/button_control.html:43
+#: plugins/email_reader/__init__.py:73
+#: plugins/email_reader/templates/email_reader.html:136
 msgid "Run program 3"
 msgstr "Spustenie programu 3"
 
 #: plugins/button_control/templates/button_control.html:44
+#: plugins/email_reader/__init__.py:74
+#: plugins/email_reader/templates/email_reader.html:137
 msgid "Run program 4"
 msgstr "Spustenie programu 4"
 
 #: plugins/button_control/templates/button_control.html:45
+#: plugins/email_reader/__init__.py:75
+#: plugins/email_reader/templates/email_reader.html:138
 msgid "Run program 5"
 msgstr "Spustenie programu 5"
 
 #: plugins/button_control/templates/button_control.html:46
+#: plugins/email_reader/__init__.py:76
+#: plugins/email_reader/templates/email_reader.html:139
 msgid "Run program 6"
 msgstr "Spustenie programu 6"
 
 #: plugins/button_control/templates/button_control.html:47
+#: plugins/email_reader/__init__.py:77
+#: plugins/email_reader/templates/email_reader.html:140
 msgid "Run program 7"
 msgstr "Spustenie programu 7"
 
 #: plugins/button_control/templates/button_control.html:48
+#: plugins/email_reader/__init__.py:78
+#: plugins/email_reader/templates/email_reader.html:141
 msgid "Run program 8"
 msgstr "Spustenie programu 8"
 
@@ -3216,7 +3250,7 @@ msgid "Send E-mail to"
 msgstr "Poslať E-mail na"
 
 #: plugins/email_notifications/templates/email_notifications.html:117
-#: plugins/email_reader/templates/email_reader.html:140
+#: plugins/email_reader/templates/email_reader.html:158
 #: plugins/ping_monitor/templates/ping_monitor.html:230
 #: plugins/pressure_monitor/templates/pressure_monitor.html:218
 #: plugins/system_update/templates/system_update.html:70
@@ -3240,37 +3274,37 @@ msgid "Package: E-mail Reader"
 msgstr "Balík: Čítačka E-mailov"
 
 #: plugins/email_reader/__init__.py:50
-#: plugins/email_reader/templates/email_reader.html:172
+#: plugins/email_reader/templates/email_reader.html:190
 msgid "scheduler_on"
 msgstr "plánovač zap"
 
 #: plugins/email_reader/__init__.py:51
-#: plugins/email_reader/templates/email_reader.html:174
+#: plugins/email_reader/templates/email_reader.html:192
 msgid "scheduler_off"
 msgstr "plánovač vyp"
 
 #: plugins/email_reader/__init__.py:52
-#: plugins/email_reader/templates/email_reader.html:176
+#: plugins/email_reader/templates/email_reader.html:194
 msgid "manual_on"
 msgstr "manuálne"
 
 #: plugins/email_reader/__init__.py:53
-#: plugins/email_reader/templates/email_reader.html:178
+#: plugins/email_reader/templates/email_reader.html:196
 msgid "manual_off"
 msgstr "plánovač"
 
 #: plugins/email_reader/__init__.py:54
-#: plugins/email_reader/templates/email_reader.html:180
+#: plugins/email_reader/templates/email_reader.html:198
 msgid "stop_run"
 msgstr "zastaviť stanice"
 
 #: plugins/email_reader/__init__.py:55
-#: plugins/email_reader/templates/email_reader.html:182
+#: plugins/email_reader/templates/email_reader.html:200
 msgid "send_help"
 msgstr "pomocník"
 
 #: plugins/email_reader/__init__.py:56
-#: plugins/email_reader/templates/email_reader.html:184
+#: plugins/email_reader/templates/email_reader.html:202
 msgid "send_state"
 msgstr "stav"
 
@@ -3278,71 +3312,102 @@ msgstr "stav"
 msgid "Report from OSPy E-mail Reader plugin"
 msgstr "Hlásenie z OSPy doplnku: Čítačka E-mailov"
 
-#: plugins/email_reader/__init__.py:100
+#: plugins/email_reader/__init__.py:122
 msgid "Try-ing login to E-mail."
 msgstr "Skúšam sa príhlásiť do E-mailu."
 
-#: plugins/email_reader/__init__.py:104
+#: plugins/email_reader/__init__.py:126
 msgid "Reading messages in inbox."
 msgstr "Čítanie správ v zložke doručená pošta."
 
-#: plugins/email_reader/__init__.py:111
+#: plugins/email_reader/__init__.py:133
 msgid "Message: %s"
 msgstr "Správa: %s"
 
-#: plugins/email_reader/__init__.py:112
+#: plugins/email_reader/__init__.py:134
 msgid "Subject: %s"
 msgstr "Predmet %s"
 
-#: plugins/email_reader/__init__.py:116 plugins/email_reader/__init__.py:119
+#: plugins/email_reader/__init__.py:138 plugins/email_reader/__init__.py:141
 msgid "Scheduler has switched to enabled."
 msgstr "Plánovač bol zapnutý."
 
-#: plugins/email_reader/__init__.py:117 plugins/email_reader/__init__.py:120
-#: plugins/email_reader/__init__.py:125 plugins/email_reader/__init__.py:128
-#: plugins/email_reader/__init__.py:133 plugins/email_reader/__init__.py:136
-#: plugins/email_reader/__init__.py:141 plugins/email_reader/__init__.py:144
-#: plugins/email_reader/__init__.py:152 plugins/email_reader/__init__.py:155
-#: plugins/email_reader/__init__.py:161 plugins/email_reader/__init__.py:184
-#: plugins/email_reader/__init__.py:190 plugins/email_reader/__init__.py:216
-#: plugins/email_reader/__init__.py:224 plugins/email_reader/__init__.py:229
-#: plugins/email_reader/__init__.py:239 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:246 plugins/email_reader/__init__.py:249
-#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:261
-#: plugins/email_reader/__init__.py:271 plugins/email_reader/__init__.py:275
-#: plugins/email_reader/__init__.py:309 plugins/email_reader/__init__.py:311
-#: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:316
-#: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:322
-#: plugins/email_reader/__init__.py:331 plugins/email_reader/__init__.py:343
+#: plugins/email_reader/__init__.py:139 plugins/email_reader/__init__.py:142
+#: plugins/email_reader/__init__.py:147 plugins/email_reader/__init__.py:150
+#: plugins/email_reader/__init__.py:155 plugins/email_reader/__init__.py:158
+#: plugins/email_reader/__init__.py:163 plugins/email_reader/__init__.py:166
+#: plugins/email_reader/__init__.py:174 plugins/email_reader/__init__.py:177
+#: plugins/email_reader/__init__.py:183 plugins/email_reader/__init__.py:209
+#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:241
+#: plugins/email_reader/__init__.py:247 plugins/email_reader/__init__.py:250
+#: plugins/email_reader/__init__.py:257 plugins/email_reader/__init__.py:260
+#: plugins/email_reader/__init__.py:267 plugins/email_reader/__init__.py:270
+#: plugins/email_reader/__init__.py:282 plugins/email_reader/__init__.py:285
+#: plugins/email_reader/__init__.py:297 plugins/email_reader/__init__.py:300
+#: plugins/email_reader/__init__.py:312 plugins/email_reader/__init__.py:315
+#: plugins/email_reader/__init__.py:327 plugins/email_reader/__init__.py:330
+#: plugins/email_reader/__init__.py:342 plugins/email_reader/__init__.py:345
+#: plugins/email_reader/__init__.py:357 plugins/email_reader/__init__.py:360
+#: plugins/email_reader/__init__.py:372 plugins/email_reader/__init__.py:375
+#: plugins/email_reader/__init__.py:389 plugins/email_reader/__init__.py:391
+#: plugins/email_reader/__init__.py:397 plugins/email_reader/__init__.py:400
+#: plugins/email_reader/__init__.py:405 plugins/email_reader/__init__.py:410
+#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:434
+#: plugins/email_reader/__init__.py:448 plugins/email_reader/__init__.py:452
+#: plugins/email_reader/__init__.py:486 plugins/email_reader/__init__.py:489
+#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:495
+#: plugins/email_reader/__init__.py:497 plugins/email_reader/__init__.py:506
+#: plugins/email_reader/__init__.py:518
 msgid "E-mail Reader plug-in"
 msgstr "Doplnok Čitačka E-mailov"
 
-#: plugins/email_reader/__init__.py:117 plugins/email_reader/__init__.py:120
-#: plugins/email_reader/__init__.py:125 plugins/email_reader/__init__.py:128
-#: plugins/email_reader/__init__.py:133 plugins/email_reader/__init__.py:136
-#: plugins/email_reader/__init__.py:141 plugins/email_reader/__init__.py:144
-#: plugins/email_reader/__init__.py:152 plugins/email_reader/__init__.py:155
-#: plugins/email_reader/__init__.py:161 plugins/email_reader/__init__.py:184
-#: plugins/email_reader/__init__.py:190 plugins/email_reader/__init__.py:216
-#: plugins/email_reader/__init__.py:309 plugins/email_reader/__init__.py:311
+#: plugins/email_reader/__init__.py:139 plugins/email_reader/__init__.py:142
+#: plugins/email_reader/__init__.py:147 plugins/email_reader/__init__.py:150
+#: plugins/email_reader/__init__.py:155 plugins/email_reader/__init__.py:158
+#: plugins/email_reader/__init__.py:163 plugins/email_reader/__init__.py:166
+#: plugins/email_reader/__init__.py:174 plugins/email_reader/__init__.py:177
+#: plugins/email_reader/__init__.py:183 plugins/email_reader/__init__.py:209
+#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:241
+#: plugins/email_reader/__init__.py:247 plugins/email_reader/__init__.py:250
+#: plugins/email_reader/__init__.py:257 plugins/email_reader/__init__.py:260
+#: plugins/email_reader/__init__.py:267 plugins/email_reader/__init__.py:270
+#: plugins/email_reader/__init__.py:282 plugins/email_reader/__init__.py:285
+#: plugins/email_reader/__init__.py:297 plugins/email_reader/__init__.py:300
+#: plugins/email_reader/__init__.py:312 plugins/email_reader/__init__.py:315
+#: plugins/email_reader/__init__.py:327 plugins/email_reader/__init__.py:330
+#: plugins/email_reader/__init__.py:342 plugins/email_reader/__init__.py:345
+#: plugins/email_reader/__init__.py:357 plugins/email_reader/__init__.py:360
+#: plugins/email_reader/__init__.py:372 plugins/email_reader/__init__.py:375
+#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:443
+#: plugins/email_reader/__init__.py:486
 msgid "The command has been processed."
 msgstr "Príkaz bol spracovaný."
 
-#: plugins/email_reader/__init__.py:118 plugins/email_reader/__init__.py:126
-#: plugins/email_reader/__init__.py:134 plugins/email_reader/__init__.py:142
-#: plugins/email_reader/__init__.py:153 plugins/email_reader/__init__.py:162
-#: plugins/email_reader/__init__.py:191 plugins/email_reader/__init__.py:225
-#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:247
-#: plugins/email_reader/__init__.py:259
+#: plugins/email_reader/__init__.py:140 plugins/email_reader/__init__.py:148
+#: plugins/email_reader/__init__.py:156 plugins/email_reader/__init__.py:164
+#: plugins/email_reader/__init__.py:175 plugins/email_reader/__init__.py:184
+#: plugins/email_reader/__init__.py:216 plugins/email_reader/__init__.py:248
+#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:268
+#: plugins/email_reader/__init__.py:283 plugins/email_reader/__init__.py:298
+#: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:328
+#: plugins/email_reader/__init__.py:343 plugins/email_reader/__init__.py:358
+#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:387
+#: plugins/email_reader/__init__.py:390 plugins/email_reader/__init__.py:398
+#: plugins/email_reader/__init__.py:406
 msgid ": %s"
 msgstr ": %s"
 
-#: plugins/email_reader/__init__.py:118 plugins/email_reader/__init__.py:126
-#: plugins/email_reader/__init__.py:134 plugins/email_reader/__init__.py:142
-#: plugins/email_reader/__init__.py:153 plugins/email_reader/__init__.py:162
-#: plugins/email_reader/__init__.py:191 plugins/email_reader/__init__.py:225
-#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:247
-#: plugins/email_reader/__init__.py:259 plugins/email_reader/__init__.py:310
+#: plugins/email_reader/__init__.py:140 plugins/email_reader/__init__.py:148
+#: plugins/email_reader/__init__.py:156 plugins/email_reader/__init__.py:164
+#: plugins/email_reader/__init__.py:175 plugins/email_reader/__init__.py:184
+#: plugins/email_reader/__init__.py:216 plugins/email_reader/__init__.py:248
+#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:268
+#: plugins/email_reader/__init__.py:283 plugins/email_reader/__init__.py:298
+#: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:328
+#: plugins/email_reader/__init__.py:343 plugins/email_reader/__init__.py:358
+#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:387
+#: plugins/email_reader/__init__.py:390 plugins/email_reader/__init__.py:398
+#: plugins/email_reader/__init__.py:406 plugins/email_reader/__init__.py:418
 #: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:264
 #: plugins/sms_adj/__init__.py:269 plugins/sms_adj/__init__.py:281
 #: plugins/sms_adj/__init__.py:286 plugins/sms_adj/__init__.py:295
@@ -3355,119 +3420,135 @@ msgstr ": %s"
 msgid "Command"
 msgstr "Prikaz"
 
-#: plugins/email_reader/__init__.py:120 plugins/email_reader/__init__.py:128
-#: plugins/email_reader/__init__.py:136 plugins/email_reader/__init__.py:144
-#: plugins/email_reader/__init__.py:155 plugins/email_reader/__init__.py:184
-#: plugins/email_reader/__init__.py:216 plugins/email_reader/__init__.py:229
-#: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:249
-#: plugins/email_reader/__init__.py:261 plugins/email_reader/__init__.py:275
-#: plugins/email_reader/__init__.py:311 plugins/email_reader/__init__.py:316
-#: plugins/email_reader/__init__.py:322
+#: plugins/email_reader/__init__.py:142 plugins/email_reader/__init__.py:150
+#: plugins/email_reader/__init__.py:158 plugins/email_reader/__init__.py:166
+#: plugins/email_reader/__init__.py:177 plugins/email_reader/__init__.py:209
+#: plugins/email_reader/__init__.py:241 plugins/email_reader/__init__.py:250
+#: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:270
+#: plugins/email_reader/__init__.py:285 plugins/email_reader/__init__.py:300
+#: plugins/email_reader/__init__.py:315 plugins/email_reader/__init__.py:330
+#: plugins/email_reader/__init__.py:345 plugins/email_reader/__init__.py:360
+#: plugins/email_reader/__init__.py:375 plugins/email_reader/__init__.py:391
+#: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:410
+#: plugins/email_reader/__init__.py:444 plugins/email_reader/__init__.py:452
+#: plugins/email_reader/__init__.py:486 plugins/email_reader/__init__.py:491
+#: plugins/email_reader/__init__.py:497
 msgid "MSG: %s"
 msgstr "Správa : %s"
 
-#: plugins/email_reader/__init__.py:124 plugins/email_reader/__init__.py:127
+#: plugins/email_reader/__init__.py:146 plugins/email_reader/__init__.py:149
 msgid "Scheduler has switched to disabled."
 msgstr "Plánovač bol zakázaný."
 
-#: plugins/email_reader/__init__.py:132 plugins/email_reader/__init__.py:135
+#: plugins/email_reader/__init__.py:154 plugins/email_reader/__init__.py:157
 msgid "OSPy has switched to manual control."
 msgstr "OSPy bolo prepnuté na manuálne ovládanie."
 
-#: plugins/email_reader/__init__.py:140 plugins/email_reader/__init__.py:143
+#: plugins/email_reader/__init__.py:162 plugins/email_reader/__init__.py:165
+#: plugins/email_reader/__init__.py:266 plugins/email_reader/__init__.py:269
+#: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:284
+#: plugins/email_reader/__init__.py:296 plugins/email_reader/__init__.py:299
+#: plugins/email_reader/__init__.py:311 plugins/email_reader/__init__.py:314
+#: plugins/email_reader/__init__.py:326 plugins/email_reader/__init__.py:329
+#: plugins/email_reader/__init__.py:341 plugins/email_reader/__init__.py:344
+#: plugins/email_reader/__init__.py:356 plugins/email_reader/__init__.py:359
+#: plugins/email_reader/__init__.py:371 plugins/email_reader/__init__.py:374
 msgid "OSPy has switched to scheduler controler."
 msgstr "OSPy bolo prepnuté na plánovač."
 
-#: plugins/email_reader/__init__.py:151 plugins/email_reader/__init__.py:154
+#: plugins/email_reader/__init__.py:173 plugins/email_reader/__init__.py:176
 msgid "OSPy has stop all running stations."
 msgstr "OSPy zastavil všetky spustené stanice."
 
-#: plugins/email_reader/__init__.py:158
+#: plugins/email_reader/__init__.py:180
 msgid "OSPy sends the set commands to the administrator by E-mail."
 msgstr "OSPy posiela nastavené príkazy správcovi E-mailom."
 
-#: plugins/email_reader/__init__.py:163
+#: plugins/email_reader/__init__.py:185
 msgid "All available commands in plugin"
 msgstr "Všetky dostupné príkazy v doplnku"
 
-#: plugins/email_reader/__init__.py:165
+#: plugins/email_reader/__init__.py:187
 #: plugins/email_reader/templates/email_reader.html:92
 msgid "Switch scheduler to ON"
 msgstr "Prepnúť plánovač na POVOLENÉ"
 
-#: plugins/email_reader/__init__.py:167
+#: plugins/email_reader/__init__.py:189
 #: plugins/email_reader/templates/email_reader.html:97
 msgid "Switch scheduler to OFF"
 msgstr "Prepnúť plánovač na ZAKÁZANÉ"
 
-#: plugins/email_reader/__init__.py:169
+#: plugins/email_reader/__init__.py:191
 #: plugins/email_reader/templates/email_reader.html:102
 msgid "Switch to manual mode"
 msgstr "Prepnutie do manuálneho režimu"
 
-#: plugins/email_reader/__init__.py:171
+#: plugins/email_reader/__init__.py:193
 #: plugins/email_reader/templates/email_reader.html:107
 msgid "Switch to scheduler mode"
 msgstr "Prepnúť do režimu plánovača"
 
-#: plugins/email_reader/__init__.py:173
+#: plugins/email_reader/__init__.py:195
 #: plugins/email_reader/templates/email_reader.html:112
 msgid "Stop all running stations"
 msgstr "Zastaviť všetky spustené stanice"
 
-#: plugins/email_reader/__init__.py:175
+#: plugins/email_reader/__init__.py:197
 #: plugins/email_reader/templates/email_reader.html:117
 msgid "Send back help"
 msgstr "Poslať návod"
 
-#: plugins/email_reader/__init__.py:177
-#: plugins/email_reader/templates/email_reader.html:165
+#: plugins/email_reader/__init__.py:200
+msgid "Selecting command %d"
+msgstr "Výber príkazu %d"
+
+#: plugins/email_reader/__init__.py:202
+#: plugins/email_reader/templates/email_reader.html:183
 msgid "Sending message in body E-mail as list (use in manual mode)"
 msgstr ""
 "Odoslanie správy v tele E-mailu ako zoznam (použiť iba v manuálnom režime)"
 
-#: plugins/email_reader/__init__.py:178 plugins/email_reader/__init__.py:181
-#: plugins/email_reader/templates/email_reader.html:166
-#: plugins/email_reader/templates/email_reader.html:169
+#: plugins/email_reader/__init__.py:203 plugins/email_reader/__init__.py:206
+#: plugins/email_reader/templates/email_reader.html:184
+#: plugins/email_reader/templates/email_reader.html:187
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr "Stanica 1 -> VYP, 2 -> VYP, 3 -> ZAP 100 sekúnd, 4 -> ZAP 30 sekúnd..."
 
-#: plugins/email_reader/__init__.py:179
-#: plugins/email_reader/templates/email_reader.html:167
+#: plugins/email_reader/__init__.py:204
 msgid "[0,0,100,30,...]"
 msgstr "[0,0,100,30,...]"
 
-#: plugins/email_reader/__init__.py:180
-#: plugins/email_reader/templates/email_reader.html:168
+#: plugins/email_reader/__init__.py:205
+#: plugins/email_reader/templates/email_reader.html:186
 msgid "Sending message in body E-mail as dict (use in manual mode)"
 msgstr ""
 "Odoslanie správy v tele E-mailu ako slovník (použiť iba v manuálnom režime)"
 
-#: plugins/email_reader/__init__.py:182
+#: plugins/email_reader/__init__.py:207
 msgid "{\"aa\":0,\"bb\":0,\"cc\":100,\"dd\":30...}"
 msgstr "{\"aa\":0,\"bb\":0,\"cc\":100,\"dd\":30...}"
 
-#: plugins/email_reader/__init__.py:187
+#: plugins/email_reader/__init__.py:212
 msgid "OSPy sends the stations state to the administrator E-mail."
 msgstr "OSPy odošle stav staníc správcovi E-mailom."
 
-#: plugins/email_reader/__init__.py:192
+#: plugins/email_reader/__init__.py:217
 msgid "Actual stations state"
 msgstr "Aktuálny stav staníc"
 
-#: plugins/email_reader/__init__.py:194
+#: plugins/email_reader/__init__.py:219
 msgid "Main 1"
 msgstr "Hlavná 1"
 
-#: plugins/email_reader/__init__.py:194
+#: plugins/email_reader/__init__.py:219
 msgid "Main 2"
 msgstr "Hlavná 2"
 
-#: plugins/email_reader/__init__.py:194
+#: plugins/email_reader/__init__.py:219
 msgid "Station name"
 msgstr "Názov stanice"
 
-#: plugins/email_reader/__init__.py:194
+#: plugins/email_reader/__init__.py:219
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/pressure_monitor/__init__.py:349
 #: plugins/pressure_monitor/__init__.py:472 plugins/ups_adj/__init__.py:314
@@ -3475,142 +3556,183 @@ msgstr "Názov stanice"
 msgid "State"
 msgstr "Stav"
 
-#: plugins/email_reader/__init__.py:195
+#: plugins/email_reader/__init__.py:220
 msgid "Remaining time in sec"
 msgstr "Zostávajúci čas v sekundách"
 
-#: plugins/email_reader/__init__.py:199 plugins/relay_16/__init__.py:120
+#: plugins/email_reader/__init__.py:224 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr "ZAP"
 
-#: plugins/email_reader/__init__.py:201 plugins/relay_16/__init__.py:137
+#: plugins/email_reader/__init__.py:226 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr "VYP"
 
-#: plugins/email_reader/__init__.py:203 plugins/email_reader/__init__.py:207
+#: plugins/email_reader/__init__.py:228 plugins/email_reader/__init__.py:232
 msgid "YES"
 msgstr "ÁNO"
 
-#: plugins/email_reader/__init__.py:213
+#: plugins/email_reader/__init__.py:238
 msgid "%s"
 msgstr "%s"
 
-#: plugins/email_reader/__init__.py:221 plugins/email_reader/__init__.py:228
-msgid "OSPy must be first switched to manual mode or subject is not correct!"
-msgstr ""
-"OSPy musí byť najprv prepnutý do manuálneho režimu, alebo nieje uveden "
-"správny predmet doručenej správy!"
+#: plugins/email_reader/__init__.py:246 plugins/email_reader/__init__.py:249
+msgid "System Linux has now reboot!"
+msgstr "Systém Linux sa teraz reštartuje!"
 
-#: plugins/email_reader/__init__.py:222 plugins/email_reader/__init__.py:226
-#: plugins/email_reader/__init__.py:273
+#: plugins/email_reader/__init__.py:256 plugins/email_reader/__init__.py:259
+msgid "System Linux has now shutdown!"
+msgstr "Systém Linux sa teraz vypne!"
+
+#: plugins/email_reader/__init__.py:266 plugins/email_reader/__init__.py:269
+msgid "Run now program 1."
+msgstr "Spustiť teraz program 1."
+
+#: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:284
+msgid "Run now program 2."
+msgstr "Spustiť teraz program 2."
+
+#: plugins/email_reader/__init__.py:296 plugins/email_reader/__init__.py:299
+msgid "Run now program 3."
+msgstr "Spustiť teraz program 3."
+
+#: plugins/email_reader/__init__.py:311 plugins/email_reader/__init__.py:314
+msgid "Run now program 4."
+msgstr "Spustiť teraz program 4."
+
+#: plugins/email_reader/__init__.py:326 plugins/email_reader/__init__.py:329
+msgid "Run now program 5."
+msgstr "Spustiť teraz program 5."
+
+#: plugins/email_reader/__init__.py:341 plugins/email_reader/__init__.py:344
+msgid "Run now program 6."
+msgstr "Spustiť teraz program 6."
+
+#: plugins/email_reader/__init__.py:356 plugins/email_reader/__init__.py:359
+msgid "Run now program 7."
+msgstr "Spustiť teraz program 7."
+
+#: plugins/email_reader/__init__.py:371 plugins/email_reader/__init__.py:374
+msgid "Run now program 8."
+msgstr "Spustiť teraz program 8."
+
+#: plugins/email_reader/__init__.py:385 plugins/email_reader/__init__.py:403
+#: plugins/email_reader/__init__.py:407 plugins/email_reader/__init__.py:450
 msgid "Subject in message is"
 msgstr "Predmet prijatej správy je"
 
-#: plugins/email_reader/__init__.py:223 plugins/email_reader/__init__.py:227
-#: plugins/email_reader/__init__.py:274
+#: plugins/email_reader/__init__.py:386 plugins/email_reader/__init__.py:404
+#: plugins/email_reader/__init__.py:408 plugins/email_reader/__init__.py:451
 msgid "Subject in options is"
 msgstr "Predmet v nastavení je"
 
-#: plugins/email_reader/__init__.py:224 plugins/email_reader/__init__.py:229
-#: plugins/email_reader/__init__.py:239 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:246 plugins/email_reader/__init__.py:249
-#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:261
-#: plugins/email_reader/__init__.py:271 plugins/email_reader/__init__.py:275
-#: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:316
-#: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:322
+#: plugins/email_reader/__init__.py:388 plugins/email_reader/__init__.py:389
+#: plugins/email_reader/__init__.py:391 plugins/email_reader/__init__.py:397
+#: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:405
+#: plugins/email_reader/__init__.py:410 plugins/email_reader/__init__.py:448
+#: plugins/email_reader/__init__.py:452 plugins/email_reader/__init__.py:489
+#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:495
+#: plugins/email_reader/__init__.py:497
 msgid "The command has been not processed!"
 msgstr "Príkaz nebol spracovaný!"
 
-#: plugins/email_reader/__init__.py:232
+#: plugins/email_reader/__init__.py:396 plugins/email_reader/__init__.py:399
+msgid "OSPy must be first switched to manual mode!"
+msgstr "OSPy musí byť najprv prepnutý do manuálneho režimu!"
+
+#: plugins/email_reader/__init__.py:402 plugins/email_reader/__init__.py:409
+msgid "Subject is not correct!"
+msgstr "Predmet správy nieje správny!"
+
+#: plugins/email_reader/__init__.py:413
 msgid "Try-ing to processing command."
 msgstr "Skúsím spracovať príkaz."
 
-#: plugins/email_reader/__init__.py:237 plugins/email_reader/__init__.py:241
+#: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:422
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 "Nieje zadané dostatočné množstvo staníc, za predpokladu, že prvná {} z {}"
 
-#: plugins/email_reader/__init__.py:244 plugins/email_reader/__init__.py:248
+#: plugins/email_reader/__init__.py:424 plugins/email_reader/__init__.py:426
 msgid "Too many stations specified, truncating to {}"
 msgstr "Bolo zadané príliš veľa staníc, skrátenie na {}"
 
-#: plugins/email_reader/__init__.py:257 plugins/email_reader/__init__.py:260
-#: plugins/email_reader/__init__.py:267
+#: plugins/email_reader/__init__.py:437 plugins/email_reader/__init__.py:438
 msgid "No station named"
 msgstr "Žiadna stanica s názvom"
 
-#: plugins/email_reader/__init__.py:270 plugins/email_reader/__init__.py:272
-#: plugins/email_reader/__init__.py:315
+#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:449
+#: plugins/email_reader/__init__.py:490
 msgid "Unexpected command"
 msgstr "Neočakávaný príkaz"
 
-#: plugins/email_reader/__init__.py:287
+#: plugins/email_reader/__init__.py:464
 #: plugins/email_reader/templates/email_reader.html:23
 msgid "E-mail Reader"
 msgstr "Čítačka E-mailov"
 
-#: plugins/email_reader/__init__.py:319 plugins/email_reader/__init__.py:321
+#: plugins/email_reader/__init__.py:494 plugins/email_reader/__init__.py:496
 msgid "Could not decode command"
 msgstr "Nepodarilo sa dekódovať príkaz"
 
-#: plugins/email_reader/__init__.py:326
+#: plugins/email_reader/__init__.py:501
 msgid "Sending reply to administrator E-mail."
 msgstr "Odoslať odpoveď E-mailom."
 
-#: plugins/email_reader/__init__.py:392 plugins/ping_monitor/__init__.py:412
+#: plugins/email_reader/__init__.py:567 plugins/ping_monitor/__init__.py:412
 #: plugins/pressurizer/__init__.py:219 plugins/tank_monitor/__init__.py:633
 #: plugins/wind_monitor/__init__.py:569
 msgid "Options has updated."
 msgstr "Nastavenie bolo aktualizované."
 
-#: plugins/email_reader/__init__.py:417
+#: plugins/email_reader/__init__.py:592
 msgid "You must provide a recipient E-mail address."
 msgstr "Je potrebné zadať E-mailovú adresu príjemcu (používateľa)"
 
-#: plugins/email_reader/__init__.py:420
+#: plugins/email_reader/__init__.py:595
 msgid "You must provide a recipient E-mail password."
 msgstr "Je potrebné zadať heslo príjemcu E-mailu."
 
-#: plugins/email_reader/__init__.py:423
+#: plugins/email_reader/__init__.py:598
 msgid "You must provide server."
 msgstr "Je potrebné zadať server poskytovateľa."
 
-#: plugins/email_reader/__init__.py:426
+#: plugins/email_reader/__init__.py:601
 msgid "You must provide recipient folder."
 msgstr "Je potrebné zadať zložku príchádzajúcej pošty."
 
-#: plugins/email_reader/__init__.py:443
+#: plugins/email_reader/__init__.py:618
 msgid "Login OK."
 msgstr "Prihlásenie úspešné."
 
-#: plugins/email_reader/__init__.py:446
+#: plugins/email_reader/__init__.py:621
 msgid "Mail account login details are not filled in correctly!"
 msgstr "Prihlasovacie údaje k poštovému účtu niesú vyplnené správne!"
 
-#: plugins/email_reader/__init__.py:452
+#: plugins/email_reader/__init__.py:627
 msgid "Logout OK."
 msgstr "Odhlásenie úspešné."
 
-#: plugins/email_reader/__init__.py:487
+#: plugins/email_reader/__init__.py:662
 msgid "You must provide a sender E-mail address!"
 msgstr ""
 "Musíte zadať E-mailovú adresu odosielateľa (od koho budu správy posielané)!"
 
-#: plugins/email_reader/__init__.py:493
+#: plugins/email_reader/__init__.py:668
 msgid "ERROR: Unable to open the folder"
 msgstr "CHYBA: Nedá sa otvoriť zložka"
 
-#: plugins/email_reader/__init__.py:504
+#: plugins/email_reader/__init__.py:679
 msgid "ERROR: getting message"
 msgstr "CHYBA: Prijatá správa"
 
-#: plugins/email_reader/__init__.py:544
+#: plugins/email_reader/__init__.py:719
 msgid "Message has moved to trash folder."
 msgstr "Správa bola presunutá do koša."
 
-#: plugins/email_reader/__init__.py:548
+#: plugins/email_reader/__init__.py:723
 msgid "Message has deleted."
 msgstr "Správa bola odstránená."
 
@@ -3771,15 +3893,24 @@ msgstr "Poslať stav staníc"
 msgid "Sending back all stations state via E-mail."
 msgstr "Poslať stav staníc E-mailom."
 
-#: plugins/email_reader/templates/email_reader.html:132
+#: plugins/email_reader/templates/email_reader.html:128
+msgid "Selecting command"
+msgstr "Výber príkazu"
+
+#: plugins/email_reader/templates/email_reader.html:129
+#: plugins/email_reader/templates/email_reader.html:204
+msgid "Sending command in  message body E-mail for run  via selecting."
+msgstr "Odoslanie príkazu v tele E-mailu pre spustenie funkcie pomocou výberu."
+
+#: plugins/email_reader/templates/email_reader.html:150
 msgid "Confirm delivery"
 msgstr "Potvrdiť doručenie"
 
-#: plugins/email_reader/templates/email_reader.html:135
+#: plugins/email_reader/templates/email_reader.html:153
 msgid "Send reply"
 msgstr "Odoslať odpoveď"
 
-#: plugins/email_reader/templates/email_reader.html:136
+#: plugins/email_reader/templates/email_reader.html:154
 msgid ""
 "After processing the received message, send an email with the subject below. "
 "The email_notification extension is required for this function."
@@ -3787,50 +3918,62 @@ msgstr ""
 "Po spracovaní prijatej správy poslať E-mail s nizšie uvedeným predmetom. Pre "
 "túto funkciu je potrebný doplnok email notification."
 
-#: plugins/email_reader/templates/email_reader.html:141
+#: plugins/email_reader/templates/email_reader.html:159
 #: plugins/ping_monitor/templates/ping_monitor.html:231
 msgid "The subject of the message being sent."
 msgstr "Predmet odosielanej správy."
 
-#: plugins/email_reader/templates/email_reader.html:164
+#: plugins/email_reader/templates/email_reader.html:182
 msgid "Example for control"
 msgstr "Príklad pre ovládanie"
 
-#: plugins/email_reader/templates/email_reader.html:170
-msgid ""
-"{station name 1: 0, station name 2: 0, station name 3: 100, station name 4: "
-"30}"
-msgstr ""
-"{názov stanice 1: 0, názov stanice 2: 0, názov stanice 3: 100, názov stanice "
-"4: 30}"
+#: plugins/email_reader/templates/email_reader.html:185
+msgid "[0,0,100,30]"
+msgstr "[0,0,100,30]"
 
-#: plugins/email_reader/templates/email_reader.html:171
+#: plugins/email_reader/templates/email_reader.html:188
+msgid ""
+"{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, "
+"\"station name 4\": 30}"
+msgstr ""
+"{\"názov stanice 1\": 0, \"názov stanice 2\": 0, \"názov stanice 3\": 100, "
+"\"názov stanice 4\": 30}"
+
+#: plugins/email_reader/templates/email_reader.html:189
 msgid "Sending message in body E-mail for switch scheduler to ON"
 msgstr "Odoslanie správy v tele E-mailu pre prepnutie plánovača na povolený"
 
-#: plugins/email_reader/templates/email_reader.html:173
+#: plugins/email_reader/templates/email_reader.html:191
 msgid "Sending message in body E-mail for switch scheduler to OFF"
 msgstr "Odoslanie správy v tele E-mailu pre prepnutie plánovača na zakázaný"
 
-#: plugins/email_reader/templates/email_reader.html:175
+#: plugins/email_reader/templates/email_reader.html:193
 msgid "Sending message in body E-mail for switch to manual mode"
 msgstr "Odoslanie správy v tele E-mailu pre prepnutie do manuálneho režimu"
 
-#: plugins/email_reader/templates/email_reader.html:177
+#: plugins/email_reader/templates/email_reader.html:195
 msgid "Sending message in body E-mail for switch to scheduler mode"
 msgstr "Odoslanie správy v tele E-mailu pre prepnutie do režimu plánovača"
 
-#: plugins/email_reader/templates/email_reader.html:179
+#: plugins/email_reader/templates/email_reader.html:197
 msgid "Sending message in body E-mail for stop all running stations"
 msgstr "Odoslanie správy v tele E-mailu pre zastavenie všetkých staníc"
 
-#: plugins/email_reader/templates/email_reader.html:181
+#: plugins/email_reader/templates/email_reader.html:199
 msgid "Sending back all setuped commands via E-mail"
 msgstr "Odoslanie všetkých nastavených príkazov cez E-mail"
 
-#: plugins/email_reader/templates/email_reader.html:183
+#: plugins/email_reader/templates/email_reader.html:201
 msgid "Sending back all stations state via E-mail"
 msgstr "Poslať stav E-mailom"
+
+#: plugins/email_reader/templates/email_reader.html:203
+msgid "Selecting command xx"
+msgstr "Výber príkazu xx"
+
+#: plugins/email_reader/templates/email_reader.html:205
+msgid "Run program 1-8 if exists"
+msgstr "Spustiť program 1-8, ak existuje"
 
 #: plugins/humi_monitor/__init__.py:26
 msgid "Package: Humidity Monitor"
@@ -4747,12 +4890,13 @@ msgstr "Balík: Kúrenie bazéna"
 msgid "Pool Heating"
 msgstr "Vykurovanie bazéna"
 
-#: plugins/pool_heating/__init__.py:93 plugins/pool_heating/__init__.py:178
+#: plugins/pool_heating/__init__.py:91 plugins/pool_heating/__init__.py:93
+#: plugins/pool_heating/__init__.py:178
 msgid "Waiting to turned on or off."
 msgstr "Čaká sa na zapnutie alebo vypnutie."
 
 #: plugins/pool_heating/__init__.py:111
-#: plugins/temperature_switch/__init__.py:130
+#: plugins/temperature_switch/__init__.py:129
 msgid ""
 "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
 "the plugin Air Temperature and Humidity Monitor installed and set up?"
@@ -6316,7 +6460,7 @@ msgstr "Hlásenie z OSPy nádrž s vodou"
 
 #: plugins/tank_monitor/__init__.py:115
 msgid "Regulation NONE."
-msgstr "Ragulácia nepoužito."
+msgstr "Regulácia zakázaná."
 
 #: plugins/tank_monitor/__init__.py:120
 msgid "Tank"
@@ -6568,69 +6712,69 @@ msgstr "Vyberte výstup, ktorý chcete ovládať pomocou regulácie"
 msgid "Reset min/max level"
 msgstr "Zmazať min/max úroveň"
 
-#: plugins/temperature_switch/__init__.py:26
+#: plugins/temperature_switch/__init__.py:25
 msgid "Package: Temperature Switch"
 msgstr "Balík: Teplotný spínač"
 
-#: plugins/temperature_switch/__init__.py:105
+#: plugins/temperature_switch/__init__.py:104
 #: plugins/temperature_switch/templates/temperature_switch.html:3
 #: plugins/temperature_switch/templates/temperature_switch.html:19
 msgid "Temperature Switch"
 msgstr "Teplotný spínač"
 
-#: plugins/temperature_switch/__init__.py:144
-#: plugins/temperature_switch/__init__.py:193
-#: plugins/temperature_switch/__init__.py:243
+#: plugins/temperature_switch/__init__.py:143
+#: plugins/temperature_switch/__init__.py:192
+#: plugins/temperature_switch/__init__.py:242
 msgid "was turned on."
 msgstr "bol zapnutý."
 
-#: plugins/temperature_switch/__init__.py:152
+#: plugins/temperature_switch/__init__.py:151
 msgid "Temperature Switch A"
 msgstr "Teplotný spínač A"
 
-#: plugins/temperature_switch/__init__.py:172
-#: plugins/temperature_switch/__init__.py:221
-#: plugins/temperature_switch/__init__.py:271
+#: plugins/temperature_switch/__init__.py:171
+#: plugins/temperature_switch/__init__.py:220
+#: plugins/temperature_switch/__init__.py:270
 msgid "was turned off."
 msgstr "bol vypnutý."
 
-#: plugins/temperature_switch/__init__.py:201
+#: plugins/temperature_switch/__init__.py:200
 msgid "Temperature Switch B"
 msgstr "Teplotný spínač B"
 
-#: plugins/temperature_switch/__init__.py:251
+#: plugins/temperature_switch/__init__.py:250
 msgid "Temperature Switch C"
 msgstr "Teplotný spínač C"
 
-#: plugins/temperature_switch/__init__.py:286
+#: plugins/temperature_switch/__init__.py:285
 msgid "Regulation A set OFF"
-msgstr "Ragulácia A nastavila VYP"
+msgstr "Regulácia A nastavila VYP"
 
-#: plugins/temperature_switch/__init__.py:288
+#: plugins/temperature_switch/__init__.py:287
 msgid "Regulation A set ON"
-msgstr "Ragulácia A nastavila ZAP"
+msgstr "Regulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:290
+#: plugins/temperature_switch/__init__.py:289
 msgid "Regulation B set OFF"
-msgstr "Ragulácia B nastavila VYP"
+msgstr "Regulácia B nastavila VYP"
 
-#: plugins/temperature_switch/__init__.py:292
+#: plugins/temperature_switch/__init__.py:291
 msgid "Regulation B set ON"
-msgstr "Ragulácia A nastavila ZAP"
+msgstr "Regulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:294
+#: plugins/temperature_switch/__init__.py:293
 msgid "Regulation C set OFF"
-msgstr "Ragulácia C nastavila VYP"
+msgstr "Regulácia C nastavila VYP"
 
-#: plugins/temperature_switch/__init__.py:296
+#: plugins/temperature_switch/__init__.py:295
 msgid "Regulation C set ON"
-msgstr "Ragulácia A nastavila ZAP"
+msgstr "Regulácia A nastavila ZAP"
 
-#: plugins/temperature_switch/__init__.py:298
+#: plugins/temperature_switch/__init__.py:297
 msgid "No change"
 msgstr "Bez zmeny"
 
-#: plugins/temperature_switch/__init__.py:310
+#: plugins/temperature_switch/__init__.py:309
 msgid "Temperature Switch plug-in"
 msgstr "Doplnok teplotný spínač"
 

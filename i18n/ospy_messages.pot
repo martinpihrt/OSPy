@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-06 08:11+CET\n"
+"POT-Creation-Date: 2020-11-06 12:02+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1555,7 +1555,7 @@ msgstr ""
 #: plugins/lcd_display/templates/lcd_display.html:157
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
 #: plugins/mqtt/templates/mqtt.html:107
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pool_heating/templates/pool_heating.html:88
@@ -2494,7 +2494,7 @@ msgstr ""
 #: plugins/humi_monitor/templates/humi_monitor.html:86
 #: plugins/lcd_display/templates/lcd_display.html:147
 #: plugins/mqtt/templates/mqtt.html:97
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:36
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:37
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:262
 #: plugins/pool_heating/templates/pool_heating.html:78
@@ -2536,7 +2536,7 @@ msgstr ""
 #: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:106
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:45
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:271
 #: plugins/pool_heating/templates/pool_heating.html:87
@@ -3334,6 +3334,8 @@ msgstr ""
 #: plugins/email_reader/__init__.py:203 plugins/email_reader/__init__.py:206
 #: plugins/email_reader/templates/email_reader.html:184
 #: plugins/email_reader/templates/email_reader.html:187
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:52
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:55
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr ""
 
@@ -3468,24 +3470,27 @@ msgstr ""
 msgid "Subject is not correct!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:413
+#: plugins/email_reader/__init__.py:413 plugins/mqtt_runonce/__init__.py:103
 msgid "Try-ing to processing command."
 msgstr ""
 
 #: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:422
+#: plugins/mqtt_runonce/__init__.py:108
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:424 plugins/email_reader/__init__.py:426
+#: plugins/mqtt_runonce/__init__.py:111
 msgid "Too many stations specified, truncating to {}"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:437 plugins/email_reader/__init__.py:438
+#: plugins/mqtt_runonce/__init__.py:123
 msgid "No station named"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:449
-#: plugins/email_reader/__init__.py:490
+#: plugins/email_reader/__init__.py:490 plugins/mqtt_runonce/__init__.py:130
 msgid "Unexpected command"
 msgstr ""
 
@@ -3723,10 +3728,12 @@ msgid "Example for control"
 msgstr ""
 
 #: plugins/email_reader/templates/email_reader.html:185
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:53
 msgid "[0,0,100,30]"
 msgstr ""
 
 #: plugins/email_reader/templates/email_reader.html:188
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:56
 msgid "{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, \"station name 4\": 30}"
 msgstr ""
 
@@ -4198,6 +4205,10 @@ msgstr ""
 msgid "MQTT settings"
 msgstr ""
 
+#: plugins/mqtt/templates/mqtt.html:22 plugins/mqtt/templates/mqtt.html:32
+msgid "MQTT client"
+msgstr ""
+
 #: plugins/mqtt/templates/mqtt.html:23
 msgid "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins to use to publish information and or receive commands over MQTT. On this page, the shared client is configured"
 msgstr ""
@@ -4214,12 +4225,12 @@ msgstr ""
 msgid "We can use a public Broker server to test"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:28
-msgid "The MQTT plugin allows multiple secondary OSPy controlers to be running with the control OSPy system running. This means that one OSPy system can act as the control driver for secondary systems that also use OSPy and have the mqtt_secondary plugin installed. The control OSPy sends a list containing the on/off states of all stations. The secondary system receives the list and checks whether it is necessary to switch on one of its stations or switch it off and make the necessary changes. All irrigation plans are set on the main system and it records all running stations as if they were on the OSPy control system itself. There is no feedback from the secondary  OSPy, so the control system assumes that all stations are working as they should. If enabled logging in secondary OSPy, stations running on this secondary OSPy are also stored in the log. This provides a way to check if the station on the secondary is working properly. Requirements: This plugin requires the main OSPy control system, which has the basic mqtt plugin and the mqtt_zones plugin installed. Each secondary OSPy system must have the basic mqtt plugin installed. You must this OSPy switch to manual mode! If you change settings you must restarting OSPy!"
+#: plugins/mqtt/templates/mqtt.html:27
+msgid "MQTT secondary"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:32
-msgid "MQTT client"
+#: plugins/mqtt/templates/mqtt.html:28
+msgid "The MQTT plugin allows multiple secondary OSPy controlers to be running with the control OSPy system running. This means that one OSPy system can act as the control driver for secondary systems that also use OSPy and have the mqtt_secondary plugin installed. The control OSPy sends a list containing the on/off states of all stations. The secondary system receives the list and checks whether it is necessary to switch on one of its stations or switch it off and make the necessary changes. All irrigation plans are set on the main system and it records all running stations as if they were on the OSPy control system itself. There is no feedback from the secondary  OSPy, so the control system assumes that all stations are working as they should. If enabled logging in secondary OSPy, stations running on this secondary OSPy are also stored in the log. This provides a way to check if the station on the secondary is working properly. Requirements: This plugin requires the main OSPy control system, which has the basic mqtt plugin and the mqtt_zones plugin installed. Each secondary OSPy system must have the basic mqtt plugin installed. You must this OSPy switch to manual mode! If you change settings you must restarting OSPy!"
 msgstr ""
 
 #: plugins/mqtt/templates/mqtt.html:33
@@ -4286,86 +4297,93 @@ msgstr ""
 msgid "The number of station this secondary uses."
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:25
+#: plugins/mqtt_runonce/__init__.py:27
 msgid "Package: MQTT Run-once"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:65
-msgid "MQTT Run-once Plugin started."
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:78
-msgid "MQTT Run-once plug-in"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:83
+#: plugins/mqtt_runonce/__init__.py:72
 msgid "MQTT Run-once Plugin is disabled."
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:109
-msgid "System OSPy is not switched to enabled. Skipping decoding command."
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:112
+#: plugins/mqtt_runonce/__init__.py:93
 msgid "Received message"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:112
+#: plugins/mqtt_runonce/__init__.py:93
 msgid "on topic"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:112
+#: plugins/mqtt_runonce/__init__.py:93
 msgid "with QoS"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:118
+#: plugins/mqtt_runonce/__init__.py:99
 msgid "MQTT Run-once could not decode command:"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:125
-msgid "MQTT Run-once, not enough stations specified, assuming first {} of {}"
+#: plugins/mqtt_runonce/__init__.py:142
+msgid "MQTT Run-once"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:128
-msgid "MQTT Run-once, too many stations specified, truncating to {}"
+#: plugins/mqtt_runonce/__init__.py:165
+msgid "MQTT Run-once plug-in"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:133
-msgid "MQTT Run-once unexpected command: "
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:137
-msgid "MQTT Run-once: "
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:170
+#: plugins/mqtt_runonce/__init__.py:185
 msgid "MQTT Run-once Plugin subscribe"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:176
+#: plugins/mqtt_runonce/__init__.py:189
 msgid "MQTT Run-once Plugin requires MQTT plugin."
 msgstr ""
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:3
+msgid "MQTT Runonce"
+msgstr ""
+
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:19
 msgid "MQTT Runonce settings"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:20
-msgid "Relies on the base MQTT plugin, allows runonce programs to be set over MQTT"
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
+msgid "If you change settings in MQTT plugins or this plugin you must restarting OSPy!"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:24
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
+msgid "This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce stations to be set over MQTT. The received message is a sheet that contains list or dict (station number, time in seconds.)"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
+msgid "This extension requires the MQTT extension!"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:25
 #: plugins/mqtt_zones/templates/mqtt_zones.html:24
 msgid "Use MQTT"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:30
-msgid "MQTT Scheduling topic"
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:26
+msgid "If you use this MQTT Run-once extension check to turn on."
 msgstr ""
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:31
-msgid "The topic subscribe to for run once commands."
+msgid "MQTT Scheduling topic"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:32
+msgid "The topic subscribe to for Run-once commands."
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:50
+msgid "MQTT data example"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:51
+msgid "Sending message in MQTT as list"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:54
+msgid "Sending message in MQTT as dict"
 msgstr ""
 
 #: plugins/mqtt_zones/__init__.py:27
