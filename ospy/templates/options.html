@@ -97,6 +97,7 @@ $code:
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
 
+
 });
 </script>
 
@@ -213,8 +214,8 @@ $code:
                 output += "</div>\n\n"
                 
                 if name == 'admin_user':
-                    output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False) + "><span class='label'>" + _('Current password') + ":</span>\n"
-                    output += "<input name='old_password' type='password' size='31'><span class='inputError' id='erroropw'></span>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False) + "><span class='label'>" + _('Current password') + ":</span>\n" 
+                    output += "<input name='old_password' type='password' size='31' autocomplete=\"new-password\"><span class='inputError' id='erroropw'></span>\n"
                     output += "<span class='tooltip'>" + _('Re-enter the current password.') + "</span>\n"
                     output += "</div>\n"
                     output += "<div class='option' title=" + json.dumps(_('Enter a new password.'), ensure_ascii=False) + "><span class='label'>" + _('New password') + ":</span>\n"
