@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 10 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new command to plugin "E-mail reader" for get data from plugins (wind monitor, temp monitor, tank monitor). Czech language translate for new strings.
+
 Nov 6 2020
 -----------
 (martinpihrt)<br/>

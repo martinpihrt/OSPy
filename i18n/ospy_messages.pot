@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-06 12:02+CET\n"
+"POT-Creation-Date: 2020-11-10 07:20+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgid "No IP Settings"
 msgstr ""
 
 #: ospy/helpers.py:313 ospy/helpers.py:330
-#: plugins/email_reader/__init__.py:230 plugins/email_reader/__init__.py:234
+#: plugins/email_reader/__init__.py:394 plugins/email_reader/__init__.py:398
 msgid "-"
 msgstr ""
 
@@ -1145,7 +1145,7 @@ msgstr ""
 msgid "Type time for run in seconds"
 msgstr ""
 
-#: ospy/templates/home.html:573 plugins/email_reader/__init__.py:236
+#: ospy/templates/home.html:573 plugins/email_reader/__init__.py:400
 msgid "Forever"
 msgstr ""
 
@@ -1251,6 +1251,8 @@ msgid "Download log as"
 msgstr ""
 
 #: ospy/templates/log.html:16 ospy/templates/log.html:43
+#: plugins/email_reader/__init__.py:769 plugins/email_reader/__init__.py:838
+#: plugins/email_reader/__init__.py:898
 msgid "Date"
 msgstr ""
 
@@ -1277,7 +1279,8 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ospy/templates/log.html:44
+#: ospy/templates/log.html:44 plugins/email_reader/__init__.py:770
+#: plugins/email_reader/__init__.py:839 plugins/email_reader/__init__.py:899
 msgid "Time"
 msgstr ""
 
@@ -1376,7 +1379,8 @@ msgstr ""
 #: ospy/templates/options.html:155 ospy/templates/options.html:168
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:275
-#: plugins/pool_heating/__init__.py:125 plugins/pool_heating/__init__.py:156
+#: plugins/email_reader/__init__.py:773 plugins/pool_heating/__init__.py:125
+#: plugins/pool_heating/__init__.py:156
 #: plugins/pool_heating/templates/pool_heating.html:73
 #: plugins/pressure_monitor/templates/pressure_monitor.html:202
 #: plugins/pulse/templates/pulse.html:31 plugins/tank_monitor/__init__.py:162
@@ -1550,7 +1554,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:63
 #: plugins/cli_control/templates/cli_control.html:62
 #: plugins/email_notifications/templates/email_notifications.html:140
-#: plugins/email_reader/templates/email_reader.html:179
+#: plugins/email_reader/templates/email_reader.html:194
 #: plugins/humi_monitor/templates/humi_monitor.html:96
 #: plugins/lcd_display/templates/lcd_display.html:157
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
@@ -2206,7 +2210,7 @@ msgid "Package: Air Temperature and Humidity Monitor"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:118 plugins/air_temp_humi/__init__.py:155
-#: plugins/air_temp_humi/__init__.py:211
+#: plugins/air_temp_humi/__init__.py:211 plugins/email_reader/__init__.py:771
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr ""
@@ -2220,7 +2224,7 @@ msgstr ""
 msgid "DHT"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:156
+#: plugins/air_temp_humi/__init__.py:156 plugins/email_reader/__init__.py:772
 msgid "Humidity"
 msgstr ""
 
@@ -2490,7 +2494,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:53
 #: plugins/cli_control/templates/cli_control.html:51
 #: plugins/email_notifications/templates/email_notifications.html:129
-#: plugins/email_reader/templates/email_reader.html:168
+#: plugins/email_reader/templates/email_reader.html:183
 #: plugins/humi_monitor/templates/humi_monitor.html:86
 #: plugins/lcd_display/templates/lcd_display.html:147
 #: plugins/mqtt/templates/mqtt.html:97
@@ -2531,7 +2535,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:62
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/email_notifications/templates/email_notifications.html:138
-#: plugins/email_reader/templates/email_reader.html:178
+#: plugins/email_reader/templates/email_reader.html:193
 #: plugins/humi_monitor/templates/humi_monitor.html:95
 #: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
@@ -2723,15 +2727,15 @@ msgstr ""
 
 #: plugins/button_control/templates/button_control.html:36
 #: plugins/email_reader/__init__.py:70
-#: plugins/email_reader/templates/email_reader.html:132
-#: plugins/email_reader/templates/email_reader.html:205
+#: plugins/email_reader/templates/email_reader.html:147
+#: plugins/email_reader/templates/email_reader.html:226
 msgid "Reboot OS system"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:37
 #: plugins/email_reader/__init__.py:79
-#: plugins/email_reader/templates/email_reader.html:133
-#: plugins/email_reader/templates/email_reader.html:205
+#: plugins/email_reader/templates/email_reader.html:148
+#: plugins/email_reader/templates/email_reader.html:226
 msgid "Shutdown OS system"
 msgstr ""
 
@@ -2745,49 +2749,49 @@ msgstr ""
 
 #: plugins/button_control/templates/button_control.html:41
 #: plugins/email_reader/__init__.py:71
-#: plugins/email_reader/templates/email_reader.html:134
+#: plugins/email_reader/templates/email_reader.html:149
 msgid "Run program 1"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:42
 #: plugins/email_reader/__init__.py:72
-#: plugins/email_reader/templates/email_reader.html:135
+#: plugins/email_reader/templates/email_reader.html:150
 msgid "Run program 2"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:43
 #: plugins/email_reader/__init__.py:73
-#: plugins/email_reader/templates/email_reader.html:136
+#: plugins/email_reader/templates/email_reader.html:151
 msgid "Run program 3"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:44
 #: plugins/email_reader/__init__.py:74
-#: plugins/email_reader/templates/email_reader.html:137
+#: plugins/email_reader/templates/email_reader.html:152
 msgid "Run program 4"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:45
 #: plugins/email_reader/__init__.py:75
-#: plugins/email_reader/templates/email_reader.html:138
+#: plugins/email_reader/templates/email_reader.html:153
 msgid "Run program 5"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:46
 #: plugins/email_reader/__init__.py:76
-#: plugins/email_reader/templates/email_reader.html:139
+#: plugins/email_reader/templates/email_reader.html:154
 msgid "Run program 6"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:47
 #: plugins/email_reader/__init__.py:77
-#: plugins/email_reader/templates/email_reader.html:140
+#: plugins/email_reader/templates/email_reader.html:155
 msgid "Run program 7"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:48
 #: plugins/email_reader/__init__.py:78
-#: plugins/email_reader/templates/email_reader.html:141
+#: plugins/email_reader/templates/email_reader.html:156
 msgid "Run program 8"
 msgstr ""
 
@@ -2873,6 +2877,7 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
+#: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:325 plugins/tank_monitor/__init__.py:145
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
 #: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
@@ -2884,23 +2889,27 @@ msgid "cm"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:154
-#: plugins/lcd_display/__init__.py:325
+#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:325
 msgid "Level"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:151
+#: plugins/email_reader/__init__.py:238 plugins/tank_monitor/__init__.py:148
+#: plugins/tank_monitor/__init__.py:151
 msgid "Ping"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:160
-#: plugins/tank_monitor/__init__.py:148 plugins/tank_monitor/__init__.py:151
-#: plugins/tank_monitor/__init__.py:530 plugins/tank_monitor/__init__.py:719
+#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
+#: plugins/email_reader/__init__.py:825 plugins/tank_monitor/__init__.py:148
+#: plugins/tank_monitor/__init__.py:151 plugins/tank_monitor/__init__.py:530
+#: plugins/tank_monitor/__init__.py:719
 msgid "Volume"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
+#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:844
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
 msgid "liters"
 msgstr ""
@@ -2908,6 +2917,7 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
+#: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:846
 #: plugins/lcd_display/__init__.py:329 plugins/tank_monitor/__init__.py:150
 #: plugins/tank_monitor/__init__.py:151
 msgid "m3"
@@ -2919,6 +2929,7 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:164
 #: plugins/email_notifications/__init__.py:166
+#: plugins/email_reader/__init__.py:245
 msgid "Water"
 msgstr ""
 
@@ -2955,6 +2966,7 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:211
 #: plugins/email_notifications/__init__.py:212
+#: plugins/email_reader/__init__.py:190
 msgid "Temperature DS1-DS6"
 msgstr ""
 
@@ -3074,7 +3086,7 @@ msgid "Send E-mail to"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:117
-#: plugins/email_reader/templates/email_reader.html:158
+#: plugins/email_reader/templates/email_reader.html:173
 #: plugins/ping_monitor/templates/ping_monitor.html:230
 #: plugins/pressure_monitor/templates/pressure_monitor.html:218
 #: plugins/system_update/templates/system_update.html:70
@@ -3098,37 +3110,37 @@ msgid "Package: E-mail Reader"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:50
-#: plugins/email_reader/templates/email_reader.html:190
+#: plugins/email_reader/templates/email_reader.html:205
 msgid "scheduler_on"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:51
-#: plugins/email_reader/templates/email_reader.html:192
+#: plugins/email_reader/templates/email_reader.html:207
 msgid "scheduler_off"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:52
-#: plugins/email_reader/templates/email_reader.html:194
+#: plugins/email_reader/templates/email_reader.html:209
 msgid "manual_on"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:53
-#: plugins/email_reader/templates/email_reader.html:196
+#: plugins/email_reader/templates/email_reader.html:211
 msgid "manual_off"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:54
-#: plugins/email_reader/templates/email_reader.html:198
+#: plugins/email_reader/templates/email_reader.html:213
 msgid "stop_run"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:55
-#: plugins/email_reader/templates/email_reader.html:200
+#: plugins/email_reader/templates/email_reader.html:215
 msgid "send_help"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:56
-#: plugins/email_reader/templates/email_reader.html:202
+#: plugins/email_reader/templates/email_reader.html:217
 msgid "send_state"
 msgstr ""
 
@@ -3136,102 +3148,141 @@ msgstr ""
 msgid "Report from OSPy E-mail Reader plugin"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:122
-msgid "Try-ing login to E-mail."
+#: plugins/email_reader/__init__.py:80
+#: plugins/email_reader/templates/email_reader.html:219
+msgid "send_temperatures"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:81
+#: plugins/email_reader/templates/email_reader.html:221
+msgid "send_tank"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:82
+#: plugins/email_reader/templates/email_reader.html:223
+msgid "send_wind"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:126
+msgid "Try-ing login to E-mail."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:130
 msgid "Reading messages in inbox."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:133
+#: plugins/email_reader/__init__.py:137
 msgid "Message: %s"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:134
+#: plugins/email_reader/__init__.py:138
 msgid "Subject: %s"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:138 plugins/email_reader/__init__.py:141
+#: plugins/email_reader/__init__.py:142 plugins/email_reader/__init__.py:145
 msgid "Scheduler has switched to enabled."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:139 plugins/email_reader/__init__.py:142
-#: plugins/email_reader/__init__.py:147 plugins/email_reader/__init__.py:150
-#: plugins/email_reader/__init__.py:155 plugins/email_reader/__init__.py:158
-#: plugins/email_reader/__init__.py:163 plugins/email_reader/__init__.py:166
-#: plugins/email_reader/__init__.py:174 plugins/email_reader/__init__.py:177
-#: plugins/email_reader/__init__.py:183 plugins/email_reader/__init__.py:209
-#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:241
-#: plugins/email_reader/__init__.py:247 plugins/email_reader/__init__.py:250
-#: plugins/email_reader/__init__.py:257 plugins/email_reader/__init__.py:260
-#: plugins/email_reader/__init__.py:267 plugins/email_reader/__init__.py:270
-#: plugins/email_reader/__init__.py:282 plugins/email_reader/__init__.py:285
-#: plugins/email_reader/__init__.py:297 plugins/email_reader/__init__.py:300
-#: plugins/email_reader/__init__.py:312 plugins/email_reader/__init__.py:315
-#: plugins/email_reader/__init__.py:327 plugins/email_reader/__init__.py:330
-#: plugins/email_reader/__init__.py:342 plugins/email_reader/__init__.py:345
-#: plugins/email_reader/__init__.py:357 plugins/email_reader/__init__.py:360
-#: plugins/email_reader/__init__.py:372 plugins/email_reader/__init__.py:375
-#: plugins/email_reader/__init__.py:389 plugins/email_reader/__init__.py:391
-#: plugins/email_reader/__init__.py:397 plugins/email_reader/__init__.py:400
-#: plugins/email_reader/__init__.py:405 plugins/email_reader/__init__.py:410
-#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:434
-#: plugins/email_reader/__init__.py:448 plugins/email_reader/__init__.py:452
-#: plugins/email_reader/__init__.py:486 plugins/email_reader/__init__.py:489
-#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:495
-#: plugins/email_reader/__init__.py:497 plugins/email_reader/__init__.py:506
-#: plugins/email_reader/__init__.py:518
+#: plugins/email_reader/__init__.py:143 plugins/email_reader/__init__.py:146
+#: plugins/email_reader/__init__.py:151 plugins/email_reader/__init__.py:154
+#: plugins/email_reader/__init__.py:159 plugins/email_reader/__init__.py:162
+#: plugins/email_reader/__init__.py:167 plugins/email_reader/__init__.py:170
+#: plugins/email_reader/__init__.py:178 plugins/email_reader/__init__.py:181
+#: plugins/email_reader/__init__.py:186 plugins/email_reader/__init__.py:208
+#: plugins/email_reader/__init__.py:213 plugins/email_reader/__init__.py:215
+#: plugins/email_reader/__init__.py:243 plugins/email_reader/__init__.py:250
+#: plugins/email_reader/__init__.py:253 plugins/email_reader/__init__.py:257
+#: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:274
+#: plugins/email_reader/__init__.py:279 plugins/email_reader/__init__.py:281
+#: plugins/email_reader/__init__.py:299 plugins/email_reader/__init__.py:313
+#: plugins/email_reader/__init__.py:316 plugins/email_reader/__init__.py:332
+#: plugins/email_reader/__init__.py:338 plugins/email_reader/__init__.py:340
+#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:373
+#: plugins/email_reader/__init__.py:379 plugins/email_reader/__init__.py:405
+#: plugins/email_reader/__init__.py:411 plugins/email_reader/__init__.py:414
+#: plugins/email_reader/__init__.py:421 plugins/email_reader/__init__.py:424
+#: plugins/email_reader/__init__.py:431 plugins/email_reader/__init__.py:434
+#: plugins/email_reader/__init__.py:446 plugins/email_reader/__init__.py:449
+#: plugins/email_reader/__init__.py:461 plugins/email_reader/__init__.py:464
+#: plugins/email_reader/__init__.py:476 plugins/email_reader/__init__.py:479
+#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:494
+#: plugins/email_reader/__init__.py:506 plugins/email_reader/__init__.py:509
+#: plugins/email_reader/__init__.py:521 plugins/email_reader/__init__.py:524
+#: plugins/email_reader/__init__.py:536 plugins/email_reader/__init__.py:539
+#: plugins/email_reader/__init__.py:553 plugins/email_reader/__init__.py:555
+#: plugins/email_reader/__init__.py:561 plugins/email_reader/__init__.py:564
+#: plugins/email_reader/__init__.py:569 plugins/email_reader/__init__.py:574
+#: plugins/email_reader/__init__.py:581 plugins/email_reader/__init__.py:598
+#: plugins/email_reader/__init__.py:612 plugins/email_reader/__init__.py:616
+#: plugins/email_reader/__init__.py:650 plugins/email_reader/__init__.py:653
+#: plugins/email_reader/__init__.py:655 plugins/email_reader/__init__.py:659
+#: plugins/email_reader/__init__.py:661 plugins/email_reader/__init__.py:670
+#: plugins/email_reader/__init__.py:682
 msgid "E-mail Reader plug-in"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:139 plugins/email_reader/__init__.py:142
-#: plugins/email_reader/__init__.py:147 plugins/email_reader/__init__.py:150
-#: plugins/email_reader/__init__.py:155 plugins/email_reader/__init__.py:158
-#: plugins/email_reader/__init__.py:163 plugins/email_reader/__init__.py:166
-#: plugins/email_reader/__init__.py:174 plugins/email_reader/__init__.py:177
-#: plugins/email_reader/__init__.py:183 plugins/email_reader/__init__.py:209
-#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:241
-#: plugins/email_reader/__init__.py:247 plugins/email_reader/__init__.py:250
-#: plugins/email_reader/__init__.py:257 plugins/email_reader/__init__.py:260
-#: plugins/email_reader/__init__.py:267 plugins/email_reader/__init__.py:270
-#: plugins/email_reader/__init__.py:282 plugins/email_reader/__init__.py:285
-#: plugins/email_reader/__init__.py:297 plugins/email_reader/__init__.py:300
-#: plugins/email_reader/__init__.py:312 plugins/email_reader/__init__.py:315
-#: plugins/email_reader/__init__.py:327 plugins/email_reader/__init__.py:330
-#: plugins/email_reader/__init__.py:342 plugins/email_reader/__init__.py:345
-#: plugins/email_reader/__init__.py:357 plugins/email_reader/__init__.py:360
-#: plugins/email_reader/__init__.py:372 plugins/email_reader/__init__.py:375
-#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:443
-#: plugins/email_reader/__init__.py:486
+#: plugins/email_reader/__init__.py:143 plugins/email_reader/__init__.py:146
+#: plugins/email_reader/__init__.py:151 plugins/email_reader/__init__.py:154
+#: plugins/email_reader/__init__.py:159 plugins/email_reader/__init__.py:162
+#: plugins/email_reader/__init__.py:167 plugins/email_reader/__init__.py:170
+#: plugins/email_reader/__init__.py:178 plugins/email_reader/__init__.py:181
+#: plugins/email_reader/__init__.py:186 plugins/email_reader/__init__.py:208
+#: plugins/email_reader/__init__.py:243 plugins/email_reader/__init__.py:274
+#: plugins/email_reader/__init__.py:299 plugins/email_reader/__init__.py:332
+#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:373
+#: plugins/email_reader/__init__.py:379 plugins/email_reader/__init__.py:405
+#: plugins/email_reader/__init__.py:411 plugins/email_reader/__init__.py:414
+#: plugins/email_reader/__init__.py:421 plugins/email_reader/__init__.py:424
+#: plugins/email_reader/__init__.py:431 plugins/email_reader/__init__.py:434
+#: plugins/email_reader/__init__.py:446 plugins/email_reader/__init__.py:449
+#: plugins/email_reader/__init__.py:461 plugins/email_reader/__init__.py:464
+#: plugins/email_reader/__init__.py:476 plugins/email_reader/__init__.py:479
+#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:494
+#: plugins/email_reader/__init__.py:506 plugins/email_reader/__init__.py:509
+#: plugins/email_reader/__init__.py:521 plugins/email_reader/__init__.py:524
+#: plugins/email_reader/__init__.py:536 plugins/email_reader/__init__.py:539
+#: plugins/email_reader/__init__.py:581 plugins/email_reader/__init__.py:607
+#: plugins/email_reader/__init__.py:650
 msgid "The command has been processed."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:140 plugins/email_reader/__init__.py:148
-#: plugins/email_reader/__init__.py:156 plugins/email_reader/__init__.py:164
-#: plugins/email_reader/__init__.py:175 plugins/email_reader/__init__.py:184
-#: plugins/email_reader/__init__.py:216 plugins/email_reader/__init__.py:248
-#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:268
-#: plugins/email_reader/__init__.py:283 plugins/email_reader/__init__.py:298
-#: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:328
-#: plugins/email_reader/__init__.py:343 plugins/email_reader/__init__.py:358
-#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:387
-#: plugins/email_reader/__init__.py:390 plugins/email_reader/__init__.py:398
-#: plugins/email_reader/__init__.py:406
+#: plugins/email_reader/__init__.py:144 plugins/email_reader/__init__.py:152
+#: plugins/email_reader/__init__.py:160 plugins/email_reader/__init__.py:168
+#: plugins/email_reader/__init__.py:179 plugins/email_reader/__init__.py:187
+#: plugins/email_reader/__init__.py:211 plugins/email_reader/__init__.py:214
+#: plugins/email_reader/__init__.py:244 plugins/email_reader/__init__.py:251
+#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:277
+#: plugins/email_reader/__init__.py:280 plugins/email_reader/__init__.py:300
+#: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:336
+#: plugins/email_reader/__init__.py:339 plugins/email_reader/__init__.py:348
+#: plugins/email_reader/__init__.py:380 plugins/email_reader/__init__.py:412
+#: plugins/email_reader/__init__.py:422 plugins/email_reader/__init__.py:432
+#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:462
+#: plugins/email_reader/__init__.py:477 plugins/email_reader/__init__.py:492
+#: plugins/email_reader/__init__.py:507 plugins/email_reader/__init__.py:522
+#: plugins/email_reader/__init__.py:537 plugins/email_reader/__init__.py:551
+#: plugins/email_reader/__init__.py:554 plugins/email_reader/__init__.py:562
+#: plugins/email_reader/__init__.py:570
 msgid ": %s"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:140 plugins/email_reader/__init__.py:148
-#: plugins/email_reader/__init__.py:156 plugins/email_reader/__init__.py:164
-#: plugins/email_reader/__init__.py:175 plugins/email_reader/__init__.py:184
-#: plugins/email_reader/__init__.py:216 plugins/email_reader/__init__.py:248
-#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:268
-#: plugins/email_reader/__init__.py:283 plugins/email_reader/__init__.py:298
-#: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:328
-#: plugins/email_reader/__init__.py:343 plugins/email_reader/__init__.py:358
-#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:387
-#: plugins/email_reader/__init__.py:390 plugins/email_reader/__init__.py:398
-#: plugins/email_reader/__init__.py:406 plugins/email_reader/__init__.py:418
+#: plugins/email_reader/__init__.py:144 plugins/email_reader/__init__.py:152
+#: plugins/email_reader/__init__.py:160 plugins/email_reader/__init__.py:168
+#: plugins/email_reader/__init__.py:179 plugins/email_reader/__init__.py:187
+#: plugins/email_reader/__init__.py:211 plugins/email_reader/__init__.py:214
+#: plugins/email_reader/__init__.py:244 plugins/email_reader/__init__.py:251
+#: plugins/email_reader/__init__.py:258 plugins/email_reader/__init__.py:277
+#: plugins/email_reader/__init__.py:280 plugins/email_reader/__init__.py:300
+#: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:336
+#: plugins/email_reader/__init__.py:339 plugins/email_reader/__init__.py:348
+#: plugins/email_reader/__init__.py:380 plugins/email_reader/__init__.py:412
+#: plugins/email_reader/__init__.py:422 plugins/email_reader/__init__.py:432
+#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:462
+#: plugins/email_reader/__init__.py:477 plugins/email_reader/__init__.py:492
+#: plugins/email_reader/__init__.py:507 plugins/email_reader/__init__.py:522
+#: plugins/email_reader/__init__.py:537 plugins/email_reader/__init__.py:551
+#: plugins/email_reader/__init__.py:554 plugins/email_reader/__init__.py:562
+#: plugins/email_reader/__init__.py:570 plugins/email_reader/__init__.py:582
 #: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:264
 #: plugins/sms_adj/__init__.py:269 plugins/sms_adj/__init__.py:281
 #: plugins/sms_adj/__init__.py:286 plugins/sms_adj/__init__.py:295
@@ -3244,135 +3295,231 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:142 plugins/email_reader/__init__.py:150
-#: plugins/email_reader/__init__.py:158 plugins/email_reader/__init__.py:166
-#: plugins/email_reader/__init__.py:177 plugins/email_reader/__init__.py:209
-#: plugins/email_reader/__init__.py:241 plugins/email_reader/__init__.py:250
-#: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:270
-#: plugins/email_reader/__init__.py:285 plugins/email_reader/__init__.py:300
-#: plugins/email_reader/__init__.py:315 plugins/email_reader/__init__.py:330
-#: plugins/email_reader/__init__.py:345 plugins/email_reader/__init__.py:360
-#: plugins/email_reader/__init__.py:375 plugins/email_reader/__init__.py:391
-#: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:410
-#: plugins/email_reader/__init__.py:444 plugins/email_reader/__init__.py:452
-#: plugins/email_reader/__init__.py:486 plugins/email_reader/__init__.py:491
-#: plugins/email_reader/__init__.py:497
+#: plugins/email_reader/__init__.py:146 plugins/email_reader/__init__.py:154
+#: plugins/email_reader/__init__.py:162 plugins/email_reader/__init__.py:170
+#: plugins/email_reader/__init__.py:181 plugins/email_reader/__init__.py:208
+#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:253
+#: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:274
+#: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:316
+#: plugins/email_reader/__init__.py:332 plugins/email_reader/__init__.py:340
+#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:405
+#: plugins/email_reader/__init__.py:414 plugins/email_reader/__init__.py:424
+#: plugins/email_reader/__init__.py:434 plugins/email_reader/__init__.py:449
+#: plugins/email_reader/__init__.py:464 plugins/email_reader/__init__.py:479
+#: plugins/email_reader/__init__.py:494 plugins/email_reader/__init__.py:509
+#: plugins/email_reader/__init__.py:524 plugins/email_reader/__init__.py:539
+#: plugins/email_reader/__init__.py:555 plugins/email_reader/__init__.py:564
+#: plugins/email_reader/__init__.py:574 plugins/email_reader/__init__.py:608
+#: plugins/email_reader/__init__.py:616 plugins/email_reader/__init__.py:650
+#: plugins/email_reader/__init__.py:655 plugins/email_reader/__init__.py:661
 msgid "MSG: %s"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:146 plugins/email_reader/__init__.py:149
+#: plugins/email_reader/__init__.py:150 plugins/email_reader/__init__.py:153
 msgid "Scheduler has switched to disabled."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:154 plugins/email_reader/__init__.py:157
+#: plugins/email_reader/__init__.py:158 plugins/email_reader/__init__.py:161
 msgid "OSPy has switched to manual control."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:162 plugins/email_reader/__init__.py:165
-#: plugins/email_reader/__init__.py:266 plugins/email_reader/__init__.py:269
-#: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:284
-#: plugins/email_reader/__init__.py:296 plugins/email_reader/__init__.py:299
-#: plugins/email_reader/__init__.py:311 plugins/email_reader/__init__.py:314
-#: plugins/email_reader/__init__.py:326 plugins/email_reader/__init__.py:329
-#: plugins/email_reader/__init__.py:341 plugins/email_reader/__init__.py:344
-#: plugins/email_reader/__init__.py:356 plugins/email_reader/__init__.py:359
-#: plugins/email_reader/__init__.py:371 plugins/email_reader/__init__.py:374
+#: plugins/email_reader/__init__.py:166 plugins/email_reader/__init__.py:169
+#: plugins/email_reader/__init__.py:430 plugins/email_reader/__init__.py:433
+#: plugins/email_reader/__init__.py:445 plugins/email_reader/__init__.py:448
+#: plugins/email_reader/__init__.py:460 plugins/email_reader/__init__.py:463
+#: plugins/email_reader/__init__.py:475 plugins/email_reader/__init__.py:478
+#: plugins/email_reader/__init__.py:490 plugins/email_reader/__init__.py:493
+#: plugins/email_reader/__init__.py:505 plugins/email_reader/__init__.py:508
+#: plugins/email_reader/__init__.py:520 plugins/email_reader/__init__.py:523
+#: plugins/email_reader/__init__.py:535 plugins/email_reader/__init__.py:538
 msgid "OSPy has switched to scheduler controler."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:173 plugins/email_reader/__init__.py:176
+#: plugins/email_reader/__init__.py:177 plugins/email_reader/__init__.py:180
 msgid "OSPy has stop all running stations."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:180
+#: plugins/email_reader/__init__.py:193
+msgid "OSPy has send all temperatures and log file if exists."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:200
+msgid "OSPy has send all temperatures and log file."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:202 plugins/email_reader/__init__.py:204
+#: plugins/email_reader/__init__.py:269 plugins/email_reader/__init__.py:271
+#: plugins/email_reader/__init__.py:326 plugins/email_reader/__init__.py:328
+msgid "Log file not exists!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:212 plugins/email_reader/__init__.py:213
+#: plugins/email_reader/__init__.py:215 plugins/email_reader/__init__.py:250
+#: plugins/email_reader/__init__.py:253 plugins/email_reader/__init__.py:257
+#: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:278
+#: plugins/email_reader/__init__.py:279 plugins/email_reader/__init__.py:281
+#: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:316
+#: plugins/email_reader/__init__.py:337 plugins/email_reader/__init__.py:338
+#: plugins/email_reader/__init__.py:340 plugins/email_reader/__init__.py:552
+#: plugins/email_reader/__init__.py:553 plugins/email_reader/__init__.py:555
+#: plugins/email_reader/__init__.py:561 plugins/email_reader/__init__.py:564
+#: plugins/email_reader/__init__.py:569 plugins/email_reader/__init__.py:574
+#: plugins/email_reader/__init__.py:612 plugins/email_reader/__init__.py:616
+#: plugins/email_reader/__init__.py:653 plugins/email_reader/__init__.py:655
+#: plugins/email_reader/__init__.py:659 plugins/email_reader/__init__.py:661
+msgid "The command has been not processed!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:247
+msgid "OSPy has send tank states and log file if exists."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:252 plugins/email_reader/__init__.py:254
+msgid "Error - Water tank plugin has water level < 1cm!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:259 plugins/email_reader/__init__.py:315
+msgid "Error - Plugin is not correctly setuped or not run!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:261
+msgid "Error - Plugin water tank is not correctly setuped or not run!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:267
+msgid "OSPy has send tank states and log file."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:298
+msgid "OSPy has send wind state and log file if exists."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:301
+msgid "Wind speed"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:304 plugins/email_reader/__init__.py:305
+#: plugins/email_reader/__init__.py:901 plugins/email_reader/__init__.py:902
+#: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:170
+#: plugins/wind_monitor/__init__.py:233 plugins/wind_monitor/__init__.py:250
+#: plugins/wind_monitor/__init__.py:251
+#: plugins/wind_monitor/templates/wind_monitor.html:330
+msgid "km/h"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:304 plugins/email_reader/__init__.py:307
+#: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:167
+msgid "Speed"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:305 plugins/email_reader/__init__.py:308
+#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:172
+msgid "Maximal speed"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:307 plugins/email_reader/__init__.py:308
+#: plugins/email_reader/__init__.py:904 plugins/email_reader/__init__.py:905
+#: plugins/wind_monitor/__init__.py:167 plugins/wind_monitor/__init__.py:172
+msgid "m/sec"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:317
+msgid "Error - Plugin wind monitor is not correctly setuped or not run!"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:324
+msgid "OSPy has send wind state and log file."
+msgstr ""
+
+#: plugins/email_reader/__init__.py:344
 msgid "OSPy sends the set commands to the administrator by E-mail."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:185
+#: plugins/email_reader/__init__.py:349
 msgid "All available commands in plugin"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:187
+#: plugins/email_reader/__init__.py:351
 #: plugins/email_reader/templates/email_reader.html:92
 msgid "Switch scheduler to ON"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:189
+#: plugins/email_reader/__init__.py:353
 #: plugins/email_reader/templates/email_reader.html:97
 msgid "Switch scheduler to OFF"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:191
+#: plugins/email_reader/__init__.py:355
 #: plugins/email_reader/templates/email_reader.html:102
 msgid "Switch to manual mode"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:193
+#: plugins/email_reader/__init__.py:357
 #: plugins/email_reader/templates/email_reader.html:107
 msgid "Switch to scheduler mode"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:195
+#: plugins/email_reader/__init__.py:359
 #: plugins/email_reader/templates/email_reader.html:112
 msgid "Stop all running stations"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:197
+#: plugins/email_reader/__init__.py:361
 #: plugins/email_reader/templates/email_reader.html:117
 msgid "Send back help"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:200
+#: plugins/email_reader/__init__.py:364
 msgid "Selecting command %d"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:202
-#: plugins/email_reader/templates/email_reader.html:183
+#: plugins/email_reader/__init__.py:366
+#: plugins/email_reader/templates/email_reader.html:198
 msgid "Sending message in body E-mail as list (use in manual mode)"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:203 plugins/email_reader/__init__.py:206
-#: plugins/email_reader/templates/email_reader.html:184
-#: plugins/email_reader/templates/email_reader.html:187
+#: plugins/email_reader/__init__.py:367 plugins/email_reader/__init__.py:370
+#: plugins/email_reader/templates/email_reader.html:199
+#: plugins/email_reader/templates/email_reader.html:202
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:52
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:55
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:204
+#: plugins/email_reader/__init__.py:368
 msgid "[0,0,100,30,...]"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:205
-#: plugins/email_reader/templates/email_reader.html:186
+#: plugins/email_reader/__init__.py:369
+#: plugins/email_reader/templates/email_reader.html:201
 msgid "Sending message in body E-mail as dict (use in manual mode)"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:207
+#: plugins/email_reader/__init__.py:371
 msgid "{\"aa\":0,\"bb\":0,\"cc\":100,\"dd\":30...}"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:212
+#: plugins/email_reader/__init__.py:376
 msgid "OSPy sends the stations state to the administrator E-mail."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:217
+#: plugins/email_reader/__init__.py:381
 msgid "Actual stations state"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:219
+#: plugins/email_reader/__init__.py:383
 msgid "Main 1"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:219
+#: plugins/email_reader/__init__.py:383
 msgid "Main 2"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:219
+#: plugins/email_reader/__init__.py:383
 msgid "Station name"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:219
+#: plugins/email_reader/__init__.py:383
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/pressure_monitor/__init__.py:349
 #: plugins/pressure_monitor/__init__.py:472 plugins/ups_adj/__init__.py:314
@@ -3380,184 +3527,208 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:220
+#: plugins/email_reader/__init__.py:384
 msgid "Remaining time in sec"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:224 plugins/relay_16/__init__.py:120
+#: plugins/email_reader/__init__.py:388 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:226 plugins/relay_16/__init__.py:137
+#: plugins/email_reader/__init__.py:390 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:228 plugins/email_reader/__init__.py:232
+#: plugins/email_reader/__init__.py:392 plugins/email_reader/__init__.py:396
 msgid "YES"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:238
+#: plugins/email_reader/__init__.py:402
 msgid "%s"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:246 plugins/email_reader/__init__.py:249
+#: plugins/email_reader/__init__.py:410 plugins/email_reader/__init__.py:413
 msgid "System Linux has now reboot!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:256 plugins/email_reader/__init__.py:259
+#: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:423
 msgid "System Linux has now shutdown!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:266 plugins/email_reader/__init__.py:269
+#: plugins/email_reader/__init__.py:430 plugins/email_reader/__init__.py:433
 msgid "Run now program 1."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:284
+#: plugins/email_reader/__init__.py:445 plugins/email_reader/__init__.py:448
 msgid "Run now program 2."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:296 plugins/email_reader/__init__.py:299
+#: plugins/email_reader/__init__.py:460 plugins/email_reader/__init__.py:463
 msgid "Run now program 3."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:311 plugins/email_reader/__init__.py:314
+#: plugins/email_reader/__init__.py:475 plugins/email_reader/__init__.py:478
 msgid "Run now program 4."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:326 plugins/email_reader/__init__.py:329
+#: plugins/email_reader/__init__.py:490 plugins/email_reader/__init__.py:493
 msgid "Run now program 5."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:341 plugins/email_reader/__init__.py:344
+#: plugins/email_reader/__init__.py:505 plugins/email_reader/__init__.py:508
 msgid "Run now program 6."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:356 plugins/email_reader/__init__.py:359
+#: plugins/email_reader/__init__.py:520 plugins/email_reader/__init__.py:523
 msgid "Run now program 7."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:371 plugins/email_reader/__init__.py:374
+#: plugins/email_reader/__init__.py:535 plugins/email_reader/__init__.py:538
 msgid "Run now program 8."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:385 plugins/email_reader/__init__.py:403
-#: plugins/email_reader/__init__.py:407 plugins/email_reader/__init__.py:450
+#: plugins/email_reader/__init__.py:549 plugins/email_reader/__init__.py:567
+#: plugins/email_reader/__init__.py:571 plugins/email_reader/__init__.py:614
 msgid "Subject in message is"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:386 plugins/email_reader/__init__.py:404
-#: plugins/email_reader/__init__.py:408 plugins/email_reader/__init__.py:451
+#: plugins/email_reader/__init__.py:550 plugins/email_reader/__init__.py:568
+#: plugins/email_reader/__init__.py:572 plugins/email_reader/__init__.py:615
 msgid "Subject in options is"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:388 plugins/email_reader/__init__.py:389
-#: plugins/email_reader/__init__.py:391 plugins/email_reader/__init__.py:397
-#: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:405
-#: plugins/email_reader/__init__.py:410 plugins/email_reader/__init__.py:448
-#: plugins/email_reader/__init__.py:452 plugins/email_reader/__init__.py:489
-#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:495
-#: plugins/email_reader/__init__.py:497
-msgid "The command has been not processed!"
-msgstr ""
-
-#: plugins/email_reader/__init__.py:396 plugins/email_reader/__init__.py:399
+#: plugins/email_reader/__init__.py:560 plugins/email_reader/__init__.py:563
 msgid "OSPy must be first switched to manual mode!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:402 plugins/email_reader/__init__.py:409
+#: plugins/email_reader/__init__.py:566 plugins/email_reader/__init__.py:573
 msgid "Subject is not correct!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:413 plugins/mqtt_runonce/__init__.py:103
+#: plugins/email_reader/__init__.py:577 plugins/mqtt_runonce/__init__.py:103
 msgid "Try-ing to processing command."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:422
+#: plugins/email_reader/__init__.py:584 plugins/email_reader/__init__.py:586
 #: plugins/mqtt_runonce/__init__.py:108
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:424 plugins/email_reader/__init__.py:426
+#: plugins/email_reader/__init__.py:588 plugins/email_reader/__init__.py:590
 #: plugins/mqtt_runonce/__init__.py:111
 msgid "Too many stations specified, truncating to {}"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:437 plugins/email_reader/__init__.py:438
+#: plugins/email_reader/__init__.py:601 plugins/email_reader/__init__.py:602
 #: plugins/mqtt_runonce/__init__.py:123
 msgid "No station named"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:449
-#: plugins/email_reader/__init__.py:490 plugins/mqtt_runonce/__init__.py:130
+#: plugins/email_reader/__init__.py:611 plugins/email_reader/__init__.py:613
+#: plugins/email_reader/__init__.py:654 plugins/mqtt_runonce/__init__.py:130
 msgid "Unexpected command"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:464
+#: plugins/email_reader/__init__.py:628
 #: plugins/email_reader/templates/email_reader.html:23
 msgid "E-mail Reader"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:494 plugins/email_reader/__init__.py:496
+#: plugins/email_reader/__init__.py:658 plugins/email_reader/__init__.py:660
 msgid "Could not decode command"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:501
+#: plugins/email_reader/__init__.py:665
 msgid "Sending reply to administrator E-mail."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:567 plugins/ping_monitor/__init__.py:412
+#: plugins/email_reader/__init__.py:768 plugins/email_reader/__init__.py:837
+#: plugins/email_reader/__init__.py:897
+msgid "Date/Time"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:813
+msgid "Conversion error! Temperature data from json file to csv file"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:822 plugins/tank_monitor/__init__.py:527
+#: plugins/tank_monitor/__init__.py:716
+msgid "Minimum"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:823 plugins/email_reader/__init__.py:884
+#: plugins/tank_monitor/__init__.py:528 plugins/tank_monitor/__init__.py:717
+#: plugins/wind_monitor/__init__.py:492 plugins/wind_monitor/__init__.py:655
+msgid "Maximum"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:824 plugins/email_reader/__init__.py:885
+#: plugins/tank_monitor/__init__.py:529 plugins/tank_monitor/__init__.py:718
+#: plugins/wind_monitor/__init__.py:493 plugins/wind_monitor/__init__.py:656
+msgid "Actual"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:875
+msgid "Conversion error! Water tank data from json file to csv file"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:932
+msgid "Conversion error! Wind monitor data from json file to csv file"
+msgstr ""
+
+#: plugins/email_reader/__init__.py:953 plugins/ping_monitor/__init__.py:412
 #: plugins/pressurizer/__init__.py:219 plugins/tank_monitor/__init__.py:633
 #: plugins/wind_monitor/__init__.py:569
 msgid "Options has updated."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:592
+#: plugins/email_reader/__init__.py:982
 msgid "You must provide a recipient E-mail address."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:595
+#: plugins/email_reader/__init__.py:985
 msgid "You must provide a recipient E-mail password."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:598
+#: plugins/email_reader/__init__.py:988
 msgid "You must provide server."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:601
+#: plugins/email_reader/__init__.py:991
 msgid "You must provide recipient folder."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:618
+#: plugins/email_reader/__init__.py:1008
 msgid "Login OK."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:621
+#: plugins/email_reader/__init__.py:1011
 msgid "Mail account login details are not filled in correctly!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:627
+#: plugins/email_reader/__init__.py:1017
 msgid "Logout OK."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:662
+#: plugins/email_reader/__init__.py:1052
 msgid "You must provide a sender E-mail address!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:668
+#: plugins/email_reader/__init__.py:1058
 msgid "ERROR: Unable to open the folder"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:679
+#: plugins/email_reader/__init__.py:1069
 msgid "ERROR: getting message"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:719
+#: plugins/email_reader/__init__.py:1109
 msgid "Message has moved to trash folder."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:723
+#: plugins/email_reader/__init__.py:1113
 msgid "Message has deleted."
 msgstr ""
 
@@ -3697,79 +3868,115 @@ msgstr ""
 msgid "Sending back all stations state via E-mail."
 msgstr ""
 
+#: plugins/email_reader/templates/email_reader.html:127
+msgid "Sending back temperature states"
+msgstr ""
+
 #: plugins/email_reader/templates/email_reader.html:128
+msgid "Sending back all temperatures from air_temp_humi plugin with log file via E-mail (from plugin)."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:132
+msgid "Sending back tank states"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:133
+msgid "Sending back tank states from tank_monitor plugin with log file via E-mail (from plugin)."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:137
+msgid "Sending back wind states"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:138
+msgid "Sending back wind states from wind_monitor plugin with log file via E-mail (from plugin)."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:143
 msgid "Selecting command"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:129
-#: plugins/email_reader/templates/email_reader.html:204
+#: plugins/email_reader/templates/email_reader.html:144
+#: plugins/email_reader/templates/email_reader.html:225
 msgid "Sending command in  message body E-mail for run  via selecting."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:150
+#: plugins/email_reader/templates/email_reader.html:165
 msgid "Confirm delivery"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:153
+#: plugins/email_reader/templates/email_reader.html:168
 msgid "Send reply"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:154
+#: plugins/email_reader/templates/email_reader.html:169
 msgid "After processing the received message, send an email with the subject below. The email_notification extension is required for this function."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:159
+#: plugins/email_reader/templates/email_reader.html:174
 #: plugins/ping_monitor/templates/ping_monitor.html:231
 msgid "The subject of the message being sent."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:182
+#: plugins/email_reader/templates/email_reader.html:197
 msgid "Example for control"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:185
+#: plugins/email_reader/templates/email_reader.html:200
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:53
 msgid "[0,0,100,30]"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:188
+#: plugins/email_reader/templates/email_reader.html:203
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:56
 msgid "{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, \"station name 4\": 30}"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:189
+#: plugins/email_reader/templates/email_reader.html:204
 msgid "Sending message in body E-mail for switch scheduler to ON"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:191
+#: plugins/email_reader/templates/email_reader.html:206
 msgid "Sending message in body E-mail for switch scheduler to OFF"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:193
+#: plugins/email_reader/templates/email_reader.html:208
 msgid "Sending message in body E-mail for switch to manual mode"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:195
+#: plugins/email_reader/templates/email_reader.html:210
 msgid "Sending message in body E-mail for switch to scheduler mode"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:197
+#: plugins/email_reader/templates/email_reader.html:212
 msgid "Sending message in body E-mail for stop all running stations"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:199
+#: plugins/email_reader/templates/email_reader.html:214
 msgid "Sending back all setuped commands via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:201
+#: plugins/email_reader/templates/email_reader.html:216
 msgid "Sending back all stations state via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:203
+#: plugins/email_reader/templates/email_reader.html:218
+msgid "Sending back temperature states via E-mail"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:220
+msgid "Sending back tank states via E-mail"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:222
+msgid "Sending back wind states via E-mail"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader.html:224
 msgid "Selecting command xx"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:205
+#: plugins/email_reader/templates/email_reader.html:226
 msgid "Run program 1-8 if exists"
 msgstr ""
 
@@ -6053,20 +6260,6 @@ msgstr ""
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:527 plugins/tank_monitor/__init__.py:716
-msgid "Minimum"
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:528 plugins/tank_monitor/__init__.py:717
-#: plugins/wind_monitor/__init__.py:492 plugins/wind_monitor/__init__.py:655
-msgid "Maximum"
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:529 plugins/tank_monitor/__init__.py:718
-#: plugins/wind_monitor/__init__.py:493 plugins/wind_monitor/__init__.py:656
-msgid "Actual"
-msgstr ""
-
 #: plugins/tank_monitor/__init__.py:607
 msgid "Minimum and maximum has reseted."
 msgstr ""
@@ -7317,26 +7510,7 @@ msgid "Pulses"
 msgstr ""
 
 #: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:167
-msgid "Speed"
-msgstr ""
-
-#: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:167
 msgid "pulses/sec"
-msgstr ""
-
-#: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:170
-#: plugins/wind_monitor/__init__.py:233 plugins/wind_monitor/__init__.py:250
-#: plugins/wind_monitor/__init__.py:251
-#: plugins/wind_monitor/templates/wind_monitor.html:330
-msgid "km/h"
-msgstr ""
-
-#: plugins/wind_monitor/__init__.py:167 plugins/wind_monitor/__init__.py:172
-msgid "m/sec"
-msgstr ""
-
-#: plugins/wind_monitor/__init__.py:170 plugins/wind_monitor/__init__.py:172
-msgid "Maximal speed"
 msgstr ""
 
 #: plugins/wind_monitor/__init__.py:175
