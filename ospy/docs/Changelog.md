@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 13 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Slovak (Thank you Tomáš Szepesi). Update web.py to version 0.51 (Thank you Dan-in-CA). 
+
 Nov 10 2020
 -----------
 (martinpihrt)<br/>
