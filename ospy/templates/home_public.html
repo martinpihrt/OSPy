@@ -1,0 +1,455 @@
+$def with ()
+
+$var title: $_('Home')
+$var page: public
+
+<script src="/static/scripts/jquery.flot.js"></script>
+<script src="/static/scripts/jquery.flot.time.js"></script>
+<script src="/static/scripts/jquery.flot.resize.js"></script>
+<script src="/static/scripts/jquery.flot.axislabels.js"></script>
+<script src="/static/scripts/jquery.flot.selection.js"></script>
+
+<script>
+// Global vars
+let displayScheduleDate = new Date(device_time); 
+let displayScheduleTimeout;
+let graph_text;
+
+function displaySchedule(schedule) {
+    if (displayScheduleTimeout != null) {
+        clearTimeout(displayScheduleTimeout);
+    }
+    let now = new Date((new Date()).getTime() + to_device_time);
+    let nowMark = now.getHours()*60 + now.getMinutes();
+    let isToday = toXSDate(displayScheduleDate) == toXSDate(now);
+    let programClassesUsed = {};
+    jQuery(".stationSchedule .scheduleTick").each(function() {
+        jQuery(this).empty();
+        let sid = jQuery(this).parent().attr("data");
+        let slice = parseInt(jQuery(this).attr("data"))*60;
+        let boxes = jQuery("<div class='scheduleMarkerContainer'></div>");
+        for (let s in schedule) {
+            if (schedule[s].station == parseInt(sid, 10)) {
+                if (!(isToday && schedule[s].date == undefined && schedule[s].start + schedule[s].duration/60 < nowMark)) {
+                    let relativeStart = schedule[s].start - slice;
+                    let relativeEnd = schedule[s].start + schedule[s].duration/60 - slice;
+                    if (0 <= relativeStart && relativeStart < 60 ||
+                        0.05 < relativeEnd && relativeEnd <= 60 ||
+                        relativeStart < 0 && relativeEnd >= 60) {
+                        let barStart = Math.max(0,relativeStart)/60;
+                        let barWidth = Math.max(0.05,Math.min(relativeEnd, 60)/60 - barStart);
+                        let programClass;
+                        if (schedule[s].manual) {
+                            programClass = "programManual";
+                        } else {
+				programClass = "program" + (parseInt(schedule[s].program)+1)%10;
+                        }
+                        programClassesUsed[schedule[s].program_name] = programClass;
+                        let markerClass = (schedule[s].active == null ? "schedule" : "history");
+                        if (schedule[s].blocked) {
+                            markerClass = 'blocked'
+                        }
+                        boxes.append("<div class='scheduleMarker " + programClass + " " + markerClass + "' style='left:" + barStart*100 + "%;width:" + barWidth*100 + "%' data='" + schedule[s].program_name + ": " + schedule[s].label + "'></div>");
+                    }
+                }
+            }
+        }
+        if (isToday && slice <= nowMark && nowMark < slice+60) {
+            let stationOn = jQuery(this).parent().children(".stationStatus").hasClass("station_on");
+            boxes.append("<div class='nowMarker" + (stationOn?" on":"")+ "' style='width:2px;left:"+ (nowMark-slice)/60*100 + "%;'>");
+        }
+        if (boxes.children().length > 0) {
+            jQuery(this).append(boxes);
+        }
+    });
+    jQuery("#legend").empty();
+    for (let p in programClassesUsed) {
+        jQuery("#legend").append("<span class='" + programClassesUsed[p] + "'>" + p + "</span>");
+    }
+    jQuery(".scheduleMarker").mouseover(scheduleMarkerMouseover);
+    jQuery(".scheduleMarker").mouseout(scheduleMarkerMouseout);
+
+    jQuery("#displayScheduleDate").text(dateString(displayScheduleDate) + (displayScheduleDate.getFullYear() == now.getFullYear() ? "" : ", " + displayScheduleDate.getFullYear()));
+    if (isToday) {
+        displayScheduleTimeout = setTimeout(displayProgram, 60*1000);  // every minute
+    }
+}
+
+function displayProgram() {
+    var visibleDate = toXSDate(displayScheduleDate);
+    jQuery.getJSON("/log.json?date=" + visibleDate, function(log) {
+        for (let l in log) {
+            log[l].duration = fromClock(log[l].duration);
+            log[l].start = fromClock(log[l].start)/60;
+            if (log[l].date != visibleDate) {
+                log[l].start -= 24*60;
+            }
+            if (log[l].blocked) {
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')}  + " " + log[l].blocked + ")";
+            } else {
+                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8')} + " " + toClock(log[l].duration, 1);
+            }
+        }
+        displaySchedule(log);
+    })
+}
+
+function scheduleMarkerMouseover() {
+    let description = jQuery(this).attr("data");
+    let markerClass = jQuery(this).attr("class");
+    markerClass = markerClass.substring(markerClass.indexOf("program"));
+    markerClass = markerClass.substring(0,markerClass.indexOf(" "));
+    jQuery(this).append('<span class="showDetails ' + markerClass + '">' + description + '</span>');
+    jQuery(this).children(".showDetails").mouseover(function(){ return false; });
+    jQuery(this).children(".showDetails").mouseout(function(){ return false; });
+}
+function scheduleMarkerMouseout() {
+    jQuery(this).children(".showDetails").remove();
+}
+
+function updateStatus(status) {
+    let display, updateInterval = 30000;
+    let pluginStn = $:{json.dumps(pluginStn, ensure_ascii=False)};
+    for (let s=0; s<status.length; s++) {
+        let station = status[s];
+        let classes = "stationStatus station_" + station.status;
+        switch (station.reason) {
+            case "program" :
+                let minutes = Math.floor(station.remaining/60);
+                let seconds = Math.floor(station.remaining - 60*minutes);
+                if (minutes < 10) {minutes = "0"+minutes;}
+                if (seconds < 10) {seconds = "0"+seconds;}
+                if (station.status == "on") {
+                    display = minutes+":"+seconds;
+                    if (typeof pluginStn !== 'UNDEFINED' && pluginStn.length) {
+                        pluginStn.forEach(
+                        function(item) {
+                            display = display + " " +  item[0] + " " + item[1];
+                        });
+                    }
+                }
+                updateInterval = 1000;
+                break;
+            case "master" :
+                classes += " master";
+                if (station.status == "on") {
+                    if (station.master){ 
+                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8')}; 
+                       }
+                    else {
+                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       }
+                } else {
+                    if (station.master){ 
+                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8')};
+                       }
+                    else {
+                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       } 
+                }
+                updateInterval = 1000;
+                break;
+            case "rain_delay" :
+                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8')};
+                break;
+            case "rain_sensed" :
+                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8')};
+                break;
+            case "system_off" :
+                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8')};
+                break;
+            default:
+                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8')};
+        }
+        jQuery("td#status" + station.station)
+            .text(display)
+            .removeClass()
+            .addClass(classes);
+    }
+    setTimeout(statusTimer, updateInterval);
+}
+
+function statusTimer() {
+    jQuery.getJSON("/status.json", updateStatus)  
+}
+
+function countdownTimer(timerId) {
+    var timerElement = jQuery("#" + timerId);
+    var remaining = parseFloat(timerElement.attr("data"));
+    timerElement.attr("data", remaining - 1)
+    var rHours = Math.floor(remaining/3600);
+    var rMinutes = Math.floor((remaining%3600)/60);
+    var rSeconds = Math.floor(remaining%60);
+    timerElement.text((rHours<10 ? "0" : "") + rHours + ":" + (rMinutes<10 ? "0" : "") + rMinutes + ":" + (rSeconds<10 ? "0" : "") + rSeconds);
+    if (rHours <=0 && rMinutes <=0 && rSeconds <=0) {
+        setTimeout("location.reload()", 1000);
+    } else {
+        setTimeout("countdownTimer('" + timerId + "')", 1000);
+    }
+}
+
+function draw_graph(result) {
+    let data = [];
+    graph_text = [];
+    let legend_items = jQuery('#legend-visible').find('.legendColorBox');
+
+    for (let i = 0; i < result.length; i++) {
+        let balances = [];
+        let texts = [];
+        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
+        let txt_body = "";
+        let txt_footer = "</table>";
+        for (timestamp in result[i]['balances']) {
+            let balance = result[i]['balances'][timestamp];
+            balances.push([1000*parseInt(timestamp), balance['total']]);
+            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
+
+            for (let j = 0; j < balance['intervals'].length; j++) {
+                let interval = balance['intervals'][j]
+                txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
+            }
+
+            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
+            texts.push(result[i]['station'] + " @ " + toXSDate(new Date(1000*parseInt(timestamp))) + "<br>" + txt_header + txt_body + txt_footer);
+
+            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
+        }
+
+        if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
+        {
+            data.push({
+                data: balances,
+                label: result[i]['station'],
+                color: i
+            })
+            graph_text.push(texts);
+        }
+    }
+    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
+    return jQuery.plot("#graph-placeholder", data, {
+        series: {
+            lines: {
+                show: true
+            },
+            points: {
+                show: true
+            }
+        },
+        grid: {
+            hoverable: true
+        },
+        xaxis: {
+            mode: "time",
+            timeformat: "%Y-%m-%d"
+        },
+        legend: {
+            show: true,
+            container: jQuery("#legend-placeholder")
+        },
+        axisLabels: {
+            show: true
+        },
+        yaxes: [{
+            position: 'left',
+            axisLabel: yLabels
+        }],
+        selection: {
+            mode: 'x'
+        }
+    });
+}
+
+function create_graph(result) {
+    plot = draw_graph(result);
+
+    jQuery('#legend-visible').html(jQuery('#legend-placeholder').html());
+    plot.resize();
+    plot.setupGrid();
+    plot.draw();
+    plot.clearSelection();
+
+    jQuery('#legend-visible').find('.legendColorBox').children().children().css({
+        color: "#ddd"
+    }).attr("data", 1);
+
+    jQuery('#legend-visible').on('click', 'tr', function(){
+        let colorbox = jQuery(this).find('.legendColorBox').children().children();
+        colorbox.css({
+            "border-color": colorbox.css("color"),
+            "color": colorbox.css("border-left-color")
+        });
+        colorbox.attr("data", 1 - colorbox.attr("data"));
+        draw_graph(result);
+    });
+
+    jQuery("<div id='tooltip'></div>").css({
+        position: "absolute",
+        display: "none",
+        "min-width": "120px",
+        "background-color": "#eee",
+        padding: "5px",
+        "border-radius": "5px"
+    }).appendTo("body");
+
+    jQuery("#graph-placeholder").bind("plothover", function (event, pos, item) {
+        if (item) {
+            jQuery("#tooltip").html(graph_text[item.seriesIndex][item.dataIndex]);
+            var x = item.pageX+5;
+            if (item.pageX + jQuery("#tooltip").width() > jQuery(document).width() - 100)
+            {
+                x = item.pageX-jQuery("#tooltip").width()-10;
+            }
+            var y = item.pageY+5;
+            if (item.pageY + jQuery("#tooltip").height() > jQuery(document).height() - 20)
+            {
+                y = item.pageY-jQuery("#tooltip").height()-10;
+            }
+            jQuery("#tooltip").css({top: y, left: x}).fadeIn(200);
+        } else {
+            jQuery("#tooltip").hide();
+        }
+    });
+
+    jQuery("#graph-placeholder").bind("plotselected", function (event, ranges) {
+        jQuery("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+        jQuery.each(plot.getXAxes(), function(_, axis) {
+                let opts = axis.options;
+                opts.min = ranges.xaxis.from;
+                opts.max = ranges.xaxis.to;
+        });
+        plot.setupGrid();
+        plot.draw();
+        plot.clearSelection(); 
+    });
+
+    jQuery('#clearSelection').on('click', function(){
+        jQuery.getJSON("/balance.json", create_graph)
+    });
+}
+
+function dataTimer() {
+    // Call to get plugin data
+    jQuery.getJSON("/plugindata", function(piVals) {
+        let i;
+        for(i = 0; i < piVals.fdata.length; i++) { // we update all data from plugins
+            let parID = 'piData'  + piVals.fdata[i][0]
+            jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[i][1])
+        } 
+    }) 
+    setTimeout(dataTimer, 3000);
+} 
+
+
+jQuery(document).ready(function(){
+    displayProgram();
+    setTimeout(statusTimer, 1000);
+
+    jQuery(".button#pPrev").click(function() {
+        displayScheduleDate.setDate(displayScheduleDate.getDate() - 1);
+        displayProgram();
+    });
+    jQuery(".button#pToday").click(function() {
+        var day = new Date()//dk
+        displayScheduleDate.setDate(day.getDate());
+        displayScheduleDate.setMonth(day.getMonth()); //dk
+        displayProgram();
+    });
+    jQuery(".button#pNext").click(function() {
+        displayScheduleDate.setDate(displayScheduleDate.getDate() + 1);
+        displayProgram();
+    });                        
+
+    jQuery(".countdown").each(function() {
+        countdownTimer(jQuery(this).attr('id'));
+    });
+
+    if (jQuery("#graph-placeholder").length > 0) {
+        setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
+    }    
+
+    $if (options.show_plugin_data and pluginFtr):
+        $for i, d in enumerate(pluginFtr):
+            $if (pluginFtr[i]["button"] != '-'):
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}">&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+            $else:
+                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');  
+
+        dataTimer();    // data timer for footer plugins data           
+});
+
+</script>
+
+<div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
+    $if len([v for v in level_adjustments.values() if abs(v-1) > 0.001]) > 0:
+        <b>$_('Water Level adjustments')</b>
+        <table class="adjustmentList">
+            $if abs(options.level_adjustment-1) > 0.001:
+                <tr>
+                    <td>$_('User')</td>
+                    <td class="adjValue">$(options.level_adjustment*100)%</td>
+                </tr>
+            $for name, adj in level_adjustments.iteritems():
+                $if abs(adj-1) > 0.001:
+                    <tr>
+                        <td>$name</td>
+                        <td class="adjValue">$(adj*100)%</td>
+                    </tr>
+            <tr>
+                <th>$_('Total')</th>
+                <th class="adjValue">$(level_adjustments.total_adjustment()*100)%</th>
+            </tr>
+        </table>
+</div>
+<div id="stationsdiv">
+    <div id="programmode">
+        <table id="stations" class="stationList">
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="8">
+                    <span id="displayScheduleDate"></span>
+                </td>
+                <td colspan="16" style="text-align:right">
+                    <a id="pPrev" class="button execute">&lt;&lt;$_(' Prev Day')</a>
+                    <a id="pToday" class="button execute">$_('Today')</a>
+                    <a id="pNext" class="button execute">$_('Next Day') &gt;&gt;</a>
+                </td>
+            </tr>
+            <tr><td colspan="2">
+                $for hour in xrange(0, 24):
+                    $ t = datetime.time(hour=hour, minute=0)
+                    $if options.time_format:
+                        <td class="scheduleTick">${t.strftime("%H:%M")}</td>
+                    $else:
+                        <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
+            </tr>
+            $for station in [station for station in stations if station.enabled or station.is_master or station.is_master_two]:
+                <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">
+                    <td class='station_name'>${station.name}</td>
+                    <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
+                    $for tick in xrange(0,24):
+                        <td class="scheduleTick" data="$tick"></td>
+                </tr>
+            <tr>
+                <td colspan="2">
+                </td>
+                <td colspan="24" id="legend" style="text-align:center">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+$if any((station.enabled and any(station.index in program.stations for program in programs.get()) and any(balance['valid'] for balance in station.balance.values())) for station in stations.get()):
+    <div id="graph-container" class="graph-container">
+        <div id="legend-placeholder" style="display:none;"></div>
+        <div id="legend-visible" style="float: right; width: auto;"></div>
+        <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
+        <div style="clear: both;"></div>
+        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False)}>$_('Clear selection')</button>
+    </div>
+
+$if options.show_plugin_data:  
+    <div id="graph-container" class="graph-container">             
+        <div class="piDatFooter" id="pluginPars"></div>     
+    </div>    

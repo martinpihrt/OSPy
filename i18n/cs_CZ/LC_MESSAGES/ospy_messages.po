@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-11-10 07:20+CET\n"
-"PO-Revision-Date: 2020-11-10 07:25+0100\n"
+"POT-Creation-Date: 2020-11-13 13:11+CET\n"
+"PO-Revision-Date: 2020-11-13 13:16+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -51,8 +51,8 @@ msgstr "Neznámé"
 msgid "No IP Settings"
 msgstr "IP není nastavena"
 
-#: ospy/helpers.py:313 ospy/helpers.py:330 plugins/email_reader/__init__.py:394
-#: plugins/email_reader/__init__.py:398
+#: ospy/helpers.py:313 ospy/helpers.py:330 plugins/email_reader/__init__.py:400
+#: plugins/email_reader/__init__.py:404
 msgid "-"
 msgstr "-"
 
@@ -111,6 +111,22 @@ msgstr "Sobota"
 #: ospy/helpers.py:409 ospy/templates/base.html:43
 msgid "Sunday"
 msgstr "Neděle"
+
+#: ospy/helpers.py:511 ospy/helpers.py:545 plugins/email_reader/__init__.py:408
+msgid "%s"
+msgstr "%s"
+
+#: ospy/helpers.py:540
+msgid "Logged in %s, as operator %s"
+msgstr "Přihlášen %s, jako operátor %s"
+
+#: ospy/helpers.py:544 ospy/server.py:177
+msgid "Unknown operator"
+msgstr "Neznámý operátor"
+
+#: ospy/helpers.py:545
+msgid "Unauthorised operator"
+msgstr "Nepovolený operátor"
 
 #: ospy/options.py:28 plugins/system_info/__init__.py:42
 msgid "System name"
@@ -652,7 +668,9 @@ msgid "Starting:"
 msgstr "Začátek:"
 
 #: ospy/programs.py:284 ospy/templates/home.html:92
-#: ospy/templates/home.html:577
+#: ospy/templates/home.html:577 ospy/templates/home_admin.html:92
+#: ospy/templates/home_admin.html:577 ospy/templates/home_public.html:90
+#: ospy/templates/home_user.html:90 ospy/templates/home_user.html:513
 msgid "For"
 msgstr "Doba"
 
@@ -715,7 +733,7 @@ msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:146
+#: ospy/server.py:145 ospy/server.py:146
 msgid "Own SSL OK."
 msgstr "Vlastní SSL OK."
 
@@ -726,19 +744,31 @@ msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako "
 "HTTP!"
 
-#: ospy/server.py:181 ospy/server.py:182
+#: ospy/server.py:181
+msgid "Category is not in session, adding to sessions."
+msgstr "Kategorie není v session, přidám ji do session."
+
+#: ospy/server.py:183 ospy/server.py:187
+msgid "Unknown visitor"
+msgstr "Neznámý návštěvník"
+
+#: ospy/server.py:184
+msgid "Visitor-operator is not in session, adding to sessions."
+msgstr "Visitor není v session, přidám ho do session."
+
+#: ospy/server.py:194 ospy/server.py:195
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:185
+#: ospy/server.py:198
 msgid "Starting scheduler and plugins..."
 msgstr "Spuštění plánovače a pluginů..."
 
-#: ospy/server.py:190
+#: ospy/server.py:203
 msgid "Ready"
 msgstr "Připraven"
 
-#: ospy/server.py:207 ospy/server.py:208
+#: ospy/server.py:220 ospy/server.py:221
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -881,94 +911,101 @@ msgstr "Spravovat"
 msgid "OSPy - OpenSprinkler Python"
 msgstr "OSPy - OpenSprinkler Python"
 
-#: ospy/templates/base.html:143 ospy/templates/home.html:3
+#: ospy/templates/base.html:132
+msgid "Operator:"
+msgstr "Operátor:"
+
+#: ospy/templates/base.html:146 ospy/templates/home.html:3
+#: ospy/templates/home_admin.html:3 ospy/templates/home_public.html:3
+#: ospy/templates/home_user.html:3
 msgid "Home"
 msgstr "Domů"
 
-#: ospy/templates/base.html:145
+#: ospy/templates/base.html:148
 msgid "Define Programs"
 msgstr "Nastavení a úprava programů"
 
-#: ospy/templates/base.html:145 ospy/templates/programs.html:3
+#: ospy/templates/base.html:148 ospy/templates/programs.html:3
+#: ospy/templates/programs_user.html:3
 msgid "Programs"
 msgstr "Programy"
 
-#: ospy/templates/base.html:147
+#: ospy/templates/base.html:150
 msgid "Define Run Once Program"
 msgstr "Nastavení jednorázového programu"
 
-#: ospy/templates/base.html:147
+#: ospy/templates/base.html:150
 msgid "Run Once"
 msgstr "Jednorázový"
 
-#: ospy/templates/base.html:148
+#: ospy/templates/base.html:152
 msgid "Access Plugins"
 msgstr "Nastavení rozšíření"
 
-#: ospy/templates/base.html:148
+#: ospy/templates/base.html:153
 msgid "Plugins"
 msgstr "Rozšíření"
 
-#: ospy/templates/base.html:149
+#: ospy/templates/base.html:154
 msgid "View Log"
 msgstr "Zobrazení záznamů"
 
-#: ospy/templates/base.html:149 ospy/templates/log.html:3
+#: ospy/templates/base.html:154 ospy/templates/log.html:3
 #: plugins/usage_statistics/__init__.py:67
 msgid "Log"
 msgstr "Záznam"
 
-#: ospy/templates/base.html:150 ospy/templates/options.html:3
+#: ospy/templates/base.html:156 ospy/templates/options.html:3
 msgid "Options"
 msgstr "Nastavení"
 
-#: ospy/templates/base.html:151 ospy/templates/stations.html:3
+#: ospy/templates/base.html:157 ospy/templates/stations.html:3
 msgid "Stations"
 msgstr "Stanice"
 
-#: ospy/templates/base.html:151 ospy/templates/stations.html:8
+#: ospy/templates/base.html:157 ospy/templates/stations.html:8
 msgid "Configure Stations"
 msgstr "Nastavení stanic"
 
-#: ospy/templates/base.html:152 ospy/templates/help.html:3
+#: ospy/templates/base.html:158 ospy/templates/help.html:3
 #: ospy/templates/help.html:19 plugins/relay_16/templates/relay_16.html:22
 msgid "Help"
 msgstr "Nápověda"
 
-#: ospy/templates/base.html:154
+#: ospy/templates/base.html:160
 msgid "Logout"
 msgstr "Odhlásit se"
 
-#: ospy/templates/base.html:163
+#: ospy/templates/base.html:169
 #: plugins/lcd_display/templates/lcd_display.html:79
 msgid "CPU Temp"
 msgstr "Teplota CPU"
 
-#: ospy/templates/base.html:164
+#: ospy/templates/base.html:170
 msgid "Click to toggle"
 msgstr "Stiskněte pro změnu Fahrenheit nebo Celsius"
 
-#: ospy/templates/base.html:166
+#: ospy/templates/base.html:172
 msgid "CPU Usage"
 msgstr "Využití CPU"
 
-#: ospy/templates/base.html:169
+#: ospy/templates/base.html:175
 msgid "Click for redirecting to github software"
 msgstr "Stiskněte pro přechod na github"
 
-#: ospy/templates/base.html:169
+#: ospy/templates/base.html:175
 msgid "Software"
 msgstr "Program OSPy"
 
-#: ospy/templates/base.html:169
+#: ospy/templates/base.html:175
 msgid "version"
 msgstr "verze"
 
-#: ospy/templates/base.html:171
+#: ospy/templates/base.html:177
 msgid "External IP"
 msgstr "Vnější IP adresa"
 
-#: ospy/templates/base.html:172
+#: ospy/templates/base.html:178
 msgid "Working"
 msgstr "V provozu"
 
@@ -980,68 +1017,95 @@ msgstr ""
 "Chyba: Neúspěšné načítání rozšíření Pythonu partial gfm v markdown! "
 "Informace README.md se v nápovědě níže nezobrazí správně."
 
-#: ospy/templates/home.html:90
+#: ospy/templates/home.html:90 ospy/templates/home_admin.html:90
+#: ospy/templates/home_public.html:88 ospy/templates/home_user.html:88
 msgid "blocked by"
 msgstr "zablokováno"
 
 #: ospy/templates/home.html:139 ospy/templates/home.html:548
+#: ospy/templates/home_admin.html:139 ospy/templates/home_admin.html:548
+#: ospy/templates/home_public.html:137 ospy/templates/home_user.html:137
+#: ospy/templates/home_user.html:484
 msgid "On (Master)"
 msgstr "Zap (hlavní)"
 
 #: ospy/templates/home.html:142 ospy/templates/home.html:554
+#: ospy/templates/home_admin.html:142 ospy/templates/home_admin.html:554
+#: ospy/templates/home_public.html:140 ospy/templates/home_user.html:140
+#: ospy/templates/home_user.html:490
 msgid "On (Master Two)"
 msgstr "Zap (hlavní 2)"
 
 #: ospy/templates/home.html:146 ospy/templates/home.html:550
+#: ospy/templates/home_admin.html:146 ospy/templates/home_admin.html:550
+#: ospy/templates/home_public.html:144 ospy/templates/home_user.html:144
+#: ospy/templates/home_user.html:486
 msgid "Off (Master)"
 msgstr "Vyp (hlavní)"
 
 #: ospy/templates/home.html:149 ospy/templates/home.html:556
+#: ospy/templates/home_admin.html:149 ospy/templates/home_admin.html:556
+#: ospy/templates/home_public.html:147 ospy/templates/home_user.html:147
+#: ospy/templates/home_user.html:492
 msgid "Off (Master Two)"
 msgstr "Vyp (hlavní 2)"
 
-#: ospy/templates/home.html:155
+#: ospy/templates/home.html:155 ospy/templates/home_admin.html:155
+#: ospy/templates/home_public.html:153 ospy/templates/home_user.html:153
 msgid "Suppressed by Rain Delay"
 msgstr "Potlačeno dešťovým zpožděním"
 
-#: ospy/templates/home.html:158
+#: ospy/templates/home.html:158 ospy/templates/home_admin.html:158
+#: ospy/templates/home_public.html:156 ospy/templates/home_user.html:156
 msgid "Suppressed by Rain Sensor"
 msgstr "Potlačeno dešťovým senzorem"
 
 #: ospy/templates/home.html:161 ospy/templates/home.html:512
-#: ospy/templates/log.html:7 ospy/templates/log.html:35
-#: plugins/lcd_display/__init__.py:386
+#: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:512
+#: ospy/templates/home_public.html:159 ospy/templates/home_user.html:159
+#: ospy/templates/home_user.html:448 ospy/templates/log.html:7
+#: ospy/templates/log.html:35 plugins/lcd_display/__init__.py:386
 msgid "Disabled"
 msgstr "Zakázáno"
 
 #: ospy/templates/home.html:164 ospy/templates/home.html:563
-#: ospy/templates/home.html:576 ospy/templates/plugins_manage.html:13
-#: ospy/templates/plugins_manage.html:21 ospy/templates/plugins_manage.html:64
-#: ospy/templates/program.html:423 ospy/templates/programs.html:16
+#: ospy/templates/home.html:576 ospy/templates/home_admin.html:164
+#: ospy/templates/home_admin.html:563 ospy/templates/home_admin.html:576
+#: ospy/templates/home_public.html:162 ospy/templates/home_user.html:162
+#: ospy/templates/home_user.html:499 ospy/templates/home_user.html:512
+#: ospy/templates/plugins_manage.html:13 ospy/templates/plugins_manage.html:21
+#: ospy/templates/plugins_manage.html:64 ospy/templates/program.html:423
+#: ospy/templates/programs.html:16 ospy/templates/programs_user.html:14
 msgid "Off"
 msgstr "Vyp"
 
-#: ospy/templates/home.html:183
+#: ospy/templates/home.html:183 ospy/templates/home_admin.html:183
+#: ospy/templates/home_user.html:181
 msgid "Enter percentage adjustment"
 msgstr "Vložte procenta pro úpravu množství vody"
 
-#: ospy/templates/home.html:186
+#: ospy/templates/home.html:186 ospy/templates/home_admin.html:186
+#: ospy/templates/home_user.html:184
 msgid "Percentage must be a positive value"
 msgstr "Hodnota procent musí být kladné číslo"
 
-#: ospy/templates/home.html:198
+#: ospy/templates/home.html:198 ospy/templates/home_admin.html:198
+#: ospy/templates/home_user.html:196
 msgid "Enter hours to delay"
 msgstr "Vložte počet hodin pro zpoždění"
 
-#: ospy/templates/home.html:201
+#: ospy/templates/home.html:201 ospy/templates/home_admin.html:201
+#: ospy/templates/home_user.html:199
 msgid "Delay must be a positive value"
 msgstr "Hodnota zpoždění musí být kladné číslo"
 
-#: ospy/templates/home.html:231
+#: ospy/templates/home.html:231 ospy/templates/home_admin.html:231
+#: ospy/templates/home_public.html:199 ospy/templates/home_user.html:229
 msgid "(mm)"
 msgstr "(mm)"
 
-#: ospy/templates/home.html:231
+#: ospy/templates/home.html:231 ospy/templates/home_admin.html:231
+#: ospy/templates/home_public.html:199 ospy/templates/home_user.html:229
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
 #: plugins/ping_monitor/templates/ping_monitor.html:22
 #: plugins/pressure_monitor/templates/pressure_monitor.html:22
@@ -1051,19 +1115,25 @@ msgstr "(mm)"
 msgid "Reason"
 msgstr "Statistika"
 
-#: ospy/templates/home.html:237
+#: ospy/templates/home.html:237 ospy/templates/home_admin.html:237
+#: ospy/templates/home_public.html:205 ospy/templates/home_user.html:235
 msgid "ETo"
 msgstr "ETo"
 
-#: ospy/templates/home.html:238
+#: ospy/templates/home.html:238 ospy/templates/home_admin.html:238
+#: ospy/templates/home_public.html:206 ospy/templates/home_user.html:236
 msgid "Rain"
 msgstr "Déšť"
 
 #: ospy/templates/home.html:245 ospy/templates/home.html:531
+#: ospy/templates/home_admin.html:245 ospy/templates/home_admin.html:531
+#: ospy/templates/home_public.html:213 ospy/templates/home_public.html:399
+#: ospy/templates/home_user.html:243 ospy/templates/home_user.html:467
 msgid "Total"
 msgstr "Celkem"
 
-#: ospy/templates/home.html:248
+#: ospy/templates/home.html:248 ospy/templates/home_admin.html:248
+#: ospy/templates/home_public.html:216 ospy/templates/home_user.html:246
 #: plugins/ping_monitor/templates/ping_monitor.html:36
 #: plugins/pressure_monitor/templates/pressure_monitor.html:36
 #: plugins/tank_monitor/templates/tank_monitor.html:36
@@ -1072,105 +1142,120 @@ msgstr "Celkem"
 msgid "Previous Value"
 msgstr "Předchozí hodnota"
 
-#: ospy/templates/home.html:261
+#: ospy/templates/home.html:261 ospy/templates/home_admin.html:261
+#: ospy/templates/home_public.html:229 ospy/templates/home_user.html:259
 msgid "Water balance (mm)"
 msgstr "Vodní bilance (mm)"
 
-#: ospy/templates/home.html:391
+#: ospy/templates/home.html:391 ospy/templates/home_admin.html:391
 msgid "The system has detected that an OSPy update is available"
 msgstr "Systém zjistil, že je k dispozici aktualizace OSPy"
 
-#: ospy/templates/home.html:392
+#: ospy/templates/home.html:392 ospy/templates/home_admin.html:392
 #: plugins/system_update/templates/system_update.html:46
 msgid "Local OSPy version"
 msgstr "Místní OSPy verze"
 
-#: ospy/templates/home.html:393
+#: ospy/templates/home.html:393 ospy/templates/home_admin.html:393
 msgid "Available OSPy version"
 msgstr "Dostupná verze OSPy"
 
-#: ospy/templates/home.html:394
+#: ospy/templates/home.html:394 ospy/templates/home_admin.html:394
 msgid "Update system"
 msgstr "Aktualizovat systém"
 
-#: ospy/templates/home.html:397
+#: ospy/templates/home.html:397 ospy/templates/home_admin.html:397
 msgid "The system has detected that plugins updates are available"
 msgstr "Systém zjistil, že je k dispozici aktualizace rozšíření"
 
-#: ospy/templates/home.html:398
+#: ospy/templates/home.html:398 ospy/templates/home_admin.html:398
 msgid "Number of available updates for plugins"
 msgstr "Počet dostupných aktualizací pro rozšíření"
 
-#: ospy/templates/home.html:401
+#: ospy/templates/home.html:401 ospy/templates/home_admin.html:401
 msgid "Plugin name"
 msgstr "Název rozšíření"
 
-#: ospy/templates/home.html:403
+#: ospy/templates/home.html:403 ospy/templates/home_admin.html:403
 msgid "Open plugins"
 msgstr "Otevřít rozšíření"
 
-#: ospy/templates/home.html:408
+#: ospy/templates/home.html:408 ospy/templates/home_admin.html:408
 msgid "System notification"
 msgstr "Systémové oznámení"
 
-#: ospy/templates/home.html:440
+#: ospy/templates/home.html:440 ospy/templates/home_admin.html:440
+#: ospy/templates/home_user.html:388
 msgid "Timer values wrong:"
 msgstr "Časovač má vloženu nesprávnou hodnotu:"
 
-#: ospy/templates/home.html:500
+#: ospy/templates/home.html:500 ospy/templates/home_admin.html:500
+#: ospy/templates/home_user.html:436
 msgid "% Level"
 msgstr "% množství"
 
-#: ospy/templates/home.html:500
+#: ospy/templates/home.html:500 ospy/templates/home_admin.html:500
+#: ospy/templates/home_user.html:436
 msgid "Add or subtract the total program run time in % of time"
 msgstr "Přidání nebo odečtení celkové doby běhu programů v % času"
 
-#: ospy/templates/home.html:500
+#: ospy/templates/home.html:500 ospy/templates/home_admin.html:500
+#: ospy/templates/home_user.html:436
 msgid "Normal"
 msgstr "Normální"
 
-#: ospy/templates/home.html:500
+#: ospy/templates/home.html:500 ospy/templates/home_admin.html:500
+#: ospy/templates/home_user.html:436
 msgid "Water Level"
 msgstr "% doby programu"
 
-#: ospy/templates/home.html:502
+#: ospy/templates/home.html:502 ospy/templates/home_admin.html:502
+#: ospy/templates/home_user.html:438
 msgid "Rain Delay"
 msgstr "Zpoždění při dešti"
 
-#: ospy/templates/home.html:502
+#: ospy/templates/home.html:502 ospy/templates/home_admin.html:502
+#: ospy/templates/home_user.html:438
 msgid ""
 "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 "Nastavit dobu odpočítávání (dešťového zpoždění) a blokovat po tuto dobu "
 "programy"
 
-#: ospy/templates/home.html:502 plugins/lcd_display/__init__.py:272
+#: ospy/templates/home.html:502 ospy/templates/home_admin.html:502
+#: ospy/templates/home_user.html:438 plugins/lcd_display/__init__.py:272
 #: plugins/lcd_display/__init__.py:305 plugins/pressure_monitor/__init__.py:188
 #: plugins/pressure_monitor/__init__.py:189
 msgid "Active"
 msgstr "Aktivní"
 
-#: ospy/templates/home.html:506
+#: ospy/templates/home.html:506 ospy/templates/home_admin.html:506
+#: ospy/templates/home_user.html:442
 msgid "Rain sensed"
 msgstr "Detekován déšť"
 
-#: ospy/templates/home.html:509
+#: ospy/templates/home.html:509 ospy/templates/home_admin.html:509
+#: ospy/templates/home_user.html:445
 msgid "Schedule"
 msgstr "Plánovač"
 
-#: ospy/templates/home.html:509
+#: ospy/templates/home.html:509 ospy/templates/home_admin.html:509
+#: ospy/templates/home_user.html:445
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
-#: ospy/templates/home.html:509 ospy/webpages.py:304
+#: ospy/templates/home.html:509 ospy/templates/home_admin.html:509
+#: ospy/templates/home_user.html:445 ospy/webpages.py:324
 msgid "Manual"
 msgstr "Ručně"
 
-#: ospy/templates/home.html:512
+#: ospy/templates/home.html:512 ospy/templates/home_admin.html:512
+#: ospy/templates/home_user.html:448
 msgid "Enable or disable the scheduler running"
 msgstr "Povolit nebo zakázat provoz plánovače"
 
-#: ospy/templates/home.html:512 ospy/templates/log.html:7
+#: ospy/templates/home.html:512 ospy/templates/home_admin.html:512
+#: ospy/templates/home_user.html:448 ospy/templates/log.html:7
 #: ospy/templates/log.html:35 ospy/templates/program.html:372
 #: plugins/lcd_display/__init__.py:384
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
@@ -1178,72 +1263,93 @@ msgstr "Povolit nebo zakázat provoz plánovače"
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: ospy/templates/home.html:517
+#: ospy/templates/home.html:517 ospy/templates/home_admin.html:517
+#: ospy/templates/home_public.html:385 ospy/templates/home_user.html:453
 msgid "Water Level adjustments"
 msgstr "Nastavení úrovně vody"
 
-#: ospy/templates/home.html:521 ospy/templates/user.html:31
-#: ospy/templates/user.html:53 ospy/templates/users.html:30
+#: ospy/templates/home.html:521 ospy/templates/home_admin.html:521
+#: ospy/templates/home_public.html:389 ospy/templates/home_user.html:457
+#: ospy/templates/user.html:31 ospy/templates/user.html:53
+#: ospy/templates/users.html:30
 msgid "User"
 msgstr "Uživatel"
 
 #: ospy/templates/home.html:563 ospy/templates/home.html:576
+#: ospy/templates/home_admin.html:563 ospy/templates/home_admin.html:576
+#: ospy/templates/home_user.html:499 ospy/templates/home_user.html:512
 #: ospy/templates/plugins_manage.html:11 ospy/templates/plugins_manage.html:19
 #: ospy/templates/plugins_manage.html:62 ospy/templates/program.html:421
-#: ospy/templates/programs.html:14
+#: ospy/templates/programs.html:14 ospy/templates/programs_user.html:12
 msgid "On"
 msgstr "Zap"
 
-#: ospy/templates/home.html:565
+#: ospy/templates/home.html:565 ospy/templates/home_admin.html:565
+#: ospy/templates/home_user.html:501
 msgid "in"
 msgstr "v čase"
 
 #: ospy/templates/home.html:566 ospy/templates/home.html:578
+#: ospy/templates/home_admin.html:566 ospy/templates/home_admin.html:578
+#: ospy/templates/home_user.html:502 ospy/templates/home_user.html:514
 msgid "Type time for run in minutes"
 msgstr "Vložte dobu pro spuštění v minutách"
 
 #: ospy/templates/home.html:569 ospy/templates/home.html:581
+#: ospy/templates/home_admin.html:569 ospy/templates/home_admin.html:581
+#: ospy/templates/home_user.html:505 ospy/templates/home_user.html:517
 msgid "Type time for run in seconds"
 msgstr "Vložte dobu pro spuštění v sekundách"
 
-#: ospy/templates/home.html:573 plugins/email_reader/__init__.py:400
+#: ospy/templates/home.html:573 ospy/templates/home_admin.html:573
+#: ospy/templates/home_user.html:509 plugins/email_reader/__init__.py:406
 msgid "Forever"
 msgstr "Navždy"
 
-#: ospy/templates/home.html:587
-msgid "Press to stop all running stations"
-msgstr "Stisknutím tlačítka zastavíte všechny běžící stanice"
-
 #: ospy/templates/home.html:587 ospy/templates/home.html:623
+#: ospy/templates/home_admin.html:587 ospy/templates/home_admin.html:623
+#: ospy/templates/home_user.html:523 ospy/templates/home_user.html:559
 msgid "Stop All Stations"
 msgstr "Zastavit všechny stanice"
 
-#: ospy/templates/home.html:601
+#: ospy/templates/home.html:587 ospy/templates/home_admin.html:587
+#: ospy/templates/home_user.html:523
+msgid "Press to stop all running stations"
+msgstr "Stisknutím tlačítka zastavíte všechny běžící stanice"
+
+#: ospy/templates/home.html:601 ospy/templates/home_admin.html:601
+#: ospy/templates/home_public.html:413 ospy/templates/home_user.html:537
 msgid " Prev Day"
 msgstr " Včera"
 
-#: ospy/templates/home.html:602
+#: ospy/templates/home.html:602 ospy/templates/home_admin.html:602
+#: ospy/templates/home_public.html:414 ospy/templates/home_user.html:538
 msgid "Today"
 msgstr "Dnes"
 
-#: ospy/templates/home.html:603
+#: ospy/templates/home.html:603 ospy/templates/home_admin.html:603
+#: ospy/templates/home_public.html:415 ospy/templates/home_user.html:539
 msgid "Next Day"
 msgstr "Zítra"
 
-#: ospy/templates/home.html:617
+#: ospy/templates/home.html:617 ospy/templates/home_admin.html:617
+#: ospy/templates/home_public.html:429 ospy/templates/home_user.html:553
 msgid "loading..."
 msgstr "nahrávám..."
 
-#: ospy/templates/home.html:623
+#: ospy/templates/home.html:623 ospy/templates/home_admin.html:623
+#: ospy/templates/home_user.html:559
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 "Stisknutím tlačítka zastavíte všechny běžící stanice a vypnete plánovač!"
 
-#: ospy/templates/home.html:638
+#: ospy/templates/home.html:638 ospy/templates/home_admin.html:638
+#: ospy/templates/home_public.html:449 ospy/templates/home_user.html:574
 msgid "Deselecting the selected area in the chart"
 msgstr "Odznačit vybranou oblast v grafu"
 
-#: ospy/templates/home.html:638
+#: ospy/templates/home.html:638 ospy/templates/home_admin.html:638
+#: ospy/templates/home_public.html:449 ospy/templates/home_user.html:574
 #: plugins/air_temp_humi/templates/air_temp_humi.html:363
 #: plugins/ping_monitor/templates/ping_monitor.html:282
 #: plugins/pressure_monitor/templates/pressure_monitor.html:285
@@ -1253,35 +1359,43 @@ msgstr "Odznačit vybranou oblast v grafu"
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/home.html:647
+#: ospy/templates/home.html:647 ospy/templates/home_admin.html:647
+#: ospy/templates/home_user.html:583
 msgid "Weather - No location found!"
 msgstr "Počasí - nenalezeno ID vašeho umístění!"
 
-#: ospy/templates/home.html:649
+#: ospy/templates/home.html:649 ospy/templates/home_admin.html:649
+#: ospy/templates/home_user.html:585
 msgid "Weather - Location"
 msgstr "Počasí - umístění"
 
-#: ospy/templates/home.html:649
+#: ospy/templates/home.html:649 ospy/templates/home_admin.html:649
+#: ospy/templates/home_user.html:585
 msgid "found:"
 msgstr "nalezeno:"
 
-#: ospy/templates/home.html:652
+#: ospy/templates/home.html:652 ospy/templates/home_admin.html:652
+#: ospy/templates/home_user.html:588
 msgid "Displaying the found area on the map"
 msgstr "Zobrazit nalezenou oblast na mapě"
 
-#: ospy/templates/home.html:652
+#: ospy/templates/home.html:652 ospy/templates/home_admin.html:652
+#: ospy/templates/home_user.html:588
 msgid "Map"
 msgstr "Zobrazit mapu"
 
-#: ospy/templates/home.html:653
+#: ospy/templates/home.html:653 ospy/templates/home_admin.html:653
+#: ospy/templates/home_user.html:589
 msgid "lat"
 msgstr "zeměpisná šířka"
 
-#: ospy/templates/home.html:653
+#: ospy/templates/home.html:653 ospy/templates/home_admin.html:653
+#: ospy/templates/home_user.html:589
 msgid "lon"
 msgstr "zeměpisná délka"
 
-#: ospy/templates/home.html:655
+#: ospy/templates/home.html:655 ospy/templates/home_admin.html:655
+#: ospy/templates/home_user.html:591
 msgid "Weather - No location coordinates available!"
 msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
 
@@ -1313,8 +1427,8 @@ msgid "Download log as"
 msgstr "Stáhnout záznam jako"
 
 #: ospy/templates/log.html:16 ospy/templates/log.html:43
-#: plugins/email_reader/__init__.py:769 plugins/email_reader/__init__.py:838
-#: plugins/email_reader/__init__.py:898
+#: plugins/email_reader/__init__.py:775 plugins/email_reader/__init__.py:844
+#: plugins/email_reader/__init__.py:904
 msgid "Date"
 msgstr "Datum"
 
@@ -1341,8 +1455,8 @@ msgstr "Trvání"
 msgid "Email"
 msgstr "E-mail"
 
-#: ospy/templates/log.html:44 plugins/email_reader/__init__.py:770
-#: plugins/email_reader/__init__.py:839 plugins/email_reader/__init__.py:899
+#: ospy/templates/log.html:44 plugins/email_reader/__init__.py:776
+#: plugins/email_reader/__init__.py:845 plugins/email_reader/__init__.py:905
 msgid "Time"
 msgstr "Čas"
 
@@ -1444,7 +1558,7 @@ msgstr "Nepoužito"
 #: ospy/templates/options.html:155 ospy/templates/options.html:168
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:275
-#: plugins/email_reader/__init__.py:773 plugins/pool_heating/__init__.py:125
+#: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:125
 #: plugins/pool_heating/__init__.py:156
 #: plugins/pool_heating/templates/pool_heating.html:73
 #: plugins/pressure_monitor/templates/pressure_monitor.html:202
@@ -1887,11 +2001,12 @@ msgstr " (Nejvíce upřednostněné)"
 msgid "Save"
 msgstr "Uložit"
 
-#: ospy/templates/programs.html:20
+#: ospy/templates/programs.html:20 ospy/templates/programs_user.html:18
 msgid "Run:"
 msgstr "Poběží:"
 
-#: ospy/templates/programs.html:26 ospy/templates/runonce.html:53
+#: ospy/templates/programs.html:26 ospy/templates/programs_user.html:24
+#: ospy/templates/runonce.html:53
 msgid "Run Now"
 msgstr "Spustit nyní"
 
@@ -2254,14 +2369,10 @@ msgid "Password:"
 msgstr "Heslo:"
 
 #: ospy/webpages.py:82
-msgid "Incorrect password, please try again"
-msgstr "Nesprávné heslo, opakujte prosím"
+msgid "Incorrect username or password, please try again..."
+msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:86
-msgid "Incorrect username, please try again"
-msgstr "Nesprávné uživatelské jméno, zkuste to prosím znovu"
-
-#: ospy/webpages.py:680
+#: ospy/webpages.py:753
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2269,7 +2380,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:686
+#: ospy/webpages.py:759
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -2277,7 +2388,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:691
+#: ospy/webpages.py:764
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -2285,7 +2396,7 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:703
+#: ospy/webpages.py:776
 msgid ""
 "All system OSPy settings have been cleared in the settings, the OSPy will "
 "now restart and load the default settings."
@@ -2293,7 +2404,7 @@ msgstr ""
 "Všechna nastavení systému OSPy byla v nastavení vymazána, OSPy se nyní "
 "restartuje a načte výchozí nastavení."
 
-#: ospy/webpages.py:711
+#: ospy/webpages.py:784
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -2301,46 +2412,46 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:782 ospy/webpages.py:811
+#: ospy/webpages.py:870 ospy/webpages.py:904
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:838 ospy/webpages.py:841
+#: ospy/webpages.py:936 ospy/webpages.py:939
 msgid "Upload, save, copy options.db file sucesfully, now restarting OSPy..."
 msgstr ""
 "Nahrát, uložit, kopírovat soubor options.db bylo provedeno, nyní restartuji "
 "OSPy..."
 
-#: ospy/webpages.py:865 ospy/webpages.py:866
+#: ospy/webpages.py:968 ospy/webpages.py:969
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:897 ospy/webpages.py:898 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:1000 ospy/webpages.py:1001 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:917
+#: ospy/webpages.py:1020
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:921
+#: ospy/webpages.py:1024
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:927
+#: ospy/webpages.py:1030
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:1076
+#: ospy/webpages.py:1179
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1089 ospy/webpages.py:1155
+#: ospy/webpages.py:1192 ospy/webpages.py:1258
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1101 ospy/webpages.py:1142
+#: ospy/webpages.py:1204 ospy/webpages.py:1245
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -2349,7 +2460,7 @@ msgid "Package: Air Temperature and Humidity Monitor"
 msgstr "Balíček: Monitor teploty a vlhkosti vzduchu"
 
 #: plugins/air_temp_humi/__init__.py:118 plugins/air_temp_humi/__init__.py:155
-#: plugins/air_temp_humi/__init__.py:211 plugins/email_reader/__init__.py:771
+#: plugins/air_temp_humi/__init__.py:211 plugins/email_reader/__init__.py:777
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
@@ -2363,7 +2474,7 @@ msgstr "Data z čidla DHT11 nejsou v pořádku"
 msgid "DHT"
 msgstr "DHT"
 
-#: plugins/air_temp_humi/__init__.py:156 plugins/email_reader/__init__.py:772
+#: plugins/air_temp_humi/__init__.py:156 plugins/email_reader/__init__.py:778
 msgid "Humidity"
 msgstr "Vlhkost"
 
@@ -3081,14 +3192,14 @@ msgstr "Ping"
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:825 plugins/tank_monitor/__init__.py:148
+#: plugins/email_reader/__init__.py:831 plugins/tank_monitor/__init__.py:148
 #: plugins/tank_monitor/__init__.py:151 plugins/tank_monitor/__init__.py:530
 #: plugins/tank_monitor/__init__.py:719
 msgid "Volume"
 msgstr "Objem"
 
 #: plugins/email_notifications/__init__.py:158
-#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:844
+#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:850
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
 msgid "liters"
 msgstr "litrů"
@@ -3096,7 +3207,7 @@ msgstr "litrů"
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
-#: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:846
+#: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:852
 #: plugins/lcd_display/__init__.py:329 plugins/tank_monitor/__init__.py:150
 #: plugins/tank_monitor/__init__.py:151
 msgid "m3"
@@ -3383,27 +3494,27 @@ msgstr "Plánovač byl přepnut na zapnuto."
 #: plugins/email_reader/__init__.py:299 plugins/email_reader/__init__.py:313
 #: plugins/email_reader/__init__.py:316 plugins/email_reader/__init__.py:332
 #: plugins/email_reader/__init__.py:338 plugins/email_reader/__init__.py:340
-#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:373
-#: plugins/email_reader/__init__.py:379 plugins/email_reader/__init__.py:405
-#: plugins/email_reader/__init__.py:411 plugins/email_reader/__init__.py:414
-#: plugins/email_reader/__init__.py:421 plugins/email_reader/__init__.py:424
-#: plugins/email_reader/__init__.py:431 plugins/email_reader/__init__.py:434
-#: plugins/email_reader/__init__.py:446 plugins/email_reader/__init__.py:449
-#: plugins/email_reader/__init__.py:461 plugins/email_reader/__init__.py:464
-#: plugins/email_reader/__init__.py:476 plugins/email_reader/__init__.py:479
-#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:494
-#: plugins/email_reader/__init__.py:506 plugins/email_reader/__init__.py:509
-#: plugins/email_reader/__init__.py:521 plugins/email_reader/__init__.py:524
-#: plugins/email_reader/__init__.py:536 plugins/email_reader/__init__.py:539
-#: plugins/email_reader/__init__.py:553 plugins/email_reader/__init__.py:555
-#: plugins/email_reader/__init__.py:561 plugins/email_reader/__init__.py:564
-#: plugins/email_reader/__init__.py:569 plugins/email_reader/__init__.py:574
-#: plugins/email_reader/__init__.py:581 plugins/email_reader/__init__.py:598
-#: plugins/email_reader/__init__.py:612 plugins/email_reader/__init__.py:616
-#: plugins/email_reader/__init__.py:650 plugins/email_reader/__init__.py:653
-#: plugins/email_reader/__init__.py:655 plugins/email_reader/__init__.py:659
-#: plugins/email_reader/__init__.py:661 plugins/email_reader/__init__.py:670
-#: plugins/email_reader/__init__.py:682
+#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:379
+#: plugins/email_reader/__init__.py:385 plugins/email_reader/__init__.py:411
+#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:420
+#: plugins/email_reader/__init__.py:427 plugins/email_reader/__init__.py:430
+#: plugins/email_reader/__init__.py:437 plugins/email_reader/__init__.py:440
+#: plugins/email_reader/__init__.py:452 plugins/email_reader/__init__.py:455
+#: plugins/email_reader/__init__.py:467 plugins/email_reader/__init__.py:470
+#: plugins/email_reader/__init__.py:482 plugins/email_reader/__init__.py:485
+#: plugins/email_reader/__init__.py:497 plugins/email_reader/__init__.py:500
+#: plugins/email_reader/__init__.py:512 plugins/email_reader/__init__.py:515
+#: plugins/email_reader/__init__.py:527 plugins/email_reader/__init__.py:530
+#: plugins/email_reader/__init__.py:542 plugins/email_reader/__init__.py:545
+#: plugins/email_reader/__init__.py:559 plugins/email_reader/__init__.py:561
+#: plugins/email_reader/__init__.py:567 plugins/email_reader/__init__.py:570
+#: plugins/email_reader/__init__.py:575 plugins/email_reader/__init__.py:580
+#: plugins/email_reader/__init__.py:587 plugins/email_reader/__init__.py:604
+#: plugins/email_reader/__init__.py:618 plugins/email_reader/__init__.py:622
+#: plugins/email_reader/__init__.py:656 plugins/email_reader/__init__.py:659
+#: plugins/email_reader/__init__.py:661 plugins/email_reader/__init__.py:665
+#: plugins/email_reader/__init__.py:667 plugins/email_reader/__init__.py:676
+#: plugins/email_reader/__init__.py:688
 msgid "E-mail Reader plug-in"
 msgstr "Rošíření čtečka E-mailů"
 
@@ -3415,20 +3526,20 @@ msgstr "Rošíření čtečka E-mailů"
 #: plugins/email_reader/__init__.py:186 plugins/email_reader/__init__.py:208
 #: plugins/email_reader/__init__.py:243 plugins/email_reader/__init__.py:274
 #: plugins/email_reader/__init__.py:299 plugins/email_reader/__init__.py:332
-#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:373
-#: plugins/email_reader/__init__.py:379 plugins/email_reader/__init__.py:405
-#: plugins/email_reader/__init__.py:411 plugins/email_reader/__init__.py:414
-#: plugins/email_reader/__init__.py:421 plugins/email_reader/__init__.py:424
-#: plugins/email_reader/__init__.py:431 plugins/email_reader/__init__.py:434
-#: plugins/email_reader/__init__.py:446 plugins/email_reader/__init__.py:449
-#: plugins/email_reader/__init__.py:461 plugins/email_reader/__init__.py:464
-#: plugins/email_reader/__init__.py:476 plugins/email_reader/__init__.py:479
-#: plugins/email_reader/__init__.py:491 plugins/email_reader/__init__.py:494
-#: plugins/email_reader/__init__.py:506 plugins/email_reader/__init__.py:509
-#: plugins/email_reader/__init__.py:521 plugins/email_reader/__init__.py:524
-#: plugins/email_reader/__init__.py:536 plugins/email_reader/__init__.py:539
-#: plugins/email_reader/__init__.py:581 plugins/email_reader/__init__.py:607
-#: plugins/email_reader/__init__.py:650
+#: plugins/email_reader/__init__.py:347 plugins/email_reader/__init__.py:379
+#: plugins/email_reader/__init__.py:385 plugins/email_reader/__init__.py:411
+#: plugins/email_reader/__init__.py:417 plugins/email_reader/__init__.py:420
+#: plugins/email_reader/__init__.py:427 plugins/email_reader/__init__.py:430
+#: plugins/email_reader/__init__.py:437 plugins/email_reader/__init__.py:440
+#: plugins/email_reader/__init__.py:452 plugins/email_reader/__init__.py:455
+#: plugins/email_reader/__init__.py:467 plugins/email_reader/__init__.py:470
+#: plugins/email_reader/__init__.py:482 plugins/email_reader/__init__.py:485
+#: plugins/email_reader/__init__.py:497 plugins/email_reader/__init__.py:500
+#: plugins/email_reader/__init__.py:512 plugins/email_reader/__init__.py:515
+#: plugins/email_reader/__init__.py:527 plugins/email_reader/__init__.py:530
+#: plugins/email_reader/__init__.py:542 plugins/email_reader/__init__.py:545
+#: plugins/email_reader/__init__.py:587 plugins/email_reader/__init__.py:613
+#: plugins/email_reader/__init__.py:656
 msgid "The command has been processed."
 msgstr "Příkaz byl zpracován."
 
@@ -3441,14 +3552,14 @@ msgstr "Příkaz byl zpracován."
 #: plugins/email_reader/__init__.py:280 plugins/email_reader/__init__.py:300
 #: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:336
 #: plugins/email_reader/__init__.py:339 plugins/email_reader/__init__.py:348
-#: plugins/email_reader/__init__.py:380 plugins/email_reader/__init__.py:412
-#: plugins/email_reader/__init__.py:422 plugins/email_reader/__init__.py:432
-#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:462
-#: plugins/email_reader/__init__.py:477 plugins/email_reader/__init__.py:492
-#: plugins/email_reader/__init__.py:507 plugins/email_reader/__init__.py:522
-#: plugins/email_reader/__init__.py:537 plugins/email_reader/__init__.py:551
-#: plugins/email_reader/__init__.py:554 plugins/email_reader/__init__.py:562
-#: plugins/email_reader/__init__.py:570
+#: plugins/email_reader/__init__.py:386 plugins/email_reader/__init__.py:418
+#: plugins/email_reader/__init__.py:428 plugins/email_reader/__init__.py:438
+#: plugins/email_reader/__init__.py:453 plugins/email_reader/__init__.py:468
+#: plugins/email_reader/__init__.py:483 plugins/email_reader/__init__.py:498
+#: plugins/email_reader/__init__.py:513 plugins/email_reader/__init__.py:528
+#: plugins/email_reader/__init__.py:543 plugins/email_reader/__init__.py:557
+#: plugins/email_reader/__init__.py:560 plugins/email_reader/__init__.py:568
+#: plugins/email_reader/__init__.py:576
 msgid ": %s"
 msgstr ": %s"
 
@@ -3461,14 +3572,14 @@ msgstr ": %s"
 #: plugins/email_reader/__init__.py:280 plugins/email_reader/__init__.py:300
 #: plugins/email_reader/__init__.py:314 plugins/email_reader/__init__.py:336
 #: plugins/email_reader/__init__.py:339 plugins/email_reader/__init__.py:348
-#: plugins/email_reader/__init__.py:380 plugins/email_reader/__init__.py:412
-#: plugins/email_reader/__init__.py:422 plugins/email_reader/__init__.py:432
-#: plugins/email_reader/__init__.py:447 plugins/email_reader/__init__.py:462
-#: plugins/email_reader/__init__.py:477 plugins/email_reader/__init__.py:492
-#: plugins/email_reader/__init__.py:507 plugins/email_reader/__init__.py:522
-#: plugins/email_reader/__init__.py:537 plugins/email_reader/__init__.py:551
-#: plugins/email_reader/__init__.py:554 plugins/email_reader/__init__.py:562
-#: plugins/email_reader/__init__.py:570 plugins/email_reader/__init__.py:582
+#: plugins/email_reader/__init__.py:386 plugins/email_reader/__init__.py:418
+#: plugins/email_reader/__init__.py:428 plugins/email_reader/__init__.py:438
+#: plugins/email_reader/__init__.py:453 plugins/email_reader/__init__.py:468
+#: plugins/email_reader/__init__.py:483 plugins/email_reader/__init__.py:498
+#: plugins/email_reader/__init__.py:513 plugins/email_reader/__init__.py:528
+#: plugins/email_reader/__init__.py:543 plugins/email_reader/__init__.py:557
+#: plugins/email_reader/__init__.py:560 plugins/email_reader/__init__.py:568
+#: plugins/email_reader/__init__.py:576 plugins/email_reader/__init__.py:588
 #: plugins/sms_adj/__init__.py:219 plugins/sms_adj/__init__.py:264
 #: plugins/sms_adj/__init__.py:269 plugins/sms_adj/__init__.py:281
 #: plugins/sms_adj/__init__.py:286 plugins/sms_adj/__init__.py:295
@@ -3488,16 +3599,16 @@ msgstr "Příkaz"
 #: plugins/email_reader/__init__.py:260 plugins/email_reader/__init__.py:274
 #: plugins/email_reader/__init__.py:281 plugins/email_reader/__init__.py:316
 #: plugins/email_reader/__init__.py:332 plugins/email_reader/__init__.py:340
-#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:405
-#: plugins/email_reader/__init__.py:414 plugins/email_reader/__init__.py:424
-#: plugins/email_reader/__init__.py:434 plugins/email_reader/__init__.py:449
-#: plugins/email_reader/__init__.py:464 plugins/email_reader/__init__.py:479
-#: plugins/email_reader/__init__.py:494 plugins/email_reader/__init__.py:509
-#: plugins/email_reader/__init__.py:524 plugins/email_reader/__init__.py:539
-#: plugins/email_reader/__init__.py:555 plugins/email_reader/__init__.py:564
-#: plugins/email_reader/__init__.py:574 plugins/email_reader/__init__.py:608
-#: plugins/email_reader/__init__.py:616 plugins/email_reader/__init__.py:650
-#: plugins/email_reader/__init__.py:655 plugins/email_reader/__init__.py:661
+#: plugins/email_reader/__init__.py:379 plugins/email_reader/__init__.py:411
+#: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:430
+#: plugins/email_reader/__init__.py:440 plugins/email_reader/__init__.py:455
+#: plugins/email_reader/__init__.py:470 plugins/email_reader/__init__.py:485
+#: plugins/email_reader/__init__.py:500 plugins/email_reader/__init__.py:515
+#: plugins/email_reader/__init__.py:530 plugins/email_reader/__init__.py:545
+#: plugins/email_reader/__init__.py:561 plugins/email_reader/__init__.py:570
+#: plugins/email_reader/__init__.py:580 plugins/email_reader/__init__.py:614
+#: plugins/email_reader/__init__.py:622 plugins/email_reader/__init__.py:656
+#: plugins/email_reader/__init__.py:661 plugins/email_reader/__init__.py:667
 msgid "MSG: %s"
 msgstr "ZPRÁVA: %s"
 
@@ -3510,14 +3621,14 @@ msgid "OSPy has switched to manual control."
 msgstr "OSPy byl přepnut na ruční ovládání."
 
 #: plugins/email_reader/__init__.py:166 plugins/email_reader/__init__.py:169
-#: plugins/email_reader/__init__.py:430 plugins/email_reader/__init__.py:433
-#: plugins/email_reader/__init__.py:445 plugins/email_reader/__init__.py:448
-#: plugins/email_reader/__init__.py:460 plugins/email_reader/__init__.py:463
-#: plugins/email_reader/__init__.py:475 plugins/email_reader/__init__.py:478
-#: plugins/email_reader/__init__.py:490 plugins/email_reader/__init__.py:493
-#: plugins/email_reader/__init__.py:505 plugins/email_reader/__init__.py:508
-#: plugins/email_reader/__init__.py:520 plugins/email_reader/__init__.py:523
-#: plugins/email_reader/__init__.py:535 plugins/email_reader/__init__.py:538
+#: plugins/email_reader/__init__.py:436 plugins/email_reader/__init__.py:439
+#: plugins/email_reader/__init__.py:451 plugins/email_reader/__init__.py:454
+#: plugins/email_reader/__init__.py:466 plugins/email_reader/__init__.py:469
+#: plugins/email_reader/__init__.py:481 plugins/email_reader/__init__.py:484
+#: plugins/email_reader/__init__.py:496 plugins/email_reader/__init__.py:499
+#: plugins/email_reader/__init__.py:511 plugins/email_reader/__init__.py:514
+#: plugins/email_reader/__init__.py:526 plugins/email_reader/__init__.py:529
+#: plugins/email_reader/__init__.py:541 plugins/email_reader/__init__.py:544
 msgid "OSPy has switched to scheduler controler."
 msgstr "OSPy byl přepnut na plánovač."
 
@@ -3547,13 +3658,13 @@ msgstr "Soubor se záznamem neexistuje!"
 #: plugins/email_reader/__init__.py:279 plugins/email_reader/__init__.py:281
 #: plugins/email_reader/__init__.py:313 plugins/email_reader/__init__.py:316
 #: plugins/email_reader/__init__.py:337 plugins/email_reader/__init__.py:338
-#: plugins/email_reader/__init__.py:340 plugins/email_reader/__init__.py:552
-#: plugins/email_reader/__init__.py:553 plugins/email_reader/__init__.py:555
-#: plugins/email_reader/__init__.py:561 plugins/email_reader/__init__.py:564
-#: plugins/email_reader/__init__.py:569 plugins/email_reader/__init__.py:574
-#: plugins/email_reader/__init__.py:612 plugins/email_reader/__init__.py:616
-#: plugins/email_reader/__init__.py:653 plugins/email_reader/__init__.py:655
+#: plugins/email_reader/__init__.py:340 plugins/email_reader/__init__.py:558
+#: plugins/email_reader/__init__.py:559 plugins/email_reader/__init__.py:561
+#: plugins/email_reader/__init__.py:567 plugins/email_reader/__init__.py:570
+#: plugins/email_reader/__init__.py:575 plugins/email_reader/__init__.py:580
+#: plugins/email_reader/__init__.py:618 plugins/email_reader/__init__.py:622
 #: plugins/email_reader/__init__.py:659 plugins/email_reader/__init__.py:661
+#: plugins/email_reader/__init__.py:665 plugins/email_reader/__init__.py:667
 msgid "The command has been not processed!"
 msgstr "Příkaz nebyl zpracován!"
 
@@ -3586,7 +3697,7 @@ msgid "Wind speed"
 msgstr "Rychlost větru"
 
 #: plugins/email_reader/__init__.py:304 plugins/email_reader/__init__.py:305
-#: plugins/email_reader/__init__.py:901 plugins/email_reader/__init__.py:902
+#: plugins/email_reader/__init__.py:907 plugins/email_reader/__init__.py:908
 #: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:170
 #: plugins/wind_monitor/__init__.py:233 plugins/wind_monitor/__init__.py:250
 #: plugins/wind_monitor/__init__.py:251
@@ -3605,7 +3716,7 @@ msgid "Maximal speed"
 msgstr "Maximální rychlost"
 
 #: plugins/email_reader/__init__.py:307 plugins/email_reader/__init__.py:308
-#: plugins/email_reader/__init__.py:904 plugins/email_reader/__init__.py:905
+#: plugins/email_reader/__init__.py:910 plugins/email_reader/__init__.py:911
 #: plugins/wind_monitor/__init__.py:167 plugins/wind_monitor/__init__.py:172
 msgid "m/sec"
 msgstr "m/s"
@@ -3656,17 +3767,32 @@ msgstr "Zastavit všechny běžící stanice"
 msgid "Send back help"
 msgstr "Poslat zpět nápovědu"
 
-#: plugins/email_reader/__init__.py:364
+#: plugins/email_reader/__init__.py:363
+#: plugins/email_reader/templates/email_reader.html:127
+msgid "Sending back temperature states"
+msgstr "Poslat zpět stav teplot"
+
+#: plugins/email_reader/__init__.py:365
+#: plugins/email_reader/templates/email_reader.html:132
+msgid "Sending back tank states"
+msgstr "Poslat zpět stav nádrže"
+
+#: plugins/email_reader/__init__.py:367
+#: plugins/email_reader/templates/email_reader.html:137
+msgid "Sending back wind states"
+msgstr "Poslat zpět stav větru"
+
+#: plugins/email_reader/__init__.py:370
 msgid "Selecting command %d"
 msgstr "Výběr příkazu %d"
 
-#: plugins/email_reader/__init__.py:366
+#: plugins/email_reader/__init__.py:372
 #: plugins/email_reader/templates/email_reader.html:198
 msgid "Sending message in body E-mail as list (use in manual mode)"
 msgstr ""
 "Odeslání zprávy v těle E-mailu jako seznam (použít pouze v manuálním režimu)"
 
-#: plugins/email_reader/__init__.py:367 plugins/email_reader/__init__.py:370
+#: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:376
 #: plugins/email_reader/templates/email_reader.html:199
 #: plugins/email_reader/templates/email_reader.html:202
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:52
@@ -3674,41 +3800,41 @@ msgstr ""
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr "Stanice 1 -> VYP, 2 -> VYP, 3 -> ZAP 100 sekund, 4 -> ZAP 30 sekund..."
 
-#: plugins/email_reader/__init__.py:368
+#: plugins/email_reader/__init__.py:374
 msgid "[0,0,100,30,...]"
 msgstr "[0,0,100,30,...]"
 
-#: plugins/email_reader/__init__.py:369
+#: plugins/email_reader/__init__.py:375
 #: plugins/email_reader/templates/email_reader.html:201
 msgid "Sending message in body E-mail as dict (use in manual mode)"
 msgstr ""
 "Odeslání zprávy v těle E-mailu jako slovník (použít pouze v manuálním režimu)"
 
-#: plugins/email_reader/__init__.py:371
+#: plugins/email_reader/__init__.py:377
 msgid "{\"aa\":0,\"bb\":0,\"cc\":100,\"dd\":30...}"
 msgstr "{\"aa\":0,\"bb\":0,\"cc\":100,\"dd\":30...}"
 
-#: plugins/email_reader/__init__.py:376
+#: plugins/email_reader/__init__.py:382
 msgid "OSPy sends the stations state to the administrator E-mail."
 msgstr "OSPy odeslat stav stanic správci E-mailem."
 
-#: plugins/email_reader/__init__.py:381
+#: plugins/email_reader/__init__.py:387
 msgid "Actual stations state"
 msgstr "Skutečný stav stanic"
 
-#: plugins/email_reader/__init__.py:383
+#: plugins/email_reader/__init__.py:389
 msgid "Main 1"
 msgstr "Hlavní 1"
 
-#: plugins/email_reader/__init__.py:383
+#: plugins/email_reader/__init__.py:389
 msgid "Main 2"
 msgstr "Hlavní 2"
 
-#: plugins/email_reader/__init__.py:383
+#: plugins/email_reader/__init__.py:389
 msgid "Station name"
 msgstr "Název stanice"
 
-#: plugins/email_reader/__init__.py:383
+#: plugins/email_reader/__init__.py:389
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/pressure_monitor/__init__.py:349
 #: plugins/pressure_monitor/__init__.py:472 plugins/ups_adj/__init__.py:314
@@ -3716,210 +3842,206 @@ msgstr "Název stanice"
 msgid "State"
 msgstr "Stav"
 
-#: plugins/email_reader/__init__.py:384
+#: plugins/email_reader/__init__.py:390
 msgid "Remaining time in sec"
 msgstr "Zbývající čas v sekundách"
 
-#: plugins/email_reader/__init__.py:388 plugins/relay_16/__init__.py:120
+#: plugins/email_reader/__init__.py:394 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127
 msgid "ON"
 msgstr "ZAP"
 
-#: plugins/email_reader/__init__.py:390 plugins/relay_16/__init__.py:137
+#: plugins/email_reader/__init__.py:396 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 msgid "OFF"
 msgstr "VYP"
 
-#: plugins/email_reader/__init__.py:392 plugins/email_reader/__init__.py:396
+#: plugins/email_reader/__init__.py:398 plugins/email_reader/__init__.py:402
 msgid "YES"
 msgstr "ANO"
 
-#: plugins/email_reader/__init__.py:402
-msgid "%s"
-msgstr "%s"
-
-#: plugins/email_reader/__init__.py:410 plugins/email_reader/__init__.py:413
+#: plugins/email_reader/__init__.py:416 plugins/email_reader/__init__.py:419
 msgid "System Linux has now reboot!"
 msgstr "Systém Linux se nyní restartuje!"
 
-#: plugins/email_reader/__init__.py:420 plugins/email_reader/__init__.py:423
+#: plugins/email_reader/__init__.py:426 plugins/email_reader/__init__.py:429
 msgid "System Linux has now shutdown!"
 msgstr "Systém Linux se nyní vypne!"
 
-#: plugins/email_reader/__init__.py:430 plugins/email_reader/__init__.py:433
+#: plugins/email_reader/__init__.py:436 plugins/email_reader/__init__.py:439
 msgid "Run now program 1."
 msgstr "Spustit nyní program 1."
 
-#: plugins/email_reader/__init__.py:445 plugins/email_reader/__init__.py:448
+#: plugins/email_reader/__init__.py:451 plugins/email_reader/__init__.py:454
 msgid "Run now program 2."
 msgstr "Spustit nyní program 2."
 
-#: plugins/email_reader/__init__.py:460 plugins/email_reader/__init__.py:463
+#: plugins/email_reader/__init__.py:466 plugins/email_reader/__init__.py:469
 msgid "Run now program 3."
 msgstr "Spustit nyní program 3."
 
-#: plugins/email_reader/__init__.py:475 plugins/email_reader/__init__.py:478
+#: plugins/email_reader/__init__.py:481 plugins/email_reader/__init__.py:484
 msgid "Run now program 4."
 msgstr "Spustit nyní program 4."
 
-#: plugins/email_reader/__init__.py:490 plugins/email_reader/__init__.py:493
+#: plugins/email_reader/__init__.py:496 plugins/email_reader/__init__.py:499
 msgid "Run now program 5."
 msgstr "Spustit nyní program 5."
 
-#: plugins/email_reader/__init__.py:505 plugins/email_reader/__init__.py:508
+#: plugins/email_reader/__init__.py:511 plugins/email_reader/__init__.py:514
 msgid "Run now program 6."
 msgstr "Spustit nyní program 6."
 
-#: plugins/email_reader/__init__.py:520 plugins/email_reader/__init__.py:523
+#: plugins/email_reader/__init__.py:526 plugins/email_reader/__init__.py:529
 msgid "Run now program 7."
 msgstr "Spustit nyní program 7."
 
-#: plugins/email_reader/__init__.py:535 plugins/email_reader/__init__.py:538
+#: plugins/email_reader/__init__.py:541 plugins/email_reader/__init__.py:544
 msgid "Run now program 8."
 msgstr "Spustit nyní program 8."
 
-#: plugins/email_reader/__init__.py:549 plugins/email_reader/__init__.py:567
-#: plugins/email_reader/__init__.py:571 plugins/email_reader/__init__.py:614
+#: plugins/email_reader/__init__.py:555 plugins/email_reader/__init__.py:573
+#: plugins/email_reader/__init__.py:577 plugins/email_reader/__init__.py:620
 msgid "Subject in message is"
 msgstr "Předmět přijaté zprávy je"
 
-#: plugins/email_reader/__init__.py:550 plugins/email_reader/__init__.py:568
-#: plugins/email_reader/__init__.py:572 plugins/email_reader/__init__.py:615
+#: plugins/email_reader/__init__.py:556 plugins/email_reader/__init__.py:574
+#: plugins/email_reader/__init__.py:578 plugins/email_reader/__init__.py:621
 msgid "Subject in options is"
 msgstr "Předmět v nastavení je"
 
-#: plugins/email_reader/__init__.py:560 plugins/email_reader/__init__.py:563
+#: plugins/email_reader/__init__.py:566 plugins/email_reader/__init__.py:569
 msgid "OSPy must be first switched to manual mode!"
 msgstr "OSPy musí být nejprve přepnuto do manuálního režimu!"
 
-#: plugins/email_reader/__init__.py:566 plugins/email_reader/__init__.py:573
+#: plugins/email_reader/__init__.py:572 plugins/email_reader/__init__.py:579
 msgid "Subject is not correct!"
 msgstr "Předmět zprávy není správný!"
 
-#: plugins/email_reader/__init__.py:577 plugins/mqtt_runonce/__init__.py:103
+#: plugins/email_reader/__init__.py:583 plugins/mqtt_runonce/__init__.py:103
 msgid "Try-ing to processing command."
 msgstr "Zkouším zpracovat příkaz."
 
-#: plugins/email_reader/__init__.py:584 plugins/email_reader/__init__.py:586
+#: plugins/email_reader/__init__.py:590 plugins/email_reader/__init__.py:592
 #: plugins/mqtt_runonce/__init__.py:108
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 "Není zadáno dostatečné množství stanic, za předpokladu, že první {} z {}"
 
-#: plugins/email_reader/__init__.py:588 plugins/email_reader/__init__.py:590
+#: plugins/email_reader/__init__.py:594 plugins/email_reader/__init__.py:596
 #: plugins/mqtt_runonce/__init__.py:111
 msgid "Too many stations specified, truncating to {}"
 msgstr "Bylo zadáno příliš mnoho stanic, zkrácení na {}"
 
-#: plugins/email_reader/__init__.py:601 plugins/email_reader/__init__.py:602
+#: plugins/email_reader/__init__.py:607 plugins/email_reader/__init__.py:608
 #: plugins/mqtt_runonce/__init__.py:123
 msgid "No station named"
 msgstr "Žádná stanice s názvem"
 
-#: plugins/email_reader/__init__.py:611 plugins/email_reader/__init__.py:613
-#: plugins/email_reader/__init__.py:654 plugins/mqtt_runonce/__init__.py:130
+#: plugins/email_reader/__init__.py:617 plugins/email_reader/__init__.py:619
+#: plugins/email_reader/__init__.py:660 plugins/mqtt_runonce/__init__.py:130
 msgid "Unexpected command"
 msgstr "Neočekávaný příkaz"
 
-#: plugins/email_reader/__init__.py:628
+#: plugins/email_reader/__init__.py:634
 #: plugins/email_reader/templates/email_reader.html:23
 msgid "E-mail Reader"
 msgstr "Čtečka E-mailů"
 
-#: plugins/email_reader/__init__.py:658 plugins/email_reader/__init__.py:660
+#: plugins/email_reader/__init__.py:664 plugins/email_reader/__init__.py:666
 msgid "Could not decode command"
 msgstr "Nelze dekódovat příkaz"
 
-#: plugins/email_reader/__init__.py:665
+#: plugins/email_reader/__init__.py:671
 msgid "Sending reply to administrator E-mail."
 msgstr "Odeslání odpovědi správci E-mailem."
 
-#: plugins/email_reader/__init__.py:768 plugins/email_reader/__init__.py:837
-#: plugins/email_reader/__init__.py:897
+#: plugins/email_reader/__init__.py:774 plugins/email_reader/__init__.py:843
+#: plugins/email_reader/__init__.py:903
 msgid "Date/Time"
 msgstr "Datum/Čas"
 
-#: plugins/email_reader/__init__.py:813
+#: plugins/email_reader/__init__.py:819
 msgid "Conversion error! Temperature data from json file to csv file"
 msgstr "Chyba převodu! Data teplota ze souboru json do souboru CSV"
 
-#: plugins/email_reader/__init__.py:822 plugins/tank_monitor/__init__.py:527
+#: plugins/email_reader/__init__.py:828 plugins/tank_monitor/__init__.py:527
 #: plugins/tank_monitor/__init__.py:716
 msgid "Minimum"
 msgstr "Minimum"
 
-#: plugins/email_reader/__init__.py:823 plugins/email_reader/__init__.py:884
+#: plugins/email_reader/__init__.py:829 plugins/email_reader/__init__.py:890
 #: plugins/tank_monitor/__init__.py:528 plugins/tank_monitor/__init__.py:717
 #: plugins/wind_monitor/__init__.py:492 plugins/wind_monitor/__init__.py:655
 msgid "Maximum"
 msgstr "Maximum"
 
-#: plugins/email_reader/__init__.py:824 plugins/email_reader/__init__.py:885
+#: plugins/email_reader/__init__.py:830 plugins/email_reader/__init__.py:891
 #: plugins/tank_monitor/__init__.py:529 plugins/tank_monitor/__init__.py:718
 #: plugins/wind_monitor/__init__.py:493 plugins/wind_monitor/__init__.py:656
 msgid "Actual"
 msgstr "Aktuální"
 
-#: plugins/email_reader/__init__.py:875
+#: plugins/email_reader/__init__.py:881
 msgid "Conversion error! Water tank data from json file to csv file"
 msgstr "Chyba převodu! Data vodní nádrž ze souboru json do souboru CSV"
 
-#: plugins/email_reader/__init__.py:932
+#: plugins/email_reader/__init__.py:938
 msgid "Conversion error! Wind monitor data from json file to csv file"
 msgstr "Chyba převodu! Data sledování větru ze souboru json do souboru CSV"
 
-#: plugins/email_reader/__init__.py:953 plugins/ping_monitor/__init__.py:412
+#: plugins/email_reader/__init__.py:959 plugins/ping_monitor/__init__.py:412
 #: plugins/pressurizer/__init__.py:219 plugins/tank_monitor/__init__.py:633
 #: plugins/wind_monitor/__init__.py:569
 msgid "Options has updated."
 msgstr "Nastavení bylo aktualizováno."
 
-#: plugins/email_reader/__init__.py:982
+#: plugins/email_reader/__init__.py:988
 msgid "You must provide a recipient E-mail address."
 msgstr "Je nutné zadat E-mailovou adresu příjemce (uživatele)."
 
-#: plugins/email_reader/__init__.py:985
+#: plugins/email_reader/__init__.py:991
 msgid "You must provide a recipient E-mail password."
 msgstr "Je nutné zadat heslo příjemce E-mailu."
 
-#: plugins/email_reader/__init__.py:988
+#: plugins/email_reader/__init__.py:994
 msgid "You must provide server."
 msgstr "Je nutné zadat server poskytovatele."
 
-#: plugins/email_reader/__init__.py:991
+#: plugins/email_reader/__init__.py:997
 msgid "You must provide recipient folder."
 msgstr "Je nutné zadat složku příchozí pošty."
 
-#: plugins/email_reader/__init__.py:1008
+#: plugins/email_reader/__init__.py:1014
 msgid "Login OK."
 msgstr "Přihlášení je v pořádku."
 
-#: plugins/email_reader/__init__.py:1011
+#: plugins/email_reader/__init__.py:1017
 msgid "Mail account login details are not filled in correctly!"
 msgstr "Přihlašovací údaje k poštovnímu účtu nejsou vyplněny správně!"
 
-#: plugins/email_reader/__init__.py:1017
+#: plugins/email_reader/__init__.py:1023
 msgid "Logout OK."
 msgstr "Odhlášení je v pořádku."
 
-#: plugins/email_reader/__init__.py:1052
+#: plugins/email_reader/__init__.py:1058
 msgid "You must provide a sender E-mail address!"
 msgstr ""
 "Musíte zadat E-mailovou adresu odesílatele (od koho budou zprávy odesílány)!"
 
-#: plugins/email_reader/__init__.py:1058
+#: plugins/email_reader/__init__.py:1064
 msgid "ERROR: Unable to open the folder"
 msgstr "Chyba: Nelze otevřít složku"
 
-#: plugins/email_reader/__init__.py:1069
+#: plugins/email_reader/__init__.py:1075
 msgid "ERROR: getting message"
 msgstr "Chyba: přijatá zpráva"
 
-#: plugins/email_reader/__init__.py:1109
+#: plugins/email_reader/__init__.py:1115
 msgid "Message has moved to trash folder."
 msgstr "Zpráva byla přesunuta do složky koše."
 
-#: plugins/email_reader/__init__.py:1113
+#: plugins/email_reader/__init__.py:1119
 msgid "Message has deleted."
 msgstr "Zpráva byla odstraněna."
 
@@ -4080,10 +4202,6 @@ msgstr "Poslat zpět stav stanic"
 msgid "Sending back all stations state via E-mail."
 msgstr "Odeslat zpět stavy všech stanic E-mailem."
 
-#: plugins/email_reader/templates/email_reader.html:127
-msgid "Sending back temperature states"
-msgstr "Poslat zpět stav teplot"
-
 #: plugins/email_reader/templates/email_reader.html:128
 msgid ""
 "Sending back all temperatures from air_temp_humi plugin with log file via E-"
@@ -4092,10 +4210,6 @@ msgstr ""
 "Odeslat zpět všechny teploty z rozšíření air_temp_humi se souborem logu "
 "prostřednictvím E-mailu (data z rozšíření)."
 
-#: plugins/email_reader/templates/email_reader.html:132
-msgid "Sending back tank states"
-msgstr "Poslat zpět stav nádrže"
-
 #: plugins/email_reader/templates/email_reader.html:133
 msgid ""
 "Sending back tank states from tank_monitor plugin with log file via E-mail "
@@ -4103,10 +4217,6 @@ msgid ""
 msgstr ""
 "Odeslat zpět stav hladiny nádrže z rozšíření tank_monitor se souborem logu "
 "prostřednictvím E-mailu (data z rozšíření)."
-
-#: plugins/email_reader/templates/email_reader.html:137
-msgid "Sending back wind states"
-msgstr "Poslat zpět stav větru"
 
 #: plugins/email_reader/templates/email_reader.html:138
 msgid ""
@@ -8401,6 +8511,9 @@ msgstr "Aktuální rychlost větru (zobrazuje se každých 10 sekund)"
 #: plugins/wind_monitor/templates/wind_monitor.html:347
 msgid "Reset max speed"
 msgstr "Smazat max rychlost"
+
+#~ msgid "Incorrect username, please try again"
+#~ msgstr "Nesprávné uživatelské jméno, zkuste to prosím znovu"
 
 #~ msgid "MQTT Run-once Plugin started."
 #~ msgstr "Rozšíření MQTT jednorázový program bylo spuštěno."

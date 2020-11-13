@@ -12,7 +12,7 @@ from threading import Timer
 import traceback
 
 # Local imports
-from ospy.helpers import test_password, test_username, template_globals, check_login, save_to_options, \
+from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
 from ospy.inputs import inputs
 from ospy.log import log, logEM
@@ -75,17 +75,13 @@ def report_program_runnow():
 from web import form
 
 signin_form = form.Form(
-	form.Textbox('username', description=_('Username:')),
+    form.Textbox('username', description=_('Username:')),
     form.Password('password', description=_('Password:')),
     validators=[
         form.Validator(
-            _('Incorrect password, please try again'),
-            lambda x: test_password(x["password"])
-        ),  
-        form.Validator(
-            _('Incorrect username, please try again'),
-            lambda x: test_username(x["username"])
-        )       
+            _('Incorrect username or password, please try again...'),
+            lambda x: test_password(x["password"], x["username"])
+        )  
     ]
 
 )
@@ -155,6 +151,11 @@ class users_page(ProtectedPage):
     """Open all users page. /users"""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
         if delete_all:
@@ -167,6 +168,11 @@ class users_page(ProtectedPage):
 class user_page(ProtectedPage):
     """Open page to allow user modification. /user """
     def GET(self, index):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         try:
             index = int(index)
@@ -188,6 +194,11 @@ class user_page(ProtectedPage):
 
 
     def POST(self, index):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         try:
             index = int(index)
@@ -243,6 +254,7 @@ class logout_page(WebPage):
     def GET(self):
         from ospy import server
         server.session.kill()
+        server.session['category'] = 'public'
         raise web.seeother(u'/')
 
 
@@ -250,7 +262,14 @@ class home_page(ProtectedPage):
     """Open Home page."""
 
     def GET(self):
-        return self.core_render.home()
+        from ospy import server
+
+        if server.session['category'] == 'public':
+            return self.core_render.home_public()
+        elif server.session['category'] == 'user': 
+            return self.core_render.home_user()
+        elif server.session['category'] == 'admin':  
+            return self.core_render.home_admin()  
 
 
 class action_page(ProtectedPage):
@@ -258,6 +277,7 @@ class action_page(ProtectedPage):
 
     def GET(self):
         from ospy import server
+
         qdict = web.input()
 
         stop_all = get_input(qdict, 'stop_all', False, lambda x: True)
@@ -333,14 +353,22 @@ class programs_page(ProtectedPage):
     """Open programs page."""
 
     def GET(self):
+        from ospy import server
+
         qdict = web.input()
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
-        if delete_all:
+        if delete_all and server.session['category'] == 'admin':
             while programs.count() > 0:
                 programs.remove_program(programs.count()-1)
             report_program_deleted()
-        return self.core_render.programs()
 
+        if server.session['category'] == 'admin':
+            return self.core_render.programs()
+        if server.session['category'] == 'user': 
+            return self.core_render.programs_user()
+        
+        raise web.seeother(u'/')
+   
 
 class program_page(ProtectedPage):
     """Open page to allow program modification."""
@@ -380,6 +408,11 @@ class program_page(ProtectedPage):
         return self.core_render.program(program)
 
     def POST(self, index):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         try:
             index = int(index)
@@ -458,6 +491,8 @@ class runonce_page(ProtectedPage):
         return self.core_render.runonce()
 
     def POST(self):
+        from ospy import server
+
         qdict = web.input()
         station_seconds = {}
         for station in stations.enabled_stations():
@@ -467,9 +502,9 @@ class runonce_page(ProtectedPage):
                 seconds = int(qdict[mm_str] or 0) * 60 + int(qdict[ss_str] or 0)
                 station_seconds[station.index] = seconds
 
-        
-        run_once.set(station_seconds)
-        report_program_toggle()
+        if server.session['category'] == 'admin' or server.session['category'] != 'user':
+            run_once.set(station_seconds)
+            report_program_toggle()
         raise web.seeother(u'/')
 
 
@@ -477,6 +512,8 @@ class plugins_manage_page(ProtectedPage):
     """Manage plugins page."""
 
     def GET(self):
+        from ospy import server
+
         qdict = web.input()
         plugin = get_input(qdict, 'plugin', None)
         delete = get_input(qdict, 'delete', False, lambda x: True)
@@ -487,17 +524,17 @@ class plugins_manage_page(ProtectedPage):
         auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
         use_update = get_input(qdict, 'use', None, lambda x: x == '1')
 
-        if disable_all:
+        if disable_all and server.session['category'] == 'admin':
             options.enabled_plugins = []
             plugins.start_enabled_plugins()
 
-        if enable_all:
+        if enable_all and server.session['category'] == 'admin':
             for plugin in plugins.available():
                if plugin not in options.enabled_plugins:
                   options.enabled_plugins.append(plugin)
             plugins.start_enabled_plugins()
 
-        if delete_all:
+        if delete_all and server.session['category'] == 'admin':
             from ospy.helpers import del_rw
             import shutil
             for plugin in plugins.available():
@@ -512,7 +549,7 @@ class plugins_manage_page(ProtectedPage):
             if delete:
                 enable = False
 
-            if enable is not None:
+            if enable is not None and server.session['category'] == 'admin':
                 if not enable and plugin in options.enabled_plugins:
                     options.enabled_plugins.remove(plugin)
                 elif enable and plugin not in options.enabled_plugins:
@@ -520,18 +557,18 @@ class plugins_manage_page(ProtectedPage):
                 options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
                 plugins.start_enabled_plugins()
 
-            if delete:
+            if delete and server.session['category'] == 'admin':
                 from ospy.helpers import del_rw
                 import shutil
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
 
             raise web.seeother(u'/plugins_manage')
 
-        if auto_update is not None:
+        if auto_update is not None and server.session['category'] == 'admin':
             options.auto_plugin_update = auto_update
             raise web.seeother(u'/plugins_manage')
         
-        if use_update is not None:
+        if use_update is not None and server.session['category'] == 'admin':
             options.use_plugin_update = use_update
             raise web.seeother(u'/plugins_manage')    
 
@@ -542,6 +579,11 @@ class plugins_install_page(ProtectedPage):
     """Manage plugins page."""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         repo = get_input(qdict, 'repo', None, int)
         plugin = get_input(qdict, 'plugin', None)
@@ -561,6 +603,11 @@ class plugins_install_page(ProtectedPage):
 
 
     def POST(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input(zipfile={})
 
         zip_file_data = qdict['zipfile'].file
@@ -573,12 +620,14 @@ class log_page(ProtectedPage):
     """View Log"""
 
     def GET(self):
+        from ospy import server
+
         qdict = web.input()
-        if 'clear' in qdict:
+        if 'clear' in qdict and server.session['category'] == 'admin':
             log.clear_runs()
             raise web.seeother(u'/log')
 
-        if 'clearEM' in qdict:
+        if 'clearEM' in qdict and server.session['category'] == 'admin':
             logEM.clear_email()
             raise web.seeother(u'/log')
 
@@ -629,12 +678,22 @@ class options_page(ProtectedPage):
     """Open the options page for viewing and editing."""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
         errorCode = qdict.get('errorCode', 'none')
 
         return self.core_render.options(errorCode)
 
     def POST(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')        
+
     	changing_language = False
 
         qdict = web.input()
@@ -719,9 +778,19 @@ class stations_page(ProtectedPage):
     """Stations page"""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         return self.core_render.stations()
 
     def POST(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         qdict = web.input()
 
         recalc = False
@@ -779,40 +848,50 @@ class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         msg = _('System component is unreachable or busy. Please wait (try again later).')
         return self.core_render.notice('/download', msg)    	      
 
 class download_page(ProtectedPage):
     """Download OSPy DB file with settings"""
     def GET(self):
-       OPTIONS_FILE = './ospy/data/options.db'
+        from ospy import server
 
-       def _read_log():
-          """Read OSPy DB file"""
-          try:                
-             logf = open(OPTIONS_FILE,'r')
-             return logf.read()
-          except IOError:
-             return []
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
 
-       try:
-          if os.path.getsize(OPTIONS_FILE)>= 12288: # default db file size is 12288
+        OPTIONS_FILE = './ospy/data/options.db'
+
+        def _read_log():
+            """Read OSPy DB file"""
+            try:                
+                logf = open(OPTIONS_FILE,'r')
+                return logf.read()
+            except IOError:
+                return []
+
+        try:
+            if os.path.getsize(OPTIONS_FILE)>= 12288: # default db file size is 12288
           
-             import mimetypes
+                import mimetypes
          
-             download_name = 'options.db'
-             content = mimetypes.guess_type(OPTIONS_FILE)[0]
-             web.header('Content-type', content)
-             web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
-             web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-             return _read_log()
+                download_name = 'options.db'
+                content = mimetypes.guess_type(OPTIONS_FILE)[0]
+                web.header('Content-type', content)
+                web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
+                web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+                return _read_log()
              
-          else:   
-             msg = _('System component is unreachable or busy. Please wait (try again later).')
-             return self.core_render.notice('/download', msg)
+            else:   
+                msg = _('System component is unreachable or busy. Please wait (try again later).')
+                return self.core_render.notice('/download', msg)
              
-       except Exception:
-          raise web.seeother(u'/')
+        except Exception:
+            raise web.seeother(u'/')
 
 
 class upload_page(ProtectedPage):
@@ -822,6 +901,11 @@ class upload_page(ProtectedPage):
         raise web.seeother(u'/')
 
     def POST(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         OPTIONS_FILE = './ospy/data/options.db'
         i = web.input(uploadfile={})
         try:
@@ -855,6 +939,11 @@ class upload_page_SSL(ProtectedPage):
         raise web.seeother(u'/')
 
     def POST(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         SSL_FOLDER = './ssl'
         OPTIONS_FILE_FULL = SSL_FOLDER + '/fullchain.pem' # cert file
         OPTIONS_FILE_PRIV = SSL_FOLDER + '/privkey.pem'   # key file
@@ -1184,6 +1273,11 @@ class api_update_status(ProtectedPage):
     """Simple plugins and system update status API"""
 
     def GET(self):
+        from ospy import server
+
+        if server.session['category'] != 'admin':
+            raise web.seeother(u'/')
+
         pl_data = []
         data = {}
         must_update = 0

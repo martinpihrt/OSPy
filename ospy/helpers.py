@@ -488,9 +488,10 @@ def password_hash(password, salt):
     return m.hexdigest()
 
 
-def test_password(password):
+def test_password(password, username):
     from ospy.options import options
     from ospy.users import users
+    from ospy import server
 
     result_admin = False
     result_users = False
@@ -504,8 +505,10 @@ def test_password(password):
             if user.password_time > 0:
                 time.sleep(user.password_time)            
 
-    if options.password_hash == password_hash(password, options.password_salt): # for OSPY main administrator
+    if options.password_hash == password_hash(password, options.password_salt) and options.admin_user == username: # for OSPY main administrator
         result_admin = True
+        server.session['category'] = 'admin'
+        server.session['visitor']  = _(u'%s') % options.admin_user
 
     if result_admin:
         options.password_time = 0
@@ -514,39 +517,33 @@ def test_password(password):
             options.password_time += 1        
 
     for user in users.get():
-        if user.password_hash == password_hash(password, user.password_salt):   # for others OSPy users
+        if user.password_hash == password_hash(password, user.password_salt) and user.name == username:            # for others OSPy users
             result_users = True  
+            if user.category == '0': # public
+                server.session['category'] = 'public'
+                server.session['visitor']  =  user.name
+            if user.category == '1': # user
+                server.session['category'] = 'user'
+                server.session['visitor']  =  user.name
+            if user.category == '2': # admin
+                server.session['category'] = 'admin'  
+                server.session['visitor']  =  user.name                                 
 
         if result_users:
             user.password_time = 0
+            break
         else:
             if user.password_time < 30:
                 user.password_time += 1          
 
     if result_admin or result_users: 
+        print_report('helpers.py', _(u'Logged in %s, as operator %s') % (server.session['visitor'], server.session['category']))
         return True
-    else:
-        return False
-    
 
-def test_username(username):
-    from ospy.options import options 
-    from ospy.users import users
-
-    result_admin = False
-    result_users = False
-
-    if options.admin_user == username: # for administrator login name
-        result_admin = True
-
-    for user in users.get():           # for others login name
-        if user.name == username:
-            result_users = True
-
-    if result_admin or result_users:
-        return True
-    else:
-        return False      
+    server.session['category'] = 'public'
+    server.session['visitor']  = _(u'Unknown operator')
+    print_report('helpers.py', _(u'Unauthorised operator') + ': ' + _(u'%s') % username)        
+    return False    
 
 
 def check_login(redirect=False):
@@ -564,8 +561,8 @@ def check_login(redirect=False):
     except KeyError:
         pass
 
-    if 'pw' in qdict:
-        if test_password(qdict['pw']):
+    if 'pw' and 'nm'in qdict: # password and user name
+        if test_password(qdict['pw'], qdict['nm']):
             return True
         if redirect:
             raise web.unauthorized()

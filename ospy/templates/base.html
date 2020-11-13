@@ -127,7 +127,10 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="header">
-            <div class="title">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""}</div>
+            <div class="title">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
+            $if content.page != 'login':
+                <small>($_('Operator:') ${session['visitor']})</small>
+            </div>
         </div>
 
         <div class="body">
@@ -141,15 +144,18 @@ jQuery(document).ready(function(){
                 $if content.page != 'login':
                     <div id="nav">
                         <a href="/" class="button home${' here' if content.page=='home' else ''}" title=$:{json.dumps(_(u'Home'), ensure_ascii=False)}></a>
-
-                        <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
-                        $if not options.manual_mode:
-                            <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False)}>$_(u'Run Once')</a>
-                        <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False)}>$_(u'Plugins')</a>
-                        <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_(u'View Log'), ensure_ascii=False)}>$_(u'Log')</a>
-                        <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False)}>$_(u'Options')</a>
-                        <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False)}>$_(u'Stations')</a>
-                        <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False)}>$_(u'Help')</a>
+                        $if content.page != 'public':
+                            <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
+                            $if not options.manual_mode:
+                                <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False)}>$_(u'Run Once')</a>
+                            $if content.page != 'user':    
+                                <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False)}>
+                                $_(u'Plugins')</a>
+                            <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_(u'View Log'), ensure_ascii=False)}>$_(u'Log')</a>
+                            $if content.page != 'user': 
+                                <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False)}>$_(u'Options')</a>
+                                <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False)}>$_(u'Stations')</a>
+                            <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False)}>$_(u'Help')</a>
                         $if not options.no_password:
                             <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False)}>$_(u'Logout')</a>
                     </div>
@@ -167,7 +173,7 @@ jQuery(document).ready(function(){
                 ${get_cpu_usage()} %
             </b></p>           
             <p><b><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}> $_('Software')</a></b> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
-            $if content.page != 'login':
+            $if content.page != 'login' and content.page != 'public' and content.page != 'user':
                 <p>$_('External IP'): <b> ${get_external_ip()}</b></p>
                 <p>$_('Working'): <b> ${uptime()}</b></p>
         </div>

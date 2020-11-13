@@ -810,11 +810,11 @@ class _Programs(object):
     def run_now(self, index):
         if 0 <= index < len(self._programs):
             program = self._programs[index]
-            if program.type != ProgramType.WEEKLY_ADVANCED and program.type != ProgramType.CUSTOM and program.type != ProgramType.WEEKLY_WEATHER:
-                if len(program.schedule) > 0:
-                    run_now_p = _Program(self, index)  # Create a copy using the information saved in options
-                    run_now_p.start_now()
-                    self.run_now_program = run_now_p
+            #if program.type != ProgramType.WEEKLY_ADVANCED and program.type != ProgramType.CUSTOM and program.type != ProgramType.WEEKLY_WEATHER:
+            if len(program.schedule) > 0:
+                run_now_p = _Program(self, index)  # Create a copy using the information saved in options
+                run_now_p.start_now()
+                self.run_now_program = run_now_p
 
     def count(self):
         return len(self._programs)

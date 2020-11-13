@@ -105,8 +105,8 @@ def start():
     if options.use_ssl and not options.use_own_ssl:
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
-               log.info('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               log.info('server.py', _(u'Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print_report('server.py', _(u'Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -116,12 +116,12 @@ def start():
                certificate = ssl_patch_fullchain,  
                private_key = ssl_patch_privkey)   
 
-               log.info('server.py', _('SSL OK.'))
-               print_report('server.py', _('SSL OK.'))
+               log.info('server.py', _(u'SSL OK.'))
+               print_report('server.py', _(u'SSL OK.'))
 
            else:
-               log.info('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.info('server.py', _(u'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print_report('server.py', _(u'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -131,8 +131,8 @@ def start():
     if options.use_own_ssl and not options.use_ssl:
        try:
            if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
-               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               log.info('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print_report('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -142,12 +142,12 @@ def start():
                certificate = ssl_own_patch_fullchain,  
                private_key = ssl_own_patch_privkey)   
 
-               log.info('server.py', 'Own SSL OK.')
-               print_report('server.py', _('Own SSL OK.'))
+               log.info('server.py', _(u'Own SSL OK.'))
+               print_report('server.py', _(u'Own SSL OK.'))
 
            else:
-               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.info('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print_report('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -172,22 +172,35 @@ def start():
     sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
-                                               'pages': []})
+                                               'pages': [],
+                                               'category': u'public',
+                                               'visitor': _(u'Unknown operator')})
+    try:
+        if not session['category']:
+            session['category'] = 'public'
+            print_report('server.py', _(u'Category is not in session, adding to sessions.'))
+        if not session['visitor']:
+            session['visitor'] = _(u'Unknown visitor')
+            print_report('server.py', _(u'Visitor-operator is not in session, adding to sessions.'))            
+    except:
+        session['category'] = 'public'
+        session['visitor'] = _(u'Unknown visitor')
+        pass
                                                
     import atexit
     atexit.register(sessions.close)
 
     def exit_msg():
-        log.info('server.py', _('OSPy is closing, saving sessions.')) 
-        print_report('server.py', _('OSPy is closing, saving sessions.'))
+        log.info('server.py', _(u'OSPy is closing, saving sessions.')) 
+        print_report('server.py', _(u'OSPy is closing, saving sessions.'))
     atexit.register(exit_msg)
 
-    print_report('server.py', _('Starting scheduler and plugins...'))
+    print_report('server.py', _(u'Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
 
     create_statistics()
-    print_report('server.py', _('Ready'))
+    print_report('server.py', _(u'Ready'))
 
     try:
         __server.start()
@@ -204,8 +217,8 @@ def stop():
 
 def create_statistics():
     try:
-        log.info('server.py', _('Creating statistics...'))
-        print_report('server.py', _('Creating statistics...'))
+        log.info('server.py', _(u'Creating statistics...'))
+        print_report('server.py', _(u'Creating statistics...'))
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})

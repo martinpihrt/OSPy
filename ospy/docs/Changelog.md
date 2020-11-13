@@ -5,7 +5,7 @@ Nov 13 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Updating language translating to Slovak (Thank you Tomáš Szepesi). Update web.py to version 0.51 (Thank you Dan-in-CA). 
+Updating language translating to Slovak (Thank you Tomáš Szepesi). Updating web.py to version 0.51 (Thank you Dan-in-CA). Czech language translate for new strings. Added multiple users control (public, user, administrator) for logging to OSPy (here is demo:) . Fixed run-now in programs (enable run now for programType.WEEKLY_ADVANCED, CUSTOM, WEEKLY_WEATHER).
 
 Nov 10 2020
 -----------
