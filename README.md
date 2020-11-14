@@ -9,7 +9,7 @@ This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) and Dan-in-CA/SI
 Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
 
 ## Hardware
-<a href="blockconnection.png"><img src="blockconnection.png" width="100%"></a>
+<a href="images?id=blockconnection.png"><img src="images?id=blockconnection.png" width="90%"></a>
 
 INSTALLATION:
 ===========

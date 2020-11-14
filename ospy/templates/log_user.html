@@ -1,0 +1,62 @@
+$def with (wrecords, erecords)
+
+$var title: $_('Log')
+$var page: user
+
+<div id="options">
+    <div class="title">$_('Log ') (${_('Enabled') if options.run_log else _('Disabled')})</div>
+</div>
+
+<div id="log">
+    <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
+    <p>$_('Download log as') <a href="?csv">Excel log.csv</a>.</p>
+
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Start Time')</th>
+            <th>$_('Station')</th>
+            <th>$_('Duration')</th>
+            <th>$_('Program')</th>
+        </tr>
+        $for interval in reversed(wrecords):
+            $ duration = (interval['end'] - interval['start']).total_seconds()
+            $ minutes, seconds = divmod(duration, 60)
+            <tr class="log_rec ${loop.parity}">
+                <td align='left'>${interval["start"].strftime("%Y-%m-%d")}</td>
+                <td align='left'>${formatTime(interval["start"].strftime("%H:%M:%S"))}</td>
+                <td align='left'>${stations[interval["station"]].name}</td>
+                <td align='left'>${"%02d:%02d" % (minutes, seconds)}</td>
+                <td align='left'>${interval["program_name"]}</td>
+            </tr>
+    </table>
+<div>
+
+<div class="title">$_('Log ') $_('Email') (${_('Enabled') if options.run_logEM else _('Disabled')})</div>
+
+
+    <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
+    <p>$_('Download log as') <a href="?csvEM">Excel log_email.csv</a>.</p>
+
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Time')</th>
+            <th>$_('Email Status')</th>
+            <th>$_('Subject')</th>
+            <th>$_('Body')</th>
+        </tr>
+        $ odd = 1
+        $for interval in reversed(erecords):
+            <tr class="log_rec ${'odd' if odd else 'even'}">
+                <td align='left'>${interval["date"]}</td>
+                <td align='left'>${formatTime(interval["time"])}</td>
+                <td align='left'>${interval["status"]}</td>
+                <td align='left'>${interval["subject"]}</td>
+                <td align='left'>${interval["body"]}</td>
+            </tr>
+            $ odd = 1 - odd
+    </table>
+</div>
+
+<a href="" class="button refresh">$_('Refresh')</a>

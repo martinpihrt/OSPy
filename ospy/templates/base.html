@@ -127,9 +127,17 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="header">
-            <div class="title">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
+            <div class="title" title=$:{json.dumps(_(u'Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
             $if content.page != 'login':
-                <small>($_('Operator:') ${session['visitor']})</small>
+                <p id="Userinfo">
+                $_('Operator'): ${session['visitor']}
+                $if session['category'] == 'admin':
+                    - $_('Access'): $_('Administrator')
+                $if session['category'] == 'user':
+                    - $_('Access'): $_('User')
+                $if session['category'] == 'public':
+                    - $_('Access'): $_('Public')
+                </p>                                        
             </div>
         </div>
 
@@ -147,7 +155,8 @@ jQuery(document).ready(function(){
                         $if content.page != 'public':
                             <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
                             $if not options.manual_mode:
-                                <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False)}>$_(u'Run Once')</a>
+                                $if content.page != 'user':
+                                    <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False)}>$_(u'Run Once')</a>
                             $if content.page != 'user':    
                                 <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False)}>
                                 $_(u'Plugins')</a>
@@ -172,8 +181,9 @@ jQuery(document).ready(function(){
             <p>$_('CPU Usage'): <b>
                 ${get_cpu_usage()} %
             </b></p>           
-            <p><b><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}> $_('Software')</a></b> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
             $if content.page != 'login' and content.page != 'public' and content.page != 'user':
+                <p><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
+                $_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
                 <p>$_('External IP'): <b> ${get_external_ip()}</b></p>
                 <p>$_('Working'): <b> ${uptime()}</b></p>
         </div>

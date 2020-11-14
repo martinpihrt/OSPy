@@ -1,11 +1,27 @@
 OSPy Changelog
 ====
 
+Nov 14 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech and Slovak language translate for new strings. Fixed login page (the username and password are checked at the same time - if there were more users with the same name, unauthorized access could occur). Added support for images (in the images folder) for future use.
+HOME page
+public access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_public.png
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_user.png
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_admin.png
+PROGRAMS page
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_user.png
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_admin.png
+LOG page
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_user.png
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_admin.png
+
 Nov 13 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Updating language translating to Slovak (Thank you Tomáš Szepesi). Updating web.py to version 0.51 (Thank you Dan-in-CA). Czech language translate for new strings. Added multiple users control (public, user, administrator) for logging to OSPy (here is demo:) . Fixed run-now in programs (enable run now for programType.WEEKLY_ADVANCED, CUSTOM, WEEKLY_WEATHER).
+Updating language translating to Slovak (Thank you Tomáš Szepesi). Updating web.py to version 0.51 (Thank you Dan-in-CA). Czech language translate for new strings. Added multiple users control (public, user, administrator) for logging to OSPy. Fixed run-now in programs (enable run now for programType.WEEKLY_ADVANCED, CUSTOM, WEEKLY_WEATHER).
 
 Nov 10 2020
 -----------

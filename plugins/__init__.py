@@ -316,16 +316,23 @@ checker = _PluginChecker()
 ################################################################################
 def get_app():
     import web
+
     class PluginApp(web.application):
         def handle(self):
+            from ospy.server import session
+
             mapping = []
             for module in running():
                 import_name = __name__ + '.' + module
                 plugin = get(module)
                 mapping += _get_urls(import_name, plugin)
             fn, args = self._match(mapping, web.ctx.path)
-            return self._delegate(fn, self.fvars, args)
-
+            
+            if session['category'] == 'admin':
+                return self._delegate(fn, self.fvars, args)
+            else:
+                return ''    
+    
     return PluginApp(fvars=locals())
 
 
@@ -425,7 +432,7 @@ def plugin_url(cls, prefix='/plugins/'):
         if result.endswith('_csv'):
             result = result[:-4] + '.csv'
 
-    return result
+        return result
 
 
 __urls_cache = {}
