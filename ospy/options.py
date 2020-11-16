@@ -69,6 +69,13 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "show_images",
+            "name": _('Show pictures at stations'),
+            "default": False,
+            "help": _('Show pictures of stations on the homepage.'),
+            "category": _('System')
+        },        
+        {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),
             "default": []
@@ -326,6 +333,11 @@ class _Options(object):
             "name": _('Manual operation'),
             "default": False,
         },
+        {
+            "key": "high_resolution_mode",
+            "name": _('Image resolution'),
+            "default": False,
+        },        
         {
             "key": "level_adjustment",
             "name": _('Level adjustment set by the user (fraction)'),
@@ -605,3 +617,4 @@ class _RainBlocks(dict):
         return max(0, (self.block_end() - datetime.now()).total_seconds())
 
 rain_blocks = _RainBlocks()
+

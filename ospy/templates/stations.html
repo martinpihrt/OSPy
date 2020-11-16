@@ -3,8 +3,8 @@ $def with ()
 $var title: $_('Stations')
 $var page: stations
 
-
 <script src="/static/scripts/stations.js"></script>
+
 <div class="title">$_('Configure Stations')</div>
     <div id="stationsdiv">
     <form id="stationsForm" name="stationsForm" action="/stations" method="post">
@@ -24,6 +24,8 @@ $var page: stations
                 $if stations.master_two is not None:
                     <th class="stationMaster">$_('Activate Master Two?')</th>
                 <th class="stationName">$_('Notes')</th>
+                $if options.show_images:
+                    <th class="stationName">$_('Image')</th>
             </tr>
             $for station in stations.get():
                 <tr>
@@ -87,7 +89,11 @@ $var page: stations
                             </td> 
                     <td class="stationNotes" title=$:{json.dumps(_('Station Notes.'), ensure_ascii=False).encode('utf8')}>
                         <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
-                    </td>      
+                    </td>  
+                    $if options.show_images:
+                        <td class="stationImage" title=$:{json.dumps(_('Click for edit image.'), ensure_ascii=False).encode('utf8')}>
+                        <a href=${"/img_edit/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="avatar">
+                        </a></td>        
                 </tr>
         </table>
         <p></p>

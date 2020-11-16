@@ -1,0 +1,73 @@
+$def with (index, img_url, errorCode)
+
+$var title: $_('Modify image')
+$var page: image
+
+<script>
+    var errorCode = "${errorCode}";
+    jQuery(document).ready(function(){
+        jQuery("#cUpload").click(function() {
+            jQuery("#imageForm").submit();
+        });
+    jQuery("button#cCancel").click(function(){
+        window.location="/stations";
+        });  
+
+    switch (errorCode) {
+        case "noex":
+            jQuery("#Hint").text($:{json.dumps(_('Image does not exist! Upload a new image.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;  
+        case "uplname":
+            jQuery("#Hint").text($:{json.dumps(_('Image is not png file!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;             
+    }
+});
+</script>
+
+<div id="users">
+        <div class="title">$_('Image adjustment for station') $_('#')${index}</div>
+        <div id="stationsdiv">
+            <p>$_('Editation the image that is displayed next to the station.')</p>
+            <p>$_('Recommended resolution is 640x480.')</p>
+            <p>$_('If the resolution is not observed, the system will convert from the uploaded image to the optimal resolution himself.')</p>
+            <p>$_('Only png images are supported. The image name can be arbitrary.')</p> 
+            <span id="Hint"></span>
+            <form name="imageForm" id="imageForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="index" value="${index}">
+                <table class="optionList" style="background: #F5F5F5;">
+                    <tr>
+                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False)}>
+                            <img src=${img_url + '.png'} alt="" class="imgEdit"> 
+                        </td>    
+                    </tr> 
+                    <tr>
+                        <td colspan="2" title=$:{json.dumps(_(u'Thumbnail'), ensure_ascii=False)}>
+                            <img src=${img_url + '_thumbnail.png'} alt="" class="avatar">
+                        </td>                    
+                    </tr>  
+                    <tr>
+                        <th colspan="2">
+                        <hr>
+                        </th>
+                    </tr>                                      
+                    <tr>
+                        <td title=$:{json.dumps(_(u'Upload new image'), ensure_ascii=False)}>
+                            <input type="file" name="uploadfile" class="upload" accept="image/x-png">
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td style='text-transform: none;'>$_('Convert image to high resolution 1024x768 otherwise 640x480')</td>
+                        <td title=$:{json.dumps(_(u'If checked, the image will be set to a resolution of 1024x768, otherwise to a resolution of 640x480.'), ensure_ascii=False)}>
+                        <input name='enabled' type='checkbox'${" checked" if options.high_resolution_mode else ""}>
+                        </td>
+                    </tr>                                                                               
+                </table>         
+            </form>
+        </div>     
+</div>
+
+<div id="controls">
+    <button id="cUpload" class="submit"><b>$_('Upload')</b></button> 
+    <a href="/img_edit/${index}?delete" class="button cDelete danger">$_('Delete')</a>
+    <button id="cCancel" class="cancel danger">$_('Cancel')</button>
+</div>

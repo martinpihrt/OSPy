@@ -40,6 +40,8 @@ urls = [
     '/uploadSSL', 'ospy.webpages.upload_page_SSL',
 
     '/images', 'ospy.webpages.images_page',
+    '/img_edit/(new|[0-9]+)', 'ospy.webpages.image_edit_page',
+    '/img_view/(new|[0-9]+)', 'ospy.webpages.image_view_page',
 
     '/users', 'ospy.webpages.users_page',
     '/user/(new|[0-9]+)', 'ospy.webpages.user_page',

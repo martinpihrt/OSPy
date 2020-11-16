@@ -545,15 +545,15 @@ $if options.manual_mode:
                     <td class='station_name'>${station.name}</td>
                     $if station.is_master:
                         $if station.active:
-                            <td class="master station_on" colspan="6">$_('On (Master)')</td>
+                            <td class="master station_on" colspan="3">$_('On (Master)')</td>
                         $else:
-                            <td class="master station_off" colspan="6">$_('Off (Master)')</td>
+                            <td class="master station_off" colspan="3">$_('Off (Master)')</td>
 
                     $elif station.is_master_two:
                         $if station.active:
-                            <td class="master two station_on" colspan="6">$_('On (Master Two)')</td>
+                            <td class="master two station_on" colspan="3">$_('On (Master Two)')</td>
                         $else:
-                            <td class="master two station_off" colspan="6">$_('Off (Master Two)')</td>
+                            <td class="master two station_off" colspan="3">$_('Off (Master Two)')</td>
 
                     $else:
                         $if station.active:
@@ -593,36 +593,57 @@ $else:
     <div id="programmode">
         <table id="stations" class="stationList">
             <tr>
-                <td colspan="2"></td>
-                <td colspan="8">
+                $if options.show_images:
+                    <td colspan="3"></td>
+                    <td colspan="9">
                     <span id="displayScheduleDate"></span>
-                </td>
-                <td colspan="16" style="text-align:right">
-                    <a id="pPrev" class="button execute">&lt;&lt;$_(' Prev Day')</a>
-                    <a id="pToday" class="button execute">$_('Today')</a>
-                    <a id="pNext" class="button execute">$_('Next Day') &gt;&gt;</a>
+                    </td>
+                    <td colspan="17" style="text-align:right">
+                $else:   
+                    <td colspan="2"></td>
+                    <td colspan="8">
+                    <span id="displayScheduleDate"></span>
+                    </td>
+                    <td colspan="16" style="text-align:right">     
+                <a id="pPrev" class="button execute" title=$:{json.dumps(_(u'Switch to previous day'), ensure_ascii=False)}>&lt;&lt;$_(' Prev Day')</a>
+                <a id="pToday" class="button execute" title=$:{json.dumps(_(u'Switch to today'), ensure_ascii=False)}>$_('Today')</a>
+                <a id="pNext" class="button execute" title=$:{json.dumps(_(u'Switch to next day'), ensure_ascii=False)}>$_('Next Day') &gt;&gt;</a>
                 </td>
             </tr>
-            <tr><td colspan="2">
-                $for hour in xrange(0, 24):
-                    $ t = datetime.time(hour=hour, minute=0)
-                    $if options.time_format:
-                        <td class="scheduleTick">${t.strftime("%H:%M")}</td>
-                    $else:
-                        <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
+            $if options.show_images:
+                <tr><td colspan="3">
+            $else:
+                <tr><td colspan="2">    
+            $for hour in xrange(0, 24):
+                $ t = datetime.time(hour=hour, minute=0)
+                $if options.time_format:
+                    <td class="scheduleTick">${t.strftime("%H:%M")}</td>
+                $else:
+                    <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
             </tr>
             $for station in [station for station in stations if station.enabled or station.is_master or station.is_master_two]:
                 <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">
                     <td class='station_name'>${station.name}</td>
+                    $if options.show_images:
+                        <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8')}>
+                        <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
+                        </a>
+                        </td>                    
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
                     $for tick in xrange(0,24):
                         <td class="scheduleTick" data="$tick"></td>
                 </tr>
             <tr>
-                <td colspan="2">
+                $if options.show_images:
+                    <td colspan="3">
+                $else:
+                    <td colspan="2">        
                 <a href="/action?stop_all" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False)}>$_('Stop All Stations')</a>
                 </td>
-                <td colspan="24" id="legend" style="text-align:center">
+                $if options.show_images:
+                    <td colspan="25" id="legend" style="text-align:center">
+                $else:
+                    <td colspan="24" id="legend" style="text-align:center">        
                 </td>
             </tr>
         </table>

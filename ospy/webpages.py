@@ -227,6 +227,117 @@ class user_page(ProtectedPage):
         raise web.seeother(u'/users')
 
 
+class image_edit_page(ProtectedPage):
+    """Open page to edit images for station."""
+    def GET(self, index):
+        from ospy.server import session
+        import os
+        
+        qdict = web.input() 
+        errorCode = qdict.get('errorCode', 'None')
+        delete = get_input(qdict, 'delete', False, lambda x: True)
+
+        img_path    = './ospy/images/stations/station%s.png' % str(index)
+        img_path_th = './ospy/images/stations/station%s_thumbnail.png' % str(index)
+
+        if delete and session['category'] == 'admin':
+            try:
+                if os.path.isfile(img_path):
+                    os.remove(img_path)
+                if os.path.isfile(img_path_th):    
+                    os.remove(img_path_th)
+                log.debug('webpages.py', _(u'Files %s and %s has sucesfully deleted...') % ('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
+            except:
+                pass    
+
+        if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
+            img_url = '/images?id=no_image'                           # fake default img
+            errorCode = qdict.get('errorCode', 'noex')   
+        else:
+            img_url = '/images?sf=1&id=station%s' % str(index)        # station img            
+
+        return self.core_render.edit(index, img_url, errorCode)
+
+
+    def POST(self, index):
+        from ospy.server import session
+
+        qdict = web.input()
+
+        img_path      = './ospy/images/stations/station%s.png' % str(index)
+        img_path_th   = './ospy/images/stations/station%s_thumbnail.png' % str(index)
+        img_path_temp = './ospy/images/stations/temp%s.png' % str(index)
+
+        if session['category'] == 'admin':
+            if 'enabled' in qdict and qdict['enabled']== u'on':
+                options.high_resolution_mode = True
+            else:
+                options.high_resolution_mode = False 
+                   
+            i = web.input(uploadfile={})
+            #web.debug(i['uploadfile'].filename)    # This is the filename
+            #web.debug(i['uploadfile'].value)       # This is the file contents
+            #web.debug(i['uploadfile'].file.read()) # Or use a file(-like) object
+            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # only .png file accepted
+            if upload_type != '.png': # check file type
+                if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
+                    img_url = '/images?id=no_image'                            # fake default img
+                else:
+                    img_url = '/images?sf=1&id=station%s' % str(index)         # station img 
+            
+                errorCode = qdict.get('errorCode', 'uplname') 
+                return self.core_render.edit(index, img_url, errorCode)
+            else:                     # file is png continue        
+                if not os.path.isfile(img_path_temp):
+                    fout = open(img_path_temp,'w') 
+                    fout.write(i.uploadfile.file.read()) 
+                    fout.close()
+                    log.debug('webpages.py', _(u'File %s has sucesfully uploaded...') % i.uploadfile.filename)
+                else:
+                    os.remove(img_path_temp) 
+                    fout = open(img_path_temp,'w')  # temporary file after uploading
+                    fout.write(i.uploadfile.file.read()) 
+                    fout.close()         
+                    log.debug('webpages.py', _(u'File %s has sucesfully uploaded...') % i.uploadfile.filename)           
+
+                try:
+                    from PIL import Image
+                    if os.path.isfile(img_path_temp):
+                        im = Image.open(img_path_temp)
+                        size = 50,50                # resize to thumbnail               
+                        im.thumbnail(size)
+                        im.save(img_path_th, "PNG")
+                        im = Image.open(img_path_temp)
+                        if options.high_resolution_mode:
+                            size = 1024,768         # resize original (high quality)
+                        else:
+                            size = 640,480          # resize original (low quality)
+                        im.thumbnail(size)
+                        im.save(img_path, "PNG")
+                        os.remove(img_path_temp)
+                        log.debug('webpages.py', _(u'Files has sucesfully resized to max 60x60/640x480...'))
+ 
+                except:
+                    pass
+                    log.error('webpages.py', _(u'Cannot create resized files!'))
+
+        raise web.seeother(u'/stations')   
+
+ 
+class image_view_page(ProtectedPage):
+    """Open page to view images for station."""
+    def GET(self, index):
+        import os
+
+        img_path    = './ospy/images/stations/station%s.png' % str(index)   
+        if not os.path.isfile(img_path): 
+            img_url = '/images?id=no_image'                           # fake default img
+        else:
+            img_url = '/images?sf=1&id=station%s' % str(index)        # station img            
+
+        return self.core_render.view(img_url)            
+
+
 class login_page(WebPage):
     """Login page"""
 
@@ -851,7 +962,7 @@ class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
     def GET(self):
-        msg = _('System component is unreachable or busy. Please wait (try again later).')
+        msg = _(u'System component is unreachable or busy. Please wait (try again later).')
         return self.core_render.notice('/download', msg)    	      
 
 class download_page(ProtectedPage):
@@ -885,7 +996,7 @@ class download_page(ProtectedPage):
                 return _read_log()
              
             else:   
-                msg = _('System component is unreachable or busy. Please wait (try again later).')
+                msg = _(u'System component is unreachable or busy. Please wait (try again later).')
                 return self.core_render.notice('/download', msg)
              
         except Exception:
@@ -917,10 +1028,10 @@ class upload_page(ProtectedPage):
                     os.remove(OPTIONS_FILE + '.bak')              # remove old options.db.bak
                  copyfile(OPTIONS_FILE, OPTIONS_FILE + '.bak')    # copy new options.db to old options.db.bak
 
-                 log.debug('webpages.py', _('Upload, save, copy options.db file sucesfully, now restarting OSPy...'))
+                 log.debug('webpages.py', _(u'Upload, save, copy options.db file sucesfully, now restarting OSPy...'))
                  report_restarted()
                  restart(3)
-                 msg = _('Upload, save, copy options.db file sucesfully, now restarting OSPy...')
+                 msg = _(u'Upload, save, copy options.db file sucesfully, now restarting OSPy...')
                  return self.core_render.notice(home_page, msg)                 
             else:        
                errorCode = "pw_filename" 
@@ -949,8 +1060,8 @@ class upload_page_SSL(ProtectedPage):
         qdict = web.input()
         if 'generate' in qdict and qdict['generate'] == '1':   # generating own SSL certificate to ssl folder
             try:
-                print_report('webpages.py', _('Try-ing generating SSL certificate...'))
-                log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
+                print_report('webpages.py', _(u'Try-ing generating SSL certificate...'))
+                log.debug('webpages.py', _(u'Try-ing generating SSL certificate...'))
 
                 from OpenSSL import crypto, SSL  
                 # openssl version
@@ -1001,11 +1112,11 @@ class upload_page_SSL(ProtectedPage):
                 if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
                     if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
                         os.remove(OPTIONS_FILE_FULL)             # remove file
-                        log.debug('webpages.py', _('Remove fullchain.pem...'))
+                        log.debug('webpages.py', _(u'Remove fullchain.pem...'))
                 if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
                         os.remove(OPTIONS_FILE_PRIV)             # remove file  
-                        log.debug('webpages.py', _('Remove privkey.pem...'))                      
+                        log.debug('webpages.py', _(u'Remove privkey.pem...'))                      
 
                 fout = open('./ssl/' + i.uploadfile.filename,'w') 
                 fout.write(i.uploadfile.file.read()) 
@@ -1033,19 +1144,28 @@ class images_page(ProtectedPage):
 
         try:
             qdict = web.input()
-            id = get_input(qdict, 'id')
+
+            id = get_input(qdict, 'id')                                   # id = name for image (ex: station1.png)
+            s_folder = get_input(qdict, 'sf', None, lambda x: x == '1')   # sf = 1 read from folder: images/stations else from images/
         
             if id is not None:
-                download_name = 'ospy/images/' + id
-                content = mimetypes.guess_type(download_name)[0]
-                web.header('Content-type', content)
-                web.header('Content-Length', os.path.getsize(download_name))    
-                web.header('Content-Disposition', 'attachment; filename=%s' % str(id))
-                img = open(download_name,'r')
-                return img.read()
+                if s_folder is not None:
+                    download_name = 'ospy/images/stations/' + id
+                else:
+                    download_name = 'ospy/images/' + id
+
+                if os.path.isfile(download_name):     # exists image? 
+                    content = mimetypes.guess_type(download_name)[0]
+                    web.header('Content-type', content)
+                    web.header('Content-Length', os.path.getsize(download_name))    
+                    web.header('Content-Disposition', 'attachment; filename=%s' % str(id))
+                    img = open(download_name,'r')
+                    return img.read()
+                else:
+                    return None
         except:
-            print_report('webpages.py', traceback.format_exc())  
-            return ''  
+            pass  
+            return None  
         
 ################################################################################
 # APIs                                                                         #

@@ -1,0 +1,31 @@
+$def with (img_url)
+
+$var title: $_('Image')
+$var page: public
+
+<script>
+jQuery(document).ready(function(){
+
+    jQuery("button#cCancel").click(function(){
+        window.location="/";
+        });  
+});
+</script>
+
+<div id="view">
+        <div id="stationsdiv">
+            <span id="Hint"></span>
+            <table class="optionList" style="background: #F5F5F5;">
+                    <tr>
+                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False)}>
+                            <img src=${img_url + '.png'} alt="" class="imgViev"> 
+                        </td>    
+                    </tr>                                                                              
+            </table>         
+            </form>
+        </div>     
+</div>
+
+<div id="controls">  
+    <button id="cCancel" class="submit">$_('Cancel')</button>
+</div>
