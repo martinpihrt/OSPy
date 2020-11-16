@@ -1,21 +1,29 @@
 OSPy Changelog
 ====
 
+Nov 16 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech and Slovak language translate for new strings. Added support for displaying images at stations and on the home page. If in the "options tab" is checked display of an image for stations, then the option to work with images will appear in the station tab and on the home page.<br/>
+Demo is here in folder:<br/>
+https://github.com/martinpihrt/OSPy/blob/master/ospy/images/<br/>
+
 Nov 14 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Updating Czech and Slovak language translate for new strings. Fixed login page (the username and password are checked at the same time - if there were more users with the same name, unauthorized access could occur). Added support for images (in the images folder) for future use.
-HOME page
-public access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_public.png
-user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_user.png
-admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_admin.png
-PROGRAMS page
-user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_user.png
-admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_admin.png
-LOG page
-user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_user.png
-admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_admin.png
+Updating Czech and Slovak language translate for new strings. Fixed login page (the username and password are checked at the same time - if there were more users with the same name, unauthorized access could occur). Added support for images (in the images folder) for future use.<br/>
+HOME page<br/>
+public access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_public.png<br/>
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_user.png<br/>
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/home_admin.png<br/>
+PROGRAMS page<br/>
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_user.png<br/>
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/programs_admin.png<br/>
+LOG page<br/>
+user access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_user.png<br/>
+admin access: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/log_admin.png<br/>
 
 Nov 13 2020
 -----------
