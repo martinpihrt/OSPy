@@ -1445,4 +1445,24 @@ class api_update_status(ProtectedPage):
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)    
+
+
+class api_update_footer(ProtectedPage):
+    """Simple footer value status API"""
+
+    def GET(self):
+        from ospy.server import session
+        from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage, get_external_ip
+
+        if session['category'] != 'admin':
+            raise web.seeother(u'/')
+        
+        data = {}
+        data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
+        data["cpu_usage"]   = get_cpu_usage()   
+        data["sys_uptime"]  = uptime()    
+        data["ip"]          = get_external_ip()        
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(data)            
         

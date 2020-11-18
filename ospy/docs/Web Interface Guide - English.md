@@ -87,7 +87,8 @@ OSPy Web Interface Guide in English
                 About the port number 
             HTTP/S port
             Show plugins on home
-            Select Language          
+            Select Language
+            Show pictures at stations          
         Weather Section
             Use Weather
             Dark Sky API key
@@ -256,7 +257,7 @@ The Usage of the Raspberry pi's CPU usage. The displayed usage as %.
 A link to the project's software repository and the revision number of the installed software.
 
 ## External IP
-The External IP address for OSPy system. Connected your network to provider. Tested via bot.whatismyipaddress.com.
+The External IP address for OSPy system. Connected your network to provider. Tested via pihrt.com.
 
 ## Working
 The Running time of the system Raspberry pi's.
@@ -478,7 +479,10 @@ The language option can change the language used in the web interface.
 * Click the Submit Changes button at the bottom of the page.
 
 The software will restart and after a few seconds the interface will appear in the language selected.
-        
+
+### Show pictures at stations  
+Select the check box to display images for the stations on the home page and the stations page.  
+
 ## Weather Section
 The weather section allows you to access the weather forecast service for your location. You must register for this feature on the web (https://darksky.net/dev).
 According to the weather forecast, the irrigation cycle can then be automatically adjusted (if we choose a plugin that uses the weather forecast).
@@ -741,6 +745,9 @@ If you want the second master station (eg second pump or other water source) to 
 
 ## Notes  
 Notes are for operating the OSPy system. It can be noted for example: what types of el. valve, sprinkler etc. we have used in the system.
+
+## Image
+After clicking on the window, a page will open on which you can upload your own image to the station.   
 
 ----
 

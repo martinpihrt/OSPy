@@ -182,23 +182,29 @@ def restart(wait=1, block=False):
 def uptime():
     """Returns UpTime for RPi"""
     try:
-        with open("/proc/uptime") as f:
-            total_sec = float(f.read().split()[0])
-            s = datetime.timedelta(seconds=int(total_sec))
-            d = datetime.datetime(1,1,1) + s
-            string = ''
-            if d.day-1 == 1 and d.hour < 23 and d.minute < 59:
-                string = u'%d' % (d.day-1) + _(u'. day')    # den
-            if d.day-1 >= 2 and d.day-1 < 5:
-                string = u'%d' % (d.day-1) + _(u'. days')   # dny 
-            if d.day-1 > 4:
-                string = u'%d' % (d.day-1) + _(u'. days ')  # dnu  
+        raw = subprocess.check_output('uptime').replace(',','')
+        days = int(raw.split()[2])
+        if 'min' in raw:
+            hours = 0
+            minutes = int(raw[4])
+        else:
+            hours, minutes = map(int,raw.split()[4].split(':'))
 
-            string += u' %s:%s:%s' % (two_digits(d.hour), two_digits(d.minute), two_digits(d.second))
+        string = ''
+        if days == 1 and hours < 23 and minutes < 59:
+            string = u'%d' % (days) + _(u'. day')    # den
+        if days >= 2 and days < 5:
+            string = u'%d' % (days) + _(u'. days')   # dny 
+        if days > 4:
+            string = u'%d' % (days) + _(u'. days ')  # dnu  
+
+        string += u' %s:%s' % (two_digits(hours), two_digits(minutes))
+
     except Exception:
        string = _(u'Unknown')
        print_report('helpers.py', traceback.format_exc())
-    return string
+
+    return string    
     
 
 def split_ip(ip):

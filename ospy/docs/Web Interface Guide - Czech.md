@@ -87,7 +87,8 @@ OSPy Průvodce webovým rozhraním v češtině
                 O čísle portu 
             HTTP/S port 
             Zobrazit rozšíření na home
-            Jazyk          
+            Jazyk  
+            Zobrazit obrázky na stanicích        
         Počasí
             Použít počasí
             Dark Sky API klíč
@@ -150,7 +151,8 @@ OSPy Průvodce webovým rozhraním v češtině
         Ignorovat Déšť
         ZAP Hlavní
         ZAP Hlavní 2
-        Poznámky  
+        Poznámky
+        Obrázek  
     Nápověda
         OSPy
             Readme
@@ -262,7 +264,7 @@ Využití procesoru Raspberry pi. Využití je zobrazené v %.
 Odkaz na úložiště softwaru projektu a číslo revize nainstalovaného softwaru.
 
 ## Vnější IP adresa
-Externí IP adresa pro systém OSPy (adresa vašeho poskytovatele připojení - routeru). Testováno prostřednictvím služby bot.whatismyipaddress.com.
+Externí IP adresa pro systém OSPy (adresa vašeho poskytovatele připojení - routeru). Testováno prostřednictvím služby pihrt.com.
 
 ## V provozu
 Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
@@ -500,7 +502,10 @@ Volbou jazyka můžeme změnit jazyk používaný ve webovém rozhraní.
 * Klikněte na tlačítko "Potvrdit změny" ve spodní části stránky.
 
 Software se restartuje a po několika sekundách se rozhraní zobrazí ve zvoleném jazyce.
-        
+
+### Zobrazit obrázky na stanicích  
+Zaškrtnutím tohoto políčka zobrazíte obrázky stanic na domovské stránce a na stránce stanic.  
+     
 ## Počasí
 Sekce počasí umožňuje přístup ke službě předpovědi počasí pro vaši polohu. Musíte se zaregistrovat pro tuto funkci na webu (https://darksky.net/dev).
 Podle předpovědi počasí lze zavlažovací cyklus automaticky upravit (pokud zvolíme rozšíření, které používá předpověď počasí).
@@ -768,7 +773,10 @@ Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i hlavn�
 Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i druhá hlavní stanice (například druhé čerpadlo, nebo jiný zdroj vody) zaškrtneme okénko "ZAP hlavní 2?".
 
 ## Poznámky  
-Poznámky slouží pro obsluhu systému OSPy. Lze si například poznamenat: jaký typ el. ventilu, rozstřikovače atd. máme v systému použitý.
+Poznámky slouží pro obsluhu systému OSPy. Lze si například poznamenat: jaký typ el. ventilu, rozstřikovače atd. máme v systému použitý.  
+
+## Obrázek  
+Po kliknutí na okénko se otevře stránka, na které je možné nahrát vlastní obrázek ke stanici.
 
 ----
 

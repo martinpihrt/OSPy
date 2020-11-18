@@ -89,6 +89,22 @@ function updateClock() {
     setTimeout(updateClock, 500);
 }
 
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+    let cpu_temp = osVals.cpu_temp;
+    let cpu_usage = osVals.cpu_usage;
+    let sys_uptime = osVals.sys_uptime;
+    let sys_ip = osVals.ip;
+
+    jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+    jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+    jQuery("#ip span.ip").text(sys_ip);
+    jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+    
+    setTimeout(updateFooter, 5000); 
+}
+
 jQuery(document).ready(function(){
 
     jQuery("#bPlugins").click(function(e) {
@@ -105,6 +121,7 @@ jQuery(document).ready(function(){
     });
 
     updateClock();
+    updateFooter();
 }); 
 
     </script>
@@ -175,17 +192,15 @@ jQuery(document).ready(function(){
         </div>   
 
         <div class="footer">
-            <p>$_('CPU Temp'): <b>
-                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> ${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span></a>
+            <p id="cpu_temp">$_('CPU Temp'): <b>
+                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> <span class="cpu_temp">$_('loading...')</span> &deg;${options.temp_unit}</span></a>
             </b></p>
-            <p>$_('CPU Usage'): <b>
-                ${get_cpu_usage()} %
-            </b></p>           
+            <p id="cpu_usage">$_('CPU Usage'): <b><span class="cpu_usage">$_('loading...')</span> %</b></p>           
             $if content.page != 'login' and content.page != 'public' and content.page != 'user':
                 <p><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
                 $_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
-                <p>$_('External IP'): <b> ${get_external_ip()}</b></p>
-                <p>$_('Working'): <b> ${uptime()}</b></p>
+                <p id="ip">$_('External IP'): <b> <span class="ip">$_('loading...')</span></b></p>
+                <p id="uptime">$_('Working'): <b> <span class="uptime">$_('loading...')</span></b></p>
         </div>
     </div>
 </body>
