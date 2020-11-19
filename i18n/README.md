@@ -8,11 +8,6 @@ add to OSPy on my fork on the github.
 
 for generate ospy_messages.pot with all plug-ins folder use:
 ```bash
-sudo python pygettext.py -a -v -d messages -o i18n/ospy_messages.pot ospy/\*.py ospy/templates/\*.html plugins/*/\*.py plugins/*/templates/\*.html
-```
-
-for generate ospy_messages.pot only OSPy system use (do not use):
-```bash
-sudo python pygettext.py -a -v -d messages -o i18n/ospy_messages.pot ospy/\*.py ospy/templates/\*.html 
+sudo python pygettext.py -a -v -d messages -o i18n/ospy_messages.pot ospy/\*.py ospy/templates/\*.html plugins/*/\*.py plugins/*/templates/\*.html setup.py
 ```
 

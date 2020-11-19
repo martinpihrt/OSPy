@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 19 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed setup.py (user name and password check, print function). Updating Czech language translate for new strings (from setup.py).
+
 Nov 18 2020
 -----------
 (martinpihrt)<br/>

@@ -513,8 +513,11 @@ def test_password(password, username):
 
     if options.password_hash == password_hash(password, options.password_salt) and options.admin_user == username: # for OSPY main administrator
         result_admin = True
-        server.session['category'] = 'admin'
-        server.session['visitor']  = _(u'%s') % options.admin_user
+        try:
+            server.session['category'] = 'admin'
+            server.session['visitor']  = _(u'%s') % options.admin_user
+        except:
+            pass    
 
     if result_admin:
         options.password_time = 0
@@ -526,14 +529,23 @@ def test_password(password, username):
         if user.password_hash == password_hash(password, user.password_salt) and user.name == username:            # for others OSPy users
             result_users = True  
             if user.category == '0': # public
-                server.session['category'] = 'public'
-                server.session['visitor']  =  user.name
+                try:
+                    server.session['category'] = 'public'
+                    server.session['visitor']  =  user.name
+                except:
+                    pass    
             if user.category == '1': # user
-                server.session['category'] = 'user'
-                server.session['visitor']  =  user.name
+                try:
+                    server.session['category'] = 'user'
+                    server.session['visitor']  =  user.name
+                except:
+                    pass                     
             if user.category == '2': # admin
-                server.session['category'] = 'admin'  
-                server.session['visitor']  =  user.name                                 
+                try:
+                    server.session['category'] = 'admin'  
+                    server.session['visitor']  =  user.name
+                except:
+                    pass                                                      
 
         if result_users:
             user.password_time = 0
@@ -543,12 +555,19 @@ def test_password(password, username):
                 user.password_time += 1          
 
     if result_admin or result_users: 
-        print_report('helpers.py', _(u'Logged in %s, as operator %s') % (server.session['visitor'], server.session['category']))
+        try:
+            print_report('helpers.py', _(u'Logged in %s, as operator %s') % (server.session['visitor'], server.session['category']))
+        except:
+            pass    
         return True
 
-    server.session['category'] = 'public'
-    server.session['visitor']  = _(u'Unknown operator')
-    print_report('helpers.py', _(u'Unauthorised operator') + ': ' + _(u'%s') % username)        
+    try:
+        server.session['category'] = 'public'
+        server.session['visitor']  = _(u'Unknown operator')
+        print_report('helpers.py', _(u'Unauthorised operator') + ': ' + _(u'%s') % username)        
+    except:
+        pass
+
     return False    
 
 

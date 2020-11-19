@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function
-
 __author__ = 'Rimco'
 
 import sys
@@ -8,23 +6,26 @@ import os
 import subprocess
 import shutil
 
+from ospy import i18n
+from ospy.helpers import print_report
+
 
 def yes_no(msg):
     response = ''
     while response.lower().strip() not in ['y', 'yes', 'n', 'no']:
-        response = raw_input('%s [y/yes/n/no]\n' % msg)
+        response = raw_input('%s [y/yes/n/no]\n' % msg.encode('ascii', 'replace'))
     return response.lower().strip() in ['y', 'yes']
 
 
 def install_package(module, easy_install=None, package=None, git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None):
     from ospy.helpers import del_rw
     try:
-        print('Checking %s' % module)
+        print_report('setup.py', _(u'Checking %s') % module)
         __import__(module)
-        print('%s is available' % module)
+        print_report('setup.py', _(u'%s is available') % module)
         return
     except Exception:
-        if not yes_no('%s not available, do you want to install it?' % module):
+        if not yes_no(_(u'%s not available, do you want to install it?') % module):
             return
 
     done = False
@@ -33,7 +34,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             subprocess.check_call(['easy_install', easy_install])
             done = True
         except Exception as err:
-            print('Failed to use easy_install:', err)
+            print_report('setup.py', _(u'Failed to use easy_install:') + err)
 
     if sys.platform.startswith('linux'):
         if not done and package is not None:
@@ -41,14 +42,14 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
                 subprocess.check_call('apt-get install'.split() + [package])
                 done = True
             except Exception as err:
-                print('Failed to use apt-get:', err)
+                print_report('setup.py', _(u'Failed to use apt-get:') + err)
 
         if not done and package is not None:
             try:
                 subprocess.check_call('yum install'.split() + [package])
                 done = True
             except Exception as err:
-                print('Failed to use yum:', err)
+                print_report('setup.py', _(u'Failed to use yum:') + err)
 
     if not done and git is not None and git_execs is not None:
         try:
@@ -59,7 +60,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print('Failed to use git:', err)
+            print_report('setup.py', _(u'Failed to use git:') + err)
 
     if not done and zipfile is not None and zip_cwd is not None and zip_execs is not None:
         try:
@@ -78,26 +79,26 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print('Failed to use zip file:', err)
+            print_report('setup.py', _(u'Failed to use zip file:') + err)
 
     if not done:
-        print('Failed to install %s.' % module)
+        print_report('setup.py', _(u'Failed to install %s.') % module)
 
 
 def install_service():
     my_dir = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join('/etc', 'init.d', 'ospy')
     if sys.platform.startswith('linux'):
-        if yes_no('Do you want to install OSPy as a service?'):
-
+        if yes_no(_(u'Do you want to install OSPy as a service?')):
             with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
                 with open(path, 'w') as target:
                     target.write(source.read().replace('/home/pi/OSPy', my_dir))
             os.chmod(path, 0o755)
             subprocess.check_call(['update-rc.d', 'ospy', 'defaults'])
-            print('Done installing service.')
+            print_report('setup.py', _(u'Done installing service.'))
+
     else:
-        print('Service installation is only possible on unix systems.')
+        print_report('setup.py', _(u'Service installation is only possible on unix systems.'))
 
 
 def uninstall_service():
@@ -106,14 +107,14 @@ def uninstall_service():
             try:
                 subprocess.Popen(['service', 'ospy', 'stop'])
             except Exception:
-                print('Could not stop service.')
+                print_report('setup.py', _(u'Could not stop service.'))
         else:
-            print('OSPy was not running.')
+            print_report('setup.py', _(u'OSPy was not running.'))
 
         try:
             subprocess.check_call(['update-rc.d', '-f', 'ospy', 'remove'])
         except Exception:
-            print('Could not remove service using update-rc.d')
+            print_report('setup.py', _(u'Could not remove service using update-rc.d'))
 
         import glob
         old_paths = glob.glob(os.path.join('/etc', 'init.d', '*ospy*'))
@@ -121,32 +122,42 @@ def uninstall_service():
             os.unlink(old_path)
 
         if old_paths:
-            print('Service removed')
+            print_report('setup.py', _(u'Service removed.'))
         else:
-            print('Service not found')
+            print_report('setup.py', _(u'Service not found.'))
     else:
-        print('Service uninstall is only possible on unix systems.')
+        print_report('setup.py', _(u'Service uninstall is only possible on unix systems.'))
 
 
 def check_password():
     from ospy.options import options
-    from ospy.helpers import test_password, password_hash
-    if not options.no_password and test_password('opendoor'):
-        if yes_no('You are still using the default password, you should change it! Do you want to change it now?'):
+    from ospy.helpers import test_password, password_hash, password_salt
+    
+    if not options.no_password and test_password('opendoor', 'admin'):
+        if yes_no(_(u'You are still using the default password and name, you should change it! Do you want to change it now?')):
             from getpass import getpass
-            pw1 = pw2 = ''
+            pw1 = pw2 = name = ''
             while True:
-                pw1 = getpass('New password: ')
-                pw2 = getpass('Repeat password: ')
-                if pw1 != '' and pw1 == pw2:
+                name = getpass(_(u'New administrator name: '))
+                print_report('setup.py', _(u'Inputted name is: %s') % name)
+                pw1 = getpass(_(u'New administrator password: '))
+                print_report('setup.py', _(u'Inputted password is: %s') % pw1)
+                pw2 = getpass(_(u'Repeat administrator password: '))
+                print_report('setup.py', _(u'Inputted password is: %s') % pw2)
+                if pw1 != '' and pw1 == pw2 and name != '':
+                    print_report('setup.py', _(u'Correctly.'))
                     break
-                print('Invalid input!')
+                print_report('setup.py', _(u'Invalid input!'))
 
-            options.password_hash = password_hash(pw1)
+            options.admin_user = name
+            salt = password_salt()
+            options.password_salt = salt
+            options.password_hash = password_hash(pw1, salt)
+            options.password_time = 0
 
 
 def start():
-    if yes_no('Do you want to start OSPy now?'):
+    if yes_no(_(u'Do you want to start OSPy now?')):
         if sys.platform.startswith('linux'):
             try:
                 subprocess.Popen(['service', 'ospy', 'restart'])
@@ -161,7 +172,7 @@ if __name__ == '__main__':
     # On unix systems we need to be root:
     if sys.platform.startswith('linux'):
         if not os.getuid() == 0:
-            sys.exit("This script needs to be run as root.")
+            sys.exit(_(u'This script needs to be run as root.'))
 
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         pkg = False
@@ -169,7 +180,7 @@ if __name__ == '__main__':
             import setuptools
             pkg = True
         except ImportError:
-            if yes_no('Could not find setuptools which is needed to install packages, do you want to install it now?'):
+            if yes_no(_(u'Could not find setuptools which is needed to install packages, do you want to install it now?')):
                 import urllib
                 from ospy.helpers import del_rw
                 shutil.rmtree('tmp', onerror=del_rw)
@@ -180,28 +191,25 @@ if __name__ == '__main__':
                 pkg = True
 
         if not pkg:
-            print('Cannot install packages without setuptools.')
+            print_report('setup.py', _(u'Cannot install packages without setuptools.'))
         else:
             # Check if packages are available:
             install_package('gfm', None, None,
-                            'https://github.com/Zopieux/py-gfm.git',
+                            'https://github.com/martinpihrt/py-gfm.git',
                             [[sys.executable, 'setup.py', 'install']],
-                            'https://github.com/Zopieux/py-gfm/archive/master.zip', 'py-gfm-master',
+                            'https://github.com/martinpihrt/py-gfm/archive/master.zip', 'py-gfm-master',
                             [[sys.executable, 'setup.py', 'install']])
 
             install_package('pygments', 'pygments', 'python-pygments',
-                            'http://bitbucket.org/birkenfeld/pygments-main',
+                            'https://github.com/martinpihrt/pygments', #'http://bitbucket.org/birkenfeld/pygments-main',
                             [[sys.executable, 'setup.py', 'install']],
-                            'https://bitbucket.org/birkenfeld/pygments-main/get/0fb2b54a6e10.zip', 'birkenfeld-pygments-main-0fb2b54a6e10',
+                            'https://github.com/martinpihrt/pygments/archive/master.zip', 'pygments-master', # 'https://bitbucket.org/birkenfeld/pygments-main/get/0fb2b54a6e10.zip', 'birkenfeld-pygments-main-0fb2b54a6e10',
                             [[sys.executable, 'setup.py', 'install']])
 
         install_service()
-
         check_password()
-
         start()
-
-        print('Done')
+        print_report('setup.py', _(u'Done.'))
 
     elif len(sys.argv) == 2 and sys.argv[1] == 'uninstall':
         uninstall_service()
