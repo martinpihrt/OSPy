@@ -1,0 +1,72 @@
+$def with (sensor, errorCode)
+
+$var title: $_('Modify Sensor')
+$var page: user
+
+<script>
+    function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+    }
+
+    var errorCode = "${errorCode}";
+    jQuery(document).ready(function(){
+        jQuery("#cSubmit").click(function() {
+            jQuery("#sensorForm").submit();
+        });
+    jQuery("button#cCancel").click(function(){
+        window.location="/sensors";
+        });
+
+    switch (errorCode) {
+        case "uname":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor name not entered! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break; 
+        case "unameis":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor name already exists, use another name! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;                      
+    }
+    
+    updateFooter(); 
+    });
+</script>
+
+<div id="users">
+        <div class="title">${_('Add a New Sensor') if sensor.index < 0 else _('Edit Sensor') + (' #') + str(sensor.index+1)}</div>
+        <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
+            <span id="errorHint"></span>
+            <form name="sensorForm" id="sensorForm" method="post">
+                <input type="hidden" name="index" value="${sensor.index}">
+                <table class="optionList" style="background: #F5F5F5;">
+                    <tr>
+                        <td style='text-transform: none;'>$_(u'New Sensor Name'):</td>
+                        <td title=$:{json.dumps(_(u'Type new Sensor Name for new sensor'), ensure_ascii=False)}>  
+                            <input name="name" type="text" minlength="2" value="${sensor.name}" style="width: 140px">    
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td style='text-transform: none;'>$_(u'Notes about sensor'):</td>
+                        <td title=$:{json.dumps(_(u'Here we can make our notes'), ensure_ascii=False)}>  
+                            <textarea style="font-family: monospace;" rows="1" cols="20" name="notes" maxlength="150">${sensor.notes}</textarea>
+                        </td>
+                    </tr>                                                                                  
+                </table>         
+            </form>
+        </div>     
+</div>
+
+<div id="controls">
+    <button id="cSubmit" class="submit"><b>$_('Save')</b></button>
+    <button id="cCancel" class="cancel danger">$_('Cancel')</button>
+</div>

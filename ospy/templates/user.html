@@ -4,6 +4,22 @@ $var title: $_('Modify User')
 $var page: user
 
 <script>
+    function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+    }
+    
     var errorCode = "${errorCode}";
     jQuery(document).ready(function(){
         jQuery("#cSubmit").click(function() {
@@ -15,13 +31,26 @@ $var page: user
 
     switch (errorCode) {
         case "uname":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Username not entered! Please try again'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Username not entered! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
         break;
+        case "unamelen":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Username has not minimal lenght! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;     
+        case "upasslen":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Password has not minimal lenght! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;            
         case "upass":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Password not entered! Please try again'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
-        break;        
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Password not entered! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break; 
+        case "upassuname":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Password and name cannot be the same! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;  
+        case "unameis":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Username already exists, use another name! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;                      
     }
-});
+    updateFooter(); 
+    });
 </script>
 
 <div id="users">
@@ -36,13 +65,13 @@ $var page: user
                     <tr>
                         <td style='text-transform: none;'>$_(u'New User Name'):</td>
                         <td title=$:{json.dumps(_(u'Type new User Name for new user'), ensure_ascii=False)}>  
-                            <input name="name" type="text" value="${user.name}" style="width: 140px">    
+                            <input name="name" type="text" minlength="5" value="${user.name}" style="width: 140px">    
                         </td>
                     </tr> 
                     <tr>
                         <td style='text-transform: none;'>$_(u'New User Password'):</td>
                         <td title=$:{json.dumps(_(u'Type new User Password for new user'), ensure_ascii=False)}>  
-                            <input name="password" type="password" minlength="6" required value="" style="width: 140px"> $_('6 characters minimum ')    
+                            <input name="password" type="password" minlength="5" required value="" style="width: 140px">  
                         </td>
                     </tr>  
                     <tr>

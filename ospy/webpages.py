@@ -26,6 +26,7 @@ from ospy import scheduler
 import plugins
 from blinker import signal
 from ospy.users import users
+from ospy.sensors import sensors
 
 plugin_data = {}  # Empty dictionary to hold plugin based global data
 pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
@@ -147,6 +148,90 @@ class ProtectedPage(WebPage):
             raise
             
 
+class sensors_page(ProtectedPage):
+    """Open all sensors page. /sensors"""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session['category'] != 'admin':
+            raise web.seeother(u'/')
+
+        qdict = web.input()
+
+        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
+
+        if delete_all:
+            while sensors.count() > 0:
+                sensors.remove_sensors(sensors.count()-1)
+
+        return self.core_render.sensors()
+
+
+class sensor_page(ProtectedPage):
+    """Open page to allow sensor modification. /sensor """
+    def GET(self, index):
+        from ospy.server import session
+
+        qdict = web.input()
+        try:
+            index = int(index)
+            delete = get_input(qdict, 'delete', False, lambda x: True)
+            enable = get_input(qdict, 'enable', None, lambda x: x == '1')
+
+            if delete and session['category'] == 'admin':
+                sensors.remove_sensors(index)
+                raise web.seeother(u'/sensors')
+            elif enable is not None:
+                sensors[index].enabled = enable
+                raise web.seeother(u'/sensors')                           
+
+        except ValueError:
+            pass        
+
+        if isinstance(index, int):
+            sensor = sensors.get(index)
+        else:
+            sensor = sensors.create_sensors()       
+
+        errorCode = qdict.get('errorCode', 'None')
+        return self.core_render.sensor(sensor, errorCode)
+
+
+    def POST(self, index):
+        from ospy.server import session
+
+        qdict = web.input()
+
+        try:
+            index = int(index)
+            sensor = sensors.get(index)
+
+        except ValueError:
+            sensor = sensors.create_sensors()          
+
+        sensor.name = ''
+
+        if session['category'] == 'admin':
+            sensor.name = qdict['name']
+            sensor.notes = qdict['notes']        
+        
+        if sensor.name == '':
+            errorCode = qdict.get('errorCode', 'uname')
+            return self.core_render.sensor(sensor, errorCode) 
+
+        for x in range(sensors.count()):
+            issensor = sensors.get(x)
+            if sensor.name == issensor.name:
+                errorCode = qdict.get('errorCode', 'unameis')
+                return self.core_render.sensor(sensor, errorCode)
+
+        if sensor.index < 0 and session['category'] == 'admin':
+            sensors.add_sensors(sensor)    
+
+        raise web.seeother(u'/sensors')
+
+
 class users_page(ProtectedPage):
     """Open all users page. /users"""
 
@@ -213,18 +298,40 @@ class user_page(ProtectedPage):
         if user.name == '':
             errorCode = qdict.get('errorCode', 'uname')
             return self.core_render.user(user, errorCode) 
+
+        if len(user.name) < 5:
+            errorCode = qdict.get('errorCode', 'unamelen')
+            return self.core_render.user(user, errorCode)             
         
+        if password == user.name:
+            errorCode = qdict.get('errorCode', 'upassuname')
+            return self.core_render.user(user, errorCode) 
+
         if password == '':
             errorCode = qdict.get('errorCode', 'upass')
-            return self.core_render.user(user, errorCode)    
+            return self.core_render.user(user, errorCode)   
+
+        if len(password) < 5:
+            errorCode = qdict.get('errorCode', 'unamepass')
+            return self.core_render.user(user, errorCode)            
+
+        if user.name == options.admin_user:
+            errorCode = qdict.get('errorCode', 'unameis')
+            return self.core_render.user(user, errorCode)            
+        
+        for x in range(users.count()):
+            isuser = users.get(x)
+            if user.name == isuser.name:
+                errorCode = qdict.get('errorCode', 'unameis')
+                return self.core_render.user(user, errorCode)            
 
         if user.index < 0 and session['category'] == 'admin':
             salt = password_salt()
             user.password_salt = salt
-            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
+            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving           
             users.add_users(user)    
 
-        raise web.seeother(u'/users')
+        raise web.seeother(u'/users')        
 
 
 class image_edit_page(ProtectedPage):

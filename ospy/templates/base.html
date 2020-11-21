@@ -89,22 +89,6 @@ function updateClock() {
     setTimeout(updateClock, 500);
 }
 
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-    let cpu_temp = osVals.cpu_temp;
-    let cpu_usage = osVals.cpu_usage;
-    let sys_uptime = osVals.sys_uptime;
-    let sys_ip = osVals.ip;
-
-    jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-    jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-    jQuery("#ip span.ip").text(sys_ip);
-    jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-    
-    setTimeout(updateFooter, 5000); 
-}
-
 jQuery(document).ready(function(){
 
     jQuery("#bPlugins").click(function(e) {
@@ -121,18 +105,15 @@ jQuery(document).ready(function(){
     });
 
     updateClock();
-    updateFooter();
 }); 
 
-    </script>
-    <script>
-        // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
-        let device_time = ${now()} * 1000 + (new Date()).getTimezoneOffset() * 60 * 1000;
-        let to_device_time = (new Date()).getTimezoneOffset() * 60 * 1000 + (${now()} * 1000 - (new Date).getTime());
-        let timeFormat = ${str(options.time_format).lower()};
-        $if content.page != 'login':
-            let manual_mode = ${str(options.manual_mode).lower()};
-    </script>
+    // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
+    let device_time = ${now()} * 1000 + (new Date()).getTimezoneOffset() * 60 * 1000;
+    let to_device_time = (new Date()).getTimezoneOffset() * 60 * 1000 + (${now()} * 1000 - (new Date).getTime());
+    let timeFormat = ${str(options.time_format).lower()};
+    $if content.page != 'login':
+        let manual_mode = ${str(options.manual_mode).lower()};
+</script>
 </head>
 <body>
     <div class="content">
@@ -181,6 +162,7 @@ jQuery(document).ready(function(){
                             $if content.page != 'user': 
                                 <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False)}>$_(u'Options')</a>
                                 <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False)}>$_(u'Stations')</a>
+                                <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_(u'Configure Sensors'), ensure_ascii=False)}>$_(u'Sensors')</a>
                             <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False)}>$_(u'Help')</a>
                         $if not options.no_password:
                             <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False)}>$_(u'Logout')</a>
@@ -193,14 +175,16 @@ jQuery(document).ready(function(){
 
         <div class="footer">          
             $if content.page != 'login' and content.page != 'public' and content.page != 'user':
+                <div id="foot">
                 <p id="cpu_temp">$_('CPU Temp'): <b>
-                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> <span class="cpu_temp">$_('loading...')</span> &deg;${options.temp_unit}</span></a>
+                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> <span class="cpu_temp">${get_cpu_temp(options.temp_unit)}</span> &deg;${options.temp_unit}</span></a>
                 </b></p>
-                <p id="cpu_usage">$_('CPU Usage'): <b><span class="cpu_usage">$_('loading...')</span> %</b></p>             
+                <p id="cpu_usage">$_('CPU Usage'): <b><span class="cpu_usage">${get_cpu_usage()}</span> %</b></p>             
                 <p><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
                 $_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
-                <p id="ip">$_('External IP'): <b> <span class="ip">$_('loading...')</span></b></p>
-                <p id="uptime">$_('Working'): <b> <span class="uptime">$_('loading...')</span></b></p>
+                <p id="ip">$_('External IP'): <b> <span class="ip">${get_external_ip()}</span></b></p>
+                <p id="uptime">$_('Working'): <b> <span class="uptime">${uptime()}</span></b></p>
+                </div>
         </div>
     </div>
 </body>

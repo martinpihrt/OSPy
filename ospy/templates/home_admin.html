@@ -416,6 +416,22 @@ function updateOStimer() {
     setTimeout(updateOStimer, 3600000);
 }  
 
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}
+
 jQuery(document).ready(function(){
     // modal pop-up
     modal = document.getElementById("OSPyModal");
@@ -480,7 +496,8 @@ jQuery(document).ready(function(){
 
         dataTimer();    // data timer for footer plugins data
  
-    updateOStimer();    // timer for os and plugins update info                       
+    updateOStimer();    // timer for os and plugins update info  
+    updateFooter();     // timer for footer data (temperature...)                  
 });
 
 </script>

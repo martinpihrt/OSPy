@@ -1,6 +1,14 @@
 OSPy Changelog
 ====
 
+Nov 21 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed in users (user name and password lenght check, if the user name already exists, that the new user does not have the same name as the administrator). Added and updating Czech language translate for new strings.<br/>
+Fixed loading header (cpu temperature, load ...) -> redirection to update_footer.<br/>
+Added new tab "sensors". Added support for sensors. In the future it will be possible to add sensors (pressure, temperature, humidity, contact ...) and their assignment to various operations (for example, the temperature sensor closes a certain program).
+
 Nov 19 2020
 -----------
 (martinpihrt)<br/>

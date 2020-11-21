@@ -3,8 +3,30 @@ $def with ()
 $var title: $_('Programs')
 $var page: programs
 
+<script>
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}
+
+jQuery(document).ready(function(){
+    updateFooter();     // timer for footer data (temperature...)
+});
+</script>
 
 <div id="controls">
+    <div id="program-container" class="program-container">
     <a href="/program/new" class="button add">$_('Add a New Program')</a>
     <a href="/programs?delete_all" class="button deleteAll danger">$_('Delete All')</a>
     $for program in programs.get():
@@ -28,4 +50,5 @@ $var page: programs
             <a href="/program/${program.index}?delete" class="button cDelete danger">$_('Delete')</a>
         </p>
         </div>
+    </div>    
 </div>

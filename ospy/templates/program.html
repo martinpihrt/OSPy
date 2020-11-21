@@ -12,7 +12,24 @@ $var page: programs
     jQuery(document).ready(function(){
         create_custom_schedule(${int(program.modulo/1440)});
         update_schedules();
+        updateFooter();
     });
+
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}    
 </script>
 <script src="/static/scripts/intervalSelect.js"></script>
 <script>

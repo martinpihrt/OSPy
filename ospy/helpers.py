@@ -365,7 +365,7 @@ def get_cpu_usage():
     prev_time_doing_nothing = time_doing_nothing
 
     # Output latest perccentage
-    return round(cpu_percentage ,1)  # To one digits     
+    return float(round(cpu_percentage ,1))  # To one digits     
 
 
 def mkdir_p(path):
@@ -625,6 +625,7 @@ def template_globals():
     from ospy.webpages import pluginStn
     from ospy import i18n
     from ospy.users import users
+    from ospy.sensors import sensors
 
     result = {
         'str': str,

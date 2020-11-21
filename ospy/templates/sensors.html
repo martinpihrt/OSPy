@@ -1,0 +1,101 @@
+$def with ()
+
+$var title: $_(u'A list of sensors')
+$var page: users
+
+$code:   
+    def two_digits(n):
+        return '%02d' % int(n)      
+
+<script>
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}
+
+jQuery(document).ready(function(){
+    updateFooter();     // timer for footer data (temperature...)
+});
+</script>
+
+<div id="controls">
+    <a href="/sensor/new" class="button add">$_(u'Add a New sensor')</a>
+    <a href="/sensors?delete_all" class="button deleteAll danger">$_(u'Delete All sensors')</a>
+</div>
+
+<div id="controls">
+    <div id="sensor-container" class="sensor-container">
+    $for sensor in sensors.get():
+        $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature')]
+        <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
+        <p>
+            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False)}>
+                <span class='toggleleft'>$_('On')</span>
+                <span class='togglesep'>&nbsp;</span>
+                <span class='toggleright'>$_('Off')</span>
+            </a>
+            ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): $type_list[sensor.sens_type]
+        </p>
+        <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
+        <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
+        <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
+        <p>$_(u'Text/Email Events'): <span class="val">${_(u'Yes') if sensor.send_email else _(u'No')}</span></p>
+        <p>$_(u'Normal Sensor Value Considered Event?'): <span class="val">${_(u'Yes') if sensor.normal_trigger else _(u'No')}</span></p>
+        $if sensor.sens_type == 1:
+            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Open Program'): <span class="val">${sensor.trigger_low_program}</span></p>
+            <p>$_(u'Closed Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+        $elif sensor.sens_type == 2:
+            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} %</span></p>
+            <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization/60) + ":" + two_digits(sensor.stabilization%60)} ($_(u'mm:ss'))</span></p>
+            <p>$_(u'Low Program'): <span class="val">${sensor.trigger_low_program}</span></p>
+            <p>$_(u'High Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+        $elif sensor.sens_type == 3:
+            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}</span>
+                $_(u'Program'): <span class="val">${sensor.trigger_low_program}</span></p>
+            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}</span>
+                $_(u'Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+            <p>
+        $elif sensor.sens_type == 4:
+            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+        $elif sensor.sens_type == 5:
+            $ lrv = sensor.last_read_value
+            $ lt = sensor.trigger_low_threshold
+            $ ht = sensor.trigger_high_threshold
+            $if options.temp_unit == 'F':
+                $if lrv is not None:
+                    $ lrv = lrv*1.8 + 32
+                $ lt = lt*1.8 + 32
+                $ ht = ht*1.8 + 32
+            $if lrv is not None:
+                $ lrv = "{0:.1f}".format(lrv)
+            $ lt = "{0:.1f}".format(lt)
+            $ ht = "{0:.1f}".format(ht)
+            <p>$_(u'Last Read Value'): <span class="val">${str(lrv)}</span></p>
+            <p>$_(u'Low Threshold'): <span class="val">${lt}</span>
+               $_(u'Program'): <span class="val">${format_trigger_program(sensor.trigger_low_program)}</span></p>
+            <p>$_(u'High Threshold'): <span class="val">${ht}</span>
+               $_(u'Program'): <span class="val">${format_trigger_program(sensor.trigger_high_program)}</span></p>                            
+        <p>         
+        <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
+        <a href="/sensor/${sensor.index}?log" class="button cModify"> $_(u'View Logs') </a>
+        <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_(u'Delete Sensor')</a>
+        </p>    
+        </div> 
+    </div>      
+</div>    
+   

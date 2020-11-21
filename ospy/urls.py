@@ -47,4 +47,7 @@ urls = [
     '/users', 'ospy.webpages.users_page',
     '/user/(new|[0-9]+)', 'ospy.webpages.user_page',
 
+    '/sensors', 'ospy.webpages.sensors_page',
+    '/sensor/(new|[0-9]+)', 'ospy.webpages.sensor_page',
+
 ]
