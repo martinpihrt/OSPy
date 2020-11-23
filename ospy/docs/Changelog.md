@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 23 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed in login (if "access without password" was checked in the settings, then access to panels was not displayed in OSPy.)
+
 Nov 21 2020
 -----------
 (martinpihrt)<br/>

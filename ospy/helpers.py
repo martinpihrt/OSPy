@@ -579,6 +579,8 @@ def check_login(redirect=False):
 
     try:
         if options.no_password:
+            server.session['category'] = 'admin'
+            server.session['visitor']  = _(u'No password')
             return True
 
         if server.session.validated:
