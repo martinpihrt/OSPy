@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 28 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+New sensors selector: Dry Contact, Leak Detector, Moisture, Motion, Temperature. And communications selector: Wi-Fi/LAN or Radio. Sensors can already be added to the sensors tab. Sensors are displayed after addition and can be edited. Nothing else is done yet (communication with sensors and their response in the system). Added translation of new strings into Czech language. Fixed run time on the home page.
+
 Nov 23 2020
 -----------
 (martinpihrt)<br/>

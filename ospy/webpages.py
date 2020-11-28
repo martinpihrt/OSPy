@@ -201,30 +201,92 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input()
-
+        qdict = web.input(trigger_low_program = [], trigger_high_program = [])
+ 
         try:
             index = int(index)
             sensor = sensors.get(index)
 
         except ValueError:
-            sensor = sensors.create_sensors()          
-
-        sensor.name = ''
+            sensor = sensors.create_sensors()         
 
         if session['category'] == 'admin':
-            sensor.name = qdict['name']
-            sensor.notes = qdict['notes']        
-        
-        if sensor.name == '':
-            errorCode = qdict.get('errorCode', 'uname')
-            return self.core_render.sensor(sensor, errorCode) 
+            if 'name' in qdict:
+                sensor.name = qdict['name']
 
-        for x in range(sensors.count()):
-            issensor = sensors.get(x)
-            if sensor.name == issensor.name:
-                errorCode = qdict.get('errorCode', 'unameis')
-                return self.core_render.sensor(sensor, errorCode)
+            if 'notes' in qdict:    
+                sensor.notes = qdict['notes']
+
+            if 'enable' in qdict and qdict['enable'] == 'on':    
+                sensor.enabled = 1
+            else:    
+                sensor.enabled = 0
+
+            if 'sens_type' in qdict:
+                sensor.sens_type = int(qdict['sens_type'])
+
+            if 'com_type' in qdict:
+                sensor.com_type = int(qdict['com_type'])
+
+            if 'log_samples' in qdict and qdict['log_samples'] == 'on':
+                sensor.log_samples = 1
+            else:                                  
+                sensor.log_samples = 0
+
+            if 'log_event' in qdict and qdict['log_event'] == 'on':
+                sensor.log_event = 1
+            else:                                  
+                sensor.log_event = 0 
+
+            if 'send_email' in qdict and qdict['send_email'] == 'on':
+                sensor.send_email = 1
+            else:                                  
+                sensor.send_email = 0 
+
+            if 'sample_rate_min' in qdict and 'sample_rate_sec' in qdict:
+                sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])                
+
+            if 'sensitivity' in qdict:
+                sensor.sensitivity = int(qdict['sensitivity'])
+
+            if 'stabilization_time_min' in qdict and 'stabilization_time_sec' in qdict:
+                sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])                 
+
+            if 'trigger_low_threshold' in qdict:
+                sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
+
+            if 'trigger_high_threshold' in qdict:
+                sensor.trigger_high_threshold = qdict['trigger_high_threshold']
+
+            if 'trigger_low_program' in qdict:
+                sensor.trigger_low_program = qdict['trigger_low_program']
+
+            if 'trigger_high_program' in qdict:
+                sensor.trigger_high_program = qdict['trigger_high_program']
+
+            if 'ip_address' in qdict:
+                from ospy.helpers import split_ip
+                ip = split_ip(qdict['ip_address'])
+                sensor.ip_address = ip                                               
+                             
+            if 'mac_address' in qdict:
+                sensor.mac_address = qdict['mac_address']
+
+            if 'radio_id' in qdict:
+                sensor.radio_id = int(qdict['radio_id'])
+
+            if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
+                errorCode = qdict.get('errorCode', 'uname')
+                return self.core_render.sensor(sensor, errorCode) 
+
+            try:
+                if 'name' in qdict and sensor.index < 0:
+                    for sens in sensors.get():
+                        if sens.name == qdict['name']:
+                            errorCode = qdict.get('errorCode', 'unameis')
+                            return self.core_render.sensor(sensor, errorCode) 
+            except:
+                print_report('webpages.py', traceback.format_exc())                
 
         if sensor.index < 0 and session['category'] == 'admin':
             sensors.add_sensors(sensor)    
@@ -295,7 +357,7 @@ class user_page(ProtectedPage):
             user.category = qdict['category']    
             user.notes = qdict['notes']   
 
-        if user.name == '':
+        if user.name == '' and user.index < 0:
             errorCode = qdict.get('errorCode', 'uname')
             return self.core_render.user(user, errorCode) 
 
@@ -321,7 +383,7 @@ class user_page(ProtectedPage):
         
         for x in range(users.count()):
             isuser = users.get(x)
-            if user.name == isuser.name:
+            if user.name == isuser.name and user.index < 0:
                 errorCode = qdict.get('errorCode', 'unameis')
                 return self.core_render.user(user, errorCode)            
 

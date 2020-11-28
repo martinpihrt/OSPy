@@ -15,26 +15,25 @@ class _Sensor(object):
  
         self.name = ""                  # sensor name
         self.enabled = 0                # sensor enable or disable
-        self.token_aes = ""             # aes sensor token
-        self.sens_type = 0              # selector 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
+        self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
+        self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
         self.log_event = 0              # log event
         self.send_email  = 0            # send e-mail  
-        self.normal_trigger = 0         # normal trigger
-        self.sensor_position = 0        # sensor position
-        self.sensor_board = 0           # sensor board 0-2 'None', 'Wi-Fi', 'Radio'  
         self.sample_rate = 60           # sample rate 
         self.last_read_value = ""       # last read value
-        self.sensitivity = 100          # sensitivity
+        self.sensitivity = 0            # sensitivity
         self.stabilization_time = 0     # stabilization time
-        self.trigger_low_program = 0    # open program
-        self.trigger_high_program = 0   # close Program
-        self.trigger_low_threshold = 0  # low threshold
-        self.trigger_high_threshold = 0 # high threshold
-        self.ip_address = ""            # ip address for sensor 
+        self.trigger_low_program = []   # open program
+        self.trigger_high_program = []  # close Program
+        self.trigger_low_threshold = "" # low threshold
+        self.trigger_high_threshold = ""# high threshold
+        self.ip_address = [0,0,0,0]     # ip address for sensor 
+        self.mac_address = ""           # mac address for sensor
         self.last_battery = ""          # battery voltage  
-        self.rssi = 0                   # rssi signal
+        self.rssi = ""                  # rssi signal
+        self.radio_id = 0               # radio ID
 
         options.load(self, index) 
 

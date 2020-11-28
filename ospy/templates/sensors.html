@@ -25,7 +25,7 @@ function updateFooter(){
 }
 
 jQuery(document).ready(function(){
-    updateFooter();     // timer for footer data (temperature...)
+    updateFooter(); 
 });
 </script>
 
@@ -35,6 +35,7 @@ jQuery(document).ready(function(){
 </div>
 
 <div id="controls">
+$if sensors.count()>0:    
     <div id="sensor-container" class="sensor-container">
     $for sensor in sensors.get():
         $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature')]
@@ -45,51 +46,103 @@ jQuery(document).ready(function(){
                 <span class='togglesep'>&nbsp;</span>
                 <span class='toggleright'>$_('Off')</span>
             </a>
-            ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): $type_list[sensor.sens_type]
+            ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): <span class="val">$type_list[sensor.sens_type]</span>
         </p>
         <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
         <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
         <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
         <p>$_(u'Text/Email Events'): <span class="val">${_(u'Yes') if sensor.send_email else _(u'No')}</span></p>
-        <p>$_(u'Normal Sensor Value Considered Event?'): <span class="val">${_(u'Yes') if sensor.normal_trigger else _(u'No')}</span></p>
         $if sensor.sens_type == 1:
-            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
-            <p>$_(u'Open Program'): <span class="val">${sensor.trigger_low_program}</span></p>
-            <p>$_(u'Closed Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+            $if sensor.last_read_value != '':
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_low_program:
+                    $program.name 
+            </span></p>        
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_high_program:
+                    $program.name 
+            </span></p>                 
         $elif sensor.sens_type == 2:
-            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            $if sensor.last_read_value != '':
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
             <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} %</span></p>
-            <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization/60) + ":" + two_digits(sensor.stabilization%60)} ($_(u'mm:ss'))</span></p>
-            <p>$_(u'Low Program'): <span class="val">${sensor.trigger_low_program}</span></p>
-            <p>$_(u'High Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+            <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
+            <p>$_(u'Low Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_low_program:
+                    $program.name 
+            </span></p>                
+            <p>$_(u'High Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_high_program:
+                    $program.name 
+            </span></p>               
         $elif sensor.sens_type == 3:
-            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
-            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}</span>
-                $_(u'Program'): <span class="val">${sensor.trigger_low_program}</span></p>
-            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}</span>
-                $_(u'Program'): <span class="val">${sensor.trigger_high_program}</span></p>
-            <p>
+            $if sensor.last_read_value != '':
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}%</span></p>
+            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}% </span></p>
+            <p>$_(u'Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_low_program:
+                    $program.name 
+            </span></p>                
+            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}% </span></p>
+            <p>$_(u'Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_high_program:
+                    $program.name 
+            </span></p>                
         $elif sensor.sens_type == 4:
-            <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
-            <p>$_(u'Program'): <span class="val">${sensor.trigger_high_program}</span></p>
+            $if sensor.last_read_value != '':
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            <p>$_(u'Program'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_high_program:
+                    $program.name 
+            </span></p>              
         $elif sensor.sens_type == 5:
-            $ lrv = sensor.last_read_value
-            $ lt = sensor.trigger_low_threshold
-            $ ht = sensor.trigger_high_threshold
+            $if sensor.last_read_value != '':
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}
+                $if options.temp_unit == 'F':
+                    &degF
+                $if options.temp_unit == 'C':
+                    &degC 
+                </span></p>
+            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}
             $if options.temp_unit == 'F':
-                $if lrv is not None:
-                    $ lrv = lrv*1.8 + 32
-                $ lt = lt*1.8 + 32
-                $ ht = ht*1.8 + 32
-            $if lrv is not None:
-                $ lrv = "{0:.1f}".format(lrv)
-            $ lt = "{0:.1f}".format(lt)
-            $ ht = "{0:.1f}".format(ht)
-            <p>$_(u'Last Read Value'): <span class="val">${str(lrv)}</span></p>
-            <p>$_(u'Low Threshold'): <span class="val">${lt}</span>
-               $_(u'Program'): <span class="val">${format_trigger_program(sensor.trigger_low_program)}</span></p>
-            <p>$_(u'High Threshold'): <span class="val">${ht}</span>
-               $_(u'Program'): <span class="val">${format_trigger_program(sensor.trigger_high_program)}</span></p>                            
+                &degF
+            $if options.temp_unit == 'C':
+                &degC
+            </span></p>
+            <p>$_(u'Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_low_program:
+                    $program.name 
+            </span></p>                
+            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}
+            $if options.temp_unit == 'F':
+                &degF
+            $if options.temp_unit == 'C':
+                &degC
+            </span></p>
+            <p>$_(u'Program(s)'): <span class="val">
+            $for program in programs.get():
+                $if str(program.index+1) in sensor.trigger_high_program:
+                    $program.name 
+            </span></p>                
+        $if sensor.com_type == 0:
+            <p>$_(u'IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
+            $if sensor.mac_address != '':
+                <p>$_(u'MAC Address'): <span class="val">${sensor.mac_address}</span></p> 
+            $if sensor.rssi != '':
+                <p>$_(u'Last RSSI Level'): <span class="val">${sensor.rssi}</span></p>
+        $if sensor.com_type == 1:
+            <p>$_(u'Radio ID'): <span class="val">${sensor.radio_id}</span></p>
+            $if sensor.last_battery != '':
+                <p>$_(u'Last Battery Level'): <span class="val">${sensor.last_battery}</span></p>                                           
         <p>         
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
         <a href="/sensor/${sensor.index}?log" class="button cModify"> $_(u'View Logs') </a>

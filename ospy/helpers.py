@@ -182,14 +182,13 @@ def restart(wait=1, block=False):
 def uptime():
     """Returns UpTime for RPi"""
     try:
-        raw = subprocess.check_output('uptime').replace(',','')
-        days = int(raw.split()[2])
-        if 'min' in raw:
-            hours = 0
-            minutes = int(raw[4])
-        else:
-            hours, minutes = map(int,raw.split()[4].split(':'))
-
+        with open('/proc/uptime', 'r') as f:
+            uptime_seconds = float(f.readline().split()[0])
+            seconds = int(uptime_seconds % 60)
+            minutes = int(uptime_seconds /60 % 60)
+            hours = int(uptime_seconds / 60 / 60 % 24)
+            days = int(uptime_seconds / 60 /60 / 24)
+         
         string = ''
         if days == 1 and hours < 23 and minutes < 59:
             string = u'%d' % (days) + _(u'. day')    # den
