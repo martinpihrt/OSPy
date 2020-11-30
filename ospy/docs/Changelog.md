@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Nov 30 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Slovak (Thank you Tomáš Szepesi). Add to helpers.py for future use: valid ip, encrypt name, decrypt name.
+
 Nov 28 2020
 -----------
 (martinpihrt)<br/>

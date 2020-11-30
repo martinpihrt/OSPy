@@ -203,8 +203,22 @@ def uptime():
        string = _(u'Unknown')
        print_report('helpers.py', traceback.format_exc())
 
-    return string    
+    return string  
+
     
+def valid_ip(ip):
+    """Return True if we have a valid IP address"""
+    try:
+        octets = ip.split('.')
+        if len(octets) != 4:
+            return False
+        for o in octets:
+            if int(o) < 0 or int(o) > 255:
+                return False
+    except:
+        return False
+    return True
+
 
 def split_ip(ip):
     """If this is a valid IP address, return the 4 octets (or all zeros if a problem)"""
@@ -221,8 +235,8 @@ def split_ip(ip):
         print_report('helpers.py', traceback.format_exc())
         return ('0','0','0','0')
     return (octets[0], octets[1], octets[2], octets[3])
-
         
+
 def get_ip(net=''):
     """Returns the IP address of 'net' if specified, otherwise 'wlan0', 'eth0', 'ppp0' whichever is found first."""
     try:
@@ -250,6 +264,7 @@ def get_ip(net=''):
         print_report('helpers.py', traceback.format_exc())
         return _('No IP Settings') 
 
+
 def get_mac():
     """Return MAC from file"""
     try:
@@ -258,6 +273,7 @@ def get_mac():
     except Exception:
         print_report('helpers.py', traceback.format_exc())
         return _(u'Unknown')
+
 
 def get_meminfo():
     """Return the information in /proc/meminfo as a dictionary"""
@@ -757,4 +773,37 @@ def print_report(title, message=None):
         print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))  
     return
 
-  
+
+
+network_hash = password_hash('192.168.88.1', 'notarandomstring')[:16]
+def encrypt_name(name):
+    try:
+        from Crypto.Cipher import AES
+        import binascii
+        # encrypt name (make sure it is multiple of 16bytes)
+        encryption_suite = AES.new(network_hash, AES.MODE_CBC, 'This is a 16B iv')
+        pad = len(name) % 16
+        if pad > 0:
+            for i in range(16-pad):
+                name += ' '
+        enc_name = binascii.hexlify(encryption_suite.encrypt(name))
+        return enc_name
+    except:
+        print_report('helpers.py', traceback.format_exc())
+        return ''
+        
+
+def decrypt_name(enc_name):
+    try:
+        from Crypto.Cipher import AES
+        import binascii
+        decryption_suite = AES.new(network_hash, AES.MODE_CBC, 'This is a 16B iv')
+        sec_str = str(binascii.unhexlify(enc_name))
+        plain_name = decryption_suite.decrypt(sec_str)
+        return plain_name    
+    except:
+        print_report('helpers.py', traceback.format_exc())
+        return ''
+
+#print encrypt_name('name')      
+#print decrypt_name('0b6282fa0dc761e8d879575094bfa5c0')
