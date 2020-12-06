@@ -1019,38 +1019,93 @@ class options_page(ProtectedPage):
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
             reboot(True) # Linux HW software 
-            msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            msg = _(u'The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg) 
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
             restart()    # OSPy software
-            msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            msg = _(u'The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg)            
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             poweroff(True)   # shutdown HW system
-            msg = _('The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
+            msg = _(u'The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
-            OPTIONS_FILE = './ospy/data'
             try:
-                import shutil, time
-                shutil.rmtree(OPTIONS_FILE) # delete data folder
-                time.sleep(2)
-                os.makedirs(OPTIONS_FILE)   # create data folder
+                ospy_root   = './ospy/'
+                ospy_images = ospy_root + 'images/stations/'
+
                 report_restarted()
-                restart()                   # restart OSPy software
-                msg = _('All system OSPy settings have been cleared in the settings, the OSPy will now restart and load the default settings.')
-                return self.core_render.notice(home_page, msg)          
+
+                from ospy import server
+                from ospy.helpers import determine_platform
+                import os
+                import sys
+                import subprocess
+
+                server.stop()
+                stations.clear()
+
+                for s in range(200):
+                    try:
+                        if os.path.isfile(ospy_images + ('station{}.png').format(s)):          
+                            log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}.png').format(s)))
+                            os.remove(ospy_images + ('station{}.png').format(s))    
+                        if os.path.isfile(ospy_images + ('station{}_thumbnail.png').format(s)):          
+                            log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}_thumbnail.png').format(s)))
+                            os.remove(ospy_images + ('station{}_thumbnail.png').format(s)) 
+                    except:
+                        pass        
+
+                if os.path.isfile('./ssl/fullchain.pem'):          
+                    log.debug('webpages.py', _(u'Deleting file fullchain.pem.'))
+                    os.remove('./ssl/fullchain.pem')  
+
+                if os.path.isfile('./ssl/privkey.pem'):          
+                    log.debug('webpages.py', _(u'Deleting file privkey.pem.'))
+                    os.remove('./ssl/privkey.pem')  
+
+                if os.path.isfile(ospy_root + 'data/sessions.db'):          
+                    log.debug('webpages.py', _(u'Deleting file sessions.db.'))
+                    os.remove(ospy_root + 'data/sessions.db') 
+
+                if os.path.isfile(ospy_root + 'backup/ospy_backup.zip'):          
+                    log.debug('webpages.py', _(u'Deleting file ospy_backup.zip.'))
+                    os.remove(ospy_root + 'backup/ospy_backup.zip')                      
+                
+                if os.path.isfile(ospy_root + 'data/options.db.bak'):          
+                    log.debug('webpages.py', _(u'Deleting file options.db.bak.'))
+                    os.remove(ospy_root + 'data/options.db.bak')
+
+                if os.path.isfile(ospy_root + 'data/options.db.tmp'):          
+                    log.debug('webpages.py', _(u'Deleting file options.db.tmp.'))
+                    os.remove(ospy_root + 'data/options.db.tmp')   
+
+                if os.path.isfile(ospy_root + 'data/options.db'):          
+                    log.debug('webpages.py', _(u'Deleting file options.db.'))
+                    os.remove(ospy_root + 'data/options.db')                                     
+
+                if os.path.isfile(ospy_root + 'data/events.log'):          
+                    log.debug('webpages.py', _(u'Deleting file events.log.'))
+                    os.remove(ospy_root + 'data/events.log')
+               
+                if determine_platform() == 'nt':
+                    # Use this weird construction to start a separate process that is not killed when we stop the current one
+                    subprocess.Popen(['cmd.exe', '/c', 'start', sys.executable] + sys.argv)
+                else:
+                    os.execl(sys.executable, sys.executable, *sys.argv)   
+
             except:
-                pass      
+                print_report('webpages.py', traceback.format_exc()) 
+                raise web.seeother(u'/')     
 
         if changing_language:      
             report_restarted()
             restart()    # OSPy software
-            msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
+            msg = _(u'A language change has been made in the settings, the OSPy will now restart and load the selected language.')
             return self.core_render.notice(home_page, msg)          
 
         report_option_change()
@@ -1138,75 +1193,130 @@ class download_page(ProtectedPage):
     """Download OSPy DB file with settings"""
     def GET(self):
         from ospy.server import session
+        from ospy.helpers import mkdir_p, del_rw, ASCI_convert
+        import os
+        import zipfile  
+        import time      
 
         if session['category'] != 'admin':
             raise web.seeother(u'/')
 
-        OPTIONS_FILE = './ospy/data/options.db'
+        def retrieve_file_paths(dirName):
+            """Declare the function to return all file paths of the particular directory"""
+            filePaths = []
 
-        def _read_log():
+            for root, directories, files in os.walk(dirName):                                 # Read all directory, subdirectories and file lists
+                for filename in files:                                                        # Create the full filepath by using os module
+                    skip = ['.gitignore', 'sessions.db', '*.tmp'] 
+                    if filename not in skip: 
+                        filePath = os.path.join(root, filename)
+                        filePaths.append(filePath)
+            
+            return filePaths                                                                  # Return all paths
+
+        def _read_log(path):
             """Read OSPy DB file"""
             try:                
-                logf = open(OPTIONS_FILE,'r')
+                logf = open(path,'r')
                 return logf.read()
             except IOError:
                 return []
 
         try:
-            if os.path.getsize(OPTIONS_FILE)>= 12288: # default db file size is 12288
-          
+            ospy_root = './ospy/'
+            backup_path = ospy_root + 'backup/ospy_backup.zip'                                # Where is backup zip file
+            dir_name = [ospy_root + 'data', ospy_root + 'images/stations']    
+            download_name = 'ospy_backup_{}_{}.zip'.format(ASCI_convert(options.name), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_systemname_4.12.2020_18-40-20.zip                         
+            filePaths = []
+
+            for name in dir_name:                                                             # Call the function to retrieve all files and folders of the assigned directory
+                filePaths += retrieve_file_paths(name) 
+   
+            if not os.path.exists(ospy_root + 'backup'):                                      # Create folder backup
+                mkdir_p(ospy_root + 'backup')
+
+            zip_file = zipfile.ZipFile(backup_path, 'w')
+            with zip_file:
+                for file in filePaths:                                                        # Writing each file one by one
+                    zip_file.write(file)
+
+            if os.path.exists(backup_path):        
+                log.debug('webpages.py', _(u'File {} is created successfully!').format(download_name))
                 import mimetypes
-         
-                download_name = 'options.db'
-                content = mimetypes.guess_type(OPTIONS_FILE)[0]
+                content = mimetypes.guess_type(backup_path)[0]
                 web.header('Content-type', content)
-                web.header('Content-Length', os.path.getsize(OPTIONS_FILE))    
+                web.header('Content-Length', os.path.getsize(backup_path))    
                 web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-                return _read_log()
-             
-            else:   
+                return _read_log(backup_path)                
+            else:
+                log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))                         
                 msg = _(u'System component is unreachable or busy. Please wait (try again later).')
                 return self.core_render.notice('/download', msg)
              
         except Exception:
+            print_report('webpages.py', traceback.format_exc())
             raise web.seeother(u'/')
 
 
 class upload_page(ProtectedPage):
-    """Upload OSPy DB file with settings"""
+    """Upload ospy_backup.zip file with settings and images for stations"""
     
     def GET(self):
         raise web.seeother(u'/')
 
     def POST(self):
         from ospy.server import session
+        import os
+        from zipfile import ZipFile
+        from ospy.helpers import del_rw
+        from distutils.dir_util import copy_tree
+        import shutil
 
         if session['category'] != 'admin':
             raise web.seeother(u'/')
 
-        OPTIONS_FILE = './ospy/data/options.db'
+        ospy_root = './ospy/'
+        backup_path = ospy_root + 'backup/ospy_backup.zip' 
+
         i = web.input(uploadfile={})
+
         try:
-            if i.uploadfile.filename == 'options.db':
-               fout = open(OPTIONS_FILE,'w') 
-               fout.write(i.uploadfile.file.read()) 
-               fout.close() 
+            # import cgi
+            # 0 ==> unlimited input upload
+            # cgi.maxlen = 10 * 1024 * 1024 # 10MB
+            # print cgi.maxlen 
+            log.debug('webpages.py', _(u'Uploading file {}.').format(i.uploadfile.filename))
+            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # Only .zip file accepted
+            if upload_type == '.zip':                                          # Check file type
+                fout = open(backup_path,'w')                                   # Write uploaded file to backup folder
+                fout.write(i.uploadfile.file.read()) 
+                fout.close() 
+                
+                log.debug('webpages.py', _(u'Uploaded to backup folder OK.'))
 
-               if os.path.isfile(OPTIONS_FILE):                   # exists options.db after upload?
-                 if os.path.isfile(OPTIONS_FILE + '.bak'):        # exists old options.db.bak
-                    os.remove(OPTIONS_FILE + '.bak')              # remove old options.db.bak
-                 copyfile(OPTIONS_FILE, OPTIONS_FILE + '.bak')    # copy new options.db to old options.db.bak
+                with ZipFile(backup_path, mode='r') as zf:                     # Extract zip file
+                    zf.extractall(ospy_root + 'backup/ospy_backup')
+                    log.debug('webpages.py', _(u'Extracted from zip OK.'))
 
-                 log.debug('webpages.py', _(u'Upload, save, copy options.db file sucesfully, now restarting OSPy...'))
-                 report_restarted()
-                 restart(3)
-                 msg = _(u'Upload, save, copy options.db file sucesfully, now restarting OSPy...')
-                 return self.core_render.notice(home_page, msg)                 
+                fromDirectory = ospy_root + 'backup/ospy_backup'
+                toDirectory = './'
+                copy_tree(fromDirectory, toDirectory)                          # Copy from to
+                
+                log.debug('webpages.py', _(u'Cleaning folder after restoring...'))
+                shutil.rmtree(fromDirectory, 'ospy_backup', onerror=del_rw)
+
+                log.debug('webpages.py', _(u'Restoring backup files sucesfully, now restarting OSPy...'))
+                
+                report_restarted()
+                restart(3)
+                msg = _(u'Restoring backup files sucesfully, now restarting OSPy...')
+                return self.core_render.notice(home_page, msg)                 
             else:        
-               errorCode = "pw_filename" 
-               return self.core_render.options(errorCode)
+                errorCode = "pw_filename" 
+                return self.core_render.options(errorCode)
 
         except Exception:
+            print_report('webpages.py', traceback.format_exc())
             return self.core_render.options()
 
 

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-__author__ = 'Teodor Yantcheff'
+__author__ = 'Teodor Yantcheff' # Changed: Martin Pihrt (Added logging to ospy log instead of logger. Added support for sensors.)
 
 from .utils import *
 
@@ -10,15 +10,8 @@ from ospy.options import options, level_adjustments
 from ospy.programs import programs, ProgramType
 from ospy.log import log
 from ospy import helpers
-
-
-logger = logging.getLogger('OSPyAPI')
-logger.setLevel(logging.DEBUG)
-handler = logging.StreamHandler()
-handler.setLevel(logging.DEBUG)
-handler.setFormatter(logging.Formatter('%(name)s:%(levelname)s:%(message)s'))
-#handler.setFormatter(logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s'))
-logger.addHandler(handler)
+from ospy.sensors import sensors
+import json
 
 
 class Stations(object):
@@ -33,22 +26,29 @@ class Stations(object):
             'enabled': station.enabled,
             'ignore_rain': station.ignore_rain,
             'is_master': station.is_master,
+            'is_master_two': station.is_master_two,
             'activate_master': station.activate_master,
+            'activate_master_two': station.activate_master_two,
             'remaining_seconds': station.remaining_seconds,
-            'running': station.active
+            'running': station.active,
+            'usage': str(station.usage),
+            'precipitation': str(station.precipitation),
+            'capacity': str(station.capacity),
+            'eto_factor': str(station.eto_factor),  
+            'balance': str(station.balance)                                  
         }
 
     def _dict_to_station(self, sid, data):
         for k, v in data.iteritems():
-            logger.debug('stationid:{} key:\'{}\' value:\'{}\''.format(sid, k, v))
+            log.debug('api.py',  _(u'station id:{} key: {} value: {}').format(sid, k, v))
             try:
                 stations[sid].__setattr__(k, v)
             except:
-                logger.exception('Error setting station %d, \'%s\' to \'%s\'', sid, k, v)
+                log.error('api.py', _(u'Error setting station {}, {} to {}').format(sid, k, v)) 
 
     @does_json
     def GET(self, station_id=None):
-        logger.debug('GET /stations/{}'.format(station_id if station_id else ''))
+        log.debug('api.py', ('GET /stations/{}').format(station_id if station_id else ''))
         if station_id:
             return self._station_to_dict(stations[int(station_id)])
         else:
@@ -60,18 +60,18 @@ class Stations(object):
     @auth
     @does_json
     def POST(self, station_id=None):
-        logger.debug('POST /stations/{}'.format(station_id if station_id else ''))
+        log.debug('api.py', ('POST /stations/{}').format(station_id if station_id else ''))
 
         action = web.input().get('do', '').lower()
         station_id = int(station_id)
         if action == 'start':
-            logger.debug('Starting station {id} ("{name}")'.format(id=station_id, name=stations[station_id].name))
+            log.debug('api.py',  _(u'Starting station {} ({})').format(station_id, stations[station_id].name))
             stations.activate(station_id)
         elif action == 'stop':
-            logger.debug('Stopping station {id} ("{name}")'.format(id=station_id, name=stations[station_id].name))
+            log.debug('api.py',  _(u'Stopping station {} ({})').format(station_id, stations[station_id].name))
             stations.deactivate(station_id)
         else:
-            logger.error('Unknown station action: "%s"', action)
+            log.error('api.py',  _(u'Unknown station action: {}').format(action))
             raise badrequest()
 
         return self._station_to_dict(stations[station_id])
@@ -79,7 +79,7 @@ class Stations(object):
     @auth
     @does_json
     def PUT(self, station_id=None):
-        logger.debug('PUT /stations/{}'.format(station_id if station_id else ''))
+        log.debug('api.py', ('PUT /stations/{}').format(station_id if station_id else ''))
         update = json.loads(web.data())
         if station_id:
             station_id = int(station_id)
@@ -93,7 +93,7 @@ class Stations(object):
     @auth
     @does_json
     def DELETE(self, station_id=None):
-        logger.debug('DELETE /stations/{}'.format(station_id if station_id else ''))
+        log.debug('api.py', ('DELETE /stations/{}').format(station_id if station_id else ''))
         raise web.nomethod()
 
     def OPTIONS(self, station_id=None):
@@ -132,12 +132,12 @@ class Programs(object):
         }
 
         for k, v in data.iteritems():
-            logger.debug('Setting program property key:\'%s\' to value:\'%s\'', k, v)
+            log.debug('api.py',  _(u'Setting program property key: {} to value: {}').format(k, v))
             try:
                 if k not in self.EXCLUDED_KEYS:
                     prog.__setattr__(k, v)
             except:
-                logger.exception('Error setting program property key:\'%s\' to value:\'%s\'', k, v)
+                log.error('api.py',  _(u'Error setting program property key: {} to value: {}').format(k, v))
 
             if prog.type is ProgramType.CUSTOM:
                 # CUSTOM
@@ -160,7 +160,7 @@ class Programs(object):
 
     @does_json
     def GET(self, program_id):
-        logger.debug('GET /programs/{}'.format(program_id if program_id else ''))
+        log.debug('api.py', ('GET /programs/{}').format(program_id if program_id else ''))
 
         if program_id:
             program_id = int(program_id)
@@ -171,18 +171,18 @@ class Programs(object):
     @auth
     @does_json
     def POST(self, program_id):
-        logger.debug('POST /programs/{}'.format(program_id if program_id else ''))
+        log.debug('api.py', ('POST /programs/{}').format(program_id if program_id else ''))
 
         if program_id:
             action = web.input().get('do', '').lower()
             program_id = int(program_id)
             if action == 'runnow':
-                logger.debug('Starting program {id} ("{name}")'.format(id=program_id, name=programs[program_id].name))
+                log.debug('api.py',  _(u'Starting program {} ({})').format(program_id, programs[program_id].name))
                 programs.run_now(program_id)
             elif action == 'stop':
                 pass  # TODO
             else:
-                logger.error('Unknown program action: "%s"', action)
+                log.error('api.py',  _(u'Unknown program action: {}').format(action))
                 raise badrequest()
             return self._program_to_dict(programs[program_id])
         else:
@@ -202,7 +202,7 @@ class Programs(object):
     @auth
     @does_json
     def PUT(self, program_id):
-        logger.debug('PUT /programs/{}'.format(program_id if program_id else ''))
+        log.debug('api.py', ('PUT /programs/{}').format(program_id if program_id else ''))
         if program_id:
             program_id = int(program_id)
             program_data = json.loads(web.data())
@@ -215,7 +215,7 @@ class Programs(object):
     @auth
     @does_json
     def DELETE(self, program_id):
-        logger.debug('DELETE /programs/{}'.format(program_id if program_id else ''))
+        log.debug('api.py', ('DELETE /programs/{}').format(program_id if program_id else ''))
         if program_id:
             programs.remove_program(int(program_id))
         else:
@@ -254,7 +254,7 @@ class Options(object):
 
     @does_json
     def GET(self):
-        logger.debug('GET ' + self.__class__.__name__)
+        log.debug('api.py', 'GET ' + self.__class__.__name__)
         a = web.input().get('annotated', '').lower()
         if a in ['true', 'yes', 'annotated', '1']:
             opts = {o: {'value': options[o]} for o in self.ANNOTATED_OPTIONS}
@@ -268,7 +268,7 @@ class Options(object):
     @auth
     # @does_json
     def PUT(self):
-        logger.debug('PUT ' + self.__class__.__name__)
+        log.debug('api.py', 'PUT ' + self.__class__.__name__)
         update = json.loads(web.data())
         all_options = options.get_options()
         for key, val in update.iteritems():
@@ -276,10 +276,10 @@ class Options(object):
                 try:
                     options[key] = val
                 except:
-                    logger.error('Error updating \'%s\' to \'%s\'', key, val)
-                    raise badrequest('{"error": "Error setting option \'{}\' to \'{}\'"}'.format(key, val))
+                    log.error('api.py',  _(u'Error updating {} to {}').format(key, val))
+                    raise badrequest('{"error": "Error setting option \'{}\' to \'{}\'"}').format(key, val)
             else:
-                logger.debug('Skipping key {}'.format(key))
+                log.debug('api.py', _(u'Skipping key {}').format(key))
         return self.GET()
 
     def OPTIONS(self):
@@ -304,7 +304,7 @@ class Logs(object):
 
     @does_json
     def GET(self):
-        logger.debug('GET logs ' + self.__class__.__name__)
+        log.debug('api.py', 'GET logs ' + self.__class__.__name__)
         return [self._runlog_to_dict(fr) for fr in log.finished_runs()]
         # web.header('Cache-Control', 'no-cache')
         # web.header('Content-Type', 'application/json')
@@ -317,7 +317,7 @@ class Logs(object):
     @auth
     @does_json
     def DELETE(self):
-        logger.debug('DELETE ' + self.__class__.__name__)
+        log.debug('api.py', 'DELETE ' + self.__class__.__name__)
         log.clear_runs()
 
     def OPTIONS(self):
@@ -329,7 +329,7 @@ class Logs(object):
 class System(object):
     @does_json
     def GET(self):
-        logger.debug('GET ' + self.__class__.__name__)
+        log.debug('api.py', 'GET ' + self.__class__.__name__)
         return {
             'version': version.ver_str,
             'CPU_temperature': helpers.get_cpu_temp(),
@@ -343,29 +343,81 @@ class System(object):
     @auth
     @does_json
     def POST(self):
-        logger.debug('POST ' + self.__class__.__name__)
+        log.debug('api.py', 'POST ' + self.__class__.__name__)
         action = web.input().get('do', '').lower()
 
         if action == 'reboot':
-            logger.info('System reboot requested via API')
+            log.info('api.py',  _(u'System reboot requested via API'))
             helpers.reboot()
 
         elif action == 'restart':
-            logger.info('OSPy service restart requested via API')
+            log.info('api.py',  _(u'OSPy service restart requested via API'))
             helpers.restart()
 
         elif action == 'poweroff':
-            logger.info('System poweroff requested via API')
+            log.info('api.py',  _(u'System poweroff requested via API'))
             helpers.poweroff()
 
         else:
-            logger.error('Unknown system action: "%s"', action)
+            log.error('api.py',  _(u'Unknown system action: {}').format(action))
             raise badrequest()
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
         web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+
+class Sensors(object):
+    @does_json
+    def _convert(self, sensor):
+        return {
+            'id':int(sensor.index),
+            'enabled': True if sensor.enabled else False,
+            'senstype': sensor.sens_type,
+            'senscom': sensor.com_type,
+            'logsamples': True if sensor.log_samples else False,
+            'logevent': True if sensor.log_event else False,
+            'sendemail': True if sensor.send_email else False,
+            'samplerate': sensor.sample_rate,
+            'lastreadvalue': str(sensor.last_read_value),
+            'sensitivity': sensor.sensitivity,
+            'stabilizationtime': sensor.stabilization_time,
+            'triglowpgm': str(sensor.trigger_low_program),
+            'trighighpgm': str(sensor.trigger_high_program),
+            'triglowval': str(sensor.trigger_low_threshold),
+            'trighighval': str(sensor.trigger_high_threshold),
+            'lastbattery': str(sensor.last_battery),
+            'rssi': str(sensor.rssi),
+            'response': sensor.response,
+            'last_response': sensor.last_response,
+        }
+
+    @does_json
+    def GET(self, sensor_id=None):
+        log.debug('api.py', ('GET /sensors/{}').format(sensor_id if sensor_id else ''))
+
+        if sensor_id:
+            id = int(sensor_id)
+            if(id < sensors.count()):
+                    sensor = sensors.get(id)
+                    return (self._convert(sensor))
+            else:
+                return []   
+        else:
+            for sensor in sensors.get():
+                return (self._convert(sensor))    
+
+    #@auth
+    #@does_json
+    def POST(self):
+        log.debug('api.py', 'POST ' + self.__class__.__name__)
+        action = web.input().get('do', '').lower()
+        print action
+
+    def OPTIONS(self):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')        
 
 def get_app():
     urls = (
@@ -379,5 +431,7 @@ def get_app():
         r'/logs/?', 'Logs',
         # System
         r'/system/?', 'System',
+        # Sensors
+        r'/sensors(?:/(?P<sensor_id>\d+))?/?', 'Sensors',        
     )
     return web.application(urls, globals())

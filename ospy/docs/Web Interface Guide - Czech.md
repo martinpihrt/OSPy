@@ -153,6 +153,10 @@ OSPy Průvodce webovým rozhraním v češtině
         ZAP Hlavní 2
         Poznámky
         Obrázek  
+    Snímače
+        Přidat nový snímač
+            Vlastnosti snímačů
+        Smazat všechny snímače         
     Nápověda
         OSPy
             Readme
@@ -692,10 +696,20 @@ Tlačítko "Smazat nastavení" vymaže všechna uživatelská nastavení do výc
 Pokud chceme zálohovat všechna nastavení našeho OSPy zavlažovacího systému nebo přenést nastavení do jiného OSPy systému, použijeme tlačítko "Stáhnout" a následně "Nahrát".
 
 ### Stáhnout
-Tlačítko "Stáhnout" se používá ke stažení konfiguračního souboru do počítače pro pozdější použití nebo k obnovení systému OSPy. Stažený název souboru je "options.db". Toto jméno neměňte!
+Tlačítko "Stáhnout" se používá ke stažení konfiguračního souboru do počítače pro pozdější použití nebo k obnovení systému OSPy. Uloží se nejen soubor databáze (options.db), ale také složka stanic, kde jsou uloženy obrázky stanic. Současně se uloží soubor protokolu events.log (pokud existuje). Vše je uloženo v souboru zip (příklad: ospy_backup_systemname_4.12.2020_18-40-20.zip). Můžeme snadno identifikovat, ze kterého systému OSPy záloha pochází. Složka SSL, kde je certifikát, není z bezpečnostních důvodů uložena do záložního souboru zip!
 
-### Nahrát 
-Tlačítko "Nahrát" umožňuje vložit a obnovit systém OSPy ze zálohy, nebo jiného OSPy systému (například při přeinstalování systému Linux). Nahraný soubor s názvem "options.db". Toto jméno neměňte!
+### Nahrát
+Tlačítko Nahrát vám umožní vložit a obnovit systém OSPy (například při opětovné instalaci systému Linux). Nahraný soubor musí být soubor zip! Následující cesty a soubory musí být v souboru.
+
+```bash
+*.zip folder:
+ospy/data/events.log  
+ospy/data/options.db  
+ospy/data/options.db.bak  
+ospy/images/stations/station1.png  
+ospy/images/stations/station1_thumbnail.png 
+``` 
+Nebo jiné obrázky stanic ve stejném formátu.
 
 ## Certifikát SSL
 Pokud máme svůj vlastní certifikát pro SSL (https) zabezpečení (fullchain.pem a privkey.pem) můžeme ho zde pomocí formuláře nahrát.
@@ -777,6 +791,86 @@ Poznámky slouží pro obsluhu systému OSPy. Lze si například poznamenat: jak
 
 ## Obrázek  
 Po kliknutí na okénko se otevře stránka, na které je možné nahrát vlastní obrázek ke stanici.
+
+----
+
+# Snímače
+Na stránce „Snímače“ můžeme přidávat nebo mazat snímače, které v systému OSPy plní různé funkce.
+
+## Přidat nový snímač
+Tlačítko „Přidat nový snímač“ přidá do systému nový snímač. Nastavení snímačů je uvedeno níže v části „Parametry snímačů“.
+
+## Parametery snímačů
+Pro snímače se používají dva druhy komunikace:  
+* Bezdrátová (radio) - ID rádio snímače  
+* Síťová (Wi-Fi/LAN) - MAC adresa, IP adresa  
+Lze si vybrat z 5 různých typů snímačů:  
+* Kontakt  
+* Detektor úniku  
+* Vlhkost  
+* Pohyb  
+* Teplota  
+
+### Povolit senzor
+Aktivace nebo deaktivace tohoto snímače.
+
+### Název senzoru
+Zadejte název snímače. Názvy snímačů musí být nenulové a jedinečné.
+
+### Typ snímače
+Vyberte typ snímače.
+#### Kontakt
+* Otevřený program(y) Označte požadované programy, které chcete spustit.
+* Zavřený program(y) Označte požadované programy, které chcete spustit.
+
+#### Detektor úniku
+* Citlivost (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).
+* Doba stabilizace (mm:ss) Po tuto nastavenou dobu nebude detektor reagovat na změnu.
+* Nízký program(y) Označte požadované programy, které chcete spustit.
+* Vysoký program(y) Označte požadované programy, které chcete spustit.
+
+#### Vlhkost
+* Nízká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).
+* Nízký program(y) Označte požadované programy, které chcete spustit.
+* Vysoká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).
+* Vysoký program(y) Označte požadované programy, které chcete spustit.
+
+#### Pohyb
+* Program(y) Označte požadované programy, které chcete spustit.
+
+#### Teplota
+* Nízká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).
+* Nízký program(y) Označte požadované programy, které chcete spustit.  
+* Vysoká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y). 
+* Vysoký program(y) Označte požadované programy, které chcete spustit. 
+U teploty se zobrazují stupňe Celsia, nebo stupně Fahrenheita podle toho, jak máme na titulní stránce (v pravo dole) nastavenou teplotu (kliknutím na teplotu lze změnit jednotky).
+
+### Typ komunikace
+Vyberte typ komunikace se snímačem.
+#### Rádio
+Zadejte ID snímače pro váš rádiový snímač. ID snímače musí být nenulové a jedinečné.
+
+#### Wi-Fi / LAN
+* Zadejte MAC adresu snímače. Příklad: aa: bb: cc: dd: ee: ff
+* Zadejte IP adresu snímače. Příklad: 192.168.88.10
+
+### Vzorkovací frekvence
+Zadejte čas vzorkování v minutách a sekundách (mm:ss).
+
+### Záznam vzorků
+Povolit protokolování vzorků.
+
+### Záznam událostí
+Povolit protokolování událostí.
+
+### Text/E-mail událost
+Povolit odesílání E-mailů, když dojde k události. Pro tuto funkci je vyžadováno rozšíření e-mail notification!
+
+### Poznámky
+Zde si můžeme dělat poznámky.
+
+## Smazat všechny snímače 
+Tlačítko „Odstranit všechny snímače“ vymaže všechny přidané snímače v systému.
 
 ----
 

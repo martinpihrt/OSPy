@@ -29,9 +29,12 @@ function updateFooter(){
 }
 
 function checkMAC(){
-    var MACAddress = jQuery(".MACnumbersOnly").val();
-    var MACRegex=new RegExp("^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])");
-    var test = MACRegex.test(MACAddress);
+    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
+    if(com_type==1) return 0;
+
+    let MACAddress = jQuery(".MACnumbersOnly").val();
+    let MACRegex=new RegExp("^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])");
+    let test = MACRegex.test(MACAddress);
     if(test){
         return 0;
     }
@@ -42,9 +45,12 @@ function checkMAC(){
 } 
 
 function checkIP(){
-    var IPAddress = jQuery(".IPnumbersOnly").val();
-    var IPRegex=new RegExp("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
-    var test = IPRegex.test(IPAddress);
+    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
+    if(com_type==1) return 0;
+        
+    let IPAddress = jQuery(".IPnumbersOnly").val();
+    let IPRegex=new RegExp("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+    let test = IPRegex.test(IPAddress);
     if(test){
         return 0;
     }
@@ -55,7 +61,7 @@ function checkIP(){
 }    
 
 function check_type() {
-    var sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
+    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
     if (sensor_type == 1) { 
         jQuery("#dry_contact").show()
     } else {
@@ -78,7 +84,7 @@ function check_type() {
     } 
    
 
-    var com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
+    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
     if (com_type == 0) { 
         jQuery("#com_lan").show()
     } else {
@@ -107,22 +113,22 @@ jQuery(document).ready(function(){
     });
 
     jQuery(".numbersOnly").keyup(function () {
-        var newValue = this.value.replace(/[^0-9 ]/g, '');
+        let newValue = this.value.replace(/[^0-9 ]/g, '');
         this.value = newValue;
     });
 
     jQuery(".MACnumbersOnly").keyup(function () {
-        var newValue = this.value.replace(/[^0-9a-fA-F:]/g, '');
+        let newValue = this.value.replace(/[^0-9a-fA-F:]/g, '');
         this.value = newValue;
     });
 
     jQuery(".IPnumbersOnly").keyup(function () {
-        var newValue = this.value.replace(/[^0-9\.]/g, '');
+        let newValue = this.value.replace(/[^0-9\.]/g, '');
         this.value = newValue;
     });      
 
     jQuery(".cleanText").keyup(function () {
-        var newValue = this.value.replace(/[/\\\*]/g, '');
+        let newValue = this.value.replace(/[/\\\*]/g, '');
         this.value = newValue;
     });   
 

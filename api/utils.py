@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-__author__ = 'Teodor Yantcheff'
+__author__ = 'Teodor Yantcheff' # Changed: Martin Pihrt (Fixed for logging. Added support for sensors.)
 
 
 import base64
@@ -114,7 +114,7 @@ def auth(func):
                 username, password = base64.decodestring(http_auth).split(':')
                 logger.debug('Auth Attempt with: user:\'%s\' password:\'%s\'', username, password)
 
-                assert test_password(password), 'Wrong password'
+                assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:
                 #     raise  # essentially a goto :P
             except:
@@ -124,6 +124,7 @@ def auth(func):
                 raise unauthorized()
 
         return func(*args, **kwargs)
+        
     return wrapper
 
 

@@ -1,6 +1,21 @@
 OSPy Changelog
 ====
 
+Dec 6 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+When adding a new sensor, the error in checking the MAC and IP address in the case of a radio sensor was fixed. The method of backing up the system OSPy has changed. Not only is the database file (options.db) saved, but the stations folder is also saved, where the station images are stored. At the same time, the events.log log file (if it exists) is saved. Everything is saved in a zip file (Example: ospy_backup_systemname_4.12.2020_18-40-20.zip). We can easily identify from which OSPy system the backup comes. The SSL folder where is the certificate is not stored for security reasons in to backup zip file! Restoring OSPy from zip file: The uploaded file must be zip file! The following paths and files must be in the:  
+```bash
+*.zip folder:
+* ospy/data/events.log  
+* ospy/data/options.db  
+* ospy/data/options.db.bak  
+* ospy/images/stations/station1.png  
+* ospy/images/stations/station1_thumbnail.png 
+``` 
+Or other pictures of stations in the same format. Updating Czech language translate for changes. Newly, if we click on delete OSPy in the settings tab to the default settings, the files will be deleted: .pem in the /ssl folder. Next, events.log, options.db, and options.db.bak in the data folder. And all images in the folder images/stations. Added Documetation from sensors (pages: Web Interface Guide - Czech.md and Web Interface Guide - English.md).
+
 Nov 30 2020
 -----------
 (martinpihrt)<br/>

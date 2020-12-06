@@ -90,7 +90,7 @@ $code:
             jQuery("#errorcpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_filename":
-            jQuery("#errorfn").text($:{json.dumps(_("File name is not options.db, please retry."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfn").text($:{json.dumps(_("File type is not zip, please retry."), ensure_ascii=False).encode('utf8')});
             jQuery("#errorfn").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_filenameSSL":
@@ -263,9 +263,9 @@ $code:
         output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('System Backup') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download options.db file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
-        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' />\n"
-        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload options.db file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
+        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download OSPy backup zip file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
+        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' accept='.zip' />\n"
+        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload OSPy recovery zip file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
         output += "<span class='inputError' id='errorfn'></span>\n"
         output += "</div></form>\n"
         output += categoryCloser
@@ -274,7 +274,7 @@ $code:
         output += "<div class='category collapsible collapsed'><h4>" + _('SSL certificate') + "</h4>\n"
         output += "<div class='option'>"
         output += "<span class='label'>" + _('Upload SSL files') + ":</span>\n"
-        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' /><br>\n "
+        output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' accept='.pem'/><br>\n "
         output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False) + ">" + _('Upload') + "</a>"
         output += "<span class='tooltip'>" + _('Upload SSL file.') + "</span>\n"
         output += "</form>"

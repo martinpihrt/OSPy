@@ -24,10 +24,11 @@ We have the following (coarsely defined) groups of "objects" currently :
   * Options
   * Logs
   * System
+  * Sensors
 
 I've heard people also call these 'collections' in the API world. So the general URL format becomes :
 
-  `http(s)://[ip|name]:[port]/api/v1/[collection]/[object_id]/`
+  `http(s)://[ip|name]:[port]/api/[collection]/[object_id]/`
 
 Regarding `object_id`s - we have these even now, though they are more of an implicit type as a result from (I think) array indexing in both OSPy and OS side. They should be explicit.
 ### Actions 
@@ -164,7 +165,7 @@ Example:
 Returns nothing.
 ### /stations/
 #### GET
-Returns a list of station_info entries, e.g. :
+Returns a list of station_info entries, e.g.:
 ```json
 {
     "stations":[
@@ -366,14 +367,33 @@ Returns
     ....
 }
 ```
+
+### /sensors
+These are sensor data `/sensors`.
+#### GET
+Returns the current sensors options. Example /sensors/1
+```json
+{
+    "id": 1,
+    "enabled": true,
+    "sens_type": 0,
+    "com_type": 1,
+    "log_samples": false
+    ...    
+}
+```
 #### POST
-TODO
+Incomming data from sensors.
+Example Wi-Fi/LAN sensor data:
+
+
 #### PUT
-TODO
+Not implemented
 #### DELETE
-TODO
+Not implemented
 #### Actions
-TODO
+Not implemented
+
 ### /plugins/
 TODO
 #### GET

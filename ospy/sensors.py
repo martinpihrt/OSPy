@@ -33,7 +33,9 @@ class _Sensor(object):
         self.mac_address = ""           # mac address for sensor
         self.last_battery = ""          # battery voltage  
         self.rssi = ""                  # rssi signal
-        self.radio_id = 0               # radio ID
+        self.radio_id = 0               # radio id
+        self.response = 0               # response 0 = offline, 1 = online
+        self.last_response = 0          # last response (last now time when the sensor sent data)
 
         options.load(self, index) 
 

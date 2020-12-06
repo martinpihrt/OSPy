@@ -151,7 +151,11 @@ OSPy Web Interface Guide in English
         Ignore Rain
         Activate Master
         Activate Master Two
-        Notes  
+        Notes 
+    Sensors page
+        Add a New Sensor
+            Sensor Parameters
+        Delete All sensors         
     Help page
         OSPy
             Readme
@@ -671,10 +675,20 @@ The Default button clears all custom user settings to the default clean OSPy ins
 If we want to back up all the settings of our irrigation system or transfer the settings to another system, we will use the "Download" and "Upload" button. 
 
 ### Download
-The Download button is used to download the configuration file to your computer for later use or to restore the OSPy system. The downloaded filename is "options.db". Not change this name!
+The Download button is used to download the configuration file to your computer for later use or to restore the OSPy system. Not only is the database file (options.db) saved, but the stations folder is also saved, where the station images are stored. At the same time, the events.log log file (if it exists) is saved. Everything is saved in a zip file (Example: ospy_backup_systemname_4.12.2020_18-40-20.zip). We can easily identify from which OSPy system the backup comes. The SSL folder where is the certificate is not stored for security reasons in to backup zip file!
 
 ### Upload 
-The Upload button allows you to insert and restore OSPy system (for example, when you reinstall a Linux system). The uploaded file must be filename "options.db"!
+The Upload button allows you to insert and restore OSPy system (for example, when you reinstall a Linux system). The uploaded file must be zip file! The following paths and files must be in the
+
+```bash
+*.zip folder:
+ospy/data/events.log  
+ospy/data/options.db  
+ospy/data/options.db.bak  
+ospy/images/stations/station1.png  
+ospy/images/stations/station1_thumbnail.png 
+``` 
+Or other pictures of stations in the same format.
 
 ## SSL Certificate
 If we have our own SSL (https) security certificate (fullchain.pem and privkey.pem) we can upload it here using the form.
@@ -748,6 +762,86 @@ Notes are for operating the OSPy system. It can be noted for example: what types
 
 ## Image
 After clicking on the window, a page will open on which you can upload your own image to the station.   
+
+----
+
+# Sensors page
+On the "Sensors" page, we can add or delete sensors that perform various functions in the OSPy system.
+
+## Add a New Sensor
+The button "Add a New Sensor" add new sensor in the system. The sensors settings are listed below in "Sensor Parameters".
+
+## Sensor Parameters
+Two types of communication are used for sensors:  
+* Wireless (radio) - ID radio sensor  
+* Network (Wi-Fi/LAN) - MAC address, IP address 
+You can choose from 5 different types of sensors:  
+* Dry Contact  
+* Leak Detector  
+* Moisture  
+* Motion  
+* Temperature  
+
+### Enable sensor
+Enabling or disabling this sensor.
+
+### Sensor name
+Type Sensor Name. Sensor names must be non-null and unique.
+
+### Sensor type
+Select the sensor type.
+#### Dry Contact
+* Open Program(s) Mark the required programs to run.
+* Closed Program(s) Mark the required programs to run.
+
+#### Leak Detector
+* Sensitivity (0-100%) When this level is exceeded, the high program(s) is activated.
+* Stabilization Time (mm:ss) The detector will not respond to the change for this set time.
+* Low Program(s) Mark the required programs to run.
+* High Program(s) Mark the required programs to run.
+
+#### Moisture
+* Low Threshold (0-100%) When this level is exceeded, the low program(s) is activated.
+* Low Program(s) Mark the required programs to run.
+* High Threshold (0-100%) When this level is exceeded, the high program(s) is activated.
+* High Program(s) Mark the required programs to run.
+
+#### Motion
+* Program(s) Mark the required programs to run.
+
+#### Temperature
+* Low Threshold (0-100 °C/°F) When this level is exceeded, the low program(s) is activated.
+* Low Program(s) Mark the required programs to run.
+* High Threshold (0-100 °C/°F) When this level is exceeded, the high program(s) is activated.
+* High Program(s) Mark the required programs to run.  
+The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending on how the temperature is set on the home page (by clicking on the temperature, you can change the units).
+
+### Type of communication
+Select communication type for sensor.
+#### Radio
+Enter sensor ID for your radio sensor. Radio ID must be non-null and unique.
+
+#### Wi-Fi/LAN
+* Enter Sensor MAC Address. Example: aa:bb:cc:dd:ee:ff
+* Enter Sensor IP Address. Example: 192.168.88.10 
+
+### Sample Rate
+Enter the sampling time in minutes and seconds (mm:ss).
+
+### Log Samples
+Enable sample logging.
+
+### Log Events
+Enable event logging.
+
+### Text/Email Events
+Allow sending an E-mail when there is an event. For this function is requred plugin E-mail notification!
+
+### Notes
+Here we can make our notes.
+
+## Delete All sensors 
+The button "Delete All sensors" deletes all added sensors in the system.
 
 ----
 
