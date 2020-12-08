@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-12-05 15:36+CET\n"
-"PO-Revision-Date: 2020-12-05 15:37+0100\n"
+"POT-Creation-Date: 2020-12-08 19:10+CET\n"
+"PO-Revision-Date: 2020-12-08 19:12+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -77,6 +77,35 @@ msgstr "Vypnutí OSPy prostřednictvím rozhraní API"
 #: api/api.py:362
 msgid "Unknown system action: {}"
 msgstr "Neznámá systémová akce: {}"
+
+#: api/api.py:452
+msgid ""
+"The data for the Sensor: {} has been read from IP: {} MAC: {} successfully."
+msgstr "Data pro snímač: {} byla přečtena z IP: {} MAC: {} úspěšně."
+
+#: api/api.py:456
+msgid "The IP and MAC address of the sensor do not match!"
+msgstr "IP a MAC adresa snímače se neshodují!"
+
+#: api/utils.py:82
+msgid "Error: (IndexError) Index out of bounds {}"
+msgstr "Chyba: Index (IndexError) je mimo hranice {}"
+
+#: api/utils.py:86
+msgid "Error: (ValueError) Inappropriate argument value {}"
+msgstr "Chyba: (ValueError) Hodnota nevhodného argumentu {}"
+
+#: api/utils.py:91
+msgid "Error: (KeyError) Missing key {}"
+msgstr "Chyba: (KeyError) Chybí klíč {}"
+
+#: api/utils.py:113
+msgid "API Auth Attempt with: user: {} password: {}"
+msgstr "Pokus o ověření z rozhraní API uživatel: {} heslo: {}"
+
+#: api/utils.py:119
+msgid "API Unauthorized attempt user: {} password: {}"
+msgstr "Neúspěšný pokus o ověření z rozhraní API uživatel: {} heslo: {}"
 
 #: ospy/helpers.py:119
 msgid "Rebooting..."
@@ -180,7 +209,7 @@ msgstr "%s"
 msgid "Logged in %s, as operator %s"
 msgstr "Přihlášen %s, jako operátor %s"
 
-#: ospy/helpers.py:581 ospy/server.py:177
+#: ospy/helpers.py:581 ospy/server.py:181
 msgid "Unknown operator"
 msgstr "Neznámý operátor"
 
@@ -667,8 +696,7 @@ msgid "Weekly (Weather based)"
 msgstr "Týdenní (předpověď počasí)"
 
 #: ospy/programs.py:48 ospy/templates/log.html:42
-#: ospy/templates/log_user.html:20 ospy/templates/sensors.html:108
-#: plugins/email_notifications/__init__.py:133
+#: ospy/templates/log_user.html:20 plugins/email_notifications/__init__.py:133
 #: plugins/email_notifications/__init__.py:137 plugins/sms_adj/__init__.py:398
 msgid "Program"
 msgstr "Program"
@@ -790,73 +818,85 @@ msgstr "Jednorázový"
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
-#: ospy/sensors.py:67
+#: ospy/sensors.py:47 ospy/sensors.py:168
+msgid "Never"
+msgstr "Nikdy"
+
+#: ospy/sensors.py:76
 msgid "Loading sensors..."
 msgstr "Načítání snímačů..."
 
-#: ospy/sensors.py:82
+#: ospy/sensors.py:91
 msgid "Adding new sensor: {} with id: {}"
 msgstr "Přidání nového senzoru: {} s id: {}"
 
-#: ospy/sensors.py:104
+#: ospy/sensors.py:113
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/server.py:108 ospy/server.py:109
+#: ospy/sensors.py:154
+msgid "Sensors timer loop error: {}"
+msgstr "Chyba smyčky časovače snímačů: {}"
+
+#: ospy/server.py:112 ospy/server.py:113
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:119 ospy/server.py:120
+#: ospy/server.py:123 ospy/server.py:124
 msgid "SSL OK."
 msgstr "SSL OK."
 
-#: ospy/server.py:123 ospy/server.py:124
+#: ospy/server.py:127 ospy/server.py:128
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako HTTP!"
 
-#: ospy/server.py:134 ospy/server.py:135
+#: ospy/server.py:138 ospy/server.py:139
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:145 ospy/server.py:146
+#: ospy/server.py:149 ospy/server.py:150
 msgid "Own SSL OK."
 msgstr "Vlastní SSL OK."
 
-#: ospy/server.py:149 ospy/server.py:150
+#: ospy/server.py:153 ospy/server.py:154
 msgid ""
 "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako "
 "HTTP!"
 
-#: ospy/server.py:181
+#: ospy/server.py:185
 msgid "Category is not in session, adding to sessions."
 msgstr "Kategorie není v session, přidám ji do session."
 
-#: ospy/server.py:183 ospy/server.py:187
+#: ospy/server.py:187 ospy/server.py:191
 msgid "Unknown visitor"
 msgstr "Neznámý návštěvník"
 
-#: ospy/server.py:184
+#: ospy/server.py:188
 msgid "Visitor-operator is not in session, adding to sessions."
 msgstr "Visitor není v session, přidám ho do session."
 
-#: ospy/server.py:194 ospy/server.py:195
+#: ospy/server.py:198 ospy/server.py:199
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:198
+#: ospy/server.py:202
 msgid "Starting scheduler and plugins..."
 msgstr "Spuštění plánovače a pluginů..."
 
-#: ospy/server.py:203
+#: ospy/server.py:206
+msgid "Starting sensors timer..."
+msgstr "Spuštění časovače snímačů..."
+
+#: ospy/server.py:210
 msgid "Ready"
 msgstr "Připraven"
 
-#: ospy/server.py:220 ospy/server.py:221
+#: ospy/server.py:227 ospy/server.py:228
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -2244,7 +2284,7 @@ msgstr ""
 msgid "Add a New Sensor"
 msgstr "Přidat nový snímač"
 
-#: ospy/templates/sensor.html:155 ospy/templates/sensors.html:154
+#: ospy/templates/sensor.html:155 ospy/templates/sensors.html:156
 msgid "Edit Sensor"
 msgstr "Upravit snímač"
 
@@ -2311,7 +2351,7 @@ msgstr "Rádio"
 msgid "Wi-Fi/LAN"
 msgstr "Wi-Fi/LAN"
 
-#: ospy/templates/sensor.html:186 ospy/templates/sensors.html:58
+#: ospy/templates/sensor.html:186 ospy/templates/sensors.html:60
 msgid "Sample Rate"
 msgstr "Vzorkovací frekvence"
 
@@ -2324,11 +2364,11 @@ msgid "Enter the sampling time in seconds."
 msgstr "Zadejte čas vzorkování ve vteřinách."
 
 #: ospy/templates/sensor.html:188 ospy/templates/sensor.html:221
-#: ospy/templates/sensors.html:58 ospy/templates/sensors.html:79
+#: ospy/templates/sensors.html:60 ospy/templates/sensors.html:81
 msgid "mm:ss"
 msgstr "mm:ss"
 
-#: ospy/templates/sensor.html:191 ospy/templates/sensors.html:59
+#: ospy/templates/sensor.html:191 ospy/templates/sensors.html:61
 msgid "Log Samples"
 msgstr "Záznam vzorků"
 
@@ -2336,7 +2376,7 @@ msgstr "Záznam vzorků"
 msgid "Enable sample logging."
 msgstr "Povolit záznam vzorků."
 
-#: ospy/templates/sensor.html:195 ospy/templates/sensors.html:60
+#: ospy/templates/sensor.html:195 ospy/templates/sensors.html:62
 msgid "Log Events"
 msgstr "Záznam událostí"
 
@@ -2344,7 +2384,7 @@ msgstr "Záznam událostí"
 msgid "Enable event logging."
 msgstr "Povolit záznam událostí."
 
-#: ospy/templates/sensor.html:199 ospy/templates/sensors.html:61
+#: ospy/templates/sensor.html:199 ospy/templates/sensors.html:63
 msgid "Text/Email Events"
 msgstr "Text/E-mail událost"
 
@@ -2356,7 +2396,7 @@ msgstr ""
 "Odeslat E-mail pokud nastane událost. Pro tuto funkci je vyžadováno "
 "rozšíření E-mail notification!"
 
-#: ospy/templates/sensor.html:204 ospy/templates/sensors.html:65
+#: ospy/templates/sensor.html:204 ospy/templates/sensors.html:67
 msgid "Open Program(s)"
 msgstr "Otevřený program(y)"
 
@@ -2367,11 +2407,11 @@ msgstr "Otevřený program(y)"
 msgid "Mark the required programs to run."
 msgstr "Označte program(y) pro spuštění."
 
-#: ospy/templates/sensor.html:210 ospy/templates/sensors.html:70
+#: ospy/templates/sensor.html:210 ospy/templates/sensors.html:72
 msgid "Closed Program(s)"
 msgstr "Zavřený program(y)"
 
-#: ospy/templates/sensor.html:219 ospy/templates/sensors.html:79
+#: ospy/templates/sensor.html:219 ospy/templates/sensors.html:81
 msgid "Stabilization Time"
 msgstr "Doba stabilizace"
 
@@ -2383,7 +2423,7 @@ msgstr "Zadejte čas stabilizace v minutách."
 msgid "Enter the stabilization time in seconds."
 msgstr "Zadejte čas stabilizace ve vteřinách."
 
-#: ospy/templates/sensor.html:222 ospy/templates/sensors.html:78
+#: ospy/templates/sensor.html:222 ospy/templates/sensors.html:80
 msgid "Sensitivity"
 msgstr "Citlivost"
 
@@ -2392,18 +2432,18 @@ msgid "Enter sensitivity for sensor."
 msgstr "Zadejte citlivost pro snímač."
 
 #: ospy/templates/sensor.html:224 ospy/templates/sensor.html:257
-#: ospy/templates/sensors.html:80
+#: ospy/templates/sensors.html:82
 msgid "Low Program(s)"
 msgstr "Nízký program(y)"
 
 #: ospy/templates/sensor.html:230 ospy/templates/sensor.html:272
-#: ospy/templates/sensors.html:85
+#: ospy/templates/sensors.html:87
 msgid "High Program(s)"
 msgstr "Vysoký program(y)"
 
-#: ospy/templates/sensor.html:239 ospy/templates/sensors.html:94
-#: ospy/templates/sensors.html:100 ospy/templates/sensors.html:127
-#: ospy/templates/sensors.html:138
+#: ospy/templates/sensor.html:239 ospy/templates/sensors.html:96
+#: ospy/templates/sensors.html:102 ospy/templates/sensors.html:110
+#: ospy/templates/sensors.html:129 ospy/templates/sensors.html:140
 msgid "Program(s)"
 msgstr "Program(y)"
 
@@ -2423,7 +2463,7 @@ msgstr "Vysoká úroveň"
 msgid "Enter value for high threshold."
 msgstr "Zadejte hodnotu pro vysokou detekci."
 
-#: ospy/templates/sensor.html:281 ospy/templates/sensors.html:146
+#: ospy/templates/sensor.html:281 ospy/templates/sensors.html:148
 msgid "MAC Address"
 msgstr "MAC adresa"
 
@@ -2431,7 +2471,7 @@ msgstr "MAC adresa"
 msgid "Enter Sensor MAC Address."
 msgstr "Zadejte MAC adresu snímače."
 
-#: ospy/templates/sensor.html:284 ospy/templates/sensors.html:144
+#: ospy/templates/sensor.html:284 ospy/templates/sensors.html:146
 msgid "IP Address"
 msgstr "IP adresa"
 
@@ -2471,55 +2511,59 @@ msgstr "Smazat všechny snímače"
 msgid "Type"
 msgstr "Typ"
 
-#: ospy/templates/sensors.html:52 ospy/templates/sensors.html:54
-msgid "Sensor available."
-msgstr "Snímač dostupný."
+#: ospy/templates/sensors.html:55
+msgid "Link OK"
+msgstr "Spojení OK"
 
-#: ospy/templates/sensors.html:52 ospy/templates/sensors.html:56
-msgid "Sensor not available!"
-msgstr "Snímač není dostupný!"
+#: ospy/templates/sensors.html:55 ospy/templates/sensors.html:58
+msgid "Last receive before"
+msgstr "Poslední příjem před"
 
-#: ospy/templates/sensors.html:59 ospy/templates/sensors.html:60
-#: ospy/templates/sensors.html:61
+#: ospy/templates/sensors.html:58
+msgid "Link ERROR"
+msgstr "CHYBA spojení"
+
+#: ospy/templates/sensors.html:61 ospy/templates/sensors.html:62
+#: ospy/templates/sensors.html:63
 msgid "No"
 msgstr "Ne"
 
-#: ospy/templates/sensors.html:59 ospy/templates/sensors.html:60
-#: ospy/templates/sensors.html:61
+#: ospy/templates/sensors.html:61 ospy/templates/sensors.html:62
+#: ospy/templates/sensors.html:63
 msgid "Yes"
 msgstr "Ano"
 
-#: ospy/templates/sensors.html:64 ospy/templates/sensors.html:77
-#: ospy/templates/sensors.html:92 ospy/templates/sensors.html:107
-#: ospy/templates/sensors.html:115
+#: ospy/templates/sensors.html:66 ospy/templates/sensors.html:79
+#: ospy/templates/sensors.html:94 ospy/templates/sensors.html:109
+#: ospy/templates/sensors.html:117
 msgid "Last Read Value"
 msgstr "Hodnota posledního čtení"
 
-#: ospy/templates/sensors.html:93 ospy/templates/sensors.html:121
+#: ospy/templates/sensors.html:95 ospy/templates/sensors.html:123
 msgid "Low Threshold"
 msgstr "Nízká prahová hodnota"
 
-#: ospy/templates/sensors.html:99 ospy/templates/sensors.html:132
+#: ospy/templates/sensors.html:101 ospy/templates/sensors.html:134
 msgid "High Threshold"
 msgstr "Vysoká prahová hodnota"
 
-#: ospy/templates/sensors.html:148
+#: ospy/templates/sensors.html:150
 msgid "Last RSSI Level"
 msgstr "Poslední úroveň RSSI"
 
-#: ospy/templates/sensors.html:150
+#: ospy/templates/sensors.html:152
 msgid "Radio ID"
 msgstr "Rádio ID"
 
-#: ospy/templates/sensors.html:152
+#: ospy/templates/sensors.html:154
 msgid "Last Battery Level"
 msgstr "Poslední úroveň baterie"
 
-#: ospy/templates/sensors.html:155
+#: ospy/templates/sensors.html:157
 msgid "View Logs"
 msgstr "Zobrazit záznam"
 
-#: ospy/templates/sensors.html:156
+#: ospy/templates/sensors.html:158
 msgid "Delete Sensor"
 msgstr "Odstranit snímač"
 
@@ -7149,7 +7193,7 @@ msgstr "Změny"
 
 #: plugins/system_update/__init__.py:120 plugins/system_update/__init__.py:124
 #: plugins/system_update/__init__.py:134 plugins/system_update/__init__.py:189
-#: plugins/system_update/__init__.py:221
+#: plugins/system_update/__init__.py:222
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
@@ -7180,13 +7224,13 @@ msgstr ""
 msgid "Update result"
 msgstr "Stav aktualizace"
 
-#: plugins/system_update/__init__.py:283
+#: plugins/system_update/__init__.py:268 plugins/system_update/__init__.py:285
 msgid "OSPy is now updated from Github and restarted. Please wait..."
 msgstr ""
 "OSPy je nyní aktualizován z Githubu a následně restartován. Počkejte "
 "prosím..."
 
-#: plugins/system_update/__init__.py:292
+#: plugins/system_update/__init__.py:294
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
@@ -9199,6 +9243,15 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:212
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Nothing"
+#~ msgstr "Nic neběží"
+
+#~ msgid "Sensor available."
+#~ msgstr "Snímač dostupný."
+
+#~ msgid "Sensor not available!"
+#~ msgstr "Snímač není dostupný!"
 
 #~ msgid "Working on %s"
 #~ msgstr "Práce na %s"

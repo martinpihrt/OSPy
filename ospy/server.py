@@ -25,6 +25,10 @@ from ospy import usagestats
 from ospy import version
 import sys
 
+# sensors
+from ospy.sensors import sensors_timer
+
+
 optin_prompt = usagestats.Prompt(enable='cool_program --enable-stats',
                                  disable='cool_program --disable-stats')
 
@@ -198,6 +202,9 @@ def start():
     print_report('server.py', _(u'Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
+    
+    print_report('server.py', _(u'Starting sensors timer...'))
+    sensors_timer.start()    
 
     create_statistics()
     print_report('server.py', _(u'Ready'))

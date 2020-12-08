@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 9 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Adding and changes in /api for incomming data from sensors (Wi-Fi or LAN). Only for testing - not ready to use. Updating language translating to Slovak (Thank you Tomáš Szepesi).
+
 Dec 6 2020
 -----------
 (martinpihrt)<br/>

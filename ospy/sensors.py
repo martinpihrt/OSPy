@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Martin Pihrt'
 
-# Local imports
-from ospy.options import options
+# System imports
+from threading import Thread
+import traceback
 import logging
 import traceback
+import time
+import datetime
+
+# Local imports
+from ospy.options import options
+from ospy.helpers import now
 
 
+### Sensors ###
 class _Sensor(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_sensors']
 
@@ -35,7 +43,8 @@ class _Sensor(object):
         self.rssi = ""                  # rssi signal
         self.radio_id = 0               # radio id
         self.response = 0               # response 0 = offline, 1 = online
-        self.last_response = 0          # last response (last now time when the sensor sent data)
+        self.last_response = now()      # last response (last now time when the sensor sent data)
+        self.last_received = _(u'Never') # message on sensors page in response sensor status
 
         options.load(self, index) 
 
@@ -129,3 +138,51 @@ class _Sensors(object):
     
 
 sensors = _Sensors()
+
+
+### Timing loop for sensors ###
+class _Sensors_Timer(Thread):
+    def __init__(self):
+        super(_Sensors_Timer, self).__init__()
+        self.daemon = True
+
+    def run(self):
+        while True:
+            try:
+                self._check_sensors()
+            except Exception:
+                logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))
+            time.sleep(5)
+
+
+    @staticmethod
+    def _check_sensors():
+        for sensor in sensors.get():
+            time_dif = int(now() - sensor.last_response)                      # last input from sensor
+            if time_dif >= 30:                                                # timeout 30 seconds
+                sensor.response = 0                                           # reseting status green circle to red (on sensors page)
+            
+            if time_dif < 2629743:                                            # one month 
+                sensor.last_received = datetime.timedelta(seconds=int(time_dif))  # human format ex: 1 day hh:mm:ss    
+            else:
+                sensor.last_received = _(u'Never')                                # timeout is bigger 1 month
+
+            #if sensor.enabled:                                                    # if sensor is enabled
+            #    if sensor.sens_type == 1:                                         # sensor type 1 (Dry Contact)
+            #        print "1"
+            #    elif sensor.sens_type == 2:                                       # sensor type 2 (Leak Detector)
+            #        print "2"
+            #    elif sensor.sens_type == 3:                                       # sensor type 3 (Moisture)
+            #        print "3"
+            #    elif sensor.sens_type == 4:                                       # sensor type 4 (Motion)
+            #        print "4"
+            #    elif sensor.sens_type == 5:                                       # sensor type 5 (Temperature)
+            #        print "5" 
+
+                #if sensor.log_samples:                                                # if sensor logging samples enabled 
+                #if sensor.log_event:                                                  # if sensor logging event enabled
+                #if sensor.send_email:                                                 # if sensor sending e-mail enabled
+
+
+sensors_timer = _Sensors_Timer()
+

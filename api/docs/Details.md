@@ -10,23 +10,24 @@ POST|Create new object/s
 DELETE|Delete object/s
 
 ### Authentication, misc 
-Before getting into detailing the meaty part some notes : 
+Before getting into detailing the meaty part some notes: 
  * Authentication -- I think we should stick to http basic (base64 encoded) over TLS (once known as SSL). Assuming that this is going to be an _API_, used from other software it's easy to add the auth headers always. We can also do cookie auth, though I'm note rally sure of it's usability in our case.
- * Versioning -- It may be an overkill, but it's good design anyway. So API URLs should be in the format :
+ * Versioning -- It may be an overkill, but it's good design anyway. So API URLs should be in the format:
  
   `http(s)://[ip|name]:[port]/api/v1/...... `
   
 This way we keep the API constant and stable for a certain version of the API and clients "speaking" that level should be able to work ok, even after there is a second, third and so on releases of the API. As I said, in this particular case this seems to me a bit of an overkill.
 ### Objects and collections
-We have the following (coarsely defined) groups of "objects" currently :
+We have the following (coarsely defined) groups of "objects" currently:
   * Programs
   * Stations
   * Options
   * Logs
   * System
   * Sensors
+  * Sensor
 
-I've heard people also call these 'collections' in the API world. So the general URL format becomes :
+I've heard people also call these 'collections' in the API world. So the general URL format becomes:
 
   `http(s)://[ip|name]:[port]/api/[collection]/[object_id]/`
 
@@ -55,7 +56,7 @@ TODO
 }
 ```
 #### GET
-Returns a single station_info entry. Example :
+Returns a single station_info entry. Example:
 `GET` `/programs/1`
 Returns (a weekly cycle, every week day, single pass program)
 ```json
@@ -112,7 +113,7 @@ TODO
 
 ## Stations
 ### JSON Format
-Single station is represented like : 
+Single station is represented like: 
 ```json
 {
     "id": integer, Read-Only
@@ -127,7 +128,7 @@ Single station is represented like :
 ```
 ### /stations/station_id/
 #### GET
-Returns a single station_info entry. Example :
+Returns a single station_info entry. Example:
 `GET` `/station/1`
 Returns
 ```json
@@ -194,9 +195,9 @@ See note for /stations/id.
 #### PUT
 Not implemented
 #### DELETE
-Not implemented, or maybe "reset to default" for all stations ? 
+Not implemented, or maybe "reset to default" for all stations? 
 #### Actions
-Manually start station with id 1. Duration is specified :
+Manually start station with id 1. Duration is specified:
 `POST` `/stations/1/?do=start`
 ```json
 {
@@ -223,7 +224,7 @@ OSPy options
 ```
 ### /options
 #### GET
-Returns the current system options :
+Returns the current system options:
 `GET` `/options`
 ```json
 {
@@ -268,7 +269,7 @@ Log entry
 ```
 ### /logs
 #### GET
-Returns the current system options. Example :
+Returns the current system options. Example:
 ```json
 {
     "logs": [
@@ -312,7 +313,7 @@ System data
 ### /system
 These are system level data and options, that do not belong to `/options`. Also system level actions are implemented on this resource.
 #### GET
-Returns the current system options. Example
+Returns the current system options. Example:
 ```json
 {
     "version": "2.1.999 (2014-09-10)",
@@ -330,7 +331,7 @@ Not implemented
 Restart System :
 `POST` `/system/?do=restart`
 
-Pull latest from git and restart :
+Pull latest from git and restart:
 `POST` `/system/?do=git_upgrade`
 
 ## Plug-Ins
@@ -354,7 +355,7 @@ plugin specific API calls go under
 }
 ```
 #### GET
-Returns a single plugin data. Example :
+Returns a single plugin data. Example:
 `GET` `/plugins/1`
 Returns 
 ```json
@@ -371,22 +372,49 @@ Returns
 ### /sensors
 These are sensor data `/sensors`.
 #### GET
-Returns the current sensors options. Example /sensors/1
+Returns the current sensors options. Example:
+`GET` `/sensors/1`
+ Returns
 ```json
 {
-    "id": 1,
-    "enabled": true,
-    "sens_type": 0,
-    "com_type": 1,
-    "log_samples": false
-    ...    
+    "response": 0,
+    "lastreadvalue": "",
+    "lastbattery": "",
+    "sendemail": false,
+    "sensitivity": 0,
+    "enabled": false,
+    "senstype": 1,
+    "triglowval": "",
+    "trighighval": "",
+    "logsamples": false,
+    "logevent": false,
+    "senscom": 1,
+    "trighighpgm": "[u'0', u'0', u'0', u'0']",
+    "stabilizationtime": 0,
+    "rssi": "",
+    "samplerate": 60, 
+    "id": 0, 
+    "triglowpgm": "[u'0', u'0', u'0']",
+    "last_response": 0
 }
 ```
 #### POST
-Incomming data from sensors.
-Example Wi-Fi/LAN sensor data:
+Not implemented
+#### PUT
+Not implemented
+#### DELETE
+Not implemented
+#### Actions
+Not implemented
 
+### /sensor
+These are sensor data `/sensor`.
+Example:
+Manually stop station with id 1
+`POST` `/sensor?do=stop`
 
+#### GET
+Not implemented
 #### PUT
 Not implemented
 #### DELETE

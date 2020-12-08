@@ -49,11 +49,13 @@ $if sensors.count()>0:
             ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): <span class="val">$type_list[sensor.sens_type]</span>
         </p>
         </br>
-        <p><img src="/images?id=${'online.png' if sensor.response == 1 else 'offline.png'}" alt="" title=$:{json.dumps(_(u'Sensor available.') if sensor.response == 1 else _(u'Sensor not available!'), ensure_ascii=False)} height="32" width="32">
+        <p>
         $if sensor.response == 1:
-            $_(u'Sensor available.')
+            <div id="green_circle"></div>
+            <b>$_(u'Link OK')</b>, $_(u'Last receive before'): ${sensor.last_received}
         $else:
-            $_(u'Sensor not available!')
+            <div id="red_circle"></div>
+            <b>$_(u'Link ERROR')!</b> $_(u'Last receive before'): ${sensor.last_received}
         </p> 
         <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
         <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>

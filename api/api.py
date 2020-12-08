@@ -368,7 +368,6 @@ class System(object):
         web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
 
 class Sensors(object):
-    @does_json
     def _convert(self, sensor):
         return {
             'id':int(sensor.index),
@@ -407,17 +406,61 @@ class Sensors(object):
             for sensor in sensors.get():
                 return (self._convert(sensor))    
 
+    def OPTIONS(self):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')  
+
+
+class Sensor(object):
     #@auth
     #@does_json
     def POST(self):
         log.debug('api.py', 'POST ' + self.__class__.__name__)
-        action = web.input().get('do', '').lower()
-        print action
+        from ospy.helpers import now, split_ip
+
+        qdict = web.input()  
+#json.loads(web.data())
+        print qdict
+# todo overit, ze ip z ktere to jde je stejna jako v seznamu
+        if 'ip' in qdict and 'mac' in qdict:
+            for sensor in sensors.get():
+                ip = split_ip(qdict['ip'])
+                if sensor.ip_address == ip and sensor.mac_address == qdict['mac']:
+                    if 'rssi' in qdict and qdict['rssi'] is not None:
+                        sensor.rssi = int(qdict['rssi'])
+                    if 'batt' in qdict and qdict['batt'] is not None:
+                        sensor.last_battery = int(qdict['batt']) 
+                    if 'stype' in qdict and qdict['stype'] is not None:
+                        sen_type = int(qdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
+                        if sen_type == 1:                       
+                            sensor.last_read_value = int(qdict['drcon'])
+                        elif sen_type == 2:                      
+                            sensor.last_read_value = float(qdict['lkdet'])
+                        elif sen_type == 3:                      
+                            sensor.last_read_value = float(qdict['humi'])
+                        elif sen_type == 4:                      
+                            sensor.last_read_value = int(qdict['moti'])
+                        elif sen_type == 5:           
+                            if options.temp_unit == 'F':          
+                                sensor.last_read_value = float(qdict['temp'])*1.8 + 32 # Fahrenheit
+                            else:     
+                                sensor.last_read_value = float(qdict['temp'])          # Celsius
+
+                    sensor.last_response = now()
+                    sensor.response = 1
+                    log.debug('api.py',  _(u'The data for the Sensor: {} has been read from IP: {} MAC: {} successfully.').format(sensor.index, qdict['ip'], sensor.mac_address))
+                    return 'OK'
+    
+                else:
+                    log.error('api.py',  _(u'The IP and MAC address of the sensor do not match!'))
+                    raise badrequest() 
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')        
+        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+
 
 def get_app():
     urls = (
@@ -432,6 +475,8 @@ def get_app():
         # System
         r'/system/?', 'System',
         # Sensors
-        r'/sensors(?:/(?P<sensor_id>\d+))?/?', 'Sensors',        
+        r'/sensors(?:/(?P<sensor_id>\d+))?/?', 'Sensors', 
+        # Sensor
+        r'/sensor/?', 'Sensor',       
     )
     return web.application(urls, globals())

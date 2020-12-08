@@ -8,7 +8,6 @@ from datetime import datetime
 import time
 import json
 import re
-import logging
 
 import web
 
@@ -16,8 +15,7 @@ from .errors import badrequest, unauthorized
 
 from ospy.helpers import test_password
 from ospy.options import options
-
-logger = logging.getLogger('OSPyAPI')
+from ospy.log import log
 
 
 # datetime to timestamp conversion function
@@ -81,16 +79,16 @@ def does_json(func):
                 return ''
 
         except IndexError as e:  # No such item
-            logger.exception('IndexError')
+            log.error('utils.py',  _(u'Error: (IndexError) Index out of bounds {}').format(e.message))
             raise badrequest('{"error": "(IndexError) Index out of bounds - ' + e.message + '"}')
 
         except ValueError as e:  # json errors
-            logger.exception('ValueError JSON')
+            log.error('utils.py',  _(u'Error: (ValueError) Inappropriate argument value {}').format(e.message))
             raise badrequest('{"error": "(ValueError) Inappropriate argument value - ' + e.message + '"}')
             # raise badrequest(format(e.message))
 
         except KeyError as e:  # missing attribute names
-            logger.exception('KeyError')
+            log.error('utils.py',  _(u'Error: (KeyError) Missing key {}').format(e.message))
             raise badrequest('{"error": "(KeyError) Missing key - ' + e.message + '"}')
             # raise badrequest(format(e.message))
 
@@ -112,14 +110,13 @@ def auth(func):
 
                 http_auth = re.sub('^Basic ', '', auth_data)
                 username, password = base64.decodestring(http_auth).split(':')
-                logger.debug('Auth Attempt with: user:\'%s\' password:\'%s\'', username, password)
-
+                log.debug('utils.py',  _(u'API Auth Attempt with: user: {} password: {}').format(username, password))
                 assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:
                 #     raise  # essentially a goto :P
             except:
                 # no or wrong auth provided
-                logger.exception('Unauthorized attempt user:\'%s\' password:\'%s\'', username, password)
+                log.debug('utils.py',  _(u'API Unauthorized attempt user: {} password: {}').format(username, password))
                 web.header('WWW-Authenticate', 'Basic realm="OSPy"')
                 raise unauthorized()
 
