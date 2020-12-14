@@ -60,6 +60,14 @@ function checkIP(){
     }
 }    
 
+function codeTextCopy() {
+  let copyText = document.getElementById("senscode");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  document.execCommand("copy");
+  alert($:{json.dumps(_('Copied code'), ensure_ascii=False)} + ': ' + copyText.value);
+} 
+
 function check_type() {
     let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
     if (sensor_type == 1) { 
@@ -165,7 +173,14 @@ jQuery(document).ready(function(){
             <div class='option' style="white-space: nowrap">
                 <p><span class="program_label">$_('Sensor Name'):</span>
                 <input name="name" class="cleanText" id="name" style="width: 140px" value="${sensor.name}" title=$:{json.dumps(_(u'Type Sensor Name.'), ensure_ascii=False)}></p>
-            </div>             
+            </div>   
+            <div class='option' style="white-space: nowrap">
+                <p><span class="program_label" title=$:{json.dumps(_(u'Security code for your Sensor.'), ensure_ascii=False)}>$_('Security code'):</span>
+                <input type="text" id="senscode" value="${sensor.encrypt}">
+                </p>
+                <p><button onclick="codeTextCopy()" title=$:{json.dumps(_(u'Copy security code to clipboard.'), ensure_ascii=False)}>$_('Copy code')</button>
+                </p>
+            </div>                       
             <div class='option' style="white-space: nowrap">
                 <p><span class="program_label">$_('Sensor Type'):</span>
                 <select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_(u'Select the sensor type.'), ensure_ascii=False)}>

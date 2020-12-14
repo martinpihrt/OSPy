@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 14 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Adding and changes in /api for incomming data from sensors (Wi-Fi or LAN). Updating language translating to Czech. added category for user "sensor" for data input from sensors. Added a new page to search for sensors that are not assigned. Only for testing - not ready to use.
+
 Dec 9 2020
 -----------
 (martinpihrt)<br/>

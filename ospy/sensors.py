@@ -11,7 +11,7 @@ import datetime
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import now
+from ospy.helpers import now, password_hash, encrypt_name
 
 
 ### Sensors ###
@@ -20,8 +20,8 @@ class _Sensor(object):
 
     def __init__(self, sensors_instance, index):
         self._sensors = sensors_instance
- 
-        self.name = ""                  # sensor name
+        self.name = ""                  # sensor name        
+        self.encrypt = password_hash(str(now()), 'notarandomstring')[:16] # sensor security encrypted code
         self.enabled = 0                # sensor enable or disable
         self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'

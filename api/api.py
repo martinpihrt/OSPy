@@ -413,53 +413,55 @@ class Sensors(object):
 
 
 class Sensor(object):
-    #@auth
-    #@does_json
+    @auth
+    @does_json
     def POST(self):
         log.debug('api.py', 'POST ' + self.__class__.__name__)
-        from ospy.helpers import now, split_ip
+        from ospy.helpers import now, split_ip #, encrypt_name, decrypt_name
 
-        qdict = web.input()  
-#json.loads(web.data())
-        print qdict
-# todo overit, ze ip z ktere to jde je stejna jako v seznamu
-        if 'ip' in qdict and 'mac' in qdict:
+        qdict = web.input().get('do', '').lower() # Example: do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"-52","batt":"123","stype":"5","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1","secret":"658hhffh55ff4g4"}        
+        jqdict = json.loads(qdict)
+
+        if 'ip' in jqdict and 'mac' in jqdict and 'secret' in jqdict:
             for sensor in sensors.get():
-                ip = split_ip(qdict['ip'])
-                if sensor.ip_address == ip and sensor.mac_address == qdict['mac']:
-                    if 'rssi' in qdict and qdict['rssi'] is not None:
-                        sensor.rssi = int(qdict['rssi'])
-                    if 'batt' in qdict and qdict['batt'] is not None:
-                        sensor.last_battery = int(qdict['batt']) 
-                    if 'stype' in qdict and qdict['stype'] is not None:
-                        sen_type = int(qdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
+                ip = split_ip(jqdict['ip'])              
+                if sensor.ip_address == ip and sensor.mac_address == jqdict['mac'] and sensor.encrypt == jqdict['secret']:
+                    if 'rssi' in jqdict and jqdict['rssi'] is not None:
+                        sensor.rssi = int(jqdict['rssi'])                               # ex: value is 88  -> real 88% 
+                    if 'batt' in jqdict and jqdict['batt'] is not None:
+                        sensor.last_battery = (float(jqdict['batt']))/10.0              # ex: value is 132 -> real 13.2V
+                    if 'stype' in jqdict and jqdict['stype'] is not None:
+                        sen_type = int(jqdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
                         if sen_type == 1:                       
-                            sensor.last_read_value = int(qdict['drcon'])
+                            sensor.last_read_value = int(jqdict['drcon'])
                         elif sen_type == 2:                      
-                            sensor.last_read_value = float(qdict['lkdet'])
+                            sensor.last_read_value = (float(jqdict['lkdet']))/10.0      # ex: value is 132 -> real 13.2%
                         elif sen_type == 3:                      
-                            sensor.last_read_value = float(qdict['humi'])
+                            sensor.last_read_value = (float(jqdict['humi']))/10.0       # ex: value is 132 -> real 13.2%
                         elif sen_type == 4:                      
-                            sensor.last_read_value = int(qdict['moti'])
+                            sensor.last_read_value = int(jqdict['moti'])
                         elif sen_type == 5:           
                             if options.temp_unit == 'F':          
-                                sensor.last_read_value = float(qdict['temp'])*1.8 + 32 # Fahrenheit
+                                sensor.last_read_value = (float(jqdict['temp'])*1.8 + 32)/10.0 # Fahrenheit ex: value is 132 -> real 13.2F
                             else:     
-                                sensor.last_read_value = float(qdict['temp'])          # Celsius
+                                sensor.last_read_value = (float(jqdict['temp']))/10.0          # Celsius ex: value is 132 -> real 13.2C
 
                     sensor.last_response = now()
                     sensor.response = 1
-                    log.debug('api.py',  _(u'The data for the Sensor: {} has been read from IP: {} MAC: {} successfully.').format(sensor.index, qdict['ip'], sensor.mac_address))
+                    log.debug('api.py',  _(u'The data for the Sensor: {} has been read from IP: {} MAC: {} successfully.').format(sensor.index, jqdict['ip'], sensor.mac_address))
                     return 'OK'
     
                 else:
-                    log.error('api.py',  _(u'The IP and MAC address of the sensor do not match!'))
+                    log.error('api.py',  _(u'The IP and MAC address and secret of the sensor do not match!'))
                     raise badrequest() 
+        else:
+            log.error('api.py',  _(u'Received data is not correct!'))
+            raise badrequest()            
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') # todo get pryc
 
 
 def get_app():
@@ -479,4 +481,4 @@ def get_app():
         # Sensor
         r'/sensor/?', 'Sensor',       
     )
-    return web.application(urls, globals())
+    return web.application(urls, globals()) 

@@ -160,10 +160,14 @@ class sensors_page(ProtectedPage):
         qdict = web.input()
 
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
+        search = get_input(qdict, 'search', False, lambda x: True)
 
         if delete_all:
             while sensors.count() > 0:
                 sensors.remove_sensors(sensors.count()-1)
+
+        if search:
+            return self.core_render.sensors_search()    
 
         return self.core_render.sensors()
 
@@ -541,7 +545,9 @@ class home_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] == 'public':
+        if session['category'] == 'sensor':
+            return self.core_render.home_public()
+        elif session['category'] == 'public':
             return self.core_render.home_public()
         elif session['category'] == 'user': 
             return self.core_render.home_user()
@@ -1743,5 +1749,29 @@ class api_update_footer(ProtectedPage):
         data["ip"]          = get_external_ip()        
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(data)            
+        return json.dumps(data)   
+
+
+class api_search_sensors(ProtectedPage):
+    """APi for Available sensors that are not assigned"""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session['category'] != 'admin':
+            raise web.seeother(u'/')
         
+        data = []
+# todo pryc jen pro testovani
+        for a in range(3):
+            data.append({
+                'ip':'192.168.1.1',
+                'mac':'aa:bb:cc:dd:ee:ff',
+                'radio':'-',    
+                'type':'5',
+                'supply':'24',
+                'rssi':'80', 
+            })
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(data)

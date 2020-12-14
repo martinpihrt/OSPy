@@ -58,7 +58,8 @@ $var page: user
         <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
             <p>$_('Public')$_('= only a viewer with restricted settings.')</p> 
             <p>$_('User')$_('= instructed user with limited settings.')</p>
-            <p>$_('Administrator')$_('= system administrator without restrictions.')</p><br>
+            <p>$_('Administrator')$_('= system administrator without restrictions.')</p>
+            <p>$_('Sensor')$_('= only for data input from sensors with restricted settings.')</p><br>
             <form name="userForm" id="userForm" method="post">
                 <input type="hidden" name="index" value="${user.index}">
                 <table class="optionList" style="background: #F5F5F5;">
@@ -78,9 +79,10 @@ $var page: user
                         <td style='text-transform: none;'>$_(u'User Category'):</td>
                         <td title=$:{json.dumps(_(u'Select permissions for the new user'), ensure_ascii=False)}>  
                             <select name="category" width="140" style="width: 140px" size="1">
-                                <option value="0" ${"selected" if user.category==0 else ""}>$_(u'Public')</option>
-                                <option value="1" ${"selected" if user.category==1 else ""}>$_(u'User')</option>
-                                <option value="2" ${"selected" if user.category==2 else ""}>$_(u'Administrator')</option>
+                                <option value="0" ${"selected" if user.category=='0' else ""}>$_(u'Public')</option>
+                                <option value="1" ${"selected" if user.category=='1' else ""}>$_(u'User')</option>
+                                <option value="2" ${"selected" if user.category=='2' else ""}>$_(u'Administrator')</option>
+                                <option value="3" ${"selected" if user.category=='3' else ""}>$_(u'Sensor')</option>
                             </select> 
                         </td>
                     </tr>  

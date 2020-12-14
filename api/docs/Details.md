@@ -15,6 +15,9 @@ Before getting into detailing the meaty part some notes:
  * Versioning -- It may be an overkill, but it's good design anyway. So API URLs should be in the format:
  
   `http(s)://[ip|name]:[port]/api/v1/...... `
+
+In Header for http GET/POST response:
+`Header("Authorization", "Basic " "Username:Password")` 
   
 This way we keep the API constant and stable for a certain version of the API and clients "speaking" that level should be able to work ok, even after there is a second, third and so on releases of the API. As I said, in this particular case this seems to me a bit of an overkill.
 ### Objects and collections
@@ -410,8 +413,10 @@ Not implemented
 ### /sensor
 These are sensor data `/sensor`.
 Example:
-Manually stop station with id 1
-`POST` `/sensor?do=stop`
+Send data from sensor.
+`POST` `/sensor?do={json format}`
+Example:
+`do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"-52","batt":"123","stype":"5","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1","secret":"658hhffh55ff4g4"}`       
 
 #### GET
 Not implemented

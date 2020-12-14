@@ -549,18 +549,24 @@ def test_password(password, username):
                     server.session['visitor']  =  user.name
                 except:
                     pass    
-            if user.category == '1': # user
+            elif user.category == '1': # user
                 try:
                     server.session['category'] = 'user'
                     server.session['visitor']  =  user.name
                 except:
                     pass                     
-            if user.category == '2': # admin
+            elif user.category == '2': # admin
                 try:
                     server.session['category'] = 'admin'  
                     server.session['visitor']  =  user.name
                 except:
-                    pass                                                      
+                    pass  
+            elif user.category == '3': # sensor input
+                try:
+                    server.session['category'] = 'sensor'  
+                    server.session['visitor']  =  user.name
+                except:
+                    pass                                                                        
 
         if result_users:
             user.password_time = 0
@@ -774,14 +780,11 @@ def print_report(title, message=None):
     return
 
 
-
-network_hash = password_hash('192.168.88.1', 'notarandomstring')[:16]
-def encrypt_name(name):
+def encrypt_name(my_hash, name):
     try:
         from Crypto.Cipher import AES
         import binascii
-        # encrypt name (make sure it is multiple of 16bytes)
-        encryption_suite = AES.new(network_hash, AES.MODE_CBC, 'This is a 16B iv')
+        encryption_suite = AES.new(my_hash, AES.MODE_CBC, 'This is a 16B iv')
         pad = len(name) % 16
         if pad > 0:
             for i in range(16-pad):
@@ -793,17 +796,14 @@ def encrypt_name(name):
         return ''
         
 
-def decrypt_name(enc_name):
+def decrypt_name(my_hash, enc_name):
     try:
         from Crypto.Cipher import AES
         import binascii
-        decryption_suite = AES.new(network_hash, AES.MODE_CBC, 'This is a 16B iv')
+        decryption_suite = AES.new(my_hash, AES.MODE_CBC, 'This is a 16B iv')
         sec_str = str(binascii.unhexlify(enc_name))
         plain_name = decryption_suite.decrypt(sec_str)
         return plain_name    
     except:
         print_report('helpers.py', traceback.format_exc())
         return ''
-
-#print encrypt_name('name')      
-#print decrypt_name('0b6282fa0dc761e8d879575094bfa5c0')

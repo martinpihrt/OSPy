@@ -50,7 +50,8 @@ jQuery(document).ready(function(){
                 <td>
                 ${_(u'Public') if user.category=="0" else ''}
                 ${_(u'User') if user.category=="1" else ''}
-                ${_(u'Administrator') if user.category=="2" else ''}                                       
+                ${_(u'Administrator') if user.category=="2" else ''}
+                ${_(u'Sensor') if user.category=="3" else ''}                                       
                 </td>    
                 <td> 
                 ${user.notes}

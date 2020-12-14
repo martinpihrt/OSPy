@@ -1,0 +1,85 @@
+$def with ()
+
+$var title: $_(u'Available sensors')
+$var page: search_sensors
+$ refreshInterval = 3000
+
+<script>
+function updateSensors(){
+    let start = new Date();
+    let jqxhr = jQuery.getJSON('/update_search', function(data) {
+    jQuery('#sensorsTable > tbody > tr').remove();  // Clear current table contents
+    jQuery('#refreshLight').fadeIn(500);
+    jQuery.each(data, function(i, sensor) {
+       	let stype = sensor.type;
+        let snametype;
+        if(stype == 1) snametype = $:{json.dumps(_('Dry Contact'), ensure_ascii=False).encode('utf8')};
+        else if(stype == 2) snametype = $:{json.dumps(_('Leak Detector'), ensure_ascii=False).encode('utf8')};
+        else if(stype == 3) snametype = $:{json.dumps(_('Moisture'), ensure_ascii=False).encode('utf8')};
+        else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8')};
+        else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8')};
+        else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        jQuery('<tr>').append(
+            jQuery('<td>').text(sensor.ip),
+            jQuery('<td>').text(sensor.mac),
+            jQuery('<td>').text(sensor.radio),
+            jQuery('<td>').text(snametype),
+            jQuery('<td>').text(sensor.supply + ' V'),
+            jQuery('<td>').text(sensor.rssi+ ' %')
+        ).appendTo('#sensorsTable > tbody');
+    })
+    jQuery("#sensorsTable > tbody > tr:even").addClass("even");  //  odd/even row coloring
+    }).fail(function () {
+        console.error('Error');
+    }).always(function () {
+        jQuery('#refreshLight').fadeOut(500);
+        console.debug('Status update completed in', new Date() - start, 'ms');
+        setTimeout(updateSensors, ${refreshInterval});  // Hook next call
+    });
+}
+
+function updateFooter(){
+    jQuery.getJSON('/update_footer', function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}
+
+jQuery(document).ready(function(){
+    updateFooter();     // timer for footer data (temperature...)
+    updateSensors();    // timer for refresh sensors
+});
+</script>
+
+<div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
+    <div class="title">$_(u'Available sensors that are not assigned') <span id="refreshLight">&bullet;</span></div>
+    <p>$_(u'Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
+    <form id="pluginForm" action="/#" method="get">
+    <table class="logList" id="sensorsTable">
+        <thead>
+        <tr class="log_rec">
+            <th>$_(u'IP Address')</th>
+            <th>$_(u'MAC Address')</th>
+            <th>$_(u'Radio ID')</th>
+            <th>$_(u'Type')</th>
+            <th>$_(u'Supply')</th>
+            <th>$_(u'RSSI')</th>
+        </tr>
+        </thead>
+        <tbody>
+    </table>
+    </form>
+</div>
+
+<div id="controls">
+    <a href="sensors" class="button add">$_('Back to Sensors')</a>
+</div>
