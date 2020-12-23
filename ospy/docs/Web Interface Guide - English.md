@@ -104,7 +104,10 @@ OSPy Web Interface Guide in English
         Security Section             
             Use HTTPS access
             Domain name 
-            Use Own HTTPS access          
+            Use Own HTTPS access
+        Sensors
+            AES key for sensors
+            Generate new key              
         Station Handling Section
             Maximum usage
                 About Sequential and Concurrent modes
@@ -584,6 +587,15 @@ sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out full
 ```
 
 The second way is to use the "generate" button in the SSL certificate tab.
+
+## Sensors Section
+The Sensors section contains settings for sensors security.  
+
+### AES key for sensors
+AES key for sensors. The length must be 16 characters (for all sensors used - the same code must be used in the Arduino code in the sensor.)
+
+### Generate new key
+After pressing the button, a new random 16-digit key is generated for use in the sensors.
 
 ## Station Handling Section
 The Station Handling section contains settings for stations.

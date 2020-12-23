@@ -104,7 +104,10 @@ OSPy Průvodce webovým rozhraním v češtině
         Bezpečnost            
             Použít HTTPS
             Jméno domény
-            Použít vlastní HTTPS          
+            Použít vlastní HTTPS 
+        Snímače
+            Klíč AES pro snímače
+            Generovat nový klíč                     
         Nastavení stanic
             Maximální využití
                 O sekvenčních a souběžných režimech
@@ -604,6 +607,15 @@ Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTP
 sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
 ```
 Druhý způsob je pomocí tlačítka "generovat" v záložce SSL certifikát.
+
+## Snímače
+Sekce snímače obsahuje nastavení pro zabezpečení snímačů.  
+
+### Klíč AES pro snímače
+AES klíč pro snímače. Délka musí být 16 znaků (pro všechny použité snímače - stejný kód musí být použit v kódu Arduino ve snímači.)
+
+### Generovat nový klíč
+Po stisknutí tlačítka se vygeneruje nový náhodný 16-místný klíč pro použití ve snímačích.   
 
 ## Nastavení stanic
 Sekce "Nastavení stanic" obsahuje všeobecná nastavení pro všechny stanice.

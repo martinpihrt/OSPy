@@ -11,7 +11,10 @@ from ospy.programs import programs, ProgramType
 from ospy.log import log
 from ospy import helpers
 from ospy.sensors import sensors
+from ospy.helpers import print_report
+
 import json
+import traceback
 
 
 class Stations(object):
@@ -389,6 +392,7 @@ class Sensors(object):
             'rssi': str(sensor.rssi),
             'response': sensor.response,
             'last_response': sensor.last_response,
+            'fw': sensor.fw,
         }
 
     @does_json
@@ -413,19 +417,36 @@ class Sensors(object):
 
 
 class Sensor(object):
-    @auth
+    #@auth
     @does_json
     def POST(self):
         log.debug('api.py', 'POST ' + self.__class__.__name__)
-        from ospy.helpers import now, split_ip #, encrypt_name, decrypt_name
+        from ospy.helpers import now, split_ip, decrypt_data, encrypt_data
+        from ospy.webpages import sensorSearch
 
-        qdict = web.input().get('do', '').lower() # Example: do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"-52","batt":"123","stype":"5","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1","secret":"658hhffh55ff4g4"}        
-        jqdict = json.loads(qdict)
+        qdict  = web.input() # Example: do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"52","batt":"123","stype":"5","scom":"0","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1"}&sec="Vno7I7aD2EiNXUDSpW4x0g=="      
+        jqdict = json.loads(qdict['do'].lower())        
+        sqdict = qdict['sec']
 
-        if 'ip' in jqdict and 'mac' in jqdict and 'secret' in jqdict:
+        decrypt_secret = decrypt_data(options.aes_key, sqdict)
+
+        log.debug('api.py',  _(u'Sensor input IP: {} MAC: {} SECURE: {}.').format(jqdict['ip'], jqdict['mac'].upper(), decrypt_secret))
+
+        if 'ip' and 'mac' in jqdict and 'sec' in qdict:
+            find_sens = {
+                'name':  jqdict['name'],
+                'ip':  jqdict['ip'],
+                'mac': jqdict['mac'].upper(),
+                'radio': '-',    
+                'type': jqdict['stype'],
+                'com': jqdict['scom'],
+                'secret': decrypt_secret,
+                'fw': jqdict['fw']                                                  
+            }  
+
             for sensor in sensors.get():
                 ip = split_ip(jqdict['ip'])              
-                if sensor.ip_address == ip and sensor.mac_address == jqdict['mac'] and sensor.encrypt == jqdict['secret']:
+                if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
                     if 'rssi' in jqdict and jqdict['rssi'] is not None:
                         sensor.rssi = int(jqdict['rssi'])                               # ex: value is 88  -> real 88% 
                     if 'batt' in jqdict and jqdict['batt'] is not None:
@@ -447,13 +468,57 @@ class Sensor(object):
                                 sensor.last_read_value = (float(jqdict['temp']))/10.0          # Celsius ex: value is 132 -> real 13.2C
 
                     sensor.last_response = now()
-                    sensor.response = 1
-                    log.debug('api.py',  _(u'The data for the Sensor: {} has been read from IP: {} MAC: {} successfully.').format(sensor.index, jqdict['ip'], sensor.mac_address))
-                    return 'OK'
+                    if sensor.response != 1:
+                        sensor.response = 1
+
+                    if sensor.fw != jqdict['fw']:
+                        sensor.fw = jqdict['fw']  
+
+                    log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
     
-                else:
-                    log.error('api.py',  _(u'The IP and MAC address and secret of the sensor do not match!'))
-                    raise badrequest() 
+            try:
+                for i in range(0, len(sensorSearch)):
+                    ss = sensorSearch[int(i)]
+                    if str(ss["mac"]) == str(find_sens["mac"]) and str(ss["ip"]) == str(find_sens["ip"]):  # mac and ip match
+                        a_name = u' '.join(ss["name"]).encode('utf-8')
+                        b_name = u' '.join(find_sens["name"]).encode('utf-8')
+                        if str(ss["type"]) != str(find_sens["type"]):                                      # type not match 
+                            try:
+                                del sensorSearch[int(i)]
+                            except:
+                                pass    
+                            break
+                        elif a_name != b_name:                                                             # name not match 
+                            try:
+                                del sensorSearch[int(i)]
+                            except:
+                                pass    
+                            break  
+                        elif str(ss["com"]) != str(find_sens["com"]):                                      # com not match 
+                            try:
+                                del sensorSearch[int(i)]
+                            except:
+                                pass    
+                            break
+                        elif str(ss["fw"]) != str(find_sens["fw"]):                                        # fw not match 
+                            try:
+                                del sensorSearch[int(i)]
+                            except:
+                                pass    
+                            break 
+                        elif str(ss["secret"]) != str(find_sens["secret"]):                                # secret not match 
+                            try:
+                                del sensorSearch[int(i)]
+                            except:
+                                pass    
+                            break                                      
+
+                sensorSearch.append(find_sens) if find_sens not in sensorSearch else sensorSearch         
+
+            except:
+                pass
+                print_report('api.py', traceback.format_exc())
+                    
         else:
             log.error('api.py',  _(u'Received data is not correct!'))
             raise badrequest()            
@@ -461,7 +526,7 @@ class Sensor(object):
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') # todo get pryc
+        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
 
 
 def get_app():

@@ -31,6 +31,7 @@ from ospy.sensors import sensors
 plugin_data = {}  # Empty dictionary to hold plugin based global data
 pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
 pluginStn = []    # Empty list of dicts to hold plugin data for display on timeline
+sensorSearch = [] # Empty list of dicts to hold sensors data for display on sensor search page
 
 loggedin = signal('loggedin')
 def report_login():
@@ -153,6 +154,7 @@ class sensors_page(ProtectedPage):
 
     def GET(self):
         from ospy.server import session
+        global searchData
 
         if session['category'] != 'admin':
             raise web.seeother(u'/')
@@ -160,14 +162,14 @@ class sensors_page(ProtectedPage):
         qdict = web.input()
 
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
-        search = get_input(qdict, 'search', False, lambda x: True)
-
+        search = get_input(qdict, 'search', False, lambda x: True) 
+          
         if delete_all:
             while sensors.count() > 0:
                 sensors.remove_sensors(sensors.count()-1)
 
         if search:
-            return self.core_render.sensors_search()    
+            return self.core_render.sensors_search()                
 
         return self.core_render.sensors()
 
@@ -226,6 +228,13 @@ class sensor_page(ProtectedPage):
             else:    
                 sensor.enabled = 0
 
+            if 'senscode' in qdict: 
+                if len(qdict['senscode'])>16 or len(qdict['senscode'])<16:
+                    errorCode = qdict.get('errorCode', 'ucode')
+                    return self.core_render.sensor(sensor, errorCode)
+                else:    
+                    sensor.encrypt = qdict['senscode']
+
             if 'sens_type' in qdict:
                 sensor.sens_type = int(qdict['sens_type'])
 
@@ -274,10 +283,11 @@ class sensor_page(ProtectedPage):
                 sensor.ip_address = ip                                               
                              
             if 'mac_address' in qdict:
-                sensor.mac_address = qdict['mac_address']
+                sensor.mac_address = qdict['mac_address'].upper()
 
             if 'radio_id' in qdict:
-                sensor.radio_id = int(qdict['radio_id'])
+                if qdict['radio_id'] != '-':
+                    sensor.radio_id = int(qdict['radio_id'])
 
             if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
                 errorCode = qdict.get('errorCode', 'uname')
@@ -545,9 +555,7 @@ class home_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] == 'sensor':
-            return self.core_render.home_public()
-        elif session['category'] == 'public':
+        if session['category'] == 'public':
             return self.core_render.home_public()
         elif session['category'] == 'user': 
             return self.core_render.home_user()
@@ -973,7 +981,7 @@ class options_page(ProtectedPage):
             raise web.seeother(u'/')
 
         qdict = web.input()
-        errorCode = qdict.get('errorCode', 'none')
+        errorCode = qdict.get('errorCode', 'none')      
 
         return self.core_render.options(errorCode)
 
@@ -985,13 +993,23 @@ class options_page(ProtectedPage):
 
     	changing_language = False
 
-        qdict = web.input()
+        qdict = web.input()       
 
         if 'lang' in qdict:                         
             if qdict['lang'] != options.lang:     # if changed languages
                 changing_language = True          
 
-        save_to_options(qdict)
+        if 'aes_gener' in qdict and qdict['aes_gener'] == '1':
+            from ospy.helpers import now, password_hash
+            options.aes_key = password_hash(str(now()), 'notarandomstring')[:16]
+            raise web.seeother(u'/options?errorCode=pw_aesGenerOK') 
+
+        if 'aes_key' in qdict and len(qdict['aes_key'])>16:
+            raise web.seeother(u'/options?errorCode=pw_aeslenERR')
+        elif 'aes_key' in qdict and len(qdict['aes_key'])<16:
+            raise web.seeother(u'/options?errorCode=pw_aeslenERR')
+        else: 
+            save_to_options(qdict)
 
         if 'master' in qdict:
             m = int(qdict['master'])
@@ -1106,7 +1124,8 @@ class options_page(ProtectedPage):
 
             except:
                 print_report('webpages.py', traceback.format_exc()) 
-                raise web.seeother(u'/')     
+                raise web.seeother(u'/')   
+                  
 
         if changing_language:      
             report_restarted()
@@ -1761,17 +1780,9 @@ class api_search_sensors(ProtectedPage):
         if session['category'] != 'admin':
             raise web.seeother(u'/')
         
-        data = []
-# todo pryc jen pro testovani
-        for a in range(3):
-            data.append({
-                'ip':'192.168.1.1',
-                'mac':'aa:bb:cc:dd:ee:ff',
-                'radio':'-',    
-                'type':'5',
-                'supply':'24',
-                'rssi':'80', 
-            })
+        searchData = []
+        searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(data)
+        return json.dumps(searchData)
+              

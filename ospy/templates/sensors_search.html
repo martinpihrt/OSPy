@@ -2,10 +2,24 @@ $def with ()
 
 $var title: $_(u'Available sensors')
 $var page: search_sensors
-$ refreshInterval = 3000
+$ refreshInterval = 4000
 
 <script>
-function updateSensors(){
+function createSensor(element) {
+	let a = element.id;
+	let b = element.value;
+    let array = b.split(',');
+    jQuery("#name").val(String(array[0]));
+    jQuery("#ipaddress").val(String(array[1]));
+    jQuery("#macaddress").val(String(array[2]));
+    jQuery("#radioid").val(String(array[3]));
+    jQuery("#senstype").val(String(array[4]));
+    jQuery("#comtype").val(String(array[5]));
+    jQuery("#senscode").val(String(array[6]));
+    jQuery("#sensorForm").submit();
+}
+
+function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTML-JavaScript-and-jQuery
     let start = new Date();
     let jqxhr = jQuery.getJSON('/update_search', function(data) {
     jQuery('#sensorsTable > tbody > tr').remove();  // Clear current table contents
@@ -19,13 +33,23 @@ function updateSensors(){
         else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8')};
         else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8')};
         else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        let scom = sensor.com;
+        let scomtype;
+        if(scom == 0) scomtype = $:{json.dumps(_('Wi-Fi/LAN'), ensure_ascii=False).encode('utf8')};
+        else if(scom == 1) scomtype = $:{json.dumps(_('Radio'), ensure_ascii=False).encode('utf8')};
+        else scomtype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.secret
+        let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8')}+"</button>";
         jQuery('<tr>').append(
+        	jQuery('<td>').text(sensor.name),
             jQuery('<td>').text(sensor.ip),
             jQuery('<td>').text(sensor.mac),
             jQuery('<td>').text(sensor.radio),
             jQuery('<td>').text(snametype),
-            jQuery('<td>').text(sensor.supply + ' V'),
-            jQuery('<td>').text(sensor.rssi+ ' %')
+            jQuery('<td>').text(scomtype),
+            jQuery('<td>').text(sensor.secret),
+            jQuery('<td>').text(parseFloat(sensor.fw)/100.0),
+            jQuery('<td>').html(button_data)
         ).appendTo('#sensorsTable > tbody');
     })
     jQuery("#sensorsTable > tbody > tr:even").addClass("even");  //  odd/even row coloring
@@ -61,22 +85,32 @@ jQuery(document).ready(function(){
 </script>
 
 <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-    <div class="title">$_(u'Available sensors that are not assigned') <span id="refreshLight">&bullet;</span></div>
+    <div class="title">$_(u'Available sensors') <span id="refreshLight">&bullet;</span></div>
     <p>$_(u'Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
-    <form id="pluginForm" action="/#" method="get">
+    <p>$_(u'Your AES code for using in sensors:') "${options.aes_key}"</p>
     <table class="logList" id="sensorsTable">
         <thead>
         <tr class="log_rec">
+            <th>$_(u'Sensor Name')</th>
             <th>$_(u'IP Address')</th>
             <th>$_(u'MAC Address')</th>
             <th>$_(u'Radio ID')</th>
-            <th>$_(u'Type')</th>
-            <th>$_(u'Supply')</th>
-            <th>$_(u'RSSI')</th>
+            <th>$_(u'Sensor Type')</th>
+            <th>$_(u'Communication Type')</th>
+            <th>$_(u'Code')</th>
+            <th>$_(u'Firmware Version')</th>
         </tr>
         </thead>
         <tbody>
     </table>
+    <form name="sensorForm" id="sensorForm" action="/sensor/new" method="post">
+        <input type="hidden" id="name" name="name" value="">
+        <input type="hidden" id="ipaddress" name="ip_address" value="">
+        <input type="hidden" id="macaddress" name="mac_address" value="">
+        <input type="hidden" id="radioid" name="radio_id" value="">
+        <input type="hidden" id="senstype" name="sens_type" value="">
+        <input type="hidden" id="comtype" name="com_type" value="">
+        <input type="hidden" id="senscode" name="senscode" value="">
     </form>
 </div>
 

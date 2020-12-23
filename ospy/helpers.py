@@ -560,13 +560,7 @@ def test_password(password, username):
                     server.session['category'] = 'admin'  
                     server.session['visitor']  =  user.name
                 except:
-                    pass  
-            elif user.category == '3': # sensor input
-                try:
-                    server.session['category'] = 'sensor'  
-                    server.session['visitor']  =  user.name
-                except:
-                    pass                                                                        
+                    pass                                                                         
 
         if result_users:
             user.password_time = 0
@@ -577,7 +571,8 @@ def test_password(password, username):
 
     if result_admin or result_users: 
         try:
-            print_report('helpers.py', _(u'Logged in %s, as operator %s') % (server.session['visitor'], server.session['category']))
+            if user.category != '3': # no info for sensors input
+                print_report('helpers.py', _(u'Logged in %s, as operator %s') % (server.session['visitor'], server.session['category']))
         except:
             pass    
         return True
@@ -646,6 +641,7 @@ def template_globals():
     from ospy.server import session
     from ospy.webpages import pluginFtr
     from ospy.webpages import pluginStn
+    from ospy.webpages import sensorSearch
     from ospy import i18n
     from ospy.users import users
     from ospy.sensors import sensors
@@ -778,32 +774,53 @@ def print_report(title, message=None):
     except:
         print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))  
     return
+        
 
-
-def encrypt_name(my_hash, name):
+def encrypt_data(aes_key, plain_msg, iv_mode = None): # if iv_mode is None aes mode is ECB else CBC with IV 16 bytes
     try:
         from Crypto.Cipher import AES
         import binascii
-        encryption_suite = AES.new(my_hash, AES.MODE_CBC, 'This is a 16B iv')
-        pad = len(name) % 16
+
+        if iv_mode is None:
+            encryption_suite = AES.new(aes_key, AES.MODE_ECB)
+        else:
+            encryption_suite = AES.new(aes_key, AES.MODE_CBC, aes_iv)
+
+        pad = len(plain_msg) % 16
         if pad > 0:
             for i in range(16-pad):
-                name += ' '
-        enc_name = binascii.hexlify(encryption_suite.encrypt(name))
-        return enc_name
+                plain_msg += ' '
+        enc_msg = binascii.hexlify(encryption_suite.encrypt(plain_msg))
+        return enc_msg
     except:
         print_report('helpers.py', traceback.format_exc())
         return ''
         
 
-def decrypt_name(my_hash, enc_name):
+def decrypt_data(aes_key, enc_msg, iv_mode = None):    # if iv_mode is None aes mode is ECB else CBC with IV 16 bytes
     try:
         from Crypto.Cipher import AES
         import binascii
-        decryption_suite = AES.new(my_hash, AES.MODE_CBC, 'This is a 16B iv')
-        sec_str = str(binascii.unhexlify(enc_name))
-        plain_name = decryption_suite.decrypt(sec_str)
-        return plain_name    
+
+        if iv_mode is None:
+            decryption_suite = AES.new(aes_key, AES.MODE_ECB)
+        else:
+            decryption_suite = AES.new(aes_key, AES.MODE_CBC, iv_mode)
+
+        sec_str = str(binascii.unhexlify(enc_msg))
+        plain_msg = decryption_suite.decrypt(sec_str)
+        return plain_msg    
     except:
         print_report('helpers.py', traceback.format_exc())
         return ''
+
+
+def decode_B64(msg):
+    try:
+        import base64
+
+        decode = base64.decodestring(msg)
+        return decode    
+    except:
+        print_report('helpers.py', traceback.format_exc())
+        return ''         

@@ -182,7 +182,16 @@ class _Options(object):
             "default": False,
             "help": _('SSL certificate via own file without certification authority (effective after reboot.)'),
             "category": _('Security')
-        },            
+        }, 
+        #######################################################################
+        # Sensors #############################################################        
+        {
+            "key": "aes_key",
+            "name": _('AES key for sensors'),
+            "default": "",
+            "help": _('AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor.)'),
+            "category": _('Sensors')
+        },                        
         #######################################################################
         # Station Handling ####################################################
         {
@@ -427,6 +436,10 @@ class _Options(object):
 
             self.password_salt = password_salt()
             self.password_hash = password_hash(self.password_hash, self.password_salt)
+
+        if not self.aes_key: # aes key is not created
+            from ospy.helpers import now, password_hash
+            self.aes_key = password_hash(str(now()), 'notarandomstring')[:16]
 
     def __del__(self):
         if self._write_timer is not None:

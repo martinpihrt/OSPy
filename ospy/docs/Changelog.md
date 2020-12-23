@@ -1,11 +1,17 @@
 OSPy Changelog
 ====
 
+Dec 23 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Czech. More changes for sensors input to OSPy. For first testing use FW:1.01 and ESP32 board in folder: hardware_pcb/sensors_pcb_fw/. It is now possible to add sensors and display their values (the web manager in the sensor has not been resolved yet, the values must be entered in the code). Tested: Dry Contact (between pin and ground), Motion (between pin and ground), Temperature (DS18B20 with pull-up resistor 4k7 for data pin on 3,3 VDD source). Todo not tested: Leak Detector, Moisture. Not yet done logging and running programs on events in OSPy core for sensors. More infos with images is here: https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace
+
 Dec 14 2020
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Adding and changes in /api for incomming data from sensors (Wi-Fi or LAN). Updating language translating to Czech. added category for user "sensor" for data input from sensors. Added a new page to search for sensors that are not assigned. Only for testing - not ready to use.
+Adding and changes in /api for incomming data from sensors (Wi-Fi or LAN). Updating language translating to Czech. Added category for user "sensor" for data input from sensors. Added a new page to search for sensors that are not assigned. Only for testing - not ready to use.
 
 Dec 9 2020
 -----------

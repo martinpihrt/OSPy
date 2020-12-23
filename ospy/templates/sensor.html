@@ -138,7 +138,12 @@ jQuery(document).ready(function(){
     jQuery(".cleanText").keyup(function () {
         let newValue = this.value.replace(/[/\\\*]/g, '');
         this.value = newValue;
-    });   
+    }); 
+
+    jQuery(".cleanCode").keyup(function () {
+        let newValue = this.value.replace(/[^0-9a-zA-Z]/g, '');
+        this.value = newValue;
+    });      
 
     jQuery("#sens_type").change(check_type);
     jQuery("#com_type").change(check_type);
@@ -152,7 +157,10 @@ jQuery(document).ready(function(){
         break;  
         case "unameis":
             jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor names must be non-null and unique. Sensor already exists, use another name! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
-        break;                             
+        break; 
+        case "ucode":
+            jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor code must be exactly 16 characters! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;                                    
     }
     
     updateFooter(); 
@@ -176,7 +184,7 @@ jQuery(document).ready(function(){
             </div>   
             <div class='option' style="white-space: nowrap">
                 <p><span class="program_label" title=$:{json.dumps(_(u'Security code for your Sensor.'), ensure_ascii=False)}>$_('Security code'):</span>
-                <input type="text" id="senscode" value="${sensor.encrypt}">
+                <input name="senscode" class="cleanCode" id="senscode" value="${sensor.encrypt}">
                 </p>
                 <p><button onclick="codeTextCopy()" title=$:{json.dumps(_(u'Copy security code to clipboard.'), ensure_ascii=False)}>$_('Copy code')</button>
                 </p>
@@ -309,8 +317,12 @@ jQuery(document).ready(function(){
                 <p><span class="program_label">$_('Notes'):</span>
                 <textarea id="note" name="notes" maxlength="200" title=$:{json.dumps(_(u'Here we can make our notes.'), ensure_ascii=False)}>${sensor.notes}</textarea>
                 </p>
-            </div>                             
+            </div>    
 
+            $if sensor.fw > 0:
+                <p><span class="program_label">$_('Firmware Version'):</span>  
+                ${float(sensor.fw)/100.0}
+                </p>
         </form>
     </div>    
 </div>

@@ -5,7 +5,27 @@ $var page: users
 
 $code:   
     def two_digits(n):
-        return '%02d' % int(n)      
+        return '%02d' % int(n)   
+
+    intervals = (
+    (_(u'weeks'), 604800),  # 60 * 60 * 24 * 7
+    (_(u'days'), 86400),    # 60 * 60 * 24
+    (_(u'hours'), 3600),    # 60 * 60
+    (_(u'minutes'), 60),
+    (_(u'seconds'), 1),
+    )
+
+    def display_time(seconds, granularity=2):
+        result = []
+
+        for name, count in intervals:
+            value = seconds // count
+            if value:
+                seconds -= value * count
+                if value == 1:
+                    name = name.rstrip('s')
+                result.append("{} {}".format(int(value), name))
+        return ', '.join(result[:granularity])       
 
 <script>
 function updateFooter(){
@@ -32,8 +52,10 @@ jQuery(document).ready(function(){
 <div id="controls">
     <a href="/sensor/new" class="button add">$_(u'Add a New Sensor')</a>
     <a href="/sensors?delete_all" class="button deleteAll danger">$_(u'Delete All Sensors')</a>
-    <a href="/sensors?search" class="button cModify"> $_(u'Search Unused')</a>
+    <a href="/sensors?search" class="button cModify"> $_(u'Searching Sensors')</a>
 </div>
+</br>
+</br>
 
 <div id="controls">
 $if sensors.count()>0:    
@@ -50,14 +72,14 @@ $if sensors.count()>0:
             ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): <span class="val">$type_list[sensor.sens_type]</span>
         </p>
         </br>
-        <p>
+        <p>            
         $if sensor.response == 1:
             <div id="green_circle"></div>
-            <b>$_(u'Link OK')</b>, $_(u'Last receive before'): ${sensor.last_received}
+            <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response)
         $else:
             <div id="red_circle"></div>
-            <b>$_(u'Link ERROR')!</b> $_(u'Last receive before'): ${sensor.last_received}
-        </p> 
+            <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response)
+        </p>       
         <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
         <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
         <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
@@ -155,13 +177,19 @@ $if sensors.count()>0:
         $if sensor.com_type == 1:
             <p>$_(u'Radio ID'): <span class="val">${sensor.radio_id}</span></p>
             $if sensor.last_battery != '':
-                <p>$_(u'Last Battery voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>                                           
+                <p>$_(u'Last Battery voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>   
+        
+        $if sensor.fw > 0:
+            <p>$_(u'Firmware Version'): <span class="val">${float(sensor.fw)/100.0}</span></p>
+                                                      
         <p>         
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
         <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_(u'Delete Sensor')</a>
         <a href="/sensor/${sensor.index}?log" class="button cModify"> $_(u'View Logs')</a>
         </p>    
         </div> 
-    </div>      
+    </div> 
+    </br>
+    </br>     
 </div>    
    

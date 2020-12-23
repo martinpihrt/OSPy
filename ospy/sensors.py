@@ -11,8 +11,7 @@ import datetime
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import now, password_hash, encrypt_name
-
+from ospy.helpers import now, password_hash
 
 ### Sensors ###
 class _Sensor(object):
@@ -43,8 +42,8 @@ class _Sensor(object):
         self.rssi = ""                  # rssi signal
         self.radio_id = 0               # radio id
         self.response = 0               # response 0 = offline, 1 = online
+        self.fw = 0                     # sensor firmware (ex: 100 is 1.00)
         self.last_response = now()      # last response (last now time when the sensor sent data)
-        self.last_received = _(u'Never') # message on sensors page in response sensor status
 
         options.load(self, index) 
 
@@ -152,21 +151,17 @@ class _Sensors_Timer(Thread):
                 self._check_sensors()
             except Exception:
                 logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))
-            time.sleep(5)
+            time.sleep(1)
 
 
     @staticmethod
     def _check_sensors():
         for sensor in sensors.get():
             time_dif = int(now() - sensor.last_response)                      # last input from sensor
-            if time_dif >= 30:                                                # timeout 30 seconds
-                sensor.response = 0                                           # reseting status green circle to red (on sensors page)
+            if time_dif >= 120:                                               # timeout 120 seconds
+                if sensor.response != 0:
+                    sensor.response = 0                                       # reseting status green circle to red (on sensors page)
             
-            if time_dif < 2629743:                                            # one month 
-                sensor.last_received = datetime.timedelta(seconds=int(time_dif))  # human format ex: 1 day hh:mm:ss    
-            else:
-                sensor.last_received = _(u'Never')                                # timeout is bigger 1 month
-
             #if sensor.enabled:                                                    # if sensor is enabled
             #    if sensor.sens_type == 1:                                         # sensor type 1 (Dry Contact)
             #        print "1"

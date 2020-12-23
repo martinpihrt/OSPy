@@ -39,6 +39,11 @@ $code:
         jQuery("#optionsForm").submit();
     });
 
+    jQuery("button#cAESgener").click(function(){
+        jQuery("input[name='aes_gener']").val(1);
+        jQuery("#optionsForm").submit();
+    });    
+
      jQuery("#cUpload").click(function() {
         jQuery("#uploadForm").submit();
     });
@@ -74,7 +79,7 @@ $code:
     jQuery("button#cGenerate").click(function(){
         jQuery("input[name='generate']").val(1);
         jQuery("form[name='of4']").submit();
-    });    
+    });  
 
     switch (errorCode) {
         case "pw_wrong":
@@ -108,7 +113,15 @@ $code:
         case "pw_generateSSLERR":
             jQuery("#errorfnssl").text($:{json.dumps(_("Error: SSL certificate has not generated!"), ensure_ascii=False).encode('utf8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
-            break;                           
+            break; 
+        case "pw_aeslenERR":
+            jQuery("#erroraes").text($:{json.dumps(_("Error: AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor!)"), ensure_ascii=False).encode('utf8')});
+            jQuery("#erroraes").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break; 
+        case "pw_aesGenerOK":
+            jQuery("#erroraes").text($:{json.dumps(_("AES key has generated."), ensure_ascii=False).encode('utf8')});
+            jQuery("#erroraes").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;                                                 
     }
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -245,6 +258,13 @@ $code:
                     output += "<div class='option' title=" + json.dumps(_('Edit aditional users for login to the OSPy.'), ensure_ascii=False) + "><span class='label'>" + _('Aditional users') + "</span>\n"   
                     output += "&nbsp;<a href='users' class='button backup' title=" + json.dumps(_('Edit aditional users for login to the OSPy'), ensure_ascii=False) + ">" + _('Edit Users') + "</a>\n"
                     output += "<span class='tooltip'>" + _('Edit aditional users for login to the OSPy.') + "</span>\n"
+                    output += "</div>\n"
+
+                if name == 'aes_key':
+                    output += "<div class='option'>"
+                    output += "<span class='inputError' id='erroraes'></span>\n"
+                    output += "&nbsp;<button id='cAESgener' class='button backup' title=" + json.dumps(_('Generate new security key code for your sensors.'), ensure_ascii=False) + ">" + _('Generate new key') + "</button>\n"
+                    output += "<input type='hidden' name='aes_gener' value='0'>"
                     output += "</div>\n"
 
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"

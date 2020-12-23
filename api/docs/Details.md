@@ -414,9 +414,9 @@ Not implemented
 These are sensor data `/sensor`.
 Example:
 Send data from sensor.
-`POST` `/sensor?do={json format}`
+`POST` `/sensor?do={json format}&sec=AES_string`
 Example:
-`do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"-52","batt":"123","stype":"5","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1","secret":"658hhffh55ff4g4"}`       
+`# Example: do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"52","batt":"123","stype":"5","scom":"0","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1"}&sec="Vno7I7aD2E44455"`       
 
 #### GET
 Not implemented
