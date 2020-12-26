@@ -32,6 +32,7 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
         else if(stype == 3) snametype = $:{json.dumps(_('Moisture'), ensure_ascii=False).encode('utf8')};
         else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8')};
         else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8')};
+        else if(stype == 6) snametype = $:{json.dumps(_('Multi'), ensure_ascii=False).encode('utf8')};
         else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
         let scom = sensor.com;
         let scomtype;
@@ -116,4 +117,5 @@ jQuery(document).ready(function(){
 
 <div id="controls">
     <a href="sensors" class="button add">$_('Back to Sensors')</a>
+    <a href="sensors?clean_all" class="button deleteAll danger">$_('Clean')</a>
 </div>

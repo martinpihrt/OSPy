@@ -22,8 +22,9 @@ class _Sensor(object):
         self.name = ""                  # sensor name        
         self.encrypt = password_hash(str(now()), 'notarandomstring')[:16] # sensor security encrypted code
         self.enabled = 0                # sensor enable or disable
-        self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
+        self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
+        self.multi_type = 0             # selector multi type 0-7: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
         self.log_event = 0              # log event

@@ -69,30 +69,37 @@ function codeTextCopy() {
 } 
 
 function check_type() {
-    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature'
-    if (sensor_type == 1) { 
+    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
+    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
+    let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
+
+    if (sensor_type == 1 || multi_type == 4) { 
         jQuery("#dry_contact").show()
     } else {
         jQuery("#dry_contact").hide()
     }
-    if (sensor_type == 2) {
+    if (sensor_type == 2 || multi_type == 5) {
         jQuery("#leak_detector").show()
     } else {
         jQuery("#leak_detector").hide()
     }
-    if (sensor_type == 3 || sensor_type == 5) {
+    if (sensor_type == 3 || sensor_type == 5 || multi_type == 0 || multi_type == 1 || multi_type == 2 || multi_type == 3 || multi_type == 6) {
         jQuery("#temperature_moisture").show()
     } else {
         jQuery("#temperature_moisture").hide()
     } 
-    if (sensor_type == 4) {
+    if (sensor_type == 4 || multi_type == 7) {
         jQuery("#motion").show()
     } else {
         jQuery("#motion").hide()
     } 
+    if (sensor_type == 6) {
+        jQuery("#multi_sensor").show()
+    } else {
+        jQuery("#multi_sensor").hide()
+    }       
    
-
-    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
+    
     if (com_type == 0) { 
         jQuery("#com_lan").show()
     } else {
@@ -102,7 +109,7 @@ function check_type() {
         jQuery("#com_radio").show()
     } else {
         jQuery("#com_radio").hide()
-    }     
+    }        
 }  
 
 jQuery(document).ready(function(){
@@ -146,6 +153,7 @@ jQuery(document).ready(function(){
     });      
 
     jQuery("#sens_type").change(check_type);
+    jQuery("#multi_type").change(check_type);
     jQuery("#com_type").change(check_type);
     check_type();     
 
@@ -192,9 +200,17 @@ jQuery(document).ready(function(){
             <div class='option' style="white-space: nowrap">
                 <p><span class="program_label">$_('Sensor Type'):</span>
                 <select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_(u'Select the sensor type.'), ensure_ascii=False)}>
-                $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature')]
-                $for t in range(6):
+                $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
+                $for t in range(7):
                     <option value="${t}" ${'selected' if sensor.sens_type == t else ''}>$type_list[t]</option>
+                </select></p>
+            </div>
+            <div class='option' id="multi_sensor" style="white-space: nowrap">
+                <p><span class="program_label">$_('Multi Sensor'):</span>
+                <select id="multi_type" name="multi_type" style="width: 200px" title=$:{json.dumps(_(u'Select the data type for multi sensor.'), ensure_ascii=False)}>
+                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion')]
+                $for t in range(8):
+                    <option value="${t}" ${'selected' if sensor.multi_type == t else ''}>$multi_list[t]</option>
                 </select></p>
             </div>
             <div class='option' style="white-space: nowrap">

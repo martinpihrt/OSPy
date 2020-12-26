@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 26 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Czech. More changes for sensors input to OSPy. For this testing use FW:1.02 and ESP32 board in folder: hardware_pcb/sensors_pcb_fw/. More infos with images is here: https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace. Sensor ESP32 FW: 1.02: Add AP manager for settings sensor from phone, tablet (4 minutes timeout). For run AP manager: push button least > 2 seconds. Password for AP Wi-Fi is "ospy-sensor-esp32", next open browser and type IP "192.168.1.1". Add saving to eeprom memory. Fast blinking LED if AP manager. Slow blinking LED if normal run. Add control relay from stations (plugin CLI Control in plugin manager): ex command: http://IP/securecode?re=1 (or re=0). In AP manager is active button  for control relay ON or OFF. Available only on the same network as OSPy. Now exists parameter "multi sensor" in sensors (for measure temperature 4xDS18B20 and Dry Contact, Leak Detector, Moisture, Motion) just one ESP32 board and all parameters can be sent and responded to in OSPy. 
+
 Dec 23 2020
 -----------
 (martinpihrt)<br/>

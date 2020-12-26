@@ -466,6 +466,27 @@ class Sensor(object):
                                 sensor.last_read_value = (float(jqdict['temp'])*1.8 + 32)/10.0 # Fahrenheit ex: value is 132 -> real 13.2F
                             else:     
                                 sensor.last_read_value = (float(jqdict['temp']))/10.0          # Celsius ex: value is 132 -> real 13.2C
+                        elif sen_type == 6:      
+                            read_val = []   
+                            try:  
+                                if options.temp_unit == 'F':          
+                                    read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)
+                                    read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0) 
+                                    read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)
+                                    read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0) 
+                                else:     
+                                    read_val.append((float(jqdict['temp']))/10.0)                              
+                                    read_val.append((float(jqdict['temp2']))/10.0)
+                                    read_val.append((float(jqdict['temp3']))/10.0)
+                                    read_val.append((float(jqdict['temp4']))/10.0)
+                                read_val.append(int(jqdict['drcon'])) 
+                                read_val.append((float(jqdict['lkdet']))/10.0) 
+                                read_val.append((float(jqdict['humi']))/10.0)  
+                                read_val.append(int(jqdict['moti'])) 
+                                sensor.last_read_value = read_val
+                            except:    
+                                pass
+                                print_report('api.py', traceback.format_exc())
 
                     sensor.last_response = now()
                     if sensor.response != 1:

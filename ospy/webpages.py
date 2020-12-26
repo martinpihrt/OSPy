@@ -163,6 +163,15 @@ class sensors_page(ProtectedPage):
 
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
         search = get_input(qdict, 'search', False, lambda x: True) 
+        clean_all = get_input(qdict, 'clean_all', False, lambda x: True)
+
+        if clean_all:
+            for i in range(0, len(sensorSearch)):
+                try:
+                    del sensorSearch[int(i)]            
+                except:
+                    pass    
+            return self.core_render.sensors_search()
           
         if delete_all:
             while sensors.count() > 0:
@@ -241,6 +250,9 @@ class sensor_page(ProtectedPage):
             if 'com_type' in qdict:
                 sensor.com_type = int(qdict['com_type'])
 
+            if 'multi_type' in qdict:
+                sensor.multi_type = int(qdict['multi_type'])
+
             if 'log_samples' in qdict and qdict['log_samples'] == 'on':
                 sensor.log_samples = 1
             else:                                  
@@ -257,13 +269,13 @@ class sensor_page(ProtectedPage):
                 sensor.send_email = 0 
 
             if 'sample_rate_min' in qdict and 'sample_rate_sec' in qdict:
-                sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])                
+                sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])
 
             if 'sensitivity' in qdict:
                 sensor.sensitivity = int(qdict['sensitivity'])
 
             if 'stabilization_time_min' in qdict and 'stabilization_time_sec' in qdict:
-                sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])                 
+                sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])
 
             if 'trigger_low_threshold' in qdict:
                 sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 

@@ -23,3 +23,15 @@ DS18B20 libraries (https://www.arduinolibraries.info/libraries/dallas-temperatur
 OneWire libraries (https://www.arduinolibraries.info/libraries/one-wire).
 
 
+Sensor FW Changelog
+====
+
+FW: 1.02
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add AP manager for settings sensor from phone, tablet (4 minutes timeout). For run AP manager: push button least > 2 seconds. Password for AP Wi-Fi is "ospy-sensor-esp32", next open browser and type IP "192.168.1.1".<br/>
+Add saving to eeprom memory. Fast blinking LED if AP manager. Slow blinking LED if normal run.<br/>
+Add control relay from stations: ex: http://IP/securecode?re=1 (or re=0). In AP manager is active button  for control relay ON or OFF. Available only on the same network as OSPy.
+
+
