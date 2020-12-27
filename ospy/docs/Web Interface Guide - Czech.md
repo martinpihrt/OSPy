@@ -990,6 +990,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Temperature Switch (regulátor teploty, který umožnuje 3 nezávislé zóny)
 * Pool Heating (regulace teploty bazénu dle solárního ohřevu)
 * E-mail reader (ovládání OSPy pomocí E-mailových zpráv)
+* Weather Stations (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků)
 
 ----
 

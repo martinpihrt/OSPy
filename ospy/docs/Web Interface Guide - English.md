@@ -939,6 +939,7 @@ Available plug-ins:
 * Temperature Switch
 * Pool Heating
 * E-mail Reader
+* Weather Stations
 
 ----
 

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 27 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Czech. Adding new canvas plugin "Weather Stations". Displays data probes DS18B20 (DS1-6) from Air Temperature and Humidity Monitor plugin and volume, percent from Water Tank Monitor plugin.
+
 Dec 26 2020
 -----------
 (martinpihrt)<br/>
