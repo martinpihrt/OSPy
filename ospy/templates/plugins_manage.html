@@ -3,28 +3,6 @@ $def with ()
 $var title: $_('Manage Plugins')
 $var page: plugins
 
-<script>
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 60000); 
-}
-
-jQuery(document).ready(function(){
-    updateFooter();     // timer for footer data (temperature...)
-});
-</script>
-
 <div id="controls">
     <div style="display: inline-block; padding: 0; float: right;">
         $_('Enable check updates'):

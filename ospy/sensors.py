@@ -11,7 +11,11 @@ import datetime
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import now, password_hash
+from ospy.helpers import now, password_hash, datetime_string
+from ospy.log import log
+from ospy.programs import programs
+#from ospy.runonce import run_once
+#from ospy.stations import stations
 
 ### Sensors ###
 class _Sensor(object):
@@ -31,6 +35,7 @@ class _Sensor(object):
         self.send_email  = 0            # send e-mail  
         self.sample_rate = 60           # sample rate 
         self.last_read_value = ""       # last read value
+        self.prev_read_value = -666     # prev read value
         self.sensitivity = 0            # sensitivity
         self.stabilization_time = 0     # stabilization time
         self.trigger_low_program = []   # open program
@@ -140,6 +145,13 @@ class _Sensors(object):
 sensors = _Sensors()
 
 
+### Helper ###
+def _run_programs(id=[]): 
+    print id 
+    index = 0      
+    #programs.run_now(index)
+
+
 ### Timing loop for sensors ###
 class _Sensors_Timer(Thread):
     def __init__(self):
@@ -153,8 +165,7 @@ class _Sensors_Timer(Thread):
             except Exception:
                 logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))
             time.sleep(1)
-
-
+ 
     @staticmethod
     def _check_sensors():
         for sensor in sensors.get():
@@ -163,17 +174,113 @@ class _Sensors_Timer(Thread):
                 if sensor.response != 0:
                     sensor.response = 0                                       # reseting status green circle to red (on sensors page)
             
-            #if sensor.enabled:                                                    # if sensor is enabled
-            #    if sensor.sens_type == 1:                                         # sensor type 1 (Dry Contact)
-            #        print "1"
-            #    elif sensor.sens_type == 2:                                       # sensor type 2 (Leak Detector)
-            #        print "2"
-            #    elif sensor.sens_type == 3:                                       # sensor type 3 (Moisture)
-            #        print "3"
-            #    elif sensor.sens_type == 4:                                       # sensor type 4 (Motion)
-            #        print "4"
-            #    elif sensor.sens_type == 5:                                       # sensor type 5 (Temperature)
-            #        print "5" 
+            if sensor.enabled:                                                # if sensor is enabled
+                if sensor.sens_type == 1: # (Dry Contact)
+                    if sensor.last_read_value != sensor.prev_read_value:    
+                        sensor.prev_read_value = sensor.last_read_value
+                        if sensor.last_read_value == 1:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Dry Contact') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_high_program)
+                        else:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Dry Contact') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_low_program)
+
+                elif sensor.sens_type == 2: # (Leak Detector)
+                    if sensor.last_read_value != sensor.prev_read_value:    
+                        sensor.prev_read_value = sensor.last_read_value
+                        if sensor.last_read_value >= sensor.sensitivity:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Leak Detector') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_high_program)
+                            # todo sensor.stabilization_time
+                        else:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Leak Detector') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_low_program)      
+
+                elif sensor.sens_type == 3: # (Moisture)
+                    if sensor.last_read_value != sensor.prev_read_value:    
+                        sensor.prev_read_value = sensor.last_read_value
+                        if sensor.last_read_value > int(sensor.trigger_high_threshold):
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Moisture') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_high_program)
+                        if sensor.last_read_value < int(sensor.trigger_low_threshold):
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Moisture') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_low_program)    
+
+                elif sensor.sens_type == 4: # (Motion)
+                    if sensor.last_read_value != sensor.prev_read_value:    
+                        sensor.prev_read_value = sensor.last_read_value
+                        if sensor.last_read_value == 1:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Motion') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_high_program)
+                        else:
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Motion') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_low_program)  
+
+                elif sensor.sens_type == 5: # (Temperature)
+                    if sensor.last_read_value != sensor.prev_read_value:    
+                        sensor.prev_read_value = sensor.last_read_value
+                        if sensor.last_read_value > int(sensor.trigger_high_threshold):
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Threshold DS18B20') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_high_program)
+                        if sensor.last_read_value < int(sensor.trigger_low_threshold):
+                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Threshold DS18B20') + u': {}'.format(sensor.last_read_value))
+                            #_run_programs(sensor.trigger_low_program) 
+
+                elif sensor.sens_type == 6: # (Multi)
+                    if sensor.multi_type == 0 or sensor.multi_type == 1 or sensor.multi_type == 2 or sensor.multi_type == 3: # sensor type 6 multi 0-3 (DS18B20)
+                        if sensor.last_read_value[0] != sensor.prev_read_value:    
+                            sensor.prev_read_value = sensor.last_read_value[0]
+                            if sensor.last_read_value[0] > int(sensor.trigger_high_threshold):
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Threshold DS18B20') + u': {}'.format(sensor.last_read_value[0]))
+                                _run_programs(sensor.trigger_high_program)
+                            if sensor.last_read_value[0] < int(sensor.trigger_low_threshold):
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Threshold DS18B20') + u': {}'.format(sensor.last_read_value[0]))
+                                _run_programs(sensor.trigger_low_program)  
+
+                elif sensor.sens_type == 6: # (Multi)
+                    if sensor.multi_type == 4: # sensor type 6 multi 4 (Dry Contact)
+                        if sensor.last_read_value[4] != sensor.prev_read_value:    
+                            sensor.prev_read_value = sensor.last_read_value[4]
+                            if sensor.last_read_value[4] == 1:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Dry Contact') + u': {}'.format(sensor.last_read_value[4]))
+                                #_run_programs(sensor.trigger_high_program)
+                            else:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Dry Contact') + u': {}'.format(sensor.last_read_value[4]))
+                                #_run_programs(sensor.trigger_low_program)  
+
+                elif sensor.sens_type == 6: # (Multi)
+                    if sensor.multi_type == 5: # sensor type 6 multi 5 (Leak Detector)
+                        if sensor.last_read_value[5] != sensor.prev_read_value:    
+                            sensor.prev_read_value = sensor.last_read_value[5]
+                            if sensor.last_read_value[5] >= sensor.sensitivity:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Leak Detector') + u': {}'.format(sensor.last_read_value[5]))
+                                #_run_programs(sensor.trigger_high_program)
+                                # todo sensor.stabilization_time
+                            else:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Leak Detector') + u': {}'.format(sensor.last_read_value[5]))
+                                #_run_programs(sensor.trigger_low_program)
+
+                elif sensor.sens_type == 6: # (Multi)
+                    if sensor.multi_type == 6: # sensor type 6 multi 6 (Moisture)
+                        if sensor.last_read_value[6] != sensor.prev_read_value:    
+                            sensor.prev_read_value = sensor.last_read_value[6]
+                            if sensor.last_read_value[6] > int(sensor.trigger_high_threshold):
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Moisture') + u': {}'.format(sensor.last_read_value[6]))
+                                #_run_programs(sensor.trigger_high_program)
+                            if sensor.last_read_value[6] < int(sensor.trigger_low_threshold):
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Moisture') + u': {}'.format(sensor.last_read_value[6]))
+                                #_run_programs(sensor.trigger_low_program) 
+
+                elif sensor.sens_type == 6: # (Multi)
+                    if sensor.multi_type == 7: # sensor type 6 multi 7 (Motion)
+                        if sensor.last_read_value[7] != sensor.prev_read_value:    
+                            sensor.prev_read_value = sensor.last_read_value[7]
+                            if sensor.last_read_value[7] == 1:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Motion') + u': {}'.format(sensor.last_read_value[7]))
+                                #_run_programs(sensor.trigger_high_program)
+                            else:
+                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Motion') + u': {}'.format(sensor.last_read_value[7]))
+                                #_run_programs(sensor.trigger_low_program)                                                                                                                                                                                                                                                                                             
 
                 #if sensor.log_samples:                                                # if sensor logging samples enabled 
                 #if sensor.log_event:                                                  # if sensor logging event enabled

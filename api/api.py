@@ -15,6 +15,7 @@ from ospy.helpers import print_report
 
 import json
 import traceback
+import web
 
 
 class Stations(object):
@@ -436,6 +437,7 @@ class Sensor(object):
             find_sens = {
                 'name':  jqdict['name'],
                 'ip':  jqdict['ip'],
+                'real_ip': web.ctx.env['REMOTE_ADDR'],
                 'mac': jqdict['mac'].upper(),
                 'radio': '-',    
                 'type': jqdict['stype'],
@@ -496,6 +498,9 @@ class Sensor(object):
                         sensor.fw = jqdict['fw']  
 
                     log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
+
+                else:
+                    log.error('api.py',  _(u'Received data (IP or MAC or SEC) do not match!'))
     
             try:
                 for i in range(0, len(sensorSearch)):

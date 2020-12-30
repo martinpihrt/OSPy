@@ -43,7 +43,8 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
         let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8')}+"</button>";
         jQuery('<tr>').append(
         	jQuery('<td>').text(sensor.name),
-            jQuery('<td>').text(sensor.ip),
+            jQuery('<td>').text(sensor.ip), 
+            jQuery('<td>').text(sensor.real_ip),
             jQuery('<td>').text(sensor.mac),
             jQuery('<td>').text(sensor.radio),
             jQuery('<td>').text(snametype),
@@ -93,7 +94,8 @@ jQuery(document).ready(function(){
         <thead>
         <tr class="log_rec">
             <th>$_(u'Sensor Name')</th>
-            <th>$_(u'IP Address')</th>
+            <th>$_(u'Sensor IP Address')</th>
+            <th>$_(u'From IP Address')</th>
             <th>$_(u'MAC Address')</th>
             <th>$_(u'Radio ID')</th>
             <th>$_(u'Sensor Type')</th>

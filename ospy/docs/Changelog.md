@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Dec 29 2020
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating language translating to Czech. Updating language translating to Slovak (Thank you Tomáš Szepesi). Adding blue and green color, Wind monitor, text or canvas mode to new canvas plugin "Weather Stations". Prepare in sensors.py for running programs.
+
 Dec 27 2020
 -----------
 (martinpihrt)<br/>

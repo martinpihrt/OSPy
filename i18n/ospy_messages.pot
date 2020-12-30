@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-12-27 18:14+CET\n"
+"POT-Creation-Date: 2020-12-30 00:12+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,75 +15,79 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: api/api.py:46
+#: api/api.py:47
 msgid "station id:{} key: {} value: {}"
 msgstr ""
 
-#: api/api.py:50
+#: api/api.py:51
 msgid "Error setting station {}, {} to {}"
 msgstr ""
 
-#: api/api.py:71
+#: api/api.py:72
 msgid "Starting station {} ({})"
 msgstr ""
 
-#: api/api.py:74
+#: api/api.py:75
 msgid "Stopping station {} ({})"
 msgstr ""
 
-#: api/api.py:77
+#: api/api.py:78
 msgid "Unknown station action: {}"
 msgstr ""
 
-#: api/api.py:138
+#: api/api.py:139
 msgid "Setting program property key: {} to value: {}"
 msgstr ""
 
-#: api/api.py:143
+#: api/api.py:144
 msgid "Error setting program property key: {} to value: {}"
 msgstr ""
 
-#: api/api.py:183
+#: api/api.py:184
 msgid "Starting program {} ({})"
 msgstr ""
 
-#: api/api.py:188
+#: api/api.py:189
 msgid "Unknown program action: {}"
 msgstr ""
 
-#: api/api.py:282
+#: api/api.py:283
 msgid "Error updating {} to {}"
 msgstr ""
 
-#: api/api.py:285
+#: api/api.py:286
 msgid "Skipping key {}"
 msgstr ""
 
-#: api/api.py:353
+#: api/api.py:354
 msgid "System reboot requested via API"
 msgstr ""
 
-#: api/api.py:357
+#: api/api.py:358
 msgid "OSPy service restart requested via API"
 msgstr ""
 
-#: api/api.py:361
+#: api/api.py:362
 msgid "System poweroff requested via API"
 msgstr ""
 
-#: api/api.py:365
+#: api/api.py:366
 msgid "Unknown system action: {}"
 msgstr ""
 
-#: api/api.py:433
+#: api/api.py:434
 msgid "Sensor input IP: {} MAC: {} SECURE: {}."
 msgstr ""
 
-#: api/api.py:498
+#: api/api.py:500
 msgid "Input for sensor: {} successfully."
 msgstr ""
 
-#: api/api.py:544
+#: api/api.py:503
+msgid "Received data (IP or MAC or SEC) do not match!"
+msgstr ""
+
+#: api/api.py:549
 msgid "Received data is not correct!"
 msgstr ""
 
@@ -790,20 +794,71 @@ msgstr ""
 msgid "Run-Now"
 msgstr ""
 
-#: ospy/sensors.py:76
+#: ospy/sensors.py:81
 msgid "Loading sensors..."
 msgstr ""
 
-#: ospy/sensors.py:91
+#: ospy/sensors.py:96
 msgid "Adding new sensor: {} with id: {}"
 msgstr ""
 
-#: ospy/sensors.py:113
+#: ospy/sensors.py:118
 msgid "Removing sensor id: {}"
 msgstr ""
 
-#: ospy/sensors.py:154
+#: ospy/sensors.py:166
 msgid "Sensors timer loop error: {}"
+msgstr ""
+
+#: ospy/sensors.py:182 ospy/sensors.py:185 ospy/sensors.py:192
+#: ospy/sensors.py:196 ospy/sensors.py:203 ospy/sensors.py:206
+#: ospy/sensors.py:213 ospy/sensors.py:216 ospy/sensors.py:223
+#: ospy/sensors.py:226 ospy/sensors.py:234 ospy/sensors.py:237
+#: ospy/sensors.py:245 ospy/sensors.py:248 ospy/sensors.py:256
+#: ospy/sensors.py:260 ospy/sensors.py:268 ospy/sensors.py:271
+#: ospy/sensors.py:279 ospy/sensors.py:282 ospy/templates/user.html:62
+#: ospy/templates/user.html:85 ospy/templates/users.html:54
+msgid "Sensor"
+msgstr ""
+
+#: ospy/sensors.py:182 ospy/sensors.py:245
+msgid "High Dry Contact"
+msgstr ""
+
+#: ospy/sensors.py:185 ospy/sensors.py:248
+msgid "Low Dry Contact"
+msgstr ""
+
+#: ospy/sensors.py:192 ospy/sensors.py:256
+msgid "High Leak Detector"
+msgstr ""
+
+#: ospy/sensors.py:196 ospy/sensors.py:260
+msgid "Low Leak Detector"
+msgstr ""
+
+#: ospy/sensors.py:203 ospy/sensors.py:268
+msgid "High Moisture"
+msgstr ""
+
+#: ospy/sensors.py:206 ospy/sensors.py:271
+msgid "Low Moisture"
+msgstr ""
+
+#: ospy/sensors.py:213 ospy/sensors.py:279
+msgid "High Motion"
+msgstr ""
+
+#: ospy/sensors.py:216 ospy/sensors.py:282
+msgid "Low Motion"
+msgstr ""
+
+#: ospy/sensors.py:223 ospy/sensors.py:234
+msgid "High Threshold DS18B20"
+msgstr ""
+
+#: ospy/sensors.py:226 ospy/sensors.py:237
+msgid "Low Threshold DS18B20"
 msgstr ""
 
 #: ospy/server.py:112 ospy/server.py:113
@@ -1237,8 +1292,8 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:118
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
-#: plugins/weather_stations/templates/canvas_page.html:137
-#: plugins/weather_stations/templates/settings_page.html:188
+#: plugins/weather_stations/templates/canvas_page.html:162
+#: plugins/weather_stations/templates/settings_page.html:471
 #: plugins/webcam/templates/webcam.html:70
 #: plugins/wind_monitor/templates/wind_monitor.html:346
 msgid "Cancel"
@@ -2231,7 +2286,7 @@ msgstr ""
 msgid "Enabling or disabling this sensor."
 msgstr ""
 
-#: ospy/templates/sensor.html:190 ospy/templates/sensors_search.html:95
+#: ospy/templates/sensor.html:190 ospy/templates/sensors_search.html:96
 msgid "Sensor Name"
 msgstr ""
 
@@ -2255,7 +2310,7 @@ msgstr ""
 msgid "Copy security code to clipboard."
 msgstr ""
 
-#: ospy/templates/sensor.html:201 ospy/templates/sensors_search.html:99
+#: ospy/templates/sensor.html:201 ospy/templates/sensors_search.html:101
 msgid "Sensor Type"
 msgstr ""
 
@@ -2324,7 +2379,7 @@ msgstr ""
 msgid "Temperature DS4"
 msgstr ""
 
-#: ospy/templates/sensor.html:217 ospy/templates/sensors_search.html:100
+#: ospy/templates/sensor.html:217 ospy/templates/sensors_search.html:102
 msgid "Communication Type"
 msgstr ""
 
@@ -2457,7 +2512,7 @@ msgid "Enter value for high threshold."
 msgstr ""
 
 #: ospy/templates/sensor.html:320 ospy/templates/sensors.html:255
-#: ospy/templates/sensors_search.html:97
+#: ospy/templates/sensors_search.html:99
 msgid "MAC Address"
 msgstr ""
 
@@ -2466,7 +2521,6 @@ msgid "Enter Sensor MAC Address."
 msgstr ""
 
 #: ospy/templates/sensor.html:323 ospy/templates/sensors.html:253
-#: ospy/templates/sensors_search.html:96
 msgid "IP Address"
 msgstr ""
 
@@ -2491,7 +2545,7 @@ msgid "Here we can make our notes."
 msgstr ""
 
 #: ospy/templates/sensor.html:339 ospy/templates/sensors.html:267
-#: ospy/templates/sensors_search.html:102
+#: ospy/templates/sensors_search.html:104
 msgid "Firmware Version"
 msgstr ""
 
@@ -2560,7 +2614,7 @@ msgstr ""
 #: ospy/templates/sensors.html:216 ospy/templates/sensors.html:230
 #: ospy/templates/sensors.html:231 ospy/templates/sensors.html:237
 #: ospy/templates/sensors.html:257 plugins/lcd_display/__init__.py:325
-#: plugins/weather_stations/__init__.py:28
+#: plugins/weather_stations/__init__.py:39
 msgid "%"
 msgstr ""
 
@@ -2586,7 +2640,7 @@ msgstr ""
 msgid "V"
 msgstr ""
 
-#: ospy/templates/sensors.html:262 ospy/templates/sensors_search.html:98
+#: ospy/templates/sensors.html:262 ospy/templates/sensors_search.html:100
 msgid "Radio ID"
 msgstr ""
 
@@ -2602,7 +2656,7 @@ msgstr ""
 msgid "View Logs"
 msgstr ""
 
-#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:89
+#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:90
 msgid "Available sensors"
 msgstr ""
 
@@ -2610,23 +2664,31 @@ msgstr ""
 msgid "Create from thisis"
 msgstr ""
 
-#: ospy/templates/sensors_search.html:90
+#: ospy/templates/sensors_search.html:91
 msgid "Auto refreshes every {} seconds."
 msgstr ""
 
-#: ospy/templates/sensors_search.html:91
+#: ospy/templates/sensors_search.html:92
 msgid "Your AES code for using in sensors:"
 msgstr ""
 
-#: ospy/templates/sensors_search.html:101
+#: ospy/templates/sensors_search.html:97
+msgid "Sensor IP Address"
+msgstr ""
+
+#: ospy/templates/sensors_search.html:98
+msgid "From IP Address"
+msgstr ""
+
+#: ospy/templates/sensors_search.html:103
 msgid "Code"
 msgstr ""
 
-#: ospy/templates/sensors_search.html:119
+#: ospy/templates/sensors_search.html:121
 msgid "Back to Sensors"
 msgstr ""
 
-#: ospy/templates/sensors_search.html:120
+#: ospy/templates/sensors_search.html:122
 msgid "Clean"
 msgstr ""
 
@@ -2773,11 +2835,6 @@ msgstr ""
 
 #: ospy/templates/user.html:62
 msgid "= only for data input from sensors with restricted settings."
-msgstr ""
-
-#: ospy/templates/user.html:62 ospy/templates/user.html:85
-#: ospy/templates/users.html:54
-msgid "Sensor"
 msgstr ""
 
 #: ospy/templates/user.html:67
@@ -3436,7 +3493,7 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:117
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
-#: plugins/weather_stations/templates/settings_page.html:187
+#: plugins/weather_stations/templates/settings_page.html:470
 #: plugins/webcam/templates/webcam.html:69
 #: plugins/wind_monitor/templates/wind_monitor.html:345
 msgid "Submit"
@@ -3778,14 +3835,14 @@ msgstr ""
 #: plugins/email_reader/__init__.py:831 plugins/tank_monitor/__init__.py:148
 #: plugins/tank_monitor/__init__.py:151 plugins/tank_monitor/__init__.py:530
 #: plugins/tank_monitor/__init__.py:719
-#: plugins/weather_stations/__init__.py:38
+#: plugins/weather_stations/__init__.py:50
 msgid "Volume"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:850
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
-#: plugins/weather_stations/__init__.py:29
+#: plugins/weather_stations/__init__.py:40
 msgid "liters"
 msgstr ""
 
@@ -8285,53 +8342,62 @@ msgstr ""
 msgid "Package: Weather Stations"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:22
-#: plugins/weather_stations/__init__.py:23
-#: plugins/weather_stations/__init__.py:24
-#: plugins/weather_stations/__init__.py:25
-#: plugins/weather_stations/__init__.py:26
-#: plugins/weather_stations/__init__.py:27
+#: plugins/weather_stations/__init__.py:33
+#: plugins/weather_stations/__init__.py:34
+#: plugins/weather_stations/__init__.py:35
+#: plugins/weather_stations/__init__.py:36
+#: plugins/weather_stations/__init__.py:37
+#: plugins/weather_stations/__init__.py:38
 msgid "\302\260C"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:31
+#: plugins/weather_stations/__init__.py:41
+#: plugins/wind_monitor/__init__.py:235
+#: plugins/wind_monitor/templates/wind_monitor.html:330
+msgid "m/s"
+msgstr ""
+
+#: plugins/weather_stations/__init__.py:43
 msgid "Canvas DS1"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:32
+#: plugins/weather_stations/__init__.py:44
 msgid "Canvas DS2"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:33
+#: plugins/weather_stations/__init__.py:45
 msgid "Canvas DS3"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:34
+#: plugins/weather_stations/__init__.py:46
 msgid "Canvas DS4"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:35
+#: plugins/weather_stations/__init__.py:47
 msgid "Canvas DS5"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:36
+#: plugins/weather_stations/__init__.py:48
 msgid "Canvas DS6"
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:37
+#: plugins/weather_stations/__init__.py:49
 msgid "Percent"
+msgstr ""
+
+#: plugins/weather_stations/__init__.py:51
+msgid "Wind"
 msgstr ""
 
 #: plugins/weather_stations/templates/canvas_page.html:3
 msgid "Weather Stations"
 msgstr ""
 
-#: plugins/weather_stations/templates/canvas_page.html:117
-#: plugins/weather_stations/templates/canvas_page.html:132
+#: plugins/weather_stations/templates/canvas_page.html:134
 msgid "Your web browser does not support canvas elements."
 msgstr ""
 
-#: plugins/weather_stations/templates/canvas_page.html:138
+#: plugins/weather_stations/templates/canvas_page.html:163
 msgid "Settings"
 msgstr ""
 
@@ -8341,125 +8407,237 @@ msgid "Weather Stations Settings"
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:22
-msgid "Canvas Size XY"
+msgid "Canvas or Text mode for showing data"
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:23
-msgid "The number determines the size of the meter wheel. The minimum is 150px, the maximum is 450px."
+msgid "When checked, it is text mode."
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:30
-msgid "This part needs correct setuped plugin Air Temperature and Humidity Monitor"
+#: plugins/weather_stations/templates/settings_page.html:28
+msgid "Canvas Size XY"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:29
+msgid "The number determines the size of the meter wheel. The minimum is 150px, the maximum is 850px."
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:34
-msgid "Canvas Count DS18B20"
+msgid "Text Font Size"
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:35
-msgid "The number determines of meters for air_temp_humi plugin (DS18B20 sensors)."
-msgstr ""
-
-#: plugins/weather_stations/templates/settings_page.html:40
-msgid "Name for Canvas DS1"
+msgid "The number determines the font size in text mode. The minimum is 15px, the maximum is 800px."
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:42
-#: plugins/weather_stations/templates/settings_page.html:59
-#: plugins/weather_stations/templates/settings_page.html:76
-#: plugins/weather_stations/templates/settings_page.html:93
-#: plugins/weather_stations/templates/settings_page.html:110
-#: plugins/weather_stations/templates/settings_page.html:127
-#: plugins/weather_stations/templates/settings_page.html:150
-#: plugins/weather_stations/templates/settings_page.html:167
-msgid "Units:"
+msgid "This part needs correct setuped plugin Air Temperature and Humidity Monitor"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:43
-#: plugins/weather_stations/templates/settings_page.html:60
-#: plugins/weather_stations/templates/settings_page.html:77
+#: plugins/weather_stations/templates/settings_page.html:46
+msgid "Show this DS1"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:47
 #: plugins/weather_stations/templates/settings_page.html:94
-#: plugins/weather_stations/templates/settings_page.html:111
-#: plugins/weather_stations/templates/settings_page.html:128
-#: plugins/weather_stations/templates/settings_page.html:151
-#: plugins/weather_stations/templates/settings_page.html:168
-msgid "Scale:"
-msgstr ""
-
-#: plugins/weather_stations/templates/settings_page.html:44
-#: plugins/weather_stations/templates/settings_page.html:61
-#: plugins/weather_stations/templates/settings_page.html:78
-#: plugins/weather_stations/templates/settings_page.html:95
-#: plugins/weather_stations/templates/settings_page.html:112
-#: plugins/weather_stations/templates/settings_page.html:129
-#: plugins/weather_stations/templates/settings_page.html:152
-#: plugins/weather_stations/templates/settings_page.html:169
-msgid "Min:"
-msgstr ""
-
-#: plugins/weather_stations/templates/settings_page.html:45
-#: plugins/weather_stations/templates/settings_page.html:62
-#: plugins/weather_stations/templates/settings_page.html:79
-#: plugins/weather_stations/templates/settings_page.html:96
-#: plugins/weather_stations/templates/settings_page.html:113
-#: plugins/weather_stations/templates/settings_page.html:130
-#: plugins/weather_stations/templates/settings_page.html:153
-#: plugins/weather_stations/templates/settings_page.html:170
-msgid "Max:"
-msgstr ""
-
-#: plugins/weather_stations/templates/settings_page.html:50
-#: plugins/weather_stations/templates/settings_page.html:67
-#: plugins/weather_stations/templates/settings_page.html:84
-#: plugins/weather_stations/templates/settings_page.html:101
-#: plugins/weather_stations/templates/settings_page.html:118
-#: plugins/weather_stations/templates/settings_page.html:135
-#: plugins/weather_stations/templates/settings_page.html:158
-#: plugins/weather_stations/templates/settings_page.html:175
-msgid "Red color from"
+#: plugins/weather_stations/templates/settings_page.html:141
+#: plugins/weather_stations/templates/settings_page.html:188
+#: plugins/weather_stations/templates/settings_page.html:235
+#: plugins/weather_stations/templates/settings_page.html:282
+#: plugins/weather_stations/templates/settings_page.html:330
+#: plugins/weather_stations/templates/settings_page.html:377
+#: plugins/weather_stations/templates/settings_page.html:425
+msgid "When checked, showing this canvas (text) is enabled."
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:52
+msgid "Name for Canvas DS1"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:54
+#: plugins/weather_stations/templates/settings_page.html:101
+#: plugins/weather_stations/templates/settings_page.html:148
+#: plugins/weather_stations/templates/settings_page.html:195
+#: plugins/weather_stations/templates/settings_page.html:242
+#: plugins/weather_stations/templates/settings_page.html:289
+#: plugins/weather_stations/templates/settings_page.html:337
+#: plugins/weather_stations/templates/settings_page.html:384
+#: plugins/weather_stations/templates/settings_page.html:432
+msgid "Units:"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:59
+#: plugins/weather_stations/templates/settings_page.html:106
+#: plugins/weather_stations/templates/settings_page.html:153
+#: plugins/weather_stations/templates/settings_page.html:200
+#: plugins/weather_stations/templates/settings_page.html:247
+#: plugins/weather_stations/templates/settings_page.html:294
+#: plugins/weather_stations/templates/settings_page.html:342
+#: plugins/weather_stations/templates/settings_page.html:389
+#: plugins/weather_stations/templates/settings_page.html:437
+msgid "Scale"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:61
+#: plugins/weather_stations/templates/settings_page.html:108
+#: plugins/weather_stations/templates/settings_page.html:155
+#: plugins/weather_stations/templates/settings_page.html:202
+#: plugins/weather_stations/templates/settings_page.html:249
+#: plugins/weather_stations/templates/settings_page.html:296
+#: plugins/weather_stations/templates/settings_page.html:344
+#: plugins/weather_stations/templates/settings_page.html:391
+#: plugins/weather_stations/templates/settings_page.html:439
+msgid "Min:"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:62
+#: plugins/weather_stations/templates/settings_page.html:109
+#: plugins/weather_stations/templates/settings_page.html:156
+#: plugins/weather_stations/templates/settings_page.html:203
+#: plugins/weather_stations/templates/settings_page.html:250
+#: plugins/weather_stations/templates/settings_page.html:297
+#: plugins/weather_stations/templates/settings_page.html:345
+#: plugins/weather_stations/templates/settings_page.html:392
+#: plugins/weather_stations/templates/settings_page.html:440
+msgid "Max:"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:67
+#: plugins/weather_stations/templates/settings_page.html:114
+#: plugins/weather_stations/templates/settings_page.html:161
+#: plugins/weather_stations/templates/settings_page.html:208
+#: plugins/weather_stations/templates/settings_page.html:255
+#: plugins/weather_stations/templates/settings_page.html:302
+#: plugins/weather_stations/templates/settings_page.html:350
+#: plugins/weather_stations/templates/settings_page.html:397
+#: plugins/weather_stations/templates/settings_page.html:445
+msgid "Red color from"
+msgstr ""
+
 #: plugins/weather_stations/templates/settings_page.html:69
-#: plugins/weather_stations/templates/settings_page.html:86
-#: plugins/weather_stations/templates/settings_page.html:103
-#: plugins/weather_stations/templates/settings_page.html:120
-#: plugins/weather_stations/templates/settings_page.html:137
-#: plugins/weather_stations/templates/settings_page.html:160
+#: plugins/weather_stations/templates/settings_page.html:76
+#: plugins/weather_stations/templates/settings_page.html:83
+#: plugins/weather_stations/templates/settings_page.html:116
+#: plugins/weather_stations/templates/settings_page.html:123
+#: plugins/weather_stations/templates/settings_page.html:130
+#: plugins/weather_stations/templates/settings_page.html:163
+#: plugins/weather_stations/templates/settings_page.html:170
 #: plugins/weather_stations/templates/settings_page.html:177
+#: plugins/weather_stations/templates/settings_page.html:210
+#: plugins/weather_stations/templates/settings_page.html:217
+#: plugins/weather_stations/templates/settings_page.html:224
+#: plugins/weather_stations/templates/settings_page.html:257
+#: plugins/weather_stations/templates/settings_page.html:264
+#: plugins/weather_stations/templates/settings_page.html:271
+#: plugins/weather_stations/templates/settings_page.html:304
+#: plugins/weather_stations/templates/settings_page.html:311
+#: plugins/weather_stations/templates/settings_page.html:318
+#: plugins/weather_stations/templates/settings_page.html:352
+#: plugins/weather_stations/templates/settings_page.html:359
+#: plugins/weather_stations/templates/settings_page.html:366
+#: plugins/weather_stations/templates/settings_page.html:399
+#: plugins/weather_stations/templates/settings_page.html:406
+#: plugins/weather_stations/templates/settings_page.html:413
+#: plugins/weather_stations/templates/settings_page.html:447
+#: plugins/weather_stations/templates/settings_page.html:454
+#: plugins/weather_stations/templates/settings_page.html:461
 msgid "To:"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:57
+#: plugins/weather_stations/templates/settings_page.html:74
+#: plugins/weather_stations/templates/settings_page.html:121
+#: plugins/weather_stations/templates/settings_page.html:168
+#: plugins/weather_stations/templates/settings_page.html:215
+#: plugins/weather_stations/templates/settings_page.html:262
+#: plugins/weather_stations/templates/settings_page.html:309
+#: plugins/weather_stations/templates/settings_page.html:357
+#: plugins/weather_stations/templates/settings_page.html:404
+#: plugins/weather_stations/templates/settings_page.html:452
+msgid "Blue color from"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:81
+#: plugins/weather_stations/templates/settings_page.html:128
+#: plugins/weather_stations/templates/settings_page.html:175
+#: plugins/weather_stations/templates/settings_page.html:222
+#: plugins/weather_stations/templates/settings_page.html:269
+#: plugins/weather_stations/templates/settings_page.html:316
+#: plugins/weather_stations/templates/settings_page.html:364
+#: plugins/weather_stations/templates/settings_page.html:411
+#: plugins/weather_stations/templates/settings_page.html:459
+msgid "Green color from"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:93
+msgid "Show this DS2"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:99
 msgid "Name for Canvas DS2"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:74
+#: plugins/weather_stations/templates/settings_page.html:140
+msgid "Show this DS3"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:146
 msgid "Name for Canvas DS3"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:91
+#: plugins/weather_stations/templates/settings_page.html:187
+msgid "Show this DS4"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:193
 msgid "Name for Canvas DS4"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:108
+#: plugins/weather_stations/templates/settings_page.html:234
+msgid "Show this DS5"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:240
 msgid "Name for Canvas DS5"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:125
+#: plugins/weather_stations/templates/settings_page.html:281
+msgid "Show this DS6"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:287
 msgid "Name for Canvas DS6"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:144
+#: plugins/weather_stations/templates/settings_page.html:325
 msgid "This part needs correct setuped plugin Water Tank Monitor"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:148
+#: plugins/weather_stations/templates/settings_page.html:329
+msgid "Show this Water Percent"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:335
 msgid "Name for Canvas Water Percent"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:165
+#: plugins/weather_stations/templates/settings_page.html:376
+msgid "Show this Water Volume"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:382
 msgid "Name for Canvas Water Volume"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:420
+msgid "This part needs correct setuped plugin Wind Speed Monitor"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:424
+msgid "Show this Wind Speed"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:430
+msgid "Name for Canvas Wind Speed"
 msgstr ""
 
 #: plugins/webcam/__init__.py:19
@@ -8569,11 +8747,6 @@ msgstr ""
 
 #: plugins/wind_monitor/__init__.py:226
 msgid "Deleting maximal speed after 24 hours."
-msgstr ""
-
-#: plugins/wind_monitor/__init__.py:235
-#: plugins/wind_monitor/templates/wind_monitor.html:330
-msgid "m/s"
 msgstr ""
 
 #: plugins/wind_monitor/__init__.py:245

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2020-12-27 18:14+CET\n"
-"PO-Revision-Date: 2020-12-27 18:23+0100\n"
+"POT-Creation-Date: 2020-12-30 00:12+CET\n"
+"PO-Revision-Date: 2020-12-30 00:16+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -18,75 +18,79 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: api/api.py:46
+#: api/api.py:47
 msgid "station id:{} key: {} value: {}"
 msgstr "stanice id:{} klíč: {} hodnota: {}"
 
-#: api/api.py:50
+#: api/api.py:51
 msgid "Error setting station {}, {} to {}"
 msgstr "Chyba nastavení stanice {}, {} na {}"
 
-#: api/api.py:71
+#: api/api.py:72
 msgid "Starting station {} ({})"
 msgstr "Spuštění stanice {} ({})"
 
-#: api/api.py:74
+#: api/api.py:75
 msgid "Stopping station {} ({})"
 msgstr "Zastavení stanice {} ({})"
 
-#: api/api.py:77
+#: api/api.py:78
 msgid "Unknown station action: {}"
 msgstr "Neznámá akce stanice: {}"
 
-#: api/api.py:138
+#: api/api.py:139
 msgid "Setting program property key: {} to value: {}"
 msgstr "Nastavení programu klíč: {} na hodnotu: {}"
 
-#: api/api.py:143
+#: api/api.py:144
 msgid "Error setting program property key: {} to value: {}"
 msgstr "Chyba při nastavení programu klíč: {} na hodnotu: {}"
 
-#: api/api.py:183
+#: api/api.py:184
 msgid "Starting program {} ({})"
 msgstr "Spuštění programu {} ({})"
 
-#: api/api.py:188
+#: api/api.py:189
 msgid "Unknown program action: {}"
 msgstr "Neznámá akce programu: {}"
 
-#: api/api.py:282
+#: api/api.py:283
 msgid "Error updating {} to {}"
 msgstr "Chyba aktualizace {} na {}"
 
-#: api/api.py:285
+#: api/api.py:286
 msgid "Skipping key {}"
 msgstr "Přeskočení klíče {}"
 
-#: api/api.py:353
+#: api/api.py:354
 msgid "System reboot requested via API"
 msgstr "Bylo požadováno restartování systému prostřednictvím rozhraní API"
 
-#: api/api.py:357
+#: api/api.py:358
 msgid "OSPy service restart requested via API"
 msgstr "Restartování OSPy prostřednictvím rozhraní API"
 
-#: api/api.py:361
+#: api/api.py:362
 msgid "System poweroff requested via API"
 msgstr "Vypnutí OSPy prostřednictvím rozhraní API"
 
-#: api/api.py:365
+#: api/api.py:366
 msgid "Unknown system action: {}"
 msgstr "Neznámá systémová akce: {}"
 
-#: api/api.py:433
+#: api/api.py:434
 msgid "Sensor input IP: {} MAC: {} SECURE: {}."
 msgstr "Vstup od snímače IP: {} MAC: {} SECURE: {}."
 
-#: api/api.py:498
+#: api/api.py:500
 msgid "Input for sensor: {} successfully."
 msgstr "Vstup pro senzor: {} byl úspěšný."
 
-#: api/api.py:544
+#: api/api.py:503
+msgid "Received data (IP or MAC or SEC) do not match!"
+msgstr "Přijatá data (IP nebo MAC nebo SEC) se neshodují!"
+
+#: api/api.py:549
 msgid "Received data is not correct!"
 msgstr "Přijatá data nejsou v pořádku!"
 
@@ -839,21 +843,72 @@ msgstr "Jednorázový"
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
-#: ospy/sensors.py:76
+#: ospy/sensors.py:81
 msgid "Loading sensors..."
 msgstr "Načítání snímačů..."
 
-#: ospy/sensors.py:91
+#: ospy/sensors.py:96
 msgid "Adding new sensor: {} with id: {}"
 msgstr "Přidání nového senzoru: {} s id: {}"
 
-#: ospy/sensors.py:113
+#: ospy/sensors.py:118
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:154
+#: ospy/sensors.py:166
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
+
+#: ospy/sensors.py:182 ospy/sensors.py:185 ospy/sensors.py:192
+#: ospy/sensors.py:196 ospy/sensors.py:203 ospy/sensors.py:206
+#: ospy/sensors.py:213 ospy/sensors.py:216 ospy/sensors.py:223
+#: ospy/sensors.py:226 ospy/sensors.py:234 ospy/sensors.py:237
+#: ospy/sensors.py:245 ospy/sensors.py:248 ospy/sensors.py:256
+#: ospy/sensors.py:260 ospy/sensors.py:268 ospy/sensors.py:271
+#: ospy/sensors.py:279 ospy/sensors.py:282 ospy/templates/user.html:62
+#: ospy/templates/user.html:85 ospy/templates/users.html:54
+msgid "Sensor"
+msgstr "Snímač"
+
+#: ospy/sensors.py:182 ospy/sensors.py:245
+msgid "High Dry Contact"
+msgstr "Vysoký - kontakt"
+
+#: ospy/sensors.py:185 ospy/sensors.py:248
+msgid "Low Dry Contact"
+msgstr "Nízký - kontakt"
+
+#: ospy/sensors.py:192 ospy/sensors.py:256
+msgid "High Leak Detector"
+msgstr "Vysoký - detektor úniku"
+
+#: ospy/sensors.py:196 ospy/sensors.py:260
+msgid "Low Leak Detector"
+msgstr "Nízký - detektor úniku"
+
+#: ospy/sensors.py:203 ospy/sensors.py:268
+msgid "High Moisture"
+msgstr "Vysoký - vlhkost"
+
+#: ospy/sensors.py:206 ospy/sensors.py:271
+msgid "Low Moisture"
+msgstr "Nízký - vlhkost"
+
+#: ospy/sensors.py:213 ospy/sensors.py:279
+msgid "High Motion"
+msgstr "Vysoký - pohyb"
+
+#: ospy/sensors.py:216 ospy/sensors.py:282
+msgid "Low Motion"
+msgstr "Nízký - pohyb"
+
+#: ospy/sensors.py:223 ospy/sensors.py:234
+msgid "High Threshold DS18B20"
+msgstr "Vysoký - DS18B20"
+
+#: ospy/sensors.py:226 ospy/sensors.py:237
+msgid "Low Threshold DS18B20"
+msgstr "Nízký - DS18B20"
 
 #: ospy/server.py:112 ospy/server.py:113
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
@@ -1306,8 +1361,8 @@ msgstr "Smazat"
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:118
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
-#: plugins/weather_stations/templates/canvas_page.html:137
-#: plugins/weather_stations/templates/settings_page.html:188
+#: plugins/weather_stations/templates/canvas_page.html:162
+#: plugins/weather_stations/templates/settings_page.html:471
 #: plugins/webcam/templates/webcam.html:70
 #: plugins/wind_monitor/templates/wind_monitor.html:346
 msgid "Cancel"
@@ -2339,7 +2394,7 @@ msgstr "Povolit snímač"
 msgid "Enabling or disabling this sensor."
 msgstr "Povolení nebo zakázání tohoto snímače."
 
-#: ospy/templates/sensor.html:190 ospy/templates/sensors_search.html:95
+#: ospy/templates/sensor.html:190 ospy/templates/sensors_search.html:96
 msgid "Sensor Name"
 msgstr "Název snímače"
 
@@ -2363,7 +2418,7 @@ msgstr "Kopírovat kód"
 msgid "Copy security code to clipboard."
 msgstr "Kopírovat bezpečnostní kód do schránky."
 
-#: ospy/templates/sensor.html:201 ospy/templates/sensors_search.html:99
+#: ospy/templates/sensor.html:201 ospy/templates/sensors_search.html:101
 msgid "Sensor Type"
 msgstr "Typ snímače"
 
@@ -2432,7 +2487,7 @@ msgstr "Teplota DS3"
 msgid "Temperature DS4"
 msgstr "Teplota DS4"
 
-#: ospy/templates/sensor.html:217 ospy/templates/sensors_search.html:100
+#: ospy/templates/sensor.html:217 ospy/templates/sensors_search.html:102
 msgid "Communication Type"
 msgstr "Typ komunikace"
 
@@ -2569,7 +2624,7 @@ msgid "Enter value for high threshold."
 msgstr "Zadejte hodnotu pro vysokou detekci."
 
 #: ospy/templates/sensor.html:320 ospy/templates/sensors.html:255
-#: ospy/templates/sensors_search.html:97
+#: ospy/templates/sensors_search.html:99
 msgid "MAC Address"
 msgstr "MAC adresa"
 
@@ -2578,7 +2633,6 @@ msgid "Enter Sensor MAC Address."
 msgstr "Zadejte MAC adresu snímače."
 
 #: ospy/templates/sensor.html:323 ospy/templates/sensors.html:253
-#: ospy/templates/sensors_search.html:96
 msgid "IP Address"
 msgstr "IP adresa"
 
@@ -2603,7 +2657,7 @@ msgid "Here we can make our notes."
 msgstr "Zde si můžeme dělat poznámky."
 
 #: ospy/templates/sensor.html:339 ospy/templates/sensors.html:267
-#: ospy/templates/sensors_search.html:102
+#: ospy/templates/sensors_search.html:104
 msgid "Firmware Version"
 msgstr "Verze firmwaru"
 
@@ -2672,7 +2726,7 @@ msgstr "Hodnota posledního čtení"
 #: ospy/templates/sensors.html:216 ospy/templates/sensors.html:230
 #: ospy/templates/sensors.html:231 ospy/templates/sensors.html:237
 #: ospy/templates/sensors.html:257 plugins/lcd_display/__init__.py:325
-#: plugins/weather_stations/__init__.py:28
+#: plugins/weather_stations/__init__.py:39
 msgid "%"
 msgstr "%"
 
@@ -2698,7 +2752,7 @@ msgstr "Poslední úroveň zdroje"
 msgid "V"
 msgstr "V"
 
-#: ospy/templates/sensors.html:262 ospy/templates/sensors_search.html:98
+#: ospy/templates/sensors.html:262 ospy/templates/sensors_search.html:100
 msgid "Radio ID"
 msgstr "Rádio ID"
 
@@ -2714,7 +2768,7 @@ msgstr "Odstranit snímač"
 msgid "View Logs"
 msgstr "Zobrazit záznam"
 
-#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:89
+#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:90
 msgid "Available sensors"
 msgstr "Dostupné snímače"
 
@@ -2722,23 +2776,31 @@ msgstr "Dostupné snímače"
 msgid "Create from thisis"
 msgstr "Vytvořit z tohoto"
 
-#: ospy/templates/sensors_search.html:90
+#: ospy/templates/sensors_search.html:91
 msgid "Auto refreshes every {} seconds."
 msgstr "Automatické načítání každé {} vteřiny."
 
-#: ospy/templates/sensors_search.html:91
+#: ospy/templates/sensors_search.html:92
 msgid "Your AES code for using in sensors:"
 msgstr "Váš AES klíč pro použití ve snímačích:"
 
-#: ospy/templates/sensors_search.html:101
+#: ospy/templates/sensors_search.html:97
+msgid "Sensor IP Address"
+msgstr "IP adresa snímače"
+
+#: ospy/templates/sensors_search.html:98
+msgid "From IP Address"
+msgstr "Z IP adresy"
+
+#: ospy/templates/sensors_search.html:103
 msgid "Code"
 msgstr "Kód"
 
-#: ospy/templates/sensors_search.html:119
+#: ospy/templates/sensors_search.html:121
 msgid "Back to Sensors"
 msgstr "Zpět do snímačů"
 
-#: ospy/templates/sensors_search.html:120
+#: ospy/templates/sensors_search.html:122
 msgid "Clean"
 msgstr "Vyčistit"
 
@@ -2913,11 +2975,6 @@ msgstr "= správce systému bez omezení."
 #: ospy/templates/user.html:62
 msgid "= only for data input from sensors with restricted settings."
 msgstr "= pouze pro vstup dat ze snímačů s omezeným nastavením."
-
-#: ospy/templates/user.html:62 ospy/templates/user.html:85
-#: ospy/templates/users.html:54
-msgid "Sensor"
-msgstr "Snímač"
 
 #: ospy/templates/user.html:67
 msgid "New User Name"
@@ -3618,7 +3675,7 @@ msgstr "Stav"
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:117
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
-#: plugins/weather_stations/templates/settings_page.html:187
+#: plugins/weather_stations/templates/settings_page.html:470
 #: plugins/webcam/templates/webcam.html:69
 #: plugins/wind_monitor/templates/wind_monitor.html:345
 msgid "Submit"
@@ -3979,14 +4036,14 @@ msgstr "Ping"
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
 #: plugins/email_reader/__init__.py:831 plugins/tank_monitor/__init__.py:148
 #: plugins/tank_monitor/__init__.py:151 plugins/tank_monitor/__init__.py:530
-#: plugins/tank_monitor/__init__.py:719 plugins/weather_stations/__init__.py:38
+#: plugins/tank_monitor/__init__.py:719 plugins/weather_stations/__init__.py:50
 msgid "Volume"
 msgstr "Objem"
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:850
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
-#: plugins/weather_stations/__init__.py:29
+#: plugins/weather_stations/__init__.py:40
 msgid "liters"
 msgstr "litrů"
 
@@ -8930,53 +8987,61 @@ msgstr "Denní hladina vody v mm"
 msgid "Package: Weather Stations"
 msgstr "Balíček: Meteorologická stanice"
 
-#: plugins/weather_stations/__init__.py:22
-#: plugins/weather_stations/__init__.py:23
-#: plugins/weather_stations/__init__.py:24
-#: plugins/weather_stations/__init__.py:25
-#: plugins/weather_stations/__init__.py:26
-#: plugins/weather_stations/__init__.py:27
+#: plugins/weather_stations/__init__.py:33
+#: plugins/weather_stations/__init__.py:34
+#: plugins/weather_stations/__init__.py:35
+#: plugins/weather_stations/__init__.py:36
+#: plugins/weather_stations/__init__.py:37
+#: plugins/weather_stations/__init__.py:38
 msgid "\\302\\260C"
 msgstr "\\302\\260C"
 
-#: plugins/weather_stations/__init__.py:31
+#: plugins/weather_stations/__init__.py:41 plugins/wind_monitor/__init__.py:235
+#: plugins/wind_monitor/templates/wind_monitor.html:330
+msgid "m/s"
+msgstr "m/s"
+
+#: plugins/weather_stations/__init__.py:43
 msgid "Canvas DS1"
 msgstr "Budík DS1"
 
-#: plugins/weather_stations/__init__.py:32
+#: plugins/weather_stations/__init__.py:44
 msgid "Canvas DS2"
 msgstr "Budík DS2"
 
-#: plugins/weather_stations/__init__.py:33
+#: plugins/weather_stations/__init__.py:45
 msgid "Canvas DS3"
 msgstr "Budík DS3"
 
-#: plugins/weather_stations/__init__.py:34
+#: plugins/weather_stations/__init__.py:46
 msgid "Canvas DS4"
 msgstr "Budík DS4"
 
-#: plugins/weather_stations/__init__.py:35
+#: plugins/weather_stations/__init__.py:47
 msgid "Canvas DS5"
 msgstr "Budík DS5"
 
-#: plugins/weather_stations/__init__.py:36
+#: plugins/weather_stations/__init__.py:48
 msgid "Canvas DS6"
 msgstr "Budík DS6"
 
-#: plugins/weather_stations/__init__.py:37
+#: plugins/weather_stations/__init__.py:49
 msgid "Percent"
 msgstr "Procenta"
+
+#: plugins/weather_stations/__init__.py:51
+msgid "Wind"
+msgstr "Vítr"
 
 #: plugins/weather_stations/templates/canvas_page.html:3
 msgid "Weather Stations"
 msgstr "Meteorologická stanice"
 
-#: plugins/weather_stations/templates/canvas_page.html:117
-#: plugins/weather_stations/templates/canvas_page.html:132
+#: plugins/weather_stations/templates/canvas_page.html:134
 msgid "Your web browser does not support canvas elements."
 msgstr "Webový prohlížeč nepodporuje prvky canvas."
 
-#: plugins/weather_stations/templates/canvas_page.html:138
+#: plugins/weather_stations/templates/canvas_page.html:163
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -8986,135 +9051,248 @@ msgid "Weather Stations Settings"
 msgstr "Meteorologická stanice - nastavení"
 
 #: plugins/weather_stations/templates/settings_page.html:22
+msgid "Canvas or Text mode for showing data"
+msgstr "Režim budík nebo text pro zobrazení dat"
+
+#: plugins/weather_stations/templates/settings_page.html:23
+msgid "When checked, it is text mode."
+msgstr "Je-li zaškrtnuto, jedná se o režim textu."
+
+#: plugins/weather_stations/templates/settings_page.html:28
 msgid "Canvas Size XY"
 msgstr "Velikost budíku XY"
 
-#: plugins/weather_stations/templates/settings_page.html:23
+#: plugins/weather_stations/templates/settings_page.html:29
 msgid ""
 "The number determines the size of the meter wheel. The minimum is 150px, the "
-"maximum is 450px."
+"maximum is 850px."
 msgstr ""
-"Číslo určuje velikost měřícího budíku. Minimum je 150px, maximum je 450px."
+"Číslo určuje velikost měřícího budíku. Minimum je 150px, maximum je 850px."
 
-#: plugins/weather_stations/templates/settings_page.html:30
+#: plugins/weather_stations/templates/settings_page.html:34
+msgid "Text Font Size"
+msgstr "Velikost písma"
+
+#: plugins/weather_stations/templates/settings_page.html:35
+msgid ""
+"The number determines the font size in text mode. The minimum is 15px, the "
+"maximum is 800px."
+msgstr ""
+"Číslo určuje velikost písma v textovém režimu. Minimum je 15px, maximum je "
+"800px."
+
+#: plugins/weather_stations/templates/settings_page.html:42
 msgid ""
 "This part needs correct setuped plugin Air Temperature and Humidity Monitor"
 msgstr ""
 "Tato část potřebuje správně nastavený balíček Air Temperature and Humidity "
 "Monitor"
 
-#: plugins/weather_stations/templates/settings_page.html:34
-msgid "Canvas Count DS18B20"
-msgstr "Počet budíků pro DS18B20"
+#: plugins/weather_stations/templates/settings_page.html:46
+msgid "Show this DS1"
+msgstr "Zobrazit tento DS1"
 
-#: plugins/weather_stations/templates/settings_page.html:35
-msgid ""
-"The number determines of meters for air_temp_humi plugin (DS18B20 sensors)."
-msgstr ""
-"Zde nastavíme počet budíků pro plugin Air Temperature and Humidity Monitor "
-"(snímače DS18B20)."
+#: plugins/weather_stations/templates/settings_page.html:47
+#: plugins/weather_stations/templates/settings_page.html:94
+#: plugins/weather_stations/templates/settings_page.html:141
+#: plugins/weather_stations/templates/settings_page.html:188
+#: plugins/weather_stations/templates/settings_page.html:235
+#: plugins/weather_stations/templates/settings_page.html:282
+#: plugins/weather_stations/templates/settings_page.html:330
+#: plugins/weather_stations/templates/settings_page.html:377
+#: plugins/weather_stations/templates/settings_page.html:425
+msgid "When checked, showing this canvas (text) is enabled."
+msgstr "Je-li zaškrtnuto, je povoleno zobrazení tohoto budíku (textu)."
 
-#: plugins/weather_stations/templates/settings_page.html:40
+#: plugins/weather_stations/templates/settings_page.html:52
 msgid "Name for Canvas DS1"
 msgstr "Název pro měřák DS1"
 
-#: plugins/weather_stations/templates/settings_page.html:42
-#: plugins/weather_stations/templates/settings_page.html:59
-#: plugins/weather_stations/templates/settings_page.html:76
-#: plugins/weather_stations/templates/settings_page.html:93
-#: plugins/weather_stations/templates/settings_page.html:110
-#: plugins/weather_stations/templates/settings_page.html:127
-#: plugins/weather_stations/templates/settings_page.html:150
-#: plugins/weather_stations/templates/settings_page.html:167
+#: plugins/weather_stations/templates/settings_page.html:54
+#: plugins/weather_stations/templates/settings_page.html:101
+#: plugins/weather_stations/templates/settings_page.html:148
+#: plugins/weather_stations/templates/settings_page.html:195
+#: plugins/weather_stations/templates/settings_page.html:242
+#: plugins/weather_stations/templates/settings_page.html:289
+#: plugins/weather_stations/templates/settings_page.html:337
+#: plugins/weather_stations/templates/settings_page.html:384
+#: plugins/weather_stations/templates/settings_page.html:432
 msgid "Units:"
 msgstr "Jednotky:"
 
-#: plugins/weather_stations/templates/settings_page.html:43
-#: plugins/weather_stations/templates/settings_page.html:60
-#: plugins/weather_stations/templates/settings_page.html:77
-#: plugins/weather_stations/templates/settings_page.html:94
-#: plugins/weather_stations/templates/settings_page.html:111
-#: plugins/weather_stations/templates/settings_page.html:128
-#: plugins/weather_stations/templates/settings_page.html:151
-#: plugins/weather_stations/templates/settings_page.html:168
-msgid "Scale:"
-msgstr "Stupnice:"
+#: plugins/weather_stations/templates/settings_page.html:59
+#: plugins/weather_stations/templates/settings_page.html:106
+#: plugins/weather_stations/templates/settings_page.html:153
+#: plugins/weather_stations/templates/settings_page.html:200
+#: plugins/weather_stations/templates/settings_page.html:247
+#: plugins/weather_stations/templates/settings_page.html:294
+#: plugins/weather_stations/templates/settings_page.html:342
+#: plugins/weather_stations/templates/settings_page.html:389
+#: plugins/weather_stations/templates/settings_page.html:437
+msgid "Scale"
+msgstr "Stupnice"
 
-#: plugins/weather_stations/templates/settings_page.html:44
 #: plugins/weather_stations/templates/settings_page.html:61
-#: plugins/weather_stations/templates/settings_page.html:78
-#: plugins/weather_stations/templates/settings_page.html:95
-#: plugins/weather_stations/templates/settings_page.html:112
-#: plugins/weather_stations/templates/settings_page.html:129
-#: plugins/weather_stations/templates/settings_page.html:152
-#: plugins/weather_stations/templates/settings_page.html:169
+#: plugins/weather_stations/templates/settings_page.html:108
+#: plugins/weather_stations/templates/settings_page.html:155
+#: plugins/weather_stations/templates/settings_page.html:202
+#: plugins/weather_stations/templates/settings_page.html:249
+#: plugins/weather_stations/templates/settings_page.html:296
+#: plugins/weather_stations/templates/settings_page.html:344
+#: plugins/weather_stations/templates/settings_page.html:391
+#: plugins/weather_stations/templates/settings_page.html:439
 msgid "Min:"
 msgstr "Min:"
 
-#: plugins/weather_stations/templates/settings_page.html:45
 #: plugins/weather_stations/templates/settings_page.html:62
-#: plugins/weather_stations/templates/settings_page.html:79
-#: plugins/weather_stations/templates/settings_page.html:96
-#: plugins/weather_stations/templates/settings_page.html:113
-#: plugins/weather_stations/templates/settings_page.html:130
-#: plugins/weather_stations/templates/settings_page.html:153
-#: plugins/weather_stations/templates/settings_page.html:170
+#: plugins/weather_stations/templates/settings_page.html:109
+#: plugins/weather_stations/templates/settings_page.html:156
+#: plugins/weather_stations/templates/settings_page.html:203
+#: plugins/weather_stations/templates/settings_page.html:250
+#: plugins/weather_stations/templates/settings_page.html:297
+#: plugins/weather_stations/templates/settings_page.html:345
+#: plugins/weather_stations/templates/settings_page.html:392
+#: plugins/weather_stations/templates/settings_page.html:440
 msgid "Max:"
 msgstr "Max:"
 
-#: plugins/weather_stations/templates/settings_page.html:50
 #: plugins/weather_stations/templates/settings_page.html:67
-#: plugins/weather_stations/templates/settings_page.html:84
-#: plugins/weather_stations/templates/settings_page.html:101
-#: plugins/weather_stations/templates/settings_page.html:118
-#: plugins/weather_stations/templates/settings_page.html:135
-#: plugins/weather_stations/templates/settings_page.html:158
-#: plugins/weather_stations/templates/settings_page.html:175
+#: plugins/weather_stations/templates/settings_page.html:114
+#: plugins/weather_stations/templates/settings_page.html:161
+#: plugins/weather_stations/templates/settings_page.html:208
+#: plugins/weather_stations/templates/settings_page.html:255
+#: plugins/weather_stations/templates/settings_page.html:302
+#: plugins/weather_stations/templates/settings_page.html:350
+#: plugins/weather_stations/templates/settings_page.html:397
+#: plugins/weather_stations/templates/settings_page.html:445
 msgid "Red color from"
 msgstr "Červená barva od"
 
-#: plugins/weather_stations/templates/settings_page.html:52
 #: plugins/weather_stations/templates/settings_page.html:69
-#: plugins/weather_stations/templates/settings_page.html:86
-#: plugins/weather_stations/templates/settings_page.html:103
-#: plugins/weather_stations/templates/settings_page.html:120
-#: plugins/weather_stations/templates/settings_page.html:137
-#: plugins/weather_stations/templates/settings_page.html:160
+#: plugins/weather_stations/templates/settings_page.html:76
+#: plugins/weather_stations/templates/settings_page.html:83
+#: plugins/weather_stations/templates/settings_page.html:116
+#: plugins/weather_stations/templates/settings_page.html:123
+#: plugins/weather_stations/templates/settings_page.html:130
+#: plugins/weather_stations/templates/settings_page.html:163
+#: plugins/weather_stations/templates/settings_page.html:170
 #: plugins/weather_stations/templates/settings_page.html:177
+#: plugins/weather_stations/templates/settings_page.html:210
+#: plugins/weather_stations/templates/settings_page.html:217
+#: plugins/weather_stations/templates/settings_page.html:224
+#: plugins/weather_stations/templates/settings_page.html:257
+#: plugins/weather_stations/templates/settings_page.html:264
+#: plugins/weather_stations/templates/settings_page.html:271
+#: plugins/weather_stations/templates/settings_page.html:304
+#: plugins/weather_stations/templates/settings_page.html:311
+#: plugins/weather_stations/templates/settings_page.html:318
+#: plugins/weather_stations/templates/settings_page.html:352
+#: plugins/weather_stations/templates/settings_page.html:359
+#: plugins/weather_stations/templates/settings_page.html:366
+#: plugins/weather_stations/templates/settings_page.html:399
+#: plugins/weather_stations/templates/settings_page.html:406
+#: plugins/weather_stations/templates/settings_page.html:413
+#: plugins/weather_stations/templates/settings_page.html:447
+#: plugins/weather_stations/templates/settings_page.html:454
+#: plugins/weather_stations/templates/settings_page.html:461
 msgid "To:"
 msgstr "Do:"
 
-#: plugins/weather_stations/templates/settings_page.html:57
+#: plugins/weather_stations/templates/settings_page.html:74
+#: plugins/weather_stations/templates/settings_page.html:121
+#: plugins/weather_stations/templates/settings_page.html:168
+#: plugins/weather_stations/templates/settings_page.html:215
+#: plugins/weather_stations/templates/settings_page.html:262
+#: plugins/weather_stations/templates/settings_page.html:309
+#: plugins/weather_stations/templates/settings_page.html:357
+#: plugins/weather_stations/templates/settings_page.html:404
+#: plugins/weather_stations/templates/settings_page.html:452
+msgid "Blue color from"
+msgstr "Modrá barva od"
+
+#: plugins/weather_stations/templates/settings_page.html:81
+#: plugins/weather_stations/templates/settings_page.html:128
+#: plugins/weather_stations/templates/settings_page.html:175
+#: plugins/weather_stations/templates/settings_page.html:222
+#: plugins/weather_stations/templates/settings_page.html:269
+#: plugins/weather_stations/templates/settings_page.html:316
+#: plugins/weather_stations/templates/settings_page.html:364
+#: plugins/weather_stations/templates/settings_page.html:411
+#: plugins/weather_stations/templates/settings_page.html:459
+msgid "Green color from"
+msgstr "Zelená barva od"
+
+#: plugins/weather_stations/templates/settings_page.html:93
+msgid "Show this DS2"
+msgstr "Zobrazit tento DS2"
+
+#: plugins/weather_stations/templates/settings_page.html:99
 msgid "Name for Canvas DS2"
 msgstr "Název pro měřák DS2"
 
-#: plugins/weather_stations/templates/settings_page.html:74
+#: plugins/weather_stations/templates/settings_page.html:140
+msgid "Show this DS3"
+msgstr "Zobrazit tento DS3"
+
+#: plugins/weather_stations/templates/settings_page.html:146
 msgid "Name for Canvas DS3"
 msgstr "Název pro měřák DS3"
 
-#: plugins/weather_stations/templates/settings_page.html:91
+#: plugins/weather_stations/templates/settings_page.html:187
+msgid "Show this DS4"
+msgstr "Zobrazit tento DS4"
+
+#: plugins/weather_stations/templates/settings_page.html:193
 msgid "Name for Canvas DS4"
 msgstr "Název pro měřák DS4"
 
-#: plugins/weather_stations/templates/settings_page.html:108
+#: plugins/weather_stations/templates/settings_page.html:234
+msgid "Show this DS5"
+msgstr "Zobrazit tento DS5"
+
+#: plugins/weather_stations/templates/settings_page.html:240
 msgid "Name for Canvas DS5"
 msgstr "Název pro měřák DS5"
 
-#: plugins/weather_stations/templates/settings_page.html:125
+#: plugins/weather_stations/templates/settings_page.html:281
+msgid "Show this DS6"
+msgstr "Zobrazit tento DS6"
+
+#: plugins/weather_stations/templates/settings_page.html:287
 msgid "Name for Canvas DS6"
 msgstr "Název pro měřák DS6"
 
-#: plugins/weather_stations/templates/settings_page.html:144
+#: plugins/weather_stations/templates/settings_page.html:325
 msgid "This part needs correct setuped plugin Water Tank Monitor"
 msgstr "Tato část potřebuje správně nastavený balíček Water Tank Monitor"
 
-#: plugins/weather_stations/templates/settings_page.html:148
+#: plugins/weather_stations/templates/settings_page.html:329
+msgid "Show this Water Percent"
+msgstr "Zobrazit toto procento vody"
+
+#: plugins/weather_stations/templates/settings_page.html:335
 msgid "Name for Canvas Water Percent"
 msgstr "Název pro měřák procenta vody"
 
-#: plugins/weather_stations/templates/settings_page.html:165
+#: plugins/weather_stations/templates/settings_page.html:376
+msgid "Show this Water Volume"
+msgstr "Zobrazit tento objem vody"
+
+#: plugins/weather_stations/templates/settings_page.html:382
 msgid "Name for Canvas Water Volume"
 msgstr "Název pro měřák objem vody"
+
+#: plugins/weather_stations/templates/settings_page.html:420
+msgid "This part needs correct setuped plugin Wind Speed Monitor"
+msgstr "Tato část potřebuje správně nastavený balíček Wind Speed Monitor"
+
+#: plugins/weather_stations/templates/settings_page.html:424
+msgid "Show this Wind Speed"
+msgstr "Zobrazit tuto rychlost větru"
+
+#: plugins/weather_stations/templates/settings_page.html:430
+msgid "Name for Canvas Wind Speed"
+msgstr "Název pro měřák rychlost větru"
 
 #: plugins/webcam/__init__.py:19
 msgid "Package: Webcam Monitor"
@@ -9227,11 +9405,6 @@ msgstr "Odeslat E-mail s oznámením."
 #: plugins/wind_monitor/__init__.py:226
 msgid "Deleting maximal speed after 24 hours."
 msgstr "Smazání maximální rychlosti po 24 hodinách."
-
-#: plugins/wind_monitor/__init__.py:235
-#: plugins/wind_monitor/templates/wind_monitor.html:330
-msgid "m/s"
-msgstr "m/s"
 
 #: plugins/wind_monitor/__init__.py:245
 msgid "Wind speed monitor plug-in is disabled."
@@ -9610,6 +9783,16 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:212
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Canvas Count DS18B20"
+#~ msgstr "Počet budíků pro DS18B20"
+
+#~ msgid ""
+#~ "The number determines of meters for air_temp_humi plugin (DS18B20 "
+#~ "sensors)."
+#~ msgstr ""
+#~ "Zde nastavíme počet budíků pro plugin Air Temperature and Humidity "
+#~ "Monitor (snímače DS18B20)."
 
 #~ msgid "Search"
 #~ msgstr "Hledat"
