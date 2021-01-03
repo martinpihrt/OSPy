@@ -12,6 +12,7 @@ import errno
 import re
 import subprocess
 import traceback
+import ast
 from threading import Lock
 
 BRUTEFORCE_LOCK = Lock()
@@ -629,6 +630,7 @@ def template_globals():
     import json
     import plugins
     import urllib
+    import ast
     from web import ctx
 
     from ospy.inputs import inputs
@@ -656,7 +658,8 @@ def template_globals():
         'hasattr': hasattr,
         '_': _,
         'i18n': i18n,
-        'now': now
+        'now': now,
+        'ast': ast
     }
 
     result.update(globals()) # Everything in the global scope of this file will be available

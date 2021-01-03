@@ -9,7 +9,7 @@ $var page: user
 
 <div id="log">
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
-    <p>$_('Download log as') <a href="?csv">Excel log.csv</a>.</p>
+    <p>$_('Download log') <a href="?csv" class="button refresh">log.csv</a></p>
 
     <table class="logList">
         <tr class="log_rec">
@@ -36,7 +36,7 @@ $var page: user
 
 
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
-    <p>$_('Download log as') <a href="?csvEM">Excel log_email.csv</a>.</p>
+    <p>$_('Download log') <a href="?csvEM" class="button refresh">email.csv</a></p>
 
     <table class="logList">
         <tr class="log_rec">

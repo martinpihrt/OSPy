@@ -1,6 +1,6 @@
 /*
  * Sensor for OSPy system 
- * Martin Pihrt - 25.12.2020
+ * Martin Pihrt - 02.01.2021
  * Arduino IDE >= 1.8.13
  * board ESP32 1.0.4 (https://github.com/espressif/arduino-esp32)
  * 
@@ -69,7 +69,7 @@ bool revers            = false;                  // if true is active out in LOW
 byte I2C_SDA           = 33;                     // SDA
 byte I2C_SCL           = 32;                     // SCL
 
-#include <OneWire.h>
+#include <OneWire.h>                             // https://github.com/stickbreaker/OneWire  This modifications supports the ESP32 under the Arduino-esp32 Environment.
 #include <DallasTemperature.h>
 OneWire oneWire_1(input_sensor_1);
 DallasTemperature DS1sensors(&oneWire_1);
@@ -138,8 +138,13 @@ byte SEN_COM;
 int curRssi, curPercent, curMoti, curDrcon;      // current RSSI, RSSI in percent, motion, dry contact
 int LastCurMoti=1, LastCurDrcon=1;               // last value for motion, dry contact 
 unsigned long prevTikTime, prevTime, nowTime, interval;   // previous time for sec timer (millis), send data timer (millis), current time (millis)  
-float curTemp_1,curTemp_2,curTemp_3,curTemp_4;   // current temperature
+float curTemp_1 = -127;                          // current temperature DS1
+float curTemp_2 = -127;                          // current temperature DS2
+float curTemp_3 = -127;                          // current temperature DS3
+float curTemp_4 = -127;                          // current temperature DS4
+float LastcurTemp_1, LastcurTemp_2, LastcurTemp_3, LastcurTemp_4; // last value temperature DS1-DS4
 float curVdd, curLkdet, curHumi;                 // current voltage, leak detector, moisture
+float LastcurVdd, LastcurLkdet, LastcurHumi;     // last value voltage, leak detector, moisture
 bool send_to_OSPy = true;                        // if true -> send data to api OSPy web page
 bool relay_status;                               // relay status (0=off, 1=on)
 String IPadr  = "";                              // current IP address
@@ -148,6 +153,7 @@ String serverName = "";                          // server address
 String allSN = "";                               // sensor hostname
 bool ap_manager = false;                         // AP manager
 unsigned long APtime;                            // AP (ms now for timeout)
+bool DS_1_OK, DS_2_OK, DS_3_OK, DS_4_OK;         // if DS sensor xx is present DS_xx_OK is true
 
 // interval settings 
 unsigned long wait_send = 30000;                 // 30 sec loop for sending data 
@@ -302,11 +308,36 @@ void setup() {
   DS2sensors.begin();
   DS3sensors.begin();
   DS4sensors.begin();
-  delay(500);
-  DS1sensors.setResolution(11);              // 11 bit. The resolution of the DS18B20 is configurable (9, 10, 11, or 12 bits), with 12-bit readings the factory default state. This equates to a temperature resolution of 0.5°C, 0.25°C, 0.125°C, or 0.0625°C
-  DS2sensors.setResolution(11);
-  DS3sensors.setResolution(11);  
-  DS4sensors.setResolution(11);
+  delay(100);
+  
+  byte addr1[8];
+  if(oneWire_1.search(addr1)){
+     oneWire_1.reset_search();
+     DS1sensors.setResolution(11);           // The resolution of the DS18B20 is configurable (9, 10, 11, or 12 bits), with 12-bit readings the factory default state. This equates to a temperature resolution of 0.5°C, 0.25°C, 0.125°C, or 0.0625°C
+     DS_1_OK = true;
+     Serial.println(F("DS18B20 nr. 1 is connected"));     
+  }//end test oneWire search 
+  byte addr2[8]; 
+  if(oneWire_2.search(addr2)){
+     oneWire_2.reset_search();
+     DS2sensors.setResolution(11);          
+     DS_2_OK = true;
+     Serial.println(F("DS18B20 nr. 2 is connected"));
+  }//end test oneWire search
+  byte addr3[8];
+  if(oneWire_3.search(addr3)){
+     oneWire_3.reset_search();
+     DS3sensors.setResolution(11);         
+     DS_3_OK = true;
+     Serial.println(F("DS18B20 nr. 3 is connected"));
+  }//end test oneWire search
+  byte addr4[8];
+  if(oneWire_4.search(addr4)){
+     oneWire_4.reset_search();
+     DS4sensors.setResolution(11);          
+     DS_4_OK = true;
+     Serial.println(F("DS18B20 nr. 4 is connected"));
+  }//end test oneWire search    
   
   if(get_ap_button()){                       // check if button pressed
      ap_manager = true;                      // enabling AP manager
@@ -348,7 +379,7 @@ void setup() {
     if((wifiMulti.run() == WL_CONNECTED)){       // pokud je Wi-Fi pripojeno nastavime hostname, ukazeme RSSI, MAC a IP
        en_led_blink = true;
        #ifdef DEBUG
-           Serial.println(F("Connected"));
+           Serial.println(F("Wi-Fi Connected"));
            Serial.print(F("Hostname: "));
            Serial.println(Hostname_complete);
        #endif
@@ -617,20 +648,29 @@ void get_dry_contact(){
 
 void get_leak_detector(){
 // todo measure
-  #ifdef DEBUG
-     Serial.print(F("LEAK DETECTOR: "));
-     Serial.println(curLkdet);
-  #endif   
-  curLkdet = 0;
+  curLkdet = -1;
+
+  if(curLkdet != LastcurLkdet){
+     LastcurLkdet = curLkdet;
+     #ifdef DEBUG
+        Serial.print(F("LEAK DETECTOR: "));
+        Serial.println(curLkdet);
+     #endif
+  }//end if      
+
 }//end void
 
 void get_moisture(){
 // todo measure
-  #ifdef DEBUG
-     Serial.print(F("MOISTURE: "));
-     Serial.println(curHumi);
-  #endif 
-  curHumi = 0;
+  curHumi = -1;
+  
+  if(curHumi != LastcurHumi){
+     LastcurHumi = curHumi;
+     #ifdef DEBUG
+        Serial.print(F("MOISTURE: "));
+        Serial.println(curHumi);
+     #endif 
+  }//end if
 }//end void
 
 void get_motion(){
@@ -651,64 +691,87 @@ void get_motion(){
 }//end void
 
 void get_temp(){
+  int timeout;
   // DS1
-  int timeout = 3; // 3x trying read temperature
+  if(DS_1_OK){
+  timeout = 3; // 3x trying read temperature  
   do{
      DS1sensors.requestTemperatures();
      delay(100);
      curTemp_1 = DS1sensors.getTempCByIndex(0);
-     #ifdef DEBUG
-        Serial.println(F("DS1: "));
-        Serial.print(curTemp_1);
-        Serial.println(F(" C")); 
-     #endif   
+     if(LastcurTemp_1 != curTemp_1){
+        LastcurTemp_1 = curTemp_1;
+        #ifdef DEBUG
+           Serial.print(F("DS1: "));
+           Serial.print(curTemp_1);
+           Serial.println(F(" C")); 
+        #endif   
+     }//end if   
      timeout--;
      if(timeout == 0) break;
   }while(curTemp_1 == -127 or curTemp_1 == -85); 
-
+  }//end DS OK
+  
   if(SEN_TYPE == 6){ // multi sensor
   // DS2
+  if(DS_2_OK){
   timeout = 3; // 3x trying read temperature
   do{
      DS2sensors.requestTemperatures();
      delay(100);
      curTemp_2 = DS2sensors.getTempCByIndex(0);
-     #ifdef DEBUG
-        Serial.println(F("DS2: "));
-        Serial.print(curTemp_2);
-        Serial.println(F(" C")); 
-     #endif   
+     if(LastcurTemp_2 != curTemp_2){
+        LastcurTemp_2 = curTemp_2;     
+        #ifdef DEBUG
+           Serial.print(F("DS2: "));
+           Serial.print(curTemp_2);
+           Serial.println(F(" C")); 
+        #endif   
+     }//end if   
      timeout--;
      if(timeout == 0) break;
-  }while(curTemp_2 == -127 or curTemp_2 == -85);  
+  }while(curTemp_2 == -127 or curTemp_2 == -85); 
+  }//end DS OK
+   
   // DS3
+  if(DS_3_OK){
   timeout = 3; // 3x trying read temperature
   do{
      DS3sensors.requestTemperatures();
      delay(100);
      curTemp_3 = DS3sensors.getTempCByIndex(0);
-     #ifdef DEBUG
-        Serial.println(F("DS3: "));
-        Serial.print(curTemp_3);
-        Serial.println(F(" C")); 
-     #endif   
+     if(LastcurTemp_3 != curTemp_3){
+        LastcurTemp_3 = curTemp_3;     
+        #ifdef DEBUG
+           Serial.print(F("DS3: "));
+           Serial.print(curTemp_3);
+           Serial.println(F(" C")); 
+        #endif   
+     }//end if   
      timeout--;
      if(timeout == 0) break;
   }while(curTemp_3 == -127 or curTemp_3 == -85); 
+  }//end DS OK
+  
   // DS4
+  if(DS_4_OK){
   timeout = 3; // 3x trying read temperature
   do{
      DS4sensors.requestTemperatures();
      delay(100);
      curTemp_4 = DS4sensors.getTempCByIndex(0);
-     #ifdef DEBUG
-        Serial.println(F("DS4: "));
-        Serial.print(curTemp_4);
-        Serial.println(F(" C")); 
-     #endif   
+     if(LastcurTemp_4 != curTemp_4){
+        LastcurTemp_4 = curTemp_4;     
+        #ifdef DEBUG
+           Serial.print(F("DS4: "));
+           Serial.print(curTemp_4);
+           Serial.println(F(" C")); 
+        #endif   
+     }//end if   
      timeout--;
      if(timeout == 0) break;
-  }while(curTemp_4 == -127 or curTemp_4 == -85);     
+  }while(curTemp_4 == -127 or curTemp_4 == -85);   
+  }//end DS OK  
   }//end sen_type==6
 }//end void
 
@@ -806,10 +869,13 @@ float battery_read(){
     // voltage = voltage / (R2/(R1+R2));
     //round value by two precision
     voltage = roundf(voltage * 100) / 100;
-    #ifdef DEBUG
-       Serial.print(F("Voltage: "));
-       Serial.println(voltage, 2);
-    #endif   
+    if(voltage != LastcurVdd){
+       LastcurVdd = voltage;
+       #ifdef DEBUG
+          Serial.print(F("Voltage: "));
+          Serial.println(voltage, 2);
+       #endif  
+    }//end if    
     //output = ((voltage - battery_min) / (battery_max - battery_min)) * 100;
     /*if (output < 100)
         return output;

@@ -73,22 +73,22 @@ function check_type() {
     let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
     let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
 
-    if (sensor_type == 1 || multi_type == 4) { 
+    if (sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) { 
         jQuery("#dry_contact").show()
     } else {
         jQuery("#dry_contact").hide()
     }
-    if (sensor_type == 2 || multi_type == 5) {
+    if (sensor_type == 2 || (sensor_type == 6 && multi_type == 5)) {
         jQuery("#leak_detector").show()
     } else {
         jQuery("#leak_detector").hide()
     }
-    if (sensor_type == 3 || sensor_type == 5 || multi_type == 0 || multi_type == 1 || multi_type == 2 || multi_type == 3 || multi_type == 6) {
+    if (sensor_type == 3 || sensor_type == 5 || (sensor_type == 6 && multi_type == 0) || (sensor_type == 6 && multi_type == 1) || (sensor_type == 6 && multi_type == 2) || (sensor_type == 6 && multi_type == 3) || (sensor_type == 6 && multi_type == 6)) {
         jQuery("#temperature_moisture").show()
     } else {
         jQuery("#temperature_moisture").hide()
     } 
-    if (sensor_type == 4 || multi_type == 7) {
+    if (sensor_type == 4 || (sensor_type == 6 && multi_type == 7)) {
         jQuery("#motion").show()
     } else {
         jQuery("#motion").hide()
@@ -241,17 +241,17 @@ jQuery(document).ready(function(){
 
             <div class='option' id="dry_contact" style="display: none;">
                 <p><span class="program_label">$_('Open Program(s)'):</span>
-                <select name="trigger_low_program" id="trigger_low_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="AL" id="AL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option> 
                 </select></p><br/>
                 <p><span class="program_label">$_('Closed Program(s)'):</span>
-                <select name="trigger_high_program" id="trigger_high_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>
+                <select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
-                </select></p><br/>                
+                </select></p><br/>  
             </div>   
 
             <div class='option' id="leak_detector" style="display: none;">
@@ -261,13 +261,13 @@ jQuery(document).ready(function(){
                 <p><span class="program_label">$_('Sensitivity'):</span>
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_(u'Enter sensitivity for sensor.'), ensure_ascii=False)}> %</p><br/>
                 <p><span class="program_label">$_('Low Program(s)'):</span>
-                <select name="trigger_low_program" id="trigger_low_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>                    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select></p><br/> 
                 <p><span class="program_label">$_('High Program(s)'):</span>
-                <select name="trigger_high_program" id="trigger_high_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="BH" id="BH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
@@ -276,7 +276,7 @@ jQuery(document).ready(function(){
 
             <div class='option' id="motion" style="display: none;">
                 <p><span class="program_label">$_('Program(s)'):</span>
-                <select name="trigger_high_program" id="trigger_high_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="CH" id="CH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
@@ -294,7 +294,7 @@ jQuery(document).ready(function(){
                     %                                                            
                 </p><br/>
                 <p><span class="program_label">$_('Low Program(s)'):</span>
-                <select name="trigger_low_program" id="trigger_low_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="DL" id="DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
@@ -309,7 +309,7 @@ jQuery(document).ready(function(){
                     %                   
                 </p><br/>                 
                 <p><span class="program_label">$_('High Program(s)'):</span>
-                <select name="trigger_high_program" id="trigger_high_program" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <select name="DH" id="DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>

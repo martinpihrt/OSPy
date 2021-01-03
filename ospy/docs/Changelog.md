@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 3 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. ESP32 firmware update version 1.02 (bug fixes, sensors DS18B20 connection detection). Emailing, event logging and sample logging have been added (for the "Dry Contact, Motion, Multi Dry Contact, Multi Motion") to sensor website. Added sensor data logging page (possibility to download as csv format). Fixed sensor selection (when a multi sensor was not selected, fields that they did not have were displayed). Missing finish: logging events and samples and sending email for temperature, humidity and flow meter. for all program start sensors. There is still a lot of work on this part of the "sensors".
+
 Dec 29 2020
 -----------
 (martinpihrt)<br/>

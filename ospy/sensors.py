@@ -8,11 +8,14 @@ import logging
 import traceback
 import time
 import datetime
+import subprocess
+import os
+import json
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import now, password_hash, datetime_string
-from ospy.log import log
+from ospy.helpers import now, password_hash, datetime_string, mkdir_p
+from ospy.log import log, logEM
 from ospy.programs import programs
 #from ospy.runonce import run_once
 #from ospy.stations import stations
@@ -31,11 +34,12 @@ class _Sensor(object):
         self.multi_type = 0             # selector multi type 0-7: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
+        self.last_log_samples = 0       # last log samples millis
         self.log_event = 0              # log event
         self.send_email  = 0            # send e-mail  
         self.sample_rate = 60           # sample rate 
-        self.last_read_value = ""       # last read value
-        self.prev_read_value = -666     # prev read value
+        self.last_read_value = ""       # last read value (actual)
+        self.prev_read_value = ""       # prev read value
         self.sensitivity = 0            # sensitivity
         self.stabilization_time = 0     # stabilization time
         self.trigger_low_program = []   # open program
@@ -145,147 +149,193 @@ class _Sensors(object):
 sensors = _Sensors()
 
 
-### Helper ###
-def _run_programs(id=[]): 
-    print id 
-    index = 0      
-    #programs.run_now(index)
-
-
 ### Timing loop for sensors ###
 class _Sensors_Timer(Thread):
     def __init__(self):
         super(_Sensors_Timer, self).__init__()
+        self.status = {}
+        self._sleep_time = 0
         self.daemon = True
+    
+    def add_status(self, id, msg):
+        if id in self.status:
+            self.status[id] += '\n' + msg
+        else:
+            self.status[id] = msg
 
-    def run(self):
-        while True:
-            try:
-                self._check_sensors()
-            except Exception:
-                logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))
+    def start_status(self, id, msg):
+        if id in self.status:
+            del self.status[id]
+        self.add_status(id, msg)
+
+    def stop_status(self, id):
+        if id in self.status:
+            del self.status[id]        
+
+    def update(self):
+        self._sleep_time = 0
+
+    def _sleep(self, secs):
+        self._sleep_time = secs
+        while self._sleep_time > 0:
             time.sleep(1)
- 
-    @staticmethod
-    def _check_sensors():
+            self._sleep_time -= 1
+
+    def _try_send_mail(self, text, logtext, attachment=None, subject=None):
+        try:
+            from plugins.email_notifications import try_mail 
+            try_mail(text, logtext, attachment, subject)      
+        except:
+            log.debug(u'sensors.py', _(u'E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped.'))
+            pass  
+
+    def _read_log(self, dir_name):
+        try:
+            with open(dir_name) as logf:
+                return json.load(logf)
+        except IOError:
+            return []
+
+    def _write_log(self, dir_name, data):
+        try:
+            with open(dir_name, 'w') as outfile:
+                json.dump(data, outfile)
+        except Exception:
+            logging.debug(traceback.format_exc())
+            
+    def update_log(self, sensor, lg, msg, action=''):  # lg (lge is event, lgs is samples)
+        try:
+            kind = 'slog' if lg == 'lgs' else 'elog'   
+            nowg = time.gmtime(now())
+
+            logline = {}
+            logline["date"] = time.strftime('%Y-%m-%d', nowg)
+            logline["time"] = time.strftime('%H:%M:%S', nowg)
+            if kind == 'slog':
+                if type(msg) == float:
+                    msg = "{0:.1f}".format(msg)
+                logline["value"] = str(msg)
+                if action:
+                    logline["action"] = action
+                else:
+                    logline["action"] = ''   
+            else:
+                logline["event"] = str(msg)
+
+            log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
+            if not os.path.isdir(log_dir):
+                mkdir_p(log_dir) # ensure dir and file exists after config restore
+                logging.debug(_(u'Dir not exists, creating dir: {}').format(log_dir))
+            
+            log_ref = str(log_dir) + '/' + str(kind)
+            if not os.path.isfile(log_ref + '.json'):
+                subprocess.call(['touch', log_ref + '.json'])
+                logging.debug(_(u'File not exists, creating file: {}').format(str(kind) + '.json'))
+            
+            try:
+                log = self._read_log(log_ref + '.json')
+            except:   
+                log = []
+
+            log.insert(0, logline)
+            if options.run_sensor_entries > 0:        # 0 = unlimited
+               log = log[:options.run_sensor_entries] # limit records from options
+            self._write_log(log_ref + '.json', log)
+            logging.debug(_(u'Updating sensor log to file successfully.')) 
+        
+        except Exception:
+            logging.debug(traceback.format_exc())
+
+
+    def check_sensors(self):
         for sensor in sensors.get():
             time_dif = int(now() - sensor.last_response)                      # last input from sensor
             if time_dif >= 120:                                               # timeout 120 seconds
                 if sensor.response != 0:
-                    sensor.response = 0                                       # reseting status green circle to red (on sensors page)
-            
-            if sensor.enabled:                                                # if sensor is enabled
-                if sensor.sens_type == 1: # (Dry Contact)
-                    if sensor.last_read_value != sensor.prev_read_value:    
-                        sensor.prev_read_value = sensor.last_read_value
-                        if sensor.last_read_value == 1:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Dry Contact') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_high_program)
-                        else:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Dry Contact') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_low_program)
+                    sensor.response = 0                                       # reseting status green circle to red (on sensors page)  
 
-                elif sensor.sens_type == 2: # (Leak Detector)
-                    if sensor.last_read_value != sensor.prev_read_value:    
-                        sensor.prev_read_value = sensor.last_read_value
-                        if sensor.last_read_value >= sensor.sensitivity:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Leak Detector') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_high_program)
-                            # todo sensor.stabilization_time
-                        else:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Leak Detector') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_low_program)      
+            if not sensor.enabled:
+                return
 
-                elif sensor.sens_type == 3: # (Moisture)
-                    if sensor.last_read_value != sensor.prev_read_value:    
-                        sensor.prev_read_value = sensor.last_read_value
-                        if sensor.last_read_value > int(sensor.trigger_high_threshold):
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Moisture') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_high_program)
-                        if sensor.last_read_value < int(sensor.trigger_low_threshold):
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Moisture') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_low_program)    
+            if sensor.sens_type == 0:
+                return   
 
-                elif sensor.sens_type == 4: # (Motion)
-                    if sensor.last_read_value != sensor.prev_read_value:    
-                        sensor.prev_read_value = sensor.last_read_value
-                        if sensor.last_read_value == 1:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Motion') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_high_program)
-                        else:
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Motion') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_low_program)  
+            changed_state = False    
 
-                elif sensor.sens_type == 5: # (Temperature)
-                    if sensor.last_read_value != sensor.prev_read_value:    
-                        sensor.prev_read_value = sensor.last_read_value
-                        if sensor.last_read_value > int(sensor.trigger_high_threshold):
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Threshold DS18B20') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_high_program)
-                        if sensor.last_read_value < int(sensor.trigger_low_threshold):
-                            log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Threshold DS18B20') + u': {}'.format(sensor.last_read_value))
-                            #_run_programs(sensor.trigger_low_program) 
+            if sensor.last_read_value != sensor.prev_read_value:    
+                sensor.prev_read_value = sensor.last_read_value
+                changed_state = True
 
-                elif sensor.sens_type == 6: # (Multi)
-                    if sensor.multi_type == 0 or sensor.multi_type == 1 or sensor.multi_type == 2 or sensor.multi_type == 3: # sensor type 6 multi 0-3 (DS18B20)
-                        if sensor.last_read_value[0] != sensor.prev_read_value:    
-                            sensor.prev_read_value = sensor.last_read_value[0]
-                            if sensor.last_read_value[0] > int(sensor.trigger_high_threshold):
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Threshold DS18B20') + u': {}'.format(sensor.last_read_value[0]))
-                                _run_programs(sensor.trigger_high_program)
-                            if sensor.last_read_value[0] < int(sensor.trigger_low_threshold):
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Threshold DS18B20') + u': {}'.format(sensor.last_read_value[0]))
-                                _run_programs(sensor.trigger_low_program)  
+            ### Dry Contact, Motion, Multi Dry Contact, Multi Motion ###
+            if sensor.sens_type == 1 or sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 4) or (sensor.sens_type == 6 and sensor.multi_type == 7):
+                if sensor.response:                                           # sensor is enabled and response is OK  
+                    state = -1
+                    if   sensor.sens_type == 1:
+                        state =  int(sensor.last_read_value)                  # type is Dry Contact   
+                    elif sensor.sens_type == 4: 
+                        state =  int(sensor.last_read_value)                  # type is Motion
+                    elif sensor.sens_type == 6 and sensor.multi_type == 4:      
+                        state =  int(sensor.last_read_value[4])               # multi Dry Contact
+                    elif sensor.sens_type == 6 and sensor.multi_type == 7:    
+                        state =  int(sensor.last_read_value[7])               # multi Motion  
+                                                 
+                    if state == 1  and changed_state:                                                    # is closed 
+                        if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact 
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'closed and triggered.'))
+                            subj = _(u'Sensor Read Success')
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'closed and triggered.')) 
+                            if sensor.log_event:                                                         # sensor is enabled and enabled log           
+                                self.update_log(sensor, 'lge', _(u'Closed Trigger'))                     # lge is event, lgs is samples
+                            if sensor.send_email:
+                                self._try_send_mail(body, text, attachment=None, subject=subj)                               
+                        else:                                                                            # Motion or multi Motion 
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'motion detected and triggered.'))
+                            subj = _(u'Sensor Read Success')
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'motion detected and triggered.'))
+                            if sensor.log_event:                                                         # sensor is enabled and enabled log           
+                                self.update_log(sensor, 'lge', _(u'Motion Trigger')) 
+                            if sensor.send_email:
+                                self._try_send_mail(body, text, attachment=None, subject=subj)                                
+                        self.start_status(sensor.name, text)
 
-                elif sensor.sens_type == 6: # (Multi)
-                    if sensor.multi_type == 4: # sensor type 6 multi 4 (Dry Contact)
-                        if sensor.last_read_value[4] != sensor.prev_read_value:    
-                            sensor.prev_read_value = sensor.last_read_value[4]
-                            if sensor.last_read_value[4] == 1:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Dry Contact') + u': {}'.format(sensor.last_read_value[4]))
-                                #_run_programs(sensor.trigger_high_program)
-                            else:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Dry Contact') + u': {}'.format(sensor.last_read_value[4]))
-                                #_run_programs(sensor.trigger_low_program)  
+                    elif state == 0  and changed_state:                                                  # is open
+                        if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'open and triggered.'))
+                            subj = _(u'Sensor Read Success')
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'open and triggered.')) 
+                            if sensor.log_event:                                                         # sensor is enabled and enabled log 
+                                self.update_log(sensor, 'lge', _(u'Open Trigger'))
+                            if sensor.send_email:
+                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                        else:                                                                            # Motion or multi Motion
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'no motion detected.'))
+                            subj = _(u'Sensor Read Success')
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'no motion detected.')) 
+                            if sensor.log_event:                                                         # sensor is enabled and enabled log           
+                                self.update_log(sensor, 'lge', _(u'No Motion'))
+                            if sensor.send_email:
+                                self._try_send_mail(body, text, attachment=None, subject=subj)   
+                        self.start_status(sensor.name, text)  
 
-                elif sensor.sens_type == 6: # (Multi)
-                    if sensor.multi_type == 5: # sensor type 6 multi 5 (Leak Detector)
-                        if sensor.last_read_value[5] != sensor.prev_read_value:    
-                            sensor.prev_read_value = sensor.last_read_value[5]
-                            if sensor.last_read_value[5] >= sensor.sensitivity:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Leak Detector') + u': {}'.format(sensor.last_read_value[5]))
-                                #_run_programs(sensor.trigger_high_program)
-                                # todo sensor.stabilization_time
-                            else:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Leak Detector') + u': {}'.format(sensor.last_read_value[5]))
-                                #_run_programs(sensor.trigger_low_program)
+                    if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
+                        if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
+                            sensor.last_log_samples = now()
+                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples    
 
-                elif sensor.sens_type == 6: # (Multi)
-                    if sensor.multi_type == 6: # sensor type 6 multi 6 (Moisture)
-                        if sensor.last_read_value[6] != sensor.prev_read_value:    
-                            sensor.prev_read_value = sensor.last_read_value[6]
-                            if sensor.last_read_value[6] > int(sensor.trigger_high_threshold):
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Moisture') + u': {}'.format(sensor.last_read_value[6]))
-                                #_run_programs(sensor.trigger_high_program)
-                            if sensor.last_read_value[6] < int(sensor.trigger_low_threshold):
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Moisture') + u': {}'.format(sensor.last_read_value[6]))
-                                #_run_programs(sensor.trigger_low_program) 
+                # else:
+                    # if not response...action                           
 
-                elif sensor.sens_type == 6: # (Multi)
-                    if sensor.multi_type == 7: # sensor type 6 multi 7 (Motion)
-                        if sensor.last_read_value[7] != sensor.prev_read_value:    
-                            sensor.prev_read_value = sensor.last_read_value[7]
-                            if sensor.last_read_value[7] == 1:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'High Motion') + u': {}'.format(sensor.last_read_value[7]))
-                                #_run_programs(sensor.trigger_high_program)
-                            else:
-                                log.info(_(u'Sensor') + u': {}'.format(sensor.name) , datetime_string() + ' ' + _(u'Low Motion') + u': {}'.format(sensor.last_read_value[7]))
-                                #_run_programs(sensor.trigger_low_program)                                                                                                                                                                                                                                                                                             
+    def run(self):
+        self._sleep(3)
+        while True:
+            try:
+                self.check_sensors()
+                self._sleep(1)
 
-                #if sensor.log_samples:                                                # if sensor logging samples enabled 
-                #if sensor.log_event:                                                  # if sensor logging event enabled
-                #if sensor.send_email:                                                 # if sensor sending e-mail enabled
+            except Exception:
+                logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))
+                self._sleep(5)
 
-
+        
 sensors_timer = _Sensors_Timer()
 

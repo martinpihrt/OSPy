@@ -324,6 +324,15 @@ class _Options(object):
             "max": 1000
         },
         {
+            "key": "run_sensor_entries",
+            "name": _('Max sensor entries'),
+            "default": 100,
+            "help": _('Number of sensor entries to save to disk, 0=no limit.'),
+            "category": _('Logging'),
+            "min": 0,
+            "max": 1000
+        },        
+        {
             "key": "debug_log",
             "name": _('Enable debug log'),
             "default": False,

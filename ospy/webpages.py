@@ -7,7 +7,6 @@ from shutil import copyfile
 import datetime
 import json
 import web
-import ast
 from threading import Timer
 import traceback
 
@@ -176,6 +175,11 @@ class sensors_page(ProtectedPage):
         if delete_all:
             while sensors.count() > 0:
                 sensors.remove_sensors(sensors.count()-1)
+            try:
+                import shutil
+                shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
+            except:
+                pass    
 
         if search:
             return self.core_render.sensors_search()                
@@ -193,13 +197,91 @@ class sensor_page(ProtectedPage):
             index = int(index)
             delete = get_input(qdict, 'delete', False, lambda x: True)
             enable = get_input(qdict, 'enable', None, lambda x: x == '1')
+            log = get_input(qdict, 'logE', False, lambda x: True)      # log 
+            csvE = get_input(qdict, 'csvE', False, lambda x: True)     # event
+            csvS = get_input(qdict, 'csvS', False, lambda x: True)     # samples
+            clear = get_input(qdict, 'clear', False, lambda x: True)   # clear event and samples
 
             if delete and session['category'] == 'admin':
                 sensors.remove_sensors(index)
+                try:
+                    import shutil
+                    shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
+                except:
+                    pass
                 raise web.seeother(u'/sensors')
+            
             elif enable is not None:
                 sensors[index].enabled = enable
-                raise web.seeother(u'/sensors')                           
+                raise web.seeother(u'/sensors') 
+
+            elif log and session['category'] == 'admin':
+                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
+                try:
+                    with open(dir_name_slog) as logf:
+                        slog_file =  json.load(logf)
+                except IOError:
+                    slog_file = []
+
+                dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
+                try:
+                    with open(dir_name_elog) as logf:
+                        elog_file =  json.load(logf)
+                except IOError:
+                    elog_file = []    
+
+                try:
+                    name = sensors[index].name
+                    return self.core_render.log_sensor(index, name, slog_file, elog_file) 
+                except:    
+                    print_report('webpages.py', traceback.format_exc())
+
+            elif csvE and session['category'] == 'admin':
+                dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
+                try:
+                    with open(dir_name_elog) as logf:
+                        slog_file =  json.load(logf)
+                except IOError:
+                    slog_file = []
+                data = "Date; Time; Event\n"
+                for interval in slog_file:
+                    data += '; '.join([
+                        interval['date'],
+                        interval['time'],
+                        str(interval['event']),
+                    ]) + '\n'
+
+                web.header('Content-Type', 'text/csv')
+                web.header('Content-Disposition', 'attachment; filename="event.csv"')
+                return data 
+
+            elif csvS and session['category'] == 'admin':
+                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
+                try:
+                    with open(dir_name_slog) as logf:
+                        slog_file =  json.load(logf)
+                except IOError:
+                    slog_file = []
+                data = "Date; Time; Value; Action\n"
+                for interval in slog_file:
+                    data += '; '.join([
+                        interval['date'],
+                        interval['time'],
+                        str(interval['value']),
+                        str(interval['action']),
+                    ]) + '\n'
+
+                web.header('Content-Type', 'text/csv')
+                web.header('Content-Disposition', 'attachment; filename="sample.csv"')
+                return data   
+
+            elif clear and session['category'] == 'admin':
+                try:
+                    import shutil
+                    shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
+                except:
+                    pass
+                raise web.seeother(u'/sensors')                                                                
 
         except ValueError:
             pass        
@@ -216,8 +298,10 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(trigger_low_program = [], trigger_high_program = [])
- 
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[]) # A-D for multiple select LO/HI programs
+        multi_type = -1
+        sen_type = -1
+
         try:
             index = int(index)
             sensor = sensors.get(index)
@@ -245,13 +329,15 @@ class sensor_page(ProtectedPage):
                     sensor.encrypt = qdict['senscode']
 
             if 'sens_type' in qdict:
-                sensor.sens_type = int(qdict['sens_type'])
+                sensor.sens_type = int(qdict['sens_type']) 
+                sen_type = int(qdict['sens_type'])  
 
             if 'com_type' in qdict:
                 sensor.com_type = int(qdict['com_type'])
 
             if 'multi_type' in qdict:
                 sensor.multi_type = int(qdict['multi_type'])
+                multi_type = int(qdict['multi_type'])            
 
             if 'log_samples' in qdict and qdict['log_samples'] == 'on':
                 sensor.log_samples = 1
@@ -269,7 +355,11 @@ class sensor_page(ProtectedPage):
                 sensor.send_email = 0 
 
             if 'sample_rate_min' in qdict and 'sample_rate_sec' in qdict:
-                sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])
+                try:
+                    sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])
+                except:
+                    sensor.sample_rate = 60    
+                    pass
 
             if 'sensitivity' in qdict:
                 sensor.sensitivity = int(qdict['sensitivity'])
@@ -283,11 +373,41 @@ class sensor_page(ProtectedPage):
             if 'trigger_high_threshold' in qdict:
                 sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
-            if 'trigger_low_program' in qdict:
-                sensor.trigger_low_program = qdict['trigger_low_program']
+            if  sen_type == 1:                           # dry contact
+                sensor.trigger_low_program = qdict['AL']           
+                sensor.trigger_high_program = qdict['AH']
 
-            if 'trigger_high_program' in qdict:
-                sensor.trigger_high_program = qdict['trigger_high_program']
+            elif sen_type == 2:                          # leak detector
+                sensor.trigger_low_program = qdict['BL']
+                sensor.trigger_high_program = qdict['BH']  
+
+            elif sen_type == 4:                          # motion
+                sensor.trigger_low_program = ""
+                sensor.trigger_high_program = qdict['CH'] 
+
+            elif sen_type == 3 or sen_type == 5:         # moisture / temperature
+                sensor.trigger_low_program = qdict['DL']
+                sensor.trigger_high_program = qdict['DH'] 
+
+            elif sen_type == 6 and (multi_type == 0 or multi_type == 1 or multi_type == 2 or multi_type == 3): # multi temperature 0-3
+                sensor.trigger_low_program = qdict['DL']
+                sensor.trigger_high_program = qdict['DH']                    
+
+            elif sen_type == 6 and multi_type == 4:      # multi dry contact
+                sensor.trigger_low_program = qdict['AL']           
+                sensor.trigger_high_program = qdict['AH'] 
+
+            elif sen_type == 6 and multi_type == 5:      # multi leak detector
+                sensor.trigger_low_program = qdict['BL']
+                sensor.trigger_high_program = qdict['BH']   
+
+            elif sen_type == 6 and multi_type == 6:      # multi moisture
+                sensor.trigger_low_program = qdict['DL']
+                sensor.trigger_high_program = qdict['DH']                 
+
+            elif sen_type == 6 and multi_type == 7:      # multi motion
+                sensor.trigger_low_program = ""
+                sensor.trigger_high_program = qdict['CH']                                                      
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip
@@ -940,13 +1060,13 @@ class log_page(ProtectedPage):
 
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
-            data = "Date, Start Time, Zone, Duration, Program\n"
+            data = "Date; Start Time; Zone; Duration; Program\n"
             for interval in events:
                 # return only records that are visible on this day:
                 duration = (interval['end'] - interval['start']).total_seconds()
                 minutes, seconds = divmod(duration, 60)
 
-                data += ', '.join([
+                data += '; '.join([
                     interval['start'].strftime("%Y-%m-%d"),
                     interval['start'].strftime("%H:%M:%S"),
                     str(interval['station']),
@@ -960,21 +1080,20 @@ class log_page(ProtectedPage):
 
         if 'csvEM' in qdict:
             events = logEM.finished_email()
-            data = "Date, Time, Subject, Body, Status\n"
+            data = "Date; Time; Subject; Body; Status\n"
             for interval in events:
-                data += ', '.join([
-                    interval['time'],
+                data += '; '.join([
                     interval['date'],
+                    interval['time'],
                     str(interval['subject']),
                     str(interval['body']),
                     str(interval['status']),
                 ]) + '\n'
 
             web.header('Content-Type', 'text/csv')
-            web.header('Content-Disposition', 'attachment; filename="log_email.csv"')
+            web.header('Content-Disposition', 'attachment; filename="email.csv"')
             return data
-
-
+   
         watering_records = log.finished_runs()
         email_records = logEM.finished_email()
 

@@ -1,0 +1,54 @@
+$def with (index, name, srecords, erecords)
+
+$var title: $_('Sensor Log')
+$var page: log
+
+<div id="options">
+    <div class="title">$_('Event Log') - ${name}</div>
+</div>
+
+<div id="log">
+    <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">event.csv</a></p>
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Time')</th>
+            <th>$_('Event')</th>
+        </tr>
+        $ odd = 1
+        $for r in erecords:
+            $ event = r #  ast.literal_eval(json.loads(r))
+            <tr class="log_rec ${'odd' if odd else 'even'}">
+                <td align='center'>${event["date"]}</td>
+                <td align='center'>${event["time"]}</td>
+                <td align='center'>${event["event"]}</td>
+            </tr>
+            $ odd = 1 - odd
+    </table>
+
+    <div class="title">$_('Sample Log') - ${name}</div>
+    <p>$_('Total number of records'): ${len(srecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">sample.csv</a></p>
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Time')</th>
+            <th>$_('Value')</th>
+            <th>$_('Action')</th>
+        </tr>
+        $ odd = 1
+        $for r in srecords:
+            $ event = r #  ast.literal_eval(json.loads(r))
+            <tr class="log_rec ${'odd' if odd else 'even'}">
+                <td align='center'>${event["date"]}</td>
+                <td align='center'>${event["time"]}</td>
+                <td align='center'>${event["value"]}</td>
+                <td align='center'>${event["action"]}</td>
+            </tr>
+            $ odd = 1 - odd
+    </table>
+</div>
+
+<a href="" class="button refresh">$_('Refresh')</a>
+<a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
