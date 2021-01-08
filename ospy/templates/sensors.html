@@ -55,12 +55,11 @@ jQuery(document).ready(function(){
     <a href="/sensors?search" class="button cModify"> $_(u'Searching Sensors')</a>
 </div>
 </br>
-</br>
 
 <div id="controls">
 $if sensors.count()>0:    
-    <div id="sensor-container" class="sensor-container">
     $for sensor in sensors.get():
+        <div id="sensor-container" class="sensor-container">
         $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
         $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
@@ -268,11 +267,12 @@ $if sensors.count()>0:
                                                       
         <p>         
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
+        <a href="/sensor/${sensor.index}?log" class="button backup"> $_(u'View Logs')</a>
+        <a href="/sensor/${sensor.index}?graph" class="button upload"> $_(u'View Graph')</a>
         <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_(u'Delete Sensor')</a>
-        <a href="/sensor/${sensor.index}?logE" class="button cModify"> $_(u'View Logs')</a>
-        </p>    
+        </p>   
+        </div>     
         </div> 
-    </div> 
     </br>
     </br>     
 </div>    

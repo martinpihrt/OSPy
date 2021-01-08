@@ -1,15 +1,20 @@
-$def with (index, name, srecords, erecords)
+$def with (index, name, stype, mtype, srecords, erecords)
 
 $var title: $_('Sensor Log')
 $var page: log
 
+$ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
+$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion')]
+
 <div id="options">
     <div class="title">$_('Event Log') - ${name}</div>
 </div>
+<p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span></p>
+</br>
 
 <div id="log">
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">event.csv</a></p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">$_(u'event.csv')</a></p>
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -29,7 +34,7 @@ $var page: log
 
     <div class="title">$_('Sample Log') - ${name}</div>
     <p>$_('Total number of records'): ${len(srecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">sample.csv</a></p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">$_(u'sample.csv')</a></p>
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -43,12 +48,23 @@ $var page: log
             <tr class="log_rec ${'odd' if odd else 'even'}">
                 <td align='center'>${event["date"]}</td>
                 <td align='center'>${event["time"]}</td>
-                <td align='center'>${event["value"]}</td>
+                <td align='center'>${event["value"]}
+                $if stype == 3 or (stype == 6 and mtype == 6): 
+                    $_('%')
+                $elif stype == 5 or (stype == 6 and mtype == 0) or (stype == 6 and mtype == 1) or (stype == 6 and mtype == 2) or (stype == 6 and mtype == 3):
+                    $if options.temp_unit == 'F':
+                        &deg$_('F')
+                    $else:
+                        &deg$_('C')
+                </td>
                 <td align='center'>${event["action"]}</td>
             </tr>
             $ odd = 1 - odd
     </table>
 </div>
 
+<a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
+<a href="/sensor/${index}?graph" class="button upload"> $_(u'View Graph')</a>
 <a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
+

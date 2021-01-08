@@ -695,6 +695,11 @@ def get_help_files():
     for doc in help_files_in_directory(os.path.join('api', 'docs')):
         result.append((2, doc[0], doc[1]))
 
+    result.append((1, 'SENSORS'))
+    result.append((2, 'Readme', os.path.join('hardware_pcb', 'sensors_pcb_fw', 'README.md')))
+    for doc in help_files_in_directory(os.path.join('hardware_pcb', 'sensors_pcb_fw', 'docs')):
+        result.append((2, doc[0], doc[1]))        
+
     result.append((1, 'Plug-ins'))
     result.append((2, 'Readme', os.path.join('plugins', 'README.md')))
     from plugins import plugin_names, plugin_dir, plugin_docs_dir

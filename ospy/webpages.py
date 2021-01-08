@@ -191,21 +191,30 @@ class sensor_page(ProtectedPage):
     """Open page to allow sensor modification. /sensor """
     def GET(self, index):
         from ospy.server import session
+        import shutil
 
         qdict = web.input()
         try:
             index = int(index)
             delete = get_input(qdict, 'delete', False, lambda x: True)
             enable = get_input(qdict, 'enable', None, lambda x: x == '1')
-            log = get_input(qdict, 'logE', False, lambda x: True)      # log 
-            csvE = get_input(qdict, 'csvE', False, lambda x: True)     # event
-            csvS = get_input(qdict, 'csvS', False, lambda x: True)     # samples
+            log = get_input(qdict, 'log', False, lambda x: True)       # return web page sensor log
+            glog = get_input(qdict, 'glog', False, lambda x: True)     # return log json for graph
+            graph = get_input(qdict, 'graph', False, lambda x: True)   # return web page sensor graph
+            csvE = get_input(qdict, 'csvE', False, lambda x: True)     # return event csv file
+            csvS = get_input(qdict, 'csvS', False, lambda x: True)     # return samples csv file
             clear = get_input(qdict, 'clear', False, lambda x: True)   # clear event and samples
 
-            if delete and session['category'] == 'admin':
+            if session['category'] != 'admin':
+                raise web.seeother(u'/') 
+
+            if 'history' in qdict:
+                options.sensor_graph_histories = int(qdict['history'])
+                raise web.seeother(u'/sensor/{}?graph'.format(index))
+
+            if delete:
                 sensors.remove_sensors(index)
                 try:
-                    import shutil
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
                 except:
                     pass
@@ -215,7 +224,7 @@ class sensor_page(ProtectedPage):
                 sensors[index].enabled = enable
                 raise web.seeother(u'/sensors') 
 
-            elif log and session['category'] == 'admin':
+            elif log:
                 dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
                 try:
                     with open(dir_name_slog) as logf:
@@ -232,11 +241,65 @@ class sensor_page(ProtectedPage):
 
                 try:
                     name = sensors[index].name
-                    return self.core_render.log_sensor(index, name, slog_file, elog_file) 
+                    stype = sensors[index].sens_type
+                    mtype = sensors[index].multi_type
+                    return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
                 except:    
                     print_report('webpages.py', traceback.format_exc())
 
-            elif csvE and session['category'] == 'admin':
+            elif glog:
+                dir_name_glog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph', 'graph.json')
+                try:
+                    with open(dir_name_glog) as logf:
+                        glog_file =  json.load(logf)
+                except IOError:
+                    glog_file = []
+   
+                try:
+                    data = []
+                    epoch = datetime.date(1970, 1, 1)                                      # first date
+                    current_time  = datetime.date.today()                                  # actual date
+
+                    if options.sensor_graph_histories == 0:                                # without filtering
+                        web.header('Access-Control-Allow-Origin', '*')
+                        web.header('Content-Type', 'application/json')
+                        return json.dumps(glog_file)
+
+                    if options.sensor_graph_histories == 1:
+                        check_start  = current_time - datetime.timedelta(days=1)           # actual date - 1 day
+                    if options.sensor_graph_histories == 2:
+                        check_start  = current_time - datetime.timedelta(days=7)           # actual date - 7 day (week)
+                    if options.sensor_graph_histories == 3:
+                        check_start  = current_time - datetime.timedelta(days=30)          # actual date - 30 day (month)
+                    if options.sensor_graph_histories == 4:
+                        check_start  = current_time - datetime.timedelta(days=365)         # actual date - 365 day (year)                       
+
+                    log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
+                
+                    temp_balances = {}
+                    for key in glog_file[0]['balances']:
+                        find_key =  int(key.encode('utf8'))                                # key is in unicode ex: u'1601347000' -> find_key is int number
+                        if find_key >= log_start:                                          # timestamp interval 
+                            temp_balances[key] = glog_file[0]['balances'][key]
+                    data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances })
+
+                    web.header('Access-Control-Allow-Origin', '*')
+                    web.header('Content-Type', 'application/json')
+                    return json.dumps(data)
+                except:    
+                    #print_report('webpages.py', traceback.format_exc())
+                    pass
+
+            elif graph:
+                try:
+                    name = sensors[index].name
+                    stype = sensors[index].sens_type
+                    mtype = sensors[index].multi_type
+                    return self.core_render.graph_sensor(index, name, stype, mtype) 
+                except:    
+                    print_report('webpages.py', traceback.format_exc())                    
+
+            elif csvE:
                 dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
                 try:
                     with open(dir_name_elog) as logf:
@@ -248,14 +311,14 @@ class sensor_page(ProtectedPage):
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
-                        str(interval['event']),
+                        u'{}'.format(interval['event']),
                     ]) + '\n'
 
                 web.header('Content-Type', 'text/csv')
                 web.header('Content-Disposition', 'attachment; filename="event.csv"')
                 return data 
 
-            elif csvS and session['category'] == 'admin':
+            elif csvS:
                 dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
                 try:
                     with open(dir_name_slog) as logf:
@@ -267,21 +330,20 @@ class sensor_page(ProtectedPage):
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
-                        str(interval['value']),
-                        str(interval['action']),
+                        u'{}'.format(interval['value']),
+                        u'{}'.format(interval['action']),
                     ]) + '\n'
 
                 web.header('Content-Type', 'text/csv')
                 web.header('Content-Disposition', 'attachment; filename="sample.csv"')
                 return data   
 
-            elif clear and session['category'] == 'admin':
+            elif clear:
                 try:
-                    import shutil
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
                 except:
                     pass
-                raise web.seeother(u'/sensors')                                                                
+                raise web.seeother(u'/sensors')                                                                    
 
         except ValueError:
             pass        
@@ -1206,44 +1268,50 @@ class options_page(ProtectedPage):
 
                 for s in range(200):
                     try:
-                        if os.path.isfile(ospy_images + ('station{}.png').format(s)):          
+                        if os.path.isfile(ospy_images + ('station{}.png').format(s)): 
                             log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}.png').format(s)))
-                            os.remove(ospy_images + ('station{}.png').format(s))    
-                        if os.path.isfile(ospy_images + ('station{}_thumbnail.png').format(s)):          
+                            os.remove(ospy_images + ('station{}.png').format(s))
+                        if os.path.isfile(ospy_images + ('station{}_thumbnail.png').format(s)):
                             log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}_thumbnail.png').format(s)))
                             os.remove(ospy_images + ('station{}_thumbnail.png').format(s)) 
                     except:
-                        pass        
+                        pass
 
-                if os.path.isfile('./ssl/fullchain.pem'):          
+                if os.path.isfile('./ssl/fullchain.pem'):
                     log.debug('webpages.py', _(u'Deleting file fullchain.pem.'))
-                    os.remove('./ssl/fullchain.pem')  
+                    os.remove('./ssl/fullchain.pem')
 
-                if os.path.isfile('./ssl/privkey.pem'):          
+                if os.path.isfile('./ssl/privkey.pem'):
                     log.debug('webpages.py', _(u'Deleting file privkey.pem.'))
-                    os.remove('./ssl/privkey.pem')  
+                    os.remove('./ssl/privkey.pem')
 
-                if os.path.isfile(ospy_root + 'data/sessions.db'):          
+                if os.path.isfile(ospy_root + 'data/sessions.db'):
                     log.debug('webpages.py', _(u'Deleting file sessions.db.'))
                     os.remove(ospy_root + 'data/sessions.db') 
 
-                if os.path.isfile(ospy_root + 'backup/ospy_backup.zip'):          
+                if os.path.isfile(ospy_root + 'backup/ospy_backup.zip'):
                     log.debug('webpages.py', _(u'Deleting file ospy_backup.zip.'))
-                    os.remove(ospy_root + 'backup/ospy_backup.zip')                      
+                    os.remove(ospy_root + 'backup/ospy_backup.zip')
                 
-                if os.path.isfile(ospy_root + 'data/options.db.bak'):          
+                if os.path.isfile(ospy_root + 'data/options.db.bak'):
                     log.debug('webpages.py', _(u'Deleting file options.db.bak.'))
                     os.remove(ospy_root + 'data/options.db.bak')
 
-                if os.path.isfile(ospy_root + 'data/options.db.tmp'):          
+                if os.path.isfile(ospy_root + 'data/options.db.tmp'):
                     log.debug('webpages.py', _(u'Deleting file options.db.tmp.'))
-                    os.remove(ospy_root + 'data/options.db.tmp')   
+                    os.remove(ospy_root + 'data/options.db.tmp')
 
-                if os.path.isfile(ospy_root + 'data/options.db'):          
+                if os.path.isfile(ospy_root + 'data/options.db'):
                     log.debug('webpages.py', _(u'Deleting file options.db.'))
-                    os.remove(ospy_root + 'data/options.db')                                     
+                    os.remove(ospy_root + 'data/options.db')
 
-                if os.path.isfile(ospy_root + 'data/events.log'):          
+                try:
+                    import shutil
+                    shutil.rmtree(os.path.join(ospy_root, 'data', 'sensors'))
+                except:
+                    pass
+
+                if os.path.isfile(ospy_root + 'data/events.log'):
                     log.debug('webpages.py', _(u'Deleting file events.log.'))
                     os.remove(ospy_root + 'data/events.log')
                
@@ -1251,18 +1319,18 @@ class options_page(ProtectedPage):
                     # Use this weird construction to start a separate process that is not killed when we stop the current one
                     subprocess.Popen(['cmd.exe', '/c', 'start', sys.executable] + sys.argv)
                 else:
-                    os.execl(sys.executable, sys.executable, *sys.argv)   
+                    os.execl(sys.executable, sys.executable, *sys.argv)
 
             except:
-                print_report('webpages.py', traceback.format_exc()) 
-                raise web.seeother(u'/')   
+                print_report('webpages.py', traceback.format_exc())
+                raise web.seeother(u'/')
                   
 
         if changing_language:      
             report_restarted()
             restart()    # OSPy software
             msg = _(u'A language change has been made in the settings, the OSPy will now restart and load the selected language.')
-            return self.core_render.notice(home_page, msg)          
+            return self.core_render.notice(home_page, msg)
 
         report_option_change()
         raise web.seeother(u'/')
@@ -1346,7 +1414,7 @@ class db_unreachable_page(ProtectedPage):
         return self.core_render.notice('/download', msg)    	      
 
 class download_page(ProtectedPage):
-    """Download OSPy DB file with settings"""
+    """Download OSPy backup file with settings"""
     def GET(self):
         from ospy.server import session
         from ospy.helpers import mkdir_p, del_rw, ASCI_convert
@@ -1371,7 +1439,7 @@ class download_page(ProtectedPage):
             return filePaths                                                                  # Return all paths
 
         def _read_log(path):
-            """Read OSPy DB file"""
+            """Read file"""
             try:                
                 logf = open(path,'r')
                 return logf.read()
@@ -1381,7 +1449,7 @@ class download_page(ProtectedPage):
         try:
             ospy_root = './ospy/'
             backup_path = ospy_root + 'backup/ospy_backup.zip'                                # Where is backup zip file
-            dir_name = [ospy_root + 'data', ospy_root + 'images/stations']    
+            dir_name = [ospy_root + 'data', ospy_root + 'data/sensors', ospy_root + 'images/stations']    
             download_name = 'ospy_backup_{}_{}.zip'.format(ASCI_convert(options.name), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_systemname_4.12.2020_18-40-20.zip                         
             filePaths = []
 

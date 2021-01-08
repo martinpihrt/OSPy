@@ -415,6 +415,11 @@ class _Options(object):
             "key": "weather_status",
             "name": _('Weather status'),
             "default": 0
+        },
+        {
+            "key": "sensor_graph_histories",
+            "name": _('Graph histories'),
+            "default": 2
         }     
     ]
 

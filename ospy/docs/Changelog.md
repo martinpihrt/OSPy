@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 8 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language and translating to Slovak (Thank you Tomáš Szepesi). If a sensor is added in the sensor section, a graph and a table with records can be displayed for it (if logging was enabled in the sensor settings). Dry contact sensor and motion sensor (or multi dry contact/motion) is fully completed and tested (with sending E-mails and start running program). The temperature sensor (or multi temperature sensor - 4x DS18B20) also writes to the graph and to the log (sends an e-mail and runs the program not completely tested). Missing to finish flow and humidity measurement to sensors and implement to OSPy sensors. I'm still working on it. 
+
 Jan 3 2021
 -----------
 (martinpihrt)<br/>
