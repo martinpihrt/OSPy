@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 11 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in setup.py (TypeError: coercing to Unicode: need string or buffer...) Thank you user Zoek Mach for reporting.
+
 Jan 8 2021
 -----------
 (martinpihrt)<br/>

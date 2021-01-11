@@ -34,7 +34,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             subprocess.check_call(['easy_install', easy_install])
             done = True
         except Exception as err:
-            print_report('setup.py', _(u'Failed to use easy_install:') + err)
+            print_report('setup.py', _(u'Failed to use easy_install:') + u'{}'.format(err))
 
     if sys.platform.startswith('linux'):
         if not done and package is not None:
@@ -42,14 +42,14 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
                 subprocess.check_call('apt-get install'.split() + [package])
                 done = True
             except Exception as err:
-                print_report('setup.py', _(u'Failed to use apt-get:') + err)
+                print_report('setup.py', _(u'Failed to use apt-get:') + u'{}'.format(err))
 
         if not done and package is not None:
             try:
                 subprocess.check_call('yum install'.split() + [package])
                 done = True
             except Exception as err:
-                print_report('setup.py', _(u'Failed to use yum:') + err)
+                print_report('setup.py', _(u'Failed to use yum:') + u'{}'.format(err))
 
     if not done and git is not None and git_execs is not None:
         try:
@@ -60,7 +60,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print_report('setup.py', _(u'Failed to use git:') + err)
+            print_report('setup.py', _(u'Failed to use git:') + u'{}'.format(err))
 
     if not done and zipfile is not None and zip_cwd is not None and zip_execs is not None:
         try:
@@ -79,7 +79,7 @@ def install_package(module, easy_install=None, package=None, git=None, git_execs
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print_report('setup.py', _(u'Failed to use zip file:') + err)
+            print_report('setup.py', _(u'Failed to use zip file:') + u'{}'.format(err))
 
     if not done:
         print_report('setup.py', _(u'Failed to install %s.') % module)
