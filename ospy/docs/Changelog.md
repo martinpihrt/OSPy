@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 15 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new version of FW 1.03 for Wi-Fi/LAN sensors. Added help on how to set up sensors in to OSPy "help" tab. More on the sensor new firmware on web: https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace.
+
 Jan 11 2021
 -----------
 (martinpihrt)<br/>
