@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = 'Rimco' # add sensor version 'Martin Pihrt'
 
 # System imports
 import subprocess
 import logging
+import os
+import json
 
 ##############################
 #### Revision information ####
@@ -26,4 +28,13 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-01-15"
+    ver_date = u"2021-01-17"
+
+try:
+    esp32_file = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP32' , 'lastfw.info')
+    with open(esp32_file) as file:
+        ver_esp32 = json.load(file)
+        ver_esp32 = float(ver_esp32)/100.0
+except Exception:
+    logging.warning(_(u'Could not find ESP32 firmware version!'))
+    ver_esp32 = u"-"

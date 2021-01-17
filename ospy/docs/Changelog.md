@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 17 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix bugs in sensors pages (if programs is none). Add sensor last available ESP32 FW version info to sensors search page.
+
 Jan 15 2021
 -----------
 (martinpihrt)<br/>

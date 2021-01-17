@@ -17,15 +17,14 @@ $code:
 
     def display_time(seconds, granularity=2):
         result = []
-
+      
         for name, count in intervals:
+            name = name.encode('utf-8')
             value = seconds // count
             if value:
                 seconds -= value * count
-                if value == 1:
-                    name = name.rstrip('s')
                 result.append("{} {}".format(int(value), name))
-        return ', '.join(result[:granularity])       
+        return ', '.join(result[:granularity])
 
 <script>
 function updateFooter(){
@@ -88,52 +87,73 @@ $if sensors.count()>0:
             $if sensor.last_read_value != '':
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span> (${_(u'Contact Closed') if int(sensor.last_read_value)==1 else _(u'Contact Open')})</p>
             <p>$_(u'Open Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_low_program:
-                    $program.name 
-            </span></p>        
+            $if "-1" in sensor.trigger_low_program:
+                $_(u'None')
+            $else:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_low_program:
+                        $program.name
+            </span></p>
             <p>$_(u'Closed Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_high_program:
-                    $program.name 
-            </span></p>                 
+            $if "-1" in sensor.trigger_low_program:
+                $_(u'None') 
+            $else:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_high_program:
+                        $program.name 
+            </span></p> 
         $elif sensor.sens_type == 2:
             $if sensor.last_read_value != '':
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
             <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
             <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
             <p>$_(u'Low Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_low_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_low_program:
+                $_(u'None')
+            $else:                	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_low_program:
+                        $program.name 
             </span></p>                
             <p>$_(u'High Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_high_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_high_program:
+                $_(u'None')
+            $else:                	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_high_program:
+                        $program.name 
             </span></p>               
         $elif sensor.sens_type == 3:
             $if sensor.last_read_value != '':
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)} $_(u'%')</span></p>
             <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'%')</span></p>
             <p>$_(u'Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_low_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_low_program:
+                $_(u'None')
+            $else:            	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_low_program:
+                        $program.name 
             </span></p>                
             <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_(u'%')</span></p>
             <p>$_(u'Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_high_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_high_program:
+                $_(u'None')
+            $else:            	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_high_program:
+                        $program.name 
             </span></p>                
         $elif sensor.sens_type == 4:
             $if sensor.last_read_value != '':
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span> (${_(u'Motion Detected') if int(sensor.last_read_value)==1 else _(u'No Motion')})</p>
             <p>$_(u'Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_high_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_high_program:
+                $_(u'None')
+            $else:            	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_high_program:
+                        $program.name 
             </span></p>              
         $elif sensor.sens_type == 5:
             $if sensor.last_read_value != '':
@@ -150,9 +170,12 @@ $if sensors.count()>0:
                 &degC
             </span></p>
             <p>$_(u'Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_low_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_low_program:
+                $_(u'None')
+            $else:            	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_low_program:
+                        $program.name 
             </span></p>                
             <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}
             $if options.temp_unit == 'F':
@@ -161,9 +184,12 @@ $if sensors.count()>0:
                 &degC
             </span></p>
             <p>$_(u'Program(s)'): <span class="val">
-            $for program in programs.get():
-                $if str(program.index+1) in sensor.trigger_high_program:
-                    $program.name 
+            $if "-1" in sensor.trigger_high_program:
+                $_(u'None')
+            $else:            	
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.trigger_high_program:
+                        $program.name 
             </span></p>   
         $elif sensor.sens_type == 6:
             $if sensor.multi_type >= 0 and sensor.multi_type <4:
@@ -181,9 +207,12 @@ $if sensors.count()>0:
                     &degC
                 </span></p>
                 <p>$_(u'Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_low_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_low_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_low_program:
+                            $program.name 
                 </span></p>                
                 <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}
                 $if options.temp_unit == 'F':
@@ -192,22 +221,31 @@ $if sensors.count()>0:
                     &degC
                 </span></p>
                 <p>$_(u'Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_high_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_high_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_high_program:
+                            $program.name 
                 </span></p>        
             $elif sensor.multi_type == 4:
                 $if sensor.last_read_value != '':
                     <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}</span> (${_(u'Contact Closed') if int(sensor.last_read_value[4])==1 else _(u'Contact Open')})</p>
                 <p>$_(u'Open Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_low_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_low_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_low_program:
+                            $program.name 
                 </span></p>        
                 <p>$_(u'Closed Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_high_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_high_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_high_program:
+                            $program.name 
                 </span></p>
             $elif sensor.multi_type == 5:
                 $if sensor.last_read_value != '':
@@ -215,37 +253,52 @@ $if sensors.count()>0:
                 <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
                 <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
                 <p>$_(u'Low Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_low_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_low_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_low_program:
+                            $program.name 
                 </span></p>
                 <p>$_(u'High Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_high_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_high_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_high_program:
+                            $program.name 
                 </span></p> 
             $elif sensor.multi_type == 6:
                 $if sensor.last_read_value != '':
                     <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[6])} $_(u'%')</span></p>
                 <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'%')</span></p>
                 <p>$_(u'Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_low_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_low_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_low_program:
+                            $program.name 
                 </span></p>
                 <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_(u'%')</span></p>
                 <p>$_(u'Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_high_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_high_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_high_program:
+                            $program.name 
                 </span></p>
             $elif sensor.multi_type == 7:
                 $if sensor.last_read_value != '':
                     <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])}</span> (${_(u'Motion Detected') if int(sensor.last_read_value[7])==1 else _(u'No Motion')})</p>
                 <p>$_(u'Program(s)'): <span class="val">
-                $for program in programs.get():
-                    $if str(program.index+1) in sensor.trigger_high_program:
-                        $program.name 
+                $if "-1" in sensor.trigger_high_program:
+                    $_(u'None')
+                $else:                	
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.trigger_high_program:
+                            $program.name 
                 </span></p>
     
         $if sensor.com_type == 0:

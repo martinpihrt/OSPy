@@ -242,13 +242,13 @@ jQuery(document).ready(function(){
             <div class='option' id="dry_contact" style="display: none;">
                 <p><span class="program_label">$_('Open Program(s)'):</span>
                 <select name="AL" id="AL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option> 
                 </select></p><br/>
                 <p><span class="program_label">$_('Closed Program(s)'):</span>
                 <select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></p><br/>  
@@ -262,13 +262,13 @@ jQuery(document).ready(function(){
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_(u'Enter sensitivity for sensor.'), ensure_ascii=False)}> %</p><br/>
                 <p><span class="program_label">$_('Low Program(s)'):</span>
                 <select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>                    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>                    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select></p><br/> 
                 <p><span class="program_label">$_('High Program(s)'):</span>
                 <select name="BH" id="BH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></p><br/>                                  
@@ -277,7 +277,7 @@ jQuery(document).ready(function(){
             <div class='option' id="motion" style="display: none;">
                 <p><span class="program_label">$_('Program(s)'):</span>
                 <select name="CH" id="CH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></p><br/>              
@@ -295,7 +295,7 @@ jQuery(document).ready(function(){
                 </p><br/>
                 <p><span class="program_label">$_('Low Program(s)'):</span>
                 <select name="DL" id="DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_low_program) else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select></p><br/>
@@ -310,7 +310,7 @@ jQuery(document).ready(function(){
                 </p><br/>                 
                 <p><span class="program_label">$_('High Program(s)'):</span>
                 <select name="DH" id="DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="0" ${" selected" if not len(sensor.trigger_high_program) else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></p><br/>

@@ -34,18 +34,18 @@ class _Sensor(object):
         self.multi_type = 0             # selector multi type 0-7: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
-        self.last_log_samples = 0       # last log samples millis
+        self.last_log_samples = now()   # last log samples millis
         self.log_event = 0              # log event
         self.send_email  = 0            # send e-mail  
         self.sample_rate = 60           # sample rate 
         self.last_read_value = ""       # last read value (actual)
-        self.prev_read_value = ""       # prev read value
+        self.prev_read_value = "-"      # prev read value
         self.sensitivity = 0            # sensitivity
-        self.stabilization_time = 0     # stabilization time
-        self.trigger_low_program = []   # open program
-        self.trigger_high_program = []  # close Program
-        self.trigger_low_threshold = "" # low threshold
-        self.trigger_high_threshold = ""# high threshold
+        self.stabilization_time = 5     # stabilization time
+        self.trigger_low_program = ["-1"] # open program (-1 is default none program)
+        self.trigger_high_program = ["-1"]# close Program
+        self.trigger_low_threshold = "10" # low threshold
+        self.trigger_high_threshold = "30"# high threshold
         self.ip_address = [0,0,0,0]     # ip address for sensor 
         self.mac_address = ""           # mac address for sensor
         self.last_battery = ""          # battery voltage  
@@ -53,7 +53,7 @@ class _Sensor(object):
         self.radio_id = 0               # radio id
         self.response = 0               # response 0 = offline, 1 = online
         self.fw = 0                     # sensor firmware (ex: 100 is 1.00)
-        self.last_response = now()      # last response (last now time when the sensor sent data)
+        self.last_response = 0          # last response (last now time when the sensor sent data)
         self.last_low_report = now()    # now in moisture, temperature
         self.last_good_report = now()   # now in moisture, temperature
         self.last_high_report = 0       # now in moisture, temperature
@@ -242,8 +242,11 @@ class _Sensors_Timer(Thread):
 
             if len(program_list) > 0:
                 for p in program_list:
+                    if int(p) == -1:
+                        return
                     index = int(p)-1
                     logging.debug(_(u'The sensor tries to start the {} (id: {})').format(programs[index].name, p))
+                    programs.run_now_program = None                                                                  
                     programs.run_now(index)
                     Timer(0.1, programs.calculate_balances).start()
                     self.update_log(sensor, 'lge', _(u'Starting {}').format(programs[index].name))    
