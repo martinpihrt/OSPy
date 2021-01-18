@@ -442,7 +442,7 @@ class _Sensors_Timer(Thread):
                         action = _(u'High Trigger') if major_change else _(u'High Value')
                         if status_update:
                             self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                            text = ' ' + _(u'triggered with reading {}').format(state)
+                            text = ' ' + _(u'Triggered, Value {}').format(state)
                             self.start_status(sensor.name, text) 
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_high_program)                             
@@ -453,7 +453,7 @@ class _Sensors_Timer(Thread):
                         action = _(u'Low Trigger') if major_change else _(u'Low Value')
                         if status_update:
                             self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                            text = ' ' + _(u'triggered with reading {}').format(state)
+                            text = ' ' + _(u'Triggered, Value {}').format(state)
                             self.start_status(sensor.name, text) 
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_low_program)                              
@@ -464,7 +464,7 @@ class _Sensors_Timer(Thread):
                             action = _(u'Normal Trigger') if major_change else _(u'Normal Value')
                             if status_update:
                                 self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                                text = ' ' + _(u'back in normal range with reading {}').format(state)
+                                text = ' ' + _(u'Back in normal range, Value {}').format(state)
                                 self.start_status(sensor.name, text)       
 
                     if major_change:                       

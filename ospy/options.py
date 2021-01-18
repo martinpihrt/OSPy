@@ -191,7 +191,7 @@ class _Options(object):
             "default": "",
             "help": _('AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor.)'),
             "category": _('Sensors')
-        },                        
+        },
         #######################################################################
         # Station Handling ####################################################
         {

@@ -28,7 +28,7 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-01-17"
+    ver_date = u"2021-01-19"
 
 try:
     esp32_file = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP32' , 'lastfw.info')
@@ -38,3 +38,12 @@ try:
 except Exception:
     logging.warning(_(u'Could not find ESP32 firmware version!'))
     ver_esp32 = u"-"
+
+try:
+    esp8266_file = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP8266' , 'lastfw.info')
+    with open(esp8266_file) as file:
+        ver_esp8266 = json.load(file)
+        ver_esp8266 = float(ver_esp8266)/100.0
+except Exception:
+    logging.warning(_(u'Could not find ESP8266 firmware version!'))
+    ver_esp8266 = u"-"    

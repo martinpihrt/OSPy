@@ -115,7 +115,22 @@ jQuery(document).ready(function(){
         <input type="hidden" id="comtype" name="com_type" value="">
         <input type="hidden" id="senscode" name="senscode" value="">
     </form>
-    <p>$_(u'Actual available firmware version for ESP32 sensors is') $_(u'FW:')${version.ver_esp32}</p>
+    <p>$_(u'Actual available firmware version for ESP32 sensors') 
+    $if version.ver_esp32 != "-":
+        <b>$_(u'FW:')${version.ver_esp32}</b>
+        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp32_fw${version.ver_esp32}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
+        </a>
+    $else:
+        <b>$_('Not available')</b>    
+    </p>
+    <p>$_(u'Actual available firmware version for ESP8266 sensors')
+    $if version.ver_esp8266 != "-":  
+        <b>$_(u'FW:')${version.ver_esp8266}</b>
+        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp8266_fw${version.ver_esp8266}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
+        </a>
+    $else:
+        <b>$_('Not available')</b>        
+    </p>    
 </div>
 
 <div id="controls">
