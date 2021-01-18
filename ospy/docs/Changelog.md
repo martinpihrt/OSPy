@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jan 18 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add directory for sensors with ESP8266 chip, add download button fw to sensor search page. Updating Czech and Slovak languages.
+
 Jan 17 2021
 -----------
 (martinpihrt)<br/>
