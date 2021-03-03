@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 03 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Error correction in sensors. if the user has already added a sensor (for example a multi sensor) and then added another input from the same sensor, then a problem has occurred if the sensor type has been selected incorrectly. Updating Slovak language (Thank you Tomáš Szepesi). More information about sensors here: https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace.
+
 Jan 18 2021
 -----------
 (martinpihrt)<br/>

@@ -28,7 +28,7 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-01-19"
+    ver_date = u"2021-03-03"
 
 try:
     esp32_file = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP32' , 'lastfw.info')

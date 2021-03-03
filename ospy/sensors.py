@@ -339,22 +339,42 @@ class _Sensors_Timer(Thread):
                 if sensor.response:                                           # sensor is enabled and response is OK  
                     state = -1
                     if   sensor.sens_type == 1:
-                        state =  int(sensor.last_read_value)                  # type is Dry Contact 
+                        try:
+                            state =  int(sensor.last_read_value)              # type is Dry Contact 
+                        except:
+                            sensor.last_read_value = -127
+                            state =  int(sensor.last_read_value) 
+                            pass   
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
                             changed_state = True  
                     elif sensor.sens_type == 4: 
-                        state =  int(sensor.last_read_value)                  # type is Motion
+                        try:
+                            state =  int(sensor.last_read_value)              # type is Motion
+                        except:
+                            sensor.last_read_value = -127
+                            state =  int(sensor.last_read_value) 
+                            pass                             
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
                             changed_state = True                         
                     elif sensor.sens_type == 6 and sensor.multi_type == 4:      
-                        state =  int(sensor.last_read_value[4])               # multi Dry Contact
+                        try:
+                            state =  int(sensor.last_read_value[4])           # multi Dry Contact
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  int(sensor.last_read_value[4])
+                            pass                              
                         if sensor.last_read_value[4] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[4]
                             changed_state = True                         
-                    elif sensor.sens_type == 6 and sensor.multi_type == 7:    
-                        state =  int(sensor.last_read_value[7])               # multi Motion 
+                    elif sensor.sens_type == 6 and sensor.multi_type == 7:  
+                        try:  
+                            state =  int(sensor.last_read_value[7])           # multi Motion 
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  int(sensor.last_read_value[7]) 
+                            pass                             
                         if sensor.last_read_value[7] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[7]
                             changed_state = True                         
@@ -415,19 +435,54 @@ class _Sensors_Timer(Thread):
                 if sensor.response:                                           # sensor is enabled and response is OK  
                     state = -1.0
                     if   sensor.sens_type == 3:
-                        state =  float(sensor.last_read_value)                  # type is Moisture      
+                        try:
+                            state =  float(sensor.last_read_value)              # type is Moisture      
+                        except:
+                            sensor.last_read_value = -127
+                            state =  float(sensor.last_read_value) 
+                            pass                             
                     elif sensor.sens_type == 5: 
-                        state =  float(sensor.last_read_value)                  # type is Temperature                                         
+                        try:
+                            state =  float(sensor.last_read_value)              # type is Temperature                                         
+                        except:
+                            sensor.last_read_value = -127
+                            state =  float(sensor.last_read_value) 
+                            pass                              
                     elif sensor.sens_type == 6 and sensor.multi_type == 0:    
-                        state =  float(sensor.last_read_value[0])               # multi Temperature DS1  
+                        try:
+                            state =  float(sensor.last_read_value[0])           # multi Temperature DS1  
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  float(sensor.last_read_value[0]) 
+                            pass                             
                     elif sensor.sens_type == 6 and sensor.multi_type == 1:    
-                        state =  float(sensor.last_read_value[1])               # multi Temperature DS2 
-                    elif sensor.sens_type == 6 and sensor.multi_type == 2:    
-                        state =  float(sensor.last_read_value[2])               # multi Temperature DS3         
-                    elif sensor.sens_type == 6 and sensor.multi_type == 3:    
-                        state =  float(sensor.last_read_value[3])               # multi Temperature DS4 
-                    elif sensor.sens_type == 6 and sensor.multi_type == 6:      
-                        state =  float(sensor.last_read_value[6])               # multi Moisture                                                          
+                        try:
+                            state =  float(sensor.last_read_value[1])          # multi Temperature DS2 
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  float(sensor.last_read_value[1]) 
+                            pass                             
+                    elif sensor.sens_type == 6 and sensor.multi_type == 2:  
+                        try:  
+                            state =  float(sensor.last_read_value[2])          # multi Temperature DS3         
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  float(sensor.last_read_value[2]) 
+                            pass                             
+                    elif sensor.sens_type == 6 and sensor.multi_type == 3:   
+                        try: 
+                            state =  float(sensor.last_read_value[3])          # multi Temperature DS4 
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  float(sensor.last_read_value[3]) 
+                            pass                             
+                    elif sensor.sens_type == 6 and sensor.multi_type == 6:   
+                        try:                       
+                            state =  float(sensor.last_read_value[6])          # multi Moisture                                                          
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  float(sensor.last_read_value[6]) 
+                            pass                             
 
                     if state != sensor.prev_read_value:
                        sensor.prev_read_value = state
@@ -488,12 +543,22 @@ class _Sensors_Timer(Thread):
                 if sensor.response:                                           # sensor is enabled and response is OK  
                     state = -1
                     if   sensor.sens_type == 2:
-                        state =  int(sensor.last_read_value)                  # type is Leak Detector 
+                        try:
+                            state =  int(sensor.last_read_value)              # type is Leak Detector 
+                        except:
+                            sensor.last_read_value = -127
+                            state =  int(sensor.last_read_value) 
+                            pass                              
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
                             changed_state = True                      
-                    elif sensor.sens_type == 6 and sensor.multi_type == 5:      
-                        state =  int(sensor.last_read_value[5])               # multi Leak Detector
+                    elif sensor.sens_type == 6 and sensor.multi_type == 5:
+                        try:      
+                            state =  int(sensor.last_read_value[5])           # multi Leak Detector
+                        except:
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            state =  int(sensor.last_read_value[5]) 
+                            pass                              
                         if sensor.last_read_value[5] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[5]
                             changed_state = True
