@@ -64,10 +64,17 @@ class _Options(object):
         {
             "key": "show_plugin_data",
             "name": _('Show plugins on home'),
-            "default": False,
+            "default": True,
             "help": _('Show data from plugins on home page.'),
             "category": _('System')
         },
+        {
+            "key": "show_sensor_data",
+            "name": _('Show sensors on home'),
+            "default": True,
+            "help": _('Show data from sensors on home page.'),
+            "category": _('System')
+        },        
         {
             "key": "show_images",
             "name": _('Show pictures at stations'),

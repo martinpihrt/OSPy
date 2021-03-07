@@ -25,7 +25,7 @@ from ospy import scheduler
 import plugins
 from blinker import signal
 from ospy.users import users
-from ospy.sensors import sensors
+from ospy.sensors import sensors, sensors_timer
 
 plugin_data = {}  # Empty dictionary to hold plugin based global data
 pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
@@ -174,6 +174,8 @@ class sensors_page(ProtectedPage):
           
         if delete_all:
             while sensors.count() > 0:
+                sensor = sensors.get(sensors.count()-1)
+                sensors_timer.stop_status(sensor.name)
                 sensors.remove_sensors(sensors.count()-1)
             try:
                 import shutil
@@ -196,6 +198,7 @@ class sensor_page(ProtectedPage):
         qdict = web.input()
         try:
             index = int(index)
+            
             delete = get_input(qdict, 'delete', False, lambda x: True)
             enable = get_input(qdict, 'enable', None, lambda x: x == '1')
             log = get_input(qdict, 'log', False, lambda x: True)       # return web page sensor log
@@ -214,6 +217,9 @@ class sensor_page(ProtectedPage):
 
             if delete:
                 sensors.remove_sensors(index)
+                sensor = sensors.get(index)
+                sensors_timer.stop_status(sensor.name)
+   
                 try:
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
                 except:
@@ -1884,15 +1890,21 @@ class api_plugin_data(ProtectedPage):
     def GET(self):
         footer_data = []
         station_data = []
+        sensor_data = []
         data = {}
+
         if options.show_plugin_data:
-            for i, v in enumerate(pluginFtr):
+            for i, v in enumerate(pluginFtr): 
                 footer_data.append((i, v[u"val"]))          
             for v in pluginStn:
                 station_data.append((v[1]))
 
+        if options.show_sensor_data:  
+            sensor_data = sensors_timer.read_status()
+
         data["fdata"] = footer_data
         data["sdata"] = station_data
+        data["sendata"] = sensor_data
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)

@@ -368,6 +368,13 @@ function dataTimer() {
             let parID = 'piData'  + piVals.fdata[i][0]
             jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[i][1])
         } 
+        
+        for(i = 0; i < piVals.sendata.length; i++) { // we update all data from sensors
+            let parID = 'seData'  + piVals.sendata[i][2]
+            jQuery('p#'+parID ).find('span[name="label"]').text(' '+piVals.sendata[i][0]+': ')
+            jQuery('p#'+parID ).find('span[name="val"]').text(piVals.sendata[i][1])
+            jQuery('p#'+parID ).find('span[name="aref"]').html('<a href="/sensor/'+piVals.sendata[i][2]+'?log" class="button upload">&nbsp;&nbsp;&#9210;&nbsp;&nbsp;</a>')
+        }         
     }) 
     setTimeout(dataTimer, 3000);
 } 
@@ -487,12 +494,18 @@ jQuery(document).ready(function(){
         setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
     }    
 
-    $if (options.show_plugin_data and pluginFtr):
-        $for i, d in enumerate(pluginFtr):
-            $if (pluginFtr[i]["button"] != '-'):
-                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&#9210;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
-            $else:
-                jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');  
+    $if (options.show_plugin_data and pluginFtr or options.show_sensor_data):
+        $if (options.show_plugin_data):
+            $for i, d in enumerate(pluginFtr):
+                $if (pluginFtr[i]["button"] != '-'):
+                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><a href="/plugins/${pluginFtr[i]["button"]}" class="button upload">&nbsp;&nbsp;&#9210;&nbsp;&nbsp;</a>&nbsp;<span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>');
+                $else:
+                    jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>'); 
+
+        $if (options.show_sensor_data):
+            $for i in range(sensors_timer.len_status()):
+                jQuery("#sensorPars").append('<p id="${"seData" + str(i)}"><span name="aref"></span><span name="label"></span><span name="val"></span></p>');
+                         
 
         dataTimer();    // data timer for footer plugins data
  
@@ -676,9 +689,12 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False)}>$_('Clear selection')</button>
     </div>
 
-$if options.show_plugin_data:  
-    <div id="graph-container" class="graph-container">             
-        <div class="piDatFooter" id="pluginPars"></div>
+$if options.show_plugin_data or options.show_sensor_data:  
+    <div id="graph-container" class="graph-container">
+        $if options.show_plugin_data:             
+            <div class="piDatFooter" id="pluginPars"></div>
+        $if options.show_sensor_data:
+            <div class="piDatFooter" id="sensorPars"></div>    
               
     $if options.use_weather:
         $if options.weather_status == 0: 

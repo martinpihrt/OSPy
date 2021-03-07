@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 07 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+The item "display data from sensors on the home page) has been added to the OSPy settings and to the sensors themselves. Fixed several errors. Translation of new strings into Czech. Added HW1.00 ESP32 sensor to: https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32.
+
 Mar 03 2021
 -----------
 (martinpihrt)<br/>

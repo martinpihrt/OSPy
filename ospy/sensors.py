@@ -57,6 +57,7 @@ class _Sensor(object):
         self.last_low_report = now()    # now in moisture, temperature
         self.last_good_report = now()   # now in moisture, temperature
         self.last_high_report = 0       # now in moisture, temperature
+        self.show_in_footer = 1         # show sensor data in footer on home page        
 
         options.load(self, index) 
 
@@ -156,24 +157,32 @@ sensors = _Sensors()
 class _Sensors_Timer(Thread):
     def __init__(self):
         super(_Sensors_Timer, self).__init__()
-        self.status = {}
+        self.status = []
         self._sleep_time = 0
-        self.daemon = True                                                                      
+        self.daemon = True
     
-    def add_status(self, id, msg):
-        if id in self.status:
-            self.status[id] += '\n' + msg
-        else:
-            self.status[id] = msg
+    def start_status(self, name, msg, btn):
+        try:
+            for i in range(0, self.len_status()-1):
+                if name in self.status[i]:
+                    del self.status[i]
+            self.status.append((name, msg, btn))
+        except:
+            pass    
+           
+    def stop_status(self, name):
+        try: 
+            for i in range(0, self.len_status()):
+                if name in self.status[i]:
+                    del self.status[i] #self.status.pop(i)
+        except:
+            pass            
 
-    def start_status(self, id, msg):
-        if id in self.status:
-            del self.status[id]
-        self.add_status(id, msg)
+    def read_status(self):
+        return self.status
 
-    def stop_status(self, id):
-        if id in self.status:
-            del self.status[id]        
+    def len_status(self):
+        return int(len(self.status))   
 
     def update(self):
         self._sleep_time = 0
@@ -332,7 +341,7 @@ class _Sensors_Timer(Thread):
             if sensor.sens_type == 0:
                 return   
 
-            changed_state = False    
+            changed_state = False   
 
             ### Dry Contact, Motion, Multi Dry Contact, Multi Motion ###
             if sensor.sens_type == 1 or sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 4) or (sensor.sens_type == 6 and sensor.multi_type == 7):
@@ -341,9 +350,17 @@ class _Sensors_Timer(Thread):
                     if   sensor.sens_type == 1:
                         try:
                             state =  int(sensor.last_read_value)              # type is Dry Contact 
+                            if state == 1:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Closed Contact'), sensor.index)
+                            if state == 0:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Open Contact'), sensor.index)                                    
                         except:
                             sensor.last_read_value = -127
-                            state =  int(sensor.last_read_value) 
+                            state =  int(sensor.last_read_value)
+                            if sensor.show_in_footer:                                        
+                                self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index) 
                             pass   
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
@@ -351,9 +368,17 @@ class _Sensors_Timer(Thread):
                     elif sensor.sens_type == 4: 
                         try:
                             state =  int(sensor.last_read_value)              # type is Motion
+                            if state == 1:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Motion Detected'), sensor.index)
+                            if state == 0:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'No Motion'), sensor.index)                             
                         except:
                             sensor.last_read_value = -127
-                            state =  int(sensor.last_read_value) 
+                            state =  int(sensor.last_read_value)
+                            if sensor.show_in_footer:                                        
+                                self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index)                            
                             pass                             
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
@@ -361,9 +386,17 @@ class _Sensors_Timer(Thread):
                     elif sensor.sens_type == 6 and sensor.multi_type == 4:      
                         try:
                             state =  int(sensor.last_read_value[4])           # multi Dry Contact
+                            if state == 1:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Closed Contact'), sensor.index)
+                            if state == 0:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Open Contact'), sensor.index)                            
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  int(sensor.last_read_value[4])
+                            if sensor.show_in_footer:                                        
+                                self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index)                            
                             pass                              
                         if sensor.last_read_value[4] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[4]
@@ -371,13 +404,21 @@ class _Sensors_Timer(Thread):
                     elif sensor.sens_type == 6 and sensor.multi_type == 7:  
                         try:  
                             state =  int(sensor.last_read_value[7])           # multi Motion 
+                            if state == 1:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'Motion Detected'), sensor.index)
+                            if state == 0:
+                                if sensor.show_in_footer:                                        
+                                    self.start_status(sensor.name, _(u'No Motion'), sensor.index)                             
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
-                            state =  int(sensor.last_read_value[7]) 
+                            state =  int(sensor.last_read_value[7])
+                            if sensor.show_in_footer:                                        
+                                self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index)
                             pass                             
                         if sensor.last_read_value[7] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[7]
-                            changed_state = True                         
+                            changed_state = True                                
                                                  
                     if state == 1  and changed_state:                                                    # is closed 
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact 
@@ -388,7 +429,8 @@ class _Sensors_Timer(Thread):
                                 self.update_log(sensor, 'lge', _(u'Closed Contact'))                     # lge is event, lgs is samples
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
-                            self._trigger_programs(sensor, sensor.trigger_high_program)    
+                            self._trigger_programs(sensor, sensor.trigger_high_program) 
+ 
                         else:                                                                            # Motion or multi Motion 
                             text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'Motion Detected'))
                             subj = _(u'Sensor Read Success')
@@ -397,8 +439,7 @@ class _Sensors_Timer(Thread):
                                 self.update_log(sensor, 'lge', _(u'Motion Detected')) 
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)  
-                            self._trigger_programs(sensor, sensor.trigger_high_program)                                     
-                        self.start_status(sensor.name, text)
+                            self._trigger_programs(sensor, sensor.trigger_high_program) 
 
                     elif state == 0  and changed_state:                                                  # is open
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
@@ -409,7 +450,8 @@ class _Sensors_Timer(Thread):
                                 self.update_log(sensor, 'lge', _(u'Open Contact'))
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
-                            self._trigger_programs(sensor, sensor.trigger_low_program)                                       
+                            self._trigger_programs(sensor, sensor.trigger_low_program) 
+
                         else:                                                                            # Motion or multi Motion
                             text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'No Motion'))
                             subj = _(u'Sensor Read Success')
@@ -417,8 +459,7 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:                                                         # sensor is enabled and enabled log           
                                 self.update_log(sensor, 'lge', _(u'No Motion'))
                             if sensor.send_email:
-                                self._try_send_mail(body, text, attachment=None, subject=subj)                                     
-                        self.start_status(sensor.name, text)  
+                                self._try_send_mail(body, text, attachment=None, subject=subj)  
 
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
@@ -426,7 +467,9 @@ class _Sensors_Timer(Thread):
                             self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples 
 
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))              
+                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)              
 
             ### Moisture, Temperature, Multi Moisture, Multi Temperature ###
             if sensor.sens_type == 3 or sensor.sens_type == 5 or (sensor.sens_type == 6 and sensor.multi_type == 0) or \
@@ -440,49 +483,94 @@ class _Sensors_Timer(Thread):
                         except:
                             sensor.last_read_value = -127
                             state =  float(sensor.last_read_value) 
-                            pass                             
+                            pass
+                        if sensor.show_in_footer: 
+                            if state == -127:
+                                self.start_status(sensor.name, _(u'Moisture probe fault?'), sensor.index)
+                            else:                                       
+                                self.start_status(sensor.name, _(u'Moisture {}%').format(state), sensor.index)                                 
                     elif sensor.sens_type == 5: 
                         try:
                             state =  float(sensor.last_read_value)              # type is Temperature                                         
                         except:
                             sensor.last_read_value = -127
                             state =  float(sensor.last_read_value) 
-                            pass                              
+                            pass  
+                        if sensor.show_in_footer: 
+                            if state == -127:
+                                self.start_status(sensor.name, _(u'Temperature probe fault?'), sensor.index)
+                            else:  
+                                if options.temp_unit == 'C':                                     
+                                    self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2103' % state, sensor.index)
+                                else:
+                                    self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2109' % state, sensor.index)                                                            
                     elif sensor.sens_type == 6 and sensor.multi_type == 0:    
                         try:
                             state =  float(sensor.last_read_value[0])           # multi Temperature DS1  
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[0]) 
-                            pass                             
+                            pass                     
+                        if state == -127:
+                            self.start_status(sensor.name, _(u'Temperature probe fault?'), sensor.index)
+                        else:  
+                            if options.temp_unit == 'C':                                     
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2103' % state, sensor.index)
+                            else:
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2109' % state, sensor.index)                                    
                     elif sensor.sens_type == 6 and sensor.multi_type == 1:    
                         try:
                             state =  float(sensor.last_read_value[1])          # multi Temperature DS2 
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[1]) 
-                            pass                             
+                            pass  
+                        if state == -127:
+                            self.start_status(sensor.name, _(u'Temperature probe fault?'), sensor.index)
+                        else:  
+                            if options.temp_unit == 'C':                                     
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2103' % state, sensor.index)
+                            else:
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2109' % state, sensor.index)                                                       
                     elif sensor.sens_type == 6 and sensor.multi_type == 2:  
                         try:  
                             state =  float(sensor.last_read_value[2])          # multi Temperature DS3         
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[2]) 
-                            pass                             
+                            pass     
+                        if state == -127:
+                            self.start_status(sensor.name, _(u'Temperature probe fault?'), sensor.index)
+                        else:  
+                            if options.temp_unit == 'C':                                     
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2103' % state, sensor.index)
+                            else:
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2109' % state, sensor.index)                                                    
                     elif sensor.sens_type == 6 and sensor.multi_type == 3:   
                         try: 
                             state =  float(sensor.last_read_value[3])          # multi Temperature DS4 
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[3]) 
-                            pass                             
+                            pass  
+                        if state == -127:
+                            self.start_status(sensor.name, _(u'Temperature probe fault?'), sensor.index)
+                        else:  
+                            if options.temp_unit == 'C':                                     
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2103' % state, sensor.index)
+                            else:
+                                self.start_status(sensor.name, _(u'Temperature') + u' %.1f \u2109' % state, sensor.index)                                                       
                     elif sensor.sens_type == 6 and sensor.multi_type == 6:   
                         try:                       
                             state =  float(sensor.last_read_value[6])          # multi Moisture                                                          
                         except:
                             sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[6]) 
-                            pass                             
+                            pass  
+                        if state == -127:
+                            self.start_status(sensor.name, _(u'Moisture probe fault?'), sensor.index)
+                        else:  
+                            self.start_status(sensor.name, _(u'Moisture {}%').format(state), sensor.index)                                                     
 
                     if state != sensor.prev_read_value:
                        sensor.prev_read_value = state
@@ -497,8 +585,6 @@ class _Sensors_Timer(Thread):
                         action = _(u'High Trigger') if major_change else _(u'High Value')
                         if status_update:
                             self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                            text = ' ' + _(u'Triggered, Value {}').format(state)
-                            self.start_status(sensor.name, text) 
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_high_program)                             
 
@@ -508,8 +594,6 @@ class _Sensors_Timer(Thread):
                         action = _(u'Low Trigger') if major_change else _(u'Low Value')
                         if status_update:
                             self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                            text = ' ' + _(u'Triggered, Value {}').format(state)
-                            self.start_status(sensor.name, text) 
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_low_program)                              
                     else:
@@ -518,57 +602,68 @@ class _Sensors_Timer(Thread):
                             sensor.last_good_report = now()
                             action = _(u'Normal Trigger') if major_change else _(u'Normal Value')
                             if status_update:
-                                self.update_log(sensor, 'lgs', state, action)              # wait for reading to be updated
-                                text = ' ' + _(u'Back in normal range, Value {}').format(state)
-                                self.start_status(sensor.name, text)       
+                                self.update_log(sensor, 'lgs', state, action)          # wait for reading to be updated     
 
                     if major_change:                       
-                        self.update_log(sensor, 'lge', self.status[sensor.name])
+                        self.update_log(sensor, 'lge', self.status[sensor.index][1])
                         if sensor.send_email:
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, self.status[sensor.name])
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, self.status[sensor.index][1])
                             subj = _(u'Sensor Change')
-                            body = _(u'Sensor Change') + u': {} ({})'.format(sensor.name,  self.status[sensor.name]) 
+                            body = _(u'Sensor Change') + u': {} ({})'.format(sensor.name,  self.status[sensor.index][1])
                             self._try_send_mail(body, text, attachment=None, subject=subj)                                                     
 
-                    if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
+                    if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples   
+                            self.update_log(sensor, 'lgs', state)                      # lge is event, lgs is samples   
 
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))             
+                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    self.start_status(sensor.name, _(u'Not response!'), sensor.index)              
 
             ### Leak Detector, Multi Leak Detector ###
             if sensor.sens_type == 2 or (sensor.sens_type == 6 and sensor.multi_type == 5): 
                 if sensor.response:                                           # sensor is enabled and response is OK  
-                    state = -1
+                    state = -1.0
                     if   sensor.sens_type == 2:
                         try:
-                            state =  int(sensor.last_read_value)              # type is Leak Detector 
+                            state =  float(sensor.last_read_value)            # type is Leak Detector 
+                            if sensor.show_in_footer:
+                                self.start_status(sensor.name, _(u'Leak {}l/s').format(state), sensor.index) 
                         except:
-                            sensor.last_read_value = -127
-                            state =  int(sensor.last_read_value) 
-                            pass                              
+                            sensor.last_read_value = -127.0
+                            state =  float(sensor.last_read_value) 
+                            if sensor.show_in_footer: 
+                                self.start_status(sensor.name, _(u'Leak probe fault?'), sensor.index)
+                            pass  
                         if sensor.last_read_value != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value
                             changed_state = True                      
                     elif sensor.sens_type == 6 and sensor.multi_type == 5:
                         try:      
-                            state =  int(sensor.last_read_value[5])           # multi Leak Detector
+                            state =  float(sensor.last_read_value[5])           # multi Leak Detector
+                            if sensor.show_in_footer:
+                                self.start_status(sensor.name, _(u'Leak {}l/s').format(state), sensor.index)                            
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
-                            state =  int(sensor.last_read_value[5]) 
+                            sensor.last_read_value = [-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0]
+                            state =  float(sensor.last_read_value[5]) 
+                            if sensor.show_in_footer: 
+                                self.start_status(sensor.name, _(u'Leak probe fault?'), sensor.index)                            
                             pass                              
                         if sensor.last_read_value[5] != sensor.prev_read_value:    
                             sensor.prev_read_value = sensor.last_read_value[5]
                             changed_state = True
 
-# todo reaction Leak Detector(run progams and send email and log lge)
+# todo reaction Leak Detector(run progams and send email and log lge, add to status)
 
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples                                                                                   
+                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples 
+                else:
+                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)                                                                                                              
                            
 
     def run(self):
@@ -577,6 +672,7 @@ class _Sensors_Timer(Thread):
             try:
                 self.check_sensors()
                 self._sleep(1)
+                #print(self.read_status())
 
             except Exception:
                 logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))

@@ -187,6 +187,10 @@ jQuery(document).ready(function(){
                 <input name="enable" type="checkbox" ${'checked' if sensor.enabled else ''} title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False)}></p>
             </div>  
             <div class='option' style="white-space: nowrap">
+                <p><span class="program_label">$_('Show in Footer'):</span>
+                <input name="show_in_footer" type="checkbox" ${'checked' if sensor.show_in_footer else ''} title=$:{json.dumps(_(u'Enabling or disabling showing data from sensor in footer on home page.'), ensure_ascii=False)}></p>
+            </div>            
+            <div class='option' style="white-space: nowrap">
                 <p><span class="program_label">$_('Sensor Name'):</span>
                 <input name="name" class="cleanText" id="name" style="width: 140px" value="${sensor.name}" title=$:{json.dumps(_(u'Type Sensor Name.'), ensure_ascii=False)}></p>
             </div>   

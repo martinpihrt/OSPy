@@ -646,7 +646,7 @@ def template_globals():
     from ospy.webpages import sensorSearch
     from ospy import i18n
     from ospy.users import users
-    from ospy.sensors import sensors
+    from ospy.sensors import sensors, sensors_timer
 
     result = {
         'str': str,
