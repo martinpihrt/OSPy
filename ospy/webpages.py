@@ -429,8 +429,11 @@ class sensor_page(ProtectedPage):
                     sensor.sample_rate = 60    
                     pass
 
+            if 'liter_per_pulses' in qdict:
+                sensor.liter_per_pulses = float(qdict['liter_per_pulses'])
+
             if 'sensitivity' in qdict:
-                sensor.sensitivity = int(qdict['sensitivity'])
+                sensor.sensitivity = int(qdict['sensitivity'])    
 
             if 'stabilization_time_min' in qdict and 'stabilization_time_sec' in qdict:
                 sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])

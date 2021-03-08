@@ -264,6 +264,8 @@ jQuery(document).ready(function(){
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" name="stabilization_time_sec" id="stabs" value="${two_digits(sensor.stabilization_time%60)}"title=$:{json.dumps(_(u'Enter the stabilization time in seconds.'), ensure_ascii=False)}> ($_(u'mm:ss'))</p><br/>
                 <p><span class="program_label">$_('Sensitivity'):</span>
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_(u'Enter sensitivity for sensor.'), ensure_ascii=False)}> %</p><br/>
+                <p><span class="program_label">$_('One pulse is'):</span>
+                <input type="number" min="0.1" step="0.1" size="3" maxlength="3" id="liter_per_pulses" name="liter_per_pulses" value="${sensor.liter_per_pulses}" title=$:{json.dumps(_(u'Here we enter how many liters from the flow meter is one pulse.'), ensure_ascii=False)}> ($_(u'Liters'))</p><br/>                
                 <p><span class="program_label">$_('Low Program(s)'):</span>
                 <select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
                 <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>                    

@@ -11,7 +11,7 @@ from ospy.programs import programs, ProgramType
 from ospy.log import log
 from ospy import helpers
 from ospy.sensors import sensors
-from ospy.helpers import print_report
+from ospy.helpers import print_report, datetime_string
 
 import json
 import traceback
@@ -425,7 +425,7 @@ class Sensor(object):
         from ospy.helpers import now, split_ip, decrypt_data, encrypt_data
         from ospy.webpages import sensorSearch
 
-        qdict  = web.input() # Example: do={"ip":"192.168.88.210","mac":"aa:bb:cc:dd:ee:ff","rssi":"52","batt":"123","stype":"5","scom":"0","temp":"253","drcon":"1","lkdet":"125","humi":"658","moti":"1"}&sec="Vno7I7aD2EiNXUDSpW4x0g=="      
+        qdict  = web.input()
         jqdict = json.loads(qdict['do'].lower())        
         sqdict = qdict['sec']
 
@@ -491,6 +491,8 @@ class Sensor(object):
                                 print_report('api.py', traceback.format_exc())
 
                     sensor.last_response = now()
+                    sensor.last_response_datetime = datetime_string()
+
                     if sensor.response != 1:
                         sensor.response = 1
 

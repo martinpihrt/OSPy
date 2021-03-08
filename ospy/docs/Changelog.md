@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 08 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.04 (Add leak detector to input via interrupt routine. If leak pulses > 0 sending data in cycle 3 seconds. Add I2C scanner routine for find I2C addreses - for moisture and more). Updated Web Interface Guide.md - Czech/English. Add to sensors "datetime" for last input info. Translation of new strings into Czech.
+
 Mar 07 2021
 -----------
 (martinpihrt)<br/>

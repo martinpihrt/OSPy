@@ -87,6 +87,7 @@ OSPy Web Interface Guide in English
                 About the port number 
             HTTP/S port
             Show plugins on home
+            Show sensors on home
             Select Language
             Show pictures at stations          
         Weather Section
@@ -477,6 +478,10 @@ You will be returned to the home page. The system will reboot but there is no vi
 ### Show plugins on home
 If you want to display measured data from the extension (wind, temperature, level ...) on the home page, check the box. If we don't want to show data from the extension, we uncheck it.
 * Please note that it is necessary to have the extension enabled and properly set in order for the data to be displayed correctly.
+
+### Show sensors on home
+If you want to display measured data from the sensors on the home page, check the box. If we don't want to show data from the sensors, we uncheck it.
+* Please note that it is necessary to have the sensors enabled and properly set in order for the data to be displayed correctly.
 
 ### Select Language  
 The language option can change the language used in the web interface.

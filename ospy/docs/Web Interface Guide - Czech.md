@@ -87,6 +87,7 @@ OSPy Průvodce webovým rozhraním v češtině
                 O čísle portu 
             HTTP/S port 
             Zobrazit rozšíření na home
+            Zobrazit snímače na home
             Jazyk  
             Zobrazit obrázky na stanicích        
         Počasí
@@ -500,6 +501,10 @@ Vrátíte se na domovskou stránku. Systém se restartuje, ale ve webovém rozhr
 ### Zobrazit rozšíření na home
 Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data z rozšíření (vítr, teplota, hladina...) zaškrtneme políčko. V případě, že nechceme zobrazovat data z rozšíření zrušíme zaškrtnutí.
 * Upozornění: aby se data zobrazovala v pořádku je nezbytné mít rozšíření povolené a správně nastavené.
+
+### Zobrazit snímače na home
+Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data ze snímačů zaškrtneme políčko. V případě, že nechceme zobrazovat data ze snímačů zrušíme zaškrtnutí.
+* Upozornění: aby se data zobrazovala v pořádku je nezbytné mít snímače povolené a správně nastavené.
 
 ### Jazyk  
 Volbou jazyka můžeme změnit jazyk používaný ve webovém rozhraní.

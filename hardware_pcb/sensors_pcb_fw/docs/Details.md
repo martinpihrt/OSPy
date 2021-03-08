@@ -11,6 +11,8 @@ Sensors Details
 * DS18B20-4 pin GPIO16 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
 * Dry Contact pin GPIO27 and ground (or pin and VCC 3.3V)  
 * Motion contact pin GPIO14 and ground (or pin and VCC 3.3V)  
+* Leak detector contact pin GPIO12 and ground (pulse input)
+* Moisture detector via I2C bus SDA pin 33 and SCL pin 32
 * Wi-Fi LED pin GPIO2 (in series via 220 Ohm resistor on LED and ground)  
 * Relay pin GPIO19 (control voltage for the transistor that switches the relay)  
 * Voltage input pin GPIO36 and ground (divider 100k/10k)  

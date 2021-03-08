@@ -74,10 +74,10 @@ $if sensors.count()>0:
         <p>            
         $if sensor.response == 1:
             <div id="green_circle"></div>
-            <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response)
+            <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
         $else:
             <div id="red_circle"></div>
-            <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response)
+            <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
         </p>
         <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>      
         <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
@@ -106,12 +106,13 @@ $if sensors.count()>0:
                         $program.name 
             </span></p> 
         $elif sensor.sens_type == 2:
-            $if sensor.last_read_value != '' and sensor.last_read_value != -1.0:
-                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span></p>
+            $if sensor.last_read_value != '' and sensor.last_read_value != -1.0 and sensor.last_read_value != -127.0:
+                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)} $_(u'Liter per second')</span></p>
             $else:
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value)}</span> (${_(u'Change not yet loaded')})</p>                
-            <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
             <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
+            <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
+            <p>$_(u'One pulse is'): <span class="val">${sensor.liter_per_pulses} $_(u'Liters')</span></p>
             <p>$_(u'Low Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
                 $_(u'None')
@@ -259,10 +260,13 @@ $if sensors.count()>0:
                             $program.name 
                 </span></p>
             $elif sensor.multi_type == 5:
-                $if sensor.last_read_value != '':
-                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}</span></p>
-                <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
+                $if sensor.last_read_value[5] != '' and sensor.last_read_value[5] != -1.0 and sensor.last_read_value[5] != -127.0:
+                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])} $_(u'Liter per second')</span></p>
+                $else:
+                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}</span> (${_(u'Change not yet loaded')})</p>                    
                 <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
+                <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
+                <p>$_(u'One pulse is'): <span class="val">${sensor.liter_per_pulses} $_(u'Liters')</span></p>
                 <p>$_(u'Low Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
                     $_(u'None')

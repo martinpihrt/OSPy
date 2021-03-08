@@ -42,6 +42,7 @@ class _Sensor(object):
         self.prev_read_value = "-"      # prev read value
         self.sensitivity = 0            # sensitivity
         self.stabilization_time = 5     # stabilization time
+        self.liter_per_pulses = 0.5     # leak detector (xx liter/one pulses from detector)
         self.trigger_low_program = ["-1"] # open program (-1 is default none program)
         self.trigger_high_program = ["-1"]# close Program
         self.trigger_low_threshold = "10" # low threshold
@@ -54,6 +55,7 @@ class _Sensor(object):
         self.response = 0               # response 0 = offline, 1 = online
         self.fw = 0                     # sensor firmware (ex: 100 is 1.00)
         self.last_response = 0          # last response (last now time when the sensor sent data)
+        self.last_response_datetime = ""# last response (datetime string)
         self.last_low_report = now()    # now in moisture, temperature
         self.last_good_report = now()   # now in moisture, temperature
         self.last_high_report = 0       # now in moisture, temperature
@@ -625,11 +627,13 @@ class _Sensors_Timer(Thread):
             if sensor.sens_type == 2 or (sensor.sens_type == 6 and sensor.multi_type == 5): 
                 if sensor.response:                                           # sensor is enabled and response is OK  
                     state = -1.0
-                    if   sensor.sens_type == 2:
+                    liters_per_sec = -1
+                    if sensor.sens_type == 2:
                         try:
                             state =  float(sensor.last_read_value)            # type is Leak Detector 
+                            liters_per_sec = float(sensor.liter_per_pulses)*state
                             if sensor.show_in_footer:
-                                self.start_status(sensor.name, _(u'Leak {}l/s').format(state), sensor.index) 
+                                self.start_status(sensor.name, _(u'Leak {}l/s').format(liters_per_sec), sensor.index) 
                         except:
                             sensor.last_read_value = -127.0
                             state =  float(sensor.last_read_value) 
@@ -641,9 +645,10 @@ class _Sensors_Timer(Thread):
                             changed_state = True                      
                     elif sensor.sens_type == 6 and sensor.multi_type == 5:
                         try:      
-                            state =  float(sensor.last_read_value[5])           # multi Leak Detector
+                            state =  float(sensor.last_read_value[5])         # multi Leak Detector
+                            liters_per_sec = float(sensor.liter_per_pulses)*state
                             if sensor.show_in_footer:
-                                self.start_status(sensor.name, _(u'Leak {}l/s').format(state), sensor.index)                            
+                                self.start_status(sensor.name, _(u'Leak {}l/s').format(liters_per_sec), sensor.index)                            
                         except:
                             sensor.last_read_value = [-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0]
                             state =  float(sensor.last_read_value[5]) 
@@ -654,12 +659,12 @@ class _Sensors_Timer(Thread):
                             sensor.prev_read_value = sensor.last_read_value[5]
                             changed_state = True
 
-# todo reaction Leak Detector(run progams and send email and log lge, add to status)
+# todo reaction Leak Detector(run progams and send email and log lge, add to status errors)
 
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples 
+                            self.update_log(sensor, 'lgs', liters_per_sec)                                        # lge is event, lgs is samples 
                 else:
                     logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                     if sensor.show_in_footer:

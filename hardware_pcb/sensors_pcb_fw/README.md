@@ -13,7 +13,7 @@ INSTALLATION:
 - Enter one of the release links above into *Additional Board Manager URLs* field. You can add multiple URLs, separating them with commas.
 - Open Boards Manager from Tools > Board menu and install *esp32* platform (and don't forget to select your ESP32 board from Tools > Board menu after installation).
 - Extract the OneWire and Dallas Temperature folders from the esp32/library folder. Then copy the folders to your arduino library location. Example: documents/arduino/libraries
-- More infos with images is here: https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace
+- More infos with images is here: https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system and https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace
 
 
 ## Acknowledgements
@@ -25,6 +25,12 @@ OneWire libraries (https://www.arduinolibraries.info/libraries/one-wire).
 
 Sensor ESP32 FW Changelog
 ====
+
+FW: 1.04
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add leak detector to input via interrupt routine. If leak pulses > 0 sending http data in cycle 3 seconds (normal is 30 seconds). Add I2C scanner routine for find I2C addreses (for moisture and more sensors)
 
 FW: 1.03
 -----------
