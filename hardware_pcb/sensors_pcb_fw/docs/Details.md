@@ -32,6 +32,8 @@ Sensors Connection and Add into OSPy
 
 ### Sensor Settings
 - Sensor Name = enter the name of this sensor (for example "pool temperature").  
+- Wi-Fi AP password = enter your password for access to Wi-Fi in AP mode (AP manager). Default is: "ospy-sensor-esp32".
+- FW upload password = enter your password for access to firmware uploading to sensor. Default is: "fg4s5b.s,trr7sw8sgyvrDfg".
 - OSPy IP address = enter the IP address (or name) on which the OSPy server is running (for example: "192.168.88.202", or "sprinkler123.com").  
 - OSPy port = port on which the OSPy server is available (default is "8080").  
 - Use SSL (https) = if we do not have an encrypted connection via SSL set in the OSPs, then we will not check the box, otherwise (we will have an https connection) we will check the box.  
@@ -44,6 +46,7 @@ Sensors Connection and Add into OSPy
 - Sensor communication = Wi-Fi / LAN is so far the only available option that works (there will be other types of communication in the future. For example using an RF signal - radio).  
 - Dry contact input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3V. sensor connect a 1 KOhm resistor between ground and pin).  
 - Motion input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3 V. I recommend at the same time with the sensor connect a 1 KOhm resistor between ground and pin).  
+- Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO33 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
 
 ### Sensor Settings - Finish
 - After setting all parameters, press the *Save* button and press the *Restart* button in the main menu.  

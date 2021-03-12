@@ -107,6 +107,7 @@ OSPy Průvodce webovým rozhraním v češtině
             Jméno domény
             Použít vlastní HTTPS 
         Snímače
+            Heslo pro nahrávání firmwaru
             Klíč AES pro snímače
             Generovat nový klíč                     
         Nastavení stanic
@@ -615,6 +616,9 @@ Druhý způsob je pomocí tlačítka "generovat" v záložce SSL certifikát.
 
 ## Snímače
 Sekce snímače obsahuje nastavení pro zabezpečení snímačů.  
+
+### Heslo pro nahrávání firmwaru
+Heslo pro nahrávání firmwaru z OSPy do snímače (pro všechny použité snímače - stejné heslo musí být použito i v nastavení snímače). Výchozí heslo je: "fg4s5b.s,trr7sw8sgyvrDfg".
 
 ### Klíč AES pro snímače
 AES klíč pro snímače. Délka musí být 16 znaků (pro všechny použité snímače - stejný kód musí být použit v kódu Arduino ve snímači.)

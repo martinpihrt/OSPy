@@ -52,6 +52,7 @@ jQuery(document).ready(function(){
     <a href="/sensor/new" class="button add">$_(u'Add a New Sensor')</a>
     <a href="/sensors?delete_all" class="button deleteAll danger">$_(u'Delete All Sensors')</a>
     <a href="/sensors?search" class="button cModify"> $_(u'Searching Sensors')</a>
+    <a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a>
 </div>
 </br>
 
@@ -334,6 +335,12 @@ $if sensors.count()>0:
         
         $if sensor.fw > 0:
             <p>$_(u'Firmware Version'): <span class="val">${float(sensor.fw)/100.0}</span></p>
+            <p>$_('Sensor CPU'): <span class="val"> 
+            $if sensor.cpu_core == 0:
+                $_(u'ESP32')
+            $if sensor.cpu_core == 1:
+                $_(u'ESP8266')
+            </span></p>            
                                                       
         <p>         
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>

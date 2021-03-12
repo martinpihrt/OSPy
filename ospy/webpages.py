@@ -27,6 +27,21 @@ from blinker import signal
 from ospy.users import users
 from ospy.sensors import sensors, sensors_timer
 
+try:
+    import requests
+
+except ImportError:
+    print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
+    cmd = "sudo apt-get install python-requests"
+    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
+    output = proc.communicate()[0]
+    print_report('usagestats.py', output)
+       
+    try: 
+        import requests
+    except:
+        pass
+
 plugin_data = {}  # Empty dictionary to hold plugin based global data
 pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
 pluginStn = []    # Empty list of dicts to hold plugin data for display on timeline
@@ -146,7 +161,91 @@ class ProtectedPage(WebPage):
             check_login(True)
         except web.seeother:
             raise
-            
+
+class sensors_firmware(ProtectedPage):
+    """Open page to allow sensor firmware modification. /firmware """
+    def GET(self):
+        from ospy.server import session
+        import os
+
+        qdict = web.input()
+        statusCode = qdict.get('statusCode', 'None')
+        
+        if session['category'] != 'admin':
+            raise web.seeother(u'/')           
+        
+        if 'id' in qdict:
+            index = int(qdict['id'])
+            sensor = sensors.get(index)
+        else:
+            return self.core_render.sensors_firmware(statusCode)
+
+        last_fw_number = None
+        last_fw_name = None
+        last_fw_path = None
+
+        if sensor.cpu_core == 0:
+            esp32_folder_fw = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP32' , 'firmware')
+            entries_32 = os.listdir(esp32_folder_fw)
+            last_fw_32 = 0
+            for i in entries_32:
+                val_32 = int(i[:-4])
+                if last_fw_32 < val_32:
+                    last_fw_32 = val_32
+                    last_fw_name = i
+            last_fw_number = last_fw_32
+            last_fw_path =  os.path.join(esp32_folder_fw, last_fw_name)                # ex: hardware_pcb/sensors_pcb_fw/ESP32/firmware/105.bin
+        elif sensor.cpu_core == 1:
+            esp8266_folder_fw = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP8266' , 'firmware')  
+            entries_8266 = os.listdir(esp8266_folder_fw)
+            last_fw_8266 = 0
+            for i in entries_8266:
+                val_8266 = int(i[:-4])
+                if last_fw_8266 < val_8266: 
+                    last_fw_8266 = val_8266
+                    last_fw_name = i
+            last_fw_number = last_fw_8266
+            last_fw_path =  os.path.join(esp8266_folder_fw, last_fw_name)
+        else:
+            last_fw_number = None
+            last_fw_name = None
+            last_fw_path = None
+
+        try: 
+            send_ip = '.'.join(sensor.ip_address) 
+            send_url = 'http://' + send_ip + '/FW_' + options.sensor_fw_passwd       # ex: http://192.168.88.207/FW_0123456789abcdef
+            if last_fw_path is None:
+                statusCode = qdict.get('statusCode', 'err1')                         # msg = No xxx.bin file was found in the directory to send to the sensor!
+                return self.core_render.sensors_firmware(statusCode)
+            try:
+                with open(last_fw_path) as file:
+                    response = requests.post(send_url, files={last_fw_name: file})
+                resp_code = response.status_code
+                print_report('webpages.py', resp_code)
+                if resp_code == 200:
+                    statusCode = qdict.get('statusCode', 'upl_ok')                   # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
+                elif resp_code == 404:
+                    statusCode = qdict.get('statusCode', 'err3')                     # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!                    
+                else:
+                    statusCode = qdict.get('statusCode', 'err4')                     # msg = The new firmware could not be uploaded into the sensor. An error has occurred!    
+            except:
+                pass
+                statusCode = qdict.get('statusCode', 'err2')                         # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
+                    
+        except:
+            pass
+            print_report('webpages.py', traceback.format_exc())
+            statusCode = qdict.get('statusCode', 'err2')                             # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond! 
+
+        return self.core_render.sensors_firmware(statusCode)
+
+    def POST(self):
+        from ospy.server import session
+
+        if session['category'] != 'admin':
+            raise web.seeother(u'/')
+
+        return self.core_render.sensors_firmware()
 
 class sensors_page(ProtectedPage):
     """Open all sensors page. /sensors"""
@@ -174,9 +273,12 @@ class sensors_page(ProtectedPage):
           
         if delete_all:
             while sensors.count() > 0:
-                sensor = sensors.get(sensors.count()-1)
-                sensors_timer.stop_status(sensor.name)
-                sensors.remove_sensors(sensors.count()-1)
+                try:
+                    sensor = sensors.get(sensors.count()-1)
+                    sensors_timer.stop_status(sensor.name)
+                    sensors.remove_sensors(sensors.count()-1)
+                except:
+                    pass    
             try:
                 import shutil
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
@@ -216,9 +318,13 @@ class sensor_page(ProtectedPage):
                 raise web.seeother(u'/sensor/{}?graph'.format(index))
 
             if delete:
+                try:
+                    sensor = sensors.get(index)
+                    sensors_timer.stop_status(sensor.name)
+                except:
+                    pass    
+                    
                 sensors.remove_sensors(index)
-                sensor = sensors.get(index)
-                sensors_timer.stop_status(sensor.name)
    
                 try:
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
@@ -491,6 +597,12 @@ class sensor_page(ProtectedPage):
             if 'radio_id' in qdict:
                 if qdict['radio_id'] != '-':
                     sensor.radio_id = int(qdict['radio_id'])
+
+            if 'senscpu' in qdict:
+                sensor.cpu_core = int(qdict['senscpu'])
+                
+            if 'sensfw' in qdict:
+                sensor.fw = qdict['sensfw']
 
             if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
                 errorCode = qdict.get('errorCode', 'uname')

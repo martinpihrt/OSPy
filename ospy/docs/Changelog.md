@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+Mar 12 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.05 (Add selector for moisture probe type - user changeable (in AP mode). Add password for access to upload new firmware via http in STA (normal) mode - user changeable. For uploading in STA mode use html post "/FW_YOURUPLOADPASSWORD". Add password for Wi-Fi access - user changeable (in AP mode). Add moisture sensors DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO33 (not used I2C bus). Add moisture sensor SHT21 (HTU21D) used I2C bus.<br/>
+Add 3D print file case for OSPy ESP32 multisensor (not tested yet). It is now possible to upload a new firmware version directly from the OSPy to the ESP32 sensor (possible from version FW1.05). A new item "password for uploading" for uploading firmware via http" has been added to the "sensors" section of the OSPy settings. Translation of new strings into Czech. Warning! After This OSPy update you must update OSPy sensor ESP32 to last fw:1.05!
+
 Mar 08 2021
 -----------
 (martinpihrt)<br/>

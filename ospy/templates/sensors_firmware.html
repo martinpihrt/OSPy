@@ -1,0 +1,122 @@
+$def with (statusCode)
+
+$var title: $_(u'Update sensors firmware')
+$var page: sensors_firmware
+
+<script>
+
+function updateFooter(){
+    jQuery.getJSON('/update_footer', function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 15000); 
+}
+
+jQuery(document).ready(function(){
+    var statusCode = "${statusCode}";
+    switch (statusCode) {
+        case "upl_ok":
+            jQuery("#msg").text($:{json.dumps(_('The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.'), ensure_ascii=False).encode('utf8')}).css('color', 'green');
+        break;
+        case "err1":
+            jQuery("#msg").text($:{json.dumps(_('No xxx.bin file was found in the directory to send to the sensor!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break; 
+        case "err2":
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Sensor does not respond!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;  
+        case "err3":
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Response - Not Found!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;   
+        case "err4":
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. An error has occurred!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;                     
+    }
+
+    updateFooter();                                         // timer for footer data (temperature...)
+
+    jQuery("#FWtable > tbody > tr:even").addClass("even");  //  odd/even row coloring
+});
+</script>
+
+<div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
+    <div class="title">$_(u'Update sensors firmware')</div>
+    <span class='msg' id='msg'></span>
+    <p>$_(u'Actual available firmware version for ESP32 sensors') 
+    $if version.ver_esp32 != "-":
+        <b>$_(u'FW:')${version.ver_esp32}</b>
+        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp32_fw${version.ver_esp32}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
+        </a>
+    $else:
+        <b>$_('Not available')</b>    
+    </p>
+    <p>$_(u'Actual available firmware version for ESP8266 sensors')
+    $if version.ver_esp8266 != "-":  
+        <b>$_(u'FW:')${version.ver_esp8266}</b>
+        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp8266_fw${version.ver_esp8266}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
+        </a>
+    $else:
+        <b>$_('Not available')</b>        
+    </p> 
+    <br/>
+    <p>$_('These sensors are already assigned.')</p>
+    <table class="logList" id="FWtable">
+        <thead>
+        <tr class="log_rec">
+            <th>$_(u'Sensor Name')</th>
+            <th>$_(u'Sensor CPU')</th>
+            <th>$_(u'Sensor IP Address')</th>
+            <th>$_(u'MAC Address')</th>
+            <th>$_(u'Used Version')</th>
+        </tr>
+        </thead>
+        $for sensor in sensors.get():
+            <tr class="log_rec">
+            <td>${sensor.name}</td>
+            <td>
+            $if sensor.cpu_core == 0:
+                $_(u'ESP32')
+            $elif sensor.cpu_core == 1:
+                $_(u'ESP8266')
+            $else:
+                $_('Not available')
+            </td>
+            <td>${sensor.ip_address[0] +'.'+ sensor.ip_address[1]+'.'+ sensor.ip_address[2]+'.'+ sensor.ip_address[3]}</td>
+            <td>${sensor.mac_address}</td>
+            <td>${float(sensor.fw)/100.0}</td>
+            $if sensor.cpu_core == 0 and version.ver_esp32 != "-":
+                <td>
+                $if float(sensor.fw)/100.0 == version.ver_esp32:
+                    <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Actual')</a>
+                $elif float(sensor.fw)/100.0 > version.ver_esp32:
+                    <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Sensor has a newer version')</a>
+                $else:  
+                    <a href="/firmware?id=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('Update to FW:')${version.ver_esp32}</a> 
+                </td>
+            $if sensor.cpu_core == 1 and version.ver_esp8266 != "-":
+                <td>
+                $if float(sensor.fw)/100.0 == version.ver_esp8266:
+                    <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Actual')</a>
+                $elif float(sensor.fw)/100.0 > version.ver_esp8266:
+                    <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Sensor has a newer version')</a>
+                $else:                
+                    <a href="/firmware?id=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('Update to FW:')${version.ver_esp8266}</a> 
+                </td>
+            </tr>
+        <tbody>
+    </table>
+</div>     
+
+<div id="controls">
+    <a href="sensors" class="button add">$_('Back to Sensors')</a>
+    <a href="firmware" class="button add">$_('Refresh')</a>
+    <a href="/sensors?search" class="button cModify"> $_(u'Searching Sensors')</a>
+</div>

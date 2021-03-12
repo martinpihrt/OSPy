@@ -16,6 +16,8 @@ function createSensor(element) {
     jQuery("#senstype").val(String(array[4]));
     jQuery("#comtype").val(String(array[5]));
     jQuery("#senscode").val(String(array[6]));
+    jQuery("#senscpu").val(String(array[7]));
+    jQuery("#sensfw").val(String(array[8]));
     jQuery("#sensorForm").submit();
 }
 
@@ -39,10 +41,16 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
         if(scom == 0) scomtype = $:{json.dumps(_('Wi-Fi/LAN'), ensure_ascii=False).encode('utf8')};
         else if(scom == 1) scomtype = $:{json.dumps(_('Radio'), ensure_ascii=False).encode('utf8')};
         else scomtype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
-        let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.secret
+        let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.secret+','+sensor.cpu_core+','+sensor.fw
         let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8')}+"</button>";
+        let cpu_name = -1;
+        if(sensor.cpu_core == 0) cpu_name = $:{json.dumps(_('ESP32'), ensure_ascii=False).encode('utf8')};
+        if(sensor.cpu_core == 1) cpu_name = $:{json.dumps(_('ESP8266'), ensure_ascii=False).encode('utf8')};
+        if(cpu_name == -1) cpu_name = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+
         jQuery('<tr>').append(
         	jQuery('<td>').text(sensor.name),
+            jQuery('<td>').text(cpu_name),
             jQuery('<td>').text(sensor.ip), 
             jQuery('<td>').text(sensor.real_ip),
             jQuery('<td>').text(sensor.mac),
@@ -94,6 +102,7 @@ jQuery(document).ready(function(){
         <thead>
         <tr class="log_rec">
             <th>$_(u'Sensor Name')</th>
+            <th>$_(u'Sensor CPU')</th>
             <th>$_(u'Sensor IP Address')</th>
             <th>$_(u'From IP Address')</th>
             <th>$_(u'MAC Address')</th>
@@ -114,26 +123,13 @@ jQuery(document).ready(function(){
         <input type="hidden" id="senstype" name="sens_type" value="">
         <input type="hidden" id="comtype" name="com_type" value="">
         <input type="hidden" id="senscode" name="senscode" value="">
-    </form>
-    <p>$_(u'Actual available firmware version for ESP32 sensors') 
-    $if version.ver_esp32 != "-":
-        <b>$_(u'FW:')${version.ver_esp32}</b>
-        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp32_fw${version.ver_esp32}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
-        </a>
-    $else:
-        <b>$_('Not available')</b>    
-    </p>
-    <p>$_(u'Actual available firmware version for ESP8266 sensors')
-    $if version.ver_esp8266 != "-":  
-        <b>$_(u'FW:')${version.ver_esp8266}</b>
-        <a href="https://github.com/martinpihrt/OSPy/tree/master/hardware_pcb/sensors_pcb_fw/ESP32/sensor_esp8266_fw${version.ver_esp8266}/" class="button upload" target="_blank" rel="noopener noreferrer">$_('Open dir')
-        </a>
-    $else:
-        <b>$_('Not available')</b>        
-    </p>    
+        <input type="hidden" id="senscpu" name="senscpu" value="">
+        <input type="hidden" id="sensfw" name="sensfw" value="">
+    </form>  
 </div>
 
 <div id="controls">
     <a href="sensors" class="button add">$_('Back to Sensors')</a>
     <a href="sensors?clean_all" class="button deleteAll danger">$_('Clean')</a>
+    <a href="firmware" class="button add">$_('Sensors Firmware')</a>
 </div>

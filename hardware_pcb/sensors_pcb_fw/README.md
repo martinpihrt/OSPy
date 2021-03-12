@@ -26,6 +26,16 @@ OneWire libraries (https://www.arduinolibraries.info/libraries/one-wire).
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.05
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add selector for moisture probe type - user changeable (in AP mode). 
+Add password for access to upload new firmware via http in STA (normal) mode - user changeable. For uploading in STA mode use html post "/FW_YOURUPLOADPASSWORD".
+Add password for Wi-Fi access - user changeable (in AP mode).
+Add moisture sensors DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO33 (not used I2C bus).
+Add moisture sensor SHT21 (HTU21D) used I2C bus.
+
 FW: 1.04
 -----------
 (martinpihrt)<br/>

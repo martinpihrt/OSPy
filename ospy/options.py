@@ -191,7 +191,14 @@ class _Options(object):
             "category": _('Security')
         }, 
         #######################################################################
-        # Sensors #############################################################        
+        # Sensors ############################################################# 
+        {
+            "key": "sensor_fw_passwd",
+            "name": _('Password for uploading'),
+            "default": "fg4s5b.s,trr7sw8sgyvrDfg",
+            "help": _('Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)'),
+            "category": _('Sensors')
+        },               
         {
             "key": "aes_key",
             "name": _('AES key for sensors'),

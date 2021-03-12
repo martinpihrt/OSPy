@@ -393,7 +393,10 @@ class Sensors(object):
             'rssi': str(sensor.rssi),
             'response': sensor.response,
             'last_response': sensor.last_response,
+            'last_response_datetime': sensor.last_response_datetime,
             'fw': sensor.fw,
+            'show_in_footer': sensor.show_in_footer,
+            'cpu_core': sensor.cpu_core,
         }
 
     @does_json
@@ -443,12 +446,15 @@ class Sensor(object):
                 'type': jqdict['stype'],
                 'com': jqdict['scom'],
                 'secret': decrypt_secret,
-                'fw': jqdict['fw']                                                  
+                'fw': jqdict['fw'],
+                'cpu_core': jqdict['cpu']
             }  
 
             for sensor in sensors.get():
                 ip = split_ip(jqdict['ip'])              
                 if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
+                    if 'cpu' in jqdict and jqdict['cpu'] is not None:
+                        sensor.cpu_core = int(jqdict['cpu'])
                     if 'rssi' in jqdict and jqdict['rssi'] is not None:
                         sensor.rssi = int(jqdict['rssi'])                               # ex: value is 88  -> real 88% 
                     if 'batt' in jqdict and jqdict['batt'] is not None:
@@ -497,7 +503,7 @@ class Sensor(object):
                         sensor.response = 1
 
                     if sensor.fw != jqdict['fw']:
-                        sensor.fw = jqdict['fw']  
+                        sensor.fw = jqdict['fw']      
 
                     log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
 

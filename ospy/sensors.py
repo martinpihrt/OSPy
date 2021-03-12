@@ -59,7 +59,8 @@ class _Sensor(object):
         self.last_low_report = now()    # now in moisture, temperature
         self.last_good_report = now()   # now in moisture, temperature
         self.last_high_report = 0       # now in moisture, temperature
-        self.show_in_footer = 1         # show sensor data in footer on home page        
+        self.show_in_footer = 1         # show sensor data in footer on home page
+        self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo        
 
         options.load(self, index) 
 
