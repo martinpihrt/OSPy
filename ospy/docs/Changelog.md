@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 15 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Slovak language (Thank you Tomáš Szepesi). Add to plugin "pool heating" possibility to read temperatures from OSPy sensors.
+
 Mar 12 2021
 -----------
 (martinpihrt)<br/>

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-12 10:49+CET\n"
+"POT-Creation-Date: 2021-03-15 13:42+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1390,7 +1390,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:272
-#: plugins/pool_heating/templates/pool_heating.html:88
+#: plugins/pool_heating/templates/pool_heating.html:124
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
 #: plugins/pressurizer/templates/pressurizer.html:83
 #: plugins/pulse/templates/pulse.html:54
@@ -2170,9 +2170,9 @@ msgstr ""
 #: ospy/templates/options.html:184 ospy/templates/options.html:197
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:275
-#: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:125
-#: plugins/pool_heating/__init__.py:156
-#: plugins/pool_heating/templates/pool_heating.html:73
+#: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:173
+#: plugins/pool_heating/__init__.py:204
+#: plugins/pool_heating/templates/pool_heating.html:109
 #: plugins/pressure_monitor/templates/pressure_monitor.html:202
 #: plugins/pulse/templates/pulse.html:31 plugins/tank_monitor/__init__.py:162
 #: plugins/tank_monitor/__init__.py:190
@@ -3574,12 +3574,12 @@ msgstr ""
 msgid "Air Temperature"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:190 plugins/pool_heating/__init__.py:125
+#: plugins/air_temp_humi/__init__.py:190 plugins/pool_heating/__init__.py:173
 #: plugins/tank_monitor/__init__.py:162
 msgid "Regulation set ON."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:203 plugins/pool_heating/__init__.py:156
+#: plugins/air_temp_humi/__init__.py:203 plugins/pool_heating/__init__.py:204
 #: plugins/tank_monitor/__init__.py:190
 msgid "Regulation set OFF."
 msgstr ""
@@ -3758,7 +3758,7 @@ msgid "Humidity + hysteresis/2 > ON"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:258
-#: plugins/pool_heating/templates/pool_heating.html:56
+#: plugins/pool_heating/templates/pool_heating.html:92
 #: plugins/tank_monitor/templates/tank_monitor.html:282
 #: plugins/temperature_switch/templates/temperature_switch.html:46
 #: plugins/temperature_switch/templates/temperature_switch.html:103
@@ -3767,7 +3767,7 @@ msgid "Maximum run time in activate"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:259
-#: plugins/pool_heating/templates/pool_heating.html:57
+#: plugins/pool_heating/templates/pool_heating.html:93
 #: plugins/tank_monitor/templates/tank_monitor.html:283
 #: plugins/temperature_switch/templates/temperature_switch.html:47
 #: plugins/temperature_switch/templates/temperature_switch.html:104
@@ -3784,7 +3784,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:271
-#: plugins/pool_heating/templates/pool_heating.html:69
+#: plugins/pool_heating/templates/pool_heating.html:105
 #: plugins/pulse/templates/pulse.html:27
 msgid "Select Output"
 msgstr ""
@@ -3808,7 +3808,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:37
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:262
-#: plugins/pool_heating/templates/pool_heating.html:78
+#: plugins/pool_heating/templates/pool_heating.html:114
 #: plugins/pressure_monitor/templates/pressure_monitor.html:264
 #: plugins/pressurizer/templates/pressurizer.html:74
 #: plugins/pulse/templates/pulse.html:42
@@ -3850,7 +3850,7 @@ msgstr ""
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:271
-#: plugins/pool_heating/templates/pool_heating.html:87
+#: plugins/pool_heating/templates/pool_heating.html:123
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
 #: plugins/pressurizer/templates/pressurizer.html:82
 #: plugins/real_time/templates/real_time.html:65
@@ -6090,56 +6090,101 @@ msgstr ""
 msgid "When logging is enabled, a log file is created (required for the graph and for sending an e-mail at the same time)."
 msgstr ""
 
-#: plugins/pool_heating/__init__.py:26
+#: plugins/pool_heating/__init__.py:28
 msgid "Package: Pool Heating"
 msgstr ""
 
-#: plugins/pool_heating/__init__.py:85 plugins/pool_heating/__init__.py:136
+#: plugins/pool_heating/__init__.py:90 plugins/pool_heating/__init__.py:184
 #: plugins/pool_heating/templates/pool_heating.html:3
-#: plugins/pool_heating/templates/pool_heating.html:19
+#: plugins/pool_heating/templates/pool_heating.html:27
 msgid "Pool Heating"
 msgstr ""
 
-#: plugins/pool_heating/__init__.py:91 plugins/pool_heating/__init__.py:93
-#: plugins/pool_heating/__init__.py:178
+#: plugins/pool_heating/__init__.py:99
 msgid "Waiting to turned on or off."
 msgstr ""
 
-#: plugins/pool_heating/__init__.py:111
+#: plugins/pool_heating/__init__.py:104 plugins/pool_heating/__init__.py:229
+msgid "Waiting."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:123
 #: plugins/temperature_switch/__init__.py:129
 msgid "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is the plugin Air Temperature and Humidity Monitor installed and set up?"
 msgstr ""
 
-#: plugins/pool_heating/__init__.py:190
+#: plugins/pool_heating/__init__.py:225
+msgid "Waiting (not enabled regulation in options, or not selected input)."
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:227
+msgid "Some probe shows a fault, regulation is blocked!"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:242 plugins/pool_heating/__init__.py:244
+#: plugins/pool_heating/__init__.py:248
+msgid "Pool"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:242 plugins/pool_heating/__init__.py:244
+#: plugins/pool_heating/__init__.py:248
+msgid "Solar"
+msgstr ""
+
+#: plugins/pool_heating/__init__.py:253
 msgid "Pool Heating plug-in"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:20
+#: plugins/pool_heating/templates/pool_heating.html:28
+msgid "Or it is possible to use temperature measurement from OSPy sensors (LAN / Wi-Fi, radio ...)"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:28
 msgid "This plugin needs enabled and corect setup the Air Temperature and Humidity Monitor. Allows pool heating regulation. Reading temperature using from DS18B20 sensors connected to the external hardware board"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:21
+#: plugins/pool_heating/templates/pool_heating.html:29
 msgid "Example: for heating a swimming pool with a solar panel. If the temperature difference (solar panel and pool water) is higher, the output (filter pump) is switched on. If the temperature difference from the solar panel is lower than the set temperature, the output (filter pump) is switched off."
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:22
+#: plugins/pool_heating/templates/pool_heating.html:30
 msgid "All temperatures is in"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:26
+#: plugins/pool_heating/templates/pool_heating.html:34
 msgid "Enable Control"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:27
+#: plugins/pool_heating/templates/pool_heating.html:35
 msgid "If the box is checked, regulation will be enabled."
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:32
+#: plugins/pool_heating/templates/pool_heating.html:40
+msgid "Sensors or plugin"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:41
+msgid "Select the temperature probes from sensors or from plugin air temperature."
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:43
+msgid "Select type"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:44
+msgid "OSPy Sensors"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:45
+msgid "Air temp plugin"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:50
 msgid "Probe input from swimming pool"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:33
-#: plugins/pool_heating/templates/pool_heating.html:42
+#: plugins/pool_heating/templates/pool_heating.html:51
+#: plugins/pool_heating/templates/pool_heating.html:69
 #: plugins/temperature_switch/templates/temperature_switch.html:32
 #: plugins/temperature_switch/templates/temperature_switch.html:54
 #: plugins/temperature_switch/templates/temperature_switch.html:89
@@ -6149,27 +6194,32 @@ msgstr ""
 msgid "Select the temperature sensor (its name) you want to use."
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:41
+#: plugins/pool_heating/templates/pool_heating.html:64
+#: plugins/pool_heating/templates/pool_heating.html:82
+msgid "Not selected type"
+msgstr ""
+
+#: plugins/pool_heating/templates/pool_heating.html:68
 msgid "Probe input from Solar"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:50
+#: plugins/pool_heating/templates/pool_heating.html:86
 msgid "Temperature difference for ON"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:51
+#: plugins/pool_heating/templates/pool_heating.html:87
 msgid "Temperature difference for switch ON (filtration pump)."
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:63
+#: plugins/pool_heating/templates/pool_heating.html:99
 msgid "Temperature difference for OFF"
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:64
+#: plugins/pool_heating/templates/pool_heating.html:100
 msgid "Temperature difference for switch OFF (filtration pump)."
 msgstr ""
 
-#: plugins/pool_heating/templates/pool_heating.html:70
+#: plugins/pool_heating/templates/pool_heating.html:106
 msgid "Select the output you want to control with regulation."
 msgstr ""
 
