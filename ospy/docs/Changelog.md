@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 20 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating images connection diagram in docs and help page. ESP32 firmware update version 1.06 (Add time limit for sending data (if it was not sent to the OSPy within 2 minutes, then restart the sensor). Sensor freeze prevention.)
+
 Mar 15 2021
 -----------
 (martinpihrt)<br/>

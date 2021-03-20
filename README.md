@@ -1,15 +1,18 @@
 OSPy (Open Sprinkler Python) Readme 
 ====
 
-OSPy is a free Raspberry Pi based Python program for controlling irrigation systems ( sprinkler, drip, etc ).
+OSPy is a free Raspberry Pi based Python 2.7 (no support for python 3 yet) program for controlling irrigation systems (sprinkler, drip, etc).
 
 This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) and Dan-in-CA/SIP (https://github.com/Dan-in-CA/SIP) with My modifications.  
 
 ## More information visit
 Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
+OpenSprinkler page: https://opensprinkler.cz
+YouTube OpenSprinkler channel by pihrt.com
+<a href="https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png"></a> 
 
-## Hardware
-<a href="images?id=blockconnection.png"><img src="images?id=blockconnection.png" width="90%"></a>
+## Hardware diagram
+<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png" width="90%"></a>
 
 INSTALLATION:
 ===========
@@ -171,6 +174,9 @@ https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guid
 OSPy can be controlled and monitored using HTTP GET commands. With the addition of available plugins OSPy can communicate with other systems via MQTT. 
 OSPy can also issue Linux shell commands when a station is turned on or off. This is useful for controlling wireless remote devices and for I2C relay hats and boards.
 The Blinker package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status. See the signaling examples file in OSPy's plugins folder for examples.
+
+## Sensors
+OSPy allows to read data from wireless sensors (ESP32, ESP8266...)
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program
