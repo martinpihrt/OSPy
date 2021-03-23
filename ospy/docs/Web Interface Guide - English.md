@@ -949,6 +949,7 @@ Available plug-ins:
 * Pool Heating
 * E-mail Reader
 * Weather Stations
+* Telegram Bot
 
 ----
 

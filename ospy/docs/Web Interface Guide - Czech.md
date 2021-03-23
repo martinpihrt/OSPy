@@ -1000,6 +1000,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Pool Heating (regulace teploty bazénu dle solárního ohřevu)
 * E-mail reader (ovládání OSPy pomocí E-mailových zpráv)
 * Weather Stations (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků)
+* Telegram Bot (komunikace s OSPy pomocí telegram.org app)
 
 ----
 

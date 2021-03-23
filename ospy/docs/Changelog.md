@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 23 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating and fix in "pool heating" plugin. Updating Czech language (new strings). Add new plugin "telegram bot" - !!!Not ready for use!!! Working on it.
+
 Mar 20 2021
 -----------
 (martinpihrt)<br/>

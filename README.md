@@ -7,12 +7,13 @@ This is my fork from Rimco/OSPy (https://github.com/Rimco/OSPy) and Dan-in-CA/SI
 
 ## More information visit
 Martin Pihrt - pihrt.com: https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady
-OpenSprinkler page: https://opensprinkler.cz
-YouTube OpenSprinkler channel by pihrt.com
-<a href="https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png"></a> 
+OpenSprinkler page: https://opensprinkler.cz  
+
+YouTube OpenSprinkler channel by pihrt.com  
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png?raw=true)](https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L)
 
 ## Hardware diagram
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png" width="90%"></a>
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
 
 INSTALLATION:
 ===========

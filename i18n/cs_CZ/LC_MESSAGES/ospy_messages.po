@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-03-15 13:42+CET\n"
-"PO-Revision-Date: 2021-03-15 13:46+0100\n"
+"POT-Creation-Date: 2021-03-23 17:52+CET\n"
+"PO-Revision-Date: 2021-03-23 18:10+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1333,7 +1333,10 @@ msgstr "Konfigurace snímačů"
 
 #: ospy/templates/base.html:166 ospy/templates/help.html:3
 #: ospy/templates/help.html:38 ospy/templates/help_user.html:3
-#: ospy/templates/help_user.html:20 plugins/relay_16/templates/relay_16.html:22
+#: ospy/templates/help_user.html:20
+#: plugins/pool_heating/templates/pool_heating.html:37
+#: plugins/relay_16/templates/relay_16.html:22
+#: plugins/telegram_bot/templates/telegram_bot.html:25
 msgid "Help"
 msgstr "Nápověda"
 
@@ -1468,7 +1471,8 @@ msgstr "Smazat"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/ping_monitor/templates/ping_monitor.html:272
-#: plugins/pool_heating/templates/pool_heating.html:124
+#: plugins/pool_heating/templates/pool_heating.html:136
+#: plugins/pool_heating/templates/pool_heating_help.html:15
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
 #: plugins/pressurizer/templates/pressurizer.html:83
 #: plugins/pulse/templates/pulse.html:54
@@ -1483,6 +1487,8 @@ msgstr "Smazat"
 #: plugins/system_update/templates/system_update.html:99
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:354
+#: plugins/telegram_bot/templates/telegram_bot.html:111
+#: plugins/telegram_bot/templates/telegram_bot_help.html:23
 #: plugins/temperature_switch/templates/temperature_switch.html:201
 #: plugins/ups_adj/templates/ups_adj.html:261
 #: plugins/usage_statistics/templates/usage_statistics.html:44
@@ -2119,6 +2125,7 @@ msgstr "Tělo"
 
 #: ospy/templates/log.html:84 ospy/templates/log_sensor.html:67
 #: ospy/templates/log_user.html:62 ospy/templates/sensors_firmware.html:120
+#: plugins/pool_heating/templates/pool_heating.html:137
 #: plugins/system_watchdog/templates/system_watchdog.html:42
 msgid "Refresh"
 msgstr "Obnovit"
@@ -2263,9 +2270,9 @@ msgstr "Hlavní stanice"
 #: ospy/templates/options.html:184 ospy/templates/options.html:197
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:275
-#: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:173
-#: plugins/pool_heating/__init__.py:204
-#: plugins/pool_heating/templates/pool_heating.html:109
+#: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:182
+#: plugins/pool_heating/__init__.py:213
+#: plugins/pool_heating/templates/pool_heating.html:116
 #: plugins/pressure_monitor/templates/pressure_monitor.html:202
 #: plugins/pulse/templates/pulse.html:31 plugins/tank_monitor/__init__.py:162
 #: plugins/tank_monitor/__init__.py:190
@@ -3758,12 +3765,12 @@ msgstr "Vlhkost"
 msgid "Air Temperature"
 msgstr "Monitor teploty"
 
-#: plugins/air_temp_humi/__init__.py:190 plugins/pool_heating/__init__.py:173
+#: plugins/air_temp_humi/__init__.py:190 plugins/pool_heating/__init__.py:182
 #: plugins/tank_monitor/__init__.py:162
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
-#: plugins/air_temp_humi/__init__.py:203 plugins/pool_heating/__init__.py:204
+#: plugins/air_temp_humi/__init__.py:203 plugins/pool_heating/__init__.py:213
 #: plugins/tank_monitor/__init__.py:190
 msgid "Regulation set OFF."
 msgstr "Regulace nastavila VYP."
@@ -3958,7 +3965,7 @@ msgid "Humidity + hysteresis/2 > ON"
 msgstr "Vlhkost + hystereze/2 = ZAPNUTO"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:258
-#: plugins/pool_heating/templates/pool_heating.html:92
+#: plugins/pool_heating/templates/pool_heating.html:99
 #: plugins/tank_monitor/templates/tank_monitor.html:282
 #: plugins/temperature_switch/templates/temperature_switch.html:46
 #: plugins/temperature_switch/templates/temperature_switch.html:103
@@ -3967,7 +3974,7 @@ msgid "Maximum run time in activate"
 msgstr "Maximální doba běhu v aktivaci"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:259
-#: plugins/pool_heating/templates/pool_heating.html:93
+#: plugins/pool_heating/templates/pool_heating.html:100
 #: plugins/tank_monitor/templates/tank_monitor.html:283
 #: plugins/temperature_switch/templates/temperature_switch.html:47
 #: plugins/temperature_switch/templates/temperature_switch.html:104
@@ -3988,7 +3995,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr "Vlhkost - hystereze/2 = VYPNUTO"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:271
-#: plugins/pool_heating/templates/pool_heating.html:105
+#: plugins/pool_heating/templates/pool_heating.html:112
 #: plugins/pulse/templates/pulse.html:27
 msgid "Select Output"
 msgstr "Vybrat výstup"
@@ -4012,7 +4019,7 @@ msgstr "Počet DS18B20"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:37
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:262
-#: plugins/pool_heating/templates/pool_heating.html:114
+#: plugins/pool_heating/templates/pool_heating.html:127
 #: plugins/pressure_monitor/templates/pressure_monitor.html:264
 #: plugins/pressurizer/templates/pressurizer.html:74
 #: plugins/pulse/templates/pulse.html:42
@@ -4027,6 +4034,7 @@ msgstr "Počet DS18B20"
 #: plugins/system_update/templates/system_update.html:82
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:344
+#: plugins/telegram_bot/templates/telegram_bot.html:101
 #: plugins/temperature_switch/templates/temperature_switch.html:191
 #: plugins/ups_adj/templates/ups_adj.html:251
 #: plugins/usage_statistics/templates/usage_statistics.html:35
@@ -4054,7 +4062,6 @@ msgstr "Stav"
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
 #: plugins/ping_monitor/templates/ping_monitor.html:271
-#: plugins/pool_heating/templates/pool_heating.html:123
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
 #: plugins/pressurizer/templates/pressurizer.html:82
 #: plugins/real_time/templates/real_time.html:65
@@ -4066,6 +4073,7 @@ msgstr "Stav"
 #: plugins/system_debug/templates/system_debug.html:41
 #: plugins/system_update/templates/system_update.html:93
 #: plugins/tank_monitor/templates/tank_monitor.html:353
+#: plugins/telegram_bot/templates/telegram_bot.html:110
 #: plugins/temperature_switch/templates/temperature_switch.html:200
 #: plugins/ups_adj/templates/ups_adj.html:260
 #: plugins/voice_notification/templates/voice_notification.html:126
@@ -4373,10 +4381,12 @@ msgid "Use CLI Control"
 msgstr "Použít CLI"
 
 #: plugins/cli_control/templates/cli_control.html:37
+#: plugins/telegram_bot/templates/telegram_bot.html:83
 msgid "Start Command"
 msgstr "Příkaz pro zapnutí"
 
 #: plugins/cli_control/templates/cli_control.html:38
+#: plugins/telegram_bot/templates/telegram_bot.html:89
 msgid "Stop Command"
 msgstr "Příkaz pro vypnutí"
 
@@ -6481,21 +6491,22 @@ msgstr ""
 msgid "Package: Pool Heating"
 msgstr "Balíček: Ohřev bazénu"
 
-#: plugins/pool_heating/__init__.py:90 plugins/pool_heating/__init__.py:184
+#: plugins/pool_heating/__init__.py:99 plugins/pool_heating/__init__.py:193
 #: plugins/pool_heating/templates/pool_heating.html:3
-#: plugins/pool_heating/templates/pool_heating.html:27
+#: plugins/pool_heating/templates/pool_heating.html:36
+#: plugins/pool_heating/templates/pool_heating_help.html:3
 msgid "Pool Heating"
 msgstr "Ohřev bazénu"
 
-#: plugins/pool_heating/__init__.py:99
+#: plugins/pool_heating/__init__.py:108
 msgid "Waiting to turned on or off."
 msgstr "Čekání na zapnutí nebo vypnutí."
 
-#: plugins/pool_heating/__init__.py:104 plugins/pool_heating/__init__.py:229
+#: plugins/pool_heating/__init__.py:113 plugins/pool_heating/__init__.py:238
 msgid "Waiting."
 msgstr "Čekání."
 
-#: plugins/pool_heating/__init__.py:123
+#: plugins/pool_heating/__init__.py:132
 #: plugins/temperature_switch/__init__.py:129
 msgid ""
 "Unable to load settings from Air Temperature and Humidity Monitor plugin! Is "
@@ -6504,36 +6515,123 @@ msgstr ""
 "Nelze načíst nastavení z rozšíření Air Temperature and Humidity Monitor! Je "
 "rozšíření Air Temperature and Humidity Monitor nainstalováno a nastaveno?"
 
-#: plugins/pool_heating/__init__.py:225
+#: plugins/pool_heating/__init__.py:234
 msgid "Waiting (not enabled regulation in options, or not selected input)."
 msgstr "Čekání (nepovolená regulace v možnostech nebo nevybraný vstup)."
 
-#: plugins/pool_heating/__init__.py:227
+#: plugins/pool_heating/__init__.py:236
 msgid "Some probe shows a fault, regulation is blocked!"
 msgstr "Nějaká sonda ukazuje chybu, regulace je blokována!"
 
-#: plugins/pool_heating/__init__.py:242 plugins/pool_heating/__init__.py:244
-#: plugins/pool_heating/__init__.py:248
+#: plugins/pool_heating/__init__.py:252 plugins/pool_heating/__init__.py:254
+#: plugins/pool_heating/__init__.py:258
 msgid "Pool"
 msgstr "Bazén"
 
-#: plugins/pool_heating/__init__.py:242 plugins/pool_heating/__init__.py:244
-#: plugins/pool_heating/__init__.py:248
+#: plugins/pool_heating/__init__.py:252 plugins/pool_heating/__init__.py:254
+#: plugins/pool_heating/__init__.py:258
 msgid "Solar"
 msgstr "Solár"
 
-#: plugins/pool_heating/__init__.py:253
+#: plugins/pool_heating/__init__.py:263
 msgid "Pool Heating plug-in"
 msgstr "Rozšíření ohřev bazénu"
 
-#: plugins/pool_heating/templates/pool_heating.html:28
+#: plugins/pool_heating/templates/pool_heating.html:41
+msgid "Enable Control"
+msgstr "Povolit regulaci"
+
+#: plugins/pool_heating/templates/pool_heating.html:42
+msgid "If the box is checked, regulation will be enabled."
+msgstr "Pokud je políčko zaškrtnuto, bude povolena regulace."
+
+#: plugins/pool_heating/templates/pool_heating.html:47
+msgid "Sensors or plugin"
+msgstr "Snímače nebo rozšíření"
+
+#: plugins/pool_heating/templates/pool_heating.html:48
+msgid ""
+"Select the temperature probes from sensors or from plugin air temperature."
+msgstr "Vyberte teplotní sondy ze snímačů, nebo z rozšíření Air temp humi."
+
+#: plugins/pool_heating/templates/pool_heating.html:50
+msgid "Select type"
+msgstr "Vyberte typ"
+
+#: plugins/pool_heating/templates/pool_heating.html:51
+msgid "OSPy Sensors"
+msgstr "Snímače OSPy"
+
+#: plugins/pool_heating/templates/pool_heating.html:52
+msgid "Air temp plugin"
+msgstr "Balíček Air temp"
+
+#: plugins/pool_heating/templates/pool_heating.html:57
+msgid "Probe input from swimming pool"
+msgstr "Vstupní čidlo pro bazén"
+
+#: plugins/pool_heating/templates/pool_heating.html:58
+#: plugins/pool_heating/templates/pool_heating.html:76
+#: plugins/temperature_switch/templates/temperature_switch.html:32
+#: plugins/temperature_switch/templates/temperature_switch.html:54
+#: plugins/temperature_switch/templates/temperature_switch.html:89
+#: plugins/temperature_switch/templates/temperature_switch.html:111
+#: plugins/temperature_switch/templates/temperature_switch.html:146
+#: plugins/temperature_switch/templates/temperature_switch.html:168
+msgid "Select the temperature sensor (its name) you want to use."
+msgstr "Vyberte snímač teploty (jeho název), který chcete použít."
+
+#: plugins/pool_heating/templates/pool_heating.html:71
+#: plugins/pool_heating/templates/pool_heating.html:89
+msgid "Not selected type"
+msgstr "Nevybraný typ"
+
+#: plugins/pool_heating/templates/pool_heating.html:75
+msgid "Probe input from Solar"
+msgstr "Vstupní čidlo pro solár"
+
+#: plugins/pool_heating/templates/pool_heating.html:93
+msgid "Temperature difference for ON"
+msgstr "Teplotní rozdíl pro ZAP"
+
+#: plugins/pool_heating/templates/pool_heating.html:94
+msgid "Temperature difference for switch ON (filtration pump)."
+msgstr "Teplotní rozdíl pro zapnutí (čerpadlo)."
+
+#: plugins/pool_heating/templates/pool_heating.html:106
+msgid "Temperature difference for OFF"
+msgstr "Teplotní rozdíl pro VYP"
+
+#: plugins/pool_heating/templates/pool_heating.html:107
+msgid "Temperature difference for switch OFF (filtration pump)."
+msgstr "Teplotní rozdíl pro vypnutí (čerpadlo)."
+
+#: plugins/pool_heating/templates/pool_heating.html:113
+msgid "Select the output you want to control with regulation."
+msgstr "Vyberte výstup, který chcete ovládat regulací."
+
+#: plugins/pool_heating/templates/pool_heating.html:121
+#: plugins/system_update/templates/system_update.html:76
+msgid "Show in footer"
+msgstr "Zobrazit v zápatí na hl. stránce"
+
+#: plugins/pool_heating/templates/pool_heating.html:122
+#: plugins/system_update/templates/system_update.html:77
+msgid "Show data from plugin in footer on home page"
+msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
+
+#: plugins/pool_heating/templates/pool_heating_help.html:7
+msgid "Pool Heating - Help"
+msgstr "Ohřev bazénu - nápověda"
+
+#: plugins/pool_heating/templates/pool_heating_help.html:8
 msgid ""
 "Or it is possible to use temperature measurement from OSPy sensors (LAN / Wi-"
 "Fi, radio ...)"
 msgstr ""
-"nebo je možné použít měření teploty ze snímačů OSPy (LAN / Wi-Fi, rádio ...)"
+"Nebo je možné použít měření teploty ze snímačů OSPy (LAN / Wi-Fi, rádio ...)"
 
-#: plugins/pool_heating/templates/pool_heating.html:28
+#: plugins/pool_heating/templates/pool_heating_help.html:8
 msgid ""
 "This plugin needs enabled and corect setup the Air Temperature and Humidity "
 "Monitor. Allows pool heating regulation. Reading temperature using from "
@@ -6543,7 +6641,7 @@ msgstr ""
 "Humidity Monitor. Umožňuje regulaci ohřevu bazénu. Teploty se čtou pomocí "
 "senzorů DS18B20 připojených k externí hardwarové desce"
 
-#: plugins/pool_heating/templates/pool_heating.html:29
+#: plugins/pool_heating/templates/pool_heating_help.html:9
 msgid ""
 "Example: for heating a swimming pool with a solar panel. If the temperature "
 "difference (solar panel and pool water) is higher, the output (filter pump) "
@@ -6555,82 +6653,13 @@ msgstr ""
 "teplotní rozdíl od solárního panelu nižší než nastavená teplota, výstup "
 "(čerpadlo) se vypne."
 
-#: plugins/pool_heating/templates/pool_heating.html:30
+#: plugins/pool_heating/templates/pool_heating_help.html:10
 msgid "All temperatures is in"
 msgstr "Všechny teploty jsou ve"
 
-#: plugins/pool_heating/templates/pool_heating.html:34
-msgid "Enable Control"
-msgstr "Povolit regulaci"
-
-#: plugins/pool_heating/templates/pool_heating.html:35
-msgid "If the box is checked, regulation will be enabled."
-msgstr "Pokud je políčko zaškrtnuto, bude povolena regulace."
-
-#: plugins/pool_heating/templates/pool_heating.html:40
-msgid "Sensors or plugin"
-msgstr "Snímače nebo rozšíření"
-
-#: plugins/pool_heating/templates/pool_heating.html:41
-msgid ""
-"Select the temperature probes from sensors or from plugin air temperature."
-msgstr "Vyberte teplotní sondy ze snímačů, nebo z rozšíření Air temp humi."
-
-#: plugins/pool_heating/templates/pool_heating.html:43
-msgid "Select type"
-msgstr "Vyberte typ"
-
-#: plugins/pool_heating/templates/pool_heating.html:44
-msgid "OSPy Sensors"
-msgstr "Snímače OSPy"
-
-#: plugins/pool_heating/templates/pool_heating.html:45
-msgid "Air temp plugin"
-msgstr "Balíček Air temp"
-
-#: plugins/pool_heating/templates/pool_heating.html:50
-msgid "Probe input from swimming pool"
-msgstr "Vstupní čidlo pro bazén"
-
-#: plugins/pool_heating/templates/pool_heating.html:51
-#: plugins/pool_heating/templates/pool_heating.html:69
-#: plugins/temperature_switch/templates/temperature_switch.html:32
-#: plugins/temperature_switch/templates/temperature_switch.html:54
-#: plugins/temperature_switch/templates/temperature_switch.html:89
-#: plugins/temperature_switch/templates/temperature_switch.html:111
-#: plugins/temperature_switch/templates/temperature_switch.html:146
-#: plugins/temperature_switch/templates/temperature_switch.html:168
-msgid "Select the temperature sensor (its name) you want to use."
-msgstr "Vyberte snímač teploty (jeho název), který chcete použít."
-
-#: plugins/pool_heating/templates/pool_heating.html:64
-#: plugins/pool_heating/templates/pool_heating.html:82
-msgid "Not selected type"
-msgstr "Nevybraný typ"
-
-#: plugins/pool_heating/templates/pool_heating.html:68
-msgid "Probe input from Solar"
-msgstr "Vstupní čidlo pro solár"
-
-#: plugins/pool_heating/templates/pool_heating.html:86
-msgid "Temperature difference for ON"
-msgstr "Teplotní rozdíl pro ZAP"
-
-#: plugins/pool_heating/templates/pool_heating.html:87
-msgid "Temperature difference for switch ON (filtration pump)."
-msgstr "Teplotní rozdíl pro zapnutí (čerpadlo)."
-
-#: plugins/pool_heating/templates/pool_heating.html:99
-msgid "Temperature difference for OFF"
-msgstr "Teplotní rozdíl pro VYP"
-
-#: plugins/pool_heating/templates/pool_heating.html:100
-msgid "Temperature difference for switch OFF (filtration pump)."
-msgstr "Teplotní rozdíl pro vypnutí (čerpadlo)."
-
-#: plugins/pool_heating/templates/pool_heating.html:106
-msgid "Select the output you want to control with regulation."
-msgstr "Vyberte výstup, který chcete ovládat regulací."
+#: plugins/pool_heating/templates/pool_heating_help.html:11
+msgid "Or in OSPy sensors as well also in"
+msgstr "Nebo v senzorech OSPy, stejně jako v"
 
 #: plugins/pressure_monitor/__init__.py:28
 msgid "Package: Pressure Monitor"
@@ -7976,14 +8005,6 @@ msgid "For this function required email plugin"
 msgstr ""
 "Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
 
-#: plugins/system_update/templates/system_update.html:76
-msgid "Show in footer"
-msgstr "Zobrazit v zápatí na hl. stránce"
-
-#: plugins/system_update/templates/system_update.html:77
-msgid "Show data from plugin in footer on home page"
-msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
-
 #: plugins/system_update/templates/system_update.html:85
 msgid "Update Status"
 msgstr "Stav aktualizace"
@@ -8361,6 +8382,194 @@ msgstr "Vyberte výstup pro ovládanou stanici"
 #: plugins/tank_monitor/templates/tank_monitor.html:355
 msgid "Reset min/max level"
 msgstr "Vymazat min/max"
+
+#: plugins/telegram_bot/__init__.py:26
+msgid "Package: Telegram Bot"
+msgstr "Balíček: Telegram Bot"
+
+#: plugins/telegram_bot/__init__.py:78
+#: plugins/telegram_bot/templates/telegram_bot.html:3
+#: plugins/telegram_bot/templates/telegram_bot.html:22
+#: plugins/telegram_bot/templates/telegram_bot_help.html:3
+msgid "Telegram Bot"
+msgstr "Telegram Bot"
+
+#: plugins/telegram_bot/__init__.py:90
+msgid "Telegram not found, installing. Please wait..."
+msgstr "Telegram nebyl nalezen, instalace. Počkejte prosím..."
+
+#: plugins/telegram_bot/__init__.py:114 plugins/telegram_bot/__init__.py:148
+msgid "Telegram Bot plug-in"
+msgstr "Rozšíření Telegram Bot"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:24
+msgid ""
+"This plugin enables OSPy to communicate the change of status via a telegram"
+msgstr ""
+"Toto rozšíření umožňuje OSPy sdělit změnu stavu prostřednictvím telegramu"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:30
+msgid "General Options"
+msgstr "Hlavní nastavení"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:34
+msgid "Enable Telegram Bot"
+msgstr "Povolit Telegram Bot"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:35
+msgid "If the box is checked, Telegram Bot A will be enabled."
+msgstr "Pokud je políčko zaškrtnuto, bude povolen Telegram Bot."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:40
+msgid "Bot Token"
+msgstr "Token bota"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:41
+msgid "Type your token for enabling the bot to talk with telegram."
+msgstr "Zadejte váš token, který robotovi umožní mluvit s telegramem."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:46
+msgid "Bot Access Key - to Subscribe"
+msgstr "Přístupový klíč robota – k odběru"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:47
+msgid "Type your Bot Access key to Subscribe."
+msgstr "Zadejte klíč pro přístup k botovi, který chcete přihlásit k odběru."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:52
+msgid "Please restart OSPy if these options are changed!"
+msgstr "Pokud se tyto možnosti změní, restartujte OSPy systém!"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:56
+msgid "Signals to connect"
+msgstr "Signály pro připojení"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:60
+msgid "Zone Change"
+msgstr "Změna stanice"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:61
+msgid "Send message if there has been a stations changed state."
+msgstr "Odeslat zprávu, pokud došlo ke změně stavu stanic."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:66
+msgid "Stations Scheduled"
+msgstr "Plánované stanice"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:67
+msgid "Send message if there has been a stations changed state from scheduler."
+msgstr "Odeslat zprávu, pokud došlo ke změně stavu stanice z plánovače."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:73
+msgid "Commands"
+msgstr "Příkaz"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:77
+msgid "Info Command"
+msgstr "Informační příkaz"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:78
+msgid ""
+"Type Info Command for your info. Bot send you available commands for Control."
+msgstr ""
+"Zadejte příkaz Informace pro vaše informace. Robot vám pošle dostupné "
+"příkazy pro řízení."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:84
+msgid "Type Start Command for enabling OSPy scheduler."
+msgstr "Zadejte příkaz Start pro povolení plánovače OSPy."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:90
+msgid "Type Stop Command for disabling OSPy scheduler."
+msgstr "Zadejte příkaz Stop pro zakázání plánovače OSPy."
+
+#: plugins/telegram_bot/templates/telegram_bot.html:95
+msgid "RunOnce Command"
+msgstr "Jednorázový příkaz"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:96
+msgid "Run Once Command, use program number as argument."
+msgstr ""
+"Zadejte příkaz pro jednorázový program, použijte číslo programu jako "
+"argument."
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:7
+msgid "Telegram Bot - Help"
+msgstr "Telegram Bot - Nápověda"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:9
+msgid ""
+"In the telegram application, we send a message to user @botfather and "
+"confirm it /start"
+msgstr "V aplikaci telegram zašleme zprávu uživateli @botfather /start"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:10
+msgid ""
+"Create a new bot with the /newbot command and specify what the bot will be "
+"named ex: ospyk_bot (name must end with _bot)"
+msgstr ""
+"Vytvořte nového robota pomocí příkazu /newbot a určete, jak bude robot "
+"pojmenován příklad: ospyk_bot (název musí skončit _bot)"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:11
+msgid ""
+"Use the /token command to request the new token (for example: we get "
+"something like this 1655412493:AAEPKTaO6KWDS-SCkDniRLRt2sdfewT4nc0Q)"
+msgstr ""
+"Pomocí příkazu /token si vyžádáte nový token (například: dostaneme něco "
+"takového 1655412493:AAEPKTaO6KWDS-SCkDniRLRt2sdfewT4nc0Q)"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:12
+msgid "Test on webpage https://telegram.me/ospyk_bot"
+msgstr "Test na webových stránkách https://telegram.me/ospyk_bot"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:13
+msgid "On telegram plugin we insert: token and Bot Access Key - to Subscribee"
+msgstr "Do pluginu telegramu vložíme: token a přístupový klíč bota - k odběru"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:14
+msgid "Subscribe to the Announcement list, need an Access Key"
+msgstr "Přihlaste se k odběru seznamu oznámení, potřebujete přístupový klíč"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:15
+msgid ""
+"Next type your commands (enable, disble, runnow...) for cummunications with "
+"bot"
+msgstr ""
+"Dále zadejte příkazy (povolit, zakázat, jednorázový...) pro komunikaci s "
+"botem"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:17
+msgid "Here"
+msgstr "Zde"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:17
+msgid ""
+"You must provide a token to enable the bot to talk to telegram, follow the "
+"instructions"
+msgstr ""
+"Musíte poskytnout token, který umožní robotovi mluvit s telegramem, "
+"postupujte podle pokynů"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:18
+msgid ""
+"After starting the extension, it is checked whether a telegram is available "
+"in the system. If not, the extension will try to install it itself"
+msgstr ""
+"Po spuštění rozšíření se kontroluje, zda je v systému k dispozici telegram. "
+"Pokud ne, rozšíření se pokusí nainstalovat ho samo"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:18
+msgid "For Python 2.7"
+msgstr "Pro Python 2.7"
+
+#: plugins/telegram_bot/templates/telegram_bot_help.html:19
+msgid ""
+"After the first start and setup of the extension, we recommend restarting "
+"the OSPy"
+msgstr ""
+"Po prvním spuštění a nastavení rozšíření doporučujeme restartovat operační "
+"systém"
 
 #: plugins/temperature_switch/__init__.py:25
 msgid "Package: Temperature Switch"
