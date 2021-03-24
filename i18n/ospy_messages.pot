@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-23 17:52+CET\n"
+"POT-Creation-Date: 2021-03-24 14:35+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1314,68 +1314,80 @@ msgstr ""
 msgid "Image does not exist! Upload a new image."
 msgstr ""
 
-#: ospy/templates/edit.html:21
-msgid "Image is not png file!"
+#: ospy/templates/edit.html:22
+msgid "Image is not png or gif file!"
 msgstr ""
 
-#: ospy/templates/edit.html:28
-msgid "#"
-msgstr ""
-
-#: ospy/templates/edit.html:28
-msgid "Image adjustment for station"
+#: ospy/templates/edit.html:26
+msgid "Not installed Python Pillow for image proccessing!"
 msgstr ""
 
 #: ospy/templates/edit.html:30
+msgid "Python Pillow is now installed. You can upload pictures."
+msgstr ""
+
+#: ospy/templates/edit.html:34
+msgid "Installation failed - contact your system administrator!"
+msgstr ""
+
+#: ospy/templates/edit.html:41
+msgid "#"
+msgstr ""
+
+#: ospy/templates/edit.html:41
+msgid "Image adjustment for station"
+msgstr ""
+
+#: ospy/templates/edit.html:43
 msgid "Editation the image that is displayed next to the station."
 msgstr ""
 
-#: ospy/templates/edit.html:31
+#: ospy/templates/edit.html:44
 msgid "Recommended resolution is 640x480."
 msgstr ""
 
-#: ospy/templates/edit.html:32
+#: ospy/templates/edit.html:45
 msgid "If the resolution is not observed, the system will convert from the uploaded image to the optimal resolution himself."
 msgstr ""
 
-#: ospy/templates/edit.html:33
-msgid "Only png images are supported. The image name can be arbitrary."
+#: ospy/templates/edit.html:46
+msgid "Only png, gif images are supported. The image name can be arbitrary."
 msgstr ""
 
-#: ospy/templates/edit.html:39 ospy/templates/view.html:20
+#: ospy/templates/edit.html:53 ospy/templates/view.html:20
 msgid "Station image"
 msgstr ""
 
-#: ospy/templates/edit.html:44
+#: ospy/templates/edit.html:58
 msgid "Thumbnail"
 msgstr ""
 
-#: ospy/templates/edit.html:54
+#: ospy/templates/edit.html:68
 msgid "Upload new image"
 msgstr ""
 
-#: ospy/templates/edit.html:59
+#: ospy/templates/edit.html:73
 msgid "Convert image to high resolution 1024x768 otherwise 640x480"
 msgstr ""
 
-#: ospy/templates/edit.html:60
+#: ospy/templates/edit.html:74
 msgid "If checked, the image will be set to a resolution of 1024x768, otherwise to a resolution of 640x480."
 msgstr ""
 
-#: ospy/templates/edit.html:70 ospy/templates/options.html:288
+#: ospy/templates/edit.html:84 ospy/templates/options.html:288
 #: ospy/templates/options.html:298
 #: plugins/voice_notification/templates/voice_notification.html:117
 msgid "Upload"
 msgstr ""
 
-#: ospy/templates/edit.html:71 ospy/templates/plugins_manage.html:55
+#: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:597 ospy/templates/program.html:624
 #: ospy/templates/programs.html:50
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
 msgid "Delete"
 msgstr ""
 
-#: ospy/templates/edit.html:72 ospy/templates/graph_sensor.html:197
+#: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:197
 #: ospy/templates/log_sensor.html:66 ospy/templates/options.html:315
 #: ospy/templates/program.html:635 ospy/templates/runonce.html:72
 #: ospy/templates/sensor.html:364 ospy/templates/stations.html:127
@@ -1808,7 +1820,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:937
+#: ospy/webpages.py:962
 msgid "Manual"
 msgstr ""
 
@@ -3430,132 +3442,136 @@ msgstr ""
 msgid "Incorrect username or password, please try again..."
 msgstr ""
 
-#: ospy/webpages.py:747
-msgid "Files %s and %s has sucesfully deleted..."
+#: ospy/webpages.py:748
+msgid "Files {} and {} has sucesfully deleted..."
 msgstr ""
 
-#: ospy/webpages.py:793 ospy/webpages.py:799
-msgid "File %s has sucesfully uploaded..."
+#: ospy/webpages.py:815
+msgid "File {} has sucesfully uploaded..."
 msgstr ""
 
-#: ospy/webpages.py:816
+#: ospy/webpages.py:821
+msgid "File has sucesfully uploaded..."
+msgstr ""
+
+#: ospy/webpages.py:840
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr ""
 
-#: ospy/webpages.py:820
+#: ospy/webpages.py:844
 msgid "Cannot create resized files!"
 msgstr ""
 
-#: ospy/webpages.py:1360
+#: ospy/webpages.py:1385
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1366
+#: ospy/webpages.py:1391
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1371
+#: ospy/webpages.py:1396
 msgid "The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:1393 ospy/webpages.py:1396
+#: ospy/webpages.py:1418 ospy/webpages.py:1421
 msgid "Deleting image file {}"
 msgstr ""
 
-#: ospy/webpages.py:1402
+#: ospy/webpages.py:1427
 msgid "Deleting file fullchain.pem."
 msgstr ""
 
-#: ospy/webpages.py:1406
+#: ospy/webpages.py:1431
 msgid "Deleting file privkey.pem."
 msgstr ""
 
-#: ospy/webpages.py:1410
+#: ospy/webpages.py:1435
 msgid "Deleting file sessions.db."
 msgstr ""
 
-#: ospy/webpages.py:1414
+#: ospy/webpages.py:1439
 msgid "Deleting file ospy_backup.zip."
 msgstr ""
 
-#: ospy/webpages.py:1418
+#: ospy/webpages.py:1443
 msgid "Deleting file options.db.bak."
 msgstr ""
 
-#: ospy/webpages.py:1422
+#: ospy/webpages.py:1447
 msgid "Deleting file options.db.tmp."
 msgstr ""
 
-#: ospy/webpages.py:1426
+#: ospy/webpages.py:1451
 msgid "Deleting file options.db."
 msgstr ""
 
-#: ospy/webpages.py:1436
+#: ospy/webpages.py:1461
 msgid "Deleting file events.log."
 msgstr ""
 
-#: ospy/webpages.py:1453
+#: ospy/webpages.py:1478
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:1534 ospy/webpages.py:1597 ospy/webpages.py:1598
+#: ospy/webpages.py:1559 ospy/webpages.py:1622 ospy/webpages.py:1623
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:1589
+#: ospy/webpages.py:1614
 msgid "File {} is created successfully!"
 msgstr ""
 
-#: ospy/webpages.py:1633
+#: ospy/webpages.py:1658
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:1640
+#: ospy/webpages.py:1665
 msgid "Uploaded to backup folder OK."
 msgstr ""
 
-#: ospy/webpages.py:1644
+#: ospy/webpages.py:1669
 msgid "Extracted from zip OK."
 msgstr ""
 
-#: ospy/webpages.py:1650
+#: ospy/webpages.py:1675
 msgid "Cleaning folder after restoring..."
 msgstr ""
 
-#: ospy/webpages.py:1653 ospy/webpages.py:1657
+#: ospy/webpages.py:1678 ospy/webpages.py:1682
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 
-#: ospy/webpages.py:1687 ospy/webpages.py:1688
+#: ospy/webpages.py:1712 ospy/webpages.py:1713
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:1719 ospy/webpages.py:1720 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:1744 ospy/webpages.py:1745 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr ""
 
-#: ospy/webpages.py:1739
+#: ospy/webpages.py:1764
 msgid "Remove fullchain.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1743
+#: ospy/webpages.py:1768
 msgid "Remove privkey.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1749
+#: ospy/webpages.py:1774
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:1914
+#: ospy/webpages.py:1939
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:1927 ospy/webpages.py:1993
+#: ospy/webpages.py:1952 ospy/webpages.py:2018
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:1939 ospy/webpages.py:1980
+#: ospy/webpages.py:1964 ospy/webpages.py:2005
 msgid "Unit not set"
 msgstr ""
 
@@ -7777,7 +7793,7 @@ msgstr ""
 msgid "Telegram not found, installing. Please wait..."
 msgstr ""
 
-#: plugins/telegram_bot/__init__.py:114 plugins/telegram_bot/__init__.py:148
+#: plugins/telegram_bot/__init__.py:114 plugins/telegram_bot/__init__.py:135
 msgid "Telegram Bot plug-in"
 msgstr ""
 

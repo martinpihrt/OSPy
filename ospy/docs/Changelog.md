@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 24 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Error Repair images in stations images. If not installed Python Pillow for image proccessing. Now is available button for installing it. New: GIF image can be uploaded to the stations images. Fix Czech language. 
+
 Mar 23 2021
 -----------
 (martinpihrt)<br/>

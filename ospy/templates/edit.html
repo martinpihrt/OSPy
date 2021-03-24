@@ -16,10 +16,23 @@ $var page: image
     switch (errorCode) {
         case "noex":
             jQuery("#Hint").text($:{json.dumps(_('Image does not exist! Upload a new image.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/jpeg,image/gif'>");
         break;  
         case "uplname":
-            jQuery("#Hint").text($:{json.dumps(_('Image is not png file!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
-        break;             
+            jQuery("#Hint").text($:{json.dumps(_('Image is not png or gif file!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/gif'>");            
+        break;  
+        case "nopil":
+            jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#BtnInstall").html("<a href='/img_edit/${index}?install' class='button cDelete danger'>$_('Install it!')</a>");
+        break;
+        case "nopilOK":
+            jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8')}).css('color', 'green');
+            jQuery("#BtnInstall").html("<a href='/img_edit/${index}' class='button submit'>$_('Refresh')</a>");
+        break;
+        case "nopilErr":
+            jQuery("#Hint").text($:{json.dumps(_('Installation failed - contact your system administrator!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+        break;        
     }
 });
 </script>
@@ -30,8 +43,9 @@ $var page: image
             <p>$_('Editation the image that is displayed next to the station.')</p>
             <p>$_('Recommended resolution is 640x480.')</p>
             <p>$_('If the resolution is not observed, the system will convert from the uploaded image to the optimal resolution himself.')</p>
-            <p>$_('Only png images are supported. The image name can be arbitrary.')</p> 
+            <p>$_('Only png, gif images are supported. The image name can be arbitrary.')</p> 
             <span id="Hint"></span>
+            <span id="BtnInstall"></span>    
             <form name="imageForm" id="imageForm" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="index" value="${index}">
                 <table class="optionList" style="background: #F5F5F5;">
@@ -52,7 +66,7 @@ $var page: image
                     </tr>                                      
                     <tr>
                         <td title=$:{json.dumps(_(u'Upload new image'), ensure_ascii=False)}>
-                            <input type="file" name="uploadfile" class="upload" accept="image/x-png">
+                            <span id="okupload"></span>
                         </td>
                     </tr> 
                     <tr>

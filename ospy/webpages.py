@@ -399,7 +399,7 @@ class sensor_page(ProtectedPage):
                     web.header('Content-Type', 'application/json')
                     return json.dumps(data)
                 except:    
-                    #print_report('webpages.py', traceback.format_exc())
+                    print_report('webpages.py', traceback.format_exc())
                     pass
 
             elif graph:
@@ -722,7 +722,7 @@ class user_page(ProtectedPage):
             user.password_hash = password_hash(password, salt) # actual user hash+salt for saving           
             users.add_users(user)    
 
-        raise web.seeother(u'/users')        
+        raise web.seeother(u'/users')
 
 
 class image_edit_page(ProtectedPage):
@@ -734,6 +734,7 @@ class image_edit_page(ProtectedPage):
         qdict = web.input() 
         errorCode = qdict.get('errorCode', 'None')
         delete = get_input(qdict, 'delete', False, lambda x: True)
+        install = get_input(qdict, 'install', False, lambda x: True)
 
         img_path    = './ospy/images/stations/station%s.png' % str(index)
         img_path_th = './ospy/images/stations/station%s_thumbnail.png' % str(index)
@@ -742,17 +743,37 @@ class image_edit_page(ProtectedPage):
             try:
                 if os.path.isfile(img_path):
                     os.remove(img_path)
-                if os.path.isfile(img_path_th):    
+                if os.path.isfile(img_path_th):
                     os.remove(img_path_th)
-                log.debug('webpages.py', _(u'Files %s and %s has sucesfully deleted...') % ('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
+                log.debug('webpages.py', _(u'Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
             except:
-                pass    
+            	print_report('webpages.py', traceback.format_exc())
+                pass
 
         if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
             img_url = '/images?id=no_image'                           # fake default img
-            errorCode = qdict.get('errorCode', 'noex')   
+            errorCode = qdict.get('errorCode', 'noex')
+            try:
+                from PIL import Image
+            except ImportError:
+                errorCode = qdict.get('errorCode', 'nopil')
+                print_report('webpages.py', traceback.format_exc())
+                pass
         else:
-            img_url = '/images?sf=1&id=station%s' % str(index)        # station img            
+            img_url = '/images?sf=1&id=station%s' % str(index)        # station img
+
+        if install and session['category'] == 'admin':
+            try:
+                import subprocess
+                cmd = "sudo pip install Pillow==2.7.0"                # python 2.7 pip install Pillow==2.7.0
+                proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
+                output = proc.communicate()[0]
+                log.debug('webpages.py', u'{}'.format(output))
+                errorCode = qdict.get('errorCode', 'nopilOK')
+            except:
+                errorCode = qdict.get('errorCode', 'nopilErr')
+                print_report('webpages.py', traceback.format_exc())
+                pass
 
         return self.core_render.edit(index, img_url, errorCode)
 
@@ -773,11 +794,12 @@ class image_edit_page(ProtectedPage):
                 options.high_resolution_mode = False 
                    
             i = web.input(uploadfile={})
-            #web.debug(i['uploadfile'].filename)    # This is the filename
+            web.debug(i['uploadfile'].filename)    # This is the filename
             #web.debug(i['uploadfile'].value)       # This is the file contents
             #web.debug(i['uploadfile'].file.read()) # Or use a file(-like) object
             upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # only .png file accepted
-            if upload_type != '.png': # check file type
+            types = ['.png','.gif']
+            if upload_type not in types:            # check file type is ok
                 if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
                     img_url = '/images?id=no_image'                            # fake default img
                 else:
@@ -790,16 +812,17 @@ class image_edit_page(ProtectedPage):
                     fout = open(img_path_temp,'w') 
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()
-                    log.debug('webpages.py', _(u'File %s has sucesfully uploaded...') % i.uploadfile.filename)
+                    log.debug('webpages.py', _(u'File {} has sucesfully uploaded...').format(i.uploadfile.filename))
                 else:
                     os.remove(img_path_temp) 
                     fout = open(img_path_temp,'w')  # temporary file after uploading
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()         
-                    log.debug('webpages.py', _(u'File %s has sucesfully uploaded...') % i.uploadfile.filename)           
+                    log.debug('webpages.py', _(u'File has sucesfully uploaded...'))    
 
                 try:
-                    from PIL import Image
+                    from PIL import Image           # pip install Pillow==2.7.0
+
                     if os.path.isfile(img_path_temp):
                         im = Image.open(img_path_temp)
                         size = 50,50                # resize to thumbnail               
@@ -818,6 +841,7 @@ class image_edit_page(ProtectedPage):
                 except:
                     pass
                     log.error('webpages.py', _(u'Cannot create resized files!'))
+                    print_report('webpages.py', traceback.format_exc())
 
         raise web.seeother(u'/stations')   
 

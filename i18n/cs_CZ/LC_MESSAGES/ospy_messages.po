@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-03-23 17:52+CET\n"
-"PO-Revision-Date: 2021-03-23 18:10+0100\n"
+"POT-Creation-Date: 2021-03-24 14:35+CET\n"
+"PO-Revision-Date: 2021-03-24 14:50+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1385,27 +1385,39 @@ msgstr "Úprava obrázku"
 msgid "Image does not exist! Upload a new image."
 msgstr "Obrázek neexistuje! Nahrajte nový obrázek."
 
-#: ospy/templates/edit.html:21
-msgid "Image is not png file!"
-msgstr "Obrázek není png soubor!"
+#: ospy/templates/edit.html:22
+msgid "Image is not png or gif file!"
+msgstr "Obrázek není png nebo gif soubor!"
 
-#: ospy/templates/edit.html:28
+#: ospy/templates/edit.html:26
+msgid "Not installed Python Pillow for image proccessing!"
+msgstr "Není nainstalovaný balíček Python Pillow pro zpracování obrázku!"
+
+#: ospy/templates/edit.html:30
+msgid "Python Pillow is now installed. You can upload pictures."
+msgstr "Python Pillow je nyní nainstalován. Můžete nahrát obrázky."
+
+#: ospy/templates/edit.html:34
+msgid "Installation failed - contact your system administrator!"
+msgstr "Instalace se nezdařila – obraťte se na správce systému!"
+
+#: ospy/templates/edit.html:41
 msgid "#"
 msgstr "#"
 
-#: ospy/templates/edit.html:28
+#: ospy/templates/edit.html:41
 msgid "Image adjustment for station"
 msgstr "Úprava obrázku pro stanici"
 
-#: ospy/templates/edit.html:30
+#: ospy/templates/edit.html:43
 msgid "Editation the image that is displayed next to the station."
 msgstr "Úprava obrázku, který se zobrazí vedle stanice."
 
-#: ospy/templates/edit.html:31
+#: ospy/templates/edit.html:44
 msgid "Recommended resolution is 640x480."
 msgstr "Doporučené rozlišení je 640x480."
 
-#: ospy/templates/edit.html:32
+#: ospy/templates/edit.html:45
 msgid ""
 "If the resolution is not observed, the system will convert from the uploaded "
 "image to the optimal resolution himself."
@@ -1413,27 +1425,28 @@ msgstr ""
 "Pokud rozlišení není dodrženo, systém převede z nahraného obrázku na "
 "optimální rozlišení sám."
 
-#: ospy/templates/edit.html:33
-msgid "Only png images are supported. The image name can be arbitrary."
-msgstr "Podporovány jsou pouze obrázky PNG. Název obrázku může být libovolný."
+#: ospy/templates/edit.html:46
+msgid "Only png, gif images are supported. The image name can be arbitrary."
+msgstr ""
+"Podporovány jsou pouze obrázky png, gif. Název obrázku může být libovolný."
 
-#: ospy/templates/edit.html:39 ospy/templates/view.html:20
+#: ospy/templates/edit.html:53 ospy/templates/view.html:20
 msgid "Station image"
 msgstr "Obrázek stanice"
 
-#: ospy/templates/edit.html:44
+#: ospy/templates/edit.html:58
 msgid "Thumbnail"
 msgstr "Náhled"
 
-#: ospy/templates/edit.html:54
+#: ospy/templates/edit.html:68
 msgid "Upload new image"
 msgstr "Nahrát nový obrázek"
 
-#: ospy/templates/edit.html:59
+#: ospy/templates/edit.html:73
 msgid "Convert image to high resolution 1024x768 otherwise 640x480"
 msgstr "Převést obrázek na 1024×768, jinak 640×480"
 
-#: ospy/templates/edit.html:60
+#: ospy/templates/edit.html:74
 msgid ""
 "If checked, the image will be set to a resolution of 1024x768, otherwise to "
 "a resolution of 640x480."
@@ -1441,20 +1454,20 @@ msgstr ""
 "Pokud je zaškrtnuto, obraz bude nastaven na rozlišení 1024x768, jinak na "
 "rozlišení 640x480."
 
-#: ospy/templates/edit.html:70 ospy/templates/options.html:288
+#: ospy/templates/edit.html:84 ospy/templates/options.html:288
 #: ospy/templates/options.html:298
 #: plugins/voice_notification/templates/voice_notification.html:117
 msgid "Upload"
 msgstr "Nahrát"
 
-#: ospy/templates/edit.html:71 ospy/templates/plugins_manage.html:55
+#: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:597 ospy/templates/program.html:624
 #: ospy/templates/programs.html:50
 #: plugins/volt_temp_da/templates/volt_temp_da.html:25
 msgid "Delete"
 msgstr "Smazat"
 
-#: ospy/templates/edit.html:72 ospy/templates/graph_sensor.html:197
+#: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:197
 #: ospy/templates/log_sensor.html:66 ospy/templates/options.html:315
 #: ospy/templates/program.html:635 ospy/templates/runonce.html:72
 #: ospy/templates/sensor.html:364 ospy/templates/stations.html:127
@@ -1894,7 +1907,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:937
+#: ospy/webpages.py:962
 msgid "Manual"
 msgstr "Ručně"
 
@@ -3598,23 +3611,27 @@ msgstr "Heslo:"
 msgid "Incorrect username or password, please try again..."
 msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:747
-msgid "Files %s and %s has sucesfully deleted..."
-msgstr "Soubory %s a %s úspěšně smazány..."
+#: ospy/webpages.py:748
+msgid "Files {} and {} has sucesfully deleted..."
+msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:793 ospy/webpages.py:799
-msgid "File %s has sucesfully uploaded..."
-msgstr "Soubor %s se úspěšně nahrál..."
+#: ospy/webpages.py:815
+msgid "File {} has sucesfully uploaded..."
+msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:816
+#: ospy/webpages.py:821
+msgid "File has sucesfully uploaded..."
+msgstr "Soubor se úspěšně nahrál..."
+
+#: ospy/webpages.py:840
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:820
+#: ospy/webpages.py:844
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1360
+#: ospy/webpages.py:1385
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3622,7 +3639,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1366
+#: ospy/webpages.py:1391
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3630,7 +3647,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1371
+#: ospy/webpages.py:1396
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -3638,43 +3655,43 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1393 ospy/webpages.py:1396
+#: ospy/webpages.py:1418 ospy/webpages.py:1421
 msgid "Deleting image file {}"
 msgstr "Odstranění souboru obrázku {}"
 
-#: ospy/webpages.py:1402
+#: ospy/webpages.py:1427
 msgid "Deleting file fullchain.pem."
 msgstr "Odstranění souboru fullchain.pem."
 
-#: ospy/webpages.py:1406
+#: ospy/webpages.py:1431
 msgid "Deleting file privkey.pem."
 msgstr "Odstranění souboru privkey.pem."
 
-#: ospy/webpages.py:1410
+#: ospy/webpages.py:1435
 msgid "Deleting file sessions.db."
 msgstr "Odstranění souboru sessions.db."
 
-#: ospy/webpages.py:1414
+#: ospy/webpages.py:1439
 msgid "Deleting file ospy_backup.zip."
 msgstr "Odstranění souboru ospy_backup.zip."
 
-#: ospy/webpages.py:1418
+#: ospy/webpages.py:1443
 msgid "Deleting file options.db.bak."
 msgstr "Odstranění souboru options.db.bak."
 
-#: ospy/webpages.py:1422
+#: ospy/webpages.py:1447
 msgid "Deleting file options.db.tmp."
 msgstr "Odstranění souboru options.db.tmp."
 
-#: ospy/webpages.py:1426
+#: ospy/webpages.py:1451
 msgid "Deleting file options.db."
 msgstr "Odstranění souboru options.db."
 
-#: ospy/webpages.py:1436
+#: ospy/webpages.py:1461
 msgid "Deleting file events.log."
 msgstr "Odstranění souboru events.log."
 
-#: ospy/webpages.py:1453
+#: ospy/webpages.py:1478
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -3682,65 +3699,65 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1534 ospy/webpages.py:1597 ospy/webpages.py:1598
+#: ospy/webpages.py:1559 ospy/webpages.py:1622 ospy/webpages.py:1623
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1589
+#: ospy/webpages.py:1614
 msgid "File {} is created successfully!"
 msgstr "Soubor {} byl úspěšně vytvořen!"
 
-#: ospy/webpages.py:1633
+#: ospy/webpages.py:1658
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:1640
+#: ospy/webpages.py:1665
 msgid "Uploaded to backup folder OK."
 msgstr "Nahráno do záložní složky OK."
 
-#: ospy/webpages.py:1644
+#: ospy/webpages.py:1669
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:1650
+#: ospy/webpages.py:1675
 msgid "Cleaning folder after restoring..."
 msgstr "Čištění složky po obnovení..."
 
-#: ospy/webpages.py:1653 ospy/webpages.py:1657
+#: ospy/webpages.py:1678 ospy/webpages.py:1682
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:1687 ospy/webpages.py:1688
+#: ospy/webpages.py:1712 ospy/webpages.py:1713
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:1719 ospy/webpages.py:1720 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:1744 ospy/webpages.py:1745 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:1739
+#: ospy/webpages.py:1764
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:1743
+#: ospy/webpages.py:1768
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:1749
+#: ospy/webpages.py:1774
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:1914
+#: ospy/webpages.py:1939
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1927 ospy/webpages.py:1993
+#: ospy/webpages.py:1952 ospy/webpages.py:2018
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1939 ospy/webpages.py:1980
+#: ospy/webpages.py:1964 ospy/webpages.py:2005
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -6659,7 +6676,7 @@ msgstr "Všechny teploty jsou ve"
 
 #: plugins/pool_heating/templates/pool_heating_help.html:11
 msgid "Or in OSPy sensors as well also in"
-msgstr "Nebo v senzorech OSPy, stejně jako v"
+msgstr "Nebo v případě OSPy snímačů lze uvádět v"
 
 #: plugins/pressure_monitor/__init__.py:28
 msgid "Package: Pressure Monitor"
@@ -8398,7 +8415,7 @@ msgstr "Telegram Bot"
 msgid "Telegram not found, installing. Please wait..."
 msgstr "Telegram nebyl nalezen, instalace. Počkejte prosím..."
 
-#: plugins/telegram_bot/__init__.py:114 plugins/telegram_bot/__init__.py:148
+#: plugins/telegram_bot/__init__.py:114 plugins/telegram_bot/__init__.py:135
 msgid "Telegram Bot plug-in"
 msgstr "Rozšíření Telegram Bot"
 
