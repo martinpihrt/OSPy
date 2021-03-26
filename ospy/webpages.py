@@ -87,9 +87,9 @@ program_runnow = signal('program_runnow')
 def report_program_runnow():
     program_runnow.send()
 
-poweroff = signal('poweroff')
+reppoweroff = signal('poweroff')
 def report_poweroff():
-    poweroff.send()
+    reppoweroff.send()
 
 
 from web import form
@@ -1396,7 +1396,7 @@ class options_page(ProtectedPage):
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
-            poweroff(wait=5, block=True)   # shutdown HW system
+            poweroff(wait=15, block=True)   # shutdown HW system
             msg = _(u'The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 
