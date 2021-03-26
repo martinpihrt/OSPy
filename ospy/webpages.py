@@ -87,6 +87,10 @@ program_runnow = signal('program_runnow')
 def report_program_runnow():
     program_runnow.send()
 
+poweroff = signal('poweroff')
+def report_poweroff():
+    poweroff.send()
+
 
 from web import form
 
@@ -1380,7 +1384,7 @@ class options_page(ProtectedPage):
    
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
-            reboot(True) # Linux HW software 
+            reboot(block=True) # Linux HW software 
             msg = _(u'The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg) 
 
@@ -1391,7 +1395,8 @@ class options_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)            
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
-            poweroff(True)   # shutdown HW system
+            report_poweroff()
+            poweroff(wait=5, block=True)   # shutdown HW system
             msg = _(u'The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 

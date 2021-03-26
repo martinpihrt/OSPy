@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 26 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings). Updating LCD display plugin (help page and new msg for print to LCD), Signaling Examples plugin (help page), System Update plugin (help page).
+
 Mar 24 2021
 -----------
 (martinpihrt)<br/>

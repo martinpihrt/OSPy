@@ -27,7 +27,7 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-03-24"
+    ver_date = u"2021-03-26"
 
 ### ESP32 sensor last fw version in folder
 try:

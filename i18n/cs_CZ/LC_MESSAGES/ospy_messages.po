@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-03-24 14:35+CET\n"
-"PO-Revision-Date: 2021-03-24 14:50+0100\n"
+"POT-Creation-Date: 2021-03-26 08:07+CET\n"
+"PO-Revision-Date: 2021-03-26 08:08+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -562,7 +562,8 @@ msgid "Use rain sensor."
 msgstr "Používat děšťový senzor."
 
 #: ospy/options.py:297 ospy/options.py:304
-#: plugins/lcd_display/templates/lcd_display.html:97
+#: plugins/lcd_display/templates/lcd_display.html:93
+#: plugins/lcd_display/templates/lcd_display_help.html:38
 msgid "Rain Sensor"
 msgstr "Dešťový senzor"
 
@@ -1334,8 +1335,11 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/base.html:166 ospy/templates/help.html:3
 #: ospy/templates/help.html:38 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:20
+#: plugins/lcd_display/templates/lcd_display.html:22
 #: plugins/pool_heating/templates/pool_heating.html:37
 #: plugins/relay_16/templates/relay_16.html:22
+#: plugins/signaling_examples/templates/signaling_examples.html:22
+#: plugins/system_update/templates/system_update.html:21
 #: plugins/telegram_bot/templates/telegram_bot.html:25
 msgid "Help"
 msgstr "Nápověda"
@@ -1345,7 +1349,8 @@ msgid "Logout"
 msgstr "Odhlásit se"
 
 #: ospy/templates/base.html:179
-#: plugins/lcd_display/templates/lcd_display.html:79
+#: plugins/lcd_display/templates/lcd_display.html:75
+#: plugins/lcd_display/templates/lcd_display_help.html:35
 msgid "CPU Temp"
 msgstr "Teplota CPU"
 
@@ -1478,7 +1483,8 @@ msgstr "Smazat"
 #: plugins/email_notifications/templates/email_notifications.html:140
 #: plugins/email_reader/templates/email_reader.html:194
 #: plugins/humi_monitor/templates/humi_monitor.html:96
-#: plugins/lcd_display/templates/lcd_display.html:157
+#: plugins/lcd_display/templates/lcd_display.html:153
+#: plugins/lcd_display/templates/lcd_display_help.html:62
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
 #: plugins/mqtt/templates/mqtt.html:107
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
@@ -1493,11 +1499,13 @@ msgstr "Smazat"
 #: plugins/relay_16/templates/relay_16.html:79
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:66
 #: plugins/remote_notifications/templates/remote_notifications.html:61
-#: plugins/signaling_examples/templates/signaling_examples.html:39
+#: plugins/signaling_examples/templates/signaling_examples.html:37
+#: plugins/signaling_examples/templates/signaling_examples_help.html:35
 #: plugins/sms_adj/templates/sms_adj.html:117
 #: plugins/system_debug/templates/system_debug.html:42
 #: plugins/system_info/templates/system_info.html:30
-#: plugins/system_update/templates/system_update.html:99
+#: plugins/system_update/templates/system_update.html:96
+#: plugins/system_update/templates/system_update_help.html:30
 #: plugins/system_watchdog/templates/system_watchdog.html:57
 #: plugins/tank_monitor/templates/tank_monitor.html:354
 #: plugins/telegram_bot/templates/telegram_bot.html:111
@@ -1571,7 +1579,7 @@ msgstr "Pohyb"
 #: ospy/templates/sensors.html:249 ospy/templates/sensors.html:257
 #: ospy/templates/sensors.html:273 ospy/templates/sensors.html:281
 #: ospy/templates/sensors.html:293 ospy/templates/sensors.html:302
-#: ospy/templates/sensors.html:315 plugins/lcd_display/__init__.py:289
+#: ospy/templates/sensors.html:315 plugins/lcd_display/__init__.py:304
 msgid "None"
 msgstr "Nepoužito"
 
@@ -1753,7 +1761,7 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/home_public.html:159 ospy/templates/home_user.html:159
 #: ospy/templates/home_user.html:461 ospy/templates/log.html:29
 #: ospy/templates/log.html:57 ospy/templates/log_user.html:7
-#: ospy/templates/log_user.html:35 plugins/lcd_display/__init__.py:386
+#: ospy/templates/log_user.html:35 plugins/lcd_display/__init__.py:401
 msgid "Disabled"
 msgstr "Zakázáno"
 
@@ -1824,7 +1832,7 @@ msgid "The system has detected that an OSPy update is available"
 msgstr "Systém zjistil, že je k dispozici aktualizace OSPy"
 
 #: ospy/templates/home_admin.html:399
-#: plugins/system_update/templates/system_update.html:46
+#: plugins/system_update/templates/system_update.html:43
 msgid "Local OSPy version"
 msgstr "Místní OSPy verze"
 
@@ -1888,7 +1896,7 @@ msgstr ""
 "programy"
 
 #: ospy/templates/home_admin.html:532 ospy/templates/home_user.html:451
-#: plugins/lcd_display/__init__.py:272 plugins/lcd_display/__init__.py:305
+#: plugins/lcd_display/__init__.py:287 plugins/lcd_display/__init__.py:320
 #: plugins/pressure_monitor/__init__.py:188
 #: plugins/pressure_monitor/__init__.py:189
 msgid "Active"
@@ -1907,7 +1915,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:962
+#: ospy/webpages.py:965
 msgid "Manual"
 msgstr "Ručně"
 
@@ -1918,7 +1926,7 @@ msgstr "Povolit nebo zakázat provoz plánovače"
 #: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:461
 #: ospy/templates/log.html:29 ospy/templates/log.html:57
 #: ospy/templates/log_user.html:7 ospy/templates/log_user.html:35
-#: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:384
+#: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:399
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
 #: plugins/webcam/templates/webcam.html:29
 msgid "Enabled"
@@ -2180,7 +2188,7 @@ msgstr "Akce"
 #: ospy/templates/sensors.html:147 ospy/templates/sensors.html:269
 #: ospy/templates/sensors.html:289 ospy/templates/sensors.html:290
 #: ospy/templates/sensors.html:299 ospy/templates/sensors.html:327
-#: plugins/lcd_display/__init__.py:325 plugins/weather_stations/__init__.py:39
+#: plugins/lcd_display/__init__.py:340 plugins/weather_stations/__init__.py:39
 msgid "%"
 msgstr "%"
 
@@ -2518,8 +2526,8 @@ msgstr "Smazat vše"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:169
-#: plugins/system_update/templates/system_update.html:97
+#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:172
+#: plugins/system_update/templates/system_update.html:94
 msgid "Up-to-date"
 msgstr "Aktuální"
 
@@ -3599,39 +3607,39 @@ msgstr ""
 "Toto rozhraní bylo odstraněno, protože Weather Underground API se zastavil, "
 "prosím aktualizujte plug-in!"
 
-#: ospy/webpages.py:94
+#: ospy/webpages.py:98
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ospy/webpages.py:95
+#: ospy/webpages.py:99
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:98
+#: ospy/webpages.py:102
 msgid "Incorrect username or password, please try again..."
 msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:748
+#: ospy/webpages.py:752
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:815
+#: ospy/webpages.py:819
 msgid "File {} has sucesfully uploaded..."
 msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:821
+#: ospy/webpages.py:825
 msgid "File has sucesfully uploaded..."
 msgstr "Soubor se úspěšně nahrál..."
 
-#: ospy/webpages.py:840
+#: ospy/webpages.py:843
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:844
+#: ospy/webpages.py:847
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1385
+#: ospy/webpages.py:1388
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3639,7 +3647,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1391
+#: ospy/webpages.py:1394
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3647,7 +3655,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1396
+#: ospy/webpages.py:1400
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -3655,43 +3663,43 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1418 ospy/webpages.py:1421
+#: ospy/webpages.py:1422 ospy/webpages.py:1425
 msgid "Deleting image file {}"
 msgstr "Odstranění souboru obrázku {}"
 
-#: ospy/webpages.py:1427
+#: ospy/webpages.py:1431
 msgid "Deleting file fullchain.pem."
 msgstr "Odstranění souboru fullchain.pem."
 
-#: ospy/webpages.py:1431
+#: ospy/webpages.py:1435
 msgid "Deleting file privkey.pem."
 msgstr "Odstranění souboru privkey.pem."
 
-#: ospy/webpages.py:1435
+#: ospy/webpages.py:1439
 msgid "Deleting file sessions.db."
 msgstr "Odstranění souboru sessions.db."
 
-#: ospy/webpages.py:1439
+#: ospy/webpages.py:1443
 msgid "Deleting file ospy_backup.zip."
 msgstr "Odstranění souboru ospy_backup.zip."
 
-#: ospy/webpages.py:1443
+#: ospy/webpages.py:1447
 msgid "Deleting file options.db.bak."
 msgstr "Odstranění souboru options.db.bak."
 
-#: ospy/webpages.py:1447
+#: ospy/webpages.py:1451
 msgid "Deleting file options.db.tmp."
 msgstr "Odstranění souboru options.db.tmp."
 
-#: ospy/webpages.py:1451
+#: ospy/webpages.py:1455
 msgid "Deleting file options.db."
 msgstr "Odstranění souboru options.db."
 
-#: ospy/webpages.py:1461
+#: ospy/webpages.py:1465
 msgid "Deleting file events.log."
 msgstr "Odstranění souboru events.log."
 
-#: ospy/webpages.py:1478
+#: ospy/webpages.py:1482
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -3699,65 +3707,65 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1559 ospy/webpages.py:1622 ospy/webpages.py:1623
+#: ospy/webpages.py:1563 ospy/webpages.py:1626 ospy/webpages.py:1627
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1614
+#: ospy/webpages.py:1618
 msgid "File {} is created successfully!"
 msgstr "Soubor {} byl úspěšně vytvořen!"
 
-#: ospy/webpages.py:1658
+#: ospy/webpages.py:1662
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:1665
+#: ospy/webpages.py:1669
 msgid "Uploaded to backup folder OK."
 msgstr "Nahráno do záložní složky OK."
 
-#: ospy/webpages.py:1669
+#: ospy/webpages.py:1673
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:1675
+#: ospy/webpages.py:1679
 msgid "Cleaning folder after restoring..."
 msgstr "Čištění složky po obnovení..."
 
-#: ospy/webpages.py:1678 ospy/webpages.py:1682
+#: ospy/webpages.py:1682 ospy/webpages.py:1686
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:1712 ospy/webpages.py:1713
+#: ospy/webpages.py:1716 ospy/webpages.py:1717
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:1744 ospy/webpages.py:1745 plugins/mqtt/__init__.py:247
+#: ospy/webpages.py:1748 ospy/webpages.py:1749 plugins/mqtt/__init__.py:247
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:1764
+#: ospy/webpages.py:1768
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:1768
+#: ospy/webpages.py:1772
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:1774
+#: ospy/webpages.py:1778
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:1939
+#: ospy/webpages.py:1943
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1952 ospy/webpages.py:2018
+#: ospy/webpages.py:1956 ospy/webpages.py:2022
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1964 ospy/webpages.py:2005
+#: ospy/webpages.py:1968 ospy/webpages.py:2009
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -4031,7 +4039,8 @@ msgstr "Počet DS18B20"
 #: plugins/email_notifications/templates/email_notifications.html:129
 #: plugins/email_reader/templates/email_reader.html:183
 #: plugins/humi_monitor/templates/humi_monitor.html:86
-#: plugins/lcd_display/templates/lcd_display.html:147
+#: plugins/lcd_display/templates/lcd_display.html:143
+#: plugins/lcd_display/templates/lcd_display_help.html:45
 #: plugins/mqtt/templates/mqtt.html:97
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:37
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
@@ -4044,11 +4053,12 @@ msgstr "Počet DS18B20"
 #: plugins/relay_16/templates/relay_16.html:68
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:56
 #: plugins/remote_notifications/templates/remote_notifications.html:50
-#: plugins/signaling_examples/templates/signaling_examples.html:28
+#: plugins/signaling_examples/templates/signaling_examples.html:26
 #: plugins/sms_adj/templates/sms_adj.html:107
 #: plugins/system_debug/templates/system_debug.html:30
 #: plugins/system_info/templates/system_info.html:21
-#: plugins/system_update/templates/system_update.html:82
+#: plugins/system_update/templates/system_update.html:79
+#: plugins/system_update/templates/system_update_help.html:24
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor.html:344
 #: plugins/telegram_bot/templates/telegram_bot.html:101
@@ -4073,7 +4083,7 @@ msgstr "Stav"
 #: plugins/email_notifications/templates/email_notifications.html:138
 #: plugins/email_reader/templates/email_reader.html:193
 #: plugins/humi_monitor/templates/humi_monitor.html:95
-#: plugins/lcd_display/templates/lcd_display.html:156
+#: plugins/lcd_display/templates/lcd_display.html:152
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:106
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
@@ -4085,10 +4095,10 @@ msgstr "Stav"
 #: plugins/relay_16/templates/relay_16.html:78
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:65
 #: plugins/remote_notifications/templates/remote_notifications.html:59
-#: plugins/signaling_examples/templates/signaling_examples.html:38
+#: plugins/signaling_examples/templates/signaling_examples.html:36
 #: plugins/sms_adj/templates/sms_adj.html:116
 #: plugins/system_debug/templates/system_debug.html:41
-#: plugins/system_update/templates/system_update.html:93
+#: plugins/system_update/templates/system_update.html:90
 #: plugins/tank_monitor/templates/tank_monitor.html:353
 #: plugins/telegram_bot/templates/telegram_bot.html:110
 #: plugins/temperature_switch/templates/temperature_switch.html:200
@@ -4243,7 +4253,7 @@ msgstr ""
 "LED"
 
 #: plugins/button_control/templates/button_control.html:22
-#: plugins/lcd_display/templates/lcd_display.html:26
+#: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/sms_adj/templates/sms_adj.html:25
 #: plugins/voice_notification/templates/voice_notification.html:28
 #: plugins/water_meter/templates/water_meter.html:23
@@ -4251,7 +4261,7 @@ msgid "Visit"
 msgstr "Navštivte"
 
 #: plugins/button_control/templates/button_control.html:22
-#: plugins/lcd_display/templates/lcd_display.html:26
+#: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/sms_adj/templates/sms_adj.html:25
 #: plugins/voice_notification/templates/voice_notification.html:28
 #: plugins/water_meter/templates/water_meter.html:23
@@ -4437,7 +4447,7 @@ msgstr "Ukončené zalévání"
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
-#: plugins/lcd_display/__init__.py:325 plugins/tank_monitor/__init__.py:145
+#: plugins/lcd_display/__init__.py:340 plugins/tank_monitor/__init__.py:145
 #: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
 #: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
 #: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
@@ -4448,7 +4458,7 @@ msgid "cm"
 msgstr "cm"
 
 #: plugins/email_notifications/__init__.py:154
-#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:325
+#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:340
 msgid "Level"
 msgstr "Úroveň"
 
@@ -4478,7 +4488,7 @@ msgstr "litrů"
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:852
-#: plugins/lcd_display/__init__.py:329 plugins/tank_monitor/__init__.py:150
+#: plugins/lcd_display/__init__.py:344 plugins/tank_monitor/__init__.py:150
 #: plugins/tank_monitor/__init__.py:151
 msgid "m3"
 msgstr "m3"
@@ -4656,7 +4666,8 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/email_reader/templates/email_reader.html:173
 #: plugins/ping_monitor/templates/ping_monitor.html:230
 #: plugins/pressure_monitor/templates/pressure_monitor.html:218
-#: plugins/system_update/templates/system_update.html:70
+#: plugins/system_update/templates/system_update.html:67
+#: plugins/system_update/templates/system_update_help.html:20
 #: plugins/tank_monitor/templates/tank_monitor.html:259
 #: plugins/ups_adj/templates/ups_adj.html:205
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
@@ -5637,94 +5648,94 @@ msgstr "Frekvence ze senzoru pro 0% vlhkost"
 msgid "Frequenci from sensor for 100% humidity"
 msgstr "Frekvence ze senzoru pro 100% vlhkost"
 
-#: plugins/lcd_display/__init__.py:29
+#: plugins/lcd_display/__init__.py:33
 msgid "Package: LCD Display"
 msgstr "Balíček: LCD displej"
 
-#: plugins/lcd_display/__init__.py:111
+#: plugins/lcd_display/__init__.py:126
 msgid "LCD display plug-in:"
 msgstr "Rozšíření LCD displej:"
 
-#: plugins/lcd_display/__init__.py:178
+#: plugins/lcd_display/__init__.py:193
 msgid ","
 msgstr ","
 
-#: plugins/lcd_display/__init__.py:190
+#: plugins/lcd_display/__init__.py:205
 msgid "System:"
 msgstr "Systém:"
 
-#: plugins/lcd_display/__init__.py:200
+#: plugins/lcd_display/__init__.py:215
 msgid "SW Version:"
 msgstr "SW verze:"
 
-#: plugins/lcd_display/__init__.py:210
+#: plugins/lcd_display/__init__.py:225
 msgid "My IP is:"
 msgstr "Moje IP adresa je:"
 
-#: plugins/lcd_display/__init__.py:215
+#: plugins/lcd_display/__init__.py:230
 msgid "http"
 msgstr "http"
 
-#: plugins/lcd_display/__init__.py:217
+#: plugins/lcd_display/__init__.py:232
 msgid "https"
 msgstr "https"
 
-#: plugins/lcd_display/__init__.py:218
+#: plugins/lcd_display/__init__.py:233
 msgid ":"
 msgstr ":"
 
-#: plugins/lcd_display/__init__.py:218
+#: plugins/lcd_display/__init__.py:233
 msgid "://"
 msgstr "://"
 
-#: plugins/lcd_display/__init__.py:224
+#: plugins/lcd_display/__init__.py:239
 msgid "My Port is:"
 msgstr "Můj port je:"
 
-#: plugins/lcd_display/__init__.py:234
+#: plugins/lcd_display/__init__.py:249
 msgid "CPU Temperature:"
 msgstr "Teplota procesoru:"
 
-#: plugins/lcd_display/__init__.py:244
+#: plugins/lcd_display/__init__.py:259
 msgid "Date:"
 msgstr "Datum:"
 
-#: plugins/lcd_display/__init__.py:250
+#: plugins/lcd_display/__init__.py:265
 msgid "Time:"
 msgstr "Čas:"
 
-#: plugins/lcd_display/__init__.py:256
+#: plugins/lcd_display/__init__.py:271
 msgid "System Uptime:"
 msgstr "Doba provozu:"
 
-#: plugins/lcd_display/__init__.py:266
+#: plugins/lcd_display/__init__.py:281
 msgid "Rain Sensor:"
 msgstr "Dešťový senzor:"
 
-#: plugins/lcd_display/__init__.py:274 plugins/lcd_display/__init__.py:303
+#: plugins/lcd_display/__init__.py:289 plugins/lcd_display/__init__.py:318
 #: plugins/pressure_monitor/__init__.py:185
 #: plugins/pressure_monitor/__init__.py:186
 msgid "Inactive"
 msgstr "Neaktivní"
 
-#: plugins/lcd_display/__init__.py:279
+#: plugins/lcd_display/__init__.py:294
 msgid "Last Program:"
 msgstr "Poslední program:"
 
-#: plugins/lcd_display/__init__.py:294
+#: plugins/lcd_display/__init__.py:309
 msgid "Pressure Sensor:"
 msgstr "Snímač tlaku:"
 
-#: plugins/lcd_display/__init__.py:307 plugins/lcd_display/__init__.py:333
-#: plugins/lcd_display/__init__.py:354
+#: plugins/lcd_display/__init__.py:322 plugins/lcd_display/__init__.py:348
+#: plugins/lcd_display/__init__.py:369
 msgid "Not Available"
 msgstr "Není k dispozici"
 
-#: plugins/lcd_display/__init__.py:312
+#: plugins/lcd_display/__init__.py:327
 msgid "Water Tank Level:"
 msgstr "Hladina vody v nádrži:"
 
-#: plugins/lcd_display/__init__.py:327
+#: plugins/lcd_display/__init__.py:342
 #: plugins/water_consumption_counter/__init__.py:161
 #: plugins/water_consumption_counter/__init__.py:162
 #: plugins/water_consumption_counter/__init__.py:191
@@ -5732,53 +5743,93 @@ msgstr "Hladina vody v nádrži:"
 msgid "liter"
 msgstr "litr"
 
-#: plugins/lcd_display/__init__.py:331
+#: plugins/lcd_display/__init__.py:346
 msgid "Error - I2C Device Not Found!"
 msgstr "Chyba - I2C zařízení nenalezeno!"
 
-#: plugins/lcd_display/__init__.py:338
+#: plugins/lcd_display/__init__.py:353
 msgid "DS Temperature:"
 msgstr "DS Teplota:"
 
-#: plugins/lcd_display/__init__.py:352
+#: plugins/lcd_display/__init__.py:367
 msgid "DS temperature not use"
 msgstr "DS teplota se nepoužívá"
 
-#: plugins/lcd_display/__init__.py:359
+#: plugins/lcd_display/__init__.py:374
 msgid "Station running:"
 msgstr "Stanice v provozu:"
 
-#: plugins/lcd_display/__init__.py:364
+#: plugins/lcd_display/__init__.py:379
 msgid "Nothing running"
 msgstr "Nic neběží"
 
-#: plugins/lcd_display/__init__.py:369
+#: plugins/lcd_display/__init__.py:384
 msgid "Control:"
 msgstr "Ovládání:"
 
-#: plugins/lcd_display/__init__.py:374
+#: plugins/lcd_display/__init__.py:389
 msgid "Manual mode"
 msgstr "Manuální režim"
 
-#: plugins/lcd_display/__init__.py:376
+#: plugins/lcd_display/__init__.py:391
 msgid "Scheduler"
 msgstr "Plánovač"
 
-#: plugins/lcd_display/__init__.py:379
+#: plugins/lcd_display/__init__.py:394
 msgid "Scheduler:"
 msgstr "Plánovač:"
 
-#: plugins/lcd_display/__init__.py:411
+#: plugins/lcd_display/__init__.py:420
+msgid "Found {} on address {}"
+msgstr "Nalezen {} na adrese {}"
+
+#: plugins/lcd_display/__init__.py:426
 msgid "Could not find any PCF8574 controller."
 msgstr "Nebyl nalezl žádný řadič PCF8574."
 
-#: plugins/lcd_display/__init__.py:414 plugins/system_info/__init__.py:133
+#: plugins/lcd_display/__init__.py:429 plugins/system_info/__init__.py:133
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
 #: plugins/wind_monitor/__init__.py:115
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
-#: plugins/lcd_display/__init__.py:468
+#: plugins/lcd_display/__init__.py:473
+msgid "System rebooting"
+msgstr "Restartování systému"
+
+#: plugins/lcd_display/__init__.py:484 plugins/lcd_display/__init__.py:521
+msgid "System Linux"
+msgstr "Systém Linux"
+
+#: plugins/lcd_display/__init__.py:485 plugins/lcd_display/__init__.py:503
+msgid "Rebooting"
+msgstr "Restartování..."
+
+#: plugins/lcd_display/__init__.py:491
+msgid "System restarting"
+msgstr "Restartování systému"
+
+#: plugins/lcd_display/__init__.py:502 plugins/lcd_display/__init__.py:539
+msgid "System OSPy"
+msgstr "Systém OSPy"
+
+#: plugins/lcd_display/__init__.py:510
+msgid "System poweroff"
+msgstr "Vypnutí systému"
+
+#: plugins/lcd_display/__init__.py:522
+msgid "Power off"
+msgstr "Vypnutí"
+
+#: plugins/lcd_display/__init__.py:528
+msgid "System OSPy Has Update"
+msgstr "Systém OSPy má k dispozici aktualizaci"
+
+#: plugins/lcd_display/__init__.py:540
+msgid "Has Update"
+msgstr "Má aktualizaci"
+
+#: plugins/lcd_display/__init__.py:556
 msgid "I2C address has re-finded."
 msgstr "Adresa I2C byla znovu vyhledána."
 
@@ -5787,136 +5838,247 @@ msgstr "Adresa I2C byla znovu vyhledána."
 msgid "LCD settings"
 msgstr "Rozšíření LCD displej nastavení"
 
-#: plugins/lcd_display/templates/lcd_display.html:22
-msgid "This plugin shows information on a 16x2 character LCD with"
-msgstr "Rozšíření LCD displej zobrazuje informace na 16x2 znakovém LCD s"
-
-#: plugins/lcd_display/templates/lcd_display.html:23
-msgid "Automatically detects the display at the following"
-msgstr "Automaticky detekuje displej na následující"
-
-#: plugins/lcd_display/templates/lcd_display.html:23
-msgid "addresses"
-msgstr "adrese"
-
-#: plugins/lcd_display/templates/lcd_display.html:24
-msgid "Compatible with the HD44780 controller"
-msgstr "Kompatibilní s řadičem HD44780 a podobných"
-
-#: plugins/lcd_display/templates/lcd_display.html:25
-msgid "Warning: The LCD display must not have the same"
-msgstr "Upozornění: LCD displej nesmí mít stejnou"
-
-#: plugins/lcd_display/templates/lcd_display.html:25
-msgid ""
-"address as other extensions. For example, if you use the Button Control "
-"extension, it has a 0x27 address, like some LCD displays. If you have the "
-"same address, change it on the LCD board!"
-msgstr ""
-"adresu jako další rozšíření. Pokud například použijete rozšíření Button "
-"Control, má adresu 0x27, jako některé LCD displeje. Pokud máte stejnou "
-"adresu, změňte ji na LCD desce!"
-
-#: plugins/lcd_display/templates/lcd_display.html:30
-msgid "LCD"
-msgstr "LCD"
-
-#: plugins/lcd_display/templates/lcd_display.html:30
+#: plugins/lcd_display/templates/lcd_display.html:26
 msgid "Use"
 msgstr "Použít"
 
-#: plugins/lcd_display/templates/lcd_display.html:36
-msgid "HW version I2C PCF8574<->LCD"
-msgstr "HW verze I2C PCF8574<->LCD"
+#: plugins/lcd_display/templates/lcd_display.html:26
+#: plugins/lcd_display/templates/lcd_display_help.html:15
+msgid "LCD"
+msgstr "LCD"
 
-#: plugins/lcd_display/templates/lcd_display.html:39
+#: plugins/lcd_display/templates/lcd_display.html:32
+#: plugins/lcd_display/templates/lcd_display_help.html:17
+msgid "HW version"
+msgstr "HW verze"
+
+#: plugins/lcd_display/templates/lcd_display.html:32
+#: plugins/lcd_display/templates/lcd_display_help.html:17
+msgid "PCF8574<->LCD"
+msgstr "PCF8574 a LCD"
+
+#: plugins/lcd_display/templates/lcd_display.html:35
+#: plugins/lcd_display/templates/lcd_display_help.html:20
 msgid "Lower 4 bits of expander are commands bits"
 msgstr "Nižší 4 bity expandéru jsou bity příkazů"
 
-#: plugins/lcd_display/templates/lcd_display.html:40
+#: plugins/lcd_display/templates/lcd_display.html:36
+#: plugins/lcd_display/templates/lcd_display_help.html:21
 msgid ""
-"Top 4 bits of expander are commands bits AND P0-4 P1-5 P2-6 (Use for LCD2004 "
+"Top 4 bits of expander are commands bits AND P0-4 P1-5 P2-6 (Use for LCD1602 "
 "board)"
 msgstr ""
-"Horní 4 bity expandéru jsou příkazy bitů a P0-4 P1-5 P2-6 (Použití pro "
-"LCD2004 desky)"
+"Horní 4 bity PCF8574 jako řídící bity a P0-4 P1-5 P2-6 (použijte pro desku s "
+"LCD1602)"
 
-#: plugins/lcd_display/templates/lcd_display.html:41
+#: plugins/lcd_display/templates/lcd_display.html:37
+#: plugins/lcd_display/templates/lcd_display_help.html:22
 msgid "Top 4 bits of expander are commands bits AND P0-6 P1-5 P2-4"
 msgstr "Horní 4 bity expandéru jsou příkazy bitů a P0-6 P1-5 P2-4"
 
-#: plugins/lcd_display/templates/lcd_display.html:42
-msgid "LCD2004 board where lower 4 are commands, but backlight is pin 3"
-msgstr "Deska LCD2004, kde nižší 4 bity jsou příkazy, ale podsvícení je pin 3"
+#: plugins/lcd_display/templates/lcd_display.html:38
+#: plugins/lcd_display/templates/lcd_display_help.html:23
+msgid "LCD1602 board where lower 4 are commands, but backlight is pin 3"
+msgstr "LCD1602 deska, kde nižší 4 jsou příkazy, ale podsvícení je pin 3"
 
-#: plugins/lcd_display/templates/lcd_display.html:43
+#: plugins/lcd_display/templates/lcd_display.html:39
 msgid "LCD board www.pihrt.com"
 msgstr "LCD deska www.pihrt.com"
 
-#: plugins/lcd_display/templates/lcd_display.html:48
+#: plugins/lcd_display/templates/lcd_display.html:44
 msgid "Use print lines to debug files"
 msgstr "Použít ladící výpis (debug) do souboru"
 
-#: plugins/lcd_display/templates/lcd_display.html:54
+#: plugins/lcd_display/templates/lcd_display.html:50
+#: plugins/lcd_display/templates/lcd_display_help.html:28
 msgid "Display"
 msgstr "Displej"
 
-#: plugins/lcd_display/templates/lcd_display.html:55
+#: plugins/lcd_display/templates/lcd_display.html:51
+#: plugins/lcd_display/templates/lcd_display_help.html:31
 msgid "System Name"
 msgstr "Název systému"
 
-#: plugins/lcd_display/templates/lcd_display.html:61
+#: plugins/lcd_display/templates/lcd_display.html:57
+#: plugins/lcd_display/templates/lcd_display_help.html:32
 msgid "SW Version Date"
 msgstr "Datum verze SW"
 
-#: plugins/lcd_display/templates/lcd_display.html:67
+#: plugins/lcd_display/templates/lcd_display.html:63
+#: plugins/lcd_display/templates/lcd_display_help.html:33
 msgid "IP"
 msgstr "IP"
 
-#: plugins/lcd_display/templates/lcd_display.html:73
+#: plugins/lcd_display/templates/lcd_display.html:69
+#: plugins/lcd_display/templates/lcd_display_help.html:34
 msgid "Port"
 msgstr "Port"
 
-#: plugins/lcd_display/templates/lcd_display.html:85
+#: plugins/lcd_display/templates/lcd_display.html:81
+#: plugins/lcd_display/templates/lcd_display_help.html:36
 msgid "Time and Date"
 msgstr "Datum a čas"
 
-#: plugins/lcd_display/templates/lcd_display.html:91
+#: plugins/lcd_display/templates/lcd_display.html:87
+#: plugins/lcd_display/templates/lcd_display_help.html:37
 #: plugins/system_info/__init__.py:54
 msgid "Uptime"
 msgstr "V provozu"
 
-#: plugins/lcd_display/templates/lcd_display.html:103
+#: plugins/lcd_display/templates/lcd_display.html:99
+#: plugins/lcd_display/templates/lcd_display_help.html:39
 msgid "Last Run Program"
 msgstr "Naposledy spuštěný program"
 
-#: plugins/lcd_display/templates/lcd_display.html:109
+#: plugins/lcd_display/templates/lcd_display.html:105
+#: plugins/lcd_display/templates/lcd_display_help.html:40
 msgid "Pressure Sensor"
 msgstr "Snímač tlaku"
 
-#: plugins/lcd_display/templates/lcd_display.html:115
+#: plugins/lcd_display/templates/lcd_display.html:111
+#: plugins/lcd_display/templates/lcd_display_help.html:41
 msgid "Water Tank Level"
 msgstr "Hladina vody v nádrži"
 
-#: plugins/lcd_display/templates/lcd_display.html:121
+#: plugins/lcd_display/templates/lcd_display.html:117
+#: plugins/lcd_display/templates/lcd_display_help.html:43
 msgid "DS18B20 Temperature"
 msgstr "DS18B20 Teplota"
 
-#: plugins/lcd_display/templates/lcd_display.html:127
+#: plugins/lcd_display/templates/lcd_display.html:123
+#: plugins/lcd_display/templates/lcd_display_help.html:42
 msgid "Running Stations"
 msgstr "Spuštěné stanice"
 
-#: plugins/lcd_display/templates/lcd_display.html:133
+#: plugins/lcd_display/templates/lcd_display.html:129
 msgid "Schedule - Manual"
 msgstr "Plánovač - ruční"
 
-#: plugins/lcd_display/templates/lcd_display.html:139
+#: plugins/lcd_display/templates/lcd_display.html:135
 msgid "System enabled"
 msgstr "Systém povolen"
 
-#: plugins/lcd_display/templates/lcd_display.html:158
-msgid "Re-find I2C address"
-msgstr "Znovu najít adresu I2C"
+#: plugins/lcd_display/templates/lcd_display.html:154
+msgid "Re-find"
+msgstr "Znovu najít"
+
+#: plugins/lcd_display/templates/lcd_display.html:154
+msgid "address"
+msgstr "adresu"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:3
+#: plugins/lcd_display/templates/lcd_display_help.html:7
+msgid "LCD settings - Help"
+msgstr "Nastavení lcd displeje – nápověda"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:8
+msgid "This plugin shows information on a 16x2 character LCD with"
+msgstr "Rozšíření LCD displej zobrazuje informace na 16x2 znakovém LCD s"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:9
+msgid "Automatically detects the display at the following"
+msgstr "Automaticky detekuje displej na následující"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:9
+msgid "addresses"
+msgstr "adrese"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:10
+msgid "Compatible with the HD44780 controller"
+msgstr "Kompatibilní s řadičem HD44780 a podobných"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:11
+msgid "Warning: The LCD display must not have the same"
+msgstr "Upozornění: LCD displej nesmí mít stejnou"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:11
+msgid "address as other extensions."
+msgstr "adresu jako jiná rozšíření."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:12
+msgid ""
+"For example, if you use the Button Control extension, it has a 0x27 address, "
+"like some LCD displays. If you have the same address, change it on the LCD "
+"board!"
+msgstr ""
+"Pokud například používáte rozšíření Button Control, tak ten má adresu 0x27, "
+"tak jako některé LCD displeje. Pokud máte stejnou adresu, tak ji na LCD "
+"desce změňte!"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:13
+#: plugins/system_update/templates/system_update_help.html:12
+msgid "Plugin setup"
+msgstr "Nastavení rozšíření"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:15
+msgid "Check Use"
+msgstr "Používat"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:16
+msgid "If checked use"
+msgstr "Je-li zaškrtnuto"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:16
+msgid "lcd plugin is enabled and print messages on the LCD display."
+msgstr "LCD je povoleno, budou se vypisovat zprávy na LCD displej."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:18
+msgid "Select type Hardware board with PCF8574. Conection with LCD driver."
+msgstr ""
+"Vyberte typ Hardwarové desky s PCF8574. Jaké má LCD propojení s ovladačem."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:24
+msgid ""
+"LCD board (https://pihrt.com/elektronika/315-arduino-uno-deska-i2c-lcd-16x2)"
+msgstr ""
+"LCD deska (https://pihrt.com/elektronika/315-arduino-uno-deska-i2c-lcd-16x2)"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:26
+msgid "Check Use print lines to debug files"
+msgstr "Použít ladící výpis (debug) do souboru"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:27
+msgid ""
+"If checked use print lines to debug files line 1 or line 2 print to debug "
+"files. Warning: If you enable this debug file will have a huge size."
+msgstr ""
+"Je-li zaškrtnuto, bude se tisknout řádek 1 nebo řádek 2 do ladícího souboru "
+"(debug). Upozornění: Pokud povolíte tento výpis, bude mít soubor obrovskou "
+"velikost."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:29
+msgid "If checked print state message to LCD display."
+msgstr "Pokud je zaškrtnuté, tak se zprávy o stavu vypisují na LCD displeji."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:46
+#: plugins/system_update/templates/system_update_help.html:25
+msgid "Status window from the plugin."
+msgstr "Stavové okno z tohoto rozšíření."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:47
+msgid "Important status information OSPy"
+msgstr "Důležité informace o stavu OSPy"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:48
+msgid ""
+"If events occur in the system: restart, poweroff, update available, they "
+"will be displayed preferentially regardless of the above settings."
+msgstr ""
+"Pokud dojde k událostem v systému: restartování, vypínání, aktualizace k "
+"dispozici, budou zobrazeny přednostně bez ohledu na výše uvedená nastavení."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:51
+msgid "The hardware should be connected as follows (LCD board by pihrt.com)."
+msgstr ""
+"Hardware by měl být připojen následujícím způsobem (LCD deska pihrt.com)."
+
+#: plugins/lcd_display/templates/lcd_display_help.html:54
+msgid "The LCD 1602 IIC with PCF8574"
+msgstr "LCD 1602 IIC s PCF8574"
+
+#: plugins/lcd_display/templates/lcd_display_help.html:57
+msgid "PCF8574 address map"
+msgstr "Mapa adres PCF8574"
 
 #: plugins/monthly_water_level/__init__.py:15
 msgid "Package: Monthly Water Level"
@@ -6628,12 +6790,13 @@ msgid "Select the output you want to control with regulation."
 msgstr "Vyberte výstup, který chcete ovládat regulací."
 
 #: plugins/pool_heating/templates/pool_heating.html:121
-#: plugins/system_update/templates/system_update.html:76
+#: plugins/system_update/templates/system_update.html:73
+#: plugins/system_update/templates/system_update_help.html:22
 msgid "Show in footer"
 msgstr "Zobrazit v zápatí na hl. stránce"
 
 #: plugins/pool_heating/templates/pool_heating.html:122
-#: plugins/system_update/templates/system_update.html:77
+#: plugins/system_update/templates/system_update.html:74
 msgid "Show data from plugin in footer on home page"
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 
@@ -7427,88 +7590,101 @@ msgstr "Odeslat testovací data na server"
 msgid "Package: Signaling Examples"
 msgstr "Balíček: Příklady signalizace"
 
-#: plugins/signaling_examples/__init__.py:122
+#: plugins/signaling_examples/__init__.py:126
 msgid "Someone logged in"
 msgstr "Někdo přihlášen"
 
-#: plugins/signaling_examples/__init__.py:126
+#: plugins/signaling_examples/__init__.py:130
 msgid "Value_change"
 msgstr "Změna hodnoty"
 
-#: plugins/signaling_examples/__init__.py:130
+#: plugins/signaling_examples/__init__.py:134
 msgid "Options settings changed"
 msgstr "Nastavení možností bylo změněno"
 
-#: plugins/signaling_examples/__init__.py:134
+#: plugins/signaling_examples/__init__.py:138
 msgid "System rebooted"
 msgstr "Systém restartován (restart)"
 
-#: plugins/signaling_examples/__init__.py:138
+#: plugins/signaling_examples/__init__.py:142
 msgid "System restarted"
 msgstr "Systém restartován (reboot)"
 
-#: plugins/signaling_examples/__init__.py:142
+#: plugins/signaling_examples/__init__.py:146
 msgid "Station names changed"
 msgstr "Názvy stanic byly změněny"
 
-#: plugins/signaling_examples/__init__.py:146
+#: plugins/signaling_examples/__init__.py:150
 msgid "Programs changed"
 msgstr "Programy změněny"
 
-#: plugins/signaling_examples/__init__.py:150
+#: plugins/signaling_examples/__init__.py:154
 msgid "Program deleted"
 msgstr "Program byl odstraněn"
 
-#: plugins/signaling_examples/__init__.py:154
+#: plugins/signaling_examples/__init__.py:158
 msgid "Program toggled on or off"
 msgstr "Program zapnutý nebo vypnutý"
 
-#: plugins/signaling_examples/__init__.py:158
+#: plugins/signaling_examples/__init__.py:162
 msgid "Program runnow"
 msgstr "Program runnow"
 
-#: plugins/signaling_examples/__init__.py:162
+#: plugins/signaling_examples/__init__.py:166
 msgid "Zone change"
 msgstr "Změna zóny"
 
-#: plugins/signaling_examples/__init__.py:166
+#: plugins/signaling_examples/__init__.py:170
 msgid "Rain active"
 msgstr "Déšť aktivní"
 
-#: plugins/signaling_examples/__init__.py:170
+#: plugins/signaling_examples/__init__.py:174
 msgid "Rain not active"
 msgstr "Déšť není aktivní"
 
-#: plugins/signaling_examples/__init__.py:174
+#: plugins/signaling_examples/__init__.py:178
 msgid "Master one on"
 msgstr "Hlavní stanice zap"
 
-#: plugins/signaling_examples/__init__.py:178
+#: plugins/signaling_examples/__init__.py:182
 msgid "Master one off"
 msgstr "Hlavní stanice vyp"
 
-#: plugins/signaling_examples/__init__.py:182
+#: plugins/signaling_examples/__init__.py:186
 msgid "Master two on"
 msgstr "Hlavní stanice 2 zap"
 
-#: plugins/signaling_examples/__init__.py:186
+#: plugins/signaling_examples/__init__.py:190
 msgid "Master two off"
 msgstr "Hlavní stanice 2 vyp"
 
-#: plugins/signaling_examples/__init__.py:190
+#: plugins/signaling_examples/__init__.py:194
 msgid "Pressurizer plugin master relay on"
 msgstr "Rozšíření tlakovač hlavní relé stanice zap"
 
-#: plugins/signaling_examples/__init__.py:194
+#: plugins/signaling_examples/__init__.py:198
 msgid "Pressurizer plugin master relay off"
 msgstr "Rozšíření tlakovač hlavní relé stanice vyp"
+
+#: plugins/signaling_examples/__init__.py:202
+msgid "Linux system now powering off"
+msgstr "Linuxový systém se nyní vypíná"
+
+#: plugins/signaling_examples/__init__.py:206
+msgid "OSPy system update available"
+msgstr "K dispozici je aktualizace systému OSPy"
 
 #: plugins/signaling_examples/templates/signaling_examples.html:3
 #: plugins/signaling_examples/templates/signaling_examples.html:21
 msgid "Signaling Examples settings"
 msgstr "Příklady signalizace nastavení"
 
-#: plugins/signaling_examples/templates/signaling_examples.html:22
+#: plugins/signaling_examples/templates/signaling_examples_help.html:3
+#: plugins/signaling_examples/templates/signaling_examples_help.html:7
+msgid "Signaling Examples - Help"
+msgstr "Příklady signalizace – nápověda"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:8
 msgid ""
 "This is Example signal plugin provides functions triggered by signals from "
 "core program."
@@ -7516,9 +7692,89 @@ msgstr ""
 "Toto je ukázkové rozšíření pro ukázku toho jak pracují spouštěné signály z "
 "jádra OSPy."
 
-#: plugins/signaling_examples/templates/signaling_examples.html:23
-msgid "Example signals from webpages.py"
-msgstr "Příklady signálů z webpages.py"
+#: plugins/signaling_examples/templates/signaling_examples_help.html:9
+msgid "Example signals"
+msgstr "Příklady signálů"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:11
+msgid "signal loggedin"
+msgstr "signál loggedin"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:12
+msgid "signal value_change"
+msgstr "signál value_change"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:13
+msgid "signal option_change"
+msgstr "signál option_change"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:14
+msgid "signal rebooted"
+msgstr "signál rebooted"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:15
+msgid "signal restarted"
+msgstr "signál restarted"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:16
+msgid "signal station_names"
+msgstr "signál station_names"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:17
+msgid "signal program_change"
+msgstr "signál program_change"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:18
+msgid "signal program_deleted"
+msgstr "signál program_deleted"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:19
+msgid "signal program_toggled"
+msgstr "signál program_toggled"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:20
+msgid "signal program_runnow"
+msgstr "signál program_runnow"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:21
+msgid "signal rain_active"
+msgstr "signál rain_active"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:22
+msgid "signal rain_not_active"
+msgstr "signál rain_not_active"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:23
+msgid "signal master_one_on"
+msgstr "signál master_one_on"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:24
+msgid "signal master_one_off"
+msgstr "signál master_one_off"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:25
+msgid "signal master_two_on"
+msgstr "signál master_two_on"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:26
+msgid "signal master_two_off"
+msgstr "signál master_two_off"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:27
+msgid "signal pressurizer_master_relay_on"
+msgstr "signál pressurizer_master_relay_on"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:28
+msgid "signal pressurizer_master_relay_off"
+msgstr "signál pressurizer_master_relay_off"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:29
+msgid "signal poweroff"
+msgstr "signál poweroff"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:30
+msgid "signal ospyupdate"
+msgstr "signál ospyupdate"
 
 #: plugins/sms_adj/__init__.py:28
 msgid "Package: SMS Modem"
@@ -7881,89 +8137,143 @@ msgstr "Systémové informace"
 msgid "This plugin prints all available system information"
 msgstr "Toto rozšíření zobrazuje všechny dostupné systémové informace"
 
-#: plugins/system_update/__init__.py:25
+#: plugins/system_update/__init__.py:27
 msgid "Package: System Update"
 msgstr "Balíček: Aktualizace systému"
 
-#: plugins/system_update/__init__.py:34
+#: plugins/system_update/__init__.py:36
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr "Hlášení z OSPy AKTUALIZACE systému"
 
-#: plugins/system_update/__init__.py:57
+#: plugins/system_update/__init__.py:59
 msgid "None!"
 msgstr "Není k dispozici!"
 
-#: plugins/system_update/__init__.py:112
+#: plugins/system_update/__init__.py:114
 msgid "Up-to-date."
 msgstr "Aktuální."
 
-#: plugins/system_update/__init__.py:115
+#: plugins/system_update/__init__.py:117
 msgid "New version is available!"
 msgstr "Je k dispozici nová verze!"
 
-#: plugins/system_update/__init__.py:116 plugins/system_update/__init__.py:122
-#: plugins/system_update/__init__.py:125 plugins/system_update/__init__.py:141
+#: plugins/system_update/__init__.py:118 plugins/system_update/__init__.py:124
+#: plugins/system_update/__init__.py:127 plugins/system_update/__init__.py:143
 msgid "Currently running revision"
 msgstr "Spuštěná verze"
 
-#: plugins/system_update/__init__.py:117 plugins/system_update/__init__.py:123
-#: plugins/system_update/__init__.py:126 plugins/system_update/__init__.py:142
+#: plugins/system_update/__init__.py:119 plugins/system_update/__init__.py:125
+#: plugins/system_update/__init__.py:128 plugins/system_update/__init__.py:144
 msgid "Available revision"
 msgstr "Dostupná verze"
 
-#: plugins/system_update/__init__.py:118
+#: plugins/system_update/__init__.py:120
 msgid "Changes"
 msgstr "Změny"
 
-#: plugins/system_update/__init__.py:120 plugins/system_update/__init__.py:124
-#: plugins/system_update/__init__.py:134 plugins/system_update/__init__.py:189
-#: plugins/system_update/__init__.py:222
+#: plugins/system_update/__init__.py:122 plugins/system_update/__init__.py:126
+#: plugins/system_update/__init__.py:136 plugins/system_update/__init__.py:192
+#: plugins/system_update/__init__.py:226
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
-#: plugins/system_update/__init__.py:121 plugins/system_update/__init__.py:125
-#: plugins/system_update/__init__.py:166
+#: plugins/system_update/__init__.py:123 plugins/system_update/__init__.py:127
+#: plugins/system_update/__init__.py:168
 msgid "New OSPy version is available!"
 msgstr "Je dostupná nová verze OSPy!"
 
-#: plugins/system_update/__init__.py:140
+#: plugins/system_update/__init__.py:142
 msgid "Running unknown version!"
 msgstr "Je spuštěna neznámá verze OSPy!"
 
-#: plugins/system_update/__init__.py:155
+#: plugins/system_update/__init__.py:157
 msgid "System Update"
 msgstr "Aktualizace systému"
 
-#: plugins/system_update/__init__.py:177
+#: plugins/system_update/__init__.py:158
+msgid "Waiting to state"
+msgstr "Čekání na stav"
+
+#: plugins/system_update/__init__.py:180
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
-#: plugins/system_update/__init__.py:183
+#: plugins/system_update/__init__.py:186
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
 "povoleno."
 
-#: plugins/system_update/__init__.py:217
+#: plugins/system_update/__init__.py:220
 msgid "Update result"
 msgstr "Stav aktualizace"
 
-#: plugins/system_update/__init__.py:268 plugins/system_update/__init__.py:285
+#: plugins/system_update/__init__.py:281 plugins/system_update/__init__.py:298
 msgid "OSPy is now updated from Github and restarted. Please wait..."
 msgstr ""
 "OSPy je nyní aktualizován z Githubu a následně restartován. Počkejte "
 "prosím..."
 
-#: plugins/system_update/__init__.py:294
+#: plugins/system_update/__init__.py:315
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
 #: plugins/system_update/templates/system_update.html:3
 #: plugins/system_update/templates/system_update.html:20
+#: plugins/system_update/templates/system_update_help.html:3
 msgid "System update from GitHub"
 msgstr "Aktualizace systému z GitHubu"
 
-#: plugins/system_update/templates/system_update.html:21
+#: plugins/system_update/templates/system_update.html:25
+#: plugins/system_update/templates/system_update_help.html:14
+msgid "Use update plugin"
+msgstr "Použít rozšíření aktualizace"
+
+#: plugins/system_update/templates/system_update.html:31
+msgid "Remote repository"
+msgstr "Vzdálený repozitář"
+
+#: plugins/system_update/templates/system_update.html:37
+msgid "Remote branch"
+msgstr "Vzdálená větev"
+
+#: plugins/system_update/templates/system_update.html:49
+msgid "Local OSPy date"
+msgstr "Místní OSPy datum"
+
+#: plugins/system_update/templates/system_update.html:55
+#: plugins/system_update/templates/system_update_help.html:16
+msgid "Automatic update"
+msgstr "Automatická aktualizace"
+
+#: plugins/system_update/templates/system_update.html:61
+#: plugins/system_update/templates/system_update_help.html:18
+msgid "Send E-mail if update is available"
+msgstr "Odeslat e-mail, pokud je k dispozici aktualizace"
+
+#: plugins/system_update/templates/system_update.html:63
+#: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
+msgid "For this function required email plugin"
+msgstr ""
+"Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
+
+#: plugins/system_update/templates/system_update.html:82
+msgid "Update Status"
+msgstr "Stav aktualizace"
+
+#: plugins/system_update/templates/system_update.html:92
+msgid "Update OSPy"
+msgstr "Aktualizovat"
+
+#: plugins/system_update/templates/system_update.html:95
+msgid "Restart OSPy"
+msgstr "Restartovat"
+
+#: plugins/system_update/templates/system_update_help.html:7
+msgid "System update from GitHub - Help"
+msgstr "Aktualizace systému z GitHubu – nápověda"
+
+#: plugins/system_update/templates/system_update_help.html:8
 msgid ""
 "This plugin compares the local copy with the remote repository and can "
 "automatically update the local copy"
@@ -7971,11 +8281,11 @@ msgstr ""
 "Toto rozšíření porovnává místní kopii se vzdáleným úložištěm a může "
 "automaticky aktualizovat místní kopii"
 
-#: plugins/system_update/templates/system_update.html:22
+#: plugins/system_update/templates/system_update_help.html:9
 msgid "For check new version OSPy click on update status button"
 msgstr "Pro kontrolu nové verze OSPy klikněte na tlačítko aktualizovat"
 
-#: plugins/system_update/templates/system_update.html:23
+#: plugins/system_update/templates/system_update_help.html:10
 msgid ""
 "If new version is posible click on update OSPy button. Plugin downloading "
 "and installing new version OSPy. Next restarting OSPy service"
@@ -7984,7 +8294,7 @@ msgstr ""
 "Rozšíření stáhne a nainstaluje novou verzi OSPy. Následně provede "
 "restartování služby OSPy"
 
-#: plugins/system_update/templates/system_update.html:24
+#: plugins/system_update/templates/system_update_help.html:11
 msgid ""
 "This plugin allows update itself automatically the system, while allowing "
 "send an E-mail to the system administrator"
@@ -7992,47 +8302,32 @@ msgstr ""
 "Toto rozšíření umožňuje aktualizovat systém automaticky samo, zároveň "
 "umožňuje poslat E-mail správci systému"
 
-#: plugins/system_update/templates/system_update.html:28
-msgid "Use update plugin"
-msgstr "Použít rozšíření aktualizace"
-
-#: plugins/system_update/templates/system_update.html:34
-msgid "Remote repository"
-msgstr "Vzdálený repozitář"
-
-#: plugins/system_update/templates/system_update.html:40
-msgid "Remote branch"
-msgstr "Vzdálená větev"
-
-#: plugins/system_update/templates/system_update.html:52
-msgid "Local OSPy date"
-msgstr "Místní OSPy datum"
-
-#: plugins/system_update/templates/system_update.html:58
-msgid "Automatic update"
-msgstr "Automatická aktualizace"
-
-#: plugins/system_update/templates/system_update.html:64
-msgid "Send E-mail if update is available"
-msgstr "Odeslat e-mail, pokud je k dispozici aktualizace"
-
-#: plugins/system_update/templates/system_update.html:66
-#: plugins/water_consumption_counter/templates/water_consumption_counter.html:42
-msgid "For this function required email plugin"
+#: plugins/system_update/templates/system_update_help.html:15
+msgid ""
+"If the box is checked, the plugin checks for available system updates every "
+"hour."
 msgstr ""
-"Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
+"Pokud je políčko zaškrtnuto, plugin kontroluje dostupné aktualizace systému "
+"každou hodinu."
 
-#: plugins/system_update/templates/system_update.html:85
-msgid "Update Status"
-msgstr "Stav aktualizace"
+#: plugins/system_update/templates/system_update_help.html:17
+msgid "If the box is checked, the plugin will update the system itself."
+msgstr ""
+"Pokud je políčko zaškrtnuto, toto rozšíření aktualizuje samo systém OSPy."
 
-#: plugins/system_update/templates/system_update.html:95
-msgid "Update OSPy"
-msgstr "Aktualizovat"
+#: plugins/system_update/templates/system_update_help.html:19
+msgid "For this function required E-mail plugin."
+msgstr ""
+"Toto rozšíření vyžaduje rozšíření \"E-mail notifications\" pro odesílání "
+"zpráv"
 
-#: plugins/system_update/templates/system_update.html:98
-msgid "Restart OSPy"
-msgstr "Restartovat"
+#: plugins/system_update/templates/system_update_help.html:21
+msgid "The subject of the E-mail being sent."
+msgstr "Předmět odesílané zprávy v E-mailu."
+
+#: plugins/system_update/templates/system_update_help.html:23
+msgid "Show data from plugin in footer on home page."
+msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 
 #: plugins/system_watchdog/__init__.py:23
 msgid "Package: System Watchdog"
@@ -10448,6 +10743,9 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:212
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Re-find I2C address"
+#~ msgstr "Znovu najít adresu I2C"
 
 #~ msgid "Triggered, Value {}"
 #~ msgstr "Spuštěno, hodnota {}"
