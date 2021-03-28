@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Mar 28 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings for telegram bot extension).
+
 Mar 26 2021
 -----------
 (martinpihrt)<br/>
