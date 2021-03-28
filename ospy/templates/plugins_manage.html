@@ -28,7 +28,7 @@ $var page: plugins
     $ current_info = options.plugin_status
     $for plugin in plugins.available():
         $ running = plugin in running_list
-        <div id="${plugin}" class="controlBlock plugin ${'' if running else _('disabled')}">
+        <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'}">
             <div style="display: inline-block; padding: 0; float: right;">
                 <div style="display: inline-block; padding: 0; width: 130px;">
                 $if running and plugins.get(plugin).LINK:
