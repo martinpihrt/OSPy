@@ -1369,16 +1369,21 @@ class options_page(ProtectedPage):
 
         if 'old_password' in qdict and qdict['old_password'] != "":
             try:
-                if test_password(qdict['old_password']):
+                from ospy.helpers import password_hash, password_salt, test_password
+                if test_password(qdict['old_password'], options.admin_user):
                     if qdict['new_password'] == "":
                         raise web.seeother(u'/options?errorCode=pw_blank')
                     elif qdict['new_password'] == qdict['check_password']:
-                        options.password_salt = password_salt()  # Make a new salt
+                        options.password_salt = password_salt()
                         options.password_hash = password_hash(qdict['new_password'], options.password_salt)
                     else:
                         raise web.seeother(u'/options?errorCode=pw_mismatch')
                 else:
                     raise web.seeother(u'/options?errorCode=pw_wrong')
+
+                from ospy.server import session
+                session.kill()
+                raise web.seeother(u'/')    # after change password -> logout
             except KeyError:
                 pass
    
