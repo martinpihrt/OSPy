@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-28 19:34+CEST\n"
+"POT-Creation-Date: 2021-04-01 09:23+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -522,7 +522,7 @@ msgid "Rain Sensor"
 msgstr ""
 
 #: ospy/options.py:301
-#: plugins/pressure_monitor/templates/pressure_monitor.html:186
+#: plugins/pressure_monitor/templates/pressure_monitor.html:184
 msgid "Normally open"
 msgstr ""
 
@@ -583,7 +583,7 @@ msgstr ""
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:360 plugins/button_control/templates/button_control.html:39
+#: ospy/options.py:360 plugins/button_control/templates/button_control.html:37
 msgid "Enable scheduler"
 msgstr ""
 
@@ -1264,12 +1264,31 @@ msgstr ""
 #: ospy/templates/base.html:166 ospy/templates/help.html:3
 #: ospy/templates/help.html:38 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:20
+#: plugins/air_temp_humi/templates/air_temp_humi.html:173
+#: plugins/button_control/templates/button_control.html:20
+#: plugins/cli_control/templates/cli_control.html:22
+#: plugins/email_notifications/templates/email_notifications.html:26
+#: plugins/email_reader/templates/email_reader.html:24
 #: plugins/lcd_display/templates/lcd_display.html:22
+#: plugins/monthly_water_level/templates/monthly_water_level.html:22
+#: plugins/mqtt/templates/mqtt.html:22
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:20
+#: plugins/mqtt_zones/templates/mqtt_zones.html:20
+#: plugins/ping_monitor/templates/ping_monitor.html:172
 #: plugins/pool_heating/templates/pool_heating.html:37
+#: plugins/pressure_monitor/templates/pressure_monitor.html:172
+#: plugins/pressurizer/templates/pressurizer.html:39
+#: plugins/pulse/templates/pulse.html:22
+#: plugins/real_time/templates/real_time.html:21
 #: plugins/relay_16/templates/relay_16.html:22
 #: plugins/signaling_examples/templates/signaling_examples.html:22
 #: plugins/system_update/templates/system_update.html:21
+#: plugins/system_watchdog/templates/system_watchdog.html:30
 #: plugins/telegram_bot/templates/telegram_bot.html:24
+#: plugins/weather_stations/templates/canvas_page.html:164
+#: plugins/weather_stations/templates/settings_page.html:472
+#: plugins/webcam/templates/webcam.html:22
+#: plugins/wind_monitor/templates/wind_monitor.html:174
 msgid "Help"
 msgstr ""
 
@@ -1397,25 +1416,39 @@ msgstr ""
 #: ospy/templates/program.html:635 ospy/templates/runonce.html:72
 #: ospy/templates/sensor.html:364 ospy/templates/stations.html:127
 #: ospy/templates/user.html:102 ospy/templates/view.html:30
-#: plugins/air_temp_humi/templates/air_temp_humi.html:353
-#: plugins/button_control/templates/button_control.html:63
-#: plugins/cli_control/templates/cli_control.html:62
+#: plugins/air_temp_humi/templates/air_temp_humi.html:350
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:25
+#: plugins/button_control/templates/button_control.html:61
+#: plugins/button_control/templates/button_control_help.html:20
+#: plugins/cli_control/templates/cli_control.html:58
+#: plugins/cli_control/templates/cli_control_help.html:15
 #: plugins/email_notifications/templates/email_notifications.html:140
-#: plugins/email_reader/templates/email_reader.html:194
+#: plugins/email_notifications/templates/email_notifications_help.html:42
+#: plugins/email_reader/templates/email_reader.html:191
+#: plugins/email_reader/templates/email_reader_help.html:95
 #: plugins/humi_monitor/templates/humi_monitor.html:96
 #: plugins/lcd_display/templates/lcd_display.html:153
 #: plugins/lcd_display/templates/lcd_display_help.html:62
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:107
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
+#: plugins/mqtt/templates/mqtt_help.html:18
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:74
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:25
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
-#: plugins/ping_monitor/templates/ping_monitor.html:272
+#: plugins/mqtt_zones/templates/mqtt_zones_help.html:15
+#: plugins/ping_monitor/templates/ping_monitor.html:270
+#: plugins/ping_monitor/templates/ping_monitor_help.html:14
 #: plugins/pool_heating/templates/pool_heating.html:136
 #: plugins/pool_heating/templates/pool_heating_help.html:15
-#: plugins/pressure_monitor/templates/pressure_monitor.html:274
-#: plugins/pressurizer/templates/pressurizer.html:83
-#: plugins/pulse/templates/pulse.html:54
-#: plugins/real_time/templates/real_time.html:66
+#: plugins/pressure_monitor/templates/pressure_monitor.html:272
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
+#: plugins/pressurizer/templates/pressurizer.html:79
+#: plugins/pressurizer/templates/pressurizer_help.html:16
+#: plugins/pulse/templates/pulse.html:53
+#: plugins/pulse/templates/pulse_help.html:16
+#: plugins/real_time/templates/real_time.html:65
+#: plugins/real_time/templates/real_time_help.html:17
 #: plugins/relay_16/templates/relay_16.html:79
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:66
 #: plugins/remote_notifications/templates/remote_notifications.html:61
@@ -1426,10 +1459,11 @@ msgstr ""
 #: plugins/system_info/templates/system_info.html:30
 #: plugins/system_update/templates/system_update.html:96
 #: plugins/system_update/templates/system_update_help.html:30
-#: plugins/system_watchdog/templates/system_watchdog.html:57
+#: plugins/system_watchdog/templates/system_watchdog.html:53
+#: plugins/system_watchdog/templates/system_watchdog_help.html:16
 #: plugins/tank_monitor/templates/tank_monitor.html:354
 #: plugins/telegram_bot/templates/telegram_bot.html:132
-#: plugins/telegram_bot/templates/telegram_bot_help.html:28
+#: plugins/telegram_bot/templates/telegram_bot_help.html:27
 #: plugins/temperature_switch/templates/temperature_switch.html:201
 #: plugins/ups_adj/templates/ups_adj.html:261
 #: plugins/usage_statistics/templates/usage_statistics.html:44
@@ -1441,9 +1475,12 @@ msgstr ""
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/weather_stations/templates/canvas_page.html:162
+#: plugins/weather_stations/templates/help_page.html:52
 #: plugins/weather_stations/templates/settings_page.html:471
-#: plugins/webcam/templates/webcam.html:70
-#: plugins/wind_monitor/templates/wind_monitor.html:346
+#: plugins/webcam/templates/webcam.html:68
+#: plugins/webcam/templates/webcam_help.html:14
+#: plugins/wind_monitor/templates/wind_monitor.html:335
+#: plugins/wind_monitor/templates/wind_monitor_help.html:23
 msgid "Cancel"
 msgstr ""
 
@@ -1544,7 +1581,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:107
 #: plugins/email_reader/__init__.py:830 plugins/email_reader/__init__.py:891
 #: plugins/tank_monitor/__init__.py:529 plugins/tank_monitor/__init__.py:718
-#: plugins/wind_monitor/__init__.py:493 plugins/wind_monitor/__init__.py:656
+#: plugins/wind_monitor/__init__.py:493 plugins/wind_monitor/__init__.py:663
 msgid "Actual"
 msgstr ""
 
@@ -1561,63 +1598,63 @@ msgid "Select a filter for the interval of read data."
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:179
-#: plugins/air_temp_humi/templates/air_temp_humi.html:214
-#: plugins/ping_monitor/templates/ping_monitor.html:248
-#: plugins/pressure_monitor/templates/pressure_monitor.html:244
+#: plugins/air_temp_humi/templates/air_temp_humi.html:211
+#: plugins/ping_monitor/templates/ping_monitor.html:246
+#: plugins/pressure_monitor/templates/pressure_monitor.html:242
 #: plugins/tank_monitor/templates/tank_monitor.html:330
 #: plugins/ups_adj/templates/ups_adj.html:231
-#: plugins/wind_monitor/templates/wind_monitor.html:307
+#: plugins/wind_monitor/templates/wind_monitor.html:296
 msgid "Without limits"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:180
-#: plugins/air_temp_humi/templates/air_temp_humi.html:215
-#: plugins/ping_monitor/templates/ping_monitor.html:249
-#: plugins/pressure_monitor/templates/pressure_monitor.html:245
+#: plugins/air_temp_humi/templates/air_temp_humi.html:212
+#: plugins/ping_monitor/templates/ping_monitor.html:247
+#: plugins/pressure_monitor/templates/pressure_monitor.html:243
 #: plugins/tank_monitor/templates/tank_monitor.html:331
 #: plugins/ups_adj/templates/ups_adj.html:232
-#: plugins/wind_monitor/templates/wind_monitor.html:308
+#: plugins/wind_monitor/templates/wind_monitor.html:297
 msgid "Day filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:181
-#: plugins/air_temp_humi/templates/air_temp_humi.html:216
-#: plugins/ping_monitor/templates/ping_monitor.html:250
-#: plugins/pressure_monitor/templates/pressure_monitor.html:246
+#: plugins/air_temp_humi/templates/air_temp_humi.html:213
+#: plugins/ping_monitor/templates/ping_monitor.html:248
+#: plugins/pressure_monitor/templates/pressure_monitor.html:244
 #: plugins/tank_monitor/templates/tank_monitor.html:332
 #: plugins/ups_adj/templates/ups_adj.html:233
-#: plugins/wind_monitor/templates/wind_monitor.html:309
+#: plugins/wind_monitor/templates/wind_monitor.html:298
 msgid "Week filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:182
-#: plugins/air_temp_humi/templates/air_temp_humi.html:217
-#: plugins/ping_monitor/templates/ping_monitor.html:251
-#: plugins/pressure_monitor/templates/pressure_monitor.html:247
+#: plugins/air_temp_humi/templates/air_temp_humi.html:214
+#: plugins/ping_monitor/templates/ping_monitor.html:249
+#: plugins/pressure_monitor/templates/pressure_monitor.html:245
 #: plugins/tank_monitor/templates/tank_monitor.html:333
 #: plugins/ups_adj/templates/ups_adj.html:234
-#: plugins/wind_monitor/templates/wind_monitor.html:310
+#: plugins/wind_monitor/templates/wind_monitor.html:299
 msgid "Month filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:183
-#: plugins/air_temp_humi/templates/air_temp_humi.html:218
-#: plugins/ping_monitor/templates/ping_monitor.html:252
-#: plugins/pressure_monitor/templates/pressure_monitor.html:248
+#: plugins/air_temp_humi/templates/air_temp_humi.html:215
+#: plugins/ping_monitor/templates/ping_monitor.html:250
+#: plugins/pressure_monitor/templates/pressure_monitor.html:246
 #: plugins/tank_monitor/templates/tank_monitor.html:334
 #: plugins/ups_adj/templates/ups_adj.html:235
-#: plugins/wind_monitor/templates/wind_monitor.html:311
+#: plugins/wind_monitor/templates/wind_monitor.html:300
 msgid "Year filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:194 ospy/templates/home_admin.html:689
 #: ospy/templates/home_public.html:478 ospy/templates/home_user.html:602
-#: plugins/air_temp_humi/templates/air_temp_humi.html:363
-#: plugins/ping_monitor/templates/ping_monitor.html:282
-#: plugins/pressure_monitor/templates/pressure_monitor.html:285
+#: plugins/air_temp_humi/templates/air_temp_humi.html:360
+#: plugins/ping_monitor/templates/ping_monitor.html:280
+#: plugins/pressure_monitor/templates/pressure_monitor.html:283
 #: plugins/tank_monitor/templates/tank_monitor.html:365
 #: plugins/ups_adj/templates/ups_adj.html:272
-#: plugins/wind_monitor/templates/wind_monitor.html:357
+#: plugins/wind_monitor/templates/wind_monitor.html:346
 msgid "Clear selection"
 msgstr ""
 
@@ -1841,7 +1878,7 @@ msgstr ""
 #: ospy/templates/log_user.html:7 ospy/templates/log_user.html:35
 #: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:402
 #: plugins/volt_temp_da/templates/volt_temp_da.html:29
-#: plugins/webcam/templates/webcam.html:29
+#: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
 msgstr ""
 
@@ -1998,7 +2035,11 @@ msgstr ""
 #: ospy/templates/log.html:34 ospy/templates/log.html:61
 #: ospy/templates/log_sensor.html:17 ospy/templates/log_sensor.html:37
 #: ospy/templates/log_user.html:12 ospy/templates/log_user.html:39
+#: plugins/air_temp_humi/templates/air_temp_humi.html:175
+#: plugins/ping_monitor/templates/ping_monitor.html:174
+#: plugins/pressure_monitor/templates/pressure_monitor.html:174
 #: plugins/system_debug/templates/system_debug.html:46
+#: plugins/wind_monitor/templates/wind_monitor.html:176
 msgid "Download log"
 msgstr ""
 
@@ -2016,7 +2057,7 @@ msgstr ""
 
 #: ospy/templates/log.html:40 ospy/templates/log_user.html:18
 #: ospy/templates/stations.html:35
-#: plugins/cli_control/templates/cli_control.html:36
+#: plugins/cli_control/templates/cli_control.html:32
 #: plugins/email_notifications/__init__.py:134
 #: plugins/email_notifications/__init__.py:138
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
@@ -2061,7 +2102,8 @@ msgstr ""
 #: ospy/templates/log.html:84 ospy/templates/log_sensor.html:67
 #: ospy/templates/log_user.html:62 ospy/templates/sensors_firmware.html:120
 #: plugins/pool_heating/templates/pool_heating.html:137
-#: plugins/system_watchdog/templates/system_watchdog.html:42
+#: plugins/system_watchdog/templates/system_watchdog.html:38
+#: plugins/webcam/templates/webcam.html:67
 msgid "Refresh"
 msgstr ""
 
@@ -2197,19 +2239,19 @@ msgstr ""
 
 #: ospy/templates/options.html:184 ospy/templates/options.html:197
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
-#: plugins/air_temp_humi/templates/air_temp_humi.html:275
+#: plugins/air_temp_humi/templates/air_temp_humi.html:272
 #: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:182
 #: plugins/pool_heating/__init__.py:213
 #: plugins/pool_heating/templates/pool_heating.html:116
-#: plugins/pressure_monitor/templates/pressure_monitor.html:202
-#: plugins/pulse/templates/pulse.html:31 plugins/tank_monitor/__init__.py:162
+#: plugins/pressure_monitor/templates/pressure_monitor.html:200
+#: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:162
 #: plugins/tank_monitor/__init__.py:190
 #: plugins/tank_monitor/templates/tank_monitor.html:237
 #: plugins/tank_monitor/templates/tank_monitor.html:299
 #: plugins/temperature_switch/templates/temperature_switch.html:72
 #: plugins/temperature_switch/templates/temperature_switch.html:129
 #: plugins/temperature_switch/templates/temperature_switch.html:186
-#: plugins/wind_monitor/templates/wind_monitor.html:263
+#: plugins/wind_monitor/templates/wind_monitor.html:252
 msgid "Output"
 msgstr ""
 
@@ -3472,116 +3514,117 @@ msgstr ""
 msgid "Cannot create resized files!"
 msgstr ""
 
-#: ospy/webpages.py:1388
+#: ospy/webpages.py:1393
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1394
+#: ospy/webpages.py:1399
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1400
+#: ospy/webpages.py:1405
 msgid "The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:1422 ospy/webpages.py:1425
+#: ospy/webpages.py:1427 ospy/webpages.py:1430
 msgid "Deleting image file {}"
 msgstr ""
 
-#: ospy/webpages.py:1431
+#: ospy/webpages.py:1436
 msgid "Deleting file fullchain.pem."
 msgstr ""
 
-#: ospy/webpages.py:1435
+#: ospy/webpages.py:1440
 msgid "Deleting file privkey.pem."
 msgstr ""
 
-#: ospy/webpages.py:1439
+#: ospy/webpages.py:1444
 msgid "Deleting file sessions.db."
 msgstr ""
 
-#: ospy/webpages.py:1443
+#: ospy/webpages.py:1448
 msgid "Deleting file ospy_backup.zip."
 msgstr ""
 
-#: ospy/webpages.py:1447
+#: ospy/webpages.py:1452
 msgid "Deleting file options.db.bak."
 msgstr ""
 
-#: ospy/webpages.py:1451
+#: ospy/webpages.py:1456
 msgid "Deleting file options.db.tmp."
 msgstr ""
 
-#: ospy/webpages.py:1455
+#: ospy/webpages.py:1460
 msgid "Deleting file options.db."
 msgstr ""
 
-#: ospy/webpages.py:1465
+#: ospy/webpages.py:1470
 msgid "Deleting file events.log."
 msgstr ""
 
-#: ospy/webpages.py:1482
+#: ospy/webpages.py:1487
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:1563 ospy/webpages.py:1626 ospy/webpages.py:1627
+#: ospy/webpages.py:1568 ospy/webpages.py:1631 ospy/webpages.py:1632
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:1618
+#: ospy/webpages.py:1623
 msgid "File {} is created successfully!"
 msgstr ""
 
-#: ospy/webpages.py:1662
+#: ospy/webpages.py:1667
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:1669
+#: ospy/webpages.py:1674
 msgid "Uploaded to backup folder OK."
 msgstr ""
 
-#: ospy/webpages.py:1673
+#: ospy/webpages.py:1678
 msgid "Extracted from zip OK."
 msgstr ""
 
-#: ospy/webpages.py:1679
+#: ospy/webpages.py:1684
 msgid "Cleaning folder after restoring..."
 msgstr ""
 
-#: ospy/webpages.py:1682 ospy/webpages.py:1686
+#: ospy/webpages.py:1687 ospy/webpages.py:1691
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 
-#: ospy/webpages.py:1716 ospy/webpages.py:1717
+#: ospy/webpages.py:1721 ospy/webpages.py:1722
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:1748 ospy/webpages.py:1749 plugins/mqtt/__init__.py:247
-#: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:368
+#: ospy/webpages.py:1753 ospy/webpages.py:1754 plugins/mqtt/__init__.py:242
+#: plugins/mqtt_runonce/__init__.py:161 plugins/ups_adj/__init__.py:111
+#: plugins/ups_adj/__init__.py:368
 msgid "OK"
 msgstr ""
 
-#: ospy/webpages.py:1768
+#: ospy/webpages.py:1773
 msgid "Remove fullchain.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1772
+#: ospy/webpages.py:1777
 msgid "Remove privkey.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1778
+#: ospy/webpages.py:1783
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:1943
+#: ospy/webpages.py:1948
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:1956 ospy/webpages.py:2022
+#: ospy/webpages.py:1961 ospy/webpages.py:2027
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:1968 ospy/webpages.py:2009
+#: ospy/webpages.py:1973 ospy/webpages.py:2014
 msgid "Unit not set"
 msgstr ""
 
@@ -3664,132 +3707,101 @@ msgstr ""
 msgid "Temperatures &deg;C"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:173
-msgid "This plugin needs DHT11 sensor connected to GPIO 10 (pin 19 MOSI). Range for Humidity: 20 - 90 %RH. Range for Temperature 0 - 50 Celsius"
-msgstr ""
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:174
-msgid "This plugin allows the control of some stations (eg Fan) depending on the humidity of the sensor"
-msgstr ""
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:175
-msgid "This plug-in allows you to connect 1-6 DS18B20 sensors connected to the external hardware board via an I2C bus (address 0x03)"
-msgstr ""
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:176
-#: plugins/ping_monitor/templates/ping_monitor.html:174
-#: plugins/pressure_monitor/templates/pressure_monitor.html:174
-#: plugins/tank_monitor/templates/tank_monitor.html:174
-#: plugins/ups_adj/templates/ups_adj.html:175
-#: plugins/wind_monitor/templates/wind_monitor.html:185
-msgid "If logging is enabled, a graph with measured data will be displayed at the bottom of the screen"
-msgstr ""
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:178
-#: plugins/ping_monitor/templates/ping_monitor.html:176
-#: plugins/pressure_monitor/templates/pressure_monitor.html:176
-#: plugins/tank_monitor/templates/tank_monitor.html:176
-#: plugins/ups_adj/templates/ups_adj.html:177
-#: plugins/volt_temp_da/templates/volt_temp_da.html:25
-#: plugins/wind_monitor/templates/wind_monitor.html:187
-msgid "Download log as"
-msgstr ""
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:182
+#: plugins/air_temp_humi/templates/air_temp_humi.html:179
 msgid "Enable plugin"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:184
+#: plugins/air_temp_humi/templates/air_temp_humi.html:181
 msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:193
-#: plugins/ping_monitor/templates/ping_monitor.html:240
-#: plugins/pressure_monitor/templates/pressure_monitor.html:229
+#: plugins/air_temp_humi/templates/air_temp_humi.html:190
+#: plugins/ping_monitor/templates/ping_monitor.html:238
+#: plugins/pressure_monitor/templates/pressure_monitor.html:227
 #: plugins/tank_monitor/templates/tank_monitor.html:309
 #: plugins/ups_adj/templates/ups_adj.html:216
 #: plugins/volt_temp_da/templates/volt_temp_da.html:35
-#: plugins/wind_monitor/templates/wind_monitor.html:273
+#: plugins/wind_monitor/templates/wind_monitor.html:262
 msgid "Enable logging"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:199
-#: plugins/pressure_monitor/templates/pressure_monitor.html:235
+#: plugins/air_temp_humi/templates/air_temp_humi.html:196
+#: plugins/pressure_monitor/templates/pressure_monitor.html:233
 #: plugins/tank_monitor/templates/tank_monitor.html:315
 #: plugins/ups_adj/templates/ups_adj.html:222
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
-#: plugins/wind_monitor/templates/wind_monitor.html:291
+#: plugins/wind_monitor/templates/wind_monitor.html:280
 msgid "Maximum number of log records"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:201
-#: plugins/pressure_monitor/templates/pressure_monitor.html:236
+#: plugins/air_temp_humi/templates/air_temp_humi.html:198
+#: plugins/pressure_monitor/templates/pressure_monitor.html:234
 #: plugins/tank_monitor/templates/tank_monitor.html:316
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:43
-#: plugins/wind_monitor/templates/wind_monitor.html:292
+#: plugins/wind_monitor/templates/wind_monitor.html:281
 msgid "0 = unlimited"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:205
+#: plugins/air_temp_humi/templates/air_temp_humi.html:202
 #: plugins/tank_monitor/templates/tank_monitor.html:321
 #: plugins/volt_temp_da/templates/volt_temp_da.html:53
-#: plugins/wind_monitor/templates/wind_monitor.html:297
+#: plugins/wind_monitor/templates/wind_monitor.html:286
 msgid "Interval for logging"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:207
+#: plugins/air_temp_humi/templates/air_temp_humi.html:204
 #: plugins/tank_monitor/templates/tank_monitor.html:322
 #: plugins/volt_temp_da/templates/volt_temp_da.html:55
 msgid "minutes (Minimum is 1)"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:211
-#: plugins/air_temp_humi/templates/air_temp_humi.html:212
-#: plugins/ping_monitor/templates/ping_monitor.html:245
-#: plugins/ping_monitor/templates/ping_monitor.html:246
-#: plugins/pressure_monitor/templates/pressure_monitor.html:241
-#: plugins/pressure_monitor/templates/pressure_monitor.html:242
+#: plugins/air_temp_humi/templates/air_temp_humi.html:208
+#: plugins/air_temp_humi/templates/air_temp_humi.html:209
+#: plugins/ping_monitor/templates/ping_monitor.html:243
+#: plugins/ping_monitor/templates/ping_monitor.html:244
+#: plugins/pressure_monitor/templates/pressure_monitor.html:239
+#: plugins/pressure_monitor/templates/pressure_monitor.html:240
 #: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/tank_monitor/templates/tank_monitor.html:328
 #: plugins/ups_adj/templates/ups_adj.html:228
 #: plugins/ups_adj/templates/ups_adj.html:229
-#: plugins/wind_monitor/templates/wind_monitor.html:304
-#: plugins/wind_monitor/templates/wind_monitor.html:305
+#: plugins/wind_monitor/templates/wind_monitor.html:293
+#: plugins/wind_monitor/templates/wind_monitor.html:294
 msgid "Select filter for graph history"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:228
+#: plugins/air_temp_humi/templates/air_temp_humi.html:225
 msgid "Enable DHT11"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:234
-#: plugins/air_temp_humi/templates/air_temp_humi.html:297
-#: plugins/air_temp_humi/templates/air_temp_humi.html:304
-#: plugins/air_temp_humi/templates/air_temp_humi.html:311
-#: plugins/air_temp_humi/templates/air_temp_humi.html:318
-#: plugins/air_temp_humi/templates/air_temp_humi.html:325
-#: plugins/air_temp_humi/templates/air_temp_humi.html:332
+#: plugins/air_temp_humi/templates/air_temp_humi.html:231
+#: plugins/air_temp_humi/templates/air_temp_humi.html:294
+#: plugins/air_temp_humi/templates/air_temp_humi.html:301
+#: plugins/air_temp_humi/templates/air_temp_humi.html:308
+#: plugins/air_temp_humi/templates/air_temp_humi.html:315
+#: plugins/air_temp_humi/templates/air_temp_humi.html:322
+#: plugins/air_temp_humi/templates/air_temp_humi.html:329
 msgid "Label for sensor"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:240
+#: plugins/air_temp_humi/templates/air_temp_humi.html:237
 msgid "Allow regulation"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:246
+#: plugins/air_temp_humi/templates/air_temp_humi.html:243
 msgid "Hysteresis"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:252
+#: plugins/air_temp_humi/templates/air_temp_humi.html:249
 msgid "Humidity for output ON"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:254
+#: plugins/air_temp_humi/templates/air_temp_humi.html:251
 msgid "Humidity + hysteresis/2 > ON"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:258
+#: plugins/air_temp_humi/templates/air_temp_humi.html:255
 #: plugins/pool_heating/templates/pool_heating.html:99
 #: plugins/tank_monitor/templates/tank_monitor.html:282
 #: plugins/temperature_switch/templates/temperature_switch.html:46
@@ -3798,7 +3810,7 @@ msgstr ""
 msgid "Maximum run time in activate"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:259
+#: plugins/air_temp_humi/templates/air_temp_humi.html:256
 #: plugins/pool_heating/templates/pool_heating.html:100
 #: plugins/tank_monitor/templates/tank_monitor.html:283
 #: plugins/temperature_switch/templates/temperature_switch.html:47
@@ -3807,45 +3819,47 @@ msgstr ""
 msgid "Maximum duration when activating the output (in minutes and seconds). After this time, the output will turn off regardless of other events (conditions)"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:265
+#: plugins/air_temp_humi/templates/air_temp_humi.html:262
 msgid "Humidity for output OFF"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:267
+#: plugins/air_temp_humi/templates/air_temp_humi.html:264
 msgid "Humidity - hysteresis/2 < OFF"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:271
+#: plugins/air_temp_humi/templates/air_temp_humi.html:268
 #: plugins/pool_heating/templates/pool_heating.html:112
-#: plugins/pulse/templates/pulse.html:27
+#: plugins/pulse/templates/pulse.html:26
 msgid "Select Output"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:285
+#: plugins/air_temp_humi/templates/air_temp_humi.html:282
 msgid "Enable DS18B20"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:291
+#: plugins/air_temp_humi/templates/air_temp_humi.html:288
 msgid "Used DS18B20"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:343
-#: plugins/button_control/templates/button_control.html:53
-#: plugins/cli_control/templates/cli_control.html:51
+#: plugins/air_temp_humi/templates/air_temp_humi.html:340
+#: plugins/button_control/templates/button_control.html:51
+#: plugins/cli_control/templates/cli_control.html:47
 #: plugins/email_notifications/templates/email_notifications.html:129
-#: plugins/email_reader/templates/email_reader.html:183
+#: plugins/email_notifications/templates/email_notifications_help.html:35
+#: plugins/email_reader/templates/email_reader.html:180
+#: plugins/email_reader/templates/email_reader_help.html:59
 #: plugins/humi_monitor/templates/humi_monitor.html:86
 #: plugins/lcd_display/templates/lcd_display.html:143
 #: plugins/lcd_display/templates/lcd_display_help.html:45
 #: plugins/mqtt/templates/mqtt.html:97
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:37
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:64
 #: plugins/mqtt_zones/templates/mqtt_zones.html:36
-#: plugins/ping_monitor/templates/ping_monitor.html:262
+#: plugins/ping_monitor/templates/ping_monitor.html:260
 #: plugins/pool_heating/templates/pool_heating.html:127
-#: plugins/pressure_monitor/templates/pressure_monitor.html:264
-#: plugins/pressurizer/templates/pressurizer.html:74
-#: plugins/pulse/templates/pulse.html:42
-#: plugins/real_time/templates/real_time.html:56
+#: plugins/pressure_monitor/templates/pressure_monitor.html:262
+#: plugins/pressurizer/templates/pressurizer.html:70
+#: plugins/pulse/templates/pulse.html:41
+#: plugins/real_time/templates/real_time.html:55
 #: plugins/relay_16/templates/relay_16.html:68
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:56
 #: plugins/remote_notifications/templates/remote_notifications.html:50
@@ -3855,7 +3869,7 @@ msgstr ""
 #: plugins/system_info/templates/system_info.html:21
 #: plugins/system_update/templates/system_update.html:79
 #: plugins/system_update/templates/system_update_help.html:24
-#: plugins/system_watchdog/templates/system_watchdog.html:38
+#: plugins/system_watchdog/templates/system_watchdog.html:34
 #: plugins/tank_monitor/templates/tank_monitor.html:344
 #: plugins/telegram_bot/templates/telegram_bot.html:122
 #: plugins/temperature_switch/templates/temperature_switch.html:191
@@ -3868,26 +3882,26 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:108
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:73
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:105
-#: plugins/webcam/templates/webcam.html:54
-#: plugins/wind_monitor/templates/wind_monitor.html:336
+#: plugins/webcam/templates/webcam.html:51
+#: plugins/wind_monitor/templates/wind_monitor.html:325
 msgid "Status"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:352
-#: plugins/button_control/templates/button_control.html:62
-#: plugins/cli_control/templates/cli_control.html:61
+#: plugins/air_temp_humi/templates/air_temp_humi.html:349
+#: plugins/button_control/templates/button_control.html:60
+#: plugins/cli_control/templates/cli_control.html:57
 #: plugins/email_notifications/templates/email_notifications.html:138
-#: plugins/email_reader/templates/email_reader.html:193
+#: plugins/email_reader/templates/email_reader.html:190
 #: plugins/humi_monitor/templates/humi_monitor.html:95
 #: plugins/lcd_display/templates/lcd_display.html:152
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:106
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:73
 #: plugins/mqtt_zones/templates/mqtt_zones.html:45
-#: plugins/ping_monitor/templates/ping_monitor.html:271
-#: plugins/pressure_monitor/templates/pressure_monitor.html:273
-#: plugins/pressurizer/templates/pressurizer.html:82
-#: plugins/real_time/templates/real_time.html:65
+#: plugins/ping_monitor/templates/ping_monitor.html:269
+#: plugins/pressure_monitor/templates/pressure_monitor.html:271
+#: plugins/pressurizer/templates/pressurizer.html:78
+#: plugins/real_time/templates/real_time.html:64
 #: plugins/relay_16/templates/relay_16.html:78
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:65
 #: plugins/remote_notifications/templates/remote_notifications.html:59
@@ -3906,18 +3920,78 @@ msgstr ""
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
 #: plugins/weather_stations/templates/settings_page.html:470
-#: plugins/webcam/templates/webcam.html:69
-#: plugins/wind_monitor/templates/wind_monitor.html:345
+#: plugins/webcam/templates/webcam.html:66
+#: plugins/wind_monitor/templates/wind_monitor.html:334
 msgid "Submit"
 msgstr ""
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:354
-#: plugins/ping_monitor/templates/ping_monitor.html:273
-#: plugins/pressure_monitor/templates/pressure_monitor.html:276
+#: plugins/air_temp_humi/templates/air_temp_humi.html:351
+#: plugins/ping_monitor/templates/ping_monitor.html:271
+#: plugins/pressure_monitor/templates/pressure_monitor.html:274
 #: plugins/tank_monitor/templates/tank_monitor.html:356
 #: plugins/ups_adj/templates/ups_adj.html:263
-#: plugins/wind_monitor/templates/wind_monitor.html:348
+#: plugins/wind_monitor/templates/wind_monitor.html:337
 msgid "Delete all logs"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:3
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:7
+msgid "Air Temperature and Humidity Monitor - help"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:8
+msgid "This plugin needs DHT11 sensor connected to GPIO 10 (pin 19 MOSI). Range for Humidity: 20 - 90 %RH. Range for Temperature 0 - 50 Celsius"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:9
+msgid "This plugin allows the control of some stations (eg Fan) depending on the humidity of the sensor"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:10
+msgid "This plug-in allows you to connect 1-6 DS18B20 sensors connected to the external hardware board via an"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:10
+msgid "bus (address 0x03)"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:11
+#: plugins/ping_monitor/templates/ping_monitor_help.html:10
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:10
+#: plugins/tank_monitor/templates/tank_monitor.html:174
+#: plugins/ups_adj/templates/ups_adj.html:175
+#: plugins/wind_monitor/templates/wind_monitor_help.html:19
+msgid "If logging is enabled, a graph with measured data will be displayed at the bottom of the screen"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
+#: plugins/button_control/templates/button_control_help.html:10
+#: plugins/lcd_display/templates/lcd_display_help.html:50
+#: plugins/sms_adj/templates/sms_adj.html:25
+#: plugins/voice_notification/templates/voice_notification.html:28
+#: plugins/water_meter/templates/water_meter.html:23
+msgid "Visit"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
+#: plugins/button_control/templates/button_control_help.html:10
+#: plugins/lcd_display/templates/lcd_display_help.html:50
+#: plugins/sms_adj/templates/sms_adj.html:25
+#: plugins/voice_notification/templates/voice_notification.html:28
+#: plugins/water_meter/templates/water_meter.html:23
+msgid "for more information"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:13
+msgid "The PCB board for 6 probe DS18B20 (board by pihrt.com)"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:19
+msgid "Humidity sensor DHT is connected to Raspberry Pi header"
+msgstr ""
+
+#: plugins/air_temp_humi/templates/air_temp_humi_help.html:20
+msgid "On the main OSPy board by pihrt.com is already installed."
 msgstr ""
 
 #: plugins/button_control/__init__.py:25
@@ -4031,110 +4105,108 @@ msgstr ""
 msgid "Button control settings"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:20
-msgid "This plugin uses a circuit board with MCP23017 controller connected to the OSPy Sprinkler board via the I2C interface"
-msgstr ""
-
-#: plugins/button_control/templates/button_control.html:21
-msgid "This plug-in includes eight buttons with optional functions and signalisating via eicht LEDs"
-msgstr ""
-
-#: plugins/button_control/templates/button_control.html:22
-#: plugins/lcd_display/templates/lcd_display_help.html:50
-#: plugins/sms_adj/templates/sms_adj.html:25
-#: plugins/voice_notification/templates/voice_notification.html:28
-#: plugins/water_meter/templates/water_meter.html:23
-msgid "Visit"
-msgstr ""
-
-#: plugins/button_control/templates/button_control.html:22
-#: plugins/lcd_display/templates/lcd_display_help.html:50
-#: plugins/sms_adj/templates/sms_adj.html:25
-#: plugins/voice_notification/templates/voice_notification.html:28
-#: plugins/water_meter/templates/water_meter.html:23
-msgid "for more information"
-msgstr ""
-
-#: plugins/button_control/templates/button_control.html:26
+#: plugins/button_control/templates/button_control.html:24
 msgid "Use button control"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:33
+#: plugins/button_control/templates/button_control.html:31
 msgid "Button"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:33
+#: plugins/button_control/templates/button_control.html:31
 msgid "controls"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:36
+#: plugins/button_control/templates/button_control.html:34
 #: plugins/email_reader/__init__.py:70
-#: plugins/email_reader/templates/email_reader.html:147
-#: plugins/email_reader/templates/email_reader.html:226
+#: plugins/email_reader/templates/email_reader.html:144
+#: plugins/email_reader/templates/email_reader_help.html:91
 msgid "Reboot OS system"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:37
+#: plugins/button_control/templates/button_control.html:35
 #: plugins/email_reader/__init__.py:79
-#: plugins/email_reader/templates/email_reader.html:148
-#: plugins/email_reader/templates/email_reader.html:226
+#: plugins/email_reader/templates/email_reader.html:145
+#: plugins/email_reader/templates/email_reader_help.html:91
 msgid "Shutdown OS system"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:38
+#: plugins/button_control/templates/button_control.html:36
 msgid "Stop all station"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:40
+#: plugins/button_control/templates/button_control.html:38
 msgid "Disable scheduler"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:41
+#: plugins/button_control/templates/button_control.html:39
 #: plugins/email_reader/__init__.py:71
-#: plugins/email_reader/templates/email_reader.html:149
+#: plugins/email_reader/templates/email_reader.html:146
 msgid "Run program 1"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:42
+#: plugins/button_control/templates/button_control.html:40
 #: plugins/email_reader/__init__.py:72
-#: plugins/email_reader/templates/email_reader.html:150
+#: plugins/email_reader/templates/email_reader.html:147
 msgid "Run program 2"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:43
+#: plugins/button_control/templates/button_control.html:41
 #: plugins/email_reader/__init__.py:73
-#: plugins/email_reader/templates/email_reader.html:151
+#: plugins/email_reader/templates/email_reader.html:148
 msgid "Run program 3"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:44
+#: plugins/button_control/templates/button_control.html:42
 #: plugins/email_reader/__init__.py:74
-#: plugins/email_reader/templates/email_reader.html:152
+#: plugins/email_reader/templates/email_reader.html:149
 msgid "Run program 4"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:45
+#: plugins/button_control/templates/button_control.html:43
 #: plugins/email_reader/__init__.py:75
-#: plugins/email_reader/templates/email_reader.html:153
+#: plugins/email_reader/templates/email_reader.html:150
 msgid "Run program 5"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:46
+#: plugins/button_control/templates/button_control.html:44
 #: plugins/email_reader/__init__.py:76
-#: plugins/email_reader/templates/email_reader.html:154
+#: plugins/email_reader/templates/email_reader.html:151
 msgid "Run program 6"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:47
+#: plugins/button_control/templates/button_control.html:45
 #: plugins/email_reader/__init__.py:77
-#: plugins/email_reader/templates/email_reader.html:155
+#: plugins/email_reader/templates/email_reader.html:152
 msgid "Run program 7"
 msgstr ""
 
-#: plugins/button_control/templates/button_control.html:48
+#: plugins/button_control/templates/button_control.html:46
 #: plugins/email_reader/__init__.py:78
-#: plugins/email_reader/templates/email_reader.html:156
+#: plugins/email_reader/templates/email_reader.html:153
 msgid "Run program 8"
+msgstr ""
+
+#: plugins/button_control/templates/button_control_help.html:3
+#: plugins/button_control/templates/button_control_help.html:7
+msgid "Button control settings - help"
+msgstr ""
+
+#: plugins/button_control/templates/button_control_help.html:8
+msgid "This plugin uses a circuit board with MCP23017 controller connected to the OSPy Sprinkler board via the"
+msgstr ""
+
+#: plugins/button_control/templates/button_control_help.html:8
+#: plugins/real_time/templates/real_time_help.html:11
+msgid "interface"
+msgstr ""
+
+#: plugins/button_control/templates/button_control_help.html:9
+msgid "This plug-in includes eight buttons with optional functions and signalisating via eicht LEDs"
+msgstr ""
+
+#: plugins/button_control/templates/button_control_help.html:11
+msgid "The PCB board for 8 buttons (board by pihrt.com)"
 msgstr ""
 
 #: plugins/cli_control/__init__.py:22
@@ -4162,33 +4234,38 @@ msgstr ""
 msgid "CLI Control settings"
 msgstr ""
 
-#: plugins/cli_control/templates/cli_control.html:22
-msgid "This plugin can be used to control devices such as remote RF units via Linux commands."
-msgstr ""
-
-#: plugins/cli_control/templates/cli_control.html:23
-msgid "Enter command line commands to be issued when a station is to be started or stopped."
-msgstr ""
-
-#: plugins/cli_control/templates/cli_control.html:24
-msgid "For example a command might look like: wget http://xxx.xxx.xxx.xxx/relay1on"
-msgstr ""
-
-#: plugins/cli_control/templates/cli_control.html:25
-msgid "Leave fields blank for any stations not to be controlled from the command line."
-msgstr ""
-
-#: plugins/cli_control/templates/cli_control.html:30
+#: plugins/cli_control/templates/cli_control.html:26
 msgid "Use CLI Control"
 msgstr ""
 
-#: plugins/cli_control/templates/cli_control.html:37
+#: plugins/cli_control/templates/cli_control.html:33
 msgid "Start Command"
 msgstr ""
 
-#: plugins/cli_control/templates/cli_control.html:38
+#: plugins/cli_control/templates/cli_control.html:34
 #: plugins/telegram_bot/templates/telegram_bot.html:110
 msgid "Stop Command"
+msgstr ""
+
+#: plugins/cli_control/templates/cli_control_help.html:3
+#: plugins/cli_control/templates/cli_control_help.html:7
+msgid "CLI Control settings - help"
+msgstr ""
+
+#: plugins/cli_control/templates/cli_control_help.html:8
+msgid "This plugin can be used to control devices such as remote RF units via Linux commands."
+msgstr ""
+
+#: plugins/cli_control/templates/cli_control_help.html:9
+msgid "Enter command line commands to be issued when a station is to be started or stopped."
+msgstr ""
+
+#: plugins/cli_control/templates/cli_control_help.html:10
+msgid "For example a command might look like: wget http://xxx.xxx.xxx.xxx/relay1on"
+msgstr ""
+
+#: plugins/cli_control/templates/cli_control_help.html:11
+msgid "Leave fields blank for any stations not to be controlled from the command line."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:31
@@ -4365,10 +4442,6 @@ msgstr ""
 msgid "E-mail Notifications"
 msgstr ""
 
-#: plugins/email_notifications/templates/email_notifications.html:26
-msgid "This plugin can send E-mails. For this plugin you need an E-mail smtp account as provider."
-msgstr ""
-
 #: plugins/email_notifications/templates/email_notifications.html:30
 msgid "Send E-mail after power on"
 msgstr ""
@@ -4386,27 +4459,35 @@ msgid "Send E-mail if a program has finished"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:49
+#: plugins/email_notifications/templates/email_notifications_help.html:19
 msgid "SMTP server address"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:50
-#: plugins/email_notifications/templates/email_notifications.html:58
-msgid "example"
+msgid "example: smtp.gmail.com"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:57
+#: plugins/email_notifications/templates/email_notifications_help.html:21
 msgid "SMTP port"
 msgstr ""
 
+#: plugins/email_notifications/templates/email_notifications.html:58
+msgid "example: 587"
+msgstr ""
+
 #: plugins/email_notifications/templates/email_notifications.html:64
+#: plugins/email_notifications/templates/email_notifications_help.html:23
 msgid "Use SMTP username as sender"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:65
-msgid "Some SMTP providers prohibit to use another sender than the same mail user"
+#: plugins/email_notifications/templates/email_notifications_help.html:24
+msgid "Some SMTP providers prohibit to use another sender than the same mail user."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:71
+#: plugins/email_notifications/templates/email_notifications_help.html:25
 msgid "SMTP username"
 msgstr ""
 
@@ -4415,6 +4496,7 @@ msgid "Your E-mail username"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:79
+#: plugins/email_notifications/templates/email_notifications_help.html:27
 msgid "SMTP password"
 msgstr ""
 
@@ -4427,23 +4509,27 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:99
 #: plugins/email_notifications/templates/email_notifications.html:105
 #: plugins/email_notifications/templates/email_notifications.html:111
+#: plugins/email_notifications/templates/email_notifications_help.html:29
 msgid "Send E-mail to"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:117
-#: plugins/email_reader/templates/email_reader.html:173
-#: plugins/ping_monitor/templates/ping_monitor.html:230
-#: plugins/pressure_monitor/templates/pressure_monitor.html:218
+#: plugins/email_notifications/templates/email_notifications_help.html:31
+#: plugins/email_reader/templates/email_reader.html:170
+#: plugins/email_reader/templates/email_reader_help.html:57
+#: plugins/ping_monitor/templates/ping_monitor.html:228
+#: plugins/pressure_monitor/templates/pressure_monitor.html:216
 #: plugins/system_update/templates/system_update.html:67
 #: plugins/system_update/templates/system_update_help.html:20
 #: plugins/tank_monitor/templates/tank_monitor.html:259
 #: plugins/ups_adj/templates/ups_adj.html:205
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:46
-#: plugins/wind_monitor/templates/wind_monitor.html:238
+#: plugins/wind_monitor/templates/wind_monitor.html:227
 msgid "E-mail subject"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:123
+#: plugins/email_notifications/templates/email_notifications_help.html:33
 msgid "Save and send it later"
 msgstr ""
 
@@ -4451,42 +4537,127 @@ msgstr ""
 msgid "Send a test E-mail"
 msgstr ""
 
+#: plugins/email_notifications/templates/email_notifications_help.html:3
+#: plugins/email_notifications/templates/email_notifications_help.html:7
+msgid "E-mail Notifications - help"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:8
+msgid "This plugin can send E-mails. For this plugin you need an E-mail SMTP account as provider."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:9
+#: plugins/email_reader/templates/email_reader_help.html:11
+#: plugins/lcd_display/templates/lcd_display_help.html:13
+#: plugins/system_update/templates/system_update_help.html:12
+#: plugins/weather_stations/templates/help_page.html:9
+msgid "Plugin setup"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:11
+msgid "Check Send E-mail after power on for send E-mail"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:12
+msgid "If checked sends E-mail into your E-mail address."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:13
+msgid "Check with log file"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:14
+msgid "If checked with events.log file if exists (your must enabled in options \"check Enable debug log\")."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:15
+msgid "Check Send E-mail if rain is detected"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:16
+msgid "If checked send e-mail into your E-mail address."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:17
+msgid "Check Send E-mail if a program has finished"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:18
+msgid "If checked send E-mail if a program has finished into your E-mail address."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:20
+msgid "Example: smtp.gmail.com"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:22
+msgid "Example: 587"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:26
+#: plugins/email_notifications/templates/email_notifications_help.html:28
+msgid "Type your E-mail password"
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:30
+msgid "Type more E-mail address for recipient E-mail post office."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:32
+msgid "Type E-mail subject for send E-mail."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:34
+msgid "If there is no Internet connection, save and send it later."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:36
+#: plugins/email_reader/templates/email_reader_help.html:60
+#: plugins/lcd_display/templates/lcd_display_help.html:46
+#: plugins/system_update/templates/system_update_help.html:25
+msgid "Status window from the plugin."
+msgstr ""
+
+#: plugins/email_notifications/templates/email_notifications_help.html:38
+msgid "This extension also sends some statuses from other extensions (if they are installed on the system). For example temperature, flow..."
+msgstr ""
+
 #: plugins/email_reader/__init__.py:36
 msgid "Package: E-mail Reader"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:50
-#: plugins/email_reader/templates/email_reader.html:205
+#: plugins/email_reader/templates/email_reader_help.html:70
 msgid "scheduler_on"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:51
-#: plugins/email_reader/templates/email_reader.html:207
+#: plugins/email_reader/templates/email_reader_help.html:72
 msgid "scheduler_off"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:52
-#: plugins/email_reader/templates/email_reader.html:209
+#: plugins/email_reader/templates/email_reader_help.html:74
 msgid "manual_on"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:53
-#: plugins/email_reader/templates/email_reader.html:211
+#: plugins/email_reader/templates/email_reader_help.html:76
 msgid "manual_off"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:54
-#: plugins/email_reader/templates/email_reader.html:213
+#: plugins/email_reader/templates/email_reader_help.html:78
 msgid "stop_run"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:55
-#: plugins/email_reader/templates/email_reader.html:215
+#: plugins/email_reader/templates/email_reader_help.html:80
 msgid "send_help"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:56
-#: plugins/email_reader/templates/email_reader.html:217
+#: plugins/email_reader/templates/email_reader_help.html:82
 msgid "send_state"
 msgstr ""
 
@@ -4495,17 +4666,17 @@ msgid "Report from OSPy E-mail Reader plugin"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:80
-#: plugins/email_reader/templates/email_reader.html:219
+#: plugins/email_reader/templates/email_reader_help.html:84
 msgid "send_temperatures"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:81
-#: plugins/email_reader/templates/email_reader.html:221
+#: plugins/email_reader/templates/email_reader_help.html:86
 msgid "send_tank"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:82
-#: plugins/email_reader/templates/email_reader.html:223
+#: plugins/email_reader/templates/email_reader_help.html:88
 msgid "send_wind"
 msgstr ""
 
@@ -4749,7 +4920,7 @@ msgstr ""
 #: plugins/wind_monitor/__init__.py:165 plugins/wind_monitor/__init__.py:170
 #: plugins/wind_monitor/__init__.py:233 plugins/wind_monitor/__init__.py:250
 #: plugins/wind_monitor/__init__.py:251
-#: plugins/wind_monitor/templates/wind_monitor.html:330
+#: plugins/wind_monitor/templates/wind_monitor.html:319
 msgid "km/h"
 msgstr ""
 
@@ -4786,47 +4957,56 @@ msgid "All available commands in plugin"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:351
-#: plugins/email_reader/templates/email_reader.html:92
+#: plugins/email_reader/templates/email_reader.html:89
+#: plugins/email_reader/templates/email_reader_help.html:33
 msgid "Switch scheduler to ON"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:353
-#: plugins/email_reader/templates/email_reader.html:97
+#: plugins/email_reader/templates/email_reader.html:94
+#: plugins/email_reader/templates/email_reader_help.html:35
 msgid "Switch scheduler to OFF"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:355
-#: plugins/email_reader/templates/email_reader.html:102
+#: plugins/email_reader/templates/email_reader.html:99
+#: plugins/email_reader/templates/email_reader_help.html:37
 msgid "Switch to manual mode"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:357
-#: plugins/email_reader/templates/email_reader.html:107
+#: plugins/email_reader/templates/email_reader.html:104
+#: plugins/email_reader/templates/email_reader_help.html:39
 msgid "Switch to scheduler mode"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:359
-#: plugins/email_reader/templates/email_reader.html:112
+#: plugins/email_reader/templates/email_reader.html:109
+#: plugins/email_reader/templates/email_reader_help.html:41
 msgid "Stop all running stations"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:361
-#: plugins/email_reader/templates/email_reader.html:117
+#: plugins/email_reader/templates/email_reader.html:114
+#: plugins/email_reader/templates/email_reader_help.html:43
 msgid "Send back help"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:363
-#: plugins/email_reader/templates/email_reader.html:127
+#: plugins/email_reader/templates/email_reader.html:124
+#: plugins/email_reader/templates/email_reader_help.html:47
 msgid "Sending back temperature states"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:365
-#: plugins/email_reader/templates/email_reader.html:132
+#: plugins/email_reader/templates/email_reader.html:129
+#: plugins/email_reader/templates/email_reader_help.html:49
 msgid "Sending back tank states"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:367
-#: plugins/email_reader/templates/email_reader.html:137
+#: plugins/email_reader/templates/email_reader.html:134
+#: plugins/email_reader/templates/email_reader_help.html:51
 msgid "Sending back wind states"
 msgstr ""
 
@@ -4835,15 +5015,15 @@ msgid "Selecting command %d"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:372
-#: plugins/email_reader/templates/email_reader.html:198
+#: plugins/email_reader/templates/email_reader_help.html:63
 msgid "Sending message in body E-mail as list (use in manual mode)"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:376
-#: plugins/email_reader/templates/email_reader.html:199
-#: plugins/email_reader/templates/email_reader.html:202
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:52
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:55
+#: plugins/email_reader/templates/email_reader_help.html:64
+#: plugins/email_reader/templates/email_reader_help.html:67
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:11
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:14
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr ""
 
@@ -4852,7 +5032,7 @@ msgid "[0,0,100,30,...]"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:375
-#: plugins/email_reader/templates/email_reader.html:201
+#: plugins/email_reader/templates/email_reader_help.html:66
 msgid "Sending message in body E-mail as dict (use in manual mode)"
 msgstr ""
 
@@ -4883,7 +5063,7 @@ msgstr ""
 #: plugins/email_reader/__init__.py:389
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/pressure_monitor/__init__.py:349
-#: plugins/pressure_monitor/__init__.py:472 plugins/ups_adj/__init__.py:314
+#: plugins/pressure_monitor/__init__.py:479 plugins/ups_adj/__init__.py:314
 #: plugins/ups_adj/__init__.py:434
 msgid "State"
 msgstr ""
@@ -4966,27 +5146,27 @@ msgstr ""
 msgid "Subject is not correct!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:583 plugins/mqtt_runonce/__init__.py:103
+#: plugins/email_reader/__init__.py:583 plugins/mqtt_runonce/__init__.py:196
 msgid "Try-ing to processing command."
 msgstr ""
 
 #: plugins/email_reader/__init__.py:590 plugins/email_reader/__init__.py:592
-#: plugins/mqtt_runonce/__init__.py:108
+#: plugins/mqtt_runonce/__init__.py:200
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:594 plugins/email_reader/__init__.py:596
-#: plugins/mqtt_runonce/__init__.py:111
+#: plugins/mqtt_runonce/__init__.py:203
 msgid "Too many stations specified, truncating to {}"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:607 plugins/email_reader/__init__.py:608
-#: plugins/mqtt_runonce/__init__.py:123
+#: plugins/mqtt_runonce/__init__.py:215
 msgid "No station named"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:617 plugins/email_reader/__init__.py:619
-#: plugins/email_reader/__init__.py:660 plugins/mqtt_runonce/__init__.py:130
+#: plugins/email_reader/__init__.py:660 plugins/mqtt_runonce/__init__.py:222
 msgid "Unexpected command"
 msgstr ""
 
@@ -5019,7 +5199,7 @@ msgstr ""
 
 #: plugins/email_reader/__init__.py:829 plugins/email_reader/__init__.py:890
 #: plugins/tank_monitor/__init__.py:528 plugins/tank_monitor/__init__.py:717
-#: plugins/wind_monitor/__init__.py:492 plugins/wind_monitor/__init__.py:655
+#: plugins/wind_monitor/__init__.py:492 plugins/wind_monitor/__init__.py:662
 msgid "Maximum"
 msgstr ""
 
@@ -5037,51 +5217,51 @@ msgstr ""
 msgid "Options has updated."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:988
+#: plugins/email_reader/__init__.py:995
 msgid "You must provide a recipient E-mail address."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:991
+#: plugins/email_reader/__init__.py:998
 msgid "You must provide a recipient E-mail password."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:994
+#: plugins/email_reader/__init__.py:1001
 msgid "You must provide server."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:997
+#: plugins/email_reader/__init__.py:1004
 msgid "You must provide recipient folder."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1014
+#: plugins/email_reader/__init__.py:1021
 msgid "Login OK."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1017
+#: plugins/email_reader/__init__.py:1024
 msgid "Mail account login details are not filled in correctly!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1023
+#: plugins/email_reader/__init__.py:1030
 msgid "Logout OK."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1058
+#: plugins/email_reader/__init__.py:1065
 msgid "You must provide a sender E-mail address!"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1064
+#: plugins/email_reader/__init__.py:1071
 msgid "ERROR: Unable to open the folder"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1075
+#: plugins/email_reader/__init__.py:1082
 msgid "ERROR: getting message"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1115
+#: plugins/email_reader/__init__.py:1122
 msgid "Message has moved to trash folder."
 msgstr ""
 
-#: plugins/email_reader/__init__.py:1119
+#: plugins/email_reader/__init__.py:1126
 msgid "Message has deleted."
 msgstr ""
 
@@ -5089,235 +5269,279 @@ msgstr ""
 msgid "E-mail reader"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:24
-msgid "This extension allows you to retrieve data from a configured E-mail box and respond to incoming messages that arrive in the mailbox."
-msgstr ""
-
-#: plugins/email_reader/templates/email_reader.html:25
-msgid "This extension requires the E-mail_notification extension to be installed and set up correctly. For send messages using the set account."
-msgstr ""
-
-#: plugins/email_reader/templates/email_reader.html:26
-msgid "After receiving and processing the message in the E-mail, a confirmation of the message processing will be sent."
-msgstr ""
-
-#: plugins/email_reader/templates/email_reader.html:31
+#: plugins/email_reader/templates/email_reader.html:28
+#: plugins/email_reader/templates/email_reader_help.html:13
 msgid "Use E-mail reader"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:32
+#: plugins/email_reader/templates/email_reader.html:29
+#: plugins/email_reader/templates/email_reader_help.html:14
 msgid "Activate this extension for reading E-mails and control OSPy."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:36
+#: plugins/email_reader/templates/email_reader.html:33
 msgid "Connecting to a mail account"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:39
+#: plugins/email_reader/templates/email_reader.html:36
+#: plugins/email_reader/templates/email_reader_help.html:15
 msgid "E-mail recipient name"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:40
+#: plugins/email_reader/templates/email_reader.html:37
+#: plugins/email_reader/templates/email_reader_help.html:16
 msgid "E-mail account login details (typically something@something.com)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:44
+#: plugins/email_reader/templates/email_reader.html:41
+#: plugins/email_reader/templates/email_reader_help.html:17
 msgid "E-mail  recipient password"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:45
+#: plugins/email_reader/templates/email_reader.html:42
+#: plugins/email_reader/templates/email_reader_help.html:18
 msgid "E-mail account login password."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:49
+#: plugins/email_reader/templates/email_reader.html:46
+#: plugins/email_reader/templates/email_reader_help.html:19
 msgid "IMAP Server"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:50
+#: plugins/email_reader/templates/email_reader.html:47
+#: plugins/email_reader/templates/email_reader_help.html:20
 msgid "E-mail IMAP provider (typically imap.gmail.com)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:54
+#: plugins/email_reader/templates/email_reader.html:51
+#: plugins/email_reader/templates/email_reader_help.html:21
 msgid "Use SSL"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:55
+#: plugins/email_reader/templates/email_reader.html:52
+#: plugins/email_reader/templates/email_reader_help.html:22
 msgid "Enable SSL connection."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:59
+#: plugins/email_reader/templates/email_reader.html:56
+#: plugins/email_reader/templates/email_reader_help.html:23
 msgid "Move to trash"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:60
+#: plugins/email_reader/templates/email_reader.html:57
+#: plugins/email_reader/templates/email_reader_help.html:24
 msgid "Move the message to the Trash after reading."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:64
+#: plugins/email_reader/templates/email_reader.html:61
+#: plugins/email_reader/templates/email_reader_help.html:25
 msgid "Recipient folder"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:65
+#: plugins/email_reader/templates/email_reader.html:62
+#: plugins/email_reader/templates/email_reader_help.html:26
 msgid "E-mail recipient folder (typically INBOX)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:69
+#: plugins/email_reader/templates/email_reader.html:66
+#: plugins/email_reader/templates/email_reader_help.html:27
 msgid "Sender for control access"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:70
+#: plugins/email_reader/templates/email_reader.html:67
+#: plugins/email_reader/templates/email_reader_help.html:28
 msgid "E-mail user address from whom incoming messages will be processed."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:74
+#: plugins/email_reader/templates/email_reader.html:71
+#: plugins/email_reader/templates/email_reader_help.html:29
 msgid "Checking interval"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:75
+#: plugins/email_reader/templates/email_reader.html:72
+#: plugins/email_reader/templates/email_reader_help.html:30
 msgid "After how long to check incoming mail in the inbox. The check time is set in seconds. Minimum is 30."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:79
+#: plugins/email_reader/templates/email_reader.html:76
+#: plugins/email_reader/templates/email_reader_help.html:31
 msgid "E-mail incoming subject"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:80
+#: plugins/email_reader/templates/email_reader.html:77
+#: plugins/email_reader/templates/email_reader_help.html:32
 msgid "The subject of the incoming message. In this way, we can ensure minimum security (such as a password), or differentiate the different OSPy systems."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:89
+#: plugins/email_reader/templates/email_reader.html:86
 msgid "Command messages"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:93
+#: plugins/email_reader/templates/email_reader.html:90
+#: plugins/email_reader/templates/email_reader_help.html:34
 msgid "Sending message in body E-mail for switch scheduler to ON."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:98
+#: plugins/email_reader/templates/email_reader.html:95
+#: plugins/email_reader/templates/email_reader_help.html:36
 msgid "Sending message in body E-mail for switch scheduler to OFF."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:103
+#: plugins/email_reader/templates/email_reader.html:100
+#: plugins/email_reader/templates/email_reader_help.html:38
 msgid "Sending message in body E-mail for switch to manual mode."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:108
+#: plugins/email_reader/templates/email_reader.html:105
+#: plugins/email_reader/templates/email_reader_help.html:40
 msgid "Sending message in body E-mail for switch to scheduler mode."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:113
+#: plugins/email_reader/templates/email_reader.html:110
+#: plugins/email_reader/templates/email_reader_help.html:42
 msgid "Sending message in body E-mail for stop all running stations."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:118
+#: plugins/email_reader/templates/email_reader.html:115
+#: plugins/email_reader/templates/email_reader_help.html:44
 msgid "Sending back all setuped commands via E-mail."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:122
+#: plugins/email_reader/templates/email_reader.html:119
+#: plugins/email_reader/templates/email_reader_help.html:45
 msgid "Send back stations state"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:123
+#: plugins/email_reader/templates/email_reader.html:120
+#: plugins/email_reader/templates/email_reader_help.html:46
 msgid "Sending back all stations state via E-mail."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:128
+#: plugins/email_reader/templates/email_reader.html:125
+#: plugins/email_reader/templates/email_reader_help.html:48
 msgid "Sending back all temperatures from air_temp_humi plugin with log file via E-mail (from plugin)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:133
+#: plugins/email_reader/templates/email_reader.html:130
+#: plugins/email_reader/templates/email_reader_help.html:50
 msgid "Sending back tank states from tank_monitor plugin with log file via E-mail (from plugin)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:138
+#: plugins/email_reader/templates/email_reader.html:135
+#: plugins/email_reader/templates/email_reader_help.html:52
 msgid "Sending back wind states from wind_monitor plugin with log file via E-mail (from plugin)."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:143
+#: plugins/email_reader/templates/email_reader.html:140
+#: plugins/email_reader/templates/email_reader_help.html:53
 msgid "Selecting command"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:144
-#: plugins/email_reader/templates/email_reader.html:225
+#: plugins/email_reader/templates/email_reader.html:141
+#: plugins/email_reader/templates/email_reader_help.html:54
+#: plugins/email_reader/templates/email_reader_help.html:90
 msgid "Sending command in  message body E-mail for run  via selecting."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:165
+#: plugins/email_reader/templates/email_reader.html:162
 msgid "Confirm delivery"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:168
+#: plugins/email_reader/templates/email_reader.html:165
+#: plugins/email_reader/templates/email_reader_help.html:55
 msgid "Send reply"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:169
+#: plugins/email_reader/templates/email_reader.html:166
+#: plugins/email_reader/templates/email_reader_help.html:56
 msgid "After processing the received message, send an email with the subject below. The email_notification extension is required for this function."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:174
-#: plugins/ping_monitor/templates/ping_monitor.html:231
+#: plugins/email_reader/templates/email_reader.html:171
+#: plugins/email_reader/templates/email_reader_help.html:58
+#: plugins/ping_monitor/templates/ping_monitor.html:229
 msgid "The subject of the message being sent."
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:197
+#: plugins/email_reader/templates/email_reader_help.html:3
+msgid "E-mail reader - help"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader_help.html:7
+msgid "E-mail Reader - help"
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader_help.html:8
+msgid "This extension allows you to retrieve data from a configured E-mail box and respond to incoming messages that arrive in the mailbox."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader_help.html:9
+msgid "This extension requires the E-mail_notification extension to be installed and set up correctly. For send messages using the set account."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader_help.html:10
+msgid "After receiving and processing the message in the E-mail, a confirmation of the message processing will be sent."
+msgstr ""
+
+#: plugins/email_reader/templates/email_reader_help.html:62
 msgid "Example for control"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:200
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:53
+#: plugins/email_reader/templates/email_reader_help.html:65
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:12
 msgid "[0,0,100,30]"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:203
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:56
+#: plugins/email_reader/templates/email_reader_help.html:68
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:15
 msgid "{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, \"station name 4\": 30}"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:204
+#: plugins/email_reader/templates/email_reader_help.html:69
 msgid "Sending message in body E-mail for switch scheduler to ON"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:206
+#: plugins/email_reader/templates/email_reader_help.html:71
 msgid "Sending message in body E-mail for switch scheduler to OFF"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:208
+#: plugins/email_reader/templates/email_reader_help.html:73
 msgid "Sending message in body E-mail for switch to manual mode"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:210
+#: plugins/email_reader/templates/email_reader_help.html:75
 msgid "Sending message in body E-mail for switch to scheduler mode"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:212
+#: plugins/email_reader/templates/email_reader_help.html:77
 msgid "Sending message in body E-mail for stop all running stations"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:214
+#: plugins/email_reader/templates/email_reader_help.html:79
 msgid "Sending back all setuped commands via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:216
+#: plugins/email_reader/templates/email_reader_help.html:81
 msgid "Sending back all stations state via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:218
+#: plugins/email_reader/templates/email_reader_help.html:83
 msgid "Sending back temperature states via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:220
+#: plugins/email_reader/templates/email_reader_help.html:85
 msgid "Sending back tank states via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:222
+#: plugins/email_reader/templates/email_reader_help.html:87
 msgid "Sending back wind states via E-mail"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:224
+#: plugins/email_reader/templates/email_reader_help.html:89
 msgid "Selecting command xx"
 msgstr ""
 
-#: plugins/email_reader/templates/email_reader.html:226
+#: plugins/email_reader/templates/email_reader_help.html:91
 msgid "Run program 1-8 if exists"
 msgstr ""
 
@@ -5715,11 +5939,6 @@ msgstr ""
 msgid "For example, if you use the Button Control extension, it has a 0x27 address, like some LCD displays. If you have the same address, change it on the LCD board!"
 msgstr ""
 
-#: plugins/lcd_display/templates/lcd_display_help.html:13
-#: plugins/system_update/templates/system_update_help.html:12
-msgid "Plugin setup"
-msgstr ""
-
 #: plugins/lcd_display/templates/lcd_display_help.html:15
 msgid "Check Use"
 msgstr ""
@@ -5750,11 +5969,6 @@ msgstr ""
 
 #: plugins/lcd_display/templates/lcd_display_help.html:29
 msgid "If checked print state message to LCD display."
-msgstr ""
-
-#: plugins/lcd_display/templates/lcd_display_help.html:46
-#: plugins/system_update/templates/system_update_help.html:25
-msgid "Status window from the plugin."
 msgstr ""
 
 #: plugins/lcd_display/templates/lcd_display_help.html:47
@@ -5790,8 +6004,21 @@ msgstr ""
 msgid "Monthly Water Level"
 msgstr ""
 
-#: plugins/monthly_water_level/templates/monthly_water_level.html:22
-msgid "Enter an adjustment for each month (% irrigation time)"
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:3
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:7
+msgid "Monthly Water Level - help"
+msgstr ""
+
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:8
+msgid "Enter an adjustment for each month (% irrigation time)."
+msgstr ""
+
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:9
+msgid "In this way the total time of all programs in a given month is adjusted."
+msgstr ""
+
+#: plugins/monthly_water_level/templates/monthly_water_level_help.html:10
+msgid "A value above 100% increases the time, a value below 100% shortens the time. 100% means without any modification."
 msgstr ""
 
 #: plugins/mqtt/__init__.py:28
@@ -5799,7 +6026,7 @@ msgid "Package: MQTT"
 msgstr ""
 
 #: plugins/mqtt/__init__.py:89 plugins/mqtt/__init__.py:198
-#: plugins/mqtt/__init__.py:200
+#: plugins/mqtt/__init__.py:200 plugins/mqtt_runonce/__init__.py:86
 msgid "MQTT plug-in"
 msgstr ""
 
@@ -5807,7 +6034,7 @@ msgstr ""
 msgid "MQTT plug-in is disabled."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:129
+#: plugins/mqtt/__init__.py:129 plugins/mqtt_runonce/__init__.py:182
 msgid "Message received"
 msgstr ""
 
@@ -5835,51 +6062,53 @@ msgstr ""
 msgid "Setup stations count is smaler! Set correct first station and station count."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:214
+#: plugins/mqtt/__init__.py:209 plugins/mqtt_runonce/__init__.py:126
 msgid "PIP is not installed."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:215
+#: plugins/mqtt/__init__.py:210 plugins/mqtt_runonce/__init__.py:127
 msgid "Please wait installing pip..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:216 plugins/mqtt/__init__.py:226
+#: plugins/mqtt/__init__.py:211 plugins/mqtt/__init__.py:221
+#: plugins/mqtt_runonce/__init__.py:128 plugins/mqtt_runonce/__init__.py:138
 msgid "This operation takes longer (minutes)..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:223
+#: plugins/mqtt/__init__.py:218 plugins/mqtt_runonce/__init__.py:135
 msgid "MQTT Plugin requires paho mqtt."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:224
+#: plugins/mqtt/__init__.py:219 plugins/mqtt_runonce/__init__.py:136
 msgid "Paho-mqtt is not installed."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:225
+#: plugins/mqtt/__init__.py:220 plugins/mqtt_runonce/__init__.py:137
 msgid "Please wait installing paho-mqtt..."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:233
+#: plugins/mqtt/__init__.py:228 plugins/mqtt_runonce/__init__.py:146
 msgid "Error try install paho-mqtt manually."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:243
+#: plugins/mqtt/__init__.py:238 plugins/mqtt_runonce/__init__.py:157
 msgid "Connecting to broker"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:251
+#: plugins/mqtt/__init__.py:246 plugins/mqtt_runonce/__init__.py:165
 msgid "MQTT plugin couldnot initalize client"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:261 plugins/mqtt/__init__.py:264
+#: plugins/mqtt/__init__.py:256 plugins/mqtt/__init__.py:259
+#: plugins/mqtt_runonce/__init__.py:176
 msgid "Subscribing to topic"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:277
+#: plugins/mqtt/__init__.py:272 plugins/mqtt_runonce/__init__.py:291
 msgid "Subscribe topic"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:299 plugins/mqtt/__init__.py:307
+#: plugins/mqtt/__init__.py:294 plugins/mqtt/__init__.py:302
 msgid "Client stop"
 msgstr ""
 
@@ -5887,136 +6116,136 @@ msgstr ""
 msgid "MQTT settings"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:22 plugins/mqtt/templates/mqtt.html:32
+#: plugins/mqtt/templates/mqtt.html:26 plugins/mqtt/templates/mqtt_help.html:8
 msgid "MQTT client"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:23
-msgid "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins to use to publish information and or receive commands over MQTT. On this page, the shared client is configured"
-msgstr ""
-
-#: plugins/mqtt/templates/mqtt.html:24
-msgid "Having a shared MQTT client simplifies configuration and lowers overhead on the OSPy process, network and broker"
-msgstr ""
-
-#: plugins/mqtt/templates/mqtt.html:25
-msgid "This plugin needs paho-mqtt. If not installed paho-mqtt, plugin installs paho-mqtt in to the system himself. On first use (if run installation paho-mqtt) please wait for status"
-msgstr ""
-
-#: plugins/mqtt/templates/mqtt.html:26
-msgid "We can use a public Broker server to test"
-msgstr ""
-
 #: plugins/mqtt/templates/mqtt.html:27
-msgid "MQTT secondary"
-msgstr ""
-
-#: plugins/mqtt/templates/mqtt.html:28
-msgid "The MQTT plugin allows multiple secondary OSPy controlers to be running with the control OSPy system running. This means that one OSPy system can act as the control driver for secondary systems that also use OSPy and have the mqtt_secondary plugin installed. The control OSPy sends a list containing the on/off states of all stations. The secondary system receives the list and checks whether it is necessary to switch on one of its stations or switch it off and make the necessary changes. All irrigation plans are set on the main system and it records all running stations as if they were on the OSPy control system itself. There is no feedback from the secondary  OSPy, so the control system assumes that all stations are working as they should. If enabled logging in secondary OSPy, stations running on this secondary OSPy are also stored in the log. This provides a way to check if the station on the secondary is working properly. Requirements: This plugin requires the main OSPy control system, which has the basic mqtt plugin and the mqtt_zones plugin installed. Each secondary OSPy system must have the basic mqtt plugin installed. You must this OSPy switch to manual mode! If you change settings you must restarting OSPy!"
-msgstr ""
-
-#: plugins/mqtt/templates/mqtt.html:33
 msgid "Required to receive and send MQTT messages."
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:38
+#: plugins/mqtt/templates/mqtt.html:32
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:30
 msgid "MQTT Broker Host"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:42
+#: plugins/mqtt/templates/mqtt.html:36
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:34
 msgid "MQTT Broker Username"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:46
+#: plugins/mqtt/templates/mqtt.html:40
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:38
 msgid "MQTT Broker Password"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:50
+#: plugins/mqtt/templates/mqtt.html:44
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:42
 msgid "MQTT Broker Port"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:54
+#: plugins/mqtt/templates/mqtt.html:48
 msgid "MQTT Publish up/down topic"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:55
+#: plugins/mqtt/templates/mqtt.html:49
 msgid "Leave blank to not publish OSPy status"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:59
+#: plugins/mqtt/templates/mqtt.html:53
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:51
 msgid "MQTT Client ID"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:68
+#: plugins/mqtt/templates/mqtt.html:57 plugins/mqtt/templates/mqtt.html:89
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:61
+#: plugins/telegram_bot/templates/telegram_bot.html:61
+msgid "Please restart OSPy if these options are changed!"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt.html:65
 msgid "Use MQTT secondary"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:69
+#: plugins/mqtt/templates/mqtt.html:66
 msgid "Required to receive secondary MQTT messages."
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:74
+#: plugins/mqtt/templates/mqtt.html:71
 msgid "Zone topic"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:75
+#: plugins/mqtt/templates/mqtt.html:72
 msgid "The topic to subscribe to for control commands."
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:80
+#: plugins/mqtt/templates/mqtt.html:77
 msgid "First station number"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:81
+#: plugins/mqtt/templates/mqtt.html:78
 msgid "The number from the master of this secondary first station."
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:86
+#: plugins/mqtt/templates/mqtt.html:83
 msgid "Station count"
 msgstr ""
 
-#: plugins/mqtt/templates/mqtt.html:87
+#: plugins/mqtt/templates/mqtt.html:84
 msgid "The number of station this secondary uses."
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:27
+#: plugins/mqtt/templates/mqtt_help.html:3
+#: plugins/mqtt/templates/mqtt_help.html:7
+msgid "MQTT settings - help"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:9
+msgid "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins to use to publish information and or receive commands over MQTT. On this page, the shared client is configured"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:10
+msgid "Having a shared MQTT client simplifies configuration and lowers overhead on the OSPy process, network and broker"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:11
+msgid "This plugin needs paho-mqtt. If not installed paho-mqtt, plugin installs paho-mqtt in to the system himself. On first use (if run installation paho-mqtt) please wait for status"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:12
+msgid "We can use a public Broker server to test"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:13
+msgid "MQTT secondary"
+msgstr ""
+
+#: plugins/mqtt/templates/mqtt_help.html:14
+msgid "The MQTT plugin allows multiple secondary OSPy controlers to be running with the control OSPy system running. This means that one OSPy system can act as the control driver for secondary systems that also use OSPy and have the mqtt_secondary plugin installed. The control OSPy sends a list containing the on/off states of all stations. The secondary system receives the list and checks whether it is necessary to switch on one of its stations or switch it off and make the necessary changes. All irrigation plans are set on the main system and it records all running stations as if they were on the OSPy control system itself. There is no feedback from the secondary  OSPy, so the control system assumes that all stations are working as they should. If enabled logging in secondary OSPy, stations running on this secondary OSPy are also stored in the log. This provides a way to check if the station on the secondary is working properly. Requirements: This plugin requires the main OSPy control system, which has the basic mqtt plugin and the mqtt_zones plugin installed. Each secondary OSPy system must have the basic mqtt plugin installed. You must this OSPy switch to manual mode! If you change settings you must restarting OSPy!"
+msgstr ""
+
+#: plugins/mqtt_runonce/__init__.py:29
 msgid "Package: MQTT Run-once"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:72
+#: plugins/mqtt_runonce/__init__.py:92
 msgid "MQTT Run-once Plugin is disabled."
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:93
-msgid "Received message"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:93
-msgid "on topic"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:93
-msgid "with QoS"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:99
-msgid "MQTT Run-once could not decode command:"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:142
-msgid "MQTT Run-once"
-msgstr ""
-
-#: plugins/mqtt_runonce/__init__.py:165
+#: plugins/mqtt_runonce/__init__.py:235 plugins/mqtt_runonce/__init__.py:268
 msgid "MQTT Run-once plug-in"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:185
-msgid "MQTT Run-once Plugin subscribe"
+#: plugins/mqtt_runonce/__init__.py:242
+msgid "MQTT Run-once"
 msgstr ""
 
-#: plugins/mqtt_runonce/__init__.py:189
-msgid "MQTT Run-once Plugin requires MQTT plugin."
+#: plugins/mqtt_runonce/__init__.py:313
+msgid "Client on restart"
+msgstr ""
+
+#: plugins/mqtt_runonce/__init__.py:323
+msgid "Client on stop"
 msgstr ""
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:3
@@ -6027,45 +6256,85 @@ msgstr ""
 msgid "MQTT Runonce settings"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
-msgid "If you change settings in MQTT plugins or this plugin you must restarting OSPy!"
-msgstr ""
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
-msgid "This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce stations to be set over MQTT. The received message is a sheet that contains list or dict (station number, time in seconds.)"
-msgstr ""
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:21
-msgid "This extension requires the MQTT extension!"
-msgstr ""
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:25
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:24
 #: plugins/mqtt_zones/templates/mqtt_zones.html:24
 msgid "Use MQTT"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:26
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:25
 msgid "If you use this MQTT Run-once extension check to turn on."
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:31
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
+msgid "MQTT Publish Ready/Exit topic"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
+msgid "Leave blank to not publish MQTT Run-once plugin status"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:55
 msgid "MQTT Scheduling topic"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:32
+#: plugins/mqtt_runonce/templates/mqtt_runonce.html:56
 msgid "The topic subscribe to for Run-once commands."
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:50
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:3
+msgid "MQTT Runonce - help"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:7
+msgid "MQTT Runonce settings - help"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
+msgid "If you change settings in MQTT plugins or this plugin you must restarting OSPy!"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
+msgid "This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce stations to be set over MQTT. The received message is a sheet that contains list or dict (station number, time in seconds.)"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
+msgid "This extension requires the MQTT extension!"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:9
 msgid "MQTT data example"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:51
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:10
 msgid "Sending message in MQTT as list"
 msgstr ""
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:54
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:13
 msgid "Sending message in MQTT as dict"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:16
+msgid "MQTT plugin publish this states"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:17
+msgid "RunOnce Restart - restart MQTT connection"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:18
+msgid "RunOnce Exit - OSPy exit"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:19
+msgid "RunOnce Ready - Ready for processing"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:20
+msgid "RunOnce Processing - Processing command"
+msgstr ""
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:21
+msgid "RunOnce Error - Any Error"
 msgstr ""
 
 #: plugins/mqtt_zones/__init__.py:27
@@ -6101,16 +6370,26 @@ msgstr ""
 msgid "MQTT Zones settings"
 msgstr ""
 
-#: plugins/mqtt_zones/templates/mqtt_zones.html:20
-msgid "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status of all zones."
-msgstr ""
-
 #: plugins/mqtt_zones/templates/mqtt_zones.html:30
 msgid "MQTT Publish Zones topic"
 msgstr ""
 
 #: plugins/mqtt_zones/templates/mqtt_zones.html:31
 msgid "The topic to broadcast zone updates on"
+msgstr ""
+
+#: plugins/mqtt_zones/templates/mqtt_zones_help.html:3
+#: plugins/mqtt_zones/templates/mqtt_zones_help.html:7
+msgid "MQTT Zones settings - help"
+msgstr ""
+
+#: plugins/mqtt_zones/templates/mqtt_zones_help.html:8
+msgid "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status of all zones."
+msgstr ""
+
+#: plugins/mqtt_zones/templates/mqtt_zones_help.html:9
+#: plugins/telegram_bot/templates/telegram_bot_help.html:21
+msgid "Example"
 msgstr ""
 
 #: plugins/ping_monitor/__init__.py:34
@@ -6165,105 +6444,110 @@ msgstr ""
 msgid "Actual Value"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:172
-msgid "This extension allows you to ping addresses. All pings are recorded in a file (always the first successful and the first unsuccessful)"
-msgstr ""
-
-#: plugins/ping_monitor/templates/ping_monitor.html:173
-msgid "The log file (pings) can be sent by E-mail after a certain time. At the same time, we can restart the device after a certain number of unsuccessful attempts"
-msgstr ""
-
-#: plugins/ping_monitor/templates/ping_monitor.html:180
+#: plugins/ping_monitor/templates/ping_monitor.html:178
 msgid "Use ping monitoring"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:181
+#: plugins/ping_monitor/templates/ping_monitor.html:179
 msgid "Activate this extension use for ping testing."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:185
+#: plugins/ping_monitor/templates/ping_monitor.html:183
 msgid "Ping address 1"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:186
+#: plugins/ping_monitor/templates/ping_monitor.html:184
 msgid "First address for testing."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:190
+#: plugins/ping_monitor/templates/ping_monitor.html:188
 msgid "Ping address 2"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:191
+#: plugins/ping_monitor/templates/ping_monitor.html:189
 msgid "Second address for testing."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:195
+#: plugins/ping_monitor/templates/ping_monitor.html:193
 msgid "Ping address 3"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:196
+#: plugins/ping_monitor/templates/ping_monitor.html:194
 msgid "Third address for testing."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:200
+#: plugins/ping_monitor/templates/ping_monitor.html:198
 msgid "Ping interval"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:201
+#: plugins/ping_monitor/templates/ping_monitor.html:199
 msgid "After what time do we want to repeat the ping. From 2 to 600 seconds."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:205
+#: plugins/ping_monitor/templates/ping_monitor.html:203
 msgid "Number of invalid pings to restart the device"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:206
+#: plugins/ping_monitor/templates/ping_monitor.html:204
 msgid "If enabled restart this device, then this item affects how many unsuccessful pings will be performed before a restart. From 2 to 60."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:210
+#: plugins/ping_monitor/templates/ping_monitor.html:208
 msgid "Restart this device"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:211
+#: plugins/ping_monitor/templates/ping_monitor.html:209
 msgid "When enabled, the device will be restarted after a certain number of unsuccessful pings (HW restart)."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:215
+#: plugins/ping_monitor/templates/ping_monitor.html:213
 msgid "Send an E-mail with statistics (csv file)"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:216
+#: plugins/ping_monitor/templates/ping_monitor.html:214
 msgid "Send a csv file with statistics via E-mail."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:217
-#: plugins/pressure_monitor/templates/pressure_monitor.html:213
+#: plugins/ping_monitor/templates/ping_monitor.html:215
+#: plugins/pressure_monitor/templates/pressure_monitor.html:211
 #: plugins/tank_monitor/templates/tank_monitor.html:248
 #: plugins/tank_monitor/templates/tank_monitor.html:254
 #: plugins/ups_adj/templates/ups_adj.html:200
-#: plugins/wind_monitor/templates/wind_monitor.html:233
+#: plugins/wind_monitor/templates/wind_monitor.html:222
 msgid "For this function required E-mail plugin"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:220
+#: plugins/ping_monitor/templates/ping_monitor.html:218
 msgid "Interval for sending statistics"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:221
+#: plugins/ping_monitor/templates/ping_monitor.html:219
 msgid "Interval for sending statistics by email. From 1 to 48 hours."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:225
+#: plugins/ping_monitor/templates/ping_monitor.html:223
 msgid "Delete statistics after send"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:226
+#: plugins/ping_monitor/templates/ping_monitor.html:224
 msgid "Delete the csv file with statistics after sending the E-mail and create a new clean file."
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor.html:241
+#: plugins/ping_monitor/templates/ping_monitor.html:239
 msgid "When logging is enabled, a log file is created (required for the graph and for sending an e-mail at the same time)."
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor_help.html:3
+#: plugins/ping_monitor/templates/ping_monitor_help.html:7
+msgid "Ping monitor settings - help"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor_help.html:8
+msgid "This extension allows you to ping addresses. All pings are recorded in a file (always the first successful and the first unsuccessful)"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor_help.html:9
+msgid "The log file (pings) can be sent by E-mail after a certain time. At the same time, we can restart the device after a certain number of unsuccessful attempts"
 msgstr ""
 
 #: plugins/pool_heating/__init__.py:28
@@ -6493,11 +6777,11 @@ msgstr ""
 msgid "Saving to log  files OK"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:404
+#: plugins/pressure_monitor/__init__.py:411
 msgid "INACTIVE"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:406
+#: plugins/pressure_monitor/__init__.py:413
 msgid "ACTIVE"
 msgstr ""
 
@@ -6510,55 +6794,68 @@ msgstr ""
 msgid "2 master on, 1 pres check, 0 stop"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:172
-msgid "This plugin checked pressure in pipe, if master station is switched on must be activated pressure sensor."
-msgstr ""
-
-#: plugins/pressure_monitor/templates/pressure_monitor.html:173
-msgid "If is not sensor activated in a certain time, switches off all station  and sends E-mail with error. Prevent safety for master station pump."
-msgstr ""
-
-#: plugins/pressure_monitor/templates/pressure_monitor.html:180
+#: plugins/pressure_monitor/templates/pressure_monitor.html:178
 msgid "Use pressure sensor for master station"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:181
+#: plugins/pressure_monitor/templates/pressure_monitor.html:179
 msgid "Pressure sensor is connected between GPIO 18 - pin 12 and ground"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:187
+#: plugins/pressure_monitor/templates/pressure_monitor.html:185
 msgid "If checked normally open sensor without pressure has contact open"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:192
+#: plugins/pressure_monitor/templates/pressure_monitor.html:190
 msgid "Max time to activate pressure sensor"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:193
+#: plugins/pressure_monitor/templates/pressure_monitor.html:191
 msgid "max 999 seconds"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:198
+#: plugins/pressure_monitor/templates/pressure_monitor.html:196
 #: plugins/tank_monitor/templates/tank_monitor.html:233
-#: plugins/wind_monitor/templates/wind_monitor.html:256
+#: plugins/wind_monitor/templates/wind_monitor.html:245
 msgid "Stop this run stations in scheduler"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:199
+#: plugins/pressure_monitor/templates/pressure_monitor.html:197
 msgid "Stoping these stations if no pressure in pipe. Selector for stop stations in scheduler"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:212
+#: plugins/pressure_monitor/templates/pressure_monitor.html:210
 #: plugins/ups_adj/templates/ups_adj.html:199
 msgid "Send E-mail with error"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:219
+#: plugins/pressure_monitor/templates/pressure_monitor.html:217
 msgid "Subject for E-mail from this pressure monitor"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:258
+#: plugins/pressure_monitor/templates/pressure_monitor.html:256
 msgid "Pressure state"
+msgstr ""
+
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:3
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:7
+msgid "Pressure monitor settings - help"
+msgstr ""
+
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:8
+msgid "This plugin checked pressure in pipe, if master station is switched on must be activated pressure sensor."
+msgstr ""
+
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:9
+msgid "If is not sensor activated in a certain time, switches off all station  and sends E-mail with error. Prevent safety for master station pump."
+msgstr ""
+
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:11
+msgid "Pressure sensor is connected to Raspberry Pi header"
+msgstr ""
+
+#: plugins/pressure_monitor/templates/pressure_monitor_help.html:12
+msgid "On the main OSPy board by pihrt.com is already installed connector for this probe."
 msgstr ""
 
 #: plugins/pressurizer/__init__.py:31
@@ -6574,7 +6871,7 @@ msgid "Pressurizer is enabled."
 msgstr ""
 
 #: plugins/pressurizer/__init__.py:95
-#: plugins/pressurizer/templates/pressurizer.html:41
+#: plugins/pressurizer/templates/pressurizer_help.html:10
 msgid "This plugin requires setting master station to enabled. Setup this in options! And also enable the relay as master station in options!"
 msgstr ""
 
@@ -6614,61 +6911,69 @@ msgstr ""
 msgid "Pressurizer - Settings"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:39
-msgid "This plugin allows the main station (master pump relay on OSPy board) to be activated for a certain time before the station starts."
-msgstr ""
-
-#: plugins/pressurizer/templates/pressurizer.html:40
-msgid "This is to ensure that there is pressure in the pipeline before the valves are opened. Some valves require some switching pressure."
-msgstr ""
-
-#: plugins/pressurizer/templates/pressurizer.html:42
-msgid "The set \"Run time\" of the main station must not be longer than the set time before switching on the stations."
-msgstr ""
-
 #: plugins/pressurizer/templates/pressurizer.html:43
-msgid "Example: \"Pre station run time\" = 10 sec, \"Run time\" = max 10 seconds!"
-msgstr ""
-
-#: plugins/pressurizer/templates/pressurizer.html:47
 msgid "Enable"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:48
+#: plugins/pressurizer/templates/pressurizer.html:44
 msgid "If the check box is marked, the master pump is activated before turning on the stations."
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:52
+#: plugins/pressurizer/templates/pressurizer.html:48
 #: plugins/voice_notification/templates/voice_notification.html:45
 msgid "Pre run time"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:53
+#: plugins/pressurizer/templates/pressurizer.html:49
 msgid "How many seconds before turning on station has turning on master station."
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:57
+#: plugins/pressurizer/templates/pressurizer.html:53
 msgid "Run time"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:58
+#: plugins/pressurizer/templates/pressurizer.html:54
 msgid "For what time will turn on the master station."
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:62
+#: plugins/pressurizer/templates/pressurizer.html:58
 msgid "Wait after activation"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:63
+#: plugins/pressurizer/templates/pressurizer.html:59
 msgid "How long after the relay is activated wait for another stations (in order not to activate the pressurizer before each switch is stations on)."
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:69
+#: plugins/pressurizer/templates/pressurizer.html:65
 msgid "Activated relay"
 msgstr ""
 
-#: plugins/pressurizer/templates/pressurizer.html:70
+#: plugins/pressurizer/templates/pressurizer.html:66
 msgid "If the check box is marked, the relay is activated before turning on the stations."
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:3
+msgid "Pressurizer - help"
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:7
+msgid "Pressurizer - Help"
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:8
+msgid "This plugin allows the main station (master pump relay on OSPy board) to be activated for a certain time before the station starts."
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:9
+msgid "This is to ensure that there is pressure in the pipeline before the valves are opened. Some valves require some switching pressure."
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:11
+msgid "The set \"Run time\" of the main station must not be longer than the set time before switching on the stations."
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer_help.html:12
+msgid "Example: \"Pre station run time\" = 10 sec, \"Run time\" = max 10 seconds!"
 msgstr ""
 
 #: plugins/pulse/__init__.py:19
@@ -6687,20 +6992,37 @@ msgstr ""
 msgid "Pulse output"
 msgstr ""
 
-#: plugins/pulse/templates/pulse.html:22
-msgid "This plugin pulses a selected circuit with a 1 Hz signal with adjusted time. (For discover the location of a valve)"
-msgstr ""
-
-#: plugins/pulse/templates/pulse.html:36
+#: plugins/pulse/templates/pulse.html:35
 msgid "Time to test"
 msgstr ""
 
-#: plugins/pulse/templates/pulse.html:52
+#: plugins/pulse/templates/pulse.html:51
 msgid "Start test"
 msgstr ""
 
-#: plugins/pulse/templates/pulse.html:53
+#: plugins/pulse/templates/pulse.html:52
 msgid "Stop test"
+msgstr ""
+
+#: plugins/pulse/templates/pulse_help.html:3
+#: plugins/pulse/templates/pulse_help.html:7
+msgid "Pulse output - help"
+msgstr ""
+
+#: plugins/pulse/templates/pulse_help.html:8
+msgid "This plugin pulses a selected circuit with a 1 Hz signal with adjusted time. (For discover the location of a valve)"
+msgstr ""
+
+#: plugins/pulse/templates/pulse_help.html:9
+msgid "On the main OSPy board by pihrt.com is outputs connected via shift registers."
+msgstr ""
+
+#: plugins/pulse/templates/pulse_help.html:10
+msgid "Shift registers switch transistor arrays."
+msgstr ""
+
+#: plugins/pulse/templates/pulse_help.html:11
+msgid "Transistor arrays switch relay for outputs."
 msgstr ""
 
 #: plugins/real_time/__init__.py:29
@@ -6762,40 +7084,61 @@ msgstr ""
 msgid "Real Time and NTP Time sync system time"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:21
-msgid "When is enabled synchronization RTC Time and NTP time, system time adjusted every hour from NTP server (is posible) or RTC time (if exists). Time from NTP server is saved to real time DS 1307 (on I2C bus) as HW time."
-msgstr ""
-
-#: plugins/real_time/templates/real_time.html:22
-msgid "NTP servers in Czech Republic"
-msgstr ""
-
-#: plugins/real_time/templates/real_time.html:22
-msgid "NTP servers in World"
-msgstr ""
-
-#: plugins/real_time/templates/real_time.html:26
+#: plugins/real_time/templates/real_time.html:25
 msgid "Use Real Time"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:32
+#: plugins/real_time/templates/real_time.html:31
 msgid "Use NTP Time"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:38
+#: plugins/real_time/templates/real_time.html:37
 msgid "Primary NTP server IP adress"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:44
+#: plugins/real_time/templates/real_time.html:43
 msgid "Secondary NTP server IP adress"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:50
+#: plugins/real_time/templates/real_time.html:49
 msgid "NTP port"
 msgstr ""
 
-#: plugins/real_time/templates/real_time.html:52
+#: plugins/real_time/templates/real_time.html:51
 msgid "default 123"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:3
+#: plugins/real_time/templates/real_time_help.html:7
+msgid "Real Time and NTP Time sync system time - help"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:8
+msgid "When is enabled synchronization RTC Time and NTP time, system time adjusted every hour from NTP server (is posible) or RTC time (if exists). Time from NTP server is saved to real time DS 1307 as HW time."
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:9
+msgid "NTP"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:9
+msgid "NTP servers in Czech Republic"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:9
+msgid "NTP servers in World"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:10
+msgid "DS1307 Real time"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:11
+msgid "Connected via"
+msgstr ""
+
+#: plugins/real_time/templates/real_time_help.html:12
+msgid "On the main OSPy board by pihrt.com is already installed this RTC circuit."
 msgstr ""
 
 #: plugins/relay/__init__.py:13
@@ -7406,7 +7749,7 @@ msgid "This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin 
 msgstr ""
 
 #: plugins/sms_adj/templates/sms_adj.html:24
-#: plugins/webcam/templates/webcam.html:24
+#: plugins/webcam/templates/webcam_help.html:10
 msgid "On first use please wait for status"
 msgstr ""
 
@@ -7782,19 +8125,19 @@ msgstr ""
 msgid "Error in Converting"
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:174
+#: plugins/system_watchdog/__init__.py:181
 msgid "Saving config to /etc/watchdog.conf"
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:197
+#: plugins/system_watchdog/__init__.py:204
 msgid "The system (Linux) will now restart (restart started by the user in the Watch-dog plugins), please wait for the page to reload."
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:215
+#: plugins/system_watchdog/__init__.py:222
 msgid "The Watchdog service will now stoped, OSPy is now restarted (restart started by the Watch-dog plugins), please wait for the page to reload."
 msgstr ""
 
-#: plugins/system_watchdog/__init__.py:233
+#: plugins/system_watchdog/__init__.py:240
 msgid "The Watchdog service will now started, OSPy is now restarted (restart started by the Watch-dog plugins), please wait for the page to reload."
 msgstr ""
 
@@ -7803,36 +8146,41 @@ msgstr ""
 msgid "System Watchdog"
 msgstr ""
 
-#: plugins/system_watchdog/templates/system_watchdog.html:30
-msgid "This plugin enable or disable HW Watchdog daemon in OSPy system. On the Raspberry Pi is hardware watchdog - Broadcom BCM2708 chip"
-msgstr ""
-
-#: plugins/system_watchdog/templates/system_watchdog.html:31
-msgid "This can be very useful if your Raspberry Pi is located remotely and locks up. However, this would not the preferred method of restarting the unit and"
-msgstr ""
-
-#: plugins/system_watchdog/templates/system_watchdog.html:32
-msgid "in extreme cases this can result in file-system damage that could prevent the Raspberry Pi from booting. If this occurs regularly you better find the root"
-msgstr ""
-
-#: plugins/system_watchdog/templates/system_watchdog.html:33
-msgid "cause of the problem rather than fight the symptoms. The watchdog daemon will send /dev/watchdog a heartbeat every 4 seconds. If /dev/watchdog does not"
-msgstr ""
-
-#: plugins/system_watchdog/templates/system_watchdog.html:34
-msgid "receive this signal it will brute-force restart your Raspberry Pi. This plugin needs Watchdog. If not installed, plugin installs Watchdog in to the system himself"
-msgstr ""
-
-#: plugins/system_watchdog/templates/system_watchdog.html:44
+#: plugins/system_watchdog/templates/system_watchdog.html:40
 msgid "Install Watchdog"
 msgstr ""
 
-#: plugins/system_watchdog/templates/system_watchdog.html:54
+#: plugins/system_watchdog/templates/system_watchdog.html:50
 msgid "Stop Watchdog Service"
 msgstr ""
 
-#: plugins/system_watchdog/templates/system_watchdog.html:56
+#: plugins/system_watchdog/templates/system_watchdog.html:52
 msgid "Start Watchdog Service"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:3
+#: plugins/system_watchdog/templates/system_watchdog_help.html:7
+msgid "System Watchdog - help"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:8
+msgid "This plugin enable or disable HW Watchdog daemon in OSPy system. On the Raspberry Pi is hardware watchdog - Broadcom BCM2708 chip"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:9
+msgid "This can be very useful if your Raspberry Pi is located remotely and locks up. However, this would not the preferred method of restarting the unit and"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:10
+msgid "in extreme cases this can result in file-system damage that could prevent the Raspberry Pi from booting. If this occurs regularly you better find the root"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:11
+msgid "cause of the problem rather than fight the symptoms. The watchdog daemon will send /dev/watchdog a heartbeat every 4 seconds. If /dev/watchdog does not"
+msgstr ""
+
+#: plugins/system_watchdog/templates/system_watchdog_help.html:12
+msgid "receive this signal it will brute-force restart your Raspberry Pi. This plugin needs Watchdog. If not installed, plugin installs Watchdog in to the system himself"
 msgstr ""
 
 #: plugins/tank_monitor/__init__.py:34
@@ -7939,6 +8287,12 @@ msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:173
 msgid "If water level is small, this plugin stop irigation system (stop runing stations in scheduler) and sends E-mail with error. Safety for master station pump if no water."
+msgstr ""
+
+#: plugins/tank_monitor/templates/tank_monitor.html:176
+#: plugins/ups_adj/templates/ups_adj.html:177
+#: plugins/volt_temp_da/templates/volt_temp_da.html:25
+msgid "Download log as"
 msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:180
@@ -8124,7 +8478,7 @@ msgstr ""
 msgid "Station: {} State: "
 msgstr ""
 
-#: plugins/telegram_bot/__init__.py:147 plugins/telegram_bot/__init__.py:380
+#: plugins/telegram_bot/__init__.py:147
 msgid "{}"
 msgstr ""
 
@@ -8223,6 +8577,10 @@ msgid ""
 "There has been a Station Change.\n"
 msgstr ""
 
+#: plugins/telegram_bot/__init__.py:378 plugins/telegram_bot/__init__.py:380
+msgid ")"
+msgstr ""
+
 #: plugins/telegram_bot/templates/telegram_bot.html:23
 msgid "This plugin enables OSPy to communicate the change of status via a telegram"
 msgstr ""
@@ -8261,10 +8619,6 @@ msgstr ""
 
 #: plugins/telegram_bot/templates/telegram_bot.html:57
 msgid "Example: 1811878118"
-msgstr ""
-
-#: plugins/telegram_bot/templates/telegram_bot.html:61
-msgid "Please restart OSPy if these options are changed!"
 msgstr ""
 
 #: plugins/telegram_bot/templates/telegram_bot.html:65
@@ -8360,35 +8714,27 @@ msgid "Subscribe to the Announcement list, need an Access Key"
 msgstr ""
 
 #: plugins/telegram_bot/templates/telegram_bot_help.html:15
-msgid "We obtain the Bot Access Key using the command:  "
-msgstr ""
-
-#: plugins/telegram_bot/templates/telegram_bot_help.html:16
 msgid "Next type your commands (enable, disble, runnow...) for cummunications with bot"
 msgstr ""
 
-#: plugins/telegram_bot/templates/telegram_bot_help.html:18
+#: plugins/telegram_bot/templates/telegram_bot_help.html:17
 msgid "Here"
 msgstr ""
 
-#: plugins/telegram_bot/templates/telegram_bot_help.html:18
+#: plugins/telegram_bot/templates/telegram_bot_help.html:17
 msgid "You must provide a token to enable the bot to talk to telegram, follow the instructions"
 msgstr ""
 
-#: plugins/telegram_bot/templates/telegram_bot_help.html:19
+#: plugins/telegram_bot/templates/telegram_bot_help.html:18
 msgid "After starting the extension, it is checked whether a telegram is available in the system. If not, the extension will try to install it itself"
 msgstr ""
 
-#: plugins/telegram_bot/templates/telegram_bot_help.html:19
+#: plugins/telegram_bot/templates/telegram_bot_help.html:18
 msgid "For Python 2.7"
 msgstr ""
 
-#: plugins/telegram_bot/templates/telegram_bot_help.html:20
+#: plugins/telegram_bot/templates/telegram_bot_help.html:19
 msgid "After the first start and setup of the extension, we recommend restarting the OSPy"
-msgstr ""
-
-#: plugins/telegram_bot/templates/telegram_bot_help.html:22
-msgid "Example"
 msgstr ""
 
 #: plugins/temperature_switch/__init__.py:25
@@ -9093,17 +9439,17 @@ msgid "Water meter settings"
 msgstr ""
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "This plugin needs an enabled"
 msgstr ""
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "address 0x50 or 0x51."
 msgstr ""
 
 #: plugins/water_meter/templates/water_meter.html:21
-#: plugins/wind_monitor/templates/wind_monitor.html:175
+#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "bus and connected counter PCF8583 on"
 msgstr ""
 
@@ -9116,7 +9462,7 @@ msgid "Use Water Meter"
 msgstr ""
 
 #: plugins/water_meter/templates/water_meter.html:33
-#: plugins/wind_monitor/templates/wind_monitor.html:197
+#: plugins/wind_monitor/templates/wind_monitor.html:186
 msgid "address 0x50"
 msgstr ""
 
@@ -9419,7 +9765,7 @@ msgstr ""
 
 #: plugins/weather_stations/__init__.py:41
 #: plugins/wind_monitor/__init__.py:235
-#: plugins/wind_monitor/templates/wind_monitor.html:330
+#: plugins/wind_monitor/templates/wind_monitor.html:319
 msgid "m/s"
 msgstr ""
 
@@ -9467,43 +9813,56 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:3
-#: plugins/weather_stations/templates/settings_page.html:18
-msgid "Weather Stations Settings"
+#: plugins/weather_stations/templates/help_page.html:3
+#: plugins/weather_stations/templates/help_page.html:7
+msgid "Weather Stations Settings - help"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:8
+msgid "This plugin Displays data probes DS18B20 (DS1-6) from Air Temperature and Humidity Monitor plugin and volume, percent from Water Tank Monitor plugin and more sensors."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:11
 #: plugins/weather_stations/templates/settings_page.html:22
 msgid "Canvas or Text mode for showing data"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:12
 #: plugins/weather_stations/templates/settings_page.html:23
 msgid "When checked, it is text mode."
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:13
 #: plugins/weather_stations/templates/settings_page.html:28
 msgid "Canvas Size XY"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:14
 #: plugins/weather_stations/templates/settings_page.html:29
 msgid "The number determines the size of the meter wheel. The minimum is 150px, the maximum is 850px."
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:15
 #: plugins/weather_stations/templates/settings_page.html:34
 msgid "Text Font Size"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:16
 #: plugins/weather_stations/templates/settings_page.html:35
 msgid "The number determines the font size in text mode. The minimum is 15px, the maximum is 800px."
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:18
 #: plugins/weather_stations/templates/settings_page.html:42
 msgid "This part needs correct setuped plugin Air Temperature and Humidity Monitor"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:20
 #: plugins/weather_stations/templates/settings_page.html:46
 msgid "Show this DS1"
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:21
 #: plugins/weather_stations/templates/settings_page.html:47
 #: plugins/weather_stations/templates/settings_page.html:94
 #: plugins/weather_stations/templates/settings_page.html:141
@@ -9516,8 +9875,110 @@ msgstr ""
 msgid "When checked, showing this canvas (text) is enabled."
 msgstr ""
 
+#: plugins/weather_stations/templates/help_page.html:22
 #: plugins/weather_stations/templates/settings_page.html:52
 msgid "Name for Canvas DS1"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:23
+msgid "Any unique name for this meter."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:24
+msgid "Units"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:25
+msgid "In which units we want to display the data."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:26
+#: plugins/weather_stations/templates/settings_page.html:59
+#: plugins/weather_stations/templates/settings_page.html:106
+#: plugins/weather_stations/templates/settings_page.html:153
+#: plugins/weather_stations/templates/settings_page.html:200
+#: plugins/weather_stations/templates/settings_page.html:247
+#: plugins/weather_stations/templates/settings_page.html:294
+#: plugins/weather_stations/templates/settings_page.html:342
+#: plugins/weather_stations/templates/settings_page.html:389
+#: plugins/weather_stations/templates/settings_page.html:437
+msgid "Scale"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:27
+msgid "Division scale according to our requirements."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:28
+msgid "Min"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:29
+msgid "This value must be the minimum of the range from Scale."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:30
+msgid "Max"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:31
+msgid "This value must be the maximum of the range from Scale."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:32
+msgid "Red color from to"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:33
+msgid "Red color on the scale according to the value from to."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:34
+msgid "Blue color from to"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:35
+msgid "Blue color on the scale according to the value from to."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:36
+msgid "Green color from to"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:37
+msgid "Green color on the scale according to the value from to."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:39
+msgid "If the set range is the same (for example from 0 to 0) then the color will not be displayed."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:40
+#: plugins/weather_stations/templates/settings_page.html:325
+msgid "This part needs correct setuped plugin Water Tank Monitor"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:41
+#: plugins/weather_stations/templates/help_page.html:43
+msgid "Same setting as in temperature."
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:42
+#: plugins/weather_stations/templates/settings_page.html:420
+msgid "This part needs correct setuped plugin Wind Speed Monitor"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:45
+msgid "Example canvas mode"
+msgstr ""
+
+#: plugins/weather_stations/templates/help_page.html:47
+msgid "Example text mode"
+msgstr ""
+
+#: plugins/weather_stations/templates/settings_page.html:3
+#: plugins/weather_stations/templates/settings_page.html:18
+msgid "Weather Stations Settings"
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:54
@@ -9530,18 +9991,6 @@ msgstr ""
 #: plugins/weather_stations/templates/settings_page.html:384
 #: plugins/weather_stations/templates/settings_page.html:432
 msgid "Units:"
-msgstr ""
-
-#: plugins/weather_stations/templates/settings_page.html:59
-#: plugins/weather_stations/templates/settings_page.html:106
-#: plugins/weather_stations/templates/settings_page.html:153
-#: plugins/weather_stations/templates/settings_page.html:200
-#: plugins/weather_stations/templates/settings_page.html:247
-#: plugins/weather_stations/templates/settings_page.html:294
-#: plugins/weather_stations/templates/settings_page.html:342
-#: plugins/weather_stations/templates/settings_page.html:389
-#: plugins/weather_stations/templates/settings_page.html:437
-msgid "Scale"
 msgstr ""
 
 #: plugins/weather_stations/templates/settings_page.html:61
@@ -9674,10 +10123,6 @@ msgstr ""
 msgid "Name for Canvas DS6"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:325
-msgid "This part needs correct setuped plugin Water Tank Monitor"
-msgstr ""
-
 #: plugins/weather_stations/templates/settings_page.html:329
 msgid "Show this Water Percent"
 msgstr ""
@@ -9694,10 +10139,6 @@ msgstr ""
 msgid "Name for Canvas Water Volume"
 msgstr ""
 
-#: plugins/weather_stations/templates/settings_page.html:420
-msgid "This part needs correct setuped plugin Wind Speed Monitor"
-msgstr ""
-
 #: plugins/weather_stations/templates/settings_page.html:424
 msgid "Show this Wind Speed"
 msgstr ""
@@ -9706,77 +10147,82 @@ msgstr ""
 msgid "Name for Canvas Wind Speed"
 msgstr ""
 
-#: plugins/webcam/__init__.py:19
+#: plugins/webcam/__init__.py:22
 msgid "Package: Webcam Monitor"
 msgstr ""
 
-#: plugins/webcam/__init__.py:64
+#: plugins/webcam/__init__.py:66
 msgid "Fswebcam is not installed."
 msgstr ""
 
-#: plugins/webcam/__init__.py:65
+#: plugins/webcam/__init__.py:67
 msgid "Please wait installing...."
 msgstr ""
 
-#: plugins/webcam/__init__.py:79
+#: plugins/webcam/__init__.py:81
 msgid "Please wait..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:91
+#: plugins/webcam/__init__.py:93
 msgid "Ready..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:94
+#: plugins/webcam/__init__.py:96
 msgid "Cannot find USB camera (/dev/video0)."
 msgstr ""
 
-#: plugins/webcam/__init__.py:99
+#: plugins/webcam/__init__.py:101
 msgid "Plugin is disabled..."
 msgstr ""
 
-#: plugins/webcam/__init__.py:103
+#: plugins/webcam/__init__.py:105
 msgid "Webcam plug-in"
 msgstr ""
 
-#: plugins/webcam/__init__.py:143
+#: plugins/webcam/__init__.py:154
 msgid "No image file from downloading. Retry"
 msgstr ""
 
 #: plugins/webcam/templates/webcam.html:3
-#: plugins/webcam/templates/webcam.html:21
+#: plugins/webcam/templates/webcam.html:20
 msgid "Webcam Monitor"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:22
-msgid "This plugin needs fswebcam"
+#: plugins/webcam/templates/webcam.html:21
+msgid "Download image"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:23
-msgid "If not installed fswebcam, plugin installs fswebcam in to the system himself"
-msgstr ""
-
-#: plugins/webcam/templates/webcam.html:25
-msgid "Download image as"
-msgstr ""
-
-#: plugins/webcam/templates/webcam.html:35
+#: plugins/webcam/templates/webcam.html:32
 msgid "Resolution"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:37
+#: plugins/webcam/templates/webcam.html:34
 msgid "default is 1280x720"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:41
+#: plugins/webcam/templates/webcam.html:38
 msgid "Flip image horizontally"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:47
+#: plugins/webcam/templates/webcam.html:44
 msgid "Flip image vertically"
 msgstr ""
 
-#: plugins/webcam/templates/webcam.html:64
+#: plugins/webcam/templates/webcam.html:61
 msgid "OpenSprinkler camera"
+msgstr ""
+
+#: plugins/webcam/templates/webcam_help.html:3
+#: plugins/webcam/templates/webcam_help.html:7
+msgid "Webcam Monitor - help"
+msgstr ""
+
+#: plugins/webcam/templates/webcam_help.html:8
+msgid "This plugin needs fswebcam"
+msgstr ""
+
+#: plugins/webcam/templates/webcam_help.html:9
+msgid "If not installed fswebcam, plugin installs fswebcam in to the system himself"
 msgstr ""
 
 #: plugins/wind_monitor/__init__.py:30
@@ -9862,144 +10308,149 @@ msgstr ""
 msgid "Wind m/s or km/h"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:174
-msgid "This plugin checked wind speed, if station is switched on and actual wind speed is > wind speed value in options, switches off all selected stations in scheduler and sends E-mail with error. Preventing for fault watering while wind."
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:176
-msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:177
-msgid "Measurement cycle: the counter is cleared, 10 seconds are waited, from the counter read the number of pulses in 10 seconds"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:178
-msgid "Formula for calculation: pulse = number of measured pulses from the counter/10. Result in m/s = (pulse/(set number of pulses per revolution * 1.0)) * set wind speed in m/s"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:179
-msgid "Rounding to 2 places: result in m/s = round (result in m/s * 1.0, 2). If we want the result in km/h to 2 decimal places: result in km/h = round (result in m/s * 3.6, 2)"
-msgstr ""
-
 #: plugins/wind_monitor/templates/wind_monitor.html:180
-msgid "Current value measurement: the current wind value is measured continuously (the records in counter), but the result is processed and displayed after 10 seconds"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:181
-msgid "Maximal speed measurement: if the current speed is higher than the previous maximal speed, save to log (if enabled log) is performed and the new maximal wind speed is saved"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:182
-msgid "Switching off the station in case of exceeding the maximum set speed: wind in m/s maximal setup speed -> stop station"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:183
-msgid "Error message at maximal wind speed: if the wind has a speed higher than 150 km/h (42 m/sec), measurement is not guaranteed an error is displayed"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:184
-msgid "Measurement accuracy very much depends on the setting of the following parameters (Number of pulses/sec, wind speed per rotation m/sec)"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:191
 msgid "Use wind monitor"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:192
+#: plugins/wind_monitor/templates/wind_monitor.html:181
 msgid "If the box is checked, wind monitor be enabled."
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:198
+#: plugins/wind_monitor/templates/wind_monitor.html:187
 msgid "If the box is checked, wind monitor is on address 0x50."
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:203
+#: plugins/wind_monitor/templates/wind_monitor.html:192
 msgid "Number of pulses per rotation"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:204
+#: plugins/wind_monitor/templates/wind_monitor.html:193
 msgid "pulses/rotation"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:209
+#: plugins/wind_monitor/templates/wind_monitor.html:198
 msgid "Number of wind speed per rotation in m/s"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:210
+#: plugins/wind_monitor/templates/wind_monitor.html:199
 msgid "Wind speed set in meter/second"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:215
+#: plugins/wind_monitor/templates/wind_monitor.html:204
 msgid "Display in km/h"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:216
+#: plugins/wind_monitor/templates/wind_monitor.html:205
 msgid "If the box is checked, the speed is in km/h"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:221
+#: plugins/wind_monitor/templates/wind_monitor.html:210
 msgid "Max wind speed for stop stations in m/s"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:222
+#: plugins/wind_monitor/templates/wind_monitor.html:211
 msgid "If the wind speed exceeds this value, the station will stop"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:221
 msgid "Send E-mail if stop"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:239
+#: plugins/wind_monitor/templates/wind_monitor.html:228
 msgid "Subject for E-mail from this wind monitor"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:249
+#: plugins/wind_monitor/templates/wind_monitor.html:238
 msgid "Stoping stations"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:250
+#: plugins/wind_monitor/templates/wind_monitor.html:239
 msgid "Stoping selected stations in scheduler if stations has run"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:255
+#: plugins/wind_monitor/templates/wind_monitor.html:244
 msgid "Stoping this stations"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:260
+#: plugins/wind_monitor/templates/wind_monitor.html:249
 msgid "If wind speed is bigger stop this selected stations"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:274
+#: plugins/wind_monitor/templates/wind_monitor.html:263
 msgid "Caution: Frequent log storage may reduce storage capacity"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:279
+#: plugins/wind_monitor/templates/wind_monitor.html:268
 msgid "Save to log if maximal speed change"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:280
+#: plugins/wind_monitor/templates/wind_monitor.html:269
 msgid "If the wind speed changes above the stored maximum and there is no time for save log to file, log this value immediately"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:285
+#: plugins/wind_monitor/templates/wind_monitor.html:274
 msgid "Delete max speed after 24 hours"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:286
+#: plugins/wind_monitor/templates/wind_monitor.html:275
 msgid "If the box is checked, the maximum measured speed is reset after 24 hours (log is not deleted)"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:298
+#: plugins/wind_monitor/templates/wind_monitor.html:287
 msgid "In minutes (Minimum is 1)"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:321
+#: plugins/wind_monitor/templates/wind_monitor.html:310
 msgid "Wind speed state (measuring every 10 sec)"
 msgstr ""
 
-#: plugins/wind_monitor/templates/wind_monitor.html:347
+#: plugins/wind_monitor/templates/wind_monitor.html:336
 msgid "Reset max speed"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:3
+#: plugins/wind_monitor/templates/wind_monitor_help.html:7
+msgid "Wind Speed Monitor settings - help"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:8
+msgid "This plugin checked wind speed, if station is switched on and actual wind speed is > wind speed value in options, switches off all selected stations in scheduler and sends E-mail with error. Preventing for fault watering while wind."
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:10
+msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:11
+msgid "Measurement cycle: the counter is cleared, 10 seconds are waited, from the counter read the number of pulses in 10 seconds"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:12
+msgid "Formula for calculation: pulse = number of measured pulses from the counter/10. Result in m/s = (pulse/(set number of pulses per revolution * 1.0)) * set wind speed in m/s"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:13
+msgid "Rounding to 2 places: result in m/s = round (result in m/s * 1.0, 2). If we want the result in km/h to 2 decimal places: result in km/h = round (result in m/s * 3.6, 2)"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:14
+msgid "Current value measurement: the current wind value is measured continuously (the records in counter), but the result is processed and displayed after 10 seconds"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:15
+msgid "Maximal speed measurement: if the current speed is higher than the previous maximal speed, save to log (if enabled log) is performed and the new maximal wind speed is saved"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:16
+msgid "Switching off the station in case of exceeding the maximum set speed: wind in m/s maximal setup speed -> stop station"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:17
+msgid "Error message at maximal wind speed: if the wind has a speed higher than 150 km/h (42 m/sec), measurement is not guaranteed an error is displayed"
+msgstr ""
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:18
+msgid "Measurement accuracy very much depends on the setting of the following parameters (Number of pulses/sec, wind speed per rotation m/sec)"
 msgstr ""
 
 #: setup.py:23

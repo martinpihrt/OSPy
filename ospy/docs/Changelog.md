@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Apr 01 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings and repair strings). Adding help button to more plugins.
+
 Mar 28 2021
 -----------
 (martinpihrt)<br/>
