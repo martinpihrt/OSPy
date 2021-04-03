@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Apr 03 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings and repair strings). Adding help button to the remaining  plugins. Add Sensors to Weather Stations plug-in.
+
 Apr 01 2021
 -----------
 (martinpihrt)<br/>
