@@ -397,6 +397,8 @@ class Sensors(object):
             'fw': sensor.fw,
             'show_in_footer': sensor.show_in_footer,
             'cpu_core': sensor.cpu_core,
+            'sonic_top': sensor.sonic_top,
+            'sonic_bot': sensor.sonic_bot,
         }
 
     @does_json
@@ -474,23 +476,28 @@ class Sensor(object):
                                 sensor.last_read_value = (float(jqdict['temp'])*1.8 + 32)/10.0 # Fahrenheit ex: value is 132 -> real 13.2F
                             else:     
                                 sensor.last_read_value = (float(jqdict['temp']))/10.0          # Celsius ex: value is 132 -> real 13.2C
-                        elif sen_type == 6:      
+                        elif sen_type == 6:                                                    # multisensor     
                             read_val = []   
                             try:  
                                 if options.temp_unit == 'F':          
-                                    read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)
-                                    read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0) 
-                                    read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)
-                                    read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0) 
+                                    read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
+                                    read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
+                                    read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)    # DS3
+                                    read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0)    # DS4
                                 else:     
                                     read_val.append((float(jqdict['temp']))/10.0)                              
                                     read_val.append((float(jqdict['temp2']))/10.0)
                                     read_val.append((float(jqdict['temp3']))/10.0)
                                     read_val.append((float(jqdict['temp4']))/10.0)
-                                read_val.append(int(jqdict['drcon'])) 
-                                read_val.append((float(jqdict['lkdet']))/10.0) 
-                                read_val.append((float(jqdict['humi']))/10.0)  
-                                read_val.append(int(jqdict['moti'])) 
+                                read_val.append(int(jqdict['drcon']))                          # dry contact
+                                read_val.append((float(jqdict['lkdet']))/10.0)                 # leak detector 
+                                read_val.append((float(jqdict['humi']))/10.0)                  # moisture
+                                read_val.append(int(jqdict['moti']))                           # motion
+                                if 'son' in jqdict and jqdict['son'] is not None:              # sonic
+                                    read_val.append(int(jqdict['son']))
+                                else:
+                                    read_val.append(int(-1))    
+
                                 sensor.last_read_value = read_val
                             except:    
                                 pass

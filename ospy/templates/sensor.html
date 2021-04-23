@@ -70,7 +70,7 @@ function codeTextCopy() {
 
 function check_type() {
     let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
-    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
+    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic'
     let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
 
     if (sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) { 
@@ -93,6 +93,11 @@ function check_type() {
     } else {
         jQuery("#motion").hide()
     } 
+    if (sensor_type == 6 && multi_type == 8) {
+        jQuery("#sonic").show()
+    } else {
+        jQuery("#sonic").hide()
+    }    
     if (sensor_type == 6) {
         jQuery("#multi_sensor").show()
     } else {
@@ -200,7 +205,8 @@ jQuery(document).ready(function(){
                 </p>
                 <p><button onclick="codeTextCopy()" title=$:{json.dumps(_(u'Copy security code to clipboard.'), ensure_ascii=False)}>$_('Copy code')</button>
                 </p>
-            </div>                       
+            </div>
+            <p>$_('Notice: If the sensor is activated and has some entries, we recommend deleting the sensor and recreating it. For example, do not change the temperature to humidity.')</p>
             <div class='option' style="white-space: nowrap">
                 <p><span class="program_label">$_('Sensor Type'):</span>
                 <select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_(u'Select the sensor type.'), ensure_ascii=False)}>
@@ -212,8 +218,8 @@ jQuery(document).ready(function(){
             <div class='option' id="multi_sensor" style="white-space: nowrap">
                 <p><span class="program_label">$_('Multi Sensor'):</span>
                 <select id="multi_type" name="multi_type" style="width: 200px" title=$:{json.dumps(_(u'Select the data type for multi sensor.'), ensure_ascii=False)}>
-                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion')]
-                $for t in range(8):
+                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic')]
+                $for t in range(9):
                     <option value="${t}" ${'selected' if sensor.multi_type == t else ''}>$multi_list[t]</option>
                 </select></p>
             </div>
@@ -286,8 +292,25 @@ jQuery(document).ready(function(){
                 <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
-                </select></p><br/>              
-            </div>     
+                </select></p><br/>
+            </div>
+
+            <div class='option' id="sonic" style="display: none;">
+                <p><span class="program_label"><h1>----Not ready for use----</h1></span></p>
+                
+                <p><span class="program_label">$_('Low Program(s)'):</span>
+                <select name="SL" id="SL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>                    
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
+                </select></p><br/> 
+                <p><span class="program_label">$_('High Program(s)'):</span>
+                <select name="SH" id="SH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
+                </select></p><br/>                
+            </div>            
 
             <div class='option' id="temperature_moisture" style="display: none;">
                 <p><span class="program_label">$_('Low Thresh'):</span>

@@ -796,12 +796,13 @@ The button "Add a New Sensor" add new sensor in the system. The sensors settings
 Two types of communication are used for sensors:  
 * Wireless (radio) - ID radio sensor  
 * Network (Wi-Fi/LAN) - MAC address, IP address 
-You can choose from 5 different types of sensors:  
+You can choose from 6 different types of sensors:  
 * Dry Contact  
 * Leak Detector  
 * Moisture  
 * Motion  
 * Temperature  
+* Multisensor
 
 ### Enable sensor
 Enabling or disabling this sensor.
@@ -836,6 +837,9 @@ Select the sensor type.
 * High Threshold (0-100 °C/°F) When this level is exceeded, the high program(s) is activated.
 * High Program(s) Mark the required programs to run.  
 The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending on how the temperature is set on the home page (by clicking on the temperature, you can change the units).
+
+#### Ultrasonic
+* TODO
 
 ### Type of communication
 Select communication type for sensor.

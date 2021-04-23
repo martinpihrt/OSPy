@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.07
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix time for AP manager to 10 minutes. Fix message in serial print. Add calibration for voltage divider in to AP settings. Divider correction (+-) = if we need to fine-tune the exact value of the voltage measurement 0-30V, then we can use the + - value for this adjustment. Example: the displayed voltage value is 10.7V and the actual value should be 12.7V (measured by a voltmeter on the main power input). Enter the value 20 in the field. The entered value is multiplied by the number 0.1 during the calculation. Add LED ON if relay is ON. Add ultrasonic support for distance level (not tested yet). Tested probe DHT22 and DHT11 for moisture measuring.
+
 FW: 1.06
 -----------
 (martinpihrt)<br/>

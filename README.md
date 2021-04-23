@@ -15,6 +15,12 @@ YouTube OpenSprinkler channel by pihrt.com
 ## Hardware diagram
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
 
+## Multisensor ESP32
+by pihrt.com  
+https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)
+
 INSTALLATION:
 ===========
 

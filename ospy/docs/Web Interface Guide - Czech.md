@@ -825,12 +825,13 @@ Tlačítko „Přidat nový snímač“ přidá do systému nový snímač. Nast
 Pro snímače se používají dva druhy komunikace:  
 * Bezdrátová (radio) - ID rádio snímače  
 * Síťová (Wi-Fi/LAN) - MAC adresa, IP adresa  
-Lze si vybrat z 5 různých typů snímačů:  
+Lze si vybrat z 6 různých typů snímačů:  
 * Kontakt  
 * Detektor úniku  
 * Vlhkost  
 * Pohyb  
-* Teplota  
+* Teplota
+* Multisnímač  
 
 ### Povolit senzor
 Aktivace nebo deaktivace tohoto snímače.
@@ -865,6 +866,9 @@ Vyberte typ snímače.
 * Vysoká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y). 
 * Vysoký program(y) Označte požadované programy, které chcete spustit. 
 U teploty se zobrazují stupňe Celsia, nebo stupně Fahrenheita podle toho, jak máme na titulní stránce (v pravo dole) nastavenou teplotu (kliknutím na teplotu lze změnit jednotky).
+
+#### Ultrazvuk
+* TODO
 
 ### Typ komunikace
 Vyberte typ komunikace se snímačem.

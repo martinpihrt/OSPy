@@ -476,7 +476,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[]) # A-D for multiple select LO/HI programs
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[]) # for multiple select LO/HI programs
         multi_type = -1
         sen_type = -1
 
@@ -485,65 +485,65 @@ class sensor_page(ProtectedPage):
             sensor = sensors.get(index)
 
         except ValueError:
-            sensor = sensors.create_sensors()         
+            sensor = sensors.create_sensors()
 
         if session['category'] == 'admin':
             if 'name' in qdict:
                 sensor.name = qdict['name']
 
-            if 'notes' in qdict:    
+            if 'notes' in qdict:
                 sensor.notes = qdict['notes']
 
-            if 'enable' in qdict and qdict['enable'] == 'on':    
+            if 'enable' in qdict and qdict['enable'] == 'on':
                 sensor.enabled = 1
-            else:    
+            else:
                 sensor.enabled = 0
 
             if 'senscode' in qdict: 
                 if len(qdict['senscode'])>16 or len(qdict['senscode'])<16:
                     errorCode = qdict.get('errorCode', 'ucode')
                     return self.core_render.sensor(sensor, errorCode)
-                else:    
+                else:
                     sensor.encrypt = qdict['senscode']
 
             if 'sens_type' in qdict:
-                sensor.sens_type = int(qdict['sens_type']) 
-                sen_type = int(qdict['sens_type'])  
+                sensor.sens_type = int(qdict['sens_type'])
+                sen_type = int(qdict['sens_type'])
 
             if 'com_type' in qdict:
                 sensor.com_type = int(qdict['com_type'])
 
             if 'multi_type' in qdict:
                 sensor.multi_type = int(qdict['multi_type'])
-                multi_type = int(qdict['multi_type'])            
+                multi_type = int(qdict['multi_type'])
 
             if 'log_samples' in qdict and qdict['log_samples'] == 'on':
                 sensor.log_samples = 1
-            else:                                  
+            else:
                 sensor.log_samples = 0
 
             if 'log_event' in qdict and qdict['log_event'] == 'on':
                 sensor.log_event = 1
-            else:                                  
+            else:
                 sensor.log_event = 0 
 
             if 'send_email' in qdict and qdict['send_email'] == 'on':
                 sensor.send_email = 1
-            else:                                  
+            else:
                 sensor.send_email = 0 
 
             if 'sample_rate_min' in qdict and 'sample_rate_sec' in qdict:
                 try:
                     sensor.sample_rate = int(qdict['sample_rate_min'])*60 + int(qdict['sample_rate_sec'])
                 except:
-                    sensor.sample_rate = 60    
+                    sensor.sample_rate = 60
                     pass
 
             if 'liter_per_pulses' in qdict:
                 sensor.liter_per_pulses = float(qdict['liter_per_pulses'])
 
             if 'sensitivity' in qdict:
-                sensor.sensitivity = int(qdict['sensitivity'])    
+                sensor.sensitivity = int(qdict['sensitivity'])
 
             if 'stabilization_time_min' in qdict and 'stabilization_time_sec' in qdict:
                 sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])
@@ -555,12 +555,12 @@ class sensor_page(ProtectedPage):
                 sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
             if  sen_type == 1:                           # dry contact
-                sensor.trigger_low_program = qdict['AL']           
+                sensor.trigger_low_program = qdict['AL']
                 sensor.trigger_high_program = qdict['AH']
 
             elif sen_type == 2:                          # leak detector
                 sensor.trigger_low_program = qdict['BL']
-                sensor.trigger_high_program = qdict['BH']  
+                sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 4:                          # motion
                 sensor.trigger_low_program = ""
@@ -568,33 +568,43 @@ class sensor_page(ProtectedPage):
 
             elif sen_type == 3 or sen_type == 5:         # moisture / temperature
                 sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH'] 
+                sensor.trigger_high_program = qdict['DH']
 
             elif sen_type == 6 and (multi_type == 0 or multi_type == 1 or multi_type == 2 or multi_type == 3): # multi temperature 0-3
                 sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH']                    
+                sensor.trigger_high_program = qdict['DH']
 
             elif sen_type == 6 and multi_type == 4:      # multi dry contact
-                sensor.trigger_low_program = qdict['AL']           
-                sensor.trigger_high_program = qdict['AH'] 
+                sensor.trigger_low_program = qdict['AL']
+                sensor.trigger_high_program = qdict['AH']
 
             elif sen_type == 6 and multi_type == 5:      # multi leak detector
                 sensor.trigger_low_program = qdict['BL']
-                sensor.trigger_high_program = qdict['BH']   
+                sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 6 and multi_type == 6:      # multi moisture
                 sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH']                 
+                sensor.trigger_high_program = qdict['DH']
 
             elif sen_type == 6 and multi_type == 7:      # multi motion
                 sensor.trigger_low_program = ""
-                sensor.trigger_high_program = qdict['CH']                                                      
+                sensor.trigger_high_program = qdict['CH']
+
+            elif sen_type == 6 and multi_type == 8:      # multi sonic
+                sensor.trigger_low_program = qdict['SL']
+                sensor.trigger_high_program = qdict['SH']
+
+            if 'sonic_top' in qdict:
+                sensor.sonic_top = qdict['sonic_top']
+
+            if 'sonic_bot' in qdict:
+                sensor.sonic_bot = qdict['sonic_bot']
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip
                 ip = split_ip(qdict['ip_address'])
-                sensor.ip_address = ip                                               
-                             
+                sensor.ip_address = ip
+
             if 'mac_address' in qdict:
                 sensor.mac_address = qdict['mac_address'].upper()
 
@@ -610,7 +620,7 @@ class sensor_page(ProtectedPage):
 
             if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
                 errorCode = qdict.get('errorCode', 'uname')
-                return self.core_render.sensor(sensor, errorCode) 
+                return self.core_render.sensor(sensor, errorCode)
 
             try:
                 if 'name' in qdict and sensor.index < 0:
@@ -619,10 +629,10 @@ class sensor_page(ProtectedPage):
                             errorCode = qdict.get('errorCode', 'unameis')
                             return self.core_render.sensor(sensor, errorCode) 
             except:
-                print_report('webpages.py', traceback.format_exc())                
+                print_report('webpages.py', traceback.format_exc())
 
         if sensor.index < 0 and session['category'] == 'admin':
-            sensors.add_sensors(sensor)    
+            sensors.add_sensors(sensor)
 
         raise web.seeother(u'/sensors')
 

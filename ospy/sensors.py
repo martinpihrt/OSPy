@@ -31,7 +31,7 @@ class _Sensor(object):
         self.enabled = 0                # sensor enable or disable
         self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
-        self.multi_type = 0             # selector multi type 0-7: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion'
+        self.multi_type = 0             # selector multi type 0-8: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
         self.last_log_samples = now()   # last log samples millis
@@ -60,8 +60,10 @@ class _Sensor(object):
         self.last_good_report = now()   # now in moisture, temperature
         self.last_high_report = 0       # now in moisture, temperature
         self.show_in_footer = 1         # show sensor data in footer on home page
-        self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo        
-
+        self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo
+        self.sonic_top = 10             # ultrasonic top distance from the sensor
+        self.sonic_bot = 100            # ultrasonic bottom distance from the sensor
+ 
         options.load(self, index) 
 
     @property
@@ -265,6 +267,32 @@ class _Sensors_Timer(Thread):
         except:
             logging.debug(traceback.format_exc())
             pass
+
+    def update_flow_records(name, flow, stations):
+        """Add flow to the list of entries if the data set is not already full.  Return the mean"""
+
+        path = os.path.join('.', 'ospy', 'data', 'sensors', name, 'fm', stations)
+        directory = os.path.dirname(path)
+        mkdir_p(directory)
+        a = array('L')
+        try:
+            file_entries = os.path.getsize(path)>>2
+            with open(path, 'r') as f:
+                a.fromfile(f, file_entries)
+        except (OSError, IOError) as e:
+            if e.errno == errno.ENOENT:
+                file_entries = 0
+            else:
+                raise
+        except Exception, e:
+            raise
+
+        if file_entries < 50:
+            a.append(flow)
+            with open(path, 'wb') as f:
+                a.tofile(f)
+
+        return float(sum(a))/len(a)
             
     def update_log(self, sensor, lg, msg, action=''):  # lg (lge is event, lgs is samples)
         try:
@@ -396,7 +424,7 @@ class _Sensors_Timer(Thread):
                                 if sensor.show_in_footer:                                        
                                     self.start_status(sensor.name, _(u'Open Contact'), sensor.index)                            
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  int(sensor.last_read_value[4])
                             if sensor.show_in_footer:                                        
                                 self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index)                            
@@ -414,7 +442,7 @@ class _Sensors_Timer(Thread):
                                 if sensor.show_in_footer:                                        
                                     self.start_status(sensor.name, _(u'No Motion'), sensor.index)                             
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  int(sensor.last_read_value[7])
                             if sensor.show_in_footer:                                        
                                 self.start_status(sensor.name, _(u'Change not yet loaded'), sensor.index)
@@ -478,9 +506,9 @@ class _Sensors_Timer(Thread):
             if sensor.sens_type == 3 or sensor.sens_type == 5 or (sensor.sens_type == 6 and sensor.multi_type == 0) or \
                 (sensor.sens_type == 6 and sensor.multi_type == 1) or (sensor.sens_type == 6 and sensor.multi_type == 2) or \
                 (sensor.sens_type == 6 and sensor.multi_type == 3) or (sensor.sens_type == 6 and sensor.multi_type == 6):
-                if sensor.response:                                           # sensor is enabled and response is OK  
+                if sensor.response:                                             # sensor is enabled and response is OK  
                     state = -1.0
-                    if   sensor.sens_type == 3:
+                    if sensor.sens_type == 3:
                         try:
                             state =  float(sensor.last_read_value)              # type is Moisture      
                         except:
@@ -511,7 +539,7 @@ class _Sensors_Timer(Thread):
                         try:
                             state =  float(sensor.last_read_value[0])           # multi Temperature DS1  
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[0]) 
                             pass                     
                         if state == -127:
@@ -525,7 +553,7 @@ class _Sensors_Timer(Thread):
                         try:
                             state =  float(sensor.last_read_value[1])          # multi Temperature DS2 
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[1]) 
                             pass  
                         if state == -127:
@@ -539,7 +567,7 @@ class _Sensors_Timer(Thread):
                         try:  
                             state =  float(sensor.last_read_value[2])          # multi Temperature DS3         
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[2]) 
                             pass     
                         if state == -127:
@@ -553,7 +581,7 @@ class _Sensors_Timer(Thread):
                         try: 
                             state =  float(sensor.last_read_value[3])          # multi Temperature DS4 
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[3]) 
                             pass  
                         if state == -127:
@@ -567,7 +595,7 @@ class _Sensors_Timer(Thread):
                         try:                       
                             state =  float(sensor.last_read_value[6])          # multi Moisture                                                          
                         except:
-                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127]
+                            sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
                             state =  float(sensor.last_read_value[6]) 
                             pass  
                         if state == -127:
@@ -651,7 +679,7 @@ class _Sensors_Timer(Thread):
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _(u'Leak {}l/s').format(liters_per_sec), sensor.index)                            
                         except:
-                            sensor.last_read_value = [-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0]
+                            sensor.last_read_value = [-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0,-127.0]
                             state =  float(sensor.last_read_value[5]) 
                             if sensor.show_in_footer: 
                                 self.start_status(sensor.name, _(u'Leak probe fault?'), sensor.index)                            
@@ -678,7 +706,6 @@ class _Sensors_Timer(Thread):
             try:
                 self.check_sensors()
                 self._sleep(1)
-                #print(self.read_status())
 
             except Exception:
                 logging.warning(_(u'Sensors timer loop error: {}').format(traceback.format_exc()))

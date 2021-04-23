@@ -4,7 +4,7 @@ Sensors Details
 ## ESP32 Sensor 
 
 ### HW Connection
-* AP manager start button between GPIO18 pin and ground (the same button also controls the relay in STA mode, press <2s)  
+* AP manager start button between GPIO18 pin and ground (the same button also controls the relay in STA mode, press <2s for set relay to ON or OFF)  
 * DS18B20-1 pin GPIO26 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
 * DS18B20-2 pin GPIO25 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
 * DS18B20-3 pin GPIO17 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
@@ -12,17 +12,18 @@ Sensors Details
 * Dry Contact pin GPIO27 and ground (or pin and VCC 3.3V)  
 * Motion contact pin GPIO14 and ground (or pin and VCC 3.3V)  
 * Leak detector contact pin GPIO12 and ground (pulse input)
-* Moisture detector via I2C bus SDA pin 33 and SCL pin 32
+* Moisture detector via I2C bus SDA pin 23 and SCL pin 22
 * Wi-Fi LED pin GPIO2 (in series via 220 Ohm resistor on LED and ground)  
 * Relay pin GPIO19 (control voltage for the transistor that switches the relay)  
-* Voltage input pin GPIO36 and ground (divider 100k/10k)  
+* Voltage input pin GPIO36 and ground (divider 100k/10k)
+* Ultrasonic Trig pin GPIO23, Echo pin GPIO22 (probe JSN-SR04 V3)  
 
 Sensors Connection and Add into OSPy
 ====
 
 ### Start
 - In the OSPy menu *settings* in the tab *sensors* we generate a new AES code with the button (or if we already know it from the sensors, we can enter it here).  
-- Hold down the AP button on the sensor board (to call up the AP manager) for more than 3 seconds (the LED will start flashing quickly). The sensor creates a Wi-Fi network (AP) called *Sensor ESP32*.
+- Hold down the AP button on the sensor board (to call up the AP manager) for more than 2 seconds (the LED will start flashing quickly). The sensor creates a Wi-Fi network (AP) called *Sensor ESP32*.
 - We will connect to the *Sensor ESP32* network using a mobile phone (tablet, laptop). The connection password is *ospy-sensor-esp32*.  
 - After connecting, open a web browser and enter the IP address: *http://192.168.1.1*. Then a web page will open where we will set up a connection to your Wi-Fi network (STA mode).  
 
@@ -46,7 +47,9 @@ Sensors Connection and Add into OSPy
 - Sensor communication = Wi-Fi / LAN is so far the only available option that works (there will be other types of communication in the future. For example using an RF signal - radio).  
 - Dry contact input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3V. sensor connect a 1 KOhm resistor between ground and pin).  
 - Motion input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3 V. I recommend at the same time with the sensor connect a 1 KOhm resistor between ground and pin).  
-- Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO33 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
+- Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO23 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
+- Divider correction (+-) = if we need to fine-tune the exact value of the voltage measurement 0-30V, then we can use the + - value for this adjustment. Example: the displayed voltage value is 10.7V and the actual value should be 12.7V (measured by a voltmeter on the main power input). Enter the value 20 in the field. The entered value is multiplied by the number 0.1 during the calculation.
+- Moisture or sonic probe? = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3).
 
 ### Sensor Settings - Finish
 - After setting all parameters, press the *Save* button and press the *Restart* button in the main menu.  
@@ -54,3 +57,24 @@ Sensors Connection and Add into OSPy
 - Sensor search page. After clicking the *create from this* button, we can easily add a new sensor to the OSPy system.  
 - If it is a *multi* type sensor, we can use it repeatedly. Once it will be assigned as, for example, sensor DS1 and the second time as a contact...  
 - The sensors send data after 30 seconds. In case of unsuccessful sending, the interval is 5 seconds. In the case of a contact (motion) sensor, additional data is sent each time the input is changed. If no data arrives from the sensor within 2 minutes, the green circle in the OSPy change color to red! The time indicated for the circle shows the time since the last connection (sending data by the sensor).  
+
+Sensors Periphery
+====
+
+#### Temperature DS1-DS4
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_ds.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_ds.png)
+
+#### Dry Contact
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_dry.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_dry.png)
+
+#### Leak Detector
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_leak.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_leak.png)
+
+#### Motion
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_moti.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_moti.png)
+
+#### Moisture and ultrasonic
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png)
+
+#### Power - source
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_relay.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_relay.png)
