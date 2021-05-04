@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.08
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added flash state to LED when the sensor is connecting to a Wi-Fi network. Added if the sensor is disconnected from Wi-Fi, the sensor will restart immediately. Added new parameter running time for relay outputs (ex: http://192.168.88.207/0123456789abcdef?re=1&run=120 re=1 is relay on and run=xxx is time in seconds 0123456789abcdff is secure code from sensor. If the run parameter is not specified, it will be ignored).
+
 FW: 1.07
 -----------
 (martinpihrt)<br/>

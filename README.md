@@ -13,13 +13,12 @@ YouTube OpenSprinkler channel by pihrt.com
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png?raw=true)](https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L)
 
 ## Hardware diagram
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
 
 ## Multisensor ESP32
-by pihrt.com  
 https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)
 
 INSTALLATION:
 ===========

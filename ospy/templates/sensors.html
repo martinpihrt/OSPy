@@ -75,10 +75,10 @@ $if sensors.count()>0:
         <p>
         $if sensor.enabled:
             $if sensor.response == 1:
-                <div id="green_circle"></div>
+                <div id="green_circle" title=$:{json.dumps(_(u'Yes all is correct.'), ensure_ascii=False)}></div>
                 <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
             $else:
-                <div id="red_circle"></div>
+                <div id="red_circle" title=$:{json.dumps(_(u'Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?'), ensure_ascii=False)}></div>
                 <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
             </p>
             <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>
@@ -320,8 +320,12 @@ $if sensors.count()>0:
                             $program.name 
                 </span></p>
             $elif sensor.multi_type == 8:
-                $if sensor.last_read_value != '':
-                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} $_(u'cm')</span></p>
+                $if sensor.last_read_value != '' and sensor.last_read_value != -1:
+                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])}</span> $_(u'cm')</p>
+                $elif sensor.last_read_value != '' and sensor.last_read_value == -1:
+                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])}</span> (${_(u'Sensor has any error?')})</p>
+                $else:
+                    <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])}</span> (${_(u'Change not yet loaded')})</p>                    
                 <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'cm')</span></p>
                 <p>$_(u'Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
@@ -340,7 +344,33 @@ $if sensors.count()>0:
                         $if str(program.index+1) in sensor.trigger_high_program:
                             $program.name 
                 </span></p>
-
+                <p>$_(u'Distance sensor to minimum'): <span class="val">${sensor.distance_bottom} $_(u'cm')</span></p>
+                <p>$_(u'Distance sensor to maximum'): <span class="val">${sensor.distance_top} $_(u'cm')</span></p>
+                <p>$_(u'Minimum water level in tank'): <span class="val">${sensor.water_minimum} $_(u'cm')</span></p>
+                <p>$_(u'Cylinder diameter'): <span class="val">${sensor.diameter} $_(u'cm')</span></p>
+                <p>$_(u'Display in liters'): <span class="val">${_(u'Yes') if sensor.check_liters else _(u'No')}</span></p>
+                <p>$_(u'Stop stations if minimum'): <span class="val">${_(u'Yes') if sensor.use_stop else _(u'No')}</span></p>
+                <p>$_(u'Stop stations if fault'): <span class="val">${_(u'Yes') if sensor.use_water_stop else _(u'No')}</span></p>
+                <p>$_(u'Stop this run stations'): <span class="val">
+                $if "-1" in sensor.used_stations:
+                    $_(u'None')
+                $if "-1" not in sensor.used_stations:
+                    $for station in [station for station in stations if station.enabled]:
+                        $if str(station.index) in sensor.used_stations:
+                            $station.name ($_('Output') ${str(station.index+1)})
+                </span></p>            
+                <p>$_(u'Regulate the maximum water level'): <span class="val">${_(u'Yes') if sensor.enable_reg else _(u'No')}</span></p>
+                <p>$_(u'Maximum maintained water level'): <span class="val">${sensor.reg_max} $_(u'cm')</span></p>
+                <p>$_(u'Maximum run time in activate'): <span class="val">${two_digits(sensor.reg_mm) + ":" + two_digits(sensor.reg_ss)} ($_(u'mm:ss'))</span></p>
+                <p>$_(u'Minimum maintained water level'): <span class="val">${sensor.reg_min} $_(u'cm')</span></p>
+                <p>$_(u'Select Output for regulation'): <span class="val">
+                $if "-1" in sensor.reg_output:
+                    $_(u'None')
+                $if "-1" not in sensor.reg_output:
+                    $for station in [station for station in stations if station.enabled]:
+                        $if str(station.index) in sensor.reg_output:
+                            ${station.name} ($_('Output') ${str(station.index+1)})
+                </span></p>
         $if sensor.com_type == 0 and sensor.enabled:
             <p>$_(u'IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
             $if sensor.mac_address != '':

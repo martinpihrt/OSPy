@@ -61,8 +61,21 @@ class _Sensor(object):
         self.last_high_report = 0       # now in moisture, temperature
         self.show_in_footer = 1         # show sensor data in footer on home page
         self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo
-        self.sonic_top = 10             # ultrasonic top distance from the sensor
-        self.sonic_bot = 100            # ultrasonic bottom distance from the sensor
+        ### only for ultrasonic ###
+        self.distance_top = 10          # The distance from the sensor to the maximum water level in the tank in cm
+        self.distance_bottom = 95       # The distance from the sensor to the minimum water level in the tank in cm
+        self.water_minimum = 10         # The water level from the bottom to the minimum water level in the tank
+        self.diameter = 100             # Cylinder diameter for volume calculation in cm
+        self.check_liters = 0           # Display as liters or m3
+        self.use_stop = 0               # Stop stations if minimum water level
+        self.use_water_stop = 0         # If the level sensor fails, the above selected stations in the scheduler will stop
+        self.used_stations = ["-1"]     # Selected stations for the scheduler will stop  
+        self.enable_reg = 0             # If checked regulation is enabled
+        self.reg_max = 100              # If the measured water level exceeds this set value, the output is activated
+        self.reg_mm = 60                # Maximum run time in activate min
+        self.reg_ss = 0                 # Maximum run time in activate sec
+        self.reg_min = 90               # If the measured water level falls below this set value, the output is deactivated
+        self.reg_output = ["-1"]        # Select Output for regulation
  
         options.load(self, index) 
 
@@ -364,12 +377,36 @@ class _Sensors_Timer(Thread):
             time_dif = int(now() - sensor.last_response)                      # last input from sensor
             if time_dif >= 120:                                               # timeout 120 seconds
                 if sensor.response != 0:
-                    sensor.response = 0                                       # reseting status green circle to red (on sensors page)  
+                    sensor.response = 0                                       # reseting status green circle to red (on sensors page)
+                    # reseting all saved values
+                    if sensor.sens_type == 1 or sensor.sens_type == 4:        # type is Dry Contact or Motion 
+                        sensor.last_read_value = -1
+                        sensor.prev_read_value = -1
+                    if (sensor.sens_type == 6 and sensor.multi_type == 4) or (sensor.sens_type == 6 and sensor.multi_type == 7):      # multi Dry Contact or multi Motion
+                        sensor.last_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                        sensor.prev_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    if sensor.sens_type == 3:                                 # type is Moisture
+                        sensor.last_read_value = -1
+                        sensor.prev_read_value = -1
+                    if sensor.sens_type == 5:                                 # type is Temperature
+                        sensor.last_read_value = -127
+                        sensor.prev_read_value = -127
+                    if (sensor.sens_type == 6 and sensor.multi_type == 0) or \
+                       (sensor.sens_type == 6 and sensor.multi_type == 1) or (sensor.sens_type == 6 and sensor.multi_type == 2) or \
+                       (sensor.sens_type == 6 and sensor.multi_type == 3):   # type is multi Temperature DS1-DS4
+                        sensor.last_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
+                        sensor.prev_read_value = [-127,-127,-127,-127,-127,-127,-127,-127,-127]
+                    if sensor.sens_type == 6 and sensor.multi_type == 6:     # type is multi Moisture
+                        sensor.last_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                        sensor.prev_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    if sensor.sens_type == 6 and sensor.multi_type == 7:     # type is multi Sonic
+                        sensor.last_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                        sensor.prev_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 
             if not sensor.enabled:
                 return
 
-            if sensor.sens_type == 0:
+            if sensor.sens_type == 0:                                        # not selected
                 return   
 
             changed_state = False   
@@ -636,7 +673,7 @@ class _Sensors_Timer(Thread):
                                 self.update_log(sensor, 'lgs', state, action)          # wait for reading to be updated     
 
                     if major_change:                       
-                        self.update_log(sensor, 'lge', self.status[sensor.index][1])
+#                        self.update_log(sensor, 'lge', self.status[sensor.index][1])
                         if sensor.send_email:
                             text = _(u'Sensor') + u': {} ({})'.format(sensor.name, self.status[sensor.index][1])
                             subj = _(u'Sensor Change')
@@ -697,8 +734,31 @@ class _Sensors_Timer(Thread):
                 else:
                     logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)                                                                                                              
-                           
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+
+            ### Multi Sonic ###
+            if sensor.sens_type == 6 and sensor.multi_type == 7:
+                if sensor.response:                                          # sensor is enabled and response is OK  
+                    state = -1
+                    try:      
+                        state = int(sensor.last_read_value[6])               # multi Sonic
+                        if sensor.show_in_footer:
+                            self.start_status(sensor.name, _(u'Sonic {}cm').format(state), sensor.index)
+                    except:
+                        sensor.last_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                        state =  float(sensor.last_read_value[6]) 
+                        if sensor.show_in_footer:
+                            self.start_status(sensor.name, _(u'Sonic probe fault?'), sensor.index)
+                            pass                              
+                        if sensor.last_read_value[6] != sensor.prev_read_value:
+                            sensor.prev_read_value = sensor.last_read_value[6]
+                            changed_state = True
+# todo reaction
+
+                else:
+                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
 
     def run(self):
         self._sleep(3)

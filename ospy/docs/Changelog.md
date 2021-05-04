@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+May 04 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.08: Added flash state to LED when the sensor is connecting to a Wi-Fi network. Added if the sensor is disconnected from Wi-Fi, the sensor will restart immediately. Added new parameter running time for relay outputs (ex: http://192.168.88.207/0123456789abcdef?re=1&run=120 re=1 is relay on and run=xxx is time in seconds 0123456789abcdff is secure code from sensor. If the run parameter is not specified, it will be ignored). This is a good solution for possible shutdown of the relay in case of connection failure (example: OSPy switches the relay on the sensor board to ON for 4 minutes and then after time turns it OFF. If OSPy not send command for OFF, the sensor switches itself to OFF after 5 minutes) Fixed DS18B20 probe to 12 bit resolution (+- 0.0625C). Warning: after this update it will probably be necessary to settings your sensor via the AP manager.<br/>
+OSPy: Added forms for future use of the ultrasonic sensors. Fixed bug in sensors. Fixed html css styles in sensors. Leak detector and ultrasonic sensor is not ready for use (i working on it). Updating Czech language (new strings for sensors).
+
 Apr 23 2021
 -----------
 (martinpihrt)<br/>

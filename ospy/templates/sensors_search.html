@@ -94,8 +94,8 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-    <div class="title">$_(u'Available sensors') <span id="refreshLight">&bullet;</span></div>
+<div class="title">$_(u'Available sensors') <span id="refreshLight">&bullet;</span></div>
+<div id="sensor-container" class="sensor-container">
     <p>$_(u'Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
     <p>$_(u'Your AES code for using in sensors:') "${options.aes_key}"</p>
     <table class="logList" id="sensorsTable">

@@ -56,7 +56,18 @@ Sensors Connection and Add into OSPy
 - If we have everything set up correctly, then after connecting to Wi-Fi, this sensor will appear in the OSPy in the *sensors / sensor search* tab.  
 - Sensor search page. After clicking the *create from this* button, we can easily add a new sensor to the OSPy system.  
 - If it is a *multi* type sensor, we can use it repeatedly. Once it will be assigned as, for example, sensor DS1 and the second time as a contact...  
-- The sensors send data after 30 seconds. In case of unsuccessful sending, the interval is 5 seconds. In the case of a contact (motion) sensor, additional data is sent each time the input is changed. If no data arrives from the sensor within 2 minutes, the green circle in the OSPy change color to red! The time indicated for the circle shows the time since the last connection (sending data by the sensor).  
+- The sensors send data after 30 seconds. In case of unsuccessful sending, the interval is 5 seconds. In the case of a contact (motion) sensor, additional data is sent each time the input is changed. If no data arrives from the sensor within 2 minutes, the green circle in the OSPy change color to red! The time indicated for the circle shows the time since the last connection (sending data by the sensor).
+
+### Sensor Relay - Controlling 
+
+#### Relay ON
+http://IP/SECCODE?re=1 (re=1 for set relay state to on)
+
+#### Relay OFF
+http://IP/SECCODE?re=0 (re=1 for set relay state to off)
+
+#### Relay ON with running time
+Parameter running time for relay outputs (ex: http://192.168.88.207/0123456789abcdef?re=1&run=120 re=1 is relay on, run=xxx is time in seconds, 0123456789abcdff is secure code from theses sensor. If the run parameter is not specified, it will be ignored).
 
 Sensors Periphery
 ====

@@ -397,8 +397,20 @@ class Sensors(object):
             'fw': sensor.fw,
             'show_in_footer': sensor.show_in_footer,
             'cpu_core': sensor.cpu_core,
-            'sonic_top': sensor.sonic_top,
-            'sonic_bot': sensor.sonic_bot,
+            'distance_top': sensor.distance_top,
+            'distance_bottom': sensor.distance_bottom,
+            'water_minimum': sensor.water_minimum,
+            'diameter': sensor.diameter,
+            'check_liters': sensor.check_liters,
+            'use_stop': sensor.use_stop,
+            'use_water_stop': sensor.use_water_stop,
+            'used_stations': sensor.used_stations,
+            'enable_reg': sensor.enable_reg,
+            'reg_max': sensor.reg_max,
+            'reg_mm': sensor.reg_mm,
+            'reg_ss': sensor.reg_ss,
+            'reg_min': sensor.reg_min,
+            'reg_output': sensor.reg_output,
         }
 
     @does_json
@@ -431,12 +443,15 @@ class Sensor(object):
         from ospy.webpages import sensorSearch
 
         qdict  = web.input()
-        jqdict = json.loads(qdict['do'].lower())        
-        sqdict = qdict['sec']
-
-        decrypt_secret = decrypt_data(options.aes_key, sqdict)
-
-        log.debug('api.py',  _(u'Sensor input IP: {} MAC: {} SECURE: {}.').format(jqdict['ip'], jqdict['mac'].upper(), decrypt_secret))
+        try:
+            jqdict = json.loads(qdict['do'].lower())
+            sqdict = qdict['sec']
+            decrypt_secret = decrypt_data(options.aes_key, sqdict)
+            log.debug('api.py',  _(u'Sensor input IP: {} MAC: {} SECURE: {}.').format(jqdict['ip'], jqdict['mac'].upper(), decrypt_secret))
+        except:
+            log.error('api.py',  _(u'Any error in Sensor input!'))
+            jqdict = {}
+            pass
 
         if 'ip' and 'mac' in jqdict and 'sec' in qdict:
             find_sens = {
@@ -453,7 +468,7 @@ class Sensor(object):
             }  
 
             for sensor in sensors.get():
-                ip = split_ip(jqdict['ip'])              
+                ip = split_ip(jqdict['ip'])
                 if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
                     if 'cpu' in jqdict and jqdict['cpu'] is not None:
                         sensor.cpu_core = int(jqdict['cpu'])

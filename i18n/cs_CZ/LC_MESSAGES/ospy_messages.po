@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-04-03 12:55+CEST\n"
-"PO-Revision-Date: 2021-04-03 13:23+0200\n"
+"POT-Creation-Date: 2021-05-04 16:55+CEST\n"
+"PO-Revision-Date: 2021-05-04 17:11+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -78,19 +78,23 @@ msgstr "Vypnutí OSPy prostřednictvím rozhraní API"
 msgid "Unknown system action: {}"
 msgstr "Neznámá systémová akce: {}"
 
-#: api/api.py:437
+#: api/api.py:450
 msgid "Sensor input IP: {} MAC: {} SECURE: {}."
 msgstr "Vstup od snímače IP: {} MAC: {} SECURE: {}."
 
-#: api/api.py:508
+#: api/api.py:452
+msgid "Any error in Sensor input!"
+msgstr "Nějaká chyba ve vstupu dat ze snímače!"
+
+#: api/api.py:530
 msgid "Input for sensor: {} successfully."
 msgstr "Vstup pro senzor: {} byl úspěšný."
 
-#: api/api.py:511
+#: api/api.py:533
 msgid "Received data (IP or MAC or SEC) do not match!"
 msgstr "Přijatá data (IP nebo MAC nebo SEC) se neshodují!"
 
-#: api/api.py:557
+#: api/api.py:579
 msgid "Received data is not correct!"
 msgstr "Přijatá data nejsou v pořádku!"
 
@@ -637,7 +641,7 @@ msgstr "Povolit ladění"
 msgid "Log all internal events (for debugging purposes)."
 msgstr "Zaznamenávat všechny interní události (pro účely ladění)."
 
-#: ospy/options.py:360 plugins/button_control/templates/button_control.html:37
+#: ospy/options.py:360 plugins/button_control/templates/button_control.html:57
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
@@ -877,19 +881,19 @@ msgstr "Jednorázový"
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
-#: ospy/sensors.py:92
+#: ospy/sensors.py:107
 msgid "Loading sensors..."
 msgstr "Načítání snímačů..."
 
-#: ospy/sensors.py:107
+#: ospy/sensors.py:122
 msgid "Adding new sensor: {} with id: {}"
 msgstr "Přidání nového senzoru: {} s id: {}"
 
-#: ospy/sensors.py:129
+#: ospy/sensors.py:144
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:204 plugins/pressure_monitor/__init__.py:179
+#: ospy/sensors.py:219 plugins/pressure_monitor/__init__.py:179
 #: plugins/tank_monitor/__init__.py:310
 msgid ""
 "E-mail not send! The Email Notifications plug-in is not found in OSPy or not "
@@ -898,103 +902,106 @@ msgstr ""
 "E-mail nebyl odeslán! Rozšíření Email Notifications nebylo v OSPy nalezeno "
 "nebo nebylo správně nastaveno."
 
-#: ospy/sensors.py:260
+#: ospy/sensors.py:275
 msgid "The sensor tries to start the {} (id: {})"
 msgstr "Snímač se pokusí spustit {} (id: {})"
 
-#: ospy/sensors.py:264
+#: ospy/sensors.py:279
 msgid "Starting {}"
 msgstr "Spuštění {}"
 
-#: ospy/sensors.py:289
+#: ospy/sensors.py:330
 msgid "Updating sensor graph log to file successfully."
 msgstr "Aktualizace záznamu grafu snímače do souboru bylo úspěšné."
 
-#: ospy/sensors.py:294 ospy/sensors.py:312
+#: ospy/sensors.py:335 ospy/sensors.py:353
 msgid "Dir not exists, creating dir: {}"
 msgstr "Adresář neexistuje, vytváření adresáře: {}"
 
-#: ospy/sensors.py:297 ospy/sensors.py:317
+#: ospy/sensors.py:338 ospy/sensors.py:358
 msgid "File not exists, creating file: {}"
 msgstr "Soubor neexistuje, vytváření souboru: {}"
 
-#: ospy/sensors.py:328
+#: ospy/sensors.py:369
 msgid "Updating sensor log to file successfully."
 msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 
-#: ospy/sensors.py:358 ospy/sensors.py:394 ospy/sensors.py:428
-#: ospy/sensors.py:430 ospy/sensors.py:432
+#: ospy/sensors.py:423 ospy/sensors.py:459 ospy/sensors.py:493
+#: ospy/sensors.py:495 ospy/sensors.py:497
 msgid "Closed Contact"
 msgstr "Kontakt spojený"
 
-#: ospy/sensors.py:361 ospy/sensors.py:397 ospy/sensors.py:449
-#: ospy/sensors.py:451 ospy/sensors.py:453
+#: ospy/sensors.py:426 ospy/sensors.py:462 ospy/sensors.py:514
+#: ospy/sensors.py:516 ospy/sensors.py:518
 msgid "Open Contact"
 msgstr "Kontakt rozpojený"
 
-#: ospy/sensors.py:366 ospy/sensors.py:384 ospy/sensors.py:402
-#: ospy/sensors.py:420 ospy/templates/sensors.html:78
-#: ospy/templates/sensors.html:81 ospy/templates/sensors.html:92
-#: ospy/templates/sensors.html:113 ospy/templates/sensors.html:137
-#: ospy/templates/sensors.html:160 ospy/templates/sensors.html:246
-#: ospy/templates/sensors.html:267 ospy/templates/sensors.html:312
+#: ospy/sensors.py:431 ospy/sensors.py:449 ospy/sensors.py:467
+#: ospy/sensors.py:485 ospy/templates/sensors.html:79
+#: ospy/templates/sensors.html:82 ospy/templates/sensors.html:93
+#: ospy/templates/sensors.html:114 ospy/templates/sensors.html:138
+#: ospy/templates/sensors.html:161 ospy/templates/sensors.html:247
+#: ospy/templates/sensors.html:268 ospy/templates/sensors.html:313
+#: ospy/templates/sensors.html:328
 msgid "Change not yet loaded"
 msgstr "Změna ještě nebyla načtena"
 
-#: ospy/sensors.py:376 ospy/sensors.py:412 ospy/sensors.py:438
-#: ospy/sensors.py:440 ospy/sensors.py:442 ospy/templates/sensors.html:158
-#: ospy/templates/sensors.html:310
+#: ospy/sensors.py:441 ospy/sensors.py:477 ospy/sensors.py:503
+#: ospy/sensors.py:505 ospy/sensors.py:507 ospy/templates/sensors.html:159
+#: ospy/templates/sensors.html:311
 msgid "Motion Detected"
 msgstr "Byl detekován pohyb"
 
-#: ospy/sensors.py:379 ospy/sensors.py:415 ospy/sensors.py:459
-#: ospy/sensors.py:461 ospy/sensors.py:463 ospy/templates/sensors.html:158
-#: ospy/templates/sensors.html:310
+#: ospy/sensors.py:444 ospy/sensors.py:480 ospy/sensors.py:524
+#: ospy/sensors.py:526 ospy/sensors.py:528 ospy/templates/sensors.html:159
+#: ospy/templates/sensors.html:311
 msgid "No Motion"
 msgstr "Žádný pohyb"
 
-#: ospy/sensors.py:428 ospy/sensors.py:438 ospy/sensors.py:449
-#: ospy/sensors.py:459 ospy/sensors.py:613 ospy/templates/user.html:62
+#: ospy/sensors.py:493 ospy/sensors.py:503 ospy/sensors.py:514
+#: ospy/sensors.py:524 ospy/sensors.py:678 ospy/templates/user.html:62
 #: ospy/templates/user.html:85 ospy/templates/users.html:54
 msgid "Sensor"
 msgstr "Snímač"
 
-#: ospy/sensors.py:429 ospy/sensors.py:439 ospy/sensors.py:450
-#: ospy/sensors.py:460
+#: ospy/sensors.py:494 ospy/sensors.py:504 ospy/sensors.py:515
+#: ospy/sensors.py:525
 msgid "Sensor Read Success"
 msgstr "Úspěšné čtení snímače"
 
-#: ospy/sensors.py:430 ospy/sensors.py:440 ospy/sensors.py:451
-#: ospy/sensors.py:461
+#: ospy/sensors.py:495 ospy/sensors.py:505 ospy/sensors.py:516
+#: ospy/sensors.py:526
 msgid "Successfully read sensor"
 msgstr "Úspěšně čtení snímače"
 
-#: ospy/sensors.py:473 ospy/sensors.py:624 ospy/sensors.py:670
+#: ospy/sensors.py:538 ospy/sensors.py:689 ospy/sensors.py:735
+#: ospy/sensors.py:759
 msgid "Sensor: {} not response!"
 msgstr "Snímač: {} neodpovídá!"
 
-#: ospy/sensors.py:475 ospy/sensors.py:625 ospy/sensors.py:672
+#: ospy/sensors.py:540 ospy/sensors.py:690 ospy/sensors.py:737
+#: ospy/sensors.py:761
 msgid "Not response!"
 msgstr "Neodpovídá!"
 
-#: ospy/sensors.py:492 ospy/sensors.py:574
+#: ospy/sensors.py:557 ospy/sensors.py:639
 msgid "Moisture probe fault?"
 msgstr "Chyba vlhkostní sondy?"
 
-#: ospy/sensors.py:494 ospy/sensors.py:576
+#: ospy/sensors.py:559 ospy/sensors.py:641
 msgid "Moisture {}%"
 msgstr "Vlhkost {}%"
 
-#: ospy/sensors.py:504 ospy/sensors.py:518 ospy/sensors.py:532
-#: ospy/sensors.py:546 ospy/sensors.py:560
+#: ospy/sensors.py:569 ospy/sensors.py:583 ospy/sensors.py:597
+#: ospy/sensors.py:611 ospy/sensors.py:625
 msgid "Temperature probe fault?"
 msgstr "Chyba teplotní sondy?"
 
-#: ospy/sensors.py:507 ospy/sensors.py:509 ospy/sensors.py:521
-#: ospy/sensors.py:523 ospy/sensors.py:535 ospy/sensors.py:537
-#: ospy/sensors.py:549 ospy/sensors.py:551 ospy/sensors.py:563
-#: ospy/sensors.py:565 ospy/templates/graph_sensor.html:6
-#: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:207
+#: ospy/sensors.py:572 ospy/sensors.py:574 ospy/sensors.py:586
+#: ospy/sensors.py:588 ospy/sensors.py:600 ospy/sensors.py:602
+#: ospy/sensors.py:614 ospy/sensors.py:616 ospy/sensors.py:628
+#: ospy/sensors.py:630 ospy/templates/graph_sensor.html:6
+#: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:234
 #: ospy/templates/sensors.html:63 ospy/templates/sensors_search.html:36
 #: plugins/air_temp_humi/__init__.py:118 plugins/air_temp_humi/__init__.py:155
 #: plugins/air_temp_humi/__init__.py:211 plugins/email_reader/__init__.py:777
@@ -1002,43 +1009,51 @@ msgstr "Chyba teplotní sondy?"
 msgid "Temperature"
 msgstr "Teplota"
 
-#: ospy/sensors.py:588
+#: ospy/sensors.py:653
 msgid "High Trigger"
 msgstr "Vysoká aktivační událost"
 
-#: ospy/sensors.py:588
+#: ospy/sensors.py:653
 msgid "High Value"
 msgstr "Vysoká hodnota"
 
-#: ospy/sensors.py:597
+#: ospy/sensors.py:662
 msgid "Low Trigger"
 msgstr "Nízká aktivační událost"
 
-#: ospy/sensors.py:597
+#: ospy/sensors.py:662
 msgid "Low Value"
 msgstr "Nízká hodnota"
 
-#: ospy/sensors.py:606
+#: ospy/sensors.py:671
 msgid "Normal Trigger"
 msgstr "Normální aktivační událost"
 
-#: ospy/sensors.py:606
+#: ospy/sensors.py:671
 msgid "Normal Value"
 msgstr "Běžná hodnota"
 
-#: ospy/sensors.py:614 ospy/sensors.py:615
+#: ospy/sensors.py:679 ospy/sensors.py:680
 msgid "Sensor Change"
 msgstr "Změna stavu snímače"
 
-#: ospy/sensors.py:637 ospy/sensors.py:652
+#: ospy/sensors.py:702 ospy/sensors.py:717
 msgid "Leak {}l/s"
 msgstr "Průtok {}l/s"
 
-#: ospy/sensors.py:642 ospy/sensors.py:657
+#: ospy/sensors.py:707 ospy/sensors.py:722
 msgid "Leak probe fault?"
 msgstr "Chyba sondy průtoku?"
 
-#: ospy/sensors.py:684
+#: ospy/sensors.py:746
+msgid "Sonic {}cm"
+msgstr "Ultrazvuk {}cm"
+
+#: ospy/sensors.py:751
+msgid "Sonic probe fault?"
+msgstr "Porucha ultrazvukové sondy?"
+
+#: ospy/sensors.py:771
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
@@ -1370,7 +1385,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:18
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:22
 #: plugins/weather_stations/templates/canvas_page.html:101
-#: plugins/weather_stations/templates/settings_page.html:261
+#: plugins/weather_stations/templates/settings_page.html:262
 #: plugins/webcam/templates/webcam.html:22
 #: plugins/wind_monitor/templates/wind_monitor.html:174
 msgid "Help"
@@ -1506,12 +1521,12 @@ msgstr "Smazat"
 #: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:197
 #: ospy/templates/log_sensor.html:66 ospy/templates/options.html:315
 #: ospy/templates/program.html:635 ospy/templates/runonce.html:72
-#: ospy/templates/sensor.html:364 ospy/templates/stations.html:127
+#: ospy/templates/sensor.html:632 ospy/templates/stations.html:127
 #: ospy/templates/user.html:102 ospy/templates/view.html:30
 #: plugins/air_temp_humi/templates/air_temp_humi.html:350
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:25
-#: plugins/button_control/templates/button_control.html:61
-#: plugins/button_control/templates/button_control_help.html:20
+#: plugins/button_control/templates/button_control.html:95
+#: plugins/button_control/templates/button_control_help.html:122
 #: plugins/cli_control/templates/cli_control.html:58
 #: plugins/cli_control/templates/cli_control_help.html:15
 #: plugins/email_notifications/templates/email_notifications.html:140
@@ -1582,7 +1597,7 @@ msgstr "Smazat"
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo_help.html:14
 #: plugins/weather_stations/templates/canvas_page.html:99
 #: plugins/weather_stations/templates/help_page.html:54
-#: plugins/weather_stations/templates/settings_page.html:260
+#: plugins/weather_stations/templates/settings_page.html:261
 #: plugins/webcam/templates/webcam.html:68
 #: plugins/webcam/templates/webcam_help.html:14
 #: plugins/wind_monitor/templates/wind_monitor.html:335
@@ -1596,7 +1611,7 @@ msgstr "Graf vzorků snímače"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:207 ospy/templates/sensor.html:215
+#: ospy/templates/sensor.html:234 ospy/templates/sensor.html:246
 #: ospy/templates/sensors.html:63 ospy/templates/sensors.html:64
 #: ospy/templates/sensors_search.html:32
 msgid "Dry Contact"
@@ -1604,7 +1619,7 @@ msgstr "Kontakt"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:207 ospy/templates/sensor.html:215
+#: ospy/templates/sensor.html:234 ospy/templates/sensor.html:246
 #: ospy/templates/sensors.html:63 ospy/templates/sensors.html:64
 #: ospy/templates/sensors_search.html:33
 msgid "Leak Detector"
@@ -1612,7 +1627,7 @@ msgstr "Detektor úniku"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:207 ospy/templates/sensor.html:215
+#: ospy/templates/sensor.html:234 ospy/templates/sensor.html:246
 #: ospy/templates/sensors.html:63 ospy/templates/sensors.html:64
 #: ospy/templates/sensors_search.html:34
 msgid "Moisture"
@@ -1620,7 +1635,7 @@ msgstr "Vlhkost"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:207 ospy/templates/sensor.html:215
+#: ospy/templates/sensor.html:234 ospy/templates/sensor.html:246
 #: ospy/templates/sensors.html:63 ospy/templates/sensors.html:64
 #: ospy/templates/sensors_search.html:35
 msgid "Motion"
@@ -1629,48 +1644,57 @@ msgstr "Pohyb"
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
 #: ospy/templates/options.html:179 ospy/templates/options.html:181
 #: ospy/templates/options.html:192 ospy/templates/options.html:194
-#: ospy/templates/sensor.html:207 ospy/templates/sensor.html:249
-#: ospy/templates/sensor.html:255 ospy/templates/sensor.html:271
-#: ospy/templates/sensor.html:277 ospy/templates/sensor.html:286
-#: ospy/templates/sensor.html:304 ospy/templates/sensor.html:319
-#: ospy/templates/sensors.html:63 ospy/templates/sensors.html:95
-#: ospy/templates/sensors.html:103 ospy/templates/sensors.html:119
-#: ospy/templates/sensors.html:127 ospy/templates/sensors.html:141
-#: ospy/templates/sensors.html:150 ospy/templates/sensors.html:163
-#: ospy/templates/sensors.html:185 ospy/templates/sensors.html:199
-#: ospy/templates/sensors.html:222 ospy/templates/sensors.html:236
-#: ospy/templates/sensors.html:249 ospy/templates/sensors.html:257
-#: ospy/templates/sensors.html:273 ospy/templates/sensors.html:281
-#: ospy/templates/sensors.html:293 ospy/templates/sensors.html:302
-#: ospy/templates/sensors.html:315 plugins/lcd_display/__init__.py:307
+#: ospy/templates/sensor.html:234 ospy/templates/sensor.html:310
+#: ospy/templates/sensor.html:318 ospy/templates/sensor.html:351
+#: ospy/templates/sensor.html:360 ospy/templates/sensor.html:379
+#: ospy/templates/sensor.html:436 ospy/templates/sensor.html:468
+#: ospy/templates/sensor.html:487 ospy/templates/sensor.html:500
+#: ospy/templates/sensor.html:530 ospy/templates/sensor.html:550
+#: ospy/templates/sensors.html:63 ospy/templates/sensors.html:96
+#: ospy/templates/sensors.html:104 ospy/templates/sensors.html:120
+#: ospy/templates/sensors.html:128 ospy/templates/sensors.html:142
+#: ospy/templates/sensors.html:151 ospy/templates/sensors.html:164
+#: ospy/templates/sensors.html:186 ospy/templates/sensors.html:200
+#: ospy/templates/sensors.html:223 ospy/templates/sensors.html:237
+#: ospy/templates/sensors.html:250 ospy/templates/sensors.html:258
+#: ospy/templates/sensors.html:274 ospy/templates/sensors.html:282
+#: ospy/templates/sensors.html:294 ospy/templates/sensors.html:303
+#: ospy/templates/sensors.html:316 ospy/templates/sensors.html:332
+#: ospy/templates/sensors.html:341 ospy/templates/sensors.html:356
+#: ospy/templates/sensors.html:368 plugins/lcd_display/__init__.py:307
 msgid "None"
 msgstr "Nepoužito"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
-#: ospy/templates/sensor.html:207 ospy/templates/sensors.html:63
+#: ospy/templates/sensor.html:234 ospy/templates/sensors.html:63
 #: ospy/templates/sensors_search.html:37
 msgid "Multi"
 msgstr "Multi"
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:215 ospy/templates/sensors.html:64
+#: ospy/templates/sensor.html:246 ospy/templates/sensors.html:64
 msgid "Temperature DS1"
 msgstr "Teplota DS1"
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:215 ospy/templates/sensors.html:64
+#: ospy/templates/sensor.html:246 ospy/templates/sensors.html:64
 msgid "Temperature DS2"
 msgstr "Teplota DS2"
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:215 ospy/templates/sensors.html:64
+#: ospy/templates/sensor.html:246 ospy/templates/sensors.html:64
 msgid "Temperature DS3"
 msgstr "Teplota DS3"
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:215 ospy/templates/sensors.html:64
+#: ospy/templates/sensor.html:246 ospy/templates/sensors.html:64
 msgid "Temperature DS4"
 msgstr "Teplota DS4"
+
+#: ospy/templates/graph_sensor.html:7 ospy/templates/sensor.html:246
+#: ospy/templates/sensors.html:64
+msgid "Ultrasonic"
+msgstr "Ultrazvuk"
 
 #: ospy/templates/graph_sensor.html:25 ospy/templates/home_admin.html:231
 #: ospy/templates/home_public.html:199 ospy/templates/home_user.html:229
@@ -1764,12 +1788,12 @@ msgstr "Filtr rok"
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/graph_sensor.html:198 ospy/templates/sensors.html:347
+#: ospy/templates/graph_sensor.html:198 ospy/templates/sensors.html:398
 msgid "View Logs"
 msgstr "Zobrazit záznam"
 
-#: ospy/templates/graph_sensor.html:199 ospy/templates/sensor.html:179
-#: ospy/templates/sensors.html:346
+#: ospy/templates/graph_sensor.html:199 ospy/templates/sensor.html:184
+#: ospy/templates/sensors.html:397
 msgid "Edit Sensor"
 msgstr "Upravit snímač"
 
@@ -1978,7 +2002,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:965
+#: ospy/webpages.py:1006
 msgid "Manual"
 msgstr "Ručně"
 
@@ -2256,11 +2280,11 @@ msgstr "sample.csv"
 msgid "Action"
 msgstr "Akce"
 
-#: ospy/templates/log_sensor.html:53 ospy/templates/sensors.html:115
-#: ospy/templates/sensors.html:135 ospy/templates/sensors.html:138
-#: ospy/templates/sensors.html:147 ospy/templates/sensors.html:269
-#: ospy/templates/sensors.html:289 ospy/templates/sensors.html:290
-#: ospy/templates/sensors.html:299 ospy/templates/sensors.html:327
+#: ospy/templates/log_sensor.html:53 ospy/templates/sensors.html:116
+#: ospy/templates/sensors.html:136 ospy/templates/sensors.html:139
+#: ospy/templates/sensors.html:148 ospy/templates/sensors.html:270
+#: ospy/templates/sensors.html:290 ospy/templates/sensors.html:291
+#: ospy/templates/sensors.html:300 ospy/templates/sensors.html:379
 #: plugins/lcd_display/__init__.py:343
 msgid "%"
 msgstr "%"
@@ -2273,7 +2297,7 @@ msgstr "F"
 msgid "C"
 msgstr "C"
 
-#: ospy/templates/log_sensor.html:68 ospy/templates/sensors.html:348
+#: ospy/templates/log_sensor.html:68 ospy/templates/sensors.html:399
 msgid "View Graph"
 msgstr "Zobrazit graf"
 
@@ -2362,8 +2386,11 @@ msgid "Master station"
 msgstr "Hlavní stanice"
 
 #: ospy/templates/options.html:184 ospy/templates/options.html:197
+#: ospy/templates/sensor.html:438 ospy/templates/sensor.html:470
+#: ospy/templates/sensors.html:360 ospy/templates/sensors.html:372
 #: plugins/air_temp_humi/__init__.py:190 plugins/air_temp_humi/__init__.py:203
 #: plugins/air_temp_humi/templates/air_temp_humi.html:272
+#: plugins/button_control/templates/button_control.html:80
 #: plugins/email_reader/__init__.py:779 plugins/pool_heating/__init__.py:182
 #: plugins/pool_heating/__init__.py:213
 #: plugins/pool_heating/templates/pool_heating.html:116
@@ -2756,7 +2783,7 @@ msgstr " (Nejméně upřednostněné)"
 msgid " (Most preferred)"
 msgstr " (Nejvíce upřednostněné)"
 
-#: ospy/templates/program.html:634 ospy/templates/sensor.html:363
+#: ospy/templates/program.html:634 ospy/templates/sensor.html:631
 #: ospy/templates/user.html:101
 msgid "Save"
 msgstr "Uložit"
@@ -2807,11 +2834,11 @@ msgstr "IP adresa senzoru není platná!"
 msgid "Copied code"
 msgstr "Kopírovaný kód"
 
-#: ospy/templates/sensor.html:164
+#: ospy/templates/sensor.html:169
 msgid "Error: Sensor name not entered! Please try again."
 msgstr "Chyba: Jméno snímače nebylo zadáno! Opakujte akci."
 
-#: ospy/templates/sensor.html:167
+#: ospy/templates/sensor.html:172
 msgid ""
 "Error: Sensor names must be non-null and unique. Sensor already exists, use "
 "another name! Please try again."
@@ -2819,127 +2846,137 @@ msgstr ""
 "Chyba: Jméno snímače musí být jedinečné a nesmí být prázdné. Snímač již "
 "existuje, použijte jiné jméno! Opakujte akci."
 
-#: ospy/templates/sensor.html:170
+#: ospy/templates/sensor.html:175
 msgid "Error: Sensor code must be exactly 16 characters! Please try again."
 msgstr "Chyba: Kód snímače musí mít přesně 16 znaků! Opakujte akci."
 
-#: ospy/templates/sensor.html:179 ospy/templates/sensors.html:52
+#: ospy/templates/sensor.html:184 ospy/templates/sensors.html:52
 msgid "Add a New Sensor"
 msgstr "Přidat nový snímač"
 
-#: ospy/templates/sensor.html:186
+#: ospy/templates/sensor.html:193
 msgid "Enable Sensor"
 msgstr "Povolit snímač"
 
-#: ospy/templates/sensor.html:187 ospy/templates/sensors.html:67
+#: ospy/templates/sensor.html:194 ospy/templates/sensors.html:67
 msgid "Enabling or disabling this sensor."
 msgstr "Povolení nebo zakázání tohoto snímače."
 
-#: ospy/templates/sensor.html:190
+#: ospy/templates/sensor.html:201
 msgid "Show in Footer"
 msgstr "Zobrazit v zápatí"
 
-#: ospy/templates/sensor.html:191
+#: ospy/templates/sensor.html:202
 msgid "Enabling or disabling showing data from sensor in footer on home page."
 msgstr ""
 "Povolení nebo zakázání zobrazení dat ze snímače v zápatí na domovské stránce."
 
-#: ospy/templates/sensor.html:194 ospy/templates/sensors_firmware.html:74
+#: ospy/templates/sensor.html:210 ospy/templates/sensors_firmware.html:74
 #: ospy/templates/sensors_search.html:104
 msgid "Sensor Name"
 msgstr "Název snímače"
 
-#: ospy/templates/sensor.html:195
+#: ospy/templates/sensor.html:211
 msgid "Type Sensor Name."
 msgstr "Zadejte název snímače."
 
-#: ospy/templates/sensor.html:198
+#: ospy/templates/sensor.html:219
 msgid "Security code"
 msgstr "Bezpečnostní kód"
 
-#: ospy/templates/sensor.html:198
+#: ospy/templates/sensor.html:219
 msgid "Security code for your Sensor."
 msgstr "Bezpečnostní kód pro snímač."
 
-#: ospy/templates/sensor.html:201
+#: ospy/templates/sensor.html:224
 msgid "Copy code"
 msgstr "Kopírovat kód"
 
-#: ospy/templates/sensor.html:201
+#: ospy/templates/sensor.html:224
 msgid "Copy security code to clipboard."
 msgstr "Kopírovat bezpečnostní kód do schránky."
 
-#: ospy/templates/sensor.html:205 ospy/templates/sensors_search.html:110
+#: ospy/templates/sensor.html:228
+msgid ""
+"Notice: If the sensor is activated and has some entries, we recommend "
+"deleting the sensor and recreating it. For example, do not change the "
+"temperature to humidity."
+msgstr ""
+"Upozornění: Pokud je snímač aktivován a má již uloženy některé položky, "
+"doporučujeme snímač smazat a znovu ho vytvořit. Neměňte například teplotu na "
+"vlhkost a podobně."
+
+#: ospy/templates/sensor.html:232 ospy/templates/sensors_search.html:110
 msgid "Sensor Type"
 msgstr "Typ snímače"
 
-#: ospy/templates/sensor.html:206
+#: ospy/templates/sensor.html:233
 msgid "Select the sensor type."
 msgstr "Vyberte typ snímače."
 
-#: ospy/templates/sensor.html:213
+#: ospy/templates/sensor.html:244
 msgid "Multi Sensor"
 msgstr "Multi snímač"
 
-#: ospy/templates/sensor.html:214
+#: ospy/templates/sensor.html:245
 msgid "Select the data type for multi sensor."
 msgstr "Vyberte datový typ pro více snímačů."
 
-#: ospy/templates/sensor.html:221 ospy/templates/sensors_search.html:111
+#: ospy/templates/sensor.html:256 ospy/templates/sensors_search.html:111
 msgid "Communication Type"
 msgstr "Typ komunikace"
 
-#: ospy/templates/sensor.html:222
+#: ospy/templates/sensor.html:257
 msgid "Select communication type for sensor."
 msgstr "Vyberte typ komunikace se snímačem."
 
-#: ospy/templates/sensor.html:223 ospy/templates/sensors_search.html:41
+#: ospy/templates/sensor.html:258 ospy/templates/sensors_search.html:41
 msgid "Wi-Fi/LAN"
 msgstr "Wi-Fi/LAN"
 
-#: ospy/templates/sensor.html:223 ospy/templates/sensors_search.html:42
+#: ospy/templates/sensor.html:258 ospy/templates/sensors_search.html:42
 msgid "Radio"
 msgstr "Rádio"
 
-#: ospy/templates/sensor.html:229 ospy/templates/sensors.html:84
+#: ospy/templates/sensor.html:268 ospy/templates/sensors.html:85
 msgid "Sample Rate"
 msgstr "Vzorkovací frekvence"
 
-#: ospy/templates/sensor.html:230
+#: ospy/templates/sensor.html:269
 msgid "Enter the sampling time in minutes."
 msgstr "Zadejte čas vzorkování v minutách."
 
-#: ospy/templates/sensor.html:231
+#: ospy/templates/sensor.html:270
 msgid "Enter the sampling time in seconds."
 msgstr "Zadejte čas vzorkování ve vteřinách."
 
-#: ospy/templates/sensor.html:231 ospy/templates/sensor.html:264
-#: ospy/templates/sensors.html:84 ospy/templates/sensors.html:114
-#: ospy/templates/sensors.html:268
+#: ospy/templates/sensor.html:270 ospy/templates/sensor.html:336
+#: ospy/templates/sensors.html:85 ospy/templates/sensors.html:115
+#: ospy/templates/sensors.html:269 ospy/templates/sensors.html:364
 msgid "mm:ss"
 msgstr "mm:ss"
 
-#: ospy/templates/sensor.html:234 ospy/templates/sensors.html:85
+#: ospy/templates/sensor.html:278 ospy/templates/sensors.html:86
 msgid "Log Samples"
 msgstr "Záznam vzorků"
 
-#: ospy/templates/sensor.html:235
+#: ospy/templates/sensor.html:279
 msgid "Enable sample logging."
 msgstr "Povolit záznam vzorků."
 
-#: ospy/templates/sensor.html:238 ospy/templates/sensors.html:86
+#: ospy/templates/sensor.html:286 ospy/templates/sensors.html:87
 msgid "Log Events"
 msgstr "Záznam událostí"
 
-#: ospy/templates/sensor.html:239
+#: ospy/templates/sensor.html:287
 msgid "Enable event logging."
 msgstr "Povolit záznam událostí."
 
-#: ospy/templates/sensor.html:242 ospy/templates/sensors.html:87
+#: ospy/templates/sensor.html:294 ospy/templates/sensors.html:88
 msgid "Text/Email Events"
 msgstr "Text/E-mail událost"
 
-#: ospy/templates/sensor.html:243
+#: ospy/templates/sensor.html:295
 msgid ""
 "Allow sending an E-mail when there is an event. For this function is requred "
 "plugin E-mail notification!"
@@ -2947,155 +2984,357 @@ msgstr ""
 "Odeslat E-mail pokud nastane událost. Pro tuto funkci je vyžadováno "
 "rozšíření E-mail notification!"
 
-#: ospy/templates/sensor.html:247 ospy/templates/sensors.html:93
-#: ospy/templates/sensors.html:247
+#: ospy/templates/sensor.html:308 ospy/templates/sensors.html:94
+#: ospy/templates/sensors.html:248
 msgid "Open Program(s)"
 msgstr "Otevřený program(y)"
 
-#: ospy/templates/sensor.html:248 ospy/templates/sensor.html:254
-#: ospy/templates/sensor.html:270 ospy/templates/sensor.html:276
-#: ospy/templates/sensor.html:285 ospy/templates/sensor.html:303
-#: ospy/templates/sensor.html:318
+#: ospy/templates/sensor.html:309 ospy/templates/sensor.html:317
+#: ospy/templates/sensor.html:350 ospy/templates/sensor.html:359
+#: ospy/templates/sensor.html:378 ospy/templates/sensor.html:499
+#: ospy/templates/sensor.html:529 ospy/templates/sensor.html:549
 msgid "Mark the required programs to run."
 msgstr "Označte program(y) pro spuštění."
 
-#: ospy/templates/sensor.html:253 ospy/templates/sensors.html:101
-#: ospy/templates/sensors.html:255
+#: ospy/templates/sensor.html:316 ospy/templates/sensors.html:102
+#: ospy/templates/sensors.html:256
 msgid "Closed Program(s)"
 msgstr "Zavřený program(y)"
 
-#: ospy/templates/sensor.html:262 ospy/templates/sensors.html:114
-#: ospy/templates/sensors.html:268
+#: ospy/templates/sensor.html:334 ospy/templates/sensors.html:115
+#: ospy/templates/sensors.html:269
 msgid "Stabilization Time"
 msgstr "Doba stabilizace"
 
-#: ospy/templates/sensor.html:263
+#: ospy/templates/sensor.html:335
 msgid "Enter the stabilization time in minutes."
 msgstr "Zadejte čas stabilizace v minutách."
 
-#: ospy/templates/sensor.html:264
+#: ospy/templates/sensor.html:336
 msgid "Enter the stabilization time in seconds."
 msgstr "Zadejte čas stabilizace ve vteřinách."
 
-#: ospy/templates/sensor.html:265 ospy/templates/sensors.html:115
-#: ospy/templates/sensors.html:269
+#: ospy/templates/sensor.html:339 ospy/templates/sensors.html:116
+#: ospy/templates/sensors.html:270
 msgid "Sensitivity"
 msgstr "Citlivost"
 
-#: ospy/templates/sensor.html:266
+#: ospy/templates/sensor.html:340
 msgid "Enter sensitivity for sensor."
 msgstr "Zadejte citlivost pro snímač."
 
-#: ospy/templates/sensor.html:267 ospy/templates/sensors.html:116
-#: ospy/templates/sensors.html:270
+#: ospy/templates/sensor.html:344 ospy/templates/sensors.html:117
+#: ospy/templates/sensors.html:271
 msgid "One pulse is"
 msgstr "Jeden puls je"
 
-#: ospy/templates/sensor.html:268
+#: ospy/templates/sensor.html:345
 msgid "Here we enter how many liters from the flow meter is one pulse."
 msgstr "Zde zadáte, kolik litrů z průtokoměru je jeden puls."
 
-#: ospy/templates/sensor.html:268 ospy/templates/sensors.html:116
-#: ospy/templates/sensors.html:270
+#: ospy/templates/sensor.html:345 ospy/templates/sensors.html:117
+#: ospy/templates/sensors.html:271
 msgid "Liters"
 msgstr "Litr(ů)"
 
-#: ospy/templates/sensor.html:269 ospy/templates/sensor.html:302
-#: ospy/templates/sensors.html:117 ospy/templates/sensors.html:271
+#: ospy/templates/sensor.html:349 ospy/templates/sensor.html:485
+#: ospy/templates/sensor.html:528 ospy/templates/sensors.html:118
+#: ospy/templates/sensors.html:272
 msgid "Low Program(s)"
 msgstr "Nízký program(y)"
 
-#: ospy/templates/sensor.html:275 ospy/templates/sensor.html:317
-#: ospy/templates/sensors.html:125 ospy/templates/sensors.html:279
+#: ospy/templates/sensor.html:358 ospy/templates/sensor.html:498
+#: ospy/templates/sensor.html:548 ospy/templates/sensors.html:126
+#: ospy/templates/sensors.html:280
 msgid "High Program(s)"
 msgstr "Vysoký program(y)"
 
-#: ospy/templates/sensor.html:284 ospy/templates/sensors.html:139
-#: ospy/templates/sensors.html:148 ospy/templates/sensors.html:161
-#: ospy/templates/sensors.html:183 ospy/templates/sensors.html:197
-#: ospy/templates/sensors.html:220 ospy/templates/sensors.html:234
-#: ospy/templates/sensors.html:291 ospy/templates/sensors.html:300
-#: ospy/templates/sensors.html:313
+#: ospy/templates/sensor.html:377 ospy/templates/sensors.html:140
+#: ospy/templates/sensors.html:149 ospy/templates/sensors.html:162
+#: ospy/templates/sensors.html:184 ospy/templates/sensors.html:198
+#: ospy/templates/sensors.html:221 ospy/templates/sensors.html:235
+#: ospy/templates/sensors.html:292 ospy/templates/sensors.html:301
+#: ospy/templates/sensors.html:314 ospy/templates/sensors.html:330
+#: ospy/templates/sensors.html:339
 msgid "Program(s)"
 msgstr "Program(y)"
 
-#: ospy/templates/sensor.html:293
+#: ospy/templates/sensor.html:396
+#: plugins/tank_monitor/templates/tank_monitor.html:184
+msgid "The distance from the sensor to the minimum water level in the tank"
+msgstr ""
+"Vzdálenost od ultrazvukového snímače (shora) k minimální hladině vody v "
+"nádrži"
+
+#: ospy/templates/sensor.html:397 ospy/templates/sensor.html:402
+#: ospy/templates/sensor.html:407 ospy/templates/sensor.html:411
+#: ospy/templates/sensor.html:452 ospy/templates/sensor.html:463
+#: ospy/templates/sensor.html:481 ospy/templates/sensor.html:495
+#: ospy/templates/sensors.html:324 ospy/templates/sensors.html:329
+#: ospy/templates/sensors.html:338 ospy/templates/sensors.html:347
+#: ospy/templates/sensors.html:348 ospy/templates/sensors.html:349
+#: ospy/templates/sensors.html:350 ospy/templates/sensors.html:363
+#: ospy/templates/sensors.html:365 plugins/email_notifications/__init__.py:154
+#: plugins/email_notifications/__init__.py:156
+#: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
+#: plugins/lcd_display/__init__.py:343 plugins/tank_monitor/__init__.py:145
+#: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
+#: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
+#: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
+#: plugins/tank_monitor/__init__.py:250 plugins/tank_monitor/__init__.py:265
+#: plugins/tank_monitor/__init__.py:266 plugins/tank_monitor/__init__.py:302
+#: plugins/tank_monitor/__init__.py:303
+msgid "cm"
+msgstr "cm"
+
+#: ospy/templates/sensor.html:397
+#: plugins/tank_monitor/templates/tank_monitor.html:185
+msgid ""
+"Thus the distance from the ultrasound to the minimum water level. The sensor "
+"is located above the water"
+msgstr ""
+"Tedy vzdálenost od ultrazvuku k minimální hladině vody. Senzor je umístěn "
+"nad vodou"
+
+#: ospy/templates/sensor.html:401
+#: plugins/tank_monitor/templates/tank_monitor.html:190
+msgid "The distance from the sensor to the maximum water level in the tank"
+msgstr ""
+"Vzdálenost od ultrazvukového snímače (shora) k maximální hladině vody v "
+"nádrži"
+
+#: ospy/templates/sensor.html:402
+#: plugins/tank_monitor/templates/tank_monitor.html:191
+msgid ""
+"That is, the distance from the ultrasound to the maximum water level. The "
+"sensor is located above the water"
+msgstr ""
+"Tedy vzdálenost od ultrazvuku k maximální hladině vody. Senzor je umístěn "
+"nad vodou"
+
+#: ospy/templates/sensor.html:406
+#: plugins/tank_monitor/templates/tank_monitor.html:196
+msgid "The water level from the bottom to the minimum water level in the tank"
+msgstr "Minimální hladina vody v nádrži (ode dna nádrže) pro report"
+
+#: ospy/templates/sensor.html:407
+#: plugins/tank_monitor/templates/tank_monitor.html:197
+msgid ""
+"Distance from the bottom (ie the minimum water) to the set this minimum "
+"level, when it is this activated (send an E-mail)"
+msgstr ""
+"Vzdálenost od dna (tj. od 0 vody) k nastavení této požadované minimální "
+"úrovně, kdy bude aktivováno (poslat E-mail a zastavit plánovač)"
+
+#: ospy/templates/sensor.html:410
+#: plugins/tank_monitor/templates/tank_monitor.html:202
+msgid "Cylinder diameter for volume calculation"
+msgstr "Průměr válce pro výpočet objemu"
+
+#: ospy/templates/sensor.html:411
+#: plugins/tank_monitor/templates/tank_monitor.html:203
+msgid "Enter the diameter for volume calculation"
+msgstr "Zadejte průměr pro výpočet objemu"
+
+#: ospy/templates/sensor.html:414
+msgid "Display in liters or m"
+msgstr "Zobrazovat v litrech nebo m"
+
+#: ospy/templates/sensor.html:415
+msgid "Show measured water in liters or m3"
+msgstr "Zobrazovat naměřenou vodu v litrech nebo m3"
+
+#: ospy/templates/sensor.html:424
+#: plugins/tank_monitor/templates/tank_monitor.html:219
+msgid "Stop stations if minimum water level"
+msgstr "Zastavit stanice, pokud je minimální hladina vody"
+
+#: ospy/templates/sensor.html:425
+#: plugins/tank_monitor/templates/tank_monitor.html:220
+msgid "Stoping these stations if is minimum water level in the tank"
+msgstr "Zastavit tyto stanice, pokud je minimální hladina vody v nádrži"
+
+#: ospy/templates/sensor.html:429
+#: plugins/tank_monitor/templates/tank_monitor.html:225
+msgid "Stop stations if sonic probe has fault"
+msgstr "Zastavit stanice, pokud má ultrazvukový snímač poruchu"
+
+#: ospy/templates/sensor.html:430
+#: plugins/tank_monitor/templates/tank_monitor.html:226
+msgid ""
+"If the level sensor fails, the above selected stations in the scheduler will "
+"stop"
+msgstr ""
+"Pokud snímač hladiny selže, výše uvedené stanice v plánovači se zastaví"
+
+#: ospy/templates/sensor.html:434
+#: plugins/button_control/templates/button_control.html:76
+#: plugins/pressure_monitor/templates/pressure_monitor.html:196
+#: plugins/tank_monitor/templates/tank_monitor.html:231
+#: plugins/wind_monitor/templates/wind_monitor.html:245
+msgid "Stop this run stations in scheduler"
+msgstr "Zastavit tyto stanice v plánovači"
+
+#: ospy/templates/sensor.html:435 ospy/templates/sensor.html:467
+msgid "Mark the required stations"
+msgstr "Označte požadované stanice"
+
+#: ospy/templates/sensor.html:448 ospy/templates/sensors.html:362
+#: plugins/tank_monitor/templates/tank_monitor.html:268
+msgid "Regulate the maximum water level"
+msgstr "Regulace maximální hladiny vody"
+
+#: ospy/templates/sensor.html:449
+msgid "If checked regulation is enabled"
+msgstr "Je-li zaškrtnuto, je povolena regulace"
+
+#: ospy/templates/sensor.html:451 ospy/templates/sensors.html:363
+#: plugins/tank_monitor/templates/tank_monitor.html:274
+msgid "Maximum maintained water level"
+msgstr "Maximální udržovaná hladina vody"
+
+#: ospy/templates/sensor.html:452
+#: plugins/tank_monitor/templates/tank_monitor.html:275
+msgid ""
+"If the measured water level exceeds this set value, the output is activated"
+msgstr ""
+"Pokud naměřená hladina vody překročí tuto nastavenou hodnotu, dojde k "
+"aktivaci výstupu"
+
+#: ospy/templates/sensor.html:456 ospy/templates/sensors.html:364
+#: plugins/air_temp_humi/templates/air_temp_humi.html:255
+#: plugins/pool_heating/templates/pool_heating.html:99
+#: plugins/tank_monitor/templates/tank_monitor.html:280
+#: plugins/temperature_switch/templates/temperature_switch.html:45
+#: plugins/temperature_switch/templates/temperature_switch.html:102
+#: plugins/temperature_switch/templates/temperature_switch.html:159
+msgid "Maximum run time in activate"
+msgstr "Maximální doba běhu v aktivaci"
+
+#: ospy/templates/sensor.html:457
+msgid ""
+"Maximum duration when activating the output (in minutes). After this time, "
+"the output will turn off regardless of other events (conditions)"
+msgstr ""
+"Maximální doba trvání při aktivaci výstupu (v minutách). Po uplynutí této "
+"doby se výstup vypne bez ohledu na ostatní události (podmínky)"
+
+#: ospy/templates/sensor.html:458
+msgid ""
+"Maximum duration when activating the output (in seconds). After this time, "
+"the output will turn off regardless of other events (conditions)"
+msgstr ""
+"Maximální doba trvání při aktivaci výstupu (v sekundách). Po uplynutí této "
+"doby se výstup vypne bez ohledu na ostatní události (podmínky)"
+
+#: ospy/templates/sensor.html:458
+msgid "[mm:ss]"
+msgstr "[mm:ss]"
+
+#: ospy/templates/sensor.html:462 ospy/templates/sensors.html:365
+#: plugins/tank_monitor/templates/tank_monitor.html:287
+msgid "Minimum maintained water level"
+msgstr "Minimální udržovaná hladina vody"
+
+#: ospy/templates/sensor.html:463
+#: plugins/tank_monitor/templates/tank_monitor.html:288
+msgid ""
+"If the measured water level falls below this set value, the output is "
+"deactivated"
+msgstr ""
+"Pokud naměřená hladina vody klesne pod tuto nastavenou hodnotu, výstup se "
+"deaktivuje"
+
+#: ospy/templates/sensor.html:466 ospy/templates/sensors.html:366
+#: plugins/tank_monitor/templates/tank_monitor.html:293
+msgid "Select Output for regulation"
+msgstr "Výstup pro regulaci"
+
+#: ospy/templates/sensor.html:480 ospy/templates/sensor.html:517
 msgid "Low Thresh"
 msgstr "Nízká úroveň"
 
-#: ospy/templates/sensor.html:294
-msgid "Enter value for low threshold."
-msgstr "Zadejte hodnotu pro nízkou detekci."
+#: ospy/templates/sensor.html:481
+msgid "Enter value for low threshold"
+msgstr "Zadejte hodnotu pro nízkou detekci"
 
-#: ospy/templates/sensor.html:308
+#: ospy/templates/sensor.html:486
+msgid "Mark the required programs to run"
+msgstr "Označte požadované programy ke spuštění"
+
+#: ospy/templates/sensor.html:494 ospy/templates/sensor.html:537
 msgid "High Thresh"
 msgstr "Vysoká úroveň"
 
-#: ospy/templates/sensor.html:309
+#: ospy/templates/sensor.html:495 ospy/templates/sensor.html:538
 msgid "Enter value for high threshold."
 msgstr "Zadejte hodnotu pro vysokou detekci."
 
-#: ospy/templates/sensor.html:326 ospy/templates/sensors.html:325
+#: ospy/templates/sensor.html:518
+msgid "Enter value for low threshold."
+msgstr "Zadejte hodnotu pro nízkou detekci."
+
+#: ospy/templates/sensor.html:567 ospy/templates/sensors.html:377
 #: ospy/templates/sensors_firmware.html:77
 #: ospy/templates/sensors_search.html:108
 msgid "MAC Address"
 msgstr "MAC adresa"
 
-#: ospy/templates/sensor.html:327
+#: ospy/templates/sensor.html:568
 msgid "Enter Sensor MAC Address."
 msgstr "Zadejte MAC adresu snímače."
 
-#: ospy/templates/sensor.html:329 ospy/templates/sensors.html:323
+#: ospy/templates/sensor.html:572 ospy/templates/sensors.html:375
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: ospy/templates/sensor.html:330
+#: ospy/templates/sensor.html:573
 msgid "Enter Sensor IP Address."
 msgstr "Zadejte IP adresu snímače."
 
-#: ospy/templates/sensor.html:334
+#: ospy/templates/sensor.html:587
 msgid "Radio sensor ID"
 msgstr "ID rádio snímače"
 
-#: ospy/templates/sensor.html:335
+#: ospy/templates/sensor.html:588
 msgid "Enter sensor ID for your radio sensor."
 msgstr "Zadejte ID radiového snímače."
 
-#: ospy/templates/sensor.html:339 ospy/templates/stations.html:48
+#: ospy/templates/sensor.html:597 ospy/templates/stations.html:48
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ospy/templates/sensor.html:340
+#: ospy/templates/sensor.html:598
 msgid "Here we can make our notes."
 msgstr "Zde si můžeme dělat poznámky."
 
-#: ospy/templates/sensor.html:345 ospy/templates/sensors.html:337
+#: ospy/templates/sensor.html:606 ospy/templates/sensors.html:389
 #: ospy/templates/sensors_search.html:113
 msgid "Firmware Version"
 msgstr "Verze firmwaru"
 
-#: ospy/templates/sensor.html:347 ospy/templates/sensors.html:55
+#: ospy/templates/sensor.html:610 ospy/templates/sensors.html:55
 #: ospy/templates/sensors_search.html:134
 msgid "Sensors Firmware"
 msgstr "Firmware snímačů"
 
-#: ospy/templates/sensor.html:351 ospy/templates/sensors.html:338
+#: ospy/templates/sensor.html:616 ospy/templates/sensors.html:390
 #: ospy/templates/sensors_firmware.html:75
 #: ospy/templates/sensors_search.html:105
 msgid "Sensor CPU"
 msgstr "Procesor snímače"
 
-#: ospy/templates/sensor.html:352
+#: ospy/templates/sensor.html:617
 msgid "Select the processor type for this sensor."
 msgstr "Vyberte typ procesoru pro tento snímač."
 
-#: ospy/templates/sensor.html:353 ospy/templates/sensors.html:340
+#: ospy/templates/sensor.html:618 ospy/templates/sensors.html:392
 #: ospy/templates/sensors_firmware.html:86
 #: ospy/templates/sensors_search.html:47
 msgid "ESP32"
 msgstr "ESP32"
 
-#: ospy/templates/sensor.html:353 ospy/templates/sensors.html:342
+#: ospy/templates/sensor.html:618 ospy/templates/sensors.html:394
 #: ospy/templates/sensors_firmware.html:88
 #: ospy/templates/sensors_search.html:48
 msgid "ESP8266"
@@ -3132,91 +3371,150 @@ msgid "Type"
 msgstr "Typ"
 
 #: ospy/templates/sensors.html:78
+msgid "Yes all is correct."
+msgstr "Ano, všechno je v pořádku."
+
+#: ospy/templates/sensors.html:79
 msgid "Link OK"
 msgstr "Spojení OK"
 
-#: ospy/templates/sensors.html:78 ospy/templates/sensors.html:81
+#: ospy/templates/sensors.html:79 ospy/templates/sensors.html:82
 msgid "Last:"
 msgstr "Naposledy:"
 
 #: ospy/templates/sensors.html:81
+msgid ""
+"Sensor does not respond! Check that the sensor is running (LED). Whether it "
+"is connected to the network (for example, in the router settings). Is the "
+"signal strength enough (Wi-Fi version)? Is the security key on the OSPy and "
+"sensor side set correctly?"
+msgstr ""
+"Snímač nereaguje! Zkontrolujte, zda je snímač spuštěn (bliká LED). Zda je "
+"připojen k síti (například v nastavení směrovače). Je síla signálu "
+"dostatečně silná (u verze s Wi-Fi)? Je bezpečnostní klíč na OSPy a straně "
+"senzoru správně nastaveno?"
+
+#: ospy/templates/sensors.html:82
 msgid "Link ERROR"
 msgstr "CHYBA spojení"
 
-#: ospy/templates/sensors.html:83
+#: ospy/templates/sensors.html:84
 msgid "Show in Footer on Home"
 msgstr "Zobrazit v zápatí na hl. stránce"
 
-#: ospy/templates/sensors.html:83 ospy/templates/sensors.html:85
-#: ospy/templates/sensors.html:86 ospy/templates/sensors.html:87
+#: ospy/templates/sensors.html:84 ospy/templates/sensors.html:86
+#: ospy/templates/sensors.html:87 ospy/templates/sensors.html:88
+#: ospy/templates/sensors.html:351 ospy/templates/sensors.html:352
+#: ospy/templates/sensors.html:353 ospy/templates/sensors.html:362
 msgid "No"
 msgstr "Ne"
 
-#: ospy/templates/sensors.html:83 ospy/templates/sensors.html:85
-#: ospy/templates/sensors.html:86 ospy/templates/sensors.html:87
+#: ospy/templates/sensors.html:84 ospy/templates/sensors.html:86
+#: ospy/templates/sensors.html:87 ospy/templates/sensors.html:88
+#: ospy/templates/sensors.html:351 ospy/templates/sensors.html:352
+#: ospy/templates/sensors.html:353 ospy/templates/sensors.html:362
 msgid "Yes"
 msgstr "Ano"
 
-#: ospy/templates/sensors.html:90 ospy/templates/sensors.html:92
-#: ospy/templates/sensors.html:111 ospy/templates/sensors.html:113
-#: ospy/templates/sensors.html:135 ospy/templates/sensors.html:137
-#: ospy/templates/sensors.html:158 ospy/templates/sensors.html:160
-#: ospy/templates/sensors.html:171 ospy/templates/sensors.html:208
-#: ospy/templates/sensors.html:244 ospy/templates/sensors.html:246
-#: ospy/templates/sensors.html:265 ospy/templates/sensors.html:267
-#: ospy/templates/sensors.html:289 ospy/templates/sensors.html:310
-#: ospy/templates/sensors.html:312
+#: ospy/templates/sensors.html:91 ospy/templates/sensors.html:93
+#: ospy/templates/sensors.html:112 ospy/templates/sensors.html:114
+#: ospy/templates/sensors.html:136 ospy/templates/sensors.html:138
+#: ospy/templates/sensors.html:159 ospy/templates/sensors.html:161
+#: ospy/templates/sensors.html:172 ospy/templates/sensors.html:209
+#: ospy/templates/sensors.html:245 ospy/templates/sensors.html:247
+#: ospy/templates/sensors.html:266 ospy/templates/sensors.html:268
+#: ospy/templates/sensors.html:290 ospy/templates/sensors.html:311
+#: ospy/templates/sensors.html:313 ospy/templates/sensors.html:324
+#: ospy/templates/sensors.html:326 ospy/templates/sensors.html:328
 msgid "Last Read Value"
 msgstr "Hodnota posledního čtení"
 
-#: ospy/templates/sensors.html:90 ospy/templates/sensors.html:244
+#: ospy/templates/sensors.html:91 ospy/templates/sensors.html:245
 msgid "Contact Closed"
 msgstr "Kontakt spojený"
 
-#: ospy/templates/sensors.html:90 ospy/templates/sensors.html:244
+#: ospy/templates/sensors.html:91 ospy/templates/sensors.html:245
 msgid "Contact Open"
 msgstr "Kontakt rozpojený"
 
-#: ospy/templates/sensors.html:111 ospy/templates/sensors.html:265
+#: ospy/templates/sensors.html:112 ospy/templates/sensors.html:266
 msgid "Liter per second"
 msgstr "Litr za sekundu"
 
-#: ospy/templates/sensors.html:138 ospy/templates/sensors.html:177
-#: ospy/templates/sensors.html:214 ospy/templates/sensors.html:290
+#: ospy/templates/sensors.html:139 ospy/templates/sensors.html:178
+#: ospy/templates/sensors.html:215 ospy/templates/sensors.html:291
+#: ospy/templates/sensors.html:329
 msgid "Low Threshold"
 msgstr "Nízká prahová hodnota"
 
-#: ospy/templates/sensors.html:147 ospy/templates/sensors.html:191
-#: ospy/templates/sensors.html:228 ospy/templates/sensors.html:299
+#: ospy/templates/sensors.html:148 ospy/templates/sensors.html:192
+#: ospy/templates/sensors.html:229 ospy/templates/sensors.html:300
+#: ospy/templates/sensors.html:338
 msgid "High Threshold"
 msgstr "Vysoká prahová hodnota"
 
-#: ospy/templates/sensors.html:327
+#: ospy/templates/sensors.html:326
+msgid "Sensor has any error?"
+msgstr "Snímač má nějakou chybu?"
+
+#: ospy/templates/sensors.html:347
+msgid "Distance sensor to minimum"
+msgstr "Snímač vzdálenost na minimum"
+
+#: ospy/templates/sensors.html:348
+msgid "Distance sensor to maximum"
+msgstr "Snímač vzdálenost na maximum"
+
+#: ospy/templates/sensors.html:349
+msgid "Minimum water level in tank"
+msgstr "Minimální hladina vody v nádrži"
+
+#: ospy/templates/sensors.html:350
+msgid "Cylinder diameter"
+msgstr "Průměr válce"
+
+#: ospy/templates/sensors.html:351
+msgid "Display in liters"
+msgstr "Zobrazovat v litrech"
+
+#: ospy/templates/sensors.html:352
+msgid "Stop stations if minimum"
+msgstr "Zastavit stanice, pokud je minimum"
+
+#: ospy/templates/sensors.html:353
+msgid "Stop stations if fault"
+msgstr "Zastavit stanice, pokud je porucha"
+
+#: ospy/templates/sensors.html:354
+msgid "Stop this run stations"
+msgstr "Zastavit tyto spuštěné stanice"
+
+#: ospy/templates/sensors.html:379
 msgid "Last RSSI Level"
 msgstr "Poslední úroveň RSSI"
 
-#: ospy/templates/sensors.html:329
+#: ospy/templates/sensors.html:381
 msgid "Last Power supply voltage"
 msgstr "Poslední úroveň zdroje"
 
-#: ospy/templates/sensors.html:329 ospy/templates/sensors.html:334
+#: ospy/templates/sensors.html:381 ospy/templates/sensors.html:386
 msgid "V"
 msgstr "V"
 
-#: ospy/templates/sensors.html:332 ospy/templates/sensors_search.html:109
+#: ospy/templates/sensors.html:384 ospy/templates/sensors_search.html:109
 msgid "Radio ID"
 msgstr "Rádio ID"
 
-#: ospy/templates/sensors.html:334
+#: ospy/templates/sensors.html:386
 msgid "Last Battery voltage"
 msgstr "Poslední úroveň baterie"
 
-#: ospy/templates/sensors.html:349
+#: ospy/templates/sensors.html:400
 msgid "Delete Sensor"
 msgstr "Odstranit snímač"
 
 #: ospy/templates/sensors_firmware.html:3
-#: ospy/templates/sensors_firmware.html:51
+#: ospy/templates/sensors_firmware.html:50
 msgid "Update sensors firmware"
 msgstr "Aktualizace firmware snímačů"
 
@@ -3304,7 +3602,7 @@ msgstr "Aktualizovat na FW:"
 msgid "Back to Sensors"
 msgstr "Zpět do snímačů"
 
-#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:98
+#: ospy/templates/sensors_search.html:3 ospy/templates/sensors_search.html:97
 msgid "Available sensors"
 msgstr "Dostupné snímače"
 
@@ -3692,27 +3990,27 @@ msgstr "Heslo:"
 msgid "Incorrect username or password, please try again..."
 msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:752
+#: ospy/webpages.py:793
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:819
+#: ospy/webpages.py:860
 msgid "File {} has sucesfully uploaded..."
 msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:825
+#: ospy/webpages.py:866
 msgid "File has sucesfully uploaded..."
 msgstr "Soubor se úspěšně nahrál..."
 
-#: ospy/webpages.py:843
+#: ospy/webpages.py:884
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:847
+#: ospy/webpages.py:888
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1393
+#: ospy/webpages.py:1434
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3720,7 +4018,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1399
+#: ospy/webpages.py:1440
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -3728,7 +4026,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1405
+#: ospy/webpages.py:1446
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -3736,43 +4034,43 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1427 ospy/webpages.py:1430
+#: ospy/webpages.py:1468 ospy/webpages.py:1471
 msgid "Deleting image file {}"
 msgstr "Odstranění souboru obrázku {}"
 
-#: ospy/webpages.py:1436
+#: ospy/webpages.py:1477
 msgid "Deleting file fullchain.pem."
 msgstr "Odstranění souboru fullchain.pem."
 
-#: ospy/webpages.py:1440
+#: ospy/webpages.py:1481
 msgid "Deleting file privkey.pem."
 msgstr "Odstranění souboru privkey.pem."
 
-#: ospy/webpages.py:1444
+#: ospy/webpages.py:1485
 msgid "Deleting file sessions.db."
 msgstr "Odstranění souboru sessions.db."
 
-#: ospy/webpages.py:1448
+#: ospy/webpages.py:1489
 msgid "Deleting file ospy_backup.zip."
 msgstr "Odstranění souboru ospy_backup.zip."
 
-#: ospy/webpages.py:1452
+#: ospy/webpages.py:1493
 msgid "Deleting file options.db.bak."
 msgstr "Odstranění souboru options.db.bak."
 
-#: ospy/webpages.py:1456
+#: ospy/webpages.py:1497
 msgid "Deleting file options.db.tmp."
 msgstr "Odstranění souboru options.db.tmp."
 
-#: ospy/webpages.py:1460
+#: ospy/webpages.py:1501
 msgid "Deleting file options.db."
 msgstr "Odstranění souboru options.db."
 
-#: ospy/webpages.py:1470
+#: ospy/webpages.py:1511
 msgid "Deleting file events.log."
 msgstr "Odstranění souboru events.log."
 
-#: ospy/webpages.py:1487
+#: ospy/webpages.py:1528
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -3780,66 +4078,66 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1568 ospy/webpages.py:1631 ospy/webpages.py:1632
+#: ospy/webpages.py:1609 ospy/webpages.py:1672 ospy/webpages.py:1673
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1623
+#: ospy/webpages.py:1664
 msgid "File {} is created successfully!"
 msgstr "Soubor {} byl úspěšně vytvořen!"
 
-#: ospy/webpages.py:1667
+#: ospy/webpages.py:1708
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:1674
+#: ospy/webpages.py:1715
 msgid "Uploaded to backup folder OK."
 msgstr "Nahráno do záložní složky OK."
 
-#: ospy/webpages.py:1678
+#: ospy/webpages.py:1719
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:1684
+#: ospy/webpages.py:1725
 msgid "Cleaning folder after restoring..."
 msgstr "Čištění složky po obnovení..."
 
-#: ospy/webpages.py:1687 ospy/webpages.py:1691
+#: ospy/webpages.py:1728 ospy/webpages.py:1732
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:1721 ospy/webpages.py:1722
+#: ospy/webpages.py:1762 ospy/webpages.py:1763
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:1753 ospy/webpages.py:1754 plugins/mqtt/__init__.py:242
+#: ospy/webpages.py:1794 ospy/webpages.py:1795 plugins/mqtt/__init__.py:242
 #: plugins/mqtt_runonce/__init__.py:161 plugins/ups_adj/__init__.py:111
 #: plugins/ups_adj/__init__.py:375
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:1773
+#: ospy/webpages.py:1814
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:1777
+#: ospy/webpages.py:1818
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:1783
+#: ospy/webpages.py:1824
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:1948
+#: ospy/webpages.py:1989
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:1961 ospy/webpages.py:2027
+#: ospy/webpages.py:2002 ospy/webpages.py:2068
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:1973 ospy/webpages.py:2014
+#: ospy/webpages.py:2014 ospy/webpages.py:2055
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -4016,15 +4314,6 @@ msgstr "Vlhkost pro zapnutí výstupu"
 msgid "Humidity + hysteresis/2 > ON"
 msgstr "Vlhkost + hystereze/2 = ZAPNUTO"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:255
-#: plugins/pool_heating/templates/pool_heating.html:99
-#: plugins/tank_monitor/templates/tank_monitor.html:280
-#: plugins/temperature_switch/templates/temperature_switch.html:45
-#: plugins/temperature_switch/templates/temperature_switch.html:102
-#: plugins/temperature_switch/templates/temperature_switch.html:159
-msgid "Maximum run time in activate"
-msgstr "Maximální doba běhu v aktivaci"
-
 #: plugins/air_temp_humi/templates/air_temp_humi.html:256
 #: plugins/pool_heating/templates/pool_heating.html:100
 #: plugins/tank_monitor/templates/tank_monitor.html:281
@@ -4061,7 +4350,7 @@ msgid "Used DS18B20"
 msgstr "Počet DS18B20"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:340
-#: plugins/button_control/templates/button_control.html:51
+#: plugins/button_control/templates/button_control.html:85
 #: plugins/cli_control/templates/cli_control.html:47
 #: plugins/email_notifications/templates/email_notifications.html:129
 #: plugins/email_notifications/templates/email_notifications_help.html:35
@@ -4109,7 +4398,7 @@ msgid "Status"
 msgstr "Stav"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:349
-#: plugins/button_control/templates/button_control.html:60
+#: plugins/button_control/templates/button_control.html:94
 #: plugins/cli_control/templates/cli_control.html:57
 #: plugins/email_notifications/templates/email_notifications.html:138
 #: plugins/email_reader/templates/email_reader.html:190
@@ -4140,7 +4429,7 @@ msgstr "Stav"
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:117
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
-#: plugins/weather_stations/templates/settings_page.html:259
+#: plugins/weather_stations/templates/settings_page.html:260
 #: plugins/webcam/templates/webcam.html:66
 #: plugins/wind_monitor/templates/wind_monitor.html:334
 msgid "Submit"
@@ -4237,109 +4526,118 @@ msgstr "Snímač vlhkosti DHT je připojen ke konektoru Raspberry Pi"
 msgid "On the main OSPy board by pihrt.com is already installed."
 msgstr "Na hlavní OSPy desce podle pihrt.com je již nainstalován."
 
-#: plugins/button_control/__init__.py:25
+#: plugins/button_control/__init__.py:26
 msgid "Package: Button Control"
 msgstr "Balíček: Tlačítka"
 
-#: plugins/button_control/__init__.py:85
+#: plugins/button_control/__init__.py:88
 msgid "System reboot"
 msgstr "Restartování systému"
 
-#: plugins/button_control/__init__.py:91
+#: plugins/button_control/__init__.py:94
 msgid "System shutdown"
 msgstr "Vypnutí systému"
 
-#: plugins/button_control/__init__.py:97
-msgid "All stations now stopped"
-msgstr "Všechny stanice jsou nyní zastaveny"
+#: plugins/button_control/__init__.py:100
+msgid "Selected stations now stopped"
+msgstr "Vybrané stanice byly nyní zastaveny"
 
-#: plugins/button_control/__init__.py:106
+#: plugins/button_control/__init__.py:110
 msgid "Scheduler is now enabled"
 msgstr "Plánovač je nyní povolen"
 
-#: plugins/button_control/__init__.py:111
+#: plugins/button_control/__init__.py:115
 msgid "Scheduler is now disabled"
 msgstr "Plánovač je nyní zakázán"
 
-#: plugins/button_control/__init__.py:116
+#: plugins/button_control/__init__.py:120
 msgid "Run now program 1"
 msgstr "Spustit nyní program 1"
 
-#: plugins/button_control/__init__.py:127
+#: plugins/button_control/__init__.py:131
 msgid "Run now program 2"
 msgstr "Spustit nyní program 2"
 
-#: plugins/button_control/__init__.py:138
+#: plugins/button_control/__init__.py:142
 msgid "Run now program 3"
 msgstr "Spustit nyní program 3"
 
-#: plugins/button_control/__init__.py:149
+#: plugins/button_control/__init__.py:153
 msgid "Run now program 4"
 msgstr "Spustit nyní program 4"
 
-#: plugins/button_control/__init__.py:160
+#: plugins/button_control/__init__.py:164
 msgid "Run now program 5"
 msgstr "Spustit nyní program 5"
 
-#: plugins/button_control/__init__.py:171
+#: plugins/button_control/__init__.py:175
 msgid "Run now program 6"
 msgstr "Spustit nyní program 6"
 
-#: plugins/button_control/__init__.py:182
+#: plugins/button_control/__init__.py:186
 msgid "Run now program 7"
 msgstr "Spustit nyní program 7"
 
-#: plugins/button_control/__init__.py:193
+#: plugins/button_control/__init__.py:197
 msgid "Run now program 8"
 msgstr "Spustit nyní program 8"
 
-#: plugins/button_control/__init__.py:209
+#: plugins/button_control/__init__.py:213
 msgid "Button plug-in is disabled."
 msgstr "Rozšíření tlačítka je zakázáno."
 
-#: plugins/button_control/__init__.py:217
-#: plugins/button_control/__init__.py:308
-#: plugins/button_control/__init__.py:327
+#: plugins/button_control/__init__.py:219
 msgid "Button plug-in"
 msgstr "Rozšíření tlačítka"
 
-#: plugins/button_control/__init__.py:282
+#: plugins/button_control/__init__.py:267
+#: plugins/pressure_monitor/__init__.py:269
+#: plugins/tank_monitor/__init__.py:566 plugins/wind_monitor/__init__.py:388
+msgid "Stoping stations in scheduler"
+msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
+
+#: plugins/button_control/__init__.py:311
 msgid "Switch 8 pressed"
 msgstr "Spínač 8 stisknuto"
 
-#: plugins/button_control/__init__.py:285
+#: plugins/button_control/__init__.py:314
 msgid "Switch 7 pressed"
 msgstr "Spínač 7 stisknuto"
 
-#: plugins/button_control/__init__.py:288
+#: plugins/button_control/__init__.py:317
 msgid "Switch 6 pressed"
 msgstr "Spínač 6 stisknuto"
 
-#: plugins/button_control/__init__.py:291
+#: plugins/button_control/__init__.py:320
 msgid "Switch 5 pressed"
 msgstr "Spínač 5 stisknuto"
 
-#: plugins/button_control/__init__.py:294
+#: plugins/button_control/__init__.py:323
 msgid "Switch 4 pressed"
 msgstr "Spínač 4 stisknuto"
 
-#: plugins/button_control/__init__.py:297
+#: plugins/button_control/__init__.py:326
 msgid "Switch 3 pressed"
 msgstr "Spínač 3 stisknuto"
 
-#: plugins/button_control/__init__.py:300
+#: plugins/button_control/__init__.py:329
 msgid "Switch 2 pressed"
 msgstr "Spínač 2 stisknuto"
 
-#: plugins/button_control/__init__.py:303
+#: plugins/button_control/__init__.py:332
 msgid "Switch 1 pressed"
 msgstr "Spínač 1 stisknuto"
 
-#: plugins/button_control/__init__.py:308
+#: plugins/button_control/__init__.py:337
 msgid "Read button - FAULT"
 msgstr "Čtení tlačítka - CHYBA"
 
-#: plugins/button_control/__init__.py:327
+#: plugins/button_control/__init__.py:338
+#: plugins/button_control/__init__.py:358
+msgid "Is hardware connected? Is bus address corectly setuped?"
+msgstr "Je připojen hardware? Je adresa sběrnice správně nastavena?"
+
+#: plugins/button_control/__init__.py:357
 msgid "Set LED - FAULT"
 msgstr "Nastavení LED - CHYBA"
 
@@ -4352,83 +4650,140 @@ msgstr "Tlačítka nastavení"
 msgid "Use button control"
 msgstr "Použít tlačítka"
 
+#: plugins/button_control/templates/button_control.html:25
+msgid "if checked, the extension is enabled."
+msgstr "je-li zaškrtnuto, je rozšíření povoleno."
+
+#: plugins/button_control/templates/button_control.html:30
+#: plugins/button_control/templates/button_control_help.html:17
+msgid "Address for MCP23017 controller"
+msgstr "Adresa pro obvod MCP23017"
+
 #: plugins/button_control/templates/button_control.html:31
+msgid "Select the desired address for the MCP23017 controller."
+msgstr "Vyberte požadovanou adresu obvodu MCP23017."
+
+#: plugins/button_control/templates/button_control.html:33
+msgid "Address 0x20"
+msgstr "Adresa 0x20"
+
+#: plugins/button_control/templates/button_control.html:34
+msgid "Address 0x21"
+msgstr "Adresa 0x21"
+
+#: plugins/button_control/templates/button_control.html:35
+msgid "Address 0x22"
+msgstr "Adresa 0x22"
+
+#: plugins/button_control/templates/button_control.html:36
+msgid "Address 0x23"
+msgstr "Adresa 0x23"
+
+#: plugins/button_control/templates/button_control.html:37
+msgid "Address 0x24"
+msgstr "Adresa 0x24"
+
+#: plugins/button_control/templates/button_control.html:38
+msgid "Address 0x25"
+msgstr "Adresa 0x25"
+
+#: plugins/button_control/templates/button_control.html:39
+msgid "Address 0x26"
+msgstr "Adresa 0x26"
+
+#: plugins/button_control/templates/button_control.html:40
+msgid "Address 0x27"
+msgstr "Adresa 0x27"
+
+#: plugins/button_control/templates/button_control.html:51
 msgid "Button"
 msgstr "Tlačítko"
 
-#: plugins/button_control/templates/button_control.html:31
+#: plugins/button_control/templates/button_control.html:51
 msgid "controls"
 msgstr "ovládá"
 
-#: plugins/button_control/templates/button_control.html:34
+#: plugins/button_control/templates/button_control.html:52
+msgid "Asociation concrete button with operation."
+msgstr "Přiřazení konkrétního tlačítka k určité operaci."
+
+#: plugins/button_control/templates/button_control.html:54
 #: plugins/email_reader/__init__.py:70
 #: plugins/email_reader/templates/email_reader.html:144
 #: plugins/email_reader/templates/email_reader_help.html:91
 msgid "Reboot OS system"
 msgstr "Restartovat operační systém"
 
-#: plugins/button_control/templates/button_control.html:35
+#: plugins/button_control/templates/button_control.html:55
 #: plugins/email_reader/__init__.py:79
 #: plugins/email_reader/templates/email_reader.html:145
 #: plugins/email_reader/templates/email_reader_help.html:91
 msgid "Shutdown OS system"
 msgstr "Vypnutí operačního systému"
 
-#: plugins/button_control/templates/button_control.html:36
-msgid "Stop all station"
-msgstr "Zastavit všechny stanice"
+#: plugins/button_control/templates/button_control.html:56
+msgid "Stop stations"
+msgstr "Zastavit stanice"
 
-#: plugins/button_control/templates/button_control.html:38
+#: plugins/button_control/templates/button_control.html:58
 msgid "Disable scheduler"
 msgstr "Zakázat plánovač"
 
-#: plugins/button_control/templates/button_control.html:39
+#: plugins/button_control/templates/button_control.html:59
 #: plugins/email_reader/__init__.py:71
 #: plugins/email_reader/templates/email_reader.html:146
 msgid "Run program 1"
 msgstr "Spustit program 1"
 
-#: plugins/button_control/templates/button_control.html:40
+#: plugins/button_control/templates/button_control.html:60
 #: plugins/email_reader/__init__.py:72
 #: plugins/email_reader/templates/email_reader.html:147
 msgid "Run program 2"
 msgstr "Spustit program 2"
 
-#: plugins/button_control/templates/button_control.html:41
+#: plugins/button_control/templates/button_control.html:61
 #: plugins/email_reader/__init__.py:73
 #: plugins/email_reader/templates/email_reader.html:148
 msgid "Run program 3"
 msgstr "Spustit program 3"
 
-#: plugins/button_control/templates/button_control.html:42
+#: plugins/button_control/templates/button_control.html:62
 #: plugins/email_reader/__init__.py:74
 #: plugins/email_reader/templates/email_reader.html:149
 msgid "Run program 4"
 msgstr "Spustit program 4"
 
-#: plugins/button_control/templates/button_control.html:43
+#: plugins/button_control/templates/button_control.html:63
 #: plugins/email_reader/__init__.py:75
 #: plugins/email_reader/templates/email_reader.html:150
 msgid "Run program 5"
 msgstr "Spustit program 5"
 
-#: plugins/button_control/templates/button_control.html:44
+#: plugins/button_control/templates/button_control.html:64
 #: plugins/email_reader/__init__.py:76
 #: plugins/email_reader/templates/email_reader.html:151
 msgid "Run program 6"
 msgstr "Spustit program 6"
 
-#: plugins/button_control/templates/button_control.html:45
+#: plugins/button_control/templates/button_control.html:65
 #: plugins/email_reader/__init__.py:77
 #: plugins/email_reader/templates/email_reader.html:152
 msgid "Run program 7"
 msgstr "Spustit program 7"
 
-#: plugins/button_control/templates/button_control.html:46
+#: plugins/button_control/templates/button_control.html:66
 #: plugins/email_reader/__init__.py:78
 #: plugins/email_reader/templates/email_reader.html:153
 msgid "Run program 8"
 msgstr "Spustit program 8"
+
+#: plugins/button_control/templates/button_control.html:77
+msgid ""
+"If concrete button stops stations, then select the desired stations to stop "
+"here."
+msgstr ""
+"Pokud konkrétní tlačítko zastaví stanice, vyberte zde požadované stanice, "
+"které chcete zastavit."
 
 #: plugins/button_control/templates/button_control_help.html:3
 #: plugins/button_control/templates/button_control_help.html:7
@@ -4459,6 +4814,144 @@ msgstr ""
 #: plugins/button_control/templates/button_control_help.html:11
 msgid "The PCB board for 8 buttons (board by pihrt.com)"
 msgstr "Deska spojů pro 8 tlačítek (deska pihrt.com)"
+
+#: plugins/button_control/templates/button_control_help.html:18
+msgid "Selector for"
+msgstr "Vyberte výstup"
+
+#: plugins/button_control/templates/button_control_help.html:18
+msgid "address in range 0x20 to 0x27."
+msgstr "adresa v rozsahu 0x20 až 0x27."
+
+#: plugins/button_control/templates/button_control_help.html:19
+msgid "The address is set via inputs A0-A2 on the MCP23017 controller."
+msgstr "Adresa je nastavena prostřednictvím vstupů A0-A2 na obvodu MCP23017."
+
+#: plugins/button_control/templates/button_control_help.html:24
+msgid "Chip address"
+msgstr "Adresa obvodu"
+
+#: plugins/button_control/templates/button_control_help.html:26
+msgid "A2"
+msgstr "A2"
+
+#: plugins/button_control/templates/button_control_help.html:28
+msgid "A1"
+msgstr "A1"
+
+#: plugins/button_control/templates/button_control_help.html:30
+msgid "A0"
+msgstr "A0"
+
+#: plugins/button_control/templates/button_control_help.html:32
+msgid "Address"
+msgstr "Adresa"
+
+#: plugins/button_control/templates/button_control_help.html:36
+msgid "000"
+msgstr "000"
+
+#: plugins/button_control/templates/button_control_help.html:38
+#: plugins/button_control/templates/button_control_help.html:39
+#: plugins/button_control/templates/button_control_help.html:40
+#: plugins/button_control/templates/button_control_help.html:48
+#: plugins/button_control/templates/button_control_help.html:49
+#: plugins/button_control/templates/button_control_help.html:58
+#: plugins/button_control/templates/button_control_help.html:60
+#: plugins/button_control/templates/button_control_help.html:68
+#: plugins/button_control/templates/button_control_help.html:79
+#: plugins/button_control/templates/button_control_help.html:80
+#: plugins/button_control/templates/button_control_help.html:89
+#: plugins/button_control/templates/button_control_help.html:100
+msgid "GND"
+msgstr "0V"
+
+#: plugins/button_control/templates/button_control_help.html:42
+msgid "0x20"
+msgstr "0x20"
+
+#: plugins/button_control/templates/button_control_help.html:46
+msgid "001"
+msgstr "001"
+
+#: plugins/button_control/templates/button_control_help.html:50
+#: plugins/button_control/templates/button_control_help.html:59
+#: plugins/button_control/templates/button_control_help.html:69
+#: plugins/button_control/templates/button_control_help.html:70
+#: plugins/button_control/templates/button_control_help.html:78
+#: plugins/button_control/templates/button_control_help.html:88
+#: plugins/button_control/templates/button_control_help.html:90
+#: plugins/button_control/templates/button_control_help.html:98
+#: plugins/button_control/templates/button_control_help.html:99
+#: plugins/button_control/templates/button_control_help.html:108
+#: plugins/button_control/templates/button_control_help.html:109
+#: plugins/button_control/templates/button_control_help.html:110
+msgid "VCC"
+msgstr "VCC"
+
+#: plugins/button_control/templates/button_control_help.html:52
+msgid "0x21"
+msgstr "0x21"
+
+#: plugins/button_control/templates/button_control_help.html:56
+msgid "010"
+msgstr "010"
+
+#: plugins/button_control/templates/button_control_help.html:62
+msgid "0x22"
+msgstr "0x22"
+
+#: plugins/button_control/templates/button_control_help.html:66
+msgid "011"
+msgstr "011"
+
+#: plugins/button_control/templates/button_control_help.html:72
+msgid "0x23"
+msgstr "0x23"
+
+#: plugins/button_control/templates/button_control_help.html:76
+msgid "100"
+msgstr "100"
+
+#: plugins/button_control/templates/button_control_help.html:82
+msgid "0x24"
+msgstr "0x24"
+
+#: plugins/button_control/templates/button_control_help.html:86
+msgid "101"
+msgstr "101"
+
+#: plugins/button_control/templates/button_control_help.html:92
+msgid "0x25"
+msgstr "0x25"
+
+#: plugins/button_control/templates/button_control_help.html:96
+msgid "110"
+msgstr "110"
+
+#: plugins/button_control/templates/button_control_help.html:102
+msgid "0x26"
+msgstr "0x26"
+
+#: plugins/button_control/templates/button_control_help.html:106
+msgid "111"
+msgstr "111"
+
+#: plugins/button_control/templates/button_control_help.html:112
+msgid "0x27"
+msgstr "0x27"
+
+#: plugins/button_control/templates/button_control_help.html:117
+msgid "For find your address use System Information plugin."
+msgstr "Pro nalezení vaší adresy použijte rozšíření systémové informace."
+
+#: plugins/button_control/templates/button_control_help.html:118
+msgid ""
+"Note: the buttons must not have the same address as the LCD display. You "
+"must change either the address of the display or the buttons address."
+msgstr ""
+"Poznámka: Tlačítka nesmí mít stejnou adresu jako LCD displej. Je nutné "
+"změnit adresu displeje nebo adresu tlačítek."
 
 #: plugins/cli_control/__init__.py:22
 msgid "Package: CLI Control"
@@ -4557,19 +5050,6 @@ msgstr "System detekoval déšť."
 #: plugins/email_notifications/__init__.py:137
 msgid "Finished run"
 msgstr "Ukončené zalévání"
-
-#: plugins/email_notifications/__init__.py:154
-#: plugins/email_notifications/__init__.py:156
-#: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
-#: plugins/lcd_display/__init__.py:343 plugins/tank_monitor/__init__.py:145
-#: plugins/tank_monitor/__init__.py:147 plugins/tank_monitor/__init__.py:148
-#: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:151
-#: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
-#: plugins/tank_monitor/__init__.py:250 plugins/tank_monitor/__init__.py:265
-#: plugins/tank_monitor/__init__.py:266 plugins/tank_monitor/__init__.py:302
-#: plugins/tank_monitor/__init__.py:303
-msgid "cm"
-msgstr "cm"
 
 #: plugins/email_notifications/__init__.py:154
 #: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:343
@@ -7250,11 +7730,6 @@ msgstr "Rozšíření monitor tlaku zjistilo chybu: snímač tlaku se neaktivova
 msgid "Pressure monitor plug-in"
 msgstr "Rozšíření monitor tlaku"
 
-#: plugins/pressure_monitor/__init__.py:269
-#: plugins/tank_monitor/__init__.py:566 plugins/wind_monitor/__init__.py:388
-msgid "Stoping stations in scheduler"
-msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
-
 #: plugins/pressure_monitor/__init__.py:343
 #: plugins/tank_monitor/__init__.py:519 plugins/ups_adj/__init__.py:308
 #: plugins/wind_monitor/__init__.py:486
@@ -7299,12 +7774,6 @@ msgstr "Maximální čas pro aktivaci snímače"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:191
 msgid "max 999 seconds"
 msgstr "maximum 999 vteřin"
-
-#: plugins/pressure_monitor/templates/pressure_monitor.html:196
-#: plugins/tank_monitor/templates/tank_monitor.html:231
-#: plugins/wind_monitor/templates/wind_monitor.html:245
-msgid "Stop this run stations in scheduler"
-msgstr "Zastavit tyto stanice v plánovači"
 
 #: plugins/pressure_monitor/templates/pressure_monitor.html:197
 msgid ""
@@ -7928,7 +8397,7 @@ msgstr "Zaškrtněte políčko povolit relé"
 
 #: plugins/relay_16/templates/relay_16_help.html:30
 msgid "If checked plugin is enabled."
-msgstr "Je-li zaškrtnuto, rozšíření je povoleno"
+msgstr "Je-li zaškrtnuto, rozšíření je povoleno."
 
 #: plugins/relay_16/templates/relay_16_help.html:32
 msgid "Select outputs (1-16)."
@@ -9312,54 +9781,6 @@ msgstr ""
 "pokud je zaškrtávací políčko označeno, bude rozšíření měřit hladinu vody "
 "pomocí ultrazvuku"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:184
-msgid "The distance from the sensor to the minimum water level in the tank"
-msgstr ""
-"Vzdálenost od ultrazvukového snímače (shora) k minimální hladině vody v "
-"nádrži"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:185
-msgid ""
-"Thus the distance from the ultrasound to the minimum water level. The sensor "
-"is located above the water"
-msgstr ""
-"Tedy vzdálenost od ultrazvuku k minimální hladině vody. Senzor je umístěn "
-"nad vodou"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:190
-msgid "The distance from the sensor to the maximum water level in the tank"
-msgstr ""
-"Vzdálenost od ultrazvukového snímače (shora) k maximální hladině vody v "
-"nádrži"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:191
-msgid ""
-"That is, the distance from the ultrasound to the maximum water level. The "
-"sensor is located above the water"
-msgstr ""
-"Tedy vzdálenost od ultrazvuku k maximální hladině vody. Senzor je umístěn "
-"nad vodou"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:196
-msgid "The water level from the bottom to the minimum water level in the tank"
-msgstr "Minimální hladina vody v nádrži (ode dna nádrže) pro report"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:197
-msgid ""
-"Distance from the bottom (ie the minimum water) to the set this minimum "
-"level, when it is this activated (send an E-mail)"
-msgstr ""
-"Vzdálenost od dna (tj. od 0 vody) k nastavení této požadované minimální "
-"úrovně, kdy bude aktivováno (poslat E-mail a zastavit plánovač)"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:202
-msgid "Cylinder diameter for volume calculation"
-msgstr "Průměr válce pro výpočet objemu"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:203
-msgid "Enter the diameter for volume calculation"
-msgstr "Zadejte průměr pro výpočet objemu"
-
 #: plugins/tank_monitor/templates/tank_monitor.html:208
 msgid "Display as liters or m"
 msgstr "Zobrazovat v litrech nebo m"
@@ -9367,25 +9788,6 @@ msgstr "Zobrazovat v litrech nebo m"
 #: plugins/tank_monitor/templates/tank_monitor.html:209
 msgid "Show measured water as liters or m3"
 msgstr "Zobrazovat naměřenou vodu v litrech nebo m3"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:219
-msgid "Stop stations if minimum water level"
-msgstr "Zastavit stanice, pokud je minimální hladina vody"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:220
-msgid "Stoping these stations if is minimum water level in the tank"
-msgstr "Zastavit tyto stanice, pokud je minimální hladina vody v nádrži"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:225
-msgid "Stop stations if sonic probe has fault"
-msgstr "Zastavit stanice, pokud má ultrazvukový snímač poruchu"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:226
-msgid ""
-"If the level sensor fails, the above selected stations in the scheduler will "
-"stop"
-msgstr ""
-"Pokud snímač hladiny selže, výše uvedené stanice v plánovači se zastaví"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:245
 msgid "Send an E-mail with an error that there is minimum water in the tank"
@@ -9400,40 +9802,9 @@ msgstr "Poslat E-mail s chybou, pokud má ultrazvukový snímač poruchu"
 msgid "Subject for E-mail from this tank monitor"
 msgstr "Předmět pro e-mail z tohoto monitoru nádrže"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:268
-msgid "Regulate the maximum water level"
-msgstr "Regulace maximální hladiny vody"
-
 #: plugins/tank_monitor/templates/tank_monitor.html:269
 msgid "If checked, regulation is enabled"
 msgstr "Je-li zaškrtnuto, je povolena regulace"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:274
-msgid "Maximum maintained water level"
-msgstr "Maximální udržovaná hladina vody"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:275
-msgid ""
-"If the measured water level exceeds this set value, the output is activated"
-msgstr ""
-"Pokud naměřená hladina vody překročí tuto nastavenou hodnotu, dojde k "
-"aktivaci výstupu"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:287
-msgid "Minimum maintained water level"
-msgstr "Minimální udržovaná hladina vody"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:288
-msgid ""
-"If the measured water level falls below this set value, the output is "
-"deactivated"
-msgstr ""
-"Pokud naměřená hladina vody klesne pod tuto nastavenou hodnotu, výstup se "
-"deaktivuje"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:293
-msgid "Select Output for regulation"
-msgstr "Výstup pro regulaci"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:294
 msgid "Select Output for controled zones"
@@ -9655,7 +10026,7 @@ msgid "There has been a Station Change.\n"
 msgstr "Došlo ke změně stanice.\n"
 
 #: plugins/telegram_bot/__init__.py:378 plugins/telegram_bot/__init__.py:380
-#: plugins/weather_stations/templates/settings_page.html:211
+#: plugins/weather_stations/templates/settings_page.html:212
 msgid ")"
 msgstr ")"
 
@@ -11012,11 +11383,11 @@ msgstr "Hladina vody na bázi počasí Netatmo - nápověda"
 msgid "Package: Weather Stations"
 msgstr "Balíček: Meteorologická stanice"
 
-#: plugins/weather_stations/__init__.py:72
+#: plugins/weather_stations/__init__.py:71
 msgid "Weather stations plug-in is enabled."
 msgstr "Rozšíření meteorologická stanic je povoleno."
 
-#: plugins/weather_stations/__init__.py:205
+#: plugins/weather_stations/__init__.py:204
 msgid "Weather stations plug-in"
 msgstr "Rozšíření meteorologická stanice"
 
@@ -11123,7 +11494,7 @@ msgstr "Ve kterých jednotkách chceme data zobrazit."
 #: plugins/weather_stations/templates/settings_page.html:61
 #: plugins/weather_stations/templates/settings_page.html:119
 #: plugins/weather_stations/templates/settings_page.html:173
-#: plugins/weather_stations/templates/settings_page.html:224
+#: plugins/weather_stations/templates/settings_page.html:225
 msgid "Scale"
 msgstr "Stupnice"
 
@@ -11230,21 +11601,21 @@ msgstr "Název pro měřák DS"
 #: plugins/weather_stations/templates/settings_page.html:55
 #: plugins/weather_stations/templates/settings_page.html:113
 #: plugins/weather_stations/templates/settings_page.html:167
-#: plugins/weather_stations/templates/settings_page.html:218
+#: plugins/weather_stations/templates/settings_page.html:219
 msgid "Your unique name and units for canvas."
 msgstr "Vaše jedinečné jméno a jednotky pro měřák."
 
 #: plugins/weather_stations/templates/settings_page.html:56
 #: plugins/weather_stations/templates/settings_page.html:114
 #: plugins/weather_stations/templates/settings_page.html:168
-#: plugins/weather_stations/templates/settings_page.html:219
+#: plugins/weather_stations/templates/settings_page.html:220
 msgid "Units:"
 msgstr "Jednotky:"
 
 #: plugins/weather_stations/templates/settings_page.html:62
 #: plugins/weather_stations/templates/settings_page.html:120
 #: plugins/weather_stations/templates/settings_page.html:174
-#: plugins/weather_stations/templates/settings_page.html:225
+#: plugins/weather_stations/templates/settings_page.html:226
 msgid ""
 "Your scale division for canvas. Example: 0,10,20,30 (type to min 0 and to "
 "max 30)."
@@ -11255,28 +11626,28 @@ msgstr ""
 #: plugins/weather_stations/templates/settings_page.html:63
 #: plugins/weather_stations/templates/settings_page.html:121
 #: plugins/weather_stations/templates/settings_page.html:175
-#: plugins/weather_stations/templates/settings_page.html:226
+#: plugins/weather_stations/templates/settings_page.html:227
 msgid "Min:"
 msgstr "Min:"
 
 #: plugins/weather_stations/templates/settings_page.html:64
 #: plugins/weather_stations/templates/settings_page.html:122
 #: plugins/weather_stations/templates/settings_page.html:176
-#: plugins/weather_stations/templates/settings_page.html:227
+#: plugins/weather_stations/templates/settings_page.html:228
 msgid "Max:"
 msgstr "Max:"
 
 #: plugins/weather_stations/templates/settings_page.html:69
 #: plugins/weather_stations/templates/settings_page.html:127
 #: plugins/weather_stations/templates/settings_page.html:181
-#: plugins/weather_stations/templates/settings_page.html:232
+#: plugins/weather_stations/templates/settings_page.html:233
 msgid "Red color from"
 msgstr "Červená barva od"
 
 #: plugins/weather_stations/templates/settings_page.html:70
 #: plugins/weather_stations/templates/settings_page.html:128
 #: plugins/weather_stations/templates/settings_page.html:182
-#: plugins/weather_stations/templates/settings_page.html:233
+#: plugins/weather_stations/templates/settings_page.html:234
 msgid ""
 "Your scale from red color (from - to). Example: 0,10,20,30 (type to from 0 "
 "to 10)."
@@ -11292,23 +11663,23 @@ msgstr ""
 #: plugins/weather_stations/templates/settings_page.html:183
 #: plugins/weather_stations/templates/settings_page.html:190
 #: plugins/weather_stations/templates/settings_page.html:197
-#: plugins/weather_stations/templates/settings_page.html:234
-#: plugins/weather_stations/templates/settings_page.html:241
-#: plugins/weather_stations/templates/settings_page.html:248
+#: plugins/weather_stations/templates/settings_page.html:235
+#: plugins/weather_stations/templates/settings_page.html:242
+#: plugins/weather_stations/templates/settings_page.html:249
 msgid "To:"
 msgstr "Do:"
 
 #: plugins/weather_stations/templates/settings_page.html:76
 #: plugins/weather_stations/templates/settings_page.html:134
 #: plugins/weather_stations/templates/settings_page.html:188
-#: plugins/weather_stations/templates/settings_page.html:239
+#: plugins/weather_stations/templates/settings_page.html:240
 msgid "Blue color from"
 msgstr "Modrá barva od"
 
 #: plugins/weather_stations/templates/settings_page.html:77
 #: plugins/weather_stations/templates/settings_page.html:135
 #: plugins/weather_stations/templates/settings_page.html:189
-#: plugins/weather_stations/templates/settings_page.html:240
+#: plugins/weather_stations/templates/settings_page.html:241
 msgid ""
 "Your scale from blue color (from - to). Example: 0,10,20,30 (type to from 10 "
 "to 20)."
@@ -11318,14 +11689,14 @@ msgstr ""
 #: plugins/weather_stations/templates/settings_page.html:83
 #: plugins/weather_stations/templates/settings_page.html:141
 #: plugins/weather_stations/templates/settings_page.html:195
-#: plugins/weather_stations/templates/settings_page.html:246
+#: plugins/weather_stations/templates/settings_page.html:247
 msgid "Green color from"
 msgstr "Zelená barva od"
 
 #: plugins/weather_stations/templates/settings_page.html:84
 #: plugins/weather_stations/templates/settings_page.html:142
 #: plugins/weather_stations/templates/settings_page.html:196
-#: plugins/weather_stations/templates/settings_page.html:247
+#: plugins/weather_stations/templates/settings_page.html:248
 msgid ""
 "Your scale from green color (from - to). Example: 0,10,20,30 (type to from "
 "20 to 30)."
@@ -11341,12 +11712,12 @@ msgid "Show this Water Volume"
 msgstr "Zobrazit tento objem vody"
 
 #: plugins/weather_stations/templates/settings_page.html:110
-msgid "Name for Canvas Water Volume"
-msgstr "Název pro měřák objem vody"
-
-#: plugins/weather_stations/templates/settings_page.html:112
 msgid "Name for Canvas Water Percent"
 msgstr "Název pro měřák procenta vody"
+
+#: plugins/weather_stations/templates/settings_page.html:112
+msgid "Name for Canvas Water Volume"
+msgstr "Název pro měřák objem vody"
 
 #: plugins/weather_stations/templates/settings_page.html:159
 msgid "Show this Wind Speed"
@@ -11360,19 +11731,19 @@ msgstr "Název pro měřák rychlost větru"
 msgid "Open Sensors"
 msgstr "Otevřít snímače"
 
-#: plugins/weather_stations/templates/settings_page.html:211
+#: plugins/weather_stations/templates/settings_page.html:212
 msgid "("
 msgstr "("
 
-#: plugins/weather_stations/templates/settings_page.html:211
+#: plugins/weather_stations/templates/settings_page.html:212
 msgid "Show this Sensor"
 msgstr "Zobrazit tento snímač"
 
-#: plugins/weather_stations/templates/settings_page.html:212
+#: plugins/weather_stations/templates/settings_page.html:213
 msgid "When checked, showing this sensor (text) is enabled."
 msgstr "Je-li zaškrtnuto, je povoleno zobrazení tohoto snímače (textu)."
 
-#: plugins/weather_stations/templates/settings_page.html:217
+#: plugins/weather_stations/templates/settings_page.html:218
 msgid "Name for Canvas"
 msgstr "Název pro měřák"
 
@@ -11880,6 +12251,9 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:212
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Stop all station"
+#~ msgstr "Zastavit všechny stanice"
 
 #~ msgid "please readme in HELP."
 #~ msgstr "prosím, přečtěte si readme v nápovědě."

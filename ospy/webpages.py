@@ -31,7 +31,7 @@ try:
     import requests
 
 except ImportError:
-    print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
+    print_report('usagestats.py', _(u'Requests not found, installing. Please wait...'))
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
@@ -99,7 +99,7 @@ signin_form = form.Form(
     form.Password('password', description=_('Password:')),
     validators=[
         form.Validator(
-            _('Incorrect username or password, please try again...'),
+            _(u'Incorrect username or password, please try again...'),
             lambda x: test_password(x["password"], x["username"])
         )  
     ]
@@ -476,7 +476,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[]) # for multiple select LO/HI programs
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[], reg_output=[]) # for save multiple select
         multi_type = -1
         sen_type = -1
 
@@ -498,6 +498,11 @@ class sensor_page(ProtectedPage):
                 sensor.enabled = 1
             else:
                 sensor.enabled = 0
+
+            if 'show_in_footer' in qdict and qdict['show_in_footer'] == 'on':
+                sensor.show_in_footer = 1
+            else:
+                sensor.show_in_footer = 0
 
             if 'senscode' in qdict: 
                 if len(qdict['senscode'])>16 or len(qdict['senscode'])<16:
@@ -593,12 +598,38 @@ class sensor_page(ProtectedPage):
             elif sen_type == 6 and multi_type == 8:      # multi sonic
                 sensor.trigger_low_program = qdict['SL']
                 sensor.trigger_high_program = qdict['SH']
-
-            if 'sonic_top' in qdict:
-                sensor.sonic_top = qdict['sonic_top']
-
-            if 'sonic_bot' in qdict:
-                sensor.sonic_bot = qdict['sonic_bot']
+                if 'distance_top' in qdict:
+                    sensor.distance_top = qdict['distance_top']
+                if 'distance_bottom' in qdict:
+                    sensor.distance_bottom = qdict['distance_bottom']
+                if 'water_minimum' in qdict:
+                    sensor.water_minimum = qdict['water_minimum']
+                if 'diameter' in qdict:
+                    sensor.diameter = qdict['diameter']
+                if 'check_liters' in qdict:
+                    sensor.check_liters = qdict['check_liters']
+                if 'use_stop' in qdict:
+                    sensor.use_stop = qdict['use_stop']
+                if 'use_water_stop' in qdict:
+                    sensor.use_water_stop = qdict['use_water_stop']
+                if 'used_stations' in qdict:
+                    sensor.used_stations = qdict['used_stations']
+                if 'enable_reg' in qdict:
+                    sensor.enable_reg = qdict['enable_reg']
+                if 'reg_max' in qdict:
+                    sensor.reg_max = qdict['reg_max'] 
+                if 'reg_mm' in qdict:
+                    sensor.reg_mm = qdict['reg_mm']
+                if 'reg_ss' in qdict:
+                    sensor.reg_ss = qdict['reg_ss']
+                if 'reg_min' in qdict:
+                    sensor.reg_min = qdict['reg_min'] 
+                if 'reg_output' in qdict:
+                    sensor.reg_output = qdict['reg_output']
+                if 'trigger_low_threshold_s' in qdict:
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold_s'] 
+                if 'trigger_high_threshold_s' in qdict:
+                    sensor.trigger_high_threshold = qdict['trigger_high_threshold_s']
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip
