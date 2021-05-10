@@ -341,26 +341,40 @@ class sensor_page(ProtectedPage):
                 raise web.seeother(u'/sensors') 
 
             elif log:
-                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
+                slog_file = []
+                elog_file = []
+                dir_name_log = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
+
+                if not os.path.isfile(dir_name_log + '/' + 'slog.json'):
+                    from ospy.sensors import sensors_timer
+                    sensor = sensors.get(index)
+                    sensors_timer.update_log(sensor, 'lgs', '-')
+
+                if not os.path.isfile(dir_name_log + '/' + 'elog.json'):
+                    from ospy.sensors import sensors_timer
+                    sensor = sensors.get(index)
+                    sensors_timer.update_log(sensor, 'lge', '-')
+
                 try:
-                    with open(dir_name_slog) as logf:
+                    with open(dir_name_log + '/' + 'slog.json') as logf:
                         slog_file =  json.load(logf)
                 except IOError:
-                    slog_file = []
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
 
-                dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
                 try:
-                    with open(dir_name_elog) as logf:
+                    with open(dir_name_log + '/' + 'elog.json') as logf:
                         elog_file =  json.load(logf)
                 except IOError:
-                    elog_file = []    
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
 
                 try:
                     name = sensors[index].name
                     stype = sensors[index].sens_type
                     mtype = sensors[index].multi_type
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
-                except:    
+                except:
                     print_report('webpages.py', traceback.format_exc())
 
             elif glog:
@@ -476,7 +490,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[], reg_output=[]) # for save multiple select
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[]) # for save multiple select
         multi_type = -1
         sen_type = -1
 
@@ -607,15 +621,23 @@ class sensor_page(ProtectedPage):
                 if 'diameter' in qdict:
                     sensor.diameter = qdict['diameter']
                 if 'check_liters' in qdict:
-                    sensor.check_liters = qdict['check_liters']
+                    sensor.check_liters = 1
+                else:
+                    sensor.check_liters = 0
                 if 'use_stop' in qdict:
-                    sensor.use_stop = qdict['use_stop']
+                    sensor.use_stop = 1
+                else:
+                    sensor.use_stop = 0
                 if 'use_water_stop' in qdict:
-                    sensor.use_water_stop = qdict['use_water_stop']
+                    sensor.use_water_stop = 1
+                else:
+                    sensor.use_water_stop = 0    
                 if 'used_stations' in qdict:
                     sensor.used_stations = qdict['used_stations']
                 if 'enable_reg' in qdict:
-                    sensor.enable_reg = qdict['enable_reg']
+                    sensor.enable_reg = 1
+                else:
+                    sensor.enable_reg = 0    
                 if 'reg_max' in qdict:
                     sensor.reg_max = qdict['reg_max'] 
                 if 'reg_mm' in qdict:

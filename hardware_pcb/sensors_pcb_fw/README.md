@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.09
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added fake test for DS1-DS4 DS18B20 sensors (China clone sensors).
+
 FW: 1.08
 -----------
 (martinpihrt)<br/>

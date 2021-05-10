@@ -4,7 +4,12 @@ $var title: $_('Sensor Log')
 $var page: log
 
 $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion')]
+$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic')]
+
+<a href="/sensors" class="button refresh">$_('Cancel')</a>
+<a href="" class="button refresh">$_('Refresh')</a>
+<a href="/sensor/${index}?graph" class="button upload"> $_(u'View Graph')</a>
+<a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
 
 <div id="options">
     <div class="title">$_('Event Log') - ${name}</div>
@@ -56,6 +61,8 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
                         &deg$_('F')
                     $else:
                         &deg$_('C')
+                $elif stype == 6 and mtype == 8:
+                    $_('cm')
                 </td>
                 <td align='center'>${event["action"]}</td>
             </tr>

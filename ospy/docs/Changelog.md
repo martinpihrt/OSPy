@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+May 10 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.09: Added test for DS1-DS4 DS18B20 sensors (for fake clone sensors from China). Repairing known bugs.<br/>
+OSPy: Updating button control plug-in. Fix bug in webpages (sensor log table - if not record yet). Cosmetics fix hmtl css in sensor search page and readme.md file. Ultrasonic probe on multisensor now read samples and show data on footer (on home page). Not complete for use!!
+
 May 04 2021
 -----------
 (martinpihrt)<br/>
