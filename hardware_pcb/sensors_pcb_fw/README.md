@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.10
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added function to webserver for starting AP manager from OSPy.
+
 FW: 1.09
 -----------
 (martinpihrt)<br/>

@@ -176,7 +176,28 @@ class sensors_firmware(ProtectedPage):
         statusCode = qdict.get('statusCode', 'None')
         
         if session['category'] != 'admin':
-            raise web.seeother(u'/')           
+            raise web.seeother(u'/')
+
+        if 'aid' in qdict:
+            index = int(qdict['aid'])
+            sensor = sensors.get(index)
+            try: 
+                send_ip = '.'.join(sensor.ip_address) 
+                send_url = 'http://' + send_ip + '/AP_' + options.sensor_fw_passwd   # ex: http://192.168.88.207/AP_0123456789abcdef
+                response = requests.post(send_url)
+                resp_code = response.status_code
+                print_report('webpages.py', resp_code)
+                if resp_code == 200:
+                    statusCode = qdict.get('statusCode', 'ap_ok')                    # msg = The sensor responded and probably started the AP manager
+                elif resp_code == 404:
+                    statusCode = qdict.get('statusCode', 'err5')                     # msg = It was not processed, the command does not exist in the sensor. Do you have the latest FW version of the sensor?                   
+                else:
+                    statusCode = qdict.get('statusCode', 'err6')                     # msg = An error, the sensor did not respond correctly!
+                return self.core_render.sensors_firmware(statusCode)
+            except:
+                pass
+                statusCode = qdict.get('statusCode', 'err7')                         # msg = Sensor does not respond!
+                return self.core_render.sensors_firmware(statusCode)
         
         if 'id' in qdict:
             index = int(qdict['id'])
@@ -249,7 +270,76 @@ class sensors_firmware(ProtectedPage):
         if session['category'] != 'admin':
             raise web.seeother(u'/')
 
-        return self.core_render.sensors_firmware()
+        qdict = web.input()
+        statusCode = qdict.get('statusCode', 'None')
+        cid = get_input(qdict, 'cid', False, lambda x: True)                         # cid=1 is custom form file uploading
+
+        if 'ip_address' and 'port' and 'pass' in qdict and cid:
+            ip = qdict['ip_address']
+            port = qdict['port']
+            pwd = qdict['pass']
+            if ip =='' or port == '' or pwd == '':
+                statusCode = qdict.get('statusCode', 'err9')                         # msg = IP or port or password is not inserted!
+                return self.core_render.sensors_firmware(statusCode)
+
+            protocol = None
+            if 'protocol' in qdict:
+                protocol = qdict['protocol']                                         # 0=http, 1=https 
+            if 'uploadfile' in qdict:
+                i = web.input(uploadfile={})
+                #web.debug(i['uploadfile'].filename)    # This is the filename
+                #web.debug(i['uploadfile'].value)       # This is the file contents
+                #web.debug(i['uploadfile'].file.read()) # Or use a file(-like) object
+                upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)]   # only .bin and hex file accepted
+                types = ['.hex','.bin']
+                if upload_type not in types:                                         # check file type is not ok
+                    statusCode = qdict.get('statusCode', 'err8')                     # msg = Accepted is only *.hex or *.bin files!
+                    return self.core_render.sensors_firmware(statusCode)
+                fw_path = None
+                fw_name = None
+                    
+                if upload_type == '.bin':
+                    fw_path = './ospy/data/userfw.bin'
+                    fw_name = 'userfw.bin'
+                elif upload_type == '.hex':
+                    fw_path = './ospy/data/userfw.hex'
+                    fw_name = 'userfw.hex'
+                if not os.path.isfile(fw_path):
+                    fout = open(fw_path,'w') 
+                    fout.write(i.uploadfile.file.read()) 
+                    fout.close()
+                    log.debug('webpages.py', _(u'File {} has sucesfully uploaded...').format(i.uploadfile.filename))
+                else:
+                    os.remove(fw_path) 
+                    fout = open(fw_path,'w')  # temporary file after uploading
+                    fout.write(i.uploadfile.file.read()) 
+                    fout.close()         
+                    log.debug('webpages.py', _(u'File has sucesfully uploaded...')) 
+
+                try:
+                    kind = 'http://'
+                    if protocol == "1":
+                        kind = 'https://'
+                    send_url = kind + ip + '/FW_' + pwd
+                    if fw_path is not None:
+                        with open(fw_path) as file:
+                            response = requests.post(send_url, files={fw_name: file}) 
+                        resp_code = response.status_code
+                        print_report('webpages.py', resp_code)
+                        if resp_code == 200:
+                            statusCode = qdict.get('statusCode', 'upl_ok')           # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
+                            os.remove(fw_path)
+                        elif resp_code == 404:
+                            statusCode = qdict.get('statusCode', 'err3')             # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!                    
+                        else:
+                            statusCode = qdict.get('statusCode', 'err4')             # msg = The new firmware could not be uploaded into the sensor. An error has occurred!    
+                except:
+                    pass
+                    statusCode = qdict.get('statusCode', 'err2')                     # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
+                    print_report('webpages.py', traceback.format_exc())
+                    return self.core_render.sensors_firmware(statusCode)
+
+        return self.core_render.sensors_firmware(statusCode)
 
 class sensors_page(ProtectedPage):
     """Open all sensors page. /sensors"""
@@ -375,6 +465,7 @@ class sensor_page(ProtectedPage):
                     mtype = sensors[index].multi_type
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
                 except:
+                    pass
                     print_report('webpages.py', traceback.format_exc())
 
             elif glog:
@@ -620,6 +711,8 @@ class sensor_page(ProtectedPage):
                     sensor.water_minimum = qdict['water_minimum']
                 if 'diameter' in qdict:
                     sensor.diameter = qdict['diameter']
+                if 'delay_duration' in qdict:
+                    sensor.delay_duration = qdict['delay_duration']
                 if 'check_liters' in qdict:
                     sensor.check_liters = 1
                 else:
@@ -631,15 +724,15 @@ class sensor_page(ProtectedPage):
                 if 'use_water_stop' in qdict:
                     sensor.use_water_stop = 1
                 else:
-                    sensor.use_water_stop = 0    
+                    sensor.use_water_stop = 0
                 if 'used_stations' in qdict:
                     sensor.used_stations = qdict['used_stations']
                 if 'enable_reg' in qdict:
                     sensor.enable_reg = 1
                 else:
-                    sensor.enable_reg = 0    
+                    sensor.enable_reg = 0
                 if 'reg_max' in qdict:
-                    sensor.reg_max = qdict['reg_max'] 
+                    sensor.reg_max = qdict['reg_max']
                 if 'reg_mm' in qdict:
                     sensor.reg_mm = qdict['reg_mm']
                 if 'reg_ss' in qdict:

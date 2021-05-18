@@ -163,6 +163,8 @@ class _PluginChecker(threading.Thread):
         import hashlib
         import logging
         from ospy.options import options
+        import web
+        from ospy.helpers import template_globals
 
         result = {}
 
@@ -194,23 +196,20 @@ class _PluginChecker(threading.Thread):
                                 plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
                                 plugin_hash += hex(zip_info.CRC)
 
+                    has_error = False
                     if load_read_me:
-                        has_error = False
-                        
                         try:
-                            import web
-                            import markdown
-                            from ospy.helpers import template_globals
-
-                            converted = markdown.markdown(zip_file.read(init_dir + '/README.md').decode('utf-8'), extensions=['partial_gfm', 'markdown.extensions.codehilite'])
+                            import markdown2
+                            converted = markdown2.markdown(zip_file.read(init_dir + '/README.md').decode('utf-8')) 
                             read_me = web.template.Template(converted, globals=template_globals())()
                         except Exception:
                             has_error = True
                             converted = zip_file.read(init_dir + '/README.md').decode('utf-8')
-                            read_me = web.template.Template(converted, globals=template_globals())()  
+                            read_me = web.template.Template(converted, globals=template_globals())()
+                            logging.error(_(u'Failed in markdown:') + ' ' + str(traceback.format_exc()))
 
-                        options.plugin_readme_error = has_error                             
-                                 
+                    if options.plugin_readme_error != has_error:
+                        options.plugin_readme_error = has_error
 
                     result[plugin_id] = {
                         'name': _plugin_name(zip_file.read(init).splitlines()),

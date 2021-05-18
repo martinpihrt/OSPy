@@ -735,28 +735,26 @@ def get_help_file(id):
                 filename = option[2]
 
                 import io
-
-                ### Usually non-ASCII data is received from a file. The io module provides a TextWrapper that decodes your file on the fly, using a given encoding.                    ###
-                ### You must use the correct encoding for the file - it can't be easily guessed. For example, for a UTF-8 file:                                                        ###  
-                ### my_unicode_string would then be suitable for passing to Markdown. If a UnicodeDecodeError from the read() line, then you've probably used the wrong encoding value.###
-                ### https://stackoverflow.com/questions/21129020/how-to-fix-unicodedecodeerror-ascii-codec-cant-decode-byte                                                            ###
   
                 with io.open(filename, "r", encoding="utf-8") as fh: 
                     my_unicode_string = fh.read() 
 
-                    import markdown
-
-                    try: 
-                        converted = markdown.markdown(my_unicode_string, extensions=['partial_gfm', 'markdown.extensions.codehilite'])
+                    try:
+                        import markdown2 
+                        converted = markdown2.markdown(my_unicode_string)
+                        if options.ospy_readme_error != has_error:
+                            options.ospy_readme_error = has_error                        
                         return web.template.Template(converted, globals=template_globals())()
-
                     except:    
                         has_error = True
-                        options.ospy_readme_error = has_error
-                        return web.template.Template(my_unicode_string, globals=template_globals())()   
+                        print_report('helpers.py', traceback.format_exc())
+                        if options.ospy_readme_error != has_error:
+                            options.ospy_readme_error = has_error
+                        return web.template.Template(my_unicode_string, globals=template_globals())()
+
    
     except Exception:
-        return ''                          
+        return ''
 
 
 def ASCI_convert(name):

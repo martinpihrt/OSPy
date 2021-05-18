@@ -192,13 +192,12 @@ if __name__ == '__main__':
 
         if not pkg:
             print_report('setup.py', _(u'Cannot install packages without setuptools.'))
-        else:
-            # Check if packages are available:
-            install_package('gfm', None, None,
-                            'https://github.com/martinpihrt/py-gfm.git',
+        else:           
+            install_package('markdown2', None, None,
+                            'https://github.com/martinpihrt/python-markdown2',
                             [[sys.executable, 'setup.py', 'install']],
-                            'https://github.com/martinpihrt/py-gfm/archive/master.zip', 'py-gfm-master',
-                            [[sys.executable, 'setup.py', 'install']])
+                            'https://github.com/martinpihrt/python-markdown2/archive/master.zip', 'python-markdown2-master',
+                            [[sys.executable, 'setup.py', 'install']])            
 
             install_package('pygments', 'pygments', 'python-pygments',
                             'https://github.com/martinpihrt/pygments', #'http://bitbucket.org/birkenfeld/pygments-main',

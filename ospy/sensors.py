@@ -13,7 +13,7 @@ import os
 import json
 
 # Local imports
-from ospy.options import options
+from ospy.options import options, rain_blocks
 from ospy.helpers import now, password_hash, datetime_string, mkdir_p
 from ospy.log import log, logEM
 from ospy.programs import programs
@@ -76,6 +76,11 @@ class _Sensor(object):
         self.reg_ss = 0                 # Maximum run time in activate sec
         self.reg_min = 90               # If the measured water level falls below this set value, the output is deactivated
         self.reg_output = 0             # Select Output for regulation
+        self.delay_duration = 0         # rain delay if water is not in tank (water minimum)
+        self.aux_mini = 1               # Auxiliary value true and false for triggering events only when changed (water minimum)
+        self.aux_reg_u = 1              # Auxiliary value true and false for triggering events only when changed (regulation >)
+        self.aux_reg_d = 1              # Auxiliary value true and false for triggering events only when changed (regulation <)
+        self.aux_reg_p = 1              # Auxiliary value true and false for triggering events only when changed (probe fault)
  
         options.load(self, index) 
 
@@ -93,7 +98,7 @@ class _Sensor(object):
                 options.save(self, self.index)
         except ValueError:  # No index available yet
             logging.debug(traceback.format_exc())
-            pass                                             
+            pass
                 
 
 class _Sensors(object):
@@ -176,6 +181,8 @@ class _Sensors_Timer(Thread):
     def __init__(self):
         super(_Sensors_Timer, self).__init__()
         self.status = []
+        self.last_msg = u''
+        self.err_msg = u''
         self._sleep_time = 0
         self.daemon = True
     
@@ -411,6 +418,7 @@ class _Sensors_Timer(Thread):
         return ((x - in_min) * (out_max - out_min)) / ((in_max - in_min) + out_min)
 
     def get_tank_cm(self, level, dbot, dtop):
+        """ Return tank level in cm from bottom """
         try:
             if level < 0:
                 return -1
@@ -421,6 +429,36 @@ class _Sensors_Timer(Thread):
                 return -1
         except:
             return -1
+
+    def set_stations_in_scheduler_off(self, sensor):
+        """Stoping selected station in scheduler."""
+        try:
+            current_time  = datetime.datetime.now()
+            check_start = current_time - datetime.timedelta(days=1)
+            check_end = current_time + datetime.timedelta(days=1)
+
+            # In manual mode we cannot predict, we only know what is currently running and the history
+            if options.manual_mode:
+                active = log.finished_runs() + log.active_runs()
+            else:
+                active = combined_schedule(check_start, check_end)
+
+            ending = False
+
+            # active stations
+            for entry in active:
+                for used_stations in sensor.used_stations:            # selected stations for stoping
+                    if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
+                        log.finish_run(entry)                         # save end in log 
+                        stations.deactivate(entry['station'])         # stations to OFF
+                        ending = True   
+
+            if ending:
+                logging.info(_(u'Stoping stations in scheduler'))
+        except:
+            logging.debug(traceback.format_exc())
+            pass
+
 
     def check_sensors(self):
         for sensor in sensors.get():
@@ -582,8 +620,13 @@ class _Sensors_Timer(Thread):
                             sensor.last_log_samples = now()
                             self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples 
 
+                    self.err_msg = _(u'Sensor: {} response!').format(sensor.name)
+
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    self.err_msg = _(u'Sensor: {} not response!').format(sensor.name)
+                    if self.last_msg != self.err_msg:
+                        self.last_msg = self.err_msg
+                        logging.warning(self.err_msg)
                     if sensor.show_in_footer:
                         self.start_status(sensor.name, _(u'Not response!'), sensor.index)
 
@@ -734,9 +777,15 @@ class _Sensors_Timer(Thread):
                             sensor.last_log_samples = now()
                             self.update_log(sensor, 'lgs', state)                      # lge is event, lgs is samples   
 
+                    self.err_msg = _(u'Sensor: {} response!').format(sensor.name)
+
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
-                    self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                    self.err_msg = _(u'Sensor: {} not response!').format(sensor.name)
+                    if self.last_msg != self.err_msg:
+                        self.last_msg = self.err_msg
+                        logging.warning(self.err_msg)
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
 
             ### Leak Detector, Multi Leak Detector ###
             if sensor.sens_type == 2 or (sensor.sens_type == 6 and sensor.multi_type == 5): 
@@ -780,8 +829,14 @@ class _Sensors_Timer(Thread):
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
                             self.update_log(sensor, 'lgs', liters_per_sec)                               # lge is event, lgs is samples 
+
+                    self.err_msg = _(u'Sensor: {} response!').format(sensor.name)
+
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    self.err_msg = _(u'Sensor: {} not response!').format(sensor.name)
+                    if self.last_msg != self.err_msg:
+                        self.last_msg = self.err_msg
+                        logging.warning(self.err_msg)
                     if sensor.show_in_footer:
                         self.start_status(sensor.name, _(u'Not response!'), sensor.index)
 
@@ -796,6 +851,8 @@ class _Sensors_Timer(Thread):
                         sensor.last_read_value = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
                         if sensor.show_in_footer:
                             self.start_status(sensor.name, _(u'Sonic probe fault?'), sensor.index)
+                        if sensor.use_water_stop:                            # If the level sensor fails, the above selected stations in the scheduler will stop
+                            self.set_stations_in_scheduler_off(sensor)
 
                     if sensor.last_read_value[8] != sensor.prev_read_value:
                         sensor.prev_read_value = sensor.last_read_value[8]
@@ -806,15 +863,19 @@ class _Sensors_Timer(Thread):
                     percent_in_tank = 0
 
                     if state > 0:
-                        level_in_tank = self.get_tank_cm(state, sensor.distance_bottom, sensor.distance_top)
-                        percent_in_tank = self.get_percent(level_in_tank, sensor.distance_bottom, sensor.distance_top)
+                        if changed_state:
+                            sensor.aux_reg_p = 1
+
+                        level_in_tank = self.get_tank_cm(state, sensor.distance_bottom, sensor.distance_top)            # tank level in cm from ping
+                        percent_in_tank = self.get_percent(level_in_tank, sensor.distance_bottom, sensor.distance_top)  # percent in tank from tank level
+
                         if sensor.check_liters:
                             # in liters 
-                            volume_in_tank = self.get_volume(level_in_tank, sensor.diameter, True)
+                            volume_in_tank = self.get_volume(level_in_tank, sensor.diameter, True)                      # volume in tank from tank level in liters
                             tempText = str(volume_in_tank) + ' ' + _(u'liters') + ', ' + str(level_in_tank) + ' ' + _(u'cm') + ' (' + str(percent_in_tank) + ' ' + (u'%)')
                         else:
                             # in m3
-                            volume_in_tank = self.get_volume(level_in_tank, sensor.diameter, False)
+                            volume_in_tank = self.get_volume(level_in_tank, sensor.diameter, False)                     # volume in tank from tank level in m3
                             tempText = str(volume_in_tank) + ' ' + _(u'm3') + ', ' + str(level_in_tank) + ' ' + _(u'cm') + ' (' + str(percent_in_tank) + ' ' + (u'%)')
 
                         if sensor.show_in_footer:
@@ -822,45 +883,26 @@ class _Sensors_Timer(Thread):
                     else:
                         if sensor.show_in_footer:
                             self.start_status(sensor.name, _(u'Sonic probe fault?'), sensor.index)
-
-                    major_change = False
-                    status_update = False
-# not tested!-------------------------------
-                    ### run programs ###
-                    if state > float(sensor.trigger_high_threshold) and changed_state:    # cm >
-                        (major_change, status_update) = self._check_high_trigger(sensor)
-                        sensor.last_high_report = now()
-                        action = _(u'High Trigger') if major_change else _(u'High Value')
-                        if status_update:
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action)             # wait for reading to be updated
-                        if major_change:
-                            self._trigger_programs(sensor, sensor.trigger_high_program)
-                    elif state < float(sensor.trigger_low_threshold) and changed_state:   # cm <
-                        (major_change, status_update) = self._check_low_trigger(sensor)
-                        sensor.last_low_report = now()
-                        action = _(u'Low Trigger') if major_change else _(u'Low Value')
-                        if status_update:
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action)             # wait for reading to be updated
-                        if major_change:
-                            self._trigger_programs(sensor, sensor.trigger_low_program)
-                    else:
-                        if changed_state:
-                            (major_change, status_update) = self._check_good_trigger(sensor)
-                            sensor.last_good_report = now()
-                            action = _(u'Normal Trigger') if major_change else _(u'Normal Value')
-                            if status_update:
-                                if sensor.log_samples:
-                                    self.update_log(sensor, 'lgs', state, action)         # wait for reading to be updated
-
-# funguje regulation, ale doresit toto                    major_change = True                
+                        if sensor.use_water_stop: # If the level sensor fails, the above selected stations in the scheduler will stop
+                            if int(sensor.aux_reg_p)==1:
+                                sensor.aux_reg_p = 0
+                                self.set_stations_in_scheduler_off(sensor)
+                                if sensor.log_event:
+                                    self.update_log(sensor, 'lge', _(u'Sonic probe fault?'))
+                                if sensor.send_email: # Send Email?
+                                    text = _(u'Sensor') + u': {}'.format(sensor.name)
+                                    subj = _(u'Sensor {}').format(sensor.name)
+                                    body = _(u'Sensor Notification') + u': ' + _(u'Sonic probe fault?')
+                                    self._try_send_mail(body, text, attachment=None, subject=subj)
 
                     ### regulation water in tank if enable regulation ###
-                    if level_in_tank > 0 and sensor.enable_reg and changed_state:         # if enable regulation "maximum water level"
+                    if level_in_tank > 0 and sensor.enable_reg:                           # if enable regulation "maximum water level"
                             reg_station = stations.get(int(sensor.reg_output))
+                            ### level > regulation maximum ###
                             if level_in_tank > int(sensor.reg_max):                       # if actual level in tank > set maximum water level
-                                if major_change:
+                                if int(sensor.aux_reg_u)==1:
+                                    sensor.aux_reg_u = 0
+                                    sensor.aux_reg_d = 1
                                     regulation_text = _(u'Regulation set ON.') + ' ' + ' (' + _(u'Output') + ' ' +  str(reg_station.index+1) + ').'
                                    
                                     start = datetime.datetime.now()
@@ -887,10 +929,12 @@ class _Sensors_Timer(Thread):
                                     if sensor.log_event:
                                         self.update_log(sensor, 'lge', u'{}'.format(regulation_text))
                 
-                            if level_in_tank < int(sensor.reg_min):                       # if actual level in tank < set minimum water level
-                                if major_change:
+                            ### level < regulation minimum ### 
+                            if level_in_tank < int(sensor.reg_min):
+                                if int(sensor.aux_reg_d)==1:
+                                    sensor.aux_reg_u = 1
+                                    sensor.aux_reg_d = 0
                                     regulation_text = _(u'Regulation set OFF.') + ' ' + ' (' + _(u'Output') + ' ' +  str(reg_station.index+1) + ').'
-                                    
                                     sid = reg_station.index
                                     stations.deactivate(sid)
                                     active = log.active_runs()
@@ -900,28 +944,71 @@ class _Sensors_Timer(Thread):
                                     if sensor.log_event:
                                         self.update_log(sensor, 'lge', u'{}'.format(regulation_text))
 
-#   todo                 if level_in_tank <= int(sensor.water_minimum) and not options.manual_mode: 
-#                           if sensor.use_water_stop:                             # If the level sensor fails, the above selected stations in the scheduler will stop
-    
-#                            if sensor.use_stop:                                   #  Stop stations if minimum water level
-#                                set_stations_in_scheduler_off()         
-#                                log.info(NAME, datetime_string() + ' ' + _(u'ERROR: Water in Tank') + ' < ' + str(tank_options['water_minimum']) + ' ' + _(u'cm') + _(u'!'))
-# not tested!-------------------------------
-
-                    if major_change:
-                        if sensor.send_email:
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, self.status[sensor.index][1])
-                            subj = _(u'Sensor Change')
-                            body = _(u'Sensor Change') + u': {} ({})'.format(sensor.name,  self.status[sensor.index][1])
+                    ### level in tank has minimum +5cm refresh ###
+                    if level_in_tank > int(sensor.water_minimum)+5 and int(sensor.aux_mini)==0:
+                        sensor.aux_mini = 1
+                        action = _(u'Normal Trigger') 
+                        if sensor.log_samples:
+                            self.update_log(sensor, 'lgs', level_in_tank, action)
+                        delaytime = int(sensor.delay_duration) # if the level in the tank rises above the minimum +5 cm, the delay is deactivated
+                        regulation_text = _(u'Water in Tank') + ' > ' + str(int(sensor.water_minimum)+5) + _(u'cm')
+                        if sensor.log_event:
+                            self.update_log(sensor, 'lge', u'{}'.format(regulation_text))
+                        rd_text = None
+                        if delaytime > 0:
+                            if sensor.name in rain_blocks:
+                                del rain_blocks[sensor.name]
+                                rd_text = _(u'Removing Rain delay')
+                                if sensor.log_event:
+                                    self.update_log(sensor, 'lge', u'{}'.format(rd_text))
+                        if sensor.send_email: # Send Email?
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, regulation_text)
+                            subj = _(u'Sensor {}').format(sensor.name)
+                            body = _(u'Sensor has water') + u': {}'.format(regulation_text)
+                            if rd_text is not None:
+                                body += '<br>' + rd_text
                             self._try_send_mail(body, text, attachment=None, subject=subj)
 
+                    ### level in tank has minimum ### 
+                    if level_in_tank <= int(sensor.water_minimum) and int(sensor.aux_mini)==1 and not options.manual_mode and level_in_tank > 1: # level value is lower
+                        sensor.aux_mini = 0
+                        action = _(u'Low Trigger') 
+                        if sensor.log_samples:
+                            self.update_log(sensor, 'lgs', level_in_tank, action) 
+                        if sensor.use_stop:   # Stop stations if minimum water level?
+                            self.set_stations_in_scheduler_off(sensor)
+                            regulation_text = _(u'Water in Tank') + ' < ' + str(sensor.water_minimum) + ' ' + _(u'cm') + _(u'!')
+                            if sensor.log_event:
+                                self.update_log(sensor, 'lge', u'{}'.format(regulation_text))
+                            delaytime = int(sensor.delay_duration)
+                            rd_text = None
+                            if delaytime > 0: # if there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking
+                                rain_blocks[sensor.name] = datetime.datetime.now() + datetime.timedelta(hours=float(delaytime))
+                                rd_text = _(u'Rain delay') + ' ' + str(delaytime) + ' ' + _(u'hours.')
+                                if sensor.log_event:
+                                    self.update_log(sensor, 'lge', u'{}'.format(rd_text))
+                                if sensor.send_email: # Send Email?
+                                    text = _(u'Sensor') + u': {} ({})'.format(sensor.name, regulation_text)
+                                    subj = _(u'Sensor {}').format(sensor.name)
+                                    body = _(u'Sensor has water minimum') + u': {}'.format(regulation_text)
+                                    if rd_text is not None:
+                                        body += '<br>' + rd_text
+                                    self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self.set_stations_in_scheduler_off(sensor)
+
+                    ### log samples ###
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', level_in_tank)              # lge is event, lgs is samples 
+                            self.update_log(sensor, 'lgs', level_in_tank)              # lge is event, lgs is samples
+
+                    self.err_msg = _(u'Sensor: {} response!').format(sensor.name)
 
                 else:
-                    logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                    self.err_msg = _(u'Sensor: {} not response!').format(sensor.name)
+                    if self.last_msg != self.err_msg:
+                        self.last_msg = self.err_msg
+                        logging.warning(self.err_msg)
                     if sensor.show_in_footer:
                         self.start_status(sensor.name, _(u'Not response!'), sensor.index)
 
@@ -937,4 +1024,3 @@ class _Sensors_Timer(Thread):
                 self._sleep(5)
 
 sensors_timer = _Sensors_Timer()
-

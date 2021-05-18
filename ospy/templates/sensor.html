@@ -3,9 +3,13 @@ $def with (sensor, errorCode)
 $var title: $_('Modify Sensor')
 $var page: user
 
-$code:   
+$code:
     def two_digits(n):
-        return '%02d' % int(n) 
+        return '%02d' % int(n)
+
+    def version(s):
+        res = [int(x) for x in str(s)]  
+        return u"{}.{}{}".format(res[0], res[1], res[2])
 
 <script src="/static/scripts/autosize.min.js"></script>
 
@@ -419,10 +423,16 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stop stations if minimum water level'):</span></td>
                 <td><input name="use_stop" type="checkbox" ${" checked" if sensor.use_stop else ""} title=$:{json.dumps(_(u'Stoping these stations if is minimum water level in the tank'), ensure_ascii=False)}>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Delay Duration (hours)'):</span></td>
+                <td title=$:{json.dumps(_(u'If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + 5 cm, the delay is deactivated'), ensure_ascii=False)}>
+                <input name="delay_duration" type="number" min="0" max="96" value="${sensor.delay_duration}">
                 </td>
                 </tr>
                 <tr>
@@ -469,39 +479,7 @@ jQuery(document).ready(function(){
                     <option value="${str(station.index)}" ${"selected" if sensor.reg_output==str(station.index) else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
                 </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                    <hr>
-                    </th>
-                </tr>                 
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="trigger_low_threshold_s" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_low_threshold_s" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_(u'Enter value for low threshold'), ensure_ascii=False)}> $_(u'cm')                                                          
-                </td>
-                </tr>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
-                <td><select name="SL" id="SL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run'), ensure_ascii=False)}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>
-                $for program in programs.get():
-                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
-                </select>
-                </td>
-                </tr>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="trigger_high_threshold_s" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_high_threshold_s" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_(u'Enter value for high threshold.'), ensure_ascii=False)}> $_(u'cm')
-                </tr>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
-                <td><select name="SH" id="SH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
-                $for program in programs.get():
-                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
-                </select>
-                </td>
-                </tr>
+                </tr>     
                 </table>
             </div>
 
@@ -603,7 +581,9 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>            
                 <td style='text-transform: none;'><span class="sensor_label">$_('Firmware Version'):</span><td>  
-                <td>${float(sensor.fw)/100.0}</td>
+                <td>
+                ${version(sensor.fw)}
+                </td>
                 </tr>
                 <tr>
                 <td><a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a></td>

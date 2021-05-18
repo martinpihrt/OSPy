@@ -1,12 +1,20 @@
 OSPy Changelog
 ====
 
+May 18 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language and translating to Slovak (Thank you Tomáš Szepesi). Fixed markdown in help files (now is used markdown2 from: https://github.com/trentm/python-markdown2). Suport form markdown in Python 2 is ended. If you not view correctly help file and readme file you must using SSH and type: "cd OSPy" and "sudo python setup.py install" for installing markdown2.<br/>
+Added new function in to the "tank monitor" extension  "rain delay" in case there is not enough water in the tank. Stations are blocked for a set time. <br/>
+Added new button to sensor firmware for starting AP manager (if you are not physically present at the sensor - without disassembling and pressing the AP button on the sensor). Available from ESP32 firmware version 1.10. Added upload form to "sensor fimware page" for uploading own custom update file. Working on sensors in core OSPy (still not done flow meter). Ultrasonic in multisensor is ready for using. Fixed in show firmware version in sensor (if the fw version was, for example, 1.10, then 1.1 was shown).<br/> ESP32 firmware update version 1.10: Added function to webserver for starting AP manager from OSPy.
+
 May 10 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-ESP32 firmware update version 1.09: Added test for DS1-DS4 DS18B20 sensors (for fake clone sensors from China). Repairing known bugs.<br/>
-OSPy: Updating button control plug-in. Fix bug in webpages (sensor log table - if not record yet). Cosmetics fix hmtl css in sensor search page and readme.md file. Ultrasonic probe on multisensor now read samples and show data on footer (on home page). Not complete for use!!
+ESP32 firmware update version 1.09: Added fake test for DS1-DS4 DS18B20 sensors (China clone sensors). Repair known bugs.<br/>
+OSPy: Updating button control plugin. Fix bug in webpages (sensor log table - if not record yet). Cosmetics fix hmtl css in sensor search page and readme.md file. Working on ultrasonic sensors.
 
 May 04 2021
 -----------

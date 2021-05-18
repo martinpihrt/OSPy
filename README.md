@@ -6,15 +6,15 @@ This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/
 ## More information visit
 [Pihrt.com](https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )
 
-YouTube OpenSprinkler channel
+YouTube OpenSprinkler channel</br>
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png?raw=true)](https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L)
 
 ## Hardware diagram
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
 
 ## Multisensor ESP32
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)</br>
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)</br>
 [Sensors by Pihrt.com](https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system)
 
 INSTALLATION:
@@ -175,9 +175,11 @@ OpenSprinkler Py (OSPy) Interval Program
 Creative Commons Attribution-ShareAlike 3.0 license
 
 ## Acknowledgements
-The program makes use of [web.py](http://webpy.org) for the web interface.
-The program makes use of [gfm](https://github.com/dart-lang/py-gfm) to render the help pages written in GitHub flavored markdown.
-The program makes use of [pygments](http://pygments.org) to provide syntax highlighting in the help pages.
-The program makes use of [OpenStreetMap](https://www.openstreetmap.org) to convert locations into coordinates.
-The program makes use of [Dark Sky API](https://darksky.net/poweredby/) for weather information.
-The program makes use of [Blinker](https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
+The program makes use of
+
+1. [Webpy](http://webpy.org) for the web interface.  
+2. [Python markdown2](https://github.com/trentm/python-markdown2) to render the help and readme pages written in markdown.  
+3. [Pygments](http://pygments.org) to provide syntax highlighting in the help pages.  
+4. [OpenStreetMap](https://www.openstreetmap.org) to convert locations into coordinates.  
+5. [Dark Sky API](https://darksky.net/poweredby/) for weather information.  
+6. [Blinker](https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.  

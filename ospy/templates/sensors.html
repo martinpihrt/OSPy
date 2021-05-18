@@ -26,6 +26,10 @@ $code:
                 result.append("{} {}".format(int(value), name))
         return ', '.join(result[:granularity])
 
+    def version(s):
+        res = [int(x) for x in str(s)]  
+        return u"{}.{}{}".format(res[0], res[1], res[2])
+
 <script>
 function updateFooter(){
     jQuery.getJSON("/update_footer", function(osVals) {
@@ -326,30 +330,13 @@ $if sensors.count()>0:
                     <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} (${_(u'Sensor has any error?')})</span></p>
                 $else:
                     <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'cm')</span></p>
-                <p>$_(u'Program(s)'): <span class="val">
-                $if "-1" in sensor.trigger_low_program:
-                    $_(u'None')
-                $if "-1" not in sensor.trigger_low_program:
-                    $for program in programs.get():
-                        $if str(program.index+1) in sensor.trigger_low_program:
-                            $program.name 
-                </span></p>
-                <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_(u'cm')</span></p>
-                <p>$_(u'Program(s)'): <span class="val">
-                $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
-                $if "-1" not in sensor.trigger_high_program:
-                    $for program in programs.get():
-                        $if str(program.index+1) in sensor.trigger_high_program:
-                            $program.name 
-                </span></p>
                 <p>$_(u'Distance sensor to minimum'): <span class="val">${sensor.distance_bottom} $_(u'cm')</span></p>
                 <p>$_(u'Distance sensor to maximum'): <span class="val">${sensor.distance_top} $_(u'cm')</span></p>
                 <p>$_(u'Minimum water level in tank'): <span class="val">${sensor.water_minimum} $_(u'cm')</span></p>
                 <p>$_(u'Cylinder diameter'): <span class="val">${sensor.diameter} $_(u'cm')</span></p>
                 <p>$_(u'Display in liters'): <span class="val">${_(u'Yes') if sensor.check_liters else _(u'No')}</span></p>
                 <p>$_(u'Stop stations if minimum'): <span class="val">${_(u'Yes') if sensor.use_stop else _(u'No')}</span></p>
+                <p>$_(u'Delay Duration'): <span class="val">${sensor.delay_duration} $_(u'hours')</span></p>
                 <p>$_(u'Stop stations if fault'): <span class="val">${_(u'Yes') if sensor.use_water_stop else _(u'No')}</span></p>
                 <p>$_(u'Stop this run stations'): <span class="val">
                 $if "-1" in sensor.used_stations:
@@ -358,7 +345,7 @@ $if sensors.count()>0:
                     $for station in [station for station in stations if station.enabled]:
                         $if str(station.index) in sensor.used_stations:
                             $station.name ($_('Output') ${str(station.index+1)})
-                </span></p>            
+                </span></p>
                 <p>$_(u'Regulate the maximum water level'): <span class="val">${_(u'Yes') if sensor.enable_reg else _(u'No')}</span></p>
                 <p>$_(u'Maximum maintained water level'): <span class="val">${sensor.reg_max} $_(u'cm')</span></p>
                 <p>$_(u'Maximum run time in activate'): <span class="val">${two_digits(sensor.reg_mm) + ":" + two_digits(sensor.reg_ss)} ($_(u'mm:ss'))</span></p>
@@ -386,7 +373,7 @@ $if sensors.count()>0:
                 <p>$_(u'Last Battery voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>
         
         $if sensor.fw > 0 and sensor.enabled:
-            <p>$_(u'Firmware Version'): <span class="val">${float(sensor.fw)/100.0}</span></p>
+            <p>$_(u'Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
             <p>$_('Sensor CPU'): <span class="val"> 
             $if sensor.cpu_core == 0:
                 $_(u'ESP32')

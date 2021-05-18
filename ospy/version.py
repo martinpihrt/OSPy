@@ -27,7 +27,7 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-05-10"
+    ver_date = u"2021-05-18"
 
 ### ESP32 sensor last fw version in folder
 try:
@@ -38,8 +38,9 @@ try:
         val_32 = int(i[:-4])     # ex: 105.bin -> 105
         if ver_esp32 < val_32: 
             ver_esp32 = val_32    
-    if ver_esp32 != 0:        
-        ver_esp32 = float(ver_esp32)/100.0
+    if ver_esp32 != 0:
+        res = [int(x) for x in str(ver_esp32)]  
+        ver_esp32 = u"{}.{}{}".format(res[0], res[1], res[2])
     else:
         ver_esp32 = u"-"
 except Exception:
@@ -56,7 +57,8 @@ try:
         if ver_esp8266 < val_8266: 
             ver_esp8266 = val_8266 
     if ver_esp8266 != 0:        
-        ver_esp8266 = float(ver_esp8266)/100.0
+        res = [int(x) for x in str(ver_esp8266)]  
+        ver_esp8266 = u"{}.{}{}".format(res[0], res[1], res[2])
     else:
         ver_esp8266 = u"-"
 except Exception:
