@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 21 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings). Logging and support for a more accurate DHT22 sensor have been added to the "air temp" extension (i must fix the error: in the graph and log display if the log data already exists. If you delete the log, everything will work). Logging, test buttons and basic help for wget commands have been added to the "CLI" extension.
+
 May 18 2021
 -----------
 (martinpihrt)<br/>
