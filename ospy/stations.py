@@ -15,6 +15,9 @@ master_one_on = signal('master_one_on')
 master_one_off = signal('master_one_off')
 master_two_on = signal('master_two_on')
 master_two_off = signal('master_two_off')
+station_off = signal('station_off')
+station_on = signal('station_on')
+station_clear = signal('station_clear')
 
 
 class _Station(object):
@@ -194,7 +197,7 @@ class _BaseStations(object):
                     master_one_on.send()                   # send signal master ON
                 if self._stations[i].is_master_two:
                     logging.debug(_('Activated master two'))    
-                    master_two_on.send()                   # send signal master 2 ON                
+                    master_two_on.send()                   # send signal master 2 ON                            
                  
     def deactivate(self, index):
         if not isinstance(index, list):
@@ -208,7 +211,7 @@ class _BaseStations(object):
                     master_one_off.send()                   # send signal master OFF
                 if self._stations[i].is_master_two:
                     logging.debug(_('Deactivated master two'))    
-                    master_two_off.send()                   # send signal master 2 OFF                
+                    master_two_off.send()                   # send signal master 2 OFF                                    
 
     def active(self, index=None):
         if index is None:
@@ -262,7 +265,6 @@ class _ShiftStations(_BaseStations):
         self._io.output(self._sr_noe, self._io.LOW)
         logging.debug(_('Activated shift outputs'))
         zone_change.send()
-        
 
     def resize(self, count):
         super(_ShiftStations, self).resize(count)
@@ -271,14 +273,17 @@ class _ShiftStations(_BaseStations):
     def activate(self, index):
         super(_ShiftStations, self).activate(index)
         self._activate()
+        station_on.send(u"Signaling stations ON", txt=index)
 
     def deactivate(self, index):
         super(_ShiftStations, self).deactivate(index)
         self._activate()
+        station_off.send(u"Signaling stations OFF", txt=index)
 
     def clear(self):
         super(_ShiftStations, self).clear()
         self._activate()
+        station_clear.send(u"Signaling stations clear")        
 
 
 class _RPiStations(_ShiftStations):

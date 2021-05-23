@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 23 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings and repair strings). Added: in to plugin "tank monitor" - log page. Changes: in plugin "CLI control" and "signal examples" new signals.
+
 May 21 2021
 -----------
 (martinpihrt)<br/>
