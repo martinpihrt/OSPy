@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 28 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Czech language (new strings and repair strings). Fixed in plugins: "tank monitor" and "pool heating".
+
 May 23 2021
 -----------
 (martinpihrt)<br/>
