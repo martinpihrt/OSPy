@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+Jun 07 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in plugin "tank monitor". Added new remote controller based on M5stick-C. This controller allows you to select a program stored in the OSPy on the LCD display and start it with the button. The controller is connected to the home Wi-Fi network. We do not even need a mobile phone or a computer to quickly select programs. We will use this miniature controller. Visit my youtube channel "OSPy - Open Sprinkler Controller Python" for more informations: https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L.
+
 May 28 2021
 -----------
 (martinpihrt)<br/>

@@ -168,7 +168,10 @@ Any user who joins the "OSPy" project is welcome! Translation of strings into ot
 OSPy can be controlled and monitored using HTTP GET commands. With the addition of available plugins OSPy can communicate with other systems via MQTT. OSPy can also issue Linux shell commands when a station is turned on or off. This is useful for controlling wireless remote devices and for I²C relay hats and boards. The Blinker package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status. See the signaling examples file in OSPy's plugins folder for examples.
 
 ## Sensors
-OSPy allows to read data from wireless sensors (ESP32, ESP8266...)
+OSPy allows to read data from wireless sensors (ESP32, ESP8266...) [Docs](https://github.com/martinpihrt/OSPy/blob/master/ospy/hardware_pcb/sensors_pcb_fw/docs/Details.md)
+
+## Remote Controller for OSPy based on M5stick-C 
+This controller allows you to select a program stored in the OSPy on the LCD display and start it with the button. The controller is connected to the home Wi-Fi network. We do not even need a mobile phone or a computer to quickly select programs. We will use this miniature controller. [Docs](https://github.com/martinpihrt/OSPy/blob/master/ospy/hardware_pcb/remote_controllers_fw/docs/Details.md)
 
 ## License
 OpenSprinkler Py (OSPy) Interval Program
@@ -182,4 +185,5 @@ The program makes use of
 3. [Pygments](http://pygments.org) to provide syntax highlighting in the help pages.  
 4. [OpenStreetMap](https://www.openstreetmap.org) to convert locations into coordinates.  
 5. [Dark Sky API](https://darksky.net/poweredby/) for weather information.  
-6. [Blinker](https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.  
+6. [Blinker](https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
+7. [Arduino](https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor...  
