@@ -52,7 +52,7 @@ M5stick-C https://shop.m5stack.com/products/stick-c
 
 #### Power switch
 - Power on: Press power button for 2 seconds
-- Power off： Press power button for 6 seconds
+- Power off: Press power button for 6 seconds
 
 #### Specification
 Resources-Parameter
