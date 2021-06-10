@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.11
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in ultrasonic probe.
+
 FW: 1.10
 -----------
 (martinpihrt)<br/>

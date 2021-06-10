@@ -495,6 +495,9 @@ class _Sensors_Timer(Thread):
             if sensor.sens_type == 0:                                        # not selected
                 return
 
+            if sensor.enabled == 0:                                          # not enabled
+                return    
+
             changed_state = False
 
             ### Dry Contact, Motion, Multi Dry Contact, Multi Motion ###

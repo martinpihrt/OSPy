@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 10 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Sensor ESP32 firmware update version to 1.11: Fix in ultrasonic probe. 
+
 Jun 07 2021
 -----------
 (martinpihrt)<br/>
