@@ -139,7 +139,7 @@ class _Sensors(object):
 
     def remove_sensors(self, index):
         try:
-            if 0 <= index < len(self._sensors):
+            if 0 <= index < len(self._sensors):           
                 del self._sensors[index]
 
             for i in range(index, len(self._sensors)):
@@ -496,6 +496,8 @@ class _Sensors_Timer(Thread):
                 return
 
             if sensor.enabled == 0:                                          # not enabled
+                if sensor.show_in_footer:
+                    self.start_status(sensor.name, _(u'Out of order'), sensor.index)
                 return    
 
             changed_state = False

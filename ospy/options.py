@@ -434,7 +434,12 @@ class _Options(object):
             "key": "sensor_graph_histories",
             "name": _('Graph histories'),
             "default": 2
-        }     
+        },
+        {
+            "key": "sensor_graph_show_err",
+            "name": _('Show also errors'),
+            "default": False,
+        },             
     ]
 
     def __init__(self):

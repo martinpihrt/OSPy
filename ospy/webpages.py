@@ -409,7 +409,11 @@ class sensor_page(ProtectedPage):
 
             if 'history' in qdict:
                 options.sensor_graph_histories = int(qdict['history'])
-                raise web.seeother(u'/sensor/{}?graph'.format(index))
+                if 'sensor_graph_show_err' in qdict:
+                    options.sensor_graph_show_err = True
+                else:
+                    options.sensor_graph_show_err = False
+                raise web.seeother(u'/sensor/{}?graph'.format(index))               
 
             if delete:
                 try:
@@ -501,7 +505,12 @@ class sensor_page(ProtectedPage):
                     for key in glog_file[0]['balances']:
                         find_key =  int(key.encode('utf8'))                                # key is in unicode ex: u'1601347000' -> find_key is int number
                         if find_key >= log_start:                                          # timestamp interval 
-                            temp_balances[key] = glog_file[0]['balances'][key]
+                            find_data = glog_file[0]['balances'][key]
+                            if options.sensor_graph_show_err:                              # if is checked show error values in graph
+                                temp_balances[key] = glog_file[0]['balances'][key]         # add all values from json
+                            else:
+                                if float(find_data['total']) != -127.0:                    # not checked, add values if not -127
+                                    temp_balances[key] = glog_file[0]['balances'][key]
                     data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances })
 
                     web.header('Access-Control-Allow-Origin', '*')

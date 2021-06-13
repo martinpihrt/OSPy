@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 13 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added checkbox "Show also errors" (Show also errors in graph. Example: -127) to sensors graph. Added ultrasonic sensor to plugin "weather stations". Updating Czech language (new strings).
+
 jun 10 2021
 -----------
 (martinpihrt)<br/>
