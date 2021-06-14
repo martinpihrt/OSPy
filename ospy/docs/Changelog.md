@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 14 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Update jquery.min.js from 3.5.1 to 3.6.0. (https://blog.jquery.com/2021/03/02/jquery-3-6-0-released/). Update gauge.min.js from 2.1.4 to 2.1.7 (https://canvas-gauges.com/download/).
+
 jun 13 2021
 -----------
 (martinpihrt)<br/>
