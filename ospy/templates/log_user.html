@@ -1,16 +1,41 @@
-$def with (wrecords, erecords)
+$def with (wrecords, erecords, evrecords)
 
 $var title: $_('Log')
 $var page: user
 
-<div id="options">
-    <div class="title">$_('Log ') (${_('Enabled') if options.run_log else _('Disabled')})</div>
-</div>
+<script>
+function updateFooter(){
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
 
-<div id="log">
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })
+        
+    setTimeout(updateFooter, 5000); 
+}
+
+jQuery(document).ready(function(){
+    jQuery(".collapsible h4").click(function(event){
+        jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
+    });
+
+    jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
+
+    updateFooter();
+});
+</script>
+
+<div class='category collapsible collapsed'><h4>$_('Station log')</h4>
+    <div id="log">
+    <p>$_('Logging'): ${_('Enabled') if options.run_log else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csv" class="button refresh">log.csv</a></p>
-
+    <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a></p>
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -30,13 +55,14 @@ $var page: user
                 <td align='left'>${interval["program_name"]}</td>
             </tr>
     </table>
-<div>
+    </div>
+</div>
 
-<div class="title">$_('Log ') $_('Email') (${_('Enabled') if options.run_logEM else _('Disabled')})</div>
-
-
+<div class='category collapsible collapsed'><h4>$_('E-mail log')</h4>
+    <div id="log">
+    <p>$_('Logging'): ${_('Enabled') if options.run_logEM else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csvEM" class="button refresh">email.csv</a></p>
+    <p>$_('Download log') <a href="?csvEM" class="button refresh">$_('email.csv')</a></p>
 
     <table class="logList">
         <tr class="log_rec">
@@ -57,6 +83,33 @@ $var page: user
             </tr>
             $ odd = 1 - odd
     </table>
+    </div>
+</div>
+
+<div class='category collapsible collapsed'><h4>$_('Events log')</h4>
+    <div id="log">
+    <p>$_('Logging'): ${_('Enabled') if options.run_logEV else _('Disabled')}</p>
+    <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
+    <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a></p>
+
+    <table class="logList">
+        <tr class="log_rec">
+            <th>$_('Date')</th>
+            <th>$_('Time')</th>
+            <th>$_('Subject')</th>
+            <th>$_('Status')</th>
+        </tr>
+        $ odd = 1
+        $for interval in reversed(evrecords):
+            <tr class="log_rec ${'odd' if odd else 'even'}">
+                <td align='left'>${interval["date"]}</td>
+                <td align='left'>${formatTime(interval["time"])}</td>
+                <td align='left'>${interval["subject"]}</td>
+                <td align='left'>${interval["status"]}</td>
+            </tr>
+            $ odd = 1 - odd
+    </table>
+    </div>
 </div>
 
 <a href="" class="button refresh">$_('Refresh')</a>

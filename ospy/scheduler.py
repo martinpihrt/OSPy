@@ -14,7 +14,7 @@ from . import i18n
 
 # Local imports
 from ospy.inputs import inputs
-from ospy.log import log
+from ospy.log import log, logEV
 from ospy.options import level_adjustments
 from ospy.options import options
 from ospy.options import rain_blocks
@@ -28,9 +28,11 @@ rain_not_active = signal('rain_not_active')
 
 def report_rain():
     rain_active.send()      # send rain signal
+    logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'))
 
 def report_no_rain():
-    rain_not_active.send()  # send not rain signal  
+    rain_not_active.send()  # send not rain signal
+    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'))      
 
 pom_last_rain = False       # send signal only if rain change
 

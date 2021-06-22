@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
 import datetime
@@ -22,7 +22,7 @@ EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno
 RUN_START_FORMAT = "%(asctime)s [START  Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
 RUN_FINISH_FORMAT = "%(asctime)s [FINISH Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
 
-
+# Station log
 class _Log(logging.Handler):
     def __init__(self):
         super(_Log, self).__init__()
@@ -238,6 +238,7 @@ class _Log(logging.Handler):
         self.log_event(record.event_type, txt, record.levelno, False)
 
 
+# E-mail log
 class _LogEM():
     def __init__(self):
         self._logEM = {
@@ -298,8 +299,68 @@ class _LogEM():
             self.clear_email(False) # count only options.run_entriesEM
 
 
-log = _Log()
+# events log
+class _LogEV():
+    def __init__(self):
+        self._logEM = {
+            'RunEV': options.logged_events[:]
+        }
+        self._lock = threading.RLock()
+
+
+    def finished_events(self):
+        try:
+            for option in options.OPTIONS:
+                if 'key' in option:
+                   name = option['key']
+                   if name == 'logged_events':
+                      value = options[option['key']]
+                      return(value)
+
+        except Exception:
+            print_report('log.py', traceback.format_exc())
+            pass
+            return []
+
+    def _save_logsEV(self):
+        result = []
+        if options.run_logEV:
+            result = self._logEM['RunEV']
+        options.logged_events = result
+
+    def clear_events(self, all_entries=True):
+        if all_entries or not options.run_logEV:  # User request or logging is disabled
+            minimum = 0
+        elif options.run_entriesEV > 0:
+            minimum = options.run_entriesEV
+        else:
+            return  # We should not prune in this case
+
+        for index in reversed(xrange(len(self._logEM['RunEV']) - minimum)):
+            interval = self._logEM['RunEV'][index]
+            del self._logEM['RunEV'][index]
+
+        self._save_logsEV()
+
+    def save_events_log(self, subject, status):  
+        subject_print = subject.encode('utf-8')
+        status_print = status.encode('utf-8')
+
+        with self._lock:
+            self._logEM['RunEV'].append({
+                'time': datetime.datetime.now().strftime("%H:%M:%S"),
+                'date': datetime.datetime.now().strftime("%Y-%m-%d"),
+                'subject': subject_print,
+                'status': status_print
+            })
+        
+            self._save_logsEV()     # save events
+            self.clear_events(False) # count only options.run_entriesEV            
+
+
+log   = _Log()
 logEM = _LogEM()
+logEV = _LogEV()
 
 log.setFormatter(logging.Formatter(EVENT_FORMAT))
 

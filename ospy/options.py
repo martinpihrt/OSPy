@@ -337,6 +337,22 @@ class _Options(object):
             "min": 0,
             "max": 1000
         },
+        {  
+            "key": "run_logEV",
+            "name": _('Enable events log'),
+            "default": False,
+            "help": _('Log all events - note that repetitive writing to an SD card can shorten its lifespan.'),
+            "category": _('Logging')
+        },
+        {
+            "key": "run_entriesEV",
+            "name": _('Max events entries'),
+            "default": 100,
+            "help": _('Number of events entries to save to disk, 0=no limit.'),
+            "category": _('Logging'),
+            "min": 0,
+            "max": 1000
+        },        
         {
             "key": "run_sensor_entries",
             "name": _('Max sensor entries'),
@@ -410,6 +426,11 @@ class _Options(object):
             "name": _('The email that have been logged'),
             "default": []
         },
+        {
+            "key": "logged_events",
+            "name": _('The events that have been logged'),
+            "default": []
+        },        
         {
             "key": "weather_cache",
             "name": _('ETo and rain value cache'),

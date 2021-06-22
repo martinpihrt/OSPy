@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.12
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Possibility of tuning (calibration of temperature sensors +- C) DS1-DS4 in menu AP manager.
+
 FW: 1.11
 -----------
 (martinpihrt)<br/>

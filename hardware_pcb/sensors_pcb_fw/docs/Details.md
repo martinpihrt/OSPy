@@ -50,6 +50,7 @@ Sensors Connection and Add into OSPy
 - Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO23 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
 - Divider correction (+-) = if we need to fine-tune the exact value of the voltage measurement 0-30V, then we can use the + - value for this adjustment. Example: the displayed voltage value is 10.7V and the actual value should be 12.7V (measured by a voltmeter on the main power input). Enter the value 20 in the field. The entered value is multiplied by the number 0.1 during the calculation.
 - Moisture or sonic probe? = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3).
+- DS1-DS4 calibration of temperature sensors +- Celsius.
 
 ### Sensor Settings - Finish
 - After setting all parameters, press the *Save* button and press the *Restart* button in the main menu.  

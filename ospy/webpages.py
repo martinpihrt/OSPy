@@ -14,7 +14,7 @@ import traceback
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
 from ospy.inputs import inputs
-from ospy.log import log, logEM
+from ospy.log import log, logEM, logEV
 from ospy.options import options
 from ospy.options import rain_blocks
 from ospy.programs import programs
@@ -1434,6 +1434,10 @@ class log_page(ProtectedPage):
             logEM.clear_email()
             raise web.seeother(u'/log')
 
+        if 'clearEV' in qdict and session['category'] == 'admin':
+            logEV.clear_events()
+            raise web.seeother(u'/log')            
+
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
             data = "Date; Start Time; Zone; Duration; Program\n"
@@ -1469,14 +1473,30 @@ class log_page(ProtectedPage):
             web.header('Content-Type', 'text/csv')
             web.header('Content-Disposition', 'attachment; filename="email.csv"')
             return data
+
+        if 'csvEV' in qdict:
+            events = logEV.finished_events()
+            data = "Date; Time; Subject; Status\n"
+            for interval in events:
+                data += '; '.join([
+                    interval['date'],
+                    interval['time'],
+                    str(interval['subject']),
+                    str(interval['status']),
+                ]) + '\n'
+
+            web.header('Content-Type', 'text/csv')
+            web.header('Content-Disposition', 'attachment; filename="events.csv"')
+            return data            
    
         watering_records = log.finished_runs()
         email_records = logEM.finished_email()
+        events_records = logEV.finished_events()        
 
         if session['category'] == 'admin': 
-            return self.core_render.log(watering_records, email_records)
+            return self.core_render.log(watering_records, email_records, events_records)
         if session['category'] == 'user': 
-            return self.core_render.log_user(watering_records, email_records)
+            return self.core_render.log_user(watering_records, email_records, events_records)
 
 class options_page(ProtectedPage):
     """Open the options page for viewing and editing."""

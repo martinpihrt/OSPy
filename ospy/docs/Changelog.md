@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 22 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Slovak language (Thank you Tomáš Szepesi). Fix in plugin "pool heating" (the station switches off if the sensor has a fault). Add logging events from OSPy core (so far only rain sensor). ESP32 firmware update version 1.12: possibility of tuning (calibration of temperature sensors +- C) DS1-DS4 in menu AP manager.
+
 jun 14 2021
 -----------
 (martinpihrt)<br/>
