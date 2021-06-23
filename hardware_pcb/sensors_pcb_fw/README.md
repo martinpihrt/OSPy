@@ -41,6 +41,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.13
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed: value refresh for calibration of temperature sensors DS1-DS4. Removal of the hw timer for LED flashing and replacement by flashing in the loop.
+
 FW: 1.12
 -----------
 (martinpihrt)<br/>

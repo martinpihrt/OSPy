@@ -12,9 +12,9 @@ import subprocess
 from ospy.options import options
 from ospy.scheduler import scheduler
 from ospy.reverse_proxied import reverse_proxied
-from ospy.log import log
+from ospy.log import log, logEV
 from ospy.helpers import print_report
-	
+
 from socket import gethostname
 from pprint import pprint
 from time import gmtime, mktime
@@ -38,7 +38,7 @@ stats = usagestats.Stats('./ospy/statistics/',
                          unique_user_id=True,
                          version='0.1'
                          )
-         
+
 import plugins
 
 __server = None
@@ -98,13 +98,13 @@ def start():
 
     #### SSL for https #### http://webpy.org/cookbook/ssl  
 
-    # for SSL certificate via letsencrypt                         
+    # for SSL certificate via letsencrypt
     ssl_patch_fullchain = '/etc/letsencrypt/live/' + options.domain_ssl + '/fullchain.pem' 
     ssl_patch_privkey   = '/etc/letsencrypt/live/' + options.domain_ssl + '/privkey.pem'   
 
     # for own SSL certificate in OSPy folder
     ssl_own_patch_fullchain =  '././ssl/fullchain.pem'
-    ssl_own_patch_privkey   =  '././ssl/privkey.pem'          
+    ssl_own_patch_privkey   =  '././ssl/privkey.pem'
 
     if options.use_ssl and not options.use_own_ssl:
        try:
@@ -130,7 +130,7 @@ def start():
        except:
            log.info('server.py', traceback.format_exc())
            print_report('server.py', traceback.format_exc())
-           pass       
+           pass
     
     if options.use_own_ssl and not options.use_ssl:
        try:
@@ -185,18 +185,20 @@ def start():
             print_report('server.py', _(u'Category is not in session, adding to sessions.'))
         if not session['visitor']:
             session['visitor'] = _(u'Unknown visitor')
-            print_report('server.py', _(u'Visitor-operator is not in session, adding to sessions.'))            
+            print_report('server.py', _(u'Visitor-operator is not in session, adding to sessions.'))
     except:
         session['category'] = 'public'
         session['visitor'] = _(u'Unknown visitor')
         pass
-                                               
+
     import atexit
     atexit.register(sessions.close)
 
     def exit_msg():
         log.info('server.py', _(u'OSPy is closing, saving sessions.')) 
         print_report('server.py', _(u'OSPy is closing, saving sessions.'))
+        logEV.save_events_log( _(u'System OSPy'), _(u'Stopping'))
+
     atexit.register(exit_msg)
 
     print_report('server.py', _(u'Starting scheduler and plugins...'))
@@ -208,16 +210,18 @@ def start():
 
     create_statistics()
     print_report('server.py', _(u'Ready'))
+    logEV.save_events_log( _(u'System OSPy'), _(u'Starting'))
 
     try:
         __server.start()
     except (KeyboardInterrupt, SystemExit):
-        stop()   
+        stop()
 
    
 def stop():
     global __server
     if __server is not None:
+        logEV.save_events_log( _(u'System OSPy'), _(u'Stopping'))
         __server.stop()
         __server = None
 

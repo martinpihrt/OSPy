@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 23 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.13: fixed: value refresh for calibration of temperature sensors. Removal of the hw timer for LED flashing and replacement by flashing in the loop. OSPy: added to logging event: system OSPy "Stopping" and "Starting".
+
 jun 22 2021
 -----------
 (martinpihrt)<br/>
