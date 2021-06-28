@@ -44,7 +44,7 @@ function updateFooter(){
         jQuery("#uptime span.uptime").text(sys_uptime);
     })
         
-    setTimeout(updateFooter, 5000); 
+    setTimeout(updateFooter, 15000); 
 }
 
 jQuery(document).ready(function(){
@@ -380,7 +380,12 @@ $if sensors.count()>0:
             $if sensor.cpu_core == 1:
                 $_(u'ESP8266')
             </span></p>
-        <p>
+
+        $if sensor.notes:
+            <p>$_('Notes'):</p>
+            <p><textarea title=$:{json.dumps(_('Sensor Notes.'), ensure_ascii=False).encode('utf8')} rows="1" cols="60" readonly style="background-color: #F5F5F5;">${sensor.notes}</textarea></p>
+
+        <p>    
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
         <a href="/sensor/${sensor.index}?log" class="button backup"> $_(u'View Logs')</a>
         <a href="/sensor/${sensor.index}?graph" class="button upload"> $_(u'View Graph')</a>

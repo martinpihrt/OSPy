@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 28 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+A logging page has been added to some extensions. Czech language update. A window with comments has been added to the sensors page - if it is filled in for the sensor, it will be displayed (otherwise it is not visible).
+
 jun 23 2021
 -----------
 (martinpihrt)<br/>
