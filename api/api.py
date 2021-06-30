@@ -470,6 +470,7 @@ class Sensor(object):
             for sensor in sensors.get():
                 ip = split_ip(jqdict['ip'])
                 if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
+                    read_val = []*9
                     if 'cpu' in jqdict and jqdict['cpu'] is not None:
                         sensor.cpu_core = int(jqdict['cpu'])
                     if 'rssi' in jqdict and jqdict['rssi'] is not None:
@@ -478,29 +479,76 @@ class Sensor(object):
                         sensor.last_battery = (float(jqdict['batt']))/10.0              # ex: value is 132 -> real 13.2V
                     if 'stype' in jqdict and jqdict['stype'] is not None:
                         sen_type = int(jqdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
-                        if sen_type == 1:                       
-                            sensor.last_read_value = int(jqdict['drcon'])
-                        elif sen_type == 2:                      
-                            sensor.last_read_value = (float(jqdict['lkdet']))/10.0      # ex: value is 132 -> real 13.2%
-                        elif sen_type == 3:                      
-                            sensor.last_read_value = (float(jqdict['humi']))/10.0       # ex: value is 132 -> real 13.2%
-                        elif sen_type == 4:                      
-                            sensor.last_read_value = int(jqdict['moti'])
-                        elif sen_type == 5:           
-                            if options.temp_unit == 'F':          
-                                sensor.last_read_value = (float(jqdict['temp'])*1.8 + 32)/10.0 # Fahrenheit ex: value is 132 -> real 13.2F
+                        if sen_type == 1:
+                            read_val.append((-127.0))    # DS1
+                            read_val.append((-127.0))    # DS2
+                            read_val.append((-127.0))    # DS3
+                            read_val.append((-127.0))    # DS4
+                            read_val.append(int(jqdict['drcon']))
+                            read_val.append((-1))        # leak
+                            read_val.append((-1))        # humi
+                            read_val.append((-1))        # moti
+                            read_val.append((-1))        # son
+                        elif sen_type == 2:
+                            read_val.append((-127.0))    # DS1
+                            read_val.append((-127.0))    # DS2
+                            read_val.append((-127.0))    # DS3
+                            read_val.append((-127.0))    # DS4
+                            read_val.append((-1))        # dry
+                            read_val.append((float(jqdict['lkdet']))/10.0)              # ex: value is 132 -> real 13.2%
+                            read_val.append((-1))        # humi
+                            read_val.append((-1))        # moti
+                            read_val.append((-1))        # son
+                        elif sen_type == 3:
+                            read_val.append((-127.0))    # DS1
+                            read_val.append((-127.0))    # DS2
+                            read_val.append((-127.0))    # DS3
+                            read_val.append((-127.0))    # DS4
+                            read_val.append((-1))        # dry
+                            read_val.append((-1))        # leak
+                            read_val.append((float(jqdict['humi']))/10.0)               # ex: value is 132 -> real 13.2%
+                            read_val.append((-1))        # moti
+                            read_val.append((-1))        # son
+                        elif sen_type == 4:
+                            read_val.append((-127.0))    # DS1
+                            read_val.append((-127.0))    # DS2
+                            read_val.append((-127.0))    # DS3
+                            read_val.append((-127.0))    # DS4
+                            read_val.append((-1))        # dry
+                            read_val.append((-1))        # leak 
+                            read_val.append((-1))        # humi
+                            read_val.append(int(jqdict['moti']))
+                            read_val.append((-1))        # son
+                        elif sen_type == 5:
+                            if options.temp_unit == 'F':
+                                read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)  # Fahrenheit ex: value is 132 -> real 13.2F as DS1
+                                read_val.append((-127.0))    # DS2
+                                read_val.append((-127.0))    # DS3
+                                read_val.append((-127.0))    # DS4
+                                read_val.append((-1))        # dry
+                                read_val.append((-1))        # leak 
+                                read_val.append((-1))        # humi
+                                read_val.append((-1))        # moti
+                                read_val.append((-1))        # son
                             else:     
-                                sensor.last_read_value = (float(jqdict['temp']))/10.0          # Celsius ex: value is 132 -> real 13.2C
-                        elif sen_type == 6:                                                    # multisensor     
-                            read_val = []   
+                                read_val.append((float(jqdict['temp']))/10.0)           # Celsius ex: value is 132 -> real 13.2C as DS1
+                                read_val.append((-127.0))    # DS2
+                                read_val.append((-127.0))    # DS3
+                                read_val.append((-127.0))    # DS4 
+                                read_val.append((-1))        # dry
+                                read_val.append((-1))        # leak 
+                                read_val.append((-1))        # humi
+                                read_val.append((-1))        # moti
+                                read_val.append((-1))        # son
+                        elif sen_type == 6:                                                    # multisensor
                             try:  
-                                if options.temp_unit == 'F':          
+                                if options.temp_unit == 'F':
                                     read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
                                     read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
                                     read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)    # DS3
                                     read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0)    # DS4
                                 else:     
-                                    read_val.append((float(jqdict['temp']))/10.0)                              
+                                    read_val.append((float(jqdict['temp']))/10.0)
                                     read_val.append((float(jqdict['temp2']))/10.0)
                                     read_val.append((float(jqdict['temp3']))/10.0)
                                     read_val.append((float(jqdict['temp4']))/10.0)
@@ -511,13 +559,12 @@ class Sensor(object):
                                 if 'son' in jqdict and jqdict['son'] is not None:              # sonic
                                     read_val.append(int(jqdict['son']))
                                 else:
-                                    read_val.append(int(-1))    
-
-                                sensor.last_read_value = read_val
+                                    read_val.append(int(-1))
                             except:    
                                 pass
                                 print_report('api.py', traceback.format_exc())
 
+                    sensor.last_read_value = read_val
                     sensor.last_response = now()
                     sensor.last_response_datetime = datetime_string()
 

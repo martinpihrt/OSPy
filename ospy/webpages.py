@@ -682,7 +682,7 @@ class sensor_page(ProtectedPage):
                 sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 4:                          # motion
-                sensor.trigger_low_program = ""
+                sensor.trigger_low_program = ["-1"]
                 sensor.trigger_high_program = qdict['CH'] 
 
             elif sen_type == 3 or sen_type == 5:         # moisture / temperature
@@ -706,7 +706,7 @@ class sensor_page(ProtectedPage):
                 sensor.trigger_high_program = qdict['DH']
 
             elif sen_type == 6 and multi_type == 7:      # multi motion
-                sensor.trigger_low_program = ""
+                sensor.trigger_low_program = ["-1"]
                 sensor.trigger_high_program = qdict['CH']
 
             elif sen_type == 6 and multi_type == 8:      # multi sonic

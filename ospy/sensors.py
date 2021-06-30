@@ -38,8 +38,8 @@ class _Sensor(object):
         self.log_event = 0              # log event
         self.send_email  = 0            # send e-mail  
         self.sample_rate = 60           # sample rate 
-        self.last_read_value = ""       # last read value (actual)
-        self.prev_read_value = "-"      # prev read value
+        self.last_read_value = [""]*9   # last read value (actual)
+        self.prev_read_value = ["-"]*9  # prev read value
         self.sensitivity = 0            # sensitivity
         self.stabilization_time = 5     # stabilization time
         self.liter_per_pulses = 0.5     # leak detector (xx liter/one pulses from detector)

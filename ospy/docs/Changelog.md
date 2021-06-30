@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+jun 30 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+A list of sensors has been added to the lcd display extension for showing. Several bugs in the lcd have been fixed. Czech language update. Fix in sensors web page (if change sensor types).
+
 jun 28 2021
 -----------
 (martinpihrt)<br/>

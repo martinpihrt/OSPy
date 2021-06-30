@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-06-28 18:04+CEST\n"
+"POT-Creation-Date: 2021-06-30 20:34+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,6 +419,7 @@ msgstr ""
 
 #: ospy/options.py:200 ospy/options.py:207 ospy/templates/base.html:165
 #: plugins/cli_control/templates/cli_control_help.html:12
+#: plugins/lcd_display/templates/lcd_display.html:141
 msgid "Sensors"
 msgstr ""
 
@@ -868,240 +869,242 @@ msgstr ""
 msgid "Run-Now"
 msgstr ""
 
-#: ospy/sensors.py:113
+#: ospy/sensors.py:112
 msgid "Loading sensors..."
 msgstr ""
 
-#: ospy/sensors.py:128
+#: ospy/sensors.py:127
 msgid "Adding new sensor: {} with id: {}"
 msgstr ""
 
-#: ospy/sensors.py:150
+#: ospy/sensors.py:149
 msgid "Removing sensor id: {}"
 msgstr ""
 
-#: ospy/sensors.py:227 plugins/pressure_monitor/__init__.py:180
+#: ospy/sensors.py:226 plugins/pressure_monitor/__init__.py:180
 #: plugins/tank_monitor/__init__.py:326
 msgid "E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped."
 msgstr ""
 
-#: ospy/sensors.py:283
+#: ospy/sensors.py:282
 msgid "The sensor tries to start the {} (id: {})"
 msgstr ""
 
-#: ospy/sensors.py:287
+#: ospy/sensors.py:286
 msgid "Starting {}"
 msgstr ""
 
-#: ospy/sensors.py:339
+#: ospy/sensors.py:338
 msgid "Updating sensor graph log to file successfully."
 msgstr ""
 
-#: ospy/sensors.py:344 ospy/sensors.py:362
+#: ospy/sensors.py:343 ospy/sensors.py:361
 msgid "Dir not exists, creating dir: {}"
 msgstr ""
 
-#: ospy/sensors.py:347 ospy/sensors.py:367
+#: ospy/sensors.py:346 ospy/sensors.py:366
 msgid "File not exists, creating file: {}"
 msgstr ""
 
-#: ospy/sensors.py:378
+#: ospy/sensors.py:377
 msgid "Updating sensor log to file successfully."
 msgstr ""
 
-#: ospy/sensors.py:458 plugins/button_control/__init__.py:284
+#: ospy/sensors.py:457 plugins/button_control/__init__.py:284
 #: plugins/pressure_monitor/__init__.py:270
 #: plugins/tank_monitor/__init__.py:582 plugins/wind_monitor/__init__.py:388
 msgid "Stoping stations in scheduler"
 msgstr ""
 
-#: ospy/sensors.py:501
+#: ospy/sensors.py:500
 msgid "Out of order"
 msgstr ""
 
-#: ospy/sensors.py:515 ospy/sensors.py:551 ospy/sensors.py:585
-#: ospy/sensors.py:587 ospy/sensors.py:589
+#: ospy/sensors.py:514 ospy/sensors.py:550 ospy/sensors.py:584
+#: ospy/sensors.py:586 ospy/sensors.py:588
 msgid "Closed Contact"
 msgstr ""
 
-#: ospy/sensors.py:518 ospy/sensors.py:554 ospy/sensors.py:606
-#: ospy/sensors.py:608 ospy/sensors.py:610
+#: ospy/sensors.py:517 ospy/sensors.py:553 ospy/sensors.py:605
+#: ospy/sensors.py:607 ospy/sensors.py:609
 msgid "Open Contact"
 msgstr ""
 
-#: ospy/sensors.py:523 ospy/sensors.py:541 ospy/sensors.py:559
-#: ospy/sensors.py:577 ospy/templates/sensors.html:84
-#: ospy/templates/sensors.html:87 ospy/templates/sensors.html:98
-#: ospy/templates/sensors.html:119 ospy/templates/sensors.html:143
-#: ospy/templates/sensors.html:166 ospy/templates/sensors.html:252
-#: ospy/templates/sensors.html:273 ospy/templates/sensors.html:318
-#: ospy/templates/sensors.html:333
+#: ospy/sensors.py:522 ospy/sensors.py:540 ospy/sensors.py:558
+#: ospy/sensors.py:576 ospy/templates/sensors.html:83
+#: ospy/templates/sensors.html:86 ospy/templates/sensors.html:97
+#: ospy/templates/sensors.html:118 ospy/templates/sensors.html:142
+#: ospy/templates/sensors.html:165 ospy/templates/sensors.html:251
+#: ospy/templates/sensors.html:272 ospy/templates/sensors.html:317
+#: ospy/templates/sensors.html:332
 msgid "Change not yet loaded"
 msgstr ""
 
-#: ospy/sensors.py:533 ospy/sensors.py:569 ospy/sensors.py:595
-#: ospy/sensors.py:597 ospy/sensors.py:599 ospy/templates/sensors.html:164
-#: ospy/templates/sensors.html:316
+#: ospy/sensors.py:532 ospy/sensors.py:568 ospy/sensors.py:594
+#: ospy/sensors.py:596 ospy/sensors.py:598 ospy/templates/sensors.html:163
+#: ospy/templates/sensors.html:315 plugins/lcd_display/__init__.py:480
+#: plugins/lcd_display/__init__.py:511
 msgid "Motion Detected"
 msgstr ""
 
-#: ospy/sensors.py:536 ospy/sensors.py:572 ospy/sensors.py:616
-#: ospy/sensors.py:618 ospy/sensors.py:620 ospy/templates/sensors.html:164
-#: ospy/templates/sensors.html:316
+#: ospy/sensors.py:535 ospy/sensors.py:571 ospy/sensors.py:615
+#: ospy/sensors.py:617 ospy/sensors.py:619 ospy/templates/sensors.html:163
+#: ospy/templates/sensors.html:315 plugins/lcd_display/__init__.py:480
+#: plugins/lcd_display/__init__.py:511
 msgid "No Motion"
 msgstr ""
 
-#: ospy/sensors.py:585 ospy/sensors.py:595 ospy/sensors.py:606
-#: ospy/sensors.py:616 ospy/sensors.py:776 ospy/sensors.py:899
-#: ospy/sensors.py:971 ospy/sensors.py:997 ospy/templates/user.html:62
+#: ospy/sensors.py:584 ospy/sensors.py:594 ospy/sensors.py:605
+#: ospy/sensors.py:615 ospy/sensors.py:775 ospy/sensors.py:898
+#: ospy/sensors.py:970 ospy/sensors.py:996 ospy/templates/user.html:62
 #: ospy/templates/user.html:85 ospy/templates/users.html:54
 msgid "Sensor"
 msgstr ""
 
-#: ospy/sensors.py:586 ospy/sensors.py:596 ospy/sensors.py:607
-#: ospy/sensors.py:617
+#: ospy/sensors.py:585 ospy/sensors.py:595 ospy/sensors.py:606
+#: ospy/sensors.py:616
 msgid "Sensor Read Success"
 msgstr ""
 
-#: ospy/sensors.py:587 ospy/sensors.py:597 ospy/sensors.py:608
-#: ospy/sensors.py:618
+#: ospy/sensors.py:586 ospy/sensors.py:596 ospy/sensors.py:607
+#: ospy/sensors.py:617
 msgid "Successfully read sensor"
 msgstr ""
 
-#: ospy/sensors.py:629 ospy/sensors.py:786 ospy/sensors.py:839
-#: ospy/sensors.py:1011
+#: ospy/sensors.py:628 ospy/sensors.py:785 ospy/sensors.py:838
+#: ospy/sensors.py:1010
 msgid "Sensor: {} response!"
 msgstr ""
 
-#: ospy/sensors.py:632 ospy/sensors.py:789 ospy/sensors.py:842
-#: ospy/sensors.py:1014
+#: ospy/sensors.py:631 ospy/sensors.py:788 ospy/sensors.py:841
+#: ospy/sensors.py:1013
 msgid "Sensor: {} not response!"
 msgstr ""
 
-#: ospy/sensors.py:637 ospy/sensors.py:794 ospy/sensors.py:847
-#: ospy/sensors.py:1019
+#: ospy/sensors.py:636 ospy/sensors.py:793 ospy/sensors.py:846
+#: ospy/sensors.py:1018
 msgid "Not response!"
 msgstr ""
 
-#: ospy/sensors.py:654 ospy/sensors.py:736
+#: ospy/sensors.py:653 ospy/sensors.py:735
 msgid "Moisture probe fault?"
 msgstr ""
 
-#: ospy/sensors.py:656 ospy/sensors.py:738
+#: ospy/sensors.py:655 ospy/sensors.py:737
 msgid "Moisture {}%"
 msgstr ""
 
-#: ospy/sensors.py:666 ospy/sensors.py:680 ospy/sensors.py:694
-#: ospy/sensors.py:708 ospy/sensors.py:722
+#: ospy/sensors.py:665 ospy/sensors.py:679 ospy/sensors.py:693
+#: ospy/sensors.py:707 ospy/sensors.py:721
 msgid "Temperature probe fault?"
 msgstr ""
 
-#: ospy/sensors.py:669 ospy/sensors.py:671 ospy/sensors.py:683
-#: ospy/sensors.py:685 ospy/sensors.py:697 ospy/sensors.py:699
-#: ospy/sensors.py:711 ospy/sensors.py:713 ospy/sensors.py:725
-#: ospy/sensors.py:727 ospy/templates/graph_sensor.html:6
+#: ospy/sensors.py:668 ospy/sensors.py:670 ospy/sensors.py:682
+#: ospy/sensors.py:684 ospy/sensors.py:696 ospy/sensors.py:698
+#: ospy/sensors.py:710 ospy/sensors.py:712 ospy/sensors.py:724
+#: ospy/sensors.py:726 ospy/templates/graph_sensor.html:6
 #: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:238
-#: ospy/templates/sensors.html:68 ospy/templates/sensors_search.html:41
+#: ospy/templates/sensors.html:67 ospy/templates/sensors_search.html:41
 #: plugins/air_temp_humi/__init__.py:121 plugins/air_temp_humi/__init__.py:167
 #: plugins/air_temp_humi/__init__.py:223 plugins/email_reader/__init__.py:777
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr ""
 
-#: ospy/sensors.py:750
+#: ospy/sensors.py:749
 msgid "High Trigger"
 msgstr ""
 
-#: ospy/sensors.py:750
+#: ospy/sensors.py:749
 msgid "High Value"
 msgstr ""
 
-#: ospy/sensors.py:760
+#: ospy/sensors.py:759
 msgid "Low Value"
 msgstr ""
 
-#: ospy/sensors.py:760 ospy/sensors.py:981
+#: ospy/sensors.py:759 ospy/sensors.py:980
 msgid "Low Trigger"
 msgstr ""
 
-#: ospy/sensors.py:770
+#: ospy/sensors.py:769
 msgid "Normal Value"
 msgstr ""
 
-#: ospy/sensors.py:770 ospy/sensors.py:956
+#: ospy/sensors.py:769 ospy/sensors.py:955
 msgid "Normal Trigger"
 msgstr ""
 
-#: ospy/sensors.py:777 ospy/sensors.py:778
+#: ospy/sensors.py:776 ospy/sensors.py:777
 msgid "Sensor Change"
 msgstr ""
 
-#: ospy/sensors.py:806 ospy/sensors.py:821
+#: ospy/sensors.py:805 ospy/sensors.py:820
 msgid "Leak {}l/s"
 msgstr ""
 
-#: ospy/sensors.py:811 ospy/sensors.py:826
+#: ospy/sensors.py:810 ospy/sensors.py:825
 msgid "Leak probe fault?"
 msgstr ""
 
-#: ospy/sensors.py:859 ospy/sensors.py:891 ospy/sensors.py:897
-#: ospy/sensors.py:901
+#: ospy/sensors.py:858 ospy/sensors.py:890 ospy/sensors.py:896
+#: ospy/sensors.py:900
 msgid "Sonic probe fault?"
 msgstr ""
 
-#: ospy/sensors.py:881 ospy/sensors.py:885 ospy/sensors.py:960
-#: ospy/sensors.py:986 ospy/templates/log_sensor.html:65
+#: ospy/sensors.py:880 ospy/sensors.py:884 ospy/sensors.py:959
+#: ospy/sensors.py:985 ospy/templates/log_sensor.html:65
 #: ospy/templates/sensor.html:401 ospy/templates/sensor.html:406
 #: ospy/templates/sensor.html:411 ospy/templates/sensor.html:415
 #: ospy/templates/sensor.html:462 ospy/templates/sensor.html:473
-#: ospy/templates/sensors.html:329 ospy/templates/sensors.html:334
-#: ospy/templates/sensors.html:335 ospy/templates/sensors.html:336
-#: ospy/templates/sensors.html:337 ospy/templates/sensors.html:351
-#: ospy/templates/sensors.html:353 plugins/email_notifications/__init__.py:154
+#: ospy/templates/sensors.html:328 ospy/templates/sensors.html:333
+#: ospy/templates/sensors.html:334 ospy/templates/sensors.html:335
+#: ospy/templates/sensors.html:336 ospy/templates/sensors.html:350
+#: ospy/templates/sensors.html:352 plugins/email_notifications/__init__.py:154
 #: plugins/email_notifications/__init__.py:156
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
-#: plugins/lcd_display/__init__.py:343 plugins/tank_monitor/__init__.py:150
-#: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
-#: plugins/tank_monitor/__init__.py:155 plugins/tank_monitor/__init__.py:156
-#: plugins/tank_monitor/__init__.py:157 plugins/tank_monitor/__init__.py:158
-#: plugins/tank_monitor/__init__.py:257 plugins/tank_monitor/__init__.py:278
-#: plugins/tank_monitor/__init__.py:279 plugins/tank_monitor/__init__.py:318
-#: plugins/tank_monitor/__init__.py:319
+#: plugins/lcd_display/__init__.py:380 plugins/lcd_display/__init__.py:518
+#: plugins/tank_monitor/__init__.py:150 plugins/tank_monitor/__init__.py:152
+#: plugins/tank_monitor/__init__.py:153 plugins/tank_monitor/__init__.py:155
+#: plugins/tank_monitor/__init__.py:156 plugins/tank_monitor/__init__.py:157
+#: plugins/tank_monitor/__init__.py:158 plugins/tank_monitor/__init__.py:257
+#: plugins/tank_monitor/__init__.py:278 plugins/tank_monitor/__init__.py:279
+#: plugins/tank_monitor/__init__.py:318 plugins/tank_monitor/__init__.py:319
 #: plugins/tank_monitor/templates/tank_monitor_log.html:24
 #: plugins/tank_monitor/templates/tank_monitor_log.html:25
 #: plugins/tank_monitor/templates/tank_monitor_log.html:26
 msgid "cm"
 msgstr ""
 
-#: ospy/sensors.py:881 plugins/email_notifications/__init__.py:158
+#: ospy/sensors.py:880 plugins/email_notifications/__init__.py:158
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:850
 #: plugins/tank_monitor/__init__.py:152 plugins/tank_monitor/__init__.py:153
 #: plugins/tank_monitor/templates/tank_monitor_log.html:29
 msgid "liters"
 msgstr ""
 
-#: ospy/sensors.py:885 plugins/email_notifications/__init__.py:160
+#: ospy/sensors.py:884 plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:190
 #: plugins/email_notifications/__init__.py:198
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:852
-#: plugins/lcd_display/__init__.py:347 plugins/tank_monitor/__init__.py:155
+#: plugins/lcd_display/__init__.py:384 plugins/tank_monitor/__init__.py:155
 #: plugins/tank_monitor/__init__.py:156
 #: plugins/tank_monitor/templates/tank_monitor_log.html:31
 msgid "m3"
 msgstr ""
 
-#: ospy/sensors.py:900 ospy/sensors.py:972 ospy/sensors.py:998
+#: ospy/sensors.py:899 ospy/sensors.py:971 ospy/sensors.py:997
 msgid "Sensor {}"
 msgstr ""
 
-#: ospy/sensors.py:901
+#: ospy/sensors.py:900
 msgid "Sensor Notification"
 msgstr ""
 
-#: ospy/sensors.py:912 ospy/sensors.py:943 ospy/templates/options.html:184
+#: ospy/sensors.py:911 ospy/sensors.py:942 ospy/templates/options.html:184
 #: ospy/templates/options.html:197 ospy/templates/sensor.html:448
-#: ospy/templates/sensor.html:479 ospy/templates/sensors.html:348
-#: ospy/templates/sensors.html:360 plugins/air_temp_humi/__init__.py:202
+#: ospy/templates/sensor.html:479 ospy/templates/sensors.html:347
+#: ospy/templates/sensors.html:359 plugins/air_temp_humi/__init__.py:202
 #: plugins/air_temp_humi/__init__.py:215
 #: plugins/air_temp_humi/templates/air_temp_humi.html:280
 #: plugins/button_control/templates/button_control.html:86
@@ -1120,46 +1123,46 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: ospy/sensors.py:912 plugins/air_temp_humi/__init__.py:202
+#: ospy/sensors.py:911 plugins/air_temp_humi/__init__.py:202
 #: plugins/pool_heating/__init__.py:193 plugins/tank_monitor/__init__.py:167
 msgid "Regulation set ON."
 msgstr ""
 
-#: ospy/sensors.py:943 plugins/air_temp_humi/__init__.py:215
+#: ospy/sensors.py:942 plugins/air_temp_humi/__init__.py:215
 #: plugins/pool_heating/__init__.py:184 plugins/pool_heating/__init__.py:223
 #: plugins/tank_monitor/__init__.py:195
 msgid "Regulation set OFF."
 msgstr ""
 
-#: ospy/sensors.py:960 ospy/sensors.py:986
+#: ospy/sensors.py:959 ospy/sensors.py:985
 msgid "Water in Tank"
 msgstr ""
 
-#: ospy/sensors.py:967
+#: ospy/sensors.py:966
 msgid "Removing Rain delay"
 msgstr ""
 
-#: ospy/sensors.py:973
+#: ospy/sensors.py:972
 msgid "Sensor has water"
 msgstr ""
 
-#: ospy/sensors.py:986 plugins/tank_monitor/__init__.py:257
+#: ospy/sensors.py:985 plugins/tank_monitor/__init__.py:257
 msgid "!"
 msgstr ""
 
-#: ospy/sensors.py:993
+#: ospy/sensors.py:992
 msgid "Rain delay"
 msgstr ""
 
-#: ospy/sensors.py:993
+#: ospy/sensors.py:992
 msgid "hours."
 msgstr ""
 
-#: ospy/sensors.py:999
+#: ospy/sensors.py:998
 msgid "Sensor has water minimum"
 msgstr ""
 
-#: ospy/sensors.py:1029
+#: ospy/sensors.py:1028
 msgid "Sensors timer loop error: {}"
 msgstr ""
 
@@ -1204,7 +1207,7 @@ msgid "OSPy is closing, saving sessions."
 msgstr ""
 
 #: ospy/server.py:200 ospy/server.py:213 ospy/server.py:224
-#: plugins/lcd_display/__init__.py:505 plugins/lcd_display/__init__.py:542
+#: plugins/lcd_display/__init__.py:635 plugins/lcd_display/__init__.py:672
 #: plugins/system_update/__init__.py:225
 msgid "System OSPy"
 msgstr ""
@@ -1619,7 +1622,7 @@ msgstr ""
 #: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:200
 #: ospy/templates/log_sensor.html:9 ospy/templates/log_sensor.html:73
 #: ospy/templates/options.html:315 ospy/templates/program.html:635
-#: ospy/templates/runonce.html:72 ospy/templates/sensor.html:620
+#: ospy/templates/runonce.html:72 ospy/templates/sensor.html:611
 #: ospy/templates/stations.html:127 ospy/templates/user.html:102
 #: ospy/templates/view.html:30
 #: plugins/air_temp_humi/templates/air_temp_humi.html:358
@@ -1637,7 +1640,7 @@ msgstr ""
 #: plugins/email_reader/templates/email_reader.html:191
 #: plugins/email_reader/templates/email_reader_help.html:95
 #: plugins/humi_monitor/templates/humi_monitor.html:96
-#: plugins/lcd_display/templates/lcd_display.html:153
+#: plugins/lcd_display/templates/lcd_display.html:157
 #: plugins/lcd_display/templates/lcd_display_help.html:62
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
@@ -1649,8 +1652,8 @@ msgstr ""
 #: plugins/mqtt_zones/templates/mqtt_zones_help.html:15
 #: plugins/ping_monitor/templates/ping_monitor.html:264
 #: plugins/ping_monitor/templates/ping_monitor_help.html:14
-#: plugins/ping_monitor/templates/ping_monitor_log.html:12
-#: plugins/ping_monitor/templates/ping_monitor_log.html:46
+#: plugins/ping_monitor/templates/ping_monitor_log.html:23
+#: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/pool_heating/templates/pool_heating.html:136
 #: plugins/pool_heating/templates/pool_heating_help.html:15
 #: plugins/pressure_monitor/templates/pressure_monitor.html:266
@@ -1725,7 +1728,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
 #: ospy/templates/sensor.html:238 ospy/templates/sensor.html:250
-#: ospy/templates/sensors.html:68 ospy/templates/sensors.html:69
+#: ospy/templates/sensors.html:67 ospy/templates/sensors.html:68
 #: ospy/templates/sensors_search.html:37
 msgid "Dry Contact"
 msgstr ""
@@ -1733,7 +1736,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
 #: ospy/templates/sensor.html:238 ospy/templates/sensor.html:250
-#: ospy/templates/sensors.html:68 ospy/templates/sensors.html:69
+#: ospy/templates/sensors.html:67 ospy/templates/sensors.html:68
 #: ospy/templates/sensors_search.html:38
 msgid "Leak Detector"
 msgstr ""
@@ -1741,7 +1744,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
 #: ospy/templates/sensor.html:238 ospy/templates/sensor.html:250
-#: ospy/templates/sensors.html:68 ospy/templates/sensors.html:69
+#: ospy/templates/sensors.html:67 ospy/templates/sensors.html:68
 #: ospy/templates/sensors_search.html:39
 msgid "Moisture"
 msgstr ""
@@ -1749,7 +1752,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
 #: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
 #: ospy/templates/sensor.html:238 ospy/templates/sensor.html:250
-#: ospy/templates/sensors.html:68 ospy/templates/sensors.html:69
+#: ospy/templates/sensors.html:67 ospy/templates/sensors.html:68
 #: ospy/templates/sensors_search.html:40
 msgid "Motion"
 msgstr ""
@@ -1761,49 +1764,49 @@ msgstr ""
 #: ospy/templates/sensor.html:322 ospy/templates/sensor.html:355
 #: ospy/templates/sensor.html:364 ospy/templates/sensor.html:383
 #: ospy/templates/sensor.html:446 ospy/templates/sensor.html:507
-#: ospy/templates/sensor.html:527 ospy/templates/sensors.html:68
-#: ospy/templates/sensors.html:101 ospy/templates/sensors.html:109
-#: ospy/templates/sensors.html:125 ospy/templates/sensors.html:133
-#: ospy/templates/sensors.html:147 ospy/templates/sensors.html:156
-#: ospy/templates/sensors.html:169 ospy/templates/sensors.html:191
-#: ospy/templates/sensors.html:205 ospy/templates/sensors.html:228
-#: ospy/templates/sensors.html:242 ospy/templates/sensors.html:255
-#: ospy/templates/sensors.html:263 ospy/templates/sensors.html:279
-#: ospy/templates/sensors.html:287 ospy/templates/sensors.html:299
-#: ospy/templates/sensors.html:308 ospy/templates/sensors.html:321
-#: ospy/templates/sensors.html:344 ospy/templates/sensors.html:356
-#: plugins/lcd_display/__init__.py:307
+#: ospy/templates/sensor.html:527 ospy/templates/sensors.html:67
+#: ospy/templates/sensors.html:100 ospy/templates/sensors.html:108
+#: ospy/templates/sensors.html:124 ospy/templates/sensors.html:132
+#: ospy/templates/sensors.html:146 ospy/templates/sensors.html:155
+#: ospy/templates/sensors.html:168 ospy/templates/sensors.html:190
+#: ospy/templates/sensors.html:204 ospy/templates/sensors.html:227
+#: ospy/templates/sensors.html:241 ospy/templates/sensors.html:254
+#: ospy/templates/sensors.html:262 ospy/templates/sensors.html:278
+#: ospy/templates/sensors.html:286 ospy/templates/sensors.html:298
+#: ospy/templates/sensors.html:307 ospy/templates/sensors.html:320
+#: ospy/templates/sensors.html:343 ospy/templates/sensors.html:355
+#: plugins/lcd_display/__init__.py:344
 msgid "None"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
-#: ospy/templates/sensor.html:238 ospy/templates/sensors.html:68
+#: ospy/templates/sensor.html:238 ospy/templates/sensors.html:67
 #: ospy/templates/sensors_search.html:42
 msgid "Multi"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:69
+#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:68
 msgid "Temperature DS1"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:69
+#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:68
 msgid "Temperature DS2"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:69
+#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:68
 msgid "Temperature DS3"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:69
+#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:68
 msgid "Temperature DS4"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:7 ospy/templates/log_sensor.html:7
-#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:69
+#: ospy/templates/sensor.html:250 ospy/templates/sensors.html:68
 msgid "Ultrasonic"
 msgstr ""
 
@@ -1914,12 +1917,12 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
-#: ospy/templates/graph_sensor.html:201 ospy/templates/sensors.html:389
+#: ospy/templates/graph_sensor.html:201 ospy/templates/sensors.html:390
 msgid "View Logs"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:202 ospy/templates/sensor.html:188
-#: ospy/templates/sensors.html:388
+#: ospy/templates/sensors.html:389
 msgid "Edit Sensor"
 msgstr ""
 
@@ -1971,7 +1974,8 @@ msgstr ""
 #: ospy/templates/home_user.html:461 ospy/templates/log.html:36
 #: ospy/templates/log.html:63 ospy/templates/log.html:90
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
-#: ospy/templates/log_user.html:91 plugins/lcd_display/__init__.py:404
+#: ospy/templates/log_user.html:91 plugins/lcd_display/__init__.py:448
+#: plugins/lcd_display/__init__.py:524
 msgid "Disabled"
 msgstr ""
 
@@ -1981,7 +1985,7 @@ msgstr ""
 #: ospy/templates/home_user.html:525 ospy/templates/plugins_manage.html:12
 #: ospy/templates/plugins_manage.html:20 ospy/templates/plugins_manage.html:63
 #: ospy/templates/program.html:440 ospy/templates/programs.html:38
-#: ospy/templates/sensors.html:75
+#: ospy/templates/sensors.html:74
 msgid "Off"
 msgstr ""
 
@@ -2103,7 +2107,7 @@ msgid "Settings the time countdown (rain delay) and block programs during this t
 msgstr ""
 
 #: ospy/templates/home_admin.html:532 ospy/templates/home_user.html:451
-#: plugins/lcd_display/__init__.py:290 plugins/lcd_display/__init__.py:323
+#: plugins/lcd_display/__init__.py:327 plugins/lcd_display/__init__.py:360
 #: plugins/pressure_monitor/__init__.py:189
 #: plugins/pressure_monitor/__init__.py:190
 msgid "Active"
@@ -2134,7 +2138,7 @@ msgstr ""
 #: ospy/templates/log.html:36 ospy/templates/log.html:63
 #: ospy/templates/log.html:90 ospy/templates/log_user.html:36
 #: ospy/templates/log_user.html:63 ospy/templates/log_user.html:91
-#: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:402
+#: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:446
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
 #: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
@@ -2149,7 +2153,7 @@ msgstr ""
 #: ospy/templates/home_user.html:512 ospy/templates/home_user.html:525
 #: ospy/templates/plugins_manage.html:10 ospy/templates/plugins_manage.html:18
 #: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:438
-#: ospy/templates/programs.html:36 ospy/templates/sensors.html:73
+#: ospy/templates/programs.html:36 ospy/templates/sensors.html:72
 msgid "On"
 msgstr ""
 
@@ -2287,7 +2291,7 @@ msgstr ""
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:8
 #: plugins/cli_control/templates/cli_control_log.html:9
-#: plugins/ping_monitor/templates/ping_monitor_log.html:8
+#: plugins/ping_monitor/templates/ping_monitor_log.html:19
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:8
 #: plugins/tank_monitor/templates/tank_monitor_log.html:9
 #: plugins/ups_adj/templates/ups_adj_log.html:8
@@ -2309,7 +2313,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:25
 #: plugins/cli_control/templates/cli_control_log.html:10
 #: plugins/ping_monitor/templates/ping_monitor.html:182
-#: plugins/ping_monitor/templates/ping_monitor_log.html:10
+#: plugins/ping_monitor/templates/ping_monitor_log.html:21
 #: plugins/pressure_monitor/templates/pressure_monitor.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:10
 #: plugins/system_debug/templates/system_debug.html:46
@@ -2334,7 +2338,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:16
 #: plugins/email_reader/__init__.py:775 plugins/email_reader/__init__.py:844
 #: plugins/email_reader/__init__.py:904
-#: plugins/ping_monitor/templates/ping_monitor_log.html:16
+#: plugins/ping_monitor/templates/ping_monitor_log.html:27
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:16
 #: plugins/ups_adj/templates/ups_adj_log.html:16
 #: plugins/wind_monitor/templates/wind_monitor_log.html:16
@@ -2379,7 +2383,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
 #: plugins/email_reader/__init__.py:776 plugins/email_reader/__init__.py:845
 #: plugins/email_reader/__init__.py:905
-#: plugins/ping_monitor/templates/ping_monitor_log.html:17
+#: plugins/ping_monitor/templates/ping_monitor_log.html:28
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:17
 #: plugins/ups_adj/templates/ups_adj_log.html:17
 #: plugins/wind_monitor/templates/wind_monitor_log.html:17
@@ -2421,7 +2425,7 @@ msgstr ""
 #: plugins/email_reader/templates/email_reader.html:180
 #: plugins/email_reader/templates/email_reader_help.html:59
 #: plugins/humi_monitor/templates/humi_monitor.html:86
-#: plugins/lcd_display/templates/lcd_display.html:143
+#: plugins/lcd_display/templates/lcd_display.html:147
 #: plugins/lcd_display/templates/lcd_display_help.html:45
 #: plugins/mqtt/templates/mqtt.html:97
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:64
@@ -2466,7 +2470,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:239
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
 #: plugins/cli_control/templates/cli_control_log.html:11
-#: plugins/ping_monitor/templates/ping_monitor_log.html:11
+#: plugins/ping_monitor/templates/ping_monitor_log.html:22
 #: plugins/pool_heating/templates/pool_heating.html:137
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/system_watchdog/templates/system_watchdog.html:38
@@ -2482,7 +2486,7 @@ msgid "Sensor Log"
 msgstr ""
 
 #: ospy/templates/log_sensor.html:11 ospy/templates/log_sensor.html:75
-#: ospy/templates/sensors.html:390
+#: ospy/templates/sensors.html:391
 msgid "View Graph"
 msgstr ""
 
@@ -2514,13 +2518,14 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: ospy/templates/log_sensor.html:58 ospy/templates/sensors.html:121
-#: ospy/templates/sensors.html:141 ospy/templates/sensors.html:144
-#: ospy/templates/sensors.html:153 ospy/templates/sensors.html:275
-#: ospy/templates/sensors.html:295 ospy/templates/sensors.html:296
-#: ospy/templates/sensors.html:305 ospy/templates/sensors.html:367
+#: ospy/templates/log_sensor.html:58 ospy/templates/sensors.html:120
+#: ospy/templates/sensors.html:140 ospy/templates/sensors.html:143
+#: ospy/templates/sensors.html:152 ospy/templates/sensors.html:274
+#: ospy/templates/sensors.html:294 ospy/templates/sensors.html:295
+#: ospy/templates/sensors.html:304 ospy/templates/sensors.html:366
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
-#: plugins/lcd_display/__init__.py:343
+#: plugins/lcd_display/__init__.py:380 plugins/lcd_display/__init__.py:475
+#: plugins/lcd_display/__init__.py:506
 msgid "%"
 msgstr ""
 
@@ -2850,7 +2855,7 @@ msgstr ""
 msgid "Add a New Program"
 msgstr ""
 
-#: ospy/templates/program.html:384 ospy/templates/sensors.html:77
+#: ospy/templates/program.html:384 ospy/templates/sensors.html:76
 #: ospy/templates/stations.html:36
 msgid "Name"
 msgstr ""
@@ -2969,7 +2974,7 @@ msgstr ""
 msgid " (Most preferred)"
 msgstr ""
 
-#: ospy/templates/program.html:634 ospy/templates/sensor.html:619
+#: ospy/templates/program.html:634 ospy/templates/sensor.html:610
 #: ospy/templates/user.html:101
 msgid "Save"
 msgstr ""
@@ -3032,7 +3037,7 @@ msgstr ""
 msgid "Error: Sensor code must be exactly 16 characters! Please try again."
 msgstr ""
 
-#: ospy/templates/sensor.html:188 ospy/templates/sensors.html:57
+#: ospy/templates/sensor.html:188 ospy/templates/sensors.html:56
 msgid "Add a New Sensor"
 msgstr ""
 
@@ -3040,7 +3045,7 @@ msgstr ""
 msgid "Enable Sensor"
 msgstr ""
 
-#: ospy/templates/sensor.html:198 ospy/templates/sensors.html:72
+#: ospy/templates/sensor.html:198 ospy/templates/sensors.html:71
 msgid "Enabling or disabling this sensor."
 msgstr ""
 
@@ -3113,7 +3118,7 @@ msgstr ""
 msgid "Radio"
 msgstr ""
 
-#: ospy/templates/sensor.html:272 ospy/templates/sensors.html:90
+#: ospy/templates/sensor.html:272 ospy/templates/sensors.html:89
 msgid "Sample Rate"
 msgstr ""
 
@@ -3126,12 +3131,12 @@ msgid "Enter the sampling time in seconds."
 msgstr ""
 
 #: ospy/templates/sensor.html:274 ospy/templates/sensor.html:340
-#: ospy/templates/sensors.html:90 ospy/templates/sensors.html:120
-#: ospy/templates/sensors.html:274 ospy/templates/sensors.html:352
+#: ospy/templates/sensors.html:89 ospy/templates/sensors.html:119
+#: ospy/templates/sensors.html:273 ospy/templates/sensors.html:351
 msgid "mm:ss"
 msgstr ""
 
-#: ospy/templates/sensor.html:282 ospy/templates/sensors.html:91
+#: ospy/templates/sensor.html:282 ospy/templates/sensors.html:90
 msgid "Log Samples"
 msgstr ""
 
@@ -3139,7 +3144,7 @@ msgstr ""
 msgid "Enable sample logging."
 msgstr ""
 
-#: ospy/templates/sensor.html:290 ospy/templates/sensors.html:92
+#: ospy/templates/sensor.html:290 ospy/templates/sensors.html:91
 msgid "Log Events"
 msgstr ""
 
@@ -3147,7 +3152,7 @@ msgstr ""
 msgid "Enable event logging."
 msgstr ""
 
-#: ospy/templates/sensor.html:298 ospy/templates/sensors.html:93
+#: ospy/templates/sensor.html:298 ospy/templates/sensors.html:92
 msgid "Text/Email Events"
 msgstr ""
 
@@ -3155,8 +3160,8 @@ msgstr ""
 msgid "Allow sending an E-mail when there is an event. For this function is requred plugin E-mail notification!"
 msgstr ""
 
-#: ospy/templates/sensor.html:312 ospy/templates/sensors.html:99
-#: ospy/templates/sensors.html:253
+#: ospy/templates/sensor.html:312 ospy/templates/sensors.html:98
+#: ospy/templates/sensors.html:252
 msgid "Open Program(s)"
 msgstr ""
 
@@ -3167,13 +3172,13 @@ msgstr ""
 msgid "Mark the required programs to run."
 msgstr ""
 
-#: ospy/templates/sensor.html:320 ospy/templates/sensors.html:107
-#: ospy/templates/sensors.html:261
+#: ospy/templates/sensor.html:320 ospy/templates/sensors.html:106
+#: ospy/templates/sensors.html:260
 msgid "Closed Program(s)"
 msgstr ""
 
-#: ospy/templates/sensor.html:338 ospy/templates/sensors.html:120
-#: ospy/templates/sensors.html:274
+#: ospy/templates/sensor.html:338 ospy/templates/sensors.html:119
+#: ospy/templates/sensors.html:273
 msgid "Stabilization Time"
 msgstr ""
 
@@ -3185,8 +3190,8 @@ msgstr ""
 msgid "Enter the stabilization time in seconds."
 msgstr ""
 
-#: ospy/templates/sensor.html:343 ospy/templates/sensors.html:121
-#: ospy/templates/sensors.html:275
+#: ospy/templates/sensor.html:343 ospy/templates/sensors.html:120
+#: ospy/templates/sensors.html:274
 msgid "Sensitivity"
 msgstr ""
 
@@ -3194,8 +3199,8 @@ msgstr ""
 msgid "Enter sensitivity for sensor."
 msgstr ""
 
-#: ospy/templates/sensor.html:348 ospy/templates/sensors.html:122
-#: ospy/templates/sensors.html:276
+#: ospy/templates/sensor.html:348 ospy/templates/sensors.html:121
+#: ospy/templates/sensors.html:275
 msgid "One pulse is"
 msgstr ""
 
@@ -3203,27 +3208,27 @@ msgstr ""
 msgid "Here we enter how many liters from the flow meter is one pulse."
 msgstr ""
 
-#: ospy/templates/sensor.html:349 ospy/templates/sensors.html:122
-#: ospy/templates/sensors.html:276
+#: ospy/templates/sensor.html:349 ospy/templates/sensors.html:121
+#: ospy/templates/sensors.html:275
 msgid "Liters"
 msgstr ""
 
 #: ospy/templates/sensor.html:353 ospy/templates/sensor.html:505
-#: ospy/templates/sensors.html:123 ospy/templates/sensors.html:277
+#: ospy/templates/sensors.html:122 ospy/templates/sensors.html:276
 msgid "Low Program(s)"
 msgstr ""
 
 #: ospy/templates/sensor.html:362 ospy/templates/sensor.html:525
-#: ospy/templates/sensors.html:131 ospy/templates/sensors.html:285
+#: ospy/templates/sensors.html:130 ospy/templates/sensors.html:284
 msgid "High Program(s)"
 msgstr ""
 
-#: ospy/templates/sensor.html:381 ospy/templates/sensors.html:145
-#: ospy/templates/sensors.html:154 ospy/templates/sensors.html:167
-#: ospy/templates/sensors.html:189 ospy/templates/sensors.html:203
-#: ospy/templates/sensors.html:226 ospy/templates/sensors.html:240
-#: ospy/templates/sensors.html:297 ospy/templates/sensors.html:306
-#: ospy/templates/sensors.html:319
+#: ospy/templates/sensor.html:381 ospy/templates/sensors.html:144
+#: ospy/templates/sensors.html:153 ospy/templates/sensors.html:166
+#: ospy/templates/sensors.html:188 ospy/templates/sensors.html:202
+#: ospy/templates/sensors.html:225 ospy/templates/sensors.html:239
+#: ospy/templates/sensors.html:296 ospy/templates/sensors.html:305
+#: ospy/templates/sensors.html:318
 msgid "Program(s)"
 msgstr ""
 
@@ -3320,7 +3325,7 @@ msgstr ""
 msgid "Mark the required stations"
 msgstr ""
 
-#: ospy/templates/sensor.html:458 ospy/templates/sensors.html:350
+#: ospy/templates/sensor.html:458 ospy/templates/sensors.html:349
 #: plugins/tank_monitor/templates/tank_monitor.html:287
 msgid "Regulate the maximum water level"
 msgstr ""
@@ -3329,7 +3334,7 @@ msgstr ""
 msgid "If checked regulation is enabled"
 msgstr ""
 
-#: ospy/templates/sensor.html:461 ospy/templates/sensors.html:351
+#: ospy/templates/sensor.html:461 ospy/templates/sensors.html:350
 #: plugins/tank_monitor/templates/tank_monitor.html:293
 msgid "Maximum maintained water level"
 msgstr ""
@@ -3339,7 +3344,7 @@ msgstr ""
 msgid "If the measured water level exceeds this set value, the output is activated"
 msgstr ""
 
-#: ospy/templates/sensor.html:466 ospy/templates/sensors.html:352
+#: ospy/templates/sensor.html:466 ospy/templates/sensors.html:351
 #: plugins/air_temp_humi/templates/air_temp_humi.html:263
 #: plugins/pool_heating/templates/pool_heating.html:99
 #: plugins/tank_monitor/templates/tank_monitor.html:299
@@ -3361,7 +3366,7 @@ msgstr ""
 msgid "[mm:ss]"
 msgstr ""
 
-#: ospy/templates/sensor.html:472 ospy/templates/sensors.html:353
+#: ospy/templates/sensor.html:472 ospy/templates/sensors.html:352
 #: plugins/tank_monitor/templates/tank_monitor.html:306
 msgid "Minimum maintained water level"
 msgstr ""
@@ -3371,7 +3376,7 @@ msgstr ""
 msgid "If the measured water level falls below this set value, the output is deactivated"
 msgstr ""
 
-#: ospy/templates/sensor.html:476 ospy/templates/sensors.html:354
+#: ospy/templates/sensor.html:476 ospy/templates/sensors.html:353
 #: plugins/tank_monitor/templates/tank_monitor.html:312
 msgid "Select Output for regulation"
 msgstr ""
@@ -3392,7 +3397,7 @@ msgstr ""
 msgid "Enter value for high threshold."
 msgstr ""
 
-#: ospy/templates/sensor.html:544 ospy/templates/sensors.html:365
+#: ospy/templates/sensor.html:544 ospy/templates/sensors.html:364
 #: ospy/templates/sensors_firmware.html:147
 #: ospy/templates/sensors_search.html:113
 msgid "MAC Address"
@@ -3402,7 +3407,7 @@ msgstr ""
 msgid "Enter Sensor MAC Address."
 msgstr ""
 
-#: ospy/templates/sensor.html:549 ospy/templates/sensors.html:363
+#: ospy/templates/sensor.html:549 ospy/templates/sensors.html:362
 msgid "IP Address"
 msgstr ""
 
@@ -3418,7 +3423,7 @@ msgstr ""
 msgid "Enter sensor ID for your radio sensor."
 msgstr ""
 
-#: ospy/templates/sensor.html:574 ospy/templates/sensors.html:386
+#: ospy/templates/sensor.html:574 ospy/templates/sensors.html:385
 #: ospy/templates/stations.html:48
 msgid "Notes"
 msgstr ""
@@ -3427,17 +3432,17 @@ msgstr ""
 msgid "Here we can make our notes."
 msgstr ""
 
-#: ospy/templates/sensor.html:583 ospy/templates/sensors.html:377
+#: ospy/templates/sensor.html:583 ospy/templates/sensors.html:376
 #: ospy/templates/sensors_search.html:118
 msgid "Firmware Version"
 msgstr ""
 
-#: ospy/templates/sensor.html:589 ospy/templates/sensors.html:60
+#: ospy/templates/sensor.html:589 ospy/templates/sensors.html:59
 #: ospy/templates/sensors_search.html:139
 msgid "Sensors Firmware"
 msgstr ""
 
-#: ospy/templates/sensor.html:595 ospy/templates/sensors.html:378
+#: ospy/templates/sensor.html:595 ospy/templates/sensors.html:377
 #: ospy/templates/sensors_firmware.html:145
 #: ospy/templates/sensors_search.html:110
 msgid "Sensor CPU"
@@ -3447,24 +3452,16 @@ msgstr ""
 msgid "Select the processor type for this sensor."
 msgstr ""
 
-#: ospy/templates/sensor.html:597 ospy/templates/sensors.html:380
+#: ospy/templates/sensor.html:597 ospy/templates/sensors.html:379
 #: ospy/templates/sensors_firmware.html:158
 #: ospy/templates/sensors_search.html:52
 msgid "ESP32"
 msgstr ""
 
-#: ospy/templates/sensor.html:597 ospy/templates/sensors.html:382
+#: ospy/templates/sensor.html:597 ospy/templates/sensors.html:381
 #: ospy/templates/sensors_firmware.html:160
 #: ospy/templates/sensors_search.html:53
 msgid "ESP8266"
-msgstr ""
-
-#: ospy/templates/sensor.html:608
-msgid "Sensor notes"
-msgstr ""
-
-#: ospy/templates/sensor.html:610 ospy/templates/sensors.html:387
-msgid "Sensor Notes."
 msgstr ""
 
 #: ospy/templates/sensors.html:3
@@ -3475,7 +3472,7 @@ msgstr ""
 msgid "weeks"
 msgstr ""
 
-#: ospy/templates/sensors.html:13 ospy/templates/sensors.html:340
+#: ospy/templates/sensors.html:13 ospy/templates/sensors.html:339
 #: plugins/weather_based_rain_delay/__init__.py:115
 #: plugins/weather_based_rain_delay/__init__.py:117
 msgid "hours"
@@ -3485,152 +3482,158 @@ msgstr ""
 msgid "seconds"
 msgstr ""
 
-#: ospy/templates/sensors.html:58
+#: ospy/templates/sensors.html:57
 msgid "Delete All Sensors"
 msgstr ""
 
-#: ospy/templates/sensors.html:59 ospy/templates/sensors_firmware.html:240
+#: ospy/templates/sensors.html:58 ospy/templates/sensors_firmware.html:240
 msgid "Searching Sensors"
 msgstr ""
 
-#: ospy/templates/sensors.html:77
+#: ospy/templates/sensors.html:76
 msgid "Type"
 msgstr ""
 
-#: ospy/templates/sensors.html:83
+#: ospy/templates/sensors.html:82
 msgid "Yes all is correct."
 msgstr ""
 
-#: ospy/templates/sensors.html:84
+#: ospy/templates/sensors.html:83
 msgid "Link OK"
 msgstr ""
 
-#: ospy/templates/sensors.html:84 ospy/templates/sensors.html:87
+#: ospy/templates/sensors.html:83 ospy/templates/sensors.html:86
 msgid "Last:"
 msgstr ""
 
-#: ospy/templates/sensors.html:86
+#: ospy/templates/sensors.html:85
 msgid "Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?"
 msgstr ""
 
-#: ospy/templates/sensors.html:87
+#: ospy/templates/sensors.html:86
 msgid "Link ERROR"
 msgstr ""
 
-#: ospy/templates/sensors.html:89
+#: ospy/templates/sensors.html:88
 msgid "Show in Footer on Home"
 msgstr ""
 
-#: ospy/templates/sensors.html:89 ospy/templates/sensors.html:91
-#: ospy/templates/sensors.html:92 ospy/templates/sensors.html:93
-#: ospy/templates/sensors.html:338 ospy/templates/sensors.html:339
-#: ospy/templates/sensors.html:341 ospy/templates/sensors.html:350
+#: ospy/templates/sensors.html:88 ospy/templates/sensors.html:90
+#: ospy/templates/sensors.html:91 ospy/templates/sensors.html:92
+#: ospy/templates/sensors.html:337 ospy/templates/sensors.html:338
+#: ospy/templates/sensors.html:340 ospy/templates/sensors.html:349
 msgid "No"
 msgstr ""
 
-#: ospy/templates/sensors.html:89 ospy/templates/sensors.html:91
-#: ospy/templates/sensors.html:92 ospy/templates/sensors.html:93
-#: ospy/templates/sensors.html:338 ospy/templates/sensors.html:339
-#: ospy/templates/sensors.html:341 ospy/templates/sensors.html:350
+#: ospy/templates/sensors.html:88 ospy/templates/sensors.html:90
+#: ospy/templates/sensors.html:91 ospy/templates/sensors.html:92
+#: ospy/templates/sensors.html:337 ospy/templates/sensors.html:338
+#: ospy/templates/sensors.html:340 ospy/templates/sensors.html:349
 msgid "Yes"
 msgstr ""
 
-#: ospy/templates/sensors.html:96 ospy/templates/sensors.html:98
-#: ospy/templates/sensors.html:117 ospy/templates/sensors.html:119
-#: ospy/templates/sensors.html:141 ospy/templates/sensors.html:143
-#: ospy/templates/sensors.html:164 ospy/templates/sensors.html:166
-#: ospy/templates/sensors.html:177 ospy/templates/sensors.html:214
-#: ospy/templates/sensors.html:250 ospy/templates/sensors.html:252
-#: ospy/templates/sensors.html:271 ospy/templates/sensors.html:273
-#: ospy/templates/sensors.html:295 ospy/templates/sensors.html:316
-#: ospy/templates/sensors.html:318 ospy/templates/sensors.html:329
-#: ospy/templates/sensors.html:331 ospy/templates/sensors.html:333
+#: ospy/templates/sensors.html:95 ospy/templates/sensors.html:97
+#: ospy/templates/sensors.html:116 ospy/templates/sensors.html:118
+#: ospy/templates/sensors.html:140 ospy/templates/sensors.html:142
+#: ospy/templates/sensors.html:163 ospy/templates/sensors.html:165
+#: ospy/templates/sensors.html:176 ospy/templates/sensors.html:213
+#: ospy/templates/sensors.html:249 ospy/templates/sensors.html:251
+#: ospy/templates/sensors.html:270 ospy/templates/sensors.html:272
+#: ospy/templates/sensors.html:294 ospy/templates/sensors.html:315
+#: ospy/templates/sensors.html:317 ospy/templates/sensors.html:328
+#: ospy/templates/sensors.html:330 ospy/templates/sensors.html:332
 msgid "Last Read Value"
 msgstr ""
 
-#: ospy/templates/sensors.html:96 ospy/templates/sensors.html:250
+#: ospy/templates/sensors.html:95 ospy/templates/sensors.html:249
+#: plugins/lcd_display/__init__.py:467 plugins/lcd_display/__init__.py:496
 msgid "Contact Closed"
 msgstr ""
 
-#: ospy/templates/sensors.html:96 ospy/templates/sensors.html:250
+#: ospy/templates/sensors.html:95 ospy/templates/sensors.html:249
+#: plugins/lcd_display/__init__.py:467 plugins/lcd_display/__init__.py:496
 msgid "Contact Open"
 msgstr ""
 
-#: ospy/templates/sensors.html:117 ospy/templates/sensors.html:271
+#: ospy/templates/sensors.html:116 ospy/templates/sensors.html:270
 msgid "Liter per second"
 msgstr ""
 
-#: ospy/templates/sensors.html:144 ospy/templates/sensors.html:183
-#: ospy/templates/sensors.html:220 ospy/templates/sensors.html:296
+#: ospy/templates/sensors.html:143 ospy/templates/sensors.html:182
+#: ospy/templates/sensors.html:219 ospy/templates/sensors.html:295
 msgid "Low Threshold"
 msgstr ""
 
-#: ospy/templates/sensors.html:153 ospy/templates/sensors.html:197
-#: ospy/templates/sensors.html:234 ospy/templates/sensors.html:305
+#: ospy/templates/sensors.html:152 ospy/templates/sensors.html:196
+#: ospy/templates/sensors.html:233 ospy/templates/sensors.html:304
 msgid "High Threshold"
 msgstr ""
 
-#: ospy/templates/sensors.html:331
+#: ospy/templates/sensors.html:330
 msgid "Sensor has any error?"
 msgstr ""
 
-#: ospy/templates/sensors.html:334
+#: ospy/templates/sensors.html:333
 msgid "Distance sensor to minimum"
 msgstr ""
 
-#: ospy/templates/sensors.html:335
+#: ospy/templates/sensors.html:334
 msgid "Distance sensor to maximum"
 msgstr ""
 
-#: ospy/templates/sensors.html:336
+#: ospy/templates/sensors.html:335
 msgid "Minimum water level in tank"
 msgstr ""
 
-#: ospy/templates/sensors.html:337
+#: ospy/templates/sensors.html:336
 msgid "Cylinder diameter"
 msgstr ""
 
-#: ospy/templates/sensors.html:338
+#: ospy/templates/sensors.html:337
 msgid "Display in liters"
 msgstr ""
 
-#: ospy/templates/sensors.html:339
+#: ospy/templates/sensors.html:338
 msgid "Stop stations if minimum"
 msgstr ""
 
-#: ospy/templates/sensors.html:340
+#: ospy/templates/sensors.html:339
 msgid "Delay Duration"
 msgstr ""
 
-#: ospy/templates/sensors.html:341
+#: ospy/templates/sensors.html:340
 msgid "Stop stations if fault"
 msgstr ""
 
-#: ospy/templates/sensors.html:342
+#: ospy/templates/sensors.html:341
 msgid "Stop this run stations"
 msgstr ""
 
-#: ospy/templates/sensors.html:367
+#: ospy/templates/sensors.html:366
 msgid "Last RSSI Level"
 msgstr ""
 
-#: ospy/templates/sensors.html:369
+#: ospy/templates/sensors.html:368
 msgid "Last Power supply voltage"
 msgstr ""
 
-#: ospy/templates/sensors.html:369 ospy/templates/sensors.html:374
+#: ospy/templates/sensors.html:368 ospy/templates/sensors.html:373
 msgid "V"
 msgstr ""
 
-#: ospy/templates/sensors.html:372 ospy/templates/sensors_search.html:114
+#: ospy/templates/sensors.html:371 ospy/templates/sensors_search.html:114
 msgid "Radio ID"
 msgstr ""
 
-#: ospy/templates/sensors.html:374
+#: ospy/templates/sensors.html:373
 msgid "Last Battery voltage"
 msgstr ""
 
-#: ospy/templates/sensors.html:391
+#: ospy/templates/sensors.html:386
+msgid "Sensor Notes."
+msgstr ""
+
+#: ospy/templates/sensors.html:392
 msgid "Delete Sensor"
 msgstr ""
 
@@ -3712,9 +3715,9 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:129
 #: ospy/templates/sensors_firmware.html:137
 #: ospy/templates/sensors_firmware.html:162
-#: plugins/ping_monitor/templates/ping_monitor_log.html:30
-#: plugins/ping_monitor/templates/ping_monitor_log.html:34
-#: plugins/ping_monitor/templates/ping_monitor_log.html:38
+#: plugins/ping_monitor/templates/ping_monitor_log.html:46
+#: plugins/ping_monitor/templates/ping_monitor_log.html:51
+#: plugins/ping_monitor/templates/ping_monitor_log.html:56
 msgid "Not available"
 msgstr ""
 
@@ -3742,7 +3745,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:149
 #: plugins/cli_control/__init__.py:308 plugins/email_reader/__init__.py:389
 #: plugins/ping_monitor/templates/ping_monitor.html:49
-#: plugins/ping_monitor/templates/ping_monitor_log.html:21
+#: plugins/ping_monitor/templates/ping_monitor_log.html:35
 #: plugins/pressure_monitor/__init__.py:350
 #: plugins/pressure_monitor/__init__.py:495
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:18
@@ -3828,7 +3831,7 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:138
 #: plugins/email_reader/templates/email_reader.html:190
 #: plugins/humi_monitor/templates/humi_monitor.html:95
-#: plugins/lcd_display/templates/lcd_display.html:152
+#: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:106
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:73
@@ -4329,8 +4332,9 @@ msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
 #: ospy/webpages.py:1938 ospy/webpages.py:1939 plugins/mqtt/__init__.py:242
-#: plugins/mqtt_runonce/__init__.py:161 plugins/ups_adj/__init__.py:111
-#: plugins/ups_adj/__init__.py:394
+#: plugins/mqtt_runonce/__init__.py:161
+#: plugins/ping_monitor/templates/ping_monitor_log.html:62
+#: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:394
 msgid "OK"
 msgstr ""
 
@@ -4425,7 +4429,7 @@ msgid "Saving to log files OK"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:550 plugins/cli_control/__init__.py:224
-#: plugins/ping_monitor/__init__.py:347 plugins/tank_monitor/__init__.py:555
+#: plugins/ping_monitor/__init__.py:360 plugins/tank_monitor/__init__.py:555
 #: plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
 msgstr ""
@@ -5791,7 +5795,7 @@ msgid "Finished run"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:154
-#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:343
+#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:380
 msgid "Level"
 msgstr ""
 
@@ -6638,7 +6642,7 @@ msgstr ""
 msgid "Conversion error! Wind monitor data from json file to csv file"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:959 plugins/ping_monitor/__init__.py:420
+#: plugins/email_reader/__init__.py:959 plugins/ping_monitor/__init__.py:433
 #: plugins/pressurizer/__init__.py:219 plugins/tank_monitor/__init__.py:661
 #: plugins/wind_monitor/__init__.py:577
 msgid "Options has updated."
@@ -7019,94 +7023,94 @@ msgstr ""
 msgid "Frequenci from sensor for 100% humidity"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:33
+#: plugins/lcd_display/__init__.py:34
 msgid "Package: LCD Display"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:129
+#: plugins/lcd_display/__init__.py:134
 msgid "LCD display plug-in:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:196
+#: plugins/lcd_display/__init__.py:201
 msgid ","
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:208
+#: plugins/lcd_display/__init__.py:245
 msgid "System:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:218
+#: plugins/lcd_display/__init__.py:255
 msgid "SW Version:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:228
+#: plugins/lcd_display/__init__.py:265
 msgid "My IP is:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:233
+#: plugins/lcd_display/__init__.py:270
 msgid "http"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:235
+#: plugins/lcd_display/__init__.py:272
 msgid "https"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:236
+#: plugins/lcd_display/__init__.py:273
 msgid ":"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:236
+#: plugins/lcd_display/__init__.py:273
 msgid "://"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:242
+#: plugins/lcd_display/__init__.py:279
 msgid "My Port is:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:252
+#: plugins/lcd_display/__init__.py:289
 msgid "CPU Temperature:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:262
+#: plugins/lcd_display/__init__.py:299
 msgid "Date:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:268
+#: plugins/lcd_display/__init__.py:305
 msgid "Time:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:274
+#: plugins/lcd_display/__init__.py:311
 msgid "System Uptime:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:284
+#: plugins/lcd_display/__init__.py:321
 msgid "Rain Sensor:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:292 plugins/lcd_display/__init__.py:321
+#: plugins/lcd_display/__init__.py:329 plugins/lcd_display/__init__.py:358
 #: plugins/pressure_monitor/__init__.py:186
 #: plugins/pressure_monitor/__init__.py:187
 msgid "Inactive"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:297
+#: plugins/lcd_display/__init__.py:334
 msgid "Last Program:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:312
+#: plugins/lcd_display/__init__.py:349
 msgid "Pressure Sensor:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:325 plugins/lcd_display/__init__.py:351
-#: plugins/lcd_display/__init__.py:372
+#: plugins/lcd_display/__init__.py:362 plugins/lcd_display/__init__.py:388
+#: plugins/lcd_display/__init__.py:409 plugins/lcd_display/__init__.py:531
 msgid "Not Available"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:330
+#: plugins/lcd_display/__init__.py:367
 msgid "Water Tank Level:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:345
+#: plugins/lcd_display/__init__.py:382
 #: plugins/water_consumption_counter/__init__.py:161
 #: plugins/water_consumption_counter/__init__.py:162
 #: plugins/water_consumption_counter/__init__.py:191
@@ -7114,89 +7118,113 @@ msgstr ""
 msgid "liter"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:349
+#: plugins/lcd_display/__init__.py:386
 msgid "Error - I2C Device Not Found!"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:356
+#: plugins/lcd_display/__init__.py:393
 msgid "DS Temperature:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:370
+#: plugins/lcd_display/__init__.py:407
 msgid "DS temperature not use"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:377
+#: plugins/lcd_display/__init__.py:414
 msgid "Station running:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:382
+#: plugins/lcd_display/__init__.py:420
 msgid "Nothing running"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:387
+#: plugins/lcd_display/__init__.py:427
 msgid "Control:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:392
+#: plugins/lcd_display/__init__.py:433
 msgid "Manual mode"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:394
+#: plugins/lcd_display/__init__.py:435
 msgid "Scheduler"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:397
+#: plugins/lcd_display/__init__.py:440
 msgid "Scheduler:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:423
+#: plugins/lcd_display/__init__.py:454
+msgid "Sensors:"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:470 plugins/lcd_display/__init__.py:501
+msgid "l/s"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:472 plugins/lcd_display/__init__.py:477
+#: plugins/lcd_display/__init__.py:482 plugins/lcd_display/__init__.py:487
+#: plugins/lcd_display/__init__.py:493 plugins/lcd_display/__init__.py:498
+#: plugins/lcd_display/__init__.py:503 plugins/lcd_display/__init__.py:508
+#: plugins/lcd_display/__init__.py:513 plugins/lcd_display/__init__.py:520
+msgid "Probe Error"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:522
+msgid "No response!"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:529
+msgid "No sensors available"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:553
 msgid "Found {} on address {}"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:429
+#: plugins/lcd_display/__init__.py:559
 msgid "Could not find any PCF8574 controller."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:432 plugins/system_info/__init__.py:133
+#: plugins/lcd_display/__init__.py:562 plugins/system_info/__init__.py:133
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
 #: plugins/wind_monitor/__init__.py:115
 msgid "Could not import smbus."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:476
+#: plugins/lcd_display/__init__.py:606
 msgid "System rebooting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:487 plugins/lcd_display/__init__.py:524
+#: plugins/lcd_display/__init__.py:617 plugins/lcd_display/__init__.py:654
 msgid "System Linux"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:506
+#: plugins/lcd_display/__init__.py:618 plugins/lcd_display/__init__.py:636
 msgid "Rebooting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:494
+#: plugins/lcd_display/__init__.py:624
 msgid "System restarting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:513
+#: plugins/lcd_display/__init__.py:643
 msgid "System poweroff"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:525
+#: plugins/lcd_display/__init__.py:655
 msgid "Power off"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:531
+#: plugins/lcd_display/__init__.py:661
 msgid "System OSPy Has Update"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:543
+#: plugins/lcd_display/__init__.py:673
 msgid "Has Update"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:559
+#: plugins/lcd_display/__init__.py:689
 msgid "I2C address has re-finded."
 msgstr ""
 
@@ -7316,11 +7344,11 @@ msgstr ""
 msgid "System enabled"
 msgstr ""
 
-#: plugins/lcd_display/templates/lcd_display.html:154
+#: plugins/lcd_display/templates/lcd_display.html:158
 msgid "Re-find"
 msgstr ""
 
-#: plugins/lcd_display/templates/lcd_display.html:154
+#: plugins/lcd_display/templates/lcd_display.html:158
 msgid "address"
 msgstr ""
 
@@ -7819,34 +7847,34 @@ msgstr ""
 msgid "Report from OSPy PING plugin"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:116 plugins/ping_monitor/__init__.py:125
-#: plugins/ping_monitor/__init__.py:134
+#: plugins/ping_monitor/__init__.py:120 plugins/ping_monitor/__init__.py:131
+#: plugins/ping_monitor/__init__.py:142
 msgid "is available."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:119 plugins/ping_monitor/__init__.py:128
-#: plugins/ping_monitor/__init__.py:137
+#: plugins/ping_monitor/__init__.py:123 plugins/ping_monitor/__init__.py:134
+#: plugins/ping_monitor/__init__.py:145
 msgid "is not available."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:170
+#: plugins/ping_monitor/__init__.py:182
 msgid "Ping has fault. Restarting system!"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:187
+#: plugins/ping_monitor/__init__.py:199
 msgid "Ping Monitor send statistics at the day and time"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:197 plugins/ping_monitor/__init__.py:204
-#: plugins/ping_monitor/__init__.py:373
+#: plugins/ping_monitor/__init__.py:209 plugins/ping_monitor/__init__.py:215
+#: plugins/ping_monitor/__init__.py:386
 msgid "Ping Monitor plug-in"
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:321
+#: plugins/ping_monitor/__init__.py:334
 msgid "Saving to log files OK."
 msgstr ""
 
-#: plugins/ping_monitor/__init__.py:418
+#: plugins/ping_monitor/__init__.py:431
 msgid "Ping monitor is disabled."
 msgstr ""
 
@@ -7876,7 +7904,7 @@ msgid "When logging is enabled, a log file is created (required for the graph an
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:199
-#: plugins/ping_monitor/templates/ping_monitor_log.html:18
+#: plugins/ping_monitor/templates/ping_monitor_log.html:30
 msgid "Ping address 1"
 msgstr ""
 
@@ -7885,7 +7913,7 @@ msgid "First address for testing."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:204
-#: plugins/ping_monitor/templates/ping_monitor_log.html:19
+#: plugins/ping_monitor/templates/ping_monitor_log.html:32
 msgid "Ping address 2"
 msgstr ""
 
@@ -7894,7 +7922,7 @@ msgid "Second address for testing."
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:209
-#: plugins/ping_monitor/templates/ping_monitor_log.html:20
+#: plugins/ping_monitor/templates/ping_monitor_log.html:34
 msgid "Ping address 3"
 msgstr ""
 
@@ -7973,17 +8001,21 @@ msgid "The log file (pings) can be sent by E-mail after a certain time. At the s
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor_log.html:3
-#: plugins/ping_monitor/templates/ping_monitor_log.html:6
+#: plugins/ping_monitor/templates/ping_monitor_log.html:17
 msgid "Ping monitor - log"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor_log.html:28
-#: plugins/ping_monitor/templates/ping_monitor_log.html:32
 #: plugins/ping_monitor/templates/ping_monitor_log.html:36
+msgid "Between the lines (h:m:s)"
+msgstr ""
+
+#: plugins/ping_monitor/templates/ping_monitor_log.html:44
+#: plugins/ping_monitor/templates/ping_monitor_log.html:49
+#: plugins/ping_monitor/templates/ping_monitor_log.html:54
 msgid "Available"
 msgstr ""
 
-#: plugins/ping_monitor/templates/ping_monitor_log.html:40
+#: plugins/ping_monitor/templates/ping_monitor_log.html:59
 msgid "Connection failure"
 msgstr ""
 
