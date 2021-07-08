@@ -21,6 +21,12 @@ Arduino core for the ESP32 website (https://github.com/espressif/arduino-esp32).
 Remote Controller - M5STICK-C FW Changelog
 ====
 
+FW: 1.01
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add checker for enable or disable read NTP time. Add baterry status (percentage and rectangle). Added battery saving (after 10 seconds the brightness of the LCD display decreases). If the any button is pressed, the brightness is restored to maximal brightness).
+
 FW: 1.00
 -----------
 (martinpihrt)<br/>

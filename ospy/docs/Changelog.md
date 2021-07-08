@@ -1,43 +1,50 @@
 OSPy Changelog
 ====
 
-jun 30 2021
+July 08 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+M5stick-C FW:1.01 (Add checker for enable or disable read NTP time. Add baterry status (percentage and rectangle). Added battery saving (after 10 seconds the brightness of the LCD display decreases). If the any button is pressed, the brightness is restored to maximal brightness).<br/>
+OSPy: Updating Slovak language (Thank you Tomáš Szepesi). Correction of data reception from sensors in API. If the data from the probe is not valid, the value -127 is always set. Corrections in data processing from sensors.
+
+Jun 30 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 A list of sensors has been added to the lcd display extension for showing. Several bugs in the lcd have been fixed. Czech language update. Fix in sensors web page (if change sensor types).
 
-jun 28 2021
+Jun 28 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 A logging page has been added to some extensions. Czech language update. A window with comments has been added to the sensors page - if it is filled in for the sensor, it will be displayed (otherwise it is not visible).
 
-jun 23 2021
+Jun 23 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 ESP32 firmware update version 1.13: fixed: value refresh for calibration of temperature sensors. Removal of the hw timer for LED flashing and replacement by flashing in the loop. OSPy: added to logging event: system OSPy "Stopping" and "Starting".
 
-jun 22 2021
+Jun 22 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 Updating Slovak language (Thank you Tomáš Szepesi). Fix in plugin "pool heating" (the station switches off if the sensor has a fault). Add logging events from OSPy core (so far only rain sensor). ESP32 firmware update version 1.12: possibility of tuning (calibration of temperature sensors +- C) DS1-DS4 in menu AP manager.
 
-jun 14 2021
+Jun 14 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 Update jquery.min.js from 3.5.1 to 3.6.0. (https://blog.jquery.com/2021/03/02/jquery-3-6-0-released/). Update gauge.min.js from 2.1.4 to 2.1.7 (https://canvas-gauges.com/download/).
 
-jun 13 2021
+Jun 13 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
 Added checkbox "Show also errors" (Show also errors in graph. Example: -127) to sensors graph. Added ultrasonic sensor to plugin "weather stations". Updating Czech language (new strings).
 
-jun 10 2021
+Jun 10 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>

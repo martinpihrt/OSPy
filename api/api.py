@@ -479,88 +479,124 @@ class Sensor(object):
                         sensor.last_battery = (float(jqdict['batt']))/10.0              # ex: value is 132 -> real 13.2V
                     if 'stype' in jqdict and jqdict['stype'] is not None:
                         sen_type = int(jqdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
-                        if sen_type == 1:
-                            read_val.append((-127.0))    # DS1
-                            read_val.append((-127.0))    # DS2
-                            read_val.append((-127.0))    # DS3
-                            read_val.append((-127.0))    # DS4
-                            read_val.append(int(jqdict['drcon']))
-                            read_val.append((-1))        # leak
-                            read_val.append((-1))        # humi
-                            read_val.append((-1))        # moti
-                            read_val.append((-1))        # son
-                        elif sen_type == 2:
-                            read_val.append((-127.0))    # DS1
-                            read_val.append((-127.0))    # DS2
-                            read_val.append((-127.0))    # DS3
-                            read_val.append((-127.0))    # DS4
-                            read_val.append((-1))        # dry
-                            read_val.append((float(jqdict['lkdet']))/10.0)              # ex: value is 132 -> real 13.2%
-                            read_val.append((-1))        # humi
-                            read_val.append((-1))        # moti
-                            read_val.append((-1))        # son
-                        elif sen_type == 3:
-                            read_val.append((-127.0))    # DS1
-                            read_val.append((-127.0))    # DS2
-                            read_val.append((-127.0))    # DS3
-                            read_val.append((-127.0))    # DS4
-                            read_val.append((-1))        # dry
-                            read_val.append((-1))        # leak
-                            read_val.append((float(jqdict['humi']))/10.0)               # ex: value is 132 -> real 13.2%
-                            read_val.append((-1))        # moti
-                            read_val.append((-1))        # son
-                        elif sen_type == 4:
-                            read_val.append((-127.0))    # DS1
-                            read_val.append((-127.0))    # DS2
-                            read_val.append((-127.0))    # DS3
-                            read_val.append((-127.0))    # DS4
-                            read_val.append((-1))        # dry
-                            read_val.append((-1))        # leak 
-                            read_val.append((-1))        # humi
-                            read_val.append(int(jqdict['moti']))
-                            read_val.append((-1))        # son
-                        elif sen_type == 5:
+                        if sen_type == 1: # Dry Contact
+                            read_val.append((-127))          # DS1
+                            read_val.append((-127))          # DS2
+                            read_val.append((-127))          # DS3
+                            read_val.append((-127))          # DS4
+                            dr = int(jqdict['drcon'])        # dry
+                            if dr < 0:                       # error probe
+                                read_val.append((-127))
+                            else:
+                                read_val.append(dr)
+                            read_val.append((-127))          # leak
+                            read_val.append((-127))          # humi
+                            read_val.append((-127))          # moti
+                            read_val.append((-127))          # son
+                        elif sen_type == 2: # Leak Detector
+                            read_val.append((-127))          # DS1
+                            read_val.append((-127))          # DS2
+                            read_val.append((-127))          # DS3
+                            read_val.append((-127))          # DS4
+                            read_val.append((-127))          # dry
+                            lk = (float(jqdict['lkdet']))/10.0
+                            if lk < 0:
+                                read_val.append((-127))      # error probe
+                            else:
+                                read_val.append(lk)
+                            read_val.append((-127))          # humi
+                            read_val.append((-127))          # moti
+                            read_val.append((-127))          # son
+                        elif sen_type == 3: # Moisture
+                            read_val.append((-127))          # DS1
+                            read_val.append((-127))          # DS2
+                            read_val.append((-127))          # DS3
+                            read_val.append((-127))          # DS4
+                            read_val.append((-127))          # dry
+                            read_val.append((-127))          # leak
+                            hu = (float(jqdict['humi']))/10.0
+                            if hu < 0:
+                                read_val.append((-127))      # error probe
+                            else:
+                                read_val.append(hu)    
+                            read_val.append((-127))          # moti
+                            read_val.append((-127))          # son
+                        elif sen_type == 4: # Motion
+                            read_val.append((-127))          # DS1
+                            read_val.append((-127))          # DS2
+                            read_val.append((-127))          # DS3
+                            read_val.append((-127))          # DS4
+                            read_val.append((-127))          # dry
+                            read_val.append((-127))          # leak 
+                            read_val.append((-127))          # humi
+                            mo = int(jqdict['moti'])
+                            if mo < 0:
+                                read_val.append((-127))      # error probe
+                            else:     
+                                read_val.append(mo)
+                            read_val.append((-127))          # son
+                        elif sen_type == 5: # Temperature
                             if options.temp_unit == 'F':
                                 read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)  # Fahrenheit ex: value is 132 -> real 13.2F as DS1
-                                read_val.append((-127.0))    # DS2
-                                read_val.append((-127.0))    # DS3
-                                read_val.append((-127.0))    # DS4
-                                read_val.append((-1))        # dry
-                                read_val.append((-1))        # leak 
-                                read_val.append((-1))        # humi
-                                read_val.append((-1))        # moti
-                                read_val.append((-1))        # son
+                                read_val.append((-127))      # DS2
+                                read_val.append((-127))      # DS3
+                                read_val.append((-127))      # DS4
+                                read_val.append((-127))      # dry
+                                read_val.append((-127))      # leak 
+                                read_val.append((-127))      # humi
+                                read_val.append((-127))      # moti
+                                read_val.append((-127))      # son
                             else:     
                                 read_val.append((float(jqdict['temp']))/10.0)           # Celsius ex: value is 132 -> real 13.2C as DS1
-                                read_val.append((-127.0))    # DS2
-                                read_val.append((-127.0))    # DS3
-                                read_val.append((-127.0))    # DS4 
-                                read_val.append((-1))        # dry
-                                read_val.append((-1))        # leak 
-                                read_val.append((-1))        # humi
-                                read_val.append((-1))        # moti
-                                read_val.append((-1))        # son
-                        elif sen_type == 6:                                                    # multisensor
+                                read_val.append((-127))      # DS2
+                                read_val.append((-127))      # DS3
+                                read_val.append((-127))      # DS4 
+                                read_val.append((-127))      # dry
+                                read_val.append((-127))      # leak 
+                                read_val.append((-127))      # humi
+                                read_val.append((-127))      # moti
+                                read_val.append((-127))      # son
+                        elif sen_type == 6: # Multisensor
                             try:  
-                                if options.temp_unit == 'F':
+                                if options.temp_unit == 'F': # OSPy is set in Fahrenheit
                                     read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
                                     read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
                                     read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)    # DS3
                                     read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0)    # DS4
+                                else:                        # OSPy is set in Celsius
+                                    read_val.append((float(jqdict['temp']))/10.0)              # DS1
+                                    read_val.append((float(jqdict['temp2']))/10.0)             # DS2
+                                    read_val.append((float(jqdict['temp3']))/10.0)             # DS3
+                                    read_val.append((float(jqdict['temp4']))/10.0)             # DS4
+                                mdr = int(jqdict['drcon'])
+                                if mdr < 0:                                                    # error probe dry
+                                    read_val.append((-127))
+                                else:    
+                                    read_val.append(mdr)                                       # dry contact
+                                mlk = (float(jqdict['lkdet']))/10.0
+                                if mlk < 0:                                                    # error probe leak
+                                    read_val.append((-127))
+                                else:    
+                                    read_val.append(mlk)                                       # leak detector
+                                mhu = (float(jqdict['humi']))/10.0
+                                if mhu < 0:                                                    # error probe moisture
+                                    read_val.append((-127))
                                 else:     
-                                    read_val.append((float(jqdict['temp']))/10.0)
-                                    read_val.append((float(jqdict['temp2']))/10.0)
-                                    read_val.append((float(jqdict['temp3']))/10.0)
-                                    read_val.append((float(jqdict['temp4']))/10.0)
-                                read_val.append(int(jqdict['drcon']))                          # dry contact
-                                read_val.append((float(jqdict['lkdet']))/10.0)                 # leak detector 
-                                read_val.append((float(jqdict['humi']))/10.0)                  # moisture
-                                read_val.append(int(jqdict['moti']))                           # motion
+                                    read_val.append(mhu)                                       # moisture
+                                mmo = int(jqdict['moti'])
+                                if mmo < 0:                                                    # error probe motion
+                                    read_val.append((-127))
+                                else:    
+                                    read_val.append(mmo)                                       # motion
                                 if 'son' in jqdict and jqdict['son'] is not None:              # sonic
-                                    read_val.append(int(jqdict['son']))
+                                    mso = int(jqdict['son'])
+                                    if mso < 0:
+                                        read_val.append((-127))
+                                    else:
+                                        read_val.append(mso)
                                 else:
-                                    read_val.append(int(-1))
-                            except:    
+                                    read_val.append((-127))
+                            except:
                                 pass
                                 print_report('api.py', traceback.format_exc())
 
