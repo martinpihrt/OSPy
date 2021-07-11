@@ -22,19 +22,31 @@ from ospy.programs import programs
 from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy.outputs import outputs
+from ospy.helpers import get_external_ip
 
 rain_active = signal('rain_active')
 rain_not_active = signal('rain_not_active')
+internet_available = signal('internet_available')
+internet_not_available = signal('internet_not_available')
 
 def report_rain():
-    rain_active.send()      # send rain signal
+    rain_active.send()            # send rain signal
     logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'))
 
 def report_no_rain():
-    rain_not_active.send()  # send not rain signal
-    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'))      
+    rain_not_active.send()        # send not rain signal
+    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'))
+
+def report_internet_available():
+    internet_available.send()     # send internet available signal
+    logEV.save_events_log( _(u'System OSPy'), _(u'Internet is available (external IP)'))
+
+def report_internet_not_available():
+    internet_not_available.send() # send internet not available signal
+    logEV.save_events_log( _(u'System OSPy'), _(u'Internet is not available (external IP)'))
 
 pom_last_rain = False       # send signal only if rain change
+pom_last_internet = False   # send signal only if internet change
 
 blocking_from_pressurizer = False
 
@@ -397,15 +409,23 @@ class _Scheduler(Thread):
         rain = not options.manual_mode and (rain_blocks.block_end() > datetime.datetime.now() or
                                             inputs.rain_sensed())          
 
-        global pom_last_rain
+        global pom_last_rain, pom_last_internet
         
         if inputs.rain_sensed() and not pom_last_rain:
             report_rain()
             pom_last_rain = True
         
-        if not inputs.rain_sensed() and pom_last_rain:   
+        if not inputs.rain_sensed() and pom_last_rain:
             report_no_rain()
             pom_last_rain = False
+
+        if get_external_ip() != '-' and not pom_last_internet:
+            report_internet_available()
+            pom_last_internet = True
+
+        if get_external_ip() == '-' and pom_last_internet:
+            report_internet_not_available()
+            pom_last_internet = False
 
         active = log.active_runs()
         for entry in active:

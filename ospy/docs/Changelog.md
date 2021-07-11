@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+July 11 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. Sending values from OSPy sensors has been added to the "E-mail Notifications" extension (if you use sensors, you will see their values after the program is closed in the received e-mail). Two new signals have been added "internet_available and internet_not_available" for use within the system. At the same time, the failure and connection to the Internet (availability of an external IP address) is newly recorded in the event log. New signals have been added to the "signaling examples" extension. In the station section, the structure of the main stations has changed from check boxes to the selection window. A new item "Activate Master 1/2 by program" has been added for future new OSPy options - this function has not been completed yet. Selector: Activate Master? None - No master station will be used (when this station is activated, the master station will not be activated). Activate Master - If you want the master station (eg pump or main water valve) to be activated when a station is activated, select the "Activate Master". Activate Master Two - If you want the second master station (eg second pump or other water source) to be activated when a certain station is activated, select the "Activate Master Two". Activate Master 1/2 by program - If you want to select master station or master station two with a program, select the "Activate Master 1/2 by program". For a program, it is then possible to select which master station is to use for this station (example: program 1 controls stations 1-4 and master station 5. Program 2 controls stations 1-4 and second master station 6).<br/>
+Important warning! After this update, you need to reassign the master stations to the stations (station page). If you are using master stations. Updated help in "help" section "Web Interface Guide - Czech.md and Web Interface Guide - English.md".
+
 July 08 2021
 -----------
 (martinpihrt)<br/>

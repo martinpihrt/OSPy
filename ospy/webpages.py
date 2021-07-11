@@ -1699,10 +1699,15 @@ class stations_page(ProtectedPage):
             stations[s].eto_factor = float(qdict.get("%d_eto_factor" % s, 1.0))
             stations[s].enabled = True if qdict.get("%d_enabled" % s, 'off') == 'on' else False
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
-            if stations.master is not None or options.master_relay:
-                stations[s].activate_master = True if qdict.get("%d_activate_master" % s, 'off') == 'on' else False
-            if stations.master_two is not None or options.master_relay:
-                stations[s].activate_master_two = True if qdict.get("%d_activate_master_two" % s, 'off') == 'on' else False
+
+            if stations.master is not None or stations.master_two is not None or options.master_relay:
+                if "%d_master_type" % s in qdict:
+                    mtype = int(qdict["%d_master_type" % s])
+                    stations[s].activate_master = True if mtype == 1 else False
+                    stations[s].activate_master_two = True if mtype == 2 else False
+                    stations[s].activate_master_by_program = True if mtype == 3 else False
+                    stations[s].master_type = mtype
+
             balance_adjust = float(qdict.get("%d_balance_adjust" % s, 0.0))
             if balance_adjust != 0.0:
                 calc_day = datetime.datetime.now().date() - datetime.timedelta(days=1)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
-__author__ = 'Rimco' # additional changes Martin Pihrt
+__author__ = u'Rimco' # additional changes Martin Pihrt
 
 # System imports
 import datetime
@@ -483,7 +483,7 @@ def get_external_ip():
     if external_ip_address is '-':
         check_time = 10
     else:
-        check_time = 5*60   
+        check_time = 60   
 
     if now() - last_ip_check_time > check_time:
         last_ip_check_time = now()

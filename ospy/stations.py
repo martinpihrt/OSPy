@@ -21,12 +21,14 @@ station_clear = signal('station_clear')
 
 
 class _Station(object):
-    SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', 'is_master', 'is_master_two', 'active', 'remaining_seconds']
+    SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', 'is_master', 'is_master_two', 'is_master_by_program', 'active', 'remaining_seconds']
 
     def __init__(self, stations_instance, index):
         self._stations = stations_instance
-        self.activate_master = False
-        self.activate_master_two = False
+        self.activate_master = False              # this station activate master 1
+        self.activate_master_two = False          # this station activate master 2
+        self.activate_master_by_program = False   # this station activate master 1 or 2 by program
+        self.master_type = 0                      # selector in stations page (0=none, 1=master 1, 2=master 2, 3=master by program)
 
         self.name = "Station %02d" % (index+1)
         self.enabled = True
@@ -69,6 +71,10 @@ class _Station(object):
     def is_master_two(self):
         return self.index == self._stations.master_two
 
+    @property
+    def is_master_by_program(self):
+        return self.index == self._stations.master_by_program        
+
     @is_master.setter
     def is_master(self, value):
         if value:
@@ -82,6 +88,13 @@ class _Station(object):
             self._stations.master_two = self.index
         elif self.is_master_two:
             self._stations.master_two = None
+
+    @is_master_by_program.setter
+    def is_master_by_program(self, value):
+        if value:
+            self._stations.master_by_program = self.index
+        elif self.is_master_by_program:
+            self._stations.master_by_program = None            
 
     @property
     def active(self):
@@ -128,6 +141,7 @@ class _BaseStations(object):
         self._loading = True
         self.master = None
         self.master_two = None
+        self.master_by_program = None
         options.load(self)
         self._loading = False
 
@@ -158,6 +172,9 @@ class _BaseStations(object):
             if self.master_two >= count:
                 self.master_two = None
 
+            if self.master_by_program >= count:
+                self.master_by_program = None                
+
             # Make sure we turn them off before they become unreachable
             for index in range(count, len(self._stations)):
                 self._state[index] = False
@@ -173,7 +190,7 @@ class _BaseStations(object):
         return len(self._stations)
 
     def enabled_stations(self):
-        return [s for s in self._stations if s.enabled and not s.is_master and not s.is_master_two]
+        return [s for s in self._stations if s.enabled and not s.is_master and not s.is_master_two and not s.is_master_by_program]
 
     def get(self, index=None):
         if index is None:

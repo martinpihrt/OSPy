@@ -154,8 +154,11 @@ OSPy Průvodce webovým rozhraním v češtině
         Zůstatek
         Připojeno
         Ignorovat Déšť
-        ZAP Hlavní
-        ZAP Hlavní 2
+        ZAP Hlavní?
+            Nepoužito
+            ZAP Hlavní
+            ZAP Hlavní 2
+            ZAP Hlavní 1/2 programem
         Poznámky
         Obrázek  
     Snímače
@@ -801,11 +804,15 @@ Hlavní stanice se přiřazuje v nastavení systému "Nastavení / nastavení hl
 ## Ignorovat Déšť
 Pokud u některé stanice zaškrtneme "Ignorovat Déšť", tak se stanice aktivuje dle programu bez ohledu zda je nastaveno dešťové zpoždění, nebo zda dešťový senzor detekuje déšť. Tuto možnost využijeme například ve skleníku, do kterého neprší a potřebujeme zavlažovat pravidelně. nebo například ke spouštění filtrace bazénu, který také čistíme bez ohledu zda prší.
 
-## ZAP Hlavní
-Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i hlavní stanice (například čerpadlo, nebo hlavní ventil s vodou) zaškrtneme okénko "ZAP hlavní?".
-
-## ZAP Hlavní 2
-Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i druhá hlavní stanice (například druhé čerpadlo, nebo jiný zdroj vody) zaškrtneme okénko "ZAP hlavní 2?".
+## ZAP Hlavní?
+### Nepoužito
+Nebude použita žádná hlavní stanice (pokud je určitá stanice aktivována, hlavní stanice nebude aktivována). 
+### ZAP Hlavní
+Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i hlavní stanice (například čerpadlo, nebo hlavní ventil s vodou) vybereme položku "ZAP hlavní?".
+### ZAP Hlavní 2
+Pokud požadujeme, aby když se aktivuje určitá stanice se aktivovala i druhá hlavní stanice (například druhé čerpadlo, nebo jiný zdroj vody) vybereme položku "ZAP hlavní 2?".
+### ZAP Hlavní 1/2 programem
+Pokud požadujeme aktivovat hlavní stanici nebo druhou hlavní stanici programem vybereme položku „ZAP hlavní 1/2 programem“. U programu je poté možné zvolit, která hlavní stanice se má pro tuto stanici použít (příklad: program 1 řídí stanice 1-4 a hlavní stanici 5. Program 2 řídí stanice 1-4 a druhou hlavní stanici 6). 
 
 ## Poznámky  
 Poznámky slouží pro obsluhu systému OSPy. Lze si například poznamenat: jaký typ el. ventilu, rozstřikovače atd. máme v systému použitý.  

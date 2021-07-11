@@ -154,8 +154,11 @@ OSPy Web Interface Guide in English
         Balance adjustment
         Connected
         Ignore Rain
-        Activate Master
-        Activate Master Two
+        Activate Master?
+            None
+            Activate Master
+            Activate Master Two
+            Activate Master 1/2 by program
         Notes 
     Sensors page
         Add a New Sensor
@@ -772,11 +775,15 @@ The main station is assigned in the system settings "Options / master station".
 ## Ignore Rain
 If you check "Ignore Rain" for a station, the station will be activated according to the program regardless of whether the rain delay is set or whether the rain sensor detects rain. We can use this option, for example: in a greenhouse where it does not rain and we need to water it regularly or, for example: to trigger pool filtration, which we also clean regardless of whether it rains.
 
-## Activate Master
-If you want the master station (eg pump or main water valve) to be activated when a station is activated, check the "Activate Master" Box.
-
-## Activate Master Two
-If you want the second master station (eg second pump or other water source) to be activated when a certain station is activated, check the "Activate Master Two" box.
+## Activate Master?
+### None
+No master station will be used (when this station is activated, the master station will not be activated).
+### Activate Master
+If you want the master station (eg pump or main water valve) to be activated when a station is activated, select the "Activate Master".
+### Activate Master Two
+If you want the second master station (eg second pump or other water source) to be activated when a certain station is activated, select the "Activate Master Two".
+### Activate Master 1/2 by program
+If you want to select master station or master station two with a program, select the "Activate Master 1/2 by program". For a program, it is then possible to select which master station is to use for this station (example: program 1 controls stations 1-4 and master station 5. Program 2 controls stations 1-4 and second master station 6).
 
 ## Notes  
 Notes are for operating the OSPy system. It can be noted for example: what types of el. valve, sprinkler etc. we have used in the system.

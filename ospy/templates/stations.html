@@ -16,8 +16,7 @@ function updateFooter(){
         jQuery("#ip span.ip").text(sys_ip);
         jQuery("#uptime span.uptime").text(sys_uptime);
     })
-        
-    setTimeout(updateFooter, 5000); 
+    setTimeout(updateFooter, 15000);
 }
 
 jQuery(document).ready(function(){
@@ -41,10 +40,8 @@ jQuery(document).ready(function(){
                 <th class="stationUsage">$_('Balance adjustment')</th>
                 <th class="stationShow">$_('Connected?')</th>
                 <th class="stationIgnore">$_('Ignore Rain?')</th>
-                $if stations.master is not None:
+                $if stations.master is not None or stations.master_two is not None:
                     <th class="stationMaster">$_('Activate Master?')</th>
-                $if stations.master_two is not None:
-                    <th class="stationMaster">$_('Activate Master Two?')</th>
                 <th class="stationName">$_('Notes')</th>
                 $if options.show_images:
                     <th class="stationName">$_('Image')</th>
@@ -70,52 +67,46 @@ jQuery(document).ready(function(){
                     <td class="stationUsage" title=$:{json.dumps(_('Increase or decrease weather based water balance by given amount (if not 0).'), ensure_ascii=False).encode('utf8')}>
                         <input type="number" size="3" min="-100" max="100" value="0" name="${station.index}_balance_adjust">
                     </td>
+                    <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8')}>
+                    <label class="container">
+                    <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
+                    <span class="checkmark"></span>
+                    </label>
+                    </td>
+                    <td class="stationIgnore" title=$:{json.dumps(_('If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored).'), ensure_ascii=False).encode('utf8')}>
+                    <label class="container">
+                    <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
+                    <span class="checkmark"></span>
+                    </label>
+                    </td>
                     $if station.is_master:
-                        <td class="stationMaster">($_('Master station'))</td>
-                        $if stations.master_two is None:
-                            <td></td><td></td>
-                        $else:
-                            <td></td><td></td><td></td>
+                        <td class="stationMaster">$_('Master station')</td>
                     $elif station.is_master_two:
-                        <td class="stationMaster">($_('Master two station'))</td>
-                        $if stations.master is None:
-                            <td></td><td></td><td></td>
-                        $else:    
-                            <td></td><td></td><td></td><td></td>
+                        <td class="stationMaster">$_('Master two station')</td>    
                     $else:
-                        <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8')}>
-                        <label class="container">
-                        <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
-                        <span class="checkmark"></span>
-                        </label>
-                        </td>
-                        <td class="stationIgnore" title=$:{json.dumps(_('If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored).'), ensure_ascii=False).encode('utf8')}>
-                            <label class="container">
-                            <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
-                            <span class="checkmark"></span>
-                            </label>                             
-                        </td>                      
-                        $if stations.master is not None:
-                            <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the master station.'), ensure_ascii=False).encode('utf8')}>
-                            <label class="container">    
-                            <input type="checkbox" ${"checked" if station.activate_master else ""} name="${station.index}_activate_master">
-                            <span class="checkmark"></span>
-                            </label>                            
+                        $if stations.master is not None and stations.master_two is None:
+                            $ type_list = [_(u'None'), _(u'Activate Master 1')]
+                            $ type_nr = [0, 1]
+                        $elif stations.master is None and stations.master_two is not None:
+                            $ type_list = [_(u'None'), _(u'Activate Master 2')]
+                            $ type_nr = [0, 2]
+                        $else:
+                            $ type_list = [_(u'None'), _(u'Activate Master 1'), _(u'Activate Master 2'), _(u'Activate Master 1/2 by program')]
+                            $ type_nr = [0, 1, 2, 3]
+                        $if stations.master is not None or stations.master_two is not None:
+                            <td class="stationMaster">
+                            <select id="master_type" name="${station.index}_master_type" style="width: 220px" title=$:{json.dumps(_(u'Select whether master station 1 (2) should also be activated when this station is switched on, or whether the master station in the program will be selected (the program will select the use of master station 1 or 2 for this station).'), ensure_ascii=False)}>
+                            $for t in range(len(type_list)):
+                                <option value="${str(type_nr[t])}" ${'selected' if str(station.master_type) == str(type_nr[t]) else ''}>$type_list[t]</option>
+                            </select>
                             </td>
-                        $if stations.master_two is not None:
-                            <td class="stationMaster" title=$:{json.dumps(_('When switching on this station, also activate the secondary master station.'), ensure_ascii=False).encode('utf8')}>
-                            <label class="container">
-                            <input type="checkbox" ${"checked" if station.activate_master_two else ""} name="${station.index}_activate_master_two">
-                            <span class="checkmark"></span>
-                            </label>
-                            </td> 
                     <td class="stationNotes" title=$:{json.dumps(_('Station Notes.'), ensure_ascii=False).encode('utf8')}>
-                        <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
-                    </td>  
+                    <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
+                    </td>
                     $if options.show_images:
                         <td class="stationImage" title=$:{json.dumps(_('Click for edit image.'), ensure_ascii=False).encode('utf8')}>
                         <a href=${"/img_edit/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="avatar">
-                        </a></td>        
+                        </a></td>
                 </tr>
         </table>
         <p></p>
