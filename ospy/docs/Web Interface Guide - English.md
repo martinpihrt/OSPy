@@ -61,6 +61,7 @@ OSPy Web Interface Guide in English
                     Add - Delete
         No adjustments
         Cut-off
+        Activate Master
     Run Once page
         Run Now
         Reset Time
@@ -269,7 +270,7 @@ The Usage of the Raspberry pi's CPU usage. The displayed usage as %.
 A link to the project's software repository and the revision number of the installed software.
 
 ## External IP
-The External IP address for OSPy system. Connected your network to provider. Tested via pihrt.com.
+The External IP address for OSPy system. Connected your network to provider. Tested via pihrt.com ipbot.
 
 ## Working
 The Running time of the system Raspberry pi's.
@@ -279,16 +280,22 @@ The Running time of the system Raspberry pi's.
 # Programs page
 
 ## Add a New Program
+Use the "Add new program" button to create a new scheduler program.
 
 ## Run Now
+Use the "Run now" button to start the program immediately, regardless of the time and date of the scheduler.
 
-## Edit 
+## Edit
+The "Edit" button is used to edit the parameters of an already created program.
 
-## Delete All 
+## Delete All
+The "Delete all" button deletes all existing programs. 
 
 ## Enable or Disable a Program
+The "ON/OFF" switch allows you to enable/disable the created program in the scheduler.
 
 ## Schedule type
+The type of scheduler allows you to choose the appropriate type of program according to our requirements (selected days, recurrences, weekly, custom and programs based on weather forecasts).
   
 ### Selected days (Simple)
 
@@ -363,8 +370,13 @@ The Running time of the system Raspberry pi's.
 #### Add - Delete
 
 ## No adjustments
+No modifications (such as shortening or lengthening time) will be applied to this program.
 
 ## Cut-off
+If the adjusted program run time is shorter than this set time, the program will be skipped (for example, the adjusted run time from the weather forecast extension, or the monthly adjustment of the amount of water and other extensions). The time is set in percent.
+
+## Activate Master
+All stations that have "Activate Master 1/2 by program" set will activate master station 1/2 according to this assignment in the program. Notice! for stations that have "Activate Master 1/2 by program" set, the "run-once" and "manual" option cannot be used. Only the station starts, not the main station (1 or 2)! This setting is only available if you are using both main stations. All stations that have "Activate Master 1/2 by program" set will activate master station 1/2 according to this assignment in the program.
 
 ----
 

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 14 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. Added selector "Activate Master" to program page for select "Master 1" or "Master 2" station. This setting is only available if you are using both main stations. All stations that have "Activate Master 1/2 by program" set will activate master station 1/2 according to this assignment in the program. The program already controls the main station according to the settings (master 1,2 or 1/2 according to the program). Notice! for stations that have "Activate Master 1/2 by program" set, the "run-once" and "manual" option cannot be used. Only the station starts, not the main station (1 or 2)!
+
 July 11 2021
 -----------
 (martinpihrt)<br/>

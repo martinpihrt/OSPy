@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Add i18n Martin Pihrt
 from __future__ import absolute_import
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
 import datetime
@@ -27,13 +27,13 @@ class ProgramType(object):
     WEEKLY_WEATHER = 6
 
     FRIENDLY_NAMES = {
-        DAYS_SIMPLE: _('Selected days (Simple)'), 
-        DAYS_ADVANCED: _('Selected days (Advanced)'),
-        REPEAT_SIMPLE: _('Repeating (Simple)'),
-        REPEAT_ADVANCED: _('Repeating (Advanced)'),
-        WEEKLY_ADVANCED: _('Weekly (Advanced)'),
-        CUSTOM: _('Custom'),
-        WEEKLY_WEATHER: _('Weekly (Weather based)'),
+        DAYS_SIMPLE: _(u'Selected days (Simple)'), 
+        DAYS_ADVANCED: _(u'Selected days (Advanced)'),
+        REPEAT_SIMPLE: _(u'Repeating (Simple)'),
+        REPEAT_ADVANCED: _(u'Repeating (Advanced)'),
+        WEEKLY_ADVANCED: _(u'Weekly (Advanced)'),
+        CUSTOM: _(u'Custom'),
+        WEEKLY_WEATHER: _(u'Weekly (Weather based)'),
     }
 
 ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith('_') and
@@ -45,12 +45,13 @@ class _Program(object):
         self._programs = programs_instance
         self._loading = True
 
-        self.name =  _('Program') + " %02d" % (index+1 if index >= 0 else abs(index))
+        self.name =  _(u'Program') + " %02d" % (index+1 if index >= 0 else abs(index))
         self._stations = []
         self.enabled = True
 
         self.fixed = 0
         self.cut_off = 0
+        self.control_master = 0
 
         self._schedule = []
         self._station_schedule = {}
@@ -174,7 +175,7 @@ class _Program(object):
                         # print station, pem, amount, later_sprinkle_min, later_sprinkle_min_pref, later_sprinkle_max, irrigation_max-rain_today, irrigation_max, stations.get(station).capacity, [-station_balance[day_index]] + [(stations.get(station).capacity - station_balance[later_day_index]) for later_day_index in range(day_index+1, target_index_pref)]
                         amount = min(max(later_sprinkle_min, min(max(later_sprinkle_min_pref, amount), later_sprinkle_max, irrigation_max-rain_today)), irrigation_max)      
                         if amount >= irrigation_min:
-                            logging.debug('Weather based schedule for %s: PEM: %s, priority: %s, amount: %f.', stations.get(station).name, str(pem), prio, amount)
+                            logging.debug(_(u'Weather based schedule for') + ' %s: PEM: %s, priority: %s, amount: %f.', stations.get(station).name, str(pem), prio, amount)
                             for later_day_index in range(day_index, 7):
                                 station_balance[later_day_index] += amount
                             week_min = (pem - week_start).total_seconds() / 60
@@ -189,13 +190,13 @@ class _Program(object):
                                 to_sprinkle[station] = self._update_schedule(to_sprinkle[station], self.modulo, week_min, week_min+station_duration)
                                 week_min += station_duration + int(round(station_duration*pause_ratio))
 
-                    logging.debug('Weather based deficit for %s: %s', stations.get(station).name, str(sorted([((now.date() + datetime.timedelta(days=x)).isoformat(), y) for x, y in station_balance.iteritems()])))
+                    logging.debug(_(u'Weather based deficit for') + ' %s: %s', stations.get(station).name, str(sorted([((now.date() + datetime.timedelta(days=x)).isoformat(), y) for x, y in station_balance.iteritems()])))
 
 
                 self._station_schedule = to_sprinkle
             except Exception:
                 # Backup plan in case we don't get data:
-                logging.warning('Could not create weather based schedule:\n' + traceback.format_exc())
+                logging.warning(_(u'Could not create weather based schedule:') + '\n' + traceback.format_exc())
 
     @property
     def schedule(self):
@@ -235,56 +236,56 @@ class _Program(object):
         if self.type != ProgramType.CUSTOM and self.type != ProgramType.REPEAT_ADVANCED:
             return short_day(index)
         else:
-            return _('Day') + " %d" % (index + 1)
+            return _(u'Day') + " %d" % (index + 1)
 
     def summary(self):
-        result = _('Unknown schedule')
+        result = _(u'Unknown schedule')
         if self.type == ProgramType.CUSTOM:
             if self.manual:
-                result = _('Custom schedule running once on') + " %s" % self.start.strftime("%Y-%m-%d")
+                result = _(u'Custom schedule running once on') + " %s" % self.start.strftime("%Y-%m-%d")
             else:
                 if self._modulo % 1440 == 0 and self._modulo > 0:
                     days = (self._modulo / 1440)
                     if days == 1:
-                        result = _('Custom schedule repeating daily')
+                        result = _(u'Custom schedule repeating daily')
                     else:
-                        result = _('Custom schedule repeating every') + " %d " % (self._modulo / 1440) + _('days')
+                        result = _(u'Custom schedule repeating every') + " %d " % (self._modulo / 1440) + _(u'days')
                 else:
-                    result = _('Custom schedule repeating every') + " %d " % self._modulo + _('minutes')
+                    result = _(u'Custom schedule repeating every') + " %d " % self._modulo + _(u'minutes')
         elif self.type == ProgramType.REPEAT_SIMPLE:
             if self.type_data[4] == 1:
-                result = _('Simple daily schedule')
+                result = _(u'Simple daily schedule')
             else:
-                result = _('Simple schedule repeating every') + " %d " % self.type_data[4] +  _('days') 
+                result = _(u'Simple schedule repeating every') + " %d " % self.type_data[4] +  _(u'days') 
         elif self.type == ProgramType.REPEAT_ADVANCED:
             if self.type_data[1] == 1:
-                result = _('Advanced daily schedule')
+                result = _(u'Advanced daily schedule')
             else:
-                result = _('Advanced schedule repeating every') + " %d " % self.type_data[1] + _('days') 
+                result = _(u'Advanced schedule repeating every') + " %d " % self.type_data[1] + _(u'days') 
         elif self.type == ProgramType.DAYS_SIMPLE:
-            result = _('Simple schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[4]])
+            result = _(u'Simple schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[4]])
         elif self.type == ProgramType.DAYS_ADVANCED:
-            result = _('Advanced schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[1]])
+            result = _(u'Advanced schedule on') + " " + ' '.join([self._day_str(x) for x in self.type_data[1]])
         elif self.type == ProgramType.WEEKLY_ADVANCED:
-            result = _('Advanced weekly schedule')
+            result = _(u'Advanced weekly schedule')
         elif self.type == ProgramType.WEEKLY_WEATHER:
-            result = _('Weather based schedule on') + " " + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
+            result = _(u'Weather based schedule on') + " " + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
         return result
 
     def details(self):
-        result = _('Unknown schedule')
+        result = _(u'Unknown schedule')
 
         if len(self._schedule) == 0:
-            result = _('Empty schedule')
+            result = _(u'Empty schedule')
         elif self.type == ProgramType.REPEAT_SIMPLE or self.type == ProgramType.DAYS_SIMPLE:
             start_time = minute_time_str(self.type_data[0])
             duration = self.type_data[1]
             pause = self.type_data[2]
             repeat = self.type_data[3]
-            result = _('Starting:') + " <span class='val'>%s</span>" % start_time + " " + _('For') + " <span class='val'>%d</span>" % duration + " " + _('minutes') + "<br>" 
+            result = _(u'Starting:') + " <span class='val'>%s</span>" % start_time + " " + _(u'For') + " <span class='val'>%d</span>" % duration + " " + _(u'minutes') + "<br>" 
             if repeat:
-                result += (_('Repeat:') + " <span class='val'>%s</span> "  % repeat + (_('times') if repeat > 1 else _('time')) +
-                           " " + _('with a') + " <span class='val'>%d</span> " % pause + _('minute delay') + "<br>") 
+                result += (_(u'Repeat:') + " <span class='val'>%s</span> "  % repeat + (_(u'times') if repeat > 1 else _(u'time')) +
+                           " " + _(u'with a') + " <span class='val'>%d</span> " % pause + _(u'minute delay') + "<br>") 
 
         elif self.type == ProgramType.CUSTOM or \
                 self.type == ProgramType.REPEAT_ADVANCED or \
@@ -300,7 +301,7 @@ class _Program(object):
                 intervals = self.type_data[0]
 
             if days == 1:
-                result = _('Intervals:') + " "
+                result = _(u'Intervals:') + " "
                 for interval in intervals:
                     result += "<span class='val'>%s-%s</span> " % (minute_time_str(interval[0]),
                                                                    minute_time_str(interval[1]))
@@ -326,14 +327,14 @@ class _Program(object):
                 result = '<br>'.join(day_strs.values())
 
         elif self.type == ProgramType.DAYS_ADVANCED:
-            result = _('Intervals:') + " "
+            result = _(u'Intervals:') + " "
             for interval in self.type_data[0]:
                 result += "<span class='val'>%s-%s</span> " % (minute_time_str(interval[0]),
                                                                minute_time_str(interval[1]))
         elif self.type == ProgramType.WEEKLY_WEATHER:
             irrigation_min = self.type_data[0]
             irrigation_max = self.type_data[1]
-            result = _('For min') + "<span class='val'> %d </span>" % (irrigation_min) + _('to max') + "<span class='val'> %d</span> mm<br>" % (irrigation_max)
+            result = _(u'For min') + "<span class='val'> %d </span>" % (irrigation_min) + _(u'to max') + "<span class='val'> %d</span> mm<br>" % (irrigation_max)
 
         return result
 
@@ -727,7 +728,7 @@ class _Programs(object):
 
                 except Exception:
                     station.balance[calc_day]['valid'] = False
-                    logging.warning('Could not get weather information, using fallbacks:\n' + traceback.format_exc())
+                    logging.warning(_(u'Could not get weather information, using fallbacks') + ':\n' + traceback.format_exc())
 
                 intervals = []
                 while runs and runs[0]['start'].date() <= calc_day:
@@ -815,6 +816,7 @@ class _Programs(object):
                 run_now_p = _Program(self, index)  # Create a copy using the information saved in options
                 run_now_p.start_now()
                 self.run_now_program = run_now_p
+                logging.debug(_(u'Creating run-now program') + ': {}'.format(int(index)+1)) 
 
     def count(self):
         return len(self._programs)

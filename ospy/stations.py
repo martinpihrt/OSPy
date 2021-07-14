@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
 import datetime
@@ -28,7 +28,7 @@ class _Station(object):
         self.activate_master = False              # this station activate master 1
         self.activate_master_two = False          # this station activate master 2
         self.activate_master_by_program = False   # this station activate master 1 or 2 by program
-        self.master_type = 0                      # selector in stations page (0=none, 1=master 1, 2=master 2, 3=master by program)
+        self.master_type = 0                      # selector in stations page (0=none, 1=master 1, 2=master 2, 3=master 1/2 by program)
 
         self.name = "Station %02d" % (index+1)
         self.enabled = True
@@ -133,7 +133,7 @@ class _Station(object):
             pass
 
         if key == 'usage' and value > options.max_usage:
-            logging.warning(_('The usage of') + ' %s ' + _('is more than the maximum allowed usage. Scheduling it will be impossible.'), self.name)
+            logging.warning(_(u'The usage of') + ' %s ' + _(u'is more than the maximum allowed usage. Scheduling it will be impossible.'), self.name)
 
 
 class _BaseStations(object):
@@ -155,7 +155,7 @@ class _BaseStations(object):
 
     def _activate(self):
         """This function should be used to update real outputs according to self._state."""
-        logging.debug(_('Activated outputs'))
+        logging.debug(_(u'Activated outputs'))
 
     def _resize_cb(self, key, old, new):
         self.resize(new)
@@ -184,7 +184,7 @@ class _BaseStations(object):
                 del self._stations[-1]
                 del self._state[-1]
 
-        logging.debug(_('Resized to') + ' %d', count)
+        logging.debug(_(u'Resized to') + ' %d', count)
 
     def count(self):
         return len(self._stations)
@@ -208,12 +208,12 @@ class _BaseStations(object):
         for i in index:
             if i < len(self._state):
                 self._state[i] = True
-                logging.debug(_('Activated output') + ' %d', i)
+                logging.debug(_(u'Activated output') + ' %d', i)
                 if self._stations[i].is_master:
-                    logging.debug(_('Activated master one'))
+                    logging.debug(_(u'Activated master one'))
                     master_one_on.send()                   # send signal master ON
                 if self._stations[i].is_master_two:
-                    logging.debug(_('Activated master two'))    
+                    logging.debug(_(u'Activated master two'))    
                     master_two_on.send()                   # send signal master 2 ON                            
                  
     def deactivate(self, index):
@@ -222,12 +222,12 @@ class _BaseStations(object):
         for i in index:
             if i < len(self._state):
                 self._state[i] = False
-                logging.debug(_('Deactivated output') + ' %d', i)
+                logging.debug(_(u'Deactivated output') + ' %d', i)
                 if self._stations[i].is_master:
-                    logging.debug(_('Deactivated master one'))
+                    logging.debug(_(u'Deactivated master one'))
                     master_one_off.send()                   # send signal master OFF
                 if self._stations[i].is_master_two:
-                    logging.debug(_('Deactivated master two'))    
+                    logging.debug(_(u'Deactivated master two'))    
                     master_two_off.send()                   # send signal master 2 OFF                                    
 
     def active(self, index=None):
@@ -240,7 +240,7 @@ class _BaseStations(object):
     def clear(self):
         for i in range(len(self._state)):
             self._state[i] = False
-        logging.debug(_('Cleared all outputs'))
+        logging.debug(_(u'Cleared all outputs'))
 
     def __setattr__(self, key, value):
         super(_BaseStations, self).__setattr__(key, value)
@@ -280,7 +280,7 @@ class _ShiftStations(_BaseStations):
             self._io.output(self._sr_clk, self._io.HIGH)
         self._io.output(self._sr_lat, self._io.HIGH)
         self._io.output(self._sr_noe, self._io.LOW)
-        logging.debug(_('Activated shift outputs'))
+        logging.debug(_(u'Activated shift outputs'))
         zone_change.send()
 
     def resize(self, count):

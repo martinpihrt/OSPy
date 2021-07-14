@@ -109,6 +109,7 @@ def predicted_schedule(start_time, end_time):
                 'program_name': program_name,
                 'fixed': True,
                 'cut_off': 0,
+                'control_master': 0,
                 'manual': True,
                 'blocked': False,
                 'start': interval['start'],
@@ -138,6 +139,7 @@ def predicted_schedule(start_time, end_time):
                     'program_name': program_name,
                     'fixed': program.fixed, # True for ignore water level else program.fixed for use water level in run now-program xx
                     'cut_off': 0,
+                    'control_master': program.control_master,
                     'manual': True,
                     'blocked': False,
                     'start': interval['start'],
@@ -171,6 +173,7 @@ def predicted_schedule(start_time, end_time):
                     'program_name': program.name, # Save it because programs can be renamed
                     'fixed': program.fixed,
                     'cut_off': program.cut_off/100.0,
+                    'control_master': program.control_master,
                     'manual': program.manual,
                     'blocked': False,
                     'start': interval['start'],
@@ -330,7 +333,7 @@ def predicted_schedule(start_time, end_time):
 
 
             if failed:
-                logging.warning('Could not schedule %s.', interval['uid'])
+                logging.warning(u'Could not schedule %s.', interval['uid'])
                 interval['blocked'] = 'scheduler error'
 
 
@@ -464,7 +467,11 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master:
                         master_on = True
                         break
-
+                    # master on by program control_master   
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                        if 'control_master' in entry and entry['control_master'] == 1:
+                            master_on = True
+                            break
             else:
                 # In manual mode we cannot predict, we only know what is currently running and the history
                 if options.manual_mode:
@@ -479,6 +486,14 @@ class _Scheduler(Thread):
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_on = True
                             break
+                        # master on by program control_master   
+                        if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                            if 'control_master' in entry and entry['control_master'] == 1:
+                                if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
+                                <= current_time < \
+                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                    master_on = True
+                                    break                            
 
             if stations.master is not None:
                 master_station = stations.get(stations.master)
@@ -499,7 +514,11 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master_two:
                         master_two_on = True
                         break
-
+                    # master 2 on by program control_master   
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                        if 'control_master' in entry and entry['control_master'] == 2:
+                            master_two_on = True
+                            break                        
             else:
                 # In manual mode we cannot predict, we only know what is currently running and the history
                 if options.manual_mode:
@@ -514,6 +533,14 @@ class _Scheduler(Thread):
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_two_on = True
                             break
+                        # master on by program control_master   
+                        if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                            if 'control_master' in entry and entry['control_master'] == 2:
+                                if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
+                                <= current_time < \
+                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                    master_two_on = True
+                                    break                            
 
             if stations.master_two is not None:
                 master_station_two = stations.get(stations.master_two)

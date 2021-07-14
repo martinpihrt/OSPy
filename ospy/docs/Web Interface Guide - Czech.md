@@ -61,6 +61,7 @@ OSPy Průvodce webovým rozhraním v češtině
                     Přidat - Smazat
         Žádné úpravy
         Odříznout
+        Aktivovat hlavní
     Jednorázový
         Spustit nyní
         Smazat čas
@@ -287,16 +288,22 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png" rel="Programy" target="_blank">![Programy - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png)</a>
 
 ## Přidat nový program
+Tlačítkem "Přidat nový program" vytvoříme nový program plánovače.
 
 ## Spustit nyní
+Tlačítkem "Spustit nyní" spustíme program okamžitě bez ohledu na čas a datum plánovače.
 
 ## Úprava 
+Tlačítko "Úprava" slouží k upravení parametrů již vytvořeného programu.
 
-## Smazat vše 
+## Smazat vše
+Tlačítko "Smazat vše" odstraní všechny existující programy.
 
 ## Zap/Vyp program
+Přepínač "ZAP/VYP" umožňuje vytvořený program povolit/zakázat v plánovači.
 
 ## Typ plánovače
+Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku (vybrané dny, opakování, týdenní, vlastní a programy založené na předpovědi počasí).
 
 ### Vybrané dny (Jednoduchý)
 <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png" rel="Vybrané dny (Jednoduchý)" target="_blank">![Vybrané dny (Jednoduchý) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png)</a>
@@ -377,8 +384,13 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 #### Přidat - Smazat
 
 ## Žádné úpravy
-    
+Na tento program nebudou použity žádné úpravy (například zkrácení, nebo prodloužení doby)
+
 ## Odříznout
+Pokud by upravená doba běhu programu byla kratší než tato nastavená doba, tak se program přeskočí (například upravená doba běhu z rozšíření předpovědi počasí, nebo měsíční úprava množství vody a jiných rozšíření). Doba se nastavuje v procentech.
+
+## Aktivovat hlavní
+Všechny stanice, které mají nastavenou možnost „Aktivovat Master 1/2 programem“, aktivují hlavní stanici 1/2 podle tohoto přiřazení v programu. Oznámení! u stanic, které mají nastavenou možnost „Aktivovat hlavní 1/2 programem“, nelze použít možnost ovládání „spustit jednorázově“ a „ručně“. Spustí se pouze stanice, nikoli hlavní stanice (1 nebo 2)! Toto nastavení je k dispozici, pouze pokud používáte obě hlavní stanice!
 
 ----
 

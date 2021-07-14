@@ -11,6 +11,15 @@ $var page: user
         ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
         </p>
         <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
+        $if stations.master is not None and stations.master_two is not None:
+            <p class="stationList">$_('Selected master station:') <span class="val">
+            $if program.control_master == 1:
+                $_('Master 1')
+            $elif program.control_master == 2:
+                $_('Master 2')
+            $else:
+                $_('None')
+            </span></p>
         $if len(program.schedule) > 0:
             <p class="stationList">$:{program.details()}</p>
         <p>

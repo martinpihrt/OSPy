@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-07-11 09:56+CEST\n"
-"PO-Revision-Date: 2021-07-11 10:02+0200\n"
+"POT-Creation-Date: 2021-07-14 15:12+CEST\n"
+"PO-Revision-Date: 2021-07-14 15:23+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -14,87 +14,87 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: api/api.py:47
+#: api/api.py:49
 msgid "station id:{} key: {} value: {}"
 msgstr "stanice id:{} klíč: {} hodnota: {}"
 
-#: api/api.py:51
+#: api/api.py:53
 msgid "Error setting station {}, {} to {}"
 msgstr "Chyba nastavení stanice {}, {} na {}"
 
-#: api/api.py:72
+#: api/api.py:74
 msgid "Starting station {} ({})"
 msgstr "Spuštění stanice {} ({})"
 
-#: api/api.py:75
+#: api/api.py:77
 msgid "Stopping station {} ({})"
 msgstr "Zastavení stanice {} ({})"
 
-#: api/api.py:78
+#: api/api.py:80
 msgid "Unknown station action: {}"
 msgstr "Neznámá akce stanice: {}"
 
-#: api/api.py:139
+#: api/api.py:141
 msgid "Setting program property key: {} to value: {}"
 msgstr "Nastavení programu klíč: {} na hodnotu: {}"
 
-#: api/api.py:144
+#: api/api.py:146
 msgid "Error setting program property key: {} to value: {}"
 msgstr "Chyba při nastavení programu klíč: {} na hodnotu: {}"
 
-#: api/api.py:184
+#: api/api.py:186
 msgid "Starting program {} ({})"
 msgstr "Spuštění programu {} ({})"
 
-#: api/api.py:189
+#: api/api.py:191
 msgid "Unknown program action: {}"
 msgstr "Neznámá akce programu: {}"
 
-#: api/api.py:283
+#: api/api.py:285
 msgid "Error updating {} to {}"
 msgstr "Chyba aktualizace {} na {}"
 
-#: api/api.py:286
+#: api/api.py:288
 msgid "Skipping key {}"
 msgstr "Přeskočení klíče {}"
 
-#: api/api.py:354
+#: api/api.py:356
 msgid "System reboot requested via API"
 msgstr "Bylo požadováno restartování systému prostřednictvím rozhraní API"
 
-#: api/api.py:358
+#: api/api.py:360
 msgid "OSPy service restart requested via API"
 msgstr "Restartování OSPy prostřednictvím rozhraní API"
 
-#: api/api.py:362
+#: api/api.py:364
 msgid "System poweroff requested via API"
 msgstr "Vypnutí OSPy prostřednictvím rozhraní API"
 
-#: api/api.py:366
+#: api/api.py:368
 msgid "Unknown system action: {}"
 msgstr "Neznámá systémová akce: {}"
 
-#: api/api.py:450
+#: api/api.py:452
 msgid "Sensor input IP: {} MAC: {} SECURE: {}."
 msgstr "Vstup od snímače IP: {} MAC: {} SECURE: {}."
 
-#: api/api.py:452
+#: api/api.py:454
 msgid "Any error in Sensor input!"
 msgstr "Nějaká chyba ve vstupu dat ze snímače!"
 
-#: api/api.py:613
+#: api/api.py:615
 msgid "Input for sensor: {} successfully."
 msgstr "Vstup pro senzor: {} byl úspěšný."
 
-#: api/api.py:616
+#: api/api.py:618
 msgid "Received data (IP or MAC or SEC) do not match!"
 msgstr "Přijatá data (IP nebo MAC nebo SEC) se neshodují!"
 
-#: api/api.py:662
+#: api/api.py:664
 msgid "Received data is not correct!"
 msgstr "Přijatá data nejsou v pořádku!"
 
@@ -799,115 +799,135 @@ msgstr "Týdenní (předpověď počasí)"
 msgid "Program"
 msgstr "Program"
 
-#: ospy/programs.py:238 ospy/templates/program.html:71
-#: ospy/templates/program.html:567
+#: ospy/programs.py:178
+msgid "Weather based schedule for"
+msgstr "Program založený na počasí - plánovač"
+
+#: ospy/programs.py:193
+msgid "Weather based deficit for"
+msgstr "Program založený na počasí - deficit"
+
+#: ospy/programs.py:199
+msgid "Could not create weather based schedule:"
+msgstr "Nelze vytvořit plán založený na počasí:"
+
+#: ospy/programs.py:239 ospy/templates/program.html:71
+#: ospy/templates/program.html:576
 msgid "Day"
 msgstr "Den"
 
-#: ospy/programs.py:241 ospy/programs.py:275
+#: ospy/programs.py:242 ospy/programs.py:276
 msgid "Unknown schedule"
 msgstr "Neznámý plánovač"
 
-#: ospy/programs.py:244
+#: ospy/programs.py:245
 msgid "Custom schedule running once on"
 msgstr "Vlastní časový rozvrh poběží jednou"
 
-#: ospy/programs.py:249
+#: ospy/programs.py:250
 msgid "Custom schedule repeating daily"
 msgstr "Vlastní plánovač opakování denně"
 
-#: ospy/programs.py:251 ospy/programs.py:253
+#: ospy/programs.py:252 ospy/programs.py:254
 msgid "Custom schedule repeating every"
 msgstr "Vlastní plánovač opakování každý(é)"
 
-#: ospy/programs.py:251 ospy/programs.py:258 ospy/programs.py:263
+#: ospy/programs.py:252 ospy/programs.py:259 ospy/programs.py:264
 #: ospy/templates/sensors.html:12
 #: plugins/weather_based_water_level/__init__.py:112
 #: plugins/weather_based_water_level_netatmo/__init__.py:162
 msgid "days"
 msgstr "dny"
 
-#: ospy/programs.py:253 ospy/programs.py:284 ospy/templates/sensors.html:14
+#: ospy/programs.py:254 ospy/programs.py:285 ospy/templates/sensors.html:14
 msgid "minutes"
 msgstr "minuta(y)"
 
-#: ospy/programs.py:256
+#: ospy/programs.py:257
 msgid "Simple daily schedule"
 msgstr "Plánovač ve dnech"
 
-#: ospy/programs.py:258
+#: ospy/programs.py:259
 msgid "Simple schedule repeating every"
 msgstr "Vybrané dny každý(é)"
 
-#: ospy/programs.py:261
+#: ospy/programs.py:262
 msgid "Advanced daily schedule"
 msgstr "Rozšířený denní plánovač"
 
-#: ospy/programs.py:263
+#: ospy/programs.py:264
 msgid "Advanced schedule repeating every"
 msgstr "Rozšířený plánovač opakování každý(é)"
 
-#: ospy/programs.py:265
+#: ospy/programs.py:266
 msgid "Simple schedule on"
 msgstr "Plánovač ve dnech"
 
-#: ospy/programs.py:267
+#: ospy/programs.py:268
 msgid "Advanced schedule on"
 msgstr "Rozšířený plánovač"
 
-#: ospy/programs.py:269
+#: ospy/programs.py:270
 msgid "Advanced weekly schedule"
 msgstr "Rozšířený týdenní plánovač"
 
-#: ospy/programs.py:271
+#: ospy/programs.py:272
 msgid "Weather based schedule on"
 msgstr "Plánovač dle počasí ve dnech"
 
-#: ospy/programs.py:278
+#: ospy/programs.py:279
 msgid "Empty schedule"
 msgstr "Prázdný plánovač"
 
-#: ospy/programs.py:284
+#: ospy/programs.py:285
 msgid "Starting:"
 msgstr "Začátek:"
 
-#: ospy/programs.py:284 ospy/templates/home_admin.html:92
+#: ospy/programs.py:285 ospy/templates/home_admin.html:92
 #: ospy/templates/home_admin.html:607 ospy/templates/home_public.html:90
 #: ospy/templates/home_user.html:90 ospy/templates/home_user.html:526
 msgid "For"
 msgstr "Doba"
 
-#: ospy/programs.py:286
+#: ospy/programs.py:287
 msgid "Repeat:"
 msgstr "Opakování:"
 
-#: ospy/programs.py:286
+#: ospy/programs.py:287
 msgid "time"
 msgstr "doba"
 
-#: ospy/programs.py:286
+#: ospy/programs.py:287
 msgid "times"
 msgstr "doba"
 
-#: ospy/programs.py:287
+#: ospy/programs.py:288
 msgid "minute delay"
 msgstr "minutovým zpožděním"
 
-#: ospy/programs.py:287
+#: ospy/programs.py:288
 msgid "with a"
 msgstr "se"
 
-#: ospy/programs.py:303 ospy/programs.py:329
+#: ospy/programs.py:304 ospy/programs.py:330
 msgid "Intervals:"
 msgstr "Intervaly:"
 
-#: ospy/programs.py:336
+#: ospy/programs.py:337
 msgid "For min"
 msgstr "Od min"
 
-#: ospy/programs.py:336
+#: ospy/programs.py:337
 msgid "to max"
 msgstr "do max"
+
+#: ospy/programs.py:731
+msgid "Could not get weather information, using fallbacks"
+msgstr ""
+
+#: ospy/programs.py:819
+msgid "Creating run-now program"
+msgstr "Vytvoření programu run-now (spustit nyní)"
 
 #: ospy/runonce.py:12 ospy/scheduler.py:105 ospy/templates/runonce.html:3
 msgid "Run-Once"
@@ -925,21 +945,21 @@ msgstr "Dešťový senzor"
 msgid "Deactivated"
 msgstr "Deaktivován"
 
-#: ospy/scheduler.py:42
-msgid "Internet is available (external IP)"
-msgstr "Internet je k dispozici (externí IP)"
-
 #: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/server.py:200
 #: ospy/server.py:213 ospy/server.py:224 plugins/lcd_display/__init__.py:639
 #: plugins/lcd_display/__init__.py:676 plugins/system_update/__init__.py:227
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
-#: ospy/scheduler.py:46
+#: ospy/scheduler.py:42 plugins/signaling_examples/__init__.py:234
+msgid "Internet is available (external IP)"
+msgstr "Internet je k dispozici (externí IP)"
+
+#: ospy/scheduler.py:46 plugins/signaling_examples/__init__.py:238
 msgid "Internet is not available (external IP)"
 msgstr "Internet není k dispozici (externí IP adresa)"
 
-#: ospy/scheduler.py:134
+#: ospy/scheduler.py:135
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
@@ -1714,14 +1734,14 @@ msgid "Upload"
 msgstr "Nahrát"
 
 #: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
-#: ospy/templates/program.html:597 ospy/templates/program.html:624
-#: ospy/templates/programs.html:50
+#: ospy/templates/program.html:606 ospy/templates/program.html:633
+#: ospy/templates/programs.html:59
 msgid "Delete"
 msgstr "Smazat"
 
 #: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:200
 #: ospy/templates/log_sensor.html:9 ospy/templates/log_sensor.html:73
-#: ospy/templates/options.html:315 ospy/templates/program.html:635
+#: ospy/templates/options.html:315 ospy/templates/program.html:644
 #: ospy/templates/runonce.html:72 ospy/templates/sensor.html:611
 #: ospy/templates/stations.html:118 ospy/templates/user.html:102
 #: ospy/templates/view.html:30
@@ -1773,7 +1793,7 @@ msgstr "Smazat"
 #: plugins/remote_notifications/templates/remote_notifications.html:59
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
 #: plugins/signaling_examples/templates/signaling_examples.html:37
-#: plugins/signaling_examples/templates/signaling_examples_help.html:37
+#: plugins/signaling_examples/templates/signaling_examples_help.html:40
 #: plugins/sms_adj/templates/sms_adj.html:114
 #: plugins/sms_adj/templates/sms_adj_help.html:16
 #: plugins/system_debug/templates/system_debug.html:45
@@ -1860,23 +1880,25 @@ msgstr "Pohyb"
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
 #: ospy/templates/options.html:179 ospy/templates/options.html:181
 #: ospy/templates/options.html:192 ospy/templates/options.html:194
-#: ospy/templates/sensor.html:238 ospy/templates/sensor.html:314
-#: ospy/templates/sensor.html:322 ospy/templates/sensor.html:355
-#: ospy/templates/sensor.html:364 ospy/templates/sensor.html:383
-#: ospy/templates/sensor.html:446 ospy/templates/sensor.html:507
-#: ospy/templates/sensor.html:527 ospy/templates/sensors.html:67
-#: ospy/templates/sensors.html:105 ospy/templates/sensors.html:113
-#: ospy/templates/sensors.html:134 ospy/templates/sensors.html:142
-#: ospy/templates/sensors.html:161 ospy/templates/sensors.html:170
-#: ospy/templates/sensors.html:188 ospy/templates/sensors.html:215
-#: ospy/templates/sensors.html:229 ospy/templates/sensors.html:257
-#: ospy/templates/sensors.html:271 ospy/templates/sensors.html:289
-#: ospy/templates/sensors.html:297 ospy/templates/sensors.html:318
-#: ospy/templates/sensors.html:326 ospy/templates/sensors.html:345
-#: ospy/templates/sensors.html:354 ospy/templates/sensors.html:372
-#: ospy/templates/sensors.html:398 ospy/templates/sensors.html:410
-#: ospy/templates/stations.html:88 ospy/templates/stations.html:91
-#: ospy/templates/stations.html:94 plugins/lcd_display/__init__.py:344
+#: ospy/templates/program.html:416 ospy/templates/programs.html:50
+#: ospy/templates/programs_user.html:21 ospy/templates/sensor.html:238
+#: ospy/templates/sensor.html:314 ospy/templates/sensor.html:322
+#: ospy/templates/sensor.html:355 ospy/templates/sensor.html:364
+#: ospy/templates/sensor.html:383 ospy/templates/sensor.html:446
+#: ospy/templates/sensor.html:507 ospy/templates/sensor.html:527
+#: ospy/templates/sensors.html:67 ospy/templates/sensors.html:105
+#: ospy/templates/sensors.html:113 ospy/templates/sensors.html:134
+#: ospy/templates/sensors.html:142 ospy/templates/sensors.html:161
+#: ospy/templates/sensors.html:170 ospy/templates/sensors.html:188
+#: ospy/templates/sensors.html:215 ospy/templates/sensors.html:229
+#: ospy/templates/sensors.html:257 ospy/templates/sensors.html:271
+#: ospy/templates/sensors.html:289 ospy/templates/sensors.html:297
+#: ospy/templates/sensors.html:318 ospy/templates/sensors.html:326
+#: ospy/templates/sensors.html:345 ospy/templates/sensors.html:354
+#: ospy/templates/sensors.html:372 ospy/templates/sensors.html:398
+#: ospy/templates/sensors.html:410 ospy/templates/stations.html:88
+#: ospy/templates/stations.html:91 ospy/templates/stations.html:94
+#: plugins/lcd_display/__init__.py:344
 msgid "None"
 msgstr "Nepoužito"
 
@@ -2088,7 +2110,7 @@ msgstr "Zakázáno"
 #: ospy/templates/home_user.html:162 ospy/templates/home_user.html:512
 #: ospy/templates/home_user.html:525 ospy/templates/plugins_manage.html:12
 #: ospy/templates/plugins_manage.html:20 ospy/templates/plugins_manage.html:63
-#: ospy/templates/program.html:440 ospy/templates/programs.html:38
+#: ospy/templates/program.html:449 ospy/templates/programs.html:38
 #: ospy/templates/sensors.html:74
 msgid "Off"
 msgstr "Vyp"
@@ -2259,7 +2281,7 @@ msgstr "Nastavení úrovně vody"
 #: ospy/templates/home_admin.html:593 ospy/templates/home_admin.html:606
 #: ospy/templates/home_user.html:512 ospy/templates/home_user.html:525
 #: ospy/templates/plugins_manage.html:10 ospy/templates/plugins_manage.html:18
-#: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:438
+#: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:447
 #: ospy/templates/programs.html:36 ospy/templates/sensors.html:72
 msgid "On"
 msgstr "Zap"
@@ -2468,7 +2490,7 @@ msgid "Station"
 msgstr "Stanice"
 
 #: ospy/templates/log.html:44 ospy/templates/log_user.html:44
-#: ospy/templates/program.html:485 plugins/email_notifications/__init__.py:137
+#: ospy/templates/program.html:494 plugins/email_notifications/__init__.py:137
 #: plugins/email_notifications/__init__.py:141
 msgid "Duration"
 msgstr "Trvání"
@@ -3008,15 +3030,39 @@ msgstr "Přeskočit program, pokud by celková úprava byla nižší než procen
 msgid "Cut-off"
 msgstr "Odříznout"
 
-#: ospy/templates/program.html:415
+#: ospy/templates/program.html:413
+msgid ""
+"Select master station 1/2. All stations that have Activate Master 1/2 by "
+"program set will activate master station 1/2 according to this assignment in "
+"this program."
+msgstr ""
+"Vyberte hlavní stanici 1/2. Všechny stanice, které mají nastaveno aktivovat "
+"hlavní 1/2 podle programu, aktivují hlavní stanici 1/2 podle tohoto "
+"přiřazení v tomto programu."
+
+#: ospy/templates/program.html:414
+msgid "Activate Master"
+msgstr "Aktivovat hlavní"
+
+#: ospy/templates/program.html:416 ospy/templates/stations.html:88
+#: ospy/templates/stations.html:94
+msgid "Activate Master 1"
+msgstr "ZAP hlavní 1"
+
+#: ospy/templates/program.html:416 ospy/templates/stations.html:91
+#: ospy/templates/stations.html:94
+msgid "Activate Master 2"
+msgstr "ZAP hlavní 2"
+
+#: ospy/templates/program.html:424
 msgid "Start sprinkling if the deficit is at least this value."
 msgstr "Začít zavlažovat, pokud je deficit alespoň touto hodnotou."
 
-#: ospy/templates/program.html:416
+#: ospy/templates/program.html:425
 msgid "Irrigation min"
 msgstr "Minimální zavlažování"
 
-#: ospy/templates/program.html:419
+#: ospy/templates/program.html:428
 msgid ""
 "If sprinkling, never sprinkle more than this amount per station per "
 "execution moment."
@@ -3024,20 +3070,20 @@ msgstr ""
 "Při zavlažovaní nikdy nezavlažovat více než je toto množství na stanici v "
 "danou dobu."
 
-#: ospy/templates/program.html:420
+#: ospy/templates/program.html:429
 msgid "Irrigation max"
 msgstr "Maximální zavlažování"
 
-#: ospy/templates/program.html:423
+#: ospy/templates/program.html:432
 msgid "If sprinkling, never sprinkle more than this amount continuously."
 msgstr ""
 "Při zavlažování nikdy nezavlažovat nepřetržitě více než je toto množství."
 
-#: ospy/templates/program.html:424
+#: ospy/templates/program.html:433
 msgid "Run max"
 msgstr "Maximální dávka"
 
-#: ospy/templates/program.html:427
+#: ospy/templates/program.html:436
 msgid ""
 "If the run max limit is reached, how long should the break afterwards be (as "
 "a percentage of the time it was running)."
@@ -3045,73 +3091,73 @@ msgstr ""
 "Je-li dosaženo maximální dávky tak zde určíme jak dlouho by měla být "
 "přestávka (v procentech délky času běhu)."
 
-#: ospy/templates/program.html:428
+#: ospy/templates/program.html:437
 msgid "Pause ratio"
 msgstr "Poměr pauzy"
 
-#: ospy/templates/program.html:450
+#: ospy/templates/program.html:459
 msgid "Days"
 msgstr "Dny"
 
-#: ospy/templates/program.html:462
+#: ospy/templates/program.html:471
 msgid "Water interval"
 msgstr "Interval zavlažování"
 
-#: ospy/templates/program.html:470
+#: ospy/templates/program.html:479
 msgid "Starting in"
 msgstr "Start ve dni"
 
-#: ospy/templates/program.html:480 ospy/templates/program.html:568
+#: ospy/templates/program.html:489 ospy/templates/program.html:577
 #: plugins/email_notifications/__init__.py:136
 #: plugins/email_notifications/__init__.py:140
 msgid "Start time"
 msgstr "Čas startu"
 
-#: ospy/templates/program.html:487 ospy/templates/program.html:501
+#: ospy/templates/program.html:496 ospy/templates/program.html:510
 msgid "minute(s)"
 msgstr "minut(a/y)"
 
-#: ospy/templates/program.html:490
+#: ospy/templates/program.html:499
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ospy/templates/program.html:494
+#: ospy/templates/program.html:503
 msgid "Repetitions"
 msgstr "Opakování"
 
-#: ospy/templates/program.html:496
+#: ospy/templates/program.html:505
 msgid "time(s)"
 msgstr "počet opakování"
 
-#: ospy/templates/program.html:499
+#: ospy/templates/program.html:508
 msgid "Pause"
 msgstr "Pauza"
 
-#: ospy/templates/program.html:518
+#: ospy/templates/program.html:527
 msgid "Schedule:"
 msgstr "Plánovač:"
 
-#: ospy/templates/program.html:563
+#: ospy/templates/program.html:572
 msgid "Preferred Execution Moments"
 msgstr "Upřednostnění okamžiku provedení"
 
-#: ospy/templates/program.html:569
+#: ospy/templates/program.html:578
 msgid "Priority"
 msgstr "Přednost"
 
-#: ospy/templates/program.html:570
+#: ospy/templates/program.html:579
 msgid "Add"
 msgstr "Přidat"
 
-#: ospy/templates/program.html:590 ospy/templates/program.html:617
+#: ospy/templates/program.html:599 ospy/templates/program.html:626
 msgid " (Least preferred)"
 msgstr " (Nejméně upřednostněné)"
 
-#: ospy/templates/program.html:592 ospy/templates/program.html:619
+#: ospy/templates/program.html:601 ospy/templates/program.html:628
 msgid " (Most preferred)"
 msgstr " (Nejvíce upřednostněné)"
 
-#: ospy/templates/program.html:634 ospy/templates/sensor.html:610
+#: ospy/templates/program.html:643 ospy/templates/sensor.html:610
 #: ospy/templates/user.html:101
 msgid "Save"
 msgstr "Uložit"
@@ -3120,12 +3166,24 @@ msgstr "Uložit"
 msgid "Run:"
 msgstr "Poběží:"
 
-#: ospy/templates/programs.html:48 ospy/templates/programs_user.html:18
+#: ospy/templates/programs.html:44 ospy/templates/programs_user.html:15
+msgid "Selected master station:"
+msgstr "Vybraná hlavní stanice:"
+
+#: ospy/templates/programs.html:46 ospy/templates/programs_user.html:17
+msgid "Master 1"
+msgstr "Hlavní 1"
+
+#: ospy/templates/programs.html:48 ospy/templates/programs_user.html:19
+msgid "Master 2"
+msgstr "Hlavní 2"
+
+#: ospy/templates/programs.html:57 ospy/templates/programs_user.html:27
 #: ospy/templates/runonce.html:70
 msgid "Run Now"
 msgstr "Spustit nyní"
 
-#: ospy/templates/programs.html:49
+#: ospy/templates/programs.html:58
 msgid "Edit"
 msgstr "Úprava"
 
@@ -4230,14 +4288,6 @@ msgstr ""
 "Pokud je zaškrtnuto ignorovat déšť, tak se v případě deště tato stanice "
 "aktivuje dle plánu (dešťový senzor a časové zpoždění budou ignorovány)."
 
-#: ospy/templates/stations.html:88 ospy/templates/stations.html:94
-msgid "Activate Master 1"
-msgstr "ZAP hlavní 1"
-
-#: ospy/templates/stations.html:91 ospy/templates/stations.html:94
-msgid "Activate Master 2"
-msgstr "ZAP hlavní 2"
-
 #: ospy/templates/stations.html:94
 msgid "Activate Master 1/2 by program"
 msgstr "ZAP hlavní 1/2 programem"
@@ -4527,7 +4577,7 @@ msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1578
+#: ospy/webpages.py:1581
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -4535,7 +4585,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1584
+#: ospy/webpages.py:1587
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -4543,7 +4593,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1590
+#: ospy/webpages.py:1593
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -4551,43 +4601,43 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1612 ospy/webpages.py:1615
+#: ospy/webpages.py:1615 ospy/webpages.py:1618
 msgid "Deleting image file {}"
 msgstr "Odstranění souboru obrázku {}"
 
-#: ospy/webpages.py:1621
+#: ospy/webpages.py:1624
 msgid "Deleting file fullchain.pem."
 msgstr "Odstranění souboru fullchain.pem."
 
-#: ospy/webpages.py:1625
+#: ospy/webpages.py:1628
 msgid "Deleting file privkey.pem."
 msgstr "Odstranění souboru privkey.pem."
 
-#: ospy/webpages.py:1629
+#: ospy/webpages.py:1632
 msgid "Deleting file sessions.db."
 msgstr "Odstranění souboru sessions.db."
 
-#: ospy/webpages.py:1633
+#: ospy/webpages.py:1636
 msgid "Deleting file ospy_backup.zip."
 msgstr "Odstranění souboru ospy_backup.zip."
 
-#: ospy/webpages.py:1637
+#: ospy/webpages.py:1640
 msgid "Deleting file options.db.bak."
 msgstr "Odstranění souboru options.db.bak."
 
-#: ospy/webpages.py:1641
+#: ospy/webpages.py:1644
 msgid "Deleting file options.db.tmp."
 msgstr "Odstranění souboru options.db.tmp."
 
-#: ospy/webpages.py:1645
+#: ospy/webpages.py:1648
 msgid "Deleting file options.db."
 msgstr "Odstranění souboru options.db."
 
-#: ospy/webpages.py:1655
+#: ospy/webpages.py:1658
 msgid "Deleting file events.log."
 msgstr "Odstranění souboru events.log."
 
-#: ospy/webpages.py:1672
+#: ospy/webpages.py:1675
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -4595,67 +4645,67 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1758 ospy/webpages.py:1821 ospy/webpages.py:1822
+#: ospy/webpages.py:1761 ospy/webpages.py:1824 ospy/webpages.py:1825
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1813
+#: ospy/webpages.py:1816
 msgid "File {} is created successfully!"
 msgstr "Soubor {} byl úspěšně vytvořen!"
 
-#: ospy/webpages.py:1857
+#: ospy/webpages.py:1860
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:1864
+#: ospy/webpages.py:1867
 msgid "Uploaded to backup folder OK."
 msgstr "Nahráno do záložní složky OK."
 
-#: ospy/webpages.py:1868
+#: ospy/webpages.py:1871
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:1874
+#: ospy/webpages.py:1877
 msgid "Cleaning folder after restoring..."
 msgstr "Čištění složky po obnovení..."
 
-#: ospy/webpages.py:1877 ospy/webpages.py:1881
+#: ospy/webpages.py:1880 ospy/webpages.py:1884
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:1911 ospy/webpages.py:1912
+#: ospy/webpages.py:1914 ospy/webpages.py:1915
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:1943 ospy/webpages.py:1944 plugins/mqtt/__init__.py:242
+#: ospy/webpages.py:1946 ospy/webpages.py:1947 plugins/mqtt/__init__.py:242
 #: plugins/mqtt_runonce/__init__.py:161
 #: plugins/ping_monitor/templates/ping_monitor_log.html:80
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:394
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:1963
+#: ospy/webpages.py:1966
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:1967
+#: ospy/webpages.py:1970
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:1973
+#: ospy/webpages.py:1976
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:2138
+#: ospy/webpages.py:2141
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:2151 ospy/webpages.py:2217
+#: ospy/webpages.py:2154 ospy/webpages.py:2220
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:2163 ospy/webpages.py:2204
+#: ospy/webpages.py:2166 ospy/webpages.py:2207
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -10509,99 +10559,99 @@ msgstr "db=\"ospy\" název tabulky na serveru SQL"
 msgid "Package: Signaling Examples"
 msgstr "Balíček: Příklady signalizace"
 
-#: plugins/signaling_examples/__init__.py:132
+#: plugins/signaling_examples/__init__.py:136
 msgid "Someone logged in"
 msgstr "Někdo přihlášen"
 
-#: plugins/signaling_examples/__init__.py:136
+#: plugins/signaling_examples/__init__.py:140
 msgid "Value_change"
 msgstr "Změna hodnoty"
 
-#: plugins/signaling_examples/__init__.py:140
+#: plugins/signaling_examples/__init__.py:144
 msgid "Options settings changed"
 msgstr "Nastavení možností bylo změněno"
 
-#: plugins/signaling_examples/__init__.py:144
+#: plugins/signaling_examples/__init__.py:148
 msgid "System rebooted"
 msgstr "Systém restartován (restart)"
 
-#: plugins/signaling_examples/__init__.py:148
+#: plugins/signaling_examples/__init__.py:152
 msgid "System restarted"
 msgstr "Systém restartován (reboot)"
 
-#: plugins/signaling_examples/__init__.py:152
+#: plugins/signaling_examples/__init__.py:156
 msgid "Station names changed"
 msgstr "Názvy stanic byly změněny"
 
-#: plugins/signaling_examples/__init__.py:156
+#: plugins/signaling_examples/__init__.py:160
 msgid "Programs changed"
 msgstr "Programy změněny"
 
-#: plugins/signaling_examples/__init__.py:160
+#: plugins/signaling_examples/__init__.py:164
 msgid "Program deleted"
 msgstr "Program byl odstraněn"
 
-#: plugins/signaling_examples/__init__.py:164
+#: plugins/signaling_examples/__init__.py:168
 msgid "Program toggled on or off"
 msgstr "Program zapnutý nebo vypnutý"
 
-#: plugins/signaling_examples/__init__.py:168
+#: plugins/signaling_examples/__init__.py:172
 msgid "Program runnow"
 msgstr "Program runnow"
 
-#: plugins/signaling_examples/__init__.py:172
+#: plugins/signaling_examples/__init__.py:176
 msgid "Zone change"
 msgstr "Změna zóny"
 
-#: plugins/signaling_examples/__init__.py:176
+#: plugins/signaling_examples/__init__.py:180
 msgid "Rain active"
 msgstr "Déšť aktivní"
 
-#: plugins/signaling_examples/__init__.py:180
+#: plugins/signaling_examples/__init__.py:184
 msgid "Rain not active"
 msgstr "Déšť není aktivní"
 
-#: plugins/signaling_examples/__init__.py:184
+#: plugins/signaling_examples/__init__.py:188
 msgid "Master one on"
 msgstr "Hlavní stanice zap"
 
-#: plugins/signaling_examples/__init__.py:188
+#: plugins/signaling_examples/__init__.py:192
 msgid "Master one off"
 msgstr "Hlavní stanice vyp"
 
-#: plugins/signaling_examples/__init__.py:192
+#: plugins/signaling_examples/__init__.py:196
 msgid "Master two on"
 msgstr "Hlavní stanice 2 zap"
 
-#: plugins/signaling_examples/__init__.py:196
+#: plugins/signaling_examples/__init__.py:200
 msgid "Master two off"
 msgstr "Hlavní stanice 2 vyp"
 
-#: plugins/signaling_examples/__init__.py:200
+#: plugins/signaling_examples/__init__.py:204
 msgid "Pressurizer plugin master relay on"
 msgstr "Rozšíření tlakovač hlavní relé stanice zap"
 
-#: plugins/signaling_examples/__init__.py:204
+#: plugins/signaling_examples/__init__.py:208
 msgid "Pressurizer plugin master relay off"
 msgstr "Rozšíření tlakovač hlavní relé stanice vyp"
 
-#: plugins/signaling_examples/__init__.py:208
+#: plugins/signaling_examples/__init__.py:212
 msgid "Linux system now powering off"
 msgstr "Linuxový systém se nyní vypíná"
 
-#: plugins/signaling_examples/__init__.py:212
+#: plugins/signaling_examples/__init__.py:216
 msgid "OSPy system update available"
 msgstr "K dispozici je aktualizace systému OSPy"
 
-#: plugins/signaling_examples/__init__.py:216
+#: plugins/signaling_examples/__init__.py:220
 msgid "OSPy stations ON, index: {}"
 msgstr "OSPy stanice ZAP, index: {}"
 
-#: plugins/signaling_examples/__init__.py:221
+#: plugins/signaling_examples/__init__.py:225
 msgid "OSPy stations OFF, index: {}"
 msgstr "OSPy stanice VYP, index: {}"
 
-#: plugins/signaling_examples/__init__.py:226
+#: plugins/signaling_examples/__init__.py:230
 msgid "OSPy all stations OFF"
 msgstr "OSPy všechny stanice VYP"
 
@@ -10714,6 +10764,18 @@ msgstr "signál station_on"
 #: plugins/signaling_examples/templates/signaling_examples_help.html:32
 msgid "signal station_off"
 msgstr "signál station_off"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:33
+msgid "signal station_clear"
+msgstr "signál station_clear"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:34
+msgid "signal internet_available"
+msgstr "signál internet_available"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:35
+msgid "signal internet_not_available"
+msgstr "signál internet_not_available"
 
 #: plugins/sms_adj/__init__.py:28
 msgid "Package: SMS Modem"

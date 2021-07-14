@@ -1284,6 +1284,9 @@ class program_page(ProtectedPage):
             program.start = repeat_start_date
             program.schedule = json.loads(qdict['custom_schedule_data'])
 
+        if 'control_master' in qdict:
+            program.control_master = int(qdict['control_master'])
+
         if program.index < 0:
             programs.add_program(program)
 

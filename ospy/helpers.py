@@ -481,9 +481,9 @@ def get_external_ip():
 
     check_time = 0
     if external_ip_address is '-':
-        check_time = 10
+        check_time = 60    # refresh after 60 seconds
     else:
-        check_time = 60   
+        check_time = 5*60  # refresh after 5 minutes 
 
     if now() - last_ip_check_time > check_time:
         last_ip_check_time = now()
