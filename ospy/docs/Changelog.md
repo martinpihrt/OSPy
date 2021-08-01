@@ -6,6 +6,8 @@ August 1 2021
 (martinpihrt)<br/>
 Changes:<br/>
 Czech language update. Added filter to event overview (in OSPy records). Weather station plugin repair. Air temp humi plugin fix (temperature > 127). Correction of time delay of main stations 1 and 2 in case of using activation of main stations by the program (see previous updates).
+Update 2:
+Fix in event filter (post saving).
 
 July 14 2021
 -----------

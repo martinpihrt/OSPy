@@ -1432,35 +1432,6 @@ class log_page(ProtectedPage):
         from ospy.server import session
 
         qdict = web.input()
-        if 'log_filter_server' in qdict:
-            if qdict['log_filter_server']=='on':
-                options.log_filter_server = True
-        else:
-            options.log_filter_server = False
-
-        if 'log_filter_internet' in qdict:
-            if qdict['log_filter_internet']=='on':
-                options.log_filter_internet = True
-        else:
-            options.log_filter_internet = False
-
-        if 'log_filter_rain_sensor' in qdict:
-            if qdict['log_filter_rain_sensor']=='on':
-                options.log_filter_rain_sensor = True
-        else:
-            options.log_filter_rain_sensor = False
-
-        if 'log_filter_rain_delay' in qdict:
-            if qdict['log_filter_rain_delay']=='on':
-                options.log_filter_rain_delay = True
-        else:
-            options.log_filter_rain_delay = False
-
-        if 'log_filter_login' in qdict:
-            if qdict['log_filter_login']=='on':
-                options.log_filter_login = True
-        else:
-            options.log_filter_login = False           
 
         if 'clear' in qdict and session['category'] == 'admin':
             log.clear_runs()
@@ -1531,8 +1502,38 @@ class log_page(ProtectedPage):
 
         if session['category'] == 'admin': 
             return self.core_render.log(watering_records, email_records, events_records)
-        if session['category'] == 'user': 
+        elif session['category'] == 'user': 
             return self.core_render.log_user(watering_records, email_records, events_records)
+        else:
+            raise web.seeother(u'/')    
+
+    def POST(self):
+        from ospy.server import session
+
+        qdict = web.input()
+
+        log_filter_server = get_input(qdict, 'log_filter_server', False, lambda x: True)
+        log_filter_internet = get_input(qdict, 'log_filter_internet', False, lambda x: True)
+        log_filter_rain_sensor = get_input(qdict, 'log_filter_rain_sensor', False, lambda x: True)
+        log_filter_rain_delay = get_input(qdict, 'log_filter_rain_delay', False, lambda x: True)
+        log_filter_login = get_input(qdict, 'log_filter_login', False, lambda x: True)
+        
+        options.log_filter_server = log_filter_server
+        options.log_filter_internet = log_filter_internet
+        options.log_filter_rain_sensor = log_filter_rain_sensor
+        options.log_filter_rain_delay = log_filter_rain_delay
+        options.log_filter_login = log_filter_login
+
+        watering_records = log.finished_runs()
+        email_records = logEM.finished_email()
+        events_records = logEV.finished_events()
+
+        if session['category'] == 'admin':
+            return self.core_render.log(watering_records, email_records, events_records)
+        elif session['category'] == 'user':
+            return self.core_render.log_user(watering_records, email_records, events_records)
+        else:
+            raise web.seeother(u'/')    
 
 class options_page(ProtectedPage):
     """Open the options page for viewing and editing."""

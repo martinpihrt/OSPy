@@ -101,7 +101,7 @@ jQuery(document).ready(function(){
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
     <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a> <a href="?clearEV" class="button delete danger">$_('Clear Log') $_('Events')</a></p>
     <p><br></p>
-    <form name="FilterForm" id="FilterForm" action="/log" method="get">
+    <form name="FilterForm" id="FilterForm" action="/log" method="post">
     <table border="1" cellpadding="6" cellspacing="0" frame="hsides">
     <tr><th colspan="2">$_('Filter for events')</th></tr>
     <tr><td>$_('Show OSPy server')</td><td><input type="checkbox" ${"checked" if options.log_filter_server else ""} name="log_filter_server" id="filter1" title=$:{json.dumps(_(u'Show OSPy server events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
