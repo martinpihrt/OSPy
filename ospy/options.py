@@ -460,7 +460,32 @@ class _Options(object):
             "key": "sensor_graph_show_err",
             "name": _('Show also errors'),
             "default": False,
-        },             
+        },
+        {
+            "key": "log_filter_server",
+            "name": _('Filter for logs - event: server'),
+            "default": True,
+        },
+        {
+            "key": "log_filter_rain_sensor",
+            "name": _('Filter for logs - event: rain sensor'),
+            "default": True,
+        },
+        {
+            "key": "log_filter_rain_delay",
+            "name": _('Filter for logs - event: rain delay'),
+            "default": False,
+        },        
+        {
+            "key": "log_filter_internet",
+            "name": _('Filter for logs - event: internet not found'),
+            "default": False,
+        }, 
+        {
+            "key": "log_filter_login",
+            "name": _('Filter for logs - event: user login'),
+            "default": False,
+        },                                           
     ]
 
     def __init__(self):

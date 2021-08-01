@@ -17,7 +17,11 @@ function updateFooter(){
         jQuery("#uptime span.uptime").text(sys_uptime);
     })
         
-    setTimeout(updateFooter, 5000); 
+    setTimeout(updateFooter, 15000); 
+}
+
+function check_filter() {
+    jQuery("#FilterForm").submit();
 }
 
 jQuery(document).ready(function(){
@@ -28,6 +32,12 @@ jQuery(document).ready(function(){
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
 
     updateFooter();
+
+    jQuery("#filter1").change(check_filter);
+    jQuery("#filter2").change(check_filter);
+    jQuery("#filter3").change(check_filter);
+    jQuery("#filter4").change(check_filter);
+    jQuery("#filter5").change(check_filter);
 });
 </script>
 
@@ -90,6 +100,17 @@ jQuery(document).ready(function(){
     <p>$_('Logging'): ${_('Enabled') if options.run_logEV else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
     <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a> <a href="?clearEV" class="button delete danger">$_('Clear Log') $_('Events')</a></p>
+    <p><br></p>
+    <form name="FilterForm" id="FilterForm" action="/log" method="get">
+    <table border="1" cellpadding="6" cellspacing="0" frame="hsides">
+    <tr><th colspan="2">$_('Filter for events')</th></tr>
+    <tr><td>$_('Show OSPy server')</td><td><input type="checkbox" ${"checked" if options.log_filter_server else ""} name="log_filter_server" id="filter1" title=$:{json.dumps(_(u'Show OSPy server events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
+    <tr><td>$_('Show external IP')</td><td><input type="checkbox" ${"checked" if options.log_filter_internet else ""} name="log_filter_internet" id="filter2" title=$:{json.dumps(_(u'Show external IP events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>   
+    <tr><td>$_('Show rain sensor')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_sensor else ""} name="log_filter_rain_sensor" id="filter3" title=$:{json.dumps(_(u'Show rain sensor events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
+    <tr><td>$_('Show rain delay')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_delay else ""} name="log_filter_rain_delay" id="filter4" title=$:{json.dumps(_(u'Show rain delay events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
+    <tr><td>$_('Show user login')</td><td><input type="checkbox" ${"checked" if options.log_filter_login else ""} name="log_filter_login" id="filter5" title=$:{json.dumps(_(u'Show user login events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
+    </table>
+    </form>
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -99,13 +120,14 @@ jQuery(document).ready(function(){
         </tr>
         $ odd = 1
         $for interval in reversed(evrecords):
-            <tr class="log_rec ${'odd' if odd else 'even'}">
-                <td align='left'>${interval["date"]}</td>
-                <td align='left'>${formatTime(interval["time"])}</td>
-                <td align='left'>${interval["subject"]}</td>
-                <td align='left'>${interval["status"]}</td>
-            </tr>
-            $ odd = 1 - odd
+            $if options.log_filter_server and interval["id"]=="Server" or options.log_filter_internet and interval["id"]=="Internet" or options.log_filter_rain_sensor and interval["id"]=="RainSensor" or options.log_filter_rain_delay and interval["id"]=="RainDelay" or options.log_filter_login and interval["id"]=="Login" or interval["id"]=="-":
+                <tr class="log_rec ${'odd' if odd else 'even'}">
+                    <td align='left'>${interval["date"]}</td>
+                    <td align='left'>${formatTime(interval["time"])}</td>
+                    <td align='left'>${interval["subject"]}</td>
+                    <td align='left'>${interval["status"]}</td>
+                </tr>
+                $ odd = 1 - odd
     </table>
     </div>
 </div>

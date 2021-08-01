@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-07-14 15:12+CEST\n"
-"PO-Revision-Date: 2021-07-14 15:23+0200\n"
+"POT-Creation-Date: 2021-08-01 05:40+CEST\n"
+"PO-Revision-Date: 2021-08-01 05:42+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -573,7 +573,7 @@ msgstr "Používat děšťový senzor."
 #: plugins/lcd_display/templates/lcd_display.html:93
 #: plugins/lcd_display/templates/lcd_display_help.html:38
 msgid "Rain Sensor"
-msgstr "Dešťový senzor"
+msgstr "Dešťový snímač"
 
 #: ospy/options.py:301
 #: plugins/pressure_monitor/templates/pressure_monitor.html:207
@@ -582,7 +582,7 @@ msgstr "V klidu rozpojen"
 
 #: ospy/options.py:303
 msgid "Rain sensor default."
-msgstr "Dešťový senzor má bez deště kontakt rozpojen."
+msgstr "Dešťový snímač má bez deště kontakt rozpojen."
 
 #: ospy/options.py:310
 msgid "Enable run log"
@@ -598,8 +598,8 @@ msgstr ""
 
 #: ospy/options.py:313 ospy/options.py:320 ospy/options.py:329
 #: ospy/options.py:336 ospy/options.py:345 ospy/options.py:352
-#: ospy/options.py:361 ospy/options.py:370 ospy/templates/log.html:36
-#: ospy/templates/log.html:63 ospy/templates/log.html:90
+#: ospy/options.py:361 ospy/options.py:370 ospy/templates/log.html:46
+#: ospy/templates/log.html:73 ospy/templates/log.html:100
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
 #: ospy/templates/log_user.html:91
 msgid "Logging"
@@ -741,15 +741,35 @@ msgstr "Graf historie"
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
 
-#: ospy/options.py:542
+#: ospy/options.py:466
+msgid "Filter for logs - event: server"
+msgstr "Filtr protokolů - událost: server"
+
+#: ospy/options.py:471
+msgid "Filter for logs - event: rain sensor"
+msgstr "Filtr protokolů - událost: dešťový snímač"
+
+#: ospy/options.py:476
+msgid "Filter for logs - event: rain delay"
+msgstr "Filtr protokolů - událost: zpoždění deště"
+
+#: ospy/options.py:481
+msgid "Filter for logs - event: internet not found"
+msgstr "Filtr protokolů - událost: internet nebyl nalezen"
+
+#: ospy/options.py:486
+msgid "Filter for logs - event: user login"
+msgstr "Filtr protokolů - událost: přihlášení uživatele"
+
+#: ospy/options.py:567
 msgid "Callback failed"
 msgstr "Zpětné volání se nezdařilo"
 
-#: ospy/options.py:578
+#: ospy/options.py:603
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:605
+#: ospy/options.py:630
 msgid "Saving error"
 msgstr "Chyba při ukládání"
 
@@ -793,7 +813,7 @@ msgstr "Vlastní"
 msgid "Weekly (Weather based)"
 msgstr "Týdenní (předpověď počasí)"
 
-#: ospy/programs.py:48 ospy/templates/log.html:45
+#: ospy/programs.py:48 ospy/templates/log.html:55
 #: ospy/templates/log_user.html:45 plugins/email_notifications/__init__.py:134
 #: plugins/email_notifications/__init__.py:138 plugins/sms_adj/__init__.py:398
 msgid "Program"
@@ -923,7 +943,7 @@ msgstr "do max"
 
 #: ospy/programs.py:731
 msgid "Could not get weather information, using fallbacks"
-msgstr ""
+msgstr "Nelze získat informace o počasí pomocí záložních dat"
 
 #: ospy/programs.py:819
 msgid "Creating run-now program"
@@ -939,17 +959,15 @@ msgstr "Aktivován"
 
 #: ospy/scheduler.py:34 ospy/scheduler.py:38
 msgid "Rain sensor"
-msgstr "Dešťový senzor"
+msgstr "Dešťový snímač"
 
 #: ospy/scheduler.py:38
 msgid "Deactivated"
 msgstr "Deaktivován"
 
-#: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/server.py:200
-#: ospy/server.py:213 ospy/server.py:224 plugins/lcd_display/__init__.py:639
-#: plugins/lcd_display/__init__.py:676 plugins/system_update/__init__.py:227
-msgid "System OSPy"
-msgstr "Systém OSPy"
+#: ospy/scheduler.py:42 ospy/scheduler.py:46
+msgid "Connection"
+msgstr "Připojení"
 
 #: ospy/scheduler.py:42 plugins/signaling_examples/__init__.py:234
 msgid "Internet is available (external IP)"
@@ -1255,12 +1273,12 @@ msgid "!"
 msgstr "!"
 
 #: ospy/sensors.py:998
-msgid "Rain delay"
-msgstr "Zpoždění deště"
-
-#: ospy/sensors.py:998
 msgid "hours."
 msgstr "hodin."
+
+#: ospy/sensors.py:998 ospy/webpages.py:1111
+msgid "Rain delay"
+msgstr "Zpoždění deště"
 
 #: ospy/sensors.py:1004
 msgid "Sensor has water minimum"
@@ -1315,6 +1333,10 @@ msgstr "Visitor není v session, přidám ho do session."
 #: ospy/server.py:198 ospy/server.py:199
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
+
+#: ospy/server.py:200 ospy/server.py:213 ospy/server.py:224
+msgid "Server"
+msgstr "Server"
 
 #: ospy/server.py:200 ospy/server.py:224
 msgid "Stopping"
@@ -2097,8 +2119,8 @@ msgstr "Potlačeno dešťovým senzorem"
 
 #: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:542
 #: ospy/templates/home_public.html:159 ospy/templates/home_user.html:159
-#: ospy/templates/home_user.html:461 ospy/templates/log.html:36
-#: ospy/templates/log.html:63 ospy/templates/log.html:90
+#: ospy/templates/home_user.html:461 ospy/templates/log.html:46
+#: ospy/templates/log.html:73 ospy/templates/log.html:100
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
 #: ospy/templates/log_user.html:91 plugins/email_notifications/__init__.py:300
 #: plugins/lcd_display/__init__.py:448 plugins/lcd_display/__init__.py:529
@@ -2255,7 +2277,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:1130
+#: ospy/webpages.py:1133
 msgid "Manual"
 msgstr "Ručně"
 
@@ -2264,8 +2286,8 @@ msgid "Enable or disable the scheduler running"
 msgstr "Povolit nebo zakázat provoz plánovače"
 
 #: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:461
-#: ospy/templates/log.html:36 ospy/templates/log.html:63
-#: ospy/templates/log.html:90 ospy/templates/log_user.html:36
+#: ospy/templates/log.html:46 ospy/templates/log.html:73
+#: ospy/templates/log.html:100 ospy/templates/log_user.html:36
 #: ospy/templates/log_user.html:63 ospy/templates/log_user.html:91
 #: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:446
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
@@ -2397,26 +2419,26 @@ msgstr "zeměpisná délka"
 msgid "Weather - No location coordinates available!"
 msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
 
-#: ospy/templates/log.html:34 ospy/templates/log_user.html:34
+#: ospy/templates/log.html:44 ospy/templates/log_user.html:34
 msgid "Station log"
 msgstr "Záznam stanic"
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 msgid "limit"
 msgstr "omezení"
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 msgid "no"
 msgstr "žádný záznam"
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:8
@@ -2429,13 +2451,13 @@ msgstr "žádný záznam"
 msgid "Total number of records"
 msgstr "Celkový počet záznamů"
 
-#: ospy/templates/log.html:38 ospy/templates/log.html:65
-#: ospy/templates/log.html:92
+#: ospy/templates/log.html:48 ospy/templates/log.html:75
+#: ospy/templates/log.html:102
 msgid "Clear Log"
 msgstr "Smazat záznam"
 
-#: ospy/templates/log.html:38 ospy/templates/log.html:65
-#: ospy/templates/log.html:92 ospy/templates/log_sensor.html:22
+#: ospy/templates/log.html:48 ospy/templates/log.html:75
+#: ospy/templates/log.html:102 ospy/templates/log_sensor.html:22
 #: ospy/templates/log_sensor.html:42 ospy/templates/log_user.html:38
 #: ospy/templates/log_user.html:65 ospy/templates/log_user.html:93
 #: plugins/air_temp_humi/templates/air_temp_humi.html:183
@@ -2457,12 +2479,12 @@ msgstr "Smazat záznam"
 msgid "Download log"
 msgstr "Stáhnout záznam"
 
-#: ospy/templates/log.html:38 ospy/templates/log_user.html:38
+#: ospy/templates/log.html:48 ospy/templates/log_user.html:38
 msgid "log.csv"
 msgstr "log.csv"
 
-#: ospy/templates/log.html:41 ospy/templates/log.html:68
-#: ospy/templates/log.html:95 ospy/templates/log_sensor.html:25
+#: ospy/templates/log.html:51 ospy/templates/log.html:78
+#: ospy/templates/log.html:116 ospy/templates/log_sensor.html:25
 #: ospy/templates/log_sensor.html:45 ospy/templates/log_user.html:41
 #: ospy/templates/log_user.html:69 ospy/templates/log_user.html:97
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:16
@@ -2475,11 +2497,11 @@ msgstr "log.csv"
 msgid "Date"
 msgstr "Datum"
 
-#: ospy/templates/log.html:42 ospy/templates/log_user.html:42
+#: ospy/templates/log.html:52 ospy/templates/log_user.html:42
 msgid "Start Time"
 msgstr "Čas startu"
 
-#: ospy/templates/log.html:43 ospy/templates/log_user.html:43
+#: ospy/templates/log.html:53 ospy/templates/log_user.html:43
 #: ospy/templates/stations.html:34
 #: plugins/cli_control/templates/cli_control.html:44
 #: plugins/email_notifications/__init__.py:135
@@ -2489,25 +2511,25 @@ msgstr "Čas startu"
 msgid "Station"
 msgstr "Stanice"
 
-#: ospy/templates/log.html:44 ospy/templates/log_user.html:44
+#: ospy/templates/log.html:54 ospy/templates/log_user.html:44
 #: ospy/templates/program.html:494 plugins/email_notifications/__init__.py:137
 #: plugins/email_notifications/__init__.py:141
 msgid "Duration"
 msgstr "Trvání"
 
-#: ospy/templates/log.html:61 ospy/templates/log_user.html:61
+#: ospy/templates/log.html:71 ospy/templates/log_user.html:61
 msgid "E-mail log"
 msgstr "Záznam E-mailů"
 
-#: ospy/templates/log.html:65
+#: ospy/templates/log.html:75
 msgid "Email"
 msgstr "E-mail"
 
-#: ospy/templates/log.html:65 ospy/templates/log_user.html:65
+#: ospy/templates/log.html:75 ospy/templates/log_user.html:65
 msgid "email.csv"
 msgstr "email.csv"
 
-#: ospy/templates/log.html:69 ospy/templates/log.html:96
+#: ospy/templates/log.html:79 ospy/templates/log.html:117
 #: ospy/templates/log_sensor.html:26 ospy/templates/log_sensor.html:46
 #: ospy/templates/log_user.html:70 ospy/templates/log_user.html:98
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
@@ -2520,32 +2542,76 @@ msgstr "email.csv"
 msgid "Time"
 msgstr "Čas"
 
-#: ospy/templates/log.html:70 ospy/templates/log_user.html:71
+#: ospy/templates/log.html:80 ospy/templates/log_user.html:71
 msgid "Email Status"
 msgstr "Stav E-mailu"
 
-#: ospy/templates/log.html:71 ospy/templates/log.html:97
+#: ospy/templates/log.html:81 ospy/templates/log.html:118
 #: ospy/templates/log_user.html:72 ospy/templates/log_user.html:99
 msgid "Subject"
 msgstr "Předmět"
 
-#: ospy/templates/log.html:72 ospy/templates/log_user.html:73
+#: ospy/templates/log.html:82 ospy/templates/log_user.html:73
 msgid "Body"
 msgstr "Tělo"
 
-#: ospy/templates/log.html:88 ospy/templates/log_user.html:89
+#: ospy/templates/log.html:98 ospy/templates/log_user.html:89
 msgid "Events log"
 msgstr "Záznam událostí"
 
-#: ospy/templates/log.html:92
+#: ospy/templates/log.html:102
 msgid "Events"
 msgstr "Události"
 
-#: ospy/templates/log.html:92 ospy/templates/log_user.html:93
+#: ospy/templates/log.html:102 ospy/templates/log_user.html:93
 msgid "events.csv"
 msgstr "events.csv"
 
-#: ospy/templates/log.html:98 ospy/templates/log_user.html:100
+#: ospy/templates/log.html:106
+msgid "Filter for events"
+msgstr "Filtr událostí"
+
+#: ospy/templates/log.html:107
+msgid "Show OSPy server"
+msgstr "Zobrazit server OSPy"
+
+#: ospy/templates/log.html:107
+msgid "Show OSPy server events."
+msgstr "Zobrazit události serveru OSPy."
+
+#: ospy/templates/log.html:108
+msgid "Show external IP"
+msgstr "Zobrazit externí IP adresu"
+
+#: ospy/templates/log.html:108
+msgid "Show external IP events."
+msgstr "Zobrazit události vnější IP adresy."
+
+#: ospy/templates/log.html:109
+msgid "Show rain sensor"
+msgstr "Zobrazit dešťový snímač"
+
+#: ospy/templates/log.html:109
+msgid "Show rain sensor events."
+msgstr "Zobrazit události dešťového snímače."
+
+#: ospy/templates/log.html:110
+msgid "Show rain delay"
+msgstr "Zobrazit zpoždění deště"
+
+#: ospy/templates/log.html:110
+msgid "Show rain delay events."
+msgstr "Zobrazit události zpoždění deště."
+
+#: ospy/templates/log.html:111
+msgid "Show user login"
+msgstr "Zobrazit přihlášení uživatele"
+
+#: ospy/templates/log.html:111
+msgid "Show user login events."
+msgstr "Zobrazit události přihlášení uživatelů."
+
+#: ospy/templates/log.html:119 ospy/templates/log_user.html:100
 #: plugins/air_temp_humi/templates/air_temp_humi.html:348
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/cli_control/templates/cli_control.html:61
@@ -2595,7 +2661,7 @@ msgstr "events.csv"
 msgid "Status"
 msgstr "Stav"
 
-#: ospy/templates/log.html:113 ospy/templates/log_sensor.html:10
+#: ospy/templates/log.html:135 ospy/templates/log_sensor.html:10
 #: ospy/templates/log_sensor.html:74 ospy/templates/log_user.html:115
 #: ospy/templates/sensors_firmware.html:239
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
@@ -2677,7 +2743,7 @@ msgid "C"
 msgstr "C"
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:15
-#: ospy/templates/login.html:26
+#: ospy/templates/login.html:26 ospy/webpages.py:1050 ospy/webpages.py:1057
 msgid "Login"
 msgstr "Přihlásit se"
 
@@ -4286,7 +4352,7 @@ msgid ""
 "(rain sensor and time delay will be ignored)."
 msgstr ""
 "Pokud je zaškrtnuto ignorovat déšť, tak se v případě deště tato stanice "
-"aktivuje dle plánu (dešťový senzor a časové zpoždění budou ignorovány)."
+"aktivuje dle plánu (dešťový snímač a časové zpoždění budou ignorovány)."
 
 #: ospy/templates/stations.html:94
 msgid "Activate Master 1/2 by program"
@@ -4577,7 +4643,19 @@ msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1581
+#: ospy/webpages.py:1050
+msgid "User {} logged in"
+msgstr "Uživatel {} se přihlásil"
+
+#: ospy/webpages.py:1057
+msgid "User {} logged out"
+msgstr "Uživatel {} se odhlásil"
+
+#: ospy/webpages.py:1111
+msgid "User has set a delay {} hours"
+msgstr "Uživatel nastavil zpoždění {} hodin"
+
+#: ospy/webpages.py:1614
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -4585,7 +4663,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1587
+#: ospy/webpages.py:1620
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -4593,7 +4671,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1593
+#: ospy/webpages.py:1626
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -4601,43 +4679,43 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1615 ospy/webpages.py:1618
+#: ospy/webpages.py:1648 ospy/webpages.py:1651
 msgid "Deleting image file {}"
 msgstr "Odstranění souboru obrázku {}"
 
-#: ospy/webpages.py:1624
+#: ospy/webpages.py:1657
 msgid "Deleting file fullchain.pem."
 msgstr "Odstranění souboru fullchain.pem."
 
-#: ospy/webpages.py:1628
+#: ospy/webpages.py:1661
 msgid "Deleting file privkey.pem."
 msgstr "Odstranění souboru privkey.pem."
 
-#: ospy/webpages.py:1632
+#: ospy/webpages.py:1665
 msgid "Deleting file sessions.db."
 msgstr "Odstranění souboru sessions.db."
 
-#: ospy/webpages.py:1636
+#: ospy/webpages.py:1669
 msgid "Deleting file ospy_backup.zip."
 msgstr "Odstranění souboru ospy_backup.zip."
 
-#: ospy/webpages.py:1640
+#: ospy/webpages.py:1673
 msgid "Deleting file options.db.bak."
 msgstr "Odstranění souboru options.db.bak."
 
-#: ospy/webpages.py:1644
+#: ospy/webpages.py:1677
 msgid "Deleting file options.db.tmp."
 msgstr "Odstranění souboru options.db.tmp."
 
-#: ospy/webpages.py:1648
+#: ospy/webpages.py:1681
 msgid "Deleting file options.db."
 msgstr "Odstranění souboru options.db."
 
-#: ospy/webpages.py:1658
+#: ospy/webpages.py:1691
 msgid "Deleting file events.log."
 msgstr "Odstranění souboru events.log."
 
-#: ospy/webpages.py:1675
+#: ospy/webpages.py:1708
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -4645,67 +4723,67 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1761 ospy/webpages.py:1824 ospy/webpages.py:1825
+#: ospy/webpages.py:1794 ospy/webpages.py:1857 ospy/webpages.py:1858
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1816
+#: ospy/webpages.py:1849
 msgid "File {} is created successfully!"
 msgstr "Soubor {} byl úspěšně vytvořen!"
 
-#: ospy/webpages.py:1860
+#: ospy/webpages.py:1893
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:1867
+#: ospy/webpages.py:1900
 msgid "Uploaded to backup folder OK."
 msgstr "Nahráno do záložní složky OK."
 
-#: ospy/webpages.py:1871
+#: ospy/webpages.py:1904
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:1877
+#: ospy/webpages.py:1910
 msgid "Cleaning folder after restoring..."
 msgstr "Čištění složky po obnovení..."
 
-#: ospy/webpages.py:1880 ospy/webpages.py:1884
+#: ospy/webpages.py:1913 ospy/webpages.py:1917
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:1914 ospy/webpages.py:1915
+#: ospy/webpages.py:1947 ospy/webpages.py:1948
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:1946 ospy/webpages.py:1947 plugins/mqtt/__init__.py:242
+#: ospy/webpages.py:1979 ospy/webpages.py:1980 plugins/mqtt/__init__.py:242
 #: plugins/mqtt_runonce/__init__.py:161
 #: plugins/ping_monitor/templates/ping_monitor_log.html:80
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:394
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:1966
+#: ospy/webpages.py:1999
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:1970
+#: ospy/webpages.py:2003
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:1976
+#: ospy/webpages.py:2009
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:2141
+#: ospy/webpages.py:2174
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:2154 ospy/webpages.py:2220
+#: ospy/webpages.py:2187 ospy/webpages.py:2253
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:2166 ospy/webpages.py:2207
+#: ospy/webpages.py:2199 ospy/webpages.py:2240
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -4741,7 +4819,7 @@ msgstr "Monitor teploty"
 msgid "DS"
 msgstr "DS"
 
-#: plugins/air_temp_humi/__init__.py:240 plugins/air_temp_humi/__init__.py:316
+#: plugins/air_temp_humi/__init__.py:240 plugins/air_temp_humi/__init__.py:318
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
@@ -4749,11 +4827,11 @@ msgstr "Rozšíření monitor teploty a vlhkosti"
 msgid "Data is not correct. Please try again later."
 msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 
-#: plugins/air_temp_humi/__init__.py:401 plugins/air_temp_humi/__init__.py:402
-#: plugins/air_temp_humi/__init__.py:403 plugins/air_temp_humi/__init__.py:408
-#: plugins/air_temp_humi/__init__.py:412 plugins/air_temp_humi/__init__.py:416
-#: plugins/air_temp_humi/__init__.py:420 plugins/air_temp_humi/__init__.py:424
-#: plugins/air_temp_humi/__init__.py:428
+#: plugins/air_temp_humi/__init__.py:404 plugins/air_temp_humi/__init__.py:405
+#: plugins/air_temp_humi/__init__.py:406 plugins/air_temp_humi/__init__.py:411
+#: plugins/air_temp_humi/__init__.py:415 plugins/air_temp_humi/__init__.py:419
+#: plugins/air_temp_humi/__init__.py:423 plugins/air_temp_humi/__init__.py:427
+#: plugins/air_temp_humi/__init__.py:431
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:33
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:36
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:45
@@ -4765,17 +4843,17 @@ msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 msgid "Not used"
 msgstr "Nepoužívá se"
 
-#: plugins/air_temp_humi/__init__.py:441
+#: plugins/air_temp_humi/__init__.py:444
 #: plugins/pressure_monitor/__init__.py:356 plugins/ups_adj/__init__.py:324
 #: plugins/wind_monitor/__init__.py:500
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
-#: plugins/air_temp_humi/__init__.py:489
+#: plugins/air_temp_humi/__init__.py:492
 msgid "Saving to log files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
-#: plugins/air_temp_humi/__init__.py:550 plugins/cli_control/__init__.py:224
+#: plugins/air_temp_humi/__init__.py:553 plugins/cli_control/__init__.py:224
 #: plugins/ping_monitor/__init__.py:380 plugins/tank_monitor/__init__.py:555
 #: plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
@@ -8179,7 +8257,7 @@ msgstr "Doba provozu:"
 
 #: plugins/lcd_display/__init__.py:321
 msgid "Rain Sensor:"
-msgstr "Dešťový senzor:"
+msgstr "Dešťový snímač:"
 
 #: plugins/lcd_display/__init__.py:329 plugins/lcd_display/__init__.py:358
 #: plugins/pressure_monitor/__init__.py:186
@@ -8281,6 +8359,11 @@ msgstr "Restartování"
 #: plugins/lcd_display/__init__.py:628
 msgid "System restarting"
 msgstr "Restartování systému"
+
+#: plugins/lcd_display/__init__.py:639 plugins/lcd_display/__init__.py:676
+#: plugins/system_update/__init__.py:227
+msgid "System OSPy"
+msgstr "Systém OSPy"
 
 #: plugins/lcd_display/__init__.py:647
 msgid "System poweroff"
@@ -13201,7 +13284,15 @@ msgstr "Balíček: Meteorologická stanice"
 msgid "Weather stations plug-in is enabled."
 msgstr "Rozšíření meteorologická stanic je povoleno."
 
-#: plugins/weather_stations/__init__.py:204
+#: plugins/weather_stations/__init__.py:107
+msgid ""
+"Weather stations plug-in has any error, clear plugin settings to default."
+msgstr ""
+"Rozšíření meteorologická stanice má nějakou chybu, nastavení se vymaže do "
+"výchozího nastavení."
+
+#: plugins/weather_stations/__init__.py:245
+#: plugins/weather_stations/__init__.py:336
 msgid "Weather stations plug-in"
 msgstr "Rozšíření meteorologická stanice"
 

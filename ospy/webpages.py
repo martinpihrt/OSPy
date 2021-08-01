@@ -1047,12 +1047,14 @@ class login_page(WebPage):
             from ospy import server
             server.session.validated = True
             report_login()
+            logEV.save_events_log( _(u'Login'), _(u'User {} logged in').format(server.session['visitor']), id='Login')
             self._redirect_back()
 
 
 class logout_page(WebPage):
     def GET(self):
         from ospy.server import session
+        logEV.save_events_log( _(u'Login'), _(u'User {} logged out').format(session['visitor']), id='Login')
         session.kill()
         raise web.seeother(u'/')
 
@@ -1106,6 +1108,7 @@ class action_page(ProtectedPage):
         if rain_block is not None:
             if session['category'] == 'admin' or session['category'] == 'user':
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
+                logEV.save_events_log( _(u'Rain delay'), _(u'User has set a delay {} hours').format(rain_block), id='RainDelay')
 
         if level_adjustment is not None:
             if session['category'] == 'admin' or session['category'] == 'user':
@@ -1429,6 +1432,36 @@ class log_page(ProtectedPage):
         from ospy.server import session
 
         qdict = web.input()
+        if 'log_filter_server' in qdict:
+            if qdict['log_filter_server']=='on':
+                options.log_filter_server = True
+        else:
+            options.log_filter_server = False
+
+        if 'log_filter_internet' in qdict:
+            if qdict['log_filter_internet']=='on':
+                options.log_filter_internet = True
+        else:
+            options.log_filter_internet = False
+
+        if 'log_filter_rain_sensor' in qdict:
+            if qdict['log_filter_rain_sensor']=='on':
+                options.log_filter_rain_sensor = True
+        else:
+            options.log_filter_rain_sensor = False
+
+        if 'log_filter_rain_delay' in qdict:
+            if qdict['log_filter_rain_delay']=='on':
+                options.log_filter_rain_delay = True
+        else:
+            options.log_filter_rain_delay = False
+
+        if 'log_filter_login' in qdict:
+            if qdict['log_filter_login']=='on':
+                options.log_filter_login = True
+        else:
+            options.log_filter_login = False           
+
         if 'clear' in qdict and session['category'] == 'admin':
             log.clear_runs()
             raise web.seeother(u'/log')
@@ -1439,7 +1472,7 @@ class log_page(ProtectedPage):
 
         if 'clearEV' in qdict and session['category'] == 'admin':
             logEV.clear_events()
-            raise web.seeother(u'/log')            
+            raise web.seeother(u'/log')
 
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()

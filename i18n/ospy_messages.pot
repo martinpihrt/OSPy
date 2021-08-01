@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-14 15:12+CEST\n"
+"POT-Creation-Date: 2021-08-01 05:40+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -548,8 +548,8 @@ msgstr ""
 
 #: ospy/options.py:313 ospy/options.py:320 ospy/options.py:329
 #: ospy/options.py:336 ospy/options.py:345 ospy/options.py:352
-#: ospy/options.py:361 ospy/options.py:370 ospy/templates/log.html:36
-#: ospy/templates/log.html:63 ospy/templates/log.html:90
+#: ospy/options.py:361 ospy/options.py:370 ospy/templates/log.html:46
+#: ospy/templates/log.html:73 ospy/templates/log.html:100
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
 #: ospy/templates/log_user.html:91
 msgid "Logging"
@@ -683,15 +683,35 @@ msgstr ""
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:542
+#: ospy/options.py:466
+msgid "Filter for logs - event: server"
+msgstr ""
+
+#: ospy/options.py:471
+msgid "Filter for logs - event: rain sensor"
+msgstr ""
+
+#: ospy/options.py:476
+msgid "Filter for logs - event: rain delay"
+msgstr ""
+
+#: ospy/options.py:481
+msgid "Filter for logs - event: internet not found"
+msgstr ""
+
+#: ospy/options.py:486
+msgid "Filter for logs - event: user login"
+msgstr ""
+
+#: ospy/options.py:567
 msgid "Callback failed"
 msgstr ""
 
-#: ospy/options.py:578
+#: ospy/options.py:603
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:605
+#: ospy/options.py:630
 msgid "Saving error"
 msgstr ""
 
@@ -735,7 +755,7 @@ msgstr ""
 msgid "Weekly (Weather based)"
 msgstr ""
 
-#: ospy/programs.py:48 ospy/templates/log.html:45
+#: ospy/programs.py:48 ospy/templates/log.html:55
 #: ospy/templates/log_user.html:45 plugins/email_notifications/__init__.py:134
 #: plugins/email_notifications/__init__.py:138 plugins/sms_adj/__init__.py:398
 msgid "Program"
@@ -887,10 +907,8 @@ msgstr ""
 msgid "Deactivated"
 msgstr ""
 
-#: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/server.py:200
-#: ospy/server.py:213 ospy/server.py:224 plugins/lcd_display/__init__.py:639
-#: plugins/lcd_display/__init__.py:676 plugins/system_update/__init__.py:227
-msgid "System OSPy"
+#: ospy/scheduler.py:42 ospy/scheduler.py:46
+msgid "Connection"
 msgstr ""
 
 #: ospy/scheduler.py:42 plugins/signaling_examples/__init__.py:234
@@ -1193,11 +1211,11 @@ msgid "!"
 msgstr ""
 
 #: ospy/sensors.py:998
-msgid "Rain delay"
+msgid "hours."
 msgstr ""
 
-#: ospy/sensors.py:998
-msgid "hours."
+#: ospy/sensors.py:998 ospy/webpages.py:1111
+msgid "Rain delay"
 msgstr ""
 
 #: ospy/sensors.py:1004
@@ -1246,6 +1264,10 @@ msgstr ""
 
 #: ospy/server.py:198 ospy/server.py:199
 msgid "OSPy is closing, saving sessions."
+msgstr ""
+
+#: ospy/server.py:200 ospy/server.py:213 ospy/server.py:224
+msgid "Server"
 msgstr ""
 
 #: ospy/server.py:200 ospy/server.py:224
@@ -2010,8 +2032,8 @@ msgstr ""
 
 #: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:542
 #: ospy/templates/home_public.html:159 ospy/templates/home_user.html:159
-#: ospy/templates/home_user.html:461 ospy/templates/log.html:36
-#: ospy/templates/log.html:63 ospy/templates/log.html:90
+#: ospy/templates/home_user.html:461 ospy/templates/log.html:46
+#: ospy/templates/log.html:73 ospy/templates/log.html:100
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
 #: ospy/templates/log_user.html:91 plugins/email_notifications/__init__.py:300
 #: plugins/lcd_display/__init__.py:448 plugins/lcd_display/__init__.py:529
@@ -2165,7 +2187,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
 #: ospy/templates/home_admin.html:539 ospy/templates/home_user.html:458
-#: ospy/webpages.py:1130
+#: ospy/webpages.py:1133
 msgid "Manual"
 msgstr ""
 
@@ -2174,8 +2196,8 @@ msgid "Enable or disable the scheduler running"
 msgstr ""
 
 #: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:461
-#: ospy/templates/log.html:36 ospy/templates/log.html:63
-#: ospy/templates/log.html:90 ospy/templates/log_user.html:36
+#: ospy/templates/log.html:46 ospy/templates/log.html:73
+#: ospy/templates/log.html:100 ospy/templates/log_user.html:36
 #: ospy/templates/log_user.html:63 ospy/templates/log_user.html:91
 #: ospy/templates/program.html:389 plugins/lcd_display/__init__.py:446
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
@@ -2306,26 +2328,26 @@ msgstr ""
 msgid "Weather - No location coordinates available!"
 msgstr ""
 
-#: ospy/templates/log.html:34 ospy/templates/log_user.html:34
+#: ospy/templates/log.html:44 ospy/templates/log_user.html:34
 msgid "Station log"
 msgstr ""
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 msgid "limit"
 msgstr ""
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 msgid "no"
 msgstr ""
 
-#: ospy/templates/log.html:37 ospy/templates/log.html:64
-#: ospy/templates/log.html:91 ospy/templates/log_sensor.html:21
+#: ospy/templates/log.html:47 ospy/templates/log.html:74
+#: ospy/templates/log.html:101 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:41 ospy/templates/log_user.html:37
 #: ospy/templates/log_user.html:64 ospy/templates/log_user.html:92
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:8
@@ -2338,13 +2360,13 @@ msgstr ""
 msgid "Total number of records"
 msgstr ""
 
-#: ospy/templates/log.html:38 ospy/templates/log.html:65
-#: ospy/templates/log.html:92
+#: ospy/templates/log.html:48 ospy/templates/log.html:75
+#: ospy/templates/log.html:102
 msgid "Clear Log"
 msgstr ""
 
-#: ospy/templates/log.html:38 ospy/templates/log.html:65
-#: ospy/templates/log.html:92 ospy/templates/log_sensor.html:22
+#: ospy/templates/log.html:48 ospy/templates/log.html:75
+#: ospy/templates/log.html:102 ospy/templates/log_sensor.html:22
 #: ospy/templates/log_sensor.html:42 ospy/templates/log_user.html:38
 #: ospy/templates/log_user.html:65 ospy/templates/log_user.html:93
 #: plugins/air_temp_humi/templates/air_temp_humi.html:183
@@ -2366,12 +2388,12 @@ msgstr ""
 msgid "Download log"
 msgstr ""
 
-#: ospy/templates/log.html:38 ospy/templates/log_user.html:38
+#: ospy/templates/log.html:48 ospy/templates/log_user.html:38
 msgid "log.csv"
 msgstr ""
 
-#: ospy/templates/log.html:41 ospy/templates/log.html:68
-#: ospy/templates/log.html:95 ospy/templates/log_sensor.html:25
+#: ospy/templates/log.html:51 ospy/templates/log.html:78
+#: ospy/templates/log.html:116 ospy/templates/log_sensor.html:25
 #: ospy/templates/log_sensor.html:45 ospy/templates/log_user.html:41
 #: ospy/templates/log_user.html:69 ospy/templates/log_user.html:97
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:16
@@ -2384,11 +2406,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ospy/templates/log.html:42 ospy/templates/log_user.html:42
+#: ospy/templates/log.html:52 ospy/templates/log_user.html:42
 msgid "Start Time"
 msgstr ""
 
-#: ospy/templates/log.html:43 ospy/templates/log_user.html:43
+#: ospy/templates/log.html:53 ospy/templates/log_user.html:43
 #: ospy/templates/stations.html:34
 #: plugins/cli_control/templates/cli_control.html:44
 #: plugins/email_notifications/__init__.py:135
@@ -2398,25 +2420,25 @@ msgstr ""
 msgid "Station"
 msgstr ""
 
-#: ospy/templates/log.html:44 ospy/templates/log_user.html:44
+#: ospy/templates/log.html:54 ospy/templates/log_user.html:44
 #: ospy/templates/program.html:494 plugins/email_notifications/__init__.py:137
 #: plugins/email_notifications/__init__.py:141
 msgid "Duration"
 msgstr ""
 
-#: ospy/templates/log.html:61 ospy/templates/log_user.html:61
+#: ospy/templates/log.html:71 ospy/templates/log_user.html:61
 msgid "E-mail log"
 msgstr ""
 
-#: ospy/templates/log.html:65
+#: ospy/templates/log.html:75
 msgid "Email"
 msgstr ""
 
-#: ospy/templates/log.html:65 ospy/templates/log_user.html:65
+#: ospy/templates/log.html:75 ospy/templates/log_user.html:65
 msgid "email.csv"
 msgstr ""
 
-#: ospy/templates/log.html:69 ospy/templates/log.html:96
+#: ospy/templates/log.html:79 ospy/templates/log.html:117
 #: ospy/templates/log_sensor.html:26 ospy/templates/log_sensor.html:46
 #: ospy/templates/log_user.html:70 ospy/templates/log_user.html:98
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
@@ -2429,32 +2451,76 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
-#: ospy/templates/log.html:70 ospy/templates/log_user.html:71
+#: ospy/templates/log.html:80 ospy/templates/log_user.html:71
 msgid "Email Status"
 msgstr ""
 
-#: ospy/templates/log.html:71 ospy/templates/log.html:97
+#: ospy/templates/log.html:81 ospy/templates/log.html:118
 #: ospy/templates/log_user.html:72 ospy/templates/log_user.html:99
 msgid "Subject"
 msgstr ""
 
-#: ospy/templates/log.html:72 ospy/templates/log_user.html:73
+#: ospy/templates/log.html:82 ospy/templates/log_user.html:73
 msgid "Body"
 msgstr ""
 
-#: ospy/templates/log.html:88 ospy/templates/log_user.html:89
+#: ospy/templates/log.html:98 ospy/templates/log_user.html:89
 msgid "Events log"
 msgstr ""
 
-#: ospy/templates/log.html:92
+#: ospy/templates/log.html:102
 msgid "Events"
 msgstr ""
 
-#: ospy/templates/log.html:92 ospy/templates/log_user.html:93
+#: ospy/templates/log.html:102 ospy/templates/log_user.html:93
 msgid "events.csv"
 msgstr ""
 
-#: ospy/templates/log.html:98 ospy/templates/log_user.html:100
+#: ospy/templates/log.html:106
+msgid "Filter for events"
+msgstr ""
+
+#: ospy/templates/log.html:107
+msgid "Show OSPy server"
+msgstr ""
+
+#: ospy/templates/log.html:107
+msgid "Show OSPy server events."
+msgstr ""
+
+#: ospy/templates/log.html:108
+msgid "Show external IP"
+msgstr ""
+
+#: ospy/templates/log.html:108
+msgid "Show external IP events."
+msgstr ""
+
+#: ospy/templates/log.html:109
+msgid "Show rain sensor"
+msgstr ""
+
+#: ospy/templates/log.html:109
+msgid "Show rain sensor events."
+msgstr ""
+
+#: ospy/templates/log.html:110
+msgid "Show rain delay"
+msgstr ""
+
+#: ospy/templates/log.html:110
+msgid "Show rain delay events."
+msgstr ""
+
+#: ospy/templates/log.html:111
+msgid "Show user login"
+msgstr ""
+
+#: ospy/templates/log.html:111
+msgid "Show user login events."
+msgstr ""
+
+#: ospy/templates/log.html:119 ospy/templates/log_user.html:100
 #: plugins/air_temp_humi/templates/air_temp_humi.html:348
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/cli_control/templates/cli_control.html:61
@@ -2504,7 +2570,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ospy/templates/log.html:113 ospy/templates/log_sensor.html:10
+#: ospy/templates/log.html:135 ospy/templates/log_sensor.html:10
 #: ospy/templates/log_sensor.html:74 ospy/templates/log_user.html:115
 #: ospy/templates/sensors_firmware.html:239
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
@@ -2586,7 +2652,7 @@ msgid "C"
 msgstr ""
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:15
-#: ospy/templates/login.html:26
+#: ospy/templates/login.html:26 ospy/webpages.py:1050 ospy/webpages.py:1057
 msgid "Login"
 msgstr ""
 
@@ -4325,118 +4391,130 @@ msgstr ""
 msgid "Cannot create resized files!"
 msgstr ""
 
-#: ospy/webpages.py:1581
+#: ospy/webpages.py:1050
+msgid "User {} logged in"
+msgstr ""
+
+#: ospy/webpages.py:1057
+msgid "User {} logged out"
+msgstr ""
+
+#: ospy/webpages.py:1111
+msgid "User has set a delay {} hours"
+msgstr ""
+
+#: ospy/webpages.py:1614
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1587
+#: ospy/webpages.py:1620
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1593
+#: ospy/webpages.py:1626
 msgid "The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:1615 ospy/webpages.py:1618
+#: ospy/webpages.py:1648 ospy/webpages.py:1651
 msgid "Deleting image file {}"
 msgstr ""
 
-#: ospy/webpages.py:1624
+#: ospy/webpages.py:1657
 msgid "Deleting file fullchain.pem."
 msgstr ""
 
-#: ospy/webpages.py:1628
+#: ospy/webpages.py:1661
 msgid "Deleting file privkey.pem."
 msgstr ""
 
-#: ospy/webpages.py:1632
+#: ospy/webpages.py:1665
 msgid "Deleting file sessions.db."
 msgstr ""
 
-#: ospy/webpages.py:1636
+#: ospy/webpages.py:1669
 msgid "Deleting file ospy_backup.zip."
 msgstr ""
 
-#: ospy/webpages.py:1640
+#: ospy/webpages.py:1673
 msgid "Deleting file options.db.bak."
 msgstr ""
 
-#: ospy/webpages.py:1644
+#: ospy/webpages.py:1677
 msgid "Deleting file options.db.tmp."
 msgstr ""
 
-#: ospy/webpages.py:1648
+#: ospy/webpages.py:1681
 msgid "Deleting file options.db."
 msgstr ""
 
-#: ospy/webpages.py:1658
+#: ospy/webpages.py:1691
 msgid "Deleting file events.log."
 msgstr ""
 
-#: ospy/webpages.py:1675
+#: ospy/webpages.py:1708
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:1761 ospy/webpages.py:1824 ospy/webpages.py:1825
+#: ospy/webpages.py:1794 ospy/webpages.py:1857 ospy/webpages.py:1858
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:1816
+#: ospy/webpages.py:1849
 msgid "File {} is created successfully!"
 msgstr ""
 
-#: ospy/webpages.py:1860
+#: ospy/webpages.py:1893
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:1867
+#: ospy/webpages.py:1900
 msgid "Uploaded to backup folder OK."
 msgstr ""
 
-#: ospy/webpages.py:1871
+#: ospy/webpages.py:1904
 msgid "Extracted from zip OK."
 msgstr ""
 
-#: ospy/webpages.py:1877
+#: ospy/webpages.py:1910
 msgid "Cleaning folder after restoring..."
 msgstr ""
 
-#: ospy/webpages.py:1880 ospy/webpages.py:1884
+#: ospy/webpages.py:1913 ospy/webpages.py:1917
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 
-#: ospy/webpages.py:1914 ospy/webpages.py:1915
+#: ospy/webpages.py:1947 ospy/webpages.py:1948
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:1946 ospy/webpages.py:1947 plugins/mqtt/__init__.py:242
+#: ospy/webpages.py:1979 ospy/webpages.py:1980 plugins/mqtt/__init__.py:242
 #: plugins/mqtt_runonce/__init__.py:161
 #: plugins/ping_monitor/templates/ping_monitor_log.html:80
 #: plugins/ups_adj/__init__.py:111 plugins/ups_adj/__init__.py:394
 msgid "OK"
 msgstr ""
 
-#: ospy/webpages.py:1966
+#: ospy/webpages.py:1999
 msgid "Remove fullchain.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1970
+#: ospy/webpages.py:2003
 msgid "Remove privkey.pem..."
 msgstr ""
 
-#: ospy/webpages.py:1976
+#: ospy/webpages.py:2009
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:2141
+#: ospy/webpages.py:2174
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:2154 ospy/webpages.py:2220
+#: ospy/webpages.py:2187 ospy/webpages.py:2253
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:2166 ospy/webpages.py:2207
+#: ospy/webpages.py:2199 ospy/webpages.py:2240
 msgid "Unit not set"
 msgstr ""
 
@@ -4472,7 +4550,7 @@ msgstr ""
 msgid "DS"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:240 plugins/air_temp_humi/__init__.py:316
+#: plugins/air_temp_humi/__init__.py:240 plugins/air_temp_humi/__init__.py:318
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
@@ -4480,11 +4558,11 @@ msgstr ""
 msgid "Data is not correct. Please try again later."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:401 plugins/air_temp_humi/__init__.py:402
-#: plugins/air_temp_humi/__init__.py:403 plugins/air_temp_humi/__init__.py:408
-#: plugins/air_temp_humi/__init__.py:412 plugins/air_temp_humi/__init__.py:416
-#: plugins/air_temp_humi/__init__.py:420 plugins/air_temp_humi/__init__.py:424
-#: plugins/air_temp_humi/__init__.py:428
+#: plugins/air_temp_humi/__init__.py:404 plugins/air_temp_humi/__init__.py:405
+#: plugins/air_temp_humi/__init__.py:406 plugins/air_temp_humi/__init__.py:411
+#: plugins/air_temp_humi/__init__.py:415 plugins/air_temp_humi/__init__.py:419
+#: plugins/air_temp_humi/__init__.py:423 plugins/air_temp_humi/__init__.py:427
+#: plugins/air_temp_humi/__init__.py:431
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:33
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:36
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:45
@@ -4496,17 +4574,17 @@ msgstr ""
 msgid "Not used"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:441
+#: plugins/air_temp_humi/__init__.py:444
 #: plugins/pressure_monitor/__init__.py:356 plugins/ups_adj/__init__.py:324
 #: plugins/wind_monitor/__init__.py:500
 msgid "Creating default graph log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:489
+#: plugins/air_temp_humi/__init__.py:492
 msgid "Saving to log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:550 plugins/cli_control/__init__.py:224
+#: plugins/air_temp_humi/__init__.py:553 plugins/cli_control/__init__.py:224
 #: plugins/ping_monitor/__init__.py:380 plugins/tank_monitor/__init__.py:555
 #: plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
@@ -7293,6 +7371,11 @@ msgstr ""
 
 #: plugins/lcd_display/__init__.py:628
 msgid "System restarting"
+msgstr ""
+
+#: plugins/lcd_display/__init__.py:639 plugins/lcd_display/__init__.py:676
+#: plugins/system_update/__init__.py:227
+msgid "System OSPy"
 msgstr ""
 
 #: plugins/lcd_display/__init__.py:647
@@ -11685,7 +11768,12 @@ msgstr ""
 msgid "Weather stations plug-in is enabled."
 msgstr ""
 
-#: plugins/weather_stations/__init__.py:204
+#: plugins/weather_stations/__init__.py:107
+msgid "Weather stations plug-in has any error, clear plugin settings to default."
+msgstr ""
+
+#: plugins/weather_stations/__init__.py:245
+#: plugins/weather_stations/__init__.py:336
 msgid "Weather stations plug-in"
 msgstr ""
 

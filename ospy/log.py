@@ -342,16 +342,22 @@ class _LogEV():
 
         self._save_logsEV()
 
-    def save_events_log(self, subject, status):  
+    def save_events_log(self, subject, status, id=None):
+        # example: id='Internet', id='Rain', id='server' or if not selected '-'
         subject_print = subject.encode('utf-8')
         status_print = status.encode('utf-8')
+        if id is not None:
+            id_print = id.encode('utf-8')
+        else:
+            id_print = '-'  
 
         with self._lock:
             self._logEM['RunEV'].append({
                 'time': datetime.datetime.now().strftime("%H:%M:%S"),
                 'date': datetime.datetime.now().strftime("%Y-%m-%d"),
                 'subject': subject_print,
-                'status': status_print
+                'status': status_print,
+                'id': id_print
             })
         
             self._save_logsEV()     # save events

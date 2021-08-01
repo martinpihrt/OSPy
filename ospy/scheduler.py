@@ -31,19 +31,19 @@ internet_not_available = signal('internet_not_available')
 
 def report_rain():
     rain_active.send()            # send rain signal
-    logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'))
+    logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'), id='RainSensor')
 
 def report_no_rain():
     rain_not_active.send()        # send not rain signal
-    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'))
+    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'), id='RainSensor')
 
 def report_internet_available():
     internet_available.send()     # send internet available signal
-    logEV.save_events_log( _(u'System OSPy'), _(u'Internet is available (external IP)'))
+    logEV.save_events_log( _(u'Connection'), _(u'Internet is available (external IP)'), id='Internet')
 
 def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
-    logEV.save_events_log( _(u'System OSPy'), _(u'Internet is not available (external IP)'))
+    logEV.save_events_log( _(u'Connection'), _(u'Internet is not available (external IP)'), id='Internet')
 
 pom_last_rain = False       # send signal only if rain change
 pom_last_internet = False   # send signal only if internet change
@@ -486,14 +486,14 @@ class _Scheduler(Thread):
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_on = True
                             break
-                        # master on by program control_master   
-                        if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
-                            if 'control_master' in entry and entry['control_master'] == 1:
-                                if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
+                    # master on by program control_master   
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                        if 'control_master' in entry and entry['control_master'] == 1:
+                            if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
-                                    master_on = True
-                                    break                            
+                                master_on = True
+                                break                            
 
             if stations.master is not None:
                 master_station = stations.get(stations.master)
@@ -533,20 +533,19 @@ class _Scheduler(Thread):
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_two_on = True
                             break
-                        # master on by program control_master   
-                        if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
-                            if 'control_master' in entry and entry['control_master'] == 2:
-                                if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
+                    # master on by program control_master   
+                    if not entry['blocked'] and stations.get(entry['station']).activate_master_by_program:
+                        if 'control_master' in entry and entry['control_master'] == 2:
+                            if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
                                 entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
-                                    master_two_on = True
-                                    break                            
+                                master_two_on = True
+                                break                            
 
             if stations.master_two is not None:
                 master_station_two = stations.get(stations.master_two)
 
                 if master_two_on != master_station_two.active:
                     master_station_two.active = master_two_on
-
 
 scheduler = _Scheduler()

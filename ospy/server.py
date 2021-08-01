@@ -197,7 +197,7 @@ def start():
     def exit_msg():
         log.info('server.py', _(u'OSPy is closing, saving sessions.')) 
         print_report('server.py', _(u'OSPy is closing, saving sessions.'))
-        logEV.save_events_log( _(u'System OSPy'), _(u'Stopping'))
+        logEV.save_events_log( _(u'Server'), _(u'Stopping'), id='Server')
 
     atexit.register(exit_msg)
 
@@ -210,7 +210,7 @@ def start():
 
     create_statistics()
     print_report('server.py', _(u'Ready'))
-    logEV.save_events_log( _(u'System OSPy'), _(u'Starting'))
+    logEV.save_events_log( _(u'Server'), _(u'Starting'), id='Server')
 
     try:
         __server.start()
@@ -221,7 +221,7 @@ def start():
 def stop():
     global __server
     if __server is not None:
-        logEV.save_events_log( _(u'System OSPy'), _(u'Stopping'))
+        logEV.save_events_log( _(u'Server'), _(u'Stopping'), id='Server')
         __server.stop()
         __server = None
 

@@ -180,8 +180,8 @@ jQuery(document).ready(function(){
                 <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> <span class="cpu_temp">${get_cpu_temp(options.temp_unit)}</span> &deg;${options.temp_unit}</span></a>
                 </b></p>
                 <p id="cpu_usage">$_('CPU Usage'): <b><span class="cpu_usage">${get_cpu_usage()}</span> %</b></p>             
-                <p><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
-                $_('Software')</a> $_('version'): <b>${version.ver_str} (${version.ver_date})</b></p>
+                <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
+                $_('Software')</a> $_('version'): <b><span class="ver">${version.ver_str} (${version.ver_date})</b></p>
                 <p id="ip">$_('External IP'): <b> <span class="ip">${get_external_ip()}</span></b></p>
                 <p id="uptime">$_('Working'): <b> <span class="uptime">${uptime()}</span></b></p>
                 </div>
