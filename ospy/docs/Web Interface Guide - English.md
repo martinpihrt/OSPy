@@ -973,6 +973,7 @@ Available plug-ins:
 * E-mail Reader
 * Weather Stations
 * Telegram Bot
+* Door Opening
 
 ----
 

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+August 2 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. Added new plugin "Door Opening". Fix external IP (if service is not ready).
+
 August 1 2021
 -----------
 (martinpihrt)<br/>

@@ -493,7 +493,10 @@ def get_external_ip():
             print_report('helpers.py', traceback.format_exc())
             external_ip_address = '-'
 
-    return str(external_ip_address)
+    if valid_ip(external_ip_address):
+        return str(external_ip_address)
+    else:
+        return '-'
 
 
 ########################

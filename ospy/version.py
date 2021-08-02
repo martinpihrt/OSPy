@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco' # add sensor version 'Martin Pihrt'
+__author__ = u'Rimco' # add sensor version 'Martin Pihrt'
 
 # System imports
 import subprocess
@@ -27,7 +27,7 @@ try:
     ver_date = ver_date.decode('utf-8')
 except Exception:
     logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-08-01"
+    ver_date = u"2021-08-02"
 
 ### ESP32 sensor last fw version in folder
 try:
