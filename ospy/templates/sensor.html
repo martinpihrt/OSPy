@@ -229,7 +229,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <p>$_('Notice: If the sensor is activated and has some entries, we recommend deleting the sensor and recreating it. For example, do not change the temperature to humidity.')</p>
+            <p><small>$_('Notice: If the sensor is activated and has some entries, we recommend deleting the sensor and recreating it. For example, do not change the temperature to humidity.')</small></p>
             <div class='option' style="white-space: nowrap">
                 <table>
                 <tr>
@@ -307,6 +307,10 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
+                </tr>
+                <tr><td colspan="2">
+                <small>$_('Select the program you want to activate during the event, or select the station you want to turn off in the scheduler.')</small>
+                </td>
                 </tr>                    
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Open Program(s)'):</span></td>
@@ -317,15 +321,43 @@ jQuery(document).ready(function(){
                 </select></td>
                 </tr>
                 <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="used_stations_one" id="used_stations_one" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.used_stations_one else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations_one else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                    <th>
+                    <hr>
+                    </th>
+                <tr>
+                </tr>
+                <tr><td colspan="2">
+                <small>$_('Select the program you want to activate during the event, or select the station you want to turn off in the scheduler.')</small>
+                </td>
+                </tr>                    
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Closed Program(s)'):</span></td>
                 <td><select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="used_stations_two" id="used_stations_two" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.used_stations_two else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations_two else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>                
                 </table>
-            </div>   
+            </div>
 
             <div class='option' id="leak_detector" style="display: none;">
                 <table>
@@ -333,7 +365,7 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stabilization Time'):</span></td>
                 <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="stabilization_time_min" id="stabm" value="${two_digits(sensor.stabilization_time/60)}"title=$:{json.dumps(_(u'Enter the stabilization time in minutes.'), ensure_ascii=False)}> :

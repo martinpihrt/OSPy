@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+August 3 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. Sensors: Added option to stop certain stations in case of an event to a contact type sensor (not tested - try it Tomáš Szepesi).
+
 August 2 2021
 -----------
 (martinpihrt)<br/>

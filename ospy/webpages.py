@@ -590,7 +590,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[]) # for save multiple select
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[]) # for save multiple select
         multi_type = -1
         sen_type = -1
 
@@ -676,6 +676,10 @@ class sensor_page(ProtectedPage):
             if  sen_type == 1:                           # dry contact
                 sensor.trigger_low_program = qdict['AL']
                 sensor.trigger_high_program = qdict['AH']
+                if 'used_stations_one' in qdict:
+                    sensor.used_stations_one = qdict['used_stations_one']
+                if 'used_stations_two' in qdict:
+                    sensor.used_stations_two = qdict['used_stations_two']                
 
             elif sen_type == 2:                          # leak detector
                 sensor.trigger_low_program = qdict['BL']
@@ -696,6 +700,10 @@ class sensor_page(ProtectedPage):
             elif sen_type == 6 and multi_type == 4:      # multi dry contact
                 sensor.trigger_low_program = qdict['AL']
                 sensor.trigger_high_program = qdict['AH']
+                if 'used_stations_one' in qdict:
+                    sensor.used_stations_one = qdict['used_stations_one']
+                if 'used_stations_two' in qdict:
+                    sensor.used_stations_two = qdict['used_stations_two']                    
 
             elif sen_type == 6 and multi_type == 5:      # multi leak detector
                 sensor.trigger_low_program = qdict['BL']

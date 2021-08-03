@@ -108,6 +108,14 @@ $if sensors.count()>0:
                     $if str(program.index+1) in sensor.trigger_low_program:
                         $program.name
             </span></p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.used_stations_one:
+                $_(u'None')
+            $if "-1" not in sensor.used_stations_one:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.used_stations_one:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>            
             <p>$_(u'Closed Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
                 $_(u'None') 
@@ -115,7 +123,15 @@ $if sensors.count()>0:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
-            </span></p> 
+            </span></p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.used_stations_two:
+                $_(u'None')
+            $if "-1" not in sensor.used_stations_two:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.used_stations_two:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>             
         $elif sensor.sens_type == 2 and sensor.enabled:
             $if sensor.last_read_value[5] != '':
                 <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}
@@ -292,6 +308,14 @@ $if sensors.count()>0:
                         $if str(program.index+1) in sensor.trigger_low_program:
                             $program.name 
                 </span></p>
+                <p>$_(u'Stop this run stations'): <span class="val">
+                $if "-1" in sensor.used_stations_one:
+                    $_(u'None')
+                $if "-1" not in sensor.used_stations_one:
+                    $for station in [station for station in stations if station.enabled]:
+                        $if str(station.index) in sensor.used_stations_one:
+                            $station.name ($_('Output') ${str(station.index+1)})
+                </span></p>                
                 <p>$_(u'Closed Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
                     $_(u'None')
@@ -300,6 +324,14 @@ $if sensors.count()>0:
                         $if str(program.index+1) in sensor.trigger_high_program:
                             $program.name 
                 </span></p>
+                <p>$_(u'Stop this run stations'): <span class="val">
+                $if "-1" in sensor.used_stations_two:
+                    $_(u'None')
+                $if "-1" not in sensor.used_stations_two:
+                    $for station in [station for station in stations if station.enabled]:
+                        $if str(station.index) in sensor.used_stations_two:
+                            $station.name ($_('Output') ${str(station.index+1)})
+                </span></p>                
             $elif sensor.multi_type == 5:
                 $if sensor.last_read_value[5] != '':
                     <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}

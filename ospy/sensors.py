@@ -61,7 +61,9 @@ class _Sensor(object):
         self.last_high_report = 0       # now in moisture, temperature
         self.show_in_footer = 1         # show sensor data in footer on home page
         self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo
-        ### only for ultrasonic ###
+        self.used_stations_one = ["-1"] # Selected stations for the scheduler will stop in dry open contact
+        self.used_stations_two = ["-1"] # Selected stations for the scheduler will stop in dry close contact
+        # only for ultrasonic sensor
         self.distance_top = 10          # The distance from the sensor to the maximum water level in the tank in cm
         self.distance_bottom = 95       # The distance from the sensor to the minimum water level in the tank in cm
         self.water_minimum = 10         # The water level from the bottom to the minimum water level in the tank
@@ -69,8 +71,8 @@ class _Sensor(object):
         self.check_liters = 0           # Display as liters or m3
         self.use_stop = 0               # Stop stations if minimum water level
         self.use_water_stop = 0         # If the level sensor fails, the above selected stations in the scheduler will stop
-        self.used_stations = ["-1"]     # Selected stations for the scheduler will stop  
         self.enable_reg = 0             # If checked regulation is enabled
+        self.used_stations = ["-1"]     # Selected stations for the scheduler will stop in ultrasonic sensor
         self.reg_max = 100              # If the measured water level exceeds this set value, the output is activated
         self.reg_mm = 60                # Maximum run time in activate min
         self.reg_ss = 0                 # Maximum run time in activate sec
@@ -459,9 +461,66 @@ class _Sensors_Timer(Thread):
             logging.debug(traceback.format_exc())
             pass
 
+    def set_stations_one_in_scheduler_off(self, sensor):
+        """Stoping selected station in scheduler."""
+        try:
+            current_time  = datetime.datetime.now()
+            check_start = current_time - datetime.timedelta(days=1)
+            check_end = current_time + datetime.timedelta(days=1)
+
+            # In manual mode we cannot predict, we only know what is currently running and the history
+            if options.manual_mode:
+                active = log.finished_runs() + log.active_runs()
+            else:
+                active = combined_schedule(check_start, check_end)
+
+            ending = False
+
+            # active stations
+            for entry in active:
+                for used_stations in sensor.used_stations_one:        # selected stations for stoping
+                    if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
+                        log.finish_run(entry)                         # save end in log 
+                        stations.deactivate(entry['station'])         # stations to OFF
+                        ending = True   
+
+            if ending:
+                logging.info(_(u'Stoping stations in scheduler'))
+        except:
+            logging.debug(traceback.format_exc())
+            pass            
+
+    def set_stations_two_in_scheduler_off(self, sensor):
+        """Stoping selected station in scheduler."""
+        try:
+            current_time  = datetime.datetime.now()
+            check_start = current_time - datetime.timedelta(days=1)
+            check_end = current_time + datetime.timedelta(days=1)
+
+            # In manual mode we cannot predict, we only know what is currently running and the history
+            if options.manual_mode:
+                active = log.finished_runs() + log.active_runs()
+            else:
+                active = combined_schedule(check_start, check_end)
+
+            ending = False
+
+            # active stations
+            for entry in active:
+                for used_stations in sensor.used_stations_two:        # selected stations for stoping
+                    if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
+                        log.finish_run(entry)                         # save end in log 
+                        stations.deactivate(entry['station'])         # stations to OFF
+                        ending = True   
+
+            if ending:
+                logging.info(_(u'Stoping stations in scheduler'))
+        except:
+            logging.debug(traceback.format_exc())
+            pass            
 
     def check_sensors(self):
-        ###  HELP
+        ###  HELP for sensor type
         # last_read_value[xx] and prev_read_value[xx] array
         # 0 ds1
         # 1 ds2
@@ -590,6 +649,7 @@ class _Sensors_Timer(Thread):
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
+                            self.set_stations_two_in_scheduler_off(sensor)
  
                         else:                                                                            # Motion or multi Motion 
                             text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'Motion Detected'))
@@ -610,7 +670,8 @@ class _Sensors_Timer(Thread):
                                 self.update_log(sensor, 'lge', _(u'Open Contact'))
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
-                            self._trigger_programs(sensor, sensor.trigger_low_program) 
+                            self._trigger_programs(sensor, sensor.trigger_low_program)
+                            self.set_stations_one_in_scheduler_off(sensor) 
 
                         else:                                                                            # Motion or multi Motion
                             text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'No Motion'))
