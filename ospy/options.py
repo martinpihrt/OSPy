@@ -303,6 +303,22 @@ class _Options(object):
             "help": _('Rain sensor default.'),
             "category": _('Rain Sensor')
         },
+        {
+            "key": "rain_set_delay",
+            "name": _('Set rain delay'),
+            "default": False,
+            "help": _('When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor).'),
+            "category": _('Rain Sensor')
+        },
+        {
+            "key": "rain_sensor_delay",
+            "name": _('Rain delay time'),
+            "default": 48,
+            "help": _('Rain delay time (in hours), between 0 and 500.'),
+            "category": _('Rain Sensor'),
+            "min": 0,
+            "max": 500
+        },
         #######################################################################
         # Logging #############################################################
         {

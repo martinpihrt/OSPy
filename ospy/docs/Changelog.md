@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+August 4 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. Rain sensor: Added rain delay (in hours) in to rain sensor options. When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor).
+
 August 3 2021
 -----------
 (martinpihrt)<br/>

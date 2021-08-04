@@ -32,6 +32,9 @@ internet_not_available = signal('internet_not_available')
 def report_rain():
     rain_active.send()            # send rain signal
     logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'), id='RainSensor')
+    if options.rain_set_delay:
+        options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=options.rain_sensor_delay)
+        logEV.save_events_log( _(u'Rain delay'), _(u'Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
 
 def report_no_rain():
     rain_not_active.send()        # send not rain signal

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-08-03 10:17+CEST\n"
-"PO-Revision-Date: 2021-08-03 10:17+0200\n"
+"POT-Creation-Date: 2021-08-04 20:52+CEST\n"
+"PO-Revision-Date: 2021-08-04 20:54+0200\n"
 "Last-Translator: pihrt.com <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -569,8 +569,8 @@ msgstr "Používat senzor"
 msgid "Use rain sensor."
 msgstr "Používat děšťový senzor."
 
-#: ospy/options.py:297 ospy/options.py:304
-#: plugins/lcd_display/templates/lcd_display.html:93
+#: ospy/options.py:297 ospy/options.py:304 ospy/options.py:311
+#: ospy/options.py:318 plugins/lcd_display/templates/lcd_display.html:93
 #: plugins/lcd_display/templates/lcd_display_help.html:38
 msgid "Rain Sensor"
 msgstr "Dešťový snímač"
@@ -584,11 +584,33 @@ msgstr "V klidu rozpojen"
 msgid "Rain sensor default."
 msgstr "Dešťový snímač má bez deště kontakt rozpojen."
 
+#: ospy/options.py:308
+msgid "Set rain delay"
+msgstr "Nastavit zpoždění deště"
+
 #: ospy/options.py:310
+msgid ""
+"When the rain sensor is activated, the rain delay is set (this is suitable, "
+"for example, for blocking programs for a longer time than provided by the "
+"rain sensor)."
+msgstr ""
+"Když je aktivován dešťový senzor, je nastaveno zpoždění deště (to je vhodné "
+"například pro blokování programů na delší dobu, než poskytuje dešťový "
+"senzor)."
+
+#: ospy/options.py:315
+msgid "Rain delay time"
+msgstr "Doba zpoždění deště"
+
+#: ospy/options.py:317
+msgid "Rain delay time (in hours), between 0 and 500."
+msgstr "Doba zpoždění deště (v hodinách), mezi 0 a 500."
+
+#: ospy/options.py:326
 msgid "Enable run log"
 msgstr "Aktivovat záznam"
 
-#: ospy/options.py:312
+#: ospy/options.py:328
 msgid ""
 "Log all runs - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -596,28 +618,28 @@ msgstr ""
 "Zaznamenávat všechny běhy stanic - berte na vědomí, že opakující se psaní na "
 "SD kartu může zkrátit její životnost."
 
-#: ospy/options.py:313 ospy/options.py:320 ospy/options.py:329
-#: ospy/options.py:336 ospy/options.py:345 ospy/options.py:352
-#: ospy/options.py:361 ospy/options.py:370 ospy/templates/log.html:46
+#: ospy/options.py:329 ospy/options.py:336 ospy/options.py:345
+#: ospy/options.py:352 ospy/options.py:361 ospy/options.py:368
+#: ospy/options.py:377 ospy/options.py:386 ospy/templates/log.html:46
 #: ospy/templates/log.html:73 ospy/templates/log.html:100
 #: ospy/templates/log_user.html:36 ospy/templates/log_user.html:63
 #: ospy/templates/log_user.html:91
 msgid "Logging"
 msgstr "Protokolování"
 
-#: ospy/options.py:317
+#: ospy/options.py:333
 msgid "Max run entries"
 msgstr "Max záznamů"
 
-#: ospy/options.py:319
+#: ospy/options.py:335
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr "Počet záznamů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:326
+#: ospy/options.py:342
 msgid "Enable email log"
 msgstr "Aktivovat záznam E-mailů"
 
-#: ospy/options.py:328
+#: ospy/options.py:344
 msgid ""
 "Log all emails - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -625,19 +647,19 @@ msgstr ""
 "Zaznamenávat všechny E-maily - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:333
+#: ospy/options.py:349
 msgid "Max email entries"
 msgstr "Max záznamů E-mailu"
 
-#: ospy/options.py:335
+#: ospy/options.py:351
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr "Počet záznamů E-mailů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:342
+#: ospy/options.py:358
 msgid "Enable events log"
 msgstr "Aktivovat záznam událostí"
 
-#: ospy/options.py:344
+#: ospy/options.py:360
 msgid ""
 "Log all events - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -645,131 +667,131 @@ msgstr ""
 "Zaznamenávat všechny události - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:349
+#: ospy/options.py:365
 msgid "Max events entries"
 msgstr "Max záznamů událostí"
 
-#: ospy/options.py:351
+#: ospy/options.py:367
 msgid "Number of events entries to save to disk, 0=no limit."
 msgstr "Počet záznamů událostí v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:358
+#: ospy/options.py:374
 msgid "Max sensor entries"
 msgstr "Max záznamů snímačů"
 
-#: ospy/options.py:360
+#: ospy/options.py:376
 msgid "Number of sensor entries to save to disk, 0=no limit."
 msgstr "Počet záznamů ze snímačů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:367
+#: ospy/options.py:383
 msgid "Enable debug log"
 msgstr "Povolit ladění"
 
-#: ospy/options.py:369
+#: ospy/options.py:385
 msgid "Log all internal events (for debugging purposes)."
 msgstr "Zaznamenávat všechny interní události (pro účely ladění)."
 
-#: ospy/options.py:376 plugins/button_control/templates/button_control.html:63
+#: ospy/options.py:392 plugins/button_control/templates/button_control.html:63
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:381
+#: ospy/options.py:397
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
-#: ospy/options.py:386
+#: ospy/options.py:402
 msgid "Image resolution"
 msgstr "Rozlišení obrázku"
 
-#: ospy/options.py:391
+#: ospy/options.py:407
 msgid "Level adjustment set by the user (fraction)"
 msgstr "Nastavení úrovně nastavení uživatelem (zlomek)"
 
-#: ospy/options.py:396
+#: ospy/options.py:412
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
-#: ospy/options.py:401
+#: ospy/options.py:417
 msgid "C/F"
 msgstr "C/F"
 
-#: ospy/options.py:406
+#: ospy/options.py:422
 msgid "Current password hash"
 msgstr "Aktuální heslo hash"
 
-#: ospy/options.py:411
+#: ospy/options.py:427
 msgid "Current password salt"
 msgstr "Aktuální heslo salt"
 
-#: ospy/options.py:416
+#: ospy/options.py:432
 msgid "Current password decryption time"
 msgstr "Aktuální heslo šifrovací čas"
 
-#: ospy/options.py:421
+#: ospy/options.py:437
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
-#: ospy/options.py:426
+#: ospy/options.py:442
 msgid "The email that have been logged"
 msgstr "E-maily, které byly zaznamenány"
 
-#: ospy/options.py:431
+#: ospy/options.py:447
 msgid "The events that have been logged"
 msgstr "Události, které byly zaznamenány"
 
-#: ospy/options.py:436
+#: ospy/options.py:452
 msgid "ETo and rain value cache"
 msgstr "Vyrovnávací paměť pro ETo a srážky"
 
-#: ospy/options.py:441
+#: ospy/options.py:457
 msgid "Location latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/options.py:446
+#: ospy/options.py:462
 msgid "Location longtitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/options.py:451
+#: ospy/options.py:467
 msgid "Weather status"
 msgstr "Stav počasí"
 
-#: ospy/options.py:456
+#: ospy/options.py:472
 msgid "Graph histories"
 msgstr "Graf historie"
 
-#: ospy/options.py:461 ospy/templates/graph_sensor.html:187
+#: ospy/options.py:477 ospy/templates/graph_sensor.html:187
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
 
-#: ospy/options.py:466
+#: ospy/options.py:482
 msgid "Filter for logs - event: server"
 msgstr "Filtr protokolů - událost: server"
 
-#: ospy/options.py:471
+#: ospy/options.py:487
 msgid "Filter for logs - event: rain sensor"
 msgstr "Filtr protokolů - událost: dešťový snímač"
 
-#: ospy/options.py:476
+#: ospy/options.py:492
 msgid "Filter for logs - event: rain delay"
 msgstr "Filtr protokolů - událost: zpoždění deště"
 
-#: ospy/options.py:481
+#: ospy/options.py:497
 msgid "Filter for logs - event: internet not found"
 msgstr "Filtr protokolů - událost: internet nebyl nalezen"
 
-#: ospy/options.py:486
+#: ospy/options.py:502
 msgid "Filter for logs - event: user login"
 msgstr "Filtr protokolů - událost: přihlášení uživatele"
 
-#: ospy/options.py:567
+#: ospy/options.py:583
 msgid "Callback failed"
 msgstr "Zpětné volání se nezdařilo"
 
-#: ospy/options.py:603
+#: ospy/options.py:619
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:630
+#: ospy/options.py:646
 msgid "Saving error"
 msgstr "Chyba při ukládání"
 
@@ -949,7 +971,7 @@ msgstr "Nelze získat informace o počasí pomocí záložních dat"
 msgid "Creating run-now program"
 msgstr "Vytvoření programu run-now (spustit nyní)"
 
-#: ospy/runonce.py:12 ospy/scheduler.py:105 ospy/templates/runonce.html:3
+#: ospy/runonce.py:12 ospy/scheduler.py:108 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr "Jednorázový"
 
@@ -957,27 +979,35 @@ msgstr "Jednorázový"
 msgid "Activated"
 msgstr "Aktivován"
 
-#: ospy/scheduler.py:34 ospy/scheduler.py:38
+#: ospy/scheduler.py:34 ospy/scheduler.py:41
 msgid "Rain sensor"
 msgstr "Dešťový snímač"
 
-#: ospy/scheduler.py:38
+#: ospy/scheduler.py:37
+msgid "Rain sensor has set a delay {} hours"
+msgstr "Dešťový senzor nastavil zpoždění {} hodin"
+
+#: ospy/scheduler.py:37 ospy/sensors.py:1059 ospy/webpages.py:1119
+msgid "Rain delay"
+msgstr "Zpoždění deště"
+
+#: ospy/scheduler.py:41
 msgid "Deactivated"
 msgstr "Deaktivován"
 
-#: ospy/scheduler.py:42 ospy/scheduler.py:46
+#: ospy/scheduler.py:45 ospy/scheduler.py:49
 msgid "Connection"
 msgstr "Připojení"
 
-#: ospy/scheduler.py:42 plugins/signaling_examples/__init__.py:234
+#: ospy/scheduler.py:45 plugins/signaling_examples/__init__.py:234
 msgid "Internet is available (external IP)"
 msgstr "Internet je k dispozici (externí IP)"
 
-#: ospy/scheduler.py:46 plugins/signaling_examples/__init__.py:238
+#: ospy/scheduler.py:49 plugins/signaling_examples/__init__.py:238
 msgid "Internet is not available (external IP)"
 msgstr "Internet není k dispozici (externí IP adresa)"
 
-#: ospy/scheduler.py:135
+#: ospy/scheduler.py:138
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
@@ -1280,10 +1310,6 @@ msgstr "!"
 #: ospy/sensors.py:1059
 msgid "hours."
 msgstr "hodin."
-
-#: ospy/sensors.py:1059 ospy/webpages.py:1119
-msgid "Rain delay"
-msgstr "Zpoždění deště"
 
 #: ospy/sensors.py:1065
 msgid "Sensor has water minimum"
@@ -2495,7 +2521,7 @@ msgid "log.csv"
 msgstr "log.csv"
 
 #: ospy/templates/log.html:51 ospy/templates/log.html:78
-#: ospy/templates/log.html:116 ospy/templates/log_sensor.html:25
+#: ospy/templates/log.html:121 ospy/templates/log_sensor.html:25
 #: ospy/templates/log_sensor.html:45 ospy/templates/log_user.html:41
 #: ospy/templates/log_user.html:69 ospy/templates/log_user.html:97
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:16
@@ -2540,7 +2566,7 @@ msgstr "E-mail"
 msgid "email.csv"
 msgstr "email.csv"
 
-#: ospy/templates/log.html:79 ospy/templates/log.html:117
+#: ospy/templates/log.html:79 ospy/templates/log.html:122
 #: ospy/templates/log_sensor.html:26 ospy/templates/log_sensor.html:46
 #: ospy/templates/log_user.html:70 ospy/templates/log_user.html:98
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
@@ -2557,7 +2583,7 @@ msgstr "Čas"
 msgid "Email Status"
 msgstr "Stav E-mailu"
 
-#: ospy/templates/log.html:81 ospy/templates/log.html:118
+#: ospy/templates/log.html:81 ospy/templates/log.html:123
 #: ospy/templates/log_user.html:72 ospy/templates/log_user.html:99
 msgid "Subject"
 msgstr "Předmět"
@@ -2590,39 +2616,39 @@ msgstr "Zobrazit server OSPy"
 msgid "Show OSPy server events."
 msgstr "Zobrazit události serveru OSPy."
 
-#: ospy/templates/log.html:108
+#: ospy/templates/log.html:109
 msgid "Show external IP"
 msgstr "Zobrazit externí IP adresu"
 
-#: ospy/templates/log.html:108
+#: ospy/templates/log.html:109
 msgid "Show external IP events."
 msgstr "Zobrazit události vnější IP adresy."
 
-#: ospy/templates/log.html:109
+#: ospy/templates/log.html:111
 msgid "Show rain sensor"
 msgstr "Zobrazit dešťový snímač"
 
-#: ospy/templates/log.html:109
+#: ospy/templates/log.html:111
 msgid "Show rain sensor events."
 msgstr "Zobrazit události dešťového snímače."
 
-#: ospy/templates/log.html:110
+#: ospy/templates/log.html:113
 msgid "Show rain delay"
 msgstr "Zobrazit zpoždění deště"
 
-#: ospy/templates/log.html:110
+#: ospy/templates/log.html:113
 msgid "Show rain delay events."
 msgstr "Zobrazit události zpoždění deště."
 
-#: ospy/templates/log.html:111
+#: ospy/templates/log.html:115
 msgid "Show user login"
 msgstr "Zobrazit přihlášení uživatele"
 
-#: ospy/templates/log.html:111
+#: ospy/templates/log.html:115
 msgid "Show user login events."
 msgstr "Zobrazit události přihlášení uživatelů."
 
-#: ospy/templates/log.html:119 ospy/templates/log_user.html:100
+#: ospy/templates/log.html:124 ospy/templates/log_user.html:100
 #: plugins/air_temp_humi/templates/air_temp_humi.html:348
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/cli_control/templates/cli_control.html:61
@@ -2673,7 +2699,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 msgid "Status"
 msgstr "Stav"
 
-#: ospy/templates/log.html:135 ospy/templates/log_sensor.html:10
+#: ospy/templates/log.html:140 ospy/templates/log_sensor.html:10
 #: ospy/templates/log_sensor.html:74 ospy/templates/log_user.html:115
 #: ospy/templates/sensors_firmware.html:239
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11

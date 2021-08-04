@@ -128,11 +128,15 @@ OSPy Web Interface Guide in English
         Rain Sensor Section
             Use rain sensor
             Normally open
+            Set rain delay
+            Rain delay time
         Logging Section
             Enable run log
             Max run entries
             Enable email log
             Max email entries
+            Enable events log
+            Max events entries
             Enable debug log
         System Restart Section
             Restart
@@ -674,6 +678,12 @@ Click the Use rain sensor check box to enable rain sensing.
 ### Normally open
 Leave the Normally open box checked if your sensor's switch is the normally open type otherwise un check the box. See the rain sensor's user guide for information about the switch type.
 
+### Set rain delay
+When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor).
+
+### Rain delay time
+Rain delay time (in hours), between 0 and 500.
+
 ## Logging Section
 Turn on logging and set the number of records to keep. Turn on logging for email and set the number of records to keep.
   
@@ -681,13 +691,19 @@ Turn on logging and set the number of records to keep. Turn on logging for email
 Click the Enable run log checkbox. This will turn logging on and enable irrigation history on the Home page's timeline.
 
 ### Max run entries
-Enter the number of records to keep in the log Set this to a number that will cover a reasonable length of time such as a week or month. This will depend on the number of programs and stations you have. There will be one record for each time a station is run.
+Enter the number of records to keep in the log Set this to a number that will cover a reasonable length of time such as a week or month. This will depend on the number of programs and stations you have. There will be one record for each time a station is run. 0=no limit.
 
 ### Enable email log
 Click the Enable email log checkbox. This will turn logging on and enable irrigation history via sends email.
 
 ### Max email entries
-Enter the number of records to keep in the log Set this to a number that will cover a reasonable length of time such as a week or month. This will depend on the number of programs and stations you have. There will be one record for each time a email has send.
+Enter the number of records to keep in the log Set this to a number that will cover a reasonable length of time such as a week or month. This will depend on the number of programs and stations you have. There will be one record for each time a email has send. 0=no limit.
+
+### Enable events log
+Enable events log (rain sensor, rain delay, server, Internet external IP...)
+
+### Max events entries
+Number of events entries to save to disk, 0=no limit.
 
 ### Enable debug log
 Click the Enable debug log for saving all internal operation in OSPy to file for better debugging. *Note:* storing data too frequently in a file can damage the SD card or reduce the capacity of the SD card (storage) after a long time.

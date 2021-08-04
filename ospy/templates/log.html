@@ -104,11 +104,16 @@ jQuery(document).ready(function(){
     <form name="FilterForm" id="FilterForm" action="/log" method="post">
     <table border="1" cellpadding="6" cellspacing="0" frame="hsides">
     <tr><th colspan="2">$_('Filter for events')</th></tr>
-    <tr><td>$_('Show OSPy server')</td><td><input type="checkbox" ${"checked" if options.log_filter_server else ""} name="log_filter_server" id="filter1" title=$:{json.dumps(_(u'Show OSPy server events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
-    <tr><td>$_('Show external IP')</td><td><input type="checkbox" ${"checked" if options.log_filter_internet else ""} name="log_filter_internet" id="filter2" title=$:{json.dumps(_(u'Show external IP events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>   
-    <tr><td>$_('Show rain sensor')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_sensor else ""} name="log_filter_rain_sensor" id="filter3" title=$:{json.dumps(_(u'Show rain sensor events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
-    <tr><td>$_('Show rain delay')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_delay else ""} name="log_filter_rain_delay" id="filter4" title=$:{json.dumps(_(u'Show rain delay events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
-    <tr><td>$_('Show user login')</td><td><input type="checkbox" ${"checked" if options.log_filter_login else ""} name="log_filter_login" id="filter5" title=$:{json.dumps(_(u'Show user login events.'), ensure_ascii=False)}><span class="checkmark"></span></td></tr>
+    <tr><td>$_('Show OSPy server')</td><td><input type="checkbox" ${"checked" if options.log_filter_server else ""} name="log_filter_server" id="filter1" title=$:{json.dumps(_(u'Show OSPy server events.'), ensure_ascii=False)}>
+    </td></tr>
+    <tr><td>$_('Show external IP')</td><td><input type="checkbox" ${"checked" if options.log_filter_internet else ""} name="log_filter_internet" id="filter2" title=$:{json.dumps(_(u'Show external IP events.'), ensure_ascii=False)}>
+    </td></tr>   
+    <tr><td>$_('Show rain sensor')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_sensor else ""} name="log_filter_rain_sensor" id="filter3" title=$:{json.dumps(_(u'Show rain sensor events.'), ensure_ascii=False)}>
+    </td></tr>
+    <tr><td>$_('Show rain delay')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_delay else ""} name="log_filter_rain_delay" id="filter4" title=$:{json.dumps(_(u'Show rain delay events.'), ensure_ascii=False)}>
+    </td></tr>
+    <tr><td>$_('Show user login')</td><td><input type="checkbox" ${"checked" if options.log_filter_login else ""} name="log_filter_login" id="filter5" title=$:{json.dumps(_(u'Show user login events.'), ensure_ascii=False)}>
+    </td></tr>
     </table>
     </form>
     <table class="logList">

@@ -128,10 +128,14 @@ OSPy Průvodce webovým rozhraním v češtině
         Dešťový senzor
             Používat senzor
             V klidu rozpojen
+            Nastavit zpoždění deště
+            Doba zpoždění deště
         Protokolování
             Aktivovat záznam
             Max záznamů
             Aktivovat záznam Emailů
+            Max záznamů
+            Povolit protokol událostí
             Max záznamů
             Povolit ladění
         Restartovat systém
@@ -694,6 +698,12 @@ Zaškrtnutím políčka "Používat senzor" povolíme snímání deště.
 ### V klidu rozpojen
 Zaškrtněte políčko "V klidu rozpojen", pokud je senzor bez deště normálně rozpojený, jinak políčko zrušte. Informace o typu spínače najdete v uživatelské příručce dešťového senzoru.
 
+### Nastavit zpoždění deště
+Když je aktivován dešťový snímač, nastaví se zpoždění deště (to je vhodné například pro blokování programů na delší dobu, než poskytuje dešťový snímač). 
+
+### Doba zpoždění deště
+Doba zpoždění deště (v hodinách), mezi 0 a 500.
+
 ## Protokolování
 Zapněte protokolování běhu a nastavte počet záznamů, které chcete zachovat. Zapněte protokolování odeslaných e-mailů a nastavte počet záznamů, které chcete uchovávat.
   
@@ -708,6 +718,12 @@ Zaškrtněte políčko "Aktivovat záznam E-mailů". Tím se zapne protokolován
 
 ### Max záznamů
 Zadejte počet záznamů, které chcete uložit do protokolu. Nastavte počet, který pokryje přiměřenou dobu, například týden nebo měsíc. To bude záviset na počtu programů a stanic, které máte. Pro každý E-mail bude existovat jeden záznam. 0 = bez omezení.
+
+### Povolit protokol událostí
+Povolit protokol událostí (dešťový senzor, zpoždění deště, server, internetová externí IP ...) 
+
+### Max záznamů
+Počet záznamů událostí k uložení na disk, 0 = bez omezení.
 
 ### Povolit ladění
 Klepnutím na "Povolit ladění" uložíte veškeré interní operace v OSPy do souboru pro lepší ladění. * Poznámka: * příliš časté ukládání dat do souboru může po delší době poškodit SD kartu nebo snížit kapacitu SD karty (úložiště). Vypisují se veškeré operace (i ze všech rozšíření).
