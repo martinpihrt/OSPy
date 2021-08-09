@@ -23,7 +23,7 @@ Sensors Connection and Add into OSPy
 
 ### Start
 - In the OSPy menu *settings* in the tab *sensors* we generate a new AES code with the button (or if we already know it from the sensors, we can enter it here).  
-- Hold down the AP button on the sensor board (to call up the AP manager) for more than 2 seconds (the LED will start flashing quickly). The sensor creates a Wi-Fi network (AP) called *Sensor ESP32*.
+- Hold down the AP button on the sensor board (to call up the AP manager) for more than >4 seconds (the LED will start flashing quickly). The sensor creates a Wi-Fi network (AP) called *Sensor ESP32*.
 - We will connect to the *Sensor ESP32* network using a mobile phone (tablet, laptop). The connection password is *ospy-sensor-esp32*.  
 - After connecting, open a web browser and enter the IP address: *http://192.168.1.1*. Then a web page will open where we will set up a connection to your Wi-Fi network (STA mode).  
 

@@ -192,11 +192,11 @@ def uptime():
          
         string = ''
         if days == 1 and hours < 23 and minutes < 59:
-            string = u'%d' % (days) + _(u'. day')    # den
+            string = u'%d' % (days) + _(u'. day')    # 1 den
         if days >= 2 and days < 5:
-            string = u'%d' % (days) + _(u'. days')   # dny 
+            string = u'%d' % (days) + _(u'. days')   # 2-4 dny
         if days > 4:
-            string = u'%d' % (days) + _(u'. days ')  # dnu  
+            string = u'%d' % (days) + _(u'. days ')  # >5 dnu
 
         string += u' %s:%s' % (two_digits(hours), two_digits(minutes))
 
@@ -204,21 +204,42 @@ def uptime():
        string = _(u'Unknown')
        print_report('helpers.py', traceback.format_exc())
 
-    return string  
+    return string
 
-    
-def valid_ip(ip):
-    """Return True if we have a valid IP address"""
+
+def is_valid_ipv4_address(address):
+    import socket
     try:
-        octets = ip.split('.')
-        if len(octets) != 4:
+        socket.inet_pton(socket.AF_INET, address)
+    except AttributeError:  # no inet_pton here, sorry
+        try:
+            socket.inet_aton(address)
+        except socket.error:
             return False
-        for o in octets:
-            if int(o) < 0 or int(o) > 255:
-                return False
-    except:
+        return address.count('.') == 3
+    except socket.error:    # not a valid address
         return False
     return True
+
+
+def is_valid_ipv6_address(address):
+    import socket
+    try:
+        socket.inet_pton(socket.AF_INET6, address)
+    except socket.error:  # not a valid address
+        return False
+    return True
+
+
+def valid_ip(address):
+    """Return True if we have a valid IP address V4 or V6"""
+    try:
+        if is_valid_ipv4_address(address) or is_valid_ipv6_address(address):
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 def split_ip(ip):
@@ -231,7 +252,7 @@ def split_ip(ip):
             if dot_idx == -1:
                 return ('0','0','0','0')
             octets.append(ip[0:dot_idx])
-            ip = ip[dot_idx+1:]           
+            ip = ip[dot_idx+1:]
     except:
         print_report('helpers.py', traceback.format_exc())
         return ('0','0','0','0')
@@ -242,7 +263,6 @@ def get_ip(net=''):
     """Returns the IP address of 'net' if specified, otherwise 'wlan0', 'eth0', 'ppp0' whichever is found first."""
     try:
         import subprocess
-        from ospy.options import options
         arg = ['/sbin/ip', 'route', 'list']
         p = subprocess.Popen(arg, stdout=subprocess.PIPE)
         data,errdata = p.communicate()

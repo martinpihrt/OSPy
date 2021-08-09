@@ -5,6 +5,12 @@ August 4 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
+Updating Slovak language (Thank you Tomáš Szepesi). Added checker to helpers.py "valid_ipv4_address" and "valid_ipv6_address" for future use (IPv6). ESP32 firmware update version 1.14: AP manager - time for invocation: the time for calling up the AP manager with the button was increased to 4 seconds (at a time of 2 seconds, when manually controlling the relay with the button, the AP manager was called up by mistake, even if the user did not want it). Plugin "pool heating": Correction - When the station is running and a probe fault occurs, the station switches off, if the probe is now ok and the switch-on condition is met, the station does not want to switch on. Plugin "air temp humidity": fixing data log downloading (mimetype...)
+
+August 4 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
 Czech language update. Rain sensor: Added rain delay (in hours) in to rain sensor options. When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor).
 
 August 3 2021
