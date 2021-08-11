@@ -876,6 +876,9 @@ The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending
 #### Ultrasonic
 * TODO
 
+#### Soil Moisture
+* TODO
+
 ### Type of communication
 Select communication type for sensor.
 #### Radio
@@ -958,7 +961,6 @@ Available plug-ins:
 * Voltage and Temperature Monitor
 * Remote Notifications
 * System Information
-* MQTT
 * Air Temperature and Humidity Monitor
 * Wind Speed Monitor
 * Weather-based Rain Delay
@@ -974,13 +976,14 @@ Available plug-ins:
 * Webcam Monitor
 * Weather-based Water Level Netatmo
 * Direct 16 Relay Outputs
+* MQTT
 * MQTT Zone Broadcaster
 * MQTT Slave
+* MQTT Run-Once
 * System Debug Information
 * Weather-based Water Level
 * Real Time and NTP time
 * Water Tank
-* Humidity Monitor
 * Monthly Water Level
 * Pressurizer
 * Ping monitor

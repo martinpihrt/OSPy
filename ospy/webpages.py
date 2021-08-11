@@ -755,13 +755,20 @@ class sensor_page(ProtectedPage):
                 if 'reg_ss' in qdict:
                     sensor.reg_ss = qdict['reg_ss']
                 if 'reg_min' in qdict:
-                    sensor.reg_min = qdict['reg_min'] 
+                    sensor.reg_min = qdict['reg_min']
                 if 'reg_output' in qdict:
                     sensor.reg_output = qdict['reg_output']
                 if 'trigger_low_threshold_s' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold_s'] 
                 if 'trigger_high_threshold_s' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold_s']
+
+            elif sen_type == 6 and multi_type == 9:      # multi soil moisture
+                for i in range(0,16):                    # 16x soil moisture calibration
+                    if 'sc{}'.format(i) in qdict:
+                        sensor.soil_calibration[i] = float(qdict['sc{}'.format(i)])
+                    if 'SM{}'.format(i) in qdict:
+                        sensor.soil_program[i] = str(qdict['SM{}'.format(i)])                        
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

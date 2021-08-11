@@ -106,9 +106,14 @@ function check_type() {
         jQuery("#multi_sensor").show()
     } else {
         jQuery("#multi_sensor").hide()
-    }       
-   
-    
+    }
+    if (sensor_type == 6 && multi_type == 9) {
+        jQuery("#soil").show()
+    } else {
+        jQuery("#soil").hide()
+    }
+
+
     if (com_type == 0) { 
         jQuery("#com_lan").show()
     } else {
@@ -177,9 +182,9 @@ jQuery(document).ready(function(){
         break; 
         case "ucode":
             jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor code must be exactly 16 characters! Please try again.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
-        break;                                    
+        break;
     }
-    
+
     updateFooter(); 
     });
 </script>
@@ -189,7 +194,7 @@ jQuery(document).ready(function(){
     <div id="sensor-container" class="sensor-container">
         <span id="errorHint"></span>
         <form name="sensorForm" id="sensorForm" method="post">
-            <input type="hidden" name="index" value="${sensor.index}">      
+            <input type="hidden" name="index" value="${sensor.index}">
 
             <div class='option' style="white-space: nowrap">
                 <table>
@@ -198,7 +203,7 @@ jQuery(document).ready(function(){
                 <td><input name="enable" type="checkbox" ${'checked' if sensor.enabled else ''} title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False)}></td>
                 </tr>
                 </table>
-            </div>  
+            </div>
             <div class='option' style="white-space: nowrap">
                 <table>
                 <tr>
@@ -207,7 +212,7 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 </table>
-            </div>            
+            </div>
             <div class='option' style="white-space: nowrap">
                 <table>
                 <tr>
@@ -216,7 +221,7 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 </table>
-            </div>   
+            </div>
             <div class='option' style="white-space: nowrap">
                 <table>
                 <tr>
@@ -244,11 +249,11 @@ jQuery(document).ready(function(){
             </div>
             <div class='option' id="multi_sensor" style="white-space: nowrap">
                 <table>
-                <tr>                
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Multi Sensor'):</span></td>
                 <td><select id="multi_type" name="multi_type" style="width: 200px" title=$:{json.dumps(_(u'Select the data type for multi sensor.'), ensure_ascii=False)}>
-                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic')]
-                $for t in range(9):
+                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
+                $for t in range(10):
                     <option value="${t}" ${'selected' if sensor.multi_type == t else ''}>$multi_list[t]</option>
                 </select></td>
                 </tr>
@@ -265,10 +270,10 @@ jQuery(document).ready(function(){
                 </select></td>
                 </tr>
                 </table>
-            </div>            
+            </div>
             <div class='option' style="white-space: nowrap">
                 <table>
-                <tr>                
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sample Rate'):</span></td>
                 <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" min="0" name="sample_rate_min" value="${two_digits(sensor.sample_rate/60)}" title=$:{json.dumps(_(u'Enter the sampling time in minutes.'), ensure_ascii=False)}> :
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" min="0" name="sample_rate_sec" value="${two_digits(sensor.sample_rate%60)}" title=$:{json.dumps(_(u'Enter the sampling time in seconds.'), ensure_ascii=False)}> ($_(u'mm:ss'))
@@ -278,7 +283,7 @@ jQuery(document).ready(function(){
             </div>
             <div class='option' style="white-space: nowrap">
                 <table>
-                <tr>                
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Samples'):</span></td>
                 <td><input type="checkbox" ${"checked" if sensor.log_samples else ""} name="log_samples" id="log_samples" title=$:{json.dumps(_(u'Enable sample logging.'), ensure_ascii=False)}></td>
                 </tr>
@@ -290,16 +295,16 @@ jQuery(document).ready(function(){
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Events'):</span></td>
                 <td><input type="checkbox" ${"checked" if sensor.log_event else ""} name="log_event" id="log_event" title=$:{json.dumps(_(u'Enable event logging.'), ensure_ascii=False)}></td>
                 </tr>
-                </table>                
+                </table>
             </div> 
             <div class='option' style="white-space: nowrap">
                 <table>
-                <tr>                
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Text/Email Events'):</span></td>
                 <td><input type="checkbox" ${"checked" if sensor.send_email else ""} name="send_email" id="send_email" title=$:{json.dumps(_(u'Allow sending an E-mail when there is an event. For this function is requred plugin E-mail notification!'), ensure_ascii=False)}></td>
                 </tr>
                 </table>
-            </div>        
+            </div>
 
             <div class='option' id="dry_contact" style="display: none;">
                 <table>
@@ -311,7 +316,7 @@ jQuery(document).ready(function(){
                 <tr><td colspan="2">
                 <small>$_('Select the program you want to activate during the event, or select the station you want to turn off in the scheduler.')</small>
                 </td>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Open Program(s)'):</span></td>
                 <td><select name="AL" id="AL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
@@ -338,7 +343,7 @@ jQuery(document).ready(function(){
                 <tr><td colspan="2">
                 <small>$_('Select the program you want to activate during the event, or select the station you want to turn off in the scheduler.')</small>
                 </td>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Closed Program(s)'):</span></td>
                 <td><select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
@@ -355,7 +360,7 @@ jQuery(document).ready(function(){
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations_two else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
                 </td>
-                </tr>                
+                </tr>
                 </table>
             </div>
 
@@ -400,7 +405,7 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 </table>
-            </div>                                               
+            </div>
 
             <div class='option' id="motion" style="display: none;">
                 <table>
@@ -408,7 +413,7 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Program(s)'):</span></td>
                 <td><select name="CH" id="CH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
@@ -427,7 +432,7 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('The distance from the sensor to the minimum water level in the tank'):</span></td>
                 <td><input name="distance_bottom" type="number" min="2" max="600" value="${sensor.distance_bottom}" title=$:{json.dumps(_(u'Thus the distance from the ultrasound to the minimum water level. The sensor is located above the water'), ensure_ascii=False)}> ($_(u'cm'))
@@ -485,7 +490,7 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Regulate the maximum water level'):</span></td>
                 <td><input name="enable_reg" type="checkbox" ${" checked" if sensor.enable_reg else ""} title=$:{json.dumps(_(u'If checked regulation is enabled'), ensure_ascii=False)}>
@@ -506,12 +511,12 @@ jQuery(document).ready(function(){
                 </td></tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Select Output for regulation'):</span></td>
-                <td><select name="reg_output" id="reg_output" style="width: 200px" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False)}>               
+                <td><select name="reg_output" id="reg_output" style="width: 200px" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False)}>
                 $for station in stations.get():
                     <option value="${str(station.index)}" ${"selected" if sensor.reg_output==str(station.index) else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
                 </td>
-                </tr>     
+                </tr>
                 </table>
             </div>
 
@@ -521,7 +526,7 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
                 <td><input id="trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_(u'Enter value for low threshold.'), ensure_ascii=False)}>
@@ -529,14 +534,14 @@ jQuery(document).ready(function(){
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
                     &degC
-                $if sensor.sens_type == 3:   
-                    %                                                            
+                $if sensor.sens_type == 3:
+                    %
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
                 <td><select name="DL" id="DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select>
@@ -549,21 +554,59 @@ jQuery(document).ready(function(){
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
                     &degC 
-                $if sensor.sens_type == 3:   
-                    %                   
+                $if sensor.sens_type == 3:
+                    %
                 </td>
                 </tr>
-                <tr> 
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
                 <td><select name="DH" id="DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
                 </td>
                 </tr>
                 </table>
-            </div>   
+            </div>
+
+            <div class='option' id="soil" style="display: none;">
+                <p><small>$_('For soil moisture probe 1-16 select program where the time will be adjusted depending on the humidity from the probe.') $_('Soil moisture can only be used with weather-based programs!')</small></p>
+                <table>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>                    
+                $for i in range(0, 16):
+                    <tr>
+                    <td>
+                    <small>$_('Probe') ${str(i+1)}
+                    </small>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Probe') ${str(i+1)} $_('controls the program'):</span></td>
+                    <td><select name="SM${str(i)}" id="SM${str(i)}" style="width: 200px" title=$:{json.dumps(_(u'Mark the required programs for adjusting the program run time.'), ensure_ascii=False)}>
+                    <option value="-1" ${" selected" if "-1" == sensor.soil_program[int(i)] else ""}>$_(u'None')</option>
+                    $for program in programs.get():
+                        <option value="${program.index+1}" ${" selected" if str(program.index+1) == sensor.soil_program[int(i)] else ""}>${program.name}</option>
+                    </select>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Calibration') ${i+1}:</span></td>
+                    <td><input name="sc${str(i)}" type="number" min="-100.0" max="100.0" step="0.1" value="${sensor.soil_calibration[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from -100.0 to +100.0'), ensure_ascii=False)}>
+                    </td>
+                    </tr>
+                    $if i < 15:
+                        <tr>
+                        <th colspan="2">
+                        <hr>
+                        </th>
+                        </tr>
+                </table>
+            </div>
 
             <div class='option' id="com_lan" style="display: none;">
                 <table>
@@ -571,18 +614,18 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('MAC Address'):</span></td> 
                 <td><input name="mac_address" class="timeInput MACnumbersOnly" id="mac_address" size="17" maxlength="17" style="width: 200px" value="${sensor.mac_address}" title=$:{json.dumps(_(u'Enter Sensor MAC Address.'), ensure_ascii=False)}>
                 </td>
-                </tr>    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('IP Address'):</span></td>
                 <td><input name="ip_address" class="timeInput IPnumbersOnly" type="text" size="15" maxlength="15" id="ip_address" style="width: 200px" value="${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}" title=$:{json.dumps(_(u'Enter Sensor IP Address.'), ensure_ascii=False)}>
                 </td>
                 </tr>
-                </table>    
+                </table>
             </div>
 
             <div class='option' id="com_radio" style="display: none;">
@@ -591,15 +634,15 @@ jQuery(document).ready(function(){
                     <th colspan="2">
                     <hr>
                     </th>
-                </tr>                    
+                </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Radio sensor ID'):</span></td>
                 <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="radio_id" id="radio_id" value="${sensor.radio_id}" title=$:{json.dumps(_(u'Enter sensor ID for your radio sensor.'), ensure_ascii=False)}>
                 </td>
                 </tr>
-                </table>                 
-            </div>            
-            
+                </table>
+            </div>
+
             <div class='option' style="white-space: nowrap">
                 <table>
                 <tr>
@@ -607,12 +650,12 @@ jQuery(document).ready(function(){
                 <td><textarea id="note" name="notes" style="width: 200px" rows="6" cols="50" maxlength="500" title=$:{json.dumps(_(u'Here we can make our notes.'), ensure_ascii=False)}>${sensor.notes}</textarea></td>
                 </tr>
                 </table>
-            </div>    
+            </div>
 
             $if sensor.fw > 0:
                 <table>
-                <tr>            
-                <td style='text-transform: none;'><span class="sensor_label">$_('Firmware Version'):</span><td>  
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Firmware Version'):</span><td>
                 <td>
                 ${version(sensor.fw)}
                 </td>
@@ -620,7 +663,7 @@ jQuery(document).ready(function(){
                 <tr>
                 <td><a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a></td>
                 </table>
-            
+
             <div class='option' id="senscpu" style="white-space: nowrap">
                 <table>
                 <tr>
@@ -633,9 +676,9 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 </table>
-            </div>   
+            </div>
         </form>
-    </div>    
+    </div>
 </div>
 
 <div id="controls">

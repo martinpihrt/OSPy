@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-__author__ = 'Teodor Yantcheff' # Changed: Martin Pihrt (Added logging to ospy log instead of logger. Added support for sensors.)
+__author__ = u'Teodor Yantcheff' # Changed: Martin Pihrt (Added logging to ospy log instead of logger. Added support for sensors.)
 
 from .utils import *
 
@@ -407,12 +407,18 @@ class Sensors(object):
             'use_stop': sensor.use_stop,
             'use_water_stop': sensor.use_water_stop,
             'used_stations': sensor.used_stations,
+            'used_stations_one': sensor.used_stations_one,
+            'used_stations_two':sensor.used_stations_two,
             'enable_reg': sensor.enable_reg,
             'reg_max': sensor.reg_max,
             'reg_mm': sensor.reg_mm,
             'reg_ss': sensor.reg_ss,
             'reg_min': sensor.reg_min,
             'reg_output': sensor.reg_output,
+            'delay_duration': sensor.delay_duration,
+            'soil_last_read_value': sensor.soil_last_read_value,
+            'soil_calibration': sensor.soil_calibration,
+            'soil_program': sensor.soil_program
         }
 
     @does_json
@@ -473,6 +479,7 @@ class Sensor(object):
                 ip = split_ip(jqdict['ip'])
                 if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
                     read_val = []*9
+                    soil_read_val = []*16
                     if 'cpu' in jqdict and jqdict['cpu'] is not None:
                         sensor.cpu_core = int(jqdict['cpu'])
                     if 'rssi' in jqdict and jqdict['rssi'] is not None:
@@ -534,7 +541,7 @@ class Sensor(object):
                             mo = int(jqdict['moti'])
                             if mo < 0:
                                 read_val.append((-127))      # error probe
-                            else:     
+                            else:
                                 read_val.append(mo)
                             read_val.append((-127))          # son
                         elif sen_type == 5: # Temperature
@@ -558,8 +565,8 @@ class Sensor(object):
                                 read_val.append((-127))      # humi
                                 read_val.append((-127))      # moti
                                 read_val.append((-127))      # son
-                        elif sen_type == 6: # Multisensor
-                            try:  
+                        elif sen_type == 6:                                                    # Multisensor
+                            try:
                                 if options.temp_unit == 'F': # OSPy is set in Fahrenheit
                                     read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
                                     read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
@@ -573,22 +580,22 @@ class Sensor(object):
                                 mdr = int(jqdict['drcon'])
                                 if mdr < 0:                                                    # error probe dry
                                     read_val.append((-127))
-                                else:    
+                                else:
                                     read_val.append(mdr)                                       # dry contact
                                 mlk = (float(jqdict['lkdet']))/10.0
                                 if mlk < 0:                                                    # error probe leak
                                     read_val.append((-127))
-                                else:    
+                                else:
                                     read_val.append(mlk)                                       # leak detector
                                 mhu = (float(jqdict['humi']))/10.0
                                 if mhu < 0:                                                    # error probe moisture
                                     read_val.append((-127))
-                                else:     
+                                else:
                                     read_val.append(mhu)                                       # moisture
                                 mmo = int(jqdict['moti'])
                                 if mmo < 0:                                                    # error probe motion
                                     read_val.append((-127))
-                                else:    
+                                else:
                                     read_val.append(mmo)                                       # motion
                                 if 'son' in jqdict and jqdict['son'] is not None:              # sonic
                                     mso = int(jqdict['son'])
@@ -598,11 +605,19 @@ class Sensor(object):
                                         read_val.append(mso)
                                 else:
                                     read_val.append((-127))
+                                for i in range(0,16):
+                                    if 'sm_{}'.format(int(i)) in jqdict:                       # 16x soil moisture probe
+                                        s = (float(jqdict['sm_{}'.format(int(i))]))/10.0
+                                        soil_read_val.append(s)
+                                    else:
+                                        soil_read_val.append((-127))
+
                             except:
                                 pass
                                 print_report('api.py', traceback.format_exc())
 
                     sensor.last_read_value = read_val
+                    sensor.soil_last_read_value = soil_read_val
                     sensor.last_response = now()
                     sensor.last_response_datetime = datetime_string()
 
@@ -610,7 +625,7 @@ class Sensor(object):
                         sensor.response = 1
 
                     if sensor.fw != jqdict['fw']:
-                        sensor.fw = jqdict['fw']      
+                        sensor.fw = jqdict['fw']
 
                     log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
 

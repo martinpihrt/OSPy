@@ -65,7 +65,7 @@ $if sensors.count()>0:
     $for sensor in sensors.get():
         <div id="sensor-container" class="sensor-container">
         $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-        $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic')]
+        $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
             <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False)}>
@@ -445,6 +445,24 @@ $if sensors.count()>0:
                         $if str(station.index) in sensor.reg_output:
                             ${station.name} ($_('Output') ${str(station.index+1)})
                 </span></p>
+
+            $elif sensor.multi_type == 9:
+                $if sensor.soil_last_read_value[0] != '':
+                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">
+                        $for i in range(0, 16):
+                            ${str(sensor.soil_last_read_value[i])}$_(u'V')${', ' if i < 15 else ''}
+                    </span>
+                    </p>
+                $else:
+                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${_(u'Change not yet loaded')}</span></p>                        
+                $for i in range(0, 16):
+                    $if sensor.soil_program[i] != "-1":
+                        <p>$_(u'Probe') ${str(i+1)} - $_(u'Program'): <span class="val">
+                            $for program in programs.get():
+                                $if str(program.index+1) == sensor.soil_program[i]:
+                                    $program.name 
+                        </span></p>
+
         $if sensor.com_type == 0 and sensor.enabled:
             <p>$_(u'IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
             $if sensor.mac_address != '':

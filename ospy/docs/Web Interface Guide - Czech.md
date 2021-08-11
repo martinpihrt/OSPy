@@ -905,6 +905,9 @@ U teploty se zobrazují stupňe Celsia, nebo stupně Fahrenheita podle toho, jak
 #### Ultrazvuk
 * TODO
 
+#### Vlhkost půdy
+* TODO
+
 ### Typ komunikace
 Vyberte typ komunikace se snímačem.
 #### Rádio
@@ -1009,7 +1012,6 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Voltage and Temperature Monitor (měření napětí a teploty pomocí I2C sběrnice)
 * Remote Notifications (odesílání dat na vzdálený server pomocí PHP)
 * System Information (systémové informace OSPy a systém Linux)
-* MQTT (hlášení stavu OSPy pomocí MQTT protokolu - toto rozšíření využívají i některá jiná rozšíření, například: MQTT Zone Broadcaster)
 * Air Temperature and Humidity Monitor (měření teploty 6x DS18B20 a vlhkosti DHT11 pomocí I2C sběrnice)
 * Wind Speed Monitor (měření rychlosti větru pomocí I2C sběrnice)
 * Weather-based Rain Delay (dešťové zpoždění založené na předpovědi počasí)
@@ -1025,13 +1027,14 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Webcam Monitor (pořizuje fotografie z USB webkamery)
 * Weather-based Water Level Netatmo (nastavení množství vody pro zavlažování z meteostanice Netatmo)
 * Direct 16 Relay Outputs (pomocí tohoto rozšíření můžeme ovládat 16 relé (stanic) připojených přímo k Raspberry Pi, ovšem některá ostatní rozšíření nebudou dostupná)
+* MQTT (hlášení stavu OSPy pomocí MQTT protokolu - toto rozšíření využívají i některá jiná rozšíření, například: MQTT Zone Broadcaster)
 * MQTT Zone Broadcaster (hlášení stavů stanic pomocí MQTT protokolu)
 * MQTT Slave (vzdálené ovládání podřízených zalévačů přes MQTT protokol)
+* MQTT Run-Once (spuštění stanic na určitou dobu)
 * System Debug Information (informace o dění v systému OSPy, pokud máme v nastavení povolen debug "Povolit ladění", tak zde v rozšíření se zobrazuje uložený záznam)
 * Weather-based Water Level (nastavení množství vody pro zavlažování založený na předpovědi počasí)
 * Real Time and NTP time (rozšíření, které nastavuje systémový čas - Linux a HW RTC čas z NTP serveru, HW RTC používá I2C sběrnici)
 * Water Tank (měření hladiny vody pomocí ultrazvuku - například ve studni pomocí I2C sběrnice)
-* Humidity Monitor (měření vlhkosti půdy, používá I2C sběrnici)
 * Monthly Water Level (nastavení množství vody pro jednotlivé měsíce)
 * Pressurizer (tlakování čerpadla před spuštěním programů)
 * Ping monitor (měření výpadků sítě)

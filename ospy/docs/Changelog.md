@@ -1,7 +1,13 @@
 OSPy Changelog
 ====
 
-August 4 2021
+August 11 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Preparing for soil moisture probes from sensors ESP32 (recieving data from sensor, create new sensor, show sensor). Each ESP32 multisensor will allow up to 16 soil moisture probes to be connected, which will affect the times of the selected programs according to the soil moisture. Not ready for use! Czech language update.
+
+August 9 2021
 -----------
 (martinpihrt)<br/>
 Changes:<br/>

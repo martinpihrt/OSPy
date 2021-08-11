@@ -31,7 +31,7 @@ class _Sensor(object):
         self.enabled = 0                # sensor enable or disable
         self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
-        self.multi_type = 0             # selector multi type 0-8: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic'
+        self.multi_type = 0             # selector multi type 0-9: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil moisture'
         self.notes = ""                 # notes for sensor
         self.log_samples = 0            # log samples
         self.last_log_samples = now()   # last log samples millis
@@ -63,7 +63,7 @@ class _Sensor(object):
         self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo
         self.used_stations_one = ["-1"] # Selected stations for the scheduler will stop in dry open contact
         self.used_stations_two = ["-1"] # Selected stations for the scheduler will stop in dry close contact
-        # only for ultrasonic sensor
+        # used in ultrasonic sensor
         self.distance_top = 10          # The distance from the sensor to the maximum water level in the tank in cm
         self.distance_bottom = 95       # The distance from the sensor to the minimum water level in the tank in cm
         self.water_minimum = 10         # The water level from the bottom to the minimum water level in the tank
@@ -83,6 +83,11 @@ class _Sensor(object):
         self.aux_reg_u = 1              # Auxiliary value true and false for triggering events only when changed (regulation >)
         self.aux_reg_d = 1              # Auxiliary value true and false for triggering events only when changed (regulation <)
         self.aux_reg_p = 1              # Auxiliary value true and false for triggering events only when changed (probe fault)
+        # used in soil moisture sensor
+        self.soil_last_read_value = [""]*16   # last soil read value (actual)
+        self.soil_prev_read_value = [-127]*16 # prev soil read value
+        self.soil_calibration = [0.0]*16      # calibration +- for soil probe
+        self.soil_program = ["-1"]*16         # program for soil moisture
  
         options.load(self, index) 
 
@@ -531,8 +536,9 @@ class _Sensors_Timer(Thread):
         # 6 moisture
         # 7 motion
         # 8 sonic
+        # 9 soil moisture 
         # sens_type: 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
-        # multi_type: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic'
+        # multi_type: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil moisture'
         for sensor in sensors.get():
             time_dif = int(now() - sensor.last_response)                      # last input from sensor
             if time_dif >= 120:                                               # timeout 120 seconds
@@ -549,8 +555,27 @@ class _Sensors_Timer(Thread):
                         sensor.last_read_value[7] = -127
                     if sensor.sens_type == 5:                                 # Temperature
                         sensor.last_read_value[0] = -127
-                    if sensor.sens_type == 6:                                 # Multi
-                        sensor.last_read_value = [-127]*8                         
+                    if sensor.sens_type == 6:
+                        if sensor.multi_type == 0:                            # Multi Temperature 1
+                            sensor.last_read_value[0] = -127
+                        if sensor.multi_type == 1:                            # Multi Temperature 2
+                            sensor.last_read_value[1] = -127
+                        if sensor.multi_type == 2:                            # Multi Temperature 3
+                            sensor.last_read_value[2] = -127
+                        if sensor.multi_type == 3:                            # Multi Temperature 4
+                            sensor.last_read_value[3] = -127
+                        if sensor.multi_type == 4:                            # Multi Dry Contact
+                            sensor.last_read_value[4] = -127
+                        if sensor.multi_type == 5:                            # Multi Leak Detector
+                            sensor.last_read_value[5] = -127
+                        if sensor.multi_type == 6:                            # Multi Moisture
+                            sensor.last_read_value[6] = -127
+                        if sensor.multi_type == 7:                            # Multi Motion
+                            sensor.last_read_value[7] = -127
+                        if sensor.multi_type == 8:                            # Multi Ultrasonic
+                            sensor.last_read_value[8] = -127
+                        if sensor.multi_type == 9:                            # Multi Soil moisture probe 1 - probe 16
+                            sensor.soil_last_read_value = [-127]*16                                                                                                                                                                        
 
             if sensor.sens_type == 0:                                         # not selected
                 return
@@ -1083,6 +1108,17 @@ class _Sensors_Timer(Thread):
                         logging.warning(self.err_msg)
                     if sensor.show_in_footer:
                         self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+
+            ### Multi Soil ###
+            if sensor.sens_type == 6 and sensor.multi_type == 9:
+                if sensor.response:                                          # sensor is enabled and response is OK
+                    state = [-127]*16
+                    try:
+                        for i in range(0, 16):
+                            state[i] = sensor.soil_last_read_value[i]        # multi Soil probe 1 - 16
+                            print(state[i])
+                    except:
+                        pass
 
     def run(self):
         self._sleep(3)
