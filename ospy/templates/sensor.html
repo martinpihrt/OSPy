@@ -74,7 +74,7 @@ function codeTextCopy() {
 
 function check_type() {
     let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
-    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic'
+    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
     let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
 
     if (sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) { 
@@ -82,31 +82,43 @@ function check_type() {
     } else {
         jQuery("#dry_contact").hide()
     }
+
     if (sensor_type == 2 || (sensor_type == 6 && multi_type == 5)) {
         jQuery("#leak_detector").show()
     } else {
         jQuery("#leak_detector").hide()
     }
-    if (sensor_type == 3 || sensor_type == 5 || (sensor_type == 6 && multi_type == 0) || (sensor_type == 6 && multi_type == 1) || (sensor_type == 6 && multi_type == 2) || (sensor_type == 6 && multi_type == 3) || (sensor_type == 6 && multi_type == 6)) {
-        jQuery("#temperature_moisture").show()
+
+    if (sensor_type == 3 || (sensor_type == 6 && multi_type == 6)) {
+        jQuery("#moisture").show()
     } else {
-        jQuery("#temperature_moisture").hide()
-    } 
+        jQuery("#moisture").hide()
+    }
+
+    if (sensor_type == 5 || (sensor_type == 6 && multi_type == 0) || (sensor_type == 6 && multi_type == 1) || (sensor_type == 6 && multi_type == 2) || (sensor_type == 6 && multi_type == 3)) {
+        jQuery("#temperature").show()
+    } else {
+        jQuery("#temperature").hide()
+    }     
+
     if (sensor_type == 4 || (sensor_type == 6 && multi_type == 7)) {
         jQuery("#motion").show()
     } else {
         jQuery("#motion").hide()
-    } 
+    }
+
     if (sensor_type == 6 && multi_type == 8) {
         jQuery("#sonic").show()
     } else {
         jQuery("#sonic").hide()
-    }    
+    }
+
     if (sensor_type == 6) {
         jQuery("#multi_sensor").show()
     } else {
         jQuery("#multi_sensor").hide()
     }
+
     if (sensor_type == 6 && multi_type == 9) {
         jQuery("#soil").show()
     } else {
@@ -361,6 +373,18 @@ jQuery(document).ready(function(){
                 </select>
                 </td>
                 </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_dry.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_dry.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
                 </table>
             </div>
 
@@ -404,6 +428,18 @@ jQuery(document).ready(function(){
                 </select>
                 </td>
                 </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_leak.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_leak.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
                 </table>
             </div>
 
@@ -421,6 +457,18 @@ jQuery(document).ready(function(){
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
+                </td>
+                </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_moti.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_moti.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
                 </td>
                 </tr>
                 </table>
@@ -517,10 +565,22 @@ jQuery(document).ready(function(){
                 </select>
                 </td>
                 </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
                 </table>
             </div>
 
-            <div class='option' id="temperature_moisture" style="display: none;">
+            <div class='option' id="temperature" style="display: none;">
                 <table>
                 <tr>
                     <th colspan="2">
@@ -534,8 +594,6 @@ jQuery(document).ready(function(){
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
                     &degC
-                $if sensor.sens_type == 3:
-                    %
                 </td>
                 </tr>
                 <tr>
@@ -554,8 +612,6 @@ jQuery(document).ready(function(){
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
                     &degC 
-                $if sensor.sens_type == 3:
-                    %
                 </td>
                 </tr>
                 <tr>
@@ -565,6 +621,69 @@ jQuery(document).ready(function(){
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
+                </td>
+                </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    $if sensor.sens_type == 5 or (sensor.sens_type == 6 and sensor.multi_type < 4):
+                        <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_ds.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_ds.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
+                </table>
+            </div>
+
+            <div class='option' id="moisture" style="display: none;">
+                <table>
+                <tr>
+                    <th colspan="2">
+                    <hr>
+                    </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
+                <td><input id="Mtrigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_(u'Enter value for low threshold.'), ensure_ascii=False)}>%
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
+                <td><select name="MDL" id="MDL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
+                <td><input id="Mtrigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_(u'Enter value for high threshold.'), ensure_ascii=False)}>%
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
+                <td><select name="MDH" id="MDH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False)}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_i2c.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
                 </td>
                 </tr>
                 </table>
@@ -577,7 +696,7 @@ jQuery(document).ready(function(){
                 <th colspan="2">
                 <hr>
                 </th>
-                </tr>                    
+                </tr>
                 $for i in range(0, 16):
                     <tr>
                     <td>
@@ -595,16 +714,33 @@ jQuery(document).ready(function(){
                     </td>
                     </tr>
                     <tr>
-                    <td style='text-transform: none;'><span class="sensor_label">$_('Calibration') ${i+1}:</span></td>
-                    <td><input name="sc${str(i)}" type="number" min="-100.0" max="100.0" step="0.1" value="${sensor.soil_calibration[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from -100.0 to +100.0'), ensure_ascii=False)}>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Probe Calibration for 100%'):</span></td>
+                    <td><input name="sd${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_max[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False)}>$_('V')
                     </td>
                     </tr>
-                    $if i < 15:
-                        <tr>
-                        <th colspan="2">
-                        <hr>
-                        </th>
-                        </tr>
+                    <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Probe Calibration for 0%'):</span></td>
+                    <td><input name="sc${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_min[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False)}>$_('V')
+                    </td>
+                    </tr>
+                    <tr>
+                    <th colspan="2">
+                    <hr>
+                    </th>
+                    </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png?raw=true"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <small>$_('To connect 16 pcs of humidity probes, it is necessary to connect 4 pcs of the ADS1115 circuit to the IIC bus to the multisensor board (1 pc always for 4 A/D inputs). Each ADS1115 circuit has its own IIC address set (0x48, 0x49, 0x4A, 0x4B).')
+                </small>
+                </td>
+                </tr>                
                 </table>
             </div>
 

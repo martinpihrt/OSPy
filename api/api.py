@@ -417,7 +417,8 @@ class Sensors(object):
             'reg_output': sensor.reg_output,
             'delay_duration': sensor.delay_duration,
             'soil_last_read_value': sensor.soil_last_read_value,
-            'soil_calibration': sensor.soil_calibration,
+            'soil_calibration_min': sensor.soil_calibration_min,
+            'soil_calibration_max': sensor.soil_calibration_max,
             'soil_program': sensor.soil_program
         }
 
@@ -607,7 +608,7 @@ class Sensor(object):
                                     read_val.append((-127))
                                 for i in range(0,16):
                                     if 'sm_{}'.format(int(i)) in jqdict:                       # 16x soil moisture probe
-                                        s = (float(jqdict['sm_{}'.format(int(i))]))/10.0
+                                        s = (float(jqdict['sm_{}'.format(int(i))]))
                                         soil_read_val.append(s)
                                     else:
                                         soil_read_val.append((-127))

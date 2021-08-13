@@ -4,7 +4,7 @@ Sensors Details
 ## ESP32 Sensor 
 
 ### HW Connection
-* AP manager start button between GPIO18 pin and ground (the same button also controls the relay in STA mode, press <2s for set relay to ON or OFF)  
+* AP manager start button between GPIO18 pin and ground (the same button also controls the relay in STA mode, press <4s for set relay to ON or OFF)  
 * DS18B20-1 pin GPIO26 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
 * DS18B20-2 pin GPIO25 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
 * DS18B20-3 pin GPIO17 (3.3 V, data and pull-up 4k7 to 3.3V, ground)  
@@ -16,7 +16,8 @@ Sensors Details
 * Wi-Fi LED pin GPIO2 (in series via 220 Ohm resistor on LED and ground)  
 * Relay pin GPIO19 (control voltage for the transistor that switches the relay)  
 * Voltage input pin GPIO36 and ground (divider 100k/10k)
-* Ultrasonic Trig pin GPIO23, Echo pin GPIO22 (probe JSN-SR04 V3)  
+* Ultrasonic Trig pin GPIO23, Echo pin GPIO22 (probe JSN-SR04 V3)
+* Soil Moisture via I2C bus SDA pin 23 and SCL pin 22 (16x probes to A/D converter). To connect 16 pcs of humidity probes, it is necessary to connect 4 pcs of the ADS1115 circuit to the IIC bus to the multisensor board (1 pc always for 4 A/D inputs). Each ADS1115 circuit has its own IIC address set (0x48, 0x49, 0x4A, 0x4B). 
 
 Sensors Connection and Add into OSPy
 ====
@@ -32,6 +33,7 @@ Sensors Connection and Add into OSPy
 - Fill in the password for connecting to the network. After filling in, press the *Save* button.  
 
 ### Sensor Settings
+Always connect all connectors first and then setup the sensor!
 - Sensor Name = enter the name of this sensor (for example "pool temperature").  
 - Wi-Fi AP password = enter your password for access to Wi-Fi in AP mode (AP manager). Default is: "ospy-sensor-esp32".
 - FW upload password = enter your password for access to firmware uploading to sensor. Default is: "fg4s5b.s,trr7sw8sgyvrDfg".
@@ -49,7 +51,7 @@ Sensors Connection and Add into OSPy
 - Motion input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3 V. I recommend at the same time with the sensor connect a 1 KOhm resistor between ground and pin).  
 - Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO23 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
 - Divider correction (+-) = if we need to fine-tune the exact value of the voltage measurement 0-30V, then we can use the + - value for this adjustment. Example: the displayed voltage value is 10.7V and the actual value should be 12.7V (measured by a voltmeter on the main power input). Enter the value 20 in the field. The entered value is multiplied by the number 0.1 during the calculation.
-- Moisture or sonic probe? = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3).
+- I2C connector has a function = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3) or select soil probes (on SDA and SCL is connected 4x ADS1115 as A/D converters for 16 pcs probes).
 - DS1-DS4 calibration of temperature sensors +- Celsius.
 
 ### Sensor Settings - Finish
@@ -90,3 +92,6 @@ Sensors Periphery
 
 #### Power - source
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_relay.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_relay.png)
+
+#### Soil Moisture
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png)

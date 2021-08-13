@@ -42,13 +42,14 @@ Pull GPIO0 LOW by pressing the “program” button on your development board. R
 If you are repeatedly flashing revised versions of your application during the development process, note that you need not flash bootloader and singleapp partition BINs repeatedly. You simply need to flash the .bin every time you update your program and generate an updated BIN file. Uncheck the bootloader and partition BINs to prevent unnecessary writes to the flash.
 
 ## Acknowledgements
-Arduino IDE software (https://arduino.cc).
-Arduino core for the ESP32 website (https://github.com/espressif/arduino-esp32).
-Arduino core for the ESP8266 website (https://github.com/esp8266/Arduino).
-DS18B20 libraries (https://www.arduinolibraries.info/libraries/dallas-temperature).
-OneWire libraries (https://www.arduinolibraries.info/libraries/one-wire).
-Adafruit DHT libraries (https://github.com/adafruit/DHT-sensor-library).
-SparkFun HTU21 libraries (https://github.com/sparkfun/SparkFun_HTU21D_Breakout_Arduino_Library).
+* Arduino IDE software https://arduino.cc.
+* Arduino core for the ESP32 website https://github.com/espressif/arduino-esp32.
+* Arduino core for the ESP8266 website https://github.com/esp8266/Arduino.
+* DS18B20 libraries https://www.arduinolibraries.info/libraries/dallas-temperature.
+* OneWire libraries https://www.arduinolibraries.info/libraries/one-wire.
+* Adafruit DHT libraries https://github.com/adafruit/DHT-sensor-library.
+* SparkFun HTU21 libraries https://github.com/sparkfun/SparkFun_HTU21D_Breakout_Arduino_Library.
+* ADS1X15 libraries https://github.com/RobTillaart/ADS1X15.
 
 
 Sensor ESP8266 FW Changelog
@@ -63,6 +64,12 @@ Working on it.
 
 Sensor ESP32 FW Changelog
 ====
+
+FW: 1.15
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added support for 16 pcs soil moisture (4x ADS1115) on I2C bus address: 0x48,0x49,0x4A,0x4B. To connect 16 pcs of humidity probes, it is necessary to connect 4 pcs of the ADS1115 circuit to the IIC bus to the multisensor board (1 pc always for 4 A/D inputs). Each ADS1115 circuit has its own IIC address set. Added support serial line (processing a request from a serial line) for example: AP| for starting AP manager. RBT| for rebooting.
 
 FW: 1.14
 -----------

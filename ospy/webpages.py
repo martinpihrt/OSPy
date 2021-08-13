@@ -590,7 +590,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[]) # for save multiple select
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[]) # for save multiple select
         multi_type = -1
         sen_type = -1
 
@@ -667,19 +667,13 @@ class sensor_page(ProtectedPage):
             if 'stabilization_time_min' in qdict and 'stabilization_time_sec' in qdict:
                 sensor.stabilization_time = int(qdict['stabilization_time_min'])*60 + int(qdict['stabilization_time_sec'])
 
-            if 'trigger_low_threshold' in qdict:
-                sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
-
-            if 'trigger_high_threshold' in qdict:
-                sensor.trigger_high_threshold = qdict['trigger_high_threshold']
-
             if  sen_type == 1:                           # dry contact
                 sensor.trigger_low_program = qdict['AL']
                 sensor.trigger_high_program = qdict['AH']
                 if 'used_stations_one' in qdict:
                     sensor.used_stations_one = qdict['used_stations_one']
                 if 'used_stations_two' in qdict:
-                    sensor.used_stations_two = qdict['used_stations_two']                
+                    sensor.used_stations_two = qdict['used_stations_two']                                    
 
             elif sen_type == 2:                          # leak detector
                 sensor.trigger_low_program = qdict['BL']
@@ -689,13 +683,29 @@ class sensor_page(ProtectedPage):
                 sensor.trigger_low_program = ["-1"]
                 sensor.trigger_high_program = qdict['CH'] 
 
-            elif sen_type == 3 or sen_type == 5:         # moisture / temperature
+            elif sen_type == 3:                          # moisture
+                sensor.trigger_low_program = qdict['MDL']
+                sensor.trigger_high_program = qdict['MDH']
+                if 'trigger_low_threshold' in qdict:
+                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
+                if 'trigger_high_threshold' in qdict:
+                    sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']
+
+            elif sen_type == 5:                          # temperature
                 sensor.trigger_low_program = qdict['DL']
                 sensor.trigger_high_program = qdict['DH']
+                if 'trigger_low_threshold' in qdict:
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
+                if 'trigger_high_threshold' in qdict:
+                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']                                
 
             elif sen_type == 6 and (multi_type == 0 or multi_type == 1 or multi_type == 2 or multi_type == 3): # multi temperature 0-3
                 sensor.trigger_low_program = qdict['DL']
                 sensor.trigger_high_program = qdict['DH']
+                if 'trigger_low_threshold' in qdict:
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
+                if 'trigger_high_threshold' in qdict:
+                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']                
 
             elif sen_type == 6 and multi_type == 4:      # multi dry contact
                 sensor.trigger_low_program = qdict['AL']
@@ -710,8 +720,12 @@ class sensor_page(ProtectedPage):
                 sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 6 and multi_type == 6:      # multi moisture
-                sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH']
+                sensor.trigger_low_program = qdict['MDL']
+                sensor.trigger_high_program = qdict['MDH']
+                if 'trigger_low_threshold' in qdict:
+                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
+                if 'trigger_high_threshold' in qdict:
+                    sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']                
 
             elif sen_type == 6 and multi_type == 7:      # multi motion
                 sensor.trigger_low_program = ["-1"]
@@ -765,9 +779,11 @@ class sensor_page(ProtectedPage):
 
             elif sen_type == 6 and multi_type == 9:      # multi soil moisture
                 for i in range(0,16):                    # 16x soil moisture calibration
-                    if 'sc{}'.format(i) in qdict:
-                        sensor.soil_calibration[i] = float(qdict['sc{}'.format(i)])
-                    if 'SM{}'.format(i) in qdict:
+                    if 'sc{}'.format(i) in qdict:        # 16x calibration for 0% in Volt
+                        sensor.soil_calibration_min[i] = float(qdict['sc{}'.format(i)])
+                    if 'sd{}'.format(i) in qdict:        # 16x calibration for 100% in Volt
+                        sensor.soil_calibration_max[i] = float(qdict['sd{}'.format(i)])  
+                    if 'SM{}'.format(i) in qdict:        # 16x adjust program xx from probe xx
                         sensor.soil_program[i] = str(qdict['SM{}'.format(i)])                        
 
             if 'ip_address' in qdict:

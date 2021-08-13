@@ -86,7 +86,8 @@ class _Sensor(object):
         # used in soil moisture sensor
         self.soil_last_read_value = [""]*16   # last soil read value (actual)
         self.soil_prev_read_value = [-127]*16 # prev soil read value
-        self.soil_calibration = [0.0]*16      # calibration +- for soil probe
+        self.soil_calibration_min = [0.00]*16 # calibration for soil probe (0 %)
+        self.soil_calibration_max = [3.00]*16 # calibration for soil probe (100 %)
         self.soil_program = ["-1"]*16         # program for soil moisture
  
         options.load(self, index) 
@@ -1116,7 +1117,7 @@ class _Sensors_Timer(Thread):
                     try:
                         for i in range(0, 16):
                             state[i] = sensor.soil_last_read_value[i]        # multi Soil probe 1 - 16
-                            print(state[i])
+
                     except:
                         pass
 

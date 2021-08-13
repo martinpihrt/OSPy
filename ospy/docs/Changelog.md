@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+August 13 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Preparing for soil moisture probes from sensors ESP32 (ESP32 firmware update version 1.15: Added support for 16 pcs soil moisture (4x ADS1115) on I2C bus address: 0x48,0x49,0x4A,0x4B. To connect 16 pcs of humidity probes, it is necessary to connect 4 pcs of the ADS1115 circuit to the IIC bus to the multisensor board (1 pc always for 4 A/D inputs). Each ADS1115 circuit has its own IIC address set). Added support serial line (processing a request from a serial line) for example: AP| for starting AP manager. RBT| for rebooting. Not ready for use! Czech language update.
+
 August 11 2021
 -----------
 (martinpihrt)<br/>
