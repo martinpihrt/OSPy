@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 from blinker import signal
 

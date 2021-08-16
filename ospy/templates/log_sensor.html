@@ -4,7 +4,7 @@ $var title: $_('Sensor Log')
 $var page: log
 
 $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic')]
+$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
@@ -20,6 +20,7 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
 <div id="log">
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
     <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">$_(u'event.csv')</a></p>
+    <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -28,46 +29,87 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
         </tr>
         $ odd = 1
         $for r in erecords:
-            $ event = r #  ast.literal_eval(json.loads(r))
+            $ event = r
             <tr class="log_rec ${'odd' if odd else 'even'}">
                 <td align='center'>${event["date"]}</td>
                 <td align='center'>${event["time"]}</td>
-                <td align='center'>${event["event"]}</td>
+                $if "event" in event:
+                    <td align='center'>${event["event"]}</td>
             </tr>
             $ odd = 1 - odd
     </table>
+    </div>
 
     <div class="title">$_('Sample Log') - ${name}</div>
     <p>$_('Total number of records'): ${len(srecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
     <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">$_(u'sample.csv')</a></p>
+
+    <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
             <th>$_('Time')</th>
-            <th>$_('Value')</th>
-            <th>$_('Action')</th>
+            $if "list_0" in srecords[0]:
+                $for t in range(0, 16):
+                    <th>$_('U') ${int(t+1)}</th>
+                $if "calcul_0" in srecords[0]:
+                    $for t in range(0, 16):
+                        <th>$_('H') ${int(t+1)}</th>
+                <th>$_('Action')</th>
+            $else:
+                <th>$_('Value')</th>
+                <th>$_('Action')</th>
         </tr>
         $ odd = 1
         $for r in srecords:
-            $ event = r #  ast.literal_eval(json.loads(r))
+            $ event = r
             <tr class="log_rec ${'odd' if odd else 'even'}">
                 <td align='center'>${event["date"]}</td>
                 <td align='center'>${event["time"]}</td>
-                <td align='center'>${event["value"]}
-                $if stype == 3 or (stype == 6 and mtype == 6): 
-                    $_('%')
-                $elif stype == 5 or (stype == 6 and mtype == 0) or (stype == 6 and mtype == 1) or (stype == 6 and mtype == 2) or (stype == 6 and mtype == 3):
-                    $if options.temp_unit == 'F':
-                        &deg$_('F')
-                    $else:
-                        &deg$_('C')
-                $elif stype == 6 and mtype == 8:
-                    $_('cm')
-                </td>
-                <td align='center'>${event["action"]}</td>
+                $if "list_0" in event:
+                    $for t in range(0, 16):
+                        $if "list_{}".format(t) in event:
+                            <td align='center'>
+                            $if event["list_{}".format(t)] == "-127.0":
+                                $_('Error')
+                            $else:
+                                ${event["list_{}".format(t)]}
+                                $if stype == 6 and mtype == 9:
+                                    $_('V')
+                            </td>
+                    $for t in range(0, 16):
+                        $if "calcul_{}".format(t) in event:
+                            <td align='center'>
+                                $if event["list_{}".format(t)] != "-127.0":
+                                    ${event["calcul_{}".format(t)]}
+                                    $if stype == 6 and mtype == 9:
+                                        $_('%')
+                                $else:
+                                    $_('-')    
+                            </td>
+                $else:
+                    $if "value" in event:
+                        <td align='center'>
+                        $if event["value"] == "-127.0":
+                            $_('Error')
+                        $else:    
+                            ${event["value"]}
+                            $if stype == 3 or (stype == 6 and mtype == 6): 
+                                $_('%')
+                            $elif stype == 5 or (stype == 6 and mtype == 0) or (stype == 6 and mtype == 1) or (stype == 6 and mtype == 2) or (stype == 6 and mtype == 3):
+                                $if options.temp_unit == 'F':
+                                    &deg$_('F')
+                                $else:
+                                    &deg$_('C')
+                            $elif stype == 6 and mtype == 8:
+                                $_('cm')
+                        </td>
+                $if "action" in event:
+                    <td align='center'>${event["action"]}</td>
             </tr>
             $ odd = 1 - odd
     </table>
+    </div>
 </div>
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>

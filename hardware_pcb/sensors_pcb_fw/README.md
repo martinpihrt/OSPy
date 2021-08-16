@@ -65,6 +65,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.16
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed bug in sensor "motion" and "dry-contact" (send state after power on if input has not changed).
+
 FW: 1.15
 -----------
 (martinpihrt)<br/>

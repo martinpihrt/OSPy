@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Martin Pihrt'
+__author__ = u'Martin Pihrt'
 
 # System imports
 from threading import Thread, Timer
@@ -322,7 +322,7 @@ class _Sensors_Timer(Thread):
 
         return float(sum(a))/len(a)
             
-    def update_log(self, sensor, lg, msg, action=''):
+    def update_log(self, sensor, lg, msg, action='', msg_calculation=''):
         """ Update samples and events in logs """
         try:
             kind = 'slog' if lg == 'lgs' else 'elog'   
@@ -332,18 +332,33 @@ class _Sensors_Timer(Thread):
             logline["date"] = time.strftime('%Y-%m-%d', nowg)
             logline["time"] = time.strftime('%H:%M:%S', nowg)
             if kind == 'slog':   # sensor samples
-                if type(msg) == float:
-                    msg = u"{0:.1f}".format(msg)
-                logline["value"] = u"{}".format(msg)
+                if type(msg) == list:        # example soil sensor is list with 16 values
+                    for i in range(0, len(msg)):
+                        logline["list_{}".format(i)] = u"{}".format(msg[i])
+                        if msg_calculation:
+                            logline["calcul_{}".format(i)] = u"{}".format(msg_calculation[i])
+                    logline["value"] = u"{}".format(msg)
+                else:
+                    if type(msg) == float:
+                        msg = u"{0:.1f}".format(msg)
+                    logline["value"] = u"{}".format(msg)
 
                 try: # for graph
                     timestamp = int(time.time())
-                    gdata = {"total": u"{}".format(msg)}
                     glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
                     graph_data = self._read_log(glog_dir + '/' + 'graph.json')
-                    graph_data[0]["balances"].update({timestamp: gdata})
+                    gdata = {}
+                    if type(msg) == list:
+                        #for i in range(0, len(msg)):
+                        #   gdata = {"total": u"{}".format(msg[i])}
+                        #   graph_data[i]["balances"].update({timestamp: gdata})
+                        gdata = {"total": u"{}".format(msg[0])}
+                        graph_data[0]["balances"].update({timestamp: gdata})
+                    else:
+                        gdata = {"total": u"{}".format(msg)}
+                        graph_data[0]["balances"].update({timestamp: gdata})
                     self._write_log(glog_dir + '/' + 'graph.json', graph_data)
-                    logging.debug(_(u'Updating sensor graph log to file successfully.'))                    
+                    logging.debug(_(u'Updating sensor graph log to file successfully.'))
                 except:
                     glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
                     if not os.path.isdir(glog_dir):
@@ -354,12 +369,13 @@ class _Sensors_Timer(Thread):
                         logging.debug(_(u'File not exists, creating file: {}').format('graph.json'))
                     graph_def_data = [{"sname": u"{}".format(sensor.name), "balances": {}}]
                     self._write_log(glog_dir + '/' + 'graph.json', graph_def_data)
+                    logging.debug(traceback.format_exc())
                     pass
 
                 if action:
                     logline["action"] = u"{}".format(action)
                 else:
-                    logline["action"] = ''   
+                    logline["action"] = ''
             else:                # sensor event log
                 logline["event"] = u"{}".format(msg)
 
@@ -1112,14 +1128,50 @@ class _Sensors_Timer(Thread):
 
             ### Multi Soil ###
             if sensor.sens_type == 6 and sensor.multi_type == 9:
-                if sensor.response:                                          # sensor is enabled and response is OK
+                if sensor.response:                                                    # sensor is enabled and response is OK
                     state = [-127]*16
+                    calculate_soil = [0.0]*16
                     try:
                         for i in range(0, 16):
-                            state[i] = sensor.soil_last_read_value[i]        # multi Soil probe 1 - 16
+                            state[i] = sensor.soil_last_read_value[i]                  # multi Soil probe 1 - 16
+                            val = float(state[i])
+                            if val < 0:
+                                calculate_soil[i] = 0.0
+                            else:
+                                if val > sensor.soil_calibration_max:
+                                    val = sensor.soil_calibration_max
+                                if val < sensor.soil_calibration_min:
+                                    val = sensor.soil_calibration_min
+                                calculate_soil[i] = self.maping(val, sensor.soil_calibration_min, sensor.soil_calibration_max, 0.0, 100.0) # val, min in, max in, to out min, to out max
+                        # TODO
+                        #ms_text = _(u'...')
+                        #if sensor.log_event:
+                        #        self.update_log(sensor, 'lge', u'{}'.format(ms_text))
+                        #if sensor.send_email:
+                            #em_text = _(u'...')
+                            #text = _(u'Sensor') + u': {} ({})'.format(sensor.name, em_text)
+                            #subj = _(u'Sensor {}').format(sensor.name)
+                            #body = _(u'Sensor ....') + u': {}'.format(em_text)
+                            #if em_text is not None:
+                                #body += '<br>' + em_text
+                            #self._try_send_mail(body, text, attachment=None, subject=subj)
+
+                        if sensor.log_samples:                                         # sensor is enabled and enabled log samples
+                            if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
+                                sensor.last_log_samples = now()
+                                self.update_log(sensor, 'lgs', state, msg_calculation = calculate_soil)  # lge is event, lgs is samples
 
                     except:
+                        logging.warning(_(u'Sensor error: {}').format(traceback.format_exc()))
                         pass
+
+                else:
+                    self.err_msg = _(u'Sensor: {} not response!').format(sensor.name)
+                    if self.last_msg != self.err_msg:
+                        self.last_msg = self.err_msg
+                        logging.warning(self.err_msg)
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)        
 
     def run(self):
         self._sleep(3)

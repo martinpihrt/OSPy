@@ -462,11 +462,11 @@ class sensor_page(ProtectedPage):
                 except IOError:
                     print_report('webpages.py', traceback.format_exc())
                     pass
-
+                
+                name = sensors[index].name
+                stype = sensors[index].sens_type
+                mtype = sensors[index].multi_type
                 try:
-                    name = sensors[index].name
-                    stype = sensors[index].sens_type
-                    mtype = sensors[index].multi_type
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
                 except:
                     pass

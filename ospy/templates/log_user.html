@@ -36,6 +36,7 @@ jQuery(document).ready(function(){
     <p>$_('Logging'): ${_('Enabled') if options.run_log else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
     <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a></p>
+    <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -56,6 +57,7 @@ jQuery(document).ready(function(){
             </tr>
     </table>
     </div>
+    </div>
 </div>
 
 <div class='category collapsible collapsed'><h4>$_('E-mail log')</h4>
@@ -64,6 +66,7 @@ jQuery(document).ready(function(){
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
     <p>$_('Download log') <a href="?csvEM" class="button refresh">$_('email.csv')</a></p>
 
+    <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -84,6 +87,7 @@ jQuery(document).ready(function(){
             $ odd = 1 - odd
     </table>
     </div>
+    </div>
 </div>
 
 <div class='category collapsible collapsed'><h4>$_('Events log')</h4>
@@ -92,6 +96,7 @@ jQuery(document).ready(function(){
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
     <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a></p>
 
+    <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
@@ -109,6 +114,7 @@ jQuery(document).ready(function(){
             </tr>
             $ odd = 1 - odd
     </table>
+    </div>
     </div>
 </div>
 

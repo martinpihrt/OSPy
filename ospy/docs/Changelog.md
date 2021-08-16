@@ -1,6 +1,15 @@
 OSPy Changelog
 ====
 
+August 16 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+ESP32 firmware update version 1.16:
+Fixed bug in sensor "motion" and "dry-contact" (send state after power on if input has not changed).
+OSPy:
+Added logging for soil moisture sensor (not completed).
+
 August 13 2021
 -----------
 (martinpihrt)<br/>
