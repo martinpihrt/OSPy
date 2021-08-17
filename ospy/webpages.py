@@ -16,7 +16,7 @@ from ospy.helpers import test_password, template_globals, check_login, save_to_o
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options
-from ospy.options import rain_blocks
+from ospy.options import rain_blocks, program_level_adjustments
 from ospy.programs import programs
 from ospy.programs import ProgramType
 from ospy.runonce import run_once
@@ -360,23 +360,37 @@ class sensors_page(ProtectedPage):
         if clean_all:
             for i in range(0, len(sensorSearch)):
                 try:
-                    del sensorSearch[int(i)]            
+                    del sensorSearch[int(i)]
                 except:
-                    pass    
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
             return self.core_render.sensors_search()
           
         if delete_all:
+            try: # delete all programs from sensor in program level adjustments (for soil moisture sensor)
+                program = programs.get()
+                for sensor in sensors.get():
+                    for i in range(0, 16):
+                        if sensor.soil_program[i] != "-1":
+                            pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
+                            del program_level_adjustments[pid]
+            except:
+                print_report('webpages.py', traceback.format_exc())
+                pass
+
             while sensors.count() > 0:
                 try:
                     sensor = sensors.get(sensors.count()-1)
                     sensors_timer.stop_status(sensor.name)
                     sensors.remove_sensors(sensors.count()-1)
                 except:
-                    pass    
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
             try:
                 import shutil
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
             except:
+                print_report('webpages.py', traceback.format_exc())
                 pass    
 
         if search:
@@ -413,23 +427,41 @@ class sensor_page(ProtectedPage):
                     options.sensor_graph_show_err = True
                 else:
                     options.sensor_graph_show_err = False
-                raise web.seeother(u'/sensor/{}?graph'.format(index))               
+                raise web.seeother(u'/sensor/{}?graph'.format(index))
 
             if delete:
-                try:
+                try: # delete sensor info from footer
+                    from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
                     sensors_timer.stop_status(sensor.name)
                 except:
-                    pass    
-                    
-                sensors.remove_sensors(index)
-   
-                try:
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
+
+                try: # delete programs from sensor in program level adjustments (for soil moisture sensor)
+                    program = programs.get()
+                    for i in range(0, 16):
+                        if sensor.soil_program[i] != "-1":
+                            pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
+                            del program_level_adjustments[pid]
+                except:
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
+
+                try: # delete log and graph
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
                 except:
+                    print_report('webpages.py', traceback.format_exc())
                     pass
+
+                try: # delete sensor
+                    sensors.remove_sensors(index)
+                except:
+                    print_report('webpages.py', traceback.format_exc())
+                    pass
+
                 raise web.seeother(u'/sensors')
-            
+
             elif enable is not None:
                 sensors[index].enabled = enable
                 raise web.seeother(u'/sensors') 
@@ -516,7 +548,7 @@ class sensor_page(ProtectedPage):
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
                     return json.dumps(data)
-                except:    
+                except:
                     print_report('webpages.py', traceback.format_exc())
                     pass
 
@@ -2306,7 +2338,8 @@ class api_plugin_data(ProtectedPage):
             for v in pluginStn:
                 station_data.append((v[1]))
 
-        if options.show_sensor_data:  
+        if options.show_sensor_data: 
+            from ospy.sensors import sensors_timer 
             sensor_data = sensors_timer.read_status()
 
         data["fdata"] = footer_data

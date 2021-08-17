@@ -414,6 +414,18 @@ jQuery(document).ready(function(){
             </tr>
         </table>
 </div>
+<div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
+    $if len([v for v in program_level_adjustments.values() if abs(v-100) > 0.001]) > 0:
+        <b>$_('Programs adjustments by sensors')</b>
+        <table class="adjustmentList">
+            $for name, adj in program_level_adjustments.iteritems():
+                $if adj < 100:
+                    <tr>
+                        <td>$name</td>
+                        <td class="adjValue">$(adj)%</td>
+                    </tr>
+        </table>
+</div>
 <div id="stationsdiv">
     <div id="programmode">
         <table id="stations" class="stationList">

@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+August 18 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. 
+Sensor ESP32 - soil moisture (16x probes): A window with program names and the time of their modification at runtime % has been added to the home page. If the sensor adjusts the time for the program below 100% of its set time, the window is visible. 100% from the soil moisture probe means that the program will not start. 50% of the soil moisture probe means that the program will only run for 50% of its set time. 10% of the soil moisture probe means that the program will only run for 90% of its set time. 0% of the soil moisture probe means that the program will run at 100% of its set time. Not ready for use!
+
 August 16 2021
 -----------
 (martinpihrt)<br/>

@@ -13,7 +13,7 @@ import os
 import json
 
 # Local imports
-from ospy.options import options, rain_blocks
+from ospy.options import options, rain_blocks, program_level_adjustments
 from ospy.helpers import now, password_hash, datetime_string, mkdir_p
 from ospy.log import log, logEM
 from ospy.programs import programs
@@ -1128,38 +1128,46 @@ class _Sensors_Timer(Thread):
 
             ### Multi Soil ###
             if sensor.sens_type == 6 and sensor.multi_type == 9:
-                if sensor.response:                                                    # sensor is enabled and response is OK
-                    state = [-127]*16
+                if sensor.response:                                                        # sensor is enabled and response is OK
+                    state = ["-127.0"]*16
                     calculate_soil = [0.0]*16
+                    inverted_calculate_soil = [0.0]*16
+                    tempText = ''
+                    err_check = 0
                     try:
-                        for i in range(0, 16):
-                            state[i] = sensor.soil_last_read_value[i]                  # multi Soil probe 1 - 16
-                            val = float(state[i])
-                            if val < 0:
-                                calculate_soil[i] = 0.0
+                        program = programs.get()
+                        for i in range(0, 16): 
+                            if type(sensor.soil_last_read_value[i]) == float:
+                                state[i] = sensor.soil_last_read_value[i]                  # multi Soil probe 1 - 16
+                                val = state[i]
+                                if val > sensor.soil_calibration_max[i]:
+                                    val = sensor.soil_calibration_max[i]
+                                if val < sensor.soil_calibration_min[i]:
+                                    val = sensor.soil_calibration_min[i]
+                                ### voltage from probe to humidity 0-100% with calibration range (for footer info)  
+                                calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0) # val, min in, max in, to out min, to out max
+                                calculate_soil[i] = round(calculate_soil[i], 1)            # round to one decimal point
+                                ### voltage from probe to inverted humidity 100-0% with calibration range (for program time restrictions)   
+                                inverted_calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0) # val, min in, max in, to out min, to out max
+                                inverted_calculate_soil[i] = round(calculate_soil[i], 1)   # round to one decimal point
+                                if sensor.soil_program[i] != "-1":                         # the probe has a program assigned
+                                    pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
+                                    program_level_adjustments[pid] = inverted_calculate_soil[i]
+                                tempText += _(u'H') + u'{}: {}% '.format(i+1, calculate_soil[i])
                             else:
-                                if val > sensor.soil_calibration_max:
-                                    val = sensor.soil_calibration_max
-                                if val < sensor.soil_calibration_min:
-                                    val = sensor.soil_calibration_min
-                                calculate_soil[i] = self.maping(val, sensor.soil_calibration_min, sensor.soil_calibration_max, 0.0, 100.0) # val, min in, max in, to out min, to out max
-                        # TODO
-                        #ms_text = _(u'...')
-                        #if sensor.log_event:
-                        #        self.update_log(sensor, 'lge', u'{}'.format(ms_text))
-                        #if sensor.send_email:
-                            #em_text = _(u'...')
-                            #text = _(u'Sensor') + u': {} ({})'.format(sensor.name, em_text)
-                            #subj = _(u'Sensor {}').format(sensor.name)
-                            #body = _(u'Sensor ....') + u': {}'.format(em_text)
-                            #if em_text is not None:
-                                #body += '<br>' + em_text
-                            #self._try_send_mail(body, text, attachment=None, subject=subj)
+                                err_check += 1
 
-                        if sensor.log_samples:                                         # sensor is enabled and enabled log samples
+                        if sensor.show_in_footer:
+                            if err_check > 15:                                             # all 16 probes has value -127 (error)
+                                self.start_status(sensor.name,  _(u'Probe Error'), sensor.index)
+                            else:                                                          # probes OK
+                                self.start_status(sensor.name,  u'{}'.format(tempText), sensor.index)
+
+                        if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                             if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                                 sensor.last_log_samples = now()
-                                self.update_log(sensor, 'lgs', state, msg_calculation = calculate_soil)  # lge is event, lgs is samples
+                                self.update_log(sensor, 'lgs', state)
+                                #self.update_log(sensor, 'lgs', state, msg_calculation = calculate_soil)  # show soil calculation humidity in log page
 
                     except:
                         logging.warning(_(u'Sensor error: {}').format(traceback.format_exc()))

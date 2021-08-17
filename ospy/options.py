@@ -726,3 +726,9 @@ class _RainBlocks(dict):
 
 rain_blocks = _RainBlocks()
 
+
+class _ProgramLevelAdjustments(dict):
+    def __init__(self):
+        super(_ProgramLevelAdjustments, self).__init__()
+
+program_level_adjustments = _ProgramLevelAdjustments()

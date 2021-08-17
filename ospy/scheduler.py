@@ -15,7 +15,7 @@ from . import i18n
 # Local imports
 from ospy.inputs import inputs
 from ospy.log import log, logEV
-from ospy.options import level_adjustments
+from ospy.options import level_adjustments, program_level_adjustments
 from ospy.options import options
 from ospy.options import rain_blocks
 from ospy.programs import programs
@@ -199,8 +199,12 @@ def predicted_schedule(start_time, end_time):
     for station, schedule in station_schedules.iteritems():
         for interval in schedule:
             if not interval['fixed']:
+                p_name = u'{}'.format(interval['program_name'])
+                soil_adjustment = 1.0
+                if p_name in program_level_adjustments:
+                    soil_adjustment = program_level_adjustments[p_name]/100
                 time_delta = interval['end'] - interval['start']
-                time_delta = datetime.timedelta(seconds=(time_delta.days * 24 * 3600 + time_delta.seconds) * adjustment)
+                time_delta = datetime.timedelta(seconds=(time_delta.days * 24 * 3600 + time_delta.seconds) * adjustment * soil_adjustment)
                 interval['end'] = interval['start'] + time_delta
                 interval['adjustment'] = adjustment
             else:

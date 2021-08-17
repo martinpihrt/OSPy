@@ -658,7 +658,7 @@ def template_globals():
 
     from ospy.inputs import inputs
     from ospy.log import log
-    from ospy.options import level_adjustments, options, rain_blocks
+    from ospy.options import level_adjustments, options, rain_blocks, program_level_adjustments
     from ospy.programs import programs, ProgramType
     from ospy.runonce import run_once
     from ospy.stations import stations
