@@ -831,53 +831,76 @@ The button "Add a New Sensor" add new sensor in the system. The sensors settings
 Two types of communication are used for sensors:  
 * Wireless (radio) - ID radio sensor  
 * Network (Wi-Fi/LAN) - MAC address, IP address 
-You can choose from 6 different types of sensors:  
+You can choose from different types of sensors:  
 * Dry Contact  
 * Leak Detector  
 * Moisture  
 * Motion  
 * Temperature  
-* Multisensor
+* Multisensor Dry Contact  
+* Multisensor Leak Detector  
+* Multisensor Moisture  
+* Multisensor Motion  
+* Multisensor Temperature  
+* Multisensor Ultrasonic  
+* Multisensor Soil moisture  
 
 ### Enable sensor
 Enabling or disabling this sensor.
 
 ### Sensor name
-Type Sensor Name. Sensor names must be non-null and unique.
+Type Sensor Name. Sensor names must be non-null and unique.  
 
 ### Sensor type
-Select the sensor type.
+Select the sensor type.  
 #### Dry Contact
-* Open Program(s) Mark the required programs to run.
-* Closed Program(s) Mark the required programs to run.
+* Open Program(s) Mark the required programs to run.  
+* Or stop these running stations in the scheduler.  
+* Closed Program(s) Mark the required programs to run.  
+* Or stop these running stations in the scheduler.  
 
 #### Leak Detector
-* Sensitivity (0-100%) When this level is exceeded, the high program(s) is activated.
-* Stabilization Time (mm:ss) The detector will not respond to the change for this set time.
-* Low Program(s) Mark the required programs to run.
-* High Program(s) Mark the required programs to run.
+* Sensitivity (0-100%) When this level is exceeded, the high program(s) is activated.  
+* Stabilization Time (mm:ss) The detector will not respond to the change for this set time.  
+* Low Program(s) Mark the required programs to run.  
+* High Program(s) Mark the required programs to run.  
 
 #### Moisture
-* Low Threshold (0-100%) When this level is exceeded, the low program(s) is activated.
-* Low Program(s) Mark the required programs to run.
-* High Threshold (0-100%) When this level is exceeded, the high program(s) is activated.
-* High Program(s) Mark the required programs to run.
+* Low Threshold (0-100%) When this level is exceeded, the low program(s) is activated.  
+* Low Program(s) Mark the required programs to run.  
+* High Threshold (0-100%) When this level is exceeded, the high program(s) is activated.  
+* High Program(s) Mark the required programs to run.  
 
 #### Motion
-* Program(s) Mark the required programs to run.
+* Program(s) Mark the required programs to run.  
 
 #### Temperature
-* Low Threshold (0-100 °C/°F) When this level is exceeded, the low program(s) is activated.
-* Low Program(s) Mark the required programs to run.
-* High Threshold (0-100 °C/°F) When this level is exceeded, the high program(s) is activated.
+* Low Threshold (0-100 °C/°F) When this level is exceeded, the low program(s) is activated.  
+* Low Program(s) Mark the required programs to run.  
+* High Threshold (0-100 °C/°F) When this level is exceeded, the high program(s) is activated.  
 * High Program(s) Mark the required programs to run.  
-The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending on how the temperature is set on the home page (by clicking on the temperature, you can change the units).
+The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending on how the temperature is set on the home page (by clicking on the temperature, you can change the units).  
 
 #### Ultrasonic
-* TODO
+* Distance from the ultrasonic sensor (from above) to the minimum water level in the tank.  
+* Distance from the ultrasonic sensor (from above) to the maximum water level in the tank.  
+* Minimum water level in the tank (from the bottom of the tank) for the report.  
+* Cylinder diameter for volume calculation.  
+* Display in liters or m3.  
+* Stop stations if the water level is minimum.  
+* Delay time (hours).  
+* Stop the station if the ultrasonic sensor has a fault.  
+* Stop these stations in the scheduler.  
+* Maximum water level regulation.  
+* Maximum maintained water level.  
+* Maximum run time in activation.  
+* Minimum maintained water level.  
+* Output for regulation.  
 
 #### Soil Moisture
-* TODO
+* Probe xx controls the program (select the program you want to influence with probe 1-16 in the program list).  
+* Probe xx calibration for 100% (enter the voltage level in volts to calibrate the probe at 100% humidity).  
+* Probe xx calibration for 0% (enter the voltage level in volts to calibrate the probe at 0% humidity).  
 
 ### Type of communication
 Select communication type for sensor.

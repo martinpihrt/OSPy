@@ -850,7 +850,7 @@ Po kliknutí na okénko se otevře stránka, na které je možné nahrát vlastn
 
 ----
 
-# Snímače
+# Snímače  
 Na stránce „Snímače“ můžeme přidávat nebo mazat snímače, které v systému OSPy plní různé funkce.
 
 ## Přidat nový snímač
@@ -860,13 +860,19 @@ Tlačítko „Přidat nový snímač“ přidá do systému nový snímač. Nast
 Pro snímače se používají dva druhy komunikace:  
 * Bezdrátová (radio) - ID rádio snímače  
 * Síťová (Wi-Fi/LAN) - MAC adresa, IP adresa  
-Lze si vybrat z 6 různých typů snímačů:  
+Lze si vybrat z různých typů snímačů:  
 * Kontakt  
 * Detektor úniku  
 * Vlhkost  
 * Pohyb  
-* Teplota
-* Multisnímač  
+* Teplota  
+* Multisnímač kontakt  
+* Multisnímač detektor úniku  
+* Multisnímač vlhkost  
+* Multisnímač pohyb  
+* Multisnímač teplota   
+* Multisnímač ultrazvuk  
+* Multisnímač vlhkost půdy  
 
 ### Povolit senzor
 Aktivace nebo deaktivace tohoto snímače.
@@ -877,36 +883,53 @@ Zadejte název snímače. Názvy snímačů musí být nenulové a jedinečné.
 ### Typ snímače
 Vyberte typ snímače.
 #### Kontakt
-* Otevřený program(y) Označte požadované programy, které chcete spustit.
-* Zavřený program(y) Označte požadované programy, které chcete spustit.
+* Otevřený program(y) Označte požadované programy, které chcete spustit.  
+* Nebo zastavit tyto spuštěné stanice v plánovači.  
+* Zavřený program(y) Označte požadované programy, které chcete spustit.  
+* Nebo zastavit tyto spuštěné stanice v plánovači.  
 
 #### Detektor úniku
-* Citlivost (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).
-* Doba stabilizace (mm:ss) Po tuto nastavenou dobu nebude detektor reagovat na změnu.
-* Nízký program(y) Označte požadované programy, které chcete spustit.
-* Vysoký program(y) Označte požadované programy, které chcete spustit.
+* Citlivost (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).  
+* Doba stabilizace (mm:ss) Po tuto nastavenou dobu nebude detektor reagovat na změnu.  
+* Nízký program(y) Označte požadované programy, které chcete spustit.  
+* Vysoký program(y) Označte požadované programy, které chcete spustit.  
 
 #### Vlhkost
-* Nízká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).
-* Nízký program(y) Označte požadované programy, které chcete spustit.
-* Vysoká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).
-* Vysoký program(y) Označte požadované programy, které chcete spustit.
+* Nízká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).  
+* Nízký program(y) Označte požadované programy, které chcete spustit.  
+* Vysoká úroveň (0-100%) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).  
+* Vysoký program(y) Označte požadované programy, které chcete spustit.  
 
 #### Pohyb
-* Program(y) Označte požadované programy, které chcete spustit.
+* Program(y) Označte požadované programy, které chcete spustit.  
 
 #### Teplota
-* Nízká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).
+* Nízká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) nízký(é) program(y).  
 * Nízký program(y) Označte požadované programy, které chcete spustit.  
-* Vysoká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y). 
-* Vysoký program(y) Označte požadované programy, které chcete spustit. 
-U teploty se zobrazují stupňe Celsia, nebo stupně Fahrenheita podle toho, jak máme na titulní stránce (v pravo dole) nastavenou teplotu (kliknutím na teplotu lze změnit jednotky).
+* Vysoká úroveň (0-100 °C/°F) Při překročení této úrovně se aktivuje(í) vysoký(é) program(y).  
+* Vysoký program(y) Označte požadované programy, které chcete spustit.  
+U teploty se zobrazují stupňe Celsia, nebo stupně Fahrenheita podle toho, jak máme na titulní stránce (v pravo dole) nastavenou teplotu (kliknutím na teplotu lze změnit jednotky).  
 
 #### Ultrazvuk
-* TODO
+* Vzdálenost od ultrazvukového snímače (shora) k minimální hladině vody v nádrži.  
+* Vzdálenost od ultrazvukového snímače (shora) k maximální hladině vody v nádrži.  
+* Minimální hladina vody v nádrži (ode dna nádrže) pro report.  
+* Průměr válce pro výpočet objemu.  
+* Zobrazovat v litrech nebo m3.  
+* Zastavit stanice, pokud je minimální hladina vody.  
+* Doba zpoždění (hodiny).  
+* Zastavit stanice, pokud má ultrazvukový snímač poruchu.  
+* Zastavit tyto stanice v plánovači.  
+* Regulace maximální hladiny vody.  
+* Maximální udržovaná hladina vody.  
+* Maximální doba běhu v aktivaci.  
+* Minimální udržovaná hladina vody.  
+* Výstup pro regulaci.  
 
 #### Vlhkost půdy
-* TODO
+* Sonda xx řídí program (zvolte v seznamu programů program, který chcete sondou 1-16 ovlivňovat).  
+* Kalibrace xx sondy pro 100% (zadejte úroveň napětí ve voltech pro kalibraci sondy při vlhkosti 100%).  
+* Kalibrace xx sondy pro 0% (zadejte úroveň napětí ve voltech pro kalibraci sondy při vlhkosti 0%).  
 
 ### Typ komunikace
 Vyberte typ komunikace se snímačem.

@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+August 20 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language update. 
+Sensor ESP32 - soil moisture (16x probes): Added to all types of sensors - sending e-mails in case the sensor does not respond (or now again responds). On the OSPy side, soil moisture processing is complete (data reception, logging, adjustment of the running time of the selected program according to the humidity from the probe). The ESP32 sensor already sends data to the OSPy. It remains to test the connection of the A/D converter to the sensor ESP32 and verify the values of the transmitted voltage (I have not yet tested physically for the test -> hw is ordered). An image with the connection of probes to the ESP32 sensor has been added to the "create a new sensor" section (documentation on how to connect a specific sensor). Whoever already owns the ESP32 multi-sensor and has the ADS1115 converter together with a humidity probe (which has a voltage at the output in the range from 0 to max 5V), can test this functionality. Good luck with OSPy!
+
 August 18 2021
 -----------
 (martinpihrt)<br/>
