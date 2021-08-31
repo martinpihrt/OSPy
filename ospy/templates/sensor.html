@@ -723,6 +723,10 @@ jQuery(document).ready(function(){
                     </td>
                     </tr>
                     <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Probe logic is reversed'):</span></td>
+                    <td><input type="checkbox" ${"checked" if sensor.soil_invert_probe_in[int(i)] else ""} name="sip${str(i)}" title=$:{json.dumps(_(u'If we mark this field, the logic of the probe will be reversed. This means, for example, that 0V from the probe is 100% and 3V is 0% humidity. Otherwise the logic is straightforward (0V is 0% and 3V is 100%)'), ensure_ascii=False)}></td>
+                    </tr>
+                    <tr>
                     <th colspan="2">
                     <hr>
                     </th>

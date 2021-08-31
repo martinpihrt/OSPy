@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+September 1 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Slovak language (Thank you Tomáš Szepesi) and Czech language. In OSPy the option to rotate the sensing logic from the probe has been added to the ESP32 multi-sensor (soil moisture measurement) settings. Example: normal state 0V=0%, 3V=100%. Rotated state 0V=100%, 3V=0% humidity. TODO: moisture multigraph (it remains to complete the display of values from soil moisture sensors in a multi graph (currently only the first probe is displayed in the graph).
+
 August 20 2021
 -----------
 (martinpihrt)<br/>

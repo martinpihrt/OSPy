@@ -816,7 +816,12 @@ class sensor_page(ProtectedPage):
                     if 'sd{}'.format(i) in qdict:        # 16x calibration for 100% in Volt
                         sensor.soil_calibration_max[i] = float(qdict['sd{}'.format(i)])  
                     if 'SM{}'.format(i) in qdict:        # 16x adjust program xx from probe xx
-                        sensor.soil_program[i] = str(qdict['SM{}'.format(i)])                        
+                        sensor.soil_program[i] = str(qdict['SM{}'.format(i)])
+                    if 'sip{}'.format(i) in qdict:       # 16x checker (inverted logic from probe)
+                        if qdict['sip{}'.format(i)] == 'on':
+                            sensor.soil_invert_probe_in[i] = 1
+                    else:
+                        sensor.soil_invert_probe_in[i] = 0
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

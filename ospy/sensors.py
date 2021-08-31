@@ -86,8 +86,9 @@ class _Sensor(object):
         # used in soil moisture sensor
         self.soil_last_read_value = [""]*17   # last soil read value (actual)
         self.soil_prev_read_value = [-127]*17 # prev soil read value
-        self.soil_calibration_min = [0.00]*17 # calibration for soil probe (0 %)
-        self.soil_calibration_max = [3.00]*17 # calibration for soil probe (100 %)
+        self.soil_calibration_min = [3.00]*17 # calibration for soil probe (0 %)
+        self.soil_calibration_max = [0.00]*17 # calibration for soil probe (100 %)
+        self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)        
         self.soil_program = ["-1"]*17         # program for soil moisture
         # for events log and email
         self.last_msg = [0]*10
@@ -1266,19 +1267,35 @@ class _Sensors_Timer(Thread):
                         program = programs.get()
                         for i in range(0, 16): 
                             if type(sensor.soil_last_read_value[i]) == float:
-                                state[i] = sensor.soil_last_read_value[i]                  # multi Soil probe 1 - 16
+                                state[i] = sensor.soil_last_read_value[i]                           # multi Soil probe 1 - 16
                                 val = state[i]
-                                if val > sensor.soil_calibration_max[i]:
-                                    val = sensor.soil_calibration_max[i]
-                                if val < sensor.soil_calibration_min[i]:
-                                    val = sensor.soil_calibration_min[i]
+
                                 ### voltage from probe to humidity 0-100% with calibration range (for footer info)
-                                calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0) # val, min in, max in, to out min, to out max
-                                calculate_soil[i] = round(calculate_soil[i], 1)                     # round to one decimal point  
+                                if sensor.soil_invert_probe_in[i]:                                  # probe: rotated state 0V=100%, 3V=0% humidity
+                                    if val < sensor.soil_calibration_max[i]:
+                                       val = sensor.soil_calibration_max[i]
+                                    if val > sensor.soil_calibration_min[i]:
+                                       val = sensor.soil_calibration_min[i]
+                                    val = sensor.soil_calibration_min[i] - val
+                                    calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_max[i]), float(sensor.soil_calibration_min[i]), 0.0, 100.0)
+                                    calculate_soil[i] = round(calculate_soil[i], 1)                 # round to one decimal point
+                                else:                                                               # probe: normal state 0V=0%, 3V=100%
+                                    if val > sensor.soil_calibration_max[i]:
+                                       val = sensor.soil_calibration_max[i]
+                                    if val < sensor.soil_calibration_min[i]:
+                                       val = sensor.soil_calibration_min[i]
+                                    calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0)
+                                    calculate_soil[i] = round(calculate_soil[i], 1)                 # round to one decimal point
+
+                                if calculate_soil[i] > 100:                                         # overflow limit > 100%
+                                    calculate_soil[i] = 100
+                                if calculate_soil[i] < 0:                                           # underflow limitation < 0%
+                                    calculate_soil[i] = 0          
+
                                 if sensor.soil_program[i] != "-1":                                  # the probe has a program assigned
                                     pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
                                     program_level_adjustments[pid] = 100.0 - calculate_soil[i]
-                                if state[i] > 0:   
+                                if state[i] >= 0:   
                                     tempText += _(u'H') + u'{}: {}% '.format(i+1, calculate_soil[i])
                             else:
                                 err_check += 1
