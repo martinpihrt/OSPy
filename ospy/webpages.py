@@ -513,15 +513,13 @@ class sensor_page(ProtectedPage):
                     glog_file = []
    
                 try:
+                    sensor = sensors.get(index)
                     data = []
                     epoch = datetime.date(1970, 1, 1)                                      # first date
                     current_time  = datetime.date.today()                                  # actual date
 
                     if options.sensor_graph_histories == 0:                                # without filtering
-                        web.header('Access-Control-Allow-Origin', '*')
-                        web.header('Content-Type', 'application/json')
-                        return json.dumps(glog_file)
-
+                        check_start  = current_time - datetime.timedelta(days=7300)        # actual date - 20 years
                     if options.sensor_graph_histories == 1:
                         check_start  = current_time - datetime.timedelta(days=1)           # actual date - 1 day
                     if options.sensor_graph_histories == 2:
@@ -529,21 +527,35 @@ class sensor_page(ProtectedPage):
                     if options.sensor_graph_histories == 3:
                         check_start  = current_time - datetime.timedelta(days=30)          # actual date - 30 day (month)
                     if options.sensor_graph_histories == 4:
-                        check_start  = current_time - datetime.timedelta(days=365)         # actual date - 365 day (year)                       
+                        check_start  = current_time - datetime.timedelta(days=365)         # actual date - 365 day (year)
 
                     log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
-                
-                    temp_balances = {}
-                    for key in glog_file[0]['balances']:
-                        find_key =  int(key.encode('utf8'))                                # key is in unicode ex: u'1601347000' -> find_key is int number
-                        if find_key >= log_start:                                          # timestamp interval 
-                            find_data = glog_file[0]['balances'][key]
-                            if options.sensor_graph_show_err:                              # if is checked show error values in graph
-                                temp_balances[key] = glog_file[0]['balances'][key]         # add all values from json
-                            else:
-                                if float(find_data['total']) != -127.0:                    # not checked, add values if not -127
-                                    temp_balances[key] = glog_file[0]['balances'][key]
-                    data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances })
+
+                    if sensor.multi_type == 9: # 16x log from probe
+                        for i in range(0, 16):
+                            temp_balances = {}
+                            for key in glog_file[i]['balances']:
+                                find_key =  int(key.encode('utf8'))                        # key is in unicode ex: u'1601347000' -> find_key is int number
+                                if find_key >= log_start:                                  # timestamp interval 
+                                    find_data = glog_file[i]['balances'][key]
+                                    if options.sensor_graph_show_err:                      # if is checked show error values in graph
+                                        temp_balances[key] = glog_file[i]['balances'][key]  # add all values from json
+                                    else:
+                                        if float(find_data['total']) != -127.0:            # not checked, add values if not -127
+                                            temp_balances[key] = glog_file[i]['balances'][key]      
+                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances })
+                    else:                      # 1x log from others
+                        temp_balances = {}
+                        for key in glog_file[0]['balances']:
+                            find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
+                            if find_key >= log_start:                                      # timestamp interval 
+                                find_data = glog_file[0]['balances'][key]
+                                if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                    temp_balances[key] = glog_file[0]['balances'][key]     # add all values from json
+                                else:
+                                    if float(find_data['total']) != -127.0:                # not checked, add values if not -127
+                                        temp_balances[key] = glog_file[0]['balances'][key]
+                        data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances})
 
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
@@ -822,6 +834,8 @@ class sensor_page(ProtectedPage):
                             sensor.soil_invert_probe_in[i] = 1
                     else:
                         sensor.soil_invert_probe_in[i] = 0
+                    if 'pl{}'.format(i) in qdict:        # 16x probe label
+                        sensor.soil_probe_label[i] = u'{}'.format(qdict['pl{}'.format(i)])
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

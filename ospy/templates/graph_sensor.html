@@ -144,7 +144,7 @@ function create_graph(result) {
         });
         plot.setupGrid();
         plot.draw();
-        plot.clearSelection(); 
+        plot.clearSelection();
     });
 
     jQuery('#clearSelection').on('click', function(){
@@ -157,12 +157,12 @@ function check_history() {
     let select_type = jQuery("#history").val();
     let check_err = jQuery("#show_err").val();
     jQuery("#historyForm").submit();
-}   
+}
 
 // Initialize behaviors
-jQuery(document).ready(function(){    
+jQuery(document).ready(function(){
     if (jQuery("#graph-placeholder").length > 0) {
-        setTimeout(function() {jQuery.getJSON("/sensor/${index}?glog", create_graph)}, 200); 
+        setTimeout(function() {jQuery.getJSON("/sensor/${index}?glog", create_graph)}, 200);
 }
 
 jQuery("#history").change(check_history);
@@ -184,10 +184,10 @@ jQuery("#show_err").change(check_history);
    <option value="3" ${"selected" if options.sensor_graph_histories==3 else ""}>$_(u'Month filter')</option>
    <option value="4" ${"selected" if options.sensor_graph_histories==4 else ""}>$_(u'Year filter')</option>
    </select>
-   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_(u'Show also errors in graph. Example: -127'), ensure_ascii=False)}> 
+   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_(u'Show also errors in graph. Example: -127'), ensure_ascii=False)}>
    </form>
 </p>
-</br>                                        
+</br>
 
 <div id="graph-container" class="graph-container">
    <div id="legend-placeholder" style="display:none;"></div>
@@ -197,11 +197,6 @@ jQuery("#show_err").change(check_history);
    <button id="clearSelection">$_('Clear selection')</button>
 </div>
 
-<a href="/sensors" class="button refresh">$_('Cancel')</a>     
+<a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="/sensor/${index}?log" class="button backup"> $_(u'View Logs')</a>
 <a href="/sensor/${index}" class="button cDelete danger"> $_(u'Edit Sensor')</a>
-
-
-        
-  
-   

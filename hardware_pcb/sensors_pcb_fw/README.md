@@ -65,6 +65,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.17
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed bug in sensor "soil moisture". Tested with one ADS1115 converter (4 probes).
+
 FW: 1.16
 -----------
 (martinpihrt)<br/>

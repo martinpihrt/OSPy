@@ -90,6 +90,7 @@ class _Sensor(object):
         self.soil_calibration_max = [0.00]*17 # calibration for soil probe (100 %)
         self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)        
         self.soil_program = ["-1"]*17         # program for soil moisture
+        self.soil_probe_label = [_(u'Probe')]*17  # label for soil moisture probe
         # for events log and email
         self.last_msg = [0]*10
         self.err_msg = [0]*10
@@ -351,11 +352,9 @@ class _Sensors_Timer(Thread):
                     graph_data = self._read_log(glog_dir + '/' + 'graph.json')
                     gdata = {}
                     if type(msg) == list:
-                        #for i in range(0, len(msg)):
-                        #   gdata = {"total": u"{}".format(msg[i])}
-                        #   graph_data[i]["balances"].update({timestamp: gdata})
-                        gdata = {"total": u"{}".format(msg[0])}
-                        graph_data[0]["balances"].update({timestamp: gdata})
+                        for i in range(0, len(msg)):
+                           gdata = {"total": u"{}".format(msg[i])}
+                           graph_data[i]["balances"].update({timestamp: gdata})
                     else:
                         gdata = {"total": u"{}".format(msg)}
                         graph_data[0]["balances"].update({timestamp: gdata})
@@ -369,7 +368,12 @@ class _Sensors_Timer(Thread):
                     if not os.path.isfile(glog_dir + '/' + 'graph.json'):
                         subprocess.call(['touch', 'graph.json'])
                         logging.debug(_(u'File not exists, creating file: {}').format('graph.json'))
-                    graph_def_data = [{"sname": u"{}".format(sensor.name), "balances": {}}]
+                    if sensor.multi_type == 9: # 16x log from probe
+                        graph_def_data = []
+                        for i in range(0, 17):
+                            graph_def_data.append({"sname": u"{}".format(sensor.soil_probe_label[int(i)]), "balances": {}})
+                    else:                      # only 1x log
+                        graph_def_data = [{"sname": u"{}".format(sensor.name), "balances": {}}]
                     self._write_log(glog_dir + '/' + 'graph.json', graph_def_data)
                     logging.debug(traceback.format_exc())
                     pass
@@ -1296,7 +1300,7 @@ class _Sensors_Timer(Thread):
                                     pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
                                     program_level_adjustments[pid] = 100.0 - calculate_soil[i]
                                 if state[i] >= 0:   
-                                    tempText += _(u'H') + u'{}: {}% '.format(i+1, calculate_soil[i])
+                                    tempText += u'{}: {}% '.format(sensor.soil_probe_label[i], calculate_soil[i])
                             else:
                                 err_check += 1
 

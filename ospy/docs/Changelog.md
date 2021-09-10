@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+September 10 2021
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating Slovak and Czech language. Moisture multigraph (completing the display of values from soil moisture probes in a multi graph). Sensor ESP32 - soil moisture (16 probes). Added label to each probe (you can assign your own name to probe 1-16). ESP32 firmware update version 1.17: Fixed bug in sensor "soil moisture". Tested with one ADS1115 converter (4 probes).
+
 September 1 2021
 -----------
 (martinpihrt)<br/>

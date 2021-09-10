@@ -450,7 +450,7 @@ $if sensors.count()>0:
                 $if sensor.soil_last_read_value[0] != '':
                     <p style="font-size:20px;">$_(u'Last Read Value')
                     $for i in range(0, 16):
-                        <p>$_('Probe') ${str(i+1)}:
+                        <p>$_('Probe') ${str(i+1)} - ${sensor.soil_probe_label[i]}:
                         <span class="val">
                         $if sensor.soil_last_read_value[i] != -127:
                             ${str(sensor.soil_last_read_value[i])}$_(u'V')</span> $_(u'CAL0/100:') ${str(sensor.soil_calibration_min[i])}$_(u'V')/${str(sensor.soil_calibration_max[i])}$_(u'V')
@@ -462,7 +462,7 @@ $if sensors.count()>0:
                     <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${_(u'Change not yet loaded')}</span></p>                        
                 $for i in range(0, 16):
                     $if sensor.soil_program[i] != "-1":
-                        <p>$_(u'Probe') ${str(i+1)} - $_(u'Program'): <span class="val">
+                        <p>$_(u'Probe') ${str(i+1)} - ${sensor.soil_probe_label[i]} - $_(u'Program'): <span class="val">
                             $for program in programs.get():
                                 $if str(program.index+1) == sensor.soil_program[i]:
                                     $program.name 
