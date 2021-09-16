@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+September 16 2021
+-----------
+(martinpihrt)<br/>
+I released a new version of the HW1.1 multisensor board for future versions of FW. More info: https://pihrt.com/elektronika/448-esp32-multisnimac-hw1-1-pro-opensprinkler-system.
+
 September 10 2021
 -----------
 (martinpihrt)<br/>
