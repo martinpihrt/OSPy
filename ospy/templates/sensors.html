@@ -96,7 +96,7 @@ $if sensors.count()>0:
                 $if sensor.last_read_value[4] == -127:
                     $_(u'Probe Error')
                 $else:
-                    (${_(u'Contact Closed') if int(sensor.last_read_value[4])==1 else _(u'Contact Open')})
+                    (${sensor.dry_clos_msg if int(sensor.last_read_value[4])==1 else sensor.dry_open_msg})
                 </span></p>
             $else:
                 <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_(u'Change not yet loaded')})</span></p>
@@ -195,7 +195,7 @@ $if sensors.count()>0:
                 $if sensor.last_read_value[7] == -127:
                     $_(u'Probe Error')
                 $else:
-                    (${_(u'Motion Detected') if int(sensor.last_read_value[7])==1 else _(u'No Motion')})
+                    (${sensor.motion_msg if int(sensor.last_read_value[7])==1 else sensor.no_motion_msg})
                 </span></p>
             $else:
                 <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_(u'Change not yet loaded')})</span></p>
@@ -296,7 +296,7 @@ $if sensors.count()>0:
                     $if sensor.last_read_value[4] == -127:
                         $_(u'Probe Error')
                     $else:
-                        (${_(u'Contact Closed') if int(sensor.last_read_value[4])==1 else _(u'Contact Open')}) 
+                        (${sensor.dry_clos_msg if int(sensor.last_read_value[4])==1 else sensor.dry_open_msg}) 
                     </span></p>
                 $else:
                     <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_(u'Change not yet loaded')})</span></p>
@@ -395,7 +395,7 @@ $if sensors.count()>0:
                     $if sensor.last_read_value[7] == -127:
                         $_(u'Probe Error')
                     $else:
-                        (${_(u'Motion Detected') if int(sensor.last_read_value[7])==1 else _(u'No Motion')}) 
+                        (${sensor.motion_msg if int(sensor.last_read_value[7])==1 else sensor.no_motion_msg}) 
                     </span></p>
                 $else:
                     <p style="font-size:20px;"> $_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_(u'Change not yet loaded')})</span></p>

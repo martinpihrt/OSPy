@@ -14,7 +14,7 @@ INSTALLATION:
 - ESP32 *URLs for Additional Board Manager* https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 - ESP8266 *URLs for Additional Board Manager* https://arduino.esp8266.com/stable/package_esp8266com_index.json
 - For ESP32 Open Boards Manager from Tools > Board menu and install *esp32* platform (and don't forget to select your ESP32 board from Tools > Board menu after installation).
-- For ESp8266 Open Boards Manager from Tools > Board menu and install *esp8266* platform (and don't forget to select your ESP8266 board from Tools > Board menu after installation).
+- For ESP8266 Open Boards Manager from Tools > Board menu and install *esp8266* platform (and don't forget to select your ESP8266 board from Tools > Board menu after installation).
 - Extract the OneWire and Dallas Temperature folders from the esp32/library folder. Then copy the folders to your arduino library location. Example: documents/arduino/libraries
 - More infos with images is here: https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system and https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace
 
@@ -64,6 +64,18 @@ Working on it.
 
 Sensor ESP32 FW Changelog
 ====
+
+FW: 1.18
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added support for new hardware board HW:1.1 (multisensor by pihrt.com). New feture: two buttons for manual control for two relay. 2x LED for relays ON state. 1x LED for 3,3V power supply status. Contolling two relay via web server (from OSPy) instead one relay. Fixed: random clickering in relay (resistor in gate for FET 2N7002). Inductor package size on PCB. If GPIO4 and GPIO15 have pull-up resistors (state on GPIOs is on VCC 3,3V) then automatic detect and switch HW version to "1" HW1.1.<br/>
+Added I2C (0x3c) OLED display 0,96" 128x64 (SSD1306) to display measured values from all inputs except humidity (DHTxx) and ultrasound (because these are on the I2C connector and cannot be used at the same time as the display).<br/>
+New parameters for web:  
+Example for on relay 1 to 400 second:  
+http://192.168.88.207/0123456789abcdef?re=1&run=400  
+For on relay 2 to 10 second:  
+http://192.168.88.207/0123456789abcdef?re_2=1&run_r2=10  
 
 FW: 1.17
 -----------

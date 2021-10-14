@@ -88,12 +88,17 @@ class _Sensor(object):
         self.soil_prev_read_value = [-127]*17 # prev soil read value
         self.soil_calibration_min = [3.00]*17 # calibration for soil probe (0 %)
         self.soil_calibration_max = [0.00]*17 # calibration for soil probe (100 %)
-        self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)        
+        self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)
         self.soil_program = ["-1"]*17         # program for soil moisture
         self.soil_probe_label = [_(u'Probe')]*17  # label for soil moisture probe
         # for events log and email
         self.last_msg = [0]*10
         self.err_msg = [0]*10
+        # custom event naming 
+        self.dry_open_msg = _(u'Open Contact')     # dry contact open
+        self.dry_clos_msg = _(u'Closed Contact')   # dry contact closed
+        self.motion_msg = _(u'Motion Detected')    # motion
+        self.no_motion_msg = _(u'No Motion')       # no motion
  
         options.load(self, index) 
 
@@ -600,29 +605,21 @@ class _Sensors_Timer(Thread):
                         if sensor.multi_type == 9:                            # Multi Soil moisture probe 1 - probe 16
                             sensor.soil_last_read_value = [-127]*16
 
-            if sensor.sens_type == 0:                                         # not selected
-                return
-
-            if sensor.enabled == 0:                                           # not enabled
-                if sensor.show_in_footer:
-                    self.start_status(sensor.name, _(u'Out of order'), sensor.index)
-                return
-
             changed_state = False
 
             ### Dry Contact, Motion, Multi Dry Contact, Multi Motion ###
             if sensor.sens_type == 1 or sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 4) or (sensor.sens_type == 6 and sensor.multi_type == 7):
-                if sensor.response:                                           # sensor is enabled and response is OK
+                if sensor.response and sensor.enabled:                        # sensor is enabled and response is OK
                     state = -127
                     if sensor.sens_type == 1:  # type is Dry Contact
                         try:
                             state = sensor.last_read_value[4]
                             if state == 1:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Closed Contact'), sensor.index)
+                                    self.start_status(sensor.name, sensor.dry_clos_msg, sensor.index)
                             if state == 0:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Open Contact'), sensor.index)
+                                    self.start_status(sensor.name, sensor.dry_open_msg, sensor.index)
                             if state == -127:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _(u'Probe Error'), sensor.index)
@@ -648,10 +645,10 @@ class _Sensors_Timer(Thread):
                             state = sensor.last_read_value[7]
                             if state == 1:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Motion Detected'), sensor.index)
+                                    self.start_status(sensor.name, sensor.motion_msg, sensor.index)
                             if state == 0:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'No Motion'), sensor.index)
+                                    self.start_status(sensor.name, sensor.no_motion_msg, sensor.index)
                             if state == -127:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _(u'Probe Error'), sensor.index)
@@ -677,10 +674,10 @@ class _Sensors_Timer(Thread):
                             state = sensor.last_read_value[4]
                             if state == 1:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Closed Contact'), sensor.index)
+                                    self.start_status(sensor.name, sensor.dry_clos_msg, sensor.index)
                             if state == 0:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Open Contact'), sensor.index)
+                                    self.start_status(sensor.name, sensor.dry_open_msg, sensor.index)
                             if state == -127:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _(u'Probe Error'), sensor.index)
@@ -706,10 +703,10 @@ class _Sensors_Timer(Thread):
                             state = sensor.last_read_value[7]                 # multi Motion 
                             if state == 1:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'Motion Detected'), sensor.index)
+                                    self.start_status(sensor.name, sensor.motion_msg, sensor.index)
                             if state == 0:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _(u'No Motion'), sensor.index)
+                                    self.start_status(sensor.name, sensor.no_motion_msg, sensor.index)
                             if state == -127:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _(u'Probe Error'), sensor.index)
@@ -733,42 +730,42 @@ class _Sensors_Timer(Thread):
 
                     if state == 1  and changed_state:                                                    # is closed 
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact 
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'Closed Contact'))
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, sensor.dry_clos_msg)
                             subj = _(u'Sensor Read Success')
-                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'Closed Contact')) 
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, sensor.dry_clos_msg) 
                             if sensor.log_event:                                                         # sensor is enabled and enabled log
-                                self.update_log(sensor, 'lge', _(u'Closed Contact'))                     # lge is event, lgs is samples
+                                self.update_log(sensor, 'lge', sensor.dry_clos_msg)                      # lge is event, lgs is samples
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
                             self.set_stations_two_in_scheduler_off(sensor)
                         else:                                                                            # Motion or multi Motion 
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'Motion Detected'))
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, sensor.motion_msg)
                             subj = _(u'Sensor Read Success')
-                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'Motion Detected'))
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, sensor.motion_msg)
                             if sensor.log_event:                                                         # sensor is enabled and enabled log           
-                                self.update_log(sensor, 'lge', _(u'Motion Detected'))
+                                self.update_log(sensor, 'lge', sensor.motion_msg)
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
 
                     elif state == 0  and changed_state:                                                  # is open
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'Open Contact'))
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, sensor.dry_open_msg)
                             subj = _(u'Sensor Read Success')
-                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'Open Contact')) 
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name,sensor.dry_open_msg) 
                             if sensor.log_event:                                                         # sensor is enabled and enabled log 
-                                self.update_log(sensor, 'lge', _(u'Open Contact'))
+                                self.update_log(sensor, 'lge', sensor.dry_open_msg)
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             self._trigger_programs(sensor, sensor.trigger_low_program)
                             self.set_stations_one_in_scheduler_off(sensor) 
                         else:                                                                            # Motion or multi Motion
-                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, _(u'No Motion'))
+                            text = _(u'Sensor') + u': {} ({})'.format(sensor.name, sensor.no_motion_msg)
                             subj = _(u'Sensor Read Success')
-                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, _(u'No Motion')) 
+                            body = _(u'Successfully read sensor') + u': {} ({})'.format(sensor.name, sensor.no_motion_msg) 
                             if sensor.log_event:                                                         # sensor is enabled and enabled log
-                                self.update_log(sensor, 'lge', _(u'No Motion'))
+                                self.update_log(sensor, 'lge', sensor.no_motion_msg)
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj)  
 
@@ -782,9 +779,13 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[4] = 0
                         if sensor.last_msg[4] != sensor.err_msg[4]:
                             sensor.last_msg[4] = sensor.err_msg[4]
-                            logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                            if sensor.enabled:
+                                logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
-                                text = _(u'Not response!')
+                                if sensor.enabled:
+                                    text = _(u'Not response!')
+                                else:
+                                    text = _(u'Out of order')    
                                 subj = _(u'Sensor {}').format(sensor.name)
                                 body = text
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
@@ -794,22 +795,29 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[7] = 0
                         if sensor.last_msg[7] != sensor.err_msg[7]:
                             sensor.last_msg[7] = sensor.err_msg[7]
-                            logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                            if sensor.enabled:
+                                logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
-                                text = _(u'Not response!')
+                                if sensor.enabled:
+                                    text = _(u'Not response!')
+                                else:
+                                    text = _(u'Out of order')
                                 subj = _(u'Sensor {}').format(sensor.name)
                                 body = text
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _(u'Not response!'))                                
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        else:    
+                            self.start_status(sensor.name, _(u'Out of order'), sensor.index)
 
             ### Moisture, Temperature, Multi Moisture, Multi Temperature ###
             if sensor.sens_type == 3 or sensor.sens_type == 5 or (sensor.sens_type == 6 and sensor.multi_type == 0) or \
                 (sensor.sens_type == 6 and sensor.multi_type == 1) or (sensor.sens_type == 6 and sensor.multi_type == 2) or \
                 (sensor.sens_type == 6 and sensor.multi_type == 3) or (sensor.sens_type == 6 and sensor.multi_type == 6):
-                if sensor.response:                                             # sensor is enabled and response is OK  
+                if sensor.response and sensor.enabled:                          # sensor is enabled and response is OK  
                     state = -127
                     if sensor.sens_type == 3:                                   # type is Moisture
                         try:
@@ -995,20 +1003,30 @@ class _Sensors_Timer(Thread):
                     for i in range(4):
                         if sensor.last_msg[i] != sensor.err_msg[i]:
                             sensor.last_msg[i] = sensor.err_msg[i]
-                            logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                            if sensor.enabled:
+                                logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
-                                text = _(u'Not response!')
+                                if sensor.enabled:
+                                    text = _(u'Not response!')
+                                else:
+                                    text = _(u'Out of order')
                                 subj = _(u'Sensor {}').format(sensor.name)
                                 body = text
                                 self._try_send_mail(body, text, attachment=None, subject=subj)
                             if sensor.log_event:
-                                self.update_log(sensor, 'lge', _(u'Not response!'))
+                                if sensor.enabled:
+                                    self.update_log(sensor, 'lge', _(u'Not response!'))
+                                else:
+                                    self.update_log(sensor, 'lge', _(u'Out of order'))
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        else:
+                            self.start_status(sensor.name, _(u'Out of order'), sensor.index)
 
             ### Leak Detector, Multi Leak Detector ###
             if sensor.sens_type == 2 or (sensor.sens_type == 6 and sensor.multi_type == 5): 
-                if sensor.response:                                           # sensor is enabled and response is OK  
+                if sensor.response and sensor.enabled:                         # sensor is enabled and response is OK  
                     state = -127
                     liters_per_sec = -1
                     if sensor.sens_type == 2:
@@ -1063,18 +1081,27 @@ class _Sensors_Timer(Thread):
                         sensor.last_msg[5] = sensor.err_msg[5]
                         logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
-                            text = _(u'Not response!')
+                            if sensor.enabled:
+                                text = _(u'Not response!')
+                            else:
+                                text = _(u'Out of order')
                             subj = _(u'Sensor {}').format(sensor.name)
                             body = text
                             self._try_send_mail(body, text, attachment=None, subject=subj)
                         if sensor.log_event:
-                            self.update_log(sensor, 'lge', _(u'Not response!'))
+                            if sensor.enabled:
+                                self.update_log(sensor, 'lge', _(u'Not response!'))
+                            else:
+                                self.update_log(sensor, 'lge', _(u'Out of order'))
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        else:
+                            self.start_status(sensor.name, _(u'Out of order'), sensor.index)
 
             ### Multi Sonic ###
             if sensor.sens_type == 6 and sensor.multi_type == 8:
-                if sensor.response:                                          # sensor is enabled and response is OK
+                if sensor.response and sensor.enabled:                       # sensor is enabled and response is OK
                     state = -127
                     try:
                         state = sensor.last_read_value[8]                    # multi Sonic
@@ -1249,20 +1276,30 @@ class _Sensors_Timer(Thread):
                     sensor.err_msg[8] = 0
                     if sensor.last_msg[8] != sensor.err_msg[8]:
                         sensor.last_msg[8] = sensor.err_msg[8]
-                        logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                        if sensor.enabled:
+                            logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
-                            text = _(u'Not response!')
+                            if sensor.enabled:
+                                text = _(u'Not response!')
+                            else:
+                                text = _(u'Out of order')    
                             subj = _(u'Sensor {}').format(sensor.name)
                             body = text
                             self._try_send_mail(body, text, attachment=None, subject=subj)
                         if sensor.log_event:
-                            self.update_log(sensor, 'lge', _(u'Not response!'))
+                            if sensor.enabled:
+                                self.update_log(sensor, 'lge', _(u'Not response!'))
+                            else:
+                                self.update_log(sensor, 'lge', _(u'Out of order'))
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        else:    
+                            self.start_status(sensor.name, _(u'Out of order'), sensor.index)
 
             ### Multi Soil ###
             if sensor.sens_type == 6 and sensor.multi_type == 9:
-                if sensor.response:                                                    # sensor is enabled and response is OK
+                if sensor.response and sensor.enabled:                                              # sensor is enabled and response is OK
                     state = ["-127.0"]*16
                     calculate_soil = [0.0]*16
                     tempText = ''
@@ -1347,19 +1384,29 @@ class _Sensors_Timer(Thread):
                     sensor.err_msg[9] = 0
                     if sensor.last_msg[9] != sensor.err_msg[9]:
                         sensor.last_msg[9] = sensor.err_msg[9]
-                        logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
+                        if sensor.enabled:
+                            logging.warning(_(u'Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
-                            text = _(u'Not response!')
+                            if sensor.enabled:
+                                text = _(u'Not response!')
+                            else:
+                                text = _(u'Out of order')
                             subj = _(u'Sensor {}').format(sensor.name)
                             body = text
                             self._try_send_mail(body, text, attachment=None, subject=subj)
                         if sensor.log_event:                                                # event log
-                            self.update_log(sensor, 'lge', _(u'Not response!'))
+                            if sensor.enabled:
+                                self.update_log(sensor, 'lge', _(u'Not response!'))
+                            else:
+                                self.update_log(sensor, 'lge', _(u'Out of order'))
                     if sensor.show_in_footer:
-                        self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _(u'Not response!'), sensor.index)
+                        else:    
+                            self.start_status(sensor.name, _(u'Out of order'), sensor.index)
 
     def run(self):
-        self._sleep(3)
+        self._sleep(2)
         while True:
             try:
                 self.check_sensors()

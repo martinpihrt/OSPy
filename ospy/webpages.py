@@ -717,7 +717,11 @@ class sensor_page(ProtectedPage):
                 if 'used_stations_one' in qdict:
                     sensor.used_stations_one = qdict['used_stations_one']
                 if 'used_stations_two' in qdict:
-                    sensor.used_stations_two = qdict['used_stations_two']                                    
+                    sensor.used_stations_two = qdict['used_stations_two']
+                if 'open_msg' in qdict:
+                    sensor.dry_open_msg = qdict['open_msg']
+                if 'close_msg' in qdict:
+                    sensor.dry_clos_msg = qdict['close_msg']
 
             elif sen_type == 2:                          # leak detector
                 sensor.trigger_low_program = qdict['BL']
@@ -725,7 +729,11 @@ class sensor_page(ProtectedPage):
 
             elif sen_type == 4:                          # motion
                 sensor.trigger_low_program = ["-1"]
-                sensor.trigger_high_program = qdict['CH'] 
+                sensor.trigger_high_program = qdict['CH']
+                if 'motion_msg' in qdict:
+                    sensor.motion_msg = qdict['motion_msg']
+                if 'no_motion_msg' in qdict:
+                    sensor.no_motion_msg = qdict['no_motion_msg']
 
             elif sen_type == 3:                          # moisture
                 sensor.trigger_low_program = qdict['MDL']
@@ -741,7 +749,7 @@ class sensor_page(ProtectedPage):
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
-                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']                                
+                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
             elif sen_type == 6 and (multi_type == 0 or multi_type == 1 or multi_type == 2 or multi_type == 3): # multi temperature 0-3
                 sensor.trigger_low_program = qdict['DL']
@@ -749,7 +757,7 @@ class sensor_page(ProtectedPage):
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
-                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']                
+                    sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
             elif sen_type == 6 and multi_type == 4:      # multi dry contact
                 sensor.trigger_low_program = qdict['AL']
@@ -757,7 +765,11 @@ class sensor_page(ProtectedPage):
                 if 'used_stations_one' in qdict:
                     sensor.used_stations_one = qdict['used_stations_one']
                 if 'used_stations_two' in qdict:
-                    sensor.used_stations_two = qdict['used_stations_two']                    
+                    sensor.used_stations_two = qdict['used_stations_two']
+                if 'open_msg' in qdict:
+                    sensor.dry_open_msg = qdict['open_msg']
+                if 'close_msg' in qdict:
+                    sensor.dry_clos_msg = qdict['close_msg']
 
             elif sen_type == 6 and multi_type == 5:      # multi leak detector
                 sensor.trigger_low_program = qdict['BL']
@@ -769,11 +781,15 @@ class sensor_page(ProtectedPage):
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
-                    sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']                
+                    sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']
 
             elif sen_type == 6 and multi_type == 7:      # multi motion
                 sensor.trigger_low_program = ["-1"]
                 sensor.trigger_high_program = qdict['CH']
+                if 'motion_msg' in qdict:
+                    sensor.motion_msg = qdict['motion_msg']
+                if 'no_motion_msg' in qdict:
+                    sensor.no_motion_msg = qdict['no_motion_msg']
 
             elif sen_type == 6 and multi_type == 8:      # multi sonic
                 sensor.trigger_low_program = qdict['SL']
@@ -888,7 +904,6 @@ class users_page(ProtectedPage):
         if delete_all:
             while users.count() > 0:
                 users.remove_users(users.count()-1)
-  
         return self.core_render.users()
 
 
@@ -906,12 +921,12 @@ class user_page(ProtectedPage):
                 raise web.seeother(u'/users')
 
         except ValueError:
-            pass        
+            pass
 
         if isinstance(index, int):
             user = users.get(index)
         else:
-            user = users.create_users()       
+            user = users.create_users()
 
         errorCode = qdict.get('errorCode', 'None')
         return self.core_render.user(user, errorCode)
@@ -934,44 +949,44 @@ class user_page(ProtectedPage):
         if session['category'] == 'admin':
             user.name = qdict['name']
             password = qdict['password']
-            user.category = qdict['category']    
-            user.notes = qdict['notes']   
+            user.category = qdict['category']
+            user.notes = qdict['notes']
 
         if user.name == '' and user.index < 0:
             errorCode = qdict.get('errorCode', 'uname')
-            return self.core_render.user(user, errorCode) 
+            return self.core_render.user(user, errorCode)
 
         if len(user.name) < 5:
             errorCode = qdict.get('errorCode', 'unamelen')
-            return self.core_render.user(user, errorCode)             
+            return self.core_render.user(user, errorCode)
         
         if password == user.name:
             errorCode = qdict.get('errorCode', 'upassuname')
-            return self.core_render.user(user, errorCode) 
+            return self.core_render.user(user, errorCode)
 
         if password == '':
             errorCode = qdict.get('errorCode', 'upass')
-            return self.core_render.user(user, errorCode)   
+            return self.core_render.user(user, errorCode)
 
         if len(password) < 5:
             errorCode = qdict.get('errorCode', 'unamepass')
-            return self.core_render.user(user, errorCode)            
+            return self.core_render.user(user, errorCode)
 
         if user.name == options.admin_user:
             errorCode = qdict.get('errorCode', 'unameis')
-            return self.core_render.user(user, errorCode)            
+            return self.core_render.user(user, errorCode)
         
         for x in range(users.count()):
             isuser = users.get(x)
             if user.name == isuser.name and user.index < 0:
                 errorCode = qdict.get('errorCode', 'unameis')
-                return self.core_render.user(user, errorCode)            
+                return self.core_render.user(user, errorCode)
 
         if user.index < 0 and session['category'] == 'admin':
             salt = password_salt()
             user.password_salt = salt
-            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving           
-            users.add_users(user)    
+            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
+            users.add_users(user)
 
         raise web.seeother(u'/users')
 
@@ -998,7 +1013,7 @@ class image_edit_page(ProtectedPage):
                     os.remove(img_path_th)
                 log.debug('webpages.py', _(u'Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
             except:
-            	print_report('webpages.py', traceback.format_exc())
+                print_report('webpages.py', traceback.format_exc())
                 pass
 
         if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
@@ -1058,7 +1073,7 @@ class image_edit_page(ProtectedPage):
             
                 errorCode = qdict.get('errorCode', 'uplname') 
                 return self.core_render.edit(index, img_url, errorCode)
-            else:                     # file is png continue        
+            else:                     # file is png continue
                 if not os.path.isfile(img_path_temp):
                     fout = open(img_path_temp,'w') 
                     fout.write(i.uploadfile.file.read()) 
@@ -1069,14 +1084,14 @@ class image_edit_page(ProtectedPage):
                     fout = open(img_path_temp,'w')  # temporary file after uploading
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()         
-                    log.debug('webpages.py', _(u'File has sucesfully uploaded...'))    
+                    log.debug('webpages.py', _(u'File has sucesfully uploaded...'))
 
                 try:
                     from PIL import Image           # pip install Pillow==2.7.0
 
                     if os.path.isfile(img_path_temp):
                         im = Image.open(img_path_temp)
-                        size = 50,50                # resize to thumbnail               
+                        size = 50,50                # resize to thumbnail
                         im.thumbnail(size)
                         im.save(img_path_th, "PNG")
                         im = Image.open(img_path_temp)
@@ -1106,9 +1121,9 @@ class image_view_page(ProtectedPage):
         if not os.path.isfile(img_path): 
             img_url = '/images?id=no_image'                           # fake default img
         else:
-            img_url = '/images?sf=1&id=station%s' % str(index)        # station img            
+            img_url = '/images?sf=1&id=station%s' % str(index)        # station img
 
-        return self.core_render.view(img_url)            
+        return self.core_render.view(img_url)
 
 
 class login_page(WebPage):
@@ -1149,10 +1164,10 @@ class home_page(ProtectedPage):
 
         if session['category'] == 'public':
             return self.core_render.home_public()
-        elif session['category'] == 'user': 
+        elif session['category'] == 'user':
             return self.core_render.home_user()
-        elif session['category'] == 'admin':  
-            return self.core_render.home_admin()  
+        elif session['category'] == 'admin':
+            return self.core_render.home_admin()
 
 
 class action_page(ProtectedPage):
@@ -1265,7 +1280,7 @@ class program_page(ProtectedPage):
     """Open page to allow program modification."""
 
     def GET(self, index):
-    	from ospy.server import session
+        from ospy.server import session
 
         qdict = web.input()
         try:
@@ -1434,12 +1449,12 @@ class plugins_manage_page(ProtectedPage):
             from ospy.helpers import del_rw
             import shutil
             for plugin in plugins.available():
-            	if plugin in options.enabled_plugins:
-            		options.enabled_plugins.remove(plugin)
+                if plugin in options.enabled_plugins:
+                    options.enabled_plugins.remove(plugin)
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
-            plugins.start_enabled_plugins()              
-            raise web.seeother(u'/plugins_manage')        
+            plugins.start_enabled_plugins()
+            raise web.seeother(u'/plugins_manage')
 
         if plugin is not None and plugin in plugins.available():
             if delete:
@@ -1466,7 +1481,7 @@ class plugins_manage_page(ProtectedPage):
         
         if use_update is not None and session['category'] == 'admin':
             options.use_plugin_update = use_update
-            raise web.seeother(u'/plugins_manage')    
+            raise web.seeother(u'/plugins_manage')
 
         return self.core_render.plugins_manage()
 
@@ -1488,10 +1503,10 @@ class plugins_install_page(ProtectedPage):
 
         plugins.checker.update()
 
-        if options.plugin_readme_error: # true if is ImportError: Failed loading extension partial_gfm               
+        if options.plugin_readme_error: # true if is ImportError: Failed loading extension partial_gfm
             errorCode = qdict.get('errorCode', 'gfm')
-        else:    
-            errorCode = qdict.get('errorCode', 'none')    
+        else:
+            errorCode = qdict.get('errorCode', 'none')
         return self.core_render.plugins_install(errorCode)
 
 
@@ -1576,18 +1591,26 @@ class log_page(ProtectedPage):
 
             web.header('Content-Type', 'text/csv')
             web.header('Content-Disposition', 'attachment; filename="events.csv"')
-            return data            
-   
+            return data
+
         watering_records = log.finished_runs()
         email_records = logEM.finished_email()
-        events_records = logEV.finished_events()        
+        events_records = logEV.finished_events()
 
-        if session['category'] == 'admin': 
-            return self.core_render.log(watering_records, email_records, events_records)
-        elif session['category'] == 'user': 
-            return self.core_render.log_user(watering_records, email_records, events_records)
+        if session['category'] == 'admin':
+            try:
+                return self.core_render.log(watering_records, email_records, events_records)
+            except:
+                print_report('webpages.py', traceback.format_exc())
+                raise web.seeother(u'/')
+        elif session['category'] == 'user':
+            try: 
+                return self.core_render.log_user(watering_records, email_records, events_records)
+            except:
+                print_report('webpages.py', traceback.format_exc())
+                raise web.seeother(u'/')
         else:
-            raise web.seeother(u'/')    
+            raise web.seeother(u'/')
 
     def POST(self):
         from ospy.server import session
@@ -1615,7 +1638,7 @@ class log_page(ProtectedPage):
         elif session['category'] == 'user':
             return self.core_render.log_user(watering_records, email_records, events_records)
         else:
-            raise web.seeother(u'/')    
+            raise web.seeother(u'/')
 
 class options_page(ProtectedPage):
     """Open the options page for viewing and editing."""
@@ -1627,7 +1650,7 @@ class options_page(ProtectedPage):
             raise web.seeother(u'/')
 
         qdict = web.input()
-        errorCode = qdict.get('errorCode', 'none')      
+        errorCode = qdict.get('errorCode', 'none')
 
         return self.core_render.options(errorCode)
 
@@ -1635,15 +1658,15 @@ class options_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')        
+            raise web.seeother(u'/')
 
-    	changing_language = False
+        changing_language = False
 
-        qdict = web.input()       
+        qdict = web.input()
 
-        if 'lang' in qdict:                         
+        if 'lang' in qdict:
             if qdict['lang'] != options.lang:     # if changed languages
-                changing_language = True          
+                changing_language = True
 
         if 'aes_gener' in qdict and qdict['aes_gener'] == '1':
             from ospy.helpers import now, password_hash
@@ -1654,7 +1677,7 @@ class options_page(ProtectedPage):
             raise web.seeother(u'/options?errorCode=pw_aeslenERR')
         elif 'aes_key' in qdict and len(qdict['aes_key'])<16:
             raise web.seeother(u'/options?errorCode=pw_aeslenERR')
-        else: 
+        else:
             save_to_options(qdict)
 
         if 'master' in qdict:
@@ -1701,7 +1724,7 @@ class options_page(ProtectedPage):
             report_restarted()
             restart()    # OSPy software
             msg = _(u'The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
-            return self.core_render.notice(home_page, msg)            
+            return self.core_render.notice(home_page, msg)
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
@@ -1783,9 +1806,8 @@ class options_page(ProtectedPage):
             except:
                 print_report('webpages.py', traceback.format_exc())
                 raise web.seeother(u'/')
-                  
 
-        if changing_language:      
+        if changing_language:
             report_restarted()
             restart()    # OSPy software
             msg = _(u'A language change has been made in the settings, the OSPy will now restart and load the selected language.')
@@ -1850,7 +1872,7 @@ class help_page(ProtectedPage):
     """Help page"""
 
     def GET(self): 
-        from ospy.server import session       
+        from ospy.server import session
 
         qdict = web.input()
         id = get_input(qdict, 'id')
@@ -1860,22 +1882,22 @@ class help_page(ProtectedPage):
 
         docs = get_help_files()
 
-        if options.ospy_readme_error: # true if is ImportError: Failed loading extension partial_gfm               
+        if options.ospy_readme_error: # true if is ImportError: Failed loading extension partial_gfm
             errorCode = qdict.get('errorCode', 'gfm')
         else:    
-            errorCode = qdict.get('errorCode', 'none')         
+            errorCode = qdict.get('errorCode', 'none')
 
         if session['category'] == 'admin':
             return self.core_render.help(docs, errorCode)
         if session['category'] == 'user':
-            return self.core_render.help_user(docs, errorCode)            
+            return self.core_render.help_user(docs, errorCode)
         
 class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
     def GET(self):
         msg = _(u'System component is unreachable or busy. Please wait (try again later).')
-        return self.core_render.notice('/download', msg)    	      
+        return self.core_render.notice('/download', msg)
 
 class download_page(ProtectedPage):
     """Download OSPy backup file with settings"""
@@ -1883,8 +1905,8 @@ class download_page(ProtectedPage):
         from ospy.server import session
         from ospy.helpers import mkdir_p, del_rw, ASCI_convert
         import os
-        import zipfile  
-        import time      
+        import zipfile
+        import time
 
         if session['category'] != 'admin':
             raise web.seeother(u'/')
@@ -1904,7 +1926,7 @@ class download_page(ProtectedPage):
 
         def _read_log(path):
             """Read file"""
-            try:                
+            try:
                 logf = open(path,'r')
                 return logf.read()
             except IOError:
@@ -1918,7 +1940,7 @@ class download_page(ProtectedPage):
             filePaths = []
 
             for name in dir_name:                                                             # Call the function to retrieve all files and folders of the assigned directory
-                filePaths += retrieve_file_paths(name) 
+                filePaths += retrieve_file_paths(name)
    
             if not os.path.exists(ospy_root + 'backup'):                                      # Create folder backup
                 mkdir_p(ospy_root + 'backup')
@@ -1928,16 +1950,16 @@ class download_page(ProtectedPage):
                 for file in filePaths:                                                        # Writing each file one by one
                     zip_file.write(file)
 
-            if os.path.exists(backup_path):        
+            if os.path.exists(backup_path):
                 log.debug('webpages.py', _(u'File {} is created successfully!').format(download_name))
                 import mimetypes
                 content = mimetypes.guess_type(backup_path)[0]
                 web.header('Content-type', content)
-                web.header('Content-Length', os.path.getsize(backup_path))    
+                web.header('Content-Length', os.path.getsize(backup_path))
                 web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-                return _read_log(backup_path)                
+                return _read_log(backup_path)
             else:
-                log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))                         
+                log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
                 msg = _(u'System component is unreachable or busy. Please wait (try again later).')
                 return self.core_render.notice('/download', msg)
              
@@ -1964,7 +1986,7 @@ class upload_page(ProtectedPage):
             raise web.seeother(u'/')
 
         ospy_root = './ospy/'
-        backup_path = ospy_root + 'backup/ospy_backup.zip' 
+        backup_path = ospy_root + 'backup/ospy_backup.zip'
 
         i = web.input(uploadfile={})
 
@@ -1998,8 +2020,8 @@ class upload_page(ProtectedPage):
                 report_restarted()
                 restart(3)
                 msg = _(u'Restoring backup files sucesfully, now restarting OSPy...')
-                return self.core_render.notice(home_page, msg)                 
-            else:        
+                return self.core_render.notice(home_page, msg)
+            else:
                 errorCode = "pw_filename" 
                 return self.core_render.options(errorCode)
 
@@ -2030,7 +2052,7 @@ class upload_page_SSL(ProtectedPage):
                 print_report('webpages.py', _(u'Try-ing generating SSL certificate...'))
                 log.debug('webpages.py', _(u'Try-ing generating SSL certificate...'))
 
-                from OpenSSL import crypto, SSL  
+                from OpenSSL import crypto, SSL
                 # openssl version
                 # sudo apt-get install openssl
                 from time import gmtime, mktime
@@ -2083,13 +2105,13 @@ class upload_page_SSL(ProtectedPage):
                 if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
                         os.remove(OPTIONS_FILE_PRIV)             # remove file  
-                        log.debug('webpages.py', _(u'Remove privkey.pem...'))                      
+                        log.debug('webpages.py', _(u'Remove privkey.pem...'))
 
-                fout = open('./ssl/' + i.uploadfile.filename,'w') 
-                fout.write(i.uploadfile.file.read()) 
-                fout.close() 
+                fout = open('./ssl/' + i.uploadfile.filename,'w')
+                fout.write(i.uploadfile.file.read())
+                fout.close()
 
-                log.debug('webpages.py', _('Upload SSL file %s') %i.uploadfile.filename) 
+                log.debug('webpages.py', _('Upload SSL file %s') %i.uploadfile.filename)
                 #report_restarted()
                 #restart(3)
                 #return self.core_render.restarting(home_page)
@@ -2100,7 +2122,7 @@ class upload_page_SSL(ProtectedPage):
                 return self.core_render.options(errorCode)
 
         except Exception:
-            return self.core_render.options()            
+            return self.core_render.options()
 
 class images_page(ProtectedPage):
     """Return pictures with information about board connection - for help page."""
@@ -2124,15 +2146,15 @@ class images_page(ProtectedPage):
                 if os.path.isfile(download_name):     # exists image? 
                     content = mimetypes.guess_type(download_name)[0]
                     web.header('Content-type', content)
-                    web.header('Content-Length', os.path.getsize(download_name))    
+                    web.header('Content-Length', os.path.getsize(download_name))
                     web.header('Content-Disposition', 'attachment; filename=%s' % str(id))
                     img = open(download_name,'r')
                     return img.read()
                 else:
                     return None
         except:
-            pass  
-            return None  
+            pass
+            return None
         
 ################################################################################
 # APIs                                                                         #
@@ -2286,7 +2308,7 @@ class showInFooter(object):
     @unit.setter
     def unit(self, text):
         self._unit = text
-        pluginFtr[self._idx][u"unit"] = " " + self._unit 
+        pluginFtr[self._idx][u"unit"] = " " + self._unit
 
 
     @property
@@ -2303,7 +2325,7 @@ class showInFooter(object):
 
 
 class showOnTimeline:
-    """ Used to display plugin data next to station time countdown on home page timeline. """ 
+    """ Used to display plugin data next to station time countdown on home page timeline. """
 
     def __init__(self, val = "", unit = ""):
         self._val = val
@@ -2352,8 +2374,8 @@ class api_plugin_data(ProtectedPage):
         data = {}
 
         if options.show_plugin_data:
-            for i, v in enumerate(pluginFtr): 
-                footer_data.append((i, v[u"val"]))          
+            for i, v in enumerate(pluginFtr):
+                footer_data.append((i, v[u"val"]))
             for v in pluginStn:
                 station_data.append((v[1]))
 
@@ -2399,8 +2421,8 @@ class api_update_status(ProtectedPage):
             data["plugin_name"]   = pl_data              # name of plugins where must be updated
             data["plugins_state"] = must_update          # status whether it is necessary to update the plugins (count plugins)
         else:
-            data["plugin_name"]   = []    
-            data["plugins_state"] = 0   
+            data["plugin_name"]   = []
+            data["plugins_state"] = 0
 
         try:
             from plugins import system_update
@@ -2408,17 +2430,17 @@ class api_update_status(ProtectedPage):
             os_avail = system_update.get_all_values()[1] # Available new OSPy version
             os_curr  = system_update.get_all_values()[2] # Actual OSPy version
 
-            data["ospy_state"] = os_state  
-            data["ospy_aval"]  = os_avail   
-            data["ospy_curr"]  = os_curr   
+            data["ospy_state"] = os_state
+            data["ospy_aval"]  = os_avail
+            data["ospy_curr"]  = os_curr
 
         except Exception:
-            data["ospy_state"] = os_state  
-            data["ospy_aval"]  = os_avail 
-            data["ospy_curr"]  = os_curr             
+            data["ospy_state"] = os_state
+            data["ospy_aval"]  = os_avail
+            data["ospy_curr"]  = os_curr
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(data)    
+        return json.dumps(data)
 
 
 class api_update_footer(ProtectedPage):
@@ -2433,9 +2455,9 @@ class api_update_footer(ProtectedPage):
         
         data = {}
         data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
-        data["cpu_usage"]   = get_cpu_usage()   
-        data["sys_uptime"]  = uptime()    
-        data["ip"]          = get_external_ip()        
+        data["cpu_usage"]   = get_cpu_usage()
+        data["sys_uptime"]  = uptime()
+        data["ip"]          = get_external_ip()
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)   

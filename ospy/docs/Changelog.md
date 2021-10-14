@@ -1,10 +1,17 @@
 OSPy Changelog
 ====
 
-September 16 2021
+October 14 2021
 -----------
 (martinpihrt)<br/>
-I released a new version of the HW1.1 multisensor board for future versions of FW. More info: https://pihrt.com/elektronika/448-esp32-multisnimac-hw1-1-pro-opensprinkler-system.
+ESP32 firmware update version 1.18:<br/>
+Added support for new hardware board HW:1.1 (multisensor by pihrt.com). New feture: two buttons for manual control for two relay. 2x LED for relays ON state. 1x LED for 3,3V power supply status. Contolling two relay via web server (from OSPy) instead one relay. Fixed: random clickering in relay (resistor in gate for FET 2N7002). Inductor package size on PCB. If GPIO4 and GPIO15 have pull-up resistors (state on GPIOs is on VCC 3,3V) then automatic detect and switch HW version to "1" HW1.1.<br/>
+Added I2C (0x3c) OLED display 0,96" 128x64 (SSD1306) to display measured values from all inputs except humidity (DHTxx) and ultrasound (because these are on the I2C connector and cannot be used at the same time as the display) More: https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_oled.png. OSPy: a description field for custom event naming has been added to the dry contact and motion sensor. Fixed: writing to the home page and logging to files in the sensors when the sensor is out of operation. Updating Slovak and Czech language.<br/>
+New parameters for web:  
+Example for on relay 1 to 400 second:  
+http://192.168.88.207/0123456789abcdef?re=1&run=400  
+For on relay 2 to 10 second:  
+http://192.168.88.207/0123456789abcdef?re_2=1&run_r2=10
 
 September 10 2021
 -----------

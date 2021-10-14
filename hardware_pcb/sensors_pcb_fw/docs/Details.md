@@ -51,7 +51,7 @@ Always connect all connectors first and then setup the sensor!
 - Motion input is = select the option whether we want to connect a pull-up resistor at the ESP32 input (then the sensor is connected between pin and gnd) or as a pull-down (then the sensor is connected between pin and VCC 3.3 V. I recommend at the same time with the sensor connect a 1 KOhm resistor between ground and pin).  
 - Moisture probe = select the option for used moisture probes: DHT22 (AM2302, AM2321), DHT 21 (AM2301), DHT11 - used SDA pin GPIO23 (not used I2C bus) and SHT21 (HTU21D) used I2C bus.
 - Divider correction (+-) = if we need to fine-tune the exact value of the voltage measurement 0-30V, then we can use the + - value for this adjustment. Example: the displayed voltage value is 10.7V and the actual value should be 12.7V (measured by a voltmeter on the main power input). Enter the value 20 in the field. The entered value is multiplied by the number 0.1 during the calculation.
-- I2C connector has a function = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3) or select soil probes (on SDA and SCL is connected 4x ADS1115 as A/D converters for 16 pcs probes).
+- I2C connector has a function = select moisture probe (DHTxx on SDA GPIO pin or SDA/SCL for SHT21) or select ultrasonic probe (Trig pin GPIO23, Echo pin GPIO22. Probe JSN-SR04 V3) or select soil probes (on SDA and SCL is connected 4x ADS1115 as A/D converters for 16 pcs probes). OLED I2C (0x3c) display 0,96" 128x64 (SSD1306) to display measured values from all inputs except humidity (DHTxx) and ultrasound (because these are on the I2C connector and cannot be used at the same time as the display).
 - DS1-DS4 calibration of temperature sensors +- Celsius.
 
 ### Sensor Settings - Finish
@@ -63,14 +63,24 @@ Always connect all connectors first and then setup the sensor!
 
 ### Sensor Relay - Controlling 
 
-#### Relay ON
+#### Relay 1 ON
 http://IP/SECCODE?re=1 (re=1 for set relay state to on)
 
-#### Relay OFF
-http://IP/SECCODE?re=0 (re=1 for set relay state to off)
+#### Relay 1 OFF
+http://IP/SECCODE?re=0 (re=0 for set relay state to off)
 
-#### Relay ON with running time
-Parameter running time for relay outputs (ex: http://192.168.88.207/0123456789abcdef?re=1&run=120 re=1 is relay on, run=xxx is time in seconds, 0123456789abcdff is secure code from theses sensor. If the run parameter is not specified, it will be ignored).
+#### Relay 2 ON (on multisensor board HW > 1.0)
+http://IP/SECCODE?re_2=1 (re_2=1 for set relay state to on)
+
+#### Relay 2 OFF (on multisensor board HW > 1.0)
+http://IP/SECCODE?re_2=0 (re_2=0 for set relay state to off)
+
+#### Relay 1, 2 ON with running time
+Parameter running time for relay outputs (ex: http://192.168.88.207/0123456789abcdef?re=1&run=120 re=1 is relay on, run=xxx is time in seconds, 0123456789abcdff is secure code from theses sensor. If the run parameter is not specified, it will be ignored).  
+Example for relay 1 ON to 400 second: 
+http://192.168.88.207/0123456789abcdef?re=1&run=400  
+For relay 2 ON to 10 second:  
+http://192.168.88.207/0123456789abcdef?re_2=1&run_r2=10
 
 Sensors Periphery
 ====
@@ -95,3 +105,6 @@ Sensors Periphery
 
 #### Soil Moisture
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_soil.png)
+
+#### OLED display
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_oled.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_oled.png)
