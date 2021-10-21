@@ -1067,6 +1067,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Weather Stations (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků)
 * Telegram Bot (komunikace s OSPy pomocí telegram.org app)
 * Door Opening (otevření zámku dveří, nebo posuvné brány)
+* Voice Station (zvuková upozornění na základě události stanic- přehrávání souborů wav a mp3)
 
 ----
 

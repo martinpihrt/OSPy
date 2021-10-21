@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2021-10-14 12:30+CEST\n"
-"PO-Revision-Date: 2021-10-14 12:33+0200\n"
+"POT-Creation-Date: 2021-10-21 10:51+CEST\n"
+"PO-Revision-Date: 2021-10-21 11:15+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1690,6 +1690,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/temperature_switch/templates/temperature_switch.html:20
 #: plugins/ups_adj/templates/ups_adj.html:179
 #: plugins/voice_notification/templates/voice_notification.html:25
+#: plugins/voice_station/templates/voice_station.html:22
 #: plugins/volt_temp_da/templates/volt_temp_da.html:22
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:21
 #: plugins/water_meter/templates/water_meter.html:21
@@ -1821,12 +1822,14 @@ msgstr ""
 #: ospy/templates/edit.html:84 ospy/templates/options.html:288
 #: ospy/templates/options.html:298
 #: plugins/voice_notification/templates/voice_notification.html:114
+#: plugins/voice_station/templates/voice_station_sounds.html:72
 msgid "Upload"
 msgstr "Nahrát"
 
 #: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:606 ospy/templates/program.html:633
 #: ospy/templates/programs.html:59
+#: plugins/voice_station/templates/voice_station_sounds.html:56
 msgid "Delete"
 msgstr "Smazat"
 
@@ -1909,6 +1912,9 @@ msgstr "Smazat"
 #: plugins/usage_statistics/templates/usage_statistics.html:44
 #: plugins/voice_notification/templates/voice_notification.html:124
 #: plugins/voice_notification/templates/voice_notification_help.html:15
+#: plugins/voice_station/templates/voice_station.html:103
+#: plugins/voice_station/templates/voice_station_help.html:18
+#: plugins/voice_station/templates/voice_station_sounds.html:81
 #: plugins/volt_temp_da/templates/volt_temp_da.html:80
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:20
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:84
@@ -2594,6 +2600,7 @@ msgstr "Čas startu"
 #: plugins/email_notifications/__init__.py:139 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
+#: plugins/voice_station/templates/voice_station.html:58
 msgid "Station"
 msgstr "Stanice"
 
@@ -2736,6 +2743,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/ups_adj/templates/ups_adj.html:241
 #: plugins/usage_statistics/templates/usage_statistics.html:35
 #: plugins/voice_notification/templates/voice_notification.html:97
+#: plugins/voice_station/templates/voice_station.html:92
 #: plugins/volt_temp_da/templates/volt_temp_da.html:64
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:73
 #: plugins/water_meter/templates/water_meter.html:49
@@ -2758,6 +2766,7 @@ msgstr "Stav"
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj_log.html:11
+#: plugins/voice_station/templates/voice_station.html:102
 #: plugins/webcam/templates/webcam.html:67
 #: plugins/wind_monitor/templates/wind_monitor_log.html:11
 msgid "Refresh"
@@ -4425,6 +4434,7 @@ msgstr ""
 #: plugins/temperature_switch/templates/temperature_switch.html:199
 #: plugins/ups_adj/templates/ups_adj.html:250
 #: plugins/voice_notification/templates/voice_notification.html:123
+#: plugins/voice_station/templates/voice_station.html:101
 #: plugins/volt_temp_da/templates/volt_temp_da.html:79
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:83
 #: plugins/water_meter/templates/water_meter.html:58
@@ -12702,14 +12712,17 @@ msgid "Voice notification is enabled."
 msgstr "Hlasové oznámení je povoleno."
 
 #: plugins/voice_notification/__init__.py:221
+#: plugins/voice_station/__init__.py:92
 msgid "Pygame is not installed."
 msgstr "Pygame není nainstalován."
 
 #: plugins/voice_notification/__init__.py:222
+#: plugins/voice_station/__init__.py:93
 msgid "Please wait installing pygame..."
 msgstr "Počkejte prosím na instalaci pygame..."
 
 #: plugins/voice_notification/__init__.py:226
+#: plugins/voice_station/__init__.py:96
 msgid "Pygame is now installed."
 msgstr "Pygame je nyní nainstalován."
 
@@ -12769,10 +12782,12 @@ msgid "Voice Notification - Settings"
 msgstr "Rozšíření hlasové oznámení nastavení"
 
 #: plugins/voice_notification/templates/voice_notification.html:29
+#: plugins/voice_station/templates/voice_station.html:27
 msgid "Enable voice"
 msgstr "Povolení hlasu"
 
 #: plugins/voice_notification/templates/voice_notification.html:30
+#: plugins/voice_station/templates/voice_station.html:28
 msgid "If the check box is marked, the extension will be active."
 msgstr "Pokud je zaškrtávací políčko označeno, rozšíření bude aktivní."
 
@@ -12802,26 +12817,32 @@ msgid "How many times to repeat the same message."
 msgstr "Kolikrát zopakovat stejnou zprávu."
 
 #: plugins/voice_notification/templates/voice_notification.html:52
+#: plugins/voice_station/templates/voice_station.html:37
 msgid "Master volume"
 msgstr "Hlasitost"
 
 #: plugins/voice_notification/templates/voice_notification.html:53
+#: plugins/voice_station/templates/voice_station.html:38
 msgid "Setting the Raspberry Pi output volume (0-100%)."
 msgstr "Nastavení výstupního hlasitosti Raspberry Pi (0-100%)."
 
 #: plugins/voice_notification/templates/voice_notification.html:57
+#: plugins/voice_station/templates/voice_station.html:42
 msgid "Play only from"
 msgstr "Hrát pouze od"
 
 #: plugins/voice_notification/templates/voice_notification.html:58
+#: plugins/voice_station/templates/voice_station.html:43
 msgid "Play notifications only from this time (hours)."
 msgstr "Přehrát oznámení pouze od této doby (hodiny)."
 
 #: plugins/voice_notification/templates/voice_notification.html:62
+#: plugins/voice_station/templates/voice_station.html:47
 msgid "Play only to"
 msgstr "Hrát pouze do"
 
 #: plugins/voice_notification/templates/voice_notification.html:63
+#: plugins/voice_station/templates/voice_station.html:48
 msgid "Play notifications only to this time (hours)."
 msgstr "Přehrávejte oznámení pouze do této doby (hodiny)."
 
@@ -12863,6 +12884,7 @@ msgstr ""
 "systému OSPy."
 
 #: plugins/voice_notification/templates/voice_notification_help.html:9
+#: plugins/voice_station/templates/voice_station_help.html:10
 msgid ""
 "Into the Connector from Output on Raspberry Pi connect Amplifier and "
 "Speakers for voice notification."
@@ -12871,6 +12893,7 @@ msgstr ""
 "hlasové oznámení."
 
 #: plugins/voice_notification/templates/voice_notification_help.html:10
+#: plugins/voice_station/templates/voice_station_help.html:11
 msgid ""
 "This plugin requires pygame installed. If pygame is not installed on the "
 "system, plugin it will install it himself. Pygame is comes already installed "
@@ -12883,6 +12906,233 @@ msgstr ""
 #: plugins/voice_notification/templates/voice_notification_help.html:11
 msgid "and"
 msgstr "a"
+
+#: plugins/voice_station/__init__.py:26
+msgid "Package: Voice Station"
+msgstr "Balíček: Hlasové oznámení stanic"
+
+#: plugins/voice_station/__init__.py:71
+msgid "Voice Station is disabled."
+msgstr "Hlasové oznámení stanic je zakázené."
+
+#: plugins/voice_station/__init__.py:73
+msgid "Voice Station is enabled."
+msgstr "Hlasové oznámení stanic je povolené."
+
+#: plugins/voice_station/__init__.py:106 plugins/voice_station/__init__.py:173
+#: plugins/voice_station/__init__.py:186 plugins/voice_station/__init__.py:205
+#: plugins/voice_station/__init__.py:270 plugins/voice_station/__init__.py:345
+#: plugins/voice_station/__init__.py:381
+msgid "Voice Station plug-in"
+msgstr "Balíček hlasové oznámení stanic"
+
+#: plugins/voice_station/__init__.py:122
+msgid "Stations {} ON"
+msgstr "Stanice {} ZAP"
+
+#: plugins/voice_station/__init__.py:127 plugins/voice_station/__init__.py:144
+msgid "Stations: {}."
+msgstr "Stanice {}."
+
+#: plugins/voice_station/__init__.py:130 plugins/voice_station/__init__.py:147
+#: plugins/voice_station/__init__.py:301
+msgid "File not exists!"
+msgstr "Soubor neexistuje!"
+
+#: plugins/voice_station/__init__.py:139
+msgid "Stations {} OFF"
+msgstr "Stanice {} VYP"
+
+#: plugins/voice_station/__init__.py:241
+msgid "Songs in queue {}"
+msgstr "Skladby ve frontě {}"
+
+#: plugins/voice_station/__init__.py:243
+msgid "Nr. {} -> {}"
+msgstr "Číslo. {} -> {}"
+
+#: plugins/voice_station/__init__.py:244
+msgid "Loading: {}"
+msgstr "Nahrávám: {}"
+
+#: plugins/voice_station/__init__.py:247
+msgid "Set master volume to {}%"
+msgstr "Nastavuji hlasitost na {}%"
+
+#: plugins/voice_station/__init__.py:255
+msgid "Playing."
+msgstr "Přehrávám."
+
+#: plugins/voice_station/__init__.py:264
+msgid "Stopping."
+msgstr "Zastavuji."
+
+#: plugins/voice_station/__init__.py:298
+msgid "Button test {}."
+msgstr "Tlačítko test {}."
+
+#: plugins/voice_station/__init__.py:305
+msgid "Button Stop."
+msgstr "Tlačítko stop."
+
+#: plugins/voice_station/__init__.py:368
+#: plugins/voice_station/templates/voice_station_sounds.html:15
+msgid "Error. File must be in mp3 or wav format!"
+msgstr "Chyba: soubor musí být ve formátu mp3 nebo wav!"
+
+#: plugins/voice_station/__init__.py:375
+#: plugins/voice_station/templates/voice_station_sounds.html:27
+msgid "Uploading file sucesfully."
+msgstr "Soubor byl úspěšně nahrán."
+
+#: plugins/voice_station/__init__.py:409
+msgid "Deleting file has sucesfully."
+msgstr "Smazání souboru proběhlo úspěšně."
+
+#: plugins/voice_station/__init__.py:412
+#: plugins/voice_station/templates/voice_station_sounds.html:21
+msgid "File for deleting not found!"
+msgstr "Soubor pro smazání nenalezen!"
+
+#: plugins/voice_station/templates/voice_station.html:3
+msgid "Voice Station"
+msgstr "Hlasové oznámení stanic"
+
+#: plugins/voice_station/templates/voice_station.html:21
+msgid "Voice Station - Settings"
+msgstr "Hlasové oznámení stanic - nastavení"
+
+#: plugins/voice_station/templates/voice_station.html:23
+msgid "Sound editing"
+msgstr "Úpravy zvuků"
+
+#: plugins/voice_station/templates/voice_station.html:33
+msgid ""
+"For proper operation, it is necessary to restart the OSPy after enabling and "
+"setting up this extension"
+msgstr ""
+"Pro správnou funkci je nutné restartovat OSPy po povolení a nastavení tohoto "
+"balíčku"
+
+#: plugins/voice_station/templates/voice_station.html:59
+msgid "Sound in starting"
+msgstr "Zvuk při spuštění"
+
+#: plugins/voice_station/templates/voice_station.html:60
+msgid "Sound in stopping"
+msgstr "Zvuk při zastavení"
+
+#: plugins/voice_station/templates/voice_station.html:67
+#: plugins/voice_station/templates/voice_station.html:76
+msgid "Not assigned"
+msgstr "Není přiřazeno"
+
+#: plugins/voice_station/templates/voice_station.html:69
+#: plugins/voice_station/templates/voice_station.html:78
+msgid "Select the sound for this station."
+msgstr "Vyberte zvuk pro tuto stanici."
+
+#: plugins/voice_station/templates/voice_station.html:71
+#: plugins/voice_station/templates/voice_station.html:80
+msgid "Play"
+msgstr "Přehrát"
+
+#: plugins/voice_station/templates/voice_station.html:72
+#: plugins/voice_station/templates/voice_station.html:81
+msgid "Stop"
+msgstr "Zastavit"
+
+#: plugins/voice_station/templates/voice_station.html:90
+msgid ""
+"Record some songs first and then you will be able to assign stations to the "
+"songs here."
+msgstr ""
+"Nejprve nahrajte některé skladby a poté zde budete moci přiřadit stanice ke "
+"skladbám."
+
+#: plugins/voice_station/templates/voice_station_help.html:3
+#: plugins/voice_station/templates/voice_station_help.html:7
+msgid "Voice Station - help"
+msgstr "Hlasové oznámení stanic - nápověda"
+
+#: plugins/voice_station/templates/voice_station_help.html:8
+msgid ""
+"This plugin allows you to use voice notifications for stations events in the "
+"OSPy system."
+msgstr ""
+"Tento balíček vám umožňuje používat hlasová upozornění na událostech stanic "
+"v systému OSPy."
+
+#: plugins/voice_station/templates/voice_station_help.html:9
+msgid ""
+"Unlike the voice notification extension, this extension works directly with "
+"the output (ie changing the station on or off)."
+msgstr ""
+"Na rozdíl od rozšíření pro hlasové oznámení toto rozšíření pracuje přímo s "
+"výstupem (tj. Zapnutí nebo vypnutí stanice)."
+
+#: plugins/voice_station/templates/voice_station_help.html:12
+msgid ""
+"If more than one station is activated in a row, the songs are added to the "
+"queue and then played from the queue."
+msgstr ""
+"Pokud je aktivována více než jedna stanice v řadě, skladby se přidají do "
+"fronty a poté se přehrají z fronty."
+
+#: plugins/voice_station/templates/voice_station_help.html:13
+msgid ""
+"You can upload any song with any name in mp3 and wav format to the song "
+"directory."
+msgstr ""
+"Do adresáře skladeb můžete nahrát libovolnou skladbu s libovolným názvem ve "
+"formátu mp3 a wav."
+
+#: plugins/voice_station/templates/voice_station_help.html:14
+msgid ""
+"Unlike the \"voice notification\" package, this extension has no connection "
+"to the station scheduler (ie how the programs and the stations assigned in "
+"them are set up). In this extension, the song will be played whenever the "
+"station status changes, regardless of what event the status triggered (for "
+"example, manual mode, scheduler, or some other plugin...)"
+msgstr ""
+"Na rozdíl od balíčku „hlasové upozornění“ toto rozšíření nemá žádné "
+"připojení k plánovači stanic (tj. Jak jsou nastaveny programy a v nich "
+"přiřazené stanice). V tomto rozšíření bude skladba přehrávána vždy, když se "
+"změní stav stanice, bez ohledu na to, jakou událost stav vyvolal (například "
+"manuální režim, plánovač nebo nějaký jiný balíček...)"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:3
+#: plugins/voice_station/templates/voice_station_sounds.html:40
+msgid "Voice Station - Sounds"
+msgstr "Hlasové oznámení stanic - zvuky"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:18
+msgid "Any error, check debug file in OSPy system!"
+msgstr "Nějaká chyba, zkontrolujte ladicí soubor v systému OSPy!"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:24
+msgid "Deleting file sucesfully."
+msgstr "Smazání souboru proběhlo úspěšně."
+
+#: plugins/voice_station/templates/voice_station_sounds.html:44
+msgid "Item"
+msgstr "Položka"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:45
+msgid "File Name"
+msgstr "Název souboru"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:46
+msgid "Deletion"
+msgstr "Smazání"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:67
+msgid "Upload sound file"
+msgstr "Nahrajte zvukový soubor"
+
+#: plugins/voice_station/templates/voice_station_sounds.html:68
+msgid "File must be in *.mp3 or *.wav format."
+msgstr "Soubor musí být ve formátu *.mp3 nebo *.wav."
 
 #: plugins/volt_temp_da/__init__.py:21
 msgid "Package: Voltage and Temperature Monitor"

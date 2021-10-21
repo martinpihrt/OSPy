@@ -1016,6 +1016,7 @@ Available plug-ins:
 * Weather Stations
 * Telegram Bot
 * Door Opening
+* Voice Station
 
 ----
 

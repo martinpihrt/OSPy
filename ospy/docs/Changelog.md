@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+October 21 2021
+-----------
+(martinpihrt)<br/>
+Added new plugin "Voice station" You can upload any song with any name in mp3 and wav format to the song directory. Unlike the "voice notification" package, this extension has no connection to the station scheduler (ie how the programs and the stations assigned in them are set up). In this extension, the song will be played whenever the station status changes, regardless of what event the status triggered (for example, manual mode, scheduler, or some other plugin...). The extension of "voice notification" will also be adjusted in the future.Updating Czech language.
+
 October 14 2021
 -----------
 (martinpihrt)<br/>
