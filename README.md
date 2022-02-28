@@ -1,3 +1,6 @@
+This repository is no longer maintained (it is obsolete for Python 2). Newly this project will be available as OSPy3 (for Python 3.9+)
+https://github.com/martinpihrt/OSPy3
+
 OSPy
 ###### **O**pen **S**prinkler **Py**thon
 OSPy is a free Raspberry Pi based Python 2.7 (no support for python 3 yet) program for controlling irrigation systems (sprinkler, drip, IoT, etc).
