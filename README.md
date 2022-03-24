@@ -1,9 +1,7 @@
-This repository is no longer maintained (it is obsolete for Python 2). Newly this project will be available as OSPy3 (for Python 3.9+)
-https://github.com/martinpihrt/OSPy3
-
 OSPy
 ###### **O**pen **S**prinkler **Py**thon
-OSPy is a free Raspberry Pi based Python 2.7 (no support for python 3 yet) program for controlling irrigation systems (sprinkler, drip, IoT, etc).
+OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation systems (sprinkler, drip, IoT, etc). Python 2 should still be working, but no guarantees.
+Options stored in Python 2 are made forward compatible for Python 3. Make sure to run at least once more using Python 2 if you want to retain existing Python 2 settings.
 This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
 
 ## More information visit
@@ -23,7 +21,7 @@ YouTube OpenSprinkler channel</br>
 INSTALLATION:
 ===========
 
-### Operating system (Debian >= 9) for Raspberry Pi
+### Operating system Raspbian for Raspberry Pi
 1. Install latest operating system: "Raspbian Buster or next new version -  with desktop and recommended software" https://www.raspberrypi.org/downloads/raspbian/
 2. Change password for acces from "raspberry" to own
 3. Enabling in raspi-config SSH, I²C
@@ -45,6 +43,12 @@ sudo apt-get upgrade
 ```
 and follow the procedures
 
+for Python 3
+```bash
+sudo python3 setup.py install 
+```
+
+for Python 2
 ```bash
 sudo python setup.py install 
 ```
@@ -181,12 +185,12 @@ OpenSprinkler Py (OSPy) Interval Program
 Creative Commons Attribution-ShareAlike 3.0 license
 
 ## Acknowledgements
-The program makes use of
-
-1. [Webpy](http://webpy.org) for the web interface.  
-2. [Python markdown2](https://github.com/trentm/python-markdown2) to render the help and readme pages written in markdown.  
-3. [Pygments](http://pygments.org) to provide syntax highlighting in the help pages.  
-4. [OpenStreetMap](https://www.openstreetmap.org) to convert locations into coordinates.  
-5. [Dark Sky API](https://darksky.net/poweredby/) for weather information.  
-6. [Blinker](https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
-7. [Arduino](https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor...  
+Full credit goes to Dan for his generous contributions in porting the microcontroller firmware to Python.
+The program makes use of web.py (http://webpy.org) for the web interface.
+The program makes use of py-gfm (https://github.com/Zopieux/py-gfm) to render the help pages written in GitHub flavored markdown (Python 2)
+The program makes use of pygments (http://pygments.org) to provide syntax highlighting in the help pages. (Python 2)
+The program makes use of cmarkgfm (https://github.com/theacodes/cmarkgfm) to render the help pages written in GitHub flavored markdown (Python 3+).
+The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
+The program makes use of Dark Sky API ([Powered by Dark Sky](https://darksky.net/poweredby/)) for weather information.
+The program makes use Blinker (https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
+The program makes use Arduino (https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor.

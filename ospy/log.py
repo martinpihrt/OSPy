@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
@@ -15,7 +16,7 @@ import codecs
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import print_report
+from ospy.helpers import print_report, is_python2
 
 EVENT_FILE = './ospy/data/events.log'
 EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno)d: %(message)s"
@@ -51,7 +52,10 @@ class _Log(logging.Handler):
     @staticmethod
     def _save_log(msg, level, event_type):
         
-        msg_print = msg.encode('ascii', 'replace')
+        if is_python2():
+            msg_print = msg.encode('utf-8')
+        else:
+            msg_print = msg.encode().decode()    
        
         # Print if it is important:
         if level >= logging.WARNING:
@@ -62,9 +66,16 @@ class _Log(logging.Handler):
             print(msg_print)
 
         # Save it if we are debugging
-        if options.debug_log:
-            with codecs.open(EVENT_FILE, 'a', encoding='utf-8') as fh:
-                fh.write(msg + '\n')
+        try:
+            if options.debug_log:
+                with open(EVENT_FILE, 'a') as fh:
+                    fh.write(msg + '\n')
+        except:
+            if not path.exists('./ospy/data'):  # Create folder data (for example, after settings OSPy to the default settings from the options page)
+                from ospy.helpers import mkdir_p
+                mkdir_p('./ospy/data')
+                print_report('log.py', 'Folder /data not found! Creating...')
+                pass
 
 
     def _prune(self, event_type):
@@ -203,7 +214,7 @@ class _Log(logging.Handler):
                     min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + stations.get(station).balance.keys()))
 
         # Now try to remove as much as we can
-        for index in reversed(xrange(len(self._log['Run']) - minimum)):
+        for index in reversed(range(len(self._log['Run']) - minimum)):
             interval = self._log['Run'][index]['data']
 
             delete = True
@@ -275,16 +286,16 @@ class _LogEM():
         else:
             return  # We should not prune in this case
 
-        for index in reversed(xrange(len(self._logEM['RunEM']) - minimum)):
+        for index in reversed(range(len(self._logEM['RunEM']) - minimum)):
             interval = self._logEM['RunEM'][index]
             del self._logEM['RunEM'][index]
 
         self._save_logsEM()
 
     def save_email_log(self, subject, body, status):  
-        subject_print = subject.encode('utf-8')
-        body_print = body.encode('utf-8')
-        status_print = status.encode('utf-8')
+        subject_print = subject.encode('utf-8').decode('utf-8')
+        body_print = body.encode('utf-8').decode('utf-8')
+        status_print = status.encode('utf-8').decode('utf-8')
 
         with self._lock:
             self._logEM['RunEM'].append({
@@ -325,7 +336,7 @@ class _LogEV():
     def _save_logsEV(self):
         result = []
         if options.run_logEV:
-            result = self._logEM['RunEV']
+            result = self._logEM[u'RunEV']
         options.logged_events = result
 
     def clear_events(self, all_entries=True):
@@ -336,7 +347,7 @@ class _LogEV():
         else:
             return  # We should not prune in this case
 
-        for index in reversed(xrange(len(self._logEM['RunEV']) - minimum)):
+        for index in reversed(range(len(self._logEM['RunEV']) - minimum)):
             interval = self._logEM['RunEV'][index]
             del self._logEM['RunEV'][index]
 
@@ -344,10 +355,10 @@ class _LogEV():
 
     def save_events_log(self, subject, status, id=None):
         # example: id='Internet', id='Rain', id='server' or if not selected '-'
-        subject_print = subject.encode('utf-8')
-        status_print = status.encode('utf-8')
+        subject_print = subject.encode('utf-8').decode('utf-8')
+        status_print = status.encode('utf-8').decode('utf-8')
         if id is not None:
-            id_print = id.encode('utf-8')
+            id_print = id.encode('utf-8').decode('utf-8')
         else:
             id_print = '-'  
 

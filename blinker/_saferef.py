@@ -33,7 +33,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 """Refactored 'safe reference from dispatcher.py"""
-from __future__ import print_function
 
 import operator
 import sys
@@ -207,7 +206,7 @@ class BoundMethodWeakref(object):
 
     __repr__ = __str__
 
-    def __nonzero__(self):
+    def __bool__(self):
         """Whether we are still a valid reference."""
         return self() is not None
 

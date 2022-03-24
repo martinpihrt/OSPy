@@ -1,22 +1,25 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from functools import reduce
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
-from datetime import datetime
+from datetime import datetime, date
 from threading import Timer
 import logging
 import shelve
+import shutil
+import threading
+
 from . import i18n
 from . import helpers
 import traceback
 import os
 import time
-import glob
+from functools import reduce
 
-OPTIONS_FILE = './ospy/data/options.db'
-OPTIONS_GLOB = './ospy/data/*options.db'
+OPTIONS_FILE = './ospy/data/default/options.db'
+OPTIONS_TMP = './ospy/data/tmp/options.db'
+OPTIONS_BACKUP = './ospy/data/backup/options.db'
 
 class _Options(object):
     # Using an array to preserve order
@@ -26,7 +29,7 @@ class _Options(object):
         {
             "key": "name",
             "name": _('System name'),
-            "default": u'OpenSprinkler Pi',
+            "default": 'OpenSprinkler Pi 3',
             "help": _('Unique name of this OpenSprinkler system.'),
             "category": _('System')
         },
@@ -64,14 +67,14 @@ class _Options(object):
         {
             "key": "show_plugin_data",
             "name": _('Show plugins on home'),
-            "default": True,
+            "default": False,
             "help": _('Show data from plugins on home page.'),
             "category": _('System')
         },
         {
             "key": "show_sensor_data",
             "name": _('Show sensors on home'),
-            "default": True,
+            "default": False,
             "help": _('Show data from sensors on home page.'),
             "category": _('System')
         },        
@@ -93,16 +96,6 @@ class _Options(object):
             "default": {}
         },
         {
-            "key": "plugin_readme_error",
-            "name": _('ImportError: Failed loading extension partial_gfm'),
-            "default": False
-        },
-        {
-            "key": "ospy_readme_error",
-            "name": _('ImportError: Failed loading extension partial_gfm'),
-            "default": False
-        },        
-        {
             "key": "auto_plugin_update",
             "name": _('Automatic plug-in updates'),
             "default": False
@@ -112,6 +105,13 @@ class _Options(object):
             "name": _('Enable plug-in check status updates'),
             "default": False
         },
+        {
+            "key": "ping_ip",
+            "name": _('IP for DNS ping'),
+            "default": "8.8.8.8",
+            "help": _('IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped.'),
+            "category": _('System')
+        },          
         {
             "key": "lang",
             "name": "", #_('System language'),
@@ -138,7 +138,7 @@ class _Options(object):
         {
             "key": "location",
             "name": _('Location'),
-            "default": u' ',
+            "default": '',
             "help": _('City name or zip code. Used to determine location via OpenStreetMap for weather information.'),
             "category": _('Weather')
         },
@@ -202,7 +202,7 @@ class _Options(object):
         {
             "key": "aes_key",
             "name": _('AES key for sensors'),
-            "default": "",
+            "default": "0123456789abcdef",
             "help": _('AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor.)'),
             "category": _('Sensors')
         },
@@ -381,12 +381,22 @@ class _Options(object):
         {
             "key": "debug_log",
             "name": _('Enable debug log'),
-            "default": False,
+            "default": True,
             "help": _('Log all internal events (for debugging purposes).'),
             "category": _('Logging')
         },
         #######################################################################
         # Not in Options page as-is ###########################################
+        {
+            "key": "first_password_hash",
+            "name": _('New installation generated password hash'),
+            "default": "",
+        }, 
+        {
+            "key": "first_installation",
+            "name": _('New installation'),
+            "default": True,
+        },        
         {
             "key": "scheduler_enabled",
             "name": _('Enable scheduler'),
@@ -500,8 +510,13 @@ class _Options(object):
         {
             "key": "log_filter_login",
             "name": _('Filter for logs - event: user login'),
-            "default": False,
-        },                                           
+            "default": True,
+        },
+        {
+            "key": "last_save",
+            "name": _('Timestamp of the last database save'),
+            "default": time.time()
+        }                                                   
     ]
 
     def __init__(self):
@@ -509,32 +524,41 @@ class _Options(object):
         self._write_timer = None
         self._callbacks = {}
         self._block = []
+        self._lock = threading.Lock()
 
         for info in self.OPTIONS:
-            self._values[info["key"]] = info["default"]
+            self._values[info["key"]] = info["default"]    
 
-        for ext in ['', '.tmp', '.bak']:
-            try:
-                db = shelve.open(OPTIONS_FILE + ext)
-                if db.keys():
-                    self._values.update(db)
-                    db.close()
+        # UPGRADE from v2 (does not delete old files):
+        if not os.path.isdir(os.path.dirname(OPTIONS_FILE)):
+            helpers.mkdir_p(os.path.dirname(OPTIONS_FILE))
+            for old_options in ['./ospy/data/options.db', './ospy/data/options.db.dat', './ospy/data/options.db.bak', './ospy/data/options.db.tmp']:
+                if os.path.isfile(old_options):
+                    shutil.copy(old_options, OPTIONS_FILE)
                     break
-                else:
-                    db.close()
-            except Exception:
-                pass
 
-        if not self.password_salt:  # Password is not hashed yet
-            from ospy.helpers import password_salt
-            from ospy.helpers import password_hash
+        for options_file in [OPTIONS_FILE, OPTIONS_TMP, OPTIONS_BACKUP]:
+            try:
+                if os.path.isdir(os.path.dirname(options_file)):
+                    db = shelve.open(options_file)
+                    if list(db.keys()):
+                        self._values.update(self._convert_str_to_datetime(db))
+                        db.close()
+                        break
+                    else:
+                        db.close()
+            except Exception as err:
+                raise
 
+        if not self.first_password_hash:  # First default installation password is not hashed yet
+            import random
+            self.first_password_hash = "{:16x}".format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
+
+        if not self.password_salt:        # Password is not hashed yet
+            from ospy.helpers import password_salt, password_hash
             self.password_salt = password_salt()
-            self.password_hash = password_hash(self.password_hash, self.password_salt)
-
-        if not self.aes_key: # aes key is not created
-            from ospy.helpers import now, password_hash
-            self.aes_key = password_hash(str(now()), 'notarandomstring')[:16]
+            self.password_hash = password_hash(self.first_password_hash, self.password_salt) # admin first password hash
+            self.admin_user = 'admin'                                                        # admin first user name 
 
     def __del__(self):
         if self._write_timer is not None:
@@ -564,6 +588,8 @@ class _Options(object):
     def __getattr__(self, item):
         if item.startswith('_'):
             result = super(_Options, self).__getattribute__(item)
+        elif item not in self._values:
+            raise AttributeError
         else:
             result = self._values[item]
         return result
@@ -580,7 +606,7 @@ class _Options(object):
                         try:
                             cb(key, self._callbacks[key]['last_value'], value)
                         except Exception:
-                            logging.error(_('Callback failed') + ': ' + str(traceback.format_exc()))
+                            logging.error('Callback failed:\n' + traceback.format_exc())
                     self._callbacks[key]['last_value'] = value
 
             # Only write after 1 second without any more changes
@@ -613,37 +639,113 @@ class _Options(object):
     def __contains__(self, item):
         return item in self._values
 
+    def _convert_datetime_to_str(self, inp):
+        if isinstance(inp, dict):
+            result = {}
+            for k in inp:
+                result[self._convert_datetime_to_str(k)] = self._convert_datetime_to_str(inp[k])
+        elif isinstance(inp, list):
+            result = []
+            for v in inp:
+                result.append(self._convert_datetime_to_str(v))
+        elif isinstance(inp, datetime):
+            result = 'DATETIME:' + inp.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(inp, date):
+            result = 'DATE:' + inp.strftime('%Y-%m-%d')
+        else:
+            result = inp
+        return result
+
+    def _convert_str_to_datetime(self, inp):
+        if isinstance(inp, dict) or isinstance(inp, shelve.Shelf):
+            result = {}
+            for k in inp:
+                result[self._convert_str_to_datetime(k)] = self._convert_str_to_datetime(inp[k])
+        elif isinstance(inp, list):
+            result = []
+            for v in inp:
+                result.append(self._convert_str_to_datetime(v))
+        elif isinstance(inp, str) and inp.startswith('DATETIME:'):
+            result = datetime.strptime(inp[9:], '%Y-%m-%d %H:%M:%S')
+        elif isinstance(inp, str) and inp.startswith('DATE:'):
+            result = datetime.strptime(inp[5:15], '%Y-%m-%d').date()
+        else:
+            result = inp
+        return result
+
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
         try:
-            logging.debug(_('Saving options to disk'))
-            
-            for tmp_file in glob.glob(OPTIONS_GLOB + '.tmp'):
-                os.remove(tmp_file)
+            with self._lock:
+                logging.debug(_('Saving options to disk'))
 
-            if os.path.isfile(OPTIONS_FILE + '.tmp'):
-                os.remove(OPTIONS_FILE + '.tmp')
-                
-            db = shelve.open(OPTIONS_FILE + '.tmp')
-            db.clear()
-            db.update(self._values)
-            db.close()
+                options_dir = os.path.dirname(OPTIONS_FILE)
+                tmp_dir = os.path.dirname(OPTIONS_TMP)
+                backup_dir = os.path.dirname(OPTIONS_BACKUP)
 
-            if os.path.isfile(OPTIONS_FILE + '.bak') and time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 3600\
-                    and os.path.isfile(OPTIONS_FILE) and (os.path.getsize(OPTIONS_FILE + '.bak') >= os.path.getsize(OPTIONS_FILE) * 0.9 or
-                                                          time.time() - os.path.getmtime(OPTIONS_FILE + '.bak') > 7*3600):
-                os.remove(OPTIONS_FILE + '.bak')
+                if os.path.isdir(tmp_dir):
+                    shutil.rmtree(tmp_dir)
+                helpers.mkdir_p(tmp_dir)
 
-            if os.path.isfile(OPTIONS_FILE):
-                if not os.path.isfile(OPTIONS_FILE + '.bak'):
-                    os.rename(OPTIONS_FILE, OPTIONS_FILE + '.bak')
+                if helpers.is_python2():
+                    from dumbdbm import open as dumb_open
                 else:
-                    os.remove(OPTIONS_FILE)
+                    from dbm.dumb import open as dumb_open
 
-            if os.path.isfile(OPTIONS_FILE + '.tmp'):
-                os.rename(OPTIONS_FILE + '.tmp', OPTIONS_FILE)
+                db = shelve.Shelf(dumb_open(OPTIONS_TMP))
+                db.clear()
+                if helpers.is_python2():
+                    # We need to make sure that datetime objects are readable in Python 3
+                    # This conversion takes care of that as long as we run at least once in Python 2
+                    db.update(self._convert_datetime_to_str(self._values))
+                else:
+                    db.update(self._values)
+
+                db.close()
+
+                remove_backup = True
+                try:
+                    db = shelve.open(OPTIONS_BACKUP)
+                    if db['last_save'] - time.time() < 3600:
+                        remove_backup = False
+                    db.close()
+                except Exception:
+                    pass
+                del db
+
+                if os.path.isdir(backup_dir) and remove_backup:
+                    for i in range(10):
+                        try:
+                            shutil.rmtree(backup_dir)
+                            break
+                        except Exception:
+                            time.sleep(0.2)
+                    else:
+                        shutil.rmtree(backup_dir)
+
+                if os.path.isdir(options_dir):
+                    if not os.path.isdir(backup_dir):
+                        os.rename(options_dir, backup_dir)
+                    else:
+                        for i in range(10):
+                            try:
+                                shutil.rmtree(options_dir)
+                                break
+                            except Exception:
+                                time.sleep(0.2)
+                        else:
+                            shutil.rmtree(options_dir)
+
+                os.rename(tmp_dir, options_dir)
+
+                if helpers.is_python2():
+                    from whichdb import whichdb
+                else:
+                    from dbm import whichdb
+
+                logging.debug(_('Saved db as %s'), whichdb(OPTIONS_FILE))
         except Exception:
-            logging.warning(_('Saving error') + ': ' + str(traceback.format_exc()))
+            logging.warning(_('Saving error:\n') + traceback.format_exc())
 
     def get_categories(self):
         result = []
@@ -675,9 +777,9 @@ class _Options(object):
         self._block.append(cls)
         try:
             values = getattr(self, cls)
-            for name, value in values.iteritems():
+            for name, value in values.items():
                 setattr(obj, name, value)
-        except KeyError:
+        except AttributeError:
             pass
         self._block.remove(cls)
 
@@ -709,7 +811,7 @@ class _LevelAdjustments(dict):
         super(_LevelAdjustments, self).__init__()
 
     def total_adjustment(self):
-        return max(0.0, min(5.0, reduce(lambda x, y: x * y, self.values(), options.level_adjustment)))
+        return max(0.0, min(5.0, reduce(lambda x, y: x * y, list(self.values()), options.level_adjustment)))
 
 level_adjustments = _LevelAdjustments()
 
@@ -719,7 +821,7 @@ class _RainBlocks(dict):
         super(_RainBlocks, self).__init__()
 
     def block_end(self):
-        return max(self.values() + [options.rain_block])
+        return max(list(self.values()) + [options.rain_block])
 
     def seconds_left(self):
         return max(0, (self.block_end() - datetime.now()).total_seconds())

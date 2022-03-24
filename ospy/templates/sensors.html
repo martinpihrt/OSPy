@@ -30,27 +30,6 @@ $code:
         res = [int(x) for x in str(s)]  
         return u"{}.{}{}".format(res[0], res[1], res[2])
 
-<script>
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 15000); 
-}
-
-jQuery(document).ready(function(){
-    updateFooter(); 
-});
-</script>
 
 <div id="controls">
     <a href="/sensor/new" class="button add">$_(u'Add a New Sensor')</a>
@@ -68,7 +47,7 @@ $if sensors.count()>0:
         $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
-            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False)}>
+            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 <span class='toggleleft'>$_('On')</span>
                 <span class='togglesep'>&nbsp;</span>
                 <span class='toggleright'>$_('Off')</span>
@@ -79,10 +58,10 @@ $if sensors.count()>0:
         <p>
         $if sensor.enabled:
             $if sensor.response == 1:
-                <div id="green_circle" title=$:{json.dumps(_(u'Yes all is correct.'), ensure_ascii=False)}></div>
+                <div id="green_circle" title=$:{json.dumps(_(u'Yes all is correct.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
                 <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
             $else:
-                <div id="red_circle" title=$:{json.dumps(_(u'Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?'), ensure_ascii=False)}></div>
+                <div id="red_circle" title=$:{json.dumps(_(u'Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
                 <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
             </p>
             <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>
@@ -493,7 +472,7 @@ $if sensors.count()>0:
 
         $if sensor.notes:
             <p>$_('Notes'):</p>
-            <p><textarea title=$:{json.dumps(_('Sensor Notes.'), ensure_ascii=False).encode('utf8')} rows="1" cols="60" readonly style="background-color: #F5F5F5;">${sensor.notes}</textarea></p>
+            <p><textarea title=$:{json.dumps(_('Sensor Notes.'), ensure_ascii=False).encode('utf8').decode('utf-8')} rows="1" cols="60" readonly style="background-color: #F5F5F5;">${sensor.notes}</textarea></p>
         <p>    
         <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
         <a href="/sensor/${sensor.index}?log" class="button backup"> $_(u'View Logs')</a>

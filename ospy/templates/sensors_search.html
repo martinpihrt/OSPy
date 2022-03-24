@@ -34,24 +34,24 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
     jQuery.each(data, function(i, sensor) {
        	let stype = sensor.type;
         let snametype;
-        if(stype == 1) snametype = $:{json.dumps(_('Dry Contact'), ensure_ascii=False).encode('utf8')};
-        else if(stype == 2) snametype = $:{json.dumps(_('Leak Detector'), ensure_ascii=False).encode('utf8')};
-        else if(stype == 3) snametype = $:{json.dumps(_('Moisture'), ensure_ascii=False).encode('utf8')};
-        else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8')};
-        else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8')};
-        else if(stype == 6) snametype = $:{json.dumps(_('Multi'), ensure_ascii=False).encode('utf8')};
-        else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        if(stype == 1) snametype = $:{json.dumps(_('Dry Contact'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 2) snametype = $:{json.dumps(_('Leak Detector'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 3) snametype = $:{json.dumps(_('Moisture'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 6) snametype = $:{json.dumps(_('Multi'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         let scom = sensor.com;
         let scomtype;
-        if(scom == 0) scomtype = $:{json.dumps(_('Wi-Fi/LAN'), ensure_ascii=False).encode('utf8')};
-        else if(scom == 1) scomtype = $:{json.dumps(_('Radio'), ensure_ascii=False).encode('utf8')};
-        else scomtype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        if(scom == 0) scomtype = $:{json.dumps(_('Wi-Fi/LAN'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(scom == 1) scomtype = $:{json.dumps(_('Radio'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else scomtype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.secret+','+sensor.cpu_core+','+sensor.fw
-        let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8')}+"</button>";
+        let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8').decode('utf-8')}+"</button>";
         let cpu_name = -1;
-        if(sensor.cpu_core == 0) cpu_name = $:{json.dumps(_('ESP32'), ensure_ascii=False).encode('utf8')};
-        if(sensor.cpu_core == 1) cpu_name = $:{json.dumps(_('ESP8266'), ensure_ascii=False).encode('utf8')};
-        if(cpu_name == -1) cpu_name = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8')};
+        if(sensor.cpu_core == 0) cpu_name = $:{json.dumps(_('ESP32'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        if(sensor.cpu_core == 1) cpu_name = $:{json.dumps(_('ESP8266'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        if(cpu_name == -1) cpu_name = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8').decode('utf-8')};
 
         jQuery('<tr>').append(
             jQuery('<td>').text(sensor.name),
@@ -77,24 +77,7 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
     });
 }
 
-function updateFooter(){
-    jQuery.getJSON('/update_footer', function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-}
-
 jQuery(document).ready(function(){
-    updateFooter();     // timer for footer data (temperature...)
     updateSensors();    // timer for refresh sensors
 });
 </script>

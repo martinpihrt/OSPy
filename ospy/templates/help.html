@@ -1,42 +1,13 @@
-$def with (docs, errorCode)
+$def with (docs)
 
 $var title: $_(u'Help')
 $var page: help
 
 <script src="/static/scripts/help.js"></script>
 
-<script>
-    function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-    }
-    
-    var errorCode = "${errorCode}";
-    jQuery(document).ready(function(){
-        switch (errorCode) {
-            case "gfm":
-                jQuery("#error").text($:{json.dumps(_('Error: Failed loading Python extension partial gfm in markdown! README.md information in help not be displayed correctly.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
-            break;
-        }
-
-        updateFooter(); 
-    });
-</script> 
 
 <div id="help">
     <div class="title">$_('Help')</div>
-    <span class='Error' id='error'></span>
     <div id="help_container" class="simpleblock">
         <div id="help_menu">
             $for index, doc_entry in enumerate(docs):
@@ -44,10 +15,8 @@ $var page: help
                     <p class="help_link_${doc_entry[0]}"><a href="#${index}">${doc_entry[1]}</a></p>
                 $else:
                     <b><p class="help_link_${doc_entry[0]}">${doc_entry[1]}</p></b>
-
         </div>
         <div id="help_contents">
-
         </div>
     </div>
 </div>

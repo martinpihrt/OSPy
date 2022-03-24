@@ -1,5 +1,4 @@
-from __future__ import absolute_import
-__author__ = 'Teodor Yantcheff' # Changed: Martin Pihrt (Fixed for logging. Added support for sensors.)
+__author__ = u'Teodor Yantcheff' 
 
 
 import base64

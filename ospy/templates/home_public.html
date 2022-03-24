@@ -85,9 +85,9 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')}  + " " + log[l].blocked + ")";
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8').decode('utf-8')}  + " " + log[l].blocked + ")";
             } else {
-                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8')} + " " + toClock(log[l].duration, 1);
+                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + toClock(log[l].duration, 1);
             }
         }
         displaySchedule(log);
@@ -134,32 +134,32 @@ function updateStatus(status) {
                 classes += " master";
                 if (station.status == "on") {
                     if (station.master){ 
-                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8')}; 
+                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8').decode('utf-8')}; 
                        }
                     else {
-                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        }
                 } else {
                     if (station.master){ 
-                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        }
                     else {
-                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        } 
                 }
                 updateInterval = 1000;
                 break;
             case "rain_delay" :
-                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             case "rain_sensed" :
-                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             case "system_off" :
-                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             default:
-                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         }
         jQuery("td#status" + station.station)
             .text(display)
@@ -196,24 +196,24 @@ function draw_graph(result) {
     for (let i = 0; i < result.length; i++) {
         let balances = [];
         let texts = [];
-        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
+        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8').decode('utf-8')} +"</th></tr>";
         let txt_body = "";
         let txt_footer = "</table>";
         for (timestamp in result[i]['balances']) {
             let balance = result[i]['balances'][timestamp];
             balances.push([1000*parseInt(timestamp), balance['total']]);
-            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
-            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
 
             for (let j = 0; j < balance['intervals'].length; j++) {
                 let interval = balance['intervals'][j]
                 txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
             }
 
-            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
+            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
             texts.push(result[i]['station'] + " @ " + toXSDate(new Date(1000*parseInt(timestamp))) + "<br>" + txt_header + txt_body + txt_footer);
 
-            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
+            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
         }
 
         if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
@@ -226,7 +226,7 @@ function draw_graph(result) {
             graph_text.push(texts);
         }
     }
-    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
+    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
     return jQuery.plot("#graph-placeholder", data, {
         series: {
             lines: {
@@ -402,7 +402,7 @@ jQuery(document).ready(function(){
                     <td>$_('User')</td>
                     <td class="adjValue">$(options.level_adjustment*100)%</td>
                 </tr>
-            $for name, adj in level_adjustments.iteritems():
+            $for name, adj in level_adjustments.items():
                 $if abs(adj-1) > 0.001:
                     <tr>
                         <td>$name</td>
@@ -442,16 +442,16 @@ jQuery(document).ready(function(){
                     <span id="displayScheduleDate"></span>
                     </td>
                     <td colspan="16" style="text-align:right">     
-                <a id="pPrev" class="button execute" title=$:{json.dumps(_(u'Switch to previous day'), ensure_ascii=False)}>&lt;&lt;$_(' Prev Day')</a>
-                <a id="pToday" class="button execute" title=$:{json.dumps(_(u'Switch to today'), ensure_ascii=False)}>$_('Today')</a>
-                <a id="pNext" class="button execute" title=$:{json.dumps(_(u'Switch to next day'), ensure_ascii=False)}>$_('Next Day') &gt;&gt;</a>
+                <a id="pPrev" class="button execute" title=$:{json.dumps(_(u'Switch to previous day'), ensure_ascii=False).encode('utf8').decode('utf-8')}>&lt;&lt;$_(' Prev Day')</a>
+                <a id="pToday" class="button execute" title=$:{json.dumps(_(u'Switch to today'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Today')</a>
+                <a id="pNext" class="button execute" title=$:{json.dumps(_(u'Switch to next day'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Next Day') &gt;&gt;</a>
                 </td>
             </tr>
             $if options.show_images:
                 <tr><td colspan="3">
             $else:
                 <tr><td colspan="2"> 
-            $for hour in xrange(0, 24):
+            $for hour in range(0, 24):
                 $ t = datetime.time(hour=hour, minute=0)
                 $if options.time_format:
                     <td class="scheduleTick">${t.strftime("%H:%M")}</td>
@@ -462,12 +462,12 @@ jQuery(document).ready(function(){
                 <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">                
                     <td class='station_name'>${station.name}</td>
                     $if options.show_images:
-                        <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8')}>
+                        <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
                         </a>
                         </td>                     
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
-                    $for tick in xrange(0,24):
+                    $for tick in range(0,24):
                         <td class="scheduleTick" data="$tick"></td>
                 </tr>
             <tr>
@@ -487,7 +487,7 @@ $if any((station.enabled and any(station.index in program.stations for program i
         <div id="legend-visible" style="float: right; width: auto;"></div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
-        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False)}>$_('Clear selection')</button>
+        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Clear selection')</button>
     </div>
 
 $if options.show_plugin_data or options.show_sensor_data:  

@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 
 class _RainSensorMixIn(object):
@@ -24,7 +25,7 @@ class _IOInputs(_RainSensorMixIn):
             for pin in self._mapping.values():
                 self._io.setup(pin, self._io.IN)
 
-        if item.startswith('_'):
+        if item.startswith(u'_'):
             return super(_IOInputs, self).__getattribute__(item)
         else:
             return self._io.input(self._mapping[item])

@@ -1,19 +1,25 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-__author__ = 'Rimco' # edited: 'Martin Pihrt' 
+
+__author__ = u'Rimco' 
 
 import shelve
 import web
 import os
+import glob
 import traceback
 import subprocess
 
 # Local imports
 from ospy.options import options
 from ospy.scheduler import scheduler
+
+import plugins
+
 from ospy.reverse_proxied import reverse_proxied
 from ospy.log import log, logEV
-from ospy.helpers import print_report
+from ospy.helpers import print_report, net_connect
 
 from socket import gethostname
 from pprint import pprint
@@ -28,7 +34,6 @@ import sys
 # sensors
 from ospy.sensors import sensors_timer
 
-
 optin_prompt = usagestats.Prompt(enable='cool_program --enable-stats',
                                  disable='cool_program --disable-stats')
 
@@ -38,8 +43,6 @@ stats = usagestats.Stats('./ospy/statistics/',
                          unique_user_id=True,
                          version='0.1'
                          )
-
-import plugins
 
 __server = None
 session = None
@@ -91,6 +94,20 @@ def start():
     global __server
     global session
 
+    import time
+    
+    if net_connect():
+        print_report('server.py', _(u'Network connection is available, Im skipping waiting.'))
+    else:
+        print_report('server.py', _(u'Network connection not available, waiting 20 seconds.'))
+        wait = 20
+        while(wait > 0):
+            wait = wait-1
+            time.sleep(1)
+            if net_connect():
+                break
+                print_report('server.py', _(u'Network connection is available.'))
+
     ##############################
     #### web.py setup         ####
     ##############################
@@ -109,8 +126,8 @@ def start():
     if options.use_ssl and not options.use_own_ssl:
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
-               log.info('server.py', _(u'Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _(u'Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               log.info('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print_report('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -120,12 +137,12 @@ def start():
                certificate = ssl_patch_fullchain,  
                private_key = ssl_patch_privkey)   
 
-               log.info('server.py', _(u'SSL OK.'))
-               print_report('server.py', _(u'SSL OK.'))
+               log.info('server.py', _('SSL OK.'))
+               print_report('server.py', _('SSL OK.'))
 
            else:
-               log.info('server.py', _(u'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report('server.py', _(u'SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.info('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print_report('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -135,10 +152,9 @@ def start():
     if options.use_own_ssl and not options.use_ssl:
        try:
            if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
-               log.info('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               print_report('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
-               # web.py 0.40 version
                from cheroot.server import HTTPServer
                from cheroot.ssl.builtin import BuiltinSSLAdapter
 
@@ -146,12 +162,12 @@ def start():
                certificate = ssl_own_patch_fullchain,  
                private_key = ssl_own_patch_privkey)   
 
-               log.info('server.py', _(u'Own SSL OK.'))
-               print_report('server.py', _(u'Own SSL OK.'))
+               log.info('server.py', _('Own SSL OK.'))
+               print_report('server.py', _('Own SSL OK.'))
 
            else:
-               log.info('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report('server.py', _(u'Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               print_report(u'server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.info('server.py', traceback.format_exc())
@@ -173,44 +189,57 @@ def start():
     __server = web.httpserver.WSGIServer((options.HTTP_web_ip, options.web_port), wsgifunc)
     __server.timeout = 1  # Speed-up restarting
 
-    sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
+    sessions = None
+    try:
+        sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
+        for s in sessions:
+            str(sessions[s])
+    except Exception:
+        if sessions is not None:
+            sessions.close()
+        for db_file in glob.glob(os.path.join('ospy', 'data', 'sessions.db*')):
+            os.remove(db_file)
+        sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
+
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
                                                'pages': [],
-                                               'category': u'public',
-                                               'visitor': _(u'Unknown operator')})
+                                               'category': 'public',
+                                               'visitor': _('Unknown operator')})
     try:
         if not session['category']:
             session['category'] = 'public'
-            print_report('server.py', _(u'Category is not in session, adding to sessions.'))
+            print_report('server.py', _('Category is not in session, adding to sessions.'))
         if not session['visitor']:
-            session['visitor'] = _(u'Unknown visitor')
-            print_report('server.py', _(u'Visitor-operator is not in session, adding to sessions.'))
+            session['visitor'] = _('Unknown visitor')
+            print_report('server.py', _('Visitor-operator is not in session, adding to sessions.'))
     except:
         session['category'] = 'public'
-        session['visitor'] = _(u'Unknown visitor')
+        session['visitor'] = _('Unknown visitor')
         pass
 
     import atexit
     atexit.register(sessions.close)
 
     def exit_msg():
-        log.info('server.py', _(u'OSPy is closing, saving sessions.')) 
-        print_report('server.py', _(u'OSPy is closing, saving sessions.'))
-        logEV.save_events_log( _(u'Server'), _(u'Stopping'), id='Server')
+        log.info('server.py', _('OSPy is closing, saving sessions.')) 
+        print_report('server.py', _('OSPy is closing, saving sessions.'))
+        logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
 
     atexit.register(exit_msg)
 
-    print_report('server.py', _(u'Starting scheduler and plugins...'))
+    print_report('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
     
-    print_report('server.py', _(u'Starting sensors timer...'))
+    print_report('server.py', _('Starting sensors timer...'))
     sensors_timer.start()    
 
-    create_statistics()
-    print_report('server.py', _(u'Ready'))
-    logEV.save_events_log( _(u'Server'), _(u'Starting'), id='Server')
+    if net_connect():
+        create_statistics()
+
+    print_report('server.py', _('OSPy is ready'))
+    logEV.save_events_log( _('Server'), _('Starting'), id='Server')
 
     try:
         __server.start()
@@ -221,15 +250,15 @@ def start():
 def stop():
     global __server
     if __server is not None:
-        logEV.save_events_log( _(u'Server'), _(u'Stopping'), id='Server')
+        logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
         __server.stop()
         __server = None
 
 
 def create_statistics():
     try:
-        log.info('server.py', _(u'Creating statistics...'))
-        print_report('server.py', _(u'Creating statistics...'))
+        log.info('server.py', _('Creating statistics...'))
+        print_report('server.py', _('Creating statistics...'))
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
@@ -237,8 +266,8 @@ def create_statistics():
         ospyNUM = version.ver_str
 
         stats.submit(
-        {'ospyfw': ospyFW,            # OSPy version
-         'ospynum': ospyNUM           # OSPy version only numeric ver
+        {'ospyfw': ospyFW,           # OSPy version
+         'ospynum': ospyNUM          # OSPy version only numeric ver
         },          
         usagestats.OPERATING_SYSTEM,  # Operating system/distribution
         usagestats.PYTHON_VERSION,    # Python version info

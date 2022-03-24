@@ -14,8 +14,6 @@ $var page: home
 let displayScheduleDate = new Date(device_time); 
 let displayScheduleTimeout;
 let graph_text;
-var modal;
-var span_modal 
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -87,9 +85,9 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8')}  + " " + log[l].blocked + ")";
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8').decode('utf-8')}  + " " + log[l].blocked + ")";
             } else {
-                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8')} + " " + toClock(log[l].duration, 1);
+                log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + toClock(log[l].duration, 1);
             }
         }
         displaySchedule(log);
@@ -136,32 +134,32 @@ function updateStatus(status) {
                 classes += " master";
                 if (station.status == "on") {
                     if (station.master){ 
-                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8')}; 
+                       display = $:{json.dumps(_('On (Master)'), ensure_ascii=False).encode('utf8').decode('utf-8')}; 
                        }
                     else {
-                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('On (Master Two)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        }
                 } else {
                     if (station.master){ 
-                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('Off (Master)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        }
                     else {
-                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8')};
+                       display = $:{json.dumps(_('Off (Master Two)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                        } 
                 }
                 updateInterval = 1000;
                 break;
             case "rain_delay" :
-                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Suppressed by Rain Delay'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             case "rain_sensed" :
-                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Suppressed by Rain Sensor'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             case "system_off" :
-                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8').decode('utf-8')};
                 break;
             default:
-                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8')};
+                display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         }
         jQuery("td#status" + station.station)
             .text(display)
@@ -180,10 +178,10 @@ function water_level_prompt(current){
     if (current != 1.0) {
         w = 100;
     } else {
-        w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8')}, current*100);
+        w = prompt($:{json.dumps(_('Enter percentage adjustment'), ensure_ascii=False).encode('utf8').decode('utf-8')}, current*100);
     }
     if (w < 0) {
-        w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (w != null) {
         window.location="/action?level_adjustment=" + w;
@@ -195,10 +193,10 @@ function rain_delay_prompt(current){
     if (current != 0) {
         h = 0;
     } else {
-        h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8')},"0");
+        h = prompt($:{json.dumps(_('Enter hours to delay'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
     }
     if (h < 0) {
-        h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8')},"0");
+        h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (h != null) {
         window.location="/action?rain_block=" + h;
@@ -228,24 +226,24 @@ function draw_graph(result) {
     for (let i = 0; i < result.length; i++) {
         let balances = [];
         let texts = [];
-        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8')} +"</th></tr>";
+        let txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</th><th>" + $:{json.dumps(_('(mm)'), ensure_ascii=False).encode('utf8').decode('utf-8')} +"</th></tr>";
         let txt_body = "";
         let txt_footer = "</table>";
         for (timestamp in result[i]['balances']) {
             let balance = result[i]['balances'][timestamp];
             balances.push([1000*parseInt(timestamp), balance['total']]);
-            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
-            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('ETo'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">-" + balance['eto'].toFixed(1) + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('Rain'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">+" + balance['rain'].toFixed(1) + "</td></tr>";
 
             for (let j = 0; j < balance['intervals'].length; j++) {
                 let interval = balance['intervals'][j]
                 txt_body += "<tr><td>" + interval['program_name'] + "</td><td class=\"balValue\">+" + interval['irrigation'].toFixed(1) + "</td></tr>";
             }
 
-            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
+            txt_body += "<tr><th>" + $:{json.dumps(_('Total'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</th><th class=\"balValue\">" + balance['total'].toFixed(1) + "</th></tr>";
             texts.push(result[i]['station'] + " @ " + toXSDate(new Date(1000*parseInt(timestamp))) + "<br>" + txt_header + txt_body + txt_footer);
 
-            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
+            txt_body = "<tr><td>" + $:{json.dumps(_('Previous Value'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">" + balance['total'].toFixed(1) + "</td></tr>";
         }
 
         if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
@@ -258,7 +256,7 @@ function draw_graph(result) {
             graph_text.push(texts);
         }
     }
-    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8')};
+    let yLabels = $:{json.dumps(_('Water balance (mm)'), ensure_ascii=False).encode('utf8').decode('utf-8')};
     return jQuery.plot("#graph-placeholder", data, {
         series: {
             lines: {
@@ -379,75 +377,8 @@ function dataTimer() {
     setTimeout(dataTimer, 3000);
 } 
 
-function updateOStimer() {
-    // Call to get system updates and plugins data
-    jQuery.getJSON("/update_status", function(osVals) {
-           // os
-        var os_curr  = osVals.ospy_curr
-        var os_aval  = osVals.ospy_aval
-        var os_state = osVals.ospy_state
-        // plugin_name
-        var pl_state = osVals.plugins_state  
-
-        modal.style.display = "block"; // blocking pop-up window
-            
-        let msg = '';
-        let hdr = '';
-       
-        if(os_state > 1){ // 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available
-            msg += '<p><b>' + $:{json.dumps(_('The system has detected that an OSPy update is available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
-            msg += $:{json.dumps(_('Local OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_curr + '<br>';
-            msg += $:{json.dumps(_('Available OSPy version'), ensure_ascii=False).encode('utf8')} + ': ' + os_aval + '<br></p>';
-            msg += '<a href="/plugins/system_update/update" class="button"><b>'+ $:{json.dumps(_('Update system'), ensure_ascii=False).encode('utf8')} + '</b></a>';
-            }
-        if(pl_state > 0){ // 0= No update plugin, >0 plugin count
-            msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8')} + '</b><br>';
-            msg += $:{json.dumps(_('Number of available updates for plugins'), ensure_ascii=False).encode('utf8')} + ': ' + pl_state + '<br>';
-            let i;
-            for(i = 0; i < osVals.plugin_name.length; i++) { 
-                msg += '<p><b>' + $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8')} + ': </b>' + osVals.plugin_name[i][1] + '</p>';
-            }
-            msg += '<a href="/plugins_manage" class="button"><b>'+ $:{json.dumps(_('Open plugins'), ensure_ascii=False).encode('utf8')} + '</b></a>';
-            msg += '</p>';
-        } 
-
-        if((os_state > 1) || (pl_state > 0)){ // only if updates
-            hdr += '<h2>' + $:{json.dumps(_('System notification'), ensure_ascii=False).encode('utf8')} + '</h2>';
-            jQuery("#modal-hdr").append(hdr); // add text to header in modal div
-            jQuery("#modal-msg").append(msg); // add to modal-msg div
-        } 
-        else{
-            modal.style.display = "none";     // hide pop-up
-        }  
-    }) 
-    setTimeout(updateOStimer, 3600000);
-}  
-
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-}
 
 jQuery(document).ready(function(){
-    // modal pop-up
-    modal = document.getElementById("OSPyModal");
-    window.onclick = function(event) {
-        if(event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
     if (manual_mode) { // manual mode
         jQuery("button.manual").click(function () {
             let sid = parseInt(jQuery(this).attr("id"));
@@ -460,7 +391,7 @@ jQuery(document).ready(function(){
                 let mm = (strmm == "" ? 0 : parseInt(strmm));
                 let ss = (strss == "" ? 0 : parseInt(strss));
                 if (!(mm >= 0 && ss >= 0 && ss < 60)) {
-                    alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8')} + " " + strmm + ":" + strss);
+                    alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + strmm + ":" + strss);
                     return;
                 }
                 window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss);  // turn it off with timer
@@ -507,39 +438,25 @@ jQuery(document).ready(function(){
                 jQuery("#sensorPars").append('<p id="${"seData" + str(i)}"><span name="aref"></span><span name="label"></span><span name="val"></span></p>');
                          
 
-        dataTimer();    // data timer for footer plugins data
- 
-    updateOStimer();    // timer for os and plugins update info  
-    updateFooter();     // timer for footer data (temperature...)                  
+        dataTimer();    // data timer for footer plugins data                 
 });
 
 </script>
 
-<div id="OSPyModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-        <div class="modal-hdr" id="modal-hdr"></div>
-    </div>
-    <div class="modal-body">
-      <div class="modal-msg" id="modal-msg"></div>
-    </div>
-  </div>
-</div>
-
 <div id="options" style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False)}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>
+    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>
     <br>
-    <a href="javascript:rain_delay_prompt(${max(0, (options.rain_block - datetime.datetime.now()).total_seconds())});" class="button toggle ${'off' if rain_blocks.seconds_left() else 'on'}" title=$:{json.dumps(_(u'Settings the time countdown (rain delay) and block programs during this time'), ensure_ascii=False)}><span class='toggleleft'>$_('Active')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Rain Delay')</span></a>
+    <a href="javascript:rain_delay_prompt(${max(0, (options.rain_block - datetime.datetime.now()).total_seconds())});" class="button toggle ${'off' if rain_blocks.seconds_left() else 'on'}" title=$:{json.dumps(_(u'Settings the time countdown (rain delay) and block programs during this time'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Active')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Rain Delay')</span></a>
     $if rain_blocks.seconds_left():
         <span id="rain_block_time" class="countdown" data="${str(rain_blocks.seconds_left())}"></span>
     $if inputs.rain_sensed():
         <span class="rainsense">$_('Rain sensed')</span>
     <br>
     <br>
-    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}" class="button toggle choice ${'off' if options.manual_mode else 'on'}" title=$:{json.dumps(_(u'Switching from scheduler to manual mode and vice versa'), ensure_ascii=False)}><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
+    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}" class="button toggle choice ${'off' if options.manual_mode else 'on'}" title=$:{json.dumps(_(u'Switching from scheduler to manual mode and vice versa'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
     $if not options.manual_mode:
         <br>
-        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"  title=$:{json.dumps(_(u'Enable or disable the scheduler running'), ensure_ascii=False)}><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
+        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"  title=$:{json.dumps(_(u'Enable or disable the scheduler running'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
     <br>&nbsp;
 </div>
 <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
@@ -551,7 +468,7 @@ jQuery(document).ready(function(){
                     <td>$_('User')</td>
                     <td class="adjValue">$(options.level_adjustment*100)%</td>
                 </tr>
-            $for name, adj in level_adjustments.iteritems():
+            $for name, adj in level_adjustments.items():
                 $if abs(adj-1) > 0.001:
                     <tr>
                         <td>$name</td>
@@ -604,10 +521,10 @@ $if options.manual_mode:
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
                             $if rem >= 0:
                                 <td class="shrink station_running">$_('in')</td>
-                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False)}>
+                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                                 <input type='text' id='mm${station.index}' size='2' maxlength='3' value='${two_digits(rem/60)}' readonly/></td>
                                 <td class="shrink station_running">:</td>
-                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False)}>
+                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                                 <input type='text' id='ss${station.index}' size='2' maxlength='2' value='${two_digits(rem%60)}' readonly/></td>
                                 <td class="station_running"></td>
                             $else:
@@ -616,16 +533,16 @@ $if options.manual_mode:
                             <td class="shrink station_running"><button class='toggle manual narrow off' id='${station.index}'>
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
                             <td class="shrink station_running">$_('For')</td>
-                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False)}>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <input type='text' id='mm${station.index}' size='2' maxlength='3' value='00'/></td>
                             <td class="shrink station_running">:</td>
-                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False)}>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <input type='text' id='ss${station.index}' size='2' maxlength='2' value='00'/></td>
                             <td class="station_running"></td>
                 </tr>
         <tr>
             <td colspan="3">
-                <a href="/action?stop_all" class="button execute delete" style="text-align:left;" title=$:{json.dumps(_(u'Press to stop all running stations'), ensure_ascii=False)}>$_('Stop All Stations')</a>
+                <a href="/action?stop_all" class="button execute delete" style="text-align:left;" title=$:{json.dumps(_(u'Press to stop all running stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
             </td>
         </tr>        
         </table>  
@@ -646,16 +563,16 @@ $else:
                     <span id="displayScheduleDate"></span>
                     </td>
                     <td colspan="16" style="text-align:right">     
-                <a id="pPrev" class="button execute" title=$:{json.dumps(_(u'Switch to previous day'), ensure_ascii=False)}>&lt;&lt;$_(' Prev Day')</a>
-                <a id="pToday" class="button execute" title=$:{json.dumps(_(u'Switch to today'), ensure_ascii=False)}>$_('Today')</a>
-                <a id="pNext" class="button execute" title=$:{json.dumps(_(u'Switch to next day'), ensure_ascii=False)}>$_('Next Day') &gt;&gt;</a>
+                <a id="pPrev" class="button execute" title=$:{json.dumps(_(u'Switch to previous day'), ensure_ascii=False).encode('utf8').decode('utf-8')}>&lt;&lt;$_(' Prev Day')</a>
+                <a id="pToday" class="button execute" title=$:{json.dumps(_(u'Switch to today'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Today')</a>
+                <a id="pNext" class="button execute" title=$:{json.dumps(_(u'Switch to next day'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Next Day') &gt;&gt;</a>
                 </td>
             </tr>
             $if options.show_images:
                 <tr><td colspan="3">
             $else:
                 <tr><td colspan="2">    
-            $for hour in xrange(0, 24):
+            $for hour in range(0, 24):
                 $ t = datetime.time(hour=hour, minute=0)
                 $if options.time_format:
                     <td class="scheduleTick">${t.strftime("%H:%M")}</td>
@@ -666,12 +583,12 @@ $else:
                 <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">
                     <td class='station_name'>${station.name}</td>
                     $if options.show_images:
-                        <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8')}>
+                        <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
                         </a>
                         </td>                    
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
-                    $for tick in xrange(0,24):
+                    $for tick in range(0,24):
                         <td class="scheduleTick" data="$tick"></td>
                 </tr>
             <tr>
@@ -679,7 +596,7 @@ $else:
                     <td colspan="3">
                 $else:
                     <td colspan="2">        
-                <a href="/action?stop_all" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False)}>$_('Stop All Stations')</a>
+                <a href="/action?stop_all" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
                 </td>
                 $if options.show_images:
                     <td colspan="25" id="legend" style="text-align:center">
@@ -697,7 +614,7 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
         <div id="legend-visible" style="float: right; width: auto;"></div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>
-        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False)}>$_('Clear selection')</button>
+        <button id="clearSelection" title=$:{json.dumps(_(u'Deselecting the selected area in the chart'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Clear selection')</button>
     </div>
 
 $if options.show_plugin_data or options.show_sensor_data:  
@@ -714,7 +631,7 @@ $if options.show_plugin_data or options.show_sensor_data:
             $_('Weather - Location') $_('found:') $options.location
         $if options.weather_lat and options.weather_lon:
             $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
-            <a href="${patch}" class="button upload" target="_blank" title=$:{json.dumps(_(u'Displaying the found area on the map'), ensure_ascii=False)}>$_('Map')</a> 
+            <a href="${patch}" class="button upload" target="_blank" title=$:{json.dumps(_(u'Displaying the found area on the map'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Map')</a> 
             ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
         $if options.weather_status == 2:
             $_('Weather - No location coordinates available!')       

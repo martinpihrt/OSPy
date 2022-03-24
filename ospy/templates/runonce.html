@@ -4,22 +4,6 @@ $var title: $_('Run-Once')
 $var page: runonce
 
 <script>
-    function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-    }
-
     jQuery(document).ready(function(){
 
     jQuery("#cSubmit").click(function() {
@@ -35,7 +19,7 @@ $var page: runonce
             hour = (isNaN(hour) ? 0 : hour);
             minute = (isNaN(minute) ? 0 : minute);
             if (hour < 0 || minute < 0 || minute > 59) {
-                alert($:{json.dumps(_('All values should be positive and seconds should not exceed 59.'), ensure_ascii=False).encode('utf8')});
+                alert($:{json.dumps(_('All values should be positive and seconds should not exceed 59.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
                 return false;
             }
             if (hour > 0 || minute > 0) anything = true;
@@ -46,8 +30,6 @@ $var page: runonce
     jQuery("#cResetTime").click(function(){
         jQuery("input[type='number']").val(0);
     });
-
-    updateFooter();
     });
 </script>
 
@@ -58,7 +40,7 @@ $var page: runonce
             $for station in stations.enabled_stations():
                 <tr>
                     <td class='station_name'>${station.name}</td>
-                    <td title=$:{json.dumps(_(u'Type time for run in minutes and seconds'), ensure_ascii=False)}>
+                    <td title=$:{json.dumps(_('Type time for run in minutes and seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input id="mm${station.index}" name="mm${station.index}" type="number" size="3" maxlength="3" value="0" min="0" max="999">:
                         <input id="ss${station.index}" name="ss${station.index}" type="number" size="2" maxlength="2" value="0" min="0" max="59">
                     </td>    

@@ -224,9 +224,9 @@ OSPy Web Interface Guide in English
 ----
 
 # Logging in
-The login page presents a text box for entering a password. The default password is **opendoor**. 
+The login page presents a text box for entering name a password. The default name is **admin**. For the first installation, a random password will be generated (this password must then be changed in the settings for a different password! 
 It is recommended that you change to a new password on the Options page.
-Enter the password and click the **LOGIN** button.
+Enter the your name and password and click the **LOGIN** button.
 
 ----
 
@@ -265,19 +265,19 @@ When the rain delay is activated, "Rain Delay" is displayed and all stations wit
 If the rain sensor is activated, "Rain sensed" is displayed and all stations with no exception will be blocked.
 
 ## CPU Temp
-The Temperature of the Raspberry pi's CPU temperature. The displayed temperature can be toggled between C and F.
+The Temperature of the Raspberry pi CPU temperature. The displayed temperature can be toggled between C and F.
 
 ## CPU Usage
-The Usage of the Raspberry pi's CPU usage. The displayed usage as %.
+The Usage of the Raspberry pi CPU usage. The displayed usage as %.
 
 ## Software version
-A link to the project's software repository and the revision number of the installed software.
+A link to the project software repository and the revision number of the installed software.
 
 ## External IP
 The External IP address for OSPy system. Connected your network to provider. Tested via pihrt.com ipbot.
 
 ## Working
-The Running time of the system Raspberry pi's.
+The Running time of the system Raspberry pi.
 
 ----
 
@@ -480,14 +480,14 @@ You will be taken to the home page and the clock will be in the selected format.
 IP Address used for HTTP/S server socket. IPv4 or IPv6 address (effective after reboot.) Default is 0.0.0.0.
 
 #### About the port number 
-The HTTP port number is part of the system's URL.
-Port 80 is the default number for web sites and as such does not need to be included when the URL is entered into a browser's address bar. Many web servers use port 80 by default.
+The HTTP port number is part of the system URL.
+Port 80 is the default number for web sites and as such does not need to be included when the URL is entered into a browser address bar. Many web servers use port 80 by default.
 If you are running another server on the same Raspberry Pi as OSPy and using the same port number there will be a conflict and OSPy may not start.
-You can avoid the conflict by changing OSPy's port number on the Options page to something like 8080. If you change the port number OSPy uses you will need to include that number, preceded by a colon, in the URL for OSPy's web interface. For example:
+You can avoid the conflict by changing OSPy port number on the Options page to something like 8080. If you change the port number OSPy uses you will need to include that number, preceded by a colon, in the URL for OSPy web interface. For example:
 [URL of the Raspberry pi]:8080
 
 ### HTTP/S port
-The HTTP/S port number is part of the system's URL. Port 80 is the default number for web pages.
+The HTTP/S port number is part of the system URL. Port 80 is the default number for web pages.
 
 * Click in the text field next to the HTTP/S port option.
 * Type the port number you wish to use, e.g. 8080.
@@ -496,11 +496,11 @@ The HTTP/S port number is part of the system's URL. Port 80 is the default numbe
 You will be returned to the home page. The system will reboot but there is no visible indication of the reboot in the web interface. Wait at least 60 seconds, then add the new port number to the URL of the Pi, preceded by a colon (:), and try re-connecting to OSPy.
 
 ### Show plugins on home
-If you want to display measured data from the extension (wind, temperature, level ...) on the home page, check the box. If we don't want to show data from the extension, we uncheck it.
+If you want to display measured data from the extension (wind, temperature, level ...) on the home page, check the box. If we dont want to show data from the extension, we uncheck it.
 * Please note that it is necessary to have the extension enabled and properly set in order for the data to be displayed correctly.
 
 ### Show sensors on home
-If you want to display measured data from the sensors on the home page, check the box. If we don't want to show data from the sensors, we uncheck it.
+If you want to display measured data from the sensors on the home page, check the box. If we dont want to show data from the sensors, we uncheck it.
 * Please note that it is necessary to have the sensors enabled and properly set in order for the data to be displayed correctly.
 
 ### Select Language  
@@ -568,12 +568,12 @@ In this section you can customize a secure connection using SSL and a certificat
 If we have configured the OSPy server for enhanced security of SSL data transmission, select the "Use HTTPS" checkbox. If the "Use HTTPS" option is checked and the server is not set up correctly, OSPy will run as an http server without security.
 
 ### Domain Name
-The certificate is located on the system in the '/etc/letsencrypt/live/' domain name '/fullchain.pem' and '/etc/letsencrypt/live/' domain name '/privkey.pem' directories. It is necessary to install the certificate manually into the system (Linux) using the "Certbot" tool (the use of https will not be reflected in OSPy until the OSPy is restarted).
+The certificate is located on the system in the "/etc/letsencrypt/live/" domain name "/fullchain.pem" and "/etc/letsencrypt/live/" domain name "/privkey.pem" directories. It is necessary to install the certificate manually into the system (Linux) using the "Certbot" tool (the use of https will not be reflected in OSPy until the OSPy is restarted).
 * The procedure for installing Certificate Services can be found in the "Readme" help file or on Github.
 
 ### Use Certbot
-For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
-The Certbot (https://certbot.eff.org/) and Let’s Encrypt (https://letsencrypt.org/) for enabling SSL security.
+For using "https" in OSPy options you must follow these procedures. SSL certificate via Lets Encrypt certification authority.
+The Certbot (https://certbot.eff.org/) and Let Encrypt (https://letsencrypt.org/) for enabling SSL security.
 
 Execute:
 ```bash
@@ -676,7 +676,7 @@ Enable and set the switch type of a rain sensor. If you are using a Raspberry Pi
 Click the Use rain sensor check box to enable rain sensing.
 
 ### Normally open
-Leave the Normally open box checked if your sensor's switch is the normally open type otherwise un check the box. See the rain sensor's user guide for information about the switch type.
+Leave the Normally open box checked if your sensor switch is the normally open type otherwise un check the box. See the rain sensor user guide for information about the switch type.
 
 ### Set rain delay
 When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor).
@@ -688,7 +688,7 @@ Rain delay time (in hours), between 0 and 500.
 Turn on logging and set the number of records to keep. Turn on logging for email and set the number of records to keep.
   
 ### Enable run log
-Click the Enable run log checkbox. This will turn logging on and enable irrigation history on the Home page's timeline.
+Click the Enable run log checkbox. This will turn logging on and enable irrigation history on the Home page timeline.
 
 ### Max run entries
 Enter the number of records to keep in the log Set this to a number that will cover a reasonable length of time such as a week or month. This will depend on the number of programs and stations you have. There will be one record for each time a station is run. 0=no limit.
@@ -782,7 +782,7 @@ How to find approximate proportions of sand, mud and clay? This is a simple test
 Mix the water and soil well, remove the bottle and do not touch it for an hour. After an hour the water becomes clear and you will see that larger particles have settled:
 
 - Pieces of organic matter may float on the water surface
-- There's a layer of clay on top.
+- There a layer of clay on top.
 If the water is still not clear, it is because some of the finest clays are still mixed with water
 - In the middle is a layer of mud
 - There is a layer of sand at the bottom
@@ -875,9 +875,9 @@ Select the sensor type.
 * Program(s) Mark the required programs to run.  
 
 #### Temperature
-* Low Threshold (0-100 °C/°F) When this level is exceeded, the low program(s) is activated.  
+* Low Threshold (0-100 ?C/?F) When this level is exceeded, the low program(s) is activated.  
 * Low Program(s) Mark the required programs to run.  
-* High Threshold (0-100 °C/°F) When this level is exceeded, the high program(s) is activated.  
+* High Threshold (0-100 ?C/?F) When this level is exceeded, the high program(s) is activated.  
 * High Program(s) Mark the required programs to run.  
 The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending on how the temperature is set on the home page (by clicking on the temperature, you can change the units).  
 

@@ -1,6 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 from blinker import signal
 
@@ -31,22 +31,22 @@ internet_not_available = signal('internet_not_available')
 
 def report_rain():
     rain_active.send()            # send rain signal
-    logEV.save_events_log( _(u'Rain sensor'), _(u'Activated'), id='RainSensor')
+    logEV.save_events_log( _('Rain sensor'), _('Activated'), id='RainSensor')
     if options.rain_set_delay:
         options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=options.rain_sensor_delay)
-        logEV.save_events_log( _(u'Rain delay'), _(u'Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
+        logEV.save_events_log( _('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
 
 def report_no_rain():
     rain_not_active.send()        # send not rain signal
-    logEV.save_events_log( _(u'Rain sensor'), _(u'Deactivated'), id='RainSensor')
+    logEV.save_events_log( _('Rain sensor'), _('Deactivated'), id=u'RainSensor')
 
 def report_internet_available():
     internet_available.send()     # send internet available signal
-    logEV.save_events_log( _(u'Connection'), _(u'Internet is available (external IP)'), id='Internet')
+    logEV.save_events_log( _('Connection'), _('Internet is available (external IP)'), id='Internet')
 
 def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
-    logEV.save_events_log( _(u'Connection'), _(u'Internet is not available (external IP)'), id='Internet')
+    logEV.save_events_log( _('Connection'), _('Internet is not available (external IP)'), id='Internet')
 
 pom_last_rain = False       # send signal only if rain change
 pom_last_internet = False   # send signal only if internet change
@@ -105,7 +105,7 @@ def predicted_schedule(start_time, end_time):
             if station.index not in station_schedules:
                 station_schedules[station.index] = []
 
-            program_name = _(u'Run-Once')
+            program_name = _('Run-Once')
             new_schedule = {
                 'active': None,
                 'program': -1,
@@ -118,7 +118,7 @@ def predicted_schedule(start_time, end_time):
                 'start': interval['start'],
                 'original_start': interval['start'],
                 'end': interval['end'],
-                'uid': u'%s-%s-%d' % (str(interval['start']), program_name, station.index),
+                'uid': '%s-%s-%d' % (str(interval['start']), program_name, station.index),
                 'usage': station.usage
             }
             station_schedules[station.index].append(new_schedule)
@@ -135,7 +135,7 @@ def predicted_schedule(start_time, end_time):
                 if station not in station_schedules:
                     station_schedules[station] = []
 
-                program_name = _(u'Run-Now') + u' %s' % program.name 
+                program_name = _('Run-Now') + ' %s' % program.name 
                 new_schedule = {
                     'active': None,
                     'program': -1,
@@ -148,7 +148,7 @@ def predicted_schedule(start_time, end_time):
                     'start': interval['start'],
                     'original_start': interval['start'],
                     'end': interval['end'],
-                    'uid': u'%s-%s-%d' % (str(interval['start']), program_name, station),
+                    'uid': '%s-%s-%d' % (str(interval['start']), program_name, station),
                     'usage': stations.get(station).usage
                 }
                 station_schedules[station].append(new_schedule)
@@ -196,10 +196,10 @@ def predicted_schedule(start_time, end_time):
 
     all_intervals = []
     # Adjust for weather and remove overlap:
-    for station, schedule in station_schedules.iteritems():
+    for station, schedule in station_schedules.items():
         for interval in schedule:
             if not interval['fixed']:
-                p_name = u'{}'.format(interval['program_name'])
+                p_name = '{}'.format(interval['program_name'])
                 soil_adjustment = 1.0
                 if p_name in program_level_adjustments:
                     soil_adjustment = program_level_adjustments[p_name]/100
@@ -340,7 +340,7 @@ def predicted_schedule(start_time, end_time):
 
 
             if failed:
-                logging.warning(u'Could not schedule %s.', interval['uid'])
+                logging.warning(_('Could not schedule {}.').format(interval['uid']))
                 interval['blocked'] = 'scheduler error'
 
 
@@ -490,7 +490,7 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master:
                         if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
-                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                entryu['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_on = True
                             break
                     # master on by program control_master   
@@ -537,7 +537,7 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master_two:
                         if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
-                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                entry[u'end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_two_on = True
                             break
                     # master on by program control_master   

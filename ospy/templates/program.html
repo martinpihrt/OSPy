@@ -4,7 +4,7 @@ $var title: $_('Modify Program')
 $var page: programs
 
 <script>
-    $for index, name in ProgramType.NAMES.iteritems():
+    $for index, name in ProgramType.NAMES.items():
         var ${name} = ${index};
     var repeat_days = ${program.repeat_days()}
     var program_delay = ${program_delay(program)}
@@ -12,24 +12,7 @@ $var page: programs
     jQuery(document).ready(function(){
         create_custom_schedule(${int(program.modulo/1440)});
         update_schedules();
-        updateFooter();
     });
-
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-}    
 </script>
 <script src="/static/scripts/intervalSelect.js"></script>
 <script>
@@ -68,7 +51,7 @@ function create_custom_schedule(dayInterval) {
 
     for (var i=0; i < dayInterval; i++) {
         var html = '<tr class="daySchedule ' + ((i%2)==0?'odd':'even') + '" id="custom_schedule' + i + '">';
-        html += '<td class="station_name" style="border-right: solid">' + $:{json.dumps(_('Day'), ensure_ascii=False).encode('utf8')} + " " + (i+1) + ':</td>';
+        html += '<td class="station_name" style="border-right: solid">' + $:{json.dumps(_('Day'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + (i+1) + ':</td>';
         for (var tick=0; tick < 24; tick++)
             html += '<td class="scheduleTick" data="' + tick + '"></td>';
         html += '</tr>';
@@ -401,16 +384,16 @@ jQuery(document).ready(function(){
 
 
                 <div id="adjustment_controls" style="display: none;">
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Do not apply any adjustments to intervals of this program.'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Do not apply any adjustments to intervals of this program.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('No adjustments'):</span>
                         <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Skip the program if the total adjustment is lower than this percentage.'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Skip the program if the total adjustment is lower than this percentage.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Cut-off'):</span>
                         <input name="cut_off" type="number" min="0" max="100" size="3" maxlength="3" value="${program.cut_off}">
                     </div>
                     $if stations.master is not None and stations.master_two is not None:
-                        <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Select master station 1/2. All stations that have Activate Master 1/2 by program set will activate master station 1/2 according to this assignment in this program.'), ensure_ascii=False).encode('utf8')}>
+                        <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Select master station 1/2. All stations that have Activate Master 1/2 by program set will activate master station 1/2 according to this assignment in this program.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Activate Master'):</span>
                         <select id="control_master" name="control_master" style="width: 150px">
                             $ type_list = [_(u'None'), _(u'Activate Master 1'), _(u'Activate Master 2')]
@@ -421,19 +404,19 @@ jQuery(document).ready(function(){
                         </div>
             </div>
             <div id="weather_controls" style="display: none;">
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Start sprinkling if the deficit is at least this value.'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Start sprinkling if the deficit is at least this value.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Irrigation min'):</span>
                         <input name="weather_irrigation_min" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_min()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount per station per execution moment.'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount per station per execution moment.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Irrigation max'):</span>
                         <input name="weather_irrigation_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.irrigation_max()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount continuously.'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If sprinkling, never sprinkle more than this amount continuously.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Run max'):</span>
                         <input name="weather_run_max" type="number" min="1" max="100" size="3" maxlength="3" value="${program.run_max()}">mm
                     </div>
-                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running).'), ensure_ascii=False).encode('utf8')}>
+                    <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running).'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Pause ratio'):</span>
                         <input name="weather_pause_ratio" type="number" min="0" max="100" size="3" maxlength="3" value="${int(program.pause_ratio()*100)}">%
                     </div>
@@ -458,7 +441,7 @@ jQuery(document).ready(function(){
             <div class='option'>
                 <span class="program_label">$_('Days'):</span>
                 <div style="display: inline-block;">
-                    $for day in xrange(7):
+                    $for day in range(7):
                         <button id="day${day}" class="weekday pushon ${'on' if day in program.days() else 'off'}">${long_day(day)}</button>
                 </div>
             </div>
@@ -471,7 +454,7 @@ jQuery(document).ready(function(){
                 <span class="program_label">$_('Water interval'):</span>
                 <div id="intervalSelector" class="animatedSelector simpleinlineblock" >
                     <!--  Customize this with any set of intervals you like up to 127 -->
-                    $for days in range(1, 8) + [10, 12, 14, 15, 21, 30]:
+                    $for days in list(range(1, 8)) + [10, 12, 14, 15, 21, 30]:
                         <span class="intervalSelect">${days}</span>
                 </div>
             </div>
@@ -516,7 +499,7 @@ jQuery(document).ready(function(){
             <table id="advanced_schedule" class="advancedSchedule">
                 <tr>
                     <td>
-                    $for hour in xrange(0, 24):
+                    $for hour in range(0, 24):
                         $ t = datetime.time(hour=hour, minute=0)
                         $if options.time_format:
                             <td class="scheduleTick">${t.strftime("%H:%M")}</td>
@@ -525,7 +508,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr class="daySchedule odd" id='advanced_schedule0'>
                     <td class='station_name' style="border-right: solid">$_('Schedule:')</td>
-                    $for tick in xrange(0,24):
+                    $for tick in range(0,24):
                         <td class="scheduleTick" data="$tick"></td>
                 </tr>
             </table>
@@ -536,17 +519,17 @@ jQuery(document).ready(function(){
             <table id="weekly_schedule" class="advancedSchedule">
                 <tr>
                     <td>
-                    $for hour in xrange(0, 24):
+                    $for hour in range(0, 24):
                         $ t = datetime.time(hour=hour, minute=0)
                         $if options.time_format:
                             <td class="scheduleTick">${t.strftime("%H:%M")}</td>
                         $else:
                             <td class="scheduleTick">${t.strftime("%I %p").lstrip('0')}</td>
                 </tr>
-                $for day in xrange(7):
+                $for day in range(7):
                     <tr class="daySchedule ${loop.parity}" id='weekly_schedule${day}'>
                         <td class='station_name' style="border-right: solid">${long_day(day)}:</td>
-                        $for tick in xrange(0,24):
+                        $for tick in range(0,24):
                             <td class="scheduleTick" data="$tick"></td>
                     </tr>
             </table>
@@ -557,7 +540,7 @@ jQuery(document).ready(function(){
             <table id="custom_schedule" class="advancedSchedule">
                 <tr>
                     <td>
-                    $for hour in xrange(0, 24):
+                    $for hour in range(0, 24):
                         $ t = datetime.time(hour=hour, minute=0)
                         $if options.time_format:
                             <td class="scheduleTick">${t.strftime("%H:%M")}</td>
@@ -583,7 +566,7 @@ jQuery(document).ready(function(){
                 <tr style="display: none;">
                     <td>
                         <select class="weather_pem_day">
-                            $for day in xrange(7):
+                            $for day in range(7):
                                 <option value="${str(day)}">${long_day(day)}</option>
                         </select>
                     </td>
@@ -593,7 +576,7 @@ jQuery(document).ready(function(){
                     </td>
                     <td>
                         <select class="weather_pem_prio">
-                            $for prio_opt in xrange(1, 11):
+                            $for prio_opt in range(1, 11):
                                 <option value="${str(prio_opt)}">${str(prio_opt)}
                                 $if prio_opt == 1:
                                    $_(' (Least preferred)')
@@ -610,7 +593,7 @@ jQuery(document).ready(function(){
                     <tr class="pemEntry">
                         <td>
                             <select class="weather_pem_day">
-                                $for day in xrange(7):
+                                $for day in range(7):
                                     <option value="${str(day)}" ${"selected" if int(pem)/1440 == day else ""}>${long_day(day)}</option>
                             </select>
                         </td>
@@ -620,7 +603,7 @@ jQuery(document).ready(function(){
                         </td>
                         <td>
                             <select class="weather_pem_prio">
-                                $for prio_opt in xrange(1, 11):
+                                $for prio_opt in range(1, 11):
                                     <option value="${str(prio_opt)}" ${"selected" if prio == prio_opt else ""}>${str(prio_opt)}
                                     $if prio_opt == 1:
                                        $_(' (Least preferred)')

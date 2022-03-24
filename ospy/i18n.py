@@ -1,7 +1,5 @@
-# encoding: utf-8
-# First Author Dan <dkimberling59@gmail.com>
-# for OSPy by Martin Pihrt
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 __author__ = u'Martin Pihrt'
 
 import os
@@ -9,8 +7,11 @@ import locale
 import gettext
 import shelve
 import sys
+import traceback
 
-OPTIONS_FILE = './ospy/data/options.db'
+from ospy.helpers import print_report
+
+OPTIONS_FILE = './ospy/data/default/options.db'
 
 try:
     db = shelve.open(OPTIONS_FILE)
@@ -18,6 +19,8 @@ try:
     db.close()    
 except:
     sd_lang = 'default'
+    #print_report('i18n.py', traceback.format_exc())
+    pass
 
 ### here add next languages ###
 languages = ({
@@ -46,10 +49,10 @@ def get_system_lang():
         return None
 
 # File location directory.
-curdir = os.path.realpath('i18n')
+curdir = os.path.realpath(u'i18n')
 
 # i18n directory.
-localedir = curdir + '/'
+localedir = curdir + u'/'
 
 gettext.install(u'ospy_messages', localedir)
 
@@ -63,10 +66,13 @@ if sd_lang == u'default':
 else:
     ui_lang = sd_lang
 
+print_report('i18n.py', 'The language will be set to: {}'.format(ui_lang))
+
 try:
     install_kwargs = {}    # support for Python 3.7.9
     if sys.version_info.major == 2:
-        install_kwargs['unicode'] = True
+        install_kwargs[u'unicode'] = True
     gettext.translation(u"ospy_messages", localedir, languages=[ui_lang]).install(**install_kwargs)    
 except IOError:
+    print_report('i18n.py', traceback.format_exc())
     pass

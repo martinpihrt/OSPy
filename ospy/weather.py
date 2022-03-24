@@ -1,11 +1,20 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
 
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
 import logging
 import traceback
+from ospy.helpers import is_python2
+
+if is_python2():
+    from urllib2 import urlopen
+    from urllib import quote_plus
+else:
+    from urllib.request import urlopen
+    from urllib.parse import quote_plus
+
 import json
 import datetime
 import time
@@ -15,11 +24,6 @@ from threading import Thread, Lock
 from ospy.options import options
 
 from . import i18n
-
-try:       # python 2.7
-   import urllib, urllib2
-except:    # > python 2.7
-   import urllib.request, urllib.error, urllib.parse
    
 
 def _cache(cache_name):
@@ -117,10 +121,8 @@ class _Weather(Thread):
 
     def _find_location(self):
         if options.location and options.darksky_key:
-            try:
-                data = urllib.request.urlopen("https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.parse.quote_plus(options.location))
-            except:
-                data = urllib2.urlopen("https://nominatim.openstreetmap.org/search?q=%s&format=json" % urllib.quote_plus(options.location))
+            data = urlopen(
+                "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location))
             data = json.load(data)
             if not data:
                 options.weather_status = 0 # Weather - No location found!
@@ -160,8 +162,10 @@ class _Weather(Thread):
 
         if url not in self._result_cache['darksky_json']:
             logging.debug(url)
+            data = urlopen(url)
+            data = json.load(data)            
             self._result_cache['darksky_json'][url] = {'time': datetime.datetime.now(),
-                                                       'data': json.load(urllib2.urlopen(url))}
+                                                       'data': data}
             options.weather_cache = self._result_cache
 
 

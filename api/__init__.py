@@ -1,7 +1,6 @@
 """
 REST API for OSPy
 """
-from __future__ import absolute_import
 
 __author__ = [
     'Teodor Yantcheff',

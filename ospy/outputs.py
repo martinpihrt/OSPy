@@ -1,38 +1,45 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 import logging
 
 
 class _DummyOutputs(object):
+    _last = True
+
     def __init__(self):
         self.relay_output = False
 
     def __setattr__(self, key, value):
         super(_DummyOutputs, self).__setattr__(key, value)
-        logging.debug(_('Dummy Outputs Set') + ' ' + str(key) + ' ' + _('to') + str(value))
+        if value != self._last:
+            logging.debug(_('Dummy Outputs Set {} to {}').format(key, value))
+            self._last = value
 
 
 class _IOOutputs(object):
-    _initialized = False
     _last = True
 
     def __init__(self):
         self._mapping = {}
-        
+        self._initialized = False
+
     def __setattr__(self, key, value):
         super(_IOOutputs, self).__setattr__(key, value)
-        if value != self._last:
-           logging.debug(_('Real Outputs Set') + ' ' + str(key) + ' ' + _('to') + str(value)) 
-           self._last = value
 
-        if not self._initialized:
-           self._initialized = True
-        for pin in self._mapping.values():
+        if value != self._last:
+            logging.debug(_('Real Outputs Set {} to {}').format(key, value))
+            self._last = value
+
+        if self._mapping and not self._initialized:
+            self._initialized = True
+            for name, pin in self._mapping.items():
                 self._io.setup(pin, self._io.OUT)
+                self.__setattr__(name, False)
 
         if key in self._mapping:
-            self._io.output(self._mapping[key], True if value else False)
+            self._io.output(self._mapping[key], self._io.HIGH if value else self._io.LOW)
 
 
 class _RPiOutputs(_IOOutputs):
@@ -63,11 +70,13 @@ class _BBBOutputs(_IOOutputs):
 
 
 try:
-     outputs = _RPiOutputs()
-except Exception:
-     try:
+    outputs = _RPiOutputs()
+except Exception as err:
+    logging.debug(err)
+    try:
         outputs = _BBBOutputs()
-     except Exception:
+    except Exception as err:
+        logging.debug(err)
         outputs = _DummyOutputs()
 
     

@@ -1,8 +1,6 @@
 OSPy Plug-ins
 ====
 
-Plug-ins have been moved to https://github.com/martinpihrt/OSPy-plugins.
-
 The basic structure is as follows:
 
     plugins
@@ -11,6 +9,7 @@ The basic structure is as follows:
       + docs
       + static
       + templates
+      + i18n (future)
       + __init__.py
       \ README.md
 

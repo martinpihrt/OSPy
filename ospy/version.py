@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco' # add sensor version 'Martin Pihrt'
+__author__ = 'Rimco'
 
 # System imports
 import subprocess
@@ -10,24 +11,25 @@ import os
 #### Revision information ####
 ##############################
 
-major_ver = 4
+major_ver = 3
 minor_ver = 0
-old_count = 672   # update this to reset revision number.
+old_count = 0   # update this to reset revision number.
 
 try:
-    revision = int(subprocess.check_output([u"git", u"rev-list", u"--count", u"--first-parent", u"HEAD"]))
-    ver_str = u"%d.%d.%d" % (major_ver, minor_ver, (revision-old_count))
+    revision = int(subprocess.check_output(["git", "rev-list", "--count", "--first-parent", "HEAD"]))
+    ver_str = "%d.%d.%d" % (major_ver, minor_ver, (revision-old_count))
 except Exception:
-    logging.warning(_(u'Could not use git to determine revision!'))
+    logging.warning(_('Could not use git to determine revision!'))
     revision = 999
-    ver_str = u"{}.{}.{}".format(major_ver, minor_ver, revision)
+    ver_str = "{}.{}.{}".format(major_ver, minor_ver, revision)
+    pass
 
 try:
-    ver_date = subprocess.check_output([u"git", u"log", u"-1", u"--format=%cd", u"--date=short"]).strip()
-    ver_date = ver_date.decode('utf-8')
+    ver_date = subprocess.check_output(["git", "log", "-1", "--format=%cd", "--date=short"]).strip().decode('ascii')
 except Exception:
-    logging.warning(_(u'Could not use git to determine date of last commit!'))
-    ver_date = u"2021-10-21"
+    logging.warning(_('Could not use git to determine date of last commit!'))
+    ver_date = "2022"
+    pass
 
 ### ESP32 sensor last fw version in folder
 try:
@@ -40,12 +42,13 @@ try:
             ver_esp32 = val_32    
     if ver_esp32 != 0:
         res = [int(x) for x in str(ver_esp32)]  
-        ver_esp32 = u"{}.{}{}".format(res[0], res[1], res[2])
+        ver_esp32 = "{}.{}{}".format(res[0], res[1], res[2])
     else:
-        ver_esp32 = u"-"
+        ver_esp32 = "-"
 except Exception:
-    logging.warning(_(u'Could not find ESP32 firmware version!'))
-    ver_esp32 = u"-"
+    logging.warning(_('Could not find ESP32 firmware version!'))
+    ver_esp32 = "-"
+    pass
 
 ### ESP8266 sensor last fw version in folder
 try:
@@ -58,9 +61,10 @@ try:
             ver_esp8266 = val_8266 
     if ver_esp8266 != 0:        
         res = [int(x) for x in str(ver_esp8266)]  
-        ver_esp8266 = u"{}.{}{}".format(res[0], res[1], res[2])
+        ver_esp8266 = "{}.{}{}".format(res[0], res[1], res[2])
     else:
-        ver_esp8266 = u"-"
+        ver_esp8266 = "-"
 except Exception:
-    logging.warning(_(u'Could not find ESP8266 firmware version!'))
-    ver_esp8266 = u"-"
+    logging.warning(_('Could not find ESP8266 firmware version!'))
+    ver_esp8266 = "-"
+    pass

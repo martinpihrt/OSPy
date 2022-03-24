@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
             <span id="Hint"></span>
             <table class="optionList" style="background: #F5F5F5;">
                     <tr>
-                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False)}>
+                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <img src=${img_url + '.png'} alt="" class="imgViev"> 
                         </td>    
                     </tr>                                                                              

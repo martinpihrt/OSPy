@@ -39,7 +39,7 @@ except:
                 args = tuple()
             else:
                 args = self.default_factory,
-            return type(self), args, None, None, self.items()
+            return type(self), args, None, None, list(self.items())
 
         def copy(self):
             return self.__copy__()
@@ -50,7 +50,7 @@ except:
         def __deepcopy__(self, memo):
             import copy
             return type(self)(self.default_factory,
-                              copy.deepcopy(self.items()))
+                              copy.deepcopy(list(self.items())))
 
         def __repr__(self):
             return 'defaultdict(%s, %s)' % (self.default_factory,
@@ -105,7 +105,7 @@ class symbol(object):
 
 
 try:
-    text = (str, unicode)
+    text = (str, str)
 except NameError:
     text = str
 
@@ -134,7 +134,7 @@ def reference(object, callback=None, **annotations):
         weak = callable_reference(object, callback)
     else:
         weak = annotatable_weakref(object, callback)
-    for key, value in annotations.items():
+    for key, value in list(annotations.items()):
         setattr(weak, key, value)
     return weak
 

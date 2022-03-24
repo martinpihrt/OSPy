@@ -22,7 +22,7 @@ function draw_graph(result) {
 
     for (var i = 0; i < result.length; i++) {
         var balances = [];
-        var txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8')} + "</th></tr>";
+        var txt_header = "<table class=\"balanceList\"><tr><th>" + $:{json.dumps(_('Reason'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</th></tr>";
         var texts = [];
         var txt_body = "";
         var txt_footer = "</table>";
@@ -34,9 +34,9 @@ function draw_graph(result) {
             var minutes = "0" + date.getMinutes();
             var seconds = "0" + date.getSeconds();
             var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-            txt_body += "<tr><td>" + $:{json.dumps(_('Actual'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'] + "</td></tr>";
+            txt_body += "<tr><td>" + $:{json.dumps(_('Actual'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">" + balance['total'] + "</td></tr>";
             texts.push("<b>" + result[i]['sname'] + "</b> " + toXSDate(date) + "<br>" + formattedTime + "<br>" + txt_header + txt_body + txt_footer);
-            txt_body = "<tr><td>" + $:{json.dumps(_('Previous'), ensure_ascii=False).encode('utf8')} + "</td><td class=\"balValue\">" + balance['total'] + "</td></tr>";
+            txt_body = "<tr><td>" + $:{json.dumps(_('Previous'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "</td><td class=\"balValue\">" + balance['total'] + "</td></tr>";
         }
 
         if (i >= legend_items.length || legend_items.eq(i).children().children().attr("data") == 1)
@@ -49,7 +49,7 @@ function draw_graph(result) {
             graph_text.push(texts);
         }
     }
-    var yLabels = $:{json.dumps(_('Value'), ensure_ascii=False).encode('utf8')};
+    var yLabels = $:{json.dumps(_('Value'), ensure_ascii=False).encode('utf8').decode('utf-8')};
     return jQuery.plot("#graph-placeholder", data, {
         series: {
             lines: {
@@ -177,14 +177,14 @@ jQuery("#show_err").change(check_history);
 <p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span>
    <form name="historyForm" id="historyForm" action="/sensor/${index}" method="get">
    <input type="hidden" name="index" value="${index}">
-   <select id="history" name="history" style="width: 200px" title=$:{json.dumps(_(u'Select a filter for the interval of read data.'), ensure_ascii=False)}>
+   <select id="history" name="history" style="width: 200px" title=$:{json.dumps(_(u'Select a filter for the interval of read data.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
    <option value="0" ${"selected" if options.sensor_graph_histories==0 else ""}>$_(u'Without limits')</option>
    <option value="1" ${"selected" if options.sensor_graph_histories==1 else ""}>$_(u'Day filter')</option>
    <option value="2" ${"selected" if options.sensor_graph_histories==2 else ""}>$_(u'Week filter')</option>
    <option value="3" ${"selected" if options.sensor_graph_histories==3 else ""}>$_(u'Month filter')</option>
    <option value="4" ${"selected" if options.sensor_graph_histories==4 else ""}>$_(u'Year filter')</option>
    </select>
-   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_(u'Show also errors in graph. Example: -127'), ensure_ascii=False)}>
+   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_(u'Show also errors in graph. Example: -127'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
    </form>
 </p>
 </br>

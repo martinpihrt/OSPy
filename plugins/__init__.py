@@ -5,6 +5,9 @@ import sys
 from os import path
 import types
 import threading
+import importlib
+
+from ospy.helpers import is_python2
 
 __running = {}
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
@@ -14,7 +17,7 @@ REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # rep
 ################################################################################
 class PluginOptions(dict):
     def __init__(self, plugin, defaults):
-        super(PluginOptions, self).__init__(defaults.iteritems())
+        super(PluginOptions, self).__init__(iter(defaults.items()))
         self._defaults = defaults.copy()
 
         from ospy.options import options
@@ -33,13 +36,13 @@ class PluginOptions(dict):
                     break
 
         if plugin in options:
-            for key, value in options[plugin].iteritems():
+            for key, value in options[plugin].items():
                 if key in self:
                     value_type = type(value)
-                    if value_type == unicode:
+                    if value_type == str:
                         value_type = str
                     default_type = type(self[key])
-                    if default_type == unicode:
+                    if default_type == str:
                         default_type = str
 
                     if value_type == default_type:
@@ -58,7 +61,7 @@ class PluginOptions(dict):
             pass
 
     def web_update(self, qdict, skipped=None):
-        for key in self.keys():
+        for key in list(self.keys()):
             try:
                 if skipped is not None and key in skipped:
                     continue
@@ -70,7 +73,7 @@ class PluginOptions(dict):
                     self[key] = int(qdict.get(key, old_value))
                 elif isinstance(default_value, float):
                     self[key] = float(qdict.get(key, old_value))
-                elif isinstance(default_value, str) or isinstance(old_value, unicode):
+                elif isinstance(default_value, str) or isinstance(old_value, str):
                     self[key] = qdict.get(key, old_value)
                 elif isinstance(default_value, list):
                     self[key] = [int(x) for x in qdict.get(key, old_value)]           
@@ -119,11 +122,11 @@ class _PluginChecker(threading.Thread):
                     for plugin in available():
                         update = self.available_version(plugin)
                         if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
-                            logging.info(_(u'Updating the {} plug-in.').format(plugin))
+                            logging.info(_('Updating the {} plug-in.').format(plugin))
                             self.install_repo_plugin(update['repo'], plugin)
 
             except Exception:
-                logging.error(_(u'Failed to update the plug-ins information:') + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to update the plug-ins information:') + ' ' + str(traceback.format_exc()))
             finally:
                 self._sleep(3600)
 
@@ -140,15 +143,20 @@ class _PluginChecker(threading.Thread):
 
     @staticmethod
     def _download_zip(repo):
-        import urllib2
+        if is_python2():
+            from urllib2 import urlopen
+            from urllib import quote_plus
+        else:
+            from urllib.request import urlopen
+            from urllib.parse import quote_plus
         import logging
         import io
 
-        response = urllib2.urlopen(repo)
+        response = urlopen(repo)
         zip_data = response.read()
-        logging.debug(_(u'Downloaded') + ' ' + str(repo))
+        logging.debug(_('Downloaded {}').format(repo))
+
         return io.BytesIO(zip_data)
-   
 
     def _get_zip(self, repo):
         if repo not in self._repo_data:
@@ -162,10 +170,6 @@ class _PluginChecker(threading.Thread):
         import datetime
         import hashlib
         import logging
-        from ospy.options import options
-        import web
-        from ospy.helpers import template_globals
-
         result = {}
 
         try:
@@ -196,32 +200,20 @@ class _PluginChecker(threading.Thread):
                                 plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
                                 plugin_hash += hex(zip_info.CRC)
 
-                    has_error = False
                     if load_read_me:
-                        try:
-                            import markdown2
-                            converted = markdown2.markdown(zip_file.read(init_dir + '/README.md').decode('utf-8')) 
-                            read_me = web.template.Template(converted, globals=template_globals())()
-                        except Exception:
-                            has_error = True
-                            converted = zip_file.read(init_dir + '/README.md').decode('utf-8')
-                            read_me = web.template.Template(converted, globals=template_globals())()
-                            logging.error(_(u'Failed in markdown:') + ' ' + str(traceback.format_exc()))
-
-                    if options.plugin_readme_error != has_error:
-                        options.plugin_readme_error = has_error
+                        from ospy.helpers import gfm_str_to_html
+                        read_me = gfm_str_to_html(zip_file.read(init_dir + '/README.md').decode('utf-8'))
 
                     result[plugin_id] = {
-                        'name': _plugin_name(zip_file.read(init).splitlines()),
-                        'hash': hashlib.md5(plugin_hash).hexdigest(),
+                        'name': _plugin_name(zip_file.read(init).decode('utf-8').splitlines()),
+                        'hash': hashlib.md5(plugin_hash.encode("utf-8")).hexdigest(),
                         'date': plugin_date,
                         'read_me': read_me,
                         'dir': init_dir
                     }
 
         except Exception: 
-            pass
-            logging.error(_(u'Failed to read a plug-in zip file:') + ' ' + str(traceback.format_exc()))
+            logging.error(_('Failed to read a plug-in zip file:') + ' ' + str(traceback.format_exc()))
 
         return result
 
@@ -231,7 +223,7 @@ class _PluginChecker(threading.Thread):
             if repo not in self._repo_contents:
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
         except Exception:
-            logging.error(_(u'Failed to get contents of') + ': ' + str(repo) + str(traceback.format_exc()))
+            logging.error(_('Failed to get contents of {}:').format(repo) + '\n' + traceback.format_exc())
             return {}
 
         return self._repo_contents[repo]
@@ -288,7 +280,7 @@ class _PluginChecker(threading.Thread):
                             fh.write(contents)
 
         options.plugin_status[plugin] = {
-            'hash': hashlib.md5(plugin_hash).hexdigest(),
+            'hash': hashlib.md5(plugin_hash.encode('utf-8')).hexdigest(),
             'date': plugin_date
         }
         options.plugin_status = options.plugin_status
@@ -303,7 +295,7 @@ class _PluginChecker(threading.Thread):
 
     def install_custom_plugin(self, zip_file_data, plugin_filter=None):
         contents = self.zip_contents(zip_file_data, False)
-        for plugin, info in contents.iteritems():
+        for plugin, info in contents.items():
             if plugin_filter is None or plugin == plugin_filter:
                 self._install_plugin(zip_file_data, plugin, info['dir'])
 
@@ -465,42 +457,44 @@ def start_enabled_plugins():
             plugin_n = module
             import_name = __name__ + '.' + module
             try:
-                time.sleep(0.1)
                 plugin = getattr(__import__(import_name), module)
-                plugin = reload(plugin)
+                if is_python2():
+                    plugin = reload(plugin)
+                else:
+                    plugin = importlib.reload(plugin)
                 plugin_n = plugin.NAME
                 mkdir_p(plugin_data_dir(module))
                 mkdir_p(plugin_docs_dir(module))
 
                 plugin.start()
                 __running[module] = plugin
-                logging.info(_(u'Started the') + ': ' + str(plugin_n))
+                logging.info(_('Started the') + ': ' + str(plugin_n))
 
                 if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
                     plugin.LINK = module + '.' + plugin.LINK
 
             except Exception:
-                logging.error(_(u'Failed to load the') + ' ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to load the') + ' ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
                 options.enabled_plugins.remove(module)
 
-    for module, plugin in __running.copy().iteritems():
+    for module, plugin in __running.copy().items():
         if module not in options.enabled_plugins:
             plugin_n = plugin.NAME
             try:
                 plugin.stop()
                 del __running[module]
-                logging.info(_(u'Stopped the') + ': ' + str(plugin_n))
+                logging.info(_('Stopped the') + ': ' + str(plugin_n))
             except Exception:
-                logging.error(_(u'Failed to stop the') + ': ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to stop the') + ': ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
 
 
 def running():
-    return __running.keys()
+    return list(__running.keys())
 
 
 def get(name):
     if name not in __running:
-        raise Exception(_(u'The plug-in') + ': ' + str(name) + ' ' + _(u'is not running.'))
+        raise Exception(_('The plug-in') + ': ' + str(name) + ' ' + _('is not running.'))
     return __running[name]
 
 

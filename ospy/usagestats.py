@@ -1,6 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
-__author__ = 'remram44' # https://github.com/remram44/usagestats
+__author__ = u'remram44' # https://github.com/remram44/usagestats
 
 # usagestats = Anonymous usage statistics collector
 
@@ -10,7 +10,7 @@ import platform
 import time
 import sys
 import subprocess
-from ospy.helpers import print_report
+from ospy.helpers import print_report, is_python2
 
 try:
     import requests
@@ -65,8 +65,15 @@ def OPERATING_SYSTEM(stats, info):
     This is a flag you can pass to `Stats.submit()`.
     """
     info.append(('architecture', platform.machine().lower()))
-    info.append(('distribution',
+    
+    if is_python2():
+        info.append(('distribution',
                  "%s;%s" % (platform.linux_distribution()[0:2])))
+    else:
+        import distro
+        info.append(('distribution',
+                 "%s;%s" % (distro.linux_distribution()[0:2])))
+        
     info.append(('system',
                  "%s;%s" % (platform.system(), platform.release())))
 

@@ -16,7 +16,7 @@ function checkPASS(){
         return 0;
     }
     else{    
-        alert($:{json.dumps(_('Password not set!'), ensure_ascii=False)});
+        alert($:{json.dumps(_('Password not set!'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         return 1;
     }
 }
@@ -29,7 +29,7 @@ function checkIP(){
         return 0;
     }
     else{    
-        alert($:{json.dumps(_('IP address is not valid!'), ensure_ascii=False)});
+        alert($:{json.dumps(_('IP address is not valid!'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         return 1;
     }
 }
@@ -39,21 +39,6 @@ jQuery(".IPnumbersOnly").keyup(function () {
     this.value = newValue;
 });
 
-function updateFooter(){
-    jQuery.getJSON('/update_footer', function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 15000); 
-}
 
 jQuery(document).ready(function(){
     jQuery("#cSubmit").click(function() {
@@ -64,7 +49,7 @@ jQuery(document).ready(function(){
             return;
         }
         else if( document.getElementById("uploadfile").files.length == 0){
-            alert($:{json.dumps(_('No file selected!'), ensure_ascii=False)});
+            alert($:{json.dumps(_('No file selected!'), ensure_ascii=False).encode('utf8').decode('utf-8')});
             return;
         }
         else{
@@ -75,42 +60,40 @@ jQuery(document).ready(function(){
     var statusCode = "${statusCode}";
     switch (statusCode) {
         case "upl_ok":
-            jQuery("#msg").text($:{json.dumps(_('The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.'), ensure_ascii=False).encode('utf8')}).css('color', 'green');
+            jQuery("#msg").text($:{json.dumps(_('The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
         break;
         case "err1":
-            jQuery("#msg").text($:{json.dumps(_('No xxx.bin file was found in the directory to send to the sensor!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('No xxx.bin file was found in the directory to send to the sensor!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break; 
         case "err2":
-            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Sensor does not respond!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Sensor does not respond!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;  
         case "err3":
-            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Response - Not Found!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. Response - Not Found!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;   
         case "err4":
-            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. An error has occurred!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('The new firmware could not be uploaded into the sensor. An error has occurred!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break; 
         case "ap_ok":
-            jQuery("#msg").text($:{json.dumps(_('The sensor responded and probably started the AP manager.'), ensure_ascii=False).encode('utf8')}).css('color', 'green');
+            jQuery("#msg").text($:{json.dumps(_('The sensor responded and probably started the AP manager.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
         break;
         case "err5":
-            jQuery("#msg").text($:{json.dumps(_('It was not processed, the command does not exist in the sensor. Do you have the latest FW version of the sensor?'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('It was not processed, the command does not exist in the sensor. Do you have the latest FW version of the sensor?'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;
         case "err6":
-            jQuery("#msg").text($:{json.dumps(_('An error, the sensor did not respond correctly!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('An error, the sensor did not respond correctly!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;
         case "err7":
-            jQuery("#msg").text($:{json.dumps(_('Sensor does not respond!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('Sensor does not respond!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;
         case "err8":
-            jQuery("#msg").text($:{json.dumps(_('Accepted is only *.hex or *.bin files!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('Accepted is only *.hex or *.bin files!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;      
         case "err9":
-            jQuery("#msg").text($:{json.dumps(_('IP or port or password is not inserted!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#msg").text($:{json.dumps(_('IP or port or password is not inserted!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break; 
     }
 
-    updateFooter();                                          // timer for footer data (temperature...)
- 
     jQuery("#FWtable > tbody > tr:even").addClass("even");   //  odd/even row coloring
     jQuery("#CFWtable > tbody > tr:even").addClass("even");  //  odd/even row coloring
 });
@@ -205,19 +188,19 @@ jQuery(document).ready(function(){
     </tr>
     </thead>
     <tr class="log_rec">
-        <td title=$:{json.dumps(_(u'Protocol for sending data "http" or "https"'), ensure_ascii=False)}>
+        <td title=$:{json.dumps(_(u'Protocol for sending data "http" or "https"'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
             <select name="protocol" id="protocol">
                 <option value="0">$_(u'HTTP')</option>
                 <option value="1">$_(u'HTTPS')</option>
             </select>    
         </td>        
-        <td title=$:{json.dumps(_(u'IP address'), ensure_ascii=False)}>
+        <td title=$:{json.dumps(_(u'IP address'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
             <input name="ip_address" class="IPnumbersOnly" type="text" size="15" maxlength="15" id="ip_address"/>
         </td>
-        <td title=$:{json.dumps(_(u'Port'), ensure_ascii=False)}>
+        <td title=$:{json.dumps(_(u'Port'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
             <input type="number" name="port" id="port" step="1" min="0" max="65353" size="5" value="80"/>
         </td>
-        <td title=$:{json.dumps(_(u'Password for uploading to sensor. Same must be saved in sensor.'), ensure_ascii=False)}>
+        <td title=$:{json.dumps(_(u'Password for uploading to sensor. Same must be saved in sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
             <input name="pass" id="pass" class="pass" type="text" size="30" maxlength="50" value="${options.sensor_fw_passwd}"/>
         </td>        
         <td>
@@ -225,7 +208,7 @@ jQuery(document).ready(function(){
         </td>
     </tr>
     <tr>
-        <td colspan="5" title=$:{json.dumps(_(u'File must have a name *.bin or *.hex'), ensure_ascii=False)}>
+        <td colspan="5" title=$:{json.dumps(_(u'File must have a name *.bin or *.hex'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
             <input name="uploadfile" id="uploadfile" type="file" class="button upload" accept=".bin, .hex"/>
         </td>
     </tr>    

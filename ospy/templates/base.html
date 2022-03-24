@@ -1,4 +1,10 @@
 $def with (content)
+
+$code:
+    days= json.dumps([_(u'Sunday'), _(u'Monday'), _(u'Tuesday'), _(u'Wednesday'), _(u'Thursday'), _(u'Friday'), _(u'Saturday')])
+    months = json.dumps([_(u'January'), _(u'February'), _(u'March'), _(u'April'), _(u'May'), _(u'June'), _(u'July'), _(u'August'), _(u'September'), _(u'October'), _(u'November'), _(u'December')])
+    logp = '1' if content.page == 'home' else '0'
+
 <!doctype html>
 <html>
 <head>
@@ -38,11 +44,15 @@ $def with (content)
     <script src="/static/scripts/jquery-3.6.0.min.js"></script>
    
 <script>
-        // Set up a live clock based on device time
+// Set up a live clock based on device time
+let dayList = $:{days};
+let monthList = $:{months};
+let logPage = $:{logp};
+
 function dateString(d) {
-    let dateString = [$:{json.dumps(_('Sunday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Monday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Tuesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Wednesday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Thursday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Friday'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('Saturday'), ensure_ascii=False).encode('utf8')}][d.getDay()];
+    var dateString = dayList [d.getDay()]; 
     dateString += " " + d.getDate() + " ";
-    dateString += [$:{json.dumps(_('January'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('February'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('March'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('April'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('May'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('June'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('July'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('August'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('September'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('October'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('November'), ensure_ascii=False).encode('utf8')}, $:{json.dumps(_('December'), ensure_ascii=False).encode('utf8')}][d.getMonth()];
+    dateString += monthList [d.getMonth()];
     return dateString;
 }
 
@@ -57,7 +67,7 @@ function toClock(duration, tf) {
     let h = Math.floor(duration/60);
     let m = Math.floor(duration - (h*60));
     if (tf == 0) {
-        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8')});
+        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode(u'utf-8')});
     } else {
         return (h<10 ? "0" : "") + h + ":" + (m<10 ? "0" : "") + m;
     }
@@ -79,17 +89,76 @@ function updateClock() {
         jQuery("#deviceTime span.ampm").text("");
     } else {
         jQuery("#deviceTime span.hour").text(now.getHours()%12 == 0 ? "12" : now.getHours() % 12);
-        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8')}));
+        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} : $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode(u'utf-8')}));
     }
     jQuery("#deviceTime span.minute").text((now.getMinutes() < 10 ? "0" : "") + now.getMinutes());
     jQuery("#deviceTime span.second").text(":" + (now.getSeconds() < 10 ? "0" : "") + now.getSeconds());
 
     jQuery("#deviceDate").text(dateString(now));
 
-    setTimeout(updateClock, 500);
+    setTimeout(updateClock, 1000);
+}
+
+
+function updateOStimer() {
+    // Call to get system updates and plugins data
+    if(logPage=='1'){ // not in login page
+    jQuery.getJSON("/update_status", function(osVals) {
+           // os
+        var os_curr  = osVals.cur
+        var os_aval  = osVals.avail
+        var os_state = osVals.state
+        var os_chang = osVals.chang
+
+        modal.style.display = "block"; // blocking pop-up window
+            
+        let msg = '';
+        let hdr = '';
+       
+        if(os_state > 1){ // 0= not enabled, 1= Up-to-date, 2= New version is available
+            msg += '<p><b>'
+            msg += $:{json.dumps(_('The system has detected that an OSPy update is available'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} + '</b><br>';
+            msg += $:{json.dumps(_('Local version'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} + ': ' + os_curr + '<br>';
+            msg += $:{json.dumps(_('Available version'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} + ': ' + os_aval + '<br></p>';
+            msg += $:{json.dumps(_('Changes'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} + ': ' + os_chang + '<br></p>';
+            hdr += '<h2>' + $:{json.dumps(_('System notification'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</h2>';
+            jQuery("#modal-hdr").append(hdr); // add text to header in modal div
+            jQuery("#modal-msg").append(msg); // add to modal-msg div
+            jQuery("#hasNew span.msg").text($:{json.dumps(_('New OSPy version is available!'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} + ' ' + os_aval);            
+        } 
+        else{
+            modal.style.display = "none";     // hide pop-up
+            jQuery("#hasNew span.msg").text($:{json.dumps(_('OSPy version is up-to date'), ensure_ascii=False).encode('utf8').decode(u'utf-8')});
+        }  
+    }) 
+    setTimeout(updateOStimer, 600000); // 10 minutes
+    }
+}
+
+function updateFooter(){
+    if(logPage=='1'){ // not in login page
+    jQuery.getJSON("/update_footer", function(osVals) {
+        let cpu_temp = osVals.cpu_temp;
+        let cpu_usage = osVals.cpu_usage;
+        let sys_uptime = osVals.sys_uptime;
+        let sys_ip = osVals.ip;
+
+        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
+        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
+        jQuery("#ip span.ip").text(sys_ip);
+        jQuery("#uptime span.uptime").text(sys_uptime);
+    })      
+    setTimeout(updateFooter, 10000);
+    } 
 }
 
 jQuery(document).ready(function(){
+    modal = document.getElementById("Modal");
+    window.onclick = function(event) {
+        if(event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     jQuery("#bPlugins").click(function(e) {
         let btn = jQuery("#bPlugins");
@@ -105,6 +174,8 @@ jQuery(document).ready(function(){
     });
 
     updateClock();
+    updateOStimer();    // timer for os and plugins update info  
+    updateFooter();     // timer for footer data (temperature...)    
 }); 
 
     // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
@@ -176,16 +247,28 @@ jQuery(document).ready(function(){
         <div class="footer">          
             $if content.page != 'login' and content.page != 'public' and content.page != 'user':
                 <div id="foot">
-                <p id="cpu_temp">$_('CPU Temp'): <b>
-                <a href="/action?${urllib.urlencode({'toggle_temp': options.temp_unit})}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8')} + ' Celsius &lt;&gt; Fahrenheit'> <span class="cpu_temp">${get_cpu_temp(options.temp_unit)}</span> &deg;${options.temp_unit}</span></a>
-                </b></p>
-                <p id="cpu_usage">$_('CPU Usage'): <b><span class="cpu_usage">${get_cpu_usage()}</span> %</b></p>             
-                <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8')}>      
-                $_('Software')</a> $_('version'): <b><span class="ver">${version.ver_str} (${version.ver_date})</b></p>
-                <p id="ip">$_('External IP'): <b> <span class="ip">${get_external_ip()}</span></b></p>
-                <p id="uptime">$_('Working'): <b> <span class="uptime">${uptime()}</span></b></p>
+                <p id="cpu_temp">$_('CPU Temp'):
+                <a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span>
+                </p>
+                <p id="cpu_usage">$_('CPU Usage'): <span class="cpu_usage">${get_cpu_usage()}</span> %</p>             
+                <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8').decode('utf-8')}>      
+                $_('Software')</a> $_('version'): <span class="ver">${version.ver_str} (${version.ver_date})</p>
+                <p id="ip">$_('External IP'): <span class="ip">${get_external_ip()}</span></p>
+                <p id="uptime">$_('Working'): <span class="uptime">${uptime()}</span></p>
                 </div>
         </div>
+
+        <div id="Modal" class="modal">
+            $if content.page != 'login':
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-hdr" id="modal-hdr"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-msg" id="modal-msg"></div>
+                    </div>
+                </div>    
+        </div>        
     </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = 'Martin Pihrt'
+__author__ = u'Martin Pihrt'
 
 # Local imports
 from ospy.options import options
@@ -47,7 +48,7 @@ class _Users(object):
         self._loading = False
 
         try:
-            logging.debug(_(u'Loading users...'))
+            logging.debug(_('Loading users...'))
             i = 0
             while options.available(_User, i):
                 self._users.append(_User(self, i)) 
@@ -62,7 +63,7 @@ class _Users(object):
                 user = _User(self, len(self._users))
             self._users.append(user)
             options.save(user, user.index)
-            logging.debug(_(u'Adding new user: {} with id: {}').format(user.name,user.index))
+            logging.debug(_('Adding new user: {} with id: {}').format(user.name,user.index))
         except:
             logging.debug(traceback.format_exc())
             pass
@@ -84,7 +85,7 @@ class _Users(object):
                 options.save(self._users[i], i)     # Save users using new indices
 
             options.erase(_User, len(self._users))  # Remove info in last index
-            logging.debug(_(u'Removing user id: {}').format(index))
+            logging.debug(_('Removing user id: {}').format(index))
         except:
             logging.debug(traceback.format_exc())
             pass

@@ -1,7 +1,8 @@
-# coding=utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-__author__ = "Gina Häußge <osd@foosel.net>, Christopher Bright <christopher.bright@gmail.com>"
-__license__ = 'GNU Affero General Public License http://www.gnu.org/licenses/agpl.html'
+__author__ = u"Gina Häußge <osd@foosel.net>, Christopher Bright <christopher.bright@gmail.com>"
+__license__ = u'GNU Affero General Public License http://www.gnu.org/licenses/agpl.html'
 
 class reverse_proxied(object):
 	"""

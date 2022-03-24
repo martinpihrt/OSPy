@@ -225,18 +225,13 @@ OSPy Průvodce webovým rozhraním v češtině
 ----
 
 # Přihlásit se
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/login.png" rel="Přihlásit se" target="_blank">![Přihlásit se - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/login.png)</a>
-
-Přihlašovací stránka představuje textové pole pro zadání hesla. Výchozí heslo je ** opendoor **.
-Na stránce - záložce "Nastavení" se doporučuje změnit si heslo na Vaše nové heslo.
-Zadejte heslo a klikněte na tlačítko **PŘIHLÁSIT SE**.
+Přihlašovací stránka představuje textové pole pro zadání jména a hesla. Výchozí jméno je **admin**. Při první instalaci bude vygenerováno náhodné heslo (toto heslo je pak nutné změnit v nastavení na jiné heslo! Na stránce - záložce "Nastavení" se doporučuje změnit si heslo (nebo i jméno) na Vaše nové vlastní heslo.
+Zadejte jméno, heslo a klikněte na tlačítko **PŘIHLÁSIT SE**.
 
 
 ----
 
 # Domácí stránka
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/home.png" rel="Domácí stránka" target="_blank">![Domácí stránka - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/home.png)</a>
-
 Domovská stránka je hlavním ovládacím centrem webového rozhraní. To zahrnuje:
 
 * Hodiny zobrazující aktuální čas Na všech stránkách.
@@ -289,8 +284,6 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ----
 
 # Programy
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png" rel="Programy" target="_blank">![Programy - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/programy.png)</a>
-
 ## Přidat nový program
 Tlačítkem "Přidat nový program" vytvoříme nový program plánovače.
 
@@ -310,7 +303,6 @@ Přepínač "ZAP/VYP" umožňuje vytvořený program povolit/zakázat v plánova
 Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku (vybrané dny, opakování, týdenní, vlastní a programy založené na předpovědi počasí).
 
 ### Vybrané dny (Jednoduchý)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png" rel="Vybrané dny (Jednoduchý)" target="_blank">![Vybrané dny (Jednoduchý) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20jednoduchy.png)</a>
    
 #### Čas startu
     
@@ -323,12 +315,10 @@ Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku 
 #### Pauza
 
 ### Vybrané dny (Rozšířené)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20rozsireny.png" rel="Vybrané dny (Rozšířené)" target="_blank">![Vybrané dny (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/dny%20rozsireny.png)</a>
     
 #### Plánovač
 
 ### Opakování (Jednoduché)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20jednoduchy.png" rel="Opakování (Jednoduché)" target="_blank">![Opakování (Jednoduché) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20jednoduchy.png)</a>
     
 #### Interval zavlažování
 
@@ -345,7 +335,6 @@ Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku 
 #### Pauza
     
 ### Opakování (Rozšířené)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20rozsireny.png" rel="Opakování (Rozšířené)" target="_blank">![Opakování (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/opak%20rozsireny.png)</a>
     
 #### Interval zavlažování
   
@@ -354,7 +343,6 @@ Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku 
 #### Plánovač
     
 ### Týdenní (Rozšířené)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20rozsireny.png" rel="Týdenní (Rozšířené)" target="_blank">![Týdenní (Rozšířené) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20rozsireny.png)</a>
 
 #### Pondělí-Neděle
 
@@ -367,7 +355,6 @@ Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku 
 #### Den 1 - Den 7
 
 ### Týdenní (Předpověď počasí)
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20predpoved.png" rel="Týdenní (Předpověď počasí)" target="_blank">![Týdenní (Předpověď počasí) - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/tyden%20predpoved.png)</a>
     
 #### Minimální zavlažování
 
@@ -399,7 +386,6 @@ Všechny stanice, které mají nastavenou možnost „Aktivovat Master 1/2 progr
 ----
 
 # Jednorázový
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/jednorazovy.png" rel="Jednorázový" target="_blank">![Jednorázový - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/jednorazovy.png)</a>
 
 Stránka "Jednorázový" představuje seznam povolených stanic s polem minuty a sekundy pro každou z nich. Tato stránka může být použita pro testování a poskytnutí dodatečného zavlažování jednorázově.
 
@@ -412,17 +398,14 @@ Tlačítko odstraní veškeré přednastavené časy u všech stanic.
 ----
 
 # Rozšíření
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni.png" rel="Rozšíření" target="_blank">![Rozšíření - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni.png)</a>
 
 Na stránce "Rozšíření" můžeme nakonfigurovat nebo ovládat všechna rozšíření v systému OSPy.
 
 ## Spravovat
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20seznam.png" rel="Spravovat" target="_blank">![Spravovat - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20seznam.png)</a>
 
 Po kliknutí na tlačítko "Spravovat" se otevře okno správce rozšíření v systému OSPy. Všechna dostupná rozšíření lze zapínat, vypínat, instalovat z repozitáře atd...
   
 ## Instalovat nové rozšíření
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20instal.png" rel="Instalovat" target="_blank">![Instalovat - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/rozsireni%20instal.png)</a>
 
 Po kliknutí na tlačítko "Instalovat nové rozšíření" se otevře okno se vzdáleným repozitářem, kde si můžeme vybrat dostupná rozšíření pro instalaci do systému OSPy a přečíst si všeobecné informace k rozšířením.
   
@@ -447,8 +430,6 @@ Když je tlačítko aktivní, tak se při dostupnosti nové verze rozšíření 
 ----
 
 # Záznam
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/zaznam.png" rel="Programy" target="_blank">![Záznam - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/zaznam.png)</a>
-
 Pomocí stránky "Záznam" můžeme zobrazit veškeré protokoly zaznamenané v systému OSPy. Počet záznamů se nastavuje na stránce "Nastavení".
     
 ## Stáhnout záznam jako
@@ -469,10 +450,6 @@ Po stisknutí tlačítka "Smazat záznam Email" dojde k vymazání všechn zázn
 ----
 
 # Nastavení
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%201.png" rel="Nastavení" target="_blank">![Nastavení - obrázek 1](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%201.png)</a>
-
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%202.png" rel="Nastavení" target="_blank">![Nastavení - obrázek 2](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/nastaveni%202.png)</a>
-
 Na stránce "Nastavení" můžeme upravovat nastavení celého OSPy systému.
 Stránka obsahuje několik skládacích oddílů. Kliknutím na pruh otevřeme nebo zavřeme požadovanou část.
 
@@ -775,8 +752,6 @@ Tlačítko "Nahrát" odešle do složky ssl v adresáři OSPy přiložené soubo
 ----
 
 # Stanice
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/stanice.png" rel="Stanice" target="_blank">![Stanice - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/stanice.png)</a>
-
 Na stránce "Stanice" nastavujeme nazvy stanic, vlastnosti okolo využívání množství vody, ovládání hlavních stanic.
 
 ## Stanice 
@@ -790,7 +765,6 @@ Nastavení souběhu (0), nebo sekvence (>=1) pro určité stanice. Více o soub�
 
 ## Závlaha
 Množství vody za hodinu v mm, které rozpráší rozstřikovače na dané stanici. Používá se pro programy založené na počasí. Pro změření této hodnoty je vhodné si pořídit například plastový srážkoměr.
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/srazkomer.png" rel="plastový srážkoměr" target="_blank">![plastový srážkoměr - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/srazkomer.png)</a>
 
 * Vztahuje se na čas potřebný k infiltraci daného množství vody do konkrétního typu půdy. Obecně je rychlost příjmu lehčí texturované (písčité) půdy vyšší než rychlost těžší texturované (jílovité) půdy. Zavlažování postřikovačů velkým množstvím vody však může vést k povrchovému odtoku i na písčitých půdách. Rychlost příjmu půdy pod zavlažováním je ovlivněna mnoha faktory, jako je struktura půdy, struktura půdy, zhutnění, organická hmota, stratifikované půdy, soli v půdě, kvalita vody, sedimenty ve zavlažovací vodě atd.
 
@@ -961,8 +935,6 @@ Tlačítko „Odstranit všechny snímače“ vymaže všechny přidané sníma�
 ----
 
 #  Nápověda
-<a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/napoveda.png" rel="Nápověda" target="_blank">![Nápověda - obrázek](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech/napoveda.png)</a>
-
 Na stránce "Nápověda" nalezneme dokumentaci ke všem rozšířením, OSPy systému, změny v systému, přístup pomocí API, webové rozhraní.
 
 ## OSPy

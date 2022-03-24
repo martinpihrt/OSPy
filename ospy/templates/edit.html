@@ -15,23 +15,23 @@ $var page: image
 
     switch (errorCode) {
         case "noex":
-            jQuery("#Hint").text($:{json.dumps(_('Image does not exist! Upload a new image.'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#Hint").text($:{json.dumps(_('Image does not exist! Upload a new image.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
             jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/jpeg,image/gif'>");
         break;  
         case "uplname":
-            jQuery("#Hint").text($:{json.dumps(_('Image is not png or gif file!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#Hint").text($:{json.dumps(_('Image is not png or gif file!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
             jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/gif'>");            
         break;  
         case "nopil":
-            jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
             jQuery("#BtnInstall").html("<a href='/img_edit/${index}?install' class='button cDelete danger'>$_('Install it!')</a>");
         break;
         case "nopilOK":
-            jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8')}).css('color', 'green');
+            jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
             jQuery("#BtnInstall").html("<a href='/img_edit/${index}' class='button submit'>$_('Refresh')</a>");
         break;
         case "nopilErr":
-            jQuery("#Hint").text($:{json.dumps(_('Installation failed - contact your system administrator!'), ensure_ascii=False).encode('utf8')}).css('color', 'red');
+            jQuery("#Hint").text($:{json.dumps(_('Installation failed - contact your system administrator!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;        
     }
 });
@@ -50,12 +50,12 @@ $var page: image
                 <input type="hidden" name="index" value="${index}">
                 <table class="optionList" style="background: #F5F5F5;">
                     <tr>
-                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False)}>
+                        <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <img src=${img_url + '.png'} alt="" class="imgEdit"> 
                         </td>    
                     </tr> 
                     <tr>
-                        <td colspan="2" title=$:{json.dumps(_(u'Thumbnail'), ensure_ascii=False)}>
+                        <td colspan="2" title=$:{json.dumps(_(u'Thumbnail'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <img src=${img_url + '_thumbnail.png'} alt="" class="avatar">
                         </td>                    
                     </tr>  
@@ -65,13 +65,13 @@ $var page: image
                         </th>
                     </tr>                                      
                     <tr>
-                        <td title=$:{json.dumps(_(u'Upload new image'), ensure_ascii=False)}>
+                        <td title=$:{json.dumps(_(u'Upload new image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <span id="okupload"></span>
                         </td>
                     </tr> 
                     <tr>
                         <td style='text-transform: none;'>$_('Convert image to high resolution 1024x768 otherwise 640x480')</td>
-                        <td title=$:{json.dumps(_(u'If checked, the image will be set to a resolution of 1024x768, otherwise to a resolution of 640x480.'), ensure_ascii=False)}>
+                        <td title=$:{json.dumps(_(u'If checked, the image will be set to a resolution of 1024x768, otherwise to a resolution of 640x480.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input name='enabled' type='checkbox'${" checked" if options.high_resolution_mode else ""}>
                         </td>
                     </tr>                                                                               

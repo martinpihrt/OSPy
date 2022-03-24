@@ -1,4 +1,4 @@
-$def with (form)
+$def with (form, new_user)
 
 $var title: $_('Login')
 $var page: login
@@ -12,10 +12,16 @@ $var page: login
 </script>        
 
 <div class="panel" style="height:300px; padding-top:100px; padding-left: 50px">
-    <div class="title">$_('Login')</div>
+    <div class="title">$_(u'Login')</div>
+    $if new_user and new_user is not None:
+        <div class="title" style="color:red">$_('Warning - new installation!')</div>
+        <p style="color:red">$_('This is a new installation. You must change this generated password after logging in!')</p>
+        <p>$_('Make a note of the password, you will need it when changing the password!')</p>        
+        <p>$_('Default user name is admin.')</p>
+        <p>$_('Generated default password is') "<b>$new_user<b>"</p>
     <table class="stationList" style="background: #F5F5F5; width:400px;">
-    <tr>	
-    <td>	
+    <tr>    
+    <td>    
         <form name="login" id="login" method="POST"> 
             $:form.render()
         </form>
@@ -23,7 +29,6 @@ $var page: login
     </tr>   
     </table>
     <div>
-	    <button id="cSubmit" class="submit"><b>$_('Login')</b></button>
+        <button id="cSubmit" class="submit"><b>$_('Login')</b></button>
     </div>
 </div>
-

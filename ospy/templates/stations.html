@@ -3,26 +3,6 @@ $def with ()
 $var title: $_('Stations')
 $var page: stations
 
-<script>
-function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-    setTimeout(updateFooter, 15000);
-}
-
-jQuery(document).ready(function(){
-    updateFooter();     // timer for footer data (temperature...)
-});
-</script>
 
 <script src="/static/scripts/stations.js"></script>
 
@@ -49,31 +29,31 @@ jQuery(document).ready(function(){
             $for station in stations.get():
                 <tr>
                     <td class="stationNumber">${station.index + 1}</td>
-                    <td class="stationName" title=$:{json.dumps(_('Station Name.'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationName" title=$:{json.dumps(_('Station Name.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="text" size="16" value="${station.name}" name="${station.index}_name">
                     </td>
-                    <td class="stationUsage" title=$:{json.dumps(_('Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options).'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationUsage" title=$:{json.dumps(_('Relative usage when this station is active. Can be used to limit the amount of simultaneously active stations (see maximum usage in options).'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="number" size="3" min="0" max="1000" value="${str(station.usage)}" name="${station.index}_usage">
                     </td>
-                    <td class="stationUsage" title=$:{json.dumps(_('Amount of water per hour in mm. Used for weather based programs.'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationUsage" title=$:{json.dumps(_('Amount of water per hour in mm. Used for weather based programs.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="number" size="3" min="0" max="1000" value="${str(station.precipitation)}" name="${station.index}_precipitation">
                     </td>
-                     <td class="stationUsage" title=$:{json.dumps(_('Amount of water that the soil can store above 0 level. Used for weather based programs.'), ensure_ascii=False).encode('utf8')}>
+                     <td class="stationUsage" title=$:{json.dumps(_('Amount of water that the soil can store above 0 level. Used for weather based programs.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="number" size="3" min="0" max="100" value="${str(station.capacity)}" name="${station.index}_capacity">
                     </td>
-                    <td class="stationUsage" title=$:{json.dumps(_('Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil.'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationUsage" title=$:{json.dumps(_('Factor used to multiply ETo factor for weather based programs. Use value above 1 in case of sunny/dry soil, use value below 1 for shaded/wet soil.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="number" size="3" min="0" max="10" value="${str(station.eto_factor)}" name="${station.index}_eto_factor">
                     </td>
-                    <td class="stationUsage" title=$:{json.dumps(_('Increase or decrease weather based water balance by given amount (if not 0).'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationUsage" title=$:{json.dumps(_('Increase or decrease weather based water balance by given amount (if not 0).'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input type="number" size="3" min="-100" max="100" value="0" name="${station.index}_balance_adjust">
                     </td>
-                    <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationShow" title=$:{json.dumps(_('Is this station physically connected? If unchecked, the station will not be displayed in the system.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     <label class="container">
                     <input type="checkbox" ${"checked" if station.enabled else ""} name="${station.index}_enabled">
                     <span class="checkmark"></span>
                     </label>
                     </td>
-                    <td class="stationIgnore" title=$:{json.dumps(_('If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored).'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationIgnore" title=$:{json.dumps(_('If ignore rain is checked, then in case of rain this station is activated (rain sensor and time delay will be ignored).'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     <label class="container">
                     <input type="checkbox" ${"checked" if station.ignore_rain else ""} name="${station.index}_ignore_rain">
                     <span class="checkmark"></span>
@@ -95,16 +75,16 @@ jQuery(document).ready(function(){
                             $ type_nr = [0, 1, 2, 3]
                         $if stations.master is not None or stations.master_two is not None:
                             <td class="stationMaster">
-                            <select id="master_type" name="${station.index}_master_type" style="width: 220px" title=$:{json.dumps(_(u'Select whether master station 1 (2) should also be activated when this station is switched on, or whether the master station in the program will be selected (the program will select the use of master station 1 or 2 for this station).'), ensure_ascii=False)}>
+                            <select id="master_type" name="${station.index}_master_type" style="width: 220px" title=$:{json.dumps(_(u'Select whether master station 1 (2) should also be activated when this station is switched on, or whether the master station in the program will be selected (the program will select the use of master station 1 or 2 for this station).'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             $for t in range(len(type_list)):
                                 <option value="${str(type_nr[t])}" ${'selected' if str(station.master_type) == str(type_nr[t]) else ''}>$type_list[t]</option>
                             </select>
                             </td>
-                    <td class="stationNotes" title=$:{json.dumps(_('Station Notes.'), ensure_ascii=False).encode('utf8')}>
+                    <td class="stationNotes" title=$:{json.dumps(_('Station Notes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     <textarea style="font-family: monospace;" rows="1" cols="10" name="${station.index}_notes">${station.notes}</textarea>
                     </td>
                     $if options.show_images:
-                        <td class="stationImage" title=$:{json.dumps(_('Click for edit image.'), ensure_ascii=False).encode('utf8')}>
+                        <td class="stationImage" title=$:{json.dumps(_('Click for edit image.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <a href=${"/img_edit/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="avatar">
                         </a></td>
                 </tr>

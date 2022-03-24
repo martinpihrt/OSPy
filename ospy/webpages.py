@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+__author__ = u'Rimco'
 
 # System imports
-from __future__ import absolute_import
 import os
 from shutil import copyfile
 import datetime
@@ -31,7 +32,7 @@ try:
     import requests
 
 except ImportError:
-    print_report('usagestats.py', _(u'Requests not found, installing. Please wait...'))
+    print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
     output = proc.communicate()[0]
@@ -99,7 +100,7 @@ signin_form = form.Form(
     form.Password('password', description=_('Password:')),
     validators=[
         form.Validator(
-            _(u'Incorrect username or password, please try again...'),
+            _('Incorrect username or password, please try again...'),
             lambda x: test_password(x["password"], x["username"])
         )  
     ]
@@ -124,7 +125,7 @@ class InstantCacheRender(web.template.render):
         import time
         if os.path.isdir(self._loc):
             for name in os.listdir(self._loc):
-                if name.endswith('.html') and \
+                if name.endswith(u'.html') and \
                         (self._limit is None or name[:-5] in self._limit) and \
                         (self._exclude is None or name[:-5] not in self._exclude):
                     self._template(name[:-5])
@@ -147,7 +148,7 @@ class WebPage(object):
             del session.pages[0]
 
         if self.__module__.startswith('plugins') and 'plugin_render' not in cls.__dict__:
-            cls.plugin_render = InstantCacheRender(os.path.join(os.path.join(*self.__module__.split('.')), 'templates'), globals=template_globals(), base=self.base_render)
+            cls.plugin_render = InstantCacheRender(os.path.join(os.path.join(*self.__module__.split(u'.')), u'templates'), globals=template_globals(), base=self.base_render)
 
     @staticmethod
     def _redirect_back():
@@ -155,7 +156,7 @@ class WebPage(object):
         for page in reversed(session.pages):
             if page != web.ctx.fullpath:
                 raise web.seeother(page)
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
 
 class ProtectedPage(WebPage):
@@ -176,7 +177,7 @@ class sensors_firmware(ProtectedPage):
         statusCode = qdict.get('statusCode', 'None')
         
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         if 'aid' in qdict:
             index = int(qdict['aid'])
@@ -268,7 +269,7 @@ class sensors_firmware(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
@@ -305,16 +306,16 @@ class sensors_firmware(ProtectedPage):
                     fw_path = './ospy/data/userfw.hex'
                     fw_name = 'userfw.hex'
                 if not os.path.isfile(fw_path):
-                    fout = open(fw_path,'w') 
+                    fout = open(fw_path,'wb') 
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()
-                    log.debug('webpages.py', _(u'File {} has sucesfully uploaded...').format(i.uploadfile.filename))
+                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
                 else:
                     os.remove(fw_path) 
-                    fout = open(fw_path,'w')  # temporary file after uploading
+                    fout = open(fw_path,'wb')  # temporary file after uploading
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()         
-                    log.debug('webpages.py', _(u'File has sucesfully uploaded...')) 
+                    log.debug('webpages.py', _('File has sucesfully uploaded...')) 
 
                 try:
                     kind = 'http://'
@@ -349,7 +350,7 @@ class sensors_page(ProtectedPage):
         global searchData
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
 
@@ -372,7 +373,7 @@ class sensors_page(ProtectedPage):
                 for sensor in sensors.get():
                     for i in range(0, 16):
                         if sensor.soil_program[i] != "-1":
-                            pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
+                            pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
             except:
                 print_report('webpages.py', traceback.format_exc())
@@ -419,7 +420,7 @@ class sensor_page(ProtectedPage):
             clear = get_input(qdict, 'clear', False, lambda x: True)   # clear event and samples
 
             if session['category'] != 'admin':
-                raise web.seeother(u'/') 
+                raise web.seeother('/') 
 
             if 'history' in qdict:
                 options.sensor_graph_histories = int(qdict['history'])
@@ -427,7 +428,7 @@ class sensor_page(ProtectedPage):
                     options.sensor_graph_show_err = True
                 else:
                     options.sensor_graph_show_err = False
-                raise web.seeother(u'/sensor/{}?graph'.format(index))
+                raise web.seeother('/sensor/{}?graph'.format(index))
 
             if delete:
                 try: # delete sensor info from footer
@@ -442,7 +443,7 @@ class sensor_page(ProtectedPage):
                     program = programs.get()
                     for i in range(0, 16):
                         if sensor.soil_program[i] != "-1":
-                            pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
+                            pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
                 except:
                     print_report('webpages.py', traceback.format_exc())
@@ -460,11 +461,11 @@ class sensor_page(ProtectedPage):
                     print_report('webpages.py', traceback.format_exc())
                     pass
 
-                raise web.seeother(u'/sensors')
+                raise web.seeother('/sensors')
 
             elif enable is not None:
                 sensors[index].enabled = enable
-                raise web.seeother(u'/sensors') 
+                raise web.seeother('/sensors') 
 
             elif log:
                 slog_file = []
@@ -585,7 +586,7 @@ class sensor_page(ProtectedPage):
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
-                        u'{}'.format(interval['event']),
+                        '{}'.format(interval['event']),
                     ]) + '\n'
 
                 web.header('Content-Type', 'text/csv')
@@ -604,11 +605,11 @@ class sensor_page(ProtectedPage):
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
-                        u'{}'.format(interval['value']),
-                        u'{}'.format(interval['action']),
+                        '{}'.format(interval['value']),
+                        '{}'.format(interval['action']),
                     ]) + '\n'
 
-                web.header('Content-Type', 'text/csv')
+                web.header('Content-Type','text/csv')
                 web.header('Content-Disposition', 'attachment; filename="sample.csv"')
                 return data   
 
@@ -617,7 +618,7 @@ class sensor_page(ProtectedPage):
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
                 except:
                     pass
-                raise web.seeother(u'/sensors')                                                                    
+                raise web.seeother('/sensors')                                                                    
 
         except ValueError:
             pass        
@@ -851,7 +852,7 @@ class sensor_page(ProtectedPage):
                     else:
                         sensor.soil_invert_probe_in[i] = 0
                     if 'pl{}'.format(i) in qdict:        # 16x probe label
-                        sensor.soil_probe_label[i] = u'{}'.format(qdict['pl{}'.format(i)])
+                        sensor.soil_probe_label[i] = '{}'.format(qdict['pl{}'.format(i)])
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip
@@ -887,7 +888,7 @@ class sensor_page(ProtectedPage):
         if sensor.index < 0 and session['category'] == 'admin':
             sensors.add_sensors(sensor)
 
-        raise web.seeother(u'/sensors')
+        raise web.seeother('/sensors')
 
 
 class users_page(ProtectedPage):
@@ -897,7 +898,7 @@ class users_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
@@ -918,7 +919,7 @@ class user_page(ProtectedPage):
             delete = get_input(qdict, 'delete', False, lambda x: True)
             if delete and session['category'] == 'admin':
                 users.remove_users(index)
-                raise web.seeother(u'/users')
+                raise web.seeother('/users')
 
         except ValueError:
             pass
@@ -988,7 +989,7 @@ class user_page(ProtectedPage):
             user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
             users.add_users(user)
 
-        raise web.seeother(u'/users')
+        raise web.seeother('/users')
 
 
 class image_edit_page(ProtectedPage):
@@ -1005,13 +1006,13 @@ class image_edit_page(ProtectedPage):
         img_path    = './ospy/images/stations/station%s.png' % str(index)
         img_path_th = './ospy/images/stations/station%s_thumbnail.png' % str(index)
 
-        if delete and session['category'] == 'admin':
+        if delete and session[u'category'] == u'admin':
             try:
                 if os.path.isfile(img_path):
                     os.remove(img_path)
                 if os.path.isfile(img_path_th):
                     os.remove(img_path_th)
-                log.debug('webpages.py', _(u'Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
+                log.debug('webpages.py', _('Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
             except:
                 print_report('webpages.py', traceback.format_exc())
                 pass
@@ -1031,10 +1032,10 @@ class image_edit_page(ProtectedPage):
         if install and session['category'] == 'admin':
             try:
                 import subprocess
-                cmd = "sudo pip install Pillow==2.7.0"                # python 2.7 pip install Pillow==2.7.0
+                cmd = "sudo pip install Pillow"
                 proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
                 output = proc.communicate()[0]
-                log.debug('webpages.py', u'{}'.format(output))
+                log.debug('webpages.py', '{}'.format(output))
                 errorCode = qdict.get('errorCode', 'nopilOK')
             except:
                 errorCode = qdict.get('errorCode', 'nopilErr')
@@ -1054,7 +1055,7 @@ class image_edit_page(ProtectedPage):
         img_path_temp = './ospy/images/stations/temp%s.png' % str(index)
 
         if session['category'] == 'admin':
-            if 'enabled' in qdict and qdict['enabled']== u'on':
+            if 'enabled' in qdict and qdict['enabled']== 'on':
                 options.high_resolution_mode = True
             else:
                 options.high_resolution_mode = False 
@@ -1075,19 +1076,19 @@ class image_edit_page(ProtectedPage):
                 return self.core_render.edit(index, img_url, errorCode)
             else:                     # file is png continue
                 if not os.path.isfile(img_path_temp):
-                    fout = open(img_path_temp,'w') 
+                    fout = open(img_path_temp,'wb') 
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()
-                    log.debug('webpages.py', _(u'File {} has sucesfully uploaded...').format(i.uploadfile.filename))
+                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
                 else:
                     os.remove(img_path_temp) 
-                    fout = open(img_path_temp,'w')  # temporary file after uploading
+                    fout = open(img_path_temp,'wb')  # temporary file after uploading
                     fout.write(i.uploadfile.file.read()) 
                     fout.close()         
-                    log.debug('webpages.py', _(u'File has sucesfully uploaded...'))
+                    log.debug('webpages.py', _('File has sucesfully uploaded...'))
 
                 try:
-                    from PIL import Image           # pip install Pillow==2.7.0
+                    from PIL import Image           # pip install Pillow
 
                     if os.path.isfile(img_path_temp):
                         im = Image.open(img_path_temp)
@@ -1102,14 +1103,14 @@ class image_edit_page(ProtectedPage):
                         im.thumbnail(size)
                         im.save(img_path, "PNG")
                         os.remove(img_path_temp)
-                        log.debug('webpages.py', _(u'Files has sucesfully resized to max 60x60/640x480...'))
+                        log.debug('webpages.py', _('Files has sucesfully resized to max 60x60/640x480...'))
  
                 except:
                     pass
-                    log.error('webpages.py', _(u'Cannot create resized files!'))
+                    log.error('webpages.py', _('Cannot create resized files!'))
                     print_report('webpages.py', traceback.format_exc())
 
-        raise web.seeother(u'/stations')   
+        raise web.seeother('/stations')   
 
  
 class image_view_page(ProtectedPage):
@@ -1131,29 +1132,37 @@ class login_page(WebPage):
 
     def GET(self):
         if check_login(False):
-            raise web.seeother(u'/')
+            raise web.seeother('/')
         else:
-            return self.core_render.login(signin_form())
+            if options.first_installation:
+                new_user = options.first_password_hash
+            else:
+                new_user = None    
+            return self.core_render.login(signin_form(), new_user)
 
     def POST(self):
         my_signin = signin_form()
 
         if not my_signin.validates():
-            return self.core_render.login(my_signin)
+            if options.first_installation:
+                return self.core_render.login(my_signin, options.first_password_hash)
+            else:
+                return self.core_render.login(my_signin, None)    
         else:
             from ospy import server
             server.session.validated = True
             report_login()
-            logEV.save_events_log( _(u'Login'), _(u'User {} logged in').format(server.session['visitor']), id='Login')
-            self._redirect_back()
+            if options.run_logEV:
+                logEV.save_events_log( _('Login'), _('User {} logged in').format(server.session['visitor']), id='Login')
+            log.info('webpages.py', _('User {} logged in').format(server.session['visitor']))
+            raise web.seeother('/')
 
 
 class logout_page(WebPage):
     def GET(self):
         from ospy.server import session
-        logEV.save_events_log( _(u'Login'), _(u'User {} logged out').format(session['visitor']), id='Login')
         session.kill()
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
 
 class home_page(ProtectedPage):
@@ -1205,7 +1214,7 @@ class action_page(ProtectedPage):
         if rain_block is not None:
             if session['category'] == 'admin' or session['category'] == 'user':
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
-                logEV.save_events_log( _(u'Rain delay'), _(u'User has set a delay {} hours').format(rain_block), id='RainDelay')
+                logEV.save_events_log( _('Rain delay'), _('User has set a delay {} hours').format(rain_block), id=u'RainDelay')
 
         if level_adjustment is not None:
             if session['category'] == 'admin' or session['category'] == 'user':
@@ -1252,7 +1261,7 @@ class action_page(ProtectedPage):
                         log.finish_run(interval)
 
         report_value_change()
-        raise web.seeother(u'/')  # Send browser back to home page
+        raise web.seeother('/')  # Send browser back to home page
 
 
 class programs_page(ProtectedPage):
@@ -1273,7 +1282,7 @@ class programs_page(ProtectedPage):
         if session['category'] == 'user': 
             return self.core_render.programs_user()
         
-        raise web.seeother(u'/')
+        raise web.seeother('/')
    
 
 class program_page(ProtectedPage):
@@ -1292,17 +1301,17 @@ class program_page(ProtectedPage):
                 programs.remove_program(index)
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_deleted()
-                raise web.seeother(u'/programs')
+                raise web.seeother('/programs')
             elif runnow:
                 programs.run_now(index)
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_runnow()
-                raise web.seeother(u'/')
+                raise web.seeother('/')
             elif enable is not None:
                 programs[index].enabled = enable
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_toggle()
-                raise web.seeother(u'/programs')
+                raise web.seeother('/programs')
         except ValueError:
             pass
 
@@ -1319,7 +1328,7 @@ class program_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
         try:
@@ -1392,7 +1401,7 @@ class program_page(ProtectedPage):
 
         Timer(0.1, programs.calculate_balances).start()
         report_program_toggle()
-        raise web.seeother(u'/programs')
+        raise web.seeother('/programs')
 
 
 class runonce_page(ProtectedPage):
@@ -1416,7 +1425,7 @@ class runonce_page(ProtectedPage):
         if session['category'] == 'admin' or session['category'] != 'user':
             run_once.set(station_seconds)
             report_program_toggle()
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
 
 class plugins_manage_page(ProtectedPage):
@@ -1454,7 +1463,7 @@ class plugins_manage_page(ProtectedPage):
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
             plugins.start_enabled_plugins()
-            raise web.seeother(u'/plugins_manage')
+            raise web.seeother('/plugins_manage')
 
         if plugin is not None and plugin in plugins.available():
             if delete:
@@ -1473,15 +1482,15 @@ class plugins_manage_page(ProtectedPage):
                 import shutil
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
 
-            raise web.seeother(u'/plugins_manage')
+            raise web.seeother('/plugins_manage')
 
         if auto_update is not None and session['category'] == 'admin':
             options.auto_plugin_update = auto_update
-            raise web.seeother(u'/plugins_manage')
+            raise web.seeother('/plugins_manage')
         
         if use_update is not None and session['category'] == 'admin':
             options.use_plugin_update = use_update
-            raise web.seeother(u'/plugins_manage')
+            raise web.seeother('/plugins_manage')
 
         return self.core_render.plugins_manage()
 
@@ -1532,22 +1541,22 @@ class log_page(ProtectedPage):
 
         if 'clear' in qdict and session['category'] == 'admin':
             log.clear_runs()
-            raise web.seeother(u'/log')
+            raise web.seeother('/log')
 
         if 'clearEM' in qdict and session['category'] == 'admin':
             logEM.clear_email()
-            raise web.seeother(u'/log')
+            raise web.seeother('/log')
 
         if 'clearEV' in qdict and session['category'] == 'admin':
             logEV.clear_events()
-            raise web.seeother(u'/log')
+            raise web.seeother('/log')
 
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
             data = "Date; Start Time; Zone; Duration; Program\n"
             for interval in events:
                 # return only records that are visible on this day:
-                duration = (interval['end'] - interval['start']).total_seconds()
+                duration = (interval[u'end'] - interval[u'start']).total_seconds()
                 minutes, seconds = divmod(duration, 60)
 
                 data += '; '.join([
@@ -1602,15 +1611,15 @@ class log_page(ProtectedPage):
                 return self.core_render.log(watering_records, email_records, events_records)
             except:
                 print_report('webpages.py', traceback.format_exc())
-                raise web.seeother(u'/')
+                raise web.seeother('/')
         elif session['category'] == 'user':
             try: 
                 return self.core_render.log_user(watering_records, email_records, events_records)
             except:
                 print_report('webpages.py', traceback.format_exc())
-                raise web.seeother(u'/')
+                raise web.seeother('/')
         else:
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
     def POST(self):
         from ospy.server import session
@@ -1638,7 +1647,7 @@ class log_page(ProtectedPage):
         elif session['category'] == 'user':
             return self.core_render.log_user(watering_records, email_records, events_records)
         else:
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
 class options_page(ProtectedPage):
     """Open the options page for viewing and editing."""
@@ -1647,7 +1656,7 @@ class options_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
         errorCode = qdict.get('errorCode', 'none')
@@ -1658,7 +1667,7 @@ class options_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         changing_language = False
 
@@ -1671,12 +1680,12 @@ class options_page(ProtectedPage):
         if 'aes_gener' in qdict and qdict['aes_gener'] == '1':
             from ospy.helpers import now, password_hash
             options.aes_key = password_hash(str(now()), 'notarandomstring')[:16]
-            raise web.seeother(u'/options?errorCode=pw_aesGenerOK') 
+            raise web.seeother('/options?errorCode=pw_aesGenerOK') 
 
         if 'aes_key' in qdict and len(qdict['aes_key'])>16:
-            raise web.seeother(u'/options?errorCode=pw_aeslenERR')
+            raise web.seeother('/options?errorCode=pw_aeslenERR')
         elif 'aes_key' in qdict and len(qdict['aes_key'])<16:
-            raise web.seeother(u'/options?errorCode=pw_aeslenERR')
+            raise web.seeother('/options?errorCode=pw_aeslenERR')
         else:
             save_to_options(qdict)
 
@@ -1699,122 +1708,73 @@ class options_page(ProtectedPage):
                 from ospy.helpers import password_hash, password_salt, test_password
                 if test_password(qdict['old_password'], options.admin_user):
                     if qdict['new_password'] == "":
-                        raise web.seeother(u'/options?errorCode=pw_blank')
+                        raise web.seeother('/options?errorCode=pw_blank')
                     elif qdict['new_password'] == qdict['check_password']:
                         options.password_salt = password_salt()
                         options.password_hash = password_hash(qdict['new_password'], options.password_salt)
+                        options.first_installation = False
                     else:
-                        raise web.seeother(u'/options?errorCode=pw_mismatch')
+                        raise web.seeother('/options?errorCode=pw_mismatch')
                 else:
-                    raise web.seeother(u'/options?errorCode=pw_wrong')
+                    raise web.seeother('/options?errorCode=pw_wrong')
 
                 from ospy.server import session
                 session.kill()
-                raise web.seeother(u'/')    # after change password -> logout
+                raise web.seeother('/')    # after change password -> logout
             except KeyError:
                 pass
    
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
             reboot(block=True) # Linux HW software 
-            msg = _(u'The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg) 
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
             restart()    # OSPy software
-            msg = _(u'The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
+            msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg)
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
             poweroff(wait=15, block=True)   # shutdown HW system
-            msg = _(u'The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
+            msg = _('The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
             try:
-                ospy_root   = './ospy/'
-                ospy_images = ospy_root + 'images/stations/'
-
-                report_restarted()
-
+                from ospy.helpers import del_rw
                 from ospy import server
-                from ospy.helpers import determine_platform
-                import os
-                import sys
-                import subprocess
+                import shutil
 
                 server.stop()
                 stations.clear()
 
-                for s in range(200):
-                    try:
-                        if os.path.isfile(ospy_images + ('station{}.png').format(s)): 
-                            log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}.png').format(s)))
-                            os.remove(ospy_images + ('station{}.png').format(s))
-                        if os.path.isfile(ospy_images + ('station{}_thumbnail.png').format(s)):
-                            log.debug('webpages.py', _(u'Deleting image file {}').format(ospy_images + ('station{}_thumbnail.png').format(s)))
-                            os.remove(ospy_images + ('station{}_thumbnail.png').format(s)) 
-                    except:
-                        pass
+                print_report('webpages.py', _('Deleting OSPy settings to default...'))
+                print_report('webpages.py', _('Deleting folder data')) 
+                shutil.rmtree(os.path.join('ospy', 'data'), onerror=del_rw)
+                print_report('webpages.py', _('Deleting folder ssl'))
+                shutil.rmtree(os.path.join('ssl'), onerror=del_rw)
+                print_report('webpages.py', _('Deleting folder backup'))
+                shutil.rmtree(os.path.join('ospy', 'backup'), onerror=del_rw)
+                print_report('webpages.py', _('Deleting folder images/stations'))
+                shutil.rmtree(os.path.join('ospy', 'images', 'stations'), onerror=del_rw)
 
-                if os.path.isfile('./ssl/fullchain.pem'):
-                    log.debug('webpages.py', _(u'Deleting file fullchain.pem.'))
-                    os.remove('./ssl/fullchain.pem')
-
-                if os.path.isfile('./ssl/privkey.pem'):
-                    log.debug('webpages.py', _(u'Deleting file privkey.pem.'))
-                    os.remove('./ssl/privkey.pem')
-
-                if os.path.isfile(ospy_root + 'data/sessions.db'):
-                    log.debug('webpages.py', _(u'Deleting file sessions.db.'))
-                    os.remove(ospy_root + 'data/sessions.db') 
-
-                if os.path.isfile(ospy_root + 'backup/ospy_backup.zip'):
-                    log.debug('webpages.py', _(u'Deleting file ospy_backup.zip.'))
-                    os.remove(ospy_root + 'backup/ospy_backup.zip')
-                
-                if os.path.isfile(ospy_root + 'data/options.db.bak'):
-                    log.debug('webpages.py', _(u'Deleting file options.db.bak.'))
-                    os.remove(ospy_root + 'data/options.db.bak')
-
-                if os.path.isfile(ospy_root + 'data/options.db.tmp'):
-                    log.debug('webpages.py', _(u'Deleting file options.db.tmp.'))
-                    os.remove(ospy_root + 'data/options.db.tmp')
-
-                if os.path.isfile(ospy_root + 'data/options.db'):
-                    log.debug('webpages.py', _(u'Deleting file options.db.'))
-                    os.remove(ospy_root + 'data/options.db')
-
-                try:
-                    import shutil
-                    shutil.rmtree(os.path.join(ospy_root, 'data', 'sensors'))
-                except:
-                    pass
-
-                if os.path.isfile(ospy_root + 'data/events.log'):
-                    log.debug('webpages.py', _(u'Deleting file events.log.'))
-                    os.remove(ospy_root + 'data/events.log')
-               
-                if determine_platform() == 'nt':
-                    # Use this weird construction to start a separate process that is not killed when we stop the current one
-                    subprocess.Popen(['cmd.exe', '/c', 'start', sys.executable] + sys.argv)
-                else:
-                    os.execl(sys.executable, sys.executable, *sys.argv)
-
+                restart()    # OSPy software
             except:
                 print_report('webpages.py', traceback.format_exc())
-                raise web.seeother(u'/')
+                server.start()
+                raise web.seeother('/')
 
         if changing_language:
             report_restarted()
             restart()    # OSPy software
-            msg = _(u'A language change has been made in the settings, the OSPy will now restart and load the selected language.')
+            msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
             return self.core_render.notice(home_page, msg)
 
         report_option_change()
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
 
 class stations_page(ProtectedPage):
@@ -1827,12 +1787,12 @@ class stations_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         qdict = web.input()
 
         recalc = False
-        for s in xrange(0, stations.count()):
+        for s in range(0, stations.count()):
             stations[s].name = qdict["%d_name" % s]
             stations[s].usage = float(qdict.get("%d_usage" % s, 1.0))
             stations[s].precipitation = float(qdict.get("%d_precipitation" % s, 10.0))
@@ -1840,7 +1800,6 @@ class stations_page(ProtectedPage):
             stations[s].eto_factor = float(qdict.get("%d_eto_factor" % s, 1.0))
             stations[s].enabled = True if qdict.get("%d_enabled" % s, 'off') == 'on' else False
             stations[s].ignore_rain = True if qdict.get("%d_ignore_rain" % s, 'off') == 'on' else False
-
             if stations.master is not None or stations.master_two is not None or options.master_relay:
                 if "%d_master_type" % s in qdict:
                     mtype = int(qdict["%d_master_type" % s])
@@ -1866,7 +1825,7 @@ class stations_page(ProtectedPage):
             Timer(0.1, programs.calculate_balances).start()
 
         report_station_names()
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
 class help_page(ProtectedPage):
     """Help page"""
@@ -1882,34 +1841,29 @@ class help_page(ProtectedPage):
 
         docs = get_help_files()
 
-        if options.ospy_readme_error: # true if is ImportError: Failed loading extension partial_gfm
-            errorCode = qdict.get('errorCode', 'gfm')
-        else:    
-            errorCode = qdict.get('errorCode', 'none')
-
         if session['category'] == 'admin':
-            return self.core_render.help(docs, errorCode)
+            return self.core_render.help(docs)
         if session['category'] == 'user':
-            return self.core_render.help_user(docs, errorCode)
+            return self.core_render.help_user(docs)
         
 class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
     def GET(self):
-        msg = _(u'System component is unreachable or busy. Please wait (try again later).')
+        msg = _('System component is unreachable or busy. Please wait (try again later).')
         return self.core_render.notice('/download', msg)
 
 class download_page(ProtectedPage):
     """Download OSPy backup file with settings"""
     def GET(self):
         from ospy.server import session
-        from ospy.helpers import mkdir_p, del_rw, ASCI_convert
+        from ospy.helpers import mkdir_p, del_rw
         import os
         import zipfile
         import time
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         def retrieve_file_paths(dirName):
             """Declare the function to return all file paths of the particular directory"""
@@ -1927,16 +1881,17 @@ class download_page(ProtectedPage):
         def _read_log(path):
             """Read file"""
             try:
-                logf = open(path,'r')
-                return logf.read()
+                with open(path, 'rb') as fh:
+                    return fh.read()
             except IOError:
+                print_report('webpages.py', traceback.format_exc())
                 return []
 
         try:
             ospy_root = './ospy/'
             backup_path = ospy_root + 'backup/ospy_backup.zip'                                # Where is backup zip file
             dir_name = [ospy_root + 'data', ospy_root + 'data/sensors', ospy_root + 'images/stations']    
-            download_name = 'ospy_backup_{}_{}.zip'.format(ASCI_convert(options.name), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_systemname_4.12.2020_18-40-20.zip                         
+            download_name = 'ospy_backup_{}.zip'.format(time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip                         
             filePaths = []
 
             for name in dir_name:                                                             # Call the function to retrieve all files and folders of the assigned directory
@@ -1951,7 +1906,7 @@ class download_page(ProtectedPage):
                     zip_file.write(file)
 
             if os.path.exists(backup_path):
-                log.debug('webpages.py', _(u'File {} is created successfully!').format(download_name))
+                log.debug('webpages.py', _('File {} is created successfully!').format(download_name))
                 import mimetypes
                 content = mimetypes.guess_type(backup_path)[0]
                 web.header('Content-type', content)
@@ -1960,19 +1915,19 @@ class download_page(ProtectedPage):
                 return _read_log(backup_path)
             else:
                 log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
-                msg = _(u'System component is unreachable or busy. Please wait (try again later).')
-                return self.core_render.notice('/download', msg)
+                msg = _('System component is unreachable or busy. Please wait (try again later).')
+                return self.core_render.notice(u'/download', msg)
              
         except Exception:
             print_report('webpages.py', traceback.format_exc())
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
 
 class upload_page(ProtectedPage):
     """Upload ospy_backup.zip file with settings and images for stations"""
     
     def GET(self):
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
     def POST(self):
         from ospy.server import session
@@ -1983,7 +1938,7 @@ class upload_page(ProtectedPage):
         import shutil
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         ospy_root = './ospy/'
         backup_path = ospy_root + 'backup/ospy_backup.zip'
@@ -1995,31 +1950,31 @@ class upload_page(ProtectedPage):
             # 0 ==> unlimited input upload
             # cgi.maxlen = 10 * 1024 * 1024 # 10MB
             # print cgi.maxlen 
-            log.debug('webpages.py', _(u'Uploading file {}.').format(i.uploadfile.filename))
+            log.debug('webpages.py', _('Uploading file {}.').format(i.uploadfile.filename))
             upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # Only .zip file accepted
             if upload_type == '.zip':                                          # Check file type
-                fout = open(backup_path,'w')                                   # Write uploaded file to backup folder
+                fout = open(backup_path, 'wb')                                 # Write uploaded file to backup folder
                 fout.write(i.uploadfile.file.read()) 
                 fout.close() 
                 
-                log.debug('webpages.py', _(u'Uploaded to backup folder OK.'))
+                log.debug('webpages.py', _('Uploaded to backup folder OK.'))
 
                 with ZipFile(backup_path, mode='r') as zf:                     # Extract zip file
                     zf.extractall(ospy_root + 'backup/ospy_backup')
-                    log.debug('webpages.py', _(u'Extracted from zip OK.'))
+                    log.debug('webpages.py', _('Extracted from zip OK.'))
 
                 fromDirectory = ospy_root + 'backup/ospy_backup'
                 toDirectory = './'
                 copy_tree(fromDirectory, toDirectory)                          # Copy from to
                 
-                log.debug('webpages.py', _(u'Cleaning folder after restoring...'))
+                log.debug('webpages.py', _('Cleaning folder after restoring...'))
                 shutil.rmtree(fromDirectory, 'ospy_backup', onerror=del_rw)
 
-                log.debug('webpages.py', _(u'Restoring backup files sucesfully, now restarting OSPy...'))
+                log.debug('webpages.py', _('Restoring backup files sucesfully, now restarting OSPy...'))
                 
                 report_restarted()
                 restart(3)
-                msg = _(u'Restoring backup files sucesfully, now restarting OSPy...')
+                msg = _('Restoring backup files sucesfully, now restarting OSPy...')
                 return self.core_render.notice(home_page, msg)
             else:
                 errorCode = "pw_filename" 
@@ -2034,13 +1989,13 @@ class upload_page_SSL(ProtectedPage):
     """Upload certificate file to SSL dir, fullchain.pem or privkey.pem"""
     
     def GET(self):
-        raise web.seeother(u'/')
+        raise web.seeother('/')
 
     def POST(self):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         SSL_FOLDER = './ssl'
         OPTIONS_FILE_FULL = SSL_FOLDER + '/fullchain.pem' # cert file
@@ -2049,8 +2004,8 @@ class upload_page_SSL(ProtectedPage):
         qdict = web.input()
         if 'generate' in qdict and qdict['generate'] == '1':   # generating own SSL certificate to ssl folder
             try:
-                print_report('webpages.py', _(u'Try-ing generating SSL certificate...'))
-                log.debug('webpages.py', _(u'Try-ing generating SSL certificate...'))
+                print_report('webpages.py', _('Try-ing generating SSL certificate...'))
+                log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
 
                 from OpenSSL import crypto, SSL
                 # openssl version
@@ -2068,9 +2023,9 @@ class upload_page_SSL(ProtectedPage):
                 cert.get_subject().ST = "Czechia"          # your state
                 cert.get_subject().L = "Prague"            # location 
                 cert.get_subject().O = "OSPy sprinkler"    # organization
-                cert.get_subject().OU = "pihrt.com"        # this field is the name of the department or organization unit making the request
+                cert.get_subject().OU = "opensprinkler.cz" # this field is the name of the department or organization unit making the request
                 cert.get_subject().CN = options.domain_ssl # common name
-                cert.get_subject().emailAddress = "admin@pihrt.com" # e-mail
+                cert.get_subject().emailAddress = "admin@opensprinkler.cz" # e-mail
                 cert.set_serial_number(random.randint(1000, 1000000))
                 cert.gmtime_adj_notBefore(0)
                 cert.gmtime_adj_notAfter(10*365*24*60*60)
@@ -2078,8 +2033,8 @@ class upload_page_SSL(ProtectedPage):
                 cert.set_pubkey(k)
                 cert.sign(k, 'sha256')
 
-                open(OPTIONS_FILE_FULL, "wt").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
-                open(OPTIONS_FILE_PRIV, "wt").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+                open(OPTIONS_FILE_FULL, "wb").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+                open(OPTIONS_FILE_PRIV, "wb").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
 
                 print_report('webpages.py', _('OK'))
                 log.debug('webpages.py', _('OK'))
@@ -2101,13 +2056,13 @@ class upload_page_SSL(ProtectedPage):
                 if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
                     if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
                         os.remove(OPTIONS_FILE_FULL)             # remove file
-                        log.debug('webpages.py', _(u'Remove fullchain.pem...'))
+                        log.debug('webpages.py', _('Remove fullchain.pem...'))
                 if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
                         os.remove(OPTIONS_FILE_PRIV)             # remove file  
-                        log.debug('webpages.py', _(u'Remove privkey.pem...'))
+                        log.debug('webpages.py', _('Remove privkey.pem...'))
 
-                fout = open('./ssl/' + i.uploadfile.filename,'w')
+                fout = open('./ssl/' + i.uploadfile.filename,'wb')
                 fout.write(i.uploadfile.file.read())
                 fout.close()
 
@@ -2148,7 +2103,7 @@ class images_page(ProtectedPage):
                     web.header('Content-type', content)
                     web.header('Content-Length', os.path.getsize(download_name))
                     web.header('Content-Disposition', 'attachment; filename=%s' % str(id))
-                    img = open(download_name,'r')
+                    img = open(download_name,'rb')
                     return img.read()
                 else:
                     return None
@@ -2253,7 +2208,7 @@ class api_balance_json(ProtectedPage):
             if station.enabled and any(station.index in program.stations for program in programs.get()):
                 statuslist.append({
                     'station': station.name,
-                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.iteritems()}})
+                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
 
         web.header('Content-Type', 'application/json')
         return json.dumps(statuslist, indent=2)
@@ -2270,13 +2225,13 @@ class showInFooter(object):
         self._idx = None
         
         self._idx = len(pluginFtr)
-        pluginFtr.append({u"label": self._label, u"val": self._val, u"unit": self._unit, u"button": self._button})
+        pluginFtr.append({"label": self._label, "val": self._val, "unit": self._unit, "button": self._button})
   
            
     @property
     def label(self):
         if not self._label:
-            return _(u'Label not set')
+            return _('Label not set')
         else:
             return self._label
     
@@ -2284,31 +2239,31 @@ class showInFooter(object):
     def label(self, text):
         self._label = text
         if self._label:
-            pluginFtr[self._idx][u"label"] = self._label + ": "
+            pluginFtr[self._idx]["label"] = self._label + ": "
     
     @property
     def val(self):
         if self._val == "":
-            return _(u'Value not set')
+            return _('Value not set')
         else:
             return self._val
     
     @val.setter
     def val(self, num):
         self._val = num
-        pluginFtr[self._idx][u"val"] = self._val
+        pluginFtr[self._idx]["val"] = self._val
 
     @property
     def unit(self):
         if not self.unit:
-            return _(u'Unit not set')
+            return _('Unit not set')
         else:
             return self._unit
     
     @unit.setter
     def unit(self, text):
         self._unit = text
-        pluginFtr[self._idx][u"unit"] = " " + self._unit
+        pluginFtr[self._idx]["unit"] = " " + self._unit
 
 
     @property
@@ -2321,7 +2276,7 @@ class showInFooter(object):
     @button.setter
     def button(self, text):
         self._button = text
-        pluginFtr[self._idx][u"button"] = self._button
+        pluginFtr[self._idx]["button"] = self._button
 
 
 class showOnTimeline:
@@ -2342,7 +2297,7 @@ class showOnTimeline:
     @property
     def unit(self):
         if not self.unit:
-            return _(u'Unit not set')
+            return _('Unit not set')
         else:
             return self._unit
     
@@ -2355,7 +2310,7 @@ class showOnTimeline:
     @property
     def val(self):
         if not self._val:
-            return _(u'Value not set')
+            return _('Value not set')
         else:
             return self._val
     
@@ -2375,7 +2330,7 @@ class api_plugin_data(ProtectedPage):
 
         if options.show_plugin_data:
             for i, v in enumerate(pluginFtr):
-                footer_data.append((i, v[u"val"]))
+                footer_data.append((i, v["val"]))
             for v in pluginStn:
                 station_data.append((v[1]))
 
@@ -2397,7 +2352,7 @@ class api_update_status(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
 
         pl_data = []
         data = {}
@@ -2405,6 +2360,7 @@ class api_update_status(ProtectedPage):
         os_state = 0
         os_avail = '0.0.0'
         os_curr  = '0.0.0'
+        os_change  = ''
 
         running_list = plugins.running()
         current_info = options.plugin_status
@@ -2417,7 +2373,7 @@ class api_update_status(ProtectedPage):
                     pl_data.append((must_update, plugins.plugin_name(plugin)))
                     must_update += 1
                         
-        if options.use_plugin_update:                    # if not enable update for plugin -> NO POP-UP on home page
+        if options.use_plugin_update:                     # if not enable update for plugin -> NO POP-UP on home page
             data["plugin_name"]   = pl_data              # name of plugins where must be updated
             data["plugins_state"] = must_update          # status whether it is necessary to update the plugins (count plugins)
         else:
@@ -2429,15 +2385,18 @@ class api_update_status(ProtectedPage):
             os_state = system_update.get_all_values()[0] # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
             os_avail = system_update.get_all_values()[1] # Available new OSPy version
             os_curr  = system_update.get_all_values()[2] # Actual OSPy version
+            #os_change = get_all_values()[3] # Changes
 
             data["ospy_state"] = os_state
             data["ospy_aval"]  = os_avail
             data["ospy_curr"]  = os_curr
+            data["chang"]      = os_change
 
         except Exception:
             data["ospy_state"] = os_state
             data["ospy_aval"]  = os_avail
             data["ospy_curr"]  = os_curr
+            data["chang"]      = os_change
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
@@ -2451,7 +2410,7 @@ class api_update_footer(ProtectedPage):
         from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage, get_external_ip
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
         
         data = {}
         data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
@@ -2470,11 +2429,10 @@ class api_search_sensors(ProtectedPage):
         from ospy.server import session
 
         if session['category'] != 'admin':
-            raise web.seeother(u'/')
+            raise web.seeother('/')
         
         searchData = []
         searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
 
         web.header('Content-Type', 'application/json')
         return json.dumps(searchData)
-              

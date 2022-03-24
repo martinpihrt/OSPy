@@ -1,15 +1,13 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = 'Rimco'
+__author__ = u'Rimco'
 
 # System imports
 import datetime
 
-# Local imports
-
-
 class _RunOnceProgram(object):
     def __init__(self):
-        self.name = _(u'Run-Once')
+        self.name = _('Run-Once')
 
         self._start = datetime.datetime.now()
         self._station_seconds = {}

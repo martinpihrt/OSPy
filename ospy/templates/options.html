@@ -5,33 +5,17 @@ $var page: options
 
 $code:
     languages = i18n.languages
-    langKeys = i18n.languages.keys()
+    langKeys = list(i18n.languages.keys())
     langKeys.sort()
 
 <script>
-    function updateFooter(){
-    jQuery.getJSON("/update_footer", function(osVals) {
-        let cpu_temp = osVals.cpu_temp;
-        let cpu_usage = osVals.cpu_usage;
-        let sys_uptime = osVals.sys_uptime;
-        let sys_ip = osVals.ip;
-
-        jQuery("#cpu_temp span.cpu_temp").text(cpu_temp);
-        jQuery("#cpu_usage span.cpu_usage").text(cpu_usage);
-        jQuery("#ip span.ip").text(sys_ip);
-        jQuery("#uptime span.uptime").text(sys_uptime);
-    })
-        
-    setTimeout(updateFooter, 5000); 
-    }
-
     var errorCode = "${errorCode}";
 
     jQuery(document).ready(function(){
 
     jQuery("button#tooltips").click(function(){
         var visible = jQuery(this).text() == "Hide Tooltips";
-        jQuery(this).text(visible ? $:{json.dumps(_('Show Tooltips'), ensure_ascii=False).encode('utf8')} : $:{json.dumps(_('Hide Tooltips'), ensure_ascii=False).encode('utf8')});
+        jQuery(this).text(visible ? $:{json.dumps(_('Show Tooltips'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Hide Tooltips'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         jQuery(".tooltip").toggle();
     });
 
@@ -83,50 +67,48 @@ $code:
 
     switch (errorCode) {
         case "pw_wrong":
-            jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False).encode('utf8')});
+            jQuery("#erroropw").text($:{json.dumps(_('The password given was incorrect.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#erroropw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_blank":
-            jQuery("#errornpw").text($:{json.dumps(_('Please enter a password.'), ensure_ascii=False).encode('utf8')});
+            jQuery("#errornpw").text($:{json.dumps(_('Please enter a password.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errornpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_mismatch":
-            jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorcpw").text($:{json.dumps(_("Passwords don't match, please re-enter."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorcpw").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_filename":
-            jQuery("#errorfn").text($:{json.dumps(_("File type is not zip, please retry."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfn").text($:{json.dumps(_("File type is not zip, please retry."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfn").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;
         case "pw_filenameSSL":
-            jQuery("#errorfnssl").text($:{json.dumps(_("File name is not fullchain.pem or privkey.pem, please retry."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").text($:{json.dumps(_("File name is not fullchain.pem or privkey.pem, please retry."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;      
         case "pw_filenameSSLOK":
-            jQuery("#errorfnssl").text($:{json.dumps(_("File has uploaded."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").text($:{json.dumps(_("File has uploaded."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;  
         case "pw_generateSSLOK":
-            jQuery("#errorfnssl").text($:{json.dumps(_("SSL certificate has generated. Tick own HTTPS in options and restart OSPy."), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").text($:{json.dumps(_("SSL certificate has generated. Tick own HTTPS in options and restart OSPy."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;  
         case "pw_generateSSLERR":
-            jQuery("#errorfnssl").text($:{json.dumps(_("Error: SSL certificate has not generated!"), ensure_ascii=False).encode('utf8')});
+            jQuery("#errorfnssl").text($:{json.dumps(_("Error: SSL certificate has not generated!"), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break; 
         case "pw_aeslenERR":
-            jQuery("#erroraes").text($:{json.dumps(_("Error: AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor!)"), ensure_ascii=False).encode('utf8')});
+            jQuery("#erroraes").text($:{json.dumps(_("Error: AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor!)"), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#erroraes").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break; 
         case "pw_aesGenerOK":
-            jQuery("#erroraes").text($:{json.dumps(_("AES key has generated."), ensure_ascii=False).encode('utf8')});
+            jQuery("#erroraes").text($:{json.dumps(_("AES key has generated."), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#erroraes").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
             break;                                                 
     }
 
     jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
-
-    updateFooter();
 });
 </script>
 
@@ -209,13 +191,12 @@ $code:
                     output += "<span class='tooltip'>" + _('Language localizations for this OpenSprinkler system. (effective after reboot.)') + "</span>\n"     
                     output += "</div>\n"
     
-                if name is not 'lang':
-
+                if name != 'lang':
                     output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + ":</span>\n"
                 else:
                     output += "<div class='option' title='" + tooltip + "'><span class='label'>" + label + "</span>\n"
     
-                if enum is not None:
+                if enum != None:
                     output += "<select name='" + name + "'>\n"
                     if not enum:
                         output += _('None available')
@@ -236,43 +217,43 @@ $code:
                 elif isinstance(value, int) or isinstance(value, float):
                     output += "<input name='" + name + "' type='number'" + minv + maxv + " size='3' maxlength='3' value='" + str(value) + "'>\n"
                 else:
-                    if name is not 'lang':
+                    if name != 'lang':
                        output += "<input name='" + name + "' type='text' size='31' value='" + u"{}".format(value) + "'>\n"
 
                 output += "<span class='tooltip'>" + tooltip + "</span>\n"
                 output += "</div>\n\n"
                 
                 if name == 'admin_user':
-                    output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False) + "><span class='label'>" + _('Current password') + ":</span>\n" 
+                    output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Current password') + ":</span>\n" 
                     output += "<input name='old_password' type='password' size='31' autocomplete=\"new-password\"><span class='inputError' id='erroropw'></span>\n"
                     output += "<span class='tooltip'>" + _('Re-enter the current password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title=" + json.dumps(_('Enter a new password.'), ensure_ascii=False) + "><span class='label'>" + _('New password') + ":</span>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Enter a new password.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('New password') + ":</span>\n"
                     output += "<input name='new_password' type='password' size='31'><span class='inputError' id='errornpw'></span>\n"
                     output += "<span class='tooltip'>" + _('Enter a new password.') + "</span>\n"
                     output += "</div>\n"
-                    output += "<div class='option' title=" + json.dumps(_('Confirm the new password.'), ensure_ascii=False) + "><span class='label'>" + _('Confirm password') + ":</span>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Confirm the new password.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Confirm password') + ":</span>\n"
                     output += "<input name='check_password' type='password' size='31'><span class='inputError' id='errorcpw'></span>\n"
                     output += "<span class='tooltip'>" + _('Confirm the new password.') + "</span>\n"
                     output += "</div>\n"  
-                    output += "<div class='option' title=" + json.dumps(_('Edit aditional users for login to the OSPy.'), ensure_ascii=False) + "><span class='label'>" + _('Aditional users') + "</span>\n"   
-                    output += "&nbsp;<a href='users' class='button backup' title=" + json.dumps(_('Edit aditional users for login to the OSPy'), ensure_ascii=False) + ">" + _('Edit Users') + "</a>\n"
+                    output += "<div class='option' title=" + json.dumps(_('Edit aditional users for login to the OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Aditional users') + "</span>\n"   
+                    output += "&nbsp;<a href='users' class='button backup' title=" + json.dumps(_('Edit aditional users for login to the OSPy'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Edit Users') + "</a>\n"
                     output += "<span class='tooltip'>" + _('Edit aditional users for login to the OSPy.') + "</span>\n"
                     output += "</div>\n"
 
                 if name == 'aes_key':
                     output += "<div class='option'>"
                     output += "<span class='inputError' id='erroraes'></span>\n"
-                    output += "&nbsp;<button id='cAESgener' class='button backup' title=" + json.dumps(_('Generate new security key code for your sensors.'), ensure_ascii=False) + ">" + _('Generate new key') + "</button>\n"
+                    output += "&nbsp;<button id='cAESgener' class='button backup' title=" + json.dumps(_('Generate new security key code for your sensors.'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Generate new key') + "</button>\n"
                     output += "<input type='hidden' name='aes_gener' value='0'>"
                     output += "</div>\n"
 
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False) + ">" + _('Restart') + "</button>"
-        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False) + ">" + _('Reboot') + "</button>"
-        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(_('Shutdown hardware!'), ensure_ascii=False) + ">" + _('Shutdown') + "</button>"
-        output += "&nbsp;<button id='cDefault' class='reboot danger' title=" + json.dumps(_('Delete OSPy settings to default!'), ensure_ascii=False) + ">" + _('Default') + "</button>"
+        output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Restart') + "</button>"
+        output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Reboot') + "</button>"
+        output += "&nbsp;<button id='cDown' class='reboot danger' title=" + json.dumps(_('Shutdown hardware!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Shutdown') + "</button>"
+        output += "&nbsp;<button id='cDefault' class='reboot danger' title=" + json.dumps(_('Delete OSPy settings to default!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Default') + "</button>"
         output += "</div>\n"
         output += "<input type=\"hidden\" name=\"rbt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
@@ -283,9 +264,9 @@ $code:
         output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('System Backup') + "</h4>\n"
         output += "<div class='option'>"
-        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download OSPy backup zip file'), ensure_ascii=False) + ">" + _('Download') + "</a>\n"
+        output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download OSPy backup zip file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' accept='.zip' />\n"
-        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload OSPy recovery zip file'), ensure_ascii=False) + ">" + _('Upload') + "</a>\n"
+        output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload OSPy recovery zip file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Upload') + "</a>\n"
         output += "<span class='inputError' id='errorfn'></span>\n"
         output += "</div></form>\n"
         output += categoryCloser
@@ -295,12 +276,12 @@ $code:
         output += "<div class='option'>"
         output += "<span class='label'>" + _('Upload SSL files') + ":</span>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' accept='.pem'/><br>\n "
-        output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False) + ">" + _('Upload') + "</a>"
+        output += "&nbsp;<a id='cUploadSSL' class='button upload' title=" + json.dumps(_('Upload fullchain.pem or privkey.pem file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Upload') + "</a>"
         output += "<span class='tooltip'>" + _('Upload SSL file.') + "</span>\n"
         output += "</form>"
 
         output += "<form id='GenerateSSL' name='of4' action='uploadSSL' method=\"post\">\n"
-        output += "&nbsp;<button id='cGenerate' class='reboot danger' title=" + json.dumps(_('Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder'), ensure_ascii=False) + ">" + _('Generate') + "</button>"
+        output += "&nbsp;<button id='cGenerate' class='reboot danger' title=" + json.dumps(_('Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Generate') + "</button>"
         output += "<span class='tooltip'>" + _('Generate own SSL certificat.') + "</span>\n"
         output += "<br><span class='inputError' id='errorfnssl'></span>\n"
         output += "</div>\n"
@@ -312,9 +293,4 @@ $code:
     
 </div>
    <a id="cSubmit" class="button submit">$_('Submit Changes')</a>
-   <a href="/" class="button cancel danger">$_('Cancel')</a> 
-
-   
-
-
-
+   <a href="/" class="button cancel danger">$_('Cancel')</a>

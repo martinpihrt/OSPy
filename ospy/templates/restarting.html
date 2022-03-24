@@ -1,0 +1,34 @@
+$def with(go_to)
+
+$var title: Restarting
+$var page: home
+
+
+<script>
+    var checkTimer;
+
+    function checkPage() {
+        jQuery.ajax({
+            type: 'HEAD',
+            url: '${go_to}',
+            success: function() {
+                if (checkTimer != null) {
+                    clearTimeout(checkTimer);
+                }
+                window.location.replace('${go_to}');
+            }
+        });
+    }
+
+    jQuery(document).ready(function(){
+        setTimeout(function() {
+            checkTimer = setInterval(function() {
+                checkPage();
+            }, 1000);
+        }, 5000);
+    });
+</script>
+<div id="restarting">
+    <div class="title">OSPy is restarting</div>
+    You will be redirected as soon as possible...
+</div>
