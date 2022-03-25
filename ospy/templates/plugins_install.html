@@ -1,18 +1,7 @@
-$def with (errorCode)
+$def with ()
 
 $var title: $_('Manage Plugins')
 $var page: plugins
-
-<script>
-    var errorCode = "${errorCode}";
-    jQuery(document).ready(function(){
-        switch (errorCode) {
-            case "gfm":
-                jQuery("#error").text($:{json.dumps(_('Error: Failed loading Python extension partial gfm in markdown! README.md information in plugins will not be displayed correctly.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-            break;
-        }
-    });
-</script>    
 
 <script src="/static/scripts/plugins_install.js"></script>
 <div id="controls">
@@ -21,7 +10,6 @@ $var page: plugins
         <input type="file" name="zipfile" />
         <button id="cSubmit" class="submit">$_('Install')</button>
     </form>
-    <span class='Error' id='error'></span>
     $for repo_index, repo in enumerate(plugins.REPOS):
         <div style="vertical-align:middle;" class='category collapsible collapsed'>
             <h4>
