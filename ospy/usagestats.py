@@ -67,15 +67,16 @@ def OPERATING_SYSTEM(stats, info):
     info.append(('architecture', platform.machine().lower()))
     
     if is_python2():
-        info.append(('distribution',
-                 "%s;%s" % (platform.linux_distribution()[0:2])))
+        info.append(('distribution', "%s;%s" % (platform.linux_distribution()[0:2])))
     else:
-        import distro
-        info.append(('distribution',
-                 "%s;%s" % (distro.linux_distribution()[0:2])))
+        try:       # python > 3.9
+            import distro
+            info.append(('distribution', "%s;%s" % (distro.linux_distribution()[0:2])))
+        except:    # python <= 3.9
+            info.append(('distribution', "%s;%s" % (platform.linux_distribution()[0:2])))
+            pass
         
-    info.append(('system',
-                 "%s;%s" % (platform.system(), platform.release())))
+    info.append(('system', "%s;%s" % (platform.system(), platform.release())))
 
 
 def SESSION_TIME(stats, info):

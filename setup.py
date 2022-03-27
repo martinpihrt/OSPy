@@ -17,9 +17,9 @@ def yes_no(msg):
     response = u''
     while response.lower().strip() not in ['y', 'yes', 'n', 'no']:
         if is_python2():
-            response = raw_input('%s [y/yes/n/no]\n' % msg)
+            response = raw_input('{} [y/yes/n/no]\n'.format(msg.encode('utf-8')))
         else:
-            response = input('%s [y/yes/n/no]\n' % msg)
+            response = input('{} [y/yes/n/no]\n'.format(msg))
     return response.lower().strip() in ['y', 'yes']
 
 

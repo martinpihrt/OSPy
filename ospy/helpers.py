@@ -62,7 +62,7 @@ def program_delay(program):
 
 
 def formatTime(t):
-    from .options import options
+    from . options import options
     if options.time_format:
         return t
     else:
@@ -561,8 +561,7 @@ def password_hash(password, salt):
     import hashlib
     m = hashlib.sha256() 
     m.update((password+salt).encode('utf-8')) 
-    return m.hexdigest()
-
+    return m.hexdigest()    
 
 def test_password(password, username):
     from ospy.options import options
@@ -576,7 +575,8 @@ def test_password(password, username):
     if options.password_hash == password_hash(password, options.password_salt) and options.admin_user == username:     # Login for OSPy main administrator
         options.password_time = 0
         server.session['category'] = 'admin'
-        server.session['visitor']  = _('%s') % options.admin_user
+        server.session['visitor']  = options.admin_user
+        print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
         return True
     else:
         for user in users.get():
@@ -585,34 +585,35 @@ def test_password(password, username):
                 if user.category == '0':   # public
                     server.session['category'] = 'public'
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in %s, as operator %s') % (server.session[u'visitor'], server.session[u'category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
                 elif user.category == '1': # user
                     server.session['category'] = 'user'
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in %s, as operator %s') % (server.session[u'visitor'], server.session[u'category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
                 elif user.category == '2': # admin
                     server.session['category'] = 'admin'  
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in %s, as operator %s') % (server.session[u'visitor'], server.session[u'category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
                 elif user.category == '3': # sensor
                     server.session['category'] = 'sensor'  
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in %s, as operator %s') % (server.session[u'visitor'], server.session[u'category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
                 else:
-                    print_report('helpers.py', _('Unauthorised category') + ': ' + _('%s') % user.category)    
+                    server.session['category'] = 'Unauthorised'
+                    server.session['visitor']  = _('Unknown operator')
+                    print_report('helpers.py', _('Unauthorised category {}').format(user.category))
                     return False
             else:
                 if options.password_time < 30: # Brute-force increment time
                     options.password_time += 1
                 server.session['category'] = 'public'
                 server.session['visitor']  = _('Unknown operator')
-                print_report('helpers.py', _('Unauthorised operator') + ': ' + _('%s') % username)
+                print_report('helpers.py', _('Unauthorised operator {}').format(username))
                 return False
-    
     return False
 
 
@@ -814,10 +815,13 @@ def ASCI_convert(name):
 def print_report(title, message=None):
     """ All prints are reported here """
     try:
-        print('{}: {}'.format(title, message))
+        if is_python2():
+            print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))
+        else:
+            print('{}: {}'.format(title, message))
     except:
-        print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))  
-    return
+        print_report('helpers.py', traceback.format_exc())
+        pass
         
 
 def encrypt_data(aes_key, plain_msg, iv_mode = None): # if iv_mode is None aes mode is ECB else CBC with IV 16 bytes
@@ -851,8 +855,12 @@ def decrypt_data(aes_key, enc_msg, iv_mode = None):    # if iv_mode is None aes 
         else:
             decryption_suite = AES.new(aes_key, AES.MODE_CBC, iv_mode)
 
-        sec_str = str(binascii.unhexlify(enc_msg))
-        plain_msg = decryption_suite.decrypt(sec_str)
+        if is_python2():
+            sec_str = str(binascii.unhexlify(enc_msg))
+            plain_msg = decryption_suite.decrypt(sec_str)
+        else:
+            sec_str = binascii.unhexlify(enc_msg)
+            plain_msg = decryption_suite.decrypt(sec_str).decode()
         return plain_msg    
     except:
         print_report('helpers.py', traceback.format_exc())

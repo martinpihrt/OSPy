@@ -385,11 +385,11 @@ class _Sensors_Timer(Thread):
                     pass
 
                 if action:
-                    logline["action"] = "{}".format(action)
-                else:
-                    logline["action"] = ''
+                    logline["action"] = '{}'.format(action.encode('utf-8'))
+                #else:
+                #    logline["action"] = ''
             else:                # sensor event log
-                logline["event"] = "{}".format(msg)
+                logline["event"] = '{}'.format(msg.encode('utf-8'))
 
             log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
             if not os.path.isdir(log_dir):

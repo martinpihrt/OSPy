@@ -550,15 +550,20 @@ class _Options(object):
             except Exception as err:
                 raise
 
-        if not self.first_password_hash:  # First default installation password is not hashed yet
-            import random
-            self.first_password_hash = "{:16x}".format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
+        try:
+            if not self.first_password_hash:  # First default installation password is not hashed yet
+                import random
+                self.first_password_hash = "{:16x}".format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
 
-        if not self.password_salt:        # Password is not hashed yet
-            from ospy.helpers import password_salt, password_hash
-            self.password_salt = password_salt()
-            self.password_hash = password_hash(self.first_password_hash, self.password_salt) # admin first password hash
-            self.admin_user = 'admin'                                                        # admin first user name 
+            if not self.password_salt and self.password_hash == 'opendoor':                      # Password is not hashed yet
+                from ospy.helpers import password_salt, password_hash
+                self.password_salt = password_salt()
+                self.password_hash = password_hash(self.first_password_hash, self.password_salt) # admin first password hash
+                self.admin_user = 'admin' 
+        except:
+            helpres.print_report('options.py', traceback.format_exc())
+
+
 
     def __del__(self):
         if self._write_timer is not None:

@@ -1172,11 +1172,13 @@ class home_page(ProtectedPage):
         from ospy.server import session
 
         if session['category'] == 'public':
-            return self.core_render.home_public()
+            return self.core_render.home_public()            
         elif session['category'] == 'user':
             return self.core_render.home_user()
         elif session['category'] == 'admin':
             return self.core_render.home_admin()
+        else:
+            raise web.seeother('/')            
 
 
 class action_page(ProtectedPage):

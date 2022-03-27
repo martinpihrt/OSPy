@@ -131,7 +131,7 @@ function updateOStimer() {
             jQuery("#hasNew span.msg").text($:{json.dumps(_('OSPy version is up-to date'), ensure_ascii=False).encode('utf8').decode(u'utf-8')});
         }  
     }) 
-    setTimeout(updateOStimer, 600000); // 10 minutes
+    setTimeout(updateOStimer, 10000); // 10 second
     }
 }
 
@@ -148,7 +148,7 @@ function updateFooter(){
         jQuery("#ip span.ip").text(sys_ip);
         jQuery("#uptime span.uptime").text(sys_uptime);
     })      
-    setTimeout(updateFooter, 10000);
+    setTimeout(updateFooter, 10000); // 10 second
     } 
 }
 
@@ -197,8 +197,7 @@ jQuery(document).ready(function(){
 
         <div class="header">
             <div class="title" title=$:{json.dumps(_(u'Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
-            $if content.page != 'login':
-                <p id="Userinfo">
+            <p id="Userinfo">
                 $_('Operator'): ${session['visitor']}
                 $if session['category'] == 'admin':
                     - $_('Access'): $_('Administrator')
@@ -206,7 +205,7 @@ jQuery(document).ready(function(){
                     - $_('Access'): $_('User')
                 $if session['category'] == 'public':
                     - $_('Access'): $_('Public')
-                </p>                                        
+            </p>                                      
             </div>
         </div>
 

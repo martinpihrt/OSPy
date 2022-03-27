@@ -464,9 +464,9 @@ $if sensors.count()>0:
         $if sensor.fw > 0 and sensor.enabled:
             <p>$_(u'Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
             <p>$_('Sensor CPU'): <span class="val"> 
-            $if sensor.cpu_core == 0:
+            $if str(sensor.cpu_core) == '0':
                 $_(u'ESP32')
-            $if sensor.cpu_core == 1:
+            $if str(sensor.cpu_core) == '1':
                 $_(u'ESP8266')
             </span></p>
 
