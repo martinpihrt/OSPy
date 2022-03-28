@@ -4,8 +4,10 @@ __author__ = 'Rimco'
 
 # System imports
 import subprocess
-import logging
 import os
+
+from ospy.log import log
+
 
 ##############################
 #### Revision information ####
@@ -19,7 +21,7 @@ try:
     revision = int(subprocess.check_output(["git", "rev-list", "--count", "--first-parent", "HEAD"]))
     ver_str = "%d.%d.%d" % (major_ver, minor_ver, (revision-old_count))
 except Exception:
-    logging.warning(_('Could not use git to determine revision!'))
+    log.debug('version.py', _('Could not use git to determine revision!'))
     revision = 999
     ver_str = "{}.{}.{}".format(major_ver, minor_ver, revision)
     pass
@@ -27,7 +29,7 @@ except Exception:
 try:
     ver_date = subprocess.check_output(["git", "log", "-1", "--format=%cd", "--date=short"]).strip().decode('ascii')
 except Exception:
-    logging.warning(_('Could not use git to determine date of last commit!'))
+    log.debug('version.py', _('Could not use git to determine date of last commit!'))
     ver_date = "2022"
     pass
 
@@ -46,7 +48,7 @@ try:
     else:
         ver_esp32 = "-"
 except Exception:
-    logging.warning(_('Could not find ESP32 firmware version!'))
+    log.debug('version.py', _('Could not find ESP32 firmware version!'))
     ver_esp32 = "-"
     pass
 
@@ -65,6 +67,6 @@ try:
     else:
         ver_esp8266 = "-"
 except Exception:
-    logging.warning(_('Could not find ESP8266 firmware version!'))
+    log.debug('version.py', _('Could not find ESP8266 firmware version!'))
     ver_esp8266 = "-"
     pass

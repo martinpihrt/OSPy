@@ -63,8 +63,6 @@ class DebugLogMiddleware:
         return self.app(environ, xstart_response)
 
     def log(self, status, environ):
-        import logging
-
         req = environ.get('PATH_INFO', '_')
         protocol = environ.get('ACTUAL_SERVER_PROTOCOL', '-')
         method = environ.get('REQUEST_METHOD', '-')
@@ -72,7 +70,7 @@ class DebugLogMiddleware:
                           environ.get('REMOTE_PORT', '-'))
 
         msg = self.format % (host, protocol, method, req, status)
-        logging.debug(web.utils.safestr(msg))
+        log.debug('server.py', web.utils.safestr(msg))
 
 
 class PluginStaticMiddleware(web.httpserver.StaticMiddleware):
@@ -97,16 +95,16 @@ def start():
     import time
     
     if net_connect():
-        print_report('server.py', _(u'Network connection is available, Im skipping waiting.'))
+        log.debug('server.py', _(u'Network connection is available, Im skipping waiting.'))
     else:
-        print_report('server.py', _(u'Network connection not available, waiting 20 seconds.'))
+        log.debug('server.py', _(u'Network connection not available, waiting 20 seconds.'))
         wait = 20
         while(wait > 0):
             wait = wait-1
             time.sleep(1)
             if net_connect():
                 break
-                print_report('server.py', _(u'Network connection is available.'))
+                log.debug('server.py', _(u'Network connection is available.'))
 
     ##############################
     #### web.py setup         ####
@@ -126,8 +124,7 @@ def start():
     if options.use_ssl and not options.use_own_ssl:
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
-               log.info('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+               log.debug('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
                from cheroot.server import HTTPServer
@@ -137,41 +134,32 @@ def start():
                certificate = ssl_patch_fullchain,  
                private_key = ssl_patch_privkey)   
 
-               log.info('server.py', _('SSL OK.'))
-               print_report('server.py', _('SSL OK.'))
-
+               log.debug('server.py', _('SSL OK.'))
            else:
-               log.info('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.debug('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
-           log.info('server.py', traceback.format_exc())
-           print_report('server.py', traceback.format_exc())
+           log.debug('server.py', traceback.format_exc())
            pass
     
     if options.use_own_ssl and not options.use_ssl:
        try:
            if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
-               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-               print_report('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+                log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
-               from cheroot.server import HTTPServer
-               from cheroot.ssl.builtin import BuiltinSSLAdapter
+                from cheroot.server import HTTPServer
+                from cheroot.ssl.builtin import BuiltinSSLAdapter
 
-               HTTPServer.ssl_adapter = BuiltinSSLAdapter(
-               certificate = ssl_own_patch_fullchain,  
-               private_key = ssl_own_patch_privkey)   
+                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+                certificate = ssl_own_patch_fullchain,  
+                private_key = ssl_own_patch_privkey)   
 
-               log.info('server.py', _('Own SSL OK.'))
-               print_report('server.py', _('Own SSL OK.'))
-
+                log.debug('server.py', _('Own SSL OK.'))
            else:
-               log.info('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-               print_report(u'server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+               log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
-           log.info('server.py', traceback.format_exc())
-           print_report('server.py', traceback.format_exc())
+           log.debug('server.py', traceback.format_exc())
            pass
 
     #############################
@@ -209,10 +197,10 @@ def start():
     try:
         if not session['category']:
             session['category'] = 'public'
-            print_report('server.py', _('Category is not in session, adding to sessions.'))
+            log.debug('server.py', _('Category is not in session, adding to sessions.'))
         if not session['visitor']:
             session['visitor'] = _('Unknown visitor')
-            print_report('server.py', _('Visitor-operator is not in session, adding to sessions.'))
+            log.debug('server.py', _('Visitor-operator is not in session, adding to sessions.'))
     except:
         session['category'] = 'public'
         session['visitor'] = _('Unknown visitor')
@@ -222,23 +210,23 @@ def start():
     atexit.register(sessions.close)
 
     def exit_msg():
-        log.info('server.py', _('OSPy is closing, saving sessions.')) 
-        print_report('server.py', _('OSPy is closing, saving sessions.'))
+        log.debug('server.py', _('OSPy is closing, saving sessions.'))
         logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
 
     atexit.register(exit_msg)
 
-    print_report('server.py', _('Starting scheduler and plugins...'))
+    log.debug('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
     
-    print_report('server.py', _('Starting sensors timer...'))
+    log.debug('server.py', _('Starting sensors timer...'))
     sensors_timer.start()    
 
     if net_connect():
         create_statistics()
 
     print_report('server.py', _('OSPy is ready'))
+    log.debug('server.py', _('OSPy is ready'))
     logEV.save_events_log( _('Server'), _('Starting'), id='Server')
 
     try:
@@ -257,8 +245,7 @@ def stop():
 
 def create_statistics():
     try:
-        log.info('server.py', _('Creating statistics...'))
-        print_report('server.py', _('Creating statistics...'))
+        log.debug('server.py', _('Creating statistics...'))
 
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
@@ -274,7 +261,7 @@ def create_statistics():
         usagestats.SESSION_TIME,      # Time since Stats object was created
         )
 
-    except Exception:
-        log.error('server.py', traceback.format_exc())
-        print_report('server.py', traceback.format_exc())
+    except:
+        log.debug('server.py', traceback.format_exc())
+        pass
         

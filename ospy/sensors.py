@@ -5,7 +5,6 @@ __author__ = u'Martin Pihrt'
 # System imports
 from threading import Thread, Timer
 import traceback
-import logging
 import traceback
 import time
 import datetime
@@ -116,7 +115,7 @@ class _Sensor(object):
             if not key.startswith('_') and key not in self.SAVE_EXCLUDE:
                 options.save(self, self.index)
         except ValueError:  # No index available yet
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
                 
 
@@ -128,13 +127,13 @@ class _Sensors(object):
         self._loading = False
 
         try:
-            logging.debug(_('Loading sensors...'))
+            log.debug('sensors.py', _('Loading sensors...'))
             i = 0
             while options.available(_Sensor, i):
                 self._sensors.append(_Sensor(self, i)) 
                 i += 1   
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass                
 
     def add_sensors(self, sensor=None):
@@ -143,9 +142,9 @@ class _Sensors(object):
                 sensor = _Sensor(self, len(self._sensors))
             self._sensors.append(sensor)
             options.save(sensor, sensor.index)
-            logging.debug(_('Adding new sensor: {} with id: {}').format(sensor.name,sensor.index))
+            log.debug('sensors.py', _('Adding new sensor: {} with id: {}').format(sensor.name,sensor.index))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
 
     def create_sensors(self):
@@ -153,7 +152,7 @@ class _Sensors(object):
         try:
             return _Sensor(self, -1-len(self._sensors))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass       
 
     def remove_sensors(self, index):
@@ -165,9 +164,9 @@ class _Sensors(object):
                 options.save(self._sensors[i], i)       # Save sensor using new indices
 
             options.erase(_Sensor, len(self._sensors))  # Remove info in last index
-            logging.debug(_('Removing sensor id: {}').format(index))
+            log.debug('sensors.py', _('Removing sensor id: {}').format(index))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
 
     def count(self):
@@ -181,7 +180,7 @@ class _Sensors(object):
                 result = self._sensors[index]
             return result
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
 
     def __setattr__(self, key, value):
@@ -255,7 +254,7 @@ class _Sensors_Timer(Thread):
             with open(dir_name, 'w') as outfile:
                 json.dump(data, outfile)
         except Exception:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
 
     def _check_high_trigger(self, sensor):
         major_change = True
@@ -296,13 +295,13 @@ class _Sensors_Timer(Thread):
                     if int(p) == -1:
                         return
                     index = int(p)-1
-                    logging.debug(_('The sensor tries to start the {} (id: {})').format(programs[index].name, p))
+                    log.debug('sensors.py', _('The sensor tries to start the {} (id: {})').format(programs[index].name, p))
                     programs.run_now_program = None                                                                  
                     programs.run_now(index)
                     Timer(0.1, programs.calculate_balances).start()
                     self.update_log(sensor, 'lge', _('Starting {}').format(programs[index].name))    
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
 
     def update_flow_records(name, flow, stations):
@@ -365,15 +364,15 @@ class _Sensors_Timer(Thread):
                         gdata = {"total": "{}".format(msg)}
                         graph_data[0]["balances"].update({timestamp: gdata})
                     self._write_log(glog_dir + '/' + 'graph.json', graph_data)
-                    logging.debug(_('Updating sensor graph log to file successfully.'))
+                    log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
                 except:
                     glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
                     if not os.path.isdir(glog_dir):
                         mkdir_p(glog_dir) # ensure dir and file exists after config restore
-                    logging.debug(_('Dir not exists, creating dir: {}').format(glog_dir))
+                    log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(glog_dir))
                     if not os.path.isfile(glog_dir + '/' + 'graph.json'):
                         subprocess.call(['touch', 'graph.json'])
-                        logging.debug(_('File not exists, creating file: {}').format('graph.json'))
+                        log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
                     if sensor.multi_type == 9: # 16x log from probe
                         graph_def_data = []
                         for i in range(0, 17):
@@ -381,7 +380,7 @@ class _Sensors_Timer(Thread):
                     else:                      # only 1x log
                         graph_def_data = [{"sname": "{}".format(sensor.name), "balances": {}}]
                     self._write_log(glog_dir + '/' + 'graph.json', graph_def_data)
-                    logging.debug(traceback.format_exc())
+                    log.debug('sensors.py', traceback.format_exc())
                     pass
 
                 if action:
@@ -392,26 +391,26 @@ class _Sensors_Timer(Thread):
             log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
             if not os.path.isdir(log_dir):
                 mkdir_p(log_dir) # ensure dir and file exists after config restore
-                logging.debug(_('Dir not exists, creating dir: {}').format(log_dir))
+                log.debug('sensors.py', _('Dir not exists, creating dir: {}').format(log_dir))
             
             log_ref = str(log_dir) + '/' + str(kind)
             if not os.path.isfile(log_ref + '.json'):
                 subprocess.call(['touch', log_ref + '.json'])
-                logging.debug(_('File not exists, creating file: {}').format(str(kind) + '.json'))
+                log.debug('sensors.py', _('File not exists, creating file: {}').format(str(kind) + '.json'))
             
             try:
-                log = self._read_log(log_ref + '.json')
+                _log = self._read_log(log_ref + '.json')
             except:   
-                log = []
+                _log = []
 
-            log.insert(0, logline)
+            _log.insert(0, logline)
             if options.run_sensor_entries > 0:        # 0 = unlimited
-               log = log[:options.run_sensor_entries] # limit records from options
-            self._write_log(log_ref + '.json', log)
-            logging.debug(_('Updating sensor log to file successfully.')) 
+               _log = _log[:options.run_sensor_entries] # limit records from options
+            self._write_log(log_ref + '.json', _log)
+            log.debug('sensors.py', _('Updating sensor log to file successfully.')) 
         
         except Exception:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
 
     def get_percent(self, level, dbot, dtop):
         """ Return level 0-100% """
@@ -427,7 +426,7 @@ class _Sensors_Timer(Thread):
             else:
                 return -1
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             return -1
 
     def get_volume(self, level, diameter, inltr=False):
@@ -444,7 +443,7 @@ class _Sensors_Timer(Thread):
             volume = round(volume, 2)        # round only two decimals
             return volume
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             return -1
 
     def maping(self, x, in_min, in_max, out_min, out_max):
@@ -488,9 +487,9 @@ class _Sensors_Timer(Thread):
                         ending = True   
 
             if ending:
-                logging.info(_('Stoping stations in scheduler'))
+                log.debug('sensors.py', _('Stoping stations in scheduler'))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass
 
     def set_stations_one_in_scheduler_off(self, sensor):
@@ -517,9 +516,9 @@ class _Sensors_Timer(Thread):
                         ending = True   
 
             if ending:
-                logging.info(_('Stoping stations in scheduler'))
+                log.debug('sensors.py', _('Stoping stations in scheduler'))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass            
 
     def set_stations_two_in_scheduler_off(self, sensor):
@@ -546,9 +545,9 @@ class _Sensors_Timer(Thread):
                         ending = True   
 
             if ending:
-                logging.info(_('Stoping stations in scheduler'))
+                log.debug('sensors.py', _('Stoping stations in scheduler'))
         except:
-            logging.debug(traceback.format_exc())
+            log.debug('sensors.py', traceback.format_exc())
             pass            
 
     def check_sensors(self):
@@ -631,7 +630,7 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[4] = 1
                         if sensor.last_msg[4] != sensor.err_msg[4]:
                             sensor.last_msg[4] = sensor.err_msg[4]
-                            logging.warning(_('Sensor: {} now response').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                             if sensor.send_email:
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
@@ -660,7 +659,7 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[7] = 1
                         if sensor.last_msg[7] != sensor.err_msg[7]:
                             sensor.last_msg[7] = sensor.err_msg[7]
-                            logging.warning(_('Sensor: {} now response').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                             if sensor.send_email:
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
@@ -689,7 +688,7 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[4] = 1
                         if sensor.last_msg[4] != sensor.err_msg[4]:
                             sensor.last_msg[4] = sensor.err_msg[4]
-                            logging.warning(_('Sensor: {} now response').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                             if sensor.send_email:
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
@@ -718,7 +717,7 @@ class _Sensors_Timer(Thread):
                         sensor.err_msg[7] = 1
                         if sensor.last_msg[7] != sensor.err_msg[7]:
                             sensor.last_msg[7] = sensor.err_msg[7]
-                            logging.warning(_('Sensor: {} now response').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                             if sensor.send_email:
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
@@ -752,7 +751,7 @@ class _Sensors_Timer(Thread):
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
                             text = _('Sensor') + u': {} ({})'.format(sensor.name, sensor.dry_open_msg)
                             subj = _('Sensor Read Success')
-                            body = _('Successfully read sensor') + ': {} ({})'.format(sensor.name,sensor.dry_open_msg) 
+                            body = _('Successfully read sensor') + ': {} ({})'.format(sensor.name, sensor.dry_open_msg) 
                             if sensor.log_event:                                                         # sensor is enabled and enabled log 
                                 self.update_log(sensor, 'lge', sensor.dry_open_msg)
                             if sensor.send_email:
@@ -779,7 +778,7 @@ class _Sensors_Timer(Thread):
                         if sensor.last_msg[4] != sensor.err_msg[4]:
                             sensor.last_msg[4] = sensor.err_msg[4]
                             if sensor.enabled:
-                                logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                                log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
                                 if sensor.enabled:
                                     text = _('Not response!')
@@ -795,7 +794,7 @@ class _Sensors_Timer(Thread):
                         if sensor.last_msg[7] != sensor.err_msg[7]:
                             sensor.last_msg[7] = sensor.err_msg[7]
                             if sensor.enabled:
-                                logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                                log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
                                 if sensor.enabled:
                                     text = _('Not response!')
@@ -855,10 +854,10 @@ class _Sensors_Timer(Thread):
                         else:
                             if options.temp_unit == 'C':
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _('Temperature') + ' %.1f \u2103' % state, sensor.index)
+                                    self.start_status(sensor.name, _('Temperature') + u' %.1f \u2103' % state, sensor.index)
                             else:
                                 if sensor.show_in_footer:
-                                    self.start_status(sensor.name, _('Temperature') + ' %.1f \u2109' % state, sensor.index)
+                                    self.start_status(sensor.name, _('Temperature') + u' %.1f \u2109' % state, sensor.index)
                     elif sensor.sens_type == 6 and sensor.multi_type == 1:
                         try:
                             state = sensor.last_read_value[1]                   # multi Temperature DS2 
@@ -979,7 +978,7 @@ class _Sensors_Timer(Thread):
                     for i in range(4):
                         if sensor.last_msg[i] != sensor.err_msg[i]:
                             sensor.last_msg[i] = sensor.err_msg[i]
-                            logging.warning(_('Sensor: {} now response').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                             if sensor.send_email:
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
@@ -1003,7 +1002,7 @@ class _Sensors_Timer(Thread):
                         if sensor.last_msg[i] != sensor.err_msg[i]:
                             sensor.last_msg[i] = sensor.err_msg[i]
                             if sensor.enabled:
-                                logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                                log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
                                 if sensor.enabled:
                                     text = _('Not response!')
@@ -1066,7 +1065,7 @@ class _Sensors_Timer(Thread):
                     sensor.err_msg[5] = 1
                     if sensor.last_msg[5] != sensor.err_msg[5]:
                         sensor.last_msg[5] = sensor.err_msg[5]
-                        logging.warning(_('Sensor: {} now response').format(sensor.name))
+                        log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                         if sensor.send_email:
                             text = _('Now response')
                             subj = _('Sensor {}').format(sensor.name)
@@ -1078,7 +1077,7 @@ class _Sensors_Timer(Thread):
                     sensor.err_msg[5] = 0
                     if sensor.last_msg[5] != sensor.err_msg[5]:
                         sensor.last_msg[5] = sensor.err_msg[5]
-                        logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                        log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
                             if sensor.enabled:
                                 text = _('Not response!')
@@ -1263,7 +1262,7 @@ class _Sensors_Timer(Thread):
                     sensor.err_msg[8] = 1
                     if sensor.last_msg[8] != sensor.err_msg[8]:
                         sensor.last_msg[8] = sensor.err_msg[8]
-                        logging.warning(_('Sensor: {} now response').format(sensor.name))
+                        log.debug('sensors.py', _('Sensor: {} now response').format(sensor.name))
                         if sensor.send_email:
                             text = _('Now response')
                             subj = _('Sensor {}').format(sensor.name)
@@ -1276,7 +1275,7 @@ class _Sensors_Timer(Thread):
                     if sensor.last_msg[8] != sensor.err_msg[8]:
                         sensor.last_msg[8] = sensor.err_msg[8]
                         if sensor.enabled:
-                            logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
                             if sensor.enabled:
                                 text = _('Not response!')
@@ -1362,7 +1361,7 @@ class _Sensors_Timer(Thread):
                                 s_msg = _('Now response')
                             if sensor.err_msg[9] == 2:
                                 s_msg = _('Has Error (Probes)!')
-                            logging.warning(_('Sensor {} {}').format(sensor.name, s_msg))
+                            log.debug('sensors.py', _('Sensor {} {}').format(sensor.name, s_msg))
                             if sensor.send_email:
                                 text = s_msg
                                 subj = _('Sensor {}').format(sensor.name)
@@ -1371,7 +1370,7 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:
                                 self.update_log(sensor, 'lge', s_msg)
                     except:
-                        logging.warning(_('Sensor error: {}').format(traceback.format_exc()))
+                        log.debug('sensors.py', _('Sensor error: {}').format(traceback.format_exc()))
                         pass
 
                 else:
@@ -1384,7 +1383,7 @@ class _Sensors_Timer(Thread):
                     if sensor.last_msg[9] != sensor.err_msg[9]:
                         sensor.last_msg[9] = sensor.err_msg[9]
                         if sensor.enabled:
-                            logging.warning(_('Sensor: {} not response!').format(sensor.name))
+                            log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                         if sensor.send_email:
                             if sensor.enabled:
                                 text = _('Not response!')
@@ -1412,7 +1411,7 @@ class _Sensors_Timer(Thread):
                 self._sleep(1)
 
             except Exception:
-                logging.warning(_('Sensors timer loop error: {}').format(traceback.format_exc()))
+                log.debug('sensors.py', _('Sensors timer loop error: {}').format(traceback.format_exc()))
                 self._sleep(5)
 
 sensors_timer = _Sensors_Timer()

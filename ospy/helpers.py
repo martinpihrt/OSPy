@@ -4,7 +4,6 @@ __author__ = u'Rimco' # additional changes Martin Pihrt
 
 # System imports
 import datetime
-import logging
 import random
 import time
 import errno
@@ -116,7 +115,7 @@ def reboot(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info(_('Rebooting...'))
+        print_report('helpers.py', _('Rebooting...'))
 
         import subprocess
         if determine_platform() == 'nt':
@@ -139,7 +138,7 @@ def poweroff(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info(_('Powering off...'))
+        print_report('helpers.py', _('Powering off...'))
 
         import subprocess
         if determine_platform() == 'nt':
@@ -162,7 +161,7 @@ def restart(wait=1, block=False):
         from ospy.stations import stations
         stations.clear()
         time.sleep(wait)
-        logging.info(_('Restarting...'))
+        print_report('helpers.py', _('Restarting...'))
 
         import sys
         if determine_platform() == 'nt':
@@ -781,7 +780,8 @@ def get_help_file(id):
                     with open(filename, 'r', encoding='utf8', errors='ignore') as fh:
                         return gfm_str_to_html(fh.read())     
     except Exception:
-        logging.warning('Help file error:\n' + traceback.format_exc())
+        print_report('helpers.py', 'Help file error:\n' + traceback.format_exc())
+        pass
     return ''
 
 
@@ -881,19 +881,21 @@ def decode_B64(msg):
 def net_connect(host=None):
     from ospy.options import options
     import subprocess
+    import os
     try:
         if host is None:
             host = options.ping_ip
         
         command = ['ping', '-c', '1', host]
         if is_python2():
-            response = subprocess.call(command)
+            FNULL = open(os.devnull, 'w')
+            response = subprocess.call(command, stdout=FNULL, stderr=subprocess.STDOUT)
             if response == 0:
                 return True
             else:
                 return False         
         else:
-            response = subprocess.call(command, stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)    
+            response = subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)    
             if response == 0:
                 return True
             else:
