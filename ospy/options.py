@@ -381,7 +381,7 @@ class _Options(object):
         {
             "key": "debug_log",
             "name": _('Enable debug log'),
-            "default": True,
+            "default": False,
             "help": _('Log all internal events (for debugging purposes).'),
             "category": _('Logging')
         },
@@ -500,7 +500,7 @@ class _Options(object):
         {
             "key": "log_filter_rain_delay",
             "name": _('Filter for logs - event: rain delay'),
-            "default": False,
+            "default": True,
         },        
         {
             "key": "log_filter_internet",
@@ -551,18 +551,21 @@ class _Options(object):
                 raise
 
         try:
-            if not self.first_password_hash:  # First default installation password is not hashed yet
+            if not self.first_password_hash:                                                     # First default installation password is not hashed yet
                 import random
-                self.first_password_hash = "{:16x}".format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
+                self.first_password_hash = '{:16x}'.format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
 
             if not self.password_salt and self.password_hash == 'opendoor':                      # Password is not hashed yet
                 from ospy.helpers import password_salt, password_hash
                 self.password_salt = password_salt()
-                self.password_hash = password_hash(self.first_password_hash, self.password_salt) # admin first password hash
-                self.admin_user = 'admin' 
+                self.password_hash = password_hash(self.first_password_hash, self.password_salt) # Set password hash for "admin"
+                self.admin_user = 'admin'                                                        # Set user name to "admin" 
+            else:
+                if self.password_hash != 'opendoor':                                             # Installation is old and has changed password (is not opendoor)
+                    if self.first_installation:
+                        self.first_installation = False
         except:
             helpres.print_report('options.py', traceback.format_exc())
-
 
 
     def __del__(self):

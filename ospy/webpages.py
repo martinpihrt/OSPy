@@ -2371,18 +2371,18 @@ class api_update_status(ProtectedPage):
                     must_update += 1
                         
         if options.use_plugin_update:                     # if not enable update for plugin -> NO POP-UP on home page
-            data["plugin_name"]   = pl_data              # name of plugins where must be updated
-            data["plugins_state"] = must_update          # status whether it is necessary to update the plugins (count plugins)
+            data["plugin_name"]   = pl_data               # name of plugins where must be updated
+            data["plugins_state"] = must_update           # status whether it is necessary to update the plugins (count plugins)
         else:
             data["plugin_name"]   = []
             data["plugins_state"] = 0
 
         try:
             from plugins import system_update
-            os_state = system_update.get_all_values()[0] # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
-            os_avail = system_update.get_all_values()[1] # Available new OSPy version
-            os_curr  = system_update.get_all_values()[2] # Actual OSPy version
-            #os_change = get_all_values()[3] # Changes
+            os_state = system_update.get_all_values()[0]  # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
+            os_avail = system_update.get_all_values()[1]  # Available new OSPy version
+            os_curr  = system_update.get_all_values()[2]  # Actual OSPy version
+            os_change = system_update.get_all_values()[3] # Changes
 
             data["ospy_state"] = os_state
             data["ospy_aval"]  = os_avail

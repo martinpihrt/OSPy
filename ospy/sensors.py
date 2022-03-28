@@ -386,8 +386,6 @@ class _Sensors_Timer(Thread):
 
                 if action:
                     logline["action"] = '{}'.format(action.encode('utf-8'))
-                #else:
-                #    logline["action"] = ''
             else:                # sensor event log
                 logline["event"] = '{}'.format(msg.encode('utf-8'))
 
