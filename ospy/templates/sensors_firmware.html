@@ -5,13 +5,17 @@ $var page: sensors_firmware
 
 $code:
     def _version(s):
-        res = [int(x) for x in str(s)]  
-        return u"{}.{}{}".format(res[0], res[1], res[2])
+        if s>0:
+            res = [int(x) for x in str(s)]  
+            return u"{}.{}{}".format(res[0], res[1], res[2])
+        else:
+            return u"-.--"   
 
 <script>
 
 function checkPASS(){
     let pass = jQuery(".pass").val();
+    console.log(pass);
     if(pass != ''){
         return 0;
     }

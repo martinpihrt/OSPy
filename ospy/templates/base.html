@@ -232,42 +232,31 @@ jQuery(document).ready(function(){
             </div>
 
             <div class="panel">
-
                 $if content.page != 'login':
                     <div id="nav">
                         <a href="/" class="button home${' here' if content.page=='home' else ''}" title=$:{json.dumps(_(u'Home'), ensure_ascii=False)}></a>
-                        $if content.page != 'public':
-                            <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
-                            $if not options.manual_mode:
-                                $if content.page != 'user':
-                                    <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False)}>$_(u'Run Once')</a>
-                            $if content.page != 'user':    
-                                <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False)}>
-                                $_(u'Plugins')</a>
-                            <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_(u'View Log'), ensure_ascii=False)}>$_(u'Log')</a>
-                            $if content.page != 'user': 
-                                <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False)}>$_(u'Options')</a>
-                                <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False)}>$_(u'Stations')</a>
-                                <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_(u'Configure Sensors'), ensure_ascii=False)}>$_(u'Sensors')</a>
-                            <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False)}>$_(u'Help')</a>
+                        <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
+                        $if not options.manual_mode:
+                            <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Run Once')</a>
+                        <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Plugins')</a>
+                        <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_(u'View Log'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Log')</a>
+                        <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Options')</a>
+                        <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Stations')</a>
+                        <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_(u'Configure Sensors'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Sensors')</a>
+                        <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Help')</a>
                         $if not options.no_password:
-                            <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False)}>$_(u'Logout')</a>
+                            <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Logout')</a>
                     </div>
-
                 $:content 
-
             </div>
         </div>   
 
         <div class="footer">          
-            $if content.page != 'login' and content.page != 'public' and content.page != 'user':
+            $if content.page != 'login':
                 <div id="foot">
-                <p id="cpu_temp">$_('CPU Temp'):
-                <a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span>
-                </p>
+                <p id="cpu_temp">$_('CPU Temp'): <a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span></p>
                 <p id="cpu_usage">$_('CPU Usage'): <span class="cpu_usage">${get_cpu_usage()}</span> %</p>             
-                <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8').decode('utf-8')}>      
-                $_('Software')</a> $_('version'): <span class="ver">${version.ver_str} (${version.ver_date})</p>
+                <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Software')</a> $_('version'): <span class="ver">${version.ver_str} (${version.ver_date})</span></p>
                 <p id="ip">$_('External IP'): <span class="ip">${get_external_ip()}</span></p>
                 <p id="uptime">$_('Working'): <span class="uptime">${uptime()}</span></p>
                 </div>
