@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 05 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+The clean installation runs in both Python 2 and Python 3 (it seems no problem). Not all plugins have been tested in Python 3 (compatibility not yet done). Further work on OSPy and plugins continues. We do not recommend updating existing installations yet. Advanced users can try a clean installation and report any bugs.
+
 March 24 2022 (v3.0)
 -----------
 (Rimco & martinpihrt)<br/>

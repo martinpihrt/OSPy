@@ -106,9 +106,14 @@ def install_service():
     path = os.path.join('/etc', 'init.d', 'ospy')
     if sys.platform.startswith('linux'):
         if yes_no(_('Do you want to install OSPy as a service?')):
-            with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
-                with open(path, 'w') as target:
-                    target.write(source.read().replace('{{OSPY_DIR}}', my_dir))                
+            if is_python2():
+                with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
+                    with open(path, 'w') as target:
+                        target.write(source.read().replace('{{OSPY_DIR}}', my_dir))
+            else:
+                with open(os.path.join(my_dir, 'service', 'ospy3.sh')) as source:
+                    with open(path, 'w') as target:
+                        target.write(source.read().replace('{{OSPY_DIR}}', my_dir))            
             os.chmod(path, 0o755)
             subprocess.check_call(['update-rc.d', 'ospy', 'defaults'])
             print_report('setup.py', _('Done installing service.'))
@@ -128,6 +133,11 @@ def uninstall_service():
             print_report('setup.py', _('OSPy was not running.'))
 
         try:
+            subprocess.Popen(['systemctl', 'daemon-reload'])
+        except Exception:
+            print_report('setup.py', _('Could not reload systemctl daemon.'))            
+
+        try:
             subprocess.check_call(['update-rc.d', '-f', 'ospy', 'remove'])
         except Exception:
             print_report('setup.py', _('Could not remove service using update-rc.d'))
@@ -138,7 +148,7 @@ def uninstall_service():
             os.unlink(old_path)
 
         if old_paths:
-            print_report('setup.py', _('Service removed.'))
+            print_report('setup.py', _('Service removed.'))            
         else:
             print_report('setup.py', _('Service not found.'))
     else:
@@ -178,6 +188,7 @@ if __name__ == '__main__':
                 shutil.rmtree('tmp', onerror=del_rw)
                 os.mkdir('tmp')
                 urlretrieve('https://bootstrap.pypa.io/ez_setup.py', 'tmp/ez_setup.py')
+                import subprocess
                 subprocess.check_call([sys.executable, 'ez_setup.py'], cwd='tmp')
                 shutil.rmtree('tmp', onerror=del_rw)
                 pkg = True
@@ -187,6 +198,8 @@ if __name__ == '__main__':
         
         else:           
             # Check if packages are available:
+            #               module, easy_install=None, package=None, pip=None, git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None
+
             install_package('web', 'web.py==0.51', 'python-webpy', 'web.py==0.51',
                             'https://github.com/webpy/webpy.git',
                             [[sys.executable, 'setup.py', 'install']],
