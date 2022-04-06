@@ -1,6 +1,19 @@
 OSPy Changelog
 ====
 
+April 06 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Transition from python 2 to python 3
+1. Make an OSPy backup on the settings page (a zip file will be generated). The file contains a backup of the database and data from the sensors. We can use this backup to restore the system if necessary.
+2. We will stop the ospy service "sudo service ospy stop"
+3. Open the OSPy folder "cd OSPy"
+4. We will uninstall the existing service "sudo python setup.py uninstall"
+5. We will install the new service in Python 3 "sudo python3 setup.py install"
+6. If there was a data folder and OSPy was ever run earlier in python 2, the database will be converted to python version 3 Attention: after running OSPy in python 3, it is no longer possible to run OSPy in python 2 again! If necessary, we will delete everything in the "data" folder. Then it is possible to run a clean version of OSPy in python 2 or 3 again.
+Work on python 2 vs python 3 is not done yet!
+
 April 05 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

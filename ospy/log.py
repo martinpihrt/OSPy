@@ -51,11 +51,16 @@ class _Log(logging.Handler):
 
     @staticmethod
     def _save_log(msg, level, event_type):
-        
         if is_python2():
             msg_print = msg.encode('utf-8')
         else:
-            msg_print = msg.encode().decode()    
+            if type(msg) is bytes:
+                msg_print = msg
+            elif type(msg) is str:
+                msg_print = codecs.encode(msg, 'utf-8')
+            else:
+                msg_print = 'Expected bytes or string, but got {}.'.format(type(msg))
+            msg_print = msg_print.decode('utf-8')  
        
         # Print if it is important:
         if level >= logging.WARNING:
@@ -76,7 +81,6 @@ class _Log(logging.Handler):
                 mkdir_p('./ospy/data')
                 print_report('log.py', 'Folder /data not found! Creating...')
                 pass
-
 
     def _prune(self, event_type):
         if event_type not in self._log:
