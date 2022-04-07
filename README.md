@@ -65,7 +65,7 @@ git clone -b master https://github.com/martinpihrt/OSPy
 Next use step "Setup"
 
 ### Manual OSPy-system update
-Uusing Git, without system update plugin if plugin not work. Go to the folder where the run.py file is located (cd OSPy)
+Using Git, without system update plugin if plugin not work. Go to the folder where the run.py file is located (cd OSPy)
 
 Execute:
 ```bash
@@ -86,23 +86,25 @@ sudo git pull
 
 ## Transition from python 2 to python 3
 1. Make an OSPy backup on the settings page (a zip file will be generated). The file contains a backup of the database and data from the sensors. We can use this backup to restore the system if necessary.
-2. We will stop the ospy service
+2. Disable and stop all plugins (in plugins manager).
+3. We will stop the ospy service
 ```bash
 sudo service ospy stop
 ```
-3. Open the OSPy folder
+4. Open the OSPy folder
 ```bash
 cd OSPy
 ```
-4. We will uninstall the existing service
+5. We will uninstall the existing service
 ```bash
 sudo python setup.py uninstall
 ```
-5. We will install the new service in Python 3
+6. Use manual OSPy-system update (Using Git, without system update plugin - explained above on the page).
+7. We will install the new service in Python 3
 ```bash
 sudo python3 setup.py install
 ```
-6. If there was a data folder and OSPy was ever run earlier in python 2, the database will be converted to python version 3. Attention: after running OSPy in python 3, it is no longer possible to run OSPy in python 2 again! If necessary, we will delete everything in the "data" folder. Then it is possible to run a clean version of OSPy in python 2 or 3 again.
+8. If there was a data folder and OSPy was ever run earlier in python 2, the database will be converted to python version 3. Attention: after running OSPy in python 3, it is no longer possible to run OSPy in python 2 again! If necessary, we will delete everything in the "data" folder. Then it is possible to run a clean version of OSPy in python 2 or 3 again.
 
 ## For enable SSL access in options (for HTTPS connections)
 For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
