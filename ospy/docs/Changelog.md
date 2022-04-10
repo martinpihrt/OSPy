@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 10 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+From this update, OSPy versions will be counted again from 0 (the version will be 3.0.0), other commits are suppressed. Czech language update. All extensions for Python 2 and Python 3 have been tested (except the voice notification plugin -> it will be overwritten in the same way as the voice station plugin). Python 3 will be the default programming language for OSPy. Starting OSPy for Python 3 during installation is not yet resolved (service).
+
 April 06 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
