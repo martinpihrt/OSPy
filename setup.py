@@ -106,14 +106,9 @@ def install_service():
     path = os.path.join('/etc', 'init.d', 'ospy')
     if sys.platform.startswith('linux'):
         if yes_no(_('Do you want to install OSPy as a service?')):
-            if is_python2():
-                with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
-                    with open(path, 'w') as target:
-                        target.write(source.read().replace('{{OSPY_DIR}}', my_dir))
-            else:
-                with open(os.path.join(my_dir, 'service', 'ospy3.sh')) as source:
-                    with open(path, 'w') as target:
-                        target.write(source.read().replace('{{OSPY_DIR}}', my_dir))            
+            with open(os.path.join(my_dir, 'service', 'ospy.sh')) as source:
+                with open(path, 'w') as target:
+                    target.write(source.read().replace('{{OSPY_DIR}}', my_dir))       
             os.chmod(path, 0o755)
             subprocess.check_call(['update-rc.d', 'ospy', 'defaults'])
             print_report('setup.py', _('Done installing service.'))

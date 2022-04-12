@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-04-10 13:51+0200\n"
+"POT-Creation-Date: 2022-04-12 21:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1685,7 +1685,7 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot.html:24
 #: plugins/temperature_switch/templates/temperature_switch.html:20
 #: plugins/ups_adj/templates/ups_adj.html:179
-#: plugins/voice_notification/templates/voice_notification.html:25
+#: plugins/voice_notification/templates/voice_notification.html:22
 #: plugins/voice_station/templates/voice_station.html:22
 #: plugins/volt_temp_da/templates/volt_temp_da.html:22
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:21
@@ -1808,7 +1808,7 @@ msgstr ""
 
 #: ospy/templates/edit.html:84 ospy/templates/options.html:269
 #: ospy/templates/options.html:279
-#: plugins/voice_notification/templates/voice_notification.html:114
+#: plugins/voice_notification/templates/voice_notification_sounds.html:91
 #: plugins/voice_station/templates/voice_station_sounds.html:91
 msgid "Upload"
 msgstr ""
@@ -1816,6 +1816,7 @@ msgstr ""
 #: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:589 ospy/templates/program.html:616
 #: ospy/templates/programs.html:37
+#: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
 msgid "Delete"
 msgstr ""
@@ -1897,8 +1898,9 @@ msgstr ""
 #: plugins/ups_adj/templates/ups_adj_log.html:12
 #: plugins/ups_adj/templates/ups_adj_log.html:33
 #: plugins/usage_statistics/templates/usage_statistics.html:43
-#: plugins/voice_notification/templates/voice_notification.html:124
-#: plugins/voice_notification/templates/voice_notification_help.html:15
+#: plugins/voice_notification/templates/voice_notification.html:109
+#: plugins/voice_notification/templates/voice_notification_help.html:17
+#: plugins/voice_notification/templates/voice_notification_sounds.html:100
 #: plugins/voice_station/templates/voice_station.html:103
 #: plugins/voice_station/templates/voice_station_help.html:18
 #: plugins/voice_station/templates/voice_station_sounds.html:100
@@ -2677,7 +2679,7 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot.html:119
 #: plugins/temperature_switch/templates/temperature_switch.html:196
 #: plugins/ups_adj/templates/ups_adj.html:247
-#: plugins/voice_notification/templates/voice_notification.html:97
+#: plugins/voice_notification/templates/voice_notification.html:98
 #: plugins/voice_station/templates/voice_station.html:92
 #: plugins/volt_temp_da/templates/volt_temp_da.html:64
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:73
@@ -2701,6 +2703,7 @@ msgstr ""
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj_log.html:11
+#: plugins/voice_notification/templates/voice_notification.html:108
 #: plugins/voice_station/templates/voice_station.html:102
 #: plugins/webcam/templates/webcam.html:67
 #: plugins/wind_monitor/templates/wind_monitor_log.html:11
@@ -4240,7 +4243,7 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
 #: plugins/ups_adj/templates/ups_adj.html:256
-#: plugins/voice_notification/templates/voice_notification.html:123
+#: plugins/voice_notification/templates/voice_notification.html:107
 #: plugins/voice_station/templates/voice_station.html:101
 #: plugins/volt_temp_da/templates/volt_temp_da.html:79
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:83
@@ -5061,7 +5064,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16_help.html:10
 #: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
-#: plugins/voice_notification/templates/voice_notification_help.html:11
+#: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
 #: plugins/water_meter/templates/water_meter_help.html:10
 msgid "for more information"
@@ -5073,7 +5076,7 @@ msgstr ""
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
 #: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
-#: plugins/voice_notification/templates/voice_notification_help.html:11
+#: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
 #: plugins/water_meter/templates/water_meter_help.html:10
 msgid "Visit"
@@ -8810,7 +8813,7 @@ msgid "If the check box is marked, the master pump is activated before turning o
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:48
-#: plugins/voice_notification/templates/voice_notification.html:42
+#: plugins/voice_notification/templates/voice_notification.html:37
 msgid "Pre run time"
 msgstr ""
 
@@ -11220,153 +11223,216 @@ msgstr ""
 msgid "Package: Voice Notification"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:203
+#: plugins/voice_notification/__init__.py:76
 msgid "Voice notification is disabled."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:205
+#: plugins/voice_notification/__init__.py:78
 msgid "Voice notification is enabled."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:221
+#: plugins/voice_notification/__init__.py:94
 #: plugins/voice_station/__init__.py:94
 msgid "Pygame is not installed."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:222
+#: plugins/voice_notification/__init__.py:95
 #: plugins/voice_station/__init__.py:95
 msgid "Please wait installing pygame..."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:226
+#: plugins/voice_notification/__init__.py:99
 #: plugins/voice_station/__init__.py:98
 msgid "Pygame is now installed."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:246
+#: plugins/voice_notification/__init__.py:115
 msgid "Skiping playing on station"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:274
-msgid "Repeating playing nr. 2..."
+#: plugins/voice_notification/__init__.py:132
+msgid "Add song {} to queue."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:282
-msgid "Repeating playing nr. 3..."
+#: plugins/voice_notification/__init__.py:135
+msgid "Add 2. repeating for song."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:290
-#: plugins/voice_notification/__init__.py:358
-#: plugins/voice_notification/__init__.py:417
+#: plugins/voice_notification/__init__.py:140
+msgid "Add 3. repeating for song."
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:150
+#: plugins/voice_notification/__init__.py:185
+#: plugins/voice_notification/__init__.py:217
+#: plugins/voice_notification/__init__.py:236
+#: plugins/voice_notification/__init__.py:301
+#: plugins/voice_notification/__init__.py:398
 msgid "Voice Notification plug-in"
 msgstr ""
 
+#: plugins/voice_notification/__init__.py:272
+#: plugins/voice_station/__init__.py:267
+msgid "Songs in queue {}"
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:274
+#: plugins/voice_station/__init__.py:269
+msgid "Nr. {} -> {}"
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:275
+#: plugins/voice_station/__init__.py:270
+msgid "Loading: {}"
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:278
+#: plugins/voice_station/__init__.py:273
+msgid "Set master volume to {}%"
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:286
+#: plugins/voice_station/__init__.py:281
+msgid "Playing."
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:295
+#: plugins/voice_station/__init__.py:290
+msgid "Stopping."
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:328
+#: plugins/voice_station/__init__.py:325
+msgid "Button test, song {}."
+msgstr ""
+
 #: plugins/voice_notification/__init__.py:332
-msgid "Loading: %s..."
+#: plugins/voice_notification/__init__.py:335
+#: plugins/voice_station/__init__.py:133 plugins/voice_station/__init__.py:153
+#: plugins/voice_station/__init__.py:328 plugins/voice_station/__init__.py:330
+msgid "File not exists!"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:340
-msgid "Set master volume to"
+#: plugins/voice_station/__init__.py:334
+msgid "Button Stop."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:348
-msgid "Playing..."
+#: plugins/voice_notification/__init__.py:350
+#: plugins/voice_station/__init__.py:344
+msgid "Button clear playlist."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:355
-msgid "Stopping..."
+#: plugins/voice_notification/__init__.py:421
+#: plugins/voice_notification/templates/voice_notification_sounds.html:27
+#: plugins/voice_station/__init__.py:407
+#: plugins/voice_station/templates/voice_station_sounds.html:27
+msgid "Error. File must be in mp3 or wav format!"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:378
-msgid "Testing button %s..."
+#: plugins/voice_notification/__init__.py:428
+#: plugins/voice_notification/templates/voice_notification_sounds.html:39
+#: plugins/voice_station/__init__.py:414
+#: plugins/voice_station/templates/voice_station_sounds.html:39
+msgid "Uploading file sucesfully."
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:411
-msgid "Saving MP3 %s file OK."
+#: plugins/voice_notification/__init__.py:434
+#: plugins/voice_station/__init__.py:108 plugins/voice_station/__init__.py:135
+#: plugins/voice_station/__init__.py:155 plugins/voice_station/__init__.py:181
+#: plugins/voice_station/__init__.py:212 plugins/voice_station/__init__.py:231
+#: plugins/voice_station/__init__.py:296 plugins/voice_station/__init__.py:384
+#: plugins/voice_station/__init__.py:420
+msgid "Voice Station plug-in"
 msgstr ""
 
-#: plugins/voice_notification/__init__.py:414
-msgid "Error. MP3 file: %s name is not voice.mp3 or voice0.mp3...voice20.mp3"
+#: plugins/voice_notification/__init__.py:463
+#: plugins/voice_station/__init__.py:448
+msgid "Deleting file has sucesfully."
+msgstr ""
+
+#: plugins/voice_notification/__init__.py:467
+#: plugins/voice_notification/templates/voice_notification_sounds.html:33
+#: plugins/voice_station/__init__.py:451
+#: plugins/voice_station/templates/voice_station_sounds.html:33
+msgid "File for deleting not found!"
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:3
 msgid "Voice Notification"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:24
+#: plugins/voice_notification/templates/voice_notification.html:21
 msgid "Voice Notification - Settings"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:29
+#: plugins/voice_notification/templates/voice_notification.html:23
+#: plugins/voice_station/templates/voice_station.html:23
+msgid "Sound editing"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:27
 #: plugins/voice_station/templates/voice_station.html:27
 msgid "Enable voice"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:30
+#: plugins/voice_notification/templates/voice_notification.html:28
 #: plugins/voice_station/templates/voice_station.html:28
 msgid "If the check box is marked, the extension will be active."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:34
-msgid "Enable pre start voice"
-msgstr ""
-
-#: plugins/voice_notification/templates/voice_notification.html:35
-msgid "The sound is played before turning on the station."
+#: plugins/voice_notification/templates/voice_notification.html:33
+#: plugins/voice_station/templates/voice_station.html:33
+msgid "For proper operation, it is necessary to restart the OSPy after enabling and setting up this extension"
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:38
-#: plugins/voice_notification/templates/voice_notification.html:93
-msgid "Test playing"
-msgstr ""
-
-#: plugins/voice_notification/templates/voice_notification.html:43
 msgid "How many seconds before turning on stations play sound."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:47
+#: plugins/voice_notification/templates/voice_notification.html:42
 msgid "Repeat playback"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:48
+#: plugins/voice_notification/templates/voice_notification.html:43
 msgid "How many times to repeat the same message."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:52
+#: plugins/voice_notification/templates/voice_notification.html:47
 #: plugins/voice_station/templates/voice_station.html:37
 msgid "Master volume"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:53
+#: plugins/voice_notification/templates/voice_notification.html:48
 #: plugins/voice_station/templates/voice_station.html:38
 msgid "Setting the Raspberry Pi output volume (0-100%)."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:57
+#: plugins/voice_notification/templates/voice_notification.html:52
 #: plugins/voice_station/templates/voice_station.html:42
 msgid "Play only from"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:58
+#: plugins/voice_notification/templates/voice_notification.html:53
 #: plugins/voice_station/templates/voice_station.html:43
 msgid "Play notifications only from this time (hours)."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:62
+#: plugins/voice_notification/templates/voice_notification.html:57
 #: plugins/voice_station/templates/voice_station.html:47
 msgid "Play only to"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:63
+#: plugins/voice_notification/templates/voice_notification.html:58
 #: plugins/voice_station/templates/voice_station.html:48
 msgid "Play notifications only to this time (hours)."
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:67
+#: plugins/voice_notification/templates/voice_notification.html:62
 msgid "Skip stations"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:71
+#: plugins/voice_notification/templates/voice_notification.html:66
 msgid "Skip voice notification for these stations."
 msgstr ""
 
@@ -11374,16 +11440,38 @@ msgstr ""
 msgid "Select voice for stations"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:84
-msgid "Select voice for this station."
+#: plugins/voice_notification/templates/voice_notification.html:87
+#: plugins/voice_station/templates/voice_station.html:67
+#: plugins/voice_station/templates/voice_station.html:76
+msgid "Not assigned"
 msgstr ""
 
-#: plugins/voice_notification/templates/voice_notification.html:109
-msgid "Upload mp3 file"
+#: plugins/voice_notification/templates/voice_notification.html:89
+#: plugins/voice_station/templates/voice_station.html:69
+#: plugins/voice_station/templates/voice_station.html:78
+msgid "Select the sound for this station."
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:91
+#: plugins/voice_station/templates/voice_station.html:71
+#: plugins/voice_station/templates/voice_station.html:80
+msgid "Play"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:92
+#: plugins/voice_station/templates/voice_station.html:72
+#: plugins/voice_station/templates/voice_station.html:81
+msgid "Stop"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification.html:96
+#: plugins/voice_station/templates/voice_station.html:90
+msgid "Record some songs first and then you will be able to assign stations to the songs here."
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification.html:110
-msgid "MP3 file must have a name"
+#: plugins/voice_station/templates/voice_station.html:104
+msgid "Clear playlist"
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification_help.html:3
@@ -11406,7 +11494,81 @@ msgid "This plugin requires pygame installed. If pygame is not installed on the 
 msgstr ""
 
 #: plugins/voice_notification/templates/voice_notification_help.html:11
+#: plugins/voice_station/templates/voice_station_help.html:13
+msgid "You can upload any song with any name in mp3 and wav format to the song directory."
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_help.html:12
+msgid "Unlike the \"voice station\" package, this extension has a connection to the program scheduler (ie how the programs and stations assigned in them are set up.) In this extension, the song is played some time before the program starts..."
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_help.html:13
 msgid "and"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:3
+#: plugins/voice_notification/templates/voice_notification_sounds.html:52
+msgid "Voice Notification - Sounds"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "Gb"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "Tb"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "kB"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "mB"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:30
+#: plugins/voice_station/templates/voice_station_sounds.html:30
+msgid "Any error, check debug file in OSPy system!"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:36
+#: plugins/voice_station/templates/voice_station_sounds.html:36
+msgid "Deleting file sucesfully."
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:56
+#: plugins/voice_station/templates/voice_station_sounds.html:56
+msgid "Item"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:57
+#: plugins/voice_station/templates/voice_station_sounds.html:57
+msgid "File Name"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:58
+#: plugins/voice_station/templates/voice_station_sounds.html:58
+msgid "Uploaded"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:59
+#: plugins/voice_station/templates/voice_station_sounds.html:59
+msgid "Size"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:86
+#: plugins/voice_station/templates/voice_station_sounds.html:86
+msgid "Upload sound file"
+msgstr ""
+
+#: plugins/voice_notification/templates/voice_notification_sounds.html:87
+#: plugins/voice_station/templates/voice_station_sounds.html:87
+msgid "File must be in *.mp3 or *.wav format."
 msgstr ""
 
 #: plugins/voice_station/__init__.py:26
@@ -11421,76 +11583,12 @@ msgstr ""
 msgid "Voice Station is enabled."
 msgstr ""
 
-#: plugins/voice_station/__init__.py:108 plugins/voice_station/__init__.py:135
-#: plugins/voice_station/__init__.py:155 plugins/voice_station/__init__.py:181
-#: plugins/voice_station/__init__.py:212 plugins/voice_station/__init__.py:231
-#: plugins/voice_station/__init__.py:296 plugins/voice_station/__init__.py:373
-#: plugins/voice_station/__init__.py:409
-msgid "Voice Station plug-in"
-msgstr ""
-
 #: plugins/voice_station/__init__.py:125
 msgid "Stations {} ON"
 msgstr ""
 
-#: plugins/voice_station/__init__.py:133 plugins/voice_station/__init__.py:153
-#: plugins/voice_station/__init__.py:327 plugins/voice_station/__init__.py:329
-msgid "File not exists!"
-msgstr ""
-
 #: plugins/voice_station/__init__.py:145
 msgid "Stations {} OFF"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:267
-msgid "Songs in queue {}"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:269
-msgid "Nr. {} -> {}"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:270
-msgid "Loading: {}"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:273
-msgid "Set master volume to {}%"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:281
-msgid "Playing."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:290
-msgid "Stopping."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:324
-msgid "Button test."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:333
-msgid "Button Stop."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:396
-#: plugins/voice_station/templates/voice_station_sounds.html:27
-msgid "Error. File must be in mp3 or wav format!"
-msgstr ""
-
-#: plugins/voice_station/__init__.py:403
-#: plugins/voice_station/templates/voice_station_sounds.html:39
-msgid "Uploading file sucesfully."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:437
-msgid "Deleting file has sucesfully."
-msgstr ""
-
-#: plugins/voice_station/__init__.py:440
-#: plugins/voice_station/templates/voice_station_sounds.html:33
-msgid "File for deleting not found!"
 msgstr ""
 
 #: plugins/voice_station/templates/voice_station.html:3
@@ -11501,44 +11599,12 @@ msgstr ""
 msgid "Voice Station - Settings"
 msgstr ""
 
-#: plugins/voice_station/templates/voice_station.html:23
-msgid "Sound editing"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:33
-msgid "For proper operation, it is necessary to restart the OSPy after enabling and setting up this extension"
-msgstr ""
-
 #: plugins/voice_station/templates/voice_station.html:59
 msgid "Sound in starting"
 msgstr ""
 
 #: plugins/voice_station/templates/voice_station.html:60
 msgid "Sound in stopping"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:67
-#: plugins/voice_station/templates/voice_station.html:76
-msgid "Not assigned"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:69
-#: plugins/voice_station/templates/voice_station.html:78
-msgid "Select the sound for this station."
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:71
-#: plugins/voice_station/templates/voice_station.html:80
-msgid "Play"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:72
-#: plugins/voice_station/templates/voice_station.html:81
-msgid "Stop"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station.html:90
-msgid "Record some songs first and then you will be able to assign stations to the songs here."
 msgstr ""
 
 #: plugins/voice_station/templates/voice_station_help.html:3
@@ -11558,10 +11624,6 @@ msgstr ""
 msgid "If more than one station is activated in a row, the songs are added to the queue and then played from the queue."
 msgstr ""
 
-#: plugins/voice_station/templates/voice_station_help.html:13
-msgid "You can upload any song with any name in mp3 and wav format to the song directory."
-msgstr ""
-
 #: plugins/voice_station/templates/voice_station_help.html:14
 msgid "Unlike the \"voice notification\" package, this extension has no connection to the station scheduler (ie how the programs and the stations assigned in them are set up). In this extension, the song will be played whenever the station status changes, regardless of what event the status triggered (for example, manual mode, scheduler, or some other plugin...)"
 msgstr ""
@@ -11569,54 +11631,6 @@ msgstr ""
 #: plugins/voice_station/templates/voice_station_sounds.html:3
 #: plugins/voice_station/templates/voice_station_sounds.html:52
 msgid "Voice Station - Sounds"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "Gb"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "Tb"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "kB"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "mB"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:30
-msgid "Any error, check debug file in OSPy system!"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:36
-msgid "Deleting file sucesfully."
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:56
-msgid "Item"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:57
-msgid "File Name"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:58
-msgid "Uploaded"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:59
-msgid "Size"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:86
-msgid "Upload sound file"
-msgstr ""
-
-#: plugins/voice_station/templates/voice_station_sounds.html:87
-msgid "File must be in *.mp3 or *.wav format."
 msgstr ""
 
 #: plugins/volt_temp_da/__init__.py:21

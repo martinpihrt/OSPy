@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 11 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language strings update, Slovak language new strings update (via automatic Microsoft translator). Voice notification plugin is now ready to use.
+
 April 10 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

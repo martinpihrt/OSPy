@@ -14,14 +14,12 @@ from ospy.helpers import print_report, is_python2
 
 try:
     import requests
-
 except ImportError:
     print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
     cmd = "sudo apt-get install python-requests"
     proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-    output = proc.communicate()[0]
+    output = proc.communicate()[0].decode('utf-8')
     print_report('usagestats.py', output)
-       
     try: 
         import requests
     except:
