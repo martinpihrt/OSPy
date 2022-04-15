@@ -9,15 +9,15 @@ function createSensor(element) {
     let a = element.id;
     let b = element.value;
     let array = b.split(',');
-    jQuery("#name").val(String(array[0]));
-    jQuery("#ipaddress").val(String(array[1]));
-    jQuery("#macaddress").val(String(array[2]));
-    jQuery("#radioid").val(String(array[3]));
-    jQuery("#senstype").val(String(array[4]));
-    jQuery("#comtype").val(String(array[5]));
-    jQuery("#senscode").val(String(array[6]));
-    jQuery("#senscpu").val(String(array[7]));
-    jQuery("#sensfw").val(String(array[8]));
+    jQuery("#name").val(array[0]);
+    jQuery("#ipaddress").val(array[1]);
+    jQuery("#macaddress").val(array[2]);
+    jQuery("#radioid").val(array[3]);
+    jQuery("#senstype").val(array[4]);
+    jQuery("#comtype").val(array[5]);
+    jQuery("#senscode").val(array[6]);
+    jQuery("#senscpu").val(array[7]);
+    jQuery("#sensfw").val(array[8]);
     jQuery("#sensorForm").submit();
 }
 

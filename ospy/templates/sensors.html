@@ -8,18 +8,18 @@ $code:
         return '%02d' % int(n)   
 
     intervals = (
-    (_(u'weeks'), 604800),  # 60 * 60 * 24 * 7
-    (_(u'days'), 86400),    # 60 * 60 * 24
-    (_(u'hours'), 3600),    # 60 * 60
-    (_(u'minutes'), 60),
-    (_(u'seconds'), 1),
+    (_('weeks'), 604800),  # 60 * 60 * 24 * 7
+    (_('days'), 86400),    # 60 * 60 * 24
+    (_('hours'), 3600),    # 60 * 60
+    (_('minutes'), 60),
+    (_('seconds'), 1),
     )
 
     def display_time(seconds, granularity=2):
         result = []
       
         for name, count in intervals:
-            name = name.encode('utf-8')
+            name = name.encode('utf-8').decode('utf-8')
             value = seconds // count
             if value:
                 seconds -= value * count
@@ -461,14 +461,8 @@ $if sensors.count()>0:
             $if sensor.last_battery != '':
                 <p>$_(u'Last Battery voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>
         
-        $if sensor.fw > 0 and sensor.enabled:
+        $if sensor.enabled:
             <p>$_(u'Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
-            <p>$_('Sensor CPU'): <span class="val"> 
-            $if str(sensor.cpu_core) == '0':
-                $_(u'ESP32')
-            $if str(sensor.cpu_core) == '1':
-                $_(u'ESP8266')
-            </span></p>
 
         $if sensor.notes:
             <p>$_('Notes'):</p>

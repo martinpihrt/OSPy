@@ -537,7 +537,7 @@ class sensor_page(ProtectedPage):
                     log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
 
                     if sensor.multi_type == 9: # 16x log from probe
-                        for i in range(0, 16):
+                        for i in range(0, 16) and len(glog_file)>0:
                             temp_balances = {}
                             for key in glog_file[i]['balances']:
                                 find_key =  int(key.encode('utf8'))                        # key is in unicode ex: u'1601347000' -> find_key is int number
@@ -551,16 +551,17 @@ class sensor_page(ProtectedPage):
                             data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances })
                     else:                      # 1x log from others
                         temp_balances = {}
-                        for key in glog_file[0]['balances']:
-                            find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                            if find_key >= log_start:                                      # timestamp interval 
-                                find_data = glog_file[0]['balances'][key]
-                                if options.sensor_graph_show_err:                          # if is checked show error values in graph
-                                    temp_balances[key] = glog_file[0]['balances'][key]     # add all values from json
-                                else:
-                                    if float(find_data['total']) != -127.0:                # not checked, add values if not -127
-                                        temp_balances[key] = glog_file[0]['balances'][key]
-                        data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances})
+                        if len(glog_file)>0:
+                            for key in glog_file[0]['balances']:
+                                find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
+                                if find_key >= log_start:                                      # timestamp interval 
+                                    find_data = glog_file[0]['balances'][key]
+                                    if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                        temp_balances[key] = glog_file[0]['balances'][key]     # add all values from json
+                                    else:
+                                        if float(find_data['total']) != -127.0:                # not checked, add values if not -127
+                                            temp_balances[key] = glog_file[0]['balances'][key]
+                            data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances})
 
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
@@ -868,7 +869,7 @@ class sensor_page(ProtectedPage):
                 sensor.ip_address = ip
 
             if 'mac_address' in qdict:
-                sensor.mac_address = qdict['mac_address'].upper()
+                sensor.mac_address = str(qdict['mac_address'].upper())
 
             if 'radio_id' in qdict:
                 if qdict['radio_id'] != '-':
@@ -878,7 +879,7 @@ class sensor_page(ProtectedPage):
                 sensor.cpu_core = int(qdict['senscpu'])
                 
             if 'sensfw' in qdict:
-                sensor.fw = qdict['sensfw']
+                sensor.fw = int(qdict['sensfw'])
 
             if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
                 errorCode = qdict.get('errorCode', 'uname')

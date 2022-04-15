@@ -799,7 +799,7 @@ jQuery(document).ready(function(){
                 </table>
             </div>
 
-            $if sensor.fw > 0:
+            $if int(sensor.fw) > 0:
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Firmware Version'):</span><td>
@@ -810,20 +810,6 @@ jQuery(document).ready(function(){
                 <tr>
                 <td><a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a></td>
                 </table>
-
-            <div class='option' id="senscpu" style="white-space: nowrap">
-                <table>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor CPU'):</span></td>
-                <td><select id="senscpu" name="senscpu" style="width: 200px" title=$:{json.dumps(_(u'Select the processor type for this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ cpu_list = [_(u'ESP32'), _(u'ESP8266')]
-                $for t in range(2):
-                    <option value="${t}" ${'selected' if sensor.cpu_core == t else ''}>$cpu_list[t]</option>
-                </select>
-                </td>
-                </tr>
-                </table>
-            </div>
         </form>
     </div>
 </div>

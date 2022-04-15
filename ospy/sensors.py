@@ -358,11 +358,13 @@ class _Sensors_Timer(Thread):
                     gdata = {}
                     if type(msg) == list:
                         for i in range(0, len(msg)):
-                           gdata = {"total": "{}".format(msg[i])}
-                           graph_data[i]["balances"].update({timestamp: gdata})
+                            gdata = {"total": "{}".format(msg[i])}
+                            if len(graph_data) > 0:
+                                graph_data[i]["balances"].update({timestamp: gdata})
                     else:
                         gdata = {"total": "{}".format(msg)}
-                        graph_data[0]["balances"].update({timestamp: gdata})
+                        if len(graph_data) > 0:
+                            graph_data[0]["balances"].update({timestamp: gdata})
                     self._write_log(glog_dir + '/' + 'graph.json', graph_data)
                     log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
                 except:
@@ -384,9 +386,9 @@ class _Sensors_Timer(Thread):
                     pass
 
                 if action:
-                    logline["action"] = '{}'.format(action.encode('utf-8'))
+                    logline["action"] = '{}'.format(action.encode('utf-8').decode('utf-8'))
             else:                # sensor event log
-                logline["event"] = '{}'.format(msg.encode('utf-8'))
+                logline["event"] = '{}'.format(msg.encode('utf-8').decode('utf-8'))
 
             log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
             if not os.path.isdir(log_dir):
