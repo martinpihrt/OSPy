@@ -5,11 +5,11 @@ $var page: sensors_firmware
 
 $code:
     def _version(s):
-        if s>0:
+        if int(s) > 0:
             res = [int(x) for x in str(s)]  
-            return u"{}.{}{}".format(res[0], res[1], res[2])
+            return "{}.{}{}".format(res[0], res[1], res[2])
         else:
-            return u"-.--"   
+            return "-.--"   
 
 <script>
 
@@ -141,9 +141,9 @@ jQuery(document).ready(function(){
             <tr class="log_rec">
             <td>${sensor.name}</td>
             <td>
-            $if sensor.cpu_core == 0:
+            $if int(sensor.cpu_core) == 0:
                 $_(u'ESP32')
-            $elif sensor.cpu_core == 1:
+            $elif int(sensor.cpu_core) == 1:
                 $_(u'ESP8266')
             $else:
                 $_('Not available')
@@ -151,7 +151,7 @@ jQuery(document).ready(function(){
             <td>${sensor.ip_address[0] +'.'+ sensor.ip_address[1]+'.'+ sensor.ip_address[2]+'.'+ sensor.ip_address[3]}</td>
             <td>${sensor.mac_address}</td>
             <td>$_version(sensor.fw)</td>
-            $if sensor.cpu_core == 0 and version.ver_esp32 != "-":
+            $if int(sensor.cpu_core) == 0 and version.ver_esp32 != "-":
                 <td>
                 $if _version(sensor.fw) == version.ver_esp32:
                     <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Actual')</a>
@@ -160,7 +160,7 @@ jQuery(document).ready(function(){
                 $else:  
                     <a href="/firmware?id=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('Update to FW:')${version.ver_esp32}</a> 
                 </td>
-            $if sensor.cpu_core == 1 and version.ver_esp8266 != "-":
+            $if int(sensor.cpu_core) == 1 and version.ver_esp8266 != "-":
                 <td>
                 $if _version(sensor.fw) == version.ver_esp8266:
                     <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Actual')</a>

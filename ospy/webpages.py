@@ -13,7 +13,7 @@ import traceback
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report, is_python2
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options
@@ -27,6 +27,14 @@ import plugins
 from blinker import signal
 from ospy.users import users
 from ospy.sensors import sensors, sensors_timer
+
+
+if is_python2():
+    from urllib2 import urlopen
+    from urllib import quote_plus
+else:
+    from urllib.request import urlopen
+    from urllib.parse import quote_plus
 
 try:
     import requests
@@ -245,7 +253,7 @@ class sensors_firmware(ProtectedPage):
                 statusCode = qdict.get('statusCode', 'err1')                         # msg = No xxx.bin file was found in the directory to send to the sensor!
                 return self.core_render.sensors_firmware(statusCode)
             try:
-                with open(last_fw_path) as file:
+                with open(last_fw_path, 'rb') as file:
                     response = requests.post(send_url, files={last_fw_name: file})
                 resp_code = response.status_code
                 print_report('webpages.py', resp_code)
@@ -325,8 +333,13 @@ class sensors_firmware(ProtectedPage):
                         kind = 'https://'
                     send_url = kind + ip + '/FW_' + pwd
                     if fw_path is not None:
-                        with open(fw_path) as file:
-                            response = requests.post(send_url, files={fw_name: file}) 
+                        with open(fw_path, 'rb') as file:
+                            response = requests.post(send_url, files={fw_name: file})
+#todo change requests to urrlib                            
+                        #data = {'files': open(fw_path, 'rb')}
+                        #response = urlopen(send_url, data=data)
+                        #print(response)
+                             
                         resp_code = response.status_code
                         print_report('webpages.py', resp_code)
                         if resp_code == 200:
@@ -2448,12 +2461,8 @@ class api_update_status(ProtectedPage):
                     pl_data.append((must_update, plugins.plugin_name(plugin)))
                     must_update += 1
                         
-        if options.use_plugin_update:                     # if not enable update for plugin -> NO POP-UP on home page
-            data["plugin_name"]   = pl_data               # name of plugins where must be updated
-            data["plugins_state"] = must_update           # status whether it is necessary to update the plugins (count plugins)
-        else:
-            data["plugin_name"]   = []
-            data["plugins_state"] = 0
+        data["plugin_name"]   = pl_data               # name of plugins where must be updated
+        data["plugins_state"] = must_update           # status whether it is necessary to update the plugins (count plugins)
 
         try:
             from plugins import system_update
@@ -2472,6 +2481,7 @@ class api_update_status(ProtectedPage):
             data["ospy_aval"]  = os_avail
             data["ospy_curr"]  = os_curr
             data["chang"]      = os_change
+            print_report('webpages.py', traceback.format_exc())
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
