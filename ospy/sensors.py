@@ -244,14 +244,18 @@ class _Sensors_Timer(Thread):
 
     def _read_log(self, dir_name):
         try:
-            with open(dir_name) as logf:
+            import os
+            _abs_dir_name = os.path.abspath(dir_name)
+            with open(_abs_dir_name, 'r') as logf:
                 return json.load(logf)
         except IOError:
             return []
 
     def _write_log(self, dir_name, data):
         try:
-            with open(dir_name, 'w') as outfile:
+            import os
+            _abs_dir_name = os.path.abspath(dir_name)
+            with open(_abs_dir_name, 'w') as outfile:
                 json.dump(data, outfile)
         except Exception:
             log.debug('sensors.py', traceback.format_exc())
@@ -350,30 +354,37 @@ class _Sensors_Timer(Thread):
                     if type(msg) == float:
                         msg = "{0:.1f}".format(msg)
                     logline["value"] = "{}".format(msg)
-
+                
+                glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
+                _abs_glog_dir = os.path.abspath(glog_dir)
+                
                 try: # for graph
                     timestamp = int(time.time())
-                    glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
-                    graph_data = self._read_log(glog_dir + '/' + 'graph.json')
+                    if not os.path.isdir(_abs_glog_dir):
+                        mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
+                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))            
+                    if not os.path.isfile(_abs_glog_dir + '/' + 'graph.json'):
+                        subprocess.call(['touch', _abs_glog_dir + '/' + 'graph.json'])
+                        log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
+                    
+                    graph_data = self._read_log(_abs_glog_dir + '/' + 'graph.json')
                     gdata = {}
+                    
                     if type(msg) == list:
                         for i in range(0, len(msg)):
                             gdata = {"total": "{}".format(msg[i])}
-                            if len(graph_data) > 0:
-                                graph_data[i]["balances"].update({timestamp: gdata})
+                            graph_data[i]["balances"].update({timestamp: gdata})
                     else:
                         gdata = {"total": "{}".format(msg)}
-                        if len(graph_data) > 0:
-                            graph_data[0]["balances"].update({timestamp: gdata})
-                    self._write_log(glog_dir + '/' + 'graph.json', graph_data)
-                    log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
+                        graph_data[0]["balances"].update({timestamp: gdata})
+                        self._write_log(glog_dir + '/' + 'graph.json', graph_data)
+                        log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
                 except:
-                    glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
-                    if not os.path.isdir(glog_dir):
-                        mkdir_p(glog_dir) # ensure dir and file exists after config restore
-                    log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(glog_dir))
-                    if not os.path.isfile(glog_dir + '/' + 'graph.json'):
-                        subprocess.call(['touch', 'graph.json'])
+                    if not os.path.isdir(_abs_glog_dir):
+                        mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
+                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))
+                    if not os.path.isfile(_abs_glog_dir + '/' + 'graph.json'):
+                        subprocess.call(['touch', _abs_glog_dir + '/' + 'graph.json'])
                         log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
                     if sensor.multi_type == 9: # 16x log from probe
                         graph_def_data = []
@@ -381,7 +392,7 @@ class _Sensors_Timer(Thread):
                             graph_def_data.append({"sname": "{}".format(sensor.soil_probe_label[int(i)]), "balances": {}})
                     else:                      # only 1x log
                         graph_def_data = [{"sname": "{}".format(sensor.name), "balances": {}}]
-                    self._write_log(glog_dir + '/' + 'graph.json', graph_def_data)
+                    self._write_log(_abs_glog_dir + '/' + 'graph.json', graph_def_data)
                     log.debug('sensors.py', traceback.format_exc())
                     pass
 

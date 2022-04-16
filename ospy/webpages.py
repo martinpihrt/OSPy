@@ -487,27 +487,30 @@ class sensor_page(ProtectedPage):
             elif log:
                 slog_file = []
                 elog_file = []
-                dir_name_log = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
 
-                if not os.path.isfile(dir_name_log + '/' + 'slog.json'):
+                dir_name_log = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
+                _abs_dir_slog = os.path.abspath(dir_name_log + '/' + 'slog.json')
+                _abs_dir_elog = os.path.abspath(dir_name_log + '/' + 'elog.json')
+
+                if not os.path.isfile(_abs_dir_slog):
                     from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
                     sensors_timer.update_log(sensor, 'lgs', '-')
 
-                if not os.path.isfile(dir_name_log + '/' + 'elog.json'):
+                if not os.path.isfile(_abs_dir_elog):
                     from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
                     sensors_timer.update_log(sensor, 'lge', '-')
 
                 try:
-                    with open(dir_name_log + '/' + 'slog.json') as logf:
+                    with open(_abs_dir_slog) as logf:
                         slog_file =  json.load(logf)
                 except IOError:
                     print_report('webpages.py', traceback.format_exc())
                     pass
 
                 try:
-                    with open(dir_name_log + '/' + 'elog.json') as logf:
+                    with open(_abs_dir_elog) as logf:
                         elog_file =  json.load(logf)
                 except IOError:
                     print_report('webpages.py', traceback.format_exc())
@@ -523,9 +526,10 @@ class sensor_page(ProtectedPage):
                     print_report('webpages.py', traceback.format_exc())
 
             elif glog:
-                dir_name_glog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph', 'graph.json')
+                dir_name_glog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph')
+                _abs_dir_glog = os.path.abspath(dir_name_glog + '/' + 'graph.json')
                 try:
-                    with open(dir_name_glog) as logf:
+                    with open(_abs_dir_glog) as logf:
                         glog_file =  json.load(logf)
                 except IOError:
                     glog_file = []
@@ -581,7 +585,9 @@ class sensor_page(ProtectedPage):
                     return json.dumps(data)
                 except:
                     print_report('webpages.py', traceback.format_exc())
-                    pass
+                    web.header('Access-Control-Allow-Origin', '*')
+                    web.header('Content-Type', 'application/json')                    
+                    return json.dumps([])
 
             elif graph:
                 try:
@@ -590,10 +596,12 @@ class sensor_page(ProtectedPage):
                     mtype = sensors[index].multi_type
                     return self.core_render.graph_sensor(index, name, stype, mtype) 
                 except:    
-                    print_report('webpages.py', traceback.format_exc())                    
+                    print_report('webpages.py', traceback.format_exc())
+                    return self.core_render.graph_sensor(index, name, stype, mtype)                    
 
             elif csvE:
                 dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
+
                 try:
                     with open(dir_name_elog) as logf:
                         slog_file =  json.load(logf)
@@ -612,19 +620,19 @@ class sensor_page(ProtectedPage):
                 return data 
 
             elif csvS:
-                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'slog.json')
+                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
+                _abs_dir_slog = os.path.abspath(dir_name_slog + '/' + 'slog.json')
                 try:
-                    with open(dir_name_slog) as logf:
+                    with open(_abs_dir_slog) as logf:
                         slog_file =  json.load(logf)
                 except IOError:
                     slog_file = []
-                data = "Date; Time; Value; Action\n"
+                data = "Date; Time; Value\n"
                 for interval in slog_file:
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
                         '{}'.format(interval['value']),
-                        '{}'.format(interval['action']),
                     ]) + '\n'
 
                 web.header('Content-Type','text/csv')
@@ -633,7 +641,8 @@ class sensor_page(ProtectedPage):
 
             elif clear:
                 try:
-                    shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
+                    _abs_dir_path = os.path.abspath(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
+                    shutil.rmtree(_abs_dir_path)
                 except:
                     pass
                 raise web.seeother('/sensors')                                                                    

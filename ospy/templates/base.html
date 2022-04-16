@@ -108,12 +108,13 @@ function updateOStimer() {
     // Call to get system updates and plugins data
     if(logPage=='1'){ // not in login page
     jQuery.getJSON("/update_status", function(osVals) {
-        // os state
-        var os_curr  = osVals.cur
-        var os_aval  = osVals.avail
-        var os_state = osVals.state
+        // ospy core
+        var os_curr  = osVals.ospy_curr
+        var os_aval  = osVals.ospy_aval
+        var os_state = osVals.ospy_state
         var os_chang = osVals.chang
-        // plugin_name
+        // plugins
+        var pl_name = osVals.plugin_name
         var pl_state = osVals.plugins_state
 
         modal.style.display = "block"; // blocking pop-up window
