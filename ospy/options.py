@@ -548,7 +548,7 @@ class _Options(object):
                     else:
                         db.close()
             except Exception as err:
-                raise
+                pass
 
         try:
             if not self.first_password_hash:                                                     # First default installation password is not hashed yet

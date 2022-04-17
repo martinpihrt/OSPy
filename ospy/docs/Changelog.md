@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 17 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in plugins: LCD, air temp, tank monitor, wind monitor. Fix explicitly decode HTTP response for JSON in weather. Fix in base html popup update notifications. Fix in sensors (find sensors, logging to graph).
+
 April 11 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
