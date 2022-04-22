@@ -205,6 +205,24 @@ def uptime():
     return string
 
 
+def get_who_is_operator():
+    try:
+        from ospy import server
+        logged_is = '{}: {} - {}: '.format(_('Operator'), server.session['visitor'], _('Access'))
+        if server.session['category'] == 'admin':
+           logged_is += '{}'.format(_('Administrator'))
+        elif server.session['category'] == 'user':
+           logged_is += '{}'.format(_('User'))
+        elif server.session['category'] == 'public':
+           logged_is += '{}'.format(_('Public'))
+        else:
+           logged_is += '{}'.format(_('Unknown'))                 
+        return logged_is        
+    except Exception:
+        pass
+        return ''             
+
+
 def is_valid_ipv4_address(address):
     import socket
     try:
@@ -352,8 +370,8 @@ def get_netdevs():
         for line in net_dump[2:]:
             line = line.split(u':')
             if line[0].strip() != u'lo':
-                device_data[line[0].strip()] = {u'rx': float(line[1].split()[0])/(1024.0*1024.0),
-                                                u'tx': float(line[1].split()[8])/(1024.0*1024.0)}
+                device_data[line[0].strip()] = {u'rx': round(float(line[1].split()[0])/(1024.0*1024.0), 2),
+                                                u'tx': round(float(line[1].split()[8])/(1024.0*1024.0), 2)}
         return device_data
     except Exception:
         print_report('helpers.py', traceback.format_exc())

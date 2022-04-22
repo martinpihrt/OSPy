@@ -2490,7 +2490,7 @@ class api_update_status(ProtectedPage):
             data["ospy_aval"]  = os_avail
             data["ospy_curr"]  = os_curr
             data["chang"]      = os_change
-            print_report('webpages.py', traceback.format_exc())
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)

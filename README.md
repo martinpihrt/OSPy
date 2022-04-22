@@ -4,6 +4,9 @@ OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation sy
 Options stored in Python 2 are made forward compatible for Python 3. Make sure to run at least once more using Python 2 if you want to retain existing Python 2 settings.
 This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
 
+## For first installation visit 
+([Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md))
+
 ## More information visit
 [Pihrt.com](https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )
 
@@ -22,7 +25,7 @@ INSTALLATION:
 ===========
 
 ### Operating system Raspbian for Raspberry Pi
-1. Install latest operating system: "Raspbian Buster or next new version -  with desktop and recommended software" https://www.raspberrypi.org/downloads/raspbian/
+1. Install latest operating system: "Raspbian Bullseye or next new version -  with desktop and recommended software" https://www.raspberrypi.org/downloads/raspbian/
 2. Change password for acces from "raspberry" to own
 3. Enabling in raspi-config SSH, I²C
 4. Install OSPy using Git
@@ -31,6 +34,7 @@ INSTALLATION:
 A setup file has been provided to help you setting up your environment to contain all required packages.
 This setup also helps you in case you want to run the program as a service (on Raspbian).
 Go to the folder where the setup.py file is located (cd OSPy)
+([Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md))
 
 Execute: 
 ```bash

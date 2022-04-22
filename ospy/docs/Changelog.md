@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+April 22 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added help for the first OSPy installation: https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md
+Fixed display of the name and role of the logged in user.
+
 April 17 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
