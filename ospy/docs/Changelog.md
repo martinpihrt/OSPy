@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 23 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new extension "venetian blinds" for controll window venetian blinds. Czech language translation for this extension.
+
 April 22 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

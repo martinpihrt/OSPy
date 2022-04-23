@@ -1040,6 +1040,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Telegram Bot (komunikace s OSPy pomocí telegram.org app)
 * Door Opening (otevření zámku dveří, nebo posuvné brány)
 * Voice Station (zvuková upozornění na základě události stanic- přehrávání souborů wav a mp3)
+* Ovládání žaluzií (toto rozšíření odesílá přes REST API příklazy do Wi-Fi relátek firmy Shelly, nebo podobných relé)
 
 ----
 

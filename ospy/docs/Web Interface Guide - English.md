@@ -1017,6 +1017,7 @@ Available plug-ins:
 * Telegram Bot
 * Door Opening
 * Voice Station
+* Venetian Blinds
 
 ----
 
