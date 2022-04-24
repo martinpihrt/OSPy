@@ -64,6 +64,8 @@ class _Program(object):
             options.load(self, index)
         self._loading = False
 
+        self.update_station_schedule()
+
     @property
     def index(self):
         try:
@@ -78,7 +80,8 @@ class _Program(object):
     @stations.setter
     def stations(self, value):
         self._stations = value
-        self.update_station_schedule()
+        if not self._loading:
+            self.update_station_schedule()
 
     def update_station_schedule(self):
  
@@ -207,9 +210,12 @@ class _Program(object):
             new_schedule = self._update_schedule(new_schedule, self.modulo, interval[0], interval[1])
 
         self._schedule = new_schedule
-        self.update_station_schedule()
-        self.type = ProgramType.CUSTOM
-        self.type_data = [value]
+
+        # We expect type and type_data to be loaded independently during start-up:
+        if not self._loading:
+            self.type = ProgramType.CUSTOM
+            self.type_data = [value]
+            self.update_station_schedule()
 
     @property
     def modulo(self):
@@ -353,11 +359,12 @@ class _Program(object):
         self._start = datetime.datetime.combine(datetime.date.today() -
                                                 datetime.timedelta(days=datetime.date.today().weekday()),
                                                 datetime.time.min)  # First day of current week
-        self._schedule = new_schedule
-        self.update_station_schedule()
 
         self.type = ProgramType.DAYS_SIMPLE
         self.type_data = [start_min, duration_min, pause_min, repeat_times, days[:]]
+
+        self._schedule = new_schedule
+        self.update_station_schedule()
 
     def set_days_advanced(self, schedule, days):
         new_schedule = []
@@ -371,11 +378,12 @@ class _Program(object):
         self._start = datetime.datetime.combine(datetime.date.today() -
                                                 datetime.timedelta(days=datetime.date.today().weekday()),
                                                 datetime.time.min)  # First day of current week
-        self._schedule = new_schedule
-        self.update_station_schedule()
 
         self.type = ProgramType.DAYS_ADVANCED
         self.type_data = [schedule, days[:]]
+
+        self._schedule = new_schedule
+        self.update_station_schedule()
 
     def set_repeat_simple(self, start_min, duration_min, pause_min, repeat_times, repeat_days, start_date):
         new_schedule = []
@@ -387,11 +395,12 @@ class _Program(object):
         self._modulo = repeat_days*1440
         self._manual = False
         self._start = datetime.datetime.combine(start_date, datetime.time.min)
-        self._schedule = new_schedule
-        self.update_station_schedule()
 
         self.type = ProgramType.REPEAT_SIMPLE
         self.type_data = [start_min, duration_min, pause_min, repeat_times, repeat_days, start_date]
+        
+        self._schedule = new_schedule
+        self.update_station_schedule()
 
     def set_repeat_advanced(self, schedule, repeat_days, start_date):
         new_schedule = []
@@ -408,6 +417,9 @@ class _Program(object):
         self.type = ProgramType.REPEAT_ADVANCED
         self.type_data = [schedule, repeat_days, start_date]
 
+        self._schedule = new_schedule
+        self.update_station_schedule()
+
     def set_weekly_advanced(self, schedule):
         new_schedule = []
         for interval in schedule:
@@ -418,11 +430,12 @@ class _Program(object):
         self._start = datetime.datetime.combine(datetime.date.today() -
                                                 datetime.timedelta(days=datetime.date.today().weekday()),
                                                 datetime.time.min)  # First day of current week
-        self._schedule = new_schedule
-        self.update_station_schedule()
 
         self.type = ProgramType.WEEKLY_ADVANCED
         self.type_data = [schedule]
+
+        self._schedule = new_schedule
+        self.update_station_schedule()
 
     def set_weekly_weather(self, irrigation_min, irrigation_max, run_max, pause_min, pems):
         new_schedule = []
@@ -438,12 +451,14 @@ class _Program(object):
         self._start = datetime.datetime.combine(datetime.date.today() -
                                                 datetime.timedelta(days=datetime.date.today().weekday()),
                                                 datetime.time.min)  # First day of current week
-        self._schedule = new_schedule
 
         self.fixed = 1
         self.cut_off = 0
+
         self.type = ProgramType.WEEKLY_WEATHER
         self.type_data = [irrigation_min, irrigation_max, run_max, pause_min, pems[:]]
+
+        self._schedule = new_schedule
         self.update_station_schedule()
 
     # The following functions provide easy access to data of different types, returns default if not available

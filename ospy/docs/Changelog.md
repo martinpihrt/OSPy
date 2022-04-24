@@ -1,6 +1,16 @@
 OSPy Changelog
 ====
 
+April 24 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+plugin tank monitor: Correction of saving to settings and change of min and max level (no longer saved in settings, but only in status).
+plugin air temp humidity: Added automatic submit of the form if the user changes the number of DS sensors in the settings (to expand the DS field at the same time). plugin wind monitor: Added interval selection to clear maximum speed. After this set interval, the maximum speed is cleared. Fixed save to settings. Czech language strings update.
+(Rimco)<br/>
+Changes:<br/>
+Fixed backup storage and improved program loading. Avoid calling update_station_schedule with outdated information. Use shutil.move instead of os.rename.
+
 April 23 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
