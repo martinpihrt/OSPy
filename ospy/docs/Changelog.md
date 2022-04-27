@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+April 27 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+A prepared img image was inserted into the "version" location for easy insertion on the SD card.
+Download here: https://github.com/martinpihrt/OSPy/releases/tag/image
+
 April 24 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
