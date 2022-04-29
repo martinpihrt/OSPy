@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+April 29 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed access to OSPy APIs in Python 3 (api crashed if login and password were required. In newer versions of python, the feature has been removed). This update fixes API access (for example, from an OLED M5Stick-C controller or another device). Fixed rounding numbers in Python 3 (to 2 decimal places). Concerned the display of water level settings (for example from the monthly water level plugin). Correction in the monthly water level plugin (if the user accidentally entered a decimal number instead of the whole one at the input, an error occurred during saving).
+
 April 27 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

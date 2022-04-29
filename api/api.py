@@ -629,7 +629,7 @@ class Sensor(object):
                     log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
 
                 else:
-                    log.error('api.py',  _(u'Received data (IP or MAC or SEC) do not match!'))
+                    print_report('api.py',  _(u'Received data (IP, MAC, SEC...) probably do not match!'))
     
             try:
                 for i in range(0, len(sensorSearch)):

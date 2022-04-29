@@ -400,17 +400,17 @@ jQuery(document).ready(function(){
             $if abs(options.level_adjustment-1) > 0.001:
                 <tr>
                     <td>$_('User')</td>
-                    <td class="adjValue">$(options.level_adjustment*100)%</td>
+                    <td class="adjValue">$(round(options.level_adjustment*100, 2))%</td>
                 </tr>
             $for name, adj in level_adjustments.items():
                 $if abs(adj-1) > 0.001:
                     <tr>
                         <td>$name</td>
-                        <td class="adjValue">$(adj*100)%</td>
+                        <td class="adjValue">$(round(adj*100, 2))%</td>
                     </tr>
             <tr>
                 <th>$_('Total')</th>
-                <th class="adjValue">$(level_adjustments.total_adjustment()*100)%</th>
+                <th class="adjValue">$(round(level_adjustments.total_adjustment()*100, 2))%</th>
             </tr>
         </table>
 </div>
@@ -422,7 +422,7 @@ jQuery(document).ready(function(){
                 $if adj < 100:
                     <tr>
                         <td>$name</td>
-                        <td class="adjValue">$(adj)%</td>
+                        <td class="adjValue">$(round(adj, 2))%</td>
                     </tr>
         </table>
 </div>

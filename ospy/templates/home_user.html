@@ -446,7 +446,7 @@ jQuery(document).ready(function(){
 
 
 <div id="options" style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False)}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100)) + _('% Level')}</span></a>
+    <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False)}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100, 2)) + _('% Level')}</span></a>
     <br>
     <a href="javascript:rain_delay_prompt(${max(0, (options.rain_block - datetime.datetime.now()).total_seconds())});" class="button toggle ${'off' if rain_blocks.seconds_left() else 'on'}" title=$:{json.dumps(_(u'Settings the time countdown (rain delay) and block programs during this time'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Active')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Rain Delay')</span></a>
     $if rain_blocks.seconds_left():
@@ -468,17 +468,17 @@ jQuery(document).ready(function(){
             $if abs(options.level_adjustment-1) > 0.001:
                 <tr>
                     <td>$_('User')</td>
-                    <td class="adjValue">$(options.level_adjustment*100)%</td>
+                    <td class="adjValue">$(round(options.level_adjustment*100, 2))%</td>
                 </tr>
             $for name, adj in level_adjustments.items():
                 $if abs(adj-1) > 0.001:
                     <tr>
                         <td>$name</td>
-                        <td class="adjValue">$(adj*100)%</td>
+                        <td class="adjValue">$(round(adj*100, 2))%</td>
                     </tr>
             <tr>
                 <th>$_('Total')</th>
-                <th class="adjValue">$(level_adjustments.total_adjustment()*100)%</th>
+                <th class="adjValue">$(round(level_adjustments.total_adjustment()*100, 2))%</th>
             </tr>
         </table>
 </div>
@@ -490,7 +490,7 @@ jQuery(document).ready(function(){
                 $if adj < 100:
                     <tr>
                         <td>$name</td>
-                        <td class="adjValue">$(adj)%</td>
+                        <td class="adjValue">$(round(adj, 2))%</td>
                     </tr>
         </table>
 </div>

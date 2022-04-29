@@ -7,12 +7,13 @@ from datetime import datetime
 import time
 import json
 import re
+import traceback
 
 import web
 
 from .errors import badrequest, unauthorized
 
-from ospy.helpers import test_password
+from ospy.helpers import test_password, print_report, is_python2
 from ospy.options import options
 from ospy.log import log
 
@@ -22,6 +23,7 @@ def to_timestamp(dt):
     try:
         return int(time.mktime(dt.timetuple()))
     except:
+        print_report('utils.py', traceback.format_exc())
         return 0
 
 
@@ -36,6 +38,7 @@ def local_to_utc(dt):
         # print "local_to_utc: after convert:", utc
         return utc
     except:
+        print_report('utils.py', traceback.format_exc())
         return dt
 
 
@@ -108,7 +111,13 @@ def auth(func):
                 assert auth_data, 'No authentication data provided'
 
                 http_auth = re.sub('^Basic ', '', auth_data)
-                username, password = base64.decodestring(http_auth).split(':')
+                if is_python2():
+                    username, password = base64.decodestring(http_auth).split(':')
+                else:
+                    base64_bytes = http_auth.encode('ascii')
+                    message_bytes = base64.b64decode(base64_bytes)
+                    message = message_bytes.decode('ascii')
+                    username, password = message.split(':')
                 log.debug('utils.py',  _(u'API Auth Attempt with: user: {} password: {}').format(username, password))
                 assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:
@@ -117,6 +126,7 @@ def auth(func):
                 # no or wrong auth provided
                 log.debug('utils.py',  _(u'API Unauthorized attempt user: {} password: {}').format(username, password))
                 web.header('WWW-Authenticate', 'Basic realm="OSPy"')
+                print_report('utils.py', traceback.format_exc())
                 raise unauthorized()
 
         return func(*args, **kwargs)
