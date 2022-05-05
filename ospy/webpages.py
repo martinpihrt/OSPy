@@ -554,18 +554,22 @@ class sensor_page(ProtectedPage):
                     log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
 
                     if sensor.multi_type == 9: # 16x log from probe
-                        for i in range(0, 16) and len(glog_file)>0:
+                        for i in range(0, 16):
                             temp_balances = {}
-                            for key in glog_file[i]['balances']:
-                                find_key =  int(key.encode('utf8'))                        # key is in unicode ex: u'1601347000' -> find_key is int number
-                                if find_key >= log_start:                                  # timestamp interval 
-                                    find_data = glog_file[i]['balances'][key]
-                                    if options.sensor_graph_show_err:                      # if is checked show error values in graph
-                                        temp_balances[key] = glog_file[i]['balances'][key]  # add all values from json
-                                    else:
-                                        if float(find_data['total']) != -127.0:            # not checked, add values if not -127
-                                            temp_balances[key] = glog_file[i]['balances'][key]      
-                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances })
+                            try:
+                                for key in glog_file[i]['balances']:
+                                    find_key =  int(key.encode('utf8'))                        # key is in unicode ex: u'1601347000' -> find_key is int number
+                                    if find_key >= log_start:                                  # timestamp interval 
+                                        find_data = glog_file[i]['balances'][key]
+                                        if options.sensor_graph_show_err:                      # if is checked show error values in graph
+                                            temp_balances[key] = glog_file[i]['balances'][key]  # add all values from json
+                                        else:
+                                            if float(find_data['total']) != -127.0:            # not checked, add values if not -127
+                                                temp_balances[key] = glog_file[i]['balances'][key]
+                            except:
+                                print_report('webpages.py', traceback.format_exc())
+                                pass
+                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
                     else:                      # 1x log from others
                         temp_balances = {}
                         if len(glog_file)>0:
@@ -586,7 +590,7 @@ class sensor_page(ProtectedPage):
                 except:
                     print_report('webpages.py', traceback.format_exc())
                     web.header('Access-Control-Allow-Origin', '*')
-                    web.header('Content-Type', 'application/json')                    
+                    web.header('Content-Type', 'application/json')
                     return json.dumps([])
 
             elif graph:
@@ -882,6 +886,11 @@ class sensor_page(ProtectedPage):
                             sensor.soil_invert_probe_in[i] = 1
                     else:
                         sensor.soil_invert_probe_in[i] = 0
+                    if 'fip{}'.format(i) in qdict:       # 16x checker (show data from probe in footer)
+                        if qdict['fip{}'.format(i)] == 'on':
+                            sensor.soil_show_in_footer[i] = 1
+                    else:
+                        sensor.soil_show_in_footer[i] = 0
                     if 'pl{}'.format(i) in qdict:        # 16x probe label
                         sensor.soil_probe_label[i] = '{}'.format(qdict['pl{}'.format(i)])
 

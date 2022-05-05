@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 05 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Soil moisture OSPy: the option to display humidity in the footer has been added to the sensor settings (if not all 4 inputs of the AD converter were occupied, the measured unconnected value was displayed. Now can be switched off or on for each probe the display in the footer on the main page). Fixed: graph logging and conversion (from to) measured value in calibrated range (from to).
+
 April 29 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

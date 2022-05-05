@@ -89,6 +89,7 @@ class _Sensor(object):
         self.soil_calibration_min = [3.00]*17 # calibration for soil probe (0 %)
         self.soil_calibration_max = [0.00]*17 # calibration for soil probe (100 %)
         self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)
+        self.soil_show_in_footer = [1]*17     # 1= show, 0= hide
         self.soil_program = ["-1"]*17         # program for soil moisture
         self.soil_probe_label = [_('Probe')]*17  # label for soil moisture probe
         # for events log and email
@@ -369,7 +370,6 @@ class _Sensors_Timer(Thread):
                     
                     graph_data = self._read_log(_abs_glog_dir + '/' + 'graph.json')
                     gdata = {}
-                    
                     if type(msg) == list:
                         for i in range(0, len(msg)):
                             gdata = {"total": "{}".format(msg[i])}
@@ -377,8 +377,8 @@ class _Sensors_Timer(Thread):
                     else:
                         gdata = {"total": "{}".format(msg)}
                         graph_data[0]["balances"].update({timestamp: gdata})
-                        self._write_log(glog_dir + '/' + 'graph.json', graph_data)
-                        log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
+                    self._write_log(glog_dir + '/' + 'graph.json', graph_data)
+                    log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
                 except:
                     if not os.path.isdir(_abs_glog_dir):
                         mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
@@ -459,9 +459,16 @@ class _Sensors_Timer(Thread):
             log.debug('sensors.py', traceback.format_exc())
             return -1
 
-    def maping(self, x, in_min, in_max, out_min, out_max):
-        """ Return value from map. example (x=1023,0,1023,0,100) -> x=1023 return 100 """
-        return ((x - in_min) * (out_max - out_min)) / ((in_max - in_min) + out_min)
+    def maping(self, OldValue, OldMin, OldMax, NewMin, NewMax):
+        """ Convert a number range to another range """
+        OldRange = OldMax - OldMin
+        NewRange = NewMax - NewMin
+        if OldRange == 0:
+            NewValue = NewMin
+        else:
+            NewRange = NewMax - NewMin
+            NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+        return NewValue
 
     def get_tank_cm(self, level, dbot, dtop):
         """ Return tank level in cm from bottom """
@@ -1320,23 +1327,13 @@ class _Sensors_Timer(Thread):
                         for i in range(0, 16): 
                             if type(sensor.soil_last_read_value[i]) == float:
                                 state[i] = sensor.soil_last_read_value[i]                           # multi Soil probe 1 - 16
-                                val = state[i]
-
                                 ### voltage from probe to humidity 0-100% with calibration range (for footer info)
                                 if sensor.soil_invert_probe_in[i]:                                  # probe: rotated state 0V=100%, 3V=0% humidity
-                                    if val < sensor.soil_calibration_max[i]:
-                                       val = sensor.soil_calibration_max[i]
-                                    if val > sensor.soil_calibration_min[i]:
-                                       val = sensor.soil_calibration_min[i]
-                                    val = sensor.soil_calibration_min[i] - val
-                                    calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_max[i]), float(sensor.soil_calibration_min[i]), 0.0, 100.0)
+                                    calculate_soil[i] = self.maping(state[i], float(sensor.soil_calibration_max[i]), float(sensor.soil_calibration_min[i]), 0.0, 100.0)
                                     calculate_soil[i] = round(calculate_soil[i], 1)                 # round to one decimal point
+                                    calculate_soil[i] = 100.0 - calculate_soil[i]                   # ex: 90% - 90% = 10%, 10% is output in invert probe mode
                                 else:                                                               # probe: normal state 0V=0%, 3V=100%
-                                    if val > sensor.soil_calibration_max[i]:
-                                       val = sensor.soil_calibration_max[i]
-                                    if val < sensor.soil_calibration_min[i]:
-                                       val = sensor.soil_calibration_min[i]
-                                    calculate_soil[i] = self.maping(val, float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0)
+                                    calculate_soil[i] = self.maping(state[i], float(sensor.soil_calibration_min[i]), float(sensor.soil_calibration_max[i]), 0.0, 100.0)
                                     calculate_soil[i] = round(calculate_soil[i], 1)                 # round to one decimal point
 
                                 if calculate_soil[i] > 100:                                         # overflow limit > 100%
@@ -1346,9 +1343,10 @@ class _Sensors_Timer(Thread):
 
                                 if sensor.soil_program[i] != "-1":                                  # the probe has a program assigned
                                     pid = u'{}'.format(program[int(sensor.soil_program[i])-1].name)
-                                    program_level_adjustments[pid] = 100.0 - calculate_soil[i]
-                                if state[i] >= 0:   
-                                    tempText += '{}: {}% '.format(sensor.soil_probe_label[i], calculate_soil[i])
+                                    program_level_adjustments[pid] = round(100.0 - calculate_soil[i], 2)
+                                if state[i] >= 0:
+                                    if sensor.soil_show_in_footer[i]:   
+                                        tempText += '{} {}% ({}V) '.format(sensor.soil_probe_label[i], round(calculate_soil[i], 2), round(state[i], 2))
                             else:
                                 err_check += 1
 
