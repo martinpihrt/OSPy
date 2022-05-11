@@ -1697,28 +1697,14 @@ class log_page(ProtectedPage):
         email_records = logEM.finished_email()
         events_records = logEV.finished_events()
 
-        if session['category'] == 'admin':
-            try:
-                return self.core_render.log(watering_records, email_records, events_records)
-            except:
-                print_report('webpages.py', traceback.format_exc())
-                raise web.seeother('/')
-        elif session['category'] == 'user':
-            try: 
-                return self.core_render.log_user(watering_records, email_records, events_records)
-            except:
-                print_report('webpages.py', traceback.format_exc())
-                raise web.seeother('/')
-        else:
-            msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+        try:
+            return self.core_render.log(watering_records, email_records, events_records)
+        except:
+            print_report('webpages.py', traceback.format_exc())
+            raise web.seeother('/')
 
     def POST(self):
-        from ospy.server import session
-
-        if session['category'] != 'admin' or session['category'] != 'user':
-            msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+        from ospy.server import session      
 
         qdict = web.input()
 
