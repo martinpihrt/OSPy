@@ -594,7 +594,7 @@ jQuery(document).ready(function(){
                         <td>
                             <select class="weather_pem_day">
                                 $for day in range(7):
-                                    <option value="${str(day)}" ${"selected" if int(pem)/1440 == day else ""}>${long_day(day)}</option>
+                                    <option value="${str(day)}" ${"selected" if int(pem/1440) == day else ""}>${long_day(day)}</option>
                             </select>
                         </td>
                         <td>

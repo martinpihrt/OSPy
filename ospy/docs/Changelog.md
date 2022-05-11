@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 11 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed editing weather based program. Add buttons: Find USB devices, Show TTY devices, AUX output, Show partitons, CPU info to system info plugin. Czech language strings update.
+
 May 05 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
