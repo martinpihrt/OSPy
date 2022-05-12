@@ -486,7 +486,7 @@ jQuery(document).ready(function(){
     $if len([v for v in program_level_adjustments.values() if abs(v-100) > 0.001]) > 0:
         <b>$_('Programs adjustments by sensors')</b>
         <table class="adjustmentList">
-            $for name, adj in program_level_adjustments.iteritems():
+            $for name, adj in program_level_adjustments.items():
                 $if adj < 100:
                     <tr>
                         <td>$name</td>

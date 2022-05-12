@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 12 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed bug in python 3 (iteritems vs items). When using soil moisture sensor which adjusts program run times. 
+
 May 11 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
