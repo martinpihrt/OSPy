@@ -1018,6 +1018,7 @@ Available plug-ins:
 * Door Opening
 * Voice Station
 * Venetian Blinds
+* Speed Monitor
 
 ----
 

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 17 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added new extension: Internet connection speed monitor (response, download, upload). Czech language strings update.
+
 May 12 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
