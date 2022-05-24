@@ -709,6 +709,7 @@ class _Options(object):
                 else:
                     db.update(self._values)
 
+                db['last_save'] = time.time()
                 db.close()
 
                 remove_backup = True
@@ -716,6 +717,8 @@ class _Options(object):
                     db = shelve.open(OPTIONS_BACKUP)
                     if time.time() - db['last_save'] < 3600:
                         remove_backup = False
+                    else:
+                        logging.debug(_('Files in OPTIONS_BACKUP are older than 1 hour.'))   
                     db.close()
                 except Exception:
                     pass
@@ -724,26 +727,32 @@ class _Options(object):
                 if os.path.isdir(backup_dir) and remove_backup:
                     for i in range(10):
                         try:
+                            logging.debug(_('I will try to delete the BACKUP_DIR.'))
                             shutil.rmtree(backup_dir)
                             break
                         except Exception:
                             time.sleep(0.2)
                     else:
+                        logging.debug(_('I will try deleting directory BACKUP_DIR.'))
                         shutil.rmtree(backup_dir)
 
                 if os.path.isdir(options_dir):
                     if not os.path.isdir(backup_dir):
+                        logging.debug(_('I will try moving directory OPTIONS_DIR to BACKUP_DIR.'))
                         shutil.move(options_dir, backup_dir)
                     else:
                         for i in range(10):
                             try:
+                                logging.debug(_('I will try to delete the OPTIONS_DIR.'))
                                 shutil.rmtree(options_dir)
                                 break
                             except Exception:
                                 time.sleep(0.2)
                         else:
+                            logging.debug(_('I will try deleting directory OPTIONS_DIR.'))
                             shutil.rmtree(options_dir)
 
+                logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
 
                 if helpers.is_python2():

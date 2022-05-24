@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 24 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed: there are two directories in the /data directory: default and backup. if the backup directory is older than one hour, a copy of the default directory is made to the backup directory. If the data in the default directory fails, the data from the backup folder is restored. Czech language strings update.
+
 May 17 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

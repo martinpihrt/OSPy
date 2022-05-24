@@ -393,11 +393,11 @@ def get_cpu_temp(unit=None):
             temp = str(0)
 
         if unit == 'F':
-            return str(9.0 / 5.0 * float(temp) + 32)
+            return str(round(9.0/5.0 * float(temp) + 32, 2))
         elif unit is not None:
-            return str(float(temp))
+            return str(round(float(temp), 2))
         else:
-            return temp
+            return round(temp, 2)
     except Exception:
         print_report('helpers.py', traceback.format_exc())
         return _('-')

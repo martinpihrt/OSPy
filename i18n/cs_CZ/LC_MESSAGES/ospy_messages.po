@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2022-05-17 19:45+0200\n"
-"PO-Revision-Date: 2022-05-17 19:51+0200\n"
+"POT-Creation-Date: 2022-05-24 20:43+0200\n"
+"PO-Revision-Date: 2022-05-24 20:50+0200\n"
 "Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -841,11 +841,39 @@ msgstr "Časové razítko posledního uložení databáze"
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:754
+#: ospy/options.py:721
+msgid "Files in OPTIONS_BACKUP are older than 1 hour."
+msgstr "Soubory v OPTIONS_BACKUP jsou starší než 1 hodina."
+
+#: ospy/options.py:730
+msgid "I will try to delete the BACKUP_DIR."
+msgstr "Pokusím se smazat BACKUP_DIR."
+
+#: ospy/options.py:736
+msgid "I will try deleting directory BACKUP_DIR."
+msgstr "Pokusím se smazat adresář BACKUP_DIR."
+
+#: ospy/options.py:741
+msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
+msgstr "Pokusím se přesunout adresář OPTIONS_DIR do BACKUP_DIR."
+
+#: ospy/options.py:746
+msgid "I will try to delete the OPTIONS_DIR."
+msgstr "Pokusím se smazat OPTIONS_DIR."
+
+#: ospy/options.py:752
+msgid "I will try deleting directory OPTIONS_DIR."
+msgstr "Pokusím se odstranit adresář OPTIONS_DIR."
+
+#: ospy/options.py:755
+msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
+msgstr "Pokusím se přesunout adresář TMP_DIR do OPTIONS_DIR."
+
+#: ospy/options.py:763
 msgid "Saved db as %s"
 msgstr "Uložená databáze jako %s"
 
-#: ospy/options.py:756
+#: ospy/options.py:765
 msgid "Saving error:\n"
 msgstr "Chyba ukládání:\n"
 
@@ -1082,13 +1110,13 @@ msgstr "Kontakt spojený"
 
 #: ospy/sensors.py:101 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/lcd_display/__init__.py:481 plugins/lcd_display/__init__.py:512
+#: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:519
 msgid "Motion Detected"
 msgstr "Byl detekován pohyb"
 
 #: ospy/sensors.py:102 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/lcd_display/__init__.py:481 plugins/lcd_display/__init__.py:512
+#: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:519
 msgid "No Motion"
 msgstr "Žádný pohyb"
 
@@ -1167,13 +1195,13 @@ msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 #: plugins/email_notifications/__init__.py:284
 #: plugins/email_notifications/__init__.py:289
 #: plugins/email_notifications/__init__.py:296
-#: plugins/email_notifications/__init__.py:329
-#: plugins/lcd_display/__init__.py:468 plugins/lcd_display/__init__.py:473
-#: plugins/lcd_display/__init__.py:478 plugins/lcd_display/__init__.py:483
-#: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:494
-#: plugins/lcd_display/__init__.py:499 plugins/lcd_display/__init__.py:504
-#: plugins/lcd_display/__init__.py:509 plugins/lcd_display/__init__.py:514
-#: plugins/lcd_display/__init__.py:521 plugins/lcd_display/__init__.py:554
+#: plugins/email_notifications/__init__.py:318
+#: plugins/lcd_display/__init__.py:475 plugins/lcd_display/__init__.py:480
+#: plugins/lcd_display/__init__.py:485 plugins/lcd_display/__init__.py:490
+#: plugins/lcd_display/__init__.py:495 plugins/lcd_display/__init__.py:501
+#: plugins/lcd_display/__init__.py:506 plugins/lcd_display/__init__.py:511
+#: plugins/lcd_display/__init__.py:516 plugins/lcd_display/__init__.py:521
+#: plugins/lcd_display/__init__.py:528 plugins/lcd_display/__init__.py:550
 msgid "Probe Error"
 msgstr "Chyba sondy"
 
@@ -1299,7 +1327,7 @@ msgstr "Průtok {}l/s"
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:294
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
-#: plugins/lcd_display/__init__.py:376 plugins/lcd_display/__init__.py:519
+#: plugins/lcd_display/__init__.py:383 plugins/lcd_display/__init__.py:526
 #: plugins/tank_monitor/__init__.py:154 plugins/tank_monitor/__init__.py:156
 #: plugins/tank_monitor/__init__.py:157 plugins/tank_monitor/__init__.py:159
 #: plugins/tank_monitor/__init__.py:160 plugins/tank_monitor/__init__.py:161
@@ -1324,7 +1352,7 @@ msgstr "litrů"
 #: plugins/email_notifications/__init__.py:191
 #: plugins/email_notifications/__init__.py:199
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:853
-#: plugins/lcd_display/__init__.py:380 plugins/tank_monitor/__init__.py:159
+#: plugins/lcd_display/__init__.py:387 plugins/tank_monitor/__init__.py:159
 #: plugins/tank_monitor/__init__.py:160
 #: plugins/tank_monitor/templates/tank_monitor_log.html:31
 msgid "m3"
@@ -2004,7 +2032,7 @@ msgstr "Smazat"
 #: plugins/venetian_blind/templates/venetian_blind_help.html:41
 #: plugins/venetian_blind/templates/venetian_blind_log.html:12
 #: plugins/venetian_blind/templates/venetian_blind_log.html:29
-#: plugins/venetian_blind/templates/venetian_blind_setup.html:112
+#: plugins/venetian_blind/templates/venetian_blind_setup.html:124
 #: plugins/voice_notification/templates/voice_notification.html:109
 #: plugins/voice_notification/templates/voice_notification_help.html:17
 #: plugins/voice_notification/templates/voice_notification_sounds.html:100
@@ -2096,7 +2124,7 @@ msgstr "Pohyb"
 #: ospy/templates/sensors.html:365 ospy/templates/sensors.html:383
 #: ospy/templates/sensors.html:409 ospy/templates/sensors.html:421
 #: ospy/templates/stations.html:68 ospy/templates/stations.html:71
-#: ospy/templates/stations.html:74 plugins/lcd_display/__init__.py:340
+#: ospy/templates/stations.html:74 plugins/lcd_display/__init__.py:347
 msgid "None"
 msgstr "Nepoužito"
 
@@ -2303,8 +2331,8 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/home_user.html:461 ospy/templates/log.html:28
 #: ospy/templates/log.html:57 ospy/templates/log.html:86
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
-#: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:338
-#: plugins/lcd_display/__init__.py:444 plugins/lcd_display/__init__.py:558
+#: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
+#: plugins/lcd_display/__init__.py:451 plugins/lcd_display/__init__.py:554
 #: plugins/pressure_monitor/__init__.py:180
 #: plugins/pressure_monitor/__init__.py:181
 msgid "Disabled"
@@ -2405,7 +2433,7 @@ msgstr ""
 "programy"
 
 #: ospy/templates/home_admin.html:449 ospy/templates/home_user.html:451
-#: plugins/lcd_display/__init__.py:323 plugins/lcd_display/__init__.py:356
+#: plugins/lcd_display/__init__.py:330 plugins/lcd_display/__init__.py:363
 #: plugins/pressure_monitor/__init__.py:173
 #: plugins/pressure_monitor/__init__.py:174
 msgid "Active"
@@ -2436,7 +2464,7 @@ msgstr "Povolit nebo zakázat provoz plánovače"
 #: ospy/templates/log.html:28 ospy/templates/log.html:57
 #: ospy/templates/log.html:86 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
-#: ospy/templates/program.html:372 plugins/lcd_display/__init__.py:442
+#: ospy/templates/program.html:372 plugins/lcd_display/__init__.py:449
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
 #: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
@@ -2904,8 +2932,8 @@ msgstr "V"
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
-#: plugins/lcd_display/__init__.py:376 plugins/lcd_display/__init__.py:476
-#: plugins/lcd_display/__init__.py:507
+#: plugins/lcd_display/__init__.py:383 plugins/lcd_display/__init__.py:483
+#: plugins/lcd_display/__init__.py:514
 msgid "%"
 msgstr "%"
 
@@ -4535,7 +4563,7 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
 #: plugins/ups_adj/templates/ups_adj.html:263
-#: plugins/venetian_blind/templates/venetian_blind_setup.html:111
+#: plugins/venetian_blind/templates/venetian_blind_setup.html:123
 #: plugins/voice_notification/templates/voice_notification.html:107
 #: plugins/voice_station/templates/voice_station.html:101
 #: plugins/volt_temp_da/templates/volt_temp_da.html:79
@@ -5173,7 +5201,7 @@ msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
 #: plugins/air_temp_humi/__init__.py:512 plugins/cli_control/__init__.py:189
-#: plugins/speed_monitor/__init__.py:252 plugins/venetian_blind/__init__.py:268
+#: plugins/speed_monitor/__init__.py:252 plugins/venetian_blind/__init__.py:276
 msgid "Saving to log files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
@@ -7260,7 +7288,7 @@ msgid "Finished run"
 msgstr "Ukončené zalévání"
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:376
+#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:383
 msgid "Level"
 msgstr "Úroveň"
 
@@ -7341,87 +7369,87 @@ msgstr "Nelze importovat plugin: air temp humi."
 
 #: plugins/email_notifications/__init__.py:239
 #: plugins/email_notifications/__init__.py:272
-#: plugins/lcd_display/__init__.py:464 plugins/lcd_display/__init__.py:497
+#: plugins/lcd_display/__init__.py:471 plugins/lcd_display/__init__.py:504
 msgid "Contact Closed"
 msgstr "Kontakt spojený"
 
 #: plugins/email_notifications/__init__.py:241
 #: plugins/email_notifications/__init__.py:272
-#: plugins/lcd_display/__init__.py:466 plugins/lcd_display/__init__.py:497
+#: plugins/lcd_display/__init__.py:473 plugins/lcd_display/__init__.py:504
 msgid "Contact Open"
 msgstr "Kontakt rozpojený"
 
 #: plugins/email_notifications/__init__.py:246
 #: plugins/email_notifications/__init__.py:277
-#: plugins/lcd_display/__init__.py:471 plugins/lcd_display/__init__.py:502
+#: plugins/lcd_display/__init__.py:478 plugins/lcd_display/__init__.py:509
 msgid "l/s"
 msgstr "l/s"
 
-#: plugins/email_notifications/__init__.py:332
+#: plugins/email_notifications/__init__.py:321
 msgid "Last Wi-Fi signal: {}%, Source: {}V."
 msgstr "Poslední signál Wi-Fi: {}%, zdroj: {}V."
 
-#: plugins/email_notifications/__init__.py:334
+#: plugins/email_notifications/__init__.py:323
 msgid "Last Radio signal: {}%, Source: {}V."
 msgstr "Poslední signál radio: {}%, zdroj: {}V."
 
-#: plugins/email_notifications/__init__.py:336
-#: plugins/lcd_display/__init__.py:556
+#: plugins/email_notifications/__init__.py:325
+#: plugins/lcd_display/__init__.py:552
 msgid "No response!"
 msgstr "Neodpovídá!"
 
-#: plugins/email_notifications/__init__.py:348
-#: plugins/lcd_display/__init__.py:563
+#: plugins/email_notifications/__init__.py:337
+#: plugins/lcd_display/__init__.py:559
 msgid "No sensors available"
 msgstr "Nejsou k dispozici žádné snímače"
 
-#: plugins/email_notifications/__init__.py:357
-#: plugins/email_notifications/__init__.py:396
-#: plugins/email_notifications/__init__.py:401
+#: plugins/email_notifications/__init__.py:346
+#: plugins/email_notifications/__init__.py:385
+#: plugins/email_notifications/__init__.py:390
 msgid "E-mail plug-in"
 msgstr "Rošíření E-mail"
 
-#: plugins/email_notifications/__init__.py:379
+#: plugins/email_notifications/__init__.py:368
 msgid "Unsent E-mails in queue (in file)"
 msgstr "Neodesláné E-maily ve frontě (v souboru)"
 
-#: plugins/email_notifications/__init__.py:382
+#: plugins/email_notifications/__init__.py:371
 msgid "sending from queue."
 msgstr "odesílání z fronty."
 
-#: plugins/email_notifications/__init__.py:390
+#: plugins/email_notifications/__init__.py:379
 msgid "All unsent E-mails in the queue have been sent."
 msgstr "Všechny neodeslané E-maily ve frontě byly odeslány."
 
-#: plugins/email_notifications/__init__.py:477
+#: plugins/email_notifications/__init__.py:466
 msgid "E-mail plug-in is not properly configured!"
 msgstr "E-mail rozšíření není správně nastaveno!"
 
-#: plugins/email_notifications/__init__.py:510
+#: plugins/email_notifications/__init__.py:499
 msgid "E-mail was sent"
 msgstr "E-mail byl odeslán"
 
-#: plugins/email_notifications/__init__.py:512
-#: plugins/email_notifications/__init__.py:520
+#: plugins/email_notifications/__init__.py:501
+#: plugins/email_notifications/__init__.py:509
 msgid "E-mail logging is disabled in options..."
 msgstr "Protokolování E-mailů je zakázáno v nastavení..."
 
-#: plugins/email_notifications/__init__.py:514
-#: plugins/water_consumption_counter/__init__.py:125
+#: plugins/email_notifications/__init__.py:503
+#: plugins/water_consumption_counter/__init__.py:126
 msgid "Sent"
 msgstr "Odeslán"
 
-#: plugins/email_notifications/__init__.py:517
-#: plugins/email_notifications/__init__.py:518
+#: plugins/email_notifications/__init__.py:506
+#: plugins/email_notifications/__init__.py:507
 msgid "E-mail was not sent! Connection to Internet not ready."
 msgstr "E-mail nebyl odeslán! Připojení k Internetu není připraveno."
 
-#: plugins/email_notifications/__init__.py:589
-#: plugins/email_notifications/__init__.py:590
+#: plugins/email_notifications/__init__.py:585
+#: plugins/email_notifications/__init__.py:586
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr "Toto je testovací E-mail ze systému OSPy. Můžete ho ignorovat."
 
-#: plugins/email_notifications/__init__.py:594
+#: plugins/email_notifications/__init__.py:590
 msgid "Email Queue was deleted."
 msgstr "Fronta e-mailů byla odstraněna."
 
@@ -8579,165 +8607,165 @@ msgstr "Rozšíření LCD displej:"
 msgid ","
 msgstr ","
 
-#: plugins/lcd_display/__init__.py:244
+#: plugins/lcd_display/__init__.py:251
 msgid "System:"
 msgstr "Systém:"
 
-#: plugins/lcd_display/__init__.py:254
+#: plugins/lcd_display/__init__.py:261
 msgid "SW Version:"
 msgstr "SW verze:"
 
-#: plugins/lcd_display/__init__.py:264
+#: plugins/lcd_display/__init__.py:271
 msgid "My IP is:"
 msgstr "Moje IP adresa je:"
 
-#: plugins/lcd_display/__init__.py:277
+#: plugins/lcd_display/__init__.py:284
 msgid "My Port is:"
 msgstr "Můj port je:"
 
-#: plugins/lcd_display/__init__.py:287
+#: plugins/lcd_display/__init__.py:294
 msgid "CPU Temperature:"
 msgstr "Teplota procesoru:"
 
-#: plugins/lcd_display/__init__.py:297
+#: plugins/lcd_display/__init__.py:304
 msgid "Date:"
 msgstr "Datum:"
 
-#: plugins/lcd_display/__init__.py:302
+#: plugins/lcd_display/__init__.py:309
 msgid "Time:"
 msgstr "Čas:"
 
-#: plugins/lcd_display/__init__.py:307
+#: plugins/lcd_display/__init__.py:314
 msgid "System Uptime:"
 msgstr "Doba provozu:"
 
-#: plugins/lcd_display/__init__.py:317
+#: plugins/lcd_display/__init__.py:324
 msgid "Rain Sensor:"
 msgstr "Dešťový snímač:"
 
-#: plugins/lcd_display/__init__.py:325 plugins/lcd_display/__init__.py:354
+#: plugins/lcd_display/__init__.py:332 plugins/lcd_display/__init__.py:361
 #: plugins/pressure_monitor/__init__.py:170
 #: plugins/pressure_monitor/__init__.py:171
 msgid "Inactive"
 msgstr "Neaktivní"
 
-#: plugins/lcd_display/__init__.py:330
+#: plugins/lcd_display/__init__.py:337
 msgid "Last Program:"
 msgstr "Poslední program:"
 
-#: plugins/lcd_display/__init__.py:345
+#: plugins/lcd_display/__init__.py:352
 msgid "Pressure Sensor:"
 msgstr "Snímač tlaku:"
 
-#: plugins/lcd_display/__init__.py:358 plugins/lcd_display/__init__.py:384
-#: plugins/lcd_display/__init__.py:405 plugins/lcd_display/__init__.py:565
+#: plugins/lcd_display/__init__.py:365 plugins/lcd_display/__init__.py:391
+#: plugins/lcd_display/__init__.py:412 plugins/lcd_display/__init__.py:561
 msgid "Not Available"
 msgstr "Není k dispozici"
 
-#: plugins/lcd_display/__init__.py:363
+#: plugins/lcd_display/__init__.py:370
 msgid "Water Tank Level:"
 msgstr "Hladina vody v nádrži:"
 
-#: plugins/lcd_display/__init__.py:378
-#: plugins/water_consumption_counter/__init__.py:155
+#: plugins/lcd_display/__init__.py:385
 #: plugins/water_consumption_counter/__init__.py:156
-#: plugins/water_consumption_counter/__init__.py:180
+#: plugins/water_consumption_counter/__init__.py:157
 #: plugins/water_consumption_counter/__init__.py:181
+#: plugins/water_consumption_counter/__init__.py:182
 msgid "liter"
 msgstr "litr"
 
-#: plugins/lcd_display/__init__.py:382
+#: plugins/lcd_display/__init__.py:389
 msgid "Error - I2C Device Not Found!"
 msgstr "Chyba - I2C zařízení nenalezeno!"
 
-#: plugins/lcd_display/__init__.py:389
+#: plugins/lcd_display/__init__.py:396
 msgid "DS Temperature:"
 msgstr "DS Teplota:"
 
-#: plugins/lcd_display/__init__.py:403
+#: plugins/lcd_display/__init__.py:410
 msgid "DS temperature not use"
 msgstr "DS teplota se nepoužívá"
 
-#: plugins/lcd_display/__init__.py:410
+#: plugins/lcd_display/__init__.py:417
 msgid "Station running:"
 msgstr "Stanice v provozu:"
 
-#: plugins/lcd_display/__init__.py:416
+#: plugins/lcd_display/__init__.py:423
 msgid "Nothing running"
 msgstr "Nic neběží"
 
-#: plugins/lcd_display/__init__.py:423
+#: plugins/lcd_display/__init__.py:430
 msgid "Control:"
 msgstr "Ovládání:"
 
-#: plugins/lcd_display/__init__.py:429
+#: plugins/lcd_display/__init__.py:436
 msgid "Manual mode"
 msgstr "Manuální režim"
 
-#: plugins/lcd_display/__init__.py:431
+#: plugins/lcd_display/__init__.py:438
 msgid "Scheduler"
 msgstr "Plánovač"
 
-#: plugins/lcd_display/__init__.py:436
+#: plugins/lcd_display/__init__.py:443
 msgid "Scheduler:"
 msgstr "Plánovač:"
 
-#: plugins/lcd_display/__init__.py:450
+#: plugins/lcd_display/__init__.py:457
 msgid "Sensors:"
 msgstr "Snímače:"
 
-#: plugins/lcd_display/__init__.py:586
+#: plugins/lcd_display/__init__.py:582
 msgid "Found {} on address {}"
 msgstr "Nalezen {} na adrese {}"
 
-#: plugins/lcd_display/__init__.py:592
+#: plugins/lcd_display/__init__.py:588
 msgid "Could not find any PCF8574 controller."
 msgstr "Nebyl nalezl žádný řadič PCF8574."
 
-#: plugins/lcd_display/__init__.py:595 plugins/system_info/__init__.py:227
+#: plugins/lcd_display/__init__.py:591 plugins/system_info/__init__.py:227
 #: plugins/volt_temp_da/__init__.py:85 plugins/water_meter/__init__.py:71
 #: plugins/wind_monitor/__init__.py:118
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
-#: plugins/lcd_display/__init__.py:639
+#: plugins/lcd_display/__init__.py:635
 msgid "System rebooting"
 msgstr "Restartování systému"
 
-#: plugins/lcd_display/__init__.py:650 plugins/lcd_display/__init__.py:687
+#: plugins/lcd_display/__init__.py:646 plugins/lcd_display/__init__.py:683
 msgid "System Linux"
 msgstr "Systém Linux"
 
-#: plugins/lcd_display/__init__.py:651 plugins/lcd_display/__init__.py:669
+#: plugins/lcd_display/__init__.py:647 plugins/lcd_display/__init__.py:665
 msgid "Rebooting"
 msgstr "Restartování"
 
-#: plugins/lcd_display/__init__.py:657
+#: plugins/lcd_display/__init__.py:653
 msgid "System restarting"
 msgstr "Restartování systému"
 
-#: plugins/lcd_display/__init__.py:668 plugins/lcd_display/__init__.py:705
+#: plugins/lcd_display/__init__.py:664 plugins/lcd_display/__init__.py:702
 #: plugins/system_update/__init__.py:231
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
-#: plugins/lcd_display/__init__.py:676
+#: plugins/lcd_display/__init__.py:672
 msgid "System poweroff"
 msgstr "Vypnutí systému"
 
-#: plugins/lcd_display/__init__.py:688
+#: plugins/lcd_display/__init__.py:684
 msgid "Power off"
 msgstr "Vypnutí"
 
-#: plugins/lcd_display/__init__.py:694
+#: plugins/lcd_display/__init__.py:691
 msgid "System OSPy Has Update"
 msgstr "Systém OSPy má k dispozici aktualizaci"
 
-#: plugins/lcd_display/__init__.py:706
+#: plugins/lcd_display/__init__.py:703
 msgid "Has Update"
 msgstr "Má aktualizaci"
 
-#: plugins/lcd_display/__init__.py:722
+#: plugins/lcd_display/__init__.py:719
 msgid "I2C address has re-finded."
 msgstr "Adresa I2C byla znovu vyhledána."
 
@@ -11337,15 +11365,15 @@ msgid "Received SMS was deleted - SMS was not from admin"
 msgstr "Přijatá SMS byla odstraněna - SMS nebyla od správce"
 
 #: plugins/sms_adj/__init__.py:449
-#: plugins/water_consumption_counter/__init__.py:127
+#: plugins/water_consumption_counter/__init__.py:128
 msgid "Email was sent"
 msgstr "E-mail byl odeslán"
 
 #: plugins/sms_adj/__init__.py:451
-#: plugins/water_consumption_counter/__init__.py:133
-#: plugins/water_consumption_counter/__init__.py:135
-#: plugins/water_consumption_counter/__init__.py:161
-#: plugins/water_consumption_counter/__init__.py:186
+#: plugins/water_consumption_counter/__init__.py:134
+#: plugins/water_consumption_counter/__init__.py:136
+#: plugins/water_consumption_counter/__init__.py:162
+#: plugins/water_consumption_counter/__init__.py:187
 msgid "Email was not sent"
 msgstr "E-mail nebyl odeslán"
 
@@ -12262,9 +12290,9 @@ msgstr "zakázat"
 msgid "runOnce"
 msgstr "jednorázový"
 
-#: plugins/telegram_bot/__init__.py:45 plugins/venetian_blind/__init__.py:154
-#: plugins/venetian_blind/__init__.py:289
-#: plugins/venetian_blind/__init__.py:325
+#: plugins/telegram_bot/__init__.py:45 plugins/venetian_blind/__init__.py:156
+#: plugins/venetian_blind/__init__.py:297
+#: plugins/venetian_blind/__init__.py:333
 msgid "stop"
 msgstr "zastavit"
 
@@ -12988,110 +13016,126 @@ msgstr "Zdroj dat www.pihrt.com"
 msgid "Package: Venetian blind"
 msgstr "Balíček: ovládání žaluzií"
 
-#: plugins/venetian_blind/__init__.py:87
+#: plugins/venetian_blind/__init__.py:42
+msgid "Living room"
+msgstr "Obývací pokoj"
+
+#: plugins/venetian_blind/__init__.py:47
+msgid "Closed blind"
+msgstr "Zavřená roleta"
+
+#: plugins/venetian_blind/__init__.py:48
+msgid "Open blind"
+msgstr "Otevřená roleta"
+
+#: plugins/venetian_blind/__init__.py:89
 #: plugins/venetian_blind/templates/venetian_blind.html:3
 #: plugins/venetian_blind/templates/venetian_blind.html:33
 msgid "Venetian blind"
 msgstr "Žaluzie"
 
-#: plugins/venetian_blind/__init__.py:100
+#: plugins/venetian_blind/__init__.py:102
 msgid "Venetian blind is disabled."
 msgstr "Žaluzie jsou zakázány."
 
-#: plugins/venetian_blind/__init__.py:115
-#: plugins/venetian_blind/__init__.py:180
-#: plugins/venetian_blind/__init__.py:234
-#: plugins/venetian_blind/__init__.py:381
+#: plugins/venetian_blind/__init__.py:117
+#: plugins/venetian_blind/__init__.py:182
+#: plugins/venetian_blind/__init__.py:242
+#: plugins/venetian_blind/__init__.py:393
 msgid "Venetian blind plug-in"
 msgstr "Rozšíření žaluzie"
 
-#: plugins/venetian_blind/__init__.py:151
-#: plugins/venetian_blind/__init__.py:287
-#: plugins/venetian_blind/__init__.py:323
+#: plugins/venetian_blind/__init__.py:153
+#: plugins/venetian_blind/__init__.py:295
+#: plugins/venetian_blind/__init__.py:331
 msgid "close"
 msgstr "zavřeno"
 
-#: plugins/venetian_blind/__init__.py:157
-#: plugins/venetian_blind/__init__.py:291
-#: plugins/venetian_blind/__init__.py:327
+#: plugins/venetian_blind/__init__.py:159
+#: plugins/venetian_blind/__init__.py:299
+#: plugins/venetian_blind/__init__.py:335
 msgid "open"
 msgstr "otevřeno"
 
-#: plugins/venetian_blind/__init__.py:160
-#: plugins/venetian_blind/__init__.py:207
-#: plugins/venetian_blind/__init__.py:293
-#: plugins/venetian_blind/__init__.py:446
+#: plugins/venetian_blind/__init__.py:162
+#: plugins/venetian_blind/__init__.py:210
+#: plugins/venetian_blind/__init__.py:301
+#: plugins/venetian_blind/__init__.py:458
 msgid "unkown state"
 msgstr "neznámý stav"
 
-#: plugins/venetian_blind/__init__.py:166
+#: plugins/venetian_blind/__init__.py:168
 msgid "Answer ok"
 msgstr "Odpověď ok"
 
-#: plugins/venetian_blind/__init__.py:168
+#: plugins/venetian_blind/__init__.py:170
 msgid "The command has been executed."
 msgstr "Příkaz byl proveden."
 
-#: plugins/venetian_blind/__init__.py:171
-#: plugins/venetian_blind/__init__.py:172
 #: plugins/venetian_blind/__init__.py:173
-#: plugins/venetian_blind/__init__.py:218
+#: plugins/venetian_blind/__init__.py:174
+#: plugins/venetian_blind/__init__.py:175
+#: plugins/venetian_blind/__init__.py:226
 msgid "No route to host {}."
 msgstr "Žádná trasa k hostiteli {}."
 
-#: plugins/venetian_blind/__init__.py:175
-#: plugins/venetian_blind/__init__.py:176
 #: plugins/venetian_blind/__init__.py:177
-#: plugins/venetian_blind/__init__.py:224
+#: plugins/venetian_blind/__init__.py:178
+#: plugins/venetian_blind/__init__.py:179
+#: plugins/venetian_blind/__init__.py:232
 msgid "URL {} is invalid."
 msgstr "Adresa URL {} je neplatná."
 
-#: plugins/venetian_blind/__init__.py:181
-#: plugins/venetian_blind/__init__.py:236
+#: plugins/venetian_blind/__init__.py:183
+#: plugins/venetian_blind/__init__.py:244
 msgid "Any error."
 msgstr "Nějaká chyba."
 
-#: plugins/venetian_blind/__init__.py:201
+#: plugins/venetian_blind/__init__.py:204
 msgid "opening"
 msgstr "otevírání"
 
-#: plugins/venetian_blind/__init__.py:203
+#: plugins/venetian_blind/__init__.py:206
 msgid "stopped"
 msgstr "zastaveno"
 
-#: plugins/venetian_blind/__init__.py:205
+#: plugins/venetian_blind/__init__.py:208
 msgid "closing"
 msgstr "uzavírání"
 
-#: plugins/venetian_blind/__init__.py:209
+#: plugins/venetian_blind/__init__.py:212
 msgid "position"
 msgstr "pozice"
 
 #: plugins/venetian_blind/__init__.py:219
+msgid "{} {} ({}, power {}W)"
+msgstr "{} {} ({}, výkon {}W)"
+
+#: plugins/venetian_blind/__init__.py:227
 msgid "No route to host."
 msgstr "Žádná cesta k hostiteli."
 
-#: plugins/venetian_blind/__init__.py:225
+#: plugins/venetian_blind/__init__.py:233
 msgid "URL invalid."
 msgstr "Adresa URL je neplatná."
 
-#: plugins/venetian_blind/__init__.py:228
+#: plugins/venetian_blind/__init__.py:236
 msgid "URL is not setuped."
 msgstr "Adresa URL není nastavena."
 
-#: plugins/venetian_blind/__init__.py:294
+#: plugins/venetian_blind/__init__.py:302
 msgid "Button for blind {}, position {}."
 msgstr "Tlačítko pro žaluzii {}, pozice {}."
 
-#: plugins/venetian_blind/__init__.py:315
+#: plugins/venetian_blind/__init__.py:323
 msgid "Deleted all log files OK."
 msgstr "Odstraněny všechny soubory protokolu OK."
 
-#: plugins/venetian_blind/__init__.py:329
+#: plugins/venetian_blind/__init__.py:337
 msgid "unkown state."
 msgstr "neznámý stav."
 
-#: plugins/venetian_blind/__init__.py:330
+#: plugins/venetian_blind/__init__.py:338
 msgid "Test for blind {}, position {}."
 msgstr "Test na žaluzii {}, pozice {}."
 
@@ -13287,6 +13331,14 @@ msgstr "Test zavřít"
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:101
 msgid "Command for read status"
 msgstr "Příkaz pro čtení stavu žaluzie"
+
+#: plugins/venetian_blind/templates/venetian_blind_setup.html:107
+msgid "Label for position 0%"
+msgstr "Štítek pro pozici 0%"
+
+#: plugins/venetian_blind/templates/venetian_blind_setup.html:113
+msgid "Label for position 100%"
+msgstr "Štítek pro pozici 100%"
 
 #: plugins/voice_notification/__init__.py:27
 msgid "Package: Voice Notification"
@@ -13842,48 +13894,48 @@ msgstr "Hlášení z OSPy SPOTŘEBA vody"
 
 #: plugins/water_consumption_counter/__init__.py:79
 #: plugins/water_consumption_counter/__init__.py:111
-#: plugins/water_consumption_counter/__init__.py:155
 #: plugins/water_consumption_counter/__init__.py:156
-#: plugins/water_consumption_counter/__init__.py:180
+#: plugins/water_consumption_counter/__init__.py:157
 #: plugins/water_consumption_counter/__init__.py:181
+#: plugins/water_consumption_counter/__init__.py:182
 msgid "Water Consumption Counter plug-in"
 msgstr "Rozšíření spotřeba vody"
 
-#: plugins/water_consumption_counter/__init__.py:123
-#: plugins/water_consumption_counter/__init__.py:131
+#: plugins/water_consumption_counter/__init__.py:124
+#: plugins/water_consumption_counter/__init__.py:132
 msgid "Email logging is disabled in options..."
 msgstr "V možnostech je zakázáno protokolování E-mailů..."
 
-#: plugins/water_consumption_counter/__init__.py:142
+#: plugins/water_consumption_counter/__init__.py:143
 msgid "Master station 1 running, please wait..."
 msgstr "Hlavní stanice 1 běží, počkejte prosím..."
 
-#: plugins/water_consumption_counter/__init__.py:147
+#: plugins/water_consumption_counter/__init__.py:148
 msgid "Master station 1 stopped, counter finished..."
 msgstr "Hlavní stanice 1 zastavena, počítadlo dokončeno..."
 
-#: plugins/water_consumption_counter/__init__.py:155
-#: plugins/water_consumption_counter/__init__.py:180
+#: plugins/water_consumption_counter/__init__.py:156
+#: plugins/water_consumption_counter/__init__.py:181
 msgid "Water Consumption"
 msgstr "Rozšíření spotřeba vody"
 
-#: plugins/water_consumption_counter/__init__.py:156
+#: plugins/water_consumption_counter/__init__.py:157
 msgid "Water Consumption for master 1"
 msgstr "Spotřeba vody pro hlavní stanici 1"
 
-#: plugins/water_consumption_counter/__init__.py:167
+#: plugins/water_consumption_counter/__init__.py:168
 msgid "Master station 2 running, please wait..."
 msgstr "Hlavní stanice 2 běží, počkejte prosím..."
 
-#: plugins/water_consumption_counter/__init__.py:172
+#: plugins/water_consumption_counter/__init__.py:173
 msgid "Master station 2 stopped, counter finished..."
 msgstr "Hlavní stanice 2 zastavena, počítadlo dokončeno..."
 
-#: plugins/water_consumption_counter/__init__.py:181
+#: plugins/water_consumption_counter/__init__.py:182
 msgid "Water Consumption for master 2"
 msgstr "Spotřeba vody pro hlavní stanici 2"
 
-#: plugins/water_consumption_counter/__init__.py:212
+#: plugins/water_consumption_counter/__init__.py:213
 msgid "Counter has reseted"
 msgstr "Čítač byl resetován"
 
