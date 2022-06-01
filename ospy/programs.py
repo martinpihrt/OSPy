@@ -35,8 +35,8 @@ class ProgramType(object):
         WEEKLY_WEATHER: _('Weekly (Weather based)'),
     }
 
-ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith(u'_') and
-                                                                             isinstance(getattr(ProgramType, x), int)}
+ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith(u'_') and isinstance(getattr(ProgramType, x), int)}
+
 class _Program(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_programs', '_loading']
 
@@ -192,7 +192,7 @@ class _Program(object):
                                 to_sprinkle[station] = self._update_schedule(to_sprinkle[station], self.modulo, week_min, week_min+station_duration)
                                 week_min += station_duration + int(round(station_duration*pause_ratio))
 
-                    logging.debug(_('Weather based deficit for') + ' %s: %s', stations.get(station).name, str(sorted([((now.date() + datetime.timedelta(days=x)).isoformat(), y) for x, y in station_balance.iteritems()])))
+                    logging.debug(_('Weather based deficit for') + ' %s: %s', stations.get(station).name, str(sorted([((now.date() + datetime.timedelta(days=x)).isoformat(), y) for x, y in station_balance.items()])))
 
 
                 self._station_schedule = to_sprinkle
@@ -267,13 +267,13 @@ class _Program(object):
             else:
                 result = _('Advanced schedule repeating every') + " %d " % self.type_data[1] + _('days') 
         elif self.type == ProgramType.DAYS_SIMPLE:
-            result = _('Simple schedule on') + ' '.join([self._day_str(x) for x in self.type_data[4]])
+            result = _('Simple schedule on') + ' ' + ' '.join([self._day_str(x) for x in self.type_data[4]])
         elif self.type == ProgramType.DAYS_ADVANCED:
-            result = _('Advanced schedule on') + ' '.join([self._day_str(x) for x in self.type_data[1]])
+            result = _('Advanced schedule on') + ' ' + ' '.join([self._day_str(x) for x in self.type_data[1]])
         elif self.type == ProgramType.WEEKLY_ADVANCED:
             result = _('Advanced weekly schedule')
         elif self.type == ProgramType.WEEKLY_WEATHER:
-            result = _('Weather based schedule on') + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
+            result = _('Weather based schedule on') + ' ' + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
         return result
 
     def details(self):
@@ -824,12 +824,14 @@ class _Programs(object):
     def run_now(self, index):
         if 0 <= index < len(self._programs):
             program = self._programs[index]
-            #if program.type != ProgramType.WEEKLY_ADVANCED and program.type != ProgramType.CUSTOM and program.type != ProgramType.WEEKLY_WEATHER:
-            if len(program.schedule) > 0:
-                run_now_p = _Program(self, index)  # Create a copy using the information saved in options
-                run_now_p.start_now()
-                self.run_now_program = run_now_p
-                logging.debug(_('Creating run-now program') + ': {}'.format(int(index)+1)) 
+            if program.type != ProgramType.WEEKLY_ADVANCED:
+                if program.type != ProgramType.CUSTOM:
+                    if program.type != ProgramType.WEEKLY_WEATHER:
+                        if len(program.schedule) > 0:
+                            run_now_p = _Program(self, index)  # Create a copy using the information saved in options
+                            run_now_p.start_now()
+                            self.run_now_program = run_now_p
+                            logging.debug(_('Creating run-now program') + ': {}'.format(int(index)+1)) 
 
     def count(self):
         return len(self._programs)

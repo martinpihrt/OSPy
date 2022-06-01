@@ -23,8 +23,11 @@ $var page: user
         $if len(program.schedule) > 0:
             <p class="stationList">$:{program.details()}</p>
         <p>
-            $if not options.manual_mode and program.type != ProgramType.WEEKLY_ADVANCED and program.type != ProgramType.CUSTOM:
-                <a href="/program/${program.index}?runnow" class="button cRunNow">$_('Run Now')</a>
+            $if not options.manual_mode:
+                $if program.type != ProgramType.WEEKLY_ADVANCED:
+                    $if program.type != ProgramType.CUSTOM:
+                        $if program.type != ProgramType.WEEKLY_WEATHER:
+                            <a href="/program/${program.index}?runnow" class="button cRunNow">$_('Run Now')</a>
         </p>
         </div>
 </div>

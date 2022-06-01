@@ -490,7 +490,7 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master:
                         if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
-                                entryu['end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_on = True
                             break
                     # master on by program control_master   
@@ -537,7 +537,7 @@ class _Scheduler(Thread):
                     if not entry['blocked'] and stations.get(entry['station']).activate_master_two:
                         if entry['start'] + datetime.timedelta(seconds=options.master_on_delay) \
                                 <= current_time < \
-                                entry[u'end'] + datetime.timedelta(seconds=options.master_off_delay):
+                                entry['end'] + datetime.timedelta(seconds=options.master_off_delay):
                             master_two_on = True
                             break
                     # master on by program control_master   

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 1 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed an error with the set time delay of switching on and off the main station. Fixed a bug in weather based on weather forecasts. Thanks to Petr Procházka for the report bug errors. Logging error detected (fixed in weather-based program). Fixed hiding "run now" button on programs page for "WEEKLY_ADVANCED, CUSTOM, WEEKLY_WEATHER" programs. Added To-Do "Future enlargements" to help page.
+
 May 24 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
