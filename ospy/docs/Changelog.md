@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 8 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in plugin "air temperature" (regulation time mm:ss) and added new function in plugin "pool heating" (safety shutdown. Simply put, if the temperature is higher and it takes xx minutes then it means that the pump is not running or that it is idling (no water). A fault e-mail is sent and the station is switched off permanently and automation is disabled.) Czech language strings update. Slovak language new strings update (via automatic Microsoft translator).
+
 June 1 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
