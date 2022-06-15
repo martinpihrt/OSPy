@@ -1042,6 +1042,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Voice Station (zvuková upozornění na základě události stanic- přehrávání souborů wav a mp3)
 * Ovládání žaluzií (toto rozšíření odesílá přes REST API příklazy do Wi-Fi relátek firmy Shelly, nebo podobných relé)
 * Monitor rychlosti Internetového připojení (odezva, stahování, nahrávání)
+* E-mail Notifications SSL (odesílání E-mailů ze systému - toto rozšíření využívají i některá jiná rozšíření, například: Wind Speed Monitor, Pressure Monitor, Air Temperature and Humidity Monitor...) Toto rozšíření je modernější variantou původního rozšíření E-mailová oznámení (Připojení přes vrstvu SSL).
 
 ----
 

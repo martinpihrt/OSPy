@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-08 16:09+0200\n"
+"POT-Creation-Date: 2022-06-15 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,6 +275,13 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:96
 #: plugins/email_notifications/__init__.py:117
 #: plugins/email_notifications/__init__.py:133
+#: plugins/email_notifications_ssl/__init__.py:105
+#: plugins/email_notifications_ssl/__init__.py:133
+#: plugins/email_notifications_ssl/__init__.py:425
+#: plugins/email_notifications_ssl/__init__.py:433
+#: plugins/email_notifications_ssl/__init__.py:441
+#: plugins/email_notifications_ssl/__init__.py:449
+#: plugins/email_notifications_ssl/__init__.py:457
 #: plugins/usage_statistics/__init__.py:71
 msgid "System"
 msgstr ""
@@ -456,6 +463,8 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
+#: plugins/email_notifications_ssl/__init__.py:237
+#: plugins/email_notifications_ssl/__init__.py:238
 #: plugins/lcd_display/templates/lcd_display.html:141
 msgid "Sensors"
 msgstr ""
@@ -846,7 +855,10 @@ msgstr ""
 #: ospy/programs.py:47 ospy/templates/log.html:38
 #: ospy/templates/log_user.html:28 ospy/templates/sensors.html:444
 #: plugins/email_notifications/__init__.py:135
-#: plugins/email_notifications/__init__.py:139 plugins/sms_adj/__init__.py:411
+#: plugins/email_notifications/__init__.py:139
+#: plugins/email_notifications_ssl/__init__.py:135
+#: plugins/email_notifications_ssl/__init__.py:139
+#: plugins/sms_adj/__init__.py:411
 msgid "Program"
 msgstr ""
 
@@ -976,51 +988,60 @@ msgstr ""
 msgid "Could not get weather information, using fallbacks"
 msgstr ""
 
-#: ospy/programs.py:832
+#: ospy/programs.py:834
 msgid "Creating run-now program"
 msgstr ""
 
-#: ospy/runonce.py:10 ospy/scheduler.py:108 ospy/templates/runonce.html:3
+#: ospy/runonce.py:10 ospy/scheduler.py:126 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr ""
 
-#: ospy/scheduler.py:34
-msgid "Activated"
+#: ospy/scheduler.py:40
+msgid "Rain delay has set a delay {} hours {} minutes"
 msgstr ""
 
-#: ospy/scheduler.py:34 ospy/scheduler.py:41
-msgid "Rain sensor"
-msgstr ""
-
-#: ospy/scheduler.py:37
-msgid "Rain sensor has set a delay {} hours"
-msgstr ""
-
-#: ospy/scheduler.py:37 ospy/sensors.py:1264 ospy/webpages.py:1285
+#: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
+#: ospy/sensors.py:1264 ospy/webpages.py:1285
 msgid "Rain delay"
 msgstr ""
 
-#: ospy/scheduler.py:41
+#: ospy/scheduler.py:44
+msgid "Rain delay has now been removed"
+msgstr ""
+
+#: ospy/scheduler.py:48
+msgid "Activated"
+msgstr ""
+
+#: ospy/scheduler.py:48 ospy/scheduler.py:55
+msgid "Rain sensor"
+msgstr ""
+
+#: ospy/scheduler.py:51
+msgid "Rain sensor has set a delay {} hours"
+msgstr ""
+
+#: ospy/scheduler.py:55
 msgid "Deactivated"
 msgstr ""
 
-#: ospy/scheduler.py:45 ospy/scheduler.py:49
+#: ospy/scheduler.py:59 ospy/scheduler.py:63
 msgid "Connection"
 msgstr ""
 
-#: ospy/scheduler.py:45 plugins/signaling_examples/__init__.py:234
+#: ospy/scheduler.py:59 plugins/signaling_examples/__init__.py:234
 msgid "Internet is available (external IP)"
 msgstr ""
 
-#: ospy/scheduler.py:49 plugins/signaling_examples/__init__.py:238
+#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:238
 msgid "Internet is not available (external IP)"
 msgstr ""
 
-#: ospy/scheduler.py:138
+#: ospy/scheduler.py:156
 msgid "Run-Now"
 msgstr ""
 
-#: ospy/scheduler.py:343
+#: ospy/scheduler.py:361
 msgid "Could not schedule {}."
 msgstr ""
 
@@ -1040,12 +1061,16 @@ msgstr ""
 
 #: ospy/sensors.py:101 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
+#: plugins/email_notifications_ssl/__init__.py:267
+#: plugins/email_notifications_ssl/__init__.py:298
 #: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:519
 msgid "Motion Detected"
 msgstr ""
 
 #: ospy/sensors.py:102 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
+#: plugins/email_notifications_ssl/__init__.py:267
+#: plugins/email_notifications_ssl/__init__.py:298
 #: plugins/lcd_display/__init__.py:488 plugins/lcd_display/__init__.py:519
 msgid "No Motion"
 msgstr ""
@@ -1122,6 +1147,18 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:289
 #: plugins/email_notifications/__init__.py:296
 #: plugins/email_notifications/__init__.py:318
+#: plugins/email_notifications_ssl/__init__.py:254
+#: plugins/email_notifications_ssl/__init__.py:259
+#: plugins/email_notifications_ssl/__init__.py:264
+#: plugins/email_notifications_ssl/__init__.py:269
+#: plugins/email_notifications_ssl/__init__.py:274
+#: plugins/email_notifications_ssl/__init__.py:280
+#: plugins/email_notifications_ssl/__init__.py:285
+#: plugins/email_notifications_ssl/__init__.py:290
+#: plugins/email_notifications_ssl/__init__.py:295
+#: plugins/email_notifications_ssl/__init__.py:300
+#: plugins/email_notifications_ssl/__init__.py:307
+#: plugins/email_notifications_ssl/__init__.py:329
 #: plugins/lcd_display/__init__.py:475 plugins/lcd_display/__init__.py:480
 #: plugins/lcd_display/__init__.py:485 plugins/lcd_display/__init__.py:490
 #: plugins/lcd_display/__init__.py:495 plugins/lcd_display/__init__.py:501
@@ -1252,6 +1289,9 @@ msgstr ""
 #: ospy/templates/sensors.html:418 plugins/email_notifications/__init__.py:156
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:294
+#: plugins/email_notifications_ssl/__init__.py:164
+#: plugins/email_notifications_ssl/__init__.py:166
+#: plugins/email_notifications_ssl/__init__.py:305
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:383 plugins/lcd_display/__init__.py:526
 #: plugins/tank_monitor/__init__.py:154 plugins/tank_monitor/__init__.py:156
@@ -1266,6 +1306,7 @@ msgid "cm"
 msgstr ""
 
 #: ospy/sensors.py:1152 plugins/email_notifications/__init__.py:160
+#: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
 #: plugins/tank_monitor/__init__.py:156 plugins/tank_monitor/__init__.py:157
 #: plugins/tank_monitor/templates/tank_monitor_log.html:29
@@ -1277,6 +1318,9 @@ msgstr ""
 #: ospy/sensors.py:1156 plugins/email_notifications/__init__.py:162
 #: plugins/email_notifications/__init__.py:191
 #: plugins/email_notifications/__init__.py:199
+#: plugins/email_notifications_ssl/__init__.py:170
+#: plugins/email_notifications_ssl/__init__.py:202
+#: plugins/email_notifications_ssl/__init__.py:210
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:853
 #: plugins/lcd_display/__init__.py:387 plugins/tank_monitor/__init__.py:159
 #: plugins/tank_monitor/__init__.py:160
@@ -1691,6 +1735,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:22
 #: plugins/door_opening/templates/door_opening.html:22
 #: plugins/email_notifications/templates/email_notifications.html:30
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:40
 #: plugins/email_reader/templates/email_reader.html:24
 #: plugins/lcd_display/templates/lcd_display.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
@@ -1847,7 +1892,7 @@ msgstr ""
 
 #: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:589 ospy/templates/program.html:616
-#: ospy/templates/programs.html:37
+#: ospy/templates/programs.html:40
 #: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
 msgid "Delete"
@@ -1873,6 +1918,8 @@ msgstr ""
 #: plugins/door_opening/templates/door_opening_help.html:12
 #: plugins/email_notifications/templates/email_notifications.html:149
 #: plugins/email_notifications/templates/email_notifications_help.html:42
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:213
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:52
 #: plugins/email_reader/templates/email_reader.html:191
 #: plugins/email_reader/templates/email_reader_help.html:95
 #: plugins/lcd_display/templates/lcd_display.html:157
@@ -2238,6 +2285,7 @@ msgstr ""
 #: ospy/templates/log.html:57 ospy/templates/log.html:86
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
+#: plugins/email_notifications_ssl/__init__.py:338
 #: plugins/lcd_display/__init__.py:451 plugins/lcd_display/__init__.py:554
 #: plugins/pressure_monitor/__init__.py:180
 #: plugins/pressure_monitor/__init__.py:181
@@ -2594,6 +2642,8 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:44
 #: plugins/email_notifications/__init__.py:136
 #: plugins/email_notifications/__init__.py:140
+#: plugins/email_notifications_ssl/__init__.py:136
+#: plugins/email_notifications_ssl/__init__.py:140
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/voice_station/templates/voice_station.html:58
@@ -2603,6 +2653,8 @@ msgstr ""
 #: ospy/templates/log.html:37 ospy/templates/log_user.html:27
 #: ospy/templates/program.html:477 plugins/email_notifications/__init__.py:138
 #: plugins/email_notifications/__init__.py:142
+#: plugins/email_notifications_ssl/__init__.py:138
+#: plugins/email_notifications_ssl/__init__.py:142
 msgid "Duration"
 msgstr ""
 
@@ -2708,6 +2760,8 @@ msgstr ""
 #: plugins/door_opening/templates/door_opening.html:47
 #: plugins/email_notifications/templates/email_notifications.html:138
 #: plugins/email_notifications/templates/email_notifications_help.html:35
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:202
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:45
 #: plugins/email_reader/templates/email_reader.html:180
 #: plugins/email_reader/templates/email_reader_help.html:59
 #: plugins/lcd_display/templates/lcd_display.html:147
@@ -2834,6 +2888,8 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
+#: plugins/email_notifications_ssl/__init__.py:262
+#: plugins/email_notifications_ssl/__init__.py:293
 #: plugins/lcd_display/__init__.py:383 plugins/lcd_display/__init__.py:483
 #: plugins/lcd_display/__init__.py:514
 msgid "%"
@@ -3272,6 +3328,8 @@ msgstr ""
 #: ospy/templates/program.html:472 ospy/templates/program.html:560
 #: plugins/email_notifications/__init__.py:137
 #: plugins/email_notifications/__init__.py:141
+#: plugins/email_notifications_ssl/__init__.py:137
+#: plugins/email_notifications_ssl/__init__.py:141
 msgid "Start time"
 msgstr ""
 
@@ -3340,12 +3398,12 @@ msgstr ""
 msgid "Master 2"
 msgstr ""
 
-#: ospy/templates/programs.html:35 ospy/templates/programs_user.html:27
+#: ospy/templates/programs.html:38 ospy/templates/programs_user.html:30
 #: ospy/templates/runonce.html:52
 msgid "Run Now"
 msgstr ""
 
-#: ospy/templates/programs.html:36
+#: ospy/templates/programs.html:39
 msgid "Edit"
 msgstr ""
 
@@ -4301,6 +4359,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:100
 #: plugins/cli_control/templates/cli_control.html:71
 #: plugins/email_notifications/templates/email_notifications.html:147
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
 #: plugins/email_reader/templates/email_reader.html:190
 #: plugins/lcd_display/templates/lcd_display.html:156
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
@@ -6312,15 +6371,19 @@ msgid "Package: E-mail Notifications"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:52
+#: plugins/email_notifications_ssl/__init__.py:62
 msgid "Report from OSPy SYSTEM"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:97
 #: plugins/email_notifications/__init__.py:98
+#: plugins/email_notifications_ssl/__init__.py:106
+#: plugins/email_notifications_ssl/__init__.py:107
 msgid "System was powered on."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:105
+#: plugins/email_notifications_ssl/__init__.py:114
 msgid "Error -  events.log file not exists!"
 msgstr ""
 
@@ -6331,15 +6394,19 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:134
 #: plugins/email_notifications/__init__.py:139
+#: plugins/email_notifications_ssl/__init__.py:134
+#: plugins/email_notifications_ssl/__init__.py:139
 msgid "Finished run"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:156
+#: plugins/email_notifications_ssl/__init__.py:164
 #: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:383
 msgid "Level"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
+#: plugins/email_notifications_ssl/__init__.py:166
 #: plugins/email_reader/__init__.py:238 plugins/speed_monitor/__init__.py:267
 #: plugins/tank_monitor/__init__.py:157 plugins/tank_monitor/__init__.py:160
 msgid "Ping"
@@ -6347,6 +6414,8 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:162
+#: plugins/email_notifications_ssl/__init__.py:168
+#: plugins/email_notifications_ssl/__init__.py:170
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
 #: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:157
 #: plugins/tank_monitor/__init__.py:160 plugins/tank_monitor/__init__.py:521
@@ -6356,29 +6425,41 @@ msgid "Volume"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:164
+#: plugins/email_notifications_ssl/__init__.py:176
 msgid "Error - I2C device not found!"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:166
 #: plugins/email_notifications/__init__.py:168
+#: plugins/email_notifications_ssl/__init__.py:172
+#: plugins/email_notifications_ssl/__init__.py:174
+#: plugins/email_notifications_ssl/__init__.py:177
+#: plugins/email_notifications_ssl/__init__.py:179
 #: plugins/email_reader/__init__.py:245
 msgid "Water"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:167
 #: plugins/email_notifications/__init__.py:168
+#: plugins/email_notifications_ssl/__init__.py:173
+#: plugins/email_notifications_ssl/__init__.py:174
+#: plugins/email_notifications_ssl/__init__.py:178
+#: plugins/email_notifications_ssl/__init__.py:179
 msgid "Water level in tank"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:171
+#: plugins/email_notifications_ssl/__init__.py:182
 msgid "Cannot import plugin: tank monitor."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:184
+#: plugins/email_notifications_ssl/__init__.py:195
 msgid "Measured from day"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:185
+#: plugins/email_notifications_ssl/__init__.py:196
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:25
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:49
 msgid "Master Station"
@@ -6386,10 +6467,13 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:188
 #: plugins/email_notifications/__init__.py:196
+#: plugins/email_notifications_ssl/__init__.py:199
+#: plugins/email_notifications_ssl/__init__.py:207
 msgid "Liter"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:193
+#: plugins/email_notifications_ssl/__init__.py:204
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:31
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:58
 msgid "Second Master Station"
@@ -6397,55 +6481,71 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:201
 #: plugins/email_notifications/__init__.py:203
+#: plugins/email_notifications_ssl/__init__.py:212
+#: plugins/email_notifications_ssl/__init__.py:214
 msgid "Water Consumption Counter"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:206
+#: plugins/email_notifications_ssl/__init__.py:217
 msgid "Cannot import plugin: water consumption counter."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:213
 #: plugins/email_notifications/__init__.py:214
+#: plugins/email_notifications_ssl/__init__.py:224
+#: plugins/email_notifications_ssl/__init__.py:225
 #: plugins/email_reader/__init__.py:190
 msgid "Temperature DS1-DS6"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:221
+#: plugins/email_notifications_ssl/__init__.py:232
 msgid "Cannot import plugin: air temp humi."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:239
 #: plugins/email_notifications/__init__.py:272
+#: plugins/email_notifications_ssl/__init__.py:250
+#: plugins/email_notifications_ssl/__init__.py:283
 #: plugins/lcd_display/__init__.py:471 plugins/lcd_display/__init__.py:504
 msgid "Contact Closed"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:241
 #: plugins/email_notifications/__init__.py:272
+#: plugins/email_notifications_ssl/__init__.py:252
+#: plugins/email_notifications_ssl/__init__.py:283
 #: plugins/lcd_display/__init__.py:473 plugins/lcd_display/__init__.py:504
 msgid "Contact Open"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:246
 #: plugins/email_notifications/__init__.py:277
+#: plugins/email_notifications_ssl/__init__.py:257
+#: plugins/email_notifications_ssl/__init__.py:288
 #: plugins/lcd_display/__init__.py:478 plugins/lcd_display/__init__.py:509
 msgid "l/s"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:321
+#: plugins/email_notifications_ssl/__init__.py:332
 msgid "Last Wi-Fi signal: {}%, Source: {}V."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:323
+#: plugins/email_notifications_ssl/__init__.py:334
 msgid "Last Radio signal: {}%, Source: {}V."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:325
+#: plugins/email_notifications_ssl/__init__.py:336
 #: plugins/lcd_display/__init__.py:552
 msgid "No response!"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:337
+#: plugins/email_notifications_ssl/__init__.py:348
 #: plugins/lcd_display/__init__.py:559
 msgid "No sensors available"
 msgstr ""
@@ -6453,35 +6553,47 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:346
 #: plugins/email_notifications/__init__.py:385
 #: plugins/email_notifications/__init__.py:390
+#: plugins/email_notifications_ssl/__init__.py:357
+#: plugins/email_notifications_ssl/__init__.py:396
+#: plugins/email_notifications_ssl/__init__.py:401
+#: plugins/email_notifications_ssl/__init__.py:572
 msgid "E-mail plug-in"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:368
+#: plugins/email_notifications_ssl/__init__.py:379
 msgid "Unsent E-mails in queue (in file)"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:371
+#: plugins/email_notifications_ssl/__init__.py:382
 msgid "sending from queue."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:379
+#: plugins/email_notifications_ssl/__init__.py:390
 msgid "All unsent E-mails in the queue have been sent."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:466
+#: plugins/email_notifications_ssl/__init__.py:532
 msgid "E-mail plug-in is not properly configured!"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:499
+#: plugins/email_notifications_ssl/__init__.py:565
 msgid "E-mail was sent"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:501
 #: plugins/email_notifications/__init__.py:509
+#: plugins/email_notifications_ssl/__init__.py:567
+#: plugins/email_notifications_ssl/__init__.py:575
 msgid "E-mail logging is disabled in options..."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:503
+#: plugins/email_notifications_ssl/__init__.py:569
 #: plugins/water_consumption_counter/__init__.py:126
 msgid "Sent"
 msgstr ""
@@ -6493,10 +6605,13 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:585
 #: plugins/email_notifications/__init__.py:586
+#: plugins/email_notifications_ssl/__init__.py:657
+#: plugins/email_notifications_ssl/__init__.py:658
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:590
+#: plugins/email_notifications_ssl/__init__.py:662
 msgid "Email Queue was deleted."
 msgstr ""
 
@@ -6506,10 +6621,12 @@ msgid "E-mail Notifications"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:34
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:49
 msgid "Send E-mail after power on"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:36
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:51
 msgid "with events.log file"
 msgstr ""
 
@@ -6518,20 +6635,26 @@ msgid "Send E-mail if rain is detected"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:47
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:67
 msgid "Send E-mail if a program has finished"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:53
 #: plugins/email_notifications/templates/email_notifications_help.html:19
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:101
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:29
 msgid "SMTP server address"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:54
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:102
 msgid "example: smtp.gmail.com"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:61
 #: plugins/email_notifications/templates/email_notifications_help.html:21
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:109
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:31
 msgid "SMTP port"
 msgstr ""
 
@@ -6541,29 +6664,39 @@ msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:68
 #: plugins/email_notifications/templates/email_notifications_help.html:23
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:116
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:33
 msgid "Use SMTP username as sender"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:69
 #: plugins/email_notifications/templates/email_notifications_help.html:24
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:117
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:34
 msgid "Some SMTP providers prohibit to use another sender than the same mail user."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:75
 #: plugins/email_notifications/templates/email_notifications_help.html:25
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:123
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:35
 msgid "SMTP username"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:76
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:124
 msgid "Your E-mail username"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:83
 #: plugins/email_notifications/templates/email_notifications_help.html:27
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:131
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:37
 msgid "SMTP password"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:84
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:132
 msgid "Your E-mail password"
 msgstr ""
 
@@ -6573,11 +6706,19 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:109
 #: plugins/email_notifications/templates/email_notifications.html:115
 #: plugins/email_notifications/templates/email_notifications_help.html:29
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:140
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:146
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:152
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:158
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:164
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:39
 msgid "Send E-mail to"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:121
 #: plugins/email_notifications/templates/email_notifications_help.html:31
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:170
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:41
 #: plugins/email_reader/templates/email_reader.html:170
 #: plugins/email_reader/templates/email_reader_help.html:57
 #: plugins/ping_monitor/templates/ping_monitor.html:244
@@ -6594,14 +6735,18 @@ msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:127
 #: plugins/email_notifications/templates/email_notifications_help.html:33
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:186
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:43
 msgid "Save and send it later"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:134
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:193
 msgid "Delete queue"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications.html:148
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:212
 msgid "Send a test E-mail"
 msgstr ""
 
@@ -6611,10 +6756,12 @@ msgid "E-mail Notifications - help"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:8
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:10
 msgid "This plugin can send E-mails. For this plugin you need an E-mail SMTP account as provider."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:9
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:11
 #: plugins/email_reader/templates/email_reader_help.html:11
 #: plugins/lcd_display/templates/lcd_display_help.html:13
 #: plugins/relay_16/templates/relay_16_help.html:27
@@ -6626,18 +6773,22 @@ msgid "Plugin setup"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:11
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:13
 msgid "Check Send E-mail after power on for send E-mail"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:12
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:14
 msgid "If checked sends E-mail into your E-mail address."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:13
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:15
 msgid "Check with log file"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:14
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:16
 msgid "If checked with events.log file if exists (your must enabled in options \"check Enable debug log\")."
 msgstr ""
 
@@ -6650,10 +6801,12 @@ msgid "If checked send e-mail into your E-mail address."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:17
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:21
 msgid "Check Send E-mail if a program has finished"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:18
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:22
 msgid "If checked send E-mail if a program has finished into your E-mail address."
 msgstr ""
 
@@ -6667,22 +6820,28 @@ msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:26
 #: plugins/email_notifications/templates/email_notifications_help.html:28
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:36
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:38
 msgid "Type your E-mail password"
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:30
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:40
 msgid "Type more E-mail address for recipient E-mail post office."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:32
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:42
 msgid "Type E-mail subject for send E-mail."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:34
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:44
 msgid "If there is no Internet connection, save and send it later."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:36
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:46
 #: plugins/email_reader/templates/email_reader_help.html:60
 #: plugins/lcd_display/templates/lcd_display_help.html:46
 #: plugins/relay_16/templates/relay_16_help.html:37
@@ -6692,7 +6851,158 @@ msgid "Status window from the plugin."
 msgstr ""
 
 #: plugins/email_notifications/templates/email_notifications_help.html:38
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:48
 msgid "This extension also sends some statuses from other extensions (if they are installed on the system). For example temperature, flow..."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:38
+msgid "Package: E-mail Notifications SSL"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:426
+#: plugins/email_notifications_ssl/__init__.py:427
+msgid "Someone logged in."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:434
+#: plugins/email_notifications_ssl/__init__.py:435
+msgid "Rain sensor has activated."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:442
+#: plugins/email_notifications_ssl/__init__.py:443
+msgid "Rain sensor has deactivated."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:450
+#: plugins/email_notifications_ssl/__init__.py:451
+msgid "Rain delay is now set a delay {} hours."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:458
+#: plugins/email_notifications_ssl/__init__.py:459
+msgid "Rain delay has now been removed."
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:654
+msgid "Sender e-mail address appears to be invalid!"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:3
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:38
+msgid "E-mail Notifications SSL"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:39
+msgid "This extension is for Python 3 only!"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:45
+msgid "Events to send"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:55
+msgid "Send E-mail if rain sensor is activated"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:61
+msgid "Send E-mail if rain sensor is deactivated"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:73
+msgid "Send E-mail if the rain delay has setuped"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:79
+msgid "Send E-mail if the rain delay has expired"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:85
+msgid "Send E-mail if the user is logged in"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:97
+msgid "E-mail settings"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:110
+msgid "example: 465 (number in range 0-65535)"
+msgstr ""
+
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:182
+msgid "E-mail queue"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:3
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:7
+msgid "E-mail Notifications SSL - help"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:8
+msgid "This extension is for Python 3 only."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:9
+msgid "This extension is a more modern variant of the original E-mail notifications extension (Connection via SSL layer)."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:17
+msgid "Check Send E-mail if rain sensor is activated"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:18
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:20
+msgid "If checked send E-mail into your E-mail address."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:19
+msgid "Check Send E-mail if rain sensor is deactivated"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:23
+msgid "Check Send E-mail if the rain delay has setuped"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:24
+msgid "If checked send E-mail if the rain delay has setuped into your E-mail address."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:25
+msgid "Check Send E-mail if the rain delay has expired"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:26
+msgid "If checked send E-mail if the rain delay has expired into your E-mail address."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:27
+msgid "Check Send E-mail if the user is logged in"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:28
+msgid "If checked send E-mail if the user is logged in to system into your E-mail address."
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:30
+msgid "Example: smtp.seznam.cz"
+msgstr ""
+
+#:
+#: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:32
+msgid "Example: 465 (number in range 0-65535)"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:36
@@ -11872,88 +12182,88 @@ msgid "Voice Notification plug-in"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:272
-#: plugins/voice_station/__init__.py:267
+#: plugins/voice_station/__init__.py:281
 msgid "Songs in queue {}"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:274
-#: plugins/voice_station/__init__.py:269
+#: plugins/voice_station/__init__.py:283
 msgid "Nr. {} -> {}"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:275
-#: plugins/voice_station/__init__.py:270
+#: plugins/voice_station/__init__.py:284
 msgid "Loading: {}"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:278
-#: plugins/voice_station/__init__.py:273
+#: plugins/voice_station/__init__.py:287
 msgid "Set master volume to {}%"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:286
-#: plugins/voice_station/__init__.py:281
+#: plugins/voice_station/__init__.py:295
 msgid "Playing."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:295
-#: plugins/voice_station/__init__.py:290
+#: plugins/voice_station/__init__.py:304
 msgid "Stopping."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:328
-#: plugins/voice_station/__init__.py:325
+#: plugins/voice_station/__init__.py:339
 msgid "Button test, song {}."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:332
 #: plugins/voice_notification/__init__.py:335
 #: plugins/voice_station/__init__.py:133 plugins/voice_station/__init__.py:153
-#: plugins/voice_station/__init__.py:328 plugins/voice_station/__init__.py:330
+#: plugins/voice_station/__init__.py:342 plugins/voice_station/__init__.py:344
 msgid "File not exists!"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:340
-#: plugins/voice_station/__init__.py:334
+#: plugins/voice_station/__init__.py:348
 msgid "Button Stop."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:350
-#: plugins/voice_station/__init__.py:344
+#: plugins/voice_station/__init__.py:358
 msgid "Button clear playlist."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:421
 #: plugins/voice_notification/templates/voice_notification_sounds.html:27
-#: plugins/voice_station/__init__.py:407
+#: plugins/voice_station/__init__.py:426
 #: plugins/voice_station/templates/voice_station_sounds.html:27
 msgid "Error. File must be in mp3 or wav format!"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:428
 #: plugins/voice_notification/templates/voice_notification_sounds.html:39
-#: plugins/voice_station/__init__.py:414
+#: plugins/voice_station/__init__.py:433
 #: plugins/voice_station/templates/voice_station_sounds.html:39
 msgid "Uploading file sucesfully."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:434
 #: plugins/voice_station/__init__.py:108 plugins/voice_station/__init__.py:135
-#: plugins/voice_station/__init__.py:155 plugins/voice_station/__init__.py:181
-#: plugins/voice_station/__init__.py:212 plugins/voice_station/__init__.py:231
-#: plugins/voice_station/__init__.py:296 plugins/voice_station/__init__.py:384
-#: plugins/voice_station/__init__.py:420
+#: plugins/voice_station/__init__.py:155 plugins/voice_station/__init__.py:195
+#: plugins/voice_station/__init__.py:226 plugins/voice_station/__init__.py:245
+#: plugins/voice_station/__init__.py:310 plugins/voice_station/__init__.py:363
+#: plugins/voice_station/__init__.py:403 plugins/voice_station/__init__.py:439
 msgid "Voice Station plug-in"
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:463
-#: plugins/voice_station/__init__.py:448
+#: plugins/voice_station/__init__.py:467
 msgid "Deleting file has sucesfully."
 msgstr ""
 
 #: plugins/voice_notification/__init__.py:467
 #: plugins/voice_notification/templates/voice_notification_sounds.html:33
-#: plugins/voice_station/__init__.py:451
+#: plugins/voice_station/__init__.py:470
 #: plugins/voice_station/templates/voice_station_sounds.html:33
 msgid "File for deleting not found!"
 msgstr ""
@@ -12183,6 +12493,10 @@ msgstr ""
 
 #: plugins/voice_station/__init__.py:145
 msgid "Stations {} OFF"
+msgstr ""
+
+#: plugins/voice_station/__init__.py:180
+msgid "Voice Station plug-in has any error, clear plugin settings to default."
 msgstr ""
 
 #: plugins/voice_station/templates/voice_station.html:3

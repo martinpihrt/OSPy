@@ -1019,6 +1019,7 @@ Available plug-ins:
 * Voice Station
 * Venetian Blinds
 * Speed Monitor
+* E-mail Notifications SSL
 
 ----
 

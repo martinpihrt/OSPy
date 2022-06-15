@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+June 15 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Add new plugin "Email Notifications SSL". This extension is a more modern variant of the original E-mail Notifications (secured with SSL Connection) extension. This extension is for Python 3 only. All plugins that use sending e-mail will be supplemented with an option from with extension the e-mail will be sent. In the future, we recommend going to this plugin and using a secure SSL connection via port 465.<br />
+If you use Gmail for send emails: After may 30, 2022 that using the "less secure apps" option will no longer be available. If Two-Factor Authentication Is Enabled, Generate An App Password. Generate the app passwords to fix the Gmail SMTP not working issue. This will enable you to send emails to a third party. Here's how to do it: In Gmail, go to My Account and select Security. After that, scroll down and select Signing in to Google from the drop-down menu. Now select App Password from the drop-down menu. To enable two-factor authentication, follow these steps: Select Two-step Verification from the Signing into Google menu, and then input your password. Then activate two-step verification by entering the OTP number that was sent to your phone. You'll see a list of applications here; select the one you need. Next, select the Select Device option and select the device that is currently being used to access Gmail. Now press the Generate button. Then, in the Yellow bar, type the password displayed. Finally, click Done.
+
 June 8 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

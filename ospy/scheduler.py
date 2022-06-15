@@ -28,28 +28,43 @@ rain_active = signal('rain_active')
 rain_not_active = signal('rain_not_active')
 internet_available = signal('internet_available')
 internet_not_available = signal('internet_not_available')
+rain_delay_set = signal('rain_delay_set')
+rain_delay_remove = signal('rain_delay_remove')
+
+
+def report_rain_delay_set():      # send rain delay setuped signal
+    block_time = (options.rain_block - datetime.datetime.now()).total_seconds()
+    m, s = divmod(block_time, 60)
+    h, m = divmod(m, 60)
+    rain_delay_set.send(txt='{}:{}'.format(int(h), int(m)))
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes').format(int(h), int(m)), id='RainDelay') 
+
+def report_rain_delay_remove():   # send rain delay removed signal
+    rain_delay_remove.send() 
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay')        
 
 def report_rain():
     rain_active.send()            # send rain signal
-    logEV.save_events_log( _('Rain sensor'), _('Activated'), id='RainSensor')
-    if options.rain_set_delay:
+    logEV.save_events_log(_('Rain sensor'), _('Activated'), id='RainSensor')
+    if options.rain_set_delay:    # if rain delay enabled set these delay
         options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=options.rain_sensor_delay)
-        logEV.save_events_log( _('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
+        logEV.save_events_log(_('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
 
 def report_no_rain():
     rain_not_active.send()        # send not rain signal
-    logEV.save_events_log( _('Rain sensor'), _('Deactivated'), id=u'RainSensor')
+    logEV.save_events_log(_('Rain sensor'), _('Deactivated'), id=u'RainSensor')
 
 def report_internet_available():
     internet_available.send()     # send internet available signal
-    logEV.save_events_log( _('Connection'), _('Internet is available (external IP)'), id='Internet')
+    logEV.save_events_log(_('Connection'), _('Internet is available (external IP)'), id='Internet')
 
 def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
-    logEV.save_events_log( _('Connection'), _('Internet is not available (external IP)'), id='Internet')
+    logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet')        
 
-pom_last_rain = False       # send signal only if rain change
-pom_last_internet = False   # send signal only if internet change
+pom_last_rain = False          # send signal only if rain change
+pom_last_internet = False      # send signal only if internet change
+pom_last_rain_delay = False    # send signal only if rain delay change
 
 blocking_from_pressurizer = False
 
@@ -419,7 +434,7 @@ class _Scheduler(Thread):
         rain = not options.manual_mode and (rain_blocks.block_end() > datetime.datetime.now() or
                                             inputs.rain_sensed())          
 
-        global pom_last_rain, pom_last_internet
+        global pom_last_rain, pom_last_internet, pom_last_rain_delay
         
         if inputs.rain_sensed() and not pom_last_rain:
             report_rain()
@@ -436,6 +451,14 @@ class _Scheduler(Thread):
         if get_external_ip() == '-' and pom_last_internet:
             report_internet_not_available()
             pom_last_internet = False
+
+        if rain_blocks.seconds_left() and not pom_last_rain_delay:
+            report_rain_delay_set()
+            pom_last_rain_delay = True
+
+        if not rain_blocks.seconds_left() and pom_last_rain_delay:
+            report_rain_delay_remove()
+            pom_last_rain_delay = False   
 
         active = log.active_runs()
         for entry in active:
