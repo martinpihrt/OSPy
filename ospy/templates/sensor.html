@@ -299,6 +299,17 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
+            <div class='option' style="white-space: nowrap">
+                <table>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('E-mail plug-ins'):</span></td>
+                <td><select name="eplug">
+                <option value="0" ${"selected" if sensor.eplug == 0 else ""}>$_(u'E-mail notifications V1')</option>
+                <option value="1" ${"selected" if sensor.eplug == 1 else ""}>$_(u'E-mail notifications V2 SSL')</option>
+                </select></td>
+                </tr>
+                </table>
+            </div>            
 
             <div class='option' id="dry_contact" style="display: none;">
                 <table>

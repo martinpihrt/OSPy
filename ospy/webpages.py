@@ -912,6 +912,9 @@ class sensor_page(ProtectedPage):
             if 'sensfw' in qdict:
                 sensor.fw = int(qdict['sensfw'])
 
+            if 'eplug' in qdict:
+                sensor.eplug = int(qdict['eplug'])
+
             if 'name' in qdict and qdict['name'] == '' and sensor.index < 0:
                 errorCode = qdict.get('errorCode', 'uname')
                 return self.core_render.sensor(sensor, errorCode)
@@ -921,7 +924,7 @@ class sensor_page(ProtectedPage):
                     for sens in sensors.get():
                         if sens.name == qdict['name']:
                             errorCode = qdict.get('errorCode', 'unameis')
-                            return self.core_render.sensor(sensor, errorCode) 
+                            return self.core_render.sensor(sensor, errorCode)
             except:
                 print_report('webpages.py', traceback.format_exc())
 
@@ -1979,7 +1982,7 @@ class download_page(ProtectedPage):
         try:
             ospy_root = './ospy/'
             backup_path = ospy_root + 'backup/ospy_backup.zip'                                # Where is backup zip file
-            dir_name = [ospy_root + 'data', ospy_root + 'data/sensors', ospy_root + 'images/stations']    
+            dir_name = [ospy_root + 'data'] #[ospy_root + 'data', ospy_root + 'data/sensors', ospy_root + 'images/stations']    
             download_name = 'ospy_backup_{}.zip'.format(time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip                         
             filePaths = []
 
@@ -2001,6 +2004,7 @@ class download_page(ProtectedPage):
                 web.header('Content-type', content)
                 web.header('Content-Length', os.path.getsize(backup_path))
                 web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
+                #web.header('Transfer-Encoding', 'chunked')                                   # https://webpy.org/cookbook/streaming_large_files
                 return _read_log(backup_path)
             else:
                 log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))

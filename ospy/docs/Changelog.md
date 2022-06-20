@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 20 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix in "system information" plugin (show all available I2C addresses. Custom functions instead of Linux command sudo i2cdetect -y 1). Added e-mail client selection for all multisensors (E-mail notifications V1 or E-mail notifications V2 SSL). Finding solutions to random read errors in the "tank monitor" extension. Czech language strings update.
+
 June 15 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

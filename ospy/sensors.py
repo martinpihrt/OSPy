@@ -100,7 +100,9 @@ class _Sensor(object):
         self.dry_clos_msg = _('Closed Contact')   # dry contact closed
         self.motion_msg = _('Motion Detected')    # motion
         self.no_motion_msg = _('No Motion')       # no motion
- 
+        # email plugin type
+        self.eplug = 0                            # 0 = e-mail notifications, 1 = e-mail notifications SSL
+
         options.load(self, index) 
 
     @property
@@ -235,13 +237,18 @@ class _Sensors_Timer(Thread):
             time.sleep(1)
             self._sleep_time -= 1
 
-    def _try_send_mail(self, text, logtext, attachment=None, subject=None):
+    def _try_send_mail(self, text, logtext, attachment=None, subject=None, eplug=0):
         try:
-            from plugins.email_notifications import try_mail 
-            try_mail(text, logtext, attachment, subject)      
+            try_mail = None
+            if eplug==0: # email_notifications
+                from plugins.email_notifications import try_mail
+            if eplug==1: # email_notifications SSL
+                from plugins.email_notifications_ssl import try_mail
+            if try_mail is not None:
+                try_mail(text, logtext, attachment, subject)
         except:
             log.debug('sensors.py', _('E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped.'))
-            pass  
+            pass
 
     def _read_log(self, dir_name):
         try:
@@ -655,10 +662,10 @@ class _Sensors_Timer(Thread):
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Now response'))
-                    elif sensor.sens_type == 4:  # type is Motion
+                    if sensor.sens_type == 4:  # type is Motion
                         try:
                             state = sensor.last_read_value[7]
                             if state == 1:
@@ -684,10 +691,10 @@ class _Sensors_Timer(Thread):
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Now response'))
-                    elif sensor.sens_type == 6 and sensor.multi_type == 4:    # multi Dry Contact
+                    if sensor.sens_type == 6 and sensor.multi_type == 4:    # multi Dry Contact
                         try:
                             state = sensor.last_read_value[4]
                             if state == 1:
@@ -713,10 +720,10 @@ class _Sensors_Timer(Thread):
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Now response'))
-                    elif sensor.sens_type == 6 and sensor.multi_type == 7:
+                    if sensor.sens_type == 6 and sensor.multi_type == 7:
                         try:  
                             state = sensor.last_read_value[7]                 # multi Motion 
                             if state == 1:
@@ -742,7 +749,7 @@ class _Sensors_Timer(Thread):
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Now response'))
 
@@ -754,7 +761,7 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:                                                         # sensor is enabled and enabled log
                                 self.update_log(sensor, 'lge', sensor.dry_clos_msg)                      # lge is event, lgs is samples
                             if sensor.send_email:
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
                             self.set_stations_two_in_scheduler_off(sensor)
                         else:                                                                            # Motion or multi Motion 
@@ -764,10 +771,10 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:                                                         # sensor is enabled and enabled log           
                                 self.update_log(sensor, 'lge', sensor.motion_msg)
                             if sensor.send_email:
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
 
-                    elif state == 0  and changed_state:                                                  # is open
+                    if state == 0  and changed_state:                                                  # is open
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
                             text = _('Sensor') + u': {} ({})'.format(sensor.name, sensor.dry_open_msg)
                             subj = _('Sensor Read Success')
@@ -775,7 +782,7 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:                                                         # sensor is enabled and enabled log 
                                 self.update_log(sensor, 'lge', sensor.dry_open_msg)
                             if sensor.send_email:
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_low_program)
                             self.set_stations_one_in_scheduler_off(sensor) 
                         else:                                                                            # Motion or multi Motion
@@ -785,7 +792,7 @@ class _Sensors_Timer(Thread):
                             if sensor.log_event:                                                         # sensor is enabled and enabled log
                                 self.update_log(sensor, 'lge', sensor.no_motion_msg)
                             if sensor.send_email:
-                                self._try_send_mail(body, text, attachment=None, subject=subj)  
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)  
 
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
@@ -806,7 +813,7 @@ class _Sensors_Timer(Thread):
                                     text = _('Out of order')    
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Not response!'))
                     if sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 7):
@@ -822,7 +829,7 @@ class _Sensors_Timer(Thread):
                                     text = _('Out of order')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Not response!'))                                
                     if sensor.show_in_footer:
@@ -842,33 +849,36 @@ class _Sensors_Timer(Thread):
                             state = sensor.last_read_value[6]
                         except:
                             sensor.last_read_value[6] = -127
+                            state = -127
                             pass
                         if sensor.show_in_footer:
-                            if state == -127:
+                            if int(state) == -127:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                             else:
                                 self.start_status(sensor.name, _('Moisture {}%').format(state), sensor.index)
-                    elif sensor.sens_type == 5:                                 # type is Temperature
+                    if sensor.sens_type == 5:                                 # type is Temperature
                         try:
                             state = sensor.last_read_value[0]
                         except:
                             sensor.last_read_value[0] = -127
+                            state = -127
                             pass
                         if sensor.show_in_footer:
-                            if state == -127:
+                            if int(state) == -127:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                             else:
                                 if options.temp_unit == 'C':
                                     self.start_status(sensor.name, _('Temperature') + ' %.1f \u2103' % state, sensor.index)
                                 else:
                                     self.start_status(sensor.name, _('Temperature') + ' %.1f \u2109' % state, sensor.index)
-                    elif sensor.sens_type == 6 and sensor.multi_type == 0:
+                    if sensor.sens_type == 6 and sensor.multi_type == 0:
                         try:
                             state = sensor.last_read_value[0]                   # multi Temperature DS1  
                         except:
                             sensor.last_read_value[0] = -127
-                            pass
-                        if state == -127:
+                            state = -127
+                            pass   
+                        if int(state) == -127:
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         else:
@@ -878,13 +888,14 @@ class _Sensors_Timer(Thread):
                             else:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _('Temperature') + u' %.1f \u2109' % state, sensor.index)
-                    elif sensor.sens_type == 6 and sensor.multi_type == 1:
+                    if sensor.sens_type == 6 and sensor.multi_type == 1:
                         try:
                             state = sensor.last_read_value[1]                   # multi Temperature DS2 
                         except:
-                            sensor.last_read_value[1] = -127 
+                            sensor.last_read_value[1] = -127
+                            state = -127 
                             pass
-                        if state == -127:
+                        if int(state) == -127:
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         else:
@@ -894,13 +905,14 @@ class _Sensors_Timer(Thread):
                             else:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _('Temperature') + ' %.1f \u2109' % state, sensor.index)
-                    elif sensor.sens_type == 6 and sensor.multi_type == 2:
+                    if sensor.sens_type == 6 and sensor.multi_type == 2:
                         try:
                             state = sensor.last_read_value[2]                   # multi Temperature DS3
                         except:
                             sensor.last_read_value[2] = -127
+                            state = -127
                             pass
-                        if state == -127:
+                        if int(state) == -127:
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         else:
@@ -910,13 +922,14 @@ class _Sensors_Timer(Thread):
                             else:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _('Temperature') + u' %.1f \u2109' % state, sensor.index)
-                    elif sensor.sens_type == 6 and sensor.multi_type == 3:
+                    if sensor.sens_type == 6 and sensor.multi_type == 3:
                         try:
                             state = sensor.last_read_value[3]                   # multi Temperature DS4 
                         except:
                             sensor.last_read_value[3] = -127
+                            state = -127
                             pass
-                        if state == -127:
+                        if int(state) == -127:
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         else:
@@ -926,13 +939,14 @@ class _Sensors_Timer(Thread):
                             else:
                                 if sensor.show_in_footer:
                                     self.start_status(sensor.name, _('Temperature') + ' %.1f \u2109' % state, sensor.index)
-                    elif sensor.sens_type == 6 and sensor.multi_type == 6:   
+                    if sensor.sens_type == 6 and sensor.multi_type == 6:   
                         try:
                             state = sensor.last_read_value[6]                   # multi Moisture
                         except:
                             sensor.last_read_value[6] = -127
+                            state = -127
                             pass
-                        if state == -127:
+                        if int(state) == -127:
                             if sensor.show_in_footer:
                                 self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         else:
@@ -978,7 +992,7 @@ class _Sensors_Timer(Thread):
                             text = _('Sensor') + ': {} ({})'.format(sensor.name, self.status[sensor.index][1])
                             subj = _('Sensor Change')
                             body = _('Sensor Change') + ': {} ({})'.format(sensor.name,  self.status[sensor.index][1])
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
 
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
@@ -1003,7 +1017,7 @@ class _Sensors_Timer(Thread):
                                 text = _('Now response')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:
                                 self.update_log(sensor, 'lge', _('Now response'))
 
@@ -1030,7 +1044,7 @@ class _Sensors_Timer(Thread):
                                     text = _('Out of order')
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:
                                 if sensor.enabled:
                                     self.update_log(sensor, 'lge', _('Not response!'))
@@ -1061,7 +1075,7 @@ class _Sensors_Timer(Thread):
                         if sensor.last_read_value[5] != sensor.prev_read_value[5]:
                             sensor.prev_read_value[5] = sensor.last_read_value[5]
                             changed_state = True
-                    elif sensor.sens_type == 6 and sensor.multi_type == 5:
+                    if sensor.sens_type == 6 and sensor.multi_type == 5:
                         try:
                             state = sensor.last_read_value[5]                # multi Leak Detector
                             liters_per_sec = float(sensor.liter_per_pulses)*state
@@ -1090,7 +1104,7 @@ class _Sensors_Timer(Thread):
                             text = _('Now response')
                             subj = _('Sensor {}').format(sensor.name)
                             body = text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                         if sensor.log_event:
                             self.update_log(sensor, 'lge', _('Now response'))
                 else:
@@ -1105,7 +1119,7 @@ class _Sensors_Timer(Thread):
                                 text = _('Out of order')
                             subj = _('Sensor {}').format(sensor.name)
                             body = text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                         if sensor.log_event:
                             if sensor.enabled:
                                 self.update_log(sensor, 'lge', _('Not response!'))
@@ -1170,7 +1184,7 @@ class _Sensors_Timer(Thread):
                                     text = _('Sensor') + ': {}'.format(sensor.name)
                                     subj = _('Sensor {}').format(sensor.name)
                                     body = _('Sensor Notification') + ': ' + _('Probe Error')
-                                    self._try_send_mail(body, text, attachment=None, subject=subj)
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
 
                     ### regulation water in tank if enable regulation ###
                     if level_in_tank > 0 and sensor.enable_reg:                           # if enable regulation "maximum water level"
@@ -1244,7 +1258,7 @@ class _Sensors_Timer(Thread):
                             body = _('Sensor has water') + ': {}'.format(regulation_text)
                             if rd_text is not None:
                                 body += '<br>' + rd_text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
 
                     ### level in tank has minimum ### 
                     if level_in_tank <= int(sensor.water_minimum) and int(sensor.aux_mini)==1 and not options.manual_mode and level_in_tank > 1: # level value is lower
@@ -1270,7 +1284,7 @@ class _Sensors_Timer(Thread):
                                     body = _('Sensor has water minimum') + ': {}'.format(regulation_text)
                                     if rd_text is not None:
                                         body += '<br>' + rd_text
-                                    self._try_send_mail(body, text, attachment=None, subject=subj)
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self.set_stations_in_scheduler_off(sensor)
 
                     ### log samples ###
@@ -1287,7 +1301,7 @@ class _Sensors_Timer(Thread):
                             text = _('Now response')
                             subj = _('Sensor {}').format(sensor.name)
                             body = text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                         if sensor.log_event:
                             self.update_log(sensor, 'lge', _('Now response'))
                 else:
@@ -1303,7 +1317,7 @@ class _Sensors_Timer(Thread):
                                 text = _('Out of order')    
                             subj = _('Sensor {}').format(sensor.name)
                             body = text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                         if sensor.log_event:
                             if sensor.enabled:
                                 self.update_log(sensor, 'lge', _('Not response!'))
@@ -1377,7 +1391,7 @@ class _Sensors_Timer(Thread):
                                 text = s_msg
                                 subj = _('Sensor {}').format(sensor.name)
                                 body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:
                                 self.update_log(sensor, 'lge', s_msg)
                     except:
@@ -1402,7 +1416,7 @@ class _Sensors_Timer(Thread):
                                 text = _('Out of order')
                             subj = _('Sensor {}').format(sensor.name)
                             body = text
-                            self._try_send_mail(body, text, attachment=None, subject=subj)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                         if sensor.log_event:                                                # event log
                             if sensor.enabled:
                                 self.update_log(sensor, 'lge', _('Not response!'))

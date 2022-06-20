@@ -69,6 +69,7 @@ $if sensors.count()>0:
             <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
             <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
             <p>$_(u'Text/Email Events'): <span class="val">${_(u'Yes') if sensor.send_email else _(u'No')}</span></p>
+            <p>$_(u'E-mail plug-ins'): <span class="val">${_(u'E-mail notifications V1') if sensor.eplug == 0 else _(u'E-mail notifications V2 SSL')}</span></p>  
         $if sensor.sens_type == 1 and sensor.enabled:
             $if sensor.last_read_value[4] != '':
                 <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}
