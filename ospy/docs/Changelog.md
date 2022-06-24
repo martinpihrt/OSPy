@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+June 24 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language strings update. Add new plugin "Astro sunrise and sunset". This extension allows you to run a specific program depending on sunrise or sunset. This extension calculate the following astronomical data. !!!I am working on the plugin, not ready to use. At this point, he can read astronomical data, but he has nothing to control yet!!!
+Plugin "Tank monitor" At this point, the debug on I2C bus (to detect errors) has been added. For FW version: 1.3 Ping 255cm is thrown away. The value will be correctly from 0 to 254cm and from 256cm to 400cm. In the future version of FW: 1.4, CRC check will be added to transfer data and thus exclude errors (interference on bus I2C).
+
 June 20 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
