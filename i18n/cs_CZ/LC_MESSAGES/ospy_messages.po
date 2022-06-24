@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2022-06-24 12:36+0200\n"
-"PO-Revision-Date: 2022-06-24 13:04+0200\n"
+"POT-Creation-Date: 2022-06-24 13:16+0200\n"
+"PO-Revision-Date: 2022-06-24 13:17+0200\n"
 "Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -2921,6 +2921,7 @@ msgstr "Stav"
 #: plugins/pool_heating/templates/pool_heating.html:197
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/speed_monitor/templates/speed_monitor_log.html:11
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:95
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:17
@@ -3367,7 +3368,7 @@ msgid "Add a New Program"
 msgstr "Přidat nový program"
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:55
-#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:499
+#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:508
 msgid "Name"
 msgstr "Jméno"
 
@@ -12063,17 +12064,29 @@ msgstr "Balíček: Astro východ a západ slunce"
 msgid "Not selected"
 msgstr "Nevybráno"
 
-#: plugins/sunrise_and_sunset/__init__.py:456
+#: plugins/sunrise_and_sunset/__init__.py:455
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:3
 msgid "Sunrise and Sunset"
 msgstr "Východ a západ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:457
+#: plugins/sunrise_and_sunset/__init__.py:456
 #: plugins/system_update/__init__.py:170
 msgid "Waiting to state"
 msgstr "Čekání na stav"
 
-#: plugins/sunrise_and_sunset/__init__.py:493
+#: plugins/sunrise_and_sunset/__init__.py:463
+msgid "Astral is not installed."
+msgstr "Astral není nainstalován."
+
+#: plugins/sunrise_and_sunset/__init__.py:464
+msgid "Please wait installing astral..."
+msgstr "Počkejte prosím na instalaci astralu..."
+
+#: plugins/sunrise_and_sunset/__init__.py:467
+msgid "Astral is now installed."
+msgstr "Astral je nyní nainstalován."
+
+#: plugins/sunrise_and_sunset/__init__.py:502
 msgid ""
 "You must fill in all required fields (location, region, timezone/name, "
 "latitude and longitude!"
@@ -12081,103 +12094,107 @@ msgstr ""
 "Musíte vyplnit všechna povinná pole (umístění, region, časové pásmo/jméno, "
 "zeměpisná šířka a délka!"
 
-#: plugins/sunrise_and_sunset/__init__.py:498
+#: plugins/sunrise_and_sunset/__init__.py:507
 msgid "Found city"
 msgstr "Nalezené město"
 
-#: plugins/sunrise_and_sunset/__init__.py:500
+#: plugins/sunrise_and_sunset/__init__.py:509
 msgid "Region"
 msgstr "Kraj"
 
-#: plugins/sunrise_and_sunset/__init__.py:501
+#: plugins/sunrise_and_sunset/__init__.py:510
 msgid "Timezone"
 msgstr "Časová zóna"
 
-#: plugins/sunrise_and_sunset/__init__.py:502
+#: plugins/sunrise_and_sunset/__init__.py:511
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
-#: plugins/sunrise_and_sunset/__init__.py:503
+#: plugins/sunrise_and_sunset/__init__.py:512
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
-#: plugins/sunrise_and_sunset/__init__.py:516
+#: plugins/sunrise_and_sunset/__init__.py:525
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:14
 msgid "Dawn"
 msgstr "Úsvit"
 
-#: plugins/sunrise_and_sunset/__init__.py:517
-#: plugins/sunrise_and_sunset/__init__.py:522
+#: plugins/sunrise_and_sunset/__init__.py:526
+#: plugins/sunrise_and_sunset/__init__.py:531
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:16
 msgid "Sunrise"
 msgstr "Východ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:518
+#: plugins/sunrise_and_sunset/__init__.py:527
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:18
 msgid "Noon"
 msgstr "Poledne"
 
-#: plugins/sunrise_and_sunset/__init__.py:519
-#: plugins/sunrise_and_sunset/__init__.py:522
+#: plugins/sunrise_and_sunset/__init__.py:528
+#: plugins/sunrise_and_sunset/__init__.py:531
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:20
 msgid "Sunset"
 msgstr "Západ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:520
+#: plugins/sunrise_and_sunset/__init__.py:529
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:22
 msgid "Dusk"
 msgstr "Soumrak"
 
-#: plugins/sunrise_and_sunset/__init__.py:526
-#: plugins/sunrise_and_sunset/__init__.py:527
+#: plugins/sunrise_and_sunset/__init__.py:535
+#: plugins/sunrise_and_sunset/__init__.py:536
 msgid "Moon phase"
 msgstr "Fáze měsíce"
 
-#: plugins/sunrise_and_sunset/__init__.py:529
-#: plugins/sunrise_and_sunset/__init__.py:530
+#: plugins/sunrise_and_sunset/__init__.py:538
+#: plugins/sunrise_and_sunset/__init__.py:539
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:48
 msgid "New moon"
 msgstr "Nov"
 
-#: plugins/sunrise_and_sunset/__init__.py:532
-#: plugins/sunrise_and_sunset/__init__.py:533
+#: plugins/sunrise_and_sunset/__init__.py:541
+#: plugins/sunrise_and_sunset/__init__.py:542
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:51
 msgid "First quarter"
 msgstr "První čtvrtletí"
 
-#: plugins/sunrise_and_sunset/__init__.py:535
-#: plugins/sunrise_and_sunset/__init__.py:536
+#: plugins/sunrise_and_sunset/__init__.py:544
+#: plugins/sunrise_and_sunset/__init__.py:545
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:54
 msgid "Full moon"
 msgstr "Úplněk"
 
-#: plugins/sunrise_and_sunset/__init__.py:538
-#: plugins/sunrise_and_sunset/__init__.py:539
+#: plugins/sunrise_and_sunset/__init__.py:547
+#: plugins/sunrise_and_sunset/__init__.py:548
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:57
 msgid "Last quarter"
 msgstr "Minulé čtvrtletí"
 
-#: plugins/sunrise_and_sunset/__init__.py:541
-#: plugins/sunrise_and_sunset/__init__.py:542
+#: plugins/sunrise_and_sunset/__init__.py:550
+#: plugins/sunrise_and_sunset/__init__.py:551
 msgid "Unkown phase"
 msgstr "Neznámá fáze"
 
-#: plugins/sunrise_and_sunset/__init__.py:546
-#: plugins/sunrise_and_sunset/__init__.py:561
+#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:570
 msgid "Astro plug-in"
 msgstr "Balíček Astro"
 
-#: plugins/sunrise_and_sunset/__init__.py:549
+#: plugins/sunrise_and_sunset/__init__.py:558
 #: plugins/system_update/__init__.py:192
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
-#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:564
 #: plugins/system_update/__init__.py:198
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
 "povoleno."
+
+#: plugins/sunrise_and_sunset/__init__.py:602
+msgid "Astral plug-in"
+msgstr "Balíček Astro"
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:3
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:20
@@ -12187,10 +12204,10 @@ msgstr "Astro Východ a západ slunce"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:21
 msgid ""
 "This extension allows you to run a specific program depending on sunrise or "
-"sunset. This extension calculate the following astronomical data."
+"sunset. This extension calculate astronomical data."
 msgstr ""
 "Toto rozšíření umožňuje spustit konkrétní program v závislosti na východu "
-"nebo západu slunce. Toto rozšíření vypočítalo následující astronomická data."
+"nebo západu slunce. Toto rozšíření vypočítá astronomická data."
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:27
 msgid "Use astro plugin"
@@ -12269,11 +12286,6 @@ msgstr "Vlastní zeměpisná šířka a délka"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:76
 msgid "Example city Pilsen 49°44′29\",13°22′57\""
 msgstr "Příklad města Plzeň 49°44′29\",13°22′57\""
-
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:95
-#: plugins/system_update/templates/system_update.html:91
-msgid "Update Status"
-msgstr "Stav aktualizace"
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:7
 msgid "Sunrise and Sunset - Help"
@@ -12832,6 +12844,10 @@ msgstr "Odeslat e-mail, pokud je k dispozici aktualizace"
 msgid "For this function required email plugin"
 msgstr ""
 "Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
+
+#: plugins/system_update/templates/system_update.html:91
+msgid "Update Status"
+msgstr "Stav aktualizace"
 
 #: plugins/system_update/templates/system_update.html:101
 msgid "Update OSPy"

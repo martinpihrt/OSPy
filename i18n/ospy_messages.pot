@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-24 12:36+0200\n"
+"POT-Creation-Date: 2022-06-24 13:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2822,6 +2822,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:197
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/speed_monitor/templates/speed_monitor_log.html:11
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:95
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:17
@@ -3250,7 +3251,7 @@ msgid "Add a New Program"
 msgstr ""
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:55
-#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:499
+#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:508
 msgid "Name"
 msgstr ""
 
@@ -10666,114 +10667,130 @@ msgstr ""
 msgid "Not selected"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:456
+#: plugins/sunrise_and_sunset/__init__.py:455
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:3
 msgid "Sunrise and Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:457
+#: plugins/sunrise_and_sunset/__init__.py:456
 #: plugins/system_update/__init__.py:170
 msgid "Waiting to state"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:493
-msgid "You must fill in all required fields (location, region, timezone/name, latitude and longitude!"
+#: plugins/sunrise_and_sunset/__init__.py:463
+msgid "Astral is not installed."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:498
-msgid "Found city"
+#: plugins/sunrise_and_sunset/__init__.py:464
+msgid "Please wait installing astral..."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:500
-msgid "Region"
-msgstr ""
-
-#: plugins/sunrise_and_sunset/__init__.py:501
-msgid "Timezone"
+#: plugins/sunrise_and_sunset/__init__.py:467
+msgid "Astral is now installed."
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:502
+msgid "You must fill in all required fields (location, region, timezone/name, latitude and longitude!"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:507
+msgid "Found city"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:509
+msgid "Region"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:510
+msgid "Timezone"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:511
 msgid "Latitude"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:503
+#: plugins/sunrise_and_sunset/__init__.py:512
 msgid "Longitude"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:516
+#: plugins/sunrise_and_sunset/__init__.py:525
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:14
 msgid "Dawn"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:517
-#: plugins/sunrise_and_sunset/__init__.py:522
+#: plugins/sunrise_and_sunset/__init__.py:526
+#: plugins/sunrise_and_sunset/__init__.py:531
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:16
 msgid "Sunrise"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:518
+#: plugins/sunrise_and_sunset/__init__.py:527
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:18
 msgid "Noon"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:519
-#: plugins/sunrise_and_sunset/__init__.py:522
+#: plugins/sunrise_and_sunset/__init__.py:528
+#: plugins/sunrise_and_sunset/__init__.py:531
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:20
 msgid "Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:520
+#: plugins/sunrise_and_sunset/__init__.py:529
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:22
 msgid "Dusk"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:526
-#: plugins/sunrise_and_sunset/__init__.py:527
-msgid "Moon phase"
-msgstr ""
-
-#: plugins/sunrise_and_sunset/__init__.py:529
-#: plugins/sunrise_and_sunset/__init__.py:530
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:48
-msgid "New moon"
-msgstr ""
-
-#: plugins/sunrise_and_sunset/__init__.py:532
-#: plugins/sunrise_and_sunset/__init__.py:533
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:51
-msgid "First quarter"
-msgstr ""
-
 #: plugins/sunrise_and_sunset/__init__.py:535
 #: plugins/sunrise_and_sunset/__init__.py:536
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:54
-msgid "Full moon"
+msgid "Moon phase"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:538
 #: plugins/sunrise_and_sunset/__init__.py:539
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:57
-msgid "Last quarter"
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:48
+msgid "New moon"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:541
 #: plugins/sunrise_and_sunset/__init__.py:542
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:51
+msgid "First quarter"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:544
+#: plugins/sunrise_and_sunset/__init__.py:545
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:54
+msgid "Full moon"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:547
+#: plugins/sunrise_and_sunset/__init__.py:548
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:57
+msgid "Last quarter"
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:550
+#: plugins/sunrise_and_sunset/__init__.py:551
 msgid "Unkown phase"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:546
-#: plugins/sunrise_and_sunset/__init__.py:561
+#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:570
 msgid "Astro plug-in"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:549
+#: plugins/sunrise_and_sunset/__init__.py:558
 #: plugins/system_update/__init__.py:192
 msgid "Plugin is not enabled"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:564
 #: plugins/system_update/__init__.py:198
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
+msgstr ""
+
+#: plugins/sunrise_and_sunset/__init__.py:602
+msgid "Astral plug-in"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:3
@@ -10782,7 +10799,7 @@ msgid "Astro Sunrise and Sunset"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:21
-msgid "This extension allows you to run a specific program depending on sunrise or sunset. This extension calculate the following astronomical data."
+msgid "This extension allows you to run a specific program depending on sunrise or sunset. This extension calculate astronomical data."
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:27
@@ -10835,11 +10852,6 @@ msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:76
 msgid "Example city Pilsen 49°44′29\",13°22′57\""
-msgstr ""
-
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:95
-#: plugins/system_update/templates/system_update.html:91
-msgid "Update Status"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:7
@@ -11275,6 +11287,10 @@ msgstr ""
 #: plugins/system_update/templates/system_update.html:63
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:39
 msgid "For this function required email plugin"
+msgstr ""
+
+#: plugins/system_update/templates/system_update.html:91
+msgid "Update Status"
 msgstr ""
 
 #: plugins/system_update/templates/system_update.html:101
