@@ -1020,6 +1020,7 @@ Available plug-ins:
 * Venetian Blinds
 * Speed Monitor
 * E-mail Notifications SSL
+* Sunrise and Sunset
 
 ----
 

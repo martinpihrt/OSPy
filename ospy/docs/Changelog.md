@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 28 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Plugin "tank monitor" added new FW 1.4 for CPU atmega with CRC8 calculation. Plugin "astro sunrise and sunset" added menu for selecting programs to run. Czech language update.
+
 June 24 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
