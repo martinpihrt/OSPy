@@ -1825,32 +1825,24 @@ class options_page(ProtectedPage):
         
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
-            poweroff(wait=15, block=True)   # shutdown HW system
+            poweroff(wait=15, block=True)   # shutll HW system
             msg = _('The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
-            try:
-                from ospy.helpers import del_rw
-                from ospy import server
-                import shutil
-
-                server.stop()
+            from ospy import server
+            from ospy.helpers import ospy_to_default
+            try:        
+                report_restarted()
                 stations.clear()
-
-                print_report('webpages.py', _('Deleting OSPy settings to default...'))
-                print_report('webpages.py', _('Deleting folder data')) 
-                shutil.rmtree(os.path.join('ospy', 'data'), onerror=del_rw)
-                print_report('webpages.py', _('Deleting folder ssl'))
-                shutil.rmtree(os.path.join('ssl'), onerror=del_rw)
-                print_report('webpages.py', _('Deleting folder backup'))
-                shutil.rmtree(os.path.join('ospy', 'backup'), onerror=del_rw)
-                print_report('webpages.py', _('Deleting folder images/stations'))
-                shutil.rmtree(os.path.join('ospy', 'images', 'stations'), onerror=del_rw)
-
+                server.stop()
+                server.session.kill()
+                ospy_to_default()
                 restart()    # OSPy software
             except:
                 print_report('webpages.py', traceback.format_exc())
+                server.session.kill()
+                server.stop()
                 server.start()
                 raise web.seeother('/')
 
@@ -1948,27 +1940,14 @@ class download_page(ProtectedPage):
     """Download OSPy backup file with settings"""
     def GET(self):
         from ospy.server import session
-        from ospy.helpers import mkdir_p, del_rw
+        from ospy.helpers import mkdir_p, del_rw, ASCI_convert
         import os
-        import zipfile
         import time
+        import shutil
 
         if session['category'] != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
-
-        def retrieve_file_paths(dirName):
-            """Declare the function to return all file paths of the particular directory"""
-            filePaths = []
-
-            for root, directories, files in os.walk(dirName):                                 # Read all directory, subdirectories and file lists
-                for filename in files:                                                        # Create the full filepath by using os module
-                    skip = ['.gitignore', 'sessions.db', '*.tmp'] 
-                    if filename not in skip: 
-                        filePath = os.path.join(root, filename)
-                        filePaths.append(filePath)
-            
-            return filePaths                                                                  # Return all paths
 
         def _read_log(path):
             """Read file"""
@@ -1981,31 +1960,32 @@ class download_page(ProtectedPage):
 
         try:
             ospy_root = './ospy/'
-            backup_path = ospy_root + 'backup/ospy_backup.zip'                                # Where is backup zip file
-            dir_name = [ospy_root + 'data'] #[ospy_root + 'data', ospy_root + 'data/sensors', ospy_root + 'images/stations']    
-            download_name = 'ospy_backup_{}.zip'.format(time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip                         
-            filePaths = []
+            backup_path = ospy_root + 'backup'                                                # Where is backup zip file
+            backup_name = 'ospy_backup' 
+            dir_name = ospy_root + 'data'
+            download_name = '{}_backup_{}.zip'.format(ASCI_convert(options.name).decode("utf-8"), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip
 
-            for name in dir_name:                                                             # Call the function to retrieve all files and folders of the assigned directory
-                filePaths += retrieve_file_paths(name)
-   
-            if not os.path.exists(ospy_root + 'backup'):                                      # Create folder backup
-                mkdir_p(ospy_root + 'backup')
+            if os.path.exists(backup_path):                                                   # Deleting old folder backup
+                log.debug('webpages.py', _('Deleting folder backup.'))
+                shutil.rmtree(backup_path, onerror=del_rw)
 
-            zip_file = zipfile.ZipFile(backup_path, 'w')
-            with zip_file:
-                for file in filePaths:                                                        # Writing each file one by one
-                    zip_file.write(file)
+            if not os.path.exists(backup_path):                                               # Create new folder for backup
+                log.debug('webpages.py', _('Creating folder backup.'))
+                mkdir_p(backup_path)
+
+            if os.path.exists(backup_path):                                                   # Create zip backup
+                log.debug('webpages.py', _('Creating backup zip file.'))
+                shutil.make_archive(backup_path + '/' + backup_name, 'zip', root_dir=dir_name)
 
             if os.path.exists(backup_path):
-                log.debug('webpages.py', _('File {} is created successfully!').format(download_name))
+                log.debug('webpages.py', _('File {} is created successfully.').format(download_name))
                 import mimetypes
-                content = mimetypes.guess_type(backup_path)[0]
+                content = mimetypes.guess_type(backup_path + '/' + backup_name + '.zip')[0]
                 web.header('Content-type', content)
-                web.header('Content-Length', os.path.getsize(backup_path))
+                web.header('Content-Length', os.path.getsize(backup_path + '/' + backup_name + '.zip'))
                 web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
                 #web.header('Transfer-Encoding', 'chunked')                                   # https://webpy.org/cookbook/streaming_large_files
-                return _read_log(backup_path)
+                return _read_log(backup_path + '/' + backup_name + '.zip')
             else:
                 log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
                 msg = _('System component is unreachable or busy. Please wait (try again later).')
@@ -2023,51 +2003,65 @@ class upload_page(ProtectedPage):
         raise web.seeother('/')
 
     def POST(self):
-        from ospy.server import session
+        from ospy.helpers import ospy_to_default, mkdir_p, del_rw
+        from ospy import server
         import os
         from zipfile import ZipFile
-        from ospy.helpers import del_rw
         from distutils.dir_util import copy_tree
         import shutil
 
-        if session['category'] != 'admin':
+        if server.session['category'] != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
         ospy_root = './ospy/'
-        backup_path = ospy_root + 'backup/ospy_backup.zip'
+        upload_path = ospy_root + 'upload'
 
         i = web.input(uploadfile={})
 
         try:
+            if os.path.exists(upload_path):                                     # Deleting old folder upload
+                log.debug('webpages.py', _('Deleting folder upload.'))
+                shutil.rmtree(upload_path, onerror=del_rw)
+
+            if not os.path.exists(upload_path):                                 # Create new folder for upload
+                log.debug('webpages.py', _('Creating folder upload.'))
+                mkdir_p(upload_path)
+
             # import cgi
             # 0 ==> unlimited input upload
             # cgi.maxlen = 10 * 1024 * 1024 # 10MB
-            # print cgi.maxlen 
+            # print cgi.maxlen
             log.debug('webpages.py', _('Uploading file {}.').format(i.uploadfile.filename))
-            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # Only .zip file accepted
-            if upload_type == '.zip':                                          # Check file type
-                fout = open(backup_path, 'wb')                                 # Write uploaded file to backup folder
+            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)]  # Only .zip file accepted
+            if upload_type == '.zip':                                           # Check file type
+                fout = open(upload_path + '/ospy_upload.zip', 'wb')             # Write uploaded file to upload folder
                 fout.write(i.uploadfile.file.read()) 
                 fout.close() 
                 
-                log.debug('webpages.py', _('Uploaded to backup folder OK.'))
+                log.debug('webpages.py', _('Uploading to folder OK, now extracting zip file.'))
 
-                with ZipFile(backup_path, mode='r') as zf:                     # Extract zip file
-                    zf.extractall(ospy_root + 'backup/ospy_backup')
+                with ZipFile(upload_path + '/ospy_upload.zip', mode='r') as zf: # Extract zip file
+                    zf.extractall(ospy_root + 'upload/ospy_upload')
                     log.debug('webpages.py', _('Extracted from zip OK.'))
 
-                fromDirectory = ospy_root + 'backup/ospy_backup'
-                toDirectory = './'
-                copy_tree(fromDirectory, toDirectory)                          # Copy from to
-                
-                log.debug('webpages.py', _('Cleaning folder after restoring...'))
-                shutil.rmtree(fromDirectory, 'ospy_backup', onerror=del_rw)
-
-                log.debug('webpages.py', _('Restoring backup files sucesfully, now restarting OSPy...'))
-                
                 report_restarted()
-                restart(3)
+
+                # we delete all settings before ospy recovery
+
+                stations.clear()                
+                server.stop()
+                server.session.kill()
+
+                ospy_to_default(del_upload=False)
+
+                print_report('webpages.py', _('Copy extrated folders with files to data dir.'))
+                fromDirectory = os.path.join('ospy', 'upload', 'ospy_upload')
+                toDirectory = os.path.join('ospy', 'data')
+                copy_tree(fromDirectory, toDirectory)                          # Copy from to
+
+                restart()                                                      # Restart OSPy software
+
                 msg = _('Restoring backup files sucesfully, now restarting OSPy...')
                 return self.core_render.notice(home_page, msg)
             else:

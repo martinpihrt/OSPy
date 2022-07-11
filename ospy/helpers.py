@@ -26,6 +26,38 @@ def del_rw(action, name, exc):
     elif os.path.isdir(name):
         os.rmdir(name)
 
+def remove_thing(path):
+    import os, os.path
+    import shutil
+    try:
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
+    except:
+        pass        
+
+
+def empty_directory(path):
+    import os, os.path
+    import glob
+    for i in glob.glob(os.path.join(path, '*')):
+        print_report('helpers.py', _('Deleting {}.').format(i))
+        remove_thing(i)
+
+
+def ospy_to_default(wait=2, del_upload=True):
+    import os, os.path
+    print_report('helpers.py', _('Deleting OSPy to default...'))
+    time.sleep(wait)
+    empty_directory(os.path.join('ospy', 'backup'))
+    empty_directory(os.path.join('ssl'))
+    empty_directory(os.path.join('ospy', 'images', 'stations'))
+    empty_directory(os.path.join('ospy', '__pycache__'))
+    empty_directory(os.path.join('ospy', 'data'))
+    if del_upload:
+        empty_directory(os.path.join('ospy', 'upload'))
+
 
 def now():
     return time.time() + (datetime.datetime.now() - datetime.datetime.utcnow()).total_seconds()

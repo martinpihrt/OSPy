@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 11 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Corrections in OSPy settings: OSPy backup to zip, restore from zip, delete to default. Update of the translation in the Czech language.
+
 June 28 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
