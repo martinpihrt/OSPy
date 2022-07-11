@@ -5,7 +5,7 @@ July 11 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
 Changes:<br/>
-Corrections in OSPy settings: OSPy backup to zip, restore from zip, delete to default. Update of the translation in the Czech language.
+Corrections in OSPy settings: OSPy backup to zip, restore from zip, delete to default. Update of the translation in the Czech language. After this update, it is necessary to create a new backup (in the OSPy settings menu - backup and restore). Backups made before this update will not work!
 
 June 28 2022 (v3.0)
 -----------
