@@ -150,10 +150,14 @@ class WebPage(object):
         cls = self.__class__
 
         from ospy.server import session
-        if not cls.__name__.endswith('json') and (not session.pages or session.pages[-1] != web.ctx.fullpath):
-            session.pages.append(web.ctx.fullpath)
-        while len(session.pages) > 5:
-            del session.pages[0]
+        try:
+            if not cls.__name__.endswith('json') and (not session.pages or session.pages[-1] != web.ctx.fullpath):
+                session.pages.append(web.ctx.fullpath)
+            while len(session.pages) > 5:
+                del session.pages[0]
+        except:
+            print_report('webpages.py', traceback.format_exc())
+            restart()    # OSPy software restart
 
         if self.__module__.startswith('plugins') and 'plugin_render' not in cls.__dict__:
             cls.plugin_render = InstantCacheRender(os.path.join(os.path.join(*self.__module__.split(u'.')), u'templates'), globals=template_globals(), base=self.base_render)
