@@ -161,6 +161,13 @@ class _Options(object):
             "category": _('Users')
         },
         {
+            "key": "auto_login",
+            "name": _('Auto Login'),
+            "default": False,
+            "help": _('If enabled, browser will remember login information and automatically log you in.'),
+            "category": _('Users')
+        },        
+        {
             "key": "admin_user",
             "name": _('Administrator name'),
             "default": "admin",
