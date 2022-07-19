@@ -241,7 +241,10 @@ jQuery(document).ready(function(){
                         <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_(u'Configure Sensors'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Sensors')</a>
                         <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Help')</a>
                         $if not options.no_password:
-                            <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Logout')</a>
+                            $if options.auto_login:
+                                $_(u'Autologin is enabled')
+                            $else:
+                                <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Logout')</a>
                     </div>
                 $:content 
             </div>

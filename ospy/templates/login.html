@@ -4,11 +4,72 @@ $var title: $_('Login')
 $var page: login
 
 <script>
+    var storage_test = check_session();
+    var autologin_btn = "${options.auto_login}";
+    autologin_btn = JSON.parse(autologin_btn.toString().toLowerCase());
+    // clear storage
+    if (autologin_btn == false){
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+    }
+
+    // check if browser has local storage
+    function check_session() {
+        if (typeof(Storage) !== "undefined") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     jQuery(document).ready(function(){
         jQuery("#cSubmit").click(function() {
+            // if used autologin save pwd and name to browser storage
+            if (storage_test && autologin_btn){
+                var username = document.getElementById("username").value; 
+                var userpwd = document.getElementById("password").value;
+                localStorage.setItem("username", username);
+                localStorage.setItem("userpwd", userpwd);
+            }
             jQuery("#login").submit();
         });
-    });    
+
+        // fill and submit name and password to form
+        if (storage_test && autologin_btn){
+            // if not wrong on page
+            var wrong_text = document.getElementsByClassName("wrong")[0];
+            if(wrong_text == null){
+                document.getElementById("username").value = localStorage.getItem("username");
+                document.getElementById("password").value = localStorage.getItem("userpwd");
+                document.getElementById("cSubmit").click();
+            }
+        }
+
+        // send form after pressing enter key
+        var input = document.getElementById("password");
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+            // If the user presses the "Enter" key on the keyboard
+            if (event.key === "Enter") {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("cSubmit").click();
+            }
+        });
+
+        input = document.getElementById("username");
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+            // If the user presses the "Enter" key on the keyboard
+            if (event.key === "Enter") {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("cSubmit").click();
+            }
+        });
+    });  
 </script>        
 
 <div class="panel" style="height:300px; padding-top:100px; padding-left: 50px">

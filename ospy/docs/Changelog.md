@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 19 2022 (v3.0)
+-----------
+(MartinPihrtJR)<br/>
+Changes:<br/>
+Added automatical login (in OSPy options under user). Browser remembers your login information and logs you in. Added enter support on login page (username or password field must be focused).
+
 July 11 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
