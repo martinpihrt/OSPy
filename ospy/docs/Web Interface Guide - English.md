@@ -1021,6 +1021,7 @@ Available plug-ins:
 * Speed Monitor
 * E-mail Notifications SSL
 * Sunrise and Sunset
+* Photovoltaic Boiler
 
 ----
 

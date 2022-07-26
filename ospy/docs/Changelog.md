@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+June 26 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Czech language strings update. Add new plugin "Photovoltaic Boiler". PV boiler (heating boiler from the distribution network or FVE power plant).
+
 July 19 2022 (v3.0)
 -----------
 (MartinPihrtJR)<br/>
