@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 1 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating the Slovak language (thank you Tomáš Szepesi) and the Czech language. Added secondary time to "Photovoltaic Boiler" plugin and fixed known bugs. The plugin "astro sunrise and sunset" is ready to use (but still needs to be properly tested).
+
 June 26 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
