@@ -314,7 +314,7 @@ def get_ip(net=u''):
         string = _('No IP Settings')
         arg = [b'/sbin/ip', b'route', b'list']
         p = subprocess.Popen(arg, stdout=subprocess.PIPE)
-        data,errdata = p.communicate()
+        data, errdata = p.communicate()
         data = data.split(b'\n')
         list = [b'wlan0', b'eth0', b'ppp0'] if net == '' else [net]
         for iface in list:
@@ -325,9 +325,16 @@ def get_ip(net=u''):
                     ipaddr = split_d[split_d.index(b'src') + 1]
                     return ipaddr.decode('utf-8')
                 except:
-                    #print_report(u'helpers.py', traceback.format_exc())
-                    pass
-        
+                    try:
+                        import socket
+                        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                        s.connect(("8.8.8.8",80))
+                        ipaddr = s.getsockname()[0]
+                        s.close()
+                        return ipaddr
+                    except:    
+                        print_report(u'helpers.py', traceback.format_exc())
+                        pass
         return string
         
     except:
