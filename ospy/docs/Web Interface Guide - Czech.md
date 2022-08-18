@@ -220,6 +220,10 @@ OSPy Průvodce webovým rozhraním v češtině
             Ping monitor
             Temperature Switch
             Pool Heating
+            E-mail Notifications SSL
+            Sunrise and Sunset
+            Photovoltaic Boiler
+            IP CAM
     Odhlásit se
 
 ----
@@ -1045,6 +1049,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * E-mail Notifications SSL (odesílání E-mailů ze systému - toto rozšíření využívají i některá jiná rozšíření, například: Wind Speed Monitor, Pressure Monitor, Air Temperature and Humidity Monitor...) Toto rozšíření je modernější variantou původního rozšíření E-mailová oznámení (Připojení přes vrstvu SSL).
 * Sunrise and Sunset (výpočet astronomických dat jako je východ a západ slunce. Dle těchto výpočtů umožňuje následně spouštět programy).
 * FVE bojler (nahřívání bojleru z distribuční sítě, nebo FVE elektrárny).
+* IP kamery (umožňuje sledování z IP kamer. Jako JPEG náhled, nebo GIF obrázek, nebo MJPEG stream z kamery).
 
 ----
 

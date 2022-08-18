@@ -218,7 +218,11 @@ OSPy Web Interface Guide in English
             Pressurizer
             Ping monitor
             Temperature Switch
-            Pool Heating            
+            Pool Heating
+            E-mail Notifications SSL
+            Sunrise and Sunset
+            Photovoltaic Boiler
+            IP CAM            
     Logging out
 
 ----
@@ -1022,6 +1026,7 @@ Available plug-ins:
 * E-mail Notifications SSL
 * Sunrise and Sunset
 * Photovoltaic Boiler
+* IP CAM
 
 ----
 

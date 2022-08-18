@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+July 18 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating the Czech language. Added new plugin "IP CAM". Fix in "pressurizer" plugin.
+
 July 1 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
