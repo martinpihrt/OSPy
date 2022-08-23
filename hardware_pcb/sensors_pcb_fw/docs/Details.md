@@ -108,3 +108,6 @@ Sensors Periphery
 
 #### OLED display
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_oled.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_oled.png)
+
+#### Multi contact
+[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_multi_contact.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_multi_contact.png)

@@ -1,6 +1,13 @@
 OSPy Changelog
 ====
 
+July 23 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating the Slovak language (thank you Tomáš Szepesi) and the Czech language. Added new option in sensors (Multi Contact) for 7 switch inputs. I2C Bus for OLED display is not changed (not 8 switchs). Not tested (neither FW nor OSPy) but should work. Any detected errors will be subsequently removed. ESP32 firmware update version 1.19:
+Added support for multi contact input (the multi sensor will act as a 7 button controller). 
+
 July 18 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

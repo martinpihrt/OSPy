@@ -40,6 +40,7 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
         else if(stype == 4) snametype = $:{json.dumps(_('Motion'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         else if(stype == 5) snametype = $:{json.dumps(_('Temperature'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         else if(stype == 6) snametype = $:{json.dumps(_('Multi'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        else if(stype == 7) snametype = $:{json.dumps(_('Multi Contact'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         else snametype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         let scom = sensor.com;
         let scomtype;

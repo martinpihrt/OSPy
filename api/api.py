@@ -615,6 +615,29 @@ class Sensor(object):
                                 pass
                                 print_report('api.py', traceback.format_exc())
 
+                        elif sen_type == 7:                                                    # Multicontact (7x switch)
+                            try:
+                                read_val.append(int(jqdict['sw1']))
+                                read_val.append(int(jqdict['sw2']))
+                                read_val.append(int(jqdict['sw3']))
+                                read_val.append(int(jqdict['sw4']))
+                                read_val.append(int(jqdict['sw5']))
+                                read_val.append(int(jqdict['sw6']))
+                                read_val.append(int(jqdict['sw7']))
+                                read_val.append((-127))
+                            except:
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                read_val.append((-127))
+                                pass
+                                print_report('api.py', traceback.format_exc())
+
+
                     sensor.last_read_value = read_val
                     sensor.soil_last_read_value = soil_read_val
                     sensor.last_response = now()

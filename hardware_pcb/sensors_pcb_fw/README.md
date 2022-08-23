@@ -65,6 +65,12 @@ Working on it.
 Sensor ESP32 FW Changelog
 ====
 
+FW: 1.19
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Added support for multi contact input (the multi sensor will act as a 7 button controller).
+
 FW: 1.18
 -----------
 (martinpihrt)<br/>

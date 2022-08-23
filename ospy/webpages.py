@@ -674,7 +674,10 @@ class sensor_page(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[]) # for save multiple select
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[],
+                         MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[],
+                         SW_C0=[], SW_C1=[], SW_C2=[], SW_C3=[], SW_C4=[], SW_C5=[], SW_C6=[],
+                         SW_O0=[], SW_O1=[], SW_O2=[], SW_O3=[], SW_O4=[], SW_O5=[], SW_O6=[]) # [] for save multiple select
         multi_type = -1
         sen_type = -1
 
@@ -897,6 +900,11 @@ class sensor_page(ProtectedPage):
                         sensor.soil_show_in_footer[i] = 0
                     if 'pl{}'.format(i) in qdict:        # 16x probe label
                         sensor.soil_probe_label[i] = '{}'.format(qdict['pl{}'.format(i)])
+
+            elif sen_type == 7:
+                for i in range(0, 7):
+                    sensor.sw_open_program[i] = '{}'.format(qdict['SW_O{}'.format(i)])
+                    sensor.sw_closed_program[i] = '{}'.format(qdict['SW_C{}'.format(i)])
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

@@ -29,7 +29,7 @@ class _Sensor(object):
         self.name = ""                  # sensor name        
         self.encrypt = password_hash(str(now()), 'notarandomstring')[:16] # sensor security encrypted code
         self.enabled = 0                # sensor enable or disable
-        self.sens_type = 0              # selector sensor type: 0-5 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
+        self.sens_type = 0              # selector sensor type: 0-7 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
         self.multi_type = 0             # selector multi type 0-9: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil moisture'
         self.notes = ""                 # notes for sensor
@@ -102,6 +102,9 @@ class _Sensor(object):
         self.no_motion_msg = _('No Motion')       # no motion
         # email plugin type
         self.eplug = 0                            # 0 = e-mail notifications, 1 = e-mail notifications SSL
+        # 7 button controller
+        self.sw_open_program = [["-1"]]*7         # open program (-1 is default none program)
+        self.sw_closed_program = [["-1"]]*7       # closed program (-1 is default none program)
 
         options.load(self, index) 
 
@@ -590,7 +593,7 @@ class _Sensors_Timer(Thread):
         # 7 motion
         # 8 sonic
         # 9 soil moisture 
-        # sens_type: 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
+        # sens_type: 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
         # multi_type: 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil moisture'
         for sensor in sensors.get():
             time_dif = int(now() - sensor.last_response)                      # last input from sensor
@@ -1427,6 +1430,19 @@ class _Sensors_Timer(Thread):
                             self.start_status(sensor.name, _('Not response!'), sensor.index)
                         else:    
                             self.start_status(sensor.name, _('Out of order'), sensor.index)
+
+            ### Multi Contact ###
+            if sensor.sens_type == 7:
+                if sensor.response and sensor.enabled:                                              # sensor is enabled and response is OK
+                    state = [-127.0]*7
+                    for i in range(0, 7):
+                        state[i] = int(sensor.last_read_value[i])
+                        if sensor.soil_prev_read_value[i] != state[i]:
+                            sensor.soil_prev_read_value[i] = state[i]
+                            if state[i] == 1:                                                       # switch xx is closed 
+                                self._trigger_programs(sensor, sensor.sw_closed_program[int(i)])
+                            if state[i] == 0:                                                       # switch xx is open
+                                self._trigger_programs(sensor, sensor.sw_open_program[int(i)])
 
     def run(self):
         self._sleep(2)

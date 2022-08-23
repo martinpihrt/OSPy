@@ -57,7 +57,7 @@ function codeTextCopy() {
 } 
 
 function check_type() {
-    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi'
+    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
     let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
     let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
 
@@ -109,6 +109,23 @@ function check_type() {
         jQuery("#soil").hide()
     }
 
+    if (sensor_type == 7) {
+        jQuery("#multi_contact").show()
+        jQuery("#sample_rate").hide()
+        jQuery("#log_samples").hide()
+        jQuery("#log_events").hide()
+        jQuery("#email_events").hide()
+        jQuery("#email_type").hide()
+        jQuery("#show_footer").hide()                       
+    } else {
+        jQuery("#multi_contact").hide()
+        jQuery("#sample_rate").show()
+        jQuery("#log_samples").show()
+        jQuery("#log_events").show()
+        jQuery("#email_events").show()
+        jQuery("#email_type").show()
+        jQuery("#show_footer").show()         
+    }    
 
     if (com_type == 0) { 
         jQuery("#com_lan").show()
@@ -198,7 +215,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="show_footer" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Show in Footer'):</span></td>
@@ -234,8 +251,8 @@ jQuery(document).ready(function(){
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Type'):</span></td>
                 <td><select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_(u'Select the sensor type.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-                $for t in range(7):
+                $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi'), _(u'Multi Contact')]
+                $for t in range(8):
                     <option value="${t}" ${'selected' if sensor.sens_type == t else ''}>$type_list[t]</option>
                 </select></td>
                 </tr>
@@ -265,7 +282,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="sample_rate" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sample Rate'):</span></td>
@@ -275,7 +292,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="log_samples" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Samples'):</span></td>
@@ -283,7 +300,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="log_events" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Events'):</span></td>
@@ -291,7 +308,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div> 
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="email_events" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Text/Email Events'):</span></td>
@@ -299,7 +316,7 @@ jQuery(document).ready(function(){
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="email_type" style="display: none;">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('E-mail plug-ins'):</span></td>
@@ -749,7 +766,7 @@ jQuery(document).ready(function(){
                     <td style='text-transform: none;'><span class="sensor_label">$_('Show in footer'):</span></td>
                     <td><input type="checkbox" ${"checked" if sensor.soil_show_in_footer[int(i)] else ""} name="fip${str(i)}" title=$:{json.dumps(_(u'Show data from probe in footer on home page'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     </td>
-                    </tr>                    
+                    </tr>
                     <tr>
                     <th colspan="2">
                     <hr>
@@ -767,9 +784,58 @@ jQuery(document).ready(function(){
                 <small>$_('To connect 16 pcs of humidity probes, it is necessary to connect 4 pcs of the ADS1115 circuit to the IIC bus to the multisensor board (1 pc always for 4 A/D inputs). Each ADS1115 circuit has its own IIC address set (0x48, 0x49, 0x4A, 0x4B).')
                 </small>
                 </td>
-                </tr>                
+                </tr>
                 </table>
             </div>
+
+            <div class='option' id="multi_contact" style="display: none;">
+                <table>
+                <tr>
+                    <th colspan="2">
+                    <hr>
+                    </th>
+                </tr>
+                <tr><td colspan="2">
+                <small>$_('Select the program you want to activate during the event (closed/open). A switch connected to the multisensor board.') $_('Cannot be used for these programs: weekly advanced, custom, weekly weather! These programs will not appear in the menu and cannot be selected.') $_('The selected program that we want to run with this does not have to be enabled in the programs, but it must have set days when we want the program to run.') $_('If the program does not have a days marked, it will not start (neither by the "run now" button in the programs, nor by this sensor)!')</small>
+                </td>
+                </tr>
+                $for i in range(0, 7):
+                    <tr><td colspan="2">
+                    <small><b>$_('Switch') ${i+1}</b></small>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                    <td><select name="SW_C${i}" id="SW_C${i}" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <option value="-1" ${" selected" if "-1" in sensor.sw_closed_program[int(i)] else ""}>$_(u'None')</option>
+                    $for program in programs.get():
+                        <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw_closed_program[int(i)] else ""}>${program.name}</option> 
+                    </select></td>
+                    </tr>
+                    <tr>
+                    <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                    <td><select name="SW_O${i}" id="SW_O${i}" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <option value="-1" ${" selected" if "-1" in sensor.sw_open_program[int(i)] else ""}>$_(u'None')</option>
+                    $for program in programs.get():
+                        <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw_open_program[int(i)] else ""}>${program.name}</option>
+                    </select></td>
+                    </tr>
+                    $if i < 6:
+                        <tr><td><hr></td></tr>                    
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor connection diagram')</span></td>
+                <td>
+                $if sensor.cpu_core == 0:
+                    <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_multi_contact.png?raw=true" target="_blank"><img src="https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32_sensor_multi_contact.png?raw=true" alt=$_('Sensor connection diagram') style="width:200px;"></a>
+                </td>
+                </tr>
+                </table>
+            </div>            
 
             <div class='option' id="com_lan" style="display: none;">
                 <table>
