@@ -1,7 +1,13 @@
 OSPy Changelog
 ====
 
-July 23 2022 (v3.0)
+July 25 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fixed problems on the home page (admin, user, public) with the display of values from sensors (if there were more sensors, not all of them were displayed). Added new plugin "Modbus Stations" (under construction...) This plugin can be used to control devices via modbus protocol (ex. relay boards).
+
+July 23 2022 (v3.0)Modbus Stations
 -----------
 (martinpihrt)<br/>
 Changes:<br/>

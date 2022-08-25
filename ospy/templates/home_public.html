@@ -384,7 +384,7 @@ jQuery(document).ready(function(){
                     jQuery("#pluginPars").append('<p id="${"piData" + str(i)}"><span name="label">${pluginFtr[i]["label"]}</span><span name="val">${str(pluginFtr[i]["val"])}</span><span name="unit">${pluginFtr[i]["unit"]}</span></p>'); 
 
         $if (options.show_sensor_data):
-            $for i in range(sensors_timer.len_status()):
+            $for i in range(sensors.count()):
                 jQuery("#sensorPars").append('<p id="${"seData" + str(i)}"><span name="aref"></span><span name="label"></span><span name="val"></span></p>');
                          
 
