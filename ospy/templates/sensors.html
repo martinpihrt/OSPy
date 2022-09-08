@@ -31,7 +31,7 @@ $code:
             res = [int(x) for x in str(s)]
             return u"{}.{}{}".format(res[0], res[1], res[2])
         else:
-            return u"?.??"
+            return u"?.??"   
 
 
 <div id="controls">
@@ -67,8 +67,8 @@ $if sensors.count()>0:
                 <div id="red_circle" title=$:{json.dumps(_(u'Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
                 <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
             </p>
+            <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>
             $if sensor.sens_type != 7:
-                <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>
                 <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
                 <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
                 <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
@@ -455,36 +455,277 @@ $if sensors.count()>0:
         $elif sensor.sens_type == 7 and sensor.enabled:
             $if sensor.last_read_value[0] != '':
                 $for i in range(0, 7):
-                    <p style="font-size:20px;">$_(u'Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])}
-                    $if sensor.last_read_value[i] == -127:   
+                    <p style="font-size:20px;">$_(u'Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])}</span>
+                    $if sensor.last_read_value[i] == 1:
+                        <small>($_(u'+3.3V open contact'))</small>
+                    $elif sensor.last_read_value[i] == 0:
+                        <small>($_(u'0V closed contact'))</small>                      
+                    $elif sensor.last_read_value[i] == -127:   
                         $_(u'Communication error')
-                </span></p>
+                    </p>
             $else:
                 $for i in range(0, 7):
                     <p style="font-size:20px;">$_(u'Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])} (${_(u'Change not yet loaded')})</span></p>
             <hr>
-            $for i in range(0, 7):
-                <p style="font-size:20px;">$_(u'Switch') ${i+1})</p>
-                <p>$_(u'Open Program(s)'): <span class="val">
-                $if "-1" in sensor.sw_open_program[int(i)]:
-                    $_(u'None')
-                $if "-1" not in sensor.sw_open_program[int(i)]:
-                    $for program in programs.get():
-                        $if str(program.index+1) in sensor.sw_open_program[int(i)]:
-                            $program.name 
-                </span>
-                </p>
-                <p>$_(u'Closed Program(s)'): <span class="val">
-                $if "-1" in sensor.sw_closed_program[int(i)]:
-                    $_(u'None')
-                $if "-1" not in sensor.sw_closed_program[int(i)]:
-                    $for program in programs.get():
-                        $if str(program.index+1) in sensor.sw_closed_program[int(i)]:
-                            $program.name 
-                </span>
-                </p>
-                <hr>                 
-
+            <!-- switch 1 -->
+            <p style="font-size:20px;">$_(u'Switch') 1)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw0_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw0_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw0_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw0_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw0_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw0_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>            
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw0_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw0_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw0_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw0_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw0_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw0_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 2 -->
+            <p style="font-size:20px;">$_(u'Switch') 2)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw1_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw1_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw1_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw1_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw1_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw1_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw1_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw1_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw1_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw1_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw1_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw1_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 3 -->
+            <p style="font-size:20px;">$_(u'Switch') 3)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw2_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw2_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw2_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw2_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw2_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw2_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw2_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw2_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw2_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw2_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw2_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw2_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 4 -->
+            <p style="font-size:20px;">$_(u'Switch') 4)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw3_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw3_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw3_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw3_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw3_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw3_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw3_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw3_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw3_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw3_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw3_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw3_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 5 -->
+            <p style="font-size:20px;">$_(u'Switch') 5)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw4_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw4_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw4_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw4_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw4_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw4_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw4_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw4_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw4_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw4_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw4_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw4_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 6 -->
+            <p style="font-size:20px;">$_(u'Switch') 6)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw5_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw5_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw5_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw5_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw5_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw5_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw5_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw5_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw5_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw5_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw5_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw5_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>----------------</p>
+            <!-- switch 7 -->
+            <p style="font-size:20px;">$_(u'Switch') 7)</p>
+            <p>$_(u'Closed Program(s)'): <span class="val">
+            $if "-1" in sensor.sw6_closed_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw6_closed_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw6_closed_program:
+                        $program.name
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw6_closed_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw6_closed_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw6_closed_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <p>$_(u'Open Program(s)'): <span class="val">
+            $if "-1" in sensor.sw6_open_program:
+                $_(u'None')
+            $if "-1" not in sensor.sw6_open_program:
+                $for program in programs.get():
+                    $if str(program.index+1) in sensor.sw6_open_program:
+                        $program.name 
+            </span>
+            </p>
+            <p>$_(u'Stop this run stations'): <span class="val">
+            $if "-1" in sensor.sw6_open_stations:
+                $_(u'None')
+            $if "-1" not in sensor.sw6_open_stations:
+                $for station in [station for station in stations if station.enabled]:
+                    $if str(station.index) in sensor.sw6_open_stations:
+                        $station.name ($_('Output') ${str(station.index+1)})
+            </span></p>
+            <hr>                                               
         $if sensor.com_type == 0 and sensor.enabled:
             <p>$_(u'IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
             $if sensor.mac_address != '':

@@ -221,13 +221,21 @@ class _Log(logging.Handler):
         for index in reversed(range(len(self._log['Run']) - minimum)):
             interval = self._log['Run'][index]['data']
 
-            delete = True
-            # If this entry cannot have influence on the current state anymore:
-            if (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
-                                                                      options.master_off_delay,
-                                                                      60):
+            delete = False
+            if index < len(self._log['Run']) - minimum:
+                delete = True
+
+            # Assume long intervals to be a hiccup of the system:
+            elif interval['end'] - interval['start'] > datetime.timedelta(hours=12):
+                delete = True
+
+            # Check if there is any impact on the current state:
+            if not interval['blocked'] and \
+                    (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
+                                                                           options.master_off_delay,
+                                                                           60):
                 delete = False
-            elif interval['end'].date() >= min_eto:
+            elif not interval['blocked'] and interval['end'].date() >= min_eto:
                 delete = False
 
             if delete:

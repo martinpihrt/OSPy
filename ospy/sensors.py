@@ -102,9 +102,36 @@ class _Sensor(object):
         self.no_motion_msg = _('No Motion')       # no motion
         # email plugin type
         self.eplug = 0                            # 0 = e-mail notifications, 1 = e-mail notifications SSL
-        # 7 button controller
-        self.sw_open_program = [["-1"]]*7         # open program (-1 is default none program)
-        self.sw_closed_program = [["-1"]]*7       # closed program (-1 is default none program)
+        # 7 button controller programs
+        self.sw0_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw1_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw2_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw3_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw4_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw5_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw6_open_program = ["-1"]            # open program (-1 is default none program)
+        self.sw0_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw1_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw2_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw3_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw4_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw5_closed_program = ["-1"]          # closed program (-1 is default none program)
+        self.sw6_closed_program = ["-1"]          # closed program (-1 is default none program)
+        # 7 button controller stations
+        self.sw0_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw1_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw2_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw3_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw4_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw5_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw6_open_stations = ["-1"]           # open stations (-1 is default none)
+        self.sw0_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw1_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw2_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw3_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw4_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw5_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        self.sw6_closed_stations = ["-1"]         # closed stations (-1 is default none)                                                                
 
         options.load(self, index) 
 
@@ -493,8 +520,8 @@ class _Sensors_Timer(Thread):
         except:
             return -1
 
-    def set_stations_in_scheduler_off(self, sensor):
-        """Stoping selected station in scheduler."""
+    def _set_stations_in_scheduler_off(self, stations_list):
+        """Stoping selected station in scheduler from list."""
         try:
             current_time  = datetime.datetime.now()
             check_start = current_time - datetime.timedelta(days=1)
@@ -510,7 +537,7 @@ class _Sensors_Timer(Thread):
 
             # active stations
             for entry in active:
-                for used_stations in sensor.used_stations:            # selected stations for stoping
+                for used_stations in stations_list:                   # selected stations for stoping
                     if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
                         log.finish_run(entry)                         # save end in log 
                         stations.deactivate(entry['station'])         # stations to OFF
@@ -520,65 +547,7 @@ class _Sensors_Timer(Thread):
                 log.debug('sensors.py', _('Stoping stations in scheduler'))
         except:
             log.debug('sensors.py', traceback.format_exc())
-            pass
-
-    def set_stations_one_in_scheduler_off(self, sensor):
-        """Stoping selected station in scheduler."""
-        try:
-            current_time  = datetime.datetime.now()
-            check_start = current_time - datetime.timedelta(days=1)
-            check_end = current_time + datetime.timedelta(days=1)
-
-            # In manual mode we cannot predict, we only know what is currently running and the history
-            if options.manual_mode:
-                active = log.finished_runs() + log.active_runs()
-            else:
-                active = combined_schedule(check_start, check_end)
-
-            ending = False
-
-            # active stations
-            for entry in active:
-                for used_stations in sensor.used_stations_one:        # selected stations for stoping
-                    if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
-                        log.finish_run(entry)                         # save end in log 
-                        stations.deactivate(entry['station'])         # stations to OFF
-                        ending = True   
-
-            if ending:
-                log.debug('sensors.py', _('Stoping stations in scheduler'))
-        except:
-            log.debug('sensors.py', traceback.format_exc())
-            pass            
-
-    def set_stations_two_in_scheduler_off(self, sensor):
-        """Stoping selected station in scheduler."""
-        try:
-            current_time  = datetime.datetime.now()
-            check_start = current_time - datetime.timedelta(days=1)
-            check_end = current_time + datetime.timedelta(days=1)
-
-            # In manual mode we cannot predict, we only know what is currently running and the history
-            if options.manual_mode:
-                active = log.finished_runs() + log.active_runs()
-            else:
-                active = combined_schedule(check_start, check_end)
-
-            ending = False
-
-            # active stations
-            for entry in active:
-                for used_stations in sensor.used_stations_two:        # selected stations for stoping
-                    if str(entry['station']) == str(used_stations):   # is this station in selected stations? 
-                        log.finish_run(entry)                         # save end in log 
-                        stations.deactivate(entry['station'])         # stations to OFF
-                        ending = True   
-
-            if ending:
-                log.debug('sensors.py', _('Stoping stations in scheduler'))
-        except:
-            log.debug('sensors.py', traceback.format_exc())
-            pass            
+            pass                        
 
     def check_sensors(self):
         ###  HELP for sensor type
@@ -766,7 +735,7 @@ class _Sensors_Timer(Thread):
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
-                            self.set_stations_two_in_scheduler_off(sensor)
+                            self._set_stations_in_scheduler_off(sensor.used_stations_two)
                         else:                                                                            # Motion or multi Motion 
                             text = _('Sensor') + ': {} ({})'.format(sensor.name, sensor.motion_msg)
                             subj = _('Sensor Read Success')
@@ -787,7 +756,7 @@ class _Sensors_Timer(Thread):
                             if sensor.send_email:
                                 self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_low_program)
-                            self.set_stations_one_in_scheduler_off(sensor) 
+                            self._set_stations_in_scheduler_off(sensor.used_stations_one) 
                         else:                                                                            # Motion or multi Motion
                             text = _('Sensor') + ': {} ({})'.format(sensor.name, sensor.no_motion_msg)
                             subj = _('Sensor Read Success')
@@ -1146,7 +1115,7 @@ class _Sensors_Timer(Thread):
                         if sensor.show_in_footer:
                             self.start_status(sensor.name, _('Probe Error'), sensor.index)
                         if sensor.use_water_stop:                            # If the level sensor fails, the above selected stations in the scheduler will stop
-                            self.set_stations_in_scheduler_off(sensor)
+                            self._set_stations_in_scheduler_off(sensor.used_stations)
 
                     if sensor.last_read_value[8] != sensor.prev_read_value:
                         sensor.prev_read_value = sensor.last_read_value[8]
@@ -1180,7 +1149,7 @@ class _Sensors_Timer(Thread):
                         if sensor.use_water_stop: # If the level sensor fails, the above selected stations in the scheduler will stop
                             if int(sensor.aux_reg_p)==1:
                                 sensor.aux_reg_p = 0
-                                self.set_stations_in_scheduler_off(sensor)
+                                self._set_stations_in_scheduler_off(sensor.used_stations)
                                 if sensor.log_event:
                                     self.update_log(sensor, 'lge', _('Probe Error'))
                                 if sensor.send_email: # Send Email?
@@ -1270,7 +1239,7 @@ class _Sensors_Timer(Thread):
                         if sensor.log_samples:
                             self.update_log(sensor, 'lgs', level_in_tank, action) 
                         if sensor.use_stop:   # Stop stations if minimum water level?
-                            self.set_stations_in_scheduler_off(sensor)
+                            self._set_stations_in_scheduler_off(sensor.used_stations)
                             regulation_text = _('Water in Tank') + ' < ' + str(sensor.water_minimum) + ' ' + _('cm') + _('!')
                             if sensor.log_event:
                                 self.update_log(sensor, 'lge', '{}'.format(regulation_text))
@@ -1288,7 +1257,7 @@ class _Sensors_Timer(Thread):
                                     if rd_text is not None:
                                         body += '<br>' + rd_text
                                     self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
-                            self.set_stations_in_scheduler_off(sensor)
+                            self._set_stations_in_scheduler_off(sensor.used_stations)
 
                     ### log samples ###
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
@@ -1435,14 +1404,80 @@ class _Sensors_Timer(Thread):
             if sensor.sens_type == 7:
                 if sensor.response and sensor.enabled:                                              # sensor is enabled and response is OK
                     state = [-127.0]*7
+                    msg = _('Inputs state') + ' '
                     for i in range(0, 7):
                         state[i] = int(sensor.last_read_value[i])
+                        
+                        if state[i] == 0:
+                            msg += '{}-'.format(i+1) + _('ON')
+                        if state[i] == 1:
+                            msg += '{}-'.format(i+1) + _('OFF')
+                        if i < 6:
+                            msg += ', '
+
                         if sensor.soil_prev_read_value[i] != state[i]:
                             sensor.soil_prev_read_value[i] = state[i]
-                            if state[i] == 1:                                                       # switch xx is closed 
-                                self._trigger_programs(sensor, sensor.sw_closed_program[int(i)])
-                            if state[i] == 0:                                                       # switch xx is open
-                                self._trigger_programs(sensor, sensor.sw_open_program[int(i)])
+
+                            clo_p = None # list with closed programs
+                            ope_p = None # list with opened programs
+                            clo_s = None # list with closed stations
+                            ope_s = None # list with opened stations
+
+                            if i == 0:
+                                clo_p= sensor.sw0_closed_program
+                                ope_p = sensor.sw0_open_program
+                                clo_s = sensor.sw0_closed_stations
+                                ope_s = sensor.sw0_open_stations
+                            elif i == 1: 
+                                clo_p= sensor.sw1_closed_program
+                                ope_p = sensor.sw1_open_program
+                                clo_s = sensor.sw1_closed_stations
+                                ope_s = sensor.sw1_open_stations
+                            elif i == 2: 
+                                clo_p= sensor.sw2_closed_program
+                                ope_p = sensor.sw2_open_program
+                                clo_s = sensor.sw2_closed_stations
+                                ope_s = sensor.sw2_open_stations
+                            elif i == 3: 
+                                clo_p= sensor.sw3_closed_program
+                                ope_p = sensor.sw3_open_program
+                                clo_s = sensor.sw3_closed_stations
+                                ope_s = sensor.sw3_open_stations
+                            elif i == 4: 
+                                clo_p= sensor.sw4_closed_program
+                                ope_p = sensor.sw4_open_program
+                                clo_s = sensor.sw4_closed_stations
+                                ope_s = sensor.sw4_open_stations
+                            elif i == 5: 
+                                clo_p= sensor.sw5_closed_program
+                                ope_p = sensor.sw5_open_program
+                                clo_s = sensor.sw5_closed_stations
+                                ope_s = sensor.sw5_open_stations
+                            elif i == 6: 
+                                clo_p= sensor.sw6_closed_program
+                                ope_p = sensor.sw6_open_program
+                                clo_s = sensor.sw6_closed_stations
+                                ope_s = sensor.sw6_open_stations                                                                                                                                                                
+
+                            if state[i] == 0:                                                       # switch xx is closed
+                                if isinstance(clo_p, list) and clo_p is not None:
+                                    self._trigger_programs(sensor, clo_p)
+                                if isinstance(clo_s, list) and clo_s is not None:
+                                    self._set_stations_in_scheduler_off(clo_s)    
+                            if state[i] == 1:                                                       # switch xx is open
+                                if isinstance(ope_p, list) and ope_p is not None:
+                                    self._trigger_programs(sensor, ope_p)
+                                if isinstance(ope_s, list) and ope_s is not None:
+                                    self._set_stations_in_scheduler_off(ope_s)
+
+                    if sensor.show_in_footer:
+                        self.start_status(sensor.name, msg , sensor.index)
+                else:
+                    if sensor.show_in_footer:
+                        if sensor.enabled:
+                            self.start_status(sensor.name, _('Not response!'), sensor.index)
+                        else:
+                            self.start_status(sensor.name, _('Out of order'), sensor.index)
 
     def run(self):
         self._sleep(2)
@@ -1453,6 +1488,6 @@ class _Sensors_Timer(Thread):
 
             except Exception:
                 log.debug('sensors.py', _('Sensors timer loop error: {}').format(traceback.format_exc()))
-                self._sleep(5)
+                self._sleep(5)  
 
 sensors_timer = _Sensors_Timer()

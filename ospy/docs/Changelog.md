@@ -1,6 +1,15 @@
 OSPy Changelog
 ====
 
+September 9 2022 (v3.0)
+-----------
+(Rimco)<br/>
+Changes:<br/>
+Slight improvement to clean up the logging a bit more.<br/>
+(martinpihrt)<br/>
+Changes:<br/>
+Added tooltip to addon manager for future use (packages translation). Updating the Czech language. Tested new feature and fixed bugs in Multi Contact sensors. Added Blue style template to OSPy options.
+
 July 25 2022 (v3.0)
 -----------
 (martinpihrt)<br/>

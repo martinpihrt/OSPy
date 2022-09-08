@@ -674,10 +674,13 @@ class sensor_page(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[],
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], # ... [] for input save multiple select
                          MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[],
-                         SW_C0=[], SW_C1=[], SW_C2=[], SW_C3=[], SW_C4=[], SW_C5=[], SW_C6=[],
-                         SW_O0=[], SW_O1=[], SW_O2=[], SW_O3=[], SW_O4=[], SW_O5=[], SW_O6=[]) # [] for save multiple select
+                         SW_C0=[], SW_C1=[], SW_C2=[], SW_C3=[], SW_C4=[], SW_C5=[], SW_C6=[],        # 7 switch closed pgm
+                         SW_O0=[], SW_O1=[], SW_O2=[], SW_O3=[], SW_O4=[], SW_O5=[], SW_O6=[],        # 7 switch open pgm
+                         SW_SC0=[], SW_SC1=[], SW_SC2=[], SW_SC3=[], SW_SC4=[], SW_SC5=[], SW_SC6=[], # 7 switch closed stations
+                         SW_SO0=[], SW_SO1=[], SW_SO2=[], SW_SO3=[], SW_SO4=[], SW_SO5=[], SW_SO6=[]  # 7 switch open stations
+                         )                         
         multi_type = -1
         sen_type = -1
 
@@ -902,9 +905,34 @@ class sensor_page(ProtectedPage):
                         sensor.soil_probe_label[i] = '{}'.format(qdict['pl{}'.format(i)])
 
             elif sen_type == 7:
-                for i in range(0, 7):
-                    sensor.sw_open_program[i] = '{}'.format(qdict['SW_O{}'.format(i)])
-                    sensor.sw_closed_program[i] = '{}'.format(qdict['SW_C{}'.format(i)])
+                sensor.sw0_open_program = qdict['SW_O0']
+                sensor.sw1_open_program = qdict['SW_O1']
+                sensor.sw2_open_program = qdict['SW_O2']
+                sensor.sw3_open_program = qdict['SW_O3']
+                sensor.sw4_open_program = qdict['SW_O4']
+                sensor.sw5_open_program = qdict['SW_O5']
+                sensor.sw6_open_program = qdict['SW_O6']
+                sensor.sw0_closed_program = qdict['SW_C0'] 
+                sensor.sw1_closed_program = qdict['SW_C1']
+                sensor.sw2_closed_program = qdict['SW_C2']
+                sensor.sw3_closed_program = qdict['SW_C3']
+                sensor.sw4_closed_program = qdict['SW_C4']
+                sensor.sw5_closed_program = qdict['SW_C5']
+                sensor.sw6_closed_program = qdict['SW_C6']
+                sensor.sw0_open_stations = qdict['SW_SO0']
+                sensor.sw1_open_stations = qdict['SW_SO1']
+                sensor.sw2_open_stations = qdict['SW_SO2']
+                sensor.sw3_open_stations = qdict['SW_SO3']
+                sensor.sw4_open_stations = qdict['SW_SO4']
+                sensor.sw5_open_stations = qdict['SW_SO5']
+                sensor.sw6_open_stations = qdict['SW_SO6']
+                sensor.sw0_closed_stations = qdict['SW_SC0']
+                sensor.sw1_closed_stations = qdict['SW_SC1']
+                sensor.sw2_closed_stations = qdict['SW_SC2']
+                sensor.sw3_closed_stations = qdict['SW_SC3']
+                sensor.sw4_closed_stations = qdict['SW_SC4']
+                sensor.sw5_closed_stations = qdict['SW_SC5']
+                sensor.sw6_closed_stations = qdict['SW_SC6']
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

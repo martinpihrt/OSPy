@@ -116,7 +116,7 @@ function check_type() {
         jQuery("#log_events").hide()
         jQuery("#email_events").hide()
         jQuery("#email_type").hide()
-        jQuery("#show_footer").hide()                       
+        jQuery("#show_footer").show()                       
     } else {
         jQuery("#multi_contact").hide()
         jQuery("#sample_rate").show()
@@ -796,32 +796,288 @@ jQuery(document).ready(function(){
                     </th>
                 </tr>
                 <tr><td colspan="2">
-                <small>$_('Select the program you want to activate during the event (closed/open). A switch connected to the multisensor board.') $_('Cannot be used for these programs: weekly advanced, custom, weekly weather! These programs will not appear in the menu and cannot be selected.') $_('The selected program that we want to run with this does not have to be enabled in the programs, but it must have set days when we want the program to run.') $_('If the program does not have a days marked, it will not start (neither by the "run now" button in the programs, nor by this sensor)!')</small>
+                <small>$_('Select the program you want to activate during the event (closed/open). A switch connected to the multisensor board.') $_('Cannot be used for these programs: weekly advanced, custom, weekly weather! These programs will not appear in the menu and cannot be selected.') $_('The selected program that we want to run with this does not have to be enabled in the programs, but it must have set all days when we want the program to run.') $_('If the program does not have a days marked, it will not start (neither by the "run now" button in the programs, nor by this sensor)!')</small>
                 </td>
                 </tr>
-                $for i in range(0, 7):
-                    <tr><td colspan="2">
-                    <small><b>$_('Switch') ${i+1}</b></small>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                    <td><select name="SW_C${i}" id="SW_C${i}" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                    <option value="-1" ${" selected" if "-1" in sensor.sw_closed_program[int(i)] else ""}>$_(u'None')</option>
-                    $for program in programs.get():
-                        <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw_closed_program[int(i)] else ""}>${program.name}</option> 
-                    </select></td>
-                    </tr>
-                    <tr>
-                    <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                    <td><select name="SW_O${i}" id="SW_O${i}" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                    <option value="-1" ${" selected" if "-1" in sensor.sw_open_program[int(i)] else ""}>$_(u'None')</option>
-                    $for program in programs.get():
-                        <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw_open_program[int(i)] else ""}>${program.name}</option>
-                    </select></td>
-                    </tr>
-                    $if i < 6:
-                        <tr><td><hr></td></tr>                    
+                <!-- switch 1 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 1)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C0" id="SW_C0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw0_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC0" id="SW_SC0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw0_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O0" id="SW_O0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw0_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO0" id="SW_SO0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw0_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 2 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 2)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C1" id="SW_C1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw1_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC1" id="SW_SC1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw1_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O1" id="SW_O1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw1_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO1" id="SW_SO1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw1_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 3 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 3)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C2" id="SW_C2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw2_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC2" id="SW_SC2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw2_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O2" id="SW_O2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw2_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO2" id="SW_SO2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw2_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 4 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 4)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C3" id="SW_C3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw3_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC3" id="SW_SC3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw3_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O3" id="SW_O3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw3_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO3" id="SW_SO3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw3_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 5 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 5)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C4" id="SW_C4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw4_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC4" id="SW_SC4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw4_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O4" id="SW_O4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw4_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO4" id="SW_SO4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw4_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 6 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 6)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C5" id="SW_C5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw5_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC5" id="SW_SC5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw5_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O5" id="SW_O5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw5_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO5" id="SW_SO5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw5_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr><td>----------------</td></tr>
+                <!-- switch 7 -->
+                <tr><td colspan="2">
+                <small><b>$_('Switch') 7)</b></small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
+                <td><select name="SW_C6" id="SW_C6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw6_closed_program else ""}>${program.name}</option> 
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SC6" id="SW_SC6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw6_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
+                <td><select name="SW_O6" id="SW_O6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_program else ""}>$_(u'None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw6_open_program else ""}>${program.name}</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
+                <td><select name="SW_SO6" id="SW_SO6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_stations else ""}>$_(u'None')</option>
+                $for station in [station for station in stations if station.enabled]:
+                    <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw6_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
+                </select>
+                </td>
+                </tr>                                                                              
                 <tr>
                 <th colspan="2">
                 <hr>

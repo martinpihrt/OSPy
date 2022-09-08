@@ -126,7 +126,7 @@ class _PluginChecker(threading.Thread):
                             self.install_repo_plugin(update['repo'], plugin)
 
             except Exception:
-                logging.error(_('Failed to update the plug-ins information:') + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to update the plug-ins information') + ': {}'.format(traceback.format_exc()))
             finally:
                 self._sleep(3600)
 
@@ -213,7 +213,8 @@ class _PluginChecker(threading.Thread):
                     }
 
         except Exception: 
-            logging.error(_('Failed to read a plug-in zip file:') + ' ' + str(traceback.format_exc()))
+            logging.error(_('Failed to read a plug-in zip file') + ': {}'.format(traceback.format_exc()))
+            pass
 
         return result
 
@@ -224,6 +225,7 @@ class _PluginChecker(threading.Thread):
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
         except Exception:
             logging.error(_('Failed to get contents of {}:').format(repo) + '\n' + traceback.format_exc())
+            pass
             return {}
 
         return self._repo_contents[repo]
@@ -381,6 +383,7 @@ def _plugin_name(lines):
 __name_cache = {}
 def plugin_name(plugin):
     """Tries to find the name of the given plugin without importing it yet."""
+    import logging
     if plugin not in __name_cache:
         __name_cache[plugin] = None
         filename = path.join(path.dirname(__file__), plugin, '__init__.py')
@@ -389,7 +392,35 @@ def plugin_name(plugin):
                 __name_cache[plugin] = _plugin_name(fh)
         except Exception:
             pass
+            logging.error(_('Failed to read in NAME plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
     return __name_cache[plugin]
+
+
+def _plugin_name_menu(lines):
+    result = None
+    for line in lines:
+        if 'MENU' in line:
+#TODO translation and re
+            match = re.search('MENU\\s=\\s("|\')([^"\']+)("|\')', line)
+            if match is not None:
+                result = match.group(2)
+    return result
+
+
+__name_cache_menu = {}
+def plugin_name_menu(plugin):
+    """Tries to find the menu translated name of the given plugin without importing it yet."""
+    import logging
+    if plugin not in __name_cache_menu:
+        __name_cache_menu[plugin] = None
+        filename = path.join(path.dirname(__file__), plugin, '__init__.py')
+        try:
+            with open(filename) as fh:
+                __name_cache_menu[plugin] = _plugin_name_menu(fh)
+        except Exception:
+            pass
+            logging.error(_('Failed to read in MENU name plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
+    return __name_cache_menu[plugin]    
 
 
 def plugin_names():
@@ -468,13 +499,13 @@ def start_enabled_plugins():
 
                 plugin.start()
                 __running[module] = plugin
-                logging.info(_('Started the') + ': ' + str(plugin_n))
+                logging.info(_('Started the') + ': {}'.format(plugin_n))
 
                 if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
                     plugin.LINK = module + '.' + plugin.LINK
 
             except Exception:
-                logging.error(_('Failed to load the') + ' ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n), traceback.format_exc())
                 options.enabled_plugins.remove(module)
 
     for module, plugin in __running.copy().items():
@@ -483,9 +514,9 @@ def start_enabled_plugins():
             try:
                 plugin.stop()
                 del __running[module]
-                logging.info(_('Stopped the') + ': ' + str(plugin_n))
+                logging.info(_('Stopped the') + ': {}'.format(plugin_n))
             except Exception:
-                logging.error(_('Failed to stop the') + ': ' + str(plugin_n) + ' ' + str(traceback.format_exc()))
+                logging.error(_('Failed to stop the') + ': {} {}'.format(plugin_n, traceback.format_exc()))
 
 
 def running():
@@ -494,7 +525,7 @@ def running():
 
 def get(name):
     if name not in __running:
-        raise Exception(_('The plug-in') + ': ' + str(name) + ' ' + _('is not running.'))
+        raise Exception(_('The plug-in') + ': {} '.format(name) + _('is not running.'))
     return __running[name]
 
 

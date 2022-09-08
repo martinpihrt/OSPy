@@ -1441,3 +1441,40 @@ td.stationSchedule {
     background: #F5F5F5;
     width: 40%;
 }
+
+/* Tool tip - original name in plugins manager*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+    font-size: 12pt;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 350pt;
+    background-color: gray;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: gray transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
