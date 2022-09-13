@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-09-08 15:27+0200\n"
+"POT-Creation-Date: 2022-09-13 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1452,7 +1452,8 @@ msgstr ""
 
 #: ospy/sensors.py:1412
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:42
-#: plugins/email_reader/__init__.py:394 plugins/relay_16/__init__.py:120
+#: plugins/email_reader/__init__.py:394
+#: plugins/modbus_stations/__init__.py:265 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127 plugins/telegram_bot/__init__.py:154
 #: plugins/telegram_bot/__init__.py:404
 msgid "ON"
@@ -1460,7 +1461,8 @@ msgstr ""
 
 #: ospy/sensors.py:1414
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:40
-#: plugins/email_reader/__init__.py:396 plugins/relay_16/__init__.py:137
+#: plugins/email_reader/__init__.py:396
+#: plugins/modbus_stations/__init__.py:268 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144 plugins/telegram_bot/__init__.py:160
 #: plugins/telegram_bot/__init__.py:410
 msgid "OFF"
@@ -1550,51 +1552,51 @@ msgstr ""
 msgid "Creating statistics..."
 msgstr ""
 
-#: ospy/stations.py:138
+#: ospy/stations.py:139
 msgid "The usage of"
 msgstr ""
 
-#: ospy/stations.py:138
+#: ospy/stations.py:139
 msgid "is more than the maximum allowed usage. Scheduling it will be impossible."
 msgstr ""
 
-#: ospy/stations.py:160
+#: ospy/stations.py:161
 msgid "Activated outputs"
 msgstr ""
 
-#: ospy/stations.py:189
+#: ospy/stations.py:193
 msgid "Resized to"
 msgstr ""
 
-#: ospy/stations.py:213
+#: ospy/stations.py:217
 msgid "Activated output"
 msgstr ""
 
-#: ospy/stations.py:215
+#: ospy/stations.py:219
 msgid "Activated master one"
 msgstr ""
 
-#: ospy/stations.py:218
+#: ospy/stations.py:222
 msgid "Activated master two"
 msgstr ""
 
-#: ospy/stations.py:227
+#: ospy/stations.py:231
 msgid "Deactivated output"
 msgstr ""
 
-#: ospy/stations.py:229
+#: ospy/stations.py:233
 msgid "Deactivated master one"
 msgstr ""
 
-#: ospy/stations.py:232
+#: ospy/stations.py:236
 msgid "Deactivated master two"
 msgstr ""
 
-#: ospy/stations.py:245
+#: ospy/stations.py:249
 msgid "Cleared all outputs"
 msgstr ""
 
-#: ospy/stations.py:285
+#: ospy/stations.py:289
 msgid "Activated shift outputs"
 msgstr ""
 
@@ -3358,7 +3360,7 @@ msgstr ""
 msgid "No update"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:73
+#: ospy/templates/plugins_manage.html:71
 msgid "Installed package"
 msgstr ""
 
@@ -5243,7 +5245,7 @@ msgid "Saving to log files OK"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:575 plugins/cli_control/__init__.py:224
-#: plugins/modbus_stations/__init__.py:504
+#: plugins/modbus_stations/__init__.py:530
 #: plugins/ping_monitor/__init__.py:386 plugins/speed_monitor/__init__.py:275
 #: plugins/tank_monitor/__init__.py:692 plugins/wind_monitor/__init__.py:480
 msgid "Deleted all log files OK"
@@ -6038,7 +6040,7 @@ msgstr ""
 msgid "CLI Control is disabled."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:121 plugins/modbus_stations/__init__.py:110
+#: plugins/cli_control/__init__.py:121 plugins/modbus_stations/__init__.py:124
 msgid "Station {} change to ON"
 msgstr ""
 
@@ -6050,7 +6052,7 @@ msgstr ""
 msgid "No command is set for ON: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:135 plugins/modbus_stations/__init__.py:121
+#: plugins/cli_control/__init__.py:135 plugins/modbus_stations/__init__.py:136
 msgid "Station {} change to OFF"
 msgstr ""
 
@@ -6062,7 +6064,7 @@ msgstr ""
 msgid "No command is set for OFF: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:148 plugins/modbus_stations/__init__.py:131
+#: plugins/cli_control/__init__.py:148 plugins/modbus_stations/__init__.py:147
 msgid "All station change to OFF"
 msgstr ""
 
@@ -8748,11 +8750,11 @@ msgid "Modbus Stations enabled."
 msgstr ""
 
 #: plugins/modbus_stations/__init__.py:79
-#: plugins/modbus_stations/__init__.py:257
-#: plugins/modbus_stations/__init__.py:320
-#: plugins/modbus_stations/__init__.py:380
-#: plugins/modbus_stations/__init__.py:420
-#: plugins/modbus_stations/__init__.py:453
+#: plugins/modbus_stations/__init__.py:283
+#: plugins/modbus_stations/__init__.py:347
+#: plugins/modbus_stations/__init__.py:401
+#: plugins/modbus_stations/__init__.py:443
+#: plugins/modbus_stations/__init__.py:476
 msgid "Modbus Stations plug-in"
 msgstr ""
 
@@ -8760,61 +8762,75 @@ msgstr ""
 msgid "Modbus Stations is disabled."
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:234
-#: plugins/modbus_stations/__init__.py:276
-#: plugins/modbus_stations/__init__.py:335
-#: plugins/modbus_stations/__init__.py:401
+#: plugins/modbus_stations/__init__.py:255
+#: plugins/modbus_stations/__init__.py:302
+#: plugins/modbus_stations/__init__.py:362
+#: plugins/modbus_stations/__init__.py:422
 msgid "No such file or directory"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:252
+#: plugins/modbus_stations/__init__.py:271
+msgid "FLIP"
+msgstr ""
+
+#: plugins/modbus_stations/__init__.py:277
 msgid "Addr: {} Out: {} To: {}."
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:258
-#: plugins/modbus_stations/__init__.py:321
-#: plugins/modbus_stations/__init__.py:381
-#: plugins/modbus_stations/__init__.py:421
+#: plugins/modbus_stations/__init__.py:284
+#: plugins/modbus_stations/__init__.py:348
+#: plugins/modbus_stations/__init__.py:402
+#: plugins/modbus_stations/__init__.py:444
 msgid "Error: {}"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:292
-#: plugins/modbus_stations/__init__.py:351
+#: plugins/modbus_stations/__init__.py:318
 msgid "Address request..."
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:300
-#: plugins/modbus_stations/__init__.py:359
+#: plugins/modbus_stations/__init__.py:327
+#: plugins/modbus_stations/__init__.py:386
 msgid "Incomming data..."
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:306
+#: plugins/modbus_stations/__init__.py:333
 msgid "Found address"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:311
-#: plugins/modbus_stations/__init__.py:371
+#: plugins/modbus_stations/__init__.py:338
 msgid "CRC not match!"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:367
-#: plugins/modbus_stations/__init__.py:481
+#: plugins/modbus_stations/__init__.py:377
+msgid "Firmware request..."
+msgstr ""
+
+#: plugins/modbus_stations/__init__.py:390
+#: plugins/modbus_stations/__init__.py:505
 msgid "Firmware is"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:414
+#: plugins/modbus_stations/__init__.py:436
 msgid "Set device address {}."
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:472
+#: plugins/modbus_stations/__init__.py:495
 msgid "The address that should have been set on the device"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:477
+#: plugins/modbus_stations/__init__.py:496
+msgid "Now I will try to load the address after programming..."
+msgstr ""
+
+#: plugins/modbus_stations/__init__.py:502
 msgid "Found device on address"
 msgstr ""
 
-#: plugins/modbus_stations/__init__.py:483
+#: plugins/modbus_stations/__init__.py:507
+msgid "Not Read firmware from device."
+msgstr ""
+
+#: plugins/modbus_stations/__init__.py:509
 msgid "Not Found any address or device."
 msgstr ""
 

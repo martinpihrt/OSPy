@@ -168,14 +168,17 @@ class _BaseStations(object):
             self._state.append(False)
 
         if count < len(self._stations):
-            if self.master >= count:
-                self.master = None
+            if self.master is not None:
+                if self.master >= count:
+                    self.master = None
 
-            if self.master_two >= count:
-                self.master_two = None
+            if self.master_two is not None:
+                if self.master_two >= count:
+                    self.master_two = None
 
-            if self.master_by_program >= count:
-                self.master_by_program = None                
+            if self.master_by_program is not None:
+                if self.master_by_program >= count:
+                    self.master_by_program = None
 
             # Make sure we turn them off before they become unreachable
             for index in range(count, len(self._stations)):

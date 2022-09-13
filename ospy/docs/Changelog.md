@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+September 13 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Updating the Czech and Slovak language. Fixed error in stations in python 3 (when the number of stations is changed and the master station is not used). The modbus station extension is tested and ready to use.
+
 September 10 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
