@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+November 11 2022 (v3.0)
+-----------
+(martinpihrt)<br/>
+Changes:<br/>
+Fix on the "settings" page (help was displayed when the page was opened and should have been hidden until the user clicked the "help" button).
+
 September 13 2022 (v3.0)
 -----------
 (martinpihrt)<br/>
