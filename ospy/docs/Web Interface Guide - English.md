@@ -93,9 +93,8 @@ OSPy Web Interface Guide in English
             Show pictures at stations          
         Weather Section
             Use Weather
-            Dark Sky API key
+            Stormglass API key
             Location
-            Elevation
         Users Section
             Disable security
             Admin login name
@@ -520,29 +519,26 @@ The software will restart and after a few seconds the interface will appear in t
 Select the check box to display images for the stations on the home page and the stations page.  
 
 ## Weather Section
-The weather section allows you to access the weather forecast service for your location. You must register for this feature on the web (https://darksky.net/dev).
+The weather section allows you to access the weather forecast service for your location. You must register for this feature on the web (https://stormglass.io/).
 According to the weather forecast, the irrigation cycle can then be automatically adjusted (if we choose a plugin that uses the weather forecast).
 
 ### Use Weather
-Enabling or disabling connection to service Dark Sky.
+Enabling or disabling connection to service Storm Glass.
 
-### Dark Sky API key
-To make use of local weather conditions, a Dark Sky API key is needed.
+### Stormglass API key
+To make use of local weather conditions, Storm Glass API key is needed.
 
 ### Location
 City name or zip code. Used to determine location via OpenStreetMap for weather information.
 
-### Elevation
-Elevation of this location in meters. (need not be filled)
-
 ## Users Section
 Here is the credentials of a system administrator (main user) who can manage the entire system.
-For improved security it is recommended that you change the system password from the default opendoor and user name default admin. You can also disable the password requirement if desired.
+For improved security it is recommended that you change the system password and user name default admin. You can also disable the password requirement if desired.
 
 * Click the triangle at the left of the bar labled Change password to expand the section.
 * Check the "No password" box if you have a very good reason to disable password and name protection. The system will no longer require the user to log in. Access to all sections will be allowed.
 * Enter your login name the the boxes labeled Administrator name.
-* Enter the current password in the first text box This will be opendoor on a new installation.
+* Enter the current password in the first text box.
 * Enter your new password into the the boxes labeled New password and Confirm password.
 * Click the Submit Changes button at the bottom of the page.
 You will return to the home page. Your new password and name will be required the next time you log in.
@@ -554,7 +550,7 @@ Leave the Disable security box unchecked unless you have a very good reason to d
 Enter the Login name. This will be admin on a new installation.
 
 ### Current password
-Enter the current password in the first text box. This will be opendoor on a new installation.
+Enter the current password in the first text box. This will be admin on a new installation.
 
 ### New password
 Enter your new password into the the boxes labeled New password.

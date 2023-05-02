@@ -635,12 +635,14 @@ class sensor_page(ProtectedPage):
                         slog_file =  json.load(logf)
                 except IOError:
                     slog_file = []
-                data = "Date; Time; Value\n"
+                data = "Date; Time; Value; Battery; Signal\n"
                 for interval in slog_file:
                     data += '; '.join([
                         interval['date'],
                         interval['time'],
                         '{}'.format(interval['value']),
+                        '{}'.format(interval['battery'] if 'battery' in interval else ''),
+                        '{}'.format(interval['rssi'] if 'rssi' in interval else ''),
                     ]) + '\n'
 
                 web.header('Content-Type','text/csv')

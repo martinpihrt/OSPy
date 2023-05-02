@@ -12,9 +12,9 @@
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="OpenSprinkler Python"
+DESC="OpenSprinkler Python3"
 NAME=ospy
-DAEMON=/usr/bin/python
+DAEMON=/usr/bin/python3
 DAEMON_ARGS="run.py"
 HOMEDIR="{{OSPY_DIR}}"
 PIDFILE=/var/run/$NAME.pid

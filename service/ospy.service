@@ -1,10 +1,15 @@
-﻿[Unit]
-Description=OpenSprinkler Python
+﻿#Service for OSPy running on a SystemD service#
+
+[Unit]
+Description=OpenSprinkler Python3
+After=syslog.target network.target
 
 [Service]
 WorkingDirectory="{{OSPY_DIR}}"
-ExecStart=/usr/bin/python run.py
+ExecStart=/usr/bin/python3 run.py
 KillMode=process
+Restart=on-abort
+SyslogIdentifier=ospy
 
 [Install]
 WantedBy=multi-user.target

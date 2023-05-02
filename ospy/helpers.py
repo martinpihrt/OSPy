@@ -84,6 +84,10 @@ def two_digits(n):
     return u'%02d' % int(n)
 
 
+def avg(lst):
+    return sum(lst) / len(lst)
+
+
 def program_delay(program):
     today = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
     result = (program.start - today).total_seconds()
@@ -978,4 +982,26 @@ def cpu_info():
             return False
     except:
         print_report('server.py', traceback.format_exc())
-        return False                         
+        return False
+
+
+def read_wifi_signal():
+    # https://www.programcreek.com/python/?CodeExample=get+rssi
+    import os
+    try:
+        dBm = os.popen("/bin/cat /proc/net/wireless | awk 'NR==3 {print $4}' | sed 's/\.//'").readline().strip()
+        if dBm=="":
+            return 0
+        dBm = int(dBm)
+
+        if(dBm <= -100):
+            quality = 0
+        elif(dBm >= -50):
+            quality = 100
+        else:
+            quality = 2 * (dBm + 100)
+        return quality
+
+    except:
+        print_report(u'helpers.py', traceback.format_exc())
+        return 0                                 

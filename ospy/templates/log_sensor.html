@@ -48,7 +48,7 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
-            <th>$_('Time')</th>
+            <th>$_('Time')</th>           
             $if "list_0" in srecords[0]:
                 $for t in range(0, 16):
                     <th>$_('U') ${int(t+1)}</th>
@@ -59,6 +59,8 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
             $else:
                 <th>$_('Value')</th>
                 <th>$_('Action')</th>
+            <th>$_('Battery')</th>
+            <th>$_('Signal')</th>                 
         </tr>
         $ odd = 1
         $for r in srecords:
@@ -106,6 +108,14 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
                         </td>
                 $if "action" in event:
                     <td align='center'>${event["action"]}</td>
+                $else:
+                    <td align='center'></td>
+                $if "battery" in event:
+                    <td align='center'>${event["battery"]} $_('V')</td>
+                $else:
+                    <td align='center'></td>
+                $if "rssi" in event:    
+                    <td align='center'>${event["rssi"]} $_('%')</td>
             </tr>
             $ odd = 1 - odd
     </table>

@@ -93,9 +93,8 @@ OSPy Průvodce webovým rozhraním v češtině
             Zobrazit obrázky na stanicích        
         Počasí
             Použít počasí
-            Dark Sky API klíč
+            Stormglass API klíč
             Umístění
-            Nadmořská výška
         Uživatelé
             Bez hesla
             Jméno správce
@@ -518,31 +517,28 @@ Software se restartuje a po několika sekundách se rozhraní zobrazí ve zvolen
 
 ### Zobrazit obrázky na stanicích  
 Zaškrtnutím tohoto políčka zobrazíte obrázky stanic na domovské stránce a na stránce stanic.  
-     
+
 ## Počasí
-Sekce počasí umožňuje přístup ke službě předpovědi počasí pro vaši polohu. Musíte se zaregistrovat pro tuto funkci na webu (https://darksky.net/dev).
+Sekce počasí umožňuje přístup ke službě předpovědi počasí pro vaši polohu. Musíte se zaregistrovat pro tuto funkci na webu (https://stormglass.io/).
 Podle předpovědi počasí lze zavlažovací cyklus automaticky upravit (pokud zvolíme rozšíření, které používá předpověď počasí).
 * Registrace a použití služby není pro běžné použití zpoplatněno.
 
 ### Použít počasí
-Povolení nebo zakázání připojení ke službě Dark Sky.
+Povolení nebo zakázání připojení ke službě Stormglass.
 
-### Dark Sky API klíč
-K využití místních povětrnostních podmínek je nutný klíč rozhraní Dark Sky API.
+### Storm Glass API klíč
+K využití místních povětrnostních podmínek je nutný klíč rozhraní Storm Glass API.
 
 ### Umístění
-Název města nebo PSČ. Slouží k určení polohy pomocí OpenStreetMap pro informace o počasí ze služby Dark Sky.
-
-### Nadmořská výška
-Nadmořská výška místa v metrech, kde je umístěn zavlažovací systém (nemusí být vyplněno).
+Název města nebo PSČ. Slouží k určení polohy pomocí OpenStreetMap pro informace o počasí ze služby Storm Glass.
 
 ## Uživatelé
-Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy z výchozího "opendoor" a uživatelské jméno z výchozího "admin". V případě potřeby můžete také požadavek na heslo deaktivovat.
+Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy a uživatelské jméno z výchozího "admin". V případě potřeby můžete také požadavek na heslo deaktivovat.
 
 * Klepnutím na trojúhelník nalevo od lišty s popiskem "Uživatelé" rozbalte sekci.
 * Označte zaškrtnutím políčko "Bez hesla", pokud máte velmi dobrý důvod k deaktivaci ochrany heslem a jménem. Systém již nebude vyžadovat přihlášení uživatele. Bude umožnen přístup do všech sekcí.
-* Zadejte Vaše uživatelské jméno (výchozí "admin").
-* Zadejte Vaše aktuální heslo (výchozí "opendoor". 
+* Zadejte Vaše uživatelské jméno.
+* Zadejte Vaše aktuální heslo. 
 * Zadejte nové heslo do polí označených "Nové heslo" a "Potvrďte heslo".
 * Klikněte na tlačítko "Potvrdit změny" ve spodní části stránky.
 
@@ -555,7 +551,7 @@ Pokud je zaškrtnuté políčko "Bez hesla" povolíme přístup do systému anon
 Do textového pole zadejte uživatelské jméno. To je při nové instalaci "admin".
 
 ### Aktuální heslo
-Do textového pole zadejte aktuální heslo. To je při nové instalaci "opendoor".
+Do textového pole zadejte aktuální heslo.
 
 ### Nové heslo
 Zadejte nové heslo do pole označeného "Nové heslo".

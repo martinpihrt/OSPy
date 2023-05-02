@@ -212,11 +212,11 @@ Creative Commons Attribution-ShareAlike 3.0 license
 
 ## Acknowledgements
 Full credit goes to Dan for his generous contributions in porting the microcontroller firmware to Python.
-The program makes use of web.py (http://webpy.org) for the web interface.
-The program makes use of py-gfm (https://github.com/Zopieux/py-gfm) to render the help pages written in GitHub flavored markdown (Python 2)
-The program makes use of pygments (http://pygments.org) to provide syntax highlighting in the help pages. (Python 2)
-The program makes use of cmarkgfm (https://github.com/theacodes/cmarkgfm) to render the help pages written in GitHub flavored markdown (Python 3+).
-The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
-The program makes use of Dark Sky API ([Powered by Dark Sky](https://darksky.net/poweredby/)) for weather information.
-The program makes use Blinker (https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
-The program makes use Arduino (https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor.
+* The program makes use of web.py (http://webpy.org) for the web interface.
+* The program makes use of py-gfm (https://github.com/Zopieux/py-gfm) to render the help pages written in GitHub flavored markdown (Python 2)
+* The program makes use of pygments (http://pygments.org) to provide syntax highlighting in the help pages. (Python 2)
+* The program makes use of cmarkgfm (https://github.com/theacodes/cmarkgfm) to render the help pages written in GitHub flavored markdown (Python 3+).
+* The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
+* The program makes use of Stormglass API (https://stormglass.io/) for weather information.
+* The program makes use Blinker (https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
+* The program makes use Arduino (https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor.

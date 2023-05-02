@@ -6,13 +6,13 @@ __author__ = u'Rimco'
 # System imports
 import logging
 import traceback
-from ospy.helpers import is_python2
+from ospy.helpers import is_python2, avg
 
 if is_python2():
     from urllib2 import urlopen
     from urllib import quote_plus
 else:
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
     from urllib.parse import quote_plus
 
 import json
@@ -29,12 +29,13 @@ from . import i18n
 def _cache(cache_name):
     def cache_decorator(func):
         def func_wrapper(self, check_date):
-            if 'location' not in self._result_cache or options.location != self._result_cache['location'] or \
-                    'elevation' not in self._result_cache or options.elevation != self._result_cache['elevation']:
-                self._result_cache = {
-                    'location': options.location,
-                    'elevation': options.elevation
-                }
+            if isinstance(check_date, datetime.datetime):
+                check_date = check_date.date()
+
+            if 'location' not in self._result_cache or options.location != self._result_cache['location']:
+                self._result_cache.clear()
+                self._result_cache['location'] = options.location
+
             if cache_name not in self._result_cache:
                 self._result_cache[cache_name] = {}
 
@@ -65,13 +66,13 @@ class _Weather(Thread):
         self._requests = []
         self._lat = None
         self._lon = None
+        self._elevation = 0.0
         self._tz_offset = 0
         self._determine_location = True
         self._result_cache = options.weather_cache
 
         options.add_callback('location', self._option_cb)
-        options.add_callback('darksky_key', self._option_cb)
-        options.add_callback('elevation', self._option_cb)
+        options.add_callback('stormglass_key', self._option_cb)
         options.add_callback('weather_lat', self._option_cb)            # from home page weather status (latitude)
         options.add_callback('weather_lon', self._option_cb)            # from home page weather status (longtitude)
         options.add_callback('weather_status', self._option_cb)         # from home page weather status (msg code)
@@ -120,7 +121,7 @@ class _Weather(Thread):
                 self._sleep(6*3600)
 
     def _find_location(self):
-        if options.location and options.darksky_key:
+        if options.location and options.stormglass_key:
             data = urlopen(
                 "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location))
             data = json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
@@ -133,7 +134,9 @@ class _Weather(Thread):
                 options.weather_lat = str(float(data[0]['lat']))
                 options.weather_lon = str(float(data[0]['lon']))
                 options.weather_status = 1 # found
-                logging.debug(_('Location found: %s, %s'), self._lat, self._lon)
+                url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
+                self._elevation = self._get_stormglass_json(url)['data']['elevation']
+                logging.debug(_('Location found: %s, %s at %.1fm above sea level'), self._lat, self._lon, self._elevation)
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:
@@ -142,55 +145,67 @@ class _Weather(Thread):
             raise Exception(_('No location coordinates available!'))
         return self._lat, self._lon
 
-    @_cache('darksky_data')
-    def _get_darksky_data(self, check_date):
-        if isinstance(check_date, datetime.datetime):
-            check_date = check_date.date()
+    @staticmethod
+    def _sg_time_to_timestamp(sg_time):
+        return int(datetime.datetime.strptime(sg_time[:22] + sg_time[23:], '%Y-%m-%dT%H:%M:%S%z').timestamp())
 
-        date_str = ''
-        if check_date <= datetime.date.today():
-            date_str = ',' + check_date.strftime('%Y-%m-%dT00:00:00')
-        url = "https://api.darksky.net/forecast/%s/%s,%s%s?exclude=minutely,alerts,flags&extend=hourly&units=si" % ((options.darksky_key,) + self.get_lat_lon() + (date_str,))
+    @staticmethod
+    def _get_stormglass_json(url):
+        logging.debug(url)
+        request = Request(url)
+        request.add_header('Authorization', options.stormglass_key)
+        data = urlopen(request)
+        return json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
 
-        # We cache results for previous days, but we also want to have a short term cache for predictions:
-        if 'darksky_json' not in self._result_cache:
-            self._result_cache['darksky_json'] = {}
+    @_cache('stormglass_data')
+    def _get_stormglass_data(self, check_date):
+        # Use 7 day intervals to limit API calls:
+        start_dt = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - datetime.timedelta(days=1)
+        while start_dt > datetime.datetime.combine(check_date, datetime.time()):
+            start_dt -= datetime.timedelta(days=7)
+        start_timestamp = start_dt.timestamp()
 
-        for key in self._result_cache['darksky_json'].keys():
-            if datetime.datetime.now() - self._result_cache['darksky_json'][key]['time'] > datetime.timedelta(minutes=10):
-                del self._result_cache['darksky_json'][key]
+        url = "https://api.stormglass.io/v2/weather/point?lat=%s&lng=%s&params=airTemperature,pressure,cloudCover,humidity,precipitation,windSpeed&start=%d" % (self.get_lat_lon() + (start_timestamp,))
 
-        if url not in self._result_cache['darksky_json']:
-            logging.debug(url)
-            data = urlopen(url)           
-            self._result_cache['darksky_json'][url] = {'time': datetime.datetime.now(),
-                                                       'data': json.loads(data.read().decode(data.info().get_content_charset('utf-8')))}
+        # Rate limit API calls to max 1 per 4 hours. This should work to get to max 10 API calls per day.
+        if 'stormglass_json' not in self._result_cache:
+            self._result_cache['stormglass_json'] = {}
+
+        for key in list(self._result_cache['stormglass_json'].keys()):
+            if datetime.datetime.now() - self._result_cache['stormglass_json'][key]['time'] > datetime.timedelta(hours=4):
+                del self._result_cache['stormglass_json'][key]
+
+        if url not in self._result_cache['stormglass_json']:
+            self._result_cache['stormglass_json'][url] = {'time': datetime.datetime.now(),
+                                                          'data': self._get_stormglass_json(url)}
             options.weather_cache = self._result_cache
+        
+        self._tz_offset = int(time.localtime().tm_gmtoff / 3600)
+        result = []
 
+        if 'hours' in self._result_cache['stormglass_json'][url]['data']:
+            for hr_data in self._result_cache['stormglass_json'][url]['data']['hours']:
+                hr_timestamp = self._sg_time_to_timestamp(hr_data['time'])
+                if datetime.date.fromtimestamp(hr_timestamp) == check_date:
+                    result.append({
+                        'time': hr_timestamp,
+                        'temperature': hr_data['airTemperature']['sg'],                     # [C]
+                        'pressure': hr_data['pressure']['sg'],                              # [hPa]
+                        'cloudCover': hr_data['cloudCover']['sg'] / 100.0,                  # [0.0 - 1.0]
+                        'humidity': hr_data['humidity']['sg'] / 100.0,                      # [0.0 - 1.0]
+                        'precipitation': hr_data['precipitation']['sg'],                    # [mm/h]
+                        'windSpeed': hr_data['windSpeed']['sg'],                            # [m/s]
+                    })
 
-        if 'offset' in self._result_cache['darksky_json'][url]['data']:
-            self._tz_offset = self._result_cache['darksky_json'][url]['data']['offset']
-        elif self._tz_offset == 0:
-            logging.warning(_('No timezone offset found, ETo might be incorrect.'))
-
-        return self._result_cache['darksky_json'][url]['data']
+        return result
 
     def get_hourly_data(self, check_date):
-        if isinstance(check_date, datetime.datetime):
-            check_date = check_date.date()
-
-        return [x for x in self._get_darksky_data(check_date)['hourly']['data'] if datetime.datetime.fromtimestamp(x['time']).date() == check_date]
-
-    def get_daily_data(self, check_date):
-        if isinstance(check_date, datetime.datetime):
-            check_date = check_date.date()
-
-        matching_days_data = [x for x in self._get_darksky_data(check_date)['daily']['data'] if datetime.datetime.fromtimestamp(x['time']).date() == check_date]
-
-        return matching_days_data[0] if matching_days_data else {}
+        return self._get_stormglass_data(check_date)        
 
     def get_current_data(self):
-        return self._get_darksky_data(datetime.date.today() + datetime.timedelta(days=1))['currently']
+        current_timestamp = int(datetime.datetime.now().replace(minute=0, second=0, microsecond=0).timestamp())
+        result = [x for x in self.get_hourly_data(datetime.date.today()) if x['time'] == current_timestamp]
+        return result[0] if result else {}
 
     def _calc_radiation(self, coverage, fractional_day, local_hour):
         gmt_hour = local_hour - self._tz_offset
@@ -217,40 +232,28 @@ class _Weather(Thread):
 
     @_cache('eto')
     def get_eto(self, check_date):
-        if isinstance(check_date, datetime.datetime):
-            check_date = check_date.date()
-
         hourly_data = self.get_hourly_data(check_date)
+
+        temp_avg = avg([x['temperature'] for x in hourly_data])             # [C]
+        temp_min = min([x['temperature'] for x in hourly_data])             # [C]
+        temp_max = max([x['temperature'] for x in hourly_data])             # [C]
+        wind_speed = avg([x['windSpeed'] for x in hourly_data]) * 0.748     # [m/s] at 2m height
+        humid_min = min([x['humidity'] for x in hourly_data]) * 100         # [0 - 100]
+        humid_max = max([x['humidity'] for x in hourly_data]) * 100         # [0 - 100]
+        pressure = avg([x['windSpeed'] for x in hourly_data]) / 10          # [kPa]        
 
         total_solar_radiation = 0
         total_clear_sky_isolation = 0
-        temp_avg = 0
-        humid_min = 100
-        humid_max = 0
+
         for data in hourly_data:
             hour_datetime = datetime.datetime.fromtimestamp(data['time'])
             year_datetime = datetime.datetime(hour_datetime.year, 1, 1)
             fractional_day = (360/365.25)*(hour_datetime - year_datetime).total_seconds() / 3600 / 24
             if 'cloudCover' in data:
                 solar_radiation, clear_sky_isolation = self._calc_radiation(data['cloudCover'], fractional_day, hour_datetime.hour)
-
                 # Accumulate clear sky radiation and solar radiation on the ground
                 total_solar_radiation += solar_radiation
                 total_clear_sky_isolation += clear_sky_isolation
-
-            if 'temperature' in data:
-                temp_avg += data['temperature'] / len(hourly_data)
-            if 'humidity' in data:
-                humid_min = min(humid_min, data['humidity'] * 100)
-                humid_max = max(humid_max, data['humidity'] * 100)
-
-        daily_data = self.get_daily_data(check_date)
-        # m/s at 2m above ground
-        wind_speed = daily_data.get('windSpeed', 0.0) * 0.748
-
-        pressure = daily_data.get('pressure', 1000) / 10 # kPa
-        temp_min = daily_data.get('temperatureMin', 20) # degrees C
-        temp_max = daily_data.get('temperatureMax', 20) # degrees C
 
         # Solar Radiation
         r_s = total_solar_radiation * 3600 / 1000 / 1000 # MJ / m^2 / d
@@ -260,7 +263,7 @@ class _Weather(Thread):
         # Extraterrestrial Radiation
         r_a = total_clear_sky_isolation * 3600 / 1000 / 1000 # MJ / m^2 / d
         # Clear sky solar radiation
-        r_so = (0.75 + 0.00002 * options.elevation) * r_a
+        r_so = (0.75 + 0.00002 * self._elevation) * r_a
 
         sigma_t_max4 = 0.000000004903 * math.pow(temp_max + 273.16, 4)
         sigma_t_min4 = 0.000000004903 * math.pow(temp_min + 273.16, 4)
@@ -285,24 +288,22 @@ class _Weather(Thread):
 
     @_cache('rain')
     def get_rain(self, check_date):
-        if isinstance(check_date, datetime.datetime):
-            check_date = check_date.date()
-
         result = 0.0
         hourly_data = self.get_hourly_data(check_date)
         for data in hourly_data:
-            if 'precipIntensity' in data and 'precipProbability' in data:
-                result += data['precipIntensity'] * data['precipProbability']
+            if 'precipitation' in data:
+                result += data['precipitation']
 
         return result
 
     #Deprecated interfaces:
     def _deprecated(self, *args, **kwargs):
-        raise Exception(_('This interface was removed because Weather Underground API has stopped, please update the plug-in!'))
+        raise Exception(_('This interface was removed, please update the plug-in!'))
 
     get_wunderground_history = _deprecated
     get_wunderground_forecast = _deprecated
     get_wunderground_conditions = _deprecated
+    get_daily_data = _deprecated    
 
 
 weather = _Weather()

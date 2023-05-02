@@ -125,14 +125,14 @@ class _Options(object):
             "key": "use_weather",
             "name": _('Use Weather'),
             "default": False,
-            "help": _('Enabling or disabling connection to service Dark Sky.'),
+            "help": _('Enabling or disabling connection to service Stormglass.io.'),
             "category": _('Weather')
         },
         {
-            "key": "darksky_key",
-            "name": _('Dark Sky API key'),
+            "key": "stormglass_key",
+            "name": _('Storm Glass API key'),
             "default": "",
-            "help": _('To make use of local weather conditions, a Dark Sky API key is needed.'),
+            "help": _('To make use of local weather conditions, a Storm Glass API key is needed.'),
             "category": _('Weather')
         },
         {
@@ -141,15 +141,6 @@ class _Options(object):
             "default": '',
             "help": _('City name or zip code. Used to determine location via OpenStreetMap for weather information.'),
             "category": _('Weather')
-        },
-        {
-            "key": "elevation",
-            "name": _('Elevation (m)'),
-            "default": 0,
-            "help": _('Elevation of this location in meters.'),
-            "category": _('Weather'),
-            "min": 0,
-            "max": 10000
         },
         #######################################################################
         # Users ############################################################

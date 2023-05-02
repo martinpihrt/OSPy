@@ -372,7 +372,7 @@ class _Sensors_Timer(Thread):
 
         return float(sum(a))/len(a)
             
-    def update_log(self, sensor, lg, msg, action='', msg_calculation=''):
+    def update_log(self, sensor, lg, msg, action='', msg_calculation='', battery=None, rssi=None):
         """ Update samples and events in logs """
         try:
             kind = 'slog' if lg == 'lgs' else 'elog'   
@@ -381,7 +381,7 @@ class _Sensors_Timer(Thread):
             logline = {}
             logline["date"] = time.strftime('%Y-%m-%d', nowg)
             logline["time"] = time.strftime('%H:%M:%S', nowg)
-            if kind == 'slog':   # sensor samples
+            if kind == 'slog':               # sensor samples
                 if type(msg) == list:        # example soil sensor is list with 16 values
                     for i in range(0, len(msg)):
                         logline["list_{}".format(i)] = "{}".format(msg[i])
@@ -392,6 +392,20 @@ class _Sensors_Timer(Thread):
                     if type(msg) == float:
                         msg = "{0:.1f}".format(msg)
                     logline["value"] = "{}".format(msg)
+
+                if battery is not None:      # sensor battery voltage
+                    if type(battery) == float:
+                        battery = "{0:.1f}".format(float(battery))
+                        logline["battery"] = "{}".format(battery)
+                    else:
+                        logline["battery"] = "{}".format(battery)
+
+                if rssi is not None:         # sensor Wi-Fi percent
+                    if type(rssi) == float:
+                        rssi = "{0:.1f}".format(rssi)
+                        logline["rssi"] = "{}".format(float(rssi))
+                    else:
+                        logline["rssi"] = "{}".format(rssi)
                 
                 glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
                 _abs_glog_dir = os.path.abspath(glog_dir)
@@ -400,7 +414,7 @@ class _Sensors_Timer(Thread):
                     timestamp = int(time.time())
                     if not os.path.isdir(_abs_glog_dir):
                         mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
-                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))            
+                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))
                     if not os.path.isfile(_abs_glog_dir + '/' + 'graph.json'):
                         subprocess.call(['touch', _abs_glog_dir + '/' + 'graph.json'])
                         log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
@@ -435,6 +449,7 @@ class _Sensors_Timer(Thread):
 
                 if action:
                     logline["action"] = '{}'.format(action.encode('utf-8').decode('utf-8'))
+
             else:                # sensor event log
                 logline["event"] = '{}'.format(msg.encode('utf-8').decode('utf-8'))
 
@@ -450,12 +465,12 @@ class _Sensors_Timer(Thread):
             
             try:
                 _log = self._read_log(log_ref + '.json')
-            except:   
+            except:
                 _log = []
 
             _log.insert(0, logline)
-            if options.run_sensor_entries > 0:        # 0 = unlimited
-               _log = _log[:options.run_sensor_entries] # limit records from options
+            if options.run_sensor_entries > 0:           # 0 = unlimited
+               _log = _log[:options.run_sensor_entries]  # limit records from options
             self._write_log(log_ref + '.json', _log)
             log.debug('sensors.py', _('Updating sensor log to file successfully.')) 
         
@@ -769,7 +784,7 @@ class _Sensors_Timer(Thread):
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', state)                                        # lge is event, lgs is samples
+                            self.update_log(sensor, 'lgs', state, battery=sensor.last_battery, rssi=sensor.rssi)  # lge is event, lgs is samples
 
                 else:
                     if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):
@@ -938,7 +953,7 @@ class _Sensors_Timer(Thread):
                         action = _('High Trigger') if major_change else _('High Value')
                         if status_update:
                             if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action)          # wait for reading to be updated
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_high_program)
 
@@ -948,7 +963,7 @@ class _Sensors_Timer(Thread):
                         action = _('Low Trigger') if major_change else _('Low Value')
                         if status_update:
                             if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action)          # wait for reading to be updated
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
                         if major_change:
                             self._trigger_programs(sensor, sensor.trigger_low_program)
                     else:
@@ -957,7 +972,7 @@ class _Sensors_Timer(Thread):
                             sensor.last_good_report = now()
                             action = _('Normal Trigger') if major_change else _('Normal Value')
                             if status_update:
-                                self.update_log(sensor, 'lgs', state, action)          # wait for reading to be updated
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
 
                     if major_change:
                         if sensor.send_email:
@@ -969,7 +984,7 @@ class _Sensors_Timer(Thread):
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', state)                      # lge is event, lgs is samples
+                            self.update_log(sensor, 'lgs', state, battery=sensor.last_battery, rssi=sensor.rssi)                      # lge is event, lgs is samples
 
                     if sensor.sens_type == 5:
                         sensor.err_msg[0] = 1
@@ -1066,7 +1081,7 @@ class _Sensors_Timer(Thread):
                     if sensor.log_samples:                                                               # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', liters_per_sec)                               # lge is event, lgs is samples 
+                            self.update_log(sensor, 'lgs', liters_per_sec, battery=sensor.last_battery, rssi=sensor.rssi)                               # lge is event, lgs is samples 
 
                     sensor.err_msg[5] = 1
                     if sensor.last_msg[5] != sensor.err_msg[5]:
@@ -1212,7 +1227,7 @@ class _Sensors_Timer(Thread):
                         sensor.aux_mini = 1
                         action = _('Normal Trigger') 
                         if sensor.log_samples:
-                            self.update_log(sensor, 'lgs', level_in_tank, action)
+                            self.update_log(sensor, 'lgs', level_in_tank, action, battery=sensor.last_battery, rssi=sensor.rssi)
                         delaytime = int(sensor.delay_duration) # if the level in the tank rises above the minimum +5 cm, the delay is deactivated
                         regulation_text = _('Water in Tank') + ' > ' + str(int(sensor.water_minimum)+5) + _('cm')
                         if sensor.log_event:
@@ -1237,7 +1252,7 @@ class _Sensors_Timer(Thread):
                         sensor.aux_mini = 0
                         action = _('Low Trigger') 
                         if sensor.log_samples:
-                            self.update_log(sensor, 'lgs', level_in_tank, action) 
+                            self.update_log(sensor, 'lgs', level_in_tank, action, battery=sensor.last_battery, rssi=sensor.rssi) 
                         if sensor.use_stop:   # Stop stations if minimum water level?
                             self._set_stations_in_scheduler_off(sensor.used_stations)
                             regulation_text = _('Water in Tank') + ' < ' + str(sensor.water_minimum) + ' ' + _('cm') + _('!')
@@ -1263,7 +1278,7 @@ class _Sensors_Timer(Thread):
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                             sensor.last_log_samples = now()
-                            self.update_log(sensor, 'lgs', level_in_tank)              # lge is event, lgs is samples
+                            self.update_log(sensor, 'lgs', level_in_tank, battery=sensor.last_battery, rssi=sensor.rssi)              # lge is event, lgs is samples
 
                     sensor.err_msg[8] = 1
                     if sensor.last_msg[8] != sensor.err_msg[8]:
@@ -1348,7 +1363,7 @@ class _Sensors_Timer(Thread):
                         if sensor.log_samples:                                                      # sensor is enabled and enabled log samples
                             if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
                                 sensor.last_log_samples = now()
-                                self.update_log(sensor, 'lgs', state)
+                                self.update_log(sensor, 'lgs', state, battery=sensor.last_battery, rssi=sensor.rssi)
                                 #self.update_log(sensor, 'lgs', state, msg_calculation = calculate_soil)  # show soil calculation humidity in log page
 
                         if sensor.last_msg[9] != sensor.err_msg[9]:
