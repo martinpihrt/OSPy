@@ -557,36 +557,43 @@ class sensor_page(ProtectedPage):
 
                     log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
 
-                    if sensor.multi_type == 9: # 16x log from probe
-                        for i in range(0, 16):
+                    if sensor.multi_type == 9: # 16x log from probe + battery + signal
+                        for i in range(0, 18):
                             temp_balances = {}
                             try:
-                                for key in glog_file[i]['balances']:
-                                    find_key =  int(key.encode('utf8'))                        # key is in unicode ex: u'1601347000' -> find_key is int number
-                                    if find_key >= log_start:                                  # timestamp interval 
-                                        find_data = glog_file[i]['balances'][key]
-                                        if options.sensor_graph_show_err:                      # if is checked show error values in graph
-                                            temp_balances[key] = glog_file[i]['balances'][key]  # add all values from json
-                                        else:
-                                            if float(find_data['total']) != -127.0:            # not checked, add values if not -127
-                                                temp_balances[key] = glog_file[i]['balances'][key]
+                                if len(glog_file)>0:
+                                    for key in glog_file[i]['balances']:
+                                        find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
+                                        if find_key >= log_start:                                      # timestamp interval 
+                                            find_data = glog_file[i]['balances'][key]
+                                            if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                                temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
+                                            else:
+                                                if float(find_data['total']) != -127.0:                # not checked, add values if not -127
+                                                    temp_balances[key] = glog_file[i]['balances'][key]
                             except:
                                 print_report('webpages.py', traceback.format_exc())
                                 pass
                             data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
-                    else:                      # 1x log from others
-                        temp_balances = {}
-                        if len(glog_file)>0:
-                            for key in glog_file[0]['balances']:
-                                find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                if find_key >= log_start:                                      # timestamp interval 
-                                    find_data = glog_file[0]['balances'][key]
-                                    if options.sensor_graph_show_err:                          # if is checked show error values in graph
-                                        temp_balances[key] = glog_file[0]['balances'][key]     # add all values from json
-                                    else:
-                                        if float(find_data['total']) != -127.0:                # not checked, add values if not -127
-                                            temp_balances[key] = glog_file[0]['balances'][key]
-                            data.append({ 'sname': glog_file[0]['sname'], 'balances': temp_balances})
+                    else:
+                        for i in range(0, 3):  # 1x log from others + battery + signal
+                            temp_balances = {}
+                            try:
+                                if len(glog_file)>0:
+                                    for key in glog_file[i]['balances']:
+                                        find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
+                                        if find_key >= log_start:                                      # timestamp interval 
+                                            find_data = glog_file[i]['balances'][key]
+                                            if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                                temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
+                                            else:
+                                                if float(find_data['total']) != -127.0:                # not checked, add values if not -127
+                                                    temp_balances[key] = glog_file[i]['balances'][key]
+                            except:
+                                print_report('webpages.py', traceback.format_exc())
+                                pass
+                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
+
 
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')

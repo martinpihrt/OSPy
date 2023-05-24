@@ -422,12 +422,23 @@ class _Sensors_Timer(Thread):
                     graph_data = self._read_log(_abs_glog_dir + '/' + 'graph.json')
                     gdata = {}
                     if type(msg) == list:
-                        for i in range(0, len(msg)):
+                        msg_len = len(msg)
+                        for i in range(0, msg_len):
                             gdata = {"total": "{}".format(msg[i])}
-                            graph_data[i]["balances"].update({timestamp: gdata})
+                            graph_data[i]["balances"].update({timestamp: gdata})    # value eg: 16x soil probe
+                        if battery is not None and rssi is not None:
+                            gdata = {"total": "{}".format(battery)}                 # battery voltage
+                            graph_data[msg_len+1]["balances"].update({timestamp: gdata})
+                            gdata = {"total": "{}".format(rssi)}                    # WiFi/radio signal
+                            graph_data[msg_len+2]["balances"].update({timestamp: gdata})
                     else:
-                        gdata = {"total": "{}".format(msg)}
+                        gdata = {"total": "{}".format(msg)}                         # value eg: temperature 
                         graph_data[0]["balances"].update({timestamp: gdata})
+                        if battery is not None and rssi is not None:
+                            gdata = {"total": "{}".format(battery)}                 # battery voltage
+                            graph_data[1]["balances"].update({timestamp: gdata})
+                            gdata = {"total": "{}".format(rssi)}                    # WiFi/radio signal
+                            graph_data[2]["balances"].update({timestamp: gdata})
                     self._write_log(glog_dir + '/' + 'graph.json', graph_data)
                     log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
                 except:
@@ -441,8 +452,13 @@ class _Sensors_Timer(Thread):
                         graph_def_data = []
                         for i in range(0, 17):
                             graph_def_data.append({"sname": "{}".format(sensor.soil_probe_label[int(i)]), "balances": {}})
+                        graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
+                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}})                                                    
                     else:                      # only 1x log
-                        graph_def_data = [{"sname": "{}".format(sensor.name), "balances": {}}]
+                        graph_def_data = []
+                        graph_def_data.append({"sname": "{}".format(sensor.name), "balances": {}})
+                        graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
+                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}}) 
                     self._write_log(_abs_glog_dir + '/' + 'graph.json', graph_def_data)
                     log.debug('sensors.py', traceback.format_exc())
                     pass

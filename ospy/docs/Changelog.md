@@ -1,7 +1,12 @@
 OSPy Changelog
 ====
 
-MAy 02 2023 (v3.0)
+May 24 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added Wi-Fi signal level and power supply voltage logging to multisensors in OSPy (logging to graph).
+
+May 02 2023 (v3.0)
 -----------
 (martinpihrt, Rimco)<br/>
 Fixed service startup in Python 3. Dark Sky API - support for the Dark Sky API will has ended on March 31st, 2023. Dark Sky API is newly replaced by stormglass.io API (The service is free for 10 calls per day). Fixed Czech languages for new String. Added Wi-Fi signal level and power supply voltage logging to multisensors in OSPy (logging to record). Updated Plug-in weather based rain delay to work with Storm Glass API data.
