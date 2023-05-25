@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+May 25 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Attention Python 2 will not be supported from this update. If you want to continue using Python 2, do not update to newer versions of OSPy!
+Update jquery.min.js from 3.6.0 to 3.7.0. (https://blog.jquery.com/2023/05/11/jquery-3-7-0-released-staying-in-order/). Remains the same (it is the current latest version) gauge.min.js 2.1.7 (https://canvas-gauges.com/download/). Update web.py to latest stable release 0.62 (only supports Python >= 3.5 https://github.com/webpy/webpy). Python 2 will be phased out and removed from OSPy.
+
 May 24 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

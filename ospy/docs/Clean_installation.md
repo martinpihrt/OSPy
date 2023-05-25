@@ -1,6 +1,6 @@
 OSPy Clean installation
 ====
-We recommend performing a clean installation with the latest version of Python 3+ (not in the outdated version of Python 2). The first time you start the OSPy (login page), login data (password) will be generated for logging in to the OSPy system. after logging in, it is necessary to change the login details in the settings (options page). These generated credentials are also stored in the OSPy system as your credentials. The next time you log in, the window with the generated login data will no longer be displayed.
+We recommend performing a clean installation with the latest version of Python 3+. The first time you start the OSPy (login page), login data (password) will be generated for logging in to the OSPy system. after logging in, it is necessary to change the login details in the settings (options page). These generated credentials are also stored in the OSPy system as your credentials. The next time you log in, the window with the generated login data will no longer be displayed.
 
 INSTALLATION:
 ===========

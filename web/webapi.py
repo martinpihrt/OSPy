@@ -2,23 +2,16 @@
 Web API (wrapper around WSGI)
 (from web.py)
 """
-from __future__ import print_function
 
 import cgi
 import pprint
 import sys
 import tempfile
+from http.cookies import CookieError, Morsel, SimpleCookie
 from io import BytesIO
+from urllib.parse import quote, unquote, urljoin
 
-from .py3helpers import PY2, text_type, urljoin
 from .utils import dictadd, intget, safestr, storage, storify, threadeddict
-
-try:
-    from urllib.parse import unquote, quote
-    from http.cookies import CookieError, Morsel, SimpleCookie
-except ImportError:
-    from urllib import unquote, quote
-    from Cookie import CookieError, Morsel, SimpleCookie
 
 __all__ = [
     "config",
@@ -238,8 +231,7 @@ class _NotFound(HTTPError):
 
 
 def NotFound(message=None):
-    """Returns HTTPError with '404 Not Found' error from the active application.
-    """
+    """Returns HTTPError with '404 Not Found' error from the active application."""
     if message:
         return _NotFound(message)
     elif ctx.get("app_stack"):
@@ -354,8 +346,7 @@ class _UnavailableForLegalReasons(HTTPError):
 
 
 def UnavailableForLegalReasons(message=None):
-    """Returns HTTPError with '415 Unavailable For Legal Reasons' error from the active application.
-    """
+    """Returns HTTPError with '415 Unavailable For Legal Reasons' error from the active application."""
     if message:
         return _UnavailableForLegalReasons(message)
     elif ctx.get("app_stack"):
@@ -379,8 +370,7 @@ class _InternalError(HTTPError):
 
 
 def InternalError(message=None):
-    """Returns HTTPError with '500 internal error' error from the active application.
-    """
+    """Returns HTTPError with '500 internal error' error from the active application."""
     if message:
         return _InternalError(message)
     elif ctx.get("app_stack"):
@@ -429,8 +419,7 @@ def header(hdr, value, unique=False):
 
 
 def rawinput(method=None):
-    """Returns storage object with GET or POST arguments.
-    """
+    """Returns storage object with GET or POST arguments."""
     method = method or "both"
 
     def dictify(fs):
@@ -438,7 +427,7 @@ def rawinput(method=None):
         if fs.list is None:
             fs.list = []
 
-        return dict([(k, fs[k]) for k in fs])
+        return {k: fs[k] for k in fs}
 
     e = ctx.env.copy()
     a = b = {}
@@ -456,7 +445,7 @@ def rawinput(method=None):
                     ctx._fieldstorage = a
             else:
                 d = data()
-                if isinstance(d, text_type):
+                if isinstance(d, str):
                     d = d.encode("utf-8")
                 fp = BytesIO(d)
                 a = cgiFieldStorage(fp=fp, environ=e, keep_blank_values=1)
@@ -532,31 +521,6 @@ def setcookie(
     header("Set-Cookie", value)
 
 
-def decode_cookie(value):
-    r"""Safely decodes a cookie value to unicode.
-
-    Tries us-ascii, utf-8 and io8859 encodings, in that order.
-
-    >>> decode_cookie('')
-    u''
-    >>> decode_cookie('asdf')
-    u'asdf'
-    >>> decode_cookie('foo \xC3\xA9 bar')
-    u'foo \xe9 bar'
-    >>> decode_cookie('foo \xE9 bar')
-    u'foo \xe9 bar'
-    """
-    try:
-        # First try plain ASCII encoding
-        return text_type(value, "us-ascii")
-    except UnicodeError:
-        # Then try UTF-8, and if that fails, ISO8859
-        try:
-            return text_type(value, "utf-8")
-        except UnicodeError:
-            return text_type(value, "iso8859", "ignore")
-
-
 def parse_cookies(http_cookie):
     r"""Parse a HTTP_COOKIE header and return dict of cookie names and decoded values.
 
@@ -598,7 +562,7 @@ def parse_cookies(http_cookie):
                     cookie.load(attr_value)
                 except CookieError:
                     pass
-        cookies = dict([(k, unquote(v.value)) for k, v in cookie.items()])
+        cookies = {k: unquote(v.value) for k, v in cookie.items()}
     else:
         # HTTP_COOKIE doesn't have quotes, use fast cookie parsing
         cookies = {}
@@ -620,10 +584,6 @@ def cookies(*requireds, **defaults):
 
     The values are converted to unicode if _unicode=True is passed.
     """
-    # If _unicode=True is specified, use decode_cookie to convert cookie value to unicode
-    if defaults.get("_unicode") is True:
-        defaults["_unicode"] = decode_cookie
-
     # parse cookie string and cache the result for next time.
     if "_parsed_cookies" not in ctx:
         http_cookie = ctx.env.get("HTTP_COOKIE", "")

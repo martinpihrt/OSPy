@@ -1,8 +1,6 @@
 OSPy
 ###### **O**pen **S**prinkler **Py**thon
-OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation systems (sprinkler, drip, IoT, etc). Python 2 should still be working, but no guarantees.
-Options stored in Python 2 are made forward compatible for Python 3. Make sure to run at least once more using Python 2 if you want to retain existing Python 2 settings.
-This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
+OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation systems (sprinkler, drip, IoT, etc). This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
 
 ## For first installation visit 
 ([Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md))
@@ -52,10 +50,6 @@ for Python 3
 sudo python3 setup.py install 
 ```
 
-for Python 2
-```bash
-sudo python setup.py install 
-```
 and follow the procedures of the script
 
 ### Preferred option (using Git)
@@ -87,28 +81,6 @@ sudo git pull
 
 1. Download a copy of the program from [Github](https://github.com/martinpihrt/OSPy/archive/master.zip)
 2. Extract the contents to a location of your choice
-
-## Transition from python 2 to python 3
-1. Make an OSPy backup on the settings page (a zip file will be generated). The file contains a backup of the database and data from the sensors. We can use this backup to restore the system if necessary.
-2. Disable and stop all plugins (in plugins manager).
-3. We will stop the ospy service
-```bash
-sudo service ospy stop
-```
-4. Open the OSPy folder
-```bash
-cd OSPy
-```
-5. We will uninstall the existing service
-```bash
-sudo python setup.py uninstall
-```
-6. Use manual OSPy-system update (Using Git, without system update plugin - explained above on the page).
-7. We will install the new service in Python 3
-```bash
-sudo python3 setup.py install
-```
-8. If there was a data folder and OSPy was ever run earlier in python 2, the database will be converted to python version 3. Attention: after running OSPy in python 3, it is no longer possible to run OSPy in python 2 again! If necessary, we will delete everything in the "data" folder. Then it is possible to run a clean version of OSPy in python 2 or 3 again.
 
 ## For enable SSL access in options (for HTTPS connections)
 For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
@@ -213,8 +185,6 @@ Creative Commons Attribution-ShareAlike 3.0 license
 ## Acknowledgements
 Full credit goes to Dan for his generous contributions in porting the microcontroller firmware to Python.
 * The program makes use of web.py (http://webpy.org) for the web interface.
-* The program makes use of py-gfm (https://github.com/Zopieux/py-gfm) to render the help pages written in GitHub flavored markdown (Python 2)
-* The program makes use of pygments (http://pygments.org) to provide syntax highlighting in the help pages. (Python 2)
 * The program makes use of cmarkgfm (https://github.com/theacodes/cmarkgfm) to render the help pages written in GitHub flavored markdown (Python 3+).
 * The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
 * The program makes use of Stormglass API (https://stormglass.io/) for weather information.

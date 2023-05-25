@@ -1,6 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 
 __author__ = u'Rimco'
 
@@ -10,16 +9,12 @@ import subprocess
 import shutil
 
 from ospy import i18n
-from ospy.helpers import print_report, is_python2
-
+from ospy.helpers import print_report
 
 def yes_no(msg):
     response = u''
     while response.lower().strip() not in ['y', 'yes', 'n', 'no']:
-        if is_python2():
-            response = raw_input('{} [y/yes/n/no]\n'.format(msg.encode('utf-8')))
-        else:
-            response = input('{} [y/yes/n/no]\n'.format(msg))
+        response = input('{} [y/yes/n/no]\n'.format(msg))
     return response.lower().strip() in ['y', 'yes']
 
 
@@ -79,10 +74,7 @@ def install_package(module, easy_install=None, package=None, pip=None, git=None,
         try:
             del_rw(None, 'tmp.zip', None)
             shutil.rmtree('tmp', onerror=del_rw)
-            if is_python2():
-                from urllib import urlretrieve
-            else:
-                from urllib.request import urlretrieve
+            from urllib.request import urlretrieve
             urlretrieve(zipfile, 'tmp.zip')
 
             import zipfile
@@ -175,10 +167,7 @@ if __name__ == '__main__':
             pkg = True
         except ImportError:
             if yes_no(_('Could not find setuptools which is needed to install packages, do you want to install it now?')):
-                if is_python2():
-                    from urllib import urlretrieve
-                else:
-                    from urllib.request import urlretrieve
+                from urllib.request import urlretrieve
                 from ospy.helpers import del_rw
                 shutil.rmtree('tmp', onerror=del_rw)
                 os.mkdir('tmp')
@@ -195,30 +184,17 @@ if __name__ == '__main__':
             # Check if packages are available:
             #               module, easy_install=None, package=None, pip=None, git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None
 
-            install_package('web', 'web.py==0.51', 'python-webpy', 'web.py==0.51',
+            install_package('web', 'web.py==0.62', 'python-webpy', 'web.py==0.62',
                             'https://github.com/webpy/webpy.git',
                             [[sys.executable, 'setup.py', 'install']],
                             'https://github.com/webpy/webpy/archive/master.zip', 'webpy-master',
                             [[sys.executable, 'setup.py', 'install']])
 
-            if is_python2():
-                install_package('mdx_partial_gfm', None, None, 'py-gfm==0.1.1',
-                                'https://github.com/Zopieux/py-gfm.git',
-                                [[sys.executable, 'setup.py', 'install']],
-                                'https://github.com/Zopieux/py-gfm/archive/master.zip', 'py-gfm-master',
-                                [[sys.executable, 'setup.py', 'install']])
-
-                install_package('pygments', 'pygments==2.5.2', 'python-pygments', 'pygments==2.5.2',
-                                'http://bitbucket.org/birkenfeld/pygments-main',
-                                [[sys.executable, 'setup.py', 'install']],
-                                'https://bitbucket.org/birkenfeld/pygments-main/get/0fb2b54a6e10.zip', 'birkenfeld-pygments-main-0fb2b54a6e10',
-                                [[sys.executable, 'setup.py', 'install']])
-            else:
-                install_package('cmarkgfm', None, None, 'cmarkgfm',
-                                'https://github.com/theacodes/cmarkgfm',
-                                [[sys.executable, 'setup.py', 'install']],
-                                'https://github.com/Zopieux/cmarkgfm/archive/master.zip', 'cmarkgfm-master',
-                                [[sys.executable, 'setup.py', 'install']])
+            install_package('cmarkgfm', None, None, 'cmarkgfm',
+                            'https://github.com/theacodes/cmarkgfm',
+                            [[sys.executable, 'setup.py', 'install']],
+                            'https://github.com/Zopieux/cmarkgfm/archive/master.zip', 'cmarkgfm-master',
+                            [[sys.executable, 'setup.py', 'install']])
 
         install_service()
         start()
