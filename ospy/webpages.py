@@ -2181,7 +2181,7 @@ class upload_page_SSL(ProtectedPage):
                 return self.core_render.options(errorCode)
 
             except Exception:
-                pass     
+                pass
                 print_report('webpages.py', traceback.format_exc())
                 log.debug('webpages.py', traceback.format_exc())
                 errorCode = "pw_generateSSLERR"
@@ -2229,7 +2229,7 @@ class images_page(ProtectedPage):
 
             id = get_input(qdict, 'id')                                   # id = name for image (ex: station1.png)
             s_folder = get_input(qdict, 'sf', None, lambda x: x == '1')   # sf = 1 read from folder: images/stations else from images/
-        
+
             if id is not None:
                 if s_folder is not None:
                     download_name = 'ospy/images/stations/' + id
@@ -2248,7 +2248,7 @@ class images_page(ProtectedPage):
         except:
             pass
             return None
-        
+
 ################################################################################
 # APIs                                                                         #
 ################################################################################
@@ -2354,7 +2354,7 @@ class api_balance_json(ProtectedPage):
 
 class showInFooter(object):
     """Enables plugins to display e.g. sensor reagings in the footer of OSPy's UI"""
-    
+
     def __init__(self, label = "", val = "", unit = "", button = ""):
         self._label = label
         self._val = val
@@ -2364,8 +2364,7 @@ class showInFooter(object):
         
         self._idx = len(pluginFtr)
         pluginFtr.append({"label": self._label, "val": self._val, "unit": self._unit, "button": self._button})
-  
-           
+
     @property
     def label(self):
         if not self._label:
@@ -2378,14 +2377,14 @@ class showInFooter(object):
         self._label = text
         if self._label:
             pluginFtr[self._idx]["label"] = self._label + ": "
-    
+
     @property
     def val(self):
         if self._val == "":
             return _('Value not set')
         else:
             return self._val
-    
+
     @val.setter
     def val(self, num):
         self._val = num
@@ -2403,14 +2402,13 @@ class showInFooter(object):
         self._unit = text
         pluginFtr[self._idx]["unit"] = " " + self._unit
 
-
     @property
     def button(self):
         if not self.button:
             return '-'
         else:
             return self._button
-    
+
     @button.setter
     def button(self, text):
         self._button = text
@@ -2424,34 +2422,34 @@ class showOnTimeline:
         self._val = val
         self._unit = unit
         self._idxs = None
-    
+
         self._idxs = len(pluginStn)
         pluginStn.append([self._val, self._unit])
-        
+
     @property
     def clear(self):
         del pluginStn[self._idx][:] #  Remove elements of list but keep empty list
-            
+
     @property
     def unit(self):
         if not self.unit:
             return _('Unit not set')
         else:
             return self._unit
-    
+
     @unit.setter
     def unit(self, text):
         self._unit = text
         pluginStn[self._idx][0] = self._unit
 
-        
+
     @property
     def val(self):
         if not self._val:
             return _('Value not set')
         else:
             return self._val
-    
+
     @val.setter
     def val(self, num):
         self._val = num
@@ -2484,7 +2482,7 @@ class api_plugin_data(ProtectedPage):
         return json.dumps(data)
 
 class api_update_status(ProtectedPage):
-    """Simple plugins and system update status API"""
+    """Simple plugins update and ospy system update status API"""
 
     def GET(self):
         from ospy.server import session
@@ -2511,16 +2509,21 @@ class api_update_status(ProtectedPage):
                 if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
                     pl_data.append((must_update, plugins.plugin_name(plugin)))
                     must_update += 1
-                        
-        data["plugin_name"]   = pl_data               # name of plugins where must be updated
-        data["plugins_state"] = must_update           # status whether it is necessary to update the plugins (count plugins)
+
+        if options.use_plugin_update is not None:             # if the update is not enabled in the plugins settings, the window with an available update will not pop up on the home page. 
+            data["plugin_name"]   = pl_data                   # name of plugins where must be updated
+            data["plugins_state"] = must_update               # status whether it is necessary to update the plugins (count plugins)
+        else:
+            data["plugin_name"]   = []
+            data["plugins_state"] = 0
 
         try:
-            from plugins import system_update
-            os_state = system_update.get_all_values()[0]  # 0= Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
-            os_avail = system_update.get_all_values()[1]  # Available new OSPy version
-            os_curr  = system_update.get_all_values()[2]  # Actual OSPy version
-            os_change = system_update.get_all_values()[3] # Changes
+            if options.use_plugin_update is not None:         # if the update is not enabled in the plugins settings, the window with an available update will not pop up on the home page.
+                from plugins import system_update
+                os_state = system_update.get_all_values()[0]  # 0 = Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
+                os_avail = system_update.get_all_values()[1]  # Available new OSPy version
+                os_curr  = system_update.get_all_values()[2]  # Actual OSPy version
+                os_change = system_update.get_all_values()[3] # Changes
 
             data["ospy_state"] = os_state
             data["ospy_aval"]  = os_avail

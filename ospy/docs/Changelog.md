@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+June 01 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed a bug with the window about available updates popping up on the home page. When the update check is turned off in the plugins settings, the notification window will not pop up on the home page. Phasing out support for Python 2 in plugins. Added a new CHMI plugin that is under development.
+
 May 25 2023 (v3.0)
 -----------
 (martinpihrt)<br/>
