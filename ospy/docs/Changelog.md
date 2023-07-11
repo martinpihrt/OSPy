@@ -1,7 +1,12 @@
 OSPy Changelog
 ====
 
-June 01 2023 (v3.0)
+July 11 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings). Tested new plugin CHMI. Added new function to wind speed plugin (not tested yet). Removed python 2 dependency from all plugins.
+
+July 01 2023 (v3.0)
 -----------
 (martinpihrt)<br/>
 Fixed a bug with the window about available updates popping up on the home page. When the update check is turned off in the plugins settings, the notification window will not pop up on the home page. Phasing out support for Python 2 in plugins. Added a new CHMI plugin that is under development.
