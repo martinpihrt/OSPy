@@ -3,74 +3,124 @@ $def with (form, new_user)
 $var title: $_('Login')
 $var page: login
 
+<script src="/static/scripts/crypto-js.min.js"></script>
+
 <script>
-    var storage_test = check_session();
-    var autologin_btn = "${options.auto_login}";
-    autologin_btn = JSON.parse(autologin_btn.toString().toLowerCase());
-    // clear storage
-    if (autologin_btn == false){
+
+// secure key for auto login
+var key = "${options.auto_login_key}";
+
+// check if browser has local storage
+function check_storage() {
+    if (typeof(Storage) !== "undefined") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// onclick checkbox Remember login
+function myCheck() {
+    var checkBox = document.getElementById("remember-me");
+    var text = document.getElementById("text");
+    var text2 = document.getElementById("text2");
+    if (checkBox.checked == true){
+        // save username and password 
+        text.style.display = "block";
+        var username = document.getElementById("username").value; 
+        var userpwd = document.getElementById("password").value;
+        localStorage.setItem("username", CryptoJS.AES.encrypt(username, key));
+        localStorage.setItem("userpwd", CryptoJS.AES.encrypt(userpwd, key));
+        localStorage.setItem("remember", "checked");
+        console.log("I am saving login information in the browser.");        
+    } else {
+        // remove username and password
+        text.style.display = "none";
         localStorage.removeItem("username");
-        localStorage.removeItem("password");
+        localStorage.removeItem("userpwd");
+        localStorage.removeItem("remember");
+        console.log("I am removing login information from the browser.");        
     }
+}
 
-    // check if browser has local storage
-    function check_session() {
-        if (typeof(Storage) !== "undefined") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    jQuery(document).ready(function(){
-        jQuery("#cSubmit").click(function() {
-            // if used autologin save pwd and name to browser storage
-            if (storage_test && autologin_btn){
+jQuery(document).ready(function(){
+    jQuery("#cSubmit").click(function() {
+        if (check_storage){
+            var checkBox = document.getElementById("remember-me");
+            if (checkBox.checked == true){
                 var username = document.getElementById("username").value; 
                 var userpwd = document.getElementById("password").value;
-                localStorage.setItem("username", username);
-                localStorage.setItem("userpwd", userpwd);
-            }
-            jQuery("#login").submit();
-        });
+                localStorage.setItem("username", CryptoJS.AES.encrypt(username, key));
+                localStorage.setItem("userpwd", CryptoJS.AES.encrypt(userpwd, key));
+                localStorage.setItem("remember", "checked");
+            }    
+        }    
+        jQuery("#login").submit();
+    });
 
-        // fill and submit name and password to form
-        if (storage_test && autologin_btn){
-            // if not wrong on page
-            var wrong_text = document.getElementsByClassName("wrong")[0];
+    if (check_storage()){
+        // Browser support local storage
+        text2.style.display = "none";
+        var wrong_text = document.getElementsByClassName("wrong")[0];
+        var chkbx = localStorage.getItem("remember");
+        if (chkbx && chkbx != '') {
+            jQuery("#remember-me").attr('checked', 'checked');
+            // Set fields name and pass
+            var decrypted_name = CryptoJS.AES.decrypt(localStorage.getItem("username"), key);
+            var decrypted_pwd = CryptoJS.AES.decrypt(localStorage.getItem("userpwd"), key);
+            document.getElementById("username").value = decrypted_name.toString(CryptoJS.enc.Utf8);
+            document.getElementById("password").value = decrypted_pwd.toString(CryptoJS.enc.Utf8);
             if(wrong_text == null){
-                document.getElementById("username").value = localStorage.getItem("username");
-                document.getElementById("password").value = localStorage.getItem("userpwd");
-                document.getElementById("cSubmit").click();
+                // autologin after 3 seconds click submit
+                var text3 = document.getElementById("text3");
+                text3.style.display = "block";
+                console.log("Automatic login takes place after 3 seconds."); 
+                setTimeout(function(){ 
+                    chkbx = document.getElementById("remember-me");
+                    if (chkbx.checked == true){
+                        jQuery("#login").submit(); 
+                    }    
+                }, 3000);
             }
+        } else {
+            jQuery("#remember-me").removeAttr('checked');
+            document.getElementById("username").value = '';
+            document.getElementById("password").value = '';
         }
+    }
+    else{
+        // If your browser does not support local storage
+        text2.style.display = "block";
+        console.log("Your browser does not support local storage!"); 
+    }    
 
-        // send form after pressing enter key
-        var input = document.getElementById("password");
-        // Execute a function when the user presses a key on the keyboard
-        input.addEventListener("keypress", function(event) {
-            // If the user presses the "Enter" key on the keyboard
-            if (event.key === "Enter") {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                document.getElementById("cSubmit").click();
-            }
-        });
+    // send form after pressing enter key
+    var input = document.getElementById("password");
+    // Execute a function when the user presses a key on the keyboard
+    input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("cSubmit").click();
+        }
+    });
 
-        input = document.getElementById("username");
-        // Execute a function when the user presses a key on the keyboard
-        input.addEventListener("keypress", function(event) {
-            // If the user presses the "Enter" key on the keyboard
-            if (event.key === "Enter") {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                document.getElementById("cSubmit").click();
-            }
-        });
-    });  
-</script>        
+    input = document.getElementById("username");
+    // Execute a function when the user presses a key on the keyboard
+    input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("cSubmit").click();
+        }
+    });
+
+});
+</script>       
 
 <div class="panel" style="height:300px; padding-top:100px; padding-left: 50px">
     <div class="title">$_(u'Login')</div>
@@ -85,6 +135,10 @@ $var page: login
     <td>    
         <form name="login" id="login" method="POST"> 
             $:form.render()
+            <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><input type="checkbox" name="remember-me" value="" id="remember-me" onclick="myCheck()"></td></tr></table>
+            <p id="text" style="display:none"><small>$_('Saved browser login.')</small></p>
+            <p id="text2" style="display:none"><small>$_('Your browser does not support local storage!')</small></p>
+            <p id="text3" style="display:none"><small>$_('Automatic login takes place after 3 seconds.')</small></p>
         </form>
     </td>
     </tr>   

@@ -13,7 +13,7 @@ import traceback
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report, is_python2
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options
@@ -28,13 +28,8 @@ from blinker import signal
 from ospy.users import users
 from ospy.sensors import sensors, sensors_timer
 
-
-if is_python2():
-    from urllib2 import urlopen
-    from urllib import quote_plus
-else:
-    from urllib.request import urlopen
-    from urllib.parse import quote_plus
+from urllib.request import urlopen
+from urllib.parse import quote_plus
 
 try:
     import requests
@@ -112,7 +107,6 @@ signin_form = form.Form(
             lambda x: test_password(x["password"], x["username"])
         )  
     ]
-
 )
 
 
@@ -1246,7 +1240,7 @@ class login_page(WebPage):
             if options.first_installation:
                 new_user = options.first_password_hash
             else:
-                new_user = None    
+                new_user = None        
             return self.core_render.login(signin_form(), new_user)
 
     def POST(self):

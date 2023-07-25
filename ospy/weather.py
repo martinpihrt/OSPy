@@ -6,14 +6,10 @@ __author__ = u'Rimco'
 # System imports
 import logging
 import traceback
-from ospy.helpers import is_python2, avg
+from ospy.helpers import avg
 
-if is_python2():
-    from urllib2 import urlopen
-    from urllib import quote_plus
-else:
-    from urllib.request import urlopen, Request
-    from urllib.parse import quote_plus
+from urllib.request import urlopen, Request
+from urllib.parse import quote_plus
 
 import json
 import datetime

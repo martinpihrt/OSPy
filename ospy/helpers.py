@@ -623,15 +623,14 @@ def password_hash(password, salt):
     m.update((password+salt).encode('utf-8')) 
     return m.hexdigest()    
 
-def test_password(password, username):
+def test_password(password, username, autologin=None):
     from ospy.options import options
     from ospy.users import users
     from ospy import server
-
     with BRUTEFORCE_LOCK: # Brute-force protection:
         if options.password_time > 0:
             time.sleep(options.password_time)
-
+    
     if options.password_hash == password_hash(password, options.password_salt) and options.admin_user == username:     # Login for OSPy main administrator
         options.password_time = 0
         server.session['category'] = 'admin'
@@ -650,12 +649,12 @@ def test_password(password, username):
                 elif user.category == '1': # user
                     server.session['category'] = 'user'
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))                    
                     return True
                 elif user.category == '2': # admin
                     server.session['category'] = 'admin'  
                     server.session['visitor']  =  user.name
-                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
+                    print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))                    
                     return True
                 elif user.category == '3': # sensor
                     server.session['category'] = 'sensor'  
@@ -715,21 +714,12 @@ def get_input(qdict, key, default=None, cast=None):
     return result
 
 
-def is_python2():
-    import sys
-    return sys.version_info < (3, 0)
-
-
 def template_globals():
     import json
     import plugins
     import urllib
-    if is_python2():
-        from urllib2 import urlopen
-        from urllib import quote_plus
-    else:
-        from urllib.request import urlopen
-        from urllib.parse import quote_plus
+    from urllib.request import urlopen
+    from urllib.parse import quote_plus
     from web import ctx
 
     from ospy.inputs import inputs
@@ -833,13 +823,8 @@ def get_help_file(id):
             option = docs[id]
             if len(option) > 2:
                 filename = option[2]
-                if is_python2():
-                    import io
-                    with io.open(filename, "r", encoding="utf-8") as fh: 
-                        return gfm_str_to_html(fh.read())
-                else:
-                    with open(filename, 'r', encoding='utf8', errors='ignore') as fh:
-                        return gfm_str_to_html(fh.read())     
+                with open(filename, 'r', encoding='utf8', errors='ignore') as fh:
+                    return gfm_str_to_html(fh.read())     
     except Exception:
         print_report('helpers.py', 'Help file error:\n' + traceback.format_exc())
         pass
@@ -847,12 +832,8 @@ def get_help_file(id):
 
 
 def gfm_str_to_html(input):
-    if is_python2():
-        import markdown
-        converted = markdown.markdown(input, extensions=['partial_gfm', 'markdown.extensions.codehilite'])
-    else:
-        import cmarkgfm
-        converted = cmarkgfm.markdown_to_html(input)
+    import cmarkgfm
+    converted = cmarkgfm.markdown_to_html(input)
 
     import web
     return web.template.Template(converted, globals=template_globals())()
@@ -876,10 +857,7 @@ def ASCI_convert(name):
 def print_report(title, message=None):
     """ All prints are reported here """
     try:
-        if is_python2():
-            print('{}: {}'.format(title.encode('ascii', 'replace'), message.encode('ascii', 'replace')))
-        else:
-            print('{}: {}'.format(title, message))
+        print('{}: {}'.format(title, message))
     except:
         print_report('helpers.py', traceback.format_exc())
         pass
@@ -916,12 +894,8 @@ def decrypt_data(aes_key, enc_msg, iv_mode = None):    # if iv_mode is None aes 
         else:
             decryption_suite = AES.new(aes_key, AES.MODE_CBC, iv_mode)
 
-        if is_python2():
-            sec_str = str(binascii.unhexlify(enc_msg))
-            plain_msg = decryption_suite.decrypt(sec_str)
-        else:
-            sec_str = binascii.unhexlify(enc_msg)
-            plain_msg = decryption_suite.decrypt(sec_str).decode()
+        sec_str = binascii.unhexlify(enc_msg)
+        plain_msg = decryption_suite.decrypt(sec_str).decode()
         return plain_msg    
     except:
         print_report('helpers.py', traceback.format_exc())
@@ -948,19 +922,11 @@ def net_connect(host=None):
             host = options.ping_ip
         
         command = ['ping', '-c', '1', host]
-        if is_python2():
-            FNULL = open(os.devnull, 'w')
-            response = subprocess.call(command, stdout=FNULL, stderr=subprocess.STDOUT)
-            if response == 0:
-                return True
-            else:
-                return False         
+        response = subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)    
+        if response == 0:
+            return True
         else:
-            response = subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)    
-            if response == 0:
-                return True
-            else:
-                return False
+            return False
     except:
         print_report('server.py', traceback.format_exc())
         return False

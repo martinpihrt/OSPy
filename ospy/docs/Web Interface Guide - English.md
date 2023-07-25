@@ -221,7 +221,9 @@ OSPy Web Interface Guide in English
             E-mail Notifications SSL
             Sunrise and Sunset
             Photovoltaic Boiler
-            IP CAM            
+            IP CAM
+            Modbus stations
+            CHMI meteo radar                        
     Logging out
 
 ----

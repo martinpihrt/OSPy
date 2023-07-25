@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2023-07-11 12:14+0200\n"
-"PO-Revision-Date: 2023-07-11 12:29+0200\n"
-"Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
+"POT-Creation-Date: 2023-07-25 18:22+0200\n"
+"PO-Revision-Date: 2023-07-25 18:27+0200\n"
+"Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -110,11 +110,11 @@ msgstr "Chyba: (ValueError) Hodnota nevhodného argumentu {}"
 msgid "Error: (KeyError) Missing key {}"
 msgstr "Chyba: (KeyError) Chybí klíč {}"
 
-#: api/utils.py:121
+#: api/utils.py:118
 msgid "API Auth Attempt with: user: {} password: {}"
 msgstr "Pokus o ověření z rozhraní API uživatel: {} heslo: {}"
 
-#: api/utils.py:127
+#: api/utils.py:124
 msgid "API Unauthorized attempt user: {} password: {}"
 msgstr "Neúspěšný pokus o ověření z rozhraní API uživatel: {} heslo: {}"
 
@@ -251,24 +251,24 @@ msgstr "Sobota"
 msgid "Sunday"
 msgstr "Neděle"
 
-#: ospy/helpers.py:639 ospy/helpers.py:648 ospy/helpers.py:653
-#: ospy/helpers.py:658 ospy/helpers.py:663
+#: ospy/helpers.py:638 ospy/helpers.py:647 ospy/helpers.py:652
+#: ospy/helpers.py:657 ospy/helpers.py:662
 msgid "Logged in {}, as operator {}"
 msgstr "Přihlášen {}, jako operátor {}"
 
-#: ospy/helpers.py:667 ospy/helpers.py:674 ospy/server.py:196
+#: ospy/helpers.py:666 ospy/helpers.py:673 ospy/server.py:196
 msgid "Unknown operator"
 msgstr "Neznámý operátor"
 
-#: ospy/helpers.py:668
+#: ospy/helpers.py:667
 msgid "Unauthorised category {}"
 msgstr "Neoprávněná kategorie {}"
 
-#: ospy/helpers.py:675
+#: ospy/helpers.py:674
 msgid "Unauthorised operator {}"
 msgstr "Neoprávněný operátor {}"
 
-#: ospy/helpers.py:689
+#: ospy/helpers.py:688
 msgid "No password"
 msgstr "Bez hesla"
 
@@ -437,16 +437,12 @@ msgid "Users"
 msgstr "Uživatelé"
 
 #: ospy/options.py:156
-msgid "Auto Login"
-msgstr "Automatické přihlášení"
+msgid "Auto Login encryption key"
+msgstr "Šifrovací klíč automatického přihlášení"
 
 #: ospy/options.py:158
-msgid ""
-"If enabled, browser will remember login information and automatically log "
-"you in."
-msgstr ""
-"Pokud je tato funkce povolena, prohlížeč si zapamatuje přihlašovací údaje a "
-"automaticky vás přihlásí."
+msgid "The key with which the local storage in the browser will be encrypted."
+msgstr "Klíč, kterým bude místní úložiště v prohlížeči šifrováno."
 
 #: ospy/options.py:163
 msgid "Administrator name"
@@ -863,39 +859,39 @@ msgstr "Časové razítko posledního uložení databáze"
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:719
+#: ospy/options.py:711
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr "Soubory v OPTIONS_BACKUP jsou starší než 1 hodina."
 
-#: ospy/options.py:728
+#: ospy/options.py:720
 msgid "I will try to delete the BACKUP_DIR."
 msgstr "Pokusím se smazat BACKUP_DIR."
 
-#: ospy/options.py:734
+#: ospy/options.py:726
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr "Pokusím se smazat adresář BACKUP_DIR."
 
-#: ospy/options.py:739
+#: ospy/options.py:731
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr "Pokusím se přesunout adresář OPTIONS_DIR do BACKUP_DIR."
 
-#: ospy/options.py:744
+#: ospy/options.py:736
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr "Pokusím se smazat OPTIONS_DIR."
 
-#: ospy/options.py:750
+#: ospy/options.py:742
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr "Pokusím se odstranit adresář OPTIONS_DIR."
 
-#: ospy/options.py:753
+#: ospy/options.py:745
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr "Pokusím se přesunout adresář TMP_DIR do OPTIONS_DIR."
 
-#: ospy/options.py:761
+#: ospy/options.py:750
 msgid "Saved db as %s"
 msgstr "Uložená databáze jako %s"
 
-#: ospy/options.py:763
+#: ospy/options.py:752
 msgid "Saving error:\n"
 msgstr "Chyba ukládání:\n"
 
@@ -1075,56 +1071,56 @@ msgstr "Nelze získat informace o počasí pomocí záložních dat"
 msgid "Creating run-now program"
 msgstr "Vytvoření programu run-now (spustit nyní)"
 
-#: ospy/runonce.py:10 ospy/scheduler.py:123 ospy/templates/runonce.html:3
+#: ospy/runonce.py:10 ospy/scheduler.py:127 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr "Jednorázový"
 
-#: ospy/scheduler.py:40
+#: ospy/scheduler.py:44
 msgid "Rain delay has set a delay {} hours {} minutes"
 msgstr "Zpoždění deště nastavilo zpoždění {} hodin {} minut"
 
-#: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
-#: ospy/sensors.py:1281 ospy/webpages.py:1337
+#: ospy/scheduler.py:44 ospy/scheduler.py:48 ospy/scheduler.py:55
+#: ospy/sensors.py:1281 ospy/webpages.py:1331
 msgid "Rain delay"
 msgstr "Zpoždění deště"
 
-#: ospy/scheduler.py:44 plugins/signaling_examples/__init__.py:250
+#: ospy/scheduler.py:48 plugins/signaling_examples/__init__.py:250
 msgid "Rain delay has now been removed"
 msgstr "Zpoždění deště bylo odstraněno"
 
-#: ospy/scheduler.py:48
+#: ospy/scheduler.py:52
 msgid "Activated"
 msgstr "Aktivován"
 
-#: ospy/scheduler.py:48 ospy/scheduler.py:55
+#: ospy/scheduler.py:52 ospy/scheduler.py:59
 msgid "Rain sensor"
 msgstr "Dešťový snímač"
 
-#: ospy/scheduler.py:51
+#: ospy/scheduler.py:55
 msgid "Rain sensor has set a delay {} hours"
 msgstr "Dešťový senzor nastavil zpoždění {} hodin"
 
-#: ospy/scheduler.py:55
+#: ospy/scheduler.py:59
 msgid "Deactivated"
 msgstr "Deaktivován"
 
-#: ospy/scheduler.py:59 ospy/scheduler.py:63
+#: ospy/scheduler.py:63 ospy/scheduler.py:67
 msgid "Connection"
 msgstr "Připojení"
 
-#: ospy/scheduler.py:59 plugins/signaling_examples/__init__.py:238
+#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:238
 msgid "Internet is available (external IP)"
 msgstr "Internet je k dispozici (externí IP)"
 
-#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:242
+#: ospy/scheduler.py:67 plugins/signaling_examples/__init__.py:242
 msgid "Internet is not available (external IP)"
 msgstr "Internet není k dispozici (externí IP adresa)"
 
-#: ospy/scheduler.py:153
+#: ospy/scheduler.py:157
 msgid "Run-Now"
 msgstr "Spustit nyní"
 
-#: ospy/scheduler.py:358
+#: ospy/scheduler.py:362
 msgid "Could not schedule {}."
 msgstr "Nelze naplánovat {}."
 
@@ -1885,7 +1881,7 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:182
 #: plugins/button_control/templates/button_control.html:20
-#: plugins/chmi/templates/chmi.html:23
+#: plugins/chmi/templates/chmi.html:44
 #: plugins/cli_control/templates/cli_control.html:22
 #: plugins/door_opening/templates/door_opening.html:22
 #: plugins/email_notifications/templates/email_notifications.html:30
@@ -1937,45 +1933,41 @@ msgstr "Konfigurace snímačů"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ospy/templates/base.html:245
-msgid "Autologin is enabled"
-msgstr "Automatické přihlášení je povoleno"
-
-#: ospy/templates/base.html:247
+#: ospy/templates/base.html:244
 msgid "Logout"
 msgstr "Odhlásit se"
 
-#: ospy/templates/base.html:256
+#: ospy/templates/base.html:253
 msgid "Click to toggle"
 msgstr "Stiskněte pro změnu Fahrenheit nebo Celsius"
 
-#: ospy/templates/base.html:256
+#: ospy/templates/base.html:253
 #: plugins/lcd_display/templates/lcd_display.html:83
 #: plugins/lcd_display/templates/lcd_display_help.html:35
 msgid "CPU Temp"
 msgstr "Teplota CPU"
 
-#: ospy/templates/base.html:257
+#: ospy/templates/base.html:254
 msgid "CPU Usage"
 msgstr "Využití CPU"
 
-#: ospy/templates/base.html:258
+#: ospy/templates/base.html:255
 msgid "Click for redirecting to github software"
 msgstr "Stiskněte pro přechod na github"
 
-#: ospy/templates/base.html:258
+#: ospy/templates/base.html:255
 msgid "Software"
 msgstr "Program OSPy"
 
-#: ospy/templates/base.html:258
+#: ospy/templates/base.html:255
 msgid "version"
 msgstr "verze"
 
-#: ospy/templates/base.html:259
+#: ospy/templates/base.html:256
 msgid "External IP"
 msgstr "Vnější IP adresa"
 
-#: ospy/templates/base.html:260
+#: ospy/templates/base.html:257
 msgid "Working"
 msgstr "V provozu"
 
@@ -2083,7 +2075,8 @@ msgstr "Smazat"
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:73
 #: plugins/button_control/templates/button_control.html:101
 #: plugins/button_control/templates/button_control_help.html:124
-#: plugins/chmi/templates/chmi.html:55 plugins/chmi/templates/chmi_help.html:17
+#: plugins/chmi/templates/chmi.html:86
+#: plugins/chmi/templates/chmi_help.html:421
 #: plugins/cli_control/templates/cli_control.html:72
 #: plugins/cli_control/templates/cli_control_help.html:125
 #: plugins/cli_control/templates/cli_control_log.html:12
@@ -2626,7 +2619,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:456 ospy/templates/home_user.html:458
-#: ospy/webpages.py:1368
+#: ospy/webpages.py:1362
 msgid "Manual"
 msgstr "Ručně"
 
@@ -2983,7 +2976,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: ospy/templates/log.html:111 ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:356
 #: plugins/button_control/templates/button_control.html:91
-#: plugins/chmi/templates/chmi.html:44
+#: plugins/chmi/templates/chmi.html:75
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
 #: plugins/door_opening/templates/door_opening.html:47
@@ -3042,7 +3035,7 @@ msgstr "Stav"
 #: ospy/templates/log_sensor.html:126 ospy/templates/log_user.html:103
 #: ospy/templates/sensors_firmware.html:226
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
-#: plugins/chmi/templates/chmi.html:53
+#: plugins/chmi/templates/chmi.html:84
 #: plugins/cli_control/templates/cli_control_log.html:11
 #: plugins/ip_cam/templates/ip_cam.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:11
@@ -3152,34 +3145,50 @@ msgstr "F"
 msgid "C"
 msgstr "C"
 
-#: ospy/templates/login.html:3 ospy/templates/login.html:76
-#: ospy/templates/login.html:93 ospy/webpages.py:1265
+#: ospy/templates/login.html:3 ospy/templates/login.html:126
+#: ospy/templates/login.html:147 ospy/webpages.py:1259
 msgid "Login"
 msgstr "Přihlásit se"
 
-#: ospy/templates/login.html:78
+#: ospy/templates/login.html:128
 msgid "Warning - new installation!"
 msgstr "Upozornění - nová instalace!"
 
-#: ospy/templates/login.html:79
+#: ospy/templates/login.html:129
 msgid ""
 "This is a new installation. You must change this generated password after "
 "logging in!"
 msgstr ""
 "Toto je nová instalace. Toto vygenerované heslo musíte po přihlášení změnit!"
 
-#: ospy/templates/login.html:80
+#: ospy/templates/login.html:130
 msgid ""
 "Make a note of the password, you will need it when changing the password!"
 msgstr "Poznamenejte si heslo, budete ho potřebovat při změně hesla!"
 
-#: ospy/templates/login.html:81
+#: ospy/templates/login.html:131
 msgid "Default user name is admin."
 msgstr "Výchozí uživatelské jméno je admin."
 
-#: ospy/templates/login.html:82
+#: ospy/templates/login.html:132
 msgid "Generated default password is"
 msgstr "Vygenerované výchozí heslo je"
+
+#: ospy/templates/login.html:138
+msgid "Remember login"
+msgstr "Zapamatovat si přihlášení"
+
+#: ospy/templates/login.html:139
+msgid "Saved browser login."
+msgstr "Uložené přihlašovací údaje do prohlížeče."
+
+#: ospy/templates/login.html:140
+msgid "Your browser does not support local storage!"
+msgstr "Váš prohlížeč nepodporuje místní úložiště!"
+
+#: ospy/templates/login.html:141
+msgid "Automatic login takes place after 3 seconds."
+msgstr "Automatické přihlášení probíhá po 3 sekundách."
 
 #: ospy/templates/notice.html:3
 msgid "Notice"
@@ -4901,7 +4910,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:211
 #: plugins/air_temp_humi/templates/air_temp_humi.html:365
 #: plugins/button_control/templates/button_control.html:100
-#: plugins/chmi/templates/chmi.html:54
+#: plugins/chmi/templates/chmi.html:85
 #: plugins/cli_control/templates/cli_control.html:71
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -5220,35 +5229,35 @@ msgstr "Smazat uživatele"
 msgid "Back to options"
 msgstr "Zpět do nastavení"
 
-#: ospy/usagestats.py:18 ospy/webpages.py:43
+#: ospy/usagestats.py:18 ospy/webpages.py:38
 msgid "Requests not found, installing. Please wait..."
 msgstr "Requests nebylo nalezeno, instaluji. Počkejte prosím..."
 
-#: ospy/usagestats.py:231
+#: ospy/usagestats.py:228
 msgid "Could not create %s, usage statistics won not be collected"
 msgstr "Nebylo možné vytvořit %s, statistiky využití nebyly shromážděny"
 
-#: ospy/usagestats.py:261
+#: ospy/usagestats.py:258
 msgid "Unknown reporting state %r"
 msgstr "Neznámý stav sestavy %r"
 
-#: ospy/usagestats.py:273
+#: ospy/usagestats.py:270
 msgid "Can not enable reporting"
 msgstr "Nelze povolit hlášení sestav"
 
-#: ospy/usagestats.py:288
+#: ospy/usagestats.py:285
 msgid "Can not disable reporting"
 msgstr "Nelze zakázat hlášení sestav"
 
-#: ospy/usagestats.py:298
+#: ospy/usagestats.py:295
 msgid "Deleted %d pending reports"
 msgstr "Odstraněné %d čekající sestavy"
 
-#: ospy/usagestats.py:317 ospy/usagestats.py:338
+#: ospy/usagestats.py:314 ospy/usagestats.py:335
 msgid "This report has already been submitted"
 msgstr "Tato zpráva již byla odeslána"
 
-#: ospy/usagestats.py:353
+#: ospy/usagestats.py:350
 msgid ""
 "Generated report:\n"
 "%r"
@@ -5256,23 +5265,23 @@ msgstr ""
 "Vygenerovaná sestava:\n"
 "%r"
 
-#: ospy/usagestats.py:387
+#: ospy/usagestats.py:384
 msgid "Could not upload %s: %s"
 msgstr "Nelze odeslat %s: %s"
 
-#: ospy/usagestats.py:390
+#: ospy/usagestats.py:387
 msgid "Submitted report %s"
 msgstr "Odeslaná sestava %s"
 
-#: ospy/usagestats.py:400
+#: ospy/usagestats.py:397
 msgid "Could not upload report: %s"
 msgstr "Sestavu nelze odeslat: %s"
 
-#: ospy/usagestats.py:408
+#: ospy/usagestats.py:405
 msgid "Submitted report"
 msgstr "Sestava statistiky byla odeslaná"
 
-#: ospy/usagestats.py:410
+#: ospy/usagestats.py:407
 msgid "Server rejected report: %s"
 msgstr "Server odmítl sestavu: %s"
 
@@ -5304,83 +5313,83 @@ msgstr "Nelze najít verzi firmwaru ESP32!"
 msgid "Could not find ESP8266 firmware version!"
 msgstr "Nelze najít verzi firmwaru ESP8266!"
 
-#: ospy/weather.py:120
+#: ospy/weather.py:116
 msgid "Weather error:"
 msgstr "Chyba počasí:"
 
-#: ospy/weather.py:130
+#: ospy/weather.py:126
 msgid "No location found:"
 msgstr "Počasí - nenalezeno vaše umístění:"
 
-#: ospy/weather.py:139
+#: ospy/weather.py:135
 msgid "Location found: %s, %s at %.1fm above sea level"
 msgstr "Nalezené umístění: %s, %s ve výšce %.1fm nad mořem"
 
-#: ospy/weather.py:145
+#: ospy/weather.py:141
 msgid "No location coordinates available!"
 msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění!"
 
-#: ospy/weather.py:301
+#: ospy/weather.py:297
 msgid "This interface was removed, please update the plug-in!"
 msgstr "Toto rozhraní bylo odstraněno, aktualizujte prosím!"
 
-#: ospy/webpages.py:107
+#: ospy/webpages.py:102
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ospy/webpages.py:108
+#: ospy/webpages.py:103
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:111
+#: ospy/webpages.py:106
 msgid "Incorrect username or password, please try again..."
 msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:192 ospy/webpages.py:285 ospy/webpages.py:372
-#: ospy/webpages.py:430 ospy/webpages.py:683 ospy/webpages.py:993
-#: ospy/webpages.py:1010 ospy/webpages.py:1037 ospy/webpages.py:1103
-#: ospy/webpages.py:1157 ospy/webpages.py:1317 ospy/webpages.py:1324
-#: ospy/webpages.py:1331 ospy/webpages.py:1339 ospy/webpages.py:1346
-#: ospy/webpages.py:1353 ospy/webpages.py:1392 ospy/webpages.py:1417
-#: ospy/webpages.py:1464 ospy/webpages.py:1564 ospy/webpages.py:1575
-#: ospy/webpages.py:1646 ospy/webpages.py:1666 ospy/webpages.py:1793
-#: ospy/webpages.py:1805 ospy/webpages.py:1918 ospy/webpages.py:1978
-#: ospy/webpages.py:1998 ospy/webpages.py:2063 ospy/webpages.py:2135
-#: ospy/webpages.py:2491 ospy/webpages.py:2568
+#: ospy/webpages.py:186 ospy/webpages.py:279 ospy/webpages.py:366
+#: ospy/webpages.py:424 ospy/webpages.py:677 ospy/webpages.py:987
+#: ospy/webpages.py:1004 ospy/webpages.py:1031 ospy/webpages.py:1097
+#: ospy/webpages.py:1151 ospy/webpages.py:1311 ospy/webpages.py:1318
+#: ospy/webpages.py:1325 ospy/webpages.py:1333 ospy/webpages.py:1340
+#: ospy/webpages.py:1347 ospy/webpages.py:1386 ospy/webpages.py:1411
+#: ospy/webpages.py:1458 ospy/webpages.py:1558 ospy/webpages.py:1569
+#: ospy/webpages.py:1640 ospy/webpages.py:1660 ospy/webpages.py:1787
+#: ospy/webpages.py:1799 ospy/webpages.py:1912 ospy/webpages.py:1972
+#: ospy/webpages.py:1992 ospy/webpages.py:2057 ospy/webpages.py:2129
+#: ospy/webpages.py:2485 ospy/webpages.py:2562
 msgid ""
 "You do not have access to this section, ask your system administrator for "
 "access."
 msgstr "Nemáte přístup k této sekci, požádejte o přístup správce systému."
 
-#: ospy/webpages.py:326 ospy/webpages.py:1191
+#: ospy/webpages.py:320 ospy/webpages.py:1185
 msgid "File {} has sucesfully uploaded..."
 msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:332 ospy/webpages.py:1197
+#: ospy/webpages.py:326 ospy/webpages.py:1191
 msgid "File has sucesfully uploaded..."
 msgstr "Soubor se úspěšně nahrál..."
 
-#: ospy/webpages.py:1120
+#: ospy/webpages.py:1114
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:1215
+#: ospy/webpages.py:1209
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:1219
+#: ospy/webpages.py:1213
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1265 ospy/webpages.py:1266
+#: ospy/webpages.py:1259 ospy/webpages.py:1260
 msgid "User {} logged in"
 msgstr "Uživatel {} se přihlásil"
 
-#: ospy/webpages.py:1337
+#: ospy/webpages.py:1331
 msgid "User has set a delay {} hours"
 msgstr "Uživatel nastavil zpoždění {} hodin"
 
-#: ospy/webpages.py:1866
+#: ospy/webpages.py:1860
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -5388,7 +5397,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1872
+#: ospy/webpages.py:1866
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -5396,7 +5405,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1878
+#: ospy/webpages.py:1872
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -5404,7 +5413,7 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1901
+#: ospy/webpages.py:1895
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -5412,60 +5421,60 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1985 ospy/webpages.py:2039 ospy/webpages.py:2040
+#: ospy/webpages.py:1979 ospy/webpages.py:2033 ospy/webpages.py:2034
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:2018
+#: ospy/webpages.py:2012
 msgid "Deleting folder backup."
 msgstr "Odstranění složky backup."
 
-#: ospy/webpages.py:2022
+#: ospy/webpages.py:2016
 msgid "Creating folder backup."
 msgstr "Vytvoření složky backup."
 
-#: ospy/webpages.py:2026
+#: ospy/webpages.py:2020
 msgid "Creating backup zip file."
 msgstr "Vytvoření záložního souboru zip."
 
-#: ospy/webpages.py:2030
+#: ospy/webpages.py:2024
 msgid "File {} is created successfully."
 msgstr "Soubor {} byl úspěšně vytvořen."
 
-#: ospy/webpages.py:2073
+#: ospy/webpages.py:2067
 msgid "Deleting folder upload."
 msgstr "Odstranění složky upload."
 
-#: ospy/webpages.py:2077
+#: ospy/webpages.py:2071
 msgid "Creating folder upload."
 msgstr "Vytvoření složky upload."
 
-#: ospy/webpages.py:2084
+#: ospy/webpages.py:2078
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:2091
+#: ospy/webpages.py:2085
 msgid "Uploading to folder OK, now extracting zip file."
 msgstr "Nahrávání do složky OK, nyní extrahuji soubor zip."
 
-#: ospy/webpages.py:2095
+#: ospy/webpages.py:2089
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:2107
+#: ospy/webpages.py:2101
 msgid "Copy extrated folders with files to data dir."
 msgstr "Zkopíruji extrahované složky se soubory do datového adresáře."
 
-#: ospy/webpages.py:2114
+#: ospy/webpages.py:2108
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:2145 ospy/webpages.py:2146
+#: ospy/webpages.py:2139 ospy/webpages.py:2140
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:2177 ospy/webpages.py:2178 plugins/mqtt/__init__.py:242
+#: ospy/webpages.py:2171 ospy/webpages.py:2172 plugins/mqtt/__init__.py:242
 #: plugins/mqtt_runonce/__init__.py:159
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:117 plugins/ups_adj/__init__.py:414
@@ -5473,27 +5482,27 @@ msgstr "Zkouším vygenerovat certifikát SSL..."
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:2197
+#: ospy/webpages.py:2191
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:2201
+#: ospy/webpages.py:2195
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:2207
+#: ospy/webpages.py:2201
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:2371
+#: ospy/webpages.py:2365
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:2384 ospy/webpages.py:2449
+#: ospy/webpages.py:2378 ospy/webpages.py:2443
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:2396 ospy/webpages.py:2436
+#: ospy/webpages.py:2390 ospy/webpages.py:2430
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -5826,7 +5835,9 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
 #: plugins/button_control/templates/button_control_help.html:10
-#: plugins/chmi/templates/chmi_help.html:12
+#: plugins/chmi/templates/chmi_help.html:11
+#: plugins/chmi/templates/chmi_help.html:13
+#: plugins/chmi/templates/chmi_help.html:15
 #: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/relay_16/templates/relay_16_help.html:10
 #: plugins/sms_adj/templates/sms_adj_help.html:11
@@ -5839,7 +5850,9 @@ msgstr "pro další informace"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
 #: plugins/button_control/templates/button_control_help.html:10
-#: plugins/chmi/templates/chmi_help.html:12
+#: plugins/chmi/templates/chmi_help.html:11
+#: plugins/chmi/templates/chmi_help.html:13
+#: plugins/chmi/templates/chmi_help.html:15
 #: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
 #: plugins/sms_adj/templates/sms_adj_help.html:11
@@ -6404,126 +6417,154 @@ msgstr ""
 msgid "Package: CHMI radar"
 msgstr "Balíček: Meteoradar ČHMÚ"
 
-#: plugins/chmi/__init__.py:90
+#: plugins/chmi/__init__.py:91
 msgid "Failed to download radar data."
 msgstr "Stažení radarových dat se nezdařilo."
 
-#: plugins/chmi/__init__.py:96
-msgid "Converting the image to RGB..."
-msgstr "Převod obrazu do RGB..."
-
-#: plugins/chmi/__init__.py:104
-msgid "Image width: {} px ({} degrees of longitude)"
-msgstr "Šířka obrázku: {} px ({} stupňů zeměpisné délky)"
-
-#: plugins/chmi/__init__.py:105
-msgid "Image height: {} px ({} degrees of latitude)"
-msgstr "Výška obrázku: {} px ({} stupňů zeměpisné šířky)"
-
-#: plugins/chmi/__init__.py:106
-msgid "1 vertical pixel is equal {} degrees of longitude"
-msgstr "1 svislý pixel se rovná {} stupňům zeměpisné délky"
-
-#: plugins/chmi/__init__.py:107
-msgid "1 horizontal pixel is equal {} degrees of latitude"
-msgstr "1 vodorovný pixel se rovná {} stupňům zeměpisné šířky"
-
-#: plugins/chmi/__init__.py:113
-msgid "Loading cities database..."
-msgstr "Načítání databáze měst..."
-
-#: plugins/chmi/__init__.py:117
-msgid "Analyzing if is raining in the cities..."
-msgstr "Analýza, jestli ve městech prší..."
-
-#: plugins/chmi/__init__.py:142
-msgid "In city {} ({}) it is probably raining right now"
-msgstr "Ve městě {} ({}) pravděpodobně právě teď prší"
-
-#: plugins/chmi/__init__.py:154
+#: plugins/chmi/__init__.py:103
 msgid "Image cannot be saved."
 msgstr "Obrázek nelze uložit."
 
-#: plugins/chmi/__init__.py:160
-msgid ""
-"I am sending JSON with cities to the LaskaKit map of the Czech Republic..."
-msgstr "Posílám JSON s městy na mapu LaskaKit České republiky..."
+#: plugins/chmi/__init__.py:106
+msgid "Converting the image to RGB..."
+msgstr "Převod obrazu do RGB..."
 
-#: plugins/chmi/__init__.py:164
-msgid "HTTP {} OK"
-msgstr "HTTP {} OK"
+#: plugins/chmi/__init__.py:114
+msgid "Image width: {} px ({} degrees of longitude)"
+msgstr "Šířka obrázku: {} px ({} stupňů zeměpisné délky)"
 
-#: plugins/chmi/__init__.py:166
+#: plugins/chmi/__init__.py:115
+msgid "Image height: {} px ({} degrees of latitude)"
+msgstr "Výška obrázku: {} px ({} stupňů zeměpisné šířky)"
+
+#: plugins/chmi/__init__.py:116
+msgid "1 vertical pixel is equal {} degrees of longitude"
+msgstr "1 svislý pixel se rovná {} stupňům zeměpisné délky"
+
+#: plugins/chmi/__init__.py:117
+msgid "1 horizontal pixel is equal {} degrees of latitude"
+msgstr "1 vodorovný pixel se rovná {} stupňům zeměpisné šířky"
+
+#: plugins/chmi/__init__.py:123
+msgid "Loading cities database..."
+msgstr "Načítání databáze měst..."
+
+#: plugins/chmi/__init__.py:137
+msgid "Analyzing if is raining in the cities..."
+msgstr "Analýza, jestli ve městech prší..."
+
+#: plugins/chmi/__init__.py:162
+msgid "In city {} ({}) it is probably raining right now"
+msgstr "Ve městě {} ({}) pravděpodobně právě teď prší"
+
+#: plugins/chmi/__init__.py:174 plugins/chmi/templates/chmi.html:62
+msgid "Laskakit"
+msgstr "Laskakit"
+
+#: plugins/chmi/__init__.py:176 plugins/chmi/templates/chmi.html:63
+msgid "TMEP"
+msgstr "TMEP"
+
+#: plugins/chmi/__init__.py:178 plugins/chmi/templates/chmi.html:64
+msgid "Pihrt"
+msgstr "Pihrt"
+
+#: plugins/chmi/__init__.py:179
+msgid "I am sending JSON with cities to the {} map of the Czech Republic..."
+msgstr "Posílám JSON s městy na {} mapu České republiky..."
+
+#: plugins/chmi/__init__.py:183
+msgid "I will try to send to {} post data {}"
+msgstr "Pokusím se poslat {} post data {}"
+
+#: plugins/chmi/__init__.py:186
+msgid "HTTP {}"
+msgstr "HTTP {}"
+
+#: plugins/chmi/__init__.py:188
 msgid ""
-"HTTP {}: I cannot connect to the LaskaKit map of the Czech Republic at the "
-"URL http://{}/"
+"HTTP {}: I cannot connect to the board map of the Czech Republic at the URL "
+"http://{}/"
 msgstr ""
-"HTTP {}: Nemohu se připojit k mapě LaskaKit České republiky na URL http://{}/"
+"HTTP {}: Nemohu se připojit k mapě České republiky na adrese http://{}/"
 
-#: plugins/chmi/__init__.py:168
+#: plugins/chmi/__init__.py:192
+msgid ""
+"I cannot connect to the map board of the Czech Republic at the URL http://{}/"
+msgstr "Nemohu se připojit k desce České republiky na adrese http://{}/"
+
+#: plugins/chmi/__init__.py:194
 msgid "Looks like it is not raining in any city."
 msgstr "Vypadá to, že v žádném městě neprší."
 
-#: plugins/chmi/__init__.py:171
+#: plugins/chmi/__init__.py:197
 msgid "Failed to load rain radar bitmap."
 msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
 
-#: plugins/chmi/__init__.py:174
+#: plugins/chmi/__init__.py:200
 msgid "Waiting 10 minutes for next update..."
 msgstr "Čekání 10 minut na další aktualizaci..."
 
-#: plugins/chmi/__init__.py:180 plugins/real_time/__init__.py:142
+#: plugins/chmi/__init__.py:206 plugins/real_time/__init__.py:142
 #: plugins/weather_based_rain_delay/__init__.py:149
 #: plugins/weather_based_water_level/__init__.py:144
 #: plugins/weather_based_water_level_netatmo/__init__.py:166
 msgid "Plug-in is disabled."
 msgstr "Rozšíření je zakázáno."
 
-#: plugins/chmi/__init__.py:184 plugins/chmi/__init__.py:276
+#: plugins/chmi/__init__.py:210 plugins/chmi/__init__.py:307
 msgid "CHMI plug-in"
 msgstr "Rozšíření ČHMÚ"
 
-#: plugins/chmi/__init__.py:220
+#: plugins/chmi/__init__.py:247
 msgid "Downloading a file: {}"
 msgstr "Stažení souboru: {}"
 
-#: plugins/chmi/__init__.py:223
+#: plugins/chmi/__init__.py:250
 msgid "HTTP {}: I can not download the file."
 msgstr "HTTP {}: Nemohu stáhnout soubor."
 
-#: plugins/chmi/__init__.py:224
+#: plugins/chmi/__init__.py:251
 msgid "I will try to download a file that is 10 minutes older."
 msgstr "Pokusím se stáhnout soubor, který je o 10 minut starší."
 
-#: plugins/chmi/templates/chmi.html:3 plugins/chmi/templates/chmi.html:22
+#: plugins/chmi/templates/chmi.html:3 plugins/chmi/templates/chmi.html:43
 msgid "CHMI meteoradar"
 msgstr "Meteoradar ČHMÚ"
 
-#: plugins/chmi/templates/chmi.html:27
+#: plugins/chmi/templates/chmi.html:14
+msgid "IP map address is not valid!"
+msgstr "IP adresa není platná!"
+
+#: plugins/chmi/templates/chmi.html:48
 msgid "Use CHMI"
 msgstr "Použít radar ČHMÚ"
 
-#: plugins/chmi/templates/chmi.html:28
+#: plugins/chmi/templates/chmi.html:49
 msgid "When the box is checked, the extension will be active."
 msgstr "Když je políčko zaškrtnuto, rozšíření bude aktivní."
 
-#: plugins/chmi/templates/chmi.html:33
+#: plugins/chmi/templates/chmi.html:54
 msgid "Map IP address"
 msgstr "IP adresa mapy"
 
-#: plugins/chmi/templates/chmi.html:34
-msgid ""
-"IP address for map https://www.laskakit.cz/laskakit-interaktivni-mapa-cr-"
-"ws2812b/."
-msgstr ""
-"IP adresa pro mapové https://www.laskakit.cz/laskakit-interaktivni-mapa-cr-"
-"ws2812b/."
+#: plugins/chmi/templates/chmi.html:55
+msgid "IP address for map."
+msgstr "IP adresa pro mapu."
 
-#: plugins/chmi/templates/chmi.html:38
+#: plugins/chmi/templates/chmi.html:59
+msgid "Map board type"
+msgstr "Typ mapové desky"
+
+#: plugins/chmi/templates/chmi.html:61
+msgid "Mark used your board hardware."
+msgstr "Vyberte typ HW desky."
+
+#: plugins/chmi/templates/chmi.html:69
 msgid "Meteo map"
 msgstr "Meteo mapa"
 
-#: plugins/chmi/templates/chmi.html:39
+#: plugins/chmi/templates/chmi.html:70
 msgid "A downloaded map from the Meteo Institute is displayed here."
 msgstr "Zde je zobrazena stažená mapa z Meteo Institutu."
 
@@ -6542,15 +6583,6 @@ msgstr ""
 
 #: plugins/chmi/templates/chmi_help.html:9
 msgid ""
-"The interactive map of the Czech Republic is based on an ESP32 "
-"microcontroller and contains 72 WS2812 RGB LEDs on the front - each for one "
-"district city."
-msgstr ""
-"Interaktivní mapa České republiky je založena na mikrokontroléru ESP32 a "
-"obsahuje 72 WS2812 RGB LED na přední straně - každá pro jedno okresní město."
-
-#: plugins/chmi/templates/chmi_help.html:10
-msgid ""
 "It is thus possible, for example, to display current warnings in given "
 "locations, or other dates. Different sensors can be connected and all usable "
 "pins are brought out on solder pads for possible connection of different "
@@ -6561,7 +6593,16 @@ msgstr ""
 "jsou vyvedeny na pájecích podložkách pro případné připojení různých senzorů "
 "a zařízení."
 
-#: plugins/chmi/templates/chmi_help.html:11
+#: plugins/chmi/templates/chmi_help.html:9
+msgid ""
+"The interactive map of the Czech Republic is based on an ESP32 "
+"microcontroller and contains 72 WS2812 RGB LEDs on the front - each for one "
+"district city."
+msgstr ""
+"Interaktivní mapa České republiky je založena na mikrokontroléru ESP32 a "
+"obsahuje 72 WS2812 RGB LED na přední straně - každá pro jedno okresní město."
+
+#: plugins/chmi/templates/chmi_help.html:10
 msgid ""
 "The board is equipped with a USB programming converter, so all you need to "
 "program it is a cable with a USB-C connector and, for example, the Arduino "
@@ -6569,6 +6610,18 @@ msgid ""
 msgstr ""
 "Deska je vybavena USB programovacím převodníkem, takže vše, co potřebujete k "
 "naprogramování, je kabel s USB-C konektorem a například Arduino IDE."
+
+#: plugins/chmi/templates/chmi_help.html:16
+msgid "Arduino code for ESP32"
+msgstr "Arduino kód pro ESP32"
+
+#: plugins/chmi/templates/chmi_help.html:16
+msgid "source"
+msgstr "zdroj"
+
+#: plugins/chmi/templates/chmi_help.html:17
+msgid "LEDs sequence and districts"
+msgstr "Sekvence LED diod a okresů"
 
 #: plugins/cli_control/__init__.py:24
 msgid "Package: CLI Control"
@@ -18049,6 +18102,26 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:201
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Auto Login"
+#~ msgstr "Automatické přihlášení"
+
+#~ msgid ""
+#~ "If enabled, browser will remember login information and automatically log "
+#~ "you in."
+#~ msgstr ""
+#~ "Pokud je tato funkce povolena, prohlížeč si zapamatuje přihlašovací údaje "
+#~ "a automaticky vás přihlásí."
+
+#~ msgid "Autologin is enabled"
+#~ msgstr "Automatické přihlášení je povoleno"
+
+#~ msgid ""
+#~ "IP address for map https://www.laskakit.cz/laskakit-interaktivni-mapa-cr-"
+#~ "ws2812b/."
+#~ msgstr ""
+#~ "IP adresa pro mapové https://www.laskakit.cz/laskakit-interaktivni-mapa-"
+#~ "cr-ws2812b/."
 
 #~ msgid "PIP is not installed."
 #~ msgstr "Pip není nainstalován."

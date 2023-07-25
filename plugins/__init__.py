@@ -7,8 +7,6 @@ import types
 import threading
 import importlib
 
-from ospy.helpers import is_python2
-
 __running = {}
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
@@ -143,12 +141,8 @@ class _PluginChecker(threading.Thread):
 
     @staticmethod
     def _download_zip(repo):
-        if is_python2():
-            from urllib2 import urlopen
-            from urllib import quote_plus
-        else:
-            from urllib.request import urlopen
-            from urllib.parse import quote_plus
+        from urllib.request import urlopen
+        from urllib.parse import quote_plus
         import logging
         import io
 
@@ -489,10 +483,7 @@ def start_enabled_plugins():
             import_name = __name__ + '.' + module
             try:
                 plugin = getattr(__import__(import_name), module)
-                if is_python2():
-                    plugin = reload(plugin)
-                else:
-                    plugin = importlib.reload(plugin)
+                plugin = importlib.reload(plugin)
                 plugin_n = plugin.NAME
                 mkdir_p(plugin_data_dir(module))
                 mkdir_p(plugin_docs_dir(module))

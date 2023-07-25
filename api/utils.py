@@ -13,7 +13,7 @@ import web
 
 from .errors import badrequest, unauthorized
 
-from ospy.helpers import test_password, print_report, is_python2
+from ospy.helpers import test_password, print_report
 from ospy.options import options
 from ospy.log import log
 
@@ -111,13 +111,10 @@ def auth(func):
                 assert auth_data, 'No authentication data provided'
 
                 http_auth = re.sub('^Basic ', '', auth_data)
-                if is_python2():
-                    username, password = base64.decodestring(http_auth).split(':')
-                else:
-                    base64_bytes = http_auth.encode('ascii')
-                    message_bytes = base64.b64decode(base64_bytes)
-                    message = message_bytes.decode('ascii')
-                    username, password = message.split(':')
+                base64_bytes = http_auth.encode('ascii')
+                message_bytes = base64.b64decode(base64_bytes)
+                message = message_bytes.decode('ascii')
+                username, password = message.split(':')
                 log.debug('utils.py',  _(u'API Auth Attempt with: user: {} password: {}').format(username, password))
                 assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:

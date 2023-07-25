@@ -10,7 +10,7 @@ import platform
 import time
 import sys
 import subprocess
-from ospy.helpers import print_report, is_python2
+from ospy.helpers import print_report
 
 try:
     import requests
@@ -64,15 +64,12 @@ def OPERATING_SYSTEM(stats, info):
     """
     info.append(('architecture', platform.machine().lower()))
     
-    if is_python2():
+    try:       # python > 3.9
+        import distro
+        info.append(('distribution', "%s;%s" % (distro.linux_distribution()[0:2])))
+    except:    # python <= 3.9
         info.append(('distribution', "%s;%s" % (platform.linux_distribution()[0:2])))
-    else:
-        try:       # python > 3.9
-            import distro
-            info.append(('distribution', "%s;%s" % (distro.linux_distribution()[0:2])))
-        except:    # python <= 3.9
-            info.append(('distribution', "%s;%s" % (platform.linux_distribution()[0:2])))
-            pass
+        pass
         
     info.append(('system', "%s;%s" % (platform.system(), platform.release())))
 

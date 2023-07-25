@@ -152,12 +152,12 @@ class _Options(object):
             "category": _('Users')
         },
         {
-            "key": "auto_login",
-            "name": _('Auto Login'),
-            "default": False,
-            "help": _('If enabled, browser will remember login information and automatically log you in.'),
+            "key": "auto_login_key",
+            "name": _('Auto Login encryption key'),
+            "default": 'Th1s1sTh3Un1qu3K3y',
+            "help": _('The key with which the local storage in the browser will be encrypted.'),
             "category": _('Users')
-        },        
+        },                
         {
             "key": "admin_user",
             "name": _('Administrator name'),
@@ -693,19 +693,11 @@ class _Options(object):
                     shutil.rmtree(tmp_dir)
                 helpers.mkdir_p(tmp_dir)
 
-                if helpers.is_python2():
-                    from dumbdbm import open as dumb_open
-                else:
-                    from dbm.dumb import open as dumb_open
+                from dbm.dumb import open as dumb_open
 
                 db = shelve.Shelf(dumb_open(OPTIONS_TMP))
                 db.clear()
-                if helpers.is_python2():
-                    # We need to make sure that datetime objects are readable in Python 3
-                    # This conversion takes care of that as long as we run at least once in Python 2
-                    db.update(self._convert_datetime_to_str(self._values))
-                else:
-                    db.update(self._values)
+                db.update(self._values)
 
                 db['last_save'] = time.time()
                 db.close()
@@ -753,10 +745,7 @@ class _Options(object):
                 logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
 
-                if helpers.is_python2():
-                    from whichdb import whichdb
-                else:
-                    from dbm import whichdb
+                from dbm import whichdb
 
                 logging.debug(_('Saved db as %s'), whichdb(OPTIONS_FILE))
         except Exception:

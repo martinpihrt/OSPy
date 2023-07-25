@@ -223,6 +223,8 @@ OSPy Průvodce webovým rozhraním v češtině
             Sunrise and Sunset
             Photovoltaic Boiler
             IP CAM
+            Modbus stations
+            CHMI meteo radar
     Odhlásit se
 
 ----

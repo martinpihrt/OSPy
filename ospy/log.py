@@ -16,7 +16,7 @@ import codecs
 
 # Local imports
 from ospy.options import options
-from ospy.helpers import print_report, is_python2
+from ospy.helpers import print_report
 
 EVENT_FILE = './ospy/data/events.log'
 EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno)d: %(message)s"
@@ -51,16 +51,13 @@ class _Log(logging.Handler):
 
     @staticmethod
     def _save_log(msg, level, event_type):
-        if is_python2():
-            msg_print = msg.encode('utf-8')
+        if type(msg) is bytes:
+            msg_print = msg
+        elif type(msg) is str:
+            msg_print = codecs.encode(msg, 'utf-8')
         else:
-            if type(msg) is bytes:
-                msg_print = msg
-            elif type(msg) is str:
-                msg_print = codecs.encode(msg, 'utf-8')
-            else:
-                msg_print = 'Expected bytes or string, but got {}.'.format(type(msg))
-            msg_print = msg_print.decode('utf-8')  
+            msg_print = 'Expected bytes or string, but got {}.'.format(type(msg))
+        msg_print = msg_print.decode('utf-8')  
        
         # Print if it is important:
         if level >= logging.WARNING:
