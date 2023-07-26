@@ -41,6 +41,7 @@ def report_rain_delay_set():      # send rain delay setuped signal
     programs.run_now_program = None
     run_once.clear()
     log.finish_run(None)
+    stations.clear()
     logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes').format(int(h), int(m)), id='RainDelay') 
 
 def report_rain_delay_remove():   # send rain delay removed signal

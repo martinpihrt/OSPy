@@ -1,10 +1,15 @@
 OSPy Changelog
 ====
 
-July 24 2023 (v3.0)
+July 26 2023 (v3.0)
 -----------
 (martinpihrt)<br/>
-Reworked automatic login (now you can set auto-login from different devices individually. Added a check box on the login page. Canceled in OSPy settings). All dependency on python 2 has been dropped in OSPy. The name and password for automatic login are stored encrypted in the browsers local storage. Updating the Czech language (new strings).
+Updating the Czech language (new strings). Bug fixed: if the program is running and a time rain delay occurs, the station did not turn off.
+
+July 25 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Reworked automatic login (now you can set auto-login from different devices individually. Added a check box on the login page. Canceled in OSPy settings). All dependency on Python 2 has been dropped in OSPy. The name and password for automatic login are stored encrypted in the browsers local storage. Updating the Czech language (new strings).
 
 July 11 2023 (v3.0)
 -----------
