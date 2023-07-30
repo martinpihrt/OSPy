@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+July 30 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings) for new CHMI plugin. Example is here: https://github.com/martinpihrt/OSPy-plugins/blob/master/plugins/chmi/static/images/meteomap.png. The plugin can detect whether it is raining in the set location from the weather radar and possibly set a rain delay.
+
 July 26 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

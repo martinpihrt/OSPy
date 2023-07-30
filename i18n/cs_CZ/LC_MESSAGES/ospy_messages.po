@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2023-07-26 07:32+0200\n"
-"PO-Revision-Date: 2023-07-26 07:34+0200\n"
-"Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
+"POT-Creation-Date: 2023-07-30 13:23+0200\n"
+"PO-Revision-Date: 2023-07-30 13:29+0200\n"
+"Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -1881,7 +1881,7 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:182
 #: plugins/button_control/templates/button_control.html:20
-#: plugins/chmi/templates/chmi.html:44
+#: plugins/chmi/templates/chmi.html:45
 #: plugins/cli_control/templates/cli_control.html:22
 #: plugins/door_opening/templates/door_opening.html:22
 #: plugins/email_notifications/templates/email_notifications.html:30
@@ -2075,7 +2075,7 @@ msgstr "Smazat"
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:73
 #: plugins/button_control/templates/button_control.html:101
 #: plugins/button_control/templates/button_control_help.html:124
-#: plugins/chmi/templates/chmi.html:86
+#: plugins/chmi/templates/chmi.html:114
 #: plugins/chmi/templates/chmi_help.html:421
 #: plugins/cli_control/templates/cli_control.html:72
 #: plugins/cli_control/templates/cli_control_help.html:125
@@ -2976,7 +2976,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: ospy/templates/log.html:111 ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:356
 #: plugins/button_control/templates/button_control.html:91
-#: plugins/chmi/templates/chmi.html:75
+#: plugins/chmi/templates/chmi.html:103
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
 #: plugins/door_opening/templates/door_opening.html:47
@@ -3035,7 +3035,7 @@ msgstr "Stav"
 #: ospy/templates/log_sensor.html:126 ospy/templates/log_user.html:103
 #: ospy/templates/sensors_firmware.html:226
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
-#: plugins/chmi/templates/chmi.html:84
+#: plugins/chmi/templates/chmi.html:112
 #: plugins/cli_control/templates/cli_control_log.html:11
 #: plugins/ip_cam/templates/ip_cam.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:11
@@ -4336,6 +4336,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 
 #: ospy/templates/sensor.html:766
 #: plugins/air_temp_humi/templates/air_temp_humi.html:350
+#: plugins/chmi/templates/chmi.html:97
 #: plugins/door_opening/templates/door_opening.html:41
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
@@ -4482,6 +4483,7 @@ msgid "weeks"
 msgstr "týdny"
 
 #: ospy/templates/sensors.html:13 ospy/templates/sensors.html:410
+#: plugins/chmi/__init__.py:226
 #: plugins/weather_based_rain_delay/__init__.py:110
 #: plugins/weather_based_rain_delay/__init__.py:112
 msgid "hours"
@@ -4910,7 +4912,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:211
 #: plugins/air_temp_humi/templates/air_temp_humi.html:365
 #: plugins/button_control/templates/button_control.html:100
-#: plugins/chmi/templates/chmi.html:85
+#: plugins/chmi/templates/chmi.html:113
 #: plugins/cli_control/templates/cli_control.html:71
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -5759,6 +5761,7 @@ msgid "Used DS18B20"
 msgstr "Počet DS18B20"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:351
+#: plugins/chmi/templates/chmi.html:98
 #: plugins/door_opening/templates/door_opening.html:42
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
@@ -6413,160 +6416,252 @@ msgstr ""
 "nový program a přidat jej do spuštěných programů, tuto možnost necháme "
 "vypnutou."
 
-#: plugins/chmi/__init__.py:32
+#: plugins/chmi/__init__.py:34
 msgid "Package: CHMI radar"
 msgstr "Balíček: Meteoradar ČHMÚ"
 
-#: plugins/chmi/__init__.py:91
+#: plugins/chmi/__init__.py:90 plugins/chmi/templates/chmi.html:3
+#: plugins/chmi/templates/chmi.html:43
+msgid "CHMI meteoradar"
+msgstr "Meteoradar ČHMÚ"
+
+#: plugins/chmi/__init__.py:104
 msgid "Failed to download radar data."
 msgstr "Stažení radarových dat se nezdařilo."
 
-#: plugins/chmi/__init__.py:103
+#: plugins/chmi/__init__.py:133
+msgid ""
+"The merging of the images (radar and outline of the Czech Republic) went OK."
+msgstr "Sloučení snímků (radar a obrys ČR) proběhlo v pořádku."
+
+#: plugins/chmi/__init__.py:136
 msgid "Image cannot be saved."
 msgstr "Obrázek nelze uložit."
 
-#: plugins/chmi/__init__.py:106
+#: plugins/chmi/__init__.py:139
 msgid "Converting the image to RGB..."
 msgstr "Převod obrazu do RGB..."
 
-#: plugins/chmi/__init__.py:114
+#: plugins/chmi/__init__.py:146
 msgid "Image width: {} px ({} degrees of longitude)"
 msgstr "Šířka obrázku: {} px ({} stupňů zeměpisné délky)"
 
-#: plugins/chmi/__init__.py:115
+#: plugins/chmi/__init__.py:147
 msgid "Image height: {} px ({} degrees of latitude)"
 msgstr "Výška obrázku: {} px ({} stupňů zeměpisné šířky)"
 
-#: plugins/chmi/__init__.py:116
+#: plugins/chmi/__init__.py:148
 msgid "1 vertical pixel is equal {} degrees of longitude"
 msgstr "1 svislý pixel se rovná {} stupňům zeměpisné délky"
 
-#: plugins/chmi/__init__.py:117
+#: plugins/chmi/__init__.py:149
 msgid "1 horizontal pixel is equal {} degrees of latitude"
 msgstr "1 vodorovný pixel se rovná {} stupňům zeměpisné šířky"
 
-#: plugins/chmi/__init__.py:123
+#: plugins/chmi/__init__.py:155
 msgid "Loading cities database..."
 msgstr "Načítání databáze měst..."
 
-#: plugins/chmi/__init__.py:137
+#: plugins/chmi/__init__.py:176
 msgid "Analyzing if is raining in the cities..."
 msgstr "Analýza, jestli ve městech prší..."
 
-#: plugins/chmi/__init__.py:162
+#: plugins/chmi/__init__.py:201
 msgid "In city {} ({}) it is probably raining right now"
 msgstr "Ve městě {} ({}) pravděpodobně právě teď prší"
 
-#: plugins/chmi/__init__.py:174 plugins/chmi/templates/chmi.html:62
+#: plugins/chmi/__init__.py:220
+msgid ""
+"In my location latitude {} longitude {} it is probably raining right now."
+msgstr ""
+"V mém umístění zeměpisná šířka {} zeměpisná délka {} pravděpodobně právě teď "
+"prší."
+
+#: plugins/chmi/__init__.py:226
+msgid "Detected Rain"
+msgstr "Detekován déšť"
+
+#: plugins/chmi/__init__.py:226
+#: plugins/weather_based_rain_delay/__init__.py:110
+#: plugins/weather_based_rain_delay/__init__.py:112
+#: plugins/weather_based_rain_delay/__init__.py:124
+msgid "Adding delay of"
+msgstr "Přidání zpoždění"
+
+#: plugins/chmi/__init__.py:228
+msgid "Probably raining right now"
+msgstr "Pravděpodobně právě teď prší"
+
+#: plugins/chmi/__init__.py:231
+msgid "In my location latitude {} longitude {} it is probably not rain."
+msgstr "V mé lokalitě zeměpisná šířka {} zeměpisná délka {} asi není déšť."
+
+#: plugins/chmi/__init__.py:232
+msgid "Probably not rain"
+msgstr "Asi neprší"
+
+#: plugins/chmi/__init__.py:234
+msgid "Location is not set!"
+msgstr "Umístění není nastaveno!"
+
+#: plugins/chmi/__init__.py:248 plugins/chmi/templates/chmi.html:63
 msgid "Laskakit"
 msgstr "Laskakit"
 
-#: plugins/chmi/__init__.py:176 plugins/chmi/templates/chmi.html:63
+#: plugins/chmi/__init__.py:250 plugins/chmi/templates/chmi.html:64
 msgid "TMEP"
 msgstr "TMEP"
 
-#: plugins/chmi/__init__.py:178 plugins/chmi/templates/chmi.html:64
+#: plugins/chmi/__init__.py:252 plugins/chmi/templates/chmi.html:65
 msgid "Pihrt"
 msgstr "Pihrt"
 
-#: plugins/chmi/__init__.py:179
+#: plugins/chmi/__init__.py:253
 msgid "I am sending JSON with cities to the {} map of the Czech Republic..."
 msgstr "Posílám JSON s městy na {} mapu České republiky..."
 
-#: plugins/chmi/__init__.py:183
+#: plugins/chmi/__init__.py:257
 msgid "I will try to send to {} post data {}"
 msgstr "Pokusím se poslat {} post data {}"
 
-#: plugins/chmi/__init__.py:186
+#: plugins/chmi/__init__.py:260
 msgid "HTTP {}"
 msgstr "HTTP {}"
 
-#: plugins/chmi/__init__.py:188
+#: plugins/chmi/__init__.py:262
 msgid ""
 "HTTP {}: I cannot connect to the board map of the Czech Republic at the URL "
 "http://{}/"
 msgstr ""
 "HTTP {}: Nemohu se připojit k mapě České republiky na adrese http://{}/"
 
-#: plugins/chmi/__init__.py:192
+#: plugins/chmi/__init__.py:266
 msgid ""
 "I cannot connect to the map board of the Czech Republic at the URL http://{}/"
 msgstr "Nemohu se připojit k desce České republiky na adrese http://{}/"
 
-#: plugins/chmi/__init__.py:194
+#: plugins/chmi/__init__.py:268
 msgid "Looks like it is not raining in any city."
 msgstr "Vypadá to, že v žádném městě neprší."
 
-#: plugins/chmi/__init__.py:197
-msgid "Failed to load rain radar bitmap."
-msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
-
-#: plugins/chmi/__init__.py:200
+#: plugins/chmi/__init__.py:270
 msgid "Waiting 10 minutes for next update..."
 msgstr "Čekání 10 minut na další aktualizaci..."
 
-#: plugins/chmi/__init__.py:206 plugins/real_time/__init__.py:142
+#: plugins/chmi/__init__.py:274
+msgid "Failed to load rain radar bitmap."
+msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
+
+#: plugins/chmi/__init__.py:280 plugins/real_time/__init__.py:142
 #: plugins/weather_based_rain_delay/__init__.py:149
 #: plugins/weather_based_water_level/__init__.py:144
 #: plugins/weather_based_water_level_netatmo/__init__.py:166
 msgid "Plug-in is disabled."
 msgstr "Rozšíření je zakázáno."
 
-#: plugins/chmi/__init__.py:210 plugins/chmi/__init__.py:307
+#: plugins/chmi/__init__.py:284 plugins/chmi/__init__.py:397
 msgid "CHMI plug-in"
 msgstr "Rozšíření ČHMÚ"
 
-#: plugins/chmi/__init__.py:247
+#: plugins/chmi/__init__.py:322
 msgid "Downloading a file: {}"
 msgstr "Stažení souboru: {}"
 
-#: plugins/chmi/__init__.py:250
+#: plugins/chmi/__init__.py:327
 msgid "HTTP {}: I can not download the file."
 msgstr "HTTP {}: Nemohu stáhnout soubor."
 
-#: plugins/chmi/__init__.py:251
+#: plugins/chmi/__init__.py:328
 msgid "I will try to download a file that is 10 minutes older."
 msgstr "Pokusím se stáhnout soubor, který je o 10 minut starší."
-
-#: plugins/chmi/templates/chmi.html:3 plugins/chmi/templates/chmi.html:43
-msgid "CHMI meteoradar"
-msgstr "Meteoradar ČHMÚ"
 
 #: plugins/chmi/templates/chmi.html:14
 msgid "IP map address is not valid!"
 msgstr "IP adresa není platná!"
 
-#: plugins/chmi/templates/chmi.html:48
+#: plugins/chmi/templates/chmi.html:44
+msgid ""
+"The measurement time is primarily given in UTC world time "
+"(UTC=UT=GMT=SELC-2h = CET-1h)."
+msgstr ""
+"Doba měření se primárně udává ve světovém čase UTC (UTC=UT=GMT=SELC-2h = "
+"CET-1h)."
+
+#: plugins/chmi/templates/chmi.html:49
 msgid "Use CHMI"
 msgstr "Použít radar ČHMÚ"
 
-#: plugins/chmi/templates/chmi.html:49
+#: plugins/chmi/templates/chmi.html:50
 msgid "When the box is checked, the extension will be active."
 msgstr "Když je políčko zaškrtnuto, rozšíření bude aktivní."
 
-#: plugins/chmi/templates/chmi.html:54
+#: plugins/chmi/templates/chmi.html:55
 msgid "Map IP address"
 msgstr "IP adresa mapy"
 
-#: plugins/chmi/templates/chmi.html:55
+#: plugins/chmi/templates/chmi.html:56
 msgid "IP address for map."
 msgstr "IP adresa pro mapu."
 
-#: plugins/chmi/templates/chmi.html:59
+#: plugins/chmi/templates/chmi.html:60
 msgid "Map board type"
 msgstr "Typ mapové desky"
 
-#: plugins/chmi/templates/chmi.html:61
+#: plugins/chmi/templates/chmi.html:62
 msgid "Mark used your board hardware."
 msgstr "Vyberte typ HW desky."
 
-#: plugins/chmi/templates/chmi.html:69
+#: plugins/chmi/templates/chmi.html:70
 msgid "Meteo map"
 msgstr "Meteo mapa"
 
-#: plugins/chmi/templates/chmi.html:70
+#: plugins/chmi/templates/chmi.html:71
 msgid "A downloaded map from the Meteo Institute is displayed here."
 msgstr "Zde je zobrazena stažená mapa z Meteo Institutu."
+
+#: plugins/chmi/templates/chmi.html:76
+msgid "My location lat/lon"
+msgstr "Moje poloha lat/lon"
+
+#: plugins/chmi/templates/chmi.html:79
+msgid "Use a rain delay"
+msgstr "Použít zpoždění deště"
+
+#: plugins/chmi/templates/chmi.html:80
+msgid ""
+"If the box is checked, a rain delay will be set if rain is detected. The "
+"location coordinates are obtained from the OSPy settings from the weather/"
+"location menu. For proper function, you need to enter your location in the "
+"settings (for example, Prague)."
+msgstr ""
+"Pokud je políčko zaškrtnuto, bude v případě deště aktivováno dešťové "
+"zpoždění. Souřadnice polohy se získávají z nastavení OSPy z menu počasí/"
+"umístění. Pro správnou funkci musíte v nastavení zadat svou polohu "
+"(například Praha)."
+
+#: plugins/chmi/templates/chmi.html:85
+msgid "Delay time"
+msgstr "Doba zpoždění"
+
+#: plugins/chmi/templates/chmi.html:86
+msgid "Delay time in hours."
+msgstr "Doba zpoždění v hodinách."
+
+#: plugins/chmi/templates/chmi.html:87
+msgid "(in hours)"
+msgstr "(v hodinách)"
+
+#: plugins/chmi/templates/chmi.html:91
+msgid "Intensity threshold"
+msgstr "Práh intenzity deště"
+
+#: plugins/chmi/templates/chmi.html:92
+msgid "Intensity threshold for activate rain delay in my location."
+msgstr "Práh intenzity pro aktivaci dešťového zpoždění v mém umístění."
+
+#: plugins/chmi/templates/chmi.html:93
+msgid "R+G+B (max is 255+255+255)"
+msgstr "R+G+B (max je 255+255+255)"
 
 #: plugins/chmi/templates/chmi_help.html:3
 #: plugins/chmi/templates/chmi_help.html:7
@@ -16857,12 +16952,6 @@ msgstr "Netatmo detekován déšť"
 #: plugins/weather_based_rain_delay/__init__.py:112
 msgid "mm"
 msgstr "mm"
-
-#: plugins/weather_based_rain_delay/__init__.py:110
-#: plugins/weather_based_rain_delay/__init__.py:112
-#: plugins/weather_based_rain_delay/__init__.py:124
-msgid "Adding delay of"
-msgstr "Přidání zpoždění"
 
 #: plugins/weather_based_rain_delay/__init__.py:124
 #: plugins/weather_based_rain_delay/__init__.py:128
