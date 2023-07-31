@@ -623,7 +623,7 @@ def password_hash(password, salt):
     m.update((password+salt).encode('utf-8')) 
     return m.hexdigest()    
 
-def test_password(password, username, autologin=None):
+def test_password(password, username):
     from ospy.options import options
     from ospy.users import users
     from ospy import server
@@ -661,18 +661,6 @@ def test_password(password, username, autologin=None):
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
-                else:
-                    server.session['category'] = 'Unauthorised'
-                    server.session['visitor']  = _('Unknown operator')
-                    print_report('helpers.py', _('Unauthorised category {}').format(user.category))
-                    return False
-            else:
-                if options.password_time < 30: # Brute-force increment time
-                    options.password_time += 1
-                server.session['category'] = 'public'
-                server.session['visitor']  = _('Unknown operator')
-                print_report('helpers.py', _('Unauthorised operator {}').format(username))
-                return False
     return False
 
 

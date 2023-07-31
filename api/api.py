@@ -10,6 +10,7 @@ from ospy.log import log
 from ospy import helpers
 from ospy.sensors import sensors
 from ospy.helpers import print_report, datetime_string
+from ospy import server
 
 import json
 import traceback
@@ -49,7 +50,7 @@ class Stations(object):
                 stations[sid].__setattr__(k, v)
             except:
                 log.error('api.py', _(u'Error setting station {}, {} to {}').format(sid, k, v)) 
-
+    @auth
     @does_json
     def GET(self, station_id=None):
         log.debug('api.py', ('GET /stations/{}').format(station_id if station_id else ''))
@@ -62,6 +63,7 @@ class Stations(object):
             return l
 
     @auth
+    @permission
     @does_json
     def POST(self, station_id=None):
         log.debug('api.py', ('POST /stations/{}').format(station_id if station_id else ''))
@@ -81,6 +83,7 @@ class Stations(object):
         return self._station_to_dict(stations[station_id])
 
     @auth
+    @permission
     @does_json
     def PUT(self, station_id=None):
         log.debug('api.py', ('PUT /stations/{}').format(station_id if station_id else ''))
@@ -95,6 +98,7 @@ class Stations(object):
             return [self._station_to_dict(s) for s in stations]
 
     @auth
+    @permission
     @does_json
     def DELETE(self, station_id=None):
         log.debug('api.py', ('DELETE /stations/{}').format(station_id if station_id else ''))
@@ -161,7 +165,8 @@ class Programs(object):
         self.EXCLUDED_KEYS = [
             'type_name', 'summary', 'schedule'
         ]
-
+    @auth
+    @permission
     @does_json
     def GET(self, program_id):
         log.debug('api.py', ('GET /programs/{}').format(program_id if program_id else ''))
@@ -173,6 +178,7 @@ class Programs(object):
             return [self._program_to_dict(p) for p in programs]
 
     @auth
+    @permission
     @does_json
     def POST(self, program_id):
         log.debug('api.py', ('POST /programs/{}').format(program_id if program_id else ''))
@@ -204,6 +210,7 @@ class Programs(object):
             return self._program_to_dict(programs.get(p.index))
 
     @auth
+    @permission
     @does_json
     def PUT(self, program_id):
         log.debug('api.py', ('PUT /programs/{}').format(program_id if program_id else ''))
@@ -217,6 +224,7 @@ class Programs(object):
             raise badrequest()
 
     @auth
+    @permission
     @does_json
     def DELETE(self, program_id):
         log.debug('api.py', ('DELETE /programs/{}').format(program_id if program_id else ''))
@@ -255,7 +263,8 @@ class Options(object):
             }
             for i, key in enumerate(options.get_options()) if key not in self.EXCLUDED_OPTIONS
         }
-
+    @auth
+    @permission
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
@@ -270,6 +279,7 @@ class Options(object):
             return {opt: options[opt] for opt in options.get_options() if opt not in self.EXCLUDED_OPTIONS}
 
     @auth
+    @permission
     # @does_json
     def PUT(self):
         log.debug('api.py', 'PUT ' + self.__class__.__name__)
@@ -306,6 +316,7 @@ class Logs(object):
             'program_name': log_entry['program_name'],
         }
 
+    @auth
     @does_json
     def GET(self):
         log.debug('api.py', 'GET logs ' + self.__class__.__name__)
@@ -331,6 +342,8 @@ class Logs(object):
 
 
 class System(object):
+    @auth
+    @permission
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
@@ -345,6 +358,7 @@ class System(object):
         }
 
     @auth
+    @permission
     @does_json
     def POST(self):
         log.debug('api.py', 'POST ' + self.__class__.__name__)
@@ -707,6 +721,22 @@ class Sensor(object):
         web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
 
 
+class User(object):
+    @auth
+    @does_json
+    def GET(self):
+        log.debug('api.py', 'GET ' + self.__class__.__name__)
+        return {
+            'user': server.session['visitor'],
+            'category': server.session['category']
+        }
+
+    def OPTIONS(self):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')        
+
+
 def get_app():
     urls = (
         # Stations
@@ -722,6 +752,8 @@ def get_app():
         # Sensors
         r'/sensors(?:/(?P<sensor_id>\d+))?/?', 'Sensors', 
         # Sensor
-        r'/sensor/?', 'Sensor',       
+        r'/sensor/?', 'Sensor',
+        # User
+        r'/user/?', 'User',     
     )
     return web.application(urls, globals()) 

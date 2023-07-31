@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+July 31 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings) for CHMI plugin. Fix user login (public, user, admin). Added get function to /api/user to find out what permissions the logged in user has (for future use in the mobile application).
+
 July 30 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

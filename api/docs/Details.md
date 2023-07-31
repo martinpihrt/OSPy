@@ -29,6 +29,7 @@ We have the following (coarsely defined) groups of "objects" currently:
   * System
   * Sensors
   * Sensor
+  * User
 
 I've heard people also call these 'collections' in the API world. So the general URL format becomes:
 
@@ -426,6 +427,28 @@ Not implemented
 Not implemented
 #### Actions
 Not implemented
+
+### /user
+When login data is sent in the header, information about the category the user belongs to is returned.
+#### GET
+Returns the category of the currently logged in user.
+```json
+{
+    "user": "Carol", 
+    "category": "admin" 
+}
+```
+Category types: sensor, public, user, admin
+
+#### POST
+Not implemented
+#### PUT
+Not implemented
+#### DELETE
+Not implemented
+#### Actions
+Not implemented
+
 
 ### /plugins/
 TODO

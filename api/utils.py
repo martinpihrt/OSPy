@@ -16,6 +16,7 @@ from .errors import badrequest, unauthorized
 from ospy.helpers import test_password, print_report
 from ospy.options import options
 from ospy.log import log
+from ospy import server
 
 
 # datetime to timestamp conversion function
@@ -129,6 +130,30 @@ def auth(func):
         return func(*args, **kwargs)
         
     return wrapper
+
+
+def permission(func):
+    """
+    user authentication wrapper
+    """
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not options.no_password:
+            try:
+
+                log.debug('utils.py',  _('API permission granted.'))
+                print(server.session['category'])
+                assert server.session['category']!='public' ,'Bad permission'
+            except:
+                # no or wrong auth provided
+                log.debug('utils.py',  _('API permission block.'))
+                print_report('utils.py', traceback.format_exc())
+                raise unauthorized()
+
+        return func(*args, **kwargs)
+        
+    return wrapper    
 
 
 # class JSONAppBrowser(web.browser.AppBrowser):

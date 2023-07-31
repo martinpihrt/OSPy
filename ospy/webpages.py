@@ -13,7 +13,7 @@ import traceback
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report, stop_onrain
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options
@@ -1328,6 +1328,7 @@ class action_page(ProtectedPage):
         if rain_block is not None:
             if session['category'] == 'admin' or session['category'] == 'user':
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
+                stop_onrain()
                 logEV.save_events_log( _('Rain delay'), _('User has set a delay {} hours').format(rain_block), id=u'RainDelay')
             else:    
                 msg = _('You do not have access to this section, ask your system administrator for access.')
