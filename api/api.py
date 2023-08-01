@@ -1,4 +1,4 @@
-__author__ = 'Teodor Yantcheff'
+__author__ = 'Teodor Yantcheff, Martin Pihrt'
 
 from .utils import *
 
@@ -8,13 +8,15 @@ from ospy.options import options, level_adjustments
 from ospy.programs import programs, ProgramType
 from ospy.log import log
 from ospy import helpers
-from ospy.sensors import sensors
+from ospy.sensors import sensors, sensors_timer
 from ospy.helpers import print_report, datetime_string
 from ospy import server
 
 import json
 import traceback
 import web
+
+import datetime
 
 
 class Stations(object):
@@ -349,7 +351,7 @@ class System(object):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
         return {
             'version': version.ver_str,
-            'CPU_temperature': helpers.get_cpu_temp(),
+            'CPU_temperature': helpers.get_cpu_temp(options.temp_unit),
             'release_date': version.ver_date,
             'uptime': helpers.uptime(),
             'platform': helpers.determine_platform(),
@@ -737,6 +739,58 @@ class User(object):
         web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')        
 
 
+class Balances(object):
+    @auth
+    @does_json
+    def GET(self):
+        log.debug('api.py', 'GET ' + self.__class__.__name__)
+        statuslist = []
+        epoch = datetime.date(1970, 1, 1)
+
+        for station in stations.get():
+            if station.enabled and any(station.index in program.stations for program in programs.get()):
+                statuslist.append({
+                    'station': station.name,
+                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
+        return statuslist
+
+    def OPTIONS(self):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+
+
+class PluginFooter(object):
+    @auth
+    @does_json
+    def GET(self):
+        log.debug('api.py', 'GET ' + self.__class__.__name__)
+        from ospy.webpages import pluginFtr, pluginStn
+
+        footer_data = []   # Enables plugins to display in the footer of OSPys UI
+        #station_data = [] # Used to display plugin data next to station time countdown on home page timeline.
+        sensor_data = []
+        data = {}
+
+        for i, v in enumerate(pluginFtr):
+            footer_data.append((i, v["label"], v["val"], v["unit"], v["button"]))
+        data["fdata"] = footer_data
+            
+        #for v in pluginStn:
+        #    station_data.append((v[1]))
+        #data["sdata"] = station_data
+
+        sensor_data = sensors_timer.read_status()
+        data["sendata"] = sensor_data
+
+        return data
+
+    def OPTIONS(self):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+
+
 def get_app():
     urls = (
         # Stations
@@ -754,6 +808,10 @@ def get_app():
         # Sensor
         r'/sensor/?', 'Sensor',
         # User
-        r'/user/?', 'User',     
+        r'/user/?', 'User',
+        # Balances
+        r'/balances/?', 'Balances', 
+        # Plugin footer
+        r'/pluginfooter/?', 'PluginFooter',            
     )
     return web.application(urls, globals()) 

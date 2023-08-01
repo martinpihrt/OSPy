@@ -16,10 +16,8 @@ from ospy.helpers import test_password, template_globals, check_login, save_to_o
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report, stop_onrain
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
-from ospy.options import options
-from ospy.options import rain_blocks, program_level_adjustments
-from ospy.programs import programs
-from ospy.programs import ProgramType
+from ospy.options import options, rain_blocks, program_level_adjustments
+from ospy.programs import programs, ProgramType
 from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler

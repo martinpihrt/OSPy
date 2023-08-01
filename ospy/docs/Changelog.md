@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 1 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added get function to /api/balances and /api/pluginfooter (for future use in the mobile application). More doc in OSPy help API Details.md.
+
 July 31 2023 (v3.0)
 -----------
 (martinpihrt)<br/>
