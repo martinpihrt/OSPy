@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 4 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings) for CHMI plugin (added logging).
+
 August 1 2023 (v3.0)
 -----------
 (martinpihrt)<br/>
