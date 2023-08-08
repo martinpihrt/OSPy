@@ -23,7 +23,7 @@ urls = [
     '/status.json', 'ospy.webpages.api_status_json',
     '/log.json', 'ospy.webpages.api_log_json',
     '/balance.json', 'ospy.webpages.api_balance_json',
-    '/api', api.get_app(),     # in apy.py api/stations, api/programs, api/options, api/logs, api/system, api/sensors
+    '/api', api.get_app(),     # in apy.py api/stations, api/programs, api/options, api/logs, api/system, api/sensors, api/sensor, api/user, api/balances, api/pluginfooter
     '/plugins', plugins.get_app(),
     '/plugindata', 'ospy.webpages.api_plugin_data',
     '/update_status', 'ospy.webpages.api_update_status',

@@ -120,13 +120,12 @@ function updateStatus(status) {
                 if (minutes < 10) {minutes = "0"+minutes;}
                 if (seconds < 10) {seconds = "0"+seconds;}
                 if (station.status == "on") {
-                    display = minutes+":"+seconds;
-                    if (typeof pluginStn !== 'UNDEFINED' && pluginStn.length) {
-                        pluginStn.forEach(
-                        function(item) {
-                            display = display + " " +  item[0] + " " + item[1];
-                        });
-                    }
+                     display = minutes+":"+seconds;
+                         if (typeof pluginStn !== 'undefined' && pluginStn.length) {
+                             if (pluginStn[s]){
+                                 display = display + ", " +  pluginStn[s][1] + " " + pluginStn[s][0];
+                             }
+                     }
                 }
                 updateInterval = 1000;
                 break;

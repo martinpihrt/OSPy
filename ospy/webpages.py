@@ -2414,10 +2414,10 @@ class showOnTimeline:
     def __init__(self, val = "", unit = ""):
         self._val = val
         self._unit = unit
-        self._idxs = None
+        self._idx = None
 
-        self._idxs = len(pluginStn)
-        pluginStn.append([self._val, self._unit])
+        self._idx = len(pluginStn)
+        pluginStn.append([self._unit, self._val])
 
     @property
     def clear(self):
@@ -2461,7 +2461,7 @@ class api_plugin_data(ProtectedPage):
             for i, v in enumerate(pluginFtr):
                 footer_data.append((i, v["val"]))
             for v in pluginStn:
-                station_data.append((v[1]))
+                station_data.append((v[0], v[1]))
 
         if options.show_sensor_data: 
             from ospy.sensors import sensors_timer 

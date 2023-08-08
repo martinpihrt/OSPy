@@ -1048,6 +1048,8 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Sunrise and Sunset (výpočet astronomických dat jako je východ a západ slunce. Dle těchto výpočtů umožňuje následně spouštět programy).
 * FVE bojler (nahřívání bojleru z distribuční sítě, nebo FVE elektrárny).
 * IP kamery (umožňuje sledování z IP kamer. Jako JPEG náhled, nebo GIF obrázek, nebo MJPEG stream z kamery).
+* CHMI (umožňuje z meteoradaru ČHMI načítat aktuální počasí a dle něho nastavovat časové spoždění. Zároveň zobrazovat RGB stav počasí na HW mapě).
+* Proto (výchozí plugin pro tvorbu dalších nových pluginů. Plugin nic závratného nedělá, ale vysvětluje jak pracuje).
 
 ----
 

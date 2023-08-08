@@ -1025,6 +1025,7 @@ Available plug-ins:
 * Sunrise and Sunset
 * Photovoltaic Boiler
 * IP CAM
+* Proto
 
 ----
 

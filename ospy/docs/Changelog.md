@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 8 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings) for Proto plugin. Added new plugin "Proto". The proto plugin is designed as a starting point for creating new plugin for OSPy. It does not perform any useful action but contains the basic components necessary for a functioning plugin. More detailed information can be found directly in the plugin on the help page. In the weather.py, the loading of the location has been fixed even without the need to enter the api for stormglass, or the need to enable the stormglass service (the location is used by the CHMI plugin). Added display of data from plugins for display on stations timeline: which allow this (now for future use) alongside the countdown of station running time on the home page timeline. For example, flow in liters per minute, or engine speed (only if station status is ON). Example is here: https://github.com/martinpihrt/OSPy/tree/master/ospy/images/show_sdata.png.
+
 August 4 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

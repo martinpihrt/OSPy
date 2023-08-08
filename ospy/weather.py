@@ -113,26 +113,30 @@ class _Weather(Thread):
 
                 self._sleep(3600)
             except Exception:
+                pass
                 logging.warning(_('Weather error:') + ' ' + traceback.format_exc())
                 self._sleep(6*3600)
 
     def _find_location(self):
-        if options.location and options.stormglass_key:
+        if options.location:
             data = urlopen(
                 "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location))
             data = json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
             if not data:
                 options.weather_status = 0 # Weather - No location found!
-                raise Exception(_('No location found:') + ' ' + options.location + '.')
+                raise Exception(_('No location found:') + ' ' + options.location)
             else:
                 self._lat = float(data[0]['lat'])
                 self._lon = float(data[0]['lon'])
                 options.weather_lat = str(float(data[0]['lat']))
                 options.weather_lon = str(float(data[0]['lon']))
                 options.weather_status = 1 # found
-                url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
-                self._elevation = self._get_stormglass_json(url)['data']['elevation']
-                logging.debug(_('Location found: %s, %s at %.1fm above sea level'), self._lat, self._lon, self._elevation)
+                if options.stormglass_key and options.use_weather:
+                    url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
+                    self._elevation = self._get_stormglass_json(url)['data']['elevation']
+                    logging.debug(_('Location found: %s, %s at %.1fm above sea level'), self._lat, self._lon, self._elevation)
+                else:
+                    logging.debug(_('Location found: %s, %s but Stormglass.io is not currently enabled and altitude loading will not be used'), self._lat, self._lon)    
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:
