@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 11 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings). Added new plugin "Label Maker" (creation of EAN and QR codes for subsequent printing). Added post function to /api/runonce (Allows you to start the selected station for a set time. The duration is entered in seconds. For future use in the mobile application. More doc in OSPy help API Details.md.)
+
 August 8 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

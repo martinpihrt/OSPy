@@ -6,6 +6,7 @@ from ospy import version
 from ospy.stations import stations
 from ospy.options import options, level_adjustments
 from ospy.programs import programs, ProgramType
+from ospy.runonce import run_once
 from ospy.log import log
 from ospy import helpers
 from ospy.sensors import sensors, sensors_timer
@@ -791,6 +792,37 @@ class PluginFooter(object):
         web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
 
 
+
+class Runonce(object):
+    @auth
+    @permission
+    @does_json
+    def POST(self, station_id=None):
+        log.debug('api.py', ('POST /runonce/{}').format(station_id if station_id else ''))
+        station_time = int(web.input().get('time', '').lower())
+        station_id = int(station_id)
+        if station_time:
+            station_seconds = {}
+            for station in stations.enabled_stations():
+                if station.index == station_id:
+                    station_seconds[station.index] = station_time
+                else:
+                    station_seconds[station.index] = 0
+            run_once.set(station_seconds)
+            log.debug('api.py',  _('Runonce station id: {},  run time: {}').format(station_id, station_time))
+
+        else:
+            log.error('api.py',  _('Unknown runonce action'))
+            raise badrequest()
+
+        return 'OK'
+
+    def OPTIONS(self, station_id=None):
+        web.header('Access-Control-Allow-Origin', '*')
+        web.header('Access-Control-Allow-Headers', 'Content-Type')
+        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')        
+
+
 def get_app():
     urls = (
         # Stations
@@ -812,6 +844,8 @@ def get_app():
         # Balances
         r'/balances/?', 'Balances', 
         # Plugin footer
-        r'/pluginfooter/?', 'PluginFooter',            
+        r'/pluginfooter/?', 'PluginFooter',
+        # Runonce
+        r'/runonce(?:/(?P<station_id>\d+))?/?', 'Runonce',                    
     )
     return web.application(urls, globals()) 

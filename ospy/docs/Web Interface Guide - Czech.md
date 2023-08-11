@@ -1050,6 +1050,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * IP kamery (umožňuje sledování z IP kamer. Jako JPEG náhled, nebo GIF obrázek, nebo MJPEG stream z kamery).
 * CHMI (umožňuje z meteoradaru ČHMI načítat aktuální počasí a dle něho nastavovat časové spoždění. Zároveň zobrazovat RGB stav počasí na HW mapě).
 * Proto (výchozí plugin pro tvorbu dalších nových pluginů. Plugin nic závratného nedělá, ale vysvětluje jak pracuje).
+* Label Maker (vytváření EAN a QR kódů).
 
 ----
 

@@ -1026,6 +1026,7 @@ Available plug-ins:
 * Photovoltaic Boiler
 * IP CAM
 * Proto
+* Label Maker
 
 ----
 

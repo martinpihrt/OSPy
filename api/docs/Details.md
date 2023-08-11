@@ -15,7 +15,7 @@ Before getting into detailing the meaty part some notes:
  * Authentication -- I think we should stick to http basic (base64 encoded) over TLS (once known as SSL). Assuming that this is going to be an _API_, used from other software it's easy to add the auth headers always. We can also do cookie auth, though I'm note rally sure of it's usability in our case.
  * Versioning -- It may be an overkill, but it's good design anyway. So API URLs should be in the format:
  
-  `http(s)://[ip|name]:[port]/api/v1/...... `
+  `http(s)://[ip|name]:[port]/api/...... `
 
 In Header for http GET/POST response:
 `Header("Authorization", "Basic " "Username:Password")` 
@@ -34,6 +34,7 @@ We have the following (coarsely defined) groups of "objects" currently:
   * Balance
   * Plugin Footer
   * Plugin
+  * Runonce
 
 I've heard people also call these 'collections' in the API world. So the general URL format becomes:
 
@@ -601,6 +602,27 @@ Not implemented
 Not implemented
 #### Actions
 Not implemented
+
+
+## Runonce
+Allows you to start the selected station for a set time (the duration is entered in seconds).
+#### GET
+Not implemented
+#### PUT
+Not implemented
+#### DELETE
+Not implemented
+#### POST
+Returns 
+```
+    "OK"
+```
+#### Actions
+Example:
+Manually start station with id 2. Duration is 10 seconds:
+`POST` `/runonce/1/?time=10`
+Manually start station with id 1. Duration is 30 seconds:
+`POST` `/runonce/0/?time=30`
 
 
 ## Plug-Ins

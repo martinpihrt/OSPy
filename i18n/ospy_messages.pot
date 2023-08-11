@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-08-08 11:41+0200\n"
+"POT-Creation-Date: 2023-08-11 08:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,84 +15,92 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: api/api.py:50
+#: api/api.py:51
 msgid "station id:{} key: {} value: {}"
 msgstr ""
 
-#: api/api.py:54
+#: api/api.py:55
 msgid "Error setting station {}, {} to {}"
 msgstr ""
 
-#: api/api.py:76
+#: api/api.py:77
 msgid "Starting station {} ({})"
 msgstr ""
 
-#: api/api.py:79
+#: api/api.py:80
 msgid "Stopping station {} ({})"
 msgstr ""
 
-#: api/api.py:82
+#: api/api.py:83
 msgid "Unknown station action: {}"
 msgstr ""
 
-#: api/api.py:145
+#: api/api.py:146
 msgid "Setting program property key: {} to value: {}"
 msgstr ""
 
-#: api/api.py:150
+#: api/api.py:151
 msgid "Error setting program property key: {} to value: {}"
 msgstr ""
 
-#: api/api.py:192
+#: api/api.py:193
 msgid "Starting program {} ({})"
 msgstr ""
 
-#: api/api.py:197
+#: api/api.py:198
 msgid "Unknown program action: {}"
 msgstr ""
 
-#: api/api.py:295
+#: api/api.py:296
 msgid "Error updating {} to {}"
 msgstr ""
 
-#: api/api.py:298
+#: api/api.py:299
 msgid "Skipping key {}"
 msgstr ""
 
-#: api/api.py:370
+#: api/api.py:371
 msgid "System reboot requested via API"
 msgstr ""
 
-#: api/api.py:374
+#: api/api.py:375
 msgid "OSPy service restart requested via API"
 msgstr ""
 
-#: api/api.py:378
+#: api/api.py:379
 msgid "System poweroff requested via API"
 msgstr ""
 
-#: api/api.py:382
+#: api/api.py:383
 msgid "Unknown system action: {}"
 msgstr ""
 
-#: api/api.py:473
+#: api/api.py:474
 msgid "Sensor input IP: {} MAC: {} SECURE: {}."
 msgstr ""
 
-#: api/api.py:475
+#: api/api.py:476
 msgid "Any error in Sensor input!"
 msgstr ""
 
-#: api/api.py:668
+#: api/api.py:669
 msgid "Input for sensor: {} successfully."
 msgstr ""
 
-#: api/api.py:671
+#: api/api.py:672
 msgid "Received data (IP, MAC, SEC...) probably do not match!"
 msgstr ""
 
-#: api/api.py:717
+#: api/api.py:718
 msgid "Received data is not correct!"
+msgstr ""
+
+#: api/api.py:814
+msgid "Runonce station id: {},  run time: {}"
+msgstr ""
+
+#: api/api.py:817
+msgid "Unknown runonce action"
 msgstr ""
 
 #: api/utils.py:85
@@ -176,7 +184,7 @@ msgid "Administrator"
 msgstr ""
 
 #: ospy/helpers.py:251 ospy/templates/home_admin.html:467
-#: ospy/templates/home_public.html:402 ospy/templates/home_user.html:470
+#: ospy/templates/home_public.html:401 ospy/templates/home_user.html:469
 #: ospy/templates/user.html:43 ospy/templates/user.html:66
 #: ospy/templates/users.html:30
 msgid "User"
@@ -952,7 +960,7 @@ msgstr ""
 
 #: ospy/programs.py:289 ospy/templates/home_admin.html:90
 #: ospy/templates/home_admin.html:534 ospy/templates/home_public.html:90
-#: ospy/templates/home_user.html:90 ospy/templates/home_user.html:537
+#: ospy/templates/home_user.html:90 ospy/templates/home_user.html:536
 msgid "For"
 msgstr ""
 
@@ -1803,6 +1811,7 @@ msgstr ""
 #: plugins/email_reader/templates/email_reader.html:24
 #: plugins/ip_cam/templates/ip_cam.html:20
 #: plugins/ip_cam/templates/ip_cam_setup.html:31
+#: plugins/labelmaker/templates/labelmaker.html:38
 #: plugins/lcd_display/templates/lcd_display.html:30
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
@@ -2001,6 +2010,8 @@ msgstr ""
 #: plugins/ip_cam/templates/ip_cam_help.html:51
 #: plugins/ip_cam/templates/ip_cam_mjpeg.html:27
 #: plugins/ip_cam/templates/ip_cam_setup.html:93
+#: plugins/labelmaker/templates/labelmaker.html:99
+#: plugins/labelmaker/templates/labelmaker_help.html:30
 #: plugins/lcd_display/templates/lcd_display.html:172
 #: plugins/lcd_display/templates/lcd_display_help.html:62
 #: plugins/modbus_stations/templates/modbus_stations.html:70
@@ -2239,7 +2250,7 @@ msgid "Ultrasonic"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:25 ospy/templates/home_admin.html:228
-#: ospy/templates/home_public.html:199 ospy/templates/home_user.html:229
+#: ospy/templates/home_public.html:198 ospy/templates/home_user.html:228
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
 #: plugins/ping_monitor/templates/ping_monitor.html:22
 #: plugins/pressure_monitor/templates/pressure_monitor.html:22
@@ -2343,7 +2354,7 @@ msgid "Show also errors in graph. Example: -127"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:197 ospy/templates/home_admin.html:616
-#: ospy/templates/home_public.html:490 ospy/templates/home_user.html:613
+#: ospy/templates/home_public.html:489 ospy/templates/home_user.html:612
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/ping_monitor/templates/ping_monitor.html:292
 #: plugins/pressure_monitor/templates/pressure_monitor.html:307
@@ -2369,42 +2380,42 @@ msgid "blocked by"
 msgstr ""
 
 #: ospy/templates/home_admin.html:136 ospy/templates/home_admin.html:505
-#: ospy/templates/home_public.html:137 ospy/templates/home_user.html:137
-#: ospy/templates/home_user.html:508
+#: ospy/templates/home_public.html:136 ospy/templates/home_user.html:136
+#: ospy/templates/home_user.html:507
 msgid "On (Master)"
 msgstr ""
 
 #: ospy/templates/home_admin.html:139 ospy/templates/home_admin.html:511
-#: ospy/templates/home_public.html:140 ospy/templates/home_user.html:140
-#: ospy/templates/home_user.html:514
+#: ospy/templates/home_public.html:139 ospy/templates/home_user.html:139
+#: ospy/templates/home_user.html:513
 msgid "On (Master Two)"
 msgstr ""
 
 #: ospy/templates/home_admin.html:143 ospy/templates/home_admin.html:507
-#: ospy/templates/home_public.html:144 ospy/templates/home_user.html:144
-#: ospy/templates/home_user.html:510
+#: ospy/templates/home_public.html:143 ospy/templates/home_user.html:143
+#: ospy/templates/home_user.html:509
 msgid "Off (Master)"
 msgstr ""
 
 #: ospy/templates/home_admin.html:146 ospy/templates/home_admin.html:513
-#: ospy/templates/home_public.html:147 ospy/templates/home_user.html:147
-#: ospy/templates/home_user.html:516
+#: ospy/templates/home_public.html:146 ospy/templates/home_user.html:146
+#: ospy/templates/home_user.html:515
 msgid "Off (Master Two)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:152 ospy/templates/home_public.html:153
-#: ospy/templates/home_user.html:153
+#: ospy/templates/home_admin.html:152 ospy/templates/home_public.html:152
+#: ospy/templates/home_user.html:152
 msgid "Suppressed by Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:155 ospy/templates/home_public.html:156
-#: ospy/templates/home_user.html:156
+#: ospy/templates/home_admin.html:155 ospy/templates/home_public.html:155
+#: ospy/templates/home_user.html:155
 msgid "Suppressed by Rain Sensor"
 msgstr ""
 
 #: ospy/templates/home_admin.html:158 ospy/templates/home_admin.html:458
-#: ospy/templates/home_public.html:159 ospy/templates/home_user.html:159
-#: ospy/templates/home_user.html:461 ospy/templates/log.html:28
+#: ospy/templates/home_public.html:158 ospy/templates/home_user.html:158
+#: ospy/templates/home_user.html:460 ospy/templates/log.html:28
 #: ospy/templates/log.html:57 ospy/templates/log.html:86
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
@@ -2416,54 +2427,54 @@ msgid "Disabled"
 msgstr ""
 
 #: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:520
-#: ospy/templates/home_admin.html:533 ospy/templates/home_public.html:162
-#: ospy/templates/home_user.html:162 ospy/templates/home_user.html:523
-#: ospy/templates/home_user.html:536 ospy/templates/plugins_manage.html:12
+#: ospy/templates/home_admin.html:533 ospy/templates/home_public.html:161
+#: ospy/templates/home_user.html:161 ospy/templates/home_user.html:522
+#: ospy/templates/home_user.html:535 ospy/templates/plugins_manage.html:12
 #: ospy/templates/plugins_manage.html:20 ospy/templates/plugins_manage.html:63
 #: ospy/templates/program.html:432 ospy/templates/programs.html:16
 #: ospy/templates/sensors.html:56
 msgid "Off"
 msgstr ""
 
-#: ospy/templates/home_admin.html:180 ospy/templates/home_user.html:181
+#: ospy/templates/home_admin.html:180 ospy/templates/home_user.html:180
 msgid "Enter percentage adjustment"
 msgstr ""
 
-#: ospy/templates/home_admin.html:183 ospy/templates/home_user.html:184
+#: ospy/templates/home_admin.html:183 ospy/templates/home_user.html:183
 msgid "Percentage must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:195 ospy/templates/home_user.html:196
+#: ospy/templates/home_admin.html:195 ospy/templates/home_user.html:195
 msgid "Enter hours to delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:198 ospy/templates/home_user.html:199
+#: ospy/templates/home_admin.html:198 ospy/templates/home_user.html:198
 msgid "Delay must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:228 ospy/templates/home_public.html:199
-#: ospy/templates/home_user.html:229
+#: ospy/templates/home_admin.html:228 ospy/templates/home_public.html:198
+#: ospy/templates/home_user.html:228
 msgid "(mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:234 ospy/templates/home_public.html:205
-#: ospy/templates/home_user.html:235
+#: ospy/templates/home_admin.html:234 ospy/templates/home_public.html:204
+#: ospy/templates/home_user.html:234
 msgid "ETo"
 msgstr ""
 
-#: ospy/templates/home_admin.html:235 ospy/templates/home_public.html:206
-#: ospy/templates/home_user.html:236
+#: ospy/templates/home_admin.html:235 ospy/templates/home_public.html:205
+#: ospy/templates/home_user.html:235
 msgid "Rain"
 msgstr ""
 
 #: ospy/templates/home_admin.html:242 ospy/templates/home_admin.html:477
-#: ospy/templates/home_public.html:213 ospy/templates/home_public.html:412
-#: ospy/templates/home_user.html:243 ospy/templates/home_user.html:480
+#: ospy/templates/home_public.html:212 ospy/templates/home_public.html:411
+#: ospy/templates/home_user.html:242 ospy/templates/home_user.html:479
 msgid "Total"
 msgstr ""
 
-#: ospy/templates/home_admin.html:245 ospy/templates/home_public.html:216
-#: ospy/templates/home_user.html:246
+#: ospy/templates/home_admin.html:245 ospy/templates/home_public.html:215
+#: ospy/templates/home_user.html:245
 #: plugins/ping_monitor/templates/ping_monitor.html:36
 #: plugins/pressure_monitor/templates/pressure_monitor.html:36
 #: plugins/speed_monitor/templates/speed_monitor.html:36
@@ -2473,68 +2484,68 @@ msgstr ""
 msgid "Previous Value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:258 ospy/templates/home_public.html:229
-#: ospy/templates/home_user.html:259
+#: ospy/templates/home_admin.html:258 ospy/templates/home_public.html:228
+#: ospy/templates/home_user.html:258
 msgid "Water balance (mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:393 ospy/templates/home_user.html:395
+#: ospy/templates/home_admin.html:393 ospy/templates/home_user.html:394
 msgid "Timer values wrong:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:449
+#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
 msgid "% Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:449
+#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
 msgid "Add or subtract the total program run time in % of time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:449
+#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
 msgid "Normal"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:449
+#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
 msgid "Water Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:451
+#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
 msgid "Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:451
+#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
 msgid "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:451
+#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
 #: plugins/lcd_display/__init__.py:332 plugins/lcd_display/__init__.py:365
 #: plugins/pressure_monitor/__init__.py:181
 #: plugins/pressure_monitor/__init__.py:182
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/home_admin.html:452 ospy/templates/home_user.html:455
+#: ospy/templates/home_admin.html:452 ospy/templates/home_user.html:454
 msgid "Rain sensed"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:458
+#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
 msgid "Schedule"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:458
+#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:458
+#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
 #: ospy/webpages.py:1361
 msgid "Manual"
 msgstr ""
 
-#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:461
+#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:460
 msgid "Enable or disable the scheduler running"
 msgstr ""
 
-#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:461
+#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:460
 #: ospy/templates/log.html:28 ospy/templates/log.html:57
 #: ospy/templates/log.html:86 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
@@ -2544,133 +2555,133 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/home_admin.html:463 ospy/templates/home_public.html:398
-#: ospy/templates/home_user.html:466
+#: ospy/templates/home_admin.html:463 ospy/templates/home_public.html:397
+#: ospy/templates/home_user.html:465
 msgid "Water Level adjustments"
 msgstr ""
 
-#: ospy/templates/home_admin.html:484 ospy/templates/home_public.html:419
-#: ospy/templates/home_user.html:487
+#: ospy/templates/home_admin.html:484 ospy/templates/home_public.html:418
+#: ospy/templates/home_user.html:486
 msgid "Programs adjustments by sensors"
 msgstr ""
 
 #: ospy/templates/home_admin.html:520 ospy/templates/home_admin.html:533
-#: ospy/templates/home_user.html:523 ospy/templates/home_user.html:536
+#: ospy/templates/home_user.html:522 ospy/templates/home_user.html:535
 #: ospy/templates/plugins_manage.html:10 ospy/templates/plugins_manage.html:18
 #: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:430
 #: ospy/templates/programs.html:14 ospy/templates/sensors.html:54
 msgid "On"
 msgstr ""
 
-#: ospy/templates/home_admin.html:522 ospy/templates/home_user.html:525
+#: ospy/templates/home_admin.html:522 ospy/templates/home_user.html:524
 msgid "in"
 msgstr ""
 
 #: ospy/templates/home_admin.html:523 ospy/templates/home_admin.html:535
-#: ospy/templates/home_user.html:526 ospy/templates/home_user.html:538
+#: ospy/templates/home_user.html:525 ospy/templates/home_user.html:537
 msgid "Type time for run in minutes"
 msgstr ""
 
 #: ospy/templates/home_admin.html:526 ospy/templates/home_admin.html:538
-#: ospy/templates/home_user.html:529 ospy/templates/home_user.html:541
+#: ospy/templates/home_user.html:528 ospy/templates/home_user.html:540
 msgid "Type time for run in seconds"
 msgstr ""
 
-#: ospy/templates/home_admin.html:530 ospy/templates/home_user.html:533
+#: ospy/templates/home_admin.html:530 ospy/templates/home_user.html:532
 #: plugins/email_reader/__init__.py:406 plugins/telegram_bot/__init__.py:138
 #: plugins/telegram_bot/__init__.py:369
 msgid "Forever"
 msgstr ""
 
 #: ospy/templates/home_admin.html:544 ospy/templates/home_admin.html:598
-#: ospy/templates/home_user.html:547 ospy/templates/home_user.html:598
+#: ospy/templates/home_user.html:546 ospy/templates/home_user.html:597
 msgid "Stop All Stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:547
+#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:546
 msgid "Press to stop all running stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:445
-#: ospy/templates/home_user.html:568
+#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:444
+#: ospy/templates/home_user.html:567
 msgid " Prev Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:445
-#: ospy/templates/home_user.html:568
+#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:444
+#: ospy/templates/home_user.html:567
 msgid "Switch to previous day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:569
+#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:445
+#: ospy/templates/home_user.html:568
 msgid "Switch to today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:569
+#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:445
+#: ospy/templates/home_user.html:568
 msgid "Today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:447
-#: ospy/templates/home_user.html:570
+#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:569
 msgid "Next Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:447
-#: ospy/templates/home_user.html:570
+#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:569
 msgid "Switch to next day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:585 ospy/templates/home_public.html:465
-#: ospy/templates/home_user.html:585
+#: ospy/templates/home_admin.html:585 ospy/templates/home_public.html:464
+#: ospy/templates/home_user.html:584
 msgid "Click for view."
 msgstr ""
 
-#: ospy/templates/home_admin.html:589 ospy/templates/home_public.html:469
-#: ospy/templates/home_user.html:589
+#: ospy/templates/home_admin.html:589 ospy/templates/home_public.html:468
+#: ospy/templates/home_user.html:588
 msgid "loading..."
 msgstr ""
 
-#: ospy/templates/home_admin.html:598 ospy/templates/home_user.html:598
+#: ospy/templates/home_admin.html:598 ospy/templates/home_user.html:597
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:616 ospy/templates/home_public.html:490
-#: ospy/templates/home_user.html:613
+#: ospy/templates/home_admin.html:616 ospy/templates/home_public.html:489
+#: ospy/templates/home_user.html:612
 msgid "Deselecting the selected area in the chart"
 msgstr ""
 
-#: ospy/templates/home_admin.html:628 ospy/templates/home_user.html:625
+#: ospy/templates/home_admin.html:628 ospy/templates/home_user.html:624
 msgid "Weather - No location found!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:627
+#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:626
 msgid "Weather - Location"
 msgstr ""
 
-#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:627
+#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:626
 msgid "found:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:630
+#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:629
 #: plugins/chmi/templates/chmi.html:101
 msgid "Displaying the found area on the map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:630
+#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:629
 #: plugins/chmi/templates/chmi.html:101
 msgid "Map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:631
+#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:630
 msgid "lat"
 msgstr ""
 
-#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:631
+#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:630
 msgid "lon"
 msgstr ""
 
-#: ospy/templates/home_admin.html:636 ospy/templates/home_user.html:633
+#: ospy/templates/home_admin.html:636 ospy/templates/home_user.html:632
 msgid "Weather - No location coordinates available!"
 msgstr ""
 
@@ -2899,6 +2910,7 @@ msgstr ""
 #: plugins/email_reader/templates/email_reader.html:180
 #: plugins/email_reader/templates/email_reader_help.html:59
 #: plugins/ip_cam/templates/ip_cam.html:36
+#: plugins/labelmaker/templates/labelmaker.html:89
 #: plugins/lcd_display/templates/lcd_display.html:162
 #: plugins/lcd_display/templates/lcd_display_help.html:45
 #: plugins/modbus_stations/templates/modbus_stations.html:59
@@ -3309,11 +3321,12 @@ msgid "Upload SSL file."
 msgstr ""
 
 #: ospy/templates/options.html:284
-msgid "Generate"
+msgid "Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder"
 msgstr ""
 
 #: ospy/templates/options.html:284
-msgid "Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder"
+#: plugins/labelmaker/templates/labelmaker.html:78
+msgid "Generate"
 msgstr ""
 
 #: ospy/templates/options.html:285
@@ -5281,7 +5294,7 @@ msgstr ""
 msgid "Saving to log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:568 plugins/chmi/__init__.py:453
+#: plugins/air_temp_humi/__init__.py:568 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
 #: plugins/ping_monitor/__init__.py:386 plugins/speed_monitor/__init__.py:275
 #: plugins/tank_monitor/__init__.py:689 plugins/wind_monitor/__init__.py:532
@@ -6212,7 +6225,7 @@ msgstr ""
 msgid "Plug-in is disabled."
 msgstr ""
 
-#: plugins/chmi/__init__.py:316 plugins/chmi/__init__.py:490
+#: plugins/chmi/__init__.py:316 plugins/chmi/__init__.py:489
 msgid "CHMI plug-in"
 msgstr ""
 
@@ -6234,15 +6247,15 @@ msgstr ""
 msgid "Removing Rain Delay"
 msgstr ""
 
-#: plugins/chmi/__init__.py:556
+#: plugins/chmi/__init__.py:555
 msgid "RAIN IN LOCATION"
 msgstr ""
 
-#: plugins/chmi/__init__.py:559
+#: plugins/chmi/__init__.py:558
 msgid "NOT RAIN IN LOCATION"
 msgstr ""
 
-#: plugins/chmi/__init__.py:561
+#: plugins/chmi/__init__.py:560
 msgid "MY LOCATION IS NOT SET"
 msgstr ""
 
@@ -6323,14 +6336,17 @@ msgid "Intensity threshold for activate rain delay in my location. The detection
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:126
+#: plugins/labelmaker/templates/labelmaker.html:65
 msgid "RED"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:127
+#: plugins/labelmaker/templates/labelmaker.html:66
 msgid "GREEN"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:128
+#: plugins/labelmaker/templates/labelmaker.html:67
 msgid "BLUE"
 msgstr ""
 
@@ -8715,6 +8731,168 @@ msgstr ""
 msgid "Assignment of IP cameras to OSPy stations."
 msgstr ""
 
+#: plugins/labelmaker/__init__.py:25
+msgid "Package: Label Maker"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:54
+msgid "Ready. Select code type and message."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:68
+msgid "Barcode not instaled, installing from pip (pip install python-barcode)."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:71 plugins/labelmaker/__init__.py:92
+#: plugins/labelmaker/__init__.py:110 plugins/labelmaker/__init__.py:134
+msgid "Now restart this plugin!"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:78
+msgid "Generated EAN13 code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:80
+msgid "EAN code must have 12 digits!"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:82
+msgid "EAN code can only contain numbers!"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:89 plugins/labelmaker/__init__.py:107
+msgid "QRcode not instaled, installing from pip (pip install qrcode)."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:98
+msgid "Generated QR BW code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:100 plugins/labelmaker/__init__.py:121
+#: plugins/labelmaker/__init__.py:153
+msgid "You have to type some text before pressing the generate button!"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:119
+msgid "Generated QR color code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:129
+msgid "QRcode or Pillow not instaled, installing from pip (pip install qrcode, pip install Pillow)."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:151
+msgid "Generated QR code with logo..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:156 plugins/labelmaker/__init__.py:224
+msgid "Label Maker plug-in"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:3
+#: plugins/labelmaker/templates/labelmaker.html:36
+msgid "Bar and QR code label maker generator"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:37
+msgid "This extension allows you to generate bar or QR codes for your use..."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:42
+msgid "Select output format"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:44
+msgid "Mark used your code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:45
+msgid "BAR EAN13"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:46
+#: plugins/labelmaker/templates/labelmaker_help.html:13
+msgid "QR black and white"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:47
+#: plugins/labelmaker/templates/labelmaker.html:59
+#: plugins/labelmaker/templates/labelmaker_help.html:16
+msgid "QR color"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:48
+#: plugins/labelmaker/templates/labelmaker_help.html:19
+msgid "QR with logo"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:53
+msgid "Message"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:54
+msgid "Message embedded in the code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:63
+msgid "Color used in QR code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:64
+msgid "BLACK"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:68
+msgid "ORANGE"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:69
+msgid "BROWN"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:79
+msgid "Erase"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:83
+msgid "Image for download"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:84
+msgid "Your generated barcode or qr code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:3
+#: plugins/labelmaker/templates/labelmaker_help.html:7
+msgid "Bar and QR code label maker generator - help"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:8
+msgid "This extension allows you to generate barcodes or QR codes for your use and subsequent use in the OSPy system (for example, generating flowerbed stickers with a detailed description of what is planted for the variety, the need for soil, water...)"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:9
+msgid "This extension requires the following Python packages on Linux. If they are not available for the selected code, the extension will install them by itself."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:10
+msgid "EAN13 code"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:11
+msgid "Message must have 12 digits and must contain only numbers."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:14
+#: plugins/labelmaker/templates/labelmaker_help.html:17
+#: plugins/labelmaker/templates/labelmaker_help.html:20
+msgid "Do not insert messages longer than 500 characters."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:22
+msgid "Full credit goes to projects"
+msgstr ""
+
 #: plugins/lcd_display/__init__.py:36
 msgid "Package: LCD Display"
 msgstr ""
@@ -10900,6 +11078,10 @@ msgstr ""
 msgid "__init__.py"
 msgstr ""
 
+#: plugins/proto/templates/proto_help.html:25
+msgid "plugin_name/__init__.py"
+msgstr ""
+
 #: plugins/proto/templates/proto_help.html:26
 msgid "A web.py template that provides a user interface for the plugin. It includes both Python code and web page markup. Location:"
 msgstr ""
@@ -10949,8 +11131,16 @@ msgstr ""
 msgid "The image used in these example. Location:"
 msgstr ""
 
+#: plugins/proto/templates/proto_help.html:36
+msgid "plugin_name/static/images/img_1.png"
+msgstr ""
+
 #: plugins/proto/templates/proto_help.html:37
 msgid "image_2.png"
+msgstr ""
+
+#: plugins/proto/templates/proto_help.html:38
+msgid "plugin_name/static/images/img_2.png"
 msgstr ""
 
 #: plugins/proto/templates/proto_help.html:43
