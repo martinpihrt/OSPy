@@ -248,7 +248,7 @@ class Options(object):
     def __init__(self):
         """ Stuff that is not to be sent over the API, assuming it's of no interest to potential clients"""
         self.EXCLUDED_OPTIONS = [
-            'password_hash', 'password_salt', 'theme', 'logged_runs', 'time_format'
+            'password_hash', 'password_salt', 'theme', 'logged_runs', 'time_format', 'weather_cache'
         ]
 
         """ Options array in the format
