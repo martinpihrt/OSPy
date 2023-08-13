@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 13 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings). Fix error in api/options. Fix error in MQTT run-once plugin. Add doc with images to MQTT run-once plugin.
+
 August 11 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

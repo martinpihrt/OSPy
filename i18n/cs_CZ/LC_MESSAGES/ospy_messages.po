@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2023-08-11 08:27+0200\n"
-"PO-Revision-Date: 2023-08-11 08:35+0200\n"
-"Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
+"POT-Creation-Date: 2023-08-13 21:29+0200\n"
+"PO-Revision-Date: 2023-08-13 21:41+0200\n"
+"Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -100,11 +100,11 @@ msgstr ""
 msgid "Received data is not correct!"
 msgstr "Přijatá data nejsou v pořádku!"
 
-#: api/api.py:814
+#: api/api.py:812
 msgid "Runonce station id: {},  run time: {}"
 msgstr "Runonce id stanice: {}, doba běhu: {}"
 
-#: api/api.py:817
+#: api/api.py:815
 msgid "Unknown runonce action"
 msgstr "Neznámá akce runonce"
 
@@ -2121,7 +2121,7 @@ msgstr "Smazat"
 #: plugins/mqtt/templates/mqtt.html:107
 #: plugins/mqtt/templates/mqtt_help.html:18
 #: plugins/mqtt_runonce/templates/mqtt_runonce.html:74
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:25
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:50
 #: plugins/mqtt_zones/templates/mqtt_zones.html:46
 #: plugins/mqtt_zones/templates/mqtt_zones_help.html:15
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -9081,8 +9081,6 @@ msgstr ""
 #: plugins/email_reader/__init__.py:373 plugins/email_reader/__init__.py:376
 #: plugins/email_reader/templates/email_reader_help.html:64
 #: plugins/email_reader/templates/email_reader_help.html:67
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:11
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:14
 msgid "Station 1 -> OFF, 2 -> OFF, 3 -> ON 100 second, 4 -> ON 30 second..."
 msgstr "Stanice 1 -> VYP, 2 -> VYP, 3 -> ZAP 100 sekund, 4 -> ZAP 30 sekund..."
 
@@ -9574,12 +9572,10 @@ msgid "Example for control"
 msgstr "Příklad pro ovládání"
 
 #: plugins/email_reader/templates/email_reader_help.html:65
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:12
 msgid "[0,0,100,30]"
 msgstr "[0,0,100,30]"
 
 #: plugins/email_reader/templates/email_reader_help.html:68
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:15
 msgid ""
 "{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, "
 "\"station name 4\": 30}"
@@ -11048,7 +11044,7 @@ msgstr "MQTT rozšíření nemohlo vytvořit klienta"
 msgid "Subscribing to topic"
 msgstr "Přihlášení k odběru tématu"
 
-#: plugins/mqtt/__init__.py:272 plugins/mqtt_runonce/__init__.py:289
+#: plugins/mqtt/__init__.py:272 plugins/mqtt_runonce/__init__.py:291
 msgid "Subscribe topic"
 msgstr "Přihlášené téma"
 
@@ -11230,7 +11226,7 @@ msgstr "Balíček: MQTT jednorázový program"
 msgid "MQTT Run-once Plugin is disabled."
 msgstr "Rozšíření MQTT jednorázový program je zakázáno."
 
-#: plugins/mqtt_runonce/__init__.py:233 plugins/mqtt_runonce/__init__.py:266
+#: plugins/mqtt_runonce/__init__.py:233 plugins/mqtt_runonce/__init__.py:268
 msgid "MQTT Run-once plug-in"
 msgstr "Rozšíření MQTT jednorázový program"
 
@@ -11289,14 +11285,6 @@ msgstr "MQTT jednorázový - nápověda"
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
 msgid ""
-"If you change settings in MQTT plugins or this plugin you must restarting "
-"OSPy!"
-msgstr ""
-"Pokud změníte nastavení v ostatních rozšířeních MQTT nebo v tomto rozšíření, "
-"musíte restartovat OSPy!"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
-msgid ""
 "This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce "
 "stations to be set over MQTT. The received message is a sheet that contains "
 "list or dict (station number, time in seconds.)"
@@ -11306,44 +11294,176 @@ msgstr ""
 "list, který obsahuje seznam nebo slovník (číslo stanice, čas v sekundách.)"
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
-msgid "This extension requires the MQTT extension!"
-msgstr "Toto rozšíření vyžaduje rozšíření MQTT!"
+msgid ""
+"This extension does not require the MQTT plugin. It works completely "
+"independently regardless of other MQTT plugins in OSPy."
+msgstr ""
+"Toto rozšíření nevyžaduje plugin MQTT. Funguje zcela nezávisle bez ohledu na "
+"ostatní MQTT rozšíření v OSPy."
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:9
+msgid "If you change settings in this plugin you must restarting OSPy!"
+msgstr "Pokud změníte nastavení v tomto rozšíření, musíte restartovat OSPy!"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:10
 msgid "MQTT data example"
 msgstr "Příklad dat MQTT"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:10
-msgid "Sending message in MQTT as list"
-msgstr "Odesílání zpráv v MQTT jako seznam"
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:11
+msgid ""
+"Note: the list or dict must be as long as the number of stations. Otherwise, "
+"the processing will not take place!"
+msgstr ""
+"Poznámka: seznam nebo slovník musí být stejně dlouhý jako počet stanic. V "
+"opačném případě se zpracování neuskuteční!"
 
 #: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:13
+msgid ""
+"The value in the list or dictionary determines the behavior of the control: "
+"0 (the state of the station will not be changed in any way. If the station "
+"is already running, it will not be affected). >1 (one-shot time in seconds. "
+"for example 10 will be for a time of 10 seconds). -1 (If the station is "
+"running, it will be stopped)."
+msgstr ""
+"Hodnota v seznamu nebo slovníku určuje chování ovládacího prvku: 0 (stav "
+"stanice se nijak nezmění. Pokud je stanice již v provozu, nebude ovlivněna). "
+">1 (čas stanice v sekundách. například 10 bude pro čas 10 sekund). -1 (Pokud "
+"je stanice spuštěna, bude zastavena)."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:14
+msgid "Example for 5 stations (5 stations are set in OSPy)."
+msgstr "Příklad pro 5 stanic (5 stanic je nastaveno v OSPy)."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:15
+msgid "Sending message in MQTT as list - prefered method"
+msgstr "Odeslání zprávy v MQTT jako list - preferovaný způsob"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:16
+msgid ""
+"Station 1 -> ignore, 2 -> ignore, 3 -> ON time 100 second, 4 -> ON time 30 "
+"second, 5 -> OFF..."
+msgstr ""
+"Stanice 1 -> ignorovat, 2 -> ignorovat, 3 -> ZAP čas 100 sekund, 4 -> ZAP "
+"čas 30 sekund, 5 -> VYP..."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:17
+msgid "[0,0,100,30,-1]"
+msgstr "[0,0,100,30,-1]"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:18
+msgid "Example for 17 stations (17 stations are set in OSPy)."
+msgstr "Příklad pro 17 stanic (17 stanic je nastaveno v OSPy)."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:19
+msgid "[0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,-1]"
+msgstr "[0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,-1]"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:20
 msgid "Sending message in MQTT as dict"
 msgstr "Odesílání zpráv v MQTT jako slovník"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:16
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:21
+msgid ""
+"Station 1 -> OFF, 2 -> OFF, 3 -> ON time 100 second, 4 -> ON time 30 second, "
+"5 -> OFF..."
+msgstr ""
+"Stanice 1 -> VYP, 2 -> VYP, 3 -> ZAP čas 100 sekund, 4 -> ZAP čas 30 sekund, "
+"5 -> VYP..."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:22
+msgid ""
+"{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, "
+"\"station name 4\": 30, \"station name 5\": -1}"
+msgstr ""
+"{\"název stanice 1\": 0, \"název stanice 2\": 0, \"název stanice 3\": 100, "
+"\"název stanice 4\": 30, \"název stanice 5\": -1}"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:23
 msgid "MQTT plugin publish this states"
 msgstr "MQTT rozšíření publikuje tyto stavy"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:17
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:24
 msgid "RunOnce Restart - restart MQTT connection"
 msgstr "RunOnce Restart – restartování připojení MQTT"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:18
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:25
 msgid "RunOnce Exit - OSPy exit"
 msgstr "RunOnce Exit – ukončení OSPy"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:19
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:26
 msgid "RunOnce Ready - Ready for processing"
 msgstr "RunOnce Ready - Připraveno ke zpracování"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:20
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:27
 msgid "RunOnce Processing - Processing command"
 msgstr "RunOnce Processing - zpracovávání příkazu"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:21
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:28
 msgid "RunOnce Error - Any Error"
 msgstr "RunOnce Error – jakákoli chyba"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:29
+msgid "Examples and demonstration of control via MQTT"
+msgstr "Příklady a demonstrace řízení pomocí MQTT"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:30
+msgid ""
+"Creating an MQTT broker (we can use https://www.hivemq.com/demos/websocket-"
+"client/ to try it out)."
+msgstr ""
+"Vytvoření MQTT brokera (můžeme použít https://www.hivemq.com/demos/websocket-"
+"client/ k vyzkoušení)."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:32
+msgid "Subscribe (run-once and ospy/system)"
+msgstr "Přihlásit se k odběru (run-once a ospy/system)"
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:34
+msgid ""
+"In OSPy, we start the plugin and fill in the login data (then we restart "
+"OSPy)."
+msgstr ""
+"V OSPy spustíme plugin a vyplníme přihlašovací údaje (poté restartujeme "
+"OSPy)."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:36
+msgid "A \"RunOnce Ready\" message will appear when set correctly and reboot."
+msgstr "Zpráva \"RunOnce Ready\" se zobrazí při správném nastavení a restartu."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:38
+msgid ""
+"In this example we will want to turn on station 11 for 20 seconds. Circled "
+"in green in the image below - the station is now switched off."
+msgstr ""
+"V tomto příkladu budeme chtít zapnout stanici 11 na 20 sekund. Na obrázku "
+"níže je zeleně zakroužkováno - stanice je nyní vypnutá."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:40
+msgid ""
+"Now we will try to send a command to the run-once topic to turn on station "
+"11 for 20 seconds."
+msgstr ""
+"Nyní se pokusíme odeslat příkaz do tématu run-once, abychom zapnuli stanici "
+"11 na 20 sekund."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:42
+msgid ""
+"The received message can be seen in the plugin. At the same time, we see a "
+"reply on the broker about receiving the message. On the home page of OSPy, "
+"the station started for 20 seconds."
+msgstr ""
+"Přijatá zpráva je vidět v pluginu. Současně vidíme odpověď makléře o přijetí "
+"zprávy. Na domovské stránce OSPy se stanice spustila na 20 sekund."
+
+#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:46
+msgid ""
+"The plugin uses Python paho-mqtt for running in OSPy. If paho-mqtt is not "
+"available on the system, the plugin will try to install it on the system "
+"itself."
+msgstr ""
+"Toto rozšíření používá Python paho-mqtt pro svůj běh v OSPy. Pokud paho-mqtt "
+"není v systému k dispozici, rozšíření se jej pokusí nainstalovat do systému "
+"samo."
 
 #: plugins/mqtt_zones/__init__.py:27
 msgid "Package: MQTT Zone Broadcaster"
@@ -18746,6 +18866,9 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:201
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "This extension requires the MQTT extension!"
+#~ msgstr "Toto rozšíření vyžaduje rozšíření MQTT!"
 
 #~ msgid "Unauthorised category {}"
 #~ msgstr "Neoprávněná kategorie {}"
