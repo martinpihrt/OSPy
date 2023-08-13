@@ -3,7 +3,7 @@ __author__ = u'Teodor Yantcheff'
 
 import base64
 from functools import wraps, partial
-from datetime import datetime
+import datetime
 import time
 import json
 import re
@@ -19,9 +19,12 @@ from ospy.log import log
 from ospy import server
 
 
+
 # datetime to timestamp conversion function
 def to_timestamp(dt):
     try:
+        if isinstance(dt, datetime.date):
+            dt = datetime.datetime.combine(dt, datetime.datetime.min.time())
         return int(time.mktime(dt.timetuple()))
     except:
         print_report('utils.py', traceback.format_exc())
