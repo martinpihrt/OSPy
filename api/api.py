@@ -309,8 +309,8 @@ class Logs(object):
 
     def _runlog_to_dict(self, log_entry):
         return {
-            'start': log_entry['start'],
-            'end': log_entry['end'],
+            'start': str(log_entry['start']),
+            'end': str(log_entry['end']),
             'duration': str(log_entry['end'] - log_entry['start']).split('.')[0],  # pass it as a baked string to the client
             'manual': log_entry['manual'],
             'station': log_entry['station'],
