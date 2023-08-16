@@ -25,7 +25,7 @@ def to_timestamp(dt):
     try:
         if isinstance(dt, datetime.date):
             dt = datetime.datetime.combine(dt, datetime.datetime.min.time())
-        return int(time.mktime(dt.timetuple()))
+        return int(dt.timestamp())
     except:
         print_report('utils.py', traceback.format_exc())
         return 0
