@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2023-08-13 21:29+0200\n"
-"PO-Revision-Date: 2023-08-13 21:41+0200\n"
+"POT-Creation-Date: 2023-08-16 15:48+0200\n"
+"PO-Revision-Date: 2023-08-16 16:17+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -108,31 +108,31 @@ msgstr "Runonce id stanice: {}, doba běhu: {}"
 msgid "Unknown runonce action"
 msgstr "Neznámá akce runonce"
 
-#: api/utils.py:85
+#: api/utils.py:88
 msgid "Error: (IndexError) Index out of bounds {}"
 msgstr "Chyba: Index (IndexError) je mimo hranice {}"
 
-#: api/utils.py:89
+#: api/utils.py:92
 msgid "Error: (ValueError) Inappropriate argument value {}"
 msgstr "Chyba: (ValueError) Hodnota nevhodného argumentu {}"
 
-#: api/utils.py:94
+#: api/utils.py:97
 msgid "Error: (KeyError) Missing key {}"
 msgstr "Chyba: (KeyError) Chybí klíč {}"
 
-#: api/utils.py:119
+#: api/utils.py:122
 msgid "API Auth Attempt with: user: {} password: {}"
 msgstr "Pokus o ověření z rozhraní API uživatel: {} heslo: {}"
 
-#: api/utils.py:125
+#: api/utils.py:128
 msgid "API Unauthorized attempt user: {} password: {}"
 msgstr "Neúspěšný pokus o ověření z rozhraní API uživatel: {} heslo: {}"
 
-#: api/utils.py:145
+#: api/utils.py:148
 msgid "API permission granted."
 msgstr "Rozhraní API oprávnění povoleno."
 
-#: api/utils.py:150
+#: api/utils.py:153
 msgid "API permission block."
 msgstr "Rozhraní API oprávnění blokováno."
 
@@ -1904,8 +1904,6 @@ msgstr "Konfigurace snímačů"
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:20
-#: plugins/mqtt_zones/templates/mqtt_zones.html:20
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
 #: plugins/pool_heating/templates/pool_heating.html:42
@@ -2118,12 +2116,8 @@ msgstr "Smazat"
 #: plugins/modbus_stations/templates/modbus_stations_log.html:30
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
-#: plugins/mqtt/templates/mqtt.html:107
-#: plugins/mqtt/templates/mqtt_help.html:18
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:74
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:50
-#: plugins/mqtt_zones/templates/mqtt_zones.html:46
-#: plugins/mqtt_zones/templates/mqtt_zones_help.html:15
+#: plugins/mqtt/templates/mqtt.html:148
+#: plugins/mqtt/templates/mqtt_help.html:89
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler_help.html:16
 #: plugins/ping_monitor/templates/ping_monitor.html:273
@@ -3014,9 +3008,6 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt/templates/mqtt.html:97
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:64
-#: plugins/mqtt_zones/templates/mqtt_zones.html:36
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
 #: plugins/pool_heating/templates/pool_heating.html:187
@@ -4946,9 +4937,7 @@ msgstr ""
 #: plugins/lcd_display/templates/lcd_display.html:171
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
-#: plugins/mqtt/templates/mqtt.html:106
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:73
-#: plugins/mqtt_zones/templates/mqtt_zones.html:45
+#: plugins/mqtt/templates/mqtt.html:147
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pressure_monitor/templates/pressure_monitor.html:287
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -5510,8 +5499,7 @@ msgstr ""
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:2170 ospy/webpages.py:2171 plugins/mqtt/__init__.py:242
-#: plugins/mqtt_runonce/__init__.py:159
+#: ospy/webpages.py:2170 ospy/webpages.py:2171 plugins/mqtt/__init__.py:353
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:117 plugins/ups_adj/__init__.py:414
 #: plugins/ups_adj/__init__.py:510
@@ -9188,28 +9176,29 @@ msgstr "OSPy musí být nejprve přepnuto do manuálního režimu!"
 msgid "Subject is not correct!"
 msgstr "Předmět zprávy není správný!"
 
-#: plugins/email_reader/__init__.py:583 plugins/mqtt_runonce/__init__.py:194
+#: plugins/email_reader/__init__.py:583 plugins/mqtt/__init__.py:178
+#: plugins/mqtt/__init__.py:227
 msgid "Try-ing to processing command."
 msgstr "Zkouším zpracovat příkaz."
 
 #: plugins/email_reader/__init__.py:590 plugins/email_reader/__init__.py:592
-#: plugins/mqtt_runonce/__init__.py:198
+#: plugins/mqtt/__init__.py:236
 msgid "Not enough stations specified, assuming first {} of {}"
 msgstr ""
 "Není zadáno dostatečné množství stanic, za předpokladu, že první {} z {}"
 
 #: plugins/email_reader/__init__.py:594 plugins/email_reader/__init__.py:596
-#: plugins/mqtt_runonce/__init__.py:201
+#: plugins/mqtt/__init__.py:242
 msgid "Too many stations specified, truncating to {}"
 msgstr "Bylo zadáno příliš mnoho stanic, zkrácení na {}"
 
 #: plugins/email_reader/__init__.py:607 plugins/email_reader/__init__.py:608
-#: plugins/mqtt_runonce/__init__.py:213
+#: plugins/mqtt/__init__.py:256
 msgid "No station named"
 msgstr "Žádná stanice s názvem"
 
 #: plugins/email_reader/__init__.py:617 plugins/email_reader/__init__.py:619
-#: plugins/email_reader/__init__.py:660 plugins/mqtt_runonce/__init__.py:220
+#: plugins/email_reader/__init__.py:660 plugins/mqtt/__init__.py:262
 msgid "Unexpected command"
 msgstr "Neočekávaný příkaz"
 
@@ -10958,366 +10947,534 @@ msgstr ""
 "Hodnota nad 100% zvyšuje čas, hodnota pod 100% čas zkracuje. 100% znamená "
 "bez jakékoli úpravy."
 
-#: plugins/mqtt/__init__.py:28
+#: plugins/mqtt/__init__.py:30
 msgid "Package: MQTT"
 msgstr "Balíček: MQTT"
 
-#: plugins/mqtt/__init__.py:89 plugins/mqtt/__init__.py:198
-#: plugins/mqtt/__init__.py:200 plugins/mqtt_runonce/__init__.py:86
+#: plugins/mqtt/__init__.py:103 plugins/mqtt/__init__.py:215
+#: plugins/mqtt/__init__.py:313
 msgid "MQTT plug-in"
 msgstr "Rozšíření MQTT"
 
-#: plugins/mqtt/__init__.py:94
+#: plugins/mqtt/__init__.py:108
 msgid "MQTT plug-in is disabled."
 msgstr "Rozšíření MQTT je zakázáno."
 
-#: plugins/mqtt/__init__.py:129 plugins/mqtt_runonce/__init__.py:180
+#: plugins/mqtt/__init__.py:163
 msgid "Message received"
 msgstr "Přijatá zpráva"
 
-#: plugins/mqtt/__init__.py:136
-msgid "You must this OSPy switch to manual mode!"
-msgstr "Musíte tento OSPy systém přepnout do ručního režimu!"
+#: plugins/mqtt/__init__.py:164
+msgid "Message topic"
+msgstr "Téma zprávy"
 
-#: plugins/mqtt/__init__.py:140
-msgid "Skipping command, rain sense is detected!"
-msgstr "Přeskakuji příkaz, je detekován déšť!"
+#: plugins/mqtt/__init__.py:165
+msgid "Message qos"
+msgstr "Zpráva qoS"
 
-#: plugins/mqtt/__init__.py:144
-msgid "Skipping command, rain delay is activated!"
-msgstr "Přeskakuji příkaz, je detekováno dešťové zpoždění!"
+#: plugins/mqtt/__init__.py:166
+msgid "Message retain flag"
+msgstr "Příznak zachování zprávy"
 
-#: plugins/mqtt/__init__.py:151
-msgid "Could not decode command:"
-msgstr "Nelze dekódovat příkaz:"
-
-#: plugins/mqtt/__init__.py:168
+#: plugins/mqtt/__init__.py:189
 msgid "MQTT Manual"
 msgstr "MQTT ručně"
 
-#: plugins/mqtt/__init__.py:198
+#: plugins/mqtt/__init__.py:215
 msgid ""
 "Setup stations count is smaler! Set correct first station and station count."
 msgstr ""
 "Počet nastavených stanic je menší! Nastavte správný počet první stanice a "
 "stanic."
 
-#: plugins/mqtt/__init__.py:209 plugins/mqtt_runonce/__init__.py:126
+#: plugins/mqtt/__init__.py:221
+msgid "You must this OSPy switch to manual mode!"
+msgstr "Musíte tento OSPy systém přepnout do ručního režimu!"
+
+#: plugins/mqtt/__init__.py:229
+msgid "You must this OSPy switch to scheduler mode!"
+msgstr "Musíte tento OSPy přepnout do režimu plánovače!"
+
+#: plugins/mqtt/__init__.py:276
+msgid "MQTT Run-once plug-in"
+msgstr "Rozšíření MQTT jednorázový program"
+
+#: plugins/mqtt/__init__.py:286
+msgid "MQTT Run-once"
+msgstr "MQTT jednorázový program"
+
+#: plugins/mqtt/__init__.py:320
 msgid "PIP3 is not installed."
 msgstr "Pip3 není nainstalován."
 
-#: plugins/mqtt/__init__.py:210 plugins/mqtt_runonce/__init__.py:127
+#: plugins/mqtt/__init__.py:321
 msgid "Please wait installing python3-pip..."
 msgstr "Počkejte prosím na instalaci python3-pip..."
 
-#: plugins/mqtt/__init__.py:211 plugins/mqtt/__init__.py:221
-#: plugins/mqtt_runonce/__init__.py:128 plugins/mqtt_runonce/__init__.py:138
+#: plugins/mqtt/__init__.py:322 plugins/mqtt/__init__.py:332
 msgid "This operation takes longer (minutes)..."
 msgstr "Tato operace trvá déle (minuty)..."
 
-#: plugins/mqtt/__init__.py:218 plugins/mqtt_runonce/__init__.py:135
+#: plugins/mqtt/__init__.py:329
 msgid "MQTT Plugin requires paho mqtt."
 msgstr "MQTT rozšíření vyžaduje paho mqtt."
 
-#: plugins/mqtt/__init__.py:219 plugins/mqtt_runonce/__init__.py:136
+#: plugins/mqtt/__init__.py:330
 msgid "Paho-mqtt is not installed."
 msgstr "Paho-mqtt není nainstalován."
 
-#: plugins/mqtt/__init__.py:220 plugins/mqtt_runonce/__init__.py:137
+#: plugins/mqtt/__init__.py:331
 msgid "Please wait installing paho-mqtt..."
 msgstr "Počkejte prosím na instalaci paho-mqtt..."
 
-#: plugins/mqtt/__init__.py:228 plugins/mqtt_runonce/__init__.py:145
+#: plugins/mqtt/__init__.py:339
 msgid "Error try install paho-mqtt manually."
 msgstr "Chyba zkuste nainstalovat paho-mqtt ručně."
 
-#: plugins/mqtt/__init__.py:238 plugins/mqtt_runonce/__init__.py:155
+#: plugins/mqtt/__init__.py:349
 msgid "Connecting to broker"
 msgstr "Připojení k makléři"
 
-#: plugins/mqtt/__init__.py:246 plugins/mqtt_runonce/__init__.py:163
+#: plugins/mqtt/__init__.py:357
 msgid "MQTT plugin couldnot initalize client"
 msgstr "MQTT rozšíření nemohlo vytvořit klienta"
 
-#: plugins/mqtt/__init__.py:256 plugins/mqtt/__init__.py:259
-#: plugins/mqtt_runonce/__init__.py:174
+#: plugins/mqtt/__init__.py:368 plugins/mqtt/__init__.py:372
+#: plugins/mqtt/__init__.py:376
 msgid "Subscribing to topic"
 msgstr "Přihlášení k odběru tématu"
 
-#: plugins/mqtt/__init__.py:272 plugins/mqtt_runonce/__init__.py:291
+#: plugins/mqtt/__init__.py:389
 msgid "Subscribe topic"
 msgstr "Přihlášené téma"
 
-#: plugins/mqtt/__init__.py:294 plugins/mqtt/__init__.py:302
-msgid "Client stop"
-msgstr "Zastavení klienta"
+#: plugins/mqtt/__init__.py:411
+msgid "MQTT Client restart"
+msgstr "Restartování klienta MQTT"
+
+#: plugins/mqtt/__init__.py:419
+msgid "MQTT Client stop"
+msgstr "Zastavení klienta MQTT"
+
+#: plugins/mqtt/__init__.py:442
+msgid "Posting to topic {} because OSPy change the settings."
+msgstr "Odesílání do tématu {}, protože OSPy mění nastavení."
+
+#: plugins/mqtt/__init__.py:479
+msgid "Posting to topic {} because OSPy change stations state."
+msgstr "Odesílání do tématu {}, protože OSPy mění stav stanic."
 
 #: plugins/mqtt/templates/mqtt.html:3 plugins/mqtt/templates/mqtt.html:21
 msgid "MQTT settings"
 msgstr "Rozšíření MQTT nastavení"
 
-#: plugins/mqtt/templates/mqtt.html:26 plugins/mqtt/templates/mqtt_help.html:8
-msgid "MQTT client"
-msgstr "Klient MQTT"
+#: plugins/mqtt/templates/mqtt.html:25
+msgid "MQTT core"
+msgstr "Jádro MQTT"
 
 #: plugins/mqtt/templates/mqtt.html:27
-msgid "Required to receive and send MQTT messages."
-msgstr "Vyžadováno pro příjem a odesílání zpráv MQTT."
+msgid "Use MQTT core"
+msgstr "Použít MQTT jádro"
 
-#: plugins/mqtt/templates/mqtt.html:32
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:30
-msgid "MQTT Broker Host"
-msgstr "MQTT hostitel (broker)"
+#: plugins/mqtt/templates/mqtt.html:28
+msgid ""
+"Required to receive and send MQTT messages. This MQTT core is always "
+"required for all options below."
+msgstr ""
+"Vyžadováno pro příjem a odesílání zpráv MQTT. Toto jádro MQTT je vždy "
+"vyžadováno pro všechny níže uvedené možnosti."
 
-#: plugins/mqtt/templates/mqtt.html:36
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:34
-msgid "MQTT Broker Username"
-msgstr "MQTT uživatelské jméno"
+#: plugins/mqtt/templates/mqtt.html:33
+msgid "Broker Host"
+msgstr "Hostitel (broker)"
 
-#: plugins/mqtt/templates/mqtt.html:40
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:38
-msgid "MQTT Broker Password"
-msgstr "MQTT heslo"
+#: plugins/mqtt/templates/mqtt.html:34
+msgid "For test use: http://www.hivemq.com/demos/websocket-client/."
+msgstr "Pro zkoušku použijte: http://www.hivemq.com/demos/websocket-client/."
 
-#: plugins/mqtt/templates/mqtt.html:44
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:42
-msgid "MQTT Broker Port"
-msgstr "MQTT port"
+#: plugins/mqtt/templates/mqtt.html:39
+msgid "Broker Username"
+msgstr "Uživatelské jméno brokeru"
+
+#: plugins/mqtt/templates/mqtt.html:43
+msgid "Broker Password"
+msgstr "Heslo k brokeru"
+
+#: plugins/mqtt/templates/mqtt.html:47
+msgid "Broker Port"
+msgstr "Port komunikace"
 
 #: plugins/mqtt/templates/mqtt.html:48
-msgid "MQTT Publish up/down topic"
-msgstr "MQTT Publikování do tématu OSPy systém je zap/vyp"
-
-#: plugins/mqtt/templates/mqtt.html:49
-msgid "Leave blank to not publish OSPy status"
-msgstr "Ponechat prázdné, aby nebyl publikován stav OSPy"
+msgid "Range for port is 80 to 65635."
+msgstr "Rozsah portu je 80 až 65635."
 
 #: plugins/mqtt/templates/mqtt.html:53
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:51
-msgid "MQTT Client ID"
-msgstr "MQTT ID klienta"
+msgid "Up/down topic"
+msgstr "Téma systém UP/DOWN"
 
-#: plugins/mqtt/templates/mqtt.html:57 plugins/mqtt/templates/mqtt.html:89
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:61
-#: plugins/telegram_bot/templates/telegram_bot.html:51
-msgid "Please restart OSPy if these options are changed!"
-msgstr "Pokud se tyto možnosti změní, restartujte OSPy systém!"
+#: plugins/mqtt/templates/mqtt.html:54
+msgid "Leave blank to not publish OSPy status."
+msgstr "Ponechat prázdné, pokud nechcete publikovat stav OSPy."
 
-#: plugins/mqtt/templates/mqtt.html:65
-msgid "Use MQTT secondary"
-msgstr "Použít MQTT sekundární"
+#: plugins/mqtt/templates/mqtt.html:59
+msgid "Client ID"
+msgstr "Klient ID"
+
+#: plugins/mqtt/templates/mqtt.html:64
+msgid "MQTT manual control"
+msgstr "Ruční ovládání MQTT"
 
 #: plugins/mqtt/templates/mqtt.html:66
-msgid "Required to receive secondary MQTT messages."
-msgstr "Vyžadováno pro příjem sekundárních zpráv MQTT."
+msgid "Use manual control"
+msgstr "Použít ruční ovládání"
 
-#: plugins/mqtt/templates/mqtt.html:71
-msgid "Zone topic"
-msgstr "Téma pro stanice"
+#: plugins/mqtt/templates/mqtt.html:67
+msgid ""
+"After checking the box, station control commands (on/off) will be received "
+"from the given topic. This OSPy will be controlled by another device. "
+"Warning: only works if OSPy is in manual mode!"
+msgstr ""
+"Po zaškrtnutí políčka budou z daného tématu přijaty příkazy pro ovládání "
+"stanice (zapnuto/vypnuto). Toto OSPy bude řízeno jiným zařízením. "
+"Upozornění: funguje pouze v případě, že je OSPy v manuálním režimu!"
 
 #: plugins/mqtt/templates/mqtt.html:72
+msgid "Control topic"
+msgstr "Téma ovládání"
+
+#: plugins/mqtt/templates/mqtt.html:73
 msgid "The topic to subscribe to for control commands."
 msgstr "Téma, které chcete přihlásit k odběru řídicích příkazů."
 
-#: plugins/mqtt/templates/mqtt.html:77
+#: plugins/mqtt/templates/mqtt.html:78
 msgid "First station number"
 msgstr "Číslo první stanice"
 
-#: plugins/mqtt/templates/mqtt.html:78
+#: plugins/mqtt/templates/mqtt.html:79
 msgid "The number from the master of this secondary first station."
 msgstr ""
 "Číslo stanice na řídícím OSPy, která bude na sekundárním OSPy považována "
 "jako první stanice."
 
-#: plugins/mqtt/templates/mqtt.html:83
+#: plugins/mqtt/templates/mqtt.html:84
 msgid "Station count"
 msgstr "Počet stanic"
 
-#: plugins/mqtt/templates/mqtt.html:84
+#: plugins/mqtt/templates/mqtt.html:85
 msgid "The number of station this secondary uses."
 msgstr "Počet stanic, které tato sekundární stanice používá."
+
+#: plugins/mqtt/templates/mqtt.html:91
+msgid "MQTT zones state"
+msgstr "Stav zón MQTT"
+
+#: plugins/mqtt/templates/mqtt.html:93
+msgid "Use zones"
+msgstr "Použít stanice"
+
+#: plugins/mqtt/templates/mqtt.html:94
+msgid ""
+"When the box is checked, the statuses of all stations will be sent to the "
+"given topic. MQTT core is required for the feature."
+msgstr ""
+"Po zaškrtnutí políčka budou na dané téma odeslány stavy všech stanic. Pro "
+"tuto funkci je vyžadováno jádro MQTT."
+
+#: plugins/mqtt/templates/mqtt.html:99
+msgid "Zones topic"
+msgstr "Téma pro stanice"
+
+#: plugins/mqtt/templates/mqtt.html:100 plugins/mqtt/templates/mqtt.html:115
+msgid "The topic to broadcast from zones."
+msgstr "Téma, do kterého se budou vysílat stanice."
+
+#: plugins/mqtt/templates/mqtt.html:106
+msgid "MQTT run-once"
+msgstr "MQTT jednorázově"
+
+#: plugins/mqtt/templates/mqtt.html:108
+msgid "Use run-once"
+msgstr "Použít jednorázové spuštění"
+
+#: plugins/mqtt/templates/mqtt.html:109
+msgid ""
+"When the box is checked, will be received from the given topic for commands "
+"to start stations. MQTT core is required for this feature."
+msgstr ""
+"Po zaškrtnutí políčka budou z daného tématu přijaty povely ke spuštění "
+"stanic. Pro tuto funkci je vyžadováno jádro MQTT."
+
+#: plugins/mqtt/templates/mqtt.html:114
+msgid "Run-once topic"
+msgstr "Téma jednorázově"
+
+#: plugins/mqtt/templates/mqtt.html:121
+msgid "MQTT get values"
+msgstr "MQTT čtení hodnot"
+
+#: plugins/mqtt/templates/mqtt.html:123
+msgid "Use get values"
+msgstr "Použít čtení hodnot"
+
+#: plugins/mqtt/templates/mqtt.html:124
+msgid ""
+"When the box is checked, the statuses of the system settings will be sent to "
+"the given topic (cpu temperature, manual mode, scheduler enabled...)"
+msgstr ""
+"Po zaškrtnutí políčka budou do daného tématu odeslány stavy nastavení "
+"systému (teplota procesoru, manuální režim, povolený plánovač...)"
+
+#: plugins/mqtt/templates/mqtt.html:129
+msgid "Values topic"
+msgstr "Téma pro hodnoty"
+
+#: plugins/mqtt/templates/mqtt.html:130
+msgid "The topic to broadcast from values."
+msgstr "Téma, do kterého se budou vysílat hodnoty."
+
+#: plugins/mqtt/templates/mqtt.html:136
+msgid "MQTT events"
+msgstr "Události MQTT"
+
+#: plugins/mqtt/templates/mqtt.html:144
+msgid "If you change the settings, restart OSPy to load the changes!"
+msgstr "Pokud změníte nastavení, restartujte OSPy pro načtení změn!"
 
 #: plugins/mqtt/templates/mqtt_help.html:3
 #: plugins/mqtt/templates/mqtt_help.html:7
 msgid "MQTT settings - help"
 msgstr "MQTT - nápověda"
 
-#: plugins/mqtt/templates/mqtt_help.html:9
+#: plugins/mqtt/templates/mqtt_help.html:8
+msgid "If you change settings you must restarting OSPy!"
+msgstr "Pokud změníte nastavení, musíte restartovat OSPy!"
+
+#: plugins/mqtt/templates/mqtt_help.html:10
+msgid "* MQTT core"
+msgstr "* MQTT jádro"
+
+#: plugins/mqtt/templates/mqtt_help.html:12
 msgid ""
 "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins to "
 "use to publish information and or receive commands over MQTT. On this page, "
-"the shared client is configured"
-msgstr ""
-"Toto rozšíření přidává klienta MQTT do démona OSPy pro další rozšíření, "
-"které lze použít k publikování informací nebo k přijímání příkazů přes MQTT "
-"protokol. Na této stránce je sdílený klient nakonfigurován pro ostatní "
-"rozšíření společně"
-
-#: plugins/mqtt/templates/mqtt_help.html:10
-msgid ""
-"Having a shared MQTT client simplifies configuration and lowers overhead on "
-"the OSPy process, network and broker"
-msgstr ""
-"Sdílení klienta MQTT mezi další rozšíření zjednodušuje konfiguraci a snižuje "
-"režii na proces OSPy, síť a zprostředkovatele"
-
-#: plugins/mqtt/templates/mqtt_help.html:11
-msgid ""
+"the shared client is configured. Having a shared MQTT client simplifies "
+"configuration and lowers overhead on the OSPy process, network and broker. "
 "This plugin needs paho-mqtt. If not installed paho-mqtt, plugin installs "
 "paho-mqtt in to the system himself. On first use (if run installation paho-"
-"mqtt) please wait for status"
+"mqtt) please wait for status. We can use a public Broker server to test "
+"http://www.hivemq.com/demos/websocket-client/."
 msgstr ""
-"Toto rozšíření potřebuje paho-mqtt. Pokud není nainstalováno paho-mqtt, "
-"rozšíření ho nainstaluje do systému samo. Při prvním použití (pokud je "
-"spuštěna instalace paho-mqtt) počkejte na stav"
+"Toto rozšíření MQTT přidává klienta MQTT do démona OSPy pro ostatní "
+"rozšíření, které mohou použít publikování informací nebo přijímání příkazů "
+"přes MQTT. Na této stránce je nakonfigurován sdílený klient. Sdílený klient "
+"MQTT zjednodušuje konfiguraci a snižuje režii na proces OSPy, síť a "
+"zprostředkovatele. Toto rozšíření vyžaduje paho-mqtt. Pokud není "
+"nainstalováno paho-mqtt, rozšíření ho nainstaluje paho-mqtt do systému samo. "
+"Při prvním použití (pokud spustíte instalaci paho-mqtt) počkejte na stav. K "
+"testování http://www.hivemq.com/demos/websocket-client/ můžeme použít "
+"veřejný server Broker."
 
-#: plugins/mqtt/templates/mqtt_help.html:12
-msgid "We can use a public Broker server to test"
-msgstr "K testování můžeme použít veřejný server brokera"
+#: plugins/mqtt/templates/mqtt_help.html:15
+msgid "* MQTT manual control"
+msgstr "* MQTT ruční ovládání"
 
-#: plugins/mqtt/templates/mqtt_help.html:13
-msgid "MQTT secondary"
-msgstr "MQTT sekundární"
-
-#: plugins/mqtt/templates/mqtt_help.html:14
+#: plugins/mqtt/templates/mqtt_help.html:17
 msgid ""
 "The MQTT plugin allows multiple secondary OSPy controlers to be running with "
 "the control OSPy system running. This means that one OSPy system can act as "
 "the control driver for secondary systems that also use OSPy and have the "
-"mqtt_secondary plugin installed. The control OSPy sends a list containing "
-"the on/off states of all stations. The secondary system receives the list "
-"and checks whether it is necessary to switch on one of its stations or "
-"switch it off and make the necessary changes. All irrigation plans are set "
-"on the main system and it records all running stations as if they were on "
-"the OSPy control system itself. There is no feedback from the secondary  "
-"OSPy, so the control system assumes that all stations are working as they "
-"should. If enabled logging in secondary OSPy, stations running on this "
-"secondary OSPy are also stored in the log. This provides a way to check if "
-"the station on the secondary is working properly. Requirements: This plugin "
-"requires the main OSPy control system, which has the basic mqtt plugin and "
-"the mqtt_zones plugin installed. Each secondary OSPy system must have the "
-"basic mqtt plugin installed. You must this OSPy switch to manual mode! If "
-"you change settings you must restarting OSPy!"
+"mqtt plugin installed. The control OSPy sends a list containing the on/off "
+"states of all stations. The secondary system receives the list and checks "
+"whether it is necessary to switch on one of its stations or switch it off "
+"and make the necessary changes. All irrigation plans are set on the main "
+"system and it records all running stations as if they were on the OSPy "
+"control system itself. There is no feedback from the secondary  OSPy, so the "
+"control system assumes that all stations are working as they should. If "
+"enabled logging in secondary OSPy, stations running on this secondary OSPy "
+"are also stored in the log. This provides a way to check if the station on "
+"the secondary is working properly. You must this OSPy switch to manual mode! "
+"MQTT core is required for this feature."
 msgstr ""
-"Rozšíření MQTT umožňuje spuštění více sekundárních řídicích systémů OSPy. To "
-"znamená, že jeden systém OSPy může fungovat jako řídicí ovladač pro "
-"sekundární systémy, které také používají OSPy a mají nainstalované rozšíření "
-"mqtt_secondary. Ovládací prvek OSPy odešle seznam obsahující stavy zapnutí/"
+"MQTT plugin umožňuje běh více sekundárních OSPy controlerů se spuštěným "
+"řídicím OSPy systémem. To znamená, že jeden systém OSPy může fungovat jako "
+"řídicí ovladač pro sekundární systémy, které také používají OSPy a mají "
+"nainstalovaný plugin mqtt. Řídící OSPy posílá seznam se stavy zapnutí/"
 "vypnutí všech stanic. Sekundární systém obdrží seznam a zkontroluje, zda je "
-"nutné zapnout jednu ze svých stanic nebo jej vypnout a provést potřebné "
-"změny. Všechny zavlažovací plány jsou nastaveny na hlavním systému a ten "
-"zaznamenává všechny běžící stanice, jako by byly na řídicím systému OSPy. "
-"Neexistuje žádná zpětná vazba od sekundárního OSPy, takže řídicí systém "
-"předpokládá, že všechny stanice pracují tak, jak by měly. Pokud je povoleno "
-"protokolování sekundárního OSPy, stanice spuštěné na této sekundární OSPy "
-"jsou také uloženy v protokolu na sekundárním OSPy. To poskytuje způsob, jak "
-"zkontrolovat, zda stanice na sekundárním OSPy fungují správně. Požadavky: "
-"Toto rozšíření vyžaduje hlavní řídicí systém OSPy, který má nainstalováno "
-"základní rozšíření mqtt a rozšíření mqtt_zones. Každý sekundární systém OSPy "
-"musí mít nainstalováno základní rozšíření mqtt. Musíte sekundární OSPy "
-"přepnout do ručního režimu! Pokud změníte nastavení MQTT, musíte restartovat "
-"OSPy!"
+"nutné zapnout jednu z jeho stanic nebo ji vypnout a provést potřebné změny. "
+"Všechny zavlažovací plány jsou nastaveny na hlavním systému a zaznamenává "
+"všechny běžící stanice, jako by byly na samotném řídicím systému OSPy. "
+"Neexistuje žádná zpětná vazba ze sekundárního OSPy, takže řídicí systém "
+"předpokládá, že všechny stanice pracují tak, jak mají. Pokud je povoleno "
+"přihlašování v sekundárním OSPy, jsou do logu ukládány i stanice běžící na "
+"tomto sekundárním OSPy. To poskytuje způsob, jak zkontrolovat, zda stanice "
+"na sekundární funguje správně. Musíte tento OSPy přepnout do ručního režimu! "
+"Pro tuto funkci je vyžadováno jádro MQTT."
 
-#: plugins/mqtt_runonce/__init__.py:29
-msgid "Package: MQTT Run-once"
-msgstr "Balíček: MQTT jednorázový program"
+#: plugins/mqtt/templates/mqtt_help.html:20
+msgid "* MQTT zones state"
+msgstr "* MQTT stav stanic"
 
-#: plugins/mqtt_runonce/__init__.py:92
-msgid "MQTT Run-once Plugin is disabled."
-msgstr "Rozšíření MQTT jednorázový program je zakázáno."
-
-#: plugins/mqtt_runonce/__init__.py:233 plugins/mqtt_runonce/__init__.py:268
-msgid "MQTT Run-once plug-in"
-msgstr "Rozšíření MQTT jednorázový program"
-
-#: plugins/mqtt_runonce/__init__.py:240
-msgid "MQTT Run-once"
-msgstr "MQTT jednorázový program"
-
-#: plugins/mqtt_runonce/__init__.py:311
-msgid "Client on restart"
-msgstr "Restartování klienta"
-
-#: plugins/mqtt_runonce/__init__.py:321
-msgid "Client on stop"
-msgstr "Zastavení klienta"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:3
-msgid "MQTT Runonce"
-msgstr "MQTT jednorázový program"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:19
-msgid "MQTT Runonce settings"
-msgstr "Rozšíření MQTT jednorázový program nastavení"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:24
-#: plugins/mqtt_zones/templates/mqtt_zones.html:24
-msgid "Use MQTT"
-msgstr "Použít MQTT"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:25
-msgid "If you use this MQTT Run-once extension check to turn on."
-msgstr "Pokud chcete použít toto rozšíření, zaškrtněte pro zapnutí."
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:46
-msgid "MQTT Publish Ready/Exit topic"
-msgstr "MQTT Publikovat téma stavů (Ready/Exit)"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:47
-msgid "Leave blank to not publish MQTT Run-once plugin status"
-msgstr "Ponechte prázdné, nechcete-li zveřejnit stav z tohoto rozšíření"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:55
-msgid "MQTT Scheduling topic"
-msgstr "MQTT téma pro jednorázové programy"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce.html:56
-msgid "The topic subscribe to for Run-once commands."
-msgstr "Téma, které chcete přihlásit k odběru příkazů."
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:3
-msgid "MQTT Runonce - help"
-msgstr "MQTT jednorázový - nápověda"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:7
-msgid "MQTT Runonce settings - help"
-msgstr "MQTT jednorázový - nápověda"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
+#: plugins/mqtt/templates/mqtt_help.html:22
 msgid ""
-"This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce "
-"stations to be set over MQTT. The received message is a sheet that contains "
-"list or dict (station number, time in seconds.)"
+"Status of all stations will be sent to the given topic. MQTT core is "
+"required for this feature. Example: [{\"station\": 0, \"status\": \"off\", "
+"\"name\": \"Station 01\", \"reason\": \"\"}, {\"station\": 1, \"status\": "
+"\"off\", \"name\": \"Station 02\", \"reason\": \"\"}, {\"station\": 2, "
+"\"status\": \"off\", \"name\": \"Station 03\", \"reason\": \"\"}, {\"station"
+"\": 3, \"status\": \"off\", \"name\": \"Station 04\", \"reason\": \"\"}, "
+"{\"station\": 4, \"status\": \"off\", \"name\": \"Station 05\", \"reason\": "
+"\"\"}, {\"station\": 5, \"status\": \"off\", \"name\": \"Station 06\", "
+"\"reason\": \"\"}, {\"station\": 6, \"status\": \"off\", \"name\": \"Station "
+"07\", \"reason\": \"\"}, {\"station\": 7, \"status\": \"off\", \"name\": "
+"\"Station 08\", \"reason\": \"\"}]"
 msgstr ""
-"Toto rozšíření MQTT jednorázový program spoléhá na základní rozšíření MQTT, "
-"umožňuje spustit jednorázový program přes MQTT protokol. Přijatá zpráva je "
-"list, který obsahuje seznam nebo slovník (číslo stanice, čas v sekundách.)"
+"Stav všech stanic bude odeslána k danému tématu. Pro tuto funkci je "
+"vyžadováno jádro MQTT. Příklad: [{\"station\": 0, \"status\": \"off\", \"name"
+"\": \"Station 01\", \"reason\": \"\"}, {\"station\": 1, \"status\": \"off\", "
+"\"name\": \"Station 02\", \"reason\": \"\"}, {\"station\": 2, \"status\": "
+"\"off\", \"name\": \"Station 03\", \"reason\": \"\"}, {\"station\": 3, "
+"\"status\": \"off\", \"name\": \"Station 04\", \"reason\": \"\"}, {\"station"
+"\": 4, \"status\": \"off\", \"name\": \"Station 05\", \"reason\": \"\"}, "
+"{\"station\": 5, \"status\": \"off\", \"name\": \"Station 06\", \"reason\": "
+"\"\"}, {\"station\": 6, \"status\": \"off\", \"name\": \"Station 07\",  "
+"\"reason\": \"\"}, {\"station\": 7, \"status\": \"off\", \"name\": \"Station "
+"08\", \"reason\": \"\"}]"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:8
+#: plugins/mqtt/templates/mqtt_help.html:25
+msgid "* MQTT run-once"
+msgstr "* MQTT jednorázově"
+
+#: plugins/mqtt/templates/mqtt_help.html:27
 msgid ""
-"This extension does not require the MQTT plugin. It works completely "
-"independently regardless of other MQTT plugins in OSPy."
+"will be received from the given topic for commands to start stations. MQTT "
+"core is required for this feature. The received message is a sheet that "
+"contains list or dict (station number, time in seconds.) Note: the list or "
+"dict must be as long as the number of stations. Otherwise, the processing "
+"will not take place! We can use a dictionary or list for control. The list "
+"is simpler than the dictionary (we do not have to change it in the commands "
+"every time we change the name of a station. You must this OSPy switch to "
+"scheduler mode!"
 msgstr ""
-"Toto rozšíření nevyžaduje plugin MQTT. Funguje zcela nezávisle bez ohledu na "
-"ostatní MQTT rozšíření v OSPy."
+"budou z daného tématu přijaty příkazy ke spuštění stanic. Pro tuto funkci je "
+"vyžadováno jádro MQTT. Přijatá zpráva je list, který obsahuje seznam nebo "
+"slovník (číslo stanice, čas v sekundách.) Poznámka: seznam nebo slovník musí "
+"být stejně dlouhý jako počet stanic. V opačném případě se zpracování "
+"neuskuteční! Seznam je jednodušší než slovník (nemusíme jej měnit v "
+"příkazech pokaždé, když změníme název stanice. Pro jednorázové ovládání "
+"musíte toto OSPy přepnout do režimu plánovače!"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:9
-msgid "If you change settings in this plugin you must restarting OSPy!"
-msgstr "Pokud změníte nastavení v tomto rozšíření, musíte restartovat OSPy!"
+#: plugins/mqtt/templates/mqtt_help.html:30
+msgid "* MQTT get values"
+msgstr "* MQTT čtení hodnot"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:10
-msgid "MQTT data example"
-msgstr "Příklad dat MQTT"
-
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:11
+#: plugins/mqtt/templates/mqtt_help.html:32
 msgid ""
-"Note: the list or dict must be as long as the number of stations. Otherwise, "
-"the processing will not take place!"
+"The status of the system settings will be sent to the given topic (cpu "
+"temperature, manual mode, scheduler enabled...) This list is sent whenever "
+"there is a change in the system. Example: {\"cpu_temp\": \"47.1\", "
+"\"temp_unit\": \"C\", \"manual_mode\": true, \"scheduler_enabled\": true, "
+"\"system_name\": \"Test VIP2\", \"output_count\": 8, \"rain_sensed\": false, "
+"\"rain_block\": 0, \"level_adjustment\": 1.0, \"ospy_version\": \"3.0.58\", "
+"\"release_date\": \"2023-08-13\", \"uptime\": \"3. day 05:38\"}"
 msgstr ""
-"Poznámka: seznam nebo slovník musí být stejně dlouhý jako počet stanic. V "
-"opačném případě se zpracování neuskuteční!"
+"Stav nastavení systému bude odeslán k danému tématu (teplota procesoru, "
+"manuální režim, povolený plánovač...) Tento seznam je odeslán vždy, když "
+"dojde ke změně v systému. Příklad: {\"cpu_temp\": \"47.1\", \"temp_unit\": "
+"\"C\", \"manual_mode\": true, \"scheduler_enabled\": true, \"system_name\": "
+"\"Test VIP2\", \"output_count\": 8, \"rain_sensed\": false, \"rain_block\": "
+"0, \"level_adjustment\": 1.0, \"ospy_version\": \"3.0.58\", \"release_date"
+"\": \"2023-08-13\", \"uptime\": \"3. den 05:38\"}"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:13
+#: plugins/mqtt/templates/mqtt_help.html:34
+msgid ""
+"Example of settings for two OSPy systems (main OSPy and more secondary OSPy.)"
+msgstr "Příklad nastavení pro dva systémy OSPy (hlavní OSPy a více podružných)"
+
+#: plugins/mqtt/templates/mqtt_help.html:36
+msgid "OSPy main system"
+msgstr "OSPy hlavní systém"
+
+#: plugins/mqtt/templates/mqtt_help.html:38
+msgid ""
+"There are a total of 8 physical stations on the control OSPy system. We want "
+"to control another secondary OSPy system, which also has 8 physical "
+"stations. On the control OSPy system, set a total of 16 stations in the "
+"settings tab. The scheduler will control all 16 stations through the set "
+"programs. Run the \"MQTT\" plugin on the control OSPy system and set it "
+"(server, user, password, port) for connection to MQTT server (message "
+"broker). Manual MQTT control will not be used on the OSPy controller! Next, "
+"check \"MQTT Use zones\" for sharing stations status."
+msgstr ""
+"V řídicím systému OSPy je celkem 8 fyzických stanic. Chceme ovládat další "
+"sekundární OSPy systém, který má také 8 fyzických stanic. V systému řízení "
+"OSPy nastavte v záložce nastavení celkem 16 stanic. Plánovač bude ovládat "
+"všech 16 stanic prostřednictvím nastavených programů. Spusťte na řídícím "
+"OSPy systému plugin \"MQTT\" a nastavte jej (server, uživatel, heslo, port) "
+"pro připojení k MQTT serveru (broker). Na řídícím OSPy nebude použito ruční "
+"ovládání přes MQTT! Dále zkontrolujte zda máte povoleno \"MQTT použít zóny\" "
+"pro sdílení stavu stanic."
+
+#: plugins/mqtt/templates/mqtt_help.html:41
+msgid ""
+"Example of outgoing message (main OSPy): [{\"station\": 0, \"status\": \"off"
+"\", \"name\": \"Station 01\", \"reason\": \"\"}, {\"station\": 1, \"status"
+"\": \"off\", \"name\": \"Station 02\", \"reason\": \"\"}, {\"station\": 2, "
+"\"status\": \"off\", \"name\": \"Station 03\", \"reason\": \"\"}, {\"station"
+"\": 3, \"status\": \"off\", \"name\": \"Station 04\", \"reason\": \"\"}, "
+"{\"station\": 4, \"status\": \"off\", \"name\": \"Station 05\", \"reason\": "
+"\"\"}, {\"station\": 5, \"status\": \"off\", \"name\": \"Station 06\", "
+"\"reason\": \"\"}, {\"station\": 6, \"status\": \"off\", \"name\": \"Station "
+"07\", \"reason\": \"\"}, {\"station\": 7, \"status\": \"off\", \"name\": "
+"\"Station 08\", \"reason\": \"\"}]"
+msgstr ""
+"Příklad odchozí zprávy (hlavní OSPy): [{\"station\": 0, \"status\": \"off\", "
+"\"name\": \"Station 01\", \"reason\": \"\"}, {\"station\": 1, \"status\": "
+"\"off\", \"name\": \"Station 02\", \"reason\": \"\"}, {\"station\": 2, "
+"\"status\": \"off\", \"name\": \"Station 03\", \"reason\": \"\"}, {\"station"
+"\": 3, \"status\": \"off\", \"name\": \"Station 04\", \"reason\": \"\"}, "
+"{\"station\": 4, \"status\": \"off\", \"name\": \"Station 05\", \"reason\": "
+"\"\"}, {\"station\": 5, \"status\": \"off\", \"name\": \"Station 06\", "
+"\"reason\": \"\"}, {\"station\": 6,  \"status\": \"off\", \"name\": "
+"\"Station 07\", \"reason\": \"\"}, {\"station\": 7, \"status\": \"off\", "
+"\"name\": \"Station 08\", \"reason\": \"\"}]"
+
+#: plugins/mqtt/templates/mqtt_help.html:43
+msgid "OSPy secondary system"
+msgstr "OSPy sekundární systém"
+
+#: plugins/mqtt/templates/mqtt_help.html:44
+msgid ""
+"There are a total of 8 physical stations. On the secondary OSPy system, set "
+"a total of 8 stations in the settings tab. Run the \"MQTT\" plugin on the "
+"control OSPy system and set it (server, user, password, port) for connection "
+"to MQTT server (message broker). MQTT manual control will be used on the "
+"secondary OSPy system! Fill in the Zones topic to receive messages with "
+"station statuses. With the control system we want to control this secondary "
+"system from station 1 from station 9. So we fill in the First station number "
+"to the number 9. Next, fill in the number of controlled stations from the "
+"control system. the control system will control stations 9-16. So we enter "
+"Station count to the number 8. we switch the secondary ospy system to manual "
+"control on the main screen! We can also use a plugin for sending emails from "
+"the slave system (as a feedback check of the device operation)."
+msgstr ""
+"K dispozici je celkem 8 fyzických stanic. Na sekundárním systému OSPy "
+"nastavte v záložce nastavení celkem 8 stanic. Spusťte na řídícím OSPy "
+"systému plugin \"MQTT\" a nastavte jej (server, uživatel, heslo, port) pro "
+"připojení k MQTT serveru (message broker). Ruční ovládání MQTT bude použito "
+"na sekundárním systému OSPy! Vyplňte téma Zóny pro příjem zpráv se stavy "
+"stanic. S řídicím systémem chceme ovládat tento sekundární systém ze stanice "
+"1 ze stanice 9. Vyplníme tedy číslo první stanice číslem 9. Dále vyplňte "
+"počet ovládaných stanic z řídicího systému. Řídící systém bude řídit stanice "
+"9-16. Zadáme tedy počet stanic k číslu 8. Přepneme sekundární systém OSPY na "
+"ruční ovládání na hlavní obrazovce! Můžeme také použít plugin pro odesílání "
+"e-mailů z podřízeného systému (jako kontrola zpětné vazby o provozu "
+"zařízení)."
+
+#: plugins/mqtt/templates/mqtt_help.html:47
+msgid "Example MQTT run-once"
+msgstr "Příklad MQTT jednorázově"
+
+#: plugins/mqtt/templates/mqtt_help.html:49
 msgid ""
 "The value in the list or dictionary determines the behavior of the control: "
 "0 (the state of the station will not be changed in any way. If the station "
@@ -11330,15 +11487,15 @@ msgstr ""
 ">1 (čas stanice v sekundách. například 10 bude pro čas 10 sekund). -1 (Pokud "
 "je stanice spuštěna, bude zastavena)."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:14
+#: plugins/mqtt/templates/mqtt_help.html:52
 msgid "Example for 5 stations (5 stations are set in OSPy)."
 msgstr "Příklad pro 5 stanic (5 stanic je nastaveno v OSPy)."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:15
+#: plugins/mqtt/templates/mqtt_help.html:53
 msgid "Sending message in MQTT as list - prefered method"
 msgstr "Odeslání zprávy v MQTT jako list - preferovaný způsob"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:16
+#: plugins/mqtt/templates/mqtt_help.html:54
 msgid ""
 "Station 1 -> ignore, 2 -> ignore, 3 -> ON time 100 second, 4 -> ON time 30 "
 "second, 5 -> OFF..."
@@ -11346,23 +11503,23 @@ msgstr ""
 "Stanice 1 -> ignorovat, 2 -> ignorovat, 3 -> ZAP čas 100 sekund, 4 -> ZAP "
 "čas 30 sekund, 5 -> VYP..."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:17
+#: plugins/mqtt/templates/mqtt_help.html:55
 msgid "[0,0,100,30,-1]"
 msgstr "[0,0,100,30,-1]"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:18
+#: plugins/mqtt/templates/mqtt_help.html:56
 msgid "Example for 17 stations (17 stations are set in OSPy)."
 msgstr "Příklad pro 17 stanic (17 stanic je nastaveno v OSPy)."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:19
+#: plugins/mqtt/templates/mqtt_help.html:57
 msgid "[0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,-1]"
 msgstr "[0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,-1]"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:20
+#: plugins/mqtt/templates/mqtt_help.html:58
 msgid "Sending message in MQTT as dict"
 msgstr "Odesílání zpráv v MQTT jako slovník"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:21
+#: plugins/mqtt/templates/mqtt_help.html:59
 msgid ""
 "Station 1 -> OFF, 2 -> OFF, 3 -> ON time 100 second, 4 -> ON time 30 second, "
 "5 -> OFF..."
@@ -11370,7 +11527,7 @@ msgstr ""
 "Stanice 1 -> VYP, 2 -> VYP, 3 -> ZAP čas 100 sekund, 4 -> ZAP čas 30 sekund, "
 "5 -> VYP..."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:22
+#: plugins/mqtt/templates/mqtt_help.html:60
 msgid ""
 "{\"station name 1\": 0, \"station name 2\": 0, \"station name 3\": 100, "
 "\"station name 4\": 30, \"station name 5\": -1}"
@@ -11378,35 +11535,35 @@ msgstr ""
 "{\"název stanice 1\": 0, \"název stanice 2\": 0, \"název stanice 3\": 100, "
 "\"název stanice 4\": 30, \"název stanice 5\": -1}"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:23
+#: plugins/mqtt/templates/mqtt_help.html:61
 msgid "MQTT plugin publish this states"
 msgstr "MQTT rozšíření publikuje tyto stavy"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:24
+#: plugins/mqtt/templates/mqtt_help.html:62
 msgid "RunOnce Restart - restart MQTT connection"
 msgstr "RunOnce Restart – restartování připojení MQTT"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:25
+#: plugins/mqtt/templates/mqtt_help.html:63
 msgid "RunOnce Exit - OSPy exit"
 msgstr "RunOnce Exit – ukončení OSPy"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:26
+#: plugins/mqtt/templates/mqtt_help.html:64
 msgid "RunOnce Ready - Ready for processing"
 msgstr "RunOnce Ready - Připraveno ke zpracování"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:27
+#: plugins/mqtt/templates/mqtt_help.html:65
 msgid "RunOnce Processing - Processing command"
 msgstr "RunOnce Processing - zpracovávání příkazu"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:28
+#: plugins/mqtt/templates/mqtt_help.html:66
 msgid "RunOnce Error - Any Error"
 msgstr "RunOnce Error – jakákoli chyba"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:29
+#: plugins/mqtt/templates/mqtt_help.html:67
 msgid "Examples and demonstration of control via MQTT"
 msgstr "Příklady a demonstrace řízení pomocí MQTT"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:30
+#: plugins/mqtt/templates/mqtt_help.html:68
 msgid ""
 "Creating an MQTT broker (we can use https://www.hivemq.com/demos/websocket-"
 "client/ to try it out)."
@@ -11414,11 +11571,11 @@ msgstr ""
 "Vytvoření MQTT brokera (můžeme použít https://www.hivemq.com/demos/websocket-"
 "client/ k vyzkoušení)."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:32
+#: plugins/mqtt/templates/mqtt_help.html:70
 msgid "Subscribe (run-once and ospy/system)"
 msgstr "Přihlásit se k odběru (run-once a ospy/system)"
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:34
+#: plugins/mqtt/templates/mqtt_help.html:72
 msgid ""
 "In OSPy, we start the plugin and fill in the login data (then we restart "
 "OSPy)."
@@ -11426,11 +11583,11 @@ msgstr ""
 "V OSPy spustíme plugin a vyplníme přihlašovací údaje (poté restartujeme "
 "OSPy)."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:36
+#: plugins/mqtt/templates/mqtt_help.html:74
 msgid "A \"RunOnce Ready\" message will appear when set correctly and reboot."
 msgstr "Zpráva \"RunOnce Ready\" se zobrazí při správném nastavení a restartu."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:38
+#: plugins/mqtt/templates/mqtt_help.html:76
 msgid ""
 "In this example we will want to turn on station 11 for 20 seconds. Circled "
 "in green in the image below - the station is now switched off."
@@ -11438,7 +11595,7 @@ msgstr ""
 "V tomto příkladu budeme chtít zapnout stanici 11 na 20 sekund. Na obrázku "
 "níže je zeleně zakroužkováno - stanice je nyní vypnutá."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:40
+#: plugins/mqtt/templates/mqtt_help.html:78
 msgid ""
 "Now we will try to send a command to the run-once topic to turn on station "
 "11 for 20 seconds."
@@ -11446,7 +11603,7 @@ msgstr ""
 "Nyní se pokusíme odeslat příkaz do tématu run-once, abychom zapnuli stanici "
 "11 na 20 sekund."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:42
+#: plugins/mqtt/templates/mqtt_help.html:80
 msgid ""
 "The received message can be seen in the plugin. At the same time, we see a "
 "reply on the broker about receiving the message. On the home page of OSPy, "
@@ -11455,7 +11612,7 @@ msgstr ""
 "Přijatá zpráva je vidět v pluginu. Současně vidíme odpověď makléře o přijetí "
 "zprávy. Na domovské stránce OSPy se stanice spustila na 20 sekund."
 
-#: plugins/mqtt_runonce/templates/mqtt_runonce_help.html:46
+#: plugins/mqtt/templates/mqtt_help.html:84
 msgid ""
 "The plugin uses Python paho-mqtt for running in OSPy. If paho-mqtt is not "
 "available on the system, the plugin will try to install it on the system "
@@ -11464,66 +11621,6 @@ msgstr ""
 "Toto rozšíření používá Python paho-mqtt pro svůj běh v OSPy. Pokud paho-mqtt "
 "není v systému k dispozici, rozšíření se jej pokusí nainstalovat do systému "
 "samo."
-
-#: plugins/mqtt_zones/__init__.py:27
-msgid "Package: MQTT Zone Broadcaster"
-msgstr "Balíček: MQTT Zone Broadcaster"
-
-#: plugins/mqtt_zones/__init__.py:68
-msgid "MQTT Zones Plugin started."
-msgstr "Rozšíření MQTT stanice bylo spuštěno."
-
-#: plugins/mqtt_zones/__init__.py:108 plugins/mqtt_zones/__init__.py:142
-msgid "MQTT Zones Plugin requires MQTT plugin."
-msgstr "Rozšíření MQTT stanice vyžaduje MQTT plugin."
-
-#: plugins/mqtt_zones/__init__.py:118
-msgid "MQTT Zones Plugin public"
-msgstr "Rozšíření MQTT stanice publikuje"
-
-#: plugins/mqtt_zones/__init__.py:122
-msgid "Not setup Zone Topic"
-msgstr "Téma pro stanice není nastaveno"
-
-#: plugins/mqtt_zones/__init__.py:128
-msgid "MQTT Zones plug-in"
-msgstr "Rozšíření MQTT stanice"
-
-#: plugins/mqtt_zones/__init__.py:133
-msgid "MQTT Zones Plugin is disabled."
-msgstr "Rozšíření MQTT stanice je zakázáno."
-
-#: plugins/mqtt_zones/templates/mqtt_zones.html:3
-#: plugins/mqtt_zones/templates/mqtt_zones.html:19
-msgid "MQTT Zones settings"
-msgstr "Rozšíření MQTT stanice nastavení"
-
-#: plugins/mqtt_zones/templates/mqtt_zones.html:30
-msgid "MQTT Publish Zones topic"
-msgstr "MQTT téma pro stanice"
-
-#: plugins/mqtt_zones/templates/mqtt_zones.html:31
-msgid "The topic to broadcast zone updates on"
-msgstr "Téma pro vysílání stanic"
-
-#: plugins/mqtt_zones/templates/mqtt_zones_help.html:3
-#: plugins/mqtt_zones/templates/mqtt_zones_help.html:7
-msgid "MQTT Zones settings - help"
-msgstr "MQTT zóny - nápověda"
-
-#: plugins/mqtt_zones/templates/mqtt_zones_help.html:8
-msgid ""
-"This MQTT Zones plug-in relies on to MQTT, broadcasts the current status of "
-"all zones."
-msgstr ""
-"Rozšíření MQTT stanice závisí na rozšíření MQTT, vysílá aktuální stav všech "
-"zón."
-
-#: plugins/mqtt_zones/templates/mqtt_zones_help.html:9
-#: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:25
-#: plugins/telegram_bot/templates/telegram_bot_help.html:20
-msgid "Example"
-msgstr "Příklad"
 
 #: plugins/photovoltaic_boiler/__init__.py:28
 msgid "Package: Photovoltaic Boiler"
@@ -13405,6 +13502,11 @@ msgstr ""
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:24
 msgid "Status window from the plug-in."
 msgstr "Stavové okno z tohoto rozšíření."
+
+#: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:25
+#: plugins/telegram_bot/templates/telegram_bot_help.html:20
+msgid "Example"
+msgstr "Příklad"
 
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:26
 msgid ""
@@ -15958,6 +16060,10 @@ msgstr "Zadejte váš token, který robotovi umožní mluvit s telegramem."
 #: plugins/telegram_bot/templates/telegram_bot.html:46
 msgid "Example: 5498756874:AAEPKTa987456SQ"
 msgstr "Příklad: 5498756874:AAEPKTa987456SQ"
+
+#: plugins/telegram_bot/templates/telegram_bot.html:51
+msgid "Please restart OSPy if these options are changed!"
+msgstr "Pokud se tyto možnosti změní, restartujte OSPy systém!"
 
 #: plugins/telegram_bot/templates/telegram_bot.html:55
 msgid "Your Bot ID"
@@ -18867,6 +18973,147 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 msgid "Done."
 msgstr "Hotovo."
 
+#~ msgid "Skipping command, rain sense is detected!"
+#~ msgstr "Přeskakuji příkaz, je detekován déšť!"
+
+#~ msgid "Skipping command, rain delay is activated!"
+#~ msgstr "Přeskakuji příkaz, je detekováno dešťové zpoždění!"
+
+#~ msgid "Could not decode command:"
+#~ msgstr "Nelze dekódovat příkaz:"
+
+#~ msgid "MQTT Publish up/down topic"
+#~ msgstr "MQTT Publikování do tématu OSPy systém je zap/vyp"
+
+#~ msgid "Required to receive secondary MQTT messages."
+#~ msgstr "Vyžadováno pro příjem sekundárních zpráv MQTT."
+
+#~ msgid ""
+#~ "This MQTT plugin adds an MQTT client to the OSPy daemon for other plugins "
+#~ "to use to publish information and or receive commands over MQTT. On this "
+#~ "page, the shared client is configured"
+#~ msgstr ""
+#~ "Toto rozšíření přidává klienta MQTT do démona OSPy pro další rozšíření, "
+#~ "které lze použít k publikování informací nebo k přijímání příkazů přes "
+#~ "MQTT protokol. Na této stránce je sdílený klient nakonfigurován pro "
+#~ "ostatní rozšíření společně"
+
+#~ msgid ""
+#~ "Having a shared MQTT client simplifies configuration and lowers overhead "
+#~ "on the OSPy process, network and broker"
+#~ msgstr ""
+#~ "Sdílení klienta MQTT mezi další rozšíření zjednodušuje konfiguraci a "
+#~ "snižuje režii na proces OSPy, síť a zprostředkovatele"
+
+#~ msgid ""
+#~ "This plugin needs paho-mqtt. If not installed paho-mqtt, plugin installs "
+#~ "paho-mqtt in to the system himself. On first use (if run installation "
+#~ "paho-mqtt) please wait for status"
+#~ msgstr ""
+#~ "Toto rozšíření potřebuje paho-mqtt. Pokud není nainstalováno paho-mqtt, "
+#~ "rozšíření ho nainstaluje do systému samo. Při prvním použití (pokud je "
+#~ "spuštěna instalace paho-mqtt) počkejte na stav"
+
+#~ msgid "We can use a public Broker server to test"
+#~ msgstr "K testování můžeme použít veřejný server brokera"
+
+#~ msgid "Package: MQTT Run-once"
+#~ msgstr "Balíček: MQTT jednorázový program"
+
+#~ msgid "MQTT Run-once Plugin is disabled."
+#~ msgstr "Rozšíření MQTT jednorázový program je zakázáno."
+
+#~ msgid "Client on stop"
+#~ msgstr "Zastavení klienta"
+
+#~ msgid "MQTT Runonce"
+#~ msgstr "MQTT jednorázový program"
+
+#~ msgid "MQTT Runonce settings"
+#~ msgstr "Rozšíření MQTT jednorázový program nastavení"
+
+#~ msgid "Use MQTT"
+#~ msgstr "Použít MQTT"
+
+#~ msgid "If you use this MQTT Run-once extension check to turn on."
+#~ msgstr "Pokud chcete použít toto rozšíření, zaškrtněte pro zapnutí."
+
+#~ msgid "MQTT Publish Ready/Exit topic"
+#~ msgstr "MQTT Publikovat téma stavů (Ready/Exit)"
+
+#~ msgid "Leave blank to not publish MQTT Run-once plugin status"
+#~ msgstr "Ponechte prázdné, nechcete-li zveřejnit stav z tohoto rozšíření"
+
+#~ msgid "MQTT Scheduling topic"
+#~ msgstr "MQTT téma pro jednorázové programy"
+
+#~ msgid "The topic subscribe to for Run-once commands."
+#~ msgstr "Téma, které chcete přihlásit k odběru příkazů."
+
+#~ msgid "MQTT Runonce - help"
+#~ msgstr "MQTT jednorázový - nápověda"
+
+#~ msgid "MQTT Runonce settings - help"
+#~ msgstr "MQTT jednorázový - nápověda"
+
+#~ msgid ""
+#~ "This MQTT Run-once plugin Relies on the base MQTT plugin, allows runonce "
+#~ "stations to be set over MQTT. The received message is a sheet that "
+#~ "contains list or dict (station number, time in seconds.)"
+#~ msgstr ""
+#~ "Toto rozšíření MQTT jednorázový program spoléhá na základní rozšíření "
+#~ "MQTT, umožňuje spustit jednorázový program přes MQTT protokol. Přijatá "
+#~ "zpráva je list, který obsahuje seznam nebo slovník (číslo stanice, čas v "
+#~ "sekundách.)"
+
+#~ msgid ""
+#~ "This extension does not require the MQTT plugin. It works completely "
+#~ "independently regardless of other MQTT plugins in OSPy."
+#~ msgstr ""
+#~ "Toto rozšíření nevyžaduje plugin MQTT. Funguje zcela nezávisle bez ohledu "
+#~ "na ostatní MQTT rozšíření v OSPy."
+
+#~ msgid ""
+#~ "Note: the list or dict must be as long as the number of stations. "
+#~ "Otherwise, the processing will not take place!"
+#~ msgstr ""
+#~ "Poznámka: seznam nebo slovník musí být stejně dlouhý jako počet stanic. V "
+#~ "opačném případě se zpracování neuskuteční!"
+
+#~ msgid "Package: MQTT Zone Broadcaster"
+#~ msgstr "Balíček: MQTT Zone Broadcaster"
+
+#~ msgid "MQTT Zones Plugin started."
+#~ msgstr "Rozšíření MQTT stanice bylo spuštěno."
+
+#~ msgid "MQTT Zones Plugin requires MQTT plugin."
+#~ msgstr "Rozšíření MQTT stanice vyžaduje MQTT plugin."
+
+#~ msgid "MQTT Zones Plugin public"
+#~ msgstr "Rozšíření MQTT stanice publikuje"
+
+#~ msgid "Not setup Zone Topic"
+#~ msgstr "Téma pro stanice není nastaveno"
+
+#~ msgid "MQTT Zones plug-in"
+#~ msgstr "Rozšíření MQTT stanice"
+
+#~ msgid "MQTT Zones Plugin is disabled."
+#~ msgstr "Rozšíření MQTT stanice je zakázáno."
+
+#~ msgid "MQTT Publish Zones topic"
+#~ msgstr "MQTT téma pro stanice"
+
+#~ msgid "MQTT Zones settings - help"
+#~ msgstr "MQTT zóny - nápověda"
+
+#~ msgid ""
+#~ "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status "
+#~ "of all zones."
+#~ msgstr ""
+#~ "Rozšíření MQTT stanice závisí na rozšíření MQTT, vysílá aktuální stav "
+#~ "všech zón."
+
 #~ msgid "This extension requires the MQTT extension!"
 #~ msgstr "Toto rozšíření vyžaduje rozšíření MQTT!"
 
@@ -19336,9 +19583,6 @@ msgstr "Hotovo."
 
 #~ msgid "Received message"
 #~ msgstr "Přijatá zpráva"
-
-#~ msgid "on topic"
-#~ msgstr "na téma"
 
 #~ msgid "MQTT Run-once could not decode command:"
 #~ msgstr "MQTT jednorázový program, příkaz nelze dekódovat:"

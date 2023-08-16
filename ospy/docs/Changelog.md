@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+August 16 2023 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language (new strings). Fixed wrong timestamp in API/logs. Canceling MQTT plugins (merging all functions into one MQTT plugin). When combining plugins with each other, MQTT did not work as it should. It is now resolved.
+
 August 13 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

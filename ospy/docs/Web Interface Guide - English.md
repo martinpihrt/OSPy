@@ -1002,9 +1002,6 @@ Available plug-ins:
 * Weather-based Water Level Netatmo
 * Direct 16 Relay Outputs
 * MQTT
-* MQTT Zone Broadcaster
-* MQTT Slave
-* MQTT Run-Once
 * System Debug Information
 * Weather-based Water Level
 * Real Time and NTP time
