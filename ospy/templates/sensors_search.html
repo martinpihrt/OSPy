@@ -1,6 +1,6 @@
 $def with ()
 
-$var title: $_(u'Available sensors')
+$var title: $_('Available sensors')
 $var page: search_sensors
 $ refreshInterval = 4000
 
@@ -15,9 +15,8 @@ function createSensor(element) {
     jQuery("#radioid").val(array[3]);
     jQuery("#senstype").val(array[4]);
     jQuery("#comtype").val(array[5]);
-    jQuery("#senscode").val(array[6]);
-    jQuery("#senscpu").val(array[7]);
-    jQuery("#sensfw").val(array[8]);
+    jQuery("#senscpu").val(array[6]);
+    jQuery("#sensfw").val(array[7]);
     jQuery("#sensorForm").submit();
 }
 
@@ -47,7 +46,7 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
         if(scom == 0) scomtype = $:{json.dumps(_('Wi-Fi/LAN'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         else if(scom == 1) scomtype = $:{json.dumps(_('Radio'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         else scomtype = $:{json.dumps(_('Unknown'), ensure_ascii=False).encode('utf8').decode('utf-8')};
-        let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.secret+','+sensor.cpu_core+','+sensor.fw
+        let valdata = sensor.name+','+sensor.ip+','+sensor.mac+','+sensor.radio+','+sensor.type+','+sensor.com+','+sensor.cpu_core+','+sensor.fw
         let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensor(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8').decode('utf-8')}+"</button>";
         let cpu_name = -1;
         if(sensor.cpu_core == 0) cpu_name = $:{json.dumps(_('ESP32'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -63,7 +62,6 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
             jQuery('<td>').text(sensor.radio),
             jQuery('<td>').text(snametype),
             jQuery('<td>').text(scomtype),
-            jQuery('<td>').text(sensor.secret),
             jQuery('<td>').text(toDigits(sensor.fw)),
             jQuery('<td>').html(button_data)
         ).appendTo('#sensorsTable > tbody');
@@ -83,23 +81,22 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<div class="title">$_(u'Available sensors') <span id="refreshLight">&bullet;</span></div>
+<div class="title">$_('Available sensors') <span id="refreshLight">&bullet;</span></div>
 <div id="sensor-container" class="sensor-container" style="width: 95em;">
-    <p>$_(u'Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
-    <p>$_(u'Your AES code for using in sensors:') "${options.aes_key}"</p>
+    <p>$_('Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
     <table class="logList" id="sensorsTable">
         <thead>
         <tr class="log_rec">
-            <th>$_(u'Sensor Name')</th>
-            <th>$_(u'Sensor CPU')</th>
-            <th>$_(u'Sensor IP Address')</th>
-            <th>$_(u'From IP Address')</th>
-            <th>$_(u'MAC Address')</th>
-            <th>$_(u'Radio ID')</th>
-            <th>$_(u'Sensor Type')</th>
-            <th>$_(u'Communication Type')</th>
-            <th>$_(u'Code')</th>
-            <th>$_(u'Firmware Version')</th>
+            <th>$_('Sensor Name')</th>
+            <th>$_('Sensor CPU')</th>
+            <th>$_('Sensor IP Address')</th>
+            <th>$_('From IP Address')</th>
+            <th>$_('MAC Address')</th>
+            <th>$_('Radio ID')</th>
+            <th>$_('Sensor Type')</th>
+            <th>$_('Communication Type')</th>
+            <th>$_('Firmware Version')</th>
+            <th>$_('Create')</th>
         </tr>
         </thead>
         <tbody>
@@ -111,7 +108,6 @@ jQuery(document).ready(function(){
         <input type="hidden" id="radioid" name="radio_id" value="">
         <input type="hidden" id="senstype" name="sens_type" value="">
         <input type="hidden" id="comtype" name="com_type" value="">
-        <input type="hidden" id="senscode" name="senscode" value="">
         <input type="hidden" id="senscpu" name="senscpu" value="">
         <input type="hidden" id="sensfw" name="sensfw" value="">
     </form>  

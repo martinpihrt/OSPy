@@ -192,9 +192,6 @@ jQuery(document).ready(function(){
         break;  
         case "unameis":
             jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor names must be non-null and unique. Sensor already exists, use another name! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break; 
-        case "ucode":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Sensor code must be exactly 16 characters! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;
     }
     });
@@ -230,18 +227,6 @@ jQuery(document).ready(function(){
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Name'):</span></td>
                 <td><input name="name" class="cleanText" id="name" style="width: 140px" value="${sensor.name}" title=$:{json.dumps(_(u'Type Sensor Name.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
-                </tr>
-                </table>
-            </div>
-            <div class='option' style="white-space: nowrap">
-                <table>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label" title=$:{json.dumps(_(u'Security code for your Sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Security code'):</span></td>
-                <td><input name="senscode" class="cleanCode" id="senscode" value="${sensor.encrypt}">
-                </td>
-                </tr>
-                <tr>
-                <td><button onclick="codeTextCopy()" title=$:{json.dumps(_(u'Copy security code to clipboard.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Copy code')</button></td>
                 </tr>
                 </table>
             </div>

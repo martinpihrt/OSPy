@@ -25,11 +25,6 @@ sudo apt upgrade
 and follow the procedures 
 
 ```bash
-sudo pip3 install pycrypto
-```
-for installation pycrypto if not in the system
-
-```bash
 sudo apt install mc
 ```
 for installation midnight commander if not in the system
@@ -53,7 +48,6 @@ EXAMPLE:
 ===========
 sudo apt update
 sudo apt upgrade
-sudo pip3 install pycrypto
 sudo apt install mc
 git clone -b master https://github.com/martinpihrt/OSPy
 cd OSPy

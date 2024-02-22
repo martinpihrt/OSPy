@@ -463,21 +463,18 @@ class Sensor(object):
     @does_json
     def POST(self):
         log.debug('api.py', 'POST ' + self.__class__.__name__)
-        from ospy.helpers import now, split_ip, decrypt_data, encrypt_data
+        from ospy.helpers import now, split_ip
         from ospy.webpages import sensorSearch
 
         qdict  = web.input()
         try:
             jqdict = json.loads(qdict['do'].lower())
-            sqdict = qdict['sec']
-            decrypt_secret = decrypt_data(options.aes_key, sqdict)
-            log.debug('api.py',  _(u'Sensor input IP: {} MAC: {} SECURE: {}.').format(jqdict['ip'], jqdict['mac'].upper(), decrypt_secret))
+            log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
         except:
-            log.error('api.py',  _(u'Any error in Sensor input!'))
             jqdict = {}
             pass
 
-        if 'ip' and 'mac' in jqdict and 'sec' in qdict:
+        if 'ip' and 'mac' in jqdict:
             find_sens = {
                 'name':  jqdict['name'],
                 'ip':  jqdict['ip'],
@@ -486,14 +483,13 @@ class Sensor(object):
                 'radio': '-',    
                 'type': jqdict['stype'],
                 'com': jqdict['scom'],
-                'secret': decrypt_secret,
                 'fw': jqdict['fw'],
                 'cpu_core': jqdict['cpu']
             }  
 
             for sensor in sensors.get():
                 ip = split_ip(jqdict['ip'])
-                if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper() and sensor.encrypt == decrypt_secret:
+                if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper():
                     read_val = []*9
                     soil_read_val = []*16
                     if 'cpu' in jqdict and jqdict['cpu'] is not None:
@@ -667,9 +663,6 @@ class Sensor(object):
                         sensor.fw = jqdict['fw']
 
                     log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
-
-                else:
-                    print_report('api.py',  _(u'Received data (IP, MAC, SEC...) probably do not match!'))
     
             try:
                 for i in range(0, len(sensorSearch)):
@@ -700,13 +693,7 @@ class Sensor(object):
                                 del sensorSearch[int(i)]
                             except:
                                 pass    
-                            break 
-                        elif str(ss["secret"]) != str(find_sens["secret"]):                                # secret not match 
-                            try:
-                                del sensorSearch[int(i)]
-                            except:
-                                pass    
-                            break                                      
+                            break                                     
 
                 sensorSearch.append(find_sens) if find_sens not in sensorSearch else sensorSearch         
 

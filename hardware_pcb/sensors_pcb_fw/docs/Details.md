@@ -22,8 +22,7 @@ Sensors Details
 Sensors Connection and Add into OSPy
 ====
 
-### Start
-- In the OSPy menu *settings* in the tab *sensors* we generate a new AES code with the button (or if we already know it from the sensors, we can enter it here).  
+### Start 
 - Hold down the AP button on the sensor board (to call up the AP manager) for more than >4 seconds (the LED will start flashing quickly). The sensor creates a Wi-Fi network (AP) called *Sensor ESP32*.
 - We will connect to the *Sensor ESP32* network using a mobile phone (tablet, laptop). The connection password is *ospy-sensor-esp32*.  
 - After connecting, open a web browser and enter the IP address: *http://192.168.1.1*. Then a web page will open where we will set up a connection to your Wi-Fi network (STA mode).  
@@ -39,9 +38,7 @@ Always connect all connectors first and then setup the sensor!
 - FW upload password = enter your password for access to firmware uploading to sensor. Default is: "fg4s5b.s,trr7sw8sgyvrDfg".
 - OSPy IP address = enter the IP address (or name) on which the OSPy server is running (for example: "192.168.88.202", or "sprinkler123.com").  
 - OSPy port = port on which the OSPy server is available (default is "8080").  
-- Use SSL (https) = if we do not have an encrypted connection via SSL set in the OSPs, then we will not check the box, otherwise (we will have an https connection) we will check the box.  
-- AES key = from the OSP from the "sensors" tab we will use the generated 16-digit AES key. Within one OSP we will use the key in all sensors the same!  
-- AES secure = a unique security code (16-digit) that each sensor has different!!! We choose a random combination.  
+- Use SSL (https) = if we do not have an encrypted connection via SSL set in the OSPy, then we will not check the box, otherwise (we will have an https connection) we will check the box.
 - Use OSPy authorization = not used yet (current FW version: 1.03 and OSPs 4.0.91 - 2021-01-11) do not have the function enabled. In the future, it will be used for user authentication (the sensor is already sending this data, but the OSPy are still ignoring it). If the box is checked, the name and password for logging in to the OSPy system will be sent. I recommend creating a new user in "settings" in OSPy and assigning him *sensor* permissions.  
 - Authorization name = user name for access to OSPs (default is *admin*).  
 - Authorization password = user password for access to OSPs (default is *opendoor*).  

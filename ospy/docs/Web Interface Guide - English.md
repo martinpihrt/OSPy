@@ -107,9 +107,7 @@ OSPy Web Interface Guide in English
             Domain name 
             Use Own HTTPS access
         Sensors
-            Password for uploading
-            AES key for sensors
-            Generate new key              
+            Password for uploading              
         Station Handling Section
             Maximum usage
                 About Sequential and Concurrent modes
@@ -621,12 +619,6 @@ The Sensors section contains settings for sensors security.
 ### Password for uploading
 Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.) Default is: "fg4s5b.s,trr7sw8sgyvrDfg".
 
-### AES key for sensors
-AES key for sensors. The length must be 16 characters (for all sensors used - the same code must be used in the Arduino code in the sensor.)
-
-### Generate new key
-After pressing the button, a new random 16-digit key is generated for use in the sensors.
-
 ## Station Handling Section
 The Station Handling section contains settings for stations.
 
@@ -1024,6 +1016,8 @@ Available plug-ins:
 * IP CAM
 * Proto
 * Label Maker
+* IP Scanner
+* Database Connector
 
 ----
 

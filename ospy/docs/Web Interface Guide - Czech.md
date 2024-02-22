@@ -107,9 +107,7 @@ OSPy Průvodce webovým rozhraním v češtině
             Jméno domény
             Použít vlastní HTTPS 
         Snímače
-            Heslo pro nahrávání firmwaru
-            Klíč AES pro snímače
-            Generovat nový klíč                     
+            Heslo pro nahrávání firmwaru                     
         Nastavení stanic
             Maximální využití
                 O sekvenčních a souběžných režimech
@@ -618,12 +616,6 @@ Sekce snímače obsahuje nastavení pro zabezpečení snímačů.
 ### Heslo pro nahrávání firmwaru
 Heslo pro nahrávání firmwaru z OSPy do snímače (pro všechny použité snímače - stejné heslo musí být použito i v nastavení snímače). Výchozí heslo je: "fg4s5b.s,trr7sw8sgyvrDfg".
 
-### Klíč AES pro snímače
-AES klíč pro snímače. Délka musí být 16 znaků (pro všechny použité snímače - stejný kód musí být použit v kódu Arduino ve snímači.)
-
-### Generovat nový klíč
-Po stisknutí tlačítka se vygeneruje nový náhodný 16-místný klíč pro použití ve snímačích.   
-
 ## Nastavení stanic
 Sekce "Nastavení stanic" obsahuje všeobecná nastavení pro všechny stanice.
 
@@ -1048,6 +1040,8 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * CHMI (umožňuje z meteoradaru ČHMI načítat aktuální počasí a dle něho nastavovat časové spoždění. Zároveň zobrazovat RGB stav počasí na HW mapě).
 * Proto (výchozí plugin pro tvorbu dalších nových pluginů. Plugin nic závratného nedělá, ale vysvětluje jak pracuje).
 * Label Maker (vytváření EAN a QR kódů).
+* IP Scanner (hledání IP a MAC v síti).
+* Database Connector (propojení do databáze pro ukládání dat z čidel a senzorů).
 
 ----
 

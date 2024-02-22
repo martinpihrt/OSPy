@@ -849,46 +849,7 @@ def print_report(title, message=None):
     except:
         print_report('helpers.py', traceback.format_exc())
         pass
-        
-
-def encrypt_data(aes_key, plain_msg, iv_mode = None): # if iv_mode is None aes mode is ECB else CBC with IV 16 bytes
-    try:
-        from Crypto.Cipher import AES
-        import binascii
-
-        if iv_mode is None:
-            encryption_suite = AES.new(aes_key, AES.MODE_ECB)
-        else:
-            encryption_suite = AES.new(aes_key, AES.MODE_CBC, aes_iv)
-
-        pad = len(plain_msg) % 16
-        if pad > 0:
-            for i in range(16-pad):
-                plain_msg += ' '
-        enc_msg = binascii.hexlify(encryption_suite.encrypt(plain_msg))
-        return enc_msg
-    except:
-        print_report('helpers.py', traceback.format_exc())
-        return ''
-        
-
-def decrypt_data(aes_key, enc_msg, iv_mode = None):    # if iv_mode is None aes mode is ECB else CBC with IV 16 bytes
-    try:
-        from Crypto.Cipher import AES
-        import binascii
-
-        if iv_mode is None:
-            decryption_suite = AES.new(aes_key, AES.MODE_ECB)
-        else:
-            decryption_suite = AES.new(aes_key, AES.MODE_CBC, iv_mode)
-
-        sec_str = binascii.unhexlify(enc_msg)
-        plain_msg = decryption_suite.decrypt(sec_str).decode()
-        return plain_msg    
-    except:
-        print_report('helpers.py', traceback.format_exc())
-        return ''
-
+         
 
 def decode_B64(msg):
     try:

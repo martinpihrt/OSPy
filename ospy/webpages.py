@@ -709,13 +709,6 @@ class sensor_page(ProtectedPage):
             else:
                 sensor.show_in_footer = 0
 
-            if 'senscode' in qdict: 
-                if len(qdict['senscode'])>16 or len(qdict['senscode'])<16:
-                    errorCode = qdict.get('errorCode', 'ucode')
-                    return self.core_render.sensor(sensor, errorCode)
-                else:
-                    sensor.encrypt = qdict['senscode']
-
             if 'sens_type' in qdict:
                 sensor.sens_type = int(qdict['sens_type'])
                 sen_type = int(qdict['sens_type'])
@@ -1805,18 +1798,7 @@ class options_page(ProtectedPage):
         if 'lang' in qdict:
             if qdict['lang'] != options.lang:     # if changed languages
                 changing_language = True
-
-        if 'aes_gener' in qdict and qdict['aes_gener'] == '1':
-            from ospy.helpers import now, password_hash
-            options.aes_key = password_hash(str(now()), 'notarandomstring')[:16]
-            raise web.seeother('/options?errorCode=pw_aesGenerOK') 
-
-        if 'aes_key' in qdict and len(qdict['aes_key'])>16:
-            raise web.seeother('/options?errorCode=pw_aeslenERR')
-        elif 'aes_key' in qdict and len(qdict['aes_key'])<16:
-            raise web.seeother('/options?errorCode=pw_aeslenERR')
-        else:
-            save_to_options(qdict)
+                options.lang = qdict['lang']
 
         if 'master' in qdict:
             m = int(qdict['master'])
@@ -1894,6 +1876,7 @@ class options_page(ProtectedPage):
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
             return self.core_render.notice(home_page, msg)
 
+        save_to_options(qdict)
         report_option_change()
         raise web.seeother('/')
 

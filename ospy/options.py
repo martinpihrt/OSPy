@@ -192,16 +192,9 @@ class _Options(object):
         # Sensors ############################################################# 
         {
             "key": "sensor_fw_passwd",
-            "name": _('Password for uploading'),
+            "name": _('Password FW'),
             "default": "fg4s5b.s,trr7sw8sgyvrDfg",
             "help": _('Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)'),
-            "category": _('Sensors')
-        },               
-        {
-            "key": "aes_key",
-            "name": _('AES key for sensors'),
-            "default": "0123456789abcdef",
-            "help": _('AES key for sensors. Len 16 character (for all used sensors - the same code must be used in Arduino code in sensor.)'),
             "category": _('Sensors')
         },
         #######################################################################

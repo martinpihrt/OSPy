@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+February 22 2024 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language. Added new plugin "IP Scanner" and "Database Connector". Removing the AES key function from the sensor (now no longer required or verified by the AES key when sensor inserting data to the OSPy API). Pycrypto is vulnerable to a heap-based buffer overflow in the ALGnew function in block_templace.c. It allows remote attackers to execute arbitrary code in the python application. It was assigned the CVE-2013-7459 number. Now it will be easy to ported different HW boards such as OSPy sensors (for example ESP8266 - Sonof and more ...) The AES key is no longer available in OSPy settings and sensors settings. In the ESP32 sensor code, this item will also be removed in the next FW versions. OSPy tested on Raspberry Pi 5. Cleaning documentations (AES key). Example is here: https://github.com/martinpihrt/OSPy-plugins/blob/master/plugins/database_connector/static/images/test.png In the airtemp, windspeed, tank monitor extensions added saving to a sql database instead of saving to a local json file (the user can choose whether to save the data locally in OSPy, but this rapidly reduces the life of the SD card in the Raspberry Pi or to an external SQL database). In the future, the extensions will also include loading data from the SQL database (for graphs and recording...)
+
 August 16 2023 (v3.0)
 -----------
 (martinpihrt)<br/>

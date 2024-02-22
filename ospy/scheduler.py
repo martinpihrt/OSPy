@@ -33,15 +33,15 @@ rain_delay_remove = signal('rain_delay_remove')
 
 
 def report_rain_delay_set():      # send rain delay setuped signal
-    block_time = (options.rain_block - datetime.datetime.now()).total_seconds()
-    m, s = divmod(block_time, 60)
+    remaining = abs(rain_blocks.seconds_left())
+    m, s = divmod(remaining, 60)
     h, m = divmod(m, 60)
-    rain_delay_set.send(txt='{}:{}'.format(int(h), int(m)))
-    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes').format(int(h), int(m)), id='RainDelay') 
+    rain_delay_set.send(txt='{}:{}:{}'.format(int(h), int(m), int(s)))
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m)), id='RainDelay') 
 
 def report_rain_delay_remove():   # send rain delay removed signal
     rain_delay_remove.send() 
-    logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay')        
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay')
 
 def report_rain():
     rain_active.send()            # send rain signal
@@ -60,7 +60,7 @@ def report_internet_available():
 
 def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
-    logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet')        
+    logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet')
 
 pom_last_rain = False          # send signal only if rain change
 pom_last_internet = False      # send signal only if internet change

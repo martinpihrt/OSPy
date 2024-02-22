@@ -14,7 +14,7 @@ import json
 
 # Local imports
 from ospy.options import options, rain_blocks, program_level_adjustments
-from ospy.helpers import now, password_hash, datetime_string, mkdir_p
+from ospy.helpers import now, datetime_string, mkdir_p
 from ospy.log import log, logEM
 from ospy.programs import programs
 from ospy.stations import stations
@@ -26,8 +26,7 @@ class _Sensor(object):
 
     def __init__(self, sensors_instance, index):
         self._sensors = sensors_instance
-        self.name = ""                  # sensor name        
-        self.encrypt = password_hash(str(now()), 'notarandomstring')[:16] # sensor security encrypted code
+        self.name = ""                  # sensor name
         self.enabled = 0                # sensor enable or disable
         self.sens_type = 0              # selector sensor type: 0-7 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
         self.com_type = 0               # selector sensor communication type 0-1: 'Wi-Fi/LAN', 'Radio'
