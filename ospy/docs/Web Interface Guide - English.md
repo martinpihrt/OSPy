@@ -1018,6 +1018,7 @@ Available plug-ins:
 * Label Maker
 * IP Scanner
 * Database Connector
+* OSPy Backup
 
 ----
 

@@ -48,11 +48,11 @@ class Stations(object):
 
     def _dict_to_station(self, sid, data):
         for k, v in data.items():
-            log.debug('api.py',  _(u'station id:{} key: {} value: {}').format(sid, k, v))
+            log.debug('api.py',  _('station id:{} key: {} value: {}').format(sid, k, v))
             try:
                 stations[sid].__setattr__(k, v)
             except:
-                log.error('api.py', _(u'Error setting station {}, {} to {}').format(sid, k, v)) 
+                log.error('api.py', _('Error setting station {}, {} to {}').format(sid, k, v)) 
     @auth
     @does_json
     def GET(self, station_id=None):
@@ -74,13 +74,13 @@ class Stations(object):
         action = web.input().get('do', '').lower()
         station_id = int(station_id)
         if action == 'start':
-            log.debug('api.py',  _(u'Starting station {} ({})').format(station_id, stations[station_id].name))
+            log.debug('api.py',  _('Starting station {} ({})').format(station_id, stations[station_id].name))
             stations.activate(station_id)
         elif action == 'stop':
-            log.debug('api.py',  _(u'Stopping station {} ({})').format(station_id, stations[station_id].name))
+            log.debug('api.py',  _('Stopping station {} ({})').format(station_id, stations[station_id].name))
             stations.deactivate(station_id)
         else:
-            log.error('api.py',  _(u'Unknown station action: {}').format(action))
+            log.error('api.py',  _('Unknown station action: {}').format(action))
             raise badrequest()
 
         return self._station_to_dict(stations[station_id])
@@ -143,12 +143,12 @@ class Programs(object):
         }
 
         for k, v in data.items():
-            log.debug('api.py',  _(u'Setting program property key: {} to value: {}').format(k, v))
+            log.debug('api.py',  _('Setting program property key: {} to value: {}').format(k, v))
             try:
                 if k not in self.EXCLUDED_KEYS:
                     prog.__setattr__(k, v)
             except:
-                log.error('api.py',  _(u'Error setting program property key: {} to value: {}').format(k, v))
+                log.error('api.py',  _('Error setting program property key: {} to value: {}').format(k, v))
 
             if prog.type is ProgramType.CUSTOM:
                 # CUSTOM
@@ -190,12 +190,12 @@ class Programs(object):
             action = web.input().get('do', '').lower()
             program_id = int(program_id)
             if action == 'runnow':
-                log.debug('api.py',  _(u'Starting program {} ({})').format(program_id, programs[program_id].name))
+                log.debug('api.py',  _('Starting program {} ({})').format(program_id, programs[program_id].name))
                 programs.run_now(program_id)
             elif action == 'stop':
                 pass  # TODO
             else:
-                log.error('api.py',  _(u'Unknown program action: {}').format(action))
+                log.error('api.py',  _('Unknown program action: {}').format(action))
                 raise badrequest()
             return self._program_to_dict(programs[program_id])
         else:
@@ -293,10 +293,10 @@ class Options(object):
                 try:
                     options[key] = val
                 except:
-                    log.error('api.py',  _(u'Error updating {} to {}').format(key, val))
+                    log.error('api.py',  _('Error updating {} to {}').format(key, val))
                     raise badrequest('{"error": "Error setting option \'{}\' to \'{}\'"}').format(key, val)
             else:
-                log.debug('api.py', _(u'Skipping key {}').format(key))
+                log.debug('api.py', _('Skipping key {}').format(key))
         return self.GET()
 
     def OPTIONS(self):
@@ -368,19 +368,19 @@ class System(object):
         action = web.input().get('do', '').lower()
 
         if action == 'reboot':
-            log.info('api.py',  _(u'System reboot requested via API'))
+            log.info('api.py',  _('System reboot requested via API'))
             helpers.reboot()
 
         elif action == 'restart':
-            log.info('api.py',  _(u'OSPy service restart requested via API'))
+            log.info('api.py',  _('OSPy service restart requested via API'))
             helpers.restart()
 
         elif action == 'poweroff':
-            log.info('api.py',  _(u'System poweroff requested via API'))
+            log.info('api.py',  _('System poweroff requested via API'))
             helpers.poweroff()
 
         else:
-            log.error('api.py',  _(u'Unknown system action: {}').format(action))
+            log.error('api.py',  _('Unknown system action: {}').format(action))
             raise badrequest()
 
     def OPTIONS(self):
@@ -439,271 +439,281 @@ class Sensors(object):
 
     @does_json
     def GET(self, sensor_id=None):
-        log.debug('api.py', ('GET /sensors/{}').format(sensor_id if sensor_id else ''))
+        try:
+            log.debug('api.py', ('GET /sensors/{}').format(sensor_id if sensor_id else ''))
 
-        if sensor_id:
-            id = int(sensor_id)
-            if(id < sensors.count()):
+            if sensor_id:
+                id = int(sensor_id)
+                if(id < sensors.count()):
                     sensor = sensors.get(id)
                     return (self._convert(sensor))
+                else:
+                    return []
             else:
-                return []   
-        else:
-            for sensor in sensors.get():
-                return (self._convert(sensor))    
+                for sensor in sensors.get():
+                    return (self._convert(sensor))
+        except:
+            log.error('api.py', traceback.format_exc())
+            pass
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')  
+        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
 
 
 class Sensor(object):
     #@auth
     @does_json
     def POST(self):
-        log.debug('api.py', 'POST ' + self.__class__.__name__)
-        from ospy.helpers import now, split_ip
-        from ospy.webpages import sensorSearch
-
-        qdict  = web.input()
         try:
-            jqdict = json.loads(qdict['do'].lower())
-            log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
-        except:
-            jqdict = {}
-            pass
+            log.debug('api.py', 'POST ' + self.__class__.__name__)
+            from ospy.helpers import now, split_ip
+            from ospy.webpages import sensorSearch
 
-        if 'ip' and 'mac' in jqdict:
-            find_sens = {
-                'name':  jqdict['name'],
-                'ip':  jqdict['ip'],
-                'real_ip': web.ctx.env['REMOTE_ADDR'],
-                'mac': jqdict['mac'].upper(),
-                'radio': '-',    
-                'type': jqdict['stype'],
-                'com': jqdict['scom'],
-                'fw': jqdict['fw'],
-                'cpu_core': jqdict['cpu']
-            }  
+            qdict  = web.input()
+            try:
+                jqdict = json.loads(qdict['do'].lower())
+                log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
+            except:
+                jqdict = {}
+                pass
 
-            for sensor in sensors.get():
-                ip = split_ip(jqdict['ip'])
-                if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper():
-                    read_val = []*9
-                    soil_read_val = []*16
-                    if 'cpu' in jqdict and jqdict['cpu'] is not None:
-                        sensor.cpu_core = int(jqdict['cpu'])
-                    if 'rssi' in jqdict and jqdict['rssi'] is not None:
-                        sensor.rssi = int(jqdict['rssi'])                               # ex: value is 88  -> real 88% 
-                    if 'batt' in jqdict and jqdict['batt'] is not None:
-                        sensor.last_battery = (float(jqdict['batt']))/10.0              # ex: value is 132 -> real 13.2V
-                    if 'stype' in jqdict and jqdict['stype'] is not None:
-                        sen_type = int(jqdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
-                        if sen_type == 1: # Dry Contact
-                            read_val.append((-127))          # DS1
-                            read_val.append((-127))          # DS2
-                            read_val.append((-127))          # DS3
-                            read_val.append((-127))          # DS4
-                            dr = int(jqdict['drcon'])        # dry
-                            if dr < 0:                       # error probe
-                                read_val.append((-127))
-                            else:
-                                read_val.append(dr)
-                            read_val.append((-127))          # leak
-                            read_val.append((-127))          # humi
-                            read_val.append((-127))          # moti
-                            read_val.append((-127))          # son
-                        elif sen_type == 2: # Leak Detector
-                            read_val.append((-127))          # DS1
-                            read_val.append((-127))          # DS2
-                            read_val.append((-127))          # DS3
-                            read_val.append((-127))          # DS4
-                            read_val.append((-127))          # dry
-                            lk = (float(jqdict['lkdet']))/10.0
-                            if lk < 0:
-                                read_val.append((-127))      # error probe
-                            else:
-                                read_val.append(lk)
-                            read_val.append((-127))          # humi
-                            read_val.append((-127))          # moti
-                            read_val.append((-127))          # son
-                        elif sen_type == 3: # Moisture
-                            read_val.append((-127))          # DS1
-                            read_val.append((-127))          # DS2
-                            read_val.append((-127))          # DS3
-                            read_val.append((-127))          # DS4
-                            read_val.append((-127))          # dry
-                            read_val.append((-127))          # leak
-                            hu = (float(jqdict['humi']))/10.0
-                            if hu < 0:
-                                read_val.append((-127))      # error probe
-                            else:
-                                read_val.append(hu)    
-                            read_val.append((-127))          # moti
-                            read_val.append((-127))          # son
-                        elif sen_type == 4: # Motion
-                            read_val.append((-127))          # DS1
-                            read_val.append((-127))          # DS2
-                            read_val.append((-127))          # DS3
-                            read_val.append((-127))          # DS4
-                            read_val.append((-127))          # dry
-                            read_val.append((-127))          # leak 
-                            read_val.append((-127))          # humi
-                            mo = int(jqdict['moti'])
-                            if mo < 0:
-                                read_val.append((-127))      # error probe
-                            else:
-                                read_val.append(mo)
-                            read_val.append((-127))          # son
-                        elif sen_type == 5: # Temperature
-                            if options.temp_unit == 'F':
-                                read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)  # Fahrenheit ex: value is 132 -> real 13.2F as DS1
-                                read_val.append((-127))      # DS2
-                                read_val.append((-127))      # DS3
-                                read_val.append((-127))      # DS4
-                                read_val.append((-127))      # dry
-                                read_val.append((-127))      # leak 
-                                read_val.append((-127))      # humi
-                                read_val.append((-127))      # moti
-                                read_val.append((-127))      # son
-                            else:     
-                                read_val.append((float(jqdict['temp']))/10.0)           # Celsius ex: value is 132 -> real 13.2C as DS1
-                                read_val.append((-127))      # DS2
-                                read_val.append((-127))      # DS3
-                                read_val.append((-127))      # DS4 
-                                read_val.append((-127))      # dry
-                                read_val.append((-127))      # leak 
-                                read_val.append((-127))      # humi
-                                read_val.append((-127))      # moti
-                                read_val.append((-127))      # son
-                        elif sen_type == 6:                                                    # Multisensor
-                            try:
-                                if options.temp_unit == 'F': # OSPy is set in Fahrenheit
-                                    read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
-                                    read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
-                                    read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)    # DS3
-                                    read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0)    # DS4
-                                else:                        # OSPy is set in Celsius
-                                    read_val.append((float(jqdict['temp']))/10.0)              # DS1
-                                    read_val.append((float(jqdict['temp2']))/10.0)             # DS2
-                                    read_val.append((float(jqdict['temp3']))/10.0)             # DS3
-                                    read_val.append((float(jqdict['temp4']))/10.0)             # DS4
-                                mdr = int(jqdict['drcon'])
-                                if mdr < 0:                                                    # error probe dry
+            if 'ip' and 'mac' in jqdict:
+                find_sens = {
+                    'name':  jqdict['name'],
+                    'ip':  jqdict['ip'],
+                    'real_ip': web.ctx.env['REMOTE_ADDR'],
+                    'mac': jqdict['mac'].upper(),
+                    'radio': '-',    
+                    'type': jqdict['stype'],
+                    'com': jqdict['scom'],
+                    'fw': jqdict['fw'],
+                    'cpu_core': jqdict['cpu']
+                }  
+
+                for sensor in sensors.get():
+                    ip = split_ip(jqdict['ip'])
+                    if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper():
+                        read_val = []*9
+                        soil_read_val = []*16
+                        if 'cpu' in jqdict and jqdict['cpu'] is not None:
+                            sensor.cpu_core = int(jqdict['cpu'])
+                        if 'rssi' in jqdict and jqdict['rssi'] is not None:
+                            sensor.rssi = int(jqdict['rssi'])                               # ex: value is 88  -> real 88% 
+                        if 'batt' in jqdict and jqdict['batt'] is not None:
+                            sensor.last_battery = (float(jqdict['batt']))/10.0              # ex: value is 132 -> real 13.2V
+                        if 'stype' in jqdict and jqdict['stype'] is not None:
+                            sen_type = int(jqdict['stype'])                                 # 'None'=0, 'Dry Contact'=1, 'Leak Detector'=2, 'Moisture'=3, 'Motion'=4, 'Temperature'=5
+                            if sen_type == 1: # Dry Contact
+                                read_val.append((-127))          # DS1
+                                read_val.append((-127))          # DS2
+                                read_val.append((-127))          # DS3
+                                read_val.append((-127))          # DS4
+                                dr = int(jqdict['drcon'])        # dry
+                                if dr < 0:                       # error probe
                                     read_val.append((-127))
                                 else:
-                                    read_val.append(mdr)                                       # dry contact
-                                mlk = (float(jqdict['lkdet']))/10.0
-                                if mlk < 0:                                                    # error probe leak
-                                    read_val.append((-127))
+                                    read_val.append(dr)
+                                read_val.append((-127))          # leak
+                                read_val.append((-127))          # humi
+                                read_val.append((-127))          # moti
+                                read_val.append((-127))          # son
+                            elif sen_type == 2: # Leak Detector
+                                read_val.append((-127))          # DS1
+                                read_val.append((-127))          # DS2
+                                read_val.append((-127))          # DS3
+                                read_val.append((-127))          # DS4
+                                read_val.append((-127))          # dry
+                                lk = (float(jqdict['lkdet']))/10.0
+                                if lk < 0:
+                                    read_val.append((-127))      # error probe
                                 else:
-                                    read_val.append(mlk)                                       # leak detector
-                                mhu = (float(jqdict['humi']))/10.0
-                                if mhu < 0:                                                    # error probe moisture
-                                    read_val.append((-127))
+                                    read_val.append(lk)
+                                read_val.append((-127))          # humi
+                                read_val.append((-127))          # moti
+                                read_val.append((-127))          # son
+                            elif sen_type == 3: # Moisture
+                                read_val.append((-127))          # DS1
+                                read_val.append((-127))          # DS2
+                                read_val.append((-127))          # DS3
+                                read_val.append((-127))          # DS4
+                                read_val.append((-127))          # dry
+                                read_val.append((-127))          # leak
+                                hu = (float(jqdict['humi']))/10.0
+                                if hu < 0:
+                                    read_val.append((-127))      # error probe
                                 else:
-                                    read_val.append(mhu)                                       # moisture
-                                mmo = int(jqdict['moti'])
-                                if mmo < 0:                                                    # error probe motion
-                                    read_val.append((-127))
+                                    read_val.append(hu)    
+                                read_val.append((-127))          # moti
+                                read_val.append((-127))          # son
+                            elif sen_type == 4: # Motion
+                                read_val.append((-127))          # DS1
+                                read_val.append((-127))          # DS2
+                                read_val.append((-127))          # DS3
+                                read_val.append((-127))          # DS4
+                                read_val.append((-127))          # dry
+                                read_val.append((-127))          # leak 
+                                read_val.append((-127))          # humi
+                                mo = int(jqdict['moti'])
+                                if mo < 0:
+                                    read_val.append((-127))      # error probe
                                 else:
-                                    read_val.append(mmo)                                       # motion
-                                if 'son' in jqdict and jqdict['son'] is not None:              # sonic
-                                    mso = int(jqdict['son'])
-                                    if mso < 0:
+                                    read_val.append(mo)
+                                read_val.append((-127))          # son
+                            elif sen_type == 5: # Temperature
+                                if options.temp_unit == 'F':
+                                    read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)  # Fahrenheit ex: value is 132 -> real 13.2F as DS1
+                                    read_val.append((-127))      # DS2
+                                    read_val.append((-127))      # DS3
+                                    read_val.append((-127))      # DS4
+                                    read_val.append((-127))      # dry
+                                    read_val.append((-127))      # leak 
+                                    read_val.append((-127))      # humi
+                                    read_val.append((-127))      # moti
+                                    read_val.append((-127))      # son
+                                else:     
+                                    read_val.append((float(jqdict['temp']))/10.0)           # Celsius ex: value is 132 -> real 13.2C as DS1
+                                    read_val.append((-127))      # DS2
+                                    read_val.append((-127))      # DS3
+                                    read_val.append((-127))      # DS4 
+                                    read_val.append((-127))      # dry
+                                    read_val.append((-127))      # leak 
+                                    read_val.append((-127))      # humi
+                                    read_val.append((-127))      # moti
+                                    read_val.append((-127))      # son
+                            elif sen_type == 6:                                                    # Multisensor
+                                try:
+                                    if options.temp_unit == 'F': # OSPy is set in Fahrenheit
+                                        read_val.append((float(jqdict['temp'])*1.8 + 32)/10.0)     # DS1
+                                        read_val.append((float(jqdict['temp2'])*1.8 + 32)/10.0)    # DS2
+                                        read_val.append((float(jqdict['temp3'])*1.8 + 32)/10.0)    # DS3
+                                        read_val.append((float(jqdict['temp4'])*1.8 + 32)/10.0)    # DS4
+                                    else:                        # OSPy is set in Celsius
+                                        read_val.append((float(jqdict['temp']))/10.0)              # DS1
+                                        read_val.append((float(jqdict['temp2']))/10.0)             # DS2
+                                        read_val.append((float(jqdict['temp3']))/10.0)             # DS3
+                                        read_val.append((float(jqdict['temp4']))/10.0)             # DS4
+                                    mdr = int(jqdict['drcon'])
+                                    if mdr < 0:                                                    # error probe dry
                                         read_val.append((-127))
                                     else:
-                                        read_val.append(mso)
-                                else:
-                                    read_val.append((-127))
-                                for i in range(0,16):
-                                    if 'sm_{}'.format(int(i)) in jqdict:                       # 16x soil moisture probe
-                                        s = (float(jqdict['sm_{}'.format(int(i))]))
-                                        soil_read_val.append(s)
+                                        read_val.append(mdr)                                       # dry contact
+                                    mlk = (float(jqdict['lkdet']))/10.0
+                                    if mlk < 0:                                                    # error probe leak
+                                        read_val.append((-127))
                                     else:
-                                        soil_read_val.append((-127))
+                                        read_val.append(mlk)                                       # leak detector
+                                    mhu = (float(jqdict['humi']))/10.0
+                                    if mhu < 0:                                                    # error probe moisture
+                                        read_val.append((-127))
+                                    else:
+                                        read_val.append(mhu)                                       # moisture
+                                    mmo = int(jqdict['moti'])
+                                    if mmo < 0:                                                    # error probe motion
+                                        read_val.append((-127))
+                                    else:
+                                        read_val.append(mmo)                                       # motion
+                                    if 'son' in jqdict and jqdict['son'] is not None:              # sonic
+                                        mso = int(jqdict['son'])
+                                        if mso < 0:
+                                            read_val.append((-127))
+                                        else:
+                                            read_val.append(mso)
+                                    else:
+                                        read_val.append((-127))
+                                    for i in range(0,16):
+                                        if 'sm_{}'.format(int(i)) in jqdict:                       # 16x soil moisture probe
+                                            s = (float(jqdict['sm_{}'.format(int(i))]))
+                                            soil_read_val.append(s)
+                                        else:
+                                            soil_read_val.append((-127))
 
-                            except:
-                                pass
-                                print_report('api.py', traceback.format_exc())
+                                except:
+                                    log.error('api.py', traceback.format_exc())
+                                    pass
 
-                        elif sen_type == 7:                                                    # Multicontact (7x switch)
-                            try:
-                                read_val.append(int(jqdict['sw1']))
-                                read_val.append(int(jqdict['sw2']))
-                                read_val.append(int(jqdict['sw3']))
-                                read_val.append(int(jqdict['sw4']))
-                                read_val.append(int(jqdict['sw5']))
-                                read_val.append(int(jqdict['sw6']))
-                                read_val.append(int(jqdict['sw7']))
-                                read_val.append((-127))
-                            except:
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                read_val.append((-127))
-                                pass
-                                print_report('api.py', traceback.format_exc())
+                            elif sen_type == 7:                                                    # Multicontact (7x switch)
+                                try:
+                                    read_val.append(int(jqdict['sw1']))
+                                    read_val.append(int(jqdict['sw2']))
+                                    read_val.append(int(jqdict['sw3']))
+                                    read_val.append(int(jqdict['sw4']))
+                                    read_val.append(int(jqdict['sw5']))
+                                    read_val.append(int(jqdict['sw6']))
+                                    read_val.append(int(jqdict['sw7']))
+                                    read_val.append((-127))
+                                except:
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    read_val.append((-127))
+                                    log.error('api.py', traceback.format_exc())
+                                    pass
 
 
-                    sensor.last_read_value = read_val
-                    sensor.soil_last_read_value = soil_read_val
-                    sensor.last_response = now()
-                    sensor.last_response_datetime = datetime_string()
+                        sensor.last_read_value = read_val
+                        sensor.soil_last_read_value = soil_read_val
+                        sensor.last_response = now()
+                        sensor.last_response_datetime = datetime_string()
 
-                    if sensor.response != 1:
-                        sensor.response = 1
+                        if sensor.response != 1:
+                            sensor.response = 1
 
-                    if sensor.fw != jqdict['fw']:
-                        sensor.fw = jqdict['fw']
+                        if sensor.fw != jqdict['fw']:
+                            sensor.fw = jqdict['fw']
 
-                    log.debug('api.py',  _(u'Input for sensor: {} successfully.').format(sensor.index))
+                        log.debug('api.py',  _('Input for sensor: {} successfully.').format(sensor.index))
     
-            try:
-                for i in range(0, len(sensorSearch)):
-                    ss = sensorSearch[int(i)]
-                    if str(ss["mac"]) == str(find_sens["mac"]) and str(ss["ip"]) == str(find_sens["ip"]):  # mac and ip match
-                        a_name = u' '.join(ss["name"]).encode('utf-8')
-                        b_name = u' '.join(find_sens["name"]).encode('utf-8')
-                        if str(ss["type"]) != str(find_sens["type"]):                                      # type not match 
-                            try:
-                                del sensorSearch[int(i)]
-                            except:
-                                pass    
-                            break
-                        elif a_name != b_name:                                                             # name not match 
-                            try:
-                                del sensorSearch[int(i)]
-                            except:
-                                pass    
-                            break  
-                        elif str(ss["com"]) != str(find_sens["com"]):                                      # com not match 
-                            try:
-                                del sensorSearch[int(i)]
-                            except:
-                                pass    
-                            break
-                        elif str(ss["fw"]) != str(find_sens["fw"]):                                        # fw not match 
-                            try:
-                                del sensorSearch[int(i)]
-                            except:
-                                pass    
-                            break                                     
+                try:
+                    for i in range(0, len(sensorSearch)):
+                        ss = sensorSearch[int(i)]
+                        if str(ss["mac"]) == str(find_sens["mac"]) and str(ss["ip"]) == str(find_sens["ip"]):  # mac and ip match
+                            a_name = ' '.join(ss["name"]).encode('utf-8')
+                            b_name = ' '.join(find_sens["name"]).encode('utf-8')
+                            if str(ss["type"]) != str(find_sens["type"]):                                      # type not match 
+                                try:
+                                    del sensorSearch[int(i)]
+                                except:
+                                    pass    
+                                break
+                            elif a_name != b_name:                                                             # name not match 
+                                try:
+                                    del sensorSearch[int(i)]
+                                except:
+                                    pass    
+                                break  
+                            elif str(ss["com"]) != str(find_sens["com"]):                                      # com not match 
+                                try:
+                                    del sensorSearch[int(i)]
+                                except:
+                                    pass    
+                                break
+                            elif str(ss["fw"]) != str(find_sens["fw"]):                                        # fw not match 
+                                try:
+                                    del sensorSearch[int(i)]
+                                except:
+                                    pass    
+                                break                                     
 
-                sensorSearch.append(find_sens) if find_sens not in sensorSearch else sensorSearch         
+                    sensorSearch.append(find_sens) if find_sens not in sensorSearch else sensorSearch         
 
-            except:
-                pass
-                print_report('api.py', traceback.format_exc())
+                except:
+                    log.error('api.py', traceback.format_exc())
+                    pass
                     
-        else:
-            log.error('api.py',  _(u'Received data is not correct!'))
-            raise badrequest()            
+            else:
+                log.error('api.py', traceback.format_exc())
+                pass
+                raise badrequest()
+
+        except:
+            log.error('api.py', traceback.format_exc())
+            pass                            
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')

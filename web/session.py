@@ -21,7 +21,9 @@ try:
 except ImportError:
     import pickle
 
-from base64 import decodebytes, encodebytes
+
+from base64 import encodebytes, decodebytes
+
 
 __all__ = ["Session", "SessionExpired", "Store", "DiskStore", "DBStore", "MemoryStore"]
 
@@ -30,7 +32,7 @@ web.config.session_parameters = utils.storage(
         "cookie_name": "webpy_session_id",
         "cookie_domain": None,
         "cookie_path": None,
-        "samesite": 'Lax',
+        "samesite": None,
         "timeout": 86400,  # 24 * 60 * 60, # 24 hours in seconds
         "ignore_expiry": True,
         "ignore_change_ip": True,
@@ -47,7 +49,7 @@ class SessionExpired(web.HTTPError):
         web.HTTPError.__init__(self, "200 OK", {}, data=message)
 
 
-class Session:
+class Session(object):
     """Session management for web.py"""
 
     __slots__ = [
@@ -179,7 +181,7 @@ class Session:
             now = time.time()
             secret_key = self._config.secret_key
 
-            hashable = f"{rand}{now}{utils.safestr(web.ctx.ip)}{secret_key}"
+            hashable = "%s%s%s%s" % (rand, now, utils.safestr(web.ctx.ip), secret_key)
             session_id = sha1(hashable.encode("utf-8")).hexdigest()
             if session_id not in self.store:
                 break
@@ -231,7 +233,7 @@ class Store:
         return encodebytes(pickled)
 
     def decode(self, session_data):
-        """decodes the data to get back the session dict"""
+        """decodes the data to get back the session dict """
         if isinstance(session_data, str):
             session_data = session_data.encode()
 
@@ -293,7 +295,7 @@ class DiskStore(Store):
             finally:
                 f.close()
                 shutil.move(tname, path)  # atomary operation
-        except OSError:
+        except IOError:
             pass
 
     def __delitem__(self, key):

@@ -1,4 +1,4 @@
-__author__ = u'Teodor Yantcheff' 
+__author__ = 'Teodor Yantcheff' 
 
 
 import base64
@@ -85,16 +85,16 @@ def does_json(func):
                 return ''
 
         except IndexError as e:  # No such item
-            log.error('utils.py',  _(u'Error: (IndexError) Index out of bounds {}').format(e.message))
+            log.error('utils.py',  _('Error: (IndexError) Index out of bounds {}').format(e.message))
             raise badrequest('{"error": "(IndexError) Index out of bounds - ' + e.message + '"}')
 
         except ValueError as e:  # json errors
-            log.error('utils.py',  _(u'Error: (ValueError) Inappropriate argument value {}').format(e.message))
+            log.error('utils.py',  _('Error: (ValueError) Inappropriate argument value {}').format(e.message))
             raise badrequest('{"error": "(ValueError) Inappropriate argument value - ' + e.message + '"}')
             # raise badrequest(format(e.message))
 
         except KeyError as e:  # missing attribute names
-            log.error('utils.py',  _(u'Error: (KeyError) Missing key {}').format(e.message))
+            log.error('utils.py',  _('Error: (KeyError) Missing key {}').format(e.message))
             raise badrequest('{"error": "(KeyError) Missing key - ' + e.message + '"}')
             # raise badrequest(format(e.message))
 
@@ -119,13 +119,13 @@ def auth(func):
                 message_bytes = base64.b64decode(base64_bytes)
                 message = message_bytes.decode('ascii')
                 username, password = message.split(':')
-                log.debug('utils.py',  _(u'API Auth Attempt with: user: {} password: {}').format(username, password))
+                log.debug('utils.py',  _('API Auth Attempt with: user: {} password: {}').format(username, password))
                 assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:
                 #     raise  # essentially a goto :P
             except:
                 # no or wrong auth provided
-                log.debug('utils.py',  _(u'API Unauthorized attempt user: {} password: {}').format(username, password))
+                log.debug('utils.py',  _('API Unauthorized attempt user: {} password: {}').format(username, password))
                 web.header('WWW-Authenticate', 'Basic realm="OSPy"')
                 print_report('utils.py', traceback.format_exc())
                 raise unauthorized()

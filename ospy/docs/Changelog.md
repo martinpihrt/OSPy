@@ -1,6 +1,10 @@
 OSPy Changelog
 ====
 
+April 20 2024 (v3.0)
+-----------
+Updating the Czech language (new strings) for new ospy backup plugin. Added new plugin "ospy backup". This extension creates a backup of data directories from all available installed extensions in OSPy. Example: "Air Temperature and Humidity Monitor/data". Local records from plugins (for example json files with temperature, etc...) are most often found in the plugins data directories. Backups can be downloaded to our computer (phone) and possibly uploaded back to data directories in specific plugins after unpacking. Backups are in zip format (example: 20240417-201606-PluginsBackup.zip. If possible, store all records from the plugins on to your own database storage (MySQL) instead of in local "data" directories. Not only does this save the Raspberry Pi SD card, but in the event of an OSPy crash, we won't lose the saved data (since it's outside of OSPy in the database). To connect to the database, we can use an extension called: database_connector. Which will ensure the storage of data from our plugins. Update OSPy webcore to latest: more-itertools 10.2.0, cheroot 10.0.0, jaraco.functools 4.0.1, web.py 0.62, jquery 3.7.1.min.js. The plugin "air temp humi" has now saving log into the local file (JSON) or to a remote MySQL database. Further plugins will also be supplemented. Fix in "database plugin". Backup correction in OSPy (if the backup was huge, the backup file in downloading fails).
+
 February 22 2024 (v3.0)
 -----------
 (martinpihrt)<br/>

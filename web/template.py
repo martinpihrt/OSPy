@@ -29,12 +29,12 @@ Grammar:
 """
 
 import ast
-import builtins
 import glob
 import os
 import sys
 import tokenize
-from functools import partial
+from io import open
+import builtins
 
 from .net import websafe
 from .utils import re_compile, safestr, safeunicode, storage
@@ -381,7 +381,7 @@ class Parser:
         >>> python_lookahead('for i in range(10):')
         'for'
         >>> python_lookahead('else:')
-        'elsweb/template.py
+        'else'
         >>> python_lookahead(' x = 1')
         ' '
         """
@@ -557,7 +557,7 @@ class DefwithNode:
         return encoding + self.defwith + self.suite.emit(indent + INDENT) + self.end
 
     def __repr__(self):
-        return f"<defwith: {self.defwith}, {self.suite}>"
+        return "<defwith: %s, %s>" % (self.defwith, self.suite)
 
 
 class TextNode:
@@ -582,14 +582,14 @@ class ExpressionNode:
         self.escape = escape
 
     def emit(self, indent, begin_indent=""):
-        return f"escape_({self.value}, {bool(self.escape)})"
+        return "escape_(%s, %s)" % (self.value, bool(self.escape))
 
     def __repr__(self):
         if self.escape:
             escape = ""
         else:
             escape = ":"
-        return f"${escape}{self.value}"
+        return "$%s%s" % (escape, self.value)
 
 
 class AssignmentNode:
@@ -633,7 +633,7 @@ class BlockNode:
         return out
 
     def __repr__(self):
-        return f"<block: {repr(self.stmt)}, {repr(self.suite)}>"
+        return "<block: %s, %s>" % (repr(self.stmt), repr(self.suite))
 
 
 class ForNode(BlockNode):
@@ -647,7 +647,7 @@ class ForNode(BlockNode):
         BlockNode.__init__(self, stmt, block, begin_indent)
 
     def __repr__(self):
-        return f"<block: {repr(self.original_stmt)}, {repr(self.suite)}>"
+        return "<block: %s, %s>" % (repr(self.original_stmt), repr(self.suite))
 
 
 class CodeNode:
@@ -712,10 +712,10 @@ class VarNode:
         self.value = value
 
     def emit(self, indent, text_indent):
-        return indent + f"self[{repr(self.name)}] = {self.value}\n"
+        return indent + "self[%s] = %s\n" % (repr(self.name), self.value)
 
     def __repr__(self):
-        return f"<var: {self.name} = {self.value}>"
+        return "<var: %s = %s>" % (self.name, self.value)
 
 
 class SuiteNode:
@@ -775,18 +775,19 @@ TEMPLATE_BUILTIN_NAMES = [
     "ord",
     "pow",
     "range",
-    "round",
     "True",
     "False",
     "None",
     "__import__",  # some c-libraries like datetime requires __import__ to present in the namespace
 ]
 
-TEMPLATE_BUILTINS = {
-    name: getattr(builtins, name)
-    for name in TEMPLATE_BUILTIN_NAMES
-    if name in builtins.__dict__
-}
+TEMPLATE_BUILTINS = dict(
+    [
+        (name, getattr(builtins, name))
+        for name in TEMPLATE_BUILTIN_NAMES
+        if name in builtins.__dict__
+    ]
+)
 
 
 class ForLoop:
@@ -876,21 +877,10 @@ class BaseTemplate:
         __hidetraceback__ = True  # noqa: F841
         return self.t(*a, **kw)
 
-    def make_env(self, globals, builtins_):
-        if sys.implementation.name == "pypy":
-            # Pypy's `__builtins__` can't be overridden in exec. More details see issue #598.
-            overridden_builtins = builtins.__dict__.keys() - builtins_.keys()
-
-            def f(name, *args, **kwargs):
-                raise NameError("name '%s' is not defined" % name)
-
-            for name in overridden_builtins:
-                if name not in globals:
-                    globals[name] = partial(f, name)
-
+    def make_env(self, globals, builtins):
         return dict(
             globals,
-            __builtins__=builtins_,
+            __builtins__=builtins,
             ForLoop=ForLoop,
             TemplateResult=TemplateResult,
             escape_=self._escape,
@@ -898,7 +888,7 @@ class BaseTemplate:
         )
 
     def _join(self, *items):
-        return "".join(items)
+        return u"".join(items)
 
     def _escape(self, value, escape=False):
         if value is None:
@@ -955,7 +945,7 @@ class Template(BaseTemplate):
         >>> Template(text='Template text', filename='burndown_chart.html')
         <Template burndown_chart.html>
         """
-        return f"<{self.__class__.__name__} {self.filename}>"
+        return "<{} {}>".format(self.__class__.__name__, self.filename)
 
     def normalize_text(text):
         """Normalizes template text by correcting \r\n, tabs and BOM chars."""
@@ -1017,12 +1007,10 @@ class Template(BaseTemplate):
             compiled_code = compile(code, filename, "exec")
         except SyntaxError as err:
             # display template line that caused the error along with the traceback.
-            err.msg += (
-                "\n\nTemplate traceback:\n    File {}, line {}\n        {}".format(
-                    repr(err.filename),
-                    err.lineno,
-                    get_source_line(err.filename, err.lineno - 1),
-                )
+            err.msg += "\n\nTemplate traceback:\n    File %s, line %s\n        %s" % (
+                repr(err.filename),
+                err.lineno,
+                get_source_line(err.filename, err.lineno - 1),
             )
 
             raise
@@ -1227,8 +1215,8 @@ def compile_templates(root):
             out.write(code)
 
             out.write("\n\n")
-            out.write(f"{name} = CompiledTemplate({name}, {repr(path)})\n")
-            out.write(f"join_ = {name}._join; escape_ = {name}._escape\n\n")
+            out.write("%s = CompiledTemplate(%s, %s)\n" % (name, name, repr(path)))
+            out.write("join_ = %s._join; escape_ = %s._escape\n\n" % (name, name))
 
             # create template to make sure it compiles
             Template(open(path, encoding="utf-8").read(), path)
@@ -1352,7 +1340,7 @@ class SafeVisitor(ast.NodeVisitor):
 
     def __init__(self, *args, **kwargs):
         "Initialize visitor by generating callbacks for all AST node types."
-        super().__init__(*args, **kwargs)
+        super(SafeVisitor, self).__init__(*args, **kwargs)
         self.errors = []
 
     def walk(self, tree, filename):
@@ -1366,13 +1354,13 @@ class SafeVisitor(ast.NodeVisitor):
         nodename = type(node).__name__
         if nodename not in ALLOWED_AST_NODES:
             self.fail_name(node, nodename)
-        super().generic_visit(node)
+        super(SafeVisitor, self).generic_visit(node)
 
     def visit_Attribute(self, node):
         attrname = self.get_node_attr(node)
         if self.is_unallowed_attr(attrname):
             self.fail_attribute(node, attrname)
-        super().generic_visit(node)
+        super(SafeVisitor, self).generic_visit(node)
 
     def visit_Assign(self, node):
         self.check_assign_targets(node)
@@ -1383,7 +1371,7 @@ class SafeVisitor(ast.NodeVisitor):
     def check_assign_targets(self, node):
         for target in node.targets:
             self.check_assign_target(target)
-        super().generic_visit(node)
+        super(SafeVisitor, self).generic_visit(node)
 
     def check_assign_target(self, targetnode):
         targetname = type(targetnode).__name__
@@ -1448,7 +1436,7 @@ class TemplateResult(MutableMapping):
 
     def __init__(self, *a, **kw):
         self.__dict__["_d"] = dict(*a, **kw)
-        self._d.setdefault("__body__", "")
+        self._d.setdefault("__body__", u"")
 
         self.__dict__["_parts"] = []
         self.__dict__["extend"] = self._parts.extend
@@ -1461,7 +1449,7 @@ class TemplateResult(MutableMapping):
     def _prepare_body(self):
         """Prepare value of __body__ by joining parts."""
         if self._parts:
-            value = "".join(self._parts)
+            value = u"".join(self._parts)
             self._parts[:] = []
             body = self._d.get("__body__")
             if body:

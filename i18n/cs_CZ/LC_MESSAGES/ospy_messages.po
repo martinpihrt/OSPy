@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2024-02-22 11:32+0100\n"
-"PO-Revision-Date: 2024-02-22 11:46+0100\n"
+"POT-Creation-Date: 2024-04-20 20:02+0200\n"
+"PO-Revision-Date: 2024-04-20 20:16+0200\n"
 "Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -78,23 +78,19 @@ msgstr "Vypnutí OSPy prostřednictvím rozhraní API"
 msgid "Unknown system action: {}"
 msgstr "Neznámá systémová akce: {}"
 
-#: api/api.py:472
+#: api/api.py:477
 msgid "Sensor input IP: {} MAC: {}."
 msgstr "Vstup od snímače IP: {} MAC: {}."
 
-#: api/api.py:665
+#: api/api.py:670
 msgid "Input for sensor: {} successfully."
 msgstr "Vstup pro senzor: {} byl úspěšný."
 
-#: api/api.py:705
-msgid "Received data is not correct!"
-msgstr "Přijatá data nejsou v pořádku!"
-
-#: api/api.py:799
+#: api/api.py:809
 msgid "Runonce station id: {},  run time: {}"
 msgstr "Runonce id stanice: {}, doba běhu: {}"
 
-#: api/api.py:802
+#: api/api.py:812
 msgid "Unknown runonce action"
 msgstr "Neznámá akce runonce"
 
@@ -620,7 +616,7 @@ msgid "Rain Sensor"
 msgstr "Dešťový snímač"
 
 #: ospy/options.py:292
-#: plugins/pressure_monitor/templates/pressure_monitor.html:214
+#: plugins/pressure_monitor/templates/pressure_monitor.html:221
 msgid "Normally open"
 msgstr "V klidu rozpojen"
 
@@ -812,6 +808,7 @@ msgid "Graph histories"
 msgstr "Graf historie"
 
 #: ospy/options.py:478 ospy/templates/graph_sensor.html:187
+#: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
 
@@ -1150,7 +1147,7 @@ msgstr "Přidání nového senzoru: {} s id: {}"
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:171
+#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:172
 #: plugins/tank_monitor/__init__.py:358
 msgid ""
 "E-mail not send! The Email Notifications plug-in is not found in OSPy or not "
@@ -1193,7 +1190,7 @@ msgid "Updating sensor log to file successfully."
 msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 
 #: ospy/sensors.py:577 plugins/button_control/__init__.py:284
-#: plugins/pressure_monitor/__init__.py:302
+#: plugins/pressure_monitor/__init__.py:303
 #: plugins/tank_monitor/__init__.py:732 plugins/wind_monitor/__init__.py:406
 msgid "Stoping stations in scheduler"
 msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
@@ -1316,8 +1313,8 @@ msgstr "Vlhkost {}%"
 #: ospy/sensors.py:943 ospy/templates/graph_sensor.html:6
 #: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:239
 #: ospy/templates/sensors.html:49 ospy/templates/sensors_search.html:40
-#: plugins/air_temp_humi/__init__.py:127 plugins/air_temp_humi/__init__.py:173
-#: plugins/air_temp_humi/__init__.py:229 plugins/email_reader/__init__.py:778
+#: plugins/air_temp_humi/__init__.py:128 plugins/air_temp_humi/__init__.py:174
+#: plugins/air_temp_humi/__init__.py:230 plugins/email_reader/__init__.py:778
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
@@ -1435,9 +1432,9 @@ msgstr "Oznámení snímače"
 #: ospy/templates/sensors.html:615 ospy/templates/sensors.html:635
 #: ospy/templates/sensors.html:652 ospy/templates/sensors.html:672
 #: ospy/templates/sensors.html:689 ospy/templates/sensors.html:709
-#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:208
-#: plugins/air_temp_humi/__init__.py:221
-#: plugins/air_temp_humi/templates/air_temp_humi.html:289
+#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:209
+#: plugins/air_temp_humi/__init__.py:222
+#: plugins/air_temp_humi/templates/air_temp_humi.html:317
 #: plugins/button_control/templates/button_control.html:86
 #: plugins/door_opening/templates/door_opening.html:30
 #: plugins/email_reader/__init__.py:780
@@ -1446,7 +1443,7 @@ msgstr "Oznámení snímače"
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:211
 #: plugins/pool_heating/__init__.py:244 plugins/pool_heating/__init__.py:272
 #: plugins/pool_heating/templates/pool_heating.html:121
-#: plugins/pressure_monitor/templates/pressure_monitor.html:230
+#: plugins/pressure_monitor/templates/pressure_monitor.html:237
 #: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:214
 #: plugins/tank_monitor/__init__.py:242
 #: plugins/tank_monitor/templates/tank_monitor.html:273
@@ -1458,13 +1455,13 @@ msgstr "Oznámení snímače"
 msgid "Output"
 msgstr "Výstup"
 
-#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:208
+#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:209
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:214
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
-#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:221
+#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:222
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:242
 msgid "Regulation set OFF."
@@ -1511,7 +1508,8 @@ msgid "Inputs state"
 msgstr "Stav vstupů"
 
 #: ospy/sensors.py:1442
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:42
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:67
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:105
 #: plugins/email_reader/__init__.py:394 plugins/modbus_stations/__init__.py:275
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/telegram_bot/__init__.py:136 plugins/telegram_bot/__init__.py:367
@@ -1519,7 +1517,8 @@ msgid "ON"
 msgstr "ZAP"
 
 #: ospy/sensors.py:1444
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:40
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:65
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:103
 #: plugins/email_reader/__init__.py:396 plugins/modbus_stations/__init__.py:278
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/telegram_bot/__init__.py:142 plugins/telegram_bot/__init__.py:373
@@ -1530,93 +1529,93 @@ msgstr "VYP"
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
-#: ospy/server.py:98
+#: ospy/server.py:97
 msgid "Network connection is available, Im skipping waiting."
 msgstr "Síťové připojení je k dispozici, přeskakuji čekání."
 
-#: ospy/server.py:100
+#: ospy/server.py:99
 msgid "Network connection not available, waiting 20 seconds."
 msgstr "Síťové připojení není k dispozici, čekání 20 vteřin."
 
-#: ospy/server.py:107
+#: ospy/server.py:106
 msgid "Network connection is available."
 msgstr "Síťové připojení je k dispozici."
 
-#: ospy/server.py:127
+#: ospy/server.py:126
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:137
+#: ospy/server.py:136
 msgid "SSL OK."
 msgstr "SSL OK."
 
-#: ospy/server.py:139
+#: ospy/server.py:138
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako HTTP!"
 
-#: ospy/server.py:148
+#: ospy/server.py:147
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:157
+#: ospy/server.py:156
 msgid "Own SSL OK."
 msgstr "Vlastní SSL OK."
 
-#: ospy/server.py:159
+#: ospy/server.py:158
 msgid ""
 "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako "
 "HTTP!"
 
-#: ospy/server.py:196
+#: ospy/server.py:195
 msgid "Unknown operator"
 msgstr "Neznámý operátor"
 
-#: ospy/server.py:200
+#: ospy/server.py:199
 msgid "Category is not in session, adding to sessions."
 msgstr "Kategorie není v session, přidám ji do session."
 
-#: ospy/server.py:202 ospy/server.py:206
+#: ospy/server.py:201 ospy/server.py:205
 msgid "Unknown visitor"
 msgstr "Neznámý návštěvník"
 
-#: ospy/server.py:203
+#: ospy/server.py:202
 msgid "Visitor-operator is not in session, adding to sessions."
 msgstr "Visitor není v session, přidám ho do session."
 
-#: ospy/server.py:213
+#: ospy/server.py:212
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:214 ospy/server.py:230 ospy/server.py:241
+#: ospy/server.py:213 ospy/server.py:229 ospy/server.py:240
 msgid "Server"
 msgstr "Server"
 
-#: ospy/server.py:214 ospy/server.py:241
+#: ospy/server.py:213 ospy/server.py:240
 msgid "Stopping"
 msgstr "Zastavení"
 
-#: ospy/server.py:218
+#: ospy/server.py:217
 msgid "Starting scheduler and plugins..."
 msgstr "Spuštění plánovače a pluginů..."
 
-#: ospy/server.py:222
+#: ospy/server.py:221
 msgid "Starting sensors timer..."
 msgstr "Spuštění časovače snímačů..."
 
-#: ospy/server.py:228 ospy/server.py:229
+#: ospy/server.py:227 ospy/server.py:228
 msgid "OSPy is ready"
 msgstr "OSPy je připraven"
 
-#: ospy/server.py:230
+#: ospy/server.py:229
 msgid "Starting"
 msgstr "Spuštění"
 
-#: ospy/server.py:248
+#: ospy/server.py:247
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -1867,7 +1866,7 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/base.html:242 ospy/templates/help.html:3
 #: ospy/templates/help.html:10 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:9
-#: plugins/air_temp_humi/templates/air_temp_humi.html:182
+#: plugins/air_temp_humi/templates/air_temp_humi.html:202
 #: plugins/button_control/templates/button_control.html:20
 #: plugins/chmi/templates/chmi.html:54
 #: plugins/cli_control/templates/cli_control.html:22
@@ -1883,6 +1882,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
+#: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
 #: plugins/pool_heating/templates/pool_heating.html:42
@@ -2046,6 +2046,8 @@ msgstr "Nahrát"
 #: ospy/templates/edit.html:85 ospy/templates/plugins_manage.html:55
 #: ospy/templates/program.html:589 ospy/templates/program.html:616
 #: ospy/templates/programs.html:40
+#: plugins/database_connector/templates/database_connector_backup.html:45
+#: plugins/ospy_backup/templates/ospy_backup.html:53
 #: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
 msgid "Delete"
@@ -2057,10 +2059,10 @@ msgstr "Smazat"
 #: ospy/templates/runonce.html:54 ospy/templates/sensor.html:1142
 #: ospy/templates/stations.html:98 ospy/templates/user.html:85
 #: ospy/templates/view.html:30
-#: plugins/air_temp_humi/templates/air_temp_humi.html:373
+#: plugins/air_temp_humi/templates/air_temp_humi.html:401
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:42
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:12
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:73
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:30
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:119
 #: plugins/button_control/templates/button_control.html:101
 #: plugins/button_control/templates/button_control_help.html:124
 #: plugins/chmi/templates/chmi.html:171
@@ -2071,7 +2073,8 @@ msgstr "Smazat"
 #: plugins/cli_control/templates/cli_control_help.html:125
 #: plugins/cli_control/templates/cli_control_log.html:12
 #: plugins/cli_control/templates/cli_control_log.html:29
-#: plugins/database_connector/templates/database_connector.html:95
+#: plugins/database_connector/templates/database_connector.html:102
+#: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:84
 #: plugins/door_opening/templates/door_opening.html:61
 #: plugins/door_opening/templates/door_opening_help.html:12
@@ -2100,6 +2103,8 @@ msgstr "Smazat"
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
+#: plugins/ospy_backup/templates/ospy_backup.html:62
+#: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler_help.html:16
 #: plugins/ping_monitor/templates/ping_monitor.html:273
@@ -2108,7 +2113,7 @@ msgstr "Smazat"
 #: plugins/ping_monitor/templates/ping_monitor_log.html:78
 #: plugins/pool_heating/templates/pool_heating.html:196
 #: plugins/pool_heating/templates/pool_heating_help.html:17
-#: plugins/pressure_monitor/templates/pressure_monitor.html:288
+#: plugins/pressure_monitor/templates/pressure_monitor.html:295
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:12
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:35
@@ -2154,7 +2159,7 @@ msgstr "Smazat"
 #: plugins/telegram_bot/templates/telegram_bot_help.html:26
 #: plugins/temperature_switch/templates/temperature_switch.html:206
 #: plugins/temperature_switch/templates/temperature_switch_help.html:13
-#: plugins/ups_adj/templates/ups_adj.html:273
+#: plugins/ups_adj/templates/ups_adj.html:280
 #: plugins/ups_adj/templates/ups_adj_help.html:18
 #: plugins/ups_adj/templates/ups_adj_log.html:12
 #: plugins/ups_adj/templates/ups_adj_log.html:33
@@ -2356,83 +2361,77 @@ msgid "Value"
 msgstr "Hodnota"
 
 #: ospy/templates/graph_sensor.html:180
-#: plugins/air_temp_humi/templates/air_temp_humi.html:383
 #: plugins/ping_monitor/templates/ping_monitor.html:283
-#: plugins/pressure_monitor/templates/pressure_monitor.html:298
+#: plugins/pressure_monitor/templates/pressure_monitor.html:305
 #: plugins/speed_monitor/templates/speed_monitor.html:251
 #: plugins/tank_monitor/templates/tank_monitor.html:422
-#: plugins/ups_adj/templates/ups_adj.html:284
+#: plugins/ups_adj/templates/ups_adj.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:424
 msgid "Select a filter for the interval of read data."
 msgstr "Vyberte filtr pro interval čtení dat."
 
 #: ospy/templates/graph_sensor.html:181
-#: plugins/air_temp_humi/templates/air_temp_humi.html:384
 #: plugins/ping_monitor/templates/ping_monitor.html:284
-#: plugins/pressure_monitor/templates/pressure_monitor.html:299
+#: plugins/pressure_monitor/templates/pressure_monitor.html:306
 #: plugins/speed_monitor/templates/speed_monitor.html:252
 #: plugins/tank_monitor/templates/tank_monitor.html:423
-#: plugins/ups_adj/templates/ups_adj.html:285
+#: plugins/ups_adj/templates/ups_adj.html:292
 #: plugins/wind_monitor/templates/wind_monitor.html:425
 msgid "Without limits"
 msgstr "Bez omezení"
 
 #: ospy/templates/graph_sensor.html:182
-#: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/ping_monitor/templates/ping_monitor.html:285
-#: plugins/pressure_monitor/templates/pressure_monitor.html:300
+#: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/speed_monitor/templates/speed_monitor.html:253
 #: plugins/tank_monitor/templates/tank_monitor.html:424
-#: plugins/ups_adj/templates/ups_adj.html:286
+#: plugins/ups_adj/templates/ups_adj.html:293
 #: plugins/wind_monitor/templates/wind_monitor.html:426
 msgid "Day filter"
 msgstr "Filtr den"
 
 #: ospy/templates/graph_sensor.html:183
-#: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/ping_monitor/templates/ping_monitor.html:286
-#: plugins/pressure_monitor/templates/pressure_monitor.html:301
+#: plugins/pressure_monitor/templates/pressure_monitor.html:308
 #: plugins/speed_monitor/templates/speed_monitor.html:254
 #: plugins/tank_monitor/templates/tank_monitor.html:425
-#: plugins/ups_adj/templates/ups_adj.html:287
+#: plugins/ups_adj/templates/ups_adj.html:294
 #: plugins/wind_monitor/templates/wind_monitor.html:427
 msgid "Week filter"
 msgstr "Filtr týden"
 
 #: ospy/templates/graph_sensor.html:184
-#: plugins/air_temp_humi/templates/air_temp_humi.html:387
 #: plugins/ping_monitor/templates/ping_monitor.html:287
-#: plugins/pressure_monitor/templates/pressure_monitor.html:302
+#: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/speed_monitor/templates/speed_monitor.html:255
 #: plugins/tank_monitor/templates/tank_monitor.html:426
-#: plugins/ups_adj/templates/ups_adj.html:288
+#: plugins/ups_adj/templates/ups_adj.html:295
 #: plugins/wind_monitor/templates/wind_monitor.html:428
 msgid "Month filter"
 msgstr "Filtr měsíc"
 
 #: ospy/templates/graph_sensor.html:185
-#: plugins/air_temp_humi/templates/air_temp_humi.html:388
 #: plugins/ping_monitor/templates/ping_monitor.html:288
-#: plugins/pressure_monitor/templates/pressure_monitor.html:303
+#: plugins/pressure_monitor/templates/pressure_monitor.html:310
 #: plugins/speed_monitor/templates/speed_monitor.html:256
 #: plugins/tank_monitor/templates/tank_monitor.html:427
-#: plugins/ups_adj/templates/ups_adj.html:289
+#: plugins/ups_adj/templates/ups_adj.html:296
 #: plugins/wind_monitor/templates/wind_monitor.html:429
 msgid "Year filter"
 msgstr "Filtr rok"
 
 #: ospy/templates/graph_sensor.html:187
+#: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors in graph. Example: -127"
 msgstr "Zobrazit také chyby v grafu. Příklad: -127"
 
 #: ospy/templates/graph_sensor.html:197 ospy/templates/home_admin.html:616
 #: ospy/templates/home_public.html:489 ospy/templates/home_user.html:612
-#: plugins/air_temp_humi/templates/air_temp_humi.html:392
 #: plugins/ping_monitor/templates/ping_monitor.html:292
-#: plugins/pressure_monitor/templates/pressure_monitor.html:307
+#: plugins/pressure_monitor/templates/pressure_monitor.html:314
 #: plugins/speed_monitor/templates/speed_monitor.html:260
 #: plugins/tank_monitor/templates/tank_monitor.html:431
-#: plugins/ups_adj/templates/ups_adj.html:293
+#: plugins/ups_adj/templates/ups_adj.html:300
 #: plugins/wind_monitor/templates/wind_monitor.html:433
 msgid "Clear selection"
 msgstr "Zrušit výběr"
@@ -2493,8 +2492,8 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
 #: plugins/email_notifications_ssl/__init__.py:338
 #: plugins/lcd_display/__init__.py:460 plugins/lcd_display/__init__.py:563
-#: plugins/pressure_monitor/__init__.py:188
 #: plugins/pressure_monitor/__init__.py:189
+#: plugins/pressure_monitor/__init__.py:190
 msgid "Disabled"
 msgstr "Zakázáno"
 
@@ -2594,8 +2593,8 @@ msgstr ""
 
 #: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
 #: plugins/lcd_display/__init__.py:332 plugins/lcd_display/__init__.py:365
-#: plugins/pressure_monitor/__init__.py:181
 #: plugins/pressure_monitor/__init__.py:182
+#: plugins/pressure_monitor/__init__.py:183
 msgid "Active"
 msgstr "Aktivní"
 
@@ -2783,7 +2782,8 @@ msgstr "žádný záznam"
 #: ospy/templates/log.html:87 ospy/templates/log_sensor.html:21
 #: ospy/templates/log_sensor.html:44 ospy/templates/log_user.html:19
 #: ospy/templates/log_user.html:48 ospy/templates/log_user.html:78
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:8
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:20
 #: plugins/chmi/templates/chmi_log.html:18
 #: plugins/cli_control/templates/cli_control_log.html:9
 #: plugins/modbus_stations/templates/modbus_stations_log.html:9
@@ -2807,8 +2807,6 @@ msgstr "Smazat záznam"
 #: ospy/templates/log.html:88 ospy/templates/log_sensor.html:22
 #: ospy/templates/log_sensor.html:45 ospy/templates/log_user.html:20
 #: ospy/templates/log_user.html:49 ospy/templates/log_user.html:79
-#: plugins/air_temp_humi/templates/air_temp_humi.html:185
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:10
 #: plugins/chmi/templates/chmi.html:57 plugins/chmi/templates/chmi_log.html:20
 #: plugins/cli_control/templates/cli_control.html:25
 #: plugins/cli_control/templates/cli_control_log.html:10
@@ -2840,7 +2838,7 @@ msgstr "log.csv"
 #: ospy/templates/log.html:108 ospy/templates/log_sensor.html:26
 #: ospy/templates/log_sensor.html:50 ospy/templates/log_user.html:24
 #: ospy/templates/log_user.html:54 ospy/templates/log_user.html:84
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:16
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:35
 #: plugins/chmi/templates/chmi_log.html:26 plugins/email_reader/__init__.py:776
 #: plugins/email_reader/__init__.py:845 plugins/email_reader/__init__.py:905
 #: plugins/ping_monitor/templates/ping_monitor_log.html:34
@@ -2891,7 +2889,7 @@ msgstr "email.csv"
 #: ospy/templates/log.html:64 ospy/templates/log.html:109
 #: ospy/templates/log_sensor.html:27 ospy/templates/log_sensor.html:51
 #: ospy/templates/log_user.html:55 ospy/templates/log_user.html:85
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:39
 #: plugins/chmi/templates/chmi_log.html:27 plugins/email_reader/__init__.py:777
 #: plugins/email_reader/__init__.py:846 plugins/email_reader/__init__.py:906
 #: plugins/ping_monitor/templates/ping_monitor_log.html:35
@@ -2971,12 +2969,13 @@ msgid "Show user login events."
 msgstr "Zobrazit události přihlášení uživatelů."
 
 #: ospy/templates/log.html:111 ospy/templates/log_user.html:87
-#: plugins/air_temp_humi/templates/air_temp_humi.html:363
+#: plugins/air_temp_humi/templates/air_temp_humi.html:391
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
-#: plugins/database_connector/templates/database_connector.html:87
+#: plugins/database_connector/templates/database_connector.html:94
+#: plugins/database_connector/templates/database_connector_backup.html:29
 #: plugins/door_opening/templates/door_opening.html:47
 #: plugins/email_notifications/templates/email_notifications.html:138
 #: plugins/email_notifications/templates/email_notifications_help.html:35
@@ -2991,10 +2990,11 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
+#: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
 #: plugins/pool_heating/templates/pool_heating.html:187
-#: plugins/pressure_monitor/templates/pressure_monitor.html:278
+#: plugins/pressure_monitor/templates/pressure_monitor.html:285
 #: plugins/pressurizer/templates/pressurizer.html:94
 #: plugins/proto/templates/proto.html:89
 #: plugins/real_time/templates/real_time.html:55
@@ -3013,7 +3013,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/tank_monitor/templates/tank_monitor.html:402
 #: plugins/telegram_bot/templates/telegram_bot.html:119
 #: plugins/temperature_switch/templates/temperature_switch.html:196
-#: plugins/ups_adj/templates/ups_adj.html:263
+#: plugins/ups_adj/templates/ups_adj.html:270
 #: plugins/venetian_blind/templates/venetian_blind_log.html:17
 #: plugins/voice_notification/templates/voice_notification.html:98
 #: plugins/voice_station/templates/voice_station.html:92
@@ -3031,7 +3031,7 @@ msgstr "Stav"
 #: ospy/templates/log.html:128 ospy/templates/log_sensor.html:10
 #: ospy/templates/log_sensor.html:126 ospy/templates/log_user.html:103
 #: ospy/templates/sensors_firmware.html:226
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:29
 #: plugins/chmi/templates/chmi.html:169 plugins/chmi/templates/chmi_log.html:21
 #: plugins/cli_control/templates/cli_control_log.html:11
 #: plugins/ip_cam/templates/ip_cam.html:42
@@ -3117,7 +3117,8 @@ msgstr "V"
 #: ospy/templates/sensors.html:167 ospy/templates/sensors.html:330
 #: ospy/templates/sensors.html:354 ospy/templates/sensors.html:358
 #: ospy/templates/sensors.html:367 ospy/templates/sensors.html:734
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
 #: plugins/email_notifications_ssl/__init__.py:262
@@ -3132,13 +3133,20 @@ msgid "F"
 msgstr "F"
 
 #: ospy/templates/log_sensor.html:105
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:34
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:46
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:50
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:54
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:58
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:66
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:59
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:71
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:75
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:79
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:83
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:87
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:91
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:99
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:107
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:108
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:109
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:110
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:111
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:112
 msgid "C"
 msgstr "C"
 
@@ -3359,12 +3367,14 @@ msgid "System Backup"
 msgstr "Záloha a obnovení"
 
 #: ospy/templates/options.html:247
-msgid "Download"
-msgstr "Stáhnout"
-
-#: ospy/templates/options.html:247
 msgid "Download OSPy backup zip file"
 msgstr "Stáhnout záložní soubor zip"
+
+#: ospy/templates/options.html:247
+#: plugins/database_connector/templates/database_connector_backup.html:46
+#: plugins/ospy_backup/templates/ospy_backup.html:54
+msgid "Download"
+msgstr "Stáhnout"
 
 #: ospy/templates/options.html:249
 msgid "Upload OSPy recovery zip file"
@@ -3416,6 +3426,7 @@ msgstr "Vlastní rozšíření (ZIP)"
 
 #: ospy/templates/plugins_install.html:11
 #: ospy/templates/plugins_install.html:28
+#: plugins/database_connector/templates/database_connector.html:90
 msgid "Install"
 msgstr "Instalovat"
 
@@ -3845,10 +3856,10 @@ msgstr ""
 #: ospy/templates/sensor.html:307 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:249
 #: plugins/pool_heating/templates/pool_heating.html:167
-#: plugins/pressure_monitor/templates/pressure_monitor.html:252
+#: plugins/pressure_monitor/templates/pressure_monitor.html:259
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/tank_monitor/templates/tank_monitor.html:301
-#: plugins/ups_adj/templates/ups_adj.html:237
+#: plugins/ups_adj/templates/ups_adj.html:244
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:49
 #: plugins/wind_monitor/templates/wind_monitor.html:307
 msgid "E-mail plug-ins"
@@ -3857,10 +3868,10 @@ msgstr "E-mail balíček"
 #: ospy/templates/sensor.html:309 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:252
 #: plugins/pool_heating/templates/pool_heating.html:170
-#: plugins/pressure_monitor/templates/pressure_monitor.html:255
+#: plugins/pressure_monitor/templates/pressure_monitor.html:262
 #: plugins/system_update/templates/system_update.html:76
 #: plugins/tank_monitor/templates/tank_monitor.html:304
-#: plugins/ups_adj/templates/ups_adj.html:240
+#: plugins/ups_adj/templates/ups_adj.html:247
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:52
 #: plugins/wind_monitor/templates/wind_monitor.html:310
 msgid "E-mail notifications V1"
@@ -3869,10 +3880,10 @@ msgstr "E-mail notifications V1"
 #: ospy/templates/sensor.html:310 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:253
 #: plugins/pool_heating/templates/pool_heating.html:171
-#: plugins/pressure_monitor/templates/pressure_monitor.html:256
+#: plugins/pressure_monitor/templates/pressure_monitor.html:263
 #: plugins/system_update/templates/system_update.html:77
 #: plugins/tank_monitor/templates/tank_monitor.html:305
-#: plugins/ups_adj/templates/ups_adj.html:241
+#: plugins/ups_adj/templates/ups_adj.html:248
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:53
 #: plugins/wind_monitor/templates/wind_monitor.html:311
 msgid "E-mail notifications V2 SSL"
@@ -4148,7 +4159,7 @@ msgstr ""
 
 #: ospy/templates/sensor.html:544
 #: plugins/button_control/templates/button_control.html:82
-#: plugins/pressure_monitor/templates/pressure_monitor.html:226
+#: plugins/pressure_monitor/templates/pressure_monitor.html:233
 #: plugins/tank_monitor/templates/tank_monitor.html:269
 #: plugins/wind_monitor/templates/wind_monitor.html:328
 msgid "Stop this run stations in scheduler"
@@ -4177,7 +4188,7 @@ msgstr ""
 "aktivaci výstupu"
 
 #: ospy/templates/sensor.html:566 ospy/templates/sensors.html:422
-#: plugins/air_temp_humi/templates/air_temp_humi.html:272
+#: plugins/air_temp_humi/templates/air_temp_humi.html:300
 #: plugins/pool_heating/templates/pool_heating.html:104
 #: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/temperature_switch/templates/temperature_switch.html:45
@@ -4293,12 +4304,12 @@ msgid "Enter a label for your probe identification"
 msgstr "Zadejte popisek pro identifikaci sondy"
 
 #: ospy/templates/sensor.html:751
-#: plugins/air_temp_humi/templates/air_temp_humi.html:357
+#: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
-#: plugins/pressure_monitor/templates/pressure_monitor.html:266
+#: plugins/pressure_monitor/templates/pressure_monitor.html:273
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
 #: plugins/speed_monitor/templates/speed_monitor.html:219
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
@@ -4307,7 +4318,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/tank_monitor/templates/tank_monitor.html:396
 #: plugins/telegram_bot/templates/telegram_bot.html:113
 #: plugins/temperature_switch/templates/temperature_switch.html:190
-#: plugins/ups_adj/templates/ups_adj.html:251
+#: plugins/ups_adj/templates/ups_adj.html:258
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:79
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:108
@@ -4773,10 +4784,10 @@ msgstr "Použitá verze"
 #: plugins/email_reader/__init__.py:389
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/ping_monitor/templates/ping_monitor_log.html:42
-#: plugins/pressure_monitor/__init__.py:379
-#: plugins/pressure_monitor/__init__.py:524
+#: plugins/pressure_monitor/__init__.py:394
+#: plugins/pressure_monitor/__init__.py:550
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:18
-#: plugins/ups_adj/__init__.py:338 plugins/ups_adj/__init__.py:483
+#: plugins/ups_adj/__init__.py:354 plugins/ups_adj/__init__.py:510
 #: plugins/ups_adj/templates/ups_adj_log.html:18
 msgid "State"
 msgstr "Stav"
@@ -4839,14 +4850,14 @@ msgstr "IP adresa"
 
 #: ospy/templates/sensors_firmware.html:189
 #: ospy/templates/sensors_firmware.html:204
-#: plugins/database_connector/templates/database_connector.html:69
+#: plugins/database_connector/templates/database_connector.html:70
 #: plugins/lcd_display/templates/lcd_display.html:77
 #: plugins/lcd_display/templates/lcd_display_help.html:34
 msgid "Port"
 msgstr "Port"
 
 #: ospy/templates/sensors_firmware.html:190
-#: plugins/database_connector/templates/database_connector.html:63
+#: plugins/database_connector/templates/database_connector.html:64
 msgid "Password"
 msgstr "Heslo"
 
@@ -4872,11 +4883,11 @@ msgstr ""
 "Heslo pro oprávnění nahrávání do snímače. Totéž musí být uloženo ve snímači."
 
 #: ospy/templates/sensors_firmware.html:211
-#: plugins/air_temp_humi/templates/air_temp_humi.html:372
+#: plugins/air_temp_humi/templates/air_temp_humi.html:400
 #: plugins/button_control/templates/button_control.html:100
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
-#: plugins/database_connector/templates/database_connector.html:94
+#: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
 #: plugins/email_reader/templates/email_reader.html:190
@@ -4886,7 +4897,7 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
 #: plugins/ping_monitor/templates/ping_monitor.html:272
-#: plugins/pressure_monitor/templates/pressure_monitor.html:287
+#: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
 #: plugins/proto/templates/proto.html:98
 #: plugins/real_time/templates/real_time.html:64
@@ -4902,7 +4913,7 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:411
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
-#: plugins/ups_adj/templates/ups_adj.html:272
+#: plugins/ups_adj/templates/ups_adj.html:279
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:146
 #: plugins/voice_notification/templates/voice_notification.html:107
 #: plugins/voice_station/templates/voice_station.html:101
@@ -5444,8 +5455,8 @@ msgstr "Zkouším vygenerovat certifikát SSL..."
 
 #: ospy/webpages.py:2153 ospy/webpages.py:2154 plugins/mqtt/__init__.py:373
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
-#: plugins/ups_adj/__init__.py:117 plugins/ups_adj/__init__.py:414
-#: plugins/ups_adj/__init__.py:510
+#: plugins/ups_adj/__init__.py:118 plugins/ups_adj/__init__.py:441
+#: plugins/ups_adj/__init__.py:537
 msgid "OK"
 msgstr "V pořádku"
 
@@ -5473,93 +5484,100 @@ msgstr "Hodnota nastavena"
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
-#: plugins/air_temp_humi/__init__.py:37
+#: plugins/air_temp_humi/__init__.py:36
 #: plugins/database_connector/templates/database_connector_help.html:11
 msgid "Package: Air Temperature and Humidity Monitor"
 msgstr "Balíček: Monitor teploty a vlhkosti vzduchu"
 
-#: plugins/air_temp_humi/__init__.py:164 plugins/air_temp_humi/__init__.py:165
+#: plugins/air_temp_humi/__init__.py:165 plugins/air_temp_humi/__init__.py:166
 msgid "DHT11 data is not valid"
 msgstr "Data z čidla DHT11 nejsou v pořádku"
 
-#: plugins/air_temp_humi/__init__.py:167 plugins/air_temp_humi/__init__.py:168
+#: plugins/air_temp_humi/__init__.py:168 plugins/air_temp_humi/__init__.py:169
 msgid "DHT22 data is not valid"
 msgstr "Data z čidla DHT nejsou v pořádku"
 
-#: plugins/air_temp_humi/__init__.py:173 plugins/air_temp_humi/__init__.py:174
-#: plugins/air_temp_humi/__init__.py:175
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:18
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:19
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:20
+#: plugins/air_temp_humi/__init__.py:174 plugins/air_temp_humi/__init__.py:175
+#: plugins/air_temp_humi/__init__.py:176
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:42
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:43
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:44
 msgid "DHT"
 msgstr "DHT"
 
-#: plugins/air_temp_humi/__init__.py:174 plugins/email_reader/__init__.py:779
+#: plugins/air_temp_humi/__init__.py:175 plugins/email_reader/__init__.py:779
 msgid "Humidity"
 msgstr "Vlhkost"
 
-#: plugins/air_temp_humi/__init__.py:191
+#: plugins/air_temp_humi/__init__.py:192
 msgid "Air Temperature"
 msgstr "Monitor teploty"
 
-#: plugins/air_temp_humi/__init__.py:226 plugins/air_temp_humi/__init__.py:229
+#: plugins/air_temp_humi/__init__.py:227 plugins/air_temp_humi/__init__.py:230
 msgid "DS"
 msgstr "DS"
 
-#: plugins/air_temp_humi/__init__.py:249 plugins/air_temp_humi/__init__.py:333
-#: plugins/air_temp_humi/__init__.py:523 plugins/air_temp_humi/__init__.py:603
+#: plugins/air_temp_humi/__init__.py:250 plugins/air_temp_humi/__init__.py:334
+#: plugins/air_temp_humi/__init__.py:388 plugins/air_temp_humi/__init__.py:491
+#: plugins/air_temp_humi/__init__.py:504 plugins/air_temp_humi/__init__.py:515
+#: plugins/air_temp_humi/__init__.py:637 plugins/air_temp_humi/__init__.py:722
+#: plugins/air_temp_humi/__init__.py:762 plugins/air_temp_humi/__init__.py:813
+#: plugins/air_temp_humi/__init__.py:828 plugins/air_temp_humi/__init__.py:876
+#: plugins/air_temp_humi/__init__.py:913 plugins/air_temp_humi/__init__.py:954
 #: plugins/tank_monitor/__init__.py:789
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
-#: plugins/air_temp_humi/__init__.py:305
+#: plugins/air_temp_humi/__init__.py:306
 msgid "Data is not correct. Please try again later."
 msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 
-#: plugins/air_temp_humi/__init__.py:420 plugins/air_temp_humi/__init__.py:421
-#: plugins/air_temp_humi/__init__.py:422 plugins/air_temp_humi/__init__.py:427
-#: plugins/air_temp_humi/__init__.py:431 plugins/air_temp_humi/__init__.py:435
-#: plugins/air_temp_humi/__init__.py:439 plugins/air_temp_humi/__init__.py:443
-#: plugins/air_temp_humi/__init__.py:447
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:33
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:36
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:45
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:49
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:53
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:57
+#: plugins/air_temp_humi/__init__.py:540 plugins/air_temp_humi/__init__.py:541
+#: plugins/air_temp_humi/__init__.py:542 plugins/air_temp_humi/__init__.py:547
+#: plugins/air_temp_humi/__init__.py:551 plugins/air_temp_humi/__init__.py:555
+#: plugins/air_temp_humi/__init__.py:559 plugins/air_temp_humi/__init__.py:563
+#: plugins/air_temp_humi/__init__.py:567
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:58
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:61
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:65
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:70
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:74
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:78
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:82
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:86
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:90
 msgid "Not used"
 msgstr "Nepoužívá se"
 
-#: plugins/air_temp_humi/__init__.py:460
-#: plugins/pressure_monitor/__init__.py:384 plugins/ups_adj/__init__.py:344
+#: plugins/air_temp_humi/__init__.py:580
+#: plugins/pressure_monitor/__init__.py:399 plugins/ups_adj/__init__.py:360
 #: plugins/wind_monitor/__init__.py:521
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
-#: plugins/air_temp_humi/__init__.py:507
+#: plugins/air_temp_humi/__init__.py:621
 msgid "Saving to log files."
 msgstr "Ukládání do souboru protokolu."
 
-#: plugins/air_temp_humi/__init__.py:521 plugins/tank_monitor/__init__.py:658
+#: plugins/air_temp_humi/__init__.py:635
+#: plugins/pressure_monitor/__init__.py:387
+#: plugins/tank_monitor/__init__.py:658 plugins/ups_adj/__init__.py:346
 #: plugins/wind_monitor/__init__.py:505
 msgid "Saving to SQL database."
 msgstr "Ukládání do SQL databáze."
 
-#: plugins/air_temp_humi/__init__.py:585 plugins/chmi/__init__.py:452
+#: plugins/air_temp_humi/__init__.py:720 plugins/air_temp_humi/__init__.py:760
+msgid "Deleting the airtemp table from the database."
+msgstr "Odstranění tabulky airtemp z databáze."
+
+#: plugins/air_temp_humi/__init__.py:753 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
 #: plugins/ping_monitor/__init__.py:386 plugins/speed_monitor/__init__.py:275
 #: plugins/tank_monitor/__init__.py:705 plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
 msgstr "Odstraněny všechny soubory protokolu OK"
 
-#: plugins/air_temp_humi/__init__.py:601
-msgid "Deleting the airtemp table from the database."
-msgstr "Odstranění tabulky airtemp z databáze."
-
 #: plugins/air_temp_humi/templates/air_temp_humi.html:3
-#: plugins/air_temp_humi/templates/air_temp_humi.html:181
+#: plugins/air_temp_humi/templates/air_temp_humi.html:201
 msgid "Air Temperature and Humidity Monitor"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
@@ -5568,7 +5586,7 @@ msgstr "Rozšíření monitor teploty a vlhkosti"
 msgid "&deg;C or %"
 msgstr "&deg;C nebo %"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:186
+#: plugins/air_temp_humi/templates/air_temp_humi.html:205
 #: plugins/chmi/templates/chmi.html:58
 #: plugins/cli_control/templates/cli_control.html:26
 #: plugins/modbus_stations/templates/modbus_stations.html:24
@@ -5581,37 +5599,25 @@ msgstr "&deg;C nebo %"
 msgid "Show logs"
 msgstr "Zobrazit záznam"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:187
-#: plugins/chmi/templates/chmi.html:59
-#: plugins/cli_control/templates/cli_control.html:27
-#: plugins/modbus_stations/templates/modbus_stations_log.html:12
-#: plugins/ping_monitor/templates/ping_monitor.html:184
-#: plugins/pressure_monitor/templates/pressure_monitor.html:191
-#: plugins/speed_monitor/templates/speed_monitor.html:184
-#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:21
-#: plugins/tank_monitor/templates/tank_monitor_log.html:12
-#: plugins/ups_adj/templates/ups_adj.html:191
-#: plugins/venetian_blind/templates/venetian_blind_setup.html:62
-#: plugins/wind_monitor/templates/wind_monitor.html:197
-msgid "Delete all logs"
-msgstr "Smazat všechny logy"
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:192
+#: plugins/air_temp_humi/templates/air_temp_humi.html:211
 msgid "Enable plugin"
 msgstr "Povolit rozšíření"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:194
+#: plugins/air_temp_humi/templates/air_temp_humi.html:212
 msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:203
+#: plugins/air_temp_humi/templates/air_temp_humi.html:222
 #: plugins/tank_monitor/templates/tank_monitor.html:354
+#: plugins/ups_adj/templates/ups_adj.html:202
 #: plugins/wind_monitor/templates/wind_monitor.html:209
 msgid "Enable local logging"
 msgstr "Povolit místní záznam"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:204
+#: plugins/air_temp_humi/templates/air_temp_humi.html:223
+#: plugins/pressure_monitor/templates/pressure_monitor.html:203
 #: plugins/tank_monitor/templates/tank_monitor.html:355
+#: plugins/ups_adj/templates/ups_adj.html:203
 #: plugins/wind_monitor/templates/wind_monitor.html:210
 msgid ""
 "The measured data will be saved locally in a json file. This option rapidly "
@@ -5620,13 +5626,15 @@ msgstr ""
 "Naměřená data budou uložena lokálně v souboru json. Tato možnost rapidně "
 "snižuje životnost SD/USB karty systému Raspberry Pi!"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:209
+#: plugins/air_temp_humi/templates/air_temp_humi.html:228
+#: plugins/pressure_monitor/templates/pressure_monitor.html:208
 #: plugins/tank_monitor/templates/tank_monitor.html:360
+#: plugins/ups_adj/templates/ups_adj.html:208
 #: plugins/wind_monitor/templates/wind_monitor.html:215
 msgid "Enable SQL logging"
 msgstr "Povolit SQL záznam"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:210
+#: plugins/air_temp_humi/templates/air_temp_humi.html:229
 msgid ""
 "The measured data will be stored in the database. This option requires the "
 "database connector extension to be installed and configured. The button will "
@@ -5638,48 +5646,62 @@ msgstr ""
 "tabulku airtemp z databáze, čímž smaže všechna uložená data z tohoto "
 "rozšíření! Tato akce je nevratná!"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:211
+#: plugins/air_temp_humi/templates/air_temp_humi.html:230
+#: plugins/pressure_monitor/templates/pressure_monitor.html:210
 #: plugins/tank_monitor/templates/tank_monitor.html:362
+#: plugins/ups_adj/templates/ups_adj.html:210
 #: plugins/wind_monitor/templates/wind_monitor.html:217
 msgid "requires database connector plugin"
 msgstr "vyžaduje rozšíření database connector"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:212
+#: plugins/air_temp_humi/templates/air_temp_humi.html:231
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
+#: plugins/pressure_monitor/templates/pressure_monitor.html:211
 #: plugins/tank_monitor/templates/tank_monitor.html:363
+#: plugins/ups_adj/templates/ups_adj.html:211
 #: plugins/wind_monitor/templates/wind_monitor.html:218
 msgid "Delete SQL table"
 msgstr "Smazat tabulku SQL"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:216
+#: plugins/air_temp_humi/templates/air_temp_humi.html:235
+msgid "Show data from"
+msgstr "Zobrazit data z"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:237
+msgid ""
+"Choose from where the displayed data in the log and graph will be loaded."
+msgstr "Zvolte, odkud se budou načítat zobrazená data v logu a grafu."
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:238
+msgid "Local file"
+msgstr "Místní soubor"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:239
+msgid "Database file"
+msgstr "Databázový soubor"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
-#: plugins/pressure_monitor/templates/pressure_monitor.html:208
+#: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:367
-#: plugins/ups_adj/templates/ups_adj.html:208
+#: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:39
 #: plugins/wind_monitor/templates/wind_monitor.html:248
 msgid "Maximum number of log records"
 msgstr "Maximální počet záznamů"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:217
+#: plugins/air_temp_humi/templates/air_temp_humi.html:245
 msgid ""
 "The maximum number of records sets the number of saved records, i.e. after "
-"exceeding the set limit, older data is overwritten."
+"exceeding the set limit, older data is overwritten. 0 = unlimited. The "
+"maximum number is only for local storage (not for database)."
 msgstr ""
 "Maximální počet záznamů nastavuje počet uložených záznamů, tzn. po "
-"překročení nastaveného limitu dojde k přepsání starších dat."
+"překročení nastaveného limitu dojde k přepsání starších dat. 0 = neomezeně. "
+"Maximální počet je pouze pro místní úložiště (nikoli pro databázi)."
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:218
-#: plugins/chmi/templates/chmi.html:145
-#: plugins/pressure_monitor/templates/pressure_monitor.html:209
-#: plugins/speed_monitor/templates/speed_monitor.html:208
-#: plugins/ups_adj/templates/ups_adj.html:209
-#: plugins/volt_temp_da/templates/volt_temp_da.html:41
-#: plugins/wind_monitor/templates/wind_monitor.html:249
-msgid "0 = unlimited"
-msgstr "0 = bez omezení"
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:222
+#: plugins/air_temp_humi/templates/air_temp_humi.html:250
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:373
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -5687,69 +5709,62 @@ msgstr "0 = bez omezení"
 msgid "Interval for logging"
 msgstr "Opakovat záznam po"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:223
+#: plugins/air_temp_humi/templates/air_temp_humi.html:251
 msgid ""
 "The logging interval is common for both local storage and sql storage of "
-"measured data."
+"measured data. minutes (Minimum is 1)"
 msgstr ""
 "Interval logování je společný jak pro lokální úložiště, tak pro sql úložiště "
-"naměřených dat."
+"naměřených dat. minut (minimum je 1)"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:224
-#: plugins/speed_monitor/templates/speed_monitor.html:196
-#: plugins/speed_monitor/templates/speed_monitor.html:214
-#: plugins/volt_temp_da/templates/volt_temp_da.html:53
-msgid "minutes (Minimum is 1)"
-msgstr "minutě/tách (minimum je 1)"
-
-#: plugins/air_temp_humi/templates/air_temp_humi.html:233
+#: plugins/air_temp_humi/templates/air_temp_humi.html:261
 msgid "Enable DHT"
 msgstr "Povolit DHT"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:239
+#: plugins/air_temp_humi/templates/air_temp_humi.html:267
 msgid "DHT type"
 msgstr "Typ DHT"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:240
+#: plugins/air_temp_humi/templates/air_temp_humi.html:268
 msgid "Select type DHT probe"
 msgstr "Vyberte typ DHT sondy"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:242
+#: plugins/air_temp_humi/templates/air_temp_humi.html:270
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:24
 msgid "DHT11"
 msgstr "DHT11"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:243
+#: plugins/air_temp_humi/templates/air_temp_humi.html:271
 msgid "DHT22"
 msgstr "DHT22"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:248
-#: plugins/air_temp_humi/templates/air_temp_humi.html:311
-#: plugins/air_temp_humi/templates/air_temp_humi.html:318
-#: plugins/air_temp_humi/templates/air_temp_humi.html:325
-#: plugins/air_temp_humi/templates/air_temp_humi.html:332
+#: plugins/air_temp_humi/templates/air_temp_humi.html:276
 #: plugins/air_temp_humi/templates/air_temp_humi.html:339
 #: plugins/air_temp_humi/templates/air_temp_humi.html:346
+#: plugins/air_temp_humi/templates/air_temp_humi.html:353
+#: plugins/air_temp_humi/templates/air_temp_humi.html:360
+#: plugins/air_temp_humi/templates/air_temp_humi.html:367
+#: plugins/air_temp_humi/templates/air_temp_humi.html:374
 msgid "Label for sensor"
 msgstr "Název snímače"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:254
+#: plugins/air_temp_humi/templates/air_temp_humi.html:282
 msgid "Allow regulation"
 msgstr "Povolit regulaci"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:260
+#: plugins/air_temp_humi/templates/air_temp_humi.html:288
 msgid "Hysteresis"
 msgstr "Hystereze"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:266
+#: plugins/air_temp_humi/templates/air_temp_humi.html:294
 msgid "Humidity for output ON"
 msgstr "Vlhkost pro zapnutí výstupu"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:268
+#: plugins/air_temp_humi/templates/air_temp_humi.html:296
 msgid "Humidity + hysteresis/2 > ON"
 msgstr "Vlhkost + hystereze/2 = ZAPNUTO"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:273
+#: plugins/air_temp_humi/templates/air_temp_humi.html:301
 #: plugins/pool_heating/templates/pool_heating.html:105
 #: plugins/tank_monitor/templates/tank_monitor.html:328
 #: plugins/temperature_switch/templates/temperature_switch.html:46
@@ -5762,15 +5777,15 @@ msgstr ""
 "Maximální doba trvání při aktivaci výstupu (v minutách a sekundách). Po "
 "uplynutí této doby se výstup vypne bez ohledu na ostatní události (podmínky)"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:279
+#: plugins/air_temp_humi/templates/air_temp_humi.html:307
 msgid "Humidity for output OFF"
 msgstr "Vlhkost pro vypnutí výstupu"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:281
+#: plugins/air_temp_humi/templates/air_temp_humi.html:309
 msgid "Humidity - hysteresis/2 < OFF"
 msgstr "Vlhkost - hystereze/2 = VYPNUTO"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:285
+#: plugins/air_temp_humi/templates/air_temp_humi.html:313
 #: plugins/door_opening/templates/door_opening.html:26
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:132
 #: plugins/pool_heating/templates/pool_heating.html:117
@@ -5778,20 +5793,20 @@ msgstr "Vlhkost - hystereze/2 = VYPNUTO"
 msgid "Select Output"
 msgstr "Vybrat výstup"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:299
+#: plugins/air_temp_humi/templates/air_temp_humi.html:327
 msgid "Enable DS18B20"
 msgstr "Povolit DS18B20"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:305
+#: plugins/air_temp_humi/templates/air_temp_humi.html:333
 msgid "Used DS18B20"
 msgstr "Počet DS18B20"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:358
+#: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
-#: plugins/pressure_monitor/templates/pressure_monitor.html:267
+#: plugins/pressure_monitor/templates/pressure_monitor.html:274
 #: plugins/proto/templates/proto.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:220
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
@@ -5799,22 +5814,40 @@ msgstr "Počet DS18B20"
 #: plugins/tank_monitor/templates/tank_monitor.html:397
 #: plugins/telegram_bot/templates/telegram_bot.html:114
 #: plugins/temperature_switch/templates/temperature_switch.html:191
-#: plugins/ups_adj/templates/ups_adj.html:252
+#: plugins/ups_adj/templates/ups_adj.html:259
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:80
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:109
 #: plugins/wind_monitor/templates/wind_monitor.html:399
 msgid "Show data from plugin in footer on home page"
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 
-#: plugins/air_temp_humi/templates/air_temp_humi.html:382
-#: plugins/ping_monitor/templates/ping_monitor.html:282
-#: plugins/pressure_monitor/templates/pressure_monitor.html:297
-#: plugins/speed_monitor/templates/speed_monitor.html:250
-#: plugins/tank_monitor/templates/tank_monitor.html:421
-#: plugins/ups_adj/templates/ups_adj.html:283
-#: plugins/wind_monitor/templates/wind_monitor.html:423
-msgid "Select filter for graph history"
-msgstr "Vybrat filtr pro historii grafů"
+#: plugins/air_temp_humi/templates/air_temp_humi.html:406
+msgid "The chart from local file"
+msgstr "Graf z místního souboru"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:408
+msgid "The chart from database"
+msgstr "Graf z databáze"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:414
+msgid "From"
+msgstr "Od"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:415
+msgid "To"
+msgstr "Do"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:416
+msgid "Filtering"
+msgstr "Filtrování"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:417
+msgid "Reload chart"
+msgstr "Znovu načíst graf"
+
+#: plugins/air_temp_humi/templates/air_temp_humi.html:418
+msgid "Delete range"
+msgstr "Smazat rozsah"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:3
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:7
@@ -5979,27 +6012,61 @@ msgstr "Rozměry pouzdra 15.1mm x 25mm x 7.7mm."
 msgid "Air Temperature and Humidity Monitor - log"
 msgstr "Rozšíření monitor teploty a vlhkosti - záznam"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:21
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+msgid "Log from local file"
+msgstr "Záznam z místního souboru"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:13
+msgid "Log from database"
+msgstr "Záznam z databáze"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+msgid "Download local log"
+msgstr "Stáhnout místní záznam"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+msgid "Delete all local logs"
+msgstr "Smazat všechny místní záznamy"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:27
+msgid "Download database log"
+msgstr "Stáhnout záznam z databáze"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
+msgid "Id"
+msgstr "Id"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:41
+#: plugins/cli_control/templates/cli_control_log.html:15
+#: plugins/modbus_stations/templates/modbus_stations_log.html:16
+#: plugins/speed_monitor/templates/speed_monitor_log.html:15
+#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:26
+#: plugins/tank_monitor/templates/tank_monitor_log.html:18
+#: plugins/venetian_blind/templates/venetian_blind_log.html:15
+msgid "Date Time"
+msgstr "Datum Čas"
+
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:45
 msgid "DS1"
 msgstr "DS1"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:22
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:46
 msgid "DS2"
 msgstr "DS2"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:23
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:47
 msgid "DS3"
 msgstr "DS3"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:48
 msgid "DS4"
 msgstr "DS4"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:49
 msgid "DS5"
 msgstr "DS5"
 
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:26
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:50
 msgid "DS6"
 msgstr "DS6"
 
@@ -6637,6 +6704,20 @@ msgstr ""
 "Doba měření se primárně udává ve světovém čase UTC (UTC=UT=GMT=SELC-2h = "
 "CET-1h)."
 
+#: plugins/chmi/templates/chmi.html:59
+#: plugins/cli_control/templates/cli_control.html:27
+#: plugins/modbus_stations/templates/modbus_stations_log.html:12
+#: plugins/ping_monitor/templates/ping_monitor.html:184
+#: plugins/pressure_monitor/templates/pressure_monitor.html:191
+#: plugins/speed_monitor/templates/speed_monitor.html:184
+#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:21
+#: plugins/tank_monitor/templates/tank_monitor_log.html:12
+#: plugins/ups_adj/templates/ups_adj.html:191
+#: plugins/venetian_blind/templates/venetian_blind_setup.html:62
+#: plugins/wind_monitor/templates/wind_monitor.html:197
+msgid "Delete all logs"
+msgstr "Smazat všechny logy"
+
 #: plugins/chmi/templates/chmi.html:64
 msgid "Use CHMI"
 msgstr "Použít radar ČHMÚ"
@@ -6743,11 +6824,19 @@ msgstr "MODRÁ"
 #: plugins/ping_monitor/templates/ping_monitor.html:194
 #: plugins/pressure_monitor/templates/pressure_monitor.html:202
 #: plugins/speed_monitor/templates/speed_monitor.html:201
-#: plugins/ups_adj/templates/ups_adj.html:202
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:73
 #: plugins/volt_temp_da/templates/volt_temp_da.html:33
 msgid "Enable logging"
 msgstr "Povolit záznam"
+
+#: plugins/chmi/templates/chmi.html:145
+#: plugins/pressure_monitor/templates/pressure_monitor.html:216
+#: plugins/speed_monitor/templates/speed_monitor.html:208
+#: plugins/ups_adj/templates/ups_adj.html:216
+#: plugins/volt_temp_da/templates/volt_temp_da.html:41
+#: plugins/wind_monitor/templates/wind_monitor.html:249
+msgid "0 = unlimited"
+msgstr "0 = bez omezení"
 
 #: plugins/chmi/templates/chmi_help.html:3
 #: plugins/chmi/templates/chmi_help.html:7
@@ -6903,7 +6992,7 @@ msgstr "Příkaz pro vypnutí"
 
 #: plugins/cli_control/templates/cli_control.html:53
 #: plugins/cli_control/templates/cli_control.html:57
-#: plugins/database_connector/templates/database_connector.html:83
+#: plugins/database_connector/templates/database_connector.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:241
 msgid "Test"
 msgstr "Test"
@@ -7965,15 +8054,6 @@ msgstr "Rozšíření CLI (command line interface) záznam"
 msgid "Here we can see all the events performed in this extension."
 msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
 
-#: plugins/cli_control/templates/cli_control_log.html:15
-#: plugins/modbus_stations/templates/modbus_stations_log.html:16
-#: plugins/speed_monitor/templates/speed_monitor_log.html:15
-#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:26
-#: plugins/tank_monitor/templates/tank_monitor_log.html:18
-#: plugins/venetian_blind/templates/venetian_blind_log.html:15
-msgid "Date Time"
-msgstr "Datum Čas"
-
 #: plugins/cli_control/templates/cli_control_log.html:16
 #: plugins/email_reader/__init__.py:144 plugins/email_reader/__init__.py:152
 #: plugins/email_reader/__init__.py:160 plugins/email_reader/__init__.py:168
@@ -8006,70 +8086,113 @@ msgstr "Datum Čas"
 msgid "Command"
 msgstr "Příkaz"
 
-#: plugins/database_connector/__init__.py:24
+#: plugins/database_connector/__init__.py:26
 msgid "Package: Database Connector"
 msgstr "Balíček: Databázové spojení"
 
-#: plugins/database_connector/__init__.py:73
-msgid "Mariadb installed - OK."
-msgstr "Mariadb nainstalována - OK."
-
-#: plugins/database_connector/__init__.py:76
-msgid "Mariadb is not installed."
-msgstr "Mariadb není nainstalována."
-
 #: plugins/database_connector/__init__.py:77
-msgid "Please wait installing mariadb..."
-msgstr "Počkejte prosím instaluji mariadb..."
+msgid "Version: "
+msgstr "Verze: "
 
-#: plugins/database_connector/__init__.py:82
-msgid "Mariadb is now installed."
-msgstr "Mariadb je nyní nainstalována."
+#: plugins/database_connector/__init__.py:80
+msgid "Mariadb is not installed or you have a newer version."
+msgstr "Mariadb asi není nainstalována nebo máte novější verzi."
 
-#: plugins/database_connector/__init__.py:86
+#: plugins/database_connector/__init__.py:81
+msgid ""
+"If you do not have Maria installed, try installing it using the button "
+"below..."
+msgstr ""
+"Pokud nemáte nainstalovanou Maria DB, zkuste ji nainstalovat pomocí tlačítka "
+"níže..."
+
+#: plugins/database_connector/__init__.py:85
+#: plugins/database_connector/__init__.py:212
+#: plugins/database_connector/__init__.py:239
 #: plugins/database_connector/templates/database_connector.html:3
 #: plugins/database_connector/templates/database_connector.html:39
 msgid "Database Connector"
 msgstr "Databázové spojení"
 
-#: plugins/database_connector/__init__.py:119
+#: plugins/database_connector/__init__.py:117
+msgid "Mariadb is now installed."
+msgstr "Mariadb je nyní nainstalována."
+
+#: plugins/database_connector/__init__.py:118
+msgid "Please wait installing mariadb-client-10.0..."
+msgstr "Počkejte prosím na instalaci mariadb-client-10.0..."
+
+#: plugins/database_connector/__init__.py:137
 msgid "Database Connector plug-in"
 msgstr "Rozšíření databázové spojení"
 
-#: plugins/database_connector/__init__.py:144
+#: plugins/database_connector/__init__.py:162
 msgid "Command being executed"
 msgstr "Provádí se příkaz"
 
-#: plugins/database_connector/__init__.py:148
+#: plugins/database_connector/__init__.py:166
 msgid "Committed data in db"
 msgstr "Potvrzená data v db"
 
-#: plugins/database_connector/__init__.py:159
+#: plugins/database_connector/__init__.py:177
 msgid "Database type"
 msgstr "Typ databáze"
 
-#: plugins/database_connector/__init__.py:159
+#: plugins/database_connector/__init__.py:177
 msgid "Found databases"
 msgstr "Nalezené databáze"
 
-#: plugins/database_connector/__init__.py:161
+#: plugins/database_connector/__init__.py:179
 msgid "Not found"
 msgstr "Nenalezeno"
 
-#: plugins/database_connector/__init__.py:167
+#: plugins/database_connector/__init__.py:188
 msgid "Error connecting to MariaDB Platform"
 msgstr "Chyba při připojování k platformě MariaDB"
+
+#: plugins/database_connector/__init__.py:280
+msgid "Created database backup."
+msgstr "Vytvořená záloha databáze."
+
+#: plugins/database_connector/__init__.py:282
+msgid "Error in database backup."
+msgstr "Chyba v zálohování databáze."
+
+#: plugins/database_connector/__init__.py:290
+#: plugins/ospy_backup/__init__.py:174
+#: plugins/voice_notification/__init__.py:463
+#: plugins/voice_station/__init__.py:467
+msgid "Deleting file has sucesfully."
+msgstr "Smazání souboru proběhlo úspěšně."
+
+#: plugins/database_connector/__init__.py:292
+#: plugins/ospy_backup/__init__.py:176
+#: plugins/voice_notification/__init__.py:467
+#: plugins/voice_notification/templates/voice_notification_sounds.html:33
+#: plugins/voice_station/__init__.py:470
+#: plugins/voice_station/templates/voice_station_sounds.html:33
+msgid "File for deleting not found!"
+msgstr "Soubor pro smazání nenalezen!"
+
+#: plugins/database_connector/__init__.py:302
+#: plugins/ospy_backup/__init__.py:186
+msgid "Download file: {} type: {}."
+msgstr "Stáhnout soubor: {} typ: {}."
 
 #: plugins/database_connector/templates/database_connector.html:40
 msgid "When changing the settings, it is necessary to restart the OSPy system."
 msgstr "Při změně nastavení je nutné restartovat systém OSPy."
 
-#: plugins/database_connector/templates/database_connector.html:45
+#: plugins/database_connector/templates/database_connector.html:42
+msgid "Database backup"
+msgstr "Záloha databáze"
+
+#: plugins/database_connector/templates/database_connector.html:46
 #: plugins/remote_notifications/templates/remote_notifications.html:30
 msgid "Use plugin"
 msgstr "Použít rozšíření"
 
-#: plugins/database_connector/templates/database_connector.html:46
+#: plugins/database_connector/templates/database_connector.html:47
 msgid ""
 "When the box is checked, the extension will be active. After filling in all "
 "the fields, ospy must be restarted!"
@@ -8077,37 +8200,37 @@ msgstr ""
 "Když je políčko zaškrtnuto, rozšíření bude aktivní. Po vyplnění všech polí "
 "musí být OSPy restartováno!"
 
-#: plugins/database_connector/templates/database_connector.html:51
+#: plugins/database_connector/templates/database_connector.html:52
 msgid "Host"
 msgstr "Host"
 
-#: plugins/database_connector/templates/database_connector.html:52
+#: plugins/database_connector/templates/database_connector.html:53
 msgid "IP address to the database server."
 msgstr "IP adresa databázového serveru."
 
-#: plugins/database_connector/templates/database_connector.html:57
+#: plugins/database_connector/templates/database_connector.html:58
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: plugins/database_connector/templates/database_connector.html:58
+#: plugins/database_connector/templates/database_connector.html:59
 msgid "The login name to log in to the database."
 msgstr "Přihlašovací jméno pro přihlášení do databáze."
 
-#: plugins/database_connector/templates/database_connector.html:64
+#: plugins/database_connector/templates/database_connector.html:65
 msgid "The login password to log in to the database."
 msgstr "Přihlašovací heslo pro přihlášení do databáze."
 
-#: plugins/database_connector/templates/database_connector.html:70
+#: plugins/database_connector/templates/database_connector.html:71
 msgid ""
 "Port for connecting to the database server. The default is usually 3306."
 msgstr ""
 "Port pro připojení k databázovému serveru. Výchozí hodnota je obvykle 3306."
 
-#: plugins/database_connector/templates/database_connector.html:75
+#: plugins/database_connector/templates/database_connector.html:76
 msgid "Database name"
 msgstr "Jméno databáze"
 
-#: plugins/database_connector/templates/database_connector.html:76
+#: plugins/database_connector/templates/database_connector.html:77
 msgid ""
 "The name of the database in which there will be tables with measured data. "
 "To be able to connect multiple ospy systems to one database server. Each "
@@ -8117,17 +8240,102 @@ msgstr ""
 "připojit více systémů OSPy k jednomu databázovému serveru. Každé OSPy bude "
 "mít svou vlastní databázi (příklad: ospy_1, ospy_2...)"
 
-#: plugins/database_connector/templates/database_connector.html:81
+#: plugins/database_connector/templates/database_connector.html:82
 msgid "Connection test"
 msgstr "Test připojení"
 
-#: plugins/database_connector/templates/database_connector.html:82
+#: plugins/database_connector/templates/database_connector.html:83
 msgid ""
 "After pressing the test button, this extension will try to connect to the "
 "database."
 msgstr ""
 "Po stisknutí testovacího tlačítka se toto rozšíření pokusí připojit k "
 "databázi."
+
+#: plugins/database_connector/templates/database_connector.html:88
+msgid "Install Mariadb"
+msgstr "Instalace Mariadb"
+
+#: plugins/database_connector/templates/database_connector.html:89
+msgid ""
+"It was pressed button for install, I will try to install Mariadb in the "
+"system. If everything goes successfully, restart this extension!"
+msgstr ""
+"Bylo stisknuto tlačítko pro instalaci, pokusím se nainstalovat Mariadb do "
+"systému. Pokud vše proběhne úspěšně, restartujte následně toto rozšíření!"
+
+#: plugins/database_connector/templates/database_connector_backup.html:3
+#: plugins/database_connector/templates/database_connector_backup.html:18
+msgid "Database Connector - backup"
+msgstr "Databázové spojení - zálohování"
+
+#: plugins/database_connector/templates/database_connector_backup.html:11
+#: plugins/ospy_backup/templates/ospy_backup.html:11
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "Gb"
+msgstr "Gb"
+
+#: plugins/database_connector/templates/database_connector_backup.html:11
+#: plugins/ospy_backup/templates/ospy_backup.html:11
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "Tb"
+msgstr "Tb"
+
+#: plugins/database_connector/templates/database_connector_backup.html:11
+#: plugins/ospy_backup/templates/ospy_backup.html:11
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "kB"
+msgstr "kB"
+
+#: plugins/database_connector/templates/database_connector_backup.html:11
+#: plugins/ospy_backup/templates/ospy_backup.html:11
+#: plugins/voice_notification/templates/voice_notification_sounds.html:11
+#: plugins/voice_station/templates/voice_station_sounds.html:11
+msgid "mB"
+msgstr "mB"
+
+#: plugins/database_connector/templates/database_connector_backup.html:19
+msgid "This window is used to create a current backup of the database."
+msgstr "Toto okno slouží k vytvoření aktuální zálohy databáze."
+
+#: plugins/database_connector/templates/database_connector_backup.html:23
+#: plugins/ospy_backup/templates/ospy_backup.html:31
+msgid "Backup"
+msgstr "Záloha"
+
+#: plugins/database_connector/templates/database_connector_backup.html:24
+msgid ""
+"After pressing the button, the current backup of the database is created."
+msgstr "Po stisknutí tlačítka se vytvoří aktuální záloha databáze."
+
+#: plugins/database_connector/templates/database_connector_backup.html:25
+#: plugins/ospy_backup/templates/ospy_backup.html:33
+msgid "Backup now"
+msgstr "Zálohovat nyní"
+
+#: plugins/database_connector/templates/database_connector_backup.html:33
+#: plugins/ospy_backup/templates/ospy_backup.html:41
+#: plugins/voice_notification/templates/voice_notification_sounds.html:56
+#: plugins/voice_station/templates/voice_station_sounds.html:56
+msgid "Item"
+msgstr "Položka"
+
+#: plugins/database_connector/templates/database_connector_backup.html:34
+#: plugins/ospy_backup/templates/ospy_backup.html:42
+#: plugins/voice_notification/templates/voice_notification_sounds.html:57
+#: plugins/voice_station/templates/voice_station_sounds.html:57
+msgid "File Name"
+msgstr "Název souboru"
+
+#: plugins/database_connector/templates/database_connector_backup.html:35
+#: plugins/ospy_backup/templates/ospy_backup.html:43
+#: plugins/voice_notification/templates/voice_notification_sounds.html:59
+#: plugins/voice_station/templates/voice_station_sounds.html:59
+msgid "Size"
+msgstr "Velikost"
 
 #: plugins/database_connector/templates/database_connector_help.html:3
 #: plugins/database_connector/templates/database_connector_help.html:7
@@ -8634,11 +8842,11 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/email_reader/templates/email_reader_help.html:57
 #: plugins/ping_monitor/templates/ping_monitor.html:244
 #: plugins/pool_heating/templates/pool_heating.html:161
-#: plugins/pressure_monitor/templates/pressure_monitor.html:246
+#: plugins/pressure_monitor/templates/pressure_monitor.html:253
 #: plugins/system_update/templates/system_update.html:67
 #: plugins/system_update/templates/system_update_help.html:20
 #: plugins/tank_monitor/templates/tank_monitor.html:295
-#: plugins/ups_adj/templates/ups_adj.html:231
+#: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:43
 #: plugins/wind_monitor/templates/wind_monitor.html:301
 msgid "E-mail subject"
@@ -8802,6 +9010,9 @@ msgid "Rain sensor has deactivated."
 msgstr "Dešťový snímač byl deaktivován."
 
 #: plugins/email_notifications_ssl/__init__.py:450
+msgid "Rain delay is now set a delay {} (h: m: s)."
+msgstr "Dešťové zpoždění je nyní nastaveno na dobu {} (h: m: s)."
+
 #: plugins/email_notifications_ssl/__init__.py:451
 msgid "Rain delay is now set a delay {} hours."
 msgstr "Zpoždění deště je nyní nastaveno na {} hodin."
@@ -10338,8 +10549,8 @@ msgid "Rain Sensor:"
 msgstr "Dešťový snímač:"
 
 #: plugins/lcd_display/__init__.py:334 plugins/lcd_display/__init__.py:363
-#: plugins/pressure_monitor/__init__.py:178
 #: plugins/pressure_monitor/__init__.py:179
+#: plugins/pressure_monitor/__init__.py:180
 msgid "Inactive"
 msgstr "Neaktivní"
 
@@ -11938,6 +12149,115 @@ msgstr ""
 msgid "2: exactly once. Will only send a message once."
 msgstr "2: Přesně jednou. Odešle zprávu pouze jednou."
 
+#: plugins/ospy_backup/__init__.py:24
+msgid "Package: OSPy package Backup"
+msgstr "Balíček: Zálohování balíčků OSPy"
+
+#: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
+msgid "Plugin is started."
+msgstr "Rozšíření je spuštěno."
+
+#: plugins/ospy_backup/__init__.py:67 plugins/ospy_backup/__init__.py:119
+#: plugins/ospy_backup/__init__.py:146 plugins/ospy_backup/__init__.py:197
+msgid "OSPy package Backup"
+msgstr "Zálohování balíčků"
+
+#: plugins/ospy_backup/__init__.py:98
+msgid "Deleting folder in ospy_backup/temp"
+msgstr "Smazání složky v ospy_backup/temp"
+
+#: plugins/ospy_backup/__init__.py:100
+msgid "Deleting folder in ospy_backup/backup"
+msgstr "Odstranění složky v ospy_backup/backup"
+
+#: plugins/ospy_backup/__init__.py:108
+msgid "Copying folder"
+msgstr "Kopírování složky"
+
+#: plugins/ospy_backup/__init__.py:111
+msgid "Creating zip file in ospy_backup/backup."
+msgstr "Vytvoření souboru zip v ospy_backup/backup."
+
+#: plugins/ospy_backup/__init__.py:114
+msgid "Moving file: {}.zip to ospy_backup/data."
+msgstr "Přesunutí souboru: {}.zip do ospy_backup/data."
+
+#: plugins/ospy_backup/__init__.py:164
+msgid "Created all backup files OK."
+msgstr "Byly vytvořeny všechny záložní soubory v pořádku."
+
+#: plugins/ospy_backup/__init__.py:166
+msgid ""
+"Failed to create backup, see debug list (if debug is enabled in ospy system)."
+msgstr ""
+"Vytvoření zálohy se nezdařilo, viz seznam ladění (pokud je ladění povoleno v "
+"systému OSPy)."
+
+#: plugins/ospy_backup/templates/ospy_backup.html:3
+msgid "OSPy Backup"
+msgstr "Zálohování balíčků"
+
+#: plugins/ospy_backup/templates/ospy_backup.html:27
+msgid "OSPy Backup Plugin"
+msgstr "Rozšíření Zálohování balíčků"
+
+#: plugins/ospy_backup/templates/ospy_backup.html:32
+msgid "After pressing the button, the current backup is created."
+msgstr "Po stisknutí tlačítka se vytvoří aktuální záloha."
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:3
+#: plugins/ospy_backup/templates/ospy_backup_help.html:7
+msgid "OSPy Backup Plugin - help"
+msgstr "Rozšíření Zálohování balíčků - nápověda"
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:8
+msgid ""
+"This extension creates a backup of data directories from all available "
+"installed extensions in OSPy. Example: \"Air Temperature and Humidity "
+"Monitor/data\". Local records from plugins (for example json files with "
+"temperature, etc...) are most often found in the plugins data directories."
+msgstr ""
+"Toto rozšíření vytváří zálohu datových adresářů ze všech dostupných "
+"nainstalovaných rozšíření v OSPy. Příklad: \"Monitor teploty a vlhkosti "
+"vzduchu/data\". Lokální záznamy z rozšíření (například json soubory s "
+"teplotou apod.) se nejčastěji nacházejí v datových adresářích rozšíření."
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:9
+msgid ""
+"Backups can be downloaded to our computer (phone) and possibly uploaded back "
+"to data directories in specific plugins after unpacking. Backups are in zip "
+"format (example: 20240417-201606-PluginsBackup.zip)"
+msgstr ""
+"Zálohy lze stáhnout do našeho počítače (telefonu) a případně po rozbalení "
+"nahrát zpět do datových adresářů v konkrétních rozšířeních. Zálohy jsou ve "
+"formátu zip (příklad: 20240417-201606-PluginsBackup.zip)"
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:10
+msgid ""
+"If possible, store all records from the plugins on to your own database "
+"storage (MySQL) instead of in local \"data\" directories."
+msgstr ""
+"Pokud je to možné, ukládejte všechny záznamy z rozšíření do vlastního "
+"databázového úložiště (MySQL) místo do lokálních \"datových\" adresářů."
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:11
+msgid ""
+"Not only does this save the Raspberry Pi SD card, but in the event of an "
+"OSPy crash, we wont lose the saved data (since its outside of OSPy in the "
+"database)."
+msgstr ""
+"Nejen, že se tím ušetří SD karta Raspberry Pi (nebo flash disk), ale v "
+"případě havárie OSPy neztratíme uložená data (protože je máme mimo OSPy v "
+"databázi)."
+
+#: plugins/ospy_backup/templates/ospy_backup_help.html:12
+msgid ""
+"To connect to the database, we can use an extension called: "
+"database_connector. Which will ensure the storage of data from our plugins."
+msgstr ""
+"Pro připojení k databázi můžeme použít rozšíření s názvem: "
+"database_connector. Což zajistí ukládání dat z našich rozšíření."
+
 #: plugins/photovoltaic_boiler/__init__.py:28
 msgid "Package: Photovoltaic Boiler"
 msgstr "Balíček: FVE bojler"
@@ -12206,7 +12526,7 @@ msgid "Ping Monitor plug-in"
 msgstr "Rozšíření ping monitor"
 
 #: plugins/ping_monitor/__init__.py:360
-#: plugins/pressure_monitor/__init__.py:372
+#: plugins/pressure_monitor/__init__.py:374
 msgid "Saving to log files OK."
 msgstr "Ukládání do souborů protokolu OK."
 
@@ -12310,10 +12630,10 @@ msgstr "Odeslat E-mailem soubor statistik (csv)."
 
 #: plugins/ping_monitor/templates/ping_monitor.html:231
 #: plugins/pool_heating/templates/pool_heating.html:156
-#: plugins/pressure_monitor/templates/pressure_monitor.html:241
+#: plugins/pressure_monitor/templates/pressure_monitor.html:248
 #: plugins/tank_monitor/templates/tank_monitor.html:284
 #: plugins/tank_monitor/templates/tank_monitor.html:290
-#: plugins/ups_adj/templates/ups_adj.html:226
+#: plugins/ups_adj/templates/ups_adj.html:233
 #: plugins/wind_monitor/templates/wind_monitor.html:296
 msgid "For this function required E-mail plugin"
 msgstr ""
@@ -12341,14 +12661,23 @@ msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:250
 #: plugins/pool_heating/templates/pool_heating.html:168
-#: plugins/pressure_monitor/templates/pressure_monitor.html:253
+#: plugins/pressure_monitor/templates/pressure_monitor.html:260
 #: plugins/system_update/templates/system_update.html:74
 #: plugins/tank_monitor/templates/tank_monitor.html:302
-#: plugins/ups_adj/templates/ups_adj.html:238
+#: plugins/ups_adj/templates/ups_adj.html:245
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:50
 #: plugins/wind_monitor/templates/wind_monitor.html:308
 msgid "Select E-mail plug-in for sending E-mail"
 msgstr "Vyberte rozšíření pro odesílání e-mailů"
+
+#: plugins/ping_monitor/templates/ping_monitor.html:282
+#: plugins/pressure_monitor/templates/pressure_monitor.html:304
+#: plugins/speed_monitor/templates/speed_monitor.html:250
+#: plugins/tank_monitor/templates/tank_monitor.html:421
+#: plugins/ups_adj/templates/ups_adj.html:290
+#: plugins/wind_monitor/templates/wind_monitor.html:423
+msgid "Select filter for graph history"
+msgstr "Vybrat filtr pro historii grafů"
 
 #: plugins/ping_monitor/templates/ping_monitor_help.html:3
 #: plugins/ping_monitor/templates/ping_monitor_help.html:7
@@ -12497,8 +12826,8 @@ msgid "In minutes"
 msgstr "V minutách"
 
 #: plugins/pool_heating/templates/pool_heating.html:155
-#: plugins/pressure_monitor/templates/pressure_monitor.html:240
-#: plugins/ups_adj/templates/ups_adj.html:225
+#: plugins/pressure_monitor/templates/pressure_monitor.html:247
+#: plugins/ups_adj/templates/ups_adj.html:232
 msgid "Send E-mail with error"
 msgstr "Odeslat E-mail s chybou"
 
@@ -12547,67 +12876,73 @@ msgstr "Balíček: Monitor tlaku"
 msgid "Report from OSPy PRESSURE MONITOR plugin"
 msgstr "Zpráva z rozšíření monitor tlaku"
 
-#: plugins/pressure_monitor/__init__.py:121
+#: plugins/pressure_monitor/__init__.py:122
 msgid "Pressure"
 msgstr "Tlak"
 
-#: plugins/pressure_monitor/__init__.py:135
+#: plugins/pressure_monitor/__init__.py:136
 msgid "Time to test pressure sensor"
 msgstr "Čas kontroly tlaku snímačem"
 
-#: plugins/pressure_monitor/__init__.py:136 plugins/ups_adj/__init__.py:157
+#: plugins/pressure_monitor/__init__.py:137 plugins/ups_adj/__init__.py:158
 msgid "sec"
 msgstr "vteřin(a/y)"
 
-#: plugins/pressure_monitor/__init__.py:142
+#: plugins/pressure_monitor/__init__.py:143
 msgid ""
 "Pressure sensor is not activated in time, stoping all stations in scheduler."
 msgstr "Snímač tlaku není aktivován včas, zastavení všech stanic v plánovači."
 
-#: plugins/pressure_monitor/__init__.py:145
+#: plugins/pressure_monitor/__init__.py:146
 msgid "Sending E-Mail."
 msgstr "Odesílání E-mailu."
 
-#: plugins/pressure_monitor/__init__.py:159
 #: plugins/pressure_monitor/__init__.py:160
+#: plugins/pressure_monitor/__init__.py:161
 msgid "System detected error: pressure sensor."
 msgstr "Rozšíření monitor tlaku zjistilo chybu: snímač tlaku se neaktivoval."
 
-#: plugins/pressure_monitor/__init__.py:159
 #: plugins/pressure_monitor/__init__.py:160
-#: plugins/pressure_monitor/__init__.py:172
-#: plugins/pressure_monitor/__init__.py:197
-#: plugins/pressure_monitor/__init__.py:234
+#: plugins/pressure_monitor/__init__.py:161
+#: plugins/pressure_monitor/__init__.py:173
+#: plugins/pressure_monitor/__init__.py:198
+#: plugins/pressure_monitor/__init__.py:235
+#: plugins/pressure_monitor/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:437
 msgid "Pressure monitor plug-in"
 msgstr "Rozšíření monitor tlaku"
 
-#: plugins/pressure_monitor/__init__.py:242
+#: plugins/pressure_monitor/__init__.py:243
 msgid "Master station 1 is ON."
 msgstr "Hlavní stanice 1 ZAP."
 
-#: plugins/pressure_monitor/__init__.py:252
+#: plugins/pressure_monitor/__init__.py:253
 msgid "Master station 1 is OFF."
 msgstr "Hlavní stanice 1 VYP."
 
-#: plugins/pressure_monitor/__init__.py:259
+#: plugins/pressure_monitor/__init__.py:260
 msgid "Master station 2 is ON."
 msgstr "Hlavní stanice 2 ZAP."
 
-#: plugins/pressure_monitor/__init__.py:269
+#: plugins/pressure_monitor/__init__.py:270
 msgid "Master station 2 is OFF."
 msgstr "Hlavní stanice 2 VYP."
 
-#: plugins/pressure_monitor/__init__.py:276
+#: plugins/pressure_monitor/__init__.py:277
 msgid "All stations set to OFF."
 msgstr "Všechny stanice se vypínají."
 
-#: plugins/pressure_monitor/__init__.py:455
-#: plugins/pressure_monitor/__init__.py:553
+#: plugins/pressure_monitor/__init__.py:435
+msgid "Deleting the pressmonitor table from the database."
+msgstr "Odstranění tabulky pressmonitor z databáze."
+
+#: plugins/pressure_monitor/__init__.py:481
+#: plugins/pressure_monitor/__init__.py:579
 msgid "INACTIVE"
 msgstr "NEAKTIVNÍ"
 
-#: plugins/pressure_monitor/__init__.py:457
-#: plugins/pressure_monitor/__init__.py:551
+#: plugins/pressure_monitor/__init__.py:483
+#: plugins/pressure_monitor/__init__.py:577
 msgid "ACTIVE"
 msgstr "AKTIVNÍ"
 
@@ -12628,21 +12963,33 @@ msgstr "Použít snímač tlaku pro hlavní stanici"
 msgid "Pressure sensor is connected between GPIO 18 - pin 12 and ground"
 msgstr "Snímač tlaku je zapojen na GPIO-18 konektor pin 12 a zem"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:215
+#: plugins/pressure_monitor/templates/pressure_monitor.html:209
+msgid ""
+"The measured data will be stored in the database. This option requires the "
+"database connector extension to be installed and configured. The button will "
+"delete the pressmonitor table from the database, thus deleting all saved "
+"data from this extension! This promotion is non-refundable!"
+msgstr ""
+"Naměřená data budou uložena do databáze. Tato možnost vyžaduje, aby bylo "
+"nainstalované a nakonfigurované rozšíření databáze konektor. Tlačítko smaže "
+"tabulku pressmonitor z databáze, čímž smaže všechna uložená data z tohoto "
+"rozšíření! Tato akce je nevratná!"
+
+#: plugins/pressure_monitor/templates/pressure_monitor.html:222
 msgid "If checked normally open sensor without pressure has contact open"
 msgstr ""
 "Pokud je zaškrtnuto V klidu rozpojen, tak je připojený senzor tlaku bez "
 "tlaku považovaný za rozpojený (má rozpojený kontakt)"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:220
+#: plugins/pressure_monitor/templates/pressure_monitor.html:227
 msgid "Max time to activate pressure sensor"
 msgstr "Maximální čas pro aktivaci snímače"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:221
+#: plugins/pressure_monitor/templates/pressure_monitor.html:228
 msgid "max 999 seconds"
 msgstr "maximum 999 vteřin"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:227
+#: plugins/pressure_monitor/templates/pressure_monitor.html:234
 msgid ""
 "Stoping these stations if no pressure in pipe. Selector for stop stations in "
 "scheduler"
@@ -12650,11 +12997,11 @@ msgstr ""
 "Zastavit tyto stanice, pokud není žádný tlak v potrubí. Zvolíme požadované "
 "stanice, které chceme vypnout v plánovači"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:247
+#: plugins/pressure_monitor/templates/pressure_monitor.html:254
 msgid "Subject for E-mail from this pressure monitor"
 msgstr "Předmět pro E-mail z tohoto monitoru tlaku"
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:272
+#: plugins/pressure_monitor/templates/pressure_monitor.html:279
 msgid "Pressure state"
 msgstr "Stav čidla tlaku"
 
@@ -12927,10 +13274,6 @@ msgstr "Pěkné rozšíření"
 #: plugins/proto/__init__.py:70
 msgid "Proto"
 msgstr "Proto"
-
-#: plugins/proto/__init__.py:87
-msgid "Plugin is started."
-msgstr "Rozšíření je spuštěno."
 
 #: plugins/proto/__init__.py:95 plugins/proto/__init__.py:107
 msgid "Example counter {}"
@@ -14549,6 +14892,12 @@ msgstr "pokud je zaškrtnuto, rozšíření bude měřit rychlost připojení"
 msgid "Interval for testing"
 msgstr "Interval pro testování"
 
+#: plugins/speed_monitor/templates/speed_monitor.html:196
+#: plugins/speed_monitor/templates/speed_monitor.html:214
+#: plugins/volt_temp_da/templates/volt_temp_da.html:53
+msgid "minutes (Minimum is 1)"
+msgstr "minutě/tách (minimum je 1)"
+
 #: plugins/speed_monitor/templates/speed_monitor_help.html:3
 #: plugins/speed_monitor/templates/speed_monitor_help.html:7
 msgid "Speed monitor - help"
@@ -15790,8 +16139,8 @@ msgstr "CHYBA: Nádrž s vodou"
 msgid "Waiting for samples"
 msgstr "Čekání na vzorky"
 
-#: plugins/tank_monitor/__init__.py:302 plugins/ups_adj/__init__.py:119
-#: plugins/ups_adj/__init__.py:416 plugins/ups_adj/__init__.py:512
+#: plugins/tank_monitor/__init__.py:302 plugins/ups_adj/__init__.py:120
+#: plugins/ups_adj/__init__.py:443 plugins/ups_adj/__init__.py:539
 msgid "FAULT"
 msgstr "Chyba"
 
@@ -15832,7 +16181,7 @@ msgstr "Verze FW v CPU (Atmega 328) je FW <= 1.3"
 msgid "Unkown FW version in CPU (Atmega 328)"
 msgstr "Neznámá verze FW v CPU (Atmega 328)"
 
-#: plugins/tank_monitor/__init__.py:645 plugins/ups_adj/__init__.py:331
+#: plugins/tank_monitor/__init__.py:645 plugins/ups_adj/__init__.py:333
 #: plugins/wind_monitor/__init__.py:492
 msgid "Saving to log  files OK"
 msgstr "Ukládání do souborů protokolu OK"
@@ -16747,51 +17096,60 @@ msgstr "Balíček: Monitor UPS"
 msgid "Report from OSPy UPS plugin"
 msgstr "Hlášení z OSPy UPS"
 
-#: plugins/ups_adj/__init__.py:109
+#: plugins/ups_adj/__init__.py:110
 msgid "UPS"
 msgstr "UPS"
 
-#: plugins/ups_adj/__init__.py:133 plugins/ups_adj/__init__.py:134
+#: plugins/ups_adj/__init__.py:134 plugins/ups_adj/__init__.py:135
 msgid "Detected fault on power line."
 msgstr "Zjištěna závada na elektrickém vedení."
 
-#: plugins/ups_adj/__init__.py:133 plugins/ups_adj/__init__.py:134
-#: plugins/ups_adj/__init__.py:147 plugins/ups_adj/__init__.py:168
-#: plugins/ups_adj/__init__.py:169 plugins/ups_adj/__init__.py:180
-#: plugins/ups_adj/__init__.py:191 plugins/ups_adj/__init__.py:192
-#: plugins/ups_adj/__init__.py:205 plugins/ups_adj/__init__.py:216
+#: plugins/ups_adj/__init__.py:134 plugins/ups_adj/__init__.py:135
+#: plugins/ups_adj/__init__.py:148 plugins/ups_adj/__init__.py:169
+#: plugins/ups_adj/__init__.py:170 plugins/ups_adj/__init__.py:181
+#: plugins/ups_adj/__init__.py:192 plugins/ups_adj/__init__.py:193
+#: plugins/ups_adj/__init__.py:206 plugins/ups_adj/__init__.py:217
+#: plugins/ups_adj/__init__.py:398
 msgid "UPS plug-in"
 msgstr "Rozšíření UPS"
 
-#: plugins/ups_adj/__init__.py:157
+#: plugins/ups_adj/__init__.py:158
 msgid "Time to shutdown"
 msgstr "Čas do vypnutí systému"
 
-#: plugins/ups_adj/__init__.py:163
+#: plugins/ups_adj/__init__.py:164
 msgid "Power line is not restore in time -> sends email and shutdown system."
 msgstr ""
 "Napájecí napětí sítě nebylo obnoveno do stanovené doby -> zasílám E-mail s "
 "chybovou zprávou a vypínám operační systém (Linux)."
 
-#: plugins/ups_adj/__init__.py:168 plugins/ups_adj/__init__.py:169
+#: plugins/ups_adj/__init__.py:169 plugins/ups_adj/__init__.py:170
 msgid "Power line is not restore in time -> shutdown system!"
 msgstr "Napájení nebylo obnoveno ve stanoveném čase -> vypnutí systému!"
 
-#: plugins/ups_adj/__init__.py:191 plugins/ups_adj/__init__.py:192
+#: plugins/ups_adj/__init__.py:192 plugins/ups_adj/__init__.py:193
 msgid "Power line has restored - OK."
 msgstr "Napájení bylo obnoveno - OK."
 
-#: plugins/ups_adj/__init__.py:230
+#: plugins/ups_adj/__init__.py:231
 msgid "UPS plugin is started."
 msgstr "Rozšíření UPS bylo spuštěno."
 
-#: plugins/ups_adj/__init__.py:243
+#: plugins/ups_adj/__init__.py:244
 msgid "GPIO Pin = 0 Power line is OK."
 msgstr "GPIO Pin = 0 Napájení v pořádku OK."
 
-#: plugins/ups_adj/__init__.py:245
+#: plugins/ups_adj/__init__.py:246
 msgid "GPIO Pin = 1 Power line ERROR."
 msgstr "GPIO Pin = 1 CHYBA napájení."
+
+#: plugins/ups_adj/__init__.py:348
+msgid "UPS plugin"
+msgstr "Rozšíření UPS"
+
+#: plugins/ups_adj/__init__.py:396
+msgid "Deleting the upsmonitor table from the database."
+msgstr "Odstranění tabulky upsmonitor z databáze."
 
 #: plugins/ups_adj/templates/ups_adj.html:3
 #: plugins/ups_adj/templates/ups_adj.html:185
@@ -16813,15 +17171,27 @@ msgstr ""
 "Napájecí napětí 230V je přivedeno na optočlen, který spíná konektor GPIO-23 "
 "pin 16 na zem"
 
-#: plugins/ups_adj/templates/ups_adj.html:214
+#: plugins/ups_adj/templates/ups_adj.html:209
+msgid ""
+"The measured data will be stored in the database. This option requires the "
+"database connector extension to be installed and configured. The button will "
+"delete the upsmonitor table from the database, thus deleting all saved data "
+"from this extension! This promotion is non-refundable!"
+msgstr ""
+"Naměřená data budou uložena do databáze. Tato možnost vyžaduje, aby bylo "
+"nainstalované a nakonfigurované rozšíření databáze konektor. Tlačítko smaže "
+"tabulku upsmonitor z databáze, čímž smaže všechna uložená data z tohoto "
+"rozšíření! Tato akce je nevratná!"
+
+#: plugins/ups_adj/templates/ups_adj.html:221
 msgid "Max time for shutdown countdown"
 msgstr "Maximální doba pro obnovení napájení"
 
-#: plugins/ups_adj/templates/ups_adj.html:215
+#: plugins/ups_adj/templates/ups_adj.html:222
 msgid "max 999 minutes"
 msgstr "maximum 999 minut"
 
-#: plugins/ups_adj/templates/ups_adj.html:257
+#: plugins/ups_adj/templates/ups_adj.html:264
 msgid "Power line state"
 msgstr "Stav napájení (síť 230V)"
 
@@ -17395,18 +17765,6 @@ msgstr "Soubor byl úspěšně nahrán."
 msgid "Voice Station plug-in"
 msgstr "Balíček hlasové oznámení stanic"
 
-#: plugins/voice_notification/__init__.py:463
-#: plugins/voice_station/__init__.py:467
-msgid "Deleting file has sucesfully."
-msgstr "Smazání souboru proběhlo úspěšně."
-
-#: plugins/voice_notification/__init__.py:467
-#: plugins/voice_notification/templates/voice_notification_sounds.html:33
-#: plugins/voice_station/__init__.py:470
-#: plugins/voice_station/templates/voice_station_sounds.html:33
-msgid "File for deleting not found!"
-msgstr "Soubor pro smazání nenalezen!"
-
 #: plugins/voice_notification/templates/voice_notification.html:3
 msgid "Voice Notification"
 msgstr "Rozšíření hlasové oznámení"
@@ -17588,26 +17946,6 @@ msgstr "a"
 msgid "Voice Notification - Sounds"
 msgstr "Hlasové oznámení - Zvuky"
 
-#: plugins/voice_notification/templates/voice_notification_sounds.html:11
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "Gb"
-msgstr "Gb"
-
-#: plugins/voice_notification/templates/voice_notification_sounds.html:11
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "Tb"
-msgstr "Tb"
-
-#: plugins/voice_notification/templates/voice_notification_sounds.html:11
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "kB"
-msgstr "kB"
-
-#: plugins/voice_notification/templates/voice_notification_sounds.html:11
-#: plugins/voice_station/templates/voice_station_sounds.html:11
-msgid "mB"
-msgstr "mB"
-
 #: plugins/voice_notification/templates/voice_notification_sounds.html:30
 #: plugins/voice_station/templates/voice_station_sounds.html:30
 msgid "Any error, check debug file in OSPy system!"
@@ -17618,25 +17956,10 @@ msgstr "Nějaká chyba, zkontrolujte ladicí soubor v systému OSPy!"
 msgid "Deleting file sucesfully."
 msgstr "Smazání souboru proběhlo úspěšně."
 
-#: plugins/voice_notification/templates/voice_notification_sounds.html:56
-#: plugins/voice_station/templates/voice_station_sounds.html:56
-msgid "Item"
-msgstr "Položka"
-
-#: plugins/voice_notification/templates/voice_notification_sounds.html:57
-#: plugins/voice_station/templates/voice_station_sounds.html:57
-msgid "File Name"
-msgstr "Název souboru"
-
 #: plugins/voice_notification/templates/voice_notification_sounds.html:58
 #: plugins/voice_station/templates/voice_station_sounds.html:58
 msgid "Uploaded"
 msgstr "Nahráno"
-
-#: plugins/voice_notification/templates/voice_notification_sounds.html:59
-#: plugins/voice_station/templates/voice_station_sounds.html:59
-msgid "Size"
-msgstr "Velikost"
 
 #: plugins/voice_notification/templates/voice_notification_sounds.html:86
 #: plugins/voice_station/templates/voice_station_sounds.html:86
@@ -19323,6 +19646,12 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 msgid "Done."
 msgstr "Hotovo."
 
+#~ msgid "Received data is not correct!"
+#~ msgstr "Přijatá data nejsou v pořádku!"
+
+#~ msgid "Mariadb installed - OK."
+#~ msgstr "Mariadb nainstalována - OK."
+
 #~ msgid "Any error in Sensor input!"
 #~ msgstr "Nějaká chyba ve vstupu dat ze snímače!"
 
@@ -19368,9 +19697,6 @@ msgstr "Hotovo."
 
 #~ msgid "Security code for your Sensor."
 #~ msgstr "Bezpečnostní kód pro snímač."
-
-#~ msgid "Copy code"
-#~ msgstr "Kopírovat kód"
 
 #~ msgid "Copy security code to clipboard."
 #~ msgstr "Kopírovat bezpečnostní kód do schránky."

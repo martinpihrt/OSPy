@@ -1,13 +1,27 @@
 import os
 import posixpath
 import sys
-from http.server import BaseHTTPRequestHandler, HTTPServer, SimpleHTTPRequestHandler
-from io import BytesIO
-from urllib import parse as urlparse
-from urllib.parse import unquote
 
 from . import utils
 from . import webapi as web
+
+try:
+    from io import BytesIO
+except ImportError:
+    from StringIO import BytesIO
+
+try:
+    from http.server import HTTPServer, SimpleHTTPRequestHandler, BaseHTTPRequestHandler
+except ImportError:
+    from SimpleHTTPServer import SimpleHTTPRequestHandler
+    from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+
+try:
+    from urllib import parse as urlparse
+    from urllib.parse import unquote
+except ImportError:
+    import urlparse
+    from urllib import unquote
 
 __all__ = ["runsimple"]
 
@@ -27,11 +41,10 @@ def runbasic(func, server_address=("0.0.0.0", 8080)):
     # Used under the modified BSD license:
     # http://www.xfree86.org/3.3.6/COPYRIGHT2.html#5
 
-    import errno
-    import socket
-    import traceback
-
     import SocketServer
+    import socket
+    import errno
+    import traceback
 
     class WSGIHandler(SimpleHTTPRequestHandler):
         def run_wsgi_app(self):
@@ -78,7 +91,7 @@ def runbasic(func, server_address=("0.0.0.0", 8080)):
                     finally:
                         if hasattr(result, "close"):
                             result.close()
-                except OSError as socket_err:
+                except socket.error as socket_err:
                     # Catch common network errors and suppress them
                     if socket_err.args[0] in (errno.ECONNABORTED, errno.EPIPE):
                         return
@@ -295,7 +308,7 @@ class LogMiddleware:
         req = environ.get("PATH_INFO", "_")
         protocol = environ.get("ACTUAL_SERVER_PROTOCOL", "-")
         method = environ.get("REQUEST_METHOD", "-")
-        host = "{}:{}".format(
+        host = "%s:%s" % (
             environ.get("REMOTE_ADDR", "-"),
             environ.get("REMOTE_PORT", "-"),
         )

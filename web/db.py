@@ -2,20 +2,30 @@
 Database API
 (part of web.py)
 """
-import ast
+
 import datetime
 import os
 import re
 import time
-from urllib import parse as urlparse
-from urllib.parse import unquote
 
 from .py3helpers import iteritems
 from .utils import iters, safestr, safeunicode, storage, threadeddict
 
 try:
+    from urllib import parse as urlparse
+    from urllib.parse import unquote
+except ImportError:
+    import urlparse
+    from urllib import unquote
+
+try:
+    import ast
+except ImportError:
+    ast = None
+
+try:
     # db module can work independent of web.py
-    from .webapi import config, debug
+    from .webapi import debug, config
 except ImportError:
     import sys
 
@@ -79,7 +89,7 @@ class UnknownParamstyle(Exception):
     pass
 
 
-class SQLParam:
+class SQLParam(object):
     """
     Parameter in SQLQuery.
 
@@ -128,7 +138,7 @@ class SQLParam:
 sqlparam = SQLParam
 
 
-class SQLQuery:
+class SQLQuery(object):
     """
     You can pass this sort of thing as a clause in any db function.
     Otherwise, you can pass a dictionary to the keyword argument `vars`
@@ -281,7 +291,7 @@ class SQLQuery:
 
     def _str(self):
         try:
-            return self.query() % tuple(sqlify(x) for x in self.values())
+            return self.query() % tuple([sqlify(x) for x in self.values()])
         except (ValueError, TypeError):
             return self.query()
 
@@ -351,6 +361,18 @@ def reparam(string_, dictionary):
         <sql: 's IN (1, 2)'>
     """
     return SafeEval().safeeval(string_, dictionary)
+
+    dictionary = dictionary.copy()  # eval mucks with it
+    # disable builtins to avoid risk for remote code execution.
+    dictionary["__builtins__"] = object()
+    result = []
+    for live, chunk in _interpolate(string_):
+        if live:
+            v = eval(chunk, dictionary)
+            result.append(sqlquote(v))
+        else:
+            result.append(chunk)
+    return SQLQuery.join(result, "")
 
 
 def sqlify(obj):
@@ -422,7 +444,7 @@ def sqlors(left, lst):
 
     if isinstance(lst, iters):
         return SQLQuery(
-            ["("] + sum(([left, sqlparam(x), " OR "] for x in lst), []) + ["1=2)"]
+            ["("] + sum([[left, sqlparam(x), " OR "] for x in lst], []) + ["1=2)"]
         )
     else:
         return left + sqlparam(lst)
@@ -646,7 +668,7 @@ class DB:
         self.supports_multiple_insert = False
 
         try:
-            import dbutils  # noqa: F401
+            import DBUtils  # noqa, flake8 F401
 
             # enable pooling if DBUtils module is available.
             self.has_pooling = True
@@ -702,9 +724,7 @@ class DB:
 
     def _connect_with_pooling(self, keywords):
         def get_pooled_db():
-            # In DBUtils 2.0.0, names were made pep8 compliant
-            # https://webwareforpython.github.io/DBUtils/changelog.html
-            from dbutils import pooled_db as PooledDB
+            from DBUtils import PooledDB
 
             # In DBUtils 0.9.3, `dbapi` argument is renamed as `creator`
             # see Bug#122112
@@ -754,7 +774,7 @@ class DB:
 
         if self.printing:
             print(
-                f"{round(b - a, 2)} ({self.ctx.dbq_count}): {str(sql_query)}",
+                "%s (%s): %s" % (round(b - a, 2), self.ctx.dbq_count, str(sql_query)),
                 file=debug,
             )
         return out
@@ -878,7 +898,7 @@ class DB:
         limit=None,
         offset=None,
         _test=False,
-        **kwargs,
+        **kwargs
     ):
         """
         Selects from `table` where keys are equal to values in `kwargs`.
@@ -1041,7 +1061,7 @@ class DB:
         keys = sorted(keys)
 
         sql_query = SQLQuery(
-            "INSERT INTO {} ({}) VALUES ".format(tablename, ", ".join(keys))
+            "INSERT INTO %s (%s) VALUES " % (tablename, ", ".join(keys))
         )
 
         for i, row in enumerate(values):
@@ -1205,7 +1225,7 @@ class PostgresDB(DB):
         """Query postgres to find names of all sequences used in this database."""
         if self._sequences is None:
             q = "SELECT c.relname FROM pg_class c WHERE c.relkind = 'S'"
-            self._sequences = {c.relname for c in self.query(q)}
+            self._sequences = set([c.relname for c in self.query(q)])
         return self._sequences
 
     def _connect(self, keywords):
@@ -1221,6 +1241,7 @@ class PostgresDB(DB):
 
 class MySQLDB(DB):
     def __init__(self, **keywords):
+
         db = import_driver(mysql_drivers, preferred=keywords.pop("driver", None))
 
         if db.__name__ == "pymysql":
@@ -1552,7 +1573,7 @@ def _interpolate(format):
     return chunks
 
 
-class _Node:
+class _Node(object):
     def __init__(self, type, first, second=None):
         self.type = type
         self.first = first
@@ -1567,7 +1588,7 @@ class _Node:
         )
 
     def __repr__(self):
-        return f"Node({self.type!r}, {self.first!r}, {self.second!r})"
+        return "Node(%r, %r, %r)" % (self.type, self.first, self.second)
 
 
 class Parser:
@@ -1667,7 +1688,7 @@ class Parser:
         return expr
 
 
-class SafeEval:
+class SafeEval(object):
     """Safe evaluator for binding params to db queries."""
 
     def safeeval(self, text, mapping):

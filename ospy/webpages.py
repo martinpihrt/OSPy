@@ -10,6 +10,7 @@ import json
 import web
 from threading import Timer
 import traceback
+import mimetypes
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
@@ -2004,13 +2005,14 @@ class download_page(ProtectedPage):
 
             if os.path.exists(backup_path):
                 log.debug('webpages.py', _('File {} is created successfully.').format(download_name))
-                import mimetypes
+                
                 content = mimetypes.guess_type(backup_path + '/' + backup_name + '.zip')[0]
                 web.header('Content-type', content)
                 web.header('Content-Length', os.path.getsize(backup_path + '/' + backup_name + '.zip'))
                 web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-                #web.header('Transfer-Encoding', 'chunked')                                   # https://webpy.org/cookbook/streaming_large_files
-                return _read_log(backup_path + '/' + backup_name + '.zip')
+                with open(backup_path + '/' + backup_name + '.zip', 'rb') as f:
+                    return f.read()
+
             else:
                 log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
                 msg = _('System component is unreachable or busy. Please wait (try again later).')

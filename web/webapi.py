@@ -7,11 +7,17 @@ import cgi
 import pprint
 import sys
 import tempfile
-from http.cookies import CookieError, Morsel, SimpleCookie
 from io import BytesIO
-from urllib.parse import quote, unquote, urljoin
+from urllib.parse import urljoin
 
 from .utils import dictadd, intget, safestr, storage, storify, threadeddict
+
+try:
+    from urllib.parse import unquote, quote
+    from http.cookies import CookieError, Morsel, SimpleCookie
+except ImportError:
+    from urllib import unquote, quote
+    from Cookie import CookieError, Morsel, SimpleCookie
 
 __all__ = [
     "config",
@@ -427,7 +433,7 @@ def rawinput(method=None):
         if fs.list is None:
             fs.list = []
 
-        return {k: fs[k] for k in fs}
+        return dict([(k, fs[k]) for k in fs])
 
     e = ctx.env.copy()
     a = b = {}
@@ -562,7 +568,7 @@ def parse_cookies(http_cookie):
                     cookie.load(attr_value)
                 except CookieError:
                     pass
-        cookies = {k: unquote(v.value) for k, v in cookie.items()}
+        cookies = dict([(k, unquote(v.value)) for k, v in cookie.items()])
     else:
         # HTTP_COOKIE doesn't have quotes, use fast cookie parsing
         cookies = {}

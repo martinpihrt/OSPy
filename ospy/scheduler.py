@@ -37,7 +37,7 @@ def report_rain_delay_set():      # send rain delay setuped signal
     m, s = divmod(remaining, 60)
     h, m = divmod(m, 60)
     rain_delay_set.send(txt='{}:{}:{}'.format(int(h), int(m), int(s)))
-    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m)), id='RainDelay') 
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m), int(s)), id='RainDelay') 
 
 def report_rain_delay_remove():   # send rain delay removed signal
     rain_delay_remove.send() 
@@ -473,8 +473,6 @@ class _Scheduler(Thread):
 
         if not options.manual_mode:
             schedule = predicted_schedule(check_start, check_end)
-            #import pprint
-            #logging.debug("Schedule: %s", pprint.pformat(schedule))
             for entry in schedule:
                 if entry['start'] <= current_time < entry['end']: 
                     if rain and stations.get(entry['station']).ignore_rain:

@@ -72,7 +72,9 @@ def modified(date=None, etag=None):
     `True`, or otherwise it raises NotModified error. It also sets
     `Last-Modified` and `ETag` output headers.
     """
-    n = {x.strip('" ') for x in web.ctx.env.get("HTTP_IF_NONE_MATCH", "").split(",")}
+    n = set(
+        [x.strip('" ') for x in web.ctx.env.get("HTTP_IF_NONE_MATCH", "").split(",")]
+    )
     m = net.parsehttpdate(web.ctx.env.get("HTTP_IF_MODIFIED_SINCE", "").split(";")[0])
     validate = False
     if etag:
@@ -110,7 +112,7 @@ def urlencode(query, doseq=0):
         else:
             return utils.safestr(value)
 
-    query = {k: convert(v, doseq) for k, v in query.items()}
+    query = dict([(k, convert(v, doseq)) for k, v in query.items()])
     return urllib_urlencode(query, doseq=doseq)
 
 
