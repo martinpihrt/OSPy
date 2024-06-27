@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 import sys
 import os
@@ -50,14 +50,14 @@ def install_package(module, easy_install=None, package=None, pip=None, git=None,
                 subprocess.check_call(['yum', 'install', package])
                 done = True
             except Exception as err:
-                print_report('setup.py', _('Failed to use yum:') + u'{}'.format(err))
+                print_report('setup.py', _('Failed to use yum:') + '{}'.format(err))
 
     if not done and pip is not None:
         try:
             subprocess.check_call([sys.executable, '-m', 'pip', 'install', pip])
             done = True
         except Exception as err:
-            print_report('setup.py', _('Failed to use pip:') + u'{}'.format(err))
+            print_report('setup.py', _('Failed to use pip:') + '{}'.format(err))
 
     if not done and git is not None and git_execs is not None:
         try:
@@ -68,7 +68,7 @@ def install_package(module, easy_install=None, package=None, pip=None, git=None,
             shutil.rmtree('tmp', onerror=del_rw)
             done = True
         except Exception as err:
-            print_report('setup.py', _(u'Failed to use git:') + '{}'.format(err))
+            print_report('setup.py', _('Failed to use git:') + '{}'.format(err))
 
     if not done and zipfile is not None and zip_cwd is not None and zip_execs is not None:
         try:
@@ -180,9 +180,10 @@ if __name__ == '__main__':
         if not pkg:
             print_report('setup.py', _('Cannot install packages without setuptools.'))
         
-        else:           
+        else:
             # Check if packages are available:
-            #               module, easy_install=None, package=None, pip=None, git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None
+            #               module, easy_install=None, package=None, pip=None,
+            #               git=None, git_execs=None, zipfile=None, zip_cwd=None, zip_execs=None
 
             install_package('web', 'web.py==0.62', 'python-webpy', 'web.py==0.62',
                             'https://github.com/webpy/webpy.git',
@@ -190,11 +191,17 @@ if __name__ == '__main__':
                             'https://github.com/webpy/webpy/archive/master.zip', 'webpy-master',
                             [[sys.executable, 'setup.py', 'install']])
 
-            install_package('cmarkgfm', None, None, 'cmarkgfm',
-                            'https://github.com/theacodes/cmarkgfm',
-                            [[sys.executable, 'setup.py', 'install']],
-                            'https://github.com/Zopieux/cmarkgfm/archive/master.zip', 'cmarkgfm-master',
-                            [[sys.executable, 'setup.py', 'install']])
+            # https://pypi.org/project/cmarkgfm/
+            install_package('cmarkgfm', None, None, pip='cmarkgfm')
+
+            # https://pypi.org/project/requests/
+            install_package('requests', None, None, pip='requests')
+
+            # https://pypi.org/project/paho-mqtt/
+            install_package('paho-mqtt', None, None, pip='paho-mqtt')
+
+            # https://pypi.org/project/mariadb/
+            install_package('mariadb', None, None, pip='mariadb')
 
         install_service()
         start()
