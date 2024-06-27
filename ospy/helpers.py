@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco' # additional changes Martin Pihrt
+__author__ = 'Rimco' # additional changes Martin Pihrt
 
 # System imports
 import datetime
@@ -226,11 +226,11 @@ def uptime():
          
         string = ''
         if days == 1 and hours < 23 and minutes < 59:
-            string = u'%d' % (days) + _('. day')    # 1 den
+            string = '%d' % (days) + _('. day')    # 1 den
         if days >= 2 and days < 5:
-            string = u'%d' % (days) + _('. days')   # 2-4 dny
+            string = '%d' % (days) + _('. days')   # 2-4 dny
         if days > 4:
-            string = u'%d' % (days) + _('. days ')  # >5 dnu
+            string = '%d' % (days) + _('. days ')  # >5 dnu
 
         string += ' %s:%s' % (two_digits(hours), two_digits(minutes))
 
@@ -918,5 +918,75 @@ def read_wifi_signal():
         return quality
 
     except:
-        print_report(u'helpers.py', traceback.format_exc())
-        return 0                                 
+        print_report('helpers.py', traceback.format_exc())
+        return 0
+
+
+def is_fqdn(hostname):
+    """
+    https://en.m.wikipedia.org/wiki/Fully_qualified_domain_name
+    """
+    if not hostname:
+        return False
+
+    if not 1 < len(hostname) < 253:
+        return False
+
+    # Remove trailing dot
+    if hostname[-1] == ".":
+        hostname = hostname[0:-1]
+
+    #  Split hostname into list of DNS labels
+    labels = hostname.split(".")
+
+    #  Define pattern of DNS label
+    #  Can begin and end with a number or letter only
+    #  Can contain hyphens, a-z, A-Z, 0-9
+    #  1 - 63 chars allowed
+    fqdn = re.compile(r"^[a-z0-9]([a-z-0-9-]{0,61}[a-z0-9])?$", re.IGNORECASE)
+
+    # Check that all labels match that pattern.
+    return all(fqdn.match(label) for label in labels)
+
+
+def get_mem_size(num):
+    if num == 0:
+        return '256MB'
+    if num == 1:
+        return '512MB'
+    if num == 2:
+        return '1GB'
+    if num == 3:
+        return '2GB'
+    if num == 4:
+        return '4GB'
+    if num == 5:
+        return '8GB'
+
+
+def get_rpi_revision_codes():
+    """https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/raspberry-pi/revision-codes.adoc"""
+    cmd = "cat /proc/cpuinfo | awk '/Revision/ {print $3}'"
+    revcode = subprocess.check_output(cmd, shell=True)
+
+    code = int(revcode, 16)
+    new = (code >> 23) & 0x1
+    model = (code >> 4) & 0xff
+    mem = (code >> 20) & 0x7
+    msg = _('Unknown')
+
+    if new and model == 0x17:
+        msg = _('Raspberry Pi 5 with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x11:
+        msg = _('Raspberry Pi 4B with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x04: 
+        msg = _('Raspberry Pi 2B with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x0e: 
+        msg = _('Raspberry Pi 3A with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x08: 
+        msg = _('Raspberry Pi 3B with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x0d: 
+        msg = _('Raspberry Pi 3B+ with at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x12: 
+        msg = _('Raspberry Pi Zero 2 W at least {} RAM!').format(get_mem_size(mem))
+    return code, new, model, mem, msg
