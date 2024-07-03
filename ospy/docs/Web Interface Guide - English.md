@@ -1019,6 +1019,7 @@ Available plug-ins:
 * IP Scanner
 * Database Connector
 * OSPy Backup
+* MQTT Home Assistant
 
 ----
 

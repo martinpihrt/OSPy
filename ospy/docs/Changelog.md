@@ -1,6 +1,10 @@
 OSPy Changelog
 ====
 
+July 03 2024 (v3.0)
+-----------
+OSPy - updating the Czech language (new and updated strings) for new MQTT Home Assistant plugin (So far only a broken test! Do not use!).
+
 June 27 2024 (v3.0)
 -----------
 OSPy - fixed installation error (sudo python3 setup.py install) cmarkgfm, added requirements, paho-mqtt, mariadb. Prepare for home assistant integration: (helpers - Fully qualified domain name, get rpi revision codes). Plugins - added logging dump from local file or sql database (graph and csv logs download at the same time) in Tank monitor. Report about HW board in system info plugin (example print: Raspberry Pi 2B with at least 1GB RAM!).

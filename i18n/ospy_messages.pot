@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-04-20 20:02+0200\n"
+"POT-Creation-Date: 2024-07-03 15:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,7 +152,7 @@ msgid ". days "
 msgstr ""
 
 #: ospy/helpers.py:238 ospy/helpers.py:255 ospy/helpers.py:358
-#: ospy/helpers.py:402 ospy/helpers.py:403
+#: ospy/helpers.py:402 ospy/helpers.py:403 ospy/helpers.py:976
 #: ospy/templates/sensors_search.html:43 ospy/templates/sensors_search.html:48
 #: ospy/templates/sensors_search.html:54
 msgid "Unknown"
@@ -261,7 +261,47 @@ msgstr ""
 msgid "No password"
 msgstr ""
 
-#: ospy/options.py:31 plugins/system_info/__init__.py:40
+#: ospy/helpers.py:979
+msgid "Raspberry Pi 5 with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:981
+msgid "Raspberry Pi 4B with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:983
+msgid "Raspberry Pi 2B with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:985
+msgid "Raspberry Pi 3A with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:987
+msgid "Raspberry Pi 3B with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:989
+msgid "Raspberry Pi 3B+ with at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:991
+msgid "Raspberry Pi Zero 2 W at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:993
+msgid "Raspberry Pi Zero at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:995
+msgid "Raspberry Pi Zero W at least {} RAM!"
+msgstr ""
+
+#: ospy/helpers.py:997
+msgid "Raspberry Pi 400 at least {} RAM!"
+msgstr ""
+
+#: ospy/options.py:31 plugins/system_info/__init__.py:46
 msgid "System name"
 msgstr ""
 
@@ -994,7 +1034,7 @@ msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr ""
 
 #: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
-#: ospy/sensors.py:1280 ospy/webpages.py:1323
+#: ospy/sensors.py:1280 ospy/webpages.py:1324
 msgid "Rain delay"
 msgstr ""
 
@@ -1081,7 +1121,7 @@ msgid "Removing sensor id: {}"
 msgstr ""
 
 #: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:172
-#: plugins/tank_monitor/__init__.py:358
+#: plugins/tank_monitor/__init__.py:352
 msgid "E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped."
 msgstr ""
 
@@ -1120,7 +1160,7 @@ msgstr ""
 
 #: ospy/sensors.py:577 plugins/button_control/__init__.py:284
 #: plugins/pressure_monitor/__init__.py:303
-#: plugins/tank_monitor/__init__.py:732 plugins/wind_monitor/__init__.py:406
+#: plugins/tank_monitor/__init__.py:819 plugins/wind_monitor/__init__.py:406
 msgid "Stoping stations in scheduler"
 msgstr ""
 
@@ -1296,29 +1336,35 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:305
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:535
-#: plugins/tank_monitor/__init__.py:193 plugins/tank_monitor/__init__.py:195
 #: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:198
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:201
-#: plugins/tank_monitor/__init__.py:202 plugins/tank_monitor/__init__.py:279
-#: plugins/tank_monitor/__init__.py:345 plugins/tank_monitor/__init__.py:346
-#: plugins/tank_monitor/templates/tank_monitor.html:199
-#: plugins/tank_monitor/templates/tank_monitor.html:205
-#: plugins/tank_monitor/templates/tank_monitor.html:211
-#: plugins/tank_monitor/templates/tank_monitor.html:217
-#: plugins/tank_monitor/templates/tank_monitor.html:259
-#: plugins/tank_monitor/templates/tank_monitor.html:323
-#: plugins/tank_monitor/templates/tank_monitor.html:336
-#: plugins/tank_monitor/templates/tank_monitor_log.html:27
-#: plugins/tank_monitor/templates/tank_monitor_log.html:28
-#: plugins/tank_monitor/templates/tank_monitor_log.html:29
+#: plugins/tank_monitor/__init__.py:273 plugins/tank_monitor/__init__.py:339
+#: plugins/tank_monitor/__init__.py:340
+#: plugins/tank_monitor/templates/tank_monitor.html:221
+#: plugins/tank_monitor/templates/tank_monitor.html:227
+#: plugins/tank_monitor/templates/tank_monitor.html:233
+#: plugins/tank_monitor/templates/tank_monitor.html:239
+#: plugins/tank_monitor/templates/tank_monitor.html:281
+#: plugins/tank_monitor/templates/tank_monitor.html:345
+#: plugins/tank_monitor/templates/tank_monitor.html:358
+#: plugins/tank_monitor/templates/tank_monitor.html:436
+#: plugins/tank_monitor/templates/tank_monitor.html:443
+#: plugins/tank_monitor/templates/tank_monitor.html:450
+#: plugins/tank_monitor/templates/tank_monitor.html:464
+#: plugins/tank_monitor/templates/tank_monitor_log.html:44
+#: plugins/tank_monitor/templates/tank_monitor_log.html:45
+#: plugins/tank_monitor/templates/tank_monitor_log.html:46
+#: plugins/tank_monitor/templates/tank_monitor_log.html:58
+#: plugins/tank_monitor/templates/tank_monitor_log.html:59
+#: plugins/tank_monitor/templates/tank_monitor_log.html:60
 msgid "cm"
 msgstr ""
 
 #: ospy/sensors.py:1168 plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
-#: plugins/tank_monitor/__init__.py:195 plugins/tank_monitor/__init__.py:196
-#: plugins/tank_monitor/templates/tank_monitor_log.html:32
+#: plugins/tank_monitor/__init__.py:196
+#: plugins/tank_monitor/templates/tank_monitor_log.html:49
+#: plugins/tank_monitor/templates/tank_monitor_log.html:63
 #: plugins/water_meter/__init__.py:105 plugins/water_meter/__init__.py:116
 #: plugins/water_meter/__init__.py:117 plugins/water_meter/__init__.py:118
 msgid "liters"
@@ -1332,8 +1378,9 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:210
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:853
 #: plugins/lcd_display/__init__.py:396 plugins/tank_monitor/__init__.py:198
-#: plugins/tank_monitor/__init__.py:199
-#: plugins/tank_monitor/templates/tank_monitor_log.html:34
+#: plugins/tank_monitor/__init__.py:990
+#: plugins/tank_monitor/templates/tank_monitor_log.html:51
+#: plugins/tank_monitor/templates/tank_monitor_log.html:65
 msgid "m3"
 msgstr ""
 
@@ -1373,10 +1420,10 @@ msgstr ""
 #: plugins/pool_heating/__init__.py:244 plugins/pool_heating/__init__.py:272
 #: plugins/pool_heating/templates/pool_heating.html:121
 #: plugins/pressure_monitor/templates/pressure_monitor.html:237
-#: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:214
-#: plugins/tank_monitor/__init__.py:242
-#: plugins/tank_monitor/templates/tank_monitor.html:273
-#: plugins/tank_monitor/templates/tank_monitor.html:344
+#: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:208
+#: plugins/tank_monitor/__init__.py:236
+#: plugins/tank_monitor/templates/tank_monitor.html:295
+#: plugins/tank_monitor/templates/tank_monitor.html:366
 #: plugins/temperature_switch/templates/temperature_switch.html:71
 #: plugins/temperature_switch/templates/temperature_switch.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:185
@@ -1386,13 +1433,13 @@ msgstr ""
 
 #: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:209
 #: plugins/photovoltaic_boiler/__init__.py:213
-#: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:214
+#: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:208
 msgid "Regulation set ON."
 msgstr ""
 
 #: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:222
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
-#: plugins/tank_monitor/__init__.py:242
+#: plugins/tank_monitor/__init__.py:236
 msgid "Regulation set OFF."
 msgstr ""
 
@@ -1408,7 +1455,7 @@ msgstr ""
 msgid "Sensor has water"
 msgstr ""
 
-#: ospy/sensors.py:1273 plugins/tank_monitor/__init__.py:279
+#: ospy/sensors.py:1273 plugins/tank_monitor/__init__.py:273
 msgid "!"
 msgstr ""
 
@@ -1460,87 +1507,87 @@ msgstr ""
 msgid "Sensors timer loop error: {}"
 msgstr ""
 
-#: ospy/server.py:97
+#: ospy/server.py:98
 msgid "Network connection is available, Im skipping waiting."
 msgstr ""
 
-#: ospy/server.py:99
+#: ospy/server.py:100
 msgid "Network connection not available, waiting 20 seconds."
 msgstr ""
 
-#: ospy/server.py:106
+#: ospy/server.py:107
 msgid "Network connection is available."
 msgstr ""
 
-#: ospy/server.py:126
+#: ospy/server.py:127
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 
-#: ospy/server.py:136
+#: ospy/server.py:137
 msgid "SSL OK."
 msgstr ""
 
-#: ospy/server.py:138
+#: ospy/server.py:139
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 
-#: ospy/server.py:147
+#: ospy/server.py:148
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 
-#: ospy/server.py:156
+#: ospy/server.py:157
 msgid "Own SSL OK."
 msgstr ""
 
-#: ospy/server.py:158
+#: ospy/server.py:159
 msgid "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 
-#: ospy/server.py:195
+#: ospy/server.py:196
 msgid "Unknown operator"
 msgstr ""
 
-#: ospy/server.py:199
+#: ospy/server.py:200
 msgid "Category is not in session, adding to sessions."
 msgstr ""
 
-#: ospy/server.py:201 ospy/server.py:205
+#: ospy/server.py:202 ospy/server.py:206
 msgid "Unknown visitor"
 msgstr ""
 
-#: ospy/server.py:202
+#: ospy/server.py:203
 msgid "Visitor-operator is not in session, adding to sessions."
 msgstr ""
 
-#: ospy/server.py:212
+#: ospy/server.py:213
 msgid "OSPy is closing, saving sessions."
 msgstr ""
 
-#: ospy/server.py:213 ospy/server.py:229 ospy/server.py:240
+#: ospy/server.py:214 ospy/server.py:230 ospy/server.py:241
 msgid "Server"
 msgstr ""
 
-#: ospy/server.py:213 ospy/server.py:240
+#: ospy/server.py:214 ospy/server.py:241
 msgid "Stopping"
 msgstr ""
 
-#: ospy/server.py:217
+#: ospy/server.py:218
 msgid "Starting scheduler and plugins..."
 msgstr ""
 
-#: ospy/server.py:221
+#: ospy/server.py:222
 msgid "Starting sensors timer..."
 msgstr ""
 
-#: ospy/server.py:227 ospy/server.py:228
+#: ospy/server.py:228 ospy/server.py:229
 msgid "OSPy is ready"
 msgstr ""
 
-#: ospy/server.py:229
+#: ospy/server.py:230
 msgid "Starting"
 msgstr ""
 
-#: ospy/server.py:247
+#: ospy/server.py:248
 msgid "Creating statistics..."
 msgstr ""
 
@@ -1685,7 +1732,7 @@ msgstr ""
 msgid "Available OSPy version"
 msgstr ""
 
-#: ospy/templates/base.html:129 plugins/system_update/__init__.py:123
+#: ospy/templates/base.html:129 plugins/system_update/__init__.py:133
 msgid "Changes"
 msgstr ""
 
@@ -1800,6 +1847,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:27
 #: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
@@ -1818,7 +1866,7 @@ msgstr ""
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:34
 #: plugins/system_update/templates/system_update.html:21
 #: plugins/system_watchdog/templates/system_watchdog.html:30
-#: plugins/tank_monitor/templates/tank_monitor.html:179
+#: plugins/tank_monitor/templates/tank_monitor.html:201
 #: plugins/telegram_bot/templates/telegram_bot.html:24
 #: plugins/temperature_switch/templates/temperature_switch.html:20
 #: plugins/ups_adj/templates/ups_adj.html:186
@@ -2012,6 +2060,8 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:85
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:107
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2054,16 +2104,16 @@ msgstr ""
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:101
 #: plugins/system_debug/templates/system_debug.html:44
 #: plugins/system_info/templates/system_info.html:37
-#: plugins/system_update/templates/system_update.html:105
+#: plugins/system_update/templates/system_update.html:107
 #: plugins/system_update/templates/system_update_help.html:30
 #: plugins/system_watchdog/templates/system_watchdog.html:53
 #: plugins/system_watchdog/templates/system_watchdog_help.html:16
-#: plugins/tank_monitor/templates/tank_monitor.html:412
+#: plugins/tank_monitor/templates/tank_monitor.html:490
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:22
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:49
 #: plugins/tank_monitor/templates/tank_monitor_help.html:43
-#: plugins/tank_monitor/templates/tank_monitor_log.html:14
-#: plugins/tank_monitor/templates/tank_monitor_log.html:41
+#: plugins/tank_monitor/templates/tank_monitor_log.html:30
+#: plugins/tank_monitor/templates/tank_monitor_log.html:71
 #: plugins/telegram_bot/templates/telegram_bot.html:129
 #: plugins/telegram_bot/templates/telegram_bot_help.html:26
 #: plugins/temperature_switch/templates/temperature_switch.html:206
@@ -2253,8 +2303,8 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:166
 #: plugins/air_temp_humi/templates/air_temp_humi.html:34
 #: plugins/email_reader/__init__.py:831 plugins/email_reader/__init__.py:892
-#: plugins/tank_monitor/__init__.py:695 plugins/tank_monitor/__init__.py:941
-#: plugins/tank_monitor/templates/tank_monitor_log.html:21
+#: plugins/tank_monitor/__init__.py:1082 plugins/tank_monitor/__init__.py:1130
+#: plugins/tank_monitor/templates/tank_monitor_log.html:37
 #: plugins/wind_monitor/__init__.py:514 plugins/wind_monitor/__init__.py:683
 #: plugins/wind_monitor/templates/wind_monitor_log.html:19
 msgid "Actual"
@@ -2274,7 +2324,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:283
 #: plugins/pressure_monitor/templates/pressure_monitor.html:305
 #: plugins/speed_monitor/templates/speed_monitor.html:251
-#: plugins/tank_monitor/templates/tank_monitor.html:422
 #: plugins/ups_adj/templates/ups_adj.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:424
 msgid "Select a filter for the interval of read data."
@@ -2284,7 +2333,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:284
 #: plugins/pressure_monitor/templates/pressure_monitor.html:306
 #: plugins/speed_monitor/templates/speed_monitor.html:252
-#: plugins/tank_monitor/templates/tank_monitor.html:423
 #: plugins/ups_adj/templates/ups_adj.html:292
 #: plugins/wind_monitor/templates/wind_monitor.html:425
 msgid "Without limits"
@@ -2294,7 +2342,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:285
 #: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/speed_monitor/templates/speed_monitor.html:253
-#: plugins/tank_monitor/templates/tank_monitor.html:424
 #: plugins/ups_adj/templates/ups_adj.html:293
 #: plugins/wind_monitor/templates/wind_monitor.html:426
 msgid "Day filter"
@@ -2304,7 +2351,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:286
 #: plugins/pressure_monitor/templates/pressure_monitor.html:308
 #: plugins/speed_monitor/templates/speed_monitor.html:254
-#: plugins/tank_monitor/templates/tank_monitor.html:425
 #: plugins/ups_adj/templates/ups_adj.html:294
 #: plugins/wind_monitor/templates/wind_monitor.html:427
 msgid "Week filter"
@@ -2314,7 +2360,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:287
 #: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/speed_monitor/templates/speed_monitor.html:255
-#: plugins/tank_monitor/templates/tank_monitor.html:426
 #: plugins/ups_adj/templates/ups_adj.html:295
 #: plugins/wind_monitor/templates/wind_monitor.html:428
 msgid "Month filter"
@@ -2324,7 +2369,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:288
 #: plugins/pressure_monitor/templates/pressure_monitor.html:310
 #: plugins/speed_monitor/templates/speed_monitor.html:256
-#: plugins/tank_monitor/templates/tank_monitor.html:427
 #: plugins/ups_adj/templates/ups_adj.html:296
 #: plugins/wind_monitor/templates/wind_monitor.html:429
 msgid "Year filter"
@@ -2340,7 +2384,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:292
 #: plugins/pressure_monitor/templates/pressure_monitor.html:314
 #: plugins/speed_monitor/templates/speed_monitor.html:260
-#: plugins/tank_monitor/templates/tank_monitor.html:431
 #: plugins/ups_adj/templates/ups_adj.html:300
 #: plugins/wind_monitor/templates/wind_monitor.html:433
 msgid "Clear selection"
@@ -2518,7 +2561,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
 #: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
-#: ospy/webpages.py:1354
+#: ospy/webpages.py:1355
 msgid "Manual"
 msgstr ""
 
@@ -2697,7 +2740,8 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:8
 #: plugins/speed_monitor/templates/speed_monitor_log.html:9
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:18
-#: plugins/tank_monitor/templates/tank_monitor_log.html:9
+#: plugins/tank_monitor/templates/tank_monitor_log.html:17
+#: plugins/tank_monitor/templates/tank_monitor_log.html:20
 #: plugins/ups_adj/templates/ups_adj_log.html:8
 #: plugins/venetian_blind/templates/venetian_blind_log.html:9
 #: plugins/wind_monitor/templates/wind_monitor_log.html:8
@@ -2725,7 +2769,6 @@ msgstr ""
 #: plugins/speed_monitor/templates/speed_monitor_log.html:10
 #: plugins/system_debug/templates/system_debug.html:45
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:19
-#: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj.html:189
 #: plugins/ups_adj/templates/ups_adj_log.html:10
 #: plugins/venetian_blind/templates/venetian_blind_log.html:10
@@ -2898,6 +2941,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:75
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
@@ -2918,7 +2962,7 @@ msgstr ""
 #: plugins/system_update/templates/system_update.html:88
 #: plugins/system_update/templates/system_update_help.html:24
 #: plugins/system_watchdog/templates/system_watchdog.html:34
-#: plugins/tank_monitor/templates/tank_monitor.html:402
+#: plugins/tank_monitor/templates/tank_monitor.html:480
 #: plugins/telegram_bot/templates/telegram_bot.html:119
 #: plugins/temperature_switch/templates/temperature_switch.html:196
 #: plugins/ups_adj/templates/ups_adj.html:270
@@ -2954,7 +2998,7 @@ msgstr ""
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
-#: plugins/tank_monitor/templates/tank_monitor_log.html:13
+#: plugins/tank_monitor/templates/tank_monitor_log.html:29
 #: plugins/ups_adj/templates/ups_adj_log.html:11
 #: plugins/venetian_blind/templates/venetian_blind_log.html:11
 #: plugins/voice_notification/templates/voice_notification.html:108
@@ -3034,6 +3078,7 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:293
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:492
 #: plugins/lcd_display/__init__.py:523
+#: plugins/tank_monitor/templates/tank_monitor.html:457
 msgid "%"
 msgstr ""
 
@@ -3060,7 +3105,7 @@ msgid "C"
 msgstr ""
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:126
-#: ospy/templates/login.html:147 ospy/webpages.py:1250
+#: ospy/templates/login.html:147 ospy/webpages.py:1251
 msgid "Login"
 msgstr ""
 
@@ -3362,7 +3407,7 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:184
+#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:194
 #: plugins/system_update/templates/system_update.html:103
 msgid "Up-to-date"
 msgstr ""
@@ -3723,7 +3768,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:167
 #: plugins/pressure_monitor/templates/pressure_monitor.html:259
 #: plugins/system_update/templates/system_update.html:73
-#: plugins/tank_monitor/templates/tank_monitor.html:301
+#: plugins/tank_monitor/templates/tank_monitor.html:323
 #: plugins/ups_adj/templates/ups_adj.html:244
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:49
 #: plugins/wind_monitor/templates/wind_monitor.html:307
@@ -3735,7 +3780,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:170
 #: plugins/pressure_monitor/templates/pressure_monitor.html:262
 #: plugins/system_update/templates/system_update.html:76
-#: plugins/tank_monitor/templates/tank_monitor.html:304
+#: plugins/tank_monitor/templates/tank_monitor.html:326
 #: plugins/ups_adj/templates/ups_adj.html:247
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:52
 #: plugins/wind_monitor/templates/wind_monitor.html:310
@@ -3747,7 +3792,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:171
 #: plugins/pressure_monitor/templates/pressure_monitor.html:263
 #: plugins/system_update/templates/system_update.html:77
-#: plugins/tank_monitor/templates/tank_monitor.html:305
+#: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/ups_adj/templates/ups_adj.html:248
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:53
 #: plugins/wind_monitor/templates/wind_monitor.html:311
@@ -3914,42 +3959,42 @@ msgid "Type Custom name of the event for no motion."
 msgstr ""
 
 #: ospy/templates/sensor.html:500
-#: plugins/tank_monitor/templates/tank_monitor.html:197
+#: plugins/tank_monitor/templates/tank_monitor.html:219
 msgid "The distance from the sensor to the minimum water level in the tank"
 msgstr ""
 
 #: ospy/templates/sensor.html:501
-#: plugins/tank_monitor/templates/tank_monitor.html:198
+#: plugins/tank_monitor/templates/tank_monitor.html:220
 msgid "Thus the distance from the ultrasound to the minimum water level. The sensor is located above the water"
 msgstr ""
 
 #: ospy/templates/sensor.html:505
-#: plugins/tank_monitor/templates/tank_monitor.html:203
+#: plugins/tank_monitor/templates/tank_monitor.html:225
 msgid "The distance from the sensor to the maximum water level in the tank"
 msgstr ""
 
 #: ospy/templates/sensor.html:506
-#: plugins/tank_monitor/templates/tank_monitor.html:204
+#: plugins/tank_monitor/templates/tank_monitor.html:226
 msgid "That is, the distance from the ultrasound to the maximum water level. The sensor is located above the water"
 msgstr ""
 
 #: ospy/templates/sensor.html:510
-#: plugins/tank_monitor/templates/tank_monitor.html:209
+#: plugins/tank_monitor/templates/tank_monitor.html:231
 msgid "The water level from the bottom to the minimum water level in the tank"
 msgstr ""
 
 #: ospy/templates/sensor.html:511
-#: plugins/tank_monitor/templates/tank_monitor.html:210
+#: plugins/tank_monitor/templates/tank_monitor.html:232
 msgid "Distance from the bottom (ie the minimum water) to the set this minimum level, when it is this activated (send an E-mail)"
 msgstr ""
 
 #: ospy/templates/sensor.html:514
-#: plugins/tank_monitor/templates/tank_monitor.html:215
+#: plugins/tank_monitor/templates/tank_monitor.html:237
 msgid "Cylinder diameter for volume calculation"
 msgstr ""
 
 #: ospy/templates/sensor.html:515
-#: plugins/tank_monitor/templates/tank_monitor.html:216
+#: plugins/tank_monitor/templates/tank_monitor.html:238
 msgid "Enter the diameter for volume calculation"
 msgstr ""
 
@@ -3962,17 +4007,17 @@ msgid "Show measured water in liters or m3"
 msgstr ""
 
 #: ospy/templates/sensor.html:528
-#: plugins/tank_monitor/templates/tank_monitor.html:244
+#: plugins/tank_monitor/templates/tank_monitor.html:266
 msgid "Stop stations if minimum water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:529
-#: plugins/tank_monitor/templates/tank_monitor.html:245
+#: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Stoping these stations if is minimum water level in the tank"
 msgstr ""
 
 #: ospy/templates/sensor.html:533
-#: plugins/tank_monitor/templates/tank_monitor.html:250
+#: plugins/tank_monitor/templates/tank_monitor.html:272
 #: plugins/tank_monitor/templates/tank_monitor_help.html:10
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:32
 msgid "Delay Duration (hours)"
@@ -3984,25 +4029,25 @@ msgid "If there is no water in the tank and the stations stop, then we set the r
 msgstr ""
 
 #: ospy/templates/sensor.html:539
-#: plugins/tank_monitor/templates/tank_monitor.html:263
+#: plugins/tank_monitor/templates/tank_monitor.html:285
 msgid "Stop stations if sonic probe has fault"
 msgstr ""
 
 #: ospy/templates/sensor.html:540
-#: plugins/tank_monitor/templates/tank_monitor.html:264
+#: plugins/tank_monitor/templates/tank_monitor.html:286
 msgid "If the level sensor fails, the above selected stations in the scheduler will stop"
 msgstr ""
 
 #: ospy/templates/sensor.html:544
 #: plugins/button_control/templates/button_control.html:82
 #: plugins/pressure_monitor/templates/pressure_monitor.html:233
-#: plugins/tank_monitor/templates/tank_monitor.html:269
+#: plugins/tank_monitor/templates/tank_monitor.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:328
 msgid "Stop this run stations in scheduler"
 msgstr ""
 
 #: ospy/templates/sensor.html:558 ospy/templates/sensors.html:420
-#: plugins/tank_monitor/templates/tank_monitor.html:315
+#: plugins/tank_monitor/templates/tank_monitor.html:337
 msgid "Regulate the maximum water level"
 msgstr ""
 
@@ -4011,19 +4056,19 @@ msgid "If checked regulation is enabled"
 msgstr ""
 
 #: ospy/templates/sensor.html:561 ospy/templates/sensors.html:421
-#: plugins/tank_monitor/templates/tank_monitor.html:321
+#: plugins/tank_monitor/templates/tank_monitor.html:343
 msgid "Maximum maintained water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:562
-#: plugins/tank_monitor/templates/tank_monitor.html:322
+#: plugins/tank_monitor/templates/tank_monitor.html:344
 msgid "If the measured water level exceeds this set value, the output is activated"
 msgstr ""
 
 #: ospy/templates/sensor.html:566 ospy/templates/sensors.html:422
 #: plugins/air_temp_humi/templates/air_temp_humi.html:300
 #: plugins/pool_heating/templates/pool_heating.html:104
-#: plugins/tank_monitor/templates/tank_monitor.html:327
+#: plugins/tank_monitor/templates/tank_monitor.html:349
 #: plugins/temperature_switch/templates/temperature_switch.html:45
 #: plugins/temperature_switch/templates/temperature_switch.html:102
 #: plugins/temperature_switch/templates/temperature_switch.html:159
@@ -4043,17 +4088,17 @@ msgid "[mm:ss]"
 msgstr ""
 
 #: ospy/templates/sensor.html:572 ospy/templates/sensors.html:423
-#: plugins/tank_monitor/templates/tank_monitor.html:334
+#: plugins/tank_monitor/templates/tank_monitor.html:356
 msgid "Minimum maintained water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:573
-#: plugins/tank_monitor/templates/tank_monitor.html:335
+#: plugins/tank_monitor/templates/tank_monitor.html:357
 msgid "If the measured water level falls below this set value, the output is deactivated"
 msgstr ""
 
 #: ospy/templates/sensor.html:576 ospy/templates/sensors.html:424
-#: plugins/tank_monitor/templates/tank_monitor.html:340
+#: plugins/tank_monitor/templates/tank_monitor.html:362
 msgid "Select Output for regulation"
 msgstr ""
 
@@ -4117,6 +4162,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:69
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
@@ -4125,7 +4171,7 @@ msgstr ""
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
 #: plugins/system_update/templates/system_update.html:82
 #: plugins/system_update/templates/system_update_help.html:22
-#: plugins/tank_monitor/templates/tank_monitor.html:396
+#: plugins/tank_monitor/templates/tank_monitor.html:427
 #: plugins/telegram_bot/templates/telegram_bot.html:113
 #: plugins/temperature_switch/templates/temperature_switch.html:190
 #: plugins/ups_adj/templates/ups_adj.html:258
@@ -4596,8 +4642,8 @@ msgid "Protocol"
 msgstr ""
 
 #: ospy/templates/sensors_firmware.html:188
-#: ospy/templates/sensors_firmware.html:201 plugins/system_info/__init__.py:58
-#: plugins/system_info/__init__.py:60
+#: ospy/templates/sensors_firmware.html:201 plugins/system_info/__init__.py:64
+#: plugins/system_info/__init__.py:66
 msgid "IP address"
 msgstr ""
 
@@ -4648,6 +4694,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -4662,7 +4709,7 @@ msgstr ""
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:106
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:100
 #: plugins/system_update/templates/system_update.html:99
-#: plugins/tank_monitor/templates/tank_monitor.html:411
+#: plugins/tank_monitor/templates/tank_monitor.html:489
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
 #: plugins/ups_adj/templates/ups_adj.html:279
@@ -4919,7 +4966,7 @@ msgstr ""
 msgid "Back to options"
 msgstr ""
 
-#: ospy/usagestats.py:18 ospy/webpages.py:36
+#: ospy/usagestats.py:18 ospy/webpages.py:37
 msgid "Requests not found, installing. Please wait..."
 msgstr ""
 
@@ -5025,156 +5072,156 @@ msgstr ""
 msgid "This interface was removed, please update the plug-in!"
 msgstr ""
 
-#: ospy/webpages.py:100
+#: ospy/webpages.py:101
 msgid "Username:"
 msgstr ""
 
-#: ospy/webpages.py:101
+#: ospy/webpages.py:102
 msgid "Password:"
 msgstr ""
 
-#: ospy/webpages.py:104
+#: ospy/webpages.py:105
 msgid "Incorrect username or password, please try again..."
 msgstr ""
 
-#: ospy/webpages.py:184 ospy/webpages.py:277 ospy/webpages.py:364
-#: ospy/webpages.py:422 ospy/webpages.py:675 ospy/webpages.py:978
-#: ospy/webpages.py:995 ospy/webpages.py:1022 ospy/webpages.py:1088
-#: ospy/webpages.py:1142 ospy/webpages.py:1302 ospy/webpages.py:1309
-#: ospy/webpages.py:1316 ospy/webpages.py:1325 ospy/webpages.py:1332
-#: ospy/webpages.py:1339 ospy/webpages.py:1378 ospy/webpages.py:1403
-#: ospy/webpages.py:1450 ospy/webpages.py:1550 ospy/webpages.py:1561
-#: ospy/webpages.py:1632 ospy/webpages.py:1652 ospy/webpages.py:1779
-#: ospy/webpages.py:1791 ospy/webpages.py:1894 ospy/webpages.py:1954
-#: ospy/webpages.py:1974 ospy/webpages.py:2039 ospy/webpages.py:2111
-#: ospy/webpages.py:2467 ospy/webpages.py:2544
+#: ospy/webpages.py:185 ospy/webpages.py:278 ospy/webpages.py:365
+#: ospy/webpages.py:423 ospy/webpages.py:676 ospy/webpages.py:979
+#: ospy/webpages.py:996 ospy/webpages.py:1023 ospy/webpages.py:1089
+#: ospy/webpages.py:1143 ospy/webpages.py:1303 ospy/webpages.py:1310
+#: ospy/webpages.py:1317 ospy/webpages.py:1326 ospy/webpages.py:1333
+#: ospy/webpages.py:1340 ospy/webpages.py:1379 ospy/webpages.py:1404
+#: ospy/webpages.py:1451 ospy/webpages.py:1551 ospy/webpages.py:1562
+#: ospy/webpages.py:1633 ospy/webpages.py:1653 ospy/webpages.py:1780
+#: ospy/webpages.py:1792 ospy/webpages.py:1895 ospy/webpages.py:1955
+#: ospy/webpages.py:1975 ospy/webpages.py:2041 ospy/webpages.py:2113
+#: ospy/webpages.py:2469 ospy/webpages.py:2546
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
-#: ospy/webpages.py:318 ospy/webpages.py:1176
+#: ospy/webpages.py:319 ospy/webpages.py:1177
 msgid "File {} has sucesfully uploaded..."
 msgstr ""
 
-#: ospy/webpages.py:324 ospy/webpages.py:1182
+#: ospy/webpages.py:325 ospy/webpages.py:1183
 msgid "File has sucesfully uploaded..."
 msgstr ""
 
-#: ospy/webpages.py:1105
+#: ospy/webpages.py:1106
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr ""
 
-#: ospy/webpages.py:1200
+#: ospy/webpages.py:1201
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr ""
 
-#: ospy/webpages.py:1204
+#: ospy/webpages.py:1205
 msgid "Cannot create resized files!"
 msgstr ""
 
-#: ospy/webpages.py:1250 ospy/webpages.py:1251
+#: ospy/webpages.py:1251 ospy/webpages.py:1252
 msgid "User {} logged in"
 msgstr ""
 
-#: ospy/webpages.py:1323
+#: ospy/webpages.py:1324
 msgid "User has set a delay {} hours"
 msgstr ""
 
-#: ospy/webpages.py:1841
+#: ospy/webpages.py:1842
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1847
+#: ospy/webpages.py:1848
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:1853
+#: ospy/webpages.py:1854
 msgid "The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:1876
+#: ospy/webpages.py:1877
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:1961 ospy/webpages.py:2015 ospy/webpages.py:2016
+#: ospy/webpages.py:1962 ospy/webpages.py:2017 ospy/webpages.py:2018
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:1994
+#: ospy/webpages.py:1995
 msgid "Deleting folder backup."
 msgstr ""
 
-#: ospy/webpages.py:1998
+#: ospy/webpages.py:1999
 msgid "Creating folder backup."
 msgstr ""
 
-#: ospy/webpages.py:2002
+#: ospy/webpages.py:2003
 msgid "Creating backup zip file."
 msgstr ""
 
-#: ospy/webpages.py:2006
+#: ospy/webpages.py:2007
 msgid "File {} is created successfully."
 msgstr ""
 
-#: ospy/webpages.py:2049
+#: ospy/webpages.py:2051
 msgid "Deleting folder upload."
 msgstr ""
 
-#: ospy/webpages.py:2053
+#: ospy/webpages.py:2055
 msgid "Creating folder upload."
 msgstr ""
 
-#: ospy/webpages.py:2060
+#: ospy/webpages.py:2062
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:2067
+#: ospy/webpages.py:2069
 msgid "Uploading to folder OK, now extracting zip file."
 msgstr ""
 
-#: ospy/webpages.py:2071
+#: ospy/webpages.py:2073
 msgid "Extracted from zip OK."
 msgstr ""
 
-#: ospy/webpages.py:2083
+#: ospy/webpages.py:2085
 msgid "Copy extrated folders with files to data dir."
 msgstr ""
 
-#: ospy/webpages.py:2090
+#: ospy/webpages.py:2092
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 
-#: ospy/webpages.py:2121 ospy/webpages.py:2122
+#: ospy/webpages.py:2123 ospy/webpages.py:2124
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:2153 ospy/webpages.py:2154 plugins/mqtt/__init__.py:373
+#: ospy/webpages.py:2155 ospy/webpages.py:2156 plugins/mqtt/__init__.py:373
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:118 plugins/ups_adj/__init__.py:441
 #: plugins/ups_adj/__init__.py:537
 msgid "OK"
 msgstr ""
 
-#: ospy/webpages.py:2173
+#: ospy/webpages.py:2175
 msgid "Remove fullchain.pem..."
 msgstr ""
 
-#: ospy/webpages.py:2177
+#: ospy/webpages.py:2179
 msgid "Remove privkey.pem..."
 msgstr ""
 
-#: ospy/webpages.py:2183
+#: ospy/webpages.py:2185
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:2347
+#: ospy/webpages.py:2349
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:2360 ospy/webpages.py:2425
+#: ospy/webpages.py:2362 ospy/webpages.py:2427
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:2372 ospy/webpages.py:2412
+#: ospy/webpages.py:2374 ospy/webpages.py:2414
 msgid "Unit not set"
 msgstr ""
 
@@ -5218,7 +5265,7 @@ msgstr ""
 #: plugins/air_temp_humi/__init__.py:762 plugins/air_temp_humi/__init__.py:813
 #: plugins/air_temp_humi/__init__.py:828 plugins/air_temp_humi/__init__.py:876
 #: plugins/air_temp_humi/__init__.py:913 plugins/air_temp_humi/__init__.py:954
-#: plugins/tank_monitor/__init__.py:789
+#: plugins/tank_monitor/__init__.py:889
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
@@ -5243,7 +5290,8 @@ msgid "Not used"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:580
-#: plugins/pressure_monitor/__init__.py:399 plugins/ups_adj/__init__.py:360
+#: plugins/pressure_monitor/__init__.py:399
+#: plugins/tank_monitor/__init__.py:708 plugins/ups_adj/__init__.py:360
 #: plugins/wind_monitor/__init__.py:521
 msgid "Creating default graph log files OK"
 msgstr ""
@@ -5254,7 +5302,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:635
 #: plugins/pressure_monitor/__init__.py:387
-#: plugins/tank_monitor/__init__.py:658 plugins/ups_adj/__init__.py:346
+#: plugins/tank_monitor/__init__.py:743 plugins/ups_adj/__init__.py:346
 #: plugins/wind_monitor/__init__.py:505
 msgid "Saving to SQL database."
 msgstr ""
@@ -5266,7 +5314,7 @@ msgstr ""
 #: plugins/air_temp_humi/__init__.py:753 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
 #: plugins/ping_monitor/__init__.py:386 plugins/speed_monitor/__init__.py:275
-#: plugins/tank_monitor/__init__.py:705 plugins/wind_monitor/__init__.py:551
+#: plugins/tank_monitor/__init__.py:792 plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
 msgstr ""
 
@@ -5287,7 +5335,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:183
 #: plugins/pressure_monitor/templates/pressure_monitor.html:190
 #: plugins/speed_monitor/templates/speed_monitor.html:183
-#: plugins/tank_monitor/templates/tank_monitor.html:182
+#: plugins/tank_monitor/templates/tank_monitor.html:204
 #: plugins/ups_adj/templates/ups_adj.html:190
 #: plugins/wind_monitor/templates/wind_monitor.html:196
 msgid "Show logs"
@@ -5302,7 +5350,7 @@ msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:222
-#: plugins/tank_monitor/templates/tank_monitor.html:354
+#: plugins/tank_monitor/templates/tank_monitor.html:376
 #: plugins/ups_adj/templates/ups_adj.html:202
 #: plugins/wind_monitor/templates/wind_monitor.html:209
 msgid "Enable local logging"
@@ -5310,7 +5358,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
 #: plugins/pressure_monitor/templates/pressure_monitor.html:203
-#: plugins/tank_monitor/templates/tank_monitor.html:355
+#: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:203
 #: plugins/wind_monitor/templates/wind_monitor.html:210
 msgid "The measured data will be saved locally in a json file. This option rapidly reduces the lifespan of the SD/USB card of the Raspberry Pi system!"
@@ -5318,7 +5366,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:228
 #: plugins/pressure_monitor/templates/pressure_monitor.html:208
-#: plugins/tank_monitor/templates/tank_monitor.html:360
+#: plugins/tank_monitor/templates/tank_monitor.html:382
 #: plugins/ups_adj/templates/ups_adj.html:208
 #: plugins/wind_monitor/templates/wind_monitor.html:215
 msgid "Enable SQL logging"
@@ -5330,7 +5378,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:230
 #: plugins/pressure_monitor/templates/pressure_monitor.html:210
-#: plugins/tank_monitor/templates/tank_monitor.html:362
+#: plugins/tank_monitor/templates/tank_monitor.html:384
 #: plugins/ups_adj/templates/ups_adj.html:210
 #: plugins/wind_monitor/templates/wind_monitor.html:217
 msgid "requires database connector plugin"
@@ -5339,25 +5387,30 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
 #: plugins/pressure_monitor/templates/pressure_monitor.html:211
-#: plugins/tank_monitor/templates/tank_monitor.html:363
+#: plugins/tank_monitor/templates/tank_monitor.html:385
+#: plugins/tank_monitor/templates/tank_monitor_log.html:28
 #: plugins/ups_adj/templates/ups_adj.html:211
 #: plugins/wind_monitor/templates/wind_monitor.html:218
 msgid "Delete SQL table"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:235
+#: plugins/tank_monitor/templates/tank_monitor.html:389
 msgid "Show data from"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
+#: plugins/tank_monitor/templates/tank_monitor.html:391
 msgid "Choose from where the displayed data in the log and graph will be loaded."
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:238
+#: plugins/tank_monitor/templates/tank_monitor.html:392
 msgid "Local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
+#: plugins/tank_monitor/templates/tank_monitor.html:393
 msgid "Database file"
 msgstr ""
 
@@ -5365,7 +5418,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:143
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/speed_monitor/templates/speed_monitor.html:207
-#: plugins/tank_monitor/templates/tank_monitor.html:367
+#: plugins/tank_monitor/templates/tank_monitor.html:398
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:39
 #: plugins/wind_monitor/templates/wind_monitor.html:248
@@ -5378,7 +5431,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
 #: plugins/speed_monitor/templates/speed_monitor.html:213
-#: plugins/tank_monitor/templates/tank_monitor.html:373
+#: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
 #: plugins/wind_monitor/templates/wind_monitor.html:254
 msgid "Interval for logging"
@@ -5437,7 +5490,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:301
 #: plugins/pool_heating/templates/pool_heating.html:105
-#: plugins/tank_monitor/templates/tank_monitor.html:328
+#: plugins/tank_monitor/templates/tank_monitor.html:350
 #: plugins/temperature_switch/templates/temperature_switch.html:46
 #: plugins/temperature_switch/templates/temperature_switch.html:103
 #: plugins/temperature_switch/templates/temperature_switch.html:160
@@ -5471,6 +5524,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
@@ -5478,7 +5532,7 @@ msgstr ""
 #: plugins/speed_monitor/templates/speed_monitor.html:220
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
 #: plugins/system_update/templates/system_update.html:83
-#: plugins/tank_monitor/templates/tank_monitor.html:397
+#: plugins/tank_monitor/templates/tank_monitor.html:428
 #: plugins/telegram_bot/templates/telegram_bot.html:114
 #: plugins/temperature_switch/templates/temperature_switch.html:191
 #: plugins/ups_adj/templates/ups_adj.html:259
@@ -5489,30 +5543,37 @@ msgid "Show data from plugin in footer on home page"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:406
+#: plugins/tank_monitor/templates/tank_monitor.html:495
 msgid "The chart from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:408
+#: plugins/tank_monitor/templates/tank_monitor.html:497
 msgid "The chart from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:414
+#: plugins/tank_monitor/templates/tank_monitor.html:503
 msgid "From"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:415
+#: plugins/tank_monitor/templates/tank_monitor.html:504
 msgid "To"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:416
+#: plugins/tank_monitor/templates/tank_monitor.html:505
 msgid "Filtering"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:417
+#: plugins/tank_monitor/templates/tank_monitor.html:506
 msgid "Reload chart"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:418
+#: plugins/tank_monitor/templates/tank_monitor.html:507
 msgid "Delete range"
 msgstr ""
 
@@ -5651,22 +5712,27 @@ msgid "Air Temperature and Humidity Monitor - log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+#: plugins/tank_monitor/templates/tank_monitor_log.html:11
 msgid "Log from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:13
+#: plugins/tank_monitor/templates/tank_monitor_log.html:13
 msgid "Log from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+#: plugins/tank_monitor/templates/tank_monitor_log.html:24
 msgid "Download local log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+#: plugins/tank_monitor/templates/tank_monitor_log.html:25
 msgid "Delete all local logs"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:27
+#: plugins/tank_monitor/templates/tank_monitor_log.html:27
 msgid "Download database log"
 msgstr ""
 
@@ -5679,7 +5745,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:15
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:26
-#: plugins/tank_monitor/templates/tank_monitor_log.html:18
+#: plugins/tank_monitor/templates/tank_monitor_log.html:34
 #: plugins/venetian_blind/templates/venetian_blind_log.html:15
 msgid "Date Time"
 msgstr ""
@@ -6282,8 +6348,8 @@ msgid "I will try to download a file that is 10 minutes older."
 msgstr ""
 
 #: plugins/chmi/__init__.py:445 plugins/chmi/templates/chmi.html:120
-#: plugins/tank_monitor/__init__.py:779
-#: plugins/tank_monitor/templates/tank_monitor.html:253
+#: plugins/tank_monitor/__init__.py:879
+#: plugins/tank_monitor/templates/tank_monitor.html:275
 msgid "Removing Rain Delay"
 msgstr ""
 
@@ -6315,7 +6381,6 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:191
 #: plugins/speed_monitor/templates/speed_monitor.html:184
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:21
-#: plugins/tank_monitor/templates/tank_monitor_log.html:12
 #: plugins/ups_adj/templates/ups_adj.html:191
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:62
 #: plugins/wind_monitor/templates/wind_monitor.html:197
@@ -7019,7 +7084,6 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_log.html:8
 #: plugins/modbus_stations/templates/modbus_stations_log.html:8
 #: plugins/speed_monitor/templates/speed_monitor_log.html:8
-#: plugins/tank_monitor/templates/tank_monitor_log.html:8
 #: plugins/venetian_blind/templates/venetian_blind_log.html:8
 msgid "Here we can see all the events performed in this extension."
 msgstr ""
@@ -7310,7 +7374,7 @@ msgid "temperature ds1, ds2, ds3, ds4, ds5, ds6, dht-temp, dht-humidity, dht-out
 msgstr ""
 
 #: plugins/database_connector/templates/database_connector_help.html:16
-#: plugins/tank_monitor/__init__.py:35
+#: plugins/tank_monitor/__init__.py:34
 msgid "Package: Water Tank Monitor"
 msgstr ""
 
@@ -7418,13 +7482,15 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:156
 #: plugins/email_notifications_ssl/__init__.py:164
 #: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:392
+#: plugins/tank_monitor/__init__.py:599 plugins/tank_monitor/__init__.py:782
+#: plugins/tank_monitor/templates/tank_monitor.html:433
 msgid "Level"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications_ssl/__init__.py:166
 #: plugins/email_reader/__init__.py:238 plugins/speed_monitor/__init__.py:267
-#: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:199
+#: plugins/tank_monitor/templates/tank_monitor.html:461
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Ping"
 msgstr ""
@@ -7434,10 +7500,11 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_notifications_ssl/__init__.py:170
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:196
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:696
-#: plugins/tank_monitor/__init__.py:942
-#: plugins/tank_monitor/templates/tank_monitor_log.html:22
+#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:600
+#: plugins/tank_monitor/__init__.py:783 plugins/tank_monitor/__init__.py:1083
+#: plugins/tank_monitor/__init__.py:1131
+#: plugins/tank_monitor/templates/tank_monitor.html:468
+#: plugins/tank_monitor/templates/tank_monitor_log.html:38
 msgid "Volume"
 msgstr ""
 
@@ -7743,7 +7810,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:253
 #: plugins/system_update/templates/system_update.html:67
 #: plugins/system_update/templates/system_update_help.html:20
-#: plugins/tank_monitor/templates/tank_monitor.html:295
+#: plugins/tank_monitor/templates/tank_monitor.html:317
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:43
 #: plugins/wind_monitor/templates/wind_monitor.html:301
@@ -8551,15 +8618,17 @@ msgstr ""
 msgid "Conversion error! Temperature data from json file to csv file"
 msgstr ""
 
-#: plugins/email_reader/__init__.py:829 plugins/tank_monitor/__init__.py:693
-#: plugins/tank_monitor/__init__.py:939
-#: plugins/tank_monitor/templates/tank_monitor_log.html:19
+#: plugins/email_reader/__init__.py:829 plugins/tank_monitor/__init__.py:597
+#: plugins/tank_monitor/__init__.py:780 plugins/tank_monitor/__init__.py:1080
+#: plugins/tank_monitor/__init__.py:1128
+#: plugins/tank_monitor/templates/tank_monitor_log.html:35
 msgid "Minimum"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:830 plugins/email_reader/__init__.py:891
-#: plugins/tank_monitor/__init__.py:694 plugins/tank_monitor/__init__.py:940
-#: plugins/tank_monitor/templates/tank_monitor_log.html:20
+#: plugins/tank_monitor/__init__.py:598 plugins/tank_monitor/__init__.py:781
+#: plugins/tank_monitor/__init__.py:1081 plugins/tank_monitor/__init__.py:1129
+#: plugins/tank_monitor/templates/tank_monitor_log.html:36
 #: plugins/wind_monitor/__init__.py:513 plugins/wind_monitor/__init__.py:682
 #: plugins/wind_monitor/templates/wind_monitor_log.html:18
 msgid "Maximum"
@@ -8575,7 +8644,7 @@ msgstr ""
 
 #: plugins/email_reader/__init__.py:960 plugins/ping_monitor/__init__.py:467
 #: plugins/pressurizer/__init__.py:242 plugins/speed_monitor/__init__.py:332
-#: plugins/tank_monitor/__init__.py:804 plugins/wind_monitor/__init__.py:586
+#: plugins/tank_monitor/__init__.py:904 plugins/wind_monitor/__init__.py:586
 msgid "Options has updated."
 msgstr ""
 
@@ -9408,8 +9477,8 @@ msgstr ""
 msgid "Could not find any PCF8574 controller."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:600 plugins/system_info/__init__.py:222
-#: plugins/system_info/__init__.py:238 plugins/volt_temp_da/__init__.py:85
+#: plugins/lcd_display/__init__.py:600 plugins/system_info/__init__.py:228
+#: plugins/system_info/__init__.py:244 plugins/volt_temp_da/__init__.py:85
 #: plugins/water_meter/__init__.py:71 plugins/wind_monitor/__init__.py:135
 msgid "Could not import smbus."
 msgstr ""
@@ -9434,7 +9503,7 @@ msgstr ""
 
 #: plugins/lcd_display/__init__.py:677 plugins/lcd_display/__init__.py:679
 #: plugins/lcd_display/__init__.py:719 plugins/lcd_display/__init__.py:721
-#: plugins/system_update/__init__.py:237
+#: plugins/system_update/__init__.py:247
 msgid "System OSPy"
 msgstr ""
 
@@ -9537,7 +9606,7 @@ msgstr ""
 
 #: plugins/lcd_display/templates/lcd_display.html:95
 #: plugins/lcd_display/templates/lcd_display_help.html:37
-#: plugins/system_info/__init__.py:61
+#: plugins/system_info/__init__.py:67
 msgid "Uptime"
 msgstr ""
 
@@ -10599,12 +10668,324 @@ msgstr ""
 msgid "2: exactly once. Will only send a message once."
 msgstr ""
 
-#: plugins/ospy_backup/__init__.py:24
-msgid "Package: OSPy package Backup"
+#: plugins/mqtt_home_assistant/__init__.py:31
+msgid "Package: MQTT Home Assistant"
 msgstr ""
 
+#: plugins/mqtt_home_assistant/__init__.py:112
+#: plugins/mqtt_home_assistant/__init__.py:127
+msgid "MQTT Home Assistant"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:115
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
 msgid "Plugin is started."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:120
+msgid "Only test! not use"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:254
+msgid "Error: slugify not installed. Install it to system. sudo apt install python3 slugify."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
+msgid "MQTT Home Assistant Plugin"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:33
+msgid "Topic prefix"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:34
+msgid "MQTT base topic for system parameters and zones (Default: System name)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:39
+msgid "Name prefix"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:40
+msgid "HASS name prefix for devices and zones (Default: System name)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:45
+msgid "OSPy FQDN"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:46
+msgid "OSPy network name or IP address for web access from HASS (Default: auto detect)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
+msgid "Device name is Station name"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:52
+msgid "Use station name for HASS zone device name (Default: uncheck)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:57
+msgid "Publish disabled zones"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:58
+msgid "MQTT publish all zones states (Default: uncheck)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:63
+msgid "Discovery UUID prefix"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
+msgid "Unique identifier used as prefix for MQTT Discovery by HASS"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:7
+msgid "MQTT Home Assistant Plugin - help"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:8
+msgid "About the MQTT HASS Plugin"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:10
+msgid "The MQTT HASS plugin implement MQTT Discovery for Home Assistant (HASS), including report and control of some OSPy system settings and valves (stations) over MQTT. MQTT Discovery enables automatic devices and entities enrolment from HASS user interface configuration panel, including plug-and-play availability detection, status and control."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:12
+msgid "Using MQTT HASS plugin"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:13
+msgid "This plugin is disabled by default. If you are reading this, the mqtt_hass plugin is probably enabled on your system. Otherwise, you can enable it using the plugin manager."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:15
+msgid "Requirements"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:17
+msgid "An MQTT broker such as Mosquitto is required to be accessible by OSPy device and HASS. This broker can be on different parts of the local network, on a remote network, or installed on either OSPy or HASS system."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:18
+msgid "A working HASS system with an MQTT Integration such as Mosquitto broker"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:19
+msgid "A OSPy system with the base mqtt plugin installed and configured (see below)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:20
+msgid "This plugin installed and configured on the same OSPy system as the base mqtt plugin (see below)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
+msgid "Setup"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:25
+msgid "On OSPy - base MQTT plugin setup"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:27
+msgid "Install eclipse paho if not already on the Pi"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:28
+msgid "Install the base MQTT plugin"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:29
+msgid "Configure base MQTT plugin"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:31
+msgid "MQTT Broker Host: This will be the URL of the MQTT broker or localhost if the broker is running on OSPy"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:32
+msgid "MQTT Broker Port: Default is 1883 but may be different depending on your MQTT broker"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:33
+msgid "MQTT Broker Username: Default is mosquitto but depends on your setup."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:34
+msgid "MQTT Broker Password: Depends on your setup. Use pass as default"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:35
+msgid "MQTT Publish up/down topic: It needs to be set for proper OSPy availability detection by HASS. We suggest to use the OSPy System name as set on Options webpage"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:36
+msgid "MQTT Client ID: A unique name for OSPy system. Default is OSPy System name but can be changed on Options webpage."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:40
+msgid "On OSPy - MQTT HASS plugin setup"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:42
+msgid "Install Python python-slugify package if not already on the pi."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:44
+msgid "Configure MQTT HASS plugin."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
+msgid "Topic prefix: This prefix is used for OSPy system parameters and zones published to the MQTT broker. Leave this option empty to use a slugified OSPy System name. This setting will be slugified when saved. (Default: System name or \"OSPy\" if System name is empty)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
+msgid "Name prefix: Used as prefix for all HASS devices and entities names. Leave this option empty to use a OSPy System name as prefix. For entities, this setting will be slugified. (Default: System name or \"OSPy\" if System name is empty)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
+msgid "OSPy FQDN: OSPy network name or IP address. Used to compose the URL link to OSPy web interface displayed in HASS devices settings. Leave this option empty to use OSPy hostname or IP address used to connect with the MQTT broker. (Default: OSPy hostname)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:49
+msgid "Device is Station name: if checked, use station name as part of HASS Device name. Changes to OSPy station name will update HASS Device name. (Default: unchecked)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:50
+msgid "Publish disabled zone: if checked, disabled stations will also be published to the MQTT broker and discovered by HASS. NOTE: For safety, disabled stations can't be controlled from MQTT nor HASS. (Default: unchecked)"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
+msgid "On Home Assistant - MQTT setup"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:56
+msgid "Follow Home Assistant instructions to add MQTT integration via the user interface. MQTT discovery feature is enabled by default. MQTT integration will detect OSPy settings parameters and zones as devices and entities."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:57
+msgid "Follow Home Assistant instructions to configure and use the newly added devices and entities."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
+msgid "Multiple OSPy systems connected to the same MQTT broker or Home Assistant instance"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
+msgid "To integrate multiple OSPy systems, on each OSPy:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:63
+msgid "Use different \"System name\" as set on OSPy Options webpage. Default OSPy System name is \"OSPy\""
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
+msgid "For each base MQTT plugin settings use different MQTT Publish up/down topic and MQTT Client ID."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
+msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:68
+msgid "Home Assistant - available OSPy Devices and Entities"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:69
+msgid "Devices and associated Entities made available with this plugin are:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:71
+msgid "Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device per OSPy system. This device regroups the supported OSPy system parameters and sensors. NamePrefix is MQTT HASS \"Name prefix\" option. Unless specified the associated entities have the same behavior as on OSPy home webpage. Entities name prefix uses a slugified version of the device name (nameprefix). Entities:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:73
+msgid "Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS \"Select entity\" showing and controlling OSPy System Enable (Values: \"on\", \"off\"). Setting it to \"off\" will disable all other system parameters and zone control from HASS."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
+msgid "Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS \"Select entity\" showing and controlling OSPy Mode (Values: \"Automatic\", \"Manual\")."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:75
+msgid "Configuration Entity: Rain sensor enable (ID: select.nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same behavior as \"Use rain sensor\" in OSPy Options webpage."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:76
+msgid "Configuration Entity: Rain delay timer (ID: number.nameprefix_rain_delay_timer) HASS \"Number entity\" showing and controlling OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This entity has the following JSON attributes and default values when the timer is active / inactive (default):"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:78
+msgid "Attribute: state The number of hours as set from OSPy user interface or MQTT (Default 0)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:79
+msgid "Attribute: start_time Unix time when the delay timer started (Default \"None\")."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:80
+msgid "Attribute: duration Total number of seconds of the delay timer (Default 0)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:82
+msgid "Configuration Entity: Water level adjust (ID: number.nameprefix.water_level_adjust) HASS \"Number entity\" showing and controlling OSPy Water level adjust (Range: 0 to 100 %, Default 100)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:83
+msgid "Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix.rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor state (Values: \"on\",\"off\")."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:84
+msgid "Diagnostic Entity: Running program (ID: sensor.nameprefix.running_program) HASS \"Sensor entity\" showing OSPy Running program (Values: \"Manual\", \"Run Once, or program number). Zones controlled from HASS are shown as \"Run Once\" program."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:86
+msgid "Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT HASS plugin creates one device per OSPy station (zone). Device name is nameprefix - Zxx unless option \"Device is Station name\" is checked. The number of devices will track the number of OSPy \"Stations Extensions\" set on the Options webpage. Each zone device has a single \"switch\" entity. Entity:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:88
+msgid "ID is switch.nameprefix.zxx where xx is a double digit from 01 to the number of OSPy stations. Entity name and availability will track changes made on OSPy Stations webpage. This entity has the following JSON attributes and values:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:90
+msgid "Attribute: state The actual zone state. Value is \"on\" when active and \"off\" when inactive."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:91
+msgid "Attribute: start_time Unix time when the zone turned \"on\". If state is \"off\": Value is \"None\"."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:92
+msgid "Attribute: duration Total number of seconds the zone state will be \"on\". If state is \"on\": Value is the duration as set from a running program or run once or \"Inf\" if zone is activated from manual mode or from MQTT HASS switch. If state is \"off\": Value is \"Inf\"."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:93
+msgid "Attribute: program The program number that turned the zone state to \"on\". If state is \"on\": Value is program number, \"Run Once\" or \"Manual\". If state is \"off\": Value is \"None\"."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:98
+msgid "Test your setup"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:99
+msgid "From HASS and OSPy user interface:"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:101
+msgid "Compare the state of select.nameprefix.enable with OSPy web interface System Enable. Change the system enable from HASS and OSPy to verify that the state is changed on the other end. When disabled, observe that all the other HASS system parameters and zone entities are not available in HASS user interface (grayed)."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:102
+msgid "With System enable, change one enabled zone state from HASS and verify the zone state on OSPy webpage. Observe the active program is set to \"Run Once\" when setting a zone \"on\" from HASS."
+msgstr ""
+
+#: plugins/ospy_backup/__init__.py:24
+msgid "Package: OSPy package Backup"
 msgstr ""
 
 #: plugins/ospy_backup/__init__.py:67 plugins/ospy_backup/__init__.py:119
@@ -10697,7 +11078,7 @@ msgstr ""
 #: plugins/photovoltaic_boiler/__init__.py:114
 #: plugins/photovoltaic_boiler/__init__.py:277
 #: plugins/pool_heating/__init__.py:124 plugins/pool_heating/__init__.py:300
-#: plugins/tank_monitor/__init__.py:254
+#: plugins/tank_monitor/__init__.py:248
 msgid "Waiting."
 msgstr ""
 
@@ -10993,8 +11374,8 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:231
 #: plugins/pool_heating/templates/pool_heating.html:156
 #: plugins/pressure_monitor/templates/pressure_monitor.html:248
-#: plugins/tank_monitor/templates/tank_monitor.html:284
-#: plugins/tank_monitor/templates/tank_monitor.html:290
+#: plugins/tank_monitor/templates/tank_monitor.html:306
+#: plugins/tank_monitor/templates/tank_monitor.html:312
 #: plugins/ups_adj/templates/ups_adj.html:233
 #: plugins/wind_monitor/templates/wind_monitor.html:296
 msgid "For this function required E-mail plugin"
@@ -11020,7 +11401,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:168
 #: plugins/pressure_monitor/templates/pressure_monitor.html:260
 #: plugins/system_update/templates/system_update.html:74
-#: plugins/tank_monitor/templates/tank_monitor.html:302
+#: plugins/tank_monitor/templates/tank_monitor.html:324
 #: plugins/ups_adj/templates/ups_adj.html:245
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:50
 #: plugins/wind_monitor/templates/wind_monitor.html:308
@@ -11030,7 +11411,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:282
 #: plugins/pressure_monitor/templates/pressure_monitor.html:304
 #: plugins/speed_monitor/templates/speed_monitor.html:250
-#: plugins/tank_monitor/templates/tank_monitor.html:421
 #: plugins/ups_adj/templates/ups_adj.html:290
 #: plugins/wind_monitor/templates/wind_monitor.html:423
 msgid "Select filter for graph history"
@@ -13013,7 +13393,7 @@ msgid "Sunrise and Sunset"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:464
-#: plugins/system_update/__init__.py:170
+#: plugins/system_update/__init__.py:180
 msgid "Waiting to state"
 msgstr ""
 
@@ -13150,12 +13530,12 @@ msgid "I run the program \"{}\" in time {}."
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:625
-#: plugins/system_update/__init__.py:192
+#: plugins/system_update/__init__.py:202
 msgid "Plugin is not enabled"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/__init__.py:632
-#: plugins/system_update/__init__.py:198
+#: plugins/system_update/__init__.py:208
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 
@@ -13484,124 +13864,128 @@ msgstr ""
 msgid "Package: System Information"
 msgstr ""
 
-#: plugins/system_info/__init__.py:39
+#: plugins/system_info/__init__.py:41
+msgid "Hardware"
+msgstr ""
+
+#: plugins/system_info/__init__.py:45
 msgid "System release"
 msgstr ""
 
-#: plugins/system_info/__init__.py:41
+#: plugins/system_info/__init__.py:47
 msgid "Node"
 msgstr ""
 
-#: plugins/system_info/__init__.py:42
+#: plugins/system_info/__init__.py:48
 msgid "Machine"
 msgstr ""
 
-#: plugins/system_info/__init__.py:45 plugins/system_info/__init__.py:47
+#: plugins/system_info/__init__.py:51 plugins/system_info/__init__.py:53
 #: plugins/usage_statistics/__init__.py:70
 msgid "Distribution"
 msgstr ""
 
-#: plugins/system_info/__init__.py:49
+#: plugins/system_info/__init__.py:55
 msgid "Total memory"
 msgstr ""
 
-#: plugins/system_info/__init__.py:50
+#: plugins/system_info/__init__.py:56
 msgid "Free memory"
 msgstr ""
 
-#: plugins/system_info/__init__.py:51 plugins/usage_statistics/__init__.py:72
+#: plugins/system_info/__init__.py:57 plugins/usage_statistics/__init__.py:72
 msgid "Python"
 msgstr ""
 
-#: plugins/system_info/__init__.py:54
+#: plugins/system_info/__init__.py:60
 msgid "{}: Rx={}MB Tx={}MB "
 msgstr ""
 
-#: plugins/system_info/__init__.py:56
+#: plugins/system_info/__init__.py:62
 msgid "Network: Unknown"
 msgstr ""
 
-#: plugins/system_info/__init__.py:62
+#: plugins/system_info/__init__.py:68
 msgid "CPU temp"
 msgstr ""
 
-#: plugins/system_info/__init__.py:63
+#: plugins/system_info/__init__.py:69
 msgid "CPU usage"
 msgstr ""
 
-#: plugins/system_info/__init__.py:64
+#: plugins/system_info/__init__.py:70
 msgid "CPU serial number"
 msgstr ""
 
-#: plugins/system_info/__init__.py:65
+#: plugins/system_info/__init__.py:71
 msgid "MAC adress"
 msgstr ""
 
-#: plugins/system_info/__init__.py:67
+#: plugins/system_info/__init__.py:73
 msgid "Wi-Fi signal"
 msgstr ""
 
-#: plugins/system_info/__init__.py:70
+#: plugins/system_info/__init__.py:76
 msgid "I2C HEX Adress"
 msgstr ""
 
-#: plugins/system_info/__init__.py:74
+#: plugins/system_info/__init__.py:80
 msgid "Could not open any i2c device!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:78
+#: plugins/system_info/__init__.py:84
 msgid "Found ATMEGA328 for Air Temperature and Humidity Monitor plugin (0x03)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:82
+#: plugins/system_info/__init__.py:88
 msgid "Found ATMEGA328 for Water Tank Monitor plugin (0x04)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:86
+#: plugins/system_info/__init__.py:92
 msgid "Found ATMEGA328 for Humidity Monitor plugin (0x05)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:90
+#: plugins/system_info/__init__.py:96
 msgid "Found MCP23017 for Button Control plugin (0x27)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:97
+#: plugins/system_info/__init__.py:103
 msgid "Warning: MCP23017 found for Button Control plugin (0x27). The address for PCF8574 must be different, not 0x27! If it is the same, change it on the LCD display board."
 msgstr ""
 
-#: plugins/system_info/__init__.py:98
+#: plugins/system_info/__init__.py:104
 msgid "Found PCF8574 for LCD Display plugin (0x20-0x28, 0x38-0x3F)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:103
+#: plugins/system_info/__init__.py:109
 msgid "Found PCF8583 for Wind Speed Monitor or Water Meter plugin (0x50-0x51)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:107
+#: plugins/system_info/__init__.py:113
 msgid "Found DS1307 for Real Time and NTP time plugin (0x68)."
 msgstr ""
 
-#: plugins/system_info/__init__.py:122
+#: plugins/system_info/__init__.py:128
 msgid "Could not open lsusb!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:139
+#: plugins/system_info/__init__.py:145
 msgid "Could not open ls /dev/tty*!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:155
+#: plugins/system_info/__init__.py:161
 msgid "Could not open ps aux!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:171
+#: plugins/system_info/__init__.py:177
 msgid "Could not open cat /proc/partitions!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:187
+#: plugins/system_info/__init__.py:193
 msgid "Could not open cat /proc/cpuinfo!"
 msgstr ""
 
-#: plugins/system_info/__init__.py:229
+#: plugins/system_info/__init__.py:235
 msgid "Available addresses"
 msgstr ""
 
@@ -13634,68 +14018,68 @@ msgstr ""
 msgid "CPU info"
 msgstr ""
 
-#: plugins/system_update/__init__.py:27
+#: plugins/system_update/__init__.py:26
 msgid "Package: System Update"
 msgstr ""
 
-#: plugins/system_update/__init__.py:36
+#: plugins/system_update/__init__.py:35
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr ""
 
-#: plugins/system_update/__init__.py:61
+#: plugins/system_update/__init__.py:60
 msgid "None!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:117
+#: plugins/system_update/__init__.py:127
 msgid "Up-to-date."
 msgstr ""
 
-#: plugins/system_update/__init__.py:120
+#: plugins/system_update/__init__.py:130
 msgid "New version is available!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:121 plugins/system_update/__init__.py:128
-#: plugins/system_update/__init__.py:131 plugins/system_update/__init__.py:153
+#: plugins/system_update/__init__.py:131 plugins/system_update/__init__.py:138
+#: plugins/system_update/__init__.py:141 plugins/system_update/__init__.py:163
 msgid "Currently running revision"
 msgstr ""
 
-#: plugins/system_update/__init__.py:122 plugins/system_update/__init__.py:129
-#: plugins/system_update/__init__.py:132 plugins/system_update/__init__.py:154
+#: plugins/system_update/__init__.py:132 plugins/system_update/__init__.py:139
+#: plugins/system_update/__init__.py:142 plugins/system_update/__init__.py:164
 msgid "Available revision"
 msgstr ""
 
-#: plugins/system_update/__init__.py:126 plugins/system_update/__init__.py:130
-#: plugins/system_update/__init__.py:145 plugins/system_update/__init__.py:204
-#: plugins/system_update/__init__.py:243 plugins/system_update/__init__.py:286
+#: plugins/system_update/__init__.py:136 plugins/system_update/__init__.py:140
+#: plugins/system_update/__init__.py:155 plugins/system_update/__init__.py:214
+#: plugins/system_update/__init__.py:253 plugins/system_update/__init__.py:296
 msgid "System update plug-in"
 msgstr ""
 
-#: plugins/system_update/__init__.py:127 plugins/system_update/__init__.py:131
-#: plugins/system_update/__init__.py:180
+#: plugins/system_update/__init__.py:137 plugins/system_update/__init__.py:141
+#: plugins/system_update/__init__.py:190
 msgid "New OSPy version is available!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:152
+#: plugins/system_update/__init__.py:162
 msgid "Running unknown version!"
 msgstr ""
 
-#: plugins/system_update/__init__.py:169
+#: plugins/system_update/__init__.py:179
 msgid "System Update"
 msgstr ""
 
-#: plugins/system_update/__init__.py:234
+#: plugins/system_update/__init__.py:244
 msgid "Update result"
 msgstr ""
 
-#: plugins/system_update/__init__.py:237
+#: plugins/system_update/__init__.py:247
 msgid "Updated to version"
 msgstr ""
 
-#: plugins/system_update/__init__.py:313 plugins/system_update/__init__.py:330
+#: plugins/system_update/__init__.py:323 plugins/system_update/__init__.py:340
 msgid "OSPy is now updated from Github and restarted. Please wait..."
 msgstr ""
 
-#: plugins/system_update/__init__.py:347
+#: plugins/system_update/__init__.py:357 plugins/system_update/__init__.py:369
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr ""
 
@@ -13745,7 +14129,11 @@ msgstr ""
 msgid "Update OSPy"
 msgstr ""
 
-#: plugins/system_update/templates/system_update.html:104
+#: plugins/system_update/templates/system_update.html:105
+msgid "Fix detected dubious ownership?"
+msgstr ""
+
+#: plugins/system_update/templates/system_update.html:106
 msgid "Restart OSPy"
 msgstr ""
 
@@ -13863,119 +14251,115 @@ msgstr ""
 msgid "receive this signal it will brute-force restart your Raspberry Pi. This plugin needs Watchdog. If not installed, plugin installs Watchdog in to the system himself"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:49
+#: plugins/tank_monitor/__init__.py:48
 msgid "Report from OSPy TANK plugin"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:128
+#: plugins/tank_monitor/__init__.py:130
 msgid "Regulation NONE."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:139
+#: plugins/tank_monitor/__init__.py:141
 msgid "Tank"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:152
+#: plugins/tank_monitor/__init__.py:154
 msgid "Water tank monitor is enabled."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:173
+#: plugins/tank_monitor/__init__.py:175
 msgid "Waiting for {} samples to be read from the sensor (when using averaging)."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:193
-msgid "Water level"
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:201
-msgid "Maximum Water level"
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:202
-msgid "Minimum Water level"
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:204
-msgid "The maximum and minimum water levels have not yet been measured."
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:223
+#: plugins/tank_monitor/__init__.py:217
 msgid "Tank Monitor"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:261
+#: plugins/tank_monitor/__init__.py:255
 msgid "Maximum has updated."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:269
+#: plugins/tank_monitor/__init__.py:263
 msgid "Minimum has updated."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:279
+#: plugins/tank_monitor/__init__.py:273
 msgid "ERROR: Water in Tank"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:300
+#: plugins/tank_monitor/__init__.py:294
 msgid "Waiting for samples"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:302 plugins/ups_adj/__init__.py:120
+#: plugins/tank_monitor/__init__.py:296 plugins/ups_adj/__init__.py:120
 #: plugins/ups_adj/__init__.py:443 plugins/ups_adj/__init__.py:539
 msgid "FAULT"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:304
+#: plugins/tank_monitor/__init__.py:298
 msgid "Water level: Error."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:307
+#: plugins/tank_monitor/__init__.py:301
 msgid "ERROR: Water probe has fault?"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:309 plugins/tank_monitor/__init__.py:310
+#: plugins/tank_monitor/__init__.py:303 plugins/tank_monitor/__init__.py:304
 msgid "System detected error: Water probe has fault?"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:309 plugins/tank_monitor/__init__.py:310
-#: plugins/tank_monitor/__init__.py:316 plugins/tank_monitor/__init__.py:345
-#: plugins/tank_monitor/__init__.py:346 plugins/tank_monitor/__init__.py:359
-#: plugins/tank_monitor/__init__.py:364 plugins/tank_monitor/__init__.py:391
-#: plugins/tank_monitor/__init__.py:477 plugins/tank_monitor/__init__.py:480
-#: plugins/tank_monitor/__init__.py:660
+#: plugins/tank_monitor/__init__.py:303 plugins/tank_monitor/__init__.py:304
+#: plugins/tank_monitor/__init__.py:310 plugins/tank_monitor/__init__.py:339
+#: plugins/tank_monitor/__init__.py:340 plugins/tank_monitor/__init__.py:353
+#: plugins/tank_monitor/__init__.py:358 plugins/tank_monitor/__init__.py:385
+#: plugins/tank_monitor/__init__.py:471 plugins/tank_monitor/__init__.py:474
+#: plugins/tank_monitor/__init__.py:541 plugins/tank_monitor/__init__.py:556
+#: plugins/tank_monitor/__init__.py:570 plugins/tank_monitor/__init__.py:584
+#: plugins/tank_monitor/__init__.py:633 plugins/tank_monitor/__init__.py:645
+#: plugins/tank_monitor/__init__.py:655 plugins/tank_monitor/__init__.py:665
+#: plugins/tank_monitor/__init__.py:745 plugins/tank_monitor/__init__.py:947
+#: plugins/tank_monitor/__init__.py:1006 plugins/tank_monitor/__init__.py:1021
+#: plugins/tank_monitor/__init__.py:1050 plugins/tank_monitor/__init__.py:1066
+#: plugins/tank_monitor/__init__.py:1108 plugins/tank_monitor/__init__.py:1154
+#: plugins/tank_monitor/__init__.py:1190
 msgid "Water Tank Monitor plug-in"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:338 plugins/tank_monitor/__init__.py:809
+#: plugins/tank_monitor/__init__.py:332 plugins/tank_monitor/__init__.py:909
 msgid "Water tank monitor is disabled."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:345 plugins/tank_monitor/__init__.py:346
+#: plugins/tank_monitor/__init__.py:339 plugins/tank_monitor/__init__.py:340
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:447
+#: plugins/tank_monitor/__init__.py:441
 msgid "FW version in CPU (Atmega 328) is FW <= 1.3"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:473
+#: plugins/tank_monitor/__init__.py:467
 msgid "Unkown FW version in CPU (Atmega 328)"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:645 plugins/ups_adj/__init__.py:333
+#: plugins/tank_monitor/__init__.py:730 plugins/ups_adj/__init__.py:333
 #: plugins/wind_monitor/__init__.py:492
 msgid "Saving to log  files OK"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:760
+#: plugins/tank_monitor/__init__.py:848
 msgid "Minimum and maximum has reseted."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:787
+#: plugins/tank_monitor/__init__.py:887 plugins/tank_monitor/__init__.py:945
 msgid "Deleting the tankmonitor table from the database."
 msgstr ""
 
+#: plugins/tank_monitor/__init__.py:990
+msgid "L"
+msgstr ""
+
 #: plugins/tank_monitor/templates/tank_monitor.html:3
-#: plugins/tank_monitor/templates/tank_monitor.html:178
+#: plugins/tank_monitor/templates/tank_monitor.html:200
 msgid "Water tank monitor settings"
 msgstr ""
 
@@ -13984,108 +14368,120 @@ msgstr ""
 msgid "cm, liters or m<sup>3</sup>"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:183
+#: plugins/tank_monitor/templates/tank_monitor.html:205
 msgid "Log sample now"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:185
+#: plugins/tank_monitor/templates/tank_monitor.html:207
 msgid "Show debug logs"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:186
+#: plugins/tank_monitor/templates/tank_monitor.html:208
 msgid "Reset min/max level"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:191
+#: plugins/tank_monitor/templates/tank_monitor.html:213
 msgid "Use ultrasonic measuring the water level in the tank"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:192
+#: plugins/tank_monitor/templates/tank_monitor.html:214
 msgid "If checked, the extension will measure the level using ultrasound"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:221
+#: plugins/tank_monitor/templates/tank_monitor.html:243
 msgid "Display as liters or m"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:222
+#: plugins/tank_monitor/templates/tank_monitor.html:244
 msgid "Show measured water as liters or m3"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:227
+#: plugins/tank_monitor/templates/tank_monitor.html:249
 msgid "Use averaging for samples"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:228
+#: plugins/tank_monitor/templates/tank_monitor.html:250
 msgid "If checked, averaging of measured values will be performed (this option affects the speed of response to the measured value)"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:233
+#: plugins/tank_monitor/templates/tank_monitor.html:255
 msgid "Number of samples for average"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:234
+#: plugins/tank_monitor/templates/tank_monitor.html:256
 msgid "Enter the number count for samples"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:251
+#: plugins/tank_monitor/templates/tank_monitor.html:273
 msgid "If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + xx cm, the delay is deactivated"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:257
+#: plugins/tank_monitor/templates/tank_monitor.html:279
 msgid "Number for unblocking"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:258
+#: plugins/tank_monitor/templates/tank_monitor.html:280
 msgid "Enter the number for unblocking delay duration and stop stations in cm"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:283
+#: plugins/tank_monitor/templates/tank_monitor.html:305
 msgid "Send an E-mail with an error that there is minimum water in the tank"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:289
+#: plugins/tank_monitor/templates/tank_monitor.html:311
 msgid "Send an E-mail with an error if sonic probe has fault"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:296
+#: plugins/tank_monitor/templates/tank_monitor.html:318
 msgid "Subject for E-mail from this tank monitor"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:316
+#: plugins/tank_monitor/templates/tank_monitor.html:338
 msgid "If checked, regulation is enabled"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:341
+#: plugins/tank_monitor/templates/tank_monitor.html:363
 msgid "Select Output for controled zones"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:361
+#: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured. The button will delete the tankmonitor table from the database, thus deleting all saved data from this extension! This promotion is non-refundable!"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:368
+#: plugins/tank_monitor/templates/tank_monitor.html:399
 msgid "0 = unlimited. The maximum number of records sets the number of saved records, i.e. after exceeding the set limit, older data is overwritten."
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:374
+#: plugins/tank_monitor/templates/tank_monitor.html:405
 msgid "In minutes (Minimum is 1). The logging interval is common for both local storage and sql storage of measured data."
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:379
+#: plugins/tank_monitor/templates/tank_monitor.html:410
 msgid "Enable bus logging"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:380
+#: plugins/tank_monitor/templates/tank_monitor.html:411
 msgid "Logging for advanced user (save debug data from I2C bus)"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:385
+#: plugins/tank_monitor/templates/tank_monitor.html:416
 msgid "Only if data changed"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:386
+#: plugins/tank_monitor/templates/tank_monitor.html:417
 msgid "Logging of data only when this data changes, otherwise still logging"
+msgstr ""
+
+#: plugins/tank_monitor/templates/tank_monitor.html:440
+msgid "Level min"
+msgstr ""
+
+#: plugins/tank_monitor/templates/tank_monitor.html:447
+msgid "Level max"
+msgstr ""
+
+#: plugins/tank_monitor/templates/tank_monitor.html:454
+msgid "Percent"
 msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:3
@@ -17036,7 +17432,7 @@ msgstr ""
 msgid "Cannot install packages without setuptools."
 msgstr ""
 
-#: setup.py:201
+#: setup.py:208
 msgid "Done."
 msgstr ""
 

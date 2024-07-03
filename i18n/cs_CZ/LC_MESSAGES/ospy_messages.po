@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2024-04-20 20:02+0200\n"
-"PO-Revision-Date: 2024-04-20 20:16+0200\n"
+"POT-Creation-Date: 2024-07-03 15:49+0200\n"
+"PO-Revision-Date: 2024-07-03 16:12+0200\n"
 "Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -155,7 +155,7 @@ msgid ". days "
 msgstr ". dnů "
 
 #: ospy/helpers.py:238 ospy/helpers.py:255 ospy/helpers.py:358
-#: ospy/helpers.py:402 ospy/helpers.py:403
+#: ospy/helpers.py:402 ospy/helpers.py:403 ospy/helpers.py:976
 #: ospy/templates/sensors_search.html:43 ospy/templates/sensors_search.html:48
 #: ospy/templates/sensors_search.html:54
 msgid "Unknown"
@@ -264,7 +264,47 @@ msgstr "Přihlášen {}, jako operátor {}"
 msgid "No password"
 msgstr "Bez hesla"
 
-#: ospy/options.py:31 plugins/system_info/__init__.py:40
+#: ospy/helpers.py:979
+msgid "Raspberry Pi 5 with at least {} RAM!"
+msgstr "Raspberry Pi 5 s alespoň {} RAM!"
+
+#: ospy/helpers.py:981
+msgid "Raspberry Pi 4B with at least {} RAM!"
+msgstr "Raspberry Pi 4B s alespoň {} RAM!"
+
+#: ospy/helpers.py:983
+msgid "Raspberry Pi 2B with at least {} RAM!"
+msgstr "Raspberry Pi 2B s alespoň {} RAM!"
+
+#: ospy/helpers.py:985
+msgid "Raspberry Pi 3A with at least {} RAM!"
+msgstr "Raspberry Pi 3A s alespoň {} RAM!"
+
+#: ospy/helpers.py:987
+msgid "Raspberry Pi 3B with at least {} RAM!"
+msgstr "Raspberry Pi 3B s alespoň {} RAM!"
+
+#: ospy/helpers.py:989
+msgid "Raspberry Pi 3B+ with at least {} RAM!"
+msgstr "Raspberry Pi 3B + s alespoň {} RAM!"
+
+#: ospy/helpers.py:991
+msgid "Raspberry Pi Zero 2 W at least {} RAM!"
+msgstr "Raspberry Pi Zero 2 W s alespoň {} RAM!"
+
+#: ospy/helpers.py:993
+msgid "Raspberry Pi Zero at least {} RAM!"
+msgstr "Raspberry Pi Zero s alespoň {} RAM!"
+
+#: ospy/helpers.py:995
+msgid "Raspberry Pi Zero W at least {} RAM!"
+msgstr "Raspberry Pi Zero W s alespoň {} RAM!"
+
+#: ospy/helpers.py:997
+msgid "Raspberry Pi 400 at least {} RAM!"
+msgstr "Raspberry Pi 400 s alespoň {} RAM!"
+
+#: ospy/options.py:31 plugins/system_info/__init__.py:46
 msgid "System name"
 msgstr "Název systému"
 
@@ -1061,7 +1101,7 @@ msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr "Zpoždění deště nastavilo zpoždění {} hodin {} minut {} vteřin"
 
 #: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
-#: ospy/sensors.py:1280 ospy/webpages.py:1323
+#: ospy/sensors.py:1280 ospy/webpages.py:1324
 msgid "Rain delay"
 msgstr "Zpoždění deště"
 
@@ -1148,7 +1188,7 @@ msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
 #: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:172
-#: plugins/tank_monitor/__init__.py:358
+#: plugins/tank_monitor/__init__.py:352
 msgid ""
 "E-mail not send! The Email Notifications plug-in is not found in OSPy or not "
 "correctly setuped."
@@ -1191,7 +1231,7 @@ msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 
 #: ospy/sensors.py:577 plugins/button_control/__init__.py:284
 #: plugins/pressure_monitor/__init__.py:303
-#: plugins/tank_monitor/__init__.py:732 plugins/wind_monitor/__init__.py:406
+#: plugins/tank_monitor/__init__.py:819 plugins/wind_monitor/__init__.py:406
 msgid "Stoping stations in scheduler"
 msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 
@@ -1367,29 +1407,35 @@ msgstr "Průtok {}l/s"
 #: plugins/email_notifications_ssl/__init__.py:305
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:535
-#: plugins/tank_monitor/__init__.py:193 plugins/tank_monitor/__init__.py:195
 #: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:198
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:201
-#: plugins/tank_monitor/__init__.py:202 plugins/tank_monitor/__init__.py:279
-#: plugins/tank_monitor/__init__.py:345 plugins/tank_monitor/__init__.py:346
-#: plugins/tank_monitor/templates/tank_monitor.html:199
-#: plugins/tank_monitor/templates/tank_monitor.html:205
-#: plugins/tank_monitor/templates/tank_monitor.html:211
-#: plugins/tank_monitor/templates/tank_monitor.html:217
-#: plugins/tank_monitor/templates/tank_monitor.html:259
-#: plugins/tank_monitor/templates/tank_monitor.html:323
-#: plugins/tank_monitor/templates/tank_monitor.html:336
-#: plugins/tank_monitor/templates/tank_monitor_log.html:27
-#: plugins/tank_monitor/templates/tank_monitor_log.html:28
-#: plugins/tank_monitor/templates/tank_monitor_log.html:29
+#: plugins/tank_monitor/__init__.py:273 plugins/tank_monitor/__init__.py:339
+#: plugins/tank_monitor/__init__.py:340
+#: plugins/tank_monitor/templates/tank_monitor.html:221
+#: plugins/tank_monitor/templates/tank_monitor.html:227
+#: plugins/tank_monitor/templates/tank_monitor.html:233
+#: plugins/tank_monitor/templates/tank_monitor.html:239
+#: plugins/tank_monitor/templates/tank_monitor.html:281
+#: plugins/tank_monitor/templates/tank_monitor.html:345
+#: plugins/tank_monitor/templates/tank_monitor.html:358
+#: plugins/tank_monitor/templates/tank_monitor.html:436
+#: plugins/tank_monitor/templates/tank_monitor.html:443
+#: plugins/tank_monitor/templates/tank_monitor.html:450
+#: plugins/tank_monitor/templates/tank_monitor.html:464
+#: plugins/tank_monitor/templates/tank_monitor_log.html:44
+#: plugins/tank_monitor/templates/tank_monitor_log.html:45
+#: plugins/tank_monitor/templates/tank_monitor_log.html:46
+#: plugins/tank_monitor/templates/tank_monitor_log.html:58
+#: plugins/tank_monitor/templates/tank_monitor_log.html:59
+#: plugins/tank_monitor/templates/tank_monitor_log.html:60
 msgid "cm"
 msgstr "cm"
 
 #: ospy/sensors.py:1168 plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
-#: plugins/tank_monitor/__init__.py:195 plugins/tank_monitor/__init__.py:196
-#: plugins/tank_monitor/templates/tank_monitor_log.html:32
+#: plugins/tank_monitor/__init__.py:196
+#: plugins/tank_monitor/templates/tank_monitor_log.html:49
+#: plugins/tank_monitor/templates/tank_monitor_log.html:63
 #: plugins/water_meter/__init__.py:105 plugins/water_meter/__init__.py:116
 #: plugins/water_meter/__init__.py:117 plugins/water_meter/__init__.py:118
 msgid "liters"
@@ -1403,8 +1449,9 @@ msgstr "litrů"
 #: plugins/email_notifications_ssl/__init__.py:210
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:853
 #: plugins/lcd_display/__init__.py:396 plugins/tank_monitor/__init__.py:198
-#: plugins/tank_monitor/__init__.py:199
-#: plugins/tank_monitor/templates/tank_monitor_log.html:34
+#: plugins/tank_monitor/__init__.py:990
+#: plugins/tank_monitor/templates/tank_monitor_log.html:51
+#: plugins/tank_monitor/templates/tank_monitor_log.html:65
 msgid "m3"
 msgstr "m3"
 
@@ -1444,10 +1491,10 @@ msgstr "Oznámení snímače"
 #: plugins/pool_heating/__init__.py:244 plugins/pool_heating/__init__.py:272
 #: plugins/pool_heating/templates/pool_heating.html:121
 #: plugins/pressure_monitor/templates/pressure_monitor.html:237
-#: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:214
-#: plugins/tank_monitor/__init__.py:242
-#: plugins/tank_monitor/templates/tank_monitor.html:273
-#: plugins/tank_monitor/templates/tank_monitor.html:344
+#: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:208
+#: plugins/tank_monitor/__init__.py:236
+#: plugins/tank_monitor/templates/tank_monitor.html:295
+#: plugins/tank_monitor/templates/tank_monitor.html:366
 #: plugins/temperature_switch/templates/temperature_switch.html:71
 #: plugins/temperature_switch/templates/temperature_switch.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:185
@@ -1457,13 +1504,13 @@ msgstr "Výstup"
 
 #: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:209
 #: plugins/photovoltaic_boiler/__init__.py:213
-#: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:214
+#: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:208
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
 #: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:222
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
-#: plugins/tank_monitor/__init__.py:242
+#: plugins/tank_monitor/__init__.py:236
 msgid "Regulation set OFF."
 msgstr "Regulace nastavila VYP."
 
@@ -1479,7 +1526,7 @@ msgstr "Odebírám zpoždění při dešti"
 msgid "Sensor has water"
 msgstr "Snímač má opět vodu"
 
-#: ospy/sensors.py:1273 plugins/tank_monitor/__init__.py:279
+#: ospy/sensors.py:1273 plugins/tank_monitor/__init__.py:273
 msgid "!"
 msgstr "!"
 
@@ -1529,93 +1576,93 @@ msgstr "VYP"
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
-#: ospy/server.py:97
+#: ospy/server.py:98
 msgid "Network connection is available, Im skipping waiting."
 msgstr "Síťové připojení je k dispozici, přeskakuji čekání."
 
-#: ospy/server.py:99
+#: ospy/server.py:100
 msgid "Network connection not available, waiting 20 seconds."
 msgstr "Síťové připojení není k dispozici, čekání 20 vteřin."
 
-#: ospy/server.py:106
+#: ospy/server.py:107
 msgid "Network connection is available."
 msgstr "Síťové připojení je k dispozici."
 
-#: ospy/server.py:126
+#: ospy/server.py:127
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:136
+#: ospy/server.py:137
 msgid "SSL OK."
 msgstr "SSL OK."
 
-#: ospy/server.py:138
+#: ospy/server.py:139
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako HTTP!"
 
-#: ospy/server.py:147
+#: ospy/server.py:148
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nalezeny, startuji HTTPS."
 
-#: ospy/server.py:156
+#: ospy/server.py:157
 msgid "Own SSL OK."
 msgstr "Vlastní SSL OK."
 
-#: ospy/server.py:158
+#: ospy/server.py:159
 msgid ""
 "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 "Vlastní SSL Soubory: fullchain.pem a privkey.pem nenalezeny, startuji jako "
 "HTTP!"
 
-#: ospy/server.py:195
+#: ospy/server.py:196
 msgid "Unknown operator"
 msgstr "Neznámý operátor"
 
-#: ospy/server.py:199
+#: ospy/server.py:200
 msgid "Category is not in session, adding to sessions."
 msgstr "Kategorie není v session, přidám ji do session."
 
-#: ospy/server.py:201 ospy/server.py:205
+#: ospy/server.py:202 ospy/server.py:206
 msgid "Unknown visitor"
 msgstr "Neznámý návštěvník"
 
-#: ospy/server.py:202
+#: ospy/server.py:203
 msgid "Visitor-operator is not in session, adding to sessions."
 msgstr "Visitor není v session, přidám ho do session."
 
-#: ospy/server.py:212
+#: ospy/server.py:213
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:213 ospy/server.py:229 ospy/server.py:240
+#: ospy/server.py:214 ospy/server.py:230 ospy/server.py:241
 msgid "Server"
 msgstr "Server"
 
-#: ospy/server.py:213 ospy/server.py:240
+#: ospy/server.py:214 ospy/server.py:241
 msgid "Stopping"
 msgstr "Zastavení"
 
-#: ospy/server.py:217
+#: ospy/server.py:218
 msgid "Starting scheduler and plugins..."
 msgstr "Spuštění plánovače a pluginů..."
 
-#: ospy/server.py:221
+#: ospy/server.py:222
 msgid "Starting sensors timer..."
 msgstr "Spuštění časovače snímačů..."
 
-#: ospy/server.py:227 ospy/server.py:228
+#: ospy/server.py:228 ospy/server.py:229
 msgid "OSPy is ready"
 msgstr "OSPy je připraven"
 
-#: ospy/server.py:229
+#: ospy/server.py:230
 msgid "Starting"
 msgstr "Spuštění"
 
-#: ospy/server.py:247
+#: ospy/server.py:248
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -1763,7 +1810,7 @@ msgstr "Místní OSPy verze"
 msgid "Available OSPy version"
 msgstr "Dostupná verze OSPy"
 
-#: ospy/templates/base.html:129 plugins/system_update/__init__.py:123
+#: ospy/templates/base.html:129 plugins/system_update/__init__.py:133
 msgid "Changes"
 msgstr "Změny"
 
@@ -1882,6 +1929,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:27
 #: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
@@ -1900,7 +1948,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:34
 #: plugins/system_update/templates/system_update.html:21
 #: plugins/system_watchdog/templates/system_watchdog.html:30
-#: plugins/tank_monitor/templates/tank_monitor.html:179
+#: plugins/tank_monitor/templates/tank_monitor.html:201
 #: plugins/telegram_bot/templates/telegram_bot.html:24
 #: plugins/temperature_switch/templates/temperature_switch.html:20
 #: plugins/ups_adj/templates/ups_adj.html:186
@@ -2103,6 +2151,8 @@ msgstr "Smazat"
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:85
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:107
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2145,16 +2195,16 @@ msgstr "Smazat"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:101
 #: plugins/system_debug/templates/system_debug.html:44
 #: plugins/system_info/templates/system_info.html:37
-#: plugins/system_update/templates/system_update.html:105
+#: plugins/system_update/templates/system_update.html:107
 #: plugins/system_update/templates/system_update_help.html:30
 #: plugins/system_watchdog/templates/system_watchdog.html:53
 #: plugins/system_watchdog/templates/system_watchdog_help.html:16
-#: plugins/tank_monitor/templates/tank_monitor.html:412
+#: plugins/tank_monitor/templates/tank_monitor.html:490
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:22
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:49
 #: plugins/tank_monitor/templates/tank_monitor_help.html:43
-#: plugins/tank_monitor/templates/tank_monitor_log.html:14
-#: plugins/tank_monitor/templates/tank_monitor_log.html:41
+#: plugins/tank_monitor/templates/tank_monitor_log.html:30
+#: plugins/tank_monitor/templates/tank_monitor_log.html:71
 #: plugins/telegram_bot/templates/telegram_bot.html:129
 #: plugins/telegram_bot/templates/telegram_bot_help.html:26
 #: plugins/temperature_switch/templates/temperature_switch.html:206
@@ -2343,8 +2393,8 @@ msgstr "Statistika"
 #: ospy/templates/sensors_firmware.html:166
 #: plugins/air_temp_humi/templates/air_temp_humi.html:34
 #: plugins/email_reader/__init__.py:831 plugins/email_reader/__init__.py:892
-#: plugins/tank_monitor/__init__.py:695 plugins/tank_monitor/__init__.py:941
-#: plugins/tank_monitor/templates/tank_monitor_log.html:21
+#: plugins/tank_monitor/__init__.py:1082 plugins/tank_monitor/__init__.py:1130
+#: plugins/tank_monitor/templates/tank_monitor_log.html:37
 #: plugins/wind_monitor/__init__.py:514 plugins/wind_monitor/__init__.py:683
 #: plugins/wind_monitor/templates/wind_monitor_log.html:19
 msgid "Actual"
@@ -2364,7 +2414,6 @@ msgstr "Hodnota"
 #: plugins/ping_monitor/templates/ping_monitor.html:283
 #: plugins/pressure_monitor/templates/pressure_monitor.html:305
 #: plugins/speed_monitor/templates/speed_monitor.html:251
-#: plugins/tank_monitor/templates/tank_monitor.html:422
 #: plugins/ups_adj/templates/ups_adj.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:424
 msgid "Select a filter for the interval of read data."
@@ -2374,7 +2423,6 @@ msgstr "Vyberte filtr pro interval čtení dat."
 #: plugins/ping_monitor/templates/ping_monitor.html:284
 #: plugins/pressure_monitor/templates/pressure_monitor.html:306
 #: plugins/speed_monitor/templates/speed_monitor.html:252
-#: plugins/tank_monitor/templates/tank_monitor.html:423
 #: plugins/ups_adj/templates/ups_adj.html:292
 #: plugins/wind_monitor/templates/wind_monitor.html:425
 msgid "Without limits"
@@ -2384,7 +2432,6 @@ msgstr "Bez omezení"
 #: plugins/ping_monitor/templates/ping_monitor.html:285
 #: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/speed_monitor/templates/speed_monitor.html:253
-#: plugins/tank_monitor/templates/tank_monitor.html:424
 #: plugins/ups_adj/templates/ups_adj.html:293
 #: plugins/wind_monitor/templates/wind_monitor.html:426
 msgid "Day filter"
@@ -2394,7 +2441,6 @@ msgstr "Filtr den"
 #: plugins/ping_monitor/templates/ping_monitor.html:286
 #: plugins/pressure_monitor/templates/pressure_monitor.html:308
 #: plugins/speed_monitor/templates/speed_monitor.html:254
-#: plugins/tank_monitor/templates/tank_monitor.html:425
 #: plugins/ups_adj/templates/ups_adj.html:294
 #: plugins/wind_monitor/templates/wind_monitor.html:427
 msgid "Week filter"
@@ -2404,7 +2450,6 @@ msgstr "Filtr týden"
 #: plugins/ping_monitor/templates/ping_monitor.html:287
 #: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/speed_monitor/templates/speed_monitor.html:255
-#: plugins/tank_monitor/templates/tank_monitor.html:426
 #: plugins/ups_adj/templates/ups_adj.html:295
 #: plugins/wind_monitor/templates/wind_monitor.html:428
 msgid "Month filter"
@@ -2414,7 +2459,6 @@ msgstr "Filtr měsíc"
 #: plugins/ping_monitor/templates/ping_monitor.html:288
 #: plugins/pressure_monitor/templates/pressure_monitor.html:310
 #: plugins/speed_monitor/templates/speed_monitor.html:256
-#: plugins/tank_monitor/templates/tank_monitor.html:427
 #: plugins/ups_adj/templates/ups_adj.html:296
 #: plugins/wind_monitor/templates/wind_monitor.html:429
 msgid "Year filter"
@@ -2430,7 +2474,6 @@ msgstr "Zobrazit také chyby v grafu. Příklad: -127"
 #: plugins/ping_monitor/templates/ping_monitor.html:292
 #: plugins/pressure_monitor/templates/pressure_monitor.html:314
 #: plugins/speed_monitor/templates/speed_monitor.html:260
-#: plugins/tank_monitor/templates/tank_monitor.html:431
 #: plugins/ups_adj/templates/ups_adj.html:300
 #: plugins/wind_monitor/templates/wind_monitor.html:433
 msgid "Clear selection"
@@ -2611,7 +2654,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
-#: ospy/webpages.py:1354
+#: ospy/webpages.py:1355
 msgid "Manual"
 msgstr "Ručně"
 
@@ -2791,7 +2834,8 @@ msgstr "žádný záznam"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:8
 #: plugins/speed_monitor/templates/speed_monitor_log.html:9
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:18
-#: plugins/tank_monitor/templates/tank_monitor_log.html:9
+#: plugins/tank_monitor/templates/tank_monitor_log.html:17
+#: plugins/tank_monitor/templates/tank_monitor_log.html:20
 #: plugins/ups_adj/templates/ups_adj_log.html:8
 #: plugins/venetian_blind/templates/venetian_blind_log.html:9
 #: plugins/wind_monitor/templates/wind_monitor_log.html:8
@@ -2819,7 +2863,6 @@ msgstr "Smazat záznam"
 #: plugins/speed_monitor/templates/speed_monitor_log.html:10
 #: plugins/system_debug/templates/system_debug.html:45
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:19
-#: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj.html:189
 #: plugins/ups_adj/templates/ups_adj_log.html:10
 #: plugins/venetian_blind/templates/venetian_blind_log.html:10
@@ -2990,6 +3033,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:75
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
@@ -3010,7 +3054,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/system_update/templates/system_update.html:88
 #: plugins/system_update/templates/system_update_help.html:24
 #: plugins/system_watchdog/templates/system_watchdog.html:34
-#: plugins/tank_monitor/templates/tank_monitor.html:402
+#: plugins/tank_monitor/templates/tank_monitor.html:480
 #: plugins/telegram_bot/templates/telegram_bot.html:119
 #: plugins/temperature_switch/templates/temperature_switch.html:196
 #: plugins/ups_adj/templates/ups_adj.html:270
@@ -3045,7 +3089,7 @@ msgstr "Stav"
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
-#: plugins/tank_monitor/templates/tank_monitor_log.html:13
+#: plugins/tank_monitor/templates/tank_monitor_log.html:29
 #: plugins/ups_adj/templates/ups_adj_log.html:11
 #: plugins/venetian_blind/templates/venetian_blind_log.html:11
 #: plugins/voice_notification/templates/voice_notification.html:108
@@ -3125,6 +3169,7 @@ msgstr "V"
 #: plugins/email_notifications_ssl/__init__.py:293
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:492
 #: plugins/lcd_display/__init__.py:523
+#: plugins/tank_monitor/templates/tank_monitor.html:457
 msgid "%"
 msgstr "%"
 
@@ -3151,7 +3196,7 @@ msgid "C"
 msgstr "C"
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:126
-#: ospy/templates/login.html:147 ospy/webpages.py:1250
+#: ospy/templates/login.html:147 ospy/webpages.py:1251
 msgid "Login"
 msgstr "Přihlásit se"
 
@@ -3467,7 +3512,7 @@ msgstr "Smazat vše"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:184
+#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:194
 #: plugins/system_update/templates/system_update.html:103
 msgid "Up-to-date"
 msgstr "Aktuální"
@@ -3858,7 +3903,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:167
 #: plugins/pressure_monitor/templates/pressure_monitor.html:259
 #: plugins/system_update/templates/system_update.html:73
-#: plugins/tank_monitor/templates/tank_monitor.html:301
+#: plugins/tank_monitor/templates/tank_monitor.html:323
 #: plugins/ups_adj/templates/ups_adj.html:244
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:49
 #: plugins/wind_monitor/templates/wind_monitor.html:307
@@ -3870,7 +3915,7 @@ msgstr "E-mail balíček"
 #: plugins/pool_heating/templates/pool_heating.html:170
 #: plugins/pressure_monitor/templates/pressure_monitor.html:262
 #: plugins/system_update/templates/system_update.html:76
-#: plugins/tank_monitor/templates/tank_monitor.html:304
+#: plugins/tank_monitor/templates/tank_monitor.html:326
 #: plugins/ups_adj/templates/ups_adj.html:247
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:52
 #: plugins/wind_monitor/templates/wind_monitor.html:310
@@ -3882,7 +3927,7 @@ msgstr "E-mail notifications V1"
 #: plugins/pool_heating/templates/pool_heating.html:171
 #: plugins/pressure_monitor/templates/pressure_monitor.html:263
 #: plugins/system_update/templates/system_update.html:77
-#: plugins/tank_monitor/templates/tank_monitor.html:305
+#: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/ups_adj/templates/ups_adj.html:248
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:53
 #: plugins/wind_monitor/templates/wind_monitor.html:311
@@ -4053,14 +4098,14 @@ msgid "Type Custom name of the event for no motion."
 msgstr "Zadejte vlastní název události bez pohybu."
 
 #: ospy/templates/sensor.html:500
-#: plugins/tank_monitor/templates/tank_monitor.html:197
+#: plugins/tank_monitor/templates/tank_monitor.html:219
 msgid "The distance from the sensor to the minimum water level in the tank"
 msgstr ""
 "Vzdálenost od ultrazvukového snímače (shora) k minimální hladině vody v "
 "nádrži"
 
 #: ospy/templates/sensor.html:501
-#: plugins/tank_monitor/templates/tank_monitor.html:198
+#: plugins/tank_monitor/templates/tank_monitor.html:220
 msgid ""
 "Thus the distance from the ultrasound to the minimum water level. The sensor "
 "is located above the water"
@@ -4069,14 +4114,14 @@ msgstr ""
 "nad vodou"
 
 #: ospy/templates/sensor.html:505
-#: plugins/tank_monitor/templates/tank_monitor.html:203
+#: plugins/tank_monitor/templates/tank_monitor.html:225
 msgid "The distance from the sensor to the maximum water level in the tank"
 msgstr ""
 "Vzdálenost od ultrazvukového snímače (shora) k maximální hladině vody v "
 "nádrži"
 
 #: ospy/templates/sensor.html:506
-#: plugins/tank_monitor/templates/tank_monitor.html:204
+#: plugins/tank_monitor/templates/tank_monitor.html:226
 msgid ""
 "That is, the distance from the ultrasound to the maximum water level. The "
 "sensor is located above the water"
@@ -4085,12 +4130,12 @@ msgstr ""
 "nad vodou"
 
 #: ospy/templates/sensor.html:510
-#: plugins/tank_monitor/templates/tank_monitor.html:209
+#: plugins/tank_monitor/templates/tank_monitor.html:231
 msgid "The water level from the bottom to the minimum water level in the tank"
 msgstr "Minimální hladina vody v nádrži (ode dna nádrže) pro report"
 
 #: ospy/templates/sensor.html:511
-#: plugins/tank_monitor/templates/tank_monitor.html:210
+#: plugins/tank_monitor/templates/tank_monitor.html:232
 msgid ""
 "Distance from the bottom (ie the minimum water) to the set this minimum "
 "level, when it is this activated (send an E-mail)"
@@ -4099,12 +4144,12 @@ msgstr ""
 "úrovně, kdy bude aktivováno (poslat E-mail a zastavit plánovač)"
 
 #: ospy/templates/sensor.html:514
-#: plugins/tank_monitor/templates/tank_monitor.html:215
+#: plugins/tank_monitor/templates/tank_monitor.html:237
 msgid "Cylinder diameter for volume calculation"
 msgstr "Průměr válce pro výpočet objemu"
 
 #: ospy/templates/sensor.html:515
-#: plugins/tank_monitor/templates/tank_monitor.html:216
+#: plugins/tank_monitor/templates/tank_monitor.html:238
 msgid "Enter the diameter for volume calculation"
 msgstr "Zadejte průměr pro výpočet objemu"
 
@@ -4117,17 +4162,17 @@ msgid "Show measured water in liters or m3"
 msgstr "Zobrazovat naměřenou vodu v litrech nebo m3"
 
 #: ospy/templates/sensor.html:528
-#: plugins/tank_monitor/templates/tank_monitor.html:244
+#: plugins/tank_monitor/templates/tank_monitor.html:266
 msgid "Stop stations if minimum water level"
 msgstr "Zastavit stanice, pokud je minimální hladina vody"
 
 #: ospy/templates/sensor.html:529
-#: plugins/tank_monitor/templates/tank_monitor.html:245
+#: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Stoping these stations if is minimum water level in the tank"
 msgstr "Zastavit tyto stanice, pokud je minimální hladina vody v nádrži"
 
 #: ospy/templates/sensor.html:533
-#: plugins/tank_monitor/templates/tank_monitor.html:250
+#: plugins/tank_monitor/templates/tank_monitor.html:272
 #: plugins/tank_monitor/templates/tank_monitor_help.html:10
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:32
 msgid "Delay Duration (hours)"
@@ -4145,12 +4190,12 @@ msgstr ""
 "zpoždění se deaktivuje"
 
 #: ospy/templates/sensor.html:539
-#: plugins/tank_monitor/templates/tank_monitor.html:263
+#: plugins/tank_monitor/templates/tank_monitor.html:285
 msgid "Stop stations if sonic probe has fault"
 msgstr "Zastavit stanice, pokud má ultrazvukový snímač poruchu"
 
 #: ospy/templates/sensor.html:540
-#: plugins/tank_monitor/templates/tank_monitor.html:264
+#: plugins/tank_monitor/templates/tank_monitor.html:286
 msgid ""
 "If the level sensor fails, the above selected stations in the scheduler will "
 "stop"
@@ -4160,13 +4205,13 @@ msgstr ""
 #: ospy/templates/sensor.html:544
 #: plugins/button_control/templates/button_control.html:82
 #: plugins/pressure_monitor/templates/pressure_monitor.html:233
-#: plugins/tank_monitor/templates/tank_monitor.html:269
+#: plugins/tank_monitor/templates/tank_monitor.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:328
 msgid "Stop this run stations in scheduler"
 msgstr "Zastavit tyto stanice v plánovači"
 
 #: ospy/templates/sensor.html:558 ospy/templates/sensors.html:420
-#: plugins/tank_monitor/templates/tank_monitor.html:315
+#: plugins/tank_monitor/templates/tank_monitor.html:337
 msgid "Regulate the maximum water level"
 msgstr "Regulace maximální hladiny vody"
 
@@ -4175,12 +4220,12 @@ msgid "If checked regulation is enabled"
 msgstr "Je-li zaškrtnuto, je povolena regulace"
 
 #: ospy/templates/sensor.html:561 ospy/templates/sensors.html:421
-#: plugins/tank_monitor/templates/tank_monitor.html:321
+#: plugins/tank_monitor/templates/tank_monitor.html:343
 msgid "Maximum maintained water level"
 msgstr "Maximální udržovaná hladina vody"
 
 #: ospy/templates/sensor.html:562
-#: plugins/tank_monitor/templates/tank_monitor.html:322
+#: plugins/tank_monitor/templates/tank_monitor.html:344
 msgid ""
 "If the measured water level exceeds this set value, the output is activated"
 msgstr ""
@@ -4190,7 +4235,7 @@ msgstr ""
 #: ospy/templates/sensor.html:566 ospy/templates/sensors.html:422
 #: plugins/air_temp_humi/templates/air_temp_humi.html:300
 #: plugins/pool_heating/templates/pool_heating.html:104
-#: plugins/tank_monitor/templates/tank_monitor.html:327
+#: plugins/tank_monitor/templates/tank_monitor.html:349
 #: plugins/temperature_switch/templates/temperature_switch.html:45
 #: plugins/temperature_switch/templates/temperature_switch.html:102
 #: plugins/temperature_switch/templates/temperature_switch.html:159
@@ -4218,12 +4263,12 @@ msgid "[mm:ss]"
 msgstr "[mm:ss]"
 
 #: ospy/templates/sensor.html:572 ospy/templates/sensors.html:423
-#: plugins/tank_monitor/templates/tank_monitor.html:334
+#: plugins/tank_monitor/templates/tank_monitor.html:356
 msgid "Minimum maintained water level"
 msgstr "Minimální udržovaná hladina vody"
 
 #: ospy/templates/sensor.html:573
-#: plugins/tank_monitor/templates/tank_monitor.html:335
+#: plugins/tank_monitor/templates/tank_monitor.html:357
 msgid ""
 "If the measured water level falls below this set value, the output is "
 "deactivated"
@@ -4232,7 +4277,7 @@ msgstr ""
 "deaktivuje"
 
 #: ospy/templates/sensor.html:576 ospy/templates/sensors.html:424
-#: plugins/tank_monitor/templates/tank_monitor.html:340
+#: plugins/tank_monitor/templates/tank_monitor.html:362
 msgid "Select Output for regulation"
 msgstr "Výstup pro regulaci"
 
@@ -4307,6 +4352,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:69
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
@@ -4315,7 +4361,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
 #: plugins/system_update/templates/system_update.html:82
 #: plugins/system_update/templates/system_update_help.html:22
-#: plugins/tank_monitor/templates/tank_monitor.html:396
+#: plugins/tank_monitor/templates/tank_monitor.html:427
 #: plugins/telegram_bot/templates/telegram_bot.html:113
 #: plugins/temperature_switch/templates/temperature_switch.html:190
 #: plugins/ups_adj/templates/ups_adj.html:258
@@ -4843,8 +4889,8 @@ msgid "Protocol"
 msgstr "Protokol"
 
 #: ospy/templates/sensors_firmware.html:188
-#: ospy/templates/sensors_firmware.html:201 plugins/system_info/__init__.py:58
-#: plugins/system_info/__init__.py:60
+#: ospy/templates/sensors_firmware.html:201 plugins/system_info/__init__.py:64
+#: plugins/system_info/__init__.py:66
 msgid "IP address"
 msgstr "IP adresa"
 
@@ -4896,6 +4942,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -4910,7 +4957,7 @@ msgstr ""
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:106
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:100
 #: plugins/system_update/templates/system_update.html:99
-#: plugins/tank_monitor/templates/tank_monitor.html:411
+#: plugins/tank_monitor/templates/tank_monitor.html:489
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
 #: plugins/ups_adj/templates/ups_adj.html:279
@@ -5200,7 +5247,7 @@ msgstr "Smazat uživatele"
 msgid "Back to options"
 msgstr "Zpět do nastavení"
 
-#: ospy/usagestats.py:18 ospy/webpages.py:36
+#: ospy/usagestats.py:18 ospy/webpages.py:37
 msgid "Requests not found, installing. Please wait..."
 msgstr "Requests nebylo nalezeno, instaluji. Počkejte prosím..."
 
@@ -5312,63 +5359,63 @@ msgstr "Počasí - nejsou k dispozici žádné souřadnice pro vaše umístění
 msgid "This interface was removed, please update the plug-in!"
 msgstr "Toto rozhraní bylo odstraněno, aktualizujte prosím!"
 
-#: ospy/webpages.py:100
+#: ospy/webpages.py:101
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ospy/webpages.py:101
+#: ospy/webpages.py:102
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ospy/webpages.py:104
+#: ospy/webpages.py:105
 msgid "Incorrect username or password, please try again..."
 msgstr "Nesprávné uživatelské jméno nebo heslo, zkuste to prosím znovu..."
 
-#: ospy/webpages.py:184 ospy/webpages.py:277 ospy/webpages.py:364
-#: ospy/webpages.py:422 ospy/webpages.py:675 ospy/webpages.py:978
-#: ospy/webpages.py:995 ospy/webpages.py:1022 ospy/webpages.py:1088
-#: ospy/webpages.py:1142 ospy/webpages.py:1302 ospy/webpages.py:1309
-#: ospy/webpages.py:1316 ospy/webpages.py:1325 ospy/webpages.py:1332
-#: ospy/webpages.py:1339 ospy/webpages.py:1378 ospy/webpages.py:1403
-#: ospy/webpages.py:1450 ospy/webpages.py:1550 ospy/webpages.py:1561
-#: ospy/webpages.py:1632 ospy/webpages.py:1652 ospy/webpages.py:1779
-#: ospy/webpages.py:1791 ospy/webpages.py:1894 ospy/webpages.py:1954
-#: ospy/webpages.py:1974 ospy/webpages.py:2039 ospy/webpages.py:2111
-#: ospy/webpages.py:2467 ospy/webpages.py:2544
+#: ospy/webpages.py:185 ospy/webpages.py:278 ospy/webpages.py:365
+#: ospy/webpages.py:423 ospy/webpages.py:676 ospy/webpages.py:979
+#: ospy/webpages.py:996 ospy/webpages.py:1023 ospy/webpages.py:1089
+#: ospy/webpages.py:1143 ospy/webpages.py:1303 ospy/webpages.py:1310
+#: ospy/webpages.py:1317 ospy/webpages.py:1326 ospy/webpages.py:1333
+#: ospy/webpages.py:1340 ospy/webpages.py:1379 ospy/webpages.py:1404
+#: ospy/webpages.py:1451 ospy/webpages.py:1551 ospy/webpages.py:1562
+#: ospy/webpages.py:1633 ospy/webpages.py:1653 ospy/webpages.py:1780
+#: ospy/webpages.py:1792 ospy/webpages.py:1895 ospy/webpages.py:1955
+#: ospy/webpages.py:1975 ospy/webpages.py:2041 ospy/webpages.py:2113
+#: ospy/webpages.py:2469 ospy/webpages.py:2546
 msgid ""
 "You do not have access to this section, ask your system administrator for "
 "access."
 msgstr "Nemáte přístup k této sekci, požádejte o přístup správce systému."
 
-#: ospy/webpages.py:318 ospy/webpages.py:1176
+#: ospy/webpages.py:319 ospy/webpages.py:1177
 msgid "File {} has sucesfully uploaded..."
 msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:324 ospy/webpages.py:1182
+#: ospy/webpages.py:325 ospy/webpages.py:1183
 msgid "File has sucesfully uploaded..."
 msgstr "Soubor se úspěšně nahrál..."
 
-#: ospy/webpages.py:1105
+#: ospy/webpages.py:1106
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:1200
+#: ospy/webpages.py:1201
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:1204
+#: ospy/webpages.py:1205
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1250 ospy/webpages.py:1251
+#: ospy/webpages.py:1251 ospy/webpages.py:1252
 msgid "User {} logged in"
 msgstr "Uživatel {} se přihlásil"
 
-#: ospy/webpages.py:1323
+#: ospy/webpages.py:1324
 msgid "User has set a delay {} hours"
 msgstr "Uživatel nastavil zpoždění {} hodin"
 
-#: ospy/webpages.py:1841
+#: ospy/webpages.py:1842
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -5376,7 +5423,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1847
+#: ospy/webpages.py:1848
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -5384,7 +5431,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1853
+#: ospy/webpages.py:1854
 msgid ""
 "The system (Linux) is now shutting down ... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -5392,7 +5439,7 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypnutí a zapnutí HW zařízení)."
 
-#: ospy/webpages.py:1876
+#: ospy/webpages.py:1877
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -5400,87 +5447,87 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:1961 ospy/webpages.py:2015 ospy/webpages.py:2016
+#: ospy/webpages.py:1962 ospy/webpages.py:2017 ospy/webpages.py:2018
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:1994
+#: ospy/webpages.py:1995
 msgid "Deleting folder backup."
 msgstr "Odstranění složky backup."
 
-#: ospy/webpages.py:1998
+#: ospy/webpages.py:1999
 msgid "Creating folder backup."
 msgstr "Vytvoření složky backup."
 
-#: ospy/webpages.py:2002
+#: ospy/webpages.py:2003
 msgid "Creating backup zip file."
 msgstr "Vytvoření záložního souboru zip."
 
-#: ospy/webpages.py:2006
+#: ospy/webpages.py:2007
 msgid "File {} is created successfully."
 msgstr "Soubor {} byl úspěšně vytvořen."
 
-#: ospy/webpages.py:2049
+#: ospy/webpages.py:2051
 msgid "Deleting folder upload."
 msgstr "Odstranění složky upload."
 
-#: ospy/webpages.py:2053
+#: ospy/webpages.py:2055
 msgid "Creating folder upload."
 msgstr "Vytvoření složky upload."
 
-#: ospy/webpages.py:2060
+#: ospy/webpages.py:2062
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:2067
+#: ospy/webpages.py:2069
 msgid "Uploading to folder OK, now extracting zip file."
 msgstr "Nahrávání do složky OK, nyní extrahuji soubor zip."
 
-#: ospy/webpages.py:2071
+#: ospy/webpages.py:2073
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:2083
+#: ospy/webpages.py:2085
 msgid "Copy extrated folders with files to data dir."
 msgstr "Zkopíruji extrahované složky se soubory do datového adresáře."
 
-#: ospy/webpages.py:2090
+#: ospy/webpages.py:2092
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:2121 ospy/webpages.py:2122
+#: ospy/webpages.py:2123 ospy/webpages.py:2124
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:2153 ospy/webpages.py:2154 plugins/mqtt/__init__.py:373
+#: ospy/webpages.py:2155 ospy/webpages.py:2156 plugins/mqtt/__init__.py:373
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:118 plugins/ups_adj/__init__.py:441
 #: plugins/ups_adj/__init__.py:537
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:2173
+#: ospy/webpages.py:2175
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:2177
+#: ospy/webpages.py:2179
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:2183
+#: ospy/webpages.py:2185
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:2347
+#: ospy/webpages.py:2349
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:2360 ospy/webpages.py:2425
+#: ospy/webpages.py:2362 ospy/webpages.py:2427
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:2372 ospy/webpages.py:2412
+#: ospy/webpages.py:2374 ospy/webpages.py:2414
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
@@ -5524,7 +5571,7 @@ msgstr "DS"
 #: plugins/air_temp_humi/__init__.py:762 plugins/air_temp_humi/__init__.py:813
 #: plugins/air_temp_humi/__init__.py:828 plugins/air_temp_humi/__init__.py:876
 #: plugins/air_temp_humi/__init__.py:913 plugins/air_temp_humi/__init__.py:954
-#: plugins/tank_monitor/__init__.py:789
+#: plugins/tank_monitor/__init__.py:889
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
@@ -5549,7 +5596,8 @@ msgid "Not used"
 msgstr "Nepoužívá se"
 
 #: plugins/air_temp_humi/__init__.py:580
-#: plugins/pressure_monitor/__init__.py:399 plugins/ups_adj/__init__.py:360
+#: plugins/pressure_monitor/__init__.py:399
+#: plugins/tank_monitor/__init__.py:708 plugins/ups_adj/__init__.py:360
 #: plugins/wind_monitor/__init__.py:521
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
@@ -5560,7 +5608,7 @@ msgstr "Ukládání do souboru protokolu."
 
 #: plugins/air_temp_humi/__init__.py:635
 #: plugins/pressure_monitor/__init__.py:387
-#: plugins/tank_monitor/__init__.py:658 plugins/ups_adj/__init__.py:346
+#: plugins/tank_monitor/__init__.py:743 plugins/ups_adj/__init__.py:346
 #: plugins/wind_monitor/__init__.py:505
 msgid "Saving to SQL database."
 msgstr "Ukládání do SQL databáze."
@@ -5572,7 +5620,7 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/air_temp_humi/__init__.py:753 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
 #: plugins/ping_monitor/__init__.py:386 plugins/speed_monitor/__init__.py:275
-#: plugins/tank_monitor/__init__.py:705 plugins/wind_monitor/__init__.py:551
+#: plugins/tank_monitor/__init__.py:792 plugins/wind_monitor/__init__.py:551
 msgid "Deleted all log files OK"
 msgstr "Odstraněny všechny soubory protokolu OK"
 
@@ -5593,7 +5641,7 @@ msgstr "&deg;C nebo %"
 #: plugins/ping_monitor/templates/ping_monitor.html:183
 #: plugins/pressure_monitor/templates/pressure_monitor.html:190
 #: plugins/speed_monitor/templates/speed_monitor.html:183
-#: plugins/tank_monitor/templates/tank_monitor.html:182
+#: plugins/tank_monitor/templates/tank_monitor.html:204
 #: plugins/ups_adj/templates/ups_adj.html:190
 #: plugins/wind_monitor/templates/wind_monitor.html:196
 msgid "Show logs"
@@ -5608,7 +5656,7 @@ msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:222
-#: plugins/tank_monitor/templates/tank_monitor.html:354
+#: plugins/tank_monitor/templates/tank_monitor.html:376
 #: plugins/ups_adj/templates/ups_adj.html:202
 #: plugins/wind_monitor/templates/wind_monitor.html:209
 msgid "Enable local logging"
@@ -5616,7 +5664,7 @@ msgstr "Povolit místní záznam"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
 #: plugins/pressure_monitor/templates/pressure_monitor.html:203
-#: plugins/tank_monitor/templates/tank_monitor.html:355
+#: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:203
 #: plugins/wind_monitor/templates/wind_monitor.html:210
 msgid ""
@@ -5628,7 +5676,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:228
 #: plugins/pressure_monitor/templates/pressure_monitor.html:208
-#: plugins/tank_monitor/templates/tank_monitor.html:360
+#: plugins/tank_monitor/templates/tank_monitor.html:382
 #: plugins/ups_adj/templates/ups_adj.html:208
 #: plugins/wind_monitor/templates/wind_monitor.html:215
 msgid "Enable SQL logging"
@@ -5648,7 +5696,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:230
 #: plugins/pressure_monitor/templates/pressure_monitor.html:210
-#: plugins/tank_monitor/templates/tank_monitor.html:362
+#: plugins/tank_monitor/templates/tank_monitor.html:384
 #: plugins/ups_adj/templates/ups_adj.html:210
 #: plugins/wind_monitor/templates/wind_monitor.html:217
 msgid "requires database connector plugin"
@@ -5657,26 +5705,31 @@ msgstr "vyžaduje rozšíření database connector"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
 #: plugins/pressure_monitor/templates/pressure_monitor.html:211
-#: plugins/tank_monitor/templates/tank_monitor.html:363
+#: plugins/tank_monitor/templates/tank_monitor.html:385
+#: plugins/tank_monitor/templates/tank_monitor_log.html:28
 #: plugins/ups_adj/templates/ups_adj.html:211
 #: plugins/wind_monitor/templates/wind_monitor.html:218
 msgid "Delete SQL table"
 msgstr "Smazat tabulku SQL"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:235
+#: plugins/tank_monitor/templates/tank_monitor.html:389
 msgid "Show data from"
 msgstr "Zobrazit data z"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
+#: plugins/tank_monitor/templates/tank_monitor.html:391
 msgid ""
 "Choose from where the displayed data in the log and graph will be loaded."
 msgstr "Zvolte, odkud se budou načítat zobrazená data v logu a grafu."
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:238
+#: plugins/tank_monitor/templates/tank_monitor.html:392
 msgid "Local file"
 msgstr "Místní soubor"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
+#: plugins/tank_monitor/templates/tank_monitor.html:393
 msgid "Database file"
 msgstr "Databázový soubor"
 
@@ -5684,7 +5737,7 @@ msgstr "Databázový soubor"
 #: plugins/chmi/templates/chmi.html:143
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/speed_monitor/templates/speed_monitor.html:207
-#: plugins/tank_monitor/templates/tank_monitor.html:367
+#: plugins/tank_monitor/templates/tank_monitor.html:398
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/volt_temp_da/templates/volt_temp_da.html:39
 #: plugins/wind_monitor/templates/wind_monitor.html:248
@@ -5703,7 +5756,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
 #: plugins/speed_monitor/templates/speed_monitor.html:213
-#: plugins/tank_monitor/templates/tank_monitor.html:373
+#: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
 #: plugins/wind_monitor/templates/wind_monitor.html:254
 msgid "Interval for logging"
@@ -5766,7 +5819,7 @@ msgstr "Vlhkost + hystereze/2 = ZAPNUTO"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:301
 #: plugins/pool_heating/templates/pool_heating.html:105
-#: plugins/tank_monitor/templates/tank_monitor.html:328
+#: plugins/tank_monitor/templates/tank_monitor.html:350
 #: plugins/temperature_switch/templates/temperature_switch.html:46
 #: plugins/temperature_switch/templates/temperature_switch.html:103
 #: plugins/temperature_switch/templates/temperature_switch.html:160
@@ -5804,6 +5857,7 @@ msgstr "Počet DS18B20"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
@@ -5811,7 +5865,7 @@ msgstr "Počet DS18B20"
 #: plugins/speed_monitor/templates/speed_monitor.html:220
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
 #: plugins/system_update/templates/system_update.html:83
-#: plugins/tank_monitor/templates/tank_monitor.html:397
+#: plugins/tank_monitor/templates/tank_monitor.html:428
 #: plugins/telegram_bot/templates/telegram_bot.html:114
 #: plugins/temperature_switch/templates/temperature_switch.html:191
 #: plugins/ups_adj/templates/ups_adj.html:259
@@ -5822,30 +5876,37 @@ msgid "Show data from plugin in footer on home page"
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:406
+#: plugins/tank_monitor/templates/tank_monitor.html:495
 msgid "The chart from local file"
 msgstr "Graf z místního souboru"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:408
+#: plugins/tank_monitor/templates/tank_monitor.html:497
 msgid "The chart from database"
 msgstr "Graf z databáze"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:414
+#: plugins/tank_monitor/templates/tank_monitor.html:503
 msgid "From"
 msgstr "Od"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:415
+#: plugins/tank_monitor/templates/tank_monitor.html:504
 msgid "To"
 msgstr "Do"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:416
+#: plugins/tank_monitor/templates/tank_monitor.html:505
 msgid "Filtering"
 msgstr "Filtrování"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:417
+#: plugins/tank_monitor/templates/tank_monitor.html:506
 msgid "Reload chart"
 msgstr "Znovu načíst graf"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:418
+#: plugins/tank_monitor/templates/tank_monitor.html:507
 msgid "Delete range"
 msgstr "Smazat rozsah"
 
@@ -6013,22 +6074,27 @@ msgid "Air Temperature and Humidity Monitor - log"
 msgstr "Rozšíření monitor teploty a vlhkosti - záznam"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+#: plugins/tank_monitor/templates/tank_monitor_log.html:11
 msgid "Log from local file"
 msgstr "Záznam z místního souboru"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:13
+#: plugins/tank_monitor/templates/tank_monitor_log.html:13
 msgid "Log from database"
 msgstr "Záznam z databáze"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+#: plugins/tank_monitor/templates/tank_monitor_log.html:24
 msgid "Download local log"
 msgstr "Stáhnout místní záznam"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+#: plugins/tank_monitor/templates/tank_monitor_log.html:25
 msgid "Delete all local logs"
 msgstr "Smazat všechny místní záznamy"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:27
+#: plugins/tank_monitor/templates/tank_monitor_log.html:27
 msgid "Download database log"
 msgstr "Stáhnout záznam z databáze"
 
@@ -6041,7 +6107,7 @@ msgstr "Id"
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:15
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:26
-#: plugins/tank_monitor/templates/tank_monitor_log.html:18
+#: plugins/tank_monitor/templates/tank_monitor_log.html:34
 #: plugins/venetian_blind/templates/venetian_blind_log.html:15
 msgid "Date Time"
 msgstr "Datum Čas"
@@ -6674,8 +6740,8 @@ msgid "I will try to download a file that is 10 minutes older."
 msgstr "Pokusím se stáhnout soubor, který je o 10 minut starší."
 
 #: plugins/chmi/__init__.py:445 plugins/chmi/templates/chmi.html:120
-#: plugins/tank_monitor/__init__.py:779
-#: plugins/tank_monitor/templates/tank_monitor.html:253
+#: plugins/tank_monitor/__init__.py:879
+#: plugins/tank_monitor/templates/tank_monitor.html:275
 msgid "Removing Rain Delay"
 msgstr "Odebrání zpoždění při dešti"
 
@@ -6711,7 +6777,6 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:191
 #: plugins/speed_monitor/templates/speed_monitor.html:184
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:21
-#: plugins/tank_monitor/templates/tank_monitor_log.html:12
 #: plugins/ups_adj/templates/ups_adj.html:191
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:62
 #: plugins/wind_monitor/templates/wind_monitor.html:197
@@ -6800,8 +6865,8 @@ msgid ""
 "is detected."
 msgstr ""
 "Práh intenzity pro aktivaci zpoždění deště v mé pozici Logika detekce je "
-"typu \"nebo\". To znamená, že když červená barva překročí hodnotu 50 nebo "
-"zelená hodnotu 100 nebo modrá hodnotu 200, je detekován déšť."
+"typu nebo. To znamená, že když červená barva překročí hodnotu 50 nebo zelená "
+"hodnotu 100 nebo modrá hodnotu 200, je detekován déšť."
 
 #: plugins/chmi/templates/chmi.html:126
 #: plugins/labelmaker/templates/labelmaker.html:65
@@ -8049,7 +8114,6 @@ msgstr "Rozšíření CLI (command line interface) záznam"
 #: plugins/cli_control/templates/cli_control_log.html:8
 #: plugins/modbus_stations/templates/modbus_stations_log.html:8
 #: plugins/speed_monitor/templates/speed_monitor_log.html:8
-#: plugins/tank_monitor/templates/tank_monitor_log.html:8
 #: plugins/venetian_blind/templates/venetian_blind_log.html:8
 msgid "Here we can see all the events performed in this extension."
 msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
@@ -8390,7 +8454,7 @@ msgstr ""
 "stav"
 
 #: plugins/database_connector/templates/database_connector_help.html:16
-#: plugins/tank_monitor/__init__.py:35
+#: plugins/tank_monitor/__init__.py:34
 msgid "Package: Water Tank Monitor"
 msgstr "Balíček: Monitor hladiny vody v nádrži"
 
@@ -8517,13 +8581,15 @@ msgstr "Ukončené zalévání"
 #: plugins/email_notifications/__init__.py:156
 #: plugins/email_notifications_ssl/__init__.py:164
 #: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:392
+#: plugins/tank_monitor/__init__.py:599 plugins/tank_monitor/__init__.py:782
+#: plugins/tank_monitor/templates/tank_monitor.html:433
 msgid "Level"
 msgstr "Úroveň"
 
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications_ssl/__init__.py:166
 #: plugins/email_reader/__init__.py:238 plugins/speed_monitor/__init__.py:267
-#: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:199
+#: plugins/tank_monitor/templates/tank_monitor.html:461
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Ping"
 msgstr "Ping"
@@ -8533,10 +8599,11 @@ msgstr "Ping"
 #: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_notifications_ssl/__init__.py:170
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:196
-#: plugins/tank_monitor/__init__.py:199 plugins/tank_monitor/__init__.py:696
-#: plugins/tank_monitor/__init__.py:942
-#: plugins/tank_monitor/templates/tank_monitor_log.html:22
+#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:600
+#: plugins/tank_monitor/__init__.py:783 plugins/tank_monitor/__init__.py:1083
+#: plugins/tank_monitor/__init__.py:1131
+#: plugins/tank_monitor/templates/tank_monitor.html:468
+#: plugins/tank_monitor/templates/tank_monitor_log.html:38
 msgid "Volume"
 msgstr "Objem"
 
@@ -8845,7 +8912,7 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:253
 #: plugins/system_update/templates/system_update.html:67
 #: plugins/system_update/templates/system_update_help.html:20
-#: plugins/tank_monitor/templates/tank_monitor.html:295
+#: plugins/tank_monitor/templates/tank_monitor.html:317
 #: plugins/ups_adj/templates/ups_adj.html:238
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:43
 #: plugins/wind_monitor/templates/wind_monitor.html:301
@@ -9675,15 +9742,17 @@ msgstr "Datum/Čas"
 msgid "Conversion error! Temperature data from json file to csv file"
 msgstr "Chyba převodu! Data teplota ze souboru json do souboru CSV"
 
-#: plugins/email_reader/__init__.py:829 plugins/tank_monitor/__init__.py:693
-#: plugins/tank_monitor/__init__.py:939
-#: plugins/tank_monitor/templates/tank_monitor_log.html:19
+#: plugins/email_reader/__init__.py:829 plugins/tank_monitor/__init__.py:597
+#: plugins/tank_monitor/__init__.py:780 plugins/tank_monitor/__init__.py:1080
+#: plugins/tank_monitor/__init__.py:1128
+#: plugins/tank_monitor/templates/tank_monitor_log.html:35
 msgid "Minimum"
 msgstr "Minimum"
 
 #: plugins/email_reader/__init__.py:830 plugins/email_reader/__init__.py:891
-#: plugins/tank_monitor/__init__.py:694 plugins/tank_monitor/__init__.py:940
-#: plugins/tank_monitor/templates/tank_monitor_log.html:20
+#: plugins/tank_monitor/__init__.py:598 plugins/tank_monitor/__init__.py:781
+#: plugins/tank_monitor/__init__.py:1081 plugins/tank_monitor/__init__.py:1129
+#: plugins/tank_monitor/templates/tank_monitor_log.html:36
 #: plugins/wind_monitor/__init__.py:513 plugins/wind_monitor/__init__.py:682
 #: plugins/wind_monitor/templates/wind_monitor_log.html:18
 msgid "Maximum"
@@ -9699,7 +9768,7 @@ msgstr "Chyba převodu! Data sledování větru ze souboru json do souboru CSV"
 
 #: plugins/email_reader/__init__.py:960 plugins/ping_monitor/__init__.py:467
 #: plugins/pressurizer/__init__.py:242 plugins/speed_monitor/__init__.py:332
-#: plugins/tank_monitor/__init__.py:804 plugins/wind_monitor/__init__.py:586
+#: plugins/tank_monitor/__init__.py:904 plugins/wind_monitor/__init__.py:586
 msgid "Options has updated."
 msgstr "Nastavení bylo aktualizováno."
 
@@ -10627,8 +10696,8 @@ msgstr "Nalezen {} na adrese {}"
 msgid "Could not find any PCF8574 controller."
 msgstr "Nebyl nalezl žádný řadič PCF8574."
 
-#: plugins/lcd_display/__init__.py:600 plugins/system_info/__init__.py:222
-#: plugins/system_info/__init__.py:238 plugins/volt_temp_da/__init__.py:85
+#: plugins/lcd_display/__init__.py:600 plugins/system_info/__init__.py:228
+#: plugins/system_info/__init__.py:244 plugins/volt_temp_da/__init__.py:85
 #: plugins/water_meter/__init__.py:71 plugins/wind_monitor/__init__.py:135
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
@@ -10653,7 +10722,7 @@ msgstr "Restartování systému"
 
 #: plugins/lcd_display/__init__.py:677 plugins/lcd_display/__init__.py:679
 #: plugins/lcd_display/__init__.py:719 plugins/lcd_display/__init__.py:721
-#: plugins/system_update/__init__.py:237
+#: plugins/system_update/__init__.py:247
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
@@ -10760,7 +10829,7 @@ msgstr "Datum a čas"
 
 #: plugins/lcd_display/templates/lcd_display.html:95
 #: plugins/lcd_display/templates/lcd_display_help.html:37
-#: plugins/system_info/__init__.py:61
+#: plugins/system_info/__init__.py:67
 msgid "Uptime"
 msgstr "V provozu"
 
@@ -12149,13 +12218,585 @@ msgstr ""
 msgid "2: exactly once. Will only send a message once."
 msgstr "2: Přesně jednou. Odešle zprávu pouze jednou."
 
-#: plugins/ospy_backup/__init__.py:24
-msgid "Package: OSPy package Backup"
-msgstr "Balíček: Zálohování balíčků OSPy"
+#: plugins/mqtt_home_assistant/__init__.py:31
+msgid "Package: MQTT Home Assistant"
+msgstr "Balíček: MQTT Home Assistant"
 
+#: plugins/mqtt_home_assistant/__init__.py:112
+#: plugins/mqtt_home_assistant/__init__.py:127
+msgid "MQTT Home Assistant"
+msgstr "Domácí asistent MQTT"
+
+#: plugins/mqtt_home_assistant/__init__.py:115
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
 msgid "Plugin is started."
 msgstr "Rozšíření je spuštěno."
+
+#: plugins/mqtt_home_assistant/__init__.py:120
+msgid "Only test! not use"
+msgstr "Pouze test! nepoužívat"
+
+#: plugins/mqtt_home_assistant/__init__.py:254
+msgid ""
+"Error: slugify not installed. Install it to system. sudo apt install python3 "
+"slugify."
+msgstr ""
+"Chyba: slugify není nainstalován. Nainstalujte jej do systému. sudo apt "
+"install python3 slugify."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
+msgid "MQTT Home Assistant Plugin"
+msgstr "Rozšíření MQTT Home Assistant"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:33
+msgid "Topic prefix"
+msgstr "Předpona tématu"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:34
+msgid "MQTT base topic for system parameters and zones (Default: System name)"
+msgstr ""
+"Základní téma MQTT pro systémové parametry a zóny (Výchozí: Název systému)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:39
+msgid "Name prefix"
+msgstr "Pojmenování prefixu"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:40
+msgid "HASS name prefix for devices and zones (Default: System name)"
+msgstr "Předpona názvu HASS pro zařízení a zóny (výchozí: Název systému)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:45
+msgid "OSPy FQDN"
+msgstr "OSPy FQDN"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:46
+msgid ""
+"OSPy network name or IP address for web access from HASS (Default: auto "
+"detect)"
+msgstr ""
+"Název sítě OSPy nebo IP adresa pro webový přístup z HASS (výchozí: "
+"automatická detekce)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
+msgid "Device name is Station name"
+msgstr "Název zařízení je Název stanice"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:52
+msgid "Use station name for HASS zone device name (Default: uncheck)"
+msgstr "Použít název stanice pro název zařízení zóny HASS (Výchozí: neaktivní)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:57
+msgid "Publish disabled zones"
+msgstr "Publikování zakázaných zón"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:58
+msgid "MQTT publish all zones states (Default: uncheck)"
+msgstr "MQTT publikuje všechny stavy zón (výchozí: neaktivní)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:63
+msgid "Discovery UUID prefix"
+msgstr "Předpona UUID zjišťování"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
+msgid "Unique identifier used as prefix for MQTT Discovery by HASS"
+msgstr ""
+"Jedinečný identifikátor používaný jako předpona pro zjišťování MQTT pomocí "
+"HASS"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:7
+msgid "MQTT Home Assistant Plugin - help"
+msgstr "Rozšíření MQTT Home Assistant - nápověda"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:8
+msgid "About the MQTT HASS Plugin"
+msgstr "O rozšíření MQTT HASS"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:10
+msgid ""
+"The MQTT HASS plugin implement MQTT Discovery for Home Assistant (HASS), "
+"including report and control of some OSPy system settings and valves "
+"(stations) over MQTT. MQTT Discovery enables automatic devices and entities "
+"enrolment from HASS user interface configuration panel, including plug-and-"
+"play availability detection, status and control."
+msgstr ""
+"Rozšíření MQTT HASS implementuje MQTT Discovery pro Home Assistant (HASS), "
+"včetně hlášení a ovládání některých nastavení systému OSPy a ventilů "
+"(stanic) přes MQTT. MQTT Discovery umožňuje automatickou registraci zařízení "
+"a entit z konfiguračního panelu uživatelského rozhraní HASS, včetně detekce "
+"dostupnosti, stavu a řízení plug-and-play."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:12
+msgid "Using MQTT HASS plugin"
+msgstr "Použit rozšíření MQTT Home Assistant"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:13
+msgid ""
+"This plugin is disabled by default. If you are reading this, the mqtt_hass "
+"plugin is probably enabled on your system. Otherwise, you can enable it "
+"using the plugin manager."
+msgstr ""
+"Toto rozšíření je ve výchozím nastavení zakázáno. Pokud toto čtete, "
+"mqtt_hass je ve vašem systému pravděpodobně povolen. V opačném případě jej "
+"můžete povolit pomocí správce balíčku."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:15
+msgid "Requirements"
+msgstr "Požadavky"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:17
+msgid ""
+"An MQTT broker such as Mosquitto is required to be accessible by OSPy device "
+"and HASS. This broker can be on different parts of the local network, on a "
+"remote network, or installed on either OSPy or HASS system."
+msgstr ""
+"Zprostředkovatel MQTT, jako je Mosquitto, musí být přístupný zařízením OSPy "
+"a HASS. Tento zprostředkovatel může být na různých částech lokální sítě, ve "
+"vzdálené síti nebo nainstalován na systému OSPy nebo HASS."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:18
+msgid "A working HASS system with an MQTT Integration such as Mosquitto broker"
+msgstr ""
+"Funkční systém HASS s integrací MQTT, jako je zprostředkovatel Mosquitto"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:19
+msgid ""
+"A OSPy system with the base mqtt plugin installed and configured (see below)."
+msgstr ""
+"Systém OSPy s nainstalovaným a nakonfigurovaným základním rozšířením mqtt "
+"(viz níže)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:20
+msgid ""
+"This plugin installed and configured on the same OSPy system as the base "
+"mqtt plugin (see below)."
+msgstr ""
+"Toto rozšíření je nainstalováno a nakonfigurováno na stejném OSPy systému "
+"jako základní rozšíření mqtt (viz níže)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
+msgid "Setup"
+msgstr "Nastavení"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:25
+msgid "On OSPy - base MQTT plugin setup"
+msgstr "Na OSPy - základní nastavení MQTT rozšíření"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:27
+msgid "Install eclipse paho if not already on the Pi"
+msgstr "Nainstalujte eclipse paho, pokud již není na Pi"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:28
+msgid "Install the base MQTT plugin"
+msgstr "Instalace základního MQTT rozšíření"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:29
+msgid "Configure base MQTT plugin"
+msgstr "Konfigurace základního MQTT rozšíření"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:31
+msgid ""
+"MQTT Broker Host: This will be the URL of the MQTT broker or localhost if "
+"the broker is running on OSPy"
+msgstr ""
+"MQTT Broker Host: Toto bude adresa URL zprostředkovatele MQTT nebo "
+"localhost, pokud zprostředkovatel běží na OSPy"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:32
+msgid ""
+"MQTT Broker Port: Default is 1883 but may be different depending on your "
+"MQTT broker"
+msgstr ""
+"Port zprostředkovatele MQTT: Výchozí hodnota je 1883, ale může se lišit v "
+"závislosti na vašem zprostředkovateli MQTT"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:33
+msgid "MQTT Broker Username: Default is mosquitto but depends on your setup."
+msgstr ""
+"Uživatelské jméno MQTT Brokera: Výchozí je mosquitto, ale závisí na vašem "
+"nastavení."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:34
+msgid "MQTT Broker Password: Depends on your setup. Use pass as default"
+msgstr ""
+"Heslo MQTT Broker: Závisí na vašem nastavení. Použít heslo jako výchozí"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:35
+msgid ""
+"MQTT Publish up/down topic: It needs to be set for proper OSPy availability "
+"detection by HASS. We suggest to use the OSPy System name as set on Options "
+"webpage"
+msgstr ""
+"MQTT Publikuje up/down topic: Musí být nastaveno pro správnou detekci "
+"dostupnosti OSPy pomocí HASS. Doporučujeme použít název systému OSPy, jaký "
+"je nastaven na webové stránce OSPy systému"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:36
+msgid ""
+"MQTT Client ID: A unique name for OSPy system. Default is OSPy System name "
+"but can be changed on Options webpage."
+msgstr ""
+"ID klienta MQTT: Jedinečný název pro systém OSPy. Výchozí je název systému "
+"OSPy."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:40
+msgid "On OSPy - MQTT HASS plugin setup"
+msgstr "Na OSPy - nastavení MQTT HASS pluginu"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:42
+msgid "Install Python python-slugify package if not already on the pi."
+msgstr "Nainstalujte balíček Python python-slugify, pokud ještě není na pi."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:44
+msgid "Configure MQTT HASS plugin."
+msgstr "Nakonfigurujte rozšíření MQTT HASS."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
+msgid ""
+"Topic prefix: This prefix is used for OSPy system parameters and zones "
+"published to the MQTT broker. Leave this option empty to use a slugified "
+"OSPy System name. This setting will be slugified when saved. (Default: "
+"System name or \"OSPy\" if System name is empty)."
+msgstr ""
+"Předpona tématu: Tato předpona se používá pro systémové parametry OSPy a "
+"zóny publikované do MQTT brokeru. Tuto možnost ponechte prázdnou, chcete-li "
+"použít slugified název systému OSPy. Toto nastavení bude při uložení "
+"sloučeno. (Výchozí: Název systému nebo \"OSPy\", pokud je název systému "
+"prázdný)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
+msgid ""
+"Name prefix: Used as prefix for all HASS devices and entities names. Leave "
+"this option empty to use a OSPy System name as prefix. For entities, this "
+"setting will be slugified. (Default: System name or \"OSPy\" if System name "
+"is empty)."
+msgstr ""
+"Předpona názvu: Používá se jako předpona pro všechna zařízení HASS a názvy "
+"entit. Tuto možnost ponechte prázdnou, pokud chcete jako předponu použít "
+"název systému OSPy. U entit bude toto nastavení slugated. (Výchozí: Název "
+"systému nebo \"OSPy\", pokud je název systému prázdný)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
+msgid ""
+"OSPy FQDN: OSPy network name or IP address. Used to compose the URL link to "
+"OSPy web interface displayed in HASS devices settings. Leave this option "
+"empty to use OSPy hostname or IP address used to connect with the MQTT "
+"broker. (Default: OSPy hostname)."
+msgstr ""
+"Plně kvalifikovaný název domény OSPy: Název sítě OSPy nebo IP adresa. Slouží "
+"k vytvoření URL odkazu na webové rozhraní OSPy zobrazovaného v nastavení "
+"zařízení HASS. Tuto možnost ponechte prázdnou, pokud chcete použít název "
+"hostitele OSPy nebo IP adresu použitou pro připojení k MQTT brokeru. "
+"(Výchozí: OSPy hostname)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:49
+msgid ""
+"Device is Station name: if checked, use station name as part of HASS Device "
+"name. Changes to OSPy station name will update HASS Device name. (Default: "
+"unchecked)"
+msgstr ""
+"Zařízení je Název stanice: pokud je zatrženo, použijte název stanice jako "
+"součást názvu zařízení HASS. Změny názvu stanice OSPy aktualizují název "
+"zařízení HASS. (Výchozí: nezaškrtnuto)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:50
+msgid ""
+"Publish disabled zone: if checked, disabled stations will also be published "
+"to the MQTT broker and discovered by HASS. NOTE: For safety, disabled "
+"stations can't be controlled from MQTT nor HASS. (Default: unchecked)"
+msgstr ""
+"Publikovat zakázanou zónu: pokud je zatrženo, zakázané stanice budou také "
+"publikovány do MQTT brokeru a detekovány HASSem. POZNÁMKA: Z bezpečnostních "
+"důvodů nelze deaktivované stanice ovládat z MQTT ani HASS. (Výchozí: "
+"nezaškrtnuto)"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
+msgid "On Home Assistant - MQTT setup"
+msgstr "Na Home Assistant - nastavení MQTT"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:56
+msgid ""
+"Follow Home Assistant instructions to add MQTT integration via the user "
+"interface. MQTT discovery feature is enabled by default. MQTT integration "
+"will detect OSPy settings parameters and zones as devices and entities."
+msgstr ""
+"Postupujte podle pokynů Home Assistant a přidejte integraci MQTT "
+"prostřednictvím uživatelského rozhraní. Funkce zjišťování MQTT je ve "
+"výchozím nastavení povolena. Integrace MQTT detekuje parametry nastavení "
+"OSPy a zóny jako zařízení a entity."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:57
+msgid ""
+"Follow Home Assistant instructions to configure and use the newly added "
+"devices and entities."
+msgstr ""
+"Postupujte podle pokynů Home Assistant a nakonfigurujte a používejte nově "
+"přidaná zařízení a entity."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
+msgid ""
+"Multiple OSPy systems connected to the same MQTT broker or Home Assistant "
+"instance"
+msgstr ""
+"Více systémů OSPy připojených ke stejnému MQTT brokeru nebo instanci Home "
+"Assistant"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
+msgid "To integrate multiple OSPy systems, on each OSPy:"
+msgstr "Chcete-li integrovat více systémů OSPy, na každém OSPy:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:63
+msgid ""
+"Use different \"System name\" as set on OSPy Options webpage. Default OSPy "
+"System name is \"OSPy\""
+msgstr ""
+"Použijte jiný \"Název systému\", jak je nastaveno v nastavení OSPy systému. "
+"Výchozí název systému OSPy je \"OSPy\""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
+msgid ""
+"For each base MQTT plugin settings use different MQTT Publish up/down topic "
+"and MQTT Client ID."
+msgstr ""
+"Pro každé základní nastavení MQTT pluginu použijte jiné téma MQTT Publish up/"
+"down a MQTT Client ID."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
+msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
+msgstr ""
+"Pro každý MQTT HASS plugin použijte jinou předponu Topic a předponu Name."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:68
+msgid "Home Assistant - available OSPy Devices and Entities"
+msgstr "Home Assistant - dostupná zařízení a entity OSPy"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:69
+msgid "Devices and associated Entities made available with this plugin are:"
+msgstr ""
+"Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:71
+msgid ""
+"Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device per "
+"OSPy system. This device regroups the supported OSPy system parameters and "
+"sensors. NamePrefix is MQTT HASS \"Name prefix\" option. Unless specified "
+"the associated entities have the same behavior as on OSPy home webpage. "
+"Entities name prefix uses a slugified version of the device name "
+"(nameprefix). Entities:"
+msgstr ""
+"Zařízení: OSPy (název: NamePrefix) MQTT HASS plugin vytvoří jedno zařízení "
+"pro každý OSPy systém. Toto zařízení přeskupí podporované systémové "
+"parametry OSPy a senzory. NamePrefix je volba MQTT HASS \"Předpona názvu\". "
+"Pokud není uvedeno jinak, přidružené entity se chovají stejně jako na "
+"domovské stránce OSPy. Předpona názvu entit používá zjednodušenou verzi "
+"názvu zařízení (nameprefix). Entity:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:73
+msgid ""
+"Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS "
+"\"Select entity\" showing and controlling OSPy System Enable (Values: \"on"
+"\", \"off\"). Setting it to \"off\" will disable all other system parameters "
+"and zone control from HASS."
+msgstr ""
+"Řídicí entita: Povolení systému OSPy (ID: select.nameprefix_enable) HASS "
+"\"Vybrat entitu\" zobrazující a ovládající povolení systému OSPy (hodnoty: "
+"\"zapnuto\", \"vypnuto\"). Nastavení na \"vypnuto\" deaktivuje všechny "
+"ostatní systémové parametry a zónové řízení z HASS."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
+msgid ""
+"Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS \"Select "
+"entity\" showing and controlling OSPy Mode (Values: \"Automatic\", \"Manual"
+"\")."
+msgstr ""
+"Konfigurační entita: Režim OSPy (ID: select.nameprefix_mode) HASS \"Vybrat "
+"entitu\" zobrazující a ovládající režim OSPy (hodnoty: \"Automaticky\", "
+"\"Ručně\")."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:75
+msgid ""
+"Configuration Entity: Rain sensor enable (ID: select."
+"nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and "
+"controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same behavior "
+"as \"Use rain sensor\" in OSPy Options webpage."
+msgstr ""
+"Entita konfigurace: Povolení dešťového senzoru (ID: select."
+"nameprefix_rain_sensor_enable) HASS \"Vybrat entitu\" zobrazující a "
+"ovládající OSPy Aktivace dešťového senzoru (hodnoty: \"zapnuto\", \"vypnuto"
+"\"). Stejné chování jako \"Použít dešťový senzor\" na webové stránce "
+"Možnosti OSPy."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:76
+msgid ""
+"Configuration Entity: Rain delay timer (ID: number."
+"nameprefix_rain_delay_timer) HASS \"Number entity\" showing and controlling "
+"OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This entity has the "
+"following JSON attributes and default values when the timer is active / "
+"inactive (default):"
+msgstr ""
+"Konfigurační entita: Časovač zpoždění deště (ID: number."
+"nameprefix_rain_delay_timer) HASS \"Číselná entita\" zobrazující a "
+"ovládající časovač zpoždění OSPy Rain (rozsah: 0 až 24 hodin, výchozí 0). "
+"Tato entita má následující atributy JSON a výchozí hodnoty, pokud je časovač "
+"aktivní/neaktivní (výchozí):"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:78
+msgid ""
+"Attribute: state The number of hours as set from OSPy user interface or MQTT "
+"(Default 0)."
+msgstr ""
+"Atribut: state Počet hodin nastavený z uživatelského rozhraní OSPy nebo MQTT "
+"(výchozí 0)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:79
+msgid ""
+"Attribute: start_time Unix time when the delay timer started (Default \"None"
+"\")."
+msgstr ""
+"Atribut: start_time unixový čas, kdy se spustil časovač zpoždění (výchozí "
+"\"None\")."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:80
+msgid ""
+"Attribute: duration Total number of seconds of the delay timer (Default 0)."
+msgstr ""
+"Atribut: doba trvání Celkový počet sekund časovače zpoždění (výchozí 0)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:82
+msgid ""
+"Configuration Entity: Water level adjust (ID: number.nameprefix."
+"water_level_adjust) HASS \"Number entity\" showing and controlling OSPy "
+"Water level adjust (Range: 0 to 100 %, Default 100)."
+msgstr ""
+"Konfigurační entita: Nastavení hladiny vody (ID: number.nameprefix."
+"water_level_adjust) HASS \"Číselná entita\" zobrazující a ovládající OSPy "
+"Nastavení hladiny vody (Rozsah: 0 až 100 %, výchozí 100)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:83
+msgid ""
+"Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix."
+"rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor state "
+"(Values: \"on\",\"off\")."
+msgstr ""
+"Diagnostická entita: Senzor detekce deště (ID: binary_sensor.nameprefix."
+"rain_detect) HASS \"Binární entita senzoru\" hlásící stav senzoru deště OSPy "
+"(hodnoty: \"zapnuto\",\"vypnuto\")."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:84
+msgid ""
+"Diagnostic Entity: Running program (ID: sensor.nameprefix.running_program) "
+"HASS \"Sensor entity\" showing OSPy Running program (Values: \"Manual\", "
+"\"Run Once, or program number). Zones controlled from HASS are shown as "
+"\"Run Once\" program."
+msgstr ""
+"Diagnostická entita: Spuštěný program (ID: sensor.nameprefix."
+"running_program) HASS \"Entita senzoru\" zobrazující spuštěný program OSPy "
+"(hodnoty: \"Ruční\", \"Spustit jednou nebo číslo programu\"). Zóny řízené z "
+"HASS jsou zobrazeny jako program \"Spustit jednou\"."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:86
+msgid ""
+"Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT "
+"HASS plugin creates one device per OSPy station (zone). Device name is "
+"nameprefix - Zxx unless option \"Device is Station name\" is checked. The "
+"number of devices will track the number of OSPy \"Stations Extensions\" set "
+"on the Options webpage. Each zone device has a single \"switch\" entity. "
+"Entity:"
+msgstr ""
+"Zařízení: Zóna (name: nameprefix - Zxx nebo nameprefix - název stanice) MQTT "
+"HASS plugin vytvoří jedno zařízení na OSPy stanici (zónu). Název zařízení je "
+"nameprefix - Zxx, pokud není zatržena volba \"Zařízení je název stanice\". "
+"Počet zařízení bude sledovat počet OSPy \"Stations Extensions\" nastavených "
+"na stránce Možnosti. Každé zónové zařízení má jednu entitu \"přepínače\". "
+"Entita:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:88
+msgid ""
+"ID is switch.nameprefix.zxx where xx is a double digit from 01 to the number "
+"of OSPy stations. Entity name and availability will track changes made on "
+"OSPy Stations webpage. This entity has the following JSON attributes and "
+"values:"
+msgstr ""
+"ID je switch.nameprefix.zxx, kde xx je dvouciferné číslo od 01 do počtu "
+"stanic OSPy. Název a dostupnost entity budou sledovat změny provedené na "
+"webové stránce OSPy Stations. Tato entita má následující atributy a hodnoty "
+"JSON:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:90
+msgid ""
+"Attribute: state The actual zone state. Value is \"on\" when active and \"off"
+"\" when inactive."
+msgstr ""
+"Atribut: state Skutečný stav zóny. Hodnota je \"zapnuto\", když je aktivní, "
+"a \"vypnuto\", když je neaktivní."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:91
+msgid ""
+"Attribute: start_time Unix time when the zone turned \"on\". If state is "
+"\"off\": Value is \"None\"."
+msgstr ""
+"Atribut: start_time unixový čas, kdy byla zóna zapnuta. Pokud je stav "
+"\"vypnuto\": Hodnota je \"Žádný\"."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:92
+msgid ""
+"Attribute: duration Total number of seconds the zone state will be \"on\". "
+"If state is \"on\": Value is the duration as set from a running program or "
+"run once or \"Inf\" if zone is activated from manual mode or from MQTT HASS "
+"switch. If state is \"off\": Value is \"Inf\"."
+msgstr ""
+"Atribut: doba trvání Celkový počet sekund, po které bude stav zóny \"zapnuto"
+"\". Pokud je stav \"zapnuto\": Hodnota je doba trvání nastavená ze "
+"spuštěného programu nebo spuštěná jednorázově nebo \"Inf\", pokud je zóna "
+"aktivována z manuálního režimu nebo z přepínače MQTT HASS. Pokud je stav "
+"\"vypnuto\": Hodnota je \"Inf\"."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:93
+msgid ""
+"Attribute: program The program number that turned the zone state to \"on\". "
+"If state is \"on\": Value is program number, \"Run Once\" or \"Manual\". If "
+"state is \"off\": Value is \"None\"."
+msgstr ""
+"Atribut: program Číslo programu, který změnil stav zóny na \"zapnuto\". "
+"Pokud je stav \"zapnuto\": Hodnota je číslo programu, \"Spustit jednou\" "
+"nebo \"Ručně\". Pokud je stav \"vypnuto\": Hodnota je \"Žádný\"."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:98
+msgid "Test your setup"
+msgstr "Otestujte své nastavení"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:99
+msgid "From HASS and OSPy user interface:"
+msgstr "Z uživatelského rozhraní HASS a OSPy:"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:101
+msgid ""
+"Compare the state of select.nameprefix.enable with OSPy web interface System "
+"Enable. Change the system enable from HASS and OSPy to verify that the state "
+"is changed on the other end. When disabled, observe that all the other HASS "
+"system parameters and zone entities are not available in HASS user interface "
+"(grayed)."
+msgstr ""
+"Porovnejte stav select.nameprefix.enable s OSPy web rozhraní System Enable. "
+"Změňte povolení systému z HASS a OSPy, abyste ověřili, že se stav změnil na "
+"druhém konci. Pokud je tato možnost zakázána, všimněte si, že všechny "
+"ostatní systémové parametry HASS a entity zóny nejsou k dispozici v "
+"uživatelském rozhraní HASS (šedě)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:102
+msgid ""
+"With System enable, change one enabled zone state from HASS and verify the "
+"zone state on OSPy webpage. Observe the active program is set to \"Run Once"
+"\" when setting a zone \"on\" from HASS."
+msgstr ""
+"S povolením systému změňte jeden povolený stav zóny z HASS a ověřte stav "
+"zóny na webové stránce OSPy. Všimněte si, že aktivní program je nastaven na "
+"\"Spustit jednou\" při nastavování zóny \"zapnuto\" z HASS."
+
+#: plugins/ospy_backup/__init__.py:24
+msgid "Package: OSPy package Backup"
+msgstr "Balíček: Zálohování balíčků OSPy"
 
 #: plugins/ospy_backup/__init__.py:67 plugins/ospy_backup/__init__.py:119
 #: plugins/ospy_backup/__init__.py:146 plugins/ospy_backup/__init__.py:197
@@ -12278,7 +12919,7 @@ msgstr "Čekání na zapnutí nebo vypnutí."
 #: plugins/photovoltaic_boiler/__init__.py:114
 #: plugins/photovoltaic_boiler/__init__.py:277
 #: plugins/pool_heating/__init__.py:124 plugins/pool_heating/__init__.py:300
-#: plugins/tank_monitor/__init__.py:254
+#: plugins/tank_monitor/__init__.py:248
 msgid "Waiting."
 msgstr "Čekání."
 
@@ -12631,8 +13272,8 @@ msgstr "Odeslat E-mailem soubor statistik (csv)."
 #: plugins/ping_monitor/templates/ping_monitor.html:231
 #: plugins/pool_heating/templates/pool_heating.html:156
 #: plugins/pressure_monitor/templates/pressure_monitor.html:248
-#: plugins/tank_monitor/templates/tank_monitor.html:284
-#: plugins/tank_monitor/templates/tank_monitor.html:290
+#: plugins/tank_monitor/templates/tank_monitor.html:306
+#: plugins/tank_monitor/templates/tank_monitor.html:312
 #: plugins/ups_adj/templates/ups_adj.html:233
 #: plugins/wind_monitor/templates/wind_monitor.html:296
 msgid "For this function required E-mail plugin"
@@ -12663,7 +13304,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:168
 #: plugins/pressure_monitor/templates/pressure_monitor.html:260
 #: plugins/system_update/templates/system_update.html:74
-#: plugins/tank_monitor/templates/tank_monitor.html:302
+#: plugins/tank_monitor/templates/tank_monitor.html:324
 #: plugins/ups_adj/templates/ups_adj.html:245
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:50
 #: plugins/wind_monitor/templates/wind_monitor.html:308
@@ -12673,7 +13314,6 @@ msgstr "Vyberte rozšíření pro odesílání e-mailů"
 #: plugins/ping_monitor/templates/ping_monitor.html:282
 #: plugins/pressure_monitor/templates/pressure_monitor.html:304
 #: plugins/speed_monitor/templates/speed_monitor.html:250
-#: plugins/tank_monitor/templates/tank_monitor.html:421
 #: plugins/ups_adj/templates/ups_adj.html:290
 #: plugins/wind_monitor/templates/wind_monitor.html:423
 msgid "Select filter for graph history"
@@ -14968,7 +15608,7 @@ msgid "Sunrise and Sunset"
 msgstr "Východ a západ slunce"
 
 #: plugins/sunrise_and_sunset/__init__.py:464
-#: plugins/system_update/__init__.py:170
+#: plugins/system_update/__init__.py:180
 msgid "Waiting to state"
 msgstr "Čekání na stav"
 
@@ -15109,12 +15749,12 @@ msgid "I run the program \"{}\" in time {}."
 msgstr "Spouštím program \"{}\" v čase {}."
 
 #: plugins/sunrise_and_sunset/__init__.py:625
-#: plugins/system_update/__init__.py:192
+#: plugins/system_update/__init__.py:202
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
 #: plugins/sunrise_and_sunset/__init__.py:632
-#: plugins/system_update/__init__.py:198
+#: plugins/system_update/__init__.py:208
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
@@ -15636,88 +16276,92 @@ msgstr "Smazat soubor"
 msgid "Package: System Information"
 msgstr "Balíček: Systémové informace"
 
-#: plugins/system_info/__init__.py:39
+#: plugins/system_info/__init__.py:41
+msgid "Hardware"
+msgstr "Hardware"
+
+#: plugins/system_info/__init__.py:45
 msgid "System release"
 msgstr "Verze systému"
 
-#: plugins/system_info/__init__.py:41
+#: plugins/system_info/__init__.py:47
 msgid "Node"
 msgstr "Popis v síti"
 
-#: plugins/system_info/__init__.py:42
+#: plugins/system_info/__init__.py:48
 msgid "Machine"
 msgstr "Procesor"
 
-#: plugins/system_info/__init__.py:45 plugins/system_info/__init__.py:47
+#: plugins/system_info/__init__.py:51 plugins/system_info/__init__.py:53
 #: plugins/usage_statistics/__init__.py:70
 msgid "Distribution"
 msgstr "Distribuce"
 
-#: plugins/system_info/__init__.py:49
+#: plugins/system_info/__init__.py:55
 msgid "Total memory"
 msgstr "Celková paměť"
 
-#: plugins/system_info/__init__.py:50
+#: plugins/system_info/__init__.py:56
 msgid "Free memory"
 msgstr "Volná paměť"
 
-#: plugins/system_info/__init__.py:51 plugins/usage_statistics/__init__.py:72
+#: plugins/system_info/__init__.py:57 plugins/usage_statistics/__init__.py:72
 msgid "Python"
 msgstr "Python"
 
-#: plugins/system_info/__init__.py:54
+#: plugins/system_info/__init__.py:60
 msgid "{}: Rx={}MB Tx={}MB "
 msgstr "{}: Rx={}MB Tx={}MB "
 
-#: plugins/system_info/__init__.py:56
+#: plugins/system_info/__init__.py:62
 msgid "Network: Unknown"
 msgstr "Síť: neznámé připojení"
 
-#: plugins/system_info/__init__.py:62
+#: plugins/system_info/__init__.py:68
 msgid "CPU temp"
 msgstr "Teplota CPU"
 
-#: plugins/system_info/__init__.py:63
+#: plugins/system_info/__init__.py:69
 msgid "CPU usage"
 msgstr "Využití CPU"
 
-#: plugins/system_info/__init__.py:64
+#: plugins/system_info/__init__.py:70
 msgid "CPU serial number"
 msgstr "Sériové číslo procesoru"
 
-#: plugins/system_info/__init__.py:65
+#: plugins/system_info/__init__.py:71
 msgid "MAC adress"
 msgstr "MAC adresa"
 
-#: plugins/system_info/__init__.py:67
+#: plugins/system_info/__init__.py:73
 msgid "Wi-Fi signal"
 msgstr "Signál Wi-Fi"
 
-#: plugins/system_info/__init__.py:70
+#: plugins/system_info/__init__.py:76
 msgid "I2C HEX Adress"
 msgstr "I2C adresy v HEX"
 
-#: plugins/system_info/__init__.py:74
+#: plugins/system_info/__init__.py:80
 msgid "Could not open any i2c device!"
 msgstr "Nelze otevřít žádné zařízení i2c!"
 
-#: plugins/system_info/__init__.py:78
+#: plugins/system_info/__init__.py:84
 msgid "Found ATMEGA328 for Air Temperature and Humidity Monitor plugin (0x03)."
 msgstr "Nalezen ATMEGA328 pro Air Temperature and Humidity Monitor  (0x03)."
 
-#: plugins/system_info/__init__.py:82
+#: plugins/system_info/__init__.py:88
 msgid "Found ATMEGA328 for Water Tank Monitor plugin (0x04)."
 msgstr "Nalezen ATMEGA328 pro Water Tank Monitor (0x04)."
 
-#: plugins/system_info/__init__.py:86
+#: plugins/system_info/__init__.py:92
 msgid "Found ATMEGA328 for Humidity Monitor plugin (0x05)."
 msgstr "Nalezen ATMEGA328 pro rozšíření Humidity Monitor na adrese (0x05)."
 
-#: plugins/system_info/__init__.py:90
+#: plugins/system_info/__init__.py:96
 msgid "Found MCP23017 for Button Control plugin (0x27)."
 msgstr "Nalezen MCP23017 pro Button Control (0x27)."
 
-#: plugins/system_info/__init__.py:97
+#: plugins/system_info/__init__.py:103
 msgid ""
 "Warning: MCP23017 found for Button Control plugin (0x27). The address for "
 "PCF8574 must be different, not 0x27! If it is the same, change it on the LCD "
@@ -15727,39 +16371,39 @@ msgstr ""
 "(0x27). Adresa pro LCD PCF8574 musí být odlišná, ne 0x27! Pokud je stejná, "
 "změňte ji na desce LCD displeje."
 
-#: plugins/system_info/__init__.py:98
+#: plugins/system_info/__init__.py:104
 msgid "Found PCF8574 for LCD Display plugin (0x20-0x28, 0x38-0x3F)."
 msgstr "Nalezen PCF8574 pro LCD Display (0x20-0x28, 0x38-0x3F)."
 
-#: plugins/system_info/__init__.py:103
+#: plugins/system_info/__init__.py:109
 msgid "Found PCF8583 for Wind Speed Monitor or Water Meter plugin (0x50-0x51)."
 msgstr "Nalezen PCF8583 pro Wind Speed Monitor nebo Water Meter (0x50-0x51)."
 
-#: plugins/system_info/__init__.py:107
+#: plugins/system_info/__init__.py:113
 msgid "Found DS1307 for Real Time and NTP time plugin (0x68)."
 msgstr "Nalezen DS1307 pro Real Time and NTP time (0x68)."
 
-#: plugins/system_info/__init__.py:122
+#: plugins/system_info/__init__.py:128
 msgid "Could not open lsusb!"
 msgstr "Nelze otevřít lsusb!"
 
-#: plugins/system_info/__init__.py:139
+#: plugins/system_info/__init__.py:145
 msgid "Could not open ls /dev/tty*!"
 msgstr "Nelze otevřít ls /dev/tty*!"
 
-#: plugins/system_info/__init__.py:155
+#: plugins/system_info/__init__.py:161
 msgid "Could not open ps aux!"
 msgstr "Nelze otevřít ps aux!"
 
-#: plugins/system_info/__init__.py:171
+#: plugins/system_info/__init__.py:177
 msgid "Could not open cat /proc/partitions!"
 msgstr "Nelze otevřít cat /proc/partitions!"
 
-#: plugins/system_info/__init__.py:187
+#: plugins/system_info/__init__.py:193
 msgid "Could not open cat /proc/cpuinfo!"
 msgstr "Nelze otevřít cat /proc/cpuinfo!"
 
-#: plugins/system_info/__init__.py:229
+#: plugins/system_info/__init__.py:235
 msgid "Available addresses"
 msgstr "Dostupné adresy"
 
@@ -15792,70 +16436,70 @@ msgstr "Zobrazit oddíly"
 msgid "CPU info"
 msgstr "Informace o CPU"
 
-#: plugins/system_update/__init__.py:27
+#: plugins/system_update/__init__.py:26
 msgid "Package: System Update"
 msgstr "Balíček: Aktualizace systému"
 
-#: plugins/system_update/__init__.py:36
+#: plugins/system_update/__init__.py:35
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr "Hlášení z OSPy AKTUALIZACE systému"
 
-#: plugins/system_update/__init__.py:61
+#: plugins/system_update/__init__.py:60
 msgid "None!"
 msgstr "Není k dispozici!"
 
-#: plugins/system_update/__init__.py:117
+#: plugins/system_update/__init__.py:127
 msgid "Up-to-date."
 msgstr "Aktuální."
 
-#: plugins/system_update/__init__.py:120
+#: plugins/system_update/__init__.py:130
 msgid "New version is available!"
 msgstr "Je k dispozici nová verze!"
 
-#: plugins/system_update/__init__.py:121 plugins/system_update/__init__.py:128
-#: plugins/system_update/__init__.py:131 plugins/system_update/__init__.py:153
+#: plugins/system_update/__init__.py:131 plugins/system_update/__init__.py:138
+#: plugins/system_update/__init__.py:141 plugins/system_update/__init__.py:163
 msgid "Currently running revision"
 msgstr "Spuštěná verze"
 
-#: plugins/system_update/__init__.py:122 plugins/system_update/__init__.py:129
-#: plugins/system_update/__init__.py:132 plugins/system_update/__init__.py:154
+#: plugins/system_update/__init__.py:132 plugins/system_update/__init__.py:139
+#: plugins/system_update/__init__.py:142 plugins/system_update/__init__.py:164
 msgid "Available revision"
 msgstr "Dostupná verze"
 
-#: plugins/system_update/__init__.py:126 plugins/system_update/__init__.py:130
-#: plugins/system_update/__init__.py:145 plugins/system_update/__init__.py:204
-#: plugins/system_update/__init__.py:243 plugins/system_update/__init__.py:286
+#: plugins/system_update/__init__.py:136 plugins/system_update/__init__.py:140
+#: plugins/system_update/__init__.py:155 plugins/system_update/__init__.py:214
+#: plugins/system_update/__init__.py:253 plugins/system_update/__init__.py:296
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
-#: plugins/system_update/__init__.py:127 plugins/system_update/__init__.py:131
-#: plugins/system_update/__init__.py:180
+#: plugins/system_update/__init__.py:137 plugins/system_update/__init__.py:141
+#: plugins/system_update/__init__.py:190
 msgid "New OSPy version is available!"
 msgstr "Je dostupná nová verze OSPy!"
 
-#: plugins/system_update/__init__.py:152
+#: plugins/system_update/__init__.py:162
 msgid "Running unknown version!"
 msgstr "Je spuštěna neznámá verze OSPy!"
 
-#: plugins/system_update/__init__.py:169
+#: plugins/system_update/__init__.py:179
 msgid "System Update"
 msgstr "Aktualizace systému"
 
-#: plugins/system_update/__init__.py:234
+#: plugins/system_update/__init__.py:244
 msgid "Update result"
 msgstr "Stav aktualizace"
 
-#: plugins/system_update/__init__.py:237
+#: plugins/system_update/__init__.py:247
 msgid "Updated to version"
 msgstr "Aktualizováno na verzi"
 
-#: plugins/system_update/__init__.py:313 plugins/system_update/__init__.py:330
+#: plugins/system_update/__init__.py:323 plugins/system_update/__init__.py:340
 msgid "OSPy is now updated from Github and restarted. Please wait..."
 msgstr ""
 "OSPy je nyní aktualizován z Githubu a následně restartován. Počkejte "
 "prosím..."
 
-#: plugins/system_update/__init__.py:347
+#: plugins/system_update/__init__.py:357 plugins/system_update/__init__.py:369
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
@@ -15906,7 +16550,11 @@ msgstr "Stav aktualizace"
 msgid "Update OSPy"
 msgstr "Aktualizovat"
 
-#: plugins/system_update/templates/system_update.html:104
+#: plugins/system_update/templates/system_update.html:105
+msgid "Fix detected dubious ownership?"
+msgstr "Opravit zjištěné pochybné vlastnictví?"
+
+#: plugins/system_update/templates/system_update.html:106
 msgid "Restart OSPy"
 msgstr "Restartovat"
 
@@ -16082,120 +16730,116 @@ msgstr ""
 "rozšíření potřebuje Watchdog. Pokud není nainstalován, rozšíření ho "
 "nainstaluje do systému sám"
 
-#: plugins/tank_monitor/__init__.py:49
+#: plugins/tank_monitor/__init__.py:48
 msgid "Report from OSPy TANK plugin"
 msgstr "Hlášení z OSPy NÁDRŽ s vodou"
 
-#: plugins/tank_monitor/__init__.py:128
+#: plugins/tank_monitor/__init__.py:130
 msgid "Regulation NONE."
 msgstr "Regulace nepovolena."
 
-#: plugins/tank_monitor/__init__.py:139
+#: plugins/tank_monitor/__init__.py:141
 msgid "Tank"
 msgstr "Nádrž"
 
-#: plugins/tank_monitor/__init__.py:152
+#: plugins/tank_monitor/__init__.py:154
 msgid "Water tank monitor is enabled."
 msgstr "Nádrž s vodou monitoring je povolen."
 
-#: plugins/tank_monitor/__init__.py:173
+#: plugins/tank_monitor/__init__.py:175
 msgid ""
 "Waiting for {} samples to be read from the sensor (when using averaging)."
 msgstr "Čekání na načtení {} vzorků ze snímače (při použití průměrování)."
 
-#: plugins/tank_monitor/__init__.py:193
-msgid "Water level"
-msgstr "Hladina vody"
-
-#: plugins/tank_monitor/__init__.py:201
-msgid "Maximum Water level"
-msgstr "Maximální hladina"
-
-#: plugins/tank_monitor/__init__.py:202
-msgid "Minimum Water level"
-msgstr "Minimální hladina"
-
-#: plugins/tank_monitor/__init__.py:204
-msgid "The maximum and minimum water levels have not yet been measured."
-msgstr "Maximální a minimální hladina vody zatím nebyla změřena."
-
-#: plugins/tank_monitor/__init__.py:223
+#: plugins/tank_monitor/__init__.py:217
 msgid "Tank Monitor"
 msgstr "Monitor nádrže"
 
-#: plugins/tank_monitor/__init__.py:261
+#: plugins/tank_monitor/__init__.py:255
 msgid "Maximum has updated."
 msgstr "Maximum bylo aktualizováno."
 
-#: plugins/tank_monitor/__init__.py:269
+#: plugins/tank_monitor/__init__.py:263
 msgid "Minimum has updated."
 msgstr "Minimum bylo aktualizováno."
 
-#: plugins/tank_monitor/__init__.py:279
+#: plugins/tank_monitor/__init__.py:273
 msgid "ERROR: Water in Tank"
 msgstr "CHYBA: Nádrž s vodou"
 
-#: plugins/tank_monitor/__init__.py:300
+#: plugins/tank_monitor/__init__.py:294
 msgid "Waiting for samples"
 msgstr "Čekání na vzorky"
 
-#: plugins/tank_monitor/__init__.py:302 plugins/ups_adj/__init__.py:120
+#: plugins/tank_monitor/__init__.py:296 plugins/ups_adj/__init__.py:120
 #: plugins/ups_adj/__init__.py:443 plugins/ups_adj/__init__.py:539
 msgid "FAULT"
 msgstr "Chyba"
 
-#: plugins/tank_monitor/__init__.py:304
+#: plugins/tank_monitor/__init__.py:298
 msgid "Water level: Error."
 msgstr "Hladina vody: Chyba."
 
-#: plugins/tank_monitor/__init__.py:307
+#: plugins/tank_monitor/__init__.py:301
 msgid "ERROR: Water probe has fault?"
 msgstr "Chyba: Nemá ultrazvuková sonda poruchu?"
 
-#: plugins/tank_monitor/__init__.py:309 plugins/tank_monitor/__init__.py:310
+#: plugins/tank_monitor/__init__.py:303 plugins/tank_monitor/__init__.py:304
 msgid "System detected error: Water probe has fault?"
 msgstr "Systém zjistil chybu: Nemá ultrazvuková sonda poruchu?"
 
-#: plugins/tank_monitor/__init__.py:309 plugins/tank_monitor/__init__.py:310
-#: plugins/tank_monitor/__init__.py:316 plugins/tank_monitor/__init__.py:345
-#: plugins/tank_monitor/__init__.py:346 plugins/tank_monitor/__init__.py:359
-#: plugins/tank_monitor/__init__.py:364 plugins/tank_monitor/__init__.py:391
-#: plugins/tank_monitor/__init__.py:477 plugins/tank_monitor/__init__.py:480
-#: plugins/tank_monitor/__init__.py:660
+#: plugins/tank_monitor/__init__.py:303 plugins/tank_monitor/__init__.py:304
+#: plugins/tank_monitor/__init__.py:310 plugins/tank_monitor/__init__.py:339
+#: plugins/tank_monitor/__init__.py:340 plugins/tank_monitor/__init__.py:353
+#: plugins/tank_monitor/__init__.py:358 plugins/tank_monitor/__init__.py:385
+#: plugins/tank_monitor/__init__.py:471 plugins/tank_monitor/__init__.py:474
+#: plugins/tank_monitor/__init__.py:541 plugins/tank_monitor/__init__.py:556
+#: plugins/tank_monitor/__init__.py:570 plugins/tank_monitor/__init__.py:584
+#: plugins/tank_monitor/__init__.py:633 plugins/tank_monitor/__init__.py:645
+#: plugins/tank_monitor/__init__.py:655 plugins/tank_monitor/__init__.py:665
+#: plugins/tank_monitor/__init__.py:745 plugins/tank_monitor/__init__.py:947
+#: plugins/tank_monitor/__init__.py:1006 plugins/tank_monitor/__init__.py:1021
+#: plugins/tank_monitor/__init__.py:1050 plugins/tank_monitor/__init__.py:1066
+#: plugins/tank_monitor/__init__.py:1108 plugins/tank_monitor/__init__.py:1154
+#: plugins/tank_monitor/__init__.py:1190
 msgid "Water Tank Monitor plug-in"
 msgstr "Rozšíření nádrž s vodou"
 
-#: plugins/tank_monitor/__init__.py:338 plugins/tank_monitor/__init__.py:809
+#: plugins/tank_monitor/__init__.py:332 plugins/tank_monitor/__init__.py:909
 msgid "Water tank monitor is disabled."
 msgstr "Sledování hladiny vody v nádrži je povoleno."
 
-#: plugins/tank_monitor/__init__.py:345 plugins/tank_monitor/__init__.py:346
+#: plugins/tank_monitor/__init__.py:339 plugins/tank_monitor/__init__.py:340
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr "Systém zjistil chybu: nádrž na vodu má minimální hladinu vody"
 
-#: plugins/tank_monitor/__init__.py:447
+#: plugins/tank_monitor/__init__.py:441
 msgid "FW version in CPU (Atmega 328) is FW <= 1.3"
 msgstr "Verze FW v CPU (Atmega 328) je FW <= 1.3"
 
-#: plugins/tank_monitor/__init__.py:473
+#: plugins/tank_monitor/__init__.py:467
 msgid "Unkown FW version in CPU (Atmega 328)"
 msgstr "Neznámá verze FW v CPU (Atmega 328)"
 
-#: plugins/tank_monitor/__init__.py:645 plugins/ups_adj/__init__.py:333
+#: plugins/tank_monitor/__init__.py:730 plugins/ups_adj/__init__.py:333
 #: plugins/wind_monitor/__init__.py:492
 msgid "Saving to log  files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
-#: plugins/tank_monitor/__init__.py:760
+#: plugins/tank_monitor/__init__.py:848
 msgid "Minimum and maximum has reseted."
 msgstr "Minimum a maximum bylo vymazáno."
 
-#: plugins/tank_monitor/__init__.py:787
+#: plugins/tank_monitor/__init__.py:887 plugins/tank_monitor/__init__.py:945
 msgid "Deleting the tankmonitor table from the database."
 msgstr "Odstranění tabulky tankmonitor z databáze."
 
+#: plugins/tank_monitor/__init__.py:990
+msgid "L"
+msgstr "L"
+
 #: plugins/tank_monitor/templates/tank_monitor.html:3
-#: plugins/tank_monitor/templates/tank_monitor.html:178
+#: plugins/tank_monitor/templates/tank_monitor.html:200
 msgid "Water tank monitor settings"
 msgstr "Nastavení nádrž s vodou"
 
@@ -16204,39 +16848,39 @@ msgstr "Nastavení nádrž s vodou"
 msgid "cm, liters or m<sup>3</sup>"
 msgstr "cm, litry nebo m<sup>3</sup>"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:183
+#: plugins/tank_monitor/templates/tank_monitor.html:205
 msgid "Log sample now"
 msgstr "Uložit záznam teď"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:185
+#: plugins/tank_monitor/templates/tank_monitor.html:207
 msgid "Show debug logs"
 msgstr "Zobrazit protokoly ladění"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:186
+#: plugins/tank_monitor/templates/tank_monitor.html:208
 msgid "Reset min/max level"
 msgstr "Vymazat min/max"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:191
+#: plugins/tank_monitor/templates/tank_monitor.html:213
 msgid "Use ultrasonic measuring the water level in the tank"
 msgstr "Používat ultrazvukové měření hladiny vody v nádrži"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:192
+#: plugins/tank_monitor/templates/tank_monitor.html:214
 msgid "If checked, the extension will measure the level using ultrasound"
 msgstr "Pokud je zaškrtnuto, rozšíření změří hladinu pomocí ultrazvuku"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:221
+#: plugins/tank_monitor/templates/tank_monitor.html:243
 msgid "Display as liters or m"
 msgstr "Zobrazovat v litrech nebo m"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:222
+#: plugins/tank_monitor/templates/tank_monitor.html:244
 msgid "Show measured water as liters or m3"
 msgstr "Zobrazovat naměřenou vodu v litrech nebo m3"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:227
+#: plugins/tank_monitor/templates/tank_monitor.html:249
 msgid "Use averaging for samples"
 msgstr "Použít průměrování vzorků hladiny"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:228
+#: plugins/tank_monitor/templates/tank_monitor.html:250
 msgid ""
 "If checked, averaging of measured values will be performed (this option "
 "affects the speed of response to the measured value)"
@@ -16244,15 +16888,15 @@ msgstr ""
 "Pokud je zaškrtnuto, bude se provádět průměrování naměřených hodnot (tato "
 "volba ovlivňuje rychlost odezvy na naměřenou hodnotu)"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:233
+#: plugins/tank_monitor/templates/tank_monitor.html:255
 msgid "Number of samples for average"
 msgstr "Počet vzorků pro průměr"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:234
+#: plugins/tank_monitor/templates/tank_monitor.html:256
 msgid "Enter the number count for samples"
 msgstr "Zadejte počet vzorků"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:251
+#: plugins/tank_monitor/templates/tank_monitor.html:273
 msgid ""
 "If there is no water in the tank and the stations stop, then we set the rain "
 "delay for this time for blocking. if the level in the tank rises above the "
@@ -16262,36 +16906,36 @@ msgstr ""
 "tento čas pro blokování. pokud hladina v nádrži stoupne nad minimum + xx cm, "
 "zpoždění se deaktivuje"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:257
+#: plugins/tank_monitor/templates/tank_monitor.html:279
 msgid "Number for unblocking"
 msgstr "Číslo pro odblokování"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:258
+#: plugins/tank_monitor/templates/tank_monitor.html:280
 msgid "Enter the number for unblocking delay duration and stop stations in cm"
 msgstr "Vložte číslo pro odblokování zpoždění a zastavení stanic v cm"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:283
+#: plugins/tank_monitor/templates/tank_monitor.html:305
 msgid "Send an E-mail with an error that there is minimum water in the tank"
 msgstr ""
 "Odeslat E-mail s chybou, když klesne hladina v nádrži s vodou na minimum"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:289
+#: plugins/tank_monitor/templates/tank_monitor.html:311
 msgid "Send an E-mail with an error if sonic probe has fault"
 msgstr "Poslat E-mail s chybou, pokud má ultrazvukový snímač poruchu"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:296
+#: plugins/tank_monitor/templates/tank_monitor.html:318
 msgid "Subject for E-mail from this tank monitor"
 msgstr "Předmět pro e-mail z tohoto monitoru nádrže"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:316
+#: plugins/tank_monitor/templates/tank_monitor.html:338
 msgid "If checked, regulation is enabled"
 msgstr "Je-li zaškrtnuto, je povolena regulace"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:341
+#: plugins/tank_monitor/templates/tank_monitor.html:363
 msgid "Select Output for controled zones"
 msgstr "Vyberte výstup pro ovládanou stanici"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:361
+#: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid ""
 "The measured data will be stored in the database. This option requires the "
 "database connector extension to be installed and configured. The button will "
@@ -16303,7 +16947,7 @@ msgstr ""
 "tabulku tankmonitor z databáze, čímž smaže všechna uložená data z tohoto "
 "rozšíření! Tato akce je nevratná!"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:368
+#: plugins/tank_monitor/templates/tank_monitor.html:399
 msgid ""
 "0 = unlimited. The maximum number of records sets the number of saved "
 "records, i.e. after exceeding the set limit, older data is overwritten."
@@ -16311,7 +16955,7 @@ msgstr ""
 "0 = neomezeně. Maximální počet záznamů nastavuje počet uložených záznamů, "
 "tzn. po překročení nastaveného limitu dojde k přepsání starších dat."
 
-#: plugins/tank_monitor/templates/tank_monitor.html:374
+#: plugins/tank_monitor/templates/tank_monitor.html:405
 msgid ""
 "In minutes (Minimum is 1). The logging interval is common for both local "
 "storage and sql storage of measured data."
@@ -16319,24 +16963,36 @@ msgstr ""
 "V minutách (minimum je 1). Interval logování je společný jak pro lokální "
 "úložiště, tak pro sql úložiště naměřených dat."
 
-#: plugins/tank_monitor/templates/tank_monitor.html:379
+#: plugins/tank_monitor/templates/tank_monitor.html:410
 msgid "Enable bus logging"
 msgstr "Povolit protokolování sběrnice"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:380
+#: plugins/tank_monitor/templates/tank_monitor.html:411
 msgid "Logging for advanced user (save debug data from I2C bus)"
 msgstr ""
 "Protokolování pro pokročilé uživatele (uložení ladicích dat ze sběrnice I2C)"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:385
+#: plugins/tank_monitor/templates/tank_monitor.html:416
 msgid "Only if data changed"
 msgstr "Pouze v případě, že se data změnila"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:386
+#: plugins/tank_monitor/templates/tank_monitor.html:417
 msgid "Logging of data only when this data changes, otherwise still logging"
 msgstr ""
 "Protokolování dat pouze v případě, že se tato data mění, jinak stále "
 "protokolování"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:440
+msgid "Level min"
+msgstr "Úroveň min"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:447
+msgid "Level max"
+msgstr "Úroveň max"
+
+#: plugins/tank_monitor/templates/tank_monitor.html:454
+msgid "Percent"
+msgstr "Procenta"
 
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:3
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:6
@@ -19642,9 +20298,21 @@ msgstr ""
 msgid "Cannot install packages without setuptools."
 msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 
-#: setup.py:201
+#: setup.py:208
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Water level"
+#~ msgstr "Hladina vody"
+
+#~ msgid "Maximum Water level"
+#~ msgstr "Maximální hladina"
+
+#~ msgid "Minimum Water level"
+#~ msgstr "Minimální hladina"
+
+#~ msgid "The maximum and minimum water levels have not yet been measured."
+#~ msgstr "Maximální a minimální hladina vody zatím nebyla změřena."
 
 #~ msgid "Received data is not correct!"
 #~ msgstr "Přijatá data nejsou v pořádku!"
@@ -19820,9 +20488,6 @@ msgstr "Hotovo."
 #~ "Poznámka: seznam nebo slovník musí být stejně dlouhý jako počet stanic. V "
 #~ "opačném případě se zpracování neuskuteční!"
 
-#~ msgid "Package: MQTT Zone Broadcaster"
-#~ msgstr "Balíček: MQTT Zone Broadcaster"
-
 #~ msgid "MQTT Zones Plugin started."
 #~ msgstr "Rozšíření MQTT stanice bylo spuštěno."
 
@@ -19835,17 +20500,11 @@ msgstr "Hotovo."
 #~ msgid "Not setup Zone Topic"
 #~ msgstr "Téma pro stanice není nastaveno"
 
-#~ msgid "MQTT Zones plug-in"
-#~ msgstr "Rozšíření MQTT stanice"
-
 #~ msgid "MQTT Zones Plugin is disabled."
 #~ msgstr "Rozšíření MQTT stanice je zakázáno."
 
 #~ msgid "MQTT Publish Zones topic"
 #~ msgstr "MQTT téma pro stanice"
-
-#~ msgid "MQTT Zones settings - help"
-#~ msgstr "MQTT zóny - nápověda"
 
 #~ msgid ""
 #~ "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status "
@@ -20281,9 +20940,6 @@ msgstr "Hotovo."
 
 #~ msgid "Canvas DS6"
 #~ msgstr "Budík DS6"
-
-#~ msgid "Percent"
-#~ msgstr "Procenta"
 
 #~ msgid "Wind"
 #~ msgstr "Vítr"

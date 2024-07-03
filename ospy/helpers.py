@@ -989,4 +989,10 @@ def get_rpi_revision_codes():
         msg = _('Raspberry Pi 3B+ with at least {} RAM!').format(get_mem_size(mem))
     if new and model == 0x12: 
         msg = _('Raspberry Pi Zero 2 W at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x09: 
+        msg = _('Raspberry Pi Zero at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x0c: 
+        msg = _('Raspberry Pi Zero W at least {} RAM!').format(get_mem_size(mem))
+    if new and model == 0x13: 
+        msg = _('Raspberry Pi 400 at least {} RAM!').format(get_mem_size(mem))
     return code, new, model, mem, msg

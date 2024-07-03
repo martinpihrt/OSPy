@@ -1043,7 +1043,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * IP Scanner (hledání IP a MAC v síti).
 * Database Connector (propojení do databáze pro ukládání dat z čidel a senzorů).
 * OSPy Backup (zálohování adresáře data ze všech rozšíření do souborů zip).
-
+* MQTT Home Assistant (integrace do HASS pomocí MQTT)
 ----
 
 # Odhlásit se
