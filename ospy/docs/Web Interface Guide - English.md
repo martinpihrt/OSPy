@@ -1020,6 +1020,7 @@ Available plug-ins:
 * Database Connector
 * OSPy Backup
 * MQTT Home Assistant
+* Shelly Cloud Integration
 
 ----
 

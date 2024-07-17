@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-07-03 15:49+0200\n"
+"POT-Creation-Date: 2024-07-17 14:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1847,7 +1847,6 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:27
 #: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
@@ -1859,6 +1858,8 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16.html:22
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:20
 #: plugins/remote_notifications/templates/remote_notifications.html:26
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:17
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:39
 #: plugins/signaling_examples/templates/signaling_examples.html:22
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
@@ -2032,7 +2033,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_log.html:29
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
-#: plugins/database_connector/templates/database_connector_help.html:84
+#: plugins/database_connector/templates/database_connector_help.html:30
 #: plugins/door_opening/templates/door_opening.html:61
 #: plugins/door_opening/templates/door_opening_help.html:12
 #: plugins/email_notifications/templates/email_notifications.html:149
@@ -2060,8 +2061,6 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:85
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:107
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2090,6 +2089,9 @@ msgstr ""
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:39
 #: plugins/remote_notifications/templates/remote_notifications.html:59
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:31
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:24
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:138
 #: plugins/signaling_examples/templates/signaling_examples.html:37
 #: plugins/signaling_examples/templates/signaling_examples_help.html:42
 #: plugins/sms_adj/templates/sms_adj.html:114
@@ -2941,7 +2943,6 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:75
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
@@ -2955,6 +2956,7 @@ msgstr ""
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:54
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:23
 #: plugins/remote_notifications/templates/remote_notifications.html:48
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:22
 #: plugins/signaling_examples/templates/signaling_examples.html:26
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
@@ -3054,6 +3056,7 @@ msgid "Action"
 msgstr ""
 
 #: ospy/templates/log_sensor.html:76 ospy/templates/log_sensor.html:96
+#: plugins/database_connector/__init__.py:90
 msgid "Error"
 msgstr ""
 
@@ -4162,11 +4165,11 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:69
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:61
 #: plugins/speed_monitor/templates/speed_monitor.html:219
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
 #: plugins/system_update/templates/system_update.html:82
@@ -4694,7 +4697,6 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -4703,6 +4705,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16.html:76
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:63
 #: plugins/remote_notifications/templates/remote_notifications.html:57
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:137
 #: plugins/signaling_examples/templates/signaling_examples.html:36
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
@@ -5524,7 +5527,6 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
@@ -7124,78 +7126,82 @@ msgstr ""
 msgid "Package: Database Connector"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:77
-msgid "Version: "
+#: plugins/database_connector/__init__.py:86
+msgid "Installed version mysql-connector-python:"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:80
-msgid "Mariadb is not installed or you have a newer version."
+#: plugins/database_connector/__init__.py:89
+msgid "Mysql-connector-python is not installed or any error."
 msgstr ""
 
-#: plugins/database_connector/__init__.py:81
-msgid "If you do not have Maria installed, try installing it using the button below..."
-msgstr ""
-
-#: plugins/database_connector/__init__.py:85
-#: plugins/database_connector/__init__.py:212
-#: plugins/database_connector/__init__.py:239
+#: plugins/database_connector/__init__.py:94
+#: plugins/database_connector/__init__.py:222
+#: plugins/database_connector/__init__.py:249
 #: plugins/database_connector/templates/database_connector.html:3
 #: plugins/database_connector/templates/database_connector.html:39
 msgid "Database Connector"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:117
-msgid "Mariadb is now installed."
+#: plugins/database_connector/__init__.py:118
+msgid "Installing mysql connector python"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:118
-msgid "Please wait installing mariadb-client-10.0..."
+#: plugins/database_connector/__init__.py:119
+msgid "In error: externally-managed-environment use sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED and next install connector."
 msgstr ""
 
 #: plugins/database_connector/__init__.py:137
 msgid "Database Connector plug-in"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:162
+#: plugins/database_connector/__init__.py:159
 msgid "Command being executed"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:166
+#: plugins/database_connector/__init__.py:163
 msgid "Committed data in db"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:177
+#: plugins/database_connector/__init__.py:174
 msgid "Database type"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:177
+#: plugins/database_connector/__init__.py:174
 msgid "Found databases"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:179
+#: plugins/database_connector/__init__.py:176
 msgid "Not found"
 msgstr ""
 
+#: plugins/database_connector/__init__.py:186
+msgid "Something is wrong with your user name or password"
+msgstr ""
+
 #: plugins/database_connector/__init__.py:188
-msgid "Error connecting to MariaDB Platform"
+msgid "Database does not exist"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:280
-msgid "Created database backup."
-msgstr ""
-
-#: plugins/database_connector/__init__.py:282
-msgid "Error in database backup."
+#: plugins/database_connector/__init__.py:190
+msgid "Table already exists"
 msgstr ""
 
 #: plugins/database_connector/__init__.py:290
+msgid "Created database backup."
+msgstr ""
+
+#: plugins/database_connector/__init__.py:292
+msgid "Error in database backup."
+msgstr ""
+
+#: plugins/database_connector/__init__.py:300
 #: plugins/ospy_backup/__init__.py:174
 #: plugins/voice_notification/__init__.py:463
 #: plugins/voice_station/__init__.py:467
 msgid "Deleting file has sucesfully."
 msgstr ""
 
-#: plugins/database_connector/__init__.py:292
+#: plugins/database_connector/__init__.py:302
 #: plugins/ospy_backup/__init__.py:176
 #: plugins/voice_notification/__init__.py:467
 #: plugins/voice_notification/templates/voice_notification_sounds.html:33
@@ -7204,7 +7210,7 @@ msgstr ""
 msgid "File for deleting not found!"
 msgstr ""
 
-#: plugins/database_connector/__init__.py:302
+#: plugins/database_connector/__init__.py:312
 #: plugins/ospy_backup/__init__.py:186
 msgid "Download file: {} type: {}."
 msgstr ""
@@ -7397,14 +7403,6 @@ msgstr ""
 
 #: plugins/database_connector/templates/database_connector_help.html:25
 msgid "max speed, actual speed"
-msgstr ""
-
-#: plugins/database_connector/templates/database_connector_help.html:26
-msgid "Code example of how to retrieve data from a database in Python3 (for further personal use)"
-msgstr ""
-
-#: plugins/database_connector/templates/database_connector_help.html:69
-msgid "Code output"
 msgstr ""
 
 #: plugins/door_opening/__init__.py:24
@@ -9147,6 +9145,7 @@ msgid "IP cam - settings"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:22
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:25
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:22
 msgid "Settings saved."
 msgstr ""
@@ -10668,324 +10667,13 @@ msgstr ""
 msgid "2: exactly once. Will only send a message once."
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:31
-msgid "Package: MQTT Home Assistant"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/__init__.py:112
-#: plugins/mqtt_home_assistant/__init__.py:127
-msgid "MQTT Home Assistant"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/__init__.py:115
-#: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
-msgid "Plugin is started."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/__init__.py:120
-msgid "Only test! not use"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/__init__.py:254
-msgid "Error: slugify not installed. Install it to system. sudo apt install python3 slugify."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
-msgid "MQTT Home Assistant Plugin"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:33
-msgid "Topic prefix"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:34
-msgid "MQTT base topic for system parameters and zones (Default: System name)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:39
-msgid "Name prefix"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:40
-msgid "HASS name prefix for devices and zones (Default: System name)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:45
-msgid "OSPy FQDN"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:46
-msgid "OSPy network name or IP address for web access from HASS (Default: auto detect)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
-msgid "Device name is Station name"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:52
-msgid "Use station name for HASS zone device name (Default: uncheck)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:57
-msgid "Publish disabled zones"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:58
-msgid "MQTT publish all zones states (Default: uncheck)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:63
-msgid "Discovery UUID prefix"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
-msgid "Unique identifier used as prefix for MQTT Discovery by HASS"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:7
-msgid "MQTT Home Assistant Plugin - help"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:8
-msgid "About the MQTT HASS Plugin"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:10
-msgid "The MQTT HASS plugin implement MQTT Discovery for Home Assistant (HASS), including report and control of some OSPy system settings and valves (stations) over MQTT. MQTT Discovery enables automatic devices and entities enrolment from HASS user interface configuration panel, including plug-and-play availability detection, status and control."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:12
-msgid "Using MQTT HASS plugin"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:13
-msgid "This plugin is disabled by default. If you are reading this, the mqtt_hass plugin is probably enabled on your system. Otherwise, you can enable it using the plugin manager."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:15
-msgid "Requirements"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:17
-msgid "An MQTT broker such as Mosquitto is required to be accessible by OSPy device and HASS. This broker can be on different parts of the local network, on a remote network, or installed on either OSPy or HASS system."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:18
-msgid "A working HASS system with an MQTT Integration such as Mosquitto broker"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:19
-msgid "A OSPy system with the base mqtt plugin installed and configured (see below)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:20
-msgid "This plugin installed and configured on the same OSPy system as the base mqtt plugin (see below)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
-msgid "Setup"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:25
-msgid "On OSPy - base MQTT plugin setup"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:27
-msgid "Install eclipse paho if not already on the Pi"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:28
-msgid "Install the base MQTT plugin"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:29
-msgid "Configure base MQTT plugin"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:31
-msgid "MQTT Broker Host: This will be the URL of the MQTT broker or localhost if the broker is running on OSPy"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:32
-msgid "MQTT Broker Port: Default is 1883 but may be different depending on your MQTT broker"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:33
-msgid "MQTT Broker Username: Default is mosquitto but depends on your setup."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:34
-msgid "MQTT Broker Password: Depends on your setup. Use pass as default"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:35
-msgid "MQTT Publish up/down topic: It needs to be set for proper OSPy availability detection by HASS. We suggest to use the OSPy System name as set on Options webpage"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:36
-msgid "MQTT Client ID: A unique name for OSPy system. Default is OSPy System name but can be changed on Options webpage."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:40
-msgid "On OSPy - MQTT HASS plugin setup"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:42
-msgid "Install Python python-slugify package if not already on the pi."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:44
-msgid "Configure MQTT HASS plugin."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
-msgid "Topic prefix: This prefix is used for OSPy system parameters and zones published to the MQTT broker. Leave this option empty to use a slugified OSPy System name. This setting will be slugified when saved. (Default: System name or \"OSPy\" if System name is empty)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
-msgid "Name prefix: Used as prefix for all HASS devices and entities names. Leave this option empty to use a OSPy System name as prefix. For entities, this setting will be slugified. (Default: System name or \"OSPy\" if System name is empty)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
-msgid "OSPy FQDN: OSPy network name or IP address. Used to compose the URL link to OSPy web interface displayed in HASS devices settings. Leave this option empty to use OSPy hostname or IP address used to connect with the MQTT broker. (Default: OSPy hostname)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:49
-msgid "Device is Station name: if checked, use station name as part of HASS Device name. Changes to OSPy station name will update HASS Device name. (Default: unchecked)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:50
-msgid "Publish disabled zone: if checked, disabled stations will also be published to the MQTT broker and discovered by HASS. NOTE: For safety, disabled stations can't be controlled from MQTT nor HASS. (Default: unchecked)"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
-msgid "On Home Assistant - MQTT setup"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:56
-msgid "Follow Home Assistant instructions to add MQTT integration via the user interface. MQTT discovery feature is enabled by default. MQTT integration will detect OSPy settings parameters and zones as devices and entities."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:57
-msgid "Follow Home Assistant instructions to configure and use the newly added devices and entities."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
-msgid "Multiple OSPy systems connected to the same MQTT broker or Home Assistant instance"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
-msgid "To integrate multiple OSPy systems, on each OSPy:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:63
-msgid "Use different \"System name\" as set on OSPy Options webpage. Default OSPy System name is \"OSPy\""
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
-msgid "For each base MQTT plugin settings use different MQTT Publish up/down topic and MQTT Client ID."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
-msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:68
-msgid "Home Assistant - available OSPy Devices and Entities"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:69
-msgid "Devices and associated Entities made available with this plugin are:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:71
-msgid "Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device per OSPy system. This device regroups the supported OSPy system parameters and sensors. NamePrefix is MQTT HASS \"Name prefix\" option. Unless specified the associated entities have the same behavior as on OSPy home webpage. Entities name prefix uses a slugified version of the device name (nameprefix). Entities:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:73
-msgid "Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS \"Select entity\" showing and controlling OSPy System Enable (Values: \"on\", \"off\"). Setting it to \"off\" will disable all other system parameters and zone control from HASS."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
-msgid "Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS \"Select entity\" showing and controlling OSPy Mode (Values: \"Automatic\", \"Manual\")."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:75
-msgid "Configuration Entity: Rain sensor enable (ID: select.nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same behavior as \"Use rain sensor\" in OSPy Options webpage."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:76
-msgid "Configuration Entity: Rain delay timer (ID: number.nameprefix_rain_delay_timer) HASS \"Number entity\" showing and controlling OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This entity has the following JSON attributes and default values when the timer is active / inactive (default):"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:78
-msgid "Attribute: state The number of hours as set from OSPy user interface or MQTT (Default 0)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:79
-msgid "Attribute: start_time Unix time when the delay timer started (Default \"None\")."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:80
-msgid "Attribute: duration Total number of seconds of the delay timer (Default 0)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:82
-msgid "Configuration Entity: Water level adjust (ID: number.nameprefix.water_level_adjust) HASS \"Number entity\" showing and controlling OSPy Water level adjust (Range: 0 to 100 %, Default 100)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:83
-msgid "Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix.rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor state (Values: \"on\",\"off\")."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:84
-msgid "Diagnostic Entity: Running program (ID: sensor.nameprefix.running_program) HASS \"Sensor entity\" showing OSPy Running program (Values: \"Manual\", \"Run Once, or program number). Zones controlled from HASS are shown as \"Run Once\" program."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:86
-msgid "Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT HASS plugin creates one device per OSPy station (zone). Device name is nameprefix - Zxx unless option \"Device is Station name\" is checked. The number of devices will track the number of OSPy \"Stations Extensions\" set on the Options webpage. Each zone device has a single \"switch\" entity. Entity:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:88
-msgid "ID is switch.nameprefix.zxx where xx is a double digit from 01 to the number of OSPy stations. Entity name and availability will track changes made on OSPy Stations webpage. This entity has the following JSON attributes and values:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:90
-msgid "Attribute: state The actual zone state. Value is \"on\" when active and \"off\" when inactive."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:91
-msgid "Attribute: start_time Unix time when the zone turned \"on\". If state is \"off\": Value is \"None\"."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:92
-msgid "Attribute: duration Total number of seconds the zone state will be \"on\". If state is \"on\": Value is the duration as set from a running program or run once or \"Inf\" if zone is activated from manual mode or from MQTT HASS switch. If state is \"off\": Value is \"Inf\"."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:93
-msgid "Attribute: program The program number that turned the zone state to \"on\". If state is \"on\": Value is program number, \"Run Once\" or \"Manual\". If state is \"off\": Value is \"None\"."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:98
-msgid "Test your setup"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:99
-msgid "From HASS and OSPy user interface:"
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:101
-msgid "Compare the state of select.nameprefix.enable with OSPy web interface System Enable. Change the system enable from HASS and OSPy to verify that the state is changed on the other end. When disabled, observe that all the other HASS system parameters and zone entities are not available in HASS user interface (grayed)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:102
-msgid "With System enable, change one enabled zone state from HASS and verify the zone state on OSPy webpage. Observe the active program is set to \"Run Once\" when setting a zone \"on\" from HASS."
-msgstr ""
-
 #: plugins/ospy_backup/__init__.py:24
 msgid "Package: OSPy package Backup"
+msgstr ""
+
+#: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
+#: plugins/shelly_cloud_integrator/__init__.py:77
+msgid "Plugin is started."
 msgstr ""
 
 #: plugins/ospy_backup/__init__.py:67 plugins/ospy_backup/__init__.py:119
@@ -12807,6 +12495,397 @@ msgstr ""
 msgid "db=\"ospy\" name of table on the SQL server"
 msgstr ""
 
+#: plugins/shelly_cloud_integrator/__init__.py:26
+msgid "Package: Shelly Cloud Integration"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:74
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:16
+msgid "Shelly Cloud Integration"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:92
+msgid "Shelly Cloud Bad Login"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:94
+msgid "Shelly Cloud Not Found"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:102
+msgid ""
+"{}: GEN1 not available \n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:117
+msgid "[{}: {}°C {}RV] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:118
+msgid ""
+"{}: {}°C {}RV BAT{}% IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:120
+#: plugins/shelly_cloud_integrator/__init__.py:145
+#: plugins/shelly_cloud_integrator/__init__.py:189
+#: plugins/shelly_cloud_integrator/__init__.py:218
+#: plugins/shelly_cloud_integrator/__init__.py:262
+#: plugins/shelly_cloud_integrator/__init__.py:321
+msgid "[{}: OFFLINE] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:121
+#: plugins/shelly_cloud_integrator/__init__.py:146
+#: plugins/shelly_cloud_integrator/__init__.py:190
+#: plugins/shelly_cloud_integrator/__init__.py:219
+#: plugins/shelly_cloud_integrator/__init__.py:263
+#: plugins/shelly_cloud_integrator/__init__.py:322
+msgid ""
+"{}: OFFLINE\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:139
+msgid "[{}: ON {}W] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:140
+msgid ""
+"{}: ON {}W IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:142
+msgid "[{}: OFF {}W] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:143
+msgid ""
+"{}: OFF {}W IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:149
+#: plugins/shelly_cloud_integrator/__init__.py:266
+msgid ""
+"{}: GEN2 not available yet \n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:156
+#: plugins/shelly_cloud_integrator/__init__.py:197
+#: plugins/shelly_cloud_integrator/__init__.py:273
+msgid ""
+"{}: GEN1 not available yet \n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:177
+#: plugins/shelly_cloud_integrator/__init__.py:247
+#: plugins/shelly_cloud_integrator/__init__.py:297
+msgid "[{}: 1 ON {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:178
+#: plugins/shelly_cloud_integrator/__init__.py:248
+#: plugins/shelly_cloud_integrator/__init__.py:298
+msgid "{}: 1 ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:180
+#: plugins/shelly_cloud_integrator/__init__.py:250
+#: plugins/shelly_cloud_integrator/__init__.py:300
+msgid "[{}: 1 OFF {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:181
+#: plugins/shelly_cloud_integrator/__init__.py:251
+#: plugins/shelly_cloud_integrator/__init__.py:301
+msgid "{}: 1 OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:183
+#: plugins/shelly_cloud_integrator/__init__.py:253
+#: plugins/shelly_cloud_integrator/__init__.py:303
+#: plugins/shelly_cloud_integrator/__init__.py:309
+#: plugins/shelly_cloud_integrator/__init__.py:315
+msgid "2 ON {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:184
+msgid ""
+"2 ON {}W ({}kW/h) {}V {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:186
+#: plugins/shelly_cloud_integrator/__init__.py:256
+#: plugins/shelly_cloud_integrator/__init__.py:306
+#: plugins/shelly_cloud_integrator/__init__.py:312
+#: plugins/shelly_cloud_integrator/__init__.py:318
+msgid "2 OFF {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:187
+msgid ""
+"2 OFF {}W ({}kW/h) {}V {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:212
+msgid "[{}: ON {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:213
+msgid ""
+"{}: ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:215
+msgid "[{}: OFF {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:216
+msgid ""
+"{}: OUT OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:254
+#: plugins/shelly_cloud_integrator/__init__.py:316
+msgid ""
+"2 ON {}W ({}kW/h) {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:257
+#: plugins/shelly_cloud_integrator/__init__.py:319
+msgid ""
+"2 OFF {}W ({}kW/h) {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:259
+msgid "[{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:260
+msgid ""
+"{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:304
+#: plugins/shelly_cloud_integrator/__init__.py:310
+msgid "2 ON {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:307
+#: plugins/shelly_cloud_integrator/__init__.py:313
+msgid "2 OFF {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:328
+#: plugins/shelly_cloud_integrator/__init__.py:340
+#: plugins/shelly_cloud_integrator/__init__.py:442
+msgid "Shelly Cloud Integration plugin"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:18
+msgid "Setup"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:7
+msgid "Shelly Cloud Integration - help"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:8
+msgid "How to get the latest device status via Shelly Cloud API and curl."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:9
+msgid "Path: https:// <***server_uri > /device/status."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:10
+msgid "Supported methods: GET and POST."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:11
+msgid "Parameters are supplied via *query or **request body"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:12
+msgid "Required data to send the request:"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:13
+msgid "Target device ID: key = \"id\""
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:14
+msgid " **** account authentication key: key = \"auth_key\""
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:15
+msgid "The result is a JSON object with the device status."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:16
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:44
+msgid "The server URL where all the devices and client accounts are located. This can be obtained from Shelly > User Settings > Cloud Authorization Key."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:17
+msgid "Shelly API"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:36
+msgid "Shelly Cloud Integration - Setup"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:28
+msgid "Error when saving, more in debug print!"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:43
+msgid "Server uri"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:49
+msgid "Auth key"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:50
+msgid "This can be obtained from Shelly > User Settings > Cloud Authorization Key."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:55
+msgid "Request intervalg"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:56
+msgid "Shelly cloud data download recovery interval."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:62
+#: plugins/system_update/templates/system_update_help.html:23
+#: plugins/venetian_blind/templates/venetian_blind_help.html:13
+msgid "Show data from plugin in footer on home page."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:69
+msgid "Number of sensors"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:70
+msgid "The number of used sensors in these plugin."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:79
+msgid "Use sensor"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:80
+msgid "If you do not want to use the sensor but do not want to delete it in the list, uncheck the box."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:85
+msgid "Label for Shelly sensor"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:86
+msgid "Your own Shelly device name (under this name the device will be available in OSPy)."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:91
+msgid "Shelly sensor ID"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:92
+msgid "This can be obtained from Shelly. Example: b0b21c1368aa"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:97
+msgid "Shelly sensor type"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:98
+msgid "Depending on the type of device, data will be read (e.g. temperature and humidity, output states, etc.)"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:100
+msgid "Shelly Plus HT"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
+msgid "Shelly Plus Plug S"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:102
+msgid "Shelly Pro 2PM"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:103
+msgid "Shelly 1PM Mini"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:104
+msgid "Shelly 2.5"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:105
+msgid "Shelly Pro 4PM"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:122
+msgid "Shelly Gen"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:123
+msgid "Generation of Shelly devices."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:125
+msgid "Gen 1"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
+msgid "Gen 2+"
+msgstr ""
+
 #: plugins/signaling_examples/__init__.py:19
 msgid "Package: Signaling Examples"
 msgstr ""
@@ -14171,11 +14250,6 @@ msgstr ""
 
 #: plugins/system_update/templates/system_update_help.html:21
 msgid "The subject of the E-mail being sent."
-msgstr ""
-
-#: plugins/system_update/templates/system_update_help.html:23
-#: plugins/venetian_blind/templates/venetian_blind_help.html:13
-msgid "Show data from plugin in footer on home page."
 msgstr ""
 
 #: plugins/system_watchdog/__init__.py:23

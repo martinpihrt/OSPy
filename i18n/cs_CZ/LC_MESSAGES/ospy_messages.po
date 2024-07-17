@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2024-07-03 15:49+0200\n"
-"PO-Revision-Date: 2024-07-03 16:12+0200\n"
+"POT-Creation-Date: 2024-07-17 14:11+0200\n"
+"PO-Revision-Date: 2024-07-17 14:24+0200\n"
 "Last-Translator: Martin Pihrt <admin@pihrt.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1929,7 +1929,6 @@ msgstr "Konfigurace snímačů"
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:27
 #: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
@@ -1941,6 +1940,8 @@ msgstr "Konfigurace snímačů"
 #: plugins/relay_16/templates/relay_16.html:22
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:20
 #: plugins/remote_notifications/templates/remote_notifications.html:26
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:17
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:39
 #: plugins/signaling_examples/templates/signaling_examples.html:22
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
@@ -2123,7 +2124,7 @@ msgstr "Smazat"
 #: plugins/cli_control/templates/cli_control_log.html:29
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
-#: plugins/database_connector/templates/database_connector_help.html:84
+#: plugins/database_connector/templates/database_connector_help.html:30
 #: plugins/door_opening/templates/door_opening.html:61
 #: plugins/door_opening/templates/door_opening_help.html:12
 #: plugins/email_notifications/templates/email_notifications.html:149
@@ -2151,8 +2152,6 @@ msgstr "Smazat"
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:85
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:107
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2181,6 +2180,9 @@ msgstr "Smazat"
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:39
 #: plugins/remote_notifications/templates/remote_notifications.html:59
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:31
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:24
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:138
 #: plugins/signaling_examples/templates/signaling_examples.html:37
 #: plugins/signaling_examples/templates/signaling_examples_help.html:42
 #: plugins/sms_adj/templates/sms_adj.html:114
@@ -3033,7 +3035,6 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:75
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:263
@@ -3047,6 +3048,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:54
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:23
 #: plugins/remote_notifications/templates/remote_notifications.html:48
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:22
 #: plugins/signaling_examples/templates/signaling_examples.html:26
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
@@ -3145,6 +3147,7 @@ msgid "Action"
 msgstr "Akce"
 
 #: ospy/templates/log_sensor.html:76 ospy/templates/log_sensor.html:96
+#: plugins/database_connector/__init__.py:90
 msgid "Error"
 msgstr "Chyba"
 
@@ -4352,11 +4355,11 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:69
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:61
 #: plugins/speed_monitor/templates/speed_monitor.html:219
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
 #: plugins/system_update/templates/system_update.html:82
@@ -4942,7 +4945,6 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:272
 #: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -4951,6 +4953,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16.html:76
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:63
 #: plugins/remote_notifications/templates/remote_notifications.html:57
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:137
 #: plugins/signaling_examples/templates/signaling_examples.html:36
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
@@ -5857,7 +5860,6 @@ msgstr "Počet DS18B20"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
@@ -8154,82 +8156,86 @@ msgstr "Příkaz"
 msgid "Package: Database Connector"
 msgstr "Balíček: Databázové spojení"
 
-#: plugins/database_connector/__init__.py:77
-msgid "Version: "
-msgstr "Verze: "
+#: plugins/database_connector/__init__.py:86
+msgid "Installed version mysql-connector-python:"
+msgstr "Instalovaná verze mysql-connector-python:"
 
-#: plugins/database_connector/__init__.py:80
-msgid "Mariadb is not installed or you have a newer version."
-msgstr "Mariadb asi není nainstalována nebo máte novější verzi."
+#: plugins/database_connector/__init__.py:89
+msgid "Mysql-connector-python is not installed or any error."
+msgstr "Mysql-connector-python není nainstalován nebo došlo k chybě."
 
-#: plugins/database_connector/__init__.py:81
-msgid ""
-"If you do not have Maria installed, try installing it using the button "
-"below..."
-msgstr ""
-"Pokud nemáte nainstalovanou Maria DB, zkuste ji nainstalovat pomocí tlačítka "
-"níže..."
-
-#: plugins/database_connector/__init__.py:85
-#: plugins/database_connector/__init__.py:212
-#: plugins/database_connector/__init__.py:239
+#: plugins/database_connector/__init__.py:94
+#: plugins/database_connector/__init__.py:222
+#: plugins/database_connector/__init__.py:249
 #: plugins/database_connector/templates/database_connector.html:3
 #: plugins/database_connector/templates/database_connector.html:39
 msgid "Database Connector"
 msgstr "Databázové spojení"
 
-#: plugins/database_connector/__init__.py:117
-msgid "Mariadb is now installed."
-msgstr "Mariadb je nyní nainstalována."
-
 #: plugins/database_connector/__init__.py:118
-msgid "Please wait installing mariadb-client-10.0..."
-msgstr "Počkejte prosím na instalaci mariadb-client-10.0..."
+msgid "Installing mysql connector python"
+msgstr "Instalace mysql connector python"
+
+#: plugins/database_connector/__init__.py:119
+msgid ""
+"In error: externally-managed-environment use sudo rm /usr/lib/python3.11/"
+"EXTERNALLY-MANAGED and next install connector."
+msgstr ""
+"Chyba: externě spravované prostředí použijte sudo rm /usr/lib/python3.11/"
+"EXTERNALLY-MANAGED a další instalační konektor."
 
 #: plugins/database_connector/__init__.py:137
 msgid "Database Connector plug-in"
 msgstr "Rozšíření databázové spojení"
 
-#: plugins/database_connector/__init__.py:162
+#: plugins/database_connector/__init__.py:159
 msgid "Command being executed"
 msgstr "Provádí se příkaz"
 
-#: plugins/database_connector/__init__.py:166
+#: plugins/database_connector/__init__.py:163
 msgid "Committed data in db"
 msgstr "Potvrzená data v db"
 
-#: plugins/database_connector/__init__.py:177
+#: plugins/database_connector/__init__.py:174
 msgid "Database type"
 msgstr "Typ databáze"
 
-#: plugins/database_connector/__init__.py:177
+#: plugins/database_connector/__init__.py:174
 msgid "Found databases"
 msgstr "Nalezené databáze"
 
-#: plugins/database_connector/__init__.py:179
+#: plugins/database_connector/__init__.py:176
 msgid "Not found"
 msgstr "Nenalezeno"
 
-#: plugins/database_connector/__init__.py:188
-msgid "Error connecting to MariaDB Platform"
-msgstr "Chyba při připojování k platformě MariaDB"
+#: plugins/database_connector/__init__.py:186
+msgid "Something is wrong with your user name or password"
+msgstr "Něco není v pořádku s vaším uživatelským jménem nebo heslem"
 
-#: plugins/database_connector/__init__.py:280
+#: plugins/database_connector/__init__.py:188
+msgid "Database does not exist"
+msgstr "Databáze neexistuje"
+
+#: plugins/database_connector/__init__.py:190
+msgid "Table already exists"
+msgstr "Tabulka již existuje"
+
+#: plugins/database_connector/__init__.py:290
 msgid "Created database backup."
 msgstr "Vytvořená záloha databáze."
 
-#: plugins/database_connector/__init__.py:282
+#: plugins/database_connector/__init__.py:292
 msgid "Error in database backup."
 msgstr "Chyba v zálohování databáze."
 
-#: plugins/database_connector/__init__.py:290
+#: plugins/database_connector/__init__.py:300
 #: plugins/ospy_backup/__init__.py:174
 #: plugins/voice_notification/__init__.py:463
 #: plugins/voice_station/__init__.py:467
 msgid "Deleting file has sucesfully."
 msgstr "Smazání souboru proběhlo úspěšně."
 
-#: plugins/database_connector/__init__.py:292
+#: plugins/database_connector/__init__.py:302
 #: plugins/ospy_backup/__init__.py:176
 #: plugins/voice_notification/__init__.py:467
 #: plugins/voice_notification/templates/voice_notification_sounds.html:33
@@ -8238,7 +8244,7 @@ msgstr "Smazání souboru proběhlo úspěšně."
 msgid "File for deleting not found!"
 msgstr "Soubor pro smazání nenalezen!"
 
-#: plugins/database_connector/__init__.py:302
+#: plugins/database_connector/__init__.py:312
 #: plugins/ospy_backup/__init__.py:186
 msgid "Download file: {} type: {}."
 msgstr "Stáhnout soubor: {} typ: {}."
@@ -8488,17 +8494,6 @@ msgstr ""
 #: plugins/database_connector/templates/database_connector_help.html:25
 msgid "max speed, actual speed"
 msgstr "maximální rychlost, skutečná rychlost"
-
-#: plugins/database_connector/templates/database_connector_help.html:26
-msgid ""
-"Code example of how to retrieve data from a database in Python3 (for further "
-"personal use)"
-msgstr ""
-"Příklad kódu, jak načíst data z databáze v Python3 (pro další osobní použití)"
-
-#: plugins/database_connector/templates/database_connector_help.html:69
-msgid "Code output"
-msgstr "Výstup kódu"
 
 #: plugins/door_opening/__init__.py:24
 msgid "Package: Door Opening"
@@ -10336,6 +10331,7 @@ msgid "IP cam - settings"
 msgstr "IP kamery - nastavení"
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:22
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:25
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:22
 msgid "Settings saved."
 msgstr "Nastavení uloženo."
@@ -12218,585 +12214,14 @@ msgstr ""
 msgid "2: exactly once. Will only send a message once."
 msgstr "2: Přesně jednou. Odešle zprávu pouze jednou."
 
-#: plugins/mqtt_home_assistant/__init__.py:31
-msgid "Package: MQTT Home Assistant"
-msgstr "Balíček: MQTT Home Assistant"
-
-#: plugins/mqtt_home_assistant/__init__.py:112
-#: plugins/mqtt_home_assistant/__init__.py:127
-msgid "MQTT Home Assistant"
-msgstr "Domácí asistent MQTT"
-
-#: plugins/mqtt_home_assistant/__init__.py:115
-#: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
-msgid "Plugin is started."
-msgstr "Rozšíření je spuštěno."
-
-#: plugins/mqtt_home_assistant/__init__.py:120
-msgid "Only test! not use"
-msgstr "Pouze test! nepoužívat"
-
-#: plugins/mqtt_home_assistant/__init__.py:254
-msgid ""
-"Error: slugify not installed. Install it to system. sudo apt install python3 "
-"slugify."
-msgstr ""
-"Chyba: slugify není nainstalován. Nainstalujte jej do systému. sudo apt "
-"install python3 slugify."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
-msgid "MQTT Home Assistant Plugin"
-msgstr "Rozšíření MQTT Home Assistant"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:33
-msgid "Topic prefix"
-msgstr "Předpona tématu"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:34
-msgid "MQTT base topic for system parameters and zones (Default: System name)"
-msgstr ""
-"Základní téma MQTT pro systémové parametry a zóny (Výchozí: Název systému)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:39
-msgid "Name prefix"
-msgstr "Pojmenování prefixu"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:40
-msgid "HASS name prefix for devices and zones (Default: System name)"
-msgstr "Předpona názvu HASS pro zařízení a zóny (výchozí: Název systému)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:45
-msgid "OSPy FQDN"
-msgstr "OSPy FQDN"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:46
-msgid ""
-"OSPy network name or IP address for web access from HASS (Default: auto "
-"detect)"
-msgstr ""
-"Název sítě OSPy nebo IP adresa pro webový přístup z HASS (výchozí: "
-"automatická detekce)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
-msgid "Device name is Station name"
-msgstr "Název zařízení je Název stanice"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:52
-msgid "Use station name for HASS zone device name (Default: uncheck)"
-msgstr "Použít název stanice pro název zařízení zóny HASS (Výchozí: neaktivní)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:57
-msgid "Publish disabled zones"
-msgstr "Publikování zakázaných zón"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:58
-msgid "MQTT publish all zones states (Default: uncheck)"
-msgstr "MQTT publikuje všechny stavy zón (výchozí: neaktivní)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:63
-msgid "Discovery UUID prefix"
-msgstr "Předpona UUID zjišťování"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
-msgid "Unique identifier used as prefix for MQTT Discovery by HASS"
-msgstr ""
-"Jedinečný identifikátor používaný jako předpona pro zjišťování MQTT pomocí "
-"HASS"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:7
-msgid "MQTT Home Assistant Plugin - help"
-msgstr "Rozšíření MQTT Home Assistant - nápověda"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:8
-msgid "About the MQTT HASS Plugin"
-msgstr "O rozšíření MQTT HASS"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:10
-msgid ""
-"The MQTT HASS plugin implement MQTT Discovery for Home Assistant (HASS), "
-"including report and control of some OSPy system settings and valves "
-"(stations) over MQTT. MQTT Discovery enables automatic devices and entities "
-"enrolment from HASS user interface configuration panel, including plug-and-"
-"play availability detection, status and control."
-msgstr ""
-"Rozšíření MQTT HASS implementuje MQTT Discovery pro Home Assistant (HASS), "
-"včetně hlášení a ovládání některých nastavení systému OSPy a ventilů "
-"(stanic) přes MQTT. MQTT Discovery umožňuje automatickou registraci zařízení "
-"a entit z konfiguračního panelu uživatelského rozhraní HASS, včetně detekce "
-"dostupnosti, stavu a řízení plug-and-play."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:12
-msgid "Using MQTT HASS plugin"
-msgstr "Použit rozšíření MQTT Home Assistant"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:13
-msgid ""
-"This plugin is disabled by default. If you are reading this, the mqtt_hass "
-"plugin is probably enabled on your system. Otherwise, you can enable it "
-"using the plugin manager."
-msgstr ""
-"Toto rozšíření je ve výchozím nastavení zakázáno. Pokud toto čtete, "
-"mqtt_hass je ve vašem systému pravděpodobně povolen. V opačném případě jej "
-"můžete povolit pomocí správce balíčku."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:15
-msgid "Requirements"
-msgstr "Požadavky"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:17
-msgid ""
-"An MQTT broker such as Mosquitto is required to be accessible by OSPy device "
-"and HASS. This broker can be on different parts of the local network, on a "
-"remote network, or installed on either OSPy or HASS system."
-msgstr ""
-"Zprostředkovatel MQTT, jako je Mosquitto, musí být přístupný zařízením OSPy "
-"a HASS. Tento zprostředkovatel může být na různých částech lokální sítě, ve "
-"vzdálené síti nebo nainstalován na systému OSPy nebo HASS."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:18
-msgid "A working HASS system with an MQTT Integration such as Mosquitto broker"
-msgstr ""
-"Funkční systém HASS s integrací MQTT, jako je zprostředkovatel Mosquitto"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:19
-msgid ""
-"A OSPy system with the base mqtt plugin installed and configured (see below)."
-msgstr ""
-"Systém OSPy s nainstalovaným a nakonfigurovaným základním rozšířením mqtt "
-"(viz níže)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:20
-msgid ""
-"This plugin installed and configured on the same OSPy system as the base "
-"mqtt plugin (see below)."
-msgstr ""
-"Toto rozšíření je nainstalováno a nakonfigurováno na stejném OSPy systému "
-"jako základní rozšíření mqtt (viz níže)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
-msgid "Setup"
-msgstr "Nastavení"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:25
-msgid "On OSPy - base MQTT plugin setup"
-msgstr "Na OSPy - základní nastavení MQTT rozšíření"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:27
-msgid "Install eclipse paho if not already on the Pi"
-msgstr "Nainstalujte eclipse paho, pokud již není na Pi"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:28
-msgid "Install the base MQTT plugin"
-msgstr "Instalace základního MQTT rozšíření"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:29
-msgid "Configure base MQTT plugin"
-msgstr "Konfigurace základního MQTT rozšíření"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:31
-msgid ""
-"MQTT Broker Host: This will be the URL of the MQTT broker or localhost if "
-"the broker is running on OSPy"
-msgstr ""
-"MQTT Broker Host: Toto bude adresa URL zprostředkovatele MQTT nebo "
-"localhost, pokud zprostředkovatel běží na OSPy"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:32
-msgid ""
-"MQTT Broker Port: Default is 1883 but may be different depending on your "
-"MQTT broker"
-msgstr ""
-"Port zprostředkovatele MQTT: Výchozí hodnota je 1883, ale může se lišit v "
-"závislosti na vašem zprostředkovateli MQTT"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:33
-msgid "MQTT Broker Username: Default is mosquitto but depends on your setup."
-msgstr ""
-"Uživatelské jméno MQTT Brokera: Výchozí je mosquitto, ale závisí na vašem "
-"nastavení."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:34
-msgid "MQTT Broker Password: Depends on your setup. Use pass as default"
-msgstr ""
-"Heslo MQTT Broker: Závisí na vašem nastavení. Použít heslo jako výchozí"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:35
-msgid ""
-"MQTT Publish up/down topic: It needs to be set for proper OSPy availability "
-"detection by HASS. We suggest to use the OSPy System name as set on Options "
-"webpage"
-msgstr ""
-"MQTT Publikuje up/down topic: Musí být nastaveno pro správnou detekci "
-"dostupnosti OSPy pomocí HASS. Doporučujeme použít název systému OSPy, jaký "
-"je nastaven na webové stránce OSPy systému"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:36
-msgid ""
-"MQTT Client ID: A unique name for OSPy system. Default is OSPy System name "
-"but can be changed on Options webpage."
-msgstr ""
-"ID klienta MQTT: Jedinečný název pro systém OSPy. Výchozí je název systému "
-"OSPy."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:40
-msgid "On OSPy - MQTT HASS plugin setup"
-msgstr "Na OSPy - nastavení MQTT HASS pluginu"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:42
-msgid "Install Python python-slugify package if not already on the pi."
-msgstr "Nainstalujte balíček Python python-slugify, pokud ještě není na pi."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:44
-msgid "Configure MQTT HASS plugin."
-msgstr "Nakonfigurujte rozšíření MQTT HASS."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
-msgid ""
-"Topic prefix: This prefix is used for OSPy system parameters and zones "
-"published to the MQTT broker. Leave this option empty to use a slugified "
-"OSPy System name. This setting will be slugified when saved. (Default: "
-"System name or \"OSPy\" if System name is empty)."
-msgstr ""
-"Předpona tématu: Tato předpona se používá pro systémové parametry OSPy a "
-"zóny publikované do MQTT brokeru. Tuto možnost ponechte prázdnou, chcete-li "
-"použít slugified název systému OSPy. Toto nastavení bude při uložení "
-"sloučeno. (Výchozí: Název systému nebo \"OSPy\", pokud je název systému "
-"prázdný)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
-msgid ""
-"Name prefix: Used as prefix for all HASS devices and entities names. Leave "
-"this option empty to use a OSPy System name as prefix. For entities, this "
-"setting will be slugified. (Default: System name or \"OSPy\" if System name "
-"is empty)."
-msgstr ""
-"Předpona názvu: Používá se jako předpona pro všechna zařízení HASS a názvy "
-"entit. Tuto možnost ponechte prázdnou, pokud chcete jako předponu použít "
-"název systému OSPy. U entit bude toto nastavení slugated. (Výchozí: Název "
-"systému nebo \"OSPy\", pokud je název systému prázdný)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
-msgid ""
-"OSPy FQDN: OSPy network name or IP address. Used to compose the URL link to "
-"OSPy web interface displayed in HASS devices settings. Leave this option "
-"empty to use OSPy hostname or IP address used to connect with the MQTT "
-"broker. (Default: OSPy hostname)."
-msgstr ""
-"Plně kvalifikovaný název domény OSPy: Název sítě OSPy nebo IP adresa. Slouží "
-"k vytvoření URL odkazu na webové rozhraní OSPy zobrazovaného v nastavení "
-"zařízení HASS. Tuto možnost ponechte prázdnou, pokud chcete použít název "
-"hostitele OSPy nebo IP adresu použitou pro připojení k MQTT brokeru. "
-"(Výchozí: OSPy hostname)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:49
-msgid ""
-"Device is Station name: if checked, use station name as part of HASS Device "
-"name. Changes to OSPy station name will update HASS Device name. (Default: "
-"unchecked)"
-msgstr ""
-"Zařízení je Název stanice: pokud je zatrženo, použijte název stanice jako "
-"součást názvu zařízení HASS. Změny názvu stanice OSPy aktualizují název "
-"zařízení HASS. (Výchozí: nezaškrtnuto)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:50
-msgid ""
-"Publish disabled zone: if checked, disabled stations will also be published "
-"to the MQTT broker and discovered by HASS. NOTE: For safety, disabled "
-"stations can't be controlled from MQTT nor HASS. (Default: unchecked)"
-msgstr ""
-"Publikovat zakázanou zónu: pokud je zatrženo, zakázané stanice budou také "
-"publikovány do MQTT brokeru a detekovány HASSem. POZNÁMKA: Z bezpečnostních "
-"důvodů nelze deaktivované stanice ovládat z MQTT ani HASS. (Výchozí: "
-"nezaškrtnuto)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
-msgid "On Home Assistant - MQTT setup"
-msgstr "Na Home Assistant - nastavení MQTT"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:56
-msgid ""
-"Follow Home Assistant instructions to add MQTT integration via the user "
-"interface. MQTT discovery feature is enabled by default. MQTT integration "
-"will detect OSPy settings parameters and zones as devices and entities."
-msgstr ""
-"Postupujte podle pokynů Home Assistant a přidejte integraci MQTT "
-"prostřednictvím uživatelského rozhraní. Funkce zjišťování MQTT je ve "
-"výchozím nastavení povolena. Integrace MQTT detekuje parametry nastavení "
-"OSPy a zóny jako zařízení a entity."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:57
-msgid ""
-"Follow Home Assistant instructions to configure and use the newly added "
-"devices and entities."
-msgstr ""
-"Postupujte podle pokynů Home Assistant a nakonfigurujte a používejte nově "
-"přidaná zařízení a entity."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
-msgid ""
-"Multiple OSPy systems connected to the same MQTT broker or Home Assistant "
-"instance"
-msgstr ""
-"Více systémů OSPy připojených ke stejnému MQTT brokeru nebo instanci Home "
-"Assistant"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
-msgid "To integrate multiple OSPy systems, on each OSPy:"
-msgstr "Chcete-li integrovat více systémů OSPy, na každém OSPy:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:63
-msgid ""
-"Use different \"System name\" as set on OSPy Options webpage. Default OSPy "
-"System name is \"OSPy\""
-msgstr ""
-"Použijte jiný \"Název systému\", jak je nastaveno v nastavení OSPy systému. "
-"Výchozí název systému OSPy je \"OSPy\""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
-msgid ""
-"For each base MQTT plugin settings use different MQTT Publish up/down topic "
-"and MQTT Client ID."
-msgstr ""
-"Pro každé základní nastavení MQTT pluginu použijte jiné téma MQTT Publish up/"
-"down a MQTT Client ID."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
-msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
-msgstr ""
-"Pro každý MQTT HASS plugin použijte jinou předponu Topic a předponu Name."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:68
-msgid "Home Assistant - available OSPy Devices and Entities"
-msgstr "Home Assistant - dostupná zařízení a entity OSPy"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:69
-msgid "Devices and associated Entities made available with this plugin are:"
-msgstr ""
-"Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:71
-msgid ""
-"Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device per "
-"OSPy system. This device regroups the supported OSPy system parameters and "
-"sensors. NamePrefix is MQTT HASS \"Name prefix\" option. Unless specified "
-"the associated entities have the same behavior as on OSPy home webpage. "
-"Entities name prefix uses a slugified version of the device name "
-"(nameprefix). Entities:"
-msgstr ""
-"Zařízení: OSPy (název: NamePrefix) MQTT HASS plugin vytvoří jedno zařízení "
-"pro každý OSPy systém. Toto zařízení přeskupí podporované systémové "
-"parametry OSPy a senzory. NamePrefix je volba MQTT HASS \"Předpona názvu\". "
-"Pokud není uvedeno jinak, přidružené entity se chovají stejně jako na "
-"domovské stránce OSPy. Předpona názvu entit používá zjednodušenou verzi "
-"názvu zařízení (nameprefix). Entity:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:73
-msgid ""
-"Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS "
-"\"Select entity\" showing and controlling OSPy System Enable (Values: \"on"
-"\", \"off\"). Setting it to \"off\" will disable all other system parameters "
-"and zone control from HASS."
-msgstr ""
-"Řídicí entita: Povolení systému OSPy (ID: select.nameprefix_enable) HASS "
-"\"Vybrat entitu\" zobrazující a ovládající povolení systému OSPy (hodnoty: "
-"\"zapnuto\", \"vypnuto\"). Nastavení na \"vypnuto\" deaktivuje všechny "
-"ostatní systémové parametry a zónové řízení z HASS."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
-msgid ""
-"Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS \"Select "
-"entity\" showing and controlling OSPy Mode (Values: \"Automatic\", \"Manual"
-"\")."
-msgstr ""
-"Konfigurační entita: Režim OSPy (ID: select.nameprefix_mode) HASS \"Vybrat "
-"entitu\" zobrazující a ovládající režim OSPy (hodnoty: \"Automaticky\", "
-"\"Ručně\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:75
-msgid ""
-"Configuration Entity: Rain sensor enable (ID: select."
-"nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and "
-"controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same behavior "
-"as \"Use rain sensor\" in OSPy Options webpage."
-msgstr ""
-"Entita konfigurace: Povolení dešťového senzoru (ID: select."
-"nameprefix_rain_sensor_enable) HASS \"Vybrat entitu\" zobrazující a "
-"ovládající OSPy Aktivace dešťového senzoru (hodnoty: \"zapnuto\", \"vypnuto"
-"\"). Stejné chování jako \"Použít dešťový senzor\" na webové stránce "
-"Možnosti OSPy."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:76
-msgid ""
-"Configuration Entity: Rain delay timer (ID: number."
-"nameprefix_rain_delay_timer) HASS \"Number entity\" showing and controlling "
-"OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This entity has the "
-"following JSON attributes and default values when the timer is active / "
-"inactive (default):"
-msgstr ""
-"Konfigurační entita: Časovač zpoždění deště (ID: number."
-"nameprefix_rain_delay_timer) HASS \"Číselná entita\" zobrazující a "
-"ovládající časovač zpoždění OSPy Rain (rozsah: 0 až 24 hodin, výchozí 0). "
-"Tato entita má následující atributy JSON a výchozí hodnoty, pokud je časovač "
-"aktivní/neaktivní (výchozí):"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:78
-msgid ""
-"Attribute: state The number of hours as set from OSPy user interface or MQTT "
-"(Default 0)."
-msgstr ""
-"Atribut: state Počet hodin nastavený z uživatelského rozhraní OSPy nebo MQTT "
-"(výchozí 0)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:79
-msgid ""
-"Attribute: start_time Unix time when the delay timer started (Default \"None"
-"\")."
-msgstr ""
-"Atribut: start_time unixový čas, kdy se spustil časovač zpoždění (výchozí "
-"\"None\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:80
-msgid ""
-"Attribute: duration Total number of seconds of the delay timer (Default 0)."
-msgstr ""
-"Atribut: doba trvání Celkový počet sekund časovače zpoždění (výchozí 0)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:82
-msgid ""
-"Configuration Entity: Water level adjust (ID: number.nameprefix."
-"water_level_adjust) HASS \"Number entity\" showing and controlling OSPy "
-"Water level adjust (Range: 0 to 100 %, Default 100)."
-msgstr ""
-"Konfigurační entita: Nastavení hladiny vody (ID: number.nameprefix."
-"water_level_adjust) HASS \"Číselná entita\" zobrazující a ovládající OSPy "
-"Nastavení hladiny vody (Rozsah: 0 až 100 %, výchozí 100)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:83
-msgid ""
-"Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix."
-"rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor state "
-"(Values: \"on\",\"off\")."
-msgstr ""
-"Diagnostická entita: Senzor detekce deště (ID: binary_sensor.nameprefix."
-"rain_detect) HASS \"Binární entita senzoru\" hlásící stav senzoru deště OSPy "
-"(hodnoty: \"zapnuto\",\"vypnuto\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:84
-msgid ""
-"Diagnostic Entity: Running program (ID: sensor.nameprefix.running_program) "
-"HASS \"Sensor entity\" showing OSPy Running program (Values: \"Manual\", "
-"\"Run Once, or program number). Zones controlled from HASS are shown as "
-"\"Run Once\" program."
-msgstr ""
-"Diagnostická entita: Spuštěný program (ID: sensor.nameprefix."
-"running_program) HASS \"Entita senzoru\" zobrazující spuštěný program OSPy "
-"(hodnoty: \"Ruční\", \"Spustit jednou nebo číslo programu\"). Zóny řízené z "
-"HASS jsou zobrazeny jako program \"Spustit jednou\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:86
-msgid ""
-"Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT "
-"HASS plugin creates one device per OSPy station (zone). Device name is "
-"nameprefix - Zxx unless option \"Device is Station name\" is checked. The "
-"number of devices will track the number of OSPy \"Stations Extensions\" set "
-"on the Options webpage. Each zone device has a single \"switch\" entity. "
-"Entity:"
-msgstr ""
-"Zařízení: Zóna (name: nameprefix - Zxx nebo nameprefix - název stanice) MQTT "
-"HASS plugin vytvoří jedno zařízení na OSPy stanici (zónu). Název zařízení je "
-"nameprefix - Zxx, pokud není zatržena volba \"Zařízení je název stanice\". "
-"Počet zařízení bude sledovat počet OSPy \"Stations Extensions\" nastavených "
-"na stránce Možnosti. Každé zónové zařízení má jednu entitu \"přepínače\". "
-"Entita:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:88
-msgid ""
-"ID is switch.nameprefix.zxx where xx is a double digit from 01 to the number "
-"of OSPy stations. Entity name and availability will track changes made on "
-"OSPy Stations webpage. This entity has the following JSON attributes and "
-"values:"
-msgstr ""
-"ID je switch.nameprefix.zxx, kde xx je dvouciferné číslo od 01 do počtu "
-"stanic OSPy. Název a dostupnost entity budou sledovat změny provedené na "
-"webové stránce OSPy Stations. Tato entita má následující atributy a hodnoty "
-"JSON:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:90
-msgid ""
-"Attribute: state The actual zone state. Value is \"on\" when active and \"off"
-"\" when inactive."
-msgstr ""
-"Atribut: state Skutečný stav zóny. Hodnota je \"zapnuto\", když je aktivní, "
-"a \"vypnuto\", když je neaktivní."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:91
-msgid ""
-"Attribute: start_time Unix time when the zone turned \"on\". If state is "
-"\"off\": Value is \"None\"."
-msgstr ""
-"Atribut: start_time unixový čas, kdy byla zóna zapnuta. Pokud je stav "
-"\"vypnuto\": Hodnota je \"Žádný\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:92
-msgid ""
-"Attribute: duration Total number of seconds the zone state will be \"on\". "
-"If state is \"on\": Value is the duration as set from a running program or "
-"run once or \"Inf\" if zone is activated from manual mode or from MQTT HASS "
-"switch. If state is \"off\": Value is \"Inf\"."
-msgstr ""
-"Atribut: doba trvání Celkový počet sekund, po které bude stav zóny \"zapnuto"
-"\". Pokud je stav \"zapnuto\": Hodnota je doba trvání nastavená ze "
-"spuštěného programu nebo spuštěná jednorázově nebo \"Inf\", pokud je zóna "
-"aktivována z manuálního režimu nebo z přepínače MQTT HASS. Pokud je stav "
-"\"vypnuto\": Hodnota je \"Inf\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:93
-msgid ""
-"Attribute: program The program number that turned the zone state to \"on\". "
-"If state is \"on\": Value is program number, \"Run Once\" or \"Manual\". If "
-"state is \"off\": Value is \"None\"."
-msgstr ""
-"Atribut: program Číslo programu, který změnil stav zóny na \"zapnuto\". "
-"Pokud je stav \"zapnuto\": Hodnota je číslo programu, \"Spustit jednou\" "
-"nebo \"Ručně\". Pokud je stav \"vypnuto\": Hodnota je \"Žádný\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:98
-msgid "Test your setup"
-msgstr "Otestujte své nastavení"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:99
-msgid "From HASS and OSPy user interface:"
-msgstr "Z uživatelského rozhraní HASS a OSPy:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:101
-msgid ""
-"Compare the state of select.nameprefix.enable with OSPy web interface System "
-"Enable. Change the system enable from HASS and OSPy to verify that the state "
-"is changed on the other end. When disabled, observe that all the other HASS "
-"system parameters and zone entities are not available in HASS user interface "
-"(grayed)."
-msgstr ""
-"Porovnejte stav select.nameprefix.enable s OSPy web rozhraní System Enable. "
-"Změňte povolení systému z HASS a OSPy, abyste ověřili, že se stav změnil na "
-"druhém konci. Pokud je tato možnost zakázána, všimněte si, že všechny "
-"ostatní systémové parametry HASS a entity zóny nejsou k dispozici v "
-"uživatelském rozhraní HASS (šedě)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:102
-msgid ""
-"With System enable, change one enabled zone state from HASS and verify the "
-"zone state on OSPy webpage. Observe the active program is set to \"Run Once"
-"\" when setting a zone \"on\" from HASS."
-msgstr ""
-"S povolením systému změňte jeden povolený stav zóny z HASS a ověřte stav "
-"zóny na webové stránce OSPy. Všimněte si, že aktivní program je nastaven na "
-"\"Spustit jednou\" při nastavování zóny \"zapnuto\" z HASS."
-
 #: plugins/ospy_backup/__init__.py:24
 msgid "Package: OSPy package Backup"
 msgstr "Balíček: Zálohování balíčků OSPy"
+
+#: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
+#: plugins/shelly_cloud_integrator/__init__.py:77
+msgid "Plugin is started."
+msgstr "Rozšíření je spuštěno."
 
 #: plugins/ospy_backup/__init__.py:67 plugins/ospy_backup/__init__.py:119
 #: plugins/ospy_backup/__init__.py:146 plugins/ospy_backup/__init__.py:197
@@ -14999,6 +14424,363 @@ msgstr "pass=\"heslo do SQL serveru\""
 msgid "db=\"ospy\" name of table on the SQL server"
 msgstr "db=\"ospy\" název tabulky na serveru SQL"
 
+#: plugins/shelly_cloud_integrator/__init__.py:26
+msgid "Package: Shelly Cloud Integration"
+msgstr "Balíček: Integrace Shelly Cloud"
+
+#: plugins/shelly_cloud_integrator/__init__.py:74
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:16
+msgid "Shelly Cloud Integration"
+msgstr "Integrace Shelly Cloud"
+
+#: plugins/shelly_cloud_integrator/__init__.py:92
+msgid "Shelly Cloud Bad Login"
+msgstr "Shelly Cloud Špatné přihlášení"
+
+#: plugins/shelly_cloud_integrator/__init__.py:94
+msgid "Shelly Cloud Not Found"
+msgstr "Shelly Cloud nebyl nalezen"
+
+#: plugins/shelly_cloud_integrator/__init__.py:102
+msgid "{}: GEN1 not available \n"
+msgstr "{}: GEN1 není k dispozici \n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:117
+msgid "[{}: {}°C {}RV] "
+msgstr "[{}: {}°C {}RV] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:118
+msgid "{}: {}°C {}RV BAT{}% IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: {}°C {}RV BAT{}% IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:120
+#: plugins/shelly_cloud_integrator/__init__.py:145
+#: plugins/shelly_cloud_integrator/__init__.py:189
+#: plugins/shelly_cloud_integrator/__init__.py:218
+#: plugins/shelly_cloud_integrator/__init__.py:262
+#: plugins/shelly_cloud_integrator/__init__.py:321
+msgid "[{}: OFFLINE] "
+msgstr "[{}: NEDOSTUPNÉ] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:121
+#: plugins/shelly_cloud_integrator/__init__.py:146
+#: plugins/shelly_cloud_integrator/__init__.py:190
+#: plugins/shelly_cloud_integrator/__init__.py:219
+#: plugins/shelly_cloud_integrator/__init__.py:263
+#: plugins/shelly_cloud_integrator/__init__.py:322
+msgid "{}: OFFLINE\n"
+msgstr "{}: NEDOSTUPNÉ\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:139
+msgid "[{}: ON {}W] "
+msgstr "[{}: ZAP {}W] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:140
+msgid "{}: ON {}W IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: ZAP {}W IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:142
+msgid "[{}: OFF {}W] "
+msgstr "[{}: VYP {}W] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:143
+msgid "{}: OFF {}W IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: VYP {}W IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:149
+#: plugins/shelly_cloud_integrator/__init__.py:266
+msgid "{}: GEN2 not available yet \n"
+msgstr "{}: GEN2 ještě není k dispozici \n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:156
+#: plugins/shelly_cloud_integrator/__init__.py:197
+#: plugins/shelly_cloud_integrator/__init__.py:273
+msgid "{}: GEN1 not available yet \n"
+msgstr "{}: GEN1 ještě není k dispozici \n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:177
+#: plugins/shelly_cloud_integrator/__init__.py:247
+#: plugins/shelly_cloud_integrator/__init__.py:297
+msgid "[{}: 1 ON {}W ({}kW/h) "
+msgstr "[{}: 1 ZAP {}W ({}kW/h) "
+
+#: plugins/shelly_cloud_integrator/__init__.py:178
+#: plugins/shelly_cloud_integrator/__init__.py:248
+#: plugins/shelly_cloud_integrator/__init__.py:298
+msgid "{}: 1 ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr "{}: 1 ZAP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+
+#: plugins/shelly_cloud_integrator/__init__.py:180
+#: plugins/shelly_cloud_integrator/__init__.py:250
+#: plugins/shelly_cloud_integrator/__init__.py:300
+msgid "[{}: 1 OFF {}W ({}kW/h) "
+msgstr "[{}: 1 VYP {}W ({}kW/h) "
+
+#: plugins/shelly_cloud_integrator/__init__.py:181
+#: plugins/shelly_cloud_integrator/__init__.py:251
+#: plugins/shelly_cloud_integrator/__init__.py:301
+msgid "{}: 1 OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr "{}: 1 VYP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+
+#: plugins/shelly_cloud_integrator/__init__.py:183
+#: plugins/shelly_cloud_integrator/__init__.py:253
+#: plugins/shelly_cloud_integrator/__init__.py:303
+#: plugins/shelly_cloud_integrator/__init__.py:309
+#: plugins/shelly_cloud_integrator/__init__.py:315
+msgid "2 ON {}W ({}kW/h)] "
+msgstr "2 ZAP {}W ({}kW/h)] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:184
+msgid "2 ON {}W ({}kW/h) {}V {}\n"
+msgstr "2 ZAP {}W ({}kW/h) {}V {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:186
+#: plugins/shelly_cloud_integrator/__init__.py:256
+#: plugins/shelly_cloud_integrator/__init__.py:306
+#: plugins/shelly_cloud_integrator/__init__.py:312
+#: plugins/shelly_cloud_integrator/__init__.py:318
+msgid "2 OFF {}W ({}kW/h)] "
+msgstr "2 VYP {}W ({}kW/h)] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:187
+msgid "2 OFF {}W ({}kW/h) {}V {}\n"
+msgstr "2 VYP {}W ({}kW/h) {}V {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:212
+msgid "[{}: ON {}W ({}kW/h)] "
+msgstr "[{}: ZAP {}W ({}kW/h)] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:213
+msgid "{}: ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: ZAP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:215
+msgid "[{}: OFF {}W ({}kW/h)] "
+msgstr "[{}: VYP {}W ({}kW/h)] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:216
+msgid "{}: OUT OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: VYP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:254
+#: plugins/shelly_cloud_integrator/__init__.py:316
+msgid "2 ON {}W ({}kW/h) {}\n"
+msgstr "2 ZAP {}W ({}kW/h) {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:257
+#: plugins/shelly_cloud_integrator/__init__.py:319
+msgid "2 OFF {}W ({}kW/h) {}\n"
+msgstr "2 VYP {}W ({}kW/h) {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:259
+msgid "[{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h)] "
+msgstr "[{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h)] "
+
+#: plugins/shelly_cloud_integrator/__init__.py:260
+msgid "{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+msgstr "{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+
+#: plugins/shelly_cloud_integrator/__init__.py:304
+#: plugins/shelly_cloud_integrator/__init__.py:310
+msgid "2 ON {}W ({}kW/h) "
+msgstr "2 ZAP {}W ({}kW/h) "
+
+#: plugins/shelly_cloud_integrator/__init__.py:307
+#: plugins/shelly_cloud_integrator/__init__.py:313
+msgid "2 OFF {}W ({}kW/h) "
+msgstr "2 VYP {}W ({}kW/h) "
+
+#: plugins/shelly_cloud_integrator/__init__.py:328
+#: plugins/shelly_cloud_integrator/__init__.py:340
+#: plugins/shelly_cloud_integrator/__init__.py:442
+msgid "Shelly Cloud Integration plugin"
+msgstr "Rozšíření Integrace Shelly Cloud"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:18
+msgid "Setup"
+msgstr "Nastavení"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:7
+msgid "Shelly Cloud Integration - help"
+msgstr "Integrace Shelly Cloud - Nápověda"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:8
+msgid "How to get the latest device status via Shelly Cloud API and curl."
+msgstr ""
+"Jak získat nejnovější stav zařízení prostřednictvím Shelly Cloud API a curl."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:9
+msgid "Path: https:// <***server_uri > /device/status."
+msgstr "Cesta: https:// <***server_uri > /device/status."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:10
+msgid "Supported methods: GET and POST."
+msgstr "Podporované metody: GET a POST."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:11
+msgid "Parameters are supplied via *query or **request body"
+msgstr "Parametry se zadávají prostřednictvím *query nebo **textu požadavku"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:12
+msgid "Required data to send the request:"
+msgstr "Požadované údaje pro odeslání žádosti:"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:13
+msgid "Target device ID: key = \"id\""
+msgstr "ID cílového zařízení: key = \"id\""
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:14
+msgid " **** account authentication key: key = \"auth_key\""
+msgstr " Ověřovací klíč účtu: Key = \"auth_key\""
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:15
+msgid "The result is a JSON object with the device status."
+msgstr "Výsledkem je objekt JSON se stavem zařízení."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:16
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:44
+msgid ""
+"The server URL where all the devices and client accounts are located. This "
+"can be obtained from Shelly > User Settings > Cloud Authorization Key."
+msgstr ""
+"Adresa URL serveru, na které se nacházejí všechna zařízení a klientské účty. "
+"To lze získat z Shelly > Uživatelská nastavení > Cloud Authorization Key."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:17
+msgid "Shelly API"
+msgstr "Shelly API"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:3
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:36
+msgid "Shelly Cloud Integration - Setup"
+msgstr "Integrace Shelly Cloud - Nastavení"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:28
+msgid "Error when saving, more in debug print!"
+msgstr "Chyba při ukládání, více v debug výpisu!"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:43
+msgid "Server uri"
+msgstr "URI server"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:49
+msgid "Auth key"
+msgstr "Ověřovací klíč"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:50
+msgid ""
+"This can be obtained from Shelly > User Settings > Cloud Authorization Key."
+msgstr ""
+"To lze získat z Shelly > Uživatelská nastavení > Cloud Authorization Key."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:55
+msgid "Request intervalg"
+msgstr "Interval požadavků"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:56
+msgid "Shelly cloud data download recovery interval."
+msgstr "Interval obnovy stahování dat z cloudu Shelly."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:62
+#: plugins/system_update/templates/system_update_help.html:23
+#: plugins/venetian_blind/templates/venetian_blind_help.html:13
+msgid "Show data from plugin in footer on home page."
+msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:69
+msgid "Number of sensors"
+msgstr "Počet senzorů"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:70
+msgid "The number of used sensors in these plugin."
+msgstr "Počet použitých senzorů v tomto rozšíření."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:79
+msgid "Use sensor"
+msgstr "Používat senzor"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:80
+msgid ""
+"If you do not want to use the sensor but do not want to delete it in the "
+"list, uncheck the box."
+msgstr ""
+"Pokud senzor nechcete používat, ale nechcete jej smazat ze seznamu, zrušte "
+"zaškrtnutí políčka."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:85
+msgid "Label for Shelly sensor"
+msgstr "Štítek pro senzor Shelly"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:86
+msgid ""
+"Your own Shelly device name (under this name the device will be available in "
+"OSPy)."
+msgstr ""
+"Váš vlastní název zařízení Shelly (pod tímto názvem bude zařízení dostupné v "
+"OSPy)."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:91
+msgid "Shelly sensor ID"
+msgstr "ID senzoru Shelly"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:92
+msgid "This can be obtained from Shelly. Example: b0b21c1368aa"
+msgstr "To lze získat od Shelly. Příklad: b0b21c1368aa"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:97
+msgid "Shelly sensor type"
+msgstr "Typ senzoru Shelly"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:98
+msgid ""
+"Depending on the type of device, data will be read (e.g. temperature and "
+"humidity, output states, etc.)"
+msgstr ""
+"V závislosti na typu zařízení se budou číst data (např. teplota a vlhkost, "
+"stavy výstupů atd.)"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:100
+msgid "Shelly Plus HT"
+msgstr "Shelly Plus HT"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
+msgid "Shelly Plus Plug S"
+msgstr "Shelly Plus Plug S"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:102
+msgid "Shelly Pro 2PM"
+msgstr "Shelly Pro 2PM"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:103
+msgid "Shelly 1PM Mini"
+msgstr "Shelly 1PM Mini"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:104
+msgid "Shelly 2.5"
+msgstr "Shelly 2.5"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:105
+msgid "Shelly Pro 4PM"
+msgstr "Shelly Pro 4PM"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:122
+msgid "Shelly Gen"
+msgstr "Shelly Gen"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:123
+msgid "Generation of Shelly devices."
+msgstr "Generace zařízení Shelly."
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:125
+msgid "Gen 1"
+msgstr "Generace 1"
+
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
+msgid "Gen 2+"
+msgstr "Generace 2+"
+
 #: plugins/signaling_examples/__init__.py:19
 msgid "Package: Signaling Examples"
 msgstr "Balíček: Příklady signalizace"
@@ -16613,11 +16395,6 @@ msgstr ""
 #: plugins/system_update/templates/system_update_help.html:21
 msgid "The subject of the E-mail being sent."
 msgstr "Předmět odesílané zprávy v E-mailu."
-
-#: plugins/system_update/templates/system_update_help.html:23
-#: plugins/venetian_blind/templates/venetian_blind_help.html:13
-msgid "Show data from plugin in footer on home page."
-msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
 
 #: plugins/system_watchdog/__init__.py:23
 msgid "Package: System Watchdog"
@@ -20301,6 +20078,534 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 #: setup.py:208
 msgid "Done."
 msgstr "Hotovo."
+
+#~ msgid "Version: "
+#~ msgstr "Verze: "
+
+#~ msgid "Mariadb is not installed or you have a newer version."
+#~ msgstr "Mariadb asi není nainstalována nebo máte novější verzi."
+
+#~ msgid ""
+#~ "If you do not have Maria installed, try installing it using the button "
+#~ "below..."
+#~ msgstr ""
+#~ "Pokud nemáte nainstalovanou Maria DB, zkuste ji nainstalovat pomocí "
+#~ "tlačítka níže..."
+
+#~ msgid "Mariadb is now installed."
+#~ msgstr "Mariadb je nyní nainstalována."
+
+#~ msgid "Please wait installing mariadb-client-10.0..."
+#~ msgstr "Počkejte prosím na instalaci mariadb-client-10.0..."
+
+#~ msgid "Error connecting to MariaDB Platform"
+#~ msgstr "Chyba při připojování k platformě MariaDB"
+
+#~ msgid ""
+#~ "Code example of how to retrieve data from a database in Python3 (for "
+#~ "further personal use)"
+#~ msgstr ""
+#~ "Příklad kódu, jak načíst data z databáze v Python3 (pro další osobní "
+#~ "použití)"
+
+#~ msgid "Code output"
+#~ msgstr "Výstup kódu"
+
+#~ msgid "Package: MQTT Home Assistant"
+#~ msgstr "Balíček: MQTT Home Assistant"
+
+#~ msgid "MQTT Home Assistant"
+#~ msgstr "Domácí asistent MQTT"
+
+#~ msgid "Only test! not use"
+#~ msgstr "Pouze test! nepoužívat"
+
+#~ msgid ""
+#~ "Error: slugify not installed. Install it to system. sudo apt install "
+#~ "python3 slugify."
+#~ msgstr ""
+#~ "Chyba: slugify není nainstalován. Nainstalujte jej do systému. sudo apt "
+#~ "install python3 slugify."
+
+#~ msgid "MQTT Home Assistant Plugin"
+#~ msgstr "Rozšíření MQTT Home Assistant"
+
+#~ msgid "Topic prefix"
+#~ msgstr "Předpona tématu"
+
+#~ msgid ""
+#~ "MQTT base topic for system parameters and zones (Default: System name)"
+#~ msgstr ""
+#~ "Základní téma MQTT pro systémové parametry a zóny (Výchozí: Název systému)"
+
+#~ msgid "Name prefix"
+#~ msgstr "Pojmenování prefixu"
+
+#~ msgid "HASS name prefix for devices and zones (Default: System name)"
+#~ msgstr "Předpona názvu HASS pro zařízení a zóny (výchozí: Název systému)"
+
+#~ msgid "OSPy FQDN"
+#~ msgstr "OSPy FQDN"
+
+#~ msgid ""
+#~ "OSPy network name or IP address for web access from HASS (Default: auto "
+#~ "detect)"
+#~ msgstr ""
+#~ "Název sítě OSPy nebo IP adresa pro webový přístup z HASS (výchozí: "
+#~ "automatická detekce)"
+
+#~ msgid "Device name is Station name"
+#~ msgstr "Název zařízení je Název stanice"
+
+#~ msgid "Use station name for HASS zone device name (Default: uncheck)"
+#~ msgstr ""
+#~ "Použít název stanice pro název zařízení zóny HASS (Výchozí: neaktivní)"
+
+#~ msgid "Publish disabled zones"
+#~ msgstr "Publikování zakázaných zón"
+
+#~ msgid "MQTT publish all zones states (Default: uncheck)"
+#~ msgstr "MQTT publikuje všechny stavy zón (výchozí: neaktivní)"
+
+#~ msgid "Discovery UUID prefix"
+#~ msgstr "Předpona UUID zjišťování"
+
+#~ msgid "Unique identifier used as prefix for MQTT Discovery by HASS"
+#~ msgstr ""
+#~ "Jedinečný identifikátor používaný jako předpona pro zjišťování MQTT "
+#~ "pomocí HASS"
+
+#~ msgid "MQTT Home Assistant Plugin - help"
+#~ msgstr "Rozšíření MQTT Home Assistant - nápověda"
+
+#~ msgid "About the MQTT HASS Plugin"
+#~ msgstr "O rozšíření MQTT HASS"
+
+#~ msgid ""
+#~ "The MQTT HASS plugin implement MQTT Discovery for Home Assistant (HASS), "
+#~ "including report and control of some OSPy system settings and valves "
+#~ "(stations) over MQTT. MQTT Discovery enables automatic devices and "
+#~ "entities enrolment from HASS user interface configuration panel, "
+#~ "including plug-and-play availability detection, status and control."
+#~ msgstr ""
+#~ "Rozšíření MQTT HASS implementuje MQTT Discovery pro Home Assistant "
+#~ "(HASS), včetně hlášení a ovládání některých nastavení systému OSPy a "
+#~ "ventilů (stanic) přes MQTT. MQTT Discovery umožňuje automatickou "
+#~ "registraci zařízení a entit z konfiguračního panelu uživatelského "
+#~ "rozhraní HASS, včetně detekce dostupnosti, stavu a řízení plug-and-play."
+
+#~ msgid "Using MQTT HASS plugin"
+#~ msgstr "Použit rozšíření MQTT Home Assistant"
+
+#~ msgid ""
+#~ "This plugin is disabled by default. If you are reading this, the "
+#~ "mqtt_hass plugin is probably enabled on your system. Otherwise, you can "
+#~ "enable it using the plugin manager."
+#~ msgstr ""
+#~ "Toto rozšíření je ve výchozím nastavení zakázáno. Pokud toto čtete, "
+#~ "mqtt_hass je ve vašem systému pravděpodobně povolen. V opačném případě "
+#~ "jej můžete povolit pomocí správce balíčku."
+
+#~ msgid "Requirements"
+#~ msgstr "Požadavky"
+
+#~ msgid ""
+#~ "An MQTT broker such as Mosquitto is required to be accessible by OSPy "
+#~ "device and HASS. This broker can be on different parts of the local "
+#~ "network, on a remote network, or installed on either OSPy or HASS system."
+#~ msgstr ""
+#~ "Zprostředkovatel MQTT, jako je Mosquitto, musí být přístupný zařízením "
+#~ "OSPy a HASS. Tento zprostředkovatel může být na různých částech lokální "
+#~ "sítě, ve vzdálené síti nebo nainstalován na systému OSPy nebo HASS."
+
+#~ msgid ""
+#~ "A working HASS system with an MQTT Integration such as Mosquitto broker"
+#~ msgstr ""
+#~ "Funkční systém HASS s integrací MQTT, jako je zprostředkovatel Mosquitto"
+
+#~ msgid ""
+#~ "A OSPy system with the base mqtt plugin installed and configured (see "
+#~ "below)."
+#~ msgstr ""
+#~ "Systém OSPy s nainstalovaným a nakonfigurovaným základním rozšířením mqtt "
+#~ "(viz níže)."
+
+#~ msgid ""
+#~ "This plugin installed and configured on the same OSPy system as the base "
+#~ "mqtt plugin (see below)."
+#~ msgstr ""
+#~ "Toto rozšíření je nainstalováno a nakonfigurováno na stejném OSPy systému "
+#~ "jako základní rozšíření mqtt (viz níže)."
+
+#~ msgid "On OSPy - base MQTT plugin setup"
+#~ msgstr "Na OSPy - základní nastavení MQTT rozšíření"
+
+#~ msgid "Install eclipse paho if not already on the Pi"
+#~ msgstr "Nainstalujte eclipse paho, pokud již není na Pi"
+
+#~ msgid "Install the base MQTT plugin"
+#~ msgstr "Instalace základního MQTT rozšíření"
+
+#~ msgid "Configure base MQTT plugin"
+#~ msgstr "Konfigurace základního MQTT rozšíření"
+
+#~ msgid ""
+#~ "MQTT Broker Host: This will be the URL of the MQTT broker or localhost if "
+#~ "the broker is running on OSPy"
+#~ msgstr ""
+#~ "MQTT Broker Host: Toto bude adresa URL zprostředkovatele MQTT nebo "
+#~ "localhost, pokud zprostředkovatel běží na OSPy"
+
+#~ msgid ""
+#~ "MQTT Broker Port: Default is 1883 but may be different depending on your "
+#~ "MQTT broker"
+#~ msgstr ""
+#~ "Port zprostředkovatele MQTT: Výchozí hodnota je 1883, ale může se lišit v "
+#~ "závislosti na vašem zprostředkovateli MQTT"
+
+#~ msgid ""
+#~ "MQTT Broker Username: Default is mosquitto but depends on your setup."
+#~ msgstr ""
+#~ "Uživatelské jméno MQTT Brokera: Výchozí je mosquitto, ale závisí na vašem "
+#~ "nastavení."
+
+#~ msgid "MQTT Broker Password: Depends on your setup. Use pass as default"
+#~ msgstr ""
+#~ "Heslo MQTT Broker: Závisí na vašem nastavení. Použít heslo jako výchozí"
+
+#~ msgid ""
+#~ "MQTT Publish up/down topic: It needs to be set for proper OSPy "
+#~ "availability detection by HASS. We suggest to use the OSPy System name as "
+#~ "set on Options webpage"
+#~ msgstr ""
+#~ "MQTT Publikuje up/down topic: Musí být nastaveno pro správnou detekci "
+#~ "dostupnosti OSPy pomocí HASS. Doporučujeme použít název systému OSPy, "
+#~ "jaký je nastaven na webové stránce OSPy systému"
+
+#~ msgid ""
+#~ "MQTT Client ID: A unique name for OSPy system. Default is OSPy System "
+#~ "name but can be changed on Options webpage."
+#~ msgstr ""
+#~ "ID klienta MQTT: Jedinečný název pro systém OSPy. Výchozí je název "
+#~ "systému OSPy."
+
+#~ msgid "On OSPy - MQTT HASS plugin setup"
+#~ msgstr "Na OSPy - nastavení MQTT HASS pluginu"
+
+#~ msgid "Install Python python-slugify package if not already on the pi."
+#~ msgstr "Nainstalujte balíček Python python-slugify, pokud ještě není na pi."
+
+#~ msgid "Configure MQTT HASS plugin."
+#~ msgstr "Nakonfigurujte rozšíření MQTT HASS."
+
+#~ msgid ""
+#~ "Topic prefix: This prefix is used for OSPy system parameters and zones "
+#~ "published to the MQTT broker. Leave this option empty to use a slugified "
+#~ "OSPy System name. This setting will be slugified when saved. (Default: "
+#~ "System name or \"OSPy\" if System name is empty)."
+#~ msgstr ""
+#~ "Předpona tématu: Tato předpona se používá pro systémové parametry OSPy a "
+#~ "zóny publikované do MQTT brokeru. Tuto možnost ponechte prázdnou, chcete-"
+#~ "li použít slugified název systému OSPy. Toto nastavení bude při uložení "
+#~ "sloučeno. (Výchozí: Název systému nebo \"OSPy\", pokud je název systému "
+#~ "prázdný)."
+
+#~ msgid ""
+#~ "Name prefix: Used as prefix for all HASS devices and entities names. "
+#~ "Leave this option empty to use a OSPy System name as prefix. For "
+#~ "entities, this setting will be slugified. (Default: System name or \"OSPy"
+#~ "\" if System name is empty)."
+#~ msgstr ""
+#~ "Předpona názvu: Používá se jako předpona pro všechna zařízení HASS a "
+#~ "názvy entit. Tuto možnost ponechte prázdnou, pokud chcete jako předponu "
+#~ "použít název systému OSPy. U entit bude toto nastavení slugated. "
+#~ "(Výchozí: Název systému nebo \"OSPy\", pokud je název systému prázdný)."
+
+#~ msgid ""
+#~ "OSPy FQDN: OSPy network name or IP address. Used to compose the URL link "
+#~ "to OSPy web interface displayed in HASS devices settings. Leave this "
+#~ "option empty to use OSPy hostname or IP address used to connect with the "
+#~ "MQTT broker. (Default: OSPy hostname)."
+#~ msgstr ""
+#~ "Plně kvalifikovaný název domény OSPy: Název sítě OSPy nebo IP adresa. "
+#~ "Slouží k vytvoření URL odkazu na webové rozhraní OSPy zobrazovaného v "
+#~ "nastavení zařízení HASS. Tuto možnost ponechte prázdnou, pokud chcete "
+#~ "použít název hostitele OSPy nebo IP adresu použitou pro připojení k MQTT "
+#~ "brokeru. (Výchozí: OSPy hostname)."
+
+#~ msgid ""
+#~ "Device is Station name: if checked, use station name as part of HASS "
+#~ "Device name. Changes to OSPy station name will update HASS Device name. "
+#~ "(Default: unchecked)"
+#~ msgstr ""
+#~ "Zařízení je Název stanice: pokud je zatrženo, použijte název stanice jako "
+#~ "součást názvu zařízení HASS. Změny názvu stanice OSPy aktualizují název "
+#~ "zařízení HASS. (Výchozí: nezaškrtnuto)"
+
+#~ msgid ""
+#~ "Publish disabled zone: if checked, disabled stations will also be "
+#~ "published to the MQTT broker and discovered by HASS. NOTE: For safety, "
+#~ "disabled stations can't be controlled from MQTT nor HASS. (Default: "
+#~ "unchecked)"
+#~ msgstr ""
+#~ "Publikovat zakázanou zónu: pokud je zatrženo, zakázané stanice budou také "
+#~ "publikovány do MQTT brokeru a detekovány HASSem. POZNÁMKA: Z "
+#~ "bezpečnostních důvodů nelze deaktivované stanice ovládat z MQTT ani HASS. "
+#~ "(Výchozí: nezaškrtnuto)"
+
+#~ msgid "On Home Assistant - MQTT setup"
+#~ msgstr "Na Home Assistant - nastavení MQTT"
+
+#~ msgid ""
+#~ "Follow Home Assistant instructions to add MQTT integration via the user "
+#~ "interface. MQTT discovery feature is enabled by default. MQTT integration "
+#~ "will detect OSPy settings parameters and zones as devices and entities."
+#~ msgstr ""
+#~ "Postupujte podle pokynů Home Assistant a přidejte integraci MQTT "
+#~ "prostřednictvím uživatelského rozhraní. Funkce zjišťování MQTT je ve "
+#~ "výchozím nastavení povolena. Integrace MQTT detekuje parametry nastavení "
+#~ "OSPy a zóny jako zařízení a entity."
+
+#~ msgid ""
+#~ "Follow Home Assistant instructions to configure and use the newly added "
+#~ "devices and entities."
+#~ msgstr ""
+#~ "Postupujte podle pokynů Home Assistant a nakonfigurujte a používejte nově "
+#~ "přidaná zařízení a entity."
+
+#~ msgid ""
+#~ "Multiple OSPy systems connected to the same MQTT broker or Home Assistant "
+#~ "instance"
+#~ msgstr ""
+#~ "Více systémů OSPy připojených ke stejnému MQTT brokeru nebo instanci Home "
+#~ "Assistant"
+
+#~ msgid "To integrate multiple OSPy systems, on each OSPy:"
+#~ msgstr "Chcete-li integrovat více systémů OSPy, na každém OSPy:"
+
+#~ msgid ""
+#~ "Use different \"System name\" as set on OSPy Options webpage. Default "
+#~ "OSPy System name is \"OSPy\""
+#~ msgstr ""
+#~ "Použijte jiný \"Název systému\", jak je nastaveno v nastavení OSPy "
+#~ "systému. Výchozí název systému OSPy je \"OSPy\""
+
+#~ msgid ""
+#~ "For each base MQTT plugin settings use different MQTT Publish up/down "
+#~ "topic and MQTT Client ID."
+#~ msgstr ""
+#~ "Pro každé základní nastavení MQTT pluginu použijte jiné téma MQTT Publish "
+#~ "up/down a MQTT Client ID."
+
+#~ msgid ""
+#~ "For each MQTT HASS plugin use different Topic prefix and Name prefix."
+#~ msgstr ""
+#~ "Pro každý MQTT HASS plugin použijte jinou předponu Topic a předponu Name."
+
+#~ msgid "Home Assistant - available OSPy Devices and Entities"
+#~ msgstr "Home Assistant - dostupná zařízení a entity OSPy"
+
+#~ msgid "Devices and associated Entities made available with this plugin are:"
+#~ msgstr ""
+#~ "Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
+
+#~ msgid ""
+#~ "Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device "
+#~ "per OSPy system. This device regroups the supported OSPy system "
+#~ "parameters and sensors. NamePrefix is MQTT HASS \"Name prefix\" option. "
+#~ "Unless specified the associated entities have the same behavior as on "
+#~ "OSPy home webpage. Entities name prefix uses a slugified version of the "
+#~ "device name (nameprefix). Entities:"
+#~ msgstr ""
+#~ "Zařízení: OSPy (název: NamePrefix) MQTT HASS plugin vytvoří jedno "
+#~ "zařízení pro každý OSPy systém. Toto zařízení přeskupí podporované "
+#~ "systémové parametry OSPy a senzory. NamePrefix je volba MQTT HASS "
+#~ "\"Předpona názvu\". Pokud není uvedeno jinak, přidružené entity se "
+#~ "chovají stejně jako na domovské stránce OSPy. Předpona názvu entit "
+#~ "používá zjednodušenou verzi názvu zařízení (nameprefix). Entity:"
+
+#~ msgid ""
+#~ "Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS "
+#~ "\"Select entity\" showing and controlling OSPy System Enable (Values: \"on"
+#~ "\", \"off\"). Setting it to \"off\" will disable all other system "
+#~ "parameters and zone control from HASS."
+#~ msgstr ""
+#~ "Řídicí entita: Povolení systému OSPy (ID: select.nameprefix_enable) HASS "
+#~ "\"Vybrat entitu\" zobrazující a ovládající povolení systému OSPy "
+#~ "(hodnoty: \"zapnuto\", \"vypnuto\"). Nastavení na \"vypnuto\" deaktivuje "
+#~ "všechny ostatní systémové parametry a zónové řízení z HASS."
+
+#~ msgid ""
+#~ "Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS "
+#~ "\"Select entity\" showing and controlling OSPy Mode (Values: \"Automatic"
+#~ "\", \"Manual\")."
+#~ msgstr ""
+#~ "Konfigurační entita: Režim OSPy (ID: select.nameprefix_mode) HASS "
+#~ "\"Vybrat entitu\" zobrazující a ovládající režim OSPy (hodnoty: "
+#~ "\"Automaticky\", \"Ručně\")."
+
+#~ msgid ""
+#~ "Configuration Entity: Rain sensor enable (ID: select."
+#~ "nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and "
+#~ "controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same "
+#~ "behavior as \"Use rain sensor\" in OSPy Options webpage."
+#~ msgstr ""
+#~ "Entita konfigurace: Povolení dešťového senzoru (ID: select."
+#~ "nameprefix_rain_sensor_enable) HASS \"Vybrat entitu\" zobrazující a "
+#~ "ovládající OSPy Aktivace dešťového senzoru (hodnoty: \"zapnuto\", "
+#~ "\"vypnuto\"). Stejné chování jako \"Použít dešťový senzor\" na webové "
+#~ "stránce Možnosti OSPy."
+
+#~ msgid ""
+#~ "Configuration Entity: Rain delay timer (ID: number."
+#~ "nameprefix_rain_delay_timer) HASS \"Number entity\" showing and "
+#~ "controlling OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This "
+#~ "entity has the following JSON attributes and default values when the "
+#~ "timer is active / inactive (default):"
+#~ msgstr ""
+#~ "Konfigurační entita: Časovač zpoždění deště (ID: number."
+#~ "nameprefix_rain_delay_timer) HASS \"Číselná entita\" zobrazující a "
+#~ "ovládající časovač zpoždění OSPy Rain (rozsah: 0 až 24 hodin, výchozí 0). "
+#~ "Tato entita má následující atributy JSON a výchozí hodnoty, pokud je "
+#~ "časovač aktivní/neaktivní (výchozí):"
+
+#~ msgid ""
+#~ "Attribute: state The number of hours as set from OSPy user interface or "
+#~ "MQTT (Default 0)."
+#~ msgstr ""
+#~ "Atribut: state Počet hodin nastavený z uživatelského rozhraní OSPy nebo "
+#~ "MQTT (výchozí 0)."
+
+#~ msgid ""
+#~ "Attribute: start_time Unix time when the delay timer started (Default "
+#~ "\"None\")."
+#~ msgstr ""
+#~ "Atribut: start_time unixový čas, kdy se spustil časovač zpoždění (výchozí "
+#~ "\"None\")."
+
+#~ msgid ""
+#~ "Attribute: duration Total number of seconds of the delay timer (Default "
+#~ "0)."
+#~ msgstr ""
+#~ "Atribut: doba trvání Celkový počet sekund časovače zpoždění (výchozí 0)."
+
+#~ msgid ""
+#~ "Configuration Entity: Water level adjust (ID: number.nameprefix."
+#~ "water_level_adjust) HASS \"Number entity\" showing and controlling OSPy "
+#~ "Water level adjust (Range: 0 to 100 %, Default 100)."
+#~ msgstr ""
+#~ "Konfigurační entita: Nastavení hladiny vody (ID: number.nameprefix."
+#~ "water_level_adjust) HASS \"Číselná entita\" zobrazující a ovládající OSPy "
+#~ "Nastavení hladiny vody (Rozsah: 0 až 100 %, výchozí 100)."
+
+#~ msgid ""
+#~ "Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix."
+#~ "rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor "
+#~ "state (Values: \"on\",\"off\")."
+#~ msgstr ""
+#~ "Diagnostická entita: Senzor detekce deště (ID: binary_sensor.nameprefix."
+#~ "rain_detect) HASS \"Binární entita senzoru\" hlásící stav senzoru deště "
+#~ "OSPy (hodnoty: \"zapnuto\",\"vypnuto\")."
+
+#~ msgid ""
+#~ "Diagnostic Entity: Running program (ID: sensor.nameprefix."
+#~ "running_program) HASS \"Sensor entity\" showing OSPy Running program "
+#~ "(Values: \"Manual\", \"Run Once, or program number). Zones controlled "
+#~ "from HASS are shown as \"Run Once\" program."
+#~ msgstr ""
+#~ "Diagnostická entita: Spuštěný program (ID: sensor.nameprefix."
+#~ "running_program) HASS \"Entita senzoru\" zobrazující spuštěný program "
+#~ "OSPy (hodnoty: \"Ruční\", \"Spustit jednou nebo číslo programu\"). Zóny "
+#~ "řízené z HASS jsou zobrazeny jako program \"Spustit jednou\"."
+
+#~ msgid ""
+#~ "Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT "
+#~ "HASS plugin creates one device per OSPy station (zone). Device name is "
+#~ "nameprefix - Zxx unless option \"Device is Station name\" is checked. The "
+#~ "number of devices will track the number of OSPy \"Stations Extensions\" "
+#~ "set on the Options webpage. Each zone device has a single \"switch\" "
+#~ "entity. Entity:"
+#~ msgstr ""
+#~ "Zařízení: Zóna (name: nameprefix - Zxx nebo nameprefix - název stanice) "
+#~ "MQTT HASS plugin vytvoří jedno zařízení na OSPy stanici (zónu). Název "
+#~ "zařízení je nameprefix - Zxx, pokud není zatržena volba \"Zařízení je "
+#~ "název stanice\". Počet zařízení bude sledovat počet OSPy \"Stations "
+#~ "Extensions\" nastavených na stránce Možnosti. Každé zónové zařízení má "
+#~ "jednu entitu \"přepínače\". Entita:"
+
+#~ msgid ""
+#~ "ID is switch.nameprefix.zxx where xx is a double digit from 01 to the "
+#~ "number of OSPy stations. Entity name and availability will track changes "
+#~ "made on OSPy Stations webpage. This entity has the following JSON "
+#~ "attributes and values:"
+#~ msgstr ""
+#~ "ID je switch.nameprefix.zxx, kde xx je dvouciferné číslo od 01 do počtu "
+#~ "stanic OSPy. Název a dostupnost entity budou sledovat změny provedené na "
+#~ "webové stránce OSPy Stations. Tato entita má následující atributy a "
+#~ "hodnoty JSON:"
+
+#~ msgid ""
+#~ "Attribute: state The actual zone state. Value is \"on\" when active and "
+#~ "\"off\" when inactive."
+#~ msgstr ""
+#~ "Atribut: state Skutečný stav zóny. Hodnota je \"zapnuto\", když je "
+#~ "aktivní, a \"vypnuto\", když je neaktivní."
+
+#~ msgid ""
+#~ "Attribute: start_time Unix time when the zone turned \"on\". If state is "
+#~ "\"off\": Value is \"None\"."
+#~ msgstr ""
+#~ "Atribut: start_time unixový čas, kdy byla zóna zapnuta. Pokud je stav "
+#~ "\"vypnuto\": Hodnota je \"Žádný\"."
+
+#~ msgid ""
+#~ "Attribute: duration Total number of seconds the zone state will be \"on"
+#~ "\". If state is \"on\": Value is the duration as set from a running "
+#~ "program or run once or \"Inf\" if zone is activated from manual mode or "
+#~ "from MQTT HASS switch. If state is \"off\": Value is \"Inf\"."
+#~ msgstr ""
+#~ "Atribut: doba trvání Celkový počet sekund, po které bude stav zóny "
+#~ "\"zapnuto\". Pokud je stav \"zapnuto\": Hodnota je doba trvání nastavená "
+#~ "ze spuštěného programu nebo spuštěná jednorázově nebo \"Inf\", pokud je "
+#~ "zóna aktivována z manuálního režimu nebo z přepínače MQTT HASS. Pokud je "
+#~ "stav \"vypnuto\": Hodnota je \"Inf\"."
+
+#~ msgid ""
+#~ "Attribute: program The program number that turned the zone state to \"on"
+#~ "\". If state is \"on\": Value is program number, \"Run Once\" or \"Manual"
+#~ "\". If state is \"off\": Value is \"None\"."
+#~ msgstr ""
+#~ "Atribut: program Číslo programu, který změnil stav zóny na \"zapnuto\". "
+#~ "Pokud je stav \"zapnuto\": Hodnota je číslo programu, \"Spustit jednou\" "
+#~ "nebo \"Ručně\". Pokud je stav \"vypnuto\": Hodnota je \"Žádný\"."
+
+#~ msgid "Test your setup"
+#~ msgstr "Otestujte své nastavení"
+
+#~ msgid "From HASS and OSPy user interface:"
+#~ msgstr "Z uživatelského rozhraní HASS a OSPy:"
+
+#~ msgid ""
+#~ "Compare the state of select.nameprefix.enable with OSPy web interface "
+#~ "System Enable. Change the system enable from HASS and OSPy to verify that "
+#~ "the state is changed on the other end. When disabled, observe that all "
+#~ "the other HASS system parameters and zone entities are not available in "
+#~ "HASS user interface (grayed)."
+#~ msgstr ""
+#~ "Porovnejte stav select.nameprefix.enable s OSPy web rozhraní System "
+#~ "Enable. Změňte povolení systému z HASS a OSPy, abyste ověřili, že se stav "
+#~ "změnil na druhém konci. Pokud je tato možnost zakázána, všimněte si, že "
+#~ "všechny ostatní systémové parametry HASS a entity zóny nejsou k dispozici "
+#~ "v uživatelském rozhraní HASS (šedě)."
+
+#~ msgid ""
+#~ "With System enable, change one enabled zone state from HASS and verify "
+#~ "the zone state on OSPy webpage. Observe the active program is set to "
+#~ "\"Run Once\" when setting a zone \"on\" from HASS."
+#~ msgstr ""
+#~ "S povolením systému změňte jeden povolený stav zóny z HASS a ověřte stav "
+#~ "zóny na webové stránce OSPy. Všimněte si, že aktivní program je nastaven "
+#~ "na \"Spustit jednou\" při nastavování zóny \"zapnuto\" z HASS."
 
 #~ msgid "Water level"
 #~ msgstr "Hladina vody"

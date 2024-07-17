@@ -200,9 +200,6 @@ if __name__ == '__main__':
             # https://pypi.org/project/paho-mqtt/
             install_package('paho-mqtt', None, None, pip='paho-mqtt')
 
-            # https://pypi.org/project/mariadb/
-            install_package('mariadb', None, None, pip='mariadb')
-
         install_service()
         start()
         print_report('setup.py', _('Done.'))
