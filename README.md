@@ -3,7 +3,7 @@ OSPy
 OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation systems (sprinkler, drip, IoT, etc). This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
 
 ## For first installation and other visit 
-([Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md))
+[Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md)
 
 ## More information visit
 [Pihrt.com](https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )

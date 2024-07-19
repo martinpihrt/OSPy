@@ -8,7 +8,7 @@ Log into the Pi using SSH or Wifi. Enter or copy-paste the following command:
 * Remember: Commands on the Raspberry Pi are case sensitive.
 
 ```sh
-curl -sSL https://github.com/martinpihrt/OSPy/ospy_setup/-/raw/main/ospy_setup.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh | sudo bash
 ```
 The OSPy setup menu will appear
 Optional: Use the arrow keys to move between options. Tap the space bar to select or de-select an option.
