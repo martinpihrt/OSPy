@@ -1,6 +1,10 @@
 OSPy Changelog
 ====
 
+July 19 2024 (v3.0)
+-----------
+Added installation script for easier installation of OSPy. Now you just need to log into your Raspberry pi via SSH and run the script. The script will run the installation wizard and then download the necessary files. Finally, it will run OSPy. The installation is described at https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md. Support for loading graphs and logs from mysql database has been added to wind monitor and ups plugins.
+
 July 17 2024 (v3.0)
 -----------
 OSPy - updating the Czech language (new and updated strings) for new Shelly Cloud Integration plugin (data from devices such as temperature, humidity, consumption, status of outputs are loaded from the cloud of the device manufacturer Shelly... Furthermore, these devices will be integrated into OSPy sensors - they can be used for further use in the OSPy system). Fix in Database Connector plugin !removed mariadb and replaced with mysql-connector-python. Now working in the latest version of Linux Debian 12 Bbookworm and Python 3.11! Work is also underway on the MQTT home assistant plugin for integration into the HA system.

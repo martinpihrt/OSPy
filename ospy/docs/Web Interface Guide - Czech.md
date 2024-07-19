@@ -222,7 +222,18 @@ OSPy Průvodce webovým rozhraním v češtině
             Photovoltaic Boiler
             IP CAM
             Modbus stations
-            CHMI meteo radar
+            CHMI
+            Proto
+            Label Maker
+            IP Scanner
+            Database Connector
+            OSPy Backup
+            MQTT Home Assistant
+            Shelly Cloud Integration
+----
+
+# Odhlásit se
+Po kliknutí na tlačítko "Odhlásit se" se uživatel odhlásí ze systému.
     Odhlásit se
 
 ----

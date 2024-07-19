@@ -221,7 +221,14 @@ OSPy Web Interface Guide in English
             Photovoltaic Boiler
             IP CAM
             Modbus stations
-            CHMI meteo radar                        
+            CHMI
+            Proto
+            Label Maker
+            IP Scanner
+            Database Connector
+            OSPy Backup
+            MQTT Home Assistant
+            Shelly Cloud Integration                        
     Logging out
 
 ----
@@ -1014,6 +1021,8 @@ Available plug-ins:
 * Sunrise and Sunset
 * Photovoltaic Boiler
 * IP CAM
+* Modbus stations
+* CHMI
 * Proto
 * Label Maker
 * IP Scanner
@@ -1027,7 +1036,7 @@ Available plug-ins:
 # Logging out
 After clicking the "Logging out" button, the user logs out of the system.
 
-
+----
 
 
 
