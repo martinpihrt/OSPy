@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 # System imports
 from datetime import datetime, date
@@ -84,7 +84,14 @@ class _Options(object):
             "default": False,
             "help": _('Show pictures of stations on the homepage.'),
             "category": _('System')
-        },        
+        },
+        {
+            "key": "show_icons",
+            "name": _('Show icons instead of text'),
+            "default": True,
+            "help": _('When activated, in header menu will display icons instead of text.'),
+            "category": _('System')
+        },                
         {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),

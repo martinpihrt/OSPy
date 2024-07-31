@@ -1,5 +1,7 @@
 OSPy Changelog
 ====
+July 31 2024 (v3.0)
+Added Show icons instead of text in menu to OSPy options. Updating the Czech language.
 
 July 19 2024 (v3.0)
 -----------

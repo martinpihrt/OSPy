@@ -1,8 +1,8 @@
 $def with (content)
 
 $code:
-    days= json.dumps([_(u'Sunday'), _(u'Monday'), _(u'Tuesday'), _(u'Wednesday'), _(u'Thursday'), _(u'Friday'), _(u'Saturday')])
-    months = json.dumps([_(u'January'), _(u'February'), _(u'March'), _(u'April'), _(u'May'), _(u'June'), _(u'July'), _(u'August'), _(u'September'), _(u'October'), _(u'November'), _(u'December')])
+    days= json.dumps([_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')])
+    months = json.dumps([_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')])
     logp = '1' if content.page == 'home' else '0'
 
 <!doctype html>
@@ -71,7 +71,7 @@ function toClock(duration, tf) {
     let h = Math.floor(duration/60);
     let m = Math.floor(duration - (h*60));
     if (tf == 0) {
-        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode(u'utf-8')});
+        return (h>12 ? h-12 : h) + ":" + (m<10 ? "0" : "") + m + " " + (h<12 ? $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode('utf-8')});
     } else {
         return (h<10 ? "0" : "") + h + ":" + (m<10 ? "0" : "") + m;
     }
@@ -93,7 +93,7 @@ function updateClock() {
         jQuery("#deviceTime span.ampm").text("");
     } else {
         jQuery("#deviceTime span.hour").text(now.getHours()%12 == 0 ? "12" : now.getHours() % 12);
-        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode(u'utf-8')} : $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode(u'utf-8')}));
+        jQuery("#deviceTime span.ampm").text((now.getHours() > 12 ? $:{json.dumps(_('pm'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('am'), ensure_ascii=False).encode('utf8').decode('utf-8')}));
     }
     jQuery("#deviceTime span.minute").text((now.getMinutes() < 10 ? "0" : "") + now.getMinutes());
     jQuery("#deviceTime span.second").text(":" + (now.getSeconds() < 10 ? "0" : "") + now.getSeconds());
@@ -192,7 +192,7 @@ jQuery(document).ready(function(){
 
     updateClock();
     updateOStimer();    // timer for os and plugins update info  
-    updateFooter();     // timer for footer data (temperature...)    
+    updateFooter();     // timer for footer data (temperature...)
 }); 
 
     // Server provides local timestamp, adjust it such that JS dates will also use the server's local time
@@ -213,11 +213,11 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="header">
-            <div class="title" title=$:{json.dumps(_(u'Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
+            <div class="title" title=$:{json.dumps(_('Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
             <p id="Userinfo">
                 $if content.page != 'login':
                     ${get_who_is_operator()}
-            </p>                                      
+            </p>
             </div>
         </div>
 
@@ -230,24 +230,54 @@ jQuery(document).ready(function(){
             <div class="panel">
                 $if content.page != 'login':
                     <div id="nav">
-                        <a href="/" class="button home${' here' if content.page=='home' else ''}" title=$:{json.dumps(_(u'Home'), ensure_ascii=False)}></a>
-                        <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_(u'Define Programs'), ensure_ascii=False)}>$_(u'Programs')</a>
+                        $if options.show_icons:
+                            <a href="/" id="bHome" class="button ico-home${' ico-here' if content.page=='home' else ''}" title=$:{json.dumps(_('Home'), ensure_ascii=False)}></a>
+                        $else:
+                            <a href="/" id="bHome" class="button home${' here' if content.page=='home' else ''}" title=$:{json.dumps(_('Home'), ensure_ascii=False)}>$_('Home')</a>                        
+                        $if options.show_icons:
+                            <a href="/programs" id="bPrograms" class="button ico-programs${' ico-here' if content.page=='programs' else ''}" title=$:{json.dumps(_('Define Programs'), ensure_ascii=False)}></a>
+                        $else:
+                            <a href="/programs" id="bPrograms" class="button programs${' here' if content.page=='programs' else ''}" title=$:{json.dumps(_('Define Programs'), ensure_ascii=False)}>$_('Programs')</a>
                         $if not options.manual_mode:
-                            <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_(u'Define Run Once Program'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Run Once')</a>
-                        <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_(u'Access Plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Plugins')</a>
-                        <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_(u'View Log'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Log')</a>
-                        <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_(u'Options'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Options')</a>
-                        <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_(u'Configure Stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Stations')</a>
-                        <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_(u'Configure Sensors'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Sensors')</a>
-                        <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_(u'Help'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Help')</a>
+                            $if options.show_icons:
+                                <a href="/runonce" id="bRunOnce" class="button ico-start${' ico-here' if content.page=='runonce' else ''}" title=$:{json.dumps(_('Define Run Once Program'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                            $else:
+                                <a href="/runonce" id="bRunOnce" class="button start${' here' if content.page=='runonce' else ''}" title=$:{json.dumps(_('Define Run Once Program'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Run Once')</a>
+                        $if options.show_icons:
+                            <a id="bPlugins" class="button ico-plugins${' ico-here' if content.page=='plugins' else ''}" title=$:{json.dumps(_('Access Plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a id="bPlugins" class="button plugins${' here' if content.page=='plugins' else ''}" title=$:{json.dumps(_('Access Plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Plugins')</a>
+                        $if options.show_icons:
+                            <a href="/log" id="bLog" class="button ico-log${' ico-here' if content.page=='log' else ''}" title=$:{json.dumps(_('View Log'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a href="/log" id="bLog" class="button log${' here' if content.page=='log' else ''}" title=$:{json.dumps(_('View Log'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Log')</a>
+                        $if options.show_icons:
+                            <a href="/options" id="bOptions" class="button ico-options${' ico-here' if content.page=='options' else ''}" title=$:{json.dumps(_('Options'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a href="/options" id="bOptions" class="button options${' here' if content.page=='options' else ''}" title=$:{json.dumps(_('Options'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Options')</a>
+                        $if options.show_icons:
+                            <a href="/stations" id="bStations" class="button ico-stations${' ico-here' if content.page=='stations' else ''}" title=$:{json.dumps(_('Configure Stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a href="/stations" id="bStations" class="button stations${' here' if content.page=='stations' else ''}" title=$:{json.dumps(_('Configure Stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stations')</a>
+                        $if options.show_icons:
+                            <a href="/sensors" id="bSensors" class="button ico-sensors${' ico-here' if content.page=='sensors' else ''}" title=$:{json.dumps(_('Configure Sensors'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a href="/sensors" id="bSensors" class="button sensors${' here' if content.page=='sensors' else ''}" title=$:{json.dumps(_('Configure Sensors'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Sensors')</a>
+                        $if options.show_icons:
+                            <a href="/help" id="bHelp" class="button ico-help${' ico-here' if content.page=='help' else ''}" title=$:{json.dumps(_('Help'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                        $else:
+                            <a href="/help" id="bHelp" class="button help${' here' if content.page=='help' else ''}" title=$:{json.dumps(_('Help'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Help')</a>
                         $if not options.no_password:
-                            <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_(u'Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_(u'Logout')</a>
+                            $if options.show_icons:
+                                <a href="/logout" id="bLogout" class="button ico-logout" title=$:{json.dumps(_('Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}></a>
+                            $else:
+                                <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_('Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Logout')</a>
                     </div>
-                $:content 
+                $:content
             </div>
-        </div>   
+        </div>
 
-        <div class="footer">          
+        <div class="footer">
             $if content.page != 'login':
                 <div id="foot">
                 <p id="cpu_temp">$_('CPU Temp'): <a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span></p>
@@ -267,8 +297,8 @@ jQuery(document).ready(function(){
                     <div class="modal-body">
                         <div class="modal-msg" id="modal-msg"></div>
                     </div>
-                </div>    
-        </div>        
+                </div>
+        </div>
     </div>
 </body>
 </html>
