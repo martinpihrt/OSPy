@@ -1,5 +1,8 @@
 OSPy Changelog
 ====
+August 04 2024 (v3.0)
+Update signaling plugin (add new signal 30s tick, add new signal airtemphumy updated, add automatic log in textarea). Finished plugin "Home Assistant" for MQTT itegration (With air temp plugin itegration). Updating the Czech language. Fix CSS if is using icons menu. Added to e-mail plugin: OSPy is on the network under the name http(s)://name:port.
+
 July 31 2024 (v3.0)
 Added Show icons instead of text in menu to OSPy options. Updating the Czech language.
 

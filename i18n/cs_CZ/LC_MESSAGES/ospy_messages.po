@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2024-07-31 18:22+0200\n"
-"PO-Revision-Date: 2024-07-31 18:28+0200\n"
+"POT-Creation-Date: 2024-08-04 15:37+0200\n"
+"PO-Revision-Date: 2024-08-04 15:47+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -155,7 +155,7 @@ msgid ". days "
 msgstr ". dnů "
 
 #: ospy/helpers.py:238 ospy/helpers.py:255 ospy/helpers.py:358
-#: ospy/helpers.py:402 ospy/helpers.py:403 ospy/helpers.py:976
+#: ospy/helpers.py:402 ospy/helpers.py:403 ospy/helpers.py:993
 #: ospy/templates/sensors_search.html:43 ospy/templates/sensors_search.html:48
 #: ospy/templates/sensors_search.html:54
 msgid "Unknown"
@@ -264,43 +264,67 @@ msgstr "Přihlášen {}, jako operátor {}"
 msgid "No password"
 msgstr "Bez hesla"
 
+#: ospy/helpers.py:971
+msgid "256MB"
+msgstr "256 MB"
+
+#: ospy/helpers.py:973
+msgid "512MB"
+msgstr "512 MB"
+
+#: ospy/helpers.py:975
+msgid "1GB"
+msgstr "1 GB"
+
+#: ospy/helpers.py:977
+msgid "2GB"
+msgstr "2 GB"
+
 #: ospy/helpers.py:979
+msgid "4GB"
+msgstr "4 GB"
+
+#: ospy/helpers.py:981
+msgid "8GB"
+msgstr "8 GB"
+
+#: ospy/helpers.py:996
 msgid "Raspberry Pi 5 with at least {} RAM!"
 msgstr "Raspberry Pi 5 s alespoň {} RAM!"
 
-#: ospy/helpers.py:981
+#: ospy/helpers.py:998
 msgid "Raspberry Pi 4B with at least {} RAM!"
 msgstr "Raspberry Pi 4B s alespoň {} RAM!"
 
-#: ospy/helpers.py:983
+#: ospy/helpers.py:1000
 msgid "Raspberry Pi 2B with at least {} RAM!"
 msgstr "Raspberry Pi 2B s alespoň {} RAM!"
 
-#: ospy/helpers.py:985
+#: ospy/helpers.py:1002
 msgid "Raspberry Pi 3A with at least {} RAM!"
 msgstr "Raspberry Pi 3A s alespoň {} RAM!"
 
-#: ospy/helpers.py:987
+#: ospy/helpers.py:1004
 msgid "Raspberry Pi 3B with at least {} RAM!"
 msgstr "Raspberry Pi 3B s alespoň {} RAM!"
 
-#: ospy/helpers.py:989
+#: ospy/helpers.py:1006
 msgid "Raspberry Pi 3B+ with at least {} RAM!"
 msgstr "Raspberry Pi 3B + s alespoň {} RAM!"
 
-#: ospy/helpers.py:991
+#: ospy/helpers.py:1008
 msgid "Raspberry Pi Zero 2 W at least {} RAM!"
 msgstr "Raspberry Pi Zero 2 W s alespoň {} RAM!"
 
-#: ospy/helpers.py:993
+#: ospy/helpers.py:1010
 msgid "Raspberry Pi Zero at least {} RAM!"
 msgstr "Raspberry Pi Zero s alespoň {} RAM!"
 
-#: ospy/helpers.py:995
+#: ospy/helpers.py:1012
 msgid "Raspberry Pi Zero W at least {} RAM!"
 msgstr "Raspberry Pi Zero W s alespoň {} RAM!"
 
-#: ospy/helpers.py:997
+#: ospy/helpers.py:1014
 msgid "Raspberry Pi 400 at least {} RAM!"
 msgstr "Raspberry Pi 400 s alespoň {} RAM!"
 
@@ -320,13 +344,6 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:96
 #: plugins/email_notifications/__init__.py:117
 #: plugins/email_notifications/__init__.py:133
-#: plugins/email_notifications_ssl/__init__.py:105
-#: plugins/email_notifications_ssl/__init__.py:133
-#: plugins/email_notifications_ssl/__init__.py:425
-#: plugins/email_notifications_ssl/__init__.py:433
-#: plugins/email_notifications_ssl/__init__.py:441
-#: plugins/email_notifications_ssl/__init__.py:449
-#: plugins/email_notifications_ssl/__init__.py:457
 #: plugins/usage_statistics/__init__.py:71
 msgid "System"
 msgstr "Systém"
@@ -395,7 +412,7 @@ msgid "Show icons instead of text"
 msgstr "Zobrazení ikon místo textu"
 
 #: ospy/options.py:92
-msgid "When activated, in OSPy header menu will display icons instead of text."
+msgid "When activated, in header menu will display icons instead of text."
 msgstr ""
 "Pokud je aktivováno, v nabídce záhlaví OSPy se místo textu zobrazí ikony."
 
@@ -552,8 +569,8 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
-#: plugins/email_notifications_ssl/__init__.py:237
-#: plugins/email_notifications_ssl/__init__.py:238
+#: plugins/email_notifications_ssl/__init__.py:239
+#: plugins/email_notifications_ssl/__init__.py:240
 #: plugins/lcd_display/templates/lcd_display.html:149
 msgid "Sensors"
 msgstr "Snímače"
@@ -792,7 +809,7 @@ msgstr "Nová instalace"
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:405
+#: ospy/options.py:405 plugins/mqtt_home_assistant/__init__.py:604
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
@@ -965,8 +982,8 @@ msgstr "Týdenní (předpověď počasí)"
 #: ospy/templates/log_user.html:28 ospy/templates/sensors.html:449
 #: plugins/email_notifications/__init__.py:135
 #: plugins/email_notifications/__init__.py:139
-#: plugins/email_notifications_ssl/__init__.py:135
-#: plugins/email_notifications_ssl/__init__.py:139
+#: plugins/email_notifications_ssl/__init__.py:136
+#: plugins/email_notifications_ssl/__init__.py:141
 #: plugins/sms_adj/__init__.py:411
 msgid "Program"
 msgstr "Program"
@@ -1111,10 +1128,11 @@ msgstr "Zpoždění deště nastavilo zpoždění {} hodin {} minut {} vteřin"
 
 #: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
 #: ospy/sensors.py:1280 ospy/webpages.py:1324
+#: plugins/mqtt_home_assistant/__init__.py:601
 msgid "Rain delay"
 msgstr "Zpoždění deště"
 
-#: ospy/scheduler.py:44 plugins/signaling_examples/__init__.py:250
+#: ospy/scheduler.py:44 plugins/signaling_examples/__init__.py:248
 msgid "Rain delay has now been removed"
 msgstr "Zpoždění deště bylo odstraněno"
 
@@ -1123,6 +1141,7 @@ msgid "Activated"
 msgstr "Aktivován"
 
 #: ospy/scheduler.py:48 ospy/scheduler.py:55
+#: plugins/mqtt_home_assistant/__init__.py:605
 msgid "Rain sensor"
 msgstr "Dešťový snímač"
 
@@ -1138,11 +1157,11 @@ msgstr "Deaktivován"
 msgid "Connection"
 msgstr "Připojení"
 
-#: ospy/scheduler.py:59 plugins/signaling_examples/__init__.py:238
+#: ospy/scheduler.py:59 plugins/signaling_examples/__init__.py:236
 msgid "Internet is available (external IP)"
 msgstr "Internet je k dispozici (externí IP)"
 
-#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:242
+#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:240
 msgid "Internet is not available (external IP)"
 msgstr "Internet není k dispozici (externí IP adresa)"
 
@@ -1170,16 +1189,16 @@ msgstr "Kontakt spojený"
 
 #: ospy/sensors.py:100 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/email_notifications_ssl/__init__.py:267
-#: plugins/email_notifications_ssl/__init__.py:298
+#: plugins/email_notifications_ssl/__init__.py:269
+#: plugins/email_notifications_ssl/__init__.py:300
 #: plugins/lcd_display/__init__.py:497 plugins/lcd_display/__init__.py:528
 msgid "Motion Detected"
 msgstr "Byl detekován pohyb"
 
 #: ospy/sensors.py:101 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/email_notifications_ssl/__init__.py:267
-#: plugins/email_notifications_ssl/__init__.py:298
+#: plugins/email_notifications_ssl/__init__.py:269
+#: plugins/email_notifications_ssl/__init__.py:300
 #: plugins/lcd_display/__init__.py:497 plugins/lcd_display/__init__.py:528
 msgid "No Motion"
 msgstr "Žádný pohyb"
@@ -1268,18 +1287,18 @@ msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 #: plugins/email_notifications/__init__.py:289
 #: plugins/email_notifications/__init__.py:296
 #: plugins/email_notifications/__init__.py:318
-#: plugins/email_notifications_ssl/__init__.py:254
-#: plugins/email_notifications_ssl/__init__.py:259
-#: plugins/email_notifications_ssl/__init__.py:264
-#: plugins/email_notifications_ssl/__init__.py:269
-#: plugins/email_notifications_ssl/__init__.py:274
-#: plugins/email_notifications_ssl/__init__.py:280
-#: plugins/email_notifications_ssl/__init__.py:285
-#: plugins/email_notifications_ssl/__init__.py:290
-#: plugins/email_notifications_ssl/__init__.py:295
-#: plugins/email_notifications_ssl/__init__.py:300
-#: plugins/email_notifications_ssl/__init__.py:307
-#: plugins/email_notifications_ssl/__init__.py:329
+#: plugins/email_notifications_ssl/__init__.py:256
+#: plugins/email_notifications_ssl/__init__.py:261
+#: plugins/email_notifications_ssl/__init__.py:266
+#: plugins/email_notifications_ssl/__init__.py:271
+#: plugins/email_notifications_ssl/__init__.py:276
+#: plugins/email_notifications_ssl/__init__.py:282
+#: plugins/email_notifications_ssl/__init__.py:287
+#: plugins/email_notifications_ssl/__init__.py:292
+#: plugins/email_notifications_ssl/__init__.py:297
+#: plugins/email_notifications_ssl/__init__.py:302
+#: plugins/email_notifications_ssl/__init__.py:309
+#: plugins/email_notifications_ssl/__init__.py:331
 #: plugins/lcd_display/__init__.py:484 plugins/lcd_display/__init__.py:489
 #: plugins/lcd_display/__init__.py:494 plugins/lcd_display/__init__.py:499
 #: plugins/lcd_display/__init__.py:504 plugins/lcd_display/__init__.py:510
@@ -1362,8 +1381,10 @@ msgstr "Vlhkost {}%"
 #: ospy/sensors.py:943 ospy/templates/graph_sensor.html:6
 #: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:239
 #: ospy/templates/sensors.html:49 ospy/templates/sensors_search.html:40
-#: plugins/air_temp_humi/__init__.py:128 plugins/air_temp_humi/__init__.py:174
-#: plugins/air_temp_humi/__init__.py:230 plugins/email_reader/__init__.py:778
+#: plugins/air_temp_humi/__init__.py:130 plugins/air_temp_humi/__init__.py:176
+#: plugins/air_temp_humi/__init__.py:232 plugins/email_reader/__init__.py:778
+#: plugins/mqtt_home_assistant/__init__.py:625
+#: plugins/mqtt_home_assistant/__init__.py:634
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
@@ -1411,9 +1432,9 @@ msgstr "Průtok {}l/s"
 #: ospy/templates/sensors.html:423 plugins/email_notifications/__init__.py:156
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:294
-#: plugins/email_notifications_ssl/__init__.py:164
 #: plugins/email_notifications_ssl/__init__.py:166
-#: plugins/email_notifications_ssl/__init__.py:305
+#: plugins/email_notifications_ssl/__init__.py:168
+#: plugins/email_notifications_ssl/__init__.py:307
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:535
 #: plugins/tank_monitor/__init__.py:196 plugins/tank_monitor/__init__.py:198
@@ -1440,7 +1461,7 @@ msgid "cm"
 msgstr "cm"
 
 #: ospy/sensors.py:1168 plugins/email_notifications/__init__.py:160
-#: plugins/email_notifications_ssl/__init__.py:168
+#: plugins/email_notifications_ssl/__init__.py:170
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
 #: plugins/tank_monitor/__init__.py:196
 #: plugins/tank_monitor/templates/tank_monitor_log.html:49
@@ -1453,9 +1474,9 @@ msgstr "litrů"
 #: ospy/sensors.py:1172 plugins/email_notifications/__init__.py:162
 #: plugins/email_notifications/__init__.py:191
 #: plugins/email_notifications/__init__.py:199
-#: plugins/email_notifications_ssl/__init__.py:170
-#: plugins/email_notifications_ssl/__init__.py:202
-#: plugins/email_notifications_ssl/__init__.py:210
+#: plugins/email_notifications_ssl/__init__.py:172
+#: plugins/email_notifications_ssl/__init__.py:204
+#: plugins/email_notifications_ssl/__init__.py:212
 #: plugins/email_reader/__init__.py:242 plugins/email_reader/__init__.py:853
 #: plugins/lcd_display/__init__.py:396 plugins/tank_monitor/__init__.py:198
 #: plugins/tank_monitor/__init__.py:990
@@ -1488,8 +1509,8 @@ msgstr "Oznámení snímače"
 #: ospy/templates/sensors.html:615 ospy/templates/sensors.html:635
 #: ospy/templates/sensors.html:652 ospy/templates/sensors.html:672
 #: ospy/templates/sensors.html:689 ospy/templates/sensors.html:709
-#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:209
-#: plugins/air_temp_humi/__init__.py:222
+#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:211
+#: plugins/air_temp_humi/__init__.py:224
 #: plugins/air_temp_humi/templates/air_temp_humi.html:317
 #: plugins/button_control/templates/button_control.html:86
 #: plugins/door_opening/templates/door_opening.html:30
@@ -1511,13 +1532,13 @@ msgstr "Oznámení snímače"
 msgid "Output"
 msgstr "Výstup"
 
-#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:209
+#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:211
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:208
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
-#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:222
+#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:224
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:236
 msgid "Regulation set OFF."
@@ -1955,7 +1976,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/remote_notifications/templates/remote_notifications.html:26
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:17
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:39
-#: plugins/signaling_examples/templates/signaling_examples.html:22
+#: plugins/signaling_examples/templates/signaling_examples.html:34
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:24
@@ -2165,8 +2186,8 @@ msgstr "Smazat"
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:140
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:107
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:116
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2198,8 +2219,8 @@ msgstr "Smazat"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:31
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:24
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:141
-#: plugins/signaling_examples/templates/signaling_examples.html:37
-#: plugins/signaling_examples/templates/signaling_examples_help.html:42
+#: plugins/signaling_examples/templates/signaling_examples.html:49
+#: plugins/signaling_examples/templates/signaling_examples_help.html:45
 #: plugins/sms_adj/templates/sms_adj.html:114
 #: plugins/sms_adj/templates/sms_adj_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor.html:240
@@ -2537,7 +2558,7 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/log.html:57 ospy/templates/log.html:86
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
-#: plugins/email_notifications_ssl/__init__.py:338
+#: plugins/email_notifications_ssl/__init__.py:340
 #: plugins/lcd_display/__init__.py:460 plugins/lcd_display/__init__.py:563
 #: plugins/pressure_monitor/__init__.py:189
 #: plugins/pressure_monitor/__init__.py:190
@@ -2902,11 +2923,13 @@ msgstr "Čas startu"
 #: plugins/cli_control/templates/cli_control.html:44
 #: plugins/email_notifications/__init__.py:136
 #: plugins/email_notifications/__init__.py:140
-#: plugins/email_notifications_ssl/__init__.py:136
-#: plugins/email_notifications_ssl/__init__.py:140
+#: plugins/email_notifications_ssl/__init__.py:137
+#: plugins/email_notifications_ssl/__init__.py:142
 #: plugins/ip_cam/templates/ip_cam_setup.html:55
-#: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
-#: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
+#: plugins/mqtt_home_assistant/__init__.py:494
+#: plugins/mqtt_home_assistant/__init__.py:608 plugins/relay_16/__init__.py:120
+#: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
+#: plugins/relay_16/__init__.py:144
 #: plugins/voice_station/templates/voice_station.html:58
 msgid "Station"
 msgstr "Stanice"
@@ -2914,8 +2937,8 @@ msgstr "Stanice"
 #: ospy/templates/log.html:37 ospy/templates/log_user.html:27
 #: ospy/templates/program.html:477 plugins/email_notifications/__init__.py:138
 #: plugins/email_notifications/__init__.py:142
-#: plugins/email_notifications_ssl/__init__.py:138
-#: plugins/email_notifications_ssl/__init__.py:142
+#: plugins/email_notifications_ssl/__init__.py:139
+#: plugins/email_notifications_ssl/__init__.py:144
 msgid "Duration"
 msgstr "Trvání"
 
@@ -3035,7 +3058,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:130
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:106
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:269
@@ -3050,7 +3073,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:23
 #: plugins/remote_notifications/templates/remote_notifications.html:48
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:22
-#: plugins/signaling_examples/templates/signaling_examples.html:26
+#: plugins/signaling_examples/templates/signaling_examples.html:38
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:94
@@ -3169,8 +3192,8 @@ msgstr "V"
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
-#: plugins/email_notifications_ssl/__init__.py:262
-#: plugins/email_notifications_ssl/__init__.py:293
+#: plugins/email_notifications_ssl/__init__.py:264
+#: plugins/email_notifications_ssl/__init__.py:295
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:492
 #: plugins/lcd_display/__init__.py:523
 #: plugins/tank_monitor/templates/tank_monitor.html:457
@@ -3654,8 +3677,8 @@ msgstr "Start ve dni"
 #: ospy/templates/program.html:472 ospy/templates/program.html:560
 #: plugins/email_notifications/__init__.py:137
 #: plugins/email_notifications/__init__.py:141
-#: plugins/email_notifications_ssl/__init__.py:137
-#: plugins/email_notifications_ssl/__init__.py:141
+#: plugins/email_notifications_ssl/__init__.py:138
+#: plugins/email_notifications_ssl/__init__.py:143
 msgid "Start time"
 msgstr "Čas startu"
 
@@ -4356,7 +4379,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:124
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:100
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:273
@@ -4948,7 +4971,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:139
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:115
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:294
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -4958,7 +4981,7 @@ msgstr ""
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:63
 #: plugins/remote_notifications/templates/remote_notifications.html:57
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:140
-#: plugins/signaling_examples/templates/signaling_examples.html:36
+#: plugins/signaling_examples/templates/signaling_examples.html:48
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:106
@@ -5508,7 +5531,7 @@ msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
 #: ospy/webpages.py:2155 ospy/webpages.py:2156 plugins/mqtt/__init__.py:373
-#: plugins/mqtt_home_assistant/__init__.py:142
+#: plugins/mqtt_home_assistant/__init__.py:188
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:120 plugins/ups_adj/__init__.py:462
 #: plugins/ups_adj/__init__.py:652
@@ -5539,59 +5562,60 @@ msgstr "Hodnota nastavena"
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
-#: plugins/air_temp_humi/__init__.py:36
+#: plugins/air_temp_humi/__init__.py:38
 #: plugins/database_connector/templates/database_connector_help.html:11
 msgid "Package: Air Temperature and Humidity Monitor"
 msgstr "Balíček: Monitor teploty a vlhkosti vzduchu"
 
-#: plugins/air_temp_humi/__init__.py:165 plugins/air_temp_humi/__init__.py:166
+#: plugins/air_temp_humi/__init__.py:167 plugins/air_temp_humi/__init__.py:168
 msgid "DHT11 data is not valid"
 msgstr "Data z čidla DHT11 nejsou v pořádku"
 
-#: plugins/air_temp_humi/__init__.py:168 plugins/air_temp_humi/__init__.py:169
+#: plugins/air_temp_humi/__init__.py:170 plugins/air_temp_humi/__init__.py:171
 msgid "DHT22 data is not valid"
 msgstr "Data z čidla DHT nejsou v pořádku"
 
-#: plugins/air_temp_humi/__init__.py:174 plugins/air_temp_humi/__init__.py:175
-#: plugins/air_temp_humi/__init__.py:176
+#: plugins/air_temp_humi/__init__.py:176 plugins/air_temp_humi/__init__.py:177
+#: plugins/air_temp_humi/__init__.py:178
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:42
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:43
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:44
 msgid "DHT"
 msgstr "DHT"
 
-#: plugins/air_temp_humi/__init__.py:175 plugins/email_reader/__init__.py:779
+#: plugins/air_temp_humi/__init__.py:177 plugins/email_reader/__init__.py:779
+#: plugins/mqtt_home_assistant/__init__.py:621
 msgid "Humidity"
 msgstr "Vlhkost"
 
-#: plugins/air_temp_humi/__init__.py:192
+#: plugins/air_temp_humi/__init__.py:194
 msgid "Air Temperature"
 msgstr "Monitor teploty"
 
-#: plugins/air_temp_humi/__init__.py:227 plugins/air_temp_humi/__init__.py:230
+#: plugins/air_temp_humi/__init__.py:229 plugins/air_temp_humi/__init__.py:232
 msgid "DS"
 msgstr "DS"
 
-#: plugins/air_temp_humi/__init__.py:250 plugins/air_temp_humi/__init__.py:334
-#: plugins/air_temp_humi/__init__.py:388 plugins/air_temp_humi/__init__.py:491
-#: plugins/air_temp_humi/__init__.py:504 plugins/air_temp_humi/__init__.py:515
-#: plugins/air_temp_humi/__init__.py:637 plugins/air_temp_humi/__init__.py:722
-#: plugins/air_temp_humi/__init__.py:762 plugins/air_temp_humi/__init__.py:813
-#: plugins/air_temp_humi/__init__.py:828 plugins/air_temp_humi/__init__.py:876
-#: plugins/air_temp_humi/__init__.py:913 plugins/air_temp_humi/__init__.py:954
+#: plugins/air_temp_humi/__init__.py:252 plugins/air_temp_humi/__init__.py:336
+#: plugins/air_temp_humi/__init__.py:390 plugins/air_temp_humi/__init__.py:493
+#: plugins/air_temp_humi/__init__.py:506 plugins/air_temp_humi/__init__.py:517
+#: plugins/air_temp_humi/__init__.py:639 plugins/air_temp_humi/__init__.py:724
+#: plugins/air_temp_humi/__init__.py:766 plugins/air_temp_humi/__init__.py:817
+#: plugins/air_temp_humi/__init__.py:832 plugins/air_temp_humi/__init__.py:880
+#: plugins/air_temp_humi/__init__.py:917 plugins/air_temp_humi/__init__.py:958
 #: plugins/tank_monitor/__init__.py:889 plugins/wind_monitor/__init__.py:830
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
-#: plugins/air_temp_humi/__init__.py:306
+#: plugins/air_temp_humi/__init__.py:308
 msgid "Data is not correct. Please try again later."
 msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 
-#: plugins/air_temp_humi/__init__.py:540 plugins/air_temp_humi/__init__.py:541
-#: plugins/air_temp_humi/__init__.py:542 plugins/air_temp_humi/__init__.py:547
-#: plugins/air_temp_humi/__init__.py:551 plugins/air_temp_humi/__init__.py:555
-#: plugins/air_temp_humi/__init__.py:559 plugins/air_temp_humi/__init__.py:563
-#: plugins/air_temp_humi/__init__.py:567
+#: plugins/air_temp_humi/__init__.py:542 plugins/air_temp_humi/__init__.py:543
+#: plugins/air_temp_humi/__init__.py:544 plugins/air_temp_humi/__init__.py:549
+#: plugins/air_temp_humi/__init__.py:553 plugins/air_temp_humi/__init__.py:557
+#: plugins/air_temp_humi/__init__.py:561 plugins/air_temp_humi/__init__.py:565
+#: plugins/air_temp_humi/__init__.py:569
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:58
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:61
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:70
@@ -5603,29 +5627,29 @@ msgstr "Data nejsou načtena v pořádku. Zkuste to prosím za chvilku."
 msgid "Not used"
 msgstr "Nepoužívá se"
 
-#: plugins/air_temp_humi/__init__.py:580
+#: plugins/air_temp_humi/__init__.py:582
 #: plugins/pressure_monitor/__init__.py:399
 #: plugins/tank_monitor/__init__.py:708 plugins/ups_adj/__init__.py:362
 #: plugins/wind_monitor/__init__.py:531
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
-#: plugins/air_temp_humi/__init__.py:621
+#: plugins/air_temp_humi/__init__.py:623
 msgid "Saving to log files."
 msgstr "Ukládání do souboru protokolu."
 
-#: plugins/air_temp_humi/__init__.py:635
+#: plugins/air_temp_humi/__init__.py:637
 #: plugins/pressure_monitor/__init__.py:387
 #: plugins/tank_monitor/__init__.py:743 plugins/ups_adj/__init__.py:348
 #: plugins/wind_monitor/__init__.py:514
 msgid "Saving to SQL database."
 msgstr "Ukládání do SQL databáze."
 
-#: plugins/air_temp_humi/__init__.py:720 plugins/air_temp_humi/__init__.py:760
+#: plugins/air_temp_humi/__init__.py:722 plugins/air_temp_humi/__init__.py:764
 msgid "Deleting the airtemp table from the database."
 msgstr "Odstranění tabulky airtemp z databáze."
 
-#: plugins/air_temp_humi/__init__.py:753 plugins/chmi/__init__.py:452
+#: plugins/air_temp_humi/__init__.py:757 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
 #: plugins/ping_monitor/__init__.py:389 plugins/speed_monitor/__init__.py:275
 #: plugins/tank_monitor/__init__.py:792 plugins/ups_adj/__init__.py:430
@@ -5876,7 +5900,7 @@ msgstr "Počet DS18B20"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:125
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:101
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:274
@@ -8595,12 +8619,11 @@ msgstr "Hlášení z OSPy SYSTÉMU"
 #: plugins/email_notifications/__init__.py:97
 #: plugins/email_notifications/__init__.py:98
 #: plugins/email_notifications_ssl/__init__.py:106
-#: plugins/email_notifications_ssl/__init__.py:107
+#: plugins/email_notifications_ssl/__init__.py:108
 msgid "System was powered on."
 msgstr "System byl spuštěn."
 
 #: plugins/email_notifications/__init__.py:105
-#: plugins/email_notifications_ssl/__init__.py:114
 msgid "Error -  events.log file not exists!"
 msgstr "Chyba - soubor events.log nenalezen!"
 
@@ -8611,13 +8634,13 @@ msgstr "System detekoval déšť."
 
 #: plugins/email_notifications/__init__.py:134
 #: plugins/email_notifications/__init__.py:139
-#: plugins/email_notifications_ssl/__init__.py:134
-#: plugins/email_notifications_ssl/__init__.py:139
+#: plugins/email_notifications_ssl/__init__.py:135
+#: plugins/email_notifications_ssl/__init__.py:141
 msgid "Finished run"
 msgstr "Ukončené zalévání"
 
 #: plugins/email_notifications/__init__.py:156
-#: plugins/email_notifications_ssl/__init__.py:164
+#: plugins/email_notifications_ssl/__init__.py:166
 #: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:392
 #: plugins/tank_monitor/__init__.py:599 plugins/tank_monitor/__init__.py:782
 #: plugins/tank_monitor/templates/tank_monitor.html:433
@@ -8625,7 +8648,7 @@ msgid "Level"
 msgstr "Úroveň"
 
 #: plugins/email_notifications/__init__.py:158
-#: plugins/email_notifications_ssl/__init__.py:166
+#: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_reader/__init__.py:238 plugins/speed_monitor/__init__.py:267
 #: plugins/tank_monitor/templates/tank_monitor.html:461
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
@@ -8634,8 +8657,8 @@ msgstr "Ping"
 
 #: plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications/__init__.py:162
-#: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_notifications_ssl/__init__.py:170
+#: plugins/email_notifications_ssl/__init__.py:172
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
 #: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:600
 #: plugins/tank_monitor/__init__.py:783 plugins/tank_monitor/__init__.py:1083
@@ -8646,41 +8669,41 @@ msgid "Volume"
 msgstr "Objem"
 
 #: plugins/email_notifications/__init__.py:164
-#: plugins/email_notifications_ssl/__init__.py:176
+#: plugins/email_notifications_ssl/__init__.py:178
 msgid "Error - I2C device not found!"
 msgstr "Chyba - I2C zařízení nenalezeno!"
 
 #: plugins/email_notifications/__init__.py:166
 #: plugins/email_notifications/__init__.py:168
-#: plugins/email_notifications_ssl/__init__.py:172
 #: plugins/email_notifications_ssl/__init__.py:174
-#: plugins/email_notifications_ssl/__init__.py:177
+#: plugins/email_notifications_ssl/__init__.py:176
 #: plugins/email_notifications_ssl/__init__.py:179
+#: plugins/email_notifications_ssl/__init__.py:181
 #: plugins/email_reader/__init__.py:245
 msgid "Water"
 msgstr "Voda"
 
 #: plugins/email_notifications/__init__.py:167
 #: plugins/email_notifications/__init__.py:168
-#: plugins/email_notifications_ssl/__init__.py:173
-#: plugins/email_notifications_ssl/__init__.py:174
-#: plugins/email_notifications_ssl/__init__.py:178
-#: plugins/email_notifications_ssl/__init__.py:179
+#: plugins/email_notifications_ssl/__init__.py:175
+#: plugins/email_notifications_ssl/__init__.py:176
+#: plugins/email_notifications_ssl/__init__.py:180
+#: plugins/email_notifications_ssl/__init__.py:181
 msgid "Water level in tank"
 msgstr "Množství vody v zásobníku"
 
 #: plugins/email_notifications/__init__.py:171
-#: plugins/email_notifications_ssl/__init__.py:182
+#: plugins/email_notifications_ssl/__init__.py:184
 msgid "Cannot import plugin: tank monitor."
 msgstr "Nelze importovat plugin: monitor tanku."
 
 #: plugins/email_notifications/__init__.py:184
-#: plugins/email_notifications_ssl/__init__.py:195
+#: plugins/email_notifications_ssl/__init__.py:197
 msgid "Measured from day"
 msgstr "Měřeno od dne"
 
 #: plugins/email_notifications/__init__.py:185
-#: plugins/email_notifications_ssl/__init__.py:196
+#: plugins/email_notifications_ssl/__init__.py:198
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:25
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:58
 msgid "Master Station"
@@ -8688,13 +8711,13 @@ msgstr "Hlavní stanice"
 
 #: plugins/email_notifications/__init__.py:188
 #: plugins/email_notifications/__init__.py:196
-#: plugins/email_notifications_ssl/__init__.py:199
-#: plugins/email_notifications_ssl/__init__.py:207
+#: plugins/email_notifications_ssl/__init__.py:201
+#: plugins/email_notifications_ssl/__init__.py:209
 msgid "Liter"
 msgstr "Litr"
 
 #: plugins/email_notifications/__init__.py:193
-#: plugins/email_notifications_ssl/__init__.py:204
+#: plugins/email_notifications_ssl/__init__.py:206
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:31
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:67
 msgid "Second Master Station"
@@ -8702,71 +8725,75 @@ msgstr "Druhá hlavní stanice"
 
 #: plugins/email_notifications/__init__.py:201
 #: plugins/email_notifications/__init__.py:203
-#: plugins/email_notifications_ssl/__init__.py:212
 #: plugins/email_notifications_ssl/__init__.py:214
+#: plugins/email_notifications_ssl/__init__.py:216
 msgid "Water Consumption Counter"
 msgstr "Čítač spotřeby vody"
 
 #: plugins/email_notifications/__init__.py:206
-#: plugins/email_notifications_ssl/__init__.py:217
+#: plugins/email_notifications_ssl/__init__.py:219
 msgid "Cannot import plugin: water consumption counter."
 msgstr "Nelze importovat plugin: počítadlo spotřeby vody."
 
 #: plugins/email_notifications/__init__.py:213
 #: plugins/email_notifications/__init__.py:214
-#: plugins/email_notifications_ssl/__init__.py:224
-#: plugins/email_notifications_ssl/__init__.py:225
+#: plugins/email_notifications_ssl/__init__.py:226
+#: plugins/email_notifications_ssl/__init__.py:227
 #: plugins/email_reader/__init__.py:190
+#: plugins/mqtt_home_assistant/__init__.py:642
+#: plugins/mqtt_home_assistant/__init__.py:643
 msgid "Temperature DS1-DS6"
 msgstr "Teplota DS1-DS6"
 
 #: plugins/email_notifications/__init__.py:221
-#: plugins/email_notifications_ssl/__init__.py:232
+#: plugins/email_notifications_ssl/__init__.py:234
+#: plugins/mqtt_home_assistant/__init__.py:651
+#: plugins/mqtt_home_assistant/__init__.py:768
 msgid "Cannot import plugin: air temp humi."
 msgstr "Nelze importovat plugin: air temp humi."
 
 #: plugins/email_notifications/__init__.py:239
 #: plugins/email_notifications/__init__.py:272
-#: plugins/email_notifications_ssl/__init__.py:250
-#: plugins/email_notifications_ssl/__init__.py:283
+#: plugins/email_notifications_ssl/__init__.py:252
+#: plugins/email_notifications_ssl/__init__.py:285
 #: plugins/lcd_display/__init__.py:480 plugins/lcd_display/__init__.py:513
 msgid "Contact Closed"
 msgstr "Kontakt spojený"
 
 #: plugins/email_notifications/__init__.py:241
 #: plugins/email_notifications/__init__.py:272
-#: plugins/email_notifications_ssl/__init__.py:252
-#: plugins/email_notifications_ssl/__init__.py:283
+#: plugins/email_notifications_ssl/__init__.py:254
+#: plugins/email_notifications_ssl/__init__.py:285
 #: plugins/lcd_display/__init__.py:482 plugins/lcd_display/__init__.py:513
 msgid "Contact Open"
 msgstr "Kontakt rozpojený"
 
 #: plugins/email_notifications/__init__.py:246
 #: plugins/email_notifications/__init__.py:277
-#: plugins/email_notifications_ssl/__init__.py:257
-#: plugins/email_notifications_ssl/__init__.py:288
+#: plugins/email_notifications_ssl/__init__.py:259
+#: plugins/email_notifications_ssl/__init__.py:290
 #: plugins/lcd_display/__init__.py:487 plugins/lcd_display/__init__.py:518
 msgid "l/s"
 msgstr "l/s"
 
 #: plugins/email_notifications/__init__.py:321
-#: plugins/email_notifications_ssl/__init__.py:332
+#: plugins/email_notifications_ssl/__init__.py:334
 msgid "Last Wi-Fi signal: {}%, Source: {}V."
 msgstr "Poslední signál Wi-Fi: {}%, zdroj: {}V."
 
 #: plugins/email_notifications/__init__.py:323
-#: plugins/email_notifications_ssl/__init__.py:334
+#: plugins/email_notifications_ssl/__init__.py:336
 msgid "Last Radio signal: {}%, Source: {}V."
 msgstr "Poslední signál radio: {}%, zdroj: {}V."
 
 #: plugins/email_notifications/__init__.py:325
-#: plugins/email_notifications_ssl/__init__.py:336
+#: plugins/email_notifications_ssl/__init__.py:338
 #: plugins/lcd_display/__init__.py:561
 msgid "No response!"
 msgstr "Neodpovídá!"
 
 #: plugins/email_notifications/__init__.py:337
-#: plugins/email_notifications_ssl/__init__.py:348
+#: plugins/email_notifications_ssl/__init__.py:350
 #: plugins/lcd_display/__init__.py:568
 msgid "No sensors available"
 msgstr "Nejsou k dispozici žádné snímače"
@@ -8774,47 +8801,47 @@ msgstr "Nejsou k dispozici žádné snímače"
 #: plugins/email_notifications/__init__.py:346
 #: plugins/email_notifications/__init__.py:385
 #: plugins/email_notifications/__init__.py:390
-#: plugins/email_notifications_ssl/__init__.py:357
-#: plugins/email_notifications_ssl/__init__.py:396
-#: plugins/email_notifications_ssl/__init__.py:401
-#: plugins/email_notifications_ssl/__init__.py:572
+#: plugins/email_notifications_ssl/__init__.py:359
+#: plugins/email_notifications_ssl/__init__.py:398
+#: plugins/email_notifications_ssl/__init__.py:403
+#: plugins/email_notifications_ssl/__init__.py:591
 msgid "E-mail plug-in"
 msgstr "Rošíření E-mail"
 
 #: plugins/email_notifications/__init__.py:368
-#: plugins/email_notifications_ssl/__init__.py:379
+#: plugins/email_notifications_ssl/__init__.py:381
 msgid "Unsent E-mails in queue (in file)"
 msgstr "Neodesláné E-maily ve frontě (v souboru)"
 
 #: plugins/email_notifications/__init__.py:371
-#: plugins/email_notifications_ssl/__init__.py:382
+#: plugins/email_notifications_ssl/__init__.py:384
 msgid "sending from queue."
 msgstr "odesílání z fronty."
 
 #: plugins/email_notifications/__init__.py:379
-#: plugins/email_notifications_ssl/__init__.py:390
+#: plugins/email_notifications_ssl/__init__.py:392
 msgid "All unsent E-mails in the queue have been sent."
 msgstr "Všechny neodeslané E-maily ve frontě byly odeslány."
 
 #: plugins/email_notifications/__init__.py:466
-#: plugins/email_notifications_ssl/__init__.py:532
+#: plugins/email_notifications_ssl/__init__.py:551
 msgid "E-mail plug-in is not properly configured!"
 msgstr "E-mail rozšíření není správně nastaveno!"
 
 #: plugins/email_notifications/__init__.py:499
-#: plugins/email_notifications_ssl/__init__.py:565
+#: plugins/email_notifications_ssl/__init__.py:584
 msgid "E-mail was sent"
 msgstr "E-mail byl odeslán"
 
 #: plugins/email_notifications/__init__.py:501
 #: plugins/email_notifications/__init__.py:509
-#: plugins/email_notifications_ssl/__init__.py:567
-#: plugins/email_notifications_ssl/__init__.py:575
+#: plugins/email_notifications_ssl/__init__.py:586
+#: plugins/email_notifications_ssl/__init__.py:594
 msgid "E-mail logging is disabled in options..."
 msgstr "Protokolování E-mailů je zakázáno v nastavení..."
 
 #: plugins/email_notifications/__init__.py:503
-#: plugins/email_notifications_ssl/__init__.py:569
+#: plugins/email_notifications_ssl/__init__.py:588
 #: plugins/water_consumption_counter/__init__.py:131
 msgid "Sent"
 msgstr "Odeslán"
@@ -8826,13 +8853,13 @@ msgstr "E-mail nebyl odeslán! Připojení k Internetu není připraveno."
 
 #: plugins/email_notifications/__init__.py:585
 #: plugins/email_notifications/__init__.py:586
-#: plugins/email_notifications_ssl/__init__.py:657
-#: plugins/email_notifications_ssl/__init__.py:658
+#: plugins/email_notifications_ssl/__init__.py:676
+#: plugins/email_notifications_ssl/__init__.py:677
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr "Toto je testovací E-mail ze systému OSPy. Můžete ho ignorovat."
 
 #: plugins/email_notifications/__init__.py:590
-#: plugins/email_notifications_ssl/__init__.py:662
+#: plugins/email_notifications_ssl/__init__.py:681
 msgid "Email Queue was deleted."
 msgstr "Fronta e-mailů byla odstraněna."
 
@@ -9099,35 +9126,43 @@ msgstr ""
 msgid "Package: E-mail Notifications SSL"
 msgstr "Balíček: E-mailová oznámení SSL"
 
-#: plugins/email_notifications_ssl/__init__.py:426
-#: plugins/email_notifications_ssl/__init__.py:427
+#: plugins/email_notifications_ssl/__init__.py:115
+msgid "Error - events.log file not exists!"
+msgstr "Chyba - events.log soubor neexistuje!"
+
+#: plugins/email_notifications_ssl/__init__.py:432
+msgid "OSPy is in the network under the name"
+msgstr "OSPy je v síti pod názvem"
+
+#: plugins/email_notifications_ssl/__init__.py:440
+#: plugins/email_notifications_ssl/__init__.py:442
 msgid "Someone logged in."
 msgstr "Někdo se přihlásil do systému."
 
-#: plugins/email_notifications_ssl/__init__.py:434
-#: plugins/email_notifications_ssl/__init__.py:435
+#: plugins/email_notifications_ssl/__init__.py:449
+#: plugins/email_notifications_ssl/__init__.py:451
 msgid "Rain sensor has activated."
 msgstr "Dešťový snímač byl aktivován."
 
-#: plugins/email_notifications_ssl/__init__.py:442
-#: plugins/email_notifications_ssl/__init__.py:443
+#: plugins/email_notifications_ssl/__init__.py:458
+#: plugins/email_notifications_ssl/__init__.py:460
 msgid "Rain sensor has deactivated."
 msgstr "Dešťový snímač byl deaktivován."
 
-#: plugins/email_notifications_ssl/__init__.py:450
+#: plugins/email_notifications_ssl/__init__.py:467
 msgid "Rain delay is now set a delay {} (h: m: s)."
 msgstr "Dešťové zpoždění je nyní nastaveno na dobu {} (h: m: s)."
 
-#: plugins/email_notifications_ssl/__init__.py:451
+#: plugins/email_notifications_ssl/__init__.py:469
 msgid "Rain delay is now set a delay {} hours."
 msgstr "Zpoždění deště je nyní nastaveno na {} hodin."
 
-#: plugins/email_notifications_ssl/__init__.py:458
-#: plugins/email_notifications_ssl/__init__.py:459
+#: plugins/email_notifications_ssl/__init__.py:476
+#: plugins/email_notifications_ssl/__init__.py:478
 msgid "Rain delay has now been removed."
 msgstr "Zpoždění deště bylo nyní odstraněno."
 
-#: plugins/email_notifications_ssl/__init__.py:654
+#: plugins/email_notifications_ssl/__init__.py:673
 msgid "Sender e-mail address appears to be invalid!"
 msgstr "Zdá se, že e-mailová adresa odesílatele je neplatná!"
 
@@ -10719,6 +10754,7 @@ msgid "Manual mode"
 msgstr "Manuální režim"
 
 #: plugins/lcd_display/__init__.py:447
+#: plugins/mqtt_home_assistant/__init__.py:603
 msgid "Scheduler"
 msgstr "Plánovač"
 
@@ -11625,7 +11661,7 @@ msgstr "Počkejte prosím na instalaci paho-mqtt..."
 msgid "Error try install paho-mqtt manually."
 msgstr "Chyba zkuste nainstalovat paho-mqtt ručně."
 
-#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:138
+#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:183
 msgid "Connecting to broker"
 msgstr "Připojení k makléři"
 
@@ -11633,7 +11669,7 @@ msgstr "Připojení k makléři"
 msgid "MQTT plugin couldnot initalize client"
 msgstr "MQTT rozšíření nemohlo vytvořit klienta"
 
-#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:169
+#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:204
 msgid "Subscribe topic"
 msgstr "Přihlášené téma"
 
@@ -11719,7 +11755,6 @@ msgid "Range for port is 80 to 65635."
 msgstr "Rozsah portu je 80 až 65635."
 
 #: plugins/mqtt/templates/mqtt.html:59
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
 msgid "Up/down topic"
 msgstr "Téma systém UP/DOWN"
 
@@ -12270,43 +12305,74 @@ msgstr "2: Přesně jednou. Odešle zprávu pouze jednou."
 msgid "Package: MQTT Home Assistant"
 msgstr "Balíček: MQTT Home Assistant"
 
-#: plugins/mqtt_home_assistant/__init__.py:106
-msgid "Message on topic:"
-msgstr "Zpráva k tématu:"
-
-#: plugins/mqtt_home_assistant/__init__.py:145
-msgid "Plugin could not initalize client:"
-msgstr "Plugin nemohl initalizovat klienta:"
-
-#: plugins/mqtt_home_assistant/__init__.py:158
-msgid "Publish:"
-msgstr "Publikovat:"
-
-#: plugins/mqtt_home_assistant/__init__.py:172
-msgid "Append topic callback"
-msgstr "Připojit zpětné volání tématu"
-
-#: plugins/mqtt_home_assistant/__init__.py:222
-#: plugins/mqtt_home_assistant/__init__.py:238
+#: plugins/mqtt_home_assistant/__init__.py:114
+#: plugins/mqtt_home_assistant/__init__.py:136
+#: plugins/mqtt_home_assistant/__init__.py:144
 msgid "MQTT Home Assistant"
 msgstr "Domácí asistent MQTT"
 
-#: plugins/mqtt_home_assistant/__init__.py:227
-msgid "Ready"
-msgstr "Připraven"
-
-#: plugins/mqtt_home_assistant/__init__.py:233
+#: plugins/mqtt_home_assistant/__init__.py:121
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
 #: plugins/shelly_cloud_integrator/__init__.py:81
 msgid "Plugin is started."
 msgstr "Rozšíření je spuštěno."
 
-#: plugins/mqtt_home_assistant/__init__.py:317
+#: plugins/mqtt_home_assistant/__init__.py:126
+#: plugins/mqtt_home_assistant/__init__.py:858
+msgid "Client OK"
+msgstr "Klient OK"
+
+#: plugins/mqtt_home_assistant/__init__.py:128
+#: plugins/mqtt_home_assistant/__init__.py:860
+msgid "Client not ready!"
+msgstr "Klient není připraven!"
+
+#: plugins/mqtt_home_assistant/__init__.py:156
+msgid "Message on topic:"
+msgstr "Zpráva k tématu:"
+
+#: plugins/mqtt_home_assistant/__init__.py:192
+msgid "Plugin could not initalize client:"
+msgstr "Plugin nemohl initalizovat klienta:"
+
+#: plugins/mqtt_home_assistant/__init__.py:207
+msgid "Append topic callback"
+msgstr "Připojit zpětné volání tématu"
+
+#: plugins/mqtt_home_assistant/__init__.py:310
 #: plugins/usage_statistics/__init__.py:68
 msgid "OSPy"
 msgstr "OSPy"
 
-#: plugins/mqtt_home_assistant/__init__.py:1241
+#: plugins/mqtt_home_assistant/__init__.py:351
+msgid "Publish to topic"
+msgstr "Publikovat do tématu"
+
+#: plugins/mqtt_home_assistant/__init__.py:351
+msgid "payload"
+msgstr "data"
+
+#: plugins/mqtt_home_assistant/__init__.py:458
+msgid "Home Assistant"
+msgstr "Domácí asistent"
+
+#: plugins/mqtt_home_assistant/__init__.py:505
+msgid "THDS Sensor"
+msgstr "Senzor THDS"
+
+#: plugins/mqtt_home_assistant/__init__.py:557
+msgid "Callback cannot be Null for device_class = number"
+msgstr "Callback nemůže být Null pro device_class = číslo"
+
+#: plugins/mqtt_home_assistant/__init__.py:566
+msgid "Callback cannot be Null for device_class = switch"
+msgstr "Callback nemůže být Null pro device_class = switch"
+
+#: plugins/mqtt_home_assistant/__init__.py:602
+msgid "Water level"
+msgstr "Hladina vody"
+
+#: plugins/mqtt_home_assistant/__init__.py:852
 msgid ""
 "Error: slugify not installed. Install it to system. sudo apt install python3 "
 "slugify."
@@ -12314,21 +12380,13 @@ msgstr ""
 "Chyba: slugify není nainstalován. Nainstalujte jej do systému. sudo apt "
 "install python3 slugify."
 
-#: plugins/mqtt_home_assistant/__init__.py:1243
+#: plugins/mqtt_home_assistant/__init__.py:854
 msgid ""
 "Error: paho-mqtt is not installed. Install it to system. sudo pip3 install "
 "paho-mqtt."
 msgstr ""
 "Chyba: paho-mqtt není nainstalován. Nainstalujte jej do systému. sudo pip3 "
 "install paho-mqtt."
-
-#: plugins/mqtt_home_assistant/__init__.py:1247
-msgid "Client OK"
-msgstr "Klient OK"
-
-#: plugins/mqtt_home_assistant/__init__.py:1249
-msgid "Client not ready!"
-msgstr "Klient není připraven!"
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
@@ -12355,45 +12413,28 @@ msgstr "Příklad: localhost."
 msgid "Range for port is 80 to 65635. Default: 1883."
 msgstr "Rozsah portu je 80 až 65635. Výchozí hodnota: 1883."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:65
-msgid ""
-"It needs to be set for proper OSPy availability detection by HASS. We "
-"suggest to use the OSPy System name as set on Options webpage."
-msgstr ""
-"Musí být nastaven pro správnou detekci dostupnosti OSPy pomocí HASS. "
-"Doporučujeme použít název systému OSPy, jak je nastaven na webové stránce "
-"Možnosti."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
-msgid "State for UP"
-msgstr "Stav pro UP"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:76
-msgid "State for DOWN"
-msgstr "Stav pro DOWN"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:82
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
 msgid "Topic prefix"
 msgstr "Předpona tématu"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:83
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:65
 msgid "MQTT base topic for system parameters and zones (Default: System name)"
 msgstr ""
 "Základní téma MQTT pro systémové parametry a zóny (Výchozí: Název systému)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:88
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
 msgid "Name prefix"
 msgstr "Pojmenování prefixu"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:89
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:71
 msgid "HASS name prefix for devices and zones (Default: System name)"
 msgstr "Předpona názvu HASS pro zařízení a zóny (výchozí: Název systému)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:94
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:76
 msgid "OSPy FQDN"
 msgstr "OSPy FQDN"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:95
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:77
 msgid ""
 "OSPy network name or IP address for web access from HASS (Default: auto "
 "detect)"
@@ -12401,35 +12442,27 @@ msgstr ""
 "Název sítě OSPy nebo IP adresa pro webový přístup z HASS (výchozí: "
 "automatická detekce)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:100
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:82
 msgid "Discovery topic"
 msgstr "Téma zjišťování"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:101
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:83
 msgid "Default: homeassistant"
 msgstr "Výchozí: homeassistant"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:106
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:88
 msgid "Device name is Station name"
 msgstr "Název zařízení je Název stanice"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:107
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:89
 msgid "Use station name for HASS zone device name (Default: uncheck)"
 msgstr "Použít název stanice pro název zařízení zóny HASS (Výchozí: neaktivní)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:112
-msgid "Publish disabled zones"
-msgstr "Publikování zakázaných zón"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:113
-msgid "MQTT publish all zones states (Default: uncheck)"
-msgstr "MQTT publikuje všechny stavy zón (výchozí: neaktivní)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:118
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:94
 msgid "Discovery UUID prefix"
 msgstr "Předpona UUID zjišťování"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:119
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:95
 msgid ""
 "Unique identifier used as prefix for MQTT Discovery by HASS. UUID based on "
 "the network adapter MAC address."
@@ -12558,35 +12591,25 @@ msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:35
 msgid ""
-"MQTT Publish up/down topic: It needs to be set for proper OSPy availability "
-"detection by HASS. We suggest to use the OSPy System name as set on Options "
-"webpage"
-msgstr ""
-"MQTT Publikuje up/down topic: Musí být nastaveno pro správnou detekci "
-"dostupnosti OSPy pomocí HASS. Doporučujeme použít název systému OSPy, jaký "
-"je nastaven na webové stránce OSPy systému"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:36
-msgid ""
 "MQTT Client ID: A unique name for OSPy system. Default is OSPy System name "
 "but can be changed on Options webpage."
 msgstr ""
 "ID klienta MQTT: Jedinečný název pro systém OSPy. Výchozí je název systému "
 "OSPy."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:40
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:39
 msgid "On OSPy - MQTT HASS plugin setup"
 msgstr "Na OSPy - nastavení MQTT HASS pluginu"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:42
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:41
 msgid "Install Python python-slugify package if not already on the pi."
 msgstr "Nainstalujte balíček Python python-slugify, pokud ještě není na pi."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:44
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:43
 msgid "Configure MQTT HASS plugin."
 msgstr "Nakonfigurujte rozšíření MQTT HASS."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:45
 msgid ""
 "Topic prefix: This prefix is used for OSPy system parameters and zones "
 "published to the MQTT broker. Leave this option empty to use a slugified "
@@ -12599,7 +12622,7 @@ msgstr ""
 "sloučeno. (Výchozí: Název systému nebo \"OSPy\", pokud je název systému "
 "prázdný)."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:46
 msgid ""
 "Name prefix: Used as prefix for all HASS devices and entities names. Leave "
 "this option empty to use a OSPy System name as prefix. For entities, this "
@@ -12611,7 +12634,7 @@ msgstr ""
 "název systému OSPy. U entit bude toto nastavení slugated. (Výchozí: Název "
 "systému nebo \"OSPy\", pokud je název systému prázdný)."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:47
 msgid ""
 "OSPy FQDN: OSPy network name or IP address. Used to compose the URL link to "
 "OSPy web interface displayed in HASS devices settings. Leave this option "
@@ -12624,7 +12647,7 @@ msgstr ""
 "hostitele OSPy nebo IP adresu použitou pro připojení k MQTT brokeru. "
 "(Výchozí: OSPy hostname)."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:49
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:48
 msgid ""
 "Device is Station name: if checked, use station name as part of HASS Device "
 "name. Changes to OSPy station name will update HASS Device name. (Default: "
@@ -12634,22 +12657,11 @@ msgstr ""
 "součást názvu zařízení HASS. Změny názvu stanice OSPy aktualizují název "
 "zařízení HASS. (Výchozí: nezaškrtnuto)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:50
-msgid ""
-"Publish disabled zone: if checked, disabled stations will also be published "
-"to the MQTT broker and discovered by HASS. NOTE: For safety, disabled "
-"stations can't be controlled from MQTT nor HASS. (Default: unchecked)"
-msgstr ""
-"Publikovat zakázanou zónu: pokud je zatrženo, zakázané stanice budou také "
-"publikovány do MQTT brokeru a detekovány HASSem. POZNÁMKA: Z bezpečnostních "
-"důvodů nelze deaktivované stanice ovládat z MQTT ani HASS. (Výchozí: "
-"nezaškrtnuto)"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:52
 msgid "On Home Assistant - MQTT setup"
 msgstr "Na Home Assistant - nastavení MQTT"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:56
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:54
 msgid ""
 "Follow Home Assistant instructions to add MQTT integration via the user "
 "interface. MQTT discovery feature is enabled by default. MQTT integration "
@@ -12660,7 +12672,7 @@ msgstr ""
 "výchozím nastavení povolena. Integrace MQTT detekuje parametry nastavení "
 "OSPy a zóny jako zařízení a entity."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:57
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:55
 msgid ""
 "Follow Home Assistant instructions to configure and use the newly added "
 "devices and entities."
@@ -12668,7 +12680,7 @@ msgstr ""
 "Postupujte podle pokynů Home Assistant a nakonfigurujte a používejte nově "
 "přidaná zařízení a entity."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:58
 msgid ""
 "Multiple OSPy systems connected to the same MQTT broker or Home Assistant "
 "instance"
@@ -12676,11 +12688,11 @@ msgstr ""
 "Více systémů OSPy připojených ke stejnému MQTT brokeru nebo instanci Home "
 "Assistant"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:60
 msgid "To integrate multiple OSPy systems, on each OSPy:"
 msgstr "Chcete-li integrovat více systémů OSPy, na každém OSPy:"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:63
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:61
 msgid ""
 "Use different \"System name\" as set on OSPy Options webpage. Default OSPy "
 "System name is \"OSPy\""
@@ -12688,245 +12700,19 @@ msgstr ""
 "Použijte jiný \"Název systému\", jak je nastaveno v nastavení OSPy systému. "
 "Výchozí název systému OSPy je \"OSPy\""
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
-msgid ""
-"For each base MQTT plugin settings use different MQTT Publish up/down topic "
-"and MQTT Client ID."
-msgstr ""
-"Pro každé základní nastavení MQTT pluginu použijte jiné téma MQTT Publish up/"
-"down a MQTT Client ID."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:62
 msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
 msgstr ""
 "Pro každý MQTT HASS plugin použijte jinou předponu Topic a předponu Name."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:68
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
 msgid "Home Assistant - available OSPy Devices and Entities"
 msgstr "Home Assistant - dostupná zařízení a entity OSPy"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:69
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:66
 msgid "Devices and associated Entities made available with this plugin are:"
 msgstr ""
 "Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:71
-msgid ""
-"Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device per "
-"OSPy system. This device regroups the supported OSPy system parameters and "
-"sensors. NamePrefix is MQTT HASS \"Name prefix\" option. Unless specified "
-"the associated entities have the same behavior as on OSPy home webpage. "
-"Entities name prefix uses a slugified version of the device name "
-"(nameprefix). Entities:"
-msgstr ""
-"Zařízení: OSPy (název: NamePrefix) MQTT HASS plugin vytvoří jedno zařízení "
-"pro každý OSPy systém. Toto zařízení přeskupí podporované systémové "
-"parametry OSPy a senzory. NamePrefix je volba MQTT HASS \"Předpona názvu\". "
-"Pokud není uvedeno jinak, přidružené entity se chovají stejně jako na "
-"domovské stránce OSPy. Předpona názvu entit používá zjednodušenou verzi "
-"názvu zařízení (nameprefix). Entity:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:73
-msgid ""
-"Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS "
-"\"Select entity\" showing and controlling OSPy System Enable (Values: \"on"
-"\", \"off\"). Setting it to \"off\" will disable all other system parameters "
-"and zone control from HASS."
-msgstr ""
-"Řídicí entita: Povolení systému OSPy (ID: select.nameprefix_enable) HASS "
-"\"Vybrat entitu\" zobrazující a ovládající povolení systému OSPy (hodnoty: "
-"\"zapnuto\", \"vypnuto\"). Nastavení na \"vypnuto\" deaktivuje všechny "
-"ostatní systémové parametry a zónové řízení z HASS."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
-msgid ""
-"Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS \"Select "
-"entity\" showing and controlling OSPy Mode (Values: \"Automatic\", \"Manual"
-"\")."
-msgstr ""
-"Konfigurační entita: Režim OSPy (ID: select.nameprefix_mode) HASS \"Vybrat "
-"entitu\" zobrazující a ovládající režim OSPy (hodnoty: \"Automaticky\", "
-"\"Ručně\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:75
-msgid ""
-"Configuration Entity: Rain sensor enable (ID: select."
-"nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and "
-"controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same behavior "
-"as \"Use rain sensor\" in OSPy Options webpage."
-msgstr ""
-"Entita konfigurace: Povolení dešťového senzoru (ID: select."
-"nameprefix_rain_sensor_enable) HASS \"Vybrat entitu\" zobrazující a "
-"ovládající OSPy Aktivace dešťového senzoru (hodnoty: \"zapnuto\", \"vypnuto"
-"\"). Stejné chování jako \"Použít dešťový senzor\" na webové stránce "
-"Možnosti OSPy."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:76
-msgid ""
-"Configuration Entity: Rain delay timer (ID: number."
-"nameprefix_rain_delay_timer) HASS \"Number entity\" showing and controlling "
-"OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This entity has the "
-"following JSON attributes and default values when the timer is active / "
-"inactive (default):"
-msgstr ""
-"Konfigurační entita: Časovač zpoždění deště (ID: number."
-"nameprefix_rain_delay_timer) HASS \"Číselná entita\" zobrazující a "
-"ovládající časovač zpoždění OSPy Rain (rozsah: 0 až 24 hodin, výchozí 0). "
-"Tato entita má následující atributy JSON a výchozí hodnoty, pokud je časovač "
-"aktivní/neaktivní (výchozí):"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:78
-msgid ""
-"Attribute: state The number of hours as set from OSPy user interface or MQTT "
-"(Default 0)."
-msgstr ""
-"Atribut: state Počet hodin nastavený z uživatelského rozhraní OSPy nebo MQTT "
-"(výchozí 0)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:79
-msgid ""
-"Attribute: start_time Unix time when the delay timer started (Default \"None"
-"\")."
-msgstr ""
-"Atribut: start_time unixový čas, kdy se spustil časovač zpoždění (výchozí "
-"\"None\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:80
-msgid ""
-"Attribute: duration Total number of seconds of the delay timer (Default 0)."
-msgstr ""
-"Atribut: doba trvání Celkový počet sekund časovače zpoždění (výchozí 0)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:82
-msgid ""
-"Configuration Entity: Water level adjust (ID: number.nameprefix."
-"water_level_adjust) HASS \"Number entity\" showing and controlling OSPy "
-"Water level adjust (Range: 0 to 100 %, Default 100)."
-msgstr ""
-"Konfigurační entita: Nastavení hladiny vody (ID: number.nameprefix."
-"water_level_adjust) HASS \"Číselná entita\" zobrazující a ovládající OSPy "
-"Nastavení hladiny vody (Rozsah: 0 až 100 %, výchozí 100)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:83
-msgid ""
-"Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix."
-"rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor state "
-"(Values: \"on\",\"off\")."
-msgstr ""
-"Diagnostická entita: Senzor detekce deště (ID: binary_sensor.nameprefix."
-"rain_detect) HASS \"Binární entita senzoru\" hlásící stav senzoru deště OSPy "
-"(hodnoty: \"zapnuto\",\"vypnuto\")."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:84
-msgid ""
-"Diagnostic Entity: Running program (ID: sensor.nameprefix.running_program) "
-"HASS \"Sensor entity\" showing OSPy Running program (Values: \"Manual\", "
-"\"Run Once, or program number). Zones controlled from HASS are shown as "
-"\"Run Once\" program."
-msgstr ""
-"Diagnostická entita: Spuštěný program (ID: sensor.nameprefix."
-"running_program) HASS \"Entita senzoru\" zobrazující spuštěný program OSPy "
-"(hodnoty: \"Ruční\", \"Spustit jednou nebo číslo programu\"). Zóny řízené z "
-"HASS jsou zobrazeny jako program \"Spustit jednou\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:86
-msgid ""
-"Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT "
-"HASS plugin creates one device per OSPy station (zone). Device name is "
-"nameprefix - Zxx unless option \"Device is Station name\" is checked. The "
-"number of devices will track the number of OSPy \"Stations Extensions\" set "
-"on the Options webpage. Each zone device has a single \"switch\" entity. "
-"Entity:"
-msgstr ""
-"Zařízení: Zóna (name: nameprefix - Zxx nebo nameprefix - název stanice) MQTT "
-"HASS plugin vytvoří jedno zařízení na OSPy stanici (zónu). Název zařízení je "
-"nameprefix - Zxx, pokud není zatržena volba \"Zařízení je název stanice\". "
-"Počet zařízení bude sledovat počet OSPy \"Stations Extensions\" nastavených "
-"na stránce Možnosti. Každé zónové zařízení má jednu entitu \"přepínače\". "
-"Entita:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:88
-msgid ""
-"ID is switch.nameprefix.zxx where xx is a double digit from 01 to the number "
-"of OSPy stations. Entity name and availability will track changes made on "
-"OSPy Stations webpage. This entity has the following JSON attributes and "
-"values:"
-msgstr ""
-"ID je switch.nameprefix.zxx, kde xx je dvouciferné číslo od 01 do počtu "
-"stanic OSPy. Název a dostupnost entity budou sledovat změny provedené na "
-"webové stránce OSPy Stations. Tato entita má následující atributy a hodnoty "
-"JSON:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:90
-msgid ""
-"Attribute: state The actual zone state. Value is \"on\" when active and \"off"
-"\" when inactive."
-msgstr ""
-"Atribut: state Skutečný stav zóny. Hodnota je \"zapnuto\", když je aktivní, "
-"a \"vypnuto\", když je neaktivní."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:91
-msgid ""
-"Attribute: start_time Unix time when the zone turned \"on\". If state is "
-"\"off\": Value is \"None\"."
-msgstr ""
-"Atribut: start_time unixový čas, kdy byla zóna zapnuta. Pokud je stav "
-"\"vypnuto\": Hodnota je \"Žádný\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:92
-msgid ""
-"Attribute: duration Total number of seconds the zone state will be \"on\". "
-"If state is \"on\": Value is the duration as set from a running program or "
-"run once or \"Inf\" if zone is activated from manual mode or from MQTT HASS "
-"switch. If state is \"off\": Value is \"Inf\"."
-msgstr ""
-"Atribut: doba trvání Celkový počet sekund, po které bude stav zóny \"zapnuto"
-"\". Pokud je stav \"zapnuto\": Hodnota je doba trvání nastavená ze "
-"spuštěného programu nebo spuštěná jednorázově nebo \"Inf\", pokud je zóna "
-"aktivována z manuálního režimu nebo z přepínače MQTT HASS. Pokud je stav "
-"\"vypnuto\": Hodnota je \"Inf\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:93
-msgid ""
-"Attribute: program The program number that turned the zone state to \"on\". "
-"If state is \"on\": Value is program number, \"Run Once\" or \"Manual\". If "
-"state is \"off\": Value is \"None\"."
-msgstr ""
-"Atribut: program Číslo programu, který změnil stav zóny na \"zapnuto\". "
-"Pokud je stav \"zapnuto\": Hodnota je číslo programu, \"Spustit jednou\" "
-"nebo \"Ručně\". Pokud je stav \"vypnuto\": Hodnota je \"Žádný\"."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:98
-msgid "Test your setup"
-msgstr "Otestujte své nastavení"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:99
-msgid "From HASS and OSPy user interface:"
-msgstr "Z uživatelského rozhraní HASS a OSPy:"
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:101
-msgid ""
-"Compare the state of select.nameprefix.enable with OSPy web interface System "
-"Enable. Change the system enable from HASS and OSPy to verify that the state "
-"is changed on the other end. When disabled, observe that all the other HASS "
-"system parameters and zone entities are not available in HASS user interface "
-"(grayed)."
-msgstr ""
-"Porovnejte stav select.nameprefix.enable s OSPy web rozhraní System Enable. "
-"Změňte povolení systému z HASS a OSPy, abyste ověřili, že se stav změnil na "
-"druhém konci. Pokud je tato možnost zakázána, všimněte si, že všechny "
-"ostatní systémové parametry HASS a entity zóny nejsou k dispozici v "
-"uživatelském rozhraní HASS (šedě)."
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:102
-msgid ""
-"With System enable, change one enabled zone state from HASS and verify the "
-"zone state on OSPy webpage. Observe the active program is set to \"Run Once"
-"\" when setting a zone \"on\" from HASS."
-msgstr ""
-"S povolením systému změňte jeden povolený stav zóny z HASS a ověřte stav "
-"zóny na webové stránce OSPy. Všimněte si, že aktivní program je nastaven na "
-"\"Spustit jednou\" při nastavování zóny \"zapnuto\" z HASS."
 
 #: plugins/ospy_backup/__init__.py:24
 msgid "Package: OSPy package Backup"
@@ -15519,108 +15305,120 @@ msgstr "Generace 2+"
 msgid "Package: Signaling Examples"
 msgstr "Balíček: Příklady signalizace"
 
-#: plugins/signaling_examples/__init__.py:140
+#: plugins/signaling_examples/__init__.py:138
 msgid "Someone logged in"
 msgstr "Někdo přihlášen"
 
-#: plugins/signaling_examples/__init__.py:144
+#: plugins/signaling_examples/__init__.py:142
 msgid "Value_change"
 msgstr "Změna hodnoty"
 
-#: plugins/signaling_examples/__init__.py:148
+#: plugins/signaling_examples/__init__.py:146
 msgid "Options settings changed"
 msgstr "Nastavení možností bylo změněno"
 
-#: plugins/signaling_examples/__init__.py:152
+#: plugins/signaling_examples/__init__.py:150
 msgid "System rebooted"
 msgstr "Systém restartován (restart)"
 
-#: plugins/signaling_examples/__init__.py:156
+#: plugins/signaling_examples/__init__.py:154
 msgid "System restarted"
 msgstr "Systém restartován (reboot)"
 
-#: plugins/signaling_examples/__init__.py:160
+#: plugins/signaling_examples/__init__.py:158
 msgid "Station names changed"
 msgstr "Názvy stanic byly změněny"
 
-#: plugins/signaling_examples/__init__.py:164
+#: plugins/signaling_examples/__init__.py:162
 msgid "Programs changed"
 msgstr "Programy změněny"
 
-#: plugins/signaling_examples/__init__.py:168
+#: plugins/signaling_examples/__init__.py:166
 msgid "Program deleted"
 msgstr "Program byl odstraněn"
 
-#: plugins/signaling_examples/__init__.py:172
+#: plugins/signaling_examples/__init__.py:170
 msgid "Program toggled on or off"
 msgstr "Program zapnutý nebo vypnutý"
 
-#: plugins/signaling_examples/__init__.py:176
+#: plugins/signaling_examples/__init__.py:174
 msgid "Program runnow"
 msgstr "Program runnow"
 
-#: plugins/signaling_examples/__init__.py:180
+#: plugins/signaling_examples/__init__.py:178
 msgid "Zone change"
 msgstr "Změna zóny"
 
-#: plugins/signaling_examples/__init__.py:184
+#: plugins/signaling_examples/__init__.py:182
 msgid "Rain active"
 msgstr "Déšť aktivní"
 
-#: plugins/signaling_examples/__init__.py:188
+#: plugins/signaling_examples/__init__.py:186
 msgid "Rain not active"
 msgstr "Déšť není aktivní"
 
-#: plugins/signaling_examples/__init__.py:192
+#: plugins/signaling_examples/__init__.py:190
 msgid "Master one on"
 msgstr "Hlavní stanice zap"
 
-#: plugins/signaling_examples/__init__.py:196
+#: plugins/signaling_examples/__init__.py:194
 msgid "Master one off"
 msgstr "Hlavní stanice vyp"
 
-#: plugins/signaling_examples/__init__.py:200
+#: plugins/signaling_examples/__init__.py:198
 msgid "Master two on"
 msgstr "Hlavní stanice 2 zap"
 
-#: plugins/signaling_examples/__init__.py:204
+#: plugins/signaling_examples/__init__.py:202
 msgid "Master two off"
 msgstr "Hlavní stanice 2 vyp"
 
-#: plugins/signaling_examples/__init__.py:208
+#: plugins/signaling_examples/__init__.py:206
 msgid "Pressurizer plugin master relay on"
 msgstr "Rozšíření tlakovač hlavní relé stanice zap"
 
-#: plugins/signaling_examples/__init__.py:212
+#: plugins/signaling_examples/__init__.py:210
 msgid "Pressurizer plugin master relay off"
 msgstr "Rozšíření tlakovač hlavní relé stanice vyp"
 
-#: plugins/signaling_examples/__init__.py:216
+#: plugins/signaling_examples/__init__.py:214
 msgid "Linux system now powering off"
 msgstr "Linuxový systém se nyní vypíná"
 
-#: plugins/signaling_examples/__init__.py:220
+#: plugins/signaling_examples/__init__.py:218
 msgid "OSPy system update available"
 msgstr "K dispozici je aktualizace systému OSPy"
 
-#: plugins/signaling_examples/__init__.py:224
+#: plugins/signaling_examples/__init__.py:222
 msgid "OSPy stations ON, index: {}"
 msgstr "OSPy stanice ZAP, index: {}"
 
-#: plugins/signaling_examples/__init__.py:229
+#: plugins/signaling_examples/__init__.py:227
 msgid "OSPy stations OFF, index: {}"
 msgstr "OSPy stanice VYP, index: {}"
 
-#: plugins/signaling_examples/__init__.py:234
+#: plugins/signaling_examples/__init__.py:232
 msgid "OSPy all stations OFF"
 msgstr "OSPy všechny stanice VYP"
 
-#: plugins/signaling_examples/__init__.py:246
+#: plugins/signaling_examples/__init__.py:244
 msgid "Rain delay is now set a delay {} hours"
 msgstr "Zpoždění deště je nyní nastaveno na zpoždění {} hodin"
 
+#: plugins/signaling_examples/__init__.py:252
+msgid "Home Assistant update"
+msgstr "Aktualizace z domácího asistenta"
+
+#: plugins/signaling_examples/__init__.py:257
+msgid "Core tick interval 30 second"
+msgstr "Interval tiku jádra 30 sekund"
+
+#: plugins/signaling_examples/__init__.py:261
+msgid "Air Temperature and Humidity Monitor update"
+msgstr "Aktualizace z monitoru teploty a vlhkosti vzduchu"
+
 #: plugins/signaling_examples/templates/signaling_examples.html:3
-#: plugins/signaling_examples/templates/signaling_examples.html:21
+#: plugins/signaling_examples/templates/signaling_examples.html:33
 msgid "Signaling Examples settings"
 msgstr "Příklady signalizace nastavení"
 
@@ -15748,6 +15546,18 @@ msgstr "signál rain_delay_set"
 #: plugins/signaling_examples/templates/signaling_examples_help.html:37
 msgid "signal rain_delay_remove"
 msgstr "signál rain_delay_remove"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:38
+msgid "signal hass_plugin_update"
+msgstr "signál hass_plugin_update"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:39
+msgid "signal core_30_sec_tick"
+msgstr "signál core_30_sec_tick"
+
+#: plugins/signaling_examples/templates/signaling_examples_help.html:40
+msgid "signal air_temp_humi_plugin_update"
+msgstr "signál air_temp_humi_plugin_update"
 
 #: plugins/sms_adj/__init__.py:28
 msgid "Package: SMS Modem"
@@ -20818,6 +20628,257 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 msgid "Done."
 msgstr "Hotovo."
 
+#~ msgid "Publish:"
+#~ msgstr "Publikovat:"
+
+#~ msgid "Ready"
+#~ msgstr "Připraven"
+
+#~ msgid ""
+#~ "It needs to be set for proper OSPy availability detection by HASS. We "
+#~ "suggest to use the OSPy System name as set on Options webpage."
+#~ msgstr ""
+#~ "Musí být nastaven pro správnou detekci dostupnosti OSPy pomocí HASS. "
+#~ "Doporučujeme použít název systému OSPy, jak je nastaven na webové stránce "
+#~ "Možnosti."
+
+#~ msgid "State for UP"
+#~ msgstr "Stav pro UP"
+
+#~ msgid "State for DOWN"
+#~ msgstr "Stav pro DOWN"
+
+#~ msgid "Publish disabled zones"
+#~ msgstr "Publikování zakázaných zón"
+
+#~ msgid "MQTT publish all zones states (Default: uncheck)"
+#~ msgstr "MQTT publikuje všechny stavy zón (výchozí: neaktivní)"
+
+#~ msgid ""
+#~ "MQTT Publish up/down topic: It needs to be set for proper OSPy "
+#~ "availability detection by HASS. We suggest to use the OSPy System name as "
+#~ "set on Options webpage"
+#~ msgstr ""
+#~ "MQTT Publikuje up/down topic: Musí být nastaveno pro správnou detekci "
+#~ "dostupnosti OSPy pomocí HASS. Doporučujeme použít název systému OSPy, "
+#~ "jaký je nastaven na webové stránce OSPy systému"
+
+#~ msgid ""
+#~ "Publish disabled zone: if checked, disabled stations will also be "
+#~ "published to the MQTT broker and discovered by HASS. NOTE: For safety, "
+#~ "disabled stations can't be controlled from MQTT nor HASS. (Default: "
+#~ "unchecked)"
+#~ msgstr ""
+#~ "Publikovat zakázanou zónu: pokud je zatrženo, zakázané stanice budou také "
+#~ "publikovány do MQTT brokeru a detekovány HASSem. POZNÁMKA: Z "
+#~ "bezpečnostních důvodů nelze deaktivované stanice ovládat z MQTT ani HASS. "
+#~ "(Výchozí: nezaškrtnuto)"
+
+#~ msgid ""
+#~ "For each base MQTT plugin settings use different MQTT Publish up/down "
+#~ "topic and MQTT Client ID."
+#~ msgstr ""
+#~ "Pro každé základní nastavení MQTT pluginu použijte jiné téma MQTT Publish "
+#~ "up/down a MQTT Client ID."
+
+#~ msgid ""
+#~ "Device: OSPy (name: NamePrefix) MQTT HASS plugin creates a single device "
+#~ "per OSPy system. This device regroups the supported OSPy system "
+#~ "parameters and sensors. NamePrefix is MQTT HASS \"Name prefix\" option. "
+#~ "Unless specified the associated entities have the same behavior as on "
+#~ "OSPy home webpage. Entities name prefix uses a slugified version of the "
+#~ "device name (nameprefix). Entities:"
+#~ msgstr ""
+#~ "Zařízení: OSPy (název: NamePrefix) MQTT HASS plugin vytvoří jedno "
+#~ "zařízení pro každý OSPy systém. Toto zařízení přeskupí podporované "
+#~ "systémové parametry OSPy a senzory. NamePrefix je volba MQTT HASS "
+#~ "\"Předpona názvu\". Pokud není uvedeno jinak, přidružené entity se "
+#~ "chovají stejně jako na domovské stránce OSPy. Předpona názvu entit "
+#~ "používá zjednodušenou verzi názvu zařízení (nameprefix). Entity:"
+
+#~ msgid ""
+#~ "Control Entity: OSPy System Enable (ID: select.nameprefix_enable) HASS "
+#~ "\"Select entity\" showing and controlling OSPy System Enable (Values: \"on"
+#~ "\", \"off\"). Setting it to \"off\" will disable all other system "
+#~ "parameters and zone control from HASS."
+#~ msgstr ""
+#~ "Řídicí entita: Povolení systému OSPy (ID: select.nameprefix_enable) HASS "
+#~ "\"Vybrat entitu\" zobrazující a ovládající povolení systému OSPy "
+#~ "(hodnoty: \"zapnuto\", \"vypnuto\"). Nastavení na \"vypnuto\" deaktivuje "
+#~ "všechny ostatní systémové parametry a zónové řízení z HASS."
+
+#~ msgid ""
+#~ "Configuration Entity: OSPy Mode (ID: select.nameprefix_mode) HASS "
+#~ "\"Select entity\" showing and controlling OSPy Mode (Values: \"Automatic"
+#~ "\", \"Manual\")."
+#~ msgstr ""
+#~ "Konfigurační entita: Režim OSPy (ID: select.nameprefix_mode) HASS "
+#~ "\"Vybrat entitu\" zobrazující a ovládající režim OSPy (hodnoty: "
+#~ "\"Automaticky\", \"Ručně\")."
+
+#~ msgid ""
+#~ "Configuration Entity: Rain sensor enable (ID: select."
+#~ "nameprefix_rain_sensor_enable) HASS \"Select entity\" showing and "
+#~ "controlling OSPy Rain sensor enable (Values: \"on\", \"off\"). Same "
+#~ "behavior as \"Use rain sensor\" in OSPy Options webpage."
+#~ msgstr ""
+#~ "Entita konfigurace: Povolení dešťového senzoru (ID: select."
+#~ "nameprefix_rain_sensor_enable) HASS \"Vybrat entitu\" zobrazující a "
+#~ "ovládající OSPy Aktivace dešťového senzoru (hodnoty: \"zapnuto\", "
+#~ "\"vypnuto\"). Stejné chování jako \"Použít dešťový senzor\" na webové "
+#~ "stránce Možnosti OSPy."
+
+#~ msgid ""
+#~ "Configuration Entity: Rain delay timer (ID: number."
+#~ "nameprefix_rain_delay_timer) HASS \"Number entity\" showing and "
+#~ "controlling OSPy Rain delay timer (Range: 0 to 24 hours, Default 0). This "
+#~ "entity has the following JSON attributes and default values when the "
+#~ "timer is active / inactive (default):"
+#~ msgstr ""
+#~ "Konfigurační entita: Časovač zpoždění deště (ID: number."
+#~ "nameprefix_rain_delay_timer) HASS \"Číselná entita\" zobrazující a "
+#~ "ovládající časovač zpoždění OSPy Rain (rozsah: 0 až 24 hodin, výchozí 0). "
+#~ "Tato entita má následující atributy JSON a výchozí hodnoty, pokud je "
+#~ "časovač aktivní/neaktivní (výchozí):"
+
+#~ msgid ""
+#~ "Attribute: state The number of hours as set from OSPy user interface or "
+#~ "MQTT (Default 0)."
+#~ msgstr ""
+#~ "Atribut: state Počet hodin nastavený z uživatelského rozhraní OSPy nebo "
+#~ "MQTT (výchozí 0)."
+
+#~ msgid ""
+#~ "Attribute: start_time Unix time when the delay timer started (Default "
+#~ "\"None\")."
+#~ msgstr ""
+#~ "Atribut: start_time unixový čas, kdy se spustil časovač zpoždění (výchozí "
+#~ "\"None\")."
+
+#~ msgid ""
+#~ "Attribute: duration Total number of seconds of the delay timer (Default "
+#~ "0)."
+#~ msgstr ""
+#~ "Atribut: doba trvání Celkový počet sekund časovače zpoždění (výchozí 0)."
+
+#~ msgid ""
+#~ "Configuration Entity: Water level adjust (ID: number.nameprefix."
+#~ "water_level_adjust) HASS \"Number entity\" showing and controlling OSPy "
+#~ "Water level adjust (Range: 0 to 100 %, Default 100)."
+#~ msgstr ""
+#~ "Konfigurační entita: Nastavení hladiny vody (ID: number.nameprefix."
+#~ "water_level_adjust) HASS \"Číselná entita\" zobrazující a ovládající OSPy "
+#~ "Nastavení hladiny vody (Rozsah: 0 až 100 %, výchozí 100)."
+
+#~ msgid ""
+#~ "Diagnostic Entity: Rain detect sensor (ID: binary_sensor.nameprefix."
+#~ "rain_detect) HASS \"Binary sensor entity\" reporting OSPy Rain sensor "
+#~ "state (Values: \"on\",\"off\")."
+#~ msgstr ""
+#~ "Diagnostická entita: Senzor detekce deště (ID: binary_sensor.nameprefix."
+#~ "rain_detect) HASS \"Binární entita senzoru\" hlásící stav senzoru deště "
+#~ "OSPy (hodnoty: \"zapnuto\",\"vypnuto\")."
+
+#~ msgid ""
+#~ "Diagnostic Entity: Running program (ID: sensor.nameprefix."
+#~ "running_program) HASS \"Sensor entity\" showing OSPy Running program "
+#~ "(Values: \"Manual\", \"Run Once, or program number). Zones controlled "
+#~ "from HASS are shown as \"Run Once\" program."
+#~ msgstr ""
+#~ "Diagnostická entita: Spuštěný program (ID: sensor.nameprefix."
+#~ "running_program) HASS \"Entita senzoru\" zobrazující spuštěný program "
+#~ "OSPy (hodnoty: \"Ruční\", \"Spustit jednou nebo číslo programu\"). Zóny "
+#~ "řízené z HASS jsou zobrazeny jako program \"Spustit jednou\"."
+
+#~ msgid ""
+#~ "Devices: Zone (name: nameprefix - Zxx or nameprefix - station name) MQTT "
+#~ "HASS plugin creates one device per OSPy station (zone). Device name is "
+#~ "nameprefix - Zxx unless option \"Device is Station name\" is checked. The "
+#~ "number of devices will track the number of OSPy \"Stations Extensions\" "
+#~ "set on the Options webpage. Each zone device has a single \"switch\" "
+#~ "entity. Entity:"
+#~ msgstr ""
+#~ "Zařízení: Zóna (name: nameprefix - Zxx nebo nameprefix - název stanice) "
+#~ "MQTT HASS plugin vytvoří jedno zařízení na OSPy stanici (zónu). Název "
+#~ "zařízení je nameprefix - Zxx, pokud není zatržena volba \"Zařízení je "
+#~ "název stanice\". Počet zařízení bude sledovat počet OSPy \"Stations "
+#~ "Extensions\" nastavených na stránce Možnosti. Každé zónové zařízení má "
+#~ "jednu entitu \"přepínače\". Entita:"
+
+#~ msgid ""
+#~ "ID is switch.nameprefix.zxx where xx is a double digit from 01 to the "
+#~ "number of OSPy stations. Entity name and availability will track changes "
+#~ "made on OSPy Stations webpage. This entity has the following JSON "
+#~ "attributes and values:"
+#~ msgstr ""
+#~ "ID je switch.nameprefix.zxx, kde xx je dvouciferné číslo od 01 do počtu "
+#~ "stanic OSPy. Název a dostupnost entity budou sledovat změny provedené na "
+#~ "webové stránce OSPy Stations. Tato entita má následující atributy a "
+#~ "hodnoty JSON:"
+
+#~ msgid ""
+#~ "Attribute: state The actual zone state. Value is \"on\" when active and "
+#~ "\"off\" when inactive."
+#~ msgstr ""
+#~ "Atribut: state Skutečný stav zóny. Hodnota je \"zapnuto\", když je "
+#~ "aktivní, a \"vypnuto\", když je neaktivní."
+
+#~ msgid ""
+#~ "Attribute: start_time Unix time when the zone turned \"on\". If state is "
+#~ "\"off\": Value is \"None\"."
+#~ msgstr ""
+#~ "Atribut: start_time unixový čas, kdy byla zóna zapnuta. Pokud je stav "
+#~ "\"vypnuto\": Hodnota je \"Žádný\"."
+
+#~ msgid ""
+#~ "Attribute: duration Total number of seconds the zone state will be \"on"
+#~ "\". If state is \"on\": Value is the duration as set from a running "
+#~ "program or run once or \"Inf\" if zone is activated from manual mode or "
+#~ "from MQTT HASS switch. If state is \"off\": Value is \"Inf\"."
+#~ msgstr ""
+#~ "Atribut: doba trvání Celkový počet sekund, po které bude stav zóny "
+#~ "\"zapnuto\". Pokud je stav \"zapnuto\": Hodnota je doba trvání nastavená "
+#~ "ze spuštěného programu nebo spuštěná jednorázově nebo \"Inf\", pokud je "
+#~ "zóna aktivována z manuálního režimu nebo z přepínače MQTT HASS. Pokud je "
+#~ "stav \"vypnuto\": Hodnota je \"Inf\"."
+
+#~ msgid ""
+#~ "Attribute: program The program number that turned the zone state to \"on"
+#~ "\". If state is \"on\": Value is program number, \"Run Once\" or \"Manual"
+#~ "\". If state is \"off\": Value is \"None\"."
+#~ msgstr ""
+#~ "Atribut: program Číslo programu, který změnil stav zóny na \"zapnuto\". "
+#~ "Pokud je stav \"zapnuto\": Hodnota je číslo programu, \"Spustit jednou\" "
+#~ "nebo \"Ručně\". Pokud je stav \"vypnuto\": Hodnota je \"Žádný\"."
+
+#~ msgid "Test your setup"
+#~ msgstr "Otestujte své nastavení"
+
+#~ msgid "From HASS and OSPy user interface:"
+#~ msgstr "Z uživatelského rozhraní HASS a OSPy:"
+
+#~ msgid ""
+#~ "Compare the state of select.nameprefix.enable with OSPy web interface "
+#~ "System Enable. Change the system enable from HASS and OSPy to verify that "
+#~ "the state is changed on the other end. When disabled, observe that all "
+#~ "the other HASS system parameters and zone entities are not available in "
+#~ "HASS user interface (grayed)."
+#~ msgstr ""
+#~ "Porovnejte stav select.nameprefix.enable s OSPy web rozhraní System "
+#~ "Enable. Změňte povolení systému z HASS a OSPy, abyste ověřili, že se stav "
+#~ "změnil na druhém konci. Pokud je tato možnost zakázána, všimněte si, že "
+#~ "všechny ostatní systémové parametry HASS a entity zóny nejsou k dispozici "
+#~ "v uživatelském rozhraní HASS (šedě)."
+
+#~ msgid ""
+#~ "With System enable, change one enabled zone state from HASS and verify "
+#~ "the zone state on OSPy webpage. Observe the active program is set to "
+#~ "\"Run Once\" when setting a zone \"on\" from HASS."
+#~ msgstr ""
+#~ "S povolením systému změňte jeden povolený stav zóny z HASS a ověřte stav "
+#~ "zóny na webové stránce OSPy. Všimněte si, že aktivní program je nastaven "
+#~ "na \"Spustit jednou\" při nastavování zóny \"zapnuto\" z HASS."
+
 #~ msgid "{}: OUT OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 #~ msgstr "{}: VYP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 
@@ -20855,9 +20916,6 @@ msgstr "Hotovo."
 
 #~ msgid "Only test! not use"
 #~ msgstr "Pouze test! nepoužívat"
-
-#~ msgid "Water level"
-#~ msgstr "Hladina vody"
 
 #~ msgid "Maximum Water level"
 #~ msgstr "Maximální hladina"
@@ -21056,9 +21114,6 @@ msgstr "Hotovo."
 
 #~ msgid "MQTT Zones Plugin is disabled."
 #~ msgstr "Rozšíření MQTT stanice je zakázáno."
-
-#~ msgid "MQTT Publish Zones topic"
-#~ msgstr "MQTT téma pro stanice"
 
 #~ msgid ""
 #~ "This MQTT Zones plug-in relies on to MQTT, broadcasts the current status "

@@ -949,19 +949,36 @@ def is_fqdn(hostname):
     return all(fqdn.match(label) for label in labels)
 
 
+def ospy_web_url(host=None):
+    """ Return OSPy web server URL """
+    # First:  Valid host setting
+    import socket
+
+    if not is_fqdn(host):
+        # Second: System hostname
+        host = socket.getfqdn()
+        if not is_fqdn(host):
+            # Third : System IP used to connect with MQTT broker
+            host = get_ip('eth0')
+    if not host:
+        return None
+
+    return '{}'.format(host)
+
+
 def get_mem_size(num):
     if num == 0:
-        return '256MB'
+        return _('256MB')
     if num == 1:
-        return '512MB'
+        return _('512MB')
     if num == 2:
-        return '1GB'
+        return _('1GB')
     if num == 3:
-        return '2GB'
+        return _('2GB')
     if num == 4:
-        return '4GB'
+        return _('4GB')
     if num == 5:
-        return '8GB'
+        return _('8GB')
 
 
 def get_rpi_revision_codes():

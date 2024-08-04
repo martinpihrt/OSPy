@@ -477,6 +477,9 @@ div#status {
 
 #nav {
     margin-bottom:16px;
+    display: flex;
+    justify-content: left;   /* center buttons to left*/
+    flex-wrap: wrap;         /* more line if needed */
 }
 
 #nav .button {
@@ -491,8 +494,8 @@ div#status {
     font-weight: 400;
     letter-spacing: normal;
     line-height: 14pt;
-    margin: 4px 4px;
-    padding: 9px 18px;
+    margin: 10px 10px;
+    padding: 12px 22px;
     text-align: center;
     text-decoration: none;
     text-indent: 0px;
@@ -512,97 +515,108 @@ div#status {
 
 #nav .button.ico-here {
     background-color: #FFF !important;
-    height: 50px;
+    height: 40px;
+    width: 40px;
 }
 
 #nav .button.ico-home {
     mask-image: url('home.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-options {
     mask-image: url('settings.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-programs {
     mask-image: url('schedule-time-and-date.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-start {
     mask-image: url('switch.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-plugins {
     mask-image: url('packages.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-log {
     mask-image: url('panel-log.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-stations {
     mask-image: url('relay.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-sensors {
     mask-image: url('sensors.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-help {
     mask-image: url('help.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 #nav .button.ico-logout {
     mask-image: url('logout.svg');
     mask-repeat: no-repeat;
     mask-position: center center;
-    mask-size: 40px 40px;
+    mask-size: 40px 40px; 
+    height: 40px;
+    width: 40px;
     background-color: #000000;
-    height: 45px;
 }
 
 
@@ -1383,6 +1397,7 @@ td.stationSchedule {
     margin: 0 !important;
 }
 
+/******** Navigation Styles for width < 1024px  ********/
 @media only screen and (max-width: 1024px) {
    body {
       font-size: 10pt;
@@ -1505,7 +1520,152 @@ td.stationSchedule {
        td.station_running {
           padding: 10px 1px;
        }
+    }
+
+    #nav .button.ico-here {
+        background-color: #FFF !important;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-home {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-options {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-programs {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-start {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-plugins {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-log {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-stations {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-sensors {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-help {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+    #nav .button.ico-logout {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button {
+        font-size: 14pt;
+        margin: 8px;
+        padding: 12px;
+    }
 }
+
+/******** Styles for width < 600px  ********/
+@media only screen and (max-width: 600px) {
+    #nav .button.ico-here {
+        background-color: #FFF !important;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-home {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-options {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-programs {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-start {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-plugins {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-log {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-stations {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-sensors {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button.ico-help {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+    #nav .button.ico-logout {
+        mask-size: 40px 40px;
+        height: 40px;
+        width: 40px;
+    }
+
+    #nav .button {
+        font-size: 14pt;
+        margin: 8px;
+        padding: 12px;
+    }
 }
 
 /* Canvas container*/

@@ -8,6 +8,7 @@ from blinker import signal
 from threading import Thread
 import datetime
 import time
+import time as time_
 import logging
 import traceback
 from . import i18n 
@@ -30,6 +31,7 @@ internet_available = signal('internet_available')
 internet_not_available = signal('internet_not_available')
 rain_delay_set = signal('rain_delay_set')
 rain_delay_remove = signal('rain_delay_remove')
+core_30_sec_tick = signal('core_30_sec_tick')
 
 
 def report_rain_delay_set():      # send rain delay setuped signal
@@ -62,9 +64,13 @@ def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
     logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet')
 
-pom_last_rain = False          # send signal only if rain change
-pom_last_internet = False      # send signal only if internet change
-pom_last_rain_delay = False    # send signal only if rain delay change
+def report_core_30_sec_tick():
+    core_30_sec_tick.send()       # send core_30_sec_tick signal
+
+pom_last_rain = False             # send signal only if rain change
+pom_last_internet = False         # send signal only if internet change
+pom_last_rain_delay = False       # send signal only if rain delay change
+pom_last_30s_tick = 0             # helper for 30 seconds loop tick
 
 blocking_from_pressurizer = False
 
@@ -406,10 +412,13 @@ class _Scheduler(Thread):
             outputs.relay_output = False
 
     def run(self):
-        # Activate outputs upon start if needed:
+        global pom_last_30s_tick
+        
         current_time = datetime.datetime.now()
         rain = not options.manual_mode and (rain_blocks.block_end() > datetime.datetime.now() or
                                             inputs.rain_sensed())
+
+        # Activate outputs upon start if needed:
         active = log.active_runs()
         for entry in active:
             ignore_rain = stations.get(entry['station']).ignore_rain
@@ -419,6 +428,13 @@ class _Scheduler(Thread):
         while True:
             try:
                 self._check_schedule()
+                millis = int(round(time_.time() * 1000))
+                if (millis - pom_last_30s_tick) >= 30000:   # always send a tick signal after 30 seconds
+                    pom_last_30s_tick = millis
+                    try:
+                        report_core_30_sec_tick()
+                    except:
+                        pass 
             except Exception:
                 logging.warning('Scheduler error:\n' + traceback.format_exc())
             time.sleep(1)
