@@ -2,14 +2,19 @@ OSPy Clean installation
 ====
 We recommend performing a clean installation with the latest version of Python 3+. The first time you start the OSPy (login page), login data (password) will be generated for logging in to the OSPy system. after logging in, it is necessary to change the login details in the settings (options page). These generated credentials are also stored in the OSPy system as your credentials. The next time you log in, the window with the generated login data will no longer be displayed.
 
-USING THE INSTALLATION SCRIPT (prefered):
+USING THE INSTALLATION SCRIPT:
 ===========
 Log into the Pi using SSH or Wifi. Enter or copy-paste the following command:
 * Remember: Commands on the Raspberry Pi are case sensitive.
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
 ```
+And next
+```sh
+sudo bash ospy_setup.sh
+```
+
 The OSPy setup menu will appear
 Optional: Use the arrow keys to move between options. Tap the space bar to select or de-select an option.
 In most cases the default options are recommended..
@@ -19,7 +24,7 @@ Tap the Enter key again to install OSPy.
 Depending on the options selected, the install process may take a few minutes to complete.
 A dialog box will appear when OSPy is installed.
 Tap the Enter key to reboot the Pi.
-After the Pi has rebooted OSPy will be up and running, ready to be connected to your irrigation / sprinkler system and programmed with your irrigation schedules. See Opening the OSPy web interface to get started.
+After the Pi has rebooted OSPy will be up and running, ready to be connected to your OSPy sprinkler system and programmed with your irrigation schedules. See Opening the OSPy web interface to get started.
 
 
 OLDER MANUAL INSTALLATION:

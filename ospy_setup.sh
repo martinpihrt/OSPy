@@ -106,7 +106,7 @@ echo ===== Installing requests for OSPy core =====
 sudo apt install python3-requests -y
 
 
-echo ===== Installing packages for plugins (pillow, qrcode, pygame) =====
+echo ===== Installing packages for plugins pillow qrcode pygame =====
 sudo apt install python3-pillow -y
 sudo apt install python3-qrcode -y
 sudo apt install python3-pygame -y
@@ -114,7 +114,23 @@ sudo apt install python3-pygame -y
 
 echo ===== Installing OSPy =====
 cd $install_location
-git clone https://github.com/martinpihrt/OSPy
+sudo git clone https://github.com/martinpihrt/OSPy
+
+
+echo ===== Installing webpy =====
+# from pipi.org
+cd $install_location
+sudo wget https://files.pythonhosted.org/packages/cd/6e/338a060bb5b52ee8229bdada422eaa5f71b13f8d33467f37f870ed2cae4b/web.py-0.62.tar.gz -O webpy.tar.gz
+sudo tar xf webpy.tar.gz
+sudo cp -r web.py-0.62/web OSPy
+
+
+echo ===== Installing cheroot =====
+# from pipi.org
+cd $install_location
+sudo wget https://files.pythonhosted.org/packages/63/e2/f85981a51281bd30525bf664309332faa7c81782bb49e331af603421dbd1/cheroot-10.0.1.tar.gz -O cheroot.tar.gz
+sudo tar xf cheroot.tar.gz
+sudo cp -r cheroot-10.0.1/cheroot OSPy
 
 
 echo ===== Creating and installing SystemD service =====

@@ -1,29 +1,40 @@
 OSPy Changelog
 ====
+August 08 2024 (v3.0)
+(martinpihrt)<br/>
+Fix SSL in web.py and cheroot, upgrade to latest version. Fix in installation script (ospy_setup.sh)
+
 August 04 2024 (v3.0)
+(martinpihrt)<br/>
 Update signaling plugin (add new signal 30s tick, add new signal airtemphumy updated, add automatic log in textarea). Finished plugin "Home Assistant" for MQTT itegration (With air temp plugin itegration). Updating the Czech language. Fix CSS if is using icons menu. Added to e-mail plugin: OSPy is on the network under the name http(s)://name:port.
 
 July 31 2024 (v3.0)
+(martinpihrt)<br/>
 Added Show icons instead of text in menu to OSPy options. Updating the Czech language.
 
 July 19 2024 (v3.0)
 -----------
+(martinpihrt)<br/>
 Added installation script for easier installation of OSPy. Now you just need to log into your Raspberry pi via SSH and run the script. The script will run the installation wizard and then download the necessary files. Finally, it will run OSPy. The installation is described at https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md. Support for loading graphs and logs from mysql database has been added to wind monitor and ups plugins.
 
 July 17 2024 (v3.0)
 -----------
+(martinpihrt)<br/>
 OSPy - updating the Czech language (new and updated strings) for new Shelly Cloud Integration plugin (data from devices such as temperature, humidity, consumption, status of outputs are loaded from the cloud of the device manufacturer Shelly... Furthermore, these devices will be integrated into OSPy sensors - they can be used for further use in the OSPy system). Fix in Database Connector plugin !removed mariadb and replaced with mysql-connector-python. Now working in the latest version of Linux Debian 12 Bbookworm and Python 3.11! Work is also underway on the MQTT home assistant plugin for integration into the HA system.
 
 July 03 2024 (v3.0)
+(martinpihrt)<br/>
 -----------
 OSPy - updating the Czech language (new and updated strings) for new MQTT Home Assistant plugin (So far only a broken test! Do not use!).
 
 June 27 2024 (v3.0)
 -----------
+(martinpihrt)<br/>
 OSPy - fixed installation error (sudo python3 setup.py install) cmarkgfm, added requirements, paho-mqtt, mariadb. Prepare for home assistant integration: (helpers - Fully qualified domain name, get rpi revision codes). Plugins - added logging dump from local file or sql database (graph and csv logs download at the same time) in Tank monitor. Report about HW board in system info plugin (example print: Raspberry Pi 2B with at least 1GB RAM!).
 
 April 20 2024 (v3.0)
 -----------
+(martinpihrt)<br/>
 Updating the Czech language (new strings) for new ospy backup plugin. Added new plugin "ospy backup". This extension creates a backup of data directories from all available installed extensions in OSPy. Example: "Air Temperature and Humidity Monitor/data". Local records from plugins (for example json files with temperature, etc...) are most often found in the plugins data directories. Backups can be downloaded to our computer (phone) and possibly uploaded back to data directories in specific plugins after unpacking. Backups are in zip format (example: 20240417-201606-PluginsBackup.zip. If possible, store all records from the plugins on to your own database storage (MySQL) instead of in local "data" directories. Not only does this save the Raspberry Pi SD card, but in the event of an OSPy crash, we won't lose the saved data (since it's outside of OSPy in the database). To connect to the database, we can use an extension called: database_connector. Which will ensure the storage of data from our plugins. Update OSPy webcore to latest: more-itertools 10.2.0, cheroot 10.0.0, jaraco.functools 4.0.1, web.py 0.62, jquery 3.7.1.min.js. The plugin "air temp humi" has now saving log into the local file (JSON) or to a remote MySQL database. Further plugins will also be supplemented. Fix in "database plugin". Backup correction in OSPy (if the backup was huge, the backup file in downloading fails).
 
 February 22 2024 (v3.0)
