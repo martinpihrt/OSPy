@@ -383,6 +383,13 @@ class _Options(object):
             "help": _('Log all internal events (for debugging purposes).'),
             "category": _('Logging')
         },
+        {
+            "key": "web_log",
+            "name": _('Enable web log'),
+            "default": False,
+            "help": _('Logging of internal events from the web server (for debugging it is necessary to enable the debug log and then restart OSPy). Deteriorates page loading speed.'),
+            "category": _('Logging')
+        },
         #######################################################################
         # Not in Options page as-is ###########################################
         {

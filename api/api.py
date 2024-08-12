@@ -271,15 +271,19 @@ class Options(object):
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
-        a = web.input().get('annotated', '').lower()
-        if a in ['true', 'yes', 'annotated', '1']:
-            opts = {o: {'value': options[o]} for o in self.ANNOTATED_OPTIONS}
-            for k in opts.keys():
-                # "inject" current option value into the dictionary under "value"
-                opts[k].update(self.ANNOTATED_OPTIONS[k])
-            return opts
-        else:
-            return {opt: options[opt] for opt in options.get_options() if opt not in self.EXCLUDED_OPTIONS}
+        try:
+            a = web.input().get('annotated', '').lower()
+            if a in ['true', 'yes', 'annotated', '1']:
+                opts = {o: {'value': options[o]} for o in self.ANNOTATED_OPTIONS}
+                for k in opts.keys():
+                    # "inject" current option value into the dictionary under "value"
+                    opts[k].update(self.ANNOTATED_OPTIONS[k])
+                return opts
+            else:
+                return {opt: options[opt] for opt in options.get_options() if opt not in self.EXCLUDED_OPTIONS}
+        except:
+            log.error('api.py', traceback.format_exc())
+            return {}
 
     @auth
     @permission
@@ -308,7 +312,9 @@ class Options(object):
 class Logs(object):
 
     def _runlog_to_dict(self, log_entry):
-        return {
+        data = {}
+        try:
+            return {
             'start': str(log_entry['start']),
             'end': str(log_entry['end']),
             'duration': str(log_entry['end'] - log_entry['start']).split('.')[0],  # pass it as a baked string to the client
@@ -317,13 +323,20 @@ class Logs(object):
             'station_name': stations[log_entry['station']].name,
             'program_id': log_entry['program'],
             'program_name': log_entry['program_name'],
-        }
+            }
+        except:
+            log.error('api.py', traceback.format_exc())
+            return data
 
     @auth
     @does_json
     def GET(self):
         log.debug('api.py', 'GET logs ' + self.__class__.__name__)
-        return [self._runlog_to_dict(fr) for fr in log.finished_runs()]
+        try:
+            return [self._runlog_to_dict(fr) for fr in log.finished_runs()]
+        except:
+            log.error('api.py', traceback.format_exc())
+            return []
         # web.header('Cache-Control', 'no-cache')
         # web.header('Content-Type', 'application/json')
         # web.header('Access-Control-Allow-Origin', '*')
@@ -350,7 +363,9 @@ class System(object):
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
-        return {
+        data = {}
+        try:
+            return {
             'version': version.ver_str,
             'CPU_temperature': helpers.get_cpu_temp(options.temp_unit),
             'release_date': version.ver_date,
@@ -358,7 +373,11 @@ class System(object):
             'platform': helpers.determine_platform(),
             'rpi_revision': helpers.get_rpi_revision(),
             'total_adjustment': level_adjustments.total_adjustment()
-        }
+            }
+        except:
+            log.error('api.py', traceback.format_exc())
+            return data
+
 
     @auth
     @permission
@@ -390,7 +409,9 @@ class System(object):
 
 class Sensors(object):
     def _convert(self, sensor):
-        return {
+        data = {}
+        try:
+            return {
             'id':int(sensor.index),
             'enabled': True if sensor.enabled else False,
             'senstype': sensor.sens_type,
@@ -435,13 +456,15 @@ class Sensors(object):
             'soil_calibration_min': sensor.soil_calibration_min,
             'soil_calibration_max': sensor.soil_calibration_max,
             'soil_program': sensor.soil_program
-        }
+            }
+        except:
+            log.error('api.py', traceback.format_exc())
+            return data
 
     @does_json
     def GET(self, sensor_id=None):
         try:
             log.debug('api.py', ('GET /sensors/{}').format(sensor_id if sensor_id else ''))
-
             if sensor_id:
                 id = int(sensor_id)
                 if(id < sensors.count()):
@@ -454,7 +477,7 @@ class Sensors(object):
                     return (self._convert(sensor))
         except:
             log.error('api.py', traceback.format_exc())
-            pass
+            return []
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
@@ -477,6 +500,7 @@ class Sensor(object):
                 log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
             except:
                 jqdict = {}
+                log.error('api.py', traceback.format_exc())
                 pass
 
             if 'ip' and 'mac' in jqdict:
@@ -705,12 +729,6 @@ class Sensor(object):
                 except:
                     log.error('api.py', traceback.format_exc())
                     pass
-                    
-            else:
-                log.error('api.py', traceback.format_exc())
-                pass
-                raise badrequest()
-
         except:
             log.error('api.py', traceback.format_exc())
             pass                            
@@ -726,10 +744,14 @@ class User(object):
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
-        return {
+        try:
+            return {
             'user': server.session['visitor'],
             'category': server.session['category']
-        }
+            }
+        except:
+            log.error('api.py', traceback.format_exc())
+            return {}
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
@@ -743,13 +765,18 @@ class Balances(object):
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
         statuslist = []
-        epoch = datetime.date(1970, 1, 1)
+        try:
+            epoch = datetime.date(1970, 1, 1)
 
-        for station in stations.get():
-            if station.enabled and any(station.index in program.stations for program in programs.get()):
-                statuslist.append({
-                    'station': station.name,
-                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
+            for station in stations.get():
+                if station.enabled and any(station.index in program.stations for program in programs.get()):
+                    statuslist.append({
+                        'station': station.name,
+                        'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
+        except:
+            log.error('api.py', traceback.format_exc())
+            pass
+
         return statuslist
 
     def OPTIONS(self):
@@ -763,23 +790,24 @@ class PluginFooter(object):
     @does_json
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
-        from ospy.webpages import pluginFtr, pluginStn
-
-        footer_data = []   # Enables plugins to display in the footer of OSPys UI
-        #station_data = [] # Used to display plugin data next to station time countdown on home page timeline.
-        sensor_data = []
         data = {}
+        try:
+            from ospy.webpages import pluginFtr, pluginStn
 
-        for i, v in enumerate(pluginFtr):
-            footer_data.append((i, v["label"], v["val"], v["unit"], v["button"]))
-        data["fdata"] = footer_data
-            
-        #for v in pluginStn:
-        #    station_data.append((v[1]))
-        #data["sdata"] = station_data
+            footer_data = []   # Enables plugins to display in the footer of OSPys UI
+            sensor_data = []   # Enables sensors to display in the footer of OSPys UI
 
-        sensor_data = sensors_timer.read_status()
-        data["sendata"] = sensor_data
+            for i, v in enumerate(pluginFtr):
+                footer_data.append((i, v["label"], v["val"], v["unit"], v["button"]))
+            data["fdata"] = footer_data
+
+            sensor_data = sensors_timer.read_status()
+            data["sendata"] = sensor_data
+            return data
+
+        except:
+            log.error('api.py', traceback.format_exc())
+            pass
 
         return data
 
@@ -796,20 +824,23 @@ class Runonce(object):
     @does_json
     def POST(self, station_id=None):
         log.debug('api.py', ('POST /runonce/{}').format(station_id if station_id else ''))
-        station_time = int(web.input().get('time', '').lower())
-        station_id = int(station_id)
-        if station_time:
-            station_seconds = {}
-            for station in stations.enabled_stations():
-                if station.index == station_id:
-                    station_seconds[station.index] = station_time
-                else:
-                    station_seconds[station.index] = 0
-            run_once.set(station_seconds)
-            log.debug('api.py',  _('Runonce station id: {},  run time: {}').format(station_id, station_time))
-
-        else:
-            log.error('api.py',  _('Unknown runonce action'))
+        try:
+            station_time = int(web.input().get('time', '').lower())
+            station_id = int(station_id)
+            if station_time:
+                station_seconds = {}
+                for station in stations.enabled_stations():
+                    if station.index == station_id:
+                        station_seconds[station.index] = station_time
+                    else:
+                        station_seconds[station.index] = 0
+                run_once.set(station_seconds)
+                log.debug('api.py',  _('Runonce station id: {},  run time: {}').format(station_id, station_time))
+            else:
+                log.error('api.py',  _('Unknown runonce action'))
+                raise badrequest()
+        except:
+            log.error('api.py', traceback.format_exc())
             raise badrequest()
 
         return 'OK'

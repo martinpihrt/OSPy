@@ -1,5 +1,9 @@
 OSPy Changelog
 ====
+August 12 2024 (v3.0)
+(martinpihrt)<br/>
+The back_door.py file has been added to the OSPy folder, which allows logging into OSPy in case we cannot log in (or do not know the password). We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The default name and password to run the sudo python3 back_door.py file will be admin/admin. Added astral folder for sunrise and sunset plugin to OSPy (also added to OSPy installer). Fix in the air_temp_humi plugin with displaying the log from a local file (when viewing from the sql database, the log was displayed, when viewing from the local file it was not displayed). There is a fly (bug) in the webserver system that causes the site to crash randomly (internal server error 500). I know about the bug and I am looking for the cause. The problem is that there is no logging available for these errors (I don't know what causes the error: plugin, sensor, web page...). When the error occurs, only the server is not running, but the other parts of the system are functional (scheduler...) When an error occurs, the ospy service must be restarted (sudo service ospy restart). If any user notices what can cause the error, please give me feedback.
+
 August 08 2024 (v3.0)
 (martinpihrt)<br/>
 Fix SSL in web.py and cheroot, upgrade to latest version. Fix in installation script (ospy_setup.sh)

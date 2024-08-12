@@ -2235,38 +2235,40 @@ class api_status_json(ProtectedPage):
 
     def GET(self):
         statuslist = []
-        for station in stations.get():
-            if station.enabled or station.is_master or station.is_master_two: 
-                status = {
-                    'station': station.index,
-                    'status': 'on' if station.active else 'off',
-                    'reason': 'master' if station.is_master or station.is_master_two else '',
-                    'master': 1 if station.is_master else 0,
-                    'master_two': 1 if station.is_master_two else 0,
-                    'programName': '',
-                    'remaining': 0}
+        try:
+            for station in stations.get():
+                if station.enabled or station.is_master or station.is_master_two: 
+                    status = {
+                        'station': station.index,
+                        'status': 'on' if station.active else 'off',
+                        'reason': 'master' if station.is_master or station.is_master_two else '',
+                        'master': 1 if station.is_master else 0,
+                        'master_two': 1 if station.is_master_two else 0,
+                        'programName': '',
+                        'remaining': 0}
 
-                if not station.is_master or not station.is_master_two:
-                    if options.manual_mode:
-                        status['programName'] = 'Manual Mode'
-                    else:
-                        if station.active:
-                            active = log.active_runs()
-                            for interval in active:
-                                if not interval['blocked'] and interval['station'] == station.index:
-                                    status['programName'] = interval['program_name']
-
-                                    status['reason'] = 'program'
-                                    status['remaining'] = max(0, (interval['end'] -
+                    if not station.is_master or not station.is_master_two:
+                        if options.manual_mode:
+                            status['programName'] = 'Manual Mode'
+                        else:
+                            if station.active:
+                                active = log.active_runs()
+                                for interval in active:
+                                    if not interval['blocked'] and interval['station'] == station.index:
+                                        status['programName'] = interval['program_name']
+                                        status['reason'] = 'program'
+                                        status['remaining'] = max(0, (interval['end'] -
                                                                   datetime.datetime.now()).total_seconds())
-                        elif not options.scheduler_enabled:
-                            status['reason'] = 'system_off'
-                        elif not station.ignore_rain and inputs.rain_sensed():
-                            status['reason'] = 'rain_sensed'
-                        elif not station.ignore_rain and rain_blocks.seconds_left():
-                            status['reason'] = 'rain_delay'
+                            elif not options.scheduler_enabled:
+                                status['reason'] = 'system_off'
+                            elif not station.ignore_rain and inputs.rain_sensed():
+                                status['reason'] = 'rain_sensed'
+                            elif not station.ignore_rain and rain_blocks.seconds_left():
+                                status['reason'] = 'rain_delay'
 
-                statuslist.append(status)
+                    statuslist.append(status)
+        except:
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(statuslist)
@@ -2278,19 +2280,22 @@ class api_log_json(ProtectedPage):
     def GET(self):
         qdict = web.input()
         data = []
-        if 'date' in qdict:
-            # date parameter filters the log values returned; "yyyy-mm-dd" format
-            date = datetime.datetime.strptime(qdict['date'], "%Y-%m-%d").date()
-            check_start = datetime.datetime.combine(date, datetime.time.min)
-            check_end = datetime.datetime.combine(date, datetime.time.max)
-            log_start = check_start - datetime.timedelta(days=1)
-            log_end = check_end + datetime.timedelta(days=1)
+        try:
+            if 'date' in qdict:
+                # date parameter filters the log values returned; "yyyy-mm-dd" format
+                date = datetime.datetime.strptime(qdict['date'], "%Y-%m-%d").date()
+                check_start = datetime.datetime.combine(date, datetime.time.min)
+                check_end = datetime.datetime.combine(date, datetime.time.max)
+                log_start = check_start - datetime.timedelta(days=1)
+                log_end = check_end + datetime.timedelta(days=1)
 
-            events = scheduler.combined_schedule(log_start, log_end)
-            for interval in events:
-                # Return only records that are visible on this day:
-                if check_start <= interval['start'] <= check_end or check_start <= interval['end'] <= check_end:
-                    data.append(self._convert(interval))
+                events = scheduler.combined_schedule(log_start, log_end)
+                for interval in events:
+                    # Return only records that are visible on this day:
+                    if check_start <= interval['start'] <= check_end or check_start <= interval['end'] <= check_end:
+                        data.append(self._convert(interval))
+        except:
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
@@ -2318,13 +2323,16 @@ class api_balance_json(ProtectedPage):
 
     def GET(self):
         statuslist = []
-        epoch = datetime.date(1970, 1, 1)
+        try:
+            epoch = datetime.date(1970, 1, 1)
 
-        for station in stations.get():
-            if station.enabled and any(station.index in program.stations for program in programs.get()):
-                statuslist.append({
-                    'station': station.name,
-                    'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
+            for station in stations.get():
+                if station.enabled and any(station.index in program.stations for program in programs.get()):
+                    statuslist.append({
+                        'station': station.name,
+                        'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
+        except:
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(statuslist, indent=2)
@@ -2442,19 +2450,22 @@ class api_plugin_data(ProtectedPage):
         sensor_data = []
         data = {}
 
-        if options.show_plugin_data:
-            for i, v in enumerate(pluginFtr):
-                footer_data.append((i, v["val"]))
-            for v in pluginStn:
-                station_data.append((v[0], v[1]))
+        try:
+            if options.show_plugin_data:
+                for i, v in enumerate(pluginFtr):
+                    footer_data.append((i, v["val"]))
+                for v in pluginStn:
+                    station_data.append((v[0], v[1]))
 
-        if options.show_sensor_data: 
-            from ospy.sensors import sensors_timer 
-            sensor_data = sensors_timer.read_status()
+            if options.show_sensor_data: 
+                from ospy.sensors import sensors_timer 
+                sensor_data = sensors_timer.read_status()
 
-        data["fdata"] = footer_data
-        data["sdata"] = station_data
-        data["sendata"] = sensor_data
+            data["fdata"] = footer_data
+            data["sdata"] = station_data
+            data["sendata"] = sensor_data
+        except:
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
@@ -2480,15 +2491,14 @@ class api_update_status(ProtectedPage):
         running_list = plugins.running()
         current_info = options.plugin_status
 
-        for plugin in plugins.available():
-            running = plugin in running_list
-            available_info = plugins.checker.available_version(plugin)
-            if available_info is not None:
-                if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
-                    pl_data.append((must_update, plugins.plugin_name(plugin)))
-                    must_update += 1
-
-        if options.use_plugin_update is not None:             # if the update is not enabled in the plugins settings, the window with an available update will not pop up on the home page. 
+        if options.use_plugin_update:
+            for plugin in plugins.available():
+                running = plugin in running_list
+                available_info = plugins.checker.available_version(plugin)
+                if available_info is not None:
+                    if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
+                        pl_data.append((must_update, plugins.plugin_name(plugin)))
+                        must_update += 1
             data["plugin_name"]   = pl_data                   # name of plugins where must be updated
             data["plugins_state"] = must_update               # status whether it is necessary to update the plugins (count plugins)
         else:
@@ -2496,7 +2506,7 @@ class api_update_status(ProtectedPage):
             data["plugins_state"] = 0
 
         try:
-            if options.use_plugin_update is not None:         # if the update is not enabled in the plugins settings, the window with an available update will not pop up on the home page.
+            if options.use_plugin_update:                     # if the update is not enabled in the plugins settings, the window with an available update will not pop up on the home page.
                 from plugins import system_update
                 os_state = system_update.get_all_values()[0]  # 0 = Plugin is not enabled, 1= Up-to-date, 2= New OSPy version is available,
                 os_avail = system_update.get_all_values()[1]  # Available new OSPy version
@@ -2527,10 +2537,15 @@ class api_update_footer(ProtectedPage):
         from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage, get_external_ip
         
         data = {}
-        data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
-        data["cpu_usage"]   = get_cpu_usage()
-        data["sys_uptime"]  = uptime()
-        data["ip"]          = get_external_ip()
+        try:
+            data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
+            data["cpu_usage"]   = get_cpu_usage()
+            data["sys_uptime"]  = uptime()
+            data["ip"]          = get_external_ip()
+        except:
+            print_report('webpages.py', traceback.format_exc())
+            log.error('webpages.py', traceback.format_exc())
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(data)   
@@ -2541,13 +2556,18 @@ class api_search_sensors(ProtectedPage):
 
     def GET(self):
         from ospy.server import session
+        searchData = []
 
         if session['category'] != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
         
-        searchData = []
-        searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
+        try:
+            searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
+        except:
+            print_report('webpages.py', traceback.format_exc())
+            log.error('webpages.py', traceback.format_exc())
+            pass
 
         web.header('Content-Type', 'application/json')
         return json.dumps(searchData)

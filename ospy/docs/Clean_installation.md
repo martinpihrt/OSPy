@@ -8,7 +8,7 @@ Log into the Pi using SSH or Wifi. Enter or copy-paste the following command:
 * Remember: Commands on the Raspberry Pi are case sensitive.
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
 ```
 And next
 ```sh
@@ -79,6 +79,9 @@ If you can't log in:
 
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/generatedlogin.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/generatedlogin.png)</br>
 
+
+We can delete the OSPy password and username by running the file in the OSPy folder (OSPy/back_door.py)
+The back_door.py file allows logging into OSPy in case we can't log in (or don't know the password). We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The default name and password to run the sudo python3 back_door.py file will be admin/admin.
 
 
 MANUAL OSPY UPDATE

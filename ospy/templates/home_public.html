@@ -392,6 +392,7 @@ jQuery(document).ready(function(){
 
 </script>
 
+<div id="graph-container" class="graph-container">
 <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
     $if len([v for v in level_adjustments.values() if abs(v-1) > 0.001]) > 0:
         <b>$_('Water Level adjustments')</b>
@@ -424,6 +425,7 @@ jQuery(document).ready(function(){
                         <td class="adjValue">$(round(adj, 2))%</td>
                     </tr>
         </table>
+</div>
 </div>
 <div id="stationsdiv">
     <div id="programmode">

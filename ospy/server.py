@@ -95,21 +95,24 @@ def start():
     import time
     
     if net_connect():
-        log.debug('server.py', _(u'Network connection is available, Im skipping waiting.'))
+        log.debug('server.py', _('Network connection is available, Im skipping waiting.'))
     else:
-        log.debug('server.py', _(u'Network connection not available, waiting 20 seconds.'))
+        log.debug('server.py', _('Network connection not available, waiting 20 seconds.'))
         wait = 20
         while(wait > 0):
             wait = wait-1
             time.sleep(1)
             if net_connect():
                 break
-                log.debug('server.py', _(u'Network connection is available.'))
+                log.debug('server.py', _('Network connection is available.'))
 
     ##############################
     #### web.py setup         ####
     ##############################
-    web.config.debug = False  # Improves page load speed
+    if options.web_log:
+        web.config.debug = True   # Deteriorates page loading speed
+    else:
+        web.config.debug = False  # Improves page load speed
 
     #### SSL for https #### http://webpy.org/cookbook/ssl  
 

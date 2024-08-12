@@ -133,6 +133,14 @@ sudo tar xf cheroot.tar.gz
 sudo cp -r cheroot-10.0.1/cheroot OSPy
 
 
+echo ===== Installing astral from plugin sunrise_and_sunset =====
+# from pipi.org
+cd $install_location
+sudo wget https://files.pythonhosted.org/packages/04/d1/1adbf06a38dc339e41a1666f6c7135924594c20fd46e060fb263248c564d/astral-3.2.tar.gz -O astral.tar.gz
+sudo tar xf astral.tar.gz
+sudo cp -r astral-3.2/src/astral OSPy
+
+
 echo ===== Creating and installing SystemD service =====
 cat << EOF >> /tmp/ospy.service
 #Service for OSPy running on a SystemD service

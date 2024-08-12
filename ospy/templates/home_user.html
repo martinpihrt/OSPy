@@ -443,7 +443,7 @@ jQuery(document).ready(function(){
 
 </script>
 
-
+<div id="graph-container" class="graph-container">
 <div id="options" style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
     <a href="javascript:water_level_prompt(${options.level_adjustment});" class="button toggle choice ${'on' if options.level_adjustment==1.0 else 'off'}" title=$:{json.dumps(_(u'Add or subtract the total program run time in % of time'), ensure_ascii=False)}><span class='toggleleft'>$_('Normal')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>${_('Water Level') if options.level_adjustment==1.0 else str(round(options.level_adjustment*100, 2)) + _('% Level')}</span></a>
     <br>
@@ -492,6 +492,7 @@ jQuery(document).ready(function(){
                         <td class="adjValue">$(round(adj, 2))%</td>
                     </tr>
         </table>
+</div>
 </div>
 <div id="stationsdiv">
 $if options.manual_mode:
