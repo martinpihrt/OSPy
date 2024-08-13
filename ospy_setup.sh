@@ -1,11 +1,13 @@
 
 #! /bin/bash
-###
+###################################################################################################
 # script: easy install OSPy and requirements on a fresh Debian version: 12 (bookworm) Pi image
-# by: Gerard ported to ospy Martin Pihrt
-# version: 0.96
-# usage:  curl -sSL https://github.com/martinpihrt/OSPy/ospy_setup/-/raw/main/ospy_setup.sh | sudo bash
-###
+# by: Gerard ported to ospy Martin Pihrt 2024
+# version: 1.0
+# usage:
+# 1) download:  wget https://github.com/martinpihrt/OSPy/ospy_setup/-/raw/main/ospy_setup.sh
+# 2) run: sudo bash ospy_setup.sh
+###################################################################################################
 
 
 if [[ $(id -u) -gt 0 ]]
@@ -21,14 +23,16 @@ do_i2c=false
 do_mqtt=false
 do_user_grp=false
 do_log2ram=false
+do_sql_connector=false
 install_location="/opt"
 
-CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist  "Choose install options" 12 45 5 \
+CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist  "Choose install options" 12 45 6 \
  "1" "Update system (recommended)" ON \
  "2" "Enable i2c" ON \
- "3" "Install MQTT broker" OFF \
+ "3" "Install MQTT broker" ON \
  "4" "Adjust user permissions" ON \
- "5" "Install log2ram" ON 3>&1 1>&2 2>&3)
+ "5" "Install log2ram" ON \
+ "6" "Install SQL connector" ON 3>&1 1>&2 2>&3)
 
 if [ -z "$CHOICES" ]; then
   echo "No option was selected or cancelled. Stopping script."
@@ -51,6 +55,9 @@ else
     "5")
       do_log2ram=true
       ;;
+    "6")
+      do_sql_connector=true
+      ;;  
     *)
       echo "Unsupported item $CHOICE!" >&2
       exit 1
@@ -172,6 +179,17 @@ if [ "$do_log2ram" = true ]; then
   sed -i "s/40M/100M/g" /etc/log2ram.conf
   cd ~
 fi
+
+
+if [ "$do_sql_connector" = true ]; then
+  echo ===== Installing SQL connector =====
+  cd $install_location
+  wget https://files.pythonhosted.org/packages/f3/ec/3c94822a25548613949ea23444fe335ca9ad96e9155832ce57fdcf37c3c5/mysql-connector-python-9.0.0.tar.gz -O sql_connector.tar.gz
+  tar xf sql_connector.tar.gz
+  sudo cp -r mysql-connector-python-9.0.0/mysql OSPy
+  cd ~
+fi
+
 
 echo ===== Done installing OSPy and requirements. Please check the output above and reboot the Pi =====
 

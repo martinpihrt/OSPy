@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-08-04 15:37+0200\n"
+"POT-Creation-Date: 2024-08-13 14:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,43 +51,43 @@ msgstr ""
 msgid "Unknown program action: {}"
 msgstr ""
 
-#: api/api.py:296
+#: api/api.py:300
 msgid "Error updating {} to {}"
 msgstr ""
 
-#: api/api.py:299
+#: api/api.py:303
 msgid "Skipping key {}"
 msgstr ""
 
-#: api/api.py:371
+#: api/api.py:390
 msgid "System reboot requested via API"
 msgstr ""
 
-#: api/api.py:375
+#: api/api.py:394
 msgid "OSPy service restart requested via API"
 msgstr ""
 
-#: api/api.py:379
+#: api/api.py:398
 msgid "System poweroff requested via API"
 msgstr ""
 
-#: api/api.py:383
+#: api/api.py:402
 msgid "Unknown system action: {}"
 msgstr ""
 
-#: api/api.py:477
+#: api/api.py:500
 msgid "Sensor input IP: {} MAC: {}."
 msgstr ""
 
-#: api/api.py:670
+#: api/api.py:694
 msgid "Input for sensor: {} successfully."
 msgstr ""
 
-#: api/api.py:809
+#: api/api.py:838
 msgid "Runonce station id: {},  run time: {}"
 msgstr ""
 
-#: api/api.py:812
+#: api/api.py:840
 msgid "Unknown runonce action"
 msgstr ""
 
@@ -171,8 +171,8 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-#: ospy/helpers.py:251 ospy/templates/home_admin.html:467
-#: ospy/templates/home_public.html:401 ospy/templates/home_user.html:469
+#: ospy/helpers.py:251 ospy/templates/home_admin.html:468
+#: ospy/templates/home_public.html:402 ospy/templates/home_user.html:469
 #: ospy/templates/user.html:43 ospy/templates/user.html:66
 #: ospy/templates/users.html:30
 msgid "User"
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)"
 msgstr ""
 
-#: ospy/options.py:205 ospy/templates/base.html:265
+#: ospy/options.py:205 ospy/templates/base.html:266
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
@@ -631,7 +631,7 @@ msgid "Rain Sensor"
 msgstr ""
 
 #: ospy/options.py:299
-#: plugins/pressure_monitor/templates/pressure_monitor.html:221
+#: plugins/pressure_monitor/templates/pressure_monitor.html:228
 msgid "Normally open"
 msgstr ""
 
@@ -665,10 +665,10 @@ msgstr ""
 
 #: ospy/options.py:327 ospy/options.py:334 ospy/options.py:343
 #: ospy/options.py:350 ospy/options.py:359 ospy/options.py:366
-#: ospy/options.py:375 ospy/options.py:384 ospy/templates/log.html:28
-#: ospy/templates/log.html:57 ospy/templates/log.html:86
-#: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
-#: ospy/templates/log_user.html:77
+#: ospy/options.py:375 ospy/options.py:384 ospy/options.py:391
+#: ospy/templates/log.html:28 ospy/templates/log.html:57
+#: ospy/templates/log.html:86 ospy/templates/log_user.html:18
+#: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 msgid "Logging"
 msgstr ""
 
@@ -728,148 +728,156 @@ msgstr ""
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
+#: ospy/options.py:388
+msgid "Enable web log"
+msgstr ""
+
 #: ospy/options.py:390
+msgid "Logging of internal events from the web server (for debugging it is necessary to enable the debug log and then restart OSPy). Deteriorates page loading speed."
+msgstr ""
+
+#: ospy/options.py:397
 msgid "New installation generated password hash"
 msgstr ""
 
-#: ospy/options.py:395
+#: ospy/options.py:402
 msgid "New installation"
 msgstr ""
 
-#: ospy/options.py:400 plugins/button_control/templates/button_control.html:63
+#: ospy/options.py:407 plugins/button_control/templates/button_control.html:63
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:405 plugins/mqtt_home_assistant/__init__.py:604
+#: ospy/options.py:412 plugins/mqtt_home_assistant/__init__.py:649
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:410
+#: ospy/options.py:417
 msgid "Image resolution"
 msgstr ""
 
-#: ospy/options.py:415
+#: ospy/options.py:422
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:420
+#: ospy/options.py:427
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:425
+#: ospy/options.py:432
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:430
+#: ospy/options.py:437
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:435
+#: ospy/options.py:442
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:440
+#: ospy/options.py:447
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:445
+#: ospy/options.py:452
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:450
+#: ospy/options.py:457
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:455
+#: ospy/options.py:462
 msgid "The events that have been logged"
 msgstr ""
 
-#: ospy/options.py:460
+#: ospy/options.py:467
 msgid "ETo and rain value cache"
 msgstr ""
 
-#: ospy/options.py:465
+#: ospy/options.py:472
 msgid "Location latitude"
 msgstr ""
 
-#: ospy/options.py:470
+#: ospy/options.py:477
 msgid "Location longtitude"
 msgstr ""
 
-#: ospy/options.py:475
+#: ospy/options.py:482
 msgid "Weather status"
 msgstr ""
 
-#: ospy/options.py:480
+#: ospy/options.py:487
 msgid "Graph histories"
 msgstr ""
 
-#: ospy/options.py:485 ospy/templates/graph_sensor.html:187
+#: ospy/options.py:492 ospy/templates/graph_sensor.html:187
 #: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:490
+#: ospy/options.py:497
 msgid "Filter for logs - event: server"
 msgstr ""
 
-#: ospy/options.py:495
+#: ospy/options.py:502
 msgid "Filter for logs - event: rain sensor"
 msgstr ""
 
-#: ospy/options.py:500
+#: ospy/options.py:507
 msgid "Filter for logs - event: rain delay"
 msgstr ""
 
-#: ospy/options.py:505
+#: ospy/options.py:512
 msgid "Filter for logs - event: internet not found"
 msgstr ""
 
-#: ospy/options.py:510
+#: ospy/options.py:517
 msgid "Filter for logs - event: user login"
 msgstr ""
 
-#: ospy/options.py:515
+#: ospy/options.py:522
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:686
+#: ospy/options.py:693
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:711
+#: ospy/options.py:718
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:720
+#: ospy/options.py:727
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:726
+#: ospy/options.py:733
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:731
+#: ospy/options.py:738
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:736
+#: ospy/options.py:743
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:742
+#: ospy/options.py:749
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:745
+#: ospy/options.py:752
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:750
+#: ospy/options.py:757
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:752
+#: ospy/options.py:759
 msgid ""
 "Saving error:\n"
 msgstr ""
@@ -916,7 +924,7 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:139
 #: plugins/email_notifications_ssl/__init__.py:136
 #: plugins/email_notifications_ssl/__init__.py:141
-#: plugins/sms_adj/__init__.py:411
+#: plugins/mqtt_home_assistant/__init__.py:542 plugins/sms_adj/__init__.py:411
 msgid "Program"
 msgstr ""
 
@@ -1005,8 +1013,8 @@ msgid "Starting:"
 msgstr ""
 
 #: ospy/programs.py:289 ospy/templates/home_admin.html:90
-#: ospy/templates/home_admin.html:534 ospy/templates/home_public.html:90
-#: ospy/templates/home_user.html:90 ospy/templates/home_user.html:536
+#: ospy/templates/home_admin.html:536 ospy/templates/home_public.html:90
+#: ospy/templates/home_user.html:90 ospy/templates/home_user.html:537
 msgid "For"
 msgstr ""
 
@@ -1050,58 +1058,58 @@ msgstr ""
 msgid "Creating run-now program"
 msgstr ""
 
-#: ospy/runonce.py:10 ospy/scheduler.py:123 ospy/templates/runonce.html:3
+#: ospy/runonce.py:10 ospy/scheduler.py:129 ospy/templates/runonce.html:3
 msgid "Run-Once"
 msgstr ""
 
-#: ospy/scheduler.py:40
+#: ospy/scheduler.py:42
 msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr ""
 
-#: ospy/scheduler.py:40 ospy/scheduler.py:44 ospy/scheduler.py:51
+#: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/scheduler.py:53
 #: ospy/sensors.py:1280 ospy/webpages.py:1324
-#: plugins/mqtt_home_assistant/__init__.py:601
+#: plugins/mqtt_home_assistant/__init__.py:646
 msgid "Rain delay"
 msgstr ""
 
-#: ospy/scheduler.py:44 plugins/signaling_examples/__init__.py:248
+#: ospy/scheduler.py:46 plugins/signaling_examples/__init__.py:248
 msgid "Rain delay has now been removed"
 msgstr ""
 
-#: ospy/scheduler.py:48
+#: ospy/scheduler.py:50
 msgid "Activated"
 msgstr ""
 
-#: ospy/scheduler.py:48 ospy/scheduler.py:55
-#: plugins/mqtt_home_assistant/__init__.py:605
+#: ospy/scheduler.py:50 ospy/scheduler.py:57
+#: plugins/mqtt_home_assistant/__init__.py:650
 msgid "Rain sensor"
 msgstr ""
 
-#: ospy/scheduler.py:51
+#: ospy/scheduler.py:53
 msgid "Rain sensor has set a delay {} hours"
 msgstr ""
 
-#: ospy/scheduler.py:55
+#: ospy/scheduler.py:57
 msgid "Deactivated"
 msgstr ""
 
-#: ospy/scheduler.py:59 ospy/scheduler.py:63
+#: ospy/scheduler.py:61 ospy/scheduler.py:65
 msgid "Connection"
 msgstr ""
 
-#: ospy/scheduler.py:59 plugins/signaling_examples/__init__.py:236
+#: ospy/scheduler.py:61 plugins/signaling_examples/__init__.py:236
 msgid "Internet is available (external IP)"
 msgstr ""
 
-#: ospy/scheduler.py:63 plugins/signaling_examples/__init__.py:240
+#: ospy/scheduler.py:65 plugins/signaling_examples/__init__.py:240
 msgid "Internet is not available (external IP)"
 msgstr ""
 
-#: ospy/scheduler.py:153
+#: ospy/scheduler.py:159
 msgid "Run-Now"
 msgstr ""
 
-#: ospy/scheduler.py:358
+#: ospy/scheduler.py:364
 msgid "Could not schedule {}."
 msgstr ""
 
@@ -1147,7 +1155,7 @@ msgstr ""
 msgid "Removing sensor id: {}"
 msgstr ""
 
-#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:172
+#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:352
 msgid "E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped."
 msgstr ""
@@ -1186,7 +1194,7 @@ msgid "Updating sensor log to file successfully."
 msgstr ""
 
 #: ospy/sensors.py:577 plugins/button_control/__init__.py:284
-#: plugins/pressure_monitor/__init__.py:303
+#: plugins/pressure_monitor/__init__.py:306
 #: plugins/tank_monitor/__init__.py:819 plugins/wind_monitor/__init__.py:409
 msgid "Stoping stations in scheduler"
 msgstr ""
@@ -1309,10 +1317,10 @@ msgstr ""
 #: ospy/sensors.py:943 ospy/templates/graph_sensor.html:6
 #: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:239
 #: ospy/templates/sensors.html:49 ospy/templates/sensors_search.html:40
-#: plugins/air_temp_humi/__init__.py:130 plugins/air_temp_humi/__init__.py:176
-#: plugins/air_temp_humi/__init__.py:232 plugins/email_reader/__init__.py:778
-#: plugins/mqtt_home_assistant/__init__.py:625
-#: plugins/mqtt_home_assistant/__init__.py:634
+#: plugins/air_temp_humi/__init__.py:128 plugins/air_temp_humi/__init__.py:174
+#: plugins/air_temp_humi/__init__.py:230 plugins/email_reader/__init__.py:778
+#: plugins/mqtt_home_assistant/__init__.py:699
+#: plugins/mqtt_home_assistant/__init__.py:708
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr ""
@@ -1437,8 +1445,8 @@ msgstr ""
 #: ospy/templates/sensors.html:615 ospy/templates/sensors.html:635
 #: ospy/templates/sensors.html:652 ospy/templates/sensors.html:672
 #: ospy/templates/sensors.html:689 ospy/templates/sensors.html:709
-#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:211
-#: plugins/air_temp_humi/__init__.py:224
+#: ospy/templates/sensors.html:726 plugins/air_temp_humi/__init__.py:209
+#: plugins/air_temp_humi/__init__.py:222
 #: plugins/air_temp_humi/templates/air_temp_humi.html:317
 #: plugins/button_control/templates/button_control.html:86
 #: plugins/door_opening/templates/door_opening.html:30
@@ -1448,7 +1456,7 @@ msgstr ""
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:211
 #: plugins/pool_heating/__init__.py:244 plugins/pool_heating/__init__.py:272
 #: plugins/pool_heating/templates/pool_heating.html:121
-#: plugins/pressure_monitor/templates/pressure_monitor.html:237
+#: plugins/pressure_monitor/templates/pressure_monitor.html:244
 #: plugins/pulse/templates/pulse.html:30 plugins/tank_monitor/__init__.py:208
 #: plugins/tank_monitor/__init__.py:236
 #: plugins/tank_monitor/templates/tank_monitor.html:295
@@ -1460,13 +1468,13 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:211
+#: ospy/sensors.py:1199 plugins/air_temp_humi/__init__.py:209
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:208
 msgid "Regulation set ON."
 msgstr ""
 
-#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:224
+#: ospy/sensors.py:1230 plugins/air_temp_humi/__init__.py:222
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:236
 msgid "Regulation set OFF."
@@ -1515,6 +1523,10 @@ msgstr ""
 #: ospy/sensors.py:1442
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:67
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:105
+#: plugins/email_notifications_ssl/__init__.py:382
+#: plugins/email_notifications_ssl/__init__.py:384
+#: plugins/email_notifications_ssl/__init__.py:388
+#: plugins/email_notifications_ssl/__init__.py:392
 #: plugins/email_reader/__init__.py:394
 #: plugins/modbus_stations/__init__.py:275 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127 plugins/telegram_bot/__init__.py:136
@@ -1525,6 +1537,10 @@ msgstr ""
 #: ospy/sensors.py:1444
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:65
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:103
+#: plugins/email_notifications_ssl/__init__.py:382
+#: plugins/email_notifications_ssl/__init__.py:384
+#: plugins/email_notifications_ssl/__init__.py:388
+#: plugins/email_notifications_ssl/__init__.py:392
 #: plugins/email_reader/__init__.py:396
 #: plugins/modbus_stations/__init__.py:278 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144 plugins/telegram_bot/__init__.py:142
@@ -1548,75 +1564,75 @@ msgstr ""
 msgid "Network connection is available."
 msgstr ""
 
-#: ospy/server.py:127
+#: ospy/server.py:130
 msgid "Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 
-#: ospy/server.py:137
+#: ospy/server.py:140
 msgid "SSL OK."
 msgstr ""
 
-#: ospy/server.py:139
+#: ospy/server.py:142
 msgid "SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 
-#: ospy/server.py:148
+#: ospy/server.py:151
 msgid "Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS."
 msgstr ""
 
-#: ospy/server.py:157
+#: ospy/server.py:160
 msgid "Own SSL OK."
 msgstr ""
 
-#: ospy/server.py:159
+#: ospy/server.py:162
 msgid "Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!"
 msgstr ""
 
-#: ospy/server.py:196
+#: ospy/server.py:199
 msgid "Unknown operator"
 msgstr ""
 
-#: ospy/server.py:200
+#: ospy/server.py:203
 msgid "Category is not in session, adding to sessions."
 msgstr ""
 
-#: ospy/server.py:202 ospy/server.py:206
+#: ospy/server.py:205 ospy/server.py:209
 msgid "Unknown visitor"
 msgstr ""
 
-#: ospy/server.py:203
+#: ospy/server.py:206
 msgid "Visitor-operator is not in session, adding to sessions."
 msgstr ""
 
-#: ospy/server.py:213
+#: ospy/server.py:216
 msgid "OSPy is closing, saving sessions."
 msgstr ""
 
-#: ospy/server.py:214 ospy/server.py:230 ospy/server.py:241
+#: ospy/server.py:217 ospy/server.py:233 ospy/server.py:244
 msgid "Server"
 msgstr ""
 
-#: ospy/server.py:214 ospy/server.py:241
+#: ospy/server.py:217 ospy/server.py:244
 msgid "Stopping"
 msgstr ""
 
-#: ospy/server.py:218
+#: ospy/server.py:221
 msgid "Starting scheduler and plugins..."
 msgstr ""
 
-#: ospy/server.py:222
+#: ospy/server.py:225
 msgid "Starting sensors timer..."
 msgstr ""
 
-#: ospy/server.py:228 ospy/server.py:229
+#: ospy/server.py:231 ospy/server.py:232
 msgid "OSPy is ready"
 msgstr ""
 
-#: ospy/server.py:230
+#: ospy/server.py:233
 msgid "Starting"
 msgstr ""
 
-#: ospy/server.py:248
+#: ospy/server.py:251
 msgid "Creating statistics..."
 msgstr ""
 
@@ -1801,66 +1817,66 @@ msgstr ""
 msgid "Own name for this OpenSprinkler controler. Used for orientation between multiple systems."
 msgstr ""
 
-#: ospy/templates/base.html:234 ospy/templates/base.html:236
+#: ospy/templates/base.html:235 ospy/templates/base.html:237
 #: ospy/templates/home_admin.html:3 ospy/templates/home_public.html:3
 #: ospy/templates/home_user.html:3
 msgid "Home"
 msgstr ""
 
-#: ospy/templates/base.html:238 ospy/templates/base.html:240
+#: ospy/templates/base.html:239 ospy/templates/base.html:241
 msgid "Define Programs"
 msgstr ""
 
-#: ospy/templates/base.html:240 ospy/templates/programs.html:3
+#: ospy/templates/base.html:241 ospy/templates/programs.html:3
 #: ospy/templates/programs_user.html:3
 msgid "Programs"
 msgstr ""
 
-#: ospy/templates/base.html:243 ospy/templates/base.html:245
+#: ospy/templates/base.html:244 ospy/templates/base.html:246
 msgid "Define Run Once Program"
 msgstr ""
 
-#: ospy/templates/base.html:245
+#: ospy/templates/base.html:246
 msgid "Run Once"
 msgstr ""
 
-#: ospy/templates/base.html:247 ospy/templates/base.html:249
+#: ospy/templates/base.html:248 ospy/templates/base.html:250
 msgid "Access Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:249
+#: ospy/templates/base.html:250
 msgid "Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:251 ospy/templates/base.html:253
+#: ospy/templates/base.html:252 ospy/templates/base.html:254
 msgid "View Log"
 msgstr ""
 
-#: ospy/templates/base.html:253 ospy/templates/log.html:3
+#: ospy/templates/base.html:254 ospy/templates/log.html:3
 #: ospy/templates/log_user.html:3 plugins/usage_statistics/__init__.py:67
 #: plugins/venetian_blind/templates/venetian_blind.html:37
 msgid "Log"
 msgstr ""
 
-#: ospy/templates/base.html:255 ospy/templates/base.html:257
+#: ospy/templates/base.html:256 ospy/templates/base.html:258
 #: ospy/templates/options.html:3
 msgid "Options"
 msgstr ""
 
-#: ospy/templates/base.html:259 ospy/templates/base.html:261
+#: ospy/templates/base.html:260 ospy/templates/base.html:262
 #: ospy/templates/stations.html:9
 msgid "Configure Stations"
 msgstr ""
 
-#: ospy/templates/base.html:261 ospy/templates/stations.html:3
+#: ospy/templates/base.html:262 ospy/templates/stations.html:3
 msgid "Stations"
 msgstr ""
 
-#: ospy/templates/base.html:263 ospy/templates/base.html:265
+#: ospy/templates/base.html:264 ospy/templates/base.html:266
 msgid "Configure Sensors"
 msgstr ""
 
-#: ospy/templates/base.html:267 ospy/templates/base.html:269
+#: ospy/templates/base.html:268 ospy/templates/base.html:270
 #: ospy/templates/help.html:3 ospy/templates/help.html:10
 #: ospy/templates/help_user.html:3 ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:202
@@ -1921,41 +1937,41 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: ospy/templates/base.html:272 ospy/templates/base.html:274
+#: ospy/templates/base.html:273 ospy/templates/base.html:275
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:283
+#: ospy/templates/base.html:285
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:283
+#: ospy/templates/base.html:285
 #: plugins/lcd_display/templates/lcd_display.html:83
 #: plugins/lcd_display/templates/lcd_display_help.html:35
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:284
+#: ospy/templates/base.html:286
 msgid "CPU Usage"
 msgstr ""
 
-#: ospy/templates/base.html:285
+#: ospy/templates/base.html:287
 msgid "Click for redirecting to github software"
 msgstr ""
 
-#: ospy/templates/base.html:285
+#: ospy/templates/base.html:287
 msgid "Software"
 msgstr ""
 
-#: ospy/templates/base.html:285
+#: ospy/templates/base.html:287
 msgid "version"
 msgstr ""
 
-#: ospy/templates/base.html:286
+#: ospy/templates/base.html:288
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:287
+#: ospy/templates/base.html:289
 msgid "Working"
 msgstr ""
 
@@ -2094,7 +2110,7 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:116
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:128
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
@@ -2106,10 +2122,10 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor_log.html:78
 #: plugins/pool_heating/templates/pool_heating.html:196
 #: plugins/pool_heating/templates/pool_heating_help.html:17
-#: plugins/pressure_monitor/templates/pressure_monitor.html:295
+#: plugins/pressure_monitor/templates/pressure_monitor.html:302
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:12
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:35
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:30
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:72
 #: plugins/pressurizer/templates/pressurizer.html:103
 #: plugins/pressurizer/templates/pressurizer_help.html:16
 #: plugins/proto/templates/proto.html:99
@@ -2126,7 +2142,7 @@ msgstr ""
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:31
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:24
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:141
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:144
 #: plugins/signaling_examples/templates/signaling_examples.html:49
 #: plugins/signaling_examples/templates/signaling_examples_help.html:45
 #: plugins/sms_adj/templates/sms_adj.html:114
@@ -2360,42 +2376,36 @@ msgstr ""
 
 #: ospy/templates/graph_sensor.html:180
 #: plugins/ping_monitor/templates/ping_monitor.html:289
-#: plugins/pressure_monitor/templates/pressure_monitor.html:305
 #: plugins/speed_monitor/templates/speed_monitor.html:251
 msgid "Select a filter for the interval of read data."
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:181
 #: plugins/ping_monitor/templates/ping_monitor.html:290
-#: plugins/pressure_monitor/templates/pressure_monitor.html:306
 #: plugins/speed_monitor/templates/speed_monitor.html:252
 msgid "Without limits"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:182
 #: plugins/ping_monitor/templates/ping_monitor.html:291
-#: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/speed_monitor/templates/speed_monitor.html:253
 msgid "Day filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:183
 #: plugins/ping_monitor/templates/ping_monitor.html:292
-#: plugins/pressure_monitor/templates/pressure_monitor.html:308
 #: plugins/speed_monitor/templates/speed_monitor.html:254
 msgid "Week filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:184
 #: plugins/ping_monitor/templates/ping_monitor.html:293
-#: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/speed_monitor/templates/speed_monitor.html:255
 msgid "Month filter"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:185
 #: plugins/ping_monitor/templates/ping_monitor.html:294
-#: plugins/pressure_monitor/templates/pressure_monitor.html:310
 #: plugins/speed_monitor/templates/speed_monitor.html:256
 msgid "Year filter"
 msgstr ""
@@ -2405,10 +2415,9 @@ msgstr ""
 msgid "Show also errors in graph. Example: -127"
 msgstr ""
 
-#: ospy/templates/graph_sensor.html:197 ospy/templates/home_admin.html:616
-#: ospy/templates/home_public.html:489 ospy/templates/home_user.html:612
+#: ospy/templates/graph_sensor.html:197 ospy/templates/home_admin.html:618
+#: ospy/templates/home_public.html:491 ospy/templates/home_user.html:613
 #: plugins/ping_monitor/templates/ping_monitor.html:298
-#: plugins/pressure_monitor/templates/pressure_monitor.html:314
 #: plugins/speed_monitor/templates/speed_monitor.html:260
 msgid "Clear selection"
 msgstr ""
@@ -2427,27 +2436,27 @@ msgstr ""
 msgid "blocked by"
 msgstr ""
 
-#: ospy/templates/home_admin.html:136 ospy/templates/home_admin.html:505
+#: ospy/templates/home_admin.html:136 ospy/templates/home_admin.html:507
 #: ospy/templates/home_public.html:136 ospy/templates/home_user.html:136
-#: ospy/templates/home_user.html:507
+#: ospy/templates/home_user.html:508
 msgid "On (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:139 ospy/templates/home_admin.html:511
+#: ospy/templates/home_admin.html:139 ospy/templates/home_admin.html:513
 #: ospy/templates/home_public.html:139 ospy/templates/home_user.html:139
-#: ospy/templates/home_user.html:513
+#: ospy/templates/home_user.html:514
 msgid "On (Master Two)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:143 ospy/templates/home_admin.html:507
+#: ospy/templates/home_admin.html:143 ospy/templates/home_admin.html:509
 #: ospy/templates/home_public.html:143 ospy/templates/home_user.html:143
-#: ospy/templates/home_user.html:509
+#: ospy/templates/home_user.html:510
 msgid "Off (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:146 ospy/templates/home_admin.html:513
+#: ospy/templates/home_admin.html:146 ospy/templates/home_admin.html:515
 #: ospy/templates/home_public.html:146 ospy/templates/home_user.html:146
-#: ospy/templates/home_user.html:515
+#: ospy/templates/home_user.html:516
 msgid "Off (Master Two)"
 msgstr ""
 
@@ -2461,7 +2470,7 @@ msgstr ""
 msgid "Suppressed by Rain Sensor"
 msgstr ""
 
-#: ospy/templates/home_admin.html:158 ospy/templates/home_admin.html:458
+#: ospy/templates/home_admin.html:158 ospy/templates/home_admin.html:459
 #: ospy/templates/home_public.html:158 ospy/templates/home_user.html:158
 #: ospy/templates/home_user.html:460 ospy/templates/log.html:28
 #: ospy/templates/log.html:57 ospy/templates/log.html:86
@@ -2469,15 +2478,15 @@ msgstr ""
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
 #: plugins/email_notifications_ssl/__init__.py:340
 #: plugins/lcd_display/__init__.py:460 plugins/lcd_display/__init__.py:563
-#: plugins/pressure_monitor/__init__.py:189
-#: plugins/pressure_monitor/__init__.py:190
+#: plugins/pressure_monitor/__init__.py:192
+#: plugins/pressure_monitor/__init__.py:193
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:520
-#: ospy/templates/home_admin.html:533 ospy/templates/home_public.html:161
-#: ospy/templates/home_user.html:161 ospy/templates/home_user.html:522
-#: ospy/templates/home_user.html:535 ospy/templates/plugins_manage.html:12
+#: ospy/templates/home_admin.html:161 ospy/templates/home_admin.html:522
+#: ospy/templates/home_admin.html:535 ospy/templates/home_public.html:161
+#: ospy/templates/home_user.html:161 ospy/templates/home_user.html:523
+#: ospy/templates/home_user.html:536 ospy/templates/plugins_manage.html:12
 #: ospy/templates/plugins_manage.html:20 ospy/templates/plugins_manage.html:63
 #: ospy/templates/program.html:432 ospy/templates/programs.html:16
 #: ospy/templates/sensors.html:56
@@ -2515,8 +2524,8 @@ msgstr ""
 msgid "Rain"
 msgstr ""
 
-#: ospy/templates/home_admin.html:242 ospy/templates/home_admin.html:477
-#: ospy/templates/home_public.html:212 ospy/templates/home_public.html:411
+#: ospy/templates/home_admin.html:242 ospy/templates/home_admin.html:478
+#: ospy/templates/home_public.html:212 ospy/templates/home_public.html:412
 #: ospy/templates/home_user.html:242 ospy/templates/home_user.html:479
 msgid "Total"
 msgstr ""
@@ -2541,59 +2550,59 @@ msgstr ""
 msgid "Timer values wrong:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
+#: ospy/templates/home_admin.html:447 ospy/templates/home_user.html:448
 msgid "% Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
+#: ospy/templates/home_admin.html:447 ospy/templates/home_user.html:448
 msgid "Add or subtract the total program run time in % of time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
+#: ospy/templates/home_admin.html:447 ospy/templates/home_user.html:448
 msgid "Normal"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_user.html:448
+#: ospy/templates/home_admin.html:447 ospy/templates/home_user.html:448
 msgid "Water Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
+#: ospy/templates/home_admin.html:449 ospy/templates/home_user.html:450
 msgid "Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
+#: ospy/templates/home_admin.html:449 ospy/templates/home_user.html:450
 msgid "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:448 ospy/templates/home_user.html:450
+#: ospy/templates/home_admin.html:449 ospy/templates/home_user.html:450
 #: plugins/lcd_display/__init__.py:332 plugins/lcd_display/__init__.py:365
-#: plugins/pressure_monitor/__init__.py:182
-#: plugins/pressure_monitor/__init__.py:183
+#: plugins/pressure_monitor/__init__.py:185
+#: plugins/pressure_monitor/__init__.py:186
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/home_admin.html:452 ospy/templates/home_user.html:454
+#: ospy/templates/home_admin.html:453 ospy/templates/home_user.html:454
 msgid "Rain sensed"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
+#: ospy/templates/home_admin.html:456 ospy/templates/home_user.html:457
 msgid "Schedule"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
+#: ospy/templates/home_admin.html:456 ospy/templates/home_user.html:457
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
-#: ospy/templates/home_admin.html:455 ospy/templates/home_user.html:457
+#: ospy/templates/home_admin.html:456 ospy/templates/home_user.html:457
 #: ospy/webpages.py:1355
 msgid "Manual"
 msgstr ""
 
-#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:460
+#: ospy/templates/home_admin.html:459 ospy/templates/home_user.html:460
 msgid "Enable or disable the scheduler running"
 msgstr ""
 
-#: ospy/templates/home_admin.html:458 ospy/templates/home_user.html:460
+#: ospy/templates/home_admin.html:459 ospy/templates/home_user.html:460
 #: ospy/templates/log.html:28 ospy/templates/log.html:57
 #: ospy/templates/log.html:86 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
@@ -2603,133 +2612,133 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/home_admin.html:463 ospy/templates/home_public.html:397
+#: ospy/templates/home_admin.html:464 ospy/templates/home_public.html:398
 #: ospy/templates/home_user.html:465
 msgid "Water Level adjustments"
 msgstr ""
 
-#: ospy/templates/home_admin.html:484 ospy/templates/home_public.html:418
+#: ospy/templates/home_admin.html:485 ospy/templates/home_public.html:419
 #: ospy/templates/home_user.html:486
 msgid "Programs adjustments by sensors"
 msgstr ""
 
-#: ospy/templates/home_admin.html:520 ospy/templates/home_admin.html:533
-#: ospy/templates/home_user.html:522 ospy/templates/home_user.html:535
+#: ospy/templates/home_admin.html:522 ospy/templates/home_admin.html:535
+#: ospy/templates/home_user.html:523 ospy/templates/home_user.html:536
 #: ospy/templates/plugins_manage.html:10 ospy/templates/plugins_manage.html:18
 #: ospy/templates/plugins_manage.html:61 ospy/templates/program.html:430
 #: ospy/templates/programs.html:14 ospy/templates/sensors.html:54
 msgid "On"
 msgstr ""
 
-#: ospy/templates/home_admin.html:522 ospy/templates/home_user.html:524
+#: ospy/templates/home_admin.html:524 ospy/templates/home_user.html:525
 msgid "in"
 msgstr ""
 
-#: ospy/templates/home_admin.html:523 ospy/templates/home_admin.html:535
-#: ospy/templates/home_user.html:525 ospy/templates/home_user.html:537
+#: ospy/templates/home_admin.html:525 ospy/templates/home_admin.html:537
+#: ospy/templates/home_user.html:526 ospy/templates/home_user.html:538
 msgid "Type time for run in minutes"
 msgstr ""
 
-#: ospy/templates/home_admin.html:526 ospy/templates/home_admin.html:538
-#: ospy/templates/home_user.html:528 ospy/templates/home_user.html:540
+#: ospy/templates/home_admin.html:528 ospy/templates/home_admin.html:540
+#: ospy/templates/home_user.html:529 ospy/templates/home_user.html:541
 msgid "Type time for run in seconds"
 msgstr ""
 
-#: ospy/templates/home_admin.html:530 ospy/templates/home_user.html:532
+#: ospy/templates/home_admin.html:532 ospy/templates/home_user.html:533
 #: plugins/email_reader/__init__.py:406 plugins/telegram_bot/__init__.py:138
 #: plugins/telegram_bot/__init__.py:369
 msgid "Forever"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_admin.html:598
-#: ospy/templates/home_user.html:546 ospy/templates/home_user.html:597
+#: ospy/templates/home_admin.html:546 ospy/templates/home_admin.html:600
+#: ospy/templates/home_user.html:547 ospy/templates/home_user.html:598
 msgid "Stop All Stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:546
+#: ospy/templates/home_admin.html:546 ospy/templates/home_user.html:547
 msgid "Press to stop all running stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:444
-#: ospy/templates/home_user.html:567
+#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:568
 msgid " Prev Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:565 ospy/templates/home_public.html:444
-#: ospy/templates/home_user.html:567
+#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:568
 msgid "Switch to previous day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:445
-#: ospy/templates/home_user.html:568
+#: ospy/templates/home_admin.html:568 ospy/templates/home_public.html:447
+#: ospy/templates/home_user.html:569
 msgid "Switch to today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:566 ospy/templates/home_public.html:445
-#: ospy/templates/home_user.html:568
+#: ospy/templates/home_admin.html:568 ospy/templates/home_public.html:447
+#: ospy/templates/home_user.html:569
 msgid "Today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:569
+#: ospy/templates/home_admin.html:569 ospy/templates/home_public.html:448
+#: ospy/templates/home_user.html:570
 msgid "Next Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:567 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:569
+#: ospy/templates/home_admin.html:569 ospy/templates/home_public.html:448
+#: ospy/templates/home_user.html:570
 msgid "Switch to next day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:585 ospy/templates/home_public.html:464
-#: ospy/templates/home_user.html:584
+#: ospy/templates/home_admin.html:587 ospy/templates/home_public.html:466
+#: ospy/templates/home_user.html:585
 msgid "Click for view."
 msgstr ""
 
-#: ospy/templates/home_admin.html:589 ospy/templates/home_public.html:468
-#: ospy/templates/home_user.html:588
+#: ospy/templates/home_admin.html:591 ospy/templates/home_public.html:470
+#: ospy/templates/home_user.html:589
 msgid "loading..."
 msgstr ""
 
-#: ospy/templates/home_admin.html:598 ospy/templates/home_user.html:597
+#: ospy/templates/home_admin.html:600 ospy/templates/home_user.html:598
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:616 ospy/templates/home_public.html:489
-#: ospy/templates/home_user.html:612
+#: ospy/templates/home_admin.html:618 ospy/templates/home_public.html:491
+#: ospy/templates/home_user.html:613
 msgid "Deselecting the selected area in the chart"
 msgstr ""
 
-#: ospy/templates/home_admin.html:628 ospy/templates/home_user.html:624
+#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:625
 msgid "Weather - No location found!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:626
+#: ospy/templates/home_admin.html:632 ospy/templates/home_user.html:627
 msgid "Weather - Location"
 msgstr ""
 
-#: ospy/templates/home_admin.html:630 ospy/templates/home_user.html:626
+#: ospy/templates/home_admin.html:632 ospy/templates/home_user.html:627
 msgid "found:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:629
+#: ospy/templates/home_admin.html:635 ospy/templates/home_user.html:630
 #: plugins/chmi/templates/chmi.html:101
 msgid "Displaying the found area on the map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:633 ospy/templates/home_user.html:629
+#: ospy/templates/home_admin.html:635 ospy/templates/home_user.html:630
 #: plugins/chmi/templates/chmi.html:101
 msgid "Map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:630
+#: ospy/templates/home_admin.html:636 ospy/templates/home_user.html:631
 msgid "lat"
 msgstr ""
 
-#: ospy/templates/home_admin.html:634 ospy/templates/home_user.html:630
+#: ospy/templates/home_admin.html:636 ospy/templates/home_user.html:631
 msgid "lon"
 msgstr ""
 
-#: ospy/templates/home_admin.html:636 ospy/templates/home_user.html:632
+#: ospy/templates/home_admin.html:638 ospy/templates/home_user.html:633
 msgid "Weather - No location coordinates available!"
 msgstr ""
 
@@ -2761,7 +2770,8 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_log.html:9
 #: plugins/modbus_stations/templates/modbus_stations_log.html:9
 #: plugins/ping_monitor/templates/ping_monitor_log.html:26
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:8
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:17
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:20
 #: plugins/speed_monitor/templates/speed_monitor_log.html:9
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:18
 #: plugins/tank_monitor/templates/tank_monitor_log.html:17
@@ -2789,8 +2799,6 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations_log.html:10
 #: plugins/ping_monitor/templates/ping_monitor.html:182
 #: plugins/ping_monitor/templates/ping_monitor_log.html:28
-#: plugins/pressure_monitor/templates/pressure_monitor.html:189
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:10
 #: plugins/speed_monitor/templates/speed_monitor.html:182
 #: plugins/speed_monitor/templates/speed_monitor_log.html:10
 #: plugins/system_debug/templates/system_debug.html:45
@@ -2814,7 +2822,7 @@ msgstr ""
 #: plugins/email_reader/__init__.py:776 plugins/email_reader/__init__.py:845
 #: plugins/email_reader/__init__.py:905
 #: plugins/ping_monitor/templates/ping_monitor_log.html:34
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:16
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:35
 #: plugins/ups_adj/templates/ups_adj_log.html:35
 #: plugins/wind_monitor/templates/wind_monitor_log.html:35
 msgid "Date"
@@ -2832,8 +2840,8 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:137
 #: plugins/email_notifications_ssl/__init__.py:142
 #: plugins/ip_cam/templates/ip_cam_setup.html:55
-#: plugins/mqtt_home_assistant/__init__.py:494
-#: plugins/mqtt_home_assistant/__init__.py:608
+#: plugins/mqtt_home_assistant/__init__.py:509
+#: plugins/mqtt_home_assistant/__init__.py:653
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/voice_station/templates/voice_station.html:58
@@ -2868,7 +2876,7 @@ msgstr ""
 #: plugins/email_reader/__init__.py:777 plugins/email_reader/__init__.py:846
 #: plugins/email_reader/__init__.py:906
 #: plugins/ping_monitor/templates/ping_monitor_log.html:35
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:17
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:39
 #: plugins/ups_adj/templates/ups_adj_log.html:39
 #: plugins/wind_monitor/templates/wind_monitor_log.html:39
 msgid "Time"
@@ -2965,12 +2973,12 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:106
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:118
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:269
 #: plugins/pool_heating/templates/pool_heating.html:187
-#: plugins/pressure_monitor/templates/pressure_monitor.html:285
+#: plugins/pressure_monitor/templates/pressure_monitor.html:292
 #: plugins/pressurizer/templates/pressurizer.html:94
 #: plugins/proto/templates/proto.html:89
 #: plugins/real_time/templates/real_time.html:55
@@ -3017,7 +3025,7 @@ msgstr ""
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:162
 #: plugins/ping_monitor/templates/ping_monitor_log.html:29
 #: plugins/pool_heating/templates/pool_heating.html:197
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
 #: plugins/speed_monitor/templates/speed_monitor_log.html:11
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:97
 #: plugins/system_info/templates/system_info.html:38
@@ -3087,6 +3095,7 @@ msgstr ""
 #: ospy/templates/sensor.html:732 ospy/templates/sensor.html:737
 #: ospy/templates/sensors.html:440 ospy/templates/sensors.html:736
 #: ospy/templates/sensors.html:741
+#: plugins/email_notifications_ssl/__init__.py:410
 msgid "V"
 msgstr ""
 
@@ -3102,6 +3111,7 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:282
 #: plugins/email_notifications_ssl/__init__.py:264
 #: plugins/email_notifications_ssl/__init__.py:295
+#: plugins/email_notifications_ssl/__init__.py:412
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:492
 #: plugins/lcd_display/__init__.py:523
 #: plugins/tank_monitor/templates/tank_monitor.html:457
@@ -3792,7 +3802,7 @@ msgstr ""
 #: ospy/templates/sensor.html:307 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:255
 #: plugins/pool_heating/templates/pool_heating.html:167
-#: plugins/pressure_monitor/templates/pressure_monitor.html:259
+#: plugins/pressure_monitor/templates/pressure_monitor.html:266
 #: plugins/system_update/templates/system_update.html:73
 #: plugins/tank_monitor/templates/tank_monitor.html:323
 #: plugins/ups_adj/templates/ups_adj.html:251
@@ -3804,7 +3814,7 @@ msgstr ""
 #: ospy/templates/sensor.html:309 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:258
 #: plugins/pool_heating/templates/pool_heating.html:170
-#: plugins/pressure_monitor/templates/pressure_monitor.html:262
+#: plugins/pressure_monitor/templates/pressure_monitor.html:269
 #: plugins/system_update/templates/system_update.html:76
 #: plugins/tank_monitor/templates/tank_monitor.html:326
 #: plugins/ups_adj/templates/ups_adj.html:254
@@ -3816,7 +3826,7 @@ msgstr ""
 #: ospy/templates/sensor.html:310 ospy/templates/sensors.html:76
 #: plugins/ping_monitor/templates/ping_monitor.html:259
 #: plugins/pool_heating/templates/pool_heating.html:171
-#: plugins/pressure_monitor/templates/pressure_monitor.html:263
+#: plugins/pressure_monitor/templates/pressure_monitor.html:270
 #: plugins/system_update/templates/system_update.html:77
 #: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/ups_adj/templates/ups_adj.html:255
@@ -4066,7 +4076,7 @@ msgstr ""
 
 #: ospy/templates/sensor.html:544
 #: plugins/button_control/templates/button_control.html:82
-#: plugins/pressure_monitor/templates/pressure_monitor.html:233
+#: plugins/pressure_monitor/templates/pressure_monitor.html:240
 #: plugins/tank_monitor/templates/tank_monitor.html:291
 #: plugins/wind_monitor/templates/wind_monitor.html:335
 msgid "Stop this run stations in scheduler"
@@ -4188,10 +4198,10 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:100
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:112
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
-#: plugins/pressure_monitor/templates/pressure_monitor.html:273
+#: plugins/pressure_monitor/templates/pressure_monitor.html:280
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:61
 #: plugins/speed_monitor/templates/speed_monitor.html:219
@@ -4616,9 +4626,11 @@ msgstr ""
 #: plugins/email_reader/__init__.py:389
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/ping_monitor/templates/ping_monitor_log.html:42
-#: plugins/pressure_monitor/__init__.py:394
-#: plugins/pressure_monitor/__init__.py:550
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:18
+#: plugins/pressure_monitor/__init__.py:348
+#: plugins/pressure_monitor/__init__.py:442
+#: plugins/pressure_monitor/__init__.py:639
+#: plugins/pressure_monitor/__init__.py:665
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:42
 #: plugins/ups_adj/__init__.py:356 plugins/ups_adj/__init__.py:504
 #: plugins/ups_adj/__init__.py:580 plugins/ups_adj/__init__.py:607
 #: plugins/ups_adj/templates/ups_adj_log.html:42
@@ -4722,16 +4734,16 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:115
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:127
 #: plugins/ping_monitor/templates/ping_monitor.html:278
-#: plugins/pressure_monitor/templates/pressure_monitor.html:294
+#: plugins/pressure_monitor/templates/pressure_monitor.html:301
 #: plugins/pressurizer/templates/pressurizer.html:102
 #: plugins/proto/templates/proto.html:98
 #: plugins/real_time/templates/real_time.html:64
 #: plugins/relay_16/templates/relay_16.html:76
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:63
 #: plugins/remote_notifications/templates/remote_notifications.html:57
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:140
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:143
 #: plugins/signaling_examples/templates/signaling_examples.html:48
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
@@ -5123,7 +5135,7 @@ msgstr ""
 #: ospy/webpages.py:1633 ospy/webpages.py:1653 ospy/webpages.py:1780
 #: ospy/webpages.py:1792 ospy/webpages.py:1895 ospy/webpages.py:1955
 #: ospy/webpages.py:1975 ospy/webpages.py:2041 ospy/webpages.py:2113
-#: ospy/webpages.py:2469 ospy/webpages.py:2546
+#: ospy/webpages.py:2480 ospy/webpages.py:2562
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
@@ -5224,7 +5236,7 @@ msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
 #: ospy/webpages.py:2155 ospy/webpages.py:2156 plugins/mqtt/__init__.py:373
-#: plugins/mqtt_home_assistant/__init__.py:188
+#: plugins/mqtt_home_assistant/__init__.py:190
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:120 plugins/ups_adj/__init__.py:462
 #: plugins/ups_adj/__init__.py:652
@@ -5243,72 +5255,73 @@ msgstr ""
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:2349
+#: ospy/webpages.py:2357
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:2362 ospy/webpages.py:2427
+#: ospy/webpages.py:2370 ospy/webpages.py:2435
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:2374 ospy/webpages.py:2414
+#: ospy/webpages.py:2382 ospy/webpages.py:2422
 msgid "Unit not set"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:38
+#: plugins/air_temp_humi/__init__.py:36
 #: plugins/database_connector/templates/database_connector_help.html:11
 msgid "Package: Air Temperature and Humidity Monitor"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:167 plugins/air_temp_humi/__init__.py:168
+#: plugins/air_temp_humi/__init__.py:165 plugins/air_temp_humi/__init__.py:166
 msgid "DHT11 data is not valid"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:170 plugins/air_temp_humi/__init__.py:171
+#: plugins/air_temp_humi/__init__.py:168 plugins/air_temp_humi/__init__.py:169
 msgid "DHT22 data is not valid"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:176 plugins/air_temp_humi/__init__.py:177
-#: plugins/air_temp_humi/__init__.py:178
+#: plugins/air_temp_humi/__init__.py:174 plugins/air_temp_humi/__init__.py:175
+#: plugins/air_temp_humi/__init__.py:176
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:42
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:43
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:44
 msgid "DHT"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:177 plugins/email_reader/__init__.py:779
-#: plugins/mqtt_home_assistant/__init__.py:621
+#: plugins/air_temp_humi/__init__.py:175 plugins/email_reader/__init__.py:779
+#: plugins/mqtt_home_assistant/__init__.py:695
 msgid "Humidity"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:194
+#: plugins/air_temp_humi/__init__.py:192
 msgid "Air Temperature"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:229 plugins/air_temp_humi/__init__.py:232
+#: plugins/air_temp_humi/__init__.py:227 plugins/air_temp_humi/__init__.py:230
 msgid "DS"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:252 plugins/air_temp_humi/__init__.py:336
-#: plugins/air_temp_humi/__init__.py:390 plugins/air_temp_humi/__init__.py:493
-#: plugins/air_temp_humi/__init__.py:506 plugins/air_temp_humi/__init__.py:517
-#: plugins/air_temp_humi/__init__.py:639 plugins/air_temp_humi/__init__.py:724
-#: plugins/air_temp_humi/__init__.py:766 plugins/air_temp_humi/__init__.py:817
-#: plugins/air_temp_humi/__init__.py:832 plugins/air_temp_humi/__init__.py:880
-#: plugins/air_temp_humi/__init__.py:917 plugins/air_temp_humi/__init__.py:958
-#: plugins/tank_monitor/__init__.py:889 plugins/wind_monitor/__init__.py:830
+#: plugins/air_temp_humi/__init__.py:250 plugins/air_temp_humi/__init__.py:334
+#: plugins/air_temp_humi/__init__.py:374 plugins/air_temp_humi/__init__.py:389
+#: plugins/air_temp_humi/__init__.py:492 plugins/air_temp_humi/__init__.py:505
+#: plugins/air_temp_humi/__init__.py:516 plugins/air_temp_humi/__init__.py:638
+#: plugins/air_temp_humi/__init__.py:723 plugins/air_temp_humi/__init__.py:763
+#: plugins/air_temp_humi/__init__.py:814 plugins/air_temp_humi/__init__.py:829
+#: plugins/air_temp_humi/__init__.py:877 plugins/air_temp_humi/__init__.py:914
+#: plugins/air_temp_humi/__init__.py:955 plugins/tank_monitor/__init__.py:889
+#: plugins/wind_monitor/__init__.py:830
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:308
+#: plugins/air_temp_humi/__init__.py:306
 msgid "Data is not correct. Please try again later."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:542 plugins/air_temp_humi/__init__.py:543
-#: plugins/air_temp_humi/__init__.py:544 plugins/air_temp_humi/__init__.py:549
-#: plugins/air_temp_humi/__init__.py:553 plugins/air_temp_humi/__init__.py:557
-#: plugins/air_temp_humi/__init__.py:561 plugins/air_temp_humi/__init__.py:565
-#: plugins/air_temp_humi/__init__.py:569
+#: plugins/air_temp_humi/__init__.py:541 plugins/air_temp_humi/__init__.py:542
+#: plugins/air_temp_humi/__init__.py:543 plugins/air_temp_humi/__init__.py:548
+#: plugins/air_temp_humi/__init__.py:552 plugins/air_temp_humi/__init__.py:556
+#: plugins/air_temp_humi/__init__.py:560 plugins/air_temp_humi/__init__.py:564
+#: plugins/air_temp_humi/__init__.py:568
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:58
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:61
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:70
@@ -5320,33 +5333,34 @@ msgstr ""
 msgid "Not used"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:582
-#: plugins/pressure_monitor/__init__.py:399
+#: plugins/air_temp_humi/__init__.py:581
+#: plugins/pressure_monitor/__init__.py:447
 #: plugins/tank_monitor/__init__.py:708 plugins/ups_adj/__init__.py:362
 #: plugins/wind_monitor/__init__.py:531
 msgid "Creating default graph log files OK"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:623
+#: plugins/air_temp_humi/__init__.py:622
 msgid "Saving to log files."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:637
-#: plugins/pressure_monitor/__init__.py:387
+#: plugins/air_temp_humi/__init__.py:636
+#: plugins/pressure_monitor/__init__.py:435
 #: plugins/tank_monitor/__init__.py:743 plugins/ups_adj/__init__.py:348
 #: plugins/wind_monitor/__init__.py:514
 msgid "Saving to SQL database."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:722 plugins/air_temp_humi/__init__.py:764
+#: plugins/air_temp_humi/__init__.py:721 plugins/air_temp_humi/__init__.py:761
 msgid "Deleting the airtemp table from the database."
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:757 plugins/chmi/__init__.py:452
+#: plugins/air_temp_humi/__init__.py:754 plugins/chmi/__init__.py:452
 #: plugins/cli_control/__init__.py:224 plugins/modbus_stations/__init__.py:541
-#: plugins/ping_monitor/__init__.py:389 plugins/speed_monitor/__init__.py:275
-#: plugins/tank_monitor/__init__.py:792 plugins/ups_adj/__init__.py:430
-#: plugins/wind_monitor/__init__.py:622
+#: plugins/ping_monitor/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:518
+#: plugins/speed_monitor/__init__.py:275 plugins/tank_monitor/__init__.py:792
+#: plugins/ups_adj/__init__.py:430 plugins/wind_monitor/__init__.py:622
 msgid "Deleted all log files OK"
 msgstr ""
 
@@ -5365,7 +5379,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:26
 #: plugins/modbus_stations/templates/modbus_stations.html:24
 #: plugins/ping_monitor/templates/ping_monitor.html:183
-#: plugins/pressure_monitor/templates/pressure_monitor.html:190
+#: plugins/pressure_monitor/templates/pressure_monitor.html:189
 #: plugins/speed_monitor/templates/speed_monitor.html:183
 #: plugins/tank_monitor/templates/tank_monitor.html:204
 #: plugins/ups_adj/templates/ups_adj.html:189
@@ -5389,7 +5403,7 @@ msgid "Enable local logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
-#: plugins/pressure_monitor/templates/pressure_monitor.html:203
+#: plugins/pressure_monitor/templates/pressure_monitor.html:201
 #: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:201
 #: plugins/wind_monitor/templates/wind_monitor.html:208
@@ -5397,7 +5411,7 @@ msgid "The measured data will be saved locally in a json file. This option rapid
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:228
-#: plugins/pressure_monitor/templates/pressure_monitor.html:208
+#: plugins/pressure_monitor/templates/pressure_monitor.html:206
 #: plugins/tank_monitor/templates/tank_monitor.html:382
 #: plugins/ups_adj/templates/ups_adj.html:206
 #: plugins/wind_monitor/templates/wind_monitor.html:222
@@ -5409,7 +5423,7 @@ msgid "The measured data will be stored in the database. This option requires th
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:230
-#: plugins/pressure_monitor/templates/pressure_monitor.html:210
+#: plugins/pressure_monitor/templates/pressure_monitor.html:208
 #: plugins/tank_monitor/templates/tank_monitor.html:384
 #: plugins/ups_adj/templates/ups_adj.html:208
 #: plugins/wind_monitor/templates/wind_monitor.html:224
@@ -5418,7 +5432,8 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
-#: plugins/pressure_monitor/templates/pressure_monitor.html:211
+#: plugins/pressure_monitor/templates/pressure_monitor.html:209
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:28
 #: plugins/tank_monitor/templates/tank_monitor.html:385
 #: plugins/tank_monitor/templates/tank_monitor_log.html:28
 #: plugins/ups_adj/templates/ups_adj.html:209
@@ -5429,6 +5444,7 @@ msgid "Delete SQL table"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:235
+#: plugins/pressure_monitor/templates/pressure_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:389
 #: plugins/ups_adj/templates/ups_adj.html:213
 #: plugins/wind_monitor/templates/wind_monitor.html:213
@@ -5436,6 +5452,7 @@ msgid "Show data from"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
+#: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
 #: plugins/wind_monitor/templates/wind_monitor.html:215
@@ -5443,6 +5460,7 @@ msgid "Choose from where the displayed data in the log and graph will be loaded.
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:238
+#: plugins/pressure_monitor/templates/pressure_monitor.html:216
 #: plugins/tank_monitor/templates/tank_monitor.html:392
 #: plugins/ups_adj/templates/ups_adj.html:216
 #: plugins/wind_monitor/templates/wind_monitor.html:216
@@ -5450,6 +5468,7 @@ msgid "Local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
+#: plugins/pressure_monitor/templates/pressure_monitor.html:217
 #: plugins/tank_monitor/templates/tank_monitor.html:393
 #: plugins/ups_adj/templates/ups_adj.html:217
 #: plugins/wind_monitor/templates/wind_monitor.html:217
@@ -5458,7 +5477,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
-#: plugins/pressure_monitor/templates/pressure_monitor.html:215
+#: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
 #: plugins/ups_adj/templates/ups_adj.html:222
@@ -5566,10 +5585,10 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:101
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:113
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
-#: plugins/pressure_monitor/templates/pressure_monitor.html:274
+#: plugins/pressure_monitor/templates/pressure_monitor.html:281
 #: plugins/proto/templates/proto.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:220
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
@@ -5585,6 +5604,7 @@ msgid "Show data from plugin in footer on home page"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:406
+#: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/tank_monitor/templates/tank_monitor.html:495
 #: plugins/ups_adj/templates/ups_adj.html:293
 #: plugins/wind_monitor/templates/wind_monitor.html:427
@@ -5592,6 +5612,7 @@ msgid "The chart from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:408
+#: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/tank_monitor/templates/tank_monitor.html:497
 #: plugins/ups_adj/templates/ups_adj.html:295
 #: plugins/wind_monitor/templates/wind_monitor.html:429
@@ -5599,6 +5620,7 @@ msgid "The chart from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:414
+#: plugins/pressure_monitor/templates/pressure_monitor.html:315
 #: plugins/tank_monitor/templates/tank_monitor.html:503
 #: plugins/ups_adj/templates/ups_adj.html:301
 #: plugins/wind_monitor/templates/wind_monitor.html:435
@@ -5606,6 +5628,7 @@ msgid "From"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:415
+#: plugins/pressure_monitor/templates/pressure_monitor.html:316
 #: plugins/tank_monitor/templates/tank_monitor.html:504
 #: plugins/ups_adj/templates/ups_adj.html:302
 #: plugins/wind_monitor/templates/wind_monitor.html:436
@@ -5613,6 +5636,7 @@ msgid "To"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:416
+#: plugins/pressure_monitor/templates/pressure_monitor.html:317
 #: plugins/tank_monitor/templates/tank_monitor.html:505
 #: plugins/ups_adj/templates/ups_adj.html:303
 #: plugins/wind_monitor/templates/wind_monitor.html:437
@@ -5620,6 +5644,7 @@ msgid "Filtering"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:417
+#: plugins/pressure_monitor/templates/pressure_monitor.html:318
 #: plugins/tank_monitor/templates/tank_monitor.html:506
 #: plugins/ups_adj/templates/ups_adj.html:304
 #: plugins/wind_monitor/templates/wind_monitor.html:438
@@ -5627,6 +5652,7 @@ msgid "Reload chart"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:418
+#: plugins/pressure_monitor/templates/pressure_monitor.html:319
 #: plugins/tank_monitor/templates/tank_monitor.html:507
 #: plugins/ups_adj/templates/ups_adj.html:305
 #: plugins/wind_monitor/templates/wind_monitor.html:439
@@ -5768,6 +5794,7 @@ msgid "Air Temperature and Humidity Monitor - log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj_log.html:11
 #: plugins/wind_monitor/templates/wind_monitor_log.html:11
@@ -5775,6 +5802,7 @@ msgid "Log from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:13
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:13
 #: plugins/tank_monitor/templates/tank_monitor_log.html:13
 #: plugins/ups_adj/templates/ups_adj_log.html:13
 #: plugins/wind_monitor/templates/wind_monitor_log.html:13
@@ -5782,6 +5810,7 @@ msgid "Log from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:24
 #: plugins/tank_monitor/templates/tank_monitor_log.html:24
 #: plugins/ups_adj/templates/ups_adj_log.html:24
 #: plugins/wind_monitor/templates/wind_monitor_log.html:24
@@ -5789,6 +5818,7 @@ msgid "Download local log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:25
 #: plugins/tank_monitor/templates/tank_monitor_log.html:25
 #: plugins/ups_adj/templates/ups_adj_log.html:25
 #: plugins/wind_monitor/templates/wind_monitor_log.html:25
@@ -5796,6 +5826,7 @@ msgid "Delete all local logs"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:27
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:27
 #: plugins/tank_monitor/templates/tank_monitor_log.html:27
 #: plugins/ups_adj/templates/ups_adj_log.html:27
 #: plugins/wind_monitor/templates/wind_monitor_log.html:27
@@ -5803,6 +5834,7 @@ msgid "Download database log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:37
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:37
 #: plugins/ups_adj/templates/ups_adj_log.html:37
 #: plugins/wind_monitor/templates/wind_monitor_log.html:37
 msgid "Id"
@@ -5811,6 +5843,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:41
 #: plugins/cli_control/templates/cli_control_log.html:15
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:41
 #: plugins/speed_monitor/templates/speed_monitor_log.html:15
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:26
 #: plugins/tank_monitor/templates/tank_monitor_log.html:34
@@ -6448,7 +6481,6 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:27
 #: plugins/modbus_stations/templates/modbus_stations_log.html:12
 #: plugins/ping_monitor/templates/ping_monitor.html:184
-#: plugins/pressure_monitor/templates/pressure_monitor.html:191
 #: plugins/speed_monitor/templates/speed_monitor.html:184
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:21
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:62
@@ -6542,7 +6574,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:38
 #: plugins/modbus_stations/templates/modbus_stations.html:35
 #: plugins/ping_monitor/templates/ping_monitor.html:194
-#: plugins/pressure_monitor/templates/pressure_monitor.html:202
+#: plugins/pressure_monitor/templates/pressure_monitor.html:200
 #: plugins/speed_monitor/templates/speed_monitor.html:201
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:73
 #: plugins/volt_temp_da/templates/volt_temp_da.html:33
@@ -6550,7 +6582,7 @@ msgid "Enable logging"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:145
-#: plugins/pressure_monitor/templates/pressure_monitor.html:216
+#: plugins/pressure_monitor/templates/pressure_monitor.html:223
 #: plugins/speed_monitor/templates/speed_monitor.html:208
 #: plugins/ups_adj/templates/ups_adj.html:223
 #: plugins/volt_temp_da/templates/volt_temp_da.html:41
@@ -7643,15 +7675,16 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:226
 #: plugins/email_notifications_ssl/__init__.py:227
 #: plugins/email_reader/__init__.py:190
-#: plugins/mqtt_home_assistant/__init__.py:642
-#: plugins/mqtt_home_assistant/__init__.py:643
+#: plugins/mqtt_home_assistant/__init__.py:715
+#: plugins/mqtt_home_assistant/__init__.py:716
 msgid "Temperature DS1-DS6"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:221
 #: plugins/email_notifications_ssl/__init__.py:234
-#: plugins/mqtt_home_assistant/__init__.py:651
-#: plugins/mqtt_home_assistant/__init__.py:768
+#: plugins/mqtt_home_assistant/__init__.py:724
+#: plugins/mqtt_home_assistant/__init__.py:867
+#: plugins/mqtt_home_assistant/__init__.py:893
 msgid "Cannot import plugin: air temp humi."
 msgstr ""
 
@@ -7705,46 +7738,46 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:385
 #: plugins/email_notifications/__init__.py:390
 #: plugins/email_notifications_ssl/__init__.py:359
-#: plugins/email_notifications_ssl/__init__.py:398
-#: plugins/email_notifications_ssl/__init__.py:403
-#: plugins/email_notifications_ssl/__init__.py:591
+#: plugins/email_notifications_ssl/__init__.py:460
+#: plugins/email_notifications_ssl/__init__.py:465
+#: plugins/email_notifications_ssl/__init__.py:653
 msgid "E-mail plug-in"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:368
-#: plugins/email_notifications_ssl/__init__.py:381
+#: plugins/email_notifications_ssl/__init__.py:443
 msgid "Unsent E-mails in queue (in file)"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:371
-#: plugins/email_notifications_ssl/__init__.py:384
+#: plugins/email_notifications_ssl/__init__.py:446
 msgid "sending from queue."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:379
-#: plugins/email_notifications_ssl/__init__.py:392
+#: plugins/email_notifications_ssl/__init__.py:454
 msgid "All unsent E-mails in the queue have been sent."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:466
-#: plugins/email_notifications_ssl/__init__.py:551
+#: plugins/email_notifications_ssl/__init__.py:613
 msgid "E-mail plug-in is not properly configured!"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:499
-#: plugins/email_notifications_ssl/__init__.py:584
+#: plugins/email_notifications_ssl/__init__.py:646
 msgid "E-mail was sent"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:501
 #: plugins/email_notifications/__init__.py:509
-#: plugins/email_notifications_ssl/__init__.py:586
-#: plugins/email_notifications_ssl/__init__.py:594
+#: plugins/email_notifications_ssl/__init__.py:648
+#: plugins/email_notifications_ssl/__init__.py:656
 msgid "E-mail logging is disabled in options..."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:503
-#: plugins/email_notifications_ssl/__init__.py:588
+#: plugins/email_notifications_ssl/__init__.py:650
 #: plugins/water_consumption_counter/__init__.py:131
 msgid "Sent"
 msgstr ""
@@ -7756,13 +7789,13 @@ msgstr ""
 
 #: plugins/email_notifications/__init__.py:585
 #: plugins/email_notifications/__init__.py:586
-#: plugins/email_notifications_ssl/__init__.py:676
-#: plugins/email_notifications_ssl/__init__.py:677
+#: plugins/email_notifications_ssl/__init__.py:738
+#: plugins/email_notifications_ssl/__init__.py:739
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:590
-#: plugins/email_notifications_ssl/__init__.py:681
+#: plugins/email_notifications_ssl/__init__.py:743
 msgid "Email Queue was deleted."
 msgstr ""
 
@@ -7874,7 +7907,7 @@ msgstr ""
 #: plugins/email_reader/templates/email_reader_help.html:57
 #: plugins/ping_monitor/templates/ping_monitor.html:250
 #: plugins/pool_heating/templates/pool_heating.html:161
-#: plugins/pressure_monitor/templates/pressure_monitor.html:253
+#: plugins/pressure_monitor/templates/pressure_monitor.html:260
 #: plugins/system_update/templates/system_update.html:67
 #: plugins/system_update/templates/system_update_help.html:20
 #: plugins/tank_monitor/templates/tank_monitor.html:317
@@ -8014,39 +8047,123 @@ msgstr ""
 msgid "Error - events.log file not exists!"
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:432
+#: plugins/email_notifications_ssl/__init__.py:365
+#: plugins/email_notifications_ssl/__init__.py:366
+msgid "Shelly cloud"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:373
+msgid "%RH"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:376
+msgid "STOP"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:378
+msgid "UP"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:380
+msgid "DOWN"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:382
+msgid "OUT:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:384
+msgid "OUT2:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:388
+msgid "OUT3:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:392
+msgid "OUT4:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:396
+msgid "PWR:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:396
+#: plugins/email_notifications_ssl/__init__.py:398
+#: plugins/email_notifications_ssl/__init__.py:402
+#: plugins/email_notifications_ssl/__init__.py:406
+msgid "W"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:398
+msgid "PWR2:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:402
+msgid "PWR3:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:406
+msgid "PWR4:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:410
+msgid "VOLTAGE:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:412
+msgid "BATTERY:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:413
+msgid "IP:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:414
+msgid "RSSI:"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:416
+msgid "Online OK"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:418
+msgid "NOT Online!"
+msgstr ""
+
+#: plugins/email_notifications_ssl/__init__.py:494
 msgid "OSPy is in the network under the name"
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:440
-#: plugins/email_notifications_ssl/__init__.py:442
+#: plugins/email_notifications_ssl/__init__.py:502
+#: plugins/email_notifications_ssl/__init__.py:504
 msgid "Someone logged in."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:449
-#: plugins/email_notifications_ssl/__init__.py:451
+#: plugins/email_notifications_ssl/__init__.py:511
+#: plugins/email_notifications_ssl/__init__.py:513
 msgid "Rain sensor has activated."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:458
-#: plugins/email_notifications_ssl/__init__.py:460
+#: plugins/email_notifications_ssl/__init__.py:520
+#: plugins/email_notifications_ssl/__init__.py:522
 msgid "Rain sensor has deactivated."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:467
+#: plugins/email_notifications_ssl/__init__.py:529
 msgid "Rain delay is now set a delay {} (h: m: s)."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:469
+#: plugins/email_notifications_ssl/__init__.py:531
 msgid "Rain delay is now set a delay {} hours."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:476
-#: plugins/email_notifications_ssl/__init__.py:478
+#: plugins/email_notifications_ssl/__init__.py:538
+#: plugins/email_notifications_ssl/__init__.py:540
 msgid "Rain delay has now been removed."
 msgstr ""
 
-#: plugins/email_notifications_ssl/__init__.py:673
+#: plugins/email_notifications_ssl/__init__.py:735
 msgid "Sender e-mail address appears to be invalid!"
 msgstr ""
 
@@ -9478,8 +9595,8 @@ msgid "Rain Sensor:"
 msgstr ""
 
 #: plugins/lcd_display/__init__.py:334 plugins/lcd_display/__init__.py:363
-#: plugins/pressure_monitor/__init__.py:179
-#: plugins/pressure_monitor/__init__.py:180
+#: plugins/pressure_monitor/__init__.py:182
+#: plugins/pressure_monitor/__init__.py:183
 msgid "Inactive"
 msgstr ""
 
@@ -9537,7 +9654,7 @@ msgid "Manual mode"
 msgstr ""
 
 #: plugins/lcd_display/__init__.py:447
-#: plugins/mqtt_home_assistant/__init__.py:603
+#: plugins/mqtt_home_assistant/__init__.py:648
 msgid "Scheduler"
 msgstr ""
 
@@ -10358,7 +10475,7 @@ msgstr ""
 msgid "Error try install paho-mqtt manually."
 msgstr ""
 
-#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:183
+#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:185
 msgid "Connecting to broker"
 msgstr ""
 
@@ -10366,7 +10483,7 @@ msgstr ""
 msgid "MQTT plugin couldnot initalize client"
 msgstr ""
 
-#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:204
+#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:206
 msgid "Subscribe topic"
 msgstr ""
 
@@ -10757,78 +10874,136 @@ msgstr ""
 msgid "Package: MQTT Home Assistant"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:114
-#: plugins/mqtt_home_assistant/__init__.py:136
-#: plugins/mqtt_home_assistant/__init__.py:144
+#: plugins/mqtt_home_assistant/__init__.py:116
+#: plugins/mqtt_home_assistant/__init__.py:138
+#: plugins/mqtt_home_assistant/__init__.py:148
 msgid "MQTT Home Assistant"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:121
+#: plugins/mqtt_home_assistant/__init__.py:123
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
-#: plugins/shelly_cloud_integrator/__init__.py:81
+#: plugins/shelly_cloud_integrator/__init__.py:82
 msgid "Plugin is started."
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:126
-#: plugins/mqtt_home_assistant/__init__.py:858
+#: plugins/mqtt_home_assistant/__init__.py:128
+#: plugins/mqtt_home_assistant/__init__.py:1005
 msgid "Client OK"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:128
-#: plugins/mqtt_home_assistant/__init__.py:860
+#: plugins/mqtt_home_assistant/__init__.py:130
+#: plugins/mqtt_home_assistant/__init__.py:1007
 msgid "Client not ready!"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:156
+#: plugins/mqtt_home_assistant/__init__.py:160
 msgid "Message on topic:"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:192
+#: plugins/mqtt_home_assistant/__init__.py:194
 msgid "Plugin could not initalize client:"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:207
+#: plugins/mqtt_home_assistant/__init__.py:209
 msgid "Append topic callback"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:310
+#: plugins/mqtt_home_assistant/__init__.py:312
 #: plugins/usage_statistics/__init__.py:68
 msgid "OSPy"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:351
+#: plugins/mqtt_home_assistant/__init__.py:353
 msgid "Publish to topic"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:351
+#: plugins/mqtt_home_assistant/__init__.py:353
 msgid "payload"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:458
+#: plugins/mqtt_home_assistant/__init__.py:460
 msgid "Home Assistant"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:505
+#: plugins/mqtt_home_assistant/__init__.py:520
 msgid "THDS Sensor"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:557
+#: plugins/mqtt_home_assistant/__init__.py:531
+msgid "WTL Sensor"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:596
 msgid "Callback cannot be Null for device_class = number"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:566
+#: plugins/mqtt_home_assistant/__init__.py:605
 msgid "Callback cannot be Null for device_class = switch"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:602
+#: plugins/mqtt_home_assistant/__init__.py:632
+msgid "Cannot find missing elements."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:647
 msgid "Water level"
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:852
+#: plugins/mqtt_home_assistant/__init__.py:661
+msgid "PGM"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:667
+msgid "Tank level"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:668
+msgid "Tank volume"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:673
+#: plugins/mqtt_home_assistant/__init__.py:674
+msgid "Tank monitor"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:680
+msgid "Percent {}%"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:681
+msgid "Volume {}m3"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:682
+msgid "Percent {}%, volume {}m3"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:686
+#: plugins/mqtt_home_assistant/__init__.py:917
+msgid "Cannot import plugin: tank_monitor."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:792
+msgid "Cannot set devices online."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:800
+msgid "Cannot remove device."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:832
+msgid "Cannot set devices default values."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:841
+msgid "Cannot update data from plugins."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/__init__.py:999
 msgid "Error: slugify not installed. Install it to system. sudo apt install python3 slugify."
 msgstr ""
 
-#: plugins/mqtt_home_assistant/__init__.py:854
+#: plugins/mqtt_home_assistant/__init__.py:1001
 msgid "Error: paho-mqtt is not installed. Install it to system. sudo pip3 install paho-mqtt."
 msgstr ""
 
@@ -10899,6 +11074,22 @@ msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:95
 msgid "Unique identifier used as prefix for MQTT Discovery by HASS. UUID based on the network adapter MAC address."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:100
+msgid "Verified in hass"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:101
+msgid "Tested reliably in this version of home assistant."
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:106
+msgid "Measurement refresh interval"
+msgstr ""
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:107
+msgid "The refresh interval is used for loading data from other plugins (for example airtemp humi). Range is 10 to 1000 seconds."
 msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
@@ -11344,7 +11535,7 @@ msgid "Ping Monitor plug-in"
 msgstr ""
 
 #: plugins/ping_monitor/__init__.py:363
-#: plugins/pressure_monitor/__init__.py:374
+#: plugins/pressure_monitor/__init__.py:422
 msgid "Saving to log files OK."
 msgstr ""
 
@@ -11442,7 +11633,7 @@ msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:237
 #: plugins/pool_heating/templates/pool_heating.html:156
-#: plugins/pressure_monitor/templates/pressure_monitor.html:248
+#: plugins/pressure_monitor/templates/pressure_monitor.html:255
 #: plugins/tank_monitor/templates/tank_monitor.html:306
 #: plugins/tank_monitor/templates/tank_monitor.html:312
 #: plugins/ups_adj/templates/ups_adj.html:240
@@ -11468,7 +11659,7 @@ msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:256
 #: plugins/pool_heating/templates/pool_heating.html:168
-#: plugins/pressure_monitor/templates/pressure_monitor.html:260
+#: plugins/pressure_monitor/templates/pressure_monitor.html:267
 #: plugins/system_update/templates/system_update.html:74
 #: plugins/tank_monitor/templates/tank_monitor.html:324
 #: plugins/ups_adj/templates/ups_adj.html:252
@@ -11478,7 +11669,6 @@ msgid "Select E-mail plug-in for sending E-mail"
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:288
-#: plugins/pressure_monitor/templates/pressure_monitor.html:304
 #: plugins/speed_monitor/templates/speed_monitor.html:250
 msgid "Select filter for graph history"
 msgstr ""
@@ -11611,7 +11801,7 @@ msgid "In minutes"
 msgstr ""
 
 #: plugins/pool_heating/templates/pool_heating.html:155
-#: plugins/pressure_monitor/templates/pressure_monitor.html:247
+#: plugins/pressure_monitor/templates/pressure_monitor.html:254
 #: plugins/ups_adj/templates/ups_adj.html:239
 msgid "Send E-mail with error"
 msgstr ""
@@ -11644,72 +11834,79 @@ msgstr ""
 msgid "Report from OSPy PRESSURE MONITOR plugin"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:122
+#: plugins/pressure_monitor/__init__.py:125
 msgid "Pressure"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:136
+#: plugins/pressure_monitor/__init__.py:139
 msgid "Time to test pressure sensor"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:137 plugins/ups_adj/__init__.py:160
+#: plugins/pressure_monitor/__init__.py:140 plugins/ups_adj/__init__.py:160
 msgid "sec"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:143
+#: plugins/pressure_monitor/__init__.py:146
 msgid "Pressure sensor is not activated in time, stoping all stations in scheduler."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:146
+#: plugins/pressure_monitor/__init__.py:149
 msgid "Sending E-Mail."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:160
-#: plugins/pressure_monitor/__init__.py:161
+#: plugins/pressure_monitor/__init__.py:163
+#: plugins/pressure_monitor/__init__.py:164
 msgid "System detected error: pressure sensor."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:160
-#: plugins/pressure_monitor/__init__.py:161
-#: plugins/pressure_monitor/__init__.py:173
-#: plugins/pressure_monitor/__init__.py:198
-#: plugins/pressure_monitor/__init__.py:235
-#: plugins/pressure_monitor/__init__.py:389
+#: plugins/pressure_monitor/__init__.py:163
+#: plugins/pressure_monitor/__init__.py:164
+#: plugins/pressure_monitor/__init__.py:176
+#: plugins/pressure_monitor/__init__.py:201
+#: plugins/pressure_monitor/__init__.py:238
+#: plugins/pressure_monitor/__init__.py:336
+#: plugins/pressure_monitor/__init__.py:366
 #: plugins/pressure_monitor/__init__.py:437
+#: plugins/pressure_monitor/__init__.py:486
+#: plugins/pressure_monitor/__init__.py:527
+#: plugins/pressure_monitor/__init__.py:582
+#: plugins/pressure_monitor/__init__.py:627
+#: plugins/pressure_monitor/__init__.py:675
 msgid "Pressure monitor plug-in"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:243
+#: plugins/pressure_monitor/__init__.py:246
 msgid "Master station 1 is ON."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:253
+#: plugins/pressure_monitor/__init__.py:256
 msgid "Master station 1 is OFF."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:260
+#: plugins/pressure_monitor/__init__.py:263
 msgid "Master station 2 is ON."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:270
+#: plugins/pressure_monitor/__init__.py:273
 msgid "Master station 2 is OFF."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:277
+#: plugins/pressure_monitor/__init__.py:280
 msgid "All stations set to OFF."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:435
+#: plugins/pressure_monitor/__init__.py:484
+#: plugins/pressure_monitor/__init__.py:525
 msgid "Deleting the pressmonitor table from the database."
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:481
-#: plugins/pressure_monitor/__init__.py:579
+#: plugins/pressure_monitor/__init__.py:551
+#: plugins/pressure_monitor/__init__.py:697
 msgid "INACTIVE"
 msgstr ""
 
-#: plugins/pressure_monitor/__init__.py:483
-#: plugins/pressure_monitor/__init__.py:577
+#: plugins/pressure_monitor/__init__.py:553
+#: plugins/pressure_monitor/__init__.py:695
 msgid "ACTIVE"
 msgstr ""
 
@@ -11722,39 +11919,39 @@ msgstr ""
 msgid "2 master on, 1 pres check, 0 stop"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:196
+#: plugins/pressure_monitor/templates/pressure_monitor.html:194
 msgid "Use pressure sensor for master station"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:197
+#: plugins/pressure_monitor/templates/pressure_monitor.html:195
 msgid "Pressure sensor is connected between GPIO 18 - pin 12 and ground"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:209
+#: plugins/pressure_monitor/templates/pressure_monitor.html:207
 msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured. The button will delete the pressmonitor table from the database, thus deleting all saved data from this extension! This promotion is non-refundable!"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:222
+#: plugins/pressure_monitor/templates/pressure_monitor.html:229
 msgid "If checked normally open sensor without pressure has contact open"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:227
+#: plugins/pressure_monitor/templates/pressure_monitor.html:234
 msgid "Max time to activate pressure sensor"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:228
+#: plugins/pressure_monitor/templates/pressure_monitor.html:235
 msgid "max 999 seconds"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:234
+#: plugins/pressure_monitor/templates/pressure_monitor.html:241
 msgid "Stoping these stations if no pressure in pipe. Selector for stop stations in scheduler"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:254
+#: plugins/pressure_monitor/templates/pressure_monitor.html:261
 msgid "Subject for E-mail from this pressure monitor"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor.html:279
+#: plugins/pressure_monitor/templates/pressure_monitor.html:286
 msgid "Pressure state"
 msgstr ""
 
@@ -11784,15 +11981,18 @@ msgstr ""
 msgid "Pressure monitor - log"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:25
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:50
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:62
 msgid "No pressure was detected MAIN STOP"
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:27
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:52
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:64
 msgid "Pressure check after two seconds..."
 msgstr ""
 
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:54
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:66
 msgid "Main station has switched ON"
 msgstr ""
 
@@ -12878,207 +13078,212 @@ msgstr ""
 msgid "Package: Shelly Cloud Integration"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:78
+#: plugins/shelly_cloud_integrator/__init__.py:79
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:3
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:16
 msgid "Shelly Cloud Integration"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:96
+#: plugins/shelly_cloud_integrator/__init__.py:97
 msgid "Shelly Cloud Bad Login"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:98
+#: plugins/shelly_cloud_integrator/__init__.py:99
 msgid "Shelly Cloud Not Found"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:106
+#: plugins/shelly_cloud_integrator/__init__.py:107
 msgid ""
 "{}: GEN1 not available \n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:121
+#: plugins/shelly_cloud_integrator/__init__.py:122
 msgid "[{}: {}°C {}RV] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:122
+#: plugins/shelly_cloud_integrator/__init__.py:123
 msgid ""
 "{}: {}°C {}RV BAT{}% IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:124
-#: plugins/shelly_cloud_integrator/__init__.py:149
-#: plugins/shelly_cloud_integrator/__init__.py:193
-#: plugins/shelly_cloud_integrator/__init__.py:222
-#: plugins/shelly_cloud_integrator/__init__.py:266
-#: plugins/shelly_cloud_integrator/__init__.py:325
-#: plugins/shelly_cloud_integrator/__init__.py:351
+#: plugins/shelly_cloud_integrator/__init__.py:125
+#: plugins/shelly_cloud_integrator/__init__.py:165
+#: plugins/shelly_cloud_integrator/__init__.py:201
+#: plugins/shelly_cloud_integrator/__init__.py:256
+#: plugins/shelly_cloud_integrator/__init__.py:300
+#: plugins/shelly_cloud_integrator/__init__.py:358
+#: plugins/shelly_cloud_integrator/__init__.py:431
+#: plugins/shelly_cloud_integrator/__init__.py:471
 msgid "[{}: OFFLINE] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:125
-#: plugins/shelly_cloud_integrator/__init__.py:150
-#: plugins/shelly_cloud_integrator/__init__.py:194
-#: plugins/shelly_cloud_integrator/__init__.py:223
-#: plugins/shelly_cloud_integrator/__init__.py:267
-#: plugins/shelly_cloud_integrator/__init__.py:326
-#: plugins/shelly_cloud_integrator/__init__.py:352
+#: plugins/shelly_cloud_integrator/__init__.py:126
+#: plugins/shelly_cloud_integrator/__init__.py:166
+#: plugins/shelly_cloud_integrator/__init__.py:202
+#: plugins/shelly_cloud_integrator/__init__.py:257
+#: plugins/shelly_cloud_integrator/__init__.py:301
+#: plugins/shelly_cloud_integrator/__init__.py:359
+#: plugins/shelly_cloud_integrator/__init__.py:432
+#: plugins/shelly_cloud_integrator/__init__.py:472
 msgid ""
 "{}: OFFLINE\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:143
+#: plugins/shelly_cloud_integrator/__init__.py:159
 msgid "[{}: ON {}W] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:144
+#: plugins/shelly_cloud_integrator/__init__.py:160
 msgid ""
 "{}: ON {}W IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:146
+#: plugins/shelly_cloud_integrator/__init__.py:162
 msgid "[{}: OFF {}W] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:147
+#: plugins/shelly_cloud_integrator/__init__.py:163
 msgid ""
 "{}: OFF {}W IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:153
-#: plugins/shelly_cloud_integrator/__init__.py:270
-msgid ""
-"{}: GEN2 not available yet \n"
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:160
-#: plugins/shelly_cloud_integrator/__init__.py:201
-#: plugins/shelly_cloud_integrator/__init__.py:277
-#: plugins/shelly_cloud_integrator/__init__.py:333
-msgid ""
-"{}: GEN1 not available yet \n"
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:181
-#: plugins/shelly_cloud_integrator/__init__.py:251
-#: plugins/shelly_cloud_integrator/__init__.py:301
-msgid "[{}: 1 ON {}W ({}kW/h) "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:182
-#: plugins/shelly_cloud_integrator/__init__.py:252
-#: plugins/shelly_cloud_integrator/__init__.py:302
-msgid "{}: 1 ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:184
-#: plugins/shelly_cloud_integrator/__init__.py:254
-#: plugins/shelly_cloud_integrator/__init__.py:304
-msgid "[{}: 1 OFF {}W ({}kW/h) "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:185
-#: plugins/shelly_cloud_integrator/__init__.py:255
-#: plugins/shelly_cloud_integrator/__init__.py:305
-msgid "{}: 1 OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:187
-#: plugins/shelly_cloud_integrator/__init__.py:257
-#: plugins/shelly_cloud_integrator/__init__.py:307
-#: plugins/shelly_cloud_integrator/__init__.py:313
-#: plugins/shelly_cloud_integrator/__init__.py:319
-msgid "2 ON {}W ({}kW/h)] "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:188
-msgid ""
-"2 ON {}W ({}kW/h) {}V {}\n"
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:190
-#: plugins/shelly_cloud_integrator/__init__.py:260
-#: plugins/shelly_cloud_integrator/__init__.py:310
-#: plugins/shelly_cloud_integrator/__init__.py:316
-#: plugins/shelly_cloud_integrator/__init__.py:322
-msgid "2 OFF {}W ({}kW/h)] "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:191
-msgid ""
-"2 OFF {}W ({}kW/h) {}V {}\n"
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:216
+#: plugins/shelly_cloud_integrator/__init__.py:195
+#: plugins/shelly_cloud_integrator/__init__.py:294
 msgid "[{}: ON {}W ({}kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:217
+#: plugins/shelly_cloud_integrator/__init__.py:196
+#: plugins/shelly_cloud_integrator/__init__.py:295
 msgid ""
 "{}: ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:219
+#: plugins/shelly_cloud_integrator/__init__.py:198
+#: plugins/shelly_cloud_integrator/__init__.py:297
 msgid "[{}: OFF {}W ({}kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:220
+#: plugins/shelly_cloud_integrator/__init__.py:199
+#: plugins/shelly_cloud_integrator/__init__.py:298
 msgid ""
 "{}: OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:258
-#: plugins/shelly_cloud_integrator/__init__.py:320
+#: plugins/shelly_cloud_integrator/__init__.py:223
+#: plugins/shelly_cloud_integrator/__init__.py:279
+#: plugins/shelly_cloud_integrator/__init__.py:383
+#: plugins/shelly_cloud_integrator/__init__.py:453
+msgid ""
+"{}: GEN1 not available yet \n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:244
+#: plugins/shelly_cloud_integrator/__init__.py:343
+#: plugins/shelly_cloud_integrator/__init__.py:407
+msgid "[{}: 1 ON {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:245
+#: plugins/shelly_cloud_integrator/__init__.py:344
+#: plugins/shelly_cloud_integrator/__init__.py:408
+msgid "{}: 1 ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:247
+#: plugins/shelly_cloud_integrator/__init__.py:346
+#: plugins/shelly_cloud_integrator/__init__.py:410
+msgid "[{}: 1 OFF {}W ({}kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:248
+#: plugins/shelly_cloud_integrator/__init__.py:347
+#: plugins/shelly_cloud_integrator/__init__.py:411
+msgid "{}: 1 OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:250
+#: plugins/shelly_cloud_integrator/__init__.py:349
+#: plugins/shelly_cloud_integrator/__init__.py:413
+#: plugins/shelly_cloud_integrator/__init__.py:419
+#: plugins/shelly_cloud_integrator/__init__.py:425
+msgid "2 ON {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:251
+msgid ""
+"2 ON {}W ({}kW/h) {}V {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:253
+#: plugins/shelly_cloud_integrator/__init__.py:352
+#: plugins/shelly_cloud_integrator/__init__.py:416
+#: plugins/shelly_cloud_integrator/__init__.py:422
+#: plugins/shelly_cloud_integrator/__init__.py:428
+msgid "2 OFF {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:254
+msgid ""
+"2 OFF {}W ({}kW/h) {}V {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:350
+#: plugins/shelly_cloud_integrator/__init__.py:426
 msgid ""
 "2 ON {}W ({}kW/h) {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:261
-#: plugins/shelly_cloud_integrator/__init__.py:323
+#: plugins/shelly_cloud_integrator/__init__.py:353
+#: plugins/shelly_cloud_integrator/__init__.py:429
 msgid ""
 "2 OFF {}W ({}kW/h) {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:263
+#: plugins/shelly_cloud_integrator/__init__.py:355
 msgid "[{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:264
+#: plugins/shelly_cloud_integrator/__init__.py:356
 msgid ""
 "{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:308
-#: plugins/shelly_cloud_integrator/__init__.py:314
+#: plugins/shelly_cloud_integrator/__init__.py:376
+msgid ""
+"{}: GEN2 not available yet \n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:414
+#: plugins/shelly_cloud_integrator/__init__.py:420
 msgid "2 ON {}W ({}kW/h) "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:311
-#: plugins/shelly_cloud_integrator/__init__.py:317
+#: plugins/shelly_cloud_integrator/__init__.py:417
+#: plugins/shelly_cloud_integrator/__init__.py:423
 msgid "2 OFF {}W ({}kW/h) "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:345
+#: plugins/shelly_cloud_integrator/__init__.py:465
 msgid "[{}: ON] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:346
+#: plugins/shelly_cloud_integrator/__init__.py:466
 msgid ""
 "{}: ON IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:348
+#: plugins/shelly_cloud_integrator/__init__.py:468
 msgid "[{}: OFF] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:349
+#: plugins/shelly_cloud_integrator/__init__.py:469
 msgid ""
 "{}: OFF IP:{} RSSI:{}dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:358
-#: plugins/shelly_cloud_integrator/__init__.py:370
-#: plugins/shelly_cloud_integrator/__init__.py:472
+#: plugins/shelly_cloud_integrator/__init__.py:492
+#: plugins/shelly_cloud_integrator/__init__.py:504
+#: plugins/shelly_cloud_integrator/__init__.py:606
 msgid "Shelly Cloud Integration plugin"
 msgstr ""
 
@@ -13268,22 +13473,22 @@ msgid "Shelly 1 Mini"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:125
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:128
 msgid "Shelly Gen"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:129
 msgid "Generation of Shelly devices."
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:128
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:131
 msgid "Gen 1"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:129
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:132
 msgid "Gen 2+"
 msgstr ""
 

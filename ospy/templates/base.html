@@ -228,8 +228,8 @@ jQuery(document).ready(function(){
             </div>
 
             <div class="panel">
-                <div id="graph-container" class="graph-container">
                 $if content.page != 'login':
+                    <div id="graph-container" class="graph-container">
                     <div id="nav">
                         $if options.show_icons:
                             <a href="/" id="bHome" class="button ico-home${' ico-here' if content.page=='home' else ''}" title=$:{json.dumps(_('Home'), ensure_ascii=False)}></a>
@@ -274,7 +274,7 @@ jQuery(document).ready(function(){
                             $else:
                                 <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_('Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Logout')</a>
                     </div>
-                </div>
+                    </div>
                 $:content
             </div>
         </div>
