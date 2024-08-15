@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-__author__ = u'Rimco' 
+__author__ = 'Rimco' # modify: Martin Pihrt
 
 import shelve
 import web
@@ -58,7 +58,14 @@ class DebugLogMiddleware:
         def xstart_response(status, response_headers, *args):
             out = start_response(status, response_headers, *args)
             self.log(status, environ)
-            return out
+            try:
+                return out
+            except:
+                log.error('server.py', _('An error occurred') + ':\n' + traceback.format_exc())
+                start_response('500 Internal Server Error', [('Content-Type', 'text/html')])
+                msg = _('An internal error was found in the system, see the error log for more information. The error is called in part:') + ' '
+                msg += _('server.py -> DebugLogMiddleware')
+                return msg
 
         return self.app(environ, xstart_response)
 
@@ -82,10 +89,17 @@ class PluginStaticMiddleware(web.httpserver.StaticMiddleware):
         upath = self.normpath(upath)
         words = upath.split('/')
 
-        if len(words) >= 4 and words[1] == 'plugins' and words[3] == 'static':
-            return web.httpserver.StaticApp(environ, start_response)
-        else:
-            return self.app(environ, start_response)
+        try:
+            if len(words) >= 4 and words[1] == 'plugins' and words[3] == 'static':
+                return web.httpserver.StaticApp(environ, start_response)
+            else:
+                return self.app(environ, start_response)
+        except:
+            log.error('server.py', _('An error occurred') + ':\n' + traceback.format_exc())
+            start_response('500 Internal Server Error', [('Content-Type', 'text/html')])
+            msg = _('An internal error was found in the system, see the error log for more information. The error is called in part:') + ' '
+            msg += _('server.py -> PluginStaticMiddleware')
+            return msg
 
 
 def start():
@@ -181,16 +195,22 @@ def start():
     __server.timeout = 1  # Speed-up restarting
 
     sessions = None
+    session_file = os.path.join('ospy', 'data', 'sessions.db')
+
     try:
-        sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
+        sessions = shelve.open(session_file)
+        # Test to see if we can read the data
         for s in sessions:
             str(sessions[s])
     except Exception:
+        log.debug('server.py', traceback.format_exc())
         if sessions is not None:
             sessions.close()
-        for db_file in glob.glob(os.path.join('ospy', 'data', 'sessions.db*')):
+        # Remove corrupted session files
+        for db_file in glob.glob(session_file + '*'):
+            log.debug('server.py', _('Remove corrupted session files') + ': {}'.format(db_file))
             os.remove(db_file)
-        sessions = shelve.open(os.path.join('ospy', 'data', 'sessions.db'))
+        sessions = shelve.open(session_file)
 
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
@@ -198,16 +218,23 @@ def start():
                                                'category': 'public',
                                                'visitor': _('Unknown operator')})
     try:
+        if 'category' not in session:
+            session['category'] = 'public'
+            log.debug('server.py', _('Category is not in session, initializing it.'))
         if not session['category']:
             session['category'] = 'public'
-            log.debug('server.py', _('Category is not in session, adding to sessions.'))
+            log.debug('server.py', _('Category is empty, setting it to public.'))
+
+        if 'visitor' not in session:
+            session['visitor'] = _('Unknown visitor')
+            log.debug('server.py', _('Visitor-operator is not in session, initializing it.'))
         if not session['visitor']:
             session['visitor'] = _('Unknown visitor')
-            log.debug('server.py', _('Visitor-operator is not in session, adding to sessions.'))
-    except:
+            log.debug('server.py', _('Visitor is empty, setting it to Unknown visitor.'))
+    except Exception as e:
+        log.error('server.py', traceback.format_exc())
         session['category'] = 'public'
         session['visitor'] = _('Unknown visitor')
-        pass
 
     import atexit
     atexit.register(sessions.close)
@@ -267,4 +294,3 @@ def create_statistics():
     except:
         log.debug('server.py', traceback.format_exc())
         pass
-        

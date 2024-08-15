@@ -1,5 +1,9 @@
 OSPy Changelog
 ====
+August 15 2024 (v3.0)
+(martinpihrt)<br/>
+Added try except test (to handle internal server error exception) in to the plugins: email_notifications, email_notifications_ssl, air_temp_humi, button_control, cli_control, database_connector, door_opening, email_reader, chmi, ip_cam, ip_scanner, labelmaker, lcd_display, modbus_stations, monthly_water_level, mqtt, package_backup, photovoltaic_boiler, ping_monitor, pool_heating, pressure_monitor, pressurizer, proto, pulse, real_time, relay, relay_16, remote_ftp_control, remote_notifications, shelly_cloud_integrator, mqtt_home_assistant, tank_monitor (TODO: add to others plugins.) Added try except test to server.py (to handle internal server error exception). Add web debug log to options OSPy for debugging error. Fix in weather.py: fixed bug with numerous url downloads (for the free API, it has a limit of 7 calls per day). Fixed bugs found in sessions (webpages.py, server.py). Fixed listing in log.py. Updating the Czech language.
+
 August 13 2024 (v3.0)
 (martinpihrt)<br/>
 Modification of installation script (ospy_setup.sh) -> added option to install sql connector (for sql connector plugin). Update of Czech language strings. In pressure monitor plugin added option to log and display from local json file or from SQL database. In all plugins that have the ability to log to sql, the default filter value (if not already set) has been set to the date from 2024-01-01 00:00 to 2024-01-01 00:00. Probably a bug with webserver crash has been fixed. MQTT home asstistent integration plugin now allows to -> display station status (on/off), control stations (on/off), set and display OSPy system: manual/scheduler, enable or disable scheduler, set water quantity, rain delay, rain sensor. From plugins -> air temp humidity: all DS1-6 sensors and DHT sensor, water tank plugin: water volume and percent stock. Wind speed measurement, programs triggering will be added in the future.

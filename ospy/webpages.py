@@ -143,17 +143,39 @@ class WebPage(object):
         cls = self.__class__
 
         from ospy.server import session
+
         try:
+            # Check that the session is not None and has the 'pages' attribute
+            if session is None:
+                print_report('webpages.py', _('Session is not initialized.'))
+                log.error('webpages.py', _('Session is not initialized.'))
+                raise ValueError(_('Session is not initialized.'))
+
+            if not hasattr(session, 'pages'):
+                session.pages = []
+            # Add current path to session.pages if conditions apply
             if not cls.__name__.endswith('json') and (not session.pages or session.pages[-1] != web.ctx.fullpath):
                 session.pages.append(web.ctx.fullpath)
+
+            # Keep session.pages size to a maximum of 5 items
             while len(session.pages) > 5:
                 del session.pages[0]
-        except:
-            print_report('webpages.py', traceback.format_exc())
-            restart()    # OSPy software restart
+                log.debug('webpages.py', _('Session.pages size is >5, deleting.'))
 
+        except Exception:
+            # If an error occurs, record it and restart the software
+            print_report('webpages.py', traceback.format_exc())
+            log.error('webpages.py', traceback.format_exc())
+            # OSPy software restart
+            restart()  
+
+        # Plugins - add plugin_render if the module starts with 'plugins' and the class does not have it defined
         if self.__module__.startswith('plugins') and 'plugin_render' not in cls.__dict__:
-            cls.plugin_render = InstantCacheRender(os.path.join(os.path.join(*self.__module__.split(u'.')), u'templates'), globals=template_globals(), base=self.base_render)
+            cls.plugin_render = InstantCacheRender(
+                os.path.join(os.path.join(*self.__module__.split('.')), 'templates'),
+                globals=template_globals(), base=self.base_render
+            )
+
 
     @staticmethod
     def _redirect_back():
@@ -2339,107 +2361,118 @@ class api_balance_json(ProtectedPage):
 
 
 class showInFooter(object):
-    """Enables plugins to display e.g. sensor reagings in the footer of OSPy's UI"""
+    """Enables plugins to display e.g. sensor readings in the footer of OSPy's UI"""
 
-    def __init__(self, label = "", val = "", unit = "", button = ""):
+    def __init__(self, label="", val="", unit="", button=""):
         self._label = label
         self._val = val
         self._unit = unit
         self._button = button
-        self._idx = None
-        
         self._idx = len(pluginFtr)
+        
+        # Append a new entry to pluginFtr with the initial values
         pluginFtr.append({"label": self._label, "val": self._val, "unit": self._unit, "button": self._button})
 
     @property
     def label(self):
-        if not self._label:
-            return _('Label not set')
-        else:
-            return self._label
+        return self._label if self._label else _('Label not set')
     
     @label.setter
     def label(self, text):
         self._label = text
-        if self._label:
+        if 0 <= self._idx < len(pluginFtr):
             pluginFtr[self._idx]["label"] = self._label + ": "
+        else:
+            self._handle_index_error()
 
     @property
     def val(self):
-        if self._val == "":
-            return _('Value not set')
-        else:
-            return self._val
+        return self._val if self._val != "" else _('Value not set')
 
     @val.setter
     def val(self, num):
         self._val = num
-        pluginFtr[self._idx]["val"] = self._val
+        if 0 <= self._idx < len(pluginFtr):
+            pluginFtr[self._idx]["val"] = self._val
+        else:
+            self._handle_index_error()
 
     @property
     def unit(self):
-        if not self.unit:
-            return _('Unit not set')
-        else:
-            return self._unit
+        return self._unit if self._unit else _('Unit not set')
     
     @unit.setter
     def unit(self, text):
         self._unit = text
-        pluginFtr[self._idx]["unit"] = " " + self._unit
+        if 0 <= self._idx < len(pluginFtr):
+            pluginFtr[self._idx]["unit"] = " " + self._unit
+        else:
+            self._handle_index_error()
 
     @property
     def button(self):
-        if not self.button:
-            return '-'
-        else:
-            return self._button
-
+        return self._button if self._button else '-'
+    
     @button.setter
     def button(self, text):
         self._button = text
-        pluginFtr[self._idx]["button"] = self._button
+        if 0 <= self._idx < len(pluginFtr):
+            pluginFtr[self._idx]["button"] = self._button
+        else:
+            self._handle_index_error()
+
+    def _handle_index_error(self):
+        """Logs and reports an index error."""
+        print_report('webpages.py', _('Index {} is out of range for pluginFtr list.').format(self._idx))
+        log.error('webpages.py', _('Index {} is out of range for pluginFtr list.').format(self._idx))
 
 
 class showOnTimeline:
-    """ Used to display plugin data next to station time countdown on home page timeline. """
+    """Used to display plugin data next to station time countdown on home page timeline."""
 
-    def __init__(self, val = "", unit = ""):
+    def __init__(self, val="", unit=""):
         self._val = val
         self._unit = unit
-        self._idx = None
-
         self._idx = len(pluginStn)
+        
+        # Append a new entry to pluginStn with the initial values
         pluginStn.append([self._unit, self._val])
 
     @property
     def clear(self):
-        del pluginStn[self._idx][:] #  Remove elements of list but keep empty list
+        if 0 <= self._idx < len(pluginStn):
+            del pluginStn[self._idx][:]  # Remove elements of list but keep empty list
+        else:
+            self._handle_index_error()
 
     @property
     def unit(self):
-        if not self.unit:
-            return _('Unit not set')
-        else:
-            return self._unit
-
+        return self._unit if self._unit else _('Unit not set')
+    
     @unit.setter
     def unit(self, text):
         self._unit = text
-        pluginStn[self._idx][0] = self._unit
-
+        if 0 <= self._idx < len(pluginStn):
+            pluginStn[self._idx][0] = self._unit
+        else:
+            self._handle_index_error()
 
     @property
     def val(self):
-        if not self._val:
-            return _('Value not set')
-        else:
-            return self._val
-
+        return self._val if self._val else _('Value not set')
+    
     @val.setter
     def val(self, num):
         self._val = num
-        pluginStn[self._idx][1] = self._val
+        if 0 <= self._idx < len(pluginStn):
+            pluginStn[self._idx][1] = self._val
+        else:
+            self._handle_index_error()
+
+    def _handle_index_error(self):
+        """Logs and reports an index error."""
+        print_report('webpages.py', _('Index {} is out of range for pluginStn list.').format(self._idx))
+        log.error('webpages.py', _('Index {} is out of range for pluginStn list.').format(self._idx))
 
 class api_plugin_data(ProtectedPage):
     """Simple plugin data API"""

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 # System imports
 import logging
@@ -10,6 +10,7 @@ from ospy.helpers import avg
 
 from urllib.request import urlopen, Request
 from urllib.parse import quote_plus
+from urllib.error import HTTPError, URLError
 
 import json
 import datetime
@@ -133,8 +134,12 @@ class _Weather(Thread):
                 options.weather_status = 1 # found
                 if options.stormglass_key and options.use_weather:
                     url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
-                    self._elevation = self._get_stormglass_json(url)['data']['elevation']
-                    logging.debug(_('Location found: %s, %s at %.1fm above sea level'), self._lat, self._lon, self._elevation)
+                    try:
+                        self._elevation = self._get_stormglass_json(url)['data']['elevation']
+                        logging.debug(_('Location found: %s, %s at %.1fm above sea level'), self._lat, self._lon, self._elevation)
+                    except:
+                        logging.debug(_('Elevation not downloaded from stormglass.'))
+                        self._elevation = 0.0
                 else:
                     logging.debug(_('Location found: %s, %s but Stormglass.io is not currently enabled and altitude loading will not be used'), self._lat, self._lon)    
 
@@ -154,8 +159,15 @@ class _Weather(Thread):
         logging.debug(url)
         request = Request(url)
         request.add_header('Authorization', options.stormglass_key)
-        data = urlopen(request)
-        return json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
+        try:
+            data = urlopen(request)
+            return json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
+        except HTTPError as e:
+            if e.code == 402:
+                logging.warning(_('For the free API, it has a limit of 7 calls per day.'))
+            else:
+                logging.warning(_('HTTPError: {} - {}').format(e.code, e.reason)) 
+        return {}
 
     @_cache('stormglass_data')
     def _get_stormglass_data(self, check_date):

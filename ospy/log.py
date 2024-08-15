@@ -51,14 +51,18 @@ class _Log(logging.Handler):
 
     @staticmethod
     def _save_log(msg, level, event_type):
-        if type(msg) is bytes:
+        if isinstance(msg, bytes):
+            # msg is type bytes, decode to str
+            msg_print = msg.decode('utf-8')
+        elif isinstance(msg, str):
+            # msg is type str, not decode
             msg_print = msg
-        elif type(msg) is str:
-            msg_print = codecs.encode(msg, 'utf-8')
+        elif isinstance(msg, Exception):
+            # msg is exception, read as text
+            msg_print = str(msg)
         else:
             msg_print = 'Expected bytes or string, but got {}.'.format(type(msg))
-        msg_print = msg_print.decode('utf-8')  
-       
+
         # Print if it is important:
         if level >= logging.WARNING:
             print(msg_print, file=sys.stderr)
@@ -345,7 +349,7 @@ class _LogEV():
     def _save_logsEV(self):
         result = []
         if options.run_logEV:
-            result = self._logEM[u'RunEV']
+            result = self._logEM['RunEV']
         options.logged_events = result
 
     def clear_events(self, all_entries=True):
