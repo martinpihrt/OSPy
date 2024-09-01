@@ -745,18 +745,28 @@ class User(object):
     def GET(self):
         log.debug('api.py', 'GET ' + self.__class__.__name__)
         try:
+            visitor = server.session.get('visitor')
+            category = server.session.get('category')
+
+            if visitor is None:
+                log.error('api.py', _('Visitor not found in session.'))
+            if category is None:
+                log.error('api.py', _('category not found in session.'))
             return {
-            'user': server.session['visitor'],
-            'category': server.session['category']
+                'user': visitor,
+                'category': category
             }
-        except:
+        except Exception as e:
             log.error('api.py', traceback.format_exc())
-            return {}
+            return {
+                'user': 'none',
+                'category': 'none'
+            }
 
     def OPTIONS(self):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')        
+        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')   
 
 
 class Balances(object):

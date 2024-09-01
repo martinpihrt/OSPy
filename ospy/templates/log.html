@@ -27,7 +27,8 @@ jQuery(document).ready(function(){
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_log else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a> <a href="?clear" class="button delete danger">$_('Clear Log')</a></p>
+    <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a> <a href="?clear" class="button delete danger">$_('Clear Log')</a> </p>
+    <p>$_('Delete all records including internal water balance history for weather based stations and programs. The event is non-refundable!') <a href="?clearALL" class="button upload danger">$_('Clear all Logs!')</a> </p>
     <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">

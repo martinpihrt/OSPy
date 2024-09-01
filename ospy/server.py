@@ -82,7 +82,7 @@ class DebugLogMiddleware:
 
 class PluginStaticMiddleware(web.httpserver.StaticMiddleware):
     """WSGI middleware for serving static plugin files.
-    This ensures all URLs starting with /plugins/static/plugin_name are mapped correctly."""
+    This ensures all URLs starting with /plugins/static/plugin_name or /plugins/script/plugin_name are mapped correctly."""
 
     def __call__(self, environ, start_response):
         upath = environ.get('PATH_INFO', '')
@@ -91,6 +91,8 @@ class PluginStaticMiddleware(web.httpserver.StaticMiddleware):
 
         try:
             if len(words) >= 4 and words[1] == 'plugins' and words[3] == 'static':
+                return web.httpserver.StaticApp(environ, start_response)
+            elif len(words) >= 4 and words[1] == 'plugins' and words[3] == 'script':
                 return web.httpserver.StaticApp(environ, start_response)
             else:
                 return self.app(environ, start_response)
@@ -105,6 +107,7 @@ class PluginStaticMiddleware(web.httpserver.StaticMiddleware):
 def start():
     global __server
     global session
+    global sessions
 
     import time
     
@@ -196,28 +199,49 @@ def start():
 
     sessions = None
     session_file = os.path.join('ospy', 'data', 'sessions.db')
+    log.debug('server.py', _('Opening shelve database at {}').format(session_file))
 
     try:
         sessions = shelve.open(session_file)
+        log.debug('server.py', _('Successfully opened shelve database.'))
+
         # Test to see if we can read the data
         for s in sessions:
-            str(sessions[s])
-    except Exception:
-        log.debug('server.py', traceback.format_exc())
+            try:
+                str(sessions[s])
+            except Exception as e:
+                log.error('server.py', _('Error reading session data for key {}: {}').format(s, e))
+
+    except Exception as e:
+        log.error('server.py', _('Exception occurred while opening or reading shelve database: {}').format(e))
         if sessions is not None:
-            sessions.close()
+            try:
+                sessions.close()
+            except Exception as close_e:
+                log.error('server.py', _('Error closing shelve database: {}').format(close_e))
+
         # Remove corrupted session files
         for db_file in glob.glob(session_file + '*'):
-            log.debug('server.py', _('Remove corrupted session files') + ': {}'.format(db_file))
-            os.remove(db_file)
-        sessions = shelve.open(session_file)
-
+            try:
+                log.debug('server.py', _('Remove corrupted session files') + ': {}'.format(db_file))
+                os.remove(db_file)
+            except Exception as rm_e:
+                log.error('server.py', _('Error removing corrupted session file {}: {}').format(db_file, rm_e))
+    
+        # Re-attempt to open the shelve database
+        try:    
+            sessions = shelve.open(session_file)
+            log.debug('server.py', _('Re-opened shelve database after cleanup.'))
+        except Exception as re_open_e:
+            log.error('server.py', _('Exception occurred while re-opening shelve database: {}').format(re_open_e))
+    
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
                                                'pages': [],
                                                'category': 'public',
-                                               'visitor': _('Unknown operator')})
-    try:
+                                               'visitor': _('Unknown operator')
+                                               })
+    try:         
         if 'category' not in session:
             session['category'] = 'public'
             log.debug('server.py', _('Category is not in session, initializing it.'))
@@ -235,15 +259,6 @@ def start():
         log.error('server.py', traceback.format_exc())
         session['category'] = 'public'
         session['visitor'] = _('Unknown visitor')
-
-    import atexit
-    atexit.register(sessions.close)
-
-    def exit_msg():
-        log.debug('server.py', _('OSPy is closing, saving sessions.'))
-        logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
-
-    atexit.register(exit_msg)
 
     log.debug('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()
@@ -264,11 +279,24 @@ def start():
     except (KeyboardInterrupt, SystemExit):
         stop()
 
+
+def close_sessions():
+    global session, sessions
+    if session is not None:
+        try:
+            log.debug('server.py', _('OSPy is closing, saving sessions.'))
+            logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
+            log.debug('server.py', _('Closing shelve database.'))
+            sessions.close()
+            log.debug('server.py', _('Shelve database closed successfully.'))
+        except Exception as e:
+            log.error('server.py', _('Error closing shelve database: {}').format(e))
    
 def stop():
     global __server
     if __server is not None:
         logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
+        close_sessions()
         __server.stop()
         __server = None
 

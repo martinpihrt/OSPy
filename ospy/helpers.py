@@ -676,12 +676,13 @@ def check_login(redirect=False):
             server.session['visitor']  = _('No password')
             return True
 
-        if server.session.validated:
+        if hasattr(server, 'session') and hasattr(server.session, 'validated') and server.session.validated:
             return True
     except KeyError:
-        pass
+        print_report('helpers.py', traceback.format_exc())
+        return False
 
-    if 'pw' and 'nm'in qdict: # password and user name
+    if 'pw' in qdict and 'nm' in qdict: # password and user name
         if test_password(qdict['pw'], qdict['nm']):
             return True
         if redirect:
@@ -720,6 +721,7 @@ def template_globals():
     from ospy.server import session
     from ospy.webpages import pluginFtr
     from ospy.webpages import pluginStn
+    from ospy.webpages import pluginScripts
     from ospy.webpages import sensorSearch
     from ospy import i18n
     from ospy.users import users

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 # System imports
 import datetime
@@ -201,48 +201,65 @@ class _Log(logging.Handler):
         self.log_event(event_type, message, logging.ERROR)
 
     def clear_runs(self, all_entries=True):
-        from ospy.programs import programs, ProgramType
-        from ospy.stations import stations
-        if all_entries or not options.run_log:  # User request or logging is disabled
-            minimum = 0
-        elif options.run_entries > 0:
-            minimum = options.run_entries
-        else:
-            return  # We should not prune in this case
+        try:
+            from ospy.programs import programs, ProgramType
+            from ospy.stations import stations
+            if all_entries or not options.run_log:  # User request or logging is disabled
+                minimum = 0
+            elif options.run_entries > 0:
+                minimum = options.run_entries
+            else:
+                return  # We should not prune in this case
 
-        # determine the start of the first active run:
-        first_start = min([datetime.datetime.now()] + [interval['start'] for interval in self.active_runs()])
-        min_eto = datetime.date.today() + datetime.timedelta(days=1)
-        for program in programs.get():
-            if program.type == ProgramType.WEEKLY_WEATHER:
-                for station in program.stations:
-                    min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + list(stations.get(station).balance.keys())))
+            # determine the start of the first active run:
+            first_start = min([datetime.datetime.now()] + [interval['start'] for interval in self.active_runs()])
+            min_eto = datetime.date.today() + datetime.timedelta(days=1)
+            for program in programs.get():
+                if program.type == ProgramType.WEEKLY_WEATHER:
+                    for station in program.stations:
+                        min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + list(stations.get(station).balance.keys())))
 
-        # Now try to remove as much as we can
-        for index in reversed(range(len(self._log['Run']) - minimum)):
-            interval = self._log['Run'][index]['data']
+            # Now try to remove as much as we can
+            for index in reversed(range(len(self._log['Run']) - minimum)):
+                interval = self._log['Run'][index]['data']
 
-            delete = False
-            if index < len(self._log['Run']) - minimum:
-                delete = True
+                delete = False
+                if index < len(self._log['Run']) - minimum:
+                    delete = True
 
-            # Assume long intervals to be a hiccup of the system:
-            elif interval['end'] - interval['start'] > datetime.timedelta(hours=12):
-                delete = True
+                # Assume long intervals to be a hiccup of the system:
+                elif interval['end'] - interval['start'] > datetime.timedelta(hours=12):
+                    delete = True
 
-            # Check if there is any impact on the current state:
-            if not interval['blocked'] and \
-                    (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
+                # Check if there is any impact on the current state:
+                if not interval['blocked'] and \
+                        (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
                                                                            options.master_off_delay,
                                                                            60):
-                delete = False
-            elif not interval['blocked'] and interval['end'].date() >= min_eto:
-                delete = False
+                    delete = False
+                elif not interval['blocked'] and interval['end'].date() >= min_eto:
+                    delete = False
 
-            if delete:
+                if delete:
+                    del self._log['Run'][index]
+
+            self._save_logs()
+
+        except Exception:
+            print_report('log.py', traceback.format_exc())
+
+    def clear_all_runs(self, all_entries=True):
+        try:
+            print_report('log.py', _('I will try to delete all records of running programs and stations'))
+            minimum = 0
+
+            for index in reversed(range(len(self._log['Run']) - minimum)):
                 del self._log['Run'][index]
 
-        self._save_logs()
+            self._save_logs()
+
+        except Exception:
+            print_report('log.py', traceback.format_exc())
 
     def clear(self, event_type):
         if event_type != 'Run':

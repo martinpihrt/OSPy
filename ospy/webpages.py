@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 # System imports
 import os
@@ -45,10 +45,11 @@ except ImportError:
     except:
         pass
 
-plugin_data = {}  # Empty dictionary to hold plugin based global data
-pluginFtr = []    # Empty list of dicts to hold plugin data for display in footer
-pluginStn = []    # Empty list of dicts to hold plugin data for display on timeline
-sensorSearch = [] # Empty list of dicts to hold sensors data for display on sensor search page
+plugin_data = {}    # Empty dictionary to hold plugin based global data
+pluginFtr = []      # Empty list of dicts to hold plugin data for display in footer
+pluginStn = []      # Empty list of dicts to hold plugin data for display on timeline
+pluginScripts = []  # Empty list of script file names for script injections requested by plugins
+sensorSearch = []   # Empty list of dicts to hold sensors data for display on sensor search page
 
 loggedin = signal('loggedin')
 def report_login():
@@ -126,7 +127,7 @@ class InstantCacheRender(web.template.render):
         import time
         if os.path.isdir(self._loc):
             for name in os.listdir(self._loc):
-                if name.endswith(u'.html') and \
+                if name.endswith('.html') and \
                         (self._limit is None or name[:-5] in self._limit) and \
                         (self._exclude is None or name[:-5] not in self._exclude):
                     self._template(name[:-5])
@@ -157,10 +158,10 @@ class WebPage(object):
             if not cls.__name__.endswith('json') and (not session.pages or session.pages[-1] != web.ctx.fullpath):
                 session.pages.append(web.ctx.fullpath)
 
-            # Keep session.pages size to a maximum of 5 items
-            while len(session.pages) > 5:
+            # Keep session.pages size to a maximum of 10 items
+            while len(session.pages) > 10:
                 del session.pages[0]
-                log.debug('webpages.py', _('Session.pages size is >5, deleting.'))
+                log.debug('webpages.py', _('Session.pages size is >10, deleting.'))
 
         except Exception:
             # If an error occurs, record it and restart the software
@@ -180,6 +181,8 @@ class WebPage(object):
     @staticmethod
     def _redirect_back():
         from ospy.server import session
+        if not hasattr(session, 'pages'):
+            session.pages = []
         for page in reversed(session.pages):
             if page != web.ctx.fullpath:
                 raise web.seeother(page)
@@ -203,7 +206,7 @@ class sensors_firmware(ProtectedPage):
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
         
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -296,7 +299,7 @@ class sensors_firmware(ProtectedPage):
     def POST(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -383,7 +386,7 @@ class sensors_page(ProtectedPage):
         from ospy.server import session
         global searchData
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -441,7 +444,7 @@ class sensor_page(ProtectedPage):
         from ospy.server import session
         import shutil
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -694,7 +697,7 @@ class sensor_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -715,7 +718,7 @@ class sensor_page(ProtectedPage):
         except ValueError:
             sensor = sensors.create_sensors()
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             if 'name' in qdict:
                 sensor.name = qdict['name']
 
@@ -997,7 +1000,7 @@ class users_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -1014,7 +1017,7 @@ class user_page(ProtectedPage):
     def GET(self, index):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1041,7 +1044,7 @@ class user_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1056,7 +1059,7 @@ class user_page(ProtectedPage):
         user.name = ''
         password = ''
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             user.name = qdict['name']
             password = qdict['password']
             user.category = qdict['category']
@@ -1107,7 +1110,7 @@ class image_edit_page(ProtectedPage):
         from ospy.server import session
         import os
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
         
@@ -1161,7 +1164,7 @@ class image_edit_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1171,7 +1174,7 @@ class image_edit_page(ProtectedPage):
         img_path_th   = './ospy/images/stations/station%s_thumbnail.png' % str(index)
         img_path_temp = './ospy/images/stations/temp%s.png' % str(index)
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             if 'enabled' in qdict and qdict['enabled']== 'on':
                 options.high_resolution_mode = True
             else:
@@ -1278,8 +1281,15 @@ class login_page(WebPage):
 class logout_page(WebPage):
     def GET(self):
         from ospy.server import session
-        session.kill()
-        raise web.seeother('/')
+        try:
+            if options.run_logEV:
+                logEV.save_events_log( _('Logout'), _('User {} logged out').format(session['visitor']), id='Login')
+            log.info('webpages.py', _('User {} logged out').format(session['visitor']))
+            session.kill()
+        except:
+            print_report('webpages.py', traceback.format_exc())
+        finally:
+            raise web.seeother('/')
 
 
 class home_page(ProtectedPage):
@@ -1288,11 +1298,11 @@ class home_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] == 'public':
+        if session.get('category')  == 'public':
             return self.core_render.home_public()            
-        elif session['category'] == 'user':
+        elif session.get('category')  == 'user':
             return self.core_render.home_user()
-        elif session['category'] == 'admin':
+        elif session.get('category') == 'admin':
             return self.core_render.home_admin()
         else:
             raise web.seeother('/')            
@@ -1314,7 +1324,7 @@ class action_page(ProtectedPage):
         toggle_temp = get_input(qdict, 'toggle_temp', False, lambda x: True)
 
         if stop_all:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')  == 'admin' or session.get('category')  == 'user':
                 if not options.manual_mode:
                     options.scheduler_enabled = False
                     programs.run_now_program = None
@@ -1326,21 +1336,21 @@ class action_page(ProtectedPage):
                 return self.core_render.notice(home_page, msg)                
 
         if scheduler_enabled is not None:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')  == 'admin' or session.get('category') == 'user':
                 options.scheduler_enabled = scheduler_enabled
             else:    
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice(home_page, msg)                
 
         if manual_mode is not None:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.manual_mode = manual_mode
             else:    
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice(home_page, msg)                
 
         if rain_block is not None:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
                 stop_onrain()
                 logEV.save_events_log( _('Rain delay'), _('User has set a delay {} hours').format(rain_block), id=u'RainDelay')
@@ -1349,14 +1359,14 @@ class action_page(ProtectedPage):
                 return self.core_render.notice(home_page, msg)                
 
         if level_adjustment is not None:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.level_adjustment = level_adjustment / 100
             else:    
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice(home_page, msg)                
 
         if toggle_temp:
-            if session['category'] == 'admin' or session['category'] == 'user':
+            if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.temp_unit = "F" if options.temp_unit == "C" else "C"
             else:    
                 msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -1367,7 +1377,7 @@ class action_page(ProtectedPage):
         set_time = get_input(qdict, 'set_time', 0, int)
 
         if set_to is not None and 0 <= sid < stations.count() and options.manual_mode:
-          if session['category'] == 'admin' or session['category'] == 'user':
+          if session.get('category')== 'admin' or session.get('category') == 'user':
             if set_to:  # if status is on
                 start = datetime.datetime.now()
                 new_schedule = {
@@ -1418,9 +1428,9 @@ class programs_page(ProtectedPage):
                 programs.remove_program(programs.count()-1)
             report_program_deleted()
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             return self.core_render.programs()
-        elif session['category'] == 'user': 
+        elif session.get('category')== 'user': 
             return self.core_render.programs_user()
         else:    
             msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -1469,7 +1479,7 @@ class program_page(ProtectedPage):
     def POST(self, index):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -1551,7 +1561,12 @@ class runonce_page(ProtectedPage):
     """Open a page to view and edit a run once program."""
 
     def GET(self):
-        return self.core_render.runonce()
+        from ospy.server import session
+        if session.get('category')== 'admin' or session.get('category') == 'user':
+            return self.core_render.runonce()
+        else:
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg) 
 
     def POST(self):
         from ospy.server import session
@@ -1565,7 +1580,7 @@ class runonce_page(ProtectedPage):
                 seconds = int(qdict[mm_str] or 0) * 60 + int(qdict[ss_str] or 0)
                 station_seconds[station.index] = seconds
 
-        if session['category'] == 'admin' or session['category'] == 'user':
+        if session.get('category')== 'admin' or session.get('category') == 'user':
             run_once.set(station_seconds)
             report_program_toggle()
             raise web.seeother('/')
@@ -1580,7 +1595,7 @@ class plugins_manage_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1651,7 +1666,7 @@ class plugins_install_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1671,7 +1686,7 @@ class plugins_install_page(ProtectedPage):
     def POST(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
@@ -1689,17 +1704,25 @@ class log_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
         qdict = web.input()
 
-        if 'clear' in qdict and session['category'] == 'admin':
+        if 'clear' in qdict:
             log.clear_runs()
             raise web.seeother('/log')
 
-        if 'clearEM' in qdict and session['category'] == 'admin':
+        if 'clearALL' in qdict:
+            log.clear_all_runs()
+            raise web.seeother('/log')
+
+        if 'clearEM' in qdict:
             logEM.clear_email()
             raise web.seeother('/log')
 
-        if 'clearEV' in qdict and session['category'] == 'admin':
+        if 'clearEV' in qdict:
             logEV.clear_events()
             raise web.seeother('/log')
 
@@ -1785,9 +1808,9 @@ class log_page(ProtectedPage):
         email_records = logEM.finished_email()
         events_records = logEV.finished_events()
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             return self.core_render.log(watering_records, email_records, events_records)
-        elif session['category'] == 'user':
+        elif session.get('category')== 'user':
             return self.core_render.log_user(watering_records, email_records, events_records)
         else:
             raise web.seeother('/')
@@ -1798,7 +1821,7 @@ class options_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -1810,7 +1833,7 @@ class options_page(ProtectedPage):
     def POST(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -1908,12 +1931,18 @@ class stations_page(ProtectedPage):
     """Stations page"""
 
     def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
         return self.core_render.stations()
 
     def POST(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -1969,9 +1998,9 @@ class help_page(ProtectedPage):
 
         docs = get_help_files()
 
-        if session['category'] == 'admin':
+        if session.get('category') == 'admin':
             return self.core_render.help(docs)
-        elif session['category'] == 'user':
+        elif session.get('category')== 'user':
             return self.core_render.help_user(docs)
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -1993,7 +2022,7 @@ class download_page(ProtectedPage):
         import time
         import shutil
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -2131,7 +2160,7 @@ class upload_page_SSL(ProtectedPage):
     def POST(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -2509,7 +2538,7 @@ class api_update_status(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
@@ -2591,7 +2620,7 @@ class api_search_sensors(ProtectedPage):
         from ospy.server import session
         searchData = []
 
-        if session['category'] != 'admin':
+        if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
         

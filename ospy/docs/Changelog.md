@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+September 01 2024 (v3.0)
+(martinpihrt)<br/>
+Updating the Czech language. From jonathan marsh was imported the function for to inject base.html from any plugin. This gives us the ability to inject our own script from any plugin and modify the home page. This possibility is already used by the astral plugin, which displays sunrise and sunset in the graphical area of the program runner (scheduler). A plugin to indicate sunrise and sunset times in the home page schedule display: https://github.com/martinpihrt/OSPy-plugins/tree/master/plugins/sunrise_and_sunset/static/images/sun_home.png.
+A button to delete all entries has been added to the "entries" tab. This button deletes all records (including hidden run records for weather-based programs). The deletion is irreversible!
+
 August 15 2024 (v3.0)
 (martinpihrt)<br/>
 Added try except test (to handle internal server error exception) in to the plugins: email_notifications, email_notifications_ssl, air_temp_humi, button_control, cli_control, database_connector, door_opening, email_reader, chmi, ip_cam, ip_scanner, labelmaker, lcd_display, modbus_stations, monthly_water_level, mqtt, package_backup, photovoltaic_boiler, ping_monitor, pool_heating, pressure_monitor, pressurizer, proto, pulse, real_time, relay, relay_16, remote_ftp_control, remote_notifications, shelly_cloud_integrator, mqtt_home_assistant, tank_monitor (TODO: add to others plugins.) Added try except test to server.py (to handle internal server error exception). Add web debug log to options OSPy for debugging error. Fix in weather.py: fixed bug with numerous url downloads (for the free API, it has a limit of 7 calls per day). Fixed bugs found in sessions (webpages.py, server.py). Fixed listing in log.py. Updating the Czech language.

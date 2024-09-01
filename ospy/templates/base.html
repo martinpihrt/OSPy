@@ -42,7 +42,10 @@ $code:
         <link href="/static/css/github.css" rel="stylesheet" type="text/css">
     <link href="/static/themes/${options.theme}/theme.css" rel="stylesheet" type="text/css">
     <script src="/static/scripts/jquery-3.7.1.min.js"></script>
-   
+
+    $for script in pluginScripts:
+        <script src="plugins/$:{script}"></script>
+
 <script>
 // Global vars    
 var modal;
