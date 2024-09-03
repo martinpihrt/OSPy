@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 # System imports
 import datetime
@@ -24,6 +24,8 @@ class ProgramType(object):
     WEEKLY_ADVANCED = 4
     CUSTOM = 5
     WEEKLY_WEATHER = 6
+    SUNRISE = 7
+    SUNSET = 8
 
     FRIENDLY_NAMES = {
         DAYS_SIMPLE: _('Selected days (Simple)'), 
@@ -33,9 +35,11 @@ class ProgramType(object):
         WEEKLY_ADVANCED: _('Weekly (Advanced)'),
         CUSTOM: _('Custom'),
         WEEKLY_WEATHER: _('Weekly (Weather based)'),
+        SUNRISE: _('Sunrise (Astral based) TODO'),
+        SUNSET: _('Sunset (Astral based) TODO'),
     }
 
-ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith(u'_') and isinstance(getattr(ProgramType, x), int)}
+ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith('_') and isinstance(getattr(ProgramType, x), int)}
 
 class _Program(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_programs', '_loading']
@@ -197,7 +201,7 @@ class _Program(object):
 
                 self._station_schedule = to_sprinkle
             except Exception:
-                logging.warning(_('Could not create weather based schedule:') + u'\n' + traceback.format_exc())
+                logging.warning(_('Could not create weather based schedule:') + '\n' + traceback.format_exc())
 
     @property
     def schedule(self):

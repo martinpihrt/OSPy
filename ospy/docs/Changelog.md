@@ -1,5 +1,9 @@
 OSPy Changelog
 ====
+September 03 2024 (v3.0)
+(martinpihrt)<br/>
+Updating the Czech language. Bug fix: internal server 500 error in OSPy options (if you reboot or restart hw OSPy with the button).
+
 September 01 2024 (v3.0)
 (martinpihrt)<br/>
 Updating the Czech language. From jonathan marsh was imported the function for to inject base.html from any plugin. This gives us the ability to inject our own script from any plugin and modify the home page. This possibility is already used by the astral plugin, which displays sunrise and sunset in the graphical area of the program runner (scheduler). A plugin to indicate sunrise and sunset times in the home page schedule display: https://github.com/martinpihrt/OSPy-plugins/tree/master/plugins/sunrise_and_sunset/static/images/sun_home.png.

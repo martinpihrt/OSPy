@@ -281,8 +281,8 @@ def start():
 
 
 def close_sessions():
-    global session, sessions
-    if session is not None:
+    global sessions
+    if sessions is not None:
         try:
             log.debug('server.py', _('OSPy is closing, saving sessions.'))
             logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
@@ -296,9 +296,9 @@ def stop():
     global __server
     if __server is not None:
         logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
-        close_sessions()
         __server.stop()
         __server = None
+        close_sessions()
 
 
 def create_statistics():
