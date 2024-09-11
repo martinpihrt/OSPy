@@ -239,7 +239,7 @@ def start():
                                   initializer={'validated': False,
                                                'pages': [],
                                                'category': 'public',
-                                               'visitor': _('Unknown operator')
+                                               'visitor': 'Unknown'
                                                })
     try:         
         if 'category' not in session:
@@ -250,15 +250,15 @@ def start():
             log.debug('server.py', _('Category is empty, setting it to public.'))
 
         if 'visitor' not in session:
-            session['visitor'] = _('Unknown visitor')
+            session['visitor'] = 'Unknown'
             log.debug('server.py', _('Visitor-operator is not in session, initializing it.'))
         if not session['visitor']:
-            session['visitor'] = _('Unknown visitor')
+            session['visitor'] = 'Unknown'
             log.debug('server.py', _('Visitor is empty, setting it to Unknown visitor.'))
     except Exception as e:
         log.error('server.py', traceback.format_exc())
         session['category'] = 'public'
-        session['visitor'] = _('Unknown visitor')
+        session['visitor'] = 'Unknown'
 
     log.debug('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()

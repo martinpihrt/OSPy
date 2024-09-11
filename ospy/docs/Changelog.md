@@ -1,5 +1,9 @@
 OSPy Changelog
 ====
+September 11 2024 (v3.0)
+(martinpihrt)<br/>
+Updating the Czech language. Bug fix: session in webpy (internal server 500 error). Now webpy from the local web folder is used again (until web.py is fixed on the authors site).
+
 September 03 2024 (v3.0)
 (martinpihrt)<br/>
 Updating the Czech language. Bug fix: internal server 500 error in OSPy options (if you reboot or restart hw OSPy with the button).

@@ -24,6 +24,8 @@ except ImportError:
 
 from base64 import encodebytes, decodebytes
 
+from .utils import ThreadedDict
+
 
 __all__ = ["Session", "SessionExpired", "Store", "DiskStore", "DBStore", "MemoryStore"]
 
@@ -32,7 +34,7 @@ web.config.session_parameters = utils.storage(
         "cookie_name": "webpy_session_id",
         "cookie_domain": None,
         "cookie_path": None,
-        "samesite": None,
+        "samesite": 'Lax',
         "timeout": 86400,  # 24 * 60 * 60, # 24 hours in seconds
         "ignore_expiry": True,
         "ignore_change_ip": True,
@@ -144,16 +146,45 @@ class Session(object):
                 return self.expired()
 
     def _save(self):
-        current_values = dict(self._data)
-        del current_values["session_id"]
-        del current_values["ip"]
+        try:
+            current_values = dict(self._data)
 
-        if not self.get("_killed"):
-            self._setcookie(self.session_id)
-            self.store[self.session_id] = dict(self._data)
-        else:
-            if web.cookies().get(self._config.cookie_name):
-                self._setcookie(self.session_id, expires=-1)
+            # Mazání klíčů, které nechceme ukládat
+            if "session_id" in current_values:
+                del current_values["session_id"]
+            if "ip" in current_values:
+                del current_values["ip"]
+
+            # Ověření, že session_id je platný řetězec
+            if not isinstance(self.session_id, str) or not self.session_id:
+                raise ValueError("Session ID musí být platný neprázdný řetězec.")
+
+            if not self.get("_killed"):
+                self._setcookie(self.session_id)
+
+                # Logování před uložením
+                print(f"Ukládám session ID: {self.session_id}")
+                print(f"Ukládám data: {self._data}")
+
+                # Převedení na obyčejný slovník, pokud je _data typu ThreadedDict
+                if isinstance(self._data, ThreadedDict):
+                    data_to_save = dict(self._data)  # Převedeme na běžný slovník
+                else:
+                    data_to_save = self._data
+
+                # Kontrola, zda data mohou být serializována před uložením
+                pickle.dumps(data_to_save)
+
+                # Uložení do store (např. shelve)
+                self.store[self.session_id] = data_to_save
+            else:
+                if web.cookies().get(self._config.cookie_name):
+                    self._setcookie(self.session_id, expires=-1)
+        except pickle.PicklingError:
+            raise ValueError("Nelze serializovat data session pro uložení.")
+        except Exception as e:
+            raise RuntimeError(f"Chyba při ukládání session: {e}")
+
 
     def _setcookie(self, session_id, expires="", **kw):
         cookie_name = self._config.cookie_name
@@ -161,7 +192,7 @@ class Session(object):
         cookie_path = self._config.cookie_path
         httponly = self._config.httponly
         secure = self._config.secure
-        samesite = kw.get("samesite", self._config.get("samesite", None))
+        samesite = kw.get("samesite", self._config.get("samesite", 'Lax'))
         web.setcookie(
             cookie_name,
             session_id,
@@ -348,24 +379,23 @@ class DBStore(Store):
             return self.decode(s.data)
 
     def __setitem__(self, key, value):
-        # Remove the leading `b` of bytes object (`b"..."`), otherwise encoded
-        # value is invalid base64 format.
-        pickled = self.encode(value).decode()
-
-        now = datetime.datetime.now()
-        if key in self:
-            self.db.update(
-                self.table,
-                where="session_id=$key",
-                data=pickled,
-                atime=now,
-                vars=locals(),
-            )
-        else:
-            self.db.insert(self.table, False, session_id=key, atime=now, data=pickled)
+        try:
+            pickle.dumps(value)
+            if not isinstance(key, str) or not key:
+                raise ValueError("Klíč musí být neprázdný řetězec.")
+            self.shelf[key] = time.time(), value
+        except pickle.PicklingError:
+            raise ValueError(f"Nelze serializovat hodnotu: {value}")
+        except Exception as e:
+            raise RuntimeError(f"Chyba při ukládání do databáze: {e}")
 
     def __delitem__(self, key):
-        self.db.delete(self.table, where="session_id=$key", vars=locals())
+        try:
+            del self.shelf[key]
+        except KeyError:
+            pass
+        except Exception as e:
+            raise RuntimeError(f"Chyba při mazání z databáze: {e}")
 
     def cleanup(self, timeout):
         timeout = datetime.timedelta(
@@ -396,13 +426,22 @@ class ShelfStore:
         return v
 
     def __setitem__(self, key, value):
-        self.shelf[key] = time.time(), value
+        try:
+            if not isinstance(key, str) or not key:
+                raise ValueError("Klíč musí být neprázdný řetězec.")
+            self.shelf[key] = time.time(), value
+        except pickle.PicklingError:
+            raise ValueError(f"Nelze serializovat hodnotu: {value}")
+        except Exception as e:
+            raise RuntimeError(f"Chyba při ukládání do databáze: {e}")            
 
     def __delitem__(self, key):
         try:
             del self.shelf[key]
         except KeyError:
             pass
+        except Exception as e:
+            raise RuntimeError(f"Chyba při mazání z databáze: {e}")
 
     def cleanup(self, timeout):
         now = time.time()

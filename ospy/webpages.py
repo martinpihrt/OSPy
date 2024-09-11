@@ -1273,19 +1273,19 @@ class login_page(WebPage):
             server.session.validated = True
             report_login()
             if options.run_logEV:
-                logEV.save_events_log( _('Login'), _('User {} logged in').format(server.session['visitor']), id='Login')
-            log.info('webpages.py', _('User {} logged in').format(server.session['visitor']))
+                logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
+            log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
             raise web.seeother('/')
 
 
 class logout_page(WebPage):
     def GET(self):
-        from ospy.server import session
+        from ospy import server
         try:
             if options.run_logEV:
-                logEV.save_events_log( _('Logout'), _('User {} logged out').format(session['visitor']), id='Login')
-            log.info('webpages.py', _('User {} logged out').format(session['visitor']))
-            session.kill()
+                logEV.save_events_log( _('Logout'), _('User {} logged out').format(server.session.get('visitor')), id='Login')
+            log.info('webpages.py', _('User {} logged out').format(server.session.get('visitor')))
+            server.session.kill()
         except:
             print_report('webpages.py', traceback.format_exc())
         finally:
