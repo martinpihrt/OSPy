@@ -1,39 +1,53 @@
 OSPy Changelog
 ====
+November 01 2024 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added 2PM addon device support to device selection in Shelly integration plugin. Working on a new plugin for level measurement using pressure change (sensor input 4-20mA).
+
 September 11 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Updating the Czech language. Bug fix: session in webpy (internal server 500 error). Now webpy from the local web folder is used again (until web.py is fixed on the authors site).
 
 September 03 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Updating the Czech language. Bug fix: internal server 500 error in OSPy options (if you reboot or restart hw OSPy with the button).
 
 September 01 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Updating the Czech language. From jonathan marsh was imported the function for to inject base.html from any plugin. This gives us the ability to inject our own script from any plugin and modify the home page. This possibility is already used by the astral plugin, which displays sunrise and sunset in the graphical area of the program runner (scheduler). A plugin to indicate sunrise and sunset times in the home page schedule display: https://github.com/martinpihrt/OSPy-plugins/tree/master/plugins/sunrise_and_sunset/static/images/sun_home.png.
 A button to delete all entries has been added to the "entries" tab. This button deletes all records (including hidden run records for weather-based programs). The deletion is irreversible!
 
 August 15 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Added try except test (to handle internal server error exception) in to the plugins: email_notifications, email_notifications_ssl, air_temp_humi, button_control, cli_control, database_connector, door_opening, email_reader, chmi, ip_cam, ip_scanner, labelmaker, lcd_display, modbus_stations, monthly_water_level, mqtt, package_backup, photovoltaic_boiler, ping_monitor, pool_heating, pressure_monitor, pressurizer, proto, pulse, real_time, relay, relay_16, remote_ftp_control, remote_notifications, shelly_cloud_integrator, mqtt_home_assistant, tank_monitor (TODO: add to others plugins.) Added try except test to server.py (to handle internal server error exception). Add web debug log to options OSPy for debugging error. Fix in weather.py: fixed bug with numerous url downloads (for the free API, it has a limit of 7 calls per day). Fixed bugs found in sessions (webpages.py, server.py). Fixed listing in log.py. Updating the Czech language.
 
 August 13 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Modification of installation script (ospy_setup.sh) -> added option to install sql connector (for sql connector plugin). Update of Czech language strings. In pressure monitor plugin added option to log and display from local json file or from SQL database. In all plugins that have the ability to log to sql, the default filter value (if not already set) has been set to the date from 2024-01-01 00:00 to 2024-01-01 00:00. Probably a bug with webserver crash has been fixed. MQTT home asstistent integration plugin now allows to -> display station status (on/off), control stations (on/off), set and display OSPy system: manual/scheduler, enable or disable scheduler, set water quantity, rain delay, rain sensor. From plugins -> air temp humidity: all DS1-6 sensors and DHT sensor, water tank plugin: water volume and percent stock. Wind speed measurement, programs triggering will be added in the future.
 
 August 12 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 The back_door.py file has been added to the OSPy folder, which allows logging into OSPy in case we cannot log in (or do not know the password). We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The default name and password to run the sudo python3 back_door.py file will be admin/admin. Added astral folder for sunrise and sunset plugin to OSPy (also added to OSPy installer). Fix in the air_temp_humi plugin with displaying the log from a local file (when viewing from the sql database, the log was displayed, when viewing from the local file it was not displayed). There is a fly (bug) in the webserver system that causes the site to crash randomly (internal server error 500). I know about the bug and I am looking for the cause. The problem is that there is no logging available for these errors (I don't know what causes the error: plugin, sensor, web page...). When the error occurs, only the server is not running, but the other parts of the system are functional (scheduler...) When an error occurs, the ospy service must be restarted (sudo service ospy restart). If any user notices what can cause the error, please give me feedback.
 
 August 08 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Fix SSL in web.py and cheroot, upgrade to latest version. Fix in installation script (ospy_setup.sh)
 
 August 04 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Update signaling plugin (add new signal 30s tick, add new signal airtemphumy updated, add automatic log in textarea). Finished plugin "Home Assistant" for MQTT itegration (With air temp plugin itegration). Updating the Czech language. Fix CSS if is using icons menu. Added to e-mail plugin: OSPy is on the network under the name http(s)://name:port.
 
 July 31 2024 (v3.0)
+-----------
 (martinpihrt)<br/>
 Added Show icons instead of text in menu to OSPy options. Updating the Czech language.
 

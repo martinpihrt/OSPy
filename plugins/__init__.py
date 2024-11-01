@@ -496,8 +496,9 @@ def start_enabled_plugins():
                     plugin.LINK = module + '.' + plugin.LINK
 
             except Exception:
-                logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n), traceback.format_exc())
+                logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n, traceback.format_exc()))
                 options.enabled_plugins.remove(module)
+                pass
 
     for module, plugin in __running.copy().items():
         if module not in options.enabled_plugins:
