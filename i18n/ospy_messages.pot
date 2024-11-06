@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-09-11 19:22+0200\n"
+"POT-Creation-Date: 2024-11-06 08:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1385,7 +1385,12 @@ msgstr ""
 #: ospy/templates/sensors.html:400 ospy/templates/sensors.html:404
 #: ospy/templates/sensors.html:405 ospy/templates/sensors.html:406
 #: ospy/templates/sensors.html:407 ospy/templates/sensors.html:421
-#: ospy/templates/sensors.html:423 plugins/email_notifications/__init__.py:156
+#: ospy/templates/sensors.html:423
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:254
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:270
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:286
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:302
+#: plugins/email_notifications/__init__.py:156
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications/__init__.py:294
 #: plugins/email_notifications_ssl/__init__.py:166
@@ -1973,6 +1978,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:20
 #: plugins/chmi/templates/chmi.html:54
 #: plugins/cli_control/templates/cli_control.html:22
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:240
 #: plugins/database_connector/templates/database_connector.html:41
 #: plugins/door_opening/templates/door_opening.html:22
 #: plugins/email_notifications/templates/email_notifications.html:30
@@ -1998,7 +2004,7 @@ msgstr ""
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:20
 #: plugins/remote_notifications/templates/remote_notifications.html:26
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:17
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:39
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:103
 #: plugins/signaling_examples/templates/signaling_examples.html:34
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
@@ -2171,6 +2177,13 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_help.html:125
 #: plugins/cli_control/templates/cli_control_log.html:12
 #: plugins/cli_control/templates/cli_control_log.html:29
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:319
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:194
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:30
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:62
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:67
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:254
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:30
@@ -2217,7 +2230,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:30
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:72
-#: plugins/pressurizer/templates/pressurizer.html:108
+#: plugins/pressurizer/templates/pressurizer.html:103
 #: plugins/pressurizer/templates/pressurizer_help.html:16
 #: plugins/proto/templates/proto.html:99
 #: plugins/proto/templates/proto_help.html:50
@@ -2233,7 +2246,8 @@ msgstr ""
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:31
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:24
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:144
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:105
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:270
 #: plugins/signaling_examples/templates/signaling_examples.html:49
 #: plugins/signaling_examples/templates/signaling_examples_help.html:45
 #: plugins/sms_adj/templates/sms_adj.html:114
@@ -2433,6 +2447,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:25 ospy/templates/home_admin.html:228
 #: ospy/templates/home_public.html:198 ospy/templates/home_user.html:228
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:24
 #: plugins/ping_monitor/templates/ping_monitor.html:22
 #: plugins/pressure_monitor/templates/pressure_monitor.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:22
@@ -2623,6 +2638,7 @@ msgstr ""
 
 #: ospy/templates/home_admin.html:245 ospy/templates/home_public.html:215
 #: ospy/templates/home_user.html:245
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:38
 #: plugins/ping_monitor/templates/ping_monitor.html:36
 #: plugins/pressure_monitor/templates/pressure_monitor.html:36
 #: plugins/speed_monitor/templates/speed_monitor.html:36
@@ -2697,7 +2713,9 @@ msgstr ""
 #: ospy/templates/log.html:28 ospy/templates/log.html:58
 #: ospy/templates/log.html:87 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
-#: ospy/templates/program.html:372 plugins/lcd_display/__init__.py:458
+#: ospy/templates/program.html:372
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:78
+#: plugins/lcd_display/__init__.py:458
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
 #: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
@@ -2861,6 +2879,8 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:20
 #: plugins/chmi/templates/chmi_log.html:18
 #: plugins/cli_control/templates/cli_control_log.html:9
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:17
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:20
 #: plugins/modbus_stations/templates/modbus_stations_log.html:9
 #: plugins/ping_monitor/templates/ping_monitor_log.html:26
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:17
@@ -3000,12 +3020,13 @@ msgstr ""
 msgid "Events log"
 msgstr ""
 
-#: ospy/templates/log.html:89
-msgid "Events"
-msgstr ""
-
 #: ospy/templates/log.html:89 ospy/templates/log_user.html:79
 msgid "events.csv"
+msgstr ""
+
+#: ospy/templates/log.html:89
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+msgid "Events"
 msgstr ""
 
 #: ospy/templates/log.html:93
@@ -3058,6 +3079,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:236
 #: plugins/database_connector/templates/database_connector.html:94
 #: plugins/database_connector/templates/database_connector_backup.html:29
 #: plugins/door_opening/templates/door_opening.html:47
@@ -3080,7 +3102,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:269
 #: plugins/pool_heating/templates/pool_heating.html:187
 #: plugins/pressure_monitor/templates/pressure_monitor.html:292
-#: plugins/pressurizer/templates/pressurizer.html:99
+#: plugins/pressurizer/templates/pressurizer.html:94
 #: plugins/proto/templates/proto.html:89
 #: plugins/real_time/templates/real_time.html:55
 #: plugins/relay_16/templates/relay_16.html:66
@@ -3121,6 +3143,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:169
 #: plugins/chmi/templates/chmi_log.html:21
 #: plugins/cli_control/templates/cli_control_log.html:11
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:29
 #: plugins/ip_cam/templates/ip_cam.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:11
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:162
@@ -3196,6 +3219,10 @@ msgstr ""
 #: ospy/templates/sensor.html:732 ospy/templates/sensor.html:737
 #: ospy/templates/sensors.html:440 ospy/templates/sensors.html:736
 #: ospy/templates/sensors.html:741
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
 #: plugins/email_notifications_ssl/__init__.py:424
 #: plugins/email_notifications_ssl/__init__.py:425
 msgid "V"
@@ -3209,6 +3236,18 @@ msgstr ""
 #: ospy/templates/sensors.html:367 ospy/templates/sensors.html:734
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:303
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:44
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:45
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:46
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:47
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:53
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:54
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:55
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:56
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
 #: plugins/email_notifications_ssl/__init__.py:264
@@ -3240,6 +3279,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:110
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:111
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:112
+#: plugins/shelly_cloud_integrator/__init__.py:48
 msgid "C"
 msgstr ""
 
@@ -4306,7 +4346,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:280
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:61
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:127
 #: plugins/speed_monitor/templates/speed_monitor.html:219
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
 #: plugins/system_update/templates/system_update.html:82
@@ -4828,6 +4868,8 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:100
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:66
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
 #: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -4840,13 +4882,14 @@ msgstr ""
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:127
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
-#: plugins/pressurizer/templates/pressurizer.html:107
+#: plugins/pressurizer/templates/pressurizer.html:102
 #: plugins/proto/templates/proto.html:98
 #: plugins/real_time/templates/real_time.html:64
 #: plugins/relay_16/templates/relay_16.html:76
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:63
 #: plugins/remote_notifications/templates/remote_notifications.html:57
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:143
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:104
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:269
 #: plugins/signaling_examples/templates/signaling_examples.html:48
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
@@ -5555,8 +5598,8 @@ msgstr ""
 #: plugins/pressure_monitor/__init__.py:565
 #: plugins/pressure_monitor/__init__.py:705
 #: plugins/pressure_monitor/__init__.py:735
-#: plugins/pressurizer/__init__.py:226 plugins/pressurizer/__init__.py:247
-#: plugins/pressurizer/__init__.py:262 plugins/proto/__init__.py:146
+#: plugins/pressurizer/__init__.py:229 plugins/pressurizer/__init__.py:251
+#: plugins/pressurizer/__init__.py:264 plugins/proto/__init__.py:146
 #: plugins/proto/__init__.py:157 plugins/proto/__init__.py:170
 #: plugins/pulse/__init__.py:105 plugins/pulse/__init__.py:124
 #: plugins/pulse/__init__.py:137 plugins/real_time/__init__.py:219
@@ -5569,10 +5612,10 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:281
 #: plugins/remote_notifications/__init__.py:322
 #: plugins/remote_notifications/__init__.py:336
-#: plugins/shelly_cloud_integrator/__init__.py:539
-#: plugins/shelly_cloud_integrator/__init__.py:553
-#: plugins/shelly_cloud_integrator/__init__.py:620
-#: plugins/shelly_cloud_integrator/__init__.py:634
+#: plugins/shelly_cloud_integrator/__init__.py:655
+#: plugins/shelly_cloud_integrator/__init__.py:669
+#: plugins/shelly_cloud_integrator/__init__.py:777
+#: plugins/shelly_cloud_integrator/__init__.py:791
 #: plugins/sunrise_and_sunset/__init__.py:762
 #: plugins/sunrise_and_sunset/__init__.py:777
 #: plugins/sunrise_and_sunset/__init__.py:897
@@ -5620,6 +5663,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:205
 #: plugins/chmi/templates/chmi.html:58
 #: plugins/cli_control/templates/cli_control.html:26
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:243
 #: plugins/modbus_stations/templates/modbus_stations.html:24
 #: plugins/ping_monitor/templates/ping_monitor.html:183
 #: plugins/pressure_monitor/templates/pressure_monitor.html:189
@@ -5639,6 +5683,7 @@ msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:222
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:175
 #: plugins/tank_monitor/templates/tank_monitor.html:376
 #: plugins/ups_adj/templates/ups_adj.html:200
 #: plugins/wind_monitor/templates/wind_monitor.html:207
@@ -5646,6 +5691,7 @@ msgid "Enable local logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:176
 #: plugins/pressure_monitor/templates/pressure_monitor.html:201
 #: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:201
@@ -5675,6 +5721,8 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:28
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:170
 #: plugins/pressure_monitor/templates/pressure_monitor.html:209
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:28
 #: plugins/tank_monitor/templates/tank_monitor.html:385
@@ -5695,6 +5743,7 @@ msgid "Show data from"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:153
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
@@ -5720,6 +5769,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:185
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
@@ -5734,6 +5784,7 @@ msgid "The maximum number of records sets the number of saved records, i.e. afte
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:192
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -5847,6 +5898,7 @@ msgid "Show data from plugin in footer on home page"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:406
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:176
 #: plugins/pressure_monitor/templates/pressure_monitor.html:307
 #: plugins/tank_monitor/templates/tank_monitor.html:495
 #: plugins/ups_adj/templates/ups_adj.html:293
@@ -5855,6 +5907,7 @@ msgid "The chart from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:408
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:178
 #: plugins/pressure_monitor/templates/pressure_monitor.html:309
 #: plugins/tank_monitor/templates/tank_monitor.html:497
 #: plugins/ups_adj/templates/ups_adj.html:295
@@ -5863,6 +5916,7 @@ msgid "The chart from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:414
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:184
 #: plugins/pressure_monitor/templates/pressure_monitor.html:315
 #: plugins/tank_monitor/templates/tank_monitor.html:503
 #: plugins/ups_adj/templates/ups_adj.html:301
@@ -5871,6 +5925,7 @@ msgid "From"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:415
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:185
 #: plugins/pressure_monitor/templates/pressure_monitor.html:316
 #: plugins/tank_monitor/templates/tank_monitor.html:504
 #: plugins/ups_adj/templates/ups_adj.html:302
@@ -5879,6 +5934,7 @@ msgid "To"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:416
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:186
 #: plugins/pressure_monitor/templates/pressure_monitor.html:317
 #: plugins/tank_monitor/templates/tank_monitor.html:505
 #: plugins/ups_adj/templates/ups_adj.html:303
@@ -5887,6 +5943,7 @@ msgid "Filtering"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:417
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:187
 #: plugins/pressure_monitor/templates/pressure_monitor.html:318
 #: plugins/tank_monitor/templates/tank_monitor.html:506
 #: plugins/ups_adj/templates/ups_adj.html:304
@@ -5895,6 +5952,7 @@ msgid "Reload chart"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:418
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:188
 #: plugins/pressure_monitor/templates/pressure_monitor.html:319
 #: plugins/tank_monitor/templates/tank_monitor.html:507
 #: plugins/ups_adj/templates/ups_adj.html:305
@@ -5924,6 +5982,7 @@ msgid "bus (address 0x03)"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:11
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:15
 #: plugins/ping_monitor/templates/ping_monitor_help.html:10
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:10
 #: plugins/tank_monitor/templates/tank_monitor_help.html:12
@@ -5937,6 +5996,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi_help.html:11
 #: plugins/chmi/templates/chmi_help.html:13
 #: plugins/chmi/templates/chmi_help.html:15
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:16
 #: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/relay_16/templates/relay_16_help.html:10
 #: plugins/sms_adj/templates/sms_adj_help.html:11
@@ -5952,6 +6012,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi_help.html:11
 #: plugins/chmi/templates/chmi_help.html:13
 #: plugins/chmi/templates/chmi_help.html:15
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:16
 #: plugins/lcd_display/templates/lcd_display_help.html:50
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
 #: plugins/sms_adj/templates/sms_adj_help.html:11
@@ -6037,6 +6098,7 @@ msgid "Air Temperature and Humidity Monitor - log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:11
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:11
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj_log.html:11
@@ -6045,6 +6107,7 @@ msgid "Log from local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:13
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:13
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:13
 #: plugins/tank_monitor/templates/tank_monitor_log.html:13
 #: plugins/ups_adj/templates/ups_adj_log.html:13
@@ -6053,6 +6116,7 @@ msgid "Log from database"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:24
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:24
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:24
 #: plugins/tank_monitor/templates/tank_monitor_log.html:24
 #: plugins/ups_adj/templates/ups_adj_log.html:24
@@ -6061,6 +6125,7 @@ msgid "Download local log"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:25
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:25
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:25
 #: plugins/tank_monitor/templates/tank_monitor_log.html:25
 #: plugins/ups_adj/templates/ups_adj_log.html:25
@@ -6069,6 +6134,7 @@ msgid "Delete all local logs"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:27
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:27
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:27
 #: plugins/tank_monitor/templates/tank_monitor_log.html:27
 #: plugins/ups_adj/templates/ups_adj_log.html:27
@@ -6085,6 +6151,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:41
 #: plugins/cli_control/templates/cli_control_log.html:15
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:34
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:41
 #: plugins/speed_monitor/templates/speed_monitor_log.html:15
@@ -7522,6 +7589,417 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
+#: plugins/current_loop_tanks_monitor/__init__.py:32
+msgid "Package: Current Loop Tanks Monitor"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:38
+msgid "Tank 1"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:39
+msgid "Tank 2"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:40
+msgid "Tank 3"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:41
+msgid "Tank 4"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:125
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:73
+msgid "Tanks"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:157
+msgid "The measurement of all tanks is switched off."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:164
+#: plugins/current_loop_tanks_monitor/__init__.py:364
+#: plugins/current_loop_tanks_monitor/__init__.py:387
+#: plugins/current_loop_tanks_monitor/__init__.py:399
+#: plugins/current_loop_tanks_monitor/__init__.py:442
+#: plugins/current_loop_tanks_monitor/__init__.py:454
+#: plugins/current_loop_tanks_monitor/__init__.py:468
+#: plugins/current_loop_tanks_monitor/__init__.py:534
+#: plugins/current_loop_tanks_monitor/__init__.py:548
+#: plugins/current_loop_tanks_monitor/__init__.py:635
+#: plugins/current_loop_tanks_monitor/__init__.py:651
+#: plugins/current_loop_tanks_monitor/__init__.py:675
+#: plugins/current_loop_tanks_monitor/__init__.py:701
+#: plugins/current_loop_tanks_monitor/__init__.py:736
+#: plugins/current_loop_tanks_monitor/__init__.py:768
+#: plugins/current_loop_tanks_monitor/__init__.py:806
+msgid "Current Loop Tanks Monitor plug-in"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:218
+msgid "Error: Invalid channel."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:230
+msgid "Error: No I2C bus or ADC available on address 0x48, 0x49, 0x4A, 0x4B."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:239
+msgid "Error: It is not possible to read data from the AD converter."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:259
+msgid "Error: the I2C bus is not available."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:310
+msgid "Error: I/O."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:313
+msgid "Error: ADC value."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:316
+msgid "No problems (measurement works as it should)."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:324
+msgid "Error: I2C bus is not available."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:335
+msgid "I2C devices found at the following addresses: {}."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:338
+msgid "No I2C device was found."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
+msgid "Current Loop Tanks Monitor"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:241
+msgid "Show graph"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:244
+#: plugins/tank_monitor/templates/tank_monitor.html:205
+msgid "Log sample now"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:245
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:18
+msgid "Setup"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:254
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:270
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:286
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:302
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:303
+#: plugins/email_notifications/__init__.py:156
+#: plugins/email_notifications_ssl/__init__.py:166
+#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:392
+#: plugins/tank_monitor/__init__.py:603 plugins/tank_monitor/__init__.py:786
+#: plugins/tank_monitor/templates/tank_monitor.html:433
+msgid "Level"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:256
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:288
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:304
+msgid "l"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:256
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:288
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:304
+#: plugins/email_notifications/__init__.py:160
+#: plugins/email_notifications/__init__.py:162
+#: plugins/email_notifications_ssl/__init__.py:170
+#: plugins/email_notifications_ssl/__init__.py:172
+#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
+#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:604
+#: plugins/tank_monitor/__init__.py:787 plugins/tank_monitor/__init__.py:1125
+#: plugins/tank_monitor/__init__.py:1173
+#: plugins/tank_monitor/templates/tank_monitor.html:468
+#: plugins/tank_monitor/templates/tank_monitor_log.html:38
+msgid "Volume"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
+msgid "Voltage"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:314
+msgid "Please wait for loading."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:3
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:6
+msgid "Current Loop Tanks Monitor - Graph"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:24
+msgid "Tank 1-4 in %"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:36
+#: plugins/ping_monitor/templates/ping_monitor.html:34
+#: plugins/pressure_monitor/templates/pressure_monitor.html:34
+#: plugins/speed_monitor/templates/speed_monitor.html:34
+#: plugins/tank_monitor/templates/tank_monitor.html:34
+#: plugins/ups_adj/templates/ups_adj.html:34
+#: plugins/wind_monitor/templates/wind_monitor.html:43
+msgid "Actual Value"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
+msgid "Tank 1-4 (%)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:3
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:7
+msgid "Current Loop Tanks Monitor - Help"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:8
+msgid "This plug-in module measures the water level in 4 tanks. A differential pressure sensor with a 4-20mA/24V current loop (e.g. TL-136) is used for the measurement. If the water level is low, this plug-in stops the irrigation system (stops the running stations in the scheduler) and sends an error e-mail."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:8
+msgid "default address 0x48"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:9
+msgid "Address of the converter on the bus:"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:10
+msgid "Adr pin connecting to:"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:11
+msgid "GND = 0x48"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:12
+msgid "VDD = 0x49"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:13
+msgid "SDA = 0x4A"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:14
+msgid "SCL = 0x4B"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:17
+#: plugins/tank_monitor/templates/tank_monitor_help.html:20
+msgid "How to installing in tank"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:3
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:6
+msgid "Current Loop Tanks Monitor - Log"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:3
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:64
+msgid "Current Loop Tanks - Setup"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:77
+msgid "Tank Name"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:79
+msgid "Max Height (cm)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:80
+msgid "Max Volume (l)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:81
+msgid "Min Voltage"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:82
+msgid "Max Voltage"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:124
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:139
+msgid "Here, enter the distance from the sensor to the maximum level in centimeters."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:95
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:110
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:125
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:140
+msgid "Here, enter the volume of the tank at 100% volume (regardless of the shape of the tank)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:96
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:111
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:126
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:141
+msgid "Minimum voltage from the probe on the AD converter (for 4mA ie empty tank)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:97
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:112
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:127
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:142
+msgid "Maximum voltage from the probe on the AD converter (for 20mA ie full tank). 4.096V is max range for 16bit convert."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:148
+msgid "Logs and graphs"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:152
+msgid "Show data in graph and log from"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:155
+msgid "Local File"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:156
+msgid "Database File"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:162
+msgid "Enable SQL Logging"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:163
+msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:169
+msgid "The button will delete the currentmonitor table from the database, thus deleting all saved data from this extension! This promotion is non-refundable!"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:186
+#: plugins/tank_monitor/templates/tank_monitor.html:399
+msgid "0 = unlimited. The maximum number of records sets the number of saved records, i.e. after exceeding the set limit, older data is overwritten."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:193
+#: plugins/tank_monitor/templates/tank_monitor.html:405
+msgid "In minutes (Minimum is 1). The logging interval is common for both local storage and sql storage of measured data."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:199
+msgid "Show data in graph from"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:200
+msgid "Datetime FROM for Filtering."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:204
+msgid "Show data in graph to"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:205
+msgid "Datetime TO for Filtering."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:211
+msgid "Additional Settings"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:215
+msgid "I2C Address"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:216
+msgid "Default address is 0x48."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:227
+msgid "Use Footer"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:228
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:128
+#: plugins/system_update/templates/system_update_help.html:23
+#: plugins/venetian_blind/templates/venetian_blind_help.html:13
+msgid "Show data from plugin in footer on home page."
+msgstr ""
+
 #: plugins/database_connector/__init__.py:26
 msgid "Package: Database Connector"
 msgstr ""
@@ -7917,33 +8395,12 @@ msgstr ""
 msgid "Finished run"
 msgstr ""
 
-#: plugins/email_notifications/__init__.py:156
-#: plugins/email_notifications_ssl/__init__.py:166
-#: plugins/email_reader/__init__.py:236 plugins/lcd_display/__init__.py:392
-#: plugins/tank_monitor/__init__.py:603 plugins/tank_monitor/__init__.py:786
-#: plugins/tank_monitor/templates/tank_monitor.html:433
-msgid "Level"
-msgstr ""
-
 #: plugins/email_notifications/__init__.py:158
 #: plugins/email_notifications_ssl/__init__.py:168
 #: plugins/email_reader/__init__.py:238 plugins/speed_monitor/__init__.py:267
 #: plugins/tank_monitor/templates/tank_monitor.html:461
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Ping"
-msgstr ""
-
-#: plugins/email_notifications/__init__.py:160
-#: plugins/email_notifications/__init__.py:162
-#: plugins/email_notifications_ssl/__init__.py:170
-#: plugins/email_notifications_ssl/__init__.py:172
-#: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:242
-#: plugins/email_reader/__init__.py:832 plugins/tank_monitor/__init__.py:604
-#: plugins/tank_monitor/__init__.py:787 plugins/tank_monitor/__init__.py:1125
-#: plugins/tank_monitor/__init__.py:1173
-#: plugins/tank_monitor/templates/tank_monitor.html:468
-#: plugins/tank_monitor/templates/tank_monitor_log.html:38
-msgid "Volume"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:164
@@ -9248,7 +9705,7 @@ msgid "email_reader -> settings_page GET"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:965 plugins/ping_monitor/__init__.py:479
-#: plugins/pressurizer/__init__.py:244 plugins/speed_monitor/__init__.py:332
+#: plugins/pressurizer/__init__.py:247 plugins/speed_monitor/__init__.py:332
 #: plugins/tank_monitor/__init__.py:915 plugins/wind_monitor/__init__.py:598
 msgid "Options has updated."
 msgstr ""
@@ -9779,7 +10236,7 @@ msgid "IP cam - settings"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:22
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:25
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:88
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:22
 msgid "Settings saved."
 msgstr ""
@@ -11433,7 +11890,7 @@ msgstr ""
 
 #: plugins/mqtt_home_assistant/__init__.py:125
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
-#: plugins/shelly_cloud_integrator/__init__.py:82
+#: plugins/shelly_cloud_integrator/__init__.py:87
 msgid "Plugin is started."
 msgstr ""
 
@@ -11712,11 +12169,6 @@ msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:20
 msgid "This plugin installed and configured on the same OSPy system as the base mqtt plugin (see below)."
-msgstr ""
-
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:23
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:18
-msgid "Setup"
 msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:25
@@ -12175,15 +12627,6 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:3
 #: plugins/ping_monitor/templates/ping_monitor.html:178
 msgid "Ping monitor settings"
-msgstr ""
-
-#: plugins/ping_monitor/templates/ping_monitor.html:34
-#: plugins/pressure_monitor/templates/pressure_monitor.html:34
-#: plugins/speed_monitor/templates/speed_monitor.html:34
-#: plugins/tank_monitor/templates/tank_monitor.html:34
-#: plugins/ups_adj/templates/ups_adj.html:34
-#: plugins/wind_monitor/templates/wind_monitor.html:43
-msgid "Actual Value"
 msgstr ""
 
 #: plugins/ping_monitor/templates/ping_monitor.html:189
@@ -12678,47 +13121,43 @@ msgstr ""
 msgid "Package: Pressurizer"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:77 plugins/pressurizer/__init__.py:184
-#: plugins/pressurizer/__init__.py:242
+#: plugins/pressurizer/__init__.py:76 plugins/pressurizer/__init__.py:186
+#: plugins/pressurizer/__init__.py:245
 msgid "Pressurizer is disabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:79 plugins/pressurizer/__init__.py:239
+#: plugins/pressurizer/__init__.py:78 plugins/pressurizer/__init__.py:242
 msgid "Pressurizer is enabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:109
+#: plugins/pressurizer/__init__.py:108
 #: plugins/pressurizer/templates/pressurizer_help.html:10
 msgid "This plugin requires setting master station to enabled. Setup this in options! And also enable the relay as master station in options!"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:119
+#: plugins/pressurizer/__init__.py:118
 msgid "Is time for pump running..."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:123 plugins/pressurizer/__init__.py:190
-#: plugins/pressurizer/__init__.py:225 plugins/pressurizer/__init__.py:246
-#: plugins/pressurizer/__init__.py:261
+#: plugins/pressurizer/__init__.py:122 plugins/pressurizer/__init__.py:193
+#: plugins/pressurizer/__init__.py:228 plugins/pressurizer/__init__.py:250
+#: plugins/pressurizer/__init__.py:263
 msgid "Pressurizer plug-in"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:151
-msgid "Adding the program from the pressurizer to the run log."
-msgstr ""
-
-#: plugins/pressurizer/__init__.py:163
+#: plugins/pressurizer/__init__.py:154
 msgid "Activating relay."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
+#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
 msgid "Waiting"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
+#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
 msgid "second."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:169
+#: plugins/pressurizer/__init__.py:167
 msgid "Deactivating relay."
 msgstr ""
 
@@ -12726,19 +13165,19 @@ msgstr ""
 msgid "Ready."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:181
+#: plugins/pressurizer/__init__.py:183
 msgid "Scheduler is disabled or plugin is disabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:227
+#: plugins/pressurizer/__init__.py:230
 msgid "Pressurizer -> settings_page GET"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:248
+#: plugins/pressurizer/__init__.py:252
 msgid "Pressurizer -> settings_page POST"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:263
+#: plugins/pressurizer/__init__.py:265
 msgid "Pressurizer -> help_page GET"
 msgstr ""
 
@@ -12823,14 +13262,6 @@ msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:90
 msgid "If the check box is marked, the relay is activated before turning on the stations."
-msgstr ""
-
-#: plugins/pressurizer/templates/pressurizer.html:94
-msgid "Not deactivate "
-msgstr ""
-
-#: plugins/pressurizer/templates/pressurizer.html:95
-msgid "If the field is active, the relay or the master station will not be switched off. The pressurizer will only start, but will not shut down."
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer_help.html:3
@@ -13890,231 +14321,284 @@ msgstr ""
 msgid "Package: Shelly Cloud Integration"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:79
+#: plugins/shelly_cloud_integrator/__init__.py:46
+msgid "A"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:47
+msgid "B"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:49
+msgid "D"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:50
+msgid "E"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:84
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:3
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:16
 msgid "Shelly Cloud Integration"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:97
+#: plugins/shelly_cloud_integrator/__init__.py:102
 msgid "Shelly Cloud Bad Login"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:99
+#: plugins/shelly_cloud_integrator/__init__.py:104
 msgid "Shelly Cloud Not Found"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:107
+#: plugins/shelly_cloud_integrator/__init__.py:112
 msgid ""
 "{}: GEN1 not available \n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:122
-msgid "[{}: {}°C {}RV] "
+#: plugins/shelly_cloud_integrator/__init__.py:127
+msgid "[{}: {} °C {} RV] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:123
+#: plugins/shelly_cloud_integrator/__init__.py:128
 msgid ""
-"{}: {}°C {}RV BAT{}% IP:{} RSSI:{}dbm {}\n"
+"{}: {} °C {} RV BAT{} % IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:125
-#: plugins/shelly_cloud_integrator/__init__.py:165
-#: plugins/shelly_cloud_integrator/__init__.py:201
-#: plugins/shelly_cloud_integrator/__init__.py:256
-#: plugins/shelly_cloud_integrator/__init__.py:300
-#: plugins/shelly_cloud_integrator/__init__.py:358
-#: plugins/shelly_cloud_integrator/__init__.py:431
-#: plugins/shelly_cloud_integrator/__init__.py:471
-msgid "[{}: OFFLINE] "
+#: plugins/shelly_cloud_integrator/__init__.py:130
+#: plugins/shelly_cloud_integrator/__init__.py:170
+#: plugins/shelly_cloud_integrator/__init__.py:206
+#: plugins/shelly_cloud_integrator/__init__.py:261
+#: plugins/shelly_cloud_integrator/__init__.py:305
+#: plugins/shelly_cloud_integrator/__init__.py:370
+#: plugins/shelly_cloud_integrator/__init__.py:443
+#: plugins/shelly_cloud_integrator/__init__.py:483
+#: plugins/shelly_cloud_integrator/__init__.py:587
+msgid "[{}: -] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:126
-#: plugins/shelly_cloud_integrator/__init__.py:166
-#: plugins/shelly_cloud_integrator/__init__.py:202
-#: plugins/shelly_cloud_integrator/__init__.py:257
-#: plugins/shelly_cloud_integrator/__init__.py:301
-#: plugins/shelly_cloud_integrator/__init__.py:359
-#: plugins/shelly_cloud_integrator/__init__.py:432
-#: plugins/shelly_cloud_integrator/__init__.py:472
+#: plugins/shelly_cloud_integrator/__init__.py:131
+#: plugins/shelly_cloud_integrator/__init__.py:171
+#: plugins/shelly_cloud_integrator/__init__.py:207
+#: plugins/shelly_cloud_integrator/__init__.py:262
+#: plugins/shelly_cloud_integrator/__init__.py:306
+#: plugins/shelly_cloud_integrator/__init__.py:371
+#: plugins/shelly_cloud_integrator/__init__.py:444
+#: plugins/shelly_cloud_integrator/__init__.py:484
+#: plugins/shelly_cloud_integrator/__init__.py:588
 msgid ""
 "{}: OFFLINE\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:159
-msgid "[{}: ON {}W] "
+#: plugins/shelly_cloud_integrator/__init__.py:164
+msgid "[{}: ON {} W] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:160
+#: plugins/shelly_cloud_integrator/__init__.py:165
 msgid ""
-"{}: ON {}W IP:{} RSSI:{}dbm {}\n"
+"{}: ON {} W IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:162
-msgid "[{}: OFF {}W] "
+#: plugins/shelly_cloud_integrator/__init__.py:167
+msgid "[{}: OFF {} W] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:163
+#: plugins/shelly_cloud_integrator/__init__.py:168
 msgid ""
-"{}: OFF {}W IP:{} RSSI:{}dbm {}\n"
+"{}: OFF {} W IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:195
-#: plugins/shelly_cloud_integrator/__init__.py:294
-msgid "[{}: ON {}W ({}kW/h)] "
+#: plugins/shelly_cloud_integrator/__init__.py:200
+#: plugins/shelly_cloud_integrator/__init__.py:299
+msgid "[{}: ON {} W ({} kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:196
-#: plugins/shelly_cloud_integrator/__init__.py:295
+#: plugins/shelly_cloud_integrator/__init__.py:201
+#: plugins/shelly_cloud_integrator/__init__.py:300
 msgid ""
-"{}: ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+"{}: ON {} W ({} kW/h) {} V IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:198
-#: plugins/shelly_cloud_integrator/__init__.py:297
-msgid "[{}: OFF {}W ({}kW/h)] "
+#: plugins/shelly_cloud_integrator/__init__.py:203
+#: plugins/shelly_cloud_integrator/__init__.py:302
+msgid "[{}: OFF {} W ({} kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:199
-#: plugins/shelly_cloud_integrator/__init__.py:298
+#: plugins/shelly_cloud_integrator/__init__.py:204
+#: plugins/shelly_cloud_integrator/__init__.py:303
 msgid ""
-"{}: OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+"{}: OFF {} W ({} kW/h) {} V IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:223
-#: plugins/shelly_cloud_integrator/__init__.py:279
-#: plugins/shelly_cloud_integrator/__init__.py:383
-#: plugins/shelly_cloud_integrator/__init__.py:453
+#: plugins/shelly_cloud_integrator/__init__.py:228
+#: plugins/shelly_cloud_integrator/__init__.py:284
+#: plugins/shelly_cloud_integrator/__init__.py:395
+#: plugins/shelly_cloud_integrator/__init__.py:465
+#: plugins/shelly_cloud_integrator/__init__.py:505
 msgid ""
 "{}: GEN1 not available yet \n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:244
-#: plugins/shelly_cloud_integrator/__init__.py:343
-#: plugins/shelly_cloud_integrator/__init__.py:407
-msgid "[{}: 1 ON {}W ({}kW/h) "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:245
-#: plugins/shelly_cloud_integrator/__init__.py:344
-#: plugins/shelly_cloud_integrator/__init__.py:408
-msgid "{}: 1 ON {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:247
-#: plugins/shelly_cloud_integrator/__init__.py:346
-#: plugins/shelly_cloud_integrator/__init__.py:410
-msgid "[{}: 1 OFF {}W ({}kW/h) "
-msgstr ""
-
-#: plugins/shelly_cloud_integrator/__init__.py:248
-#: plugins/shelly_cloud_integrator/__init__.py:347
-#: plugins/shelly_cloud_integrator/__init__.py:411
-msgid "{}: 1 OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm "
+#: plugins/shelly_cloud_integrator/__init__.py:249
+#: plugins/shelly_cloud_integrator/__init__.py:355
+#: plugins/shelly_cloud_integrator/__init__.py:419
+#: plugins/shelly_cloud_integrator/__init__.py:558
+msgid "[{}: 1 ON {} W ({} kW/h) "
 msgstr ""
 
 #: plugins/shelly_cloud_integrator/__init__.py:250
-#: plugins/shelly_cloud_integrator/__init__.py:349
-#: plugins/shelly_cloud_integrator/__init__.py:413
-#: plugins/shelly_cloud_integrator/__init__.py:419
-#: plugins/shelly_cloud_integrator/__init__.py:425
-msgid "2 ON {}W ({}kW/h)] "
+#: plugins/shelly_cloud_integrator/__init__.py:356
+#: plugins/shelly_cloud_integrator/__init__.py:420
+#: plugins/shelly_cloud_integrator/__init__.py:559
+msgid "{}: 1 ON {} W ({} kW/h) {} V IP:{} RSSI:{} dbm "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:251
-msgid ""
-"2 ON {}W ({}kW/h) {}V {}\n"
+#: plugins/shelly_cloud_integrator/__init__.py:252
+msgid "[{}: 1 OFF {}W ({}kW/h) "
 msgstr ""
 
 #: plugins/shelly_cloud_integrator/__init__.py:253
-#: plugins/shelly_cloud_integrator/__init__.py:352
-#: plugins/shelly_cloud_integrator/__init__.py:416
-#: plugins/shelly_cloud_integrator/__init__.py:422
+#: plugins/shelly_cloud_integrator/__init__.py:359
+#: plugins/shelly_cloud_integrator/__init__.py:423
+#: plugins/shelly_cloud_integrator/__init__.py:562
+msgid "{}: 1 OFF {} W ({} kW/h) {} V IP:{} RSSI:{} dbm "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:255
+#: plugins/shelly_cloud_integrator/__init__.py:361
+#: plugins/shelly_cloud_integrator/__init__.py:425
+#: plugins/shelly_cloud_integrator/__init__.py:431
+#: plugins/shelly_cloud_integrator/__init__.py:437
+msgid "2 ON {} W ({} kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:256
+msgid ""
+"2 ON {} W ({} kW/h) {}V {}\n"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:258
+#: plugins/shelly_cloud_integrator/__init__.py:364
 #: plugins/shelly_cloud_integrator/__init__.py:428
-msgid "2 OFF {}W ({}kW/h)] "
+#: plugins/shelly_cloud_integrator/__init__.py:440
+msgid "2 OFF {} W ({} kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:254
+#: plugins/shelly_cloud_integrator/__init__.py:259
 msgid ""
-"2 OFF {}W ({}kW/h) {}V {}\n"
+"2 OFF {} W ({} kW/h) {}V {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:350
-#: plugins/shelly_cloud_integrator/__init__.py:426
+#: plugins/shelly_cloud_integrator/__init__.py:358
+#: plugins/shelly_cloud_integrator/__init__.py:422
+#: plugins/shelly_cloud_integrator/__init__.py:561
+msgid "[{}: 1 OFF {} W ({} kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:362
+#: plugins/shelly_cloud_integrator/__init__.py:438
 msgid ""
-"2 ON {}W ({}kW/h) {}\n"
+"2 ON {} W ({} kW/h) {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:353
-#: plugins/shelly_cloud_integrator/__init__.py:429
+#: plugins/shelly_cloud_integrator/__init__.py:365
+#: plugins/shelly_cloud_integrator/__init__.py:441
 msgid ""
-"2 OFF {}W ({}kW/h) {}\n"
+"2 OFF {} W ({} kW/h) {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:355
-msgid "[{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h)] "
+#: plugins/shelly_cloud_integrator/__init__.py:367
+msgid "[{}: {} 1: {} W ({} kW/h) 2: {} W ({} kW/h)] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:356
+#: plugins/shelly_cloud_integrator/__init__.py:368
 msgid ""
-"{}: {} 1: {}W ({}kW/h) 2: {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
+"{}: {} 1: {} W ({} kW/h) 2: {} W ({} kW/h) {} V IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:376
+#: plugins/shelly_cloud_integrator/__init__.py:388
 msgid ""
 "{}: GEN2 not available yet \n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:414
-#: plugins/shelly_cloud_integrator/__init__.py:420
-msgid "2 ON {}W ({}kW/h) "
+#: plugins/shelly_cloud_integrator/__init__.py:426
+#: plugins/shelly_cloud_integrator/__init__.py:432
+#: plugins/shelly_cloud_integrator/__init__.py:564
+#: plugins/shelly_cloud_integrator/__init__.py:565
+msgid "2 ON {} W ({} kW/h) "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:417
-#: plugins/shelly_cloud_integrator/__init__.py:423
+#: plugins/shelly_cloud_integrator/__init__.py:429
+#: plugins/shelly_cloud_integrator/__init__.py:567
+#: plugins/shelly_cloud_integrator/__init__.py:568
+msgid "2 OFF {} W ({} kW/h) "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:434
+msgid "2 OFF {}W ({}kW/h)] "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:435
 msgid "2 OFF {}W ({}kW/h) "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:465
+#: plugins/shelly_cloud_integrator/__init__.py:477
 msgid "[{}: ON] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:466
+#: plugins/shelly_cloud_integrator/__init__.py:478
 msgid ""
-"{}: ON IP:{} RSSI:{}dbm {}\n"
+"{}: ON IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:468
+#: plugins/shelly_cloud_integrator/__init__.py:480
 msgid "[{}: OFF] "
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:469
+#: plugins/shelly_cloud_integrator/__init__.py:481
 msgid ""
-"{}: OFF IP:{} RSSI:{}dbm {}\n"
+"{}: OFF IP:{} RSSI:{} dbm {}\n"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:492
-#: plugins/shelly_cloud_integrator/__init__.py:504
-#: plugins/shelly_cloud_integrator/__init__.py:538
-#: plugins/shelly_cloud_integrator/__init__.py:552
-#: plugins/shelly_cloud_integrator/__init__.py:619
-#: plugins/shelly_cloud_integrator/__init__.py:633
+#: plugins/shelly_cloud_integrator/__init__.py:570
+#: plugins/shelly_cloud_integrator/__init__.py:571
+#: plugins/shelly_cloud_integrator/__init__.py:573
+#: plugins/shelly_cloud_integrator/__init__.py:574
+#: plugins/shelly_cloud_integrator/__init__.py:576
+#: plugins/shelly_cloud_integrator/__init__.py:577
+#: plugins/shelly_cloud_integrator/__init__.py:579
+#: plugins/shelly_cloud_integrator/__init__.py:580
+#: plugins/shelly_cloud_integrator/__init__.py:582
+#: plugins/shelly_cloud_integrator/__init__.py:583
+msgid "{} {} °C "
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:605
+msgid "Bad JSON"
+msgstr ""
+
+#: plugins/shelly_cloud_integrator/__init__.py:608
+#: plugins/shelly_cloud_integrator/__init__.py:620
+#: plugins/shelly_cloud_integrator/__init__.py:654
+#: plugins/shelly_cloud_integrator/__init__.py:668
+#: plugins/shelly_cloud_integrator/__init__.py:776
+#: plugins/shelly_cloud_integrator/__init__.py:790
 msgid "Shelly Cloud Integration plugin"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:540
+#: plugins/shelly_cloud_integrator/__init__.py:656
 msgid "shelly_cloud -> status_page GET"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:554
+#: plugins/shelly_cloud_integrator/__init__.py:670
 msgid "shelly_cloud -> sensors_page GET"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:621
+#: plugins/shelly_cloud_integrator/__init__.py:778
 msgid "shelly_cloud -> sensors_page POST"
 msgstr ""
 
-#: plugins/shelly_cloud_integrator/__init__.py:635
+#: plugins/shelly_cloud_integrator/__init__.py:792
 msgid "shelly_cloud -> help_page GET"
 msgstr ""
 
@@ -14166,7 +14650,7 @@ msgstr ""
 
 #:
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:16
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:44
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:110
 msgid "The server URL where all the devices and client accounts are located. This can be obtained from Shelly > User Settings > Cloud Authorization Key."
 msgstr ""
 
@@ -14177,150 +14661,203 @@ msgstr ""
 
 #:
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:3
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:36
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:99
 msgid "Shelly Cloud Integration - Setup"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:28
-msgid "Error when saving, more in debug print!"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:43
-msgid "Server uri"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:49
-msgid "Auth key"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:50
-msgid "This can be obtained from Shelly > User Settings > Cloud Authorization Key."
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:55
-msgid "Request intervalg"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:56
-msgid "Shelly cloud data download recovery interval."
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:62
-#: plugins/system_update/templates/system_update_help.html:23
-#: plugins/venetian_blind/templates/venetian_blind_help.html:13
-msgid "Show data from plugin in footer on home page."
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:69
-msgid "Number of sensors"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:70
-msgid "The number of used sensors in these plugin."
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:79
-msgid "Use sensor"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:80
-msgid "If you do not want to use the sensor but do not want to delete it in the list, uncheck the box."
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:85
-msgid "Label for Shelly sensor"
-msgstr ""
-
-#:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:86
-msgid "Your own Shelly device name (under this name the device will be available in OSPy)."
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:58
+msgid "Click for more information."
 msgstr ""
 
 #:
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:91
+msgid "Error when saving, more in debug print!"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:109
+msgid "Server uri"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:115
+msgid "Auth key"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:116
+msgid "This can be obtained from Shelly > User Settings > Cloud Authorization Key."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:121
+msgid "Request interval"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:122
+msgid "Shelly cloud data download recovery interval."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:138
+msgid "Number of sensors"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:139
+msgid "The number of used sensors in this plugin."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:149
+msgid "Use sensor"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:150
+msgid "If you do not want to use the sensor but do not want to delete it in the list, uncheck the box."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:158
+msgid "Label for Shelly sensor"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:159
+msgid "Your own Shelly device name (under this name the device will be available in OSPy)."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:164
 msgid "Shelly sensor ID"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:92
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:165
 msgid "This can be obtained from Shelly. Example: b0b21c1368aa"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:97
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:170
 msgid "Shelly sensor type"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:98
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:171
 msgid "Depending on the type of device, data will be read (e.g. temperature and humidity, output states, etc.)"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:100
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:173
 msgid "Shelly Plus HT"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:174
 msgid "Shelly Plus Plug S"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:102
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:175
 msgid "Shelly Pro 2PM"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:103
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:176
 msgid "Shelly 1PM Mini"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:104
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:177
 msgid "Shelly 2.5"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:105
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:178
 msgid "Shelly Pro 4PM"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:106
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:179
 msgid "Shelly 1 Mini"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:128
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:180
+msgid "Shelly 2PM Addon"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:222
 msgid "Shelly Gen"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:129
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:223
 msgid "Generation of Shelly devices."
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:131
-msgid "Gen 1"
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:225
+msgid "Generation 1"
 msgstr ""
 
 #:
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:132
-msgid "Gen 2+"
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:226
+msgid "Generation 2+"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:232
+msgid "Label DS18B20 ID100"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:233
+msgid "Label for Shelly Addons ex: temperature probe with temperature100 ID100."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:238
+msgid "Label DS18B20 ID101"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:239
+msgid "Label for Shelly Addons ex: temperature probe with temperature101 ID101."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:244
+msgid "Label DS18B20 ID102"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:245
+msgid "Label for Shelly Addons ex: temperature probe with temperature102 ID102."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:250
+msgid "Label DS18B20 ID103"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:251
+msgid "Label for Shelly Addons ex: temperature probe with temperature103 ID103."
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:256
+msgid "Label DS18B20 ID104"
+msgstr ""
+
+#:
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:257
+msgid "Label for Shelly Addons ex: temperature probe with temperature104 ID104."
 msgstr ""
 
 #: plugins/signaling_examples/__init__.py:19
@@ -15951,10 +16488,6 @@ msgstr ""
 msgid "cm, liters or m<sup>3</sup>"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:205
-msgid "Log sample now"
-msgstr ""
-
 #: plugins/tank_monitor/templates/tank_monitor.html:207
 msgid "Show debug logs"
 msgstr ""
@@ -16029,14 +16562,6 @@ msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured. The button will delete the tankmonitor table from the database, thus deleting all saved data from this extension! This promotion is non-refundable!"
-msgstr ""
-
-#: plugins/tank_monitor/templates/tank_monitor.html:399
-msgid "0 = unlimited. The maximum number of records sets the number of saved records, i.e. after exceeding the set limit, older data is overwritten."
-msgstr ""
-
-#: plugins/tank_monitor/templates/tank_monitor.html:405
-msgid "In minutes (Minimum is 1). The logging interval is common for both local storage and sql storage of measured data."
 msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:410
@@ -16139,10 +16664,6 @@ msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor_help.html:14
 msgid "The PCB board for water tank monitor (board by pihrt.com)"
-msgstr ""
-
-#: plugins/tank_monitor/templates/tank_monitor_help.html:20
-msgid "How to installing in tank"
 msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor_help.html:22

@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+November 06 2024 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language. New plugin: Current Loop Tanks Monitor is ready to use (no possibility of automation yet - measurement and logswork is ready).
+
 November 01 2024 (v3.0)
 -----------
 (martinpihrt)<br/>
