@@ -1030,6 +1030,7 @@ Available plug-ins:
 * OSPy Backup
 * MQTT Home Assistant
 * Shelly Cloud Integration
+* Current Loop Tanks Mmonitor
 
 ----
 

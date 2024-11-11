@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-11-06 08:07+0100\n"
+"POT-Creation-Date: 2024-11-11 18:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1175,7 +1175,8 @@ msgstr ""
 msgid "Removing sensor id: {}"
 msgstr ""
 
-#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:175
+#: ospy/sensors.py:279 plugins/current_loop_tanks_monitor/__init__.py:186
+#: plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:354
 msgid "E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped."
 msgstr ""
@@ -2181,9 +2182,9 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:194
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:30
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:62
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:74
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:67
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:254
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:324
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:30
@@ -2230,7 +2231,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:30
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:72
-#: plugins/pressurizer/templates/pressurizer.html:103
+#: plugins/pressurizer/templates/pressurizer.html:108
 #: plugins/pressurizer/templates/pressurizer_help.html:16
 #: plugins/proto/templates/proto.html:99
 #: plugins/proto/templates/proto_help.html:50
@@ -3009,6 +3010,7 @@ msgstr ""
 
 #: ospy/templates/log.html:67 ospy/templates/log.html:111
 #: ospy/templates/log_user.html:57 ospy/templates/log_user.html:86
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
 msgid "Subject"
 msgstr ""
 
@@ -3025,7 +3027,7 @@ msgid "events.csv"
 msgstr ""
 
 #: ospy/templates/log.html:89
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:315
 msgid "Events"
 msgstr ""
 
@@ -3102,7 +3104,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:269
 #: plugins/pool_heating/templates/pool_heating.html:187
 #: plugins/pressure_monitor/templates/pressure_monitor.html:292
-#: plugins/pressurizer/templates/pressurizer.html:94
+#: plugins/pressurizer/templates/pressurizer.html:99
 #: plugins/proto/templates/proto.html:89
 #: plugins/real_time/templates/real_time.html:55
 #: plugins/relay_16/templates/relay_16.html:66
@@ -3236,18 +3238,20 @@ msgstr ""
 #: ospy/templates/sensors.html:367 ospy/templates/sensors.html:734
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:303
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:44
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:45
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:46
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:47
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:53
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:54
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:55
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:56
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:48
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:49
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:50
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:51
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:61
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:62
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:63
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:64
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
 #: plugins/email_notifications_ssl/__init__.py:264
@@ -4869,7 +4873,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:66
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:323
 #: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -4882,7 +4886,7 @@ msgstr ""
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:127
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
-#: plugins/pressurizer/templates/pressurizer.html:102
+#: plugins/pressurizer/templates/pressurizer.html:107
 #: plugins/proto/templates/proto.html:98
 #: plugins/real_time/templates/real_time.html:64
 #: plugins/relay_16/templates/relay_16.html:76
@@ -5598,8 +5602,8 @@ msgstr ""
 #: plugins/pressure_monitor/__init__.py:565
 #: plugins/pressure_monitor/__init__.py:705
 #: plugins/pressure_monitor/__init__.py:735
-#: plugins/pressurizer/__init__.py:229 plugins/pressurizer/__init__.py:251
-#: plugins/pressurizer/__init__.py:264 plugins/proto/__init__.py:146
+#: plugins/pressurizer/__init__.py:226 plugins/pressurizer/__init__.py:247
+#: plugins/pressurizer/__init__.py:262 plugins/proto/__init__.py:146
 #: plugins/proto/__init__.py:157 plugins/proto/__init__.py:170
 #: plugins/pulse/__init__.py:105 plugins/pulse/__init__.py:124
 #: plugins/pulse/__init__.py:137 plugins/real_time/__init__.py:219
@@ -7609,72 +7613,97 @@ msgstr ""
 msgid "Tank 4"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:125
+#: plugins/current_loop_tanks_monitor/__init__.py:85
+msgid "Report from OSPy: Tank 1 has minimal level!"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:86
+msgid "Report from OSPy: Tank 2 has minimal level!"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:87
+msgid "Report from OSPy: Tank 3 has minimal level!"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:88
+msgid "Report from OSPy: Tank 4 has minimal level!"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:145
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:73
 msgid "Tanks"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:157
-msgid "The measurement of all tanks is switched off."
-msgstr ""
-
-#: plugins/current_loop_tanks_monitor/__init__.py:164
-#: plugins/current_loop_tanks_monitor/__init__.py:364
-#: plugins/current_loop_tanks_monitor/__init__.py:387
-#: plugins/current_loop_tanks_monitor/__init__.py:399
-#: plugins/current_loop_tanks_monitor/__init__.py:442
-#: plugins/current_loop_tanks_monitor/__init__.py:454
-#: plugins/current_loop_tanks_monitor/__init__.py:468
-#: plugins/current_loop_tanks_monitor/__init__.py:534
-#: plugins/current_loop_tanks_monitor/__init__.py:548
-#: plugins/current_loop_tanks_monitor/__init__.py:635
-#: plugins/current_loop_tanks_monitor/__init__.py:651
-#: plugins/current_loop_tanks_monitor/__init__.py:675
-#: plugins/current_loop_tanks_monitor/__init__.py:701
-#: plugins/current_loop_tanks_monitor/__init__.py:736
-#: plugins/current_loop_tanks_monitor/__init__.py:768
-#: plugins/current_loop_tanks_monitor/__init__.py:806
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
+#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:211
+#: plugins/current_loop_tanks_monitor/__init__.py:410
+#: plugins/current_loop_tanks_monitor/__init__.py:437
+#: plugins/current_loop_tanks_monitor/__init__.py:449
+#: plugins/current_loop_tanks_monitor/__init__.py:512
+#: plugins/current_loop_tanks_monitor/__init__.py:524
+#: plugins/current_loop_tanks_monitor/__init__.py:538
+#: plugins/current_loop_tanks_monitor/__init__.py:624
+#: plugins/current_loop_tanks_monitor/__init__.py:638
+#: plugins/current_loop_tanks_monitor/__init__.py:739
+#: plugins/current_loop_tanks_monitor/__init__.py:755
+#: plugins/current_loop_tanks_monitor/__init__.py:779
+#: plugins/current_loop_tanks_monitor/__init__.py:805
+#: plugins/current_loop_tanks_monitor/__init__.py:840
+#: plugins/current_loop_tanks_monitor/__init__.py:880
+#: plugins/current_loop_tanks_monitor/__init__.py:926
 msgid "Current Loop Tanks Monitor plug-in"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:218
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
+#: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
+msgid "System detected error: Water Tank has minimum Water Level"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:204
+msgid "The measurement of all tanks is switched off."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:265
 msgid "Error: Invalid channel."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:230
+#: plugins/current_loop_tanks_monitor/__init__.py:277
 msgid "Error: No I2C bus or ADC available on address 0x48, 0x49, 0x4A, 0x4B."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:239
+#: plugins/current_loop_tanks_monitor/__init__.py:286
 msgid "Error: It is not possible to read data from the AD converter."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:259
+#: plugins/current_loop_tanks_monitor/__init__.py:306
 msgid "Error: the I2C bus is not available."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:310
+#: plugins/current_loop_tanks_monitor/__init__.py:356
 msgid "Error: I/O."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:313
+#: plugins/current_loop_tanks_monitor/__init__.py:359
 msgid "Error: ADC value."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:316
+#: plugins/current_loop_tanks_monitor/__init__.py:362
 msgid "No problems (measurement works as it should)."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:324
+#: plugins/current_loop_tanks_monitor/__init__.py:370
 msgid "Error: I2C bus is not available."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:335
-msgid "I2C devices found at the following addresses: {}."
+#: plugins/current_loop_tanks_monitor/__init__.py:384
+msgid "No I2C device was found."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:338
-msgid "No I2C device was found."
+#: plugins/current_loop_tanks_monitor/__init__.py:666
+msgid "Not found at any known addresses: 0x48, 0x49, 0x4A, 0x4B"
 msgstr ""
 
 #:
@@ -7723,6 +7752,14 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:288
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:304
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:52
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:53
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:54
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:55
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:65
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:66
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:67
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:68
 msgid "l"
 msgstr ""
 
@@ -7758,6 +7795,16 @@ msgid "Please wait for loading."
 msgstr ""
 
 #:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:321
+msgid "Verify AD converter"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:323
+msgid "Found on"
+msgstr ""
+
+#:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:6
 msgid "Current Loop Tanks Monitor - Graph"
@@ -7765,7 +7812,8 @@ msgstr ""
 
 #:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:24
-msgid "Tank 1-4 in %"
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
+msgid "Tank 1-4 % or liter"
 msgstr ""
 
 #:
@@ -7777,11 +7825,6 @@ msgstr ""
 #: plugins/ups_adj/templates/ups_adj.html:34
 #: plugins/wind_monitor/templates/wind_monitor.html:43
 msgid "Actual Value"
-msgstr ""
-
-#:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
-msgid "Tank 1-4 (%)"
 msgstr ""
 
 #:
@@ -7865,12 +7908,12 @@ msgstr ""
 
 #:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:81
-msgid "Min Voltage"
+msgid "Min Voltage (V)"
 msgstr ""
 
 #:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:82
-msgid "Max Voltage"
+msgid "Max Voltage (V)"
 msgstr ""
 
 #:
@@ -7998,6 +8041,48 @@ msgstr ""
 #: plugins/system_update/templates/system_update_help.html:23
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 msgid "Show data from plugin in footer on home page."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+msgid "Notifications"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:249
+#: plugins/tank_monitor/__init__.py:143
+msgid "Tank"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:250
+msgid "Send E-mail"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:251
+msgid "Level activation (%)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:252
+msgid "Level release (%)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:265
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:279
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:293
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:307
+msgid "If the level drops below this value, sending an email is activated."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:266
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:280
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:294
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:308
+msgid "As long as the level does not rise above this level, it will not allow sending an email when the level drops to the minimum. This is used to block the constant sending of emails when the level is at a minimum."
 msgstr ""
 
 #: plugins/database_connector/__init__.py:26
@@ -9705,7 +9790,7 @@ msgid "email_reader -> settings_page GET"
 msgstr ""
 
 #: plugins/email_reader/__init__.py:965 plugins/ping_monitor/__init__.py:479
-#: plugins/pressurizer/__init__.py:247 plugins/speed_monitor/__init__.py:332
+#: plugins/pressurizer/__init__.py:244 plugins/speed_monitor/__init__.py:332
 #: plugins/tank_monitor/__init__.py:915 plugins/wind_monitor/__init__.py:598
 msgid "Options has updated."
 msgstr ""
@@ -13121,43 +13206,47 @@ msgstr ""
 msgid "Package: Pressurizer"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:76 plugins/pressurizer/__init__.py:186
-#: plugins/pressurizer/__init__.py:245
+#: plugins/pressurizer/__init__.py:77 plugins/pressurizer/__init__.py:184
+#: plugins/pressurizer/__init__.py:242
 msgid "Pressurizer is disabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:78 plugins/pressurizer/__init__.py:242
+#: plugins/pressurizer/__init__.py:79 plugins/pressurizer/__init__.py:239
 msgid "Pressurizer is enabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:108
+#: plugins/pressurizer/__init__.py:109
 #: plugins/pressurizer/templates/pressurizer_help.html:10
 msgid "This plugin requires setting master station to enabled. Setup this in options! And also enable the relay as master station in options!"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:118
+#: plugins/pressurizer/__init__.py:119
 msgid "Is time for pump running..."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:122 plugins/pressurizer/__init__.py:193
-#: plugins/pressurizer/__init__.py:228 plugins/pressurizer/__init__.py:250
-#: plugins/pressurizer/__init__.py:263
+#: plugins/pressurizer/__init__.py:123 plugins/pressurizer/__init__.py:190
+#: plugins/pressurizer/__init__.py:225 plugins/pressurizer/__init__.py:246
+#: plugins/pressurizer/__init__.py:261
 msgid "Pressurizer plug-in"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:154
+#: plugins/pressurizer/__init__.py:151
+msgid "Adding the program from the pressurizer to the run log."
+msgstr ""
+
+#: plugins/pressurizer/__init__.py:163
 msgid "Activating relay."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
+#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
 msgid "Waiting"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
+#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
 msgid "second."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:167
+#: plugins/pressurizer/__init__.py:169
 msgid "Deactivating relay."
 msgstr ""
 
@@ -13165,19 +13254,19 @@ msgstr ""
 msgid "Ready."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:183
+#: plugins/pressurizer/__init__.py:181
 msgid "Scheduler is disabled or plugin is disabled."
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:230
+#: plugins/pressurizer/__init__.py:227
 msgid "Pressurizer -> settings_page GET"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:252
+#: plugins/pressurizer/__init__.py:248
 msgid "Pressurizer -> settings_page POST"
 msgstr ""
 
-#: plugins/pressurizer/__init__.py:265
+#: plugins/pressurizer/__init__.py:263
 msgid "Pressurizer -> help_page GET"
 msgstr ""
 
@@ -13262,6 +13351,14 @@ msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:90
 msgid "If the check box is marked, the relay is activated before turning on the stations."
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer.html:94
+msgid "Not deactivate "
+msgstr ""
+
+#: plugins/pressurizer/templates/pressurizer.html:95
+msgid "If the field is active, the relay or the master station will not be switched off. The pressurizer will only start, but will not shut down."
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer_help.html:3
@@ -16356,10 +16453,6 @@ msgstr ""
 msgid "Regulation NONE."
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:143
-msgid "Tank"
-msgstr ""
-
 #: plugins/tank_monitor/__init__.py:156
 msgid "Water tank monitor is enabled."
 msgstr ""
@@ -16427,10 +16520,6 @@ msgstr ""
 
 #: plugins/tank_monitor/__init__.py:334 plugins/tank_monitor/__init__.py:920
 msgid "Water tank monitor is disabled."
-msgstr ""
-
-#: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
-msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
 #: plugins/tank_monitor/__init__.py:443

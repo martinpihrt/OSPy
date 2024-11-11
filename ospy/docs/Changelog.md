@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+November 11 2024 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language. Fixed broken language change in OSPy options.
+
 November 06 2024 (v3.0)
 -----------
 (martinpihrt)<br/>

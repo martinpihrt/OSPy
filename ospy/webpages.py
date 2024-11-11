@@ -14,7 +14,7 @@ import mimetypes
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, print_report, stop_onrain
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, stop_onrain
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options, rain_blocks, program_level_adjustments
@@ -32,18 +32,10 @@ from urllib.parse import quote_plus
 
 try:
     import requests
-
 except ImportError:
-    print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
-    cmd = "sudo apt-get install python-requests"
-    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-    output = proc.communicate()[0]
-    print_report('usagestats.py', output)
-       
-    try: 
-        import requests
-    except:
-        pass
+    log.error('webpages.py', _('Requests not found on system!'))
+    log.error('webpages.py', output)
+
 
 plugin_data = {}    # Empty dictionary to hold plugin based global data
 pluginFtr = []      # Empty list of dicts to hold plugin data for display in footer
@@ -148,7 +140,6 @@ class WebPage(object):
         try:
             # Check that the session is not None and has the 'pages' attribute
             if session is None:
-                print_report('webpages.py', _('Session is not initialized.'))
                 log.error('webpages.py', _('Session is not initialized.'))
                 raise ValueError(_('Session is not initialized.'))
 
@@ -158,14 +149,13 @@ class WebPage(object):
             if not cls.__name__.endswith('json') and (not session.pages or session.pages[-1] != web.ctx.fullpath):
                 session.pages.append(web.ctx.fullpath)
 
-            # Keep session.pages size to a maximum of 10 items
-            while len(session.pages) > 10:
+            # Keep session.pages size to a maximum of 20 items
+            while len(session.pages) > 20:
                 del session.pages[0]
-                log.debug('webpages.py', _('Session.pages size is >10, deleting.'))
+                log.debug('webpages.py', _('Session.pages size is >20, deleting.'))
 
         except Exception:
             # If an error occurs, record it and restart the software
-            print_report('webpages.py', traceback.format_exc())
             log.error('webpages.py', traceback.format_exc())
             # OSPy software restart
             restart()  
@@ -218,7 +208,7 @@ class sensors_firmware(ProtectedPage):
                 send_url = 'http://' + send_ip + '/AP_' + options.sensor_fw_passwd   # ex: http://192.168.88.207/AP_0123456789abcdef
                 response = requests.post(send_url)
                 resp_code = response.status_code
-                print_report('webpages.py', resp_code)
+                log.debug('webpages.py', resp_code)
                 if resp_code == 200:
                     statusCode = qdict.get('statusCode', 'ap_ok')                    # msg = The sensor responded and probably started the AP manager
                 elif resp_code == 404:
@@ -278,7 +268,7 @@ class sensors_firmware(ProtectedPage):
                 with open(last_fw_path, 'rb') as file:
                     response = requests.post(send_url, files={last_fw_name: file})
                 resp_code = response.status_code
-                print_report('webpages.py', resp_code)
+                log.debug('webpages.py', resp_code)
                 if resp_code == 200:
                     statusCode = qdict.get('statusCode', 'upl_ok')                   # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
                 elif resp_code == 404:
@@ -291,7 +281,7 @@ class sensors_firmware(ProtectedPage):
                     
         except:
             pass
-            print_report('webpages.py', traceback.format_exc())
+            log.debug('webpages.py', traceback.format_exc())
             statusCode = qdict.get('statusCode', 'err2')                             # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond! 
 
         return self.core_render.sensors_firmware(statusCode)
@@ -363,7 +353,7 @@ class sensors_firmware(ProtectedPage):
                         #print(response)
                              
                         resp_code = response.status_code
-                        print_report('webpages.py', resp_code)
+                        log.debug('webpages.py', resp_code)
                         if resp_code == 200:
                             statusCode = qdict.get('statusCode', 'upl_ok')           # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
                             os.remove(fw_path)
@@ -374,7 +364,7 @@ class sensors_firmware(ProtectedPage):
                 except:
                     pass
                     statusCode = qdict.get('statusCode', 'err2')                     # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     return self.core_render.sensors_firmware(statusCode)
 
         return self.core_render.sensors_firmware(statusCode)
@@ -401,7 +391,7 @@ class sensors_page(ProtectedPage):
                 try:
                     del sensorSearch[int(i)]
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
             return self.core_render.sensors_search()
           
@@ -414,7 +404,7 @@ class sensors_page(ProtectedPage):
                             pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
             except:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 pass
 
             while sensors.count() > 0:
@@ -423,13 +413,13 @@ class sensors_page(ProtectedPage):
                     sensors_timer.stop_status(sensor.name)
                     sensors.remove_sensors(sensors.count()-1)
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
             try:
                 import shutil
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
             except:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 pass    
 
         if search:
@@ -475,7 +465,7 @@ class sensor_page(ProtectedPage):
                     sensor = sensors.get(index)
                     sensors_timer.stop_status(sensor.name)
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try: # delete programs from sensor in program level adjustments (for soil moisture sensor)
@@ -485,19 +475,19 @@ class sensor_page(ProtectedPage):
                             pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try: # delete log and graph
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try: # delete sensor
                     sensors.remove_sensors(index)
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 raise web.seeother('/sensors')
@@ -528,14 +518,14 @@ class sensor_page(ProtectedPage):
                     with open(_abs_dir_slog) as logf:
                         slog_file =  json.load(logf)
                 except IOError:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try:
                     with open(_abs_dir_elog) as logf:
                         elog_file =  json.load(logf)
                 except IOError:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     pass
                 
                 name = sensors[index].name
@@ -545,7 +535,7 @@ class sensor_page(ProtectedPage):
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
                 except:
                     pass
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
 
             elif glog:
                 dir_name_glog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph')
@@ -590,7 +580,7 @@ class sensor_page(ProtectedPage):
                                                 if float(find_data['total']) != -127.0:                # not checked, add values if not -127
                                                     temp_balances[key] = glog_file[i]['balances'][key]
                             except:
-                                print_report('webpages.py', traceback.format_exc())
+                                log.debug('webpages.py', traceback.format_exc())
                                 pass
                             data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
                     else:
@@ -608,7 +598,7 @@ class sensor_page(ProtectedPage):
                                                 if float(find_data['total']) != -127.0:                # not checked, add values if not -127
                                                     temp_balances[key] = glog_file[i]['balances'][key]
                             except:
-                                print_report('webpages.py', traceback.format_exc())
+                                log.debug('webpages.py', traceback.format_exc())
                                 pass
                             data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
 
@@ -617,7 +607,7 @@ class sensor_page(ProtectedPage):
                     web.header('Content-Type', 'application/json')
                     return json.dumps(data)
                 except:
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
                     return json.dumps([])
@@ -629,7 +619,7 @@ class sensor_page(ProtectedPage):
                     mtype = sensors[index].multi_type
                     return self.core_render.graph_sensor(index, name, stype, mtype) 
                 except:    
-                    print_report('webpages.py', traceback.format_exc())
+                    log.debug('webpages.py', traceback.format_exc())
                     return self.core_render.graph_sensor(index, name, stype, mtype)                    
 
             elif csvE:
@@ -986,7 +976,7 @@ class sensor_page(ProtectedPage):
                             errorCode = qdict.get('errorCode', 'unameis')
                             return self.core_render.sensor(sensor, errorCode)
             except:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
 
         if sensor.index < 0 and session['category'] == 'admin':
             sensors.add_sensors(sensor)
@@ -1130,7 +1120,7 @@ class image_edit_page(ProtectedPage):
                     os.remove(img_path_th)
                 log.debug('webpages.py', _('Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
             except:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 pass
 
         if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
@@ -1140,7 +1130,7 @@ class image_edit_page(ProtectedPage):
                 from PIL import Image
             except ImportError:
                 errorCode = qdict.get('errorCode', 'nopil')
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 pass
         else:
             img_url = '/images?sf=1&id=station%s' % str(index)        # station img
@@ -1155,7 +1145,7 @@ class image_edit_page(ProtectedPage):
                 errorCode = qdict.get('errorCode', 'nopilOK')
             except:
                 errorCode = qdict.get('errorCode', 'nopilErr')
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 pass
 
         return self.core_render.edit(index, img_url, errorCode)
@@ -1228,7 +1218,6 @@ class image_edit_page(ProtectedPage):
                 except:
                     pass
                     log.error('webpages.py', _('Cannot create resized files!'))
-                    print_report('webpages.py', traceback.format_exc())
 
         raise web.seeother('/stations')   
 
@@ -1287,7 +1276,7 @@ class logout_page(WebPage):
             log.info('webpages.py', _('User {} logged out').format(server.session.get('visitor')))
             server.session.kill()
         except:
-            print_report('webpages.py', traceback.format_exc())
+            log.debug('webpages.py', traceback.format_exc())
         finally:
             raise web.seeother('/')
 
@@ -1784,7 +1773,7 @@ class log_page(ProtectedPage):
         try:
             return self.core_render.log(watering_records, email_records, events_records)
         except:
-            print_report('webpages.py', traceback.format_exc())
+            log.debug('webpages.py', traceback.format_exc())
             raise web.seeother('/')
 
     def POST(self):
@@ -1896,7 +1885,7 @@ class options_page(ProtectedPage):
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
             poweroff(wait=15, block=True)   # shutll HW system
-            msg = _('The system (Linux) is now shutting down ... The system must be switched on again by the user (switching off and on your HW device).')
+            msg = _('The system (Linux) is now shutting down... The system must be switched on again by the user (switching off and on your HW device).')
             return self.core_render.notice(home_page, msg) 
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
@@ -1910,20 +1899,21 @@ class options_page(ProtectedPage):
                 ospy_to_default()
                 restart()    # OSPy software
             except:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 server.session.kill()
                 server.stop()
                 server.start()
                 raise web.seeother('/')
 
+        save_to_options(qdict)
+        report_option_change()
+
         if changing_language:
             report_restarted()
             restart()    # OSPy software
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice(home_page, msg)        
 
-        save_to_options(qdict)
-        report_option_change()
         raise web.seeother('/')
 
 
@@ -2032,7 +2022,7 @@ class download_page(ProtectedPage):
                 with open(path, 'rb') as fh:
                     return fh.read()
             except IOError:
-                print_report('webpages.py', traceback.format_exc())
+                log.debug('webpages.py', traceback.format_exc())
                 return []
 
         try:
@@ -2070,7 +2060,7 @@ class download_page(ProtectedPage):
                 return self.core_render.notice(u'/download', msg)
              
         except Exception:
-            print_report('webpages.py', traceback.format_exc())
+            log.debug('webpages.py', traceback.format_exc())
             raise web.seeother('/')
 
 
@@ -2133,7 +2123,7 @@ class upload_page(ProtectedPage):
 
                 ospy_to_default(del_upload=False)
 
-                print_report('webpages.py', _('Copy extrated folders with files to data dir.'))
+                log.debug('webpages.py', _('Copy extrated folders with files to data dir.'))
                 fromDirectory = os.path.join('ospy', 'upload', 'ospy_upload')
                 toDirectory = os.path.join('ospy', 'data')
                 copy_tree(fromDirectory, toDirectory)                          # Copy from to
@@ -2147,7 +2137,7 @@ class upload_page(ProtectedPage):
                 return self.core_render.options(errorCode)
 
         except Exception:
-            print_report('webpages.py', traceback.format_exc())
+            log.debug('webpages.py', traceback.format_exc())
             return self.core_render.options()
 
 
@@ -2171,7 +2161,6 @@ class upload_page_SSL(ProtectedPage):
         qdict = web.input()
         if 'generate' in qdict and qdict['generate'] == '1':   # generating own SSL certificate to ssl folder
             try:
-                print_report('webpages.py', _('Try-ing generating SSL certificate...'))
                 log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
 
                 from OpenSSL import crypto, SSL
@@ -2203,7 +2192,6 @@ class upload_page_SSL(ProtectedPage):
                 open(OPTIONS_FILE_FULL, "wb").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
                 open(OPTIONS_FILE_PRIV, "wb").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
 
-                print_report('webpages.py', _('OK'))
                 log.debug('webpages.py', _('OK'))
 
                 errorCode = "pw_generateSSLOK"
@@ -2211,7 +2199,6 @@ class upload_page_SSL(ProtectedPage):
 
             except Exception:
                 pass
-                print_report('webpages.py', traceback.format_exc())
                 log.debug('webpages.py', traceback.format_exc())
                 errorCode = "pw_generateSSLERR"
                 return self.core_render.options(errorCode)
@@ -2452,7 +2439,6 @@ class showInFooter(object):
 
     def _handle_index_error(self):
         """Logs and reports an index error."""
-        print_report('webpages.py', _('Index {} is out of range for pluginFtr list.').format(self._idx))
         log.error('webpages.py', _('Index {} is out of range for pluginFtr list.').format(self._idx))
 
 
@@ -2500,7 +2486,6 @@ class showOnTimeline:
 
     def _handle_index_error(self):
         """Logs and reports an index error."""
-        print_report('webpages.py', _('Index {} is out of range for pluginStn list.').format(self._idx))
         log.error('webpages.py', _('Index {} is out of range for pluginStn list.').format(self._idx))
 
 class api_plugin_data(ProtectedPage):
@@ -2605,7 +2590,6 @@ class api_update_footer(ProtectedPage):
             data["sys_uptime"]  = uptime()
             data["ip"]          = get_external_ip()
         except:
-            print_report('webpages.py', traceback.format_exc())
             log.error('webpages.py', traceback.format_exc())
             pass
 
@@ -2627,7 +2611,6 @@ class api_search_sensors(ProtectedPage):
         try:
             searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
         except:
-            print_report('webpages.py', traceback.format_exc())
             log.error('webpages.py', traceback.format_exc())
             pass
 

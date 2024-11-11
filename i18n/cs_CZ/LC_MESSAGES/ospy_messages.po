@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2024-11-06 08:07+0100\n"
-"PO-Revision-Date: 2024-11-06 08:24+0100\n"
+"POT-Creation-Date: 2024-11-11 18:45+0100\n"
+"PO-Revision-Date: 2024-11-11 18:55+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: api/api.py:51
@@ -1248,7 +1248,8 @@ msgstr "Přidání nového senzoru: {} s id: {}"
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:279 plugins/pressure_monitor/__init__.py:175
+#: ospy/sensors.py:279 plugins/current_loop_tanks_monitor/__init__.py:186
+#: plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:354
 msgid ""
 "E-mail not send! The Email Notifications plug-in is not found in OSPy or not "
@@ -2282,9 +2283,9 @@ msgstr "Smazat"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:194
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:30
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:62
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:74
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:67
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:254
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:324
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:30
@@ -2331,7 +2332,7 @@ msgstr "Smazat"
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:17
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:30
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:72
-#: plugins/pressurizer/templates/pressurizer.html:103
+#: plugins/pressurizer/templates/pressurizer.html:108
 #: plugins/pressurizer/templates/pressurizer_help.html:16
 #: plugins/proto/templates/proto.html:99
 #: plugins/proto/templates/proto_help.html:50
@@ -3115,6 +3116,7 @@ msgstr "Stav E-mailu"
 
 #: ospy/templates/log.html:67 ospy/templates/log.html:111
 #: ospy/templates/log_user.html:57 ospy/templates/log_user.html:86
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
 msgid "Subject"
 msgstr "Předmět"
 
@@ -3131,7 +3133,7 @@ msgid "events.csv"
 msgstr "events.csv"
 
 #: ospy/templates/log.html:89
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:315
 msgid "Events"
 msgstr "Události"
 
@@ -3208,7 +3210,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/ping_monitor/templates/ping_monitor.html:269
 #: plugins/pool_heating/templates/pool_heating.html:187
 #: plugins/pressure_monitor/templates/pressure_monitor.html:292
-#: plugins/pressurizer/templates/pressurizer.html:94
+#: plugins/pressurizer/templates/pressurizer.html:99
 #: plugins/proto/templates/proto.html:89
 #: plugins/real_time/templates/real_time.html:55
 #: plugins/relay_16/templates/relay_16.html:66
@@ -3341,18 +3343,20 @@ msgstr "V"
 #: ospy/templates/sensors.html:367 ospy/templates/sensors.html:734
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:303
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:44
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:45
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:46
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:47
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:53
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:54
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:55
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:56
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:48
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:49
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:50
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:51
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:61
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:62
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:63
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:64
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
 #: plugins/email_notifications_ssl/__init__.py:264
@@ -5131,7 +5135,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:66
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:323
 #: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -5144,7 +5148,7 @@ msgstr ""
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:127
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
-#: plugins/pressurizer/templates/pressurizer.html:102
+#: plugins/pressurizer/templates/pressurizer.html:107
 #: plugins/proto/templates/proto.html:98
 #: plugins/real_time/templates/real_time.html:64
 #: plugins/relay_16/templates/relay_16.html:76
@@ -5917,8 +5921,8 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/pressure_monitor/__init__.py:531
 #: plugins/pressure_monitor/__init__.py:565
 #: plugins/pressure_monitor/__init__.py:705
-#: plugins/pressure_monitor/__init__.py:735 plugins/pressurizer/__init__.py:229
-#: plugins/pressurizer/__init__.py:251 plugins/pressurizer/__init__.py:264
+#: plugins/pressure_monitor/__init__.py:735 plugins/pressurizer/__init__.py:226
+#: plugins/pressurizer/__init__.py:247 plugins/pressurizer/__init__.py:262
 #: plugins/proto/__init__.py:146 plugins/proto/__init__.py:157
 #: plugins/proto/__init__.py:170 plugins/pulse/__init__.py:105
 #: plugins/pulse/__init__.py:124 plugins/pulse/__init__.py:137
@@ -8638,7 +8642,7 @@ msgstr "Příkaz"
 
 #: plugins/current_loop_tanks_monitor/__init__.py:32
 msgid "Package: Current Loop Tanks Monitor"
-msgstr "Monitor nádrží s proudovou smyčkou"
+msgstr "Balíček: Monitor 4 nádrží s proudovou smyčkou"
 
 #: plugins/current_loop_tanks_monitor/__init__.py:38
 msgid "Tank 1"
@@ -8656,80 +8660,105 @@ msgstr "Nádrž 3"
 msgid "Tank 4"
 msgstr "Nádrž 4"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:125
+#: plugins/current_loop_tanks_monitor/__init__.py:85
+msgid "Report from OSPy: Tank 1 has minimal level!"
+msgstr "Zpráva z OSPy: nádrž 1 má minimální úroveň!"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:86
+msgid "Report from OSPy: Tank 2 has minimal level!"
+msgstr "Zpráva z OSPy: nádrž 2 má minimální úroveň!"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:87
+msgid "Report from OSPy: Tank 3 has minimal level!"
+msgstr "Zpráva z OSPy: nádrž 3 má minimální úroveň!"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:88
+msgid "Report from OSPy: Tank 4 has minimal level!"
+msgstr "Zpráva z OSPy: nádrž 4 má minimální úroveň!"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:145
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:73
 msgid "Tanks"
 msgstr "Nádrže"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:157
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
+#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:211
+#: plugins/current_loop_tanks_monitor/__init__.py:410
+#: plugins/current_loop_tanks_monitor/__init__.py:437
+#: plugins/current_loop_tanks_monitor/__init__.py:449
+#: plugins/current_loop_tanks_monitor/__init__.py:512
+#: plugins/current_loop_tanks_monitor/__init__.py:524
+#: plugins/current_loop_tanks_monitor/__init__.py:538
+#: plugins/current_loop_tanks_monitor/__init__.py:624
+#: plugins/current_loop_tanks_monitor/__init__.py:638
+#: plugins/current_loop_tanks_monitor/__init__.py:739
+#: plugins/current_loop_tanks_monitor/__init__.py:755
+#: plugins/current_loop_tanks_monitor/__init__.py:779
+#: plugins/current_loop_tanks_monitor/__init__.py:805
+#: plugins/current_loop_tanks_monitor/__init__.py:840
+#: plugins/current_loop_tanks_monitor/__init__.py:880
+#: plugins/current_loop_tanks_monitor/__init__.py:926
+msgid "Current Loop Tanks Monitor plug-in"
+msgstr "Rozšíření monitor 4 nádrží s proudovou smyčkou"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:182
+#: plugins/current_loop_tanks_monitor/__init__.py:183
+#: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
+msgid "System detected error: Water Tank has minimum Water Level"
+msgstr "Systém zjistil chybu: nádrž na vodu má minimální hladinu vody"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:204
 msgid "The measurement of all tanks is switched off."
 msgstr "Měření všech nádrží je vypnuto."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:164
-#: plugins/current_loop_tanks_monitor/__init__.py:364
-#: plugins/current_loop_tanks_monitor/__init__.py:387
-#: plugins/current_loop_tanks_monitor/__init__.py:399
-#: plugins/current_loop_tanks_monitor/__init__.py:442
-#: plugins/current_loop_tanks_monitor/__init__.py:454
-#: plugins/current_loop_tanks_monitor/__init__.py:468
-#: plugins/current_loop_tanks_monitor/__init__.py:534
-#: plugins/current_loop_tanks_monitor/__init__.py:548
-#: plugins/current_loop_tanks_monitor/__init__.py:635
-#: plugins/current_loop_tanks_monitor/__init__.py:651
-#: plugins/current_loop_tanks_monitor/__init__.py:675
-#: plugins/current_loop_tanks_monitor/__init__.py:701
-#: plugins/current_loop_tanks_monitor/__init__.py:736
-#: plugins/current_loop_tanks_monitor/__init__.py:768
-#: plugins/current_loop_tanks_monitor/__init__.py:806
-msgid "Current Loop Tanks Monitor plug-in"
-msgstr "Rozšíření monitorování nádrží proudové smyčky"
-
-#: plugins/current_loop_tanks_monitor/__init__.py:218
+#: plugins/current_loop_tanks_monitor/__init__.py:265
 msgid "Error: Invalid channel."
 msgstr "Chyba: Neplatný kanál."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:230
+#: plugins/current_loop_tanks_monitor/__init__.py:277
 msgid "Error: No I2C bus or ADC available on address 0x48, 0x49, 0x4A, 0x4B."
 msgstr ""
 "Chyba: Na adresách 0x48, 0x49, 0x4A 0x4B není k dispozici žádná sběrnice I2C "
 "ani ADC."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:239
+#: plugins/current_loop_tanks_monitor/__init__.py:286
 msgid "Error: It is not possible to read data from the AD converter."
 msgstr "Chyba: Není možné číst data z AD převodníku."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:259
+#: plugins/current_loop_tanks_monitor/__init__.py:306
 msgid "Error: the I2C bus is not available."
 msgstr "Chyba: sběrnice I2C není k dispozici."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:310
+#: plugins/current_loop_tanks_monitor/__init__.py:356
 msgid "Error: I/O."
 msgstr "Chyba: I/O."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:313
+#: plugins/current_loop_tanks_monitor/__init__.py:359
 msgid "Error: ADC value."
 msgstr "Chyba: Hodnota ADC."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:316
+#: plugins/current_loop_tanks_monitor/__init__.py:362
 msgid "No problems (measurement works as it should)."
 msgstr "Žádné problémy (měření funguje jak má)."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:324
+#: plugins/current_loop_tanks_monitor/__init__.py:370
 msgid "Error: I2C bus is not available."
 msgstr "Chyba: Sběrnice I2C není k dispozici."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:335
-msgid "I2C devices found at the following addresses: {}."
-msgstr "Zařízení I2C nalezená na následujících adresách: {}."
-
-#: plugins/current_loop_tanks_monitor/__init__.py:338
+#: plugins/current_loop_tanks_monitor/__init__.py:384
 msgid "No I2C device was found."
 msgstr "Nebylo nalezeno žádné zařízení I2C."
+
+#: plugins/current_loop_tanks_monitor/__init__.py:666
+msgid "Not found at any known addresses: 0x48, 0x49, 0x4A, 0x4B"
+msgstr "Nebyl nalezen na žádných známých adresách: 0x48, 0x49, 0x4A, 0x4B"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
 msgid "Current Loop Tanks Monitor"
-msgstr "Monitor nádrží proudové smyčky"
+msgstr "Monitor 4 nádrží s proudovou smyčkou"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:241
 msgid "Show graph"
@@ -8766,6 +8795,14 @@ msgstr "Úroveň"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:288
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:304
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:52
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:53
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:54
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:55
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:65
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:66
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:67
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:68
 msgid "l"
 msgstr "l"
 
@@ -8797,14 +8834,23 @@ msgstr "Napětí"
 msgid "Please wait for loading."
 msgstr "Počkejte prosím na načtení."
 
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:321
+msgid "Verify AD converter"
+msgstr "Vyhledat A/D převodník"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:323
+msgid "Found on"
+msgstr "Nalezeno na"
+
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:6
 msgid "Current Loop Tanks Monitor - Graph"
-msgstr "Monitor nádrží s proudovou smyčkou - graf"
+msgstr "Monitor 4 nádrží s proudovou smyčkou - graf"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:24
-msgid "Tank 1-4 in %"
-msgstr "Nádrž 1-4 v %"
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
+msgid "Tank 1-4 % or liter"
+msgstr "Nádrž 1-4 % nebo litry"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:36
 #: plugins/ping_monitor/templates/ping_monitor.html:34
@@ -8816,14 +8862,10 @@ msgstr "Nádrž 1-4 v %"
 msgid "Actual Value"
 msgstr "Skutečná hodnota"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
-msgid "Tank 1-4 (%)"
-msgstr "Nádrž 1-4 (%)"
-
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:7
 msgid "Current Loop Tanks Monitor - Help"
-msgstr "Monitor proudové smyčky nádrží - Nápověda"
+msgstr "Monitor 4 nádrží s proudovou smyčkou - Nápověda"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:8
 msgid ""
@@ -8874,7 +8916,7 @@ msgstr "Jak nainstalovat do nádrže"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:6
 msgid "Current Loop Tanks Monitor - Log"
-msgstr "Monitor nádrží s proudovou smyčkou - Záznam"
+msgstr "Monitor 4 nádrží s proudovou smyčkou - Záznam"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:64
@@ -8894,12 +8936,12 @@ msgid "Max Volume (l)"
 msgstr "Maximální objem (l)"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:81
-msgid "Min Voltage"
-msgstr "Minimální napětí"
+msgid "Min Voltage (V)"
+msgstr "Minimální napětí (V)"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:82
-msgid "Max Voltage"
-msgstr "Maximální napětí"
+msgid "Max Voltage (V)"
+msgstr "Maximální napětí (V)"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
@@ -9031,6 +9073,47 @@ msgstr "Použití zápatí"
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 msgid "Show data from plugin in footer on home page."
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+msgid "Notifications"
+msgstr "Oznámení"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:249
+#: plugins/tank_monitor/__init__.py:143
+msgid "Tank"
+msgstr "Nádrž"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:250
+msgid "Send E-mail"
+msgstr "Odeslat e-mail"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:251
+msgid "Level activation (%)"
+msgstr "Úroveň aktivace (%)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:252
+msgid "Level release (%)"
+msgstr "Úroveň uvolnění (%)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:265
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:279
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:293
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:307
+msgid "If the level drops below this value, sending an email is activated."
+msgstr "Pokud hladina klesne pod tuto hodnotu, odešle se e-mail s upozorněním."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:266
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:280
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:294
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:308
+msgid ""
+"As long as the level does not rise above this level, it will not allow "
+"sending an email when the level drops to the minimum. This is used to block "
+"the constant sending of emails when the level is at a minimum."
+msgstr ""
+"Dokud hladina nestoupne nad tuto úroveň, nedovolí odeslání e-mailu, když "
+"úroveň klesne na minimum. Slouží k blokování neustálého odesílání e-mailů, "
+"když je úroveň na minimu."
 
 #: plugins/database_connector/__init__.py:26
 msgid "Package: Database Connector"
@@ -10832,7 +10915,7 @@ msgid "email_reader -> settings_page GET"
 msgstr "email_reader -> settings_page GET"
 
 #: plugins/email_reader/__init__.py:965 plugins/ping_monitor/__init__.py:479
-#: plugins/pressurizer/__init__.py:247 plugins/speed_monitor/__init__.py:332
+#: plugins/pressurizer/__init__.py:244 plugins/speed_monitor/__init__.py:332
 #: plugins/tank_monitor/__init__.py:915 plugins/wind_monitor/__init__.py:598
 msgid "Options has updated."
 msgstr "Nastavení bylo aktualizováno."
@@ -14955,16 +15038,16 @@ msgstr "Hlavní stanice byla ZAPNUTA"
 msgid "Package: Pressurizer"
 msgstr "Balíček: Tlakovač"
 
-#: plugins/pressurizer/__init__.py:76 plugins/pressurizer/__init__.py:186
-#: plugins/pressurizer/__init__.py:245
+#: plugins/pressurizer/__init__.py:77 plugins/pressurizer/__init__.py:184
+#: plugins/pressurizer/__init__.py:242
 msgid "Pressurizer is disabled."
 msgstr "Rozšíření tlakovač je zakázáno."
 
-#: plugins/pressurizer/__init__.py:78 plugins/pressurizer/__init__.py:242
+#: plugins/pressurizer/__init__.py:79 plugins/pressurizer/__init__.py:239
 msgid "Pressurizer is enabled."
 msgstr "Rozšíření tlakovač je povoleno."
 
-#: plugins/pressurizer/__init__.py:108
+#: plugins/pressurizer/__init__.py:109
 #: plugins/pressurizer/templates/pressurizer_help.html:10
 msgid ""
 "This plugin requires setting master station to enabled. Setup this in "
@@ -14974,29 +15057,33 @@ msgstr ""
 "Nastavte to v možnostech! A také povolit relé jako hlavní stanice v "
 "možnostech!"
 
-#: plugins/pressurizer/__init__.py:118
+#: plugins/pressurizer/__init__.py:119
 msgid "Is time for pump running..."
 msgstr "Je čas na provoz čerpadla..."
 
-#: plugins/pressurizer/__init__.py:122 plugins/pressurizer/__init__.py:193
-#: plugins/pressurizer/__init__.py:228 plugins/pressurizer/__init__.py:250
-#: plugins/pressurizer/__init__.py:263
+#: plugins/pressurizer/__init__.py:123 plugins/pressurizer/__init__.py:190
+#: plugins/pressurizer/__init__.py:225 plugins/pressurizer/__init__.py:246
+#: plugins/pressurizer/__init__.py:261
 msgid "Pressurizer plug-in"
 msgstr "Rozšíření tlakovač"
 
-#: plugins/pressurizer/__init__.py:154
+#: plugins/pressurizer/__init__.py:151
+msgid "Adding the program from the pressurizer to the run log."
+msgstr "Přidání programu z tlakovače do logu spuštění."
+
+#: plugins/pressurizer/__init__.py:163
 msgid "Activating relay."
 msgstr "Aktivace relé."
 
-#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
+#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
 msgid "Waiting"
 msgstr "Čekám"
 
-#: plugins/pressurizer/__init__.py:161 plugins/pressurizer/__init__.py:174
+#: plugins/pressurizer/__init__.py:165 plugins/pressurizer/__init__.py:176
 msgid "second."
 msgstr "vteřin."
 
-#: plugins/pressurizer/__init__.py:167
+#: plugins/pressurizer/__init__.py:169
 msgid "Deactivating relay."
 msgstr "Deaktivace relé."
 
@@ -15004,19 +15091,19 @@ msgstr "Deaktivace relé."
 msgid "Ready."
 msgstr "Připraven."
 
-#: plugins/pressurizer/__init__.py:183
+#: plugins/pressurizer/__init__.py:181
 msgid "Scheduler is disabled or plugin is disabled."
 msgstr "Plánovač je zakázaný nebo je vypnutý plugin."
 
-#: plugins/pressurizer/__init__.py:230
+#: plugins/pressurizer/__init__.py:227
 msgid "Pressurizer -> settings_page GET"
 msgstr "Pressurizer -> settings_page GET"
 
-#: plugins/pressurizer/__init__.py:252
+#: plugins/pressurizer/__init__.py:248
 msgid "Pressurizer -> settings_page POST"
 msgstr "Pressurizer -> settings_page POST"
 
-#: plugins/pressurizer/__init__.py:265
+#: plugins/pressurizer/__init__.py:263
 msgid "Pressurizer -> help_page GET"
 msgstr "Pressurizer -> help_page GET"
 
@@ -15127,6 +15214,18 @@ msgid ""
 "stations."
 msgstr ""
 "Pokud je zaškrtávací políčko označeno, relé se aktivuje před zapnutím stanic."
+
+#: plugins/pressurizer/templates/pressurizer.html:94
+msgid "Not deactivate "
+msgstr "Nedeaktivovat "
+
+#: plugins/pressurizer/templates/pressurizer.html:95
+msgid ""
+"If the field is active, the relay or the master station will not be switched "
+"off. The pressurizer will only start, but will not shut down."
+msgstr ""
+"Pokud je pole aktivní, relé ani hlavní stanice se nevypnou. Tlakovač se "
+"pouze spustí, ale nevypne se."
 
 #: plugins/pressurizer/templates/pressurizer_help.html:3
 msgid "Pressurizer - help"
@@ -18665,10 +18764,6 @@ msgstr "Hlášení z OSPy NÁDRŽ s vodou"
 msgid "Regulation NONE."
 msgstr "Regulace nepovolena."
 
-#: plugins/tank_monitor/__init__.py:143
-msgid "Tank"
-msgstr "Nádrž"
-
 #: plugins/tank_monitor/__init__.py:156
 msgid "Water tank monitor is enabled."
 msgstr "Nádrž s vodou monitoring je povolen."
@@ -18738,10 +18833,6 @@ msgstr "Rozšíření nádrž s vodou"
 #: plugins/tank_monitor/__init__.py:334 plugins/tank_monitor/__init__.py:920
 msgid "Water tank monitor is disabled."
 msgstr "Sledování hladiny vody v nádrži je povoleno."
-
-#: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
-msgid "System detected error: Water Tank has minimum Water Level"
-msgstr "Systém zjistil chybu: nádrž na vodu má minimální hladinu vody"
 
 #: plugins/tank_monitor/__init__.py:443
 msgid "FW version in CPU (Atmega 328) is FW <= 1.3"
@@ -22233,18 +22324,11 @@ msgstr "Balíčky nelze nainstalovat bez instalačních nástrojů setuptools."
 msgid "Done."
 msgstr "Hotovo."
 
-#~ msgid "Adding the program from the pressurizer to the run log."
-#~ msgstr "Přidání programu z tlakovače do logu spuštění."
+#~ msgid "I2C devices found at the following addresses: {}."
+#~ msgstr "Zařízení I2C nalezená na následujících adresách: {}."
 
-#~ msgid "Not deactivate "
-#~ msgstr "Nedeaktivovat "
-
-#~ msgid ""
-#~ "If the field is active, the relay or the master station will not be "
-#~ "switched off. The pressurizer will only start, but will not shut down."
-#~ msgstr ""
-#~ "Pokud je pole aktivní, relé ani hlavní stanice se nevypnou. Tlakovač se "
-#~ "pouze spustí, ale nevypne se."
+#~ msgid "Tank 1-4 in %"
+#~ msgstr "Nádrž 1-4 v %"
 
 #~ msgid "[{}: OFFLINE] "
 #~ msgstr "[{}: NEDOSTUPNÉ] "
@@ -22822,9 +22906,6 @@ msgstr "Hotovo."
 
 #~ msgid "Dark Sky API key"
 #~ msgstr "Dark Sky API klíč"
-
-#~ msgid "Elevation (m)"
-#~ msgstr "Nadmořská výška (m)"
 
 #~ msgid "Elevation of this location in meters."
 #~ msgstr "Nadmořská výška pro vaše umístění v metrech."

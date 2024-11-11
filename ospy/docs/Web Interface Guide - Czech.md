@@ -1056,6 +1056,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * OSPy Backup (zálohování adresáře data ze všech rozšíření do souborů zip).
 * MQTT Home Assistant (integrace do HASS pomocí MQTT).
 * Shelly Cloud Integration (načítání stavů z cloudu výrobce zařízení Shelly).
+* Current Loop Tanks Mmonitor (měření hladiny ze 4 snímačů).
 ----
 
 # Odhlásit se
