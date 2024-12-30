@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+December 30 2024 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language. Fixed broken language change in OSPy options (the change was not saved and thus the language did not change). Added device loading over local network (cloud or local network) to Shelly integration plugin. Not 100% tested.
+
 November 11 2024 (v3.0)
 -----------
 (martinpihrt)<br/>

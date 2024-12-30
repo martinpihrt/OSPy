@@ -1834,6 +1834,7 @@ class options_page(ProtectedPage):
             if qdict['lang'] != options.lang:     # if changed languages
                 changing_language = True
                 options.lang = qdict['lang']
+                save_to_options(qdict)
 
         if 'master' in qdict:
             m = int(qdict['master'])
