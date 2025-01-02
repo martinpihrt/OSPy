@@ -77,7 +77,7 @@ class PluginOptions(dict):
                     self[key] = [int(x) for x in qdict.get(key, old_value)]           
             except ValueError:
                 import web
-                raise web.badrequest(_(u'Invalid value for') + ' ' + '%s:%s' % (key, qdict.get(key)))
+                raise web.badrequest(_('Invalid value for') + ' ' + '%s:%s' % (key, qdict.get(key)))
 
 
 ################################################################################

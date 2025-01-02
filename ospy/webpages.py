@@ -2377,6 +2377,7 @@ class api_balance_json(ProtectedPage):
         return json.dumps(statuslist, indent=2)
 
 
+
 class showInFooter(object):
     """Enables plugins to display e.g. sensor readings in the footer of OSPy's UI"""
 
@@ -2385,10 +2386,42 @@ class showInFooter(object):
         self._val = val
         self._unit = unit
         self._button = button
-        self._idx = len(pluginFtr)
-        
-        # Append a new entry to pluginFtr with the initial values
-        pluginFtr.append({"label": self._label, "val": self._val, "unit": self._unit, "button": self._button})
+        self._timestamp = datetime.datetime.now()   # Adding timestamp
+        self._hash = self._generate_hash()          # Create hash for unique identification
+        if self._val:                               # If val is not empty, we add the item
+            self._add_to_pluginFtr()                # Add to pluginFtr only if val is not empty
+
+    def _generate_hash(self):
+        """Generates a hash for comparison based on label only"""
+        return hash(self._label)
+
+    def _add_to_pluginFtr(self):
+        """Adds or updates an item in pluginFtr based on label"""
+        # Check for empty content
+        if not self._val:
+            return  # If val is empty, do not add the item
+
+        for item in pluginFtr:
+            # Compare by hash (label)
+            if item.get("hash") == self._hash:
+                # If an item with the same label exists, update its values
+                item["val"] = self._val
+                item["unit"] = self._unit
+                item["button"] = self._button
+                item["timestamp"] = self._timestamp
+                return
+
+        # If no item with the same label exists, add a new item
+        pluginFtr.append({
+            "label": self._label,
+            "val": self._val,
+            "unit": self._unit,
+            "button": self._button,
+            "timestamp": self._timestamp,   # Add timestamp
+            "hash": self._hash              # Store hash for future duplicate checks
+        })
+
+        #self.remove_old_entries()
 
     @property
     def label(self):
@@ -2397,10 +2430,8 @@ class showInFooter(object):
     @label.setter
     def label(self, text):
         self._label = text
-        if 0 <= self._idx < len(pluginFtr):
-            pluginFtr[self._idx]["label"] = self._label + ": "
-        else:
-            self._handle_index_error()
+        self._hash = self._generate_hash()  # Update hash
+        self._add_to_pluginFtr()
 
     @property
     def val(self):
@@ -2409,10 +2440,7 @@ class showInFooter(object):
     @val.setter
     def val(self, num):
         self._val = num
-        if 0 <= self._idx < len(pluginFtr):
-            pluginFtr[self._idx]["val"] = self._val
-        else:
-            self._handle_index_error()
+        self._add_to_pluginFtr()
 
     @property
     def unit(self):
@@ -2421,10 +2449,7 @@ class showInFooter(object):
     @unit.setter
     def unit(self, text):
         self._unit = text
-        if 0 <= self._idx < len(pluginFtr):
-            pluginFtr[self._idx]["unit"] = " " + self._unit
-        else:
-            self._handle_index_error()
+        self._add_to_pluginFtr()
 
     @property
     def button(self):
@@ -2433,14 +2458,20 @@ class showInFooter(object):
     @button.setter
     def button(self, text):
         self._button = text
-        if 0 <= self._idx < len(pluginFtr):
-            pluginFtr[self._idx]["button"] = self._button
-        else:
-            self._handle_index_error()
+        self._add_to_pluginFtr()
 
-    def _handle_index_error(self):
-        """Logs and reports an index error."""
-        log.error('webpages.py', _('Index {} is out of range for pluginFtr list.').format(self._idx))
+    def remove_old_entries(self):
+        """Removes items that are older than X minutes"""
+        now = datetime.datetime.now()
+        threshold = datetime.timedelta(minutes=5)  # Set threshold to 5 minutes
+        global pluginFtr
+        try:
+            # Create a copy of the current list to avoid modifying the list during iteration
+            filtered_entries = [entry for entry in pluginFtr if (now - entry["timestamp"]).total_seconds() < threshold.total_seconds()]
+            # Update pluginFtr with the filtered list
+            pluginFtr = filtered_entries
+        except Exception:
+            log.debug('webpages.py', traceback.format_exc())
 
 
 class showOnTimeline:
@@ -2489,6 +2520,7 @@ class showOnTimeline:
         """Logs and reports an index error."""
         log.error('webpages.py', _('Index {} is out of range for pluginStn list.').format(self._idx))
 
+
 class api_plugin_data(ProtectedPage):
     """Simple plugin data API"""
 
@@ -2500,10 +2532,23 @@ class api_plugin_data(ProtectedPage):
 
         try:
             if options.show_plugin_data:
+                # Plugin data in footer
                 for i, v in enumerate(pluginFtr):
-                    footer_data.append((i, v["val"]))
+                    existing_entry = next((item for item in footer_data if item[0] == i), None)
+                    if existing_entry:
+                        footer_data[footer_data.index(existing_entry)] = (i, v["val"])
+                    else:
+                        footer_data.append((i, v["val"]))
+                # plugin data in timeline
                 for v in pluginStn:
-                    station_data.append((v[0], v[1]))
+                    found = False
+                    for i, (station_id, _) in enumerate(station_data):
+                        if station_id == v[0]:
+                            station_data[i] = (v[0], v[1])
+                            found = True
+                            break
+                    if not found:
+                        station_data.append((v[0], v[1]))
 
             if options.show_sensor_data: 
                 from ospy.sensors import sensors_timer 

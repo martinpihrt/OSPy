@@ -20,6 +20,18 @@ function createSensor(element) {
     jQuery("#sensorForm").submit();
 }
 
+function createSensorShelly(element) {
+    let a = element.id;
+    let b = element.value;
+    let array = b.split(',');
+    jQuery("#s_name").val(array[0]);
+    jQuery("#s_ip").val(array[1]);
+    jQuery("#s_id").val(array[2]);
+    jQuery("#s_hw").val(array[3]);
+    jQuery("#s_gen").val(array[4]);
+    jQuery("#sensorFormShelly").submit();
+}
+
 function toDigits(number){ // from number ex: 110 return 1.10 for fw version
     let array = number.toString().split("");
     return array[0] + '.' + array[1] + array[2];
@@ -76,8 +88,41 @@ function updateSensors(){ // https://www.codemag.com/article/1511031/CRUD-in-HTM
     });
 }
 
+function updateSensorsShelly(){ 
+    let start = new Date();
+    let jqxhr = jQuery.getJSON('/plugins/shelly_cloud_integrator/ShellyDevices', function(data) {
+    jQuery('#sensorsTableShelly > tbody > tr').remove();
+    jQuery('#refreshLightShelly').fadeIn(500);
+    jQuery.each(data, function(i, data) {
+        let name = data.label;
+        let id = data.id;
+        let ip = data.ip;
+        let hw = data.hw;
+        let gen = data.gen;
+        let valdata = name+','+id+','+ip+','+hw+','+gen
+        let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensorShelly(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8').decode('utf-8')}+"</button>";        
+        jQuery('<tr>').append(
+            jQuery('<td>').text(name),
+            jQuery('<td>').text(id),
+            jQuery('<td>').text(ip),
+            jQuery('<td>').text(hw),
+            jQuery('<td>').text(gen), 
+            jQuery('<td>').html(button_data)
+        ).appendTo('#sensorsTableShelly > tbody');
+    })
+    jQuery("#sensorsTableShelly > tbody > tr:even").addClass("even"); 
+    }).fail(function () {
+        console.error('Error');
+    }).always(function () {
+        jQuery('#refreshLightShelly').fadeOut(500);
+        console.debug('Status update completed in', new Date() - start, 'ms');
+        setTimeout(updateSensorsShelly, ${refreshInterval});
+    });
+}
+
 jQuery(document).ready(function(){
-    updateSensors();    // timer for refresh sensors
+    updateSensors();          // timer for refresh sensors
+    updateSensorsShelly();    // timer for refresh sensors Shelly
 });
 </script>
 
@@ -110,11 +155,41 @@ jQuery(document).ready(function(){
         <input type="hidden" id="comtype" name="com_type" value="">
         <input type="hidden" id="senscpu" name="senscpu" value="">
         <input type="hidden" id="sensfw" name="sensfw" value="">
-    </form>  
+    </form>
 </div>
 
 <div id="controls">
     <a href="sensors" class="button add">$_('Back to Sensors')</a>
     <a href="sensors?clean_all" class="button deleteAll danger">$_('Clean')</a>
     <a href="firmware" class="button add">$_('Sensors Firmware')</a>
+</div>
+
+<div class="title">$_('Available Shelly sensors') <span id="refreshLightShelly">&bullet;</span></div>
+<div id="sensor-container-shelly" class="sensor-container" style="width: 95em;">
+    <p>$_('Auto refreshes every {} seconds.').format(refreshInterval/1000)</p>
+    <table class="logList" id="sensorsTableShelly">
+        <thead>
+        <tr class="log_rec">
+            <th>$_('Label')</th>
+            <th>$_('Shelly ID')</th>
+            <th>$_('Device IP Address')</th>
+            <th>$_('Device Hardware')</th>
+            <th>$_('Device GENeration')</th>
+            <th>$_('Create')</th>
+        </tr>
+        </thead>
+        <tbody>
+    </table>
+    <form name="sensorFormShelly" id="sensorFormShelly" action="/sensor/Shelly" method="post">
+        <input type="hidden" id="s_name" name="s_name" value="">
+        <input type="hidden" id="s_id" name="s_id" value="">
+        <input type="hidden" id="s_ip" name="s_ip" value="">
+        <input type="hidden" id="s_hw" name="s_hw" value="">
+        <input type="hidden" id="s_gen" name="s_gen" value="">
+    </form>
+</div>
+
+<div id="controls">
+    <a href="sensors" class="button add">$_('Back to Sensors')</a>
+    <a href="/plugins/shelly_cloud_integrator/status?reset" class="button deleteAll danger">$_('Clean')</a>
 </div>

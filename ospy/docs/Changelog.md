@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+January 02 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Czech language. The Shelly integration plugin is already loaded in OSPy in the sensor search section. Fix for plugin listings in the footer on the homepage (now there will be no more duplicates. If the plugin is already running, it will be updated and not added as another item). I wish all OSPy users a happy start to the year 2025. 
+
 December 30 2024 (v3.0)
 -----------
 (martinpihrt)<br/>
