@@ -1831,9 +1831,9 @@ class options_page(ProtectedPage):
         qdict = web.input()
 
         if 'lang' in qdict:
+            log.debug('webpages.py', _('Changing language web={} options={}').format(qdict['lang'], options.lang))
             if qdict['lang'] != options.lang:     # if changed languages
                 changing_language = True
-                options.lang = qdict['lang']
                 save_to_options(qdict)
 
         if 'master' in qdict:
@@ -1873,13 +1873,13 @@ class options_page(ProtectedPage):
    
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
-            reboot(block=True) # Linux HW software 
+            reboot(wait=3, block=True) # Linux HW software 
             msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg) 
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
-            restart()    # OSPy software
+            restart(wait=3)    # OSPy software
             msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice(home_page, msg)
         
@@ -1898,7 +1898,7 @@ class options_page(ProtectedPage):
                 server.stop()
                 server.session.kill()
                 ospy_to_default()
-                restart()    # OSPy software
+                restart(wait=3)    # OSPy software
             except:
                 log.debug('webpages.py', traceback.format_exc())
                 server.session.kill()
@@ -1910,8 +1910,9 @@ class options_page(ProtectedPage):
         report_option_change()
 
         if changing_language:
+            log.debug('webpages.py', _('Changing language -> restarting.'))
             report_restarted()
-            restart()    # OSPy software
+            restart(wait=3)    # OSPy software
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
             return self.core_render.notice(home_page, msg)        
 

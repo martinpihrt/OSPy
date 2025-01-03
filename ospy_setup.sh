@@ -117,7 +117,7 @@ echo ===== Installing packages for plugins pillow qrcode pygame =====
 sudo apt install python3-pillow -y
 sudo apt install python3-qrcode -y
 sudo apt install python3-pygame -y
-
+sudo apt install ffmpeg -y
 
 echo ===== Installing OSPy =====
 cd $install_location

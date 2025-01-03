@@ -163,8 +163,8 @@ class Session(object):
                 self._setcookie(self.session_id)
 
                 # Logování před uložením
-                print(f"Ukládám session ID: {self.session_id}")
-                print(f"Ukládám data: {self._data}")
+                #print(f"Ukládám session ID: {self.session_id}")
+                #print(f"Ukládám data: {self._data}")
 
                 # Převedení na obyčejný slovník, pokud je _data typu ThreadedDict
                 if isinstance(self._data, ThreadedDict):

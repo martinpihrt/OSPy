@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 
 def start():

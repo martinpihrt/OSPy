@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'remram44' # https://github.com/remram44/usagestats
+__author__ = 'remram44' # https://github.com/remram44/usagestats
 
 # usagestats = Anonymous usage statistics collector
 
@@ -10,20 +10,7 @@ import platform
 import time
 import sys
 import subprocess
-from ospy.helpers import print_report
-
-try:
-    import requests
-except ImportError:
-    print_report('usagestats.py', _('Requests not found, installing. Please wait...'))
-    cmd = "sudo apt-get install python-requests"
-    proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-    output = proc.communicate()[0].decode('utf-8')
-    print_report('usagestats.py', output)
-    try: 
-        import requests
-    except:
-        pass
+import requests
 
 __version__ = '0.7'
 
