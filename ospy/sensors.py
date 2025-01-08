@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Martin Pihrt'
+__author__ = 'Martin Pihrt'
 
 # System imports
 from threading import Thread, Timer
@@ -26,6 +26,7 @@ class _Sensor(object):
 
     def __init__(self, sensors_instance, index):
         self._sensors = sensors_instance
+        self.manufacturer = 0           # manufacturer 0=pihrt sensor, 1=shelly
         self.name = ""                  # sensor name
         self.enabled = 0                # sensor enable or disable
         self.sens_type = 0              # selector sensor type: 0-7 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
@@ -48,7 +49,8 @@ class _Sensor(object):
         self.trigger_high_threshold = "30"# high threshold
         self.ip_address = [0,0,0,0]     # ip address for sensor 
         self.mac_address = ""           # mac address for sensor
-        self.last_battery = ""          # battery voltage  
+        self.last_battery = ""          # battery voltage
+        self.last_voltage = ""          # main source voltage
         self.rssi = ""                  # rssi signal
         self.radio_id = 0               # radio id
         self.response = 0               # response 0 = offline, 1 = online
@@ -83,13 +85,13 @@ class _Sensor(object):
         self.aux_reg_d = 1              # Auxiliary value true and false for triggering events only when changed (regulation <)
         self.aux_reg_p = 1              # Auxiliary value true and false for triggering events only when changed (probe fault)
         # used in soil moisture sensor
-        self.soil_last_read_value = [""]*17   # last soil read value (actual)
-        self.soil_prev_read_value = [-127]*17 # prev soil read value
-        self.soil_calibration_min = [3.00]*17 # calibration for soil probe (0 %)
-        self.soil_calibration_max = [0.00]*17 # calibration for soil probe (100 %)
-        self.soil_invert_probe_in = [1]*17    # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)
-        self.soil_show_in_footer = [1]*17     # 1= show, 0= hide
-        self.soil_program = ["-1"]*17         # program for soil moisture
+        self.soil_last_read_value = [""]*17      # last soil read value (actual)
+        self.soil_prev_read_value = [-127]*17    # prev soil read value
+        self.soil_calibration_min = [3.00]*17    # calibration for soil probe (0 %)
+        self.soil_calibration_max = [0.00]*17    # calibration for soil probe (100 %)
+        self.soil_invert_probe_in = [1]*17       # 1= inverted probe type (ex: 100 % = 0V, 0% = 3,3V)
+        self.soil_show_in_footer = [1]*17        # 1= show, 0= hide
+        self.soil_program = ["-1"]*17            # program for soil moisture
         self.soil_probe_label = [_('Probe')]*17  # label for soil moisture probe
         # for events log and email
         self.last_msg = [0]*10
@@ -130,8 +132,12 @@ class _Sensor(object):
         self.sw3_closed_stations = ["-1"]         # closed stations (-1 is default none)
         self.sw4_closed_stations = ["-1"]         # closed stations (-1 is default none)
         self.sw5_closed_stations = ["-1"]         # closed stations (-1 is default none)
-        self.sw6_closed_stations = ["-1"]         # closed stations (-1 is default none)                                                                
-
+        self.sw6_closed_stations = ["-1"]         # closed stations (-1 is default none)
+        # Shelly sensors
+        self.shelly_id = ""                       # this can be obtained from Shelly. Example: b0b21c1368aa
+        self.shelly_hw = ""                       # depending on the type of device, data will be read (e.g. temperature and humidity, output states, etc.)
+        self.shelly_hw_nbr = -1                   # depending on the type of device, data will be read as number -1 is unknow nex: 0=Shelly Plus HT, 1=Shelly Plus Plug S, 2=Shelly Pro 2PM, 3=Shelly 1PM Mini, 4=Shelly 2.5, 5=Shelly Pro 4PM, 6=Shelly 1 Mini, 7=Shelly 2PM Addon, 8=Shelly 1PM Addon, 9= Shelly H&T
+        self.shelly_gen = ""                      # generation of Shelly devices gen1, gen2+
         options.load(self, index) 
 
     @property
@@ -577,7 +583,7 @@ class _Sensors_Timer(Thread):
                 log.debug('sensors.py', _('Stoping stations in scheduler'))
         except:
             log.debug('sensors.py', traceback.format_exc())
-            pass                        
+            pass                       
 
     def check_sensors(self):
         ###  HELP for sensor type
@@ -600,43 +606,44 @@ class _Sensors_Timer(Thread):
                 if sensor.response != 0:
                     sensor.response = 0                                       # reseting status green circle to red (on sensors page)
                     # reseting all saved values
-                    if sensor.sens_type == 1:                                 # Dry Contact
-                        sensor.last_read_value[4] = -127
-                    if sensor.sens_type == 2:                                 # Leak Detector
-                        sensor.last_read_value[5] = -127
-                    if sensor.sens_type == 3:                                 # Moisture
-                        sensor.last_read_value[6] = -127
-                    if sensor.sens_type == 4:                                 # Motion
-                        sensor.last_read_value[7] = -127
-                    if sensor.sens_type == 5:                                 # Temperature
-                        sensor.last_read_value[0] = -127
-                    if sensor.sens_type == 6:
-                        if sensor.multi_type == 0:                            # Multi Temperature 1
-                            sensor.last_read_value[0] = -127
-                        if sensor.multi_type == 1:                            # Multi Temperature 2
-                            sensor.last_read_value[1] = -127
-                        if sensor.multi_type == 2:                            # Multi Temperature 3
-                            sensor.last_read_value[2] = -127
-                        if sensor.multi_type == 3:                            # Multi Temperature 4
-                            sensor.last_read_value[3] = -127
-                        if sensor.multi_type == 4:                            # Multi Dry Contact
+                    if sensor.manufacturer == 0:
+                        if sensor.sens_type == 1:                             # Dry Contact
                             sensor.last_read_value[4] = -127
-                        if sensor.multi_type == 5:                            # Multi Leak Detector
+                        if sensor.sens_type == 2:                             # Leak Detector
                             sensor.last_read_value[5] = -127
-                        if sensor.multi_type == 6:                            # Multi Moisture
+                        if sensor.sens_type == 3:                             # Moisture
                             sensor.last_read_value[6] = -127
-                        if sensor.multi_type == 7:                            # Multi Motion
+                        if sensor.sens_type == 4:                             # Motion
                             sensor.last_read_value[7] = -127
-                        if sensor.multi_type == 8:                            # Multi Ultrasonic
-                            sensor.last_read_value[8] = -127
-                        if sensor.multi_type == 9:                            # Multi Soil moisture probe 1 - probe 16
-                            sensor.soil_last_read_value = [-127]*16
+                        if sensor.sens_type == 5:                             # Temperature
+                            sensor.last_read_value[0] = -127
+                        if sensor.sens_type == 6:
+                            if sensor.multi_type == 0:                        # Multi Temperature 1
+                                sensor.last_read_value[0] = -127
+                            if sensor.multi_type == 1:                        # Multi Temperature 2
+                                sensor.last_read_value[1] = -127
+                            if sensor.multi_type == 2:                        # Multi Temperature 3
+                                sensor.last_read_value[2] = -127
+                            if sensor.multi_type == 3:                        # Multi Temperature 4
+                                sensor.last_read_value[3] = -127
+                            if sensor.multi_type == 4:                        # Multi Dry Contact
+                                sensor.last_read_value[4] = -127
+                            if sensor.multi_type == 5:                        # Multi Leak Detector
+                                sensor.last_read_value[5] = -127
+                            if sensor.multi_type == 6:                        # Multi Moisture
+                                sensor.last_read_value[6] = -127
+                            if sensor.multi_type == 7:                        # Multi Motion
+                                sensor.last_read_value[7] = -127
+                            if sensor.multi_type == 8:                        # Multi Ultrasonic
+                                sensor.last_read_value[8] = -127
+                            if sensor.multi_type == 9:                        # Multi Soil moisture probe 1 - probe 16
+                                sensor.soil_last_read_value = [-127]*16
 
             changed_state = False
 
             ### Dry Contact, Motion, Multi Dry Contact, Multi Motion ###
             if sensor.sens_type == 1 or sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 4) or (sensor.sens_type == 6 and sensor.multi_type == 7):
-                if sensor.response and sensor.enabled:                        # sensor is enabled and response is OK
+                if sensor.response and sensor.enabled and sensor.manufacturer == 0:   # sensor is enabled and response is OK and is pihrt.com sensor HW
                     state = -127
                     if sensor.sens_type == 1:  # type is Dry Contact
                         try:
@@ -802,10 +809,43 @@ class _Sensors_Timer(Thread):
                             self.update_log(sensor, 'lgs', state, battery=sensor.last_battery, rssi=sensor.rssi)  # lge is event, lgs is samples
 
                 else:
-                    if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):
-                        sensor.err_msg[4] = 0
-                        if sensor.last_msg[4] != sensor.err_msg[4]:
-                            sensor.last_msg[4] = sensor.err_msg[4]
+                    if sensor.manufacturer == 0: # pihrt.com manufacturer
+                        if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):
+                            sensor.err_msg[4] = 0
+                            if sensor.last_msg[4] != sensor.err_msg[4]:
+                                sensor.last_msg[4] = sensor.err_msg[4]
+                                if sensor.enabled:
+                                    log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
+                                if sensor.send_email:
+                                    if sensor.enabled:
+                                        text = _('Not response!')
+                                    else:
+                                        text = _('Out of order')
+                                    subj = _('Sensor {}').format(sensor.name)
+                                    body = text
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                                if sensor.log_event:                                   # event log
+                                    self.update_log(sensor, 'lge', _('Not response!'))
+                        if sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 7):
+                            sensor.err_msg[7] = 0
+                            if sensor.last_msg[7] != sensor.err_msg[7]:
+                                sensor.last_msg[7] = sensor.err_msg[7]
+                                if sensor.enabled:
+                                    log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
+                                if sensor.send_email:
+                                    if sensor.enabled:
+                                        text = _('Not response!')
+                                    else:
+                                        text = _('Out of order')
+                                    subj = _('Sensor {}').format(sensor.name)
+                                    body = text
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                                if sensor.log_event:                                   # event log
+                                    self.update_log(sensor, 'lge', _('Not response!'))
+                    if sensor.manufacturer == 1: # shelly manufacturer
+                        sensor.err_msg[0] = 0
+                        if sensor.last_msg[0] != sensor.err_msg[0]:
+                            sensor.last_msg[0] = sensor.err_msg[0]
                             if sensor.enabled:
                                 log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
                             if sensor.send_email:
@@ -818,22 +858,7 @@ class _Sensors_Timer(Thread):
                                 self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_event:                                   # event log
                                 self.update_log(sensor, 'lge', _('Not response!'))
-                    if sensor.sens_type == 4 or (sensor.sens_type == 6 and sensor.multi_type == 7):
-                        sensor.err_msg[7] = 0
-                        if sensor.last_msg[7] != sensor.err_msg[7]:
-                            sensor.last_msg[7] = sensor.err_msg[7]
-                            if sensor.enabled:
-                                log.debug('sensors.py', _('Sensor: {} not response!').format(sensor.name))
-                            if sensor.send_email:
-                                if sensor.enabled:
-                                    text = _('Not response!')
-                                else:
-                                    text = _('Out of order')
-                                subj = _('Sensor {}').format(sensor.name)
-                                body = text
-                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
-                            if sensor.log_event:                                   # event log
-                                self.update_log(sensor, 'lge', _('Not response!'))                                
+
                     if sensor.show_in_footer:
                         if sensor.enabled:
                             self.start_status(sensor.name, _('Not response!'), sensor.index)
@@ -1509,15 +1534,71 @@ class _Sensors_Timer(Thread):
                         else:
                             self.start_status(sensor.name, _('Out of order'), sensor.index)
 
+    def check_shellys(self):
+        get_data = None
+        try:
+            from plugins import shelly_cloud_integrator
+            get_data = shelly_cloud_integrator.shelly_devices.devices()
+        except:
+            log.debug('sensors.py', _('Shelly cloud integrator not installed in plugins!'))
+        try:
+            if get_data is not None:
+                for i in range(0, len(get_data)):                                   # we go through the list of device shelly
+                    id = get_data[i]['id']                                          # we read the device parameters from the list
+                    ip = get_data[i]['id']
+                    label = get_data[i]['label']
+                    volt = get_data[i]['voltage']
+                    batt = get_data[i]['battery']
+                    temp_list = get_data[i]['temperature']
+                    humi_list = get_data[i]['humidity']
+                    rssi = get_data[i]['rssi']
+                    output_list = get_data[i]['output']
+                    power_list = get_data[i]['power']
+                    generation = get_data[i]['gen']
+                    hardware_text = get_data[i]['hw']
+                    hardware_nbr = get_data[i]['hw_nbr']
+                    updated = get_data[i]['updated']
+                    online = get_data[i]['online']
+                    if sensors.count()>0:                                           # if there are any sensors in OSPy
+                        for sensor in sensors.get():                                # we will go through all the sensors in OSPy
+                            if sensor.shelly_id == id:                              # if the device ID in the shelly sensors matches the shelly sensor ID in the OSPy sensors
+                                time_dif = int(now() - sensor.last_response)        # last input from sensor
+                                if time_dif >= 30:                                  # save to options every 30 seconds
+                                    sensor.ip = ip                                  # we load data from the device shell with this ID into the sensor shell in OSPy
+                                    sensor.last_battery = batt
+                                    sensor.last_voltage = volt
+                                    sensor.rssi = rssi
+                                    # output
+                                    sensor.last_read_value[0] = output_list
+                                    # power
+                                    sensor.last_read_value[1] = power_list
+                                    # temperature
+                                    sensor.last_read_value[2] = temp_list
+                                    # humidity
+                                    sensor.last_read_value[3] = humi_list
+                                    sensor.shelly_hw = hardware_text
+                                    sensor.shelly_hw_nbr = hardware_nbr
+                                    sensor.shelly_gen = generation
+                                    sensor.response = 1 if online is True else 0
+                                    sensor.last_response = updated
+                                    sensor.last_response_datetime = datetime_string()
+                                    log.debug('sensors.py', _('Sensor Shelly: {} saving every 30 seconds to sensors.').format(label))
+        except Exception:
+            log.debug('sensors.py', _('Sensors shelly timer loop error: {}').format(traceback.format_exc()))
+            pass
+
+
     def run(self):
         self._sleep(2)
         while True:
             try:
+                self.check_shellys()
                 self.check_sensors()
                 self._sleep(1)
 
             except Exception:
                 log.debug('sensors.py', _('Sensors timer loop error: {}').format(traceback.format_exc()))
+                pass
                 self._sleep(5)  
 
 sensors_timer = _Sensors_Timer()

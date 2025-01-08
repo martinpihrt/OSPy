@@ -17,7 +17,9 @@ $code:
 var errorCode = "${errorCode}";
 
 function checkMAC(){
-    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
+    let com_type = jQuery("#com_type").val();           // 'Wi-Fi/LAN', 'Radio'
+    let manufacturer = jQuery("#manufacturer").val();   // 0=Pihrt, 1=Shelly
+    if(manufacturer==1) return 0;
     if(com_type==1) return 0;
 
     let MACAddress = jQuery(".MACnumbersOnly").val();
@@ -33,8 +35,11 @@ function checkMAC(){
 } 
 
 function checkIP(){
-    let com_type = jQuery("#com_type").val(); // 'Wi-Fi/LAN', 'Radio'
-    if(com_type==1) return 0;
+    let com_type = jQuery("#com_type").val();           // 'Wi-Fi/LAN', 'Radio'
+    let manufacturer = jQuery("#manufacturer").val();   // 0=Pihrt, 1=Shelly
+
+    if(com_type==1 && manufacturer==0) return 0;
+    if(manufacturer==1) return 0;
         
     let IPAddress = jQuery(".IPnumbersOnly").val();
     let IPRegex=new RegExp("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
@@ -57,86 +62,112 @@ function codeTextCopy() {
 } 
 
 function check_type() {
-    let sensor_type = jQuery("#sens_type").val(); // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
-    let multi_type = jQuery("#multi_type").val(); // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
-    let com_type = jQuery("#com_type").val();     // 'Wi-Fi/LAN', 'Radio'
+    let sensor_type = jQuery("#sens_type").val();       // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
+    let multi_type = jQuery("#multi_type").val();       // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
+    let com_type = jQuery("#com_type").val();           // 'Wi-Fi/LAN', 'Radio'
+    let manufacturer = jQuery("#manufacturer").val();   // 0=Pihrt, 1=Shelly
 
-    if (sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) { 
+    if(manufacturer == 0){                              // show in menu only pihrt sensors
+        jQuery("#sensor_type").show()
+        jQuery("#multi_sensor").show()
+        jQuery("#sensor_communication").show()
+        jQuery("#notice").show()
+    } else {                                            // others sensors shelly...
+        jQuery("#sensor_type").hide()
+        jQuery("#multi_sensor").hide()
+        jQuery("#sensor_communication").hide()
+        jQuery("#notice").hide()       
+    }
+
+
+    if((sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) && manufacturer==0){ 
         jQuery("#dry_contact").show()
     } else {
         jQuery("#dry_contact").hide()
     }
 
-    if (sensor_type == 2 || (sensor_type == 6 && multi_type == 5)) {
+    if((sensor_type == 2 || (sensor_type == 6 && multi_type == 5)) && manufacturer==0){
         jQuery("#leak_detector").show()
     } else {
         jQuery("#leak_detector").hide()
     }
 
-    if (sensor_type == 3 || (sensor_type == 6 && multi_type == 6)) {
+    if((sensor_type == 3 || (sensor_type == 6 && multi_type == 6)) && manufacturer==0){
         jQuery("#moisture").show()
     } else {
         jQuery("#moisture").hide()
     }
 
-    if (sensor_type == 5 || (sensor_type == 6 && multi_type == 0) || (sensor_type == 6 && multi_type == 1) || (sensor_type == 6 && multi_type == 2) || (sensor_type == 6 && multi_type == 3)) {
+    if((sensor_type == 5 || (sensor_type == 6 && multi_type == 0) || (sensor_type == 6 && multi_type == 1) || (sensor_type == 6 && multi_type == 2) || (sensor_type == 6 && multi_type == 3)) && manufacturer==0){
         jQuery("#temperature").show()
     } else {
         jQuery("#temperature").hide()
     }     
 
-    if (sensor_type == 4 || (sensor_type == 6 && multi_type == 7)) {
+    if((sensor_type == 4 || (sensor_type == 6 && multi_type == 7)) && manufacturer==0){
         jQuery("#motion").show()
     } else {
         jQuery("#motion").hide()
     }
 
-    if (sensor_type == 6 && multi_type == 8) {
+    if((sensor_type == 6 && multi_type == 8) && manufacturer==0){
         jQuery("#sonic").show()
     } else {
         jQuery("#sonic").hide()
     }
 
-    if (sensor_type == 6) {
+    if((sensor_type == 6) && manufacturer==0){
         jQuery("#multi_sensor").show()
     } else {
         jQuery("#multi_sensor").hide()
     }
 
-    if (sensor_type == 6 && multi_type == 9) {
+    if((sensor_type == 6 && multi_type == 9) && manufacturer==0){
         jQuery("#soil").show()
     } else {
         jQuery("#soil").hide()
     }
 
-    if (sensor_type == 7) {
+    if((sensor_type == 7) && manufacturer==0){
         jQuery("#multi_contact").show()
         jQuery("#sample_rate").hide()
         jQuery("#log_samples").hide()
         jQuery("#log_events").hide()
         jQuery("#email_events").hide()
         jQuery("#email_type").hide()
-        jQuery("#show_footer").show()                       
+        jQuery("#show_footer").show()
     } else {
-        jQuery("#multi_contact").hide()
-        jQuery("#sample_rate").show()
-        jQuery("#log_samples").show()
-        jQuery("#log_events").show()
-        jQuery("#email_events").show()
-        jQuery("#email_type").show()
-        jQuery("#show_footer").show()         
+        if(manufacturer==0){
+            jQuery("#multi_contact").hide()
+            jQuery("#sample_rate").show()
+            jQuery("#log_samples").show()
+            jQuery("#log_events").show()
+            jQuery("#email_events").show()
+            jQuery("#email_type").show()
+            jQuery("#show_footer").show()
+        }    
     }    
 
-    if (com_type == 0) { 
-        jQuery("#com_lan").show()
-    } else {
-        jQuery("#com_lan").hide()
-    }
-    if (com_type == 1) {
-        jQuery("#com_radio").show()
+    if(manufacturer==0){
+        jQuery("#com_shelly").hide()        
+        jQuery("#com_mac").show()
+        if(com_type == 0) { 
+            jQuery("#com_lan").show()
+        } else {
+            jQuery("#com_lan").hide()
+        }
+        if(com_type == 1){
+            jQuery("#com_radio").show()
+        } else {
+            jQuery("#com_radio").hide()
+        }
     } else {
         jQuery("#com_radio").hide()
-    }        
+        jQuery("#com_mac").hide()
+        jQuery("#com_lan").hide()
+        jQuery("#com_shelly").show()
+    }
+        
 }  
 
 jQuery(document).ready(function(){
@@ -182,7 +213,8 @@ jQuery(document).ready(function(){
     jQuery("#sens_type").change(check_type);
     jQuery("#multi_type").change(check_type);
     jQuery("#com_type").change(check_type);
-    check_type();     
+    jQuery("#manufacturer").change(check_type);
+    check_type();
 
     autosize(document.getElementById("note"));
 
@@ -208,7 +240,29 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Enable Sensor'):</span></td>
-                <td><input name="enable" type="checkbox" ${'checked' if sensor.enabled else ''} title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
+                <td><input name="enable" type="checkbox" ${'checked' if sensor.enabled else ''} title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
+                </tr>
+                </table>
+            </div>
+            <div class='option' style="white-space: nowrap">
+                <table>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Manufacturer'):</span></td>
+                <td><select id="manufacturer" name="manufacturer" style="width: 200px" title=$:{json.dumps(_('Select the sensor Manufacturer.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                $ type_list = [_('Pihrt'), _('Shelly')]
+                $for t in range(2):
+                    <option value="${t}" ${'selected' if sensor.manufacturer == t else ''}>$type_list[t]</option>
+                </select></td>
+                </tr>
+                </table>
+                <p><small>$_('Notice: Do not add Shelly sensor  manually, but create them from the sensor search.')</small></p>
+            </div>
+            <div class='option' style="white-space: nowrap">
+                <table>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Name'):</span></td>
+                <td><input name="name" class="cleanText" id="name" style="width: 140px" value="${sensor.name}" title=$:{json.dumps(_('Type Sensor Name.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                </td>
                 </tr>
                 </table>
             </div>
@@ -216,27 +270,23 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Show in Footer'):</span></td>
-                <td><input name="show_in_footer" type="checkbox" ${'checked' if sensor.show_in_footer else ''} title=$:{json.dumps(_(u'Enabling or disabling showing data from sensor in footer on home page.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="show_in_footer" type="checkbox" ${'checked' if sensor.show_in_footer else ''} title=$:{json.dumps(_('Enabling or disabling showing data from sensor in footer on home page.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
-                <table>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Name'):</span></td>
-                <td><input name="name" class="cleanText" id="name" style="width: 140px" value="${sensor.name}" title=$:{json.dumps(_(u'Type Sensor Name.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                </td>
-                </tr>
-                </table>
+
+            <div class='option' id="notice" style="white-space: nowrap">
+                <p><small>$_('Notice: If the sensor is activated and has some entries, we recommend deleting the sensor and recreating it.')</small></p>
+                <p><small>$_('For example, do not change the temperature to humidity.')</small></p>
             </div>
-            <p><small>$_('Notice: If the sensor is activated and has some entries, we recommend deleting the sensor and recreating it. For example, do not change the temperature to humidity.')</small></p>
-            <div class='option' style="white-space: nowrap">
+
+            <div class='option' id="sensor_type" style="white-space: nowrap">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sensor Type'):</span></td>
-                <td><select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_(u'Select the sensor type.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi'), _(u'Multi Contact')]
+                <td><select id="sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_('Select the sensor type.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                $ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi'), _('Multi Contact')]
                 $for t in range(8):
                     <option value="${t}" ${'selected' if sensor.sens_type == t else ''}>$type_list[t]</option>
                 </select></td>
@@ -247,20 +297,20 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Multi Sensor'):</span></td>
-                <td><select id="multi_type" name="multi_type" style="width: 200px" title=$:{json.dumps(_(u'Select the data type for multi sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
+                <td><select id="multi_type" name="multi_type" style="width: 200px" title=$:{json.dumps(_('Select the data type for multi sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                $ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
                 $for t in range(10):
                     <option value="${t}" ${'selected' if sensor.multi_type == t else ''}>$multi_list[t]</option>
                 </select></td>
                 </tr>
                 </table>
             </div>
-            <div class='option' style="white-space: nowrap">
+            <div class='option' id="sensor_communication" style="white-space: nowrap">
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Communication Type'):</span></td>
-                <td><select id="com_type" name="com_type" style="width: 200px" title=$:{json.dumps(_(u'Select communication type for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ type_list = [_(u'Wi-Fi/LAN'), _(u'Radio')] 
+                <td><select id="com_type" name="com_type" style="width: 200px" title=$:{json.dumps(_('Select communication type for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                $ type_list = [_('Wi-Fi/LAN'), _('Radio')] 
                 $for t in range(2):
                     <option value="${t}" ${'selected' if sensor.com_type == t else ''}>$type_list[t]</option>
                 </select></td>
@@ -271,8 +321,8 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sample Rate'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" min="0" name="sample_rate_min" value="${two_digits(sensor.sample_rate/60)}" title=$:{json.dumps(_(u'Enter the sampling time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
-                <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" min="0" name="sample_rate_sec" value="${two_digits(sensor.sample_rate%60)}" title=$:{json.dumps(_(u'Enter the sampling time in seconds.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'mm:ss'))
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" min="0" name="sample_rate_min" value="${two_digits(sensor.sample_rate/60)}" title=$:{json.dumps(_('Enter the sampling time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
+                <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" min="0" name="sample_rate_sec" value="${two_digits(sensor.sample_rate%60)}" title=$:{json.dumps(_('Enter the sampling time in seconds.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('mm:ss'))
                 </td>
                 </tr>
                 </table>
@@ -281,7 +331,7 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Samples'):</span></td>
-                <td><input type="checkbox" ${"checked" if sensor.log_samples else ""} name="log_samples" id="log_samples" title=$:{json.dumps(_(u'Enable sample logging.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
+                <td><input type="checkbox" ${"checked" if sensor.log_samples else ""} name="log_samples" id="log_samples" title=$:{json.dumps(_('Enable sample logging.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
                 </tr>
                 </table>
             </div>
@@ -289,7 +339,7 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Log Events'):</span></td>
-                <td><input type="checkbox" ${"checked" if sensor.log_event else ""} name="log_event" id="log_event" title=$:{json.dumps(_(u'Enable event logging.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
+                <td><input type="checkbox" ${"checked" if sensor.log_event else ""} name="log_event" id="log_event" title=$:{json.dumps(_('Enable event logging.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
                 </tr>
                 </table>
             </div> 
@@ -297,7 +347,7 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Text/Email Events'):</span></td>
-                <td><input type="checkbox" ${"checked" if sensor.send_email else ""} name="send_email" id="send_email" title=$:{json.dumps(_(u'Allow sending an E-mail when there is an event. For this function is requred plugin E-mail notification!'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
+                <td><input type="checkbox" ${"checked" if sensor.send_email else ""} name="send_email" id="send_email" title=$:{json.dumps(_('Allow sending an E-mail when there is an event. For this function is requred plugin E-mail notification!'), ensure_ascii=False).encode('utf8').decode('utf-8')}></td>
                 </tr>
                 </table>
             </div>
@@ -306,8 +356,8 @@ jQuery(document).ready(function(){
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('E-mail plug-ins'):</span></td>
                 <td><select name="eplug">
-                <option value="0" ${"selected" if sensor.eplug == 0 else ""}>$_(u'E-mail notifications V1')</option>
-                <option value="1" ${"selected" if sensor.eplug == 1 else ""}>$_(u'E-mail notifications V2 SSL')</option>
+                <option value="0" ${"selected" if sensor.eplug == 0 else ""}>$_('E-mail notifications V1')</option>
+                <option value="1" ${"selected" if sensor.eplug == 1 else ""}>$_('E-mail notifications V2 SSL')</option>
                 </select></td>
                 </tr>
                 </table>
@@ -326,16 +376,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Open Program(s)'):</span></td>
-                <td><select name="AL" id="AL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>    
+                <td><select name="AL" id="AL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="used_stations_one" id="used_stations_one" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.used_stations_one else ""}>$_(u'None')</option>
+                <td><select name="used_stations_one" id="used_stations_one" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.used_stations_one else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations_one else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -343,7 +393,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Custom name of the event for open'):</span></td>
-                <td><input name="open_msg" class="cleanText" id="open_msg" style="width: 140px" value="${sensor.dry_open_msg}" title=$:{json.dumps(_(u'Type Custom name of the event for open.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="open_msg" class="cleanText" id="open_msg" style="width: 140px" value="${sensor.dry_open_msg}" title=$:{json.dumps(_('Type Custom name of the event for open.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <tr>
@@ -358,16 +408,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Closed Program(s)'):</span></td>
-                <td><select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
+                <td><select name="AH" id="AH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="used_stations_two" id="used_stations_two" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.used_stations_two else ""}>$_(u'None')</option>
+                <td><select name="used_stations_two" id="used_stations_two" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.used_stations_two else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations_two else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -375,7 +425,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Custom name of the event for closed'):</span></td>
-                <td><input name="close_msg" class="cleanText" id="close_msg" style="width: 140px" value="${sensor.dry_clos_msg}" title=$:{json.dumps(_(u'Type Custom name of the event for closed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="close_msg" class="cleanText" id="close_msg" style="width: 140px" value="${sensor.dry_clos_msg}" title=$:{json.dumps(_('Type Custom name of the event for closed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>                
                 <tr>
@@ -402,23 +452,23 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stabilization Time'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="stabilization_time_min" id="stabm" value="${two_digits(sensor.stabilization_time/60)}"title=$:{json.dumps(_(u'Enter the stabilization time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
-                <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" name="stabilization_time_sec" id="stabs" value="${two_digits(sensor.stabilization_time%60)}"title=$:{json.dumps(_(u'Enter the stabilization time in seconds.'), ensure_ascii=False)}> ($_(u'mm:ss'))
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="stabilization_time_min" id="stabm" value="${two_digits(sensor.stabilization_time/60)}"title=$:{json.dumps(_('Enter the stabilization time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
+                <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" name="stabilization_time_sec" id="stabs" value="${two_digits(sensor.stabilization_time%60)}"title=$:{json.dumps(_('Enter the stabilization time in seconds.'), ensure_ascii=False)}> ($_('mm:ss'))
                 </td></tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sensitivity'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_(u'Enter sensitivity for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> %
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_('Enter sensitivity for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> %
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('One pulse is'):</span></td>
-                <td><input type="number" min="0.1" step="0.1" size="3" maxlength="3" id="liter_per_pulses" name="liter_per_pulses" value="${sensor.liter_per_pulses}" title=$:{json.dumps(_(u'Here we enter how many liters from the flow meter is one pulse.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'Liters'))
+                <td><input type="number" min="0.1" step="0.1" size="3" maxlength="3" id="liter_per_pulses" name="liter_per_pulses" value="${sensor.liter_per_pulses}" title=$:{json.dumps(_('Here we enter how many liters from the flow meter is one pulse.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('Liters'))
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
-                <td><select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>                    
+                <td><select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>                    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select>
@@ -426,8 +476,8 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
-                <td><select name="BH" id="BH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>    
+                <td><select name="BH" id="BH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_('None')</option>    
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
@@ -457,8 +507,8 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Program(s)'):</span></td>
-                <td><select name="CH" id="CH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
+                <td><select name="CH" id="CH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
@@ -467,12 +517,12 @@ jQuery(document).ready(function(){
                 <tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Custom name of the event for motion'):</span></td>
-                <td><input name="motion_msg" class="cleanText" id="motion_msg" style="width: 140px" value="${sensor.motion_msg}" title=$:{json.dumps(_(u'Type Custom name of the event for motion.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="motion_msg" class="cleanText" id="motion_msg" style="width: 140px" value="${sensor.motion_msg}" title=$:{json.dumps(_('Type Custom name of the event for motion.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Custom name of the event for no motion'):</span></td>
-                <td><input name="no_motion_msg" class="cleanText" id="no_motion_msg" style="width: 140px" value="${sensor.no_motion_msg}" title=$:{json.dumps(_(u'Type Custom name of the event for no motion.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="no_motion_msg" class="cleanText" id="no_motion_msg" style="width: 140px" value="${sensor.no_motion_msg}" title=$:{json.dumps(_('Type Custom name of the event for no motion.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <th colspan="2">
@@ -498,25 +548,25 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('The distance from the sensor to the minimum water level in the tank'):</span></td>
-                <td><input name="distance_bottom" type="number" min="2" max="600" value="${sensor.distance_bottom}" title=$:{json.dumps(_(u'Thus the distance from the ultrasound to the minimum water level. The sensor is located above the water'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="distance_bottom" type="number" min="2" max="600" value="${sensor.distance_bottom}" title=$:{json.dumps(_('Thus the distance from the ultrasound to the minimum water level. The sensor is located above the water'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('The distance from the sensor to the maximum water level in the tank'):</span></td>
-                <td><input name="distance_top" type="number" min="2" max="600" value="${sensor.distance_top}" title=$:{json.dumps(_(u'That is, the distance from the ultrasound to the maximum water level. The sensor is located above the water'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="distance_top" type="number" min="2" max="600" value="${sensor.distance_top}" title=$:{json.dumps(_('That is, the distance from the ultrasound to the maximum water level. The sensor is located above the water'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('The water level from the bottom to the minimum water level in the tank'):</span></td>
-                <td><input name="water_minimum" type="number" min="2" max="600" value="${sensor.water_minimum}" title=$:{json.dumps(_(u'Distance from the bottom (ie the minimum water) to the set this minimum level, when it is this activated (send an E-mail)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="water_minimum" type="number" min="2" max="600" value="${sensor.water_minimum}" title=$:{json.dumps(_('Distance from the bottom (ie the minimum water) to the set this minimum level, when it is this activated (send an E-mail)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td>
                 </tr>    
                 <td style='text-transform: none;'><span class="sensor_label">$_('Cylinder diameter for volume calculation'):</span>
-                <td><input name="diameter" type="number" min="2" max="4000" value="${sensor.diameter}" title=$:{json.dumps(_(u'Enter the diameter for volume calculation'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="diameter" type="number" min="2" max="4000" value="${sensor.diameter}" title=$:{json.dumps(_('Enter the diameter for volume calculation'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td></tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Display in liters or m')<sup>3</sup>:</span></td>
-                <td><input name="check_liters" type="checkbox" ${" checked" if sensor.check_liters else ""} title=$:{json.dumps(_(u'Show measured water in liters or m3'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="check_liters" type="checkbox" ${" checked" if sensor.check_liters else ""} title=$:{json.dumps(_('Show measured water in liters or m3'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <tr>
@@ -526,24 +576,24 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stop stations if minimum water level'):</span></td>
-                <td><input name="use_stop" type="checkbox" ${" checked" if sensor.use_stop else ""} title=$:{json.dumps(_(u'Stoping these stations if is minimum water level in the tank'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="use_stop" type="checkbox" ${" checked" if sensor.use_stop else ""} title=$:{json.dumps(_('Stoping these stations if is minimum water level in the tank'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Delay Duration (hours)'):</span></td>
-                <td title=$:{json.dumps(_(u'If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + 5 cm, the delay is deactivated'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td title=$:{json.dumps(_('If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + 5 cm, the delay is deactivated'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 <input name="delay_duration" type="number" min="0" max="96" value="${sensor.delay_duration}">
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stop stations if sonic probe has fault'):</span></td>
-                <td><input name="use_water_stop" type="checkbox" ${" checked" if sensor.use_water_stop else ""} title=$:{json.dumps(_(u'If the level sensor fails, the above selected stations in the scheduler will stop'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="use_water_stop" type="checkbox" ${" checked" if sensor.use_water_stop else ""} title=$:{json.dumps(_('If the level sensor fails, the above selected stations in the scheduler will stop'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stop this run stations in scheduler'):</span></td>
-                <td><select name="used_stations" id="used_stations" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.used_stations else ""}>$_(u'None')</option>
+                <td><select name="used_stations" id="used_stations" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.used_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.used_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -556,25 +606,25 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Regulate the maximum water level'):</span></td>
-                <td><input name="enable_reg" type="checkbox" ${" checked" if sensor.enable_reg else ""} title=$:{json.dumps(_(u'If checked regulation is enabled'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="enable_reg" type="checkbox" ${" checked" if sensor.enable_reg else ""} title=$:{json.dumps(_('If checked regulation is enabled'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td></tr>
                 <td><span class="sensor_label">$_('Maximum maintained water level'):</span></td>
-                <td><input name="reg_max" type="number" min="2" max="600" value="${sensor.reg_max}" title=$:{json.dumps(_(u'If the measured water level exceeds this set value, the output is activated'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="reg_max" type="number" min="2" max="600" value="${sensor.reg_max}" title=$:{json.dumps(_('If the measured water level exceeds this set value, the output is activated'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Maximum run time in activate'):</span></td>
-                <td><input id="reg_mm" name="reg_mm" type="number" size="3" maxlength="3" value="${sensor.reg_mm}" min="0" max="999" title=$:{json.dumps(_(u'Maximum duration when activating the output (in minutes). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>:
-                <input id="reg_ss" name="reg_ss" type="number" size="2" maxlength="2" value="${sensor.reg_ss}" min="0" max="59" title=$:{json.dumps(_(u'Maximum duration when activating the output (in seconds). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> $_(u'[mm:ss]')
+                <td><input id="reg_mm" name="reg_mm" type="number" size="3" maxlength="3" value="${sensor.reg_mm}" min="0" max="999" title=$:{json.dumps(_('Maximum duration when activating the output (in minutes). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>:
+                <input id="reg_ss" name="reg_ss" type="number" size="2" maxlength="2" value="${sensor.reg_ss}" min="0" max="59" title=$:{json.dumps(_('Maximum duration when activating the output (in seconds). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> $_('[mm:ss]')
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Minimum maintained water level'):</span></td>
-                <td><input name="reg_min" type="number" min="2" max="600" value="${sensor.reg_min}" title=$:{json.dumps(_(u'If the measured water level falls below this set value, the output is deactivated'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_(u'cm'))
+                <td><input name="reg_min" type="number" min="2" max="600" value="${sensor.reg_min}" title=$:{json.dumps(_('If the measured water level falls below this set value, the output is deactivated'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td></tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Select Output for regulation'):</span></td>
-                <td><select name="reg_output" id="reg_output" style="width: 200px" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><select name="reg_output" id="reg_output" style="width: 200px" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 $for station in stations.get():
                     <option value="${str(station.index)}" ${"selected" if sensor.reg_output==str(station.index) else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -604,7 +654,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_(u'Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input id="trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 $if options.temp_unit == 'F' and sensor.sens_type == 5:
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
@@ -613,8 +663,8 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
-                <td><select name="DL" id="DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>
+                <td><select name="DL" id="DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select>
@@ -622,7 +672,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_(u'Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input id="trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 $if options.temp_unit == 'F' and sensor.sens_type == 5:
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
@@ -631,8 +681,8 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
-                <td><select name="DH" id="DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
+                <td><select name="DH" id="DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
@@ -662,13 +712,13 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="Mtrigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_(u'Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
+                <td><input id="Mtrigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
-                <td><select name="MDL" id="MDL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_(u'None')</option>
+                <td><select name="MDL" id="MDL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select>
@@ -676,13 +726,13 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="Mtrigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_(u'Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
+                <td><input id="Mtrigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
-                <td><select name="MDH" id="MDH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_(u'None')</option>
+                <td><select name="MDH" id="MDH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_high_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_high_program else ""}>${program.name}</option>
                 </select>
@@ -720,8 +770,8 @@ jQuery(document).ready(function(){
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Probe') ${str(i+1)} $_('controls the program'):</span></td>
-                    <td><select name="SM${str(i)}" id="SM${str(i)}" style="width: 200px" title=$:{json.dumps(_(u'Mark the required programs for adjusting the program run time.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                    <option value="-1" ${" selected" if "-1" == sensor.soil_program[int(i)] else ""}>$_(u'None')</option>
+                    <td><select name="SM${str(i)}" id="SM${str(i)}" style="width: 200px" title=$:{json.dumps(_('Mark the required programs for adjusting the program run time.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <option value="-1" ${" selected" if "-1" == sensor.soil_program[int(i)] else ""}>$_('None')</option>
                     $for program in programs.get():
                         <option value="${program.index+1}" ${" selected" if str(program.index+1) == sensor.soil_program[int(i)] else ""}>${program.name}</option>
                     </select>
@@ -729,27 +779,27 @@ jQuery(document).ready(function(){
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Probe Calibration for 100%'):</span></td>
-                    <td><input name="sd${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_max[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('V')
+                    <td><input name="sd${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_max[int(i)]}" title=$:{json.dumps(_('If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('V')
                     </td>
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Probe Calibration for 0%'):</span></td>
-                    <td><input name="sc${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_min[int(i)]}" title=$:{json.dumps(_(u'If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('V')
+                    <td><input name="sc${str(i)}" type="number" min="0.00" max="6.00" step="0.01" value="${sensor.soil_calibration_min[int(i)]}" title=$:{json.dumps(_('If necessary, we can adjust the value from the sensor from 0.00 to +6.00'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('V')
                     </td>
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Probe logic is reversed'):</span></td>
-                    <td><input type="checkbox" ${"checked" if sensor.soil_invert_probe_in[int(i)] else ""} name="sip${str(i)}" title=$:{json.dumps(_(u'If we mark this field, the logic of the probe will be reversed. This means, for example, that 0V from the probe is 100% and 3V is 0% humidity. Otherwise the logic is straightforward (0V is 0% and 3V is 100%)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <td><input type="checkbox" ${"checked" if sensor.soil_invert_probe_in[int(i)] else ""} name="sip${str(i)}" title=$:{json.dumps(_('If we mark this field, the logic of the probe will be reversed. This means, for example, that 0V from the probe is 100% and 3V is 0% humidity. Otherwise the logic is straightforward (0V is 0% and 3V is 100%)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     </td>
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Probe label'):</span></td>
-                    <td><input name="pl${str(i)}" class="cleanText" style="width: 140px" value="${sensor.soil_probe_label[int(i)]}" title=$:{json.dumps(_(u'Enter a label for your probe identification'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <td><input name="pl${str(i)}" class="cleanText" style="width: 140px" value="${sensor.soil_probe_label[int(i)]}" title=$:{json.dumps(_('Enter a label for your probe identification'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     </td>
                     </tr>
                     <tr>
                     <td style='text-transform: none;'><span class="sensor_label">$_('Show in footer'):</span></td>
-                    <td><input type="checkbox" ${"checked" if sensor.soil_show_in_footer[int(i)] else ""} name="fip${str(i)}" title=$:{json.dumps(_(u'Show data from probe in footer on home page'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <td><input type="checkbox" ${"checked" if sensor.soil_show_in_footer[int(i)] else ""} name="fip${str(i)}" title=$:{json.dumps(_('Show data from probe in footer on home page'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     </td>
                     </tr>
                     <tr>
@@ -791,16 +841,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C0" id="SW_C0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C0" id="SW_C0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw0_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC0" id="SW_SC0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC0" id="SW_SC0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw0_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -808,16 +858,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O0" id="SW_O0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O0" id="SW_O0" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw0_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO0" id="SW_SO0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO0" id="SW_SO0" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw0_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw0_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -831,16 +881,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C1" id="SW_C1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C1" id="SW_C1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw1_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC1" id="SW_SC1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC1" id="SW_SC1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw1_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -848,16 +898,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O1" id="SW_O1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O1" id="SW_O1" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw1_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO1" id="SW_SO1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO1" id="SW_SO1" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw1_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw1_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -871,16 +921,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C2" id="SW_C2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C2" id="SW_C2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw2_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC2" id="SW_SC2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC2" id="SW_SC2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw2_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -888,16 +938,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O2" id="SW_O2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O2" id="SW_O2" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw2_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO2" id="SW_SO2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO2" id="SW_SO2" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw2_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw2_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -911,16 +961,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C3" id="SW_C3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C3" id="SW_C3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw3_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC3" id="SW_SC3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC3" id="SW_SC3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw3_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -928,16 +978,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O3" id="SW_O3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O3" id="SW_O3" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw3_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO3" id="SW_SO3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO3" id="SW_SO3" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw3_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw3_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -951,16 +1001,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C4" id="SW_C4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C4" id="SW_C4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw4_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC4" id="SW_SC4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC4" id="SW_SC4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw4_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -968,16 +1018,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O4" id="SW_O4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O4" id="SW_O4" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw4_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO4" id="SW_SO4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO4" id="SW_SO4" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw4_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw4_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -991,16 +1041,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C5" id="SW_C5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C5" id="SW_C5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw5_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC5" id="SW_SC5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC5" id="SW_SC5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw5_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -1008,16 +1058,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O5" id="SW_O5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O5" id="SW_O5" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw5_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO5" id="SW_SO5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO5" id="SW_SO5" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw5_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw5_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -1031,16 +1081,16 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is closed (pressing)'):</span></td>
-                <td><select name="SW_C6" id="SW_C6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_program else ""}>$_(u'None')</option>
+                <td><select name="SW_C6" id="SW_C6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw6_closed_program else ""}>${program.name}</option> 
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SC6" id="SW_SC6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SC6" id="SW_SC6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_closed_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw6_closed_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
@@ -1048,21 +1098,21 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Run program when the contact is open (releasing)'):</span></td>
-                <td><select name="SW_O6" id="SW_O6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_(u'Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_program else ""}>$_(u'None')</option>
+                <td><select name="SW_O6" id="SW_O6" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.sw6_open_program else ""}>${program.name}</option>
                 </select></td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Or Stop this run stations in scheduler'):</span></td>
-                <td><select name="SW_SO6" id="SW_SO6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_(u'Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_stations else ""}>$_(u'None')</option>
+                <td><select name="SW_SO6" id="SW_SO6" style="width: 200px" multiple="multiple" size="8" title=$:{json.dumps(_('Mark the required stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.sw6_open_stations else ""}>$_('None')</option>
                 $for station in [station for station in stations if station.enabled]:
                     <option value="${station.index}" ${"selected" if str(station.index) in sensor.sw6_open_stations else ""}>${station.name} ($_('Output') ${str(station.index+1)})</option>
                 </select>
                 </td>
-                </tr>                                                                              
+                </tr>
                 <tr>
                 <th colspan="2">
                 <hr>
@@ -1076,23 +1126,28 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 </table>
-            </div>            
+            </div>
 
             <div class='option' id="com_lan" style="display: none;">
                 <table>
                 <tr>
-                    <th colspan="2">
-                    <hr>
-                    </th>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('IP Address'):</span></td>
+                <td><input name="ip_address" class="timeInput IPnumbersOnly" type="text" size="15" maxlength="15" id="ip_address" style="width: 200px" value="${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}" title=$:{json.dumps(_('Enter Sensor IP Address.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                </td>
+                </tr>
+                </table>
+            </div>
+
+            <div class='option' id="com_mac" style="display: none;">
+                <table>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('MAC Address'):</span></td> 
-                <td><input name="mac_address" class="timeInput MACnumbersOnly" id="mac_address" size="17" maxlength="17" style="width: 200px" value="${sensor.mac_address}" title=$:{json.dumps(_(u'Enter Sensor MAC Address.'), ensure_ascii=False)}>
-                </td>
-                </tr>
-                <tr>
-                <td style='text-transform: none;'><span class="sensor_label">$_('IP Address'):</span></td>
-                <td><input name="ip_address" class="timeInput IPnumbersOnly" type="text" size="15" maxlength="15" id="ip_address" style="width: 200px" value="${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}" title=$:{json.dumps(_(u'Enter Sensor IP Address.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input name="mac_address" class="timeInput MACnumbersOnly" id="mac_address" size="17" maxlength="17" style="width: 200px" value="${sensor.mac_address}" title=$:{json.dumps(_('Enter Sensor MAC Address.'), ensure_ascii=False)}>
                 </td>
                 </tr>
                 </table>
@@ -1101,14 +1156,40 @@ jQuery(document).ready(function(){
             <div class='option' id="com_radio" style="display: none;">
                 <table>
                 <tr>
-                    <th colspan="2">
-                    <hr>
-                    </th>
+                <th colspan="2">
+                <hr>
+                </th>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Radio sensor ID'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="radio_id" id="radio_id" value="${sensor.radio_id}" title=$:{json.dumps(_(u'Enter sensor ID for your radio sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="radio_id" id="radio_id" value="${sensor.radio_id}" title=$:{json.dumps(_('Enter sensor ID for your radio sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
+                </tr>
+                </table>
+            </div>
+
+            <div class='option' id="com_shelly" style="display: none;">
+                <table>
+                <tr>
+                <th colspan="2">
+                <hr>
+                </th>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('IP Address'):</span></td>
+                <td>${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Shelly sensor ID'):</span></td>
+                <td>${sensor.shelly_id}</td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Device Hardware'):</span></td>
+                <td>${sensor.shelly_hw}</td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Device Generation'):</span></td>
+                <td>${sensor.shelly_gen}</td>
                 </tr>
                 </table>
             </div>
@@ -1117,7 +1198,7 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Notes'):</span></td>
-                <td><textarea id="note" name="notes" style="width: 200px" rows="6" cols="50" maxlength="500" title=$:{json.dumps(_(u'Here we can make our notes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${sensor.notes}</textarea></td>
+                <td><textarea id="note" name="notes" style="width: 200px" rows="6" cols="50" maxlength="500" title=$:{json.dumps(_('Here we can make our notes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${sensor.notes}</textarea></td>
                 </tr>
                 </table>
             </div>
@@ -1131,7 +1212,8 @@ jQuery(document).ready(function(){
                 </td>
                 </tr>
                 <tr>
-                <td><a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a></td>
+                <td><a href="/firmware" class="button cModify"> $_('Sensors Firmware')</a></td>
+                </tr>
                 </table>
         </form>
     </div>

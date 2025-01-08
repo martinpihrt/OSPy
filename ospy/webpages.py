@@ -216,7 +216,7 @@ class sensors_firmware(ProtectedPage):
                 else:
                     statusCode = qdict.get('statusCode', 'err6')                     # msg = An error, the sensor did not respond correctly!
                 return self.core_render.sensors_firmware(statusCode)
-            except:
+            except Exception:
                 pass
                 statusCode = qdict.get('statusCode', 'err7')                         # msg = Sensor does not respond!
                 return self.core_render.sensors_firmware(statusCode)
@@ -279,7 +279,7 @@ class sensors_firmware(ProtectedPage):
                 pass
                 statusCode = qdict.get('statusCode', 'err2')                         # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
                     
-        except:
+        except Exception:
             pass
             log.debug('webpages.py', traceback.format_exc())
             statusCode = qdict.get('statusCode', 'err2')                             # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond! 
@@ -361,7 +361,7 @@ class sensors_firmware(ProtectedPage):
                             statusCode = qdict.get('statusCode', 'err3')             # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!                    
                         else:
                             statusCode = qdict.get('statusCode', 'err4')             # msg = The new firmware could not be uploaded into the sensor. An error has occurred!    
-                except:
+                except Exception:
                     pass
                     statusCode = qdict.get('statusCode', 'err2')                     # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
                     log.debug('webpages.py', traceback.format_exc())
@@ -390,7 +390,7 @@ class sensors_page(ProtectedPage):
             for i in range(0, len(sensorSearch)):
                 try:
                     del sensorSearch[int(i)]
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
             return self.core_render.sensors_search()
@@ -403,7 +403,7 @@ class sensors_page(ProtectedPage):
                         if sensor.soil_program[i] != "-1":
                             pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
-            except:
+            except Exception:
                 log.debug('webpages.py', traceback.format_exc())
                 pass
 
@@ -412,13 +412,13 @@ class sensors_page(ProtectedPage):
                     sensor = sensors.get(sensors.count()-1)
                     sensors_timer.stop_status(sensor.name)
                     sensors.remove_sensors(sensors.count()-1)
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
             try:
                 import shutil
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
-            except:
+            except Exception:
                 log.debug('webpages.py', traceback.format_exc())
                 pass    
 
@@ -444,7 +444,7 @@ class sensor_page(ProtectedPage):
             
             delete = get_input(qdict, 'delete', False, lambda x: True)
             enable = get_input(qdict, 'enable', None, lambda x: x == '1')
-            log = get_input(qdict, 'log', False, lambda x: True)       # return web page sensor log
+            wlog = get_input(qdict, 'log', False, lambda x: True)      # return web page sensor log
             glog = get_input(qdict, 'glog', False, lambda x: True)     # return log json for graph
             graph = get_input(qdict, 'graph', False, lambda x: True)   # return web page sensor graph
             csvE = get_input(qdict, 'csvE', False, lambda x: True)     # return event csv file
@@ -464,7 +464,7 @@ class sensor_page(ProtectedPage):
                     from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
                     sensors_timer.stop_status(sensor.name)
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
 
@@ -474,19 +474,19 @@ class sensor_page(ProtectedPage):
                         if sensor.soil_program[i] != "-1":
                             pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
                             del program_level_adjustments[pid]
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try: # delete log and graph
                     shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
 
                 try: # delete sensor
                     sensors.remove_sensors(index)
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
 
@@ -496,7 +496,7 @@ class sensor_page(ProtectedPage):
                 sensors[index].enabled = enable
                 raise web.seeother('/sensors') 
 
-            elif log:
+            elif wlog:
                 slog_file = []
                 elog_file = []
 
@@ -533,7 +533,7 @@ class sensor_page(ProtectedPage):
                 mtype = sensors[index].multi_type
                 try:
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
-                except:
+                except Exception:
                     pass
                     log.debug('webpages.py', traceback.format_exc())
 
@@ -606,7 +606,7 @@ class sensor_page(ProtectedPage):
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
                     return json.dumps(data)
-                except:
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
                     web.header('Access-Control-Allow-Origin', '*')
                     web.header('Content-Type', 'application/json')
@@ -618,7 +618,7 @@ class sensor_page(ProtectedPage):
                     stype = sensors[index].sens_type
                     mtype = sensors[index].multi_type
                     return self.core_render.graph_sensor(index, name, stype, mtype) 
-                except:    
+                except Exception:    
                     log.debug('webpages.py', traceback.format_exc())
                     return self.core_render.graph_sensor(index, name, stype, mtype)                    
 
@@ -668,7 +668,7 @@ class sensor_page(ProtectedPage):
                 try:
                     _abs_dir_path = os.path.abspath(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
                     shutil.rmtree(_abs_dir_path)
-                except:
+                except Exception:
                     pass
                 raise web.seeother('/sensors')                                                                    
 
@@ -709,6 +709,26 @@ class sensor_page(ProtectedPage):
             sensor = sensors.create_sensors()
 
         if session.get('category') == 'admin':
+            if 's_manu' in qdict:
+                sensor.manufacturer = int(qdict['s_manu'])                      # 0=Pihrt, 1=Shelly
+
+            if 's_name' in qdict:                                               # Shelly name
+                sensor.name = qdict['s_name']
+
+            if 's_id' in qdict:                                                 # Shelly ID
+                sensor.shelly_id = qdict['s_id']
+
+            if 's_hw' in qdict:                                                 # Shelly hardware
+                sensor.shelly_hw = qdict['s_hw']
+
+            if 's_gen' in qdict:                                                # Shelly generation
+                sensor.shelly_gen = qdict['s_gen']
+
+            if 's_ip' in qdict:                                                 # Shelly IP address
+                from ospy.helpers import split_ip
+                ip = split_ip(qdict['s_ip'])
+                sensor.ip_address = ip
+
             if 'name' in qdict:
                 sensor.name = qdict['name']
 
@@ -2121,7 +2141,6 @@ class upload_page(ProtectedPage):
 
                 stations.clear()                
                 server.stop()
-                server.session.kill()
 
                 ospy_to_default(del_upload=False)
 
@@ -2130,7 +2149,7 @@ class upload_page(ProtectedPage):
                 toDirectory = os.path.join('ospy', 'data')
                 copy_tree(fromDirectory, toDirectory)                          # Copy from to
 
-                restart()                                                      # Restart OSPy software
+                restart(wait=3)                                                # Restart OSPy software
 
                 msg = _('Restoring backup files sucesfully, now restarting OSPy...')
                 return self.core_render.notice(home_page, msg)

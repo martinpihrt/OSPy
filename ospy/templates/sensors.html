@@ -1,6 +1,6 @@
 $def with ()
 
-$var title: $_(u'A list of sensors')
+$var title: $_('A list of sensors')
 $var page: sensors
 
 $code:   
@@ -29,16 +29,26 @@ $code:
     def version(s):
         if s != 0:
             res = [int(x) for x in str(s)]
-            return u"{}.{}{}".format(res[0], res[1], res[2])
+            return "{}.{}{}".format(res[0], res[1], res[2])
         else:
-            return u"?.??"   
+            return "?.??"
+
+    def dbm_to_percentage(dbm):
+        min_dbm = -100  # low signal
+        max_dbm = -50   # good signal
+        if dbm <= min_dbm:
+            return 0
+        elif dbm >= max_dbm:
+            return 100
+        percentage = (dbm - min_dbm) / (max_dbm - min_dbm) * 100
+        return round(percentage)
 
 
 <div id="controls">
-    <a href="/sensor/new" class="button add">$_(u'Add a New Sensor')</a>
-    <a href="/sensors?delete_all" class="button deleteAll danger">$_(u'Delete All Sensors')</a>
-    <a href="/sensors?search" class="button cModify"> $_(u'Searching Sensors')</a>
-    <a href="/firmware" class="button cModify"> $_(u'Sensors Firmware')</a>
+    <a href="/sensor/new" class="button add">$_('Add a New Sensor')</a>
+    <a href="/sensors?delete_all" class="button deleteAll danger">$_('Delete All Sensors')</a>
+    <a href="/sensors?search" class="button cModify"> $_('Searching Sensors')</a>
+    <a href="/firmware" class="button cModify"> $_('Sensors Firmware')</a>
 </div>
 </br>
 
@@ -46,156 +56,163 @@ $code:
 $if sensors.count()>0:
     $for sensor in sensors.get():
         <div id="sensor-container" class="sensor-container">
-        $ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi'), _(u'Multi Contact')]
-        $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
+        $ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi'), _('Multi Contact')]
+        $ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
+        $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
-            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_(u'Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 <span class='toggleleft'>$_('On')</span>
                 <span class='togglesep'>&nbsp;</span>
                 <span class='toggleright'>$_('Off')</span>
             </a>
-            ${sensor.index+1}. $_(u'Name'): <span class="val">${sensor.name}</span> $_(u'Type'): <span class="val">$type_list[sensor.sens_type] ${multi_list[sensor.multi_type] if sensor.sens_type == 6 else ''}</span>
+            ${sensor.index+1}. $_('Name'): <span class="val">${sensor.name}</span> $_('Type'): 
+            $if sensor.manufacturer==0:
+                <span class="val">$type_list[sensor.sens_type] ${multi_list[sensor.multi_type] if sensor.sens_type == 6 else ''}</span>
+            $elif sensor.manufacturer==1:
+                <span class="val">${shelly_list[sensor.shelly_hw_nbr] if sensor.shelly_hw_nbr != -1 else ''}</span>
+            $else:
+                <span class="val">$_('Unknown')</span>
         </p>
         </br>
         <p>
         $if sensor.enabled:
             $if sensor.response == 1:
-                <div id="green_circle" title=$:{json.dumps(_(u'Yes all is correct.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
-                <b>$_(u'Link OK')</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
+                <div id="green_circle" title=$:{json.dumps(_('Yes all is correct.'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
+                <b>$_('Link OK')</b> - $_('Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _('Change not yet loaded')})
             $else:
-                <div id="red_circle" title=$:{json.dumps(_(u'Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)? Is the security key on the OSPy and sensor side set correctly?'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
-                <b>$_(u'Link ERROR')!</b> - $_(u'Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _(u'Change not yet loaded')})
+                <div id="red_circle" title=$:{json.dumps(_('Sensor does not respond! Check that the sensor is running (LED). Whether it is connected to the network (for example, in the router settings). Is the signal strength enough (Wi-Fi version)?'), ensure_ascii=False).encode('utf8').decode('utf-8')}></div>
+                <b>$_('Link ERROR')!</b> - $_('Last:') $display_time(now() - sensor.last_response) (${(sensor.last_response_datetime) if sensor.last_response_datetime != '' else _('Change not yet loaded')})
             </p>
-            <p>$_(u'Show in Footer on Home'): <span class="val">${_(u'Yes') if sensor.show_in_footer else _(u'No')}</span></p>
+            <p>$_('Show in Footer on Home'): <span class="val">${_('Yes') if sensor.show_in_footer else _('No')}</span></p>
             $if sensor.sens_type != 7:
-                <p>$_(u'Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_(u'mm:ss'))</span></p>
-                <p>$_(u'Log Samples'): <span class="val">${_(u'Yes') if sensor.log_samples else _(u'No')}</span></p>
-                <p>$_(u'Log Events'): <span class="val">${_(u'Yes') if sensor.log_event else _(u'No')}</span></p>
-                <p>$_(u'Text/Email Events'): <span class="val">${_(u'Yes') if sensor.send_email else _(u'No')}</span></p>
-                <p>$_(u'E-mail plug-ins'): <span class="val">${_(u'E-mail notifications V1') if sensor.eplug == 0 else _(u'E-mail notifications V2 SSL')}</span></p>  
-        $if sensor.sens_type == 1 and sensor.enabled:
+                <p>$_('Sample Rate'): <span class="val">${two_digits(sensor.sample_rate/60) + ":" + two_digits(sensor.sample_rate%60)} ($_('mm:ss'))</span></p>
+                <p>$_('Log Samples'): <span class="val">${_('Yes') if sensor.log_samples else _('No')}</span></p>
+                <p>$_('Log Events'): <span class="val">${_('Yes') if sensor.log_event else _('No')}</span></p>
+                <p>$_('Text/Email Events'): <span class="val">${_('Yes') if sensor.send_email else _('No')}</span></p>
+                <p>$_('E-mail plug-ins'): <span class="val">${_('E-mail notifications V1') if sensor.eplug == 0 else _('E-mail notifications V2 SSL')}</span></p>  
+        $if sensor.sens_type == 1 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[4] != '':
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}
                 $if sensor.last_read_value[4] == -127:
-                    $_(u'Probe Error')
+                    $_('Probe Error')
                 $else:
                     (${sensor.dry_clos_msg if int(sensor.last_read_value[4])==1 else sensor.dry_open_msg})
                 </span></p>
             $else:
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_(u'Change not yet loaded')})</span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_('Change not yet loaded')})</span></p>
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_low_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_low_program:
                         $program.name
             </span></p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.used_stations_one:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.used_stations_one:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.used_stations_one:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>            
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
-                $_(u'None') 
+                $_('None') 
             $if "-1" not in sensor.trigger_low_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
             </span></p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.used_stations_two:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.used_stations_two:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.used_stations_two:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>             
-        $elif sensor.sens_type == 2 and sensor.enabled:
+        $elif sensor.sens_type == 2 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[5] != '':
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}
                 $if sensor.last_read_value[5] == -127:
-                    $_(u'Probe Error')
+                    $_('Probe Error')
                 $else:    
-                    $_(u'Liter per second')
+                    $_('Liter per second')
                 </span></p>
             $else:
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])} (${_(u'Change not yet loaded')})</span></p>
-            <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
-            <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
-            <p>$_(u'One pulse is'): <span class="val">${sensor.liter_per_pulses} $_(u'Liters')</span></p>
-            <p>$_(u'Low Program(s)'): <span class="val">
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[5])} (${_('Change not yet loaded')})</span></p>
+            <p>$_('Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_('mm:ss'))</span></p>
+            <p>$_('Sensitivity'): <span class="val">${sensor.sensitivity} $_('%')</span></p>
+            <p>$_('One pulse is'): <span class="val">${sensor.liter_per_pulses} $_('Liters')</span></p>
+            <p>$_('Low Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_low_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_low_program:
                         $program.name 
             </span></p>
-            <p>$_(u'High Program(s)'): <span class="val">
+            <p>$_('High Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_high_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_high_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
             </span></p>
-        $elif sensor.sens_type == 3 and sensor.enabled:
+        $elif sensor.sens_type == 3 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[6] != '':
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[6])}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[6])}
                 $if sensor.last_read_value[6] == -127:
-                    $_(u'Probe Error')
+                    $_('Probe Error')
                 $else:
-                    $_(u'%')
+                    $_('%')
                 </span></p>
             $else:
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[6])} (${_(u'Change not yet loaded')})</span></p>
-            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'%')</span></p>
-            <p>$_(u'Program(s)'): <span class="val">
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[6])} (${_('Change not yet loaded')})</span></p>
+            <p>$_('Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_('%')</span></p>
+            <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_low_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_low_program:
                         $program.name 
             </span></p>
-            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_(u'%')</span></p>
-            <p>$_(u'Program(s)'): <span class="val">
+            <p>$_('High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_('%')</span></p>
+            <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_high_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_high_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
             </span></p>
-        $elif sensor.sens_type == 4 and sensor.enabled:
+        $elif sensor.sens_type == 4 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[7] != '':
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[7])}
                 $if sensor.last_read_value[7] == -127:
-                    $_(u'Probe Error')
+                    $_('Probe Error')
                 $else:
                     (${sensor.motion_msg if int(sensor.last_read_value[7])==1 else sensor.no_motion_msg})
                 </span></p>
             $else:
-                <p>$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_(u'Change not yet loaded')})</span></p>
-            <p>$_(u'Program(s)'): <span class="val">
+                <p>$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_('Change not yet loaded')})</span></p>
+            <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_high_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_high_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
             </span></p>
-        $elif sensor.sens_type == 5 and sensor.enabled:
+        $elif sensor.sens_type == 5 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[0] != '':
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[0])}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[0])}
                 $if sensor.last_read_value[0] == -127:   
-                    $_(u'Probe Error')
+                    $_('Probe Error')
                 $else:    
                     $if options.temp_unit == 'F':
                         &degF 
@@ -203,41 +220,41 @@ $if sensors.count()>0:
                         &degC 
                 </span></p>
             $else:
-                <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[0])} (${_(u'Change not yet loaded')})</span></p>             
-            <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}
+                <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[0])} (${_('Change not yet loaded')})</span></p>             
+            <p>$_('Low Threshold'): <span class="val">${sensor.trigger_low_threshold}
             $if options.temp_unit == 'F':
                 &degF 
             $if options.temp_unit == 'C':
                 &degC    
             </span></p>
-            <p>$_(u'Program(s)'): <span class="val">
+            <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_low_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_low_program:
                         $program.name 
             </span></p>
-            <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}
+            <p>$_('High Threshold'): <span class="val">${sensor.trigger_high_threshold}
             $if options.temp_unit == 'F':
                 &degF
             $if options.temp_unit == 'C':
                 &degC
             </span></p>
-            <p>$_(u'Program(s)'): <span class="val">
+            <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_high_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.trigger_high_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.trigger_high_program:
                         $program.name 
             </span></p>
-        $elif sensor.sens_type == 6 and sensor.enabled:
+        $elif sensor.sens_type == 6 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.multi_type >= 0 and sensor.multi_type <4:
                 $if sensor.last_read_value[sensor.multi_type] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[sensor.multi_type])}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[sensor.multi_type])}
                     $if sensor.last_read_value[sensor.multi_type] == -127: 
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else:    
                         $if options.temp_unit == 'F':
                             &degF
@@ -245,30 +262,30 @@ $if sensors.count()>0:
                             &degC    
                     </span></p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[sensor.multi_type])} (${_(u'Change not yet loaded')})</span></p>    
-                <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[sensor.multi_type])} (${_('Change not yet loaded')})</span></p>    
+                <p>$_('Low Threshold'): <span class="val">${sensor.trigger_low_threshold}
                 $if options.temp_unit == 'F':
                     &degF 
                 $if options.temp_unit == 'C':
                     &degC  
                 </span></p>
-                <p>$_(u'Program(s)'): <span class="val">
+                <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_low_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_low_program:
                             $program.name 
                 </span></p>
-                <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold}
+                <p>$_('High Threshold'): <span class="val">${sensor.trigger_high_threshold}
                 $if options.temp_unit == 'F':
                     &degF
                 $if options.temp_unit == 'C':
                     &degC
                 </span></p>
-                <p>$_(u'Program(s)'): <span class="val">
+                <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_high_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_high_program:
@@ -276,41 +293,41 @@ $if sensors.count()>0:
                 </span></p>
             $elif sensor.multi_type == 4:
                 $if sensor.last_read_value[4] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[4])}
                     $if sensor.last_read_value[4] == -127:
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else:
                         (${sensor.dry_clos_msg if int(sensor.last_read_value[4])==1 else sensor.dry_open_msg}) 
                     </span></p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Open Program(s)'): <span class="val">
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[4])} (${_('Change not yet loaded')})</span></p>
+                <p>$_('Open Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_low_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_low_program:
                             $program.name 
                 </span></p>
-                <p>$_(u'Stop this run stations'): <span class="val">
+                <p>$_('Stop this run stations'): <span class="val">
                 $if "-1" in sensor.used_stations_one:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.used_stations_one:
                     $for station in [station for station in stations if station.enabled]:
                         $if str(station.index) in sensor.used_stations_one:
                             $station.name ($_('Output') ${str(station.index+1)})
                 </span></p>                
-                <p>$_(u'Closed Program(s)'): <span class="val">
+                <p>$_('Closed Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_high_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_high_program:
                             $program.name 
                 </span></p>
-                <p>$_(u'Stop this run stations'): <span class="val">
+                <p>$_('Stop this run stations'): <span class="val">
                 $if "-1" in sensor.used_stations_two:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.used_stations_two:
                     $for station in [station for station in stations if station.enabled]:
                         $if str(station.index) in sensor.used_stations_two:
@@ -318,28 +335,28 @@ $if sensors.count()>0:
                 </span></p>                
             $elif sensor.multi_type == 5:
                 $if sensor.last_read_value[5] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[5])}
                     $if sensor.last_read_value[5] == -127:
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else:
-                        $_(u'Liter per second')
+                        $_('Liter per second')
                     </span></p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[5])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_(u'mm:ss'))</span></p>
-                <p>$_(u'Sensitivity'): <span class="val">${sensor.sensitivity} $_(u'%')</span></p>
-                <p>$_(u'One pulse is'): <span class="val">${sensor.liter_per_pulses} $_(u'Liters')</span></p>
-                <p>$_(u'Low Program(s)'): <span class="val">
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[5])} (${_('Change not yet loaded')})</span></p>
+                <p>$_('Stabilization Time'): <span class="val">${two_digits(sensor.stabilization_time/60)}:${two_digits(sensor.stabilization_time%60)} ($_('mm:ss'))</span></p>
+                <p>$_('Sensitivity'): <span class="val">${sensor.sensitivity} $_('%')</span></p>
+                <p>$_('One pulse is'): <span class="val">${sensor.liter_per_pulses} $_('Liters')</span></p>
+                <p>$_('Low Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_low_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_low_program:
                             $program.name 
                 </span></p>
-                <p>$_(u'High Program(s)'): <span class="val">
+                <p>$_('High Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_high_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_high_program:
@@ -347,27 +364,27 @@ $if sensors.count()>0:
                 </span></p>
             $elif sensor.multi_type == 6:
                 $if sensor.last_read_value != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[6])}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[6])}
                     $if sensor.last_read_value[6] == -127:
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else: 
-                        $_(u'%') 
+                        $_('%') 
                     </span></p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[6])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_(u'%')</span></p>
-                <p>$_(u'Program(s)'): <span class="val">
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[6])} (${_('Change not yet loaded')})</span></p>
+                <p>$_('Low Threshold'): <span class="val">${sensor.trigger_low_threshold} $_('%')</span></p>
+                <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_low_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_low_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_low_program:
                             $program.name 
                 </span></p>
-                <p>$_(u'High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_(u'%')</span></p>
-                <p>$_(u'Program(s)'): <span class="val">
+                <p>$_('High Threshold'): <span class="val">${sensor.trigger_high_threshold} $_('%')</span></p>
+                <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_high_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_high_program:
@@ -375,17 +392,17 @@ $if sensors.count()>0:
                 </span></p>
             $elif sensor.multi_type == 7:
                 $if sensor.last_read_value[7] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])}
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[7])}
                     $if sensor.last_read_value[7] == -127:
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else:
                         (${sensor.motion_msg if int(sensor.last_read_value[7])==1 else sensor.no_motion_msg}) 
                     </span></p>
                 $else:
-                    <p style="font-size:20px;"> $_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Program(s)'): <span class="val">
+                    <p style="font-size:20px;"> $_('Last Read Value'): <span class="val">${str(sensor.last_read_value[7])} (${_('Change not yet loaded')})</span></p>
+                <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.trigger_high_program:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.trigger_high_program:
                     $for program in programs.get():
                         $if str(program.index+1) in sensor.trigger_high_program:
@@ -393,37 +410,37 @@ $if sensors.count()>0:
                 </span></p>
             $elif sensor.multi_type == 8:
                 $if sensor.last_read_value[8] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} 
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} 
                     $if sensor.last_read_value[8] == -127:
-                        $_(u'Probe Error')
+                        $_('Probe Error')
                     $else:
-                        $_(u'cm')
+                        $_('cm')
                     </span></p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} (${_(u'Change not yet loaded')})</span></p>
-                <p>$_(u'Distance sensor to minimum'): <span class="val">${sensor.distance_bottom} $_(u'cm')</span></p>
-                <p>$_(u'Distance sensor to maximum'): <span class="val">${sensor.distance_top} $_(u'cm')</span></p>
-                <p>$_(u'Minimum water level in tank'): <span class="val">${sensor.water_minimum} $_(u'cm')</span></p>
-                <p>$_(u'Cylinder diameter'): <span class="val">${sensor.diameter} $_(u'cm')</span></p>
-                <p>$_(u'Display in liters'): <span class="val">${_(u'Yes') if sensor.check_liters else _(u'No')}</span></p>
-                <p>$_(u'Stop stations if minimum'): <span class="val">${_(u'Yes') if sensor.use_stop else _(u'No')}</span></p>
-                <p>$_(u'Delay Duration'): <span class="val">${sensor.delay_duration} $_(u'hours')</span></p>
-                <p>$_(u'Stop stations if fault'): <span class="val">${_(u'Yes') if sensor.use_water_stop else _(u'No')}</span></p>
-                <p>$_(u'Stop this run stations'): <span class="val">
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${str(sensor.last_read_value[8])} (${_('Change not yet loaded')})</span></p>
+                <p>$_('Distance sensor to minimum'): <span class="val">${sensor.distance_bottom} $_('cm')</span></p>
+                <p>$_('Distance sensor to maximum'): <span class="val">${sensor.distance_top} $_('cm')</span></p>
+                <p>$_('Minimum water level in tank'): <span class="val">${sensor.water_minimum} $_('cm')</span></p>
+                <p>$_('Cylinder diameter'): <span class="val">${sensor.diameter} $_('cm')</span></p>
+                <p>$_('Display in liters'): <span class="val">${_('Yes') if sensor.check_liters else _('No')}</span></p>
+                <p>$_('Stop stations if minimum'): <span class="val">${_('Yes') if sensor.use_stop else _('No')}</span></p>
+                <p>$_('Delay Duration'): <span class="val">${sensor.delay_duration} $_('hours')</span></p>
+                <p>$_('Stop stations if fault'): <span class="val">${_('Yes') if sensor.use_water_stop else _('No')}</span></p>
+                <p>$_('Stop this run stations'): <span class="val">
                 $if "-1" in sensor.used_stations:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.used_stations:
                     $for station in [station for station in stations if station.enabled]:
                         $if str(station.index) in sensor.used_stations:
                             $station.name ($_('Output') ${str(station.index+1)})
                 </span></p>
-                <p>$_(u'Regulate the maximum water level'): <span class="val">${_(u'Yes') if sensor.enable_reg else _(u'No')}</span></p>
-                <p>$_(u'Maximum maintained water level'): <span class="val">${sensor.reg_max} $_(u'cm')</span></p>
-                <p>$_(u'Maximum run time in activate'): <span class="val">${two_digits(sensor.reg_mm) + ":" + two_digits(sensor.reg_ss)} ($_(u'mm:ss'))</span></p>
-                <p>$_(u'Minimum maintained water level'): <span class="val">${sensor.reg_min} $_(u'cm')</span></p>
-                <p>$_(u'Select Output for regulation'): <span class="val">
+                <p>$_('Regulate the maximum water level'): <span class="val">${_('Yes') if sensor.enable_reg else _('No')}</span></p>
+                <p>$_('Maximum maintained water level'): <span class="val">${sensor.reg_max} $_('cm')</span></p>
+                <p>$_('Maximum run time in activate'): <span class="val">${two_digits(sensor.reg_mm) + ":" + two_digits(sensor.reg_ss)} ($_('mm:ss'))</span></p>
+                <p>$_('Minimum maintained water level'): <span class="val">${sensor.reg_min} $_('cm')</span></p>
+                <p>$_('Select Output for regulation'): <span class="val">
                 $if "-1" in sensor.reg_output:
-                    $_(u'None')
+                    $_('None')
                 $if "-1" not in sensor.reg_output:
                     $for station in [station for station in stations if station.enabled]:
                         $if str(station.index) in sensor.reg_output:
@@ -432,72 +449,72 @@ $if sensors.count()>0:
 
             $elif sensor.multi_type == 9:
                 $if sensor.soil_last_read_value[0] != '':
-                    <p style="font-size:20px;">$_(u'Last Read Value')
+                    <p style="font-size:20px;">$_('Last Read Value')
                     $for i in range(0, 16):
                         <p>$_('Probe') ${str(i+1)} - ${sensor.soil_probe_label[i]}:
                         <span class="val">
                         $if sensor.soil_last_read_value[i] != -127:
-                            ${str(sensor.soil_last_read_value[i])}$_(u'V')</span> $_(u'CAL0/100:') ${str(sensor.soil_calibration_min[i])}$_(u'V')/${str(sensor.soil_calibration_max[i])}$_(u'V')
+                            ${str(sensor.soil_last_read_value[i])}$_('V')</span> $_('CAL0/100:') ${str(sensor.soil_calibration_min[i])}$_('V')/${str(sensor.soil_calibration_max[i])}$_('V')
                         $else:
-                            $_(u'Probe Error')</span>
+                            $_('Probe Error')</span>
                         </p>
                     </p>
                 $else:
-                    <p style="font-size:20px;">$_(u'Last Read Value'): <span class="val">${_(u'Change not yet loaded')}</span></p>                        
+                    <p style="font-size:20px;">$_('Last Read Value'): <span class="val">${_('Change not yet loaded')}</span></p>                        
                 $for i in range(0, 16):
                     $if sensor.soil_program[i] != "-1":
-                        <p>$_(u'Probe') ${str(i+1)} - ${sensor.soil_probe_label[i]} - $_(u'Program'): <span class="val">
+                        <p>$_('Probe') ${str(i+1)} - ${sensor.soil_probe_label[i]} - $_('Program'): <span class="val">
                             $for program in programs.get():
                                 $if str(program.index+1) == sensor.soil_program[i]:
                                     $program.name 
                         </span></p>
 
-        $elif sensor.sens_type == 7 and sensor.enabled:
+        $elif sensor.sens_type == 7 and sensor.enabled and sensor.manufacturer==0:
             $if sensor.last_read_value[0] != '':
                 $for i in range(0, 7):
-                    <p style="font-size:20px;">$_(u'Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])}</span>
+                    <p style="font-size:20px;">$_('Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])}</span>
                     $if sensor.last_read_value[i] == 1:
-                        <small>($_(u'+3.3V open contact'))</small>
+                        <small>($_('+3.3V open contact'))</small>
                     $elif sensor.last_read_value[i] == 0:
-                        <small>($_(u'0V closed contact'))</small>                      
+                        <small>($_('0V closed contact'))</small>                      
                     $elif sensor.last_read_value[i] == -127:   
-                        $_(u'Communication error')
+                        $_('Communication error')
                     </p>
             $else:
                 $for i in range(0, 7):
-                    <p style="font-size:20px;">$_(u'Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])} (${_(u'Change not yet loaded')})</span></p>
+                    <p style="font-size:20px;">$_('Last Read Value SW')${i+1}: <span class="val">${str(sensor.last_read_value[i])} (${_('Change not yet loaded')})</span></p>
             <hr>
             <!-- switch 1 -->
-            <p style="font-size:20px;">$_(u'Switch') 1)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 1)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw0_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw0_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw0_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw0_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw0_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw0_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>            
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw0_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw0_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw0_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw0_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw0_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw0_open_stations:
@@ -505,36 +522,36 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 2 -->
-            <p style="font-size:20px;">$_(u'Switch') 2)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 2)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw1_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw1_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw1_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw1_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw1_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw1_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw1_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw1_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw1_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw1_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw1_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw1_open_stations:
@@ -542,36 +559,36 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 3 -->
-            <p style="font-size:20px;">$_(u'Switch') 3)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 3)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw2_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw2_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw2_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw2_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw2_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw2_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw2_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw2_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw2_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw2_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw2_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw2_open_stations:
@@ -579,36 +596,36 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 4 -->
-            <p style="font-size:20px;">$_(u'Switch') 4)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 4)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw3_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw3_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw3_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw3_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw3_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw3_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw3_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw3_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw3_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw3_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw3_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw3_open_stations:
@@ -616,36 +633,36 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 5 -->
-            <p style="font-size:20px;">$_(u'Switch') 5)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 5)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw4_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw4_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw4_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw4_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw4_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw4_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw4_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw4_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw4_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw4_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw4_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw4_open_stations:
@@ -653,36 +670,36 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 6 -->
-            <p style="font-size:20px;">$_(u'Switch') 6)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 6)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw5_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw5_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw5_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw5_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw5_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw5_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw5_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw5_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw5_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw5_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw5_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw5_open_stations:
@@ -690,58 +707,113 @@ $if sensors.count()>0:
             </span></p>
             <p>----------------</p>
             <!-- switch 7 -->
-            <p style="font-size:20px;">$_(u'Switch') 7)</p>
-            <p>$_(u'Closed Program(s)'): <span class="val">
+            <p style="font-size:20px;">$_('Switch') 7)</p>
+            <p>$_('Closed Program(s)'): <span class="val">
             $if "-1" in sensor.sw6_closed_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw6_closed_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw6_closed_program:
                         $program.name
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw6_closed_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw6_closed_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw6_closed_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <p>$_(u'Open Program(s)'): <span class="val">
+            <p>$_('Open Program(s)'): <span class="val">
             $if "-1" in sensor.sw6_open_program:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw6_open_program:
                 $for program in programs.get():
                     $if str(program.index+1) in sensor.sw6_open_program:
                         $program.name 
             </span>
             </p>
-            <p>$_(u'Stop this run stations'): <span class="val">
+            <p>$_('Stop this run stations'): <span class="val">
             $if "-1" in sensor.sw6_open_stations:
-                $_(u'None')
+                $_('None')
             $if "-1" not in sensor.sw6_open_stations:
                 $for station in [station for station in stations if station.enabled]:
                     $if str(station.index) in sensor.sw6_open_stations:
                         $station.name ($_('Output') ${str(station.index+1)})
             </span></p>
-            <hr>                                               
-        $if sensor.com_type == 0 and sensor.enabled:
-            <p>$_(u'IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
+            <hr>
+        $if sensor.com_type == 0 and sensor.enabled and sensor.manufacturer==0:
+            <p>$_('IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
             $if sensor.mac_address != '':
-                <p>$_(u'MAC Address'): <span class="val">${sensor.mac_address}</span></p> 
+                <p>$_('MAC Address'): <span class="val">${sensor.mac_address}</span></p> 
             $if sensor.rssi != '':
-                <p>$_(u'Last RSSI Level'): <span class="val">${sensor.rssi} $_(u'%')</span></p>
+                <p>$_('Last RSSI Level'): <span class="val">${sensor.rssi} $_('%')</span></p>
             $if sensor.last_battery != '':
-                <p>$_(u'Last Power supply voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>
+                <p>$_('Last Power supply voltage'): <span class="val">${sensor.last_battery} $_('V')</span></p>
                 
-        $if sensor.com_type == 1 and sensor.enabled:
-            <p>$_(u'Radio ID'): <span class="val">${sensor.radio_id}</span></p>
+        $if sensor.com_type == 1 and sensor.enabled and sensor.manufacturer==0:
+            <p>$_('Radio ID'): <span class="val">${sensor.radio_id}</span></p>
             $if sensor.last_battery != '':
-                <p>$_(u'Last Battery voltage'): <span class="val">${sensor.last_battery} $_(u'V')</span></p>
+                <p>$_('Last Battery voltage'): <span class="val">${sensor.last_battery} $_('V')</span></p>
         
         $if sensor.enabled:
-            <p>$_(u'Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
+            $if sensor.manufacturer==0:
+                <p>$_('Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
+            $elif sensor.manufacturer==1:
+                <p>
+                $_('Outputs status'):
+                $if len(sensor.last_read_value[0]):
+                    <span class="val">
+                    $for i, state in enumerate(sensor.last_read_value[0]):
+                        $if state:
+                            ${i+1} $_('ON')${', ' if len(sensor.last_read_value[0]) > 1 else ''}
+                        $else:
+                            ${i+1} $_('OFF')${', ' if len(sensor.last_read_value[0]) > 1 else ''}
+                    </span>
+                $else:
+                    $_('No outputs')
+                </p>
+                <p>
+                $_('Power outputs'):
+                $if len(sensor.last_read_value[1]):
+                    <span class="val">
+                    $for i, pwr in enumerate(sensor.last_read_value[1]):
+                        ${i+1}= $pwr $_('W')${', ' if len(sensor.last_read_value[1]) > 1 else ''}
+                    </span>
+                </p>
+                <p>
+                $_('Temperatures'):
+                $if len(sensor.last_read_value[2]):
+                    <span class="val">
+                    $for i, temp in enumerate(sensor.last_read_value[2]):
+                        ${i+1}= $temp &deg$_('C')${', ' if len(sensor.last_read_value[2]) > 1 else ''}
+                    </span>
+                $else:
+                    $_('Can not measure temperature.')
+                </p>
+                <p>
+                $_('Humidity'):
+                $if len(sensor.last_read_value[3]):
+                    <span class="val">
+                    $for i, humi in enumerate(sensor.last_read_value[3]):
+                        ${i+1}= $humi $_('%RH')${', ' if len(sensor.last_read_value[3]) > 1 else ''}
+                    </span>
+                $else:
+                    $_('Can not measure humidity.')
+                </p>                
+                <p>$_('Device Hardware'): <span class="val">${sensor.shelly_hw}</span></p>
+                <p>$_('Device Generation'): <span class="val">${sensor.shelly_gen}</span></p>
+                $if sensor.rssi != '':
+                    <p>$_('Last RSSI Level'): <span class="val">${sensor.rssi} $_('dbm') (${dbm_to_percentage(sensor.rssi)} $_('%'))</span></p>
+                $if sensor.last_battery != '' and sensor.last_battery > 0:
+                    <p>$_('Last battery voltage'): <span class="val">${sensor.last_battery} $_('V')</span></p>
+                $else:
+                    <p>$_('Last battery voltage'): <span class="val">$_('0 V')</span> $_('(maybe it is an error or the device can not measure this.)')</p>
+                $if sensor.last_voltage != '' and sensor.last_voltage > 0:
+                    <p>$_('Last mains power voltage'): <span class="val">${sensor.last_voltage} $_('V')</span></p>
+                $else:
+                    <p>$_('Last mains power voltage'): <span class="val">$_('0 V')</span> $_('(maybe it is an error or the device can not measure this.)')</p>
 
         $if sensor.notes:
             <p>$_('Notes'):</p>
@@ -750,11 +822,11 @@ $if sensors.count()>0:
             </textarea>
             </p>
         <p>    
-        <a href="/sensor/${sensor.index}" class="button cModify"> $_(u'Edit Sensor') </a>
+        <a href="/sensor/${sensor.index}" class="button cModify"> $_('Edit Sensor') </a>
         $if sensor.sens_type != 7:
-            <a href="/sensor/${sensor.index}?log" class="button backup"> $_(u'View Logs')</a>
-            <a href="/sensor/${sensor.index}?graph" class="button upload"> $_(u'View Graph')</a>
-        <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_(u'Delete Sensor')</a>
+            <a href="/sensor/${sensor.index}?log" class="button backup"> $_('View Logs')</a>
+            <a href="/sensor/${sensor.index}?graph" class="button upload"> $_('View Graph')</a>
+        <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_('Delete Sensor')</a>
         </p>
         </div>
         </div>

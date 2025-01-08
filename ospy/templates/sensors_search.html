@@ -25,10 +25,11 @@ function createSensorShelly(element) {
     let b = element.value;
     let array = b.split(',');
     jQuery("#s_name").val(array[0]);
-    jQuery("#s_ip").val(array[1]);
-    jQuery("#s_id").val(array[2]);
+    jQuery("#s_id").val(array[1]);
+    jQuery("#s_ip").val(array[2]);
     jQuery("#s_hw").val(array[3]);
     jQuery("#s_gen").val(array[4]);
+    jQuery("#s_manu").val(array[5]);
     jQuery("#sensorFormShelly").submit();
 }
 
@@ -99,14 +100,15 @@ function updateSensorsShelly(){
         let ip = data.ip;
         let hw = data.hw;
         let gen = data.gen;
-        let valdata = name+','+id+','+ip+','+hw+','+gen
+        let manu = 1 // manufacturer 0=pihrt, 1=shelly 
+        let valdata = name+','+id+','+ip+','+hw+','+gen+','+manu
         let button_data = "<button type=\"button\" id=\"btn"+i+"\" value=\""+valdata+"\" onclick=\"createSensorShelly(this)\" class=\"button cModify\">"+ $:{json.dumps(_('Create from thisis'), ensure_ascii=False).encode('utf8').decode('utf-8')}+"</button>";        
         jQuery('<tr>').append(
             jQuery('<td>').text(name),
             jQuery('<td>').text(id),
             jQuery('<td>').text(ip),
             jQuery('<td>').text(hw),
-            jQuery('<td>').text(gen), 
+            jQuery('<td>').text(gen),
             jQuery('<td>').html(button_data)
         ).appendTo('#sensorsTableShelly > tbody');
     })
@@ -174,18 +176,19 @@ jQuery(document).ready(function(){
             <th>$_('Shelly ID')</th>
             <th>$_('Device IP Address')</th>
             <th>$_('Device Hardware')</th>
-            <th>$_('Device GENeration')</th>
+            <th>$_('Device Generation')</th>
             <th>$_('Create')</th>
         </tr>
         </thead>
         <tbody>
     </table>
-    <form name="sensorFormShelly" id="sensorFormShelly" action="/sensor/Shelly" method="post">
+    <form name="sensorFormShelly" id="sensorFormShelly" action="/sensor/new" method="post">
         <input type="hidden" id="s_name" name="s_name" value="">
         <input type="hidden" id="s_id" name="s_id" value="">
         <input type="hidden" id="s_ip" name="s_ip" value="">
         <input type="hidden" id="s_hw" name="s_hw" value="">
         <input type="hidden" id="s_gen" name="s_gen" value="">
+        <input type="hidden" id="s_manu" name="s_manu" value="">
     </form>
 </div>
 

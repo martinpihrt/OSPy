@@ -2,7 +2,7 @@
 #! /bin/bash
 ###################################################################################################
 # script: easy install OSPy and requirements on a fresh Debian version: 12 (bookworm) Pi image
-# by: Gerard ported to ospy Martin Pihrt 2024
+# by: Gerard ported to ospy Martin Pihrt 06.01.2025
 # version: 1.0
 # usage:
 # 1) download:  wget https://github.com/martinpihrt/OSPy/ospy_setup/-/raw/main/ospy_setup.sh
@@ -113,15 +113,21 @@ echo ===== Installing requests for OSPy core =====
 sudo apt install python3-requests -y
 
 
-echo ===== Installing packages for plugins pillow qrcode pygame =====
+echo ===== Installing packages for plugins pillow qrcode pygame ffmpeg pulseaudio=====
 sudo apt install python3-pillow -y
 sudo apt install python3-qrcode -y
 sudo apt install python3-pygame -y
 sudo apt install ffmpeg -y
+sudo apt install pulseaudio -y
+
 
 echo ===== Installing OSPy =====
 cd $install_location
 sudo git clone https://github.com/martinpihrt/OSPy
+
+
+echo ===== Installing Midnight Commander =====
+sudo apt install mc -y
 
 
 #echo ===== Installing webpy =====

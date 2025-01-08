@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+January 08 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Fixed exceptions on the web in the session (web/sessions.py). If we search for Shelly in OSPy sensors and click the create button, a new sensor will be created in the sensors and will be visible in the sensor list. The sensor will now display all available values (voltage, power, output status, temperature and humidity). Work is underway to further integrate Shelly.com devices into the OSPy system.
+
 January 02 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

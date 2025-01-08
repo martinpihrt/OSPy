@@ -26,6 +26,8 @@ from base64 import encodebytes, decodebytes
 
 from .utils import ThreadedDict
 
+from ospy.log import log
+
 
 __all__ = ["Session", "SessionExpired", "Store", "DiskStore", "DBStore", "MemoryStore"]
 
@@ -38,7 +40,7 @@ web.config.session_parameters = utils.storage(
         "timeout": 86400,  # 24 * 60 * 60, # 24 hours in seconds
         "ignore_expiry": True,
         "ignore_change_ip": True,
-        "secret_key": "fLjUfxqXtfNoIldA0A0J",
+        "secret_key": "fLjUfxqXtfNoIldA0Aed",
         "expired_message": "Session expired",
         "httponly": True,
         "secure": False,
@@ -157,7 +159,7 @@ class Session(object):
 
             # Ověření, že session_id je platný řetězec
             if not isinstance(self.session_id, str) or not self.session_id:
-                raise ValueError("Session ID musí být platný neprázdný řetězec.")
+                raise ValueError("Session ID musi byt platny neprazdny retezec.")
 
             if not self.get("_killed"):
                 self._setcookie(self.session_id)
@@ -181,9 +183,9 @@ class Session(object):
                 if web.cookies().get(self._config.cookie_name):
                     self._setcookie(self.session_id, expires=-1)
         except pickle.PicklingError:
-            raise ValueError("Nelze serializovat data session pro uložení.")
+            raise ValueError("Nelze serializovat data session pro ulozeni.")
         except Exception as e:
-            raise RuntimeError(f"Chyba při ukládání session: {e}")
+            raise RuntimeError(f"Chyba pri ukladani session: {e}")
 
 
     def _setcookie(self, session_id, expires="", **kw):
@@ -382,12 +384,12 @@ class DBStore(Store):
         try:
             pickle.dumps(value)
             if not isinstance(key, str) or not key:
-                raise ValueError("Klíč musí být neprázdný řetězec.")
+                raise ValueError("Klic musc byt neprazdny retezec.")
             self.shelf[key] = time.time(), value
         except pickle.PicklingError:
             raise ValueError(f"Nelze serializovat hodnotu: {value}")
         except Exception as e:
-            raise RuntimeError(f"Chyba při ukládání do databáze: {e}")
+            raise RuntimeError(f"Chyba pri ukladani do databaze: {e}")
 
     def __delitem__(self, key):
         try:
@@ -395,7 +397,7 @@ class DBStore(Store):
         except KeyError:
             pass
         except Exception as e:
-            raise RuntimeError(f"Chyba při mazání z databáze: {e}")
+            raise RuntimeError(f"Chyba pri mazani z databaze: {e}")
 
     def cleanup(self, timeout):
         timeout = datetime.timedelta(
@@ -428,12 +430,16 @@ class ShelfStore:
     def __setitem__(self, key, value):
         try:
             if not isinstance(key, str) or not key:
-                raise ValueError("Klíč musí být neprázdný řetězec.")
-            self.shelf[key] = time.time(), value
+                log.error('web', _('The key must be a non-empty string.'))
+            else:
+                self.shelf[key] = time.time(), value
         except pickle.PicklingError:
-            raise ValueError(f"Nelze serializovat hodnotu: {value}")
+            pass
+            log.error('web', _('Unable to serialize value: {}').format(value))
         except Exception as e:
-            raise RuntimeError(f"Chyba při ukládání do databáze: {e}")            
+            pass
+            log.error('web', _('Error saving to database: {}').format(e))
+            
 
     def __delitem__(self, key):
         try:
@@ -441,14 +447,20 @@ class ShelfStore:
         except KeyError:
             pass
         except Exception as e:
-            raise RuntimeError(f"Chyba při mazání z databáze: {e}")
+            pass
+            log.error('web', _('Error while deleting from database: {}').format(e))
+
 
     def cleanup(self, timeout):
         now = time.time()
         for k in self.shelf:
             atime, v = self.shelf[k]
             if now - atime > timeout:
-                del self[k]
+                try:
+                    del self[k]
+                except Exception as e:
+                    pass
+                    log.error('web', _('Error while cleaning: {}').format(e))
 
 
 class MemoryStore(Store):
