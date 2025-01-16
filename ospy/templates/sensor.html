@@ -8,8 +8,8 @@ $code:
         return '%02d' % int(n)
 
     def version(s):
-        res = [int(x) for x in str(s)]  
-        return u"{}.{}{}".format(res[0], res[1], res[2])
+        res = [int(x) for x in str(s)]
+        return "{}.{}{}".format(res[0], res[1], res[2])
 
 <script src="/static/scripts/autosize.min.js"></script>
 
@@ -28,11 +28,11 @@ function checkMAC(){
     if(test){
         return 0;
     }
-    else{    
+    else{
         alert($:{json.dumps(_('Sensor MAC address is not valid!'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         return 1;
     }
-} 
+}
 
 function checkIP(){
     let com_type = jQuery("#com_type").val();           // 'Wi-Fi/LAN', 'Radio'
@@ -40,18 +40,18 @@ function checkIP(){
 
     if(com_type==1 && manufacturer==0) return 0;
     if(manufacturer==1) return 0;
-        
+
     let IPAddress = jQuery(".IPnumbersOnly").val();
     let IPRegex=new RegExp("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     let test = IPRegex.test(IPAddress);
     if(test){
         return 0;
     }
-    else{    
+    else{
         alert($:{json.dumps(_('Sensor IP address is not valid!'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         return 1;
     }
-}    
+}
 
 function codeTextCopy() {
   let copyText = document.getElementById("senscode");
@@ -59,26 +59,58 @@ function codeTextCopy() {
   copyText.setSelectionRange(0, 99999); /*For mobile devices*/
   document.execCommand("copy");
   alert($:{json.dumps(_('Copied code'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' + copyText.value);
-} 
+}
 
 function check_type() {
-    let sensor_type = jQuery("#sens_type").val();       // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
-    let multi_type = jQuery("#multi_type").val();       // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
-    let com_type = jQuery("#com_type").val();           // 'Wi-Fi/LAN', 'Radio'
-    let manufacturer = jQuery("#manufacturer").val();   // 0=Pihrt, 1=Shelly
+    let sensor_type = jQuery("#sens_type").val();    // 'None', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Temperature', 'Multi', 'Multi Contact'
+    let multi_type = jQuery("#multi_type").val();    // 'Temperature DS1, DS2, DS3, DS4', 'Dry Contact', 'Leak Detector', 'Moisture', 'Motion', 'Ultrasonic', 'Soil Moisture'
+    let com_type = jQuery("#com_type").val();                    // 'Wi-Fi/LAN', 'Radio'
+    let manufacturer = jQuery("#manufacturer").val();            // 0=Pihrt, 1=Shelly
+    let shelly_sensor_type = jQuery("#shelly_sens_type").val();  // voltage, temperature, power...
+    let lowThresholdUnit = jQuery("#shelly_low_threshold_unit");
+    let highThresholdUnit = jQuery("#shelly_high_threshold_unit");
 
-    if(manufacturer == 0){                              // show in menu only pihrt sensors
-        jQuery("#sensor_type").show()
-        jQuery("#multi_sensor").show()
-        jQuery("#sensor_communication").show()
-        jQuery("#notice").show()
-    } else {                                            // others sensors shelly...
-        jQuery("#sensor_type").hide()
-        jQuery("#multi_sensor").hide()
-        jQuery("#sensor_communication").hide()
-        jQuery("#notice").hide()       
+    let unit1 = "";
+    let unit2 = "";
+    switch(parseInt(shelly_sensor_type)) {
+        case 0:
+            unit1 = $:{json.dumps(_('V'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            unit2 = $:{json.dumps(_('V'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            unit1 = $:{json.dumps(_('OFF=0'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            unit2 = $:{json.dumps(_('ON=1'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            break;
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            unit1 = $:{json.dumps(_('°C'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            unit2 = $:{json.dumps(_('°C'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            break;
+        case 10:
+        case 11:
+        case 12:
+        case 13:    
+            unit1 = $:{json.dumps(_('W'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            unit2 = $:{json.dumps(_('W'), ensure_ascii=False).encode('utf8').decode('utf-8')};            
+            break;
+        case 14:
+            unit1 = $:{json.dumps(_('%RV'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            unit2 = $:{json.dumps(_('%RV'), ensure_ascii=False).encode('utf8').decode('utf-8')};            
+            break;
+        default:
+            unit1 = '';
+            unit2 = '';
+            break;
     }
 
+    if (lowThresholdUnit) jQuery("#shelly_low_threshold_unit").text(unit1);
+    if (highThresholdUnit) jQuery("#shelly_high_threshold_unit").text(unit2);
 
     if((sensor_type == 1 || (sensor_type == 6 && multi_type == 4)) && manufacturer==0){ 
         jQuery("#dry_contact").show()
@@ -102,7 +134,7 @@ function check_type() {
         jQuery("#temperature").show()
     } else {
         jQuery("#temperature").hide()
-    }     
+    }
 
     if((sensor_type == 4 || (sensor_type == 6 && multi_type == 7)) && manufacturer==0){
         jQuery("#motion").show()
@@ -145,12 +177,17 @@ function check_type() {
             jQuery("#email_events").show()
             jQuery("#email_type").show()
             jQuery("#show_footer").show()
-        }    
-    }    
+        }
+    }
 
-    if(manufacturer==0){
-        jQuery("#com_shelly").hide()        
+    if(manufacturer==0){   // pihrt
+        jQuery("#com_shelly").hide()
         jQuery("#com_mac").show()
+        jQuery("#sensor_type").show()
+        jQuery("#multi_sensor").show()
+        jQuery("#sensor_communication").show()
+        jQuery("#notice").show()        
+        jQuery("#shelly_setup").hide()
         if(com_type == 0) { 
             jQuery("#com_lan").show()
         } else {
@@ -161,14 +198,26 @@ function check_type() {
         } else {
             jQuery("#com_radio").hide()
         }
-    } else {
+    }
+    if(manufacturer==1){  // shelly
         jQuery("#com_radio").hide()
         jQuery("#com_mac").hide()
         jQuery("#com_lan").hide()
         jQuery("#com_shelly").show()
+        jQuery("#shelly_setup").show()
+        jQuery("#sensor_type").hide()
+        jQuery("#multi_sensor").hide()
+        jQuery("#sensor_communication").hide()
+        jQuery("#notice").hide()
+        jQuery("#sample_rate").show()
+        jQuery("#log_samples").show()
+        jQuery("#log_events").show()
+        jQuery("#email_events").show()
+        jQuery("#email_type").show()
+        jQuery("#show_footer").show()                
     }
-        
-}  
+}
+
 
 jQuery(document).ready(function(){
     jQuery("#cSubmit").click(function() {
@@ -198,21 +247,22 @@ jQuery(document).ready(function(){
     jQuery(".IPnumbersOnly").keyup(function () {
         let newValue = this.value.replace(/[^0-9\.]/g, '');
         this.value = newValue;
-    });      
+    });
 
     jQuery(".cleanText").keyup(function () {
         let newValue = this.value.replace(/[/\\\*]/g, '');
         this.value = newValue;
-    }); 
+    });
 
     jQuery(".cleanCode").keyup(function () {
         let newValue = this.value.replace(/[^0-9a-zA-Z]/g, '');
         this.value = newValue;
-    });      
+    });
 
     jQuery("#sens_type").change(check_type);
     jQuery("#multi_type").change(check_type);
     jQuery("#com_type").change(check_type);
+    jQuery("#shelly_sens_type").change(check_type);
     jQuery("#manufacturer").change(check_type);
     check_type();
 
@@ -361,8 +411,71 @@ jQuery(document).ready(function(){
                 </select></td>
                 </tr>
                 </table>
-            </div>            
+            </div>
 
+            <!-- shelly sensors -->
+            <div class='option' id="shelly_setup" style="display: none;">
+                <table>
+                <tr>
+                    <th colspan="2">
+                    <hr>
+                    </th>
+                </tr>
+                <tr>
+                <td colspan="2">
+                <small>$_('Depends on device type (not all options may be available).')</small>
+                </td>
+                </tr>                
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Activation type'):</span></td>
+                <td><select id="shelly_sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_('Select the activation type.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture')]
+                $for t in range(15):
+                    <option value="${t}" ${'selected' if sensor.sens_type == t else ''}>$type_list[t]</option>
+                </select></td>
+                </tr>
+                <tr>
+                <td colspan="2">
+                <small>$_('When it is less than this value.')</small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
+                <td><input id="s_trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="s_trigger_low_threshold" value="${sensor.s_trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_low_threshold_unit"></span>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
+                <td><select name="s_DL" id="s_DL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.s_trigger_low_program else ""}>$_('None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.s_trigger_low_program else ""}>${program.name}</option>
+                </select>
+                </td>
+                </tr>
+                <tr>
+                <td colspan="2">
+                <small>$_('When it is greater than this value.')</small>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
+                <td><input id="s_trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="s_trigger_high_threshold" value="${sensor.s_trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_high_threshold_unit"></span>
+                </td>
+                </tr>
+                <tr>
+                <td style='text-transform: none;'><span class="sensor_label">$_('High Program(s)'):</span></td>
+                <td><select name="s_DH" id="s_DH" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <option value="-1" ${" selected" if "-1" in sensor.s_trigger_high_program else ""}>$_('None')</option>
+                $for program in programs.get():
+                    <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.s_trigger_high_program else ""}>${program.name}</option>
+                </select>
+                </td>
+                </tr>
+                 </table>
+            </div>
+
+            <!-- pihrt sensors -->
             <div class='option' id="dry_contact" style="display: none;">
                 <table>
                 <tr>
@@ -427,7 +540,7 @@ jQuery(document).ready(function(){
                 <td style='text-transform: none;'><span class="sensor_label">$_('Custom name of the event for closed'):</span></td>
                 <td><input name="close_msg" class="cleanText" id="close_msg" style="width: 140px" value="${sensor.dry_clos_msg}" title=$:{json.dumps(_('Type Custom name of the event for closed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
-                </tr>                
+                </tr>
                 <tr>
                 <th colspan="2">
                 <hr>
@@ -468,7 +581,7 @@ jQuery(document).ready(function(){
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Program(s)'):</span></td>
                 <td><select name="BL" id="BL" style="width: 200px" multiple="multiple" title=$:{json.dumps(_('Mark the required programs to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>                    
+                <option value="-1" ${" selected" if "-1" in sensor.trigger_low_program else ""}>$_('None')</option>
                 $for program in programs.get():
                     <option value="${program.index+1}" ${" selected" if str(program.index+1) in sensor.trigger_low_program else ""}>${program.name}</option>
                 </select>
@@ -560,7 +673,7 @@ jQuery(document).ready(function(){
                 <td style='text-transform: none;'><span class="sensor_label">$_('The water level from the bottom to the minimum water level in the tank'):</span></td>
                 <td><input name="water_minimum" type="number" min="2" max="600" value="${sensor.water_minimum}" title=$:{json.dumps(_('Distance from the bottom (ie the minimum water) to the set this minimum level, when it is this activated (send an E-mail)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td>
-                </tr>    
+                </tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Cylinder diameter for volume calculation'):</span>
                 <td><input name="diameter" type="number" min="2" max="4000" value="${sensor.diameter}" title=$:{json.dumps(_('Enter the diameter for volume calculation'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('cm'))
                 </td></tr>
@@ -1135,6 +1248,7 @@ jQuery(document).ready(function(){
                 <hr>
                 </th>
                 </tr>
+                <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('IP Address'):</span></td>
                 <td><input name="ip_address" class="timeInput IPnumbersOnly" type="text" size="15" maxlength="15" id="ip_address" style="width: 200px" value="${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}" title=$:{json.dumps(_('Enter Sensor IP Address.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>

@@ -691,7 +691,7 @@ class sensor_page(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)        
 
-        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], # ... [] for input save multiple select
+        qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], s_DL=[], s_DH=[],   # [] for input save multiple select
                          MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[],
                          SW_C0=[], SW_C1=[], SW_C2=[], SW_C3=[], SW_C4=[], SW_C5=[], SW_C6=[],        # 7 switch closed pgm
                          SW_O0=[], SW_O1=[], SW_O2=[], SW_O3=[], SW_O4=[], SW_O5=[], SW_O6=[],        # 7 switch open pgm
@@ -728,6 +728,15 @@ class sensor_page(ProtectedPage):
                 from ospy.helpers import split_ip
                 ip = split_ip(qdict['s_ip'])
                 sensor.ip_address = ip
+
+            if 's_DL' in qdict:
+                sensor.s_trigger_low_program = qdict['s_DL']
+            if 's_DH' in qdict:
+                sensor.s_trigger_high_program = qdict['s_DH']
+            if 's_trigger_low_threshold' in qdict:
+                sensor.s_trigger_low_threshold = qdict['s_trigger_low_threshold'] 
+            if 's_trigger_high_threshold' in qdict:
+                sensor.s_trigger_high_threshold = qdict['s_trigger_high_threshold']
 
             if 'name' in qdict:
                 sensor.name = qdict['name']
@@ -800,8 +809,10 @@ class sensor_page(ProtectedPage):
                     sensor.dry_clos_msg = qdict['close_msg']
 
             elif sen_type == 2:                          # leak detector
-                sensor.trigger_low_program = qdict['BL']
-                sensor.trigger_high_program = qdict['BH']
+                if 'BL' in qdict:
+                    sensor.trigger_low_program = qdict['BL']
+                if 'BH' in qdict:
+                    sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 4:                          # motion
                 sensor.trigger_low_program = ["-1"]
@@ -812,32 +823,40 @@ class sensor_page(ProtectedPage):
                     sensor.no_motion_msg = qdict['no_motion_msg']
 
             elif sen_type == 3:                          # moisture
-                sensor.trigger_low_program = qdict['MDL']
-                sensor.trigger_high_program = qdict['MDH']
+                if 'MDL' in qdict:
+                    sensor.trigger_low_program = qdict['MDL']
+                if 'MDH' in qdict:
+                    sensor.trigger_high_program = qdict['MDH']
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']
 
             elif sen_type == 5:                          # temperature
-                sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH']
+                if 'DL' in qdict:
+                    sensor.trigger_low_program = qdict['DL']
+                if 'DH' in qdict:
+                    sensor.trigger_high_program = qdict['DH']
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
             elif sen_type == 6 and (multi_type == 0 or multi_type == 1 or multi_type == 2 or multi_type == 3): # multi temperature 0-3
-                sensor.trigger_low_program = qdict['DL']
-                sensor.trigger_high_program = qdict['DH']
+                if 'DL' in qdict:
+                    sensor.trigger_low_program = qdict['DL']
+                if 'DH' in qdict:
+                    sensor.trigger_high_program = qdict['DH']
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
             elif sen_type == 6 and multi_type == 4:      # multi dry contact
-                sensor.trigger_low_program = qdict['AL']
-                sensor.trigger_high_program = qdict['AH']
+                if 'AL' in qdict:
+                    sensor.trigger_low_program = qdict['AL']
+                if 'AH' in qdict:
+                    sensor.trigger_high_program = qdict['AH']
                 if 'used_stations_one' in qdict:
                     sensor.used_stations_one = qdict['used_stations_one']
                 if 'used_stations_two' in qdict:
@@ -848,12 +867,16 @@ class sensor_page(ProtectedPage):
                     sensor.dry_clos_msg = qdict['close_msg']
 
             elif sen_type == 6 and multi_type == 5:      # multi leak detector
-                sensor.trigger_low_program = qdict['BL']
-                sensor.trigger_high_program = qdict['BH']
+                if 'BL' in qdict:
+                    sensor.trigger_low_program = qdict['BL']
+                if 'BH' in qdict:
+                    sensor.trigger_high_program = qdict['BH']
 
             elif sen_type == 6 and multi_type == 6:      # multi moisture
-                sensor.trigger_low_program = qdict['MDL']
-                sensor.trigger_high_program = qdict['MDH']
+                if 'MDL' in qdict:
+                    sensor.trigger_low_program = qdict['MDL']
+                if 'MDH' in qdict:
+                    sensor.trigger_high_program = qdict['MDH']
                 if 'trigger_low_threshold' in qdict:
                     sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
                 if 'trigger_high_threshold' in qdict:
@@ -861,15 +884,18 @@ class sensor_page(ProtectedPage):
 
             elif sen_type == 6 and multi_type == 7:      # multi motion
                 sensor.trigger_low_program = ["-1"]
-                sensor.trigger_high_program = qdict['CH']
+                if 'CH' in qdict:
+                    sensor.trigger_high_program = qdict['CH']
                 if 'motion_msg' in qdict:
                     sensor.motion_msg = qdict['motion_msg']
                 if 'no_motion_msg' in qdict:
                     sensor.no_motion_msg = qdict['no_motion_msg']
 
             elif sen_type == 6 and multi_type == 8:      # multi sonic
-                sensor.trigger_low_program = qdict['SL']
-                sensor.trigger_high_program = qdict['SH']
+                if 'SL' in qdict:
+                    sensor.trigger_low_program = qdict['SL']
+                if 'SH' in qdict:
+                    sensor.trigger_high_program = qdict['SH']
                 if 'distance_top' in qdict:
                     sensor.distance_top = qdict['distance_top']
                 if 'distance_bottom' in qdict:
@@ -935,34 +961,62 @@ class sensor_page(ProtectedPage):
                         sensor.soil_probe_label[i] = '{}'.format(qdict['pl{}'.format(i)])
 
             elif sen_type == 7:
-                sensor.sw0_open_program = qdict['SW_O0']
-                sensor.sw1_open_program = qdict['SW_O1']
-                sensor.sw2_open_program = qdict['SW_O2']
-                sensor.sw3_open_program = qdict['SW_O3']
-                sensor.sw4_open_program = qdict['SW_O4']
-                sensor.sw5_open_program = qdict['SW_O5']
-                sensor.sw6_open_program = qdict['SW_O6']
-                sensor.sw0_closed_program = qdict['SW_C0'] 
-                sensor.sw1_closed_program = qdict['SW_C1']
-                sensor.sw2_closed_program = qdict['SW_C2']
-                sensor.sw3_closed_program = qdict['SW_C3']
-                sensor.sw4_closed_program = qdict['SW_C4']
-                sensor.sw5_closed_program = qdict['SW_C5']
-                sensor.sw6_closed_program = qdict['SW_C6']
-                sensor.sw0_open_stations = qdict['SW_SO0']
-                sensor.sw1_open_stations = qdict['SW_SO1']
-                sensor.sw2_open_stations = qdict['SW_SO2']
-                sensor.sw3_open_stations = qdict['SW_SO3']
-                sensor.sw4_open_stations = qdict['SW_SO4']
-                sensor.sw5_open_stations = qdict['SW_SO5']
-                sensor.sw6_open_stations = qdict['SW_SO6']
-                sensor.sw0_closed_stations = qdict['SW_SC0']
-                sensor.sw1_closed_stations = qdict['SW_SC1']
-                sensor.sw2_closed_stations = qdict['SW_SC2']
-                sensor.sw3_closed_stations = qdict['SW_SC3']
-                sensor.sw4_closed_stations = qdict['SW_SC4']
-                sensor.sw5_closed_stations = qdict['SW_SC5']
-                sensor.sw6_closed_stations = qdict['SW_SC6']
+                if 'SW_O0' in qdict:
+                    sensor.sw0_open_program = qdict['SW_O0']
+                if 'SW_O1' in qdict:
+                    sensor.sw1_open_program = qdict['SW_O1']
+                if 'SW_O2' in qdict:
+                    sensor.sw2_open_program = qdict['SW_O2']
+                if 'SW_O3' in qdict:
+                    sensor.sw3_open_program = qdict['SW_O3']
+                if 'SW_O4' in qdict:
+                    sensor.sw4_open_program = qdict['SW_O4']
+                if 'SW_O5' in qdict:
+                    sensor.sw5_open_program = qdict['SW_O5']
+                if 'SW_O6' in qdict:
+                    sensor.sw6_open_program = qdict['SW_O6']
+                if 'SW_C0' in qdict:
+                    sensor.sw0_closed_program = qdict['SW_C0']
+                if 'SW_C1' in qdict:
+                    sensor.sw1_closed_program = qdict['SW_C1']
+                if 'SW_C2' in qdict:
+                    sensor.sw2_closed_program = qdict['SW_C2']
+                if 'SW_C3' in qdict:
+                    sensor.sw3_closed_program = qdict['SW_C3']
+                if 'SW_C4' in qdict:
+                    sensor.sw4_closed_program = qdict['SW_C4']
+                if 'SW_C5' in qdict:
+                    sensor.sw5_closed_program = qdict['SW_C5']
+                if 'SW_C6' in qdict:
+                    sensor.sw6_closed_program = qdict['SW_C6']
+                if 'SW_SO0' in qdict:
+                    sensor.sw0_open_stations = qdict['SW_SO0']
+                if 'SW_SO1' in qdict:
+                    sensor.sw1_open_stations = qdict['SW_SO1']
+                if 'SW_SO2' in qdict:
+                    sensor.sw2_open_stations = qdict['SW_SO2']
+                if 'SW_SO3' in qdict:
+                    sensor.sw3_open_stations = qdict['SW_SO3']
+                if 'SW_SO4' in qdict:
+                    sensor.sw4_open_stations = qdict['SW_SO4']
+                if 'SW_SO5' in qdict:
+                    sensor.sw5_open_stations = qdict['SW_SO5']
+                if 'SW_SO6' in qdict:
+                    sensor.sw6_open_stations = qdict['SW_SO6']
+                if 'SW_SC0' in qdict:
+                   sensor.sw0_closed_stations = qdict['SW_SC0']
+                if 'SW_SC1' in qdict:
+                    sensor.sw1_closed_stations = qdict['SW_SC1']
+                if 'SW_SC2' in qdict:
+                    sensor.sw2_closed_stations = qdict['SW_SC2']
+                if 'SW_SC3' in qdict:
+                    sensor.sw3_closed_stations = qdict['SW_SC3']
+                if 'SW_SC4' in qdict:
+                    sensor.sw4_closed_stations = qdict['SW_SC4']
+                if 'SW_SC5' in qdict:
+                    sensor.sw5_closed_stations = qdict['SW_SC5']
+                if 'SW_SC6' in qdict:
+                    sensor.sw6_closed_stations = qdict['SW_SC6']
 
             if 'ip_address' in qdict:
                 from ospy.helpers import split_ip

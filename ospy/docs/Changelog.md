@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+January 16 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Parameters (programs and events) can already be set in the sensors (shelly), data is displayed on the home page. Triggering and recording are not yet functional. This is being worked on.
+
 January 08 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

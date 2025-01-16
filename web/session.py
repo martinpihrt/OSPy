@@ -1,6 +1,8 @@
 """
 Session Management
 (from web.py)
+modify: Martin Pihrt
+date: 13.01.2025
 """
 
 import datetime
@@ -37,7 +39,7 @@ web.config.session_parameters = utils.storage(
         "cookie_domain": None,
         "cookie_path": None,
         "samesite": 'Lax',
-        "timeout": 86400,  # 24 * 60 * 60, # 24 hours in seconds
+        "timeout": 604800,  # 24 * 60 * 60 * 7 -> # one week
         "ignore_expiry": True,
         "ignore_change_ip": True,
         "secret_key": "fLjUfxqXtfNoIldA0Aed",
@@ -151,41 +153,40 @@ class Session(object):
         try:
             current_values = dict(self._data)
 
-            # Mazání klíčů, které nechceme ukládat
+            # Deleting keys we don't want to store
             if "session_id" in current_values:
                 del current_values["session_id"]
             if "ip" in current_values:
                 del current_values["ip"]
 
-            # Ověření, že session_id je platný řetězec
+            # Verifying that session_id is a valid string
             if not isinstance(self.session_id, str) or not self.session_id:
-                raise ValueError("Session ID musi byt platny neprazdny retezec.")
+                log.error('web', _('Session ID must be a valid non-empty string.'))
+                pass
 
             if not self.get("_killed"):
                 self._setcookie(self.session_id)
 
-                # Logování před uložením
-                #print(f"Ukládám session ID: {self.session_id}")
-                #print(f"Ukládám data: {self._data}")
-
-                # Převedení na obyčejný slovník, pokud je _data typu ThreadedDict
+                # Convert to a regular dictionary if _data is of type ThreadedDict
                 if isinstance(self._data, ThreadedDict):
-                    data_to_save = dict(self._data)  # Převedeme na běžný slovník
+                    data_to_save = dict(self._data)
                 else:
                     data_to_save = self._data
 
-                # Kontrola, zda data mohou být serializována před uložením
+                # Checking if data can be serialized before saving
                 pickle.dumps(data_to_save)
 
-                # Uložení do store (např. shelve)
+                # Saving to a store (e.g. shelve)
                 self.store[self.session_id] = data_to_save
             else:
                 if web.cookies().get(self._config.cookie_name):
                     self._setcookie(self.session_id, expires=-1)
         except pickle.PicklingError:
-            raise ValueError("Nelze serializovat data session pro ulozeni.")
+            log.error('web', _('Unable to serialize session data for storage.'))
+            pass
         except Exception as e:
-            raise RuntimeError(f"Chyba pri ukladani session: {e}")
+            log.error('web', _('Error saving to database: {}').format(e))
+            pass
 
 
     def _setcookie(self, session_id, expires="", **kw):
@@ -214,7 +215,7 @@ class Session(object):
             now = time.time()
             secret_key = self._config.secret_key
 
-            hashable = "%s%s%s%s" % (rand, now, utils.safestr(web.ctx.ip), secret_key)
+            hashable = "{}{}{}{}".format(rand, now, utils.safestr(web.ctx.ip), secret_key)
             session_id = sha1(hashable.encode("utf-8")).hexdigest()
             if session_id not in self.store:
                 break
@@ -384,12 +385,15 @@ class DBStore(Store):
         try:
             pickle.dumps(value)
             if not isinstance(key, str) or not key:
-                raise ValueError("Klic musc byt neprazdny retezec.")
+                log.error('web', _('The key must be a non-empty string.'))
+                pass
             self.shelf[key] = time.time(), value
         except pickle.PicklingError:
-            raise ValueError(f"Nelze serializovat hodnotu: {value}")
+            log.error('web', _('Unable to serialize value: {}').format(value))
+            pass
         except Exception as e:
-            raise RuntimeError(f"Chyba pri ukladani do databaze: {e}")
+            log.error('web', _('Error saving to database: {}').format(e))
+            pass
 
     def __delitem__(self, key):
         try:
@@ -397,7 +401,8 @@ class DBStore(Store):
         except KeyError:
             pass
         except Exception as e:
-            raise RuntimeError(f"Chyba pri mazani z databaze: {e}")
+            log.error('web', _('Error while deleting from database: {}').format(e))
+            pass
 
     def cleanup(self, timeout):
         timeout = datetime.timedelta(

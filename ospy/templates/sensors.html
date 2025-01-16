@@ -225,7 +225,7 @@ $if sensors.count()>0:
             $if options.temp_unit == 'F':
                 &degF 
             $if options.temp_unit == 'C':
-                &degC    
+                &degC
             </span></p>
             <p>$_('Program(s)'): <span class="val">
             $if "-1" in sensor.trigger_low_program:
@@ -744,6 +744,9 @@ $if sensors.count()>0:
             </span></p>
             <hr>
         $if sensor.com_type == 0 and sensor.enabled and sensor.manufacturer==0:
+            <p>
+            <hr>
+            </p>
             <p>$_('IP Address'): <span class="val">${sensor.ip_address[0]}.${sensor.ip_address[1]}.${sensor.ip_address[2]}.${sensor.ip_address[3]}</span></p>
             $if sensor.mac_address != '':
                 <p>$_('MAC Address'): <span class="val">${sensor.mac_address}</span></p> 
@@ -761,6 +764,9 @@ $if sensors.count()>0:
             $if sensor.manufacturer==0:
                 <p>$_('Firmware Version'): <span class="val">${version(sensor.fw)}</span></p>
             $elif sensor.manufacturer==1:
+                <p>
+                    <hr>
+                </p>
                 <p>
                 $_('Outputs status'):
                 $if len(sensor.last_read_value[0]):
@@ -801,15 +807,65 @@ $if sensors.count()>0:
                     </span>
                 $else:
                     $_('Can not measure humidity.')
-                </p>                
+                </p>
+                <p>
+                    <hr>
+                </p>
+                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture')]
+                <p>
+                $_('Activation type'):
+                <span class="val">$type_list[sensor.sens_type]</span>
+                </p>
+                <p>$_('Low Threshold'): <span class="val">${sensor.s_trigger_low_threshold}
+                $if sensor.sens_type == 0:
+                    $_('V') 
+                $if sensor.sens_type == 1 or sensor.sens_type == 2 or sensor.sens_type == 3 or sensor.sens_type == 4:
+                    $_('OFF')
+                $if sensor.sens_type == 5 or sensor.sens_type == 6 or sensor.sens_type == 7 or sensor.sens_type == 8:
+                    $_('℃')
+                $if sensor.sens_type == 9 or sensor.sens_type == 10 or sensor.sens_type == 11 or sensor.sens_type == 12:
+                    $_('W')
+                $if sensor.sens_type == 13:
+                    $_('%RV')
+                </span></p>
+                <p>$_('Program(s)'): <span class="val">
+                $if "-1" in sensor.s_trigger_low_program:
+                    $_('None')
+                $if "-1" not in sensor.s_trigger_low_program:
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.s_trigger_low_program:
+                            $program.name 
+                </span></p>
+                <p>$_('High Threshold'): <span class="val">${sensor.s_trigger_high_threshold}
+                $if sensor.sens_type == 0:
+                    $_('V') 
+                $if sensor.sens_type == 1 or sensor.sens_type == 2 or sensor.sens_type == 3 or sensor.sens_type == 4:
+                    $_('ON')
+                $if sensor.sens_type == 5 or sensor.sens_type == 6 or sensor.sens_type == 7 or sensor.sens_type == 8:
+                    $_('℃')
+                $if sensor.sens_type == 9 or sensor.sens_type == 10 or sensor.sens_type == 11 or sensor.sens_type == 12:
+                    $_('W')
+                $if sensor.sens_type == 13:
+                    $_('%RV')
+                </span></p>
+                <p>$_('Program(s)'): <span class="val">
+                $if "-1" in sensor.s_trigger_high_program:
+                    $_('None')
+                $if "-1" not in sensor.s_trigger_high_program:
+                    $for program in programs.get():
+                        $if str(program.index+1) in sensor.s_trigger_high_program:
+                            $program.name
+                <p>
+                    <hr>
+                </p>
                 <p>$_('Device Hardware'): <span class="val">${sensor.shelly_hw}</span></p>
                 <p>$_('Device Generation'): <span class="val">${sensor.shelly_gen}</span></p>
                 $if sensor.rssi != '':
                     <p>$_('Last RSSI Level'): <span class="val">${sensor.rssi} $_('dbm') (${dbm_to_percentage(sensor.rssi)} $_('%'))</span></p>
                 $if sensor.last_battery != '' and sensor.last_battery > 0:
-                    <p>$_('Last battery voltage'): <span class="val">${sensor.last_battery} $_('V')</span></p>
+                    <p>$_('Last battery voltage'): <span class="val">${sensor.last_battery} $_('%')</span></p>
                 $else:
-                    <p>$_('Last battery voltage'): <span class="val">$_('0 V')</span> $_('(maybe it is an error or the device can not measure this.)')</p>
+                    <p>$_('Last battery voltage'): <span class="val">$_('0 %')</span> $_('(maybe it is an error or the device can not measure this.)')</p>
                 $if sensor.last_voltage != '' and sensor.last_voltage > 0:
                     <p>$_('Last mains power voltage'): <span class="val">${sensor.last_voltage} $_('V')</span></p>
                 $else:
