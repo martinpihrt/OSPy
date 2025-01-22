@@ -1,25 +1,31 @@
-$def with (index, name, stype, mtype, srecords, erecords)
+$def with (index, name, stype, mtype, srecords, erecords, manufacturer, shelly_hw_nbr)
 
 $var title: $_('Sensor Log')
 $var page: log
 
-$ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
+$ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi')]
+$ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
+
+$ shelly_type = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture')]
+$ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT')]
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
-<a href="/sensor/${index}?graph" class="button upload"> $_(u'View Graph')</a>
+<a href="/sensor/${index}?graph" class="button upload"> $_('View Graph')</a>
 <a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
 
 <div id="options">
     <div class="title">$_('Event Log') - ${name}</div>
 </div>
-<p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span></p>
+$if manufacturer == 0:
+    <p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span></p>
+$if manufacturer == 1:
+    <p><span class="val">${shelly_list[shelly_hw_nbr] if shelly_hw_nbr != -1 else ''}</span> $_('Activation type') <span class="val">$shelly_type[stype]</span></p>
 </br>
 
 <div id="log">
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">$_(u'event.csv')</a></p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvE" class="button refresh">$_('event.csv')</a></p>
     <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
@@ -42,13 +48,13 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
 
     <div class="title">$_('Sample Log') - ${name}</div>
     <p>$_('Total number of records'): ${len(srecords)} (${_('no') if options.run_sensor_entries==0 else options.run_sensor_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">$_(u'sample.csv')</a></p>
+    <p>$_('Download log') <a href="/sensor/${index}?csvS" class="button refresh">$_('sample.csv')</a></p>
 
     <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
             <th>$_('Date')</th>
-            <th>$_('Time')</th>           
+            <th>$_('Time')</th>
             $if "list_0" in srecords[0]:
                 $for t in range(0, 16):
                     <th>$_('U') ${int(t+1)}</th>
@@ -59,8 +65,11 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
             $else:
                 <th>$_('Value')</th>
                 <th>$_('Action')</th>
-            <th>$_('Battery')</th>
-            <th>$_('Signal')</th>                 
+            $if manufacturer == 0:
+                <th>$_('Battery')</th>
+            $if manufacturer == 1:
+                <th>$_('Voltage')</th>
+            <th>$_('Signal')</th>
         </tr>
         $ odd = 1
         $for r in srecords:
@@ -87,7 +96,7 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
                                     $if stype == 6 and mtype == 9:
                                         $_('%')
                                 $else:
-                                    $_('-')    
+                                    $_('-')
                             </td>
                 $else:
                     $if "value" in event:
@@ -96,15 +105,25 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
                             $_('Error')
                         $else:    
                             ${event["value"]}
-                            $if stype == 3 or (stype == 6 and mtype == 6): 
-                                $_('%')
-                            $elif stype == 5 or (stype == 6 and mtype == 0) or (stype == 6 and mtype == 1) or (stype == 6 and mtype == 2) or (stype == 6 and mtype == 3):
-                                $if options.temp_unit == 'F':
-                                    &deg$_('F')
-                                $else:
+                            $if manufacturer == 0:
+                                $if stype == 3 or (stype == 6 and mtype == 6): 
+                                    $_('%')
+                                $elif stype == 5 or (stype == 6 and mtype == 0) or (stype == 6 and mtype == 1) or (stype == 6 and mtype == 2) or (stype == 6 and mtype == 3):
+                                    $if options.temp_unit == 'F':
+                                        &deg$_('F')
+                                    $else:
+                                        &deg$_('C')
+                                $elif stype == 6 and mtype == 8:
+                                    $_('cm')
+                            $if manufacturer == 1:
+                                $if stype == 0:
+                                    $_('V')
+                                $if stype == 5 or stype == 6 or stype == 7 or stype == 8 or stype == 9:
                                     &deg$_('C')
-                            $elif stype == 6 and mtype == 8:
-                                $_('cm')
+                                $if stype == 10 or stype == 11 or stype == 12 or stype == 13:
+                                    $_('W')
+                                $if stype == 14:
+                                    $_('%RV')
                         </td>
                 $if "action" in event:
                     <td align='center'>${event["action"]}</td>
@@ -124,6 +143,5 @@ $ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
-<a href="/sensor/${index}?graph" class="button upload"> $_(u'View Graph')</a>
+<a href="/sensor/${index}?graph" class="button upload"> $_('View Graph')</a>
 <a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
-

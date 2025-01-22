@@ -531,8 +531,10 @@ class sensor_page(ProtectedPage):
                 name = sensors[index].name
                 stype = sensors[index].sens_type
                 mtype = sensors[index].multi_type
+                manufacturer = sensors[index].manufacturer
+                shelly_hw_nbr = sensors[index].shelly_hw_nbr
                 try:
-                    return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file) 
+                    return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file, manufacturer, shelly_hw_nbr) 
                 except Exception:
                     pass
                     log.debug('webpages.py', traceback.format_exc())
@@ -617,10 +619,12 @@ class sensor_page(ProtectedPage):
                     name = sensors[index].name
                     stype = sensors[index].sens_type
                     mtype = sensors[index].multi_type
-                    return self.core_render.graph_sensor(index, name, stype, mtype) 
+                    manufacturer = sensors[index].manufacturer
+                    shelly_hw_nbr = sensors[index].shelly_hw_nbr
+                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr) 
                 except Exception:    
                     log.debug('webpages.py', traceback.format_exc())
-                    return self.core_render.graph_sensor(index, name, stype, mtype)                    
+                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr)                    
 
             elif csvE:
                 dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')

@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+January 22 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Triggering and recording for Shelly in OSPy sensors.
+
 January 16 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

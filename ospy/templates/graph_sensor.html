@@ -1,10 +1,13 @@
-$def with (index, name, stype, mtype)
+$def with (index, name, stype, mtype, manufacturer, shelly_hw_nbr)
 
-$var title: $_(u'Sensor Graph')
+$var title: $_('Sensor Graph')
 $var page: log
 
-$ type_list = [_(u'None'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Temperature'), _(u'Multi')]
-$ multi_list = [_(u'Temperature DS1'), _(u'Temperature DS2'), _(u'Temperature DS3'), _(u'Temperature DS4'), _(u'Dry Contact'), _(u'Leak Detector'), _(u'Moisture'), _(u'Motion'), _(u'Ultrasonic'), _(u'Soil Moisture')]
+$ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi')]
+$ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
+
+$ shelly_type = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture')]
+$ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT')]
 
 <script src="/static/scripts/jquery.flot.js"></script>
 <script src="/static/scripts/jquery.flot.time.js"></script>
@@ -174,17 +177,20 @@ jQuery("#show_err").change(check_history);
 <div id="options">
     <div class="title">$_('Sensor Graph') - ${name}</div>
 </div>
-<p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span>
+$if manufacturer == 0:
+   <p><span class="val">$type_list[stype] ${multi_list[mtype] if stype == 6 else ''}</span>
+$if manufacturer == 1:
+   <p><span class="val">${shelly_list[shelly_hw_nbr] if shelly_hw_nbr != -1 else ''}</span> $_('Activation type') <span class="val">$shelly_type[stype]</span></p>
    <form name="historyForm" id="historyForm" action="/sensor/${index}" method="get">
    <input type="hidden" name="index" value="${index}">
-   <select id="history" name="history" style="width: 200px" title=$:{json.dumps(_(u'Select a filter for the interval of read data.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-   <option value="0" ${"selected" if options.sensor_graph_histories==0 else ""}>$_(u'Without limits')</option>
-   <option value="1" ${"selected" if options.sensor_graph_histories==1 else ""}>$_(u'Day filter')</option>
-   <option value="2" ${"selected" if options.sensor_graph_histories==2 else ""}>$_(u'Week filter')</option>
-   <option value="3" ${"selected" if options.sensor_graph_histories==3 else ""}>$_(u'Month filter')</option>
-   <option value="4" ${"selected" if options.sensor_graph_histories==4 else ""}>$_(u'Year filter')</option>
+   <select id="history" name="history" style="width: 200px" title=$:{json.dumps(_('Select a filter for the interval of read data.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+   <option value="0" ${"selected" if options.sensor_graph_histories==0 else ""}>$_('Without limits')</option>
+   <option value="1" ${"selected" if options.sensor_graph_histories==1 else ""}>$_('Day filter')</option>
+   <option value="2" ${"selected" if options.sensor_graph_histories==2 else ""}>$_('Week filter')</option>
+   <option value="3" ${"selected" if options.sensor_graph_histories==3 else ""}>$_('Month filter')</option>
+   <option value="4" ${"selected" if options.sensor_graph_histories==4 else ""}>$_('Year filter')</option>
    </select>
-   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_(u'Show also errors in graph. Example: -127'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+   $_('Show also errors') <input name="sensor_graph_show_err" id="show_err" type="checkbox"${" checked" if options.sensor_graph_show_err else ""} title=$:{json.dumps(_('Show also errors in graph. Example: -127'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
    </form>
 </p>
 </br>
@@ -198,5 +204,5 @@ jQuery("#show_err").change(check_history);
 </div>
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
-<a href="/sensor/${index}?log" class="button backup"> $_(u'View Logs')</a>
-<a href="/sensor/${index}" class="button cDelete danger"> $_(u'Edit Sensor')</a>
+<a href="/sensor/${index}?log" class="button backup"> $_('View Logs')</a>
+<a href="/sensor/${index}" class="button cDelete danger"> $_('Edit Sensor')</a>

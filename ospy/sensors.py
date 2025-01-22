@@ -461,12 +461,18 @@ class _Sensors_Timer(Thread):
                         graph_def_data = []
                         for i in range(0, 17):
                             graph_def_data.append({"sname": "{}".format(sensor.soil_probe_label[int(i)]), "balances": {}})
-                        graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
-                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}})                                                    
+                        if sensor.manufacturer == 0:
+                            graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
+                        else:
+                            graph_def_data.append({"sname": "{}".format(_('Voltage')), "balances": {}})
+                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}})
                     else:                      # only 1x log
                         graph_def_data = []
                         graph_def_data.append({"sname": "{}".format(sensor.name), "balances": {}})
-                        graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
+                        if sensor.manufacturer == 0:
+                            graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
+                        else:
+                            graph_def_data.append({"sname": "{}".format(_('Voltage')), "balances": {}})
                         graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}}) 
                     self._write_log(_abs_glog_dir + '/' + 'graph.json', graph_def_data)
                     log.debug('sensors.py', traceback.format_exc())
@@ -1564,207 +1570,166 @@ class _Sensors_Timer(Thread):
             # 14 = 'Humidity'
             if sensor.manufacturer == 1:
                 if sensor.response and sensor.enabled:
+                    state = None
                     ### Voltage ###
                     if sensor.sens_type == 0:
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            self.start_status(sensor.name, _('Voltage {} V').format(sensor.last_voltage), sensor.index)
-
+                        state = sensor.last_voltage
                     ### Output 1 ###
                     if sensor.sens_type == 1:
                         try:
-                            data = sensor.last_read_value[0][0]
+                            state = sensor.last_read_value[0][0]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                if data:
-                                    self.start_status(sensor.name, _('ON'), sensor.index)
-                                else:
-                                    self.start_status(sensor.name, _('OFF'), sensor.index)
-
+                            state = None
                     ### Output 2 ###
                     if sensor.sens_type == 2:
                         try:
-                            data = sensor.last_read_value[0][1]
+                            state = sensor.last_read_value[0][1]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                if data:
-                                    self.start_status(sensor.name, _('ON'), sensor.index)
-                                else:
-                                    self.start_status(sensor.name, _('OFF'), sensor.index)
-
+                            state = None
                     ### Output 3 ###
                     if sensor.sens_type == 3:
                         try:
-                            data = sensor.last_read_value[0][2]
+                            state = sensor.last_read_value[0][2]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                if data:
-                                    self.start_status(sensor.name, _('ON'), sensor.index)
-                                else:
-                                    self.start_status(sensor.name, _('OFF'), sensor.index)
-
+                            state = None
                     ### Output 4 ###
                     if sensor.sens_type == 4:
                         try:
-                            data = sensor.last_read_value[0][3]
+                            state = sensor.last_read_value[0][3]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                if data:
-                                    self.start_status(sensor.name, _('ON'), sensor.index)
-                                else:
-                                    self.start_status(sensor.name, _('OFF'), sensor.index)
-
+                            state = None
                     ### Temperature 1 ###
                     if sensor.sens_type == 5:
                         try:
-                            data = sensor.last_read_value[2][0]
+                            state = sensor.last_read_value[2][0]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} ℃').format(data), sensor.index)
-
+                            state = None
                     ### Temperature 2 ###
                     if sensor.sens_type == 6:
                         try:
-                            data = sensor.last_read_value[2][1]
+                            state = sensor.last_read_value[2][1]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} ℃').format(data), sensor.index)
-
+                            state = None
                     ### Temperature 3 ###
                     if sensor.sens_type == 7:
                         try:
-                            data = sensor.last_read_value[2][2]
+                            state = sensor.last_read_value[2][2]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} ℃').format(data), sensor.index)
-
+                            state = None
                     ### Temperature 4 ###
                     if sensor.sens_type == 8:
                         try:
-                            data = sensor.last_read_value[2][3]
+                            state = sensor.last_read_value[2][3]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} ℃').format(data), sensor.index)
-
+                            state = None
                     ### Temperature 5 ###
                     if sensor.sens_type == 9:
                         try:
-                            data = sensor.last_read_value[2][4]
+                            state = sensor.last_read_value[2][4]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} ℃').format(data), sensor.index)
-
+                            state = None
                     ### Power 1 ###
                     if sensor.sens_type == 10:
                         try:
-                            data = sensor.last_read_value[1][0]
+                            state = sensor.last_read_value[1][0]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} W').format(data), sensor.index)
-
+                            state = None
                     ### Power 2 ###
                     if sensor.sens_type == 11:
                         try:
-                            data = sensor.last_read_value[1][1]
+                            state = sensor.last_read_value[1][1]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} W').format(data), sensor.index)
-
+                            state = None
                     ### Power 3 ###
                     if sensor.sens_type == 12:
                         try:
-                            data = sensor.last_read_value[1][2]
+                            state = sensor.last_read_value[1][2]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} W').format(data), sensor.index)
-
+                            state = None
                     ### Power 4 ###
                     if sensor.sens_type == 13:
                         try:
-                            data = sensor.last_read_value[1][3]
+                            state = sensor.last_read_value[1][3]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} W').format(data), sensor.index)
-
+                            state = None
                     ### humidity ###
                     if sensor.sens_type == 14:
                         try:
-                            data = sensor.last_read_value[3][0]
+                            state = sensor.last_read_value[3][0]
                         except:
-                            data = None
-                        # todo reakce, log, email
-                        if sensor.show_in_footer:
-                            if data is None:
-                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(data), sensor.index)
-                            else:
-                                self.start_status(sensor.name, _('{} %RV').format(data), sensor.index)
+                            state = None
 
+                    if state != sensor.prev_read_value:
+                        sensor.prev_read_value = state
+                        changed_state = True
+
+                    major_change = False
+                    status_update = False
+
+                    if state > float(sensor.s_trigger_high_threshold) and changed_state:
+                        (major_change, status_update) = self._check_high_trigger(sensor)
+                        sensor.last_high_report = now()
+                        action = _('High Trigger') if major_change else _('High Value')
+                        if status_update:
+                            if sensor.log_samples:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
+                        if major_change:
+                            self._trigger_programs(sensor, sensor.s_trigger_high_program)
+                    elif state < float(sensor.s_trigger_low_threshold) and changed_state:
+                        (major_change, status_update) = self._check_low_trigger(sensor)
+                        sensor.last_low_report = now()
+                        action = _('Low Trigger') if major_change else _('Low Value')
+                        if status_update:
+                            if sensor.log_samples:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
+                        if major_change:
+                            self._trigger_programs(sensor, sensor.s_trigger_low_program)
+                    else:
+                        if changed_state:
+                            (major_change, status_update) = self._check_good_trigger(sensor)
+                            sensor.last_good_report = now()
+                            action = _('Normal Trigger') if major_change else _('Normal Value')
+                            if status_update:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
+
+                    if major_change:
+                        if sensor.send_email:
+                            text = _('Sensor') + ': {}'.format(sensor.name)
+                            subj = _('Sensor Change')
+                            body = _('Sensor Change') + ': {}'.format(sensor.name)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+
+                        if sensor.log_samples:                                                                                            # sensor is enabled and enabled log samples
+                            if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
+                                sensor.last_log_samples = now()
+                                self.update_log(sensor, 'lgs', state, battery=sensor.last_voltage, rssi=sensor.rssi)                      # lge is event, lgs is samples
+
+                    if sensor.show_in_footer:
+                        if sensor.sens_type == 0:
+                            self.start_status(sensor.name, _('Voltage {} V').format(state), sensor.index)
+                        if sensor.sens_type == 1 or sensor.sens_type == 2 or sensor.sens_type == 3 or sensor.sens_type == 4:
+                            if state is None:
+                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
+                            else:
+                                if state:
+                                    self.start_status(sensor.name, _('ON'), sensor.index)
+                                else:
+                                    self.start_status(sensor.name, _('OFF'), sensor.index)
+                        if sensor.sens_type == 5 or sensor.sens_type == 6 or sensor.sens_type == 7 or sensor.sens_type == 8 or sensor.sens_type == 9:
+                            if state is None:
+                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
+                            else:
+                                self.start_status(sensor.name, _('{} ℃').format(state), sensor.index)
+                        if sensor.sens_type == 10 or sensor.sens_type == 11 or sensor.sens_type == 12 or sensor.sens_type == 13:
+                            if state is None:
+                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
+                            else:
+                                self.start_status(sensor.name, _('{} W').format(state), sensor.index)
+                        if sensor.sens_type == 14:
+                            if state is None:
+                                self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
+                            else:
+                                self.start_status(sensor.name, _('{} %RV').format(state), sensor.index)
                 else:
                     if sensor.show_in_footer:
                         if sensor.enabled:
