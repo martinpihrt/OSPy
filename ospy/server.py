@@ -285,8 +285,28 @@ def close_sessions():
     if sessions is not None:
         try:
             log.debug('server.py', _('OSPy is closing, saving sessions.'))
-            logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
+            logEV.save_events_log(_('Server'), _('Stopping'), id='Server')
             log.debug('server.py', _('Closing shelve database.'))
+
+            # Check if shelve database is corrupted
+            def is_shelve_corrupted(file_path):
+                try:
+                    with shelve.open(file_path) as test_shelve:
+                        pass
+                    return False
+                except Exception:
+                    return True
+
+            session_file = os.path.join('ospy', 'data', 'sessions.db')
+            if is_shelve_corrupted(session_file):
+                log.error('server.py', _('Shelve database is corrupted. Removing...'))
+                for db_file in glob.glob(session_file + '*'):
+                    try:
+                        os.remove(db_file)
+                        log.debug('server.py', _('Removed corrupted session file: {}').format(db_file))
+                    except Exception as rm_e:
+                        log.error('server.py', _('Error removing corrupted session file {}: {}').format(db_file, rm_e))
+
             sessions.close()
             log.debug('server.py', _('Shelve database closed successfully.'))
         except Exception as e:

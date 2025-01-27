@@ -141,7 +141,7 @@ class _Sensor(object):
         self.s_trigger_low_program = ["-1"]       # open program (-1 is default none program)
         self.s_trigger_high_program = ["-1"]      # close Program
         self.s_trigger_low_threshold = "10"       # low threshold
-        self.s_trigger_high_threshold = "30"      # high threshold        
+        self.s_trigger_high_threshold = "30"      # high threshold
         options.load(self, index) 
 
     @property
@@ -153,13 +153,21 @@ class _Sensor(object):
 
     def __setattr__(self, key, value):
         try:
-            super(_Sensor, self).__setattr__(key, value)
+            # Do not perform any additional logic during object initialization.
+            if not hasattr(self, "SAVE_EXCLUDE"):
+                super().__setattr__(key, value)
+                return
+
+            # Set attribute normally
+            super().__setattr__(key, value)
+
+            # Save changes if attribute is not in the exception list
             if not key.startswith('_') and key not in self.SAVE_EXCLUDE:
                 options.save(self, self.index)
-        except ValueError:  # No index available yet
+        except ValueError:  # When the index is not available
             log.debug('sensors.py', traceback.format_exc())
-            pass
-                
+        except Exception as e:
+            log.error('sensors.py', _('Error setting attribute {}: {}').format(key, e))
 
 class _Sensors(object):
     def __init__(self):
@@ -655,6 +663,7 @@ class _Sensors_Timer(Thread):
                         sensor.last_read_value[1] = []                        # Power list
                         sensor.last_read_value[2] = []                        # Temperature list
                         sensor.last_read_value[3] = []                        # Humidity list
+                        sensor.prev_read_value = -127
 
             changed_state = False
 
@@ -800,9 +809,9 @@ class _Sensors_Timer(Thread):
                                 self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
 
-                    if state == 0  and changed_state:                                                  # is open
+                    if state == 0  and changed_state:                                                    # is open
                         if sensor.sens_type == 1 or (sensor.sens_type == 6 and sensor.multi_type == 4):  # Dry Contact or multi Dry Contact
-                            text = _('Sensor') + u': {} ({})'.format(sensor.name, sensor.dry_open_msg)
+                            text = _('Sensor') + ': {} ({})'.format(sensor.name, sensor.dry_open_msg)
                             subj = _('Sensor Read Success')
                             body = _('Successfully read sensor') + ': {} ({})'.format(sensor.name, sensor.dry_open_msg) 
                             if sensor.log_event:                                                         # sensor is enabled and enabled log 
@@ -1571,91 +1580,119 @@ class _Sensors_Timer(Thread):
             if sensor.manufacturer == 1:
                 if sensor.response and sensor.enabled:
                     state = None
+                    eml_msg = ''
                     ### Voltage ###
                     if sensor.sens_type == 0:
                         state = sensor.last_voltage
+                        eml_msg = _('Voltage') + ': {} '.format(state) + _('V')
                     ### Output 1 ###
                     if sensor.sens_type == 1:
                         try:
                             state = sensor.last_read_value[0][0]
+                            if state:
+                                eml_msg = _('Output 1') + ': ' + _('ON')
+                            else:
+                                eml_msg = _('Output 1') + ': ' + _('OFF')
                         except:
                             state = None
                     ### Output 2 ###
                     if sensor.sens_type == 2:
                         try:
                             state = sensor.last_read_value[0][1]
+                            if state:
+                                eml_msg = _('Output 2') + ': ' + _('ON')
+                            else:
+                                eml_msg = _('Output 2') + ': ' + _('OFF')
                         except:
                             state = None
                     ### Output 3 ###
                     if sensor.sens_type == 3:
                         try:
                             state = sensor.last_read_value[0][2]
+                            if state:
+                                eml_msg = _('Output 3') + ': ' + _('ON')
+                            else:
+                                eml_msg = _('Output 3') + ': ' + _('OFF')
                         except:
                             state = None
                     ### Output 4 ###
                     if sensor.sens_type == 4:
                         try:
                             state = sensor.last_read_value[0][3]
+                            if state:
+                                eml_msg = _('Output 4') + ': ' + _('ON')
+                            else:
+                                eml_msg = _('Output 4') + ': ' + _('OFF')
                         except:
                             state = None
                     ### Temperature 1 ###
                     if sensor.sens_type == 5:
                         try:
                             state = sensor.last_read_value[2][0]
+                            eml_msg = _('Temperature 1') + ': {} '.format(state) + _('°C')
                         except:
                             state = None
                     ### Temperature 2 ###
                     if sensor.sens_type == 6:
                         try:
                             state = sensor.last_read_value[2][1]
+                            eml_msg = _('Temperature 2') + ': {} '.format(state) + _('°C')
                         except:
                             state = None
                     ### Temperature 3 ###
                     if sensor.sens_type == 7:
                         try:
                             state = sensor.last_read_value[2][2]
+                            eml_msg = _('Temperature 3') + ': {} '.format(state) + _('°C')
                         except:
                             state = None
                     ### Temperature 4 ###
                     if sensor.sens_type == 8:
                         try:
                             state = sensor.last_read_value[2][3]
+                            eml_msg = _('Temperature 4') + ': {} '.format(state) + _('°C')
                         except:
                             state = None
                     ### Temperature 5 ###
                     if sensor.sens_type == 9:
                         try:
                             state = sensor.last_read_value[2][4]
+                            eml_msg = _('Temperature 5') + ': {} '.format(state) + _('°C')
                         except:
                             state = None
                     ### Power 1 ###
                     if sensor.sens_type == 10:
                         try:
                             state = sensor.last_read_value[1][0]
+                            eml_msg = _('Power 1') + ': {} '.format(state) + _('W')
                         except:
                             state = None
                     ### Power 2 ###
                     if sensor.sens_type == 11:
                         try:
                             state = sensor.last_read_value[1][1]
+                            eml_msg = _('Power 2') + ': {} '.format(state) + _('W')
                         except:
                             state = None
                     ### Power 3 ###
                     if sensor.sens_type == 12:
                         try:
                             state = sensor.last_read_value[1][2]
+                            eml_msg = _('Power 3') + ': {} '.format(state) + _('W')
                         except:
                             state = None
                     ### Power 4 ###
                     if sensor.sens_type == 13:
                         try:
                             state = sensor.last_read_value[1][3]
+                            eml_msg = _('Power 4') + ': {} '.format(state) + _('W')
                         except:
                             state = None
-                    ### humidity ###
+                    ### Humidity ###
                     if sensor.sens_type == 14:
                         try:
                             state = sensor.last_read_value[3][0]
+                            eml_msg = _('Humidity') + ': {} '.format(state) + _('%RV')
                         except:
                             state = None
 
@@ -1663,46 +1700,36 @@ class _Sensors_Timer(Thread):
                         sensor.prev_read_value = state
                         changed_state = True
 
-                    major_change = False
-                    status_update = False
-
-                    if state > float(sensor.s_trigger_high_threshold) and changed_state:
-                        (major_change, status_update) = self._check_high_trigger(sensor)
-                        sensor.last_high_report = now()
-                        action = _('High Trigger') if major_change else _('High Value')
-                        if status_update:
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
-                        if major_change:
-                            self._trigger_programs(sensor, sensor.s_trigger_high_program)
-                    elif state < float(sensor.s_trigger_low_threshold) and changed_state:
-                        (major_change, status_update) = self._check_low_trigger(sensor)
-                        sensor.last_low_report = now()
-                        action = _('Low Trigger') if major_change else _('Low Value')
-                        if status_update:
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
-                        if major_change:
-                            self._trigger_programs(sensor, sensor.s_trigger_low_program)
-                    else:
-                        if changed_state:
-                            (major_change, status_update) = self._check_good_trigger(sensor)
-                            sensor.last_good_report = now()
-                            action = _('Normal Trigger') if major_change else _('Normal Value')
-                            if status_update:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)          # wait for reading to be updated
-
-                    if major_change:
+                    if state > float(sensor.s_trigger_high_threshold) and changed_state and sensor.aux_reg_u == 1:                    # aux_reg_u is auxiliary for mutual blocking
+                        sensor.aux_reg_u = 0
+                        action = _('High Value')
+                        if sensor.log_samples:
+                            self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)
+                        self._trigger_programs(sensor, sensor.s_trigger_high_program)
                         if sensor.send_email:
                             text = _('Sensor') + ': {}'.format(sensor.name)
                             subj = _('Sensor Change')
-                            body = _('Sensor Change') + ': {}'.format(sensor.name)
+                            body = '{} '.format(datetime_string()) + _('Sensor Name') + ': {}'.format(sensor.name) + ' {}.'.format(eml_msg)
                             self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
 
-                        if sensor.log_samples:                                                                                            # sensor is enabled and enabled log samples
-                            if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
-                                sensor.last_log_samples = now()
-                                self.update_log(sensor, 'lgs', state, battery=sensor.last_voltage, rssi=sensor.rssi)                      # lge is event, lgs is samples
+                    if state < float(sensor.s_trigger_low_threshold) and changed_state and sensor.aux_reg_u == 0:                     # aux_reg_u is auxiliary for mutual blocking
+                        sensor.aux_reg_u = 1
+                        action = _('Low Value')
+                        if sensor.log_samples:
+                            self.update_log(sensor, 'lgs', state, action, battery=sensor.last_voltage, rssi=sensor.rssi)
+                        self._trigger_programs(sensor, sensor.s_trigger_low_program)
+                        if sensor.send_email:
+                            text = _('Sensor') + ': {}'.format(sensor.name)
+                            subj = _('Sensor Change')
+                            body = '{} '.format(datetime_string()) + _('Sensor Name') + ': {}'.format(sensor.name) + ' {}.'.format(eml_msg)
+                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+
+                    changed_state = False
+
+                    if sensor.log_samples:                                                                                            # sensor is enabled and enabled log samples
+                        if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
+                            sensor.last_log_samples = now()
+                            self.update_log(sensor, 'lgs', state, battery=sensor.last_voltage, rssi=sensor.rssi)                      # lge is event, lgs is samples
 
                     if sensor.show_in_footer:
                         if sensor.sens_type == 0:

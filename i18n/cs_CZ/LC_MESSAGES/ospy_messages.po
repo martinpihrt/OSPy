@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2025-01-16 22:56+0100\n"
-"PO-Revision-Date: 2025-01-16 22:59+0100\n"
+"POT-Creation-Date: 2025-01-27 13:21+0100\n"
+"PO-Revision-Date: 2025-01-27 13:25+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: api/api.py:51
@@ -213,7 +213,7 @@ msgstr "IP není nastavena"
 msgid "No IP6 Settings"
 msgstr "IP6 není nastavena"
 
-#: ospy/helpers.py:446 ospy/helpers.py:463 ospy/templates/log_sensor.html:90
+#: ospy/helpers.py:446 ospy/helpers.py:463 ospy/templates/log_sensor.html:99
 #: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:404
 msgid "-"
 msgstr "-"
@@ -592,8 +592,8 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
-#: plugins/email_notifications_ssl/__init__.py:239
-#: plugins/email_notifications_ssl/__init__.py:240
+#: plugins/email_notifications_ssl/__init__.py:258
+#: plugins/email_notifications_ssl/__init__.py:259
 #: plugins/lcd_display/templates/lcd_display.html:149
 msgid "Sensors"
 msgstr "Snímače"
@@ -909,7 +909,7 @@ msgstr "Stav počasí"
 msgid "Graph histories"
 msgstr "Graf historie"
 
-#: ospy/options.py:492 ospy/templates/graph_sensor.html:187
+#: ospy/options.py:492 ospy/templates/graph_sensor.html:193
 #: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
@@ -1171,7 +1171,7 @@ msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr "Zpoždění deště nastavilo zpoždění {} hodin {} minut {} vteřin"
 
 #: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/scheduler.py:53
-#: ospy/sensors.py:1316 ospy/webpages.py:1419
+#: ospy/sensors.py:1331 ospy/webpages.py:1423
 #: plugins/mqtt_home_assistant/__init__.py:725
 msgid "Rain delay"
 msgstr "Zpoždění deště"
@@ -1233,33 +1233,37 @@ msgstr "Kontakt spojený"
 
 #: ospy/sensors.py:102 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/email_notifications_ssl/__init__.py:269
-#: plugins/email_notifications_ssl/__init__.py:300
+#: plugins/email_notifications_ssl/__init__.py:289
+#: plugins/email_notifications_ssl/__init__.py:320
 #: plugins/lcd_display/__init__.py:497 plugins/lcd_display/__init__.py:528
 msgid "Motion Detected"
 msgstr "Byl detekován pohyb"
 
 #: ospy/sensors.py:103 plugins/email_notifications/__init__.py:256
 #: plugins/email_notifications/__init__.py:287
-#: plugins/email_notifications_ssl/__init__.py:269
-#: plugins/email_notifications_ssl/__init__.py:300
+#: plugins/email_notifications_ssl/__init__.py:289
+#: plugins/email_notifications_ssl/__init__.py:320
 #: plugins/lcd_display/__init__.py:497 plugins/lcd_display/__init__.py:528
 msgid "No Motion"
 msgstr "Žádný pohyb"
 
-#: ospy/sensors.py:172
+#: ospy/sensors.py:170
+msgid "Error setting attribute {}: {}"
+msgstr "Chybné nastavení atributu {}: {}"
+
+#: ospy/sensors.py:180
 msgid "Loading sensors..."
 msgstr "Načítání snímačů..."
 
-#: ospy/sensors.py:187
+#: ospy/sensors.py:195
 msgid "Adding new sensor: {} with id: {}"
 msgstr "Přidání nového senzoru: {} s id: {}"
 
-#: ospy/sensors.py:209
+#: ospy/sensors.py:217
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:289 plugins/current_loop_tanks_monitor/__init__.py:190
+#: ospy/sensors.py:297 plugins/current_loop_tanks_monitor/__init__.py:190
 #: plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:354
 msgid ""
@@ -1269,51 +1273,63 @@ msgstr ""
 "E-mail nebyl odeslán! Rozšíření Email Notifications nebylo v OSPy nalezeno "
 "nebo nebylo správně nastaveno."
 
-#: ospy/sensors.py:349
+#: ospy/sensors.py:357
 msgid "The sensor tries to start the {} (id: {})"
 msgstr "Snímač se pokusí spustit {} (id: {})"
 
-#: ospy/sensors.py:353
+#: ospy/sensors.py:361
 msgid "Starting {}"
 msgstr "Spuštění {}"
 
-#: ospy/sensors.py:426 ospy/sensors.py:456 ospy/sensors.py:484
+#: ospy/sensors.py:434 ospy/sensors.py:464 ospy/sensors.py:498
 msgid "Dir not exists, creating dir: {}"
 msgstr "Adresář neexistuje, vytváření adresáře: {}"
 
-#: ospy/sensors.py:429 ospy/sensors.py:459 ospy/sensors.py:489
+#: ospy/sensors.py:437 ospy/sensors.py:467 ospy/sensors.py:503
 msgid "File not exists, creating file: {}"
 msgstr "Soubor neexistuje, vytváření souboru: {}"
 
-#: ospy/sensors.py:452
+#: ospy/sensors.py:460
 msgid "Updating sensor graph log to file successfully."
 msgstr "Aktualizace záznamu grafu snímače do souboru bylo úspěšné."
 
-#: ospy/sensors.py:464 ospy/sensors.py:469 ospy/templates/log_sensor.html:62
+#: ospy/sensors.py:473 ospy/sensors.py:481 ospy/templates/log_sensor.html:69
 msgid "Battery"
 msgstr "Baterie"
 
-#: ospy/sensors.py:465 ospy/sensors.py:470 ospy/templates/log_sensor.html:63
+#: ospy/sensors.py:475 ospy/sensors.py:483 ospy/sensors.py:1587
+#: ospy/templates/graph_sensor.html:9 ospy/templates/log_sensor.html:9
+#: ospy/templates/log_sensor.html:71 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
+#: plugins/email_notifications_ssl/__init__.py:363
+msgid "Voltage"
+msgstr "Napětí"
+
+#: ospy/sensors.py:476 ospy/sensors.py:484 ospy/templates/log_sensor.html:72
 #: plugins/sms_adj/__init__.py:205
 msgid "Signal"
 msgstr "Signál"
 
-#: ospy/sensors.py:500
+#: ospy/sensors.py:514
 msgid "Updating sensor log to file successfully."
 msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 
-#: ospy/sensors.py:587 plugins/button_control/__init__.py:284
+#: ospy/sensors.py:601 plugins/button_control/__init__.py:284
 #: plugins/pressure_monitor/__init__.py:316
 #: plugins/tank_monitor/__init__.py:823 plugins/wind_monitor/__init__.py:409
 msgid "Stoping stations in scheduler"
 msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 
-#: ospy/sensors.py:670 ospy/sensors.py:699 ospy/sensors.py:728
-#: ospy/sensors.py:757 ospy/sensors.py:894 ospy/sensors.py:906
-#: ospy/sensors.py:921 ospy/sensors.py:938 ospy/sensors.py:955
-#: ospy/sensors.py:972 ospy/sensors.py:989 ospy/sensors.py:1111
-#: ospy/sensors.py:1125 ospy/sensors.py:1182 ospy/sensors.py:1214
-#: ospy/sensors.py:1220 ospy/sensors.py:1224 ospy/sensors.py:1408
+#: ospy/sensors.py:685 ospy/sensors.py:714 ospy/sensors.py:743
+#: ospy/sensors.py:772 ospy/sensors.py:909 ospy/sensors.py:921
+#: ospy/sensors.py:936 ospy/sensors.py:953 ospy/sensors.py:970
+#: ospy/sensors.py:987 ospy/sensors.py:1004 ospy/sensors.py:1126
+#: ospy/sensors.py:1140 ospy/sensors.py:1197 ospy/sensors.py:1229
+#: ospy/sensors.py:1235 ospy/sensors.py:1239 ospy/sensors.py:1423
 #: ospy/templates/sensors.html:98 ospy/templates/sensors.html:140
 #: ospy/templates/sensors.html:169 ospy/templates/sensors.html:197
 #: ospy/templates/sensors.html:215 ospy/templates/sensors.html:257
@@ -1332,18 +1348,18 @@ msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 #: plugins/email_notifications/__init__.py:289
 #: plugins/email_notifications/__init__.py:296
 #: plugins/email_notifications/__init__.py:318
-#: plugins/email_notifications_ssl/__init__.py:256
-#: plugins/email_notifications_ssl/__init__.py:261
-#: plugins/email_notifications_ssl/__init__.py:266
-#: plugins/email_notifications_ssl/__init__.py:271
 #: plugins/email_notifications_ssl/__init__.py:276
-#: plugins/email_notifications_ssl/__init__.py:282
-#: plugins/email_notifications_ssl/__init__.py:287
-#: plugins/email_notifications_ssl/__init__.py:292
-#: plugins/email_notifications_ssl/__init__.py:297
+#: plugins/email_notifications_ssl/__init__.py:281
+#: plugins/email_notifications_ssl/__init__.py:286
+#: plugins/email_notifications_ssl/__init__.py:291
+#: plugins/email_notifications_ssl/__init__.py:296
 #: plugins/email_notifications_ssl/__init__.py:302
-#: plugins/email_notifications_ssl/__init__.py:309
-#: plugins/email_notifications_ssl/__init__.py:331
+#: plugins/email_notifications_ssl/__init__.py:307
+#: plugins/email_notifications_ssl/__init__.py:312
+#: plugins/email_notifications_ssl/__init__.py:317
+#: plugins/email_notifications_ssl/__init__.py:322
+#: plugins/email_notifications_ssl/__init__.py:329
+#: plugins/email_notifications_ssl/__init__.py:351
 #: plugins/lcd_display/__init__.py:484 plugins/lcd_display/__init__.py:489
 #: plugins/lcd_display/__init__.py:494 plugins/lcd_display/__init__.py:499
 #: plugins/lcd_display/__init__.py:504 plugins/lcd_display/__init__.py:510
@@ -1353,79 +1369,80 @@ msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 msgid "Probe Error"
 msgstr "Chyba sondy"
 
-#: ospy/sensors.py:680 ospy/sensors.py:709 ospy/sensors.py:738
-#: ospy/sensors.py:767 ospy/sensors.py:1053 ospy/sensors.py:1140
-#: ospy/sensors.py:1337
+#: ospy/sensors.py:695 ospy/sensors.py:724 ospy/sensors.py:753
+#: ospy/sensors.py:782 ospy/sensors.py:1068 ospy/sensors.py:1155
+#: ospy/sensors.py:1352
 msgid "Sensor: {} now response"
 msgstr "Snímač: {} nyní odpovídá"
 
-#: ospy/sensors.py:682 ospy/sensors.py:687 ospy/sensors.py:711
-#: ospy/sensors.py:716 ospy/sensors.py:740 ospy/sensors.py:745
-#: ospy/sensors.py:769 ospy/sensors.py:774 ospy/sensors.py:1055
-#: ospy/sensors.py:1060 ospy/sensors.py:1142 ospy/sensors.py:1147
-#: ospy/sensors.py:1339 ospy/sensors.py:1344 ospy/sensors.py:1424
+#: ospy/sensors.py:697 ospy/sensors.py:702 ospy/sensors.py:726
+#: ospy/sensors.py:731 ospy/sensors.py:755 ospy/sensors.py:760
+#: ospy/sensors.py:784 ospy/sensors.py:789 ospy/sensors.py:1070
+#: ospy/sensors.py:1075 ospy/sensors.py:1157 ospy/sensors.py:1162
+#: ospy/sensors.py:1354 ospy/sensors.py:1359 ospy/sensors.py:1439
 msgid "Now response"
 msgstr "Nyní odpovídá"
 
-#: ospy/sensors.py:683 ospy/sensors.py:712 ospy/sensors.py:741
-#: ospy/sensors.py:770 ospy/sensors.py:835 ospy/sensors.py:851
-#: ospy/sensors.py:867 ospy/sensors.py:1056 ospy/sensors.py:1083
-#: ospy/sensors.py:1143 ospy/sensors.py:1158 ospy/sensors.py:1223
-#: ospy/sensors.py:1295 ospy/sensors.py:1321 ospy/sensors.py:1340
-#: ospy/sensors.py:1356 ospy/sensors.py:1430 ospy/sensors.py:1455
+#: ospy/sensors.py:698 ospy/sensors.py:727 ospy/sensors.py:756
+#: ospy/sensors.py:785 ospy/sensors.py:850 ospy/sensors.py:866
+#: ospy/sensors.py:882 ospy/sensors.py:1071 ospy/sensors.py:1098
+#: ospy/sensors.py:1158 ospy/sensors.py:1173 ospy/sensors.py:1238
+#: ospy/sensors.py:1310 ospy/sensors.py:1336 ospy/sensors.py:1355
+#: ospy/sensors.py:1371 ospy/sensors.py:1445 ospy/sensors.py:1470
 msgid "Sensor {}"
 msgstr "Snímač {}"
 
-#: ospy/sensors.py:778 ospy/sensors.py:788 ospy/sensors.py:799
-#: ospy/sensors.py:809 ospy/sensors.py:1030 ospy/sensors.py:1222
-#: ospy/sensors.py:1294 ospy/sensors.py:1320 ospy/templates/user.html:45
-#: ospy/templates/user.html:68 ospy/templates/users.html:32
+#: ospy/sensors.py:793 ospy/sensors.py:803 ospy/sensors.py:814
+#: ospy/sensors.py:824 ospy/sensors.py:1045 ospy/sensors.py:1237
+#: ospy/sensors.py:1309 ospy/sensors.py:1335 ospy/sensors.py:1710
+#: ospy/sensors.py:1722 ospy/templates/user.html:45 ospy/templates/user.html:68
+#: ospy/templates/users.html:32
 msgid "Sensor"
 msgstr "Snímač"
 
-#: ospy/sensors.py:779 ospy/sensors.py:789 ospy/sensors.py:800
-#: ospy/sensors.py:810
+#: ospy/sensors.py:794 ospy/sensors.py:804 ospy/sensors.py:815
+#: ospy/sensors.py:825
 msgid "Sensor Read Success"
 msgstr "Úspěšné čtení snímače"
 
-#: ospy/sensors.py:780 ospy/sensors.py:790 ospy/sensors.py:801
-#: ospy/sensors.py:811
+#: ospy/sensors.py:795 ospy/sensors.py:805 ospy/sensors.py:816
+#: ospy/sensors.py:826
 msgid "Successfully read sensor"
 msgstr "Úspěšně čtení snímače"
 
-#: ospy/sensors.py:829 ospy/sensors.py:845 ospy/sensors.py:861
-#: ospy/sensors.py:1077 ospy/sensors.py:1152 ospy/sensors.py:1350
-#: ospy/sensors.py:1449
+#: ospy/sensors.py:844 ospy/sensors.py:860 ospy/sensors.py:876
+#: ospy/sensors.py:1092 ospy/sensors.py:1167 ospy/sensors.py:1365
+#: ospy/sensors.py:1464
 msgid "Sensor: {} not response!"
 msgstr "Snímač: {} neodpovídá!"
 
-#: ospy/sensors.py:832 ospy/sensors.py:839 ospy/sensors.py:848
-#: ospy/sensors.py:855 ospy/sensors.py:864 ospy/sensors.py:871
-#: ospy/sensors.py:875 ospy/sensors.py:1080 ospy/sensors.py:1088
-#: ospy/sensors.py:1093 ospy/sensors.py:1155 ospy/sensors.py:1163
-#: ospy/sensors.py:1168 ospy/sensors.py:1353 ospy/sensors.py:1361
-#: ospy/sensors.py:1366 ospy/sensors.py:1452 ospy/sensors.py:1460
-#: ospy/sensors.py:1465 ospy/sensors.py:1544 ospy/sensors.py:1771
+#: ospy/sensors.py:847 ospy/sensors.py:854 ospy/sensors.py:863
+#: ospy/sensors.py:870 ospy/sensors.py:879 ospy/sensors.py:886
+#: ospy/sensors.py:890 ospy/sensors.py:1095 ospy/sensors.py:1103
+#: ospy/sensors.py:1108 ospy/sensors.py:1170 ospy/sensors.py:1178
+#: ospy/sensors.py:1183 ospy/sensors.py:1368 ospy/sensors.py:1376
+#: ospy/sensors.py:1381 ospy/sensors.py:1467 ospy/sensors.py:1475
+#: ospy/sensors.py:1480 ospy/sensors.py:1559 ospy/sensors.py:1763
 msgid "Not response!"
 msgstr "Neodpovídá!"
 
-#: ospy/sensors.py:834 ospy/sensors.py:850 ospy/sensors.py:866
-#: ospy/sensors.py:877 ospy/sensors.py:1082 ospy/sensors.py:1090
-#: ospy/sensors.py:1095 ospy/sensors.py:1157 ospy/sensors.py:1165
-#: ospy/sensors.py:1170 ospy/sensors.py:1355 ospy/sensors.py:1363
-#: ospy/sensors.py:1368 ospy/sensors.py:1454 ospy/sensors.py:1462
-#: ospy/sensors.py:1467 ospy/sensors.py:1546 ospy/sensors.py:1773
+#: ospy/sensors.py:849 ospy/sensors.py:865 ospy/sensors.py:881
+#: ospy/sensors.py:892 ospy/sensors.py:1097 ospy/sensors.py:1105
+#: ospy/sensors.py:1110 ospy/sensors.py:1172 ospy/sensors.py:1180
+#: ospy/sensors.py:1185 ospy/sensors.py:1370 ospy/sensors.py:1378
+#: ospy/sensors.py:1383 ospy/sensors.py:1469 ospy/sensors.py:1477
+#: ospy/sensors.py:1482 ospy/sensors.py:1561 ospy/sensors.py:1765
 msgid "Out of order"
 msgstr "Mimo provoz"
 
-#: ospy/sensors.py:896 ospy/sensors.py:992
+#: ospy/sensors.py:911 ospy/sensors.py:1007
 msgid "Moisture {}%"
 msgstr "Vlhkost {}%"
 
-#: ospy/sensors.py:909 ospy/sensors.py:911 ospy/sensors.py:925
-#: ospy/sensors.py:928 ospy/sensors.py:942 ospy/sensors.py:945
-#: ospy/sensors.py:959 ospy/sensors.py:962 ospy/sensors.py:976
-#: ospy/sensors.py:979 ospy/templates/graph_sensor.html:6
+#: ospy/sensors.py:924 ospy/sensors.py:926 ospy/sensors.py:940
+#: ospy/sensors.py:943 ospy/sensors.py:957 ospy/sensors.py:960
+#: ospy/sensors.py:974 ospy/sensors.py:977 ospy/sensors.py:991
+#: ospy/sensors.py:994 ospy/templates/graph_sensor.html:6
 #: ospy/templates/log_sensor.html:6 ospy/templates/sensor.html:339
 #: ospy/templates/sensors.html:59 ospy/templates/sensors_search.html:53
 #: plugins/air_temp_humi/__init__.py:130 plugins/air_temp_humi/__init__.py:176
@@ -1436,40 +1453,41 @@ msgstr "Vlhkost {}%"
 msgid "Temperature"
 msgstr "Teplota"
 
-#: ospy/sensors.py:1004
+#: ospy/sensors.py:1019
 msgid "High Trigger"
 msgstr "Vysoká aktivační událost"
 
-#: ospy/sensors.py:1004
+#: ospy/sensors.py:1019 ospy/sensors.py:1705
 msgid "High Value"
 msgstr "Vysoká hodnota"
 
-#: ospy/sensors.py:1014
-msgid "Low Value"
-msgstr "Nízká hodnota"
-
-#: ospy/sensors.py:1014 ospy/sensors.py:1304
+#: ospy/sensors.py:1029 ospy/sensors.py:1319
 msgid "Low Trigger"
 msgstr "Nízká aktivační událost"
 
-#: ospy/sensors.py:1024
+#: ospy/sensors.py:1029 ospy/sensors.py:1717
+msgid "Low Value"
+msgstr "Nízká hodnota"
+
+#: ospy/sensors.py:1039
 msgid "Normal Value"
 msgstr "Běžná hodnota"
 
-#: ospy/sensors.py:1024 ospy/sensors.py:1279
+#: ospy/sensors.py:1039 ospy/sensors.py:1294
 msgid "Normal Trigger"
 msgstr "Normální aktivační událost"
 
-#: ospy/sensors.py:1031 ospy/sensors.py:1032
+#: ospy/sensors.py:1046 ospy/sensors.py:1047 ospy/sensors.py:1711
+#: ospy/sensors.py:1723
 msgid "Sensor Change"
 msgstr "Změna stavu snímače"
 
-#: ospy/sensors.py:1107 ospy/sensors.py:1121
+#: ospy/sensors.py:1122 ospy/sensors.py:1136
 msgid "Leak {}l/s"
 msgstr "Průtok {}l/s"
 
-#: ospy/sensors.py:1204 ospy/sensors.py:1208 ospy/sensors.py:1283
-#: ospy/sensors.py:1309 ospy/templates/log_sensor.html:107
+#: ospy/sensors.py:1219 ospy/sensors.py:1223 ospy/sensors.py:1298
+#: ospy/sensors.py:1324 ospy/templates/log_sensor.html:117
 #: ospy/templates/sensor.html:664 ospy/templates/sensor.html:669
 #: ospy/templates/sensor.html:674 ospy/templates/sensor.html:678
 #: ospy/templates/sensor.html:725 ospy/templates/sensor.html:736
@@ -1486,7 +1504,7 @@ msgstr "Průtok {}l/s"
 #: plugins/email_notifications/__init__.py:294
 #: plugins/email_notifications_ssl/__init__.py:166
 #: plugins/email_notifications_ssl/__init__.py:168
-#: plugins/email_notifications_ssl/__init__.py:307
+#: plugins/email_notifications_ssl/__init__.py:327
 #: plugins/email_reader/__init__.py:236 plugins/email_reader/__init__.py:238
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:535
 #: plugins/tank_monitor/__init__.py:198 plugins/tank_monitor/__init__.py:200
@@ -1512,7 +1530,7 @@ msgstr "Průtok {}l/s"
 msgid "cm"
 msgstr "cm"
 
-#: ospy/sensors.py:1204 plugins/email_notifications/__init__.py:160
+#: ospy/sensors.py:1219 plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications_ssl/__init__.py:170
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
 #: plugins/tank_monitor/__init__.py:198
@@ -1523,7 +1541,7 @@ msgstr "cm"
 msgid "liters"
 msgstr "litrů"
 
-#: ospy/sensors.py:1208 plugins/email_notifications/__init__.py:162
+#: ospy/sensors.py:1223 plugins/email_notifications/__init__.py:162
 #: plugins/email_notifications/__init__.py:191
 #: plugins/email_notifications/__init__.py:199
 #: plugins/email_notifications_ssl/__init__.py:172
@@ -1537,11 +1555,11 @@ msgstr "litrů"
 msgid "m3"
 msgstr "m3"
 
-#: ospy/sensors.py:1224
+#: ospy/sensors.py:1239
 msgid "Sensor Notification"
 msgstr "Oznámení snímače"
 
-#: ospy/sensors.py:1235 ospy/sensors.py:1266 ospy/templates/options.html:153
+#: ospy/sensors.py:1250 ospy/sensors.py:1281 ospy/templates/options.html:153
 #: ospy/templates/options.html:166 ospy/templates/sensor.html:503
 #: ospy/templates/sensor.html:535 ospy/templates/sensor.html:711
 #: ospy/templates/sensor.html:742 ospy/templates/sensor.html:968
@@ -1584,135 +1602,302 @@ msgstr "Oznámení snímače"
 msgid "Output"
 msgstr "Výstup"
 
-#: ospy/sensors.py:1235 plugins/air_temp_humi/__init__.py:211
+#: ospy/sensors.py:1250 plugins/air_temp_humi/__init__.py:211
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:210
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
-#: ospy/sensors.py:1266 plugins/air_temp_humi/__init__.py:224
+#: ospy/sensors.py:1281 plugins/air_temp_humi/__init__.py:224
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:238
 msgid "Regulation set OFF."
 msgstr "Regulace nastavila VYP."
 
-#: ospy/sensors.py:1283 ospy/sensors.py:1309
+#: ospy/sensors.py:1298 ospy/sensors.py:1324
 msgid "Water in Tank"
 msgstr "Voda v nádrži"
 
-#: ospy/sensors.py:1290
+#: ospy/sensors.py:1305
 msgid "Removing Rain delay"
 msgstr "Odebírám zpoždění při dešti"
 
-#: ospy/sensors.py:1296
+#: ospy/sensors.py:1311
 msgid "Sensor has water"
 msgstr "Snímač má opět vodu"
 
-#: ospy/sensors.py:1309 plugins/tank_monitor/__init__.py:275
+#: ospy/sensors.py:1324 plugins/tank_monitor/__init__.py:275
 msgid "!"
 msgstr "!"
 
-#: ospy/sensors.py:1316
+#: ospy/sensors.py:1331
 msgid "hours."
 msgstr "hodin."
 
-#: ospy/sensors.py:1322
+#: ospy/sensors.py:1337
 msgid "Sensor has water minimum"
 msgstr "Snímač má minimum vody"
 
-#: ospy/sensors.py:1426
+#: ospy/sensors.py:1441
 msgid "Has Error (Probes)!"
 msgstr "Má chybu (sondy)!"
 
-#: ospy/sensors.py:1427
+#: ospy/sensors.py:1442
 msgid "Sensor {} {}"
 msgstr "Snímač {} {}"
 
-#: ospy/sensors.py:1436
+#: ospy/sensors.py:1451
 msgid "Sensor error: {}"
 msgstr "Chyba snímače: {}"
 
-#: ospy/sensors.py:1473
+#: ospy/sensors.py:1488
 msgid "Inputs state"
 msgstr "Stav vstupů"
 
-#: ospy/sensors.py:1478 ospy/sensors.py:1585 ospy/sensors.py:1602
-#: ospy/sensors.py:1618 ospy/sensors.py:1634 ospy/templates/sensors.html:776
-#: ospy/templates/sensors.html:843
+#: ospy/sensors.py:1493 ospy/sensors.py:1593 ospy/sensors.py:1603
+#: ospy/sensors.py:1613 ospy/sensors.py:1623 ospy/sensors.py:1742
+#: ospy/templates/sensors.html:776 ospy/templates/sensors.html:843
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:67
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:105
-#: plugins/email_notifications_ssl/__init__.py:388
-#: plugins/email_notifications_ssl/__init__.py:389
+#: plugins/email_notifications_ssl/__init__.py:367
+#: plugins/email_notifications_ssl/__init__.py:375
+#: plugins/email_notifications_ssl/__init__.py:383
 #: plugins/email_notifications_ssl/__init__.py:391
-#: plugins/email_notifications_ssl/__init__.py:392
-#: plugins/email_notifications_ssl/__init__.py:396
-#: plugins/email_notifications_ssl/__init__.py:397
-#: plugins/email_notifications_ssl/__init__.py:401
-#: plugins/email_notifications_ssl/__init__.py:402
+#: plugins/email_notifications_ssl/__init__.py:497
+#: plugins/email_notifications_ssl/__init__.py:498
+#: plugins/email_notifications_ssl/__init__.py:500
+#: plugins/email_notifications_ssl/__init__.py:501
+#: plugins/email_notifications_ssl/__init__.py:505
+#: plugins/email_notifications_ssl/__init__.py:506
+#: plugins/email_notifications_ssl/__init__.py:510
+#: plugins/email_notifications_ssl/__init__.py:511
 #: plugins/email_reader/__init__.py:394 plugins/modbus_stations/__init__.py:294
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/telegram_bot/__init__.py:136 plugins/telegram_bot/__init__.py:367
 msgid "ON"
 msgstr "ZAP"
 
-#: ospy/sensors.py:1480 ospy/sensors.py:1587 ospy/sensors.py:1604
-#: ospy/sensors.py:1620 ospy/sensors.py:1636 ospy/templates/sensors.html:778
-#: ospy/templates/sensors.html:823
+#: ospy/sensors.py:1495 ospy/sensors.py:1595 ospy/sensors.py:1605
+#: ospy/sensors.py:1615 ospy/sensors.py:1625 ospy/sensors.py:1744
+#: ospy/templates/sensors.html:778 ospy/templates/sensors.html:823
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:65
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:103
-#: plugins/email_notifications_ssl/__init__.py:388
-#: plugins/email_notifications_ssl/__init__.py:389
-#: plugins/email_notifications_ssl/__init__.py:391
-#: plugins/email_notifications_ssl/__init__.py:392
-#: plugins/email_notifications_ssl/__init__.py:396
-#: plugins/email_notifications_ssl/__init__.py:397
-#: plugins/email_notifications_ssl/__init__.py:401
-#: plugins/email_notifications_ssl/__init__.py:402
+#: plugins/email_notifications_ssl/__init__.py:369
+#: plugins/email_notifications_ssl/__init__.py:377
+#: plugins/email_notifications_ssl/__init__.py:385
+#: plugins/email_notifications_ssl/__init__.py:393
+#: plugins/email_notifications_ssl/__init__.py:497
+#: plugins/email_notifications_ssl/__init__.py:498
+#: plugins/email_notifications_ssl/__init__.py:500
+#: plugins/email_notifications_ssl/__init__.py:501
+#: plugins/email_notifications_ssl/__init__.py:505
+#: plugins/email_notifications_ssl/__init__.py:506
+#: plugins/email_notifications_ssl/__init__.py:510
+#: plugins/email_notifications_ssl/__init__.py:511
 #: plugins/email_reader/__init__.py:396 plugins/modbus_stations/__init__.py:297
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/telegram_bot/__init__.py:142 plugins/telegram_bot/__init__.py:373
 msgid "OFF"
 msgstr "VYP"
 
-#: ospy/sensors.py:1571
+#: ospy/sensors.py:1587 ospy/templates/log_sensor.html:89
+#: ospy/templates/log_sensor.html:120 ospy/templates/log_sensor.html:133
+#: ospy/templates/sensor.html:77 ospy/templates/sensor.html:78
+#: ospy/templates/sensor.html:895 ospy/templates/sensor.html:900
+#: ospy/templates/sensors.html:457 ospy/templates/sensors.html:756
+#: ospy/templates/sensors.html:761 ospy/templates/sensors.html:821
+#: ospy/templates/sensors.html:841 ospy/templates/sensors.html:870
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
+#: plugins/email_notifications_ssl/__init__.py:363
+#: plugins/email_notifications_ssl/__init__.py:533
+#: plugins/email_notifications_ssl/__init__.py:534
+msgid "V"
+msgstr "V"
+
+#: ospy/sensors.py:1593 ospy/sensors.py:1595 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:367
+#: plugins/email_notifications_ssl/__init__.py:369
+msgid "Output 1"
+msgstr "Výstup 1"
+
+#: ospy/sensors.py:1603 ospy/sensors.py:1605 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:375
+#: plugins/email_notifications_ssl/__init__.py:377
+msgid "Output 2"
+msgstr "Výstup 2"
+
+#: ospy/sensors.py:1613 ospy/sensors.py:1615 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:383
+#: plugins/email_notifications_ssl/__init__.py:385
+msgid "Output 3"
+msgstr "Výstup 3"
+
+#: ospy/sensors.py:1623 ospy/sensors.py:1625 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:391
+#: plugins/email_notifications_ssl/__init__.py:393
+msgid "Output 4"
+msgstr "Výstup 4"
+
+#: ospy/sensors.py:1632 ospy/sensors.py:1639 ospy/sensors.py:1646
+#: ospy/sensors.py:1653 ospy/sensors.py:1660 ospy/templates/sensor.html:92
+#: ospy/templates/sensor.html:93
+#: plugins/email_notifications_ssl/__init__.py:398
+#: plugins/email_notifications_ssl/__init__.py:403
+#: plugins/email_notifications_ssl/__init__.py:408
+#: plugins/email_notifications_ssl/__init__.py:413
+#: plugins/email_notifications_ssl/__init__.py:418
+msgid "°C"
+msgstr "°C"
+
+#: ospy/sensors.py:1632 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:398
+#: plugins/email_notifications_ssl/__init__.py:418
+msgid "Temperature 1"
+msgstr "Teplota 1"
+
+#: ospy/sensors.py:1639 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:403
+msgid "Temperature 2"
+msgstr "Teplota 2"
+
+#: ospy/sensors.py:1646 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:408
+msgid "Temperature 3"
+msgstr "Teplota 3"
+
+#: ospy/sensors.py:1653 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:413
+msgid "Temperature 4"
+msgstr "Teplota 4"
+
+#: ospy/sensors.py:1660 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+msgid "Temperature 5"
+msgstr "Teplota 5"
+
+#: ospy/sensors.py:1667 ospy/sensors.py:1674 ospy/sensors.py:1681
+#: ospy/sensors.py:1688 ospy/templates/log_sensor.html:124
+#: ospy/templates/sensor.html:99 ospy/templates/sensor.html:100
+#: ospy/templates/sensors.html:788 ospy/templates/sensors.html:827
+#: ospy/templates/sensors.html:847
+#: plugins/email_notifications_ssl/__init__.py:423
+#: plugins/email_notifications_ssl/__init__.py:428
+#: plugins/email_notifications_ssl/__init__.py:433
+#: plugins/email_notifications_ssl/__init__.py:438
+#: plugins/email_notifications_ssl/__init__.py:515
+#: plugins/email_notifications_ssl/__init__.py:516
+#: plugins/email_notifications_ssl/__init__.py:518
+#: plugins/email_notifications_ssl/__init__.py:519
+#: plugins/email_notifications_ssl/__init__.py:523
+#: plugins/email_notifications_ssl/__init__.py:524
+#: plugins/email_notifications_ssl/__init__.py:528
+#: plugins/email_notifications_ssl/__init__.py:529
+msgid "W"
+msgstr "W"
+
+#: ospy/sensors.py:1667 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:423
+msgid "Power 1"
+msgstr "Výkon 1"
+
+#: ospy/sensors.py:1674 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:428
+msgid "Power 2"
+msgstr "Výkon 2"
+
+#: ospy/sensors.py:1681 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:433
+msgid "Power 3"
+msgstr "Výkon 3"
+
+#: ospy/sensors.py:1688 ospy/templates/graph_sensor.html:9
+#: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
+#: ospy/templates/sensors.html:814
+#: plugins/email_notifications_ssl/__init__.py:438
+msgid "Power 4"
+msgstr "Výkon 4"
+
+#: ospy/sensors.py:1695 ospy/templates/log_sensor.html:126
+#: ospy/templates/sensor.html:103 ospy/templates/sensor.html:104
+#: ospy/templates/sensors.html:829 ospy/templates/sensors.html:849
+#: plugins/email_notifications_ssl/__init__.py:443
+msgid "%RV"
+msgstr "%RV"
+
+#: ospy/sensors.py:1695 ospy/templates/sensors.html:802
+#: plugins/air_temp_humi/__init__.py:177
+#: plugins/email_notifications_ssl/__init__.py:443
+#: plugins/email_reader/__init__.py:779
+#: plugins/mqtt_home_assistant/__init__.py:786
+msgid "Humidity"
+msgstr "Vlhkost"
+
+#: ospy/sensors.py:1712 ospy/sensors.py:1724 ospy/templates/sensor.html:313
+#: ospy/templates/sensors_firmware.html:131
+#: ospy/templates/sensors_search.html:137
+msgid "Sensor Name"
+msgstr "Název snímače"
+
+#: ospy/sensors.py:1736
 msgid "Voltage {} V"
 msgstr "Napětí {} V"
 
-#: ospy/sensors.py:1582 ospy/sensors.py:1599 ospy/sensors.py:1615
-#: ospy/sensors.py:1631 ospy/sensors.py:1647 ospy/sensors.py:1660
-#: ospy/sensors.py:1673 ospy/sensors.py:1686 ospy/sensors.py:1699
-#: ospy/sensors.py:1712 ospy/sensors.py:1725 ospy/sensors.py:1738
-#: ospy/sensors.py:1751 ospy/sensors.py:1764
+#: ospy/sensors.py:1739 ospy/sensors.py:1747 ospy/sensors.py:1752
+#: ospy/sensors.py:1757
 msgid "Inappropriate settings (the sensor cannot get measure this data)."
 msgstr "Nevhodné nastavení (senzor nemůže tato data změřit)."
 
-#: ospy/sensors.py:1649 ospy/sensors.py:1662 ospy/sensors.py:1675
-#: ospy/sensors.py:1688 ospy/sensors.py:1701
+#: ospy/sensors.py:1749
 msgid "{} ℃"
 msgstr "{} °C"
 
-#: ospy/sensors.py:1714 ospy/sensors.py:1727 ospy/sensors.py:1740
-#: ospy/sensors.py:1753
+#: ospy/sensors.py:1754
 msgid "{} W"
 msgstr "{} W"
 
-#: ospy/sensors.py:1766
+#: ospy/sensors.py:1759
 msgid "{} %RV"
 msgstr "{} %RV"
 
-#: ospy/sensors.py:1781
+#: ospy/sensors.py:1773
 msgid "Shelly cloud integrator not installed in plugins!"
 msgstr "Shelly cloud integrátor není nainstalován v rozšíření OSPy!"
 
-#: ospy/sensors.py:1823
+#: ospy/sensors.py:1815
 msgid "Sensor Shelly: {} saving every 30 seconds to sensors."
 msgstr "Snímač Shelly: {} ukládání každých 30 sekund do snímačů."
 
-#: ospy/sensors.py:1825
+#: ospy/sensors.py:1817
 msgid "Sensors shelly timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
-#: ospy/sensors.py:1838
+#: ospy/sensors.py:1830
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
@@ -1794,7 +1979,7 @@ msgstr "Chyba při čtení dat relace pro klíč {}: {}"
 msgid "Exception occurred while opening or reading shelve database: {}"
 msgstr "Při otevírání nebo čtení databáze došlo k výjimce: {}"
 
-#: ospy/server.py:221 ospy/server.py:293
+#: ospy/server.py:221 ospy/server.py:313
 msgid "Error closing shelve database: {}"
 msgstr "Chyba při zavírání databáze: {}"
 
@@ -1802,7 +1987,7 @@ msgstr "Chyba při zavírání databáze: {}"
 msgid "Remove corrupted session files"
 msgstr "Odstraňuji poškozené soubory cokies"
 
-#: ospy/server.py:229
+#: ospy/server.py:229 ospy/server.py:308
 msgid "Error removing corrupted session file {}: {}"
 msgstr "Chyba při odstraňování poškozeného souboru relace {}: {}"
 
@@ -1846,7 +2031,7 @@ msgstr "OSPy je připraven"
 msgid "Starting"
 msgstr "Spuštění"
 
-#: ospy/server.py:275 ospy/server.py:288 ospy/server.py:298
+#: ospy/server.py:275 ospy/server.py:288 ospy/server.py:318
 msgid "Server"
 msgstr "Server"
 
@@ -1854,7 +2039,7 @@ msgstr "Server"
 msgid "OSPy is closing, saving sessions."
 msgstr "OSPy se zavírá, ukládá se relace."
 
-#: ospy/server.py:288 ospy/server.py:298
+#: ospy/server.py:288 ospy/server.py:318
 msgid "Stopping"
 msgstr "Zastavení"
 
@@ -1862,11 +2047,19 @@ msgstr "Zastavení"
 msgid "Closing shelve database."
 msgstr "Uzavírání databáze."
 
-#: ospy/server.py:291
+#: ospy/server.py:302
+msgid "Shelve database is corrupted. Removing..."
+msgstr "Databáze Shelve je poškozená. Odstranění..."
+
+#: ospy/server.py:306
+msgid "Removed corrupted session file: {}"
+msgstr "Odstraněn poškozený soubor relace: {}"
+
+#: ospy/server.py:311
 msgid "Shelve database closed successfully."
 msgstr "Databáze byla úspěšně uzavřena."
 
-#: ospy/server.py:306
+#: ospy/server.py:326
 msgid "Creating statistics..."
 msgstr "Vytváření statistik..."
 
@@ -2182,7 +2375,7 @@ msgid "Help"
 msgstr "Nápověda"
 
 #: ospy/templates/base.html:276 ospy/templates/base.html:278
-#: ospy/webpages.py:1349
+#: ospy/webpages.py:1353
 msgid "Logout"
 msgstr "Odhlásit se"
 
@@ -2314,8 +2507,8 @@ msgstr "Nahrát"
 msgid "Delete"
 msgstr "Smazat"
 
-#: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:200
-#: ospy/templates/log_sensor.html:9 ospy/templates/log_sensor.html:125
+#: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:206
+#: ospy/templates/log_sensor.html:12 ospy/templates/log_sensor.html:144
 #: ospy/templates/options.html:276 ospy/templates/program.html:627
 #: ospy/templates/runonce.html:54 ospy/templates/sensor.html:1338
 #: ospy/templates/stations.html:98 ospy/templates/user.html:85
@@ -2472,12 +2665,13 @@ msgstr "Smazat"
 msgid "Cancel"
 msgstr "Zpět"
 
-#: ospy/templates/graph_sensor.html:3 ospy/templates/graph_sensor.html:175
+#: ospy/templates/graph_sensor.html:3 ospy/templates/graph_sensor.html:178
 msgid "Sensor Graph"
 msgstr "Graf vzorků snímače"
 
 #: ospy/templates/graph_sensor.html:6 ospy/templates/graph_sensor.html:7
-#: ospy/templates/log_sensor.html:6 ospy/templates/log_sensor.html:7
+#: ospy/templates/graph_sensor.html:9 ospy/templates/log_sensor.html:6
+#: ospy/templates/log_sensor.html:7 ospy/templates/log_sensor.html:9
 #: ospy/templates/sensor.html:339 ospy/templates/sensor.html:351
 #: ospy/templates/sensor.html:432 ospy/templates/sensors.html:59
 #: ospy/templates/sensors.html:60 ospy/templates/sensors.html:814
@@ -2604,7 +2798,78 @@ msgstr "Teplota DS4"
 msgid "Ultrasonic"
 msgstr "Ultrazvuk"
 
-#: ospy/templates/graph_sensor.html:25 ospy/templates/home_admin.html:228
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:178
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:237
+msgid "Shelly Plus HT"
+msgstr "Shelly Plus HT"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:246
+#: plugins/shelly_cloud_integrator/__init__.py:312
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:238
+msgid "Shelly Plus Plug S"
+msgstr "Shelly Plus Plug S"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:404
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:239
+msgid "Shelly Pro 2PM"
+msgstr "Shelly Pro 2PM"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:477
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:240
+msgid "Shelly 1PM Mini"
+msgstr "Shelly 1PM Mini"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:586
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:241
+msgid "Shelly 2.5"
+msgstr "Shelly 2.5"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:698
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:242
+msgid "Shelly Pro 4PM"
+msgstr "Shelly Pro 4PM"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:765
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:243
+msgid "Shelly 1 Mini"
+msgstr "Shelly 1 Mini"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:927
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:244
+msgid "Shelly 2PM Addon"
+msgstr "Shelly 2PM Addon"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:1077
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:245
+msgid "Shelly 1PM Addon"
+msgstr "Shelly 1PM Addon"
+
+#: ospy/templates/graph_sensor.html:10 ospy/templates/log_sensor.html:10
+#: ospy/templates/sensors.html:61
+#: plugins/shelly_cloud_integrator/__init__.py:1134
+#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:246
+msgid "Shelly HT"
+msgstr "Shelly HT"
+
+#: ospy/templates/graph_sensor.html:28 ospy/templates/home_admin.html:228
 #: ospy/templates/home_public.html:198 ospy/templates/home_user.html:228
 #: plugins/air_temp_humi/templates/air_temp_humi.html:22
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:24
@@ -2617,7 +2882,7 @@ msgstr "Ultrazvuk"
 msgid "Reason"
 msgstr "Statistika"
 
-#: ospy/templates/graph_sensor.html:37 ospy/templates/sensors_firmware.html:157
+#: ospy/templates/graph_sensor.html:40 ospy/templates/sensors_firmware.html:157
 #: ospy/templates/sensors_firmware.html:166
 #: plugins/air_temp_humi/templates/air_temp_humi.html:34
 #: plugins/email_reader/__init__.py:831 plugins/email_reader/__init__.py:892
@@ -2629,69 +2894,74 @@ msgstr "Statistika"
 msgid "Actual"
 msgstr "Aktuální"
 
-#: ospy/templates/graph_sensor.html:39
+#: ospy/templates/graph_sensor.html:42
 #: plugins/air_temp_humi/templates/air_temp_humi.html:36
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ospy/templates/graph_sensor.html:52 ospy/templates/log_sensor.html:60
+#: ospy/templates/graph_sensor.html:55 ospy/templates/log_sensor.html:66
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Value"
 msgstr "Hodnota"
 
-#: ospy/templates/graph_sensor.html:180
+#: ospy/templates/graph_sensor.html:183 ospy/templates/log_sensor.html:23
+#: ospy/templates/sensor.html:430 ospy/templates/sensors.html:816
+msgid "Activation type"
+msgstr "Typ aktivace"
+
+#: ospy/templates/graph_sensor.html:186
 #: plugins/ping_monitor/templates/ping_monitor.html:289
 #: plugins/speed_monitor/templates/speed_monitor.html:251
 msgid "Select a filter for the interval of read data."
 msgstr "Vyberte filtr pro interval čtení dat."
 
-#: ospy/templates/graph_sensor.html:181
+#: ospy/templates/graph_sensor.html:187
 #: plugins/ping_monitor/templates/ping_monitor.html:290
 #: plugins/speed_monitor/templates/speed_monitor.html:252
 msgid "Without limits"
 msgstr "Bez omezení"
 
-#: ospy/templates/graph_sensor.html:182
+#: ospy/templates/graph_sensor.html:188
 #: plugins/ping_monitor/templates/ping_monitor.html:291
 #: plugins/speed_monitor/templates/speed_monitor.html:253
 msgid "Day filter"
 msgstr "Filtr den"
 
-#: ospy/templates/graph_sensor.html:183
+#: ospy/templates/graph_sensor.html:189
 #: plugins/ping_monitor/templates/ping_monitor.html:292
 #: plugins/speed_monitor/templates/speed_monitor.html:254
 msgid "Week filter"
 msgstr "Filtr týden"
 
-#: ospy/templates/graph_sensor.html:184
+#: ospy/templates/graph_sensor.html:190
 #: plugins/ping_monitor/templates/ping_monitor.html:293
 #: plugins/speed_monitor/templates/speed_monitor.html:255
 msgid "Month filter"
 msgstr "Filtr měsíc"
 
-#: ospy/templates/graph_sensor.html:185
+#: ospy/templates/graph_sensor.html:191
 #: plugins/ping_monitor/templates/ping_monitor.html:294
 #: plugins/speed_monitor/templates/speed_monitor.html:256
 msgid "Year filter"
 msgstr "Filtr rok"
 
-#: ospy/templates/graph_sensor.html:187
+#: ospy/templates/graph_sensor.html:193
 #: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors in graph. Example: -127"
 msgstr "Zobrazit také chyby v grafu. Příklad: -127"
 
-#: ospy/templates/graph_sensor.html:197 ospy/templates/home_admin.html:618
+#: ospy/templates/graph_sensor.html:203 ospy/templates/home_admin.html:618
 #: ospy/templates/home_public.html:491 ospy/templates/home_user.html:613
 #: plugins/ping_monitor/templates/ping_monitor.html:298
 #: plugins/speed_monitor/templates/speed_monitor.html:260
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/graph_sensor.html:201 ospy/templates/sensors.html:883
+#: ospy/templates/graph_sensor.html:207 ospy/templates/sensors.html:883
 msgid "View Logs"
 msgstr "Zobrazit záznam"
 
-#: ospy/templates/graph_sensor.html:202 ospy/templates/sensor.html:283
+#: ospy/templates/graph_sensor.html:208 ospy/templates/sensor.html:283
 #: ospy/templates/sensors.html:881
 msgid "Edit Sensor"
 msgstr "Upravit snímač"
@@ -2741,7 +3011,7 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/log.html:58 ospy/templates/log.html:87
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
-#: plugins/email_notifications_ssl/__init__.py:340
+#: plugins/email_notifications_ssl/__init__.py:449
 #: plugins/lcd_display/__init__.py:460 plugins/lcd_display/__init__.py:563
 #: plugins/pressure_monitor/__init__.py:192
 #: plugins/pressure_monitor/__init__.py:193
@@ -2863,7 +3133,7 @@ msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
 #: ospy/templates/home_admin.html:456 ospy/templates/home_user.html:457
-#: ospy/webpages.py:1450
+#: ospy/webpages.py:1454
 msgid "Manual"
 msgstr "Ručně"
 
@@ -3021,22 +3291,22 @@ msgid "Station log"
 msgstr "Záznam stanic"
 
 #: ospy/templates/log.html:29 ospy/templates/log.html:59
-#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:21
-#: ospy/templates/log_sensor.html:44 ospy/templates/log_user.html:19
+#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:27
+#: ospy/templates/log_sensor.html:50 ospy/templates/log_user.html:19
 #: ospy/templates/log_user.html:48 ospy/templates/log_user.html:78
 msgid "limit"
 msgstr "omezení"
 
 #: ospy/templates/log.html:29 ospy/templates/log.html:59
-#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:21
-#: ospy/templates/log_sensor.html:44 ospy/templates/log_user.html:19
+#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:27
+#: ospy/templates/log_sensor.html:50 ospy/templates/log_user.html:19
 #: ospy/templates/log_user.html:48 ospy/templates/log_user.html:78
 msgid "no"
 msgstr "žádný záznam"
 
 #: ospy/templates/log.html:29 ospy/templates/log.html:59
-#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:21
-#: ospy/templates/log_sensor.html:44 ospy/templates/log_user.html:19
+#: ospy/templates/log.html:88 ospy/templates/log_sensor.html:27
+#: ospy/templates/log_sensor.html:50 ospy/templates/log_user.html:19
 #: ospy/templates/log_user.html:48 ospy/templates/log_user.html:78
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:17
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:20
@@ -3066,8 +3336,8 @@ msgid "Clear Log"
 msgstr "Smazat záznam"
 
 #: ospy/templates/log.html:30 ospy/templates/log.html:60
-#: ospy/templates/log.html:89 ospy/templates/log_sensor.html:22
-#: ospy/templates/log_sensor.html:45 ospy/templates/log_user.html:20
+#: ospy/templates/log.html:89 ospy/templates/log_sensor.html:28
+#: ospy/templates/log_sensor.html:51 ospy/templates/log_user.html:20
 #: ospy/templates/log_user.html:49 ospy/templates/log_user.html:79
 #: plugins/chmi/templates/chmi.html:57 plugins/chmi/templates/chmi_log.html:20
 #: plugins/cli_control/templates/cli_control.html:25
@@ -3102,8 +3372,8 @@ msgstr ""
 "programy založené na počasí. Akce je nevratná!"
 
 #: ospy/templates/log.html:35 ospy/templates/log.html:64
-#: ospy/templates/log.html:109 ospy/templates/log_sensor.html:26
-#: ospy/templates/log_sensor.html:50 ospy/templates/log_user.html:24
+#: ospy/templates/log.html:109 ospy/templates/log_sensor.html:32
+#: ospy/templates/log_sensor.html:56 ospy/templates/log_user.html:24
 #: ospy/templates/log_user.html:54 ospy/templates/log_user.html:84
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:35
 #: plugins/chmi/templates/chmi_log.html:26 plugins/email_reader/__init__.py:776
@@ -3156,7 +3426,7 @@ msgid "email.csv"
 msgstr "email.csv"
 
 #: ospy/templates/log.html:65 ospy/templates/log.html:110
-#: ospy/templates/log_sensor.html:27 ospy/templates/log_sensor.html:51
+#: ospy/templates/log_sensor.html:33 ospy/templates/log_sensor.html:57
 #: ospy/templates/log_user.html:55 ospy/templates/log_user.html:85
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:39
 #: plugins/chmi/templates/chmi_log.html:27 plugins/email_reader/__init__.py:777
@@ -3302,8 +3572,8 @@ msgstr "Zobrazit události přihlášení uživatelů."
 msgid "Status"
 msgstr "Stav"
 
-#: ospy/templates/log.html:129 ospy/templates/log_sensor.html:10
-#: ospy/templates/log_sensor.html:126 ospy/templates/log_user.html:103
+#: ospy/templates/log.html:129 ospy/templates/log_sensor.html:13
+#: ospy/templates/log_sensor.html:145 ospy/templates/log_user.html:103
 #: ospy/templates/sensors_firmware.html:226
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:29
 #: plugins/chmi/templates/chmi.html:169 plugins/chmi/templates/chmi_log.html:21
@@ -3334,69 +3604,54 @@ msgstr "Obnovit"
 msgid "Sensor Log"
 msgstr "Záznam snímače"
 
-#: ospy/templates/log_sensor.html:11 ospy/templates/log_sensor.html:127
+#: ospy/templates/log_sensor.html:14 ospy/templates/log_sensor.html:146
 #: ospy/templates/sensors.html:884
 msgid "View Graph"
 msgstr "Zobrazit graf"
 
-#: ospy/templates/log_sensor.html:12 ospy/templates/log_sensor.html:128
+#: ospy/templates/log_sensor.html:15 ospy/templates/log_sensor.html:147
 msgid "Clear All"
 msgstr "Vymazat vše"
 
-#: ospy/templates/log_sensor.html:15
+#: ospy/templates/log_sensor.html:18
 msgid "Event Log"
 msgstr "Záznam událostí"
 
-#: ospy/templates/log_sensor.html:22
+#: ospy/templates/log_sensor.html:28
 msgid "event.csv"
 msgstr "event.csv"
 
-#: ospy/templates/log_sensor.html:28
+#: ospy/templates/log_sensor.html:34
 msgid "Event"
 msgstr "Událost"
 
-#: ospy/templates/log_sensor.html:43
+#: ospy/templates/log_sensor.html:49
 msgid "Sample Log"
 msgstr "Záznam vzorků"
 
-#: ospy/templates/log_sensor.html:45
+#: ospy/templates/log_sensor.html:51
 msgid "sample.csv"
 msgstr "sample.csv"
 
-#: ospy/templates/log_sensor.html:54
+#: ospy/templates/log_sensor.html:60
 msgid "U"
 msgstr "U"
 
-#: ospy/templates/log_sensor.html:57
+#: ospy/templates/log_sensor.html:63
 msgid "H"
 msgstr "H"
 
-#: ospy/templates/log_sensor.html:58 ospy/templates/log_sensor.html:61
+#: ospy/templates/log_sensor.html:64 ospy/templates/log_sensor.html:67
 msgid "Action"
 msgstr "Akce"
 
-#: ospy/templates/log_sensor.html:76 ospy/templates/log_sensor.html:96
+#: ospy/templates/log_sensor.html:85 ospy/templates/log_sensor.html:105
 #: plugins/database_connector/__init__.py:90
 msgid "Error"
 msgstr "Chyba"
 
-#: ospy/templates/log_sensor.html:80 ospy/templates/log_sensor.html:114
-#: ospy/templates/sensor.html:77 ospy/templates/sensor.html:78
-#: ospy/templates/sensor.html:895 ospy/templates/sensor.html:900
-#: ospy/templates/sensors.html:457 ospy/templates/sensors.html:756
-#: ospy/templates/sensors.html:761 ospy/templates/sensors.html:821
-#: ospy/templates/sensors.html:841 ospy/templates/sensors.html:870
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
-#: plugins/email_notifications_ssl/__init__.py:424
-#: plugins/email_notifications_ssl/__init__.py:425
-msgid "V"
-msgstr "V"
-
-#: ospy/templates/log_sensor.html:88 ospy/templates/log_sensor.html:100
-#: ospy/templates/log_sensor.html:118 ospy/templates/sensors.html:147
+#: ospy/templates/log_sensor.html:97 ospy/templates/log_sensor.html:110
+#: ospy/templates/log_sensor.html:137 ospy/templates/sensors.html:147
 #: ospy/templates/sensors.html:171 ospy/templates/sensors.html:175
 #: ospy/templates/sensors.html:184 ospy/templates/sensors.html:347
 #: ospy/templates/sensors.html:371 ospy/templates/sensors.html:375
@@ -3420,21 +3675,22 @@ msgstr "V"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:64
 #: plugins/email_notifications/__init__.py:251
 #: plugins/email_notifications/__init__.py:282
-#: plugins/email_notifications_ssl/__init__.py:264
-#: plugins/email_notifications_ssl/__init__.py:295
-#: plugins/email_notifications_ssl/__init__.py:427
-#: plugins/email_notifications_ssl/__init__.py:428
+#: plugins/email_notifications_ssl/__init__.py:284
+#: plugins/email_notifications_ssl/__init__.py:315
+#: plugins/email_notifications_ssl/__init__.py:536
+#: plugins/email_notifications_ssl/__init__.py:537
 #: plugins/lcd_display/__init__.py:392 plugins/lcd_display/__init__.py:492
 #: plugins/lcd_display/__init__.py:523
 #: plugins/tank_monitor/templates/tank_monitor.html:457
 msgid "%"
 msgstr "%"
 
-#: ospy/templates/log_sensor.html:103
+#: ospy/templates/log_sensor.html:113
 msgid "F"
 msgstr "F"
 
-#: ospy/templates/log_sensor.html:105 ospy/templates/sensors.html:796
+#: ospy/templates/log_sensor.html:115 ospy/templates/log_sensor.html:122
+#: ospy/templates/sensors.html:796
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:59
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:71
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:75
@@ -3454,7 +3710,7 @@ msgid "C"
 msgstr "C"
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:126
-#: ospy/templates/login.html:147 ospy/webpages.py:1339
+#: ospy/templates/login.html:147 ospy/webpages.py:1343
 msgid "Login"
 msgstr "Přihlásit se"
 
@@ -4028,29 +4284,6 @@ msgstr "VYP=0"
 msgid "ON=1"
 msgstr "ZAP=1"
 
-#: ospy/templates/sensor.html:92 ospy/templates/sensor.html:93
-msgid "°C"
-msgstr "°C"
-
-#: ospy/templates/sensor.html:99 ospy/templates/sensor.html:100
-#: ospy/templates/sensors.html:788 ospy/templates/sensors.html:827
-#: ospy/templates/sensors.html:847
-#: plugins/email_notifications_ssl/__init__.py:406
-#: plugins/email_notifications_ssl/__init__.py:407
-#: plugins/email_notifications_ssl/__init__.py:409
-#: plugins/email_notifications_ssl/__init__.py:410
-#: plugins/email_notifications_ssl/__init__.py:414
-#: plugins/email_notifications_ssl/__init__.py:415
-#: plugins/email_notifications_ssl/__init__.py:419
-#: plugins/email_notifications_ssl/__init__.py:420
-msgid "W"
-msgstr "W"
-
-#: ospy/templates/sensor.html:103 ospy/templates/sensor.html:104
-#: ospy/templates/sensors.html:829 ospy/templates/sensors.html:849
-msgid "%RV"
-msgstr "%RV"
-
 #: ospy/templates/sensor.html:273
 msgid "Error: Sensor name not entered! Please try again."
 msgstr "Chyba: Jméno snímače nebylo zadáno! Opakujte akci."
@@ -4099,11 +4332,6 @@ msgid ""
 msgstr ""
 "Upozornění: Nepřidávejte Shelly snímač ručně, ale vytvořte jej z vyhledávání "
 "snímačů."
-
-#: ospy/templates/sensor.html:313 ospy/templates/sensors_firmware.html:131
-#: ospy/templates/sensors_search.html:137
-msgid "Sensor Name"
-msgstr "Název snímače"
 
 #: ospy/templates/sensor.html:314
 msgid "Type Sensor Name."
@@ -4254,73 +4482,9 @@ msgstr "E-mail notifications V2 SSL"
 msgid "Depends on device type (not all options may be available)."
 msgstr "Závisí na typu zařízení (nemusí být k dispozici všechny možnosti)."
 
-#: ospy/templates/sensor.html:430 ospy/templates/sensors.html:816
-msgid "Activation type"
-msgstr "Typ aktivace"
-
 #: ospy/templates/sensor.html:431
 msgid "Select the activation type."
 msgstr "Vyberte typ aktivace."
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Output 1"
-msgstr "Výstup 1"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Output 2"
-msgstr "Výstup 2"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Output 3"
-msgstr "Výstup 3"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Output 4"
-msgstr "Výstup 4"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Power 1"
-msgstr "Výkon 1"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Power 2"
-msgstr "Výkon 2"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Power 3"
-msgstr "Výkon 3"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Power 4"
-msgstr "Výkon 4"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Temperature 1"
-msgstr "Teplota 1"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Temperature 2"
-msgstr "Teplota 2"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Temperature 3"
-msgstr "Teplota 3"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Temperature 4"
-msgstr "Teplota 4"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-msgid "Temperature 5"
-msgstr "Teplota 5"
-
-#: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
-msgid "Voltage"
-msgstr "Napětí"
 
 #: ospy/templates/sensor.html:439
 msgid "When it is less than this value."
@@ -4936,67 +5100,6 @@ msgstr "Smazat všechny snímače"
 msgid "Searching Sensors"
 msgstr "Vyhledávání snímačů"
 
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:178
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:237
-msgid "Shelly Plus HT"
-msgstr "Shelly Plus HT"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:246
-#: plugins/shelly_cloud_integrator/__init__.py:312
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:238
-msgid "Shelly Plus Plug S"
-msgstr "Shelly Plus Plug S"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:404
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:239
-msgid "Shelly Pro 2PM"
-msgstr "Shelly Pro 2PM"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:477
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:240
-msgid "Shelly 1PM Mini"
-msgstr "Shelly 1PM Mini"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:586
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:241
-msgid "Shelly 2.5"
-msgstr "Shelly 2.5"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:698
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:242
-msgid "Shelly Pro 4PM"
-msgstr "Shelly Pro 4PM"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:765
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:243
-msgid "Shelly 1 Mini"
-msgstr "Shelly 1 Mini"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:927
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:244
-msgid "Shelly 2PM Addon"
-msgstr "Shelly 2PM Addon"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:1077
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:245
-msgid "Shelly 1PM Addon"
-msgstr "Shelly 1PM Addon"
-
-#: ospy/templates/sensors.html:61
-#: plugins/shelly_cloud_integrator/__init__.py:1134
-#: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:246
-msgid "Shelly HT"
-msgstr "Shelly HT"
-
 #: ospy/templates/sensors.html:69
 msgid "Type"
 msgstr "Typ"
@@ -5188,15 +5291,9 @@ msgstr "Teploty"
 msgid "Can not measure temperature."
 msgstr "Nelze měřit teplotu."
 
-#: ospy/templates/sensors.html:802 plugins/air_temp_humi/__init__.py:177
-#: plugins/email_reader/__init__.py:779
-#: plugins/mqtt_home_assistant/__init__.py:786
-msgid "Humidity"
-msgstr "Vlhkost"
-
 #: ospy/templates/sensors.html:806
-#: plugins/email_notifications_ssl/__init__.py:375
-#: plugins/email_notifications_ssl/__init__.py:376
+#: plugins/email_notifications_ssl/__init__.py:484
+#: plugins/email_notifications_ssl/__init__.py:485
 msgid "%RH"
 msgstr "%RH"
 
@@ -5209,8 +5306,8 @@ msgid "℃"
 msgstr "°C"
 
 #: ospy/templates/sensors.html:864
-#: plugins/email_notifications_ssl/__init__.py:431
-#: plugins/email_notifications_ssl/__init__.py:432
+#: plugins/email_notifications_ssl/__init__.py:540
+#: plugins/email_notifications_ssl/__init__.py:541
 msgid "dbm"
 msgstr "dbm"
 
@@ -5964,63 +6061,63 @@ msgid "Session.pages size is >20, deleting."
 msgstr "Session.pages velikost je >20, mazání."
 
 #: ospy/webpages.py:200 ospy/webpages.py:293 ospy/webpages.py:380
-#: ospy/webpages.py:438 ospy/webpages.py:691 ospy/webpages.py:1068
-#: ospy/webpages.py:1085 ospy/webpages.py:1112 ospy/webpages.py:1178
-#: ospy/webpages.py:1232 ospy/webpages.py:1398 ospy/webpages.py:1405
-#: ospy/webpages.py:1412 ospy/webpages.py:1421 ospy/webpages.py:1428
-#: ospy/webpages.py:1435 ospy/webpages.py:1474 ospy/webpages.py:1499
-#: ospy/webpages.py:1546 ospy/webpages.py:1631 ospy/webpages.py:1651
-#: ospy/webpages.py:1662 ospy/webpages.py:1733 ospy/webpages.py:1753
-#: ospy/webpages.py:1771 ospy/webpages.py:1888 ospy/webpages.py:1900
-#: ospy/webpages.py:2003 ospy/webpages.py:2012 ospy/webpages.py:2072
-#: ospy/webpages.py:2092 ospy/webpages.py:2158 ospy/webpages.py:2229
-#: ospy/webpages.py:2647 ospy/webpages.py:2728
+#: ospy/webpages.py:438 ospy/webpages.py:695 ospy/webpages.py:1072
+#: ospy/webpages.py:1089 ospy/webpages.py:1116 ospy/webpages.py:1182
+#: ospy/webpages.py:1236 ospy/webpages.py:1402 ospy/webpages.py:1409
+#: ospy/webpages.py:1416 ospy/webpages.py:1425 ospy/webpages.py:1432
+#: ospy/webpages.py:1439 ospy/webpages.py:1478 ospy/webpages.py:1503
+#: ospy/webpages.py:1550 ospy/webpages.py:1635 ospy/webpages.py:1655
+#: ospy/webpages.py:1666 ospy/webpages.py:1737 ospy/webpages.py:1757
+#: ospy/webpages.py:1775 ospy/webpages.py:1892 ospy/webpages.py:1904
+#: ospy/webpages.py:2007 ospy/webpages.py:2016 ospy/webpages.py:2076
+#: ospy/webpages.py:2096 ospy/webpages.py:2162 ospy/webpages.py:2233
+#: ospy/webpages.py:2651 ospy/webpages.py:2732
 msgid ""
 "You do not have access to this section, ask your system administrator for "
 "access."
 msgstr "Nemáte přístup k této sekci, požádejte o přístup správce systému."
 
-#: ospy/webpages.py:334 ospy/webpages.py:1266
+#: ospy/webpages.py:334 ospy/webpages.py:1270
 msgid "File {} has sucesfully uploaded..."
 msgstr "Soubor {} se úspěšně nahrál..."
 
-#: ospy/webpages.py:340 ospy/webpages.py:1272
+#: ospy/webpages.py:340 ospy/webpages.py:1276
 msgid "File has sucesfully uploaded..."
 msgstr "Soubor se úspěšně nahrál..."
 
-#: ospy/webpages.py:1195
+#: ospy/webpages.py:1199
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr "Soubory {} a {} byly úspěšně odstraněny..."
 
-#: ospy/webpages.py:1290
+#: ospy/webpages.py:1294
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr "Soubory úspěšně změnily rozlišení na max 60x60/640x480..."
 
-#: ospy/webpages.py:1294
+#: ospy/webpages.py:1298
 msgid "Cannot create resized files!"
 msgstr "Nelze vytvořit soubory se změnou rozlišení!"
 
-#: ospy/webpages.py:1339
+#: ospy/webpages.py:1343
 msgid "User {} logged in from IP {} category {}"
 msgstr "Uživatel {} přihlášen z IP adresy {} kategorie {}"
 
-#: ospy/webpages.py:1340
+#: ospy/webpages.py:1344
 msgid "User {} logged in"
 msgstr "Uživatel {} se přihlásil"
 
-#: ospy/webpages.py:1349 ospy/webpages.py:1350
+#: ospy/webpages.py:1353 ospy/webpages.py:1354
 msgid "User {} logged out"
 msgstr "Uživatel {} se odhlásil"
 
-#: ospy/webpages.py:1419
+#: ospy/webpages.py:1423
 msgid "User has set a delay {} hours"
 msgstr "Uživatel nastavil zpoždění {} hodin"
 
-#: ospy/webpages.py:1908
+#: ospy/webpages.py:1912
 msgid "Changing language web={} options={}"
 msgstr "Změna jazyka web={} nastavení={}"
 
-#: ospy/webpages.py:1951
+#: ospy/webpages.py:1955
 msgid ""
 "The system (Linux) will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -6028,7 +6125,7 @@ msgstr ""
 "Systém (Linux) se nyní restartuje (restart spustit uživatel v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1957
+#: ospy/webpages.py:1961
 msgid ""
 "The OSPy will now restart (restart started by the user in the OSPy "
 "settings), please wait for the page to reload."
@@ -6036,7 +6133,7 @@ msgstr ""
 "OSPy se nyní restartuje (restartování bylo spuštěno uživatelem v nastavení "
 "OSPy), počkejte prosím na opětovné načtení stránky."
 
-#: ospy/webpages.py:1963
+#: ospy/webpages.py:1967
 msgid ""
 "The system (Linux) is now shutting down... The system must be switched on "
 "again by the user (switching off and on your HW device)."
@@ -6044,11 +6141,11 @@ msgstr ""
 "Systém (Linux) se nyní vypíná... Systém musí být znovu zapnut uživatelem "
 "(vypněte a následně znovu zapněte vaše zařízení)."
 
-#: ospy/webpages.py:1987
+#: ospy/webpages.py:1991
 msgid "Changing language -> restarting."
 msgstr "Změna jazyka -> restartování."
 
-#: ospy/webpages.py:1990
+#: ospy/webpages.py:1994
 msgid ""
 "A language change has been made in the settings, the OSPy will now restart "
 "and load the selected language."
@@ -6056,60 +6153,60 @@ msgstr ""
 "V nastavení byla provedena změna jazyka, OSPy se nyní restartuje a načte "
 "vybraný jazyk."
 
-#: ospy/webpages.py:2079 ospy/webpages.py:2134 ospy/webpages.py:2135
+#: ospy/webpages.py:2083 ospy/webpages.py:2138 ospy/webpages.py:2139
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr "Systém je zaneprázdněný. Počkejte prosím (nebo zkuste znovu později)."
 
-#: ospy/webpages.py:2112
+#: ospy/webpages.py:2116
 msgid "Deleting folder backup."
 msgstr "Odstranění složky backup."
 
-#: ospy/webpages.py:2116
+#: ospy/webpages.py:2120
 msgid "Creating folder backup."
 msgstr "Vytvoření složky backup."
 
-#: ospy/webpages.py:2120
+#: ospy/webpages.py:2124
 msgid "Creating backup zip file."
 msgstr "Vytvoření záložního souboru zip."
 
-#: ospy/webpages.py:2124
+#: ospy/webpages.py:2128
 msgid "File {} is created successfully."
 msgstr "Soubor {} byl úspěšně vytvořen."
 
-#: ospy/webpages.py:2168
+#: ospy/webpages.py:2172
 msgid "Deleting folder upload."
 msgstr "Odstranění složky upload."
 
-#: ospy/webpages.py:2172
+#: ospy/webpages.py:2176
 msgid "Creating folder upload."
 msgstr "Vytvoření složky upload."
 
-#: ospy/webpages.py:2179
+#: ospy/webpages.py:2183
 msgid "Uploading file {}."
 msgstr "Nahrávání souboru {}."
 
-#: ospy/webpages.py:2186
+#: ospy/webpages.py:2190
 msgid "Uploading to folder OK, now extracting zip file."
 msgstr "Nahrávání do složky OK, nyní extrahuji soubor zip."
 
-#: ospy/webpages.py:2190
+#: ospy/webpages.py:2194
 msgid "Extracted from zip OK."
 msgstr "Extrahování ze zipu OK."
 
-#: ospy/webpages.py:2201
+#: ospy/webpages.py:2205
 msgid "Copy extrated folders with files to data dir."
 msgstr "Zkopíruji extrahované složky se soubory do datového adresáře."
 
-#: ospy/webpages.py:2208
+#: ospy/webpages.py:2212
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 "Obnovení záložních souborů bylo úspěšné, nyní se provede restartování OSPy..."
 
-#: ospy/webpages.py:2239
+#: ospy/webpages.py:2243
 msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
-#: ospy/webpages.py:2270 plugins/mqtt/__init__.py:373
+#: ospy/webpages.py:2274 plugins/mqtt/__init__.py:373
 #: plugins/mqtt_home_assistant/__init__.py:193
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:120 plugins/ups_adj/__init__.py:462
@@ -6117,31 +6214,31 @@ msgstr "Zkouším vygenerovat certifikát SSL..."
 msgid "OK"
 msgstr "V pořádku"
 
-#: ospy/webpages.py:2288
+#: ospy/webpages.py:2292
 msgid "Remove fullchain.pem..."
 msgstr "Odebrán fullchain.pem..."
 
-#: ospy/webpages.py:2292
+#: ospy/webpages.py:2296
 msgid "Remove privkey.pem..."
 msgstr "Odebrán privkey.pem..."
 
-#: ospy/webpages.py:2298
+#: ospy/webpages.py:2302
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:2502
+#: ospy/webpages.py:2506
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:2512 ospy/webpages.py:2583
+#: ospy/webpages.py:2516 ospy/webpages.py:2587
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:2521 ospy/webpages.py:2571
+#: ospy/webpages.py:2525 ospy/webpages.py:2575
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
-#: ospy/webpages.py:2595
+#: ospy/webpages.py:2599
 msgid "Index {} is out of range for pluginStn list."
 msgstr "Index {} je mimo rozsah pro seznam pluginStn."
 
@@ -6249,9 +6346,9 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/email_notifications/__init__.py:578
 #: plugins/email_notifications/__init__.py:608
 #: plugins/email_notifications/__init__.py:620
-#: plugins/email_notifications_ssl/__init__.py:759
-#: plugins/email_notifications_ssl/__init__.py:796
-#: plugins/email_notifications_ssl/__init__.py:808
+#: plugins/email_notifications_ssl/__init__.py:868
+#: plugins/email_notifications_ssl/__init__.py:905
+#: plugins/email_notifications_ssl/__init__.py:917
 #: plugins/email_reader/__init__.py:954 plugins/email_reader/__init__.py:969
 #: plugins/email_reader/__init__.py:981 plugins/ip_cam/__init__.py:209
 #: plugins/ip_cam/__init__.py:218 plugins/ip_cam/__init__.py:244
@@ -9118,6 +9215,8 @@ msgstr "Nebyl nalezen na žádných známých adresách: 0x48, 0x49, 0x4A, 0x4B"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
+#: plugins/email_notifications_ssl/__init__.py:240
+#: plugins/email_notifications_ssl/__init__.py:241
 msgid "Current Loop Tanks Monitor"
 msgstr "Monitor 4 nádrží s proudovou smyčkou"
 
@@ -10028,46 +10127,47 @@ msgstr "Nelze importovat plugin: air temp humi."
 
 #: plugins/email_notifications/__init__.py:239
 #: plugins/email_notifications/__init__.py:272
-#: plugins/email_notifications_ssl/__init__.py:252
-#: plugins/email_notifications_ssl/__init__.py:285
+#: plugins/email_notifications_ssl/__init__.py:272
+#: plugins/email_notifications_ssl/__init__.py:305
 #: plugins/lcd_display/__init__.py:480 plugins/lcd_display/__init__.py:513
 msgid "Contact Closed"
 msgstr "Kontakt spojený"
 
 #: plugins/email_notifications/__init__.py:241
 #: plugins/email_notifications/__init__.py:272
-#: plugins/email_notifications_ssl/__init__.py:254
-#: plugins/email_notifications_ssl/__init__.py:285
+#: plugins/email_notifications_ssl/__init__.py:274
+#: plugins/email_notifications_ssl/__init__.py:305
 #: plugins/lcd_display/__init__.py:482 plugins/lcd_display/__init__.py:513
 msgid "Contact Open"
 msgstr "Kontakt rozpojený"
 
 #: plugins/email_notifications/__init__.py:246
 #: plugins/email_notifications/__init__.py:277
-#: plugins/email_notifications_ssl/__init__.py:259
-#: plugins/email_notifications_ssl/__init__.py:290
+#: plugins/email_notifications_ssl/__init__.py:279
+#: plugins/email_notifications_ssl/__init__.py:310
 #: plugins/lcd_display/__init__.py:487 plugins/lcd_display/__init__.py:518
 msgid "l/s"
 msgstr "l/s"
 
 #: plugins/email_notifications/__init__.py:321
-#: plugins/email_notifications_ssl/__init__.py:334
+#: plugins/email_notifications_ssl/__init__.py:354
 msgid "Last Wi-Fi signal: {}%, Source: {}V."
 msgstr "Poslední signál Wi-Fi: {}%, zdroj: {}V."
 
 #: plugins/email_notifications/__init__.py:323
-#: plugins/email_notifications_ssl/__init__.py:336
+#: plugins/email_notifications_ssl/__init__.py:356
 msgid "Last Radio signal: {}%, Source: {}V."
 msgstr "Poslední signál radio: {}%, zdroj: {}V."
 
 #: plugins/email_notifications/__init__.py:325
-#: plugins/email_notifications_ssl/__init__.py:338
+#: plugins/email_notifications_ssl/__init__.py:358
+#: plugins/email_notifications_ssl/__init__.py:447
 #: plugins/lcd_display/__init__.py:561
 msgid "No response!"
 msgstr "Neodpovídá!"
 
 #: plugins/email_notifications/__init__.py:337
-#: plugins/email_notifications_ssl/__init__.py:350
+#: plugins/email_notifications_ssl/__init__.py:459
 #: plugins/lcd_display/__init__.py:568
 msgid "No sensors available"
 msgstr "Nejsou k dispozici žádné snímače"
@@ -10078,56 +10178,56 @@ msgstr "Nejsou k dispozici žádné snímače"
 #: plugins/email_notifications/__init__.py:577
 #: plugins/email_notifications/__init__.py:607
 #: plugins/email_notifications/__init__.py:619
-#: plugins/email_notifications_ssl/__init__.py:359
-#: plugins/email_notifications_ssl/__init__.py:480
-#: plugins/email_notifications_ssl/__init__.py:485
-#: plugins/email_notifications_ssl/__init__.py:528
-#: plugins/email_notifications_ssl/__init__.py:540
-#: plugins/email_notifications_ssl/__init__.py:552
-#: plugins/email_notifications_ssl/__init__.py:564
-#: plugins/email_notifications_ssl/__init__.py:576
-#: plugins/email_notifications_ssl/__init__.py:664
-#: plugins/email_notifications_ssl/__init__.py:690
-#: plugins/email_notifications_ssl/__init__.py:758
-#: plugins/email_notifications_ssl/__init__.py:795
-#: plugins/email_notifications_ssl/__init__.py:807
+#: plugins/email_notifications_ssl/__init__.py:468
+#: plugins/email_notifications_ssl/__init__.py:589
+#: plugins/email_notifications_ssl/__init__.py:594
+#: plugins/email_notifications_ssl/__init__.py:637
+#: plugins/email_notifications_ssl/__init__.py:649
+#: plugins/email_notifications_ssl/__init__.py:661
+#: plugins/email_notifications_ssl/__init__.py:673
+#: plugins/email_notifications_ssl/__init__.py:685
+#: plugins/email_notifications_ssl/__init__.py:773
+#: plugins/email_notifications_ssl/__init__.py:799
+#: plugins/email_notifications_ssl/__init__.py:867
+#: plugins/email_notifications_ssl/__init__.py:904
+#: plugins/email_notifications_ssl/__init__.py:916
 msgid "E-mail plug-in"
 msgstr "Rošíření E-mail"
 
 #: plugins/email_notifications/__init__.py:368
-#: plugins/email_notifications_ssl/__init__.py:463
+#: plugins/email_notifications_ssl/__init__.py:572
 msgid "Unsent E-mails in queue (in file)"
 msgstr "Neodesláné E-maily ve frontě (v souboru)"
 
 #: plugins/email_notifications/__init__.py:371
-#: plugins/email_notifications_ssl/__init__.py:466
+#: plugins/email_notifications_ssl/__init__.py:575
 msgid "sending from queue."
 msgstr "odesílání z fronty."
 
 #: plugins/email_notifications/__init__.py:379
-#: plugins/email_notifications_ssl/__init__.py:474
+#: plugins/email_notifications_ssl/__init__.py:583
 msgid "All unsent E-mails in the queue have been sent."
 msgstr "Všechny neodeslané E-maily ve frontě byly odeslány."
 
 #: plugins/email_notifications/__init__.py:466
-#: plugins/email_notifications_ssl/__init__.py:647
+#: plugins/email_notifications_ssl/__init__.py:756
 msgid "E-mail plug-in is not properly configured!"
 msgstr "E-mail rozšíření není správně nastaveno!"
 
 #: plugins/email_notifications/__init__.py:502
-#: plugins/email_notifications_ssl/__init__.py:683
+#: plugins/email_notifications_ssl/__init__.py:792
 msgid "E-mail was sent"
 msgstr "E-mail byl odeslán"
 
 #: plugins/email_notifications/__init__.py:504
 #: plugins/email_notifications/__init__.py:512
-#: plugins/email_notifications_ssl/__init__.py:685
-#: plugins/email_notifications_ssl/__init__.py:693
+#: plugins/email_notifications_ssl/__init__.py:794
+#: plugins/email_notifications_ssl/__init__.py:802
 msgid "E-mail logging is disabled in options..."
 msgstr "Protokolování E-mailů je zakázáno v nastavení..."
 
 #: plugins/email_notifications/__init__.py:506
-#: plugins/email_notifications_ssl/__init__.py:687
+#: plugins/email_notifications_ssl/__init__.py:796
 #: plugins/water_consumption_counter/__init__.py:131
 msgid "Sent"
 msgstr "Odeslán"
@@ -10143,13 +10243,13 @@ msgstr "email_notifications -> settings_page GET"
 
 #: plugins/email_notifications/__init__.py:595
 #: plugins/email_notifications/__init__.py:596
-#: plugins/email_notifications_ssl/__init__.py:783
-#: plugins/email_notifications_ssl/__init__.py:784
+#: plugins/email_notifications_ssl/__init__.py:892
+#: plugins/email_notifications_ssl/__init__.py:893
 msgid "This is test e-mail from OSPy. You can ignore it."
 msgstr "Toto je testovací E-mail ze systému OSPy. Můžete ho ignorovat."
 
 #: plugins/email_notifications/__init__.py:600
-#: plugins/email_notifications_ssl/__init__.py:788
+#: plugins/email_notifications_ssl/__init__.py:897
 msgid "Email Queue was deleted."
 msgstr "Fronta e-mailů byla odstraněna."
 
@@ -10428,141 +10528,176 @@ msgstr "Balíček: E-mailová oznámení SSL"
 msgid "Error - events.log file not exists!"
 msgstr "Chyba - events.log soubor neexistuje!"
 
-#: plugins/email_notifications_ssl/__init__.py:365
-#: plugins/email_notifications_ssl/__init__.py:366
+#: plugins/email_notifications_ssl/__init__.py:248
+#: plugins/email_notifications_ssl/__init__.py:249
+msgid "{}: {:.2f} cm {:.2f} % {:.2f} V {:.2f} Liters"
+msgstr "{}: {:.2f} cm {:.2f} % {:.2f} V {:.2f} Litrů"
+
+#: plugins/email_notifications_ssl/__init__.py:253
+msgid "Cannot import plugin: Current Loop Tanks Monitor."
+msgstr "Nelze importovat rozšíření: Current Loop Tanks Monitor."
+
+#: plugins/email_notifications_ssl/__init__.py:266
+msgid "by Pihrt.com"
+msgstr "od Pihrt.com"
+
+#: plugins/email_notifications_ssl/__init__.py:266
+msgid "by Shelly.com"
+msgstr "od Shelly.com"
+
+#: plugins/email_notifications_ssl/__init__.py:371
+#: plugins/email_notifications_ssl/__init__.py:379
+#: plugins/email_notifications_ssl/__init__.py:387
+#: plugins/email_notifications_ssl/__init__.py:395
+#: plugins/email_notifications_ssl/__init__.py:400
+#: plugins/email_notifications_ssl/__init__.py:405
+#: plugins/email_notifications_ssl/__init__.py:410
+#: plugins/email_notifications_ssl/__init__.py:415
+#: plugins/email_notifications_ssl/__init__.py:420
+#: plugins/email_notifications_ssl/__init__.py:425
+#: plugins/email_notifications_ssl/__init__.py:430
+#: plugins/email_notifications_ssl/__init__.py:435
+#: plugins/email_notifications_ssl/__init__.py:440
+#: plugins/email_notifications_ssl/__init__.py:445
+#: plugins/wind_monitor/__init__.py:870
+msgid "Any error"
+msgstr "Nějaká chyba"
+
+#: plugins/email_notifications_ssl/__init__.py:474
+#: plugins/email_notifications_ssl/__init__.py:475
 msgid "Shelly cloud"
 msgstr "Shelly cloud"
 
-#: plugins/email_notifications_ssl/__init__.py:379
-#: plugins/email_notifications_ssl/__init__.py:380
+#: plugins/email_notifications_ssl/__init__.py:488
+#: plugins/email_notifications_ssl/__init__.py:489
 msgid "STOP"
 msgstr "STOP"
 
-#: plugins/email_notifications_ssl/__init__.py:382
-#: plugins/email_notifications_ssl/__init__.py:383
+#: plugins/email_notifications_ssl/__init__.py:491
+#: plugins/email_notifications_ssl/__init__.py:492
 msgid "UP"
 msgstr "NAHORU"
 
-#: plugins/email_notifications_ssl/__init__.py:385
-#: plugins/email_notifications_ssl/__init__.py:386
+#: plugins/email_notifications_ssl/__init__.py:494
+#: plugins/email_notifications_ssl/__init__.py:495
 msgid "DOWN"
 msgstr "DOLŮ"
 
-#: plugins/email_notifications_ssl/__init__.py:388
-#: plugins/email_notifications_ssl/__init__.py:389
-#: plugins/email_notifications_ssl/__init__.py:392
+#: plugins/email_notifications_ssl/__init__.py:497
+#: plugins/email_notifications_ssl/__init__.py:498
+#: plugins/email_notifications_ssl/__init__.py:501
 msgid "OUT:"
 msgstr "OUT:"
 
-#: plugins/email_notifications_ssl/__init__.py:391
+#: plugins/email_notifications_ssl/__init__.py:500
 msgid "OUT2:"
 msgstr "OUT2:"
 
-#: plugins/email_notifications_ssl/__init__.py:396
-#: plugins/email_notifications_ssl/__init__.py:397
+#: plugins/email_notifications_ssl/__init__.py:505
+#: plugins/email_notifications_ssl/__init__.py:506
 msgid "OUT3:"
 msgstr "OUT3:"
 
-#: plugins/email_notifications_ssl/__init__.py:401
-#: plugins/email_notifications_ssl/__init__.py:402
+#: plugins/email_notifications_ssl/__init__.py:510
+#: plugins/email_notifications_ssl/__init__.py:511
 msgid "OUT4:"
 msgstr "OUT4:"
 
-#: plugins/email_notifications_ssl/__init__.py:406
-#: plugins/email_notifications_ssl/__init__.py:407
+#: plugins/email_notifications_ssl/__init__.py:515
+#: plugins/email_notifications_ssl/__init__.py:516
 msgid "PWR:"
 msgstr "PWR:"
 
-#: plugins/email_notifications_ssl/__init__.py:409
-#: plugins/email_notifications_ssl/__init__.py:410
+#: plugins/email_notifications_ssl/__init__.py:518
+#: plugins/email_notifications_ssl/__init__.py:519
 msgid "PWR2:"
 msgstr "PWR2:"
 
-#: plugins/email_notifications_ssl/__init__.py:414
-#: plugins/email_notifications_ssl/__init__.py:415
+#: plugins/email_notifications_ssl/__init__.py:523
+#: plugins/email_notifications_ssl/__init__.py:524
 msgid "PWR3:"
 msgstr "PWR3:"
 
-#: plugins/email_notifications_ssl/__init__.py:419
-#: plugins/email_notifications_ssl/__init__.py:420
+#: plugins/email_notifications_ssl/__init__.py:528
+#: plugins/email_notifications_ssl/__init__.py:529
 msgid "PWR4:"
 msgstr "PWR4:"
 
-#: plugins/email_notifications_ssl/__init__.py:424
-#: plugins/email_notifications_ssl/__init__.py:425
+#: plugins/email_notifications_ssl/__init__.py:533
+#: plugins/email_notifications_ssl/__init__.py:534
 msgid "VOLTAGE:"
 msgstr "NAPĚTÍ:"
 
-#: plugins/email_notifications_ssl/__init__.py:427
-#: plugins/email_notifications_ssl/__init__.py:428
+#: plugins/email_notifications_ssl/__init__.py:536
+#: plugins/email_notifications_ssl/__init__.py:537
 msgid "BATTERY:"
 msgstr "BATERIE:"
 
-#: plugins/email_notifications_ssl/__init__.py:429
-#: plugins/email_notifications_ssl/__init__.py:430
+#: plugins/email_notifications_ssl/__init__.py:538
+#: plugins/email_notifications_ssl/__init__.py:539
 msgid "IP:"
 msgstr "IP:"
 
-#: plugins/email_notifications_ssl/__init__.py:431
-#: plugins/email_notifications_ssl/__init__.py:432
+#: plugins/email_notifications_ssl/__init__.py:540
+#: plugins/email_notifications_ssl/__init__.py:541
 msgid "RSSI:"
 msgstr "RSSI:"
 
-#: plugins/email_notifications_ssl/__init__.py:434
-#: plugins/email_notifications_ssl/__init__.py:435
+#: plugins/email_notifications_ssl/__init__.py:543
+#: plugins/email_notifications_ssl/__init__.py:544
 msgid "Online"
 msgstr "Online"
 
-#: plugins/email_notifications_ssl/__init__.py:437
-#: plugins/email_notifications_ssl/__init__.py:438
+#: plugins/email_notifications_ssl/__init__.py:546
+#: plugins/email_notifications_ssl/__init__.py:547
 msgid "Offline"
 msgstr "Offline"
 
-#: plugins/email_notifications_ssl/__init__.py:514
+#: plugins/email_notifications_ssl/__init__.py:623
 msgid "OSPy is in the network under the name"
 msgstr "OSPy je v síti pod názvem"
 
-#: plugins/email_notifications_ssl/__init__.py:523
-#: plugins/email_notifications_ssl/__init__.py:525
+#: plugins/email_notifications_ssl/__init__.py:632
+#: plugins/email_notifications_ssl/__init__.py:634
 msgid "Someone logged in."
 msgstr "Někdo se přihlásil do systému."
 
-#: plugins/email_notifications_ssl/__init__.py:535
-#: plugins/email_notifications_ssl/__init__.py:537
+#: plugins/email_notifications_ssl/__init__.py:644
+#: plugins/email_notifications_ssl/__init__.py:646
 msgid "Rain sensor has activated."
 msgstr "Dešťový snímač byl aktivován."
 
-#: plugins/email_notifications_ssl/__init__.py:547
-#: plugins/email_notifications_ssl/__init__.py:549
+#: plugins/email_notifications_ssl/__init__.py:656
+#: plugins/email_notifications_ssl/__init__.py:658
 msgid "Rain sensor has deactivated."
 msgstr "Dešťový snímač byl deaktivován."
 
-#: plugins/email_notifications_ssl/__init__.py:559
+#: plugins/email_notifications_ssl/__init__.py:668
 msgid "Rain delay is now set a delay {} (h: m: s)."
 msgstr "Dešťové zpoždění je nyní nastaveno na dobu {} (h: m: s)."
 
-#: plugins/email_notifications_ssl/__init__.py:561
+#: plugins/email_notifications_ssl/__init__.py:670
 msgid "Rain delay is now set a delay {} hours."
 msgstr "Zpoždění deště je nyní nastaveno na {} hodin."
 
-#: plugins/email_notifications_ssl/__init__.py:571
-#: plugins/email_notifications_ssl/__init__.py:573
+#: plugins/email_notifications_ssl/__init__.py:680
+#: plugins/email_notifications_ssl/__init__.py:682
 msgid "Rain delay has now been removed."
 msgstr "Zpoždění deště bylo nyní odstraněno."
 
-#: plugins/email_notifications_ssl/__init__.py:760
+#: plugins/email_notifications_ssl/__init__.py:869
 msgid "email_notifications_ssl -> settings_page GET"
 msgstr "email_notifications_ssl -> settings_page GET"
 
-#: plugins/email_notifications_ssl/__init__.py:780
+#: plugins/email_notifications_ssl/__init__.py:889
 msgid "Sender e-mail address appears to be invalid!"
 msgstr "Zdá se, že e-mailová adresa odesílatele je neplatná!"
 
-#: plugins/email_notifications_ssl/__init__.py:797
+#: plugins/email_notifications_ssl/__init__.py:906
 msgid "email_notifications_ssl -> settings_page POST"
 msgstr "email_notifications_ssl -> settings_page POST"
 
-#: plugins/email_notifications_ssl/__init__.py:809
+#: plugins/email_notifications_ssl/__init__.py:918
 msgid "email_notifications_ssl -> help_page GET"
 msgstr "email_notifications_ssl -> help_page GET"
 
@@ -22402,10 +22537,6 @@ msgstr "Rozšíření monitor rychlosti větru je povoleno."
 msgid "Wind monitor is disabled."
 msgstr "Rozšíření monitor rychlosti větru je zakázáno."
 
-#: plugins/wind_monitor/__init__.py:870
-msgid "Any error"
-msgstr "Nějaká chyba"
-
 #: plugins/wind_monitor/templates/wind_monitor.html:3
 #: plugins/wind_monitor/templates/wind_monitor.html:191
 msgid "Wind Speed Monitor settings"
@@ -22843,23 +22974,27 @@ msgstr "ID relace musí být platný neprázdný řetězec."
 msgid "Unable to serialize session data for storage."
 msgstr "Nelze serializovat data relace pro úložiště."
 
-#: web/session.py:188 web/session.py:395 web/session.py:446
+#: web/session.py:188 web/session.py:395
 msgid "Error saving to database: {}"
 msgstr "Chyba při ukládání do databáze: {}"
 
-#: web/session.py:388 web/session.py:438
+#: web/session.py:388 web/session.py:440
 msgid "The key must be a non-empty string."
 msgstr "Klíč musí být neprázdný řetězec."
 
-#: web/session.py:392 web/session.py:443
+#: web/session.py:392 web/session.py:445
 msgid "Unable to serialize value: {}"
 msgstr "Nelze serializovat hodnotu: {}"
 
-#: web/session.py:404 web/session.py:456
+#: web/session.py:404 web/session.py:458
 msgid "Error while deleting from database: {}"
 msgstr "Chyba při mazání z databáze: {}"
 
-#: web/session.py:468
+#: web/session.py:448
+msgid "Error saving to database key: {} error: {}"
+msgstr "Chyba při ukládání do databáze klíč: {} chyba: {}"
+
+#: web/session.py:470
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
 

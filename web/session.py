@@ -423,6 +423,7 @@ class ShelfStore:
 
     def __init__(self, shelf):
         self.shelf = shelf
+        self.lock = threading.Lock()
 
     def __contains__(self, key):
         return key in self.shelf
@@ -433,17 +434,18 @@ class ShelfStore:
         return v
 
     def __setitem__(self, key, value):
-        try:
-            if not isinstance(key, str) or not key:
-                log.error('web', _('The key must be a non-empty string.'))
-            else:
-                self.shelf[key] = time.time(), value
-        except pickle.PicklingError:
-            pass
-            log.error('web', _('Unable to serialize value: {}').format(value))
-        except Exception as e:
-            pass
-            log.error('web', _('Error saving to database: {}').format(e))
+        with self.lock:
+            try:
+                if not isinstance(key, str) or not key:
+                    log.error('web', _('The key must be a non-empty string.'))
+                else:
+                    self.shelf[key] = time.time(), value
+            except pickle.PicklingError:
+                pass
+                log.error('web', _('Unable to serialize value: {}').format(value))
+            except Exception as e:
+                pass
+                log.error('web', _('Error saving to database key: {} error: {}').format(e, key))
             
 
     def __delitem__(self, key):

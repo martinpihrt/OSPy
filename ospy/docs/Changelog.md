@@ -1,5 +1,10 @@
 OSPy Changelog
 ====
+7January 22 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fix in logging for Shelly in OSPy sensors. Czech language update.
+
 January 22 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
