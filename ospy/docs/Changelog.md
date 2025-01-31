@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
-7January 22 2025 (v3.0)
+
+January 31 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added Shelly sensors to LCD plugin. Czech language update.
+
+January 22 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
 Fix in logging for Shelly in OSPy sensors. Czech language update.
