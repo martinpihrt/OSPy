@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+February 06 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Slovak language (thank you Tomáš Szepesi). Added css style for switches in the "astral" plugin. Added documentation (calibration) to the help in the "current 4 tank" plugin.
+
 January 31 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
