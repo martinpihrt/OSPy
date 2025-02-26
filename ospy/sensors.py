@@ -1770,7 +1770,7 @@ class _Sensors_Timer(Thread):
             from plugins import shelly_cloud_integrator
             get_data = shelly_cloud_integrator.shelly_devices.devices()
         except:
-            log.debug('sensors.py', _('Shelly cloud integrator not installed in plugins!'))
+            log.debug('sensors.py', _('Shelly cloud integrator not installed or not enabled in plugins!'))
         try:
             if get_data is not None:
                 for i in range(0, len(get_data)):                                   # we go through the list of device shelly

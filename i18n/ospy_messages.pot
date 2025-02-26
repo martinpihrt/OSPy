@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-01-31 13:35+0100\n"
+"POT-Creation-Date: 2025-02-26 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1191,7 +1191,7 @@ msgstr ""
 msgid "Removing sensor id: {}"
 msgstr ""
 
-#: ospy/sensors.py:297 plugins/current_loop_tanks_monitor/__init__.py:190
+#: ospy/sensors.py:297 plugins/current_loop_tanks_monitor/__init__.py:334
 #: plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:354
 msgid "E-mail not send! The Email Notifications plug-in is not found in OSPy or not correctly setuped."
@@ -1230,7 +1230,7 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
 #: plugins/email_notifications_ssl/__init__.py:363
-#: plugins/lcd_display/__init__.py:568
+#: plugins/lcd_display/__init__.py:569
 msgid "Voltage"
 msgstr ""
 
@@ -1244,6 +1244,7 @@ msgid "Updating sensor log to file successfully."
 msgstr ""
 
 #: ospy/sensors.py:601 plugins/button_control/__init__.py:284
+#: plugins/current_loop_tanks_monitor/__init__.py:415
 #: plugins/pressure_monitor/__init__.py:316
 #: plugins/tank_monitor/__init__.py:823 plugins/wind_monitor/__init__.py:409
 msgid "Stoping stations in scheduler"
@@ -1420,6 +1421,7 @@ msgstr ""
 #: ospy/templates/sensors.html:422 ospy/templates/sensors.html:423
 #: ospy/templates/sensors.html:424 ospy/templates/sensors.html:438
 #: ospy/templates/sensors.html:440
+#: plugins/current_loop_tanks_monitor/__init__.py:257
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:254
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:270
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:286
@@ -1508,6 +1510,16 @@ msgstr ""
 #: plugins/air_temp_humi/__init__.py:224
 #: plugins/air_temp_humi/templates/air_temp_humi.html:317
 #: plugins/button_control/templates/button_control.html:86
+#: plugins/current_loop_tanks_monitor/__init__.py:271
+#: plugins/current_loop_tanks_monitor/__init__.py:297
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:379
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:399
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:419
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:439
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:478
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:501
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:524
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:547
 #: plugins/door_opening/templates/door_opening.html:30
 #: plugins/email_reader/__init__.py:780
 #: plugins/photovoltaic_boiler/__init__.py:213
@@ -1528,12 +1540,14 @@ msgid "Output"
 msgstr ""
 
 #: ospy/sensors.py:1250 plugins/air_temp_humi/__init__.py:211
+#: plugins/current_loop_tanks_monitor/__init__.py:271
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:210
 msgid "Regulation set ON."
 msgstr ""
 
 #: ospy/sensors.py:1281 plugins/air_temp_humi/__init__.py:224
+#: plugins/current_loop_tanks_monitor/__init__.py:297
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:238
 msgid "Regulation set OFF."
@@ -1551,7 +1565,8 @@ msgstr ""
 msgid "Sensor has water"
 msgstr ""
 
-#: ospy/sensors.py:1324 plugins/tank_monitor/__init__.py:275
+#: ospy/sensors.py:1324 plugins/current_loop_tanks_monitor/__init__.py:257
+#: plugins/tank_monitor/__init__.py:275
 msgid "!"
 msgstr ""
 
@@ -1596,9 +1611,9 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:506
 #: plugins/email_notifications_ssl/__init__.py:510
 #: plugins/email_notifications_ssl/__init__.py:511
-#: plugins/email_reader/__init__.py:394 plugins/lcd_display/__init__.py:572
-#: plugins/lcd_display/__init__.py:580 plugins/lcd_display/__init__.py:588
-#: plugins/lcd_display/__init__.py:596 plugins/modbus_stations/__init__.py:294
+#: plugins/email_reader/__init__.py:394 plugins/lcd_display/__init__.py:573
+#: plugins/lcd_display/__init__.py:581 plugins/lcd_display/__init__.py:589
+#: plugins/lcd_display/__init__.py:597 plugins/modbus_stations/__init__.py:294
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/telegram_bot/__init__.py:136 plugins/telegram_bot/__init__.py:367
 msgid "ON"
@@ -1621,9 +1636,9 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:506
 #: plugins/email_notifications_ssl/__init__.py:510
 #: plugins/email_notifications_ssl/__init__.py:511
-#: plugins/email_reader/__init__.py:396 plugins/lcd_display/__init__.py:574
-#: plugins/lcd_display/__init__.py:582 plugins/lcd_display/__init__.py:590
-#: plugins/lcd_display/__init__.py:598 plugins/modbus_stations/__init__.py:297
+#: plugins/email_reader/__init__.py:396 plugins/lcd_display/__init__.py:575
+#: plugins/lcd_display/__init__.py:583 plugins/lcd_display/__init__.py:591
+#: plugins/lcd_display/__init__.py:599 plugins/modbus_stations/__init__.py:297
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/telegram_bot/__init__.py:142 plugins/telegram_bot/__init__.py:373
 msgid "OFF"
@@ -1643,7 +1658,7 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:363
 #: plugins/email_notifications_ssl/__init__.py:533
 #: plugins/email_notifications_ssl/__init__.py:534
-#: plugins/lcd_display/__init__.py:568
+#: plugins/lcd_display/__init__.py:569
 msgid "V"
 msgstr ""
 
@@ -1652,7 +1667,7 @@ msgstr ""
 #: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:367
 #: plugins/email_notifications_ssl/__init__.py:369
-#: plugins/lcd_display/__init__.py:572 plugins/lcd_display/__init__.py:574
+#: plugins/lcd_display/__init__.py:573 plugins/lcd_display/__init__.py:575
 msgid "Output 1"
 msgstr ""
 
@@ -1661,7 +1676,7 @@ msgstr ""
 #: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:375
 #: plugins/email_notifications_ssl/__init__.py:377
-#: plugins/lcd_display/__init__.py:580 plugins/lcd_display/__init__.py:582
+#: plugins/lcd_display/__init__.py:581 plugins/lcd_display/__init__.py:583
 msgid "Output 2"
 msgstr ""
 
@@ -1670,7 +1685,7 @@ msgstr ""
 #: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:383
 #: plugins/email_notifications_ssl/__init__.py:385
-#: plugins/lcd_display/__init__.py:588 plugins/lcd_display/__init__.py:590
+#: plugins/lcd_display/__init__.py:589 plugins/lcd_display/__init__.py:591
 msgid "Output 3"
 msgstr ""
 
@@ -1679,7 +1694,7 @@ msgstr ""
 #: ospy/templates/sensor.html:432 ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:391
 #: plugins/email_notifications_ssl/__init__.py:393
-#: plugins/lcd_display/__init__.py:596 plugins/lcd_display/__init__.py:598
+#: plugins/lcd_display/__init__.py:597 plugins/lcd_display/__init__.py:599
 msgid "Output 4"
 msgstr ""
 
@@ -1691,9 +1706,9 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:408
 #: plugins/email_notifications_ssl/__init__.py:413
 #: plugins/email_notifications_ssl/__init__.py:418
-#: plugins/lcd_display/__init__.py:603 plugins/lcd_display/__init__.py:608
-#: plugins/lcd_display/__init__.py:613 plugins/lcd_display/__init__.py:618
-#: plugins/lcd_display/__init__.py:623
+#: plugins/lcd_display/__init__.py:604 plugins/lcd_display/__init__.py:609
+#: plugins/lcd_display/__init__.py:614 plugins/lcd_display/__init__.py:619
+#: plugins/lcd_display/__init__.py:624
 msgid "°C"
 msgstr ""
 
@@ -1702,7 +1717,7 @@ msgstr ""
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:398
 #: plugins/email_notifications_ssl/__init__.py:418
-#: plugins/lcd_display/__init__.py:603 plugins/lcd_display/__init__.py:623
+#: plugins/lcd_display/__init__.py:604 plugins/lcd_display/__init__.py:624
 msgid "Temperature 1"
 msgstr ""
 
@@ -1710,7 +1725,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:403
-#: plugins/lcd_display/__init__.py:608
+#: plugins/lcd_display/__init__.py:609
 msgid "Temperature 2"
 msgstr ""
 
@@ -1718,7 +1733,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:408
-#: plugins/lcd_display/__init__.py:613
+#: plugins/lcd_display/__init__.py:614
 msgid "Temperature 3"
 msgstr ""
 
@@ -1726,7 +1741,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:413
-#: plugins/lcd_display/__init__.py:618
+#: plugins/lcd_display/__init__.py:619
 msgid "Temperature 4"
 msgstr ""
 
@@ -1753,8 +1768,8 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:524
 #: plugins/email_notifications_ssl/__init__.py:528
 #: plugins/email_notifications_ssl/__init__.py:529
-#: plugins/lcd_display/__init__.py:628 plugins/lcd_display/__init__.py:633
-#: plugins/lcd_display/__init__.py:638 plugins/lcd_display/__init__.py:643
+#: plugins/lcd_display/__init__.py:629 plugins/lcd_display/__init__.py:634
+#: plugins/lcd_display/__init__.py:639 plugins/lcd_display/__init__.py:644
 msgid "W"
 msgstr ""
 
@@ -1762,7 +1777,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:423
-#: plugins/lcd_display/__init__.py:628
+#: plugins/lcd_display/__init__.py:629
 msgid "Power 1"
 msgstr ""
 
@@ -1770,7 +1785,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:428
-#: plugins/lcd_display/__init__.py:633
+#: plugins/lcd_display/__init__.py:634
 msgid "Power 2"
 msgstr ""
 
@@ -1778,7 +1793,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:433
-#: plugins/lcd_display/__init__.py:638
+#: plugins/lcd_display/__init__.py:639
 msgid "Power 3"
 msgstr ""
 
@@ -1786,7 +1801,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:438
-#: plugins/lcd_display/__init__.py:643
+#: plugins/lcd_display/__init__.py:644
 msgid "Power 4"
 msgstr ""
 
@@ -1794,14 +1809,14 @@ msgstr ""
 #: ospy/templates/sensor.html:103 ospy/templates/sensor.html:104
 #: ospy/templates/sensors.html:829 ospy/templates/sensors.html:849
 #: plugins/email_notifications_ssl/__init__.py:443
-#: plugins/lcd_display/__init__.py:648
+#: plugins/lcd_display/__init__.py:649
 msgid "%RV"
 msgstr ""
 
 #: ospy/sensors.py:1695 ospy/templates/sensors.html:802
 #: plugins/air_temp_humi/__init__.py:177
 #: plugins/email_notifications_ssl/__init__.py:443
-#: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:648
+#: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:649
 #: plugins/mqtt_home_assistant/__init__.py:786
 msgid "Humidity"
 msgstr ""
@@ -1834,7 +1849,7 @@ msgid "{} %RV"
 msgstr ""
 
 #: ospy/sensors.py:1773
-msgid "Shelly cloud integrator not installed in plugins!"
+msgid "Shelly cloud integrator not installed or not enabled in plugins!"
 msgstr ""
 
 #: ospy/sensors.py:1815
@@ -2280,8 +2295,8 @@ msgstr ""
 #: plugins/signaling_examples/templates/signaling_examples.html:34
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:24
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:34
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
 #: plugins/system_update/templates/system_update.html:95
 #: plugins/system_watchdog/templates/system_watchdog.html:30
 #: plugins/tank_monitor/templates/tank_monitor.html:201
@@ -2451,11 +2466,11 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control_log.html:29
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:319
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:194
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:42
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:30
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:74
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:67
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:324
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:95
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:568
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:30
@@ -2528,10 +2543,10 @@ msgstr ""
 #: plugins/speed_monitor/templates/speed_monitor_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:12
 #: plugins/speed_monitor/templates/speed_monitor_log.html:32
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:107
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:168
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:9
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:83
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:101
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
 #: plugins/system_debug/templates/system_debug.html:44
 #: plugins/system_info/templates/system_info.html:37
 #: plugins/system_update/templates/system_update.html:192
@@ -2935,7 +2950,7 @@ msgstr ""
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
 #: plugins/email_notifications_ssl/__init__.py:449
-#: plugins/lcd_display/__init__.py:462 plugins/lcd_display/__init__.py:654
+#: plugins/lcd_display/__init__.py:462 plugins/lcd_display/__init__.py:655
 #: plugins/pressure_monitor/__init__.py:192
 #: plugins/pressure_monitor/__init__.py:193
 msgid "Disabled"
@@ -3066,7 +3081,7 @@ msgstr ""
 #: ospy/templates/log.html:87 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/program.html:372
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:78
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:106
 #: plugins/lcd_display/__init__.py:460
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
 #: plugins/webcam/templates/webcam.html:26
@@ -3361,7 +3376,7 @@ msgstr ""
 
 #: ospy/templates/log.html:67 ospy/templates/log.html:111
 #: ospy/templates/log_user.html:57 ospy/templates/log_user.html:86
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:290
 msgid "Subject"
 msgstr ""
 
@@ -3373,13 +3388,12 @@ msgstr ""
 msgid "Events log"
 msgstr ""
 
-#: ospy/templates/log.html:89 ospy/templates/log_user.html:79
-msgid "events.csv"
+#: ospy/templates/log.html:89
+msgid "Events"
 msgstr ""
 
-#: ospy/templates/log.html:89
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:315
-msgid "Events"
+#: ospy/templates/log.html:89 ospy/templates/log_user.html:79
+msgid "events.csv"
 msgstr ""
 
 #: ospy/templates/log.html:93
@@ -3432,7 +3446,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:236
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:559
 #: plugins/database_connector/templates/database_connector.html:94
 #: plugins/database_connector/templates/database_connector_backup.html:29
 #: plugins/door_opening/templates/door_opening.html:47
@@ -3467,7 +3481,7 @@ msgstr ""
 #: plugins/signaling_examples/templates/signaling_examples.html:38
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:94
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:156
 #: plugins/system_update/templates/system_update.html:174
 #: plugins/system_update/templates/system_update_help.html:24
 #: plugins/system_watchdog/templates/system_watchdog.html:34
@@ -3504,7 +3518,7 @@ msgstr ""
 #: plugins/pool_heating/templates/pool_heating.html:197
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
 #: plugins/speed_monitor/templates/speed_monitor_log.html:11
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:97
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:159
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
@@ -3577,8 +3591,8 @@ msgstr ""
 #: ospy/templates/sensors.html:864 ospy/templates/sensors.html:866
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
@@ -3964,7 +3978,7 @@ msgid "Add a New Program"
 msgstr ""
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:69
-#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:535
+#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:539
 msgid "Name"
 msgstr ""
 
@@ -4601,6 +4615,10 @@ msgid "Stop stations if minimum water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:692
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:463
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:486
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:509
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:532
 #: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Stoping these stations if is minimum water level in the tank"
 msgstr ""
@@ -4650,6 +4668,10 @@ msgid "Maximum maintained water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:725
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:373
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:393
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:413
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:433
 #: plugins/tank_monitor/templates/tank_monitor.html:344
 msgid "If the measured water level exceeds this set value, the output is activated"
 msgstr ""
@@ -4682,6 +4704,10 @@ msgid "Minimum maintained water level"
 msgstr ""
 
 #: ospy/templates/sensor.html:736
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:375
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:395
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:415
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:435
 #: plugins/tank_monitor/templates/tank_monitor.html:357
 msgid "If the measured water level falls below this set value, the output is deactivated"
 msgstr ""
@@ -4742,7 +4768,7 @@ msgstr ""
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:150
 #: plugins/speed_monitor/templates/speed_monitor.html:219
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:138
 #: plugins/system_update/templates/system_update.html:165
 #: plugins/system_update/templates/system_update_help.html:22
 #: plugins/tank_monitor/templates/tank_monitor.html:427
@@ -4777,7 +4803,7 @@ msgid "The selected program that we want to run with this does not have to be en
 msgstr ""
 
 #: ospy/templates/sensor.html:947
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:31
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:77
 msgid "Cannot be used for these programs: weekly advanced, custom, weekly weather! These programs will not appear in the menu and cannot be selected."
 msgstr ""
 
@@ -5339,8 +5365,8 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:100
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:66
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:323
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:567
 #: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -5364,8 +5390,8 @@ msgstr ""
 #: plugins/signaling_examples/templates/signaling_examples.html:48
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:106
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:100
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:167
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:158
 #: plugins/system_update/templates/system_update.html:184
 #: plugins/tank_monitor/templates/tank_monitor.html:489
 #: plugins/telegram_bot/templates/telegram_bot.html:128
@@ -6102,9 +6128,9 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/__init__.py:1233
 #: plugins/shelly_cloud_integrator/__init__.py:1355
 #: plugins/shelly_cloud_integrator/__init__.py:1369
-#: plugins/sunrise_and_sunset/__init__.py:762
-#: plugins/sunrise_and_sunset/__init__.py:777
-#: plugins/sunrise_and_sunset/__init__.py:897
+#: plugins/sunrise_and_sunset/__init__.py:766
+#: plugins/sunrise_and_sunset/__init__.py:781
+#: plugins/sunrise_and_sunset/__init__.py:901
 #: plugins/tank_monitor/__init__.py:901 plugins/tank_monitor/__init__.py:929
 #: plugins/tank_monitor/__init__.py:941 plugins/tank_monitor/__init__.py:978
 #: plugins/tank_monitor/__init__.py:997
@@ -6169,7 +6195,7 @@ msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:222
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:175
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:203
 #: plugins/tank_monitor/templates/tank_monitor.html:376
 #: plugins/ups_adj/templates/ups_adj.html:200
 #: plugins/wind_monitor/templates/wind_monitor.html:207
@@ -6177,7 +6203,7 @@ msgid "Enable local logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:176
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:204
 #: plugins/pressure_monitor/templates/pressure_monitor.html:201
 #: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:201
@@ -6208,7 +6234,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:28
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:170
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:198
 #: plugins/pressure_monitor/templates/pressure_monitor.html:209
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:28
 #: plugins/tank_monitor/templates/tank_monitor.html:385
@@ -6229,7 +6255,7 @@ msgid "Show data from"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:153
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
@@ -6255,7 +6281,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:185
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:213
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
@@ -6270,7 +6296,7 @@ msgid "The maximum number of records sets the number of saved records, i.e. afte
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:192
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:220
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -6330,6 +6356,10 @@ msgid "Humidity + hysteresis/2 > ON"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:301
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:374
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:394
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:414
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:434
 #: plugins/pool_heating/templates/pool_heating.html:105
 #: plugins/tank_monitor/templates/tank_monitor.html:350
 #: plugins/temperature_switch/templates/temperature_switch.html:46
@@ -6347,6 +6377,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:313
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:361
 #: plugins/door_opening/templates/door_opening.html:26
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:132
 #: plugins/pool_heating/templates/pool_heating.html:117
@@ -6371,7 +6402,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:281
 #: plugins/proto/templates/proto.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:220
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:139
 #: plugins/system_update/templates/system_update.html:166
 #: plugins/tank_monitor/templates/tank_monitor.html:428
 #: plugins/telegram_bot/templates/telegram_bot.html:114
@@ -7261,6 +7292,7 @@ msgid "I will try to download a file that is 10 minutes older."
 msgstr ""
 
 #: plugins/chmi/__init__.py:449 plugins/chmi/templates/chmi.html:120
+#: plugins/current_loop_tanks_monitor/__init__.py:993
 #: plugins/tank_monitor/__init__.py:884
 #: plugins/tank_monitor/templates/tank_monitor.html:275
 msgid "Removing Rain Delay"
@@ -8071,117 +8103,141 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:32
+#: plugins/current_loop_tanks_monitor/__init__.py:34
 msgid "Package: Current Loop Tanks Monitor"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:38
+#: plugins/current_loop_tanks_monitor/__init__.py:40
 msgid "Tank 1"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:39
+#: plugins/current_loop_tanks_monitor/__init__.py:41
 msgid "Tank 2"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:40
+#: plugins/current_loop_tanks_monitor/__init__.py:42
 msgid "Tank 3"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:41
+#: plugins/current_loop_tanks_monitor/__init__.py:43
 msgid "Tank 4"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:85
+#: plugins/current_loop_tanks_monitor/__init__.py:88
 msgid "Report from OSPy: Tank 1 has minimal level!"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:86
+#: plugins/current_loop_tanks_monitor/__init__.py:89
 msgid "Report from OSPy: Tank 2 has minimal level!"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:87
+#: plugins/current_loop_tanks_monitor/__init__.py:90
 msgid "Report from OSPy: Tank 3 has minimal level!"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:88
+#: plugins/current_loop_tanks_monitor/__init__.py:91
 msgid "Report from OSPy: Tank 4 has minimal level!"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:149
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:73
+#: plugins/current_loop_tanks_monitor/__init__.py:209
+#: plugins/tank_monitor/__init__.py:132
+msgid "Regulation NONE."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:214
+#: plugins/current_loop_tanks_monitor/__init__.py:250
+#: plugins/current_loop_tanks_monitor/__init__.py:994
+msgid "Deleting: {} in rain delay."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:224
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:101
 msgid "Tanks"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
-#: plugins/current_loop_tanks_monitor/__init__.py:191
-#: plugins/current_loop_tanks_monitor/__init__.py:216
-#: plugins/current_loop_tanks_monitor/__init__.py:415
-#: plugins/current_loop_tanks_monitor/__init__.py:442
-#: plugins/current_loop_tanks_monitor/__init__.py:454
-#: plugins/current_loop_tanks_monitor/__init__.py:517
-#: plugins/current_loop_tanks_monitor/__init__.py:529
-#: plugins/current_loop_tanks_monitor/__init__.py:543
-#: plugins/current_loop_tanks_monitor/__init__.py:629
-#: plugins/current_loop_tanks_monitor/__init__.py:643
-#: plugins/current_loop_tanks_monitor/__init__.py:744
-#: plugins/current_loop_tanks_monitor/__init__.py:760
-#: plugins/current_loop_tanks_monitor/__init__.py:784
-#: plugins/current_loop_tanks_monitor/__init__.py:810
-#: plugins/current_loop_tanks_monitor/__init__.py:845
-#: plugins/current_loop_tanks_monitor/__init__.py:885
-#: plugins/current_loop_tanks_monitor/__init__.py:931
+#: plugins/current_loop_tanks_monitor/__init__.py:257
+msgid "ERROR: Water in Tank: {}"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:309
+msgid "Regulation waiting."
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
+#: plugins/current_loop_tanks_monitor/__init__.py:335
+#: plugins/current_loop_tanks_monitor/__init__.py:368
+#: plugins/current_loop_tanks_monitor/__init__.py:595
+#: plugins/current_loop_tanks_monitor/__init__.py:622
+#: plugins/current_loop_tanks_monitor/__init__.py:634
+#: plugins/current_loop_tanks_monitor/__init__.py:697
+#: plugins/current_loop_tanks_monitor/__init__.py:709
+#: plugins/current_loop_tanks_monitor/__init__.py:723
+#: plugins/current_loop_tanks_monitor/__init__.py:809
+#: plugins/current_loop_tanks_monitor/__init__.py:823
+#: plugins/current_loop_tanks_monitor/__init__.py:924
+#: plugins/current_loop_tanks_monitor/__init__.py:940
+#: plugins/current_loop_tanks_monitor/__init__.py:964
+#: plugins/current_loop_tanks_monitor/__init__.py:1003
+#: plugins/current_loop_tanks_monitor/__init__.py:1036
+#: plugins/current_loop_tanks_monitor/__init__.py:1076
+#: plugins/current_loop_tanks_monitor/__init__.py:1122
 msgid "Current Loop Tanks Monitor plug-in"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
 #: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:208
+#: plugins/current_loop_tanks_monitor/__init__.py:360
 msgid "The measurement of all tanks is switched off."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:270
+#: plugins/current_loop_tanks_monitor/__init__.py:450
 msgid "Error: Invalid channel."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:282
+#: plugins/current_loop_tanks_monitor/__init__.py:462
 msgid "Error: No I2C bus or ADC available on address 0x48, 0x49, 0x4A, 0x4B."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:291
+#: plugins/current_loop_tanks_monitor/__init__.py:471
 msgid "Error: It is not possible to read data from the AD converter."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:311
+#: plugins/current_loop_tanks_monitor/__init__.py:491
 msgid "Error: the I2C bus is not available."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:361
+#: plugins/current_loop_tanks_monitor/__init__.py:541
 msgid "Error: I/O."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:364
+#: plugins/current_loop_tanks_monitor/__init__.py:544
 msgid "Error: ADC value."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:367
+#: plugins/current_loop_tanks_monitor/__init__.py:547
 msgid "No problems (measurement works as it should)."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:375
+#: plugins/current_loop_tanks_monitor/__init__.py:555
 msgid "Error: I2C bus is not available."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:389
+#: plugins/current_loop_tanks_monitor/__init__.py:569
 msgid "No I2C device was found."
 msgstr ""
 
-#: plugins/current_loop_tanks_monitor/__init__.py:671
+#: plugins/current_loop_tanks_monitor/__init__.py:851
 msgid "Not found at any known addresses: 0x48, 0x49, 0x4A, 0x4B"
+msgstr ""
+
+#: plugins/current_loop_tanks_monitor/__init__.py:962
+#: plugins/current_loop_tanks_monitor/__init__.py:1001
+msgid "Deleting the currentmonitor table from the database."
 msgstr ""
 
 #:
@@ -8354,6 +8410,76 @@ msgid "How to installing in tank"
 msgstr ""
 
 #:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:19
+msgid "Calibration"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:20
+msgid "Without a sensor connected (on inputs 1 to 4), the plugin must display a voltage of 0V."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:21
+msgid "When connecting + and - (on inputs 1 to 4), approximately 3.2V must be displayed."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
+msgid "We connect the sensor (without immersing it in water, i.e. outside the tank) and see what voltage the plugin shows (example: we will see something around 0.7 V)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:23
+msgid "We will enter this voltage in the plugin settings in the \"minimum voltage\" section."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:24
+msgid "Then we insert the sensor into a full tank \"to the bottom\" and see what voltage the plugin shows (example: we will see something around 3.2 V)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:25
+msgid "We will enter this voltage in the plugin settings in the \"maximum voltage\" section."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:26
+msgid "In the \"maximum volume\" section, we enter our calculated/actual volume of the tank when it is 100% full of water (example: 50 liters)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:27
+msgid "In the \"maximum height\" section, enter the actual measured distance between the sensor and the maximum level at 100% (example: 43 cm)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:28
+msgid "This completes the calibration. The plugin will then recalculate the tank level and volume."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:29
+msgid "Pressure sensor"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:30
+msgid "It is powered by 24V directly from this board and does not need to connect any other source! Hard-wiring the input terminal on the board - for example, input 1 + and - will not damage the circuit (board). The maximum current is set to 20mA. For checking, we can leave the unused input connected to + and - (in the plugin we will see the maximum voltage of about 3.5V). Or we can connect an LED of any color between + and - (LED If=20mA)."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:31
+msgid "Wiring diagram"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:33
+msgid "PCB"
+msgstr ""
+
+#:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:6
 msgid "Current Loop Tanks Monitor - Log"
@@ -8361,156 +8487,161 @@ msgstr ""
 
 #:
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:3
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:64
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:92
 msgid "Current Loop Tanks - Setup"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:77
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:105
 msgid "Tank Name"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:79
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 msgid "Max Height (cm)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:80
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:108
 msgid "Max Volume (l)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:81
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
 msgid "Min Voltage (V)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:82
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:110
 msgid "Max Voltage (V)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:124
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:139
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:122
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:137
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:152
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:167
 msgid "Here, enter the distance from the sensor to the maximum level in centimeters."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:95
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:110
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:125
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:140
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:123
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:138
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:153
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:168
 msgid "Here, enter the volume of the tank at 100% volume (regardless of the shape of the tank)."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:96
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:111
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:126
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:141
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:124
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:139
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:154
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:169
 msgid "Minimum voltage from the probe on the AD converter (for 4mA ie empty tank)."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:97
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:112
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:127
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:142
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:125
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:140
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:155
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:170
 msgid "Maximum voltage from the probe on the AD converter (for 20mA ie full tank). 4.096V is max range for 16bit convert."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:148
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:176
 msgid "Logs and graphs"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:152
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:180
 msgid "Show data in graph and log from"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:155
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:183
 msgid "Local File"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:156
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:184
 msgid "Database File"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:162
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:190
 msgid "Enable SQL Logging"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:163
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:191
 msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:169
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:197
 msgid "The button will delete the currentmonitor table from the database, thus deleting all saved data from this extension! This promotion is non-refundable!"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:186
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:214
 #: plugins/tank_monitor/templates/tank_monitor.html:399
 msgid "0 = unlimited. The maximum number of records sets the number of saved records, i.e. after exceeding the set limit, older data is overwritten."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:193
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:221
 #: plugins/tank_monitor/templates/tank_monitor.html:405
 msgid "In minutes (Minimum is 1). The logging interval is common for both local storage and sql storage of measured data."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:199
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:227
 msgid "Show data in graph from"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:200
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:228
 msgid "Datetime FROM for Filtering."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:204
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:232
 msgid "Show data in graph to"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:205
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:233
 msgid "Datetime TO for Filtering."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:211
-msgid "Additional Settings"
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:239
+msgid "Communications"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:215
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:243
 msgid "I2C Address"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:216
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:244
 msgid "Default address is 0x48."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:227
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:257
+msgid "Display and graphics"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:261
 msgid "Use Footer"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:228
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:262
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:151
 #: plugins/system_update/templates/system_update_help.html:23
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
@@ -8518,45 +8649,186 @@ msgid "Show data from plugin in footer on home page."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:270
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:147
+msgid "Use Injection Script"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:271
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:148
+msgid "Create tanks charts from a plugin on the home page. You always need to restart OSPy afterwards for this option."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:282
 msgid "Notifications"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:249
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:286
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:356
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:451
 #: plugins/tank_monitor/__init__.py:143
 msgid "Tank"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:250
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:287
 msgid "Send E-mail"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:251
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:288
 msgid "Level activation (%)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:252
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:289
 msgid "Level release (%)"
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:265
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:279
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:293
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:307
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:302
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:316
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:330
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:344
 msgid "If the level drops below this value, sending an email is activated."
 msgstr ""
 
 #:
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:266
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:280
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:294
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:308
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:303
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:317
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:331
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:345
 msgid "As long as the level does not rise above this level, it will not allow sending an email when the level drops to the minimum. This is used to block the constant sending of emails when the level is at a minimum."
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:352
+msgid "Regulate maximum"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:357
+msgid "Regulate"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:358
+msgid "Max level (cm)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:359
+msgid "Max run time (mm:ss)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:360
+msgid "Min level (cm)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:367
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:387
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:407
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:427
+#: plugins/tank_monitor/templates/tank_monitor.html:338
+msgid "If checked, regulation is enabled"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:376
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:396
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:416
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:436
+#: plugins/tank_monitor/templates/tank_monitor.html:363
+msgid "Select Output for controled zones"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:447
+#: plugins/wind_monitor/templates/wind_monitor.html:328
+msgid "Stoping stations"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:452
+#: plugins/venetian_blind/templates/venetian_blind.html:50
+#: plugins/voice_notification/templates/voice_notification.html:92
+msgid "Stop"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:453
+msgid "Delay (hours)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:454
+msgid "Blocking (cm)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:455
+msgid "Unblocking (cm)"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:456
+msgid "Removing Delay"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:457
+msgid "Stop station"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:469
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:492
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:515
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:538
+#: plugins/tank_monitor/templates/tank_monitor.html:273
+msgid "If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + xx cm, the delay is deactivated"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:472
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:495
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:518
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:541
+msgid "Enter the level for Blocking delay duration and stop stations"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:473
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:496
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:519
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:542
+msgid "Enter the level for unblocking delay duration and stop stations"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:474
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:497
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:520
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:543
+msgid "Remove"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:475
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:498
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:521
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:544
+msgid "Use this station for stoping scheduler if station is activated in scheduler"
+msgstr ""
+
+#:
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:555
+msgid "Info"
 msgstr ""
 
 #: plugins/database_connector/__init__.py:26
@@ -9083,13 +9355,13 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:325
 #: plugins/email_notifications_ssl/__init__.py:358
 #: plugins/email_notifications_ssl/__init__.py:447
-#: plugins/lcd_display/__init__.py:563 plugins/lcd_display/__init__.py:652
+#: plugins/lcd_display/__init__.py:563 plugins/lcd_display/__init__.py:653
 msgid "No response!"
 msgstr ""
 
 #: plugins/email_notifications/__init__.py:337
 #: plugins/email_notifications_ssl/__init__.py:459
-#: plugins/lcd_display/__init__.py:659
+#: plugins/lcd_display/__init__.py:660
 msgid "No sensors available"
 msgstr ""
 
@@ -9461,13 +9733,13 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:435
 #: plugins/email_notifications_ssl/__init__.py:440
 #: plugins/email_notifications_ssl/__init__.py:445
-#: plugins/lcd_display/__init__.py:576 plugins/lcd_display/__init__.py:584
-#: plugins/lcd_display/__init__.py:592 plugins/lcd_display/__init__.py:600
-#: plugins/lcd_display/__init__.py:605 plugins/lcd_display/__init__.py:610
-#: plugins/lcd_display/__init__.py:615 plugins/lcd_display/__init__.py:620
-#: plugins/lcd_display/__init__.py:625 plugins/lcd_display/__init__.py:630
-#: plugins/lcd_display/__init__.py:635 plugins/lcd_display/__init__.py:640
-#: plugins/lcd_display/__init__.py:645 plugins/lcd_display/__init__.py:650
+#: plugins/lcd_display/__init__.py:577 plugins/lcd_display/__init__.py:585
+#: plugins/lcd_display/__init__.py:593 plugins/lcd_display/__init__.py:601
+#: plugins/lcd_display/__init__.py:606 plugins/lcd_display/__init__.py:611
+#: plugins/lcd_display/__init__.py:616 plugins/lcd_display/__init__.py:621
+#: plugins/lcd_display/__init__.py:626 plugins/lcd_display/__init__.py:631
+#: plugins/lcd_display/__init__.py:636 plugins/lcd_display/__init__.py:641
+#: plugins/lcd_display/__init__.py:646 plugins/lcd_display/__init__.py:651
 #: plugins/wind_monitor/__init__.py:870
 msgid "Any error"
 msgstr ""
@@ -10818,7 +11090,7 @@ msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:22
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:22
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:68
 msgid "Settings saved."
 msgstr ""
 
@@ -11047,9 +11319,9 @@ msgstr ""
 msgid "Package: LCD Display"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:139 plugins/lcd_display/__init__.py:784
-#: plugins/lcd_display/__init__.py:808 plugins/lcd_display/__init__.py:832
-#: plugins/lcd_display/__init__.py:856
+#: plugins/lcd_display/__init__.py:139 plugins/lcd_display/__init__.py:785
+#: plugins/lcd_display/__init__.py:809 plugins/lcd_display/__init__.py:833
+#: plugins/lcd_display/__init__.py:857
 msgid "LCD display plug-in:"
 msgstr ""
 
@@ -11108,8 +11380,8 @@ msgid "Pressure Sensor:"
 msgstr ""
 
 #: plugins/lcd_display/__init__.py:369 plugins/lcd_display/__init__.py:400
-#: plugins/lcd_display/__init__.py:423 plugins/lcd_display/__init__.py:661
-#: plugins/lcd_display/__init__.py:688
+#: plugins/lcd_display/__init__.py:423 plugins/lcd_display/__init__.py:662
+#: plugins/lcd_display/__init__.py:689
 msgid "Not Available"
 msgstr ""
 
@@ -11166,65 +11438,65 @@ msgstr ""
 msgid "Sensors:"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:668
+#: plugins/lcd_display/__init__.py:669
 msgid "Current Loop Tanks"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:709
+#: plugins/lcd_display/__init__.py:710
 msgid "Found {} on address {}"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:716
+#: plugins/lcd_display/__init__.py:717
 msgid "Could not find any PCF8574 controller."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:720 plugins/system_info/__init__.py:228
+#: plugins/lcd_display/__init__.py:721 plugins/system_info/__init__.py:228
 #: plugins/system_info/__init__.py:244 plugins/volt_temp_da/__init__.py:85
 #: plugins/water_meter/__init__.py:71 plugins/wind_monitor/__init__.py:137
 msgid "Could not import smbus."
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:768
+#: plugins/lcd_display/__init__.py:769
 msgid "System rebooting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:779 plugins/lcd_display/__init__.py:781
-#: plugins/lcd_display/__init__.py:827 plugins/lcd_display/__init__.py:829
+#: plugins/lcd_display/__init__.py:780 plugins/lcd_display/__init__.py:782
+#: plugins/lcd_display/__init__.py:828 plugins/lcd_display/__init__.py:830
 msgid "System Linux"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:780 plugins/lcd_display/__init__.py:782
-#: plugins/lcd_display/__init__.py:804 plugins/lcd_display/__init__.py:806
+#: plugins/lcd_display/__init__.py:781 plugins/lcd_display/__init__.py:783
+#: plugins/lcd_display/__init__.py:805 plugins/lcd_display/__init__.py:807
 msgid "Rebooting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:792
+#: plugins/lcd_display/__init__.py:793
 msgid "System restarting"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:803 plugins/lcd_display/__init__.py:805
-#: plugins/lcd_display/__init__.py:851 plugins/lcd_display/__init__.py:853
+#: plugins/lcd_display/__init__.py:804 plugins/lcd_display/__init__.py:806
+#: plugins/lcd_display/__init__.py:852 plugins/lcd_display/__init__.py:854
 #: plugins/system_update/__init__.py:247
 msgid "System OSPy"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:816
+#: plugins/lcd_display/__init__.py:817
 msgid "System poweroff"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:828 plugins/lcd_display/__init__.py:830
+#: plugins/lcd_display/__init__.py:829 plugins/lcd_display/__init__.py:831
 msgid "Power off"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:840
+#: plugins/lcd_display/__init__.py:841
 msgid "System OSPy Has Update"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:852 plugins/lcd_display/__init__.py:854
+#: plugins/lcd_display/__init__.py:853 plugins/lcd_display/__init__.py:855
 msgid "Has Update"
 msgstr ""
 
-#: plugins/lcd_display/__init__.py:872
+#: plugins/lcd_display/__init__.py:873
 msgid "I2C address has re-finded."
 msgstr ""
 
@@ -12226,7 +12498,7 @@ msgid "Broker Port"
 msgstr ""
 
 #: plugins/mqtt/templates/mqtt.html:54
-msgid "Range for port is 80 to 65635."
+msgid "Range for port is 80 to 65535."
 msgstr ""
 
 #: plugins/mqtt/templates/mqtt.html:59
@@ -12727,7 +12999,7 @@ msgid "Example: localhost."
 msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
-msgid "Range for port is 80 to 65635. Default: 1883."
+msgid "Range for port is 80 to 65535. Default: 1883."
 msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
@@ -13870,7 +14142,7 @@ msgid "If the check box is marked, the master pump is activated before turning o
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:53
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:54
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:104
 msgid "Ignore rain"
 msgstr ""
 
@@ -13879,7 +14151,7 @@ msgid "If the check box is marked, the master pump is activated before turning o
 msgstr ""
 
 #: plugins/pressurizer/templates/pressurizer.html:58
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:59
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:113
 msgid "Ignore rain delay"
 msgstr ""
 
@@ -16264,256 +16536,256 @@ msgstr ""
 msgid "Ping (msec)"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:29
+#: plugins/sunrise_and_sunset/__init__.py:27
 msgid "Package: Astro Sunrise and Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:57
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:83
+#: plugins/sunrise_and_sunset/__init__.py:61
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:141
 msgid "Not selected"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:470
+#: plugins/sunrise_and_sunset/__init__.py:474
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:3
 msgid "Sunrise and Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:471
+#: plugins/sunrise_and_sunset/__init__.py:475
 #: plugins/system_update/__init__.py:180
 msgid "Waiting to state"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:478
+#: plugins/sunrise_and_sunset/__init__.py:482
 msgid "Astral is not installed."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:479
+#: plugins/sunrise_and_sunset/__init__.py:483
 msgid "Please wait installing astral..."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:482
+#: plugins/sunrise_and_sunset/__init__.py:486
 msgid "Astral is now installed."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:530
+#: plugins/sunrise_and_sunset/__init__.py:534
 msgid "You must fill in all required fields (location, region, timezone/name, latitude and longitude!"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:534
+#: plugins/sunrise_and_sunset/__init__.py:538
 msgid "Found city"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:536
+#: plugins/sunrise_and_sunset/__init__.py:540
 msgid "Region"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:537
+#: plugins/sunrise_and_sunset/__init__.py:541
 msgid "Timezone"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:538
+#: plugins/sunrise_and_sunset/__init__.py:542
 msgid "Latitude"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:539
+#: plugins/sunrise_and_sunset/__init__.py:543
 msgid "Longitude"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:550
+#: plugins/sunrise_and_sunset/__init__.py:554
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:14
 msgid "Dawn"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:551
-#: plugins/sunrise_and_sunset/__init__.py:556
+#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:560
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:16
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:67
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:125
 msgid "Sunrise"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:552
+#: plugins/sunrise_and_sunset/__init__.py:556
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:18
 msgid "Noon"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:553
-#: plugins/sunrise_and_sunset/__init__.py:556
+#: plugins/sunrise_and_sunset/__init__.py:557
+#: plugins/sunrise_and_sunset/__init__.py:560
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:20
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:68
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:126
 msgid "Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:554
+#: plugins/sunrise_and_sunset/__init__.py:558
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:22
 msgid "Dusk"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:562
-#: plugins/sunrise_and_sunset/__init__.py:563
+#: plugins/sunrise_and_sunset/__init__.py:566
+#: plugins/sunrise_and_sunset/__init__.py:567
 msgid "Moon phase"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:565
-#: plugins/sunrise_and_sunset/__init__.py:566
+#: plugins/sunrise_and_sunset/__init__.py:569
+#: plugins/sunrise_and_sunset/__init__.py:570
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:48
 msgid "New moon"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:568
-#: plugins/sunrise_and_sunset/__init__.py:569
+#: plugins/sunrise_and_sunset/__init__.py:572
+#: plugins/sunrise_and_sunset/__init__.py:573
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:51
 msgid "First quarter"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:571
-#: plugins/sunrise_and_sunset/__init__.py:572
+#: plugins/sunrise_and_sunset/__init__.py:575
+#: plugins/sunrise_and_sunset/__init__.py:576
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:54
 msgid "Full moon"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:574
-#: plugins/sunrise_and_sunset/__init__.py:575
+#: plugins/sunrise_and_sunset/__init__.py:578
+#: plugins/sunrise_and_sunset/__init__.py:579
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:57
 msgid "Last quarter"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:577
-#: plugins/sunrise_and_sunset/__init__.py:578
+#: plugins/sunrise_and_sunset/__init__.py:581
+#: plugins/sunrise_and_sunset/__init__.py:582
 msgid "Unkown phase"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:582
-#: plugins/sunrise_and_sunset/__init__.py:644
-#: plugins/sunrise_and_sunset/__init__.py:761
-#: plugins/sunrise_and_sunset/__init__.py:776
+#: plugins/sunrise_and_sunset/__init__.py:586
+#: plugins/sunrise_and_sunset/__init__.py:648
+#: plugins/sunrise_and_sunset/__init__.py:765
+#: plugins/sunrise_and_sunset/__init__.py:780
 msgid "Astro plug-in"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:588
+#: plugins/sunrise_and_sunset/__init__.py:592
 msgid "Programs for runs"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:601
+#: plugins/sunrise_and_sunset/__init__.py:605
 msgid "The \"{}\" will be launched at {} hours (ignore rain)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:605
+#: plugins/sunrise_and_sunset/__init__.py:609
 msgid "The \"{}\" will be launched at {} hours (ignore rain delay)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:609
+#: plugins/sunrise_and_sunset/__init__.py:613
 msgid "The \"{}\" will be launched at {} hours."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:613
+#: plugins/sunrise_and_sunset/__init__.py:617
 msgid "{} programs scheduled"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:615
+#: plugins/sunrise_and_sunset/__init__.py:619
 msgid "Another calculation will take place in one minute..."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:628
+#: plugins/sunrise_and_sunset/__init__.py:632
 msgid "I run the program \"{}\" in time {}."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:631
+#: plugins/sunrise_and_sunset/__init__.py:635
 #: plugins/system_update/__init__.py:202
 msgid "Plugin is not enabled"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:638
+#: plugins/sunrise_and_sunset/__init__.py:642
 #: plugins/system_update/__init__.py:208
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:676
-#: plugins/sunrise_and_sunset/__init__.py:875
+#: plugins/sunrise_and_sunset/__init__.py:680
+#: plugins/sunrise_and_sunset/__init__.py:879
 msgid "Astral plug-in"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:763
+#: plugins/sunrise_and_sunset/__init__.py:767
 msgid "sunrise_and_sunset -> status_page GET"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:778
+#: plugins/sunrise_and_sunset/__init__.py:782
 msgid "sunrise_and_sunset -> status_page POST"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:896
+#: plugins/sunrise_and_sunset/__init__.py:900
 msgid "Sunrise and sunset plug-in"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:898
+#: plugins/sunrise_and_sunset/__init__.py:902
 msgid "sunrise_and_sunset -> help_page"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:3
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:20
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:67
 msgid "Astro Sunrise and Sunset"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:21
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:68
 msgid "This extension allows you to run a specific program depending on sunrise or sunset. For scheduling programs calculate astronomical data and use it."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:22
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:69
 msgid "In terms of economy and good usability of moisture, early morning watering is optimal. We can also spray the leaves, because they will dry out before the sun can burn them. Plants should not be sprayed at all at noon: water droplets act like small optical lenses on the leaves, in which the suns rays concentrate and cause burns on the leaves. In addition, it is uneconomical, because part of the water evaporates already in the air and another part immediately upon impact with the hot ground. If the plants wither during the day, we will help them with moisture directly to the roots. In the evening it should be watered only to the roots. The sprinkled leaves do not have time to dry and there is a risk of fungal diseases. Otherwise, evening watering is advantageous because the water absorbs well into the soil overnight and the plants have it in store for the next hot day."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:25
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:72
 msgid "Programs Settings"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:29
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:76
 msgid "Use astro plugin"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:36
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:86
 msgid "Find location"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:40
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:90
 msgid "City Location"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:41
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:91
 msgid "Select a city location from the list or enter your own location in the fields below"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:55
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:105
 msgid "Manual location"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:59
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:109
 msgid "Custom Location"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:60
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:110
 msgid "Somewhere on earth (own name). Example: Pilsen"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:65
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:115
 msgid "Custom region"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:66
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:116
 msgid "The custom label serves for our better location orientation"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:121
 msgid "Custom Timezone/name"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:72
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:122
 msgid "UTC (Coordinated Universal Time). As the Earths rotation slows slightly, GMT is gradually lagging behind UTC. In order to be used in practical life, which is associated with the rotation of the Earth, UTC is maintained within ± 0.9 seconds of UT1; if this deviation is exceeded, the so-called leap second is added or (theoretically) removed at midnight on the next 30 June or 31 December, so that this day ends at 23.59: 60, resp. 23.59: 58 (as opposed to the usual 23.59: 59). This occurs on average once a year to a year and a half. As the Earths rotation slows down, leap seconds are always added, but theoretically the possibility of taking a leap second is also considered. The International Earth Rotation and Reference Systems Service decides whether to use the leap second in the relevant term according to the Earths rotation measurements."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:77
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:127
 msgid "Custom Latitude and longitude"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:78
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:128
 msgid "Example city Pilsen 49°44′29\",13°22′57\""
 msgstr ""
 
@@ -16686,63 +16958,63 @@ msgid "Astral on the Github"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:3
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:30
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:76
 msgid "Astro Sunrise and Sunset - settings"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:32
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:78
 msgid "The selected program that we want to run with this extension does not have to be enabled in the programs, but it must have set days when we want the program to run."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:33
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:79
 msgid "If the program does not have a days marked, it will not start (neither by the \"run now\" button in the programs, nor by this plug-in)!"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:38
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:84
 msgid "Number of programs"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:39
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:85
 msgid "The number of used programs in these plugin."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:49
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:95
 msgid "Enable program"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:50
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:96
 msgid "If the check box is marked, the program will be active."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:55
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:105
 msgid "If the checkbox is checked, the program will be active even if it is currently raining (rain is ignored)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:60
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:114
 msgid "If the checkbox is checked, the program will be active even if it is currently rain delay (rain delay is ignored)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:64
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:122
 msgid "Program type"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:65
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:123
 msgid "Select program type (sunrise or sunset)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:73
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:131
 msgid "Move the beginning of the program"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:74
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:132
 msgid "Enter the time in hours or minutes by which the program should move relative to the selected program type (sunrise or sunset)."
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:138
 msgid "Program for run"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:81
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:139
 msgid "Select the program from the list that you want to run with this extension."
 msgstr ""
 
@@ -17164,10 +17436,6 @@ msgstr ""
 msgid "Report from OSPy TANK plugin"
 msgstr ""
 
-#: plugins/tank_monitor/__init__.py:132
-msgid "Regulation NONE."
-msgstr ""
-
 #: plugins/tank_monitor/__init__.py:156
 msgid "Water tank monitor is enabled."
 msgstr ""
@@ -17332,10 +17600,6 @@ msgstr ""
 msgid "Enter the number count for samples"
 msgstr ""
 
-#: plugins/tank_monitor/templates/tank_monitor.html:273
-msgid "If there is no water in the tank and the stations stop, then we set the rain delay for this time for blocking. if the level in the tank rises above the minimum + xx cm, the delay is deactivated"
-msgstr ""
-
 #: plugins/tank_monitor/templates/tank_monitor.html:279
 msgid "Number for unblocking"
 msgstr ""
@@ -17354,14 +17618,6 @@ msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:318
 msgid "Subject for E-mail from this tank monitor"
-msgstr ""
-
-#: plugins/tank_monitor/templates/tank_monitor.html:338
-msgid "If checked, regulation is enabled"
-msgstr ""
-
-#: plugins/tank_monitor/templates/tank_monitor.html:363
-msgid "Select Output for controled zones"
 msgstr ""
 
 #: plugins/tank_monitor/templates/tank_monitor.html:383
@@ -18347,11 +18603,6 @@ msgstr ""
 #: plugins/venetian_blind/templates/venetian_blind.html:35
 #: plugins/weather_stations/templates/canvas_page.html:86
 msgid "Settings"
-msgstr ""
-
-#: plugins/venetian_blind/templates/venetian_blind.html:50
-#: plugins/voice_notification/templates/voice_notification.html:92
-msgid "Stop"
 msgstr ""
 
 #: plugins/venetian_blind/templates/venetian_blind.html:51
@@ -20150,10 +20401,6 @@ msgstr ""
 
 #: plugins/wind_monitor/templates/wind_monitor.html:309
 msgid "Subject for E-mail from this wind monitor"
-msgstr ""
-
-#: plugins/wind_monitor/templates/wind_monitor.html:328
-msgid "Stoping stations"
 msgstr ""
 
 #: plugins/wind_monitor/templates/wind_monitor.html:329

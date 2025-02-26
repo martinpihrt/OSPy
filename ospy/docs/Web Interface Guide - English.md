@@ -1,6 +1,7 @@
 OSPy Web Interface Guide in English
 ====
 
+    OSPy installation
     Logging in
     Home page
         Normal - Water Level
@@ -228,8 +229,24 @@ OSPy Web Interface Guide in English
             Database Connector
             OSPy Backup
             MQTT Home Assistant
-            Shelly Cloud Integration                        
+            Shelly Cloud Integration
+            Current loop tanks monitor                        
     Logging out
+
+----
+
+# OSPy installation
+We recommend performing a clean installation with the latest version of Python 3+. The first time you start the OSPy (login page), login data (password) will be generated for logging in to the OSPy system. after logging in, it is necessary to change the login details in the settings (options page). These generated credentials are also stored in the OSPy system as your credentials. The next time you log in, the window with the generated login data will no longer be displayed.
+
+## USING THE INSTALLATION SCRIPT
+Log into the Pi using SSH. Enter or copy-paste the following command:
+Remember: Commands on the Raspberry Pi are case sensitive.
+*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
+And next
+
+*sudo bash ospy_setup.sh*
+
+The OSPy setup menu will appear Optional: Use the arrow keys to move between options. Tap the space bar to select or de-select an option. In most cases the default options are recommended.. Tap the Tab key to move to . Tap the Enter key then use the arrow keys to choose the location where OSPy will be installed. Tap the Enter key again to install OSPy. Depending on the options selected, the install process may take a few minutes to complete. A dialog box will appear when OSPy is installed. Tap the Enter key to reboot the Pi. After the Pi has rebooted OSPy will be up and running, ready to be connected to your OSPy sprinkler system and programmed with your irrigation schedules. See Opening the OSPy web interface to get started.
 
 ----
 
@@ -249,6 +266,7 @@ The Home page is the main control center of the web interface. It includes:
 * A time line that provides information about completed and scheduled irrigation events.
 * A graph that provides information about irrigation events.
 * A footer that is present on all pages (if user is logged). The footer includes: CPU Temp, CPU Usage, Software version, External IP, Working.
+* Some extensions can inject on the homepage and add additional elements. For example, the astral extension adds graphical representations of sunrise and sunset to the timeline. The tank monitor extension adds graphical columns with volume and water quantity.
 
 ## Normal - Water Level
 A button that allows setting the "Water Level" which is a global percentage the run time for all irrigation programs.
@@ -823,7 +841,7 @@ After clicking on the window, a page will open on which you can upload your own 
 ----
 
 # Sensors page
-On the "Sensors" page, we can add or delete sensors that perform various functions in the OSPy system.
+On the "Sensors" page, we can add or delete sensors that perform various functions in the OSPy system. The OSPy system can currently use sensors from manufacturers pihrt.com and shelly.com.
 
 ## Add a New Sensor
 The button "Add a New Sensor" add new sensor in the system. The sensors settings are listed below in "Sensor Parameters".
@@ -853,7 +871,8 @@ Enabling or disabling this sensor.
 Type Sensor Name. Sensor names must be non-null and unique.  
 
 ### Sensor type
-Select the sensor type.  
+Select the sensor type. 
+
 #### Dry Contact
 * Open Program(s) Mark the required programs to run.  
 * Or stop these running stations in the scheduler.  
@@ -905,6 +924,7 @@ The temperature is displayed in degrees Celsius or degrees Fahrenheit, depending
 
 ### Type of communication
 Select communication type for sensor.
+
 #### Radio
 Enter sensor ID for your radio sensor. Radio ID must be non-null and unique.
 
@@ -932,10 +952,17 @@ The button "Delete All sensors" deletes all added sensors in the system.
 
 ----
 
+## Add new sensor (from shelly.com)
+Shelly sensors can be integrated into OSPy using the "shelly cloud integrator" extension in which we connect available devices (either via the shelly.com cloud or in the local network).
+These devices can then be searched for in OSPy in the sensors/search section. In OSPy we can use measurements such as consumption, voltage, output status, etc...
+
+----
+
 # Help page
 On the "Help" page we can find documentation for all Plugins, system OSPs, system changes, API access, web interface.
 
 ## OSPy
+
 ### Readme
 Main documentation for OSPy, system installation, board interconnection, license.
 
@@ -965,6 +992,7 @@ plugins
   + data
   + docs
   + static
+  + script
   + templates
   + __init__.py
   \ README.md
@@ -1038,9 +1066,3 @@ Available plug-ins:
 After clicking the "Logging out" button, the user logs out of the system.
 
 ----
-
-
-
-
-
-

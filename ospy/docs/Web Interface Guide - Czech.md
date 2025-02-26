@@ -1,6 +1,7 @@
 OSPy Průvodce webovým rozhraním v češtině
 ====
 
+    Instalace OSPy
     Přihlásit se
     Domácí stránka
         Normální - % doby programu
@@ -230,6 +231,23 @@ OSPy Průvodce webovým rozhraním v češtině
             OSPy Backup
             MQTT Home Assistant
             Shelly Cloud Integration
+            Current loop tanks monitor
+
+----
+
+# Instalace OSPy
+Doporučujeme provést čistou instalaci s nejnovější verzí Pythonu 3+. Při prvním spuštění OSPy (přihlašovací stránka) se vygenerují přihlašovací údaje (heslo) pro přihlášení do systému OSPy. po přihlášení je nutné změnit přihlašovací údaje v nastavení (stránka možností). Tyto vygenerované přihlašovací údaje jsou také uloženy v systému OSPy jako vaše přihlašovací údaje. Při příštím přihlášení se již okno s vygenerovanými přihlašovacími údaji nezobrazí.
+
+## POMOCÍ INSTALAČNÍHO SKRIPTU
+Přihlaste se do Pi pomocí SSH. Zadejte nebo zkopírujte a vložte následující příkaz:
+Pamatujte: Příkazy na Raspberry Pi rozlišují velká a malá písmena.
+*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
+A další
+
+*sudo bash ospy_setup.sh*
+
+Zobrazí se nabídka nastavení OSPy. Volitelné: Pomocí kláves se šipkami se můžete pohybovat mezi možnostmi. Klepnutím na mezerník vyberte nebo zrušte výběr možnosti. Ve většině případů jsou doporučeny výchozí možnosti. Klepnutím na klávesu Tab se přesunete na . Klepněte na klávesu Enter a poté pomocí kláves se šipkami vyberte umístění, kam bude OSPy nainstalováno. Dalším klepnutím na klávesu Enter nainstalujte OSPy. V závislosti na vybraných možnostech může dokončení procesu instalace trvat několik minut. Po instalaci OSPy se zobrazí dialogové okno. Klepnutím na klávesu Enter restartujte Pi. Poté, co se Pi restartuje, OSPy bude v provozu a připraven k připojení k vašemu zavlažovacímu systému OSPy a naprogramován podle vašich plánů zavlažování. Začněte v části Otevření webového rozhraní OSPy.
+
 ----
 
 # Odhlásit se
@@ -254,6 +272,7 @@ Domovská stránka je hlavním ovládacím centrem webového rozhraní. To zahrn
 * Časová osa, která poskytuje informace o dokončených a naplánovaných zavlažovacích událostech.
 * Graf, který poskytuje informace o zavlažovacích událostech.
 * Zápatí, které je přítomno na všech stránkách (pokud je přihlášený uživatel). Zápatí obsahuje: Teplota procesoru, Využití procesoru, Verze softwaru, Externí IP adresa, Doba provozu OS.
+* Některá rozšíření umějí injektovat domácí stránku a přidávat další prvky. Například rozšíření astral přidává do časové osy grafické znázorněná východu a západu slunce. Rozšíření tank monitor grafické sloupce s objemem a množstvím vody.
 
 
 ## Normální - % doby programu
@@ -830,9 +849,9 @@ Po kliknutí na okénko se otevře stránka, na které je možné nahrát vlastn
 ----
 
 # Snímače  
-Na stránce „Snímače“ můžeme přidávat nebo mazat snímače, které v systému OSPy plní různé funkce.
+Na stránce „Snímače“ můžeme přidávat nebo mazat snímače, které v systému OSPy plní různé funkce. V systému OSPy lze aktuálně používat snímače od výrobce pihrt.com a shelly.com.
 
-## Přidat nový snímač
+## Přidat nový snímač (od Pihrt.com)
 Tlačítko „Přidat nový snímač“ přidá do systému nový snímač. Nastavení snímačů je uvedeno níže v části „Parametry snímačů“.
 
 ## Parametery snímačů
@@ -861,6 +880,7 @@ Zadejte název snímače. Názvy snímačů musí být nenulové a jedinečné.
 
 ### Typ snímače
 Vyberte typ snímače.
+
 #### Kontakt
 * Otevřený program(y) Označte požadované programy, které chcete spustit.  
 * Nebo zastavit tyto spuštěné stanice v plánovači.  
@@ -939,6 +959,12 @@ Tlačítko „Odstranit všechny snímače“ vymaže všechny přidané sníma�
 
 ----
 
+## Přidat nový snímač (od shelly.com)
+Snímače Shelly lze integrovat do OSPy pomocí rozšíření "shelly cloud integrator" ve kterém připojíme dostupná zařízení (buď přes cloud shelly.com, nebo v místní síti).
+Tato zařízení můžeme následně vyhledat v OSPy v části snímače/vyhledávání. V OSPy můžeme využívat měření například spotřeby, napětí, stavu výstupů atd...
+
+----
+
 #  Nápověda
 Na stránce "Nápověda" nalezneme dokumentaci ke všem rozšířením, OSPy systému, změny v systému, přístup pomocí API, webové rozhraní.
 
@@ -992,6 +1018,7 @@ plugins
   + data
   + docs
   + static
+  + script
   + templates
   + __init__.py
   \ README.md

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2025-01-31 13:35+0100\n"
-"PO-Revision-Date: 2025-01-31 13:51+0100\n"
+"POT-Creation-Date: 2025-02-26 11:58+0100\n"
+"PO-Revision-Date: 2025-02-26 12:10+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: api/api.py:51
 msgid "station id:{} key: {} value: {}"
-msgstr "stanice id:{} klíč: {} hodnota: {}"
+msgstr "výstup id:{} klíč: {} hodnota: {}"
 
 #: api/api.py:55
 msgid "Error setting station {}, {} to {}"
@@ -28,15 +28,15 @@ msgstr "Chyba nastavení stanice {}, {} na {}"
 
 #: api/api.py:77
 msgid "Starting station {} ({})"
-msgstr "Spuštění stanice {} ({})"
+msgstr "Spuštění výstupu {} ({})"
 
 #: api/api.py:80
 msgid "Stopping station {} ({})"
-msgstr "Zastavení stanice {} ({})"
+msgstr "Zastavení výstupu {} ({})"
 
 #: api/api.py:83
 msgid "Unknown station action: {}"
-msgstr "Neznámá akce stanice: {}"
+msgstr "Neznámá akce výstupu: {}"
 
 #: api/api.py:146
 msgid "Setting program property key: {} to value: {}"
@@ -1264,7 +1264,7 @@ msgstr "Přidání nového senzoru: {} s id: {}"
 msgid "Removing sensor id: {}"
 msgstr "Odebrání senzoru s id: {}"
 
-#: ospy/sensors.py:297 plugins/current_loop_tanks_monitor/__init__.py:190
+#: ospy/sensors.py:297 plugins/current_loop_tanks_monitor/__init__.py:334
 #: plugins/pressure_monitor/__init__.py:175
 #: plugins/tank_monitor/__init__.py:354
 msgid ""
@@ -1307,7 +1307,7 @@ msgstr "Baterie"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:305
 #: plugins/email_notifications_ssl/__init__.py:363
-#: plugins/lcd_display/__init__.py:568
+#: plugins/lcd_display/__init__.py:569
 msgid "Voltage"
 msgstr "Napětí"
 
@@ -1321,6 +1321,7 @@ msgid "Updating sensor log to file successfully."
 msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 
 #: ospy/sensors.py:601 plugins/button_control/__init__.py:284
+#: plugins/current_loop_tanks_monitor/__init__.py:415
 #: plugins/pressure_monitor/__init__.py:316
 #: plugins/tank_monitor/__init__.py:823 plugins/wind_monitor/__init__.py:409
 msgid "Stoping stations in scheduler"
@@ -1497,6 +1498,7 @@ msgstr "Průtok {}l/s"
 #: ospy/templates/sensors.html:422 ospy/templates/sensors.html:423
 #: ospy/templates/sensors.html:424 ospy/templates/sensors.html:438
 #: ospy/templates/sensors.html:440
+#: plugins/current_loop_tanks_monitor/__init__.py:257
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:254
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:270
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:286
@@ -1585,6 +1587,16 @@ msgstr "Oznámení snímače"
 #: plugins/air_temp_humi/__init__.py:224
 #: plugins/air_temp_humi/templates/air_temp_humi.html:317
 #: plugins/button_control/templates/button_control.html:86
+#: plugins/current_loop_tanks_monitor/__init__.py:271
+#: plugins/current_loop_tanks_monitor/__init__.py:297
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:379
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:399
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:419
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:439
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:478
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:501
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:524
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:547
 #: plugins/door_opening/templates/door_opening.html:30
 #: plugins/email_reader/__init__.py:780
 #: plugins/photovoltaic_boiler/__init__.py:213
@@ -1605,12 +1617,14 @@ msgid "Output"
 msgstr "Výstup"
 
 #: ospy/sensors.py:1250 plugins/air_temp_humi/__init__.py:211
+#: plugins/current_loop_tanks_monitor/__init__.py:271
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:210
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
 #: ospy/sensors.py:1281 plugins/air_temp_humi/__init__.py:224
+#: plugins/current_loop_tanks_monitor/__init__.py:297
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:238
 msgid "Regulation set OFF."
@@ -1628,7 +1642,8 @@ msgstr "Odebírám zpoždění při dešti"
 msgid "Sensor has water"
 msgstr "Snímač má opět vodu"
 
-#: ospy/sensors.py:1324 plugins/tank_monitor/__init__.py:275
+#: ospy/sensors.py:1324 plugins/current_loop_tanks_monitor/__init__.py:257
+#: plugins/tank_monitor/__init__.py:275
 msgid "!"
 msgstr "!"
 
@@ -1673,9 +1688,9 @@ msgstr "Stav vstupů"
 #: plugins/email_notifications_ssl/__init__.py:506
 #: plugins/email_notifications_ssl/__init__.py:510
 #: plugins/email_notifications_ssl/__init__.py:511
-#: plugins/email_reader/__init__.py:394 plugins/lcd_display/__init__.py:572
-#: plugins/lcd_display/__init__.py:580 plugins/lcd_display/__init__.py:588
-#: plugins/lcd_display/__init__.py:596 plugins/modbus_stations/__init__.py:294
+#: plugins/email_reader/__init__.py:394 plugins/lcd_display/__init__.py:573
+#: plugins/lcd_display/__init__.py:581 plugins/lcd_display/__init__.py:589
+#: plugins/lcd_display/__init__.py:597 plugins/modbus_stations/__init__.py:294
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
 #: plugins/telegram_bot/__init__.py:136 plugins/telegram_bot/__init__.py:367
 msgid "ON"
@@ -1698,9 +1713,9 @@ msgstr "ZAP"
 #: plugins/email_notifications_ssl/__init__.py:506
 #: plugins/email_notifications_ssl/__init__.py:510
 #: plugins/email_notifications_ssl/__init__.py:511
-#: plugins/email_reader/__init__.py:396 plugins/lcd_display/__init__.py:574
-#: plugins/lcd_display/__init__.py:582 plugins/lcd_display/__init__.py:590
-#: plugins/lcd_display/__init__.py:598 plugins/modbus_stations/__init__.py:297
+#: plugins/email_reader/__init__.py:396 plugins/lcd_display/__init__.py:575
+#: plugins/lcd_display/__init__.py:583 plugins/lcd_display/__init__.py:591
+#: plugins/lcd_display/__init__.py:599 plugins/modbus_stations/__init__.py:297
 #: plugins/relay_16/__init__.py:137 plugins/relay_16/__init__.py:144
 #: plugins/telegram_bot/__init__.py:142 plugins/telegram_bot/__init__.py:373
 msgid "OFF"
@@ -1720,7 +1735,7 @@ msgstr "VYP"
 #: plugins/email_notifications_ssl/__init__.py:363
 #: plugins/email_notifications_ssl/__init__.py:533
 #: plugins/email_notifications_ssl/__init__.py:534
-#: plugins/lcd_display/__init__.py:568
+#: plugins/lcd_display/__init__.py:569
 msgid "V"
 msgstr "V"
 
@@ -1729,7 +1744,7 @@ msgstr "V"
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:367
 #: plugins/email_notifications_ssl/__init__.py:369
-#: plugins/lcd_display/__init__.py:572 plugins/lcd_display/__init__.py:574
+#: plugins/lcd_display/__init__.py:573 plugins/lcd_display/__init__.py:575
 msgid "Output 1"
 msgstr "Výstup 1"
 
@@ -1738,7 +1753,7 @@ msgstr "Výstup 1"
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:375
 #: plugins/email_notifications_ssl/__init__.py:377
-#: plugins/lcd_display/__init__.py:580 plugins/lcd_display/__init__.py:582
+#: plugins/lcd_display/__init__.py:581 plugins/lcd_display/__init__.py:583
 msgid "Output 2"
 msgstr "Výstup 2"
 
@@ -1747,7 +1762,7 @@ msgstr "Výstup 2"
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:383
 #: plugins/email_notifications_ssl/__init__.py:385
-#: plugins/lcd_display/__init__.py:588 plugins/lcd_display/__init__.py:590
+#: plugins/lcd_display/__init__.py:589 plugins/lcd_display/__init__.py:591
 msgid "Output 3"
 msgstr "Výstup 3"
 
@@ -1756,7 +1771,7 @@ msgstr "Výstup 3"
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:391
 #: plugins/email_notifications_ssl/__init__.py:393
-#: plugins/lcd_display/__init__.py:596 plugins/lcd_display/__init__.py:598
+#: plugins/lcd_display/__init__.py:597 plugins/lcd_display/__init__.py:599
 msgid "Output 4"
 msgstr "Výstup 4"
 
@@ -1768,9 +1783,9 @@ msgstr "Výstup 4"
 #: plugins/email_notifications_ssl/__init__.py:408
 #: plugins/email_notifications_ssl/__init__.py:413
 #: plugins/email_notifications_ssl/__init__.py:418
-#: plugins/lcd_display/__init__.py:603 plugins/lcd_display/__init__.py:608
-#: plugins/lcd_display/__init__.py:613 plugins/lcd_display/__init__.py:618
-#: plugins/lcd_display/__init__.py:623
+#: plugins/lcd_display/__init__.py:604 plugins/lcd_display/__init__.py:609
+#: plugins/lcd_display/__init__.py:614 plugins/lcd_display/__init__.py:619
+#: plugins/lcd_display/__init__.py:624
 msgid "°C"
 msgstr "°C"
 
@@ -1779,7 +1794,7 @@ msgstr "°C"
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:398
 #: plugins/email_notifications_ssl/__init__.py:418
-#: plugins/lcd_display/__init__.py:603 plugins/lcd_display/__init__.py:623
+#: plugins/lcd_display/__init__.py:604 plugins/lcd_display/__init__.py:624
 msgid "Temperature 1"
 msgstr "Teplota 1"
 
@@ -1787,7 +1802,7 @@ msgstr "Teplota 1"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:403
-#: plugins/lcd_display/__init__.py:608
+#: plugins/lcd_display/__init__.py:609
 msgid "Temperature 2"
 msgstr "Teplota 2"
 
@@ -1795,7 +1810,7 @@ msgstr "Teplota 2"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:408
-#: plugins/lcd_display/__init__.py:613
+#: plugins/lcd_display/__init__.py:614
 msgid "Temperature 3"
 msgstr "Teplota 3"
 
@@ -1803,7 +1818,7 @@ msgstr "Teplota 3"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:413
-#: plugins/lcd_display/__init__.py:618
+#: plugins/lcd_display/__init__.py:619
 msgid "Temperature 4"
 msgstr "Teplota 4"
 
@@ -1830,8 +1845,8 @@ msgstr "Teplota 5"
 #: plugins/email_notifications_ssl/__init__.py:524
 #: plugins/email_notifications_ssl/__init__.py:528
 #: plugins/email_notifications_ssl/__init__.py:529
-#: plugins/lcd_display/__init__.py:628 plugins/lcd_display/__init__.py:633
-#: plugins/lcd_display/__init__.py:638 plugins/lcd_display/__init__.py:643
+#: plugins/lcd_display/__init__.py:629 plugins/lcd_display/__init__.py:634
+#: plugins/lcd_display/__init__.py:639 plugins/lcd_display/__init__.py:644
 msgid "W"
 msgstr "W"
 
@@ -1839,7 +1854,7 @@ msgstr "W"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:423
-#: plugins/lcd_display/__init__.py:628
+#: plugins/lcd_display/__init__.py:629
 msgid "Power 1"
 msgstr "Výkon 1"
 
@@ -1847,7 +1862,7 @@ msgstr "Výkon 1"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:428
-#: plugins/lcd_display/__init__.py:633
+#: plugins/lcd_display/__init__.py:634
 msgid "Power 2"
 msgstr "Výkon 2"
 
@@ -1855,7 +1870,7 @@ msgstr "Výkon 2"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:433
-#: plugins/lcd_display/__init__.py:638
+#: plugins/lcd_display/__init__.py:639
 msgid "Power 3"
 msgstr "Výkon 3"
 
@@ -1863,7 +1878,7 @@ msgstr "Výkon 3"
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:432
 #: ospy/templates/sensors.html:814
 #: plugins/email_notifications_ssl/__init__.py:438
-#: plugins/lcd_display/__init__.py:643
+#: plugins/lcd_display/__init__.py:644
 msgid "Power 4"
 msgstr "Výkon 4"
 
@@ -1871,14 +1886,14 @@ msgstr "Výkon 4"
 #: ospy/templates/sensor.html:103 ospy/templates/sensor.html:104
 #: ospy/templates/sensors.html:829 ospy/templates/sensors.html:849
 #: plugins/email_notifications_ssl/__init__.py:443
-#: plugins/lcd_display/__init__.py:648
+#: plugins/lcd_display/__init__.py:649
 msgid "%RV"
 msgstr "%RV"
 
 #: ospy/sensors.py:1695 ospy/templates/sensors.html:802
 #: plugins/air_temp_humi/__init__.py:177
 #: plugins/email_notifications_ssl/__init__.py:443
-#: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:648
+#: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:649
 #: plugins/mqtt_home_assistant/__init__.py:786
 msgid "Humidity"
 msgstr "Vlhkost"
@@ -1911,8 +1926,9 @@ msgid "{} %RV"
 msgstr "{} %RV"
 
 #: ospy/sensors.py:1773
-msgid "Shelly cloud integrator not installed in plugins!"
-msgstr "Shelly cloud integrátor není nainstalován v rozšíření OSPy!"
+msgid "Shelly cloud integrator not installed or not enabled in plugins!"
+msgstr ""
+"Shelly cloud integrátor není nainstalován nebo není povolen v rozšíření OSPy!"
 
 #: ospy/sensors.py:1815
 msgid "Sensor Shelly: {} saving every 30 seconds to sensors."
@@ -2374,8 +2390,8 @@ msgstr "Konfigurace snímačů"
 #: plugins/signaling_examples/templates/signaling_examples.html:34
 #: plugins/sms_adj/templates/sms_adj.html:22
 #: plugins/speed_monitor/templates/speed_monitor.html:179
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:24
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:34
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
 #: plugins/system_update/templates/system_update.html:95
 #: plugins/system_watchdog/templates/system_watchdog.html:30
 #: plugins/tank_monitor/templates/tank_monitor.html:201
@@ -2554,11 +2570,11 @@ msgstr "Smazat"
 #: plugins/cli_control/templates/cli_control_log.html:29
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:319
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:194
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:42
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:30
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:74
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:67
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:324
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:95
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:568
 #: plugins/database_connector/templates/database_connector.html:102
 #: plugins/database_connector/templates/database_connector_backup.html:54
 #: plugins/database_connector/templates/database_connector_help.html:30
@@ -2631,10 +2647,10 @@ msgstr "Smazat"
 #: plugins/speed_monitor/templates/speed_monitor_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:12
 #: plugins/speed_monitor/templates/speed_monitor_log.html:32
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:107
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:168
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:9
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:83
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:101
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
 #: plugins/system_debug/templates/system_debug.html:44
 #: plugins/system_info/templates/system_info.html:37
 #: plugins/system_update/templates/system_update.html:192
@@ -3037,7 +3053,7 @@ msgstr "Potlačeno dešťovým senzorem"
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
 #: plugins/email_notifications_ssl/__init__.py:449
-#: plugins/lcd_display/__init__.py:462 plugins/lcd_display/__init__.py:654
+#: plugins/lcd_display/__init__.py:462 plugins/lcd_display/__init__.py:655
 #: plugins/pressure_monitor/__init__.py:192
 #: plugins/pressure_monitor/__init__.py:193
 msgid "Disabled"
@@ -3171,7 +3187,7 @@ msgstr "Povolit nebo zakázat provoz plánovače"
 #: ospy/templates/log.html:87 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/program.html:372
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:78
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:106
 #: plugins/lcd_display/__init__.py:460
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
 #: plugins/webcam/templates/webcam.html:26
@@ -3469,7 +3485,7 @@ msgstr "Stav E-mailu"
 
 #: ospy/templates/log.html:67 ospy/templates/log.html:111
 #: ospy/templates/log_user.html:57 ospy/templates/log_user.html:86
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:253
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:290
 msgid "Subject"
 msgstr "Předmět"
 
@@ -3481,14 +3497,13 @@ msgstr "Tělo"
 msgid "Events log"
 msgstr "Záznam událostí"
 
+#: ospy/templates/log.html:89
+msgid "Events"
+msgstr "Události"
+
 #: ospy/templates/log.html:89 ospy/templates/log_user.html:79
 msgid "events.csv"
 msgstr "events.csv"
-
-#: ospy/templates/log.html:89
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:315
-msgid "Events"
-msgstr "Události"
 
 #: ospy/templates/log.html:93
 msgid "Filter for events"
@@ -3540,7 +3555,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:61
 #: plugins/cli_control/templates/cli_control_log.html:17
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:236
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:559
 #: plugins/database_connector/templates/database_connector.html:94
 #: plugins/database_connector/templates/database_connector_backup.html:29
 #: plugins/door_opening/templates/door_opening.html:47
@@ -3575,7 +3590,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/signaling_examples/templates/signaling_examples.html:38
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:94
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:156
 #: plugins/system_update/templates/system_update.html:174
 #: plugins/system_update/templates/system_update_help.html:24
 #: plugins/system_watchdog/templates/system_watchdog.html:34
@@ -3611,7 +3626,7 @@ msgstr "Stav"
 #: plugins/pool_heating/templates/pool_heating.html:197
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
 #: plugins/speed_monitor/templates/speed_monitor_log.html:11
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:97
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:159
 #: plugins/system_info/templates/system_info.html:38
 #: plugins/system_watchdog/templates/system_watchdog.html:38
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
@@ -3684,8 +3699,8 @@ msgstr "Chyba"
 #: ospy/templates/sensors.html:864 ospy/templates/sensors.html:866
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:255
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:271
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:287
@@ -4085,7 +4100,7 @@ msgid "Add a New Program"
 msgstr "Přidat nový program"
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:69
-#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:535
+#: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:539
 msgid "Name"
 msgstr "Jméno"
 
@@ -4774,6 +4789,10 @@ msgid "Stop stations if minimum water level"
 msgstr "Zastavit stanice, pokud je minimální hladina vody"
 
 #: ospy/templates/sensor.html:692
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:463
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:486
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:509
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:532
 #: plugins/tank_monitor/templates/tank_monitor.html:267
 msgid "Stoping these stations if is minimum water level in the tank"
 msgstr "Zastavit tyto stanice, pokud je minimální hladina vody v nádrži"
@@ -4832,6 +4851,10 @@ msgid "Maximum maintained water level"
 msgstr "Maximální udržovaná hladina vody"
 
 #: ospy/templates/sensor.html:725
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:373
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:393
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:413
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:433
 #: plugins/tank_monitor/templates/tank_monitor.html:344
 msgid ""
 "If the measured water level exceeds this set value, the output is activated"
@@ -4875,6 +4898,10 @@ msgid "Minimum maintained water level"
 msgstr "Minimální udržovaná hladina vody"
 
 #: ospy/templates/sensor.html:736
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:375
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:395
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:415
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:435
 #: plugins/tank_monitor/templates/tank_monitor.html:357
 msgid ""
 "If the measured water level falls below this set value, the output is "
@@ -4950,7 +4977,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/proto/templates/proto.html:80 plugins/proto/templates/proto.html:83
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:150
 #: plugins/speed_monitor/templates/speed_monitor.html:219
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:88
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:138
 #: plugins/system_update/templates/system_update.html:165
 #: plugins/system_update/templates/system_update_help.html:22
 #: plugins/tank_monitor/templates/tank_monitor.html:427
@@ -5005,7 +5032,7 @@ msgstr ""
 "musí mít nastavené všechny dny, kdy chceme program spustit."
 
 #: ospy/templates/sensor.html:947
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:31
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:77
 msgid ""
 "Cannot be used for these programs: weekly advanced, custom, weekly weather! "
 "These programs will not appear in the menu and cannot be selected."
@@ -5603,8 +5630,8 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:100
 #: plugins/chmi/templates/chmi.html:170
 #: plugins/cli_control/templates/cli_control.html:71
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:66
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:323
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:567
 #: plugins/database_connector/templates/database_connector.html:101
 #: plugins/email_notifications/templates/email_notifications.html:147
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:211
@@ -5628,8 +5655,8 @@ msgstr ""
 #: plugins/signaling_examples/templates/signaling_examples.html:48
 #: plugins/sms_adj/templates/sms_adj.html:113
 #: plugins/speed_monitor/templates/speed_monitor.html:239
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:106
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:100
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:167
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:158
 #: plugins/system_update/templates/system_update.html:184
 #: plugins/tank_monitor/templates/tank_monitor.html:489
 #: plugins/telegram_bot/templates/telegram_bot.html:128
@@ -6423,9 +6450,9 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/shelly_cloud_integrator/__init__.py:1233
 #: plugins/shelly_cloud_integrator/__init__.py:1355
 #: plugins/shelly_cloud_integrator/__init__.py:1369
-#: plugins/sunrise_and_sunset/__init__.py:762
-#: plugins/sunrise_and_sunset/__init__.py:777
-#: plugins/sunrise_and_sunset/__init__.py:897
+#: plugins/sunrise_and_sunset/__init__.py:766
+#: plugins/sunrise_and_sunset/__init__.py:781
+#: plugins/sunrise_and_sunset/__init__.py:901
 #: plugins/tank_monitor/__init__.py:901 plugins/tank_monitor/__init__.py:929
 #: plugins/tank_monitor/__init__.py:941 plugins/tank_monitor/__init__.py:978
 #: plugins/tank_monitor/__init__.py:997
@@ -6494,7 +6521,7 @@ msgid "Enable the plugin and then enable the dht, ds18b20 and logging"
 msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:222
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:175
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:203
 #: plugins/tank_monitor/templates/tank_monitor.html:376
 #: plugins/ups_adj/templates/ups_adj.html:200
 #: plugins/wind_monitor/templates/wind_monitor.html:207
@@ -6502,7 +6529,7 @@ msgid "Enable local logging"
 msgstr "Povolit místní záznam"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:223
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:176
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:204
 #: plugins/pressure_monitor/templates/pressure_monitor.html:201
 #: plugins/tank_monitor/templates/tank_monitor.html:377
 #: plugins/ups_adj/templates/ups_adj.html:201
@@ -6545,7 +6572,7 @@ msgstr "vyžaduje rozšíření database connector"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:231
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:28
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:28
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:170
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:198
 #: plugins/pressure_monitor/templates/pressure_monitor.html:209
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:28
 #: plugins/tank_monitor/templates/tank_monitor.html:385
@@ -6566,7 +6593,7 @@ msgid "Show data from"
 msgstr "Zobrazit data z"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:153
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
@@ -6593,7 +6620,7 @@ msgstr "Databázový soubor"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:185
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:213
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
@@ -6614,7 +6641,7 @@ msgstr ""
 "Maximální počet je pouze pro místní úložiště (nikoli pro databázi)."
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:192
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:220
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -6678,6 +6705,10 @@ msgid "Humidity + hysteresis/2 > ON"
 msgstr "Vlhkost + hystereze/2 = ZAPNUTO"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:301
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:374
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:394
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:414
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:434
 #: plugins/pool_heating/templates/pool_heating.html:105
 #: plugins/tank_monitor/templates/tank_monitor.html:350
 #: plugins/temperature_switch/templates/temperature_switch.html:46
@@ -6699,6 +6730,7 @@ msgid "Humidity - hysteresis/2 < OFF"
 msgstr "Vlhkost - hystereze/2 = VYPNUTO"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:313
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:361
 #: plugins/door_opening/templates/door_opening.html:26
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:132
 #: plugins/pool_heating/templates/pool_heating.html:117
@@ -6723,7 +6755,7 @@ msgstr "Počet DS18B20"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:281
 #: plugins/proto/templates/proto.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:220
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:89
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:139
 #: plugins/system_update/templates/system_update.html:166
 #: plugins/tank_monitor/templates/tank_monitor.html:428
 #: plugins/telegram_bot/templates/telegram_bot.html:114
@@ -7672,6 +7704,7 @@ msgid "I will try to download a file that is 10 minutes older."
 msgstr "Pokusím se stáhnout soubor, který je o 10 minut starší."
 
 #: plugins/chmi/__init__.py:449 plugins/chmi/templates/chmi.html:120
+#: plugins/current_loop_tanks_monitor/__init__.py:993
 #: plugins/tank_monitor/__init__.py:884
 #: plugins/tank_monitor/templates/tank_monitor.html:275
 msgid "Removing Rain Delay"
@@ -9120,120 +9153,144 @@ msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
 msgid "Command"
 msgstr "Příkaz"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:32
+#: plugins/current_loop_tanks_monitor/__init__.py:34
 msgid "Package: Current Loop Tanks Monitor"
 msgstr "Balíček: Monitor 4 nádrží s proudovou smyčkou"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:38
+#: plugins/current_loop_tanks_monitor/__init__.py:40
 msgid "Tank 1"
 msgstr "Nádrž 1"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:39
+#: plugins/current_loop_tanks_monitor/__init__.py:41
 msgid "Tank 2"
 msgstr "Nádrž 2"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:40
+#: plugins/current_loop_tanks_monitor/__init__.py:42
 msgid "Tank 3"
 msgstr "Nádrž 3"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:41
+#: plugins/current_loop_tanks_monitor/__init__.py:43
 msgid "Tank 4"
 msgstr "Nádrž 4"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:85
+#: plugins/current_loop_tanks_monitor/__init__.py:88
 msgid "Report from OSPy: Tank 1 has minimal level!"
 msgstr "Zpráva z OSPy: nádrž 1 má minimální úroveň!"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:86
+#: plugins/current_loop_tanks_monitor/__init__.py:89
 msgid "Report from OSPy: Tank 2 has minimal level!"
 msgstr "Zpráva z OSPy: nádrž 2 má minimální úroveň!"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:87
+#: plugins/current_loop_tanks_monitor/__init__.py:90
 msgid "Report from OSPy: Tank 3 has minimal level!"
 msgstr "Zpráva z OSPy: nádrž 3 má minimální úroveň!"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:88
+#: plugins/current_loop_tanks_monitor/__init__.py:91
 msgid "Report from OSPy: Tank 4 has minimal level!"
 msgstr "Zpráva z OSPy: nádrž 4 má minimální úroveň!"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:149
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:73
+#: plugins/current_loop_tanks_monitor/__init__.py:209
+#: plugins/tank_monitor/__init__.py:132
+msgid "Regulation NONE."
+msgstr "Regulace nepovolena."
+
+#: plugins/current_loop_tanks_monitor/__init__.py:214
+#: plugins/current_loop_tanks_monitor/__init__.py:250
+#: plugins/current_loop_tanks_monitor/__init__.py:994
+msgid "Deleting: {} in rain delay."
+msgstr "Smazání: {} v dešťovém zpoždění."
+
+#: plugins/current_loop_tanks_monitor/__init__.py:224
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:101
 msgid "Tanks"
 msgstr "Nádrže"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
-#: plugins/current_loop_tanks_monitor/__init__.py:191
-#: plugins/current_loop_tanks_monitor/__init__.py:216
-#: plugins/current_loop_tanks_monitor/__init__.py:415
-#: plugins/current_loop_tanks_monitor/__init__.py:442
-#: plugins/current_loop_tanks_monitor/__init__.py:454
-#: plugins/current_loop_tanks_monitor/__init__.py:517
-#: plugins/current_loop_tanks_monitor/__init__.py:529
-#: plugins/current_loop_tanks_monitor/__init__.py:543
-#: plugins/current_loop_tanks_monitor/__init__.py:629
-#: plugins/current_loop_tanks_monitor/__init__.py:643
-#: plugins/current_loop_tanks_monitor/__init__.py:744
-#: plugins/current_loop_tanks_monitor/__init__.py:760
-#: plugins/current_loop_tanks_monitor/__init__.py:784
-#: plugins/current_loop_tanks_monitor/__init__.py:810
-#: plugins/current_loop_tanks_monitor/__init__.py:845
-#: plugins/current_loop_tanks_monitor/__init__.py:885
-#: plugins/current_loop_tanks_monitor/__init__.py:931
+#: plugins/current_loop_tanks_monitor/__init__.py:257
+msgid "ERROR: Water in Tank: {}"
+msgstr "CHYBA: Nádrž s vodou: {}"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:309
+msgid "Regulation waiting."
+msgstr "Automatizace čeká."
+
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
+#: plugins/current_loop_tanks_monitor/__init__.py:335
+#: plugins/current_loop_tanks_monitor/__init__.py:368
+#: plugins/current_loop_tanks_monitor/__init__.py:595
+#: plugins/current_loop_tanks_monitor/__init__.py:622
+#: plugins/current_loop_tanks_monitor/__init__.py:634
+#: plugins/current_loop_tanks_monitor/__init__.py:697
+#: plugins/current_loop_tanks_monitor/__init__.py:709
+#: plugins/current_loop_tanks_monitor/__init__.py:723
+#: plugins/current_loop_tanks_monitor/__init__.py:809
+#: plugins/current_loop_tanks_monitor/__init__.py:823
+#: plugins/current_loop_tanks_monitor/__init__.py:924
+#: plugins/current_loop_tanks_monitor/__init__.py:940
+#: plugins/current_loop_tanks_monitor/__init__.py:964
+#: plugins/current_loop_tanks_monitor/__init__.py:1003
+#: plugins/current_loop_tanks_monitor/__init__.py:1036
+#: plugins/current_loop_tanks_monitor/__init__.py:1076
+#: plugins/current_loop_tanks_monitor/__init__.py:1122
 msgid "Current Loop Tanks Monitor plug-in"
 msgstr "Rozšíření monitor 4 nádrží s proudovou smyčkou"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:186
-#: plugins/current_loop_tanks_monitor/__init__.py:187
+#: plugins/current_loop_tanks_monitor/__init__.py:330
+#: plugins/current_loop_tanks_monitor/__init__.py:331
 #: plugins/tank_monitor/__init__.py:341 plugins/tank_monitor/__init__.py:342
 msgid "System detected error: Water Tank has minimum Water Level"
 msgstr "Systém zjistil chybu: nádrž na vodu má minimální hladinu vody"
 
-#: plugins/current_loop_tanks_monitor/__init__.py:208
+#: plugins/current_loop_tanks_monitor/__init__.py:360
 msgid "The measurement of all tanks is switched off."
 msgstr "Měření všech nádrží je vypnuto."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:270
+#: plugins/current_loop_tanks_monitor/__init__.py:450
 msgid "Error: Invalid channel."
 msgstr "Chyba: Neplatný kanál."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:282
+#: plugins/current_loop_tanks_monitor/__init__.py:462
 msgid "Error: No I2C bus or ADC available on address 0x48, 0x49, 0x4A, 0x4B."
 msgstr ""
 "Chyba: Na adresách 0x48, 0x49, 0x4A 0x4B není k dispozici žádná sběrnice I2C "
 "ani ADC."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:291
+#: plugins/current_loop_tanks_monitor/__init__.py:471
 msgid "Error: It is not possible to read data from the AD converter."
 msgstr "Chyba: Není možné číst data z AD převodníku."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:311
+#: plugins/current_loop_tanks_monitor/__init__.py:491
 msgid "Error: the I2C bus is not available."
 msgstr "Chyba: sběrnice I2C není k dispozici."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:361
+#: plugins/current_loop_tanks_monitor/__init__.py:541
 msgid "Error: I/O."
 msgstr "Chyba: I/O."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:364
+#: plugins/current_loop_tanks_monitor/__init__.py:544
 msgid "Error: ADC value."
 msgstr "Chyba: Hodnota ADC."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:367
+#: plugins/current_loop_tanks_monitor/__init__.py:547
 msgid "No problems (measurement works as it should)."
 msgstr "Žádné problémy (měření funguje jak má)."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:375
+#: plugins/current_loop_tanks_monitor/__init__.py:555
 msgid "Error: I2C bus is not available."
 msgstr "Chyba: Sběrnice I2C není k dispozici."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:389
+#: plugins/current_loop_tanks_monitor/__init__.py:569
 msgid "No I2C device was found."
 msgstr "Nebylo nalezeno žádné zařízení I2C."
 
-#: plugins/current_loop_tanks_monitor/__init__.py:671
+#: plugins/current_loop_tanks_monitor/__init__.py:851
 msgid "Not found at any known addresses: 0x48, 0x49, 0x4A, 0x4B"
 msgstr "Nebyl nalezen na žádných známých adresách: 0x48, 0x49, 0x4A, 0x4B"
+
+#: plugins/current_loop_tanks_monitor/__init__.py:962
+#: plugins/current_loop_tanks_monitor/__init__.py:1001
+msgid "Deleting the currentmonitor table from the database."
+msgstr "Odstranění tabulky currentmonitor z databáze."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
@@ -9390,66 +9447,164 @@ msgstr "SCL = 0x4B"
 msgid "How to installing in tank"
 msgstr "Jak nainstalovat do nádrže"
 
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:19
+msgid "Calibration"
+msgstr "Kalibrace"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:20
+msgid ""
+"Without a sensor connected (on inputs 1 to 4), the plugin must display a "
+"voltage of 0V."
+msgstr ""
+"Bez připojeného senzoru (na vstupech 1 až 4) musí plugin zobrazovat napětí "
+"0V."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:21
+msgid ""
+"When connecting + and - (on inputs 1 to 4), approximately 3.2V must be "
+"displayed."
+msgstr ""
+"Při připojení + a - (na vstupech 1 až 4) musí být zobrazeno přibližně 3,2V."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
+msgid ""
+"We connect the sensor (without immersing it in water, i.e. outside the tank) "
+"and see what voltage the plugin shows (example: we will see something around "
+"0.7 V)."
+msgstr ""
+"Připojíme senzor (aniž bychom jej ponořili do vody, tedy mimo nádrž) a "
+"uvidíme, jaké napětí plugin ukazuje (příklad: uvidíme něco kolem 0,7 V)."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:23
+msgid ""
+"We will enter this voltage in the plugin settings in the \"minimum voltage\" "
+"section."
+msgstr "Toto napětí zadáme v nastavení pluginu v sekci \"minimální napětí\"."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:24
+msgid ""
+"Then we insert the sensor into a full tank \"to the bottom\" and see what "
+"voltage the plugin shows (example: we will see something around 3.2 V)."
+msgstr ""
+"Poté senzor vložíme do plné nádrže \"až na dno\" a uvidíme, jaké napětí "
+"plugin ukáže (příklad: uvidíme něco kolem 3,2 V)."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:25
+msgid ""
+"We will enter this voltage in the plugin settings in the \"maximum voltage\" "
+"section."
+msgstr "Toto napětí zadáme v nastavení pluginu v sekci \"maximální napětí\"."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:26
+msgid ""
+"In the \"maximum volume\" section, we enter our calculated/actual volume of "
+"the tank when it is 100% full of water (example: 50 liters)."
+msgstr ""
+"V části \"maximální objem\" zadáme náš vypočítaný/skutečný objem nádrže, "
+"když je to 100% plné vody (příklad: 50 litrů)."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:27
+msgid ""
+"In the \"maximum height\" section, enter the actual measured distance "
+"between the sensor and the maximum level at 100% (example: 43 cm)."
+msgstr ""
+"V části \"maximální výška\" zadejte skutečnou naměřenou vzdálenost mezi "
+"senzorem a maximální hladinou na 100 % (příklad: 43 cm)."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:28
+msgid ""
+"This completes the calibration. The plugin will then recalculate the tank "
+"level and volume."
+msgstr ""
+"Tím je kalibrace dokončena. Plugin poté přepočítá hladinu a objem nádrže."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:29
+msgid "Pressure sensor"
+msgstr "Snímač tlaku"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:30
+msgid ""
+"It is powered by 24V directly from this board and does not need to connect "
+"any other source! Hard-wiring the input terminal on the board - for example, "
+"input 1 + and - will not damage the circuit (board). The maximum current is "
+"set to 20mA. For checking, we can leave the unused input connected to + and "
+"- (in the plugin we will see the maximum voltage of about 3.5V). Or we can "
+"connect an LED of any color between + and - (LED If=20mA)."
+msgstr ""
+"Napájí se 24V přímo z této desky a není potřeba připojovat žádný další "
+"zdroj! Zkrat vstupní svorky na desce - například vstup 1 + a - nepoškodí "
+"obvod (desku). Maximální proud je nastaven na 20mA. Pro kontrolu můžeme "
+"nechat nepoužitý vstup připojený k + a - (v pluginu uvidíme maximální napětí "
+"cca 3,5V). Nebo můžeme připojit LED libovolné barvy mezi + a - (LED If=20mA)."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:31
+msgid "Wiring diagram"
+msgstr "Schéma zapojení"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:33
+msgid "PCB"
+msgstr "Plošný spoj"
+
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:6
 msgid "Current Loop Tanks Monitor - Log"
 msgstr "Monitor 4 nádrží s proudovou smyčkou - Záznam"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:3
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:64
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:92
 msgid "Current Loop Tanks - Setup"
 msgstr "Monitor nádrží s proudovou smyčkou - Nastavení"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:77
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:105
 msgid "Tank Name"
 msgstr "Název nádrže"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:79
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 msgid "Max Height (cm)"
 msgstr "Maximální výška (cm)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:80
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:108
 msgid "Max Volume (l)"
 msgstr "Maximální objem (l)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:81
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
 msgid "Min Voltage (V)"
 msgstr "Minimální napětí (V)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:82
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:110
 msgid "Max Voltage (V)"
 msgstr "Maximální napětí (V)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:109
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:124
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:139
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:122
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:137
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:152
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:167
 msgid ""
 "Here, enter the distance from the sensor to the maximum level in centimeters."
 msgstr "Zde zadejte vzdálenost od senzoru na maximální úroveň v centimetrech."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:95
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:110
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:125
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:140
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:123
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:138
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:153
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:168
 msgid ""
 "Here, enter the volume of the tank at 100% volume (regardless of the shape "
 "of the tank)."
 msgstr "Zde zadejte objem nádrže pro 100% objem (bez ohledu na tvar nádrže)."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:96
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:111
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:126
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:141
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:124
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:139
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:154
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:169
 msgid ""
 "Minimum voltage from the probe on the AD converter (for 4mA ie empty tank)."
 msgstr ""
 "Minimální napětí ze sondy na AD převodníku (pro 4mA tj. prázdnou nádrž)."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:97
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:112
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:127
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:142
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:125
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:140
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:155
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:170
 msgid ""
 "Maximum voltage from the probe on the AD converter (for 20mA ie full tank). "
 "4.096V is max range for 16bit convert."
@@ -9457,27 +9612,27 @@ msgstr ""
 "Maximální napětí ze sondy na AD převodníku (pro 20mA tj. plnou nádrž). "
 "4.096V je maximální rozsah pro 16bit převodník."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:148
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:176
 msgid "Logs and graphs"
 msgstr "Záznamy a grafy"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:152
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:180
 msgid "Show data in graph and log from"
 msgstr "Zobrazit data v grafu a logovat z"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:155
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:183
 msgid "Local File"
 msgstr "Místní soubor"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:156
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:184
 msgid "Database File"
 msgstr "Databázový soubor"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:162
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:190
 msgid "Enable SQL Logging"
 msgstr "Povolit SQL záznam"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:163
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:191
 msgid ""
 "The measured data will be stored in the database. This option requires the "
 "database connector extension to be installed and configured."
@@ -9485,7 +9640,7 @@ msgstr ""
 "Naměřená data budou uložena v databázi. Tato možnost vyžaduje instalaci a "
 "konfiguraci rozšíření databázového konektoru."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:169
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:197
 msgid ""
 "The button will delete the currentmonitor table from the database, thus "
 "deleting all saved data from this extension! This promotion is non-"
@@ -9494,7 +9649,7 @@ msgstr ""
 "Tlačítkem dojde ke smazání aktuální tabulky currentmonitor z databáze a tím "
 "ke smazání všech uložených dat z tohoto rozšíření! Tato akce je nevratná!"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:186
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:214
 #: plugins/tank_monitor/templates/tank_monitor.html:399
 msgid ""
 "0 = unlimited. The maximum number of records sets the number of saved "
@@ -9503,7 +9658,7 @@ msgstr ""
 "0 = neomezeně. Maximální počet záznamů nastavuje počet uložených záznamů, "
 "tzn. po překročení nastaveného limitu dojde k přepsání starších dat."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:193
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:221
 #: plugins/tank_monitor/templates/tank_monitor.html:405
 msgid ""
 "In minutes (Minimum is 1). The logging interval is common for both local "
@@ -9512,77 +9667,97 @@ msgstr ""
 "V minutách (minimum je 1). Interval logování je společný jak pro lokální "
 "úložiště, tak pro sql úložiště naměřených dat."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:199
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:227
 msgid "Show data in graph from"
 msgstr "Zobrazit data v grafu od"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:200
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:228
 msgid "Datetime FROM for Filtering."
 msgstr "Datum a čas OD pro filtrování."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:204
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:232
 msgid "Show data in graph to"
 msgstr "Zobrazit data v grafu do"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:205
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:233
 msgid "Datetime TO for Filtering."
 msgstr "Datum a čas DO pro filtrování."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:211
-msgid "Additional Settings"
-msgstr "Další nastavení"
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:239
+msgid "Communications"
+msgstr "Komunikace"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:215
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:243
 msgid "I2C Address"
 msgstr "Adresa I2C"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:216
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:244
 msgid "Default address is 0x48."
 msgstr "Výchozí adresa je 0x48."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:227
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:257
+msgid "Display and graphics"
+msgstr "Displej a grafika"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:261
 msgid "Use Footer"
 msgstr "Použití zápatí"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:228
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:262
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:151
 #: plugins/system_update/templates/system_update_help.html:23
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 msgid "Show data from plugin in footer on home page."
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:245
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:270
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:147
+msgid "Use Injection Script"
+msgstr "Použít injektování skriptem"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:271
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:148
+msgid ""
+"Create tanks charts from a plugin on the home page. You always need to "
+"restart OSPy afterwards for this option."
+msgstr ""
+"Vytvářet grafy nádrží pomocí pluginu na domovské stránce OSPy. Pro tuto "
+"možnost je vždy nutné restartovat OSPy."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:282
 msgid "Notifications"
 msgstr "Oznámení"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:249
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:286
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:356
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:451
 #: plugins/tank_monitor/__init__.py:143
 msgid "Tank"
 msgstr "Nádrž"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:250
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:287
 msgid "Send E-mail"
 msgstr "Odeslat e-mail"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:251
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:288
 msgid "Level activation (%)"
 msgstr "Úroveň aktivace (%)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:252
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:289
 msgid "Level release (%)"
 msgstr "Úroveň uvolnění (%)"
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:265
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:279
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:293
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:307
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:302
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:316
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:330
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:344
 msgid "If the level drops below this value, sending an email is activated."
 msgstr "Pokud hladina klesne pod tuto hodnotu, odešle se e-mail s upozorněním."
 
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:266
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:280
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:294
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:308
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:303
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:317
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:331
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:345
 msgid ""
 "As long as the level does not rise above this level, it will not allow "
 "sending an email when the level drops to the minimum. This is used to block "
@@ -9591,6 +9766,122 @@ msgstr ""
 "Dokud hladina nestoupne nad tuto úroveň, nedovolí odeslání e-mailu, když "
 "úroveň klesne na minimum. Slouží k blokování neustálého odesílání e-mailů, "
 "když je úroveň na minimu."
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:352
+msgid "Regulate maximum"
+msgstr "Řízení maximální hladiny"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:357
+msgid "Regulate"
+msgstr "Řídit"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:358
+msgid "Max level (cm)"
+msgstr "Maximální úroveň (cm)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:359
+msgid "Max run time (mm:ss)"
+msgstr "Maximální doba chodu (mm:ss)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:360
+msgid "Min level (cm)"
+msgstr "Minimální úroveň (cm)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:367
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:387
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:407
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:427
+#: plugins/tank_monitor/templates/tank_monitor.html:338
+msgid "If checked, regulation is enabled"
+msgstr "Je-li zaškrtnuto, je povolena regulace"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:376
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:396
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:416
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:436
+#: plugins/tank_monitor/templates/tank_monitor.html:363
+msgid "Select Output for controled zones"
+msgstr "Vyberte výstup pro ovládanou stanici"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:447
+#: plugins/wind_monitor/templates/wind_monitor.html:328
+msgid "Stoping stations"
+msgstr "Zastavit stanice"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:452
+#: plugins/venetian_blind/templates/venetian_blind.html:50
+#: plugins/voice_notification/templates/voice_notification.html:92
+msgid "Stop"
+msgstr "Zastavit"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:453
+msgid "Delay (hours)"
+msgstr "Zpoždění (hodiny)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:454
+msgid "Blocking (cm)"
+msgstr "Blokování (cm)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:455
+msgid "Unblocking (cm)"
+msgstr "Odblokování (cm)"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:456
+msgid "Removing Delay"
+msgstr "Odstranění zpoždění"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:457
+msgid "Stop station"
+msgstr "Zastavit výstupy"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:469
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:492
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:515
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:538
+#: plugins/tank_monitor/templates/tank_monitor.html:273
+msgid ""
+"If there is no water in the tank and the stations stop, then we set the rain "
+"delay for this time for blocking. if the level in the tank rises above the "
+"minimum + xx cm, the delay is deactivated"
+msgstr ""
+"Pokud v nádrži není voda a stanice se zastaví, nastavíme zpoždění deště po "
+"tento čas pro blokování. pokud hladina v nádrži stoupne nad minimum + xx cm, "
+"zpoždění se deaktivuje"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:472
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:495
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:518
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:541
+msgid "Enter the level for Blocking delay duration and stop stations"
+msgstr ""
+"Vložte úroveň hladiny vody pro blokování zpoždění a zastavení stanic v cm"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:473
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:496
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:519
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:542
+msgid "Enter the level for unblocking delay duration and stop stations"
+msgstr ""
+"Vložte úroveň hladiny vody pro odblokování zpoždění a zastavení stanic v cm"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:474
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:497
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:520
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:543
+msgid "Remove"
+msgstr "Odstranit"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:475
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:498
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:521
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:544
+msgid ""
+"Use this station for stoping scheduler if station is activated in scheduler"
+msgstr "Zastavit tento výstup, pokud je aktivován v plánovači"
+
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:555
+msgid "Info"
+msgstr "Info"
 
 #: plugins/database_connector/__init__.py:26
 msgid "Package: Database Connector"
@@ -10186,13 +10477,13 @@ msgstr "Poslední signál radio: {}%, zdroj: {}V."
 #: plugins/email_notifications/__init__.py:325
 #: plugins/email_notifications_ssl/__init__.py:358
 #: plugins/email_notifications_ssl/__init__.py:447
-#: plugins/lcd_display/__init__.py:563 plugins/lcd_display/__init__.py:652
+#: plugins/lcd_display/__init__.py:563 plugins/lcd_display/__init__.py:653
 msgid "No response!"
 msgstr "Neodpovídá!"
 
 #: plugins/email_notifications/__init__.py:337
 #: plugins/email_notifications_ssl/__init__.py:459
-#: plugins/lcd_display/__init__.py:659
+#: plugins/lcd_display/__init__.py:660
 msgid "No sensors available"
 msgstr "Nejsou k dispozici žádné snímače"
 
@@ -10583,13 +10874,13 @@ msgstr "od Shelly.com"
 #: plugins/email_notifications_ssl/__init__.py:435
 #: plugins/email_notifications_ssl/__init__.py:440
 #: plugins/email_notifications_ssl/__init__.py:445
-#: plugins/lcd_display/__init__.py:576 plugins/lcd_display/__init__.py:584
-#: plugins/lcd_display/__init__.py:592 plugins/lcd_display/__init__.py:600
-#: plugins/lcd_display/__init__.py:605 plugins/lcd_display/__init__.py:610
-#: plugins/lcd_display/__init__.py:615 plugins/lcd_display/__init__.py:620
-#: plugins/lcd_display/__init__.py:625 plugins/lcd_display/__init__.py:630
-#: plugins/lcd_display/__init__.py:635 plugins/lcd_display/__init__.py:640
-#: plugins/lcd_display/__init__.py:645 plugins/lcd_display/__init__.py:650
+#: plugins/lcd_display/__init__.py:577 plugins/lcd_display/__init__.py:585
+#: plugins/lcd_display/__init__.py:593 plugins/lcd_display/__init__.py:601
+#: plugins/lcd_display/__init__.py:606 plugins/lcd_display/__init__.py:611
+#: plugins/lcd_display/__init__.py:616 plugins/lcd_display/__init__.py:621
+#: plugins/lcd_display/__init__.py:626 plugins/lcd_display/__init__.py:631
+#: plugins/lcd_display/__init__.py:636 plugins/lcd_display/__init__.py:641
+#: plugins/lcd_display/__init__.py:646 plugins/lcd_display/__init__.py:651
 #: plugins/wind_monitor/__init__.py:870
 msgid "Any error"
 msgstr "Nějaká chyba"
@@ -12011,7 +12302,7 @@ msgstr "IP kamery - nastavení"
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:22
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:22
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:68
 msgid "Settings saved."
 msgstr "Nastavení uloženo."
 
@@ -12270,9 +12561,9 @@ msgstr "Plné uznání patří projektům"
 msgid "Package: LCD Display"
 msgstr "Balíček: LCD displej"
 
-#: plugins/lcd_display/__init__.py:139 plugins/lcd_display/__init__.py:784
-#: plugins/lcd_display/__init__.py:808 plugins/lcd_display/__init__.py:832
-#: plugins/lcd_display/__init__.py:856
+#: plugins/lcd_display/__init__.py:139 plugins/lcd_display/__init__.py:785
+#: plugins/lcd_display/__init__.py:809 plugins/lcd_display/__init__.py:833
+#: plugins/lcd_display/__init__.py:857
 msgid "LCD display plug-in:"
 msgstr "Rozšíření LCD displej:"
 
@@ -12331,8 +12622,8 @@ msgid "Pressure Sensor:"
 msgstr "Snímač tlaku:"
 
 #: plugins/lcd_display/__init__.py:369 plugins/lcd_display/__init__.py:400
-#: plugins/lcd_display/__init__.py:423 plugins/lcd_display/__init__.py:661
-#: plugins/lcd_display/__init__.py:688
+#: plugins/lcd_display/__init__.py:423 plugins/lcd_display/__init__.py:662
+#: plugins/lcd_display/__init__.py:689
 msgid "Not Available"
 msgstr "Není k dispozici"
 
@@ -12389,65 +12680,65 @@ msgstr "Plánovač:"
 msgid "Sensors:"
 msgstr "Snímače:"
 
-#: plugins/lcd_display/__init__.py:668
+#: plugins/lcd_display/__init__.py:669
 msgid "Current Loop Tanks"
 msgstr "Nádrže se  smyčkou"
 
-#: plugins/lcd_display/__init__.py:709
+#: plugins/lcd_display/__init__.py:710
 msgid "Found {} on address {}"
 msgstr "Nalezen {} na adrese {}"
 
-#: plugins/lcd_display/__init__.py:716
+#: plugins/lcd_display/__init__.py:717
 msgid "Could not find any PCF8574 controller."
 msgstr "Nebyl nalezen žádný řadič PCF8574."
 
-#: plugins/lcd_display/__init__.py:720 plugins/system_info/__init__.py:228
+#: plugins/lcd_display/__init__.py:721 plugins/system_info/__init__.py:228
 #: plugins/system_info/__init__.py:244 plugins/volt_temp_da/__init__.py:85
 #: plugins/water_meter/__init__.py:71 plugins/wind_monitor/__init__.py:137
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
-#: plugins/lcd_display/__init__.py:768
+#: plugins/lcd_display/__init__.py:769
 msgid "System rebooting"
 msgstr "Restartování systému"
 
-#: plugins/lcd_display/__init__.py:779 plugins/lcd_display/__init__.py:781
-#: plugins/lcd_display/__init__.py:827 plugins/lcd_display/__init__.py:829
+#: plugins/lcd_display/__init__.py:780 plugins/lcd_display/__init__.py:782
+#: plugins/lcd_display/__init__.py:828 plugins/lcd_display/__init__.py:830
 msgid "System Linux"
 msgstr "Systém Linux"
 
-#: plugins/lcd_display/__init__.py:780 plugins/lcd_display/__init__.py:782
-#: plugins/lcd_display/__init__.py:804 plugins/lcd_display/__init__.py:806
+#: plugins/lcd_display/__init__.py:781 plugins/lcd_display/__init__.py:783
+#: plugins/lcd_display/__init__.py:805 plugins/lcd_display/__init__.py:807
 msgid "Rebooting"
 msgstr "Restartování"
 
-#: plugins/lcd_display/__init__.py:792
+#: plugins/lcd_display/__init__.py:793
 msgid "System restarting"
 msgstr "Restartování systému"
 
-#: plugins/lcd_display/__init__.py:803 plugins/lcd_display/__init__.py:805
-#: plugins/lcd_display/__init__.py:851 plugins/lcd_display/__init__.py:853
+#: plugins/lcd_display/__init__.py:804 plugins/lcd_display/__init__.py:806
+#: plugins/lcd_display/__init__.py:852 plugins/lcd_display/__init__.py:854
 #: plugins/system_update/__init__.py:247
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
-#: plugins/lcd_display/__init__.py:816
+#: plugins/lcd_display/__init__.py:817
 msgid "System poweroff"
 msgstr "Vypnutí systému"
 
-#: plugins/lcd_display/__init__.py:828 plugins/lcd_display/__init__.py:830
+#: plugins/lcd_display/__init__.py:829 plugins/lcd_display/__init__.py:831
 msgid "Power off"
 msgstr "Vypnutí"
 
-#: plugins/lcd_display/__init__.py:840
+#: plugins/lcd_display/__init__.py:841
 msgid "System OSPy Has Update"
 msgstr "Systém OSPy má k dispozici aktualizaci"
 
-#: plugins/lcd_display/__init__.py:852 plugins/lcd_display/__init__.py:854
+#: plugins/lcd_display/__init__.py:853 plugins/lcd_display/__init__.py:855
 msgid "Has Update"
 msgstr "Má aktualizaci"
 
-#: plugins/lcd_display/__init__.py:872
+#: plugins/lcd_display/__init__.py:873
 msgid "I2C address has re-finded."
 msgstr "Adresa I2C byla znovu vyhledána."
 
@@ -13580,8 +13871,8 @@ msgid "Broker Port"
 msgstr "Port komunikace"
 
 #: plugins/mqtt/templates/mqtt.html:54
-msgid "Range for port is 80 to 65635."
-msgstr "Rozsah portu je 80 až 65635."
+msgid "Range for port is 80 to 65535."
+msgstr "Rozsah portu je 80 až 65535."
 
 #: plugins/mqtt/templates/mqtt.html:59
 msgid "Up/down topic"
@@ -14327,8 +14618,8 @@ msgid "Example: localhost."
 msgstr "Příklad: localhost."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
-msgid "Range for port is 80 to 65635. Default: 1883."
-msgstr "Rozsah portu je 80 až 65635. Výchozí hodnota: 1883."
+msgid "Range for port is 80 to 65535. Default: 1883."
+msgstr "Rozsah portu je 80 až 65535. Výchozí hodnota: 1883."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
 msgid "Topic prefix"
@@ -15752,7 +16043,7 @@ msgstr ""
 "i když je nastaven manuální režim."
 
 #: plugins/pressurizer/templates/pressurizer.html:53
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:54
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:104
 msgid "Ignore rain"
 msgstr "Ignorovat déšť"
 
@@ -15765,7 +16056,7 @@ msgstr ""
 "i když je zjištěn déšť."
 
 #: plugins/pressurizer/templates/pressurizer.html:58
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:59
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:113
 msgid "Ignore rain delay"
 msgstr "Ignorovat zpoždění deště"
 
@@ -18375,38 +18666,38 @@ msgstr "Nahrát (Mb/s)"
 msgid "Ping (msec)"
 msgstr "Ping (ms)"
 
-#: plugins/sunrise_and_sunset/__init__.py:29
+#: plugins/sunrise_and_sunset/__init__.py:27
 msgid "Package: Astro Sunrise and Sunset"
 msgstr "Balíček: Astro východ a západ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:57
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:83
+#: plugins/sunrise_and_sunset/__init__.py:61
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:141
 msgid "Not selected"
 msgstr "Nevybráno"
 
-#: plugins/sunrise_and_sunset/__init__.py:470
+#: plugins/sunrise_and_sunset/__init__.py:474
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:3
 msgid "Sunrise and Sunset"
 msgstr "Východ a západ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:471
+#: plugins/sunrise_and_sunset/__init__.py:475
 #: plugins/system_update/__init__.py:180
 msgid "Waiting to state"
 msgstr "Čekání na stav"
 
-#: plugins/sunrise_and_sunset/__init__.py:478
+#: plugins/sunrise_and_sunset/__init__.py:482
 msgid "Astral is not installed."
 msgstr "Astral není nainstalován."
 
-#: plugins/sunrise_and_sunset/__init__.py:479
+#: plugins/sunrise_and_sunset/__init__.py:483
 msgid "Please wait installing astral..."
 msgstr "Počkejte prosím na instalaci astralu..."
 
-#: plugins/sunrise_and_sunset/__init__.py:482
+#: plugins/sunrise_and_sunset/__init__.py:486
 msgid "Astral is now installed."
 msgstr "Astral je nyní nainstalován."
 
-#: plugins/sunrise_and_sunset/__init__.py:530
+#: plugins/sunrise_and_sunset/__init__.py:534
 msgid ""
 "You must fill in all required fields (location, region, timezone/name, "
 "latitude and longitude!"
@@ -18414,163 +18705,163 @@ msgstr ""
 "Musíte vyplnit všechna povinná pole (umístění, region, časové pásmo/jméno, "
 "zeměpisná šířka a délka!"
 
-#: plugins/sunrise_and_sunset/__init__.py:534
+#: plugins/sunrise_and_sunset/__init__.py:538
 msgid "Found city"
 msgstr "Nalezené město"
 
-#: plugins/sunrise_and_sunset/__init__.py:536
+#: plugins/sunrise_and_sunset/__init__.py:540
 msgid "Region"
 msgstr "Kraj"
 
-#: plugins/sunrise_and_sunset/__init__.py:537
+#: plugins/sunrise_and_sunset/__init__.py:541
 msgid "Timezone"
 msgstr "Časová zóna"
 
-#: plugins/sunrise_and_sunset/__init__.py:538
+#: plugins/sunrise_and_sunset/__init__.py:542
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
-#: plugins/sunrise_and_sunset/__init__.py:539
+#: plugins/sunrise_and_sunset/__init__.py:543
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
-#: plugins/sunrise_and_sunset/__init__.py:550
+#: plugins/sunrise_and_sunset/__init__.py:554
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:14
 msgid "Dawn"
 msgstr "Úsvit"
 
-#: plugins/sunrise_and_sunset/__init__.py:551
-#: plugins/sunrise_and_sunset/__init__.py:556
+#: plugins/sunrise_and_sunset/__init__.py:555
+#: plugins/sunrise_and_sunset/__init__.py:560
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:16
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:67
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:125
 msgid "Sunrise"
 msgstr "Východ"
 
-#: plugins/sunrise_and_sunset/__init__.py:552
+#: plugins/sunrise_and_sunset/__init__.py:556
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:18
 msgid "Noon"
 msgstr "Poledne"
 
-#: plugins/sunrise_and_sunset/__init__.py:553
-#: plugins/sunrise_and_sunset/__init__.py:556
+#: plugins/sunrise_and_sunset/__init__.py:557
+#: plugins/sunrise_and_sunset/__init__.py:560
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:20
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:68
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:126
 msgid "Sunset"
 msgstr "Západ"
 
-#: plugins/sunrise_and_sunset/__init__.py:554
+#: plugins/sunrise_and_sunset/__init__.py:558
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:22
 msgid "Dusk"
 msgstr "Soumrak"
 
-#: plugins/sunrise_and_sunset/__init__.py:562
-#: plugins/sunrise_and_sunset/__init__.py:563
+#: plugins/sunrise_and_sunset/__init__.py:566
+#: plugins/sunrise_and_sunset/__init__.py:567
 msgid "Moon phase"
 msgstr "Měsíc"
 
-#: plugins/sunrise_and_sunset/__init__.py:565
-#: plugins/sunrise_and_sunset/__init__.py:566
+#: plugins/sunrise_and_sunset/__init__.py:569
+#: plugins/sunrise_and_sunset/__init__.py:570
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:48
 msgid "New moon"
 msgstr "Nov"
 
-#: plugins/sunrise_and_sunset/__init__.py:568
-#: plugins/sunrise_and_sunset/__init__.py:569
+#: plugins/sunrise_and_sunset/__init__.py:572
+#: plugins/sunrise_and_sunset/__init__.py:573
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:51
 msgid "First quarter"
 msgstr "Dorůstá"
 
-#: plugins/sunrise_and_sunset/__init__.py:571
-#: plugins/sunrise_and_sunset/__init__.py:572
+#: plugins/sunrise_and_sunset/__init__.py:575
+#: plugins/sunrise_and_sunset/__init__.py:576
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:54
 msgid "Full moon"
 msgstr "Úplněk"
 
-#: plugins/sunrise_and_sunset/__init__.py:574
-#: plugins/sunrise_and_sunset/__init__.py:575
+#: plugins/sunrise_and_sunset/__init__.py:578
+#: plugins/sunrise_and_sunset/__init__.py:579
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:57
 msgid "Last quarter"
 msgstr "Couvá"
 
-#: plugins/sunrise_and_sunset/__init__.py:577
-#: plugins/sunrise_and_sunset/__init__.py:578
+#: plugins/sunrise_and_sunset/__init__.py:581
+#: plugins/sunrise_and_sunset/__init__.py:582
 msgid "Unkown phase"
 msgstr "Neznámá pozice"
 
-#: plugins/sunrise_and_sunset/__init__.py:582
-#: plugins/sunrise_and_sunset/__init__.py:644
-#: plugins/sunrise_and_sunset/__init__.py:761
-#: plugins/sunrise_and_sunset/__init__.py:776
+#: plugins/sunrise_and_sunset/__init__.py:586
+#: plugins/sunrise_and_sunset/__init__.py:648
+#: plugins/sunrise_and_sunset/__init__.py:765
+#: plugins/sunrise_and_sunset/__init__.py:780
 msgid "Astro plug-in"
 msgstr "Balíček Astro"
 
-#: plugins/sunrise_and_sunset/__init__.py:588
+#: plugins/sunrise_and_sunset/__init__.py:592
 msgid "Programs for runs"
 msgstr "Programy pro spuštění"
 
-#: plugins/sunrise_and_sunset/__init__.py:601
+#: plugins/sunrise_and_sunset/__init__.py:605
 msgid "The \"{}\" will be launched at {} hours (ignore rain)."
 msgstr "\"{}\" bude spuštěn v {} hodin (ignoruje se déšť)."
 
-#: plugins/sunrise_and_sunset/__init__.py:605
+#: plugins/sunrise_and_sunset/__init__.py:609
 msgid "The \"{}\" will be launched at {} hours (ignore rain delay)."
 msgstr "\"{}\" bude spuštěn v {} hodin (ignoruje se zpoždění deště)."
 
-#: plugins/sunrise_and_sunset/__init__.py:609
+#: plugins/sunrise_and_sunset/__init__.py:613
 msgid "The \"{}\" will be launched at {} hours."
 msgstr "\"{}\" bude spuštěn v tuto dobu {}."
 
-#: plugins/sunrise_and_sunset/__init__.py:613
+#: plugins/sunrise_and_sunset/__init__.py:617
 msgid "{} programs scheduled"
 msgstr "{} naplánovaných programů"
 
-#: plugins/sunrise_and_sunset/__init__.py:615
+#: plugins/sunrise_and_sunset/__init__.py:619
 msgid "Another calculation will take place in one minute..."
 msgstr "Další výpočet proběhne za minutu..."
 
-#: plugins/sunrise_and_sunset/__init__.py:628
+#: plugins/sunrise_and_sunset/__init__.py:632
 msgid "I run the program \"{}\" in time {}."
 msgstr "Spouštím program \"{}\" v čase {}."
 
-#: plugins/sunrise_and_sunset/__init__.py:631
+#: plugins/sunrise_and_sunset/__init__.py:635
 #: plugins/system_update/__init__.py:202
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
-#: plugins/sunrise_and_sunset/__init__.py:638
+#: plugins/sunrise_and_sunset/__init__.py:642
 #: plugins/system_update/__init__.py:208
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
 "povoleno."
 
-#: plugins/sunrise_and_sunset/__init__.py:676
-#: plugins/sunrise_and_sunset/__init__.py:875
+#: plugins/sunrise_and_sunset/__init__.py:680
+#: plugins/sunrise_and_sunset/__init__.py:879
 msgid "Astral plug-in"
 msgstr "Balíček Astro"
 
-#: plugins/sunrise_and_sunset/__init__.py:763
+#: plugins/sunrise_and_sunset/__init__.py:767
 msgid "sunrise_and_sunset -> status_page GET"
 msgstr "sunrise_and_sunset -> status_page GET"
 
-#: plugins/sunrise_and_sunset/__init__.py:778
+#: plugins/sunrise_and_sunset/__init__.py:782
 msgid "sunrise_and_sunset -> status_page POST"
 msgstr "sunrise_and_sunset -> status_page POST"
 
-#: plugins/sunrise_and_sunset/__init__.py:896
+#: plugins/sunrise_and_sunset/__init__.py:900
 msgid "Sunrise and sunset plug-in"
 msgstr "Balíček: Astro východ a západ slunce"
 
-#: plugins/sunrise_and_sunset/__init__.py:898
+#: plugins/sunrise_and_sunset/__init__.py:902
 msgid "sunrise_and_sunset -> help_page"
 msgstr "sunrise_and_sunset -> help_page"
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:3
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:20
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:67
 msgid "Astro Sunrise and Sunset"
 msgstr "Astro východ a západ slunce"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:21
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:68
 msgid ""
 "This extension allows you to run a specific program depending on sunrise or "
 "sunset. For scheduling programs calculate astronomical data and use it."
@@ -18579,7 +18870,7 @@ msgstr ""
 "nebo západu slunce. Pro plánování programů vypočítat astronomická data a "
 "použít je."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:22
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:69
 msgid ""
 "In terms of economy and good usability of moisture, early morning watering "
 "is optimal. We can also spray the leaves, because they will dry out before "
@@ -18607,54 +18898,54 @@ msgstr ""
 "přes noc dobře vstřebává do půdy a rostliny ji mají v zásobě na další horký "
 "den."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:25
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:72
 msgid "Programs Settings"
 msgstr "Nastavení programů"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:29
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:76
 msgid "Use astro plugin"
 msgstr "Použít astro"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:36
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:86
 msgid "Find location"
 msgstr "Najít místo"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:40
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:90
 msgid "City Location"
 msgstr "Poloha města"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:41
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:91
 msgid ""
 "Select a city location from the list or enter your own location in the "
 "fields below"
 msgstr ""
 "Vyberte umístění města ze seznamu nebo zadejte vlastní polohu do polí níže"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:55
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:105
 msgid "Manual location"
 msgstr "Ruční umístění"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:59
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:109
 msgid "Custom Location"
 msgstr "Vlastní umístění"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:60
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:110
 msgid "Somewhere on earth (own name). Example: Pilsen"
 msgstr "Někde na zemi (vlastní jméno). Příklad: Plzeň"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:65
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:115
 msgid "Custom region"
 msgstr "Vlastní oblast"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:66
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:116
 msgid "The custom label serves for our better location orientation"
 msgstr "Vlastní štítek slouží pro naši lepší orientaci na umístění"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:121
 msgid "Custom Timezone/name"
 msgstr "Vlastní časové pásmo/název"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:72
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:122
 msgid ""
 "UTC (Coordinated Universal Time). As the Earths rotation slows slightly, GMT "
 "is gradually lagging behind UTC. In order to be used in practical life, "
@@ -18681,11 +18972,11 @@ msgstr ""
 "Země a referenčních systémů rozhoduje, zda použije přestupnou sekundu v "
 "příslušném termínu podle měření rotace Země."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:77
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:127
 msgid "Custom Latitude and longitude"
 msgstr "Vlastní zeměpisná šířka a délka"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:78
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:128
 msgid "Example city Pilsen 49°44′29\",13°22′57\""
 msgstr "Příklad města Plzeň 49°44′29\",13°22′57\""
 
@@ -18973,11 +19264,11 @@ msgid "Astral on the Github"
 msgstr "Balíček Astral na Githubu"
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:3
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:30
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:76
 msgid "Astro Sunrise and Sunset - settings"
 msgstr "Astro východ a západ slunce - nastavení"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:32
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:78
 msgid ""
 "The selected program that we want to run with this extension does not have "
 "to be enabled in the programs, but it must have set days when we want the "
@@ -18986,7 +19277,7 @@ msgstr ""
 "Vybraný program, který chceme spustit s tímto rozšířením, nemusí být v "
 "programech povolen, ale musí mít nastavené dny, kdy chceme program spustit."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:33
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:79
 msgid ""
 "If the program does not have a days marked, it will not start (neither by "
 "the \"run now\" button in the programs, nor by this plug-in)!"
@@ -18994,23 +19285,23 @@ msgstr ""
 "Pokud program nemá označené dny, nespustí se (ani tlačítkem \"Spustit nyní\" "
 "v programech, ani tímto rozšířením)!"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:38
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:84
 msgid "Number of programs"
 msgstr "Počet programů"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:39
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:85
 msgid "The number of used programs in these plugin."
 msgstr "Počet programů v tomto rozšíření, které chceme použít."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:49
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:95
 msgid "Enable program"
 msgstr "Povolit program"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:50
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:96
 msgid "If the check box is marked, the program will be active."
 msgstr "Pokud je políčko zaškrtnuto, program bude aktivní."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:55
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:105
 msgid ""
 "If the checkbox is checked, the program will be active even if it is "
 "currently raining (rain is ignored)."
@@ -19018,7 +19309,7 @@ msgstr ""
 "Pokud je políčko zaškrtnuto, program bude aktivní, i když právě prší (déšť "
 "se ignoruje)."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:60
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:114
 msgid ""
 "If the checkbox is checked, the program will be active even if it is "
 "currently rain delay (rain delay is ignored)."
@@ -19026,19 +19317,19 @@ msgstr ""
 "Pokud je políčko zaškrtnuté, program bude aktivní, i když je aktuálně "
 "zpoždění deště (zpoždění deště je ignorováno)."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:64
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:122
 msgid "Program type"
 msgstr "Typ programu"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:65
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:123
 msgid "Select program type (sunrise or sunset)."
 msgstr "Vyberte typ programu (východ nebo západ slunce)."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:73
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:131
 msgid "Move the beginning of the program"
 msgstr "Posunutí začátku programu"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:74
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:132
 msgid ""
 "Enter the time in hours or minutes by which the program should move relative "
 "to the selected program type (sunrise or sunset)."
@@ -19046,11 +19337,11 @@ msgstr ""
 "Zadejte čas v hodinách nebo minutách, o který by se měl program posunout "
 "vzhledem k vybranému typu programu (východ nebo západ slunce)."
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:138
 msgid "Program for run"
 msgstr "Program pro spuštění"
 
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:81
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:139
 msgid ""
 "Select the program from the list that you want to run with this extension."
 msgstr "Vyberte program ze seznamu, který chcete spustit s tímto rozšířením."
@@ -19549,10 +19840,6 @@ msgstr ""
 msgid "Report from OSPy TANK plugin"
 msgstr "Hlášení z OSPy NÁDRŽ s vodou"
 
-#: plugins/tank_monitor/__init__.py:132
-msgid "Regulation NONE."
-msgstr "Regulace nepovolena."
-
 #: plugins/tank_monitor/__init__.py:156
 msgid "Water tank monitor is enabled."
 msgstr "Nádrž s vodou monitoring je povolen."
@@ -19722,16 +20009,6 @@ msgstr "Počet vzorků pro průměr"
 msgid "Enter the number count for samples"
 msgstr "Zadejte počet vzorků"
 
-#: plugins/tank_monitor/templates/tank_monitor.html:273
-msgid ""
-"If there is no water in the tank and the stations stop, then we set the rain "
-"delay for this time for blocking. if the level in the tank rises above the "
-"minimum + xx cm, the delay is deactivated"
-msgstr ""
-"Pokud v nádrži není voda a stanice se zastaví, nastavíme zpoždění deště po "
-"tento čas pro blokování. pokud hladina v nádrži stoupne nad minimum + xx cm, "
-"zpoždění se deaktivuje"
-
 #: plugins/tank_monitor/templates/tank_monitor.html:279
 msgid "Number for unblocking"
 msgstr "Číslo pro odblokování"
@@ -19752,14 +20029,6 @@ msgstr "Poslat E-mail s chybou, pokud má ultrazvukový snímač poruchu"
 #: plugins/tank_monitor/templates/tank_monitor.html:318
 msgid "Subject for E-mail from this tank monitor"
 msgstr "Předmět pro e-mail z tohoto monitoru nádrže"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:338
-msgid "If checked, regulation is enabled"
-msgstr "Je-li zaškrtnuto, je povolena regulace"
-
-#: plugins/tank_monitor/templates/tank_monitor.html:363
-msgid "Select Output for controled zones"
-msgstr "Vyberte výstup pro ovládanou stanici"
 
 #: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid ""
@@ -20902,11 +21171,6 @@ msgstr "Test na žaluzii {}, pozice {}."
 #: plugins/weather_stations/templates/canvas_page.html:86
 msgid "Settings"
 msgstr "Nastavení"
-
-#: plugins/venetian_blind/templates/venetian_blind.html:50
-#: plugins/voice_notification/templates/voice_notification.html:92
-msgid "Stop"
-msgstr "Zastavit"
 
 #: plugins/venetian_blind/templates/venetian_blind.html:51
 msgid "Close"
@@ -22845,10 +23109,6 @@ msgstr "Odeslat E-mail, pokud je stop"
 msgid "Subject for E-mail from this wind monitor"
 msgstr "Předmět pro E-mail z tohoto monitoru větru"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:328
-msgid "Stoping stations"
-msgstr "Zastavit stanice"
-
 #: plugins/wind_monitor/templates/wind_monitor.html:329
 msgid "Stoping selected stations in scheduler if stations has run"
 msgstr "Zastavení vybraných stanic v plánovači, pokud jsou stanice spuštěny"
@@ -23159,6 +23419,19 @@ msgstr "Chyba při ukládání do databáze klíč: {} chyba: {}"
 #: web/session.py:470
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
+
+#, fuzzy
+#~| msgid "Regulation set ON."
+#~ msgid "Tank {} set ON."
+#~ msgstr "Regulace nastavila ZAP."
+
+#, fuzzy
+#~| msgid "Regulation set OFF."
+#~ msgid "Tank {} set OFF."
+#~ msgstr "Regulace nastavila VYP."
+
+#~ msgid "Additional Settings"
+#~ msgstr "Další nastavení"
 
 #~ msgid "lcd_display -> settings_page GET"
 #~ msgstr "lcd_display -> settings_page GET"

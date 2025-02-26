@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+February 26 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Updated docs in czech and english page (https://github.com/martinpihrt/OSPy/tree/master/ospy/docs). Updating the Slovak language (thank you Tomáš Szepesi). Added pycache_clean.sh script for cleaning all python cache in a directories. Update plugin: Current Loop Tanks Monitor (added automation - not 100% tested).
+
 February 06 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

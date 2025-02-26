@@ -285,7 +285,7 @@ jQuery(document).ready(function(){
         <div class="footer">
             $if content.page != 'login':
                 <div id="foot">
-                <p id="cpu_temp">$_('CPU Temp'): <a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span></p>
+                <p id="cpu_temp">$_('CPU Temp'): <span class="cpu_temp"><a href="/action?toggle_temp=" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</span></p>
                 <p id="cpu_usage">$_('CPU Usage'): <span class="cpu_usage">${get_cpu_usage()}</span> %</p>             
                 <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Software')</a> $_('version'): <span class="ver">${version.ver_str} (${version.ver_date})</span></p>
                 <p id="ip">$_('External IP'): <span class="ip">${get_external_ip()}</span></p>
