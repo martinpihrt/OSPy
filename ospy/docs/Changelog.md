@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+March 29 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Update plugin: Current Loop Tanks Monitor (added automation min and max, clickable on to graph on homepage, filtration in graph), email SSL (Added css style for switches and more options).
+
 February 26 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
