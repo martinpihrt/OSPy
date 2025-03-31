@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+March 31 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Update plugin: Shelly integration plugin (added Shelly Pro 3EM -> three-phase energy meter. Cloud OK, Local not ready).
+
 March 29 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

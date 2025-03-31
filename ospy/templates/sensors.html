@@ -58,7 +58,7 @@ $if sensors.count()>0:
         <div id="sensor-container" class="sensor-container">
         $ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi'), _('Multi Contact')]
         $ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
-        $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT')]
+        $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('todo')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
             <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
