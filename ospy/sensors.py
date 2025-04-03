@@ -136,7 +136,7 @@ class _Sensor(object):
         # Shelly sensors
         self.shelly_id = ""                       # this can be obtained from Shelly. Example: b0b21c1368aa
         self.shelly_hw = ""                       # depending on the type of device, data will be read (e.g. temperature and humidity, output states, etc.)
-        self.shelly_hw_nbr = -1                   # depending on the type of device, data will be read as number -1 is unknow nex: 0=Shelly Plus HT, 1=Shelly Plus Plug S, 2=Shelly Pro 2PM, 3=Shelly 1PM Mini, 4=Shelly 2.5, 5=Shelly Pro 4PM, 6=Shelly 1 Mini, 7=Shelly 2PM Addon, 8=Shelly 1PM Addon, 9= Shelly H&T
+        self.shelly_hw_nbr = -1                   # depending on the type of device, data will be read as number -1 is unknow nex: 0=Shelly Plus HT, 1=Shelly Plus Plug S, 2=Shelly Pro 2PM, 3=Shelly 1PM Mini, 4=Shelly 2.5, 5=Shelly Pro 4PM, 6=Shelly 1 Mini, 7=Shelly 2PM Addon, 8=Shelly 1PM Addon, 9= Shelly H&T, 10= Shelly pro 3EM
         self.shelly_gen = ""                      # generation of Shelly devices gen1, gen2+
         self.s_trigger_low_program = ["-1"]       # open program (-1 is default none program)
         self.s_trigger_high_program = ["-1"]      # close Program
@@ -663,6 +663,7 @@ class _Sensors_Timer(Thread):
                         sensor.last_read_value[1] = []                        # Power list
                         sensor.last_read_value[2] = []                        # Temperature list
                         sensor.last_read_value[3] = []                        # Humidity list
+                        sensor.last_read_value[4] = []                        # PV Power list
                         sensor.prev_read_value = -127
 
             changed_state = False
@@ -1577,6 +1578,9 @@ class _Sensors_Timer(Thread):
             # 12 = 'Power 3'
             # 13 = 'Power 4'
             # 14 = 'Humidity'
+            # 15 = 'PV Power 1'
+            # 16 = 'PV Power 2'
+            # 17 = 'PV Power 3'
             if sensor.manufacturer == 1:
                 if sensor.response and sensor.enabled:
                     state = None
@@ -1695,6 +1699,27 @@ class _Sensors_Timer(Thread):
                             eml_msg = _('Humidity') + ': {} '.format(state) + _('%RV')
                         except:
                             state = None
+                    ### PV Power 1 ###
+                    if sensor.sens_type == 15:
+                        try:
+                            state = sensor.last_read_value[4][0]
+                            eml_msg = _('PV Power 1') + ': {} '.format(state) + _('W')
+                        except:
+                            state = None
+                    ### PV Power 2 ###
+                    if sensor.sens_type == 16:
+                        try:
+                            state = sensor.last_read_value[4][0]
+                            eml_msg = _('PV Power 2') + ': {} '.format(state) + _('W')
+                        except:
+                            state = None
+                    ### PV Power 3 ###
+                    if sensor.sens_type == 17:
+                        try:
+                            state = sensor.last_read_value[4][0]
+                            eml_msg = _('PV Power 3') + ': {} '.format(state) + _('W')
+                        except:
+                            state = None
 
                     if state != sensor.prev_read_value:
                         sensor.prev_read_value = state
@@ -1747,7 +1772,7 @@ class _Sensors_Timer(Thread):
                                 self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
                             else:
                                 self.start_status(sensor.name, _('{} ℃').format(state), sensor.index)
-                        if sensor.sens_type == 10 or sensor.sens_type == 11 or sensor.sens_type == 12 or sensor.sens_type == 13:
+                        if sensor.sens_type == 10 or sensor.sens_type == 11 or sensor.sens_type == 12 or sensor.sens_type == 13 or sensor.sens_type == 15 or sensor.sens_type == 16 or sensor.sens_type == 17:
                             if state is None:
                                 self.start_status(sensor.name, _('Inappropriate settings (the sensor cannot get measure this data).').format(state), sensor.index)
                             else:
@@ -1783,7 +1808,8 @@ class _Sensors_Timer(Thread):
                     humi_list = get_data[i]['humidity']
                     rssi = get_data[i]['rssi']
                     output_list = get_data[i]['output']
-                    power_list = get_data[i]['power']
+                    power_list = get_data[i]['power']                               # + value is consuming power
+                    retpower_list = get_data[i]['retpower']                         # - value is generating power (example PV)
                     generation = get_data[i]['gen']
                     hardware_text = get_data[i]['hw']
                     hardware_nbr = get_data[i]['hw_nbr']
@@ -1806,6 +1832,8 @@ class _Sensors_Timer(Thread):
                                     sensor.last_read_value[2] = temp_list
                                     # humidity
                                     sensor.last_read_value[3] = humi_list
+                                    # revers power (from Pro 3EM...)
+                                    sensor.last_read_value[4] = retpower_list                                    
                                     sensor.shelly_hw = hardware_text
                                     sensor.shelly_hw_nbr = hardware_nbr
                                     sensor.shelly_gen = generation

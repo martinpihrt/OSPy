@@ -429,8 +429,8 @@ jQuery(document).ready(function(){
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Activation type'):</span></td>
                 <td><select id="shelly_sens_type" name="sens_type" style="width: 200px" title=$:{json.dumps(_('Select the activation type.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture')]
-                $for t in range(15):
+                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture'), _('Power generating 1'), _('Power generating 2'), _('Power generating 3'), _('todo')]
+                $for t in range(18):
                     <option value="${t}" ${'selected' if sensor.sens_type == t else ''}>$type_list[t]</option>
                 </select></td>
                 </tr>

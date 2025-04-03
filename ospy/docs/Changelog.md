@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+April 03 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Update plugin: Shelly integration plugin (updated Shelly Pro 3EM -> three-phase energy meter. Cloud read data OK, Local read data OK). Now we can also read data from the Pro 3EM meter in OSPy using the shelly cloud plugin. The following data can be read and then used in OSPy: consumption L1, L2, L3 and production from solar systems L1, L2, L3 for example. Now OSPy in cooperation with Shelly can react to events like: solar plant has overflow to the grid turn on the pool heating station, boiler etc. On the other hand L1 consumption has dropped below xx so turn on/off some output.
+
 March 31 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
