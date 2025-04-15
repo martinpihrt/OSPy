@@ -58,7 +58,7 @@ $if sensors.count()>0:
         <div id="sensor-container" class="sensor-container">
         $ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi'), _('Multi Contact')]
         $ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
-        $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('todo')]
+        $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('Shelly Wall Display'), _('todo')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
             <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
@@ -802,6 +802,8 @@ $if sensors.count()>0:
                         $_('L2') $sensor.last_read_value[4][1] $_('W'), 
                         $_('L3') $sensor.last_read_value[4][2] $_('W')
                         </span>
+                    $else:
+                        $_('Can not measure power generating.')                        
                     </p>
                 <p>
                 $_('Temperatures'):
@@ -824,9 +826,19 @@ $if sensors.count()>0:
                     $_('Can not measure humidity.')
                 </p>
                 <p>
+                $_('Illumination'):
+                $if len(sensor.last_read_value[5]):
+                    <span class="val">
+                    $for i, lum in enumerate(sensor.last_read_value[5]):
+                        ${i+1}= $lum $_('Lux')${', ' if len(sensor.last_read_value[5]) > 1 else ''}
+                    </span>
+                $else:
+                    $_('Can not measure illumination.')
+                </p>                
+                <p>
                     <hr>
                 </p>
-                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture'), _('Power generating 1'), _('Power generating 2'), _('Power generating 3'), _('todo')]
+                $ type_list = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture'), _('Power generating 1'), _('Power generating 2'), _('Power generating 3'), _('Illumination'), _('todo')]
                 <p>
                 $_('Activation type'):
                 <span class="val">$type_list[sensor.sens_type]</span>
@@ -842,6 +854,8 @@ $if sensors.count()>0:
                     $_('W')
                 $if sensor.sens_type == 13:
                     $_('%RV')
+                $if sensor.sens_type == 18:
+                    $_('Lux')                    
                 </span></p>
                 <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.s_trigger_low_program:
@@ -862,6 +876,8 @@ $if sensors.count()>0:
                     $_('W')
                 $if sensor.sens_type == 13:
                     $_('%RV')
+                $if sensor.sens_type == 18:
+                    $_('Lux')
                 </span></p>
                 <p>$_('Program(s)'): <span class="val">
                 $if "-1" in sensor.s_trigger_high_program:

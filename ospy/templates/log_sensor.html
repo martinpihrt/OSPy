@@ -6,8 +6,8 @@ $var page: log
 $ type_list = [_('None'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Temperature'), _('Multi')]
 $ multi_list = [_('Temperature DS1'), _('Temperature DS2'), _('Temperature DS3'), _('Temperature DS4'), _('Dry Contact'), _('Leak Detector'), _('Moisture'), _('Motion'), _('Ultrasonic'), _('Soil Moisture')]
 
-$ shelly_type = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture'), _('Power generating 1'), _('Power generating 2'), _('Power generating 3'), _('todo')]
-$ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('todo')]
+$ shelly_type = [_('Voltage'), _('Output 1'), _('Output 2'), _('Output 3'), _('Output 4'), _('Temperature 1'), _('Temperature 2'), _('Temperature 3'), _('Temperature 4'), _('Temperature 5'), _('Power 1'), _('Power 2'), _('Power 3'), _('Power 4'), _('Moisture'), _('Power generating 1'), _('Power generating 2'), _('Power generating 3'), _('Illumination'), _('todo')]
+$ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('Shelly Wall Display'), _('todo')]
 
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
@@ -124,6 +124,8 @@ $if manufacturer == 1:
                                     $_('W')
                                 $if stype == 14:
                                     $_('%RV')
+                                $if stype == 18:
+                                    $_('Lux')                                    
                         </td>
                 $if "action" in event:
                     <td align='center'>${event["action"]}</td>

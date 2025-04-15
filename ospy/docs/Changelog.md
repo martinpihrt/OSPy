@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+April 15 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Update plugin: Shelly integration plugin (added Shelly Wall Display). https://kb.shelly.cloud/knowledge-base/shelly-wall-display
+
 April 03 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

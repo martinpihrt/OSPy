@@ -30,7 +30,7 @@ try:
     ver_date = subprocess.check_output(["git", "log", "-1", "--format=%cd", "--date=short"]).strip().decode('ascii')
 except Exception:
     log.debug('version.py', _('Could not use git to determine date of last commit!'))
-    ver_date = "2024"
+    ver_date = "2025"
     pass
 
 ### ESP32 sensor last fw version in folder
