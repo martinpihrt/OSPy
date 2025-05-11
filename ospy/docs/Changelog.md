@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+May 11 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updating the Slovak language (thank you Tomáš Szepesi).
+
 April 15 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
