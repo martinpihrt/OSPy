@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+June 30 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Update plugin: Shelly integration plugin (fixed Client has sent too many requests in a given amount of time). Fixed OSPy sensors (sensor state_machine as 'high', 'low', 'normal' and respond only to state changes. for hysteresis).
+
 May 11 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

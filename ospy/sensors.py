@@ -64,6 +64,8 @@ class _Sensor(object):
         self.cpu_core = 0               # 0 = ESP32, 1 = ESP8266, 2 = todo
         self.used_stations_one = ["-1"] # Selected stations for the scheduler will stop in dry open contact
         self.used_stations_two = ["-1"] # Selected stations for the scheduler will stop in dry close contact
+        # sensor state_automat as 'high', 'low', 'normal' and respond only to state changes. for hysteresis
+        self.state_automat = 'normal'
         # used in ultrasonic sensor
         self.distance_top = 10          # The distance from the sensor to the maximum water level in the tank in cm
         self.distance_bottom = 95       # The distance from the sensor to the minimum water level in the tank in cm
@@ -314,35 +316,7 @@ class _Sensors_Timer(Thread):
                 json.dump(data, outfile)
         except Exception:
             log.debug('sensors.py', traceback.format_exc())
-
-    def _check_high_trigger(self, sensor):
-        major_change = True
-        status_update = True
-        if int(sensor.last_low_report) < int(sensor.last_high_report) or int(sensor.last_good_report) < int(sensor.last_high_report):
-            major_change = False
-        if not major_change and int(now()) - int(sensor.last_high_report) < 3600:
-            status_update = False
-        return (major_change, status_update)
-
-    def _check_low_trigger(self, sensor):
-        major_change = True
-        status_update = True
-        if int(sensor.last_high_report) < int(sensor.last_low_report) and int(sensor.last_good_report) < int(sensor.last_low_report):
-            major_change = False
-        if not major_change and int(now()) - int(sensor.last_low_report) < 3600:
-            status_update = False
-        return (major_change, status_update)
-
-    def _check_good_trigger(self, sensor):
-        major_change = True
-        status_update = True
-        if int(sensor.last_low_report) < int(sensor.last_good_report) and int(sensor.last_low_report) < int(sensor.last_good_report):
-            major_change = False
-        if not major_change and int(now()) - int(sensor.last_good_report) < 3600:
-            status_update = False
-        if int(sensor.last_low_report) == 0 and int(sensor.last_high_report) == 0:
-            major_change = False # if no problem dont report on startup    
-        return (major_change, status_update)         
+        
 
     def _trigger_programs(self, sensor, program_list=None):
         try:
@@ -1012,42 +986,59 @@ class _Sensors_Timer(Thread):
                        sensor.prev_read_value = state
                        changed_state = True
 
-                    major_change = False
-                    status_update = False
-
-                    if state > float(sensor.trigger_high_threshold) and changed_state:
-                        (major_change, status_update) = self._check_high_trigger(sensor)
-                        sensor.last_high_report = now()
-                        action = _('High Trigger') if major_change else _('High Value')
-                        if status_update:
+                    # State machine
+                    if state > float(sensor.trigger_high_threshold):
+                        if sensor.state_automat != 'high':
+                            sensor.state_automat = 'high'
+                            sensor.last_high_report = now()
+                            action = _('High Trigger')
+                            if sensor.send_email:
+                                text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                subj = _('Sensor Change')
+                                body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name,  self.status[sensor.index][1], action)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
                             if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
-                        if major_change:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
-
-                    elif state < float(sensor.trigger_low_threshold) and changed_state:
-                        (major_change, status_update) = self._check_low_trigger(sensor)
-                        sensor.last_low_report = now()
-                        action = _('Low Trigger') if major_change else _('Low Value')
-                        if status_update:
+                        else:
+                            action = _('High Value')
                             if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
-                        if major_change:
-                            self._trigger_programs(sensor, sensor.trigger_low_program)
-                    else:
-                        if changed_state:
-                            (major_change, status_update) = self._check_good_trigger(sensor)
-                            sensor.last_good_report = now()
-                            action = _('Normal Trigger') if major_change else _('Normal Value')
-                            if status_update:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)          # wait for reading to be updated
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
 
-                    if major_change:
-                        if sensor.send_email:
-                            text = _('Sensor') + ': {} ({})'.format(sensor.name, self.status[sensor.index][1])
-                            subj = _('Sensor Change')
-                            body = _('Sensor Change') + ': {} ({})'.format(sensor.name,  self.status[sensor.index][1])
-                            self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                    elif state < float(sensor.trigger_low_threshold):
+                        if sensor.state_automat != 'low':
+                            sensor.state_automat = 'low'
+                            sensor.last_low_report = now()
+                            action = _('Low Trigger')
+                            if sensor.send_email:
+                                text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                subj = _('Sensor Change')
+                                body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name,  self.status[sensor.index][1], action)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                            if sensor.log_samples:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
+                            self._trigger_programs(sensor, sensor.trigger_low_program)
+                        else:
+                            action = _('Low Value')
+                            if sensor.log_samples:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
+
+                    else:
+                        if sensor.state_automat != 'normal':
+                            sensor.state_automat = 'normal'
+                            sensor.last_good_report = now()
+                            action = _('Normal Trigger')
+                            if sensor.send_email:
+                                text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                subj = _('Sensor Change')
+                                body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name,  self.status[sensor.index][1], action)
+                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                            if sensor.log_samples:
+                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
+                            else:
+                                action = _('Normal Value')
+                                if sensor.log_samples:
+                                    self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
 
                     if sensor.log_samples:                                             # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
