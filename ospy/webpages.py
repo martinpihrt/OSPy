@@ -1398,46 +1398,50 @@ class action_page(ProtectedPage):
                     run_once.clear()
                 log.finish_run(None)
                 stations.clear()
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         if scheduler_enabled is not None:
             if session.get('category')  == 'admin' or session.get('category') == 'user':
                 options.scheduler_enabled = scheduler_enabled
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         if manual_mode is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.manual_mode = manual_mode
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         if rain_block is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
+                if rain_block == 0:
+                    rain_blocks.clear()  # delete all parallel rain blocks (e.g. from CHMI plugin, current loop tank monitor...)
+                    logEV.save_events_log(_('Rain delay'), _('User has removed all rain delays'), id='RainDelay')
+                else:
+                    logEV.save_events_log(_('Rain delay'), _('User has set a delay {} hours').format(rain_block), id='RainDelay')
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
                 stop_onrain()
-                logEV.save_events_log( _('Rain delay'), _('User has set a delay {} hours').format(rain_block), id=u'RainDelay')
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         if level_adjustment is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.level_adjustment = level_adjustment / 100
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         if toggle_temp:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.temp_unit = "F" if options.temp_unit == "C" else "C"
-            else:    
+            else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)                
+                return self.core_render.notice(home_page, msg)
 
         set_to = get_input(qdict, 'set_to', None, int)
         sid = get_input(qdict, 'sid', 0, int) - 1
@@ -1474,9 +1478,9 @@ class action_page(ProtectedPage):
                 for interval in active:
                     if interval['station'] == sid:
                         log.finish_run(interval)
-          else:    
+          else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)              
+            return self.core_render.notice(home_page, msg)
 
         report_value_change()
         raise web.seeother('/')  # Send browser back to home page
@@ -1501,8 +1505,7 @@ class programs_page(ProtectedPage):
             return self.core_render.programs_user()
         else:    
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)            
-   
+            return self.core_render.notice(home_page, msg)
 
 class program_page(ProtectedPage):
     """Open page to allow program modification."""
@@ -1653,7 +1656,7 @@ class runonce_page(ProtectedPage):
             raise web.seeother('/')
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)            
+            return self.core_render.notice(home_page, msg)
 
 
 class plugins_manage_page(ProtectedPage):
@@ -1664,7 +1667,7 @@ class plugins_manage_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice(home_page, msg)
 
         qdict = web.input()
         plugin = get_input(qdict, 'plugin', None)
@@ -1692,7 +1695,7 @@ class plugins_manage_page(ProtectedPage):
             for plugin in plugins.available():
                 if plugin in options.enabled_plugins:
                     options.enabled_plugins.remove(plugin)
-                shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)  
+                shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
             plugins.start_enabled_plugins()
             raise web.seeother('/plugins_manage')
@@ -1735,7 +1738,7 @@ class plugins_install_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice(home_page, msg)
 
         qdict = web.input()
         repo = get_input(qdict, 'repo', None, int)
@@ -1755,7 +1758,7 @@ class plugins_install_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice(home_page, msg)
 
         qdict = web.input(zipfile={})
 
@@ -1855,7 +1858,7 @@ class log_page(ProtectedPage):
             raise web.seeother('/')
 
     def POST(self):
-        from ospy.server import session      
+        from ospy.server import session
 
         qdict = web.input()
 
@@ -1970,7 +1973,7 @@ class options_page(ProtectedPage):
         if 'deldef' in qdict and qdict['deldef'] == '1':
             from ospy import server
             from ospy.helpers import ospy_to_default
-            try:        
+            try:
                 report_restarted()
                 stations.clear()
                 server.stop()
@@ -1992,7 +1995,7 @@ class options_page(ProtectedPage):
             report_restarted()
             restart(wait=3)    # OSPy software
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice(home_page, msg)
 
         raise web.seeother('/')
 
@@ -2074,7 +2077,7 @@ class help_page(ProtectedPage):
             return self.core_render.help_user(docs)
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)                    
+            return self.core_render.notice(home_page, msg)
         
 class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
@@ -2138,7 +2141,7 @@ class download_page(ProtectedPage):
                 log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
                 msg = _('System component is unreachable or busy. Please wait (try again later).')
                 return self.core_render.notice(u'/download', msg)
-             
+
         except Exception:
             log.debug('webpages.py', traceback.format_exc())
             raise web.seeother('/')
@@ -2146,7 +2149,6 @@ class download_page(ProtectedPage):
 
 class upload_page(ProtectedPage):
     """Upload ospy_backup.zip file with settings and images for stations"""
-    
     def GET(self):
         raise web.seeother('/')
 
@@ -2197,7 +2199,7 @@ class upload_page(ProtectedPage):
 
                 # we delete all settings before ospy recovery
 
-                stations.clear()                
+                stations.clear()
                 server.stop()
 
                 ospy_to_default(del_upload=False)
@@ -2222,7 +2224,6 @@ class upload_page(ProtectedPage):
 
 class upload_page_SSL(ProtectedPage):
     """Upload certificate file to SSL dir, fullchain.pem or privkey.pem"""
-    
     def GET(self):
         raise web.seeother('/')
 
@@ -2247,11 +2248,11 @@ class upload_page_SSL(ProtectedPage):
                 # sudo apt-get install openssl
                 from time import gmtime, mktime
                 import random
-  
+
                 # create a key pair
                 k = crypto.PKey()
                 k.generate_key(crypto.TYPE_RSA, 2048)
- 
+
                 # create a self-signed cert
                 cert = crypto.X509()
                 cert.get_subject().C = "EU"                # your country
@@ -2292,7 +2293,7 @@ class upload_page_SSL(ProtectedPage):
                         log.debug('webpages.py', _('Remove fullchain.pem...'))
                 if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
-                        os.remove(OPTIONS_FILE_PRIV)             # remove file  
+                        os.remove(OPTIONS_FILE_PRIV)             # remove file
                         log.debug('webpages.py', _('Remove privkey.pem...'))
 
                 fout = open('./ssl/' + i.uploadfile.filename,'wb')
@@ -2349,7 +2350,6 @@ class images_page(ProtectedPage):
 ################################################################################
 class api_status_json(ProtectedPage):
     """Simple Status API"""
-
     def GET(self):
         statuslist = []
         try:
@@ -2393,7 +2393,6 @@ class api_status_json(ProtectedPage):
 
 class api_log_json(ProtectedPage):
     """Simple Log API"""
-
     def GET(self):
         qdict = web.input()
         data = []
@@ -2585,7 +2584,7 @@ class showOnTimeline:
     @property
     def val(self):
         return self._val if self._val else _('Value not set')
-    
+
     @val.setter
     def val(self, num):
         self._val = num
@@ -2702,17 +2701,17 @@ class api_update_status(ProtectedPage):
 
 class api_update_footer(ProtectedPage):
     """Simple footer value status API"""
-
     def GET(self):
         from ospy.server import session
-        from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage, get_external_ip
-        
+        from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage, get_external_ip, get_ip
+
         data = {}
         try:
             data["cpu_temp"]    = get_cpu_temp(options.temp_unit)
             data["cpu_usage"]   = get_cpu_usage()
             data["sys_uptime"]  = uptime()
             data["ip"]          = get_external_ip()
+            data["ip_local"]    = get_ip()
         except:
             log.error('webpages.py', traceback.format_exc())
             pass
@@ -2731,7 +2730,7 @@ class api_search_sensors(ProtectedPage):
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
-        
+
         try:
             searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
         except:

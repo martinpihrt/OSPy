@@ -378,7 +378,7 @@ jQuery(document).ready(function(){
                 <table>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sample Rate'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" min="0" name="sample_rate_min" value="${two_digits(sensor.sample_rate/60)}" title=$:{json.dumps(_('Enter the sampling time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="4" min="0" name="sample_rate_min" value="${two_digits(sensor.sample_rate/60)}" title=$:{json.dumps(_('Enter the sampling time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" min="0" name="sample_rate_sec" value="${two_digits(sensor.sample_rate%60)}" title=$:{json.dumps(_('Enter the sampling time in seconds.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('mm:ss'))
                 </td>
                 </tr>
@@ -443,12 +443,12 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td colspan="2">
-                <small>$_('When it is less than this value.')</small>
+                <small>$_('When it is less than this value.') $_('Note: for the "output xx" type, the value you enter is not used. The value 0 for off and 1 for on is used automatically.')</small>
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="s_trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="s_trigger_low_threshold" value="${sensor.s_trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_low_threshold_unit"></span>
+                <td><input id="s_trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="s_trigger_low_threshold" value="${sensor.s_trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_low_threshold_unit"></span>
                 </td>
                 </tr>
                 <tr>
@@ -462,12 +462,12 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td colspan="2">
-                <small>$_('When it is greater than this value.')</small>
+                <small>$_('When it is greater than this value.') $_('Note: for the "output xx" type, the value you enter is not used. The value 0 for off and 1 for on is used automatically.')</small>
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="s_trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="s_trigger_high_threshold" value="${sensor.s_trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_high_threshold_unit"></span>
+                <td><input id="s_trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="s_trigger_high_threshold" value="${sensor.s_trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> <span id="shelly_high_threshold_unit"></span>
                 </td>
                 </tr>
                 <tr>
@@ -572,17 +572,17 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Stabilization Time'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="stabilization_time_min" id="stabm" value="${two_digits(sensor.stabilization_time/60)}"title=$:{json.dumps(_('Enter the stabilization time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="stabilization_time_min" id="stabm" value="${two_digits(sensor.stabilization_time/60)}"title=$:{json.dumps(_('Enter the stabilization time in minutes.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> :
                 <input class="timeInput numbersOnly" type="text" size="2" maxlength="2" name="stabilization_time_sec" id="stabs" value="${two_digits(sensor.stabilization_time%60)}"title=$:{json.dumps(_('Enter the stabilization time in seconds.'), ensure_ascii=False)}> ($_('mm:ss'))
                 </td></tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Sensitivity'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_('Enter sensitivity for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> %
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="4" id="sensitivity" name="sensitivity" value="${sensor.sensitivity}" title=$:{json.dumps(_('Enter sensitivity for sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> %
                 </td>
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('One pulse is'):</span></td>
-                <td><input type="number" min="0.1" step="0.1" size="3" maxlength="3" id="liter_per_pulses" name="liter_per_pulses" value="${sensor.liter_per_pulses}" title=$:{json.dumps(_('Here we enter how many liters from the flow meter is one pulse.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('Liters'))
+                <td><input type="number" min="0.1" step="0.1" size="3" maxlength="4" id="liter_per_pulses" name="liter_per_pulses" value="${sensor.liter_per_pulses}" title=$:{json.dumps(_('Here we enter how many liters from the flow meter is one pulse.'), ensure_ascii=False).encode('utf8').decode('utf-8')}> ($_('Liters'))
                 </td>
                 </tr>
                 <tr>
@@ -734,7 +734,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Maximum run time in activate'):</span></td>
-                <td><input id="reg_mm" name="reg_mm" type="number" size="3" maxlength="3" value="${sensor.reg_mm}" min="0" max="999" title=$:{json.dumps(_('Maximum duration when activating the output (in minutes). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>:
+                <td><input id="reg_mm" name="reg_mm" type="number" size="3" maxlength="4" value="${sensor.reg_mm}" min="0" max="999" title=$:{json.dumps(_('Maximum duration when activating the output (in minutes). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}>:
                 <input id="reg_ss" name="reg_ss" type="number" size="2" maxlength="2" value="${sensor.reg_ss}" min="0" max="59" title=$:{json.dumps(_('Maximum duration when activating the output (in seconds). After this time, the output will turn off regardless of other events (conditions)'), ensure_ascii=False).encode('utf8').decode('utf-8')}> $_('[mm:ss]')
                 </td>
                 </tr>
@@ -774,7 +774,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input id="trigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="trigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 $if options.temp_unit == 'F' and sensor.sens_type == 5:
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
@@ -792,7 +792,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="trigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input id="trigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="trigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 $if options.temp_unit == 'F' and sensor.sens_type == 5:
                     &degF
                 $if options.temp_unit == 'C' and sensor.sens_type == 5:
@@ -832,7 +832,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Low Thresh'):</span></td>
-                <td><input id="Mtrigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
+                <td><input id="Mtrigger_low_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="Mtrigger_low_threshold" value="${sensor.trigger_low_threshold}" title=$:{json.dumps(_('Enter value for low threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
                 </td>
                 </tr>
                 <tr>
@@ -846,7 +846,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('High Thresh'):</span></td>
-                <td><input id="Mtrigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="Mtrigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
+                <td><input id="Mtrigger_high_threshold" class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="Mtrigger_high_threshold" value="${sensor.trigger_high_threshold}" title=$:{json.dumps(_('Enter value for high threshold.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>%
                 </td>
                 </tr>
                 <tr>
@@ -1283,7 +1283,7 @@ jQuery(document).ready(function(){
                 </tr>
                 <tr>
                 <td style='text-transform: none;'><span class="sensor_label">$_('Radio sensor ID'):</span></td>
-                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="3" name="radio_id" id="radio_id" value="${sensor.radio_id}" title=$:{json.dumps(_('Enter sensor ID for your radio sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <td><input class="timeInput numbersOnly" type="text" size="2" maxlength="4" name="radio_id" id="radio_id" value="${sensor.radio_id}" title=$:{json.dumps(_('Enter sensor ID for your radio sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                 </td>
                 </tr>
                 </table>

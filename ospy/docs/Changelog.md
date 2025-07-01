@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+July 01 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed OSPy home Delete all parallel rain blocks (e.g. from CHMI plugin, current loop tank monitor...) When an extension set a rain delay, it could not be cancelled on the home page (it had to be cancelled in the settings of the extension that triggered the delay. This was impractical. Now the delay can be set to 0 on the home page regardless of whether there are other delays). A listing of the local IP address has been added to the footer of the home page (if you are using a username login, it may be useful to know the local IP address as well. Example: http://192.168.1.10:8080 instead of http://OSPy.local:8080). Package: Current Loop Tanks Monitor (fixed Removal of rain delay even if it should not have been removed. Just enter the settings page and delay was 0).
+
 June 30 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
