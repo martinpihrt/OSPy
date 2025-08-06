@@ -14,11 +14,12 @@ YouTube OpenSprinkler channel</br>
 ## Hardware diagram
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/blockconnection.png)
 
-## Multisensor ESP32
+## Multisensor ESP32 and Shelly.com
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)</br>
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)</br>
-[Sensors by Pihrt.com](https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system)
- 
+[Sensors by Pihrt.com](https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system)</br>
+[Sensors by Shelly.com](https://www.shelly.com/collections/smart-monitoring-saving-energy)
+
 ## For translate OSPy to other language
 The OSPy system is currently in three languages: English, Czech, Slovak. For other [languages](https://github.com/martinpihrt/OSPy/tree/master/i18n) and step by step, how to use is typed in MD file
 Any user who joins the "OSPy" project is welcome! Translation of strings into other languages is not demanding (using the [Poedit](https://poedit.net/))
@@ -36,6 +37,7 @@ OSPy can be controlled and monitored using HTTP GET commands. With the addition 
 
 ## Sensors
 OSPy allows to read data from wireless sensors (ESP32, ESP8266...) [Docs](https://github.com/martinpihrt/OSPy/blob/master/hardware_pcb/sensors_pcb_fw/docs/Details.md)
+Shelly sensors and periphery [Sensors by Shelly.com](https://www.shelly.com/)
 
 ## Remote Controller for OSPy based on M5stick-C 
 This controller allows you to select a program stored in the OSPy on the LCD display and start it with the button. The controller is connected to the home Wi-Fi network. We do not even need a mobile phone or a computer to quickly select programs. We will use this miniature controller. [Docs](https://github.com/martinpihrt/OSPy/blob/master/hardware_pcb/remote_controllers_fw/docs/Details.md)
