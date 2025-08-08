@@ -68,7 +68,10 @@ $if manufacturer == 1:
             $if manufacturer == 0:
                 <th>$_('Battery')</th>
             $if manufacturer == 1:
-                <th>$_('Voltage')</th>
+                $if stype == 14:
+                    <th>$_('Battery')</th>
+                $else:
+                    <th>$_('Voltage')</th>
             <th>$_('Signal')</th>
         </tr>
         $ odd = 1
@@ -132,7 +135,10 @@ $if manufacturer == 1:
                 $else:
                     <td align='center'></td>
                 $if "battery" in event:
-                    <td align='center'>${event["battery"]} $_('V')</td>
+                    $if stype == 14:
+                        <td align='center'>${event["battery"]} $_('%')</td>
+                    $else:
+                        <td align='center'>${event["battery"]} $_('V')</td>
                 $else:
                     <td align='center'></td>
                 $if "rssi" in event:    

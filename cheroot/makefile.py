@@ -1,6 +1,7 @@
 """Socket file object."""
 
 import socket
+import ssl
 
 # prefer slower Python-based io module
 import _pyio as io
@@ -28,11 +29,18 @@ class BufferedWriter(io.BufferedWriter):
         self._checkClosed('flush of closed file')
         while self._write_buf:
             try:
-                # ssl sockets only except 'bytes', not bytearrays
-                # so perhaps we should conditionally wrap this for perf?
                 n = self.raw.write(bytes(self._write_buf))
             except io.BlockingIOError as e:
                 n = e.characters_written
+            except ssl.SSLEOFError:
+                self._write_buf = bytearray()
+                break
+            except ssl.SSLError as e:
+                if "BAD_LENGTH" in str(e):
+                    self._write_buf = bytearray()
+                    break
+                else:
+                    raise
             del self._write_buf[:n]
 
 

@@ -1771,31 +1771,31 @@ class _Sensors_Timer(Thread):
                                     self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
                                 self._trigger_programs(sensor, sensor.s_trigger_high_program)
 
-                    elif state < float(sensor.s_trigger_low_threshold):
-                        if sensor.state_automat != 'low':
-                            sensor.state_automat = 'low'
-                            sensor.last_low_report = now()
-                            action = _('Low Trigger')
-                            if sensor.send_email:
-                                text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
-                                subj = _('Sensor Change')
-                                body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
-                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
-                            self._trigger_programs(sensor, sensor.s_trigger_low_program)
-                    else:
-                        if sensor.state_automat != 'normal':
-                            sensor.state_automat = 'normal'
-                            sensor.last_good_report = now()
-                            action = _('Normal Trigger')
-                            if sensor.send_email:
-                                text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
-                                subj = _('Sensor Change')
-                                body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
-                                self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
+                        elif state < float(sensor.s_trigger_low_threshold):
+                            if sensor.state_automat != 'low':
+                                sensor.state_automat = 'low'
+                                sensor.last_low_report = now()
+                                action = _('Low Trigger')
+                                if sensor.send_email:
+                                    text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                    subj = _('Sensor Change')
+                                    body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                                if sensor.log_samples:
+                                    self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
+                                self._trigger_programs(sensor, sensor.s_trigger_low_program)
+                        else:
+                            if sensor.state_automat != 'normal':
+                                sensor.state_automat = 'normal'
+                                sensor.last_good_report = now()
+                                action = _('Normal Trigger')
+                                if sensor.send_email:
+                                    text = _('Sensor') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                    subj = _('Sensor Change')
+                                    body = _('Sensor Change') + ': {} ({}) {}'.format(sensor.name, self.status[sensor.index][1], action)
+                                    self._try_send_mail(body, text, attachment=None, subject=subj, eplug=sensor.eplug)
+                                if sensor.log_samples:
+                                    self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
 
                     if sensor.log_samples:                                                                                            # sensor is enabled and enabled log samples
                         if int(now() - sensor.last_log_samples) >= int(sensor.sample_rate):
