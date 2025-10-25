@@ -1000,10 +1000,6 @@ class _Sensors_Timer(Thread):
                             if sensor.log_samples:
                                 self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
                             self._trigger_programs(sensor, sensor.trigger_high_program)
-                        else:
-                            action = _('High Value')
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
 
                     elif state < float(sensor.trigger_low_threshold):
                         if sensor.state_automat != 'low':
@@ -1018,10 +1014,6 @@ class _Sensors_Timer(Thread):
                             if sensor.log_samples:
                                 self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
                             self._trigger_programs(sensor, sensor.trigger_low_program)
-                        else:
-                            action = _('Low Value')
-                            if sensor.log_samples:
-                                self.update_log(sensor, 'lgs', state, action, battery=sensor.last_battery, rssi=sensor.rssi)
 
                     else:
                         if sensor.state_automat != 'normal':

@@ -1,6 +1,12 @@
 OSPy Changelog
 ====
 
+October 25 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed a bug with logging in multisensors (in case of a temperature drop, continuous logging occurred).
+
+
 July 01 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
