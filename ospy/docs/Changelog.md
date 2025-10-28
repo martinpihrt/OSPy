@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+October 28 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Added rollback function to system update plugin (10 levels back).
+
 October 25 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

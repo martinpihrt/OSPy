@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2025-07-01 14:08+0200\n"
-"PO-Revision-Date: 2025-07-01 14:17+0200\n"
+"POT-Creation-Date: 2025-10-28 21:07+0100\n"
+"PO-Revision-Date: 2025-10-28 21:22+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -215,7 +215,7 @@ msgstr "IP není nastavena"
 msgid "No IP6 Settings"
 msgstr "IP6 není nastavena"
 
-#: ospy/helpers.py:446 ospy/helpers.py:463 ospy/templates/log_sensor.html:99
+#: ospy/helpers.py:446 ospy/helpers.py:463 ospy/templates/log_sensor.html:102
 #: plugins/email_reader/__init__.py:400 plugins/email_reader/__init__.py:404
 msgid "-"
 msgstr "-"
@@ -848,7 +848,7 @@ msgstr "Nová instalace"
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:412 plugins/mqtt_home_assistant/__init__.py:728
+#: ospy/options.py:412 plugins/mqtt_home_assistant/__init__.py:736
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
@@ -1031,7 +1031,7 @@ msgstr "Západ slunce (balíček astral) TODO"
 #: plugins/email_notifications/__init__.py:139
 #: plugins/email_notifications_ssl/__init__.py:142
 #: plugins/email_notifications_ssl/__init__.py:147
-#: plugins/mqtt_home_assistant/__init__.py:601 plugins/sms_adj/__init__.py:411
+#: plugins/mqtt_home_assistant/__init__.py:609 plugins/sms_adj/__init__.py:411
 msgid "Program"
 msgstr "Program"
 
@@ -1174,8 +1174,8 @@ msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr "Zpoždění deště nastavilo zpoždění {} hodin {} minut {} vteřin"
 
 #: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/scheduler.py:53
-#: ospy/sensors.py:1324 ospy/webpages.py:1423 ospy/webpages.py:1425
-#: plugins/mqtt_home_assistant/__init__.py:725
+#: ospy/sensors.py:1316 ospy/webpages.py:1423 ospy/webpages.py:1425
+#: plugins/mqtt_home_assistant/__init__.py:733
 msgid "Rain delay"
 msgstr "Zpoždění deště"
 
@@ -1188,7 +1188,7 @@ msgid "Activated"
 msgstr "Aktivován"
 
 #: ospy/scheduler.py:50 ospy/scheduler.py:57
-#: plugins/mqtt_home_assistant/__init__.py:729
+#: plugins/mqtt_home_assistant/__init__.py:737
 msgid "Rain sensor"
 msgstr "Dešťový snímač"
 
@@ -1297,12 +1297,13 @@ msgid "Updating sensor graph log to file successfully."
 msgstr "Aktualizace záznamu grafu snímače do souboru bylo úspěšné."
 
 #: ospy/sensors.py:447 ospy/sensors.py:455 ospy/templates/log_sensor.html:69
+#: ospy/templates/log_sensor.html:72
 msgid "Battery"
 msgstr "Baterie"
 
-#: ospy/sensors.py:449 ospy/sensors.py:457 ospy/sensors.py:1584
+#: ospy/sensors.py:449 ospy/sensors.py:457 ospy/sensors.py:1576
 #: ospy/templates/graph_sensor.html:9 ospy/templates/log_sensor.html:9
-#: ospy/templates/log_sensor.html:71 ospy/templates/sensor.html:439
+#: ospy/templates/log_sensor.html:74 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
@@ -1313,7 +1314,7 @@ msgstr "Baterie"
 msgid "Voltage"
 msgstr "Napětí"
 
-#: ospy/sensors.py:450 ospy/sensors.py:458 ospy/templates/log_sensor.html:72
+#: ospy/sensors.py:450 ospy/sensors.py:458 ospy/templates/log_sensor.html:75
 #: plugins/sms_adj/__init__.py:205
 msgid "Signal"
 msgstr "Signál"
@@ -1332,9 +1333,9 @@ msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 #: ospy/sensors.py:661 ospy/sensors.py:690 ospy/sensors.py:719
 #: ospy/sensors.py:748 ospy/sensors.py:885 ospy/sensors.py:897
 #: ospy/sensors.py:912 ospy/sensors.py:929 ospy/sensors.py:946
-#: ospy/sensors.py:963 ospy/sensors.py:980 ospy/sensors.py:1119
-#: ospy/sensors.py:1133 ospy/sensors.py:1190 ospy/sensors.py:1222
-#: ospy/sensors.py:1228 ospy/sensors.py:1232 ospy/sensors.py:1416
+#: ospy/sensors.py:963 ospy/sensors.py:980 ospy/sensors.py:1111
+#: ospy/sensors.py:1125 ospy/sensors.py:1182 ospy/sensors.py:1214
+#: ospy/sensors.py:1220 ospy/sensors.py:1224 ospy/sensors.py:1408
 #: ospy/templates/sensors.html:98 ospy/templates/sensors.html:140
 #: ospy/templates/sensors.html:169 ospy/templates/sensors.html:197
 #: ospy/templates/sensors.html:215 ospy/templates/sensors.html:257
@@ -1375,33 +1376,33 @@ msgid "Probe Error"
 msgstr "Chyba sondy"
 
 #: ospy/sensors.py:671 ospy/sensors.py:700 ospy/sensors.py:729
-#: ospy/sensors.py:758 ospy/sensors.py:1061 ospy/sensors.py:1148
-#: ospy/sensors.py:1345
+#: ospy/sensors.py:758 ospy/sensors.py:1053 ospy/sensors.py:1140
+#: ospy/sensors.py:1337
 msgid "Sensor: {} now response"
 msgstr "Snímač: {} nyní odpovídá"
 
 #: ospy/sensors.py:673 ospy/sensors.py:678 ospy/sensors.py:702
 #: ospy/sensors.py:707 ospy/sensors.py:731 ospy/sensors.py:736
-#: ospy/sensors.py:760 ospy/sensors.py:765 ospy/sensors.py:1063
-#: ospy/sensors.py:1068 ospy/sensors.py:1150 ospy/sensors.py:1155
-#: ospy/sensors.py:1347 ospy/sensors.py:1352 ospy/sensors.py:1432
+#: ospy/sensors.py:760 ospy/sensors.py:765 ospy/sensors.py:1055
+#: ospy/sensors.py:1060 ospy/sensors.py:1142 ospy/sensors.py:1147
+#: ospy/sensors.py:1339 ospy/sensors.py:1344 ospy/sensors.py:1424
 msgid "Now response"
 msgstr "Nyní odpovídá"
 
 #: ospy/sensors.py:674 ospy/sensors.py:703 ospy/sensors.py:732
 #: ospy/sensors.py:761 ospy/sensors.py:826 ospy/sensors.py:842
-#: ospy/sensors.py:858 ospy/sensors.py:1064 ospy/sensors.py:1091
-#: ospy/sensors.py:1151 ospy/sensors.py:1166 ospy/sensors.py:1231
-#: ospy/sensors.py:1303 ospy/sensors.py:1329 ospy/sensors.py:1348
-#: ospy/sensors.py:1364 ospy/sensors.py:1438 ospy/sensors.py:1463
+#: ospy/sensors.py:858 ospy/sensors.py:1056 ospy/sensors.py:1083
+#: ospy/sensors.py:1143 ospy/sensors.py:1158 ospy/sensors.py:1223
+#: ospy/sensors.py:1295 ospy/sensors.py:1321 ospy/sensors.py:1340
+#: ospy/sensors.py:1356 ospy/sensors.py:1430 ospy/sensors.py:1455
 msgid "Sensor {}"
 msgstr "Snímač {}"
 
 #: ospy/sensors.py:769 ospy/sensors.py:779 ospy/sensors.py:790
-#: ospy/sensors.py:800 ospy/sensors.py:996 ospy/sensors.py:1014
-#: ospy/sensors.py:1032 ospy/sensors.py:1230 ospy/sensors.py:1302
-#: ospy/sensors.py:1328 ospy/sensors.py:1737 ospy/sensors.py:1750
-#: ospy/sensors.py:1766 ospy/sensors.py:1780 ospy/sensors.py:1793
+#: ospy/sensors.py:800 ospy/sensors.py:996 ospy/sensors.py:1010
+#: ospy/sensors.py:1024 ospy/sensors.py:1222 ospy/sensors.py:1294
+#: ospy/sensors.py:1320 ospy/sensors.py:1729 ospy/sensors.py:1742
+#: ospy/sensors.py:1758 ospy/sensors.py:1772 ospy/sensors.py:1785
 #: ospy/templates/user.html:45 ospy/templates/user.html:68
 #: ospy/templates/users.html:32
 msgid "Sensor"
@@ -1418,27 +1419,27 @@ msgid "Successfully read sensor"
 msgstr "Úspěšně čtení snímače"
 
 #: ospy/sensors.py:820 ospy/sensors.py:836 ospy/sensors.py:852
-#: ospy/sensors.py:1085 ospy/sensors.py:1160 ospy/sensors.py:1358
-#: ospy/sensors.py:1457
+#: ospy/sensors.py:1077 ospy/sensors.py:1152 ospy/sensors.py:1350
+#: ospy/sensors.py:1449
 msgid "Sensor: {} not response!"
 msgstr "Snímač: {} neodpovídá!"
 
 #: ospy/sensors.py:823 ospy/sensors.py:830 ospy/sensors.py:839
 #: ospy/sensors.py:846 ospy/sensors.py:855 ospy/sensors.py:862
-#: ospy/sensors.py:866 ospy/sensors.py:1088 ospy/sensors.py:1096
-#: ospy/sensors.py:1101 ospy/sensors.py:1163 ospy/sensors.py:1171
-#: ospy/sensors.py:1176 ospy/sensors.py:1361 ospy/sensors.py:1369
-#: ospy/sensors.py:1374 ospy/sensors.py:1460 ospy/sensors.py:1468
-#: ospy/sensors.py:1473 ospy/sensors.py:1552 ospy/sensors.py:1839
+#: ospy/sensors.py:866 ospy/sensors.py:1080 ospy/sensors.py:1088
+#: ospy/sensors.py:1093 ospy/sensors.py:1155 ospy/sensors.py:1163
+#: ospy/sensors.py:1168 ospy/sensors.py:1353 ospy/sensors.py:1361
+#: ospy/sensors.py:1366 ospy/sensors.py:1452 ospy/sensors.py:1460
+#: ospy/sensors.py:1465 ospy/sensors.py:1544 ospy/sensors.py:1831
 msgid "Not response!"
 msgstr "Neodpovídá!"
 
 #: ospy/sensors.py:825 ospy/sensors.py:841 ospy/sensors.py:857
-#: ospy/sensors.py:868 ospy/sensors.py:1090 ospy/sensors.py:1098
-#: ospy/sensors.py:1103 ospy/sensors.py:1165 ospy/sensors.py:1173
-#: ospy/sensors.py:1178 ospy/sensors.py:1363 ospy/sensors.py:1371
-#: ospy/sensors.py:1376 ospy/sensors.py:1462 ospy/sensors.py:1470
-#: ospy/sensors.py:1475 ospy/sensors.py:1554 ospy/sensors.py:1841
+#: ospy/sensors.py:868 ospy/sensors.py:1082 ospy/sensors.py:1090
+#: ospy/sensors.py:1095 ospy/sensors.py:1157 ospy/sensors.py:1165
+#: ospy/sensors.py:1170 ospy/sensors.py:1355 ospy/sensors.py:1363
+#: ospy/sensors.py:1368 ospy/sensors.py:1454 ospy/sensors.py:1462
+#: ospy/sensors.py:1467 ospy/sensors.py:1546 ospy/sensors.py:1833
 msgid "Out of order"
 msgstr "Mimo provoz"
 
@@ -1454,52 +1455,44 @@ msgstr "Vlhkost {}%"
 #: ospy/templates/sensors.html:59 ospy/templates/sensors_search.html:53
 #: plugins/air_temp_humi/__init__.py:130 plugins/air_temp_humi/__init__.py:176
 #: plugins/air_temp_humi/__init__.py:232 plugins/email_reader/__init__.py:778
-#: plugins/mqtt_home_assistant/__init__.py:790
-#: plugins/mqtt_home_assistant/__init__.py:799
+#: plugins/mqtt_home_assistant/__init__.py:800
+#: plugins/mqtt_home_assistant/__init__.py:810
 #: plugins/weather_based_water_level/__init__.py:123
 msgid "Temperature"
 msgstr "Teplota"
 
-#: ospy/sensors.py:994 ospy/sensors.py:1735 ospy/sensors.py:1764
+#: ospy/sensors.py:994 ospy/sensors.py:1727 ospy/sensors.py:1756
 msgid "High Trigger"
 msgstr "Vysoká aktivační událost"
 
-#: ospy/sensors.py:997 ospy/sensors.py:998 ospy/sensors.py:1015
-#: ospy/sensors.py:1016 ospy/sensors.py:1033 ospy/sensors.py:1034
-#: ospy/sensors.py:1738 ospy/sensors.py:1739 ospy/sensors.py:1751
-#: ospy/sensors.py:1752 ospy/sensors.py:1767 ospy/sensors.py:1768
-#: ospy/sensors.py:1781 ospy/sensors.py:1782 ospy/sensors.py:1794
-#: ospy/sensors.py:1795
+#: ospy/sensors.py:997 ospy/sensors.py:998 ospy/sensors.py:1011
+#: ospy/sensors.py:1012 ospy/sensors.py:1025 ospy/sensors.py:1026
+#: ospy/sensors.py:1730 ospy/sensors.py:1731 ospy/sensors.py:1743
+#: ospy/sensors.py:1744 ospy/sensors.py:1759 ospy/sensors.py:1760
+#: ospy/sensors.py:1773 ospy/sensors.py:1774 ospy/sensors.py:1786
+#: ospy/sensors.py:1787
 msgid "Sensor Change"
 msgstr "Změna stavu snímače"
 
-#: ospy/sensors.py:1004
-msgid "High Value"
-msgstr "Vysoká hodnota"
-
-#: ospy/sensors.py:1012 ospy/sensors.py:1312 ospy/sensors.py:1748
-#: ospy/sensors.py:1778
+#: ospy/sensors.py:1008 ospy/sensors.py:1304 ospy/sensors.py:1740
+#: ospy/sensors.py:1770
 msgid "Low Trigger"
 msgstr "Nízká aktivační událost"
 
-#: ospy/sensors.py:1022
-msgid "Low Value"
-msgstr "Nízká hodnota"
-
-#: ospy/sensors.py:1030 ospy/sensors.py:1287 ospy/sensors.py:1791
+#: ospy/sensors.py:1022 ospy/sensors.py:1279 ospy/sensors.py:1783
 msgid "Normal Trigger"
 msgstr "Normální aktivační událost"
 
-#: ospy/sensors.py:1039
+#: ospy/sensors.py:1031
 msgid "Normal Value"
 msgstr "Běžná hodnota"
 
-#: ospy/sensors.py:1115 ospy/sensors.py:1129
+#: ospy/sensors.py:1107 ospy/sensors.py:1121
 msgid "Leak {}l/s"
 msgstr "Průtok {}l/s"
 
-#: ospy/sensors.py:1212 ospy/sensors.py:1216 ospy/sensors.py:1291
-#: ospy/sensors.py:1317 ospy/templates/log_sensor.html:117
+#: ospy/sensors.py:1204 ospy/sensors.py:1208 ospy/sensors.py:1283
+#: ospy/sensors.py:1309 ospy/templates/log_sensor.html:120
 #: ospy/templates/sensor.html:671 ospy/templates/sensor.html:676
 #: ospy/templates/sensor.html:681 ospy/templates/sensor.html:685
 #: ospy/templates/sensor.html:732 ospy/templates/sensor.html:743
@@ -1543,7 +1536,7 @@ msgstr "Průtok {}l/s"
 msgid "cm"
 msgstr "cm"
 
-#: ospy/sensors.py:1212 plugins/email_notifications/__init__.py:160
+#: ospy/sensors.py:1204 plugins/email_notifications/__init__.py:160
 #: plugins/email_notifications_ssl/__init__.py:175
 #: plugins/email_reader/__init__.py:240 plugins/email_reader/__init__.py:851
 #: plugins/tank_monitor/__init__.py:198
@@ -1554,7 +1547,7 @@ msgstr "cm"
 msgid "liters"
 msgstr "litrů"
 
-#: ospy/sensors.py:1216 plugins/email_notifications/__init__.py:162
+#: ospy/sensors.py:1208 plugins/email_notifications/__init__.py:162
 #: plugins/email_notifications/__init__.py:191
 #: plugins/email_notifications/__init__.py:199
 #: plugins/email_notifications_ssl/__init__.py:177
@@ -1568,11 +1561,11 @@ msgstr "litrů"
 msgid "m3"
 msgstr "m3"
 
-#: ospy/sensors.py:1232
+#: ospy/sensors.py:1224
 msgid "Sensor Notification"
 msgstr "Oznámení snímače"
 
-#: ospy/sensors.py:1243 ospy/sensors.py:1274 ospy/templates/options.html:153
+#: ospy/sensors.py:1235 ospy/sensors.py:1266 ospy/templates/options.html:153
 #: ospy/templates/options.html:166 ospy/templates/sensor.html:510
 #: ospy/templates/sensor.html:542 ospy/templates/sensor.html:718
 #: ospy/templates/sensor.html:749 ospy/templates/sensor.html:975
@@ -1631,61 +1624,61 @@ msgstr "Oznámení snímače"
 msgid "Output"
 msgstr "Výstup"
 
-#: ospy/sensors.py:1243 plugins/air_temp_humi/__init__.py:211
+#: ospy/sensors.py:1235 plugins/air_temp_humi/__init__.py:211
 #: plugins/photovoltaic_boiler/__init__.py:213
 #: plugins/pool_heating/__init__.py:211 plugins/tank_monitor/__init__.py:210
 msgid "Regulation set ON."
 msgstr "Regulace nastavila ZAP."
 
-#: ospy/sensors.py:1274 plugins/air_temp_humi/__init__.py:224
+#: ospy/sensors.py:1266 plugins/air_temp_humi/__init__.py:224
 #: plugins/pool_heating/__init__.py:199 plugins/pool_heating/__init__.py:244
 #: plugins/tank_monitor/__init__.py:238
 msgid "Regulation set OFF."
 msgstr "Regulace nastavila VYP."
 
-#: ospy/sensors.py:1291 ospy/sensors.py:1317
+#: ospy/sensors.py:1283 ospy/sensors.py:1309
 msgid "Water in Tank"
 msgstr "Voda v nádrži"
 
-#: ospy/sensors.py:1298
+#: ospy/sensors.py:1290
 msgid "Removing Rain delay"
 msgstr "Odebírám zpoždění při dešti"
 
-#: ospy/sensors.py:1304
+#: ospy/sensors.py:1296
 msgid "Sensor has water"
 msgstr "Snímač má opět vodu"
 
-#: ospy/sensors.py:1317 plugins/current_loop_tanks_monitor/__init__.py:288
+#: ospy/sensors.py:1309 plugins/current_loop_tanks_monitor/__init__.py:288
 #: plugins/tank_monitor/__init__.py:275
 msgid "!"
 msgstr "!"
 
-#: ospy/sensors.py:1324
+#: ospy/sensors.py:1316
 msgid "hours."
 msgstr "hodin."
 
-#: ospy/sensors.py:1330
+#: ospy/sensors.py:1322
 msgid "Sensor has water minimum"
 msgstr "Snímač má minimum vody"
 
-#: ospy/sensors.py:1434
+#: ospy/sensors.py:1426
 msgid "Has Error (Probes)!"
 msgstr "Má chybu (sondy)!"
 
-#: ospy/sensors.py:1435
+#: ospy/sensors.py:1427
 msgid "Sensor {} {}"
 msgstr "Snímač {} {}"
 
-#: ospy/sensors.py:1444
+#: ospy/sensors.py:1436
 msgid "Sensor error: {}"
 msgstr "Chyba snímače: {}"
 
-#: ospy/sensors.py:1481
+#: ospy/sensors.py:1473
 msgid "Inputs state"
 msgstr "Stav vstupů"
 
-#: ospy/sensors.py:1486 ospy/sensors.py:1590 ospy/sensors.py:1600
-#: ospy/sensors.py:1610 ospy/sensors.py:1620 ospy/sensors.py:1813
+#: ospy/sensors.py:1478 ospy/sensors.py:1582 ospy/sensors.py:1592
+#: ospy/sensors.py:1602 ospy/sensors.py:1612 ospy/sensors.py:1805
 #: ospy/templates/sensors.html:776 ospy/templates/sensors.html:872
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:67
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:105
@@ -1709,8 +1702,8 @@ msgstr "Stav vstupů"
 msgid "ON"
 msgstr "ZAP"
 
-#: ospy/sensors.py:1488 ospy/sensors.py:1592 ospy/sensors.py:1602
-#: ospy/sensors.py:1612 ospy/sensors.py:1622 ospy/sensors.py:1815
+#: ospy/sensors.py:1480 ospy/sensors.py:1584 ospy/sensors.py:1594
+#: ospy/sensors.py:1604 ospy/sensors.py:1614 ospy/sensors.py:1807
 #: ospy/templates/sensors.html:778 ospy/templates/sensors.html:850
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:65
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:103
@@ -1734,8 +1727,8 @@ msgstr "ZAP"
 msgid "OFF"
 msgstr "VYP"
 
-#: ospy/sensors.py:1584 ospy/templates/log_sensor.html:89
-#: ospy/templates/log_sensor.html:120 ospy/templates/log_sensor.html:135
+#: ospy/sensors.py:1576 ospy/templates/log_sensor.html:92
+#: ospy/templates/log_sensor.html:123 ospy/templates/log_sensor.html:141
 #: ospy/templates/sensor.html:77 ospy/templates/sensor.html:78
 #: ospy/templates/sensor.html:902 ospy/templates/sensor.html:907
 #: ospy/templates/sensors.html:457 ospy/templates/sensors.html:756
@@ -1752,7 +1745,7 @@ msgstr "VYP"
 msgid "V"
 msgstr "V"
 
-#: ospy/sensors.py:1590 ospy/sensors.py:1592 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1582 ospy/sensors.py:1584 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:368
@@ -1761,7 +1754,7 @@ msgstr "V"
 msgid "Output 1"
 msgstr "Výstup 1"
 
-#: ospy/sensors.py:1600 ospy/sensors.py:1602 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1592 ospy/sensors.py:1594 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:376
@@ -1770,7 +1763,7 @@ msgstr "Výstup 1"
 msgid "Output 2"
 msgstr "Výstup 2"
 
-#: ospy/sensors.py:1610 ospy/sensors.py:1612 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1602 ospy/sensors.py:1604 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:384
@@ -1779,7 +1772,7 @@ msgstr "Výstup 2"
 msgid "Output 3"
 msgstr "Výstup 3"
 
-#: ospy/sensors.py:1620 ospy/sensors.py:1622 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1612 ospy/sensors.py:1614 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:392
@@ -1788,8 +1781,8 @@ msgstr "Výstup 3"
 msgid "Output 4"
 msgstr "Výstup 4"
 
-#: ospy/sensors.py:1629 ospy/sensors.py:1636 ospy/sensors.py:1643
-#: ospy/sensors.py:1650 ospy/sensors.py:1657 ospy/templates/sensor.html:92
+#: ospy/sensors.py:1621 ospy/sensors.py:1628 ospy/sensors.py:1635
+#: ospy/sensors.py:1642 ospy/sensors.py:1649 ospy/templates/sensor.html:92
 #: ospy/templates/sensor.html:93
 #: plugins/email_notifications_ssl/__init__.py:399
 #: plugins/email_notifications_ssl/__init__.py:404
@@ -1802,7 +1795,7 @@ msgstr "Výstup 4"
 msgid "°C"
 msgstr "°C"
 
-#: ospy/sensors.py:1629 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1621 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:399
@@ -1811,7 +1804,7 @@ msgstr "°C"
 msgid "Temperature 1"
 msgstr "Teplota 1"
 
-#: ospy/sensors.py:1636 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1628 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:404
@@ -1819,7 +1812,7 @@ msgstr "Teplota 1"
 msgid "Temperature 2"
 msgstr "Teplota 2"
 
-#: ospy/sensors.py:1643 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1635 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:409
@@ -1827,7 +1820,7 @@ msgstr "Teplota 2"
 msgid "Temperature 3"
 msgstr "Teplota 3"
 
-#: ospy/sensors.py:1650 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1642 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:414
@@ -1835,15 +1828,15 @@ msgstr "Teplota 3"
 msgid "Temperature 4"
 msgstr "Teplota 4"
 
-#: ospy/sensors.py:1657 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1649 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 msgid "Temperature 5"
 msgstr "Teplota 5"
 
-#: ospy/sensors.py:1664 ospy/sensors.py:1671 ospy/sensors.py:1678
-#: ospy/sensors.py:1685 ospy/sensors.py:1699 ospy/sensors.py:1706
-#: ospy/sensors.py:1713 ospy/templates/log_sensor.html:124
+#: ospy/sensors.py:1656 ospy/sensors.py:1663 ospy/sensors.py:1670
+#: ospy/sensors.py:1677 ospy/sensors.py:1691 ospy/sensors.py:1698
+#: ospy/sensors.py:1705 ospy/templates/log_sensor.html:127
 #: ospy/templates/sensor.html:102 ospy/templates/sensor.html:103
 #: ospy/templates/sensors.html:788 ospy/templates/sensors.html:789
 #: ospy/templates/sensors.html:790 ospy/templates/sensors.html:793
@@ -1872,7 +1865,7 @@ msgstr "Teplota 5"
 msgid "W"
 msgstr "W"
 
-#: ospy/sensors.py:1664 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1656 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:424
@@ -1880,7 +1873,7 @@ msgstr "W"
 msgid "Power 1"
 msgstr "Výkon 1"
 
-#: ospy/sensors.py:1671 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1663 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:429
@@ -1888,7 +1881,7 @@ msgstr "Výkon 1"
 msgid "Power 2"
 msgstr "Výkon 2"
 
-#: ospy/sensors.py:1678 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1670 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:434
@@ -1896,7 +1889,7 @@ msgstr "Výkon 2"
 msgid "Power 3"
 msgstr "Výkon 3"
 
-#: ospy/sensors.py:1685 ospy/templates/graph_sensor.html:9
+#: ospy/sensors.py:1677 ospy/templates/graph_sensor.html:9
 #: ospy/templates/log_sensor.html:9 ospy/templates/sensor.html:439
 #: ospy/templates/sensors.html:841
 #: plugins/email_notifications_ssl/__init__.py:439
@@ -1904,7 +1897,7 @@ msgstr "Výkon 3"
 msgid "Power 4"
 msgstr "Výkon 4"
 
-#: ospy/sensors.py:1692 ospy/templates/log_sensor.html:126
+#: ospy/sensors.py:1684 ospy/templates/log_sensor.html:129
 #: ospy/templates/sensor.html:106 ospy/templates/sensor.html:107
 #: ospy/templates/sensors.html:856 ospy/templates/sensors.html:878
 #: plugins/email_notifications_ssl/__init__.py:444
@@ -1912,84 +1905,84 @@ msgstr "Výkon 4"
 msgid "%RV"
 msgstr "%RV"
 
-#: ospy/sensors.py:1692 ospy/templates/sensors.html:819
+#: ospy/sensors.py:1684 ospy/templates/sensors.html:819
 #: plugins/air_temp_humi/__init__.py:177
 #: plugins/email_notifications_ssl/__init__.py:444
 #: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:649
-#: plugins/mqtt_home_assistant/__init__.py:786
+#: plugins/mqtt_home_assistant/__init__.py:796
 msgid "Humidity"
 msgstr "Vlhkost"
 
-#: ospy/sensors.py:1699 plugins/email_notifications_ssl/__init__.py:449
+#: ospy/sensors.py:1691 plugins/email_notifications_ssl/__init__.py:449
 #: plugins/lcd_display/__init__.py:654
 msgid "PV Power 1"
 msgstr "FV výkon 1"
 
-#: ospy/sensors.py:1706 plugins/email_notifications_ssl/__init__.py:454
+#: ospy/sensors.py:1698 plugins/email_notifications_ssl/__init__.py:454
 #: plugins/lcd_display/__init__.py:659
 msgid "PV Power 2"
 msgstr "FV výkon 2"
 
-#: ospy/sensors.py:1713 plugins/email_notifications_ssl/__init__.py:459
+#: ospy/sensors.py:1705 plugins/email_notifications_ssl/__init__.py:459
 #: plugins/lcd_display/__init__.py:664
 msgid "PV Power 3"
 msgstr "FV výkon 3"
 
-#: ospy/sensors.py:1721 ospy/templates/log_sensor.html:128
+#: ospy/sensors.py:1713 ospy/templates/log_sensor.html:131
 #: ospy/templates/sensor.html:110 ospy/templates/sensor.html:111
 #: ospy/templates/sensors.html:833 ospy/templates/sensors.html:858
 #: ospy/templates/sensors.html:880
 msgid "Lux"
 msgstr "Lux"
 
-#: ospy/sensors.py:1721 plugins/email_notifications_ssl/__init__.py:464
+#: ospy/sensors.py:1713 plugins/email_notifications_ssl/__init__.py:464
 #: plugins/lcd_display/__init__.py:669
 msgid "Illuminance"
 msgstr "Osvětlení"
 
-#: ospy/sensors.py:1807
+#: ospy/sensors.py:1799
 msgid "Voltage {} V"
 msgstr "Napětí {} V"
 
-#: ospy/sensors.py:1810 ospy/sensors.py:1818 ospy/sensors.py:1823
-#: ospy/sensors.py:1828 ospy/sensors.py:1833
+#: ospy/sensors.py:1802 ospy/sensors.py:1810 ospy/sensors.py:1815
+#: ospy/sensors.py:1820 ospy/sensors.py:1825
 msgid "Inappropriate settings (the sensor cannot get measure this data)."
 msgstr "Nevhodné nastavení (senzor nemůže tato data změřit)."
 
-#: ospy/sensors.py:1820
+#: ospy/sensors.py:1812
 msgid "{} ℃"
 msgstr "{} °C"
 
-#: ospy/sensors.py:1825
+#: ospy/sensors.py:1817
 msgid "{} W"
 msgstr "{} W"
 
-#: ospy/sensors.py:1830
+#: ospy/sensors.py:1822
 msgid "{} %RV"
 msgstr "{} %RV"
 
-#: ospy/sensors.py:1835
+#: ospy/sensors.py:1827
 msgid "{} Lux"
 msgstr "{} Lux"
 
-#: ospy/sensors.py:1853
+#: ospy/sensors.py:1845
 msgid "Shelly cloud integrator not installed or not enabled in plugins!"
 msgstr ""
 "Shelly cloud integrátor není nainstalován nebo není povolen v rozšíření OSPy!"
 
-#: ospy/sensors.py:1857
+#: ospy/sensors.py:1849
 msgid "Unexpected error in shelly_cloud_integrator: "
 msgstr "Neočekávaná chyba v shelly_cloud_integrator: "
 
-#: ospy/sensors.py:1906
+#: ospy/sensors.py:1898
 msgid "Sensor Shelly: {} saving every 30 seconds to sensors."
 msgstr "Snímač Shelly: {} ukládání každých 30 sekund do snímačů."
 
-#: ospy/sensors.py:1908
+#: ospy/sensors.py:1900
 msgid "Sensors shelly timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
-#: ospy/sensors.py:1921
+#: ospy/sensors.py:1913
 msgid "Sensors timer loop error: {}"
 msgstr "Chyba smyčky časovače snímačů: {}"
 
@@ -2291,7 +2284,7 @@ msgid "The system has detected that an OSPy update is available"
 msgstr "Systém zjistil, že je k dispozici aktualizace OSPy"
 
 #: ospy/templates/base.html:130
-#: plugins/system_update/templates/system_update.html:120
+#: plugins/system_update/templates/system_update.html:235
 msgid "Local OSPy version"
 msgstr "Místní OSPy verze"
 
@@ -2299,7 +2292,7 @@ msgstr "Místní OSPy verze"
 msgid "Available OSPy version"
 msgstr "Dostupná verze OSPy"
 
-#: ospy/templates/base.html:132 plugins/system_update/__init__.py:133
+#: ospy/templates/base.html:132 plugins/system_update/__init__.py:140
 msgid "Changes"
 msgstr "Změny"
 
@@ -2355,7 +2348,7 @@ msgstr "Nastavení a úprava programů"
 
 #: ospy/templates/base.html:246 ospy/templates/programs.html:3
 #: ospy/templates/programs_user.html:3
-#: plugins/mqtt_home_assistant/__init__.py:613
+#: plugins/mqtt_home_assistant/__init__.py:621
 msgid "Programs"
 msgstr "Programy"
 
@@ -2396,7 +2389,7 @@ msgid "Configure Stations"
 msgstr "Nastavení stanic"
 
 #: ospy/templates/base.html:267 ospy/templates/stations.html:3
-#: plugins/mqtt_home_assistant/__init__.py:613
+#: plugins/mqtt_home_assistant/__init__.py:621
 msgid "Stations"
 msgstr "Stanice"
 
@@ -2424,7 +2417,8 @@ msgstr "Konfigurace snímačů"
 #: plugins/modbus_stations/templates/modbus_stations.html:22
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
 #: plugins/mqtt/templates/mqtt.html:22
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:27
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:108
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:107
 #: plugins/ospy_backup/templates/ospy_backup.html:28
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:43
 #: plugins/ping_monitor/templates/ping_monitor.html:179
@@ -2443,7 +2437,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/speed_monitor/templates/speed_monitor.html:179
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
-#: plugins/system_update/templates/system_update.html:95
+#: plugins/system_update/templates/system_update.html:210
 #: plugins/system_watchdog/templates/system_watchdog.html:30
 #: plugins/tank_monitor/templates/tank_monitor.html:201
 #: plugins/telegram_bot/templates/telegram_bot.html:24
@@ -2606,7 +2600,7 @@ msgid "Delete"
 msgstr "Smazat"
 
 #: ospy/templates/edit.html:86 ospy/templates/graph_sensor.html:206
-#: ospy/templates/log_sensor.html:12 ospy/templates/log_sensor.html:146
+#: ospy/templates/log_sensor.html:12 ospy/templates/log_sensor.html:152
 #: ospy/templates/options.html:276 ospy/templates/program.html:627
 #: ospy/templates/runonce.html:54 ospy/templates/sensor.html:1345
 #: ospy/templates/stations.html:98 ospy/templates/user.html:85
@@ -2662,8 +2656,12 @@ msgstr "Smazat"
 #: plugins/monthly_water_level/templates/monthly_water_level_help.html:14
 #: plugins/mqtt/templates/mqtt.html:160
 #: plugins/mqtt/templates/mqtt_help.html:94
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:128
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:279
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:166
+#: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:12
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:30
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:72
 #: plugins/ospy_backup/templates/ospy_backup.html:62
 #: plugins/ospy_backup/templates/ospy_backup_help.html:16
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:161
@@ -2710,8 +2708,8 @@ msgstr "Smazat"
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
 #: plugins/system_debug/templates/system_debug.html:44
 #: plugins/system_info/templates/system_info.html:37
-#: plugins/system_update/templates/system_update.html:192
-#: plugins/system_update/templates/system_update_help.html:30
+#: plugins/system_update/templates/system_update.html:340
+#: plugins/system_update/templates/system_update_help.html:31
 #: plugins/system_watchdog/templates/system_watchdog.html:53
 #: plugins/system_watchdog/templates/system_watchdog_help.html:16
 #: plugins/tank_monitor/templates/tank_monitor.html:490
@@ -3333,8 +3331,8 @@ msgstr "Navždy"
 
 #: ospy/templates/home_admin.html:546 ospy/templates/home_admin.html:600
 #: ospy/templates/home_user.html:547 ospy/templates/home_user.html:598
-#: plugins/mqtt_home_assistant/__init__.py:732
-#: plugins/mqtt_home_assistant/__init__.py:733
+#: plugins/mqtt_home_assistant/__init__.py:740
+#: plugins/mqtt_home_assistant/__init__.py:741
 msgid "Stop All Stations"
 msgstr "Zastavit všechny stanice"
 
@@ -3455,6 +3453,7 @@ msgstr "žádný záznam"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:17
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:20
 #: plugins/modbus_stations/templates/modbus_stations_log.html:9
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:26
 #: plugins/ping_monitor/templates/ping_monitor_log.html:26
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:17
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:20
@@ -3483,6 +3482,7 @@ msgstr "Smazat záznam"
 #: plugins/cli_control/templates/cli_control.html:25
 #: plugins/cli_control/templates/cli_control_log.html:10
 #: plugins/modbus_stations/templates/modbus_stations_log.html:10
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:28
 #: plugins/ping_monitor/templates/ping_monitor.html:182
 #: plugins/ping_monitor/templates/ping_monitor_log.html:28
 #: plugins/speed_monitor/templates/speed_monitor.html:182
@@ -3518,6 +3518,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:35
 #: plugins/chmi/templates/chmi_log.html:26 plugins/email_reader/__init__.py:776
 #: plugins/email_reader/__init__.py:845 plugins/email_reader/__init__.py:905
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:34
 #: plugins/ping_monitor/templates/ping_monitor_log.html:34
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:35
 #: plugins/ups_adj/templates/ups_adj_log.html:35
@@ -3537,8 +3538,8 @@ msgstr "Čas startu"
 #: plugins/email_notifications_ssl/__init__.py:143
 #: plugins/email_notifications_ssl/__init__.py:148
 #: plugins/ip_cam/templates/ip_cam_setup.html:55
-#: plugins/mqtt_home_assistant/__init__.py:568
-#: plugins/mqtt_home_assistant/__init__.py:737 plugins/relay_16/__init__.py:120
+#: plugins/mqtt_home_assistant/__init__.py:576
+#: plugins/mqtt_home_assistant/__init__.py:745 plugins/relay_16/__init__.py:120
 #: plugins/relay_16/__init__.py:127 plugins/relay_16/__init__.py:137
 #: plugins/relay_16/__init__.py:144
 #: plugins/voice_station/templates/voice_station.html:132
@@ -3571,6 +3572,7 @@ msgstr "email.csv"
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:39
 #: plugins/chmi/templates/chmi_log.html:27 plugins/email_reader/__init__.py:777
 #: plugins/email_reader/__init__.py:846 plugins/email_reader/__init__.py:906
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:35
 #: plugins/ping_monitor/templates/ping_monitor_log.html:35
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:39
 #: plugins/ups_adj/templates/ups_adj_log.html:39
@@ -3671,7 +3673,8 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations.html:59
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:118
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:269
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:156
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
 #: plugins/ping_monitor/templates/ping_monitor.html:269
@@ -3690,8 +3693,8 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/sms_adj/templates/sms_adj.html:104
 #: plugins/speed_monitor/templates/speed_monitor.html:230
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:156
-#: plugins/system_update/templates/system_update.html:174
-#: plugins/system_update/templates/system_update_help.html:24
+#: plugins/system_update/templates/system_update.html:302
+#: plugins/system_update/templates/system_update_help.html:25
 #: plugins/system_watchdog/templates/system_watchdog.html:34
 #: plugins/tank_monitor/templates/tank_monitor.html:480
 #: plugins/telegram_bot/templates/telegram_bot.html:119
@@ -3712,7 +3715,7 @@ msgid "Status"
 msgstr "Stav"
 
 #: ospy/templates/log.html:129 ospy/templates/log_sensor.html:13
-#: ospy/templates/log_sensor.html:147 ospy/templates/log_user.html:103
+#: ospy/templates/log_sensor.html:153 ospy/templates/log_user.html:103
 #: ospy/templates/sensors_firmware.html:226
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:29
 #: plugins/chmi/templates/chmi.html:169 plugins/chmi/templates/chmi_log.html:21
@@ -3720,6 +3723,7 @@ msgstr "Stav"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:29
 #: plugins/ip_cam/templates/ip_cam.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:11
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:29
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:162
 #: plugins/ping_monitor/templates/ping_monitor_log.html:29
 #: plugins/pool_heating/templates/pool_heating.html:197
@@ -3743,12 +3747,12 @@ msgstr "Obnovit"
 msgid "Sensor Log"
 msgstr "Záznam snímače"
 
-#: ospy/templates/log_sensor.html:14 ospy/templates/log_sensor.html:148
+#: ospy/templates/log_sensor.html:14 ospy/templates/log_sensor.html:154
 #: ospy/templates/sensors.html:915
 msgid "View Graph"
 msgstr "Zobrazit graf"
 
-#: ospy/templates/log_sensor.html:15 ospy/templates/log_sensor.html:149
+#: ospy/templates/log_sensor.html:15 ospy/templates/log_sensor.html:155
 msgid "Clear All"
 msgstr "Vymazat vše"
 
@@ -3784,18 +3788,20 @@ msgstr "H"
 msgid "Action"
 msgstr "Akce"
 
-#: ospy/templates/log_sensor.html:85 ospy/templates/log_sensor.html:105
+#: ospy/templates/log_sensor.html:88 ospy/templates/log_sensor.html:108
 #: plugins/database_connector/__init__.py:90
+#: plugins/mqtt_home_assistant/__init__.py:977
 msgid "Error"
 msgstr "Chyba"
 
-#: ospy/templates/log_sensor.html:97 ospy/templates/log_sensor.html:110
-#: ospy/templates/log_sensor.html:139 ospy/templates/sensors.html:147
-#: ospy/templates/sensors.html:171 ospy/templates/sensors.html:175
-#: ospy/templates/sensors.html:184 ospy/templates/sensors.html:347
-#: ospy/templates/sensors.html:371 ospy/templates/sensors.html:375
-#: ospy/templates/sensors.html:384 ospy/templates/sensors.html:754
-#: ospy/templates/sensors.html:895 ospy/templates/sensors.html:897
+#: ospy/templates/log_sensor.html:100 ospy/templates/log_sensor.html:113
+#: ospy/templates/log_sensor.html:139 ospy/templates/log_sensor.html:145
+#: ospy/templates/sensors.html:147 ospy/templates/sensors.html:171
+#: ospy/templates/sensors.html:175 ospy/templates/sensors.html:184
+#: ospy/templates/sensors.html:347 ospy/templates/sensors.html:371
+#: ospy/templates/sensors.html:375 ospy/templates/sensors.html:384
+#: ospy/templates/sensors.html:754 ospy/templates/sensors.html:895
+#: ospy/templates/sensors.html:897
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:62
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:100
 #: plugins/current_loop_tanks_monitor/__init__.py:410
@@ -3824,11 +3830,11 @@ msgstr "Chyba"
 msgid "%"
 msgstr "%"
 
-#: ospy/templates/log_sensor.html:113
+#: ospy/templates/log_sensor.html:116
 msgid "F"
 msgstr "F"
 
-#: ospy/templates/log_sensor.html:115 ospy/templates/log_sensor.html:122
+#: ospy/templates/log_sensor.html:118 ospy/templates/log_sensor.html:125
 #: ospy/templates/sensors.html:813
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:59
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:71
@@ -4165,8 +4171,7 @@ msgstr "Smazat vše"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:194
-#: plugins/system_update/templates/system_update.html:188
+#: ospy/templates/plugins_manage.html:44 plugins/system_update/__init__.py:195
 msgid "Up-to-date"
 msgstr "Aktuální"
 
@@ -4590,7 +4595,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:255
 #: plugins/pool_heating/templates/pool_heating.html:167
 #: plugins/pressure_monitor/templates/pressure_monitor.html:266
-#: plugins/system_update/templates/system_update.html:156
+#: plugins/system_update/templates/system_update.html:277
 #: plugins/tank_monitor/templates/tank_monitor.html:323
 #: plugins/ups_adj/templates/ups_adj.html:251
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:49
@@ -4602,7 +4607,7 @@ msgstr "E-mail balíček"
 #: plugins/ping_monitor/templates/ping_monitor.html:258
 #: plugins/pool_heating/templates/pool_heating.html:170
 #: plugins/pressure_monitor/templates/pressure_monitor.html:269
-#: plugins/system_update/templates/system_update.html:159
+#: plugins/system_update/templates/system_update.html:280
 #: plugins/tank_monitor/templates/tank_monitor.html:326
 #: plugins/ups_adj/templates/ups_adj.html:254
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:52
@@ -4614,7 +4619,7 @@ msgstr "E-mail notifications V1"
 #: plugins/ping_monitor/templates/ping_monitor.html:259
 #: plugins/pool_heating/templates/pool_heating.html:171
 #: plugins/pressure_monitor/templates/pressure_monitor.html:270
-#: plugins/system_update/templates/system_update.html:160
+#: plugins/system_update/templates/system_update.html:281
 #: plugins/tank_monitor/templates/tank_monitor.html:327
 #: plugins/ups_adj/templates/ups_adj.html:255
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:53
@@ -5082,7 +5087,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:385
 #: plugins/chmi/templates/chmi.html:154
 #: plugins/door_opening/templates/door_opening.html:41
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:112
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:251
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:146
 #: plugins/pool_heating/templates/pool_heating.html:181
 #: plugins/pressure_monitor/templates/pressure_monitor.html:280
@@ -5090,8 +5095,8 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:150
 #: plugins/speed_monitor/templates/speed_monitor.html:219
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:138
-#: plugins/system_update/templates/system_update.html:165
-#: plugins/system_update/templates/system_update_help.html:22
+#: plugins/system_update/templates/system_update.html:286
+#: plugins/system_update/templates/system_update_help.html:23
 #: plugins/tank_monitor/templates/tank_monitor.html:427
 #: plugins/telegram_bot/templates/telegram_bot.html:113
 #: plugins/temperature_switch/templates/temperature_switch.html:190
@@ -5620,6 +5625,9 @@ msgstr "Otevřít adresář"
 #: ospy/templates/sensors_firmware.html:116
 #: ospy/templates/sensors_firmware.html:124
 #: ospy/templates/sensors_firmware.html:149
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:48
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:52
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:56
 #: plugins/ping_monitor/templates/ping_monitor_log.html:52
 #: plugins/ping_monitor/templates/ping_monitor_log.html:57
 #: plugins/ping_monitor/templates/ping_monitor_log.html:62
@@ -5658,6 +5666,7 @@ msgstr "Použitá verze"
 
 #: ospy/templates/sensors_firmware.html:136
 #: plugins/email_reader/__init__.py:389
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:39
 #: plugins/ping_monitor/templates/ping_monitor.html:49
 #: plugins/ping_monitor/templates/ping_monitor_log.html:42
 #: plugins/pressure_monitor/__init__.py:358
@@ -5777,7 +5786,8 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations.html:69
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:127
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:278
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:165
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -5793,7 +5803,6 @@ msgstr ""
 #: plugins/speed_monitor/templates/speed_monitor.html:239
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:167
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:158
-#: plugins/system_update/templates/system_update.html:184
 #: plugins/tank_monitor/templates/tank_monitor.html:489
 #: plugins/telegram_bot/templates/telegram_bot.html:128
 #: plugins/temperature_switch/templates/temperature_switch.html:205
@@ -6399,7 +6408,8 @@ msgid "Try-ing generating SSL certificate..."
 msgstr "Zkouším vygenerovat certifikát SSL..."
 
 #: ospy/webpages.py:2275 plugins/mqtt/__init__.py:373
-#: plugins/mqtt_home_assistant/__init__.py:193
+#: plugins/mqtt_home_assistant/__init__.py:196
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:64
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/ups_adj/__init__.py:120 plugins/ups_adj/__init__.py:462
 #: plugins/ups_adj/__init__.py:652
@@ -6558,9 +6568,9 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/monthly_water_level/__init__.py:108
 #: plugins/monthly_water_level/__init__.py:121 plugins/mqtt/__init__.py:528
 #: plugins/mqtt/__init__.py:541 plugins/mqtt/__init__.py:553
-#: plugins/mqtt_home_assistant/__init__.py:1084
-#: plugins/mqtt_home_assistant/__init__.py:1096
-#: plugins/mqtt_home_assistant/__init__.py:1109
+#: plugins/mqtt_home_assistant/__init__.py:1162
+#: plugins/mqtt_home_assistant/__init__.py:1174
+#: plugins/mqtt_home_assistant/__init__.py:1187
 #: plugins/ospy_backup/__init__.py:199 plugins/ospy_backup/__init__.py:213
 #: plugins/photovoltaic_boiler/__init__.py:346
 #: plugins/photovoltaic_boiler/__init__.py:359
@@ -6894,14 +6904,14 @@ msgstr "Počet DS18B20"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:386
 #: plugins/chmi/templates/chmi.html:155
 #: plugins/door_opening/templates/door_opening.html:42
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:113
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:252
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:147
 #: plugins/pool_heating/templates/pool_heating.html:182
 #: plugins/pressure_monitor/templates/pressure_monitor.html:281
 #: plugins/proto/templates/proto.html:84
 #: plugins/speed_monitor/templates/speed_monitor.html:220
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:139
-#: plugins/system_update/templates/system_update.html:166
+#: plugins/system_update/templates/system_update.html:287
 #: plugins/tank_monitor/templates/tank_monitor.html:428
 #: plugins/telegram_bot/templates/telegram_bot.html:114
 #: plugins/temperature_switch/templates/temperature_switch.html:191
@@ -9915,7 +9925,7 @@ msgstr "Použití zápatí"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:262
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:151
-#: plugins/system_update/templates/system_update_help.html:23
+#: plugins/system_update/templates/system_update_help.html:24
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 msgid "Show data from plugin in footer on home page."
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
@@ -10676,15 +10686,15 @@ msgstr "Nelze importovat plugin: počítadlo spotřeby vody."
 #: plugins/email_notifications_ssl/__init__.py:227
 #: plugins/email_notifications_ssl/__init__.py:228
 #: plugins/email_reader/__init__.py:190
-#: plugins/mqtt_home_assistant/__init__.py:806
-#: plugins/mqtt_home_assistant/__init__.py:807
+#: plugins/mqtt_home_assistant/__init__.py:817
+#: plugins/mqtt_home_assistant/__init__.py:818
 msgid "Temperature DS1-DS6"
 msgstr "Teplota DS1-DS6"
 
 #: plugins/email_notifications/__init__.py:221
 #: plugins/email_notifications_ssl/__init__.py:234
-#: plugins/mqtt_home_assistant/__init__.py:815
-#: plugins/mqtt_home_assistant/__init__.py:957
+#: plugins/mqtt_home_assistant/__init__.py:826
+#: plugins/mqtt_home_assistant/__init__.py:1013
 msgid "Cannot import plugin: air temp humi."
 msgstr "Nelze importovat plugin: air temp humi."
 
@@ -10935,8 +10945,8 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/ping_monitor/templates/ping_monitor.html:250
 #: plugins/pool_heating/templates/pool_heating.html:161
 #: plugins/pressure_monitor/templates/pressure_monitor.html:260
-#: plugins/system_update/templates/system_update.html:150
-#: plugins/system_update/templates/system_update_help.html:20
+#: plugins/system_update/templates/system_update.html:271
+#: plugins/system_update/templates/system_update_help.html:21
 #: plugins/tank_monitor/templates/tank_monitor.html:317
 #: plugins/ups_adj/templates/ups_adj.html:245
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:43
@@ -10982,7 +10992,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16_help.html:27
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:11
 #: plugins/remote_notifications/templates/remote_notifications_help.html:12
-#: plugins/system_update/templates/system_update_help.html:12
+#: plugins/system_update/templates/system_update_help.html:13
 #: plugins/weather_stations/templates/help_page.html:9
 msgid "Plugin setup"
 msgstr "Nastavení rozšíření"
@@ -11069,7 +11079,7 @@ msgstr ""
 #: plugins/lcd_display/templates/lcd_display_help.html:52
 #: plugins/relay_16/templates/relay_16_help.html:37
 #: plugins/remote_notifications/templates/remote_notifications_help.html:23
-#: plugins/system_update/templates/system_update_help.html:25
+#: plugins/system_update/templates/system_update_help.html:26
 msgid "Status window from the plugin."
 msgstr "Stavové okno z tohoto rozšíření."
 
@@ -12950,7 +12960,7 @@ msgid "Manual mode"
 msgstr "Manuální režim"
 
 #: plugins/lcd_display/__init__.py:449
-#: plugins/mqtt_home_assistant/__init__.py:727
+#: plugins/mqtt_home_assistant/__init__.py:735
 msgid "Scheduler"
 msgstr "Plánovač"
 
@@ -13971,8 +13981,8 @@ msgstr "Balíček: MQTT"
 #: plugins/mqtt/__init__.py:317 plugins/mqtt/__init__.py:464
 #: plugins/mqtt/__init__.py:510 plugins/mqtt/__init__.py:527
 #: plugins/mqtt/__init__.py:540 plugins/mqtt/__init__.py:552
-#: plugins/mqtt_home_assistant/__init__.py:1095
-#: plugins/mqtt_home_assistant/__init__.py:1108
+#: plugins/mqtt_home_assistant/__init__.py:1173
+#: plugins/mqtt_home_assistant/__init__.py:1186
 msgid "MQTT plug-in"
 msgstr "Rozšíření MQTT"
 
@@ -14051,7 +14061,7 @@ msgstr "Počkejte prosím na instalaci paho-mqtt..."
 msgid "Error try install paho-mqtt manually."
 msgstr "Chyba zkuste nainstalovat paho-mqtt ručně."
 
-#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:188
+#: plugins/mqtt/__init__.py:369 plugins/mqtt_home_assistant/__init__.py:191
 msgid "Connecting to broker"
 msgstr "Připojení k makléři"
 
@@ -14059,7 +14069,7 @@ msgstr "Připojení k makléři"
 msgid "MQTT plugin couldnot initalize client"
 msgstr "MQTT rozšíření nemohlo vytvořit klienta"
 
-#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:209
+#: plugins/mqtt/__init__.py:399 plugins/mqtt_home_assistant/__init__.py:213
 msgid "Subscribe topic"
 msgstr "Přihlášené téma"
 
@@ -14113,7 +14123,7 @@ msgstr ""
 "vyžadováno pro všechny níže uvedené možnosti."
 
 #: plugins/mqtt/templates/mqtt.html:33
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:32
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:113
 msgid "Use TLS"
 msgstr "Použít protokol TLS"
 
@@ -14129,7 +14139,7 @@ msgstr ""
 "připojení MQTT je 8883."
 
 #: plugins/mqtt/templates/mqtt.html:39
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:44
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:131
 msgid "Broker Host"
 msgstr "Hostitel (broker)"
 
@@ -14138,17 +14148,17 @@ msgid "For test use: http://www.hivemq.com/demos/websocket-client/."
 msgstr "Pro zkoušku použijte: http://www.hivemq.com/demos/websocket-client/."
 
 #: plugins/mqtt/templates/mqtt.html:45
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:56
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:143
 msgid "Broker Username"
 msgstr "Uživatelské jméno brokeru"
 
 #: plugins/mqtt/templates/mqtt.html:49
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:60
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:147
 msgid "Broker Password"
 msgstr "Heslo k brokeru"
 
 #: plugins/mqtt/templates/mqtt.html:53
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:50
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:137
 msgid "Broker Port"
 msgstr "Port komunikace"
 
@@ -14707,146 +14717,159 @@ msgstr "2: Přesně jednou. Odešle zprávu pouze jednou."
 msgid "Package: MQTT Home Assistant"
 msgstr "Balíček: MQTT Home Assistant"
 
-#: plugins/mqtt_home_assistant/__init__.py:118
-#: plugins/mqtt_home_assistant/__init__.py:140
-#: plugins/mqtt_home_assistant/__init__.py:150
+#: plugins/mqtt_home_assistant/__init__.py:121
+#: plugins/mqtt_home_assistant/__init__.py:143
+#: plugins/mqtt_home_assistant/__init__.py:153
 msgid "MQTT Home Assistant"
 msgstr "Domácí asistent MQTT"
 
-#: plugins/mqtt_home_assistant/__init__.py:125
+#: plugins/mqtt_home_assistant/__init__.py:128
 #: plugins/ospy_backup/__init__.py:60 plugins/proto/__init__.py:87
 #: plugins/shelly_cloud_integrator/__init__.py:95
 msgid "Plugin is started."
 msgstr "Rozšíření je spuštěno."
 
-#: plugins/mqtt_home_assistant/__init__.py:130
-#: plugins/mqtt_home_assistant/__init__.py:1076
+#: plugins/mqtt_home_assistant/__init__.py:133
 msgid "Client OK"
 msgstr "Klient OK"
 
-#: plugins/mqtt_home_assistant/__init__.py:132
-#: plugins/mqtt_home_assistant/__init__.py:1078
+#: plugins/mqtt_home_assistant/__init__.py:135
 msgid "Client not ready!"
 msgstr "Klient není připraven!"
 
-#: plugins/mqtt_home_assistant/__init__.py:163
+#: plugins/mqtt_home_assistant/__init__.py:166
 msgid "Message on topic:"
 msgstr "Zpráva k tématu:"
 
-#: plugins/mqtt_home_assistant/__init__.py:197
+#: plugins/mqtt_home_assistant/__init__.py:200
 msgid "Plugin could not initalize client:"
 msgstr "Plugin nemohl initalizovat klienta:"
 
-#: plugins/mqtt_home_assistant/__init__.py:212
+#: plugins/mqtt_home_assistant/__init__.py:216
 msgid "Append topic callback"
 msgstr "Připojit zpětné volání tématu"
 
-#: plugins/mqtt_home_assistant/__init__.py:321
+#: plugins/mqtt_home_assistant/__init__.py:329
 #: plugins/usage_statistics/__init__.py:68
 msgid "OSPy"
 msgstr "OSPy"
 
-#: plugins/mqtt_home_assistant/__init__.py:362
+#: plugins/mqtt_home_assistant/__init__.py:370
 msgid "Publish to topic"
 msgstr "Publikovat do tématu"
 
-#: plugins/mqtt_home_assistant/__init__.py:362
+#: plugins/mqtt_home_assistant/__init__.py:370
 msgid "payload"
 msgstr "data"
 
-#: plugins/mqtt_home_assistant/__init__.py:495
+#: plugins/mqtt_home_assistant/__init__.py:503
 msgid "Home Assistant"
 msgstr "Domácí asistent"
 
-#: plugins/mqtt_home_assistant/__init__.py:579
+#: plugins/mqtt_home_assistant/__init__.py:587
 msgid "THDS Sensor"
 msgstr "Senzor THDS"
 
-#: plugins/mqtt_home_assistant/__init__.py:590
+#: plugins/mqtt_home_assistant/__init__.py:598
 msgid "WTL Sensor"
 msgstr "Senzor WTL"
 
-#: plugins/mqtt_home_assistant/__init__.py:612
+#: plugins/mqtt_home_assistant/__init__.py:620
 msgid "Component"
 msgstr "Komponenta"
 
-#: plugins/mqtt_home_assistant/__init__.py:613
+#: plugins/mqtt_home_assistant/__init__.py:621
 msgid "Undefined"
 msgstr "Není definováno"
 
-#: plugins/mqtt_home_assistant/__init__.py:667
+#: plugins/mqtt_home_assistant/__init__.py:675
 msgid "Callback cannot be Null for device_class = number"
 msgstr "Callback nemůže být Null pro device_class = číslo"
 
-#: plugins/mqtt_home_assistant/__init__.py:675
+#: plugins/mqtt_home_assistant/__init__.py:683
 msgid "Callback cannot be Null for device_class = switch"
 msgstr "Callback nemůže být Null pro device_class = switch"
 
-#: plugins/mqtt_home_assistant/__init__.py:683
+#: plugins/mqtt_home_assistant/__init__.py:691
 msgid "Callback cannot be Null for device_class = button"
 msgstr "Callback nemůže být Null pro device_class = tlačítko"
 
-#: plugins/mqtt_home_assistant/__init__.py:711
+#: plugins/mqtt_home_assistant/__init__.py:719
 msgid "Cannot find missing elements."
 msgstr "Nelze najít chybějící prvky."
 
-#: plugins/mqtt_home_assistant/__init__.py:726
+#: plugins/mqtt_home_assistant/__init__.py:734
 msgid "Water level"
 msgstr "Hladina vody"
 
-#: plugins/mqtt_home_assistant/__init__.py:745
+#: plugins/mqtt_home_assistant/__init__.py:753
 msgid "Run"
 msgstr "Spustit"
 
-#: plugins/mqtt_home_assistant/__init__.py:752
-#: plugins/mqtt_home_assistant/__init__.py:771
+#: plugins/mqtt_home_assistant/__init__.py:761
+#: plugins/mqtt_home_assistant/__init__.py:780
 msgid "Tank level"
 msgstr "Hladina v nádrži"
 
-#: plugins/mqtt_home_assistant/__init__.py:753
-#: plugins/mqtt_home_assistant/__init__.py:772
+#: plugins/mqtt_home_assistant/__init__.py:762
+#: plugins/mqtt_home_assistant/__init__.py:781
 msgid "Tank volume"
 msgstr "Objem v nádrži"
 
-#: plugins/mqtt_home_assistant/__init__.py:758
-#: plugins/mqtt_home_assistant/__init__.py:759
+#: plugins/mqtt_home_assistant/__init__.py:767
+#: plugins/mqtt_home_assistant/__init__.py:768
+#: plugins/mqtt_home_assistant/__init__.py:846
+#: plugins/mqtt_home_assistant/__init__.py:847
 msgid "Tank monitor"
 msgstr "Monitor nádrže"
 
-#: plugins/mqtt_home_assistant/__init__.py:765
+#: plugins/mqtt_home_assistant/__init__.py:774
 msgid "Percent {}%"
 msgstr "Procenta {}%"
 
-#: plugins/mqtt_home_assistant/__init__.py:766
+#: plugins/mqtt_home_assistant/__init__.py:775
 msgid "Volume {}m3"
 msgstr "Objem {}m3"
 
-#: plugins/mqtt_home_assistant/__init__.py:767
+#: plugins/mqtt_home_assistant/__init__.py:776
 msgid "Percent {}%, volume {}m3"
 msgstr "Procenta {}%, objem {}m3"
 
-#: plugins/mqtt_home_assistant/__init__.py:777
-#: plugins/mqtt_home_assistant/__init__.py:981
+#: plugins/mqtt_home_assistant/__init__.py:786
+#: plugins/mqtt_home_assistant/__init__.py:1040
 msgid "Cannot import plugin: tank_monitor."
 msgstr "Nelze importovat zásuvný modul: tank_monitor."
 
-#: plugins/mqtt_home_assistant/__init__.py:882
+#: plugins/mqtt_home_assistant/__init__.py:851
+msgid "{} {:.2f} %, {:.2f} m3"
+msgstr "{} {:.2f} %, {:.2f} m3"
+
+#: plugins/mqtt_home_assistant/__init__.py:861
+#: plugins/mqtt_home_assistant/__init__.py:1065
+msgid "Cannot import plugin: current_loop_tanks_monitor."
+msgstr "Rozšíření nelze importovat: current_loop_tanks_monitor."
+
+#: plugins/mqtt_home_assistant/__init__.py:933
 msgid "Cannot set devices online."
 msgstr "Nelze nastavit zařízení online."
 
-#: plugins/mqtt_home_assistant/__init__.py:890
+#: plugins/mqtt_home_assistant/__init__.py:941
 msgid "Cannot remove device."
 msgstr "Nelze odebrat zařízení."
 
-#: plugins/mqtt_home_assistant/__init__.py:922
+#: plugins/mqtt_home_assistant/__init__.py:969
+msgid "Not visible device propertly was found"
+msgstr "Nebylo nalezeno správně viditelné zařízení"
+
+#: plugins/mqtt_home_assistant/__init__.py:976
 msgid "Cannot set devices default values."
 msgstr "Nelze nastavit výchozí hodnoty zařízení."
 
-#: plugins/mqtt_home_assistant/__init__.py:931
+#: plugins/mqtt_home_assistant/__init__.py:986
 msgid "Cannot update data from plugins."
 msgstr "Nelze aktualizovat data z pluginů."
 
-#: plugins/mqtt_home_assistant/__init__.py:1070
+#: plugins/mqtt_home_assistant/__init__.py:1154
 msgid ""
 "Error: slugify not installed. Install it to system. sudo apt install python3 "
 "slugify."
@@ -14854,7 +14877,7 @@ msgstr ""
 "Chyba: slugify není nainstalován. Nainstalujte jej do systému. sudo apt "
 "install python3 slugify."
 
-#: plugins/mqtt_home_assistant/__init__.py:1072
+#: plugins/mqtt_home_assistant/__init__.py:1156
 msgid ""
 "Error: paho-mqtt is not installed. Install it to system. sudo pip3 install "
 "paho-mqtt."
@@ -14862,28 +14885,28 @@ msgstr ""
 "Chyba: paho-mqtt není nainstalován. Nainstalujte jej do systému. sudo pip3 "
 "install paho-mqtt."
 
-#: plugins/mqtt_home_assistant/__init__.py:1083
+#: plugins/mqtt_home_assistant/__init__.py:1161
 msgid "MQTT Home Assistant plug-in"
 msgstr "Balíček: MQTT Home Assistant"
 
-#: plugins/mqtt_home_assistant/__init__.py:1085
+#: plugins/mqtt_home_assistant/__init__.py:1163
 msgid "mqtt_home_assistant -> settings_page GET"
 msgstr "mqtt_home_assistant -> settings_page GET"
 
-#: plugins/mqtt_home_assistant/__init__.py:1097
+#: plugins/mqtt_home_assistant/__init__.py:1175
 msgid "mqtt_home_assistant -> settings_page POST"
 msgstr "mqtt_home_assistant -> settings_page POST"
 
-#: plugins/mqtt_home_assistant/__init__.py:1110
+#: plugins/mqtt_home_assistant/__init__.py:1188
 msgid "mqtt_home_assistant -> help_page GET"
 msgstr "mqtt_home_assistant -> help_page GET"
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:26
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:107
 msgid "MQTT Home Assistant Plugin"
 msgstr "Rozšíření MQTT Home Assistant"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:33
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:114
 msgid ""
 "If TLS is required. This enables a secure connection and sets the default "
 "security context."
@@ -14891,40 +14914,48 @@ msgstr ""
 "Pokud je vyžadován protokol TLS. To umožňuje zabezpečené připojení a "
 "nastavuje výchozí kontext zabezpečení."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:38
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:122
 msgid "Use debug log"
 msgstr "Použit výpis ladění"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:45
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:123
+msgid ""
+"After enabling or disabling the button, it will be necessary to manually "
+"restart OSPy, at the same time logging must be enabled in the OSPy settings."
+msgstr ""
+"Po povolení nebo zakázání tlačítka bude nutné OSPy ručně restartovat, "
+"zároveň musí být povoleno logování v nastavení OSPy."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:132
 msgid "Example: localhost."
 msgstr "Příklad: localhost."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:51
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:138
 msgid "Range for port is 80 to 65535. Default: 1883."
 msgstr "Rozsah portu je 80 až 65535. Výchozí hodnota: 1883."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:64
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:151
 msgid "Topic prefix"
 msgstr "Předpona tématu"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:65
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:152
 msgid "MQTT base topic for system parameters and zones (Default: System name)"
 msgstr ""
 "Základní téma MQTT pro systémové parametry a zóny (Výchozí: Název systému)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:70
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:157
 msgid "Name prefix"
 msgstr "Pojmenování prefixu"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:71
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:158
 msgid "HASS name prefix for devices and zones (Default: System name)"
 msgstr "Předpona názvu HASS pro zařízení a zóny (výchozí: Název systému)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:76
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:166
 msgid "OSPy FQDN"
 msgstr "OSPy FQDN"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:77
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:167
 msgid ""
 "OSPy network name or IP address for web access from HASS (Default: auto "
 "detect)"
@@ -14932,27 +14963,27 @@ msgstr ""
 "Název sítě OSPy nebo IP adresa pro webový přístup z HASS (výchozí: "
 "automatická detekce)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:82
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:172
 msgid "Discovery topic"
 msgstr "Téma zjišťování"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:83
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:173
 msgid "Default: homeassistant"
 msgstr "Výchozí: homeassistant"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:88
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:178
 msgid "Device name is Station name"
 msgstr "Název zařízení je Název stanice"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:89
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:179
 msgid "Use station name for HASS zone device name (Default: uncheck)"
 msgstr "Použít název stanice pro název zařízení zóny HASS (Výchozí: neaktivní)"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:94
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:187
 msgid "Discovery UUID prefix"
 msgstr "Předpona UUID zjišťování"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:95
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:188
 msgid ""
 "Unique identifier used as prefix for MQTT Discovery by HASS. UUID based on "
 "the network adapter MAC address."
@@ -14960,25 +14991,86 @@ msgstr ""
 "Jedinečný identifikátor používaný jako předpona pro zjišťování MQTT pomocí "
 "HASS. UUID založené na MAC adrese síťového adaptéru."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:100
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:193
 msgid "Verified in hass"
 msgstr "Ověřeno v hass"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:101
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:194
 msgid "Tested reliably in this version of home assistant."
 msgstr "Spolehlivě testováno v této verzi domácího asistenta."
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:106
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:204
 msgid "Measurement refresh interval"
 msgstr "Interval obnovy měření"
 
-#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:107
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:205
 msgid ""
 "The refresh interval is used for loading data from other plugins (for "
 "example airtemp humi). Range is 10 to 1000 seconds."
 msgstr ""
 "Interval obnovy se používá pro načítání dat z jiných pluginů (například "
 "airtemp humi). Rozsah je 10 až 1000 sekund."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:210
+msgid "Extension: DS1 - DS6"
+msgstr "Rozšíření: DS1 - DS6"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:211
+msgid ""
+"Including temperature sensors DS1 to DS6 from the temperature and humidity "
+"monitor extension."
+msgstr ""
+"Včetně teplotních čidel DS1 až DS6 z rozšíření temperature and humidity "
+"monitor."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:219
+msgid "Extension: DHT"
+msgstr "Rozšíření: DHT"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:220
+msgid ""
+"Including temperature/humidity sensors DHT from the temperature and humidity "
+"monitor extension."
+msgstr ""
+"Včetně senzorů teploty/vlhkosti DHT z rozšíření temperature and humidity "
+"monitor."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:228
+msgid "Extension: sonic tank"
+msgstr "Rozšíření: měření hladiny ultrazvukem"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:229
+msgid "Including water level from the water tank (sonic) monitor extension."
+msgstr "Včetně hladiny vody z rozšíření monitoru hladiny vody (ultrazvuk)."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:237
+msgid "Extension: current loop tank"
+msgstr "Rozšíření: Nádrže se smyčkou"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:238
+msgid ""
+"Including water level from the water tank (tanks with current loop) monitor "
+"extension."
+msgstr ""
+"Včetně hladiny z rozšíření water tank (tanks with current loop) monitor."
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:260
+msgid "Connection Status"
+msgstr "Stav připojení"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:263
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:126
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:138
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:150
+msgid "Connected"
+msgstr "Připojeno"
+
+#: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:265
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:128
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:140
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:152
+msgid "Disconnected"
+msgstr "Odpojeno"
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:3
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:7
@@ -15218,6 +15310,107 @@ msgstr "Home Assistant - dostupná zařízení a entity OSPy"
 msgid "Devices and associated Entities made available with this plugin are:"
 msgstr ""
 "Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
+
+#: plugins/network_ping_monitor/__init__.py:24
+msgid "Package: Network Ping Monitor"
+msgstr "Balíček: Síťový monitor"
+
+#: plugins/network_ping_monitor/__init__.py:138
+msgid "All servers are unavailable"
+msgstr "Všechny servery jsou nedostupné"
+
+#: plugins/network_ping_monitor/__init__.py:149
+msgid "Unavailable"
+msgstr "Nedostupné"
+
+#: plugins/network_ping_monitor/__init__.py:149
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:46
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:50
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:54
+#: plugins/ping_monitor/templates/ping_monitor_log.html:50
+#: plugins/ping_monitor/templates/ping_monitor_log.html:55
+#: plugins/ping_monitor/templates/ping_monitor_log.html:60
+msgid "Available"
+msgstr "Dostupné"
+
+#: plugins/network_ping_monitor/__init__.py:154
+msgid "Average RTT of available servers:"
+msgstr "Průměrná RTT dostupných serverů:"
+
+#: plugins/network_ping_monitor/__init__.py:154
+msgid "Summary of statuses:"
+msgstr "Souhrn stavů:"
+
+#: plugins/network_ping_monitor/__init__.py:154
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:126
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:138
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:150
+msgid "ms"
+msgstr "ms"
+
+#: plugins/network_ping_monitor/__init__.py:161
+msgid "Network Ping Monitor plug-in"
+msgstr "Rozšíření síťový monitor"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:3
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:106
+msgid "Network Ping monitor - settings"
+msgstr "Síťový monitor - nastavení"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:111
+#: plugins/ping_monitor/templates/ping_monitor.html:189
+msgid "Use ping monitoring"
+msgstr "Použít ping monitor"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:112
+#: plugins/ping_monitor/templates/ping_monitor.html:190
+msgid "Activate this extension use for ping testing."
+msgstr "Aktivovat toto rozšíření pro testování ping."
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:120
+#: plugins/ping_monitor/templates/ping_monitor.html:199
+msgid "Ping address 1"
+msgstr "První adresa pro ping"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:123
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:135
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:147
+msgid "Not yet loaded"
+msgstr "Ještě není načteno"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:132
+#: plugins/ping_monitor/templates/ping_monitor.html:206
+msgid "Ping address 2"
+msgstr "Druhá adresa pro ping"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:144
+#: plugins/ping_monitor/templates/ping_monitor.html:213
+msgid "Ping address 3"
+msgstr "Třetí adresa pro ping"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:3
+#: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:7
+msgid "Network Ping monitor - help"
+msgstr "Síťový monitor - nápověda"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:8
+msgid "This extension allows you to ping addresses in network."
+msgstr "Toto rozšíření umožňuje ping adres v síti."
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:3
+#: plugins/ping_monitor/templates/ping_monitor_log.html:3
+#: plugins/ping_monitor/templates/ping_monitor_log.html:24
+msgid "Ping monitor - log"
+msgstr "Ping monitor - záznam"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:24
+msgid "Network Ping monitor - log"
+msgstr "Síťový monitor - záznam"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:59
+#: plugins/ping_monitor/templates/ping_monitor_log.html:65
+msgid "Connection failure"
+msgstr "Selhání připojení"
 
 #: plugins/ospy_backup/__init__.py:24
 msgid "Package: OSPy package Backup"
@@ -15653,14 +15846,6 @@ msgstr "ping_monitor -> log_csv GET"
 msgid "Ping monitor settings"
 msgstr "Ping monitor nastavení"
 
-#: plugins/ping_monitor/templates/ping_monitor.html:189
-msgid "Use ping monitoring"
-msgstr "Použít ping monitor"
-
-#: plugins/ping_monitor/templates/ping_monitor.html:190
-msgid "Activate this extension use for ping testing."
-msgstr "Aktivovat toto rozšíření pro testování ping."
-
 #: plugins/ping_monitor/templates/ping_monitor.html:195
 msgid ""
 "When logging is enabled, a log file is created (required for the graph and "
@@ -15668,10 +15853,6 @@ msgid ""
 msgstr ""
 "Pokud je povoleno logování, tak se vytvoří soubory s logy (vyžadováno pro "
 "graf a e-mail)."
-
-#: plugins/ping_monitor/templates/ping_monitor.html:199
-msgid "Ping address 1"
-msgstr "První adresa pro ping"
 
 #: plugins/ping_monitor/templates/ping_monitor.html:200
 msgid "First address for testing."
@@ -15683,17 +15864,9 @@ msgstr "První adresa pro testování."
 msgid "Label for address."
 msgstr "Štítek pro adresu."
 
-#: plugins/ping_monitor/templates/ping_monitor.html:206
-msgid "Ping address 2"
-msgstr "Druhá adresa pro ping"
-
 #: plugins/ping_monitor/templates/ping_monitor.html:207
 msgid "Second address for testing."
 msgstr "Druhá adresa pro testování."
-
-#: plugins/ping_monitor/templates/ping_monitor.html:213
-msgid "Ping address 3"
-msgstr "Třetí adresa pro ping"
 
 #: plugins/ping_monitor/templates/ping_monitor.html:214
 msgid "Third address for testing."
@@ -15773,7 +15946,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:256
 #: plugins/pool_heating/templates/pool_heating.html:168
 #: plugins/pressure_monitor/templates/pressure_monitor.html:267
-#: plugins/system_update/templates/system_update.html:157
+#: plugins/system_update/templates/system_update.html:278
 #: plugins/tank_monitor/templates/tank_monitor.html:324
 #: plugins/ups_adj/templates/ups_adj.html:252
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:50
@@ -15807,21 +15980,6 @@ msgid ""
 msgstr ""
 "Soubor protokolu (ping) lze odeslat E-mailem po určité době. Současně můžeme "
 "zařízení restartovat po určitém počtu neúspěšných pokusů"
-
-#: plugins/ping_monitor/templates/ping_monitor_log.html:3
-#: plugins/ping_monitor/templates/ping_monitor_log.html:24
-msgid "Ping monitor - log"
-msgstr "Ping monitor - záznam"
-
-#: plugins/ping_monitor/templates/ping_monitor_log.html:50
-#: plugins/ping_monitor/templates/ping_monitor_log.html:55
-#: plugins/ping_monitor/templates/ping_monitor_log.html:60
-msgid "Available"
-msgstr "Dostupné"
-
-#: plugins/ping_monitor/templates/ping_monitor_log.html:65
-msgid "Connection failure"
-msgstr "Selhání připojení"
 
 #: plugins/pool_heating/__init__.py:28
 msgid "Package: Pool Heating"
@@ -16860,7 +17018,7 @@ msgid "Use Real Time"
 msgstr "Použít reálný čas"
 
 #: plugins/real_time/templates/real_time.html:100
-#: plugins/system_update/templates/system_update.html:100
+#: plugins/system_update/templates/system_update.html:215
 msgid "If the check box is selected, the plugin will be active."
 msgstr "Pokud je toto políčko zaškrtnuto, rozšíření bude aktivní."
 
@@ -19062,7 +19220,7 @@ msgid "Sunrise and Sunset"
 msgstr "Východ a západ slunce"
 
 #: plugins/sunrise_and_sunset/__init__.py:475
-#: plugins/system_update/__init__.py:180
+#: plugins/system_update/__init__.py:181
 msgid "Waiting to state"
 msgstr "Čekání na stav"
 
@@ -19205,12 +19363,12 @@ msgid "I run the program \"{}\" in time {}."
 msgstr "Spouštím program \"{}\" v čase {}."
 
 #: plugins/sunrise_and_sunset/__init__.py:635
-#: plugins/system_update/__init__.py:202
+#: plugins/system_update/__init__.py:201
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
 #: plugins/sunrise_and_sunset/__init__.py:642
-#: plugins/system_update/__init__.py:208
+#: plugins/system_update/__init__.py:207
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
@@ -19919,114 +20077,156 @@ msgstr "Zobrazit oddíly"
 msgid "CPU info"
 msgstr "Informace o CPU"
 
-#: plugins/system_update/__init__.py:26
+#: plugins/system_update/__init__.py:21
 msgid "Package: System Update"
 msgstr "Balíček: Aktualizace systému"
 
-#: plugins/system_update/__init__.py:35
+#: plugins/system_update/__init__.py:30
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr "Hlášení z OSPy AKTUALIZACE systému"
 
-#: plugins/system_update/__init__.py:60
+#: plugins/system_update/__init__.py:57
 msgid "None!"
 msgstr "Není k dispozici!"
 
-#: plugins/system_update/__init__.py:127
+#: plugins/system_update/__init__.py:131
+msgid "Error while updating revision data:\n"
+msgstr "Chyba při aktualizaci dat revize:\n"
+
+#: plugins/system_update/__init__.py:135
 msgid "Up-to-date."
 msgstr "Aktuální."
 
-#: plugins/system_update/__init__.py:130
+#: plugins/system_update/__init__.py:137
 msgid "New version is available!"
 msgstr "Je k dispozici nová verze!"
 
-#: plugins/system_update/__init__.py:131 plugins/system_update/__init__.py:138
-#: plugins/system_update/__init__.py:141 plugins/system_update/__init__.py:163
+#: plugins/system_update/__init__.py:138 plugins/system_update/__init__.py:144
+#: plugins/system_update/__init__.py:147 plugins/system_update/__init__.py:168
 msgid "Currently running revision"
 msgstr "Spuštěná verze"
 
-#: plugins/system_update/__init__.py:132 plugins/system_update/__init__.py:139
-#: plugins/system_update/__init__.py:142 plugins/system_update/__init__.py:164
+#: plugins/system_update/__init__.py:139 plugins/system_update/__init__.py:145
+#: plugins/system_update/__init__.py:148 plugins/system_update/__init__.py:169
 msgid "Available revision"
 msgstr "Dostupná verze"
 
-#: plugins/system_update/__init__.py:136 plugins/system_update/__init__.py:140
-#: plugins/system_update/__init__.py:155 plugins/system_update/__init__.py:214
-#: plugins/system_update/__init__.py:253 plugins/system_update/__init__.py:296
+#: plugins/system_update/__init__.py:142 plugins/system_update/__init__.py:146
+#: plugins/system_update/__init__.py:160 plugins/system_update/__init__.py:213
+#: plugins/system_update/__init__.py:229
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
-#: plugins/system_update/__init__.py:137 plugins/system_update/__init__.py:141
-#: plugins/system_update/__init__.py:190
+#: plugins/system_update/__init__.py:143 plugins/system_update/__init__.py:147
+#: plugins/system_update/__init__.py:191
 msgid "New OSPy version is available!"
 msgstr "Je dostupná nová verze OSPy!"
 
-#: plugins/system_update/__init__.py:162
+#: plugins/system_update/__init__.py:167
 msgid "Running unknown version!"
 msgstr "Je spuštěna neznámá verze OSPy!"
 
-#: plugins/system_update/__init__.py:179
+#: plugins/system_update/__init__.py:180
 msgid "System Update"
 msgstr "Aktualizace systému"
 
-#: plugins/system_update/__init__.py:244
-msgid "Update result"
-msgstr "Stav aktualizace"
+#: plugins/system_update/__init__.py:243
+msgid "OSPy updated successfully. Please wait while restarting..."
+msgstr "OSPy se úspěšně aktualizoval. Počkejte prosím na restartování..."
 
 #: plugins/system_update/__init__.py:247
 msgid "Updated to version"
 msgstr "Aktualizováno na verzi"
 
-#: plugins/system_update/__init__.py:323 plugins/system_update/__init__.py:340
-msgid "OSPy is now updated from Github and restarted. Please wait..."
-msgstr ""
-"OSPy je nyní aktualizován z Githubu a následně restartován. Počkejte "
-"prosím..."
+#: plugins/system_update/__init__.py:259
+msgid "Update error:\n"
+msgstr "Chyba aktualizace:\n"
 
-#: plugins/system_update/__init__.py:357 plugins/system_update/__init__.py:369
+#: plugins/system_update/__init__.py:260
+msgid "Update failed!"
+msgstr "Aktualizace se nezdařila!"
+
+#: plugins/system_update/__init__.py:266 plugins/system_update/__init__.py:342
+msgid "No commit hash provided for rollback."
+msgstr "Pro vrácení zpět není k dispozici žádný hash potvrzení."
+
+#: plugins/system_update/__init__.py:269
+msgid "Rolled back to commit: "
+msgstr "Vráceno zpět k potvrzení: "
+
+#: plugins/system_update/__init__.py:272
+msgid "Rollback error:\n"
+msgstr "Chyba při downgradu firmware OSPy:\n"
+
+#: plugins/system_update/__init__.py:300
+msgid "Get all values error:\n"
+msgstr "Chyba získání všech hodnot:\n"
+
+#: plugins/system_update/__init__.py:343
+msgid "No commit selected for rollback."
+msgstr "Pro vrácení zpět nebylo vybráno žádné potvrzení."
+
+#: plugins/system_update/__init__.py:347
+msgid "OSPy rollback to selected version completed. Please wait..."
+msgstr "Návrat OSPy na vybranou verzi FW byl dokončen. Počkejte prosím..."
+
+#: plugins/system_update/__init__.py:357
+msgid "Rollback thread error:\n"
+msgstr "Chyba vrácení vlákna:\n"
+
+#: plugins/system_update/__init__.py:372
+msgid "OSPy is now restarted. Please wait..."
+msgstr "OSPy se nyní restartuje. Počkejte prosím..."
+
+#: plugins/system_update/__init__.py:392
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
 #: plugins/system_update/templates/system_update.html:3
-#: plugins/system_update/templates/system_update.html:94
+#: plugins/system_update/templates/system_update.html:209
 #: plugins/system_update/templates/system_update_help.html:3
 msgid "System update from GitHub"
 msgstr "Aktualizace systému z GitHubu"
 
-#: plugins/system_update/templates/system_update.html:99
-#: plugins/system_update/templates/system_update_help.html:14
+#: plugins/system_update/templates/system_update.html:214
+#: plugins/system_update/templates/system_update_help.html:15
 msgid "Use update plugin"
 msgstr "Použít rozšíření aktualizace"
 
-#: plugins/system_update/templates/system_update.html:108
+#: plugins/system_update/templates/system_update.html:223
 msgid "Remote repository"
 msgstr "Vzdálený repozitář"
 
-#: plugins/system_update/templates/system_update.html:114
+#: plugins/system_update/templates/system_update.html:229
 msgid "Remote branch"
 msgstr "Vzdálená větev"
 
-#: plugins/system_update/templates/system_update.html:126
+#: plugins/system_update/templates/system_update.html:241
 msgid "Local OSPy date"
 msgstr "Místní OSPy datum"
 
-#: plugins/system_update/templates/system_update.html:132
-#: plugins/system_update/templates/system_update_help.html:16
+#: plugins/system_update/templates/system_update.html:247
+msgid "Current commit hash"
+msgstr "Hash této OSPy verze"
+
+#: plugins/system_update/templates/system_update.html:253
+#: plugins/system_update/templates/system_update_help.html:17
 msgid "Automatic update"
 msgstr "Automatická aktualizace"
 
-#: plugins/system_update/templates/system_update.html:133
+#: plugins/system_update/templates/system_update.html:254
 msgid ""
 "If the check box is selected, the plug-in updates the system OSPy itself."
 msgstr ""
 "Pokud je toto políčko zaškrtnuto, toto rozšíření samo aktualizuje systém "
 "OSPy (při vydání nové verze provede update a následně restart OSPy)."
 
-#: plugins/system_update/templates/system_update.html:141
-#: plugins/system_update/templates/system_update_help.html:18
+#: plugins/system_update/templates/system_update.html:262
+#: plugins/system_update/templates/system_update_help.html:19
 msgid "Send E-mail if update is available"
 msgstr "Odeslat e-mail, pokud je k dispozici aktualizace"
 
-#: plugins/system_update/templates/system_update.html:142
+#: plugins/system_update/templates/system_update.html:263
 msgid ""
 "If checked, extension will send an e-mail notifying you when a new version "
 "is available. For this function required e-mail plugin."
@@ -20034,21 +20234,33 @@ msgstr ""
 "Pokud je zaškrtnuto, rozšíření odešle e-mail s upozorněním, že je k "
 "dispozici nová verze. Pro tuto funkci je vyžadováno rozšíření e-mail."
 
-#: plugins/system_update/templates/system_update.html:177
-msgid "Update Status"
-msgstr "Stav aktualizace"
+#: plugins/system_update/templates/system_update.html:297
+msgid "Save changes"
+msgstr "Uložit změny"
 
-#: plugins/system_update/templates/system_update.html:186
-msgid "Update OSPy"
-msgstr "Aktualizovat"
+#: plugins/system_update/templates/system_update.html:298
+msgid "Restart OSPy software"
+msgstr "Restart software OSPy"
 
-#: plugins/system_update/templates/system_update.html:190
+#: plugins/system_update/templates/system_update.html:305
+msgid "Check new version"
+msgstr "Zkontrolovat novou verzi"
+
+#: plugins/system_update/templates/system_update.html:307
+msgid "A new version of OSPy is available - update?"
+msgstr "Je nová verze, aktualizovat?"
+
+#: plugins/system_update/templates/system_update.html:309
 msgid "Fix detected dubious ownership?"
 msgstr "Opravit zjištěné pochybné vlastnictví?"
 
-#: plugins/system_update/templates/system_update.html:191
-msgid "Restart OSPy"
-msgstr "Restartovat"
+#: plugins/system_update/templates/system_update.html:318
+msgid "Rollback to previous version"
+msgstr "Návrat k předchozí verzi"
+
+#: plugins/system_update/templates/system_update.html:335
+msgid "Rollback to selected version"
+msgstr "Návrat k vybrané verzi"
 
 #: plugins/system_update/templates/system_update_help.html:7
 msgid "System update from GitHub - Help"
@@ -20063,10 +20275,18 @@ msgstr ""
 "automaticky aktualizovat místní kopii"
 
 #: plugins/system_update/templates/system_update_help.html:9
+msgid ""
+"This plugin also allows you to restore a previous version of the OSPy "
+"software (you can go back 10 steps)"
+msgstr ""
+"Toto rozšíření také umožňuje obnovit předchozí verzi softwaru OSPy (můžete "
+"se vrátit o 10 kroků zpět)"
+
+#: plugins/system_update/templates/system_update_help.html:10
 msgid "For check new version OSPy click on update status button"
 msgstr "Pro kontrolu nové verze OSPy klikněte na tlačítko aktualizovat"
 
-#: plugins/system_update/templates/system_update_help.html:10
+#: plugins/system_update/templates/system_update_help.html:11
 msgid ""
 "If new version is posible click on update OSPy button. Plugin downloading "
 "and installing new version OSPy. Next restarting OSPy service"
@@ -20075,7 +20295,7 @@ msgstr ""
 "Rozšíření stáhne a nainstaluje novou verzi OSPy. Následně provede "
 "restartování služby OSPy"
 
-#: plugins/system_update/templates/system_update_help.html:11
+#: plugins/system_update/templates/system_update_help.html:12
 msgid ""
 "This plugin allows update itself automatically the system, while allowing "
 "send an E-mail to the system administrator"
@@ -20083,7 +20303,7 @@ msgstr ""
 "Toto rozšíření umožňuje aktualizovat systém automaticky samo, zároveň "
 "umožňuje poslat E-mail správci systému"
 
-#: plugins/system_update/templates/system_update_help.html:15
+#: plugins/system_update/templates/system_update_help.html:16
 msgid ""
 "If the box is checked, the plugin checks for available system updates every "
 "hour."
@@ -20091,18 +20311,18 @@ msgstr ""
 "Pokud je políčko zaškrtnuto, plugin kontroluje dostupné aktualizace systému "
 "každou hodinu."
 
-#: plugins/system_update/templates/system_update_help.html:17
+#: plugins/system_update/templates/system_update_help.html:18
 msgid "If the box is checked, the plugin will update the system itself."
 msgstr ""
 "Pokud je políčko zaškrtnuto, toto rozšíření aktualizuje samo systém OSPy."
 
-#: plugins/system_update/templates/system_update_help.html:19
+#: plugins/system_update/templates/system_update_help.html:20
 msgid "For this function required E-mail plugin."
 msgstr ""
 "Toto rozšíření vyžaduje rozšíření \"E-mail notifications\" pro odesílání "
 "zpráv."
 
-#: plugins/system_update/templates/system_update_help.html:21
+#: plugins/system_update/templates/system_update_help.html:22
 msgid "The subject of the E-mail being sent."
 msgstr "Předmět odesílané zprávy v E-mailu."
 
@@ -23801,6 +24021,24 @@ msgstr "Chyba při ukládání do databáze klíč: {} chyba: {}"
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
 
+#~ msgid "High Value"
+#~ msgstr "Vysoká hodnota"
+
+#~ msgid "Low Value"
+#~ msgstr "Nízká hodnota"
+
+#~ msgid "Update result"
+#~ msgstr "Stav aktualizace"
+
+#~ msgid "Update Status"
+#~ msgstr "Stav aktualizace"
+
+#~ msgid "Update OSPy"
+#~ msgstr "Aktualizovat"
+
+#~ msgid "Restart OSPy"
+#~ msgstr "Restartovat"
+
 #~ msgid "OUT:"
 #~ msgstr "OUT:"
 
@@ -24196,9 +24434,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "{}: OUT OFF {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
 #~ msgstr "{}: VYP {}W ({}kW/h) {}V IP:{} RSSI:{}dbm {}\n"
-
-#~ msgid "Version: "
-#~ msgstr "Verze: "
 
 #~ msgid "Mariadb is not installed or you have a newer version."
 #~ msgstr "Mariadb asi není nainstalována nebo máte novější verzi."
@@ -24628,9 +24863,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "Error in Converting"
 #~ msgstr "Chyba při převodu"
-
-#~ msgid "Update software!"
-#~ msgstr "Aktualizovat"
 
 #~ msgid "New terminal version is available!"
 #~ msgstr "Nová verze terminálu je k dispozici!"
