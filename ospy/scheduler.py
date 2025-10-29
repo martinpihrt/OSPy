@@ -246,8 +246,9 @@ def predicted_schedule(start_time, end_time):
 
             all_intervals.append(new_interval)
 
-    # Make list of entries sorted on duration and time (stable sorted on station #)
+    # Make list of entries sorted on duration, usage and time (stable sorted on station #)
     all_intervals.sort(key=lambda inter: inter['end'] - inter['start'])
+    all_intervals.sort(key=lambda inter: -inter['usage'])
     all_intervals.sort(key=lambda inter: inter['start'])
 
     # If we have processed some intervals before, we should skip all that were scheduled before them

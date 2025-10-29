@@ -1059,6 +1059,7 @@ Available plug-ins:
 * MQTT Home Assistant
 * Shelly Cloud Integration
 * Current Loop Tanks Mmonitor
+* Network Ping Monitor
 
 ----
 

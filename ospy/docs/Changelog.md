@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+October 29 2025 (v3.0)
+-----------
+(martinpihrt, Rimco)<br/>
+Czech language update. Also schedule based on usage (by Rimco in scheduler.py). Added new plugin (Network Ping Monitor) - not ready for used (working on it).
+
 October 28 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

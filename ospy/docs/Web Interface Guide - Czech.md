@@ -1084,6 +1084,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * MQTT Home Assistant (integrace do HASS pomocí MQTT).
 * Shelly Cloud Integration (načítání stavů z cloudu výrobce zařízení Shelly).
 * Current Loop Tanks Mmonitor (měření hladiny ze 4 snímačů).
+* Network Ping Monitor (monitoring dostupnosti 3 zařízení v síti).
 ----
 
 # Odhlásit se
