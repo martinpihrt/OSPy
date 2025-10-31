@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+October 31 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. Network Ping Monitor is ready for using.
+
 October 29 2025 (v3.0)
 -----------
 (martinpihrt, Rimco)<br/>
