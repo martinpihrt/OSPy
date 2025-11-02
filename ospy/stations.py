@@ -276,15 +276,24 @@ class _ShiftStations(_BaseStations):
 
     def _activate(self):
         """Set the state of each output pin on the shift register from the internal state."""
+        import time
+
+        # If deceleration is active, insert a small pause between pulses (e.g., 10 µs, 5e-5  # 50 µs).
+        delay = 1e-5 if getattr(options, "shift_register_speed", False) else 0
         self._io.output(self._sr_noe, self._io.HIGH)
         self._io.output(self._sr_clk, self._io.LOW)
         self._io.output(self._sr_lat, self._io.LOW)
         for state in reversed(self._state):
             self._io.output(self._sr_clk, self._io.LOW)
             self._io.output(self._sr_dat, self._io.HIGH if state else self._io.LOW)
+            if delay:
+                time.sleep(delay)
             self._io.output(self._sr_clk, self._io.HIGH)
+            if delay:
+                time.sleep(delay)
         self._io.output(self._sr_lat, self._io.HIGH)
         self._io.output(self._sr_noe, self._io.LOW)
+
         logging.debug(_('Activated shift outputs'))
         zone_change.send()
 

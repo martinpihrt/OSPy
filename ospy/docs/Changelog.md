@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+November 01 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. A new item, Hardware, has been added to the OSPy settings, with a new option, "Shift register speed." This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses.
+
 October 31 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
@@ -20,7 +25,6 @@ October 25 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
 Fixed a bug with logging in multisensors (in case of a temperature drop, continuous logging occurred).
-
 
 July 01 2025 (v3.0)
 -----------

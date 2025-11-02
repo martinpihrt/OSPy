@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__ = u'Rimco'
+__author__ = 'Rimco'
 
 import logging
 
@@ -78,5 +78,3 @@ except Exception as err:
     except Exception as err:
         logging.debug(err)
         outputs = _DummyOutputs()
-
-    

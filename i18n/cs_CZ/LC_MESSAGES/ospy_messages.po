@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2025-10-31 14:05+0100\n"
-"PO-Revision-Date: 2025-10-31 14:17+0100\n"
+"POT-Creation-Date: 2025-11-02 13:53+0100\n"
+"PO-Revision-Date: 2025-11-02 13:54+0100\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -837,147 +837,175 @@ msgstr ""
 "log ladění a poté restartovat OSPy). Zhoršuje rychlost načítání stránky."
 
 #: ospy/options.py:397
+msgid "Shift register speed"
+msgstr "Rychlost posuvného registru"
+
+#: ospy/options.py:399
+msgid ""
+"This setting controls the clock speed for the shift register (74HC595) that "
+"controls the output relay. In some cases, it is advisable to reduce the "
+"speed to 10us. If the checkbox is not selected, the default speed is used. "
+"Otherwise, the speed will be reduced. (If you have no problems with timing, "
+"ignore this option.) False = maximum, clock according to the system "
+"(typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with "
+"longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. "
+"approximately 5–20 µs delay between clock pulses."
+msgstr ""
+"Toto nastavení řídí taktovací frekvenci pro posuvný registr (74HC595), který "
+"ovládá výstupní relé. V některých případech je vhodné snížit rychlost na "
+"10us. Pokud políčko není zaškrtnuto, použije se výchozí rychlost. V opačném "
+"případě se rychlost sníží. (Pokud nemáte žádné problémy s načasováním, tuto "
+"možnost ignorujte.) False = maximum, takt podle systému (typicky 0,5–2 MHz). "
+"True = cca. 100 kHz (bezpečné pro 74HC595 i s delšími kabely). Běžně "
+"doporučovaná bezpečná rychlost: kolem 50–200 kHz, tj. zpoždění mezi "
+"hodinovými impulsy přibližně 5–20 μs."
+
+#: ospy/options.py:400 plugins/system_info/__init__.py:41
+msgid "Hardware"
+msgstr "Hardware"
+
+#: ospy/options.py:406
 msgid "New installation generated password hash"
 msgstr "Nová instalace vygenerovaná hodnota hash hesla"
 
-#: ospy/options.py:402
+#: ospy/options.py:411
 msgid "New installation"
 msgstr "Nová instalace"
 
-#: ospy/options.py:407 plugins/button_control/templates/button_control.html:63
+#: ospy/options.py:416 plugins/button_control/templates/button_control.html:63
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:412 plugins/mqtt_home_assistant/__init__.py:736
+#: ospy/options.py:421 plugins/mqtt_home_assistant/__init__.py:736
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
-#: ospy/options.py:417
+#: ospy/options.py:426
 msgid "Image resolution"
 msgstr "Rozlišení obrázku"
 
-#: ospy/options.py:422
+#: ospy/options.py:431
 msgid "Level adjustment set by the user (fraction)"
 msgstr "Nastavení úrovně nastavení uživatelem (zlomek)"
 
-#: ospy/options.py:427
+#: ospy/options.py:436
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
-#: ospy/options.py:432
+#: ospy/options.py:441
 msgid "C/F"
 msgstr "C/F"
 
-#: ospy/options.py:437
+#: ospy/options.py:446
 msgid "Current password hash"
 msgstr "Aktuální heslo hash"
 
-#: ospy/options.py:442
+#: ospy/options.py:451
 msgid "Current password salt"
 msgstr "Aktuální heslo salt"
 
-#: ospy/options.py:447
+#: ospy/options.py:456
 msgid "Current password decryption time"
 msgstr "Aktuální heslo šifrovací čas"
 
-#: ospy/options.py:452
+#: ospy/options.py:461
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
-#: ospy/options.py:457
+#: ospy/options.py:466
 msgid "The email that have been logged"
 msgstr "E-maily, které byly zaznamenány"
 
-#: ospy/options.py:462
+#: ospy/options.py:471
 msgid "The events that have been logged"
 msgstr "Události, které byly zaznamenány"
 
-#: ospy/options.py:467
+#: ospy/options.py:476
 msgid "ETo and rain value cache"
 msgstr "Vyrovnávací paměť pro ETo a srážky"
 
-#: ospy/options.py:472
+#: ospy/options.py:481
 msgid "Location latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/options.py:477
+#: ospy/options.py:486
 msgid "Location longtitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/options.py:482
+#: ospy/options.py:491
 msgid "Weather status"
 msgstr "Stav počasí"
 
-#: ospy/options.py:487
+#: ospy/options.py:496
 msgid "Graph histories"
 msgstr "Graf historie"
 
-#: ospy/options.py:492 ospy/templates/graph_sensor.html:193
+#: ospy/options.py:501 ospy/templates/graph_sensor.html:193
 #: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
 
-#: ospy/options.py:497
+#: ospy/options.py:506
 msgid "Filter for logs - event: server"
 msgstr "Filtr protokolů - událost: server"
 
-#: ospy/options.py:502
+#: ospy/options.py:511
 msgid "Filter for logs - event: rain sensor"
 msgstr "Filtr protokolů - událost: dešťový snímač"
 
-#: ospy/options.py:507
+#: ospy/options.py:516
 msgid "Filter for logs - event: rain delay"
 msgstr "Filtr protokolů - událost: zpoždění deště"
 
-#: ospy/options.py:512
+#: ospy/options.py:521
 msgid "Filter for logs - event: internet not found"
 msgstr "Filtr protokolů - událost: internet nebyl nalezen"
 
-#: ospy/options.py:517
+#: ospy/options.py:526
 msgid "Filter for logs - event: user login"
 msgstr "Filtr protokolů - událost: přihlášení uživatele"
 
-#: ospy/options.py:522
+#: ospy/options.py:531
 msgid "Timestamp of the last database save"
 msgstr "Časové razítko posledního uložení databáze"
 
-#: ospy/options.py:693
+#: ospy/options.py:702
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:718
+#: ospy/options.py:727
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr "Soubory v OPTIONS_BACKUP jsou starší než 1 hodina."
 
-#: ospy/options.py:727
+#: ospy/options.py:736
 msgid "I will try to delete the BACKUP_DIR."
 msgstr "Pokusím se smazat BACKUP_DIR."
 
-#: ospy/options.py:733
+#: ospy/options.py:742
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr "Pokusím se smazat adresář BACKUP_DIR."
 
-#: ospy/options.py:738
+#: ospy/options.py:747
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr "Pokusím se přesunout adresář OPTIONS_DIR do BACKUP_DIR."
 
-#: ospy/options.py:743
+#: ospy/options.py:752
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr "Pokusím se smazat OPTIONS_DIR."
 
-#: ospy/options.py:749
+#: ospy/options.py:758
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr "Pokusím se odstranit adresář OPTIONS_DIR."
 
-#: ospy/options.py:752
+#: ospy/options.py:761
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr "Pokusím se přesunout adresář TMP_DIR do OPTIONS_DIR."
 
-#: ospy/options.py:757
+#: ospy/options.py:766
 msgid "Saved db as %s"
 msgstr "Uložená databáze jako %s"
 
-#: ospy/options.py:759
+#: ospy/options.py:768
 msgid "Saving error:\n"
 msgstr "Chyba ukládání:\n"
 
@@ -2195,7 +2223,7 @@ msgstr "Deaktivovaná druhá hlavní stanice"
 msgid "Cleared all outputs"
 msgstr "Vymazány všechny výstupy"
 
-#: ospy/stations.py:288
+#: ospy/stations.py:297
 msgid "Activated shift outputs"
 msgstr "Aktivovaný posuvný registr"
 
@@ -2618,7 +2646,7 @@ msgstr "Smazat"
 #: plugins/cli_control/templates/cli_control.html:151
 #: plugins/cli_control/templates/cli_control_help.html:125
 #: plugins/cli_control/templates/cli_control_log.html:12
-#: plugins/cli_control/templates/cli_control_log.html:29
+#: plugins/cli_control/templates/cli_control_log.html:31
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:319
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:248
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:42
@@ -2658,7 +2686,7 @@ msgstr "Smazat"
 #: plugins/mqtt/templates/mqtt_help.html:94
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:279
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:286
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:295
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:91
 #: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:13
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:32
@@ -3661,7 +3689,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:140
-#: plugins/cli_control/templates/cli_control_log.html:17
+#: plugins/cli_control/templates/cli_control_log.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:654
 #: plugins/database_connector/templates/database_connector.html:94
 #: plugins/database_connector/templates/database_connector_backup.html:29
@@ -3680,7 +3708,7 @@ msgstr "Zobrazit události přihlášení uživatelů."
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:269
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:276
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:285
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:72
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
@@ -5801,7 +5829,7 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:278
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:285
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:294
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -6533,7 +6561,7 @@ msgid "Saving to log files."
 msgstr "Ukládání do souboru protokolu."
 
 #: plugins/air_temp_humi/__init__.py:638
-#: plugins/network_ping_monitor/__init__.py:275
+#: plugins/network_ping_monitor/__init__.py:280
 #: plugins/pressure_monitor/__init__.py:448
 #: plugins/tank_monitor/__init__.py:747 plugins/ups_adj/__init__.py:348
 #: plugins/wind_monitor/__init__.py:514
@@ -6753,7 +6781,7 @@ msgid "Delete SQL table"
 msgstr "Smazat tabulku SQL"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:235
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:255
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:264
 #: plugins/pressure_monitor/templates/pressure_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:389
 #: plugins/ups_adj/templates/ups_adj.html:213
@@ -6763,7 +6791,7 @@ msgstr "Zobrazit data z"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:181
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:257
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:266
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
@@ -6773,7 +6801,7 @@ msgid ""
 msgstr "Zvolte, odkud se budou načítat zobrazená data v logu a grafu."
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:238
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:258
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:267
 #: plugins/pressure_monitor/templates/pressure_monitor.html:216
 #: plugins/tank_monitor/templates/tank_monitor.html:392
 #: plugins/ups_adj/templates/ups_adj.html:216
@@ -6782,7 +6810,7 @@ msgid "Local file"
 msgstr "Místní soubor"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:259
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:268
 #: plugins/pressure_monitor/templates/pressure_monitor.html:217
 #: plugins/tank_monitor/templates/tank_monitor.html:393
 #: plugins/ups_adj/templates/ups_adj.html:217
@@ -6793,7 +6821,7 @@ msgstr "Databázový soubor"
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:213
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:264
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:273
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
@@ -6804,7 +6832,7 @@ msgid "Maximum number of log records"
 msgstr "Maximální počet záznamů"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:245
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:265
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:274
 msgid ""
 "The maximum number of records sets the number of saved records, i.e. after "
 "exceeding the set limit, older data is overwritten. 0 = unlimited. The "
@@ -6816,7 +6844,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:220
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:270
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:279
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -6825,7 +6853,7 @@ msgid "Interval for logging"
 msgstr "Opakovat záznam po"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:251
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:271
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:280
 msgid ""
 "The logging interval is common for both local storage and sql storage of "
 "measured data. minutes (Minimum is 1)"
@@ -7238,7 +7266,7 @@ msgid "Id"
 msgstr "Id"
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:41
-#: plugins/cli_control/templates/cli_control_log.html:15
+#: plugins/cli_control/templates/cli_control_log.html:16
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:34
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:42
@@ -8158,103 +8186,94 @@ msgstr "Balíček: Ovládání CLI"
 msgid "CLI Control is enabled."
 msgstr "Rozšíření CLI (command line interface) je povoleno."
 
-#: plugins/cli_control/__init__.py:76 plugins/cli_control/__init__.py:114
-#: plugins/cli_control/__init__.py:131 plugins/cli_control/__init__.py:148
-#: plugins/cli_control/__init__.py:165 plugins/cli_control/__init__.py:182
-#: plugins/cli_control/__init__.py:205
+#: plugins/cli_control/__init__.py:76 plugins/cli_control/__init__.py:141
+#: plugins/cli_control/__init__.py:158 plugins/cli_control/__init__.py:175
+#: plugins/cli_control/__init__.py:192 plugins/cli_control/__init__.py:215
 msgid "CLI Control plug-in"
 msgstr "Rozšíření CLI (command line interface)"
 
-#: plugins/cli_control/__init__.py:80
+#: plugins/cli_control/__init__.py:80 plugins/cli_control/__init__.py:125
 msgid "CLI Control is disabled."
 msgstr "Rozšíření CLI (command line interface) je zakázáno."
 
-#: plugins/cli_control/__init__.py:122 plugins/modbus_stations/__init__.py:135
+#: plugins/cli_control/__init__.py:106
+msgid "Command OK"
+msgstr "Příkaz OK"
+
+#: plugins/cli_control/__init__.py:107
+msgid "Command failed"
+msgstr "Příkaz se nezdařil"
+
+#: plugins/cli_control/__init__.py:132 plugins/modbus_stations/__init__.py:135
 msgid "Station {} change to ON"
 msgstr "Stanice {} změna na ZAP"
 
-#: plugins/cli_control/__init__.py:126
+#: plugins/cli_control/__init__.py:136
 msgid "Im trying to send an ON command: {}"
 msgstr "Pokouším se odeslat příkaz pro ZAP: {}"
 
-#: plugins/cli_control/__init__.py:129
+#: plugins/cli_control/__init__.py:139
 msgid "No command is set for ON: {}"
 msgstr "Pro ZAP {} není nastaven žádný příkaz"
 
-#: plugins/cli_control/__init__.py:139 plugins/modbus_stations/__init__.py:150
+#: plugins/cli_control/__init__.py:149 plugins/modbus_stations/__init__.py:150
 msgid "Station {} change to OFF"
 msgstr "Stanice {} změna na VYP"
 
-#: plugins/cli_control/__init__.py:143 plugins/cli_control/__init__.py:160
+#: plugins/cli_control/__init__.py:153 plugins/cli_control/__init__.py:170
 msgid "Im trying to send an OFF command: {}"
 msgstr "Pokouším se odeslat příkaz pro VYP: {}"
 
-#: plugins/cli_control/__init__.py:146 plugins/cli_control/__init__.py:163
+#: plugins/cli_control/__init__.py:156 plugins/cli_control/__init__.py:173
 msgid "No command is set for OFF: {}"
 msgstr "Pro VYP {} není nastaven žádný příkaz"
 
-#: plugins/cli_control/__init__.py:155 plugins/modbus_stations/__init__.py:164
+#: plugins/cli_control/__init__.py:165 plugins/modbus_stations/__init__.py:164
 msgid "All station change to OFF"
 msgstr "Všechny stanice se změní na VYP"
 
-#: plugins/cli_control/__init__.py:203 plugins/speed_monitor/__init__.py:256
+#: plugins/cli_control/__init__.py:213 plugins/speed_monitor/__init__.py:256
 #: plugins/venetian_blind/__init__.py:270
 msgid "Saving to log files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
-#: plugins/cli_control/__init__.py:228
+#: plugins/cli_control/__init__.py:238
 msgid "Test CMD: {} ON."
 msgstr "Test CMD: {} ZAP."
 
-#: plugins/cli_control/__init__.py:234
+#: plugins/cli_control/__init__.py:244
 msgid "No ON command set for station {}"
 msgstr "Pro stanici {} není nastaven žádný příkaz ZAP"
 
-#: plugins/cli_control/__init__.py:237
+#: plugins/cli_control/__init__.py:247
 msgid "Test CMD: {} OFF."
 msgstr "Test CMD: {} VYP."
 
-#: plugins/cli_control/__init__.py:243
+#: plugins/cli_control/__init__.py:253
 msgid "No OFF command set for station {}"
 msgstr "Pro stanici {} není nastaven žádný příkaz VYP"
 
-#: plugins/cli_control/__init__.py:247
+#: plugins/cli_control/__init__.py:257
 msgid "Deleted all log files successfully."
 msgstr "Odstraněny všechny záznamy."
 
-#: plugins/cli_control/__init__.py:272
+#: plugins/cli_control/__init__.py:291
 msgid "CLI Control settings updated successfully."
 msgstr "Nastavení bylo úspěšně aktualizováno."
 
-#: plugins/cli_control/__init__.py:283
-msgid "CLI Control plug-in error in help_page GET:\n"
-msgstr "Chyba v rozšíření CLI Control v help_page GET:\n"
-
-#: plugins/cli_control/__init__.py:285
-msgid ""
-"An internal error was found in the system, see the error log for more "
-"information. "
-msgstr ""
-"V systému byla nalezena interní chyba, více informací naleznete v error "
-"logu. "
-
-#: plugins/cli_control/__init__.py:286
-msgid "The error is in part: cli_control -> help_page GET"
-msgstr "Chyba je v části: cli_control -> help_page GET"
-
-#: plugins/cli_control/__init__.py:314
+#: plugins/cli_control/__init__.py:326
 msgid "CLI Control plug-in error in log_json GET:\n"
 msgstr "Chyba v rozšíření CLI Control v log_json GET:\n"
 
-#: plugins/cli_control/__init__.py:339
+#: plugins/cli_control/__init__.py:351
 msgid "Log file exported as CSV successfully."
 msgstr "Záznam byl úspěšně exportován jako soubor CSV."
 
-#: plugins/cli_control/__init__.py:343
+#: plugins/cli_control/__init__.py:355
 msgid "CLI Control plug-in error in log_csv GET:\n"
 msgstr "Chyba v rozšíření CLI Control v log_csv GET:\n"
 
-#: plugins/cli_control/__init__.py:344
+#: plugins/cli_control/__init__.py:356
 msgid ""
 "Error while generating CSV log file. Please check system log for details."
 msgstr ""
@@ -9350,7 +9369,7 @@ msgstr "Rozšíření CLI (command line interface) záznam"
 msgid "Here we can see all the events performed in this extension."
 msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
 
-#: plugins/cli_control/templates/cli_control_log.html:16
+#: plugins/cli_control/templates/cli_control_log.html:17
 #: plugins/email_reader/__init__.py:144 plugins/email_reader/__init__.py:152
 #: plugins/email_reader/__init__.py:160 plugins/email_reader/__init__.py:168
 #: plugins/email_reader/__init__.py:179 plugins/email_reader/__init__.py:187
@@ -15394,23 +15413,23 @@ msgstr ""
 msgid "Package: Network Ping Monitor"
 msgstr "Balíček: Síťový monitor"
 
-#: plugins/network_ping_monitor/__init__.py:91
+#: plugins/network_ping_monitor/__init__.py:92
 msgid "Plug-in is not enabled."
 msgstr "Rozšíření není povoleno."
 
-#: plugins/network_ping_monitor/__init__.py:111
+#: plugins/network_ping_monitor/__init__.py:112
 msgid "AVAILABLE AGAIN after outage"
 msgstr "OPĚT DOSTUPNÉ po výpadku"
 
-#: plugins/network_ping_monitor/__init__.py:115
-#: plugins/network_ping_monitor/__init__.py:169
-#: plugins/network_ping_monitor/__init__.py:182
+#: plugins/network_ping_monitor/__init__.py:117
+#: plugins/network_ping_monitor/__init__.py:173
+#: plugins/network_ping_monitor/__init__.py:187
 msgid "Unavailable"
 msgstr "Nedostupné"
 
-#: plugins/network_ping_monitor/__init__.py:119
-#: plugins/network_ping_monitor/__init__.py:169
-#: plugins/network_ping_monitor/__init__.py:182
+#: plugins/network_ping_monitor/__init__.py:122
+#: plugins/network_ping_monitor/__init__.py:173
+#: plugins/network_ping_monitor/__init__.py:187
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:52
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:67
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:57
@@ -15425,73 +15444,72 @@ msgstr "Nedostupné"
 msgid "Available"
 msgstr "Dostupné"
 
-#: plugins/network_ping_monitor/__init__.py:142
+#: plugins/network_ping_monitor/__init__.py:146
 msgid "All servers are available AGAIN after an outage."
 msgstr "Všechny servery jsou po výpadku opět k dispozici."
 
-#: plugins/network_ping_monitor/__init__.py:142
-#: plugins/network_ping_monitor/__init__.py:172
+#: plugins/network_ping_monitor/__init__.py:146
+#: plugins/network_ping_monitor/__init__.py:176
+#: plugins/network_ping_monitor/__init__.py:192
 msgid "Average RTT:"
 msgstr "Průměrná doba odezvy:"
 
-#: plugins/network_ping_monitor/__init__.py:147
+#: plugins/network_ping_monitor/__init__.py:151
 msgid "All servers are available, average RTT:"
 msgstr "K dispozici jsou všechny servery, průměrná doba odezvy:"
 
-#: plugins/network_ping_monitor/__init__.py:155
+#: plugins/network_ping_monitor/__init__.py:159
 msgid "All servers are unavailable"
 msgstr "Všechny servery jsou nedostupné"
 
-#: plugins/network_ping_monitor/__init__.py:172
+#: plugins/network_ping_monitor/__init__.py:176
 msgid "Periodic status log"
 msgstr "Opakovaný záznam"
 
-#: plugins/network_ping_monitor/__init__.py:187
-msgid "Average RTT of available servers:"
-msgstr "Průměrná RTT dostupných serverů:"
-
-#: plugins/network_ping_monitor/__init__.py:187
+#: plugins/network_ping_monitor/__init__.py:192
 msgid "Summary of statuses:"
 msgstr "Souhrn stavů:"
 
-#: plugins/network_ping_monitor/__init__.py:193
-#: plugins/network_ping_monitor/__init__.py:240
-#: plugins/network_ping_monitor/__init__.py:258
-#: plugins/network_ping_monitor/__init__.py:277
-#: plugins/network_ping_monitor/__init__.py:297
-#: plugins/network_ping_monitor/__init__.py:362
+#: plugins/network_ping_monitor/__init__.py:198
+#: plugins/network_ping_monitor/__init__.py:245
+#: plugins/network_ping_monitor/__init__.py:263
+#: plugins/network_ping_monitor/__init__.py:282
+#: plugins/network_ping_monitor/__init__.py:302
+#: plugins/network_ping_monitor/__init__.py:340
+#: plugins/network_ping_monitor/__init__.py:384
 msgid "Network Ping Monitor plug-in"
 msgstr "Rozšíření síťový monitor"
 
-#: plugins/network_ping_monitor/__init__.py:211
+#: plugins/network_ping_monitor/__init__.py:216
 msgid "Error writing to local log file"
 msgstr "Chyba při zápisu do místního souboru logu"
 
-#: plugins/network_ping_monitor/__init__.py:238
+#: plugins/network_ping_monitor/__init__.py:243
 msgid "Saving to local log files OK"
 msgstr "Ukládání do místního souboru OK"
 
-#: plugins/network_ping_monitor/__init__.py:256
+#: plugins/network_ping_monitor/__init__.py:261
 msgid "Creating SQL table netping OK"
 msgstr "Vytvoření SQL tabulky netping OK"
 
-#: plugins/network_ping_monitor/__init__.py:283
+#: plugins/network_ping_monitor/__init__.py:288
 msgid "Error updating local log"
 msgstr "Chyba při aktualizaci místního záznamu"
 
-#: plugins/network_ping_monitor/__init__.py:287
+#: plugins/network_ping_monitor/__init__.py:292
 msgid "Error updating SQL log"
 msgstr "Chyba při aktualizaci záznamu do SQL"
 
-#: plugins/network_ping_monitor/__init__.py:353
-msgid "Deleted all local log files OK"
-msgstr "Odstraněny všechny místní záznamy OK"
-
-#: plugins/network_ping_monitor/__init__.py:360
+#: plugins/network_ping_monitor/__init__.py:338
+#: plugins/network_ping_monitor/__init__.py:382
 msgid "Deleted SQL table netping OK"
 msgstr "Smazaní tabulky netping v SQL je OK"
 
-#: plugins/network_ping_monitor/__init__.py:423
+#: plugins/network_ping_monitor/__init__.py:375
+msgid "Deleted all local log files OK"
+msgstr "Odstraněny všechny místní záznamy OK"
+
+#: plugins/network_ping_monitor/__init__.py:445
 msgid "Error creating CSV"
 msgstr "Chyba při vytváření souboru CSV"
 
@@ -15551,6 +15569,18 @@ msgstr ""
 "konfiguraci rozšíření databázového konektoru. Tlačítkem dojde ke smazání "
 "tabulky netping z databáze, čímž se smažou všechna uložená data z tohoto "
 "rozšíření! Tato akce je nevratná! Vyžaduje rozšíření databázového konektoru"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:255
+msgid "Logging all errors"
+msgstr "Záznam všeho"
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:256
+msgid ""
+"If this option is checked, all outages will be saved in the logs. Otherwise, "
+"only outages and restarts of all 3 servers will be saved."
+msgstr ""
+"Pokud je tato volba zaškrtnuta, budou se všechny výpadky ukládat do logů. V "
+"opačném případě se budou ukládat pouze výpadky a restarty všech 3 serverů."
 
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:3
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:6
@@ -20101,10 +20131,6 @@ msgstr "Smazat soubor"
 msgid "Package: System Information"
 msgstr "Balíček: Systémové informace"
 
-#: plugins/system_info/__init__.py:41
-msgid "Hardware"
-msgstr "Hardware"
-
 #: plugins/system_info/__init__.py:45
 msgid "System release"
 msgstr "Verze systému"
@@ -24216,6 +24242,22 @@ msgstr "Chyba při ukládání do databáze klíč: {} chyba: {}"
 #: web/session.py:470
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
+
+#~ msgid "CLI Control plug-in error in help_page GET:\n"
+#~ msgstr "Chyba v rozšíření CLI Control v help_page GET:\n"
+
+#~ msgid ""
+#~ "An internal error was found in the system, see the error log for more "
+#~ "information. "
+#~ msgstr ""
+#~ "V systému byla nalezena interní chyba, více informací naleznete v error "
+#~ "logu. "
+
+#~ msgid "The error is in part: cli_control -> help_page GET"
+#~ msgstr "Chyba je v části: cli_control -> help_page GET"
+
+#~ msgid "Average RTT of available servers:"
+#~ msgstr "Průměrná RTT dostupných serverů:"
 
 #~ msgid "cli_control -> settings_page GET"
 #~ msgstr "cli_control -> settings_page GET"

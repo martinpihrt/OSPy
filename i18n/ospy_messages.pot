@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-10-31 14:05+0100\n"
+"POT-Creation-Date: 2025-11-02 13:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -763,147 +763,159 @@ msgid "Logging of internal events from the web server (for debugging it is neces
 msgstr ""
 
 #: ospy/options.py:397
+msgid "Shift register speed"
+msgstr ""
+
+#: ospy/options.py:399
+msgid "This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses."
+msgstr ""
+
+#: ospy/options.py:400 plugins/system_info/__init__.py:41
+msgid "Hardware"
+msgstr ""
+
+#: ospy/options.py:406
 msgid "New installation generated password hash"
 msgstr ""
 
-#: ospy/options.py:402
+#: ospy/options.py:411
 msgid "New installation"
 msgstr ""
 
-#: ospy/options.py:407 plugins/button_control/templates/button_control.html:63
+#: ospy/options.py:416 plugins/button_control/templates/button_control.html:63
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:412 plugins/mqtt_home_assistant/__init__.py:736
+#: ospy/options.py:421 plugins/mqtt_home_assistant/__init__.py:736
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:417
+#: ospy/options.py:426
 msgid "Image resolution"
 msgstr ""
 
-#: ospy/options.py:422
+#: ospy/options.py:431
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:427
+#: ospy/options.py:436
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:432
+#: ospy/options.py:441
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:437
+#: ospy/options.py:446
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:442
+#: ospy/options.py:451
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:447
+#: ospy/options.py:456
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:452
+#: ospy/options.py:461
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:457
+#: ospy/options.py:466
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:462
+#: ospy/options.py:471
 msgid "The events that have been logged"
 msgstr ""
 
-#: ospy/options.py:467
+#: ospy/options.py:476
 msgid "ETo and rain value cache"
 msgstr ""
 
-#: ospy/options.py:472
+#: ospy/options.py:481
 msgid "Location latitude"
 msgstr ""
 
-#: ospy/options.py:477
+#: ospy/options.py:486
 msgid "Location longtitude"
 msgstr ""
 
-#: ospy/options.py:482
+#: ospy/options.py:491
 msgid "Weather status"
 msgstr ""
 
-#: ospy/options.py:487
+#: ospy/options.py:496
 msgid "Graph histories"
 msgstr ""
 
-#: ospy/options.py:492 ospy/templates/graph_sensor.html:193
+#: ospy/options.py:501 ospy/templates/graph_sensor.html:193
 #: plugins/air_temp_humi/templates/air_temp_humi.html:419
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:497
+#: ospy/options.py:506
 msgid "Filter for logs - event: server"
 msgstr ""
 
-#: ospy/options.py:502
+#: ospy/options.py:511
 msgid "Filter for logs - event: rain sensor"
 msgstr ""
 
-#: ospy/options.py:507
+#: ospy/options.py:516
 msgid "Filter for logs - event: rain delay"
 msgstr ""
 
-#: ospy/options.py:512
+#: ospy/options.py:521
 msgid "Filter for logs - event: internet not found"
 msgstr ""
 
-#: ospy/options.py:517
+#: ospy/options.py:526
 msgid "Filter for logs - event: user login"
 msgstr ""
 
-#: ospy/options.py:522
+#: ospy/options.py:531
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:693
+#: ospy/options.py:702
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:718
+#: ospy/options.py:727
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:727
+#: ospy/options.py:736
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:733
+#: ospy/options.py:742
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:738
+#: ospy/options.py:747
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:743
+#: ospy/options.py:752
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:749
+#: ospy/options.py:758
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:752
+#: ospy/options.py:761
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:757
+#: ospy/options.py:766
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:759
+#: ospy/options.py:768
 msgid ""
 "Saving error:\n"
 msgstr ""
@@ -2104,7 +2116,7 @@ msgstr ""
 msgid "Cleared all outputs"
 msgstr ""
 
-#: ospy/stations.py:288
+#: ospy/stations.py:297
 msgid "Activated shift outputs"
 msgstr ""
 
@@ -2514,7 +2526,7 @@ msgstr ""
 #: plugins/cli_control/templates/cli_control.html:151
 #: plugins/cli_control/templates/cli_control_help.html:125
 #: plugins/cli_control/templates/cli_control_log.html:12
-#: plugins/cli_control/templates/cli_control_log.html:29
+#: plugins/cli_control/templates/cli_control_log.html:31
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:319
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:248
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:42
@@ -2554,7 +2566,7 @@ msgstr ""
 #: plugins/mqtt/templates/mqtt_help.html:94
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:279
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:286
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:295
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:91
 #: plugins/network_ping_monitor/templates/network_ping_monitor_help.html:13
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:32
@@ -3552,7 +3564,7 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:91
 #: plugins/chmi/templates/chmi.html:160
 #: plugins/cli_control/templates/cli_control.html:140
-#: plugins/cli_control/templates/cli_control_log.html:17
+#: plugins/cli_control/templates/cli_control_log.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:654
 #: plugins/database_connector/templates/database_connector.html:94
 #: plugins/database_connector/templates/database_connector_backup.html:29
@@ -3571,7 +3583,7 @@ msgstr ""
 #: plugins/modbus_stations/templates/modbus_stations_address.html:42
 #: plugins/modbus_stations/templates/modbus_stations_log.html:18
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:269
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:276
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:285
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:72
 #: plugins/ospy_backup/templates/ospy_backup.html:37
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:152
@@ -5532,7 +5544,7 @@ msgstr ""
 #: plugins/monthly_water_level/templates/monthly_water_level.html:77
 #: plugins/mqtt/templates/mqtt.html:159
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:278
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:285
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:294
 #: plugins/ping_monitor/templates/ping_monitor.html:278
 #: plugins/pressure_monitor/templates/pressure_monitor.html:301
 #: plugins/pressurizer/templates/pressurizer.html:102
@@ -6207,7 +6219,7 @@ msgid "Saving to log files."
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:638
-#: plugins/network_ping_monitor/__init__.py:275
+#: plugins/network_ping_monitor/__init__.py:280
 #: plugins/pressure_monitor/__init__.py:448
 #: plugins/tank_monitor/__init__.py:747 plugins/ups_adj/__init__.py:348
 #: plugins/wind_monitor/__init__.py:514
@@ -6412,7 +6424,7 @@ msgid "Delete SQL table"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:235
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:255
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:264
 #: plugins/pressure_monitor/templates/pressure_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:389
 #: plugins/ups_adj/templates/ups_adj.html:213
@@ -6422,7 +6434,7 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:237
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:181
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:257
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:266
 #: plugins/pressure_monitor/templates/pressure_monitor.html:215
 #: plugins/tank_monitor/templates/tank_monitor.html:391
 #: plugins/ups_adj/templates/ups_adj.html:215
@@ -6431,7 +6443,7 @@ msgid "Choose from where the displayed data in the log and graph will be loaded.
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:238
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:258
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:267
 #: plugins/pressure_monitor/templates/pressure_monitor.html:216
 #: plugins/tank_monitor/templates/tank_monitor.html:392
 #: plugins/ups_adj/templates/ups_adj.html:216
@@ -6440,7 +6452,7 @@ msgid "Local file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:239
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:259
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:268
 #: plugins/pressure_monitor/templates/pressure_monitor.html:217
 #: plugins/tank_monitor/templates/tank_monitor.html:393
 #: plugins/ups_adj/templates/ups_adj.html:217
@@ -6451,7 +6463,7 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi.html:244
 #: plugins/chmi/templates/chmi.html:143
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:213
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:264
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:273
 #: plugins/pressure_monitor/templates/pressure_monitor.html:222
 #: plugins/speed_monitor/templates/speed_monitor.html:207
 #: plugins/tank_monitor/templates/tank_monitor.html:398
@@ -6462,13 +6474,13 @@ msgid "Maximum number of log records"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:245
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:265
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:274
 msgid "The maximum number of records sets the number of saved records, i.e. after exceeding the set limit, older data is overwritten. 0 = unlimited. The maximum number is only for local storage (not for database)."
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:250
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:220
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:270
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:279
 #: plugins/speed_monitor/templates/speed_monitor.html:213
 #: plugins/tank_monitor/templates/tank_monitor.html:404
 #: plugins/volt_temp_da/templates/volt_temp_da.html:51
@@ -6477,7 +6489,7 @@ msgid "Interval for logging"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:251
-#: plugins/network_ping_monitor/templates/network_ping_monitor.html:271
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:280
 msgid "The logging interval is common for both local storage and sql storage of measured data. minutes (Minimum is 1)"
 msgstr ""
 
@@ -6853,7 +6865,7 @@ msgid "Id"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:41
-#: plugins/cli_control/templates/cli_control_log.html:15
+#: plugins/cli_control/templates/cli_control_log.html:16
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:34
 #: plugins/modbus_stations/templates/modbus_stations_log.html:16
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:42
@@ -7700,102 +7712,96 @@ msgstr ""
 msgid "CLI Control is enabled."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:76 plugins/cli_control/__init__.py:114
-#: plugins/cli_control/__init__.py:131 plugins/cli_control/__init__.py:148
-#: plugins/cli_control/__init__.py:165 plugins/cli_control/__init__.py:182
-#: plugins/cli_control/__init__.py:205
+#: plugins/cli_control/__init__.py:76 plugins/cli_control/__init__.py:141
+#: plugins/cli_control/__init__.py:158 plugins/cli_control/__init__.py:175
+#: plugins/cli_control/__init__.py:192 plugins/cli_control/__init__.py:215
 msgid "CLI Control plug-in"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:80
+#: plugins/cli_control/__init__.py:80 plugins/cli_control/__init__.py:125
 msgid "CLI Control is disabled."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:122 plugins/modbus_stations/__init__.py:135
+#: plugins/cli_control/__init__.py:106
+msgid "Command OK"
+msgstr ""
+
+#: plugins/cli_control/__init__.py:107
+msgid "Command failed"
+msgstr ""
+
+#: plugins/cli_control/__init__.py:132 plugins/modbus_stations/__init__.py:135
 msgid "Station {} change to ON"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:126
+#: plugins/cli_control/__init__.py:136
 msgid "Im trying to send an ON command: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:129
+#: plugins/cli_control/__init__.py:139
 msgid "No command is set for ON: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:139 plugins/modbus_stations/__init__.py:150
+#: plugins/cli_control/__init__.py:149 plugins/modbus_stations/__init__.py:150
 msgid "Station {} change to OFF"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:143 plugins/cli_control/__init__.py:160
+#: plugins/cli_control/__init__.py:153 plugins/cli_control/__init__.py:170
 msgid "Im trying to send an OFF command: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:146 plugins/cli_control/__init__.py:163
+#: plugins/cli_control/__init__.py:156 plugins/cli_control/__init__.py:173
 msgid "No command is set for OFF: {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:155 plugins/modbus_stations/__init__.py:164
+#: plugins/cli_control/__init__.py:165 plugins/modbus_stations/__init__.py:164
 msgid "All station change to OFF"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:203 plugins/speed_monitor/__init__.py:256
+#: plugins/cli_control/__init__.py:213 plugins/speed_monitor/__init__.py:256
 #: plugins/venetian_blind/__init__.py:270
 msgid "Saving to log files OK"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:228
+#: plugins/cli_control/__init__.py:238
 msgid "Test CMD: {} ON."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:234
+#: plugins/cli_control/__init__.py:244
 msgid "No ON command set for station {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:237
+#: plugins/cli_control/__init__.py:247
 msgid "Test CMD: {} OFF."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:243
+#: plugins/cli_control/__init__.py:253
 msgid "No OFF command set for station {}"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:247
+#: plugins/cli_control/__init__.py:257
 msgid "Deleted all log files successfully."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:272
+#: plugins/cli_control/__init__.py:291
 msgid "CLI Control settings updated successfully."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:283
-msgid ""
-"CLI Control plug-in error in help_page GET:\n"
-msgstr ""
-
-#: plugins/cli_control/__init__.py:285
-msgid "An internal error was found in the system, see the error log for more information. "
-msgstr ""
-
-#: plugins/cli_control/__init__.py:286
-msgid "The error is in part: cli_control -> help_page GET"
-msgstr ""
-
-#: plugins/cli_control/__init__.py:314
+#: plugins/cli_control/__init__.py:326
 msgid ""
 "CLI Control plug-in error in log_json GET:\n"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:339
+#: plugins/cli_control/__init__.py:351
 msgid "Log file exported as CSV successfully."
 msgstr ""
 
-#: plugins/cli_control/__init__.py:343
+#: plugins/cli_control/__init__.py:355
 msgid ""
 "CLI Control plug-in error in log_csv GET:\n"
 msgstr ""
 
-#: plugins/cli_control/__init__.py:344
+#: plugins/cli_control/__init__.py:356
 msgid "Error while generating CSV log file. Please check system log for details."
 msgstr ""
 
@@ -8293,7 +8299,7 @@ msgstr ""
 msgid "Here we can see all the events performed in this extension."
 msgstr ""
 
-#: plugins/cli_control/templates/cli_control_log.html:16
+#: plugins/cli_control/templates/cli_control_log.html:17
 #: plugins/email_reader/__init__.py:144 plugins/email_reader/__init__.py:152
 #: plugins/email_reader/__init__.py:160 plugins/email_reader/__init__.py:168
 #: plugins/email_reader/__init__.py:179 plugins/email_reader/__init__.py:187
@@ -13641,23 +13647,23 @@ msgstr ""
 msgid "Package: Network Ping Monitor"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:91
+#: plugins/network_ping_monitor/__init__.py:92
 msgid "Plug-in is not enabled."
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:111
+#: plugins/network_ping_monitor/__init__.py:112
 msgid "AVAILABLE AGAIN after outage"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:115
-#: plugins/network_ping_monitor/__init__.py:169
-#: plugins/network_ping_monitor/__init__.py:182
+#: plugins/network_ping_monitor/__init__.py:117
+#: plugins/network_ping_monitor/__init__.py:173
+#: plugins/network_ping_monitor/__init__.py:187
 msgid "Unavailable"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:119
-#: plugins/network_ping_monitor/__init__.py:169
-#: plugins/network_ping_monitor/__init__.py:182
+#: plugins/network_ping_monitor/__init__.py:122
+#: plugins/network_ping_monitor/__init__.py:173
+#: plugins/network_ping_monitor/__init__.py:187
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:52
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:67
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:57
@@ -13672,73 +13678,72 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:142
+#: plugins/network_ping_monitor/__init__.py:146
 msgid "All servers are available AGAIN after an outage."
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:142
-#: plugins/network_ping_monitor/__init__.py:172
+#: plugins/network_ping_monitor/__init__.py:146
+#: plugins/network_ping_monitor/__init__.py:176
+#: plugins/network_ping_monitor/__init__.py:192
 msgid "Average RTT:"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:147
+#: plugins/network_ping_monitor/__init__.py:151
 msgid "All servers are available, average RTT:"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:155
+#: plugins/network_ping_monitor/__init__.py:159
 msgid "All servers are unavailable"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:172
+#: plugins/network_ping_monitor/__init__.py:176
 msgid "Periodic status log"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:187
-msgid "Average RTT of available servers:"
-msgstr ""
-
-#: plugins/network_ping_monitor/__init__.py:187
+#: plugins/network_ping_monitor/__init__.py:192
 msgid "Summary of statuses:"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:193
-#: plugins/network_ping_monitor/__init__.py:240
-#: plugins/network_ping_monitor/__init__.py:258
-#: plugins/network_ping_monitor/__init__.py:277
-#: plugins/network_ping_monitor/__init__.py:297
-#: plugins/network_ping_monitor/__init__.py:362
+#: plugins/network_ping_monitor/__init__.py:198
+#: plugins/network_ping_monitor/__init__.py:245
+#: plugins/network_ping_monitor/__init__.py:263
+#: plugins/network_ping_monitor/__init__.py:282
+#: plugins/network_ping_monitor/__init__.py:302
+#: plugins/network_ping_monitor/__init__.py:340
+#: plugins/network_ping_monitor/__init__.py:384
 msgid "Network Ping Monitor plug-in"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:211
+#: plugins/network_ping_monitor/__init__.py:216
 msgid "Error writing to local log file"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:238
+#: plugins/network_ping_monitor/__init__.py:243
 msgid "Saving to local log files OK"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:256
+#: plugins/network_ping_monitor/__init__.py:261
 msgid "Creating SQL table netping OK"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:283
+#: plugins/network_ping_monitor/__init__.py:288
 msgid "Error updating local log"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:287
+#: plugins/network_ping_monitor/__init__.py:292
 msgid "Error updating SQL log"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:353
-msgid "Deleted all local log files OK"
-msgstr ""
-
-#: plugins/network_ping_monitor/__init__.py:360
+#: plugins/network_ping_monitor/__init__.py:338
+#: plugins/network_ping_monitor/__init__.py:382
 msgid "Deleted SQL table netping OK"
 msgstr ""
 
-#: plugins/network_ping_monitor/__init__.py:423
+#: plugins/network_ping_monitor/__init__.py:375
+msgid "Deleted all local log files OK"
+msgstr ""
+
+#: plugins/network_ping_monitor/__init__.py:445
 msgid "Error creating CSV"
 msgstr ""
 
@@ -13788,6 +13793,14 @@ msgstr ""
 
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:244
 msgid "The measured data will be stored in the database. This option requires the database connector extension to be installed and configured. The button will delete the netping table from the database, thus deleting all saved data from this extension! This promotion is non-refundable! Requires database connector plugin"
+msgstr ""
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:255
+msgid "Logging all errors"
+msgstr ""
+
+#: plugins/network_ping_monitor/templates/network_ping_monitor.html:256
+msgid "If this option is checked, all outages will be saved in the logs. Otherwise, only outages and restarts of all 3 servers will be saved."
 msgstr ""
 
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:3
@@ -17714,10 +17727,6 @@ msgstr ""
 
 #: plugins/system_info/__init__.py:19
 msgid "Package: System Information"
-msgstr ""
-
-#: plugins/system_info/__init__.py:41
-msgid "Hardware"
 msgstr ""
 
 #: plugins/system_info/__init__.py:45

@@ -391,6 +391,15 @@ class _Options(object):
             "category": _('Logging')
         },
         #######################################################################
+        # Hardware ############################################################
+        {
+            "key": "shift_register_speed",
+            "name": _('Shift register speed'),
+            "default": False,
+            "help": _('This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses.'),
+            "category": _('Hardware')
+        },        
+        #######################################################################
         # Not in Options page as-is ###########################################
         {
             "key": "first_password_hash",
