@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+November 04 2025 (v3.0)
+-----------
+(martinpihrt)<br/>
+New script for HW testing relay on board (in OSPy folder). If you need to test the hardware board (to see if all relays are switching—e.g., in case of a hardware problem with the relays), stop the service (sudo service ospy stop) and run the relay_test.py script in the OSPy folder. All relays on the board will switch on and off at 1.5-second intervals.
+
 November 01 2025 (v3.0)
 -----------
 (martinpihrt)<br/>
