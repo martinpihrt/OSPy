@@ -120,8 +120,6 @@ function updateOStimer() {
         var pl_name = osVals.plugin_name
         var pl_state = osVals.plugins_state
 
-        modal.style.display = "block"; // blocking pop-up window
-            
         let msg = '';
         let hdr = '';
        
@@ -135,19 +133,24 @@ function updateOStimer() {
         if(pl_state > 0){ // 0= No update plugin, >0 plugin count
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</b><br>';
             msg += $:{json.dumps(_('Number of available updates for plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' + pl_state + '<br>';
+            msg += '<div class="update-plugin-list"><ul>';
             let i;
             for(i = 0; i < osVals.plugin_name.length; i++) { 
-                msg += '<p><b>' + $:{json.dumps(_('Plugin name'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': </b>' + osVals.plugin_name[i][1] + '</p>';
+                msg += '<li>' + osVals.plugin_name[i][1] + '</li>';
             }
+            msg += '</ul></div>';
             msg += '<a href="/plugins_manage" class="button"><b>'+ $:{json.dumps(_('Open plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</b></a>';
             msg += '</p>';
         } 
         if((os_state > 1) || (pl_state > 0)){ // only if updates
             hdr += '<h2>' + $:{json.dumps(_('System notification'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</h2>';
-            jQuery("#modal-hdr").append(hdr); // add text to header in modal div
-            jQuery("#modal-msg").append(msg); // add to modal-msg div
+            jQuery("#modal-hdr").html(hdr); // set text to header in modal div
+            jQuery("#modal-msg").html(msg); // set modal-msg div
+            modal.style.display = "block"; // blocking pop-up window
         } 
         else{
+            jQuery("#modal-hdr").html("");
+            jQuery("#modal-msg").html("");
             modal.style.display = "none";     // hide pop-up
         } 
     }) 
@@ -300,6 +303,7 @@ jQuery(document).ready(function(){
             $if content.page != 'login':
                 <div class="modal-content">
                     <div class="modal-header">
+                        <span class="close" onclick="document.getElementById('Modal').style.display='none'">&times;</span>
                         <div class="modal-hdr" id="modal-hdr"></div>
                     </div>
                     <div class="modal-body">

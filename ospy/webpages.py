@@ -1755,10 +1755,12 @@ class plugins_manage_page(ProtectedPage):
 
         if auto_update is not None:
             options.auto_plugin_update = auto_update
+            plugins.checker.update()
             raise web.seeother('/plugins_manage')
         
         if use_update is not None:
             options.use_plugin_update = use_update
+            plugins.checker.update()
             raise web.seeother('/plugins_manage')
 
         return self.core_render.plugins_manage()

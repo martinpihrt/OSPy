@@ -173,7 +173,7 @@ class _PluginChecker(threading.Thread):
         import logging
         import io
 
-        response = urlopen(repo)
+        response = urlopen(repo, timeout=30)
         zip_data = response.read()
         logging.debug(_('Downloaded {}').format(repo))
 
