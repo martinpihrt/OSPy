@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-11-02 13:53+0100\n"
+"POT-Creation-Date: 2026-06-26 10:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2370,6 +2370,7 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:22
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:18
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:22
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:461
 #: plugins/weather_stations/templates/canvas_page.html:87
 #: plugins/weather_stations/templates/settings_page.html:262
 #: plugins/webcam/templates/webcam.html:22
@@ -2504,6 +2505,8 @@ msgstr ""
 #: plugins/ospy_backup/templates/ospy_backup.html:53
 #: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:34
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:250
 msgid "Delete"
 msgstr ""
 
@@ -2658,6 +2661,10 @@ msgstr ""
 #: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:14
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo_help.html:14
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:111
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:84
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:92
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:457
 #: plugins/weather_stations/templates/canvas_page.html:85
 #: plugins/weather_stations/templates/help_page.html:54
 #: plugins/weather_stations/templates/settings_page.html:261
@@ -3198,6 +3205,8 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:106
 #: plugins/lcd_display/__init__.py:460
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:36
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:258
 #: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
 msgstr ""
@@ -4103,6 +4112,8 @@ msgstr ""
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:69
 #: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:539
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:38
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:268
 msgid "Name"
 msgstr ""
 
@@ -5573,6 +5584,8 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:123
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:82
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:452
 #: plugins/weather_stations/templates/settings_page.html:260
 #: plugins/webcam/templates/webcam.html:66
 #: plugins/wind_monitor/templates/wind_monitor.html:421
@@ -6166,6 +6179,7 @@ msgid "DHT"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:194
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:68
 msgid "Air Temperature"
 msgstr ""
 
@@ -7689,14 +7703,20 @@ msgid "CHMI meteoradar - log"
 msgstr ""
 
 #: plugins/chmi/templates/chmi_log.html:28
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:58
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:372
 msgid "Red"
 msgstr ""
 
 #: plugins/chmi/templates/chmi_log.html:29
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:62
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:420
 msgid "Green"
 msgstr ""
 
 #: plugins/chmi/templates/chmi_log.html:30
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:60
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:396
 msgid "Blue"
 msgstr ""
 
@@ -18200,6 +18220,7 @@ msgid "Waiting for {} samples to be read from the sensor (when using averaging).
 msgstr ""
 
 #: plugins/tank_monitor/__init__.py:219
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:70
 msgid "Tank Monitor"
 msgstr ""
 
@@ -19356,6 +19377,7 @@ msgid "Test for blind {}, position {}."
 msgstr ""
 
 #: plugins/venetian_blind/templates/venetian_blind.html:35
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:115
 #: plugins/weather_stations/templates/canvas_page.html:86
 msgid "Settings"
 msgstr ""
@@ -20517,6 +20539,267 @@ msgstr ""
 msgid "Weather-based Water Level Netatmo - help"
 msgstr ""
 
+#: plugins/weather_dashboard/__init__.py:50
+msgid "Package: Weather Dashboard"
+msgstr ""
+
+#: plugins/weather_dashboard/__init__.py:159
+msgid "Weather Dashboard plug-in is enabled."
+msgstr ""
+
+#: plugins/weather_dashboard/__init__.py:312
+msgid "Shelly device"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:141
+msgid "Weather Dashboard"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:85
+msgid "Your browser does not support canvas."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:7
+msgid "OSPy Weather Dashboard - help"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:9
+msgid "Weather Dashboard shows selected values from other OSPy plugins and OSPy sensors on one dashboard."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:10
+msgid "Each displayed item is configured as one gauge. A gauge can be shown as a round canvas meter or as a simple text value."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:12
+msgid "Dashboard modes"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:14
+msgid "Canvas"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:15
+msgid "Shows enabled gauges as round meters. Use Canvas size to set the width and height of each meter."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:16
+msgid "Text"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:17
+msgid "Shows enabled gauges as text values. Use Text font to set the size of the displayed text."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:20
+msgid "General settings"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:22
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:162
+msgid "Dashboard mode"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:23
+msgid "Select whether the dashboard page will use canvas meters or text values."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:24
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:184
+msgid "Canvas size"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:25
+msgid "The number determines the size of the round meter in canvas mode."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:26
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:201
+msgid "Text font"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:27
+msgid "The number determines the font size in text mode."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:30
+msgid "Gauge settings"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:32
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:226
+msgid "Add Gauge"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:33
+msgid "Adds a new gauge with default settings."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:35
+msgid "Removes the selected gauge from the dashboard."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:37
+msgid "When checked, this gauge is shown on the dashboard. When unchecked, the gauge is saved but hidden."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:39
+msgid "The name displayed on the canvas meter or before the text value."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:40
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:279
+msgid "Unit"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:41
+msgid "The unit displayed after the value, for example C, %, cm, l, V, or km/h."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:42
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:290
+msgid "Source"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:43
+msgid "Selects where the value is read from. Available sources are loaded from the plugin source registry."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:44
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:304
+msgid "Channel"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:45
+msgid "Selects the input channel for the selected source. The list changes automatically after changing Source."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:46
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:319
+msgid "Value type"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:47
+msgid "Selects which value from the selected source is used. The list changes automatically after changing Source."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:50
+msgid "Scale and colors"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:52
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:338
+msgid "Ticks"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:53
+msgid "Comma separated scale labels used by the canvas meter, for example 0,25,50,75,100."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:54
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:348
+#: plugins/weather_stations/templates/help_page.html:28
+msgid "Min"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:55
+msgid "Minimum value of the canvas meter scale."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:56
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:358
+#: plugins/weather_stations/templates/help_page.html:30
+msgid "Max"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:57
+msgid "Maximum value of the canvas meter scale."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:59
+msgid "Range highlighted in red on the canvas meter."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:61
+msgid "Range highlighted in blue on the canvas meter."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:63
+msgid "Range highlighted in green on the canvas meter."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:66
+msgid "Available sources"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:69
+msgid "Reads DS18B20 probes from the Air Temperature and Humidity Monitor plugin."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:71
+msgid "Reads percent and volume values from the Water Tank Monitor plugin."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:72
+msgid "Current Loop"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:73
+msgid "Reads percent, cm, liter, and voltage values from the Current Loop Tanks Monitor plugin."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:74
+msgid "Wind Monitor"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:75
+msgid "Reads wind speed from the Wind Speed Monitor plugin."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:76
+msgid "OSPy Sensor"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:77
+msgid "Reads values from configured OSPy sensors."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:80
+msgid "Saving settings"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:83
+msgid "Saves all dashboard and gauge settings."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:85
+msgid "Leaves the settings page without saving changes."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:88
+msgid "After saving, open the dashboard page to view the configured gauges. Values are refreshed automatically."
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:157
+msgid "General Settings"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:241
+msgid "Gauge"
+msgstr ""
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:334
+#: plugins/weather_stations/templates/help_page.html:26
+#: plugins/weather_stations/templates/settings_page.html:61
+#: plugins/weather_stations/templates/settings_page.html:119
+#: plugins/weather_stations/templates/settings_page.html:173
+#: plugins/weather_stations/templates/settings_page.html:225
+msgid "Scale"
+msgstr ""
+
 #: plugins/weather_stations/__init__.py:16
 msgid "Package: Weather Stations"
 msgstr ""
@@ -20613,28 +20896,12 @@ msgstr ""
 msgid "In which units we want to display the data."
 msgstr ""
 
-#: plugins/weather_stations/templates/help_page.html:26
-#: plugins/weather_stations/templates/settings_page.html:61
-#: plugins/weather_stations/templates/settings_page.html:119
-#: plugins/weather_stations/templates/settings_page.html:173
-#: plugins/weather_stations/templates/settings_page.html:225
-msgid "Scale"
-msgstr ""
-
 #: plugins/weather_stations/templates/help_page.html:27
 msgid "Division scale according to our requirements."
 msgstr ""
 
-#: plugins/weather_stations/templates/help_page.html:28
-msgid "Min"
-msgstr ""
-
 #: plugins/weather_stations/templates/help_page.html:29
 msgid "This value must be the minimum of the range from Scale."
-msgstr ""
-
-#: plugins/weather_stations/templates/help_page.html:30
-msgid "Max"
 msgstr ""
 
 #: plugins/weather_stations/templates/help_page.html:31

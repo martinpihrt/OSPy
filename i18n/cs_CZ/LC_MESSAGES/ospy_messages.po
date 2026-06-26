@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2025-11-02 13:53+0100\n"
-"PO-Revision-Date: 2025-11-02 13:54+0100\n"
+"POT-Creation-Date: 2026-06-26 10:21+0200\n"
+"PO-Revision-Date: 2026-06-26 10:47+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -2481,6 +2481,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:22
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:18
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:22
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:461
 #: plugins/weather_stations/templates/canvas_page.html:87
 #: plugins/weather_stations/templates/settings_page.html:262
 #: plugins/webcam/templates/webcam.html:22
@@ -2624,6 +2625,8 @@ msgstr "Nahrát"
 #: plugins/ospy_backup/templates/ospy_backup.html:53
 #: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:34
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:250
 msgid "Delete"
 msgstr "Smazat"
 
@@ -2778,6 +2781,10 @@ msgstr "Smazat"
 #: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:14
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:115
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo_help.html:14
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:111
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:84
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:92
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:457
 #: plugins/weather_stations/templates/canvas_page.html:85
 #: plugins/weather_stations/templates/help_page.html:54
 #: plugins/weather_stations/templates/settings_page.html:261
@@ -3320,6 +3327,8 @@ msgstr "Povolit nebo zakázat provoz plánovače"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:106
 #: plugins/lcd_display/__init__.py:460
 #: plugins/volt_temp_da/templates/volt_temp_da.html:27
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:36
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:258
 #: plugins/webcam/templates/webcam.html:26
 msgid "Enabled"
 msgstr "Povoleno"
@@ -4241,6 +4250,8 @@ msgstr "Přidat nový program"
 
 #: ospy/templates/program.html:367 ospy/templates/sensors.html:69
 #: ospy/templates/stations.html:15 plugins/sunrise_and_sunset/__init__.py:539
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:38
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:268
 msgid "Name"
 msgstr "Jméno"
 
@@ -5858,6 +5869,8 @@ msgstr ""
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:123
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:114
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:82
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:452
 #: plugins/weather_stations/templates/settings_page.html:260
 #: plugins/webcam/templates/webcam.html:66
 #: plugins/wind_monitor/templates/wind_monitor.html:421
@@ -6508,6 +6521,7 @@ msgid "DHT"
 msgstr "DHT"
 
 #: plugins/air_temp_humi/__init__.py:194
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:68
 msgid "Air Temperature"
 msgstr "Monitor teploty"
 
@@ -8163,14 +8177,20 @@ msgid "CHMI meteoradar - log"
 msgstr "Meteoradar ČHMÚ - log"
 
 #: plugins/chmi/templates/chmi_log.html:28
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:58
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:372
 msgid "Red"
 msgstr "Červená"
 
 #: plugins/chmi/templates/chmi_log.html:29
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:62
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:420
 msgid "Green"
 msgstr "Zelená"
 
 #: plugins/chmi/templates/chmi_log.html:30
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:60
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:396
 msgid "Blue"
 msgstr "Modrá"
 
@@ -20673,6 +20693,7 @@ msgid ""
 msgstr "Čekání na načtení {} vzorků ze snímače (při použití průměrování)."
 
 #: plugins/tank_monitor/__init__.py:219
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:70
 msgid "Tank Monitor"
 msgstr "Monitor nádrže"
 
@@ -21991,6 +22012,7 @@ msgid "Test for blind {}, position {}."
 msgstr "Test na žaluzii {}, pozice {}."
 
 #: plugins/venetian_blind/templates/venetian_blind.html:35
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:115
 #: plugins/weather_stations/templates/canvas_page.html:86
 msgid "Settings"
 msgstr "Nastavení"
@@ -23230,6 +23252,314 @@ msgstr "Denní hladina vody v mm"
 msgid "Weather-based Water Level Netatmo - help"
 msgstr "Hladina vody na bázi počasí Netatmo - nápověda"
 
+#: plugins/weather_dashboard/__init__.py:50
+msgid "Package: Weather Dashboard"
+msgstr "Balíček: Weather Dashboard"
+
+#: plugins/weather_dashboard/__init__.py:159
+msgid "Weather Dashboard plug-in is enabled."
+msgstr "Rozšíření meteorologická nástěnka je povoleno."
+
+#: plugins/weather_dashboard/__init__.py:312
+msgid "Shelly device"
+msgstr "Shelly zařízení"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:141
+msgid "Weather Dashboard"
+msgstr "Meteorologická nástěnka"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:85
+msgid "Your browser does not support canvas."
+msgstr "Webový prohlížeč nepodporuje prvky canvas."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:3
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:7
+msgid "OSPy Weather Dashboard - help"
+msgstr "Meteorologická nástěnka - nápověda"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:9
+msgid ""
+"Weather Dashboard shows selected values from other OSPy plugins and OSPy "
+"sensors on one dashboard."
+msgstr ""
+"Weather Dashboard zobrazuje vybrané hodnoty z jiných OSPy rozšíření, OSPy "
+"snímačů a dalších integrací na jednom dashboardu."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:10
+msgid ""
+"Each displayed item is configured as one gauge. A gauge can be shown as a "
+"round canvas meter or as a simple text value."
+msgstr ""
+"Každý vystavený ukazatel je konfigurován jako jeden měřič. Měřič může být "
+"zobrazen jako kulatý metr nebo jako jednoduchá textová hodnota."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:12
+msgid "Dashboard modes"
+msgstr "Režim ukazatelů"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:14
+msgid "Canvas"
+msgstr "Ukazatel"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:15
+msgid ""
+"Shows enabled gauges as round meters. Use Canvas size to set the width and "
+"height of each meter."
+msgstr ""
+"Zobrazit ukazatele jako kulaté metry. Velikost plátna pro nastavení šířky a "
+"výšky každého metru."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:16
+msgid "Text"
+msgstr "Text"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:17
+msgid ""
+"Shows enabled gauges as text values. Use Text font to set the size of the "
+"displayed text."
+msgstr ""
+"Zobrazuje povolené ukazatele jako textové hodnoty. Nastavení velikosti "
+"zobrazeného textu."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:20
+msgid "General settings"
+msgstr "Hlavní nastavení"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:22
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:162
+msgid "Dashboard mode"
+msgstr "Režim ukazatele"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:23
+msgid ""
+"Select whether the dashboard page will use canvas meters or text values."
+msgstr ""
+"Zvolte, zda stránka dashboardu bude používat ukazatele nebo textové hodnoty."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:24
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:184
+msgid "Canvas size"
+msgstr "Velikost ukazatele"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:25
+msgid "The number determines the size of the round meter in canvas mode."
+msgstr "Číslo určuje velikost kulatého měřiče v režimu plátna."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:26
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:201
+msgid "Text font"
+msgstr "Velikost písma"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:27
+msgid "The number determines the font size in text mode."
+msgstr "Číslo určuje velikost písma v textovém režimu."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:30
+msgid "Gauge settings"
+msgstr "Nastavení ukazatele"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:32
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:226
+msgid "Add Gauge"
+msgstr "Přidat ukazatel"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:33
+msgid "Adds a new gauge with default settings."
+msgstr "Přidává nový ukazatel s výchozími nastaveními."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:35
+msgid "Removes the selected gauge from the dashboard."
+msgstr "Odstraní vybraný ukazatel z dashboardu."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:37
+msgid ""
+"When checked, this gauge is shown on the dashboard. When unchecked, the "
+"gauge is saved but hidden."
+msgstr ""
+"Zobrazovat ukazatel - když je neoznačený, ukazatel se uloží, ale skryje na "
+"plátně (nebo v textu)."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:39
+msgid "The name displayed on the canvas meter or before the text value."
+msgstr "Jméno zobrazené na měřiči nebo před textovou hodnotou."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:40
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:279
+msgid "Unit"
+msgstr "Jednotka"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:41
+msgid ""
+"The unit displayed after the value, for example C, %, cm, l, V, or km/h."
+msgstr "Jednotka zobrazená po hodnotě například C, %, cm, l, V nebo km/h."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:42
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:290
+msgid "Source"
+msgstr "Zdroj"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:43
+msgid ""
+"Selects where the value is read from. Available sources are loaded from the "
+"plugin source registry."
+msgstr ""
+"Vybere, odkud se hodnota čte. Dostupné zdroje se načítají z registru "
+"rozšíření."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:44
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:304
+msgid "Channel"
+msgstr "Kanál"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:45
+msgid ""
+"Selects the input channel for the selected source. The list changes "
+"automatically after changing Source."
+msgstr ""
+"Vybere vstupní kanál pro vybraný zdroj. Seznam se automaticky změní po změně "
+"zdroje."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:46
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:319
+msgid "Value type"
+msgstr "Typ hodnoty"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:47
+msgid ""
+"Selects which value from the selected source is used. The list changes "
+"automatically after changing Source."
+msgstr ""
+"Vybere, která hodnota z vybraného zdroje bude použita. Seznam se automaticky "
+"změní po změně zdroje."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:50
+msgid "Scale and colors"
+msgstr "Měřítko a barvy"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:52
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:338
+msgid "Ticks"
+msgstr "Zvýraznění stupnice"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:53
+msgid ""
+"Comma separated scale labels used by the canvas meter, for example "
+"0,25,50,75,100."
+msgstr ""
+"Štítky stupnic oddělené čárkou používané na pozadí ukazatele, například "
+"0,25,50,75,100."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:54
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:348
+#: plugins/weather_stations/templates/help_page.html:28
+msgid "Min"
+msgstr "Min"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:55
+msgid "Minimum value of the canvas meter scale."
+msgstr "Tato hodnota musí být minimem rozsahu ze stupnice."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:56
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:358
+#: plugins/weather_stations/templates/help_page.html:30
+msgid "Max"
+msgstr "Max"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:57
+msgid "Maximum value of the canvas meter scale."
+msgstr "Tato hodnota musí být maximum rozsahu ze stupnice."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:59
+msgid "Range highlighted in red on the canvas meter."
+msgstr "Rozsah zvýrazněný červeně na plátně ukazatele."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:61
+msgid "Range highlighted in blue on the canvas meter."
+msgstr "Rozsah zvýrazněný modře na plátně ukazatele."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:63
+msgid "Range highlighted in green on the canvas meter."
+msgstr "Rozsah zvýrazněný zeleně na plátně ukazatele."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:66
+msgid "Available sources"
+msgstr "Dostupné zdroje"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:69
+msgid ""
+"Reads DS18B20 probes from the Air Temperature and Humidity Monitor plugin."
+msgstr "Čte čidla DS18B20 z rozšíření Air Temperature and Humidity Monitor."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:71
+msgid "Reads percent and volume values from the Water Tank Monitor plugin."
+msgstr "Čte procenta a objemové hodnoty z rozšíření Water Tank Monitor."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:72
+msgid "Current Loop"
+msgstr "Proudová smyčka"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:73
+msgid ""
+"Reads percent, cm, liter, and voltage values from the Current Loop Tanks "
+"Monitor plugin."
+msgstr ""
+"Čte procenta, cm, litr a napětí z rozšíření Current Loop Tanks Monitor."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:74
+msgid "Wind Monitor"
+msgstr "Monitor větru"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:75
+msgid "Reads wind speed from the Wind Speed Monitor plugin."
+msgstr "Čte rychlost větru z rozšíření Wind Speed Monitor."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:76
+msgid "OSPy Sensor"
+msgstr "OSPy snímače"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:77
+msgid "Reads values from configured OSPy sensors."
+msgstr "Čte hodnoty z konfigurovaných OSPy snímačů."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:80
+msgid "Saving settings"
+msgstr "Uložení nastavení"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:83
+msgid "Saves all dashboard and gauge settings."
+msgstr "Ukládá všechna nastavení dashboardu a ukazatelů."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:85
+msgid "Leaves the settings page without saving changes."
+msgstr "Opouští stránku nastavení bez uložení změn."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:88
+msgid ""
+"After saving, open the dashboard page to view the configured gauges. Values "
+"are refreshed automatically."
+msgstr ""
+"Po uložení otevřete stránku na dashboardu, abyste viděli nakonfigurované "
+"ukazatele. Hodnoty se obnovují automaticky."
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:157
+msgid "General Settings"
+msgstr "Hlavní nastavení"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:241
+msgid "Gauge"
+msgstr "Ukazatel"
+
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:334
+#: plugins/weather_stations/templates/help_page.html:26
+#: plugins/weather_stations/templates/settings_page.html:61
+#: plugins/weather_stations/templates/settings_page.html:119
+#: plugins/weather_stations/templates/settings_page.html:173
+#: plugins/weather_stations/templates/settings_page.html:225
+msgid "Scale"
+msgstr "Stupnice"
+
 #: plugins/weather_stations/__init__.py:16
 msgid "Package: Weather Stations"
 msgstr "Balíček: Meteorologická stanice"
@@ -23345,29 +23675,13 @@ msgstr "Jednotky"
 msgid "In which units we want to display the data."
 msgstr "Ve kterých jednotkách chceme data zobrazit."
 
-#: plugins/weather_stations/templates/help_page.html:26
-#: plugins/weather_stations/templates/settings_page.html:61
-#: plugins/weather_stations/templates/settings_page.html:119
-#: plugins/weather_stations/templates/settings_page.html:173
-#: plugins/weather_stations/templates/settings_page.html:225
-msgid "Scale"
-msgstr "Stupnice"
-
 #: plugins/weather_stations/templates/help_page.html:27
 msgid "Division scale according to our requirements."
 msgstr "Dělení stupnice dle našich požadavků."
 
-#: plugins/weather_stations/templates/help_page.html:28
-msgid "Min"
-msgstr "Min"
-
 #: plugins/weather_stations/templates/help_page.html:29
 msgid "This value must be the minimum of the range from Scale."
 msgstr "Tato hodnota musí být minimem rozsahu ze stupnice."
-
-#: plugins/weather_stations/templates/help_page.html:30
-msgid "Max"
-msgstr "Max"
 
 #: plugins/weather_stations/templates/help_page.html:31
 msgid "This value must be the maximum of the range from Scale."
@@ -25307,9 +25621,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "\\302\\260C"
 #~ msgstr "\\302\\260C"
-
-#~ msgid "Canvas DS1"
-#~ msgstr "Budík DS1"
 
 #~ msgid "Canvas DS2"
 #~ msgstr "Budík DS2"

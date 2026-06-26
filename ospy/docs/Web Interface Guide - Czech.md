@@ -1065,7 +1065,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Temperature Switch (regulátor teploty, který umožnuje 3 nezávislé zóny)
 * Pool Heating (regulace teploty bazénu dle solárního ohřevu)
 * E-mail reader (ovládání OSPy pomocí E-mailových zpráv)
-* Weather Stations (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků)
+* Weather Stations (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků) verze 1.0
 * Telegram Bot (komunikace s OSPy pomocí telegram.org app)
 * Door Opening (otevření zámku dveří, nebo posuvné brány)
 * Voice Station (zvuková upozornění na základě události stanic- přehrávání souborů wav a mp3)
@@ -1085,6 +1085,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Shelly Cloud Integration (načítání stavů z cloudu výrobce zařízení Shelly).
 * Current Loop Tanks Mmonitor (měření hladiny ze 4 snímačů).
 * Network Ping Monitor (monitoring dostupnosti 3 zařízení v síti).
+* Weather Dashboard (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků) verze 2.0
 ----
 
 # Odhlásit se

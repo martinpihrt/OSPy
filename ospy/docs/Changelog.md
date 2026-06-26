@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+June 26 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech language update. New weather dashboard plugin (not everything has been tested).
+
 November 04 2025 (v3.0)
 -----------
 (martinpihrt)<br/>

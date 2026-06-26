@@ -1060,6 +1060,7 @@ Available plug-ins:
 * Shelly Cloud Integration
 * Current Loop Tanks Mmonitor
 * Network Ping Monitor
+* Weather Dashboard
 
 ----
 
