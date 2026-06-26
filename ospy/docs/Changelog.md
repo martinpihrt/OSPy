@@ -4,7 +4,7 @@ OSPy Changelog
 June 26 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-Czech language update. New weather dashboard plugin (not everything has been tested).
+Czech language update. New weather dashboard plugin (not everything has been tested). Added hot start/stop/reload handling for plugins from the plugin manager, so an enabled or updated plugin can be loaded again without restarting OSPy. Runtime home page data registered by stopped plugins is now cleared, and the home page graph was updated to the newer plugin graph style with better empty-data handling and safer redraws. Fixed plugin static script paths on plugin pages, which could load HTML instead of JavaScript when a plugin page was opened. Hardened web session loading and cleanup to recover from damaged session cache data; the login page now also has a reset-session link for this case. Weather location lookup now sends a User-Agent header to avoid HTTP 403 errors from the location service. MQTT Home Assistant plugin integration now handles optional plugins that are stopped or not running without raising runtime exceptions.
 
 November 04 2025 (v3.0)
 -----------

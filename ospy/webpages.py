@@ -43,6 +43,31 @@ pluginStn = []      # Empty list of dicts to hold plugin data for display on tim
 pluginScripts = []  # Empty list of script file names for script injections requested by plugins
 sensorSearch = []   # Empty list of dicts to hold sensors data for display on sensor search page
 
+
+def _plugin_module_from_stack():
+    try:
+        plugins_dir = os.path.dirname(os.path.abspath(plugins.__file__))
+        for tb in reversed(traceback.extract_stack()):
+            tb_dir = os.path.dirname(os.path.abspath(tb[0]))
+            if tb_dir.startswith(plugins_dir) and tb_dir != plugins_dir:
+                parts = tb_dir[len(plugins_dir):].split(os.path.sep)
+                while parts and not parts[0]:
+                    del parts[0]
+                if parts:
+                    return parts[0]
+    except Exception:
+        log.debug('webpages.py', traceback.format_exc())
+    return None
+
+
+def clear_plugin_runtime_data(module):
+    global pluginFtr
+    pluginFtr = [entry for entry in pluginFtr if entry.get("plugin") != module]
+
+    for entry in pluginStn:
+        if len(entry) >= 3 and entry[2] == module:
+            del entry[:]
+
 loggedin = signal('loggedin')
 def report_login():
     loggedin.send()
@@ -1318,6 +1343,15 @@ class login_page(WebPage):
     """Login page"""
 
     def GET(self):
+        qdict = web.input()
+        if 'reset_session' in qdict:
+            from ospy import server
+            try:
+                server.session.kill()
+            except Exception:
+                log.debug('webpages.py', traceback.format_exc())
+            raise web.seeother('/login', True)
+
         if check_login(False):
             raise web.seeother('/')
         else:
@@ -2463,14 +2497,15 @@ class showInFooter(object):
         self._val = val
         self._unit = unit
         self._button = button
+        self._plugin = _plugin_module_from_stack()
         self._timestamp = datetime.datetime.now()   # Adding timestamp
         self._hash = self._generate_hash()          # Create hash for unique identification
         if self._val:                               # If val is not empty, we add the item
             self._add_to_pluginFtr()                # Add to pluginFtr only if val is not empty
 
     def _generate_hash(self):
-        """Generates a hash for comparison based on label only"""
-        return hash(self._label)
+        """Generates a hash for comparison based on plugin and label."""
+        return hash((self._plugin, self._label))
 
     def _add_to_pluginFtr(self):
         """Adds or updates an item in pluginFtr based on label"""
@@ -2486,6 +2521,7 @@ class showInFooter(object):
                 item["unit"] = self._unit
                 item["button"] = self._button
                 item["timestamp"] = self._timestamp
+                item["plugin"] = self._plugin
                 return
 
         # If no item with the same label exists, add a new item
@@ -2495,7 +2531,8 @@ class showInFooter(object):
             "unit": self._unit,
             "button": self._button,
             "timestamp": self._timestamp,   # Add timestamp
-            "hash": self._hash              # Store hash for future duplicate checks
+            "hash": self._hash,             # Store hash for future duplicate checks
+            "plugin": self._plugin
         })
 
         #self.remove_old_entries()
@@ -2557,10 +2594,11 @@ class showOnTimeline:
     def __init__(self, val="", unit=""):
         self._val = val
         self._unit = unit
+        self._plugin = _plugin_module_from_stack()
         self._idx = len(pluginStn)
         
         # Append a new entry to pluginStn with the initial values
-        pluginStn.append([self._unit, self._val])
+        pluginStn.append([self._unit, self._val, self._plugin])
 
     @property
     def clear(self):
@@ -2577,7 +2615,8 @@ class showOnTimeline:
     def unit(self, text):
         self._unit = text
         if 0 <= self._idx < len(pluginStn):
-            pluginStn[self._idx][0] = self._unit
+            if len(pluginStn[self._idx]) >= 2:
+                pluginStn[self._idx][0] = self._unit
         else:
             self._handle_index_error()
 
@@ -2589,7 +2628,8 @@ class showOnTimeline:
     def val(self, num):
         self._val = num
         if 0 <= self._idx < len(pluginStn):
-            pluginStn[self._idx][1] = self._val
+            if len(pluginStn[self._idx]) >= 2:
+                pluginStn[self._idx][1] = self._val
         else:
             self._handle_index_error()
 
@@ -2618,6 +2658,8 @@ class api_plugin_data(ProtectedPage):
                         footer_data.append((i, v["val"]))
                 # plugin data in timeline
                 for v in pluginStn:
+                    if len(v) < 2:
+                        continue
                     found = False
                     for i, (station_id, _) in enumerate(station_data):
                         if station_id == v[0]:

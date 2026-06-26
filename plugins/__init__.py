@@ -10,6 +10,33 @@ import importlib
 __running = {}
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
+
+def _plugin_import_name(module):
+    return __name__ + '.' + module
+
+
+def _clear_plugin_caches(module):
+    """Clear cached plugin metadata and route mappings after an install/update."""
+    __name_cache.pop(module, None)
+    __name_cache_menu.pop(module, None)
+
+    for key in list(__urls_cache.keys()):
+        if key == module or getattr(key, '__name__', '').endswith('.' + module):
+            __urls_cache.pop(key, None)
+
+
+def _unload_plugin_modules(module):
+    """Remove a plugin package and its submodules so the next import reads disk."""
+    import_name = _plugin_import_name(module)
+    for name in list(sys.modules.keys()):
+        if name == import_name or name.startswith(import_name + '.'):
+            del sys.modules[name]
+
+    if hasattr(sys.modules.get(__name__), module):
+        delattr(sys.modules[__name__], module)
+
+    importlib.invalidate_caches()
+
 ################################################################################
 # Plugin Options                                                               #
 ################################################################################
@@ -238,8 +265,7 @@ class _PluginChecker(threading.Thread):
         # First stop it if it is running:
         enabled = plugin in options.enabled_plugins
         if enabled:
-            options.enabled_plugins.remove(plugin)
-            start_enabled_plugins()
+            stop_plugin(plugin)
 
         # Clean the target directory and create it if needed:
         target_dir = plugin_dir(plugin)
@@ -247,7 +273,11 @@ class _PluginChecker(threading.Thread):
             old_files = os.listdir(target_dir)
             for old_file in old_files:
                 if old_file != 'data':
-                    shutil.rmtree(os.path.join(target_dir, old_file), onerror=del_rw)
+                    old_path = os.path.join(target_dir, old_file)
+                    if os.path.isdir(old_path):
+                        shutil.rmtree(old_path, onerror=del_rw)
+                    else:
+                        del_rw(None, old_path, None)
         else:
             mkdir_p(target_dir)
 
@@ -280,11 +310,12 @@ class _PluginChecker(threading.Thread):
             'date': plugin_date
         }
         options.plugin_status = options.plugin_status
+        _clear_plugin_caches(plugin)
+        _unload_plugin_modules(plugin)
 
         # Start again if needed:
         if enabled:
-            options.enabled_plugins.append(plugin)
-            start_enabled_plugins()
+            reload_plugin(plugin)
 
     def install_repo_plugin(self, repo, plugin_filter):
         self.install_custom_plugin(self._get_zip(repo), plugin_filter)
@@ -471,44 +502,89 @@ def _get_urls(import_name, plugin):
 ################################################################################
 # Plugin start/stop                                                            #
 ################################################################################
-def start_enabled_plugins():
+def stop_plugin(module):
+    from ospy.options import options
+    import logging
+
+    plugin = __running.get(module)
+    if plugin is not None:
+        plugin_n = getattr(plugin, 'NAME', module)
+        try:
+            plugin.stop()
+            logging.info(_('Stopped the') + ': {}'.format(plugin_n))
+        except Exception:
+            logging.error(_('Failed to stop the') + ': {} {}'.format(plugin_n, traceback.format_exc()))
+        finally:
+            __running.pop(module, None)
+
+    try:
+        from ospy.webpages import clear_plugin_runtime_data
+        clear_plugin_runtime_data(module)
+    except Exception:
+        logging.error(_('Failed to clear runtime data for the plug-in') + ': {} {}'.format(module, traceback.format_exc()))
+
+    _clear_plugin_caches(module)
+    _unload_plugin_modules(module)
+
+    if module not in options.enabled_plugins:
+        _protect(module)
+
+
+def start_plugin(module):
     from ospy.helpers import mkdir_p
     from ospy.options import options
     import logging
-    import time
+
+    if module not in options.enabled_plugins or module in __running:
+        return module in __running
+
+    plugin_n = module
+    try:
+        _clear_plugin_caches(module)
+        _unload_plugin_modules(module)
+
+        import_name = _plugin_import_name(module)
+        plugin = importlib.import_module(import_name)
+        plugin_n = plugin.NAME
+
+        mkdir_p(plugin_data_dir(module))
+        mkdir_p(plugin_docs_dir(module))
+
+        plugin.start()
+        __running[module] = plugin
+        logging.info(_('Started the') + ': {}'.format(plugin_n))
+
+        if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
+            plugin.LINK = module + '.' + plugin.LINK
+
+        return True
+
+    except Exception:
+        logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n, traceback.format_exc()))
+        if module in options.enabled_plugins:
+            options.enabled_plugins.remove(module)
+            options.enabled_plugins = options.enabled_plugins
+        _clear_plugin_caches(module)
+        _unload_plugin_modules(module)
+        _protect(module)
+        return False
+
+
+def reload_plugin(module):
+    stop_plugin(module)
+    return start_plugin(module)
+
+
+def start_enabled_plugins():
+    from ospy.options import options
     
     for module in available():
         if module in options.enabled_plugins and module not in __running:
-            plugin_n = module
-            import_name = __name__ + '.' + module
-            try:
-                plugin = getattr(__import__(import_name), module)
-                plugin = importlib.reload(plugin)
-                plugin_n = plugin.NAME
-                mkdir_p(plugin_data_dir(module))
-                mkdir_p(plugin_docs_dir(module))
+            start_plugin(module)
 
-                plugin.start()
-                __running[module] = plugin
-                logging.info(_('Started the') + ': {}'.format(plugin_n))
-
-                if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
-                    plugin.LINK = module + '.' + plugin.LINK
-
-            except Exception:
-                logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n, traceback.format_exc()))
-                options.enabled_plugins.remove(module)
-                pass
-
-    for module, plugin in __running.copy().items():
+    for module in list(__running.keys()):
         if module not in options.enabled_plugins:
-            plugin_n = plugin.NAME
-            try:
-                plugin.stop()
-                del __running[module]
-                logging.info(_('Stopped the') + ': {}'.format(plugin_n))
-            except Exception:
-                logging.error(_('Failed to stop the') + ': {} {}'.format(plugin_n, traceback.format_exc()))
+            stop_plugin(module)
 
 
 def running():
@@ -525,14 +601,19 @@ def get(name):
 # Only enabled plug-ins will be allowed to be imported.
 class _PluginWrapper(types.ModuleType):
     def __init__(self, wrapped):
+        super(_PluginWrapper, self).__init__(_plugin_import_name(wrapped))
         self._wrapped = wrapped
+        self.__file__ = None
+        self.__package__ = __name__
 
     def __getattr__(self, name):
+        if name.startswith('__') and name.endswith('__'):
+            raise AttributeError(name)
         return getattr(get(self._wrapped), name)
 
 
 def _protect(module):
-    if __name__ not in sys.modules:
-        import_name = __name__ + '.' + module
+    import_name = _plugin_import_name(module)
+    if import_name not in sys.modules:
         sys.modules[import_name] = _PluginWrapper(module)
         setattr(sys.modules[__name__], module, _PluginWrapper(module))

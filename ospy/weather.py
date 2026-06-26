@@ -120,8 +120,11 @@ class _Weather(Thread):
 
     def _find_location(self):
         if options.location:
-            data = urlopen(
-                "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location))
+            request = Request(
+                "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location),
+                headers={'User-Agent': 'OSPy/{} contact: pihrt.com'.format(options.name)}
+            )
+            data = urlopen(request)
             data = json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
             if not data:
                 options.weather_status = 0 # Weather - No location found!

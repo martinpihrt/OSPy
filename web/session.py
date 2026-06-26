@@ -111,6 +111,7 @@ class Session(object):
 
     def _load(self):
         """Load the session from the store, by the id from cookie"""
+        self._data.clear()
         cookie_name = self._config.cookie_name
         self.session_id = web.cookies().get(cookie_name)
 
@@ -118,11 +119,15 @@ class Session(object):
         if self.session_id and not self._valid_session_id(self.session_id):
             self.session_id = None
 
-        self._check_expiry()
-        if self.session_id:
-            d = self.store[self.session_id]
-            self.update(d)
-            self._validate_ip()
+        try:
+            self._check_expiry()
+            if self.session_id:
+                d = self.store[self.session_id]
+                self.update(d)
+                self._validate_ip()
+        except Exception as e:
+            log.error('web', _('Error loading session data, creating a new session: {}').format(e))
+            self.session_id = None
 
         if not self.session_id:
             self.session_id = self._generate_session_id()
@@ -217,7 +222,11 @@ class Session(object):
 
             hashable = "{}{}{}{}".format(rand, now, utils.safestr(web.ctx.ip), secret_key)
             session_id = sha1(hashable.encode("utf-8")).hexdigest()
-            if session_id not in self.store:
+            try:
+                if session_id not in self.store:
+                    break
+            except Exception as e:
+                log.error('web', _('Error checking session id in store: {}').format(e))
                 break
         return session_id
 
@@ -230,7 +239,10 @@ class Session(object):
         current_time = time.time()
         timeout = self._config.timeout
         if current_time - self._last_cleanup_time > timeout:
-            self.store.cleanup(timeout)
+            try:
+                self.store.cleanup(timeout)
+            except Exception as e:
+                log.error('web', _('Error cleaning sessions: {}').format(e))
             self._last_cleanup_time = current_time
 
     def expired(self):
@@ -241,7 +253,10 @@ class Session(object):
 
     def kill(self):
         """Kill the session, make it no longer available"""
-        del self.store[self.session_id]
+        try:
+            del self.store[self.session_id]
+        except Exception as e:
+            log.error('web', _('Error killing session: {}').format(e))
         self._killed = True
 
 
@@ -426,10 +441,24 @@ class ShelfStore:
         self.lock = threading.Lock()
 
     def __contains__(self, key):
-        return key in self.shelf
+        with self.lock:
+            try:
+                return key in self.shelf
+            except Exception as e:
+                log.error('web', _('Error checking session key: {}').format(e))
+                return False
 
     def __getitem__(self, key):
-        atime, v = self.shelf[key]
+        with self.lock:
+            try:
+                atime, v = self.shelf[key]
+            except Exception as e:
+                log.error('web', _('Error reading session key: {}').format(e))
+                try:
+                    del self.shelf[key]
+                except Exception:
+                    pass
+                raise KeyError(key)
         self[key] = v  # update atime
         return v
 
@@ -449,25 +478,33 @@ class ShelfStore:
             
 
     def __delitem__(self, key):
-        try:
-            del self.shelf[key]
-        except KeyError:
-            pass
-        except Exception as e:
-            pass
-            log.error('web', _('Error while deleting from database: {}').format(e))
+        with self.lock:
+            try:
+                del self.shelf[key]
+            except KeyError:
+                pass
+            except Exception as e:
+                pass
+                log.error('web', _('Error while deleting from database: {}').format(e))
 
 
     def cleanup(self, timeout):
         now = time.time()
-        for k in self.shelf:
-            atime, v = self.shelf[k]
-            if now - atime > timeout:
-                try:
+        with self.lock:
+            try:
+                keys = list(self.shelf.keys())
+            except Exception as e:
+                log.error('web', _('Error listing sessions for cleanup: {}').format(e))
+                return
+
+        for k in keys:
+            try:
+                atime, v = self.shelf[k]
+                if now - atime > timeout:
                     del self[k]
-                except Exception as e:
-                    pass
-                    log.error('web', _('Error while cleaning: {}').format(e))
+            except Exception as e:
+                pass
+                log.error('web', _('Error while cleaning: {}').format(e))
 
 
 class MemoryStore(Store):
