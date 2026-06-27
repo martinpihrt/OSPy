@@ -3,10 +3,56 @@ $def with ()
 $var title: $_('Run-Once')
 $var page: runonce
 
+<style>
+    .runonce-countdown-label {
+        color: #666666;
+        font-size: 12px;
+        padding-left: 14px;
+        white-space: nowrap;
+    }
+
+    .runonce-countdown {
+        background: #eeeeee;
+        border: 1px solid #b8b8b8;
+        color: #555555;
+        cursor: default;
+        text-align: center;
+    }
+</style>
+
 <script>
     jQuery(document).ready(function(){
+    var runOnceName = $:{json.dumps(_('Run-Once'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+
+    function twoDigits(value) {
+        value = parseInt(value, 10);
+        value = isNaN(value) ? 0 : value;
+        return (value < 10 ? "0" : "") + value;
+    }
+
+    function setRemaining(stationIndex, seconds) {
+        seconds = Math.max(0, Math.floor(parseFloat(seconds) || 0));
+        var minutes = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        jQuery("#rrmm" + stationIndex).val(twoDigits(minutes));
+        jQuery("#rrss" + stationIndex).val(twoDigits(secs));
+    }
+
+    function updateRunOnceCountdowns() {
+        jQuery.getJSON("/status.json", function(statusList) {
+            jQuery("input[id^='rrmm']").val("00");
+            jQuery("input[id^='rrss']").val("00");
+
+            jQuery.each(statusList, function(index, station) {
+                if (station.status === "on" && station.programName === runOnceName) {
+                    setRemaining(station.station, station.remaining);
+                }
+            });
+        });
+    }
 
     jQuery("#cSubmit").click(function() {
+        var anything = false;
         var hours = jQuery("input[id^='mm']").map(function() {
             return jQuery(this).attr("id");
         }).get();
@@ -30,6 +76,9 @@ $var page: runonce
     jQuery("#cResetTime").click(function(){
         jQuery("input[type='number']").val(0);
     });
+
+    updateRunOnceCountdowns();
+    setInterval(updateRunOnceCountdowns, 1000);
     });
 </script>
 
@@ -43,6 +92,11 @@ $var page: runonce
                     <td title=$:{json.dumps(_('Type time for run in minutes and seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input id="mm${station.index}" name="mm${station.index}" type="number" size="3" maxlength="3" value="0" min="0" max="999">:
                         <input id="ss${station.index}" name="ss${station.index}" type="number" size="2" maxlength="2" value="0" min="0" max="59">
+                    </td>
+                    <td class="runonce-countdown-label" title=$:{json.dumps(_('Remaining time in sec'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Remaining time in sec')</td>
+                    <td title=$:{json.dumps(_('Remaining time in sec'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                        <input id="rrmm${station.index}" class="runonce-countdown" type="text" size="3" value="00" readonly tabindex="-1">:
+                        <input id="rrss${station.index}" class="runonce-countdown" type="text" size="2" value="00" readonly tabindex="-1">
                     </td>    
                 </tr>
         </table>
