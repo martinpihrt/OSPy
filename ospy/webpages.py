@@ -2412,6 +2412,13 @@ class api_status_json(ProtectedPage):
                     if not station.is_master or not station.is_master_two:
                         if options.manual_mode:
                             status['programName'] = 'Manual Mode'
+                            if station.active:
+                                active = log.active_runs()
+                                for interval in active:
+                                    if not interval['blocked'] and interval['station'] == station.index:
+                                        status['reason'] = 'program'
+                                        status['remaining'] = max(0, (interval['end'] -
+                                                                  datetime.datetime.now()).total_seconds())
                         else:
                             if station.active:
                                 active = log.active_runs()
