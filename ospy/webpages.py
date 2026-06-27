@@ -117,13 +117,7 @@ from web import form
 
 signin_form = form.Form(
     form.Textbox('username', description=_('Username:')),
-    form.Password('password', description=_('Password:')),
-    validators=[
-        form.Validator(
-            _('Incorrect username or password, please try again...'),
-            lambda x: test_password(x["password"], x["username"])
-        )  
-    ]
+    form.Password('password', description=_('Password:'))
 )
 
 
@@ -1363,8 +1357,11 @@ class login_page(WebPage):
 
     def POST(self):
         my_signin = signin_form()
+        qdict = web.input()
+        my_signin.fill(qdict)
 
-        if not my_signin.validates():
+        if not test_password(qdict.get('password', ''), qdict.get('username', '')):
+            my_signin.note = _('Incorrect username or password, please try again...')
             if options.first_installation:
                 return self.core_render.login(my_signin, options.first_password_hash)
             else:
@@ -1376,7 +1373,7 @@ class login_page(WebPage):
             if options.run_logEV:
                 logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
             log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
-            raise web.seeother('/')
+            raise web.seeother('/', True)
 
 
 class logout_page(WebPage):

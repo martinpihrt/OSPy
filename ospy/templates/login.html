@@ -9,6 +9,7 @@ $var page: login
 
 // secure key for auto login
 var key = "${options.auto_login_key}";
+var loginSubmitting = false;
 
 // check if browser has local storage
 function check_storage() {
@@ -44,8 +45,13 @@ function myCheck() {
 }
 
 jQuery(document).ready(function(){
-    jQuery("#cSubmit").click(function() {
-        if (check_storage){
+    function submitLoginForm() {
+        if (loginSubmitting) {
+            return false;
+        }
+        loginSubmitting = true;
+        jQuery("#cSubmit").prop("disabled", true);
+        if (check_storage()){
             var checkBox = document.getElementById("remember-me");
             if (checkBox.checked == true){
                 var username = document.getElementById("username").value; 
@@ -56,6 +62,12 @@ jQuery(document).ready(function(){
             }    
         }    
         jQuery("#login").submit();
+        return false;
+    }
+
+    jQuery("#cSubmit").click(function(event) {
+        event.preventDefault();
+        submitLoginForm();
     });
 
     if (check_storage()){
@@ -78,7 +90,7 @@ jQuery(document).ready(function(){
                 setTimeout(function(){ 
                     chkbx = document.getElementById("remember-me");
                     if (chkbx.checked == true){
-                        jQuery("#login").submit(); 
+                        submitLoginForm(); 
                     }    
                 }, 3000);
             }
@@ -146,7 +158,9 @@ jQuery(document).ready(function(){
     <div>
         <button id="cSubmit" class="submit"><b>$_('Login')</b></button>
     </div>
-    <div style="margin-top: 8px;">
-        <small><a href="/login?reset_session=1">$_('Reset session')</a></small>
+    <div style="margin-top: 12px;">
+        <button type="button" onclick="window.location='/login?reset_session=1'" title="$_('Reset session')" style="border: 1px solid #b8b8b8; background: #eeeeee; color: #666666; padding: 4px 10px; font-size: 11px; border-radius: 3px; cursor: pointer;">
+            $_('Reset session')
+        </button>
     </div>
 </div>
