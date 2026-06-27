@@ -68,6 +68,17 @@ def clear_plugin_runtime_data(module):
         if len(entry) >= 3 and entry[2] == module:
             del entry[:]
 
+
+def _format_display_datetime(value):
+    if isinstance(value, datetime.datetime):
+        return value.strftime('%Y-%m-%d %H:%M:%S')
+    if isinstance(value, str):
+        if value.endswith('Z') and 'T' in value:
+            return value[:-1].replace('T', ' ') + ' UTC'
+        return value
+    return value
+
+
 loggedin = signal('loggedin')
 def report_login():
     loggedin.send()
@@ -1719,8 +1730,20 @@ class plugins_manage_page(ProtectedPage):
         if changes is not None and changes in plugins.available():
             available_info = plugins.checker.available_version(changes)
             repo_index = available_info['repo_index'] if available_info is not None else 0
-            change_list = plugins.checker.plugin_changes(changes, repo_index=repo_index)
-            return self.core_render.plugins_changes(changes, change_list, available_info, options.plugin_status)
+            change_list = plugins.checker.plugin_changes(changes, repo_index=repo_index, force=True)
+            for change in change_list:
+                change['date'] = _format_display_datetime(change.get('date', ''))
+            if available_info is not None and change_list:
+                available_info = available_info.copy()
+                available_info['date'] = change_list[0].get('date', available_info.get('date', ''))
+            if available_info is not None:
+                available_info = available_info.copy()
+                available_info['date'] = _format_display_datetime(available_info.get('date', ''))
+            current_info = dict(options.plugin_status)
+            if changes in current_info and isinstance(current_info[changes], dict):
+                current_info[changes] = current_info[changes].copy()
+                current_info[changes]['date'] = _format_display_datetime(current_info[changes].get('date', ''))
+            return self.core_render.plugins_changes(changes, change_list, available_info, current_info)
 
         if disable_all:
             options.enabled_plugins = []

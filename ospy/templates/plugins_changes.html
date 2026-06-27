@@ -3,6 +3,14 @@ $def with (plugin, changes, available_info, current_info)
 $var title: $_('Plugin changes')
 $var page: plugins
 
+<style>
+    .plugin-changes-list {
+        max-height: 420px;
+        overflow-y: auto;
+        margin-top: 8px;
+    }
+</style>
+
 <div id="plugin">
     <div class="title">$_('Plugin changes'): ${plugins.plugin_name(plugin)}</div>
 
@@ -19,24 +27,27 @@ $var page: plugins
         <p>$_('Available version date'): ${available_info.get('date', '')}</p>
 
     $if changes:
-        <table class="optionList">
-            <tr>
-                <th>$_('Date')</th>
-                <th>$_('Commit')</th>
-                <th>$_('Changes')</th>
-            </tr>
-            $for change in changes:
+        <p><small>$_('Showing latest') ${len(changes)} $_('changes').</small></p>
+        <div class="plugin-changes-list">
+            <table class="optionList">
                 <tr>
-                    <td>${change.get('date', '')}</td>
-                    <td>
-                        $if change.get('url'):
-                            <a href="${change.get('url')}" target="_blank" rel="noopener noreferrer">${change.get('sha', '')}</a>
-                        $else:
-                            ${change.get('sha', '')}
-                    </td>
-                    <td>${change.get('message', '')}</td>
+                    <th>$_('Date')</th>
+                    <th>$_('Commit')</th>
+                    <th>$_('Changes')</th>
                 </tr>
-        </table>
+                $for change in changes:
+                    <tr>
+                        <td>${change.get('date', '')}</td>
+                        <td>
+                            $if change.get('url'):
+                                <a href="${change.get('url')}" target="_blank" rel="noopener noreferrer">${change.get('sha', '')}</a>
+                            $else:
+                                ${change.get('sha', '')}
+                        </td>
+                        <td>${change.get('message', '')}</td>
+                    </tr>
+            </table>
+        </div>
     $else:
         <p>$_('No changes were found for this plugin.')</p>
 </div>

@@ -152,6 +152,7 @@ class _PluginChecker(threading.Thread):
         import logging
 
         with self._lock:
+            self._changes_cache.clear()
             for repo in REPOS:
                 self._repo_data[repo] = self._download_zip(repo)
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
@@ -270,7 +271,7 @@ class _PluginChecker(threading.Thread):
         owner, name, branch = match.groups()
         return owner, name, branch
 
-    def plugin_changes(self, plugin, repo_index=0, limit=20):
+    def plugin_changes(self, plugin, repo_index=0, limit=20, force=False):
         import datetime
         import json
         import logging
@@ -291,9 +292,9 @@ class _PluginChecker(threading.Thread):
             if isinstance(installed_date, datetime.datetime):
                 since = installed_date.isoformat() + 'Z'
 
-        cache_key = (plugin, repo_index, since)
+        cache_key = (plugin, repo_index, since, limit)
         cached = self._changes_cache.get(cache_key)
-        if cached is not None and time.time() - cached['time'] < 600:
+        if not force and cached is not None and time.time() - cached['time'] < 600:
             return cached['changes']
 
         owner, name, branch = repo_info
