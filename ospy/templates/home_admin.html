@@ -199,18 +199,51 @@ function setManualRemaining(stationIndex, seconds) {
     seconds = Math.max(0, Math.floor(parseFloat(seconds) || 0));
     let minutes = Math.floor(seconds / 60);
     let secs = seconds % 60;
-    jQuery("#rrmm" + stationIndex).val(twoDigits(minutes));
-    jQuery("#rrss" + stationIndex).val(twoDigits(secs));
+    jQuery("#mm" + stationIndex).val(twoDigits(minutes));
+    jQuery("#ss" + stationIndex).val(twoDigits(secs));
+}
+
+function setManualStationRunning(stationIndex, seconds) {
+    let button = jQuery("button.manual[id='" + stationIndex + "']");
+    let mmInput = jQuery("#mm" + stationIndex);
+    let ssInput = jQuery("#ss" + stationIndex);
+
+    button.removeClass("off").addClass("on");
+    mmInput.prop("readonly", true).addClass("manual-countdown");
+    ssInput.prop("readonly", true).addClass("manual-countdown");
+
+    if (seconds > 356 * 24 * 3600) {
+        jQuery("#manualLabel" + stationIndex).text($:{json.dumps(_('Forever'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        mmInput.val("00");
+        ssInput.val("00");
+    } else {
+        jQuery("#manualLabel" + stationIndex).text($:{json.dumps(_('in'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        setManualRemaining(stationIndex, seconds);
+    }
+}
+
+function setManualStationStopped(stationIndex) {
+    let button = jQuery("button.manual[id='" + stationIndex + "']");
+    let wasRunning = button.hasClass("on");
+
+    button.removeClass("on").addClass("off");
+    jQuery("#manualLabel" + stationIndex).text($:{json.dumps(_('For'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#mm" + stationIndex).prop("readonly", false).removeClass("manual-countdown");
+    jQuery("#ss" + stationIndex).prop("readonly", false).removeClass("manual-countdown");
+
+    if (wasRunning) {
+        jQuery("#mm" + stationIndex).val("00");
+        jQuery("#ss" + stationIndex).val("00");
+    }
 }
 
 function updateManualCountdowns(status) {
-    jQuery("input[id^='rrmm']").val("00");
-    jQuery("input[id^='rrss']").val("00");
-
     for (let s=0; s<status.length; s++) {
         let station = status[s];
         if (station.status === "on" && station.programName === "Manual Mode") {
-            setManualRemaining(station.station, station.remaining);
+            setManualStationRunning(station.station, station.remaining);
+        } else if (station.master === 0 && station.master_two === 0) {
+            setManualStationStopped(station.station);
         }
     }
 
@@ -582,31 +615,23 @@ $if options.manual_mode:
                             <td class="shrink station_running">
                             <button class='toggle manual narrow on' id='${station.index}'>
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
-                            $if rem >= 0:
-                                <td class="shrink station_running">$_('in')</td>
-                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                                <input type='text' id='rrmm${station.index}' class="manual-countdown" size='2' maxlength='3' value='${two_digits(rem/60)}' readonly tabindex="-1"/></td>
-                                <td class="shrink station_running">:</td>
-                                <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                                <input type='text' id='rrss${station.index}' class="manual-countdown" size='2' maxlength='2' value='${two_digits(rem%60)}' readonly tabindex="-1"/></td>
-                                <td class="station_running"></td>
-                            $else:
-                                <td class="shrink station_running" colspan="5" style="text-align:left;">$_('Forever')</td>
+                            <td id="manualLabel${station.index}" class="shrink station_running">${_('in') if rem >= 0 else _('Forever')}</td>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                            <input type='text' id='mm${station.index}' class="manual-countdown" size='2' maxlength='3' value='${two_digits(rem/60) if rem >= 0 else "00"}' readonly tabindex="-1"/></td>
+                            <td class="shrink station_running">:</td>
+                            <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                            <input type='text' id='ss${station.index}' class="manual-countdown" size='2' maxlength='2' value='${two_digits(rem%60) if rem >= 0 else "00"}' readonly tabindex="-1"/></td>
+                            <td class="station_running"></td>
                         $else:
                             <td class="shrink station_running"><button class='toggle manual narrow off' id='${station.index}'>
                             <span class='toggleleft'>$_('On')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Off')</span></button></td>
-                            <td class="shrink station_running">$_('For')</td>
+                            <td id="manualLabel${station.index}" class="shrink station_running">$_('For')</td>
                             <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in minutes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <input type='text' id='mm${station.index}' size='2' maxlength='3' value='00'/></td>
                             <td class="shrink station_running">:</td>
                             <td class="shrink station_running" title=$:{json.dumps(_(u'Type time for run in seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                             <input type='text' id='ss${station.index}' size='2' maxlength='2' value='00'/></td>
-                            <td class="shrink station_running manual-countdown-label">$_('Remaining time in sec'):</td>
-                            <td class="shrink station_running">
-                            <input type='text' id='rrmm${station.index}' class="manual-countdown" size='2' maxlength='3' value='00' readonly tabindex="-1"/></td>
-                            <td class="shrink station_running">:</td>
-                            <td class="shrink station_running">
-                            <input type='text' id='rrss${station.index}' class="manual-countdown" size='2' maxlength='2' value='00' readonly tabindex="-1"/></td>
+                            <td class="station_running"></td>
                 </tr>
         <tr>
             <td colspan="3">
