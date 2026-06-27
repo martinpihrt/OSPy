@@ -115,9 +115,11 @@ class _PluginChecker(threading.Thread):
         super(_PluginChecker, self).__init__()
         self.daemon = True
         self._sleep_time = 0
+        self._lock = threading.RLock()
 
         self._repo_data = {}
         self._repo_contents = {}
+        self._changes_cache = {}
 
         self.start()
 
@@ -137,34 +139,42 @@ class _PluginChecker(threading.Thread):
         import logging
         while True:
             try:
-                if options.use_plugin_update:   
-                    for repo in REPOS:
-                        self._repo_data[repo] = self._download_zip(repo)
-                        self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
-
-                status = options.plugin_status
-                if options.auto_plugin_update and options.use_plugin_update and not log.active_runs():
-                    for plugin in available():
-                        update = self.available_version(plugin)
-                        if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
-                            logging.info(_('Updating the {} plug-in.').format(plugin))
-                            self.install_repo_plugin(update['repo'], plugin)
+                if options.use_plugin_update:
+                    self.refresh(install_updates=options.auto_plugin_update and not log.active_runs())
 
             except Exception:
                 logging.error(_('Failed to update the plug-ins information') + ': {}'.format(traceback.format_exc()))
             finally:
                 self._sleep(3600)
 
+    def refresh(self, install_updates=False):
+        from ospy.options import options
+        import logging
+
+        with self._lock:
+            for repo in REPOS:
+                self._repo_data[repo] = self._download_zip(repo)
+                self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
+
+            if install_updates:
+                status = options.plugin_status
+                for plugin in available():
+                    update = self.available_version(plugin)
+                    if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
+                        logging.info(_('Updating the {} plug-in.').format(plugin))
+                        self.install_repo_plugin(update['repo'], plugin)
+
     def available_version(self, plugin):
-        result = None
-        for repo_index, repo in enumerate(REPOS):
-            repo_contents = self.get_repo_contents(repo)
-            if plugin in repo_contents:
-                result = repo_contents[plugin]
-                result['repo_index'] = repo_index
-                result['repo'] = repo
-                break
-        return result
+        with self._lock:
+            result = None
+            for repo_index, repo in enumerate(REPOS):
+                repo_contents = self.get_repo_contents(repo)
+                if plugin in repo_contents:
+                    result = repo_contents[plugin].copy()
+                    result['repo_index'] = repo_index
+                    result['repo'] = repo
+                    break
+            return result
 
     @staticmethod
     def _download_zip(repo):
@@ -241,15 +251,83 @@ class _PluginChecker(threading.Thread):
 
     def get_repo_contents(self, repo):
         import logging
-        try:
-            if repo not in self._repo_contents:
-                self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
-        except Exception:
-            logging.error(_('Failed to get contents of {}:').format(repo) + '\n' + traceback.format_exc())
-            pass
-            return {}
+        with self._lock:
+            try:
+                if repo not in self._repo_contents:
+                    self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
+            except Exception:
+                logging.error(_('Failed to get contents of {}:').format(repo) + '\n' + traceback.format_exc())
+                pass
+                return {}
 
-        return self._repo_contents[repo]
+            return self._repo_contents[repo]
+
+    @staticmethod
+    def _github_repo_info(repo):
+        match = re.match(r'https://github\.com/([^/]+)/([^/]+)/archive/([^/]+)\.zip', repo)
+        if not match:
+            return None
+        owner, name, branch = match.groups()
+        return owner, name, branch
+
+    def plugin_changes(self, plugin, repo_index=0, limit=20):
+        import datetime
+        import json
+        import logging
+        import time
+        from urllib.parse import urlencode
+        from urllib.request import Request, urlopen
+        from ospy.options import options
+
+        repo = REPOS[repo_index]
+        repo_info = self._github_repo_info(repo)
+        if repo_info is None:
+            return []
+
+        status = options.plugin_status
+        since = None
+        if plugin in status and isinstance(status[plugin], dict):
+            installed_date = status[plugin].get('date')
+            if isinstance(installed_date, datetime.datetime):
+                since = installed_date.isoformat() + 'Z'
+
+        cache_key = (plugin, repo_index, since)
+        cached = self._changes_cache.get(cache_key)
+        if cached is not None and time.time() - cached['time'] < 600:
+            return cached['changes']
+
+        owner, name, branch = repo_info
+        params = {
+            'sha': branch,
+            'path': 'plugins/{}'.format(plugin),
+            'per_page': limit
+        }
+        if since:
+            params['since'] = since
+
+        url = 'https://api.github.com/repos/{}/{}/commits?{}'.format(owner, name, urlencode(params))
+        changes = []
+
+        try:
+            request = Request(url, headers={'User-Agent': 'OSPy plugin manager'})
+            response = urlopen(request, timeout=20)
+            data = json.loads(response.read().decode('utf-8'))
+            for item in data:
+                commit = item.get('commit', {})
+                author = commit.get('author') or {}
+                message = (commit.get('message') or '').splitlines()[0]
+                sha = item.get('sha', '')
+                changes.append({
+                    'sha': sha[:7],
+                    'date': author.get('date', ''),
+                    'message': message,
+                    'url': item.get('html_url', '')
+                })
+        except Exception:
+            logging.error(_('Failed to get plug-in changes') + ': {}'.format(traceback.format_exc()))
+
+        self._changes_cache[cache_key] = {'time': time.time(), 'changes': changes}
+        return changes
 
     @staticmethod
     def _install_plugin(zip_file_data, plugin, p_dir):

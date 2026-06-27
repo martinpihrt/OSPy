@@ -1710,8 +1710,20 @@ class plugins_manage_page(ProtectedPage):
         disable_all = get_input(qdict, 'disable_all', False, lambda x: True)
         enable_all = get_input(qdict, 'enable_all', False, lambda x: True)
         delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
+        refresh = get_input(qdict, 'refresh', False, lambda x: True)
+        changes = get_input(qdict, 'changes', None)
         auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
         use_update = get_input(qdict, 'use', None, lambda x: x == '1')
+
+        if refresh:
+            plugins.checker.refresh(install_updates=False)
+            raise web.seeother('/plugins_manage')
+
+        if changes is not None and changes in plugins.available():
+            available_info = plugins.checker.available_version(changes)
+            repo_index = available_info['repo_index'] if available_info is not None else 0
+            change_list = plugins.checker.plugin_changes(changes, repo_index=repo_index)
+            return self.core_render.plugins_changes(changes, change_list, available_info, options.plugin_status)
 
         if disable_all:
             options.enabled_plugins = []

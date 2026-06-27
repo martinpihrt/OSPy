@@ -21,6 +21,7 @@ $var page: plugins
         </a>
     </div>
     <a href="/plugins_install" class="button add">$_('Install new plugin')</a>
+    <a href="/plugins_manage?refresh" class="button upload">$_('Load changes')</a>
     <a href="/plugins_manage?disable_all" class="button danger">$_('Disable All')</a>
     <a href="/plugins_manage?enable_all" class="button upload">$_('Enable All')</a>
     <a href="/plugins_manage?delete_all" class="button danger">$_('Delete All')</a>
@@ -49,6 +50,14 @@ $var page: plugins
                         </a>
                     $else:
                         <a class="button open">$_('No update')</a>
+                </div>
+
+                <div style="display: inline-block; padding: 0; width: 100px;">
+                    $ has_update = available_info is not None and (plugin not in current_info or current_info[plugin]['hash'] != available_info['hash'])
+                    $if has_update:
+                        <a href="/plugins_manage?changes=${plugin}" class="button open">$_('Changes')</a>
+                    $else:
+                        <a class="button open">$_('Changes')</a>
                 </div>
 
                 <div style="display: inline-block; padding: 0; width: 90px;">

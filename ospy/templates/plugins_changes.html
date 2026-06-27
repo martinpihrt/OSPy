@@ -1,0 +1,42 @@
+$def with (plugin, changes, available_info, current_info)
+
+$var title: $_('Plugin changes')
+$var page: plugins
+
+<div id="plugin">
+    <div class="title">$_('Plugin changes'): ${plugins.plugin_name(plugin)}</div>
+
+    <p>
+        <a href="/plugins_manage" class="button cancel danger">$_('Cancel')</a>
+        $if available_info is not None:
+            <a href="/plugins_install?repo=${available_info['repo_index']}&plugin=${plugin}&install" class="button open">$_('Update')</a>
+    </p>
+
+    $if plugin in current_info:
+        <p>$_('Installed version date'): ${current_info[plugin].get('date', '')}</p>
+
+    $if available_info is not None:
+        <p>$_('Available version date'): ${available_info.get('date', '')}</p>
+
+    $if changes:
+        <table class="optionList">
+            <tr>
+                <th>$_('Date')</th>
+                <th>$_('Commit')</th>
+                <th>$_('Changes')</th>
+            </tr>
+            $for change in changes:
+                <tr>
+                    <td>${change.get('date', '')}</td>
+                    <td>
+                        $if change.get('url'):
+                            <a href="${change.get('url')}" target="_blank" rel="noopener noreferrer">${change.get('sha', '')}</a>
+                        $else:
+                            ${change.get('sha', '')}
+                    </td>
+                    <td>${change.get('message', '')}</td>
+                </tr>
+        </table>
+    $else:
+        <p>$_('No changes were found for this plugin.')</p>
+</div>
