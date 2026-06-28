@@ -1540,13 +1540,6 @@ class programs_page(ProtectedPage):
     def GET(self):
         from ospy.server import session
 
-        qdict = web.input()
-        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
-        if delete_all and session['category'] == 'admin':
-            while programs.count() > 0:
-                programs.remove_program(programs.count()-1)
-            report_program_deleted()
-
         if session.get('category') == 'admin':
             return self.core_render.programs()
         elif session.get('category')== 'user': 
@@ -1555,33 +1548,86 @@ class programs_page(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
+    def POST(self):
+        from ospy.server import session
+
+        qdict = web.input()
+        action = qdict.get('action', '')
+
+        if action == 'runnow' and session.get('category') in ['admin', 'user']:
+            index = int(qdict.get('index', -1))
+            programs.run_now(index)
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_runnow()
+            raise web.seeother('/')
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
+        if action == 'delete_all':
+            while programs.count() > 0:
+                programs.remove_program(programs.count()-1)
+            report_program_deleted()
+
+        elif action == 'delete':
+            index = int(qdict.get('index', -1))
+            programs.remove_program(index)
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_deleted()
+
+        elif action == 'enable':
+            index = int(qdict.get('index', -1))
+            if 0 <= index < programs.count():
+                programs[index].enabled = qdict.get('enabled', '0') == '1'
+                Timer(0.1, programs.calculate_balances).start()
+                report_program_toggle()
+
+        elif action == 'copy':
+            index = int(qdict.get('index', -1))
+            programs.copy_program(index)
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+
+        elif action == 'move':
+            index = int(qdict.get('index', -1))
+            programs.move_program(index, qdict.get('group_id', 'default'))
+            report_program_change()
+
+        elif action == 'add_group':
+            programs.add_group(qdict.get('group_name', ''))
+            report_program_change()
+
+        elif action == 'rename_group':
+            programs.rename_group(qdict.get('group_id', 'default'), qdict.get('group_name', ''))
+            report_program_change()
+
+        elif action == 'toggle_group':
+            programs.toggle_group_collapsed(qdict.get('group_id', 'default'))
+
+        elif action == 'delete_group':
+            programs.remove_group(qdict.get('group_id', 'default'))
+            report_program_change()
+
+        elif action == 'copy_group':
+            programs.copy_group(qdict.get('group_id', 'default'))
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+
+        elif action == 'enable_group':
+            programs.set_group_enabled(qdict.get('group_id', 'default'), qdict.get('enabled', '0') == '1')
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_toggle()
+
+        raise web.seeother('/programs')
+
 class program_page(ProtectedPage):
     """Open page to allow program modification."""
 
     def GET(self, index):
-        from ospy.server import session
-
         qdict = web.input()
         try:
             index = int(index)
-            delete = get_input(qdict, 'delete', False, lambda x: True)
-            runnow = get_input(qdict, 'runnow', False, lambda x: True)
-            enable = get_input(qdict, 'enable', None, lambda x: x == '1')
-            if delete and session['category'] == 'admin':
-                programs.remove_program(index)
-                Timer(0.1, programs.calculate_balances).start()
-                report_program_deleted()
-                raise web.seeother('/programs')
-            elif runnow:
-                programs.run_now(index)
-                Timer(0.1, programs.calculate_balances).start()
-                report_program_runnow()
-                raise web.seeother('/')
-            elif enable is not None:
-                programs[index].enabled = enable
-                Timer(0.1, programs.calculate_balances).start()
-                report_program_toggle()
-                raise web.seeother('/programs')
         except ValueError:
             pass
 
@@ -1589,6 +1635,7 @@ class program_page(ProtectedPage):
             program = programs.get(index)
         else:
             program = programs.create_program()
+            program.group_id = qdict.get('group_id', 'default')
             program.set_days_simple(6*60, 30, 30, 0, [])
 
         report_program_change()
@@ -1612,6 +1659,7 @@ class program_page(ProtectedPage):
 
         program.name = qdict['name']
         program.stations = json.loads(qdict['stations'])
+        program.group_id = qdict.get('group_id', getattr(program, 'group_id', 'default'))
         program.enabled = True if qdict.get('enabled', 'off') == 'on' else False
 
         if qdict['schedule_type'] == ProgramType.WEEKLY_WEATHER:

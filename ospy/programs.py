@@ -7,6 +7,8 @@ import datetime
 import logging
 import traceback
 import math
+import copy
+import uuid
 
 # Local imports
 from ospy.helpers import minute_time_str, short_day
@@ -51,6 +53,7 @@ class _Program(object):
         self.name =  _('Program') + " %02d" % (index+1 if index >= 0 else abs(index))
         self._stations = []
         self.enabled = True
+        self.group_id = 'default'
 
         self.fixed = 0
         self.cut_off = 0
@@ -698,8 +701,155 @@ class _Programs(object):
             self._programs.append(_Program(self, i))
             i += 1
 
+        self.ensure_groups()
+
         options.add_callback('output_count', self._option_cb)
         weather.add_callback(self._weather_cb)
+
+    def ensure_groups(self):
+        if not hasattr(options, 'program_groups'):
+            options.program_groups = [{'id': 'default', 'name': _('Default'), 'collapsed': False}]
+
+        groups = []
+        known_ids = set()
+        for group in options.program_groups:
+            group_id = group.get('id', '')
+            if not group_id or group_id in known_ids:
+                continue
+            groups.append({
+                'id': group_id,
+                'name': group.get('name', _('Default') if group_id == 'default' else _('Group')),
+                'collapsed': bool(group.get('collapsed', False))
+            })
+            known_ids.add(group_id)
+
+        if 'default' not in known_ids:
+            groups.insert(0, {'id': 'default', 'name': _('Default'), 'collapsed': False})
+            known_ids.add('default')
+
+        for program in self._programs:
+            if not getattr(program, 'group_id', None) or program.group_id not in known_ids:
+                program.group_id = 'default'
+
+        options.program_groups = groups
+
+    def program_groups(self):
+        self.ensure_groups()
+        return options.program_groups[:]
+
+    def program_group(self, group_id):
+        self.ensure_groups()
+        for group in options.program_groups:
+            if group['id'] == group_id:
+                return group
+        return options.program_groups[0]
+
+    def programs_in_group(self, group_id):
+        self.ensure_groups()
+        return [program for program in self._programs if getattr(program, 'group_id', 'default') == group_id]
+
+    def add_group(self, name):
+        self.ensure_groups()
+        name = (name or '').strip()
+        if not name:
+            name = _('New group')
+        group = {'id': uuid.uuid4().hex, 'name': name, 'collapsed': False}
+        options.program_groups = options.program_groups + [group]
+        return group['id']
+
+    def rename_group(self, group_id, name):
+        self.ensure_groups()
+        name = (name or '').strip()
+        if not name:
+            return
+        groups = options.program_groups[:]
+        for group in groups:
+            if group['id'] == group_id:
+                group['name'] = name
+                break
+        options.program_groups = groups
+
+    def toggle_group_collapsed(self, group_id):
+        self.ensure_groups()
+        groups = options.program_groups[:]
+        for group in groups:
+            if group['id'] == group_id:
+                group['collapsed'] = not bool(group.get('collapsed', False))
+                break
+        options.program_groups = groups
+
+    def remove_group(self, group_id):
+        self.ensure_groups()
+        if group_id == 'default':
+            return
+        for program in self.programs_in_group(group_id):
+            program.group_id = 'default'
+        options.program_groups = [group for group in options.program_groups if group['id'] != group_id]
+
+    def set_group_enabled(self, group_id, enabled):
+        for program in self.programs_in_group(group_id):
+            program.enabled = enabled
+
+    def copy_program(self, index, group_id=None):
+        if 0 <= index < len(self._programs):
+            source = self._programs[index]
+            program = self.create_program()
+            for attr in ['name', 'stations', 'enabled', 'group_id', 'fixed', 'cut_off', 'control_master',
+                         'type', 'type_data', 'modulo', 'manual', 'start', 'schedule']:
+                setattr(program, attr, copy.deepcopy(getattr(source, attr)))
+            program.name = '{} {}'.format(source.name, _('copy'))
+            if group_id is not None:
+                program.group_id = group_id
+            self.add_program(program)
+            return program.index
+        return None
+
+    def copy_group(self, group_id):
+        source_group = self.program_group(group_id)
+        new_group_id = self.add_group('{} {}'.format(source_group['name'], _('copy')))
+        for program in self.programs_in_group(group_id):
+            new_index = self.copy_program(program.index, new_group_id)
+            if new_index is not None:
+                self._programs[new_index].enabled = False
+        return new_group_id
+
+    def move_program(self, index, group_id):
+        self.ensure_groups()
+        if 0 <= index < len(self._programs) and any(group['id'] == group_id for group in options.program_groups):
+            self._programs[index].group_id = group_id
+
+    def detect_conflicts(self, program_index=None, days=14):
+        now = datetime.datetime.now()
+        date_time_start = datetime.datetime.combine(now.date(), datetime.time.min)
+        date_time_end = date_time_start + datetime.timedelta(days=days)
+        conflicts = []
+
+        compare_programs = [program for program in self._programs if program.enabled]
+        if program_index is not None:
+            compare_programs = [program for program in compare_programs if program.index == program_index]
+
+        for program in compare_programs:
+            for other in self._programs:
+                if other.index == program.index or not other.enabled:
+                    continue
+                if program_index is None and other.index <= program.index:
+                    continue
+                common_stations = sorted(set(program.stations) & set(other.stations))
+                for station in common_stations:
+                    for first in program.active_intervals(date_time_start, date_time_end, station):
+                        for second in other.active_intervals(date_time_start, date_time_end, station):
+                            start = max(first['start'], second['start'])
+                            end = min(first['end'], second['end'])
+                            if start < end:
+                                conflicts.append({
+                                    'program': program,
+                                    'other': other,
+                                    'station': stations.get(station),
+                                    'start': start,
+                                    'end': end,
+                                    'minutes': int(round((end - start).total_seconds() / 60))
+                                })
+        return conflicts
 
     def _option_cb(self, key, old, new):
         for program in self._programs:

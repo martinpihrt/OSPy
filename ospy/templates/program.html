@@ -370,6 +370,14 @@ jQuery(document).ready(function(){
                 </div>
 
                 <div class='option' style="white-space: nowrap">
+                    <span class="program_label">$_('Group'):</span>
+                    <select name="group_id">
+                        $for group in programs.program_groups():
+                            <option value="${group['id']}" ${'selected' if group['id'] == program.group_id else ''}>${group['name']}</option>
+                    </select>
+                </div>
+
+                <div class='option' style="white-space: nowrap">
                     <span class="program_label">$_('Enabled'):</span>
                     <input name="enabled" type="checkbox" ${'checked' if program.enabled else ''}>
                 </div>

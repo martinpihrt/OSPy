@@ -3,42 +3,146 @@ $def with ()
 $var title: $_('Programs')
 $var page: programs
 
+$ conflicts = programs.detect_conflicts()
+
+<script>
+function confirmProgramDelete(message) {
+    return confirm(message);
+}
+</script>
+
 <div id="controls">
     <div id="program-container" class="program-container">
-    <a href="/program/new" class="button add">$_('Add a New Program')</a>
-    <a href="/programs?delete_all" class="button deleteAll danger">$_('Delete All')</a>
-    $for program in programs.get():
-        <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
-        <p>
-            <a href="/program/${program.index}?enable=${'0' if program.enabled else '1'}" class="button cDisable toggle ${'on' if program.enabled else 'off'}">
-                <span class='toggleleft'>$_('On')</span>
-                <span class='togglesep'>&nbsp;</span>
-                <span class='toggleright'>$_('Off')</span>
-            </a>
-        ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
-        </p>
-        <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
-        $if stations.master is not None and stations.master_two is not None:
-            <p class="stationList">$_('Selected master station:') <span class="val">
-            $if program.control_master == 1:
-                $_('Master 1')
-            $elif program.control_master == 2:
-                $_('Master 2')
-            $else:
-                $_('None')
-            </span></p>
-        $if len(program.schedule) > 0:
-            <p class="stationList">$:{program.details()}</p>
+        <a href="/program/new" class="button add">$_('Add a New Program')</a>
+        <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete all programs?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+            $:csrf_input()
+            <input type="hidden" name="action" value="delete_all">
+            <button type="submit" class="button deleteAll danger">$_('Delete All')</button>
+        </form>
+        <form action="/programs" method="post" style="display:inline">
+            $:csrf_input()
+            <input type="hidden" name="action" value="add_group">
+            <input name="group_name" type="text" placeholder="$_('New group')" style="width: 140px">
+            <button type="submit" class="button add">$_('Add group')</button>
+        </form>
 
-        <p>
-            $if not options.manual_mode:
-                $if program.type != ProgramType.WEEKLY_ADVANCED:
-                    $if program.type != ProgramType.CUSTOM:
-                        $if program.type != ProgramType.WEEKLY_WEATHER:
-                            <a href="/program/${program.index}?runnow" class="button cRunNow">$_('Run Now')</a>
-            <a href="/program/${program.index}" class="button cModify">$_('Edit')</a>
-            <a href="/program/${program.index}?delete" class="button cDelete danger">$_('Delete')</a>
-        </p>
-        </div>
-    </div>    
+        $for group in programs.program_groups():
+            $ group_programs = programs.programs_in_group(group['id'])
+            <details class="controlBlock programGroup" ${'' if group.get('collapsed') else 'open'}>
+                <summary>
+                    <b>${group['name']}</b> <span class="val">(${len(group_programs)})</span>
+                </summary>
+
+                <p>
+                    <a href="/program/new?group_id=${group['id']}" class="button add">$_('Add a New Program')</a>
+                    <form action="/programs" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="enable_group">
+                        <input type="hidden" name="group_id" value="${group['id']}">
+                        <input type="hidden" name="enabled" value="1">
+                        <button type="submit" class="button cDisable toggle on">$_('Enable all')</button>
+                    </form>
+                    <form action="/programs" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="enable_group">
+                        <input type="hidden" name="group_id" value="${group['id']}">
+                        <input type="hidden" name="enabled" value="0">
+                        <button type="submit" class="button cDisable toggle off">$_('Disable all')</button>
+                    </form>
+                    <form action="/programs" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="copy_group">
+                        <input type="hidden" name="group_id" value="${group['id']}">
+                        <button type="submit" class="button cModify">$_('Copy group')</button>
+                    </form>
+                    <form action="/programs" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="rename_group">
+                        <input type="hidden" name="group_id" value="${group['id']}">
+                        <input name="group_name" type="text" value="${group['name']}" style="width: 140px">
+                        <button type="submit" class="button cModify">$_('Rename')</button>
+                    </form>
+                    $if group['id'] != 'default':
+                        <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete this group? Programs will be moved to Default.'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="delete_group">
+                            <input type="hidden" name="group_id" value="${group['id']}">
+                            <button type="submit" class="button cDelete danger">$_('Delete group')</button>
+                        </form>
+                </p>
+
+                $for program in group_programs:
+                    $ program_conflicts = [conflict for conflict in conflicts if conflict['program'].index == program.index or conflict['other'].index == program.index]
+                    <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
+                    <p>
+                        <form action="/programs" method="post" style="display:inline">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="enable">
+                            <input type="hidden" name="index" value="${program.index}">
+                            <input type="hidden" name="enabled" value="${'0' if program.enabled else '1'}">
+                            <button type="submit" class="button cDisable toggle ${'on' if program.enabled else 'off'}">
+                                <span class='toggleleft'>$_('On')</span>
+                                <span class='togglesep'>&nbsp;</span>
+                                <span class='toggleright'>$_('Off')</span>
+                            </button>
+                        </form>
+                    ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
+                    </p>
+                    <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
+                    $if stations.master is not None and stations.master_two is not None:
+                        <p class="stationList">$_('Selected master station:') <span class="val">
+                        $if program.control_master == 1:
+                            $_('Master 1')
+                        $elif program.control_master == 2:
+                            $_('Master 2')
+                        $else:
+                            $_('None')
+                        </span></p>
+                    $if len(program.schedule) > 0:
+                        <p class="stationList">$:{program.details()}</p>
+                    $if program_conflicts:
+                        <p class="stationList warning"><b>$_('Warning'):</b>
+                        $for conflict in program_conflicts[:3]:
+                            $ other = conflict['other'] if conflict['program'].index == program.index else conflict['program']
+                            ${_('Conflict with')} ${other.name} ${_('on')} ${conflict['station'].name}: ${conflict['start'].strftime('%Y-%m-%d %H:%M')} - ${conflict['end'].strftime('%H:%M')} (${conflict['minutes']} $_('min'))<br>
+                        </p>
+
+                    <p>
+                        $if not options.manual_mode:
+                            $if program.type != ProgramType.WEEKLY_ADVANCED:
+                                $if program.type != ProgramType.CUSTOM:
+                                    $if program.type != ProgramType.WEEKLY_WEATHER:
+                                        <form action="/programs" method="post" style="display:inline">
+                                            $:csrf_input()
+                                            <input type="hidden" name="action" value="runnow">
+                                            <input type="hidden" name="index" value="${program.index}">
+                                            <button type="submit" class="button cRunNow">$_('Run Now')</button>
+                                        </form>
+                        <a href="/program/${program.index}" class="button cModify">$_('Edit')</a>
+                        <form action="/programs" method="post" style="display:inline">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="copy">
+                            <input type="hidden" name="index" value="${program.index}">
+                            <button type="submit" class="button cModify">$_('Copy')</button>
+                        </form>
+                        <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete this program?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="index" value="${program.index}">
+                            <button type="submit" class="button cDelete danger">$_('Delete')</button>
+                        </form>
+                        <form action="/programs" method="post" style="display:inline">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="move">
+                            <input type="hidden" name="index" value="${program.index}">
+                            <select name="group_id">
+                                $for target_group in programs.program_groups():
+                                    <option value="${target_group['id']}" ${'selected' if target_group['id'] == program.group_id else ''}>${target_group['name']}</option>
+                            </select>
+                            <button type="submit" class="button cModify">$_('Move')</button>
+                        </form>
+                    </p>
+                    </div>
+            </details>
+    </div>
 </div>

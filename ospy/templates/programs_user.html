@@ -3,31 +3,43 @@ $def with ()
 $var title: $_('Programs')
 $var page: user
 
-
 <div id="controls">
-    $for program in programs.get():
-        <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
-        <p>
-        ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
-        </p>
-        <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
-        $if stations.master is not None and stations.master_two is not None:
-            <p class="stationList">$_('Selected master station:') <span class="val">
-            $if program.control_master == 1:
-                $_('Master 1')
-            $elif program.control_master == 2:
-                $_('Master 2')
-            $else:
-                $_('None')
-            </span></p>
-        $if len(program.schedule) > 0:
-            <p class="stationList">$:{program.details()}</p>
-        <p>
-            $if not options.manual_mode:
-                $if program.type != ProgramType.WEEKLY_ADVANCED:
-                    $if program.type != ProgramType.CUSTOM:
-                        $if program.type != ProgramType.WEEKLY_WEATHER:
-                            <a href="/program/${program.index}?runnow" class="button cRunNow">$_('Run Now')</a>
-        </p>
-        </div>
+    $for group in programs.program_groups():
+        $ group_programs = programs.programs_in_group(group['id'])
+        $if group_programs:
+            <details class="controlBlock programGroup" ${'' if group.get('collapsed') else 'open'}>
+                <summary>
+                    <b>${group['name']}</b> <span class="val">(${len(group_programs)})</span>
+                </summary>
+                $for program in group_programs:
+                    <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
+                    <p>
+                    ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
+                    </p>
+                    <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
+                    $if stations.master is not None and stations.master_two is not None:
+                        <p class="stationList">$_('Selected master station:') <span class="val">
+                        $if program.control_master == 1:
+                            $_('Master 1')
+                        $elif program.control_master == 2:
+                            $_('Master 2')
+                        $else:
+                            $_('None')
+                        </span></p>
+                    $if len(program.schedule) > 0:
+                        <p class="stationList">$:{program.details()}</p>
+                    <p>
+                        $if not options.manual_mode:
+                            $if program.type != ProgramType.WEEKLY_ADVANCED:
+                                $if program.type != ProgramType.CUSTOM:
+                                    $if program.type != ProgramType.WEEKLY_WEATHER:
+                                        <form action="/programs" method="post" style="display:inline">
+                                            $:csrf_input()
+                                            <input type="hidden" name="action" value="runnow">
+                                            <input type="hidden" name="index" value="${program.index}">
+                                            <button type="submit" class="button cRunNow">$_('Run Now')</button>
+                                        </form>
+                    </p>
+                    </div>
+            </details>
 </div>
