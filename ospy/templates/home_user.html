@@ -265,7 +265,7 @@ function water_level_prompt(current){
         w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (w != null) {
-        window.location="/action?level_adjustment=" + w;
+        window.location="/action?level_adjustment=" + encodeURIComponent(w) + "&${csrf_query()}";
     }
 }
 
@@ -280,7 +280,7 @@ function rain_delay_prompt(current){
         h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (h != null) {
-        window.location="/action?rain_block=" + h;
+        window.location="/action?rain_block=" + encodeURIComponent(h) + "&${csrf_query()}";
     }
 }
 
@@ -479,7 +479,7 @@ jQuery(document).ready(function(){
             let sid = parseInt(jQuery(this).attr("id"));
             let sbit = jQuery(this).hasClass("on");
             if (sbit) {
-                window.location = "/action?sid="+(sid+1)+"&set_to=0"; // turn off station
+                window.location = "/action?sid="+(sid+1)+"&set_to=0&${csrf_query()}"; // turn off station
             } else {
                 let strmm = jQuery("#mm"+sid).val();
                 let strss = jQuery("#ss"+sid).val();
@@ -489,7 +489,7 @@ jQuery(document).ready(function(){
                     alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + strmm + ":" + strss);
                     return;
                 }
-                window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss);  // turn it off with timer
+                window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss) + "&${csrf_query()}";  // turn it off with timer
             }
         });
     } else { // scheduler mode
@@ -549,10 +549,10 @@ jQuery(document).ready(function(){
         <span class="rainsense">$_('Rain sensed')</span>
     <br>
     <br>
-    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}" class="button toggle choice ${'off' if options.manual_mode else 'on'}" title=$:{json.dumps(_(u'Switching from scheduler to manual mode and vice versa'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
+    <a href="/action?manual_mode=${'0' if options.manual_mode else '1'}&${csrf_query()}" class="button toggle choice ${'off' if options.manual_mode else 'on'}" title=$:{json.dumps(_(u'Switching from scheduler to manual mode and vice versa'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Schedule')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Manual')</span></a>
     $if not options.manual_mode:
         <br>
-        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"  title=$:{json.dumps(_(u'Enable or disable the scheduler running'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
+        <a href="/action?scheduler_enabled=${'0' if options.scheduler_enabled else '1'}&${csrf_query()}" class="button toggle ${'on' if options.scheduler_enabled else 'off'}"  title=$:{json.dumps(_(u'Enable or disable the scheduler running'), ensure_ascii=False).encode('utf8').decode('utf-8')}><span class='toggleleft'>$_('Enabled')</span><span class='togglesep'>&nbsp;</span><span class='toggleright'>$_('Disabled')</span></a>
     <br>&nbsp;
 </div>
 <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
@@ -636,7 +636,7 @@ $if options.manual_mode:
                 </tr>
         <tr>
             <td colspan="3">
-                <a href="/action?stop_all" class="button execute delete" style="text-align:left;" title=$:{json.dumps(_(u'Press to stop all running stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
+                <a href="/action?stop_all&${csrf_query()}" class="button execute delete" style="text-align:left;" title=$:{json.dumps(_(u'Press to stop all running stations'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
             </td>
         </tr>        
         </table>  
@@ -687,7 +687,7 @@ $else:
                     <td colspan="3">
                 $else:
                     <td colspan="2"> 
-                <a href="/action?stop_all" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
+                <a href="/action?stop_all&${csrf_query()}" style="text-align:left;" class="button execute delete" title=$:{json.dumps(_(u'Press to stop all running stations and turn off the scheduler!'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Stop All Stations')</a>
                 </td>
                 <td colspan="24" id="legend" style="text-align:center">
                 </td>

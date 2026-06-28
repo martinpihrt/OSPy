@@ -11,9 +11,15 @@ import re
 import subprocess
 import traceback
 import ast
+import hmac
+import os
 from threading import Lock
 
 BRUTEFORCE_LOCK = Lock()
+BRUTEFORCE_ATTEMPTS = {}
+BRUTEFORCE_DELAY_AFTER = 3
+BRUTEFORCE_LOCK_AFTER = 10
+BRUTEFORCE_LOCK_SECONDS = 15 * 60
 
 
 def del_rw(action, name, exc):
@@ -623,24 +629,75 @@ def password_hash(password, salt):
     m.update((password+salt).encode('utf-8')) 
     return m.hexdigest()    
 
+def _request_ip():
+    try:
+        import web
+        return web.ctx.env.get('REMOTE_ADDR', '-')
+    except:
+        return '-'
+
+def _bruteforce_key(username):
+    return '{}:{}'.format(_request_ip(), (username or '').lower())
+
+def _bruteforce_delay(failures):
+    if failures < BRUTEFORCE_DELAY_AFTER:
+        return 0
+    if failures < 6:
+        return 2
+    if failures < BRUTEFORCE_LOCK_AFTER:
+        return 10
+    return 0
+
+def _bruteforce_wait(username):
+    key = _bruteforce_key(username)
+    with BRUTEFORCE_LOCK:
+        attempt = BRUTEFORCE_ATTEMPTS.get(key, {'failures': 0, 'blocked_until': 0})
+        if attempt.get('blocked_until', 0) > time.time():
+            return False
+        delay = _bruteforce_delay(attempt.get('failures', 0))
+    if delay > 0:
+        time.sleep(delay)
+    return True
+
+def _bruteforce_success(username):
+    key = _bruteforce_key(username)
+    with BRUTEFORCE_LOCK:
+        BRUTEFORCE_ATTEMPTS.pop(key, None)
+
+def _bruteforce_failure(username):
+    key = _bruteforce_key(username)
+    now_ts = time.time()
+    with BRUTEFORCE_LOCK:
+        attempt = BRUTEFORCE_ATTEMPTS.get(key, {'failures': 0, 'blocked_until': 0})
+        attempt['failures'] = attempt.get('failures', 0) + 1
+        if attempt['failures'] >= BRUTEFORCE_LOCK_AFTER:
+            attempt['blocked_until'] = now_ts + BRUTEFORCE_LOCK_SECONDS
+        BRUTEFORCE_ATTEMPTS[key] = attempt
+
+def _password_matches(password, password_hash_value, salt):
+    return hmac.compare_digest(password_hash(password, salt), password_hash_value)
+
 def test_password(password, username):
     from ospy.options import options
     from ospy.users import users
     from ospy import server
-    with BRUTEFORCE_LOCK: # Brute-force protection:
-        if options.password_time > 0:
-            time.sleep(options.password_time)
+
+    if not _bruteforce_wait(username):
+        print_report('helpers.py', _('Login blocked temporarily for {} from IP {}').format(username, _request_ip()))
+        return False
     
-    if options.password_hash == password_hash(password, options.password_salt) and options.admin_user == username:     # Login for OSPy main administrator
+    if _password_matches(password, options.password_hash, options.password_salt) and options.admin_user == username:     # Login for OSPy main administrator
         options.password_time = 0
         server.session['category'] = 'admin'
         server.session['visitor']  = options.admin_user
+        _bruteforce_success(username)
         print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
         return True
     else:
         for user in users.get():
-            if user.password_hash == password_hash(password, user.password_salt) and user.name == username:            # Login for others OSPy users
+            if _password_matches(password, user.password_hash, user.password_salt) and user.name == username:            # Login for others OSPy users
                 options.password_time = 0 
+                _bruteforce_success(username)
                 if user.category == '0':   # public
                     server.session['category'] = 'public'
                     server.session['visitor']  =  user.name
@@ -661,6 +718,7 @@ def test_password(password, username):
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
+    _bruteforce_failure(username)
     return False
 
 
@@ -701,6 +759,38 @@ def get_input(qdict, key, default=None, cast=None):
         if cast is not None:
             result = cast(result)
     return result
+
+def csrf_token():
+    from ospy import server
+    token = server.session.get('csrf_token')
+    if not token:
+        token = os.urandom(32).hex()
+        server.session['csrf_token'] = token
+    return token
+
+def csrf_input():
+    return '<input type="hidden" name="csrf" value="{}">'.format(csrf_token())
+
+def csrf_query():
+    from urllib.parse import quote_plus
+    return 'csrf={}'.format(quote_plus(csrf_token()))
+
+def verify_csrf(qdict=None):
+    import web
+    from urllib.parse import parse_qs
+    if qdict is None:
+        qdict = {}
+    expected = csrf_token()
+    supplied = ''
+    query = web.ctx.env.get('QUERY_STRING', '')
+    if query:
+        supplied = parse_qs(query).get('csrf', [''])[0]
+    supplied = supplied or qdict.get('csrf', '') or web.ctx.env.get('HTTP_X_CSRF_TOKEN', '')
+    if not supplied and web.ctx.method == 'POST':
+        supplied = web.input().get('csrf', '')
+    if not supplied or not hmac.compare_digest(supplied, expected):
+        print_report('helpers.py', _('CSRF token verification failed from IP {}.').format(_request_ip()))
+        raise web.forbidden()
 
 
 def template_globals():

@@ -357,7 +357,8 @@ jQuery(document).ready(function(){
 </script>
 <div id="programs">
     <div class="title">${_('Add a New Program') if program.index < 0 else _('Edit Program') + (' #') + str(program.index+1)}</div>
-    <form name="programForm" id="programForm" method="post">
+    <form name="programForm" id="programForm" action="?${csrf_query()}" method="post">
+    $:csrf_input()
         <input type="hidden" name="index" value="${program.index}">
         <input type="hidden" id="stations" name="stations" value="${program.stations}">
 

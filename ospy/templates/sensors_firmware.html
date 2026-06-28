@@ -179,7 +179,8 @@ jQuery(document).ready(function(){
 <div id="sensor-container" class="sensor-container">
     <p>$_('Select the file for the sensor, the IP address and the port of the sensor. This option is used to upload your own firmware to the sensor without of the selection from OSPy versions.')</p>
     <p>$_('Example data line: "http(s)://ip:port/password".')</p>
-    <form id="CustomForm" method="post" action="" enctype="multipart/form-data">
+    <form id="CustomForm" method="post" action="?${csrf_query()}" enctype="multipart/form-data">
+    $:csrf_input()
     <input type="hidden" name="cid" value="1"> 
     <table class="logList" id="CFWtable">
     <thead>

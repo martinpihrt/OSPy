@@ -102,7 +102,8 @@ $code:
 <div id="options">
     <div class="title">$_('Edit Options')</div>
     <button id="tooltips">$_('Show Tooltips')</button>
-    <form id="optionsForm" name="of" action="/options" method="post">
+    <form id="optionsForm" name="of" action="/options?${csrf_query()}" method="post">
+    $:csrf_input()
     $code:
         output = ""
         oldcategory = ""
@@ -241,7 +242,8 @@ $code:
         output += "<input type=\"hidden\" name=\"deldef\" value=\"0\">"
         output += categoryCloser + "</form>"
 
-        output += "<form id='uploadForm' name='of2' action='upload' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += "<form id='uploadForm' name='of2' action='upload?" + csrf_query() + "' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += csrf_input() + "\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('System Backup') + "</h4>\n"
         output += "<div class='option'>"
         output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download OSPy backup zip file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Download') + "</a>\n"
@@ -251,7 +253,8 @@ $code:
         output += "</div></form>\n"
         output += categoryCloser
 
-        output += "<form id='uploadFormSSL' name='of3' action='uploadSSL' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += "<form id='uploadFormSSL' name='of3' action='uploadSSL?" + csrf_query() + "' method=\"post\" enctype=\"multipart/form-data\">\n"
+        output += csrf_input() + "\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('SSL certificate') + "</h4>\n"
         output += "<div class='option'>"
         output += "<span class='label'>" + _('Upload SSL files') + ":</span>\n"
@@ -260,7 +263,8 @@ $code:
         output += "<span class='tooltip'>" + _('Upload SSL file.') + "</span>\n"
         output += "</form>"
 
-        output += "<form id='GenerateSSL' name='of4' action='uploadSSL' method=\"post\">\n"
+        output += "<form id='GenerateSSL' name='of4' action='uploadSSL?" + csrf_query() + "' method=\"post\">\n"
+        output += csrf_input() + "\n"
         output += "&nbsp;<button id='cGenerate' class='reboot danger' title=" + json.dumps(_('Generate own SSL certificat fullchain.pem and privkey.pem file to ssl folder'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Generate') + "</button>"
         output += "<span class='tooltip'>" + _('Generate own SSL certificat.') + "</span>\n"
         output += "<br><span class='inputError' id='errorfnssl'></span>\n"

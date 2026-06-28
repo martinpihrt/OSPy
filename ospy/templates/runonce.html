@@ -85,7 +85,8 @@ $var page: runonce
 
 <div id="runonce">
     <div class="title">$_('Run Once Program')</div>
-    <form id="runonceForm" method="post">
+    <form id="runonceForm" action="?${csrf_query()}" method="post">
+    $:csrf_input()
         <table class="stationList" style="background: #F5F5F5;">
             $for station in stations.enabled_stations():
                 <tr>

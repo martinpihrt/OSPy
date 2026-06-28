@@ -46,7 +46,8 @@ $var page: image
             <p>$_('Only png, gif images are supported. The image name can be arbitrary.')</p> 
             <span id="Hint"></span>
             <span id="BtnInstall"></span>    
-            <form name="imageForm" id="imageForm" method="post" enctype="multipart/form-data">
+            <form name="imageForm" id="imageForm" action="?${csrf_query()}" method="post" enctype="multipart/form-data">
+            $:csrf_input()
                 <input type="hidden" name="index" value="${index}">
                 <table class="optionList" style="background: #F5F5F5;">
                     <tr>

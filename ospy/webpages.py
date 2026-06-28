@@ -14,7 +14,8 @@ import mimetypes
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
-    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, stop_onrain
+    password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, stop_onrain, \
+    verify_csrf
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options, rain_blocks, program_level_adjustments
@@ -214,6 +215,8 @@ class ProtectedPage(WebPage):
         WebPage.__init__(self)
         try:
             check_login(True)
+            if web.ctx.method == 'POST' and self.__module__ == 'ospy.webpages':
+                verify_csrf()
         except web.seeother:
             raise
 
@@ -1424,6 +1427,9 @@ class action_page(ProtectedPage):
         from ospy.server import session
 
         qdict = web.input()
+        action_keys = ('stop_all', 'scheduler_enabled', 'manual_mode', 'rain_block', 'level_adjustment', 'toggle_temp', 'set_to')
+        if any(key in qdict for key in action_keys):
+            verify_csrf(qdict)
 
         stop_all = get_input(qdict, 'stop_all', False, lambda x: True)
         scheduler_enabled = get_input(qdict, 'scheduler_enabled', None, lambda x: x == '1')

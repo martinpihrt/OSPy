@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+June 28 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Security hardening: added brute-force protection for web and API password checks, including per IP and username throttling, temporary lockout after repeated failed attempts, and constant-time password hash comparison. Added CSRF token support for core OSPy protected POST forms and state-changing home page actions such as manual station control, scheduler/manual mode switching, rain delay, water level adjustment, stop-all, and temperature unit toggle. Plugin pages are left compatible for now and are not automatically blocked by the new CSRF check.
+
 June 27 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

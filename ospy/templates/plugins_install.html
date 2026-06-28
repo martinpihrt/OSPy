@@ -5,7 +5,8 @@ $var page: plugins
 
 <script src="/static/scripts/plugins_install.js"></script>
 <div id="controls">
-    <form method="POST" enctype="multipart/form-data" action="/plugins_install">
+    <form method="POST" enctype="multipart/form-data" action="/plugins_install?${csrf_query()}">
+    $:csrf_input()
         $_('Custom plug-in (ZIP)'):
         <input type="file" name="zipfile" />
         <button id="cSubmit" class="submit">$_('Install')</button>

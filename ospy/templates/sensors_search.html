@@ -148,7 +148,8 @@ jQuery(document).ready(function(){
         </thead>
         <tbody>
     </table>
-    <form name="sensorForm" id="sensorForm" action="/sensor/new" method="post">
+    <form name="sensorForm" id="sensorForm" action="/sensor/new?${csrf_query()}" method="post">
+    $:csrf_input()
         <input type="hidden" id="name" name="name" value="">
         <input type="hidden" id="ipaddress" name="ip_address" value="">
         <input type="hidden" id="macaddress" name="mac_address" value="">
@@ -182,7 +183,8 @@ jQuery(document).ready(function(){
         </thead>
         <tbody>
     </table>
-    <form name="sensorFormShelly" id="sensorFormShelly" action="/sensor/new" method="post">
+    <form name="sensorFormShelly" id="sensorFormShelly" action="/sensor/new?${csrf_query()}" method="post">
+    $:csrf_input()
         <input type="hidden" id="s_name" name="s_name" value="">
         <input type="hidden" id="s_id" name="s_id" value="">
         <input type="hidden" id="s_ip" name="s_ip" value="">

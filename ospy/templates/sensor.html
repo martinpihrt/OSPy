@@ -290,7 +290,8 @@ jQuery(document).ready(function(){
     <div class="title">${_('Add a New Sensor') if sensor.index < 0 else _('Edit Sensor') + (' #') + str(sensor.index+1)}</div>
     <div id="sensor-container" class="sensor-container">
         <span id="errorHint"></span>
-        <form name="sensorForm" id="sensorForm" method="post">
+        <form name="sensorForm" id="sensorForm" action="?${csrf_query()}" method="post">
+        $:csrf_input()
             <input type="hidden" name="index" value="${sensor.index}">
 
             <div class='option' style="white-space: nowrap">
