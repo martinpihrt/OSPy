@@ -46,7 +46,11 @@ $code:
 
 <div id="controls">
     <a href="/sensor/new" class="button add">$_('Add a New Sensor')</a>
-    <a href="/sensors?delete_all" class="button deleteAll danger">$_('Delete All Sensors')</a>
+    <form action="/sensors" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Delete all sensors?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="delete_all">
+        <button type="submit" class="button deleteAll danger">$_('Delete All Sensors')</button>
+    </form>
     <a href="/sensors?search" class="button cModify"> $_('Searching Sensors')</a>
     <a href="/firmware" class="button cModify"> $_('Sensors Firmware')</a>
 </div>
@@ -61,11 +65,16 @@ $if sensors.count()>0:
         $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM'), _('Shelly 1PM Mini'), _('Shelly 2.5'), _('Shelly Pro 4PM'), _('Shelly 1 Mini'), _('Shelly 2PM Addon'), _('Shelly 1PM Addon'), _('Shelly HT'), _('Shelly Pro 3EM'), _('Shelly Wall Display'), _('todo')]
         <div id="p${sensor.index}" class="controlBlock program ${'' if sensor.enabled else 'disabled'}">
         <p>
-            <a href="/sensor/${sensor.index}?enable=${'0' if sensor.enabled else '1'}" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                <span class='toggleleft'>$_('On')</span>
-                <span class='togglesep'>&nbsp;</span>
-                <span class='toggleright'>$_('Off')</span>
-            </a>
+            <form action="/sensor/${sensor.index}" method="post" style="display:inline">
+                $:csrf_input()
+                <input type="hidden" name="action" value="enable">
+                <input type="hidden" name="enabled" value="${'0' if sensor.enabled else '1'}">
+                <button type="submit" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                    <span class='toggleleft'>$_('On')</span>
+                    <span class='togglesep'>&nbsp;</span>
+                    <span class='toggleright'>$_('Off')</span>
+                </button>
+            </form>
             ${sensor.index+1}. $_('Name'): <span class="val">${sensor.name}</span> $_('Type'): 
             $if sensor.manufacturer==0:
                 <span class="val">$type_list[sensor.sens_type] ${multi_list[sensor.multi_type] if sensor.sens_type == 6 else ''}</span>
@@ -913,7 +922,11 @@ $if sensors.count()>0:
         $if sensor.sens_type != 7:
             <a href="/sensor/${sensor.index}?log" class="button backup"> $_('View Logs')</a>
             <a href="/sensor/${sensor.index}?graph" class="button upload"> $_('View Graph')</a>
-        <a href="/sensor/${sensor.index}?delete" class="button cDelete danger"> $_('Delete Sensor')</a>
+        <form action="/sensor/${sensor.index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Delete this sensor?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+            $:csrf_input()
+            <input type="hidden" name="action" value="delete">
+            <button type="submit" class="button cDelete danger"> $_('Delete Sensor')</button>
+        </form>
         </p>
         </div>
         </div>

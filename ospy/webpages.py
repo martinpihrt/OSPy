@@ -224,7 +224,6 @@ class sensors_firmware(ProtectedPage):
     """Open page to allow sensor firmware modification. /firmware """
     def GET(self):
         from ospy.server import session
-        import os
 
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
@@ -233,32 +232,10 @@ class sensors_firmware(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
-        if 'aid' in qdict:
-            index = int(qdict['aid'])
-            sensor = sensors.get(index)
-            try: 
-                send_ip = '.'.join(sensor.ip_address) 
-                send_url = 'http://' + send_ip + '/AP_' + options.sensor_fw_passwd   # ex: http://192.168.88.207/AP_0123456789abcdef
-                response = requests.post(send_url)
-                resp_code = response.status_code
-                log.debug('webpages.py', resp_code)
-                if resp_code == 200:
-                    statusCode = qdict.get('statusCode', 'ap_ok')                    # msg = The sensor responded and probably started the AP manager
-                elif resp_code == 404:
-                    statusCode = qdict.get('statusCode', 'err5')                     # msg = It was not processed, the command does not exist in the sensor. Do you have the latest FW version of the sensor?                   
-                else:
-                    statusCode = qdict.get('statusCode', 'err6')                     # msg = An error, the sensor did not respond correctly!
-                return self.core_render.sensors_firmware(statusCode)
-            except Exception:
-                pass
-                statusCode = qdict.get('statusCode', 'err7')                         # msg = Sensor does not respond!
-                return self.core_render.sensors_firmware(statusCode)
-        
-        if 'id' in qdict:
-            index = int(qdict['id'])
-            sensor = sensors.get(index)
-        else:
-            return self.core_render.sensors_firmware(statusCode)
+        return self.core_render.sensors_firmware(statusCode)
+
+    def _send_firmware(self, index, statusCode):
+        sensor = sensors.get(index)
 
         last_fw_number = None
         last_fw_name = None
@@ -295,29 +272,47 @@ class sensors_firmware(ProtectedPage):
             send_ip = '.'.join(sensor.ip_address) 
             send_url = 'http://' + send_ip + '/FW_' + options.sensor_fw_passwd       # ex: http://192.168.88.207/FW_0123456789abcdef
             if last_fw_path is None:
-                statusCode = qdict.get('statusCode', 'err1')                         # msg = No xxx.bin file was found in the directory to send to the sensor!
-                return self.core_render.sensors_firmware(statusCode)
+                statusCode = 'err1'                                                  # msg = No xxx.bin file was found in the directory to send to the sensor!
+                return statusCode
             try:
                 with open(last_fw_path, 'rb') as file:
                     response = requests.post(send_url, files={last_fw_name: file})
                 resp_code = response.status_code
                 log.debug('webpages.py', resp_code)
                 if resp_code == 200:
-                    statusCode = qdict.get('statusCode', 'upl_ok')                   # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
+                    statusCode = 'upl_ok'                                            # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
                 elif resp_code == 404:
-                    statusCode = qdict.get('statusCode', 'err3')                     # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!                    
+                    statusCode = 'err3'                                              # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!
                 else:
-                    statusCode = qdict.get('statusCode', 'err4')                     # msg = The new firmware could not be uploaded into the sensor. An error has occurred!    
+                    statusCode = 'err4'                                              # msg = The new firmware could not be uploaded into the sensor. An error has occurred!
             except:
                 pass
-                statusCode = qdict.get('statusCode', 'err2')                         # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
+                statusCode = 'err2'                                                  # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
                     
         except Exception:
             pass
             log.debug('webpages.py', traceback.format_exc())
-            statusCode = qdict.get('statusCode', 'err2')                             # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond! 
+            statusCode = 'err2'                                                      # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
 
-        return self.core_render.sensors_firmware(statusCode)
+        return statusCode
+
+    def _start_sensor_ap(self, index, statusCode):
+        sensor = sensors.get(index)
+        try:
+            send_ip = '.'.join(sensor.ip_address)
+            send_url = 'http://' + send_ip + '/AP_' + options.sensor_fw_passwd   # ex: http://192.168.88.207/AP_0123456789abcdef
+            response = requests.post(send_url)
+            resp_code = response.status_code
+            log.debug('webpages.py', resp_code)
+            if resp_code == 200:
+                statusCode = 'ap_ok'                                            # msg = The sensor responded and probably started the AP manager
+            elif resp_code == 404:
+                statusCode = 'err5'                                             # msg = It was not processed, the command does not exist in the sensor. Do you have the latest FW version of the sensor?
+            else:
+                statusCode = 'err6'                                             # msg = An error, the sensor did not respond correctly!
+        except Exception:
+            statusCode = 'err7'                                                 # msg = Sensor does not respond!
+        return statusCode
 
     def POST(self):
         from ospy.server import session
@@ -328,6 +323,16 @@ class sensors_firmware(ProtectedPage):
 
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
+        action = qdict.get('action', '')
+
+        if action == 'start_ap':
+            statusCode = self._start_sensor_ap(int(qdict.get('index', -1)), statusCode)
+            return self.core_render.sensors_firmware(statusCode)
+
+        if action == 'firmware_update':
+            statusCode = self._send_firmware(int(qdict.get('index', -1)), statusCode)
+            return self.core_render.sensors_firmware(statusCode)
+
         cid = get_input(qdict, 'cid', False, lambda x: True)                         # cid=1 is custom form file uploading
 
         if 'ip_address' and 'port' and 'pass' in qdict and cid:
@@ -415,11 +420,25 @@ class sensors_page(ProtectedPage):
 
         qdict = web.input()
 
-        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
         search = get_input(qdict, 'search', False, lambda x: True) 
-        clean_all = get_input(qdict, 'clean_all', False, lambda x: True)
 
-        if clean_all:
+        if search:
+            return self.core_render.sensors_search()                
+
+        return self.core_render.sensors()
+
+    def POST(self):
+        from ospy.server import session
+        global searchData
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
+        qdict = web.input()
+        action = qdict.get('action', '')
+
+        if action == 'clean_all':
             for i in range(0, len(sensorSearch)):
                 try:
                     del sensorSearch[int(i)]
@@ -427,8 +446,8 @@ class sensors_page(ProtectedPage):
                     log.debug('webpages.py', traceback.format_exc())
                     pass
             return self.core_render.sensors_search()
-          
-        if delete_all:
+
+        if action == 'delete_all':
             try: # delete all programs from sensor in program level adjustments (for soil moisture sensor)
                 program = programs.get()
                 for sensor in sensors.get():
@@ -453,12 +472,9 @@ class sensors_page(ProtectedPage):
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
             except Exception:
                 log.debug('webpages.py', traceback.format_exc())
-                pass    
+                pass
 
-        if search:
-            return self.core_render.sensors_search()                
-
-        return self.core_render.sensors()
+        raise web.seeother('/sensors')
 
 
 class sensor_page(ProtectedPage):
@@ -475,14 +491,12 @@ class sensor_page(ProtectedPage):
         try:
             index = int(index)
             
-            delete = get_input(qdict, 'delete', False, lambda x: True)
-            enable = get_input(qdict, 'enable', None, lambda x: x == '1')
             wlog = get_input(qdict, 'log', False, lambda x: True)      # return web page sensor log
             glog = get_input(qdict, 'glog', False, lambda x: True)     # return log json for graph
             graph = get_input(qdict, 'graph', False, lambda x: True)   # return web page sensor graph
             csvE = get_input(qdict, 'csvE', False, lambda x: True)     # return event csv file
             csvS = get_input(qdict, 'csvS', False, lambda x: True)     # return samples csv file
-            clear = get_input(qdict, 'clear', False, lambda x: True)   # clear event and samples
+            clear = False
 
             if 'history' in qdict:
                 options.sensor_graph_histories = int(qdict['history'])
@@ -492,44 +506,7 @@ class sensor_page(ProtectedPage):
                     options.sensor_graph_show_err = False
                 raise web.seeother('/sensor/{}?graph'.format(index))
 
-            if delete:
-                try: # delete sensor info from footer
-                    from ospy.sensors import sensors_timer
-                    sensor = sensors.get(index)
-                    sensors_timer.stop_status(sensor.name)
-                except Exception:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                try: # delete programs from sensor in program level adjustments (for soil moisture sensor)
-                    program = programs.get()
-                    for i in range(0, 16):
-                        if sensor.soil_program[i] != "-1":
-                            pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
-                            del program_level_adjustments[pid]
-                except Exception:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                try: # delete log and graph
-                    shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
-                except Exception:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                try: # delete sensor
-                    sensors.remove_sensors(index)
-                except Exception:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                raise web.seeother('/sensors')
-
-            elif enable is not None:
-                sensors[index].enabled = enable
-                raise web.seeother('/sensors') 
-
-            elif wlog:
+            if wlog:
                 slog_file = []
                 elog_file = []
 
@@ -723,6 +700,7 @@ class sensor_page(ProtectedPage):
 
     def POST(self, index):
         from ospy.server import session
+        import shutil
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -735,6 +713,58 @@ class sensor_page(ProtectedPage):
                          SW_SC0=[], SW_SC1=[], SW_SC2=[], SW_SC3=[], SW_SC4=[], SW_SC5=[], SW_SC6=[], # 7 switch closed stations
                          SW_SO0=[], SW_SO1=[], SW_SO2=[], SW_SO3=[], SW_SO4=[], SW_SO5=[], SW_SO6=[]  # 7 switch open stations
                          )                         
+        action = qdict.get('action', '')
+        if action:
+            try:
+                index = int(index)
+            except ValueError:
+                raise web.seeother('/sensors')
+
+            if action == 'enable':
+                sensors[index].enabled = qdict.get('enabled', '0') == '1'
+                raise web.seeother('/sensors')
+
+            if action == 'clear':
+                try:
+                    _abs_dir_path = os.path.abspath(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
+                    shutil.rmtree(_abs_dir_path)
+                except Exception:
+                    pass
+                raise web.seeother('/sensors')
+
+            if action == 'delete':
+                try: # delete sensor info from footer
+                    from ospy.sensors import sensors_timer
+                    sensor = sensors.get(index)
+                    sensors_timer.stop_status(sensor.name)
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                    pass
+
+                try: # delete programs from sensor in program level adjustments (for soil moisture sensor)
+                    program = programs.get()
+                    for i in range(0, 16):
+                        if sensor.soil_program[i] != "-1":
+                            pid = '{}'.format(program[int(sensor.soil_program[i])-1].name)
+                            del program_level_adjustments[pid]
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                    pass
+
+                try: # delete log and graph
+                    shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors', str(index)))
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                    pass
+
+                try: # delete sensor
+                    sensors.remove_sensors(index)
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                    pass
+
+                raise web.seeother('/sensors')
+
         multi_type = -1
         sen_type = -1
 
@@ -1105,12 +1135,20 @@ class users_page(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice(home_page, msg)
 
+        return self.core_render.users()
+
+    def POST(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
         qdict = web.input()
-        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
-        if delete_all:
+        if qdict.get('action', '') == 'delete_all':
             while users.count() > 0:
                 users.remove_users(users.count()-1)
-        return self.core_render.users()
+        raise web.seeother('/users')
 
 
 class user_page(ProtectedPage):
@@ -1125,10 +1163,6 @@ class user_page(ProtectedPage):
         qdict = web.input()
         try:
             index = int(index)
-            delete = get_input(qdict, 'delete', False, lambda x: True)
-            if delete and session['category'] == 'admin':
-                users.remove_users(index)
-                raise web.seeother('/users')
 
         except ValueError:
             pass
@@ -1150,6 +1184,13 @@ class user_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)        
 
         qdict = web.input()
+        if qdict.get('action', '') == 'delete':
+            try:
+                users.remove_users(int(index))
+            except ValueError:
+                pass
+            raise web.seeother('/users')
+
         try:
             index = int(index)
             user = users.get(index)
@@ -1217,22 +1258,9 @@ class image_edit_page(ProtectedPage):
         
         qdict = web.input() 
         errorCode = qdict.get('errorCode', 'None')
-        delete = get_input(qdict, 'delete', False, lambda x: True)
-        install = get_input(qdict, 'install', False, lambda x: True)
 
         img_path    = './ospy/images/stations/station%s.png' % str(index)
         img_path_th = './ospy/images/stations/station%s_thumbnail.png' % str(index)
-
-        if delete and session[u'category'] == 'admin':
-            try:
-                if os.path.isfile(img_path):
-                    os.remove(img_path)
-                if os.path.isfile(img_path_th):
-                    os.remove(img_path_th)
-                log.debug('webpages.py', _('Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
-            except:
-                log.debug('webpages.py', traceback.format_exc())
-                pass
 
         if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
             img_url = '/images?id=no_image'                           # fake default img
@@ -1245,19 +1273,6 @@ class image_edit_page(ProtectedPage):
                 pass
         else:
             img_url = '/images?sf=1&id=station%s' % str(index)        # station img
-
-        if install and session['category'] == 'admin':
-            try:
-                import subprocess
-                cmd = "sudo pip install Pillow"
-                proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-                output = proc.communicate()[0]
-                log.debug('webpages.py', '{}'.format(output))
-                errorCode = qdict.get('errorCode', 'nopilOK')
-            except:
-                errorCode = qdict.get('errorCode', 'nopilErr')
-                log.debug('webpages.py', traceback.format_exc())
-                pass
 
         return self.core_render.edit(index, img_url, errorCode)
 
@@ -1273,6 +1288,31 @@ class image_edit_page(ProtectedPage):
 
         img_path      = './ospy/images/stations/station%s.png' % str(index)
         img_path_th   = './ospy/images/stations/station%s_thumbnail.png' % str(index)
+        action = qdict.get('action', '')
+
+        if action == 'delete':
+            try:
+                if os.path.isfile(img_path):
+                    os.remove(img_path)
+                if os.path.isfile(img_path_th):
+                    os.remove(img_path_th)
+                log.debug('webpages.py', _('Files {} and {} has sucesfully deleted...').format('station%s.png' % str(index),'station%s_thumbnail.png' % str(index)))
+            except:
+                log.debug('webpages.py', traceback.format_exc())
+                pass
+            raise web.seeother('/img_edit/{}'.format(index))
+
+        if action == 'install':
+            try:
+                import subprocess
+                cmd = "sudo pip install Pillow"
+                proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
+                output = proc.communicate()[0]
+                log.debug('webpages.py', '{}'.format(output))
+                raise web.seeother('/img_edit/{}?errorCode=nopilOK'.format(index))
+            except:
+                log.debug('webpages.py', traceback.format_exc())
+                raise web.seeother('/img_edit/{}?errorCode=nopilErr'.format(index))
         img_path_temp = './ospy/images/stations/temp%s.png' % str(index)
 
         if session.get('category') == 'admin':
@@ -1766,20 +1806,7 @@ class plugins_manage_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)
 
         qdict = web.input()
-        plugin = get_input(qdict, 'plugin', None)
-        delete = get_input(qdict, 'delete', False, lambda x: True)
-        enable = get_input(qdict, 'enable', None, lambda x: x == '1')
-        disable_all = get_input(qdict, 'disable_all', False, lambda x: True)
-        enable_all = get_input(qdict, 'enable_all', False, lambda x: True)
-        delete_all = get_input(qdict, 'delete_all', False, lambda x: True)
-        refresh = get_input(qdict, 'refresh', False, lambda x: True)
         changes = get_input(qdict, 'changes', None)
-        auto_update = get_input(qdict, 'auto', None, lambda x: x == '1')
-        use_update = get_input(qdict, 'use', None, lambda x: x == '1')
-
-        if refresh:
-            plugins.checker.refresh(install_updates=False)
-            raise web.seeother('/plugins_manage')
 
         if changes is not None and changes in plugins.available():
             available_info = plugins.checker.available_version(changes)
@@ -1799,17 +1826,34 @@ class plugins_manage_page(ProtectedPage):
                 current_info[changes]['date'] = _format_display_datetime(current_info[changes].get('date', ''))
             return self.core_render.plugins_changes(changes, change_list, available_info, current_info)
 
-        if disable_all:
+        return self.core_render.plugins_manage()
+
+    def POST(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
+        qdict = web.input()
+        action = qdict.get('action', '')
+        plugin = get_input(qdict, 'plugin', None)
+
+        if action == 'refresh':
+            plugins.checker.refresh(install_updates=False)
+            raise web.seeother('/plugins_manage')
+
+        if action == 'disable_all':
             options.enabled_plugins = []
             plugins.start_enabled_plugins()
 
-        if enable_all:
+        elif action == 'enable_all':
             for plugin in plugins.available():
                if plugin not in options.enabled_plugins:
                   options.enabled_plugins.append(plugin)
             plugins.start_enabled_plugins()
 
-        if delete_all:
+        elif action == 'delete_all':
             from ospy.helpers import del_rw
             import shutil
             for plugin in plugins.available():
@@ -1820,36 +1864,36 @@ class plugins_manage_page(ProtectedPage):
             plugins.start_enabled_plugins()
             raise web.seeother('/plugins_manage')
 
-        if plugin is not None and plugin in plugins.available():
-            if delete:
+        elif action in ['enable', 'delete'] and plugin is not None and plugin in plugins.available():
+            enable = qdict.get('enable', '0') == '1'
+            if action == 'delete':
                 enable = False
 
-            if enable is not None:
-                if not enable and plugin in options.enabled_plugins:
-                    options.enabled_plugins.remove(plugin)
-                elif enable and plugin not in options.enabled_plugins:
-                    options.enabled_plugins.append(plugin)
-                options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
-                plugins.start_enabled_plugins()
+            if not enable and plugin in options.enabled_plugins:
+                options.enabled_plugins.remove(plugin)
+            elif enable and plugin not in options.enabled_plugins:
+                options.enabled_plugins.append(plugin)
+            options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
+            plugins.start_enabled_plugins()
 
-            if delete:
+            if action == 'delete':
                 from ospy.helpers import del_rw
                 import shutil
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
 
             raise web.seeother('/plugins_manage')
 
-        if auto_update is not None:
-            options.auto_plugin_update = auto_update
+        elif action == 'auto_update':
+            options.auto_plugin_update = qdict.get('enabled', '0') == '1'
             plugins.checker.update()
             raise web.seeother('/plugins_manage')
         
-        if use_update is not None:
-            options.use_plugin_update = use_update
+        elif action == 'use_update':
+            options.use_plugin_update = qdict.get('enabled', '0') == '1'
             plugins.checker.update()
             raise web.seeother('/plugins_manage')
 
-        return self.core_render.plugins_manage()
+        raise web.seeother('/plugins_manage')
 
 
 class plugins_install_page(ProtectedPage):
@@ -1863,14 +1907,6 @@ class plugins_install_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)
 
         qdict = web.input()
-        repo = get_input(qdict, 'repo', None, int)
-        plugin = get_input(qdict, 'plugin', None)
-        install = get_input(qdict, 'install', False, lambda x: True)
-
-        if install and repo is not None:
-            plugins.checker.install_repo_plugin(plugins.REPOS[repo], plugin)
-            self._redirect_back()
-
         plugins.checker.update()
         return self.core_render.plugins_install()
 
@@ -1884,8 +1920,16 @@ class plugins_install_page(ProtectedPage):
 
         qdict = web.input(zipfile={})
 
-        zip_file_data = qdict['zipfile'].file
-        plugins.checker.install_custom_plugin(zip_file_data)
+        if qdict.get('action', '') == 'install_repo':
+            repo = get_input(qdict, 'repo', None, int)
+            plugin = get_input(qdict, 'plugin', None)
+            if repo is not None:
+                plugins.checker.install_repo_plugin(plugins.REPOS[repo], plugin)
+            self._redirect_back()
+
+        if 'zipfile' in qdict and hasattr(qdict['zipfile'], 'file'):
+            zip_file_data = qdict['zipfile'].file
+            plugins.checker.install_custom_plugin(zip_file_data)
 
         self._redirect_back()
 
@@ -1901,22 +1945,6 @@ class log_page(ProtectedPage):
             return self.core_render.notice(home_page, msg)
 
         qdict = web.input()
-
-        if 'clear' in qdict:
-            log.clear_runs()
-            raise web.seeother('/log')
-
-        if 'clearALL' in qdict:
-            log.clear_all_runs()
-            raise web.seeother('/log')
-
-        if 'clearEM' in qdict:
-            logEM.clear_email()
-            raise web.seeother('/log')
-
-        if 'clearEV' in qdict:
-            logEV.clear_events()
-            raise web.seeother('/log')
 
         if 'csv' in qdict:
             events = log.finished_runs() + log.active_runs()
@@ -1982,7 +2010,24 @@ class log_page(ProtectedPage):
     def POST(self):
         from ospy.server import session
 
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice(home_page, msg)
+
         qdict = web.input()
+        action = qdict.get('action', '')
+        if action == 'clear':
+            log.clear_runs()
+            raise web.seeother('/log')
+        elif action == 'clearALL':
+            log.clear_all_runs()
+            raise web.seeother('/log')
+        elif action == 'clearEM':
+            logEM.clear_email()
+            raise web.seeother('/log')
+        elif action == 'clearEV':
+            logEV.clear_events()
+            raise web.seeother('/log')
 
         log_filter_server = get_input(qdict, 'log_filter_server', False, lambda x: True)
         log_filter_internet = get_input(qdict, 'log_filter_internet', False, lambda x: True)

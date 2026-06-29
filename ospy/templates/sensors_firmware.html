@@ -158,7 +158,12 @@ jQuery(document).ready(function(){
                 $elif _version(sensor.fw) > version.ver_esp32:
                     <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Sensor has a newer version')</a>
                 $else:  
-                    <a href="/firmware?id=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('Update to FW:')${version.ver_esp32}</a> 
+                    <form action="/firmware" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="firmware_update">
+                        <input type="hidden" name="index" value="${sensor.index}">
+                        <button type="submit" class="button deleteAll danger">$_('Update to FW:')${version.ver_esp32}</button>
+                    </form>
                 </td>
             $if int(sensor.cpu_core) == 1 and version.ver_esp8266 != "-":
                 <td>
@@ -167,9 +172,21 @@ jQuery(document).ready(function(){
                 $elif _version(sensor.fw) > version.ver_esp8266:
                     <a href="/firmware" class="button cModify" rel="noopener noreferrer">$_('Sensor has a newer version')</a>
                 $else:                
-                    <a href="/firmware?id=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('Update to FW:')${version.ver_esp8266}</a> 
+                    <form action="/firmware" method="post" style="display:inline">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="firmware_update">
+                        <input type="hidden" name="index" value="${sensor.index}">
+                        <button type="submit" class="button deleteAll danger">$_('Update to FW:')${version.ver_esp8266}</button>
+                    </form>
                 </td>
-            <td><a href="/firmware?aid=${str(sensor.index)}" class="button deleteAll danger" rel="noopener noreferrer">$_('AP')</a></td>
+            <td>
+                <form action="/firmware" method="post" style="display:inline">
+                    $:csrf_input()
+                    <input type="hidden" name="action" value="start_ap">
+                    <input type="hidden" name="index" value="${sensor.index}">
+                    <button type="submit" class="button deleteAll danger">$_('AP')</button>
+                </form>
+            </td>
             </tr>
         <tbody>
     </table>

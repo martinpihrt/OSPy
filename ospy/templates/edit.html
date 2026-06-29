@@ -24,7 +24,7 @@ $var page: image
         break;  
         case "nopil":
             jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-            jQuery("#BtnInstall").html("<a href='/img_edit/${index}?install' class='button cDelete danger'>$_('Install it!')</a>");
+            jQuery("#BtnInstall").html("<form action='/img_edit/${index}' method='post' style='display:inline'>$:{csrf_input()}<input type='hidden' name='action' value='install'><button type='submit' class='button cDelete danger'>$_('Install it!')</button></form>");
         break;
         case "nopilOK":
             jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
@@ -83,6 +83,10 @@ $var page: image
 
 <div id="controls">
     <button id="cUpload" class="submit"><b>$_('Upload')</b></button> 
-    <a href="/img_edit/${index}?delete" class="button cDelete danger">$_('Delete')</a>
+    <form action="/img_edit/${index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Delete this image?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="delete">
+        <button type="submit" class="button cDelete danger">$_('Delete')</button>
+    </form>
     <button id="cCancel" class="cancel danger">$_('Cancel')</button>
 </div>

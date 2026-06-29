@@ -6,7 +6,11 @@ $var page: users
 <div id="users">
     <div id="controls">
         <a href="/user/new" class="button add">$_(u'Add a New User')</a>
-        <a href="/users?delete_all" class="button deleteAll danger">$_(u'Delete All users')</a>
+        <form action="/users" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_(u'Delete all users?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+            $:csrf_input()
+            <input type="hidden" name="action" value="delete_all">
+            <button type="submit" class="button deleteAll danger">$_(u'Delete All users')</button>
+        </form>
     </div> 
     <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">  
         <table class="stationList" style="background: #F5F5F5;">  
@@ -36,7 +40,11 @@ $var page: users
                 </td>
                 <td>  
                 <a href="/user/${user.index}" class="button cModify"> $_(u'Edit User') </a>
-                <a href="/user/${user.index}?delete" class="button cDelete danger"> $_(u'Delete User')</a>
+                <form action="/user/${user.index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_(u'Delete this user?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                    $:csrf_input()
+                    <input type="hidden" name="action" value="delete">
+                    <button type="submit" class="button cDelete danger"> $_(u'Delete User')</button>
+                </form>
                 </td>              
                 </tr> 
         </table>          

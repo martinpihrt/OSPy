@@ -163,7 +163,11 @@ jQuery(document).ready(function(){
 
 <div id="controls">
     <a href="sensors" class="button add">$_('Back to Sensors')</a>
-    <a href="sensors?clean_all" class="button deleteAll danger">$_('Clean')</a>
+    <form action="/sensors" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clean sensor search results?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="clean_all">
+        <button type="submit" class="button deleteAll danger">$_('Clean')</button>
+    </form>
     <a href="firmware" class="button add">$_('Sensors Firmware')</a>
 </div>
 

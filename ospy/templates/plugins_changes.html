@@ -17,7 +17,13 @@ $var page: plugins
     <p>
         <a href="/plugins_manage" class="button cancel danger">$_('Cancel')</a>
         $if available_info is not None:
-            <a href="/plugins_install?repo=${available_info['repo_index']}&plugin=${plugin}&install" class="button open">$_('Update')</a>
+            <form action="/plugins_install" method="post" style="display:inline">
+                $:csrf_input()
+                <input type="hidden" name="action" value="install_repo">
+                <input type="hidden" name="repo" value="${available_info['repo_index']}">
+                <input type="hidden" name="plugin" value="${plugin}">
+                <button type="submit" class="button open">$_('Update')</button>
+            </form>
     </p>
 
     $if plugin in current_info:

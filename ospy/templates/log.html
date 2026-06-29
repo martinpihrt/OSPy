@@ -27,8 +27,20 @@ jQuery(document).ready(function(){
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_log else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a> <a href="?clear" class="button delete danger">$_('Clear Log')</a> </p>
-    <p>$_('Delete all records including internal water balance history for weather based stations and programs. The event is non-refundable!') <a href="?clearALL" class="button upload danger">$_('Clear all Logs!')</a> </p>
+    <p>$_('Download log') <a href="?csv" class="button refresh">$_('log.csv')</a>
+    <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear station log?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="clear">
+        <button type="submit" class="button delete danger">$_('Clear Log')</button>
+    </form>
+    </p>
+    <p>$_('Delete all records including internal water balance history for weather based stations and programs. The event is non-refundable!')
+    <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear all logs and water balance history?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="clearALL">
+        <button type="submit" class="button upload danger">$_('Clear all Logs!')</button>
+    </form>
+    </p>
     <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
@@ -57,7 +69,13 @@ jQuery(document).ready(function(){
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_logEM else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csvEM" class="button refresh">$_('email.csv')</a> <a href="?clearEM" class="button delete danger">$_('Clear Log') $_('Email')</a></p>
+    <p>$_('Download log') <a href="?csvEM" class="button refresh">$_('email.csv')</a>
+    <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear email log?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="clearEM">
+        <button type="submit" class="button delete danger">$_('Clear Log') $_('Email')</button>
+    </form>
+    </p>
     <div id="help_container" class="simpleblock">
     <table class="logList">
         <tr class="log_rec">
@@ -86,7 +104,13 @@ jQuery(document).ready(function(){
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_logEV else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a> <a href="?clearEV" class="button delete danger">$_('Clear Log') $_('Events')</a></p>
+    <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a>
+    <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear events log?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+        $:csrf_input()
+        <input type="hidden" name="action" value="clearEV">
+        <button type="submit" class="button delete danger">$_('Clear Log') $_('Events')</button>
+    </form>
+    </p>
     <p><br></p>
     <form name="FilterForm" id="FilterForm" action="/log?${csrf_query()}" method="post">
     $:csrf_input()

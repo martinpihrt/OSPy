@@ -14,7 +14,12 @@ $var page: plugins
     $for repo_index, repo in enumerate(plugins.REPOS):
         <div style="vertical-align:middle;" class='category collapsible collapsed'>
             <h4>
-                <a style="float:right;" href="/plugins_install?repo=${repo_index}&install" class="minibutton open">$_('Install all')</a>
+                <form action="/plugins_install" method="post" style="float:right;">
+                    $:csrf_input()
+                    <input type="hidden" name="action" value="install_repo">
+                    <input type="hidden" name="repo" value="${repo_index}">
+                    <button type="submit" class="minibutton open">$_('Install all')</button>
+                </form>
                 ${repo}
             </h4>
 
@@ -22,12 +27,18 @@ $var page: plugins
             $for plugin, info in plugins.checker.get_repo_contents(repo).items():
                 <div class='category collapsible collapsed'>
                     <h5>
-                        <a style="float:right;" href="/plugins_install?repo=${repo_index}&plugin=${plugin}&install" class="minibutton open">
-                        $if plugin in available_list:
-                            $_('Reinstall')
-                        $else:
-                            $_('Install')
-                        </a>
+                        <form action="/plugins_install" method="post" style="float:right;">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="install_repo">
+                            <input type="hidden" name="repo" value="${repo_index}">
+                            <input type="hidden" name="plugin" value="${plugin}">
+                            <button type="submit" class="minibutton open">
+                            $if plugin in available_list:
+                                $_('Reinstall')
+                            $else:
+                                $_('Install')
+                            </button>
+                        </form>
                         ${info['name']}
                     </h5>
                     <div style="margin-left: 10px;">

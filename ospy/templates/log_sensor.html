@@ -12,7 +12,11 @@ $ shelly_list = [_('Shelly Plus HT'), _('Shelly Plus Plug S'), _('Shelly Pro 2PM
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
 <a href="/sensor/${index}?graph" class="button upload"> $_('View Graph')</a>
-<a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
+<form action="/sensor/${index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear all sensor logs?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+    $:csrf_input()
+    <input type="hidden" name="action" value="clear">
+    <button type="submit" class="button delete danger">$_('Clear All')</button>
+</form>
 
 <div id="options">
     <div class="title">$_('Event Log') - ${name}</div>
@@ -152,4 +156,8 @@ $if manufacturer == 1:
 <a href="/sensors" class="button refresh">$_('Cancel')</a>
 <a href="" class="button refresh">$_('Refresh')</a>
 <a href="/sensor/${index}?graph" class="button upload"> $_('View Graph')</a>
-<a href="/sensor/${index}?clear" class="button delete danger">$_('Clear All')</a>
+<form action="/sensor/${index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear all sensor logs?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+    $:csrf_input()
+    <input type="hidden" name="action" value="clear">
+    <button type="submit" class="button delete danger">$_('Clear All')</button>
+</form>
