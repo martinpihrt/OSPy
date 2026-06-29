@@ -86,7 +86,7 @@ function confirmProgramDelete(message) {
                                 <span class='toggleright'>$_('Off')</span>
                             </button>
                         </form>
-                    ${program.index+1}. ${program.name}: <span class="val">${program.summary()}</span>
+                    <span class="programTitle">${program.index+1}. ${program.name}</span>: <span class="val">${program.summary()}</span>
                     </p>
                     <p class="stationList">$_('Run:') <span class="val">${', '.join([stations[s].name for s in program.stations]) or "None"}</span></p>
                     $if stations.master is not None and stations.master_two is not None:

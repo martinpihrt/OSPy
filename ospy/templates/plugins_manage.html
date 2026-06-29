@@ -10,7 +10,7 @@ $var page: plugins
             $:csrf_input()
             <input type="hidden" name="action" value="use_update">
             <input type="hidden" name="enabled" value="${'0' if options.use_plugin_update else '1'}">
-            <button type="submit" class="button cDisable toggle ${'on' if options.use_plugin_update else 'off'}">
+            <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if options.use_plugin_update else 'off'}">
                 <span class='toggleleft'>$_('On')</span>
                 <span class='togglesep'>&nbsp;</span>
                 <span class='toggleright'>$_('Off')</span>
@@ -23,7 +23,7 @@ $var page: plugins
             $:csrf_input()
             <input type="hidden" name="action" value="auto_update">
             <input type="hidden" name="enabled" value="${'0' if options.auto_plugin_update else '1'}">
-            <button type="submit" class="button cDisable toggle ${'on' if options.auto_plugin_update else 'off'}">
+            <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if options.auto_plugin_update else 'off'}">
                 <span class='toggleleft'>$_('On')</span>
                 <span class='togglesep'>&nbsp;</span>
                 <span class='toggleright'>$_('Off')</span>
@@ -108,7 +108,7 @@ $var page: plugins
                     <input type="hidden" name="action" value="enable">
                     <input type="hidden" name="plugin" value="${plugin}">
                     <input type="hidden" name="enable" value="${'0' if running else '1'}">
-                    <button type="submit" class="button cDisable toggle ${'on' if running else 'off'}">
+                    <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if running else 'off'}">
                         <span class='toggleleft'>$_('On')</span>
                         <span class='togglesep'>&nbsp;</span>
                         <span class='toggleright'>$_('Off')</span>
