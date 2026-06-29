@@ -40,14 +40,14 @@ function confirmProgramDelete(message) {
                         <input type="hidden" name="action" value="enable_group">
                         <input type="hidden" name="group_id" value="${group['id']}">
                         <input type="hidden" name="enabled" value="1">
-                        <button type="submit" class="button cDisable toggle on">$_('Enable all')</button>
+                        <button type="submit" class="button groupEnable">$_('Enable all')</button>
                     </form>
                     <form action="/programs" method="post" style="display:inline">
                         $:csrf_input()
                         <input type="hidden" name="action" value="enable_group">
                         <input type="hidden" name="group_id" value="${group['id']}">
                         <input type="hidden" name="enabled" value="0">
-                        <button type="submit" class="button cDisable toggle off">$_('Disable all')</button>
+                        <button type="submit" class="button groupDisable danger">$_('Disable all')</button>
                     </form>
                     <form action="/programs" method="post" style="display:inline">
                         $:csrf_input()

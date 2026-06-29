@@ -43,6 +43,14 @@ class ProgramType(object):
 
 ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith('_') and isinstance(getattr(ProgramType, x), int)}
 
+
+def _default_group_name():
+    return _('Default group')
+
+
+def _is_legacy_default_group_name(name):
+    return name in ('', None, 'Default', _('Default'), 'Smazat nastavení')
+
 class _Program(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_programs', '_loading']
 
@@ -708,7 +716,7 @@ class _Programs(object):
 
     def ensure_groups(self):
         if not hasattr(options, 'program_groups'):
-            options.program_groups = [{'id': 'default', 'name': _('Default'), 'collapsed': False}]
+            options.program_groups = [{'id': 'default', 'name': _default_group_name(), 'collapsed': False}]
 
         groups = []
         known_ids = set()
@@ -716,15 +724,18 @@ class _Programs(object):
             group_id = group.get('id', '')
             if not group_id or group_id in known_ids:
                 continue
+            group_name = group.get('name', _default_group_name() if group_id == 'default' else _('Group'))
+            if group_id == 'default' and _is_legacy_default_group_name(group_name):
+                group_name = _default_group_name()
             groups.append({
                 'id': group_id,
-                'name': group.get('name', _('Default') if group_id == 'default' else _('Group')),
+                'name': group_name,
                 'collapsed': bool(group.get('collapsed', False))
             })
             known_ids.add(group_id)
 
         if 'default' not in known_ids:
-            groups.insert(0, {'id': 'default', 'name': _('Default'), 'collapsed': False})
+            groups.insert(0, {'id': 'default', 'name': _default_group_name(), 'collapsed': False})
             known_ids.add('default')
 
         for program in self._programs:

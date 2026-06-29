@@ -387,6 +387,22 @@ span.stationName:last-child:after {
     width:95%;
 }
 
+.programGroup {
+    border: 2px solid #397F19;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: rgba(57, 127, 25, 0.04);
+}
+
+.programGroup summary {
+    margin: -8px -8px 8px -8px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #397F19;
+    background-color: rgba(57, 127, 25, 0.10);
+    cursor: pointer;
+}
+
 .program p:first-child {
     background-color: #2E3959;
     color: white
@@ -775,9 +791,12 @@ button.pushon.on, .button.pushon.on {
     font-weight: 700;
 }
 
-.program .button.toggle {float:right; width:130px; margin:0px !important; padding:0px; background-color:transparent}
+.program .button.toggle {float:right; width:130px; margin:0px !important; padding:0px;}
+.program .button.toggle.on {background-color:#397F19;}
+.program .button.toggle.off {background-color:#7D1921;}
 .program .button.toggle span.toggleleft {width: 30px;}
 .program .button.toggle span.toggleright {width: 30px;}
+.programGroup .button.groupEnable, .programGroup .button.groupDisable {min-width:0; width:auto; padding-left:12px; padding-right:12px;}
 .minibutton {
     padding: 2px 6px;
     font-family: 'Open Sans', sans-serif;

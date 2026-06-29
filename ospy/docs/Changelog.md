@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+June 29 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Programs page update: added program groups for organizing schedules, including add, rename, delete, copy, move program to group, enable all programs in a group, and disable all programs in a group. Copied programs are created disabled so they can be reviewed before use. Added conflict warnings for overlapping enabled programs on the same station/output, and added confirmation dialogs for destructive program actions. Fixed the default program group name to use a separate "Default group" label instead of the existing "Default" translation. Improved the Programs page layout by making group action buttons readable, restoring visible ON/OFF program switches, and adding visual borders around each program group in all built-in themes. Extended CSRF protection to remaining core OSPy forms and state-changing program actions. Updated the web interface documentation and added a Slovak web interface guide.
+
 June 28 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
