@@ -9,7 +9,7 @@ _I2C_LOCK = Lock()
 
 
 @contextmanager
-def i2c_transaction(timeout=5.0, settle_time=0.05):
+def i2c_transaction(timeout=30.0, settle_time=0.02):
     """Serialize I2C access between plugins running in the OSPy process."""
     start = time.time()
     acquired = False
@@ -23,8 +23,8 @@ def i2c_transaction(timeout=5.0, settle_time=0.05):
         time.sleep(0.05)
 
     try:
-        if settle_time > 0:
-            time.sleep(settle_time)
         yield
     finally:
+        if settle_time > 0:
+            time.sleep(settle_time)
         _I2C_LOCK.release()
