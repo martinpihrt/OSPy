@@ -186,6 +186,10 @@ OSPy Web Interface Guide in English
             Programs
             Web Interface Guide - Czech
             Web Interface Guide - English
+            Web Interface Guide - German
+            Web Interface Guide - Polish
+            Web Interface Guide - Russian
+            Web Interface Guide - Serbian
             Web Interface Guide - Slovak
         API
             Readme
@@ -1025,6 +1029,18 @@ Web interface help in Czech language.
 
 ### Web Interface Guide - English
 Web Interface Help in English.
+
+### Web Interface Guide - German
+Web interface help in German language.
+
+### Web Interface Guide - Polish
+Web interface help in Polish language.
+
+### Web Interface Guide - Russian
+Web interface help in Russian language.
+
+### Web Interface Guide - Serbian
+Web interface help in Serbian language.
 
 ### Web Interface Guide - Slovak
 Web interface help in Slovak language.

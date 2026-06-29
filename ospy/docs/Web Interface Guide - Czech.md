@@ -187,6 +187,10 @@ OSPy Průvodce webovým rozhraním v češtině
             Programs
             Web Interface Guide - Czech
             Web Interface Guide - English
+            Web Interface Guide - German
+            Web Interface Guide - Polish
+            Web Interface Guide - Russian
+            Web Interface Guide - Serbian
             Web Interface Guide - Slovak
         API
             Readme
@@ -1051,6 +1055,18 @@ Nápověda k webovému rozhraní v češtině.
 
 ### Web Interface Guide - English
 Nápověda k webovému rozhraní v angličtině.
+
+### Web Interface Guide - German
+Nápověda k webovému rozhraní v němčině.
+
+### Web Interface Guide - Polish
+Nápověda k webovému rozhraní v polštině.
+
+### Web Interface Guide - Russian
+Nápověda k webovému rozhraní v ruštině.
+
+### Web Interface Guide - Serbian
+Nápověda k webovému rozhraní v srbštině.
 
 ### Web Interface Guide - Slovak
 Nápověda k webovému rozhraní ve slovenštině.

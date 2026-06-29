@@ -2159,6 +2159,7 @@ class options_page(ProtectedPage):
 
         if changing_language:
             log.debug('webpages.py', _('Changing language -> restarting.'))
+            options.save_now()
             report_restarted()
             restart(wait=3)    # OSPy software
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')

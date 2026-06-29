@@ -379,6 +379,22 @@ Nápoveda k webovému rozhraniu v češtine.
 
 Nápoveda k webovému rozhraniu v angličtine.
 
+### Web Interface Guide - German
+
+Nápoveda k webovému rozhraniu v nemčine.
+
+### Web Interface Guide - Polish
+
+Nápoveda k webovému rozhraniu v poľštine.
+
+### Web Interface Guide - Russian
+
+Nápoveda k webovému rozhraniu v ruštine.
+
+### Web Interface Guide - Serbian
+
+Nápoveda k webovému rozhraniu v srbčine.
+
 ### Web Interface Guide - Slovak
 
 Nápoveda k webovému rozhraniu v slovenčine.

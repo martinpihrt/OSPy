@@ -767,6 +767,13 @@ class _Options(object):
         except Exception:
             logging.warning(_('Saving error:\n') + traceback.format_exc())
 
+    def save_now(self):
+        """Write pending option changes immediately."""
+        if self._write_timer is not None:
+            self._write_timer.cancel()
+            self._write_timer = None
+        self._write()
+
     def get_categories(self):
         result = []
         for info in self.OPTIONS:
