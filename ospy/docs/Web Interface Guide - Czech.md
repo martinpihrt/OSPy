@@ -19,10 +19,19 @@ OSPy Průvodce webovým rozhraním v češtině
         V provozu
     Programy
         Přidat nový program
+        Skupiny programů
+        Přidat skupinu
+        Přejmenovat skupinu
+        Zap/Vyp skupinu
+        Kopírovat skupinu
+        Smazat skupinu
         Spustit nyní
         Úprava 
+        Kopírovat
+        Přesunout do skupiny
         Smazat vše 
         Zap/Vyp program
+        Upozornění na kolize
         Typ plánovače
             Vybrané dny (Jednoduchý)
                 Čas startu
@@ -74,6 +83,8 @@ OSPy Průvodce webovým rozhraním v češtině
         Vypnout vše
         Zapnout vše 
         Povolit kontrolu aktualizací
+        Načíst změny
+        Změny
         Auto aktualizace
     Záznam
         Stáhnout záznam jako
@@ -103,10 +114,11 @@ OSPy Průvodce webovým rozhraním v češtině
             Nové heslo
             Potvrďte heslo 
             Další uživatelé
-        Bezpečnost            
+        Bezpečnost             
+            Ochrana formulářů
             Použít HTTPS
-            Jméno domény
-            Použít vlastní HTTPS 
+            Jméno domény 
+            Použít vlastní HTTPS
         Snímače
             Heslo pro nahrávání firmwaru                     
         Nastavení stanic
@@ -175,6 +187,7 @@ OSPy Průvodce webovým rozhraním v češtině
             Programs
             Web Interface Guide - Czech
             Web Interface Guide - English
+            Web Interface Guide - Slovak
         API
             Readme
             Details
@@ -320,17 +333,44 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ## Přidat nový program
 Tlačítkem "Přidat nový program" vytvoříme nový program plánovače.
 
+## Skupiny programů
+Programy lze uspořádat do rozbalovacích skupin. Skupiny se hodí například pro oddělení letních a zimních programů, nebo pro přehledné rozdělení podle části zahrady.
+
+## Přidat skupinu
+Tlačítkem "Přidat skupinu" vytvoříme novou skupinu programů.
+
+## Přejmenovat skupinu
+Akce pro přejmenování skupiny změní pouze název skupiny. Programy přiřazené do skupiny zůstanou zachované.
+
+## Zap/Vyp skupinu
+Akce ZAP/VYP u skupiny povolí nebo zakáže všechny programy v dané skupině najednou. Je vhodná například pro sezónní přepínání více programů.
+
+## Kopírovat skupinu
+Akce kopírování vytvoří novou skupinu a zkopíruje do ní všechny programy z původní skupiny. Zkopírované programy jsou vytvořené jako zakázané, aby se nespustily dříve, než je zkontrolujeme.
+
+## Smazat skupinu
+Smazání skupiny vyžaduje potvrzení. Programy ze smazané skupiny se přesunou do výchozí skupiny.
+
 ## Spustit nyní
 Tlačítkem "Spustit nyní" spustíme program okamžitě bez ohledu na čas a datum plánovače.
 
 ## Úprava 
 Tlačítko "Úprava" slouží k upravení parametrů již vytvořeného programu.
 
+## Kopírovat
+Tlačítko "Kopírovat" vytvoří kopii vybraného programu. Kopie je ve výchozím stavu zakázaná, takže ji můžeme bezpečně upravit před použitím v plánovači.
+
+## Přesunout do skupiny
+Program lze přiřadit do skupiny na stránce úpravy programu. Tím se změní pouze jeho umístění na stránce Programy.
+
 ## Smazat vše
-Tlačítko "Smazat vše" odstraní všechny existující programy.
+Tlačítko "Smazat vše" odstraní po potvrzení všechny existující programy.
 
 ## Zap/Vyp program
 Přepínač "ZAP/VYP" umožňuje vytvořený program povolit/zakázat v plánovači.
+
+## Upozornění na kolize
+Při uložení programu OSPy kontroluje povolené programy a hledá překryvy plánovaného běhu na stejné stanici/výstupu. Pokud je ve stejném čase naplánovaný jiný program, stránka Programy zobrazí upozornění s dobou překryvu. Jde pouze o upozornění, program se automaticky nezablokuje ani neupraví.
 
 ## Typ plánovače
 Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku (vybrané dny, opakování, týdenní, vlastní a programy založené na předpovědi počasí).
@@ -456,6 +496,12 @@ Tlačítko povolí všechna nainstalovaná rozšíření.
   
 ## Povolit kontrolu aktualizací
 Když je tlačítko aktivní, tak se automaticky po hodině kontroluje ve vzdáleném repozitáři dostupnost nové verze rozšíření. Při dostupnosti nové verze se u rozšíření zobrazí hláška "aktualizovat".
+
+## Načíst změny
+Tlačítko načte nejnovější seznam dostupných změn ze vzdáleného repozitáře rozšíření.
+
+## Změny
+Tlačítko otevře přehled dostupných změn rozšíření a informací k aktualizacím.
   
 ## Auto aktualizace
 Když je tlačítko aktivní, tak se při dostupnosti nové verze rozšíření automaticky provede aktualizace tohoto rozšíření. Upozornění: systém OSPy se neustále vyvíjí a pokud dojde k zásadní změně v systému OSPy a uživatel systém OSPy nebude aktualizovat, může dojít k tomu, že rozšíření po aktualizaci nebude pracovat. Vždy nejprve aktualizujte systém OSPy a následně všechna rozšíření!
@@ -593,6 +639,9 @@ Do pole označeného "Potvrďte heslo" zadejte stejné nové heslo jak v poli "N
 Po kliknutí na tlačítko se otevře stránka, kde můžeme vytvářet a případně upravovat nové uživatele pro přístup do systému.
 
 ## Bezpečnost
+
+### Ochrana formulářů
+Akce, které mění nastavení nebo stav systému, jsou ve webovém rozhraní chráněné tokenem formuláře. Pokud je stránka otevřená dlouho nebo vyprší relace v prohlížeči, načtěte stránku znovu a akci zopakujte.
 
 ### Použít HTTPS 
 V případě, že jsme nakonfigurovali server OSPy pro vyšší zabezpečení přenosu dat pomocí certifikátu SSL, zaškrtněte políčko "Použít HTTPS". Pokud je zaškrtnuta volba "Použít HTTPS" a server není správně nastaven, OSPy se spustí jako http server bez zabezpečení.
@@ -1002,6 +1051,9 @@ Nápověda k webovému rozhraní v češtině.
 
 ### Web Interface Guide - English
 Nápověda k webovému rozhraní v angličtině.
+
+### Web Interface Guide - Slovak
+Nápověda k webovému rozhraní ve slovenštině.
 
 ## API
 ### Readme

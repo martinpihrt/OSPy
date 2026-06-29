@@ -19,10 +19,19 @@ OSPy Web Interface Guide in English
         Working
     Programs page
         Add a New Program
+        Program groups
+        Add group
+        Rename group
+        Enable or Disable a group
+        Copy group
+        Delete group
         Run Now
         Edit 
+        Copy
+        Move to group
         Delete All 
         Enable or Disable a Program
+        Conflict warnings
         Schedule type
             Selected days (Simple)
                 Start time
@@ -74,6 +83,8 @@ OSPy Web Interface Guide in English
         Disable All
         Enable All 
         Enable check updates
+        Load changes
+        Changes
         Automatic updates
     Log page
         Download log as
@@ -104,6 +115,7 @@ OSPy Web Interface Guide in English
             Confirm password
             Aditional users
         Security Section             
+            Form protection
             Use HTTPS access
             Domain name 
             Use Own HTTPS access
@@ -174,6 +186,7 @@ OSPy Web Interface Guide in English
             Programs
             Web Interface Guide - Czech
             Web Interface Guide - English
+            Web Interface Guide - Slovak
         API
             Readme
             Details
@@ -314,17 +327,44 @@ The Running time of the system Raspberry pi.
 ## Add a New Program
 Use the "Add new program" button to create a new scheduler program.
 
+## Program groups
+Programs can be organized into collapsible groups. Groups are useful when you want to keep seasonal programs together, for example summer programs in one group and winter programs in another group.
+
+## Add group
+Use the "Add group" button to create a new program group.
+
+## Rename group
+Use the group rename action to change the group name without changing the programs inside the group.
+
+## Enable or Disable a group
+The group ON/OFF action enables or disables all programs in that group at once. This is intended for seasonal switching or for temporarily stopping a complete set of programs.
+
+## Copy group
+Use the copy action on a group to create a duplicate group with duplicate programs. Copied programs are created disabled, so they do not start automatically until you enable them.
+
+## Delete group
+Deleting a group asks for confirmation. Programs from the deleted group are moved back to the default group.
+
 ## Run Now
 Use the "Run now" button to start the program immediately, regardless of the time and date of the scheduler.
 
 ## Edit
 The "Edit" button is used to edit the parameters of an already created program.
 
+## Copy
+The "Copy" button creates a duplicate of the selected program. The copied program is disabled by default, so it can be edited safely before being used by the scheduler.
+
+## Move to group
+Each program can be assigned to a group on the program edit page. This only changes where the program is shown on the Programs page.
+
 ## Delete All
-The "Delete all" button deletes all existing programs. 
+The "Delete all" button deletes all existing programs after confirmation.
 
 ## Enable or Disable a Program
 The "ON/OFF" switch allows you to enable/disable the created program in the scheduler.
+
+## Conflict warnings
+When a program is saved, OSPy checks enabled programs for overlapping scheduled runs on the same station/output. If another program is scheduled at the same time, the Programs page shows a warning with the overlap time. This is a warning only; it does not automatically block or change the program.
 
 ## Schedule type
 The type of scheduler allows you to choose the appropriate type of program according to our requirements (selected days, recurrences, weekly, custom and programs based on weather forecasts).
@@ -446,6 +486,12 @@ The button enables all installed extensions.
   
 ## Enable check updates
 When the button is active, a new version of the plugin is automatically checked in remote storage after an hour. "Update" message appears when new version is available.
+
+## Load changes
+The button loads the newest list of available changes from the plug-in repository.
+
+## Changes
+The button opens a view with available plug-in changes and update information.
   
 ## Automatic updates
 When the button is active, when a new version of an plugin is available, the plugin is automatically updated. Note: The OSPy system is constantly evolving and if the OSPy system changes significantly and the user does not update the OSPy system, the upgrade may not work after the upgrade. Always update the OSPy system first and then all plugins!
@@ -588,6 +634,9 @@ After clicking on the button, a page will open where we can create and possibly 
 
 ## Security Section
 In this section you can customize a secure connection using SSL and a certificate.
+
+### Form protection
+State-changing actions in the web interface are protected by form tokens. If a page is open for a long time or the browser session expires, submit the action again from a freshly loaded page.
 
 ### Use HTTPS access 
 If we have configured the OSPy server for enhanced security of SSL data transmission, select the "Use HTTPS" checkbox. If the "Use HTTPS" option is checked and the server is not set up correctly, OSPy will run as an http server without security.
@@ -976,6 +1025,9 @@ Web interface help in Czech language.
 
 ### Web Interface Guide - English
 Web Interface Help in English.
+
+### Web Interface Guide - Slovak
+Web interface help in Slovak language.
 
 ## API
 ### Readme
