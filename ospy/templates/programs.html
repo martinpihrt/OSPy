@@ -53,14 +53,14 @@ function confirmProgramDelete(message) {
                         $:csrf_input()
                         <input type="hidden" name="action" value="copy_group">
                         <input type="hidden" name="group_id" value="${group['id']}">
-                        <button type="submit" class="button cModify">$_('Copy group')</button>
+                        <button type="submit" class="button backup">$_('Copy group')</button>
                     </form>
                     <form action="/programs" method="post" style="display:inline">
                         $:csrf_input()
                         <input type="hidden" name="action" value="rename_group">
                         <input type="hidden" name="group_id" value="${group['id']}">
                         <input name="group_name" type="text" value="${group['name']}" style="width: 140px">
-                        <button type="submit" class="button cModify">$_('Rename')</button>
+                        <button type="submit" class="button upload">$_('Rename')</button>
                     </form>
                     $if group['id'] != 'default':
                         <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete this group? Programs will be moved to Default.'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
@@ -107,7 +107,7 @@ function confirmProgramDelete(message) {
                             ${_('Conflict with')} ${other.name} ${_('on')} ${conflict['station'].name}: ${conflict['start'].strftime('%Y-%m-%d %H:%M')} - ${conflict['end'].strftime('%H:%M')} (${conflict['minutes']} $_('min'))<br>
                         </p>
 
-                    <p>
+                    <p class="programActions">
                         $if not options.manual_mode:
                             $if program.type != ProgramType.WEEKLY_ADVANCED:
                                 $if program.type != ProgramType.CUSTOM:
@@ -118,12 +118,12 @@ function confirmProgramDelete(message) {
                                             <input type="hidden" name="index" value="${program.index}">
                                             <button type="submit" class="button cRunNow">$_('Run Now')</button>
                                         </form>
-                        <a href="/program/${program.index}" class="button cModify">$_('Edit')</a>
+                        <a href="/program/${program.index}" class="button upload">$_('Edit')</a>
                         <form action="/programs" method="post" style="display:inline">
                             $:csrf_input()
                             <input type="hidden" name="action" value="copy">
                             <input type="hidden" name="index" value="${program.index}">
-                            <button type="submit" class="button cModify">$_('Copy')</button>
+                            <button type="submit" class="button backup">$_('Copy')</button>
                         </form>
                         <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete this program?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
                             $:csrf_input()
@@ -139,7 +139,7 @@ function confirmProgramDelete(message) {
                                 $for target_group in programs.program_groups():
                                     <option value="${target_group['id']}" ${'selected' if target_group['id'] == program.group_id else ''}>${target_group['name']}</option>
                             </select>
-                            <button type="submit" class="button cModify">$_('Move')</button>
+                            <button type="submit" class="button upload">$_('Move')</button>
                         </form>
                     </p>
                     </div>
