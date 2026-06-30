@@ -2327,7 +2327,7 @@ class upload_page(ProtectedPage):
         from ospy import server
         import os
         from zipfile import ZipFile
-        from distutils.dir_util import copy_tree
+        from shutil import copytree
         import shutil
 
         if server.session['category'] != 'admin':
@@ -2377,7 +2377,7 @@ class upload_page(ProtectedPage):
                 log.debug('webpages.py', _('Copy extrated folders with files to data dir.'))
                 fromDirectory = os.path.join('ospy', 'upload', 'ospy_upload')
                 toDirectory = os.path.join('ospy', 'data')
-                copy_tree(fromDirectory, toDirectory)                          # Copy from to
+                copytree(fromDirectory, toDirectory, dirs_exist_ok=True)        # Copy from to
 
                 restart(wait=3)                                                # Restart OSPy software
 

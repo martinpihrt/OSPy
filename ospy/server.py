@@ -10,6 +10,8 @@ import os
 import glob
 import traceback
 import subprocess
+from threading import Timer, Lock
+from blinker import signal
 
 # Local imports
 from ospy.options import options
@@ -37,15 +39,24 @@ from ospy.sensors import sensors_timer
 optin_prompt = usagestats.Prompt(enable='cool_program --enable-stats',
                                  disable='cool_program --disable-stats')
 
-stats = usagestats.Stats('./ospy/statistics/',
-                         optin_prompt,
-                         'https://pihrt.com/ospystats/php_server.php',
-                         unique_user_id=True,
-                         version='0.1'
-                         )
+STATS_LOCATION = './ospy/statistics/'
+STATS_DROP_POINT = 'https://pihrt.com/ospystats/php_server.php'
+STATS_VERSION = '0.1'
+STATS_RETRY_INTERVAL = 6 * 60 * 60
 
 __server = None
 session = None
+statistics_timer = None
+statistics_lock = Lock()
+
+
+def _new_stats():
+    return usagestats.Stats(STATS_LOCATION,
+                            optin_prompt,
+                            STATS_DROP_POINT,
+                            unique_user_id=True,
+                            version=STATS_VERSION
+                            )
 
 
 class DebugLogMiddleware:
@@ -267,8 +278,8 @@ def start():
     log.debug('server.py', _('Starting sensors timer...'))
     sensors_timer.start()    
 
-    if net_connect():
-        create_statistics()
+    create_statistics(upload=net_connect())
+    schedule_statistics_retry()
 
     print_report('server.py', _('OSPy is ready'))
     log.debug('server.py', _('OSPy is ready'))
@@ -314,6 +325,10 @@ def close_sessions():
    
 def stop():
     global __server
+    global statistics_timer
+    if statistics_timer is not None:
+        statistics_timer.cancel()
+        statistics_timer = None
     if __server is not None:
         logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
         __server.stop()
@@ -321,10 +336,51 @@ def stop():
         close_sessions()
 
 
-def create_statistics():
+def flush_statistics_queue():
+    try:
+        if not net_connect():
+            return
+
+        with statistics_lock:
+            stats = _new_stats()
+            stats.enable_reporting()
+            stats.flush_pending()
+    except:
+        log.debug('server.py', traceback.format_exc())
+        pass
+
+
+def schedule_statistics_retry():
+    global statistics_timer
+    try:
+        if statistics_timer is not None:
+            statistics_timer.cancel()
+
+        statistics_timer = Timer(STATS_RETRY_INTERVAL, statistics_retry)
+        statistics_timer.daemon = True
+        statistics_timer.start()
+    except:
+        log.debug('server.py', traceback.format_exc())
+        pass
+
+
+def statistics_retry():
+    flush_statistics_queue()
+    schedule_statistics_retry()
+
+
+def notify_statistics_internet_available(name=None, **kw):
+    flush_statistics_queue()
+
+
+signal('internet_available').connect(notify_statistics_internet_available)
+
+
+def create_statistics(upload=True):
     try:
         log.debug('server.py', _('Creating statistics...'))
 
+        stats = _new_stats()
         stats.enable_reporting()
         stats.note({'mode': 'compatibility'})
         ospyFW = 'version ' + str(version.ver_str) + ' date ' + str(version.ver_date)
@@ -337,6 +393,7 @@ def create_statistics():
         usagestats.OPERATING_SYSTEM,  # Operating system/distribution
         usagestats.PYTHON_VERSION,    # Python version info
         usagestats.SESSION_TIME,      # Time since Stats object was created
+        upload=upload
         )
 
     except:

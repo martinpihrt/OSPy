@@ -3,12 +3,16 @@ Web API (wrapper around WSGI)
 (from web.py)
 """
 
-import cgi
 import pprint
 import sys
 import tempfile
 from io import BytesIO
 from urllib.parse import urljoin
+
+try:
+    import cgi
+except ModuleNotFoundError:
+    from . import cgi_compat as cgi
 
 from .utils import dictadd, intget, safestr, storage, storify, threadeddict
 

@@ -21,7 +21,7 @@ YouTube OpenSprinkler channel</br>
 [Sensors by Shelly.com](https://www.shelly.com/collections/smart-monitoring-saving-energy)
 
 ## For translate OSPy to other language
-The OSPy system is currently in three languages: English, Czech, Slovak. For other [languages](https://github.com/martinpihrt/OSPy/tree/master/i18n) and step by step, how to use is typed in MD file
+The OSPy system is currently available in multiple languages. For available [languages](https://github.com/martinpihrt/OSPy/tree/master/i18n) and step by step, how to use is typed in MD file
 Any user who joins the "OSPy" project is welcome! Translation of strings into other languages is not demanding (using the [Poedit](https://poedit.net/))
 
 ## Changelog and Issues

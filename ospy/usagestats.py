@@ -51,12 +51,16 @@ def OPERATING_SYSTEM(stats, info):
     """
     info.append(('architecture', platform.machine().lower()))
     
-    try:       # python > 3.9
+    try:
         import distro
-        info.append(('distribution', "%s;%s" % (distro.linux_distribution()[0:2])))
-    except:    # python <= 3.9
-        info.append(('distribution', "%s;%s" % (platform.linux_distribution()[0:2])))
-        pass
+        distribution = distro.linux_distribution()[0:2]
+    except Exception:
+        linux_distribution = getattr(platform, 'linux_distribution', None)
+        if linux_distribution is None:
+            distribution = ('', '')
+        else:
+            distribution = linux_distribution()[0:2]
+    info.append(('distribution', "%s;%s" % distribution))
         
     info.append(('system', "%s;%s" % (platform.system(), platform.release())))
 
@@ -301,7 +305,42 @@ class Stats(object):
                 raise ValueError(_('This report has already been submitted'))
             self.notes.extend(self._to_notes(info))
 
-    def submit(self, info, *flags):
+    def _pending_reports(self):
+        reports = [f for f in os.listdir(self.location)
+                   if f.startswith('report_') and f.endswith('.txt')]
+        reports.sort()
+        return reports
+
+    def _write_report(self, filename, lines):
+        fullname = os.path.join(self.location, filename)
+        tmpname = fullname + '.tmp'
+        with open(tmpname, 'wb') as fp:
+            for line in lines:
+                fp.write(line)
+        os.replace(tmpname, fullname)
+
+    def flush_pending(self, limit=5, timeout=5):
+        """Upload pending saved reports and remove each one only after success."""
+        if not self.sending:
+            return
+
+        for old_filename in self._pending_reports()[:limit]:
+            fullname = os.path.join(self.location, old_filename)
+            try:
+                with open(fullname, 'rb') as fp:
+                    # `data=fp` would make requests stream, which is currently
+                    # not a good idea (WSGI chokes on it)
+                    r = requests.post(self.drop_point, data=fp.read(),
+                                      timeout=timeout, verify=self.ssl_verify)
+                    r.raise_for_status()
+            except Exception as e:
+                logger.warning(_('Could not upload %s: %s'), old_filename, str(e))
+                break
+            else:
+                logger.info(_('Submitted report %s'), old_filename)
+                os.remove(fullname)
+
+    def submit(self, info, *flags, **kwargs):
         """Finish recording and upload or save the report.
 
         This closes the `Stats` object, no further methods should be called.
@@ -310,6 +349,10 @@ class Stats(object):
         uploaded too. If uploading is not explicitly enabled or disabled, the
         prompt will be shown, to ask the user to enable or disable it.
         """
+        upload = kwargs.pop('upload', True)
+        if kwargs:
+            raise TypeError(_('Unknown submit option %r') % sorted(kwargs.keys())[0])
+
         if not self.recording:
             return
         env_val = os.environ.get(self.env_var, '').lower()
@@ -341,54 +384,19 @@ class Stats(object):
             for key, value in all_info:
                 yield _encode(key) + b':' + _encode(value) + b'\n'
         filename = 'report_%d_%d.txt' % (secs, msecs)
+        report_lines = list(generator())
 
         # Save current report and exit, unless user has opted in
         if not self.sending:
             fullname = os.path.join(self.location, filename)
             with open(fullname, 'wb') as fp:
-                for l in generator():
+                for l in report_lines:
                     fp.write(l)
 
             # Show prompt
             sys.stderr.write(self.prompt.prompt)
             return
 
-        # Post previous reports
-        old_reports = [f for f in os.listdir(self.location)
-                       if f.startswith('report_')]
-        old_reports.sort()
-        old_reports = old_reports[:4]  # Only upload 5 at a time
-        for old_filename in old_reports:
-            fullname = os.path.join(self.location, old_filename)
-            try:
-                with open(fullname, 'rb') as fp:
-                    # `data=fp` would make requests stream, which is currently
-                    # not a good idea (WSGI chokes on it)
-                    r = requests.post(self.drop_point, data=fp.read(),
-                                      timeout=1, verify=self.ssl_verify)
-                    r.raise_for_status()
-            except Exception as e:
-                logger.warning(_('Could not upload %s: %s'), old_filename, str(e))
-                break
-            else:
-                logger.info(_('Submitted report %s'), old_filename)
-                os.remove(fullname)
-
-        # Post current report
-        try:
-            # `data=generator()` would make requests stream, which is currently
-            # not a good idea (WSGI chokes on it)
-            r = requests.post(self.drop_point, data=b''.join(generator()),
-                              timeout=1, verify=self.ssl_verify)
-        except requests.RequestException as e:
-            logger.warning(_('Could not upload report: %s'), str(e))
-            fullname = os.path.join(self.location, filename)
-            with open(fullname, 'wb') as fp:
-                for l in generator():
-                    fp.write(l)
-        else:
-            try:
-                r.raise_for_status()
-                logger.info(_('Submitted report'))
-            except requests.RequestException as e:
-                logger.warning(_('Server rejected report: %s'), str(e))
+        self._write_report(filename, report_lines)
+        if upload:
+            self.flush_pending()
