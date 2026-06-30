@@ -94,7 +94,7 @@ $var page: runonce
                     <td title=$:{json.dumps(_('Type time for run in minutes and seconds'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <input id="mm${station.index}" name="mm${station.index}" type="number" size="3" maxlength="3" value="0" min="0" max="999">:
                         <input id="ss${station.index}" name="ss${station.index}" type="number" size="2" maxlength="2" value="0" min="0" max="59">
-                        <span class="runonce-countdown-label" title=$:{json.dumps(_('Remaining time in sec'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Remaining time in sec'):</span>
+                        <span class="runonce-countdown-label" title=$:{json.dumps(_('Remaining time in sec'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Remaining'): </span>
                         <input id="rrmm${station.index}" class="runonce-countdown" type="text" size="3" value="00" readonly tabindex="-1">:
                         <input id="rrss${station.index}" class="runonce-countdown" type="text" size="2" value="00" readonly tabindex="-1">
                     </td>    
