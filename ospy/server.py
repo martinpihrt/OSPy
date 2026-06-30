@@ -152,6 +152,8 @@ def start():
     ssl_own_patch_fullchain =  '././ssl/fullchain.pem'
     ssl_own_patch_privkey   =  '././ssl/privkey.pem'
 
+    web.config.session_parameters.secure = False
+
     if options.use_ssl and not options.use_own_ssl:
        try:
            if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
@@ -164,6 +166,7 @@ def start():
                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
                certificate = ssl_patch_fullchain,  
                private_key = ssl_patch_privkey)   
+               web.config.session_parameters.secure = True
 
                log.debug('server.py', _('SSL OK.'))
            else:
@@ -184,6 +187,7 @@ def start():
                 HTTPServer.ssl_adapter = BuiltinSSLAdapter(
                 certificate = ssl_own_patch_fullchain,  
                 private_key = ssl_own_patch_privkey)   
+                web.config.session_parameters.secure = True
 
                 log.debug('server.py', _('Own SSL OK.'))
            else:
