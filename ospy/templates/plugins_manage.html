@@ -58,6 +58,9 @@ jQuery(document).ready(function(){
         <button type="submit" class="button upload">$_('Load changes')</button>
     </form>
     <span id="pluginRefreshStatus" style="margin-left: 8px;"></span>
+    <div style="clear: both; margin: 8px 0 8px 0; line-height: 1.3;">
+        <small>$_('Plugins are installed and updated from'): ${', '.join(plugins.REPOS)}</small>
+    </div>
     <form action="/plugins_manage" method="post" style="display:inline">
         $:csrf_input()
         <input type="hidden" name="action" value="disable_all">
@@ -102,7 +105,6 @@ jQuery(document).ready(function(){
                                     $_('Update')
                             </button>
                         </form>
-                        <div><small>$_('Source'): ${available_info['repo']}</small></div>
                     $else:
                         <a class="button open">$_('No update')</a>
                 </div>
