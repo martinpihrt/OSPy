@@ -125,16 +125,16 @@ OSPy Průvodce webovým rozhraním v češtině
             Maximální využití
                 O sekvenčních a souběžných režimech
             Počet výstupů
-            Zpoždění stanice
+            Pauza mezi stanicemi
             Min čas běhu
         Nastavení hl. stanice
             Hlavní stanice
             Hlavní stanice 2
             Aktivovat relé
-            T zapnutí
-            T vypnutí
-            T2 zapnutí
-            T2 vypnutí 
+            Posun startu hlavní stanice
+            Posun vypnutí hlavní stanice
+            Posun startu hlavní stanice 2
+            Posun vypnutí hlavní stanice 2 
         Dešťový senzor
             Používat senzor
             V klidu rozpojen
@@ -700,48 +700,59 @@ Sekce snímače obsahuje nastavení pro zabezpečení snímačů.
 Heslo pro nahrávání firmwaru z OSPy do snímače (pro všechny použité snímače - stejné heslo musí být použito i v nastavení snímače). Výchozí heslo je: "fg4s5b.s,trr7sw8sgyvrDfg".
 
 ## Nastavení stanic
-Sekce "Nastavení stanic" obsahuje všeobecná nastavení pro všechny stanice.
+Sekce "Nastavení stanic" obsahuje obecná nastavení, která ovlivňují plánování a kombinování stanic.
 
 ### Maximální využití
-Určuje, jak se jednotlivé stanice kombinují. Souběh 0 nebo sekvence 1 (2, 3...) V případě, že všechny stanice mají nastavené sekvenční použití­.
+Určuje, jak se mohou běhy stanic překrývat. `0` znamená bez omezení využití, takže stanice mohou běžet současně, pokud se jejich programy časově překrývají. `1` znamená vždy jednu stanici najednou, pokud má každá stanice využití `1`. Vyšší hodnota dovolí souběh více stanic, pokud jejich součet využití nepřekročí nastavený limit.
+
+Toto nastavení také ovlivňuje, kdy se vloží pauza mezi stanicemi.
 
 #### O sekvenčních a souběžných režimech
-* Při nastavení sekvence (Maximální využití >= 1) se vždy spustí pouze jedna (případně více stanic pokud nastavíme >= 1) stanice (výstup) - například hlavní stanice 1 a stanice 3 záhony. Po uplynutí doby programu se vypne hlavní stanice 1 a stanice 3 záhony. Spustí se hlavní stanice 1 a stanice 4 trávník. Nikdy se spolu nesepnou dvě stanice (například záhony a trávník uvedený v našem příkladu). Sekvenční režim má význam v případě, že nemáme dostupný takový zdroj vody (tlak a množství vody) na pokrytí všech stanic současně
-* Při nastavení souběhu (Maximální využití = 0) se vždy spustí neomezené množství stanic v danou dobu nastavenou programy. Například sepne hlavní stanice 1 (čerpadlo) a stanice 2, 3, 4. Souběžné zavlažování zkracuje dobu nutnou k zavlažování, ale vyžaduje větší zdroj vody.
+* Sekvenční režim se používá hlavně tehdy, když zdroj vody nezvládne napájet více větví najednou. Příklad: při Maximálním využití `1` a využití stanice `1` musí stanice 3 skončit dříve, než může začít stanice 4.
+* Souběžný režim se používá tehdy, když zdroj vody zvládne více větví najednou. Příklad: při Maximálním využití `0` mohou stanice 2, 3 a 4 běžet současně, pokud se jejich programy překrývají.
 
 ### Počet výstupů
-Celkový počet dostupných výstupů je (8 výstupů + x rozšiřujících desek.) Počet výstupů lze nastavit vyšší, než kolik skutečně máme fyzických výstupů (vytváříme virtuální výstupy).
+Celkový počet dostupných výstupů je 8 výstupů plus výstupy z rozšiřujících desek. Počet výstupů lze nastavit vyšší, než je skutečný počet fyzických výstupů, a tím vytvořit virtuální výstupy.
 
-### Zpoždění stanice
-Zadejte počet sekund pro zpoždění mezi operacemi stanic. Čas v sekundách mezi 0 a 3600.
+### Pauza mezi stanicemi
+Pauza vložená mezi postupně spouštěné stanice, když je plánovač nemůže spustit současně, v sekundách mezi 0 a 3600. Toto neposouvá stanici vůči hlavní stanici.
+
+Příklad: při Maximálním využití `1` a využití stanice `1` hodnota `30` spustí další stanici 30 sekund po skončení předchozí stanice.
 
 ### Min čas běhu
-Přeskočit zpoždění stanice, pokud by doba běhu byla menší než tato hodnota (v sekundách), mezi 0 a 86400.
+Přeskočí pauzu mezi stanicemi, pokud byl předchozí běh kratší než tato hodnota, v sekundách mezi 0 a 86400.
+
+Příklad: při pauze `30` a minimální době běhu `10` stanice, která běžela pouze 5 sekund, nevynutí 30sekundovou pauzu.
 
 ## Nastavení hl. stanice
-Sekce "Nastavení hl. stanice" obsahuje nastavení pro všechny hlavní stanice. Hlavní stanice se aktivuje, když se aktivuje libovolná stanice.
-* Za hlavní stanici můžeme považovat například čerpadlo, hlavní ventil s vodou jako přívod vody do systému.
+Sekce "Nastavení hl. stanice" vybírá hlavní stanici 1, hlavní stanici 2 a časové posuny používané při aktivaci hlavní stanice. Hlavní stanice je obvykle čerpadlo nebo hlavní ventil přívodu vody.
+
+Hlavní stanice se použije pouze u stanic, které ji mají nastavenou na stránce Stanice, případně u programů, které vybírají hlavní stanici 1 nebo 2 pro stanice nastavené na „Aktivovat Master 1/2 programem“.
 
 ### Hlavní stanice
-Výběr první hlavní stanice (pro čerpadlo nebo hlavní ventil). Určete, který výstup by měl být použit jako hlavní stanice.
+Výběr první hlavní stanice, například čerpadla nebo hlavního ventilu.
 
 ### Hlavní stanice 2
-Výběr druhé hlavní stanice (pro čerpadlo nebo hlavní ventil). Určete, který výstup by měl být použit jako vedlejší hlavní stanice.
+Výběr druhé hlavní stanice, například druhého čerpadla nebo jiného zdroje vody.
 
 ### Aktivovat relé
-Pokud je zaškrtnuto, relé bude také aktivováno spolu s 1 (nebo 2) hlavním výstupem.
+Pokud je zaškrtnuto, relé bude také aktivováno jako hlavní výstup.
 
-### T zapnutí
-Zpožděné ZAPnutí pro hlavní stanici (v sekundách), mezi -1800 a +1800.
+### Posun startu hlavní stanice
+Časový posun zapnutí hlavní stanice 1 vůči startu stanice, v sekundách mezi -1800 a +1800. Záporné hodnoty spustí hlavní stanici dříve, kladné hodnoty později.
 
-### T vypnutí
-Zpožděné VYPnutí pro hlavní stanici (v sekundách), mezi -1800 a +1800.
+Příklad: `-10` spustí hlavní stanici 10 sekund před stanicí. `+10` ji spustí 10 sekund po stanici.
 
-### T2 zapnutí
-Zpožděné ZAPnutí pro 2 hlavní stanici (v sekundách), mezi -1800 a +1800.
+### Posun vypnutí hlavní stanice
+Časový posun vypnutí hlavní stanice 1 vůči konci stanice, v sekundách mezi -1800 a +1800. Záporné hodnoty vypnou hlavní stanici dříve, kladné hodnoty ji nechají běžet déle.
 
-### T vypnutí 
-Zpožděné VYPnutí pro 2 hlavní stanici (v sekundách), mezi -1800 a +1800.
+Příklad: `-5` vypne hlavní stanici 5 sekund před koncem stanice. `+20` ji vypne 20 sekund po konci stanice.
+
+### Posun startu hlavní stanice 2
+Časový posun zapnutí hlavní stanice 2 vůči startu stanice. Funguje stejně jako posun startu hlavní stanice, ale jen pro hlavní stanici 2.
+
+### Posun vypnutí hlavní stanice 2
+Časový posun vypnutí hlavní stanice 2 vůči konci stanice. Funguje stejně jako posun vypnutí hlavní stanice, ale jen pro hlavní stanici 2.
 
 ## Dešťový senzor
 Nastaví typ spínače dešťového senzoru. Pokud používáte Raspberry Pi a chcete připojit senzor deště přímo k pinům GPIO, použijte piny 8 a 6 (gnd).

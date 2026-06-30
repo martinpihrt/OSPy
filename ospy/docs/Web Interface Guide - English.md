@@ -125,16 +125,16 @@ OSPy Web Interface Guide in English
             Maximum usage
                 About Sequential and Concurrent modes
             Number of outputs
-            Station delay
+            Pause between stations
             Minimum runtime
         Configure Master Section
             Master station
             Master two station
             Activate relay
-            Master on delay
-            Master off delay
-            Master two on delay
-            Master two off delay 
+            Master start offset
+            Master stop offset
+            Master two start offset
+            Master two stop offset 
         Rain Sensor Section
             Use rain sensor
             Normally open
@@ -698,48 +698,59 @@ The Sensors section contains settings for sensors security.
 Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.) Default is: "fg4s5b.s,trr7sw8sgyvrDfg".
 
 ## Station Handling Section
-The Station Handling section contains settings for stations.
+The Station Handling section contains global settings that affect how stations are scheduled and combined.
 
 ### Maximum usage
-Determines how the stations combine. Concurrency 0 or sequential >= 1 (2, 3 ...) If all stations have sequential use.
+Determines how station runs may overlap. `0` means no usage limit, so stations can run at the same time if their programs overlap. `1` means one station at a time when each station has usage `1`. Higher values allow more stations to run together when their combined usage does not exceed the limit.
+
+This setting also affects when the pause between stations is inserted.
 
 #### About Sequential and Concurrent modes
-* When setting the sequence (Maximum usage > = 1), only one (or more stations if set> = 1) station (output) - for example: main station 1 and station 3 flower beds is always started. After the program time has elapsed, the main station 1 and the station 3 turn off. The main station 1 and the station 4 lawn will start. The two stations (for example, the flower beds and the lawn shown in our example) will never sleep together. Sequence mode is important if we do not have such a water source (pressure and water quantity) available to cover all stations simultaneously.
-* When you set up concurrency (Maximum usage = 0), an unlimited number of stations are set to run at any given time. For example, the main station 1 (pump) and the stations 2, 3, 4 are switched on. Concurrent irrigation reduces the irrigation time but requires a larger water source.
+* Sequential mode is typically used when the water source cannot supply multiple zones at once. Example: with Maximum usage `1` and station usage `1`, station 3 finishes before station 4 can start.
+* Concurrent mode is typically used when the water source can supply multiple zones at once. Example: with Maximum usage `0`, stations 2, 3, and 4 may run together if their programs overlap.
 
 ### Number of outputs
-The total number of outputs available is (8 outputs + x extension board.) The number of outputs can be set higher than we actually have the number of physical outputs (we create the virtual outputs).
+The total number of outputs available is 8 outputs plus outputs from extension boards. The number can be set higher than the number of physical outputs to create virtual outputs.
 
-### Station delay
-Enter the number of seconds to delay between station operations. Time in seconds between 0 and 3600.
+### Pause between stations
+Pause inserted between sequential station runs when the scheduler cannot run them at the same time, in seconds between 0 and 3600. This does not shift a station against the master station.
+
+Example: with Maximum usage `1` and station usage `1`, value `30` starts the next station 30 seconds after the previous station ends.
 
 ### Minimum runtime
-Skip station delay if run time is less than this value (in seconds) between 0 and 86400.
+Skips the pause between stations when the previous run was shorter than this value, in seconds between 0 and 86400.
+
+Example: with pause `30` and minimum runtime `10`, a station that ran only 5 seconds will not force the 30 second pause.
 
 ## Configure Master Section
-The section "Configure Master Section" contains settings for all master stations. The master station is activated when any station is activated.
-* The master station is a pump or the main valve with water as the water supply to the system.
+The Configure Master section selects master station 1, master station 2, and the timing offsets used when stations activate a master. A master station is usually a pump or a main water valve.
+
+The master is used only by stations that are configured to activate it on the Stations page, or by programs that select master 1 or master 2 for stations set to "Activate Master 1/2 by program".
 
 ### Master station
-Selection of the first main station (for pump or main valve).
+Selection of the first master station, for example a pump or main valve.
 
 ### Master two station
-Selection of the next main station (for pump 2 or main valve 2).
+Selection of the second master station, for example a second pump or another water source.
 
 ### Activate relay
-If checked, the relay will also be activated as the main output. The relay has activating from first or second master stations.
+If checked, the relay will also be activated as a master output.
 
-### Master on delay
-Delay ON for master station (in seconds), between -1800 and +1800.
+### Master start offset
+Time offset for starting master station 1 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later.
 
-### Master off delay
-Delay OFF for master station (in seconds), between -1800 and +1800.
+Example: `-10` starts the master 10 seconds before the station. `+10` starts it 10 seconds after the station.
 
-### Master two on delay
-Delay ON for master two station (in seconds), between -1800 and +1800.
+### Master stop offset
+Time offset for stopping master station 1 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer.
 
-### Master two off delay 
-Delay OFF for master two station (in seconds), between -1800 and +1800.
+Example: `-5` stops the master 5 seconds before the station ends. `+20` stops it 20 seconds after the station ends.
+
+### Master two start offset
+Time offset for starting master station 2 relative to the station start. It works the same way as Master start offset, but only for master station 2.
+
+### Master two stop offset
+Time offset for stopping master station 2 relative to the station end. It works the same way as Master stop offset, but only for master station 2.
 
 ## Rain Sensor Section
 Enable and set the switch type of a rain sensor. If you are using a Raspberry Pi and want to connect a Rain Sensor directly to the GPIO pins use pins 8 and 6 (ground).

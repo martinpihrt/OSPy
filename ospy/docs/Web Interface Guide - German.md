@@ -185,10 +185,20 @@ Enthaelt Formularschutz, HTTPS-Zugriff, Domainname und eigene HTTPS-Zertifikate.
 Legt das Passwort fuer Firmware-Uploads zu Sensoren fest.
 
 ## Stationsbehandlung
-Legt maximale Nutzung, Anzahl der Ausgaenge, Stationsverzoegerung und minimale Laufzeit fest.
+Legt maximale Nutzung, Anzahl der Ausgaenge, die Pause zwischen Stationen und die minimale Laufzeit fest. Die maximale Nutzung bestimmt, ob Stationen gleichzeitig laufen duerfen. `0` bedeutet keine Begrenzung, `1` bedeutet eine Station zur gleichen Zeit, wenn jede Station Nutzung `1` hat.
+
+Die Pause zwischen Stationen wird zwischen nacheinander laufenden Stationen eingefuegt, wenn der Planer sie nicht gleichzeitig starten kann. Sie verschiebt eine Station nicht gegenueber der Masterstation. Beispiel: Bei maximaler Nutzung `1` und Stationsnutzung `1` startet Wert `30` die naechste Station 30 Sekunden nach Ende der vorherigen Station.
+
+Die minimale Laufzeit kann diese Pause ueberspringen, wenn der vorherige Lauf kuerzer war. Beispiel: Bei Pause `30` und Mindestlaufzeit `10` erzwingt eine Station, die nur 5 Sekunden lief, keine Pause von 30 Sekunden.
 
 ## Masterstationen
-Konfiguriert erste und zweite Masterstation, Relaisaktivierung sowie Ein- und Ausschaltverzoegerungen.
+Konfiguriert Masterstation 1, Masterstation 2 und die Zeitversatzwerte fuer Ein- und Ausschalten. Eine Masterstation ist normalerweise eine Pumpe oder ein Hauptwasserventil und wird nur fuer Stationen verwendet, denen ein Master zugeordnet ist.
+
+Der Startversatz ist relativ zum Start der Station. Negative Werte starten den Master frueher, positive Werte spaeter. Beispiel: `-10` startet den Master 10 Sekunden vor der Station, `+10` startet ihn 10 Sekunden nach der Station.
+
+Der Stoppversatz ist relativ zum Ende der Station. Negative Werte stoppen den Master frueher, positive Werte lassen ihn laenger laufen. Beispiel: `-5` stoppt den Master 5 Sekunden vor Ende der Station, `+20` stoppt ihn 20 Sekunden nach Ende der Station.
+
+Die gleiche Logik gilt fuer Masterstation 2, die eigene Start- und Stoppversatzwerte hat.
 
 ## Regensensor
 Aktiviert den Regensensor, legt den Schaltertyp und die Regenverzoegerung fest.

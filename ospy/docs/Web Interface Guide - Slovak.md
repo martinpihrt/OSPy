@@ -313,11 +313,21 @@ Sekcia obsahuje heslo používané pri nahrávaní firmvéru do snímačov.
 
 ## Stanice
 
-Nastavuje maximálne využitie, počet výstupov, oneskorenie staníc a minimálny čas behu.
+Nastavuje maximálne využitie, počet výstupov, pauzu medzi stanicami a minimálny čas behu. Maximálne využitie určuje, či môžu stanice bežať súčasne. Hodnota `0` znamená bez obmedzenia, hodnota `1` znamená jednu stanicu naraz, ak má každá stanica využitie `1`.
+
+Pauza medzi stanicami je čas vložený medzi postupne spúšťané stanice, keď ich plánovač nemôže spustiť súčasne. Neposúva stanicu voči hlavnej stanici. Príklad: pri maximálnom využití `1` a využití stanice `1` hodnota `30` spustí ďalšiu stanicu 30 sekúnd po skončení predchádzajúcej stanice.
+
+Minimálny čas behu môže túto pauzu preskočiť, ak predchádzajúci beh trval kratšie. Príklad: pri pauze `30` a minimálnom čase behu `10` stanica, ktorá bežala iba 5 sekúnd, nevynúti 30-sekundovú pauzu.
 
 ## Hlavná stanica
 
-Nastavuje hlavnú stanicu, druhú hlavnú stanicu a oneskorenia zopnutia alebo vypnutia.
+Nastavuje hlavnú stanicu 1, hlavnú stanicu 2 a časové posuny ich zapnutia alebo vypnutia. Hlavná stanica je zvyčajne čerpadlo alebo hlavný ventil vody a použije sa iba pri staniciach, ktoré ju majú priradenú.
+
+Posun štartu hlavnej stanice je relatívny k štartu stanice. Záporná hodnota spustí hlavnú stanicu skôr, kladná neskôr. Príklad: `-10` spustí hlavnú stanicu 10 sekúnd pred stanicou, `+10` ju spustí 10 sekúnd po stanici.
+
+Posun vypnutia hlavnej stanice je relatívny ku koncu stanice. Záporná hodnota vypne hlavnú stanicu skôr, kladná ju nechá bežať dlhšie. Príklad: `-5` vypne hlavnú stanicu 5 sekúnd pred koncom stanice, `+20` ju vypne 20 sekúnd po konci stanice.
+
+Rovnaká logika platí aj pre hlavnú stanicu 2, ktorá má vlastné nastavenia posunu štartu a vypnutia.
 
 ## Dažďový senzor
 

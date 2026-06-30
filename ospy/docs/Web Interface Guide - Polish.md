@@ -185,10 +185,20 @@ Obejmuje ochrone formularzy, HTTPS, nazwe domeny i wlasne certyfikaty.
 Ustawia haslo do wysylania firmware do czujnikow.
 
 ## Obsluga stacji
-Ustawia maksymalne uzycie, liczbe wyjsc, opoznienie stacji i minimalny czas pracy.
+Ustawia maksymalne uzycie, liczbe wyjsc, przerwe miedzy stacjami i minimalny czas pracy. Maksymalne uzycie okresla, czy stacje moga pracowac jednoczesnie. `0` oznacza brak limitu, `1` oznacza jedna stacje naraz, gdy kazda stacja ma uzycie `1`.
+
+Przerwa miedzy stacjami jest wstawiana miedzy kolejnymi uruchomieniami stacji, gdy harmonogram nie moze uruchomic ich jednoczesnie. Nie przesuwa stacji wzgledem stacji glownej. Przyklad: przy maksymalnym uzyciu `1` i uzyciu stacji `1` wartosc `30` uruchomi nastepna stacje 30 sekund po zakonczeniu poprzedniej.
+
+Minimalny czas pracy moze pominac te przerwe, jesli poprzednie uruchomienie bylo krotsze. Przyklad: przy przerwie `30` i minimalnym czasie pracy `10` stacja dzialajaca tylko 5 sekund nie wymusi 30-sekundowej przerwy.
 
 ## Stacje glowne
-Konfiguruje pierwsza i druga stacje glowna oraz opoznienia wlaczenia i wylaczenia.
+Konfiguruje stacje glowna 1, stacje glowna 2 oraz przesuniecia czasu wlaczenia i wylaczenia. Stacja glowna to zwykle pompa lub glowny zawor wody i jest uzywana tylko dla stacji, ktore maja ja przypisana.
+
+Przesuniecie startu jest wzgledem startu stacji. Wartosci ujemne wlaczaja stacje glowna wczesniej, dodatnie pozniej. Przyklad: `-10` wlacza stacje glowna 10 sekund przed stacja, `+10` wlacza ja 10 sekund po stacji.
+
+Przesuniecie wylaczenia jest wzgledem konca stacji. Wartosci ujemne wylaczaja stacje glowna wczesniej, dodatnie utrzymuja ja wlaczona dluzej. Przyklad: `-5` wylacza stacje glowna 5 sekund przed koncem stacji, `+20` wylacza ja 20 sekund po koncu stacji.
+
+Ta sama logika dotyczy stacji glownej 2, ktora ma wlasne przesuniecia startu i wylaczenia.
 
 ## Czujnik deszczu
 Wlacza czujnik, typ styku i opoznienie po deszczu.

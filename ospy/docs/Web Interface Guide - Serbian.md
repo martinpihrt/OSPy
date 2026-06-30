@@ -185,10 +185,20 @@ Obuhvata zastitu formulara, HTTPS, ime domena i sopstvene sertifikate.
 Postavlja lozinku za slanje firmware-a na senzore.
 
 ## Obrada stanica
-Podesava maksimalnu upotrebu, broj izlaza, kasnjenje stanica i minimalno vreme rada.
+Podesava maksimalnu upotrebu, broj izlaza, pauzu izmedju stanica i minimalno vreme rada. Maksimalna upotreba odredjuje da li stanice mogu da rade istovremeno. `0` znaci bez ogranicenja, `1` znaci jedna stanica u jednom trenutku kada svaka stanica ima upotrebu `1`.
+
+Pauza izmedju stanica ubacuje se izmedju uzastopnih pokretanja stanica kada planer ne moze da ih pokrene istovremeno. Ona ne pomera stanicu u odnosu na master stanicu. Primer: uz maksimalnu upotrebu `1` i upotrebu stanice `1`, vrednost `30` pokrece sledecu stanicu 30 sekundi posle zavrsetka prethodne.
+
+Minimalno vreme rada moze preskociti tu pauzu ako je prethodno pokretanje bilo krace. Primer: uz pauzu `30` i minimalno vreme rada `10`, stanica koja je radila samo 5 sekundi nece nametnuti pauzu od 30 sekundi.
 
 ## Master stanice
-Konfigurise prvu i drugu master stanicu i kasnjenja ukljucenja ili iskljucenja.
+Konfigurise master stanicu 1, master stanicu 2 i vremenska pomeranja ukljucenja i iskljucenja. Master stanica je obicno pumpa ili glavni ventil vode i koristi se samo za stanice kojima je dodeljena.
+
+Pomeranje starta je relativno u odnosu na start stanice. Negativne vrednosti ukljucuju master ranije, pozitivne kasnije. Primer: `-10` ukljucuje master 10 sekundi pre stanice, `+10` ga ukljucuje 10 sekundi posle stanice.
+
+Pomeranje iskljucivanja je relativno u odnosu na kraj stanice. Negativne vrednosti iskljucuju master ranije, pozitivne ga ostavljaju da radi duze. Primer: `-5` iskljucuje master 5 sekundi pre kraja stanice, `+20` ga iskljucuje 20 sekundi posle kraja stanice.
+
+Ista logika vazi i za master stanicu 2, koja ima svoja podesavanja pomeranja starta i iskljucivanja.
 
 ## Senzor kise
 Ukljucuje senzor kise, tip kontakta i odlaganje posle kise.
