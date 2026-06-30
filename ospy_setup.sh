@@ -1,5 +1,6 @@
 
-#! /bin/bash
+#!/bin/bash
+set -euo pipefail
 ###################################################################################################
 # script: easy install OSPy and requirements on a fresh Debian version: 12 (bookworm) Pi image
 # by: Gerard ported to ospy Martin Pihrt 06.01.2025
@@ -16,7 +17,20 @@ then
     exit
 fi
 
+if ! command -v sudo >/dev/null 2>&1; then
+  sudo() {
+    "$@"
+  }
+fi
+
 current_user=${SUDO_USER:-$USER}
+current_user_home="$(getent passwd "$current_user" | cut -d: -f6 || true)"
+
+if ! command -v whiptail >/dev/null 2>&1; then
+  echo ===== Installing whiptail for setup menus =====
+  apt update
+  apt install whiptail -y
+fi
 
 do_upd_sys=false
 do_i2c=false
@@ -26,13 +40,16 @@ do_log2ram=false
 do_sql_connector=false
 install_location="/opt"
 
-CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist  "Choose install options" 12 45 6 \
+if ! CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist  "Choose install options" 12 45 6 \
  "1" "Update system (recommended)" ON \
  "2" "Enable i2c" ON \
  "3" "Install MQTT broker" ON \
  "4" "Adjust user permissions" ON \
  "5" "Install log2ram" ON \
- "6" "Install SQL connector" ON 3>&1 1>&2 2>&3)
+ "6" "Install SQL connector" ON 3>&1 1>&2 2>&3); then
+  echo "No option was selected or cancelled. Stopping script."
+  exit 1
+fi
 
 if [ -z "$CHOICES" ]; then
   echo "No option was selected or cancelled. Stopping script."
@@ -68,12 +85,18 @@ fi
 
 if (whiptail --title "Location" --yesno "Install OSPy in /opt or the $current_user homedir?" --no-button "homedir" --yes-button "opt" 8 45); then
     echo "installing in /opt"
-    mkdir -p /opt
+    mkdir -p "/opt"
     install_location="/opt"
 else
     echo "installing in homedir"
-    install_location="/home/$current_user"
+    if [ -n "$current_user_home" ]; then
+      install_location="$current_user_home"
+    else
+      install_location="/home/$current_user"
+    fi
 fi
+
+mkdir -p "$install_location"
 
 
 if [ "$do_upd_sys" = true ]; then
@@ -82,13 +105,17 @@ if [ "$do_upd_sys" = true ]; then
 fi
 
 echo ===== Installing git =====
-sudo apt install git -y
+sudo apt install git wget ca-certificates -y
 
 if [ "$do_i2c" = true ]; then
   echo ===== Installing  i2c requirements =====
-  sudo apt install -y python3-smbus i2c-tools -y
-  echo ===== Enabling  i2c interface =====
-  sudo raspi-config nonint do_i2c 0
+  sudo apt install python3-smbus i2c-tools -y
+  if command -v raspi-config >/dev/null 2>&1; then
+    echo ===== Enabling  i2c interface =====
+    sudo raspi-config nonint do_i2c 0
+  else
+    echo "raspi-config not found, skipping automatic i2c enable."
+  fi
 fi
 
 if [ "$do_mqtt" = true ]; then
@@ -99,9 +126,17 @@ fi
 
 if [ "$do_user_grp" = true ]; then
   echo ===== adding user ${current_user} to hardware groups  =====
-  sudo usermod -aG gpio ${current_user}
-  sudo usermod -aG i2c ${current_user}
-  sudo usermod -aG dialout ${current_user}
+  if getent passwd "$current_user" >/dev/null 2>&1; then
+    for group_name in gpio i2c dialout; do
+      if getent group "$group_name" >/dev/null 2>&1; then
+        sudo usermod -aG "$group_name" "$current_user"
+      else
+        echo "Group $group_name not found, skipping."
+      fi
+    done
+  else
+    echo "User $current_user not found, skipping user permissions."
+  fi
 fi
 
 
@@ -122,8 +157,15 @@ sudo apt install pulseaudio -y
 
 
 echo ===== Installing OSPy =====
-cd $install_location
-sudo git clone https://github.com/martinpihrt/OSPy
+cd "$install_location"
+if [ -d "OSPy/.git" ]; then
+  echo "OSPy already exists in $install_location, leaving existing checkout unchanged."
+elif [ -e "OSPy" ]; then
+  echo "OSPy path already exists but is not a git checkout. Please check $install_location/OSPy manually."
+  exit 1
+else
+  sudo git clone https://github.com/martinpihrt/OSPy
+fi
 
 
 echo ===== Installing Midnight Commander =====
@@ -148,14 +190,15 @@ sudo apt install mc -y
 
 echo ===== Installing astral from plugin sunrise_and_sunset =====
 # from pipi.org
-cd $install_location
+cd "$install_location"
 sudo wget https://files.pythonhosted.org/packages/04/d1/1adbf06a38dc339e41a1666f6c7135924594c20fd46e060fb263248c564d/astral-3.2.tar.gz -O astral.tar.gz
 sudo tar xf astral.tar.gz
 sudo cp -r astral-3.2/src/astral OSPy
 
 
 echo ===== Creating and installing SystemD service =====
-cat << EOF >> /tmp/ospy.service
+service_file="$(mktemp)"
+cat << EOF > "$service_file"
 #Service for OSPy running on a SystemD service
 #
 [Unit]
@@ -170,26 +213,33 @@ SyslogIdentifier=ospy
 WantedBy=multi-user.target
 EOF
 
-sudo cp /tmp/ospy.service /etc/systemd/system/
+sudo cp "$service_file" /etc/systemd/system/ospy.service
+rm -f "$service_file"
+sudo systemctl daemon-reload
 sudo systemctl enable ospy.service
 
 
 if [ "$do_log2ram" = true ]; then
   echo ===== Installing log2ram =====
-  cd /home/${current_user}
-  wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
-  tar xf log2ram.tar.gz
-  cd /home/${current_user}/log2ram-master
-  sudo ./install.sh
-  echo ===== Increasing logsize to 100M =====
-  sed -i "s/40M/100M/g" /etc/log2ram.conf
-  cd ~
+  user_home="$(getent passwd "$current_user" | cut -d: -f6 || true)"
+  if [ -z "$user_home" ] || [ ! -d "$user_home" ]; then
+    echo "Home directory for $current_user not found, skipping log2ram install."
+  else
+    cd "$user_home"
+    wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
+    tar xf log2ram.tar.gz
+    cd "$user_home/log2ram-master"
+    sudo ./install.sh
+    echo ===== Increasing logsize to 100M =====
+    sudo sed -i "s/40M/100M/g" /etc/log2ram.conf
+    cd ~
+  fi
 fi
 
 
 if [ "$do_sql_connector" = true ]; then
   echo ===== Installing SQL connector =====
-  cd $install_location
+  cd "$install_location"
   wget https://files.pythonhosted.org/packages/f3/ec/3c94822a25548613949ea23444fe335ca9ad96e9155832ce57fdcf37c3c5/mysql-connector-python-9.0.0.tar.gz -O sql_connector.tar.gz
   tar xf sql_connector.tar.gz
   sudo cp -r mysql-connector-python-9.0.0/mysql OSPy
