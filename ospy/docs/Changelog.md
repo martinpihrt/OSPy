@@ -4,7 +4,7 @@ OSPy Changelog
 June 30 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-New language support for German, Polish, Serbian, and Russian (MACHINE TRANSLATION). Added web interface guide documents and translated gettext PO catalogs for these languages. Fixed language switching so the selected language is written to disk immediately before OSPy restarts.
+New language support for German, Polish, Serbian, and Russian (MACHINE TRANSLATION). Added web interface guide documents and translated gettext PO catalogs for these languages. Fixed language switching so the selected language is written to disk immediately before OSPy restarts. Enabled central CSRF enforcement for plug-in POST requests after updating plug-ins to send and verify CSRF tokens.
 
 June 29 2026 (v3.0)
 -----------

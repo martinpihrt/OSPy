@@ -215,7 +215,9 @@ class ProtectedPage(WebPage):
         WebPage.__init__(self)
         try:
             check_login(True)
-            if web.ctx.method == 'POST' and self.__module__ == 'ospy.webpages':
+            if web.ctx.method == 'POST' and (
+                self.__module__ == 'ospy.webpages' or self.__module__.startswith('plugins.')
+            ):
                 verify_csrf()
         except web.seeother:
             raise
