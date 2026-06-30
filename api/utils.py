@@ -119,13 +119,13 @@ def auth(func):
                 message_bytes = base64.b64decode(base64_bytes)
                 message = message_bytes.decode('ascii')
                 username, password = message.split(':')
-                log.debug('utils.py',  _('API Auth Attempt with: user: {} password: {}').format(username, password))
+                log.debug('utils.py',  _('API Auth Attempt with user: {}').format(username))
                 assert test_password(password, username), 'Wrong password'
                 # if (username, password) not in dummy_users:
                 #     raise  # essentially a goto :P
             except:
                 # no or wrong auth provided
-                log.debug('utils.py',  _('API Unauthorized attempt user: {} password: {}').format(username, password))
+                log.debug('utils.py',  _('API Unauthorized attempt user: {}').format(username))
                 web.header('WWW-Authenticate', 'Basic realm="OSPy"')
                 print_report('utils.py', traceback.format_exc())
                 raise unauthorized()

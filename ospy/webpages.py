@@ -45,6 +45,44 @@ pluginScripts = []  # Empty list of script file names for script injections requ
 sensorSearch = []   # Empty list of dicts to hold sensors data for display on sensor search page
 
 
+def _safe_extract_zip(zip_file, target_dir):
+    """Extract a ZIP archive without allowing paths outside target_dir."""
+    import shutil
+
+    target_dir = os.path.abspath(target_dir)
+    target_check = os.path.normcase(target_dir)
+    members = []
+
+    for member in zip_file.infolist():
+        member_name = member.filename.replace('\\', '/')
+        normalized_name = os.path.normpath(member_name)
+
+        if (
+            not member_name or
+            normalized_name in ('', '.') or
+            os.path.isabs(member_name) or
+            os.path.splitdrive(member_name)[0] or
+            normalized_name == '..' or
+            normalized_name.startswith('..' + os.sep)
+        ):
+            raise ValueError(_('Unsafe path in uploaded ZIP file: {}').format(member.filename))
+
+        destination = os.path.abspath(os.path.join(target_dir, normalized_name))
+        destination_check = os.path.normcase(destination)
+        if os.path.commonpath([target_check, destination_check]) != target_check:
+            raise ValueError(_('Unsafe path in uploaded ZIP file: {}').format(member.filename))
+
+        members.append((member, destination))
+
+    for member, destination in members:
+        if member.is_dir():
+            os.makedirs(destination, exist_ok=True)
+        else:
+            os.makedirs(os.path.dirname(destination), exist_ok=True)
+            with zip_file.open(member) as source, open(destination, 'wb') as target:
+                shutil.copyfileobj(source, target)
+
+
 def _plugin_module_from_stack():
     try:
         plugins_dir = os.path.dirname(os.path.abspath(plugins.__file__))
@@ -2362,7 +2400,7 @@ class upload_page(ProtectedPage):
                 log.debug('webpages.py', _('Uploading to folder OK, now extracting zip file.'))
 
                 with ZipFile(upload_path + '/ospy_upload.zip', mode='r') as zf: # Extract zip file
-                    zf.extractall(ospy_root + 'upload/ospy_upload')
+                    _safe_extract_zip(zf, ospy_root + 'upload/ospy_upload')
                     log.debug('webpages.py', _('Extracted from zip OK.'))
 
                 report_restarted()
