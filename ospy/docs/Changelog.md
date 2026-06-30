@@ -1,12 +1,15 @@
 OSPy Changelog
 ====
 
+June 30 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+New language support for German, Polish, Serbian, and Russian (MACHINE TRANSLATION). Added web interface guide documents and translated gettext PO catalogs for these languages. Fixed language switching so the selected language is written to disk immediately before OSPy restarts.
+
 June 29 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
 Programs page update: added program groups for organizing schedules, including add, rename, delete, copy, move program to group, enable all programs in a group, and disable all programs in a group. Copied programs are created disabled so they can be reviewed before use. Added conflict warnings for overlapping enabled programs on the same station/output, and added confirmation dialogs for destructive program actions. Fixed the default program group name to use a separate "Default group" label instead of the existing "Default" translation. Improved the Programs page layout by making group action buttons readable, restoring visible ON/OFF program switches, adding visual borders around each program group, adding a separator between program names and ON/OFF switches, and making program names more prominent in all built-in themes. Fixed plugin manager update switches after the program switch styling change so plugin ON/OFF, automatic update, and update-check switches keep their compact layout. Extended CSRF protection to remaining core OSPy forms and state-changing program actions. Updated the web interface documentation and added a Slovak web interface guide.
-Prepared language support for German, Polish, Serbian, and Russian, including placeholder gettext catalogs based on English. Added web interface guide documents for German, Polish, Serbian, and Russian. Application UI translations for these new languages are not completed yet.
-Fixed language switching so the selected language is written to disk immediately before OSPy restarts.
 
 June 28 2026 (v3.0)
 -----------

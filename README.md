@@ -31,6 +31,11 @@ Any user who joins the "OSPy" project is welcome! Translation of strings into ot
 ## Help with to user web Interfaces
 * [Czech help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Czech.md)
 * [English help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20English.md)
+* [German help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20German.md)
+* [Polish help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Polish.md)
+* [Russian help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Russian.md)
+* [Serbian help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Serbian.md)
+* [Slovak help page](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Web%20Interface%20Guide%20-%20Slovak.md)
 
 ## Communication with other systems
 OSPy can be controlled and monitored using HTTP GET commands. With the addition of available plugins OSPy can communicate with other systems via MQTT. OSPy can also issue Linux shell commands when a station is turned on or off. This is useful for controlling wireless remote devices and for I²C relay hats and boards. The Blinker package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status. See the signaling examples file in OSPy's plugins folder for examples. Homeassistant integration via MQTT plugin.
