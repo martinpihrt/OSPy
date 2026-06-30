@@ -84,15 +84,18 @@ def _set_cookie(token_value, expires_ts):
 
 
 def clear_cookie():
-    web.setcookie(
-        COOKIE_NAME,
-        '',
-        expires=-1,
-        httponly=True,
-        secure=_cookie_secure(),
-        path='/',
-        samesite='Lax',
-    )
+    try:
+        web.setcookie(
+            COOKIE_NAME,
+            '',
+            expires=-1,
+            httponly=True,
+            secure=_cookie_secure(),
+            path='/',
+            samesite='Lax',
+        )
+    except Exception:
+        pass
 
 
 def _request_info():

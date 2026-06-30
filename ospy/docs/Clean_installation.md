@@ -81,7 +81,7 @@ If you can't log in:
 
 
 We can delete the OSPy password and username by running the file in the OSPy folder (OSPy/back_door.py)
-The back_door.py file allows logging into OSPy in case we can't log in (or don't know the password). We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The default name and password to run the sudo python3 back_door.py file will be admin/admin.
+The back_door.py file allows logging into OSPy in case we can't log in (or don't know the password). Run it only from the Raspberry Pi console or another trusted local shell. We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The script resets the administrator name to admin, disables passwordless access, revokes remembered browser logins, and prepares a new generated recovery password that is shown on the login page after restarting the OSPy service. The recovery password must be changed after logging in.
 
 
 MANUAL OSPY UPDATE
