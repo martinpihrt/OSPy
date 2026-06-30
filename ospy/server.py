@@ -43,6 +43,8 @@ STATS_LOCATION = './ospy/statistics/'
 STATS_DROP_POINT = 'https://pihrt.com/ospystats/php_server.php'
 STATS_VERSION = '0.1'
 STATS_RETRY_INTERVAL = 6 * 60 * 60
+SESSION_SECRET_FILE = os.path.join('ospy', 'data', 'session_secret')
+SESSION_SECRET_LENGTH = 64
 
 __server = None
 session = None
@@ -57,6 +59,36 @@ def _new_stats():
                             unique_user_id=True,
                             version=STATS_VERSION
                             )
+
+
+def configure_session_secret():
+    try:
+        secret_dir = os.path.dirname(SESSION_SECRET_FILE)
+        if not os.path.isdir(secret_dir):
+            os.makedirs(secret_dir)
+
+        if os.path.isfile(SESSION_SECRET_FILE):
+            with open(SESSION_SECRET_FILE, 'r') as secret_file:
+                secret = secret_file.read().strip()
+            if len(secret) >= 32:
+                web.config.session_parameters.secret_key = secret
+                return
+
+            log.error('server.py', _('Session secret file is invalid, generating a new one.'))
+
+        secret = os.urandom(SESSION_SECRET_LENGTH).hex()
+        with open(SESSION_SECRET_FILE, 'w') as secret_file:
+            secret_file.write(secret)
+        try:
+            os.chmod(SESSION_SECRET_FILE, 0o600)
+        except Exception:
+            log.debug('server.py', _('Could not set permissions on session secret file.'))
+
+        web.config.session_parameters.secret_key = secret
+        log.debug('server.py', _('Generated a new installation-specific session secret.'))
+    except Exception:
+        log.error('server.py', _('Could not load or create session secret, using default fallback.'))
+        log.debug('server.py', traceback.format_exc())
 
 
 class DebugLogMiddleware:
@@ -250,6 +282,8 @@ def start():
         except Exception as re_open_e:
             log.error('server.py', _('Exception occurred while re-opening shelve database: {}').format(re_open_e))
     
+    configure_session_secret()
+
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
                                                'pages': [],
