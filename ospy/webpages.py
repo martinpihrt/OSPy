@@ -1462,6 +1462,7 @@ class login_page(WebPage):
                 return self.core_render.login(my_signin, None)    
         else:
             from ospy import server
+            server.session.regenerate_id()
             server.session.validated = True
             report_login()
             if options.run_logEV:

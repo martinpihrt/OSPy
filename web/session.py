@@ -259,6 +259,21 @@ class Session(object):
             log.error('web', _('Error killing session: {}').format(e))
         self._killed = True
 
+    def regenerate_id(self):
+        """Replace the current session id while keeping session data."""
+        old_session_id = self.session_id
+        self.session_id = self._generate_session_id()
+        self._killed = False
+
+        if old_session_id and old_session_id != self.session_id:
+            try:
+                if old_session_id in self.store:
+                    del self.store[old_session_id]
+            except Exception as e:
+                log.error('web', _('Error removing old session id: {}').format(e))
+
+        return self.session_id
+
 
 class Store:
     """Base class for session stores"""
