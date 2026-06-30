@@ -69,7 +69,7 @@ $if sensors.count()>0:
                 $:csrf_input()
                 <input type="hidden" name="action" value="enable">
                 <input type="hidden" name="enabled" value="${'0' if sensor.enabled else '1'}">
-                <button type="submit" class="button cDisable toggle ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
+                <button type="submit" class="button cDisable toggle narrow ${'on' if sensor.enabled else 'off'}" title=$:{json.dumps(_('Enabling or disabling this sensor.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                     <span class='toggleleft'>$_('On')</span>
                     <span class='togglesep'>&nbsp;</span>
                     <span class='toggleright'>$_('Off')</span>
