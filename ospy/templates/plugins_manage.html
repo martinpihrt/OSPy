@@ -3,6 +3,27 @@ $def with ()
 $var title: $_('Manage Plugins')
 $var page: plugins
 
+<script>
+jQuery(document).ready(function(){
+    jQuery(".plugin-refresh-form").submit(function(){
+        jQuery("#pluginRefreshStatus").text($:{json.dumps(_('Checking for plugin updates...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Checking...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        return true;
+    });
+
+    jQuery(".plugin-install-form").submit(function(){
+        var plugin = jQuery(this).data("plugin") || $:{json.dumps(_('all plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        var repo = jQuery(this).data("repo") || "";
+        var message = $:{json.dumps(_('Install or update plugin from this source?'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "\n\n" + plugin + "\n" + repo;
+        if (!confirm(message)) {
+            return false;
+        }
+        jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Working...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        return true;
+    });
+});
+</script>
+
 <div id="controls">
     <div style="display: inline-block; padding: 0; float: right;">
         $_('Enable check updates'):
@@ -31,11 +52,12 @@ $var page: plugins
         </form>
     </div>
     <a href="/plugins_install" class="button add">$_('Install new plugin')</a>
-    <form action="/plugins_manage" method="post" style="display:inline">
+    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-refresh-form">
         $:csrf_input()
         <input type="hidden" name="action" value="refresh">
         <button type="submit" class="button upload">$_('Load changes')</button>
     </form>
+    <span id="pluginRefreshStatus" style="margin-left: 8px;"></span>
     <form action="/plugins_manage" method="post" style="display:inline">
         $:csrf_input()
         <input type="hidden" name="action" value="disable_all">
@@ -65,7 +87,7 @@ $var page: plugins
                 <div style="display: inline-block; padding: 0; width: 140px;">
                     $ available_info = plugins.checker.available_version(plugin)
                     $if available_info is not None:
-                        <form action="/plugins_install" method="post" style="display:inline">
+                        <form action="/plugins_install" method="post" style="display:inline" class="plugin-install-form" data-plugin="${plugin}" data-repo="${available_info['repo']}">
                             $:csrf_input()
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${available_info['repo_index']}">
@@ -80,6 +102,7 @@ $var page: plugins
                                     $_('Update')
                             </button>
                         </form>
+                        <div><small>$_('Source'): ${available_info['repo']}</small></div>
                     $else:
                         <a class="button open">$_('No update')</a>
                 </div>

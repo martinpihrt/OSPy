@@ -5,7 +5,7 @@ $var page: plugins
 
 <script src="/static/scripts/plugins_install.js"></script>
 <div id="controls">
-    <form method="POST" enctype="multipart/form-data" action="/plugins_install?${csrf_query()}">
+    <form method="POST" enctype="multipart/form-data" action="/plugins_install?${csrf_query()}" class="plugin-custom-install-form">
     $:csrf_input()
         $_('Custom plug-in (ZIP)'):
         <input type="file" name="zipfile" />
@@ -14,7 +14,7 @@ $var page: plugins
     $for repo_index, repo in enumerate(plugins.REPOS):
         <div style="vertical-align:middle;" class='category collapsible collapsed'>
             <h4>
-                <form action="/plugins_install" method="post" style="float:right;">
+                <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="$_('all plugins')" data-repo="${repo}">
                     $:csrf_input()
                     <input type="hidden" name="action" value="install_repo">
                     <input type="hidden" name="repo" value="${repo_index}">
@@ -22,12 +22,13 @@ $var page: plugins
                 </form>
                 ${repo}
             </h4>
+            <div style="margin: 4px 0 8px 10px;"><small>$_('Source'): ${repo}</small></div>
 
             $ available_list = plugins.available()
             $for plugin, info in plugins.checker.get_repo_contents(repo).items():
                 <div class='category collapsible collapsed'>
                     <h5>
-                        <form action="/plugins_install" method="post" style="float:right;">
+                        <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="${plugin}" data-repo="${repo}">
                             $:csrf_input()
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${repo_index}">
@@ -41,6 +42,7 @@ $var page: plugins
                         </form>
                         ${info['name']}
                     </h5>
+                    <div style="margin-left: 10px;"><small>$_('Source'): ${repo} / plugins/${plugin}</small></div>
                     <div style="margin-left: 10px;">
                         $:{info['read_me']}
                     </div>

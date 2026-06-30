@@ -495,6 +495,8 @@ Správce rozšíření umožňuje do systému OSPy nainstalovat i vlastní rozš
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
 Na výše uvedeném umístění se nachází repozitář s dostupnými rozšířeními pro systém OSPy.
 
+Instalace nebo aktualizace rozšíření spouští kód z vybraného zdroje. OSPy před instalací nebo aktualizací zobrazí URL repozitáře a požádá o potvrzení. Akce Načíst změny během kontaktování vzdáleného repozitáře zobrazí zprávu o probíhající kontrole.
+
 ## Vypnout vše
 Tlačítko zakáže všechna nainstalovaná rozšíření.
    

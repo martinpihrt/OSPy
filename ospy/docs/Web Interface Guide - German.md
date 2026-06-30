@@ -147,6 +147,8 @@ Oeffnet die Liste verfuegbarer Erweiterungen aus dem Repository.
 ## Eigene Erweiterung (ZIP)
 Installiert ein Plugin aus einer ZIP-Datei. Die ZIP-Datei muss die vollstaendige Plugin-Struktur enthalten.
 
+Installation oder Aktualisierung eines Plugins fuehrt Code aus der ausgewaehlten Quelle aus. OSPy zeigt vor der Installation oder Aktualisierung die Repository-URL an und fragt nach Bestaetigung. Beim Laden von Aenderungen wird waehrend der Verbindung zum entfernten Repository eine Pruefmeldung angezeigt.
+
 ## Alle deaktivieren / Alle aktivieren
 Schaltet alle installierten Erweiterungen aus oder ein.
 

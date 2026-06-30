@@ -11,13 +11,28 @@ $var page: plugins
     }
 </style>
 
+<script>
+jQuery(document).ready(function(){
+    jQuery(".plugin-install-form").submit(function(){
+        var plugin = jQuery(this).data("plugin") || "";
+        var repo = jQuery(this).data("repo") || "";
+        var message = $:{json.dumps(_('Install or update plugin from this source?'), ensure_ascii=False).encode('utf8').decode('utf-8')} + "\n\n" + plugin + "\n" + repo;
+        if (!confirm(message)) {
+            return false;
+        }
+        jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Working...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        return true;
+    });
+});
+</script>
+
 <div id="plugin">
     <div class="title">$_('Plugin changes'): ${plugins.plugin_name(plugin)}</div>
 
     <p>
         <a href="/plugins_manage" class="button cancel danger">$_('Cancel')</a>
         $if available_info is not None:
-            <form action="/plugins_install" method="post" style="display:inline">
+            <form action="/plugins_install" method="post" style="display:inline" class="plugin-install-form" data-plugin="${plugin}" data-repo="${available_info['repo']}">
                 $:csrf_input()
                 <input type="hidden" name="action" value="install_repo">
                 <input type="hidden" name="repo" value="${available_info['repo_index']}">
@@ -25,6 +40,8 @@ $var page: plugins
                 <button type="submit" class="button open">$_('Update')</button>
             </form>
     </p>
+    $if available_info is not None:
+        <p><small>$_('Source'): ${available_info['repo']} / plugins/${plugin}</small></p>
 
     $if plugin in current_info:
         <p>$_('Installed version date'): ${current_info[plugin].get('date', '')}</p>

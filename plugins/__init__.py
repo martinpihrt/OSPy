@@ -363,24 +363,35 @@ class _PluginChecker(threading.Thread):
         # Load the zip file:
         zip_file = zipfile.ZipFile(zip_file_data)
         infos = zip_file.infolist()
+        target_dir_abs = os.path.abspath(target_dir)
 
         # Version information:
         plugin_hash = ''
         plugin_date = datetime.datetime(1970, 1, 1)
+        plugin_zip_prefix = p_dir.rstrip('/\\') + '/'
 
         # Extract all files:
         for zip_info in infos:
             zip_name = zip_info.filename
-            if zip_name.startswith(p_dir):
-                relative_name = zip_name[len(p_dir):].lstrip('/')
-                target_name = os.path.join(target_dir, relative_name)
+            if zip_name.startswith(plugin_zip_prefix):
+                is_directory = zip_info.is_dir() if hasattr(zip_info, 'is_dir') else zip_name.endswith('/')
+                relative_name = zip_name[len(plugin_zip_prefix):].lstrip('/\\')
+                relative_name = os.path.normpath(relative_name)
+                if not relative_name or relative_name == '.':
+                    continue
+                if os.path.isabs(relative_name) or relative_name.startswith('..' + os.path.sep) or relative_name == '..':
+                    raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_name))
+                target_name = os.path.abspath(os.path.join(target_dir, relative_name))
+                if os.path.commonpath([target_dir_abs, target_name]) != target_dir_abs:
+                    raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_name))
                 if relative_name:
-                    if relative_name.endswith('/'):
+                    if is_directory:
                         mkdir_p(target_name)
                     else:
                         plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
                         plugin_hash += hex(zip_info.CRC)
                         contents = zip_file.read(zip_name)
+                        mkdir_p(os.path.dirname(target_name))
                         with open(target_name, 'wb') as fh:
                             fh.write(contents)
 
@@ -397,6 +408,8 @@ class _PluginChecker(threading.Thread):
             reload_plugin(plugin)
 
     def install_repo_plugin(self, repo, plugin_filter):
+        import logging
+        logging.info(_('Installing plug-in from repository {} plugin {}').format(repo, plugin_filter if plugin_filter else _('all plugins')))
         self.install_custom_plugin(self._get_zip(repo), plugin_filter)
 
     def install_custom_plugin(self, zip_file_data, plugin_filter=None):

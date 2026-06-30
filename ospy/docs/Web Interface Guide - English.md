@@ -485,6 +485,8 @@ The Extension Manager allows you to install custom plugin that are not published
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
 The above location has a repository with available OSPy plugins.
 
+Installing or updating a plug-in runs code from the selected source. OSPy shows the repository URL before install or update and asks for confirmation. The Load changes action shows a checking message while OSPy contacts the remote repository.
+
 ## Disable All
 The button disables all installed extensions.
    

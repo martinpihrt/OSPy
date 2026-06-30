@@ -227,6 +227,8 @@ Umožňuje nainštalovať vlastné rozšírenie zo súboru ZIP. Súbor musí obs
 
 Predvolený repozitár rozšírení je `https://github.com/martinpihrt/OSPy-plugins/archive/master.zip`.
 
+Inštalácia alebo aktualizácia rozšírenia spúšťa kód z vybraného zdroja. OSPy pred inštaláciou alebo aktualizáciou zobrazí URL repozitára a požiada o potvrdenie. Akcia Načítať zmeny počas kontaktovania vzdialeného repozitára zobrazí správu o prebiehajúcej kontrole.
+
 ## Vypnúť všetko
 
 Zakáže všetky nainštalované rozšírenia.

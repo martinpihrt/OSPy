@@ -147,6 +147,8 @@ Pokazuje dostepne rozszerzenia z repozytorium.
 ## Wlasny plugin ZIP
 Instaluje plugin z pliku ZIP. Plik musi zawierac kompletna strukture pluginu.
 
+Instalacja lub aktualizacja pluginu uruchamia kod z wybranego zrodla. OSPy przed instalacja lub aktualizacja pokazuje URL repozytorium i prosi o potwierdzenie. Akcja Wczytaj zmiany pokazuje komunikat sprawdzania podczas kontaktu ze zdalnym repozytorium.
+
 ## Wylacz wszystko / Wlacz wszystko
 Steruje wszystkimi zainstalowanymi rozszerzeniami naraz.
 

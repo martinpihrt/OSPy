@@ -1984,12 +1984,20 @@ class plugins_install_page(ProtectedPage):
         if qdict.get('action', '') == 'install_repo':
             repo = get_input(qdict, 'repo', None, int)
             plugin = get_input(qdict, 'plugin', None)
-            if repo is not None:
-                plugins.checker.install_repo_plugin(plugins.REPOS[repo], plugin)
+            if repo is not None and 0 <= repo < len(plugins.REPOS):
+                source_repo = plugins.REPOS[repo]
+                source_plugin = plugin if plugin else _('all plugins')
+                log.info('webpages.py', _('Installing plug-in {} from {}').format(source_plugin, source_repo))
+                plugins.checker.install_repo_plugin(source_repo, plugin)
+            else:
+                log.error('webpages.py', _('Invalid plug-in repository index: {}').format(repo))
+                raise web.badrequest()
             self._redirect_back()
 
         if 'zipfile' in qdict and hasattr(qdict['zipfile'], 'file'):
             zip_file_data = qdict['zipfile'].file
+            filename = getattr(qdict['zipfile'], 'filename', _('uploaded ZIP'))
+            log.info('webpages.py', _('Installing custom plug-in from uploaded ZIP: {}').format(filename))
             plugins.checker.install_custom_plugin(zip_file_data)
 
         self._redirect_back()

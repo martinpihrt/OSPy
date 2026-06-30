@@ -10,4 +10,23 @@ jQuery(document).ready(function(){
     });
 
     $(".collapsible a").click(function(e) { e.stopPropagation(); });
+
+    jQuery(".plugin-install-form").submit(function(){
+        var plugin = jQuery(this).data("plugin") || "";
+        var repo = jQuery(this).data("repo") || "";
+        var message = "Install or update plugin from this source?\n\n" + plugin + "\n" + repo;
+        if (!confirm(message)) {
+            return false;
+        }
+        jQuery(this).find("button[type='submit']").prop("disabled", true).text("Working...");
+        return true;
+    });
+
+    jQuery(".plugin-custom-install-form").submit(function(){
+        if (!confirm("Install uploaded custom ZIP plugin?")) {
+            return false;
+        }
+        jQuery(this).find("button[type='submit']").prop("disabled", true).text("Working...");
+        return true;
+    });
 });

@@ -147,6 +147,8 @@ Prikazuje dostupne dodatke iz repozitorijuma.
 ## Sopstveni plugin ZIP
 Instalira plugin iz ZIP datoteke. Datoteka mora sadrzati kompletnu strukturu plugina.
 
+Instalacija ili azuriranje plugina pokrece kod iz izabranog izvora. OSPy pre instalacije ili azuriranja prikazuje URL repozitorijuma i trazi potvrdu. Akcija Ucitaj izmene prikazuje poruku provere dok OSPy kontaktira udaljeni repozitorijum.
+
 ## Iskljuci sve / Ukljuci sve
 Upravlja svim instaliranim dodacima odjednom.
 
