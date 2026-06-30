@@ -179,7 +179,13 @@ Ukljucuje vremenske funkcije, API kljuc i lokaciju.
 Upravlja prijavom, lozinkom i dodatnim korisnicima.
 
 ## Bezbednost
-Obuhvata zastitu formulara, HTTPS, ime domena i sopstvene sertifikate.
+Obuhvata zastitu formulara, HTTPS, ime domena, sopstvene sertifikate i opcije pristupa API-ju.
+
+### API CORS allowed origin
+Ova opcija kontrolise zaglavlje `Access-Control-Allow-Origin`, koje API koristi za klijente pokrenute u pregledacu. `*` dozvoljava bilo koji origin, jedna vrednost kao `https://example.com` dozvoljava samo taj origin, vise origin-a moze biti odvojeno zarezima, a prazna vrednost iskljucuje CORS zaglavlja. Ovo ne zamenjuje API prijavu; samo odredjuje koji browser origin-i mogu citati API odgovore.
+
+### Enable API JSONP
+Ova opcija ukljucuje stari parametar `callback` za JSONP odgovore API-ja. Ostavite je iskljucenu osim ako stara integracija zahteva JSONP. Normalni API klijenti treba da koriste JSON sa CORS-om.
 
 ## Senzori
 Postavlja lozinku za slanje firmware-a na senzore.

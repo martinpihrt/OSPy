@@ -119,6 +119,8 @@ OSPy Web Interface Guide in English
             Use HTTPS access
             Domain name 
             Use Own HTTPS access
+            API CORS allowed origin
+            Enable API JSONP
         Sensors
             Password for uploading              
         Station Handling Section
@@ -690,6 +692,12 @@ sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out full
 ```
 
 The second way is to use the "generate" button in the SSL certificate tab.
+
+### API CORS allowed origin
+This option controls the `Access-Control-Allow-Origin` header used by the API for browser-based clients. Use `*` to allow any origin, enter one origin such as `https://example.com`, enter multiple origins separated by commas, or leave the field empty to disable CORS headers. This does not replace API authentication; it only controls which browser origins may read API responses.
+
+### Enable API JSONP
+This option enables the legacy `callback` query parameter for JSONP API responses. Keep it disabled unless an old integration requires JSONP. Normal API clients should use JSON with CORS instead.
 
 ## Sensors Section
 The Sensors section contains settings for sensors security.  

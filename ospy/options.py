@@ -195,6 +195,20 @@ class _Options(object):
             "help": _('SSL certificate via own file without certification authority (effective after reboot.)'),
             "category": _('Security')
         }, 
+        {
+            "key": "api_cors_allowed_origin",
+            "name": _('API CORS allowed origin'),
+            "default": "*",
+            "help": _('Allowed browser origin for API CORS requests. Use * to allow any origin, enter one origin such as https://example.com, enter multiple origins separated by commas, or leave empty to disable CORS headers. This affects browser-based API clients only.'),
+            "category": _('Security')
+        },
+        {
+            "key": "api_jsonp_enabled",
+            "name": _('Enable API JSONP'),
+            "default": False,
+            "help": _('Allow legacy API JSONP responses via the callback query parameter. Keep disabled unless an old integration requires JSONP, because normal API clients should use JSON with CORS instead.'),
+            "category": _('Security')
+        },
         #######################################################################
         # Sensors ############################################################# 
         {

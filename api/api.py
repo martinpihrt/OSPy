@@ -108,9 +108,7 @@ class Stations(object):
         raise web.nomethod()
 
     def OPTIONS(self, station_id=None):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
+        set_api_headers('GET, POST, PUT, OPTIONS')
 
 
 class Programs(object):
@@ -238,9 +236,7 @@ class Programs(object):
                 programs.remove_program(programs.count()-1)
 
     def OPTIONS(self, program_id):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        set_api_headers('GET, POST, PUT, DELETE, OPTIONS')
 
 
 class Options(object):
@@ -304,9 +300,7 @@ class Options(object):
         return self.GET()
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS')
+        set_api_headers('GET, PUT, OPTIONS')
 
 
 class Logs(object):
@@ -339,7 +333,6 @@ class Logs(object):
             return []
         # web.header('Cache-Control', 'no-cache')
         # web.header('Content-Type', 'application/json')
-        # web.header('Access-Control-Allow-Origin', '*')
         # import datetime
         # return datetime.datetime.now()
         # return '[{"start": "2014-10-23T21:25:25", "station": 2, "end": "2014-10-23T21:25:30", "duration": "0:00:05", "station_name": "Station 03ttt", "manual": true, "program_name": "Run-Once", "program_id": -1}, {"start": "2014-10-23T21:25:30", "station": 3, "end": "2014-10-23T21:25:35", "duration": "0:00:05", "station_name": "Station 04 dest", "manual": true, "program_name": "Run-Once", "program_id": -1}, {"start": "2014-10-23T21:25:35", "station": 4, "end": "2014-10-23T21:25:40", "duration": "0:00:05", "station_name": "Station 05", "manual": true, "program_name": "Run-Once", "program_id": -1}]'
@@ -352,9 +345,7 @@ class Logs(object):
         log.clear_runs()
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, DELETE, OPTIONS')
+        set_api_headers('GET, DELETE, OPTIONS')
 
 
 class System(object):
@@ -403,9 +394,7 @@ class System(object):
             raise badrequest()
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        set_api_headers('GET, POST, OPTIONS')
 
 class Sensors(object):
     def _convert(self, sensor):
@@ -480,9 +469,7 @@ class Sensors(object):
             return []
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        set_api_headers('GET, POST, OPTIONS')
 
 
 class Sensor(object):
@@ -734,9 +721,7 @@ class Sensor(object):
             pass                            
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        set_api_headers('POST, OPTIONS')
 
 
 class User(object):
@@ -764,9 +749,7 @@ class User(object):
             }
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')   
+        set_api_headers('GET, OPTIONS')
 
 
 class Balances(object):
@@ -790,9 +773,7 @@ class Balances(object):
         return statuslist
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        set_api_headers('GET, OPTIONS')
 
 
 class PluginFooter(object):
@@ -822,9 +803,7 @@ class PluginFooter(object):
         return data
 
     def OPTIONS(self):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        set_api_headers('GET, OPTIONS')
 
 
 
@@ -856,9 +835,7 @@ class Runonce(object):
         return 'OK'
 
     def OPTIONS(self, station_id=None):
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Headers', 'Content-Type')
-        web.header('Access-Control-Allow-Methods', 'POST, OPTIONS')        
+        set_api_headers('POST, OPTIONS')
 
 
 def get_app():
@@ -886,4 +863,4 @@ def get_app():
         # Runonce
         r'/runonce(?:/(?P<station_id>\d+))?/?', 'Runonce',                    
     )
-    return web.application(urls, globals()) 
+    return web.application(urls, globals())

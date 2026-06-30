@@ -179,7 +179,13 @@ Wlacza funkcje pogodowe, klucz API i lokalizacje.
 Zarzadza logowaniem, haslem i dodatkowymi uzytkownikami.
 
 ## Bezpieczenstwo
-Obejmuje ochrone formularzy, HTTPS, nazwe domeny i wlasne certyfikaty.
+Obejmuje ochrone formularzy, HTTPS, nazwe domeny, wlasne certyfikaty oraz opcje dostepu do API.
+
+### API CORS allowed origin
+Ta opcja steruje naglowkiem `Access-Control-Allow-Origin`, ktorego API uzywa dla klientow uruchamianych w przegladarce. `*` pozwala na dowolny origin, pojedyncza wartosc taka jak `https://example.com` pozwala tylko na ten origin, wiele originow mozna rozdzielic przecinkami, a pusta wartosc wylacza naglowki CORS. Nie zastepuje to logowania do API; okresla tylko, ktore originy przegladarki moga czytac odpowiedzi API.
+
+### Enable API JSONP
+Ta opcja wlacza starszy parametr `callback` dla odpowiedzi JSONP z API. Pozostaw ja wylaczona, chyba ze stara integracja wymaga JSONP. Zwykli klienci API powinni uzywac JSON z CORS.
 
 ## Czujniki
 Ustawia haslo do wysylania firmware do czujnikow.

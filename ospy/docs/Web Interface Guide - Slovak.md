@@ -307,6 +307,14 @@ Doménové meno sa používa pri certifikáte vytvorenom pomocou Certbotu.
 
 Pri vlastnom certifikáte vložte súbory `fullchain.pem` a `privkey.pem` do priečinka `ssl` v inštalácii OSPy a reštartujte OSPy.
 
+### API CORS allowed origin
+
+Táto voľba nastavuje hlavičku `Access-Control-Allow-Origin`, ktorú API používa pre klientov spustených v prehliadači. Hodnota `*` povolí ľubovoľný origin, môžete zadať jeden origin napríklad `https://example.com`, viac originov oddelených čiarkami, alebo ponechať pole prázdne a CORS hlavičky sa nebudú odosielať. Nenahrádza to overenie API; určuje iba, ktoré webové originy môžu čítať odpovede API.
+
+### Enable API JSONP
+
+Táto voľba povoľuje starší parameter `callback` pre JSONP odpovede API. Nechajte ju vypnutú, ak ju nevyžaduje stará integrácia. Bežní API klienti majú používať JSON s CORS.
+
 ## Snímače
 
 Sekcia obsahuje heslo používané pri nahrávaní firmvéru do snímačov.

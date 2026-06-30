@@ -54,6 +54,38 @@ _json_dumps = partial(json.dumps,
                       sort_keys=False)
 
 
+def _api_cors_origin():
+    configured = getattr(options, 'api_cors_allowed_origin', '*')
+    configured = configured.strip() if isinstance(configured, str) else '*'
+    if not configured:
+        return None
+    if configured == '*':
+        return '*'
+
+    request_origin = web.ctx.env.get('HTTP_ORIGIN', '') if hasattr(web.ctx, 'env') else ''
+    allowed_origins = [origin.strip() for origin in configured.split(',') if origin.strip()]
+    if request_origin and request_origin in allowed_origins:
+        return request_origin
+    if request_origin:
+        return None
+    return allowed_origins[0] if allowed_origins else None
+
+
+def set_api_headers(methods=None):
+    origin = _api_cors_origin()
+    if origin:
+        web.header('Access-Control-Allow-Origin', origin)
+        if origin != '*':
+            web.header('Vary', 'Origin')
+    if methods:
+        web.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        web.header('Access-Control-Allow-Methods', methods)
+
+
+def _valid_jsonp_callback(callback):
+    return re.match(r'^[A-Za-z_$][0-9A-Za-z_$]*(\.[A-Za-z_$][0-9A-Za-z_$]*)*$', callback)
+
+
 def does_json(func):
     """
     api function jsonificator
@@ -65,7 +97,7 @@ def does_json(func):
         # Set headers
         web.header('Cache-Control', 'no-cache')
         web.header('Content-Type', 'application/json')
-        web.header('Access-Control-Allow-Origin', '*')
+        set_api_headers()
 
         # This calls the decorated method
         try:
@@ -74,13 +106,17 @@ def does_json(func):
                 # Take care of JSONP
                 params = web.input(callback=None)
                 if params.callback:
-                    # Wrap the response in JSONP format
-                    r = "{callback}({json});".format(callback=params.callback,
-                                                     json=_json_dumps(r))
-                    return r
+                    if getattr(options, 'api_jsonp_enabled', False):
+                        if not _valid_jsonp_callback(params.callback):
+                            raise badrequest('{"error": "Invalid JSONP callback"}')
+                        # Wrap the response in JSONP format
+                        r = "{callback}({json});".format(callback=params.callback,
+                                                         json=_json_dumps(r))
+                        return r
                 else:
                     # Just jsonify the response
                     return _json_dumps(r)
+                return _json_dumps(r)
             else:
                 return ''
 

@@ -119,6 +119,8 @@ OSPy Průvodce webovým rozhraním v češtině
             Použít HTTPS
             Jméno domény 
             Použít vlastní HTTPS
+            API CORS povolený origin
+            Povolit API JSONP
         Snímače
             Heslo pro nahrávání firmwaru                     
         Nastavení stanic
@@ -692,6 +694,12 @@ Pokud je v nastavení OSPy vybrána možnost „Použít vlastní přístup HTTP
 sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem  
 ```
 Druhý způsob je pomocí tlačítka "generovat" v záložce SSL certifikát.
+
+### API CORS povolený origin
+Tato volba nastavuje hlavičku `Access-Control-Allow-Origin`, kterou API používá pro klienty spuštěné v prohlížeči. Hodnota `*` povolí libovolný origin, lze zadat jeden origin například `https://example.com`, více originů oddělených čárkou, nebo ponechat pole prázdné a CORS hlavičky se nebudou posílat. Nenahrazuje to ověření API; pouze to určuje, které webové originy smí číst odpovědi API.
+
+### Povolit API JSONP
+Tato volba povoluje starší parametr `callback` pro JSONP odpovědi API. Nechte ji vypnutou, pokud ji nevyžaduje stará integrace. Běžní API klienti mají používat JSON s CORS.
 
 ## Snímače
 Sekce snímače obsahuje nastavení pro zabezpečení snímačů.  

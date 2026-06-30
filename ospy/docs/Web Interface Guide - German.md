@@ -179,7 +179,13 @@ Aktiviert Wetterfunktionen, API-Schluessel und Standortdaten.
 Verwaltet Anmeldung, Passwort und zusaetzliche Benutzer. Aus Sicherheitsgruenden sollte das Standardpasswort geaendert werden.
 
 ## Sicherheit
-Enthaelt Formularschutz, HTTPS-Zugriff, Domainname und eigene HTTPS-Zertifikate.
+Enthaelt Formularschutz, HTTPS-Zugriff, Domainname, eigene HTTPS-Zertifikate und API-Zugriffsoptionen.
+
+### API CORS allowed origin
+Diese Option steuert den Header `Access-Control-Allow-Origin`, den die API fuer browserbasierte Clients verwendet. `*` erlaubt jeden Origin, ein einzelner Wert wie `https://example.com` erlaubt nur diesen Origin, mehrere Origins koennen durch Kommas getrennt werden, und ein leerer Wert deaktiviert CORS-Header. Dies ersetzt nicht die API-Anmeldung; es steuert nur, welche Browser-Origins API-Antworten lesen duerfen.
+
+### Enable API JSONP
+Diese Option aktiviert den alten Parameter `callback` fuer JSONP-Antworten der API. Lassen Sie sie deaktiviert, sofern keine alte Integration JSONP benoetigt. Normale API-Clients sollten JSON mit CORS verwenden.
 
 ## Sensoren
 Legt das Passwort fuer Firmware-Uploads zu Sensoren fest.
