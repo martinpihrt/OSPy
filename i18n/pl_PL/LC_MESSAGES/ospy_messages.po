@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2026-06-29 18:27+0200\n"
-"PO-Revision-Date: 2026-06-30 08:39+0200\n"
+"PO-Revision-Date: 2026-06-30 13:38+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -612,11 +612,13 @@ msgstr "Maksymalne wykorzystanie"
 
 #: ospy/options.py:213
 msgid ""
-"Determines how schedules of different stations are combined. 0 is no limit. 1 "
-"is sequential in case all stations have a usage of 1."
+"Determines how station runs are combined. 0 means no limit. 1 means one "
+"station at a time when each station has usage 1. This also affects when the "
+"pause between stations is inserted."
 msgstr ""
-"Określa sposób łączenia rozkładów jazdy różnych stacji. 0 nie stanowi żadnego "
-"limitu. 1 jest sekwencyjne w przypadku, gdy wszystkie stacje korzystają z 1."
+"Określa, jak łączy się kursy stacji. 0 oznacza brak limitu. 1 oznacza jedną "
+"stację naraz, gdy każda stacja ma użycie 1. Dotyczy to również momentu, gdy "
+"wstawiana jest pauza między stacjami."
 
 #: ospy/options.py:214 ospy/options.py:221 ospy/options.py:230
 #: ospy/options.py:239
@@ -632,12 +634,21 @@ msgid "The number of outputs available (8 + 8*extensions)"
 msgstr "Liczba dostępnych wyjść (8 + 8*rozszerzeń)"
 
 #: ospy/options.py:227
-msgid "Station delay"
-msgstr "Opóźnienie stacji"
+msgid "Pause between stations"
+msgstr "Przerwa mi?dzy sekcjami"
 
 #: ospy/options.py:229
-msgid "Station delay time (in seconds), between 0 and 3600."
-msgstr "Czas opóźnienia stacji (w sekundach), od 0 do 3600."
+msgid ""
+"Pause inserted between sequential station runs when the scheduler cannot run "
+"them at the same time, in seconds between 0 and 3600. This does not shift a "
+"station against the master station. Example: with maximum usage 1 and station "
+"usage 1, value 30 starts the next station 30 seconds after the previous "
+"station ends."
+msgstr ""
+"Pauza wstawiana pomiędzy kolejnymi przebiegami stacji, gdy planista nie może "
+"wykonać ich jednocześnie, w sekundach między 0 a 3600. To nie przesuwa stacji "
+"względem stacji głównej. Przykład: przy maksymalnym użyciu 1 i obsłudze stacji "
+"1, wartość 30 rozpoczyna następną stację 30 sekund po zakończeniu poprzedniej."
 
 #: ospy/options.py:236
 msgid "Minimum runtime"
@@ -645,11 +656,15 @@ msgstr "Minimalny czas działania"
 
 #: ospy/options.py:238
 msgid ""
-"Skip the station delay if the run time was less than this value (in seconds), "
-"between 0 and 86400."
+"Skip the pause between stations when the previous run was shorter than this "
+"value, in seconds between 0 and 86400. Example: with pause 30 and minimum "
+"runtime 10, a station that ran only 5 seconds will not force the 30 second "
+"pause."
 msgstr ""
-"Pomiń opóźnienie stacji, jeśli czas pracy był krótszy niż ta wartość (w "
-"sekundach) z zakresu od 0 do 86400."
+"Pomiń przerwę między stacjami, gdy poprzedni przebieg był krótszy niż ta "
+"wartość, w sekundach między 0 a 86400. Przykład: przy pauzie 30 i minimalnym "
+"czasie działania 10, stacja działająca tylko 5 sekund nie wymusi 30-sekundowej "
+"przerwy."
 
 #: ospy/options.py:247
 msgid "Activate relay"
@@ -665,36 +680,70 @@ msgid "Configure Master"
 msgstr "Skonfiguruj Mistrza"
 
 #: ospy/options.py:254
-msgid "Master on delay"
-msgstr "Mistrz z opóźnieniem"
+msgid "Master start offset"
+msgstr "Przesuni?cie startu sekcji g??wnej"
 
 #: ospy/options.py:256
-msgid "Master on delay (in seconds), between -1800 and +1800."
-msgstr "Opóźnienie mastera (w sekundach), pomiędzy -1800 a +1800."
+msgid ""
+"Time offset for starting master station 1 relative to the station start, in "
+"seconds between -1800 and +1800. Negative values start the master earlier; "
+"positive values start it later. Example: -10 starts the master 10 seconds "
+"before the station, +10 starts it 10 seconds after the station."
+msgstr ""
+"Przesunięcie czasowe dla uruchomienia stacji głównej 1 względem startu stacji, "
+"w sekundach między -1800 a +1800. Wartości ujemne zaczynają master wcześniej; "
+"wartości dodatnie zaczynają później. Przykład: -10 uruchamia master 10 sekund "
+"przed stacijom, +10 uruchamia go 10 sekund po stacji."
 
 #: ospy/options.py:263
-msgid "Master off delay"
-msgstr "Opóźnienie wyłączenia głównego"
+msgid "Master stop offset"
+msgstr "Przesuni?cie wy??czenia sekcji g??wnej"
 
 #: ospy/options.py:265
-msgid "Master off delay (in seconds), between -1800 and +1800."
-msgstr "Opóźnienie wyłączenia głównego (w sekundach), od -1800 do +1800."
+msgid ""
+"Time offset for stopping master station 1 relative to the station end, in "
+"seconds between -1800 and +1800. Negative values stop the master earlier; "
+"positive values keep it running longer. Example: -5 stops the master 5 seconds "
+"before the station ends, +20 stops it 20 seconds after the station ends."
+msgstr ""
+"Przesunięcie czasowe dla stacji głównej stoping stop 1 względem końca stacji, "
+"w sekundach między -1800 a +1800. Wartości ujemne zatrzymują master wcześniej; "
+"Wartości dodatnie sprawiają, że pracuje dłużej. Przykład: -5 zatrzymuje master "
+"5 sekund przed zakończeniem stacji, +20 zatrzymuje go 20 sekund po zakończeniu "
+"stacji."
 
 #: ospy/options.py:272
-msgid "Master two on delay"
-msgstr "Opanuj dwa z opóźnieniem"
+msgid "Master two start offset"
+msgstr "Przesuni?cie startu sekcji g??wnej 2"
 
 #: ospy/options.py:274
-msgid "Master two on delay (in seconds), between -1800 and +1800."
-msgstr "Opanuj dwa z opóźnieniem (w sekundach), pomiędzy -1800 a +1800."
+msgid ""
+"Time offset for starting master station 2 relative to the station start, in "
+"seconds between -1800 and +1800. Negative values start the master earlier; "
+"positive values start it later. Example: -10 starts master 2 10 seconds before "
+"the station, +10 starts it 10 seconds after the station."
+msgstr ""
+"Przesunięcie czasowe dla startu stacji głównej 2 względem startu stacji, w "
+"sekundach między -1800 a +1800. Wartości ujemne zaczynają master wcześniej; "
+"wartości dodatnie zaczynają później. Przykład: -10 uruchamia master 2 10 "
+"sekund przed stacijom, +10 uruchamia go 10 sekund po stacji."
 
 #: ospy/options.py:281
-msgid "Master two off delay"
-msgstr "Opanuj dwa opóźnienia"
+msgid "Master two stop offset"
+msgstr "Przesuni?cie wy??czenia sekcji g??wnej 2"
 
 #: ospy/options.py:283
-msgid "Master two off delay (in seconds), between -1800 and +1800."
-msgstr "Opóźnienie wyłączenia mastera dwa (w sekundach), od -1800 do +1800."
+msgid ""
+"Time offset for stopping master station 2 relative to the station end, in "
+"seconds between -1800 and +1800. Negative values stop the master earlier; "
+"positive values keep it running longer. Example: -5 stops master 2 5 seconds "
+"before the station ends, +20 stops it 20 seconds after the station ends."
+msgstr ""
+"Przesunięcie czasowe dla stacji głównej stoping 2 względem końca stacji, w "
+"sekundach między -1800 a +1800. Wartości ujemne zatrzymują master wcześniej; "
+"Wartości dodatnie sprawiają, że pracuje dłużej. Przykład: -5 zatrzymuje master "
+"2 5 sekund przed zakończeniem stacji, +20 zatrzymuje ją 20 sekund po "
+"zakończeniu stacji."
 
 #: ospy/options.py:292
 msgid "Use rain sensor"

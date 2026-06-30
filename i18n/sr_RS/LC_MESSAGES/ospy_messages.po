@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2026-06-29 18:27+0200\n"
-"PO-Revision-Date: 2026-06-30 09:38+0200\n"
+"PO-Revision-Date: 2026-06-30 13:42+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr_RS\n"
@@ -589,11 +589,12 @@ msgstr "Максимална употреба"
 
 #: ospy/options.py:213
 msgid ""
-"Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in "
-"case all stations have a usage of 1."
+"Determines how station runs are combined. 0 means no limit. 1 means one station at a time when "
+"each station has usage 1. This also affects when the pause between stations is inserted."
 msgstr ""
-"Одређује како се комбинују распореди различитих станица. 0 није ограничење. 1 је секвенцијалан у "
-"случају да све станице користе 1."
+"Одређује како се комбинују станичне стазе. 0 значи без ограничења. 1 значи једну станицу у исто "
+"време када свака станица има употребу 1. Ово такође утиче на то када је убачена пауза између "
+"станица."
 
 #: ospy/options.py:214 ospy/options.py:221 ospy/options.py:230 ospy/options.py:239
 msgid "Station Handling"
@@ -608,12 +609,20 @@ msgid "The number of outputs available (8 + 8*extensions)"
 msgstr "Број доступних излаза (8 + 8* екстензија)"
 
 #: ospy/options.py:227
-msgid "Station delay"
-msgstr "Кашњење станице"
+msgid "Pause between stations"
+msgstr "Pauza izme?u stanica"
 
 #: ospy/options.py:229
-msgid "Station delay time (in seconds), between 0 and 3600."
-msgstr "Време кашњења станице (у секундама), између 0 и 3600."
+msgid ""
+"Pause inserted between sequential station runs when the scheduler cannot run them at the same "
+"time, in seconds between 0 and 3600. This does not shift a station against the master station. "
+"Example: with maximum usage 1 and station usage 1, value 30 starts the next station 30 seconds "
+"after the previous station ends."
+msgstr ""
+"Пауза убачена између секвенцијалне станице ради када планер не може да их покрене у исто време, "
+"у секундама између 0 и 3600. Ово не помера станицу против главне станице. Пример : са "
+"максималном употребом 1 и употребом станице 1, вредност 30 покреће следећу станицу 30 секунди "
+"након завршетка претходне станице."
 
 #: ospy/options.py:236
 msgid "Minimum runtime"
@@ -621,11 +630,13 @@ msgstr "Минимално време рада"
 
 #: ospy/options.py:238
 msgid ""
-"Skip the station delay if the run time was less than this value (in seconds), between 0 and "
-"86400."
+"Skip the pause between stations when the previous run was shorter than this value, in seconds "
+"between 0 and 86400. Example: with pause 30 and minimum runtime 10, a station that ran only 5 "
+"seconds will not force the 30 second pause."
 msgstr ""
-"Прескочите кашњење станице ако је време рада било мање од ове вредности (у секундама), између 0 "
-"и 86400."
+"Прескочите паузу између станица када је претходна вожња била краћа од ове вредности, у секундама "
+"између 0 и 86400. Пример : са паузом 30 и минималним временом извођења 10, станица која је "
+"радила само 5 секунди неће присилити паузу од 30 секунди."
 
 #: ospy/options.py:247
 msgid "Activate relay"
@@ -641,36 +652,66 @@ msgid "Configure Master"
 msgstr "Цонфигуре Мастер"
 
 #: ospy/options.py:254
-msgid "Master on delay"
-msgstr "Мајстор о одлагању"
+msgid "Master start offset"
+msgstr "Pomeranje starta glavne stanice"
 
 #: ospy/options.py:256
-msgid "Master on delay (in seconds), between -1800 and +1800."
-msgstr "Мастер на кашњењу (у секундама), између -1800 и +1800."
+msgid ""
+"Time offset for starting master station 1 relative to the station start, in seconds between "
+"-1800 and +1800. Negative values start the master earlier; positive values start it later. "
+"Example: -10 starts the master 10 seconds before the station, +10 starts it 10 seconds after the "
+"station."
+msgstr ""
+"Временски офсет за покретање мастер станице 1 у односу на почетак станице, у секундама између "
+"-1800 и + 1800. Негативне вредности почињу мастер раније; Позитивне вредности почињу касније. "
+"Пример : -10 покреће мастер 10 секунди пре станице, + 10 га покреће 10 секунди након станице."
 
 #: ospy/options.py:263
-msgid "Master off delay"
-msgstr "Мастер офф кашњење"
+msgid "Master stop offset"
+msgstr "Pomeranje isklju?ivanja glavne stanice"
 
 #: ospy/options.py:265
-msgid "Master off delay (in seconds), between -1800 and +1800."
-msgstr "Мастер офф кашњење (у секундама), између -1800 и +1800."
+msgid ""
+"Time offset for stopping master station 1 relative to the station end, in seconds between -1800 "
+"and +1800. Negative values stop the master earlier; positive values keep it running longer. "
+"Example: -5 stops the master 5 seconds before the station ends, +20 stops it 20 seconds after "
+"the station ends."
+msgstr ""
+"Временски офсет за заустављање мастер станице 1 у односу на крај станице, у секундама између "
+"-1800 и + 1800. Негативне вредности раније заустављају мастер; позитивне вредности одржавају га "
+"дуже. Пример : -5 зауставља мастер 5 секунди пре краја станице, + 20 га зауставља 20 секунди "
+"након завршетка станице."
 
 #: ospy/options.py:272
-msgid "Master two on delay"
-msgstr "Мастер два на кашњењу"
+msgid "Master two start offset"
+msgstr "Pomeranje starta glavne stanice 2"
 
 #: ospy/options.py:274
-msgid "Master two on delay (in seconds), between -1800 and +1800."
-msgstr "Мастер два на кашњењу (у секундама), између -1800 и +1800."
+msgid ""
+"Time offset for starting master station 2 relative to the station start, in seconds between "
+"-1800 and +1800. Negative values start the master earlier; positive values start it later. "
+"Example: -10 starts master 2 10 seconds before the station, +10 starts it 10 seconds after the "
+"station."
+msgstr ""
+"Временски офсет за покретање мастер станице 2 у односу на почетак станице, у секундама између "
+"-1800 и + 1800. Негативне вредности почињу мастер раније; Позитивне вредности почињу касније. "
+"Пример : -10 почиње мастер 2 10 секунди пре станице, + 10 га покреће 10 секунди након станице."
 
 #: ospy/options.py:281
-msgid "Master two off delay"
-msgstr "Мастер два искључена кашњење"
+msgid "Master two stop offset"
+msgstr "Pomeranie isklju?ivanja glavne stanice 2"
 
 #: ospy/options.py:283
-msgid "Master two off delay (in seconds), between -1800 and +1800."
-msgstr "Мастер два искључена кашњења (у секундама), између -1800 и +1800."
+msgid ""
+"Time offset for stopping master station 2 relative to the station end, in seconds between -1800 "
+"and +1800. Negative values stop the master earlier; positive values keep it running longer. "
+"Example: -5 stops master 2 5 seconds before the station ends, +20 stops it 20 seconds after the "
+"station ends."
+msgstr ""
+"Временски офсет за заустављање мастер станице 2 у односу на крај станице, у секундама између "
+"-1800 и + 1800. Негативне вредности раније заустављају мастер; позитивне вредности одржавају га "
+"дуже. Пример : -КСНУМКС зауставља мастер КСНУМКС КСНУМКС секунди пре завршетка станице, + "
+"КСНУМКС га зауставља КСНУМКС секунди након завршетка станице."
 
 #: ospy/options.py:292
 msgid "Use rain sensor"

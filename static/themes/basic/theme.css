@@ -42,6 +42,15 @@ button#tooltip {height:24px;}
 .tooltip {background-color:#FFF2B8; display:none; font-size:10pt; margin-left:4px;}
 .label {font-weight:bold; float:left; width:210px; text-align:right; padding-right:4px;}
 .option {margin: 6px 0px; clear:both;}
+#optionsForm .option {min-height:26px; overflow:visible;}
+#optionsForm .label {
+    box-sizing:border-box;
+    width:320px;
+    max-width:42%;
+    line-height:1.25;
+    white-space:normal;
+    overflow-wrap:break-word;
+}
 td.stationNumber, td.stationShow, td.stationIgnore, td.activateMaster {text-align:center}
 td.stationName {text-align:left; padding-left:1em;}
 .piDatFooter {background-color:white; color:black; font-size:12pt; margin-bottom:10px; padding:0px 4px 0px 4px;}
@@ -1576,6 +1585,16 @@ td.stationSchedule {
 
 /******** Styles for width < 600px  ********/
 @media only screen and (max-width: 600px) {
+    #optionsForm .label {
+        float:none;
+        display:block;
+        width:auto;
+        max-width:none;
+        text-align:left;
+        padding-right:0;
+        margin-bottom:2px;
+    }
+
     #nav .button.ico-here {
         background-color: #32A620 !important;
         height: 40px;

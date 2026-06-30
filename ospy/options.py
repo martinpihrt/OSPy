@@ -210,7 +210,7 @@ class _Options(object):
             "key": "max_usage",
             "name": _('Maximum usage'),
             "default": 1.0,
-            "help": _('Determines how schedules of different stations are combined. 0 is no limit. 1 is sequential in case all stations have a usage of 1.'),
+            "help": _('Determines how station runs are combined. 0 means no limit. 1 means one station at a time when each station has usage 1. This also affects when the pause between stations is inserted.'),
             "category": _('Station Handling')
         },
         {
@@ -224,9 +224,9 @@ class _Options(object):
         },
         {
             "key": "station_delay",
-            "name": _('Station delay'),
+            "name": _('Pause between stations'),
             "default": 0,
-            "help": _('Station delay time (in seconds), between 0 and 3600.'),
+            "help": _('Pause inserted between sequential station runs when the scheduler cannot run them at the same time, in seconds between 0 and 3600. This does not shift a station against the master station. Example: with maximum usage 1 and station usage 1, value 30 starts the next station 30 seconds after the previous station ends.'),
             "category": _('Station Handling'),
             "min": 0,
             "max": 3600
@@ -235,7 +235,7 @@ class _Options(object):
             "key": "min_runtime",
             "name": _('Minimum runtime'),
             "default": 0,
-            "help": _('Skip the station delay if the run time was less than this value (in seconds), between 0 and 86400.'),
+            "help": _('Skip the pause between stations when the previous run was shorter than this value, in seconds between 0 and 86400. Example: with pause 30 and minimum runtime 10, a station that ran only 5 seconds will not force the 30 second pause.'),
             "category": _('Station Handling'),
             "min": 0,
             "max": 86400
@@ -251,36 +251,36 @@ class _Options(object):
         },
         {
             "key": "master_on_delay",
-            "name": _('Master on delay'),
+            "name": _('Master start offset'),
             "default": 0,
-            "help": _('Master on delay (in seconds), between -1800 and +1800.'),
+            "help": _('Time offset for starting master station 1 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts the master 10 seconds before the station, +10 starts it 10 seconds after the station.'),
             "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
         },
         {
             "key": "master_off_delay",
-            "name": _('Master off delay'),
+            "name": _('Master stop offset'),
             "default": 0,
-            "help": _('Master off delay (in seconds), between -1800 and +1800.'),
+            "help": _('Time offset for stopping master station 1 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops the master 5 seconds before the station ends, +20 stops it 20 seconds after the station ends.'),
             "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
         },
         {
             "key": "master_on_delay_two",
-            "name": _('Master two on delay'),
+            "name": _('Master two start offset'),
             "default": 0,
-            "help": _('Master two on delay (in seconds), between -1800 and +1800.'),
+            "help": _('Time offset for starting master station 2 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts master 2 10 seconds before the station, +10 starts it 10 seconds after the station.'),
             "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
         },
         {
             "key": "master_off_delay_two",
-            "name": _('Master two off delay'),
+            "name": _('Master two stop offset'),
             "default": 0,
-            "help": _('Master two off delay (in seconds), between -1800 and +1800.'),
+            "help": _('Time offset for stopping master station 2 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops master 2 5 seconds before the station ends, +20 stops it 20 seconds after the station ends.'),
             "category": _('Configure Master'),
             "min": -1800,
             "max": +1800
