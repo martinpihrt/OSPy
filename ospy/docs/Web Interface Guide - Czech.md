@@ -121,6 +121,7 @@ OSPy Průvodce webovým rozhraním v češtině
             Použít vlastní HTTPS
             API CORS povolený origin
             Povolit API JSONP
+            Zapamatovaná přihlášení v prohlížeči
         Snímače
             Heslo pro nahrávání firmwaru                     
         Nastavení stanic
@@ -700,6 +701,9 @@ Tato volba nastavuje hlavičku `Access-Control-Allow-Origin`, kterou API použí
 
 ### Povolit API JSONP
 Tato volba povoluje starší parametr `callback` pro JSONP odpovědi API. Nechte ji vypnutou, pokud ji nevyžaduje stará integrace. Běžní API klienti mají používat JSON s CORS.
+
+### Zapamatovaná přihlášení v prohlížeči
+Přihlašovací stránka může zapamatovat prohlížeč pomocí dlouhodobého náhodného tokenu uloženého v zabezpečené cookie. OSPy ukládá pouze hash tohoto tokenu, nikoli heslo uživatele. Tlačítkem Zrušit odstraníte všechna zapamatovaná přihlášení v prohlížečích; dotčené prohlížeče se musí znovu přihlásit heslem.
 
 ## Snímače
 Sekce snímače obsahuje nastavení pro zabezpečení snímačů.  

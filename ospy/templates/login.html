@@ -3,64 +3,34 @@ $def with (form, new_user)
 $var title: $_('Login')
 $var page: login
 
-<script src="/static/scripts/crypto-js.min.js"></script>
-
 <script>
 
-// secure key for auto login
-var key = "${options.auto_login_key}";
 var loginSubmitting = false;
-
-// check if browser has local storage
-function check_storage() {
-    if (typeof(Storage) !== "undefined") {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 // onclick checkbox Remember login
 function myCheck() {
     var checkBox = document.getElementById("remember-me");
     var text = document.getElementById("text");
-    var text2 = document.getElementById("text2");
     if (checkBox.checked == true){
-        // save username and password 
         text.style.display = "block";
-        var username = document.getElementById("username").value; 
-        var userpwd = document.getElementById("password").value;
-        localStorage.setItem("username", CryptoJS.AES.encrypt(username, key));
-        localStorage.setItem("userpwd", CryptoJS.AES.encrypt(userpwd, key));
-        localStorage.setItem("remember", "checked");
-        console.log("I am saving login information in the browser.");        
     } else {
-        // remove username and password
         text.style.display = "none";
-        localStorage.removeItem("username");
-        localStorage.removeItem("userpwd");
-        localStorage.removeItem("remember");
-        console.log("I am removing login information from the browser.");        
     }
 }
 
 jQuery(document).ready(function(){
+    if (typeof(Storage) !== "undefined") {
+        localStorage.removeItem("username");
+        localStorage.removeItem("userpwd");
+        localStorage.removeItem("remember");
+    }
+
     function submitLoginForm() {
         if (loginSubmitting) {
             return false;
         }
         loginSubmitting = true;
         jQuery("#cSubmit").prop("disabled", true);
-        if (check_storage()){
-            var checkBox = document.getElementById("remember-me");
-            if (checkBox.checked == true){
-                var username = document.getElementById("username").value; 
-                var userpwd = document.getElementById("password").value;
-                localStorage.setItem("username", CryptoJS.AES.encrypt(username, key));
-                localStorage.setItem("userpwd", CryptoJS.AES.encrypt(userpwd, key));
-                localStorage.setItem("remember", "checked");
-            }    
-        }    
         jQuery("#login").submit();
         return false;
     }
@@ -69,42 +39,6 @@ jQuery(document).ready(function(){
         event.preventDefault();
         submitLoginForm();
     });
-
-    if (check_storage()){
-        // Browser support local storage
-        text2.style.display = "none";
-        var wrong_text = document.getElementsByClassName("wrong")[0];
-        var chkbx = localStorage.getItem("remember");
-        if (chkbx && chkbx != '') {
-            jQuery("#remember-me").attr('checked', 'checked');
-            // Set fields name and pass
-            var decrypted_name = CryptoJS.AES.decrypt(localStorage.getItem("username"), key);
-            var decrypted_pwd = CryptoJS.AES.decrypt(localStorage.getItem("userpwd"), key);
-            document.getElementById("username").value = decrypted_name.toString(CryptoJS.enc.Utf8);
-            document.getElementById("password").value = decrypted_pwd.toString(CryptoJS.enc.Utf8);
-            if(wrong_text == null){
-                // autologin after 3 seconds click submit
-                var text3 = document.getElementById("text3");
-                text3.style.display = "block";
-                console.log("Automatic login takes place after 3 seconds."); 
-                setTimeout(function(){ 
-                    chkbx = document.getElementById("remember-me");
-                    if (chkbx.checked == true){
-                        submitLoginForm(); 
-                    }    
-                }, 3000);
-            }
-        } else {
-            jQuery("#remember-me").removeAttr('checked');
-            document.getElementById("username").value = '';
-            document.getElementById("password").value = '';
-        }
-    }
-    else{
-        // If your browser does not support local storage
-        text2.style.display = "block";
-        console.log("Your browser does not support local storage!"); 
-    }    
 
     // send form after pressing enter key
     var input = document.getElementById("password");
@@ -148,9 +82,7 @@ jQuery(document).ready(function(){
         <form name="login" id="login" method="POST"> 
             $:form.render()
             <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><input type="checkbox" name="remember-me" value="" id="remember-me" onclick="myCheck()"></td></tr></table>
-            <p id="text" style="display:none"><small>$_('Saved browser login.')</small></p>
-            <p id="text2" style="display:none"><small>$_('Your browser does not support local storage!')</small></p>
-            <p id="text3" style="display:none"><small>$_('Automatic login takes place after 3 seconds.')</small></p>
+            <p id="text" style="display:none"><small>$_('This browser will be remembered after successful login.')</small></p>
         </form>
     </td>
     </tr>   

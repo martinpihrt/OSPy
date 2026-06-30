@@ -23,6 +23,7 @@ from ospy.programs import programs, ProgramType
 from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler
+from ospy import autologin
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -1436,6 +1437,7 @@ class login_page(WebPage):
             from ospy import server
             try:
                 server.session.kill()
+                autologin.clear_cookie()
             except Exception:
                 log.debug('webpages.py', traceback.format_exc())
             raise web.seeother('/login', True)
@@ -1443,6 +1445,19 @@ class login_page(WebPage):
         if check_login(False):
             raise web.seeother('/')
         else:
+            remembered_login = autologin.validate_cookie()
+            if remembered_login:
+                from ospy import server
+                server.session.regenerate_id()
+                server.session.validated = True
+                server.session['category'] = remembered_login['category']
+                server.session['visitor'] = remembered_login['username']
+                report_login()
+                if options.run_logEV:
+                    logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
+                log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
+                raise web.seeother('/', True)
+
             if options.first_installation:
                 new_user = options.first_password_hash
             else:
@@ -1464,6 +1479,10 @@ class login_page(WebPage):
             from ospy import server
             server.session.regenerate_id()
             server.session.validated = True
+            if 'remember-me' in qdict:
+                autologin.issue(server.session.get('visitor'), server.session.get('category'))
+            else:
+                autologin.revoke_cookie_token()
             report_login()
             if options.run_logEV:
                 logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
@@ -1478,6 +1497,7 @@ class logout_page(WebPage):
             if options.run_logEV:
                 logEV.save_events_log( _('Logout'), _('User {} logged out').format(server.session.get('visitor')), id='Login')
             log.info('webpages.py', _('User {} logged out').format(server.session.get('visitor')))
+            autologin.revoke_cookie_token()
             server.session.kill()
         except:
             log.debug('webpages.py', traceback.format_exc())
@@ -2149,6 +2169,7 @@ class options_page(ProtectedPage):
                         options.password_salt = password_salt()
                         options.password_hash = password_hash(qdict['new_password'], options.password_salt)
                         options.first_installation = False
+                        autologin.revoke_all()
                     else:
                         raise web.seeother('/options?errorCode=pw_mismatch')
                 else:
@@ -2159,6 +2180,10 @@ class options_page(ProtectedPage):
                 raise web.seeother('/')    # after change password -> logout
             except KeyError:
                 pass
+
+        if 'revoke_autologin' in qdict and qdict['revoke_autologin'] == '1':
+            autologin.revoke_all()
+            raise web.seeother('/options')
    
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()

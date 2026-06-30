@@ -55,6 +55,11 @@ $code:
         jQuery("form[name='of']").submit();
     });
 
+    jQuery("button#cRevokeAutoLogin").click(function(){
+        jQuery("input[name='revoke_autologin']").val(1);
+        jQuery("form[name='of']").submit();
+    });
+
     jQuery("button#cGenerate").click(function(){
         jQuery("input[name='generate']").val(1);
         jQuery("form[name='of4']").submit();
@@ -229,6 +234,12 @@ $code:
                     output += "<span class='tooltip'>" + _('Edit aditional users for login to the OSPy.') + "</span>\n"
                     output += "</div>\n"
 
+                if name == 'api_jsonp_enabled':
+                    output += "<div class='option' title=" + json.dumps(_('Revoke all remembered browser logins.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Remembered browser logins') + ":</span>\n"
+                    output += "&nbsp;<button type='button' id='cRevokeAutoLogin' class='reboot danger' title=" + json.dumps(_('Revoke all remembered browser logins.'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Revoke') + "</button>\n"
+                    output += "<span class='tooltip'>" + _('Deletes all long-term auto-login tokens. Browsers must log in again with a password.') + "</span>\n"
+                    output += "</div>\n"
+
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
         output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Restart') + "</button>"
@@ -240,6 +251,7 @@ $code:
         output += "<input type=\"hidden\" name=\"rstrt\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"pwrdwn\" value=\"0\">"
         output += "<input type=\"hidden\" name=\"deldef\" value=\"0\">"
+        output += "<input type=\"hidden\" name=\"revoke_autologin\" value=\"0\">"
         output += categoryCloser + "</form>"
 
         output += "<form id='uploadForm' name='of2' action='upload?" + csrf_query() + "' method=\"post\" enctype=\"multipart/form-data\">\n"

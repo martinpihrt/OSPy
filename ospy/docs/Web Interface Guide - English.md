@@ -121,6 +121,7 @@ OSPy Web Interface Guide in English
             Use Own HTTPS access
             API CORS allowed origin
             Enable API JSONP
+            Remembered browser logins
         Sensors
             Password for uploading              
         Station Handling Section
@@ -698,6 +699,9 @@ This option controls the `Access-Control-Allow-Origin` header used by the API fo
 
 ### Enable API JSONP
 This option enables the legacy `callback` query parameter for JSONP API responses. Keep it disabled unless an old integration requires JSONP. Normal API clients should use JSON with CORS instead.
+
+### Remembered browser logins
+The login page can remember a browser by storing a long-term random token in a secure cookie. OSPy stores only a hash of that token, not the user password. Use the Revoke button to delete all remembered browser logins; affected browsers must log in again with a password.
 
 ## Sensors Section
 The Sensors section contains settings for sensors security.  

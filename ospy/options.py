@@ -159,13 +159,6 @@ class _Options(object):
             "category": _('Users')
         },
         {
-            "key": "auto_login_key",
-            "name": _('Auto Login encryption key'),
-            "default": 'Th1s1sTh3Un1qu3K3y',
-            "help": _('The key with which the local storage in the browser will be encrypted.'),
-            "category": _('Users')
-        },                
-        {
             "key": "admin_user",
             "name": _('Administrator name'),
             "default": "admin",
@@ -577,6 +570,8 @@ class _Options(object):
                         db.close()
             except Exception as err:
                 pass
+
+        self._values.pop('auto_login_key', None)
 
         try:
             if not self.first_password_hash:                                                     # First default installation password is not hashed yet

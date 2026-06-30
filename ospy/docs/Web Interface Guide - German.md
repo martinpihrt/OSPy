@@ -187,6 +187,9 @@ Diese Option steuert den Header `Access-Control-Allow-Origin`, den die API fuer 
 ### Enable API JSONP
 Diese Option aktiviert den alten Parameter `callback` fuer JSONP-Antworten der API. Lassen Sie sie deaktiviert, sofern keine alte Integration JSONP benoetigt. Normale API-Clients sollten JSON mit CORS verwenden.
 
+### Remembered browser logins
+Die Login-Seite kann einen Browser mit einem langfristigen zufaelligen Token in einem sicheren Cookie merken. OSPy speichert nur einen Hash dieses Tokens, nicht das Benutzerpasswort. Mit der Schaltflaeche Revoke werden alle gemerkten Browser-Logins geloescht; betroffene Browser muessen sich wieder mit Passwort anmelden.
+
 ## Sensoren
 Legt das Passwort fuer Firmware-Uploads zu Sensoren fest.
 

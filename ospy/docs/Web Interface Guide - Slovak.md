@@ -315,6 +315,10 @@ Táto voľba nastavuje hlavičku `Access-Control-Allow-Origin`, ktorú API použ
 
 Táto voľba povoľuje starší parameter `callback` pre JSONP odpovede API. Nechajte ju vypnutú, ak ju nevyžaduje stará integrácia. Bežní API klienti majú používať JSON s CORS.
 
+### Zapamätané prihlásenia v prehliadači
+
+Prihlasovacia stránka môže zapamätať prehliadač pomocou dlhodobého náhodného tokenu uloženého v zabezpečenej cookie. OSPy ukladá iba hash tohto tokenu, nie heslo používateľa. Tlačidlo Revoke odstráni všetky zapamätané prihlásenia; dotknuté prehliadače sa musia znova prihlásiť heslom.
+
 ## Snímače
 
 Sekcia obsahuje heslo používané pri nahrávaní firmvéru do snímačov.

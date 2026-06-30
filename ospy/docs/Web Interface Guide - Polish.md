@@ -187,6 +187,9 @@ Ta opcja steruje naglowkiem `Access-Control-Allow-Origin`, ktorego API uzywa dla
 ### Enable API JSONP
 Ta opcja wlacza starszy parametr `callback` dla odpowiedzi JSONP z API. Pozostaw ja wylaczona, chyba ze stara integracja wymaga JSONP. Zwykli klienci API powinni uzywac JSON z CORS.
 
+### Remembered browser logins
+Strona logowania moze zapamietac przegladarke za pomoca dlugoterminowego losowego tokenu zapisanego w bezpiecznym cookie. OSPy przechowuje tylko hash tego tokenu, a nie haslo uzytkownika. Przycisk Revoke usuwa wszystkie zapamietane logowania; dotkniete przegladarki musza zalogowac sie ponownie haslem.
+
 ## Czujniki
 Ustawia haslo do wysylania firmware do czujnikow.
 

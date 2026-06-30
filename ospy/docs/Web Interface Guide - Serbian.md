@@ -187,6 +187,9 @@ Ova opcija kontrolise zaglavlje `Access-Control-Allow-Origin`, koje API koristi 
 ### Enable API JSONP
 Ova opcija ukljucuje stari parametar `callback` za JSONP odgovore API-ja. Ostavite je iskljucenu osim ako stara integracija zahteva JSONP. Normalni API klijenti treba da koriste JSON sa CORS-om.
 
+### Remembered browser logins
+Strana za prijavu moze zapamtiti pregledac pomocu dugotrajnog nasumicnog tokena sacuvanog u sigurnom cookie-ju. OSPy cuva samo hash tog tokena, ne korisnicku lozinku. Dugme Revoke brise sva zapamcena prijavljivanja; pogodjeni pregledaci moraju ponovo da se prijave lozinkom.
+
 ## Senzori
 Postavlja lozinku za slanje firmware-a na senzore.
 
