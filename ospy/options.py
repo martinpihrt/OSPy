@@ -91,7 +91,22 @@ class _Options(object):
             "default": True,
             "help": _('When activated, in header menu will display icons instead of text.'),
             "category": _('System')
-        },                
+        },
+        {
+            "key": "show_scroll_top",
+            "name": _('Show back to top button'),
+            "default": False,
+            "help": _('Show a button for scrolling back to the top of the page after the page is scrolled down.'),
+            "category": _('System')
+        },
+        {
+            "key": "scroll_top_position",
+            "name": _('Back to top position'),
+            "default": "right",
+            "options": ["left", "right"],
+            "help": _('Choose whether the back to top button is shown at the bottom left or bottom right of the page.'),
+            "category": _('System')
+        },
         {
             "key": "enabled_plugins",
             "name": _('Enabled plug-ins'),

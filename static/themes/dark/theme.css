@@ -59,7 +59,7 @@ td.stationName {text-align:left; padding-left:1em;}
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1000; /* Sit on top */
   padding-top: 4vh; /* Location of the box */
   left: 0;
   top: 0;
@@ -1756,4 +1756,34 @@ td.stationSchedule {
     padding: 10px 1px;
     background: #F5F5F5;
     width: 40%;
+}
+
+.scrollTopButton {
+    display: none;
+    position: fixed;
+    bottom: 18px;
+    width: 44px;
+    height: 44px;
+    border: 2px solid #a0a0a0;
+    border-radius: 4px;
+    background: #505050;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 36px;
+    text-align: center;
+    z-index: 90;
+}
+
+.scrollTopButton:hover {
+    background: #606060;
+}
+
+.scrollTopLeft {
+    left: 18px;
+}
+
+.scrollTopRight {
+    right: 18px;
 }
