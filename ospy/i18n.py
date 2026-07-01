@@ -11,16 +11,29 @@ import traceback
 
 from ospy.helpers import print_report
 
-OPTIONS_FILE = './ospy/data/default/options.db'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OPTIONS_FILES = [
+    os.path.join(BASE_DIR, 'ospy', 'data', 'default', 'options.db'),
+    os.path.join(BASE_DIR, 'ospy', 'data', 'tmp', 'options.db'),
+    os.path.join(BASE_DIR, 'ospy', 'data', 'backup', 'options.db'),
+]
 
-try:
-    db = shelve.open(OPTIONS_FILE)
-    sd_lang = db['lang'] # example return sd_lang = 'cs_CZ'
-    db.close()    
-except:
-    sd_lang = 'default'
-    #print_report('i18n.py', traceback.format_exc())
-    pass
+
+def load_saved_language():
+    for options_file in OPTIONS_FILES:
+        try:
+            if os.path.isdir(os.path.dirname(options_file)):
+                db = shelve.open(options_file)
+                try:
+                    if list(db.keys()) and 'lang' in db:
+                        return db['lang']
+                finally:
+                    db.close()
+        except Exception:
+            pass
+    return 'default'
+
+sd_lang = load_saved_language() # example return sd_lang = 'cs_CZ'
 
 ### here add next languages ###
 languages = ({
@@ -51,11 +64,8 @@ def get_system_lang():
     else:
         return None
 
-# File location directory.
-curdir = os.path.realpath(u'i18n')
-
 # i18n directory.
-localedir = curdir + u'/'
+localedir = os.path.join(BASE_DIR, u'i18n')
 
 gettext.install(u'ospy_messages', localedir)
 
