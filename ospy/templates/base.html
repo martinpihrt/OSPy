@@ -128,7 +128,7 @@ function updateOStimer() {
             msg += $:{json.dumps(_('Local OSPy version'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' + os_curr + '<br>';
             msg += $:{json.dumps(_('Available OSPy version'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' + os_aval + '<br></p>';
             msg += $:{json.dumps(_('Changes'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' + os_chang + '<br></p>';
-            msg += '<a href="/plugins/system_update/update" class="button"><b>'+ $:{json.dumps(_('Update system'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</b></a>';
+            msg += '<a href="/plugins/system_update/update?${csrf_query()}" class="button"><b>'+ $:{json.dumps(_('Update system'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</b></a>';
             }
         if(pl_state > 0){ // 0= No update plugin, >0 plugin count
             msg += '<p><b>' + $:{json.dumps(_('The system has detected that plugins updates are available'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</b><br>';
