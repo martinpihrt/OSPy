@@ -3,6 +3,13 @@ $def with (index, img_url, errorCode)
 $var title: $_('Modify image')
 $var page: image
 
+$code:
+    install_button_html = "<form action='/img_edit/{}' method='post' style='display:inline'>".format(index)
+    install_button_html += csrf_input()
+    install_button_html += "<input type='hidden' name='action' value='install'>"
+    install_button_html += "<button type='submit' class='button cDelete danger'>" + _('Install it!') + "</button></form>"
+    refresh_button_html = "<a href='/img_edit/{}' class='button submit'>".format(index) + _('Refresh') + "</a>"
+
 <script>
     var errorCode = "${errorCode}";
     jQuery(document).ready(function(){
@@ -70,11 +77,11 @@ $var page: image
         break;  
         case "nopil":
             jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-            jQuery("#BtnInstall").html("<form action='/img_edit/${index}' method='post' style='display:inline'>$:{csrf_input()}<input type='hidden' name='action' value='install'><button type='submit' class='button cDelete danger'>$_('Install it!')</button></form>");
+            jQuery("#BtnInstall").html($:{json.dumps(install_button_html, ensure_ascii=False).encode('utf8').decode('utf-8')});
         break;
         case "nopilOK":
             jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
-            jQuery("#BtnInstall").html("<a href='/img_edit/${index}' class='button submit'>$_('Refresh')</a>");
+            jQuery("#BtnInstall").html($:{json.dumps(refresh_button_html, ensure_ascii=False).encode('utf8').decode('utf-8')});
         break;
         case "nopilErr":
             jQuery("#Hint").text($:{json.dumps(_('Installation failed - contact your system administrator!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
