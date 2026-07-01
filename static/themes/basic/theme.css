@@ -1720,3 +1720,47 @@ td.stationSchedule {
 .scrollTopRight {
     right: 18px;
 }
+
+.optionSwitch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.optionSwitch input[type="checkbox"] {
+    display: none;
+}
+
+.optionSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #7D1921;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.optionSlider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 3px;
+    background-color: #ffffff;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.optionSwitch input[type="checkbox"]:checked + .optionSlider {
+    background-color: #397F19;
+}
+
+.optionSwitch input[type="checkbox"]:checked + .optionSlider:before {
+    transform: translateX(24px);
+}

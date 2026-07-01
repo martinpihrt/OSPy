@@ -6,6 +6,35 @@ $var page: image
 <script>
     var errorCode = "${errorCode}";
     jQuery(document).ready(function(){
+        function setUploadHint(fileName) {
+            if (fileName) {
+                jQuery("#imageDropHint").text($:{json.dumps(_('Selected image'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ": " + fileName).css('color', 'green');
+            } else {
+                jQuery("#imageDropHint").text($:{json.dumps(_('Click Open or drag an image here.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', '#555555');
+            }
+        }
+
+        function setSelectedFile(file) {
+            if (!file) {
+                return;
+            }
+            if (!file.type.match(/^image\//)) {
+                jQuery("#imageDropHint").text($:{json.dumps(_('Image must be PNG, JPG or GIF file!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
+                return;
+            }
+            var input = document.getElementById("uploadfile");
+            if (window.DataTransfer && input) {
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                input.files = dataTransfer.files;
+            }
+            setUploadHint(file.name);
+        }
+
+        jQuery("#uploadfile").change(function() {
+            setUploadHint(this.files.length ? this.files[0].name : "");
+        });
+
         jQuery("#cUpload").click(function() {
             jQuery("#imageForm").submit();
         });
@@ -13,14 +42,31 @@ $var page: image
         window.location="/stations";
         });  
 
+        jQuery("#imageDropZone").on("dragenter dragover", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            jQuery(this).css("border-color", "#397F19").css("background", "#eef8eb");
+        });
+
+        jQuery("#imageDropZone").on("dragleave dragend drop", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            jQuery(this).css("border-color", "#2E3959").css("background", "#ffffff");
+        });
+
+        jQuery("#imageDropZone").on("drop", function(e) {
+            var files = e.originalEvent.dataTransfer.files;
+            if (files && files.length) {
+                setSelectedFile(files[0]);
+            }
+        });
+
     switch (errorCode) {
         case "noex":
             jQuery("#Hint").text($:{json.dumps(_('Image does not exist! Upload a new image.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-            jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/jpeg,image/gif'>");
         break;  
         case "uplname":
-            jQuery("#Hint").text($:{json.dumps(_('Image is not png or gif file!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-            jQuery("#okupload").html("<input type='file' name='uploadfile' class='upload' accept='image/x-png,image/gif'>");            
+            jQuery("#Hint").text($:{json.dumps(_('Image must be PNG, JPG or GIF file!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
         break;  
         case "nopil":
             jQuery("#Hint").text($:{json.dumps(_('Not installed Python Pillow for image proccessing!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
@@ -43,7 +89,7 @@ $var page: image
             <p>$_('Editation the image that is displayed next to the station.')</p>
             <p>$_('Recommended resolution is 640x480.')</p>
             <p>$_('If the resolution is not observed, the system will convert from the uploaded image to the optimal resolution himself.')</p>
-            <p>$_('Only png, gif images are supported. The image name can be arbitrary.')</p> 
+            <p>$_('Only PNG, JPG and GIF images are supported. The image name can be arbitrary.')</p>
             <span id="Hint"></span>
             <span id="BtnInstall"></span>    
             <form name="imageForm" id="imageForm" action="?${csrf_query()}" method="post" enctype="multipart/form-data">
@@ -52,7 +98,10 @@ $var page: image
                 <table class="optionList" style="background: #F5F5F5;">
                     <tr>
                         <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                            <img src=${img_url + '.png'} alt="" class="imgEdit"> 
+                            <div id="imageDropZone" style="border: 2px dashed #2E3959; background: #ffffff; padding: 8px; text-align: center;">
+                                <img src=${img_url + '.png'} alt="" class="imgEdit">
+                                <span id="imageDropHint" style="color: #555555; display: block; margin-top: 6px;">$_('Click Open or drag an image here.')</span>
+                            </div>
                         </td>    
                     </tr> 
                     <tr>
@@ -67,7 +116,7 @@ $var page: image
                     </tr>                                      
                     <tr>
                         <td title=$:{json.dumps(_(u'Upload new image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                            <span id="okupload"></span>
+                            <input id="uploadfile" type="file" name="uploadfile" class="upload" accept="image/png,image/jpeg,image/gif">
                         </td>
                     </tr> 
                     <tr>

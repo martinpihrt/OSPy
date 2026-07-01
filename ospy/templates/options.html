@@ -203,10 +203,10 @@ $code:
                         output += _('None available')
                     for e in multi_enum:
                         sel = " checked" if e in value else ""
-                        output += "<input name='" + name + "_" + e + "' type='checkbox'" + sel + ">" + multi_enum_names[e] + "<br>\n"
+                        output += "<label class='optionSwitch'><input name='" + name + "_" + e + "' type='checkbox'" + sel + "><span class='optionSlider'></span></label> " + multi_enum_names[e] + "<br>\n"
                     output += "</div>\n"
                 elif isinstance(value, bool):
-                    output += "<input name='" + name + "' type='checkbox' " + ("checked" if value>0 else "") + ">\n"
+                    output += "<label class='optionSwitch'><input name='" + name + "' type='checkbox'" + (" checked" if value>0 else "") + "><span class='optionSlider'></span></label>\n"
                 elif isinstance(value, int) or isinstance(value, float):
                     output += "<input name='" + name + "' type='number'" + minv + maxv + " size='3' maxlength='3' value='" + str(value) + "'>\n"
                 else:

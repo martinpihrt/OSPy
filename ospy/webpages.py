@@ -1363,12 +1363,11 @@ class image_edit_page(ProtectedPage):
                 options.high_resolution_mode = False
 
             i = web.input(uploadfile={})
-            web.debug(i['uploadfile'].filename)    # This is the filename
-            #web.debug(i['uploadfile'].value)       # This is the file contents
-            #web.debug(i['uploadfile'].file.read()) # Or use a file(-like) object
-            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # only .png file accepted
-            types = ['.png','.gif']
-            if upload_type not in types:            # check file type is ok
+            uploaded = i.get('uploadfile')
+            upload_name = getattr(uploaded, 'filename', '') if uploaded is not None else ''
+            upload_type = os.path.splitext(upload_name)[1].lower()
+            types = ['.png', '.gif', '.jpg', '.jpeg']
+            if not upload_name or upload_type not in types:            # check file type is ok
                 if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
                     img_url = '/images?id=no_image'                            # fake default img
                 else:
@@ -1376,16 +1375,16 @@ class image_edit_page(ProtectedPage):
 
                 errorCode = qdict.get('errorCode', 'uplname')
                 return self.core_render.edit(index, img_url, errorCode)
-            else:                     # file is png continue
+            else:                     # image file is valid
                 if not os.path.isfile(img_path_temp):
                     fout = open(img_path_temp,'wb')
-                    fout.write(i.uploadfile.file.read())
+                    fout.write(uploaded.file.read())
                     fout.close()
-                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
+                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(upload_name))
                 else:
                     os.remove(img_path_temp)
                     fout = open(img_path_temp,'wb')  # temporary file after uploading
-                    fout.write(i.uploadfile.file.read())
+                    fout.write(uploaded.file.read())
                     fout.close()
                     log.debug('webpages.py', _('File has sucesfully uploaded...'))
 
