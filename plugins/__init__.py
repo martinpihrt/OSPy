@@ -241,8 +241,12 @@ class _PluginChecker(threading.Thread):
                                 plugin_files[relative_name.replace('\\', '/')] = zip_info.CRC
 
                     if load_read_me:
-                        from ospy.helpers import gfm_str_to_html
-                        read_me = gfm_str_to_html(zip_file.read(init_dir + '/README.md').decode('utf-8'))
+                        try:
+                            from ospy.helpers import gfm_str_to_html
+                            read_me = gfm_str_to_html(zip_file.read(init_dir + '/README.md').decode('utf-8'))
+                        except Exception:
+                            logging.error(_('Failed to read plug-in README') + ': {}'.format(traceback.format_exc()))
+                            read_me = ''
 
                     result[plugin_id] = {
                         'name': _plugin_name(zip_file.read(init).decode('utf-8').splitlines()),
@@ -322,11 +326,12 @@ class _PluginChecker(threading.Thread):
         if isinstance(current_info, dict) and current_info.get('hash') == repo_info['hash']:
             return False
 
-        options.plugin_status[plugin] = {
+        plugin_status = dict(options.plugin_status)
+        plugin_status[plugin] = {
             'hash': repo_info['hash'],
             'date': repo_info['date']
         }
-        options.plugin_status = options.plugin_status
+        options.plugin_status = plugin_status
         return True
 
     def sync_installed_statuses(self):
@@ -468,11 +473,12 @@ class _PluginChecker(threading.Thread):
                         with open(target_name, 'wb') as fh:
                             fh.write(contents)
 
-        options.plugin_status[plugin] = {
+        plugin_status = dict(options.plugin_status)
+        plugin_status[plugin] = {
             'hash': hashlib.md5(plugin_hash.encode('utf-8')).hexdigest(),
             'date': plugin_date
         }
-        options.plugin_status = options.plugin_status
+        options.plugin_status = plugin_status
         _clear_plugin_caches(plugin)
         _unload_plugin_modules(plugin)
 
