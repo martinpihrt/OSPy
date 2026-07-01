@@ -228,7 +228,7 @@ class WebPage(object):
             # If an error occurs, record it and restart the software
             log.error('webpages.py', traceback.format_exc())
             # OSPy software restart
-            restart()  
+            restart()
 
         # Plugins - add plugin_render if the module starts with 'plugins' and the class does not have it defined
         if self.__module__.startswith('plugins') and 'plugin_render' not in cls.__dict__:
@@ -268,10 +268,10 @@ class sensors_firmware(ProtectedPage):
 
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
-        
+
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         return self.core_render.sensors_firmware(statusCode)
 
@@ -294,12 +294,12 @@ class sensors_firmware(ProtectedPage):
             last_fw_number = last_fw_32
             last_fw_path =  os.path.join(esp32_folder_fw, last_fw_name)                # ex: hardware_pcb/sensors_pcb_fw/ESP32/firmware/105.bin
         elif sensor.cpu_core == 1:
-            esp8266_folder_fw = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP8266' , 'firmware')  
+            esp8266_folder_fw = os.path.join('.', 'hardware_pcb', 'sensors_pcb_fw', 'ESP8266' , 'firmware')
             entries_8266 = os.listdir(esp8266_folder_fw)
             last_fw_8266 = 0
             for i in entries_8266:
                 val_8266 = int(i[:-4])
-                if last_fw_8266 < val_8266: 
+                if last_fw_8266 < val_8266:
                     last_fw_8266 = val_8266
                     last_fw_name = i
             last_fw_number = last_fw_8266
@@ -309,8 +309,8 @@ class sensors_firmware(ProtectedPage):
             last_fw_name = None
             last_fw_path = None
 
-        try: 
-            send_ip = '.'.join(sensor.ip_address) 
+        try:
+            send_ip = '.'.join(sensor.ip_address)
             send_url = 'http://' + send_ip + '/FW_' + options.sensor_fw_passwd       # ex: http://192.168.88.207/FW_0123456789abcdef
             if last_fw_path is None:
                 statusCode = 'err1'                                                  # msg = No xxx.bin file was found in the directory to send to the sensor!
@@ -329,7 +329,7 @@ class sensors_firmware(ProtectedPage):
             except:
                 pass
                 statusCode = 'err2'                                                  # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
-                    
+
         except Exception:
             pass
             log.debug('webpages.py', traceback.format_exc())
@@ -360,7 +360,7 @@ class sensors_firmware(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         statusCode = qdict.get('statusCode', 'None')
@@ -386,7 +386,7 @@ class sensors_firmware(ProtectedPage):
 
             protocol = None
             if 'protocol' in qdict:
-                protocol = qdict['protocol']                                         # 0=http, 1=https 
+                protocol = qdict['protocol']                                         # 0=http, 1=https
             if 'uploadfile' in qdict:
                 i = web.input(uploadfile={})
                 #web.debug(i['uploadfile'].filename)    # This is the filename
@@ -399,7 +399,7 @@ class sensors_firmware(ProtectedPage):
                     return self.core_render.sensors_firmware(statusCode)
                 fw_path = None
                 fw_name = None
-                    
+
                 if upload_type == '.bin':
                     fw_path = './ospy/data/userfw.bin'
                     fw_name = 'userfw.bin'
@@ -407,16 +407,16 @@ class sensors_firmware(ProtectedPage):
                     fw_path = './ospy/data/userfw.hex'
                     fw_name = 'userfw.hex'
                 if not os.path.isfile(fw_path):
-                    fout = open(fw_path,'wb') 
-                    fout.write(i.uploadfile.file.read()) 
+                    fout = open(fw_path,'wb')
+                    fout.write(i.uploadfile.file.read())
                     fout.close()
                     log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
                 else:
-                    os.remove(fw_path) 
+                    os.remove(fw_path)
                     fout = open(fw_path,'wb')  # temporary file after uploading
-                    fout.write(i.uploadfile.file.read()) 
-                    fout.close()         
-                    log.debug('webpages.py', _('File has sucesfully uploaded...')) 
+                    fout.write(i.uploadfile.file.read())
+                    fout.close()
+                    log.debug('webpages.py', _('File has sucesfully uploaded...'))
 
                 try:
                     kind = 'http://'
@@ -426,20 +426,20 @@ class sensors_firmware(ProtectedPage):
                     if fw_path is not None:
                         with open(fw_path, 'rb') as file:
                             response = requests.post(send_url, files={fw_name: file})
-#todo change requests to urrlib                            
+#todo change requests to urrlib
                         #data = {'files': open(fw_path, 'rb')}
                         #response = urlopen(send_url, data=data)
                         #print(response)
-                             
+
                         resp_code = response.status_code
                         log.debug('webpages.py', resp_code)
                         if resp_code == 200:
                             statusCode = qdict.get('statusCode', 'upl_ok')           # msg = The new firmware file has been sent to the sensor, wait for the sensor to respond - check if the sensor has been updated.
                             os.remove(fw_path)
                         elif resp_code == 404:
-                            statusCode = qdict.get('statusCode', 'err3')             # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!                    
+                            statusCode = qdict.get('statusCode', 'err3')             # msg = The new firmware could not be uploaded into the sensor. Response - Not Found!
                         else:
-                            statusCode = qdict.get('statusCode', 'err4')             # msg = The new firmware could not be uploaded into the sensor. An error has occurred!    
+                            statusCode = qdict.get('statusCode', 'err4')             # msg = The new firmware could not be uploaded into the sensor. An error has occurred!
                 except Exception:
                     pass
                     statusCode = qdict.get('statusCode', 'err2')                     # msg = The new firmware could not be uploaded into the sensor. Sensor does not respond!
@@ -457,14 +457,14 @@ class sensors_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
 
-        search = get_input(qdict, 'search', False, lambda x: True) 
+        search = get_input(qdict, 'search', False, lambda x: True)
 
         if search:
-            return self.core_render.sensors_search()                
+            return self.core_render.sensors_search()
 
         return self.core_render.sensors()
 
@@ -474,7 +474,7 @@ class sensors_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         action = qdict.get('action', '')
@@ -526,12 +526,12 @@ class sensor_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         try:
             index = int(index)
-            
+
             wlog = get_input(qdict, 'log', False, lambda x: True)      # return web page sensor log
             glog = get_input(qdict, 'glog', False, lambda x: True)     # return log json for graph
             graph = get_input(qdict, 'graph', False, lambda x: True)   # return web page sensor graph
@@ -578,14 +578,14 @@ class sensor_page(ProtectedPage):
                 except IOError:
                     log.debug('webpages.py', traceback.format_exc())
                     pass
-                
+
                 name = sensors[index].name
                 stype = sensors[index].sens_type
                 mtype = sensors[index].multi_type
                 manufacturer = sensors[index].manufacturer
                 shelly_hw_nbr = sensors[index].shelly_hw_nbr
                 try:
-                    return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file, manufacturer, shelly_hw_nbr) 
+                    return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file, manufacturer, shelly_hw_nbr)
                 except Exception:
                     pass
                     log.debug('webpages.py', traceback.format_exc())
@@ -598,7 +598,7 @@ class sensor_page(ProtectedPage):
                         glog_file =  json.load(logf)
                 except IOError:
                     glog_file = []
-   
+
                 try:
                     sensor = sensors.get(index)
                     data = []
@@ -625,7 +625,7 @@ class sensor_page(ProtectedPage):
                                 if len(glog_file)>0:
                                     for key in glog_file[i]['balances']:
                                         find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start:                                      # timestamp interval 
+                                        if find_key >= log_start:                                      # timestamp interval
                                             find_data = glog_file[i]['balances'][key]
                                             if options.sensor_graph_show_err:                          # if is checked show error values in graph
                                                 temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
@@ -643,7 +643,7 @@ class sensor_page(ProtectedPage):
                                 if len(glog_file)>0:
                                     for key in glog_file[i]['balances']:
                                         find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start:                                      # timestamp interval 
+                                        if find_key >= log_start:                                      # timestamp interval
                                             find_data = glog_file[i]['balances'][key]
                                             if options.sensor_graph_show_err:                          # if is checked show error values in graph
                                                 temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
@@ -672,10 +672,10 @@ class sensor_page(ProtectedPage):
                     mtype = sensors[index].multi_type
                     manufacturer = sensors[index].manufacturer
                     shelly_hw_nbr = sensors[index].shelly_hw_nbr
-                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr) 
-                except Exception:    
+                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr)
+                except Exception:
                     log.debug('webpages.py', traceback.format_exc())
-                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr)                    
+                    return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr)
 
             elif csvE:
                 dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
@@ -695,7 +695,7 @@ class sensor_page(ProtectedPage):
 
                 web.header('Content-Type', 'text/csv')
                 web.header('Content-Disposition', 'attachment; filename="event.csv"')
-                return data 
+                return data
 
             elif csvS:
                 dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
@@ -717,7 +717,7 @@ class sensor_page(ProtectedPage):
 
                 web.header('Content-Type','text/csv')
                 web.header('Content-Disposition', 'attachment; filename="sample.csv"')
-                return data   
+                return data
 
             elif clear:
                 try:
@@ -725,15 +725,15 @@ class sensor_page(ProtectedPage):
                     shutil.rmtree(_abs_dir_path)
                 except Exception:
                     pass
-                raise web.seeother('/sensors')                                                                    
+                raise web.seeother('/sensors')
 
         except ValueError:
-            pass        
+            pass
 
         if isinstance(index, int):
             sensor = sensors.get(index)
         else:
-            sensor = sensors.create_sensors()       
+            sensor = sensors.create_sensors()
 
         errorCode = qdict.get('errorCode', 'None')
         return self.core_render.sensor(sensor, errorCode)
@@ -745,7 +745,7 @@ class sensor_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice('/', msg)
 
         qdict = web.input(AL=[], AH=[], BL=[], BH=[], CL=[], CH=[], DL=[], DH=[], s_DL=[], s_DH=[],   # [] for input save multiple select
                          MDL=[], MDH=[], SL=[], SH=[], used_stations=[], used_stations_one=[], used_stations_two=[],
@@ -753,7 +753,7 @@ class sensor_page(ProtectedPage):
                          SW_O0=[], SW_O1=[], SW_O2=[], SW_O3=[], SW_O4=[], SW_O5=[], SW_O6=[],        # 7 switch open pgm
                          SW_SC0=[], SW_SC1=[], SW_SC2=[], SW_SC3=[], SW_SC4=[], SW_SC5=[], SW_SC6=[], # 7 switch closed stations
                          SW_SO0=[], SW_SO1=[], SW_SO2=[], SW_SO3=[], SW_SO4=[], SW_SO5=[], SW_SO6=[]  # 7 switch open stations
-                         )                         
+                         )
         action = qdict.get('action', '')
         if action:
             try:
@@ -842,7 +842,7 @@ class sensor_page(ProtectedPage):
             if 's_DH' in qdict:
                 sensor.s_trigger_high_program = qdict['s_DH']
             if 's_trigger_low_threshold' in qdict:
-                sensor.s_trigger_low_threshold = qdict['s_trigger_low_threshold'] 
+                sensor.s_trigger_low_threshold = qdict['s_trigger_low_threshold']
             if 's_trigger_high_threshold' in qdict:
                 sensor.s_trigger_high_threshold = qdict['s_trigger_high_threshold']
 
@@ -881,12 +881,12 @@ class sensor_page(ProtectedPage):
             if 'log_event' in qdict and qdict['log_event'] == 'on':
                 sensor.log_event = 1
             else:
-                sensor.log_event = 0 
+                sensor.log_event = 0
 
             if 'send_email' in qdict and qdict['send_email'] == 'on':
                 sensor.send_email = 1
             else:
-                sensor.send_email = 0 
+                sensor.send_email = 0
 
             if 'sample_rate_min' in qdict and 'sample_rate_sec' in qdict:
                 try:
@@ -936,7 +936,7 @@ class sensor_page(ProtectedPage):
                 if 'MDH' in qdict:
                     sensor.trigger_high_program = qdict['MDH']
                 if 'trigger_low_threshold' in qdict:
-                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
+                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold']
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']
 
@@ -946,7 +946,7 @@ class sensor_page(ProtectedPage):
                 if 'DH' in qdict:
                     sensor.trigger_high_program = qdict['DH']
                 if 'trigger_low_threshold' in qdict:
-                    sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold']
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
@@ -956,7 +956,7 @@ class sensor_page(ProtectedPage):
                 if 'DH' in qdict:
                     sensor.trigger_high_program = qdict['DH']
                 if 'trigger_low_threshold' in qdict:
-                    sensor.trigger_low_threshold = qdict['trigger_low_threshold'] 
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold']
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold']
 
@@ -986,7 +986,7 @@ class sensor_page(ProtectedPage):
                 if 'MDH' in qdict:
                     sensor.trigger_high_program = qdict['MDH']
                 if 'trigger_low_threshold' in qdict:
-                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold'] 
+                    sensor.trigger_low_threshold = qdict['Mtrigger_low_threshold']
                 if 'trigger_high_threshold' in qdict:
                     sensor.trigger_high_threshold = qdict['Mtrigger_high_threshold']
 
@@ -1043,7 +1043,7 @@ class sensor_page(ProtectedPage):
                 if 'reg_output' in qdict:
                     sensor.reg_output = qdict['reg_output']
                 if 'trigger_low_threshold_s' in qdict:
-                    sensor.trigger_low_threshold = qdict['trigger_low_threshold_s'] 
+                    sensor.trigger_low_threshold = qdict['trigger_low_threshold_s']
                 if 'trigger_high_threshold_s' in qdict:
                     sensor.trigger_high_threshold = qdict['trigger_high_threshold_s']
 
@@ -1052,7 +1052,7 @@ class sensor_page(ProtectedPage):
                     if 'sc{}'.format(i) in qdict:        # 16x calibration for 0% in Volt
                         sensor.soil_calibration_min[i] = float(qdict['sc{}'.format(i)])
                     if 'sd{}'.format(i) in qdict:        # 16x calibration for 100% in Volt
-                        sensor.soil_calibration_max[i] = float(qdict['sd{}'.format(i)])  
+                        sensor.soil_calibration_max[i] = float(qdict['sd{}'.format(i)])
                     if 'SM{}'.format(i) in qdict:        # 16x adjust program xx from probe xx
                         sensor.soil_program[i] = str(qdict['SM{}'.format(i)])
                     if 'sip{}'.format(i) in qdict:       # 16x checker (inverted logic from probe)
@@ -1140,7 +1140,7 @@ class sensor_page(ProtectedPage):
 
             if 'senscpu' in qdict:
                 sensor.cpu_core = int(qdict['senscpu'])
-                
+
             if 'sensfw' in qdict:
                 sensor.fw = int(qdict['sensfw'])
 
@@ -1174,7 +1174,7 @@ class users_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         return self.core_render.users()
 
@@ -1183,7 +1183,7 @@ class users_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         if qdict.get('action', '') == 'delete_all':
@@ -1199,7 +1199,7 @@ class user_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         try:
@@ -1222,7 +1222,7 @@ class user_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         if qdict.get('action', '') == 'delete':
@@ -1255,7 +1255,7 @@ class user_page(ProtectedPage):
         if len(user.name) < 5:
             errorCode = qdict.get('errorCode', 'unamelen')
             return self.core_render.user(user, errorCode)
-        
+
         if password == user.name:
             errorCode = qdict.get('errorCode', 'upassuname')
             return self.core_render.user(user, errorCode)
@@ -1271,7 +1271,7 @@ class user_page(ProtectedPage):
         if user.name == options.admin_user:
             errorCode = qdict.get('errorCode', 'unameis')
             return self.core_render.user(user, errorCode)
-        
+
         for x in range(users.count()):
             isuser = users.get(x)
             if user.name == isuser.name and user.index < 0:
@@ -1295,15 +1295,15 @@ class image_edit_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
-        
-        qdict = web.input() 
+            return self.core_render.notice('/', msg)
+
+        qdict = web.input()
         errorCode = qdict.get('errorCode', 'None')
 
         img_path    = './ospy/images/stations/station%s.png' % str(index)
         img_path_th = './ospy/images/stations/station%s_thumbnail.png' % str(index)
 
-        if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
+        if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
             img_url = '/images?id=no_image'                           # fake default img
             errorCode = qdict.get('errorCode', 'noex')
             try:
@@ -1323,7 +1323,7 @@ class image_edit_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)        
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
 
@@ -1360,8 +1360,8 @@ class image_edit_page(ProtectedPage):
             if 'enabled' in qdict and qdict['enabled']== 'on':
                 options.high_resolution_mode = True
             else:
-                options.high_resolution_mode = False 
-                   
+                options.high_resolution_mode = False
+
             i = web.input(uploadfile={})
             web.debug(i['uploadfile'].filename)    # This is the filename
             #web.debug(i['uploadfile'].value)       # This is the file contents
@@ -1369,24 +1369,24 @@ class image_edit_page(ProtectedPage):
             upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)] # only .png file accepted
             types = ['.png','.gif']
             if upload_type not in types:            # check file type is ok
-                if not os.path.isfile(img_path) or not os.path.isfile(img_path_th): 
+                if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
                     img_url = '/images?id=no_image'                            # fake default img
                 else:
-                    img_url = '/images?sf=1&id=station%s' % str(index)         # station img 
-            
-                errorCode = qdict.get('errorCode', 'uplname') 
+                    img_url = '/images?sf=1&id=station%s' % str(index)         # station img
+
+                errorCode = qdict.get('errorCode', 'uplname')
                 return self.core_render.edit(index, img_url, errorCode)
             else:                     # file is png continue
                 if not os.path.isfile(img_path_temp):
-                    fout = open(img_path_temp,'wb') 
-                    fout.write(i.uploadfile.file.read()) 
+                    fout = open(img_path_temp,'wb')
+                    fout.write(i.uploadfile.file.read())
                     fout.close()
                     log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
                 else:
-                    os.remove(img_path_temp) 
+                    os.remove(img_path_temp)
                     fout = open(img_path_temp,'wb')  # temporary file after uploading
-                    fout.write(i.uploadfile.file.read()) 
-                    fout.close()         
+                    fout.write(i.uploadfile.file.read())
+                    fout.close()
                     log.debug('webpages.py', _('File has sucesfully uploaded...'))
 
                 try:
@@ -1406,21 +1406,21 @@ class image_edit_page(ProtectedPage):
                         im.save(img_path, "PNG")
                         os.remove(img_path_temp)
                         log.debug('webpages.py', _('Files has sucesfully resized to max 60x60/640x480...'))
- 
+
                 except:
                     pass
                     log.error('webpages.py', _('Cannot create resized files!'))
 
-        raise web.seeother('/stations')   
+        raise web.seeother('/stations')
 
- 
+
 class image_view_page(ProtectedPage):
     """Open page to view images for station."""
     def GET(self, index):
         import os
 
-        img_path    = './ospy/images/stations/station%s.png' % str(index)   
-        if not os.path.isfile(img_path): 
+        img_path    = './ospy/images/stations/station%s.png' % str(index)
+        if not os.path.isfile(img_path):
             img_url = '/images?id=no_image'                           # fake default img
         else:
             img_url = '/images?sf=1&id=station%s' % str(index)        # station img
@@ -1461,7 +1461,7 @@ class login_page(WebPage):
             if options.first_installation:
                 new_user = options.first_password_hash
             else:
-                new_user = None        
+                new_user = None
             return self.core_render.login(signin_form(), new_user)
 
     def POST(self):
@@ -1474,7 +1474,7 @@ class login_page(WebPage):
             if options.first_installation:
                 return self.core_render.login(my_signin, options.first_password_hash)
             else:
-                return self.core_render.login(my_signin, None)    
+                return self.core_render.login(my_signin, None)
         else:
             from ospy import server
             server.session.regenerate_id()
@@ -1512,13 +1512,13 @@ class home_page(ProtectedPage):
         from ospy.server import session
 
         if session.get('category')  == 'public':
-            return self.core_render.home_public()            
+            return self.core_render.home_public()
         elif session.get('category')  == 'user':
             return self.core_render.home_user()
         elif session.get('category') == 'admin':
             return self.core_render.home_admin()
         else:
-            raise web.seeother('/')            
+            raise web.seeother('/')
 
 
 class action_page(ProtectedPage):
@@ -1549,21 +1549,21 @@ class action_page(ProtectedPage):
                 stations.clear()
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         if scheduler_enabled is not None:
             if session.get('category')  == 'admin' or session.get('category') == 'user':
                 options.scheduler_enabled = scheduler_enabled
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         if manual_mode is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.manual_mode = manual_mode
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         if rain_block is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
@@ -1576,21 +1576,21 @@ class action_page(ProtectedPage):
                 stop_onrain()
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         if level_adjustment is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.level_adjustment = level_adjustment / 100
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         if toggle_temp:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.temp_unit = "F" if options.temp_unit == "C" else "C"
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
 
         set_to = get_input(qdict, 'set_to', None, int)
         sid = get_input(qdict, 'sid', 0, int) - 1
@@ -1629,7 +1629,7 @@ class action_page(ProtectedPage):
                         log.finish_run(interval)
           else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         report_value_change()
         raise web.seeother('/')  # Send browser back to home page
@@ -1643,11 +1643,11 @@ class programs_page(ProtectedPage):
 
         if session.get('category') == 'admin':
             return self.core_render.programs()
-        elif session.get('category')== 'user': 
+        elif session.get('category')== 'user':
             return self.core_render.programs_user()
-        else:    
+        else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
     def POST(self):
         from ospy.server import session
@@ -1664,7 +1664,7 @@ class programs_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         if action == 'delete_all':
             while programs.count() > 0:
@@ -1747,7 +1747,7 @@ class program_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         try:
@@ -1833,7 +1833,7 @@ class runonce_page(ProtectedPage):
             return self.core_render.runonce()
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg) 
+            return self.core_render.notice('/', msg)
 
     def POST(self):
         from ospy.server import session
@@ -1853,7 +1853,7 @@ class runonce_page(ProtectedPage):
             raise web.seeother('/')
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
 
 class plugins_manage_page(ProtectedPage):
@@ -1864,7 +1864,7 @@ class plugins_manage_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         changes = get_input(qdict, 'changes', None)
@@ -1894,7 +1894,7 @@ class plugins_manage_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         action = qdict.get('action', '')
@@ -1948,7 +1948,7 @@ class plugins_manage_page(ProtectedPage):
             options.auto_plugin_update = qdict.get('enabled', '0') == '1'
             plugins.checker.update()
             raise web.seeother('/plugins_manage')
-        
+
         elif action == 'use_update':
             options.use_plugin_update = qdict.get('enabled', '0') == '1'
             plugins.checker.update()
@@ -1965,7 +1965,7 @@ class plugins_install_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         plugins.checker.update()
@@ -1977,7 +1977,7 @@ class plugins_install_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input(zipfile={})
 
@@ -2011,7 +2011,7 @@ class log_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
 
@@ -2081,7 +2081,7 @@ class log_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         action = qdict.get('action', '')
@@ -2103,7 +2103,7 @@ class log_page(ProtectedPage):
         log_filter_rain_sensor = get_input(qdict, 'log_filter_rain_sensor', False, lambda x: True)
         log_filter_rain_delay = get_input(qdict, 'log_filter_rain_delay', False, lambda x: True)
         log_filter_login = get_input(qdict, 'log_filter_login', False, lambda x: True)
-        
+
         options.log_filter_server = log_filter_server
         options.log_filter_internet = log_filter_internet
         options.log_filter_rain_sensor = log_filter_rain_sensor
@@ -2129,7 +2129,7 @@ class options_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
         errorCode = qdict.get('errorCode', 'none')
@@ -2141,7 +2141,7 @@ class options_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         changing_language = False
 
@@ -2192,24 +2192,24 @@ class options_page(ProtectedPage):
         if 'revoke_autologin' in qdict and qdict['revoke_autologin'] == '1':
             autologin.revoke_all()
             raise web.seeother('/options')
-   
+
         if 'rbt' in qdict and qdict['rbt'] == '1':
             report_rebooted()
-            reboot(wait=3, block=True) # Linux HW software 
+            reboot(wait=3) # Linux HW software
             msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
-            return self.core_render.notice(home_page, msg) 
+            return self.core_render.notice('/', msg)
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
             report_restarted()
             restart(wait=3)    # OSPy software
             msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
-            return self.core_render.notice(home_page, msg)
-        
+            return self.core_render.notice('/', msg)
+
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
             report_poweroff()
-            poweroff(wait=15, block=True)   # shutll HW system
+            poweroff(wait=15)   # shutll HW system
             msg = _('The system (Linux) is now shutting down... The system must be switched on again by the user (switching off and on your HW device).')
-            return self.core_render.notice(home_page, msg) 
+            return self.core_render.notice('/', msg)
 
         if 'deldef' in qdict and qdict['deldef'] == '1':
             from ospy import server
@@ -2237,7 +2237,7 @@ class options_page(ProtectedPage):
             report_restarted()
             restart(wait=3)    # OSPy software
             msg = _('A language change has been made in the settings, the OSPy will now restart and load the selected language.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         raise web.seeother('/')
 
@@ -2250,7 +2250,7 @@ class stations_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         return self.core_render.stations()
 
@@ -2259,7 +2259,7 @@ class stations_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         qdict = web.input()
 
@@ -2302,7 +2302,7 @@ class stations_page(ProtectedPage):
 class help_page(ProtectedPage):
     """Help page"""
 
-    def GET(self): 
+    def GET(self):
         from ospy.server import session
 
         qdict = web.input()
@@ -2319,8 +2319,8 @@ class help_page(ProtectedPage):
             return self.core_render.help_user(docs)
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
-        
+            return self.core_render.notice('/', msg)
+
 class db_unreachable_page(ProtectedPage):
     """Failed to reach download."""
 
@@ -2339,7 +2339,7 @@ class download_page(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         def _read_log(path):
             """Read file"""
@@ -2353,7 +2353,7 @@ class download_page(ProtectedPage):
         try:
             ospy_root = './ospy/'
             backup_path = ospy_root + 'backup'                                                # Where is backup zip file
-            backup_name = 'ospy_backup' 
+            backup_name = 'ospy_backup'
             dir_name = ospy_root + 'data'
             download_name = '{}_backup_{}.zip'.format(ASCI_convert(options.name).decode("utf-8"), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip
 
@@ -2371,7 +2371,7 @@ class download_page(ProtectedPage):
 
             if os.path.exists(backup_path):
                 log.debug('webpages.py', _('File {} is created successfully.').format(download_name))
-                
+
                 content = mimetypes.guess_type(backup_path + '/' + backup_name + '.zip')[0]
                 web.header('Content-type', content)
                 web.header('Content-Length', os.path.getsize(backup_path + '/' + backup_name + '.zip'))
@@ -2404,7 +2404,7 @@ class upload_page(ProtectedPage):
 
         if server.session['category'] != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         ospy_root = './ospy/'
         upload_path = ospy_root + 'upload'
@@ -2428,9 +2428,9 @@ class upload_page(ProtectedPage):
             upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)]  # Only .zip file accepted
             if upload_type == '.zip':                                           # Check file type
                 fout = open(upload_path + '/ospy_upload.zip', 'wb')             # Write uploaded file to upload folder
-                fout.write(i.uploadfile.file.read()) 
-                fout.close() 
-                
+                fout.write(i.uploadfile.file.read())
+                fout.close()
+
                 log.debug('webpages.py', _('Uploading to folder OK, now extracting zip file.'))
 
                 with ZipFile(upload_path + '/ospy_upload.zip', mode='r') as zf: # Extract zip file
@@ -2454,9 +2454,9 @@ class upload_page(ProtectedPage):
                 restart(wait=3)                                                # Restart OSPy software
 
                 msg = _('Restoring backup files sucesfully, now restarting OSPy...')
-                return self.core_render.notice(home_page, msg)
+                return self.core_render.notice('/', msg)
             else:
-                errorCode = "pw_filename" 
+                errorCode = "pw_filename"
                 return self.core_render.options(errorCode)
 
         except Exception:
@@ -2474,7 +2474,7 @@ class upload_page_SSL(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         SSL_FOLDER = './ssl'
         OPTIONS_FILE_FULL = SSL_FOLDER + '/fullchain.pem' # cert file
@@ -2499,7 +2499,7 @@ class upload_page_SSL(ProtectedPage):
                 cert = crypto.X509()
                 cert.get_subject().C = "EU"                # your country
                 cert.get_subject().ST = "Czechia"          # your state
-                cert.get_subject().L = "Prague"            # location 
+                cert.get_subject().L = "Prague"            # location
                 cert.get_subject().O = "OSPy sprinkler"    # organization
                 cert.get_subject().OU = "opensprinkler.cz" # this field is the name of the department or organization unit making the request
                 cert.get_subject().CN = options.domain_ssl # common name
@@ -2528,12 +2528,12 @@ class upload_page_SSL(ProtectedPage):
         i = web.input(uploadfile={})
         try:
             if i.uploadfile.filename == 'fullchain.pem' or i.uploadfile.filename == 'privkey.pem':
-               
+
                 if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
                     if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
                         os.remove(OPTIONS_FILE_FULL)             # remove file
                         log.debug('webpages.py', _('Remove fullchain.pem...'))
-                if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?        
+                if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?
                     if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
                         os.remove(OPTIONS_FILE_PRIV)             # remove file
                         log.debug('webpages.py', _('Remove privkey.pem...'))
@@ -2548,8 +2548,8 @@ class upload_page_SSL(ProtectedPage):
                 #return self.core_render.restarting(home_page)
                 errorCode = "pw_filenameSSLOK"
                 return self.core_render.options(errorCode)
-            else:        
-                errorCode = "pw_filenameSSL" 
+            else:
+                errorCode = "pw_filenameSSL"
                 return self.core_render.options(errorCode)
 
         except Exception:
@@ -2574,7 +2574,7 @@ class images_page(ProtectedPage):
                 else:
                     download_name = 'ospy/images/' + id
 
-                if os.path.isfile(download_name):     # exists image? 
+                if os.path.isfile(download_name):     # exists image?
                     content = mimetypes.guess_type(download_name)[0]
                     web.header('Content-type', content)
                     web.header('Content-Length', os.path.getsize(download_name))
@@ -2596,7 +2596,7 @@ class api_status_json(ProtectedPage):
         statuslist = []
         try:
             for station in stations.get():
-                if station.enabled or station.is_master or station.is_master_two: 
+                if station.enabled or station.is_master or station.is_master_two:
                     status = {
                         'station': station.index,
                         'status': 'on' if station.active else 'off',
@@ -2755,7 +2755,7 @@ class showInFooter(object):
     @property
     def label(self):
         return self._label if self._label else _('Label not set')
-    
+
     @label.setter
     def label(self, text):
         self._label = text
@@ -2774,7 +2774,7 @@ class showInFooter(object):
     @property
     def unit(self):
         return self._unit if self._unit else _('Unit not set')
-    
+
     @unit.setter
     def unit(self, text):
         self._unit = text
@@ -2783,7 +2783,7 @@ class showInFooter(object):
     @property
     def button(self):
         return self._button if self._button else '-'
-    
+
     @button.setter
     def button(self, text):
         self._button = text
@@ -2811,7 +2811,7 @@ class showOnTimeline:
         self._unit = unit
         self._plugin = _plugin_module_from_stack()
         self._idx = len(pluginStn)
-        
+
         # Append a new entry to pluginStn with the initial values
         pluginStn.append([self._unit, self._val, self._plugin])
 
@@ -2825,7 +2825,7 @@ class showOnTimeline:
     @property
     def unit(self):
         return self._unit if self._unit else _('Unit not set')
-    
+
     @unit.setter
     def unit(self, text):
         self._unit = text
@@ -2884,8 +2884,8 @@ class api_plugin_data(ProtectedPage):
                     if not found:
                         station_data.append((v[0], v[1]))
 
-            if options.show_sensor_data: 
-                from ospy.sensors import sensors_timer 
+            if options.show_sensor_data:
+                from ospy.sensors import sensors_timer
                 sensor_data = sensors_timer.read_status()
 
             data["fdata"] = footer_data
@@ -2905,7 +2905,7 @@ class api_update_status(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         pl_data = []
         data = {}
@@ -2974,7 +2974,7 @@ class api_update_footer(ProtectedPage):
             pass
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(data)   
+        return json.dumps(data)
 
 
 class api_search_sensors(ProtectedPage):
@@ -2986,7 +2986,7 @@ class api_search_sensors(ProtectedPage):
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
-            return self.core_render.notice(home_page, msg)
+            return self.core_render.notice('/', msg)
 
         try:
             searchData.extend(sensorSearch) if sensorSearch not in searchData else searchData
