@@ -4,7 +4,7 @@ OSPy Changelog
 July 01 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-Fixed language loading during startup so OSPy reads the selected UI language from the same options database locations used by the main options loader, including temporary and backup option databases after an interrupted save or power outage. The i18n loader now also uses absolute paths based on the OSPy installation directory, so translations are loaded correctly even when the service starts with a different working directory. Fixed the home page update notification modal so the "Update system" action includes the required CSRF token, matching the System Update plug-in page behavior and avoiding a forbidden response.
+Fixed language loading during startup so OSPy reads the selected UI language from the same options database locations used by the main options loader, including temporary and backup option databases after an interrupted save or power outage. The i18n loader now also uses absolute paths based on the OSPy installation directory, so translations are loaded correctly even when the service starts with a different working directory. Fixed the home page update notification modal so the "Update system" action includes the required CSRF token, matching the System Update plug-in page behavior and avoiding a forbidden response. Czech language update.
 
 June 30 2026 (v3.0)
 -----------
