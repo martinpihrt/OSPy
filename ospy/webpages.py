@@ -1868,6 +1868,7 @@ class plugins_manage_page(ProtectedPage):
 
         qdict = web.input()
         changes = get_input(qdict, 'changes', None)
+        plugins.checker.sync_installed_statuses()
 
         if changes is not None and changes in plugins.available():
             available_info = plugins.checker.available_version(changes)
@@ -2919,6 +2920,8 @@ class api_update_status(ProtectedPage):
         current_info = options.plugin_status
 
         if options.use_plugin_update:
+            plugins.checker.sync_installed_statuses()
+            current_info = options.plugin_status
             for plugin in plugins.available():
                 running = plugin in running_list
                 available_info = plugins.checker.available_version(plugin)

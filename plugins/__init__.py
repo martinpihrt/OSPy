@@ -157,13 +157,19 @@ class _PluginChecker(threading.Thread):
                 self._repo_data[repo] = self._download_zip(repo)
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
 
-            if install_updates:
-                status = options.plugin_status
-                for plugin in available():
-                    update = self.available_version(plugin)
-                    if update is not None and plugin in status and status[plugin]['hash'] != update['hash']:
-                        logging.info(_('Updating the {} plug-in.').format(plugin))
-                        self.install_repo_plugin(update['repo'], plugin)
+            status = options.plugin_status
+            for plugin in available():
+                update = self.available_version(plugin)
+                if update is None:
+                    continue
+                current_hash = status.get(plugin, {}).get('hash') if isinstance(status.get(plugin), dict) else None
+                if current_hash == update['hash']:
+                    continue
+                if self.sync_installed_status(plugin, update):
+                    continue
+                if install_updates:
+                    logging.info(_('Updating the {} plug-in.').format(plugin))
+                    self.install_repo_plugin(update['repo'], plugin)
 
     def available_version(self, plugin):
         with self._lock:
@@ -220,6 +226,7 @@ class _PluginChecker(threading.Thread):
                 # Version information:
                 plugin_hash = ''
                 plugin_date = datetime.datetime(1970, 1, 1)
+                plugin_files = {}
 
                 if init_dir + '/README.md' in files:
 
@@ -231,6 +238,7 @@ class _PluginChecker(threading.Thread):
                             if relative_name and not relative_name.endswith('/'):
                                 plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
                                 plugin_hash += hex(zip_info.CRC)
+                                plugin_files[relative_name.replace('\\', '/')] = zip_info.CRC
 
                     if load_read_me:
                         from ospy.helpers import gfm_str_to_html
@@ -241,7 +249,8 @@ class _PluginChecker(threading.Thread):
                         'hash': hashlib.md5(plugin_hash.encode("utf-8")).hexdigest(),
                         'date': plugin_date,
                         'read_me': read_me,
-                        'dir': init_dir
+                        'dir': init_dir,
+                        'files': plugin_files
                     }
 
         except Exception: 
@@ -262,6 +271,70 @@ class _PluginChecker(threading.Thread):
                 return {}
 
             return self._repo_contents[repo]
+
+    @staticmethod
+    def _local_file_crc(filename):
+        import zlib
+
+        crc = 0
+        with open(filename, 'rb') as fh:
+            for data in iter(lambda: fh.read(1024 * 64), b''):
+                crc = zlib.crc32(data, crc)
+        return crc & 0xffffffff
+
+    def local_plugin_matches(self, plugin, repo_info):
+        import os
+        import logging
+
+        repo_files = repo_info.get('files') if isinstance(repo_info, dict) else None
+        if not repo_files:
+            return False
+
+        base_dir = plugin_dir(plugin)
+        if not os.path.isdir(base_dir):
+            return False
+
+        try:
+            for relative_name, repo_crc in repo_files.items():
+                relative_path = os.path.normpath(relative_name)
+                if os.path.isabs(relative_path) or relative_path.startswith('..' + os.path.sep) or relative_path == '..':
+                    return False
+                local_name = os.path.join(base_dir, relative_path)
+                if not os.path.isfile(local_name):
+                    return False
+                if self._local_file_crc(local_name) != repo_crc:
+                    return False
+        except Exception:
+            logging.error(_('Failed to check local plug-in status') + ': {}'.format(traceback.format_exc()))
+            return False
+
+        return True
+
+    def sync_installed_status(self, plugin, repo_info=None):
+        from ospy.options import options
+
+        if repo_info is None:
+            repo_info = self.available_version(plugin)
+        if repo_info is None or not self.local_plugin_matches(plugin, repo_info):
+            return False
+
+        current_info = options.plugin_status.get(plugin)
+        if isinstance(current_info, dict) and current_info.get('hash') == repo_info['hash']:
+            return False
+
+        options.plugin_status[plugin] = {
+            'hash': repo_info['hash'],
+            'date': repo_info['date']
+        }
+        options.plugin_status = options.plugin_status
+        return True
+
+    def sync_installed_statuses(self):
+        changed = False
+        for plugin in available():
+            if self.sync_installed_status(plugin):
+                changed = True
+        return changed
 
     @staticmethod
     def _github_repo_info(repo):
