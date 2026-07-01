@@ -227,14 +227,15 @@ class _PluginChecker(threading.Thread):
                 plugin_hash = ''
                 plugin_date = datetime.datetime(1970, 1, 1)
                 plugin_files = {}
+                plugin_zip_prefix = init_dir.rstrip('/\\') + '/'
 
                 if init_dir + '/README.md' in files:
 
                     # Check all files:
                     for zip_info in infos:
                         zip_name = zip_info.filename
-                        if zip_name.startswith(init_dir):
-                            relative_name = zip_name[len(init_dir):].lstrip('/')
+                        if zip_name.startswith(plugin_zip_prefix):
+                            relative_name = zip_name[len(plugin_zip_prefix):].lstrip('/\\')
                             if relative_name and not relative_name.endswith('/'):
                                 plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
                                 plugin_hash += hex(zip_info.CRC)

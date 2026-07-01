@@ -333,12 +333,17 @@ class Stats(object):
                     r = requests.post(self.drop_point, data=fp.read(),
                                       timeout=timeout, verify=self.ssl_verify)
                     r.raise_for_status()
+            except FileNotFoundError:
+                continue
             except Exception as e:
                 logger.warning(_('Could not upload %s: %s'), old_filename, str(e))
                 break
             else:
                 logger.info(_('Submitted report %s'), old_filename)
-                os.remove(fullname)
+                try:
+                    os.remove(fullname)
+                except FileNotFoundError:
+                    pass
 
     def submit(self, info, *flags, **kwargs):
         """Finish recording and upload or save the report.
