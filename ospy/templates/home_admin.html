@@ -246,12 +246,13 @@ function updateManualCountdowns(status) {
             setManualStationStopped(station.station);
         }
     }
-
-    setTimeout(manualCountdownTimer, 1000);
 }
 
 function manualCountdownTimer() {
-    jQuery.getJSON("/status.json", updateManualCountdowns);
+    jQuery.getJSON("/status.json", updateManualCountdowns)
+        .always(function() {
+            setTimeout(manualCountdownTimer, 1000);
+        });
 }
 
 function water_level_prompt(current){
