@@ -1,6 +1,11 @@
 OSPy Changelog
 ====
 
+July 02 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Czech and Slovak language update. Added a new Thermostat plug-in for temperature-based program control. The plug-in can use decimal temperature limits with 0.1 °C steps, read temperatures from supported OSPy temperature sources including DS sensors, OSPy sensors, and Shelly Cloud, and start or stop selected OSPy programs when the temperature crosses configured low or high thresholds with hysteresis-style behavior.
+
 July 01 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

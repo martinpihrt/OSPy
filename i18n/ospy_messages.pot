@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-07-01 15:27+0200\n"
+"POT-Creation-Date: 2026-07-01 23:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,8 +196,8 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-#: ospy/helpers.py:257 ospy/templates/home_admin.html:563
-#: ospy/templates/home_public.html:402 ospy/templates/home_user.html:564
+#: ospy/helpers.py:257 ospy/templates/home_admin.html:564
+#: ospy/templates/home_public.html:402 ospy/templates/home_user.html:565
 #: ospy/templates/user.html:43 ospy/templates/user.html:67
 #: ospy/templates/users.html:34
 msgid "User"
@@ -372,7 +372,8 @@ msgstr ""
 
 #: ospy/options.py:34 ospy/options.py:42 ospy/options.py:49 ospy/options.py:56
 #: ospy/options.py:63 ospy/options.py:72 ospy/options.py:79 ospy/options.py:86
-#: ospy/options.py:93 ospy/options.py:120 ospy/options.py:127
+#: ospy/options.py:93 ospy/options.py:100 ospy/options.py:108
+#: ospy/options.py:135 ospy/options.py:142
 #: plugins/email_notifications/__init__.py:96
 #: plugins/email_notifications/__init__.py:117
 #: plugins/email_notifications/__init__.py:133
@@ -446,132 +447,148 @@ msgid "When activated, in header menu will display icons instead of text."
 msgstr ""
 
 #: ospy/options.py:97
-msgid "Enabled plug-ins"
+msgid "Show back to top button"
 msgstr ""
 
-#: ospy/options.py:102
-msgid "Plug-in status"
+#: ospy/options.py:99
+msgid "Show a button for scrolling back to the top of the page after the page is scrolled down."
+msgstr ""
+
+#: ospy/options.py:104
+msgid "Back to top position"
 msgstr ""
 
 #: ospy/options.py:107
-msgid "Automatic plug-in updates"
+msgid "Choose whether the back to top button is shown at the bottom left or bottom right of the page."
 msgstr ""
 
 #: ospy/options.py:112
-msgid "Enable plug-in check status updates"
+msgid "Enabled plug-ins"
 msgstr ""
 
 #: ospy/options.py:117
+msgid "Plug-in status"
+msgstr ""
+
+#: ospy/options.py:122
+msgid "Automatic plug-in updates"
+msgstr ""
+
+#: ospy/options.py:127
+msgid "Enable plug-in check status updates"
+msgstr ""
+
+#: ospy/options.py:132
 msgid "IP for DNS ping"
 msgstr ""
 
-#: ospy/options.py:119
+#: ospy/options.py:134
 msgid "IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped."
 msgstr ""
 
-#: ospy/options.py:133
+#: ospy/options.py:148
 msgid "Use Weather"
 msgstr ""
 
-#: ospy/options.py:135
+#: ospy/options.py:150
 msgid "Enabling or disabling connection to service Stormglass.io."
 msgstr ""
 
-#: ospy/options.py:136 ospy/options.py:143 ospy/options.py:150
+#: ospy/options.py:151 ospy/options.py:158 ospy/options.py:165
 #: plugins/weather_based_rain_delay/__init__.py:78
 msgid "Weather"
 msgstr ""
 
-#: ospy/options.py:140
+#: ospy/options.py:155
 msgid "Storm Glass API key"
 msgstr ""
 
-#: ospy/options.py:142
+#: ospy/options.py:157
 msgid "To make use of local weather conditions, a Storm Glass API key is needed."
 msgstr ""
 
-#: ospy/options.py:147
+#: ospy/options.py:162
 msgid "Location"
 msgstr ""
 
-#: ospy/options.py:149
+#: ospy/options.py:164
 msgid "City name or zip code. Used to determine location via OpenStreetMap for weather information."
 msgstr ""
 
-#: ospy/options.py:156
+#: ospy/options.py:171
 msgid "Disable security"
 msgstr ""
 
-#: ospy/options.py:158
+#: ospy/options.py:173
 msgid "Allow anonymous users to access the system without a password."
 msgstr ""
 
-#: ospy/options.py:159 ospy/options.py:166
+#: ospy/options.py:174 ospy/options.py:181
 msgid "Users"
 msgstr ""
 
-#: ospy/options.py:163
+#: ospy/options.py:178
 msgid "Administrator name"
 msgstr ""
 
-#: ospy/options.py:165
+#: ospy/options.py:180
 msgid "Administrator login name for login to the OSPy."
 msgstr ""
 
-#: ospy/options.py:172
+#: ospy/options.py:187
 msgid "Use HTTPS access"
 msgstr ""
 
-#: ospy/options.py:174
+#: ospy/options.py:189
 msgid "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:175 ospy/options.py:182 ospy/options.py:189
-#: ospy/options.py:196 ospy/options.py:203
+#: ospy/options.py:190 ospy/options.py:197 ospy/options.py:204
+#: ospy/options.py:211 ospy/options.py:218
 msgid "Security"
 msgstr ""
 
-#: ospy/options.py:179
+#: ospy/options.py:194
 msgid "Domain name"
 msgstr ""
 
-#: ospy/options.py:181
+#: ospy/options.py:196
 msgid "Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com"
 msgstr ""
 
-#: ospy/options.py:186
+#: ospy/options.py:201
 msgid "Use Own HTTPS access"
 msgstr ""
 
-#: ospy/options.py:188
+#: ospy/options.py:203
 msgid "SSL certificate via own file without certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:193
+#: ospy/options.py:208
 msgid "API CORS allowed origin"
 msgstr ""
 
-#: ospy/options.py:195
+#: ospy/options.py:210
 msgid "Allowed browser origin for API CORS requests. Use * to allow any origin, enter one origin such as https://example.com, enter multiple origins separated by commas, or leave empty to disable CORS headers. This affects browser-based API clients only."
 msgstr ""
 
-#: ospy/options.py:200
+#: ospy/options.py:215
 msgid "Enable API JSONP"
 msgstr ""
 
-#: ospy/options.py:202
+#: ospy/options.py:217
 msgid "Allow legacy API JSONP responses via the callback query parameter. Keep disabled unless an old integration requires JSONP, because normal API clients should use JSON with CORS instead."
 msgstr ""
 
-#: ospy/options.py:209
+#: ospy/options.py:224
 msgid "Password FW"
 msgstr ""
 
-#: ospy/options.py:211
+#: ospy/options.py:226
 msgid "Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)"
 msgstr ""
 
-#: ospy/options.py:212 ospy/templates/base.html:274
+#: ospy/options.py:227 ospy/templates/base.html:287
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
@@ -582,363 +599,363 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: ospy/options.py:218
+#: ospy/options.py:233
 msgid "Maximum usage"
 msgstr ""
 
-#: ospy/options.py:220
+#: ospy/options.py:235
 msgid "Determines how station runs are combined. 0 means no limit. 1 means one station at a time when each station has usage 1. This also affects when the pause between stations is inserted."
 msgstr ""
 
-#: ospy/options.py:221 ospy/options.py:228 ospy/options.py:237
-#: ospy/options.py:246
+#: ospy/options.py:236 ospy/options.py:243 ospy/options.py:252
+#: ospy/options.py:261
 msgid "Station Handling"
 msgstr ""
 
-#: ospy/options.py:225
+#: ospy/options.py:240
 msgid "Number of outputs"
 msgstr ""
 
-#: ospy/options.py:227
+#: ospy/options.py:242
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr ""
 
-#: ospy/options.py:234
+#: ospy/options.py:249
 msgid "Pause between stations"
 msgstr ""
 
-#: ospy/options.py:236
+#: ospy/options.py:251
 msgid "Pause inserted between sequential station runs when the scheduler cannot run them at the same time, in seconds between 0 and 3600. This does not shift a station against the master station. Example: with maximum usage 1 and station usage 1, value 30 starts the next station 30 seconds after the previous station ends."
 msgstr ""
 
-#: ospy/options.py:243
+#: ospy/options.py:258
 msgid "Minimum runtime"
 msgstr ""
 
-#: ospy/options.py:245
+#: ospy/options.py:260
 msgid "Skip the pause between stations when the previous run was shorter than this value, in seconds between 0 and 86400. Example: with pause 30 and minimum runtime 10, a station that ran only 5 seconds will not force the 30 second pause."
 msgstr ""
 
-#: ospy/options.py:254
+#: ospy/options.py:269
 msgid "Activate relay"
 msgstr ""
 
-#: ospy/options.py:256
+#: ospy/options.py:271
 msgid "Also activate the relay as master output."
 msgstr ""
 
-#: ospy/options.py:257 ospy/options.py:264 ospy/options.py:273
-#: ospy/options.py:282 ospy/options.py:291
+#: ospy/options.py:272 ospy/options.py:279 ospy/options.py:288
+#: ospy/options.py:297 ospy/options.py:306
 msgid "Configure Master"
 msgstr ""
 
-#: ospy/options.py:261
+#: ospy/options.py:276
 msgid "Master start offset"
 msgstr ""
 
-#: ospy/options.py:263
+#: ospy/options.py:278
 msgid "Time offset for starting master station 1 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts the master 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:270
+#: ospy/options.py:285
 msgid "Master stop offset"
 msgstr ""
 
-#: ospy/options.py:272
+#: ospy/options.py:287
 msgid "Time offset for stopping master station 1 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops the master 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:279
+#: ospy/options.py:294
 msgid "Master two start offset"
 msgstr ""
 
-#: ospy/options.py:281
+#: ospy/options.py:296
 msgid "Time offset for starting master station 2 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts master 2 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:288
+#: ospy/options.py:303
 msgid "Master two stop offset"
 msgstr ""
 
-#: ospy/options.py:290
+#: ospy/options.py:305
 msgid "Time offset for stopping master station 2 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops master 2 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:299
+#: ospy/options.py:314
 msgid "Use rain sensor"
 msgstr ""
 
-#: ospy/options.py:301
+#: ospy/options.py:316
 msgid "Use rain sensor."
 msgstr ""
 
-#: ospy/options.py:302 ospy/options.py:309 ospy/options.py:316
-#: ospy/options.py:323 plugins/lcd_display/templates/lcd_display.html:300
+#: ospy/options.py:317 ospy/options.py:324 ospy/options.py:331
+#: ospy/options.py:338 plugins/lcd_display/templates/lcd_display.html:300
 #: plugins/lcd_display/templates/lcd_display_help.html:40
 msgid "Rain Sensor"
 msgstr ""
 
-#: ospy/options.py:306
+#: ospy/options.py:321
 #: plugins/pressure_monitor/templates/pressure_monitor.html:337
 msgid "Normally open"
 msgstr ""
 
-#: ospy/options.py:308
+#: ospy/options.py:323
 msgid "Rain sensor default."
 msgstr ""
 
-#: ospy/options.py:313
+#: ospy/options.py:328
 msgid "Set rain delay"
 msgstr ""
 
-#: ospy/options.py:315
+#: ospy/options.py:330
 msgid "When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor)."
 msgstr ""
 
-#: ospy/options.py:320
+#: ospy/options.py:335
 msgid "Rain delay time"
 msgstr ""
 
-#: ospy/options.py:322
+#: ospy/options.py:337
 msgid "Rain delay time (in hours), between 0 and 500."
 msgstr ""
 
-#: ospy/options.py:331
+#: ospy/options.py:346
 msgid "Enable run log"
 msgstr ""
 
-#: ospy/options.py:333
+#: ospy/options.py:348
 msgid "Log all runs - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:334 ospy/options.py:341 ospy/options.py:350
-#: ospy/options.py:357 ospy/options.py:366 ospy/options.py:373
-#: ospy/options.py:382 ospy/options.py:391 ospy/options.py:398
+#: ospy/options.py:349 ospy/options.py:356 ospy/options.py:365
+#: ospy/options.py:372 ospy/options.py:381 ospy/options.py:388
+#: ospy/options.py:397 ospy/options.py:406 ospy/options.py:413
 #: ospy/templates/log.html:28 ospy/templates/log.html:70
 #: ospy/templates/log.html:105 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 msgid "Logging"
 msgstr ""
 
-#: ospy/options.py:338
+#: ospy/options.py:353
 msgid "Max run entries"
 msgstr ""
 
-#: ospy/options.py:340
+#: ospy/options.py:355
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:347
+#: ospy/options.py:362
 msgid "Enable email log"
 msgstr ""
 
-#: ospy/options.py:349
+#: ospy/options.py:364
 msgid "Log all emails - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:354
+#: ospy/options.py:369
 msgid "Max email entries"
 msgstr ""
 
-#: ospy/options.py:356
+#: ospy/options.py:371
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:363
+#: ospy/options.py:378
 msgid "Enable events log"
 msgstr ""
 
-#: ospy/options.py:365
+#: ospy/options.py:380
 msgid "Log all events - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:370
+#: ospy/options.py:385
 msgid "Max events entries"
 msgstr ""
 
-#: ospy/options.py:372
+#: ospy/options.py:387
 msgid "Number of events entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:379
+#: ospy/options.py:394
 msgid "Max sensor entries"
 msgstr ""
 
-#: ospy/options.py:381
+#: ospy/options.py:396
 msgid "Number of sensor entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:388
+#: ospy/options.py:403
 msgid "Enable debug log"
 msgstr ""
 
-#: ospy/options.py:390
+#: ospy/options.py:405
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:395
+#: ospy/options.py:410
 msgid "Enable web log"
 msgstr ""
 
-#: ospy/options.py:397
+#: ospy/options.py:412
 msgid "Logging of internal events from the web server (for debugging it is necessary to enable the debug log and then restart OSPy). Deteriorates page loading speed."
 msgstr ""
 
-#: ospy/options.py:404
+#: ospy/options.py:419
 msgid "Shift register speed"
 msgstr ""
 
-#: ospy/options.py:406
+#: ospy/options.py:421
 msgid "This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses."
 msgstr ""
 
-#: ospy/options.py:407 plugins/system_info/__init__.py:45
+#: ospy/options.py:422 plugins/system_info/__init__.py:45
 msgid "Hardware"
 msgstr ""
 
-#: ospy/options.py:413
+#: ospy/options.py:428
 msgid "New installation generated password hash"
 msgstr ""
 
-#: ospy/options.py:418
+#: ospy/options.py:433
 msgid "New installation"
 msgstr ""
 
-#: ospy/options.py:423
+#: ospy/options.py:438
 #: plugins/button_control/templates/button_control.html:116
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:428 plugins/mqtt_home_assistant/__init__.py:816
+#: ospy/options.py:443 plugins/mqtt_home_assistant/__init__.py:816
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:433
+#: ospy/options.py:448
 msgid "Image resolution"
 msgstr ""
 
-#: ospy/options.py:438
+#: ospy/options.py:453
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:443
+#: ospy/options.py:458
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:448
+#: ospy/options.py:463
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:453
+#: ospy/options.py:468
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:458
+#: ospy/options.py:473
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:463
+#: ospy/options.py:478
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:468
+#: ospy/options.py:483
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:473
+#: ospy/options.py:488
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:478
+#: ospy/options.py:493
 msgid "The events that have been logged"
 msgstr ""
 
-#: ospy/options.py:483
+#: ospy/options.py:498
 msgid "ETo and rain value cache"
 msgstr ""
 
-#: ospy/options.py:488
+#: ospy/options.py:503
 msgid "Location latitude"
 msgstr ""
 
-#: ospy/options.py:493
+#: ospy/options.py:508
 msgid "Location longtitude"
 msgstr ""
 
-#: ospy/options.py:498
+#: ospy/options.py:513
 msgid "Weather status"
 msgstr ""
 
-#: ospy/options.py:503
+#: ospy/options.py:518
 msgid "Graph histories"
 msgstr ""
 
-#: ospy/options.py:508 ospy/templates/graph_sensor.html:193
+#: ospy/options.py:523 ospy/templates/graph_sensor.html:193
 #: plugins/air_temp_humi/templates/air_temp_humi.html:563
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:513
+#: ospy/options.py:528
 msgid "Filter for logs - event: server"
 msgstr ""
 
-#: ospy/options.py:518
+#: ospy/options.py:533
 msgid "Filter for logs - event: rain sensor"
 msgstr ""
 
-#: ospy/options.py:523
+#: ospy/options.py:538
 msgid "Filter for logs - event: rain delay"
 msgstr ""
 
-#: ospy/options.py:528
+#: ospy/options.py:543
 msgid "Filter for logs - event: internet not found"
 msgstr ""
 
-#: ospy/options.py:533
+#: ospy/options.py:548
 msgid "Filter for logs - event: user login"
 msgstr ""
 
-#: ospy/options.py:538
+#: ospy/options.py:553
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:711
+#: ospy/options.py:726
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:736
+#: ospy/options.py:751
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:745
+#: ospy/options.py:760
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:751
+#: ospy/options.py:766
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:756
+#: ospy/options.py:771
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:761
+#: ospy/options.py:776
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:767
+#: ospy/options.py:782
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:770
+#: ospy/options.py:785
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:775
+#: ospy/options.py:790
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:777
+#: ospy/options.py:792
 msgid ""
 "Saving error:\n"
 msgstr ""
@@ -1009,6 +1026,8 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:151
 #: plugins/email_notifications_ssl/__init__.py:156
 #: plugins/mqtt_home_assistant/__init__.py:622 plugins/sms_adj/__init__.py:408
+#: plugins/thermostat/templates/thermostat.html:140
+#: plugins/thermostat/templates/thermostat.html:145
 msgid "Program"
 msgstr ""
 
@@ -1079,7 +1098,7 @@ msgstr ""
 #: plugins/ups_adj/templates/ups_adj.html:184
 #: plugins/ups_adj/templates/ups_adj.html:434
 #: plugins/ups_adj/templates/ups_adj.html:435
-#: plugins/weather_based_water_level/__init__.py:113
+#: plugins/weather_based_water_level/__init__.py:138
 #: plugins/weather_based_water_level_netatmo/__init__.py:154
 #: plugins/wind_monitor/templates/wind_monitor.html:237
 #: plugins/wind_monitor/templates/wind_monitor.html:240
@@ -1133,9 +1152,9 @@ msgid "Starting:"
 msgstr ""
 
 #: ospy/programs.py:304 ospy/templates/home_admin.html:107
-#: ospy/templates/home_admin.html:230 ospy/templates/home_admin.html:628
+#: ospy/templates/home_admin.html:230 ospy/templates/home_admin.html:629
 #: ospy/templates/home_public.html:90 ospy/templates/home_user.html:107
-#: ospy/templates/home_user.html:230 ospy/templates/home_user.html:629
+#: ospy/templates/home_user.html:230 ospy/templates/home_user.html:630
 msgid "For"
 msgstr ""
 
@@ -1201,7 +1220,7 @@ msgid "Rain delay has set a delay {} hours {} minutes {} seconds"
 msgstr ""
 
 #: ospy/scheduler.py:42 ospy/scheduler.py:46 ospy/scheduler.py:53
-#: ospy/sensors.py:1316 ospy/webpages.py:1572 ospy/webpages.py:1574
+#: ospy/sensors.py:1316 ospy/webpages.py:1571 ospy/webpages.py:1573
 #: plugins/mqtt_home_assistant/__init__.py:813
 msgid "Rain delay"
 msgstr ""
@@ -1482,7 +1501,7 @@ msgstr ""
 #: plugins/mqtt_home_assistant/__init__.py:890
 #: plugins/mqtt_home_assistant/__init__.py:899
 #: plugins/mqtt_home_assistant/__init__.py:908
-#: plugins/weather_based_water_level/__init__.py:124
+#: plugins/weather_based_water_level/__init__.py:150
 msgid "Temperature"
 msgstr ""
 
@@ -2229,73 +2248,73 @@ msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:27
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:132
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:141
 msgid "January"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:31
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:133
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:142
 msgid "February"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:35
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:134
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:143
 msgid "March"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:39
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:135
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:144
 msgid "April"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:43
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:136
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:145
 msgid "May"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:47
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:137
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:146
 msgid "June"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:51
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:138
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:147
 msgid "July"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:55
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:139
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:148
 msgid "August"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:59
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:140
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:149
 msgid "September"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:63
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:141
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:150
 msgid "October"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:67
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:142
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:151
 msgid "November"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:71
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:143
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:152
 msgid "December"
 msgstr ""
 
@@ -2346,86 +2365,86 @@ msgstr ""
 msgid "System notification"
 msgstr ""
 
-#: ospy/templates/base.html:217
+#: ospy/templates/base.html:230
 msgid "Manage"
 msgstr ""
 
-#: ospy/templates/base.html:224
+#: ospy/templates/base.html:237
 msgid "OSPy - OpenSprinkler Python"
 msgstr ""
 
-#: ospy/templates/base.html:224
+#: ospy/templates/base.html:237
 msgid "Own name for this OpenSprinkler controler. Used for orientation between multiple systems."
 msgstr ""
 
-#: ospy/templates/base.html:243 ospy/templates/base.html:245
+#: ospy/templates/base.html:256 ospy/templates/base.html:258
 #: ospy/templates/home_admin.html:3 ospy/templates/home_public.html:3
 #: ospy/templates/home_user.html:3
 msgid "Home"
 msgstr ""
 
-#: ospy/templates/base.html:247 ospy/templates/base.html:249
+#: ospy/templates/base.html:260 ospy/templates/base.html:262
 msgid "Define Programs"
 msgstr ""
 
-#: ospy/templates/base.html:249 ospy/templates/programs.html:3
+#: ospy/templates/base.html:262 ospy/templates/programs.html:3
 #: ospy/templates/programs_user.html:3
 #: plugins/mqtt_home_assistant/__init__.py:634
 msgid "Programs"
 msgstr ""
 
-#: ospy/templates/base.html:252 ospy/templates/base.html:254
+#: ospy/templates/base.html:265 ospy/templates/base.html:267
 msgid "Define Run Once Program"
 msgstr ""
 
-#: ospy/templates/base.html:254
+#: ospy/templates/base.html:267
 msgid "Run Once"
 msgstr ""
 
-#: ospy/templates/base.html:256 ospy/templates/base.html:258
+#: ospy/templates/base.html:269 ospy/templates/base.html:271
 msgid "Access Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:258
+#: ospy/templates/base.html:271
 msgid "Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:260 ospy/templates/base.html:262
+#: ospy/templates/base.html:273 ospy/templates/base.html:275
 msgid "View Log"
 msgstr ""
 
-#: ospy/templates/base.html:262 ospy/templates/log.html:3
+#: ospy/templates/base.html:275 ospy/templates/log.html:3
 #: ospy/templates/log_user.html:3 plugins/usage_statistics/__init__.py:104
 #: plugins/usage_statistics/templates/usage_statistics.html:156
 #: plugins/venetian_blind/templates/venetian_blind.html:37
 msgid "Log"
 msgstr ""
 
-#: ospy/templates/base.html:264 ospy/templates/base.html:266
+#: ospy/templates/base.html:277 ospy/templates/base.html:279
 #: ospy/templates/options.html:3
 msgid "Options"
 msgstr ""
 
-#: ospy/templates/base.html:268 ospy/templates/base.html:270
+#: ospy/templates/base.html:281 ospy/templates/base.html:283
 #: ospy/templates/stations.html:9
 msgid "Configure Stations"
 msgstr ""
 
-#: ospy/templates/base.html:270 ospy/templates/stations.html:3
+#: ospy/templates/base.html:283 ospy/templates/stations.html:3
 #: plugins/mqtt_home_assistant/__init__.py:634
 msgid "Stations"
 msgstr ""
 
-#: ospy/templates/base.html:272 ospy/templates/base.html:274
+#: ospy/templates/base.html:285 ospy/templates/base.html:287
 msgid "Configure Sensors"
 msgstr ""
 
-#: ospy/templates/base.html:276 ospy/templates/base.html:278
+#: ospy/templates/base.html:289 ospy/templates/base.html:291
 #: ospy/templates/help.html:3 ospy/templates/help.html:10
 #: ospy/templates/help_user.html:3 ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:294
 #: plugins/button_control/templates/button_control.html:65
-#: plugins/chmi/templates/chmi.html:233
+#: plugins/chmi/templates/chmi.html:265
 #: plugins/cli_control/templates/cli_control.html:95
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:241
 #: plugins/database_connector/templates/database_connector.html:86
@@ -2465,6 +2484,7 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:296
 #: plugins/telegram_bot/templates/telegram_bot.html:168
 #: plugins/temperature_switch/templates/temperature_switch.html:65
+#: plugins/thermostat/templates/thermostat.html:68
 #: plugins/ups_adj/templates/ups_adj.html:303
 #: plugins/venetian_blind/templates/venetian_blind.html:34
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:103
@@ -2484,127 +2504,173 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: ospy/templates/base.html:281 ospy/templates/base.html:283
-#: ospy/webpages.py:1498
+#: ospy/templates/base.html:294 ospy/templates/base.html:296
+#: ospy/webpages.py:1497
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:293
+#: ospy/templates/base.html:306
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:293
+#: ospy/templates/base.html:306
 #: plugins/lcd_display/templates/lcd_display.html:273
 #: plugins/lcd_display/templates/lcd_display_help.html:37
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:294
+#: ospy/templates/base.html:307
 msgid "CPU Usage"
 msgstr ""
 
-#: ospy/templates/base.html:295
+#: ospy/templates/base.html:308
 msgid "Click for redirecting to github software"
 msgstr ""
 
-#: ospy/templates/base.html:295
+#: ospy/templates/base.html:308
 msgid "Software"
 msgstr ""
 
-#: ospy/templates/base.html:295
+#: ospy/templates/base.html:308
 msgid "version"
 msgstr ""
 
-#: ospy/templates/base.html:296
+#: ospy/templates/base.html:309
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:211
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:219
 msgid "Local IP"
 msgstr ""
 
-#: ospy/templates/base.html:297
+#: ospy/templates/base.html:310
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:298
+#: ospy/templates/base.html:311
 msgid "Working"
+msgstr ""
+
+#: ospy/templates/base.html:328
+msgid "Back to top"
 msgstr ""
 
 #: ospy/templates/edit.html:3
 msgid "Modify image"
 msgstr ""
 
+#: ospy/templates/edit.html:10
+msgid "Install it!"
+msgstr ""
+
+#: ospy/templates/edit.html:11 ospy/templates/log.html:154
+#: ospy/templates/log_sensor.html:13 ospy/templates/log_sensor.html:157
+#: ospy/templates/log_user.html:103 ospy/templates/sensors_firmware.html:244
+#: plugins/air_temp_humi/templates/air_temp_humi_log.html:29
+#: plugins/chmi/templates/chmi_log.html:21
+#: plugins/cli_control/templates/cli_control_log.html:11
+#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:29
+#: plugins/ip_cam/templates/ip_cam.html:42
+#: plugins/modbus_stations/templates/modbus_stations_log.html:11
+#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:30
+#: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:217
+#: plugins/ping_monitor/templates/ping_monitor_log.html:29
+#: plugins/pool_heating/templates/pool_heating.html:255
+#: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
+#: plugins/speed_monitor/templates/speed_monitor_log.html:11
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:160
+#: plugins/system_info/templates/system_info.html:38
+#: plugins/system_watchdog/templates/system_watchdog.html:38
+#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
+#: plugins/tank_monitor/templates/tank_monitor_log.html:29
+#: plugins/thermostat/templates/thermostat.html:129
+#: plugins/ups_adj/templates/ups_adj_log.html:48
+#: plugins/venetian_blind/templates/venetian_blind_log.html:11
+#: plugins/voice_notification/templates/voice_notification.html:157
+#: plugins/voice_station/templates/voice_station.html:185
+#: plugins/webcam/templates/webcam.html:122
+#: plugins/wind_monitor/templates/wind_monitor_log.html:29
+msgid "Refresh"
+msgstr ""
+
 #: ospy/templates/edit.html:18
+msgid "Selected image"
+msgstr ""
+
+#: ospy/templates/edit.html:20 ospy/templates/edit.html:110
+msgid "Click Open or drag an image here."
+msgstr ""
+
+#: ospy/templates/edit.html:29 ospy/templates/edit.html:76
+msgid "Image must be PNG, JPG or GIF file!"
+msgstr ""
+
+#: ospy/templates/edit.html:73
 msgid "Image does not exist! Upload a new image."
 msgstr ""
 
-#: ospy/templates/edit.html:22
-msgid "Image is not png or gif file!"
-msgstr ""
-
-#: ospy/templates/edit.html:26
+#: ospy/templates/edit.html:79
 msgid "Not installed Python Pillow for image proccessing!"
 msgstr ""
 
-#: ospy/templates/edit.html:30
+#: ospy/templates/edit.html:83
 msgid "Python Pillow is now installed. You can upload pictures."
 msgstr ""
 
-#: ospy/templates/edit.html:34
+#: ospy/templates/edit.html:87
 msgid "Installation failed - contact your system administrator!"
 msgstr ""
 
-#: ospy/templates/edit.html:41
+#: ospy/templates/edit.html:94
 msgid "#"
 msgstr ""
 
-#: ospy/templates/edit.html:41
+#: ospy/templates/edit.html:94
 msgid "Image adjustment for station"
 msgstr ""
 
-#: ospy/templates/edit.html:43
+#: ospy/templates/edit.html:96
 msgid "Editation the image that is displayed next to the station."
 msgstr ""
 
-#: ospy/templates/edit.html:44
+#: ospy/templates/edit.html:97
 msgid "Recommended resolution is 640x480."
 msgstr ""
 
-#: ospy/templates/edit.html:45
+#: ospy/templates/edit.html:98
 msgid "If the resolution is not observed, the system will convert from the uploaded image to the optimal resolution himself."
 msgstr ""
 
-#: ospy/templates/edit.html:46
-msgid "Only png, gif images are supported. The image name can be arbitrary."
+#: ospy/templates/edit.html:99
+msgid "Only PNG, JPG and GIF images are supported. The image name can be arbitrary."
 msgstr ""
 
-#: ospy/templates/edit.html:54 ospy/templates/view.html:20
+#: ospy/templates/edit.html:107 ospy/templates/view.html:20
 msgid "Station image"
 msgstr ""
 
-#: ospy/templates/edit.html:59
+#: ospy/templates/edit.html:115
 msgid "Thumbnail"
 msgstr ""
 
-#: ospy/templates/edit.html:69
+#: ospy/templates/edit.html:125
 msgid "Upload new image"
 msgstr ""
 
-#: ospy/templates/edit.html:74
+#: ospy/templates/edit.html:130
 msgid "Convert image to high resolution 1024x768 otherwise 640x480"
 msgstr ""
 
-#: ospy/templates/edit.html:75
+#: ospy/templates/edit.html:131
 msgid "If checked, the image will be set to a resolution of 1024x768, otherwise to a resolution of 640x480."
 msgstr ""
 
-#: ospy/templates/edit.html:85 ospy/templates/options.html:263
+#: ospy/templates/edit.html:141 ospy/templates/options.html:263
 #: ospy/templates/options.html:274
 #: plugins/voice_notification/templates/voice_notification_sounds.html:92
 #: plugins/voice_station/templates/voice_station_sounds.html:92
 msgid "Upload"
 msgstr ""
 
-#: ospy/templates/edit.html:89 ospy/templates/plugins_manage.html:125
+#: ospy/templates/edit.html:145 ospy/templates/plugins_manage.html:125
 #: ospy/templates/program.html:598 ospy/templates/program.html:625
 #: ospy/templates/programs.html:132
 #: plugins/database_connector/templates/database_connector_backup.html:45
@@ -2616,7 +2682,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ospy/templates/edit.html:91 ospy/templates/graph_sensor.html:206
+#: ospy/templates/edit.html:147 ospy/templates/graph_sensor.html:206
 #: ospy/templates/log_sensor.html:12 ospy/templates/log_sensor.html:156
 #: ospy/templates/options.html:292 ospy/templates/plugins_changes.html:33
 #: ospy/templates/program.html:636 ospy/templates/runonce.html:108
@@ -2628,8 +2694,8 @@ msgstr ""
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:137
 #: plugins/button_control/templates/button_control.html:155
 #: plugins/button_control/templates/button_control_help.html:124
-#: plugins/chmi/templates/chmi.html:407
-#: plugins/chmi/templates/chmi_help.html:421
+#: plugins/chmi/templates/chmi.html:463
+#: plugins/chmi/templates/chmi_help.html:424
 #: plugins/chmi/templates/chmi_log.html:22
 #: plugins/chmi/templates/chmi_log.html:47
 #: plugins/cli_control/templates/cli_control.html:152
@@ -2741,6 +2807,8 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot_help.html:40
 #: plugins/temperature_switch/templates/temperature_switch.html:264
 #: plugins/temperature_switch/templates/temperature_switch_help.html:13
+#: plugins/thermostat/templates/thermostat.html:190
+#: plugins/thermostat/templates/thermostat_help.html:15
 #: plugins/ups_adj/templates/ups_adj.html:421
 #: plugins/ups_adj/templates/ups_adj_help.html:18
 #: plugins/ups_adj/templates/ups_adj_log.html:49
@@ -2764,8 +2832,8 @@ msgstr ""
 #: plugins/water_meter/templates/water_meter_help.html:23
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:182
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay_help.html:14
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:152
-#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:14
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:161
+#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:16
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:167
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo_help.html:14
 #: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:111
@@ -3030,8 +3098,8 @@ msgstr ""
 msgid "Shelly Wall Display"
 msgstr ""
 
-#: ospy/templates/graph_sensor.html:28 ospy/templates/home_admin.html:310
-#: ospy/templates/home_public.html:198 ospy/templates/home_user.html:310
+#: ospy/templates/graph_sensor.html:28 ospy/templates/home_admin.html:311
+#: ospy/templates/home_public.html:198 ospy/templates/home_user.html:311
 #: plugins/air_temp_humi/templates/air_temp_humi.html:67
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:37
 #: plugins/ping_monitor/templates/ping_monitor.html:67
@@ -3101,8 +3169,8 @@ msgstr ""
 msgid "Show also errors in graph. Example: -127"
 msgstr ""
 
-#: ospy/templates/graph_sensor.html:203 ospy/templates/home_admin.html:711
-#: ospy/templates/home_public.html:491 ospy/templates/home_user.html:706
+#: ospy/templates/graph_sensor.html:203 ospy/templates/home_admin.html:712
+#: ospy/templates/home_public.html:491 ospy/templates/home_user.html:707
 msgid "Clear selection"
 msgstr ""
 
@@ -3120,27 +3188,27 @@ msgstr ""
 msgid "blocked by"
 msgstr ""
 
-#: ospy/templates/home_admin.html:153 ospy/templates/home_admin.html:602
+#: ospy/templates/home_admin.html:153 ospy/templates/home_admin.html:603
 #: ospy/templates/home_public.html:136 ospy/templates/home_user.html:153
-#: ospy/templates/home_user.html:603
+#: ospy/templates/home_user.html:604
 msgid "On (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:156 ospy/templates/home_admin.html:608
+#: ospy/templates/home_admin.html:156 ospy/templates/home_admin.html:609
 #: ospy/templates/home_public.html:139 ospy/templates/home_user.html:156
-#: ospy/templates/home_user.html:609
+#: ospy/templates/home_user.html:610
 msgid "On (Master Two)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:160 ospy/templates/home_admin.html:604
+#: ospy/templates/home_admin.html:160 ospy/templates/home_admin.html:605
 #: ospy/templates/home_public.html:143 ospy/templates/home_user.html:160
-#: ospy/templates/home_user.html:605
+#: ospy/templates/home_user.html:606
 msgid "Off (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:163 ospy/templates/home_admin.html:610
+#: ospy/templates/home_admin.html:163 ospy/templates/home_admin.html:611
 #: ospy/templates/home_public.html:146 ospy/templates/home_user.html:163
-#: ospy/templates/home_user.html:611
+#: ospy/templates/home_user.html:612
 msgid "Off (Master Two)"
 msgstr ""
 
@@ -3154,9 +3222,9 @@ msgstr ""
 msgid "Suppressed by Rain Sensor"
 msgstr ""
 
-#: ospy/templates/home_admin.html:175 ospy/templates/home_admin.html:554
+#: ospy/templates/home_admin.html:175 ospy/templates/home_admin.html:555
 #: ospy/templates/home_public.html:158 ospy/templates/home_user.html:175
-#: ospy/templates/home_user.html:555 ospy/templates/log.html:28
+#: ospy/templates/home_user.html:556 ospy/templates/log.html:28
 #: ospy/templates/log.html:70 ospy/templates/log.html:105
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 plugins/email_notifications/__init__.py:327
@@ -3169,70 +3237,71 @@ msgstr ""
 #: plugins/pressure_monitor/__init__.py:192
 #: plugins/pressure_monitor/__init__.py:193
 #: plugins/telegram_bot/templates/telegram_bot.html:184
+#: plugins/thermostat/__init__.py:352
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/home_admin.html:178 ospy/templates/home_admin.html:617
-#: ospy/templates/home_admin.html:627 ospy/templates/home_public.html:161
-#: ospy/templates/home_user.html:178 ospy/templates/home_user.html:618
-#: ospy/templates/home_user.html:628 ospy/templates/plugins_manage.html:37
+#: ospy/templates/home_admin.html:178 ospy/templates/home_admin.html:618
+#: ospy/templates/home_admin.html:628 ospy/templates/home_public.html:161
+#: ospy/templates/home_user.html:178 ospy/templates/home_user.html:619
+#: ospy/templates/home_user.html:629 ospy/templates/plugins_manage.html:37
 #: ospy/templates/plugins_manage.html:50
 #: ospy/templates/plugins_manage.html:139 ospy/templates/program.html:441
 #: ospy/templates/programs.html:86 ospy/templates/sensors.html:75
 msgid "Off"
 msgstr ""
 
-#: ospy/templates/home_admin.html:216 ospy/templates/home_admin.html:618
-#: ospy/templates/home_user.html:216 ospy/templates/home_user.html:619
+#: ospy/templates/home_admin.html:216 ospy/templates/home_admin.html:619
+#: ospy/templates/home_user.html:216 ospy/templates/home_user.html:620
 #: plugins/email_reader/__init__.py:406 plugins/telegram_bot/__init__.py:178
 #: plugins/telegram_bot/__init__.py:259
 msgid "Forever"
 msgstr ""
 
-#: ospy/templates/home_admin.html:220 ospy/templates/home_admin.html:618
-#: ospy/templates/home_user.html:220 ospy/templates/home_user.html:619
+#: ospy/templates/home_admin.html:220 ospy/templates/home_admin.html:619
+#: ospy/templates/home_user.html:220 ospy/templates/home_user.html:620
 msgid "in"
 msgstr ""
 
-#: ospy/templates/home_admin.html:262 ospy/templates/home_user.html:262
+#: ospy/templates/home_admin.html:263 ospy/templates/home_user.html:263
 msgid "Enter percentage adjustment"
 msgstr ""
 
-#: ospy/templates/home_admin.html:265 ospy/templates/home_user.html:265
+#: ospy/templates/home_admin.html:266 ospy/templates/home_user.html:266
 msgid "Percentage must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:277 ospy/templates/home_user.html:277
+#: ospy/templates/home_admin.html:278 ospy/templates/home_user.html:278
 msgid "Enter hours to delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:280 ospy/templates/home_user.html:280
+#: ospy/templates/home_admin.html:281 ospy/templates/home_user.html:281
 msgid "Delay must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:310 ospy/templates/home_public.html:198
-#: ospy/templates/home_user.html:310
+#: ospy/templates/home_admin.html:311 ospy/templates/home_public.html:198
+#: ospy/templates/home_user.html:311
 msgid "(mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:316 ospy/templates/home_public.html:204
-#: ospy/templates/home_user.html:316
+#: ospy/templates/home_admin.html:317 ospy/templates/home_public.html:204
+#: ospy/templates/home_user.html:317
 msgid "ETo"
 msgstr ""
 
-#: ospy/templates/home_admin.html:317 ospy/templates/home_public.html:205
-#: ospy/templates/home_user.html:317
+#: ospy/templates/home_admin.html:318 ospy/templates/home_public.html:205
+#: ospy/templates/home_user.html:318
 msgid "Rain"
 msgstr ""
 
-#: ospy/templates/home_admin.html:324 ospy/templates/home_admin.html:573
+#: ospy/templates/home_admin.html:325 ospy/templates/home_admin.html:574
 #: ospy/templates/home_public.html:212 ospy/templates/home_public.html:412
-#: ospy/templates/home_user.html:324 ospy/templates/home_user.html:574
+#: ospy/templates/home_user.html:325 ospy/templates/home_user.html:575
 msgid "Total"
 msgstr ""
 
-#: ospy/templates/home_admin.html:327 ospy/templates/home_public.html:215
-#: ospy/templates/home_user.html:327
+#: ospy/templates/home_admin.html:328 ospy/templates/home_public.html:215
+#: ospy/templates/home_user.html:328
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
 #: plugins/ping_monitor/templates/ping_monitor.html:81
 #: plugins/pressure_monitor/templates/pressure_monitor.html:81
@@ -3243,74 +3312,76 @@ msgstr ""
 msgid "Previous Value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:340 ospy/templates/home_public.html:228
-#: ospy/templates/home_user.html:340
+#: ospy/templates/home_admin.html:341 ospy/templates/home_public.html:228
+#: ospy/templates/home_user.html:341
 msgid "Water balance (mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:488 ospy/templates/home_user.html:489
+#: ospy/templates/home_admin.html:489 ospy/templates/home_user.html:490
 msgid "Timer values wrong:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:543
+#: ospy/templates/home_admin.html:543 ospy/templates/home_user.html:544
 msgid "% Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:543
+#: ospy/templates/home_admin.html:543 ospy/templates/home_user.html:544
 msgid "Add or subtract the total program run time in % of time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:543
+#: ospy/templates/home_admin.html:543 ospy/templates/home_user.html:544
 msgid "Normal"
 msgstr ""
 
-#: ospy/templates/home_admin.html:542 ospy/templates/home_user.html:543
+#: ospy/templates/home_admin.html:543 ospy/templates/home_user.html:544
+#: plugins/weather_based_water_level/__init__.py:76
 msgid "Water Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:545
+#: ospy/templates/home_admin.html:545 ospy/templates/home_user.html:546
 msgid "Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:545
+#: ospy/templates/home_admin.html:545 ospy/templates/home_user.html:546
 msgid "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:544 ospy/templates/home_user.html:545
+#: ospy/templates/home_admin.html:545 ospy/templates/home_user.html:546
 #: plugins/lcd_display/__init__.py:400 plugins/lcd_display/__init__.py:433
 #: plugins/pressure_monitor/__init__.py:185
 #: plugins/pressure_monitor/__init__.py:186
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/home_admin.html:548 ospy/templates/home_user.html:549
+#: ospy/templates/home_admin.html:549 ospy/templates/home_user.html:550
 msgid "Rain sensed"
 msgstr ""
 
-#: ospy/templates/home_admin.html:551 ospy/templates/home_user.html:552
+#: ospy/templates/home_admin.html:552 ospy/templates/home_user.html:553
 msgid "Schedule"
 msgstr ""
 
-#: ospy/templates/home_admin.html:551 ospy/templates/home_user.html:552
+#: ospy/templates/home_admin.html:552 ospy/templates/home_user.html:553
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
-#: ospy/templates/home_admin.html:551 ospy/templates/home_user.html:552
-#: ospy/webpages.py:1607
+#: ospy/templates/home_admin.html:552 ospy/templates/home_user.html:553
+#: ospy/webpages.py:1606
 msgid "Manual"
 msgstr ""
 
-#: ospy/templates/home_admin.html:554 ospy/templates/home_user.html:555
+#: ospy/templates/home_admin.html:555 ospy/templates/home_user.html:556
 msgid "Enable or disable the scheduler running"
 msgstr ""
 
-#: ospy/templates/home_admin.html:554 ospy/templates/home_user.html:555
+#: ospy/templates/home_admin.html:555 ospy/templates/home_user.html:556
 #: ospy/templates/log.html:28 ospy/templates/log.html:70
 #: ospy/templates/log.html:105 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/program.html:381
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 #: plugins/lcd_display/__init__.py:527
+#: plugins/thermostat/templates/thermostat.html:99
 #: plugins/volt_temp_da/templates/volt_temp_da.html:73
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:36
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:305
@@ -3318,62 +3389,62 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/home_admin.html:559 ospy/templates/home_public.html:398
-#: ospy/templates/home_user.html:560
+#: ospy/templates/home_admin.html:560 ospy/templates/home_public.html:398
+#: ospy/templates/home_user.html:561
 msgid "Water Level adjustments"
 msgstr ""
 
-#: ospy/templates/home_admin.html:580 ospy/templates/home_public.html:419
-#: ospy/templates/home_user.html:581
+#: ospy/templates/home_admin.html:581 ospy/templates/home_public.html:419
+#: ospy/templates/home_user.html:582
 msgid "Programs adjustments by sensors"
 msgstr ""
 
-#: ospy/templates/home_admin.html:617 ospy/templates/home_admin.html:627
-#: ospy/templates/home_user.html:618 ospy/templates/home_user.html:628
+#: ospy/templates/home_admin.html:618 ospy/templates/home_admin.html:628
+#: ospy/templates/home_user.html:619 ospy/templates/home_user.html:629
 #: ospy/templates/plugins_manage.html:35 ospy/templates/plugins_manage.html:48
 #: ospy/templates/plugins_manage.html:137 ospy/templates/program.html:439
 #: ospy/templates/programs.html:84 ospy/templates/sensors.html:73
 msgid "On"
 msgstr ""
 
-#: ospy/templates/home_admin.html:619 ospy/templates/home_admin.html:629
-#: ospy/templates/home_user.html:620 ospy/templates/home_user.html:630
+#: ospy/templates/home_admin.html:620 ospy/templates/home_admin.html:630
+#: ospy/templates/home_user.html:621 ospy/templates/home_user.html:631
 msgid "Type time for run in minutes"
 msgstr ""
 
-#: ospy/templates/home_admin.html:622 ospy/templates/home_admin.html:632
-#: ospy/templates/home_user.html:623 ospy/templates/home_user.html:633
+#: ospy/templates/home_admin.html:623 ospy/templates/home_admin.html:633
+#: ospy/templates/home_user.html:624 ospy/templates/home_user.html:634
 msgid "Type time for run in seconds"
 msgstr ""
 
-#: ospy/templates/home_admin.html:638 ospy/templates/home_admin.html:692
-#: ospy/templates/home_user.html:639 ospy/templates/home_user.html:690
+#: ospy/templates/home_admin.html:639 ospy/templates/home_admin.html:693
+#: ospy/templates/home_user.html:640 ospy/templates/home_user.html:691
 #: plugins/mqtt_home_assistant/__init__.py:820
 #: plugins/mqtt_home_assistant/__init__.py:821
 msgid "Stop All Stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:638 ospy/templates/home_user.html:639
+#: ospy/templates/home_admin.html:639 ospy/templates/home_user.html:640
 msgid "Press to stop all running stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:659 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:660
+#: ospy/templates/home_admin.html:660 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:661
 msgid " Prev Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:659 ospy/templates/home_public.html:446
-#: ospy/templates/home_user.html:660
+#: ospy/templates/home_admin.html:660 ospy/templates/home_public.html:446
+#: ospy/templates/home_user.html:661
 msgid "Switch to previous day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:660 ospy/templates/home_public.html:447
-#: ospy/templates/home_user.html:661
+#: ospy/templates/home_admin.html:661 ospy/templates/home_public.html:447
+#: ospy/templates/home_user.html:662
 msgid "Switch to today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:660 ospy/templates/home_public.html:447
-#: ospy/templates/home_user.html:661
+#: ospy/templates/home_admin.html:661 ospy/templates/home_public.html:447
+#: ospy/templates/home_user.html:662
 #: plugins/air_temp_humi/templates/air_temp_humi.html:220
 #: plugins/air_temp_humi/templates/air_temp_humi.html:551
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:190
@@ -3395,70 +3466,70 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:661 ospy/templates/home_public.html:448
-#: ospy/templates/home_user.html:662
+#: ospy/templates/home_admin.html:662 ospy/templates/home_public.html:448
+#: ospy/templates/home_user.html:663
 msgid "Next Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:661 ospy/templates/home_public.html:448
-#: ospy/templates/home_user.html:662
+#: ospy/templates/home_admin.html:662 ospy/templates/home_public.html:448
+#: ospy/templates/home_user.html:663
 msgid "Switch to next day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:679 ospy/templates/home_public.html:466
-#: ospy/templates/home_user.html:677
+#: ospy/templates/home_admin.html:680 ospy/templates/home_public.html:466
+#: ospy/templates/home_user.html:678
 msgid "Click for view."
 msgstr ""
 
-#: ospy/templates/home_admin.html:683 ospy/templates/home_public.html:470
-#: ospy/templates/home_user.html:681
+#: ospy/templates/home_admin.html:684 ospy/templates/home_public.html:470
+#: ospy/templates/home_user.html:682
 msgid "loading..."
 msgstr ""
 
-#: ospy/templates/home_admin.html:692 ospy/templates/home_user.html:690
+#: ospy/templates/home_admin.html:693 ospy/templates/home_user.html:691
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:703
+#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:704
 msgid "No chart data available."
 msgstr ""
 
-#: ospy/templates/home_admin.html:711 ospy/templates/home_public.html:491
-#: ospy/templates/home_user.html:706
+#: ospy/templates/home_admin.html:712 ospy/templates/home_public.html:491
+#: ospy/templates/home_user.html:707
 msgid "Deselecting the selected area in the chart"
 msgstr ""
 
-#: ospy/templates/home_admin.html:723 ospy/templates/home_user.html:718
+#: ospy/templates/home_admin.html:724 ospy/templates/home_user.html:719
 msgid "Weather - No location found!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:725 ospy/templates/home_user.html:720
+#: ospy/templates/home_admin.html:726 ospy/templates/home_user.html:721
 msgid "Weather - Location"
 msgstr ""
 
-#: ospy/templates/home_admin.html:725 ospy/templates/home_user.html:720
+#: ospy/templates/home_admin.html:726 ospy/templates/home_user.html:721
 msgid "found:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:728 ospy/templates/home_user.html:723
-#: plugins/chmi/templates/chmi.html:316
+#: ospy/templates/home_admin.html:729 ospy/templates/home_user.html:724
+#: plugins/chmi/templates/chmi.html:372
 msgid "Displaying the found area on the map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:728 ospy/templates/home_user.html:723
-#: plugins/chmi/templates/chmi.html:316
+#: ospy/templates/home_admin.html:729 ospy/templates/home_user.html:724
+#: plugins/chmi/templates/chmi.html:372
 msgid "Map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:729 ospy/templates/home_user.html:724
+#: ospy/templates/home_admin.html:730 ospy/templates/home_user.html:725
 msgid "lat"
 msgstr ""
 
-#: ospy/templates/home_admin.html:729 ospy/templates/home_user.html:724
+#: ospy/templates/home_admin.html:730 ospy/templates/home_user.html:725
 msgid "lon"
 msgstr ""
 
-#: ospy/templates/home_admin.html:731 ospy/templates/home_user.html:726
+#: ospy/templates/home_admin.html:732 ospy/templates/home_user.html:727
 msgid "Weather - No location coordinates available!"
 msgstr ""
 
@@ -3512,7 +3583,7 @@ msgstr ""
 #: ospy/templates/log.html:107 ospy/templates/log_sensor.html:32
 #: ospy/templates/log_sensor.html:55 ospy/templates/log_user.html:20
 #: ospy/templates/log_user.html:49 ospy/templates/log_user.html:79
-#: plugins/chmi/templates/chmi.html:236
+#: plugins/chmi/templates/chmi.html:268
 #: plugins/chmi/templates/chmi_log.html:20
 #: plugins/cli_control/templates/cli_control.html:98
 #: plugins/cli_control/templates/cli_control_log.html:10
@@ -3692,7 +3763,7 @@ msgstr ""
 #: ospy/templates/log.html:137 ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:531
 #: plugins/button_control/templates/button_control.html:145
-#: plugins/chmi/templates/chmi.html:396
+#: plugins/chmi/templates/chmi.html:452
 #: plugins/cli_control/templates/cli_control.html:141
 #: plugins/cli_control/templates/cli_control_log.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:655
@@ -3742,6 +3813,7 @@ msgstr ""
 #: plugins/telegram_bot/templates/telegram_bot.html:183
 #: plugins/telegram_bot/templates/telegram_bot.html:327
 #: plugins/temperature_switch/templates/temperature_switch.html:254
+#: plugins/thermostat/templates/thermostat.html:180
 #: plugins/ups_adj/templates/ups_adj.html:411
 #: plugins/venetian_blind/templates/venetian_blind_log.html:17
 #: plugins/voice_notification/templates/voice_notification.html:147
@@ -3750,40 +3822,11 @@ msgstr ""
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:131
 #: plugins/water_meter/templates/water_meter.html:111
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:172
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:125
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:134
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:157
 #: plugins/webcam/templates/webcam.html:106
 #: plugins/wind_monitor/templates/wind_monitor.html:544
 msgid "Status"
-msgstr ""
-
-#: ospy/templates/log.html:154 ospy/templates/log_sensor.html:13
-#: ospy/templates/log_sensor.html:157 ospy/templates/log_user.html:103
-#: ospy/templates/sensors_firmware.html:244
-#: plugins/air_temp_humi/templates/air_temp_humi_log.html:29
-#: plugins/chmi/templates/chmi_log.html:21
-#: plugins/cli_control/templates/cli_control_log.html:11
-#: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:29
-#: plugins/ip_cam/templates/ip_cam.html:42
-#: plugins/modbus_stations/templates/modbus_stations_log.html:11
-#: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:30
-#: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:217
-#: plugins/ping_monitor/templates/ping_monitor_log.html:29
-#: plugins/pool_heating/templates/pool_heating.html:255
-#: plugins/pressure_monitor/templates/pressure_monitor_log.html:29
-#: plugins/speed_monitor/templates/speed_monitor_log.html:11
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:160
-#: plugins/system_info/templates/system_info.html:38
-#: plugins/system_watchdog/templates/system_watchdog.html:38
-#: plugins/tank_monitor/templates/tank_monitor_debug_log.html:20
-#: plugins/tank_monitor/templates/tank_monitor_log.html:29
-#: plugins/ups_adj/templates/ups_adj_log.html:48
-#: plugins/venetian_blind/templates/venetian_blind_log.html:11
-#: plugins/voice_notification/templates/voice_notification.html:157
-#: plugins/voice_station/templates/voice_station.html:185
-#: plugins/webcam/templates/webcam.html:122
-#: plugins/wind_monitor/templates/wind_monitor_log.html:29
-msgid "Refresh"
 msgstr ""
 
 #: ospy/templates/log_sensor.html:3
@@ -3902,7 +3945,7 @@ msgid "C"
 msgstr ""
 
 #: ospy/templates/login.html:3 ospy/templates/login.html:72
-#: ospy/templates/login.html:91 ospy/webpages.py:1457 ospy/webpages.py:1488
+#: ospy/templates/login.html:91 ospy/webpages.py:1456 ospy/webpages.py:1487
 msgid "Login"
 msgstr ""
 
@@ -4243,7 +4286,7 @@ msgstr ""
 msgid "Checking..."
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:15 ospy/webpages.py:1990
+#: ospy/templates/plugins_manage.html:15 ospy/webpages.py:1989
 msgid "all plugins"
 msgstr ""
 
@@ -4316,6 +4359,7 @@ msgstr ""
 
 #: ospy/templates/program.html:368 ospy/templates/sensors.html:78
 #: ospy/templates/stations.html:16 plugins/sunrise_and_sunset/__init__.py:540
+#: plugins/thermostat/templates/thermostat.html:106
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:38
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:318
 msgid "Name"
@@ -4615,8 +4659,8 @@ msgstr ""
 msgid "Shelly"
 msgstr ""
 
-#: ospy/templates/sensor.html:310 plugins/chmi/__init__.py:316
-#: plugins/chmi/templates/chmi.html:290
+#: ospy/templates/sensor.html:310 plugins/chmi/__init__.py:324
+#: plugins/chmi/templates/chmi.html:346
 msgid "Pihrt"
 msgstr ""
 
@@ -5164,7 +5208,7 @@ msgstr ""
 
 #: ospy/templates/sensor.html:922
 #: plugins/air_temp_humi/templates/air_temp_humi.html:522
-#: plugins/chmi/templates/chmi.html:387
+#: plugins/chmi/templates/chmi.html:443
 #: plugins/door_opening/templates/door_opening.html:87
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:261
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:198
@@ -5180,10 +5224,12 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:559
 #: plugins/telegram_bot/templates/telegram_bot.html:318
 #: plugins/temperature_switch/templates/temperature_switch.html:245
+#: plugins/thermostat/templates/thermostat.html:80
 #: plugins/ups_adj/templates/ups_adj.html:396
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:131
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:163
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:85
 #: plugins/wind_monitor/templates/wind_monitor.html:535
 msgid "Show in footer"
 msgstr ""
@@ -5307,7 +5353,7 @@ msgid "weeks"
 msgstr ""
 
 #: ospy/templates/sensors.html:13 ospy/templates/sensors.html:436
-#: plugins/chmi/__init__.py:286
+#: plugins/chmi/__init__.py:294
 #: plugins/weather_based_rain_delay/__init__.py:110
 #: plugins/weather_based_rain_delay/__init__.py:112
 msgid "hours"
@@ -5315,6 +5361,7 @@ msgstr ""
 
 #: ospy/templates/sensors.html:15
 #: plugins/air_temp_humi/templates/air_temp_humi.html:446
+#: plugins/thermostat/templates/thermostat.html:91
 msgid "seconds"
 msgstr ""
 
@@ -5804,7 +5851,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:229
 #: plugins/air_temp_humi/templates/air_temp_humi.html:540
 #: plugins/button_control/templates/button_control.html:154
-#: plugins/chmi/templates/chmi.html:406
+#: plugins/chmi/templates/chmi.html:462
 #: plugins/cli_control/templates/cli_control.html:151
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:663
@@ -5837,6 +5884,7 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:624
 #: plugins/telegram_bot/templates/telegram_bot.html:336
 #: plugins/temperature_switch/templates/temperature_switch.html:263
+#: plugins/thermostat/templates/thermostat.html:189
 #: plugins/ups_adj/templates/ups_adj.html:420
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:201
 #: plugins/voice_notification/templates/voice_notification.html:156
@@ -5845,7 +5893,7 @@ msgstr ""
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:141
 #: plugins/water_meter/templates/water_meter.html:120
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:181
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:151
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:160
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:166
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:82
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:502
@@ -6249,24 +6297,24 @@ msgstr ""
 #: ospy/webpages.py:476 ospy/webpages.py:528 ospy/webpages.py:747
 #: ospy/webpages.py:1176 ospy/webpages.py:1185 ospy/webpages.py:1201
 #: ospy/webpages.py:1224 ospy/webpages.py:1297 ospy/webpages.py:1325
-#: ospy/webpages.py:1551 ospy/webpages.py:1558 ospy/webpages.py:1565
-#: ospy/webpages.py:1578 ospy/webpages.py:1585 ospy/webpages.py:1592
-#: ospy/webpages.py:1631 ospy/webpages.py:1649 ospy/webpages.py:1666
-#: ospy/webpages.py:1749 ospy/webpages.py:1835 ospy/webpages.py:1855
-#: ospy/webpages.py:1866 ospy/webpages.py:1897 ospy/webpages.py:1968
-#: ospy/webpages.py:1980 ospy/webpages.py:2014 ospy/webpages.py:2084
-#: ospy/webpages.py:2132 ospy/webpages.py:2144 ospy/webpages.py:2253
-#: ospy/webpages.py:2262 ospy/webpages.py:2322 ospy/webpages.py:2342
-#: ospy/webpages.py:2407 ospy/webpages.py:2477 ospy/webpages.py:2908
-#: ospy/webpages.py:2991
+#: ospy/webpages.py:1550 ospy/webpages.py:1557 ospy/webpages.py:1564
+#: ospy/webpages.py:1577 ospy/webpages.py:1584 ospy/webpages.py:1591
+#: ospy/webpages.py:1630 ospy/webpages.py:1648 ospy/webpages.py:1665
+#: ospy/webpages.py:1748 ospy/webpages.py:1834 ospy/webpages.py:1854
+#: ospy/webpages.py:1865 ospy/webpages.py:1896 ospy/webpages.py:1967
+#: ospy/webpages.py:1979 ospy/webpages.py:2013 ospy/webpages.py:2083
+#: ospy/webpages.py:2131 ospy/webpages.py:2143 ospy/webpages.py:2252
+#: ospy/webpages.py:2261 ospy/webpages.py:2321 ospy/webpages.py:2341
+#: ospy/webpages.py:2406 ospy/webpages.py:2476 ospy/webpages.py:2907
+#: ospy/webpages.py:2990
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
-#: ospy/webpages.py:413 ospy/webpages.py:1384
+#: ospy/webpages.py:413 ospy/webpages.py:1383
 msgid "File {} has sucesfully uploaded..."
 msgstr ""
 
-#: ospy/webpages.py:419 ospy/webpages.py:1390
+#: ospy/webpages.py:419 ospy/webpages.py:1389
 msgid "File has sucesfully uploaded..."
 msgstr ""
 
@@ -6274,164 +6322,165 @@ msgstr ""
 msgid "Files {} and {} has sucesfully deleted..."
 msgstr ""
 
-#: ospy/webpages.py:1408
+#: ospy/webpages.py:1407
 msgid "Files has sucesfully resized to max 60x60/640x480..."
 msgstr ""
 
-#: ospy/webpages.py:1412
+#: ospy/webpages.py:1411
 msgid "Cannot create resized files!"
 msgstr ""
 
-#: ospy/webpages.py:1457 ospy/webpages.py:1488
+#: ospy/webpages.py:1456 ospy/webpages.py:1487
 msgid "User {} logged in from IP {} category {}"
 msgstr ""
 
-#: ospy/webpages.py:1458 ospy/webpages.py:1489
+#: ospy/webpages.py:1457 ospy/webpages.py:1488
 msgid "User {} logged in"
 msgstr ""
 
-#: ospy/webpages.py:1473
+#: ospy/webpages.py:1472
 msgid "Incorrect username or password, please try again..."
 msgstr ""
 
-#: ospy/webpages.py:1498 ospy/webpages.py:1499
+#: ospy/webpages.py:1497 ospy/webpages.py:1498
 msgid "User {} logged out"
 msgstr ""
 
-#: ospy/webpages.py:1572
+#: ospy/webpages.py:1571
 msgid "User has removed all rain delays"
 msgstr ""
 
-#: ospy/webpages.py:1574
+#: ospy/webpages.py:1573
 msgid "User has set a delay {} hours"
 msgstr ""
 
-#: ospy/webpages.py:1991
+#: ospy/webpages.py:1990
 msgid "Installing plug-in {} from {}"
 msgstr ""
 
-#: ospy/webpages.py:1994
+#: ospy/webpages.py:1993
 msgid "Invalid plug-in repository index: {}"
 msgstr ""
 
-#: ospy/webpages.py:2000
+#: ospy/webpages.py:1999
 msgid "uploaded ZIP"
 msgstr ""
 
-#: ospy/webpages.py:2001
+#: ospy/webpages.py:2000
 msgid "Installing custom plug-in from uploaded ZIP: {}"
 msgstr ""
 
-#: ospy/webpages.py:2152
+#: ospy/webpages.py:2151
 msgid "Changing language web={} options={}"
 msgstr ""
 
-#: ospy/webpages.py:2200
+#: ospy/webpages.py:2199
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:2206
+#: ospy/webpages.py:2205
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:2212
+#: ospy/webpages.py:2211
 msgid "The system (Linux) is now shutting down... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:2236
+#: ospy/webpages.py:2235
 msgid "Changing language -> restarting."
 msgstr ""
 
-#: ospy/webpages.py:2240
+#: ospy/webpages.py:2239
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:2329 ospy/webpages.py:2384 ospy/webpages.py:2385
+#: ospy/webpages.py:2328 ospy/webpages.py:2383 ospy/webpages.py:2384
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:2362
+#: ospy/webpages.py:2361
 msgid "Deleting folder backup."
 msgstr ""
 
-#: ospy/webpages.py:2366
+#: ospy/webpages.py:2365
 msgid "Creating folder backup."
 msgstr ""
 
-#: ospy/webpages.py:2370
+#: ospy/webpages.py:2369
 msgid "Creating backup zip file."
 msgstr ""
 
-#: ospy/webpages.py:2374
+#: ospy/webpages.py:2373
 msgid "File {} is created successfully."
 msgstr ""
 
-#: ospy/webpages.py:2417
+#: ospy/webpages.py:2416
 msgid "Deleting folder upload."
 msgstr ""
 
-#: ospy/webpages.py:2421
+#: ospy/webpages.py:2420
 msgid "Creating folder upload."
 msgstr ""
 
-#: ospy/webpages.py:2428
+#: ospy/webpages.py:2427
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:2435
+#: ospy/webpages.py:2434
 msgid "Uploading to folder OK, now extracting zip file."
 msgstr ""
 
-#: ospy/webpages.py:2439
+#: ospy/webpages.py:2438
 msgid "Extracted from zip OK."
 msgstr ""
 
-#: ospy/webpages.py:2450
+#: ospy/webpages.py:2449
 msgid "Copy extrated folders with files to data dir."
 msgstr ""
 
-#: ospy/webpages.py:2457
+#: ospy/webpages.py:2456
 msgid "Restoring backup files sucesfully, now restarting OSPy..."
 msgstr ""
 
-#: ospy/webpages.py:2487
+#: ospy/webpages.py:2486
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:2518 plugins/mqtt/__init__.py:370
+#: ospy/webpages.py:2517 plugins/mqtt/__init__.py:370
 #: plugins/mqtt_home_assistant/__init__.py:205
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
-#: plugins/ups_adj/__init__.py:120 plugins/ups_adj/__init__.py:271
+#: plugins/thermostat/__init__.py:393 plugins/ups_adj/__init__.py:120
+#: plugins/ups_adj/__init__.py:271
 #: plugins/ups_adj/templates/ups_adj_log.html:71
 #: plugins/ups_adj/templates/ups_adj_log.html:81
 msgid "OK"
 msgstr ""
 
-#: ospy/webpages.py:2536
+#: ospy/webpages.py:2535
 msgid "Remove fullchain.pem..."
 msgstr ""
 
-#: ospy/webpages.py:2540
+#: ospy/webpages.py:2539
 msgid "Remove privkey.pem..."
 msgstr ""
 
-#: ospy/webpages.py:2546
+#: ospy/webpages.py:2545
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:2758
+#: ospy/webpages.py:2757
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:2768 ospy/webpages.py:2841
+#: ospy/webpages.py:2767 ospy/webpages.py:2840
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:2777 ospy/webpages.py:2828
+#: ospy/webpages.py:2776 ospy/webpages.py:2827
 msgid "Unit not set"
 msgstr ""
 
-#: ospy/webpages.py:2854
+#: ospy/webpages.py:2853
 msgid "Index {} is out of range for pluginStn list."
 msgstr ""
 
@@ -6462,6 +6511,8 @@ msgid "Air Temperature"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:319 plugins/air_temp_humi/__init__.py:322
+#: plugins/thermostat/__init__.py:155 plugins/thermostat/__init__.py:157
+#: plugins/thermostat/__init__.py:160
 msgid "DS"
 msgstr ""
 
@@ -6528,10 +6579,10 @@ msgstr ""
 #: plugins/air_temp_humi/__init__.py:863 plugins/air_temp_humi/__init__.py:898
 #: plugins/button_control/__init__.py:354
 #: plugins/button_control/__init__.py:368
-#: plugins/button_control/__init__.py:380 plugins/chmi/__init__.py:711
-#: plugins/chmi/__init__.py:726 plugins/chmi/__init__.py:753
-#: plugins/chmi/__init__.py:766 plugins/chmi/__init__.py:778
-#: plugins/chmi/__init__.py:884 plugins/database_connector/__init__.py:278
+#: plugins/button_control/__init__.py:380 plugins/chmi/__init__.py:944
+#: plugins/chmi/__init__.py:959 plugins/chmi/__init__.py:986
+#: plugins/chmi/__init__.py:999 plugins/chmi/__init__.py:1011
+#: plugins/chmi/__init__.py:1130 plugins/database_connector/__init__.py:278
 #: plugins/database_connector/__init__.py:290
 #: plugins/database_connector/__init__.py:342
 #: plugins/database_connector/__init__.py:354
@@ -6610,7 +6661,7 @@ msgstr ""
 msgid "air_temp_humi -> help_page GET"
 msgstr ""
 
-#: plugins/air_temp_humi/__init__.py:881 plugins/chmi/__init__.py:702
+#: plugins/air_temp_humi/__init__.py:881 plugins/chmi/__init__.py:928
 #: plugins/modbus_stations/__init__.py:594
 #: plugins/ping_monitor/__init__.py:393
 #: plugins/pressure_monitor/__init__.py:555
@@ -6655,7 +6706,7 @@ msgid "All"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:297
-#: plugins/chmi/templates/chmi.html:237
+#: plugins/chmi/templates/chmi.html:269
 #: plugins/cli_control/templates/cli_control.html:99
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:244
 #: plugins/modbus_stations/templates/modbus_stations.html:69
@@ -6773,7 +6824,7 @@ msgid "Database file"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:346
-#: plugins/chmi/templates/chmi.html:376
+#: plugins/chmi/templates/chmi.html:432
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:214
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:274
 #: plugins/pressure_monitor/templates/pressure_monitor.html:331
@@ -6904,7 +6955,7 @@ msgid "Use"
 msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:523
-#: plugins/chmi/templates/chmi.html:388
+#: plugins/chmi/templates/chmi.html:444
 #: plugins/door_opening/templates/door_opening.html:88
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:262
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:199
@@ -7046,9 +7097,9 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
 #: plugins/button_control/templates/button_control_help.html:10
-#: plugins/chmi/templates/chmi_help.html:11
-#: plugins/chmi/templates/chmi_help.html:13
-#: plugins/chmi/templates/chmi_help.html:15
+#: plugins/chmi/templates/chmi_help.html:14
+#: plugins/chmi/templates/chmi_help.html:16
+#: plugins/chmi/templates/chmi_help.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:16
 #: plugins/lcd_display/templates/lcd_display_help.html:57
 #: plugins/relay_16/templates/relay_16_help.html:10
@@ -7062,9 +7113,9 @@ msgstr ""
 
 #: plugins/air_temp_humi/templates/air_temp_humi_help.html:12
 #: plugins/button_control/templates/button_control_help.html:10
-#: plugins/chmi/templates/chmi_help.html:11
-#: plugins/chmi/templates/chmi_help.html:13
-#: plugins/chmi/templates/chmi_help.html:15
+#: plugins/chmi/templates/chmi_help.html:14
+#: plugins/chmi/templates/chmi_help.html:16
+#: plugins/chmi/templates/chmi_help.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:16
 #: plugins/lcd_display/templates/lcd_display_help.html:57
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
@@ -7463,6 +7514,7 @@ msgid "Run program"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:125
+#: plugins/thermostat/templates/thermostat.html:147
 msgid "No programs available"
 msgstr ""
 
@@ -7630,220 +7682,258 @@ msgstr ""
 msgid "First stop everything running and then start the program. If we want to start a new program and add it to the running ones, we will leave this option off."
 msgstr ""
 
-#: plugins/chmi/__init__.py:34
+#: plugins/chmi/__init__.py:39
 msgid "Package: CHMI radar"
 msgstr ""
 
-#: plugins/chmi/__init__.py:120 plugins/chmi/templates/chmi.html:3
-#: plugins/chmi/templates/chmi.html:231
+#: plugins/chmi/__init__.py:138 plugins/chmi/templates/chmi.html:3
+#: plugins/chmi/templates/chmi.html:263
 msgid "CHMI meteoradar"
 msgstr ""
 
-#: plugins/chmi/__init__.py:137
+#: plugins/chmi/__init__.py:156
 msgid "Failed to download radar data."
 msgstr ""
 
-#: plugins/chmi/__init__.py:166
+#: plugins/chmi/__init__.py:170
 msgid "The merging of the images (radar and outline of the Czech Republic) went OK."
 msgstr ""
 
-#: plugins/chmi/__init__.py:169
+#: plugins/chmi/__init__.py:173
 msgid "Image cannot be saved."
 msgstr ""
 
-#: plugins/chmi/__init__.py:172
+#: plugins/chmi/__init__.py:176
 msgid "Converting the image to RGB..."
 msgstr ""
 
-#: plugins/chmi/__init__.py:179
+#: plugins/chmi/__init__.py:183
 msgid "Image width: {} px ({} degrees of longitude)"
 msgstr ""
 
-#: plugins/chmi/__init__.py:180
+#: plugins/chmi/__init__.py:184
 msgid "Image height: {} px ({} degrees of latitude)"
 msgstr ""
 
-#: plugins/chmi/__init__.py:181
+#: plugins/chmi/__init__.py:185
 msgid "1 vertical pixel is equal {} degrees of longitude"
 msgstr ""
 
-#: plugins/chmi/__init__.py:182
+#: plugins/chmi/__init__.py:186
 msgid "1 horizontal pixel is equal {} degrees of latitude"
 msgstr ""
 
-#: plugins/chmi/__init__.py:188
+#: plugins/chmi/__init__.py:195
 msgid "Loading cities database..."
 msgstr ""
 
-#: plugins/chmi/__init__.py:213
+#: plugins/chmi/__init__.py:208
+msgid "City and hardware map processing is disabled for the SHMU radar source."
+msgstr ""
+
+#: plugins/chmi/__init__.py:221
 msgid "Analyzing if is raining in the cities..."
 msgstr ""
 
-#: plugins/chmi/__init__.py:238
+#: plugins/chmi/__init__.py:247
 msgid "In city {} ({}) it is probably raining right now"
 msgstr ""
 
-#: plugins/chmi/__init__.py:268
+#: plugins/chmi/__init__.py:276
 msgid "RGB in my location is R:{}, G:{}, B:{}"
 msgstr ""
 
-#: plugins/chmi/__init__.py:272
+#: plugins/chmi/__init__.py:280
 msgid "In my location latitude {} longitude {} it is probably raining right now."
 msgstr ""
 
-#: plugins/chmi/__init__.py:273 plugins/chmi/__init__.py:292
+#: plugins/chmi/__init__.py:281 plugins/chmi/__init__.py:300
 msgid "Rain detection area: {} of {} pixels ({}%) are above the threshold."
 msgstr ""
 
-#: plugins/chmi/__init__.py:286
+#: plugins/chmi/__init__.py:294
 msgid "Detected Rain"
 msgstr ""
 
-#: plugins/chmi/__init__.py:286
+#: plugins/chmi/__init__.py:294
 #: plugins/weather_based_rain_delay/__init__.py:110
 #: plugins/weather_based_rain_delay/__init__.py:112
 #: plugins/weather_based_rain_delay/__init__.py:124
 msgid "Adding delay of"
 msgstr ""
 
-#: plugins/chmi/__init__.py:288
+#: plugins/chmi/__init__.py:296
 msgid "Probably raining right now"
 msgstr ""
 
-#: plugins/chmi/__init__.py:291
+#: plugins/chmi/__init__.py:299
 msgid "In my location latitude {} longitude {} it is probably not rain."
 msgstr ""
 
-#: plugins/chmi/__init__.py:293
+#: plugins/chmi/__init__.py:301
 msgid "Probably not rain"
 msgstr ""
 
-#: plugins/chmi/__init__.py:296
+#: plugins/chmi/__init__.py:304
 msgid "Location is not set!"
 msgstr ""
 
-#: plugins/chmi/__init__.py:312 plugins/chmi/templates/chmi.html:288
+#: plugins/chmi/__init__.py:320 plugins/chmi/templates/chmi.html:344
 msgid "Laskakit"
 msgstr ""
 
-#: plugins/chmi/__init__.py:314 plugins/chmi/templates/chmi.html:289
+#: plugins/chmi/__init__.py:322 plugins/chmi/templates/chmi.html:345
 msgid "TMEP"
 msgstr ""
 
-#: plugins/chmi/__init__.py:317
+#: plugins/chmi/__init__.py:325
 msgid "I am sending JSON with cities to the {} map of the Czech Republic..."
 msgstr ""
 
-#: plugins/chmi/__init__.py:321
+#: plugins/chmi/__init__.py:329
 msgid "I will try to send to {} post data {}"
 msgstr ""
 
-#: plugins/chmi/__init__.py:324
+#: plugins/chmi/__init__.py:332
 msgid "HTTP {}"
 msgstr ""
 
-#: plugins/chmi/__init__.py:326
+#: plugins/chmi/__init__.py:334
 msgid "HTTP {}: I cannot connect to the board map of the Czech Republic at the URL http://{}/"
 msgstr ""
 
-#: plugins/chmi/__init__.py:330
+#: plugins/chmi/__init__.py:338
 msgid "I cannot connect to the map board of the Czech Republic at the URL http://{}/"
 msgstr ""
 
-#: plugins/chmi/__init__.py:332
+#: plugins/chmi/__init__.py:340
 msgid "Sending data to the hardware map is disabled."
 msgstr ""
 
-#: plugins/chmi/__init__.py:334
+#: plugins/chmi/__init__.py:342
 msgid "Looks like it is not raining in any city."
 msgstr ""
 
-#: plugins/chmi/__init__.py:336
+#: plugins/chmi/__init__.py:344
 msgid "Waiting 10 minutes for next update..."
 msgstr ""
 
-#: plugins/chmi/__init__.py:340
+#: plugins/chmi/__init__.py:348
 msgid "Failed to load rain radar bitmap."
 msgstr ""
 
-#: plugins/chmi/__init__.py:346 plugins/real_time/__init__.py:138
+#: plugins/chmi/__init__.py:354 plugins/real_time/__init__.py:138
 #: plugins/weather_based_rain_delay/__init__.py:149
-#: plugins/weather_based_water_level/__init__.py:145
+#: plugins/weather_based_water_level/__init__.py:171
+#: plugins/weather_based_water_level/__init__.py:172
 #: plugins/weather_based_water_level_netatmo/__init__.py:166
 msgid "Plug-in is disabled."
 msgstr ""
 
-#: plugins/chmi/__init__.py:350 plugins/chmi/__init__.py:648
-#: plugins/chmi/__init__.py:710 plugins/chmi/__init__.py:725
-#: plugins/chmi/__init__.py:752 plugins/chmi/__init__.py:765
-#: plugins/chmi/__init__.py:777 plugins/chmi/__init__.py:833
-#: plugins/chmi/__init__.py:883
+#: plugins/chmi/__init__.py:358 plugins/chmi/__init__.py:512
+#: plugins/chmi/__init__.py:868 plugins/chmi/__init__.py:943
+#: plugins/chmi/__init__.py:958 plugins/chmi/__init__.py:985
+#: plugins/chmi/__init__.py:998 plugins/chmi/__init__.py:1010
+#: plugins/chmi/__init__.py:1079 plugins/chmi/__init__.py:1129
 msgid "CHMI plug-in"
 msgstr ""
 
-#: plugins/chmi/__init__.py:388
+#: plugins/chmi/__init__.py:476
+msgid "SHMU dependency installation is already running."
+msgstr ""
+
+#: plugins/chmi/__init__.py:489
+msgid "SHMU radar dependencies are already installed."
+msgstr ""
+
+#: plugins/chmi/__init__.py:492
+msgid "Installing SHMU radar dependencies. This operation can take several minutes."
+msgstr ""
+
+#: plugins/chmi/__init__.py:495 plugins/chmi/__init__.py:498
+msgid "Running command"
+msgstr ""
+
+#: plugins/chmi/__init__.py:507
+msgid "SHMU radar dependencies were installed successfully."
+msgstr ""
+
+#: plugins/chmi/__init__.py:508
+msgid "Set your location coordinates in the OSPy options so rain detection works correctly."
+msgstr ""
+
+#: plugins/chmi/__init__.py:510
+msgid "SHMU radar dependency installation failed. Missing modules"
+msgstr ""
+
+#: plugins/chmi/__init__.py:521
 msgid "forecast +{} min"
 msgstr ""
 
-#: plugins/chmi/__init__.py:391
+#: plugins/chmi/__init__.py:524
 msgid "now"
 msgstr ""
 
-#: plugins/chmi/__init__.py:572
-msgid "Radar animation cache contains {} frame(s)."
+#: plugins/chmi/__init__.py:545
+msgid "SHMU radar source requires python3-h5py and python3-numpy. Install them and restart OSPy."
 msgstr ""
 
-#: plugins/chmi/__init__.py:589
+#: plugins/chmi/__init__.py:580 plugins/chmi/__init__.py:617
+#: plugins/chmi/__init__.py:809
 msgid "Downloading a file: {}"
 msgstr ""
 
-#: plugins/chmi/__init__.py:595
-msgid "HTTP {}: downloaded file is not a valid PNG image."
-msgstr ""
-
-#: plugins/chmi/__init__.py:597
+#: plugins/chmi/__init__.py:624 plugins/chmi/__init__.py:817
 msgid "HTTP {}: I can not download the file."
 msgstr ""
 
-#: plugins/chmi/__init__.py:598 plugins/chmi/__init__.py:604
+#: plugins/chmi/__init__.py:789
+msgid "Radar animation cache contains {} frame(s)."
+msgstr ""
+
+#: plugins/chmi/__init__.py:815
+msgid "HTTP {}: downloaded file is not a valid PNG image."
+msgstr ""
+
+#: plugins/chmi/__init__.py:818 plugins/chmi/__init__.py:824
 msgid "I will try to download a file that is 10 minutes older."
 msgstr ""
 
-#: plugins/chmi/__init__.py:693 plugins/chmi/templates/chmi.html:338
+#: plugins/chmi/__init__.py:914 plugins/chmi/templates/chmi.html:394
 #: plugins/tank_monitor/__init__.py:892
 #: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid "Removing Rain Delay"
 msgstr ""
 
-#: plugins/chmi/__init__.py:712 plugins/chmi/__init__.py:885
+#: plugins/chmi/__init__.py:945 plugins/chmi/__init__.py:1131
 msgid "chmi -> settings_page GET"
 msgstr ""
 
-#: plugins/chmi/__init__.py:727
+#: plugins/chmi/__init__.py:960
 msgid "chmi -> settings_page POST"
 msgstr ""
 
-#: plugins/chmi/__init__.py:754
+#: plugins/chmi/__init__.py:987
 msgid "chmi -> download_page GET"
 msgstr ""
 
-#: plugins/chmi/__init__.py:767
+#: plugins/chmi/__init__.py:1000
 msgid "chmi -> help_page GET"
 msgstr ""
 
-#: plugins/chmi/__init__.py:779
+#: plugins/chmi/__init__.py:1012
 msgid "chmi -> log_page GET"
 msgstr ""
 
-#: plugins/chmi/__init__.py:898
+#: plugins/chmi/__init__.py:1144
 msgid "RAIN IN LOCATION"
 msgstr ""
 
-#: plugins/chmi/__init__.py:901
+#: plugins/chmi/__init__.py:1147
 msgid "NOT RAIN IN LOCATION"
 msgstr ""
 
-#: plugins/chmi/__init__.py:903
+#: plugins/chmi/__init__.py:1149
 msgid "MY LOCATION IS NOT SET"
 msgstr ""
 
@@ -7852,11 +7942,11 @@ msgstr ""
 msgid "IP map address is not valid!"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:232
+#: plugins/chmi/templates/chmi.html:264
 msgid "The measurement time is primarily given in UTC world time (UTC=UT=GMT=SELC-2h = CET-1h)."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:238
+#: plugins/chmi/templates/chmi.html:270
 #: plugins/cli_control/templates/cli_control.html:100
 #: plugins/modbus_stations/templates/modbus_stations_log.html:12
 #: plugins/ping_monitor/templates/ping_monitor.html:283
@@ -7866,130 +7956,170 @@ msgstr ""
 msgid "Delete all logs"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:244
-msgid "Use CHMI"
+#: plugins/chmi/templates/chmi.html:276
+msgid "Radar data source"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:245
-msgid "When the box is checked, the extension will be active."
+#: plugins/chmi/templates/chmi.html:277
+msgid "Select the meteorological radar data source. CHMI uses Czech PNG radar images, SHMU uses Slovak OpenData HDF radar composites."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:253
-msgid "Send to HW map"
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:254
-msgid "When enabled, detected rainy cities will be sent to the external hardware map."
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:262
-msgid "Animate radar map"
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:263
-msgid "When enabled, recent radar images are kept in RAM and animated on the settings page."
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:271
-msgid "Show on home page"
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:272
-msgid "When enabled, a small animated CHMI radar widget is shown on the OSPy home page."
+#: plugins/chmi/templates/chmi.html:279
+msgid "CHMI Czech Republic"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:280
-msgid "Map IP address"
+msgid "SHMU Slovakia"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:281
-msgid "IP address for map."
-msgstr ""
-
-#: plugins/chmi/templates/chmi.html:285
-msgid "Map board type"
+#: plugins/chmi/templates/chmi.html:286
+msgid "SHMU radar libraries"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:287
-msgid "Mark used your board hardware."
+msgid "SHMU radar needs h5py and numpy for reading HDF radar files."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:295
-msgid "State in my location"
+#: plugins/chmi/templates/chmi.html:288
+msgid "Missing modules"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:290 plugins/chmi/templates/chmi.html:293
+msgid "Installing, please wait..."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:291 plugins/chmi/templates/chmi.html:294
+msgid "Install libraries"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:296
+msgid "After installation set your location coordinates in the OSPy options so rain detection works correctly."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:300
+msgid "Use radar"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:301
-msgid "Meteo map"
+msgid "When the box is checked, the extension will be active."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:302
-msgid "A downloaded map from the Meteo Institute is displayed here."
+#: plugins/chmi/templates/chmi.html:309
+msgid "Send to HW map"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:313
-msgid "My location lat/lon"
+#: plugins/chmi/templates/chmi.html:310
+msgid "When enabled, detected rainy cities will be sent to the external hardware map."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:326
-msgid "Use a rain delay"
+#: plugins/chmi/templates/chmi.html:318
+msgid "Animate radar map"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:319
+msgid "When enabled, recent radar images are kept in RAM and animated on the settings page."
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:327
-msgid "If the box is checked, a rain delay will be set if rain is detected. The location coordinates are obtained from the OSPy settings from the weather/location menu. For proper function, you need to enter your location in the settings (for example, Prague). Warning: you have to enable Use Weather and Storm Glass API key. If you do not use a key, enter anything."
+msgid "Show on home page"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:335
-msgid "Delay time"
+#: plugins/chmi/templates/chmi.html:328
+msgid "When enabled, a small animated CHMI radar widget is shown on the OSPy home page."
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:336
-msgid "Delay time in hours."
+msgid "Map IP address"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:337
-msgid "(in hours)"
+msgid "IP address for map."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:342
-msgid "Intensity threshold"
+#: plugins/chmi/templates/chmi.html:341
+msgid "Map board type"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:343
+msgid "Mark used your board hardware."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:351
+msgid "State in my location"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:357
+msgid "Meteo map"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:358
+msgid "A downloaded map from the Meteo Institute is displayed here."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:369
+msgid "My location lat/lon"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:382
+msgid "Use a rain delay"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:383
+msgid "If the box is checked, a rain delay will be set if rain is detected. The location coordinates are obtained from the OSPy settings from the weather/location menu. For proper function, you need to enter your location in the settings (for example, Prague). Warning: you have to enable Use Weather and Storm Glass API key. If you do not use a key, enter anything."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:391
+msgid "Delay time"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:392
+msgid "Delay time in hours."
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:393
+msgid "(in hours)"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:398
+msgid "Intensity threshold"
+msgstr ""
+
+#: plugins/chmi/templates/chmi.html:399
 msgid "Intensity threshold for activate rain delay in my location. The detection logic is of the OR type. This means that when the red color exceeds the value 50, or the green value 100, or the blue value 200, for example, rain is detected."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:344
+#: plugins/chmi/templates/chmi.html:400
 #: plugins/labelmaker/templates/labelmaker.html:66
 msgid "RED"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:345
+#: plugins/chmi/templates/chmi.html:401
 #: plugins/labelmaker/templates/labelmaker.html:67
 msgid "GREEN"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:346
+#: plugins/chmi/templates/chmi.html:402
 #: plugins/labelmaker/templates/labelmaker.html:68
 msgid "BLUE"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:350
+#: plugins/chmi/templates/chmi.html:406
 msgid "Detection radius"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:351
+#: plugins/chmi/templates/chmi.html:407
 msgid "Pixel radius around my location used for rain detection. A larger radius is less sensitive to one bad pixel."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:356
+#: plugins/chmi/templates/chmi.html:412
 msgid "Minimum rainy pixels"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:357
+#: plugins/chmi/templates/chmi.html:413
 msgid "Minimum percentage of pixels in the detection area that must exceed the intensity threshold before rain delay is activated."
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:367
+#: plugins/chmi/templates/chmi.html:423
 #: plugins/cli_control/templates/cli_control.html:115
 #: plugins/modbus_stations/templates/modbus_stations.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:297
@@ -8000,7 +8130,7 @@ msgstr ""
 msgid "Enable logging"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:378
+#: plugins/chmi/templates/chmi.html:434
 #: plugins/pressure_monitor/templates/pressure_monitor.html:332
 #: plugins/speed_monitor/templates/speed_monitor.html:314
 #: plugins/ups_adj/templates/ups_adj.html:351
@@ -8009,7 +8139,7 @@ msgstr ""
 msgid "0 = unlimited"
 msgstr ""
 
-#: plugins/chmi/templates/chmi.html:405
+#: plugins/chmi/templates/chmi.html:461
 msgid "Download now"
 msgstr ""
 
@@ -8019,30 +8149,42 @@ msgid "CHMI - help"
 msgstr ""
 
 #: plugins/chmi/templates/chmi_help.html:8
-msgid "When is enabled extension retrieves data from the meteorological radar of the Czech Hydrometeorological Institute."
+msgid "When enabled, the extension retrieves radar data from the selected meteorological service."
 msgstr ""
 
 #: plugins/chmi/templates/chmi_help.html:9
-msgid "It is thus possible, for example, to display current warnings in given locations, or other dates. Different sensors can be connected and all usable pins are brought out on solder pads for possible connection of different sensors and devices."
-msgstr ""
-
-#: plugins/chmi/templates/chmi_help.html:9
-msgid "The interactive map of the Czech Republic is based on an ESP32 microcontroller and contains 72 WS2812 RGB LEDs on the front - each for one district city."
+msgid "The CHMI source uses Czech Hydrometeorological Institute PNG radar images. The SHMU source uses Slovak Hydrometeorological Institute OpenData HDF radar composites."
 msgstr ""
 
 #: plugins/chmi/templates/chmi_help.html:10
+msgid "The SHMU source requires the h5py and numpy Python libraries. If they are missing, the settings page shows an install button and writes the installation progress to the status window."
+msgstr ""
+
+#: plugins/chmi/templates/chmi_help.html:11
+msgid "After installing the SHMU libraries, set your location coordinates in the OSPy options so rain detection works correctly."
+msgstr ""
+
+#: plugins/chmi/templates/chmi_help.html:12
+msgid "It is thus possible, for example, to display current warnings in given locations, or other dates. Different sensors can be connected and all usable pins are brought out on solder pads for possible connection of different sensors and devices."
+msgstr ""
+
+#: plugins/chmi/templates/chmi_help.html:12
+msgid "The interactive map of the Czech Republic is based on an ESP32 microcontroller and contains 72 WS2812 RGB LEDs on the front - each for one district city."
+msgstr ""
+
+#: plugins/chmi/templates/chmi_help.html:13
 msgid "The board is equipped with a USB programming converter, so all you need to program it is a cable with a USB-C connector and, for example, the Arduino IDE."
 msgstr ""
 
-#: plugins/chmi/templates/chmi_help.html:16
+#: plugins/chmi/templates/chmi_help.html:19
 msgid "Arduino code for ESP32"
 msgstr ""
 
-#: plugins/chmi/templates/chmi_help.html:16
+#: plugins/chmi/templates/chmi_help.html:19
 msgid "source"
 msgstr ""
 
-#: plugins/chmi/templates/chmi_help.html:17
+#: plugins/chmi/templates/chmi_help.html:20
 msgid "LEDs sequence and districts"
 msgstr ""
 
@@ -19593,6 +19735,185 @@ msgstr ""
 msgid "All temperatures is in degree Celsia."
 msgstr ""
 
+#: plugins/thermostat/__init__.py:25
+msgid "Package: Thermostat"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:113
+msgid "Thermostat {}"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:139
+msgid "Air Temperature DS"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:140
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:76
+msgid "OSPy Sensor"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:141
+msgid "Shelly Cloud"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:196
+#: plugins/weather_dashboard/__init__.py:326
+msgid "Shelly device"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:261
+msgid "Program {}"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:269
+#: plugins/thermostat/templates/thermostat.html:159
+#: plugins/thermostat/templates/thermostat.html:173
+msgid "Do nothing"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:270
+#: plugins/thermostat/templates/thermostat.html:160
+#: plugins/thermostat/templates/thermostat.html:174
+msgid "Start program"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:271
+#: plugins/thermostat/templates/thermostat.html:161
+#: plugins/thermostat/templates/thermostat.html:175
+msgid "Stop program"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:336
+#: plugins/thermostat/templates/thermostat.html:3
+#: plugins/thermostat/templates/thermostat.html:67
+#: plugins/thermostat/templates/thermostat.html:96
+msgid "Thermostat"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:351
+msgid "Thermostat plug-in is disabled."
+msgstr ""
+
+#: plugins/thermostat/__init__.py:365
+msgid "{} has invalid temperature limits. Low temperature must be lower than high temperature."
+msgstr ""
+
+#: plugins/thermostat/__init__.py:366
+msgid "setup error"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:371
+msgid "{} temperature is not available."
+msgstr ""
+
+#: plugins/thermostat/__init__.py:392
+msgid "Unknown program"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:393
+msgid "not changed"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:393
+msgid "{}: {:.1f} C, action {}, program {}, result {}."
+msgstr ""
+
+#: plugins/thermostat/__init__.py:395
+msgid "{}: {:.1f} C, no action."
+msgstr ""
+
+#: plugins/thermostat/__init__.py:400
+msgid "No active thermostat"
+msgstr ""
+
+#: plugins/thermostat/__init__.py:404
+msgid "Thermostat plug-in"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:73
+msgid "Use thermostat"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:74
+msgid "When enabled, thermostats check selected temperature sources and control selected programs."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:81
+msgid "Show thermostat status in footer on home page."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:89
+#: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:144
+msgid "Check interval"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:90
+msgid "How often the temperature is checked."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:112
+msgid "Temperature source"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:119
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:44
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:354
+msgid "Channel"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:127
+msgid "No channels available"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:133
+msgid "Shelly value"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:152
+msgid "Low temperature"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:153
+msgid "When temperature is equal or lower than this value, the low action is executed once."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:156
+msgid "Low action"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:166
+msgid "High temperature"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:167
+msgid "When temperature is equal or higher than this value, the high action is executed once."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat.html:170
+msgid "High action"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat_help.html:3
+#: plugins/thermostat/templates/thermostat_help.html:7
+msgid "Thermostat - help"
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat_help.html:8
+msgid "The thermostat plugin checks selected temperature sources and starts or stops selected OSPy programs when the configured temperature limits are reached."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat_help.html:9
+msgid "Use low and high temperature values with one decimal place to create hysteresis. For example, low 22.4 C and high 22.6 C means that no action is repeated while the temperature stays between these values."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat_help.html:10
+msgid "Temperature can be read from the Air Temperature DS probes, OSPy sensors, or Shelly Cloud values when the related plugin is configured."
+msgstr ""
+
+#: plugins/thermostat/templates/thermostat_help.html:11
+msgid "Programs can then be used to control stations, CLI actions, or external relays such as Shelly devices."
+msgstr ""
+
 #: plugins/ups_adj/__init__.py:28
 msgid "Package: UPS Monitor"
 msgstr ""
@@ -20884,11 +21205,6 @@ msgid "Delay apply based on history rain in hours"
 msgstr ""
 
 #:
-#: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:144
-msgid "Check interval"
-msgstr ""
-
-#:
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:154
 msgid "Use Cleanup delay"
 msgstr ""
@@ -20920,46 +21236,62 @@ msgstr ""
 msgid "Package: Weather-based Water Level"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:74
+#: plugins/weather_based_water_level/__init__.py:89
 #: plugins/weather_based_water_level_netatmo/__init__.py:86
 msgid "Checking weather status"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:88
+#: plugins/weather_based_water_level/__init__.py:103
 #: plugins/weather_based_water_level_netatmo/__init__.py:117
 msgid "Using"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:88
+#: plugins/weather_based_water_level/__init__.py:103
 #: plugins/weather_based_water_level_netatmo/__init__.py:117
 msgid "days of information."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:113
+#: plugins/weather_based_water_level/__init__.py:108
+msgid "No usable weather information is available yet."
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:110
+msgid "Water level adjustment was not changed."
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:111
+msgid "No weather data"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:138
 #: plugins/weather_based_water_level_netatmo/__init__.py:154
 msgid "Water needed"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:114
+#: plugins/weather_based_water_level/__init__.py:139
 #: plugins/weather_based_water_level_netatmo/__init__.py:155
 msgid "Total rainfall"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:116
+#: plugins/weather_based_water_level/__init__.py:141
 #: plugins/weather_based_water_level_netatmo/__init__.py:157
 msgid "Irrigation needed"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:117
+#: plugins/weather_based_water_level/__init__.py:142
 #: plugins/weather_based_water_level_netatmo/__init__.py:158
 msgid "Weather Adjustment"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:138
+#: plugins/weather_based_water_level/__init__.py:143
+msgid "Missing"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:164
 msgid "Protection activated."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:151
+#: plugins/weather_based_water_level/__init__.py:178
 #: plugins/weather_based_water_level_netatmo/__init__.py:172
 msgid "Weather-based water level plug-in"
 msgstr ""
@@ -20983,46 +21315,46 @@ msgid "Protect against freezing"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:85
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:94
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:81
 msgid "Min percentage"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:89
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
 msgid "Protect temperature"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:96
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:105
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:87
 msgid "Max percentage"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:100
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:109
 msgid "Protect minutes"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:106
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:115
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:93
 msgid "History days used"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:112
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:121
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:99
 msgid "Forecast days used"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:116
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:125
 msgid "Protect stations"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:129
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:138
 msgid "Protect months"
 msgstr ""
 
@@ -21045,6 +21377,16 @@ msgstr ""
 
 #:
 #: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:10
+msgid "The home page footer can show a short status with the last calculation time, missing rainfall and the current water adjustment."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:11
+msgid "If no usable weather information is available, the plugin keeps OSPy running and does not change the water level adjustment."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:12
 msgid "Author Rimco (Thank you)."
 msgstr ""
 
@@ -21083,10 +21425,6 @@ msgstr ""
 
 #: plugins/weather_dashboard/__init__.py:159
 msgid "Weather Dashboard plug-in is enabled."
-msgstr ""
-
-#: plugins/weather_dashboard/__init__.py:326
-msgid "Shelly device"
 msgstr ""
 
 #: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:3
@@ -21201,11 +21539,6 @@ msgstr ""
 msgid "Selects where the value is read from. Available sources are loaded from the plugin source registry."
 msgstr ""
 
-#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:44
-#: plugins/weather_dashboard/templates/weather_dashboard_page.html:354
-msgid "Channel"
-msgstr ""
-
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:45
 msgid "Selects the input channel for the selected source. The list changes automatically after changing Source."
 msgstr ""
@@ -21290,10 +21623,6 @@ msgstr ""
 
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:75
 msgid "Reads wind speed from the Wind Speed Monitor plugin."
-msgstr ""
-
-#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:76
-msgid "OSPy Sensor"
 msgstr ""
 
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:77
