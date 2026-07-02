@@ -194,15 +194,39 @@ def poweroff(wait=1, block=False):
         t.start()
 
 
+def _service_restart_command():
+    if os.path.exists('/bin/systemctl') or os.path.exists('/usr/bin/systemctl'):
+        return 'systemctl restart ospy || service ospy restart'
+    if os.path.exists('/usr/sbin/service') or os.path.exists('/sbin/service'):
+        return 'service ospy restart'
+    return None
+
+
+def _restart_via_service():
+    command = _service_restart_command()
+    if not command:
+        return False
+
+    try:
+        subprocess.Popen(
+            ['/bin/sh', '-c', command],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True,
+            start_new_session=True
+        )
+        return True
+    except Exception:
+        print_report('helpers.py', _('Service restart failed, falling back to process restart.') + '\n' + traceback.format_exc())
+        return False
+
+
 def restart(wait=1, block=False):
     if block:
-        # Stop the web server first:
-        from ospy import server
-        server.stop()
-
+        time.sleep(wait)
         from ospy.stations import stations
         stations.clear()
-        time.sleep(wait)
         print_report('helpers.py', _('Restarting...'))
 
         import sys
@@ -212,6 +236,10 @@ def restart(wait=1, block=False):
             subprocess.Popen(['cmd.exe', '/c', 'start', sys.executable] + sys.argv)
         else:
             import os
+            if _restart_via_service():
+                return
+            from ospy import server
+            server.stop()
             os.execl(sys.executable, sys.executable, *sys.argv)
     else:
         from threading import Thread

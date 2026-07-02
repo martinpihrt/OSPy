@@ -161,6 +161,68 @@ Pobiera i pokazuje najnowsze zmiany z repozytorium pluginow.
 ## Automatyczne aktualizacje
 Gdy sa wlaczone, pluginy aktualizuja sie automatycznie. Najpierw nalezy aktualizowac OSPy, a dopiero potem pluginy.
 
+## Dostepne rozszerzenia
+* Usage Statistics
+* LCD Display
+* Pressure Monitor
+* Voice Notification
+* Pulse Output Test
+* Button Control
+* CLI Control
+* System Watchdog
+* Voltage and Temperature Monitor
+* Remote Notifications
+* System Information
+* Air Temperature and Humidity Monitor
+* Wind Speed Monitor
+* Weather-based Rain Delay
+* Relay Test
+* UPS Monitor
+* Water Consumption Counter
+* SMS Modem
+* Signaling Examples
+* E-mail Notifications
+* Remote FTP Control
+* System Update
+* Water Meter
+* Webcam Monitor
+* Weather-based Water Level Netatmo
+* Direct 16 Relay Outputs
+* MQTT
+* System Debug Information
+* Weather-based Water Level
+* Real Time and NTP time
+* Water Tank
+* Monthly Water Level
+* Pressurizer
+* Ping monitor
+* Temperature Switch
+* Pool Heating
+* E-mail Reader
+* Weather Stations
+* Telegram Bot
+* Door Opening
+* Voice Station
+* Venetian Blinds
+* Speed Monitor
+* E-mail Notifications SSL
+* Sunrise and Sunset
+* Photovoltaic Boiler
+* IP CAM
+* Modbus stations
+* CHMI
+* Proto
+* Label Maker
+* IP Scanner
+* Database Connector
+* OSPy Backup
+* MQTT Home Assistant
+* Shelly Cloud Integration
+* Current Loop Tanks Mmonitor
+* Network Ping Monitor
+* Weather Dashboard
+* Thermostat
+
 ----
 
 # Dziennik

@@ -1179,6 +1179,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Current Loop Tanks Mmonitor (měření hladiny ze 4 snímačů).
 * Network Ping Monitor (monitoring dostupnosti 3 zařízení v síti).
 * Weather Dashboard (zobrazení hodnot z ostatních rozšíření ve stylu ručičkových budíků) verze 2.0
+* Termostat
 ----
 
 # Odhlásit se

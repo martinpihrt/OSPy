@@ -1154,6 +1154,7 @@ Available plug-ins:
 * Current Loop Tanks Mmonitor
 * Network Ping Monitor
 * Weather Dashboard
+* Thermostat
 
 ----
 
