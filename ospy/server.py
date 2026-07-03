@@ -48,8 +48,10 @@ SESSION_SECRET_LENGTH = 64
 
 __server = None
 session = None
+sessions = None
 statistics_timer = None
 statistics_lock = Lock()
+sessions_lock = Lock()
 
 
 def _new_stats():
@@ -331,35 +333,44 @@ def start():
 
 def close_sessions():
     global sessions
-    if sessions is not None:
-        try:
-            log.debug('server.py', _('OSPy is closing, saving sessions.'))
-            logEV.save_events_log(_('Server'), _('Stopping'), id='Server')
-            log.debug('server.py', _('Closing shelve database.'))
+    with sessions_lock:
+        if sessions is not None:
+            try:
+                log.debug('server.py', _('OSPy is closing, saving sessions.'))
+                logEV.save_events_log(_('Server'), _('Stopping'), id='Server')
+                log.debug('server.py', _('Closing shelve database.'))
+                sessions.close()
+                sessions = None
+                log.debug('server.py', _('Shelve database closed successfully.'))
+            except Exception as e:
+                log.error('server.py', _('Error closing shelve database: {}').format(e))
 
-            # Check if shelve database is corrupted
-            def is_shelve_corrupted(file_path):
+
+def reset_session_store(remove_files=False):
+    """Close and re-open the session store while OSPy keeps running."""
+    global sessions
+
+    session_file = os.path.join('ospy', 'data', 'sessions.db')
+    with sessions_lock:
+        if sessions is not None:
+            try:
+                sessions.close()
+            except Exception as e:
+                log.error('server.py', _('Error closing session database before reset: {}').format(e))
+            sessions = None
+
+        if remove_files:
+            for db_file in glob.glob(session_file + '*'):
                 try:
-                    with shelve.open(file_path) as test_shelve:
-                        pass
-                    return False
-                except Exception:
-                    return True
+                    os.remove(db_file)
+                    log.debug('server.py', _('Removed session file: {}').format(db_file))
+                except Exception as e:
+                    log.error('server.py', _('Error removing session file {}: {}').format(db_file, e))
 
-            session_file = os.path.join('ospy', 'data', 'sessions.db')
-            if is_shelve_corrupted(session_file):
-                log.error('server.py', _('Shelve database is corrupted. Removing...'))
-                for db_file in glob.glob(session_file + '*'):
-                    try:
-                        os.remove(db_file)
-                        log.debug('server.py', _('Removed corrupted session file: {}').format(db_file))
-                    except Exception as rm_e:
-                        log.error('server.py', _('Error removing corrupted session file {}: {}').format(db_file, rm_e))
-
-            sessions.close()
-            log.debug('server.py', _('Shelve database closed successfully.'))
-        except Exception as e:
-            log.error('server.py', _('Error closing shelve database: {}').format(e))
+        sessions = shelve.open(session_file)
+        if session is not None:
+            session.store = web.session.ShelfStore(sessions)
+        log.info('server.py', _('Session database has been reset.'))
    
 def stop():
     global __server

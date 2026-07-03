@@ -1435,8 +1435,9 @@ class login_page(WebPage):
         if 'reset_session' in qdict:
             from ospy import server
             try:
-                server.session.kill()
                 autologin.clear_cookie()
+                server.reset_session_store(remove_files=True)
+                server.session.kill()
             except Exception:
                 log.debug('webpages.py', traceback.format_exc())
             raise web.seeother('/login', True)
