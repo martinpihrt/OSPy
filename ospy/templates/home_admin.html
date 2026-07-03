@@ -456,10 +456,20 @@ function dataTimer() {
     // Call to get plugin data
     jQuery.getJSON("/plugindata", function(piVals) {
         let i;
+        let pluginHtml = "";
         for(i = 0; i < piVals.fdata.length; i++) { // we update all data from plugins
-            let parID = 'piData'  + piVals.fdata[i][0]
-            jQuery('p#'+parID ).find('span[name="val"]').text(piVals.fdata[i][1])
-        } 
+            let item = piVals.fdata[i];
+            let label = jQuery("<span>").text(item.label).html();
+            let value = jQuery("<span>").text(item.val).html();
+            let unit = jQuery("<span>").text(item.unit).html();
+            let button = jQuery("<span>").text(item.button).html();
+            pluginHtml += '<p id="piData' + item.id + '">';
+            if (item.button && item.button != '-') {
+                pluginHtml += '<a href="/plugins/' + button + '" class="button upload">&nbsp;&nbsp;&#9210;&nbsp;&nbsp;</a>&nbsp;';
+            }
+            pluginHtml += '<span name="label">' + label + '</span>: <span name="val">' + value + '</span><span name="unit">' + unit + '</span></p>';
+        }
+        jQuery("#pluginPars").html(pluginHtml);
         
         for(i = 0; i < piVals.sendata.length; i++) { // we update all data from sensors
             let parID = 'seData'  + piVals.sendata[i][2]

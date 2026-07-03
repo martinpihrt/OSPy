@@ -2866,11 +2866,13 @@ class api_plugin_data(ProtectedPage):
             if options.show_plugin_data:
                 # Plugin data in footer
                 for i, v in enumerate(pluginFtr):
-                    existing_entry = next((item for item in footer_data if item[0] == i), None)
-                    if existing_entry:
-                        footer_data[footer_data.index(existing_entry)] = (i, v["val"])
-                    else:
-                        footer_data.append((i, v["val"]))
+                    footer_data.append({
+                        "id": i,
+                        "label": v["label"],
+                        "val": v["val"],
+                        "unit": v["unit"],
+                        "button": v["button"],
+                    })
                 # plugin data in timeline
                 for v in pluginStn:
                     if len(v) < 2:
