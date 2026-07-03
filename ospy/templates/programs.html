@@ -35,6 +35,7 @@ function confirmProgramDelete(message) {
                 </summary>
 
                 $if group_sequence:
+                    <div class="programSequenceLabel">$_('Program run order')</div>
                     <div class="programSequence">
                         $for entry in group_sequence:
                             <span class="programSequenceBlock" style="flex-grow:${entry['minutes']};" title="${entry['title']}">
@@ -42,6 +43,7 @@ function confirmProgramDelete(message) {
                                 <span class="programSequenceName">${entry['name']}</span>
                             </span>
                     </div>
+                    <div class="programSequenceDivider"></div>
 
                 <p>
                     <a href="/program/new?group_id=${group['id']}" class="button add">$_('Add a New Program')</a>

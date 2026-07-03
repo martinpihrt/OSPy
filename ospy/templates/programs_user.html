@@ -13,6 +13,7 @@ $var page: user
                     <b>${group['name']}</b> <span class="val">(${len(group_programs)})</span>
                 </summary>
                 $if group_sequence:
+                    <div class="programSequenceLabel">$_('Program run order')</div>
                     <div class="programSequence">
                         $for entry in group_sequence:
                             <span class="programSequenceBlock" style="flex-grow:${entry['minutes']};" title="${entry['title']}">
@@ -20,6 +21,7 @@ $var page: user
                                 <span class="programSequenceName">${entry['name']}</span>
                             </span>
                     </div>
+                    <div class="programSequenceDivider"></div>
                 $for program in group_programs:
                     <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
                     <p>
