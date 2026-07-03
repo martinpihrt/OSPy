@@ -6,11 +6,20 @@ $var page: user
 <div id="controls">
     $for group in programs.program_groups():
         $ group_programs = programs.programs_in_group(group['id'])
+        $ group_sequence = program_group_run_sequence(group['id'])
         $if group_programs:
             <details class="controlBlock programGroup" ${'' if group.get('collapsed') else 'open'}>
                 <summary>
                     <b>${group['name']}</b> <span class="val">(${len(group_programs)})</span>
                 </summary>
+                $if group_sequence:
+                    <div class="programSequence">
+                        $for entry in group_sequence:
+                            <span class="programSequenceBlock" style="flex-grow:${entry['minutes']};" title="${entry['title']}">
+                                <span class="programSequenceNumber">${entry['number']}</span>
+                                <span class="programSequenceName">${entry['name']}</span>
+                            </span>
+                    </div>
                 $for program in group_programs:
                     <div id="p${program.index}" class="controlBlock program ${'' if program.enabled else 'disabled'}">
                     <p>

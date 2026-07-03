@@ -412,6 +412,48 @@ span.stationName:last-child:after {
     cursor: pointer;
 }
 
+.programSequence {
+    display: flex;
+    align-items: stretch;
+    gap: 3px;
+    margin: 4px 8px 8px 8px;
+    padding: 2px 0 !important;
+    min-height: 26px;
+    overflow: hidden;
+}
+
+.programSequenceBlock {
+    display: inline-flex;
+    align-items: center;
+    min-width: 34px;
+    max-width: 180px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background-color: #397F19;
+    color: white;
+    font-size: 10pt;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.programSequenceNumber {
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.programSequenceName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.programGroupDivider {
+    border-top: 1px solid #2E3959;
+    margin: 6px 24px 8px 24px;
+    padding: 0 !important;
+}
+
 .program p:first-child {
     background-color: #2E3959;
     color: white

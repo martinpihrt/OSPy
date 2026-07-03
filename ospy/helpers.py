@@ -562,6 +562,77 @@ def minute_time_str(minute_time, with_seconds=False):
     return timedelta_time_str(datetime.timedelta(minutes=minute_time), with_seconds)
 
 
+def program_group_run_sequence(group_id, days=14):
+    """Return the next scheduled run per program in a group, ordered by scheduler output."""
+    from ospy.programs import programs
+    from ospy.scheduler import predicted_schedule
+
+    now = datetime.datetime.now()
+    date_time_start = datetime.datetime.combine(now.date(), datetime.time.min)
+    date_time_end = date_time_start + datetime.timedelta(days=days)
+    group_programs = programs.programs_in_group(group_id)
+    group_indexes = set(program.index for program in group_programs)
+    program_by_index = {program.index: program for program in group_programs}
+    occurrences = {}
+
+    if not group_indexes:
+        return []
+
+    for interval in predicted_schedule(date_time_start, date_time_end):
+        program_index = interval.get('program')
+        if program_index not in group_indexes or interval.get('blocked'):
+            continue
+
+        original_start = interval.get('original_start', interval.get('start'))
+        key = (program_index, original_start)
+        if key not in occurrences:
+            occurrences[key] = {
+                'program': program_by_index[program_index],
+                'start': interval['start'],
+                'end': interval['end'],
+                'stations': set()
+            }
+        else:
+            occurrences[key]['start'] = min(occurrences[key]['start'], interval['start'])
+            occurrences[key]['end'] = max(occurrences[key]['end'], interval['end'])
+        occurrences[key]['stations'].add(interval.get('station'))
+
+    next_by_program = {}
+    for occurrence in occurrences.values():
+        program = occurrence['program']
+        if program.index not in next_by_program or occurrence['start'] < next_by_program[program.index]['start']:
+            next_by_program[program.index] = occurrence
+
+    result = []
+    for occurrence in sorted(next_by_program.values(), key=lambda item: (item['start'], item['program'].index)):
+        program = occurrence['program']
+        minutes = max(1, int(round((occurrence['end'] - occurrence['start']).total_seconds() / 60)))
+        station_names = []
+        try:
+            from ospy.stations import stations
+            station_names = [stations.get(station).name for station in sorted(occurrence['stations']) if station is not None]
+        except Exception:
+            station_names = []
+        result.append({
+            'number': program.index + 1,
+            'name': program.name,
+            'minutes': minutes,
+            'start': occurrence['start'],
+            'end': occurrence['end'],
+            'title': '{} {}: {} - {}, {} {}, {}'.format(
+                _('Program'),
+                program.index + 1,
+                occurrence['start'].strftime('%Y-%m-%d %H:%M'),
+                occurrence['end'].strftime('%H:%M'),
+                minutes,
+                _('min'),
+                ', '.join(station_names)
+            )
+        })
+
+    return result
+
+
 def short_day(index):
     return [_('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat'), _('Sun')][index]
 

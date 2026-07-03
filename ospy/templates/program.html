@@ -300,6 +300,15 @@ jQuery(document).ready(function(){
     check_type();
     jQuery("#simple_repeat").change(check_repeat);
     check_repeat();
+    jQuery("button.programSwitch").click(function(){
+        var target = jQuery(jQuery(this).attr("data-target"));
+        var checked = !target.prop("checked");
+        target.prop("checked", checked).trigger("change");
+        jQuery(this)
+            .toggleClass("on", checked)
+            .toggleClass("off", !checked);
+        return false;
+    });
 
     jQuery("#intervalSelector").click(function() {
         var dayInterval = parseInt(jQuery("#intervalSelector .intervalSelect.distance0").text());
@@ -379,7 +388,12 @@ jQuery(document).ready(function(){
 
                 <div class='option' style="white-space: nowrap">
                     <span class="program_label">$_('Enabled'):</span>
-                    <input name="enabled" type="checkbox" ${'checked' if program.enabled else ''}>
+                    <input id="enabled" name="enabled" type="checkbox" ${'checked' if program.enabled else ''} style="display:none;">
+                    <button type="button" class="programSwitch button toggle narrow ${'on' if program.enabled else 'off'}" data-target="#enabled">
+                        <span class="toggleleft">$_('On')</span>
+                        <span class="togglesep">&nbsp;</span>
+                        <span class="toggleright">$_('Off')</span>
+                    </button>
                 </div>
 
                 <div class='option' style="white-space: nowrap">
@@ -395,7 +409,12 @@ jQuery(document).ready(function(){
                 <div id="adjustment_controls" style="display: none;">
                     <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Do not apply any adjustments to intervals of this program.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('No adjustments'):</span>
-                        <input name="fixed" type="checkbox" ${'checked' if program.fixed else ''}>
+                        <input id="fixed" name="fixed" type="checkbox" ${'checked' if program.fixed else ''} style="display:none;">
+                        <button type="button" class="programSwitch button toggle narrow ${'on' if program.fixed else 'off'}" data-target="#fixed">
+                            <span class="toggleleft">$_('On')</span>
+                            <span class="togglesep">&nbsp;</span>
+                            <span class="toggleright">$_('Off')</span>
+                        </button>
                     </div>
                     <div class='option' style="white-space: nowrap" title=$:{json.dumps(_('Skip the program if the total adjustment is lower than this percentage.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
                         <span class="program_label">$_('Cut-off'):</span>
@@ -489,7 +508,12 @@ jQuery(document).ready(function(){
             </div>
             <div class='option' style="white-space: nowrap">
                 <span class="program_label">$_('Repeat'):</span>
-                <input id="simple_repeat" name="simple_repeat" type="checkbox" ${'checked' if program.repeat_times() > 0 else ''}>
+                <input id="simple_repeat" name="simple_repeat" type="checkbox" ${'checked' if program.repeat_times() > 0 else ''} style="display:none;">
+                <button type="button" class="programSwitch button toggle narrow ${'on' if program.repeat_times() > 0 else 'off'}" data-target="#simple_repeat">
+                    <span class="toggleleft">$_('On')</span>
+                    <span class="togglesep">&nbsp;</span>
+                    <span class="toggleright">$_('Off')</span>
+                </button>
             </div>
             <div class='repeat option' style="white-space: nowrap">
                 <span class="program_label">$_('Repetitions'):</span>
