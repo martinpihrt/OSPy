@@ -1,314 +1,1186 @@
-Przewodnik po interfejsie WWW OSPy po polsku
+Przewodnik po interfejsie webowym OSPy w jezyku polskim
 ====
 
     Instalacja OSPy
-    Logowanie
-    Strona glowna
+    Zaloguj się
+    Strona główna
+        Normalny - % czasu programu
+        Aktywne – Opóźnienie spowodowane deszczem
+        Harmonogram — ręczny
+        Włączone - wyłączone
+        Zatrzymaj wszystkie stacje
+        Statystyka nawadniania (wykres)
+        Pomijane przez opóźnienie spowodowane deszczem
+        Wykryty deszcz
+        CPU temp
+        CPU użycia
+        Wersja oprogramowania
+        Zewnętrzny adres IP
+        Czas pracy
     Programy
-    Jednorazowe uruchomienie
-    Rozszerzenia
-    Dziennik
+        Dodaj nowy program
+        Grupy programów
+        Dodaj grupę
+        Zmień nazwę grupy
+        Włącz lub wyłącz grupę
+        Kopiuj grupę
+        Usuń grupę
+        Uruchom teraz
+        Edytuj
+        Kopiuj
+        Przejdź do grupy
+        Usuń wszystko
+        Włącz lub wyłącz program
+        Ostrzeżenie o kolizji
+        Typ harmonogramu
+            Wybrane dni (proste)
+                Czas rozpoczęcia
+                Czas trwania
+                Powtórz
+                Powtórzenia
+                Pauza
+            Wybrane dni (przedłużone)
+                Harmonogram
+            Powtórzenie (proste)
+                Przerwa wodna
+                Rozpoczęcie w
+                Czas rozpoczęcia
+                Czas trwania
+                Powtórz
+                Powtórzenia
+                Pauza
+            Powtórzenie (rozszerzone)
+                Przerwa wodna
+                Rozpoczęcie w
+                Harmonogram
+            Co tydzień (rozszerzony)
+                poniedziałek-niedziela
+            Niestandardowe
+                Przerwa wodna
+                Rozpoczęcie w
+                Dzień 1 - Dzień 7
+            Co tydzień (prognoza pogody)
+                Nawadnianie min
+                Nawadnianie maks
+                Uruchom maks
+                Stosunek pauzy
+                Preferowane momenty wykonania
+                    Dzień
+                    Czas rozpoczęcia
+                    Priorytet
+                    Dodaj - Usuń
+        Żadnych dostosowań
+        Odcięcie
+        Aktywuj Mistrza
+    Uruchom raz
+        Uruchom teraz
+        Resetuj czas
+    Wtyczki
+        Zarządzaj
+        Zainstaluj nową wtyczkę
+            Wtyczka niestandardowa (ZIP)
+            Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
+        Wyłącz wszystko
+        Włącz wszystko
+        Włącz sprawdzanie aktualizacji
+        Załaduj zmiany
+        Zmiany
+        Automatyczne aktualizacje
+    Zaloguj
+        Pobierz dziennik jako
+        Wyczyść dziennik
+        Usuń rekord E-mail
     Ustawienia
-    Stacje
+        Systemu
+            Pokaż podpowiedzi
+            Nazwa systemu
+            Motyw systemowy
+            Zegar 24-godzinny
+            HTTP Adres IP
+                Informacje o numerze portu
+            HTTP/S port
+            Pokaż wtyczki na stronie głównej
+            Pokaż czujniki w domu
+            Język systemu
+            Pokaż zdjęcia na stacjach
+        Pogoda
+            Użyj Pogody
+            Klucz API Stormglass
+            Lokalizacja
+        Użytkownicy
+            Wyłącz zabezpieczenia
+            Nazwa administratora
+            Aktualne hasło
+            Nowe hasło
+            Potwierdź hasło
+            Dodatkowi użytkownicy
+        Bezpieczeństwo
+            Ochrona formularzy
+            Użyj dostępu HTTPS
+            Nazwa domeny
+            Użyj własnego dostępu HTTPS
+            Źródło API obsługujące CORS
+            Włącz API JSONP
+            Zapamiętane loginy do przeglądarki
+        Czujniki
+            Hasło przesyłania oprogramowania sprzętowego
+        Skonfiguruj stacje
+            Użycie
+                Informacje o trybach sekwencyjnych i współbieżnych
+            Liczba wyjść
+            Przerwa między sekcjami
+            Minimalny czas działania
+        Skonfiguruj Mistrza
+            Stacja główna
+            Opanuj dwie stacje
+            Aktywuj przekaźnik
+            Przesunięcie startu sekcji głównej
+            Przesunięcie wyłączenia sekcji głównej
+            Przesunięcie startu sekcji głównej 2
+            Przesunięcie wyłączenia sekcji głównej 2
+        Czujnik deszczu
+            Użyj czujnika
+            Normalnie otwarte
+            Ustaw opóźnienie deszczu
+            Czas opóźnienia w przypadku deszczu
+        Rejestrowanie
+            Włącz dziennik uruchomień
+            Maksymalna liczba wpisów biegu
+            Aktywuj nagrywanie e-maili
+            Maksymalna liczba wpisów biegu
+            Włącz dziennik zdarzeń
+            Maksymalna liczba wpisów biegu
+            Włącz dziennik debugowania
+        Uruchom ponownie system
+            Uruchom ponownie
+            Uruchom ponownie
+            Wyłączenie
+            Domyślne
+        Kopia zapasowa systemu
+            Pobierz
+            Prześlij
+        Certyfikat SSL
+            Prześlij
+            Wygeneruj
+    Stacja
+        Stacja
+        Imię
+        Użycie
+        Nawadnianie
+        Magazyn
+        Współczynnik ETo
+        Regulacja balansu
+        Połączono
+        Ignoruj ​​deszcz
+        NA głównym?
+            Nieużywany
+            WŁ. Główne
+            WŁ. Główne 2
+            WŁ. Główny program 1/2
+        Notatki
+        Obraz
     Czujniki
+        Dodaj nowy czujnik
+            Właściwości czujników
+        Usuń wszystkie czujniki
     Pomoc
-    Wylogowanie
+        OSPy
+            Readme
+            Changelog
+            Programs
+            Web Interface Guide - Czech
+            Web Interface Guide - English
+            Web Interface Guide - German
+            Web Interface Guide - Polish
+            Web Interface Guide - Russian
+            Web Interface Guide - Serbian
+            Web Interface Guide - Slovak
+        API
+            Readme
+            Szczegóły
+        Plug-ins
+            Readme
+            Usage Statistics
+            LCD Display
+            Pressure Monitor
+            Voice Notification
+            Pulse Output Test
+            Button Control
+            CLI Control
+            System Watchdog
+            Voltage and Temperature Monitor
+            Remote Notifications
+            System Information
+            MQTT
+            Air Temperature and Humidity Monitor
+            Wind Speed Monitor
+            Weather-based Rain Delay
+            Relay Test
+            UPS Monitor
+            Water Consumption Counter
+            SMS Modem
+            Signaling Examples
+            Email Notifications
+            Remote FTP Control
+            System Update
+            Water Meter
+            Webcam Monitor
+            Weather-based Water Level Netatmo
+            Direct 16 Relay Outputs
+            MQTT Zone Broadcaster
+            System Debug Information
+            Weather-based Water Level
+            Real Time and NTP time
+            Water Tank
+            Humidity Monitor
+            Monthly Water Level
+            Pressurizer
+            Ping monitor
+            Temperature Switch
+            Pool Heating
+            E-mail Notifications SSL
+            Sunrise and Sunset
+            Photovoltaic Boiler
+            IP CAM
+            Modbus stations
+            CHMI
+            Proto
+            Label Maker
+            IP Scanner
+            Database Connector
+            OSPy Backup
+            MQTT Home Assistant
+            Shelly Cloud Integration
+            Current loop tanks monitor
 
 ----
 
 # Instalacja OSPy
-Zalecana jest czysta instalacja z aktualna wersja Python 3. Przy pierwszym uruchomieniu OSPy tworzy dane logowania. Po zalogowaniu nalezy zmienic haslo i w razie potrzeby nazwe uzytkownika w ustawieniach.
+Zalecamy wykonanie czystej instalacji najnowszej wersji Pythona 3+. Przy pierwszym uruchomieniu OSPy (strona logowania) generowane są dane uwierzytelniające (hasło) umożliwiające zalogowanie się do systemu OSPy. po zalogowaniu konieczna jest zmiana danych logowania w ustawieniach (strona opcji). Wygenerowane dane uwierzytelniające są również przechowywane w systemie OSPy jako dane logowania. Przy następnym logowaniu okno z wygenerowanymi danymi do logowania nie będzie już wyświetlane.
 
-## Skrypt instalacyjny
-Zaloguj sie do Raspberry Pi przez SSH i uruchom:
+## KORZYSTANIE Z SKRYPTU INSTALACYJNEGO
+Zaloguj się do Pi za pomocą SSH. Wpisz lub skopiuj i wklej następujące polecenie:
+Pamiętaj: w poleceniach Raspberry Pi rozróżniana jest wielkość liter.
+*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
+I nie tylko
 
-```bash
-wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
-sudo bash ospy_setup.sh
-```
+*sudo bash ospy_setup.sh*
 
-Po zakonczeniu instalacji Raspberry Pi zostanie uruchomione ponownie, a OSPy bedzie gotowe do konfiguracji przez przegladarke.
-
-----
-
-# Logowanie
-Strona logowania zawiera pola nazwy uzytkownika i hasla. Domyslny uzytkownik to `admin`. Przy nowej instalacji generowane jest losowe haslo, ktore nalezy pozniej zmienic.
+Pojawi się menu ustawień OSPy. Opcjonalnie: Do poruszania się pomiędzy opcjami służą klawisze strzałek. Naciśnij spację, aby zaznaczyć lub odznaczyć opcję. W większości przypadków zalecane są opcje domyślne. Naciśnij klawisz Tab, aby przejść do . Naciśnij Enter, a następnie użyj klawiszy strzałek, aby wybrać lokalizację, w której zostanie zainstalowany OSPy. Naciśnij ponownie Enter, aby zainstalować OSPy. W zależności od wybranych opcji proces instalacji może zająć kilka minut. Po zainstalowaniu OSPy pojawi się okno dialogowe. Naciśnij Enter, aby ponownie uruchomić Pi. Po ponownym uruchomieniu Pi, OSPy będzie gotowe do podłączenia do systemu nawadniania OSPy i zaprogramowania go zgodnie z harmonogramami nawadniania. Zacznij od sekcji Otwieranie interfejsu sieciowego OSPy.
 
 ----
 
-# Strona glowna
-Strona glowna jest centrum sterowania. Pokazuje zegar, pasek nawigacji, globalne przelaczniki, os czasu, wykresy, informacje systemowe i elementy dodawane przez rozszerzenia.
+# Wyloguj się
+Po kliknięciu przycisku „Wyloguj się” użytkownik wylogowuje się z systemu.
+    Wyloguj się
 
-## Normalny poziom wody
-Ustawia globalny procentowy poziom wody, ktory zmienia czas pracy programow.
+----
 
-## Aktywne opoznienie deszczowe
-Wstrzymuje podlewanie dla stacji, ktore nie ignoruja deszczu.
+# Zaloguj się
+Strona logowania zawiera pole tekstowe umożliwiające wprowadzenie nazwy i hasła. Domyślna nazwa to **admin**. Podczas pierwszej instalacji zostanie wygenerowane losowe hasło (hasło to należy następnie w ustawieniach zmienić na inne! Na stronie - zakładka „Ustawienia” zaleca się zmianę hasła (lub nawet nazwy) na własne, nowe hasło.
+Wpisz nazwę, hasło i kliknij przycisk **ZALOGUJ SIĘ**.
 
-## Harmonogram - Recznie
-Przelacza system miedzy trybem automatycznym i recznym sterowaniem stacjami.
 
-## Wlaczony - Wylaczony
-Steruje ogolnym dzialaniem OSPy.
+----
+
+# Strona główna
+Strona główna jest głównym centrum sterowania interfejsem internetowym. Obejmuje to:
+
+* Zegar pokazujący aktualny czas Na wszystkich stronach.
+* Pasek nawigacyjny u góry umożliwiający poruszanie się pomiędzy stronami. Interfejs znajduje się także na innych stronach oprócz strony logowania.
+* Zestaw przycisków do wprowadzania globalnych zmian w zachowaniu systemu.
+* Oś czasu zawierająca informacje o zakończonych i zaplanowanych zdarzeniach związanych z nawadnianiem.
+* Wykres przedstawiający informacje o zdarzeniach związanych z nawadnianiem.
+* Stopka znajdująca się na wszystkich stronach (jeśli użytkownik jest zalogowany). Stopka zawiera: temperaturę procesora, wykorzystanie procesora, wersję oprogramowania, zewnętrzny adres IP, czas działania systemu operacyjnego.
+* Niektóre rozszerzenia mogą dodawać stronę główną i inne elementy. Na przykład rozszerzenie astralne dodaje do osi czasu graficzne reprezentacje wschodu i zachodu słońca. Kolumna graficzna monitorująca zbiornik wyrównawczy z objętością i ilością wody.
+
+
+## Normalny - % czasu programu
+Przycisk umożliwiający ustawienie „poziomu wody” jako procentu całkowitego czasu działania wszystkich programów nawadniających (w przypadku programów można zwiększyć lub zmniejszyć ustawiony czas).
+
+## Aktywne — opóźnienie spowodowane deszczem
+Opóźnienie spowodowane deszczem. Przycisk umożliwiający wstrzymanie nawadniania na określony czas dla wszystkich stacji z wyjątkiem tych, które na stronie Stacje zostały ustawione tak, aby ignorowały deszcz.
+
+## Harmonogram — ręczny
+Harmonogram — ręczny. Przycisk przełączający system pomiędzy trybem harmonogramu (tryb automatyczny) a trybem ręcznym, który umożliwia bezpośrednie sterowanie stacjami.
+
+## Włączone - wyłączone
+Przycisk umożliwiający włączenie lub wyłączenie działania programu OSPy (jeśli jest wyłączony, harmonogram nie będzie uruchamiany).
 
 ## Zatrzymaj wszystkie stacje
-Natychmiast zatrzymuje uruchomiony program lub stacje.
+Przycisk „Zatrzymaj wszystkie stacje” służy do natychmiastowego anulowania trwającego programu nawadniania lub aktywnej stacji.
 
-## Wykres bilansu wody
-Pokazuje ilosc wody dostarczona przez programy lub stacje.
+## Statystyka nawadniania (wykres)
+Jeśli w harmonogramie ustawiony jest przynajmniej jeden program, na dole ekranu zostanie narysowany wykres z ilością wody dostarczonej dla każdej stacji (programów).
 
-## Deszcz i opoznienie deszczowe
-Aktywny czujnik deszczu albo opoznienie deszczowe blokuje odpowiednie stacje.
+## Pomijane przez opóźnienie spowodowane deszczem
+Jeśli włączone jest opóźnienie deszczu, wyświetli się „Stłumione przez opóźnienie deszczu”, a wszystkie stacje (z wyjątkiem tych, które na stronie Stacje ustawione są na ignorowanie deszczu) zostaną zablokowane na pewien czas.
 
-## Informacje systemowe
-Stopka pokazuje temperature CPU, uzycie CPU, wersje oprogramowania, zewnetrzny adres IP i czas pracy.
+## Wykryty deszcz
+Jeśli czujnik deszczu jest aktywny, wyświetli się „Tłumiony przez czujnik deszczu” i wszystkie stacje (z wyjątkiem tych, które na stronie Stacje zostały ustawione na ignorowanie deszczu) zostaną zablokowane.
+
+## CPU temp
+Temperatura procesora Raspberry pi. Wyświetlaną temperaturę można przełączać pomiędzy C i F.
+
+## CPU użycia
+Korzystanie z procesora Raspberry pi. Użycie jest pokazane w %.
+
+## Wersja oprogramowania
+Link do repozytorium oprogramowania projektu i numer wersji zainstalowanego oprogramowania.
+
+## Zewnętrzny adres IP
+Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - routera). Testowane na pihrt.com.
+
+## Czas pracy
+Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia).
 
 ----
 
 # Programy
-Strona Programy sluzy do tworzenia, organizowania i uruchamiania harmonogramow podlewania.
-
 ## Dodaj nowy program
-Tworzy nowy program harmonogramu.
+Za pomocą przycisku „Dodaj nowy program” tworzymy nowy program planujący.
 
-## Grupy programow
-Programy mozna porzadkowac w zwijanych grupach, na przyklad programy letnie i zimowe.
+## Grupy programów
+Programy można organizować w rozwijane grupy. Grupy nadają się np. do oddzielenia programów letnich i zimowych, czy też do wyraźnego podziału na części ogrodu.
 
-## Dodaj grupe
-Tworzy nowa grupe programow.
+## Dodaj grupę
+Użyj przycisku „Dodaj grupę”, aby utworzyć nową grupę programów.
 
-## Zmien nazwe grupy
-Zmienia tylko nazwe grupy, bez zmiany programow w srodku.
+## Zmień nazwę grupy
+Akcja zmiany nazwy grupy zmienia jedynie nazwę grupy. Programy przypisane do grupy zostaną zachowane.
 
-## Wlacz lub wylacz grupe
-Wlacza albo wylacza wszystkie programy w grupie jednoczesnie.
+## Włącz lub wyłącz grupę
+Akcja WŁ./WYŁ. grupy włącza lub wyłącza jednocześnie wszystkie programy w tej grupie. Nadaje się na przykład do sezonowego przełączania kilku programów.
 
-## Kopiuj grupe
-Tworzy kopie grupy i jej programow. Skopiowane programy sa domyslnie wylaczone.
+## Kopiuj grupę
+Akcja kopiowania tworzy nową grupę i kopiuje do niej wszystkie programy z oryginalnej grupy. Skopiowane programy są blokowane, więc nie działają, dopóki ich nie sprawdzimy.
 
-## Usun grupe
-Usuniecie wymaga potwierdzenia. Programy z usunietej grupy wracaja do grupy domyslnej.
+## Usuń grupę
+Usunięcie grupy wymaga potwierdzenia. Programy z usuniętej grupy zostaną przeniesione do grupy domyślnej.
 
 ## Uruchom teraz
-Natychmiast uruchamia program niezaleznie od harmonogramu.
+Za pomocą przycisku „Uruchom teraz” uruchamiamy program natychmiast, niezależnie od godziny i daty harmonogramu.
 
 ## Edytuj
-Otwiera parametry istniejacego programu.
+Przycisk „Edytuj” służy do modyfikacji parametrów już utworzonego programu.
 
 ## Kopiuj
-Tworzy wylaczona kopie programu do bezpiecznej edycji.
+Przycisk „Kopiuj” tworzy kopię wybranego programu. Kopiowanie jest domyślnie wyłączone, więc możemy bezpiecznie zmodyfikować je przed użyciem w harmonogramie.
 
-## Przenies do grupy
-Przypisuje program do wybranej grupy.
+## Przejdź do grupy
+Program można przypisać do grupy na stronie edycji programu. Spowoduje to jedynie zmianę jego lokalizacji na stronie Programy.
 
-## Usun wszystko
-Po potwierdzeniu usuwa wszystkie programy.
+## Usuń wszystko
+Przycisk „Usuń wszystko” po potwierdzeniu usunie wszystkie istniejące programy.
 
-## Wlacz lub wylacz program
-Przelacznik ON/OFF wlacza albo wylacza pojedynczy program.
+## Włącz lub wyłącz program
+Przełącznik „ON/OFF” umożliwia włączenie/wyłączenie utworzonego programu w harmonogramie.
 
-## Ostrzezenia o konfliktach
-Podczas zapisu OSPy sprawdza wlaczone programy pod katem nakladania sie czasu na tej samej stacji lub wyjsciu. Ostrzezenie nie blokuje programu automatycznie.
+## Ostrzeżenie o kolizji
+Podczas zapisywania programu OSPy sprawdza dozwolone programy i szuka nakładania się zaplanowanych uruchomień na tej samej stacji/wyjściu. Jeśli w tym samym czasie zaplanowany jest inny program, na stronie Programy zostanie wyświetlone powiadomienie z nałożeniem się czasu. To tylko ostrzeżenie, program nie zostanie automatycznie zablokowany ani zmodyfikowany.
 
 ## Typ harmonogramu
-Dostepne sa wybrane dni, powtarzanie, tryb tygodniowy, tryb wlasny oraz programy pogodowe. W zaleznosci od typu ustawia sie start, czas trwania, powtorzenia, przerwy, interwaly, dni tygodnia albo priorytety.
+Typ harmonogramu pozwala wybrać odpowiedni typ programu zgodnie z naszymi wymaganiami (wybrane dni, powtórzenia, tygodniowe, niestandardowe i programy oparte na prognozie pogody).
 
-## Bez korekt
-Dla programu nie sa stosowane automatyczne korekty czasu.
+### Wybrane dni (proste)
 
-## Odciecie
-Jesli skorygowany czas pracy jest krotszy niz ustawiony limit, program zostanie pominiety.
+#### Czas rozpoczęcia
 
-## Aktywuj stacje glowna
-Stacje ustawione na aktywacje mastera przez program uzyja mastera wybranego w programie.
+#### Czas trwania
+
+#### Powtórz
+
+#### Powtórzenia
+
+#### Pauza
+
+### Wybrane dni (przedłużone)
+
+#### Harmonogram
+
+### Powtórzenie (proste)
+
+#### Przerwa wodna
+
+#### Rozpoczęcie w
+
+#### Czas rozpoczęcia
+
+#### Czas trwania
+
+#### Powtórz
+
+#### Powtórzenia
+
+#### Pauza
+
+### Powtórzenie (rozszerzone)
+
+#### Przerwa wodna
+
+#### Rozpoczęcie w
+
+#### Harmonogram
+
+### Co tydzień (rozszerzony)
+
+#### poniedziałek-niedziela
+
+### Niestandardowe
+
+#### Przerwa wodna
+
+#### Rozpoczęcie w
+
+#### Dzień 1 - Dzień 7
+
+### Co tydzień (prognoza pogody)
+
+#### Nawadnianie min
+
+#### Nawadnianie maks
+
+#### Uruchom maks
+
+#### Stosunek pauzy
+
+#### Preferowane momenty wykonania
+
+#### Dzień
+
+#### Czas rozpoczęcia
+
+#### Priorytet
+
+#### Dodaj - Usuń
+
+## Żadnych dostosowań
+Żadne modyfikacje nie zostaną zastosowane w tym programie (na przykład skrócenie lub wydłużenie czasu)
+
+## Odcięcie
+Jeśli skorygowany czas działania programu będzie krótszy niż ustawiony czas, program zostanie pominięty (na przykład skorygowany czas działania z przedłużenia prognozy pogody lub miesięczna korekta ilości wody i inne rozszerzenia). Czas jest podany w procentach.
+
+## Aktywuj Mistrza
+Wszystkie stacje, które mają ustawioną opcję „Aktywuj Master 1/2 według programu”, aktywują Master Station 1/2 zgodnie z tym przypisaniem w programie. Powiadomienie! w przypadku stacji, które mają ustawioną opcję „Aktywuj główną 1/2 według programu”, nie można używać opcji sterowania „jednorazowe uruchomienie” i „instrukcja_wł”. Uruchomi się tylko stacja, a nie stacja główna (1 lub 2)! To ustawienie jest dostępne tylko wtedy, gdy używasz obu stacji głównych!
 
 ----
 
-# Jednorazowe uruchomienie
-Ta strona sluzy do testow lub jednorazowego podlewania. Dla kazdej stacji mozna ustawic minuty i sekundy.
+# Uruchom raz
+
+Strona „Uruchom raz” przedstawia listę dozwolonych stacji z polem minuty i sekundy dla każdej. Na tej stronie można jednorazowo przetestować i zapewnić dodatkowe nawadnianie.
 
 ## Uruchom teraz
-Uruchamia zaznaczone stacje.
+Przycisk aktywuje wszystkie wybrane zaprogramowane stacje.
 
 ## Resetuj czas
-Usuwa ustawione czasy.
+Przycisk usunie wszystkie zaprogramowane czasy dla wszystkich stacji.
 
 ----
 
-# Rozszerzenia
-Strona rozszerzen sluzy do zarzadzania pluginami.
+# Wtyczki
 
-## Zarzadzaj
-Otwiera menedzer rozszerzen, gdzie pluginy mozna wlaczac, wylaczac, instalowac i aktualizowac.
+Na stronie „Wtyczki” możemy konfigurować lub sterować wszystkimi rozszerzeniami w systemie OSPy.
 
-## Zainstaluj nowe rozszerzenie
-Pokazuje dostepne rozszerzenia z repozytorium.
+## Zarządzaj
 
-## Wlasny plugin ZIP
-Instaluje plugin z pliku ZIP. Plik musi zawierac kompletna strukture pluginu.
+Kliknięcie przycisku „Zarządzaj” spowoduje otwarcie okna menedżera rozszerzeń w OSPy. Wszystkie dostępne rozszerzenia można włączać, wyłączać, instalować z repozytorium itp.
 
-Instalacja lub aktualizacja pluginu uruchamia kod z wybranego zrodla. OSPy przed instalacja lub aktualizacja pokazuje URL repozytorium i prosi o potwierdzenie. Akcja Wczytaj zmiany pokazuje komunikat sprawdzania podczas kontaktu ze zdalnym repozytorium.
+## Zainstaluj nową wtyczkę
 
-## Wylacz wszystko / Wlacz wszystko
-Steruje wszystkimi zainstalowanymi rozszerzeniami naraz.
+Po kliknięciu przycisku „Zainstaluj nową wtyczkę” otworzy się okno zdalnego repozytorium, w którym możemy wybrać dostępne rozszerzenia do zainstalowania w systemie OSPy oraz zapoznać się z ogólnymi informacjami na temat rozszerzeń.
 
-## Sprawdzanie aktualizacji
-Automatycznie sprawdza, czy sa dostepne nowe wersje pluginow.
+### Wtyczka niestandardowa (ZIP)
+Menedżer rozszerzeń umożliwia zainstalowanie w systemie OSPy własnego rozszerzenia, które nie jest publikowane w zdalnym repozytorium (np. Twoje rozszerzenie osobiste). Za pomocą przycisku „przeglądaj” wybieramy na naszym komputerze żądany plik do zainstalowania w systemie OSPy. Plik rozszerzenia (zip) musi zawierać pełną strukturę rozszerzenia (init, szablony, i18n, readme itp.).
 
-## Wczytaj zmiany / Zmiany
-Pobiera i pokazuje najnowsze zmiany z repozytorium pluginow.
+### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
+W powyższej lokalizacji znajduje się repozytorium dostępnych rozszerzeń dla systemu OSPy.
+
+Instalacja lub aktualizacja rozszerzenia uruchamia kod z wybranego źródła. OSPy wyświetli adres URL repozytorium i poprosi o potwierdzenie przed instalacją lub aktualizacją. Akcja Pobierz zmiany podczas łączenia się ze zdalnym repozytorium wyświetla komunikat o trwającym sprawdzaniu.
+
+## Wyłącz wszystko
+Przycisk wyłącza wszystkie zainstalowane rozszerzenia.
+
+## Włącz wszystko
+Przycisk włącza wszystkie zainstalowane rozszerzenia.
+
+## Włącz sprawdzanie aktualizacji
+Gdy przycisk jest aktywny, po godzinie automatycznie sprawdzana jest dostępność nowej wersji rozszerzenia w zdalnym repozytorium. Gdy dostępna będzie nowa wersja, obok rozszerzenia pojawi się komunikat „aktualizacja”.
+
+## Załaduj zmiany
+Przycisk pobiera najnowszą listę dostępnych zmian z repozytorium zdalnych rozszerzeń.
+
+## Zmiany
+Przycisk otwiera przegląd dostępnych zmian rozszerzeń i informacje o aktualizacji.
 
 ## Automatyczne aktualizacje
-Gdy sa wlaczone, pluginy aktualizuja sie automatycznie. Najpierw nalezy aktualizowac OSPy, a dopiero potem pluginy.
-
-## Dostepne rozszerzenia
-* Usage Statistics
-* LCD Display
-* Pressure Monitor
-* Voice Notification
-* Pulse Output Test
-* Button Control
-* CLI Control
-* System Watchdog
-* Voltage and Temperature Monitor
-* Remote Notifications
-* System Information
-* Air Temperature and Humidity Monitor
-* Wind Speed Monitor
-* Weather-based Rain Delay
-* Relay Test
-* UPS Monitor
-* Water Consumption Counter
-* SMS Modem
-* Signaling Examples
-* E-mail Notifications
-* Remote FTP Control
-* System Update
-* Water Meter
-* Webcam Monitor
-* Weather-based Water Level Netatmo
-* Direct 16 Relay Outputs
-* MQTT
-* System Debug Information
-* Weather-based Water Level
-* Real Time and NTP time
-* Water Tank
-* Monthly Water Level
-* Pressurizer
-* Ping monitor
-* Temperature Switch
-* Pool Heating
-* E-mail Reader
-* Weather Stations
-* Telegram Bot
-* Door Opening
-* Voice Station
-* Venetian Blinds
-* Speed Monitor
-* E-mail Notifications SSL
-* Sunrise and Sunset
-* Photovoltaic Boiler
-* IP CAM
-* Modbus stations
-* CHMI
-* Proto
-* Label Maker
-* IP Scanner
-* Database Connector
-* OSPy Backup
-* MQTT Home Assistant
-* Shelly Cloud Integration
-* Current Loop Tanks Mmonitor
-* Network Ping Monitor
-* Weather Dashboard
-* Thermostat
+Gdy przycisk jest aktywny, to rozszerzenie zostanie automatycznie zaktualizowane, gdy dostępna będzie nowa wersja rozszerzenia. Ostrzeżenie: OSPy stale się rozwija i jeśli nastąpi poważna zmiana w OSPy, a użytkownik nie zaktualizuje OSPy, rozszerzenie może nie działać po aktualizacji. Zawsze najpierw aktualizuj OSPy, a potem wszystkie rozszerzenia!
 
 ----
 
-# Dziennik
-Strona dziennika pokazuje zapisy podlewania, e-maili i zdarzen. Dane mozna pobrac jako CSV albo usunac. Usuniecie jest nieodwracalne.
+# Zaloguj
+Za pomocą strony "Zaloguj" możemy przeglądać wszystkie logi zapisane w systemie OSPy. Liczbę rekordów ustawia się na stronie „Ustawienia”.
+
+## Pobierz dziennik jako
+Link „Pobierz zapis w formacie Excel log.csv” umożliwia zapisanie zapisu przebiegu nawadniania w postaci pliku csv (program Excel) na komputerze.
+* Struktura tabeli jest następująca: Data, Godzina rozpoczęcia, Strefa, Czas trwania, Program. Daty oddzielamy przecinkiem.
+* Przykład: 2019-08-12 05:00:00 Filtrowanie 60:00 Filtrowanie
+
+Link „Pobierz dziennik w formacie dziennika Excel e-mail.csv.” pozwala na zapisanie historii wysłanych e-maili na komputerze w postaci pliku csv (program Excel).
+* Struktura tabeli jest następująca: Data, Godzina, Temat, Treść, Status. Daty oddzielamy przecinkiem.
+* Przykład: 2019-08-12 06:00:04 Wysłano SYSTEM DOMOWY Zakończono podlewanie-> Program: Filtracja , Stacja: Filtracja , Start: 2019-08-12 05:00:00 , Czas trwania: 60:00 , Woda-> Ilość wody w zbiorniku: Poziom: 170 cm (90 %), Ping: 95 cm, Objętość: 1,28 m3, Temperatura DS1-DS6-> PIWNICA: 21,1 ℃ POMPA: 33,5 ℃ KOCIOŁ: 26,6 ℃ WEWNĄTRZ: 22,1 ℃ STUDNIA: 12,2 ℃
+
+## Wyczyść dziennik
+Naciśnięcie przycisku „Wyczyść dziennik” spowoduje usunięcie wszystkich zapisów przebiegu nawadniania. Akcja nie podlega zwrotowi.
+
+## Usuń e-mail z rekordem
+Po naciśnięciu przycisku „Usuń rekord e-maili” wszystkie zapisy wysłanych e-maili zostaną usunięte z systemu. Akcja nie podlega zwrotowi.
 
 ----
 
 # Ustawienia
-Ustawienia sa podzielone na sekcje: system, pogoda, uzytkownicy, bezpieczenstwo, czujniki, obsluga stacji, stacje glowne, czujnik deszczu, logowanie, restart, backup i SSL.
+Na stronie „Ustawienia” możemy modyfikować ustawienia całego systemu OSPy.
+Strona zawiera kilka zwijanych sekcji. Kliknij pasek, aby otworzyć lub zamknąć żądaną sekcję.
 
-## System
-Nazwa systemu, motyw, format czasu, adres i port HTTP/S, jezyk, obrazy stacji oraz widocznosc pluginow i czujnikow na stronie glownej.
+### Pokaż podpowiedzi
+
+* Kliknij przycisk „Pokaż pomoc”, aby pokazać lub ukryć informacje o każdej opcji.
+
+### Nazwa systemu
+Nazewnictwo systemów jest przydatne podczas pracy z wieloma systemami OSPy.
+
+* Wprowadź unikalną opisową nazwę systemu.
+* Kliknij przycisk „Potwierdź zmiany” u dołu strony, aby zapisać zmiany.
+
+Domyślna nazwa systemu to „OpenSprinkler Pi” i będzie ona wyświetlana w nagłówku każdej strony w celu łatwej identyfikacji systemu.
+
+### Motyw systemowy
+Określa wygląd GUI. Na liście dostępnych jest kilka motywów (tryb zielony, tryb czarno-biały...)
+
+### Zegar 24-godzinny
+Opcja czasu 24-godzinnego umożliwia wybór pomiędzy międzynarodowym formatem 24-godzinnym, czasami nazywanym czasem wojskowym, a formatem 12-godzinnym AM/PM.
+
+* Odznacz pole i wybierz format 12-godzinny AM/PM.
+* Kliknij przycisk „Potwierdź zmiany” u dołu strony, aby zapisać zmiany.
+
+Zostaniesz przekierowany na stronę główną, a zegar będzie w wybranym formacie.
+
+### HTTP Adres IP
+Adres IP serwera HTTP/S. Adres IPv4 lub IPv6 (pojawi się dopiero po ponownym uruchomieniu). Wartość domyślna to 0.0.0.0.
+
+#### Informacje o numerze portu
+Numer portu HTTP/S jest częścią adresu internetowego.
+Port 80 to domyślny numer dla stron internetowych i jako taki może nie być uwzględniany przy wprowadzaniu adresu URL w pasku adresu przeglądarki. Wiele serwerów internetowych domyślnie używa portu 80.
+Jeśli uruchomisz inny serwer na tym samym Raspberry Pi co OSPy i użyjesz tego samego numeru portu, wystąpi konflikt i OSPy może się nie uruchomić.
+Możesz uniknąć konfliktu, zmieniając numer portu OSPy na stronie Opcje na inny, np. 8080. Jeśli zmienisz numer portu używanego przez OSPy, będziesz musiał podać ten numer poprzedzony dwukropkiem w adresie URL interfejsu internetowego OSPy. Na przykład:
+[URL Raspberry pi]: 8080
+
+### HTTP/S port
+Numer portu HTTP/S jest częścią adresu internetowego. Port 80 to domyślny numer dla stron internetowych.
+
+* Kliknij pole tekstowe obok opcji portu HTTP/S.
+* Wpisz numer portu, którego chcesz używać, np. 8080.
+* Kliknij przycisk „Potwierdź zmiany” u dołu strony.
+
+Powrócisz do strony głównej. System uruchamia się ponownie, ale w interfejsie internetowym nie jest widoczna żadna informacja o ponownym uruchomieniu. Poczekaj co najmniej 60 sekund, następnie dodaj nowy numer portu do adresu URL Pi poprzedzonego dwukropkiem (:) i spróbuj ponownie połączyć się z OSPy.
+
+### Pokaż wtyczki na stronie głównej
+Jeśli chcemy wyświetlić zmierzone dane z rozszerzenia (wiatr, temperatura, poziom...) pod wykresem na stronie początkowej (strona główna) zaznacz pole. Jeśli nie chcemy wyświetlać danych z rozszerzenia, odznaczamy to pole.
+* Uwaga: aby dane wyświetlały się poprawnie konieczne jest włączenie i prawidłowe ustawienie rozszerzenia.
+
+### Pokaż czujniki w domu
+Jeżeli chcemy wyświetlić zmierzone dane z czujników pod wykresem na stronie początkowej (strona główna) zaznaczamy pole. Jeżeli nie chcemy wyświetlać danych z czujników odznaczamy to pole.
+* Uwaga: aby dane były wyświetlane poprawnie, konieczne jest włączenie i prawidłowe ustawienie czujników.
+
+### Język systemu
+Wybierając język możemy zmienić język używany w interfejsie WWW.
+
+* Kliknij strzałkę w dół po prawej stronie pola języka, aby wyświetlić listę dostępnych języków.
+* Kliknij język, którego chcesz używać w interfejsie.
+* Kliknij przycisk „Potwierdź zmiany” u dołu strony.
+
+Oprogramowanie uruchomi się ponownie i po kilku sekundach wyświetli się interfejs w wybranym języku.
+
+### Pokaż zdjęcia na stacjach
+Zaznacz to pole, aby wyświetlać obrazy stacji na stronie głównej i stronie stacji.
 
 ## Pogoda
-Wlacza funkcje pogodowe, klucz API i lokalizacje.
+Sekcja pogody zapewnia dostęp do usługi prognozy pogody dla Twojej lokalizacji. Aby skorzystać z tej funkcji, należy zarejestrować się na stronie internetowej (https://stormglass.io/).
+Zgodnie z prognozą pogody cykl nawadniania można dostosować automatycznie (jeśli wybierzemy rozszerzenie korzystające z prognozy pogody).
+* Rejestracja i korzystanie z usługi nie są pobierane za normalne użytkowanie.
 
-## Uzytkownicy
-Zarzadza logowaniem, haslem i dodatkowymi uzytkownikami.
+### Użyj Pogody
+Włącz lub wyłącz połączenie z usługą Stormglass.
 
-## Bezpieczenstwo
-Obejmuje ochrone formularzy, HTTPS, nazwe domeny, wlasne certyfikaty oraz opcje dostepu do API.
+### Klucz API Storm Glass
+Do korzystania z lokalnych warunków pogodowych wymagany jest klucz API Storm Glass.
 
-### API CORS allowed origin
-Ta opcja steruje naglowkiem `Access-Control-Allow-Origin`, ktorego API uzywa dla klientow uruchamianych w przegladarce. `*` pozwala na dowolny origin, pojedyncza wartosc taka jak `https://example.com` pozwala tylko na ten origin, wiele originow mozna rozdzielic przecinkami, a pusta wartosc wylacza naglowki CORS. Nie zastepuje to logowania do API; okresla tylko, ktore originy przegladarki moga czytac odpowiedzi API.
+### Lokalizacja
+Nazwa miasta lub kod pocztowy. Służy do lokalizacji za pomocą OpenStreetMap w celu uzyskania informacji o pogodzie ze Storm Glass.
 
-### Enable API JSONP
-Ta opcja wlacza starszy parametr `callback` dla odpowiedzi JSONP z API. Pozostaw ja wylaczona, chyba ze stara integracja wymaga JSONP. Zwykli klienci API powinni uzywac JSON z CORS.
+## Użytkownicy
+Aby zwiększyć bezpieczeństwo, zalecamy zmianę hasła systemowego OSPy i nazwy użytkownika z domyślnego „admin”. W razie potrzeby możesz także wyłączyć wymaganie hasła.
 
-### Remembered browser logins
-Strona logowania moze zapamietac przegladarke za pomoca dlugoterminowego losowego tokenu zapisanego w bezpiecznym cookie. OSPy przechowuje tylko hash tego tokenu, a nie haslo uzytkownika. Przycisk Revoke usuwa wszystkie zapamietane logowania; dotkniete przegladarki musza zalogowac sie ponownie haslem.
+* Kliknij trójkąt po lewej stronie paska oznaczonego „Użytkownicy”, aby rozwinąć sekcję.
+* Zaznacz pole „Brak hasła”, jeśli masz bardzo dobry powód, aby wyłączyć ochronę hasłem i nazwą. System nie będzie już wymagał logowania użytkownika. Wszystkie sekcje będą dostępne.
+* Wpisz swoją nazwę użytkownika.
+* Wpisz swoje aktualne hasło.
+* Wpisz nowe hasło w polach „Nowe hasło” i „Potwierdź hasło”.
+* Kliknij przycisk „Potwierdź zmiany” u dołu strony.
+
+Powrócisz do strony głównej. Nowe hasło i nazwa będą wymagane przy następnym logowaniu.
+
+### Wyłącz zabezpieczenia
+Jeśli pole „Wyłącz zabezpieczenia” jest zaznaczone, umożliwimy anonimowym użytkownikom bez hasła dostęp do systemu.
+
+### Nazwa użytkownika
+Wpisz swoją nazwę użytkownika w polu tekstowym. To jest „admin” w przypadku świeżej instalacji.
+
+### Aktualne hasło
+Wpisz swoje aktualne hasło w polu tekstowym.
+
+### Nowe hasło
+Wpisz nowe hasło w polu „Nowe hasło”.
+
+### Potwierdź hasło
+W polu „Potwierdź hasło” wpisz takie samo nowe hasło jak w polu „Nowe hasło”.
+
+### Dodatkowi użytkownicy
+Po kliknięciu przycisku otworzy się strona, na której możemy utworzyć i ewentualnie edytować nowych użytkowników uzyskujących dostęp do systemu.
+
+## Bezpieczeństwo
+
+### Tworzy ochronę
+Akcje zmieniające ustawienia lub stan systemu mają formę interfejsu internetowego chronionego tokenem. Jeśli strona jest otwarta przez dłuższy czas lub upłynął limit czasu sesji przeglądarki, załaduj stronę ponownie i spróbuj ponownie.
+
+### Użyj dostępu HTTPS
+W przypadku, gdy skonfigurowaliśmy serwer OSPy pod kątem większego bezpieczeństwa transmisji danych przy użyciu certyfikatu SSL, zaznacz pole „Użyj dostępu HTTPS”. Jeżeli zaznaczona jest opcja "Użyj dostępu HTTPS" i serwer nie jest ustawiony poprawnie, OSPy uruchomi się jako niezabezpieczony serwer http.
+
+### Nazwa domeny
+Certyfikat znajduje się w systemie w katalogach „/etc/letsencrypt/live/” nazwa domeny „/fullchain.pem” i „/etc/letsencrypt/live/” nazwa domeny „/privkey.pem”. Certyfikat należy zainstalować ręcznie w systemie (Linux) za pomocą narzędzia „Certbot” (użycie https zostanie odzwierciedlone w OSPy dopiero po ponownym uruchomieniu OSPy).
+* Procedurę instalacji Usługi Certyfikacji można znaleźć w pliku pomocy „Readme” lub na Githubie.
+
+### Używaj protokołu HTTPS z Certbotem
+Certyfikat SSL korzystający z urzędu certyfikacji Let's Encrypt.
+Certbot (https://certbot.eff.org/) i Let's Encrypt (https://letsencrypt.org/).
+
+```bash
+sudo apt-get install certbot
+```
+
+```bash
+certbot --version
+```
+
+```bash
+sudo certbot certonly --standalone -d your_domain_name
+```
+
+```bash
+sudo certbot renew
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/fullchain.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo cp /etc/letsencrypt/live/your.domain.com/privkey.pem /home/pi/OSPy/ssl
+```
+
+```bash
+sudo service ospy restart
+```
+
+### Użyj własnego dostępu HTTPS
+Jeżeli w ustawieniach OSPy wybrano opcję "Użyj niestandardowego dostępu HTTPS", należy umieścić pliki: fullchain.pem i privkey.pem w katalogu ssl w lokalizacji OSPy. Ostrzeżenie: należy uruchomić ponownie OSPy.
+```bash
+sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out fullchain.pem -keyout privkey.pem
+```
+Drugim sposobem jest użycie przycisku „generuj” znajdującego się w zakładce certyfikat SSL.
+
+### Źródło API obsługujące CORS
+Ta opcja ustawia nagłówek „Access-Control-Allow-Origin”, którego interfejs API używa dla klientów działających w przeglądarce. Wartość `*` pozwala na dowolne źródło, można określić jedno źródło, na przykład `https://example.com`, wiele źródeł oddzielonych przecinkiem lub pozostaw pole puste, a nagłówki CORS nie zostaną wysłane. Nie zastępuje uwierzytelniania API; określa jedynie, które źródła sieciowe mogą czytać odpowiedzi API.
+
+### Włącz API JSONP
+Ta opcja włącza starszy parametr `callback` dla odpowiedzi API JSONP. Pozostaw tę opcję wyłączoną, chyba że wymaga tego stara integracja. Wspólni klienci API powinni używać JSON z CORS.
+
+### Zapamiętane loginy do przeglądarki
+Strona logowania może zapamiętać przeglądarkę za pomocą długoterminowego losowego tokena zapisanego w bezpiecznym pliku cookie. OSPy przechowuje tylko skrót tego tokena, a nie hasło użytkownika. Użyj przycisku Anuluj, aby usunąć wszystkie zapisane loginy w przeglądarkach; przeglądarki, których to dotyczy, muszą zalogować się ponownie przy użyciu hasła.
 
 ## Czujniki
-Ustawia haslo do wysylania firmware do czujnikow.
+Sekcja czujnika zawiera ustawienia zabezpieczeń czujnika.
 
-## Obsluga stacji
-Ustawia maksymalne uzycie, liczbe wyjsc, przerwe miedzy stacjami i minimalny czas pracy. Maksymalne uzycie okresla, czy stacje moga pracowac jednoczesnie. `0` oznacza brak limitu, `1` oznacza jedna stacje naraz, gdy kazda stacja ma uzycie `1`.
+### Hasło przesyłania oprogramowania sprzętowego
+Hasło do wgrania oprogramowania z OSPy do czujnika (dla wszystkich używanych czujników - to samo hasło musi być użyte w opcjach czujnika.)
 
-Przerwa miedzy stacjami jest wstawiana miedzy kolejnymi uruchomieniami stacji, gdy harmonogram nie moze uruchomic ich jednoczesnie. Nie przesuwa stacji wzgledem stacji glownej. Przyklad: przy maksymalnym uzyciu `1` i uzyciu stacji `1` wartosc `30` uruchomi nastepna stacje 30 sekund po zakonczeniu poprzedniej.
+## Skonfiguruj stacje
+Sekcja „Skonfiguruj stacje” zawiera ustawienia ogólne, które wpływają na planowanie i łączenie stacji.
 
-Minimalny czas pracy moze pominac te przerwe, jesli poprzednie uruchomienie bylo krotsze. Przyklad: przy przerwie `30` i minimalnym czasie pracy `10` stacja dzialajaca tylko 5 sekund nie wymusi 30-sekundowej przerwy.
+### Użycie
+Określa, w jaki sposób przebiegi stacji mogą się nakładać. „0” oznacza brak limitu użycia, więc stacje mogą działać jednocześnie, jeśli ich programy się pokrywają. „1” zawsze oznacza jedną stację na raz, jeśli każda stacja ma użycie „1”. Wyższa wartość pozwala na jednoczesną pracę wielu stacji, jeśli suma ich wykorzystania nie przekracza ustawionego limitu.
 
-## Stacje glowne
-Konfiguruje stacje glowna 1, stacje glowna 2 oraz przesuniecia czasu wlaczenia i wylaczenia. Stacja glowna to zwykle pompa lub glowny zawor wody i jest uzywana tylko dla stacji, ktore maja ja przypisana.
+To ustawienie ma również wpływ na wstawienie pauzy pomiędzy stacjami.
 
-Przesuniecie startu jest wzgledem startu stacji. Wartosci ujemne wlaczaja stacje glowna wczesniej, dodatnie pozniej. Przyklad: `-10` wlacza stacje glowna 10 sekund przed stacja, `+10` wlacza ja 10 sekund po stacji.
+#### Informacje o trybach sekwencyjnych i współbieżnych
+* Tryb sekwencyjny jest używany głównie wtedy, gdy źródło wody nie może zasilać wielu odgałęzień jednocześnie. Przykład: przy maksymalnym wykorzystaniu „1” i wykorzystaniu stacji „1”, stacja 3 musi zakończyć pracę, zanim będzie mogła zostać uruchomiona stacja 4.
+* Tryb współbieżny jest używany, gdy źródło wody może obsłużyć wiele odgałęzień jednocześnie. Przykład: przy maksymalnym wykorzystaniu „0” stacje 2, 3 i 4 mogą pracować jednocześnie, jeśli ich programy nakładają się.
 
-Przesuniecie wylaczenia jest wzgledem konca stacji. Wartosci ujemne wylaczaja stacje glowna wczesniej, dodatnie utrzymuja ja wlaczona dluzej. Przyklad: `-5` wylacza stacje glowna 5 sekund przed koncem stacji, `+20` wylacza ja 20 sekund po koncu stacji.
+### Liczba wyjść
+Całkowita liczba dostępnych wyjść to 8 wyjść plus wyjścia z kart rozszerzeń. Można ustawić większą liczbę wyjść niż rzeczywista liczba wyjść fizycznych, tworząc w ten sposób wyjścia wirtualne.
 
-Ta sama logika dotyczy stacji glownej 2, ktora ma wlasne przesuniecia startu i wylaczenia.
+### Przerwa między sekcjami
+Przerwa wstawiana pomiędzy sekwencyjnie uruchamianymi stacjami, gdy program planujący nie może ich uruchomić w tym samym czasie, w sekundach od 0 do 3600. Nie powoduje to przesunięcia stacji względem stacji głównej.
+
+Przykład: przy maksymalnym użyciu „1” i użyciu stacji „1”, wartość „30” uruchomi następną sekcję 30 sekund po zakończeniu poprzedniej sekcji.
+
+### Minimalny czas działania
+Pomija przerwę pomiędzy stacjami, jeśli poprzedni przebieg był krótszy niż ta wartość, w sekundach od 0 do 86400.
+
+Przykład: z pauzą „30” i minimalnym czasem pracy „10”, stacja, która działała tylko przez 5 sekund, nie wymusi 30-sekundowej pauzy.
+
+## Skonfiguruj Mistrza
+Sekcja „Skonfiguruj Mistrza” wybiera stację główną 1, stację główną 2 i przesunięcia czasowe używane, gdy stacja główna jest aktywowana. Stacja główna to zwykle pompa lub główny zawór doprowadzający wodę.
+
+Stacja główna będzie używana tylko dla stacji, które mają ją ustawioną na stronie Stacje lub dla programów, które wybierają stację główną 1 lub 2 dla stacji ustawionych na „Aktywuj stację główną 1/2 według programu”.
+
+### Stacja główna
+Wybór pierwszej stacji głównej, np. pompy lub zaworu głównego.
+
+### Opanuj dwie stacje
+Wybór drugiej stacji głównej, na przykład drugiej pompy lub innego źródła wody.
+
+### Aktywuj przekaźnik
+Jeśli zaznaczone, przekaźnik zostanie również aktywowany jako wyjście główne.
+
+### Przesunięcie startu sekcji głównej
+Stacja główna 1 przesunięcie czasu włączenia zasilania od uruchomienia stacji, w sekundach pomiędzy -1800 a +1800. Wartości ujemne uruchamiają master wcześniej, wartości dodatnie później.
+
+Przykład: `-10` uruchamia stację główną 10 sekund przed stacją. „+10” uruchamia go 10 sekund po stacji.
+
+### Przesunięcie wyłączenia sekcji głównej
+Przesunięcie czasu wyłączenia stacji głównej 1 od końca stacji, w sekundach pomiędzy -1800 a +1800. Wartości ujemne spowodują wcześniejsze wyłączenie stacji głównej, wartości dodatnie sprawią, że będzie ona działać dłużej.
+
+Przykład: `-5` wyłącza stację główną na 5 sekund przed końcem stacji. „+20” wyłącza go 20 sekund po zakończeniu stacji.
+
+### Przesunięcie startu sekcji głównej 2
+Przesunięcie czasowe załączenia stacji głównej 2 w stosunku do uruchomienia stacji. Działa tak samo, jak przesunięcie początku stacji głównej, ale tylko dla stacji głównej 2.
+
+### Przesunięcie wyłączenia sekcji głównej 2
+Przesunięcie czasu wyłączenia stacji głównej 2 względem końca stacji. Działa tak samo, jak przesunięcie wyłączenia stacji głównej, ale tylko dla stacji głównej 2.
 
 ## Czujnik deszczu
-Wlacza czujnik, typ styku i opoznienie po deszczu.
+Ustawia typ przełącznika czujnika deszczu. Jeśli korzystasz z Raspberry Pi i chcesz podłączyć czujnik deszczu bezpośrednio do pinów GPIO, użyj pinów 8 i 6 (masa).
 
-## Logowanie
-Wlacza logi uruchomien, e-maili, zdarzen i debugowania.
+### Użyj czujnika
+Zaznacz pole „Użyj czujnika”, aby włączyć czujnik deszczu.
 
-## Restart systemu
-Pozwala zrestartowac oprogramowanie, zrestartowac Raspberry Pi, wylaczyc je lub przywrocic ustawienia domyslne.
+### Normalnie otwarte
+Zaznacz pole „Normalnie otwarte”, jeśli czujnik jest normalnie otwarty bez deszczu, w przeciwnym razie odznacz to pole. Informacje o typie przełącznika można znaleźć w instrukcji obsługi czujnika deszczu.
 
-## Backup systemu
-Pozwala pobrac lub wgrac kopie konfiguracji.
+### Ustaw opóźnienie deszczu
+Po włączeniu czujnika deszczu ustawiane jest opóźnienie deszczu (jest to przydatne np. w przypadku blokowania programów na czas dłuższy niż zapewnia czujnik deszczu).
+
+### Czas opóźnienia w przypadku deszczu
+Czas opóźnienia deszczu (w godzinach), od 0 do 500.
+
+## Rejestrowanie
+Włącz rejestrowanie przebiegu i ustaw liczbę rekordów, które chcesz zachować. Włącz rejestrację wysłanych e-maili i ustaw liczbę rekordów, które chcesz przechowywać.
+
+### Włącz dziennik uruchomień
+Zaznacz pole „Włącz dziennik uruchomień”. Spowoduje to włączenie rejestrowania i historii nawadniania na osi czasu na stronie głównej. Nagrywaj wszystkie przebiegi stacji – pamiętaj, że wielokrotne zapisywanie na karcie SD może skrócić jej żywotność.
+
+### Maksymalna liczba wpisów biegu
+Wpisz liczbę wpisów, które chcesz zapisać w logu. Ustaw liczbę obejmującą rozsądną ilość czasu, na przykład tydzień lub miesiąc. Zależy to od liczby posiadanych programów i stacji. Przy każdym uruchomieniu stacji będzie jeden wpis. 0 = brak limitu.
+
+### Włącz dziennik e-mail
+Zaznacz pole „Włącz dziennik e-mail”. Spowoduje to włączenie rejestrowania i historii nawadniania pocztą elektroniczną.
+
+### Maksymalna liczba wpisów biegu
+Wpisz liczbę wpisów, które chcesz zapisać w logu. Ustaw liczbę obejmującą rozsądną ilość czasu, na przykład tydzień lub miesiąc. Zależy to od liczby posiadanych programów i stacji. Dla każdego e-maila będzie jeden rekord. 0 = brak limitu.
+
+### Włącz dziennik zdarzeń
+Włącz dziennik zdarzeń (czujnik deszczu, opóźnienie opadów, serwer, zewnętrzny adres IP Internetu...)
+
+### Maksymalna liczba wpisów biegu
+Liczba rekordów zdarzeń do zapisania na dysku, 0 = bez limitu.
+
+### Włącz dziennik debugowania
+Kliknij „Włącz dziennik debugowania”, aby zapisać wszystkie wewnętrzne operacje w OSPy do pliku w celu lepszego debugowania. * Uwaga: * zbyt częste zapisywanie danych do pliku może spowodować uszkodzenie karty SD lub zmniejszenie jej pojemności (pamięci) po długim czasie. Wszystkie operacje (w tym ze wszystkich rozszerzeń) są wymienione.
+
+## Uruchom ponownie system
+Sekcja „Ponowne uruchomienie systemu” zawiera przyciski służące do ponownego uruchomienia oprogramowania, ponownego uruchomienia sprzętu, wyłączenia sprzętu i przywrócenia wszystkich ustawień do wartości domyślnych.
+
+### Uruchom ponownie
+Przycisk „Uruchom ponownie” powoduje jedynie ponowne uruchomienie oprogramowania. Jest to szybki, wymuszony sposób na wdrożenie zmian w oprogramowaniu.
+
+### Uruchom ponownie
+Przycisk „Uruchom ponownie” powoduje ponowne uruchomienie Raspberry Pi. Trwa to dłużej, ale powoduje pełne ponowne uruchomienie systemu.
+
+### Wyłączenie
+Przycisk „Wyłączenie” wyłącza zasilanie sprzętu Raspberry Pi.
+
+### Domyślne
+Przycisk „Domyślne” wyczyści wszystkie ustawienia użytkownika i przywróci domyślną czystą instalację OSPy.
+* Wszystkie ustawienia można też usunąć ręcznie w OSPy (odnajdujemy w systemie folder ospy/data i usuwamy wszystkie pliki z tego folderu).
+
+## Kopia zapasowa systemu
+Jeśli chcemy wykonać kopię zapasową wszystkich ustawień naszego systemu nawadniania OSPy lub przenieść ustawienia do innego systemu OSPy, używamy przycisku „Pobierz”, a następnie „Prześlij”.
+
+### Pobierz
+Przycisk „Pobierz” służy do pobrania pliku konfiguracyjnego na komputer w celu późniejszego wykorzystania lub przywrócenia systemu OSPy. Zapisywany jest nie tylko plik bazy danych (options.db), ale także folder stacji, w którym przechowywane są obrazy stacji. Jednocześnie zapisywany jest plik dziennika zdarzeń.log (jeśli istnieje). Wszystko jest przechowywane w pliku zip (przykład: ospy_backup_systemname_4.12.2020_18-40-20.zip). Z łatwością możemy zidentyfikować, z jakiego systemu OSPy pochodzi kopia zapasowa. Folder SSL, w którym znajduje się certyfikat, ze względów bezpieczeństwa nie jest zapisywany w pliku zip kopii zapasowej!
+
+### Prześlij
+Przycisk Prześlij umożliwia wstawienie i przywrócenie OSPy (na przykład podczas ponownej instalacji Linuksa). Przesłany plik musi być plikiem ZIP! W pliku muszą znajdować się następujące ścieżki i pliki.
+
+```bash
+*.zip folder:
+ospy/data/events.log
+ospy/data/options.db
+ospy/data/options.db.bak
+ospy/images/stations/station1.png
+ospy/images/stations/station1_thumbnail.png
+```
+Lub obrazy innych stacji w tym samym formacie.
 
 ## Certyfikat SSL
-Pozwala wgrac albo wygenerowac certyfikat HTTPS.
+Jeśli posiadamy własny certyfikat bezpieczeństwa SSL (https) (fullchain.pem i privkey.pem) możemy go tutaj załadować za pomocą formularza.
+
+## Wygeneruj
+Jeżeli chcemy wygenerować certyfikat SSL należy wcisnąć przycisk „generuj”. Certyfikat zostanie wygenerowany w katalogu ssl. Następnie w ustawieniach/zabezpieczeniach zaznaczamy opcję „własny HTTPS” i następnie restartujemy OSPy.
+
+### Prześlij
+Przycisk „Prześlij” wysyła załączone pliki (fullchain.pem i privkey.pem) do folderu ssl w katalogu OSPy.
 
 ----
 
-# Stacje
-Strona stacji ustawia nazwe, uzycie, opad, pojemnosc gleby, wspolczynnik ETo, korekte bilansu, podlaczenie, ignorowanie deszczu, master, notatki i obraz.
+# Stacja
+Na stronie "Stacja" ustawiamy nazwy stacji, właściwości dotyczące zużycia wody, sterowanie stacjami głównymi.
+
+## Stacja
+Automatyczne numerowanie w celu oznaczania stacji. Na przykład 1 = stacja 1, 2 = stacja 2...
+
+## Imię
+Niestandardowe nazewnictwo stacji w celu lepszej identyfikacji w systemie, np. „trawnik”.
+
+## Użycie
+Ustaw współbieżność (0) lub sekwencję (>=1) dla niektórych stacji. Więcej o współbieżności lub sekwencji w tekście powyżej w sekcji „Ustawienia / O trybach sekwencyjnych i współbieżnych”.
+
+## Nawadnianie
+Ilość wody na godzinę w mm, która zostanie spryskana przez zraszacze na tej stacji. Używany w programach pogodowych. Aby zmierzyć tę wartość, warto kupić na przykład plastikowy deszczomierz.
+
+* Odnosi się do czasu wymaganego, aby dana ilość wody przeniknęła do określonego rodzaju gleby. Ogólnie rzecz biorąc, stopień wchłaniania gleby o lżejszej strukturze (piaszczystej) jest większy niż gleby o cięższej strukturze (gliniastej). Jednak nawadnianie tryskaczowe dużą ilością wody może prowadzić do spływu powierzchniowego nawet na glebach piaszczystych. Na szybkość wchłaniania nawadnianej gleby wpływa wiele czynników, takich jak tekstura gleby, struktura gleby, zagęszczenie, materia organiczna, gleby warstwowe, sole glebowe, jakość wody, osady w wodzie do nawadniania itp.
+
+## Magazyn
+Ilość wody, jaką gleba może zmagazynować powyżej poziomu 0. Używana w programach pogodowych.
+
+* Odnosi się do ilości wilgoci w glebie lub zawartości wody zatrzymanej w glebie po odpłynięciu nadmiaru wody i zmniejszeniu szybkości ruchu w dół. Zwykle ma to miejsce 2-3 dni po deszczu lub nawadnianiu wcześniejszych gleb o jednolitej teksturze i strukturze.
+
+## Współczynnik ETo
+Współczynnik używany do mnożenia współczynnika ETo dla programów opartych na pogodzie. Wartość powyżej 1 należy stosować w przypadku gleby słonecznej/suchej, wartość poniżej 1 w przypadku gleby zacienionej/mokrej.
+
+* Rodzaj gleby
+
+Gleby mają różne właściwości, które czynią je wyjątkowymi. Znajomość rodzaju gleby pomoże Ci określić jej mocne i słabe strony. Chociaż gleba składa się z wielu elementów, należy zacząć od rodzaju gleby. Wystarczy monitorować skład cząstek gleby. OSPy pozwala użytkownikom określić rodzaj gleby dla każdej strefy (stacji), co pozwala na dokładniejsze i wydajniejsze obliczenia nawadniania. Różne rodzaje gleby różnie reagują na wodę; gleby gliniaste mają tendencję do drenażu, podczas gdy gleby gliniaste mogą zatrzymywać wodę przez długi czas itp. Ilość wody zawartej w glebie po odpłynięciu nadmiaru wody oraz zdolność gleby do zatrzymywania wody określa się jako pojemność polową (mierzoną w calach lub milimetrach).
+
+### Test butelki
+Jak znaleźć przybliżone proporcje piasku, mułu i gliny? Jest to prosty test, który da ci ogólne pojęcie o proporcjach piasku, mułu i gliny obecnych w glebie. Do butelki wsyp 5 cm ziemi i zalej ją wodą.
+Dobrze wymieszaj wodę z ziemią, odłóż butelkę na bok i nie dotykaj jej przez godzinę. Po godzinie woda stanie się przejrzysta i zobaczysz, że większe cząstki opadły:
+
+- Kawałki materii organicznej mogą unosić się na powierzchni wody
+- Na wierzchu znajduje się warstwa gliny.
+Jeśli woda nadal nie jest przejrzysta, dzieje się tak dlatego, że niektóre drobniejsze gliny są nadal zmieszane z wodą
+- Na środku jest warstwa błota
+- Na dnie znajduje się warstwa piasku
+
+* Zmierz głębokość piasku, mułu i gliny i oszacuj ich przybliżony stosunek.
+
+Glebę tworzą trzy następujące rodzaje cząstek: glina, piasek i muł. Większość gleb stanowi kombinację tych trzech cząstek, ale rodzaj cząstek, który dominuje, decyduje o wielu właściwościach gleby. Stosunek tych rozmiarów określa rodzaj gleby: glina, glina, glina gliniasta, glina ilasta itp.
+
+* Idealna gleba to 40% piasku, 40% mułu i 20% gliny. Ta mieszanina nazywana jest gliną. W tym celu wykorzystuje się to, co najlepsze z każdego rodzaju cząstek gleby. Dobrze odprowadza wodę i umożliwia przenikanie powietrza do gleby jak piasek, ale dobrze zatrzymuje wilgoć i jest żyzna jak muł i glina.
+
+## Regulacja balansu
+Zwiększ lub zmniejsz bilans wodny dla programów opartych na pogodzie (jeśli nie jest ustawiony na 0).
+
+## Połączono
+Jeśli mamy podłączoną stację (jest ona fizycznie podłączona) i chcemy z niej skorzystać (widać to w wyborze w programach, na stronie głównej...), zaznaczamy „Połączono”. Jeśli nie korzystamy ze stacji i nie chcemy jej publikować w systemie OSPy, pozostawiamy odznaczenie „Połączono”. Jeżeli stacja pełni w systemie funkcję „stacja główna” lub „2 stacje główne”, nie można jej zaznaczyć ani odznaczyć (dezaktywować) w tabeli.
+Stacja główna jest przypisana w ustawieniach systemowych „Ustawienia / ustawienia stacji głównej”.
+
+## Ignoruj deszcz
+Jeśli dla danej stacji zaznaczymy opcję „Ignoruj deszcz”, stacja zostanie aktywowana zgodnie z programem niezależnie od tego, czy ustawione jest opóźnienie deszczu lub czy czujnik deszczu wykryje deszcz. Tę opcję wykorzystamy np. w szklarni, gdzie nie pada deszcz i trzeba ją regularnie podlewać. lub np. rozpocząć filtrację basenu, którą czyścimy także bez względu na to, czy pada deszcz.
+
+## NA głównym?
+### Nieużywany
+Żadna stacja główna nie będzie używana (jeśli aktywowana zostanie określona stacja, stacja główna nie zostanie aktywowana).
+### WŁ. Główne
+Jeśli wymagamy, aby po uruchomieniu określonej stacji została aktywowana także stacja główna (na przykład pompa lub główny zawór wody), wybierz pozycję „NA głównym?”.
+### WŁ. Główne 2
+Jeśli wymagamy, aby po uruchomieniu określonej stacji została aktywowana także druga stacja główna (na przykład druga pompa lub inne źródło wody), wybierz pozycję „NA głównym 2?”.
+### WŁ. Główny program 1/2
+Jeśli chcemy aktywować stację główną lub drugą stację główną, wybieramy w programie pozycję „Aktywuj Master 1/2 według programu”. Dla programu można wówczas wybrać, która stacja główna ma być używana dla tej stacji (przykład: program 1 steruje stacjami 1-4 i stacją główną 5. Program 2 steruje stacjami 1-4 i druga stacja główna 6).
+
+## Notatki
+Notatki służą do obsługi systemu OSPy. Można na przykład zauważyć: jaki rodzaj el. zawór, zraszacz itp. jakie zastosowaliśmy w systemie.
+
+## Obraz
+Po kliknięciu w okienko otwiera się strona, na której możesz wgrać własny obraz do stacji.
 
 ----
 
 # Czujniki
-Na stronie czujnikow mozna dodawac i usuwac czujniki. Obslugiwane sa czujniki radiowe i sieciowe oraz typy takie jak suchy kontakt, wyciek, wilgotnosc, ruch, temperatura, ultradzwiek i wilgotnosc gleby.
+Na stronie „Czujniki” możemy dodawać lub usuwać czujniki pełniące różne funkcje w systemie OSPy. OSPy obsługuje obecnie czujniki z witryn pihrt.com i Shelly.com.
 
-## Czujniki Shelly
-Urzadzenia Shelly mozna zintegrowac przez plugin Shelly Cloud Integration i uzywac ich danych w OSPy.
+## Dodaj nowy czujnik (z Pihrt.com)
+Przycisk „Dodaj nowy czujnik” doda nowy czujnik do systemu. Ustawienia czujnika są wymienione poniżej w sekcji „Parametry czujnika”.
+
+## Parametry czujnika
+W czujnikach stosowane są dwa rodzaje komunikacji:
+* Bezprzewodowy (radiowy) - czujnik radiowy ID
+* Network (Wi-Fi/LAN) - MAC address, IP address
+Możesz wybierać spośród różnych typów czujników:
+* Suchy kontakt
+* Detektor nieszczelności
+* Wilgoć
+* Ruch
+* Temperatura
+* Styk wieloczujnikowy
+* Multisensor leak detector
+* Wilgotność z wieloma czujnikami
+* Ruch wielosensorowy
+* Temperatura wieloczujnikowa
+* Ultrasonografia wielosensorowa
+* Wieloczujnikowy pomiar wilgotności gleby
+
+### Włącz czujnik
+Włącz lub wyłącz ten czujnik.
+
+### Nazwa czujnika
+Wprowadź nazwę czujnika. Nazwy czujników muszą być niezerowe i unikalne.
+
+### Typ czujnika
+Wybierz typ czujnika.
+
+#### Suchy kontakt
+* Otwórz programy Zaznacz, które programy chcesz uruchomić.
+* Lub zatrzymaj działające stacje w harmonogramie.
+* Zamknięte programy Zaznacz żądane programy do uruchomienia.
+* Lub zatrzymaj działające stacje w harmonogramie.
+
+#### Detektor nieszczelności
+* Czułość (0-100%) Przekroczenie tego poziomu powoduje aktywację programów wysokich.
+* Czas stabilizacji (mm:ss) Po upływie tego ustawionego czasu czujka nie będzie reagować na zmianę.
+* Mało programów Zaznacz żądane programy do uruchomienia.
+* Wysoki poziom programów Zaznacz żądane programy do uruchomienia.
+
+#### Wilgoć
+* Poziom niski (0-100%) Przekroczenie tego poziomu aktywuje programy niskiego poziomu.
+* Mało programów Zaznacz żądane programy do uruchomienia.
+* Poziom wysoki (0-100%) Po przekroczeniu tego poziomu aktywowany zostanie program(y) wysoki.
+* Wysoki poziom programów Zaznacz żądane programy do uruchomienia.
+
+#### Ruch
+* Program(y) Zaznacz żądane programy do uruchomienia.
+
+#### Temperatura
+* Niski poziom (0-100°C/°F) Po przekroczeniu tego poziomu zostaną aktywowane programy niskiego poziomu.
+* Mało programów Zaznacz żądane programy do uruchomienia.
+* Poziom wysoki (0-100°C/°F) Po przekroczeniu tego poziomu zostaną aktywowane programy wysokiego poziomu.
+* Wysoki poziom programów Zaznacz żądane programy do uruchomienia.
+W przypadku temperatury wyświetlane są stopnie Celsjusza lub stopnie Fahrenheita, w zależności od ustawienia temperatury na stronie tytułowej (w prawym dolnym rogu) (jednostki można zmienić klikając na temperaturę).
+
+#### Ultradźwiękowe
+* Odległość od czujnika ultradźwiękowego (na górze) do minimalnego poziomu wody w zbiorniku.
+* Odległość od czujnika ultradźwiękowego (na górze) do maksymalnego poziomu wody w zbiorniku.
+* Minimalny poziom wody w zbiorniku (od dna zbiornika) dla raportu.
+* Średnica cylindra do obliczenia objętości.
+* Display in liters or m3.
+* Zatrzymaj stacje, jeśli poziom wody jest minimalny.
+* Czas opóźnienia (w godzinach).
+* Zatrzymaj stacje, jeśli czujnik ultradźwiękowy ma usterkę.
+* Zatrzymaj te stacje w harmonogramie.
+* Regulacja maksymalnego poziomu wody.
+* Maksymalny utrzymywany poziom wody.
+* Maksymalny czas aktywacji.
+* Minimalny utrzymywany poziom wody.
+* Wyjście do regulacji.
+
+#### Wilgotność gleby
+* Sonda xx steruje programem (wybierz program, na który chcesz wpływać za pomocą sondy 1-16 z listy programów).
+* Skalibruj sondę xx na 100% (wprowadź poziom napięcia w woltach, aby skalibrować sondę przy wilgotności 100%).
+* Skalibruj sondę xx dla 0% (wprowadź poziom napięcia w woltach, aby skalibrować sondę przy wilgotności 0%).
+
+### Typ komunikacji
+Wybierz typ komunikacji dla czujnika.
+#### Radia
+Wprowadź identyfikator czujnika radiowego. Identyfikator czujnika musi być różny od zera i unikalny.
+
+#### Wi-Fi / LAN
+* Wprowadź adres MAC czujnika. Przykład: aa: bb: cc: dd: ee: ff
+* Wprowadź adres IP czujnika. Przykład: 192.168.88.10
+
+### Częstotliwość próbkowania
+Wprowadź czas próbkowania w minutach i sekundach (mm:ss).
+
+### Próbki dziennika
+Włącz rejestrowanie próbek.
+
+### Rejestruj zdarzenia
+Włącz rejestrowanie zdarzeń.
+
+### Wydarzenia SMS/e-mail
+Włącz wysyłanie wiadomości e-mail w przypadku wystąpienia zdarzenia. Dla tej funkcji wymagane jest rozszerzenie powiadomień e-mail!
+
+### Notatki
+Tutaj możemy zrobić swoje notatki.
+
+## Usuń wszystkie czujniki
+Przycisk „Usuń wszystkie czujniki” spowoduje usunięcie wszystkich dodanych czujników w systemie.
 
 ----
 
-# Pomoc
-Strona pomocy zawiera dokumentacje OSPy, API, sprzetu i pluginow. Pliki Markdown z katalogow dokumentacji sa pokazywane automatycznie.
+## Dodaj nowy czujnik (z Shelly.com)
+Czujniki Shelly można zintegrować z OSPy za pomocą rozszerzenia „shelly cloud integrator”, w którym podłączamy dostępne urządzenia (albo przez chmurę Shelly.com, albo w sieci lokalnej).
+Możemy następnie wyszukać te urządzenia w OSPy w sekcji czujnik/wyszukiwanie. W OSPy możemy wykorzystać pomiary np. zużycia, napięcia, stanu wyjścia itp.
 
 ----
 
-# Wylogowanie
-Przycisk wylogowania konczy aktualna sesje w interfejsie WWW.
+#  Pomoc
+Na stronie "Pomoc" znajdziemy dokumentację wszystkich rozszerzeń, systemowych OSP, zmian systemowych, dostępu do API, interfejsu webowego.
 
+## OSPy
+### Readme
+Główna dokumentacja OSPy, instalacja systemu, podłączenie płytki, licencje.
+
+### Changelog
+Zmiany w systemie OSPy lub w rozszerzeniach
+
+### Programs
+Wewnętrznie wszystkie programy utrzymują harmonogram, który można bezpośrednio edytować (podobnie jak program niestandardowy).
+Dla łatwiejszej obsługi stworzono następujące typy programów.
+Każdy program może być jednym z tych typów. Wreszcie każdy program można również napisać jako program niestandardowy.<br/>
+
+Prog/type_data  |             0                |     1          |      2         |     3         |      4         |     5
+             --:|:--                           |:--             |:--             |:--            |:--             |
+DAYS_SIMPLE     |start_time                    |duration        |repeat pause    |repeat times   |list days to run|
+REPEAT_SIMPLE   |start_time                    |duration        |repeat pause    |repeat times   |repeat days     |start_date
+DAYS_ADVANCED   |list of intervals [start, end]|list days to run|                |               |                |
+REPEAT_ADVANCED |list of intervals [start, end]|repeat days     |                |               |                |
+WEEKLY_ADVANCED |list of intervals [start, end]|                |                |               |                |
+CUSTOM          |list of intervals [start, end]|                |                |               |                |
+WEEKLY_WEATHER  |                              |                |                |               |                |
+
+set_days_simple start_min, duration_min, pause_min, repeat_times, [days]
+set_repeat_simple start_min, duration_min, pause_min, repeat_times, repeat_days, start_date
+set_days_advanced [schedule], [days]
+set_repeat_advanced [schedule], repeat_days, start_date
+set_weekly_advanced [schedule]
+set_weekly_weather  irrigation_min, irrigation_max, run_max, pause_min, pems
+
+### Web Interface Guide - Czech
+Pomoc dotycząca interfejsu sieciowego w języku czeskim.
+
+### Web Interface Guide - English
+Pomoc dotycząca interfejsu internetowego w języku angielskim.
+
+### Web Interface Guide - German
+Pomoc dotycząca interfejsu sieciowego w języku niemieckim.
+
+### Web Interface Guide - Polish
+Pomoc dotycząca interfejsu WWW w języku polskim.
+
+### Web Interface Guide - Russian
+Pomoc dotycząca interfejsu sieciowego w języku rosyjskim.
+
+### Web Interface Guide - Serbian
+Pomoc dotycząca interfejsu internetowego w języku serbskim.
+
+### Web Interface Guide - Slovak
+Pomoc dotycząca interfejsu internetowego w języku słowackim.
+
+## API
+### Readme
+W przypadku nowoczesnych przeglądarek internetowych zaleca się zbudowanie interfejsu API w oparciu o zasadę CRUD przy użyciu JSON jako formatu kontenera danych.
+
+### Szczegóły
+Mapowanie metody HTTP/s.
+
+## Wtyczki
+Podstawowa struktura wszystkich rozszerzeń jest następująca:
+
+wtyczki
++ nazwa_wtyczki
+  + data
+  + docs
+  + static
+  + script
+  + templates
+  + __init__.py
+  \ README.md
+
+Pliki statyczne zostaną automatycznie udostępnione w następującej lokalizacji: /plugins/nazwa_wtyczki/static/...
+Wszystkie pliki *.md w katalogu dokumentów będą widoczne na stronie „Pomoc”. *
+
+### Dostępne rozszerzenia:
+
+* Statystyki użytkowania (anonimowe statystyki dotyczące wykorzystania systemu OSPy)
+* Wyświetlacz LCD (wyświetlacz LCD 16x2 znaki podłączony poprzez magistralę I2C)
+* Monitor ciśnienia (monitorowanie ciśnienia w rurociągu - zabezpieczenie pompy)
+* Powiadomienia głosowe (powiadomienia dźwiękowe - odtwarzanie plików mp3)
+* Test wyjścia impulsowego (test wyjścia - używany do znalezienia określonego zaworu w ziemi)
+* Button Control (sterowanie systemem OSPy za pomocą 8 przycisków - służy do ręcznego uruchamiania programów)
+* Sterowanie CLI (zdalne sterowanie urządzeniami peryferyjnymi za pomocą poleceń URL - np. gniazd RF)
+* Kontroler systemu
+* Monitor napięcia i temperatury (pomiar napięcia i temperatury za pomocą magistrali I2C)
+* Powiadomienia zdalne (wysyłanie danych do zdalnego serwera za pomocą PHP)
+* Informacje o systemie (informacje o systemie OSPy i Linux)
+* Monitor temperatury i wilgotności powietrza (pomiar temperatury 6x DS18B20 i wilgotności DHT11 za pomocą magistrali I2C)
+* Monitor prędkości wiatru (pomiar prędkości wiatru za pomocą magistrali I2C)
+* Opóźnienie spowodowane deszczem zależne od pogody
+* Test przekaźnika (testuje przekaźnik pompy głównej)
+* Monitor UPS (monitoruje awarię zasilania systemu, wysyła e-mail i zamyka system Linux)
+* Licznik zużycia wody (wirtualny licznik przepływu wody oparty na obliczeniach pracy stacji głównej)
+* Modem SMS (zdalne sterowanie za pomocą modemu SMS i USB)
+* Przykłady sygnalizacji (przykład powiadomień „sygnałowych” w systemie OSPy)
+* Powiadomienia e-mailowe (wysyłanie wiadomości e-mail z systemu - niektóre inne rozszerzenia również korzystają z tego rozszerzenia, np.: Monitor prędkości wiatru, Monitor ciśnienia, Monitor temperatury i wilgotności powietrza...)
+* Zdalna kontrola FTP (uproszczona zdalna kontrola OSPy przy użyciu serwera z PHP i FTP)
+* Aktualizacja systemu (użyj tego rozszerzenia, aby łatwo zaktualizować system OSPy z GIThub zamiast poleceń systemowych)
+* Wodomierz (pomiar przepływu wodomierzem z wyjściem impulsowym z wykorzystaniem magistrali I2C)
+* Monitor kamery internetowej (robi zdjęcia z kamery internetowej USB)
+* Poziom wody Netatmo zależny od pogody (ustawianie ilości wody do nawadniania ze stacji pogodowej Netatmo)
+* Direct 16 wyjść przekaźnikowych (za pomocą tego rozszerzenia możemy sterować 16 przekaźnikami (stacjami) podłączonymi bezpośrednio do Raspberry Pi, ale niektóre inne rozszerzenia nie będą dostępne)
+* MQTT (raportowanie stanu OSPy przy użyciu protokołu MQTT, sterowanie stacją poprzez MQTT...)
+* Informacje o debugowaniu systemu (informacja o tym, co dzieje się w systemie OSPy, jeśli w ustawieniach mamy włączone debugowanie "Włącz debugowanie", to tutaj w rozszerzeniu wyświetla się zapisany rekord)
+* Poziom wody zależny od pogody (ustawianie ilości wody do nawadniania na podstawie prognozy pogody)
+* Czas rzeczywisty i czas NTP (rozszerzenie ustawiające czas systemowy - czas Linux i HW RTC z serwera NTP, HW RTC wykorzystuje magistralę I2C)
+* Zbiornik na wodę (pomiar poziomu wody za pomocą ultradźwięków - np. w studni z wykorzystaniem magistrali I2C)
+* Miesięczny Poziom Wody (ustawienie ilości wody na poszczególne miesiące)
+* Zwiększacz ciśnienia (zwiększanie ciśnienia w pompie przed uruchomieniem programów)
+* Monitor ping (pomiar awarii sieci)
+* Przełącznik temperatury (regulator temperatury umożliwiający 3 niezależne strefy)
+* Ogrzewanie basenu (regulacja temperatury basenu zgodnie z ogrzewaniem słonecznym)
+* Czytnik poczty e-mail (kontrola OSPy za pomocą wiadomości e-mail)
+* Stacje pogodowe (wyświetlanie wartości z innych rozszerzeń w stylu wskazówek zegara) wersja 1.0
+* Bot telegramowy (komunikuj się z OSPy za pomocą aplikacji telegram.org)
+* Otwarcie drzwi (otwarcie zamka drzwi lub bramy przesuwnej)
+* Stacja głosowa (powiadomienia dźwiękowe na podstawie zdarzeń na stacji - odtwarzanie plików wav i mp3)
+* Sterowanie żaluzjami (to rozszerzenie wysyła przykłady poprzez REST API do przekaźników Wi-Fi firmy Shelly lub podobnych przekaźników)
+* Monitor szybkości połączenia internetowego (odpowiedź, pobieranie, wysyłanie)
+* Powiadomienia E-mail SSL (wysyłanie wiadomości e-mail z systemu - niektóre inne rozszerzenia również korzystają z tego rozszerzenia, np.: Monitor Prędkości Wiatru, Monitor Ciśnienia, Monitor Temperatury i Wilgotności Powietrza...) Rozszerzenie to jest nowocześniejszą odmianą oryginalnego rozszerzenia Powiadomienia E-mail (połączenie poprzez warstwę SSL).
+* Wschód i zachód słońca (obliczanie danych astronomicznych, np. wschodu i zachodu słońca. Na podstawie tych obliczeń umożliwia późniejsze uruchamianie programów).
+* Kocioł PV (ogrzewanie kotła z sieci dystrybucyjnej lub elektrowni PV).
+* Kamery IP (umożliwia monitorowanie z kamer IP. Jako podgląd JPEG, obraz GIF lub strumień MJPEG z kamery).
+* CHMI (umożliwia odczyt aktualnej pogody z radaru pogodowego CHMI i ustawienie zgodnie z nim opóźnienia czasowego. Jednocześnie wyświetla stan pogody RGB na mapie sprzętowej).
+* Dlatego (domyślna wtyczka do tworzenia innych nowych wtyczek. Wtyczka nie robi nic nadzwyczajnego, ale wyjaśnia, jak to działa).
+* Kreator etykiet (tworzenie kodów EAN i QR).
+* Skaner IP (wyszukaj adresy IP i MAC w sieci).
+* Database Connector (połączenie z bazą danych w celu przechowywania danych z czujników).
+* Kopia zapasowa OSPy (kopia zapasowa katalogu danych ze wszystkich rozszerzeń do plików zip).
+* MQTT Home Assistant (integracja z HASS przy użyciu MQTT).
+* Integracja z Shelly Cloud (pobieranie stanów z chmury producenta urządzenia Shelly).
+* Zbiorniki z pętlą prądową Mmonitor (pomiar poziomu z 4 czujników).
+* Network Ping Monitor (monitorowanie dostępności 3 urządzeń w sieci).
+* Weather Dashboard (wyświetlanie wartości z innych rozszerzeń w stylu wskazówek zegara) wersja 2.0
+* Thermostat
 ----
+
+# Wyloguj się
+Po kliknięciu przycisku „Wyloguj się” użytkownik wyloguje się z systemu.

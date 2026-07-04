@@ -1,7 +1,12 @@
 OSPy Changelog
 ====
 
-Older changelog entries are archived in [https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md](Changelog_old_to_2026-07-02.md).
+Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
+
+July 04 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added graph range buttons and date/time filtering to sensor graph pages, matching the graphical filtering controls used by plug-in charts. Synchronized the English, German, Polish, Russian, Serbian, and Slovak Web Interface Guide documents with the detailed Czech guide while preserving existing UI labels such as button names.
 
 July 03 2026 (v3.0)
 -----------

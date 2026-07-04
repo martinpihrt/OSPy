@@ -602,32 +602,48 @@ class sensor_page(ProtectedPage):
                 try:
                     sensor = sensors.get(index)
                     data = []
-                    epoch = datetime.date(1970, 1, 1)                                      # first date
-                    current_time  = datetime.date.today()                                  # actual date
+                    show_errors = options.sensor_graph_show_err
+                    if 'sensor_graph_show_err' in qdict:
+                        show_errors = str(qdict['sensor_graph_show_err']).lower() in ('1', 'on', 'true')
 
-                    if options.sensor_graph_histories == 0:                                # without filtering
-                        check_start  = current_time - datetime.timedelta(days=7300)        # actual date - 20 years
-                    if options.sensor_graph_histories == 1:
-                        check_start  = current_time - datetime.timedelta(days=1)           # actual date - 1 day
-                    if options.sensor_graph_histories == 2:
-                        check_start  = current_time - datetime.timedelta(days=7)           # actual date - 7 day (week)
-                    if options.sensor_graph_histories == 3:
-                        check_start  = current_time - datetime.timedelta(days=30)          # actual date - 30 day (month)
-                    if options.sensor_graph_histories == 4:
-                        check_start  = current_time - datetime.timedelta(days=365)         # actual date - 365 day (year)
+                    epoch = datetime.datetime(1970, 1, 1)                                  # first date
+                    log_end = None
 
-                    log_start = int((check_start - epoch).total_seconds())                 # start date for log in second (timestamp)
+                    if 'dt_from' in qdict and 'dt_to' in qdict:
+                        try:
+                            dt_from = datetime.datetime.strptime(qdict['dt_from'], '%Y-%m-%dT%H:%M')
+                            dt_to = datetime.datetime.strptime(qdict['dt_to'], '%Y-%m-%dT%H:%M')
+                            log_start = int((dt_from - epoch).total_seconds())
+                            log_end = int((dt_to - epoch).total_seconds())
+                        except Exception:
+                            log.debug('webpages.py', traceback.format_exc())
+                            log_start = 0
+                    else:
+                        current_time = datetime.datetime.now()                              # actual date and time
+
+                        if options.sensor_graph_histories == 0:                            # without filtering
+                            check_start = current_time - datetime.timedelta(days=7300)      # actual date - 20 years
+                        if options.sensor_graph_histories == 1:
+                            check_start = current_time - datetime.timedelta(days=1)         # actual date - 1 day
+                        if options.sensor_graph_histories == 2:
+                            check_start = current_time - datetime.timedelta(days=7)         # actual date - 7 day (week)
+                        if options.sensor_graph_histories == 3:
+                            check_start = current_time - datetime.timedelta(days=30)        # actual date - 30 day (month)
+                        if options.sensor_graph_histories == 4:
+                            check_start = current_time - datetime.timedelta(days=365)       # actual date - 365 day (year)
+
+                        log_start = int((check_start - epoch).total_seconds())             # start date for log in second (timestamp)
 
                     if sensor.multi_type == 9: # 16x log from probe + battery + signal
                         for i in range(0, 18):
                             temp_balances = {}
                             try:
-                                if len(glog_file)>0:
+                                if len(glog_file)>i:
                                     for key in glog_file[i]['balances']:
                                         find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start:                                      # timestamp interval
+                                        if find_key >= log_start and (log_end is None or find_key <= log_end): # timestamp interval
                                             find_data = glog_file[i]['balances'][key]
-                                            if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                            if show_errors:                                            # if is checked show error values in graph
                                                 temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
                                             else:
                                                 if float(find_data['total']) != -127.0:                # not checked, add values if not -127
@@ -635,17 +651,18 @@ class sensor_page(ProtectedPage):
                             except:
                                 log.debug('webpages.py', traceback.format_exc())
                                 pass
-                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
+                            if len(glog_file)>i:
+                                data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
                     else:
                         for i in range(0, 3):  # 1x log from others + battery + signal
                             temp_balances = {}
                             try:
-                                if len(glog_file)>0:
+                                if len(glog_file)>i:
                                     for key in glog_file[i]['balances']:
                                         find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start:                                      # timestamp interval
+                                        if find_key >= log_start and (log_end is None or find_key <= log_end): # timestamp interval
                                             find_data = glog_file[i]['balances'][key]
-                                            if options.sensor_graph_show_err:                          # if is checked show error values in graph
+                                            if show_errors:                                            # if is checked show error values in graph
                                                 temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
                                             else:
                                                 if float(find_data['total']) != -127.0:                # not checked, add values if not -127
@@ -653,7 +670,8 @@ class sensor_page(ProtectedPage):
                             except:
                                 log.debug('webpages.py', traceback.format_exc())
                                 pass
-                            data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
+                            if len(glog_file)>i:
+                                data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
 
 
                     web.header('Access-Control-Allow-Origin', '*')
