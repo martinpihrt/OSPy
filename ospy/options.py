@@ -86,6 +86,14 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "station_image_source",
+            "name": _('Station picture source'),
+            "default": "Station images",
+            "options": ["Station images", "IP Cam JPG", "IP Cam GIF"],
+            "help": _('Choose whether station pictures on the home page use uploaded station images or cached images from the IP Cam plug-in. This is used only when station pictures are enabled.'),
+            "category": _('System')
+        },
+        {
             "key": "show_icons",
             "name": _('Show icons instead of text'),
             "default": True,

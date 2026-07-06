@@ -716,7 +716,7 @@ $else:
                     <td class='station_name'>${station.name}</td>
                     $if options.show_images:
                         <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                        <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
+                        <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/plugins/ip_cam/home_image_page?cam=%s&type=%s" % (str(station.index+1), "gif" if options.station_image_source == "IP Cam GIF" else "jpg") if options.station_image_source in ("IP Cam JPG", "IP Cam GIF") else "/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
                         </a>
                         </td>                     
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
