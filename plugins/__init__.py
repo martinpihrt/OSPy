@@ -155,9 +155,7 @@ class _PluginChecker(threading.Thread):
             self._changes_cache.clear()
             for repo in REPOS:
                 self._repo_data[repo] = self._download_zip(repo)
-                repo_data = self._get_zip(repo)
-                self._install_repo_docs(repo_data)
-                self._repo_contents[repo] = self.zip_contents(repo_data)
+                self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
 
             status = options.plugin_status
             for plugin in available():
@@ -271,9 +269,7 @@ class _PluginChecker(threading.Thread):
         with self._lock:
             try:
                 if repo not in self._repo_contents:
-                    repo_data = self._get_zip(repo)
-                    self._install_repo_docs(repo_data)
-                    self._repo_contents[repo] = self.zip_contents(repo_data)
+                    self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
             except Exception:
                 logging.error(_('Failed to get contents of {}:').format(repo) + '\n' + traceback.format_exc())
                 pass
