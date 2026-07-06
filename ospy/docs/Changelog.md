@@ -10,7 +10,7 @@ Clarified SSL certificate selection in all web interface manuals and the clean i
 Improved home page countdown refresh reliability by adding timeouts and automatic retry to station status polling, and by calculating countdown timers from the real target time so they recover after browser throttling or a stalled request.
 Added priority-aware I2C transaction scheduling so time-sensitive plug-ins can request high-priority bus access while display-only updates can run at lower priority.
 Persisted plug-in rain delay blocks across OSPy restarts, so active delays set by extensions such as CHMI or tank monitors are restored when their remaining time has not expired.
-Added the plug-in repository changelog to the Help page Plug-ins section when `plugins/CHANGELOG.md` is available.
+Added the plug-in repository changelog to the Help page Plug-ins section when `plugins/CHANGELOG.md` is available, and copy the plug-in repository README and changelog into the local `plugins` directory during plug-in installs or updates.
 
 July 04 2026 (v3.0)
 -----------

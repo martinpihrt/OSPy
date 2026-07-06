@@ -410,6 +410,45 @@ class _PluginChecker(threading.Thread):
         return changes
 
     @staticmethod
+    def _install_repo_docs(zip_file_data):
+        import os
+        import zipfile
+        from ospy.helpers import mkdir_p
+
+        allowed_docs = {'README.md', 'CHANGELOG.md'}
+        target_dir = plugin_dir()
+        target_dir_abs = os.path.abspath(target_dir)
+
+        zip_file = zipfile.ZipFile(zip_file_data)
+        files = zip_file.namelist()
+        repo_roots = set()
+        for filename in files:
+            zip_name = filename.replace('\\', '/')
+            if not zip_name.endswith('/__init__.py'):
+                continue
+            init_dir = os.path.dirname(zip_name)
+            repo_root = os.path.dirname(init_dir)
+            if repo_root:
+                repo_roots.add(repo_root.replace('\\', '/'))
+
+        for zip_info in zip_file.infolist():
+            zip_name = zip_info.filename.replace('\\', '/')
+            parts = [part for part in zip_name.split('/') if part]
+            if len(parts) != 2 or parts[1] not in allowed_docs or parts[0] not in repo_roots:
+                continue
+            is_directory = zip_info.is_dir() if hasattr(zip_info, 'is_dir') else zip_name.endswith('/')
+            if is_directory:
+                continue
+
+            target_name = os.path.abspath(os.path.join(target_dir, parts[1]))
+            if os.path.commonpath([target_dir_abs, target_name]) != target_dir_abs:
+                raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_info.filename))
+
+            mkdir_p(os.path.dirname(target_name))
+            with open(target_name, 'wb') as fh:
+                fh.write(zip_file.read(zip_info.filename))
+
+    @staticmethod
     def _install_plugin(zip_file_data, plugin, p_dir):
         import os
         import shutil
@@ -493,6 +532,7 @@ class _PluginChecker(threading.Thread):
         self.install_custom_plugin(self._get_zip(repo), plugin_filter)
 
     def install_custom_plugin(self, zip_file_data, plugin_filter=None):
+        self._install_repo_docs(zip_file_data)
         contents = self.zip_contents(zip_file_data, False)
         for plugin, info in contents.items():
             if plugin_filter is None or plugin == plugin_filter:
