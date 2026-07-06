@@ -1073,6 +1073,9 @@ def get_help_files():
 
     result.append((1, 'Plug-ins'))
     result.append((2, 'Readme', os.path.join('plugins', 'README.md')))
+    plugin_changelog = os.path.join('plugins', 'CHANGELOG.md')
+    if os.path.isfile(plugin_changelog):
+        result.append((2, 'Changelog', plugin_changelog))
     from plugins import plugin_names, plugin_dir, plugin_docs_dir
     for module, name in plugin_names().items():
 
