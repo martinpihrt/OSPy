@@ -6,7 +6,7 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 06 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-Added a station picture source option for the home page so the existing station image display can continue using uploaded station images or, when selected, cached IP Cam JPG/GIF images through the core image endpoint with fallback to station images. If the IP Cam plug-in is not installed or has no cached image for a station, the home page falls back to the normal station image.
+Added a station picture source option for the home page so the existing station image display can continue using uploaded station images or, when selected, cached IP Cam JPG/GIF images through the core image endpoint with fallback to station images. If the IP Cam plug-in is not installed or has no cached image for a station, the home page falls back to the normal station image. The core image endpoint now handles this fallback directly, so the home page does not depend on the IP Cam plug-in route being available.
 Clarified SSL certificate selection in all web interface manuals and the clean installation guide: a local own certificate now has priority, Let’s Encrypt is used otherwise, and enabling both HTTPS options no longer causes a silent HTTP fallback.
 Improved home page countdown refresh reliability by adding timeouts and automatic retry to station status polling, and by calculating countdown timers from the real target time so they recover after browser throttling or a stalled request.
 Added priority-aware I2C transaction scheduling so time-sensitive plug-ins can request high-priority bus access while display-only updates can run at lower priority.
