@@ -15,7 +15,7 @@ import mimetypes
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, stop_onrain, \
-    verify_csrf
+    verify_csrf, read_limited_upload, safe_image_path
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options, rain_blocks, program_level_adjustments
@@ -317,7 +317,7 @@ class sensors_firmware(ProtectedPage):
                 return statusCode
             try:
                 with open(last_fw_path, 'rb') as file:
-                    response = requests.post(send_url, files={last_fw_name: file})
+                    response = requests.post(send_url, files={last_fw_name: file}, timeout=options.sensor_http_timeout)
                 resp_code = response.status_code
                 log.debug('webpages.py', resp_code)
                 if resp_code == 200:
@@ -342,7 +342,7 @@ class sensors_firmware(ProtectedPage):
         try:
             send_ip = '.'.join(sensor.ip_address)
             send_url = 'http://' + send_ip + '/AP_' + options.sensor_fw_passwd   # ex: http://192.168.88.207/AP_0123456789abcdef
-            response = requests.post(send_url)
+            response = requests.post(send_url, timeout=options.sensor_http_timeout)
             resp_code = response.status_code
             log.debug('webpages.py', resp_code)
             if resp_code == 200:
@@ -406,17 +406,22 @@ class sensors_firmware(ProtectedPage):
                 elif upload_type == '.hex':
                     fw_path = './ospy/data/userfw.hex'
                     fw_name = 'userfw.hex'
-                if not os.path.isfile(fw_path):
-                    fout = open(fw_path,'wb')
-                    fout.write(i.uploadfile.file.read())
-                    fout.close()
-                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
-                else:
-                    os.remove(fw_path)
-                    fout = open(fw_path,'wb')  # temporary file after uploading
-                    fout.write(i.uploadfile.file.read())
-                    fout.close()
-                    log.debug('webpages.py', _('File has sucesfully uploaded...'))
+                try:
+                    if not os.path.isfile(fw_path):
+                        fout = open(fw_path,'wb')
+                        fout.write(read_limited_upload(i.uploadfile.file))
+                        fout.close()
+                        log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(i.uploadfile.filename))
+                    else:
+                        os.remove(fw_path)
+                        fout = open(fw_path,'wb')  # temporary file after uploading
+                        fout.write(read_limited_upload(i.uploadfile.file))
+                        fout.close()
+                        log.debug('webpages.py', _('File has sucesfully uploaded...'))
+                except ValueError as err:
+                    log.error('webpages.py', str(err))
+                    statusCode = qdict.get('statusCode', 'err8')
+                    return self.core_render.sensors_firmware(statusCode)
 
                 try:
                     kind = 'http://'
@@ -425,7 +430,7 @@ class sensors_firmware(ProtectedPage):
                     send_url = kind + ip + '/FW_' + pwd
                     if fw_path is not None:
                         with open(fw_path, 'rb') as file:
-                            response = requests.post(send_url, files={fw_name: file})
+                            response = requests.post(send_url, files={fw_name: file}, timeout=options.sensor_http_timeout)
 #todo change requests to urrlib
                         #data = {'files': open(fw_path, 'rb')}
                         #response = urlopen(send_url, data=data)
@@ -1394,17 +1399,26 @@ class image_edit_page(ProtectedPage):
                 errorCode = qdict.get('errorCode', 'uplname')
                 return self.core_render.edit(index, img_url, errorCode)
             else:                     # image file is valid
-                if not os.path.isfile(img_path_temp):
-                    fout = open(img_path_temp,'wb')
-                    fout.write(uploaded.file.read())
-                    fout.close()
-                    log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(upload_name))
-                else:
-                    os.remove(img_path_temp)
-                    fout = open(img_path_temp,'wb')  # temporary file after uploading
-                    fout.write(uploaded.file.read())
-                    fout.close()
-                    log.debug('webpages.py', _('File has sucesfully uploaded...'))
+                try:
+                    if not os.path.isfile(img_path_temp):
+                        fout = open(img_path_temp,'wb')
+                        fout.write(read_limited_upload(uploaded.file))
+                        fout.close()
+                        log.debug('webpages.py', _('File {} has sucesfully uploaded...').format(upload_name))
+                    else:
+                        os.remove(img_path_temp)
+                        fout = open(img_path_temp,'wb')  # temporary file after uploading
+                        fout.write(read_limited_upload(uploaded.file))
+                        fout.close()
+                        log.debug('webpages.py', _('File has sucesfully uploaded...'))
+                except ValueError as err:
+                    log.error('webpages.py', str(err))
+                    if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
+                        img_url = '/images?id=no_image'
+                    else:
+                        img_url = '/images?sf=1&id=station%s' % str(index)
+                    errorCode = qdict.get('errorCode', 'uplname')
+                    return self.core_render.edit(index, img_url, errorCode)
 
                 try:
                     from PIL import Image           # pip install Pillow
@@ -2014,10 +2028,15 @@ class plugins_install_page(ProtectedPage):
             self._redirect_back()
 
         if 'zipfile' in qdict and hasattr(qdict['zipfile'], 'file'):
+            import io
             zip_file_data = qdict['zipfile'].file
             filename = getattr(qdict['zipfile'], 'filename', _('uploaded ZIP'))
             log.info('webpages.py', _('Installing custom plug-in from uploaded ZIP: {}').format(filename))
-            plugins.checker.install_custom_plugin(zip_file_data)
+            try:
+                plugins.checker.install_custom_plugin(io.BytesIO(read_limited_upload(zip_file_data)))
+            except ValueError as err:
+                log.error('webpages.py', str(err))
+                return self.core_render.notice('/plugins_install', str(err))
 
         self._redirect_back()
 
@@ -2447,7 +2466,7 @@ class upload_page(ProtectedPage):
             upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)]  # Only .zip file accepted
             if upload_type == '.zip':                                           # Check file type
                 fout = open(upload_path + '/ospy_upload.zip', 'wb')             # Write uploaded file to upload folder
-                fout.write(i.uploadfile.file.read())
+                fout.write(read_limited_upload(i.uploadfile.file))
                 fout.close()
 
                 log.debug('webpages.py', _('Uploading to folder OK, now extracting zip file.'))
@@ -2483,6 +2502,79 @@ class upload_page(ProtectedPage):
             return self.core_render.options()
 
 
+def _ssl_file_path(filename):
+    if filename not in ('fullchain.pem', 'privkey.pem'):
+        return None
+    return os.path.join('.', 'ssl', filename)
+
+
+def _write_ssl_file(filename, data):
+    from ospy.helpers import mkdir_p
+
+    target = _ssl_file_path(filename)
+    if target is None:
+        raise ValueError(_('File name is not fullchain.pem or privkey.pem, please retry.'))
+
+    mkdir_p(os.path.dirname(target))
+    tmp_target = target + '.tmp'
+    with open(tmp_target, 'wb') as fh:
+        fh.write(data)
+
+    if filename == 'privkey.pem':
+        try:
+            os.chmod(tmp_target, 0o600)
+        except Exception:
+            log.debug('webpages.py', _('Could not set private key permissions.'))
+    else:
+        try:
+            os.chmod(tmp_target, 0o644)
+        except Exception:
+            pass
+
+    os.replace(tmp_target, target)
+
+
+def _validate_ssl_pem(filename, data):
+    from OpenSSL import crypto
+
+    if filename == 'fullchain.pem':
+        crypto.load_certificate(crypto.FILETYPE_PEM, data)
+        return
+    if filename == 'privkey.pem':
+        crypto.load_privatekey(crypto.FILETYPE_PEM, data)
+        return
+    raise ValueError(_('File name is not fullchain.pem or privkey.pem, please retry.'))
+
+
+def _ssl_subject_alt_names(common_name):
+    from ospy.helpers import is_fqdn, valid_ip
+
+    names = []
+    common_name = (common_name or 'localhost').strip()
+    if valid_ip(common_name):
+        names.append('IP:{}'.format(common_name))
+    elif is_fqdn(common_name) or common_name.lower() == 'localhost':
+        names.append('DNS:{}'.format(common_name))
+
+    if common_name.lower() != 'localhost':
+        names.append('DNS:localhost')
+
+    return ', '.join(names)
+
+
+def _ssl_common_name():
+    from ospy.helpers import is_fqdn, valid_ip
+
+    common_name = (options.domain_ssl or 'localhost').strip()
+    if valid_ip(common_name) or is_fqdn(common_name) or common_name.lower() == 'localhost':
+        try:
+            common_name.encode('ascii')
+            return common_name
+        except UnicodeEncodeError:
+            pass
+    return 'localhost'
+
+
 class upload_page_SSL(ProtectedPage):
     """Upload certificate file to SSL dir, fullchain.pem or privkey.pem"""
     def GET(self):
@@ -2495,43 +2587,45 @@ class upload_page_SSL(ProtectedPage):
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice('/', msg)
 
-        SSL_FOLDER = './ssl'
-        OPTIONS_FILE_FULL = SSL_FOLDER + '/fullchain.pem' # cert file
-        OPTIONS_FILE_PRIV = SSL_FOLDER + '/privkey.pem'   # key file
-
         qdict = web.input()
         if 'generate' in qdict and qdict['generate'] == '1':   # generating own SSL certificate to ssl folder
             try:
                 log.debug('webpages.py', _('Try-ing generating SSL certificate...'))
 
-                from OpenSSL import crypto, SSL
-                # openssl version
-                # sudo apt-get install openssl
-                from time import gmtime, mktime
-                import random
+                from OpenSSL import crypto
+                import secrets
 
                 # create a key pair
                 k = crypto.PKey()
                 k.generate_key(crypto.TYPE_RSA, 2048)
 
                 # create a self-signed cert
+                common_name = _ssl_common_name()
                 cert = crypto.X509()
                 cert.get_subject().C = "EU"                # your country
                 cert.get_subject().ST = "Czechia"          # your state
                 cert.get_subject().L = "Prague"            # location
                 cert.get_subject().O = "OSPy sprinkler"    # organization
                 cert.get_subject().OU = "opensprinkler.cz" # this field is the name of the department or organization unit making the request
-                cert.get_subject().CN = options.domain_ssl # common name
+                cert.get_subject().CN = common_name # common name
                 cert.get_subject().emailAddress = "admin@opensprinkler.cz" # e-mail
-                cert.set_serial_number(random.randint(1000, 1000000))
+                cert.set_serial_number(secrets.randbits(128))
                 cert.gmtime_adj_notBefore(0)
                 cert.gmtime_adj_notAfter(10*365*24*60*60)
                 cert.set_issuer(cert.get_subject())
                 cert.set_pubkey(k)
+                san = _ssl_subject_alt_names(common_name)
+                if san:
+                    cert.add_extensions([
+                        crypto.X509Extension(b'basicConstraints', True, b'CA:FALSE'),
+                        crypto.X509Extension(b'keyUsage', True, b'digitalSignature,keyEncipherment'),
+                        crypto.X509Extension(b'extendedKeyUsage', False, b'serverAuth'),
+                        crypto.X509Extension(b'subjectAltName', False, san.encode('ascii')),
+                    ])
                 cert.sign(k, 'sha256')
 
-                open(OPTIONS_FILE_FULL, "wb").write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
-                open(OPTIONS_FILE_PRIV, "wb").write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+                _write_ssl_file('fullchain.pem', crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+                _write_ssl_file('privkey.pem', crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
 
                 log.debug('webpages.py', _('OK'))
 
@@ -2546,22 +2640,13 @@ class upload_page_SSL(ProtectedPage):
 
         i = web.input(uploadfile={})
         try:
-            if i.uploadfile.filename == 'fullchain.pem' or i.uploadfile.filename == 'privkey.pem':
+            filename = getattr(i.uploadfile, 'filename', '').replace('\\', '/').split('/')[-1]
+            if filename == 'fullchain.pem' or filename == 'privkey.pem':
+                upload_data = read_limited_upload(i.uploadfile.file)
+                _validate_ssl_pem(filename, upload_data)
+                _write_ssl_file(filename, upload_data)
 
-                if os.path.isfile(OPTIONS_FILE_FULL) and i.uploadfile.filename == 'fullchain.pem':  # is old files in folder ssl?
-                    if os.path.isfile(OPTIONS_FILE_FULL):        # exists file fullchain.pem?
-                        os.remove(OPTIONS_FILE_FULL)             # remove file
-                        log.debug('webpages.py', _('Remove fullchain.pem...'))
-                if os.path.isfile(OPTIONS_FILE_PRIV) and i.uploadfile.filename == 'privkey.pem':    # is old files in folder ssl?
-                    if os.path.isfile(OPTIONS_FILE_PRIV):        # exists file privkey.pem?
-                        os.remove(OPTIONS_FILE_PRIV)             # remove file
-                        log.debug('webpages.py', _('Remove privkey.pem...'))
-
-                fout = open('./ssl/' + i.uploadfile.filename,'wb')
-                fout.write(i.uploadfile.file.read())
-                fout.close()
-
-                log.debug('webpages.py', _('Upload SSL file %s') %i.uploadfile.filename)
+                log.debug('webpages.py', _('Upload SSL file %s') % filename)
                 #report_restarted()
                 #restart(3)
                 #return self.core_render.restarting(home_page)
@@ -2571,7 +2656,12 @@ class upload_page_SSL(ProtectedPage):
                 errorCode = "pw_filenameSSL"
                 return self.core_render.options(errorCode)
 
+        except ValueError:
+            log.debug('webpages.py', traceback.format_exc())
+            errorCode = "pw_filenameSSL"
+            return self.core_render.options(errorCode)
         except Exception:
+            log.debug('webpages.py', traceback.format_exc())
             return self.core_render.options()
 
 class images_page(ProtectedPage):
@@ -2588,16 +2678,13 @@ class images_page(ProtectedPage):
             s_folder = get_input(qdict, 'sf', None, lambda x: x == '1')   # sf = 1 read from folder: images/stations else from images/
 
             if id is not None:
-                if s_folder is not None:
-                    download_name = 'ospy/images/stations/' + id
-                else:
-                    download_name = 'ospy/images/' + id
+                download_name = safe_image_path(id, station_folder=s_folder is not None)
 
-                if os.path.isfile(download_name):     # exists image?
+                if download_name and os.path.isfile(download_name):     # exists image?
                     content = mimetypes.guess_type(download_name)[0]
                     web.header('Content-type', content)
                     web.header('Content-Length', os.path.getsize(download_name))
-                    web.header('Content-Disposition', 'attachment; filename=%s' % str(id))
+                    web.header('Content-Disposition', 'attachment; filename=%s' % os.path.basename(download_name))
                     img = open(download_name,'rb')
                     return img.read()
                 else:

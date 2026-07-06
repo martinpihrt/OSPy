@@ -179,18 +179,47 @@ def start():
     #### SSL for https #### http://webpy.org/cookbook/ssl  
 
     # for SSL certificate via letsencrypt
-    ssl_patch_fullchain = '/etc/letsencrypt/live/' + options.domain_ssl + '/fullchain.pem' 
-    ssl_patch_privkey   = '/etc/letsencrypt/live/' + options.domain_ssl + '/privkey.pem'   
+    ssl_patch_fullchain = None
+    ssl_patch_privkey = None
+    if options.domain_ssl:
+        configured_domain_ssl = str(options.domain_ssl).strip()
+        domain_ssl = os.path.basename(configured_domain_ssl)
+        if domain_ssl == configured_domain_ssl and '/' not in domain_ssl and '\\' not in domain_ssl:
+            ssl_patch_fullchain = os.path.join('/etc', 'letsencrypt', 'live', domain_ssl, 'fullchain.pem')
+            ssl_patch_privkey = os.path.join('/etc', 'letsencrypt', 'live', domain_ssl, 'privkey.pem')
+        else:
+            log.error('server.py', _('Invalid SSL domain name, starting only HTTP.'))
 
     # for own SSL certificate in OSPy folder
-    ssl_own_patch_fullchain =  '././ssl/fullchain.pem'
-    ssl_own_patch_privkey   =  '././ssl/privkey.pem'
+    ssl_own_patch_fullchain = os.path.join('.', 'ssl', 'fullchain.pem')
+    ssl_own_patch_privkey = os.path.join('.', 'ssl', 'privkey.pem')
 
     web.config.session_parameters.secure = False
 
-    if options.use_ssl and not options.use_own_ssl:
+    if options.use_own_ssl:
        try:
-           if os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
+           if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
+                log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
+
+                from cheroot.server import HTTPServer
+                from cheroot.ssl.builtin import BuiltinSSLAdapter
+
+                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
+                certificate = ssl_own_patch_fullchain,
+                private_key = ssl_own_patch_privkey)
+                web.config.session_parameters.secure = True
+
+                log.debug('server.py', _('Own SSL OK.'))
+           else:
+               log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
+
+       except:
+           log.debug('server.py', traceback.format_exc())
+           pass
+
+    elif options.use_ssl:
+       try:
+           if ssl_patch_fullchain and ssl_patch_privkey and os.path.isfile(ssl_patch_fullchain) and os.path.isfile(ssl_patch_privkey):
                log.debug('server.py', _('Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
 
                # web.py 0.40 version
@@ -205,27 +234,6 @@ def start():
                log.debug('server.py', _('SSL OK.'))
            else:
                log.debug('server.py', _('SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
-
-       except:
-           log.debug('server.py', traceback.format_exc())
-           pass
-    
-    if options.use_own_ssl and not options.use_ssl:
-       try:
-           if os.path.isfile(ssl_own_patch_fullchain) and os.path.isfile(ssl_own_patch_privkey):
-                log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem found, try starting HTTPS.'))
-
-                from cheroot.server import HTTPServer
-                from cheroot.ssl.builtin import BuiltinSSLAdapter
-
-                HTTPServer.ssl_adapter = BuiltinSSLAdapter(
-                certificate = ssl_own_patch_fullchain,  
-                private_key = ssl_own_patch_privkey)   
-                web.config.session_parameters.secure = True
-
-                log.debug('server.py', _('Own SSL OK.'))
-           else:
-               log.debug('server.py', _('Own SSL Files: fullchain.pem and privkey.pem not found, starting only HTTP!'))
 
        except:
            log.debug('server.py', traceback.format_exc())

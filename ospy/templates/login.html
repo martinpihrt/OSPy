@@ -7,8 +7,8 @@ $var page: login
 
 var loginSubmitting = false;
 
-// onclick checkbox Remember login
-function myCheck() {
+// onclick switch Remember login
+function updateRememberNotice() {
     var checkBox = document.getElementById("remember-me");
     var text = document.getElementById("text");
     if (checkBox.checked == true){
@@ -24,6 +24,9 @@ jQuery(document).ready(function(){
         localStorage.removeItem("userpwd");
         localStorage.removeItem("remember");
     }
+
+    jQuery("#remember-me").change(updateRememberNotice);
+    updateRememberNotice();
 
     function submitLoginForm() {
         if (loginSubmitting) {
@@ -81,7 +84,7 @@ jQuery(document).ready(function(){
     <td>    
         <form name="login" id="login" method="POST"> 
             $:form.render()
-            <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><input type="checkbox" name="remember-me" value="" id="remember-me" onclick="myCheck()"></td></tr></table>
+            <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><label class="optionSwitch"><input type="checkbox" name="remember-me" value="1" id="remember-me"><span class="optionSlider"></span></label></td></tr></table>
             <p id="text" style="display:none"><small>$_('This browser will be remembered after successful login.')</small></p>
         </form>
     </td>

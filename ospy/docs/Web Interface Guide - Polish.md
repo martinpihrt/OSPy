@@ -655,6 +655,8 @@ Akcje zmieniające ustawienia lub stan systemu mają formę interfejsu interneto
 ### Użyj dostępu HTTPS
 W przypadku, gdy skonfigurowaliśmy serwer OSPy pod kątem większego bezpieczeństwa transmisji danych przy użyciu certyfikatu SSL, zaznacz pole „Użyj dostępu HTTPS”. Jeżeli zaznaczona jest opcja "Użyj dostępu HTTPS" i serwer nie jest ustawiony poprawnie, OSPy uruchomi się jako niezabezpieczony serwer http.
 
+Wybór HTTPS po stronie serwera jest teraz jednoznaczny: własny certyfikat ma priorytet, w przeciwnym razie używany jest Let’s Encrypt; włączenie obu opcji nie powoduje już cichego przejścia na HTTP.
+
 ### Nazwa domeny
 Certyfikat znajduje się w systemie w katalogach „/etc/letsencrypt/live/” nazwa domeny „/fullchain.pem” i „/etc/letsencrypt/live/” nazwa domeny „/privkey.pem”. Certyfikat należy zainstalować ręcznie w systemie (Linux) za pomocą narzędzia „Certbot” (użycie https zostanie odzwierciedlone w OSPy dopiero po ponownym uruchomieniu OSPy).
 * Procedurę instalacji Usługi Certyfikacji można znaleźć w pliku pomocy „Readme” lub na Githubie.

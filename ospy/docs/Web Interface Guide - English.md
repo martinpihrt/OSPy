@@ -655,6 +655,8 @@ Actions that change settings or system state are in the form token protected web
 ### Use HTTPS access
 In case we have configured the OSPy server for higher data transfer security using an SSL certificate, check the "Use HTTPS access" box. If the option "Use HTTPS access" is checked and the server is not set correctly, OSPy will start as an unsecured http server.
 
+The server-side HTTPS selection is now explicit: the own certificate has priority, otherwise Let’s Encrypt is used; enabling both options no longer causes a silent HTTP fallback.
+
 ### Domain name
 The certificate is located on the system in the directory '/etc/letsencrypt/live/' domain name '/fullchain.pem' and '/etc/letsencrypt/live/' domain name '/privkey.pem'. The certificate must be manually installed in the system (Linux) using the "Certbot" tool (the use of https will be reflected in OSPy only after OSPy is restarted).
 * The certificate service installation procedure can be found in the help "Readme" file or on GitHub.

@@ -655,6 +655,8 @@ Aktionen, die Systemeinstellungen oder -status ändern, befinden sich in der dur
 ### Verwenden Sie den Zugang HTTPS
 Falls wir den OSPy-Server für eine höhere Datenübertragungssicherheit mithilfe eines SSL-Zertifikats konfiguriert haben, aktivieren Sie das Kontrollkästchen „Verwenden Sie den Zugang HTTPS“. Wenn die Option „Verwenden Sie den Zugang HTTPS“ aktiviert ist und der Server nicht richtig eingestellt ist, startet OSPy als ungesicherter http-Server.
 
+Die serverseitige HTTPS-Auswahl ist jetzt eindeutig: Das eigene Zertifikat hat Priorität, andernfalls wird Let’s Encrypt verwendet; das Aktivieren beider Optionen führt nicht mehr zu einem stillen HTTP-Fallback.
+
 ### Domainname
 Das Zertifikat befindet sich auf dem System im Verzeichnis „/etc/letsencrypt/live/“ Domänenname „/fullchain.pem“ und „/etc/letsencrypt/live/“ Domänenname „/privkey.pem“. Das Zertifikat muss manuell mit dem Tool „Certbot“ im System (Linux) installiert werden (die Verwendung von https wird in OSPy erst nach einem Neustart von OSPy berücksichtigt).
 * Das Verfahren zur Installation des Zertifizierungsdienstes finden Sie in der „Readme“-Hilfedatei oder auf Github.

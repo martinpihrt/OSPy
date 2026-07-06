@@ -2,6 +2,8 @@
 var displayScheduleDate = new Date(device_time); // dk
 var displayScheduleTimeout;
 var graph_text;
+var statusTimeout;
+var statusRequest;
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -96,9 +98,10 @@ function scheduleMarkerMouseout() {
 }
 
 function updateStatus(status) {
-    var display, updateInterval = 30000;
+    var updateInterval = 30000;
     for (var s=0; s<status.length; s++) {
         var station = status[s];
+        var display = station.status;
         var classes = "stationStatus station_" + station.status;
         switch (station.reason) {
             case "program" :
@@ -137,11 +140,28 @@ function updateStatus(status) {
             .removeClass()
             .addClass(classes);
     }
-    setTimeout(statusTimer, updateInterval);
+    scheduleStatusTimer(updateInterval);
+}
+
+function scheduleStatusTimer(updateInterval) {
+    if (statusTimeout != null) {
+        clearTimeout(statusTimeout);
+    }
+    statusTimeout = setTimeout(statusTimer, updateInterval);
 }
 
 function statusTimer() {
-    jQuery.getJSON("/status.json", updateStatus)
+    if (statusRequest && statusRequest.readyState !== 4) {
+        return;
+    }
+    statusRequest = jQuery.ajax({
+        url: "/status.json",
+        dataType: "json",
+        cache: false,
+        timeout: 10000
+    }).done(updateStatus).fail(function() {
+        scheduleStatusTimer(5000);
+    });
 }
 
 function water_level_prompt(current){
@@ -168,16 +188,22 @@ function rain_delay_prompt(current){
 
 function countdownTimer(timerId) {
     var timerElement = jQuery("#" + timerId);
-    var remaining = parseFloat(timerElement.attr("data"));
-    timerElement.attr("data", remaining - 1)
+    var endTime = parseFloat(timerElement.attr("data-end"));
+    if (isNaN(endTime)) {
+        var initialRemaining = parseFloat(timerElement.attr("data"));
+        endTime = (new Date()).getTime() + Math.max(0, initialRemaining || 0) * 1000;
+        timerElement.attr("data-end", endTime);
+    }
+    var remaining = Math.max(0, Math.ceil((endTime - (new Date()).getTime()) / 1000));
+    timerElement.attr("data", remaining);
     var rHours = Math.floor(remaining/3600);
     var rMinutes = Math.floor((remaining%3600)/60);
     var rSeconds = Math.floor(remaining%60);
     timerElement.text((rHours<10 ? "0" : "") + rHours + ":" + (rMinutes<10 ? "0" : "") + rMinutes + ":" + (rSeconds<10 ? "0" : "") + rSeconds);
     if (rHours <=0 && rMinutes <=0 && rSeconds <=0) {
-        setTimeout("location.reload()", 1000);
+        setTimeout(function() { location.reload(); }, 1000);
     } else {
-        setTimeout("countdownTimer('" + timerId + "')", 1000);
+        setTimeout(function() { countdownTimer(timerId); }, 1000);
     }
 }
 
@@ -322,7 +348,7 @@ jQuery(document).ready(function(){
         });
     } else {
         displayProgram()
-        setTimeout(statusTimer, 1000);
+        scheduleStatusTimer(1000);
 
         jQuery(".button#pPrev").click(function() {
             displayScheduleDate.setDate(displayScheduleDate.getDate() - 1);

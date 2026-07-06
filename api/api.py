@@ -473,10 +473,13 @@ class Sensors(object):
 
 
 class Sensor(object):
-    #@auth
     @does_json
     def POST(self):
         try:
+            if getattr(options, 'api_sensor_auth_required', False) and not options.no_password:
+                authenticate_basic()
+                verify_api_csrf_if_required()
+
             log.debug('api.py', 'POST ' + self.__class__.__name__)
             from ospy.helpers import now, split_ip
             from ospy.webpages import sensorSearch

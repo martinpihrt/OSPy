@@ -217,6 +217,29 @@ class _Options(object):
             "help": _('Allow legacy API JSONP responses via the callback query parameter. Keep disabled unless an old integration requires JSONP, because normal API clients should use JSON with CORS instead.'),
             "category": _('Security')
         },
+        {
+            "key": "api_sensor_auth_required",
+            "name": _('Require sensor API auth'),
+            "default": False,
+            "help": _('Require HTTP Basic authentication for sensor reports sent to /api/sensor. Keep disabled for older sensor firmware that cannot send credentials.'),
+            "category": _('Security')
+        },
+        {
+            "key": "api_csrf_required",
+            "name": _('Require API CSRF token'),
+            "default": False,
+            "help": _('Require a CSRF token for state-changing API requests. Keep disabled for older integrations that use only HTTP Basic authentication.'),
+            "category": _('Security')
+        },
+        {
+            "key": "max_upload_size_mb",
+            "name": _('Maximum upload size'),
+            "default": 25,
+            "help": _('Maximum uploaded file size in MB for backup restore, SSL files, station images, and custom sensor firmware. Use 0 for no application limit.'),
+            "category": _('Security'),
+            "min": 0,
+            "max": 2048
+        },
         #######################################################################
         # Sensors ############################################################# 
         {
@@ -225,6 +248,15 @@ class _Options(object):
             "default": "fg4s5b.s,trr7sw8sgyvrDfg",
             "help": _('Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)'),
             "category": _('Sensors')
+        },
+        {
+            "key": "sensor_http_timeout",
+            "name": _('Sensor HTTP timeout'),
+            "default": 10,
+            "help": _('Timeout in seconds for HTTP requests sent from OSPy to sensors.'),
+            "category": _('Sensors'),
+            "min": 1,
+            "max": 120
         },
         #######################################################################
         # Station Handling ####################################################
@@ -590,8 +622,8 @@ class _Options(object):
 
         try:
             if not self.first_password_hash:                                                     # First default installation password is not hashed yet
-                import random
-                self.first_password_hash = '{:16x}'.format(random.randint(0, 0xFFFFFFFFFFFFFFFF))
+                import secrets
+                self.first_password_hash = secrets.token_hex(8)
 
             if not self.password_salt and self.password_hash == 'opendoor':                      # Password is not hashed yet
                 from ospy.helpers import password_salt, password_hash

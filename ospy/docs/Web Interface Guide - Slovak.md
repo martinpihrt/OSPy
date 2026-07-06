@@ -655,6 +655,8 @@ Akcie, ktoré menia nastavenia alebo stav systému, sú vo webovom rozhraní chr
 ### Použíť HTTPS
 V prípade, že sme nakonfigurovali server OSPy pre vyššie zabezpečenie prenosu dát pomocou certifikátu SSL, zaškrtnite políčko "Použíť HTTPS". Ak je zaškrtnutá voľba "Použíť HTTPS" a server nie je správne nastavený, OSPy sa spustia ako http server bez zabezpečenia.
 
+Serverová časť je teraz jednoznačná: vlastný certifikát má prioritu, inak sa použije Let’s Encrypt; zapnutie oboch volieb už nespôsobí tichý návrat na HTTP.
+
 ### Doménové meno
 Certifikát je umiestnený v systéme v adresári '/etc/letsencrypt/live/' meno domény '/fullchain.pem' a '/etc/letsencrypt/live/' meno domény '/privkey.pem'. Certifikát je nutné pomocou nástroja "Certbot" nainštalovať do systému (Linux) ručne (použitie https sa prejaví v OSPy až po reštarte OSPy).
 * Postup pre inštaláciu Certifikačnej služby nájdeme v súbore "Readme" pomocníka, alebo na Githube.

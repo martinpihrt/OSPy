@@ -14,6 +14,7 @@ import web
 from .errors import badrequest, unauthorized
 
 from ospy.helpers import test_password, print_report
+from ospy.helpers import verify_csrf
 from ospy.options import options
 from ospy.log import log
 from ospy import server
@@ -137,6 +138,35 @@ def does_json(func):
     return wrapper
 
 
+def authenticate_basic():
+    username = password = ''
+    try:
+        auth_data = web.ctx.env.get('HTTP_AUTHORIZATION')
+        assert auth_data, 'No authentication data provided'
+
+        http_auth = re.sub('^Basic ', '', auth_data)
+        base64_bytes = http_auth.encode('ascii')
+        message_bytes = base64.b64decode(base64_bytes)
+        message = message_bytes.decode('ascii')
+        username, password = message.split(':', 1)
+        log.debug('utils.py',  _('API Auth Attempt with user: {}').format(username))
+        assert test_password(password, username), 'Wrong password'
+        return True
+    except:
+        log.debug('utils.py',  _('API Unauthorized attempt user: {}').format(username))
+        web.header('WWW-Authenticate', 'Basic realm="OSPy"')
+        print_report('utils.py', traceback.format_exc())
+        raise unauthorized()
+
+
+def verify_api_csrf_if_required():
+    if not getattr(options, 'api_csrf_required', False):
+        return
+    method = getattr(web.ctx, 'method', '').upper()
+    if method in ('POST', 'PUT', 'PATCH', 'DELETE'):
+        verify_csrf()
+
+
 def auth(func):
     """
     HTTP Basic authentication wrapper
@@ -145,26 +175,9 @@ def auth(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not options.no_password:
-            username = password = ''
-            try:
-                auth_data = web.ctx.env.get('HTTP_AUTHORIZATION')
-                assert auth_data, 'No authentication data provided'
+            authenticate_basic()
 
-                http_auth = re.sub('^Basic ', '', auth_data)
-                base64_bytes = http_auth.encode('ascii')
-                message_bytes = base64.b64decode(base64_bytes)
-                message = message_bytes.decode('ascii')
-                username, password = message.split(':')
-                log.debug('utils.py',  _('API Auth Attempt with user: {}').format(username))
-                assert test_password(password, username), 'Wrong password'
-                # if (username, password) not in dummy_users:
-                #     raise  # essentially a goto :P
-            except:
-                # no or wrong auth provided
-                log.debug('utils.py',  _('API Unauthorized attempt user: {}').format(username))
-                web.header('WWW-Authenticate', 'Basic realm="OSPy"')
-                print_report('utils.py', traceback.format_exc())
-                raise unauthorized()
+        verify_api_csrf_if_required()
 
         return func(*args, **kwargs)
         

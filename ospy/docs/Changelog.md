@@ -3,6 +3,12 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 06 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Clarified SSL certificate selection in all web interface manuals and the clean installation guide: a local own certificate now has priority, Let’s Encrypt is used otherwise, and enabling both HTTPS options no longer causes a silent HTTP fallback.
+Improved home page countdown refresh reliability by adding timeouts and automatic retry to station status polling, and by calculating countdown timers from the real target time so they recover after browser throttling or a stalled request.
+
 July 04 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

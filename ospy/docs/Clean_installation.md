@@ -113,6 +113,8 @@ HTTPS
 For using "https" in OSPy options you must follow these procedures. SSL certificate via Let’s Encrypt certification authority.
 The [Certbot](https://certbot.eff.org/) and [Let’s Encrypt](https://letsencrypt.org/) for enabling SSL security.
 
+The server-side HTTPS selection is now explicit: the own certificate has priority, otherwise Let’s Encrypt is used; enabling both options no longer causes a silent HTTP fallback.
+
 Execute:
 ```bash
 sudo apt-get install certbot

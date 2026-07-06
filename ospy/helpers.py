@@ -13,6 +13,7 @@ import traceback
 import ast
 import hmac
 import os
+import secrets
 from threading import Lock
 
 BRUTEFORCE_LOCK = Lock()
@@ -20,6 +21,9 @@ BRUTEFORCE_ATTEMPTS = {}
 BRUTEFORCE_DELAY_AFTER = 3
 BRUTEFORCE_LOCK_AFTER = 10
 BRUTEFORCE_LOCK_SECONDS = 15 * 60
+PASSWORD_HASH_ALGORITHM = 'pbkdf2_sha256'
+PASSWORD_HASH_ITERATIONS = 200000
+UPLOAD_READ_CHUNK_SIZE = 1024 * 64
 
 
 def del_rw(action, name, exc):
@@ -540,6 +544,62 @@ def mkdir_p(path):
             raise
 
 
+def configured_upload_limit_bytes():
+    from ospy.options import options
+    try:
+        size_mb = float(getattr(options, 'max_upload_size_mb', 0))
+    except Exception:
+        size_mb = 0
+    if size_mb <= 0:
+        return None
+    return int(size_mb * 1024 * 1024)
+
+
+def read_limited_upload(file_obj, max_bytes=None):
+    if max_bytes is None:
+        max_bytes = configured_upload_limit_bytes()
+
+    data = bytearray()
+    while True:
+        chunk = file_obj.read(UPLOAD_READ_CHUNK_SIZE)
+        if not chunk:
+            break
+        data.extend(chunk)
+        if max_bytes is not None and len(data) > max_bytes:
+            raise ValueError(_('Uploaded file is larger than the configured maximum size.'))
+    return bytes(data)
+
+
+def safe_image_path(image_id, station_folder=False):
+    import os
+
+    if image_id is None:
+        return None
+
+    image_id = str(image_id).replace('\\', '/')
+    if '/' in image_id:
+        return None
+
+    name = os.path.basename(image_id)
+    if name in ('', '.', '..') or name != image_id:
+        return None
+
+    root = os.path.abspath(os.path.join('ospy', 'images', 'stations' if station_folder else ''))
+    allowed_exts = ('.png', '.jpg', '.jpeg', '.gif')
+    candidates = [name] if os.path.splitext(name)[1].lower() else [name + ext for ext in allowed_exts]
+
+    root_check = os.path.normcase(root)
+    for candidate in candidates:
+        if os.path.splitext(candidate)[1].lower() not in allowed_exts:
+            continue
+        path = os.path.abspath(os.path.join(root, candidate))
+        if os.path.commonpath([root_check, os.path.normcase(path)]) != root_check:
+            continue
+        if os.path.isfile(path):
+            return path
+    return None
+
+
 def duration_str(total_seconds):
     minutes, seconds = divmod(total_seconds, 60)
     return '%02d:%02d' % (minutes, seconds)
@@ -719,14 +779,16 @@ def get_external_ip():
 #### Login Handling ####
 
 def password_salt():
-    return "".join(chr(random.randint(33, 127)) for _ in range(64))
+    return secrets.token_urlsafe(32)
 
 
 def password_hash(password, salt):
     import hashlib
-    m = hashlib.sha256() 
-    m.update((password+salt).encode('utf-8')) 
-    return m.hexdigest()    
+    if not salt:
+        salt = password_salt()
+    iterations = PASSWORD_HASH_ITERATIONS
+    digest = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt.encode('utf-8'), iterations)
+    return '{}${}${}${}'.format(PASSWORD_HASH_ALGORITHM, iterations, salt, digest.hex())
 
 def _request_ip():
     try:
@@ -773,8 +835,39 @@ def _bruteforce_failure(username):
             attempt['blocked_until'] = now_ts + BRUTEFORCE_LOCK_SECONDS
         BRUTEFORCE_ATTEMPTS[key] = attempt
 
+def _legacy_password_hash(password, salt):
+    import hashlib
+    m = hashlib.sha256()
+    m.update((password + salt).encode('utf-8'))
+    return m.hexdigest()
+
+
 def _password_matches(password, password_hash_value, salt):
-    return hmac.compare_digest(password_hash(password, salt), password_hash_value)
+    import hashlib
+
+    if isinstance(password_hash_value, str) and password_hash_value.startswith(PASSWORD_HASH_ALGORITHM + '$'):
+        try:
+            algorithm, iterations, stored_salt, stored_hash = password_hash_value.split('$', 3)
+            if algorithm != PASSWORD_HASH_ALGORITHM:
+                return False, False
+            digest = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), stored_salt.encode('utf-8'), int(iterations))
+            return hmac.compare_digest(digest.hex(), stored_hash), False
+        except Exception:
+            print_report('helpers.py', traceback.format_exc())
+            return False, False
+
+    return hmac.compare_digest(_legacy_password_hash(password, salt), password_hash_value), True
+
+
+def _upgrade_admin_password_hash(password):
+    from ospy.options import options
+    options.password_salt = password_salt()
+    options.password_hash = password_hash(password, options.password_salt)
+
+
+def _upgrade_user_password_hash(user, password):
+    user.password_salt = password_salt()
+    user.password_hash = password_hash(password, user.password_salt)
 
 def test_password(password, username):
     from ospy.options import options
@@ -785,7 +878,10 @@ def test_password(password, username):
         print_report('helpers.py', _('Login blocked temporarily for {} from IP {}').format(username, _request_ip()))
         return False
     
-    if _password_matches(password, options.password_hash, options.password_salt) and options.admin_user == username:     # Login for OSPy main administrator
+    matches, legacy_hash = _password_matches(password, options.password_hash, options.password_salt)
+    if matches and options.admin_user == username:     # Login for OSPy main administrator
+        if legacy_hash:
+            _upgrade_admin_password_hash(password)
         options.password_time = 0
         server.session['category'] = 'admin'
         server.session['visitor']  = options.admin_user
@@ -794,7 +890,10 @@ def test_password(password, username):
         return True
     else:
         for user in users.get():
-            if _password_matches(password, user.password_hash, user.password_salt) and user.name == username:            # Login for others OSPy users
+            matches, legacy_hash = _password_matches(password, user.password_hash, user.password_salt)
+            if matches and user.name == username:            # Login for others OSPy users
+                if legacy_hash:
+                    _upgrade_user_password_hash(user, password)
                 options.password_time = 0 
                 _bruteforce_success(username)
                 if user.category == '0':   # public
