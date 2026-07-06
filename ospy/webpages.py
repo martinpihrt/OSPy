@@ -2676,6 +2676,26 @@ class images_page(ProtectedPage):
 
             id = get_input(qdict, 'id')                                   # id = name for image (ex: station1.png)
             s_folder = get_input(qdict, 'sf', None, lambda x: x == '1')   # sf = 1 read from folder: images/stations else from images/
+            ip_cam = get_input(qdict, 'ip_cam', None, lambda x: x == '1')
+
+            if ip_cam is not None:
+                cam_nr = get_input(qdict, 'cam', '1', lambda x: x.isdigit())
+                image_type = get_input(qdict, 'type', 'jpg', lambda x: x in ('jpg', 'gif'))
+                download_name = os.path.join('plugins', 'ip_cam', 'data', '{}.{}'.format(cam_nr, image_type))
+                if not os.path.isfile(download_name):
+                    fallback_id = 'station{}_thumbnail.png'.format(cam_nr)
+                    download_name = safe_image_path(fallback_id, station_folder=True)
+                if not download_name or not os.path.isfile(download_name):
+                    download_name = safe_image_path('no_image_thumbnail.png')
+
+                if download_name and os.path.isfile(download_name):
+                    content = mimetypes.guess_type(download_name)[0]
+                    web.header('Content-type', content)
+                    web.header('Content-Length', os.path.getsize(download_name))
+                    web.header('Cache-Control', 'no-store')
+                    img = open(download_name,'rb')
+                    return img.read()
+                return None
 
             if id is not None:
                 download_name = safe_image_path(id, station_folder=s_folder is not None)
