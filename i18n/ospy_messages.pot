@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-07-06 15:00+0200\n"
+"POT-Creation-Date: 2026-07-06 22:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,6 +171,7 @@ msgstr ""
 #: ospy/helpers.py:440 ospy/helpers.py:441 ospy/helpers.py:1286
 #: ospy/templates/sensors.html:84 ospy/templates/sensors_search.html:56
 #: ospy/templates/sensors_search.html:61 ospy/templates/sensors_search.html:67
+#: plugins/ip_scanner/templates/ip_scanner.html:133
 #: plugins/shelly_cloud_integrator/__init__.py:158
 #: plugins/shelly_cloud_integrator/__init__.py:217
 #: plugins/shelly_cloud_integrator/__init__.py:283
@@ -396,8 +397,8 @@ msgstr ""
 
 #: ospy/options.py:34 ospy/options.py:42 ospy/options.py:49 ospy/options.py:56
 #: ospy/options.py:63 ospy/options.py:72 ospy/options.py:79 ospy/options.py:86
-#: ospy/options.py:93 ospy/options.py:100 ospy/options.py:108
-#: ospy/options.py:135 ospy/options.py:142
+#: ospy/options.py:94 ospy/options.py:101 ospy/options.py:108
+#: ospy/options.py:116 ospy/options.py:143 ospy/options.py:150
 #: plugins/email_notifications/__init__.py:96
 #: plugins/email_notifications/__init__.py:117
 #: plugins/email_notifications/__init__.py:133
@@ -463,181 +464,189 @@ msgid "Show pictures of stations on the homepage."
 msgstr ""
 
 #: ospy/options.py:90
+msgid "Station picture source"
+msgstr ""
+
+#: ospy/options.py:93
+msgid "Choose whether station pictures on the home page use uploaded station images or cached images from the IP Cam plug-in. This is used only when station pictures are enabled."
+msgstr ""
+
+#: ospy/options.py:98
 msgid "Show icons instead of text"
 msgstr ""
 
-#: ospy/options.py:92
+#: ospy/options.py:100
 msgid "When activated, in header menu will display icons instead of text."
 msgstr ""
 
-#: ospy/options.py:97
+#: ospy/options.py:105
 msgid "Show back to top button"
 msgstr ""
 
-#: ospy/options.py:99
+#: ospy/options.py:107
 msgid "Show a button for scrolling back to the top of the page after the page is scrolled down."
 msgstr ""
 
-#: ospy/options.py:104
+#: ospy/options.py:112
 msgid "Back to top position"
 msgstr ""
 
-#: ospy/options.py:107
+#: ospy/options.py:115
 msgid "Choose whether the back to top button is shown at the bottom left or bottom right of the page."
 msgstr ""
 
-#: ospy/options.py:112
+#: ospy/options.py:120
 msgid "Enabled plug-ins"
 msgstr ""
 
-#: ospy/options.py:117
+#: ospy/options.py:125
 msgid "Plug-in status"
 msgstr ""
 
-#: ospy/options.py:122
+#: ospy/options.py:130
 msgid "Automatic plug-in updates"
 msgstr ""
 
-#: ospy/options.py:127
+#: ospy/options.py:135
 msgid "Enable plug-in check status updates"
 msgstr ""
 
-#: ospy/options.py:132
+#: ospy/options.py:140
 msgid "IP for DNS ping"
 msgstr ""
 
-#: ospy/options.py:134
+#: ospy/options.py:142
 msgid "IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped."
 msgstr ""
 
-#: ospy/options.py:148
+#: ospy/options.py:156
 msgid "Use Weather"
 msgstr ""
 
-#: ospy/options.py:150
+#: ospy/options.py:158
 msgid "Enabling or disabling connection to service Stormglass.io."
 msgstr ""
 
-#: ospy/options.py:151 ospy/options.py:158 ospy/options.py:165
+#: ospy/options.py:159 ospy/options.py:166 ospy/options.py:173
 #: plugins/weather_based_rain_delay/__init__.py:78
 msgid "Weather"
 msgstr ""
 
-#: ospy/options.py:155
+#: ospy/options.py:163
 msgid "Storm Glass API key"
 msgstr ""
 
-#: ospy/options.py:157
+#: ospy/options.py:165
 msgid "To make use of local weather conditions, a Storm Glass API key is needed."
 msgstr ""
 
-#: ospy/options.py:162
+#: ospy/options.py:170
 msgid "Location"
 msgstr ""
 
-#: ospy/options.py:164
+#: ospy/options.py:172
 msgid "City name or zip code. Used to determine location via OpenStreetMap for weather information."
 msgstr ""
 
-#: ospy/options.py:171
+#: ospy/options.py:179
 msgid "Disable security"
 msgstr ""
 
-#: ospy/options.py:173
+#: ospy/options.py:181
 msgid "Allow anonymous users to access the system without a password."
 msgstr ""
 
-#: ospy/options.py:174 ospy/options.py:181
+#: ospy/options.py:182 ospy/options.py:189
 msgid "Users"
 msgstr ""
 
-#: ospy/options.py:178
+#: ospy/options.py:186
 msgid "Administrator name"
 msgstr ""
 
-#: ospy/options.py:180
+#: ospy/options.py:188
 msgid "Administrator login name for login to the OSPy."
 msgstr ""
 
-#: ospy/options.py:187
+#: ospy/options.py:195
 msgid "Use HTTPS access"
 msgstr ""
 
-#: ospy/options.py:189
+#: ospy/options.py:197
 msgid "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:190 ospy/options.py:197 ospy/options.py:204
-#: ospy/options.py:211 ospy/options.py:218 ospy/options.py:225
-#: ospy/options.py:232 ospy/options.py:239
+#: ospy/options.py:198 ospy/options.py:205 ospy/options.py:212
+#: ospy/options.py:219 ospy/options.py:226 ospy/options.py:233
+#: ospy/options.py:240 ospy/options.py:247
 msgid "Security"
 msgstr ""
 
-#: ospy/options.py:194
+#: ospy/options.py:202
 msgid "Domain name"
 msgstr ""
 
-#: ospy/options.py:196
+#: ospy/options.py:204
 msgid "Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com"
 msgstr ""
 
-#: ospy/options.py:201
+#: ospy/options.py:209
 msgid "Use Own HTTPS access"
 msgstr ""
 
-#: ospy/options.py:203
+#: ospy/options.py:211
 msgid "SSL certificate via own file without certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:208
+#: ospy/options.py:216
 msgid "API CORS allowed origin"
 msgstr ""
 
-#: ospy/options.py:210
+#: ospy/options.py:218
 msgid "Allowed browser origin for API CORS requests. Use * to allow any origin, enter one origin such as https://example.com, enter multiple origins separated by commas, or leave empty to disable CORS headers. This affects browser-based API clients only."
 msgstr ""
 
-#: ospy/options.py:215
+#: ospy/options.py:223
 msgid "Enable API JSONP"
 msgstr ""
 
-#: ospy/options.py:217
+#: ospy/options.py:225
 msgid "Allow legacy API JSONP responses via the callback query parameter. Keep disabled unless an old integration requires JSONP, because normal API clients should use JSON with CORS instead."
 msgstr ""
 
-#: ospy/options.py:222
+#: ospy/options.py:230
 msgid "Require sensor API auth"
 msgstr ""
 
-#: ospy/options.py:224
+#: ospy/options.py:232
 msgid "Require HTTP Basic authentication for sensor reports sent to /api/sensor. Keep disabled for older sensor firmware that cannot send credentials."
 msgstr ""
 
-#: ospy/options.py:229
+#: ospy/options.py:237
 msgid "Require API CSRF token"
 msgstr ""
 
-#: ospy/options.py:231
+#: ospy/options.py:239
 msgid "Require a CSRF token for state-changing API requests. Keep disabled for older integrations that use only HTTP Basic authentication."
 msgstr ""
 
-#: ospy/options.py:236
+#: ospy/options.py:244
 msgid "Maximum upload size"
 msgstr ""
 
-#: ospy/options.py:238
+#: ospy/options.py:246
 msgid "Maximum uploaded file size in MB for backup restore, SSL files, station images, and custom sensor firmware. Use 0 for no application limit."
 msgstr ""
 
-#: ospy/options.py:247
+#: ospy/options.py:255
 msgid "Password FW"
 msgstr ""
 
-#: ospy/options.py:249
+#: ospy/options.py:257
 msgid "Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)"
 msgstr ""
 
-#: ospy/options.py:250 ospy/options.py:257 ospy/templates/base.html:287
+#: ospy/options.py:258 ospy/options.py:265 ospy/templates/base.html:287
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:226
 #: plugins/email_notifications/__init__.py:227
@@ -648,375 +657,375 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: ospy/options.py:254
+#: ospy/options.py:262
 msgid "Sensor HTTP timeout"
 msgstr ""
 
-#: ospy/options.py:256
+#: ospy/options.py:264
 msgid "Timeout in seconds for HTTP requests sent from OSPy to sensors."
 msgstr ""
 
-#: ospy/options.py:265
+#: ospy/options.py:273
 msgid "Maximum usage"
 msgstr ""
 
-#: ospy/options.py:267
+#: ospy/options.py:275
 msgid "Determines how station runs are combined. 0 means no limit. 1 means one station at a time when each station has usage 1. This also affects when the pause between stations is inserted."
 msgstr ""
 
-#: ospy/options.py:268 ospy/options.py:275 ospy/options.py:284
-#: ospy/options.py:293
+#: ospy/options.py:276 ospy/options.py:283 ospy/options.py:292
+#: ospy/options.py:301
 msgid "Station Handling"
 msgstr ""
 
-#: ospy/options.py:272
+#: ospy/options.py:280
 msgid "Number of outputs"
 msgstr ""
 
-#: ospy/options.py:274
+#: ospy/options.py:282
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr ""
 
-#: ospy/options.py:281
+#: ospy/options.py:289
 msgid "Pause between stations"
 msgstr ""
 
-#: ospy/options.py:283
+#: ospy/options.py:291
 msgid "Pause inserted between sequential station runs when the scheduler cannot run them at the same time, in seconds between 0 and 3600. This does not shift a station against the master station. Example: with maximum usage 1 and station usage 1, value 30 starts the next station 30 seconds after the previous station ends."
 msgstr ""
 
-#: ospy/options.py:290
+#: ospy/options.py:298
 msgid "Minimum runtime"
 msgstr ""
 
-#: ospy/options.py:292
+#: ospy/options.py:300
 msgid "Skip the pause between stations when the previous run was shorter than this value, in seconds between 0 and 86400. Example: with pause 30 and minimum runtime 10, a station that ran only 5 seconds will not force the 30 second pause."
 msgstr ""
 
-#: ospy/options.py:301
+#: ospy/options.py:309
 msgid "Activate relay"
 msgstr ""
 
-#: ospy/options.py:303
+#: ospy/options.py:311
 msgid "Also activate the relay as master output."
 msgstr ""
 
-#: ospy/options.py:304 ospy/options.py:311 ospy/options.py:320
-#: ospy/options.py:329 ospy/options.py:338
+#: ospy/options.py:312 ospy/options.py:319 ospy/options.py:328
+#: ospy/options.py:337 ospy/options.py:346
 msgid "Configure Master"
 msgstr ""
 
-#: ospy/options.py:308
+#: ospy/options.py:316
 msgid "Master start offset"
 msgstr ""
 
-#: ospy/options.py:310
+#: ospy/options.py:318
 msgid "Time offset for starting master station 1 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts the master 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:317
+#: ospy/options.py:325
 msgid "Master stop offset"
 msgstr ""
 
-#: ospy/options.py:319
+#: ospy/options.py:327
 msgid "Time offset for stopping master station 1 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops the master 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:326
+#: ospy/options.py:334
 msgid "Master two start offset"
 msgstr ""
 
-#: ospy/options.py:328
+#: ospy/options.py:336
 msgid "Time offset for starting master station 2 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts master 2 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:335
+#: ospy/options.py:343
 msgid "Master two stop offset"
 msgstr ""
 
-#: ospy/options.py:337
+#: ospy/options.py:345
 msgid "Time offset for stopping master station 2 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops master 2 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:346
+#: ospy/options.py:354
 msgid "Use rain sensor"
 msgstr ""
 
-#: ospy/options.py:348
+#: ospy/options.py:356
 msgid "Use rain sensor."
 msgstr ""
 
-#: ospy/options.py:349 ospy/options.py:356 ospy/options.py:363
-#: ospy/options.py:370 plugins/lcd_display/templates/lcd_display.html:300
+#: ospy/options.py:357 ospy/options.py:364 ospy/options.py:371
+#: ospy/options.py:378 plugins/lcd_display/templates/lcd_display.html:300
 #: plugins/lcd_display/templates/lcd_display_help.html:40
 msgid "Rain Sensor"
 msgstr ""
 
-#: ospy/options.py:353
+#: ospy/options.py:361
 #: plugins/pressure_monitor/templates/pressure_monitor.html:337
 msgid "Normally open"
 msgstr ""
 
-#: ospy/options.py:355
+#: ospy/options.py:363
 msgid "Rain sensor default."
 msgstr ""
 
-#: ospy/options.py:360
+#: ospy/options.py:368
 msgid "Set rain delay"
 msgstr ""
 
-#: ospy/options.py:362
+#: ospy/options.py:370
 msgid "When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor)."
 msgstr ""
 
-#: ospy/options.py:367
+#: ospy/options.py:375
 msgid "Rain delay time"
 msgstr ""
 
-#: ospy/options.py:369
+#: ospy/options.py:377
 msgid "Rain delay time (in hours), between 0 and 500."
 msgstr ""
 
-#: ospy/options.py:378
+#: ospy/options.py:386
 msgid "Enable run log"
 msgstr ""
 
-#: ospy/options.py:380
+#: ospy/options.py:388
 msgid "Log all runs - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:381 ospy/options.py:388 ospy/options.py:397
-#: ospy/options.py:404 ospy/options.py:413 ospy/options.py:420
-#: ospy/options.py:429 ospy/options.py:438 ospy/options.py:445
+#: ospy/options.py:389 ospy/options.py:396 ospy/options.py:405
+#: ospy/options.py:412 ospy/options.py:421 ospy/options.py:428
+#: ospy/options.py:437 ospy/options.py:446 ospy/options.py:453
 #: ospy/templates/log.html:28 ospy/templates/log.html:70
 #: ospy/templates/log.html:105 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 msgid "Logging"
 msgstr ""
 
-#: ospy/options.py:385
+#: ospy/options.py:393
 msgid "Max run entries"
 msgstr ""
 
-#: ospy/options.py:387
+#: ospy/options.py:395
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:394
+#: ospy/options.py:402
 msgid "Enable email log"
 msgstr ""
 
-#: ospy/options.py:396
+#: ospy/options.py:404
 msgid "Log all emails - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:401
+#: ospy/options.py:409
 msgid "Max email entries"
 msgstr ""
 
-#: ospy/options.py:403
+#: ospy/options.py:411
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:410
+#: ospy/options.py:418
 msgid "Enable events log"
 msgstr ""
 
-#: ospy/options.py:412
+#: ospy/options.py:420
 msgid "Log all events - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:417
+#: ospy/options.py:425
 msgid "Max events entries"
 msgstr ""
 
-#: ospy/options.py:419
+#: ospy/options.py:427
 msgid "Number of events entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:426
+#: ospy/options.py:434
 msgid "Max sensor entries"
 msgstr ""
 
-#: ospy/options.py:428
+#: ospy/options.py:436
 msgid "Number of sensor entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:435
+#: ospy/options.py:443
 msgid "Enable debug log"
 msgstr ""
 
-#: ospy/options.py:437
+#: ospy/options.py:445
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:442
+#: ospy/options.py:450
 msgid "Enable web log"
 msgstr ""
 
-#: ospy/options.py:444
+#: ospy/options.py:452
 msgid "Logging of internal events from the web server (for debugging it is necessary to enable the debug log and then restart OSPy). Deteriorates page loading speed."
 msgstr ""
 
-#: ospy/options.py:451
+#: ospy/options.py:459
 msgid "Shift register speed"
 msgstr ""
 
-#: ospy/options.py:453
+#: ospy/options.py:461
 msgid "This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses."
 msgstr ""
 
-#: ospy/options.py:454 plugins/system_info/__init__.py:45
+#: ospy/options.py:462 plugins/system_info/__init__.py:45
 msgid "Hardware"
 msgstr ""
 
-#: ospy/options.py:460
+#: ospy/options.py:468
 msgid "New installation generated password hash"
 msgstr ""
 
-#: ospy/options.py:465
+#: ospy/options.py:473
 msgid "New installation"
 msgstr ""
 
-#: ospy/options.py:470
+#: ospy/options.py:478
 #: plugins/button_control/templates/button_control.html:116
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:475 plugins/mqtt_home_assistant/__init__.py:833
+#: ospy/options.py:483 plugins/mqtt_home_assistant/__init__.py:833
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:480
+#: ospy/options.py:488
 msgid "Image resolution"
 msgstr ""
 
-#: ospy/options.py:485
+#: ospy/options.py:493
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:490
+#: ospy/options.py:498
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:495
+#: ospy/options.py:503
 msgid "Rain blocks (rain delays) set by plug-ins (datetime dictionary)"
 msgstr ""
 
-#: ospy/options.py:500
+#: ospy/options.py:508
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:505
+#: ospy/options.py:513
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:510
+#: ospy/options.py:518
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:515
+#: ospy/options.py:523
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:520
+#: ospy/options.py:528
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:525
+#: ospy/options.py:533
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:530
+#: ospy/options.py:538
 msgid "The events that have been logged"
 msgstr ""
 
-#: ospy/options.py:535
+#: ospy/options.py:543
 msgid "ETo and rain value cache"
 msgstr ""
 
-#: ospy/options.py:540
+#: ospy/options.py:548
 msgid "Location latitude"
 msgstr ""
 
-#: ospy/options.py:545
+#: ospy/options.py:553
 msgid "Location longtitude"
 msgstr ""
 
-#: ospy/options.py:550
+#: ospy/options.py:558
 msgid "Weather status"
 msgstr ""
 
-#: ospy/options.py:555
+#: ospy/options.py:563
 msgid "Graph histories"
 msgstr ""
 
-#: ospy/options.py:560 ospy/templates/graph_sensor.html:270
+#: ospy/options.py:568 ospy/templates/graph_sensor.html:270
 #: plugins/air_temp_humi/templates/air_temp_humi.html:563
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:565
+#: ospy/options.py:573
 msgid "Filter for logs - event: server"
 msgstr ""
 
-#: ospy/options.py:570
+#: ospy/options.py:578
 msgid "Filter for logs - event: rain sensor"
 msgstr ""
 
-#: ospy/options.py:575
+#: ospy/options.py:583
 msgid "Filter for logs - event: rain delay"
 msgstr ""
 
-#: ospy/options.py:580
+#: ospy/options.py:588
 msgid "Filter for logs - event: internet not found"
 msgstr ""
 
-#: ospy/options.py:585
+#: ospy/options.py:593
 msgid "Filter for logs - event: user login"
 msgstr ""
 
-#: ospy/options.py:590
+#: ospy/options.py:598
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:763
+#: ospy/options.py:771
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:788
+#: ospy/options.py:796
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:797
+#: ospy/options.py:805
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:803
+#: ospy/options.py:811
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:808
+#: ospy/options.py:816
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:813
+#: ospy/options.py:821
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:819
+#: ospy/options.py:827
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:822
+#: ospy/options.py:830
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:827
+#: ospy/options.py:835
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:829
+#: ospy/options.py:837
 msgid ""
 "Saving error:\n"
 msgstr ""
@@ -1095,6 +1104,7 @@ msgstr ""
 
 #: ospy/programs.py:258 ospy/templates/program.html:54
 #: ospy/templates/program.html:592
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:106
 msgid "Day"
 msgstr ""
 
@@ -1150,7 +1160,7 @@ msgstr ""
 #: plugins/ups_adj/templates/ups_adj.html:184
 #: plugins/ups_adj/templates/ups_adj.html:434
 #: plugins/ups_adj/templates/ups_adj.html:435
-#: plugins/weather_based_water_level/__init__.py:138
+#: plugins/weather_based_water_level/__init__.py:239
 #: plugins/weather_based_water_level_netatmo/__init__.py:154
 #: plugins/wind_monitor/templates/wind_monitor.html:237
 #: plugins/wind_monitor/templates/wind_monitor.html:240
@@ -1556,7 +1566,8 @@ msgstr ""
 #: plugins/mqtt_home_assistant/__init__.py:907
 #: plugins/mqtt_home_assistant/__init__.py:916
 #: plugins/mqtt_home_assistant/__init__.py:925
-#: plugins/weather_based_water_level/__init__.py:150
+#: plugins/weather_based_water_level/__init__.py:267
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:111
 msgid "Temperature"
 msgstr ""
 
@@ -2011,6 +2022,7 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:466
 #: plugins/email_reader/__init__.py:779 plugins/lcd_display/__init__.py:745
 #: plugins/mqtt_home_assistant/__init__.py:903
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:113
 msgid "Humidity"
 msgstr ""
 
@@ -2316,73 +2328,73 @@ msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:27
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:141
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:142
 msgid "January"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:31
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:142
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:143
 msgid "February"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:35
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:143
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:144
 msgid "March"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:39
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:144
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:145
 msgid "April"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:43
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:145
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:146
 msgid "May"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:47
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:146
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:147
 msgid "June"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:51
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:147
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:148
 msgid "July"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:55
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:148
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:149
 msgid "August"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:59
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:149
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:150
 msgid "September"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:63
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:150
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:151
 msgid "October"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:67
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:151
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:152
 msgid "November"
 msgstr ""
 
 #: ospy/templates/base.html:5
 #: plugins/monthly_water_level/templates/monthly_water_level.html:71
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:152
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:153
 msgid "December"
 msgstr ""
 
@@ -2520,9 +2532,9 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:75
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:85
 #: plugins/email_reader/templates/email_reader.html:69
-#: plugins/ip_cam/templates/ip_cam.html:20
-#: plugins/ip_cam/templates/ip_cam_setup.html:76
-#: plugins/labelmaker/templates/labelmaker.html:38
+#: plugins/ip_cam/templates/ip_cam.html:127
+#: plugins/ip_cam/templates/ip_cam_setup.html:166
+#: plugins/labelmaker/templates/labelmaker.html:139
 #: plugins/lcd_display/templates/lcd_display.html:186
 #: plugins/modbus_stations/templates/modbus_stations.html:67
 #: plugins/monthly_water_level/templates/monthly_water_level.html:22
@@ -2636,7 +2648,7 @@ msgstr ""
 #: plugins/chmi/templates/chmi_log.html:21
 #: plugins/cli_control/templates/cli_control_log.html:11
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_log.html:29
-#: plugins/ip_cam/templates/ip_cam.html:42
+#: plugins/ip_cam/templates/ip_cam.html:180
 #: plugins/modbus_stations/templates/modbus_stations_log.html:11
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:30
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:217
@@ -2742,6 +2754,7 @@ msgstr ""
 #: ospy/templates/program.html:622 ospy/templates/program.html:649
 #: ospy/templates/programs.html:145
 #: plugins/database_connector/templates/database_connector_backup.html:45
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:62
 #: plugins/ospy_backup/templates/ospy_backup.html:53
 #: plugins/voice_notification/templates/voice_notification_sounds.html:75
 #: plugins/voice_station/templates/voice_station_sounds.html:75
@@ -2788,14 +2801,16 @@ msgstr ""
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:52
 #: plugins/email_reader/templates/email_reader.html:249
 #: plugins/email_reader/templates/email_reader_help.html:95
-#: plugins/ip_cam/templates/ip_cam.html:43
+#: plugins/ip_cam/templates/ip_cam.html:181
 #: plugins/ip_cam/templates/ip_cam_gif.html:19
-#: plugins/ip_cam/templates/ip_cam_help.html:51
+#: plugins/ip_cam/templates/ip_cam_help.html:71
 #: plugins/ip_cam/templates/ip_cam_mjpeg.html:27
-#: plugins/ip_cam/templates/ip_cam_setup.html:145
-#: plugins/ip_scanner/templates/ip_scanner.html:49
-#: plugins/labelmaker/templates/labelmaker.html:100
-#: plugins/labelmaker/templates/labelmaker_help.html:30
+#: plugins/ip_cam/templates/ip_cam_setup.html:165
+#: plugins/ip_cam/templates/ip_cam_setup.html:313
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:71
+#: plugins/ip_scanner/templates/ip_scanner.html:230
+#: plugins/labelmaker/templates/labelmaker.html:257
+#: plugins/labelmaker/templates/labelmaker_help.html:37
 #: plugins/lcd_display/templates/lcd_display.html:414
 #: plugins/lcd_display/templates/lcd_display_help.html:69
 #: plugins/modbus_stations/templates/modbus_stations.html:122
@@ -2900,8 +2915,9 @@ msgstr ""
 #: plugins/water_meter/templates/water_meter_help.html:23
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:182
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay_help.html:14
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:161
-#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:16
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:162
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:160
+#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:17
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:167
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo_help.html:14
 #: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:111
@@ -3222,6 +3238,8 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:635
 #: plugins/ups_adj/templates/ups_adj.html:175
 #: plugins/ups_adj/templates/ups_adj.html:432
+#: plugins/weather_based_water_level/__init__.py:65
+#: plugins/weather_based_water_level/__init__.py:77
 #: plugins/wind_monitor/templates/wind_monitor.html:231
 #: plugins/wind_monitor/templates/wind_monitor.html:565
 msgid "Today"
@@ -3476,6 +3494,7 @@ msgstr ""
 
 #: ospy/templates/home_admin.html:348 ospy/templates/home_public.html:231
 #: ospy/templates/home_user.html:348
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:110
 msgid "Rain"
 msgstr ""
 
@@ -3519,7 +3538,7 @@ msgid "Normal"
 msgstr ""
 
 #: ospy/templates/home_admin.html:583 ospy/templates/home_user.html:584
-#: plugins/weather_based_water_level/__init__.py:76
+#: plugins/weather_based_water_level/__init__.py:139
 msgid "Water Level"
 msgstr ""
 
@@ -3565,6 +3584,7 @@ msgstr ""
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/program.html:390
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
+#: plugins/ip_cam/templates/ip_cam.html:158
 #: plugins/lcd_display/__init__.py:556
 #: plugins/thermostat/templates/thermostat.html:109
 #: plugins/volt_temp_da/templates/volt_temp_da.html:73
@@ -3799,6 +3819,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor_log.html:34
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:35
 #: plugins/ups_adj/templates/ups_adj_log.html:54
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:107
 #: plugins/wind_monitor/templates/wind_monitor_log.html:35
 msgid "Date"
 msgstr ""
@@ -3814,7 +3835,6 @@ msgstr ""
 #: plugins/email_notifications/__init__.py:140
 #: plugins/email_notifications_ssl/__init__.py:152
 #: plugins/email_notifications_ssl/__init__.py:157
-#: plugins/ip_cam/templates/ip_cam_setup.html:107
 #: plugins/mqtt_home_assistant/__init__.py:605
 #: plugins/mqtt_home_assistant/__init__.py:842
 #: plugins/relay_16/__init__.py:120 plugins/relay_16/__init__.py:127
@@ -3945,8 +3965,9 @@ msgstr ""
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:45
 #: plugins/email_reader/templates/email_reader.html:238
 #: plugins/email_reader/templates/email_reader_help.html:59
-#: plugins/ip_cam/templates/ip_cam.html:36
-#: plugins/labelmaker/templates/labelmaker.html:90
+#: plugins/ip_cam/templates/ip_cam.html:135
+#: plugins/ip_scanner/templates/ip_scanner.html:215
+#: plugins/labelmaker/templates/labelmaker.html:247
 #: plugins/lcd_display/templates/lcd_display.html:404
 #: plugins/lcd_display/templates/lcd_display_help.html:51
 #: plugins/modbus_stations/templates/modbus_stations.html:111
@@ -3991,7 +4012,8 @@ msgstr ""
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:131
 #: plugins/water_meter/templates/water_meter.html:111
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:172
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:134
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:135
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:88
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:157
 #: plugins/webcam/templates/webcam.html:106
 #: plugins/wind_monitor/templates/wind_monitor.html:544
@@ -4046,6 +4068,7 @@ msgstr ""
 
 #: ospy/templates/log_sensor.html:92 ospy/templates/log_sensor.html:112
 #: plugins/database_connector/__init__.py:91
+#: plugins/ip_cam/templates/ip_cam.html:174
 #: plugins/mqtt_home_assistant/__init__.py:1112
 #: plugins/mqtt_home_assistant/__init__.py:1166
 #: plugins/mqtt_home_assistant/__init__.py:1200
@@ -4332,6 +4355,7 @@ msgstr ""
 
 #: ospy/templates/options.html:261
 #: plugins/database_connector/templates/database_connector_backup.html:46
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:61
 #: plugins/ospy_backup/templates/ospy_backup.html:54
 msgid "Download"
 msgstr ""
@@ -4361,7 +4385,7 @@ msgid "Generate own SSL certificat fullchain.pem and privkey.pem file to ssl fol
 msgstr ""
 
 #: ospy/templates/options.html:280
-#: plugins/labelmaker/templates/labelmaker.html:79
+#: plugins/labelmaker/templates/labelmaker.html:229
 msgid "Generate"
 msgstr ""
 
@@ -5398,7 +5422,7 @@ msgstr ""
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:131
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:163
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:85
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:86
 #: plugins/wind_monitor/templates/wind_monitor.html:535
 msgid "Show in footer"
 msgstr ""
@@ -5453,7 +5477,8 @@ msgid "Run program when the contact is open (releasing)"
 msgstr ""
 
 #: ospy/templates/sensor.html:1260 ospy/templates/sensor.html:1301
-#: ospy/templates/sensors.html:759 plugins/ip_scanner/__init__.py:62
+#: ospy/templates/sensors.html:759 plugins/ip_scanner/__init__.py:262
+#: plugins/ip_scanner/templates/ip_scanner.html:211
 msgid "IP Address"
 msgstr ""
 
@@ -5463,7 +5488,8 @@ msgstr ""
 
 #: ospy/templates/sensor.html:1271 ospy/templates/sensors.html:761
 #: ospy/templates/sensors_firmware.html:134
-#: ospy/templates/sensors_search.html:141 plugins/ip_scanner/__init__.py:62
+#: ospy/templates/sensors_search.html:141 plugins/ip_scanner/__init__.py:262
+#: plugins/ip_scanner/templates/ip_scanner.html:212
 msgid "MAC Address"
 msgstr ""
 
@@ -5530,6 +5556,8 @@ msgstr ""
 
 #: ospy/templates/sensors.html:15
 #: plugins/air_temp_humi/templates/air_temp_humi.html:446
+#: plugins/ip_cam/templates/ip_cam_setup.html:213
+#: plugins/ip_cam/templates/ip_cam_setup.html:218
 #: plugins/thermostat/templates/thermostat.html:101
 msgid "seconds"
 msgstr ""
@@ -5543,6 +5571,7 @@ msgid "Searching Sensors"
 msgstr ""
 
 #: ospy/templates/sensors.html:78
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:108
 msgid "Type"
 msgstr ""
 
@@ -5585,6 +5614,10 @@ msgstr ""
 #: ospy/templates/sensors.html:100 ospy/templates/sensors.html:101
 #: ospy/templates/sensors.html:434 ospy/templates/sensors.html:435
 #: ospy/templates/sensors.html:437 ospy/templates/sensors.html:446
+#: plugins/ip_cam/templates/ip_cam.html:158
+#: plugins/ip_scanner/templates/ip_scanner.html:118
+#: plugins/ip_scanner/templates/ip_scanner.html:204
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:148
 msgid "No"
 msgstr ""
 
@@ -5592,6 +5625,9 @@ msgstr ""
 #: ospy/templates/sensors.html:100 ospy/templates/sensors.html:101
 #: ospy/templates/sensors.html:434 ospy/templates/sensors.html:435
 #: ospy/templates/sensors.html:437 ospy/templates/sensors.html:446
+#: plugins/ip_cam/templates/ip_cam.html:158
+#: plugins/ip_scanner/templates/ip_scanner.html:118
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:148
 msgid "Yes"
 msgstr ""
 
@@ -6028,7 +6064,8 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:211
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:353
 #: plugins/email_reader/templates/email_reader.html:248
-#: plugins/ip_cam/templates/ip_cam_setup.html:144
+#: plugins/ip_cam/templates/ip_cam_setup.html:164
+#: plugins/ip_cam/templates/ip_cam_setup.html:312
 #: plugins/lcd_display/templates/lcd_display.html:413
 #: plugins/modbus_stations/templates/modbus_stations.html:121
 #: plugins/monthly_water_level/templates/monthly_water_level.html:78
@@ -6062,7 +6099,7 @@ msgstr ""
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:141
 #: plugins/water_meter/templates/water_meter.html:120
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:181
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:160
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:161
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:166
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:82
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:502
@@ -6474,8 +6511,8 @@ msgstr ""
 #: ospy/webpages.py:2012 ospy/webpages.py:2051 ospy/webpages.py:2121
 #: ospy/webpages.py:2169 ospy/webpages.py:2181 ospy/webpages.py:2290
 #: ospy/webpages.py:2299 ospy/webpages.py:2359 ospy/webpages.py:2379
-#: ospy/webpages.py:2444 ospy/webpages.py:2587 ospy/webpages.py:3015
-#: ospy/webpages.py:3098
+#: ospy/webpages.py:2444 ospy/webpages.py:2587 ospy/webpages.py:3035
+#: ospy/webpages.py:3118
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
@@ -6619,8 +6656,8 @@ msgstr ""
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:2630 plugins/mqtt/__init__.py:370
-#: plugins/mqtt_home_assistant/__init__.py:205
+#: ospy/webpages.py:2630 plugins/ip_cam/__init__.py:183
+#: plugins/mqtt/__init__.py:370 plugins/mqtt_home_assistant/__init__.py:205
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
 #: plugins/thermostat/__init__.py:465 plugins/ups_adj/__init__.py:120
 #: plugins/ups_adj/__init__.py:271
@@ -6633,19 +6670,19 @@ msgstr ""
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:2863
+#: ospy/webpages.py:2883
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:2873 ospy/webpages.py:2946
+#: ospy/webpages.py:2893 ospy/webpages.py:2966
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:2882 ospy/webpages.py:2933
+#: ospy/webpages.py:2902 ospy/webpages.py:2953
 msgid "Unit not set"
 msgstr ""
 
-#: ospy/webpages.py:2959
+#: ospy/webpages.py:2979
 msgid "Index {} is out of range for pluginStn list."
 msgstr ""
 
@@ -6760,12 +6797,13 @@ msgstr ""
 #: plugins/email_notifications_ssl/__init__.py:950
 #: plugins/email_notifications_ssl/__init__.py:962
 #: plugins/email_reader/__init__.py:954 plugins/email_reader/__init__.py:971
-#: plugins/email_reader/__init__.py:983 plugins/ip_cam/__init__.py:209
-#: plugins/ip_cam/__init__.py:219 plugins/ip_cam/__init__.py:245
-#: plugins/ip_cam/__init__.py:310 plugins/ip_cam/__init__.py:323
-#: plugins/ip_scanner/__init__.py:116 plugins/labelmaker/__init__.py:199
-#: plugins/labelmaker/__init__.py:213 plugins/labelmaker/__init__.py:240
-#: plugins/labelmaker/__init__.py:253 plugins/modbus_stations/__init__.py:501
+#: plugins/email_reader/__init__.py:983 plugins/ip_cam/__init__.py:546
+#: plugins/ip_cam/__init__.py:557 plugins/ip_cam/__init__.py:667
+#: plugins/ip_cam/__init__.py:740 plugins/ip_cam/__init__.py:753
+#: plugins/ip_cam/__init__.py:809 plugins/ip_scanner/__init__.py:363
+#: plugins/labelmaker/__init__.py:450 plugins/labelmaker/__init__.py:466
+#: plugins/labelmaker/__init__.py:494 plugins/labelmaker/__init__.py:507
+#: plugins/modbus_stations/__init__.py:501
 #: plugins/modbus_stations/__init__.py:515
 #: plugins/modbus_stations/__init__.py:556
 #: plugins/modbus_stations/__init__.py:566
@@ -7898,8 +7936,9 @@ msgstr ""
 
 #: plugins/chmi/__init__.py:357 plugins/real_time/__init__.py:138
 #: plugins/weather_based_rain_delay/__init__.py:149
-#: plugins/weather_based_water_level/__init__.py:171
-#: plugins/weather_based_water_level/__init__.py:172
+#: plugins/weather_based_water_level/__init__.py:288
+#: plugins/weather_based_water_level/__init__.py:289
+#: plugins/weather_based_water_level/__init__.py:295
 #: plugins/weather_based_water_level_netatmo/__init__.py:166
 msgid "Plug-in is disabled."
 msgstr ""
@@ -7925,6 +7964,7 @@ msgid "Installing SHMU radar dependencies. This operation can take several minut
 msgstr ""
 
 #: plugins/chmi/__init__.py:498 plugins/chmi/__init__.py:501
+#: plugins/labelmaker/__init__.py:294
 msgid "Running command"
 msgstr ""
 
@@ -8059,10 +8099,14 @@ msgid "Missing modules"
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:332 plugins/chmi/templates/chmi.html:335
+#: plugins/labelmaker/templates/labelmaker.html:149
+#: plugins/labelmaker/templates/labelmaker.html:152
 msgid "Installing, please wait..."
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:333 plugins/chmi/templates/chmi.html:336
+#: plugins/labelmaker/templates/labelmaker.html:150
+#: plugins/labelmaker/templates/labelmaker.html:153
 msgid "Install libraries"
 msgstr ""
 
@@ -8163,7 +8207,7 @@ msgid "Intensity threshold for activate rain delay in my location. Enabled chann
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:445
-#: plugins/labelmaker/templates/labelmaker.html:66
+#: plugins/labelmaker/templates/labelmaker.html:211
 msgid "RED"
 msgstr ""
 
@@ -8172,7 +8216,7 @@ msgid "Use red channel for rain detection."
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:453
-#: plugins/labelmaker/templates/labelmaker.html:67
+#: plugins/labelmaker/templates/labelmaker.html:212
 msgid "GREEN"
 msgstr ""
 
@@ -8181,7 +8225,7 @@ msgid "Use green channel for rain detection."
 msgstr ""
 
 #: plugins/chmi/templates/chmi.html:461
-#: plugins/labelmaker/templates/labelmaker.html:68
+#: plugins/labelmaker/templates/labelmaker.html:213
 msgid "BLUE"
 msgstr ""
 
@@ -10011,6 +10055,7 @@ msgid "File Name"
 msgstr ""
 
 #: plugins/database_connector/templates/database_connector_backup.html:35
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:57
 #: plugins/ospy_backup/templates/ospy_backup.html:43
 #: plugins/voice_notification/templates/voice_notification_sounds.html:59
 #: plugins/voice_station/templates/voice_station_sounds.html:59
@@ -10767,6 +10812,7 @@ msgstr ""
 
 #: plugins/email_notifications_ssl/__init__.py:585
 #: plugins/email_notifications_ssl/__init__.py:586
+#: plugins/ip_scanner/templates/ip_scanner.html:133
 msgid "Online"
 msgstr ""
 
@@ -11898,56 +11944,208 @@ msgstr ""
 msgid "Run program 1-8 if exists"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:29
+#: plugins/ip_cam/__init__.py:32
 msgid "Package: IP Cam"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:94 plugins/ip_cam/__init__.py:135
-#: plugins/ip_cam/__init__.py:208 plugins/ip_cam/__init__.py:218
-#: plugins/ip_cam/__init__.py:244 plugins/ip_cam/__init__.py:309
-#: plugins/ip_cam/__init__.py:322
+#: plugins/ip_cam/__init__.py:158
+msgid "IP address and port must start with http:// or https://"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:161
+msgid "Camera query must be a relative path, not a full URL."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:182
+msgid "No HTTP response was received. Check camera address, port, network and timeout."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:184
+msgid "Moved permanently. Check whether the camera path or protocol has changed."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:185
+msgid "Redirected. Check whether the camera redirects to another path."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:186
+msgid "Bad request. Check the JPEG or MJPEG query path."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:187
+msgid "Unauthorized. Check username/password and try enabling Basic or Digest authentication in the camera."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:188
+msgid "Forbidden. The user may not have permission to view the stream."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:189
+msgid "Not found. The camera path is probably wrong for this model."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:190
+msgid "Request timeout. Increase the timeout or check the network."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:191
+msgid "Camera/server error. Check the camera firmware and stream settings."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:192
+msgid "Service unavailable. The camera may be overloaded or already serving too many streams."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:195
+msgid "Check camera address, authentication and selected path."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:213
+msgid "Downloaded image is larger than configured maximum size."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:247
+msgid "Camera {} test OK"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:250 plugins/ip_cam/__init__.py:439
+#: plugins/ip_cam/templates/ip_cam.html:160
+msgid "HTTP status"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:251
+msgid "Camera {} test failed"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:254 plugins/ip_cam/__init__.py:442
+msgid "Unknown error"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:255 plugins/ip_cam/__init__.py:443
+#: plugins/ip_cam/__init__.py:454 plugins/ip_cam/__init__.py:545
+#: plugins/ip_cam/__init__.py:556 plugins/ip_cam/__init__.py:581
+#: plugins/ip_cam/__init__.py:617 plugins/ip_cam/__init__.py:651
+#: plugins/ip_cam/__init__.py:666 plugins/ip_cam/__init__.py:739
+#: plugins/ip_cam/__init__.py:752 plugins/ip_cam/__init__.py:808
 msgid "IP Cam plug-in"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:98
-msgid "Downloaded images"
+#: plugins/ip_cam/__init__.py:301
+#: plugins/ip_cam/templates/ip_cam_setup.html:241
+msgid "Camera"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:130
+#: plugins/ip_cam/__init__.py:435
 msgid "Creating {}.gif"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:210
+#: plugins/ip_cam/__init__.py:446
+msgid "Downloaded images"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:504 plugins/ip_cam/__init__.py:773
+msgid "Deleted cached camera files"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:516 plugins/ip_cam/__init__.py:570
+#: plugins/ip_cam/__init__.py:594 plugins/ip_cam/__init__.py:629
+#: plugins/ip_cam/__init__.py:780 plugins/ip_cam/__init__.py:790
+msgid "Unknown camera."
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:547
 msgid "ip_cam -> settings_page GET"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:220
+#: plugins/ip_cam/__init__.py:558
 msgid "ip_cam -> settings_page POST"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:246
+#: plugins/ip_cam/__init__.py:668
 msgid "ip_cam -> setup_page GET"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:311
+#: plugins/ip_cam/__init__.py:741
 msgid "ip_cam -> setup_page POST"
 msgstr ""
 
-#: plugins/ip_cam/__init__.py:324
+#: plugins/ip_cam/__init__.py:754
 msgid "ip_cam -> help_page GET"
 msgstr ""
 
+#: plugins/ip_cam/__init__.py:784
+msgid "Deleted cached camera file"
+msgstr ""
+
+#: plugins/ip_cam/__init__.py:810
+msgid "ip_cam -> snapshots_page GET"
+msgstr ""
+
 #: plugins/ip_cam/templates/ip_cam.html:3
-#: plugins/ip_cam/templates/ip_cam.html:19
+#: plugins/ip_cam/templates/ip_cam.html:125
 msgid "IP cam"
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam.html:21
+#: plugins/ip_cam/templates/ip_cam.html:128
 msgid "CAM Settings"
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam.html:32
+#: plugins/ip_cam/templates/ip_cam.html:129
+msgid "Snapshots"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:130
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:45
+msgid "Delete cached images"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:150
+#: plugins/ip_cam/templates/ip_cam_setup.html:244
+msgid "Snapshot now"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:151
+#: plugins/ip_cam/templates/ip_cam_setup.html:245
+msgid "Test JPEG"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:153
+#: plugins/ip_cam/templates/ip_cam_setup.html:246
+msgid "Test MJPEG"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:154
 msgid "Stream"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:155
+msgid "GIF"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:159
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:58
+msgid "Last download"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:161
+msgid "Response"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:163
+msgid "Image size"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:171
+#: plugins/webcam/templates/webcam.html:81
+msgid "Resolution"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:172
+msgid "GIF frames"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam.html:173
+msgid "Success / errors"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_gif.html:3
@@ -11978,106 +12176,131 @@ msgid "IP Cam - help"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:11
-msgid "To use the cameras, you need to know two IP routes:"
+msgid "To use a camera, enter the camera base address, a JPEG snapshot path and optionally an MJPEG stream path. Username and password are entered in separate fields, not in the URL."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:12
-msgid "a) path to still image (JPEG)"
+msgid "Camera presets"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:13
-msgid "b) moving image stream path (MJPEG)"
+msgid "The setup page contains a camera selector and a manufacturer preset selector. Choose a station, choose a manufacturer, and the JPEG/MJPEG query fields for that station are filled automatically. You can still edit the paths manually afterwards."
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_help.html:14
-msgid "An example for a Hikvision IP camera"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:19
-msgid "An example for a AVtech IP camera"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:24
-msgid "An example for a Dahua IP camera"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:29
-#: plugins/ip_cam/templates/ip_cam_setup.html:81
-msgid "Use JPEG image downloads"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:30
-#: plugins/ip_cam/templates/ip_cam_setup.html:82
-msgid "When this option is checked, JPEG images will be downloaded after 5 seconds to the plugin folder and these images will be previewed on the web page. This option will make it possible to see preview images even from an external IP address."
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:31
-#: plugins/ip_cam/templates/ip_cam_setup.html:89
-msgid "Use GIF image creating"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:32
-msgid "When this option is checked, JPEG images will be downloaded after 5 seconds (after 5 seconds an image is created - a gif animation is then created from 10 images) to the plugin folder and these images will be previewed on the web page as GIF animation. This option will make it possible to see preview images even from an external IP address."
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:33
-#: plugins/ip_cam/templates/ip_cam_setup.html:97
-msgid "Number of frames in GIF"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:34
-#: plugins/ip_cam/templates/ip_cam_setup.html:98
-msgid "How many images from the camera are saved and then used to create a GIF image. (The more frames, the longer the gif will be refreshed. Frames are created every 5 seconds. eg: 10 frames - gif is created in 10x5sec=50sec)."
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:35
-#: plugins/ip_cam/templates/ip_cam_setup.html:110
+#: plugins/ip_cam/templates/ip_cam_help.html:16
+#: plugins/ip_cam/templates/ip_cam_help.html:22
+#: plugins/ip_cam/templates/ip_cam_setup.html:258
 msgid "IP address and port"
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_help.html:36
-#: plugins/ip_cam/templates/ip_cam_setup.html:111
-msgid "Example: http://12.34.56.78:88"
+#: plugins/ip_cam/templates/ip_cam_help.html:17
+#: plugins/ip_cam/templates/ip_cam_help.html:23
+#: plugins/ip_cam/templates/ip_cam_help.html:28
+#: plugins/ip_cam/templates/ip_cam_help.html:33
+msgid "JPEG query"
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_help.html:37
-#: plugins/ip_cam/templates/ip_cam_setup.html:116
-msgid "Query for get JPEG image"
+#: plugins/ip_cam/templates/ip_cam_help.html:18
+#: plugins/ip_cam/templates/ip_cam_help.html:24
+#: plugins/ip_cam/templates/ip_cam_help.html:29
+#: plugins/ip_cam/templates/ip_cam_help.html:34
+msgid "MJPEG query"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:36
+msgid "Main options"
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:38
-#: plugins/ip_cam/templates/ip_cam_setup.html:117
-msgid "Example: cgi-bin/guest/Video.cgi?media=JPEG&channel=1"
+msgid "Camera enabled enables or disables one configured camera without deleting its settings."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:39
-#: plugins/ip_cam/templates/ip_cam_setup.html:122
-msgid "Query for get MJPEG image"
+msgid "Use JPEG image downloads stores the latest successful snapshot as N.jpg in the plug-in data folder."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:40
-#: plugins/ip_cam/templates/ip_cam_setup.html:123
-msgid "Example ISAPI/Streaming/channels/102/httpPreview"
+msgid "Use GIF image creating stores successful snapshots as frames and creates N.gif from the newest frames. Failed downloads are not copied as fake frames."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:41
-#: plugins/ip_cam/templates/ip_cam_setup.html:128
-msgid "Username for access"
+msgid "Allow IP Cam images on home lets OSPy use cached camera images on the home page when the OSPy System option chooses IP Cam as station picture source."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:42
-#: plugins/ip_cam/templates/ip_cam_setup.html:129
-msgid "Example: admin"
-msgstr ""
-
-#: plugins/ip_cam/templates/ip_cam_help.html:43
-#: plugins/ip_cam/templates/ip_cam_setup.html:134
-msgid "Password for access"
+msgid "HTTP timeout, maximum image size and SSL verification control how strict camera downloads are."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_help.html:44
-#: plugins/ip_cam/templates/ip_cam_setup.html:135
-msgid "Example: 1234"
+msgid "Test buttons"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:46
+msgid "Snapshot now downloads the selected camera JPEG immediately and saves it as N.jpg in the plug-in data folder."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:47
+msgid "Test JPEG checks the JPEG path and saves the snapshot when the request succeeds."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:48
+msgid "Test MJPEG opens the stream, reads the first available block and closes the connection. It does not save the stream."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:50
+msgid "Snapshot management"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:51
+msgid "The Snapshots page lists cached JPEG snapshots and GIF animations. From this page you can preview, download or delete each cached file. Snapshot now saves the latest JPEG as N.jpg, where N is the station number."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:52
+msgid "Home page images"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:53
+msgid "When OSPy is configured to show station pictures and the Station picture source is IP Cam JPG or IP Cam GIF, the core image endpoint reads cached IP Cam files. If the IP Cam plug-in is not installed or no cached file exists, OSPy falls back to the normal uploaded station image and then to the default no-image picture."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:54
+msgid "HTTP status troubleshooting"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:56
+msgid "wrong username/password or unsupported authentication mode. Check credentials and try Basic or Digest authentication in the camera."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:57
+msgid "the user does not have permission to access snapshots or streams."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:58
+msgid "the JPEG or MJPEG path is probably wrong for this model. Try another preset or the camera manual."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:59
+msgid "Timeout"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:59
+msgid "check IP address, port, network access, SSL verification and camera load."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:61
+msgid "GIF notes"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:62
+msgid "A GIF is created from successful JPEG downloads. If it contains fewer frames than expected, check the JPEG test and the diagnostics counters. A camera that fails every few downloads will naturally produce fewer usable frames. The GIF preview keeps the original aspect ratio, so it should not be distorted by the browser."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:63
+msgid "Safe stream proxy"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_help.html:64
+msgid "MJPEG streams are proxied through OSPy so the camera username and password are not embedded in the browser URL."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_mjpeg.html:16
@@ -12085,204 +12308,543 @@ msgid "Live stream from camera."
 msgstr ""
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:3
-#: plugins/ip_cam/templates/ip_cam_setup.html:75
+#: plugins/ip_cam/templates/ip_cam_setup.html:162
 msgid "IP cam - settings"
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_setup.html:67
+#: plugins/ip_cam/templates/ip_cam_setup.html:145
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:101
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:68
 msgid "Settings saved."
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_setup.html:90
-msgid "When this option is checked, JPEG images will be downloaded after 5 seconds (after 5 seconds an image is created - a gif animation is then created from xx images) to the plugin folder and these images will be previewed on the web page as GIF animation. This option will make it possible to see preview images even from an external IP address."
+#: plugins/ip_cam/templates/ip_cam_setup.html:148
+msgid "Camera test OK."
 msgstr ""
 
-#: plugins/ip_cam/templates/ip_cam_setup.html:103
-msgid "Assignment of IP cameras to OSPy stations."
+#: plugins/ip_cam/templates/ip_cam_setup.html:151
+msgid "Snapshot saved."
 msgstr ""
 
-#: plugins/ip_scanner/__init__.py:26
-msgid "Package: IP Scanner"
+#: plugins/ip_cam/templates/ip_cam_setup.html:154
+msgid "Camera test failed. See status log."
 msgstr ""
 
-#: plugins/ip_scanner/__init__.py:61
+#: plugins/ip_cam/templates/ip_cam_setup.html:174
+msgid "Use JPEG image downloads"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:175
+msgid "When this option is enabled, JPEG images are downloaded to the plug-in data folder and used for previews."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:182
+msgid "Use GIF image creating"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:183
+msgid "When enabled, successfully downloaded snapshots are kept as frames and used to create a GIF animation."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:190
+msgid "Allow IP Cam images on home"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:191
+msgid "When enabled, OSPy can use cached IP Cam images on the home page when the System option chooses IP Cam as image source."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:198
+msgid "Home image type"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:199
+msgid "Choose whether the IP Cam home page image endpoint prefers JPEG snapshots or GIF animations."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:206
+msgid "Number of frames in GIF"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:207
+msgid "How many successful snapshots are kept and then used to create a GIF image."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:211
+msgid "Download interval"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:212
+msgid "Seconds between automatic JPEG downloads."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:216
+msgid "HTTP timeout"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:217
+msgid "Timeout for camera HTTP requests."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:221
+msgid "Maximum image size"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:222
+msgid "Maximum JPEG image size downloaded from one camera."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:226
+msgid "GIF frame delay"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:227
+msgid "Duration of one frame in the generated GIF animation."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:231
+msgid "Verify SSL certificates"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:232
+msgid "When enabled, HTTPS camera certificates are verified."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:250
+msgid "Camera enabled"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:259
+msgid "Example: http://12.34.56.78:88"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:264
+msgid "Camera preset"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:267
+msgid "Select manufacturer"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:278
+msgid "Selecting a manufacturer fills JPEG and MJPEG paths for this camera."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:282
+msgid "Query for get JPEG image"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:283
+#: plugins/ip_cam/templates/ip_cam_setup.html:289
+msgid "Use a relative path, not a full URL."
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:288
+msgid "Query for get MJPEG image"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:294
+msgid "Username for access"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:295
+msgid "Example: admin"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:300
+msgid "Password for access"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_setup.html:301
+msgid "Example: 1234"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:3
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:42
+msgid "IP Cam - snapshots"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:44
+msgid "Back"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:56
+msgid "File"
+msgstr ""
+
+#: plugins/ip_cam/templates/ip_cam_snapshots.html:67
+msgid "No cached snapshots are available yet. Use Snapshot now or wait for the automatic camera download."
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:228
+msgid "This OSPy"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:230 plugins/ip_scanner/__init__.py:259
+#: plugins/ip_scanner/templates/ip_scanner.html:199
+msgid "Gateway"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:232
+msgid "Sensor candidate"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:237
+msgid "Web service"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:257
+#: plugins/ip_scanner/templates/ip_scanner.html:191
 msgid "My OSPy IP address"
 msgstr ""
 
-#: plugins/ip_scanner/__init__.py:74 plugins/ip_scanner/__init__.py:115
+#: plugins/ip_scanner/__init__.py:258
+#: plugins/ip_scanner/templates/ip_scanner.html:197
+msgid "Network"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:260
+#: plugins/ip_scanner/templates/ip_scanner.html:187
+msgid "Found devices"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:262
+#: plugins/ip_scanner/templates/ip_scanner.html:213
+msgid "Hostname"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:272
+msgid "Package: IP Scanner"
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:310
+#: plugins/ip_scanner/templates/ip_scanner.html:159
+msgid "Processing..."
+msgstr ""
+
+#: plugins/ip_scanner/__init__.py:320 plugins/ip_scanner/__init__.py:362
 msgid "IP Scanner plug-in"
 msgstr ""
 
-#: plugins/ip_scanner/__init__.py:117
+#: plugins/ip_scanner/__init__.py:364
 msgid "ip_scanner -> status_page GET"
 msgstr ""
 
 #: plugins/ip_scanner/templates/ip_scanner.html:1
-#: plugins/ip_scanner/templates/ip_scanner.html:42
+#: plugins/ip_scanner/templates/ip_scanner.html:170
 msgid "IP Scanner Plugin"
 msgstr ""
 
-#: plugins/ip_scanner/templates/ip_scanner.html:32
-msgid "Processing..."
+#: plugins/ip_scanner/templates/ip_scanner.html:111
+msgid "Scanning..."
 msgstr ""
 
-#: plugins/ip_scanner/templates/ip_scanner.html:43
+#: plugins/ip_scanner/templates/ip_scanner.html:124
+#: plugins/ip_scanner/templates/ip_scanner.html:223
+msgid "No devices found yet."
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:171
 msgid "Find device"
 msgstr ""
 
-#: plugins/ip_scanner/templates/ip_scanner.html:44
-msgid "This plugin prints all available network devices on same range as OSPy."
+#: plugins/ip_scanner/templates/ip_scanner.html:177
+msgid "Check common web ports"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:26
+#: plugins/ip_scanner/templates/ip_scanner.html:179
+msgid "This plugin scans the local network range used by OSPy and shows discovered devices."
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:185
+msgid "Last scan"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:193
+msgid "Interface"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:203
+msgid "Web ports checked"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:214
+msgid "Vendor"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:216
+msgid "ARP state"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:217
+msgid "Web ports"
+msgstr ""
+
+#: plugins/ip_scanner/templates/ip_scanner.html:218
+#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:44
+msgid "Note"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:28
 msgid "Package: Label Maker"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:55
-msgid "Ready. Select code type and message."
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:69
-msgid "Barcode not instaled, installing from pip (pip install python-barcode)."
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:72 plugins/labelmaker/__init__.py:93
-#: plugins/labelmaker/__init__.py:111 plugins/labelmaker/__init__.py:135
-msgid "Now restart this plugin!"
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:79
-msgid "Generated EAN13 code..."
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:81
+#: plugins/labelmaker/__init__.py:140 plugins/labelmaker/__init__.py:144
 msgid "EAN code must have 12 digits!"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:83
+#: plugins/labelmaker/__init__.py:142
 msgid "EAN code can only contain numbers!"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:90 plugins/labelmaker/__init__.py:108
-msgid "QRcode not instaled, installing from pip (pip install qrcode)."
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:99
-msgid "Generated QR BW code..."
-msgstr ""
-
-#: plugins/labelmaker/__init__.py:101 plugins/labelmaker/__init__.py:122
-#: plugins/labelmaker/__init__.py:154
+#: plugins/labelmaker/__init__.py:147
 msgid "You have to type some text before pressing the generate button!"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:120
-msgid "Generated QR color code..."
+#: plugins/labelmaker/__init__.py:149
+msgid "QR message must not be longer than 500 characters!"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:130
-msgid "QRcode or Pillow not instaled, installing from pip (pip install qrcode, pip install Pillow)."
+#: plugins/labelmaker/__init__.py:155
+msgid "Message length"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:152
-msgid "Generated QR code with logo..."
+#: plugins/labelmaker/__init__.py:157
+msgid "Output file"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:157 plugins/labelmaker/__init__.py:186
-#: plugins/labelmaker/__init__.py:198 plugins/labelmaker/__init__.py:212
-#: plugins/labelmaker/__init__.py:239 plugins/labelmaker/__init__.py:252
+#: plugins/labelmaker/__init__.py:223
+msgid "Missing Python package"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:224
+msgid "Install it from the system package manager and restart this plug-in."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:260
+msgid "Dependency installation is already running."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:274
+msgid "Dependencies are already installed."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:278
+msgid "Installing dependencies. This operation can take several minutes."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:281
+msgid "Automatic dependency installation is available only on systems with apt-get."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:290
+msgid "Root privileges are required for installing dependencies."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:302
+msgid "Dependencies were installed successfully."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:304
+msgid "Dependency installation failed. Missing modules"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:306 plugins/labelmaker/__init__.py:400
+#: plugins/labelmaker/__init__.py:449 plugins/labelmaker/__init__.py:465
+#: plugins/labelmaker/__init__.py:493 plugins/labelmaker/__init__.py:506
 msgid "Label Maker plug-in"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:200
+#: plugins/labelmaker/__init__.py:326
+msgid "Ready. Select code type and message."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:343
+msgid "Generated EAN13 code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:374
+msgid "Logo file was not found!"
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:393
+msgid "Generated QR BW code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:395
+msgid "Generated QR color code..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:397
+msgid "Generated QR code with logo..."
+msgstr ""
+
+#: plugins/labelmaker/__init__.py:451
 msgid "labelmaker -> settings_page GET"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:214
+#: plugins/labelmaker/__init__.py:467
 msgid "labelmaker -> settings_page POST"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:241
+#: plugins/labelmaker/__init__.py:495
 msgid "labelmaker -> download_page GET"
 msgstr ""
 
-#: plugins/labelmaker/__init__.py:254
+#: plugins/labelmaker/__init__.py:508
 msgid "labelmaker -> help_page GET"
 msgstr ""
 
 #: plugins/labelmaker/templates/labelmaker.html:3
-#: plugins/labelmaker/templates/labelmaker.html:36
+#: plugins/labelmaker/templates/labelmaker.html:137
 msgid "Bar and QR code label maker generator"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:37
+#: plugins/labelmaker/templates/labelmaker.html:95
+msgid "EAN13 requires exactly 12 digits."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:98
+msgid "EAN13 input is valid."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:102
+msgid "Type text or URL for the QR code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:105
+msgid "QR message must not be longer than 500 characters."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:108
+msgid "QR input is valid."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:138
 msgid "This extension allows you to generate bar or QR codes for your use..."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:43
+#: plugins/labelmaker/templates/labelmaker.html:145
+msgid "Required libraries"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:147
+msgid "Missing packages"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:155
+msgid "The installation progress is shown in the status log."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:159
 msgid "Select output format"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:45
+#: plugins/labelmaker/templates/labelmaker.html:161
 msgid "Mark used your code."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:46
+#: plugins/labelmaker/templates/labelmaker.html:162
 msgid "BAR EAN13"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:47
-#: plugins/labelmaker/templates/labelmaker_help.html:13
+#: plugins/labelmaker/templates/labelmaker.html:163
+#: plugins/labelmaker/templates/labelmaker_help.html:20
 msgid "QR black and white"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:48
-#: plugins/labelmaker/templates/labelmaker.html:60
-#: plugins/labelmaker/templates/labelmaker_help.html:16
+#: plugins/labelmaker/templates/labelmaker.html:164
+#: plugins/labelmaker/templates/labelmaker.html:207
+#: plugins/labelmaker/templates/labelmaker_help.html:23
 msgid "QR color"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:49
-#: plugins/labelmaker/templates/labelmaker_help.html:19
+#: plugins/labelmaker/templates/labelmaker.html:165
+#: plugins/labelmaker/templates/labelmaker_help.html:13
+#: plugins/labelmaker/templates/labelmaker_help.html:26
 msgid "QR with logo"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:54
+#: plugins/labelmaker/templates/labelmaker.html:170
 msgid "Message"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:55
+#: plugins/labelmaker/templates/labelmaker.html:171
 msgid "Message embedded in the code."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:64
+#: plugins/labelmaker/templates/labelmaker.html:178
+msgid "Download filename"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:184
+msgid "QR module size"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:190
+msgid "QR border"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:196
+msgid "QR error correction"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:199
+#: plugins/relay_16/templates/relay_16.html:108
+msgid "Low"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:200
+msgid "Medium"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:201
+msgid "Quartile"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:202
+#: plugins/relay_16/templates/relay_16.html:109
+msgid "High"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:209
 msgid "Color used in QR code."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:65
+#: plugins/labelmaker/templates/labelmaker.html:210
 msgid "BLACK"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:69
+#: plugins/labelmaker/templates/labelmaker.html:214
 msgid "ORANGE"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:70
+#: plugins/labelmaker/templates/labelmaker.html:215
 msgid "BROWN"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:80
+#: plugins/labelmaker/templates/labelmaker.html:220
+msgid "QR background color"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:230
 msgid "Erase"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:84
-msgid "Image for download"
+#: plugins/labelmaker/templates/labelmaker.html:235
+msgid "Preview and download"
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker.html:85
+#: plugins/labelmaker/templates/labelmaker.html:236
 msgid "Your generated barcode or qr code."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:240
+msgid "Click the image to open or use the download button."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker.html:241
+msgid "Download PNG"
 msgstr ""
 
 #: plugins/labelmaker/templates/labelmaker_help.html:3
@@ -12295,24 +12857,44 @@ msgid "This extension allows you to generate barcodes or QR codes for your use a
 msgstr ""
 
 #: plugins/labelmaker/templates/labelmaker_help.html:9
-msgid "This extension requires the following Python packages on Linux. If they are not available for the selected code, the extension will install them by itself."
-msgstr ""
-
-#: plugins/labelmaker/templates/labelmaker_help.html:10
-msgid "EAN13 code"
+msgid "This extension requires Python packages only for the selected output type. On Raspberry Pi OS Bookworm and newer, install them with apt instead of pip."
 msgstr ""
 
 #: plugins/labelmaker/templates/labelmaker_help.html:11
+msgid "EAN13"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:12
+msgid "QR codes"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:15
+msgid "EAN-13 barcodes are generated directly by the plug-in and do not require python-barcode."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:16
+msgid "If a required package is missing, the settings page shows an Install libraries button and writes the installation progress to the status log."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:17
+msgid "EAN13 code"
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:18
 msgid "Message must have 12 digits and must contain only numbers."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker_help.html:14
-#: plugins/labelmaker/templates/labelmaker_help.html:17
-#: plugins/labelmaker/templates/labelmaker_help.html:20
+#: plugins/labelmaker/templates/labelmaker_help.html:21
+#: plugins/labelmaker/templates/labelmaker_help.html:24
+#: plugins/labelmaker/templates/labelmaker_help.html:27
 msgid "Do not insert messages longer than 500 characters."
 msgstr ""
 
-#: plugins/labelmaker/templates/labelmaker_help.html:22
+#: plugins/labelmaker/templates/labelmaker_help.html:28
+msgid "Advanced QR options allow setting module size, border, error correction level, foreground color and background color."
+msgstr ""
+
+#: plugins/labelmaker/templates/labelmaker_help.html:30
 msgid "Full credit goes to projects"
 msgstr ""
 
@@ -16033,14 +16615,6 @@ msgstr ""
 msgid "Trigger Level"
 msgstr ""
 
-#: plugins/relay_16/templates/relay_16.html:108
-msgid "Low"
-msgstr ""
-
-#: plugins/relay_16/templates/relay_16.html:109
-msgid "High"
-msgstr ""
-
 #: plugins/relay_16/templates/relay_16.html:110
 msgid "Low level trigger means the relay turns on when the input is low and turns off when the input is high. Hith level trigger does the opposite."
 msgstr ""
@@ -18152,10 +18726,6 @@ msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:43
 msgid "If for example the number returned was 27.99 then the moon would be almost at the New Moon phase, and if it was 24.00 it would be half way between the Last Quarter and a New Moon."
-msgstr ""
-
-#: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:44
-msgid "Note"
 msgstr ""
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:45
@@ -21254,62 +21824,123 @@ msgstr ""
 msgid "Package: Weather-based Water Level"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:89
+#: plugins/weather_based_water_level/__init__.py:46
+msgid "No calculation has been run yet."
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:63
+msgid "Yesterday"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:67
+msgid "Tomorrow"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:69
+#: plugins/weather_based_water_level/__init__.py:75
+msgid "History"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:70
+#: plugins/weather_based_water_level/__init__.py:78
+msgid "Forecast"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:87
+msgid "No usable weather data for this day."
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:91
+msgid "rain lowers irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:93
+msgid "high temperature raises irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:95
+msgid "low temperature lowers irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:97
+msgid "wind raises irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:99
+msgid "humidity lowers irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:101
+msgid "dry air raises irrigation need"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:103
+msgid "normal weather influence"
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:152
 #: plugins/weather_based_water_level_netatmo/__init__.py:86
 msgid "Checking weather status"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:103
+#: plugins/weather_based_water_level/__init__.py:188
 #: plugins/weather_based_water_level_netatmo/__init__.py:117
 msgid "Using"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:103
+#: plugins/weather_based_water_level/__init__.py:188
 #: plugins/weather_based_water_level_netatmo/__init__.py:117
 msgid "days of information."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:108
+#: plugins/weather_based_water_level/__init__.py:193
 msgid "No usable weather information is available yet."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:110
+#: plugins/weather_based_water_level/__init__.py:195
 msgid "Water level adjustment was not changed."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:111
+#: plugins/weather_based_water_level/__init__.py:212
 msgid "No weather data"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:138
+#: plugins/weather_based_water_level/__init__.py:239
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:66
 #: plugins/weather_based_water_level_netatmo/__init__.py:154
 msgid "Water needed"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:139
+#: plugins/weather_based_water_level/__init__.py:240
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:62
 #: plugins/weather_based_water_level_netatmo/__init__.py:155
 msgid "Total rainfall"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:141
+#: plugins/weather_based_water_level/__init__.py:242
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:68
 #: plugins/weather_based_water_level_netatmo/__init__.py:157
 msgid "Irrigation needed"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:142
+#: plugins/weather_based_water_level/__init__.py:243
 #: plugins/weather_based_water_level_netatmo/__init__.py:158
 msgid "Weather Adjustment"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:143
+#: plugins/weather_based_water_level/__init__.py:247
+msgid "Calculation finished successfully."
+msgstr ""
+
+#: plugins/weather_based_water_level/__init__.py:260
 msgid "Missing"
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:164
+#: plugins/weather_based_water_level/__init__.py:281
 msgid "Protection activated."
 msgstr ""
 
-#: plugins/weather_based_water_level/__init__.py:178
+#: plugins/weather_based_water_level/__init__.py:311
 #: plugins/weather_based_water_level_netatmo/__init__.py:172
 msgid "Weather-based water level plug-in"
 msgstr ""
@@ -21322,58 +21953,139 @@ msgid "Weather-based Water Level"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:69
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:65
+msgid "Forecast details"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:70
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:72
 msgid "Use Automatic Water Level Adjustment"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:76
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:77
 msgid "Protect against freezing"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:94
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:95
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:81
 msgid "Min percentage"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:99
 msgid "Protect temperature"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:105
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:106
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:87
 msgid "Max percentage"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:109
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:110
 msgid "Protect minutes"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:115
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:116
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:93
 msgid "History days used"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:121
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:122
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:99
 msgid "Forecast days used"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:125
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:126
 msgid "Protect stations"
 msgstr ""
 
 #:
-#: plugins/weather_based_water_level/templates/weather_based_water_level.html:138
+#: plugins/weather_based_water_level/templates/weather_based_water_level.html:139
 msgid "Protect months"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:3
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:50
+msgid "Weather-based Water Level - forecast details"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:54
+msgid "Last calculation"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:56
+msgid "Used days"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:60
+msgid "History / forecast"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:72
+msgid "Weather adjustment"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:79
+msgid "Raw adjustment"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:93
+msgid "Limit"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:96
+msgid "The result was raised by the configured minimum percentage."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:98
+msgid "The result was lowered by the configured maximum percentage."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:109
+msgid "Hours"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:112
+msgid "Wind"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:114
+msgid "Used"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:115
+msgid "Influence"
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:121
+msgid "No weather detail is available yet."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:158
+msgid "Recalculate now"
 msgstr ""
 
 #:
@@ -21400,11 +22112,16 @@ msgstr ""
 
 #:
 #: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:11
-msgid "If no usable weather information is available, the plugin keeps OSPy running and does not change the water level adjustment."
+msgid "The forecast details page shows the last calculation input and result, including the history, today and forecast days used by the plugin."
 msgstr ""
 
 #:
 #: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:12
+msgid "If no usable weather information is available, the plugin keeps OSPy running and does not change the water level adjustment."
+msgstr ""
+
+#:
+#: plugins/weather_based_water_level/templates/weather_based_water_level_help.html:13
 msgid "Author Rimco (Thank you)."
 msgstr ""
 
@@ -22047,10 +22764,6 @@ msgstr ""
 
 #: plugins/webcam/templates/webcam.html:66
 msgid "Download image"
-msgstr ""
-
-#: plugins/webcam/templates/webcam.html:81
-msgid "Resolution"
 msgstr ""
 
 #: plugins/webcam/templates/webcam.html:83
