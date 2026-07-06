@@ -9,6 +9,7 @@ July 06 2026 (v3.0)
 Clarified SSL certificate selection in all web interface manuals and the clean installation guide: a local own certificate now has priority, Let’s Encrypt is used otherwise, and enabling both HTTPS options no longer causes a silent HTTP fallback.
 Improved home page countdown refresh reliability by adding timeouts and automatic retry to station status polling, and by calculating countdown timers from the real target time so they recover after browser throttling or a stalled request.
 Added priority-aware I2C transaction scheduling so time-sensitive plug-ins can request high-priority bus access while display-only updates can run at lower priority.
+Persisted plug-in rain delay blocks across OSPy restarts, so active delays set by extensions such as CHMI or tank monitors are restored when their remaining time has not expired.
 
 July 04 2026 (v3.0)
 -----------

@@ -491,6 +491,11 @@ class _Options(object):
             "default": datetime(1970, 1, 1),
         },
         {
+            "key": "plugin_rain_blocks",
+            "name": _('Rain blocks (rain delays) set by plug-ins (datetime dictionary)'),
+            "default": {},
+        },
+        {
             "key": "temp_unit",
             "name": _('C/F'),
             "default": 'C',
@@ -902,6 +907,42 @@ level_adjustments = _LevelAdjustments()
 class _RainBlocks(dict):
     def __init__(self):
         super(_RainBlocks, self).__init__()
+        now = datetime.now()
+        for name, end in options.plugin_rain_blocks.items():
+            if isinstance(end, datetime) and end > now:
+                super(_RainBlocks, self).__setitem__(name, end)
+        if dict(self) != options.plugin_rain_blocks:
+            self._persist()
+
+    def _persist(self):
+        options.plugin_rain_blocks = dict(self)
+        options.save_now()
+
+    def __setitem__(self, key, value):
+        super(_RainBlocks, self).__setitem__(key, value)
+        self._persist()
+
+    def __delitem__(self, key):
+        super(_RainBlocks, self).__delitem__(key)
+        self._persist()
+
+    def clear(self):
+        super(_RainBlocks, self).clear()
+        self._persist()
+
+    _POP_SENTINEL = object()
+
+    def pop(self, key, default=_POP_SENTINEL):
+        if default is self._POP_SENTINEL:
+            result = super(_RainBlocks, self).pop(key)
+        else:
+            result = super(_RainBlocks, self).pop(key, default)
+        self._persist()
+        return result
+
+    def update(self, *args, **kwargs):
+        super(_RainBlocks, self).update(*args, **kwargs)
+        self._persist()
 
     def block_end(self):
         return max(list(self.values()) + [options.rain_block])
