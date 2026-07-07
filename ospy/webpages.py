@@ -2679,8 +2679,16 @@ class images_page(ProtectedPage):
             ip_cam = get_input(qdict, 'ip_cam', None, lambda x: x == '1')
 
             if ip_cam is not None:
-                cam_nr = get_input(qdict, 'cam', '1', lambda x: x.isdigit())
-                image_type = get_input(qdict, 'type', 'jpg', lambda x: x in ('jpg', 'gif'))
+                cam_nr = str(get_input(qdict, 'cam', '1'))
+                if not cam_nr.isdigit() or int(cam_nr) < 1:
+                    cam_nr = '1'
+                else:
+                    cam_nr = str(int(cam_nr))
+
+                image_type = str(get_input(qdict, 'type', 'jpg')).lower()
+                if image_type not in ('jpg', 'gif'):
+                    image_type = 'jpg'
+
                 download_name = os.path.join(plugins.plugin_data_dir('ip_cam'), '{}.{}'.format(cam_nr, image_type))
                 if not os.path.isfile(download_name):
                     fallback_id = 'station{}_thumbnail.png'.format(cam_nr)

@@ -715,8 +715,10 @@ $else:
                 <tr class="stationSchedule ${loop.parity}" id='schedule${station.index}' data="${station.index}">                   
                     <td class='station_name'>${station.name}</td>
                     $if options.show_images:
+                        $ image_url = "/images?ip_cam=1&cam=%s&type=%s" % (str(station.index+1), "gif" if options.station_image_source == "IP Cam GIF" else "jpg") if options.station_image_source in ("IP Cam JPG", "IP Cam GIF") else "/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)
+                        $ view_url = image_url if options.station_image_source in ("IP Cam JPG", "IP Cam GIF") else "/img_view/%s" % str(station.index+1)
                         <td class='stationImage' title=$:{json.dumps(_('Click for view.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                        <a href=${"/img_view/%s" % str(station.index+1)}><img id=${"_id%s" % str(station.index+1)} src=${"/images?ip_cam=1&cam=%s&type=%s" % (str(station.index+1), "gif" if options.station_image_source == "IP Cam GIF" else "jpg") if options.station_image_source in ("IP Cam JPG", "IP Cam GIF") else "/images?sf=1&id=station%s_thumbnail.png" % str(station.index+1)} alt="" class="home_avatar">
+                        <a href=${view_url}><img id=${"_id%s" % str(station.index+1)} src=${image_url} alt="" class="home_avatar">
                         </a>
                         </td>                     
                     <td id='status${station.index}' class="stationStatus">$_('loading...')</td>
