@@ -426,10 +426,9 @@ class _PluginChecker(threading.Thread):
             zip_name = filename.replace('\\', '/')
             if not zip_name.endswith('/__init__.py'):
                 continue
-            init_dir = os.path.dirname(zip_name)
-            repo_root = os.path.dirname(init_dir)
-            if repo_root:
-                repo_roots.add(repo_root.replace('\\', '/'))
+            parts = [part for part in zip_name.split('/') if part]
+            if len(parts) >= 4 and parts[1] == 'plugins':
+                repo_roots.add(parts[0])
 
         for zip_info in zip_file.infolist():
             zip_name = zip_info.filename.replace('\\', '/')

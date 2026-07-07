@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 07 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed plug-in repository document synchronization during plug-in install and update. OSPy now detects the real root of the GitHub plug-in archive and copies the repository README and CHANGELOG into the local `plugins` directory, so the Help page shows the current plug-in changelog after plug-in updates.
+
 July 06 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
