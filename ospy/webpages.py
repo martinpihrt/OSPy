@@ -2681,7 +2681,7 @@ class images_page(ProtectedPage):
             if ip_cam is not None:
                 cam_nr = get_input(qdict, 'cam', '1', lambda x: x.isdigit())
                 image_type = get_input(qdict, 'type', 'jpg', lambda x: x in ('jpg', 'gif'))
-                download_name = os.path.join('plugins', 'ip_cam', 'data', '{}.{}'.format(cam_nr, image_type))
+                download_name = os.path.join(plugins.plugin_data_dir('ip_cam'), '{}.{}'.format(cam_nr, image_type))
                 if not os.path.isfile(download_name):
                     fallback_id = 'station{}_thumbnail.png'.format(cam_nr)
                     download_name = safe_image_path(fallback_id, station_folder=True)
