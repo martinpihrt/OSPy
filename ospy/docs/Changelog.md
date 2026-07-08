@@ -3,11 +3,15 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 08 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added an admin Diagnostics page linked from the footer, with live-refreshing system/process metrics, plug-in thread CPU diagnostics, links to plug-in pages and System Information when available, and a CSRF-protected restart action for running plug-ins. Fixed IP Cam home pictures so large cached JPG/GIF files stay as small station thumbnails while the click-through viewer opens a bounded preview. Hardened station image handling by replacing the old web-triggered `sudo pip install Pillow` command with a fixed `apt-get install -y python3-pil` call without shell execution, and by validating uploaded images through Pillow with decompression-bomb protection and safer error handling.
+
 July 07 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
 Fixed plug-in repository document synchronization during plug-in install and update. OSPy now detects the real root of the GitHub plug-in archive and copies the repository README and CHANGELOG into the local `plugins` directory, so the Help page shows the current plug-in changelog after plug-in updates.
-Added an admin Diagnostics page linked from the footer, with live-refreshing system/process metrics, plug-in thread CPU diagnostics, links to plug-in pages and System Information when available, and a CSRF-protected restart action for running plug-ins. Fixed IP Cam home pictures so large cached JPG/GIF files stay as small station thumbnails while the click-through viewer opens a bounded preview. Hardened station image handling by replacing the old web-triggered `sudo pip install Pillow` command with a fixed `apt-get install -y python3-pil` call without shell execution, and by validating uploaded images through Pillow with decompression-bomb protection and safer error handling.
 
 July 06 2026 (v3.0)
 -----------
