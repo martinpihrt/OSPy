@@ -309,6 +309,8 @@ jQuery(document).ready(function(){
                 <p id="ip_local">$_('Local IP'): <span class="ip_local">${get_ip()}</span></p>
                 <p id="ip">$_('External IP'): <span class="ip">${get_external_ip()}</span></p>
                 <p id="uptime">$_('Working'): <span class="uptime">${uptime()}</span></p>
+                $if session.get('category') == 'admin':
+                    <p id="diagnosticsLink"><a href="/diagnostics" class="button open">$_('Diagnostics')</a></p>
                 </div>
         </div>
 

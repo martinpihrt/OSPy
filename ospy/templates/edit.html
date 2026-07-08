@@ -80,12 +80,18 @@ $code:
             jQuery("#BtnInstall").html($:{json.dumps(install_button_html, ensure_ascii=False).encode('utf8').decode('utf-8')});
         break;
         case "nopilOK":
-            jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed. You can upload pictures.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
+            jQuery("#Hint").text($:{json.dumps(_('Python Pillow is now installed from the system package manager. You can upload pictures.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'green');
             jQuery("#BtnInstall").html($:{json.dumps(refresh_button_html, ensure_ascii=False).encode('utf8').decode('utf-8')});
         break;
         case "nopilErr":
             jQuery("#Hint").text($:{json.dumps(_('Installation failed - contact your system administrator!'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;        
+        break;
+        case "imgbad":
+            jQuery("#Hint").text($:{json.dumps(_('The uploaded image could not be processed. Upload a valid PNG, JPG or GIF image.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
+        break;
+        case "imglarge":
+            jQuery("#Hint").text($:{json.dumps(_('The uploaded image is too large to process safely.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
+        break;
     }
 });
 </script>

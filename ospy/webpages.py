@@ -6,6 +6,7 @@ __author__ = 'Rimco'
 import os
 from shutil import copyfile
 import datetime
+import time
 import json
 import web
 from threading import Timer
@@ -15,7 +16,7 @@ import mimetypes
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
     password_hash, password_salt, get_input, get_help_files, get_help_file, restart, reboot, poweroff, stop_onrain, \
-    verify_csrf, read_limited_upload, safe_image_path
+    verify_csrf, read_limited_upload, safe_image_path, datetime_string
 from ospy.inputs import inputs
 from ospy.log import log, logEM, logEV
 from ospy.options import options, rain_blocks, program_level_adjustments
@@ -44,6 +45,7 @@ pluginFtr = []      # Empty list of dicts to hold plugin data for display in foo
 pluginStn = []      # Empty list of dicts to hold plugin data for display on timeline
 pluginScripts = []  # Empty list of script file names for script injections requested by plugins
 sensorSearch = []   # Empty list of dicts to hold sensors data for display on sensor search page
+_diagnostics_process_sample = {}
 
 
 def _safe_extract_zip(zip_file, target_dir):
@@ -1369,10 +1371,9 @@ class image_edit_page(ProtectedPage):
         if action == 'install':
             try:
                 import subprocess
-                cmd = "sudo pip install Pillow"
-                proc = subprocess.Popen(cmd,stderr=subprocess.STDOUT,stdout=subprocess.PIPE,shell=True)
-                output = proc.communicate()[0]
-                log.debug('webpages.py', '{}'.format(output))
+                cmd = ['sudo', 'apt-get', 'install', '-y', 'python3-pil']
+                proc = subprocess.run(cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE, timeout=600, check=True)
+                log.debug('webpages.py', proc.stdout.decode('utf-8', 'replace'))
                 raise web.seeother('/img_edit/{}?errorCode=nopilOK'.format(index))
             except:
                 log.debug('webpages.py', traceback.format_exc())
@@ -1421,26 +1422,70 @@ class image_edit_page(ProtectedPage):
                     return self.core_render.edit(index, img_url, errorCode)
 
                 try:
-                    from PIL import Image           # pip install Pillow
-
+                    import warnings
+                    from PIL import Image
+                    try:
+                        from PIL import UnidentifiedImageError
+                    except ImportError:
+                        UnidentifiedImageError = OSError
+                    DecompressionBombWarning = getattr(Image, 'DecompressionBombWarning', Warning)
+                    DecompressionBombError = getattr(Image, 'DecompressionBombError', Exception)
+                except ImportError:
                     if os.path.isfile(img_path_temp):
-                        im = Image.open(img_path_temp)
-                        size = 50,50                # resize to thumbnail
-                        im.thumbnail(size)
-                        im.save(img_path_th, "PNG")
-                        im = Image.open(img_path_temp)
-                        if options.high_resolution_mode:
-                            size = 1024,768         # resize original (high quality)
-                        else:
-                            size = 640,480          # resize original (low quality)
-                        im.thumbnail(size)
-                        im.save(img_path, "PNG")
+                        os.remove(img_path_temp)
+                    log.debug('webpages.py', traceback.format_exc())
+                    if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
+                        img_url = '/images?id=no_image'
+                    else:
+                        img_url = '/images?sf=1&id=station%s' % str(index)
+                    return self.core_render.edit(index, img_url, 'nopil')
+
+                try:
+                    if os.path.isfile(img_path_temp):
+                        Image.MAX_IMAGE_PIXELS = 25000000
+                        with warnings.catch_warnings():
+                            warnings.simplefilter('error', DecompressionBombWarning)
+                            with Image.open(img_path_temp) as im:
+                                im.verify()
+
+                        with warnings.catch_warnings():
+                            warnings.simplefilter('error', DecompressionBombWarning)
+                            with Image.open(img_path_temp) as im:
+                                size = 50,50                # resize to thumbnail
+                                im.thumbnail(size)
+                                im.save(img_path_th, "PNG")
+
+                            with Image.open(img_path_temp) as im:
+                                if options.high_resolution_mode:
+                                    size = 1024,768         # resize original (high quality)
+                                else:
+                                    size = 640,480          # resize original (low quality)
+                                im.thumbnail(size)
+                                im.save(img_path, "PNG")
+
                         os.remove(img_path_temp)
                         log.debug('webpages.py', _('Files has sucesfully resized to max 60x60/640x480...'))
 
-                except:
-                    pass
+                except DecompressionBombError:
+                    if os.path.isfile(img_path_temp):
+                        os.remove(img_path_temp)
+                    log.error('webpages.py', _('Uploaded image is too large to process safely.'))
+                    if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
+                        img_url = '/images?id=no_image'
+                    else:
+                        img_url = '/images?sf=1&id=station%s' % str(index)
+                    return self.core_render.edit(index, img_url, 'imglarge')
+
+                except (DecompressionBombWarning, UnidentifiedImageError, OSError, ValueError):
+                    if os.path.isfile(img_path_temp):
+                        os.remove(img_path_temp)
                     log.error('webpages.py', _('Cannot create resized files!'))
+                    log.debug('webpages.py', traceback.format_exc())
+                    if not os.path.isfile(img_path) or not os.path.isfile(img_path_th):
+                        img_url = '/images?id=no_image'
+                    else:
+                        img_url = '/images?sf=1&id=station%s' % str(index)
+                    return self.core_render.edit(index, img_url, 'imgbad')
 
         raise web.seeother('/stations')
 
@@ -1450,11 +1495,19 @@ class image_view_page(ProtectedPage):
     def GET(self, index):
         import os
 
-        img_path    = './ospy/images/stations/station%s.png' % str(index)
-        if not os.path.isfile(img_path):
-            img_url = '/images?id=no_image'                           # fake default img
+        qdict = web.input()
+        image_type = str(get_input(qdict, 'type', 'jpg')).lower()
+        if image_type not in ('jpg', 'gif'):
+            image_type = 'jpg'
+
+        if get_input(qdict, 'ip_cam', None, lambda x: x == '1') is not None:
+            img_url = '/images?ip_cam=1&cam={}&type={}'.format(index, image_type)
         else:
-            img_url = '/images?sf=1&id=station%s' % str(index)        # station img
+            img_path = './ospy/images/stations/station%s.png' % str(index)
+            if not os.path.isfile(img_path):
+                img_url = '/images?id=no_image.png'                           # fake default img
+            else:
+                img_url = '/images?sf=1&id=station%s.png' % str(index)        # station img
 
         return self.core_render.view(img_url)
 
@@ -2039,6 +2092,125 @@ class plugins_install_page(ProtectedPage):
                 return self.core_render.notice('/plugins_install', str(err))
 
         self._redirect_back()
+
+
+def _process_memory_kb():
+    try:
+        if os.name == 'posix':
+            with open('/proc/self/status') as fh:
+                for line in fh:
+                    if line.startswith('VmRSS:'):
+                        return int(line.split()[1])
+        return None
+    except Exception:
+        return None
+
+
+def _diagnostics_data():
+    import platform
+    import threading
+    import sys
+    from ospy.helpers import uptime, get_cpu_temp, get_cpu_usage
+
+    global _diagnostics_process_sample
+
+    now = time.time()
+    proc_cpu = time.process_time()
+    process_cpu_percent = None
+    if _diagnostics_process_sample:
+        elapsed = max(0.001, now - _diagnostics_process_sample.get('time', now))
+        cpu_delta = max(0.0, proc_cpu - _diagnostics_process_sample.get('cpu', proc_cpu))
+        process_cpu_percent = round((cpu_delta / elapsed) * 100.0, 1)
+    _diagnostics_process_sample = {'time': now, 'cpu': proc_cpu}
+
+    load_average = []
+    try:
+        load_average = [round(value, 2) for value in os.getloadavg()]
+    except Exception:
+        pass
+
+    system_info_link = None
+    try:
+        if 'system_info' in plugins.running():
+            system_info_link = plugins.plugin_url(plugins.get('system_info').LINK)
+    except Exception:
+        pass
+
+    system_uptime = '-'
+    if os.name == 'posix' and os.path.isfile('/proc/uptime'):
+        system_uptime = uptime()
+
+    return {
+        'system': {
+            'cpu_usage': get_cpu_usage(),
+            'cpu_temp': get_cpu_temp(options.temp_unit),
+            'temp_unit': options.temp_unit,
+            'uptime': system_uptime,
+            'load_average': load_average,
+            'platform': platform.platform(),
+            'python': sys.version.split()[0],
+        },
+        'process': {
+            'pid': os.getpid(),
+            'cpu_percent': process_cpu_percent,
+            'cpu_seconds': round(proc_cpu, 3),
+            'memory_kb': _process_memory_kb(),
+            'thread_count': threading.active_count(),
+        },
+        'plugins': plugins.plugin_diagnostics(),
+        'system_info_link': system_info_link,
+        'time': datetime_string(),
+    }
+
+
+class diagnostics_page(ProtectedPage):
+    """System and plug-in diagnostics page."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice('/', msg)
+
+        return self.core_render.diagnostics()
+
+    def POST(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        qdict = web.input()
+        action = qdict.get('action', '')
+        module = qdict.get('plugin', '')
+        data = {'ok': False, 'message': _('Unknown action.')}
+
+        if action == 'restart' and module in plugins.running():
+            try:
+                data['ok'] = plugins.reload_plugin(module)
+                data['message'] = _('Restart OK') if data['ok'] else _('Restart failed.')
+            except Exception:
+                data['message'] = traceback.format_exc()
+                log.error('webpages.py', data['message'])
+        elif action == 'restart':
+            data['message'] = _('Plugin is not running.')
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(data)
+
+
+class api_diagnostics_json(ProtectedPage):
+    """Live system and plug-in diagnostics API."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        web.header('Content-Type', 'application/json')
+        return json.dumps(_diagnostics_data())
 
 
 class log_page(ProtectedPage):

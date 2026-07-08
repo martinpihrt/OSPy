@@ -9,6 +9,10 @@ jQuery(document).ready(function(){
     jQuery("button#cCancel").click(function(){
         window.location="/";
         });  
+
+    jQuery(".imgViev").click(function(){
+        window.location="/";
+        });
 });
 </script>
 
@@ -18,7 +22,9 @@ jQuery(document).ready(function(){
             <table class="optionList" style="background: #F5F5F5;">
                     <tr>
                         <td colspan="2" title=$:{json.dumps(_(u'Station image'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-                            <img src=${img_url + '.png'} alt="" class="imgViev"> 
+                            <div class="imageViewer">
+                                <img src=${img_url} alt="" class="imgViev">
+                            </div>
                         </td>    
                     </tr>                                                                              
             </table>         

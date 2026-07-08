@@ -1,0 +1,137 @@
+$def with ()
+
+$var title: $_('Diagnostics')
+$var page: diagnostics
+
+<script>
+jQuery(document).ready(function(){
+    var csrfToken = "${csrf_token()}";
+    var refreshTimer = null;
+
+    function fmt(value, suffix) {
+        if (value === null || value === undefined || value === "") {
+            return "-";
+        }
+        return value + (suffix || "");
+    }
+
+    function setStatus(message, color) {
+        jQuery("#diagnosticsStatus").text(message || "").css("color", color || "#555555");
+    }
+
+    function pluginRow(plugin) {
+        var state = plugin.running ? $:{json.dumps(_('Running'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Stopped'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        var enabled = plugin.enabled ? $:{json.dumps(_('Enabled'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        var openButton = plugin.link ? '<a class="button open" href="' + plugin.link + '">' + $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
+        var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + $:{json.dumps(_('Restart'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</button>' : '';
+        var error = plugin.last_error ? '<details><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
+        var threads = plugin.thread_count + ' / ' + plugin.threads.length;
+
+        return '<tr>' +
+            '<td><b>' + jQuery("<div>").text(plugin.name || plugin.module).html() + '</b><br><small>' + plugin.module + '</small></td>' +
+            '<td>' + state + '<br><small>' + enabled + '</small></td>' +
+            '<td>' + fmt(plugin.cpu_percent, ' %') + '</td>' +
+            '<td>' + fmt(plugin.cpu_seconds, ' s') + '</td>' +
+            '<td>' + threads + '</td>' +
+            '<td>' + fmt(plugin.started_text, '') + '<br><small>' + fmt(plugin.last_restart, '') + '</small></td>' +
+            '<td>' + plugin.restarts + '</td>' +
+            '<td>' + openButton + ' ' + restartButton + error + '</td>' +
+            '</tr>';
+    }
+
+    function updateDiagnostics() {
+        jQuery.getJSON("/diagnostics.json", function(data) {
+            jQuery("#diagUpdated").text(data.time || "");
+            jQuery("#diagCpu").text(fmt(data.system.cpu_usage, " %"));
+            jQuery("#diagTemp").text(fmt(data.system.cpu_temp, " °" + data.system.temp_unit));
+            jQuery("#diagUptime").text(fmt(data.system.uptime, ""));
+            jQuery("#diagLoad").text(data.system.load_average && data.system.load_average.length ? data.system.load_average.join(" / ") : "-");
+            jQuery("#diagProcessCpu").text(fmt(data.process.cpu_percent, " %"));
+            jQuery("#diagProcessMem").text(data.process.memory_kb ? Math.round(data.process.memory_kb / 1024) + " MB" : "-");
+            jQuery("#diagThreads").text(fmt(data.process.thread_count, ""));
+            jQuery("#diagPlatform").text((data.system.platform || "-") + " / Python " + (data.system.python || "-"));
+
+            if (data.system_info_link) {
+                jQuery("#systemInfoLink").html('<a class="button open" href="' + data.system_info_link + '">' + $:{json.dumps(_('System Information'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>');
+            } else {
+                jQuery("#systemInfoLink").text($:{json.dumps(_('System Information plug-in is not running.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+            }
+
+            var rows = "";
+            for (var i = 0; i < data.plugins.length; i++) {
+                rows += pluginRow(data.plugins[i]);
+            }
+            jQuery("#diagnosticsPlugins tbody").html(rows || '<tr><td colspan="8">-</td></tr>');
+        }).fail(function(){
+            setStatus($:{json.dumps(_('Diagnostics refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}, "red");
+        });
+    }
+
+    jQuery("#diagnosticsPlugins").on("click", ".pluginRestart", function(){
+        var plugin = jQuery(this).data("plugin");
+        var button = jQuery(this);
+        button.prop("disabled", true).text($:{json.dumps(_('Working...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        jQuery.post("/diagnostics", {action: "restart", plugin: plugin, csrf: csrfToken}, function(data) {
+            setStatus(data.message, data.ok ? "green" : "red");
+            updateDiagnostics();
+        }, "json").fail(function(){
+            setStatus($:{json.dumps(_('Restart failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}, "red");
+        }).always(function(){
+            button.prop("disabled", false).text($:{json.dumps(_('Restart'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+        });
+    });
+
+    updateDiagnostics();
+    refreshTimer = window.setInterval(updateDiagnostics, 5000);
+});
+</script>
+
+<div id="diagnostics">
+    <div class="title">$_('Diagnostics')</div>
+    <div id="controls">
+        <a href="/" class="button cancel">$_('Cancel')</a>
+        <span id="systemInfoLink"></span>
+        <span id="diagnosticsStatus" style="margin-left: 8px;"></span>
+    </div>
+
+    <table class="optionList">
+        <tr><th colspan="4">$_('System')</th></tr>
+        <tr>
+            <td>$_('CPU Usage')</td><td id="diagCpu">-</td>
+            <td>$_('CPU Temp')</td><td id="diagTemp">-</td>
+        </tr>
+        <tr>
+            <td>$_('Working')</td><td id="diagUptime">-</td>
+            <td>$_('Load')</td><td id="diagLoad">-</td>
+        </tr>
+        <tr>
+            <td>$_('OSPy CPU')</td><td id="diagProcessCpu">-</td>
+            <td>$_('OSPy memory')</td><td id="diagProcessMem">-</td>
+        </tr>
+        <tr>
+            <td>$_('Threads')</td><td id="diagThreads">-</td>
+            <td>$_('Platform')</td><td id="diagPlatform">-</td>
+        </tr>
+        <tr>
+            <td>$_('Updated')</td><td colspan="3" id="diagUpdated">-</td>
+        </tr>
+    </table>
+
+    <table id="diagnosticsPlugins" class="optionList">
+        <thead>
+            <tr>
+                <th>$_('Plugin')</th>
+                <th>$_('Status')</th>
+                <th>$_('CPU now')</th>
+                <th>$_('CPU total')</th>
+                <th>$_('Threads')</th>
+                <th>$_('Started')</th>
+                <th>$_('Restarts')</th>
+                <th>$_('Actions')</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="8">$_('loading...')</td></tr>
+        </tbody>
+    </table>
+</div>

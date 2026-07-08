@@ -6,8 +6,14 @@ from os import path
 import types
 import threading
 import importlib
+import os
+import time
 
 __running = {}
+__plugin_runtime = {}
+__thread_plugin = {}
+__diagnostic_sample = {}
+__profile_lock = threading.RLock()
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
 
@@ -36,6 +42,126 @@ def _unload_plugin_modules(module):
         delattr(sys.modules[__name__], module)
 
     importlib.invalidate_caches()
+
+
+def _runtime_entry(module):
+    with __profile_lock:
+        return __plugin_runtime.setdefault(module, {
+            'started': 0,
+            'restarts': 0,
+            'threads': {},
+            'last_error': '',
+            'last_restart': '',
+        })
+
+
+def _now_string():
+    return time.strftime('%Y-%m-%d %H:%M:%S')
+
+
+def _register_plugin_thread(module, thread):
+    ident = getattr(thread, 'ident', None)
+    if ident is None:
+        return
+    native_id = getattr(thread, 'native_id', None)
+    with __profile_lock:
+        __thread_plugin[ident] = module
+        entry = _runtime_entry(module)
+        entry['threads'][ident] = {
+            'name': getattr(thread, 'name', ''),
+            'native_id': native_id,
+            'started': time.time(),
+        }
+
+
+def _thread_cpu_seconds(native_id):
+    if native_id is None or os.name != 'posix':
+        return None
+    try:
+        clk_tck = os.sysconf(os.sysconf_names['SC_CLK_TCK'])
+        with open('/proc/{}/task/{}/stat'.format(os.getpid(), native_id), 'r') as fh:
+            stat = fh.read()
+        end = stat.rfind(')')
+        fields = stat[end + 2:].split()
+        return (float(fields[11]) + float(fields[12])) / float(clk_tck)
+    except Exception:
+        return None
+
+
+def _track_threads_started_by(module, start_callable):
+    before = {thread.ident for thread in threading.enumerate() if thread.ident is not None}
+    result = start_callable()
+    after_threads = [thread for thread in threading.enumerate() if thread.ident is not None and thread.ident not in before]
+    for thread in after_threads:
+        _register_plugin_thread(module, thread)
+    return result
+
+
+def plugin_diagnostics():
+    data = []
+    running_modules = running()
+    available_modules = available()
+    now = time.time()
+    from ospy.options import options
+
+    with __profile_lock:
+        for module in available_modules:
+            plugin = __running.get(module)
+            entry = __plugin_runtime.get(module, {})
+            threads = []
+            total_cpu = 0.0
+            cpu_known = False
+
+            for ident, thread_info in entry.get('threads', {}).items():
+                native_id = thread_info.get('native_id')
+                cpu_seconds = _thread_cpu_seconds(native_id)
+                alive = any(thread.ident == ident and thread.is_alive() for thread in threading.enumerate())
+                if cpu_seconds is not None:
+                    total_cpu += cpu_seconds
+                    cpu_known = True
+                threads.append({
+                    'name': thread_info.get('name', ''),
+                    'ident': ident,
+                    'native_id': native_id,
+                    'alive': alive,
+                    'age_seconds': max(0, int(now - thread_info.get('started', now))),
+                    'cpu_seconds': round(cpu_seconds, 3) if cpu_seconds is not None else None,
+                })
+
+            link = None
+            if plugin is not None and getattr(plugin, 'LINK', None):
+                link = plugin_url(plugin.LINK)
+
+            cpu_seconds_value = round(total_cpu, 3) if cpu_known else None
+            cpu_percent = None
+            previous = __diagnostic_sample.get(module)
+            if cpu_known and previous:
+                elapsed = max(0.001, now - previous.get('time', now))
+                cpu_delta = max(0.0, total_cpu - previous.get('cpu', total_cpu))
+                cpu_percent = round((cpu_delta / elapsed) * 100.0, 1)
+            if cpu_known:
+                __diagnostic_sample[module] = {'time': now, 'cpu': total_cpu}
+
+            data.append({
+                'module': module,
+                'name': getattr(plugin, 'NAME', None) if plugin is not None else plugin_name(module) or module,
+                'menu': getattr(plugin, 'MENU', None) if plugin is not None else plugin_name_menu(module),
+                'running': module in running_modules,
+                'enabled': module in options.enabled_plugins,
+                'link': link,
+                'started': entry.get('started', 0),
+                'started_text': entry.get('started_text', ''),
+                'restarts': entry.get('restarts', 0),
+                'last_restart': entry.get('last_restart', ''),
+                'last_error': entry.get('last_error', ''),
+                'threads': threads,
+                'thread_count': len([thread for thread in threads if thread['alive']]),
+                'cpu_seconds': cpu_seconds_value,
+                'cpu_percent': cpu_percent,
+            })
+
+    data.sort(key=lambda item: (item['cpu_percent'] if item['cpu_percent'] is not None else -1, item['cpu_seconds'] if item['cpu_seconds'] is not None else -1), reverse=True)
+    return data
 
 ################################################################################
 # Plugin Options                                                               #
@@ -724,9 +850,14 @@ def stop_plugin(module):
             plugin.stop()
             logging.info(_('Stopped the') + ': {}'.format(plugin_n))
         except Exception:
+            _runtime_entry(module)['last_error'] = traceback.format_exc()
             logging.error(_('Failed to stop the') + ': {} {}'.format(plugin_n, traceback.format_exc()))
         finally:
             __running.pop(module, None)
+            with __profile_lock:
+                for ident in list(__thread_plugin.keys()):
+                    if __thread_plugin.get(ident) == module:
+                        __thread_plugin.pop(ident, None)
 
     try:
         from ospy.webpages import clear_plugin_runtime_data
@@ -761,7 +892,13 @@ def start_plugin(module):
         mkdir_p(plugin_data_dir(module))
         mkdir_p(plugin_docs_dir(module))
 
-        plugin.start()
+        entry = _runtime_entry(module)
+        entry['started'] = time.time()
+        entry['started_text'] = _now_string()
+        entry['threads'] = {}
+        entry['last_error'] = ''
+
+        _track_threads_started_by(module, plugin.start)
         __running[module] = plugin
         logging.info(_('Started the') + ': {}'.format(plugin_n))
 
@@ -771,6 +908,7 @@ def start_plugin(module):
         return True
 
     except Exception:
+        _runtime_entry(module)['last_error'] = traceback.format_exc()
         logging.error(_('Failed to load the') + ' {} {}'.format(plugin_n, traceback.format_exc()))
         if module in options.enabled_plugins:
             options.enabled_plugins.remove(module)
@@ -782,6 +920,9 @@ def start_plugin(module):
 
 
 def reload_plugin(module):
+    entry = _runtime_entry(module)
+    entry['restarts'] = entry.get('restarts', 0) + 1
+    entry['last_restart'] = _now_string()
     stop_plugin(module)
     return start_plugin(module)
 

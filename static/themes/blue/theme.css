@@ -908,12 +908,36 @@ input[type=number] {
 }
 
 .home_avatar {
-  text-align: left;
+  display: block;
+  width: 50px;
+  height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0 auto;
   padding: 0px 2px;
+  object-fit: contain;
+  box-sizing: border-box;
 }
 
 .stationImage {
   text-align: center;
+}
+
+.imageViewer {
+  max-width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.imgViev {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 80px);
+  max-height: calc(100vh - 180px);
+  margin: 0 auto;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 /******** Station Table Styles **********/

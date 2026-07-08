@@ -31,6 +31,8 @@ urls = [
     '/update_search', 'ospy.webpages.api_search_sensors',
     '/download', 'ospy.webpages.download_page',
     '/upload', 'ospy.webpages.upload_page',
+    '/diagnostics', 'ospy.webpages.diagnostics_page',
+    '/diagnostics.json', 'ospy.webpages.api_diagnostics_json',
     '/db_unreachable', 'ospy.webpages.db_unreachable_page',
     '/uploadSSL', 'ospy.webpages.upload_page_SSL',
     '/images', 'ospy.webpages.images_page',
