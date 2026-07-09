@@ -38,7 +38,7 @@ function confirmProgramDelete(message) {
                     <div class="programSequenceLabel">$_('Program run order')</div>
                     <div class="programSequence">
                         $for entry in group_sequence:
-                            <span class="programSequenceBlock" style="flex-grow:${entry['minutes']};" title="${entry['title']}">
+                            <span class="programSequenceBlock" style="flex-grow:${entry['minutes']};" title=$:{json.dumps(entry['title'], ensure_ascii=False)} data-title=$:{json.dumps(entry['title'], ensure_ascii=False)} aria-label=$:{json.dumps(entry['title'], ensure_ascii=False)} tabindex="0">
                                 <span class="programSequenceNumber">${entry['number']}</span>
                                 <span class="programSequenceName">${entry['name']}</span>
                             </span>

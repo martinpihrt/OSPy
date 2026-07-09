@@ -394,6 +394,14 @@ span.stationName:last-child:after {
 
 .program {
     width:95%;
+    border-bottom: 1px solid #2E3959;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+}
+
+.programGroup .program:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
 }
 
 .programGroup {
@@ -424,26 +432,56 @@ span.stationName:last-child:after {
     display: flex;
     align-items: stretch;
     gap: 3px;
-    margin: 2px 8px 6px 8px;
-    padding: 2px 0 !important;
+    margin: 2px 8px 8px 8px;
+    padding: 5px !important;
+    border: 1px dashed #C86B16;
+    border-radius: 6px;
     min-height: 26px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .programSequenceBlock {
+    position: relative;
     display: inline-flex;
     align-items: center;
     min-width: 34px;
     max-width: 180px;
     padding: 3px 7px;
     border-radius: 6px;
-    background-color: #4F62D8;
+    background-color: #D9771F;
     color: white;
     font-size: 10pt;
     line-height: 18px;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible;
     text-overflow: ellipsis;
+    cursor: help;
+}
+
+.programSequenceBlock:hover,
+.programSequenceBlock:focus {
+    background-color: #B85F12;
+    outline: 2px solid #F2B36A;
+    outline-offset: 1px;
+}
+
+.programSequenceBlock:hover::after,
+.programSequenceBlock:focus::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    z-index: 20;
+    max-width: 260px;
+    min-width: 160px;
+    padding: 6px 8px;
+    border: 1px solid #C86B16;
+    border-radius: 4px;
+    background: #FFF7E8;
+    color: #2E3959;
+    white-space: normal;
+    line-height: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
 .programSequenceNumber {
@@ -452,6 +490,7 @@ span.stationName:last-child:after {
 }
 
 .programSequenceName {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -862,7 +901,7 @@ button.pushon.on, .button.pushon.on {
 #program-container .program .button.toggle span.toggleleft {width: 30px;}
 #program-container .program .button.toggle span.toggleright {width: 30px;}
 #program-container .program .programTitle {font-size:13pt; font-weight:700;}
-#program-container .program .programActions {border-top:1px solid #2E3959; margin-top:6px; padding-top:6px;}
+#program-container .program .programActions {margin-top:6px; padding-top:6px;}
 .button.toggle.pluginManageToggle {width:130px; margin:0 !important; padding:4px 0;}
 .button.toggle.pluginManageToggle span.toggleleft {width:30px;}
 .button.toggle.pluginManageToggle span.toggleright {width:30px;}
