@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 09 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Improved the Diagnostics page layout with a wider system summary, clearer labels, grid lines in the plug-in table, and a corrected restart button label for plug-in restarts. Added a plug-in sort selector with CPU load as the default order, plus sorting by plug-in name or total CPU time. Diagnostics refresh errors are now cleared after a successful refresh, and the live diagnostics API reports controlled JSON errors instead of leaving the page with a stale warning.
+
 July 08 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

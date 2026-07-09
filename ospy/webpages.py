@@ -2140,6 +2140,14 @@ def _diagnostics_data():
     if os.name == 'posix' and os.path.isfile('/proc/uptime'):
         system_uptime = uptime()
 
+    plugin_data = []
+    diagnostics_error = ''
+    try:
+        plugin_data = plugins.plugin_diagnostics()
+    except Exception:
+        diagnostics_error = _('Plug-in diagnostics refresh failed.')
+        log.error('webpages.py', traceback.format_exc())
+
     return {
         'system': {
             'cpu_usage': get_cpu_usage(),
@@ -2157,7 +2165,8 @@ def _diagnostics_data():
             'memory_kb': _process_memory_kb(),
             'thread_count': threading.active_count(),
         },
-        'plugins': plugins.plugin_diagnostics(),
+        'plugins': plugin_data,
+        'diagnostics_error': diagnostics_error,
         'system_info_link': system_info_link,
         'time': datetime_string(),
     }
@@ -2210,7 +2219,15 @@ class api_diagnostics_json(ProtectedPage):
             raise web.forbidden()
 
         web.header('Content-Type', 'application/json')
-        return json.dumps(_diagnostics_data())
+        try:
+            return json.dumps(_diagnostics_data())
+        except Exception:
+            log.error('webpages.py', traceback.format_exc())
+            return json.dumps({
+                'ok': False,
+                'error': _('Diagnostics refresh failed.'),
+                'time': datetime_string(),
+            })
 
 
 class log_page(ProtectedPage):

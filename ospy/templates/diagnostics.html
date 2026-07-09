@@ -36,6 +36,15 @@ $var page: diagnostics
         overflow-x: auto;
     }
 
+    #diagnostics .diagnosticsToolbar {
+        margin: 8px 0 4px;
+    }
+
+    #diagnostics .diagnosticsToolbar label {
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
     #diagnostics .pluginDiagnosticsTable {
         min-width: 1050px;
     }
@@ -50,6 +59,7 @@ $var page: diagnostics
 jQuery(document).ready(function(){
     var csrfToken = "${csrf_token()}";
     var restartPluginLabel = $:{json.dumps(_('Restart plugin'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+    var currentPlugins = [];
     var refreshTimer = null;
 
     function fmt(value, suffix) {
@@ -61,6 +71,44 @@ jQuery(document).ready(function(){
 
     function setStatus(message, color) {
         jQuery("#diagnosticsStatus").text(message || "").css("color", color || "#555555");
+    }
+
+    function pluginNumber(value, fallback) {
+        if (value === null || value === undefined || value === "") {
+            return fallback;
+        }
+        var number = Number(value);
+        return isNaN(number) ? fallback : number;
+    }
+
+    function sortPlugins(plugins) {
+        var sorted = plugins.slice();
+        var sortMode = jQuery("#pluginSort").val() || "cpu";
+
+        sorted.sort(function(a, b) {
+            if (sortMode === "name") {
+                return String(a.name || a.module).localeCompare(String(b.name || b.module));
+            }
+
+            if (sortMode === "total") {
+                return pluginNumber(b.cpu_seconds, -1) - pluginNumber(a.cpu_seconds, -1) ||
+                    pluginNumber(b.cpu_percent, -1) - pluginNumber(a.cpu_percent, -1);
+            }
+
+            return pluginNumber(b.cpu_percent, -1) - pluginNumber(a.cpu_percent, -1) ||
+                pluginNumber(b.cpu_seconds, -1) - pluginNumber(a.cpu_seconds, -1);
+        });
+
+        return sorted;
+    }
+
+    function renderPlugins() {
+        var plugins = sortPlugins(currentPlugins);
+        var rows = "";
+        for (var i = 0; i < plugins.length; i++) {
+            rows += pluginRow(plugins[i]);
+        }
+        jQuery("#diagnosticsPlugins tbody").html(rows || '<tr><td colspan="8">-</td></tr>');
     }
 
     function pluginRow(plugin) {
@@ -85,6 +133,11 @@ jQuery(document).ready(function(){
 
     function updateDiagnostics() {
         jQuery.getJSON("/diagnostics.json", function(data) {
+            if (data.error) {
+                setStatus(data.error, "red");
+                return;
+            }
+
             jQuery("#diagUpdated").text(data.time || "");
             jQuery("#diagCpu").text(fmt(data.system.cpu_usage, " %"));
             jQuery("#diagTemp").text(fmt(data.system.cpu_temp, " \u00b0" + data.system.temp_unit));
@@ -101,15 +154,26 @@ jQuery(document).ready(function(){
                 jQuery("#systemInfoLink").text($:{json.dumps(_('System Information plug-in is not running.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
             }
 
-            var rows = "";
-            for (var i = 0; i < data.plugins.length; i++) {
-                rows += pluginRow(data.plugins[i]);
+            currentPlugins = data.plugins || [];
+            renderPlugins();
+
+            if (data.diagnostics_error) {
+                setStatus(data.diagnostics_error, "red");
+            } else {
+                setStatus("");
             }
-            jQuery("#diagnosticsPlugins tbody").html(rows || '<tr><td colspan="8">-</td></tr>');
-        }).fail(function(){
-            setStatus($:{json.dumps(_('Diagnostics refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}, "red");
+        }).fail(function(xhr){
+            var message = $:{json.dumps(_('Diagnostics refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            if (xhr && xhr.status === 403) {
+                message += " " + $:{json.dumps(_('Admin access is required.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            } else if (xhr && xhr.status) {
+                message += " HTTP " + xhr.status + ".";
+            }
+            setStatus(message, "red");
         });
     }
+
+    jQuery("#pluginSort").on("change", renderPlugins);
 
     jQuery("#diagnosticsPlugins").on("click", ".pluginRestart", function(){
         var plugin = jQuery(this).data("plugin");
@@ -160,6 +224,15 @@ jQuery(document).ready(function(){
             <td colspan="2"><span class="diagnosticsLabel">$_('Updated')</span><span id="diagUpdated">-</span></td>
         </tr>
     </table>
+
+    <div class="diagnosticsToolbar">
+        <label for="pluginSort">$_('Sort plugins')</label>
+        <select id="pluginSort">
+            <option value="cpu" selected>$_('By CPU load')</option>
+            <option value="name">$_('By plug-in name')</option>
+            <option value="total">$_('By total CPU time')</option>
+        </select>
+    </div>
 
     <div class="diagnosticsScroll">
         <table id="diagnosticsPlugins" class="optionList diagnosticsTable pluginDiagnosticsTable">
