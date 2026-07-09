@@ -17,6 +17,7 @@ OSPy Webinterface-Anleitung auf Deutsch
         Softwareversion
         Externe IP
         Betriebszeit
+        Diagnose
     Programme
         Fügen Sie ein neues Programm hinzu
         Programmgruppen
@@ -333,6 +334,19 @@ Externe IP-Adresse für das OSPy-System (Adresse Ihres Verbindungsanbieters – 
 
 ## Betriebszeit
 Die Zeit, die der Raspberry Pi seit dem Einschalten (oder Neustart) in Betrieb war.
+
+## Diagnose
+Die Schaltfläche **Diagnose** in der Fußzeile öffnet eine Administratorseite, auf der geprüft werden kann, wie OSPy und seine Plug-ins das System belasten.
+
+Die Systemübersicht zeigt die aktuelle CPU-Auslastung, CPU-Temperatur, Systemlaufzeit, Load Average, CPU-Auslastung des OSPy-Prozesses, Speicherverbrauch von OSPy, Anzahl der Threads, Plattforminformationen und die Zeit der letzten Aktualisierung.
+
+Die Plug-in-Tabelle zeigt alle verfügbaren Plug-ins, ob sie laufen und aktiviert sind, die aktuelle CPU-Last, die gesamte CPU-Zeit, die Anzahl der Threads, die Startzeit, die Anzahl der Neustarts und verfügbare Aktionen. Die Daten werden automatisch aktualisiert, sodass die Seite geöffnet bleiben kann, während die Systemlast beobachtet wird.
+
+Standardmäßig werden Plug-ins nach aktueller CPU-Last von hoch nach niedrig sortiert. Mit **Plug-ins sortieren** kann nach Plug-in-Name oder gesamter CPU-Zeit sortiert werden, wenn eine stabile Liste benötigt wird oder langfristige CPU-Verbraucher gesucht werden.
+
+Die Aktion **Öffnen** öffnet die Plug-in-Seite. **Restart plugin** startet nur das ausgewählte laufende Plug-in neu; OSPy wird dadurch nicht vollständig neu gestartet.
+
+Wenn eine Aktualisierungswarnung angezeigt wird, ist das letzte automatische Lesen der Diagnose-API fehlgeschlagen oder hat einen kontrollierten Fehler zurückgegeben. Vorhandene Daten können bis zur nächsten erfolgreichen Aktualisierung sichtbar bleiben, und die Warnung wird nach einer erfolgreichen Aktualisierung automatisch gelöscht.
 
 ----
 

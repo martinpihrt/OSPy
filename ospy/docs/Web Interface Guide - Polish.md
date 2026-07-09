@@ -17,6 +17,7 @@ Przewodnik po interfejsie webowym OSPy w jezyku polskim
         Wersja oprogramowania
         Zewnętrzny adres IP
         Czas pracy
+        Diagnostyka
     Programy
         Dodaj nowy program
         Grupy programów
@@ -333,6 +334,19 @@ Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - rou
 
 ## Czas pracy
 Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia).
+
+## Diagnostyka
+Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
+
+Podsumowanie systemu pokazuje bieżące użycie CPU, temperaturę CPU, czas działania systemu, load average, użycie CPU przez proces OSPy, użycie pamięci OSPy, liczbę wątków, informacje o platformie oraz czas ostatniego odświeżenia.
+
+Tabela wtyczek pokazuje wszystkie dostępne wtyczki, czy są uruchomione i włączone, bieżące obciążenie CPU, całkowity czas CPU, liczbę wątków, czas uruchomienia, liczbę restartów oraz dostępne akcje. Dane odświeżają się automatycznie, więc stronę można pozostawić otwartą podczas obserwowania obciążenia systemu.
+
+Domyślnie wtyczki są sortowane według bieżącego obciążenia CPU od najwyższego do najniższego. Użyj opcji **Sortuj wtyczki**, aby przełączyć sortowanie według nazwy wtyczki lub całkowitego czasu CPU, gdy potrzebna jest stabilna lista albo wyszukanie długotrwałych odbiorców CPU.
+
+Akcja **Otwórz** otwiera stronę wtyczki. **Restart plugin** restartuje tylko wybraną działającą wtyczkę; nie restartuje całego OSPy.
+
+Jeśli pojawi się ostrzeżenie odświeżania, ostatni automatyczny odczyt z API diagnostyki nie powiódł się albo zwrócił kontrolowany błąd. Istniejące dane mogą pozostać widoczne do następnego udanego odświeżenia, a ostrzeżenie zostanie automatycznie wyczyszczone po udanym odświeżeniu.
 
 ----
 

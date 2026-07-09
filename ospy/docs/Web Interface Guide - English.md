@@ -17,6 +17,7 @@ OSPy Web Interface Guide in English
         Software version
         External IP
         Working
+        Diagnostics
     Programs page
         Add a New Program
         Program groups
@@ -333,6 +334,19 @@ External IP address for the OSPy system (address of your connection provider - r
 
 ## Working
 The time the Raspberry pi system has been running since it was powered on (or restarted).
+
+## Diagnostics
+The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
+
+The system summary shows current CPU usage, CPU temperature, system uptime, load average, OSPy process CPU usage, OSPy memory usage, thread count, platform information and the last refresh time.
+
+The plug-in table shows every available plug-in, whether it is running and enabled, current CPU load, total CPU time, thread count, start time, restart count and available actions. Data refreshes automatically, so the page can be left open while watching system load.
+
+By default, plug-ins are sorted by current CPU load from highest to lowest. Use **Sort plugins** to switch sorting to plug-in name or total CPU time when you want a stable list or want to find long-running CPU consumers.
+
+The **Open** action opens the plug-in page. **Restart plugin** restarts only the selected running plug-in; it does not restart all of OSPy.
+
+If a refresh warning is shown, the last automatic read from the diagnostics API failed or returned a controlled error. Existing data can remain visible until the next successful refresh, and the warning is cleared automatically after a successful refresh.
 
 ----
 

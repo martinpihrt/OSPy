@@ -6,7 +6,7 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 09 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-Improved the Diagnostics page layout with a wider system summary, clearer labels, grid lines in the plug-in table, and a corrected restart button label for plug-in restarts. Added a plug-in sort selector with CPU load as the default order, plus sorting by plug-in name or total CPU time. Diagnostics refresh errors are now cleared after a successful refresh, and the live diagnostics API reports controlled JSON errors instead of leaving the page with a stale warning.
+Improved the Diagnostics page layout with a wider system summary, clearer labels, grid lines in the plug-in table, and a corrected restart button label for plug-in restarts. Added a plug-in sort selector with CPU load as the default order, plus sorting by plug-in name or total CPU time. Diagnostics refresh errors are now cleared after a successful refresh, and the live diagnostics API reports controlled JSON errors instead of leaving the page with a stale warning. Added Diagnostics documentation to all Web Interface Guides, expanded the i18n README with step-by-step Poedit instructions, changed `pygettext.py` so HTML templates are scanned only for `_()` translation calls, preventing normal HTML/CSS markup from breaking POT generation, and updated the Czech OSPy translation.
 
 July 08 2026 (v3.0)
 -----------

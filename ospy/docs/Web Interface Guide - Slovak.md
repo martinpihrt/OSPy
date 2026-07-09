@@ -17,6 +17,7 @@ OSPy sprievodca webovým rozhraním v slovencine
         Verzia programu OSPy
         Externá IP adresa
         Doba prevádzky
+        Diagnostika
     Programy
         Pridat nový program
         Skupiny programov
@@ -333,6 +334,19 @@ Externá IP adresa pre systém OSPy (adresa vášho poskytovateľa pripojenia - 
 
 ## Doba prevádzky
 Doba behu systému Raspberry pri zapnutí (alebo reštarte).
+
+## Diagnostika
+Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
+
+Súhrn systému zobrazuje aktuálne využitie CPU, teplotu CPU, dobu behu systému, load average, využitie CPU procesom OSPy, využitie pamäte OSPy, počet vlákien, informácie o platforme a čas posledného obnovenia.
+
+Tabuľka doplnkov zobrazuje všetky dostupné doplnky, či bežia a či sú povolené, aktuálnu záťaž CPU, celkový čas CPU, počet vlákien, čas spustenia, počet reštartov a dostupné akcie. Dáta sa obnovujú automaticky, takže stránku je možné nechať otvorenú pri sledovaní zaťaženia systému.
+
+V predvolenom stave sú doplnky zoradené podľa aktuálnej záťaže CPU od najvyššej po najnižšiu. Pomocou voľby **Zoradiť doplnky** je možné prepnúť zoradenie podľa názvu doplnku alebo podľa celkového času CPU, keď je potrebný stabilný zoznam alebo hľadanie dlhodobých spotrebiteľov CPU.
+
+Akcia **Otvoriť** otvorí stránku doplnku. **Restart plugin** reštartuje iba vybraný bežiaci doplnok; nereštartuje celé OSPy.
+
+Ak sa zobrazí varovanie pri obnovení, posledné automatické čítanie z diagnostického API zlyhalo alebo vrátilo kontrolovanú chybu. Existujúce dáta môžu zostať zobrazené do ďalšieho úspešného obnovenia a varovanie sa po úspešnom obnovení automaticky vymaže.
 
 ----
 

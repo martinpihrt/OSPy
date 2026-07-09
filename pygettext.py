@@ -156,6 +156,7 @@ If `inputfile' is -, standard input is read.
 """)
 
 import os
+import io
 import importlib.machinery
 import importlib.util
 import sys
@@ -163,6 +164,7 @@ import glob
 import time
 import getopt
 import ast
+import re
 import token
 import tokenize
 
@@ -173,6 +175,80 @@ DEFAULTKEYWORDS = ', '.join(default_keywords)
 
 EMPTYSTRING = ''
 
+STYLE_BLOCK_RE = re.compile(br'<style\b[^>]*>.*?</style>', re.IGNORECASE | re.DOTALL)
+HTML_GETTEXT_RE = re.compile(r'(?<![\w.])_\s*\(')
+
+
+def strip_html_style_blocks(source):
+    """Hide CSS from Python tokenization while keeping line numbers stable."""
+
+    def blank_block(match):
+        data = bytearray(match.group(0))
+        for index, value in enumerate(data):
+            if value not in (10, 13):
+                data[index] = 32
+        return bytes(data)
+
+    return STYLE_BLOCK_RE.sub(blank_block, source)
+
+
+def html_call_end(text, start):
+    paren = text.find('(', start)
+    if paren < 0:
+        return None
+
+    depth = 0
+    quote = None
+    triple = False
+    escape = False
+    index = paren
+    while index < len(text):
+        char = text[index]
+        if quote:
+            if escape:
+                escape = False
+            elif char == '\\':
+                escape = True
+            elif triple and text.startswith(quote * 3, index):
+                quote = None
+                triple = False
+                index += 2
+            elif not triple and char == quote:
+                quote = None
+        else:
+            if char in ('"', "'"):
+                quote = char
+                triple = text.startswith(char * 3, index)
+                if triple:
+                    index += 2
+            elif char == '(':
+                depth += 1
+            elif char == ')':
+                depth -= 1
+                if depth == 0:
+                    return index + 1
+        index += 1
+
+    return None
+
+
+def extract_html_gettext(filename, source, eater):
+    """Extract only _() calls from HTML templates and ignore other markup."""
+    text = strip_html_style_blocks(source).decode('utf-8', 'replace')
+    for match in HTML_GETTEXT_RE.finditer(text):
+        end = html_call_end(text, match.start())
+        if end is None:
+            continue
+        line_offset = text.count('\n', 0, match.start())
+        snippet = ('\n' * line_offset) + text[match.start():end]
+        try:
+            tokens = tokenize.generate_tokens(io.StringIO(snippet).readline)
+            for _token in tokens:
+                eater(*_token)
+        except (tokenize.TokenError, IndentationError):
+            print('%s: %s, line %d' % (
+                'Could not parse gettext call', filename, line_offset + 1),
+                file=sys.stderr)
 
 
 # The normal pot-file header. msgmerge and Emacs's po-mode work better if it's
@@ -647,14 +723,20 @@ def main():
             closep = 1
         try:
             eater.set_filename(filename)
+            if filename.lower().endswith(('.html', '.htm')):
+                extract_html_gettext(filename, fp.read(), eater)
+                continue
             try:
                 tokens = tokenize.tokenize(fp.readline)
                 for _token in tokens:
                     eater(*_token)
-            except tokenize.TokenError as e:
-                print('%s: %s, line %d, column %d' % (
-                    e.args[0], filename, e.args[1][0], e.args[1][1]),
-                    file=sys.stderr)
+            except (tokenize.TokenError, IndentationError) as e:
+                if isinstance(e, tokenize.TokenError):
+                    print('%s: %s, line %d, column %d' % (
+                        e.args[0], filename, e.args[1][0], e.args[1][1]),
+                        file=sys.stderr)
+                else:
+                    print('%s: %s' % (filename, e), file=sys.stderr)
         finally:
             if closep:
                 fp.close()
@@ -666,7 +748,7 @@ def main():
     else:
         if options.outpath:
             options.outfile = os.path.join(options.outpath, options.outfile)
-        fp = open(options.outfile, 'w')
+        fp = open(options.outfile, 'w', encoding='utf-8')
         closep = 1
     try:
         eater.write(fp)
