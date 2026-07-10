@@ -1537,14 +1537,20 @@ class login_page(WebPage):
             remembered_login = autologin.validate_cookie()
             if remembered_login:
                 from ospy import server
-                server.session.regenerate_id()
+                # Keep the current id when a remember-me cookie restores a
+                # session. Browsers can send multiple requests in parallel
+                # after a session expires; regenerating the id in every
+                # request makes their Set-Cookie responses race and can leave
+                # the browser in a /login -> / redirect loop. The id is still
+                # regenerated for an interactive password login below.
                 server.session.validated = True
                 server.session['category'] = remembered_login['category']
                 server.session['visitor'] = remembered_login['username']
-                report_login()
-                if options.run_logEV:
-                    logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
-                log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
+                if autologin.should_log_login(remembered_login['selector']):
+                    report_login()
+                    if options.run_logEV:
+                        logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
+                    log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
                 raise web.seeother('/', True)
 
             if options.first_installation:

@@ -17,7 +17,9 @@ from ospy.log import log
 TOKEN_FILE = os.path.join('ospy', 'data', 'auto_login_tokens.json')
 COOKIE_NAME = 'ospy_auto_login'
 TOKEN_TTL = 90 * 24 * 60 * 60
+LOGIN_EVENT_WINDOW = 10
 _LOCK = Lock()
+_recent_logins = {}
 
 
 def _now():
@@ -189,7 +191,30 @@ def validate_cookie():
     return {
         'username': token.get('username', ''),
         'category': category,
+        'selector': selector,
     }
+
+
+def should_log_login(selector):
+    """Return True once for concurrent uses of the same remembered login.
+
+    A browser can request several protected resources at the same time after
+    its web session has expired.  They all arrive at /login with the same
+    remember-me token and must not be reported as separate user logins.
+    """
+    now_ts = time.time()
+    with _LOCK:
+        expired = [
+            key for key, timestamp in _recent_logins.items()
+            if now_ts - timestamp >= LOGIN_EVENT_WINDOW
+        ]
+        for key in expired:
+            _recent_logins.pop(key, None)
+
+        if selector in _recent_logins:
+            return False
+        _recent_logins[selector] = now_ts
+        return True
 
 
 def revoke_cookie_token():
