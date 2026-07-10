@@ -246,6 +246,11 @@ def predicted_schedule(start_time, end_time):
 
             all_intervals.append(new_interval)
 
+    # A group postponement is a one-time scheduler overlay: remove the exact
+    # source occurrences and add their shifted snapshots. Program definitions
+    # remain unchanged, so later regular runs continue normally.
+    all_intervals = programs.apply_group_postponements(all_intervals, start_time, end_time)
+
     # Make list of entries sorted on duration, usage and time (stable sorted on station #)
     all_intervals.sort(key=lambda inter: inter['end'] - inter['start'])
     all_intervals.sort(key=lambda inter: -inter['usage'])
@@ -445,6 +450,7 @@ class _Scheduler(Thread):
         global blocking_from_pressurizer
 
         current_time = datetime.datetime.now()
+        programs.cleanup_group_postponements(current_time)
         check_start = current_time - datetime.timedelta(days=1)
         check_end = current_time + datetime.timedelta(days=1)
 

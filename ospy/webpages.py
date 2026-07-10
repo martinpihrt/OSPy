@@ -1802,7 +1802,8 @@ class programs_page(ProtectedPage):
             programs.toggle_group_collapsed(qdict.get('group_id', 'default'))
 
         elif action == 'delete_group':
-            programs.remove_group(qdict.get('group_id', 'default'))
+            if not programs.remove_group(qdict.get('group_id', 'default')):
+                return self.core_render.notice('/programs', _('Cancel the active postponement before deleting this program group.'))
             report_program_change()
 
         elif action == 'copy_group':
@@ -1814,6 +1815,52 @@ class programs_page(ProtectedPage):
             programs.set_group_enabled(qdict.get('group_id', 'default'), qdict.get('enabled', '0') == '1')
             Timer(0.1, programs.calculate_balances).start()
             report_program_toggle()
+
+        elif action == 'postpone_group':
+            group_id = qdict.get('group_id', '')
+            target_value = qdict.get('target_start', '')
+            try:
+                if len(target_value) != 16:
+                    raise ValueError
+                target_start = datetime.datetime.strptime(target_value, '%Y-%m-%dT%H:%M')
+                postponement = programs.create_group_postponement(group_id, target_start)
+            except (TypeError, ValueError) as error:
+                message = str(error) or _('Invalid postponement date and time.')
+                return self.core_render.notice('/programs', message)
+
+            group = programs.program_group(group_id)
+            if options.run_logEV:
+                logEV.save_events_log(
+                    _('Programs'),
+                    _('User {} postponed program group {} from {} to {}').format(
+                        session.get('visitor'),
+                        group['name'],
+                        postponement['source_start'].strftime('%Y-%m-%d %H:%M'),
+                        postponement['target_start'].strftime('%Y-%m-%d %H:%M')
+                    ),
+                    id='Programs'
+                )
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+
+        elif action == 'cancel_group_postponement':
+            group_id = qdict.get('group_id', '')
+            postponement_id = qdict.get('postponement_id', '')
+            postponement = programs.cancel_group_postponement(group_id, postponement_id)
+            if postponement is None:
+                return self.core_render.notice('/programs', _('The program group postponement was not found.'))
+
+            group = programs.program_group(group_id)
+            if options.run_logEV:
+                logEV.save_events_log(
+                    _('Programs'),
+                    _('User {} cancelled postponement of program group {}').format(
+                        session.get('visitor'), group['name']
+                    ),
+                    id='Programs'
+                )
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
 
         raise web.seeother('/programs')
 

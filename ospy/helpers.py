@@ -622,7 +622,7 @@ def minute_time_str(minute_time, with_seconds=False):
     return timedelta_time_str(datetime.timedelta(minutes=minute_time), with_seconds)
 
 
-def program_group_run_sequence(group_id, days=14):
+def program_group_run_sequence(group_id, days=14, include_temporarily_blocked=False):
     """Return the next scheduled run per program in a group, ordered by scheduler output."""
     from ospy.programs import programs
     from ospy.scheduler import predicted_schedule
@@ -640,7 +640,12 @@ def program_group_run_sequence(group_id, days=14):
 
     for interval in predicted_schedule(date_time_start, date_time_end):
         program_index = interval.get('program')
-        if program_index not in group_indexes or interval.get('blocked'):
+        blocked = interval.get('blocked')
+        if program_index not in group_indexes:
+            continue
+        if blocked and not include_temporarily_blocked:
+            continue
+        if blocked in ('cut-off', 'scheduler error'):
             continue
 
         original_start = interval.get('original_start', interval.get('start'))

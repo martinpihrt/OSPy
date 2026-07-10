@@ -9,6 +9,7 @@ import traceback
 import math
 import copy
 import uuid
+from threading import RLock
 
 # Local imports
 from ospy.helpers import minute_time_str, short_day
@@ -703,6 +704,7 @@ class _Programs(object):
     def __init__(self):
         self._programs = []
         self.run_now_program = None
+        self._postponement_lock = RLock()
 
         i = 0
         while options.available(_Program, i):
@@ -710,6 +712,7 @@ class _Programs(object):
             i += 1
 
         self.ensure_groups()
+        self.ensure_group_postponements()
 
         options.add_callback('output_count', self._option_cb)
         weather.add_callback(self._weather_cb)
@@ -743,6 +746,254 @@ class _Programs(object):
                 program.group_id = 'default'
 
         options.program_groups = groups
+
+    def ensure_group_postponements(self):
+        """Validate persisted one-time group postponements.
+
+        Invalid data is discarded instead of being passed to the scheduler.
+        This also makes upgrades from installations without the option safe.
+        """
+        if not hasattr(options, 'program_group_postponements'):
+            options.program_group_postponements = []
+            return
+
+        valid = []
+        changed = False
+        known_groups = set(group['id'] for group in options.program_groups)
+        for item in options.program_group_postponements:
+            try:
+                if not isinstance(item, dict):
+                    raise ValueError
+                if item.get('group_id') not in known_groups:
+                    raise ValueError
+                if not isinstance(item.get('id'), str) or not item['id']:
+                    raise ValueError
+                if not isinstance(item.get('source_start'), datetime.datetime):
+                    raise ValueError
+                if not isinstance(item.get('source_end'), datetime.datetime):
+                    raise ValueError
+                if not isinstance(item.get('target_start'), datetime.datetime):
+                    raise ValueError
+                if not isinstance(item.get('target_end'), datetime.datetime):
+                    raise ValueError
+                if not isinstance(item.get('shift_seconds'), (int, float)):
+                    raise ValueError
+                if not isinstance(item.get('runs'), list) or not item['runs']:
+                    raise ValueError
+                for run in item['runs']:
+                    if not isinstance(run, dict):
+                        raise ValueError
+                    if not isinstance(run.get('start'), datetime.datetime) or not isinstance(run.get('end'), datetime.datetime):
+                        raise ValueError
+                    if not isinstance(run.get('source_uid'), str) or not run['source_uid']:
+                        raise ValueError
+                    if not isinstance(run.get('station'), int) or not isinstance(run.get('program'), int):
+                        raise ValueError
+                valid.append(item)
+            except (KeyError, TypeError, ValueError):
+                changed = True
+                logging.warning(_('Ignoring invalid postponed program group data.'))
+
+        if changed:
+            options.program_group_postponements = valid
+
+    def group_postponement(self, group_id):
+        self.ensure_group_postponements()
+        with self._postponement_lock:
+            for item in options.program_group_postponements:
+                if item.get('group_id') == group_id and not item.get('cancelled'):
+                    return copy.deepcopy(item)
+        return None
+
+    def create_group_postponement(self, group_id, target_start, now=None, days=30):
+        """Move each program's next group occurrence to a common new anchor."""
+        self.ensure_groups()
+        self.ensure_group_postponements()
+        now = now or datetime.datetime.now()
+
+        if not isinstance(target_start, datetime.datetime):
+            raise ValueError(_('Invalid postponement date and time.'))
+        if not any(group['id'] == group_id for group in options.program_groups):
+            raise ValueError(_('Program group does not exist.'))
+        if target_start <= now:
+            raise ValueError(_('The new start must be in the future.'))
+        if target_start > now + datetime.timedelta(days=30):
+            raise ValueError(_('The new start cannot be more than 30 days in the future.'))
+
+        with self._postponement_lock:
+            if self.group_postponement(group_id) is not None:
+                raise ValueError(_('This program group already has an active postponement.'))
+
+            group_indexes = set(
+                program.index for program in self.programs_in_group(group_id)
+                if program.enabled
+            )
+            if not group_indexes:
+                raise ValueError(_('This program group has no enabled programs.'))
+
+            # Import here to avoid a module import cycle. Existing
+            # postponements are already included, which keeps collision and
+            # station-usage calculations consistent with the displayed plan.
+            from ospy.scheduler import predicted_schedule
+            candidates = [
+                run for run in predicted_schedule(now, now + datetime.timedelta(days=days))
+                if run.get('program') in group_indexes and
+                   run.get('blocked') not in ('cut-off', 'scheduler error') and
+                   run.get('start') >= now and
+                   not run.get('postponement_id')
+            ]
+
+            selected = []
+            for program_index in sorted(group_indexes):
+                program_runs = [run for run in candidates if run.get('program') == program_index]
+                if not program_runs:
+                    continue
+                first = min(program_runs, key=lambda run: run['start'])
+                occurrence_start = first.get('original_start', first['start'])
+                selected.extend(
+                    run for run in program_runs
+                    if run.get('original_start', run['start']) == occurrence_start
+                )
+
+            if not selected:
+                raise ValueError(_('No future program group run was found.'))
+
+            selected.sort(key=lambda run: (run['start'], run.get('program', -1), run.get('station', -1)))
+            source_start = min(run['start'] for run in selected)
+            if target_start <= source_start:
+                raise ValueError(_('The postponed start must be later than the original start.'))
+
+            shift = target_start - source_start
+            postponement_id = uuid.uuid4().hex
+            runs = []
+            for run in selected:
+                program = self._programs[run['program']]
+                runs.append({
+                    'source_uid': run['uid'],
+                    'station': run['station'],
+                    'program': run['program'],
+                    'program_name': run.get('program_name', ''),
+                    'control_master': run.get('control_master', 0),
+                    'usage': run.get('usage', stations.get(run['station']).usage),
+                    'program_group_id': getattr(program, 'group_id', 'default'),
+                    'program_stations': sorted(program.stations),
+                    'program_schedule': copy.deepcopy(program.schedule),
+                    'start': run['start'],
+                    'end': run['end']
+                })
+
+            item = {
+                'id': postponement_id,
+                'group_id': group_id,
+                'created': now,
+                'source_start': source_start,
+                'source_end': max(run['end'] for run in selected),
+                'target_start': target_start,
+                'target_end': max(run['end'] + shift for run in selected),
+                'shift_seconds': shift.total_seconds(),
+                'runs': runs
+            }
+            options.program_group_postponements = options.program_group_postponements + [item]
+            return copy.deepcopy(item)
+
+    def cancel_group_postponement(self, group_id, postponement_id, now=None):
+        self.ensure_group_postponements()
+        now = now or datetime.datetime.now()
+        with self._postponement_lock:
+            remaining = []
+            removed = None
+            for item in options.program_group_postponements:
+                if item.get('group_id') == group_id and item.get('id') == postponement_id:
+                    removed = copy.deepcopy(item)
+                    if now < item['source_start']:
+                        # The source has not started, so removing the overlay
+                        # safely restores the normal scheduled occurrence.
+                        continue
+
+                    # Once the source time has arrived it must remain
+                    # suppressed. Keep a short-lived tombstone but do not add
+                    # the postponed target runs.
+                    item = copy.deepcopy(item)
+                    item['cancelled'] = True
+                    remaining.append(item)
+                else:
+                    remaining.append(item)
+            if removed is not None:
+                options.program_group_postponements = remaining
+                return removed
+        return None
+
+    def cleanup_group_postponements(self, now=None):
+        """Remove postponements after their complete target window passed."""
+        self.ensure_group_postponements()
+        now = now or datetime.datetime.now()
+        with self._postponement_lock:
+            active = [
+                item for item in options.program_group_postponements
+                if (item['source_end'] if item.get('cancelled') else item['target_end']) > now
+            ]
+            if len(active) != len(options.program_group_postponements):
+                options.program_group_postponements = active
+
+    def apply_group_postponements(self, intervals, date_time_start, date_time_end):
+        """Suppress source intervals and add their persisted shifted copies."""
+        self.ensure_group_postponements()
+        with self._postponement_lock:
+            postponements = copy.deepcopy(options.program_group_postponements)
+
+        source_uids = set(
+            run['source_uid']
+            for item in postponements
+            for run in item['runs']
+            if self._postponed_run_matches_program(run)
+        )
+        result = [interval for interval in intervals if interval.get('uid') not in source_uids]
+
+        for item in postponements:
+            if item.get('cancelled'):
+                continue
+            shift = datetime.timedelta(seconds=item['shift_seconds'])
+            for index, run in enumerate(item['runs']):
+                if not self._postponed_run_matches_program(run):
+                    # A stale snapshot must never run after its program was
+                    # disabled, deleted, moved, or materially edited.
+                    continue
+                start = run['start'] + shift
+                end = run['end'] + shift
+                if end <= date_time_start or start >= date_time_end:
+                    continue
+                result.append({
+                    'station': run['station'],
+                    'active': None,
+                    'program': run['program'],
+                    'program_name': run['program_name'],
+                    # Duration was snapshotted after water-level adjustment.
+                    'fixed': True,
+                    'cut_off': 0,
+                    'control_master': run.get('control_master', 0),
+                    'manual': False,
+                    'blocked': False,
+                    'start': start,
+                    'original_start': start,
+                    'end': end,
+                    'uid': 'postponed-{}-{}-{}'.format(item['id'], index, run['station']),
+                    'usage': run['usage'],
+                    'postponement_id': item['id']
+                })
+        return result
+
+    def _postponed_run_matches_program(self, run):
+        """Prevent a persisted snapshot from being applied to another program."""
+        program_index = run.get('program', -1)
+        if not 0 <= program_index < len(self._programs):
+            return False
+        program = self._programs[program_index]
+        return (
+            program.enabled and
+            getattr(program, 'group_id', 'default') == run.get('program_group_id') and
+            sorted(program.stations) == run.get('program_stations') and
+            program.schedule == run.get('program_schedule')
+        )
 
     def program_groups(self):
         self.ensure_groups()
@@ -792,14 +1043,22 @@ class _Programs(object):
     def remove_group(self, group_id):
         self.ensure_groups()
         if group_id == 'default':
-            return
+            return False
+        self.ensure_group_postponements()
+        if any(item.get('group_id') == group_id for item in options.program_group_postponements):
+            return False
         for program in self.programs_in_group(group_id):
             program.group_id = 'default'
         options.program_groups = [group for group in options.program_groups if group['id'] != group_id]
+        return True
 
     def set_group_enabled(self, group_id, enabled):
         for program in self.programs_in_group(group_id):
             program.enabled = enabled
+        if not enabled:
+            postponement = self.group_postponement(group_id)
+            if postponement is not None:
+                self.cancel_group_postponement(group_id, postponement['id'])
 
     def copy_program(self, index, group_id=None):
         if 0 <= index < len(self._programs):

@@ -372,6 +372,15 @@ The copy action creates a new group and copies all programs from the original gr
 ## Delete group
 Group deletion requires confirmation. Programs from the deleted group are moved to the default group.
 
+## Postpone group
+The "Postpone group" button next to "Add a New Program" moves the nearest scheduled run of the whole group once. Select a new date and start time for the first program; a preview of the original and new time range is shown before confirmation. The new start must be later than the original start, must be in the future, and can be set no more than 30 days ahead.
+
+OSPy finds the nearest future run of every enabled program in the group and shifts all these runs by the same time difference. Program order, durations, and relative gaps are preserved. For example, a group scheduled today from 18:00 to 22:00 can be postponed until tomorrow at 07:00; the shifted run will then finish at approximately 11:00.
+
+Postponement does not change the normal program definitions or their later scheduled days. Only the nearest original run is skipped once and its replacement runs at the new time. Postponed programs still respect the scheduler state, rain blocks, the rain sensor, output usage limits, and station delays. The postponement is saved in the settings and survives an OSPy service restart. Only one active postponement is allowed per group.
+
+An active postponement is displayed beside the group as the original time, an arrow, and the new time. Use "Cancel postponement" to remove it. If the original time has not arrived, the normal original run is restored. If the original time has already arrived, it is not started again for safety; only the replacement run is cancelled. A group with an active postponement cannot be deleted; cancel the postponement first. Creating and cancelling a postponement is available only to an administrator and is protected by login and CSRF verification.
+
 ## Run Now
 With the button "Run Now" we start the program immediately regardless of the time and date of the scheduler.
 

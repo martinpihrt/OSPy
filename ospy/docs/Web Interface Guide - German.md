@@ -372,6 +372,15 @@ Die Kopieraktion erstellt eine neue Gruppe und kopiert alle Programme aus der ur
 ## Gruppe löschen
 Das Löschen der Gruppe erfordert eine Bestätigung. Programme aus der gelöschten Gruppe werden in die Standardgruppe verschoben.
 
+## Gruppe verschieben
+Die Schaltfläche „Gruppe verschieben“ neben „Neues Programm hinzufügen“ verschiebt einmalig den nächsten geplanten Lauf der gesamten Gruppe. Wählen Sie ein neues Datum und eine neue Startzeit für das erste Programm; vor der Bestätigung wird eine Vorschau des ursprünglichen und des neuen Zeitbereichs angezeigt. Der neue Start muss nach dem ursprünglichen Start und in der Zukunft liegen und darf höchstens 30 Tage im Voraus eingestellt werden.
+
+OSPy sucht den nächsten zukünftigen Lauf jedes aktivierten Programms in der Gruppe und verschiebt alle diese Läufe um dieselbe Zeitdifferenz. Reihenfolge, Laufzeiten und relative Abstände der Programme bleiben erhalten. Eine heute von 18:00 bis 22:00 geplante Gruppe kann beispielsweise auf morgen 07:00 verschoben werden; der verschobene Lauf endet dann ungefähr um 11:00.
+
+Die Verschiebung ändert weder die normalen Programmdefinitionen noch die später geplanten Tage. Nur der nächste ursprüngliche Lauf wird einmal übersprungen und zum neuen Zeitpunkt ersetzt. Die verschobenen Programme berücksichtigen weiterhin den Zustand des Zeitplaners, Regensperren, den Regensensor, Ausgangslimits und Stationsverzögerungen. Die Verschiebung wird in den Einstellungen gespeichert und bleibt nach einem Neustart des OSPy-Dienstes erhalten. Pro Gruppe ist nur eine aktive Verschiebung zulässig.
+
+Eine aktive Verschiebung wird bei der Gruppe mit ursprünglicher Zeit, Pfeil und neuer Zeit angezeigt. Mit „Verschiebung abbrechen“ kann sie entfernt werden. Wenn der ursprüngliche Zeitpunkt noch nicht erreicht ist, wird der normale ursprüngliche Lauf wiederhergestellt. Ist der ursprüngliche Zeitpunkt bereits erreicht, wird er aus Sicherheitsgründen nicht erneut gestartet; nur der Ersatzlauf wird abgebrochen. Eine Gruppe mit aktiver Verschiebung kann nicht gelöscht werden; brechen Sie zuerst die Verschiebung ab. Das Erstellen und Abbrechen ist nur für Administratoren verfügbar und durch Anmeldung sowie CSRF-Prüfung geschützt.
+
 ## Jetzt ausführen
 Mit dem Button „Jetzt ausführen“ starten wir das Programm sofort unabhängig von Uhrzeit und Datum des Planers.
 

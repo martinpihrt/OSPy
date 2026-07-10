@@ -9,6 +9,28 @@ $ conflicts = programs.detect_conflicts()
 function confirmProgramDelete(message) {
     return confirm(message);
 }
+
+function toggleGroupPostponement(groupId) {
+    var form = document.getElementById('postpone-group-' + groupId);
+    if (form) {
+        form.hidden = !form.hidden;
+        if (!form.hidden) {
+            var input = form.querySelector('input[name="target_start"]');
+            if (input) input.focus();
+        }
+    }
+}
+
+function updateGroupPostponementPreview(input, sourceStart, sourceEnd, groupId) {
+    var preview = document.getElementById('postpone-preview-' + groupId);
+    if (!preview || !input.value) return;
+    var target = new Date(input.value);
+    var originalStart = new Date(sourceStart);
+    var originalEnd = new Date(sourceEnd);
+    if (isNaN(target.getTime()) || isNaN(originalStart.getTime()) || isNaN(originalEnd.getTime())) return;
+    var shiftedEnd = new Date(originalEnd.getTime() + target.getTime() - originalStart.getTime());
+    preview.textContent = target.toLocaleString() + ' – ' + shiftedEnd.toLocaleString();
+}
 </script>
 
 <div id="controls">
@@ -29,6 +51,10 @@ function confirmProgramDelete(message) {
         $for group in programs.program_groups():
             $ group_programs = programs.programs_in_group(group['id'])
             $ group_sequence = program_group_run_sequence(group['id'])
+            $ group_postpone_sequence = program_group_run_sequence(group['id'], days=30, include_temporarily_blocked=True)
+            $ group_postponement = programs.group_postponement(group['id'])
+            $ group_source_start = min([entry['start'] for entry in group_postpone_sequence]) if group_postpone_sequence else None
+            $ group_source_end = max([entry['end'] for entry in group_postpone_sequence]) if group_postpone_sequence else None
             <details class="controlBlock programGroup" ${'' if group.get('collapsed') else 'open'}>
                 <summary>
                     <b>${group['name']}</b> <span class="val">(${len(group_programs)})</span>
@@ -47,6 +73,39 @@ function confirmProgramDelete(message) {
 
                 <p>
                     <a href="/program/new?group_id=${group['id']}" class="button add">$_('Add a New Program')</a>
+                    $if group_postponement:
+                        <span class="programPostponementStatus">
+                            <b>$_('Group postponed'):</b>
+                            ${group_postponement['source_start'].strftime('%Y-%m-%d %H:%M')}
+                            &rarr;
+                            ${group_postponement['target_start'].strftime('%Y-%m-%d %H:%M')}
+                        </span>
+                        <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Cancel this group postponement?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                            $:csrf_input()
+                            <input type="hidden" name="action" value="cancel_group_postponement">
+                            <input type="hidden" name="group_id" value="${group['id']}">
+                            <input type="hidden" name="postponement_id" value="${group_postponement['id']}">
+                            <button type="submit" class="button cDelete danger">$_('Cancel postponement')</button>
+                        </form>
+                    $elif group_postpone_sequence:
+                        <button type="button" class="button backup" onclick="toggleGroupPostponement('${group['id']}')">$_('Postpone group')</button>
+                        <span id="postpone-group-${group['id']}" class="programPostponementForm" hidden>
+                            <form action="/programs" method="post" style="display:inline">
+                                $:csrf_input()
+                                <input type="hidden" name="action" value="postpone_group">
+                                <input type="hidden" name="group_id" value="${group['id']}">
+                                <label>
+                                    $_('New start'):
+                                    <input name="target_start" type="datetime-local" min="${datetime.datetime.now().strftime('%Y-%m-%dT%H:%M')}" max="${(datetime.datetime.now() + datetime.timedelta(days=30)).strftime('%Y-%m-%dT%H:%M')}" onchange="updateGroupPostponementPreview(this, '${group_source_start.strftime('%Y-%m-%dT%H:%M:%S')}', '${group_source_end.strftime('%Y-%m-%dT%H:%M:%S')}', '${group['id']}')" required>
+                                </label>
+                                <button type="submit" class="button add">$_('Confirm postponement')</button>
+                                <button type="button" class="button" onclick="toggleGroupPostponement('${group['id']}')">$_('Cancel')</button>
+                                <span class="programPostponementPreview">
+                                    $_('Original run'): ${group_source_start.strftime('%Y-%m-%d %H:%M')} – ${group_source_end.strftime('%Y-%m-%d %H:%M')};
+                                    $_('new run'): <b id="postpone-preview-${group['id']}">—</b>
+                                </span>
+                            </form>
+                        </span>
                     <form action="/programs" method="post" style="display:inline">
                         $:csrf_input()
                         <input type="hidden" name="action" value="enable_group">

@@ -372,6 +372,15 @@ Akcja kopiowania tworzy nową grupę i kopiuje do niej wszystkie programy z oryg
 ## Usuń grupę
 Usunięcie grupy wymaga potwierdzenia. Programy z usuniętej grupy zostaną przeniesione do grupy domyślnej.
 
+## Odłóż grupę
+Przycisk „Odłóż grupę” obok „Dodaj nowy program” jednorazowo przesuwa najbliższe zaplanowane uruchomienie całej grupy. Wybieramy nową datę i godzinę rozpoczęcia pierwszego programu; przed potwierdzeniem wyświetlany jest podgląd pierwotnego i nowego zakresu czasu. Nowy początek musi być późniejszy od pierwotnego, musi przypadać w przyszłości i można go ustawić maksymalnie 30 dni naprzód.
+
+OSPy wyszukuje najbliższe przyszłe uruchomienie każdego włączonego programu w grupie i przesuwa wszystkie te uruchomienia o tę samą różnicę czasu. Kolejność programów, ich czasy trwania i wzajemne odstępy pozostają zachowane. Na przykład grupę zaplanowaną dzisiaj od 18:00 do 22:00 można odłożyć do jutra na 07:00; przesunięte uruchomienie zakończy się wtedy około 11:00.
+
+Odłożenie nie zmienia zwykłych definicji programów ani ich kolejnych zaplanowanych dni. Tylko najbliższe pierwotne uruchomienie zostaje jednorazowo pominięte, a jego zamiennik działa w nowym czasie. Odłożone programy nadal respektują stan harmonogramu, blokady deszczowe, czujnik deszczu, limity obciążenia wyjść i opóźnienia stacji. Odłożenie jest zapisywane w ustawieniach i pozostaje aktywne po ponownym uruchomieniu usługi OSPy. Dla jednej grupy może istnieć tylko jedno aktywne odłożenie.
+
+Aktywne odłożenie jest pokazane przy grupie jako pierwotny czas, strzałka i nowy czas. Przycisk „Anuluj odłożenie” usuwa je. Jeśli pierwotny czas jeszcze nie nastąpił, zwykłe uruchomienie zostanie przywrócone. Jeśli pierwotny czas już nastąpił, ze względów bezpieczeństwa nie zostanie uruchomiony ponownie; anulowany zostanie tylko bieg zastępczy. Grupy z aktywnym odłożeniem nie można usunąć; najpierw należy anulować odłożenie. Tworzenie i anulowanie odłożenia jest dostępne wyłącznie dla administratora oraz chronione logowaniem i kontrolą CSRF.
+
 ## Uruchom teraz
 Za pomocą przycisku „Uruchom teraz” uruchamiamy program natychmiast, niezależnie od godziny i daty harmonogramu.
 

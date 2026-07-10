@@ -372,6 +372,15 @@ Akce kopírování vytvoří novou skupinu a zkopíruje do ní všechny programy
 ## Smazat skupinu
 Smazání skupiny vyžaduje potvrzení. Programy ze smazané skupiny se přesunou do výchozí skupiny.
 
+## Odložit skupinu
+Tlačítko "Odložit skupinu" vedle tlačítka "Přidat nový program" jednorázově přesune nejbližší plánovaný běh celé skupiny. Zvolíme nový datum a čas spuštění prvního programu a před potvrzením se zobrazí náhled původního a nového časového rozsahu. Nový začátek musí být pozdější než původní začátek, musí být v budoucnosti a lze jej nastavit nejvýše 30 dní dopředu.
+
+OSPy vyhledá nejbližší budoucí běh každého povoleného programu ve skupině a všechny tyto běhy posune o stejný časový rozdíl. Pořadí programů, jejich délky a vzájemné časové rozestupy zůstanou zachované. Například skupinu naplánovanou dnes od 18:00 do 22:00 můžeme odložit na zítřek od 07:00; přesunutý běh pak skončí přibližně v 11:00.
+
+Odklad nemění běžné nastavení programů ani jejich další plánované dny. Původní nejbližší běh se pouze jednorázově přeskočí a jeho náhrada se spustí v novém čase. Odložené programy nadále respektují zapnutí plánovače, dešťové blokace, dešťový senzor, omezení zatížení výstupů a prodlevy mezi stanicemi. Odklad je uložen v nastavení a přežije restart služby OSPy. Pro jednu skupinu lze mít pouze jeden aktivní odklad.
+
+Aktivní odklad je zobrazen u skupiny jako původní čas, šipka a nový čas. Tlačítkem "Zrušit odklad" jej můžeme odstranit. Pokud původní čas ještě nenastal, obnoví se normální původní běh. Pokud už původní čas nastal, původní běh se z bezpečnostních důvodů znovu nespustí a zruší se pouze náhradní odložený běh. Skupinu s aktivním odkladem nelze smazat; nejprve musíme odklad zrušit. Vytvoření i zrušení odkladu je dostupné pouze administrátorovi a je chráněné přihlášením a CSRF kontrolou.
+
 ## Spustit nyní
 Tlačítkem "Spustit nyní" spustíme program okamžitě bez ohledu na čas a datum plánovače.
 
