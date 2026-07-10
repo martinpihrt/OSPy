@@ -71,8 +71,11 @@ function updateGroupPostponementPreview(input, sourceStart, sourceEnd, groupId) 
                     </div>
                     <div class="programSequenceDivider"></div>
 
-                <p>
+                <div class="programAddRow">
                     <a href="/program/new?group_id=${group['id']}" class="button add">$_('Add a New Program')</a>
+                </div>
+                $if group_postponement or group_postpone_sequence:
+                    <div class="programPostponementRow">
                     $if group_postponement:
                         <span class="programPostponementStatus">
                             <b>$_('Group postponed'):</b>
@@ -106,6 +109,8 @@ function updateGroupPostponementPreview(input, sourceStart, sourceEnd, groupId) 
                                 </span>
                             </form>
                         </span>
+                    </div>
+                <p class="programGroupActions">
                     <form action="/programs" method="post" style="display:inline">
                         $:csrf_input()
                         <input type="hidden" name="action" value="enable_group">

@@ -506,10 +506,25 @@ span.stationName:last-child:after {
     padding: 0 !important;
 }
 
+.programAddRow {
+    margin: 8px 8px 6px 8px;
+}
+
+.programPostponementRow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 8px 8px 8px;
+}
+
+.programGroupActions {
+    margin-top: 0;
+}
+
 .programPostponementForm,
 .programPostponementStatus {
     display: inline-block;
-    margin-left: 6px;
 }
 
 .programPostponementForm[hidden] {
@@ -518,6 +533,18 @@ span.stationName:last-child:after {
 
 .programPostponementForm input[type="datetime-local"] {
     margin: 0 4px;
+}
+
+.programPostponementForm form {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.programPostponementPreview {
+    flex-basis: 100%;
+    margin-top: 4px;
 }
 
 .program p:first-child {
