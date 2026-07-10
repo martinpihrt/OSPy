@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 10 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added in-memory CPU history to the Diagnostics page. Each plug-in now keeps a rolling one-week CPU usage history in RAM only, the CPU column includes a History button, and the diagnostics page can show a chart for the selected plug-in with 1 hour, 24 hour, and 7 day filters without writing diagnostic samples to disk.
+
 July 09 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

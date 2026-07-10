@@ -7,7 +7,10 @@ $var page: diagnostics
 jQuery(document).ready(function(){
     var csrfToken = "${csrf_token()}";
     var restartPluginLabel = $:{json.dumps(_('Restart plugin'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+    var historyLabel = $:{json.dumps(_('History'), ensure_ascii=False).encode('utf8').decode('utf-8')};
     var currentPlugins = [];
+    var pluginHistory = {};
+    var currentHistoryPlugin = null;
     var refreshTimer = null;
 
     function fmt(value, suffix) {
@@ -27,6 +30,10 @@ jQuery(document).ready(function(){
         }
         var number = Number(value);
         return isNaN(number) ? fallback : number;
+    }
+
+    function escapeHtml(value) {
+        return jQuery("<div>").text(value || "").html();
     }
 
     function sortPlugins(plugins) {
@@ -59,6 +66,128 @@ jQuery(document).ready(function(){
         jQuery("#diagnosticsPlugins tbody").html(rows || '<tr><td colspan="8">-</td></tr>');
     }
 
+    function pluginByModule(module) {
+        for (var i = 0; i < currentPlugins.length; i++) {
+            if (currentPlugins[i].module === module) {
+                return currentPlugins[i];
+            }
+        }
+        return null;
+    }
+
+    function filterHistory(history, seconds) {
+        if (!history || !history.length) {
+            return [];
+        }
+        var newest = history[history.length - 1][0];
+        var start = newest - seconds;
+        var result = [];
+        for (var i = 0; i < history.length; i++) {
+            if (history[i][0] >= start) {
+                result.push(history[i]);
+            }
+        }
+        return result;
+    }
+
+    function drawHistoryChart() {
+        if (!currentHistoryPlugin) {
+            return;
+        }
+
+        var plugin = pluginByModule(currentHistoryPlugin);
+        var history = filterHistory(pluginHistory[currentHistoryPlugin] || [], Number(jQuery("#historyRange").val() || 3600));
+        var canvas = document.getElementById("pluginHistoryChart");
+        var ctx = canvas.getContext("2d");
+        var width = Math.max(320, jQuery(canvas).parent().width() || 320);
+        var height = 260;
+        var padLeft = 48;
+        var padRight = 16;
+        var padTop = 16;
+        var padBottom = 32;
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+
+        jQuery("#historyTitle").text(plugin ? (plugin.name || plugin.module) : currentHistoryPlugin);
+        jQuery("#historySamples").text(history.length ? history.length + " " + $:{json.dumps(_('samples'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('No data yet.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+
+        ctx.strokeStyle = "#b9c0d0";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, padTop);
+        ctx.lineTo(padLeft, height - padBottom);
+        ctx.lineTo(width - padRight, height - padBottom);
+        ctx.stroke();
+
+        if (history.length < 2) {
+            ctx.fillStyle = "#555555";
+            ctx.fillText($:{json.dumps(_('Not enough history data yet.'), ensure_ascii=False).encode('utf8').decode('utf-8')}, padLeft + 12, padTop + 32);
+            return;
+        }
+
+        var minTs = history[0][0];
+        var maxTs = history[history.length - 1][0];
+        var maxValue = 1;
+        for (var i = 0; i < history.length; i++) {
+            maxValue = Math.max(maxValue, Number(history[i][1]) || 0);
+        }
+        maxValue = Math.max(5, Math.ceil(maxValue / 5) * 5);
+
+        ctx.fillStyle = "#333333";
+        ctx.font = "12px sans-serif";
+        for (var yStep = 0; yStep <= 4; yStep++) {
+            var value = maxValue * yStep / 4;
+            var y = height - padBottom - ((height - padTop - padBottom) * yStep / 4);
+            ctx.strokeStyle = yStep === 0 ? "#b9c0d0" : "#e3e6ee";
+            ctx.beginPath();
+            ctx.moveTo(padLeft, y);
+            ctx.lineTo(width - padRight, y);
+            ctx.stroke();
+            ctx.fillText(Math.round(value) + "%", 6, y + 4);
+        }
+
+        ctx.strokeStyle = "#e07022";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (var p = 0; p < history.length; p++) {
+            var x = padLeft + ((history[p][0] - minTs) / Math.max(1, maxTs - minTs)) * (width - padLeft - padRight);
+            var yValue = Number(history[p][1]) || 0;
+            var pointY = height - padBottom - (yValue / maxValue) * (height - padTop - padBottom);
+            if (p === 0) {
+                ctx.moveTo(x, pointY);
+            } else {
+                ctx.lineTo(x, pointY);
+            }
+        }
+        ctx.stroke();
+
+        ctx.fillStyle = "#333333";
+        ctx.fillText(new Date(minTs * 1000).toLocaleTimeString(), padLeft, height - 8);
+        ctx.fillText(new Date(maxTs * 1000).toLocaleTimeString(), Math.max(padLeft, width - 92), height - 8);
+    }
+
+    function openHistory(module) {
+        currentHistoryPlugin = module;
+        jQuery("#historyPanel").show();
+        loadHistory(module);
+    }
+
+    function loadHistory(module) {
+        if (!module) {
+            return;
+        }
+        jQuery.getJSON("/diagnostics_history.json", {plugin: module, range: jQuery("#historyRange").val() || 3600}, function(data) {
+            pluginHistory[module] = data.history || [];
+            drawHistoryChart();
+        }).fail(function(){
+            setStatus($:{json.dumps(_('Diagnostics history refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')}, "red");
+        });
+    }
+
     function pluginRow(plugin) {
         var state = plugin.running ? $:{json.dumps(_('Running'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Stopped'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         var enabled = plugin.enabled ? $:{json.dumps(_('Enabled'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -66,11 +195,12 @@ jQuery(document).ready(function(){
         var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + restartPluginLabel + '</button>' : '';
         var error = plugin.last_error ? '<details><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
         var threads = plugin.thread_count + ' / ' + plugin.threads.length;
+        var cpuCell = '<span>' + fmt(plugin.cpu_percent, ' %') + '</span> <button type="button" class="button submit pluginHistory" data-plugin="' + escapeHtml(plugin.module) + '">' + historyLabel + '</button>';
 
         return '<tr>' +
-            '<td><b>' + jQuery("<div>").text(plugin.name || plugin.module).html() + '</b><br><small>' + plugin.module + '</small></td>' +
+            '<td><b>' + escapeHtml(plugin.name || plugin.module) + '</b><br><small>' + escapeHtml(plugin.module) + '</small></td>' +
             '<td>' + state + '<br><small>' + enabled + '</small></td>' +
-            '<td>' + fmt(plugin.cpu_percent, ' %') + '</td>' +
+            '<td>' + cpuCell + '</td>' +
             '<td>' + fmt(plugin.cpu_seconds, ' s') + '</td>' +
             '<td>' + threads + '</td>' +
             '<td>' + fmt(plugin.started_text, '') + '<br><small>' + fmt(plugin.last_restart, '') + '</small></td>' +
@@ -104,6 +234,9 @@ jQuery(document).ready(function(){
 
             currentPlugins = data.plugins || [];
             renderPlugins();
+            if (currentHistoryPlugin) {
+                loadHistory(currentHistoryPlugin);
+            }
 
             if (data.diagnostics_error) {
                 setStatus(data.diagnostics_error, "red");
@@ -122,6 +255,17 @@ jQuery(document).ready(function(){
     }
 
     jQuery("#pluginSort").on("change", renderPlugins);
+    jQuery("#historyRange").on("change", function(){
+        loadHistory(currentHistoryPlugin);
+    });
+    jQuery("#historyBack").on("click", function(){
+        currentHistoryPlugin = null;
+        jQuery("#historyPanel").hide();
+    });
+
+    jQuery("#diagnosticsPlugins").on("click", ".pluginHistory", function(){
+        openHistory(jQuery(this).data("plugin"));
+    });
 
     jQuery("#diagnosticsPlugins").on("click", ".pluginRestart", function(){
         var plugin = jQuery(this).data("plugin");
@@ -143,6 +287,34 @@ jQuery(document).ready(function(){
 </script>
 
 <div id="diagnostics">
+    <style>
+        #historyPanel {
+            display: none;
+            margin: 10px 0;
+            border: 2px solid #263150;
+            background: #ffffff;
+        }
+        #historyPanelHeader {
+            padding: 6px 8px;
+            border-bottom: 1px solid #b9c0d0;
+            font-weight: bold;
+        }
+        #historyPanelControls {
+            padding: 8px;
+        }
+        #historyPanelCanvas {
+            padding: 0 8px 8px 8px;
+        }
+        #pluginHistoryChart {
+            width: 100%;
+            height: 260px;
+            border: 1px solid #b9c0d0;
+            background: #ffffff;
+        }
+        .pluginHistory {
+            margin-left: 6px;
+        }
+    </style>
     <div class="title">$_('Diagnostics')</div>
     <div id="controls">
         <a href="/" class="button cancel">$_('Cancel')</a>
@@ -180,6 +352,25 @@ jQuery(document).ready(function(){
             <option value="name">$_('By plug-in name')</option>
             <option value="total">$_('By total CPU time')</option>
         </select>
+    </div>
+
+    <div id="historyPanel">
+        <div id="historyPanelHeader">
+            <span id="historyTitle">-</span>
+        </div>
+        <div id="historyPanelControls">
+            <button type="button" id="historyBack" class="button cancel">$_('Back')</button>
+            <label for="historyRange">$_('History range')</label>
+            <select id="historyRange">
+                <option value="3600">$_('1 hour')</option>
+                <option value="86400">$_('24 hours')</option>
+                <option value="604800">$_('7 days')</option>
+            </select>
+            <span id="historySamples"></span>
+        </div>
+        <div id="historyPanelCanvas">
+            <canvas id="pluginHistoryChart"></canvas>
+        </div>
     </div>
 
     <div class="diagnosticsScroll">

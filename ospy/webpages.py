@@ -9,7 +9,7 @@ import datetime
 import time
 import json
 import web
-from threading import Timer
+from threading import Timer, RLock
 import traceback
 import mimetypes
 
@@ -46,6 +46,10 @@ pluginStn = []      # Empty list of dicts to hold plugin data for display on tim
 pluginScripts = []  # Empty list of script file names for script injections requested by plugins
 sensorSearch = []   # Empty list of dicts to hold sensors data for display on sensor search page
 _diagnostics_process_sample = {}
+_diagnostics_plugin_history = {}
+_diagnostics_history_lock = RLock()
+_DIAGNOSTICS_HISTORY_SECONDS = 7 * 24 * 60 * 60
+_DIAGNOSTICS_HISTORY_POINTS = 1200
 
 
 def _safe_extract_zip(zip_file, target_dir):
@@ -2106,6 +2110,62 @@ def _process_memory_kb():
         return None
 
 
+def _update_diagnostics_plugin_history(plugin_data, now):
+    cutoff = now - _DIAGNOSTICS_HISTORY_SECONDS
+    active_modules = set()
+
+    with _diagnostics_history_lock:
+        for plugin in plugin_data:
+            module = plugin.get('module')
+            if not module:
+                continue
+            active_modules.add(module)
+            value = plugin.get('cpu_percent')
+            if value is None:
+                continue
+            try:
+                sample = [int(now), float(value)]
+            except (TypeError, ValueError):
+                continue
+
+            history = _diagnostics_plugin_history.setdefault(module, [])
+            history.append(sample)
+            while history and history[0][0] < cutoff:
+                history.pop(0)
+
+        for module in list(_diagnostics_plugin_history.keys()):
+            if module not in active_modules:
+                history = _diagnostics_plugin_history[module]
+                while history and history[0][0] < cutoff:
+                    history.pop(0)
+                if not history:
+                    _diagnostics_plugin_history.pop(module, None)
+
+
+def _limit_diagnostics_history(history):
+    if len(history) <= _DIAGNOSTICS_HISTORY_POINTS:
+        return history
+    step = int(len(history) / _DIAGNOSTICS_HISTORY_POINTS) + 1
+    return history[::step]
+
+
+def _diagnostics_history_payload(module, seconds):
+    try:
+        seconds = int(seconds)
+    except (TypeError, ValueError):
+        seconds = 3600
+    seconds = max(60, min(_DIAGNOSTICS_HISTORY_SECONDS, seconds))
+
+    with _diagnostics_history_lock:
+        history = list(_diagnostics_plugin_history.get(module, []))
+
+    if history:
+        cutoff = history[-1][0] - seconds
+        history = [sample for sample in history if sample[0] >= cutoff]
+
+    return _limit_diagnostics_history(history)
+
+
 def _diagnostics_data():
     import platform
     import threading
@@ -2144,6 +2204,7 @@ def _diagnostics_data():
     diagnostics_error = ''
     try:
         plugin_data = plugins.plugin_diagnostics()
+        _update_diagnostics_plugin_history(plugin_data, now)
     except Exception:
         diagnostics_error = _('Plug-in diagnostics refresh failed.')
         log.error('webpages.py', traceback.format_exc())
@@ -2226,6 +2287,35 @@ class api_diagnostics_json(ProtectedPage):
             return json.dumps({
                 'ok': False,
                 'error': _('Diagnostics refresh failed.'),
+                'time': datetime_string(),
+            })
+
+
+class api_diagnostics_history_json(ProtectedPage):
+    """In-memory plug-in CPU history diagnostics API."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        qdict = web.input()
+        module = qdict.get('plugin', '')
+        seconds = qdict.get('range', 3600)
+
+        web.header('Content-Type', 'application/json')
+        try:
+            return json.dumps({
+                'plugin': module,
+                'history': _diagnostics_history_payload(module, seconds),
+                'time': datetime_string(),
+            })
+        except Exception:
+            log.error('webpages.py', traceback.format_exc())
+            return json.dumps({
+                'ok': False,
+                'error': _('Diagnostics history refresh failed.'),
                 'time': datetime_string(),
             })
 

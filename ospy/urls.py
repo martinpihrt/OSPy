@@ -33,6 +33,7 @@ urls = [
     '/upload', 'ospy.webpages.upload_page',
     '/diagnostics', 'ospy.webpages.diagnostics_page',
     '/diagnostics.json', 'ospy.webpages.api_diagnostics_json',
+    '/diagnostics_history.json', 'ospy.webpages.api_diagnostics_history_json',
     '/db_unreachable', 'ospy.webpages.db_unreachable_page',
     '/uploadSSL', 'ospy.webpages.upload_page_SSL',
     '/images', 'ospy.webpages.images_page',
