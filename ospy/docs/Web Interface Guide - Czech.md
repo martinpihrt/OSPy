@@ -651,6 +651,8 @@ K využití místních povětrnostních podmínek je nutný klíč rozhraní Sto
 ### Umístění
 Název města nebo PSČ. Slouží k určení polohy pomocí OpenStreetMap pro informace o počasí ze služby Storm Glass.
 
+Tlačítkem **Vybrat na mapě** otevřete mapu vhodnou i pro dotykové ovládání, kliknete na přesný bod pro počasí a výběr potvrdíte. **Použít polohu zařízení** může po souhlasu uživatele umístit značku podle prohlížeče. Po uložení Nastavení jsou vybraná zeměpisná šířka a délka rozhodující polohou pro Stormglass; ruční změna textového pole Umístění přepne zpět na hledání názvu přes OpenStreetMap. Domovská stránka zobrazuje kompaktní kartu polohy, stejnou mapu otevře jen pro prohlížení a technické souřadnice ponechá v části Podrobnosti.
+
 ## Uživatelé
 Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy a uživatelské jméno z výchozího "admin". V případě potřeby můžete také požadavek na heslo deaktivovat.
 

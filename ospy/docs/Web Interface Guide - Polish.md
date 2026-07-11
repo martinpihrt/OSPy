@@ -640,6 +640,8 @@ Do korzystania z lokalnych warunków pogodowych wymagany jest klucz API Storm Gl
 ### Lokalizacja
 Nazwa miasta lub kod pocztowy. Służy do lokalizacji za pomocą OpenStreetMap w celu uzyskania informacji o pogodzie ze Storm Glass.
 
+Przycisk **Wybierz na mapie** otwiera mapę dostosowaną do obsługi dotykowej; kliknij dokładny punkt pogody i potwierdź wybór. **Użyj lokalizacji urządzenia** może ustawić znacznik z przeglądarki po udzieleniu zgody. Po zapisaniu Ustawień szerokość i długość geograficzna są nadrzędną lokalizacją Stormglass; ręczna zmiana tekstowego pola Lokalizacja przywraca wyszukiwanie nazwy przez OpenStreetMap. Strona główna pokazuje zwartą kartę lokalizacji, otwiera tę samą mapę tylko do odczytu, a współrzędne umieszcza w Szczegółach.
+
 ## Użytkownicy
 Aby zwiększyć bezpieczeństwo, zalecamy zmianę hasła systemowego OSPy i nazwy użytkownika z domyślnego „admin”. W razie potrzeby możesz także wyłączyć wymaganie hasła.
 

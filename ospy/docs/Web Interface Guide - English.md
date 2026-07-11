@@ -651,6 +651,8 @@ A Storm Glass API key is required to use local weather conditions.
 ### Location
 City name or zip code. Used to locate using OpenStreetMap for weather information from Storm Glass.
 
+Use **Select on map** to open a touch-friendly map, click the exact weather point, and confirm it. **Use device location** can place the marker from the browser after the user grants permission. The selected latitude and longitude become the authoritative Stormglass location after Options are saved; editing the text Location field switches back to OpenStreetMap name search. The Home page shows a compact location card, opens the same map in read-only mode, and keeps technical coordinates under Details.
+
 ## Users Section
 To increase security, we recommend changing the OSPy system password and username from the default "admin". You can also disable the password requirement if needed.
 

@@ -172,6 +172,11 @@ class _Options(object):
             "help": _('City name or zip code. Used to determine location via OpenStreetMap for weather information.'),
             "category": _('Weather')
         },
+        {
+            "key": "weather_location_mode",
+            "name": _('Weather location mode'),
+            "default": "search"
+        },
         #######################################################################
         # Users ############################################################
         {

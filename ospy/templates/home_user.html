@@ -755,16 +755,26 @@ $if options.show_plugin_data or options.show_sensor_data:
             <div class="piDatFooter" id="pluginPars"></div>
         $if options.show_sensor_data:
             <div class="piDatFooter" id="sensorPars"></div> 
-              
-    $if options.use_weather:
-        $if options.weather_status == 0: 
-            $_('Weather - No location found!')
-        $if options.weather_status == 1: 
-            $_('Weather - Location') $_('found:') $options.location
-        $if options.weather_lat and options.weather_lon:
-            $ patch = 'https://www.openstreetmap.org/#map=15/' + options.weather_lat + '/' + options.weather_lon
-            <a href="${patch}" class="button upload" target="_blank" title=$:{json.dumps(_(u'Displaying the found area on the map'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Map')</a> 
-            ($_('lat'): $options.weather_lat $_('lon'): $options.weather_lon)     
-        $if options.weather_status == 2:
-            $_('Weather - No location coordinates available!')       
-    </div>    
+    </div>
+
+$if options.use_weather:
+    <section class="weatherLocationCard" aria-labelledby="weatherLocationTitle">
+        <div class="weatherLocationCardHeader">
+            <span class="weatherLocationPin" aria-hidden="true">&#128205;</span>
+            <div>
+                <h3 id="weatherLocationTitle">$_('Weather location')</h3>
+                <div class="weatherLocationName">${options.location or _('Selected map point')}</div>
+            </div>
+        </div>
+        $if options.weather_status == 1 and options.weather_lat and options.weather_lon:
+            <div class="weatherLocationState weatherLocationStateOk">$_('Coordinates are set')</div>
+            <button type="button" class="button upload" onclick="openWeatherMap(false)">$_('Show map')</button>
+            <details class="weatherLocationDetails">
+                <summary>$_('Details')</summary>
+                <div>$_('Latitude'): $options.weather_lat</div>
+                <div>$_('Longitude'): $options.weather_lon</div>
+                <div>$_('Weather data source'): Stormglass</div>
+            </details>
+        $else:
+            <div class="weatherLocationState weatherLocationStateError">$_('Weather location is not configured correctly.')</div>
+    </section>

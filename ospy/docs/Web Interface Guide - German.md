@@ -651,6 +651,8 @@ Zur Nutzung lokaler Wetterbedingungen ist ein Storm Glass-API-Schlüssel erforde
 ### Standort
 Name der Stadt oder Postleitzahl. Wird zur Ortung mithilfe von OpenStreetMap für Wetterinformationen von Storm Glass verwendet.
 
+Mit **Auf Karte auswählen** öffnen Sie eine berührungsfreundliche Karte, klicken auf den genauen Wetterpunkt und bestätigen ihn. **Gerätestandort verwenden** kann nach Zustimmung des Benutzers die Browserposition einsetzen. Nach dem Speichern sind Breiten- und Längengrad der maßgebliche Stormglass-Standort; eine Änderung des Textfelds Standort schaltet zurück zur Namenssuche über OpenStreetMap. Die Startseite zeigt eine kompakte Standortkarte, öffnet dieselbe Karte schreibgeschützt und zeigt technische Koordinaten unter Details.
+
 ## Benutzer
 Um die Sicherheit zu erhöhen, empfehlen wir, das OSPy-Systemkennwort und den Benutzernamen vom Standardwert „admin“ zu ändern. Bei Bedarf können Sie die Passwortanforderung auch deaktivieren.
 

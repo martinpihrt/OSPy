@@ -2720,6 +2720,26 @@ class options_page(ProtectedPage):
 
         qdict = web.input()
 
+        location_changed = qdict.get('location', options.location) != options.location
+        map_selected = qdict.get('weather_map_selected', '0') == '1'
+        location_mode = qdict.get('weather_location_mode', 'search')
+        if location_changed and not map_selected:
+            location_mode = 'search'
+        if location_mode == 'coordinates':
+            try:
+                latitude = float(qdict.get('weather_lat', ''))
+                longitude = float(qdict.get('weather_lon', ''))
+                if not -90.0 <= latitude <= 90.0 or not -180.0 <= longitude <= 180.0:
+                    raise ValueError()
+                options.weather_lat = '{:.7f}'.format(latitude).rstrip('0').rstrip('.')
+                options.weather_lon = '{:.7f}'.format(longitude).rstrip('0').rstrip('.')
+                options.weather_location_mode = 'coordinates'
+                options.weather_status = 1
+            except (TypeError, ValueError):
+                raise web.seeother('/options?errorCode=weather_coordinates')
+        else:
+            options.weather_location_mode = 'search'
+
         if 'lang' in qdict:
             log.debug('webpages.py', _('Changing language web={} options={}').format(qdict['lang'], options.lang))
             if qdict['lang'] != options.lang:     # if changed languages

@@ -97,10 +97,17 @@ $code:
         case "pw_generateSSLERR":
             jQuery("#errorfnssl").text($:{json.dumps(_("Error: SSL certificate has not generated!"), ensure_ascii=False).encode('utf8').decode('utf-8')});
             jQuery("#errorfnssl").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
-            break;                                                 
+            break;
+        case "weather_coordinates":
+            jQuery("#weatherLocationSelection").text($:{json.dumps(_('The selected weather coordinates are invalid.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+            jQuery("input[name='location']").parents(".collapsible").toggleClass("expanded").toggleClass("collapsed");
+            break;
     }
 
-    jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
+    var requestedElement = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null;
+    var requestedSection = requestedElement ? jQuery(requestedElement) : jQuery();
+    var initialSection = requestedSection.hasClass("category") ? requestedSection : jQuery(".collapsible").first();
+    if (initialSection.hasClass("collapsed")) initialSection.removeClass("collapsed").addClass("expanded");
 });
 </script>
 
@@ -143,7 +150,8 @@ $code:
                 maxv = " max='" + str(option['max']) + "'" if 'max' in option else ""
 
                 if category != oldcategory:
-                    output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + category + "</h4>"
+                    category_id = " id='weather-options'" if category == _('Weather') else ""
+                    output += categoryCloser + "<div" + category_id + " class='category collapsible collapsed'><h4>" + category + "</h4>"
                     categoryCloser = "</div>"
                     oldcategory = category
 
@@ -211,10 +219,26 @@ $code:
                     output += "<input name='" + name + "' type='number'" + minv + maxv + " size='3' maxlength='3' value='" + str(value) + "'>\n"
                 else:
                     if name != 'lang':
-                       output += "<input name='" + name + "' type='text' size='31' value='" + u"{}".format(value) + "'>\n"
+                       if name == 'location':
+                           output += "<input name='location' type='text' size='31' value='" + u"{}".format(value) + "' onchange=\"document.getElementById('weather_location_mode').value='search';document.getElementById('weather_map_selected').value='0'\">\n"
+                       else:
+                           output += "<input name='" + name + "' type='text' size='31' value='" + u"{}".format(value) + "'>\n"
 
                 output += "<span class='tooltip'>" + tooltip + "</span>\n"
                 output += "</div>\n\n"
+
+                if name == 'location':
+                    output += "<div class='option weatherLocationOption'><span class='label'>" + _('Map location') + ":</span>\n"
+                    output += "<button type='button' class='button backup' onclick='openWeatherMap(true)'>" + _('Select on map') + "</button>\n"
+                    output += "<span id='weatherLocationSelection' class='weatherLocationSelection'>"
+                    if options.weather_lat and options.weather_lon:
+                        output += _('Current coordinates') + ": " + options.weather_lat + ", " + options.weather_lon
+                    output += "</span>\n"
+                    output += "<input id='weather_lat' name='weather_lat' type='hidden' value='" + options.weather_lat + "'>\n"
+                    output += "<input id='weather_lon' name='weather_lon' type='hidden' value='" + options.weather_lon + "'>\n"
+                    output += "<input id='weather_location_mode' name='weather_location_mode' type='hidden' value='" + options.weather_location_mode + "'>\n"
+                    output += "<input id='weather_map_selected' name='weather_map_selected' type='hidden' value='0'>\n"
+                    output += "<span class='tooltip'>" + _('Choose the exact point used for Stormglass weather data.') + "</span></div>\n"
                 
                 if name == 'admin_user':
                     output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Current password') + ":</span>\n" 

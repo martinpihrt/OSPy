@@ -29,9 +29,15 @@ def _cache(cache_name):
             if isinstance(check_date, datetime.datetime):
                 check_date = check_date.date()
 
-            if 'location' not in self._result_cache or options.location != self._result_cache['location']:
+            location_key = (
+                options.location,
+                options.weather_location_mode,
+                options.weather_lat,
+                options.weather_lon,
+            )
+            if 'location' not in self._result_cache or location_key != self._result_cache['location']:
                 self._result_cache.clear()
-                self._result_cache['location'] = options.location
+                self._result_cache['location'] = location_key
 
             if cache_name not in self._result_cache:
                 self._result_cache[cache_name] = {}
@@ -69,10 +75,10 @@ class _Weather(Thread):
         self._result_cache = options.weather_cache
 
         options.add_callback('location', self._option_cb)
+        options.add_callback('weather_location_mode', self._option_cb)
         options.add_callback('stormglass_key', self._option_cb)
         options.add_callback('weather_lat', self._option_cb)            # from home page weather status (latitude)
         options.add_callback('weather_lon', self._option_cb)            # from home page weather status (longtitude)
-        options.add_callback('weather_status', self._option_cb)         # from home page weather status (msg code)
 
         self._sleep_time = 0
         self.start()
@@ -102,15 +108,11 @@ class _Weather(Thread):
         time.sleep(5)  # Some delay to allow internet to initialize
         while True:
             try:
-                try:
-                    if self._determine_location:
-                        self._determine_location = False
-                        self._find_location()
-                finally:
-                    for function in self._callbacks:
-                        function()
- 
-                    options.weather_status = 1
+                if self._determine_location:
+                    self._determine_location = False
+                    self._find_location()
+                for function in self._callbacks:
+                    function()
 
                 self._sleep(3600)
             except Exception:
@@ -119,7 +121,31 @@ class _Weather(Thread):
                 self._sleep(6*3600)
 
     def _find_location(self):
+        if options.weather_location_mode == 'coordinates':
+            try:
+                latitude = float(options.weather_lat)
+                longitude = float(options.weather_lon)
+                if not -90.0 <= latitude <= 90.0 or not -180.0 <= longitude <= 180.0:
+                    raise ValueError('Coordinates outside valid range')
+                self._lat = latitude
+                self._lon = longitude
+                options.weather_status = 1
+                if options.stormglass_key and options.use_weather:
+                    url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
+                    try:
+                        self._elevation = self._get_stormglass_json(url)['data']['elevation']
+                    except Exception:
+                        logging.debug(_('Elevation not downloaded from stormglass.'))
+                        self._elevation = 0.0
+                return
+            except (TypeError, ValueError):
+                options.weather_status = 2
+                raise Exception(_('No location coordinates available!'))
+
         if options.location:
+            self._lat = None
+            self._lon = None
+            options.weather_status = 2
             request = Request(
                 "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location),
                 headers={'User-Agent': 'OSPy/{} contact: pihrt.com'.format(options.name)}
@@ -145,6 +171,10 @@ class _Weather(Thread):
                         self._elevation = 0.0
                 else:
                     logging.debug(_('Location found: %s, %s but Stormglass.io is not currently enabled and altitude loading will not be used'), self._lat, self._lon)    
+        else:
+            self._lat = None
+            self._lon = None
+            options.weather_status = 0
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:

@@ -42,6 +42,9 @@ $code:
         <link href="/static/css/github.css" rel="stylesheet" type="text/css">
     <link href="/static/themes/${options.theme}/theme.css" rel="stylesheet" type="text/css">
     <script src="/static/scripts/jquery-3.7.1.min.js"></script>
+    $if content.page in ('home', 'options'):
+        <link href="/static/scripts/leaflet/leaflet.css" rel="stylesheet" type="text/css">
+        <script src="/static/scripts/leaflet/leaflet.js"></script>
 
     $for script in pluginScripts:
         <script src="/plugins/$:{script}"></script>
@@ -49,7 +52,96 @@ $code:
 <script>
 // Global vars    
 var modal;
-var span_modal     
+var span_modal
+var weatherMap = null;
+var weatherMarker = null;
+var weatherMapEditable = false;
+var weatherPendingLatitude = null;
+var weatherPendingLongitude = null;
+
+function weatherCoordinate(value, fallback) {
+    var number = Number.parseFloat(value);
+    return Number.isFinite(number) ? number : fallback;
+}
+
+function setWeatherMarker(latitude, longitude, centerMap) {
+    if (!weatherMap || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
+    weatherPendingLatitude = latitude;
+    weatherPendingLongitude = longitude;
+    if (!weatherMarker) weatherMarker = L.marker([latitude, longitude]).addTo(weatherMap);
+    else weatherMarker.setLatLng([latitude, longitude]);
+    if (centerMap) weatherMap.setView([latitude, longitude], Math.max(weatherMap.getZoom(), 15));
+    var coordinates = document.getElementById('weatherMapCoordinates');
+    if (coordinates) coordinates.textContent = latitude.toFixed(7) + ', ' + longitude.toFixed(7);
+}
+
+function openWeatherMap(editable) {
+    var dialog = document.getElementById('WeatherMapDialog');
+    if (!dialog || typeof L === 'undefined') return;
+    weatherMapEditable = !!editable;
+    var storedLatitude = weatherCoordinate(document.getElementById('weather_lat') ? document.getElementById('weather_lat').value : $:{json.dumps(options.weather_lat)}, 49.8175);
+    var storedLongitude = weatherCoordinate(document.getElementById('weather_lon') ? document.getElementById('weather_lon').value : $:{json.dumps(options.weather_lon)}, 15.4730);
+    weatherPendingLatitude = storedLatitude;
+    weatherPendingLongitude = storedLongitude;
+    document.getElementById('weatherMapEditHelp').hidden = !weatherMapEditable;
+    document.getElementById('weatherMapUse').hidden = !weatherMapEditable;
+    document.getElementById('weatherMapGeolocation').hidden = !weatherMapEditable;
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', 'open');
+
+    if (!weatherMap) {
+        weatherMap = L.map('weatherMap', {worldCopyJump: true}).setView([storedLatitude, storedLongitude], 15);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(weatherMap);
+        weatherMap.on('click', function(event) {
+            if (weatherMapEditable) setWeatherMarker(event.latlng.lat, event.latlng.lng, false);
+        });
+    } else {
+        weatherMap.setView([storedLatitude, storedLongitude], 15);
+    }
+    setWeatherMarker(storedLatitude, storedLongitude, false);
+    setTimeout(function() { weatherMap.invalidateSize(); }, 50);
+}
+
+function closeWeatherMap() {
+    var dialog = document.getElementById('WeatherMapDialog');
+    if (!dialog) return;
+    if (typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+}
+
+function useWeatherMapLocation() {
+    if (!Number.isFinite(weatherPendingLatitude) || !Number.isFinite(weatherPendingLongitude)) return;
+    var latitude = document.getElementById('weather_lat');
+    var longitude = document.getElementById('weather_lon');
+    var mode = document.getElementById('weather_location_mode');
+    var selected = document.getElementById('weather_map_selected');
+    if (!latitude || !longitude || !mode || !selected) return;
+    latitude.value = weatherPendingLatitude.toFixed(7);
+    longitude.value = weatherPendingLongitude.toFixed(7);
+    mode.value = 'coordinates';
+    selected.value = '1';
+    var status = document.getElementById('weatherLocationSelection');
+    if (status) status.textContent = $:{json.dumps(_('Selected coordinates will be saved when you save Options.'), ensure_ascii=False)};
+    closeWeatherMap();
+}
+
+function useBrowserWeatherLocation() {
+    var status = document.getElementById('weatherMapStatus');
+    if (!navigator.geolocation) {
+        if (status) status.textContent = $:{json.dumps(_('Location access is not supported by this browser.'), ensure_ascii=False)};
+        return;
+    }
+    if (status) status.textContent = $:{json.dumps(_('Waiting for device location...'), ensure_ascii=False)};
+    navigator.geolocation.getCurrentPosition(function(position) {
+        if (status) status.textContent = '';
+        setWeatherMarker(position.coords.latitude, position.coords.longitude, true);
+    }, function() {
+        if (status) status.textContent = $:{json.dumps(_('The device location could not be obtained.'), ensure_ascii=False)};
+    }, {enableHighAccuracy: true, timeout: 10000, maximumAge: 60000});
+}
 
 // Set up a live clock based on device time
 let dayList = $:{days};
@@ -326,6 +418,24 @@ jQuery(document).ready(function(){
                     </div>
                 </div>
         </div>
+        $if content.page in ('home', 'options'):
+            <dialog id="WeatherMapDialog" class="weatherMapDialog" aria-labelledby="weatherMapTitle" onclick="if (event.target === this) closeWeatherMap()">
+                <div class="weatherMapHeader">
+                    <h3 id="weatherMapTitle">$_('Weather location')</h3>
+                    <button type="button" class="weatherMapClose" onclick="closeWeatherMap()" aria-label="$_('Close')">&times;</button>
+                </div>
+                <p id="weatherMapEditHelp">$_('Click the exact place on the map and confirm your selection.')</p>
+                <div id="weatherMap" class="weatherMapCanvas"></div>
+                <div class="weatherMapInfo">
+                    <span>$_('Coordinates'): <b id="weatherMapCoordinates"></b></span>
+                    <span id="weatherMapStatus" class="weatherMapStatus"></span>
+                </div>
+                <div class="weatherMapActions">
+                    <button id="weatherMapGeolocation" type="button" class="button" onclick="useBrowserWeatherLocation()" title="$_('Device location usually requires HTTPS or localhost.')">$_('Use device location')</button>
+                    <button type="button" class="button" onclick="closeWeatherMap()">$_('Close')</button>
+                    <button id="weatherMapUse" type="button" class="button add" onclick="useWeatherMapLocation()">$_('Use this location')</button>
+                </div>
+            </dialog>
         $if content.page != 'login' and options.show_scroll_top:
             <button id="scrollTopButton" class="scrollTopButton scrollTop${'Left' if options.scroll_top_position == 'left' else 'Right'}" type="button" title=$:{json.dumps(_('Back to top'), ensure_ascii=False).encode('utf8').decode('utf-8')}>&#8593;</button>
     </div>

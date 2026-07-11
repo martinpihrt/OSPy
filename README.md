@@ -85,6 +85,7 @@ Full credit goes to Dan for his generous contributions in porting the microcontr
 * The program makes use of web.py (http://webpy.org) for the web interface.
 * The program makes use of cmarkgfm (https://github.com/theacodes/cmarkgfm) to render the help pages written in GitHub flavored markdown (Python 3+).
 * The program makes use of OpenStreetMap (https://www.openstreetmap.org) to convert locations into coordinates.
+* Interactive weather location maps use Leaflet 1.9.4 (https://leafletjs.com), distributed locally under the BSD 2-Clause license, with map tiles and attribution from OpenStreetMap.
 * The program makes use of Stormglass API (https://stormglass.io/) for weather information.
 * The program makes use Blinker (https://pythonhosted.org/blinker/) package that is shipped with OSPy sends messages to other Python modules such as plugins to report changes in status.
 * The program makes use Arduino (https://arduino.cc) ESP32, Atmega328 and more HW boards pro OSPy aditional sensors, water tank monitor.
