@@ -13,7 +13,10 @@ jQuery(document).ready(function(){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
     });
 
-    jQuery(".collapsible h4").first().parent(".category").toggleClass("expanded").toggleClass("collapsed");
+    var requestedElement = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null;
+    var requestedSection = requestedElement ? jQuery(requestedElement) : jQuery();
+    var section = requestedSection.hasClass("category") ? requestedSection : jQuery(".collapsible").first();
+    section.removeClass("collapsed").addClass("expanded");
 
     jQuery("#filter1").change(check_filter);
     jQuery("#filter2").change(check_filter);
@@ -23,7 +26,7 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<div class='category collapsible collapsed'><h4>$_('Station log')</h4>
+<div id="station-log" class='category collapsible collapsed'><h4>$_('Station log')</h4>
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_log else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(wrecords)} (${_('no') if options.run_entries==0 else options.run_entries} $_('limit'))</p>
@@ -65,7 +68,7 @@ jQuery(document).ready(function(){
     </div>
 </div>
 
-<div class='category collapsible collapsed'><h4>$_('E-mail log')</h4>
+<div id="email-log" class='category collapsible collapsed'><h4>$_('E-mail log')</h4>
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_logEM else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(erecords)} (${_('no') if options.run_entriesEM==0 else options.run_entriesEM} $_('limit'))</p>
@@ -100,7 +103,7 @@ jQuery(document).ready(function(){
     </div>
 </div>
 
-<div class='category collapsible collapsed'><h4>$_('Events log')</h4>
+<div id="events-log" class='category collapsible collapsed'><h4>$_('Events log')</h4>
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_logEV else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
@@ -112,7 +115,7 @@ jQuery(document).ready(function(){
     </form>
     </p>
     <p><br></p>
-    <form name="FilterForm" id="FilterForm" action="/log?${csrf_query()}" method="post">
+    <form name="FilterForm" id="FilterForm" action="/log?${csrf_query()}#events-log" method="post">
     $:csrf_input()
     <table border="1" cellpadding="6" cellspacing="0" frame="hsides">
     <tr><th colspan="2">$_('Filter for events')</th></tr>

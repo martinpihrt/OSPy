@@ -188,6 +188,21 @@ class _Options(object):
             "help": _('Administrator login name for login to the OSPy.'),
             "category": _('Users')
         },
+        {
+            "key": "two_factor_method",
+            "name": _('Two-factor authentication method'),
+            "default": "none"
+        },
+        {
+            "key": "two_factor_secret",
+            "name": _('Two-factor authentication secret'),
+            "default": ""
+        },
+        {
+            "key": "two_factor_backup_codes",
+            "name": _('Two-factor backup codes'),
+            "default": []
+        },
         #######################################################################
         # Security ############################################################        
         {

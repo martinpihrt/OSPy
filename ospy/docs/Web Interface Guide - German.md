@@ -273,6 +273,17 @@ Das OSPy-Einstellungsmenü wird angezeigt. Optional: Verwenden Sie die Pfeiltast
 
 # Abmelden
 Nach dem Klicken auf die Schaltfläche „Abmelden“ meldet sich der Benutzer vom System ab.
+
+----
+
+# Zwei-Faktor-Sicherheit (2FA)
+Die Zwei-Faktor-Authentifizierung schützt das Hauptadministratorkonto durch einen zweiten Prüfschritt nach dem Passwort. Öffnen Sie **Optionen → Zwei-Faktor-Sicherheit → Konfigurieren** und wählen Sie genau eine Methode: **Authentifizierungs-App (TOTP)**, **Code per E-Mail** oder **Deaktiviert**. Beide Methoden können nicht gleichzeitig aktiv sein.
+
+Führen Sie für TOTP einmal `python setup.py install` aus, falls die QR-Unterstützung fehlt. Scannen Sie den QR-Code mit Google Authenticator, Microsoft Authenticator, 2FAS, Aegis oder einer anderen TOTP-App und geben Sie den aktuellen sechsstelligen Code ein. OSPy aktiviert das Geheimnis erst nach dieser Bestätigung. TOTP benötigt eine korrekte Systemzeit.
+
+Die E-Mail-Prüfung ist nur verfügbar, wenn **E-mail Notifications SSL** installiert ist, läuft und SMTP-Server, Konto, Passwort und Empfänger konfiguriert sind. Beim Aktivieren sendet OSPy sofort einen Bestätigungscode. Anmeldecodes gelten fünf Minuten und werden nie in die Wiederholungswarteschlange des Plug-ins gestellt.
+
+Speichern Sie nach der Aktivierung die angezeigten einmaligen Sicherungscodes sicher. Jeder Code ersetzt den zweiten Faktor genau einmal und wird danach gelöscht; er wird nicht erneut angezeigt. Eine Änderung oder Deaktivierung von 2FA widerruft alle gemerkten Browseranmeldungen. Bei Verlust des Telefons oder Ausfall der E-Mail verwenden Sie einen Sicherungscode; andernfalls muss eine Konfigurationssicherung wiederhergestellt oder 2FA lokal am OSPy-Gerät zurückgesetzt werden.
     Abmelden
 
 ----

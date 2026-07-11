@@ -547,6 +547,20 @@ span.stationName:last-child:after {
     flex-basis: 100%;
     margin-top: 4px;
 }
+.programPostponementDialog {width:min(92vw, 520px); box-sizing:border-box; border:0; border-radius:12px; padding:0; color:#222; background:#fff; box-shadow:0 18px 55px rgba(0,0,0,.35);}
+.programPostponementDialog::backdrop {background:rgba(0,0,0,.55);}
+.programPostponementDialog form {display:block !important; padding:20px;}
+.programPostponementDialogHeader {display:flex; align-items:flex-start; justify-content:space-between; gap:12px;}
+.programPostponementDialogHeader h3 {margin:0; font-size:20px;}
+.programPostponementClose {border:0; background:transparent; color:inherit; font-size:30px; line-height:24px; cursor:pointer; padding:0 2px;}
+.programPostponementHelp {margin:10px 0 18px; color:#555;}
+.programPostponementDateTime {display:block; font-weight:bold;}
+.programPostponementDateTime span {display:block; margin-bottom:6px;}
+.programPostponementDateTime input {display:block; box-sizing:border-box; width:100%; min-height:46px; margin:0; padding:8px 10px; font-size:17px;}
+.programPostponementPreview {display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0; padding:12px; border-radius:8px; background:#f1f3f5;}
+.programPostponementDialogActions {display:flex; justify-content:flex-end; gap:8px;}
+.programPostponementDialogActions .button {min-height:40px;}
+@media (max-width:600px) {.programPostponementDialog {width:calc(100vw - 20px); max-height:calc(100vh - 20px);}.programPostponementDialog form {padding:16px;}.programPostponementPreview {grid-template-columns:1fr;}.programPostponementDialogActions {flex-direction:column-reverse;}.programPostponementDialogActions .button {width:100%; min-height:46px;}}
 
 .program p:first-child {
     background-color: #2E3959;

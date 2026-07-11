@@ -5,6 +5,35 @@ OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation sy
 ## For first installation and other visit 
 [Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md)
 
+## Emergency administrator login recovery
+If the administrator password is unknown or access to the configured two-factor method has been lost, run the local recovery script from the OSPy directory on the Raspberry Pi or another trusted local shell:
+
+```bash
+sudo service ospy stop
+sudo python3 back_door.py
+sudo service ospy start
+```
+
+Stop the service first so its settings database is not being written while recovery runs. The script requires typing `RESET` for confirmation and then generates a new one-time recovery password for the `admin` account. It disables passwordless access and two-factor authentication, removes the TOTP secret and backup codes, revokes remembered browser logins, and invalidates active web sessions after OSPy starts again. Irrigation programs, settings, plug-ins, and logs are not deleted. Open the login page, use the displayed recovery password, change it immediately, and configure two-factor authentication again if required. Use `sudo python3 back_door.py --yes` only in a trusted automated local recovery procedure. See [Clean installation](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Clean_installation.md) for more information.
+
+## Hardware relay board test before starting OSPy
+The standalone `relay_test.py` script can verify the relay board and GPIO wiring before OSPy is started, or help diagnose a board fault. It switches all eight shift-register relay outputs and the additional main relay output on and off together every 1.5 seconds.
+
+**Warning:** Disconnect pumps, valves, contactors, and any other equipment that must not start unexpectedly. The test energizes every relay. Do not run it while the OSPy service is controlling the same GPIO pins.
+
+From the OSPy directory run:
+
+```bash
+sudo service ospy stop
+sudo python3 relay_test.py
+```
+
+Watch or listen for every relay switching. Stop the test with `Ctrl+C`; the script disables the outputs and cleans up GPIO in its `finally` block. OSPy can then be started normally:
+
+```bash
+sudo service ospy start
+```
+
 ## More information visit
 [Pihrt.com](https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )
 

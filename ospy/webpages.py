@@ -25,6 +25,7 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy import scheduler
 from ospy import autologin
+from ospy import twofactor
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -1534,6 +1535,13 @@ class login_page(WebPage):
         if check_login(False):
             raise web.seeother('/')
         else:
+            from ospy import server
+            if server.session.get('two_factor_pending'):
+                if time.time() - float(server.session.get('two_factor_started', 0)) <= 300:
+                    return self.core_render.login(
+                        signin_form(), None, True, server.session.get('two_factor_method'), None)
+                _clear_two_factor_login()
+
             remembered_login = autologin.validate_cookie()
             if remembered_login:
                 from ospy import server
@@ -1557,21 +1565,98 @@ class login_page(WebPage):
                 new_user = options.first_password_hash
             else:
                 new_user = None
-            return self.core_render.login(signin_form(), new_user)
+            return self.core_render.login(signin_form(), new_user, False, None, None)
 
     def POST(self):
+        from ospy import server
         my_signin = signin_form()
         qdict = web.input()
+        verify_csrf(qdict)
+
+        if server.session.get('two_factor_pending'):
+            attempts = int(server.session.get('two_factor_attempts', 0))
+            started = float(server.session.get('two_factor_started', 0))
+            if attempts >= 5 or time.time() - started > 300:
+                _clear_two_factor_login()
+                my_signin.note = _('The verification request expired. Please sign in again.')
+                return self.core_render.login(my_signin, None, False, None, None)
+
+            method = server.session.get('two_factor_method')
+            code = qdict.get('two_factor_code', '')
+            if method == twofactor.METHOD_TOTP:
+                valid = twofactor.verify_totp(options.two_factor_secret, code)
+            else:
+                valid = twofactor.verify_email_code(
+                    code,
+                    server.session.get('two_factor_nonce', ''),
+                    server.session.get('two_factor_code_hash', ''),
+                    server.session.get('two_factor_expires', 0))
+            if not valid:
+                valid, remaining_codes = twofactor.consume_backup_code(
+                    code, options.two_factor_backup_codes)
+                if valid:
+                    options.two_factor_backup_codes = remaining_codes
+            if not valid:
+                server.session['two_factor_attempts'] = attempts + 1
+                return self.core_render.login(
+                    my_signin, None, True, method, _('The verification code is incorrect or has expired.'))
+
+            username = server.session.get('two_factor_user')
+            category = server.session.get('two_factor_category')
+            remember = bool(server.session.get('two_factor_remember'))
+            _clear_two_factor_login()
+            server.session.regenerate_id()
+            server.session['visitor'] = username
+            server.session['category'] = category
+            server.session.validated = True
+            if remember:
+                autologin.issue(username, category)
+            else:
+                autologin.revoke_cookie_token()
+            report_login()
+            if options.run_logEV:
+                logEV.save_events_log(_('Login'), _('User {} logged in from IP {} category {}').format(
+                    username, server.session.get('ip'), category), id='Login')
+            log.info('webpages.py', _('User {} logged in').format(username))
+            raise web.seeother('/', True)
+
         my_signin.fill(qdict)
 
         if not test_password(qdict.get('password', ''), qdict.get('username', '')):
             my_signin.note = _('Incorrect username or password, please try again...')
             if options.first_installation:
-                return self.core_render.login(my_signin, options.first_password_hash)
+                return self.core_render.login(my_signin, options.first_password_hash, False, None, None)
             else:
-                return self.core_render.login(my_signin, None)
+                return self.core_render.login(my_signin, None, False, None, None)
         else:
-            from ospy import server
+            method = (options.two_factor_method
+                      if server.session.get('visitor') == options.admin_user
+                      else twofactor.METHOD_NONE)
+            if method in (twofactor.METHOD_TOTP, twofactor.METHOD_EMAIL):
+                server.session['two_factor_pending'] = True
+                server.session['two_factor_user'] = server.session.get('visitor')
+                server.session['two_factor_category'] = server.session.get('category')
+                server.session['two_factor_method'] = method
+                server.session['two_factor_remember'] = 'remember-me' in qdict
+                server.session['two_factor_started'] = time.time()
+                server.session['two_factor_attempts'] = 0
+                server.session['category'] = 'public'
+                server.session['visitor'] = 'Unknown'
+                server.session.validated = False
+                if method == twofactor.METHOD_EMAIL:
+                    try:
+                        code, nonce, code_hash, expires = twofactor.new_email_challenge()
+                        server.session['two_factor_nonce'] = nonce
+                        server.session['two_factor_code_hash'] = code_hash
+                        server.session['two_factor_expires'] = expires
+                        twofactor.send_email_code(code)
+                    except Exception:
+                        log.error('webpages.py', _('Could not send the login verification e-mail.') + '\n' + traceback.format_exc())
+                        _clear_two_factor_login()
+                        my_signin.note = _('The verification e-mail could not be sent. Please contact the administrator.')
+                        return self.core_render.login(my_signin, None, False, None, None)
+                return self.core_render.login(my_signin, None, True, method, None)
+
             server.session.regenerate_id()
             server.session.validated = True
             if 'remember-me' in qdict:
@@ -1583,6 +1668,124 @@ class login_page(WebPage):
                 logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
             log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
             raise web.seeother('/', True)
+
+
+def _clear_two_factor_login():
+    from ospy import server
+    for key in (
+        'two_factor_pending', 'two_factor_user', 'two_factor_category', 'two_factor_method',
+        'two_factor_remember', 'two_factor_started', 'two_factor_attempts', 'two_factor_nonce',
+        'two_factor_code_hash', 'two_factor_expires'):
+        try:
+            del server.session[key]
+        except KeyError:
+            pass
+
+
+class twofactor_page(ProtectedPage):
+    """Configure two-factor authentication for administrator accounts."""
+
+    def GET(self):
+        from ospy import server
+        if server.session.get('category') != 'admin':
+            raise web.seeother('/')
+        if not server.session.get('two_factor_setup_secret'):
+            server.session['two_factor_setup_secret'] = twofactor.generate_secret()
+        email_available, email_message = twofactor.email_plugin_status()
+        qr_available = twofactor.qr_png('test') is not None
+        backup_codes = server.session.get('two_factor_new_backup_codes')
+        if backup_codes:
+            del server.session['two_factor_new_backup_codes']
+        return self.core_render.twofactor(
+            options.two_factor_method, server.session.get('two_factor_setup_secret'),
+            email_available, email_message, qr_available, None, backup_codes)
+
+    def POST(self):
+        from ospy import server
+        if server.session.get('category') != 'admin':
+            raise web.seeother('/')
+        qdict = web.input()
+        method = qdict.get('method', twofactor.METHOD_NONE)
+        error = None
+        setup_secret = server.session.get('two_factor_setup_secret') or twofactor.generate_secret()
+        server.session['two_factor_setup_secret'] = setup_secret
+
+        if method == twofactor.METHOD_TOTP:
+            if twofactor.qr_png('test') is None:
+                error = _('QR code support is not installed. Run python setup.py install and restart OSPy.')
+            elif not twofactor.verify_totp(setup_secret, qdict.get('code', '')):
+                error = _('Enter the current code from the authenticator application to finish pairing.')
+            else:
+                options.two_factor_secret = setup_secret
+        elif method == twofactor.METHOD_EMAIL:
+            available, error = twofactor.email_plugin_status()
+            if not available:
+                method = options.two_factor_method
+            elif options.two_factor_method != twofactor.METHOD_EMAIL:
+                expected_hash = server.session.get('two_factor_setup_email_hash')
+                if not expected_hash:
+                    try:
+                        code, nonce, code_hash, expires = twofactor.new_email_challenge()
+                        twofactor.send_email_code(code)
+                        server.session['two_factor_setup_email_nonce'] = nonce
+                        server.session['two_factor_setup_email_hash'] = code_hash
+                        server.session['two_factor_setup_email_expires'] = expires
+                        error = _('A verification code was sent. Enter it below to enable e-mail verification.')
+                    except Exception:
+                        log.error('webpages.py', _('Could not send the setup verification e-mail.') + '\n' + traceback.format_exc())
+                        error = _('The verification e-mail could not be sent. Check the plug-in settings and try again.')
+                elif not twofactor.verify_email_code(
+                        qdict.get('email_code', ''),
+                        server.session.get('two_factor_setup_email_nonce', ''),
+                        expected_hash,
+                        server.session.get('two_factor_setup_email_expires', 0)):
+                    error = _('The e-mail verification code is incorrect or has expired.')
+        elif method != twofactor.METHOD_NONE:
+            error = _('Unknown two-factor authentication method.')
+            method = options.two_factor_method
+
+        if error is None:
+            old_method = options.two_factor_method
+            options.two_factor_method = method
+            if method != twofactor.METHOD_TOTP:
+                options.two_factor_secret = ''
+            if method == twofactor.METHOD_NONE:
+                options.two_factor_backup_codes = []
+            elif method != old_method:
+                backup_codes = twofactor.generate_backup_codes()
+                options.two_factor_backup_codes = [twofactor.hash_backup_code(code) for code in backup_codes]
+                server.session['two_factor_new_backup_codes'] = backup_codes
+            autologin.revoke_all()
+            server.session['two_factor_setup_secret'] = twofactor.generate_secret()
+            for key in ('two_factor_setup_email_nonce', 'two_factor_setup_email_hash',
+                        'two_factor_setup_email_expires'):
+                try:
+                    del server.session[key]
+                except KeyError:
+                    pass
+            raise web.seeother('/twofactor')
+
+        email_available, email_message = twofactor.email_plugin_status()
+        return self.core_render.twofactor(
+            options.two_factor_method, setup_secret, email_available, email_message,
+            twofactor.qr_png('test') is not None, error, None)
+
+
+class twofactor_qr_page(ProtectedPage):
+    def GET(self):
+        from ospy import server
+        verify_csrf(web.input())
+        if server.session.get('category') != 'admin':
+            raise web.notfound()
+        secret = server.session.get('two_factor_setup_secret')
+        if not secret:
+            raise web.notfound()
+        data = twofactor.qr_png(twofactor.provisioning_uri(secret, options.admin_user, options.name))
+        if data is None:
+            raise web.notfound()
+        web.header('Content-Type', 'image/png')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        return data
 
 
 class logout_page(WebPage):
@@ -2457,16 +2660,16 @@ class log_page(ProtectedPage):
         action = qdict.get('action', '')
         if action == 'clear':
             log.clear_runs()
-            raise web.seeother('/log')
+            raise web.seeother('/log#station-log')
         elif action == 'clearALL':
             log.clear_all_runs()
-            raise web.seeother('/log')
+            raise web.seeother('/log#station-log')
         elif action == 'clearEM':
             logEM.clear_email()
-            raise web.seeother('/log')
+            raise web.seeother('/log#email-log')
         elif action == 'clearEV':
             logEV.clear_events()
-            raise web.seeother('/log')
+            raise web.seeother('/log#events-log')
 
         log_filter_server = get_input(qdict, 'log_filter_server', False, lambda x: True)
         log_filter_internet = get_input(qdict, 'log_filter_internet', False, lambda x: True)

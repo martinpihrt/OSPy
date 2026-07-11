@@ -273,6 +273,17 @@ Zobrazí sa ponuka nastavenia OSPy. Voliteľné: Pomocou klávesov so šípkami 
 
 # Odhlásiť sa
 Po kliknutí na tlačidlo "Odhlásiť sa" sa užívateľ odhlási zo systému.
+
+----
+
+# Dvojfázové zabezpečenie (2FA)
+Dvojfázové overenie chráni hlavný administrátorský účet druhým krokom po zadaní hesla. Otvorte **Nastavenia → Dvojfázové zabezpečenie → Konfigurovať** a vyberte práve jednu metódu: **Autentifikačná aplikácia (TOTP)**, **Kód odoslaný e-mailom** alebo **Vypnuté**. Obe metódy nemôžu byť aktívne súčasne.
+
+Pre TOTP spustite raz `python setup.py install`, ak chýba podpora QR. Naskenujte QR kód pomocou Google Authenticatora, Microsoft Authenticatora, 2FAS, Aegis alebo inej TOTP aplikácie a zadajte aktuálny šesťmiestny kód. OSPy aktivuje tajný kľúč až po potvrdení. TOTP vyžaduje správny systémový čas.
+
+E-mailové overenie je dostupné iba vtedy, keď je **E-mail Notifications SSL** nainštalovaný, spustený a má nastavený SMTP server, účet, heslo a príjemcu. Pri zapnutí OSPy ihneď odošle potvrdzovací kód. Prihlasovacie kódy platia päť minút a nikdy sa neukladajú do fronty doplnku na neskoršie odoslanie.
+
+Po zapnutí bezpečne uložte zobrazené jednorazové záložné kódy. Každý môže raz nahradiť druhý faktor a potom sa odstráni; znovu sa nezobrazí. Zmena alebo vypnutie 2FA zruší všetky zapamätané prihlásenia prehliadačov. Pri strate telefónu alebo nedostupnom e-maile použite záložný kód; bez neho obnovte zálohu konfigurácie alebo lokálne resetujte 2FA na zariadení OSPy.
     Odhlásiť sa
 
 ----

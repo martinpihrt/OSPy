@@ -1,4 +1,4 @@
-$def with (form, new_user)
+$def with (form, new_user, two_factor=False, two_factor_method=None, two_factor_error=None)
 
 $var title: $_('Login')
 $var page: login
@@ -11,6 +11,7 @@ var loginSubmitting = false;
 function updateRememberNotice() {
     var checkBox = document.getElementById("remember-me");
     var text = document.getElementById("text");
+    if (!checkBox || !text) return;
     if (checkBox.checked == true){
         text.style.display = "block";
     } else {
@@ -44,7 +45,7 @@ jQuery(document).ready(function(){
     });
 
     // send form after pressing enter key
-    var input = document.getElementById("password");
+    var input = document.getElementById("password") || document.getElementById("two_factor_code");
     // Execute a function when the user presses a key on the keyboard
     input.addEventListener("keypress", function(event) {
         // If the user presses the "Enter" key on the keyboard
@@ -58,7 +59,7 @@ jQuery(document).ready(function(){
 
     input = document.getElementById("username");
     // Execute a function when the user presses a key on the keyboard
-    input.addEventListener("keypress", function(event) {
+    if (input) input.addEventListener("keypress", function(event) {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
             // Cancel the default action, if needed
@@ -82,10 +83,24 @@ jQuery(document).ready(function(){
     <table class="stationList" style="background: #F5F5F5; width:400px;">
     <tr>    
     <td>    
-        <form name="login" id="login" method="POST"> 
-            $:form.render()
-            <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><label class="optionSwitch"><input type="checkbox" name="remember-me" value="1" id="remember-me"><span class="optionSlider"></span></label></td></tr></table>
-            <p id="text" style="display:none"><small>$_('This browser will be remembered after successful login.')</small></p>
+        <form name="login" id="login" method="POST">
+            $:csrf_input()
+            $if two_factor:
+                <p><b>$_('Two-factor verification')</b></p>
+                $if two_factor_method == 'email':
+                    <p>$_('A verification code was sent to the configured e-mail address.')</p>
+                $else:
+                    <p>$_('Enter the code from your authenticator application.')</p>
+                <label for="two_factor_code">$_('Verification code'):</label>
+                <input id="two_factor_code" name="two_factor_code" type="text" maxlength="9" autocomplete="one-time-code" autofocus>
+                <p><small>$_('You can also enter a one-time backup code.')</small></p>
+                $if two_factor_error:
+                    <p style="color:red">$two_factor_error</p>
+            $else:
+                $:form.render()
+            $if not two_factor:
+                <table><tr><th><small><label for="remember-me">$_('Remember login')</label></small></th><td><label class="optionSwitch"><input type="checkbox" name="remember-me" value="1" id="remember-me"><span class="optionSlider"></span></label></td></tr></table>
+                <p id="text" style="display:none"><small>$_('This browser will be remembered after successful login.')</small></p>
         </form>
     </td>
     </tr>   

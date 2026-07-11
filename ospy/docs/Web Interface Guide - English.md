@@ -273,6 +273,17 @@ The OSPy settings menu will appear. Optional: Use the arrow keys to move between
 
 # Logging out
 After clicking the "Logging out" button, the user logs out of the system.
+
+----
+
+# Two-factor security (2FA)
+Two-factor authentication protects the main administrator account with a second verification step after the password. Open **Options → Two-factor security → Configure** and choose exactly one method: **Authenticator application (TOTP)**, **Code sent by e-mail**, or **Disabled**. The two methods cannot be active at the same time.
+
+For TOTP, run `python setup.py install` once if QR support is reported missing. Scan the displayed QR code with Google Authenticator, Microsoft Authenticator, 2FAS, Aegis, or another TOTP application, then enter its current six-digit code. OSPy activates the secret only after this confirmation. Correct system time is required for TOTP.
+
+E-mail verification is available only while **E-mail Notifications SSL** is installed, running, and has its SMTP server, account, password, and recipient configured. When enabling it, OSPy sends a confirmation code immediately. Login codes expire after five minutes and are never placed in the plug-in's retry queue.
+
+After enabling either method, save the displayed one-time backup codes in a safe place. Each code can replace the normal second factor once and is then deleted. They are not shown again. Changing or disabling 2FA revokes all remembered browser logins. A remembered browser is trusted only after a complete password and second-factor login. If the phone is lost or e-mail is unavailable, use a backup code; without a backup code, restore a configuration backup or reset the 2FA settings locally on the OSPy device.
     Logging out
 
 ----

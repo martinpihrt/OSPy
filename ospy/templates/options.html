@@ -240,7 +240,11 @@ $code:
                     output += "<span class='tooltip'>" + _('Deletes all long-term auto-login tokens. Browsers must log in again with a password.') + "</span>\n"
                     output += "</div>\n"
 
-        output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
+        output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('Two-factor security') + "</h4>\n"
+        output += "<div class='option'><span class='label'>" + _('Login verification') + ":</span>"
+        output += "&nbsp;<a href='/twofactor' class='button backup'>" + _('Configure') + "</a>"
+        output += "<span class='tooltip'>" + _('Configure an authenticator application or e-mail verification for the main administrator account.') + "</span></div></div>\n"
+        output += "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
         output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Restart') + "</button>"
         output += "&nbsp;<button id='cReboot' class='reboot danger' title=" + json.dumps(_('Reboot hardware!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Reboot') + "</button>"

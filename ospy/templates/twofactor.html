@@ -1,0 +1,57 @@
+$def with (current_method, setup_secret, email_available, email_message, qr_available, error, backup_codes=None)
+
+$var title: $_('Two-factor security')
+$var page: options
+
+<div class="panel">
+    <div class="title">$_('Two-factor security')</div>
+    <p>$_('Choose exactly one verification method for the main administrator account. Changing the method revokes all remembered browser logins.')</p>
+
+    $if error:
+        <p style="color:red"><b>$error</b></p>
+
+    $if backup_codes:
+        <div class="category">
+            <h4>$_('Backup codes')</h4>
+            <p><b>$_('Save these one-time codes now. They will not be displayed again.')</b></p>
+            <pre>${'\n'.join(backup_codes)}</pre>
+        </div>
+
+    <form method="post" action="/twofactor?${csrf_query()}">
+        $:csrf_input()
+        <div class="category">
+            <h4>$_('Verification method')</h4>
+
+            <div class="option">
+                <label><input type="radio" name="method" value="none" ${'checked' if current_method == 'none' else ''}> $_('Disabled')</label>
+            </div>
+
+            <div class="option">
+                <label><input type="radio" name="method" value="totp" ${'checked' if current_method == 'totp' else ''}> $_('Authenticator application (TOTP)')</label>
+                $if qr_available:
+                    <div style="margin:15px 0">
+                        <p>$_('Scan this QR code and then enter the current six-digit code to confirm pairing.')</p>
+                        <img src="/twofactor_qr?${csrf_query()}" width="220" height="220" alt="QR">
+                        <p><small>$_('Manual setup key'): <code>$setup_secret</code></small></p>
+                        <label for="code">$_('Verification code'):</label>
+                        <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+                    </div>
+                $else:
+                    <p style="color:red">$_('QR code support is not installed. Run python setup.py install and restart OSPy.')</p>
+            </div>
+
+            <div class="option">
+                <label><input type="radio" name="method" value="email" ${'checked' if current_method == 'email' else ''} ${'' if email_available else 'disabled'}> $_('Code sent by e-mail')</label>
+                $if not email_available:
+                    <p><small>$email_message</small></p>
+                $else:
+                    <p><small>$_('Codes are sent immediately to the recipients configured in E-mail Notifications SSL.')</small></p>
+                    <label for="email_code">$_('E-mail verification code'):</label>
+                    <input id="email_code" name="email_code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+            </div>
+        </div>
+
+        <button class="submit" type="submit"><b>$_('Save')</b></button>
+        <a class="button cancel" href="/options">$_('Cancel')</a>
+    </form>
+</div>

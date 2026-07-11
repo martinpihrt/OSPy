@@ -8,6 +8,8 @@ import plugins
 
 urls = [
     '/login', 'ospy.webpages.login_page',
+    '/twofactor', 'ospy.webpages.twofactor_page',
+    '/twofactor_qr', 'ospy.webpages.twofactor_qr_page',
     '/logout', 'ospy.webpages.logout_page',
     '/',  'ospy.webpages.home_page',
     '/action', 'ospy.webpages.action_page',

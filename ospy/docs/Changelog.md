@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 11 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Added optional two-factor authentication for the main administrator account. Settings now offer one mutually exclusive method: a TOTP authenticator application paired with a QR code, or a short-lived code sent immediately through the running E-mail Notifications SSL plug-in. Password verification and second-factor verification use separate session states, login and QR requests are CSRF-protected, legacy URL password authentication cannot bypass the second factor, remembered browser tokens are issued only after the second factor succeeds and are revoked when the method changes, attempts and challenge lifetime are limited, and one-time backup codes provide account recovery. TOTP verification uses the Python standard library; QR rendering is installed through the normal `python setup.py install` flow rather than a web-triggered package installer. Documented setup, operation, recovery, and dependency handling in all seven language Web Interface Guides. The local back_door.py recovery script now also disables 2FA, removes its secret and backup codes, and invalidates remembered and active web sessions so the generated recovery login works after losing the second factor; the main and service README files now document this emergency procedure. The same README files now document the standalone pre-start relay_test.py hardware-board test, including service shutdown, its all-relays behavior, load-disconnection warning, Ctrl+C cleanup, and normal OSPy restart. Replaced the inline program-group postponement date row with a focused modal date/time dialog, live old/new run preview, native mobile date/time controls, and responsive full-width mobile actions without changing postponement scheduling behavior. Log clearing now returns to the section that initiated the action, and changing event filters keeps the Events section open instead of reopening the Station log.
+
 July 10 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

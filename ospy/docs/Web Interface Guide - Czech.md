@@ -273,6 +273,17 @@ Zobrazí se nabídka nastavení OSPy. Volitelné: Pomocí kláves se šipkami se
 
 # Odhlásit se
 Po kliknutí na tlačítko "Odhlásit se" se uživatel odhlásí ze systému.
+
+----
+
+# Dvoufázové zabezpečení (2FA)
+Dvoufázové ověření chrání hlavní administrátorský účet druhým krokem po zadání hesla. Otevřete **Nastavení → Dvoufázové zabezpečení → Nastavit** a zvolte právě jednu možnost: **Autentizační aplikace (TOTP)**, **Kód zaslaný e-mailem**, nebo **Vypnuto**. Obě metody nelze používat současně.
+
+Pro TOTP spusťte jednou `python setup.py install`, pokud OSPy oznámí chybějící podporu QR. Zobrazený QR kód naskenujte pomocí Google Authenticatoru, Microsoft Authenticatoru, 2FAS, Aegis nebo jiné TOTP aplikace a zadejte její aktuální šestimístný kód. OSPy tajný klíč aktivuje až po tomto potvrzení. TOTP vyžaduje správně nastavený systémový čas.
+
+E-mailové ověření je dostupné pouze tehdy, když je plugin **E-mail Notifications SSL** nainstalovaný, spuštěný a má nastavený SMTP server, účet, heslo a příjemce. Při zapnutí OSPy ihned odešle potvrzovací kód. Přihlašovací kódy platí pět minut a nikdy se neukládají do fronty pluginu pro pozdější odeslání.
+
+Po zapnutí kterékoli metody bezpečně uložte zobrazené jednorázové záložní kódy. Každý může jednou nahradit běžný druhý faktor a poté se smaže; znovu se nezobrazí. Změna nebo vypnutí 2FA zruší všechna zapamatovaná přihlášení. Prohlížeč se zapamatuje až po úspěšném zadání hesla i druhého faktoru. Při ztrátě telefonu nebo výpadku e-mailu použijte záložní kód; bez něj je nutné obnovit zálohu konfigurace nebo 2FA lokálně resetovat na zařízení OSPy.
     Odhlásit se
 
 ----
