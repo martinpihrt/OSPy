@@ -10,6 +10,8 @@ Added optional two-factor authentication for the main administrator account. Set
 
 Added an interactive, mobile-friendly weather location picker to Options using a locally bundled Leaflet 1.9.4 library and correctly attributed OpenStreetMap tiles. Administrators can click an exact point or explicitly request the browser device location, review coordinates, and save them through the existing CSRF-protected Options form with server-side latitude/longitude validation. Manual coordinates are now authoritative for Stormglass and form part of its cache key, while editing the text location switches back to Nominatim search. Fixed the weather thread incorrectly forcing a successful location status after lookup failures. Replaced the technical Home weather line with a responsive location card, internal read-only map, admin edit shortcut, status, and collapsible coordinate details. Updated all seven language Web Interface Guides.
 
+Updated the Czech OSPy translation. 2FA login is not 100% finished and will still be adjusted!
+
 July 10 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
