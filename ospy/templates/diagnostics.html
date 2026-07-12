@@ -294,6 +294,18 @@ jQuery(document).ready(function(){
             box-sizing: border-box;
             overflow: hidden;
         }
+        .diagnosticsCard {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        #diagnostics .diagnosticsCard .diagnosticsTable {
+            width: 100%;
+            margin: 0;
+            border: 0;
+            border-radius: 9px;
+            padding: 0;
+        }
         #historyPanelHeader {
             padding: 6px 8px;
             border-bottom: 1px solid #b9c0d0;
@@ -324,7 +336,8 @@ jQuery(document).ready(function(){
         <span id="diagnosticsStatus" style="margin-left: 8px;"></span>
     </div>
 
-    <table class="optionList diagnosticsTable diagnosticsSystem">
+    <div class="simpleblock diagnosticsCard">
+    <table class="diagnosticsTable diagnosticsSystem">
         <tr><th colspan="2">$_('System')</th></tr>
         <tr>
             <td><span class="diagnosticsLabel">$_('CPU Usage')</span><span id="diagCpu">-</span></td>
@@ -346,6 +359,7 @@ jQuery(document).ready(function(){
             <td colspan="2"><span class="diagnosticsLabel">$_('Updated')</span><span id="diagUpdated">-</span></td>
         </tr>
     </table>
+    </div>
 
     <div class="diagnosticsToolbar">
         <label for="pluginSort">$_('Sort plugins')</label>
@@ -375,8 +389,8 @@ jQuery(document).ready(function(){
         </div>
     </div>
 
-    <div class="diagnosticsScroll">
-        <table id="diagnosticsPlugins" class="optionList diagnosticsTable pluginDiagnosticsTable">
+    <div class="simpleblock diagnosticsCard diagnosticsScroll">
+        <table id="diagnosticsPlugins" class="diagnosticsTable pluginDiagnosticsTable">
             <thead>
                 <tr>
                     <th>$_('Plugin')</th>
