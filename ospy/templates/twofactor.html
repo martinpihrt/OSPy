@@ -1,57 +1,100 @@
-$def with (current_method, setup_secret, email_available, email_message, qr_available, error, backup_codes=None)
+$def with (current_method, setup_secret, email_available, email_message, qr_available, error, backup_codes=None, email_pending=False, notice=None, selected_method=None)
 
 $var title: $_('Two-factor security')
 $var page: options
 
-<div class="panel">
+$code:
+    selected_method = selected_method or ('email' if email_pending else current_method)
+
+<script>
+function showTwoFactorCard(method) {
+    var cards = document.querySelectorAll('.twoFactorMethodCard');
+    for (var i = 0; i < cards.length; i++) {
+        cards[i].hidden = cards[i].getAttribute('data-method') !== method;
+    }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    var selected = document.querySelector('input[name="methodSelector"]:checked');
+    if (selected) showTwoFactorCard(selected.value);
+});
+</script>
+
+<div class="panel twoFactorPanel">
     <div class="title">$_('Two-factor security')</div>
     <p>$_('Choose exactly one verification method for the main administrator account. Changing the method revokes all remembered browser logins.')</p>
 
     $if error:
-        <p style="color:red"><b>$error</b></p>
+        <p class="twoFactorMessage twoFactorError"><b>$error</b></p>
+    $if notice:
+        <p class="twoFactorMessage twoFactorNotice"><b>$notice</b></p>
 
     $if backup_codes:
-        <div class="category">
+        <div class="category twoFactorBackupCodes">
             <h4>$_('Backup codes')</h4>
             <p><b>$_('Save these one-time codes now. They will not be displayed again.')</b></p>
             <pre>${'\n'.join(backup_codes)}</pre>
+            <a class="button submit" href="/options">$_('Done')</a>
         </div>
+    $else:
+        <fieldset class="twoFactorSelector">
+            <legend>$_('Verification method')</legend>
+            <label><input type="radio" name="methodSelector" value="none" onclick="showTwoFactorCard(this.value)" ${'checked' if selected_method == 'none' else ''}> $_('Disabled')</label>
+            <label><input type="radio" name="methodSelector" value="totp" onclick="showTwoFactorCard(this.value)" ${'checked' if selected_method == 'totp' else ''}> $_('Authenticator application (TOTP)')</label>
+            <label><input type="radio" name="methodSelector" value="email" onclick="showTwoFactorCard(this.value)" ${'checked' if selected_method == 'email' else ''} ${'' if email_available else 'disabled'}> $_('Code sent by e-mail')</label>
+        </fieldset>
 
-    <form method="post" action="/twofactor?${csrf_query()}">
-        $:csrf_input()
-        <div class="category">
-            <h4>$_('Verification method')</h4>
+        <section class="category twoFactorMethodCard" data-method="none">
+            <h4>$_('Disabled')</h4>
+            $if current_method == 'none':
+                <p>$_('Two-factor authentication is disabled.')</p>
+            $else:
+                <p>$_('Disable the currently active verification method.')</p>
+                <form method="post" action="/twofactor?${csrf_query()}">
+                    $:csrf_input()
+                    <button class="danger" type="submit" name="action" value="disable">$_('Disable')</button>
+                </form>
+        </section>
 
-            <div class="option">
-                <label><input type="radio" name="method" value="none" ${'checked' if current_method == 'none' else ''}> $_('Disabled')</label>
-            </div>
+        <section class="category twoFactorMethodCard" data-method="totp" hidden>
+            <h4>$_('Authenticator application (TOTP)')</h4>
+            $if current_method == 'totp':
+                <p><b>$_('Active')</b></p>
+                <p>$_('The authenticator application is paired. To pair a different application, first disable this method.')</p>
+            $elif qr_available:
+                <p>$_('Scan this QR code and then enter the current six-digit code to confirm pairing.')</p>
+                <img class="twoFactorQr" src="/twofactor_qr?${csrf_query()}" width="220" height="220" alt="QR">
+                <p><small>$_('Manual setup key'): <code>$setup_secret</code></small></p>
+                <form method="post" action="/twofactor?${csrf_query()}">
+                    $:csrf_input()
+                    <label for="code">$_('Verification code'):</label>
+                    <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required>
+                    <button class="submit" type="submit" name="action" value="verify_totp">$_('Verify and activate')</button>
+                </form>
+            $else:
+                <p class="twoFactorError">$_('QR code support is not installed. Run python setup.py install and restart OSPy.')</p>
+        </section>
 
-            <div class="option">
-                <label><input type="radio" name="method" value="totp" ${'checked' if current_method == 'totp' else ''}> $_('Authenticator application (TOTP)')</label>
-                $if qr_available:
-                    <div style="margin:15px 0">
-                        <p>$_('Scan this QR code and then enter the current six-digit code to confirm pairing.')</p>
-                        <img src="/twofactor_qr?${csrf_query()}" width="220" height="220" alt="QR">
-                        <p><small>$_('Manual setup key'): <code>$setup_secret</code></small></p>
-                        <label for="code">$_('Verification code'):</label>
-                        <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
-                    </div>
-                $else:
-                    <p style="color:red">$_('QR code support is not installed. Run python setup.py install and restart OSPy.')</p>
-            </div>
+        <section class="category twoFactorMethodCard" data-method="email" hidden>
+            <h4>$_('Code sent by e-mail')</h4>
+            $if current_method == 'email':
+                <p><b>$_('Active')</b></p>
+                <p>$_('E-mail verification is active.')</p>
+            $elif not email_available:
+                <p class="twoFactorError">$email_message</p>
+            $else:
+                <p>$_('Codes are sent to the recipients configured in E-mail Notifications SSL.')</p>
+                <form method="post" action="/twofactor?${csrf_query()}">
+                    $:csrf_input()
+                    <button class="backup" type="submit" name="action" value="send_email">${_('Send again') if email_pending else _('Send code')}</button>
+                </form>
+                $if email_pending:
+                    <form class="twoFactorVerifyForm" method="post" action="/twofactor?${csrf_query()}">
+                        $:csrf_input()
+                        <label for="email_code">$_('E-mail verification code'):</label>
+                        <input id="email_code" name="email_code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus>
+                        <button class="submit" type="submit" name="action" value="verify_email">$_('Verify and activate')</button>
+                    </form>
+        </section>
 
-            <div class="option">
-                <label><input type="radio" name="method" value="email" ${'checked' if current_method == 'email' else ''} ${'' if email_available else 'disabled'}> $_('Code sent by e-mail')</label>
-                $if not email_available:
-                    <p><small>$email_message</small></p>
-                $else:
-                    <p><small>$_('Codes are sent immediately to the recipients configured in E-mail Notifications SSL.')</small></p>
-                    <label for="email_code">$_('E-mail verification code'):</label>
-                    <input id="email_code" name="email_code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
-            </div>
-        </div>
-
-        <button class="submit" type="submit"><b>$_('Save')</b></button>
-        <a class="button cancel" href="/options">$_('Cancel')</a>
-    </form>
+        <a class="button cancel" href="/options">$_('Back')</a>
 </div>

@@ -1698,53 +1698,59 @@ class twofactor_page(ProtectedPage):
             del server.session['two_factor_new_backup_codes']
         return self.core_render.twofactor(
             options.two_factor_method, server.session.get('two_factor_setup_secret'),
-            email_available, email_message, qr_available, None, backup_codes)
+            email_available, email_message, qr_available, None, backup_codes,
+            bool(server.session.get('two_factor_setup_email_hash')), None, None)
 
     def POST(self):
         from ospy import server
         if server.session.get('category') != 'admin':
             raise web.seeother('/')
         qdict = web.input()
-        method = qdict.get('method', twofactor.METHOD_NONE)
+        action = qdict.get('action', '')
         error = None
+        notice = None
         setup_secret = server.session.get('two_factor_setup_secret') or twofactor.generate_secret()
         server.session['two_factor_setup_secret'] = setup_secret
 
-        if method == twofactor.METHOD_TOTP:
+        method = options.two_factor_method
+        if action == 'verify_totp':
             if twofactor.qr_png('test') is None:
                 error = _('QR code support is not installed. Run python setup.py install and restart OSPy.')
             elif not twofactor.verify_totp(setup_secret, qdict.get('code', '')):
                 error = _('Enter the current code from the authenticator application to finish pairing.')
             else:
+                method = twofactor.METHOD_TOTP
                 options.two_factor_secret = setup_secret
-        elif method == twofactor.METHOD_EMAIL:
-            available, error = twofactor.email_plugin_status()
-            if not available:
-                method = options.two_factor_method
-            elif options.two_factor_method != twofactor.METHOD_EMAIL:
-                expected_hash = server.session.get('two_factor_setup_email_hash')
-                if not expected_hash:
-                    try:
-                        code, nonce, code_hash, expires = twofactor.new_email_challenge()
-                        twofactor.send_email_code(code)
-                        server.session['two_factor_setup_email_nonce'] = nonce
-                        server.session['two_factor_setup_email_hash'] = code_hash
-                        server.session['two_factor_setup_email_expires'] = expires
-                        error = _('A verification code was sent. Enter it below to enable e-mail verification.')
-                    except Exception:
-                        log.error('webpages.py', _('Could not send the setup verification e-mail.') + '\n' + traceback.format_exc())
-                        error = _('The verification e-mail could not be sent. Check the plug-in settings and try again.')
-                elif not twofactor.verify_email_code(
-                        qdict.get('email_code', ''),
-                        server.session.get('two_factor_setup_email_nonce', ''),
-                        expected_hash,
-                        server.session.get('two_factor_setup_email_expires', 0)):
-                    error = _('The e-mail verification code is incorrect or has expired.')
-        elif method != twofactor.METHOD_NONE:
+        elif action == 'send_email':
+            available, status_message = twofactor.email_plugin_status()
+            if available:
+                try:
+                    code, nonce, code_hash, expires = twofactor.new_email_challenge()
+                    twofactor.send_email_code(code)
+                    server.session['two_factor_setup_email_nonce'] = nonce
+                    server.session['two_factor_setup_email_hash'] = code_hash
+                    server.session['two_factor_setup_email_expires'] = expires
+                    notice = _('A verification code was sent. Enter it below to enable e-mail verification.')
+                except Exception:
+                    log.error('webpages.py', _('Could not send the setup verification e-mail.') + '\n' + traceback.format_exc())
+                    error = _('The verification e-mail could not be sent. Check the plug-in settings and try again.')
+            else:
+                error = status_message
+        elif action == 'verify_email':
+            if not twofactor.verify_email_code(
+                    qdict.get('email_code', ''),
+                    server.session.get('two_factor_setup_email_nonce', ''),
+                    server.session.get('two_factor_setup_email_hash', ''),
+                    server.session.get('two_factor_setup_email_expires', 0)):
+                error = _('The e-mail verification code is incorrect or has expired.')
+            else:
+                method = twofactor.METHOD_EMAIL
+        elif action == 'disable':
+            method = twofactor.METHOD_NONE
+        else:
             error = _('Unknown two-factor authentication method.')
-            method = options.two_factor_method
 
-        if error is None:
+        if error is None and action in ('verify_totp', 'verify_email', 'disable'):
             old_method = options.two_factor_method
             options.two_factor_method = method
             if method != twofactor.METHOD_TOTP:
@@ -1768,7 +1774,10 @@ class twofactor_page(ProtectedPage):
         email_available, email_message = twofactor.email_plugin_status()
         return self.core_render.twofactor(
             options.two_factor_method, setup_secret, email_available, email_message,
-            twofactor.qr_png('test') is not None, error, None)
+            twofactor.qr_png('test') is not None, error, None,
+            bool(server.session.get('two_factor_setup_email_hash')), notice,
+            'email' if action in ('send_email', 'verify_email') else
+            ('totp' if action == 'verify_totp' else options.two_factor_method))
 
 
 class twofactor_qr_page(ProtectedPage):
@@ -1780,7 +1789,9 @@ class twofactor_qr_page(ProtectedPage):
         secret = server.session.get('two_factor_setup_secret')
         if not secret:
             raise web.notfound()
-        data = twofactor.qr_png(twofactor.provisioning_uri(secret, options.admin_user, options.name))
+        site_name = str(options.name or '').strip()
+        issuer = 'OSPy' + ((' ' + site_name) if site_name else '')
+        data = twofactor.qr_png(twofactor.provisioning_uri(secret, options.admin_user, issuer))
         if data is None:
             raise web.notfound()
         web.header('Content-Type', 'image/png')

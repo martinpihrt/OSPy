@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 12 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Separated 2FA setup into method-specific cards and explicit send, verify-and-activate, and disable actions so refreshing or revisiting setup cannot accidentally change the active method. Active TOTP and e-mail methods are now identified in Options, backup codes end with a Done action instead of another Save, and authenticator account labels start with the OSPy site name. The Home weather location card is now compact, transparent, and styled like the other dark-blue bordered sections.
+
 July 11 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

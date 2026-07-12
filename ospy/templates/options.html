@@ -267,6 +267,10 @@ $code:
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('Two-factor security') + "</h4>\n"
         output += "<div class='option'><span class='label'>" + _('Login verification') + ":</span>"
         output += "&nbsp;<a href='/twofactor' class='button backup'>" + _('Configure') + "</a>"
+        if options.two_factor_method != 'none':
+            activeMethod = 'QR (TOTP)' if options.two_factor_method == 'totp' else 'E-mail'
+            output += "&nbsp;<strong>" + _('Active') + ": " + activeMethod + "</strong>"
+            output += "&nbsp;<button type='submit' class='danger' name='action' value='disable' formaction='/twofactor?" + csrf_query() + "' formmethod='post'>" + _('Disable') + "</button>"
         output += "<span class='tooltip'>" + _('Configure an authenticator application or e-mail verification for the main administrator account.') + "</span></div></div>\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"

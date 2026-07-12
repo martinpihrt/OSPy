@@ -765,14 +765,15 @@ $if options.show_plugin_data or options.show_sensor_data:
 $if options.use_weather:
     <section class="weatherLocationCard" aria-labelledby="weatherLocationTitle">
         <div class="weatherLocationCardHeader">
-            <span class="weatherLocationPin" aria-hidden="true">&#128205;</span>
-            <div>
-                <h3 id="weatherLocationTitle">$_('Weather location')</h3>
-                <div class="weatherLocationName">${options.location or _('Selected map point')}</div>
-            </div>
+            <h3 id="weatherLocationTitle">$_('Weather location'):</h3>
+            <span class="weatherLocationName">${options.location or _('Selected map point')}</span>
+            <span aria-hidden="true">&ndash;</span>
+            $if options.weather_status == 1 and options.weather_lat and options.weather_lon:
+                <span class="weatherLocationState weatherLocationStateOk">$_('Coordinates are set')</span>
+            $else:
+                <span class="weatherLocationState weatherLocationStateError">$_('Weather location is not configured correctly.')</span>
         </div>
         $if options.weather_status == 1 and options.weather_lat and options.weather_lon:
-            <div class="weatherLocationState weatherLocationStateOk">$_('Coordinates are set')</div>
             <div class="weatherLocationButtons">
                 <button type="button" class="button upload" onclick="openWeatherMap(false)">$_('Show map')</button>
                 <a href="/options#weather-options" class="button backup">$_('Change location')</a>
@@ -784,6 +785,5 @@ $if options.use_weather:
                 <div>$_('Weather data source'): Stormglass</div>
             </details>
         $else:
-            <div class="weatherLocationState weatherLocationStateError">$_('Weather location is not configured correctly.')</div>
             <a href="/options#weather-options" class="button backup">$_('Set location')</a>
     </section>

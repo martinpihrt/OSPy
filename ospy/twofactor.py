@@ -49,7 +49,7 @@ def verify_totp(secret, code, timestamp=None, window=1):
 
 def provisioning_uri(secret, username, issuer='OSPy'):
     from urllib.parse import quote
-    label = '{}:{}'.format(issuer, username)
+    label = '{} - {}'.format(issuer, username)
     return 'otpauth://totp/{}?secret={}&issuer={}&digits=6&period={}'.format(
         quote(label, safe=''), secret, quote(issuer, safe=''), TOTP_PERIOD)
 
