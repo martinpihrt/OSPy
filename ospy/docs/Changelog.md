@@ -8,6 +8,8 @@ July 12 2026 (v3.0)
 (martinpihrt)<br/>
 Separated 2FA setup into method-specific cards and explicit send, verify-and-activate, and disable actions so refreshing or revisiting setup cannot accidentally change the active method. Active TOTP and e-mail methods are now identified in Options, backup codes end with a Done action instead of another Save, and authenticator account labels start with the OSPy site name. The Home weather location card is now compact, transparent, and styled like the other dark-blue bordered sections.
 
+Plug-in CPU history is now sampled in memory every minute by a background thread while OSPy is running, instead of collecting samples only while the Diagnostics page is open. Opening a 1-hour, 24-hour, or 7-day graph therefore immediately shows the available history since OSPy started; the samples are intentionally discarded on restart. The history panel now uses the shared rounded OSPy card style, including the correct border color for each theme and an exact full-width border-box layout.
+
 July 11 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

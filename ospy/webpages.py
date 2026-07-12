@@ -9,7 +9,7 @@ import datetime
 import time
 import json
 import web
-from threading import Timer, RLock
+from threading import Event, Thread, Timer, RLock, current_thread
 import traceback
 import mimetypes
 
@@ -49,8 +49,11 @@ sensorSearch = []   # Empty list of dicts to hold sensors data for display on se
 _diagnostics_process_sample = {}
 _diagnostics_plugin_history = {}
 _diagnostics_history_lock = RLock()
+_diagnostics_history_stop = Event()
+_diagnostics_history_thread = None
 _DIAGNOSTICS_HISTORY_SECONDS = 7 * 24 * 60 * 60
 _DIAGNOSTICS_HISTORY_POINTS = 1200
+_DIAGNOSTICS_HISTORY_SAMPLE_SECONDS = 60
 
 
 def _safe_extract_zip(zip_file, target_dir):
@@ -2409,6 +2412,43 @@ def _update_diagnostics_plugin_history(plugin_data, now):
                     _diagnostics_plugin_history.pop(module, None)
 
 
+def _collect_diagnostics_plugin_history():
+    """Collect one plug-in CPU sample independently of the Diagnostics page."""
+    try:
+        _update_diagnostics_plugin_history(plugins.plugin_diagnostics(), time.time())
+    except Exception:
+        log.error('webpages.py', _('Plug-in diagnostics history sampling failed.') + '\n' + traceback.format_exc())
+
+
+def _diagnostics_history_worker():
+    while not _diagnostics_history_stop.is_set():
+        _collect_diagnostics_plugin_history()
+        _diagnostics_history_stop.wait(_DIAGNOSTICS_HISTORY_SAMPLE_SECONDS)
+
+
+def start_diagnostics_history():
+    """Start the in-memory background sampler once plug-ins are running."""
+    global _diagnostics_history_thread, _diagnostics_history_stop
+    if _diagnostics_history_thread is not None and _diagnostics_history_thread.is_alive():
+        return
+    _diagnostics_history_stop = Event()
+    _diagnostics_history_thread = Thread(
+        target=_diagnostics_history_worker, name='OSPy diagnostics history')
+    _diagnostics_history_thread.daemon = True
+    _diagnostics_history_thread.start()
+
+
+def stop_diagnostics_history():
+    """Stop the background sampler without persisting its in-memory history."""
+    global _diagnostics_history_thread
+    _diagnostics_history_stop.set()
+    if (_diagnostics_history_thread is not None and
+            _diagnostics_history_thread.is_alive() and
+            _diagnostics_history_thread is not current_thread()):
+        _diagnostics_history_thread.join(2.0)
+    _diagnostics_history_thread = None
+
+
 def _limit_diagnostics_history(history):
     if len(history) <= _DIAGNOSTICS_HISTORY_POINTS:
         return history
@@ -2471,7 +2511,6 @@ def _diagnostics_data():
     diagnostics_error = ''
     try:
         plugin_data = plugins.plugin_diagnostics()
-        _update_diagnostics_plugin_history(plugin_data, now)
     except Exception:
         diagnostics_error = _('Plug-in diagnostics refresh failed.')
         log.error('webpages.py', traceback.format_exc())

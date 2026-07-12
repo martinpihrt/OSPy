@@ -322,6 +322,8 @@ def start():
     log.debug('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()
     plugins.start_enabled_plugins()
+    from ospy import webpages
+    webpages.start_diagnostics_history()
     
     log.debug('server.py', _('Starting sensors timer...'))
     sensors_timer.start()    
@@ -386,6 +388,11 @@ def stop():
     if statistics_timer is not None:
         statistics_timer.cancel()
         statistics_timer = None
+    try:
+        from ospy import webpages
+        webpages.stop_diagnostics_history()
+    except Exception:
+        log.debug('server.py', traceback.format_exc())
     if __server is not None:
         logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
         __server.stop()
