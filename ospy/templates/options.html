@@ -232,11 +232,11 @@ $code:
                     output += "<button type='button' class='button backup' onclick='openWeatherMap(true)'>" + _('Select on map') + "</button>\n"
                     output += "<span id='weatherLocationSelection' class='weatherLocationSelection'>"
                     if options.weather_lat and options.weather_lon:
-                        output += _('Current coordinates') + ": " + options.weather_lat + ", " + options.weather_lon
+                        output += _('Current coordinates') + ": " + u"{}".format(options.weather_lat) + ", " + u"{}".format(options.weather_lon)
                     output += "</span>\n"
-                    output += "<input id='weather_lat' name='weather_lat' type='hidden' value='" + options.weather_lat + "'>\n"
-                    output += "<input id='weather_lon' name='weather_lon' type='hidden' value='" + options.weather_lon + "'>\n"
-                    output += "<input id='weather_location_mode' name='weather_location_mode' type='hidden' value='" + options.weather_location_mode + "'>\n"
+                    output += "<input id='weather_lat' name='weather_lat' type='hidden' value='" + u"{}".format(options.weather_lat) + "'>\n"
+                    output += "<input id='weather_lon' name='weather_lon' type='hidden' value='" + u"{}".format(options.weather_lon) + "'>\n"
+                    output += "<input id='weather_location_mode' name='weather_location_mode' type='hidden' value='" + u"{}".format(options.weather_location_mode) + "'>\n"
                     output += "<input id='weather_map_selected' name='weather_map_selected' type='hidden' value='0'>\n"
                     output += "<span class='tooltip'>" + _('Choose the exact point used for Stormglass weather data.') + "</span></div>\n"
                 

@@ -566,12 +566,12 @@ class _Options(object):
         {
             "key": "weather_lat",
             "name": _('Location latitude'),
-            "default": {}
+            "default": ""
         },
         {
             "key": "weather_lon",
             "name": _('Location longtitude'),
-            "default": {}
+            "default": ""
         },
         {
             "key": "weather_status",
@@ -650,6 +650,13 @@ class _Options(object):
                         db.close()
             except Exception as err:
                 pass
+
+        for coordinate_key in ('weather_lat', 'weather_lon'):
+            coordinate = self._values.get(coordinate_key, '')
+            if isinstance(coordinate, (int, float)) and not isinstance(coordinate, bool):
+                self._values[coordinate_key] = str(coordinate)
+            elif not isinstance(coordinate, str):
+                self._values[coordinate_key] = ''
 
         self._values.pop('auto_login_key', None)
 

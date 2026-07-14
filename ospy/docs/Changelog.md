@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 14 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed the Options page failing to open after the weather location picker update on systems where weather was disabled and latitude/longitude still contained the historical empty-dictionary defaults. Weather coordinates now use empty-string defaults, legacy saved dictionary values are normalized when settings are loaded, and the Options template safely formats coordinate values before adding them to the HTML.
+
 July 12 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
