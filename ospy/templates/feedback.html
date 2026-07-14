@@ -38,8 +38,11 @@ jQuery(document).ready(function() {
         <p class="feedbackHint">$_('Describe what happened or what should be improved. You can add screenshots and files after GitHub opens.')</p>
 
         <label class="feedbackIncludeSystem">
-            <input id="includeSystem" name="include_system" type="checkbox" value="1"${' checked' if include_system else ''}>
             <span>$_('Include non-identifying OSPy system information')</span>
+            <span class="feedbackSwitch">
+                <input id="includeSystem" name="include_system" type="checkbox" value="1"${' checked' if include_system else ''}>
+                <span class="feedbackSlider" aria-hidden="true"></span>
+            </span>
         </label>
 
         <div id="feedbackSystemPreview" class="feedbackSystemPreview">

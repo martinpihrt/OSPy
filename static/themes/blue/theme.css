@@ -594,8 +594,14 @@ span.stationName:last-child:after {
 .feedbackForm textarea {min-height:180px; resize:vertical;}
 .feedbackHint, .feedbackPrivacy {font-size:10pt; color:#555;}
 .feedbackError {margin-top:12px; padding:9px 11px; border-radius:6px; background:#ffe7e9; color:#a51f28;}
-.feedbackIncludeSystem {display:flex; align-items:flex-start; gap:8px; margin-top:10px; font-weight:bold;}
-.feedbackIncludeSystem input {margin-top:3px;}
+.feedbackIncludeSystem {display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:10px; font-weight:bold; cursor:pointer;}
+.feedbackSwitch {position:relative; display:inline-block; flex:0 0 auto; width:50px; height:24px;}
+.feedbackSwitch input {position:absolute; width:1px; height:1px; margin:0; opacity:0;}
+.feedbackSlider {position:absolute; cursor:pointer; top:0; right:0; bottom:0; left:0; border-radius:34px; background-color:#ff4d4d; transition:background-color .4s;}
+.feedbackSlider::before {position:absolute; content:""; width:18px; height:18px; left:4px; bottom:3px; border-radius:50%; background-color:#fff; transition:transform .4s;}
+.feedbackSwitch input:checked + .feedbackSlider {background-color:#4caf50;}
+.feedbackSwitch input:checked + .feedbackSlider::before {transform:translateX(26px);}
+.feedbackSwitch input:focus-visible + .feedbackSlider {outline:3px solid #2E3959; outline-offset:2px;}
 .feedbackSystemPreview {margin-top:5px; padding:12px; border:1px solid #b8bcc8; border-radius:8px; background:#f5f6f8;}
 .feedbackSystemPreview h3 {margin:0 0 8px;}
 .feedbackSystemPreview table {width:100%; border-collapse:collapse; margin-bottom:8px;}

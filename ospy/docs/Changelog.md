@@ -10,6 +10,8 @@ Fixed the Options page failing to open after the weather location picker update 
 
 Added a protected Feedback page linked by a new header button next to the OSPy system name. Signed-in administrators and users can prepare a bug report, improvement suggestion, or question; OSPy validates the form and opens a prefilled GitHub issue for review and submission under the user's GitHub account, without storing a GitHub access token. Reports can optionally include a previewed set of non-identifying OSPy version, operating-system, architecture, distribution, and Python details reused from anonymous usage statistics; system names, operator names, IP addresses, and usage-statistics identifiers are excluded. The page also links directly to existing GitHub Issues and GitHub Discussions. The form is CSRF-protected, uses a no-referrer policy, and supports all three themes and mobile layouts.
 
+Updated the Czech OSPy translation. Restyled the Feedback system-information option as the standard green/red OSPy switch used by plug-in settings while preserving keyboard control, and added the existing i18n translation workflow README to the built-in OSPy Help menu as **Translation Guide (i18n)**.
+
 July 12 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

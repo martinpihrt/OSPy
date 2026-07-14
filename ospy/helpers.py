@@ -1065,6 +1065,7 @@ def get_help_files():
 
     result.append((1, 'OSPy'))
     result.append((2, 'Readme', 'README.md'))
+    result.append((2, 'Translation Guide (i18n)', os.path.join('i18n', 'README.md')))
     for doc in help_files_in_directory(os.path.join('ospy', 'docs')):
         result.append((2, doc[0], doc[1]))
 
