@@ -18,6 +18,7 @@ OSPy Web Interface Guide in English
         External IP
         Working
         Diagnostics
+    Feedback
     Programs page
         Add a New Program
         Program groups
@@ -358,6 +359,19 @@ By default, plug-ins are sorted by current CPU load from highest to lowest. Use 
 The **Open** action opens the plug-in page. **Restart plugin** restarts only the selected running plug-in; it does not restart all of OSPy.
 
 If a refresh warning is shown, the last automatic read from the diagnostics API failed or returned a controlled error. Existing data can remain visible until the next successful refresh, and the warning is cleared automatically after a successful refresh.
+
+----
+
+# Feedback
+The **Feedback** button in the header, to the left of the system name, opens a page for reporting bugs, suggesting improvements and asking questions. The page is available to signed-in administrators and users; the button is hidden on the login page.
+
+Choose **Bug report**, **Feature request** or **Question**, then enter a short title and a detailed description. **Continue to GitHub** opens a prefilled new GitHub Issue. The user signs in to GitHub, reviews the content and submits it there. OSPy does not store a GitHub access token and does not create an Issue before this confirmation.
+
+The option to include system information is enabled by default and shows an exact preview before submission: the OSPy version and date, architecture, distribution and operating-system version, and Python version. The OSPy system name, operator name, IP addresses and unique usage-statistics identifier are excluded. Clear the option to send only the user's text.
+
+**View existing reports** opens the project's GitHub Issues. **GitHub Discussions** opens the project discussions directly and is suitable for general questions and shared ideas. Screenshots and other files can be attached after GitHub opens.
+
+The form uses the existing OSPy login and CSRF protection. When leaving for GitHub, the address of the open OSPy page is not sent as the HTTP referrer.
 
 ----
 

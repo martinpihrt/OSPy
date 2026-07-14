@@ -18,6 +18,7 @@ OSPy Webinterface-Anleitung auf Deutsch
         Externe IP
         Betriebszeit
         Diagnose
+    Feedback
     Programme
         Fügen Sie ein neues Programm hinzu
         Programmgruppen
@@ -358,6 +359,19 @@ Standardmäßig werden Plug-ins nach aktueller CPU-Last von hoch nach niedrig so
 Die Aktion **Öffnen** öffnet die Plug-in-Seite. **Restart plugin** startet nur das ausgewählte laufende Plug-in neu; OSPy wird dadurch nicht vollständig neu gestartet.
 
 Wenn eine Aktualisierungswarnung angezeigt wird, ist das letzte automatische Lesen der Diagnose-API fehlgeschlagen oder hat einen kontrollierten Fehler zurückgegeben. Vorhandene Daten können bis zur nächsten erfolgreichen Aktualisierung sichtbar bleiben, und die Warnung wird nach einer erfolgreichen Aktualisierung automatisch gelöscht.
+
+----
+
+# Feedback
+Die Schaltfläche **Feedback** in der Kopfzeile links neben dem Systemnamen öffnet eine Seite zum Melden von Fehlern, Vorschlagen von Verbesserungen und Stellen von Fragen. Die Seite ist für angemeldete Administratoren und Benutzer verfügbar; auf der Anmeldeseite wird die Schaltfläche nicht angezeigt.
+
+Wählen Sie **Bug report**, **Feature request** oder **Question** und geben Sie anschließend einen kurzen Titel und eine ausführliche Beschreibung ein. **Continue to GitHub** öffnet ein vorausgefülltes neues GitHub Issue. Der Benutzer meldet sich bei GitHub an, prüft den Inhalt und sendet ihn dort ab. OSPy speichert kein GitHub-Zugriffstoken und erstellt vor dieser Bestätigung kein Issue.
+
+Die Option zum Einfügen von Systeminformationen ist standardmäßig aktiviert und zeigt vor dem Absenden eine genaue Vorschau: OSPy-Version und -Datum, Architektur, Distribution und Betriebssystemversion sowie Python-Version. Der OSPy-Systemname, der Name des Bedieners, IP-Adressen und die eindeutige Kennung der Nutzungsstatistik werden nicht eingefügt. Deaktivieren Sie die Option, um nur den eigenen Text zu senden.
+
+**View existing reports** öffnet die GitHub Issues des Projekts. **GitHub Discussions** öffnet direkt die Projektdiskussionen und eignet sich für allgemeine Fragen und gemeinsame Ideen. Screenshots und andere Dateien können nach dem Öffnen von GitHub angehängt werden.
+
+Das Formular verwendet die bestehende OSPy-Anmeldung und den CSRF-Schutz. Beim Wechsel zu GitHub wird die Adresse der geöffneten OSPy-Seite nicht als HTTP-Referrer übertragen.
 
 ----
 

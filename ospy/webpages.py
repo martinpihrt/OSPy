@@ -32,7 +32,7 @@ from ospy.users import users
 from ospy.sensors import sensors, sensors_timer
 
 from urllib.request import urlopen
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlencode
 
 try:
     import requests
@@ -54,6 +54,19 @@ _diagnostics_history_thread = None
 _DIAGNOSTICS_HISTORY_SECONDS = 7 * 24 * 60 * 60
 _DIAGNOSTICS_HISTORY_POINTS = 1200
 _DIAGNOSTICS_HISTORY_SAMPLE_SECONDS = 60
+GITHUB_NEW_ISSUE_URL = 'https://github.com/martinpihrt/OSPy/issues/new'
+FEEDBACK_TITLE_LIMIT = 120
+FEEDBACK_DESCRIPTION_LIMIT = 4000
+
+
+def _feedback_system_information():
+    from ospy import usagestats, version
+
+    info = [
+        ('OSPy version', '{} ({})'.format(version.ver_str, version.ver_date)),
+    ]
+    info.extend(usagestats.system_information())
+    return [(str(key), str(value or '-')) for key, value in info]
 
 
 def _safe_extract_zip(zip_file, target_dir):
@@ -2941,6 +2954,84 @@ class stations_page(ProtectedPage):
 
         report_station_names()
         raise web.seeother('/')
+
+class feedback_page(ProtectedPage):
+    """Prepare a GitHub issue with optional non-identifying system details."""
+
+    REPORT_TYPES = {
+        'bug': ('Bug report', 'Bug'),
+        'feature': ('Feature request', 'Feature'),
+        'question': ('Question', 'Question'),
+    }
+
+    @staticmethod
+    def _allowed():
+        from ospy.server import session
+        return session.get('category') in ('admin', 'user')
+
+    def _render(self, report_type='bug', issue_title='', description='',
+                include_system=True, error=None):
+        return self.core_render.feedback(
+            report_type, issue_title, description, include_system,
+            _feedback_system_information(), error
+        )
+
+    def GET(self):
+        if not self._allowed():
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice('/', msg)
+
+        web.header('Referrer-Policy', 'no-referrer')
+        return self._render()
+
+    def POST(self):
+        if not self._allowed():
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice('/', msg)
+
+        web.header('Referrer-Policy', 'no-referrer')
+        qdict = web.input()
+        report_type = str(qdict.get('report_type', 'bug')).strip().lower()
+        issue_title = ' '.join(str(qdict.get('issue_title', '')).split())
+        description = str(qdict.get('description', '')).strip()
+        include_system = qdict.get('include_system', '') == '1'
+
+        if report_type not in self.REPORT_TYPES:
+            return self._render('bug', issue_title, description, include_system,
+                                _('Select a valid report type.'))
+        if not issue_title:
+            return self._render(report_type, issue_title, description, include_system,
+                                _('Enter a short report title.'))
+        if len(issue_title) > FEEDBACK_TITLE_LIMIT:
+            return self._render(report_type, issue_title, description, include_system,
+                                _('The report title is too long.'))
+        if not description:
+            return self._render(report_type, issue_title, description, include_system,
+                                _('Describe the problem, idea, or question.'))
+        if len(description) > FEEDBACK_DESCRIPTION_LIMIT:
+            return self._render(report_type, issue_title, description, include_system,
+                                _('The report description is too long.'))
+
+        report_label, title_prefix = self.REPORT_TYPES[report_type]
+        body = '## Report type\n{}\n\n## Description\n{}'.format(
+            report_label, description
+        )
+
+        if include_system:
+            system_lines = []
+            for key, value in _feedback_system_information():
+                system_lines.append('- **{}:** `{}`'.format(
+                    key.replace('`', "'"), value.replace('`', "'")
+                ))
+            body += '\n\n## OSPy system information\n' + '\n'.join(system_lines)
+
+        body += '\n\n---\nPrepared by the OSPy feedback form. Review before submitting.'
+        github_url = GITHUB_NEW_ISSUE_URL + '?' + urlencode({
+            'title': '[{}] {}'.format(title_prefix, issue_title),
+            'body': body,
+        })
+        raise web.seeother(github_url)
+
 
 class help_page(ProtectedPage):
     """Help page"""

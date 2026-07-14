@@ -18,6 +18,7 @@ OSPy Průvodce webovým rozhraním v češtině
         Vnější IP adresa
         V provozu
         Diagnostika
+    Zpětná vazba (Feedback)
     Programy
         Přidat nový program
         Skupiny programů
@@ -358,6 +359,19 @@ Ve výchozím stavu jsou rozšíření seřazena podle aktuální zátěže CPU 
 Akce **Otevřít** otevře stránku rozšíření. **Restart plugin** restartuje pouze vybrané běžící rozšíření; nerestartuje celé OSPy.
 
 Pokud se zobrazí varování při obnovování, poslední automatické čtení z diagnostického API selhalo nebo vrátilo kontrolovanou chybu. Stávající data mohou zůstat zobrazená do dalšího úspěšného obnovení a varování se po úspěšném obnovení automaticky smaže.
+
+----
+
+# Zpětná vazba (Feedback)
+Tlačítko **Feedback** v hlavičce vlevo od názvu systému otevře stránku pro hlášení chyb, návrhů a dotazů. Stránka je dostupná přihlášenému správci i uživateli; na přihlašovací stránce se tlačítko nezobrazuje.
+
+Vyberte typ hlášení **Bug report** (chyba), **Feature request** (návrh vylepšení) nebo **Question** (dotaz), zadejte stručný název a podrobný popis. Tlačítko **Continue to GitHub** otevře na GitHubu předvyplněné nové Issue. Uživatel se na GitHubu přihlásí, obsah ještě zkontroluje a teprve potom jej odešle. OSPy neukládá přístupový token GitHubu a samo Issue bez tohoto potvrzení nevytváří.
+
+Volba pro přiložení systémových informací je ve výchozím stavu zapnutá a před odesláním ukazuje přesný náhled údajů: verzi a datum OSPy, architekturu, distribuci a verzi operačního systému a verzi Pythonu. Název systému OSPy, jméno obsluhy, IP adresy ani jedinečný identifikátor statistik používání se nepřikládají. Zaškrtnutí lze zrušit a odeslat pouze vlastní text.
+
+Tlačítko **View existing reports** otevře seznam GitHub Issues. Tlačítko **GitHub Discussions** vede přímo do diskusí projektu, které jsou vhodné pro obecné otázky a společné návrhy. Snímky obrazovky a další soubory lze přidat po otevření GitHubu.
+
+Formulář využívá přihlášení a ochranu formulářů OSPy (CSRF). Při přechodu na GitHub se neposílá adresa otevřené stránky OSPy jako HTTP referrer.
 
 ----
 

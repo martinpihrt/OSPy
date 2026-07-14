@@ -91,6 +91,14 @@ def PYTHON_VERSION(stats, info):
     info.append(('python', python))
 
 
+def system_information():
+    """Return the non-identifying platform details used in usage reports."""
+    info = []
+    OPERATING_SYSTEM(None, info)
+    PYTHON_VERSION(None, info)
+    return info
+
+
 def _encode(s):
     if not isinstance(s, bytes):
         if str == bytes:  # Python 2

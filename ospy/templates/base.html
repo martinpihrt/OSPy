@@ -326,7 +326,12 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="header">
-            <div class="title" title=$:{json.dumps(_('Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""} 
+            <div class="title" title=$:{json.dumps(_('Own name for this OpenSprinkler controler. Used for orientation between multiple systems.'), ensure_ascii=False)}>
+            <div class="headerTitleRow">
+                $if content.page != 'login' and session.get('category') in ('admin', 'user'):
+                    <a href="/feedback" class="headerFeedbackButton${' here' if content.page == 'feedback' else ''}" title=$:{json.dumps(_('Report a problem or suggest an improvement'), ensure_ascii=False)}>$_('Feedback')</a>
+                <span class="headerSystemName">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""}</span>
+            </div>
             <p id="Userinfo">
                 $if content.page != 'login':
                     ${get_who_is_operator()}

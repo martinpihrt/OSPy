@@ -18,6 +18,7 @@ Przewodnik po interfejsie webowym OSPy w jezyku polskim
         Zewnętrzny adres IP
         Czas pracy
         Diagnostyka
+    Opinie i zgłoszenia (Feedback)
     Programy
         Dodaj nowy program
         Grupy programów
@@ -347,6 +348,19 @@ Domyślnie wtyczki są sortowane według bieżącego obciążenia CPU od najwyż
 Akcja **Otwórz** otwiera stronę wtyczki. **Restart plugin** restartuje tylko wybraną działającą wtyczkę; nie restartuje całego OSPy.
 
 Jeśli pojawi się ostrzeżenie odświeżania, ostatni automatyczny odczyt z API diagnostyki nie powiódł się albo zwrócił kontrolowany błąd. Istniejące dane mogą pozostać widoczne do następnego udanego odświeżenia, a ostrzeżenie zostanie automatycznie wyczyszczone po udanym odświeżeniu.
+
+----
+
+# Opinie i zgłoszenia (Feedback)
+Przycisk **Feedback** w nagłówku, po lewej stronie nazwy systemu, otwiera stronę do zgłaszania błędów, proponowania ulepszeń i zadawania pytań. Strona jest dostępna dla zalogowanych administratorów i użytkowników; przycisk nie jest wyświetlany na stronie logowania.
+
+Wybierz **Bug report**, **Feature request** lub **Question**, a następnie wpisz krótki tytuł i szczegółowy opis. Przycisk **Continue to GitHub** otwiera wstępnie wypełnione nowe Issue w serwisie GitHub. Użytkownik loguje się do GitHuba, sprawdza treść i wysyła ją z poziomu GitHuba. OSPy nie przechowuje tokenu dostępu do GitHuba i nie tworzy Issue przed tym potwierdzeniem.
+
+Opcja dołączenia informacji o systemie jest domyślnie włączona i przed wysłaniem pokazuje dokładny podgląd: wersję i datę OSPy, architekturę, dystrybucję i wersję systemu operacyjnego oraz wersję Pythona. Nazwa systemu OSPy, nazwa operatora, adresy IP i unikatowy identyfikator statystyk użycia nie są dołączane. Wyłącz tę opcję, aby wysłać tylko własny tekst.
+
+Przycisk **View existing reports** otwiera GitHub Issues projektu. **GitHub Discussions** prowadzi bezpośrednio do dyskusji projektu i nadaje się do ogólnych pytań oraz wspólnych pomysłów. Zrzuty ekranu i inne pliki można dołączyć po otwarciu GitHuba.
+
+Formularz korzysta z istniejącego logowania OSPy i ochrony CSRF. Podczas przejścia do GitHuba adres otwartej strony OSPy nie jest wysyłany jako nagłówek HTTP referrer.
 
 ----
 

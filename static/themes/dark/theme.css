@@ -296,6 +296,11 @@ div.header div.title {
     padding-right:16px;
 }
 
+.headerTitleRow {display:flex; justify-content:flex-end; align-items:center; gap:12px; min-width:0;}
+.headerSystemName {min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.headerFeedbackButton {display:inline-block; flex:0 0 auto; padding:5px 10px; border:1px solid rgba(255,255,255,.9); border-radius:6px; background:rgba(46,57,89,.45); color:#fff; font-size:10pt; font-weight:bold; line-height:1.3; text-decoration:none; text-transform:none;}
+.headerFeedbackButton:hover, .headerFeedbackButton:focus, .headerFeedbackButton.here {background:#fff; color:#303030; text-decoration:none;}
+
 #Userinfo {
     font-size: 10pt;
     color:white;
@@ -580,6 +585,23 @@ span.stationName:last-child:after {
 .twoFactorNotice {color:#7bd37f;}
 .twoFactorQr {display:block; max-width:100%; height:auto; background:#fff;}
 .twoFactorVerifyForm {margin-top:12px;}
+.feedbackPage {box-sizing:border-box; width:min(100%, 900px); padding:12px 14px 18px;}
+.feedbackPage > h2 {margin:0 0 8px;}
+.feedbackForm {display:grid; gap:7px; margin-top:16px; padding:16px; border:3px solid #2E3959; border-radius:12px;}
+.feedbackForm > label:not(.feedbackIncludeSystem) {font-weight:bold; margin-top:4px;}
+.feedbackForm input[type="text"], .feedbackForm select, .feedbackForm textarea {box-sizing:border-box; width:100%; max-width:100%; padding:8px; font:inherit; color:#eee; background:#303030; border:1px solid #777;}
+.feedbackForm textarea {min-height:180px; resize:vertical;}
+.feedbackHint, .feedbackPrivacy {font-size:10pt; color:#bbb;}
+.feedbackError {margin-top:12px; padding:9px 11px; border-radius:6px; background:#532b2f; color:#ffb0b6;}
+.feedbackIncludeSystem {display:flex; align-items:flex-start; gap:8px; margin-top:10px; font-weight:bold;}
+.feedbackIncludeSystem input {margin-top:3px;}
+.feedbackSystemPreview {margin-top:5px; padding:12px; border:1px solid #666; border-radius:8px; background:#303030;}
+.feedbackSystemPreview h3 {margin:0 0 8px;}
+.feedbackSystemPreview table {width:100%; border-collapse:collapse; margin-bottom:8px;}
+.feedbackSystemPreview th, .feedbackSystemPreview td {padding:5px 7px; border:1px solid #666; text-align:left; vertical-align:top;}
+.feedbackSystemPreview th {width:34%;}
+.feedbackActions {display:flex; justify-content:flex-end; flex-wrap:wrap; gap:8px; margin-top:10px;}
+@media (max-width:600px) {.headerTitleRow {gap:6px;}.headerFeedbackButton {padding:4px 7px; font-size:8pt;}.headerSystemName {font-size:12pt;}.feedbackPage {padding:10px 6px 14px;}.feedbackForm {padding:12px;}.feedbackSystemPreview {overflow-x:auto;}.feedbackActions {flex-direction:column-reverse;}.feedbackActions .button {box-sizing:border-box; width:100%; min-height:44px; text-align:center;}}
 .weatherLocationOption .weatherLocationSelection {display:inline-block; margin-left:8px;}
 .weatherMapDialog {width:min(94vw, 760px); box-sizing:border-box; border:1px solid #666; border-radius:12px; padding:16px; color:#eee; background:#303030; box-shadow:0 18px 55px rgba(0,0,0,.4);}
 .weatherMapDialog::backdrop {background:rgba(0,0,0,.6);}

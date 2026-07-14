@@ -22,6 +22,7 @@ urls = [
     '/options', 'ospy.webpages.options_page',
     '/stations', 'ospy.webpages.stations_page',
     '/help', 'ospy.webpages.help_page',
+    '/feedback', 'ospy.webpages.feedback_page',
     '/status.json', 'ospy.webpages.api_status_json',
     '/log.json', 'ospy.webpages.api_log_json',
     '/balance.json', 'ospy.webpages.api_balance_json',

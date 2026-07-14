@@ -18,6 +18,7 @@ OSPy sprievodca webovým rozhraním v slovencine
         Externá IP adresa
         Doba prevádzky
         Diagnostika
+    Spätná väzba (Feedback)
     Programy
         Pridat nový program
         Skupiny programov
@@ -358,6 +359,19 @@ V predvolenom stave sú doplnky zoradené podľa aktuálnej záťaže CPU od naj
 Akcia **Otvoriť** otvorí stránku doplnku. **Restart plugin** reštartuje iba vybraný bežiaci doplnok; nereštartuje celé OSPy.
 
 Ak sa zobrazí varovanie pri obnovení, posledné automatické čítanie z diagnostického API zlyhalo alebo vrátilo kontrolovanú chybu. Existujúce dáta môžu zostať zobrazené do ďalšieho úspešného obnovenia a varovanie sa po úspešnom obnovení automaticky vymaže.
+
+----
+
+# Spätná väzba (Feedback)
+Tlačidlo **Feedback** v hlavičke vľavo od názvu systému otvorí stránku na hlásenie chýb, návrhov na zlepšenie a otázok. Stránka je dostupná prihláseným správcom aj používateľom; na prihlasovacej stránke sa tlačidlo nezobrazuje.
+
+Vyberte **Bug report**, **Feature request** alebo **Question** a potom zadajte stručný názov a podrobný popis. Tlačidlo **Continue to GitHub** otvorí predvyplnené nové Issue na GitHube. Používateľ sa prihlási na GitHub, obsah skontroluje a odošle ho tam. OSPy neukladá prístupový token GitHubu a pred týmto potvrdením Issue nevytvorí.
+
+Možnosť priložiť systémové informácie je predvolene zapnutá a pred odoslaním zobrazí presný náhľad: verziu a dátum OSPy, architektúru, distribúciu a verziu operačného systému a verziu Pythonu. Názov systému OSPy, meno obsluhy, IP adresy ani jedinečný identifikátor štatistík používania sa neprikladajú. Túto možnosť zrušte, ak chcete odoslať iba vlastný text.
+
+Tlačidlo **View existing reports** otvorí GitHub Issues projektu. **GitHub Discussions** vedie priamo do diskusií projektu a je vhodné na všeobecné otázky a spoločné návrhy. Snímky obrazovky a ďalšie súbory možno priložiť po otvorení GitHubu.
+
+Formulár používa existujúce prihlásenie OSPy a ochranu CSRF. Pri prechode na GitHub sa adresa otvorenej stránky OSPy neposiela ako HTTP referrer.
 
 ----
 

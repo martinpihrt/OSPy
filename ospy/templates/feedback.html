@@ -1,0 +1,60 @@
+$def with (report_type, issue_title, description, include_system, system_info, error=None)
+
+$var title: $_('Feedback')
+$var page: feedback
+
+<script>
+jQuery(document).ready(function() {
+    function updateSystemPreview() {
+        jQuery("#feedbackSystemPreview").toggle(jQuery("#includeSystem").is(":checked"));
+    }
+    jQuery("#includeSystem").on("change", updateSystemPreview);
+    updateSystemPreview();
+});
+</script>
+
+<div id="feedback" class="feedbackPage">
+    <h2>$_('Feedback')</h2>
+    <p>$_('Prepare a bug report, improvement suggestion, or question for the OSPy project. GitHub opens with the report filled in so you can review and submit it under your GitHub account.')</p>
+
+    $if error:
+        <p class="feedbackError"><strong>$error</strong></p>
+
+    <form method="post" action="/feedback?${csrf_query()}" class="feedbackForm">
+        $:csrf_input()
+
+        <label for="reportType">$_('Report type')</label>
+        <select id="reportType" name="report_type" required>
+            <option value="bug"${' selected' if report_type == 'bug' else ''}>$_('Bug report')</option>
+            <option value="feature"${' selected' if report_type == 'feature' else ''}>$_('Feature request')</option>
+            <option value="question"${' selected' if report_type == 'question' else ''}>$_('Question')</option>
+        </select>
+
+        <label for="issueTitle">$_('Short title')</label>
+        <input id="issueTitle" name="issue_title" type="text" maxlength="120" value="${issue_title}" required>
+
+        <label for="feedbackDescription">$_('Description')</label>
+        <textarea id="feedbackDescription" name="description" rows="10" maxlength="4000" required>$description</textarea>
+        <p class="feedbackHint">$_('Describe what happened or what should be improved. You can add screenshots and files after GitHub opens.')</p>
+
+        <label class="feedbackIncludeSystem">
+            <input id="includeSystem" name="include_system" type="checkbox" value="1"${' checked' if include_system else ''}>
+            <span>$_('Include non-identifying OSPy system information')</span>
+        </label>
+
+        <div id="feedbackSystemPreview" class="feedbackSystemPreview">
+            <h3>$_('System information included in the report')</h3>
+            <table>
+                $for key, value in system_info:
+                    <tr><th>$key</th><td>$value</td></tr>
+            </table>
+            <p class="feedbackPrivacy">$_('The system name, IP addresses, operator name, and usage-statistics identifier are not included.')</p>
+        </div>
+
+        <div class="feedbackActions">
+            <a href="https://github.com/martinpihrt/OSPy/issues" class="button backup" target="_blank" rel="noopener noreferrer">$_('View existing reports')</a>
+            <a href="https://github.com/martinpihrt/OSPy/discussions" class="button backup" target="_blank" rel="noopener noreferrer">GitHub Discussions</a>
+            <button type="submit" class="button execute">$_('Continue to GitHub')</button>
+        </div>
+    </form>
+</div>
