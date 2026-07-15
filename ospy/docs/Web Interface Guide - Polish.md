@@ -89,6 +89,7 @@ Przewodnik po interfejsie webowym OSPy w jezyku polskim
         Zmiany
         Automatyczne aktualizacje
     Zaloguj
+        Dziennik zdarzeń
         Pobierz dziennik jako
         Wyczyść dziennik
         Usuń rekord E-mail
@@ -556,6 +557,11 @@ Gdy przycisk jest aktywny, to rozszerzenie zostanie automatycznie zaktualizowane
 
 # Zaloguj
 Za pomocą strony "Zaloguj" możemy przeglądać wszystkie logi zapisane w systemie OSPy. Liczbę rekordów ustawia się na stronie „Ustawienia”.
+
+## Dziennik zdarzeń
+Dziennik zdarzeń jest historią operacyjną i audytową oddzieloną zarówno od dziennika pracy stacji, jak i technicznego dziennika debugowania. Rejestruje ingerencje w nawadnianie i zablokowane uruchomienia, zmiany konfiguracji, zdarzenia użytkowników i zabezpieczeń, operacje systemu i wtyczek oraz zdarzenia lub stany czujników. Każdy wpis zawiera datę, godzinę, poziom, kategorię, temat i szczegóły. Poziom jest również oznaczony kolorem: informacja na niebiesko, powodzenie na zielono, ostrzeżenie na pomarańczowo, błąd na czerwono, a zdarzenie krytyczne na ciemnoczerwono. Selektor **Kategoria zdarzeń** pozwala wyświetlić wszystkie zdarzenia albo jedną kategorię. Eksport `events.csv` zawiera kolumny Date, Time, Level, Category, Subject i Status. Te elementy sterujące nie wpływają na istniejące logowanie debugowania ani na jego plik `events.log`.
+
+Ten sam dziennik audytowy zapisuje operacje zmieniające stan wykonane przez uwierzytelnione API, w tym sterowanie stacjami i programami, zmiany konfiguracji, czyszczenie dziennika oraz operacje systemowe. Nieudane uwierzytelnienie API i czasowa blokada prób brute-force pojawiają się w kategorii **Użytkownicy i zabezpieczenia**. Zwykłe odczyty API ani każde udane uwierzytelnienie Basic nie są zapisywane, aby częsty ruch API nie zapełniał dziennika.
 
 ## Pobierz dziennik jako
 Link „Pobierz zapis w formacie Excel log.csv” umożliwia zapisanie zapisu przebiegu nawadniania w postaci pliku csv (program Excel) na komputerze.

@@ -840,6 +840,14 @@ def _bruteforce_failure(username):
             attempt['blocked_until'] = now_ts + BRUTEFORCE_LOCK_SECONDS
         BRUTEFORCE_ATTEMPTS[key] = attempt
 
+
+def bruteforce_blocked(username):
+    """Return whether the current IP and username are temporarily blocked."""
+    key = _bruteforce_key(username)
+    with BRUTEFORCE_LOCK:
+        attempt = BRUTEFORCE_ATTEMPTS.get(key, {})
+        return attempt.get('blocked_until', 0) > time.time()
+
 def _legacy_password_hash(password, salt):
     import hashlib
     m = hashlib.sha256()

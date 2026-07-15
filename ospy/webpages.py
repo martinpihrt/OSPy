@@ -57,6 +57,27 @@ _DIAGNOSTICS_HISTORY_SAMPLE_SECONDS = 60
 GITHUB_NEW_ISSUE_URL = 'https://github.com/martinpihrt/OSPy/issues/new'
 FEEDBACK_TITLE_LIMIT = 120
 FEEDBACK_DESCRIPTION_LIMIT = 4000
+_security_event_times = {}
+
+
+def _save_security_failure(key, subject, status):
+    """Limit repeated unauthenticated events so they cannot flood persistent storage."""
+    current_time = time.time()
+    if current_time - _security_event_times.get(key, 0) < 60:
+        return
+    _security_event_times[key] = current_time
+    if len(_security_event_times) > 500:
+        stale = [item for item, saved in _security_event_times.items()
+                 if current_time - saved > 3600]
+        for item in stale:
+            del _security_event_times[item]
+    logEV.save_events_log(
+        subject,
+        status,
+        id='Login',
+        level='warning',
+        category='security'
+    )
 
 
 def _feedback_system_information():
@@ -591,7 +612,7 @@ class sensor_page(ProtectedPage):
                 if not os.path.isfile(_abs_dir_elog):
                     from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
-                    sensors_timer.update_log(sensor, 'lge', '-')
+                    sensors_timer.update_log(sensor, 'lge', '-', central_event=False)
 
                 try:
                     with open(_abs_dir_slog) as logf:
@@ -809,6 +830,15 @@ class sensor_page(ProtectedPage):
 
             if action == 'enable':
                 sensors[index].enabled = qdict.get('enabled', '0') == '1'
+                logEV.save_events_log(
+                    _('Sensor setting changed'),
+                    (_('User {} enabled sensor {}.') if sensors[index].enabled else
+                     _('User {} disabled sensor {}.')).format(
+                        session.get('visitor'), sensors[index].name),
+                    id='Sensor',
+                    level='info',
+                    category='configuration'
+                )
                 raise web.seeother('/sensors')
 
             if action == 'clear':
@@ -820,6 +850,7 @@ class sensor_page(ProtectedPage):
                 raise web.seeother('/sensors')
 
             if action == 'delete':
+                sensor_name = sensors.get(index).name
                 try: # delete sensor info from footer
                     from ospy.sensors import sensors_timer
                     sensor = sensors.get(index)
@@ -850,17 +881,27 @@ class sensor_page(ProtectedPage):
                     log.debug('webpages.py', traceback.format_exc())
                     pass
 
+                logEV.save_events_log(
+                    _('Sensor deleted'),
+                    _('User {} deleted sensor {}.').format(session.get('visitor'), sensor_name),
+                    id='Sensor',
+                    level='warning',
+                    category='configuration'
+                )
+
                 raise web.seeother('/sensors')
 
         multi_type = -1
         sen_type = -1
 
+        is_new_sensor = False
         try:
             index = int(index)
             sensor = sensors.get(index)
 
         except ValueError:
             sensor = sensors.create_sensors()
+            is_new_sensor = True
 
         if session.get('category') == 'admin':
             if 's_manu' in qdict:
@@ -1209,6 +1250,16 @@ class sensor_page(ProtectedPage):
         if sensor.index < 0 and session['category'] == 'admin':
             sensors.add_sensors(sensor)
 
+        logEV.save_events_log(
+            _('Sensor created') if is_new_sensor else _('Sensor updated'),
+            _('User {} created sensor {}.').format(session.get('visitor'), sensor.name)
+            if is_new_sensor else
+            _('User {} updated sensor {}.').format(session.get('visitor'), sensor.name),
+            id='Sensor',
+            level='info',
+            category='configuration'
+        )
+
         raise web.seeother('/sensors')
 
 
@@ -1233,8 +1284,17 @@ class users_page(ProtectedPage):
 
         qdict = web.input()
         if qdict.get('action', '') == 'delete_all':
+            deleted_count = users.count()
             while users.count() > 0:
                 users.remove_users(users.count()-1)
+            logEV.save_events_log(
+                _('All users deleted'),
+                _('Administrator {} deleted all {} users.').format(
+                    session.get('visitor'), deleted_count),
+                id='Login',
+                level='warning',
+                category='security'
+            )
         raise web.seeother('/users')
 
 
@@ -1273,7 +1333,17 @@ class user_page(ProtectedPage):
         qdict = web.input()
         if qdict.get('action', '') == 'delete':
             try:
-                users.remove_users(int(index))
+                user_index = int(index)
+                user_name = users.get(user_index).name
+                users.remove_users(user_index)
+                logEV.save_events_log(
+                    _('User deleted'),
+                    _('Administrator {} deleted user {}.').format(
+                        session.get('visitor'), user_name),
+                    id='Login',
+                    level='warning',
+                    category='security'
+                )
             except ValueError:
                 pass
             raise web.seeother('/users')
@@ -1329,6 +1399,14 @@ class user_page(ProtectedPage):
             user.password_salt = salt
             user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
             users.add_users(user)
+            logEV.save_events_log(
+                _('User created'),
+                _('Administrator {} created user {} with category {}.').format(
+                    session.get('visitor'), user.name, user.category),
+                id='Login',
+                level='info',
+                category='security'
+            )
 
         raise web.seeother('/users')
 
@@ -1573,7 +1651,7 @@ class login_page(WebPage):
                 if autologin.should_log_login(remembered_login['selector']):
                     report_login()
                     if options.run_logEV:
-                        logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
+                        logEV.save_events_log(_('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login', level='info', category='security')
                     log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
                 raise web.seeother('/', True)
 
@@ -1614,6 +1692,13 @@ class login_page(WebPage):
                     options.two_factor_backup_codes = remaining_codes
             if not valid:
                 server.session['two_factor_attempts'] = attempts + 1
+                _save_security_failure(
+                    'two-factor:{}:{}'.format(
+                        server.session.get('ip'), server.session.get('two_factor_user')),
+                    _('Failed verification'),
+                    _('Invalid two-factor verification for user {} from IP {}.').format(
+                        server.session.get('two_factor_user'), server.session.get('ip'))
+                )
                 return self.core_render.login(
                     my_signin, None, True, method, _('The verification code is incorrect or has expired.'))
 
@@ -1632,13 +1717,19 @@ class login_page(WebPage):
             report_login()
             if options.run_logEV:
                 logEV.save_events_log(_('Login'), _('User {} logged in from IP {} category {}').format(
-                    username, server.session.get('ip'), category), id='Login')
+                    username, server.session.get('ip'), category), id='Login', level='info', category='security')
             log.info('webpages.py', _('User {} logged in').format(username))
             raise web.seeother('/', True)
 
         my_signin.fill(qdict)
 
         if not test_password(qdict.get('password', ''), qdict.get('username', '')):
+            _save_security_failure(
+                'login:{}:{}'.format(server.session.get('ip'), qdict.get('username', '')),
+                _('Failed login'),
+                _('Failed login for user {} from IP {}.').format(
+                    qdict.get('username', ''), server.session.get('ip'))
+            )
             my_signin.note = _('Incorrect username or password, please try again...')
             if options.first_installation:
                 return self.core_render.login(my_signin, options.first_password_hash, False, None, None)
@@ -1681,7 +1772,7 @@ class login_page(WebPage):
                 autologin.revoke_cookie_token()
             report_login()
             if options.run_logEV:
-                logEV.save_events_log( _('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login')
+                logEV.save_events_log(_('Login'), _('User {} logged in from IP {} category {}').format(server.session.get('visitor'), server.session.get('ip'), server.session.get('category')), id='Login', level='info', category='security')
             log.info('webpages.py', _('User {} logged in').format(server.session.get('visitor')))
             raise web.seeother('/', True)
 
@@ -1820,7 +1911,7 @@ class logout_page(WebPage):
         from ospy import server
         try:
             if options.run_logEV:
-                logEV.save_events_log( _('Logout'), _('User {} logged out').format(server.session.get('visitor')), id='Login')
+                logEV.save_events_log(_('Logout'), _('User {} logged out').format(server.session.get('visitor')), id='Login', level='info', category='security')
             log.info('webpages.py', _('User {} logged out').format(server.session.get('visitor')))
             autologin.revoke_cookie_token()
             server.session.kill()
@@ -1872,20 +1963,42 @@ class action_page(ProtectedPage):
                     run_once.clear()
                 log.finish_run(None)
                 stations.clear()
+                logEV.save_events_log(
+                    _('Irrigation stopped'),
+                    _('User {} stopped all stations and active programs.').format(session.get('visitor')),
+                    level='warning',
+                    category='irrigation'
+                )
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice('/', msg)
 
         if scheduler_enabled is not None:
             if session.get('category')  == 'admin' or session.get('category') == 'user':
-                options.scheduler_enabled = scheduler_enabled
+                if options.scheduler_enabled != scheduler_enabled:
+                    options.scheduler_enabled = scheduler_enabled
+                    logEV.save_events_log(
+                        _('Scheduler setting changed'),
+                        (_('User {} enabled the scheduler.') if scheduler_enabled else
+                         _('User {} disabled the scheduler.')).format(session.get('visitor')),
+                        level='info' if scheduler_enabled else 'warning',
+                        category='configuration'
+                    )
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice('/', msg)
 
         if manual_mode is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
-                options.manual_mode = manual_mode
+                if options.manual_mode != manual_mode:
+                    options.manual_mode = manual_mode
+                    logEV.save_events_log(
+                        _('Manual mode changed'),
+                        (_('User {} enabled manual mode.') if manual_mode else
+                         _('User {} disabled manual mode.')).format(session.get('visitor')),
+                        level='info',
+                        category='configuration'
+                    )
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice('/', msg)
@@ -1894,9 +2007,9 @@ class action_page(ProtectedPage):
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 if rain_block == 0:
                     rain_blocks.clear()  # delete all parallel rain blocks (e.g. from CHMI plugin, current loop tank monitor...)
-                    logEV.save_events_log(_('Rain delay'), _('User has removed all rain delays'), id='RainDelay')
+                    logEV.save_events_log(_('Rain delay'), _('User {} removed all rain delays.').format(session.get('visitor')), id='RainDelay', level='success', category='irrigation')
                 else:
-                    logEV.save_events_log(_('Rain delay'), _('User has set a delay {} hours').format(rain_block), id='RainDelay')
+                    logEV.save_events_log(_('Rain delay'), _('User {} set a rain delay of {} hours.').format(session.get('visitor'), rain_block), id='RainDelay', level='warning', category='irrigation')
                 options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=rain_block)
                 stop_onrain()
             else:
@@ -1906,6 +2019,13 @@ class action_page(ProtectedPage):
         if level_adjustment is not None:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.level_adjustment = level_adjustment / 100
+                logEV.save_events_log(
+                    _('Irrigation level changed'),
+                    _('User {} set the global irrigation level to {} percent.').format(
+                        session.get('visitor'), level_adjustment),
+                    level='info',
+                    category='configuration'
+                )
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice('/', msg)
@@ -1913,6 +2033,13 @@ class action_page(ProtectedPage):
         if toggle_temp:
             if session.get('category')== 'admin' or session.get('category') == 'user':
                 options.temp_unit = "F" if options.temp_unit == "C" else "C"
+                logEV.save_events_log(
+                    _('Temperature unit changed'),
+                    _('User {} changed the temperature unit to {}.').format(
+                        session.get('visitor'), options.temp_unit),
+                    level='info',
+                    category='configuration'
+                )
             else:
                 msg = _('You do not have access to this section, ask your system administrator for access.')
                 return self.core_render.notice('/', msg)
@@ -1945,6 +2072,13 @@ class action_page(ProtectedPage):
 
                 log.start_run(new_schedule)
                 stations.activate(new_schedule['station'])
+                logEV.save_events_log(
+                    _('Station started manually'),
+                    _('User {} started station {} manually.').format(
+                        session.get('visitor'), stations.get(sid).name),
+                    level='info',
+                    category='irrigation'
+                )
 
             else:  # If status is off
                 stations.deactivate(sid)
@@ -1952,6 +2086,13 @@ class action_page(ProtectedPage):
                 for interval in active:
                     if interval['station'] == sid:
                         log.finish_run(interval)
+                logEV.save_events_log(
+                    _('Station stopped manually'),
+                    _('User {} stopped station {} manually.').format(
+                        session.get('visitor'), stations.get(sid).name),
+                    level='info',
+                    category='irrigation'
+                )
           else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice('/', msg)
@@ -1982,9 +2123,18 @@ class programs_page(ProtectedPage):
 
         if action == 'runnow' and session.get('category') in ['admin', 'user']:
             index = int(qdict.get('index', -1))
+            program_name = programs[index].name if 0 <= index < programs.count() else str(index + 1)
             programs.run_now(index)
             Timer(0.1, programs.calculate_balances).start()
             report_program_runnow()
+            logEV.save_events_log(
+                _('Program started manually'),
+                _('User {} requested immediate start of program {}.').format(
+                    session.get('visitor'), program_name),
+                id='Programs',
+                level='info',
+                category='irrigation'
+            )
             raise web.seeother('/')
 
         if session.get('category') != 'admin':
@@ -1992,15 +2142,31 @@ class programs_page(ProtectedPage):
             return self.core_render.notice('/', msg)
 
         if action == 'delete_all':
+            deleted_count = programs.count()
             while programs.count() > 0:
                 programs.remove_program(programs.count()-1)
             report_program_deleted()
+            logEV.save_events_log(
+                _('All programs deleted'),
+                _('User {} deleted all {} programs.').format(session.get('visitor'), deleted_count),
+                id='Programs',
+                level='warning',
+                category='configuration'
+            )
 
         elif action == 'delete':
             index = int(qdict.get('index', -1))
+            program_name = programs[index].name if 0 <= index < programs.count() else str(index + 1)
             programs.remove_program(index)
             Timer(0.1, programs.calculate_balances).start()
             report_program_deleted()
+            logEV.save_events_log(
+                _('Program deleted'),
+                _('User {} deleted program {}.').format(session.get('visitor'), program_name),
+                id='Programs',
+                level='warning',
+                category='configuration'
+            )
 
         elif action == 'enable':
             index = int(qdict.get('index', -1))
@@ -2008,12 +2174,29 @@ class programs_page(ProtectedPage):
                 programs[index].enabled = qdict.get('enabled', '0') == '1'
                 Timer(0.1, programs.calculate_balances).start()
                 report_program_toggle()
+                logEV.save_events_log(
+                    _('Program setting changed'),
+                    (_('User {} enabled program {}.') if programs[index].enabled else
+                     _('User {} disabled program {}.')).format(
+                        session.get('visitor'), programs[index].name),
+                    id='Programs',
+                    level='info',
+                    category='configuration'
+                )
 
         elif action == 'copy':
             index = int(qdict.get('index', -1))
+            program_name = programs[index].name if 0 <= index < programs.count() else str(index + 1)
             programs.copy_program(index)
             Timer(0.1, programs.calculate_balances).start()
             report_program_change()
+            logEV.save_events_log(
+                _('Program copied'),
+                _('User {} copied program {}.').format(session.get('visitor'), program_name),
+                id='Programs',
+                level='info',
+                category='configuration'
+            )
 
         elif action == 'move':
             index = int(qdict.get('index', -1))
@@ -2021,8 +2204,16 @@ class programs_page(ProtectedPage):
             report_program_change()
 
         elif action == 'add_group':
-            programs.add_group(qdict.get('group_name', ''))
+            group_name = qdict.get('group_name', '')
+            programs.add_group(group_name)
             report_program_change()
+            logEV.save_events_log(
+                _('Program group created'),
+                _('User {} created program group {}.').format(session.get('visitor'), group_name),
+                id='Programs',
+                level='info',
+                category='configuration'
+            )
 
         elif action == 'rename_group':
             programs.rename_group(qdict.get('group_id', 'default'), qdict.get('group_name', ''))
@@ -2068,7 +2259,9 @@ class programs_page(ProtectedPage):
                         postponement['source_start'].strftime('%Y-%m-%d %H:%M'),
                         postponement['target_start'].strftime('%Y-%m-%d %H:%M')
                     ),
-                    id='Programs'
+                    id='Programs',
+                    level='info',
+                    category='configuration'
                 )
             Timer(0.1, programs.calculate_balances).start()
             report_program_change()
@@ -2087,7 +2280,9 @@ class programs_page(ProtectedPage):
                     _('User {} cancelled postponement of program group {}').format(
                         session.get('visitor'), group['name']
                     ),
-                    id='Programs'
+                    id='Programs',
+                    level='info',
+                    category='configuration'
                 )
             Timer(0.1, programs.calculate_balances).start()
             report_program_change()
@@ -2122,11 +2317,13 @@ class program_page(ProtectedPage):
             return self.core_render.notice('/', msg)
 
         qdict = web.input()
+        is_new_program = False
         try:
             index = int(index)
             program = programs.get(index)
         except ValueError:
             program = programs.create_program()
+            is_new_program = True
 
         qdict['schedule_type'] = int(qdict['schedule_type'])
 
@@ -2193,6 +2390,15 @@ class program_page(ProtectedPage):
 
         Timer(0.1, programs.calculate_balances).start()
         report_program_toggle()
+        logEV.save_events_log(
+            _('Program created') if is_new_program else _('Program updated'),
+            _('User {} created program {}.').format(session.get('visitor'), program.name)
+            if is_new_program else
+            _('User {} updated program {}.').format(session.get('visitor'), program.name),
+            id='Programs',
+            level='info',
+            category='configuration'
+        )
         raise web.seeother('/programs')
 
 
@@ -2222,6 +2428,15 @@ class runonce_page(ProtectedPage):
         if session.get('category')== 'admin' or session.get('category') == 'user':
             run_once.set(station_seconds)
             report_program_toggle()
+            active_stations = len([seconds for seconds in station_seconds.values() if seconds > 0])
+            logEV.save_events_log(
+                _('Run-once program changed'),
+                _('User {} scheduled one-time irrigation for {} stations.').format(
+                    session.get('visitor'), active_stations),
+                id='Programs',
+                level='info',
+                category='irrigation'
+            )
             raise web.seeother('/')
         else:
             msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -2280,12 +2495,24 @@ class plugins_manage_page(ProtectedPage):
         if action == 'disable_all':
             options.enabled_plugins = []
             plugins.start_enabled_plugins()
+            logEV.save_events_log(
+                _('Plug-ins disabled'),
+                _('User {} disabled all plug-ins.').format(session.get('visitor')),
+                level='warning',
+                category='system'
+            )
 
         elif action == 'enable_all':
             for plugin in plugins.available():
                if plugin not in options.enabled_plugins:
                   options.enabled_plugins.append(plugin)
             plugins.start_enabled_plugins()
+            logEV.save_events_log(
+                _('Plug-ins enabled'),
+                _('User {} enabled all available plug-ins.').format(session.get('visitor')),
+                level='info',
+                category='system'
+            )
 
         elif action == 'delete_all':
             from ospy.helpers import del_rw
@@ -2296,6 +2523,12 @@ class plugins_manage_page(ProtectedPage):
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
             options.enabled_plugins = options.enabled_plugins  # Explicit write to save to file
             plugins.start_enabled_plugins()
+            logEV.save_events_log(
+                _('Plug-ins deleted'),
+                _('User {} deleted all plug-ins.').format(session.get('visitor')),
+                level='warning',
+                category='system'
+            )
             raise web.seeother('/plugins_manage')
 
         elif action in ['enable', 'delete'] and plugin is not None and plugin in plugins.available():
@@ -2314,6 +2547,25 @@ class plugins_manage_page(ProtectedPage):
                 from ospy.helpers import del_rw
                 import shutil
                 shutil.rmtree(os.path.join('plugins', plugin), onerror=del_rw)
+
+            if action == 'delete':
+                event_subject = _('Plug-in deleted')
+                event_status = _('User {} deleted plug-in {}.').format(session.get('visitor'), plugin)
+                event_level = 'warning'
+            elif enable:
+                event_subject = _('Plug-in enabled')
+                event_status = _('User {} enabled plug-in {}.').format(session.get('visitor'), plugin)
+                event_level = 'info'
+            else:
+                event_subject = _('Plug-in disabled')
+                event_status = _('User {} disabled plug-in {}.').format(session.get('visitor'), plugin)
+                event_level = 'warning'
+            logEV.save_events_log(
+                event_subject,
+                event_status,
+                level=event_level,
+                category='system'
+            )
 
             raise web.seeother('/plugins_manage')
 
@@ -2362,6 +2614,13 @@ class plugins_install_page(ProtectedPage):
                 source_plugin = plugin if plugin else _('all plugins')
                 log.info('webpages.py', _('Installing plug-in {} from {}').format(source_plugin, source_repo))
                 plugins.checker.install_repo_plugin(source_repo, plugin)
+                logEV.save_events_log(
+                    _('Plug-in installation completed'),
+                    _('User {} installed {} from {}.').format(
+                        session.get('visitor'), source_plugin, source_repo),
+                    level='success',
+                    category='system'
+                )
             else:
                 log.error('webpages.py', _('Invalid plug-in repository index: {}').format(repo))
                 raise web.badrequest()
@@ -2374,8 +2633,21 @@ class plugins_install_page(ProtectedPage):
             log.info('webpages.py', _('Installing custom plug-in from uploaded ZIP: {}').format(filename))
             try:
                 plugins.checker.install_custom_plugin(io.BytesIO(read_limited_upload(zip_file_data)))
+                logEV.save_events_log(
+                    _('Plug-in installation completed'),
+                    _('User {} installed a plug-in from {}.').format(
+                        session.get('visitor'), filename),
+                    level='success',
+                    category='system'
+                )
             except ValueError as err:
                 log.error('webpages.py', str(err))
+                logEV.save_events_log(
+                    _('Plug-in installation failed'),
+                    _('Plug-in installation from {} failed: {}').format(filename, err),
+                    level='error',
+                    category='system'
+                )
                 return self.core_render.notice('/plugins_install', str(err))
 
         self._redirect_back()
@@ -2579,9 +2851,23 @@ class diagnostics_page(ProtectedPage):
             try:
                 data['ok'] = plugins.reload_plugin(module)
                 data['message'] = _('Restart OK') if data['ok'] else _('Restart failed.')
+                logEV.save_events_log(
+                    _('Plug-in restarted') if data['ok'] else _('Plug-in restart failed'),
+                    _('User {} restarted plug-in {}.').format(session.get('visitor'), module)
+                    if data['ok'] else
+                    _('Plug-in {} could not be restarted.').format(module),
+                    level='success' if data['ok'] else 'error',
+                    category='system'
+                )
             except Exception:
                 data['message'] = traceback.format_exc()
                 log.error('webpages.py', data['message'])
+                logEV.save_events_log(
+                    _('Plug-in restart failed'),
+                    _('Plug-in {} could not be restarted.').format(module),
+                    level='error',
+                    category='system'
+                )
         elif action == 'restart':
             data['message'] = _('Plugin is not running.')
 
@@ -2689,11 +2975,13 @@ class log_page(ProtectedPage):
 
         if 'csvEV' in qdict:
             events = logEV.finished_events()
-            data = "Date; Time; Subject; Status\n"
+            data = "Date; Time; Level; Category; Subject; Status\n"
             for interval in events:
                 data += '; '.join([
                     interval['date'],
                     interval['time'],
+                    str(interval['level']),
+                    str(interval['category']),
                     str(interval['subject']),
                     str(interval['status']),
                 ]) + '\n'
@@ -2733,18 +3021,6 @@ class log_page(ProtectedPage):
         elif action == 'clearEV':
             logEV.clear_events()
             raise web.seeother('/log#events-log')
-
-        log_filter_server = get_input(qdict, 'log_filter_server', False, lambda x: True)
-        log_filter_internet = get_input(qdict, 'log_filter_internet', False, lambda x: True)
-        log_filter_rain_sensor = get_input(qdict, 'log_filter_rain_sensor', False, lambda x: True)
-        log_filter_rain_delay = get_input(qdict, 'log_filter_rain_delay', False, lambda x: True)
-        log_filter_login = get_input(qdict, 'log_filter_login', False, lambda x: True)
-
-        options.log_filter_server = log_filter_server
-        options.log_filter_internet = log_filter_internet
-        options.log_filter_rain_sensor = log_filter_rain_sensor
-        options.log_filter_rain_delay = log_filter_rain_delay
-        options.log_filter_login = log_filter_login
 
         watering_records = log.finished_runs()
         email_records = logEM.finished_email()
@@ -2834,6 +3110,13 @@ class options_page(ProtectedPage):
                         options.password_hash = password_hash(qdict['new_password'], options.password_salt)
                         options.first_installation = False
                         autologin.revoke_all()
+                        logEV.save_events_log(
+                            _('Password changed'),
+                            _('User {} changed the administrator password.').format(session.get('visitor')),
+                            id='Login',
+                            level='warning',
+                            category='security'
+                        )
                     else:
                         raise web.seeother('/options?errorCode=pw_mismatch')
                 else:
@@ -2847,21 +3130,46 @@ class options_page(ProtectedPage):
 
         if 'revoke_autologin' in qdict and qdict['revoke_autologin'] == '1':
             autologin.revoke_all()
+            logEV.save_events_log(
+                _('Remembered logins revoked'),
+                _('User {} revoked all remembered logins.').format(session.get('visitor')),
+                id='Login',
+                level='warning',
+                category='security'
+            )
             raise web.seeother('/options')
 
         if 'rbt' in qdict and qdict['rbt'] == '1':
+            logEV.save_events_log(
+                _('System restart requested'),
+                _('User {} requested a Linux system restart.').format(session.get('visitor')),
+                level='warning',
+                category='system'
+            )
             report_rebooted()
             reboot(wait=3) # Linux HW software
             msg = _('The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice('/', msg)
 
         if 'rstrt' in qdict and qdict['rstrt'] == '1':
+            logEV.save_events_log(
+                _('OSPy restart requested'),
+                _('User {} requested an OSPy restart.').format(session.get('visitor')),
+                level='warning',
+                category='system'
+            )
             report_restarted()
             restart(wait=3)    # OSPy software
             msg = _('The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload.')
             return self.core_render.notice('/', msg)
 
         if 'pwrdwn' in qdict and qdict['pwrdwn'] == '1':
+            logEV.save_events_log(
+                _('System shutdown requested'),
+                _('User {} requested a Linux system shutdown.').format(session.get('visitor')),
+                level='warning',
+                category='system'
+            )
             report_poweroff()
             poweroff(wait=15)   # shutll HW system
             msg = _('The system (Linux) is now shutting down... The system must be switched on again by the user (switching off and on your HW device).')
@@ -2886,6 +3194,12 @@ class options_page(ProtectedPage):
 
         save_to_options(qdict)
         report_option_change()
+        logEV.save_events_log(
+            _('System settings updated'),
+            _('User {} saved the system settings.').format(session.get('visitor')),
+            level='info',
+            category='configuration'
+        )
 
         if changing_language:
             log.debug('webpages.py', _('Changing language -> restarting.'))
@@ -2953,6 +3267,13 @@ class stations_page(ProtectedPage):
             Timer(0.1, programs.calculate_balances).start()
 
         report_station_names()
+        logEV.save_events_log(
+            _('Station settings updated'),
+            _('User {} saved settings for {} stations.').format(
+                session.get('visitor'), stations.count()),
+            level='info',
+            category='configuration'
+        )
         raise web.seeother('/')
 
 class feedback_page(ProtectedPage):

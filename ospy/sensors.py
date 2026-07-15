@@ -15,7 +15,7 @@ import json
 # Local imports
 from ospy.options import options, rain_blocks, program_level_adjustments
 from ospy.helpers import now, datetime_string, mkdir_p
-from ospy.log import log, logEM
+from ospy.log import log, logEM, logEV
 from ospy.programs import programs
 from ospy.stations import stations
 from ospy.scheduler import predicted_schedule, combined_schedule
@@ -363,7 +363,8 @@ class _Sensors_Timer(Thread):
 
         return float(sum(a))/len(a)
             
-    def update_log(self, sensor, lg, msg, action='', msg_calculation='', battery=None, rssi=None):
+    def update_log(self, sensor, lg, msg, action='', msg_calculation='', battery=None, rssi=None,
+                   central_event=True):
         """ Update samples and events in logs """
         try:
             kind = 'slog' if lg == 'lgs' else 'elog'   
@@ -465,6 +466,20 @@ class _Sensors_Timer(Thread):
 
             else:                # sensor event log
                 logline["event"] = '{}'.format(msg.encode('utf-8').decode('utf-8'))
+                if central_event:
+                    if msg == _('Now response'):
+                        event_level = 'success'
+                    elif msg in (_('Not response!'), _('Out of order'), _('Probe Error')):
+                        event_level = 'warning'
+                    else:
+                        event_level = 'info'
+                    logEV.save_events_log(
+                        _('Sensor event'),
+                        _('Sensor {}: {}').format(sensor.name, msg),
+                        id='Sensor',
+                        level=event_level,
+                        category='sensors'
+                    )
 
             log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
             if not os.path.isdir(log_dir):

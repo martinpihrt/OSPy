@@ -89,6 +89,7 @@ OSPy Webinterface-Anleitung auf Deutsch
         Änderungen
         Automatische Updates
     Protokoll
+        Ereignisprotokoll
         Protokoll herunterladen als
         Protokoll löschen
         Datensatz E-Mail löschen
@@ -567,6 +568,11 @@ Wenn die Schaltfläche aktiv ist, wird diese Erweiterung automatisch aktualisier
 
 # Protokoll
 Über die Seite „Protokoll“ können wir alle im OSPy-System aufgezeichneten Protokolle einsehen. Die Anzahl der Datensätze wird auf der Seite „Einstellungen“ eingestellt.
+
+## Ereignisprotokoll
+Das Ereignisprotokoll ist eine Betriebs- und Audit-Historie, die sowohl vom Stationslaufprotokoll als auch vom technischen Debug-Protokoll getrennt ist. Es erfasst Eingriffe in die Bewässerung und blockierte Läufe, Konfigurationsänderungen, Benutzer- und Sicherheitsereignisse, System- und Plug-in-Vorgänge sowie Sensorereignisse oder -zustände. Jeder Eintrag zeigt Datum, Uhrzeit, Schweregrad, Kategorie, Betreff und Details. Der Schweregrad wird zusätzlich farblich dargestellt: Information blau, Erfolg grün, Warnung orange, Fehler rot und kritisch dunkelrot. Mit der Auswahl **Ereigniskategorie** können alle Ereignisse oder eine einzelne Kategorie angezeigt werden. Der Export `events.csv` enthält Date, Time, Level, Category, Subject und Status. Die bestehende Debug-Protokollierung und ihre Datei `events.log` werden von diesen Bedienelementen nicht beeinflusst.
+
+Dasselbe Audit-Protokoll erfasst auch zustandsändernde Vorgänge über die authentifizierte API, darunter die Steuerung von Stationen und Programmen, Konfigurationsänderungen, das Löschen von Protokollen und Systemaktionen. Fehlgeschlagene API-Authentifizierungen und temporäre Sperren bei Brute-Force-Versuchen erscheinen unter **Benutzer und Sicherheit**. Normale API-Lesezugriffe und jede erfolgreiche Basic-Authentifizierung werden nicht protokolliert, damit häufiger API-Verkehr das Protokoll nicht füllt.
 
 ## Protokoll herunterladen als
 Über den Link „Datensatz als Excel log.csv herunterladen“ können Sie den Datensatz des Bewässerungslaufs als CSV-Datei (Excel-Programm) auf Ihrem Computer speichern.

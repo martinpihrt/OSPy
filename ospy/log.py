@@ -341,6 +341,36 @@ class _LogEM():
 
 
 # events log
+EVENT_LEVELS = ('info', 'success', 'warning', 'error', 'critical')
+EVENT_CATEGORIES = ('irrigation', 'configuration', 'security', 'system', 'sensors')
+
+_LEGACY_EVENT_CATEGORIES = {
+    'Server': 'system',
+    'Internet': 'system',
+    'RainSensor': 'sensors',
+    'RainDelay': 'irrigation',
+    'Login': 'security',
+    'Programs': 'configuration',
+    'Sensor': 'sensors',
+}
+
+
+def normalize_event_record(record):
+    """Return a display-safe event record, including records saved by older OSPy versions."""
+    result = record.copy()
+    level = str(result.get('level', 'info')).lower()
+    if level not in EVENT_LEVELS:
+        level = 'info'
+
+    category = str(result.get('category', '')).lower()
+    if category not in EVENT_CATEGORIES:
+        category = _LEGACY_EVENT_CATEGORIES.get(result.get('id'), 'system')
+
+    result['level'] = level
+    result['category'] = category
+    return result
+
+
 class _LogEV():
     def __init__(self):
         self._logEM = {
@@ -356,7 +386,7 @@ class _LogEV():
                    name = option['key']
                    if name == 'logged_events':
                       value = options[option['key']]
-                      return(value)
+                      return [normalize_event_record(event) for event in value]
 
         except Exception:
             print_report('log.py', traceback.format_exc())
@@ -383,7 +413,7 @@ class _LogEV():
 
         self._save_logsEV()
 
-    def save_events_log(self, subject, status, id=None):
+    def save_events_log(self, subject, status, id=None, level='info', category=None):
         # example: id='Internet', id='Rain', id='server' or if not selected '-'
         subject_print = subject.encode('utf-8').decode('utf-8')
         status_print = status.encode('utf-8').decode('utf-8')
@@ -392,13 +422,23 @@ class _LogEV():
         else:
             id_print = '-'  
 
+        level_print = str(level).lower()
+        if level_print not in EVENT_LEVELS:
+            level_print = 'info'
+
+        category_print = str(category or '').lower()
+        if category_print not in EVENT_CATEGORIES:
+            category_print = _LEGACY_EVENT_CATEGORIES.get(id_print, 'system')
+
         with self._lock:
             self._logEM['RunEV'].append({
                 'time': datetime.datetime.now().strftime("%H:%M:%S"),
                 'date': datetime.datetime.now().strftime("%Y-%m-%d"),
                 'subject': subject_print,
                 'status': status_print,
-                'id': id_print
+                'id': id_print,
+                'level': level_print,
+                'category': category_print
             })
         
             self._save_logsEV()     # save events

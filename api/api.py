@@ -7,7 +7,7 @@ from ospy.stations import stations
 from ospy.options import options, level_adjustments
 from ospy.programs import programs, ProgramType
 from ospy.runonce import run_once
-from ospy.log import log
+from ospy.log import log, logEV
 from ospy import helpers
 from ospy.sensors import sensors, sensors_timer
 from ospy.helpers import print_report, datetime_string
@@ -18,6 +18,20 @@ import traceback
 import web
 
 import datetime
+
+
+def _api_actor():
+    try:
+        return server.session.get('visitor', '-')
+    except Exception:
+        return '-'
+
+
+def _api_ip():
+    try:
+        return web.ctx.env.get('REMOTE_ADDR', '-')
+    except Exception:
+        return '-'
 
 
 class Stations(object):
@@ -76,9 +90,23 @@ class Stations(object):
         if action == 'start':
             log.debug('api.py',  _('Starting station {} ({})').format(station_id, stations[station_id].name))
             stations.activate(station_id)
+            logEV.save_events_log(
+                _('Station started through API'),
+                _('API user {} started station {} from IP {}.').format(
+                    _api_actor(), stations[station_id].name, _api_ip()),
+                level='info',
+                category='irrigation'
+            )
         elif action == 'stop':
             log.debug('api.py',  _('Stopping station {} ({})').format(station_id, stations[station_id].name))
             stations.deactivate(station_id)
+            logEV.save_events_log(
+                _('Station stopped through API'),
+                _('API user {} stopped station {} from IP {}.').format(
+                    _api_actor(), stations[station_id].name, _api_ip()),
+                level='info',
+                category='irrigation'
+            )
         else:
             log.error('api.py',  _('Unknown station action: {}').format(action))
             raise badrequest()
@@ -94,10 +122,24 @@ class Stations(object):
         if station_id:
             station_id = int(station_id)
             self._dict_to_station(station_id, update)
+            logEV.save_events_log(
+                _('Station updated through API'),
+                _('API user {} updated station {} from IP {}.').format(
+                    _api_actor(), stations[station_id].name, _api_ip()),
+                level='info',
+                category='configuration'
+            )
             return self._station_to_dict(stations[station_id])
         else:
             for sid, upd in enumerate(update):
                 self._dict_to_station(sid, upd)
+            logEV.save_events_log(
+                _('Stations updated through API'),
+                _('API user {} updated {} stations from IP {}.').format(
+                    _api_actor(), len(update), _api_ip()),
+                level='info',
+                category='configuration'
+            )
             return [self._station_to_dict(s) for s in stations]
 
     @auth
@@ -190,6 +232,14 @@ class Programs(object):
             if action == 'runnow':
                 log.debug('api.py',  _('Starting program {} ({})').format(program_id, programs[program_id].name))
                 programs.run_now(program_id)
+                logEV.save_events_log(
+                    _('Program started through API'),
+                    _('API user {} requested immediate start of program {} from IP {}.').format(
+                        _api_actor(), programs[program_id].name, _api_ip()),
+                    id='Programs',
+                    level='info',
+                    category='irrigation'
+                )
             elif action == 'stop':
                 pass  # TODO
             else:
@@ -208,6 +258,14 @@ class Programs(object):
 
             # p.enabled = False
             programs.add_program(p)
+            logEV.save_events_log(
+                _('Program created through API'),
+                _('API user {} created program {} from IP {}.').format(
+                    _api_actor(), p.name, _api_ip()),
+                id='Programs',
+                level='info',
+                category='configuration'
+            )
             return self._program_to_dict(programs.get(p.index))
 
     @auth
@@ -219,6 +277,14 @@ class Programs(object):
             program_id = int(program_id)
             program_data = json.loads(web.data())
             self._dict_to_program(programs[program_id], program_data)
+            logEV.save_events_log(
+                _('Program updated through API'),
+                _('API user {} updated program {} from IP {}.').format(
+                    _api_actor(), programs[program_id].name, _api_ip()),
+                id='Programs',
+                level='info',
+                category='configuration'
+            )
 
             return self._program_to_dict(programs[program_id])
         else:
@@ -230,10 +296,29 @@ class Programs(object):
     def DELETE(self, program_id):
         log.debug('api.py', ('DELETE /programs/{}').format(program_id if program_id else ''))
         if program_id:
-            programs.remove_program(int(program_id))
+            program_index = int(program_id)
+            program_name = programs[program_index].name
+            programs.remove_program(program_index)
+            logEV.save_events_log(
+                _('Program deleted through API'),
+                _('API user {} deleted program {} from IP {}.').format(
+                    _api_actor(), program_name, _api_ip()),
+                id='Programs',
+                level='warning',
+                category='configuration'
+            )
         else:
+            deleted_count = programs.count()
             while programs.count() > 0:
                 programs.remove_program(programs.count()-1)
+            logEV.save_events_log(
+                _('All programs deleted through API'),
+                _('API user {} deleted all {} programs from IP {}.').format(
+                    _api_actor(), deleted_count, _api_ip()),
+                id='Programs',
+                level='warning',
+                category='configuration'
+            )
 
     def OPTIONS(self, program_id):
         set_api_headers('GET, POST, PUT, DELETE, OPTIONS')
@@ -288,15 +373,25 @@ class Options(object):
         log.debug('api.py', 'PUT ' + self.__class__.__name__)
         update = json.loads(web.data())
         all_options = options.get_options()
+        updated_keys = []
         for key, val in update.items():
             if key in all_options and key not in self.EXCLUDED_OPTIONS:
                 try:
                     options[key] = val
+                    updated_keys.append(key)
                 except:
                     log.error('api.py',  _('Error updating {} to {}').format(key, val))
                     raise badrequest('{"error": "Error setting option \'{}\' to \'{}\'"}').format(key, val)
             else:
                 log.debug('api.py', _('Skipping key {}').format(key))
+        if updated_keys:
+            logEV.save_events_log(
+                _('System settings updated through API'),
+                _('API user {} updated settings {} from IP {}.').format(
+                    _api_actor(), ', '.join(sorted(updated_keys)), _api_ip()),
+                level='info',
+                category='configuration'
+            )
         return self.GET()
 
     def OPTIONS(self):
@@ -343,6 +438,13 @@ class Logs(object):
     def DELETE(self):
         log.debug('api.py', 'DELETE ' + self.__class__.__name__)
         log.clear_runs()
+        logEV.save_events_log(
+            _('Station log cleared through API'),
+            _('API user {} cleared the station log from IP {}.').format(
+                _api_actor(), _api_ip()),
+            level='warning',
+            category='configuration'
+        )
 
     def OPTIONS(self):
         set_api_headers('GET, DELETE, OPTIONS')
@@ -379,14 +481,35 @@ class System(object):
 
         if action == 'reboot':
             log.info('api.py',  _('System reboot requested via API'))
+            logEV.save_events_log(
+                _('System restart requested through API'),
+                _('API user {} requested a Linux system restart from IP {}.').format(
+                    _api_actor(), _api_ip()),
+                level='warning',
+                category='system'
+            )
             helpers.reboot()
 
         elif action == 'restart':
             log.info('api.py',  _('OSPy service restart requested via API'))
+            logEV.save_events_log(
+                _('OSPy restart requested through API'),
+                _('API user {} requested an OSPy restart from IP {}.').format(
+                    _api_actor(), _api_ip()),
+                level='warning',
+                category='system'
+            )
             helpers.restart()
 
         elif action == 'poweroff':
             log.info('api.py',  _('System poweroff requested via API'))
+            logEV.save_events_log(
+                _('System shutdown requested through API'),
+                _('API user {} requested a Linux system shutdown from IP {}.').format(
+                    _api_actor(), _api_ip()),
+                level='warning',
+                category='system'
+            )
             helpers.poweroff()
 
         else:
@@ -828,6 +951,14 @@ class Runonce(object):
                         station_seconds[station.index] = 0
                 run_once.set(station_seconds)
                 log.debug('api.py',  _('Runonce station id: {},  run time: {}').format(station_id, station_time))
+                logEV.save_events_log(
+                    _('Run-once irrigation scheduled through API'),
+                    _('API user {} scheduled station {} for {} seconds from IP {}.').format(
+                        _api_actor(), stations[station_id].name, station_time, _api_ip()),
+                    id='Programs',
+                    level='info',
+                    category='irrigation'
+                )
             else:
                 log.error('api.py',  _('Unknown runonce action'))
                 raise badrequest()

@@ -4,10 +4,6 @@ $var title: $_('Log')
 $var page: log
 
 <script>
-function check_filter() {
-    jQuery("#FilterForm").submit();
-}
-
 jQuery(document).ready(function(){
     jQuery(".collapsible h4").click(function(event){
         jQuery(this).parent(".category").toggleClass("expanded").toggleClass("collapsed");
@@ -18,13 +14,100 @@ jQuery(document).ready(function(){
     var section = requestedSection.hasClass("category") ? requestedSection : jQuery(".collapsible").first();
     section.removeClass("collapsed").addClass("expanded");
 
-    jQuery("#filter1").change(check_filter);
-    jQuery("#filter2").change(check_filter);
-    jQuery("#filter3").change(check_filter);
-    jQuery("#filter4").change(check_filter);
-    jQuery("#filter5").change(check_filter);
+    function filterEvents() {
+        var category = jQuery("#event-category").val();
+        var visible = 0;
+        jQuery("#events-table tr[data-category]").each(function(){
+            var show = category === "all" || jQuery(this).attr("data-category") === category;
+            jQuery(this).toggle(show);
+            if (show) {
+                visible += 1;
+            }
+        });
+        jQuery("#visible-event-count").text(visible);
+        jQuery("#events-empty").toggle(visible === 0);
+    }
+
+    jQuery("#event-category").change(filterEvents);
+    filterEvents();
 });
 </script>
+
+<style>
+.event-log-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 12px 0;
+}
+.event-log-filter label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.event-log-filter select {
+    min-width: 250px;
+}
+.event-log-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+.event-date,
+.event-time {
+    white-space: nowrap;
+    width: 1%;
+}
+.event-level {
+    white-space: nowrap;
+    width: 1%;
+}
+.event-level-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-weight: bold;
+}
+.event-level-info {
+    background: #d9ebff;
+    border-color: #9fc7ef;
+    color: #174f83;
+}
+.event-level-success {
+    background: #dff3d8;
+    border-color: #abd49e;
+    color: #28651d;
+}
+.event-level-warning {
+    background: #fff0c2;
+    border-color: #e5c96f;
+    color: #7a5300;
+}
+.event-level-error {
+    background: #ffd6d6;
+    border-color: #e8a0a0;
+    color: #8f1d1d;
+}
+.event-level-critical {
+    background: #8f1d1d;
+    border-color: #651010;
+    color: #ffffff;
+}
+#events-empty {
+    padding: 14px 8px;
+    text-align: center;
+}
+@media (max-width: 700px) {
+    .event-log-filter,
+    .event-log-filter select {
+        width: 100%;
+    }
+}
+</style>
 
 <div id="station-log" class='category collapsible collapsed'><h4>$_('Station log')</h4>
     <div id="log">
@@ -107,49 +190,54 @@ jQuery(document).ready(function(){
     <div id="log">
     <p>$_('Logging'): ${_('Enabled') if options.run_logEV else _('Disabled')}</p>
     <p>$_('Total number of records'): ${len(evrecords)} (${_('no') if options.run_entriesEV==0 else options.run_entriesEV} $_('limit'))</p>
-    <p>$_('Download log') <a href="?csvEV" class="button refresh">$_('events.csv')</a>
-    <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear events log?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
-        $:csrf_input()
-        <input type="hidden" name="action" value="clearEV">
-        <button type="submit" class="button delete danger">$_('Clear Log') $_('Events')</button>
-    </form>
-    </p>
-    <p><br></p>
-    <form name="FilterForm" id="FilterForm" action="/log?${csrf_query()}#events-log" method="post">
-    $:csrf_input()
-    <table border="1" cellpadding="6" cellspacing="0" frame="hsides">
-    <tr><th colspan="2">$_('Filter for events')</th></tr>
-    <tr><td>$_('Show OSPy server')</td><td><input type="checkbox" ${"checked" if options.log_filter_server else ""} name="log_filter_server" id="filter1" title=$:{json.dumps(_(u'Show OSPy server events.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-    </td></tr>
-    <tr><td>$_('Show external IP')</td><td><input type="checkbox" ${"checked" if options.log_filter_internet else ""} name="log_filter_internet" id="filter2" title=$:{json.dumps(_(u'Show external IP events.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-    </td></tr>   
-    <tr><td>$_('Show rain sensor')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_sensor else ""} name="log_filter_rain_sensor" id="filter3" title=$:{json.dumps(_(u'Show rain sensor events.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-    </td></tr>
-    <tr><td>$_('Show rain delay')</td><td><input type="checkbox" ${"checked" if options.log_filter_rain_delay else ""} name="log_filter_rain_delay" id="filter4" title=$:{json.dumps(_(u'Show rain delay events.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-    </td></tr>
-    <tr><td>$_('Show user login')</td><td><input type="checkbox" ${"checked" if options.log_filter_login else ""} name="log_filter_login" id="filter5" title=$:{json.dumps(_(u'Show user login events.'), ensure_ascii=False).encode('utf8').decode('utf-8')}>
-    </td></tr>
-    </table>
-    </form>
+    <div class="event-log-controls">
+        <div class="event-log-filter">
+            <label for="event-category">$_('Event category')</label>
+            <select id="event-category" name="event_category">
+                <option value="all">$_('All events')</option>
+                <option value="irrigation">$_('Irrigation')</option>
+                <option value="configuration">$_('Configuration')</option>
+                <option value="security">$_('Users and security')</option>
+                <option value="system">$_('System and plug-ins')</option>
+                <option value="sensors">$_('Sensors and conditions')</option>
+            </select>
+            <span>$_('Displayed events'): <strong id="visible-event-count">${len(evrecords)}</strong></span>
+        </div>
+        <div class="event-log-actions">
+            <a href="?csvEV" class="button refresh">$_('events.csv')</a>
+            <a href="/log#events-log" class="button refresh">$_('Refresh')</a>
+            <form action="/log" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Clear events log?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                $:csrf_input()
+                <input type="hidden" name="action" value="clearEV">
+                <button type="submit" class="button delete danger">$_('Clear Log') $_('Events')</button>
+            </form>
+        </div>
+    </div>
     <div id="help_container" class="simpleblock">
-    <table class="logList">
+    $ event_level_labels = {'info': _('Information'), 'success': _('Success'), 'warning': _('Warning'), 'error': _('Error'), 'critical': _('Critical')}
+    $ event_category_labels = {'irrigation': _('Irrigation'), 'configuration': _('Configuration'), 'security': _('Users and security'), 'system': _('System and plug-ins'), 'sensors': _('Sensors and conditions')}
+    <table class="logList" id="events-table">
         <tr class="log_rec">
-            <th>$_('Date')</th>
-            <th>$_('Time')</th>
+            <th class="event-date">$_('Date')</th>
+            <th class="event-time">$_('Time')</th>
+            <th class="event-level">$_('Level')</th>
+            <th>$_('Category')</th>
             <th>$_('Subject')</th>
             <th>$_('Status')</th>
         </tr>
         $ odd = 1
         $for interval in reversed(evrecords):
-            $if options.log_filter_server and interval["id"]=="Server" or options.log_filter_internet and interval["id"]=="Internet" or options.log_filter_rain_sensor and interval["id"]=="RainSensor" or options.log_filter_rain_delay and interval["id"]=="RainDelay" or options.log_filter_login and interval["id"]=="Login" or interval["id"]=="-":
-                <tr class="log_rec ${'odd' if odd else 'even'}">
-                    <td align='left'>${interval["date"]}</td>
-                    <td align='left'>${formatTime(interval["time"])}</td>
-                    <td align='left'>${interval["subject"]}</td>
-                    <td align='left'>${interval["status"]}</td>
-                </tr>
-                $ odd = 1 - odd
+            <tr class="log_rec ${'odd' if odd else 'even'}" data-category="${interval['category']}">
+                <td class="event-date" align='left'>${interval["date"]}</td>
+                <td class="event-time" align='left'>${formatTime(interval["time"])}</td>
+                <td class="event-level" align='left'><span class="event-level-badge event-level-${interval['level']}">${event_level_labels[interval['level']]}</span></td>
+                <td align='left'>${event_category_labels[interval['category']]}</td>
+                <td align='left'>${interval["subject"]}</td>
+                <td align='left'>${interval["status"]}</td>
+            </tr>
+            $ odd = 1 - odd
     </table>
+    <div id="events-empty" style="display:none">$_('There are no events in the selected category.')</div>
     </div>
     </div>
 </div>

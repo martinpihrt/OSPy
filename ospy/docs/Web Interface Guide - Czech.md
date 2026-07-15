@@ -89,6 +89,7 @@ OSPy Průvodce webovým rozhraním v češtině
         Změny
         Auto aktualizace
     Záznam
+        Záznam událostí
         Stáhnout záznam jako
         Smazat záznam
         Smazat záznam Email
@@ -568,6 +569,11 @@ Když je tlačítko aktivní, tak se při dostupnosti nové verze rozšíření 
 # Záznam
 Pomocí stránky "Záznam" můžeme zobrazit veškeré protokoly zaznamenané v systému OSPy. Počet záznamů se nastavuje na stránce "Nastavení".
     
+## Záznam událostí
+Záznam událostí je provozní a auditní historie oddělená od záznamu běhu stanic i od technického debug logu. Zaznamenává zásahy do zavlažování a zablokované běhy, změny konfigurace, události uživatelů a zabezpečení, operace systému a rozšíření a události nebo stavy senzorů. Každý záznam obsahuje datum, čas, úroveň, kategorii, předmět a podrobnosti. Úroveň je rozlišena také barvou: informace modře, úspěch zeleně, varování oranžově, chyba červeně a kritická událost tmavě červeně. Pomocí seznamu **Kategorie událostí** lze zobrazit všechny události nebo jednu kategorii. Export `events.csv` obsahuje sloupce Date, Time, Level, Category, Subject a Status. Existující debug protokolování ani jeho soubor `events.log` nejsou těmito ovládacími prvky ovlivněny.
+
+Do stejného auditního záznamu se ukládají také změnové operace provedené přes ověřené API, například ovládání stanic a programů, změny konfigurace, smazání záznamu a systémové operace. Neúspěšná autentizace API a dočasné zablokování při brute-force útoku se zobrazují v kategorii **Uživatelé a zabezpečení**. Běžné čtení z API ani každé úspěšné Basic ověření se nezaznamenává, aby častý API provoz nezaplnil záznam.
+
 ## Stáhnout záznam jako
 Odkaz "Stáhnout záznam jako Excel log.csv" umožní uložit do počítače záznam o běhu zavlažování jako soubor csv (program Excel).
 * Struktura tabulky je: Date, Start Time, Zone, Duration, Program. Data jsou oddělena čárkou.

@@ -89,6 +89,7 @@ OSPy Web Interface Guide in English
         Changes
         Automatic updates
     Log page
+        Events log
         Download log as
         Clear Log
         Clear Log Email
@@ -567,6 +568,11 @@ When the button is active, this extension will automatically be updated when a n
 
 # Log page
 Using the page "Log page" we can view all the logs recorded in the OSPy system. The number of records is set on the "Options page" page.
+
+## Events log
+The Events log is an operational and audit history separate from both the station-run log and the technical debug log. It records irrigation interventions and blocked runs, configuration changes, users and security events, system and plug-in operations, and sensor events or conditions. Each record shows the date, time, severity, category, subject, and details. Severity is also distinguished by color: information is blue, success green, warning amber, error red, and critical dark red. Use the **Event category** selector to show all events or one category. The `events.csv` export contains Date, Time, Level, Category, Subject, and Status. The existing debug logging and its `events.log` file are not affected by these controls.
+
+The same audit log records state-changing operations performed through the authenticated API, including station and program control, configuration changes, log clearing, and system actions. Failed API authentication and temporary brute-force blocking appear under **Users and security**. Routine API reads and each successful Basic authentication are not recorded, preventing high-frequency API traffic from filling the log.
 
 ## Download log as
 The "Download record as Excel log.csv" link allows you to save the record of the irrigation run as a csv file (Excel program) to your computer.

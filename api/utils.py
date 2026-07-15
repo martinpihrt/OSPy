@@ -8,16 +8,49 @@ import time
 import json
 import re
 import traceback
+from threading import Lock
 
 import web
 
 from .errors import badrequest, unauthorized
 
-from ospy.helpers import test_password, print_report
+from ospy.helpers import bruteforce_blocked, test_password, print_report
 from ospy.helpers import verify_csrf
 from ospy.options import options
-from ospy.log import log
+from ospy.log import log, logEV
 from ospy import server
+
+
+_API_AUTH_EVENT_LOCK = Lock()
+_API_AUTH_EVENT_TIMES = {}
+
+
+def _api_request_ip():
+    try:
+        return web.ctx.env.get('REMOTE_ADDR', '-')
+    except Exception:
+        return '-'
+
+
+def _save_api_security_event(key, subject, status, level='warning'):
+    """Write an API security event at most once per key and minute."""
+    current_time = time.time()
+    with _API_AUTH_EVENT_LOCK:
+        if current_time - _API_AUTH_EVENT_TIMES.get(key, 0) < 60:
+            return
+        _API_AUTH_EVENT_TIMES[key] = current_time
+        if len(_API_AUTH_EVENT_TIMES) > 500:
+            stale = [item for item, saved in _API_AUTH_EVENT_TIMES.items()
+                     if current_time - saved > 3600]
+            for item in stale:
+                del _API_AUTH_EVENT_TIMES[item]
+    logEV.save_events_log(
+        subject,
+        status,
+        id='Login',
+        level=level,
+        category='security'
+    )
 
 
 
@@ -140,6 +173,7 @@ def does_json(func):
 
 def authenticate_basic():
     username = password = ''
+    failure_logged = False
     try:
         auth_data = web.ctx.env.get('HTTP_AUTHORIZATION')
         assert auth_data, 'No authentication data provided'
@@ -150,9 +184,33 @@ def authenticate_basic():
         message = message_bytes.decode('ascii')
         username, password = message.split(':', 1)
         log.debug('utils.py',  _('API Auth Attempt with user: {}').format(username))
-        assert test_password(password, username), 'Wrong password'
+        if not test_password(password, username):
+            blocked = bruteforce_blocked(username)
+            if blocked:
+                _save_api_security_event(
+                    'blocked:{}:{}'.format(_api_request_ip(), username.lower()),
+                    _('API authentication blocked'),
+                    _('API authentication for user {} from IP {} was temporarily blocked.').format(
+                        username, _api_request_ip()),
+                    level='error'
+                )
+            else:
+                _save_api_security_event(
+                    'failed:{}:{}'.format(_api_request_ip(), username.lower()),
+                    _('API authentication failed'),
+                    _('API authentication failed for user {} from IP {}.').format(
+                        username, _api_request_ip())
+                )
+            failure_logged = True
+            raise AssertionError('Wrong password')
         return True
     except:
+        if not failure_logged:
+            _save_api_security_event(
+                'invalid:{}:{}'.format(_api_request_ip(), username.lower()),
+                _('API authentication failed'),
+                _('Invalid API authentication request from IP {}.').format(_api_request_ip())
+            )
         log.debug('utils.py',  _('API Unauthorized attempt user: {}').format(username))
         web.header('WWW-Authenticate', 'Basic realm="OSPy"')
         print_report('utils.py', traceback.format_exc())
@@ -199,6 +257,16 @@ def permission(func):
                 assert server.session['category']!='public' ,'Bad permission'
             except:
                 # no or wrong auth provided
+                try:
+                    denied_user = server.session.get('visitor', '-')
+                except Exception:
+                    denied_user = '-'
+                _save_api_security_event(
+                    'denied:{}:{}'.format(_api_request_ip(), denied_user),
+                    _('API authorization denied'),
+                    _('API access was denied for user {} from IP {}.').format(
+                        denied_user, _api_request_ip())
+                )
                 log.debug('utils.py',  _('API permission block.'))
                 print_report('utils.py', traceback.format_exc())
                 raise unauthorized()

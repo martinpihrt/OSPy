@@ -39,33 +39,44 @@ def report_rain_delay_set():      # send rain delay setuped signal
     m, s = divmod(remaining, 60)
     h, m = divmod(m, 60)
     rain_delay_set.send(txt='{}:{}:{}'.format(int(h), int(m), int(s)))
-    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m), int(s)), id='RainDelay') 
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m), int(s)), id='RainDelay', level='warning', category='irrigation')
 
 def report_rain_delay_remove():   # send rain delay removed signal
     rain_delay_remove.send() 
-    logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay')
+    logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay', level='success', category='irrigation')
 
 def report_rain():
     rain_active.send()            # send rain signal
-    logEV.save_events_log(_('Rain sensor'), _('Activated'), id='RainSensor')
+    logEV.save_events_log(_('Rain sensor'), _('Activated'), id='RainSensor', level='warning', category='sensors')
     if options.rain_set_delay:    # if rain delay enabled set these delay
         options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=options.rain_sensor_delay)
-        logEV.save_events_log(_('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay')
+        logEV.save_events_log(_('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay', level='warning', category='irrigation')
 
 def report_no_rain():
     rain_not_active.send()        # send not rain signal
-    logEV.save_events_log(_('Rain sensor'), _('Deactivated'), id=u'RainSensor')
+    logEV.save_events_log(_('Rain sensor'), _('Deactivated'), id=u'RainSensor', level='success', category='sensors')
 
 def report_internet_available():
     internet_available.send()     # send internet available signal
-    logEV.save_events_log(_('Connection'), _('Internet is available (external IP)'), id='Internet')
+    logEV.save_events_log(_('Connection'), _('Internet is available (external IP)'), id='Internet', level='success', category='system')
 
 def report_internet_not_available():
     internet_not_available.send() # send internet not available signal
-    logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet')
+    logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet', level='warning', category='system')
 
 def report_core_30_sec_tick():
     core_30_sec_tick.send()       # send core_30_sec_tick signal
+
+
+def _blocked_reason_text(reason):
+    reasons = {
+        'disabled scheduler': _('the scheduler is disabled'),
+        'rain delay': _('a rain delay is active'),
+        'rain sensor': _('the rain sensor is active'),
+        'cut-off': _('the calculated duration is below the minimum runtime'),
+        'scheduler error': _('the scheduler could not create a valid schedule'),
+    }
+    return reasons.get(reason, str(reason))
 
 pom_last_rain = False             # send signal only if rain change
 pom_last_internet = False         # send signal only if internet change
@@ -397,6 +408,7 @@ class _Scheduler(Thread):
     def __init__(self):
         super(_Scheduler, self).__init__()
         self.daemon = True
+        self._reported_blocked = {}
         #options.add_callback('scheduler_enabled', self._option_cb)
         options.add_callback('manual_mode', self._option_cb)
         options.add_callback('master_relay', self._option_cb)
@@ -497,7 +509,24 @@ class _Scheduler(Thread):
         if not options.manual_mode:
             schedule = predicted_schedule(check_start, check_end)
             for entry in schedule:
-                if entry['start'] <= current_time < entry['end']: 
+                if entry['start'] <= current_time < entry['end']:
+                    if entry['blocked']:
+                        report_key = entry.get('uid', '{}-{}-{}'.format(
+                            entry.get('program'), entry.get('station'), entry.get('start')))
+                        if report_key not in scheduler._reported_blocked:
+                            logEV.save_events_log(
+                                _('Program blocked'),
+                                _('Program {} for station {} was not started because {}.').format(
+                                    entry.get('program_name', '-'),
+                                    stations.get(entry['station']).name,
+                                    _blocked_reason_text(entry['blocked'])
+                                ),
+                                id='Programs',
+                                level='warning',
+                                category='irrigation'
+                            )
+                            scheduler._reported_blocked[report_key] = current_time
+                        continue
                     if rain and stations.get(entry['station']).ignore_rain:
                         if not entry['blocked']:
                             log.start_run(entry)
@@ -506,6 +535,11 @@ class _Scheduler(Thread):
                         if not entry['blocked']:
                             log.start_run(entry)
                             stations.activate(entry['station'])
+
+            stale_reports = [key for key, reported in scheduler._reported_blocked.items()
+                             if current_time - reported > datetime.timedelta(days=2)]
+            for key in stale_reports:
+                del scheduler._reported_blocked[key]
                
 
 

@@ -89,6 +89,7 @@ OSPy sprievodca webovým rozhraním v slovencine
         Zmeny
         Automatické aktualizácie
     Denník
+        Denník udalostí
         Stiahnuť denník udalostí ako
         Vymazať denník
         Zmazať záznam Email
@@ -567,6 +568,11 @@ Keď je tlačidlo aktívne, tak sa pri dostupnosti novej verzie rozšírenia aut
 
 # Denník
 Pomocou stránky "Denník" môžeme zobraziť všetky protokoly zaznamenané v systéme OSPy. Počet záznamov sa nastavuje na stránke "Nastavenia".
+
+## Denník udalostí
+Denník udalostí je prevádzková a auditná história oddelená od denníka behov staníc aj od technického debug denníka. Zaznamenáva zásahy do zavlažovania a zablokované behy, zmeny konfigurácie, udalosti používateľov a zabezpečenia, operácie systému a rozšírení a udalosti alebo stavy senzorov. Každý záznam obsahuje dátum, čas, úroveň, kategóriu, predmet a podrobnosti. Úroveň je rozlíšená aj farbou: informácia modrou, úspech zelenou, varovanie oranžovou, chyba červenou a kritická udalosť tmavočervenou. Pomocou zoznamu **Kategória udalostí** možno zobraziť všetky udalosti alebo jednu kategóriu. Export `events.csv` obsahuje stĺpce Date, Time, Level, Category, Subject a Status. Existujúce debug protokolovanie ani jeho súbor `events.log` nie sú týmito ovládacími prvkami ovplyvnené.
+
+Do toho istého auditného denníka sa ukladajú aj operácie meniace stav vykonané cez overené API, napríklad ovládanie staníc a programov, zmeny konfigurácie, vymazanie denníka a systémové operácie. Neúspešná autentifikácia API a dočasné zablokovanie brute-force pokusov sa zobrazujú v kategórii **Používatelia a zabezpečenie**. Bežné čítanie z API ani každé úspešné Basic overenie sa nezaznamenáva, aby častá API prevádzka nezaplnila denník.
 
 ## Stiahnuť denník udalostí ako
 Odkaz "Stiahnuť záznam ako Excel log.csv" umožní uložiť do počítača záznam o behu zavlažovania ako súbor csv (program Excel).

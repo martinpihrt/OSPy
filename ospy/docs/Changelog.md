@@ -3,6 +3,13 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 15 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Expanded the user-facing Events log without changing the existing technical debug log. Event records now carry a backward-compatible severity and category, use colored textual severity badges, and can be filtered with a single category selector for irrigation, configuration, users and security, system and plug-ins, or sensors and conditions. Date and time columns no longer wrap, old saved records are normalized for display, and `events.csv` now includes Level and Category. Added operational and audit events for manual irrigation actions, blocked scheduled runs and their reasons, program and station configuration, login and two-factor failures with write throttling, user and password administration, system restart and shutdown requests, plug-in management and restart failures, and configured sensor events. Fixed previously saved program-group events being hidden by the old fixed checkbox filters. Documented the expanded Events log in all seven language Web Interface Guides.
+
+Extended the Events log to authenticated API activity. Failed and temporarily blocked API authentication attempts are throttled and recorded as user/security warnings or errors, while state-changing API requests record station and program control, program and station configuration, system-option changes, station-log clearing, run-once scheduling, and restart or shutdown requests in their corresponding categories. Routine reads and successful per-request Basic authentication are intentionally not logged, preventing normal API polling from flooding persistent storage. Updated all seven language Web Interface Guides.
+
 July 14 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

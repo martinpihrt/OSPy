@@ -333,7 +333,7 @@ def start():
 
     print_report('server.py', _('OSPy is ready'))
     log.debug('server.py', _('OSPy is ready'))
-    logEV.save_events_log( _('Server'), _('Starting'), id='Server')
+    logEV.save_events_log(_('Server'), _('Starting'), id='Server', level='success', category='system')
 
     try:
         __server.start()
@@ -347,7 +347,7 @@ def close_sessions():
         if sessions is not None:
             try:
                 log.debug('server.py', _('OSPy is closing, saving sessions.'))
-                logEV.save_events_log(_('Server'), _('Stopping'), id='Server')
+                logEV.save_events_log(_('Server'), _('Stopping'), id='Server', level='info', category='system')
                 log.debug('server.py', _('Closing shelve database.'))
                 sessions.close()
                 sessions = None
@@ -394,7 +394,7 @@ def stop():
     except Exception:
         log.debug('server.py', traceback.format_exc())
     if __server is not None:
-        logEV.save_events_log( _('Server'), _('Stopping'), id='Server')
+        logEV.save_events_log(_('Server'), _('Stopping'), id='Server', level='info', category='system')
         __server.stop()
         __server = None
         close_sessions()
