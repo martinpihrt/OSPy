@@ -10,6 +10,8 @@ Expanded the user-facing Events log without changing the existing technical debu
 
 Extended the Events log to authenticated API activity. Failed and temporarily blocked API authentication attempts are throttled and recorded as user/security warnings or errors, while state-changing API requests record station and program control, program and station configuration, system-option changes, station-log clearing, run-once scheduling, and restart or shutdown requests in their corresponding categories. Routine reads and successful per-request Basic authentication are intentionally not logged, preventing normal API polling from flooding persistent storage. Updated all seven language Web Interface Guides.
 
+Updated the Czech OSPy translation.
+
 July 14 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
