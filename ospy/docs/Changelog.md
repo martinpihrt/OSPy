@@ -34,6 +34,8 @@ Diagnostics now opens a red error dialog when a system component or enabled plug
 
 Plug-ins with an available update are now highlighted across their entire Plug-in management row with a pulsing yellow background and a separate **Update available** badge. Reduced-motion browser settings keep the highlight visible without animation.
 
+Refined the Diagnostics plug-in table for translated interfaces. It now uses smaller consistent typography, balanced fixed column widths and compact spacing. Informational health, compatibility and pre-activation states use flat lightly colored labels with a status border instead of button-like badges, while actual actions remain visually distinct buttons.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

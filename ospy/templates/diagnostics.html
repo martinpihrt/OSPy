@@ -463,19 +463,19 @@ jQuery(document).ready(function(){
         var pluginHealthLabel = pluginHealth.status === "unknown" && pluginHealth.summary ?
             pluginHealth.summary : healthLabel(pluginHealth.status || "unknown");
         var healthDetails = pluginHealth.details ? '<details data-detail="health"><summary>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + escapeHtml(pluginHealth.details) + '</pre></details>' : '';
-        var healthCell = '<span class="healthBadge health-' + escapeHtml(pluginHealth.status || "unknown") + '">' +
+        var healthCell = '<span class="healthBadge diagnosticState health-' + escapeHtml(pluginHealth.status || "unknown") + '">' +
             escapeHtml(pluginHealthLabel) + '</span>' +
-            (pluginHealth.summary && pluginHealth.summary !== pluginHealthLabel ? '<br><small>' + escapeHtml(pluginHealth.summary) + '</small>' : '') +
+            (pluginHealth.summary && pluginHealth.summary !== pluginHealthLabel ? '<div class="diagnosticSecondary">' + escapeHtml(pluginHealth.summary) + '</div>' : '') +
             healthDetails;
         var compatibilityStatus = compatibility.status === "legacy" ? "unknown" : (compatibility.status || "unknown");
         var compatibilityDetails = (compatibility.errors || []).concat(compatibility.warnings || []);
-        var compatibilityCell = '<span class="healthBadge health-' + escapeHtml(compatibilityStatus) + '">' +
+        var compatibilityCell = '<span class="healthBadge diagnosticState health-' + escapeHtml(compatibilityStatus) + '">' +
             escapeHtml(compatibility.summary || "-") + '</span>' +
-            (compatibilityDetails.length ? '<br><small>' + escapeHtml(compatibilityDetails.join("; ")) + '</small>' : '');
+            (compatibilityDetails.length ? '<div class="diagnosticSecondary">' + escapeHtml(compatibilityDetails.join("; ")) + '</div>' : '');
         var preflightDetails = (preflight.errors || []).concat(preflight.warnings || []);
-        var preflightCell = '<span class="healthBadge health-' + escapeHtml(preflight.status || "unknown") + '">' +
+        var preflightCell = '<span class="healthBadge diagnosticState health-' + escapeHtml(preflight.status || "unknown") + '">' +
             escapeHtml(preflight.summary || "-") + '</span>' +
-            (preflightDetails.length ? '<br><small>' + escapeHtml(preflightDetails.join("; ")) + '</small>' : '');
+            (preflightDetails.length ? '<div class="diagnosticSecondary">' + escapeHtml(preflightDetails.join("; ")) + '</div>' : '');
         var openButton = plugin.link ? '<a class="button open" href="' + plugin.link + '">' + $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
         var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + restartPluginLabel + '</button>' : '';
         var error = plugin.last_error ? '<details data-detail="error"><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
@@ -494,18 +494,18 @@ jQuery(document).ready(function(){
         var cpuCell = '<span>' + fmt(plugin.cpu_percent, ' %') + '</span> <button type="button" class="button submit pluginHistory" data-plugin="' + escapeHtml(plugin.module) + '">' + historyLabel + '</button>';
 
         return '<tr data-plugin="' + escapeHtml(plugin.module) + '">' +
-            '<td><b>' + escapeHtml(plugin.name || plugin.module) + '</b>' +
+            '<td class="pluginIdentity"><span class="diagnosticPluginName">' + escapeHtml(plugin.name || plugin.module) + '</span>' +
             (plugin.version ? ' <small>v' + escapeHtml(plugin.version) + '</small>' : '') +
             '<br><small>' + escapeHtml(plugin.module) + '</small></td>' +
-            '<td>' + state + '<br><small>' + enabled + '</small></td>' +
-            '<td>' + healthCell + '</td>' +
-            '<td>' + compatibilityCell + '</td>' +
-            '<td>' + preflightCell + '</td>' +
-            '<td>' + cpuCell + '</td>' +
-            '<td>' + fmt(plugin.cpu_seconds, ' s') + '</td>' +
-            '<td>' + threads + '</td>' +
-            '<td>' + fmt(plugin.started_text, '') + '<br><small>' + fmt(plugin.last_restart, '') + '</small></td>' +
-            '<td>' + plugin.restarts + '</td>' +
+            '<td class="pluginState">' + state + '<br><small>' + enabled + '</small></td>' +
+            '<td class="pluginHealth">' + healthCell + '</td>' +
+            '<td class="pluginCompatibility">' + compatibilityCell + '</td>' +
+            '<td class="pluginPreflight">' + preflightCell + '</td>' +
+            '<td class="pluginCpu">' + cpuCell + '</td>' +
+            '<td class="pluginCpuTotal">' + fmt(plugin.cpu_seconds, ' s') + '</td>' +
+            '<td class="pluginThreads">' + threads + '</td>' +
+            '<td class="pluginStarted">' + fmt(plugin.started_text, '') + '<br><small>' + fmt(plugin.last_restart, '') + '</small></td>' +
+            '<td class="pluginRestarts">' + plugin.restarts + '</td>' +
             '<td class="pluginActions">' + openButton + ' ' + restartButton + error + '</td>' +
             '</tr>';
     }
@@ -681,25 +681,35 @@ jQuery(document).ready(function(){
         }
         .healthBadge {
             display: inline-block;
-            min-width: 92px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            text-align: center;
-            color: #ffffff;
-            font-weight: bold;
+            max-width: 100%;
+            padding: 3px 6px;
+            border: 0;
+            border-left: 4px solid;
+            border-radius: 2px;
+            text-align: left;
+            font-weight: normal;
+            line-height: 1.25;
             box-sizing: border-box;
         }
         .healthBadge.health-ok {
-            background: #2f8b2f;
+            border-left-color: #2f8b2f;
+            background: #e7f3e7;
+            color: #1f6322;
         }
         .healthBadge.health-warning {
-            background: #d07800;
+            border-left-color: #d07800;
+            background: #fff1d7;
+            color: #754600;
         }
         .healthBadge.health-error {
-            background: #9d1c24;
+            border-left-color: #9d1c24;
+            background: #f9e3e5;
+            color: #7d1921;
         }
         .healthBadge.health-unknown {
-            background: #687080;
+            border-left-color: #687080;
+            background: #eceef2;
+            color: #4f5662;
         }
         .healthDetails, .healthUpdated {
             margin-top: 4px;
@@ -713,6 +723,61 @@ jQuery(document).ready(function(){
         #diagnostics .pluginDiagnosticsTable td {
             overflow-wrap: anywhere;
             word-break: break-word;
+        }
+        #diagnostics .pluginDiagnosticsTable {
+            min-width: 1180px;
+            table-layout: fixed;
+            font-family: inherit;
+            font-size: 0.82em;
+            line-height: 1.25;
+        }
+        #diagnostics .pluginDiagnosticsTable th {
+            padding: 4px 5px;
+            font-family: inherit;
+            font-size: 0.96em;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        #diagnostics .pluginDiagnosticsTable td {
+            padding: 4px 5px;
+            font-family: inherit;
+            font-weight: normal;
+        }
+        #diagnostics .pluginDiagnosticsTable small {
+            font-family: inherit;
+            font-size: 0.86em;
+            font-weight: normal;
+            line-height: 1.2;
+        }
+        #diagnostics .diagnosticPluginName {
+            font-weight: 600;
+        }
+        #diagnostics .diagnosticState {
+            font-family: inherit;
+            font-size: 0.92em;
+        }
+        #diagnostics .diagnosticSecondary {
+            margin-top: 3px;
+            font-size: 0.86em;
+            font-weight: normal;
+            line-height: 1.2;
+        }
+        #diagnostics .pluginDiagnosticsTable summary {
+            font-family: inherit;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+        #diagnostics .pluginDiagnosticsTable .button {
+            font-family: inherit;
+            font-size: 0.88em;
+            white-space: nowrap;
+        }
+        #diagnostics .pluginDiagnosticsTable .pluginHistory {
+            margin: 3px 0 0 0;
+        }
+        #diagnostics .pluginDiagnosticsTable .pluginActions {
+            overflow-wrap: normal;
+            word-break: normal;
         }
         #diagnostics .pluginDiagnosticsTable details {
             max-width: 100%;
@@ -886,6 +951,19 @@ jQuery(document).ready(function(){
 
     <div class="simpleblock diagnosticsCard diagnosticsScroll">
         <table id="diagnosticsPlugins" class="diagnosticsTable pluginDiagnosticsTable">
+            <colgroup>
+                <col style="width: 13%;">
+                <col style="width: 6%;">
+                <col style="width: 12%;">
+                <col style="width: 11%;">
+                <col style="width: 9%;">
+                <col style="width: 7%;">
+                <col style="width: 6%;">
+                <col style="width: 7%;">
+                <col style="width: 8%;">
+                <col style="width: 5%;">
+                <col style="width: 16%;">
+            </colgroup>
             <thead>
                 <tr>
                     <th>$_('Plugin')</th>
