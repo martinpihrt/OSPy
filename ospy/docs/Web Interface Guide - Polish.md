@@ -527,6 +527,8 @@ Kliknięcie przycisku „Zarządzaj” spowoduje otwarcie okna menedżera rozsze
 
 Wtyczka może zawierać opcjonalny plik `plugin.json` z nazwą, wersją, opisem, autorem, stroną domową i licencją. Menedżer wyświetla te metadane, jeśli są dostępne. Starsze wtyczki bez manifestu pozostają zgodne, a OSPy odczytuje ich nazwę z `__init__.py`; nieprawidłowy manifest jest bezpiecznie ignorowany.
 
+Przed aktywacją OSPy sprawdza zadeklarowane wersje OSPy i Pythona, wymagane moduły Pythona, obsługiwane platformy, dostępność GPIO/I²C oraz konflikty z włączonymi wtyczkami, pinami GPIO lub adresami I²C. Problem blokujący uniemożliwia aktywację, a opcja Włącz wszystko pomija daną wtyczkę. Zarządzanie wtyczkami i Diagnostyka pokazują szczegóły oraz zadeklarowane uprawnienia do sieci, plików, I²C, GPIO, poczty e-mail, podprocesów lub systemu. Uprawnienia informują administratora; nie są izolowanym sandboxem systemu operacyjnego.
+
 ## Zainstaluj nową wtyczkę
 
 Po kliknięciu przycisku „Zainstaluj nową wtyczkę” otworzy się okno zdalnego repozytorium, w którym możemy wybrać dostępne rozszerzenia do zainstalowania w systemie OSPy oraz zapoznać się z ogólnymi informacjami na temat rozszerzeń.

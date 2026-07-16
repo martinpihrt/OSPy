@@ -3,6 +3,7 @@ import traceback
 import re
 import sys
 import json
+import importlib.util
 from os import path
 import types
 import threading
@@ -22,6 +23,9 @@ PLUGIN_HEALTH_TIMEOUT = 1.0
 PLUGIN_MANIFEST_FILE = 'plugin.json'
 PLUGIN_MANIFEST_MAX_BYTES = 64 * 1024
 PLUGIN_MANIFEST_SCHEMA_VERSION = 1
+PLUGIN_PERMISSIONS = {
+    'network', 'files', 'i2c', 'gpio', 'email', 'subprocess', 'system'
+}
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
 
@@ -256,6 +260,7 @@ def plugin_diagnostics():
             plugin = __running.get(module)
             entry = __plugin_runtime.get(module, {})
             manifest = plugin_manifest(module)
+            compatibility = plugin_compatibility(module)
             threads = []
             total_cpu = 0.0
             cpu_known = False
@@ -296,6 +301,7 @@ def plugin_diagnostics():
                 'menu': getattr(plugin, 'MENU', None) if plugin is not None else plugin_name_menu(module),
                 'manifest': manifest,
                 'version': manifest.get('version', ''),
+                'compatibility': compatibility,
                 'running': module in running_modules,
                 'enabled': module in options.enabled_plugins,
                 'link': link,
@@ -965,6 +971,215 @@ def plugin_manifest(plugin):
     return dict(__manifest_cache[plugin])
 
 
+def _version_parts(value):
+    """Return a comparison-friendly numeric version tuple."""
+    if value is None:
+        return ()
+    parts = re.findall(r'\d+', str(value))
+    return tuple(int(part) for part in parts[:4])
+
+
+def _version_in_range(current, constraints):
+    if not isinstance(constraints, dict):
+        return True
+    current_parts = _version_parts(current)
+    minimum = _version_parts(constraints.get('min'))
+    maximum = _version_parts(constraints.get('max'))
+    if minimum and current_parts[:len(minimum)] < minimum:
+        return False
+    if maximum and current_parts[:len(maximum)] > maximum:
+        return False
+    return True
+
+
+def _manifest_list(value):
+    if isinstance(value, list):
+        return value
+    return []
+
+
+def _hardware_manifest(manifest):
+    hardware = manifest.get('hardware', {})
+    if isinstance(hardware, list):
+        return {'requires': hardware}
+    return hardware if isinstance(hardware, dict) else {}
+
+
+def _normalized_resource(value):
+    if isinstance(value, int):
+        return str(value)
+    return str(value).strip().lower()
+
+
+def plugin_compatibility(module, enabled_modules=None):
+    """Validate a manifest against this OSPy installation without importing it."""
+    manifest = plugin_manifest(module)
+    if not manifest:
+        return {
+            'status': 'legacy',
+            'compatible': True,
+            'summary': _('Legacy plug-in without manifest.'),
+            'errors': [],
+            'warnings': [],
+            'permissions': [],
+        }
+
+    from ospy import version
+    from ospy.helpers import determine_platform
+
+    errors = []
+    warnings = []
+    if not _version_in_range(version.ver_str, manifest.get('ospy')):
+        errors.append(
+            _('OSPy version {} is outside the supported range.').format(
+                version.ver_str
+            )
+        )
+    python_version = '.'.join(str(part) for part in sys.version_info[:3])
+    if not _version_in_range(python_version, manifest.get('python')):
+        errors.append(
+            _('Python version {} is outside the supported range.').format(
+                python_version
+            )
+        )
+
+    for requirement in _manifest_list(manifest.get('requirements')):
+        if isinstance(requirement, str):
+            module_name = requirement
+            required = True
+        elif isinstance(requirement, dict):
+            module_name = requirement.get('module') or requirement.get('name')
+            required = requirement.get('required', True) is not False
+        else:
+            warnings.append(_('Invalid Python requirement declaration.'))
+            continue
+        if not module_name or not isinstance(module_name, str):
+            warnings.append(_('Invalid Python requirement declaration.'))
+            continue
+        try:
+            available_module = importlib.util.find_spec(module_name) is not None
+        except (ImportError, AttributeError, ValueError):
+            available_module = False
+        if not available_module:
+            message = _('Python module {} is not installed.').format(module_name)
+            (errors if required else warnings).append(message)
+
+    hardware = _hardware_manifest(manifest)
+    platform_name = determine_platform() or ('windows' if os.name == 'nt' else 'linux')
+    allowed_platforms = [
+        _normalized_resource(item)
+        for item in _manifest_list(hardware.get('platforms'))
+    ]
+    platform_aliases = {
+        'pi': {'pi', 'raspberry_pi', 'raspberry-pi', 'linux'},
+        'bo': {'bo', 'beaglebone', 'beaglebone_black', 'linux'},
+        'nt': {'nt', 'windows'},
+        'windows': {'nt', 'windows'},
+        'linux': {'linux'},
+    }
+    current_platforms = platform_aliases.get(platform_name, {platform_name})
+    if allowed_platforms and not current_platforms.intersection(allowed_platforms):
+        errors.append(
+            _('This plug-in does not support platform {}.').format(platform_name)
+        )
+
+    hardware_requirements = {
+        _normalized_resource(item)
+        for item in _manifest_list(hardware.get('requires'))
+    }
+    if 'gpio' in hardware_requirements and platform_name not in ('pi', 'bo'):
+        errors.append(_('Required GPIO hardware is not available.'))
+    if 'i2c' in hardware_requirements:
+        i2c_available = (
+            importlib.util.find_spec('smbus') is not None or
+            importlib.util.find_spec('smbus2') is not None or
+            (os.name == 'posix' and os.path.exists('/dev/i2c-1'))
+        )
+        if not i2c_available:
+            errors.append(_('Required I2C support is not available.'))
+
+    permissions = [
+        _normalized_resource(item)
+        for item in _manifest_list(manifest.get('permissions'))
+    ]
+    unknown_permissions = sorted(set(permissions) - PLUGIN_PERMISSIONS)
+    if unknown_permissions:
+        warnings.append(
+            _('Unknown plug-in permissions') + ': ' + ', '.join(unknown_permissions)
+        )
+
+    if enabled_modules is None:
+        from ospy.options import options
+        enabled_modules = list(options.enabled_plugins)
+    enabled_modules = set(enabled_modules)
+    conflicts = manifest.get('conflicts', {})
+    if isinstance(conflicts, list):
+        conflicts = {'plugins': conflicts}
+    explicit_conflicts = {
+        str(item) for item in _manifest_list(conflicts.get('plugins'))
+    } if isinstance(conflicts, dict) else set()
+    active_conflicts = sorted(explicit_conflicts.intersection(enabled_modules) - {module})
+    if active_conflicts:
+        errors.append(
+            _('Conflicting plug-ins are enabled') + ': ' + ', '.join(active_conflicts)
+        )
+
+    gpio = {
+        _normalized_resource(item)
+        for item in _manifest_list(hardware.get('gpio'))
+    }
+    i2c = {
+        _normalized_resource(item)
+        for item in _manifest_list(hardware.get('i2c'))
+    }
+    for other in sorted(enabled_modules - {module}):
+        other_manifest = plugin_manifest(other)
+        if not other_manifest:
+            continue
+        other_conflicts = other_manifest.get('conflicts', {})
+        if isinstance(other_conflicts, list):
+            other_conflicts = {'plugins': other_conflicts}
+        other_plugin_conflicts = {
+            str(item) for item in _manifest_list(other_conflicts.get('plugins'))
+        } if isinstance(other_conflicts, dict) else set()
+        if module in other_plugin_conflicts:
+            errors.append(_('Conflicting plug-in is enabled') + ': ' + other)
+        other_hardware = _hardware_manifest(other_manifest)
+        other_gpio = {
+            _normalized_resource(item)
+            for item in _manifest_list(other_hardware.get('gpio'))
+        }
+        other_i2c = {
+            _normalized_resource(item)
+            for item in _manifest_list(other_hardware.get('i2c'))
+        }
+        shared_gpio = sorted(gpio.intersection(other_gpio))
+        shared_i2c = sorted(i2c.intersection(other_i2c))
+        if shared_gpio:
+            errors.append(
+                _('GPIO conflict with {}').format(other) + ': ' + ', '.join(shared_gpio)
+            )
+        if shared_i2c:
+            errors.append(
+                _('I2C conflict with {}').format(other) + ': ' + ', '.join(shared_i2c)
+            )
+
+    status = 'error' if errors else ('warning' if warnings else 'ok')
+    return {
+        'status': status,
+        'compatible': not errors,
+        'summary': (
+            _('Compatibility problems found.')
+            if errors else (
+                _('Compatible with warnings.') if warnings else _('Compatible.')
+            )
+        ),
+        'errors': errors,
+        'warnings': warnings,
+        'permissions': permissions,
+    }
+
+
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):
@@ -1126,6 +1341,13 @@ def start_plugin(module):
 
     plugin_n = module
     try:
+        compatibility = plugin_compatibility(module)
+        if not compatibility['compatible']:
+            raise RuntimeError(
+                _('Plug-in compatibility check failed') + ': ' +
+                '; '.join(compatibility['errors'])
+            )
+
         _clear_plugin_caches(module)
         _unload_plugin_modules(module)
 

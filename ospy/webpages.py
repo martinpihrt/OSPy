@@ -2505,9 +2505,18 @@ class plugins_manage_page(ProtectedPage):
             )
 
         elif action == 'enable_all':
+            skipped_plugins = []
             for plugin in plugins.available():
-               if plugin not in options.enabled_plugins:
-                  options.enabled_plugins.append(plugin)
+                enabled_candidates = list(options.enabled_plugins) + [plugin]
+                compatibility = plugins.plugin_compatibility(
+                    plugin, enabled_candidates
+                )
+                if compatibility['compatible']:
+                    if plugin not in options.enabled_plugins:
+                        options.enabled_plugins.append(plugin)
+                else:
+                    skipped_plugins.append(plugin)
+            options.enabled_plugins = options.enabled_plugins
             plugins.start_enabled_plugins()
             logEV.save_events_log(
                 _('Plug-ins enabled'),
@@ -2515,6 +2524,12 @@ class plugins_manage_page(ProtectedPage):
                 level='info',
                 category='system'
             )
+            if skipped_plugins:
+                return self.core_render.notice(
+                    '/plugins_manage',
+                    _('Some incompatible plug-ins were not enabled') +
+                    ': ' + ', '.join(skipped_plugins)
+                )
 
         elif action == 'delete_all':
             from ospy.helpers import del_rw
@@ -2537,6 +2552,17 @@ class plugins_manage_page(ProtectedPage):
             enable = qdict.get('enable', '0') == '1'
             if action == 'delete':
                 enable = False
+
+            if enable:
+                compatibility = plugins.plugin_compatibility(
+                    plugin, list(options.enabled_plugins) + [plugin]
+                )
+                if not compatibility['compatible']:
+                    return self.core_render.notice(
+                        '/plugins_manage',
+                        _('Plug-in cannot be enabled') + ': ' +
+                        '; '.join(compatibility['errors'])
+                    )
 
             if not enable and plugin in options.enabled_plugins:
                 options.enabled_plugins.remove(plugin)
@@ -3050,13 +3076,17 @@ def _system_health_data():
         plugin for plugin in plugin_data
         if plugin.get('enabled') and (
             not plugin.get('running') or plugin.get('last_error') or
-            plugin.get('health', {}).get('status') == 'error'
+            plugin.get('health', {}).get('status') == 'error' or
+            plugin.get('compatibility', {}).get('status') == 'error'
         )
     ]
     warning_plugins = [
         plugin for plugin in plugin_data
         if plugin.get('enabled') and
-        plugin.get('health', {}).get('status') == 'warning'
+        (
+            plugin.get('health', {}).get('status') == 'warning' or
+            plugin.get('compatibility', {}).get('status') == 'warning'
+        )
     ]
     if plugin_diagnostics_error or failed_plugins:
         plugin_status = 'error'

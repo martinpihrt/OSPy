@@ -538,6 +538,8 @@ Clicking the "Manage" button will open the extension manager window in OSPy. All
 
 A plug-in can include an optional `plugin.json` file containing its name, version, description, author, homepage and license. The manager displays this metadata when available. Older plug-ins without a manifest remain compatible and OSPy reads their name from `__init__.py`; an invalid manifest is safely ignored.
 
+Before activation OSPy checks declared OSPy and Python versions, required Python modules, supported platforms, GPIO/I²C availability and conflicts with enabled plug-ins, GPIO pins or I²C addresses. A blocking problem prevents activation and Enable All skips the affected plug-in. Plug-in management and Diagnostics show details and declared network, file, I²C, GPIO, e-mail, subprocess or system permissions. Permissions inform the administrator; they are not an isolated operating-system sandbox.
+
 ## Install New Plugin
 
 Clicking the "Install New Plugin" button opens a window with a remote repository where we can select the available extensions to install on the OSPy system and read general information about the extensions.

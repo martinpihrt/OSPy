@@ -537,6 +537,8 @@ Na stránce "Rozšíření" můžeme nakonfigurovat nebo ovládat všechna rozš
 Po kliknutí na tlačítko "Spravovat" se otevře okno správce rozšíření v systému OSPy. Všechna dostupná rozšíření lze zapínat, vypínat, instalovat z repozitáře atd...
 
 Rozšíření může obsahovat volitelný soubor `plugin.json` s názvem, verzí, popisem, autorem, domovskou stránkou a licencí. Správce tato metadata zobrazí, pokud jsou dostupná. Starší rozšíření bez manifestu zůstávají kompatibilní a OSPy načte jejich název z `__init__.py`; neplatný manifest je bezpečně ignorován.
+
+Před zapnutím OSPy kontroluje deklarované verze OSPy a Pythonu, požadované Python moduly, podporovanou platformu, dostupnost GPIO/I²C a konflikty s již povolenými rozšířeními, GPIO piny nebo I²C adresami. Blokující problém zabrání zapnutí a volba zapnout vše takové rozšíření přeskočí. Správce a Diagnostika zobrazují podrobnosti i deklarovaná oprávnění k síti, souborům, I²C, GPIO, e-mailu, podprocesům nebo systému. Oprávnění jsou informací pro správce, nikoli izolovaným systémovým sandboxem.
   
 ## Instalovat nové rozšíření
 

@@ -38,11 +38,33 @@ without it continue to use `NAME` and `MENU` from `__init__.py`.
       "description": "Short plug-in description.",
       "author": "Author name",
       "homepage": "https://example.com/plugin",
-      "license": "MIT"
+      "license": "MIT",
+      "ospy": {"min": "3.0.0", "max": "3.9.999"},
+      "python": {"min": "3.8", "max": "3.13"},
+      "requirements": [
+        {"module": "smbus2", "package": "smbus2", "required": true}
+      ],
+      "hardware": {
+        "platforms": ["raspberry_pi", "linux"],
+        "requires": ["i2c", "gpio"],
+        "gpio": [17, 27],
+        "i2c": ["0x20"]
+      },
+      "permissions": ["network", "files", "i2c", "gpio", "email"],
+      "conflicts": {
+        "plugins": ["another_plugin"]
+      }
     }
 
-The `id` must match the plug-in directory. Unknown fields are retained for
-forward-compatible metadata. The reserved `ospy`, `python`, `requirements`,
-`hardware`, `permissions`, and `conflicts` sections will be used by later
-compatibility checks. Invalid or oversized manifests are ignored and OSPy
-falls back to the legacy metadata.
+The `id` must match the plug-in directory. Invalid or oversized manifests are
+ignored and OSPy falls back to the legacy metadata.
+
+Before activation OSPy checks the optional minimum and maximum OSPy/Python
+versions, required importable Python modules, supported platform and required
+I2C/GPIO support. It also compares declared GPIO pins, I2C addresses and
+explicit plug-in conflicts with enabled plug-ins. Missing required components
+and resource conflicts block activation; optional requirements and unknown
+permission names produce warnings. Supported permission names are `network`,
+`files`, `i2c`, `gpio`, `email`, `subprocess`, and `system`. Permissions are
+declarations shown to the administrator; they are not an operating-system
+sandbox.

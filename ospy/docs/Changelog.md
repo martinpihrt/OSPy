@@ -14,6 +14,8 @@ Added a backward-compatible optional `health()` interface for plug-ins. Plug-ins
 
 Added optional, backward-compatible `plugin.json` manifests. Schema version 1 provides plug-in identity, display name, menu label, version, description, author, homepage and license metadata without importing the plug-in. Existing `NAME` and `MENU` constants remain the fallback, invalid or oversized manifests are ignored safely, and the plug-in manager, installer and Diagnostics display available manifest versions and metadata. Reserved compatibility, dependency, hardware, permission and conflict sections are retained for subsequent validation work. Documented the manifest format for plug-in developers.
 
+Added pre-activation plug-in compatibility validation using `plugin.json`. OSPy now checks declared minimum and maximum OSPy/Python versions, required Python modules, supported platforms, required GPIO/I2C availability, explicit plug-in conflicts and overlapping declared GPIO pins or I2C addresses. Incompatible plug-ins are not enabled, bulk activation skips them, warnings and blocking details are shown in Plug-in management and Diagnostics, and compatibility problems contribute to System status. Declared network, file, I2C, GPIO, e-mail, subprocess and system permissions are displayed to administrators but are not presented as an operating-system sandbox. Legacy plug-ins without a manifest remain compatible.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
