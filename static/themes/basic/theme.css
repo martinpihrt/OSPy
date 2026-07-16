@@ -1673,6 +1673,52 @@ td.stationSchedule {
 #controls .pluginStatusPanel li.statusError { color: #8b0000; }
 #controls .pluginStatusPanel li.statusWarning { color: #7a4a00; }
 
+@keyframes pluginUpdatePulse {
+    0%, 100% {
+        background-color: #ffd54f;
+        box-shadow: 0 0 0 2px rgba(209, 139, 0, 0.8);
+    }
+    50% {
+        background-color: #fff0a3;
+        box-shadow: 0 0 12px 3px rgba(255, 193, 7, 0.9);
+    }
+}
+
+#controls .plugin.pluginUpdateAvailable,
+#controls .plugin.pluginUpdateAvailable.disabled {
+    border: 2px solid #d18b00;
+    background-color: #ffd54f;
+    color: #20242a;
+    animation: pluginUpdatePulse 1.4s ease-in-out infinite;
+}
+
+#controls .plugin.pluginUpdateAvailable .pluginTitle {
+    color: #20242a;
+}
+
+#controls .plugin.pluginUpdateAvailable .pluginMetadata,
+#controls .plugin.pluginUpdateAvailable .pluginStatusPanel {
+    border-color: #d18b00;
+    background-color: #fff8dc;
+}
+
+#controls .pluginUpdateNotice {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background-color: #8a5700;
+    color: #ffffff;
+    font-size: 0.82em;
+    font-weight: bold;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #controls .plugin.pluginUpdateAvailable {
+        animation: none;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     #controls .pluginMetadata,
     #controls .pluginStatusPanel {

@@ -30,6 +30,10 @@ Shortened pre-activation and legacy compatibility summaries to avoid repeating t
 
 Corrected external-IP reporting in Diagnostics and the footer by using a stable primary lookup service with the existing pihrt.com endpoint as a fallback, serializing concurrent refreshes and disabling browser caching for live diagnostics and footer JSON responses.
 
+Diagnostics now opens a red error dialog when a system component or enabled plug-in reports an error. The dialog explains the detected problem, includes available details, suggests a possible corrective action and links to the related settings page. Repeated refreshes do not reopen a dismissed dialog unless the reported error changes. Long plug-in health details now wrap inside the Diagnostics table, and new controls expand or collapse all plug-in details at once.
+
+Plug-ins with an available update are now highlighted across their entire Plug-in management row with a pulsing yellow background and a separate **Update available** badge. Reduced-motion browser settings keep the highlight visible without animation.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

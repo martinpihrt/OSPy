@@ -13,6 +13,26 @@ jQuery(document).ready(function(){
     var currentHistoryPlugin = null;
     var refreshTimer = null;
     var activeTab = "health";
+    var diagnosticsErrors = {
+        system: [],
+        plugins: []
+    };
+    var diagnosticsAlertTimer = null;
+    var lastDiagnosticsAlertSignature = "";
+
+    var systemSolutions = {
+        scheduler: $:{json.dumps(_('Restart OSPy and check the event log. If the problem returns, check the scheduler thread and system load.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        schedule: $:{json.dumps(_('Check that automatic scheduling is enabled, manual mode is off, and at least one valid program is configured.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        outputs: $:{json.dumps(_('Check the configured output driver, power supply, wiring, GPIO or I2C connection, and any output plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        sensors: $:{json.dumps(_('Open Sensors, check the enabled sensor configuration and verify its power, network or bus connection.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        database: $:{json.dumps(_('Check free disk space and write permissions for the OSPy data directory, then restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        storage: $:{json.dumps(_('Free disk space by removing unnecessary backups or logs and check the storage device for errors.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        plugins: $:{json.dumps(_('Open the plug-in manager, inspect compatibility and pre-activation details, then update, configure or restart the affected plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        email: $:{json.dumps(_('Open the e-mail plug-in, verify server credentials and network access, then restart the plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        weather: $:{json.dumps(_('Check the weather location, Internet connection and weather settings, then request a new weather update.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        internet: $:{json.dumps(_('Check the network cable or Wi-Fi, gateway and DNS configuration, and Internet access from the OSPy device.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+        backup: $:{json.dumps(_('Create a new backup and verify that the backup directory is writable and has enough free space.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+    };
 
     function fmt(value, suffix) {
         if (value === null || value === undefined || value === "") {
@@ -23,6 +43,137 @@ jQuery(document).ready(function(){
 
     function setStatus(message, color) {
         jQuery("#diagnosticsStatus").text(message || "").css("color", color || "#555555");
+    }
+
+    function closeDiagnosticsErrorModal() {
+        jQuery("#diagnosticsErrorModal").hide();
+    }
+
+    function scheduleDiagnosticsErrorModal() {
+        if (diagnosticsAlertTimer) {
+            window.clearTimeout(diagnosticsAlertTimer);
+        }
+        diagnosticsAlertTimer = window.setTimeout(showDiagnosticsErrorModal, 300);
+    }
+
+    function showDiagnosticsErrorModal() {
+        var systemErrors = diagnosticsErrors.system || [];
+        var pluginErrors = diagnosticsErrors.plugins || [];
+        if (pluginErrors.length) {
+            systemErrors = systemErrors.filter(function(error){
+                return error.id !== "system:plugins";
+            });
+        }
+        var errors = systemErrors.concat(pluginErrors);
+        if (!errors.length) {
+            lastDiagnosticsAlertSignature = "";
+            closeDiagnosticsErrorModal();
+            return;
+        }
+
+        var signatureParts = [];
+        var html = '<p><b>' +
+            $:{json.dumps(_('Diagnostics detected the following errors:'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+            '</b></p><div class="diagnosticsErrorList">';
+        for (var i = 0; i < errors.length; i++) {
+            var error = errors[i];
+            signatureParts.push([
+                error.id || "",
+                error.title || "",
+                error.problem || "",
+                error.details || ""
+            ].join("|"));
+            html += '<div class="diagnosticsErrorItem">' +
+                '<h3>' + escapeHtml(error.title || $:{json.dumps(_('Error'), ensure_ascii=False).encode('utf8').decode('utf-8')}) + '</h3>' +
+                '<p><b>' + $:{json.dumps(_('Problem'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                ':</b> ' + escapeHtml(error.problem || "-") + '</p>';
+            if (error.details) {
+                html += '<p><b>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                    ':</b> ' + escapeHtml(error.details) + '</p>';
+            }
+            if (error.solution) {
+                html += '<p class="diagnosticsSolution"><b>' +
+                    $:{json.dumps(_('Possible solution'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                    ':</b> ' + escapeHtml(error.solution) + '</p>';
+            }
+            if (error.link) {
+                html += '<p><a class="button open" href="' + escapeHtml(error.link) + '">' +
+                    $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a></p>';
+            }
+            html += '</div>';
+        }
+        html += '</div>';
+
+        var signature = signatureParts.sort().join("\n");
+        if (signature === lastDiagnosticsAlertSignature) {
+            return;
+        }
+        lastDiagnosticsAlertSignature = signature;
+        jQuery("#diagnosticsErrorMessage").html(html);
+        jQuery("#diagnosticsErrorModal").show();
+    }
+
+    function pluginErrorSolution(plugin) {
+        var compatibility = plugin.compatibility || {};
+        var preflight = plugin.preflight || {};
+        if (compatibility.status === "error") {
+            return $:{json.dumps(_('Open the plug-in manager and resolve the listed OSPy version, Python dependency, hardware, GPIO, I2C or plug-in conflict.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        }
+        if (preflight.status === "error") {
+            return $:{json.dumps(_('Update or reinstall the plug-in. If the test still fails, inspect the listed Python source error.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        }
+        if (!plugin.running) {
+            return $:{json.dumps(_('Check compatibility and the pre-activation test in the plug-in manager, then enable or restart the plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        }
+        return $:{json.dumps(_('Open the plug-in, verify its configuration and required hardware or network service, then restart it after correcting the cause.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+    }
+
+    function collectPluginErrors(plugins) {
+        var errors = [];
+        for (var i = 0; i < plugins.length; i++) {
+            var plugin = plugins[i];
+            if (!plugin.enabled) {
+                continue;
+            }
+            var health = plugin.health || {};
+            var compatibility = plugin.compatibility || {};
+            var preflight = plugin.preflight || {};
+            var detailParts = [];
+            var hasError = false;
+
+            if (!plugin.running) {
+                hasError = true;
+                detailParts.push($:{json.dumps(_('Enabled plug-in is not running.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+            }
+            if (health.status === "error") {
+                hasError = true;
+                detailParts.push(health.details || health.summary || "");
+            }
+            if (compatibility.status === "error") {
+                hasError = true;
+                detailParts = detailParts.concat(compatibility.errors || []);
+            }
+            if (preflight.status === "error") {
+                hasError = true;
+                detailParts = detailParts.concat(preflight.errors || []);
+            }
+            if (plugin.last_error) {
+                hasError = true;
+                detailParts.push(plugin.last_error);
+            }
+            if (hasError) {
+                errors.push({
+                    id: "plugin:" + plugin.module,
+                    title: plugin.name || plugin.module,
+                    problem: health.status === "error" && health.summary ?
+                        health.summary : $:{json.dumps(_('The enabled plug-in needs attention.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                    details: detailParts.filter(function(value){ return !!value; }).join("; "),
+                    solution: pluginErrorSolution(plugin),
+                    link: plugin.link || "/plugins_manage"
+                });
+            }
+        }
+        return errors;
     }
 
     function healthLabel(status) {
@@ -71,12 +222,35 @@ jQuery(document).ready(function(){
             .removeClass("health-ok health-warning health-error health-unknown")
             .addClass("health-" + (data.status || "unknown"))
             .text(healthLabel(data.status || "unknown"));
+
+        diagnosticsErrors.system = [];
+        for (var itemIndex = 0; itemIndex < items.length; itemIndex++) {
+            if (items[itemIndex].status === "error") {
+                diagnosticsErrors.system.push({
+                    id: "system:" + (items[itemIndex].id || itemIndex),
+                    title: items[itemIndex].title,
+                    problem: items[itemIndex].summary,
+                    details: items[itemIndex].details,
+                    solution: systemSolutions[items[itemIndex].id] ||
+                        $:{json.dumps(_('Open the related settings, check the event log and correct the reported cause.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                    link: items[itemIndex].link
+                });
+            }
+        }
+        scheduleDiagnosticsErrorModal();
     }
 
     function updateSystemHealth() {
         jQuery.getJSON("/system_health.json", function(data) {
             if (data.error) {
                 setStatus(data.error, "red");
+                diagnosticsErrors.system = [{
+                    id: "system-health-api",
+                    title: $:{json.dumps(_('System status'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                    problem: data.error,
+                    solution: $:{json.dumps(_('Check the OSPy event log and restart OSPy if the status cannot be loaded.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+                }];
+                scheduleDiagnosticsErrorModal();
                 return;
             }
             renderSystemHealth(data);
@@ -87,6 +261,13 @@ jQuery(document).ready(function(){
                 message += " HTTP " + xhr.status + ".";
             }
             setStatus(message, "red");
+            diagnosticsErrors.system = [{
+                id: "system-health-request",
+                title: $:{json.dumps(_('System status'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                problem: message,
+                solution: $:{json.dumps(_('Check the OSPy connection and event log, then reload the page or restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+            }];
+            scheduleDiagnosticsErrorModal();
         });
     }
 
@@ -353,6 +534,8 @@ jQuery(document).ready(function(){
             }
 
             currentPlugins = data.plugins || [];
+            diagnosticsErrors.plugins = collectPluginErrors(currentPlugins);
+            scheduleDiagnosticsErrorModal();
             renderPlugins();
             if (currentHistoryPlugin) {
                 loadHistory(currentHistoryPlugin);
@@ -360,6 +543,14 @@ jQuery(document).ready(function(){
 
             if (data.diagnostics_error) {
                 setStatus(data.diagnostics_error, "red");
+                diagnosticsErrors.plugins = [{
+                    id: "plugin-diagnostics-api",
+                    title: $:{json.dumps(_('Plug-ins'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                    problem: data.diagnostics_error,
+                    solution: $:{json.dumps(_('Check the OSPy event log and restart OSPy if plug-in diagnostics cannot be read.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                    link: "/plugins_manage"
+                }];
+                scheduleDiagnosticsErrorModal();
             } else {
                 setStatus("");
             }
@@ -371,6 +562,13 @@ jQuery(document).ready(function(){
                 message += " HTTP " + xhr.status + ".";
             }
             setStatus(message, "red");
+            diagnosticsErrors.plugins = [{
+                id: "diagnostics-request",
+                title: $:{json.dumps(_('Diagnostics'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+                problem: message,
+                solution: $:{json.dumps(_('Check the OSPy connection and event log, then reload the page or restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+            }];
+            scheduleDiagnosticsErrorModal();
         });
     }
 
@@ -385,6 +583,21 @@ jQuery(document).ready(function(){
         currentHistoryPlugin = null;
         jQuery("#historyPanel").hide();
     });
+
+    jQuery("#expandPluginDetails").on("click", function(){
+        jQuery("#diagnosticsPlugins details").prop("open", true);
+    });
+
+    jQuery("#collapsePluginDetails").on("click", function(){
+        jQuery("#diagnosticsPlugins details").prop("open", false);
+    });
+
+    jQuery("#diagnosticsErrorModal").on("click", function(event){
+        if (event.target === this) {
+            closeDiagnosticsErrorModal();
+        }
+    });
+    jQuery("#diagnosticsErrorClose").on("click", closeDiagnosticsErrorModal);
 
     jQuery("#diagnosticsPlugins").on("click", ".pluginHistory", function(){
         openHistory(jQuery(this).data("plugin"));
@@ -497,6 +710,65 @@ jQuery(document).ready(function(){
         .healthAction {
             white-space: nowrap;
         }
+        #diagnostics .pluginDiagnosticsTable td {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        #diagnostics .pluginDiagnosticsTable details {
+            max-width: 100%;
+        }
+        #diagnostics .pluginDiagnosticsTable details pre {
+            box-sizing: border-box;
+            max-width: 100%;
+            margin: 6px 0 0 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        .diagnosticsToolbar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .diagnosticsDetailButtons {
+            display: inline-flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-left: 8px;
+        }
+        .diagnosticsErrorModalContent {
+            width: min(850px, 92%);
+        }
+        .diagnosticsErrorHeader {
+            background-color: #9d1c24 !important;
+        }
+        .diagnosticsErrorList {
+            display: grid;
+            gap: 10px;
+            padding-bottom: 12px;
+        }
+        .diagnosticsErrorItem {
+            border: 1px solid #d9a0a4;
+            border-left: 6px solid #9d1c24;
+            border-radius: 6px;
+            padding: 8px 10px;
+            background: #fff4f4;
+            color: #20242a;
+            overflow-wrap: anywhere;
+        }
+        .diagnosticsErrorItem h3 {
+            margin: 0 0 6px 0;
+            color: #7d1921;
+        }
+        .diagnosticsErrorItem p {
+            margin: 5px 0;
+        }
+        .diagnosticsSolution {
+            padding: 7px;
+            border-radius: 4px;
+            background: #fff0c7;
+        }
         #systemHealthSummary {
             margin-left: 8px;
             font-weight: bold;
@@ -587,6 +859,10 @@ jQuery(document).ready(function(){
             <option value="name">$_('By plug-in name')</option>
             <option value="total">$_('By total CPU time')</option>
         </select>
+        <span class="diagnosticsDetailButtons">
+            <button type="button" id="expandPluginDetails" class="button open">$_('Expand all details')</button>
+            <button type="button" id="collapsePluginDetails" class="button cancel">$_('Collapse all details')</button>
+        </span>
     </div>
 
     <div id="historyPanel" class="simpleblock">
@@ -630,5 +906,19 @@ jQuery(document).ready(function(){
             </tbody>
         </table>
     </div>
+    </div>
+</div>
+
+<div id="diagnosticsErrorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="diagnosticsErrorTitle">
+    <div class="modal-content diagnosticsErrorModalContent">
+        <div class="modal-header diagnosticsErrorHeader">
+            <span id="diagnosticsErrorClose" class="close" aria-label="$_('Close')">&times;</span>
+            <div class="modal-hdr">
+                <h2 id="diagnosticsErrorTitle">$_('Diagnostics error')</h2>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div id="diagnosticsErrorMessage"></div>
+        </div>
     </div>
 </div>

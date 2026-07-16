@@ -83,7 +83,9 @@ jQuery(document).ready(function(){
         $ manifest = plugins.plugin_manifest(plugin)
         $ compatibility = plugins.plugin_compatibility(plugin)
         $ preflight = plugins.plugin_preflight(plugin)
-        <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'}">
+        $ available_info = plugins.checker.available_version(plugin)
+        $ has_update = available_info is not None and (plugin not in current_info or current_info[plugin]['hash'] != available_info['hash'])
+        <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'} ${'pluginUpdateAvailable' if has_update else ''}">
             <div style="display: inline-block; padding: 0; float: right;">
                 <div style="display: inline-block; padding: 0; width: 130px;">
                 $if running and plugins.get(plugin).LINK:
@@ -91,7 +93,6 @@ jQuery(document).ready(function(){
                 </div>
 
                 <div style="display: inline-block; padding: 0; width: 140px;">
-                    $ available_info = plugins.checker.available_version(plugin)
                     $if available_info is not None:
                         <form action="/plugins_install" method="post" style="display:inline" class="plugin-install-form" data-plugin="${plugin}" data-repo="${available_info['repo']}">
                             $:csrf_input()
@@ -113,7 +114,6 @@ jQuery(document).ready(function(){
                 </div>
 
                 <div style="display: inline-block; padding: 0; width: 100px;">
-                    $ has_update = available_info is not None and (plugin not in current_info or current_info[plugin]['hash'] != available_info['hash'])
                     $if has_update:
                         <a href="/plugins_manage?changes=${plugin}" class="button open">$_('Changes')</a>
                     $else:
@@ -148,6 +148,8 @@ jQuery(document).ready(function(){
                 ${plugins.plugin_name(plugin)}
                 $if manifest.get('version'):
                     <small> v${manifest.get('version')}</small>
+                $if has_update:
+                    <span class="pluginUpdateNotice">$_('Update available')</span>
                 <!-- TODO translated
                 <span class="tooltiptext">
                     $_('Installed package'): ${plugins.plugin_name_menu(plugin)}
