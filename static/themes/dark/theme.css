@@ -1616,34 +1616,73 @@ td.stationSchedule {
 #help_menu {
     vertical-align:top;
     display: table-cell;
+    width: 20%;
+    max-width: 20%;
     padding: 5px;
     border-right: solid 1px;
+    overflow-wrap: anywhere;
 }
-
 #help_contents {
     vertical-align:top;
     display: table-cell;
     width: 80%;
     padding:5px;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+#help_contents p,
+#help_contents li,
+#help_contents td,
+#help_contents th,
+#help_contents a,
+#help_contents code {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+#help_contents pre {
+    box-sizing: border-box;
+    max-width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+#help_contents img {
+    max-width: 100%;
+    height: auto;
+}
+
+#help_contents table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .help_link_1{
     margin-top: 10pt;
     font-size: 16pt;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .help_link_2 {
     margin-top: 2pt;
     margin-left: 5pt;
     font-size: 12pt;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .help_link_3 {
     margin-left: 10pt;
     font-size: 10pt;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .help_link_1 a,.help_link_2 a, .help_link_3 a {

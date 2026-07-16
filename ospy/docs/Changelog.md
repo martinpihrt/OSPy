@@ -36,6 +36,8 @@ Plug-ins with an available update are now highlighted across their entire Plug-i
 
 Refined the Diagnostics plug-in table for translated interfaces. It now uses smaller consistent typography, balanced fixed column widths and compact spacing. Informational health, compatibility and pre-activation states use flat lightly colored labels with a status border instead of button-like badges, while actual actions remain visually distinct buttons.
 
+Added the first standard-library automated test suite for OSPy. It compiles every core web.py template, verifies that the documented pygettext inputs cover all project translation calls, runs extraction into a temporary POT without modifying translation catalogs, exercises valid and invalid plug-in manifest parsing, validates installed manifests, and can compile every plug-in template and require a valid manifest for every plug-in in an external OSPy-plugins checkout. The test guide is available directly from the built-in OSPy Help menu. Long Help paragraphs, links and code lines now wrap within the content area, while wide Markdown tables remain horizontally scrollable.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
