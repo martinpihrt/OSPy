@@ -124,12 +124,31 @@ jQuery(document).ready(function(){
     }
 
     function renderPlugins() {
+        var openDetails = {};
+        jQuery("#diagnosticsPlugins tbody details[open]").each(function(){
+            var row = jQuery(this).closest("tr");
+            var module = row.attr("data-plugin") || "";
+            var detail = jQuery(this).attr("data-detail") || "";
+            if (module && detail) {
+                openDetails[module + ":" + detail] = true;
+            }
+        });
+
         var plugins = sortPlugins(currentPlugins);
         var rows = "";
         for (var i = 0; i < plugins.length; i++) {
             rows += pluginRow(plugins[i]);
         }
         jQuery("#diagnosticsPlugins tbody").html(rows || '<tr><td colspan="8">-</td></tr>');
+
+        jQuery("#diagnosticsPlugins tbody details").each(function(){
+            var row = jQuery(this).closest("tr");
+            var module = row.attr("data-plugin") || "";
+            var detail = jQuery(this).attr("data-detail") || "";
+            if (openDetails[module + ":" + detail]) {
+                this.open = true;
+            }
+        });
     }
 
     function pluginByModule(module) {
@@ -262,7 +281,7 @@ jQuery(document).ready(function(){
         var preflight = plugin.preflight || {status: "unknown", summary: ""};
         var pluginHealthLabel = pluginHealth.status === "unknown" && pluginHealth.summary ?
             pluginHealth.summary : healthLabel(pluginHealth.status || "unknown");
-        var healthDetails = pluginHealth.details ? '<details><summary>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + escapeHtml(pluginHealth.details) + '</pre></details>' : '';
+        var healthDetails = pluginHealth.details ? '<details data-detail="health"><summary>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + escapeHtml(pluginHealth.details) + '</pre></details>' : '';
         var healthCell = '<span class="healthBadge health-' + escapeHtml(pluginHealth.status || "unknown") + '">' +
             escapeHtml(pluginHealthLabel) + '</span>' +
             (pluginHealth.summary && pluginHealth.summary !== pluginHealthLabel ? '<br><small>' + escapeHtml(pluginHealth.summary) + '</small>' : '') +
@@ -278,7 +297,7 @@ jQuery(document).ready(function(){
             (preflightDetails.length ? '<br><small>' + escapeHtml(preflightDetails.join("; ")) + '</small>' : '');
         var openButton = plugin.link ? '<a class="button open" href="' + plugin.link + '">' + $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
         var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + restartPluginLabel + '</button>' : '';
-        var error = plugin.last_error ? '<details><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
+        var error = plugin.last_error ? '<details data-detail="error"><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
         var managedThreads = 0;
         for (var threadIndex = 0; threadIndex < plugin.threads.length; threadIndex++) {
             if (plugin.threads[threadIndex].managed) {
@@ -293,7 +312,7 @@ jQuery(document).ready(function(){
         }
         var cpuCell = '<span>' + fmt(plugin.cpu_percent, ' %') + '</span> <button type="button" class="button submit pluginHistory" data-plugin="' + escapeHtml(plugin.module) + '">' + historyLabel + '</button>';
 
-        return '<tr>' +
+        return '<tr data-plugin="' + escapeHtml(plugin.module) + '">' +
             '<td><b>' + escapeHtml(plugin.name || plugin.module) + '</b>' +
             (plugin.version ? ' <small>v' + escapeHtml(plugin.version) + '</small>' : '') +
             '<br><small>' + escapeHtml(plugin.module) + '</small></td>' +

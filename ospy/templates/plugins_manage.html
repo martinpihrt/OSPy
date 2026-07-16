@@ -144,7 +144,7 @@ jQuery(document).ready(function(){
                 </form>
             </div>
 
-            <div class="tooltip plugin ${'' if running else 'disabled'}" style="display: inline-block; padding: 0;">
+            <div class="tooltip plugin pluginTitle ${'' if running else 'disabled'}" style="display: inline-block; padding: 0;">
                 ${plugins.plugin_name(plugin)}
                 $if manifest.get('version'):
                     <small> v${manifest.get('version')}</small>

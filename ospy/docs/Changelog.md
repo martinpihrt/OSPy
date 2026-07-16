@@ -22,6 +22,10 @@ Added an automatic static pre-activation test for plug-ins. Before importing or 
 
 Improved readability of compatibility, manifest and pre-activation information in Plug-in management. The information now uses theme-specific high-contrast status panels and badges that remain readable for both enabled and disabled plug-ins, including detailed warnings and errors. Fixed the pre-activation test incorrectly blocking legacy plug-ins such as System Information when they do not provide a `stop()` function.
 
+Refined the Plug-in management visual hierarchy with a larger bold plug-in name and more compact compatibility and pre-activation panels.
+
+Kept expanded plug-in health and error details open during automatic Diagnostics refreshes and after changing the plug-in sort order. Updated the Czech translation.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
