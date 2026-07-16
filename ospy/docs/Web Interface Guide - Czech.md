@@ -541,6 +541,8 @@ Rozšíření může obsahovat volitelný soubor `plugin.json` s názvem, verzí
 Před zapnutím OSPy kontroluje deklarované verze OSPy a Pythonu, požadované Python moduly, podporovanou platformu, dostupnost GPIO/I²C a konflikty s již povolenými rozšířeními, GPIO piny nebo I²C adresami. Blokující problém zabrání zapnutí a volba zapnout vše takové rozšíření přeskočí. Správce a Diagnostika zobrazují podrobnosti i deklarovaná oprávnění k síti, souborům, I²C, GPIO, e-mailu, podprocesům nebo systému. Oprávnění jsou informací pro správce, nikoli izolovaným systémovým sandboxem.
 
 Nová rozšíření mohou používat společnou správu vláken se stop signálem OSPy. Při vypnutí rozšíření OSPy nejprve odešle stop signál, zavolá jeho stávající funkci `stop()` a nejvýše pět sekund čeká na registrovaná vlákna. Vlákna, která se nezastaví, se zobrazí jako chyba v Diagnostice a brání spuštění druhé kopie rozšíření. Stávající rozšíření bez tohoto rozhraní zůstávají kompatibilní.
+
+Před importem a spuštěním proběhne automatický statický test, který nespouští kód rozšíření ani nepřistupuje k hardwaru. Kontroluje adresář, `__init__.py`, syntaxi a velikost Python souborů, volitelný manifest a přítomnost funkcí `start()` a `stop()`; symbolické odkazy nenásleduje. Chyba zabrání aktivaci a podrobnosti jsou dostupné ve Správě rozšíření a Diagnostice.
   
 ## Instalovat nové rozšíření
 

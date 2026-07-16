@@ -82,6 +82,7 @@ jQuery(document).ready(function(){
         $ running = plugin in running_list
         $ manifest = plugins.plugin_manifest(plugin)
         $ compatibility = plugins.plugin_compatibility(plugin)
+        $ preflight = plugins.plugin_preflight(plugin)
         <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'}">
             <div style="display: inline-block; padding: 0; float: right;">
                 <div style="display: inline-block; padding: 0; width: 130px;">
@@ -135,7 +136,7 @@ jQuery(document).ready(function(){
                     <input type="hidden" name="action" value="enable">
                     <input type="hidden" name="plugin" value="${plugin}">
                     <input type="hidden" name="enable" value="${'0' if running else '1'}">
-                    <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if running else 'off'}" ${'disabled' if not running and not compatibility.get('compatible') else ''}>
+                    <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if running else 'off'}" ${'disabled' if not running and (not compatibility.get('compatible') or not preflight.get('passed')) else ''}>
                         <span class='toggleleft'>$_('On')</span>
                         <span class='togglesep'>&nbsp;</span>
                         <span class='toggleright'>$_('Off')</span>
@@ -179,6 +180,23 @@ jQuery(document).ready(function(){
                         $for item in compatibility.get('errors', []):
                             <li style="color:#a00000;">${item}</li>
                         $for item in compatibility.get('warnings', []):
+                            <li style="color:#b36b00;">${item}</li>
+                        </ul>
+                    </details>
+            </div>
+            <div style="margin: 4px 0 0 150px;">
+                $ test_color = '#247a24' if preflight.get('status') == 'ok' else ('#b36b00' if preflight.get('status') == 'warning' else '#a00000')
+                <small style="color: ${test_color};">
+                    <b>$_('Pre-activation test'):</b> ${preflight.get('summary', '')}
+                    · $_('Python files'): ${preflight.get('checked_files', 0)}
+                </small>
+                $if preflight.get('errors') or preflight.get('warnings'):
+                    <details>
+                        <summary>$_('Details')</summary>
+                        <ul>
+                        $for item in preflight.get('errors', []):
+                            <li style="color:#a00000;">${item}</li>
+                        $for item in preflight.get('warnings', []):
                             <li style="color:#b36b00;">${item}</li>
                         </ul>
                     </details>

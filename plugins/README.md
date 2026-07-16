@@ -95,3 +95,14 @@ and waits up to five seconds for registered threads. An existing
 the stop event and releasing files, network connections, GPIO, or I2C resources.
 Threads that do not stop in time are reported in Diagnostics and prevent a
 second copy of the plug-in from starting.
+
+Pre-activation test
+----
+
+Before importing or starting a plug-in, OSPy performs a static test that does
+not execute plug-in code. It verifies that the plug-in directory and
+`__init__.py` exist, safely reads and compiles all Python source files, checks
+source size limits, validates `plugin.json` when present, and confirms that the
+entry module defines `start()` and `stop()`. Symbolic links are not followed.
+An error blocks activation, while non-blocking findings are shown as warnings
+in Plug-in management and Diagnostics.

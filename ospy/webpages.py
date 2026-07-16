@@ -2511,7 +2511,8 @@ class plugins_manage_page(ProtectedPage):
                 compatibility = plugins.plugin_compatibility(
                     plugin, enabled_candidates
                 )
-                if compatibility['compatible']:
+                preflight = plugins.plugin_preflight(plugin)
+                if compatibility['compatible'] and preflight['passed']:
                     if plugin not in options.enabled_plugins:
                         options.enabled_plugins.append(plugin)
                 else:
@@ -2554,6 +2555,13 @@ class plugins_manage_page(ProtectedPage):
                 enable = False
 
             if enable:
+                preflight = plugins.plugin_preflight(plugin)
+                if not preflight['passed']:
+                    return self.core_render.notice(
+                        '/plugins_manage',
+                        _('Plug-in pre-activation test failed') + ': ' +
+                        '; '.join(preflight['errors'])
+                    )
                 compatibility = plugins.plugin_compatibility(
                     plugin, list(options.enabled_plugins) + [plugin]
                 )
@@ -3077,7 +3085,8 @@ def _system_health_data():
         if plugin.get('enabled') and (
             not plugin.get('running') or plugin.get('last_error') or
             plugin.get('health', {}).get('status') == 'error' or
-            plugin.get('compatibility', {}).get('status') == 'error'
+            plugin.get('compatibility', {}).get('status') == 'error' or
+            plugin.get('preflight', {}).get('status') == 'error'
         )
     ]
     warning_plugins = [
@@ -3085,7 +3094,8 @@ def _system_health_data():
         if plugin.get('enabled') and
         (
             plugin.get('health', {}).get('status') == 'warning' or
-            plugin.get('compatibility', {}).get('status') == 'warning'
+            plugin.get('compatibility', {}).get('status') == 'warning' or
+            plugin.get('preflight', {}).get('status') == 'warning'
         )
     ]
     if plugin_diagnostics_error or failed_plugins:

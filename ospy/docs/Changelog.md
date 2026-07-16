@@ -18,6 +18,8 @@ Added pre-activation plug-in compatibility validation using `plugin.json`. OSPy 
 
 Added a common cooperative lifecycle for plug-in background threads. New plug-ins can obtain a shared runtime, start or register managed threads and use its stop event for interruptible waiting. OSPy sets the stop event before calling the existing plug-in `stop()`, waits for registered and detected plug-in threads within a bounded five-second shutdown period, reports threads that remain alive, and prevents a second plug-in instance from starting while an old thread is still running. Existing plug-ins retain their current `start()` and `stop()` interface, and Diagnostics distinguishes managed threads and displays pending stop requests.
 
+Added an automatic static pre-activation test for plug-ins. Before importing or executing plug-in code, OSPy validates the plug-in directory, entry file and optional manifest, compiles every bounded Python source file, does not follow symbolic links, and verifies that `start()` and `stop()` are declared. Errors block individual and bulk activation; warnings, checked-file counts and details are displayed in Plug-in management and Diagnostics and contribute to System status. The test intentionally does not execute plug-in code or access its hardware.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

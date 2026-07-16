@@ -4,6 +4,8 @@ import re
 import sys
 import json
 import importlib.util
+import ast
+import tokenize
 from os import path
 import types
 import threading
@@ -24,6 +26,9 @@ PLUGIN_THREAD_STOP_TIMEOUT = 5.0
 PLUGIN_MANIFEST_FILE = 'plugin.json'
 PLUGIN_MANIFEST_MAX_BYTES = 64 * 1024
 PLUGIN_MANIFEST_SCHEMA_VERSION = 1
+PLUGIN_PREFLIGHT_MAX_FILES = 512
+PLUGIN_PREFLIGHT_MAX_FILE_BYTES = 2 * 1024 * 1024
+PLUGIN_PREFLIGHT_MAX_TOTAL_BYTES = 16 * 1024 * 1024
 PLUGIN_PERMISSIONS = {
     'network', 'files', 'i2c', 'gpio', 'email', 'subprocess', 'system'
 }
@@ -354,6 +359,7 @@ def plugin_diagnostics():
             entry = __plugin_runtime.get(module, {})
             manifest = plugin_manifest(module)
             compatibility = plugin_compatibility(module)
+            preflight = plugin_preflight(module)
             threads = []
             total_cpu = 0.0
             cpu_known = False
@@ -396,6 +402,7 @@ def plugin_diagnostics():
                 'manifest': manifest,
                 'version': manifest.get('version', ''),
                 'compatibility': compatibility,
+                'preflight': preflight,
                 'running': module in running_modules,
                 'enabled': module in options.enabled_plugins,
                 'link': link,
@@ -1277,6 +1284,119 @@ def plugin_compatibility(module, enabled_modules=None):
     }
 
 
+def plugin_preflight(module):
+    """Statically validate a plug-in without importing or executing its code."""
+    base_dir = os.path.realpath(plugin_dir(module))
+    plugin_root = os.path.realpath(plugin_dir())
+    errors = []
+    warnings = []
+    checked_files = 0
+    total_bytes = 0
+    entry_ast = None
+
+    try:
+        if os.path.commonpath([plugin_root, base_dir]) != plugin_root:
+            errors.append(_('Plug-in directory is outside the plug-in root.'))
+        elif not os.path.isdir(base_dir):
+            errors.append(_('Plug-in directory does not exist.'))
+    except (OSError, ValueError):
+        errors.append(_('Plug-in directory is invalid.'))
+
+    init_file = os.path.join(base_dir, '__init__.py')
+    if not os.path.isfile(init_file):
+        errors.append(_('Plug-in entry file __init__.py is missing.'))
+
+    if not errors:
+        for root, dirs, files in os.walk(base_dir, followlinks=False):
+            safe_dirs = []
+            for directory in dirs:
+                directory_path = os.path.join(root, directory)
+                if os.path.islink(directory_path):
+                    warnings.append(
+                        _('Symbolic link directory was not checked') + ': ' +
+                        os.path.relpath(directory_path, base_dir)
+                    )
+                else:
+                    safe_dirs.append(directory)
+            dirs[:] = safe_dirs
+
+            for filename in files:
+                if not filename.endswith('.py'):
+                    continue
+                checked_files += 1
+                if checked_files > PLUGIN_PREFLIGHT_MAX_FILES:
+                    errors.append(_('Plug-in contains too many Python files.'))
+                    break
+                file_path = os.path.join(root, filename)
+                if os.path.islink(file_path):
+                    warnings.append(
+                        _('Symbolic link file was not checked') + ': ' +
+                        os.path.relpath(file_path, base_dir)
+                    )
+                    continue
+                try:
+                    size = os.path.getsize(file_path)
+                    total_bytes += size
+                    if size > PLUGIN_PREFLIGHT_MAX_FILE_BYTES:
+                        errors.append(
+                            _('Python file is too large') + ': ' +
+                            os.path.relpath(file_path, base_dir)
+                        )
+                        continue
+                    if total_bytes > PLUGIN_PREFLIGHT_MAX_TOTAL_BYTES:
+                        errors.append(_('Plug-in Python sources are too large.'))
+                        break
+                    with tokenize.open(file_path) as source_file:
+                        source = source_file.read()
+                    parsed = ast.parse(source, filename=file_path)
+                    compile(parsed, file_path, 'exec')
+                    if os.path.realpath(file_path) == os.path.realpath(init_file):
+                        entry_ast = parsed
+                except (OSError, SyntaxError, UnicodeError) as err:
+                    errors.append(
+                        _('Python source check failed') + ': {} ({})'.format(
+                            os.path.relpath(file_path, base_dir), err
+                        )
+                    )
+            if errors and (
+                    checked_files > PLUGIN_PREFLIGHT_MAX_FILES or
+                    total_bytes > PLUGIN_PREFLIGHT_MAX_TOTAL_BYTES):
+                break
+
+    if entry_ast is not None:
+        functions = {
+            node.name for node in entry_ast.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+        }
+        for function_name in ('start', 'stop'):
+            if function_name not in functions:
+                errors.append(
+                    _('Required plug-in function is missing') + ': ' +
+                    function_name + '()'
+                )
+
+    manifest_file = os.path.join(base_dir, PLUGIN_MANIFEST_FILE)
+    if os.path.isfile(manifest_file) and not plugin_manifest(module):
+        errors.append(_('Plug-in manifest is invalid.'))
+
+    status = 'error' if errors else ('warning' if warnings else 'ok')
+    return {
+        'status': status,
+        'passed': not errors,
+        'summary': (
+            _('Pre-activation test failed.')
+            if errors else (
+                _('Pre-activation test passed with warnings.')
+                if warnings else _('Pre-activation test passed.')
+            )
+        ),
+        'errors': errors,
+        'warnings': warnings,
+        'checked_files': checked_files,
+        'total_bytes': total_bytes,
+    }
+
+
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):
@@ -1513,6 +1633,13 @@ def start_plugin(module):
             raise RuntimeError(
                 _('Plug-in still has running threads') + ': ' +
                 ', '.join(thread.name for thread in lingering_threads)
+            )
+
+        preflight = plugin_preflight(module)
+        if not preflight['passed']:
+            raise RuntimeError(
+                _('Plug-in pre-activation test failed') + ': ' +
+                '; '.join(preflight['errors'])
             )
 
         compatibility = plugin_compatibility(module)

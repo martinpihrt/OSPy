@@ -542,6 +542,8 @@ Vor der Aktivierung prüft OSPy die angegebenen OSPy- und Python-Versionen, erfo
 
 Neue Plug-ins können die gemeinsame Thread-Lebenszyklusverwaltung und das OSPy-Stoppsignal verwenden. Beim Deaktivieren sendet OSPy zuerst das Stoppsignal, ruft die vorhandene Funktion `stop()` auf und wartet bis zu fünf Sekunden auf registrierte Threads. Threads, die weiterlaufen, werden in der Diagnose als Fehler gemeldet und verhindern den Start einer zweiten Plug-in-Instanz. Bestehende Plug-ins ohne diese Schnittstelle bleiben kompatibel.
 
+Vor Import und Start wird ein automatischer statischer Test ausgeführt, ohne Plug-in-Code auszuführen oder auf Hardware zuzugreifen. Er prüft Verzeichnis, `__init__.py`, Syntax und Größe der Python-Quellen, das optionale Manifest sowie deklarierte Funktionen `start()` und `stop()`; symbolischen Links wird nicht gefolgt. Ein Fehler verhindert die Aktivierung, und Details sind in Plug-in-Verwaltung und Diagnose verfügbar.
+
 ## Neues Plugin installieren
 
 Nach dem Klicken auf die Schaltfläche „Neues Plugin installieren“ öffnet sich ein Remote-Repository-Fenster, in dem wir verfügbare Erweiterungen zur Installation auf dem OSPy-System auswählen und allgemeine Informationen zu den Erweiterungen lesen können.
