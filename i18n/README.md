@@ -47,7 +47,7 @@ The directory name is the locale code. Examples:
 Run this command from the OSPy root directory:
 
 ```bash
-python3 pygettext.py -a -v -d messages -o i18n/ospy_messages.pot ospy/*.py ospy/templates/*.html plugins/*/*.py plugins/*/templates/*.html setup.py api/api.py api/utils.py web/session.py
+sudo python3 pygettext.py -a -v -d messages -o i18n/ospy_messages.pot ospy/*.py ospy/templates/*.html plugins/*.py plugins/*/*.py plugins/*/templates/*.html setup.py back_door.py api/api.py api/utils.py web/session.py
 ```
 
 The output file is:
