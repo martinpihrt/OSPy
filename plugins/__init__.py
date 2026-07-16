@@ -1122,7 +1122,7 @@ def plugin_compatibility(module, enabled_modules=None):
         return {
             'status': 'legacy',
             'compatible': True,
-            'summary': _('Legacy plug-in without manifest.'),
+            'summary': _('Legacy, without manifest.'),
             'errors': [],
             'warnings': [],
             'permissions': [],
@@ -1384,10 +1384,10 @@ def plugin_preflight(module):
         'status': status,
         'passed': not errors,
         'summary': (
-            _('Pre-activation test failed.')
+            _('Failed.')
             if errors else (
-                _('Pre-activation test passed with warnings.')
-                if warnings else _('Pre-activation test passed.')
+                _('Passed with warnings.')
+                if warnings else _('Passed.')
             )
         ),
         'errors': errors,

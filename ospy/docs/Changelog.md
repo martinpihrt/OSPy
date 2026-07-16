@@ -26,6 +26,10 @@ Refined the Plug-in management visual hierarchy with a larger bold plug-in name 
 
 Kept expanded plug-in health and error details open during automatic Diagnostics refreshes and after changing the plug-in sort order. Updated the Czech translation.
 
+Shortened pre-activation and legacy compatibility summaries to avoid repeating the test or plug-in name already shown by the status badge, table heading or row.
+
+Corrected external-IP reporting in Diagnostics and the footer by using a stable primary lookup service with the existing pihrt.com endpoint as a fallback, serializing concurrent refreshes and disabling browser caching for live diagnostics and footer JSON responses.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

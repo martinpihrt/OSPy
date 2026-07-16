@@ -755,6 +755,13 @@ def save_to_options(qdict):
 
 last_ip_check_time = 0
 external_ip_address = '-'
+EXTERNAL_IP_LOCK = Lock()
+EXTERNAL_IP_SERVICES = (
+    'https://api.ipify.org',
+    'https://pihrt.com/ipbot.php',
+)
+
+
 def get_external_ip():
     """Return the externally visible IP address for this system."""
 
@@ -762,17 +769,22 @@ def get_external_ip():
 
     check_time = 30 # refresh 30 seconds
 
-    if now() - last_ip_check_time > check_time:
-        last_ip_check_time = now()
-        if net_connect():
-            try:
-                external_ip_address = subprocess.check_output(['/usr/bin/curl', '-ks', 'https://pihrt.com/ipbot.php'])
-                external_ip_address = external_ip_address.decode('utf-8')
-            except:
-                pass
-                external_ip_address = '-'
-        else:        
+    with EXTERNAL_IP_LOCK:
+        if now() - last_ip_check_time > check_time:
+            last_ip_check_time = now()
             external_ip_address = '-'
+            if net_connect():
+                for service in EXTERNAL_IP_SERVICES:
+                    try:
+                        result = subprocess.check_output(
+                            ['/usr/bin/curl', '-ksS', '--max-time', '8', service],
+                            stderr=subprocess.DEVNULL,
+                        ).decode('utf-8').strip()
+                        if valid_ip(result):
+                            external_ip_address = result
+                            break
+                    except (OSError, subprocess.SubprocessError, UnicodeError):
+                        continue
 
     if valid_ip(external_ip_address):
         return '{}'.format(external_ip_address)

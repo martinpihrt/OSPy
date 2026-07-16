@@ -3285,6 +3285,7 @@ class api_diagnostics_json(ProtectedPage):
             raise web.forbidden()
 
         web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
         try:
             return json.dumps(_diagnostics_data())
         except Exception:
@@ -3310,6 +3311,7 @@ class api_diagnostics_history_json(ProtectedPage):
         seconds = qdict.get('range', 3600)
 
         web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
         try:
             return json.dumps({
                 'plugin': module,
@@ -3335,6 +3337,7 @@ class api_system_health_json(ProtectedPage):
             raise web.forbidden()
 
         web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
         try:
             return json.dumps(_system_health_data())
         except Exception:
@@ -4550,6 +4553,7 @@ class api_update_footer(ProtectedPage):
             pass
 
         web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
         return json.dumps(data)
 
 
