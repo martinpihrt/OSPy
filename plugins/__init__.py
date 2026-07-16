@@ -1363,7 +1363,7 @@ def plugin_preflight(module):
                     total_bytes > PLUGIN_PREFLIGHT_MAX_TOTAL_BYTES):
                 break
 
-    if entry_ast is not None:
+    if entry_ast is not None and plugin_manifest(module):
         functions = {
             node.name for node in entry_ast.body
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))

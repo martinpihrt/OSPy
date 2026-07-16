@@ -542,7 +542,7 @@ Before activation OSPy checks declared OSPy and Python versions, required Python
 
 New plug-ins can use the shared thread lifecycle and OSPy stop signal. When disabling a plug-in, OSPy first sends the stop signal, calls its existing `stop()` function and waits up to five seconds for registered threads. Threads that remain alive are reported as an error in Diagnostics and prevent a second copy of the plug-in from starting. Existing plug-ins without this interface remain compatible.
 
-Before import and startup, an automatic static test runs without executing plug-in code or accessing hardware. It checks the directory, `__init__.py`, Python source syntax and size, the optional manifest and declared `start()` and `stop()` functions; symbolic links are not followed. An error prevents activation and details are available in Plug-in management and Diagnostics.
+Before import and startup, an automatic static test runs without executing plug-in code or accessing hardware. It checks the directory, `__init__.py`, Python source syntax and size, the optional manifest and, for manifest-based plug-ins, declared `start()` and `stop()` functions; legacy plug-ins without a manifest retain their existing compatibility. Symbolic links are not followed. An error prevents activation and details are available in Plug-in management and Diagnostics. Compatibility, manifest and test information use high-contrast status panels in Plug-in management so they remain readable for both enabled and disabled plug-ins.
 
 ## Install New Plugin
 

@@ -1619,6 +1619,61 @@ td.stationSchedule {
     margin: 0 !important;
 }
 
+#controls .pluginMetadata,
+#controls .pluginStatusPanel {
+    box-sizing: border-box;
+    margin: 7px 0 0 150px;
+    padding: 7px 10px;
+    border: 1px solid #c8ccd2;
+    border-radius: 5px;
+    background-color: #f5f6f8;
+    color: #20242a;
+    line-height: 1.35;
+}
+
+#controls .pluginMetadata a,
+#controls .pluginStatusPanel a {
+    color: #174f8a;
+}
+
+#controls .pluginStatusHeader {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+#controls .pluginStatusBadge {
+    display: inline-block;
+    min-width: 72px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+#controls .pluginStatus-ok { border-left: 5px solid #247a24; }
+#controls .pluginStatus-warning,
+#controls .pluginStatus-legacy { border-left: 5px solid #b36b00; }
+#controls .pluginStatus-error { border-left: 5px solid #a00000; }
+#controls .pluginStatusBadge.pluginStatus-ok { background-color: #247a24; border-left: 0; }
+#controls .pluginStatusBadge.pluginStatus-warning,
+#controls .pluginStatusBadge.pluginStatus-legacy { background-color: #9a5c00; border-left: 0; }
+#controls .pluginStatusBadge.pluginStatus-error { background-color: #a00000; border-left: 0; }
+#controls .pluginStatusPanel details { margin-top: 5px; color: #20242a; }
+#controls .pluginStatusPanel li { margin: 3px 0; }
+#controls .pluginStatusPanel li.statusError { color: #8b0000; }
+#controls .pluginStatusPanel li.statusWarning { color: #7a4a00; }
+
+@media only screen and (max-width: 800px) {
+    #controls .pluginMetadata,
+    #controls .pluginStatusPanel {
+        clear: both;
+        margin-left: 0;
+    }
+}
+
 /******** Navigation Styles for width < 1024px  ********/
 @media only screen and (max-width: 1024px) {
    body {

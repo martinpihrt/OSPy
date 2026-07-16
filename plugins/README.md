@@ -103,6 +103,8 @@ Before importing or starting a plug-in, OSPy performs a static test that does
 not execute plug-in code. It verifies that the plug-in directory and
 `__init__.py` exist, safely reads and compiles all Python source files, checks
 source size limits, validates `plugin.json` when present, and confirms that the
-entry module defines `start()` and `stop()`. Symbolic links are not followed.
-An error blocks activation, while non-blocking findings are shown as warnings
-in Plug-in management and Diagnostics.
+entry module of a manifest-based plug-in defines `start()` and `stop()`.
+Legacy plug-ins without a manifest retain their existing lifecycle
+compatibility. Symbolic links are not followed. An error blocks activation,
+while non-blocking findings are shown as warnings in Plug-in management and
+Diagnostics.

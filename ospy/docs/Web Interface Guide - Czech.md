@@ -542,7 +542,7 @@ Před zapnutím OSPy kontroluje deklarované verze OSPy a Pythonu, požadované 
 
 Nová rozšíření mohou používat společnou správu vláken se stop signálem OSPy. Při vypnutí rozšíření OSPy nejprve odešle stop signál, zavolá jeho stávající funkci `stop()` a nejvýše pět sekund čeká na registrovaná vlákna. Vlákna, která se nezastaví, se zobrazí jako chyba v Diagnostice a brání spuštění druhé kopie rozšíření. Stávající rozšíření bez tohoto rozhraní zůstávají kompatibilní.
 
-Před importem a spuštěním proběhne automatický statický test, který nespouští kód rozšíření ani nepřistupuje k hardwaru. Kontroluje adresář, `__init__.py`, syntaxi a velikost Python souborů, volitelný manifest a přítomnost funkcí `start()` a `stop()`; symbolické odkazy nenásleduje. Chyba zabrání aktivaci a podrobnosti jsou dostupné ve Správě rozšíření a Diagnostice.
+Před importem a spuštěním proběhne automatický statický test, který nespouští kód rozšíření ani nepřistupuje k hardwaru. Kontroluje adresář, `__init__.py`, syntaxi a velikost Python souborů, volitelný manifest a u rozšíření s manifestem přítomnost funkcí `start()` a `stop()`; starší rozšíření bez manifestu si zachovávají dosavadní kompatibilitu. Symbolické odkazy nenásleduje. Chyba zabrání aktivaci a podrobnosti jsou dostupné ve Správě rozšíření a Diagnostice. Ve Správě rozšíření jsou kompatibilita, manifest a výsledek testu zobrazeny v kontrastních stavových panelech, které jsou čitelné u zapnutých i vypnutých rozšíření.
   
 ## Instalovat nové rozšíření
 

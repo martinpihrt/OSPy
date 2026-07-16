@@ -155,7 +155,7 @@ jQuery(document).ready(function(){
                 -->
             </div>
             $if manifest:
-                <div style="margin: 4px 0 0 150px; color: #666;">
+                <div class="pluginMetadata">
                     <small>
                         $_('Manifest'): v${manifest.get('schema_version', 1)}
                         $if manifest.get('author'):
@@ -166,38 +166,38 @@ jQuery(document).ready(function(){
                             · <a href="${manifest.get('homepage')}" target="_blank" rel="noopener noreferrer">$_('Homepage')</a>
                     </small>
                 </div>
-            <div style="margin: 4px 0 0 150px;">
-                $ status_color = '#247a24' if compatibility.get('status') == 'ok' else ('#b36b00' if compatibility.get('status') in ('warning', 'legacy') else '#a00000')
-                <small style="color: ${status_color};">
-                    <b>$_('Compatibility'):</b> ${compatibility.get('summary', '')}
+            <div class="pluginStatusPanel pluginStatus-${compatibility.get('status', 'legacy')}">
+                <div class="pluginStatusHeader">
+                    <span class="pluginStatusBadge pluginStatus-${compatibility.get('status', 'legacy')}">$_('Compatibility')</span>
+                    <strong>${compatibility.get('summary', '')}</strong>
                     $if compatibility.get('permissions'):
-                        · $_('Permissions'): ${', '.join(compatibility.get('permissions'))}
-                </small>
+                        <small>$_('Permissions'): ${', '.join(compatibility.get('permissions'))}</small>
+                </div>
                 $if compatibility.get('errors') or compatibility.get('warnings'):
                     <details>
                         <summary>$_('Details')</summary>
                         <ul>
                         $for item in compatibility.get('errors', []):
-                            <li style="color:#a00000;">${item}</li>
+                            <li class="statusError">${item}</li>
                         $for item in compatibility.get('warnings', []):
-                            <li style="color:#b36b00;">${item}</li>
+                            <li class="statusWarning">${item}</li>
                         </ul>
                     </details>
             </div>
-            <div style="margin: 4px 0 0 150px;">
-                $ test_color = '#247a24' if preflight.get('status') == 'ok' else ('#b36b00' if preflight.get('status') == 'warning' else '#a00000')
-                <small style="color: ${test_color};">
-                    <b>$_('Pre-activation test'):</b> ${preflight.get('summary', '')}
-                    · $_('Python files'): ${preflight.get('checked_files', 0)}
-                </small>
+            <div class="pluginStatusPanel pluginStatus-${preflight.get('status', 'error')}">
+                <div class="pluginStatusHeader">
+                    <span class="pluginStatusBadge pluginStatus-${preflight.get('status', 'error')}">$_('Pre-activation test')</span>
+                    <strong>${preflight.get('summary', '')}</strong>
+                    <small>$_('Python files'): ${preflight.get('checked_files', 0)}</small>
+                </div>
                 $if preflight.get('errors') or preflight.get('warnings'):
                     <details>
                         <summary>$_('Details')</summary>
                         <ul>
                         $for item in preflight.get('errors', []):
-                            <li style="color:#a00000;">${item}</li>
+                            <li class="statusError">${item}</li>
                         $for item in preflight.get('warnings', []):
-                            <li style="color:#b36b00;">${item}</li>
+                            <li class="statusWarning">${item}</li>
                         </ul>
                     </details>
             </div>

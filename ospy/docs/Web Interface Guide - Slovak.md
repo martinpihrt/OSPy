@@ -542,7 +542,7 @@ Pred zapnutím OSPy kontroluje deklarované verzie OSPy a Pythonu, požadované 
 
 Nové doplnky môžu používať spoločnú správu vlákien so stop signálom OSPy. Pri vypnutí doplnku OSPy najprv odošle stop signál, zavolá jeho existujúcu funkciu `stop()` a najviac päť sekúnd čaká na registrované vlákna. Vlákna, ktoré sa nezastavia, sa zobrazia ako chyba v Diagnostike a zabránia spusteniu druhej kópie doplnku. Existujúce doplnky bez tohto rozhrania zostávajú kompatibilné.
 
-Pred importom a spustením prebehne automatický statický test, ktorý nespúšťa kód doplnku ani nepristupuje k hardvéru. Kontroluje adresár, `__init__.py`, syntax a veľkosť Python súborov, voliteľný manifest a deklarované funkcie `start()` a `stop()`; symbolické odkazy nenasleduje. Chyba zabráni aktivácii a podrobnosti sú dostupné v Správe doplnkov a Diagnostike.
+Pred importom a spustením prebehne automatický statický test, ktorý nespúšťa kód doplnku ani nepristupuje k hardvéru. Kontroluje adresár, `__init__.py`, syntax a veľkosť Python súborov, voliteľný manifest a pri doplnkoch s manifestom deklarované funkcie `start()` a `stop()`; staršie doplnky bez manifestu si zachovávajú doterajšiu kompatibilitu. Symbolické odkazy nenasleduje. Chyba zabráni aktivácii a podrobnosti sú dostupné v Správe doplnkov a Diagnostike. Kompatibilita, manifest a výsledok testu sa v Správe doplnkov zobrazujú v kontrastných stavových paneloch, ktoré zostávajú čitateľné pri zapnutých aj vypnutých doplnkoch.
 
 ## Nainštalovať nový doplnok
 

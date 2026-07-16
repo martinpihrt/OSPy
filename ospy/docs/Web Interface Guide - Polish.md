@@ -531,7 +531,7 @@ Przed aktywacją OSPy sprawdza zadeklarowane wersje OSPy i Pythona, wymagane mod
 
 Nowe wtyczki mogą korzystać ze wspólnego cyklu życia wątków i sygnału zatrzymania OSPy. Podczas wyłączania OSPy najpierw wysyła sygnał zatrzymania, wywołuje istniejącą funkcję `stop()` i czeka maksymalnie pięć sekund na zarejestrowane wątki. Wątki, które nadal działają, są zgłaszane jako błąd w Diagnostyce i uniemożliwiają uruchomienie drugiej kopii wtyczki. Istniejące wtyczki bez tego interfejsu pozostają zgodne.
 
-Przed importem i uruchomieniem wykonywany jest automatyczny test statyczny bez wykonywania kodu wtyczki ani dostępu do sprzętu. Sprawdza katalog, `__init__.py`, składnię i rozmiar źródeł Pythona, opcjonalny manifest oraz zadeklarowane funkcje `start()` i `stop()`; dowiązania symboliczne nie są śledzone. Błąd uniemożliwia aktywację, a szczegóły są dostępne w Zarządzaniu wtyczkami i Diagnostyce.
+Przed importem i uruchomieniem wykonywany jest automatyczny test statyczny bez wykonywania kodu wtyczki ani dostępu do sprzętu. Sprawdza katalog, `__init__.py`, składnię i rozmiar źródeł Pythona, opcjonalny manifest oraz, w przypadku wtyczek z manifestem, zadeklarowane funkcje `start()` i `stop()`; starsze wtyczki bez manifestu zachowują dotychczasową zgodność. Dowiązania symboliczne nie są śledzone. Błąd uniemożliwia aktywację, a szczegóły są dostępne w Zarządzaniu wtyczkami i Diagnostyce. Informacje o zgodności, manifeście i wyniku testu są wyświetlane w kontrastowych panelach stanu, czytelnych zarówno dla włączonych, jak i wyłączonych wtyczek.
 
 ## Zainstaluj nową wtyczkę
 
