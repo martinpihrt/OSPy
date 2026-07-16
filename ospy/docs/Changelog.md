@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 16 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updated active pihrt.com article links after the website migration from the former `/elektronika/` paths to the verified `/clanky/` addresses. The OSPy README and sensor firmware documentation now point to the current articles.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

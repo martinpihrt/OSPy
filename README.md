@@ -35,7 +35,7 @@ sudo service ospy start
 ```
 
 ## More information visit
-[Pihrt.com](https://pihrt.com/elektronika/248-moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )
+[Pihrt.com](https://pihrt.com/clanky/moje-rapsberry-pi-zavlazovani-zahrady) and [OpenSprinkler](https://opensprinkler.cz  )
 
 YouTube OpenSprinkler channel</br>
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/yt.png?raw=true)](https://youtube.com/playlist?list=PLZt973B9se__UN_CVyOoy1_lr-ZSlSv0L)
@@ -46,7 +46,7 @@ YouTube OpenSprinkler channel</br>
 ## Multisensor ESP32 and Shelly.com
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi.png)</br>
 [![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D_mini.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/esp32multi3D.png)</br>
-[Sensors by Pihrt.com](https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system)</br>
+[Sensors by Pihrt.com](https://pihrt.com/clanky/esp32-multisnimac-pro-opensprinkler-system)</br>
 [Sensors by Shelly.com](https://www.shelly.com/collections/smart-monitoring-saving-energy)
 
 ## For translate OSPy to other language

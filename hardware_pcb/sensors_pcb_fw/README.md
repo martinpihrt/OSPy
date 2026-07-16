@@ -16,7 +16,7 @@ INSTALLATION:
 - For ESP32 Open Boards Manager from Tools > Board menu and install *esp32* platform (and don't forget to select your ESP32 board from Tools > Board menu after installation).
 - For ESP8266 Open Boards Manager from Tools > Board menu and install *esp8266* platform (and don't forget to select your ESP8266 board from Tools > Board menu after installation).
 - Extract the OneWire and Dallas Temperature folders from the esp32/library folder. Then copy the folders to your arduino library location. Example: documents/arduino/libraries
-- More infos with images is here: https://pihrt.com/elektronika/444-esp32-multisnimac-pro-opensprinkler-system and https://pihrt.com/elektronika/439-ospy-jak-pridat-a-pripojit-snimace
+- More infos with images is here: https://pihrt.com/clanky/esp32-multisnimac-pro-opensprinkler-system and https://pihrt.com/clanky/ospy-jak-pridat-a-pripojit-snimace
 
 ### ESP32 Flash Download Tool
 The ability to upload an already compiled file to the processor without using Arduino.
