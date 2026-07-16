@@ -508,7 +508,8 @@ class _PluginChecker(threading.Thread):
         self._repo_contents = {}
         self._changes_cache = {}
 
-        self.start()
+        if os.environ.get('OSPY_DISABLE_BACKGROUND_THREADS') != '1':
+            self.start()
 
     def update(self):
         self._sleep_time = 10

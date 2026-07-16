@@ -19,6 +19,11 @@ The suite checks:
 * partial bulk installation, compatibility warnings and automatic-update
   blocking.
 
+Manifest tests use a temporary OSPy data directory and disable the plug-in
+repository background checker. The suite can therefore run while the OSPy
+service is active without opening its options database, starting update checks,
+accessing weather services or touching GPIO.
+
 To additionally compile all plug-in templates and require and validate a
 manifest for every plug-in in the separate official OSPy-plugins repository,
 provide its `plugins` directory:

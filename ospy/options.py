@@ -17,9 +17,10 @@ import os
 import time
 from functools import reduce
 
-OPTIONS_FILE = './ospy/data/default/options.db'
-OPTIONS_TMP = './ospy/data/tmp/options.db'
-OPTIONS_BACKUP = './ospy/data/backup/options.db'
+_DATA_DIR = os.environ.get('OSPY_DATA_DIR', './ospy/data')
+OPTIONS_FILE = os.path.join(_DATA_DIR, 'default', 'options.db')
+OPTIONS_TMP = os.path.join(_DATA_DIR, 'tmp', 'options.db')
+OPTIONS_BACKUP = os.path.join(_DATA_DIR, 'backup', 'options.db')
 
 class _Options(object):
     # Using an array to preserve order

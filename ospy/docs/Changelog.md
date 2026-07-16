@@ -40,6 +40,8 @@ Added the first standard-library automated test suite for OSPy. It compiles ever
 
 Plug-in compatibility is now evaluated from `plugin.json` inside the downloaded ZIP before any repository documentation or plug-in file is copied. The installation page shows compatible, warning and blocked states with detailed reasons, and disables installation of incompatible individual plug-ins. Bulk installation installs compatible plug-ins while reporting skipped ones, compatibility warnings remain installable, custom ZIP uploads follow the same rules, manual updates are blocked consistently from all plug-in pages, and automatic updates skip incompatible new versions. Missing, invalid or oversized manifests are installation errors. Automated tests cover the archive validation, no-write blocking, partial bulk installation, warning behavior and automatic-update protection. Updated the plug-in installation documentation in all seven language Web Interface Guides and the built-in plug-in developer README.
 
+Isolated the automated test environment from a concurrently running OSPy service. Manifest tests now use a temporary data directory and suppress the plug-in repository background checker, preventing options database permission warnings, unintended weather activity and GPIO access while tests run under the normal service user. Updated the Czech translation.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

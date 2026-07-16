@@ -2,13 +2,21 @@ import io
 import json
 import os
 from pathlib import Path
+import shutil
+import tempfile
 import threading
 import unittest
 from unittest import mock
 import zipfile
 
+
+TEST_DATA_DIR = tempfile.mkdtemp(prefix="ospy-tests-")
+os.environ["OSPY_DATA_DIR"] = TEST_DATA_DIR
+os.environ["OSPY_DISABLE_BACKGROUND_THREADS"] = "1"
+
 from ospy import i18n  # Install the same gettext function used by a running OSPy.
 import plugins
+from ospy import options as options_module
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -74,6 +82,19 @@ def _manifest(plugin, **changes):
 
 
 class PluginManifestParserTests(unittest.TestCase):
+    @classmethod
+    def tearDownClass(cls):
+        options_module.options.__del__()
+        shutil.rmtree(TEST_DATA_DIR, ignore_errors=True)
+
+    def test_tests_use_isolated_data_without_background_plugin_checker(self):
+        self.assertTrue(
+            os.path.realpath(options_module.OPTIONS_FILE).startswith(
+                os.path.realpath(TEST_DATA_DIR) + os.sep
+            )
+        )
+        self.assertFalse(plugins.checker.is_alive())
+
     def test_valid_manifest_is_normalized(self):
         manifest = {
             "schema_version": 1,
