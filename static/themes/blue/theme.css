@@ -1712,6 +1712,40 @@ td.stationSchedule {
 #controls .pluginStatusPanel li.statusError { color: #8b0000; }
 #controls .pluginStatusPanel li.statusWarning { color: #7a4a00; }
 
+.pluginInstallCompatibility {
+    box-sizing: border-box;
+    margin: 6px 10px;
+    padding: 6px 9px;
+    border-left: 4px solid #687080;
+    border-radius: 3px;
+    background: #eceef2;
+    color: #30343b;
+    overflow-wrap: anywhere;
+}
+
+.pluginInstallCompatibility.status-ok {
+    border-left-color: #2f8b2f;
+    background: #e7f3e7;
+    color: #1f6322;
+}
+
+.pluginInstallCompatibility.status-warning {
+    border-left-color: #d07800;
+    background: #fff1d7;
+    color: #754600;
+}
+
+.pluginInstallCompatibility.status-error {
+    border-left-color: #9d1c24;
+    background: #f9e3e5;
+    color: #7d1921;
+}
+
+.pluginInstallCompatibility ul {
+    margin: 4px 0 0 18px;
+    padding: 0;
+}
+
 @keyframes pluginUpdatePulse {
     0%, 100% {
         background-color: #ffd54f;

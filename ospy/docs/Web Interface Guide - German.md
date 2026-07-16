@@ -536,7 +536,7 @@ Auf der Seite „Plugins“ können wir alle Erweiterungen im OSPy-System konfig
 
 Durch Klicken auf die Schaltfläche „Verwalten“ wird das Erweiterungsmanagerfenster in OSPy geöffnet. Alle verfügbaren Erweiterungen können aktiviert, deaktiviert, aus dem Repository installiert usw. werden.
 
-Ein Plug-in kann optional eine Datei `plugin.json` mit Name, Version, Beschreibung, Autor, Homepage und Lizenz enthalten. Der Manager zeigt diese Metadaten an, wenn sie verfügbar sind. Ältere Plug-ins ohne Manifest bleiben kompatibel und OSPy liest ihren Namen aus `__init__.py`; ein ungültiges Manifest wird sicher ignoriert.
+Ein Plug-in verwendet eine Datei `plugin.json` mit Name, Version, Beschreibung, Autor, Homepage und Lizenz. Der Manager zeigt diese Metadaten an, wenn sie verfügbar sind. Für bereits installierte ältere Plug-ins ohne Manifest bleibt die Abwärtskompatibilität erhalten und OSPy liest ihren Namen aus `__init__.py`; die Regeln für Neuinstallationen werden weiter unten beschrieben.
 
 Vor der Aktivierung prüft OSPy die angegebenen OSPy- und Python-Versionen, erforderliche Python-Module, unterstützte Plattformen, die Verfügbarkeit von GPIO/I²C sowie Konflikte mit aktivierten Plug-ins, GPIO-Pins oder I²C-Adressen. Ein blockierendes Problem verhindert die Aktivierung, und „Alle aktivieren“ überspringt das betroffene Plug-in. Plug-in-Verwaltung und Diagnose zeigen Details sowie deklarierte Berechtigungen für Netzwerk, Dateien, I²C, GPIO, E-Mail, Unterprozesse oder System an. Berechtigungen informieren den Administrator; sie sind keine isolierte Betriebssystem-Sandbox.
 
@@ -547,6 +547,8 @@ Vor Import und Start wird ein automatischer statischer Test ausgeführt, ohne Pl
 ## Neues Plugin installieren
 
 Nach dem Klicken auf die Schaltfläche „Neues Plugin installieren“ öffnet sich ein Remote-Repository-Fenster, in dem wir verfügbare Erweiterungen zur Installation auf dem OSPy-System auswählen und allgemeine Informationen zu den Erweiterungen lesen können.
+
+Bevor Dateien kopiert werden, liest OSPy `plugin.json` sicher direkt aus dem heruntergeladenen ZIP-Archiv und zeigt für jedes Plug-in den Kompatibilitätsstatus sowie die konkreten Gründe für mögliche Probleme an. Ein inkompatibles Plug-in kann weder installiert noch manuell aktualisiert werden. Ein Plug-in mit Warnungen kann nach Anzeige der Warnungen installiert werden. Bei einer Masseninstallation werden kompatible Plug-ins installiert und inkompatible Plug-ins unter Angabe des Grundes übersprungen. Dieselbe Prüfung gilt für eigene ZIP-Dateien, Einzel- und Massenaktionen sowie Aktualisierungen. Eine fehlende, ungültige oder zu große `plugin.json` ist bei einer Neuinstallation ein Fehler; bereits installierte ältere Plug-ins ohne Manifest können im Abwärtskompatibilitätsmodus weiterlaufen.
 
 ### Benutzerdefiniertes Plug-in (ZIP)
 Mit dem Erweiterungsmanager können Sie Ihre eigene Erweiterung im OSPy-System installieren, die nicht im Remote-Repository veröffentlicht wird (z. B. Ihre persönliche Erweiterung). Über die Schaltfläche „Durchsuchen“ wählen wir die gewünschte Datei auf unserem Computer aus, um sie im OSPy-System zu installieren. Die Erweiterungsdatei (zip) muss die vollständige Struktur der Erweiterung enthalten (Init, Templates, i18n, Readme usw.).
@@ -572,7 +574,7 @@ Die Schaltfläche ruft die neueste Liste der verfügbaren Änderungen aus dem Re
 Die Schaltfläche öffnet eine Übersicht der verfügbaren Erweiterungsänderungen und Update-Informationen.
 
 ## Automatische Updates
-Wenn die Schaltfläche aktiv ist, wird diese Erweiterung automatisch aktualisiert, wenn eine neue Version der Erweiterung verfügbar ist. Warnung: OSPy wird ständig weiterentwickelt und wenn es zu einer größeren Änderung in OSPy kommt und der Benutzer OSPy nicht aktualisiert, funktioniert die Erweiterung nach dem Update möglicherweise nicht mehr. Aktualisieren Sie immer zuerst OSPy und dann alle Erweiterungen!
+Wenn die Schaltfläche aktiv ist, wird diese Erweiterung automatisch aktualisiert, sobald eine neue kompatible Version verfügbar ist. Eine inkompatible neue Version wird nicht automatisch installiert; der Manager zeigt den Grund an. Warnung: OSPy wird ständig weiterentwickelt und wenn es zu einer größeren Änderung in OSPy kommt und der Benutzer OSPy nicht aktualisiert, funktioniert die Erweiterung nach dem Update möglicherweise nicht mehr. Aktualisieren Sie immer zuerst OSPy und dann alle Erweiterungen!
 
 ----
 

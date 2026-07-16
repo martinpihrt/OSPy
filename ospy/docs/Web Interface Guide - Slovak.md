@@ -536,7 +536,7 @@ Na stránke "Doplnky" môžeme nakonfigurovať alebo ovládať všetky rozšíre
 
 Po kliknutí na tlačidlo "Spravovať" sa otvorí okno správcu rozšírenia v systéme OSPy. Všetky dostupné rozšírenia je možné zapínať, vypínať, inštalovať z repozitára atď...
 
-Doplnok môže obsahovať voliteľný súbor `plugin.json` s názvom, verziou, opisom, autorom, domovskou stránkou a licenciou. Správca tieto metadáta zobrazí, ak sú dostupné. Staršie doplnky bez manifestu zostávajú kompatibilné a OSPy načíta ich názov z `__init__.py`; neplatný manifest sa bezpečne ignoruje.
+Doplnok používa súbor `plugin.json` s názvom, verziou, opisom, autorom, domovskou stránkou a licenciou. Správca tieto metadáta zobrazí, ak sú dostupné. Pri už nainštalovaných starších doplnkoch bez manifestu zostáva zachovaná spätná kompatibilita a OSPy načíta ich názov z `__init__.py`; pravidlá pre nové inštalácie sú opísané nižšie.
 
 Pred zapnutím OSPy kontroluje deklarované verzie OSPy a Pythonu, požadované Python moduly, podporovanú platformu, dostupnosť GPIO/I²C a konflikty s už povolenými doplnkami, GPIO pinmi alebo I²C adresami. Blokujúci problém zabráni zapnutiu a voľba zapnúť všetko taký doplnok preskočí. Správa doplnkov a Diagnostika zobrazujú podrobnosti aj deklarované oprávnenia k sieti, súborom, I²C, GPIO, e-mailu, podprocesom alebo systému. Oprávnenia sú informáciou pre správcu, nie izolovaným systémovým sandboxom.
 
@@ -547,6 +547,8 @@ Pred importom a spustením prebehne automatický statický test, ktorý nespúš
 ## Nainštalovať nový doplnok
 
 Po kliknutí na tlačidlo "Nainštalovať nový doplnok" sa otvorí okno so vzdialeným repozitárom, kde si môžeme vybrať dostupné rozšírenia pre inštaláciu do systému OSPy a prečítať si všeobecné informácie k rozšíreniam.
+
+Pred kopírovaním súborov OSPy bezpečne načíta `plugin.json` priamo zo stiahnutého ZIP archívu a pri každom doplnku zobrazí stav kompatibility aj konkrétne dôvody prípadného problému. Nekompatibilný doplnok nie je možné nainštalovať ani ručne aktualizovať. Doplnok iba s varovaniami možno po ich zobrazení nainštalovať. Hromadná inštalácia nainštaluje kompatibilné doplnky a nekompatibilné preskočí s uvedením dôvodu. Rovnaká kontrola platí pre vlastné ZIP súbory, jednotlivé a hromadné operácie aj aktualizácie. Chýbajúci, neplatný alebo príliš veľký `plugin.json` je pri novej inštalácii chybou; už nainštalované staršie doplnky bez manifestu môžu naďalej fungovať v režime spätnej kompatibility.
 
 ### Vlastný doplnok (ZIP)
 Správca rozšírenia umožňuje do systému OSPy nainštalovať aj vlastné rozšírenie, ktoré nie je zverejnené vo vzdialenom repozitári (napríklad vaše nejaké osobné rozšírenie). Pomocou tlačidla "prechádzať" zvolíme požadovaný súbor v našom počítači na inštaláciu do systému OSPy. Súbor rozšírenia (zips) musí obsahovať kompletnú štruktúru rozšírenia (init, templates, i18n, readme atď).
@@ -572,7 +574,7 @@ Tlačidlo načíta najnovší zoznam dostupných zmien zo vzdialeného repozitá
 Tlačidlo otvorí prehľad dostupných zmien rozšírenia a informácií k aktualizáciám.
 
 ## Automatické aktualizácie
-Keď je tlačidlo aktívne, tak sa pri dostupnosti novej verzie rozšírenia automaticky vykoná aktualizácia tohto rozšírenia. Upozornenie: systém OSPy sa neustále vyvíja a pokiaľ dôjde k zásadnej zmene v systéme OSPy a užívateľ systém OSPy nebude aktualizovať, môže dôjsť k tomu, že rozšírenie po aktualizácii nebude pracovať. Vždy najskôr aktualizujte systém OSPy a následne všetky rozšírenia!
+Keď je tlačidlo aktívne, pri dostupnosti novej kompatibilnej verzie sa automaticky vykoná aktualizácia rozšírenia. Nekompatibilná nová verzia sa automaticky nenainštaluje a správca zobrazí dôvod. Upozornenie: systém OSPy sa neustále vyvíja a pokiaľ dôjde k zásadnej zmene v systéme OSPy a užívateľ systém OSPy nebude aktualizovať, môže dôjsť k tomu, že rozšírenie po aktualizácii nebude pracovať. Vždy najskôr aktualizujte systém OSPy a následne všetky rozšírenia!
 
 ----
 

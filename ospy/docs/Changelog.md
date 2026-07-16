@@ -38,6 +38,8 @@ Refined the Diagnostics plug-in table for translated interfaces. It now uses sma
 
 Added the first standard-library automated test suite for OSPy. It compiles every core web.py template, verifies that the documented pygettext inputs cover all project translation calls, runs extraction into a temporary POT without modifying translation catalogs, exercises valid and invalid plug-in manifest parsing, validates installed manifests, and can compile every plug-in template and require a valid manifest for every plug-in in an external OSPy-plugins checkout. The test guide is available directly from the built-in OSPy Help menu. Long Help paragraphs, links and code lines now wrap within the content area, while wide Markdown tables remain horizontally scrollable.
 
+Plug-in compatibility is now evaluated from `plugin.json` inside the downloaded ZIP before any repository documentation or plug-in file is copied. The installation page shows compatible, warning and blocked states with detailed reasons, and disables installation of incompatible individual plug-ins. Bulk installation installs compatible plug-ins while reporting skipped ones, compatibility warnings remain installable, custom ZIP uploads follow the same rules, manual updates are blocked consistently from all plug-in pages, and automatic updates skip incompatible new versions. Missing, invalid or oversized manifests are installation errors. Automated tests cover the archive validation, no-write blocking, partial bulk installation, warning behavior and automatic-update protection. Updated the plug-in installation documentation in all seven language Web Interface Guides and the built-in plug-in developer README.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

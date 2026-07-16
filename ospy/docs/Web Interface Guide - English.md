@@ -536,7 +536,7 @@ On the page "Plugins page" we can configure or control all extensions in the OSP
 
 Clicking the "Manage" button will open the extension manager window in OSPy. All available extensions can be turned on, off, installed from repository, etc...
 
-A plug-in can include an optional `plugin.json` file containing its name, version, description, author, homepage and license. The manager displays this metadata when available. Older plug-ins without a manifest remain compatible and OSPy reads their name from `__init__.py`; an invalid manifest is safely ignored.
+A plug-in uses a `plugin.json` file containing its name, version, description, author, homepage and license. The manager displays this metadata when available. Backward compatibility is retained for older plug-ins already installed without a manifest, and OSPy reads their name from `__init__.py`; the rules for new installations are described below.
 
 Before activation OSPy checks declared OSPy and Python versions, required Python modules, supported platforms, GPIO/I²C availability and conflicts with enabled plug-ins, GPIO pins or I²C addresses. A blocking problem prevents activation and Enable All skips the affected plug-in. Plug-in management and Diagnostics show details and declared network, file, I²C, GPIO, e-mail, subprocess or system permissions. Permissions inform the administrator; they are not an isolated operating-system sandbox.
 
@@ -547,6 +547,8 @@ Before import and startup, an automatic static test runs without executing plug-
 ## Install New Plugin
 
 Clicking the "Install New Plugin" button opens a window with a remote repository where we can select the available extensions to install on the OSPy system and read general information about the extensions.
+
+Before copying any files, OSPy safely reads `plugin.json` directly from the downloaded ZIP archive and displays the compatibility state and specific reasons for any problem for each plug-in. An incompatible plug-in cannot be installed or updated manually. A plug-in with warnings remains installable after the warnings are shown. Bulk installation installs compatible plug-ins and skips incompatible ones while reporting the reasons. The same validation applies to custom ZIP files, individual and bulk operations, and updates. A missing, invalid, or oversized `plugin.json` is an installation error for a new installation; already installed legacy plug-ins without a manifest can continue to run in backward-compatibility mode.
 
 ### Custom plug-in (ZIP)
 The extension manager allows you to install your own extension in the OSPy system, which is not published in the remote repository (for example, your personal extension). Using the "browse" button, we select the desired file on our computer to install into the OSPy system. The extension file (zip) must contain the complete structure of the extension (init, templates, i18n, readme, etc.).
@@ -572,7 +574,7 @@ The button retrieves the latest list of available changes from the remote extens
 The button opens an overview of available extension changes and update information.
 
 ## Automatic updates
-When the button is active, this extension will automatically be updated when a new version of the extension is available. Warning: OSPy is constantly evolving and if there is a major change in OSPy and the user does not update OSPy, the extension may not work after the update. Always update OSPy first and then all extensions!
+When the button is active, this extension will automatically be updated when a new compatible version is available. An incompatible new version is not installed automatically, and the manager displays the reason. Warning: OSPy is constantly evolving and if there is a major change in OSPy and the user does not update OSPy, the extension may not work after the update. Always update OSPy first and then all extensions!
 
 ----
 

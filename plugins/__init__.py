@@ -555,6 +555,15 @@ class _PluginChecker(threading.Thread):
                 if self.sync_installed_status(plugin, update):
                     continue
                 if install_updates:
+                    compatibility = update.get('compatibility', {})
+                    if not compatibility.get('compatible', False):
+                        logging.warning(
+                            _('Automatic update skipped for incompatible plug-in {}').format(
+                                plugin
+                            ) + ': ' +
+                            '; '.join(compatibility.get('errors', []))
+                        )
+                        continue
                     logging.info(_('Updating the {} plug-in.').format(plugin))
                     self.install_repo_plugin(update['repo'], plugin)
 
@@ -611,18 +620,46 @@ class _PluginChecker(threading.Thread):
                 read_me = ''
                 manifest = {}
                 manifest_name = init_dir + '/' + PLUGIN_MANIFEST_FILE
+                manifest_present = manifest_name in files
+                manifest_error = ''
                 if manifest_name in files:
-                    manifest = _manifest_from_bytes(
-                        zip_file.read(manifest_name), plugin_id
-                    )
+                    manifest_info = zip_file.getinfo(manifest_name)
+                    if manifest_info.file_size > PLUGIN_MANIFEST_MAX_BYTES:
+                        manifest_error = _('Plug-in manifest is too large.')
+                    else:
+                        manifest = _manifest_from_bytes(
+                            zip_file.read(manifest_name), plugin_id
+                        )
+                        if not manifest:
+                            manifest_error = _('Plug-in manifest is invalid.')
+                else:
+                    manifest_error = _('Plug-in manifest is missing.')
+
+                compatibility = plugin_manifest_compatibility(
+                    plugin_id,
+                    manifest,
+                    require_manifest=True,
+                    manifest_error=manifest_error,
+                )
 
                 # Version information:
                 plugin_hash = ''
                 plugin_date = datetime.datetime(1970, 1, 1)
                 plugin_files = {}
                 plugin_zip_prefix = init_dir.rstrip('/\\') + '/'
+                init_parts = [
+                    part for part in init.replace('\\', '/').split('/') if part
+                ]
+                is_repository_plugin = (
+                    len(init_parts) >= 3 and init_parts[-3] == 'plugins'
+                )
+                is_top_level_plugin = len(init_parts) == 2
 
-                if init_dir + '/README.md' in files or manifest:
+                if (
+                        init_dir + '/README.md' in files or
+                        manifest_present or
+                        is_repository_plugin or
+                        is_top_level_plugin):
 
                     # Check all files:
                     for zip_info in infos:
@@ -653,6 +690,10 @@ class _PluginChecker(threading.Thread):
                             _plugin_name(zip_file.read(init).decode('utf-8').splitlines())
                         ),
                         'manifest': manifest,
+                        'manifest_present': manifest_present,
+                        'manifest_valid': bool(manifest),
+                        'manifest_error': manifest_error,
+                        'compatibility': compatibility,
                         'version': manifest.get('version', ''),
                         'hash': hashlib.md5(plugin_hash.encode("utf-8")).hexdigest(),
                         'date': plugin_date,
@@ -678,7 +719,17 @@ class _PluginChecker(threading.Thread):
                 pass
                 return {}
 
-            return self._repo_contents[repo]
+            result = {}
+            for plugin, info in self._repo_contents[repo].items():
+                current_info = info.copy()
+                current_info['compatibility'] = plugin_manifest_compatibility(
+                    plugin,
+                    current_info.get('manifest', {}),
+                    require_manifest=True,
+                    manifest_error=current_info.get('manifest_error', ''),
+                )
+                result[plugin] = current_info
+            return result
 
     @staticmethod
     def _local_file_crc(filename):
@@ -931,14 +982,70 @@ class _PluginChecker(threading.Thread):
     def install_repo_plugin(self, repo, plugin_filter):
         import logging
         logging.info(_('Installing plug-in from repository {} plugin {}').format(repo, plugin_filter if plugin_filter else _('all plugins')))
-        self.install_custom_plugin(self._get_zip(repo), plugin_filter)
+        return self.install_custom_plugin(self._get_zip(repo), plugin_filter)
 
     def install_custom_plugin(self, zip_file_data, plugin_filter=None):
-        self._install_repo_docs(zip_file_data)
         contents = self.zip_contents(zip_file_data, False)
-        for plugin, info in contents.items():
-            if plugin_filter is None or plugin == plugin_filter:
-                self._install_plugin(zip_file_data, plugin, info['dir'])
+        if not contents:
+            raise ValueError(_('No installable plug-ins were found in the ZIP file.'))
+        if plugin_filter is not None and plugin_filter not in contents:
+            raise ValueError(
+                _('Requested plug-in was not found in the ZIP file') +
+                ': ' + str(plugin_filter)
+            )
+
+        selected = {
+            plugin: info for plugin, info in contents.items()
+            if plugin_filter is None or plugin == plugin_filter
+        }
+        result = {
+            'installed': [],
+            'blocked': {},
+            'warnings': {},
+        }
+        for plugin, info in selected.items():
+            compatibility = plugin_manifest_compatibility(
+                plugin,
+                info.get('manifest', {}),
+                require_manifest=True,
+                manifest_error=info.get('manifest_error', ''),
+            )
+            info['compatibility'] = compatibility
+            if not compatibility.get('compatible', False):
+                result['blocked'][plugin] = list(
+                    compatibility.get('errors') or
+                    [_('Plug-in is incompatible with this OSPy installation.')]
+                )
+            elif compatibility.get('warnings'):
+                result['warnings'][plugin] = list(compatibility['warnings'])
+
+        if plugin_filter is not None and result['blocked']:
+            reasons = result['blocked'][plugin_filter]
+            raise ValueError(
+                _('Plug-in cannot be installed') + ': ' +
+                '; '.join(reasons)
+            )
+
+        installable = [
+            (plugin, info) for plugin, info in selected.items()
+            if plugin not in result['blocked']
+        ]
+        if not installable:
+            blocked_details = []
+            for plugin, reasons in sorted(result['blocked'].items()):
+                blocked_details.append(
+                    '{}: {}'.format(plugin, '; '.join(reasons))
+                )
+            raise ValueError(
+                _('No compatible plug-ins are available for installation.') +
+                (' ' + ' | '.join(blocked_details) if blocked_details else '')
+            )
+
+        self._install_repo_docs(zip_file_data)
+        for plugin, info in installable:
+            self._install_plugin(zip_file_data, plugin, info['dir'])
+            result['installed'].append(plugin)
+        return result
 
 checker = _PluginChecker()
 
@@ -1115,10 +1222,22 @@ def _normalized_resource(value):
     return str(value).strip().lower()
 
 
-def plugin_compatibility(module, enabled_modules=None):
-    """Validate a manifest against this OSPy installation without importing it."""
-    manifest = plugin_manifest(module)
+def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
+                                  require_manifest=False, manifest_error=''):
+    """Validate supplied manifest data against this OSPy installation."""
     if not manifest:
+        if require_manifest:
+            error = manifest_error or _(
+                'A valid plugin.json manifest is required for installation.'
+            )
+            return {
+                'status': 'error',
+                'compatible': False,
+                'summary': _('Cannot be installed.'),
+                'errors': [error],
+                'warnings': [],
+                'permissions': [],
+            }
         return {
             'status': 'legacy',
             'compatible': True,
@@ -1282,6 +1401,13 @@ def plugin_compatibility(module, enabled_modules=None):
         'warnings': warnings,
         'permissions': permissions,
     }
+
+
+def plugin_compatibility(module, enabled_modules=None):
+    """Validate an installed plug-in without importing it."""
+    return plugin_manifest_compatibility(
+        module, plugin_manifest(module), enabled_modules=enabled_modules
+    )
 
 
 def plugin_preflight(module):

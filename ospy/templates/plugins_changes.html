@@ -37,7 +37,12 @@ jQuery(document).ready(function(){
                 <input type="hidden" name="action" value="install_repo">
                 <input type="hidden" name="repo" value="${available_info['repo_index']}">
                 <input type="hidden" name="plugin" value="${plugin}">
-                <button type="submit" class="button open">$_('Update')</button>
+                <button type="submit" class="button open" ${'disabled' if not available_info.get('compatibility', {}).get('compatible') else ''}>
+                    $if available_info.get('compatibility', {}).get('compatible'):
+                        $_('Update')
+                    $else:
+                        $_('Incompatible')
+                </button>
             </form>
     </p>
     $if available_info is not None:
@@ -48,6 +53,17 @@ jQuery(document).ready(function(){
 
     $if available_info is not None:
         <p>$_('Available version date'): ${available_info.get('date', '')}</p>
+        $ compatibility = available_info.get('compatibility', {})
+        <div class="pluginInstallCompatibility status-${compatibility.get('status', 'error')}">
+            <strong>$_('Compatibility'): ${compatibility.get('summary', '')}</strong>
+            $if compatibility.get('errors') or compatibility.get('warnings'):
+                <ul>
+                $for item in compatibility.get('errors', []):
+                    <li>${item}</li>
+                $for item in compatibility.get('warnings', []):
+                    <li>${item}</li>
+                </ul>
+        </div>
 
     $if changes:
         <p><small>$_('Showing latest') ${len(changes)} $_('changes').</small></p>

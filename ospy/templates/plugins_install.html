@@ -12,20 +12,26 @@ $var page: plugins
         <button id="cSubmit" class="submit">$_('Install')</button>
     </form>
     $for repo_index, repo in enumerate(plugins.REPOS):
+        $ repo_contents = plugins.checker.get_repo_contents(repo)
+        $ installable_count = len([info for info in repo_contents.values() if info.get('compatibility', {}).get('compatible')])
         <div style="vertical-align:middle;" class='category collapsible collapsed'>
             <h4>
                 <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="all plugins" data-repo="${repo}">
                     $:csrf_input()
                     <input type="hidden" name="action" value="install_repo">
                     <input type="hidden" name="repo" value="${repo_index}">
-                    <button type="submit" class="minibutton open">$_('Install all')</button>
+                    <button type="submit" class="minibutton open" ${'disabled' if not installable_count else ''}>$_('Install all compatible')</button>
                 </form>
                 ${repo}
             </h4>
-            <div style="margin: 4px 0 8px 10px;"><small>$_('Source'): ${repo}</small></div>
+            <div style="margin: 4px 0 8px 10px;">
+                <small>$_('Source'): ${repo}</small><br>
+                <small>$_('Compatible plug-ins'): ${installable_count} / ${len(repo_contents)}</small>
+            </div>
 
             $ available_list = plugins.available()
-            $for plugin, info in plugins.checker.get_repo_contents(repo).items():
+            $for plugin, info in repo_contents.items():
+                $ compatibility = info.get('compatibility', {})
                 <div class='category collapsible collapsed'>
                     <h5>
                         <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="${plugin}" data-repo="${repo}">
@@ -33,7 +39,7 @@ $var page: plugins
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${repo_index}">
                             <input type="hidden" name="plugin" value="${plugin}">
-                            <button type="submit" class="minibutton open">
+                            <button type="submit" class="minibutton open" ${'disabled' if not compatibility.get('compatible') else ''}>
                             $if plugin in available_list:
                                 $_('Reinstall')
                             $else:
@@ -44,6 +50,18 @@ $var page: plugins
                         $if info.get('version'):
                             <small>v${info.get('version')}</small>
                     </h5>
+                    <div class="pluginInstallCompatibility status-${compatibility.get('status', 'error')}">
+                        <strong>$_('Compatibility'): ${compatibility.get('summary', '')}</strong>
+                        $if compatibility.get('errors') or compatibility.get('warnings'):
+                            <ul>
+                            $for item in compatibility.get('errors', []):
+                                <li>${item}</li>
+                            $for item in compatibility.get('warnings', []):
+                                <li>${item}</li>
+                            </ul>
+                        $if compatibility.get('permissions'):
+                            <div><small>$_('Permissions'): ${', '.join(compatibility.get('permissions'))}</small></div>
+                    </div>
                     <div style="margin-left: 10px;">
                         $:{info['read_me']}
                     </div>

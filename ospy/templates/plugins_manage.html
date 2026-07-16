@@ -99,8 +99,10 @@ jQuery(document).ready(function(){
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${available_info['repo_index']}">
                             <input type="hidden" name="plugin" value="${plugin}">
-                            <button type="submit" class="button open">
-                                $if plugin in current_info and current_info[plugin]['hash'] == available_info['hash']:
+                            <button type="submit" class="button open" ${'disabled' if not available_info.get('compatibility', {}).get('compatible') else ''}>
+                                $if not available_info.get('compatibility', {}).get('compatible'):
+                                    $_('Incompatible')
+                                $elif plugin in current_info and current_info[plugin]['hash'] == available_info['hash']:
                                     $if options.use_plugin_update:
                                         $_('Up-to-date')
                                     $else:

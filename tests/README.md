@@ -14,6 +14,10 @@ The suite checks:
 * protection of the repository POT file during the extraction test;
 * manifest parser acceptance and rejection rules;
 * every `plugin.json` found in the installed OSPy `plugins` directory.
+* archive installation blocking before file writes for missing, invalid or
+  incompatible manifests;
+* partial bulk installation, compatibility warnings and automatic-update
+  blocking.
 
 To additionally compile all plug-in templates and require and validate a
 manifest for every plug-in in the separate official OSPy-plugins repository,

@@ -23,11 +23,12 @@ All *.md files in the docs directory will be visible in the help page.
 The README.md (if available) will be the first entry in the help page
 and might be used in the future as a description for plug-in browsing.
 
-Optional plugin.json manifest
+plugin.json manifest
 ----
 
-Plug-ins can provide an optional UTF-8 `plugin.json` file. Existing plug-ins
-without it continue to use `NAME` and `MENU` from `__init__.py`.
+New or updated plug-ins distributed for installation must provide a valid UTF-8
+`plugin.json` file. Existing plug-ins already installed without it continue to
+use `NAME` and `MENU` from `__init__.py` in backward-compatibility mode.
 
     {
       "schema_version": 1,
@@ -56,8 +57,23 @@ without it continue to use `NAME` and `MENU` from `__init__.py`.
       }
     }
 
-The `id` must match the plug-in directory. Invalid or oversized manifests are
-ignored and OSPy falls back to the legacy metadata.
+The `id` must match the plug-in directory.
+
+Installation compatibility validation
+----
+
+Before copying repository documentation or plug-in files, OSPy reads and
+validates `plugin.json` directly from the downloaded ZIP archive. A missing,
+invalid, or oversized manifest blocks a new installation. OSPy also evaluates
+the declared OSPy and Python versions, required modules, platforms, hardware
+requirements, plug-in conflicts, GPIO pins, and I2C addresses. The installation
+page shows the compatibility state and detailed reasons.
+
+An incompatible plug-in cannot be installed or manually updated. Findings
+classified only as warnings remain installable. Bulk installation installs
+compatible plug-ins, skips incompatible ones, and reports both skipped reasons
+and warnings. Custom ZIP uploads use the same rules. Automatic updates never
+replace an installed plug-in with a newly available incompatible version.
 
 Before activation OSPy checks the optional minimum and maximum OSPy/Python
 versions, required importable Python modules, supported platform and required

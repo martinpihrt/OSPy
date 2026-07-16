@@ -2621,6 +2621,34 @@ class plugins_manage_page(ProtectedPage):
 class plugins_install_page(ProtectedPage):
     """Manage plugins page."""
 
+    @staticmethod
+    def _result_message(result):
+        messages = []
+        installed = result.get('installed', [])
+        blocked = result.get('blocked', {})
+        warnings = result.get('warnings', {})
+        if installed:
+            messages.append(
+                _('Installed plug-ins') + ': ' + ', '.join(installed)
+            )
+        if blocked:
+            details = []
+            for plugin, reasons in sorted(blocked.items()):
+                details.append('{}: {}'.format(plugin, '; '.join(reasons)))
+            messages.append(
+                _('Skipped incompatible plug-ins') + ': ' + ' | '.join(details)
+            )
+        if warnings:
+            details = []
+            for plugin, plugin_warnings in sorted(warnings.items()):
+                details.append(
+                    '{}: {}'.format(plugin, '; '.join(plugin_warnings))
+                )
+            messages.append(
+                _('Compatibility warnings') + ': ' + ' | '.join(details)
+            )
+        return ' | '.join(messages)
+
     def GET(self):
         from ospy.server import session
 
@@ -2649,14 +2677,31 @@ class plugins_install_page(ProtectedPage):
                 source_repo = plugins.REPOS[repo]
                 source_plugin = plugin if plugin else _('all plugins')
                 log.info('webpages.py', _('Installing plug-in {} from {}').format(source_plugin, source_repo))
-                plugins.checker.install_repo_plugin(source_repo, plugin)
-                logEV.save_events_log(
-                    _('Plug-in installation completed'),
-                    _('User {} installed {} from {}.').format(
-                        session.get('visitor'), source_plugin, source_repo),
-                    level='success',
-                    category='system'
-                )
+                try:
+                    result = plugins.checker.install_repo_plugin(source_repo, plugin)
+                    logEV.save_events_log(
+                        _('Plug-in installation completed'),
+                        _('User {} installed {} from {}.').format(
+                            session.get('visitor'),
+                            ', '.join(result.get('installed', [])) or source_plugin,
+                            source_repo),
+                        level='success',
+                        category='system'
+                    )
+                    if result.get('blocked') or result.get('warnings'):
+                        return self.core_render.notice(
+                            '/plugins_install', self._result_message(result)
+                        )
+                except ValueError as err:
+                    log.error('webpages.py', str(err))
+                    logEV.save_events_log(
+                        _('Plug-in installation failed'),
+                        _('Plug-in installation from {} failed: {}').format(
+                            source_repo, err),
+                        level='error',
+                        category='system'
+                    )
+                    return self.core_render.notice('/plugins_install', str(err))
             else:
                 log.error('webpages.py', _('Invalid plug-in repository index: {}').format(repo))
                 raise web.badrequest()
@@ -2668,14 +2713,22 @@ class plugins_install_page(ProtectedPage):
             filename = getattr(qdict['zipfile'], 'filename', _('uploaded ZIP'))
             log.info('webpages.py', _('Installing custom plug-in from uploaded ZIP: {}').format(filename))
             try:
-                plugins.checker.install_custom_plugin(io.BytesIO(read_limited_upload(zip_file_data)))
+                result = plugins.checker.install_custom_plugin(
+                    io.BytesIO(read_limited_upload(zip_file_data))
+                )
                 logEV.save_events_log(
                     _('Plug-in installation completed'),
-                    _('User {} installed a plug-in from {}.').format(
-                        session.get('visitor'), filename),
+                    _('User {} installed {} from {}.').format(
+                        session.get('visitor'),
+                        ', '.join(result.get('installed', [])),
+                        filename),
                     level='success',
                     category='system'
                 )
+                if result.get('blocked') or result.get('warnings'):
+                    return self.core_render.notice(
+                        '/plugins_install', self._result_message(result)
+                    )
             except ValueError as err:
                 log.error('webpages.py', str(err))
                 logEV.save_events_log(

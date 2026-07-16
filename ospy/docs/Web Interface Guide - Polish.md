@@ -525,7 +525,7 @@ Na stronie „Wtyczki” możemy konfigurować lub sterować wszystkimi rozszerz
 
 Kliknięcie przycisku „Zarządzaj” spowoduje otwarcie okna menedżera rozszerzeń w OSPy. Wszystkie dostępne rozszerzenia można włączać, wyłączać, instalować z repozytorium itp.
 
-Wtyczka może zawierać opcjonalny plik `plugin.json` z nazwą, wersją, opisem, autorem, stroną domową i licencją. Menedżer wyświetla te metadane, jeśli są dostępne. Starsze wtyczki bez manifestu pozostają zgodne, a OSPy odczytuje ich nazwę z `__init__.py`; nieprawidłowy manifest jest bezpiecznie ignorowany.
+Wtyczka używa pliku `plugin.json` zawierającego nazwę, wersję, opis, autora, stronę domową i licencję. Menedżer wyświetla te metadane, jeśli są dostępne. Dla już zainstalowanych starszych wtyczek bez manifestu zachowana jest zgodność wsteczna, a OSPy odczytuje ich nazwę z `__init__.py`; zasady dotyczące nowych instalacji opisano poniżej.
 
 Przed aktywacją OSPy sprawdza zadeklarowane wersje OSPy i Pythona, wymagane moduły Pythona, obsługiwane platformy, dostępność GPIO/I²C oraz konflikty z włączonymi wtyczkami, pinami GPIO lub adresami I²C. Problem blokujący uniemożliwia aktywację, a opcja Włącz wszystko pomija daną wtyczkę. Zarządzanie wtyczkami i Diagnostyka pokazują szczegóły oraz zadeklarowane uprawnienia do sieci, plików, I²C, GPIO, poczty e-mail, podprocesów lub systemu. Uprawnienia informują administratora; nie są izolowanym sandboxem systemu operacyjnego.
 
@@ -536,6 +536,8 @@ Przed importem i uruchomieniem wykonywany jest automatyczny test statyczny bez w
 ## Zainstaluj nową wtyczkę
 
 Po kliknięciu przycisku „Zainstaluj nową wtyczkę” otworzy się okno zdalnego repozytorium, w którym możemy wybrać dostępne rozszerzenia do zainstalowania w systemie OSPy oraz zapoznać się z ogólnymi informacjami na temat rozszerzeń.
+
+Przed skopiowaniem plików OSPy bezpiecznie odczytuje `plugin.json` bezpośrednio z pobranego archiwum ZIP i dla każdej wtyczki wyświetla stan zgodności oraz dokładne przyczyny ewentualnego problemu. Niezgodnej wtyczki nie można zainstalować ani ręcznie zaktualizować. Wtyczkę zawierającą tylko ostrzeżenia można zainstalować po ich wyświetleniu. Instalacja zbiorcza instaluje zgodne wtyczki, a niezgodne pomija z podaniem przyczyny. Ta sama kontrola dotyczy własnych plików ZIP, operacji pojedynczych i zbiorczych oraz aktualizacji. Brakujący, nieprawidłowy lub zbyt duży plik `plugin.json` jest błędem podczas nowej instalacji; już zainstalowane starsze wtyczki bez manifestu mogą nadal działać w trybie zgodności wstecznej.
 
 ### Wtyczka niestandardowa (ZIP)
 Menedżer rozszerzeń umożliwia zainstalowanie w systemie OSPy własnego rozszerzenia, które nie jest publikowane w zdalnym repozytorium (np. Twoje rozszerzenie osobiste). Za pomocą przycisku „przeglądaj” wybieramy na naszym komputerze żądany plik do zainstalowania w systemie OSPy. Plik rozszerzenia (zip) musi zawierać pełną strukturę rozszerzenia (init, szablony, i18n, readme itp.).
@@ -561,7 +563,7 @@ Przycisk pobiera najnowszą listę dostępnych zmian z repozytorium zdalnych roz
 Przycisk otwiera przegląd dostępnych zmian rozszerzeń i informacje o aktualizacji.
 
 ## Automatyczne aktualizacje
-Gdy przycisk jest aktywny, to rozszerzenie zostanie automatycznie zaktualizowane, gdy dostępna będzie nowa wersja rozszerzenia. Ostrzeżenie: OSPy stale się rozwija i jeśli nastąpi poważna zmiana w OSPy, a użytkownik nie zaktualizuje OSPy, rozszerzenie może nie działać po aktualizacji. Zawsze najpierw aktualizuj OSPy, a potem wszystkie rozszerzenia!
+Gdy przycisk jest aktywny, rozszerzenie zostanie automatycznie zaktualizowane po udostępnieniu nowej zgodnej wersji. Niezgodna nowa wersja nie zostanie zainstalowana automatycznie, a menedżer wyświetli przyczynę. Ostrzeżenie: OSPy stale się rozwija i jeśli nastąpi poważna zmiana w OSPy, a użytkownik nie zaktualizuje OSPy, rozszerzenie może nie działać po aktualizacji. Zawsze najpierw aktualizuj OSPy, a potem wszystkie rozszerzenia!
 
 ----
 
