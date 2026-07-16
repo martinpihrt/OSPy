@@ -8,6 +8,12 @@ July 16 2026 (v3.0)
 (martinpihrt)<br/>
 Updated active pihrt.com article links after the website migration from the former `/elektronika/` paths to the verified `/clanky/` addresses. The OSPy README and sensor firmware documentation now point to the current articles.
 
+Extended the administrator Diagnostics page with separate **System status** and **Performance and processes** tabs. The new operational overview uses in-memory heartbeats from the scheduler, schedule calculation, sensor loop, weather loop and station-output writes, and also summarizes database accessibility, free disk space, enabled plug-in failures, e-mail readiness, internet connectivity and available backup files. Statuses are shown as OK, warning, error or not configured, with timestamps and direct links to the relevant settings pages. Output diagnostics explicitly distinguish a successful command write from unavailable physical relay feedback.
+
+Added a backward-compatible optional `health()` interface for plug-ins. Plug-ins can report an OK, warning, error or unknown operational state with a short summary and details; missing health support is shown as not reported, while an exception or timeout from a health check is contained and displayed without stopping the plug-in or Diagnostics. The existing plug-in state, CPU statistics, thread information, restart actions and in-memory CPU history graphs remain available in **Performance and processes**, with the reported health added as a separate colored column. Plug-in warnings and errors are also included in the **System status** summary. Updated all seven language Web Interface Guides.
+
+Added optional, backward-compatible `plugin.json` manifests. Schema version 1 provides plug-in identity, display name, menu label, version, description, author, homepage and license metadata without importing the plug-in. Existing `NAME` and `MENU` constants remain the fallback, invalid or oversized manifests are ignored safely, and the plug-in manager, installer and Diagnostics display available manifest versions and metadata. Reserved compatibility, dependency, hardware, permission and conflict sections are retained for subsequent validation work. Documented the manifest format for plug-in developers.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

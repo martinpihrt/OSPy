@@ -12,6 +12,7 @@ import web
 from threading import Event, Thread, Timer, RLock, current_thread
 import traceback
 import mimetypes
+import shutil
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
@@ -26,6 +27,7 @@ from ospy.stations import stations
 from ospy import scheduler
 from ospy import autologin
 from ospy import twofactor
+from ospy import health
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -2824,6 +2826,364 @@ def _diagnostics_data():
     }
 
 
+def _health_time(timestamp):
+    if not timestamp:
+        return ''
+    try:
+        return datetime_string(datetime.datetime.fromtimestamp(float(timestamp)))
+    except (TypeError, ValueError, OSError):
+        return ''
+
+
+def _health_item(item_id, title, status, summary, details='', updated='', link=''):
+    return {
+        'id': item_id,
+        'title': title,
+        'status': status,
+        'summary': summary,
+        'details': details,
+        'updated': updated,
+        'link': link,
+    }
+
+
+def _newest_file(paths):
+    newest = None
+    for path in paths:
+        if not os.path.isfile(path):
+            continue
+        try:
+            modified = os.path.getmtime(path)
+            if newest is None or modified > newest[1]:
+                newest = (path, modified, os.path.getsize(path))
+        except OSError:
+            continue
+    return newest
+
+
+def _system_health_data():
+    """Build a lightweight operational overview without active hardware tests."""
+    from glob import glob
+    from ospy.helpers import get_external_ip
+
+    now_ts = time.time()
+    beats = health.snapshot()
+    items = []
+
+    scheduler_beat = beats.get('scheduler', {})
+    scheduler_age = now_ts - scheduler_beat.get('last_success', 0)
+    scheduler_alive = scheduler.scheduler.is_alive()
+    scheduler_ok = scheduler_alive and scheduler_age <= 5
+    scheduler_status = 'ok' if scheduler_ok else 'error'
+    scheduler_summary = (
+        _('Scheduler is running and responding.')
+        if scheduler_ok else _('Scheduler is not responding.')
+    )
+    if scheduler_ok and not options.scheduler_enabled:
+        scheduler_status = 'warning'
+        scheduler_summary = _('Scheduler is running, but automatic scheduling is disabled.')
+    items.append(_health_item(
+        'scheduler', _('Scheduler'), scheduler_status, scheduler_summary,
+        scheduler_beat.get('error', ''),
+        _health_time(scheduler_beat.get('last_success'))
+    ))
+
+    calculation = beats.get('schedule_calculation', {})
+    calc_details = calculation.get('details', {})
+    calc_age = now_ts - calculation.get('last_success', 0)
+    if options.manual_mode:
+        calc_status = 'warning'
+        calc_summary = _('Manual mode is active; automatic schedule calculation is paused.')
+    elif calculation.get('last_success') and calc_age <= 10:
+        calc_status = 'ok'
+        calc_summary = _('The schedule was calculated successfully.')
+    else:
+        calc_status = 'error'
+        calc_summary = _('No recent successful schedule calculation was recorded.')
+    next_parts = [
+        calc_details.get('next_start', ''),
+        calc_details.get('next_program', ''),
+        calc_details.get('next_station', ''),
+    ]
+    next_text = ' / '.join([part for part in next_parts if part])
+    calc_description = _('Planned intervals') + ': {}'.format(
+        calc_details.get('intervals', 0)
+    )
+    if next_text:
+        calc_description += '; ' + _('Next run') + ': ' + next_text
+    items.append(_health_item(
+        'schedule', _('Schedule calculation'), calc_status, calc_summary,
+        calc_description, _health_time(calculation.get('last_success')),
+        '/programs'
+    ))
+
+    output_beat = beats.get('outputs', {})
+    output_details = output_beat.get('details', {})
+    master_output_beat = beats.get('master_output', {})
+    master_output_details = master_output_beat.get('details', {})
+    output_physical = bool(output_details.get('physical'))
+    if output_beat.get('error') or master_output_beat.get('error'):
+        output_status = 'error'
+        output_summary = _('The last output write failed.')
+    elif output_physical and output_beat.get('last_success'):
+        output_status = 'ok'
+        output_summary = _('The last output command was written successfully.')
+    else:
+        output_status = 'warning'
+        output_summary = _('Physical output feedback is not available on this system.')
+    output_description = '{}: {}; {}: {}'.format(
+        _('Backend'), output_details.get('backend', stations.__class__.__name__),
+        _('Active outputs'), output_details.get('active', len([
+            state for state in stations.active() if state
+        ]))
+    )
+    output_description += '; {}: {} ({})'.format(
+        _('Master relay'),
+        _('ON') if master_output_details.get('active') else _('OFF'),
+        master_output_details.get('backend', '-')
+    )
+    if not output_details.get('feedback'):
+        output_description += '; ' + _(
+            'OSPy can confirm the command write, but not the physical relay state.'
+        )
+    items.append(_health_item(
+        'outputs', _('Output hardware'), output_status, output_summary,
+        output_beat.get('error') or master_output_beat.get('error') or output_description,
+        _health_time(max(
+            output_beat.get('last_success', 0),
+            master_output_beat.get('last_success', 0)
+        )), '/stations'
+    ))
+
+    enabled_sensors = [sensor for sensor in sensors.get() if sensor.enabled]
+    responding_sensors = [sensor for sensor in enabled_sensors if sensor.response]
+    failed_sensors = [sensor for sensor in enabled_sensors if not sensor.response]
+    sensor_beat = beats.get('sensors', {})
+    sensor_age = now_ts - sensor_beat.get('last_success', 0)
+    if not enabled_sensors:
+        sensor_status = 'unknown'
+        sensor_summary = _('No sensors are enabled.')
+    elif sensor_beat.get('error') or sensor_age > 10:
+        sensor_status = 'error'
+        sensor_summary = _('The sensor processing loop is not responding.')
+    elif failed_sensors:
+        sensor_status = 'warning'
+        sensor_summary = _('Some enabled sensors are not responding.')
+    else:
+        sensor_status = 'ok'
+        sensor_summary = _('All enabled sensors are responding.')
+    sensor_description = '{}: {}; {}: {}; {}: {}'.format(
+        _('Enabled'), len(enabled_sensors),
+        _('Responding'), len(responding_sensors),
+        _('Not responding'), len(failed_sensors)
+    )
+    if failed_sensors:
+        sensor_description += '; ' + ', '.join(
+            sensor.name for sensor in failed_sensors[:5]
+        )
+    last_sensor_response = max(
+        [getattr(sensor, 'last_response', 0) for sensor in enabled_sensors] or [0]
+    )
+    if last_sensor_response:
+        sensor_description += '; ' + _('Last sensor communication') + ': ' + (
+            _health_time(last_sensor_response)
+        )
+    items.append(_health_item(
+        'sensors', _('Sensors'), sensor_status, sensor_summary,
+        sensor_beat.get('error') or sensor_description,
+        _health_time(sensor_beat.get('last_success')), '/sensors'
+    ))
+
+    data_dir = os.path.abspath(os.path.join('ospy', 'data'))
+    database_beat = beats.get('database', {})
+    option_files = (
+        glob(os.path.join(data_dir, 'default', 'options.db*')) +
+        glob(os.path.join(data_dir, 'backup', 'options.db*'))
+    )
+    database_ok = (
+        not database_beat.get('error') and bool(option_files) and
+        os.path.isdir(data_dir) and os.access(data_dir, os.W_OK)
+    )
+    items.append(_health_item(
+        'database', _('Database'), 'ok' if database_ok else 'error',
+        _('The settings database and data directory are accessible.')
+        if database_ok else _('The settings database or data directory is not accessible.'),
+        database_beat.get('error') or (
+            _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
+        ),
+        _health_time(
+            database_beat.get('last_success') or getattr(options, 'last_save', 0)
+        )
+    ))
+
+    try:
+        usage = shutil.disk_usage(data_dir)
+        free_percent = (float(usage.free) / float(usage.total) * 100.0) if usage.total else 0
+        if free_percent < 5:
+            storage_status = 'error'
+        elif free_percent < 15:
+            storage_status = 'warning'
+        else:
+            storage_status = 'ok'
+        storage_summary = _('Free disk space') + ': {:.1f} GB ({:.1f} %)'.format(
+            usage.free / float(1024 ** 3), free_percent
+        )
+        storage_details = _('Used disk space') + ': {:.1f} GB'.format(
+            usage.used / float(1024 ** 3)
+        )
+    except OSError as err:
+        storage_status = 'error'
+        storage_summary = _('Disk space could not be read.')
+        storage_details = str(err)
+    items.append(_health_item(
+        'storage', _('Storage'), storage_status, storage_summary, storage_details
+    ))
+
+    plugin_diagnostics_error = False
+    try:
+        plugin_data = plugins.plugin_diagnostics()
+    except Exception:
+        plugin_data = []
+        plugin_diagnostics_error = True
+        log.error('webpages.py', traceback.format_exc())
+    failed_plugins = [
+        plugin for plugin in plugin_data
+        if plugin.get('enabled') and (
+            not plugin.get('running') or plugin.get('last_error') or
+            plugin.get('health', {}).get('status') == 'error'
+        )
+    ]
+    warning_plugins = [
+        plugin for plugin in plugin_data
+        if plugin.get('enabled') and
+        plugin.get('health', {}).get('status') == 'warning'
+    ]
+    if plugin_diagnostics_error or failed_plugins:
+        plugin_status = 'error'
+    elif warning_plugins:
+        plugin_status = 'warning'
+    else:
+        plugin_status = 'ok'
+    if plugin_diagnostics_error:
+        plugin_summary = _('Plug-in status could not be read.')
+    elif failed_plugins or warning_plugins:
+        plugin_summary = _('Some enabled plug-ins need attention.')
+    else:
+        plugin_summary = _('All enabled plug-ins are running.')
+    plugin_description = '{}: {}; {}: {}'.format(
+        _('Enabled'), len([item for item in plugin_data if item.get('enabled')]),
+        _('Problems'), len(failed_plugins) + len(warning_plugins)
+    )
+    problem_plugins = failed_plugins + warning_plugins
+    if problem_plugins:
+        plugin_description += '; ' + ', '.join(
+            item.get('name') or item.get('module') for item in problem_plugins[:5]
+        )
+    items.append(_health_item(
+        'plugins', _('Plug-ins'), plugin_status, plugin_summary,
+        plugin_description, link='/plugins_manage'
+    ))
+
+    email_modules = [
+        module for module in ('email_notifications_ssl', 'email_notifications')
+        if module in options.enabled_plugins
+    ]
+    running_plugins = plugins.running()
+    if not email_modules:
+        email_status = 'unknown'
+        email_summary = _('No e-mail plug-in is enabled.')
+        email_details = ''
+    elif any(module not in running_plugins for module in email_modules):
+        email_status = 'error'
+        email_summary = _('An enabled e-mail plug-in is not running.')
+        email_details = ', '.join(email_modules)
+    elif 'email_notifications_ssl' in email_modules:
+        email_ready, email_message = twofactor.email_plugin_status()
+        email_status = 'ok' if email_ready else 'warning'
+        email_summary = (
+            _('The e-mail plug-in is running and configured.')
+            if email_ready else email_message
+        )
+        email_details = ''
+    else:
+        email_status = 'ok'
+        email_summary = _('The e-mail plug-in is running.')
+        email_details = _('Configuration is not actively tested.')
+    items.append(_health_item(
+        'email', _('E-mail'), email_status, email_summary, email_details,
+        link=(
+            plugins.plugin_url(plugins.get(email_modules[0]).LINK)
+            if email_modules and email_modules[0] in running_plugins else ''
+        )
+    ))
+
+    weather_beat = beats.get('weather', {})
+    weather_age = now_ts - weather_beat.get('last_success', 0)
+    if not options.use_weather:
+        weather_status = 'unknown'
+        weather_summary = _('Weather service is disabled.')
+    elif weather_beat.get('error') or weather_age > 2 * 3600:
+        weather_status = 'error'
+        weather_summary = _('Weather data has not been updated successfully.')
+    elif options.weather_status != 1:
+        weather_status = 'warning'
+        weather_summary = _('Weather location or data is not ready.')
+    else:
+        weather_status = 'ok'
+        weather_summary = _('Weather service is responding.')
+    items.append(_health_item(
+        'weather', _('Weather'), weather_status, weather_summary,
+        weather_beat.get('error', ''),
+        _health_time(weather_beat.get('last_success')), '/options#weather-options'
+    ))
+
+    external_ip = get_external_ip()
+    internet_status = 'ok' if external_ip != '-' else 'error'
+    items.append(_health_item(
+        'internet', _('Internet'), internet_status,
+        _('Internet connectivity is available.')
+        if internet_status == 'ok' else _('Internet connectivity is not available.'),
+        _('External IP address') + ': ' + external_ip
+    ))
+
+    backup_files = glob(os.path.join('ospy', 'backup', '*.zip'))
+    backup_files += glob(os.path.join('plugins', 'ospy_backup', 'data', '*.zip'))
+    newest_backup = _newest_file(backup_files)
+    if newest_backup:
+        backup_age = now_ts - newest_backup[1]
+        backup_status = 'ok' if backup_age <= 30 * 24 * 3600 else 'warning'
+        backup_summary = _('A backup file is available.')
+        backup_details = '{}; {:.1f} MB'.format(
+            os.path.basename(newest_backup[0]),
+            newest_backup[2] / float(1024 ** 2)
+        )
+        backup_updated = _health_time(newest_backup[1])
+    else:
+        backup_status = 'warning'
+        backup_summary = _('No backup file was found.')
+        backup_details = ''
+        backup_updated = ''
+    items.append(_health_item(
+        'backup', _('Backup'), backup_status, backup_summary,
+        backup_details, backup_updated, '/options'
+    ))
+
+    item_statuses = [item['status'] for item in items]
+    if 'error' in item_statuses:
+        summary_status = 'error'
+    elif 'warning' in item_statuses:
+        summary_status = 'warning'
+    elif 'ok' in item_statuses:
+        summary_status = 'ok'
+    else:
+        summary_status = 'unknown'
+    return {
+        'status': summary_status,
+        'items': items,
+        'time': datetime_string(),
+    }
+
+
 class diagnostics_page(ProtectedPage):
     """System and plug-in diagnostics page."""
 
@@ -2921,6 +3281,27 @@ class api_diagnostics_history_json(ProtectedPage):
             return json.dumps({
                 'ok': False,
                 'error': _('Diagnostics history refresh failed.'),
+                'time': datetime_string(),
+            })
+
+
+class api_system_health_json(ProtectedPage):
+    """Operational system health overview for the Diagnostics page."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        web.header('Content-Type', 'application/json')
+        try:
+            return json.dumps(_system_health_data())
+        except Exception:
+            log.error('webpages.py', traceback.format_exc())
+            return json.dumps({
+                'ok': False,
+                'error': _('System health refresh failed.'),
                 'time': datetime_string(),
             })
 

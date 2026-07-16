@@ -340,9 +340,11 @@ Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia)
 ## Diagnostyka
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
+Strona jest podzielona na karty **Stan systemu** oraz **Wydajność i procesy**. **Stan systemu** przypisuje każdemu obszarowi działania stan OK, ostrzeżenie, błąd lub nieskonfigurowany. Monitoruje heartbeat harmonogramu, ostatnie udane obliczenie planu i następne uruchomienie, zapisy poleceń wyjściowych, komunikację czujników, dostępność bazy ustawień, wolne miejsce, błędy włączonych wtyczek, gotowość poczty e-mail, pogodę, połączenie internetowe i najnowszą dostępną kopię zapasową. Udany zapis wyjścia potwierdza, że OSPy przekazało żądany stan do sterownika; bez sprzężenia zwrotnego nie potwierdza fizycznego przełączenia przekaźnika.
+
 Podsumowanie systemu pokazuje bieżące użycie CPU, temperaturę CPU, czas działania systemu, load average, użycie CPU przez proces OSPy, użycie pamięci OSPy, liczbę wątków, informacje o platformie oraz czas ostatniego odświeżenia.
 
-Tabela wtyczek pokazuje wszystkie dostępne wtyczki, czy są uruchomione i włączone, bieżące obciążenie CPU, całkowity czas CPU, liczbę wątków, czas uruchomienia, liczbę restartów oraz dostępne akcje. Dane odświeżają się automatycznie, więc stronę można pozostawić otwartą podczas obserwowania obciążenia systemu.
+Tabela wtyczek pokazuje wszystkie dostępne wtyczki, czy są uruchomione i włączone, ich własny stan działania, bieżące obciążenie CPU, całkowity czas CPU, liczbę wątków, czas uruchomienia, liczbę restartów oraz dostępne akcje. Wtyczka może opcjonalnie udostępniać funkcję `health()`, która zwraca na przykład `{'status': 'ok', 'summary': '...', 'details': '...'}`; dozwolone stany to `ok`, `warning`, `error` i `unknown`. Starsze wtyczki bez tej funkcji pozostają w pełni zgodne i wyświetlają „brak raportu”. Błąd lub przekroczenie limitu czasu kontroli stanu nie zatrzymuje wtyczki ani strony Diagnostyka. Dane odświeżają się automatycznie, więc stronę można pozostawić otwartą podczas obserwowania obciążenia systemu.
 
 Domyślnie wtyczki są sortowane według bieżącego obciążenia CPU od najwyższego do najniższego. Użyj opcji **Sortuj wtyczki**, aby przełączyć sortowanie według nazwy wtyczki lub całkowitego czasu CPU, gdy potrzebna jest stabilna lista albo wyszukanie długotrwałych odbiorców CPU.
 
@@ -522,6 +524,8 @@ Na stronie „Wtyczki” możemy konfigurować lub sterować wszystkimi rozszerz
 ## Zarządzaj
 
 Kliknięcie przycisku „Zarządzaj” spowoduje otwarcie okna menedżera rozszerzeń w OSPy. Wszystkie dostępne rozszerzenia można włączać, wyłączać, instalować z repozytorium itp.
+
+Wtyczka może zawierać opcjonalny plik `plugin.json` z nazwą, wersją, opisem, autorem, stroną domową i licencją. Menedżer wyświetla te metadane, jeśli są dostępne. Starsze wtyczki bez manifestu pozostają zgodne, a OSPy odczytuje ich nazwę z `__init__.py`; nieprawidłowy manifest jest bezpiecznie ignorowany.
 
 ## Zainstaluj nową wtyczkę
 

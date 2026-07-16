@@ -12,6 +12,7 @@ jQuery(document).ready(function(){
     var pluginHistory = {};
     var currentHistoryPlugin = null;
     var refreshTimer = null;
+    var activeTab = "health";
 
     function fmt(value, suffix) {
         if (value === null || value === undefined || value === "") {
@@ -22,6 +23,71 @@ jQuery(document).ready(function(){
 
     function setStatus(message, color) {
         jQuery("#diagnosticsStatus").text(message || "").css("color", color || "#555555");
+    }
+
+    function healthLabel(status) {
+        var labels = {
+            ok: $:{json.dumps(_('OK'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+            warning: $:{json.dumps(_('Warning'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+            error: $:{json.dumps(_('Error'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+            unknown: $:{json.dumps(_('Not configured'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+        };
+        return labels[status] || labels.unknown;
+    }
+
+    function showTab(tab) {
+        activeTab = tab === "performance" ? "performance" : "health";
+        jQuery(".diagnosticsTab").removeClass("selected");
+        jQuery('.diagnosticsTab[data-tab="' + activeTab + '"]').addClass("selected");
+        jQuery("#systemHealthTab").toggle(activeTab === "health");
+        jQuery("#performanceTab").toggle(activeTab === "performance");
+        if (activeTab === "health") {
+            updateSystemHealth();
+        }
+    }
+
+    function renderSystemHealth(data) {
+        var rows = "";
+        var items = data.items || [];
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var details = item.details ? '<div class="healthDetails">' + escapeHtml(item.details) + '</div>' : '';
+            var updated = item.updated ? '<div class="healthUpdated">' +
+                $:{json.dumps(_('Last successful activity'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                ': ' + escapeHtml(item.updated) + '</div>' : '';
+            var action = item.link ? '<a class="button open" href="' + escapeHtml(item.link) + '">' +
+                $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
+            rows += '<tr class="healthRow health-' + escapeHtml(item.status) + '">' +
+                '<td><b>' + escapeHtml(item.title) + '</b></td>' +
+                '<td><span class="healthBadge health-' + escapeHtml(item.status) + '">' +
+                healthLabel(item.status) + '</span></td>' +
+                '<td><div>' + escapeHtml(item.summary) + '</div>' + details + updated + '</td>' +
+                '<td class="healthAction">' + action + '</td>' +
+                '</tr>';
+        }
+        jQuery("#systemHealthRows").html(rows || '<tr><td colspan="4">-</td></tr>');
+        jQuery("#systemHealthUpdated").text(data.time || "");
+        jQuery("#systemHealthSummary")
+            .removeClass("health-ok health-warning health-error health-unknown")
+            .addClass("health-" + (data.status || "unknown"))
+            .text(healthLabel(data.status || "unknown"));
+    }
+
+    function updateSystemHealth() {
+        jQuery.getJSON("/system_health.json", function(data) {
+            if (data.error) {
+                setStatus(data.error, "red");
+                return;
+            }
+            renderSystemHealth(data);
+            setStatus("");
+        }).fail(function(xhr){
+            var message = $:{json.dumps(_('System health refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            if (xhr && xhr.status) {
+                message += " HTTP " + xhr.status + ".";
+            }
+            setStatus(message, "red");
+        });
     }
 
     function pluginNumber(value, fallback) {
@@ -191,6 +257,14 @@ jQuery(document).ready(function(){
     function pluginRow(plugin) {
         var state = plugin.running ? $:{json.dumps(_('Running'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Stopped'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         var enabled = plugin.enabled ? $:{json.dumps(_('Enabled'), ensure_ascii=False).encode('utf8').decode('utf-8')} : $:{json.dumps(_('Disabled'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        var pluginHealth = plugin.health || {status: "unknown", summary: ""};
+        var pluginHealthLabel = pluginHealth.status === "unknown" && pluginHealth.summary ?
+            pluginHealth.summary : healthLabel(pluginHealth.status || "unknown");
+        var healthDetails = pluginHealth.details ? '<details><summary>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + escapeHtml(pluginHealth.details) + '</pre></details>' : '';
+        var healthCell = '<span class="healthBadge health-' + escapeHtml(pluginHealth.status || "unknown") + '">' +
+            escapeHtml(pluginHealthLabel) + '</span>' +
+            (pluginHealth.summary && pluginHealth.summary !== pluginHealthLabel ? '<br><small>' + escapeHtml(pluginHealth.summary) + '</small>' : '') +
+            healthDetails;
         var openButton = plugin.link ? '<a class="button open" href="' + plugin.link + '">' + $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
         var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + restartPluginLabel + '</button>' : '';
         var error = plugin.last_error ? '<details><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
@@ -198,8 +272,11 @@ jQuery(document).ready(function(){
         var cpuCell = '<span>' + fmt(plugin.cpu_percent, ' %') + '</span> <button type="button" class="button submit pluginHistory" data-plugin="' + escapeHtml(plugin.module) + '">' + historyLabel + '</button>';
 
         return '<tr>' +
-            '<td><b>' + escapeHtml(plugin.name || plugin.module) + '</b><br><small>' + escapeHtml(plugin.module) + '</small></td>' +
+            '<td><b>' + escapeHtml(plugin.name || plugin.module) + '</b>' +
+            (plugin.version ? ' <small>v' + escapeHtml(plugin.version) + '</small>' : '') +
+            '<br><small>' + escapeHtml(plugin.module) + '</small></td>' +
             '<td>' + state + '<br><small>' + enabled + '</small></td>' +
+            '<td>' + healthCell + '</td>' +
             '<td>' + cpuCell + '</td>' +
             '<td>' + fmt(plugin.cpu_seconds, ' s') + '</td>' +
             '<td>' + threads + '</td>' +
@@ -255,6 +332,9 @@ jQuery(document).ready(function(){
     }
 
     jQuery("#pluginSort").on("change", renderPlugins);
+    jQuery(".diagnosticsTab").on("click", function(){
+        showTab(jQuery(this).data("tab"));
+    });
     jQuery("#historyRange").on("change", function(){
         loadHistory(currentHistoryPlugin);
     });
@@ -282,7 +362,10 @@ jQuery(document).ready(function(){
     });
 
     updateDiagnostics();
+    updateSystemHealth();
+    showTab("health");
     refreshTimer = window.setInterval(updateDiagnostics, 5000);
+    window.setInterval(updateSystemHealth, 10000);
 });
 </script>
 
@@ -328,6 +411,74 @@ jQuery(document).ready(function(){
         .pluginHistory {
             margin-left: 6px;
         }
+        .diagnosticsTabs {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .diagnosticsTab.selected {
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.65);
+        }
+        #performanceTab {
+            display: none;
+        }
+        .healthBadge {
+            display: inline-block;
+            min-width: 92px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-align: center;
+            color: #ffffff;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+        .healthBadge.health-ok {
+            background: #2f8b2f;
+        }
+        .healthBadge.health-warning {
+            background: #d07800;
+        }
+        .healthBadge.health-error {
+            background: #9d1c24;
+        }
+        .healthBadge.health-unknown {
+            background: #687080;
+        }
+        .healthDetails, .healthUpdated {
+            margin-top: 4px;
+            font-size: 0.9em;
+            color: #555555;
+            overflow-wrap: anywhere;
+        }
+        .healthAction {
+            white-space: nowrap;
+        }
+        #systemHealthSummary {
+            margin-left: 8px;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            #systemHealthTable thead {
+                display: none;
+            }
+            #systemHealthTable,
+            #systemHealthTable tbody,
+            #systemHealthTable tr,
+            #systemHealthTable td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            #systemHealthTable tr {
+                padding: 8px;
+                border-bottom: 1px solid #b9c0d0;
+            }
+            #systemHealthTable td {
+                border: 0;
+                padding: 4px;
+            }
+        }
     </style>
     <div class="title">$_('Diagnostics')</div>
     <div id="controls">
@@ -336,6 +487,31 @@ jQuery(document).ready(function(){
         <span id="diagnosticsStatus" style="margin-left: 8px;"></span>
     </div>
 
+    <div class="diagnosticsTabs">
+        <button type="button" class="button submit diagnosticsTab selected" data-tab="health">$_('System status')</button>
+        <button type="button" class="button submit diagnosticsTab" data-tab="performance">$_('Performance and processes')</button>
+    </div>
+
+    <div id="systemHealthTab">
+        <div class="simpleblock diagnosticsCard diagnosticsScroll">
+            <table id="systemHealthTable" class="diagnosticsTable">
+                <thead>
+                    <tr>
+                        <th>$_('Component')</th>
+                        <th>$_('Status')</th>
+                        <th>$_('Details')</th>
+                        <th>$_('Actions')</th>
+                    </tr>
+                </thead>
+                <tbody id="systemHealthRows">
+                    <tr><td colspan="4">$_('loading...')</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>$_('Updated'): <span id="systemHealthUpdated">-</span><span id="systemHealthSummary"></span></p>
+    </div>
+
+    <div id="performanceTab">
     <div class="simpleblock diagnosticsCard">
     <table class="diagnosticsTable diagnosticsSystem">
         <tr><th colspan="2">$_('System')</th></tr>
@@ -395,6 +571,7 @@ jQuery(document).ready(function(){
                 <tr>
                     <th>$_('Plugin')</th>
                     <th>$_('Status')</th>
+                    <th>$_('Health')</th>
                     <th>$_('CPU now')</th>
                     <th>$_('CPU total')</th>
                     <th>$_('Threads')</th>
@@ -404,8 +581,9 @@ jQuery(document).ready(function(){
                 </tr>
             </thead>
             <tbody>
-                <tr><td colspan="8">$_('loading...')</td></tr>
+                <tr><td colspan="9">$_('loading...')</td></tr>
             </tbody>
         </table>
+    </div>
     </div>
 </div>

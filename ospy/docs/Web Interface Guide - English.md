@@ -351,9 +351,11 @@ The time the Raspberry pi system has been running since it was powered on (or re
 ## Diagnostics
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
+The page is divided into **System status** and **Performance and processes** tabs. **System status** gives each operational area an OK, warning, error or not-configured state. It monitors the scheduler heartbeat, the last successful schedule calculation and next run, output command writes, sensor communication, settings database accessibility, free disk space, enabled plug-in failures, e-mail readiness, weather, internet connectivity and the newest available backup. A successful output write confirms that OSPy sent the requested state to the output driver; it does not claim that a physical relay switched unless hardware feedback is available.
+
 The system summary shows current CPU usage, CPU temperature, system uptime, load average, OSPy process CPU usage, OSPy memory usage, thread count, platform information and the last refresh time.
 
-The plug-in table shows every available plug-in, whether it is running and enabled, current CPU load, total CPU time, thread count, start time, restart count and available actions. Data refreshes automatically, so the page can be left open while watching system load.
+The plug-in table shows every available plug-in, whether it is running and enabled, its own operational health, current CPU load, total CPU time, thread count, start time, restart count and available actions. A plug-in can optionally provide a `health()` function returning, for example, `{'status': 'ok', 'summary': '...', 'details': '...'}`; accepted states are `ok`, `warning`, `error` and `unknown`. Older plug-ins without this function remain fully compatible and show “not reported”. A failed or timed-out health check does not stop the plug-in or the Diagnostics page. Data refreshes automatically, so the page can be left open while watching system load.
 
 By default, plug-ins are sorted by current CPU load from highest to lowest. Use **Sort plugins** to switch sorting to plug-in name or total CPU time when you want a stable list or want to find long-running CPU consumers.
 
@@ -533,6 +535,8 @@ On the page "Plugins page" we can configure or control all extensions in the OSP
 ## Manage
 
 Clicking the "Manage" button will open the extension manager window in OSPy. All available extensions can be turned on, off, installed from repository, etc...
+
+A plug-in can include an optional `plugin.json` file containing its name, version, description, author, homepage and license. The manager displays this metadata when available. Older plug-ins without a manifest remain compatible and OSPy reads their name from `__init__.py`; an invalid manifest is safely ignored.
 
 ## Install New Plugin
 

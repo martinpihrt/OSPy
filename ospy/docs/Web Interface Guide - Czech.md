@@ -351,9 +351,11 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ## Diagnostika
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
+Stránka je rozdělena na záložky **Stav systému** a **Výkon a procesy**. **Stav systému** přiřazuje každé provozní oblasti stav v pořádku, varování, chyba nebo nenakonfigurováno. Sleduje heartbeat plánovače, poslední úspěšný výpočet plánu a nejbližší běh, zápisy příkazů do výstupů, komunikaci senzorů, dostupnost databáze nastavení, volné místo, chyby povolených rozšíření, připravenost e-mailu, počasí, internetové připojení a nejnovější dostupnou zálohu. Úspěšný zápis výstupu potvrzuje, že OSPy předalo požadovaný stav ovladači; bez hardwarové zpětné vazby nepotvrzuje fyzické sepnutí relé.
+
 Souhrn systému ukazuje aktuální využití CPU, teplotu CPU, dobu běhu systému, load average, využití CPU procesem OSPy, využití paměti OSPy, počet vláken, informace o platformě a čas posledního obnovení.
 
-Tabulka rozšíření ukazuje všechna dostupná rozšíření, zda běží a zda jsou povolená, aktuální zátěž CPU, celkový čas CPU, počet vláken, čas spuštění, počet restartů a dostupné akce. Data se obnovují automaticky, takže stránku lze nechat otevřenou při sledování zatížení systému.
+Tabulka rozšíření ukazuje všechna dostupná rozšíření, zda běží a zda jsou povolená, jejich vlastní provozní stav, aktuální zátěž CPU, celkový čas CPU, počet vláken, čas spuštění, počet restartů a dostupné akce. Rozšíření může volitelně poskytovat funkci `health()`, která vrací například `{'status': 'ok', 'summary': '...', 'details': '...'}`; povolené stavy jsou `ok`, `warning`, `error` a `unknown`. Starší rozšíření bez této funkce zůstávají plně kompatibilní a zobrazují stav „nehlášeno“. Chyba nebo překročení časového limitu kontroly stavu nezastaví rozšíření ani stránku Diagnostika. Data se obnovují automaticky, takže stránku lze nechat otevřenou při sledování zatížení systému.
 
 Ve výchozím stavu jsou rozšíření seřazena podle aktuální zátěže CPU od nejvyšší po nejnižší. Pomocí volby **Řadit rozšíření** lze přepnout řazení podle názvu rozšíření nebo podle celkového času CPU, pokud je potřeba stabilní seznam nebo hledání dlouhodobých spotřebitelů CPU.
 
@@ -533,6 +535,8 @@ Na stránce "Rozšíření" můžeme nakonfigurovat nebo ovládat všechna rozš
 ## Spravovat
 
 Po kliknutí na tlačítko "Spravovat" se otevře okno správce rozšíření v systému OSPy. Všechna dostupná rozšíření lze zapínat, vypínat, instalovat z repozitáře atd...
+
+Rozšíření může obsahovat volitelný soubor `plugin.json` s názvem, verzí, popisem, autorem, domovskou stránkou a licencí. Správce tato metadata zobrazí, pokud jsou dostupná. Starší rozšíření bez manifestu zůstávají kompatibilní a OSPy načte jejich název z `__init__.py`; neplatný manifest je bezpečně ignorován.
   
 ## Instalovat nové rozšíření
 

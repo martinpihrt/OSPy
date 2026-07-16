@@ -2,6 +2,7 @@ import pkgutil
 import traceback
 import re
 import sys
+import json
 from os import path
 import types
 import threading
@@ -13,7 +14,14 @@ __running = {}
 __plugin_runtime = {}
 __thread_plugin = {}
 __diagnostic_sample = {}
+__plugin_health_workers = {}
+__manifest_cache = {}
 __profile_lock = threading.RLock()
+__plugin_health_lock = threading.RLock()
+PLUGIN_HEALTH_TIMEOUT = 1.0
+PLUGIN_MANIFEST_FILE = 'plugin.json'
+PLUGIN_MANIFEST_MAX_BYTES = 64 * 1024
+PLUGIN_MANIFEST_SCHEMA_VERSION = 1
 REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
 
 
@@ -25,6 +33,7 @@ def _clear_plugin_caches(module):
     """Clear cached plugin metadata and route mappings after an install/update."""
     __name_cache.pop(module, None)
     __name_cache_menu.pop(module, None)
+    __manifest_cache.pop(module, None)
 
     for key in list(__urls_cache.keys()):
         if key == module or getattr(key, '__name__', '').endswith('.' + module):
@@ -97,17 +106,156 @@ def _track_threads_started_by(module, start_callable):
     return result
 
 
+def _plugin_health_result(value):
+    """Normalize the optional plug-in health() result for diagnostics."""
+    if isinstance(value, dict):
+        result = dict(value)
+        status = str(result.get('status', 'unknown')).lower()
+        aliases = {
+            'healthy': 'ok',
+            'good': 'ok',
+            'running': 'ok',
+            'warn': 'warning',
+            'degraded': 'warning',
+            'failed': 'error',
+            'unhealthy': 'error',
+            'disabled': 'unknown',
+            'not_configured': 'unknown',
+            'unavailable': 'unknown',
+        }
+        status = aliases.get(status, status)
+        if status not in ('ok', 'warning', 'error', 'unknown'):
+            status = 'unknown'
+        details = result.get('details', '')
+        if isinstance(details, dict):
+            details = '; '.join(
+                '{}: {}'.format(key, value)
+                for key, value in sorted(details.items(), key=lambda item: str(item[0]))
+            )
+        updated = result.get('updated', time.time())
+        if not isinstance(updated, (int, float, str)):
+            updated = time.time()
+        return {
+            'supported': True,
+            'status': status,
+            'summary': str(result.get('summary', result.get('message', '')) or ''),
+            'details': str(details or ''),
+            'updated': updated,
+        }
+
+    if isinstance(value, bool):
+        return {
+            'supported': True,
+            'status': 'ok' if value else 'error',
+            'summary': '',
+            'details': '',
+            'updated': time.time(),
+        }
+
+    if value is not None:
+        return {
+            'supported': True,
+            'status': 'unknown',
+            'summary': str(value),
+            'details': '',
+            'updated': time.time(),
+        }
+
+    return {
+        'supported': True,
+        'status': 'unknown',
+        'summary': _('Not reported'),
+        'details': '',
+        'updated': time.time(),
+    }
+
+
+def plugin_health(module):
+    """Read the optional health() report of a running plug-in safely."""
+    plugin = __running.get(module)
+    if plugin is None:
+        return {
+            'supported': False,
+            'status': 'unknown',
+            'summary': _('Not running'),
+            'details': '',
+            'updated': 0,
+        }
+
+    health_check = getattr(plugin, 'health', None)
+    if not callable(health_check):
+        return {
+            'supported': False,
+            'status': 'unknown',
+            'summary': _('Not reported'),
+            'details': '',
+            'updated': 0,
+        }
+
+    with __plugin_health_lock:
+        worker = __plugin_health_workers.get(module)
+        if worker is not None and worker['plugin'] is not plugin:
+            __plugin_health_workers.pop(module, None)
+            worker = None
+        if worker is None:
+            worker = {
+                'plugin': plugin,
+                'result': None,
+                'started': time.time(),
+            }
+
+            def run_health_check():
+                try:
+                    worker['result'] = _plugin_health_result(health_check())
+                except Exception:
+                    worker['result'] = {
+                        'supported': True,
+                        'status': 'error',
+                        'summary': _('Health check failed.'),
+                        'details': traceback.format_exc(),
+                        'updated': time.time(),
+                    }
+
+            thread = threading.Thread(
+                target=run_health_check,
+                name='OSPy plug-in health {}'.format(module),
+            )
+            thread.daemon = True
+            worker['thread'] = thread
+            __plugin_health_workers[module] = worker
+            thread.start()
+
+    worker['thread'].join(PLUGIN_HEALTH_TIMEOUT)
+    if worker['thread'].is_alive():
+        return {
+            'supported': True,
+            'status': 'warning',
+            'summary': _('Health check timed out.'),
+            'details': '',
+            'updated': worker['started'],
+        }
+
+    with __plugin_health_lock:
+        if __plugin_health_workers.get(module) is worker:
+            __plugin_health_workers.pop(module, None)
+    return worker['result']
+
+
 def plugin_diagnostics():
     data = []
     running_modules = running()
     available_modules = available()
     now = time.time()
     from ospy.options import options
+    health_results = {
+        module: plugin_health(module) for module in available_modules
+    }
 
     with __profile_lock:
         for module in available_modules:
             plugin = __running.get(module)
             entry = __plugin_runtime.get(module, {})
+            manifest = plugin_manifest(module)
             threads = []
             total_cpu = 0.0
             cpu_known = False
@@ -146,6 +294,8 @@ def plugin_diagnostics():
                 'module': module,
                 'name': getattr(plugin, 'NAME', None) if plugin is not None else plugin_name(module) or module,
                 'menu': getattr(plugin, 'MENU', None) if plugin is not None else plugin_name_menu(module),
+                'manifest': manifest,
+                'version': manifest.get('version', ''),
                 'running': module in running_modules,
                 'enabled': module in options.enabled_plugins,
                 'link': link,
@@ -158,6 +308,7 @@ def plugin_diagnostics():
                 'thread_count': len([thread for thread in threads if thread['alive']]),
                 'cpu_seconds': cpu_seconds_value,
                 'cpu_percent': cpu_percent,
+                'health': health_results[module],
             })
 
     data.sort(key=lambda item: (item['cpu_percent'] if item['cpu_percent'] is not None else -1, item['cpu_seconds'] if item['cpu_seconds'] is not None else -1), reverse=True)
@@ -348,6 +499,12 @@ class _PluginChecker(threading.Thread):
                 init_dir = os.path.dirname(init)
                 plugin_id = os.path.basename(init_dir)
                 read_me = ''
+                manifest = {}
+                manifest_name = init_dir + '/' + PLUGIN_MANIFEST_FILE
+                if manifest_name in files:
+                    manifest = _manifest_from_bytes(
+                        zip_file.read(manifest_name), plugin_id
+                    )
 
                 # Version information:
                 plugin_hash = ''
@@ -355,7 +512,7 @@ class _PluginChecker(threading.Thread):
                 plugin_files = {}
                 plugin_zip_prefix = init_dir.rstrip('/\\') + '/'
 
-                if init_dir + '/README.md' in files:
+                if init_dir + '/README.md' in files or manifest:
 
                     # Check all files:
                     for zip_info in infos:
@@ -370,13 +527,23 @@ class _PluginChecker(threading.Thread):
                     if load_read_me:
                         try:
                             from ospy.helpers import gfm_str_to_html
-                            read_me = gfm_str_to_html(zip_file.read(init_dir + '/README.md').decode('utf-8'))
+                            if init_dir + '/README.md' in files:
+                                read_me = gfm_str_to_html(
+                                    zip_file.read(init_dir + '/README.md').decode('utf-8')
+                                )
+                            elif manifest.get('description'):
+                                read_me = gfm_str_to_html(manifest['description'])
                         except Exception:
                             logging.error(_('Failed to read plug-in README') + ': {}'.format(traceback.format_exc()))
                             read_me = ''
 
                     result[plugin_id] = {
-                        'name': _plugin_name(zip_file.read(init).decode('utf-8').splitlines()),
+                        'name': (
+                            manifest.get('name') or
+                            _plugin_name(zip_file.read(init).decode('utf-8').splitlines())
+                        ),
+                        'manifest': manifest,
+                        'version': manifest.get('version', ''),
                         'hash': hashlib.md5(plugin_hash.encode("utf-8")).hexdigest(),
                         'date': plugin_date,
                         'read_me': read_me,
@@ -723,6 +890,81 @@ def plugin_docs_dir(module=None):
 ################################################################################
 # Plugin information + urls                                                    #
 ################################################################################
+def _normalize_plugin_manifest(data, module=None):
+    """Return a safe copy of a plug-in manifest or an empty dictionary."""
+    if not isinstance(data, dict):
+        return {}
+
+    manifest = dict(data)
+    schema_version = manifest.get('schema_version', PLUGIN_MANIFEST_SCHEMA_VERSION)
+    if not isinstance(schema_version, int) or isinstance(schema_version, bool) or schema_version < 1:
+        return {}
+    manifest['schema_version'] = schema_version
+
+    for key in ('id', 'name', 'menu', 'version', 'description', 'author',
+                'homepage', 'license'):
+        value = manifest.get(key)
+        if value is None:
+            continue
+        if not isinstance(value, str):
+            return {}
+        manifest[key] = value.strip()
+        if len(manifest[key]) > (4096 if key == 'description' else 255):
+            return {}
+
+    if module and manifest.get('id') and manifest['id'] != module:
+        return {}
+    if manifest.get('id') and not re.match(r'^[a-z0-9][a-z0-9_]*$', manifest['id']):
+        return {}
+    if module and not manifest.get('id'):
+        manifest['id'] = module
+    if manifest.get('homepage') and not manifest['homepage'].lower().startswith(
+            ('https://', 'http://')):
+        return {}
+
+    for key in ('ospy', 'python', 'requirements', 'hardware', 'permissions',
+                'conflicts'):
+        value = manifest.get(key)
+        if value is not None and not isinstance(value, (dict, list)):
+            return {}
+
+    return manifest
+
+
+def _manifest_from_bytes(contents, module=None):
+    if not isinstance(contents, bytes) or len(contents) > PLUGIN_MANIFEST_MAX_BYTES:
+        return {}
+    try:
+        data = json.loads(contents.decode('utf-8-sig'))
+    except (UnicodeDecodeError, ValueError):
+        return {}
+    return _normalize_plugin_manifest(data, module)
+
+
+def plugin_manifest(plugin):
+    """Read optional plugin.json metadata without importing the plug-in."""
+    import logging
+
+    if plugin not in __manifest_cache:
+        __manifest_cache[plugin] = {}
+        filename = path.join(plugin_dir(plugin), PLUGIN_MANIFEST_FILE)
+        if path.isfile(filename):
+            try:
+                if path.getsize(filename) > PLUGIN_MANIFEST_MAX_BYTES:
+                    raise ValueError(_('Plug-in manifest is too large.'))
+                with open(filename, 'rb') as fh:
+                    manifest = _manifest_from_bytes(fh.read(), plugin)
+                if not manifest:
+                    raise ValueError(_('Plug-in manifest is invalid.'))
+                __manifest_cache[plugin] = manifest
+            except Exception:
+                logging.error(
+                    _('Failed to read plug-in manifest') +
+                    ': {} {}'.format(plugin, traceback.format_exc())
+                )
+    return dict(__manifest_cache[plugin])
+
+
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):
@@ -747,14 +989,15 @@ def plugin_name(plugin):
     """Tries to find the name of the given plugin without importing it yet."""
     import logging
     if plugin not in __name_cache:
-        __name_cache[plugin] = None
+        manifest_name = plugin_manifest(plugin).get('name')
+        __name_cache[plugin] = manifest_name or None
         filename = path.join(path.dirname(__file__), plugin, '__init__.py')
-        try:
-            with open(filename) as fh:
-                __name_cache[plugin] = _plugin_name(fh)
-        except Exception:
-            pass
-            logging.error(_('Failed to read in NAME plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
+        if not __name_cache[plugin]:
+            try:
+                with open(filename, encoding='utf-8') as fh:
+                    __name_cache[plugin] = _plugin_name(fh)
+            except Exception:
+                logging.error(_('Failed to read in NAME plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
     return __name_cache[plugin]
 
 
@@ -774,14 +1017,15 @@ def plugin_name_menu(plugin):
     """Tries to find the menu translated name of the given plugin without importing it yet."""
     import logging
     if plugin not in __name_cache_menu:
-        __name_cache_menu[plugin] = None
+        manifest_menu = plugin_manifest(plugin).get('menu')
+        __name_cache_menu[plugin] = manifest_menu or None
         filename = path.join(path.dirname(__file__), plugin, '__init__.py')
-        try:
-            with open(filename) as fh:
-                __name_cache_menu[plugin] = _plugin_name_menu(fh)
-        except Exception:
-            pass
-            logging.error(_('Failed to read in MENU name plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
+        if not __name_cache_menu[plugin]:
+            try:
+                with open(filename, encoding='utf-8') as fh:
+                    __name_cache_menu[plugin] = _plugin_name_menu(fh)
+            except Exception:
+                logging.error(_('Failed to read in MENU name plugin') + ': {} {}'.format(plugin, traceback.format_exc()))
     return __name_cache_menu[plugin]    
 
 
@@ -887,7 +1131,14 @@ def start_plugin(module):
 
         import_name = _plugin_import_name(module)
         plugin = importlib.import_module(import_name)
-        plugin_n = plugin.NAME
+        manifest = plugin_manifest(module)
+        plugin_n = getattr(plugin, 'NAME', None) or manifest.get('name') or module
+        if not getattr(plugin, 'NAME', None):
+            plugin.NAME = plugin_n
+        if not getattr(plugin, 'MENU', None) and manifest.get('menu'):
+            plugin.MENU = manifest['menu']
+        if not hasattr(plugin, 'LINK'):
+            plugin.LINK = None
 
         mkdir_p(plugin_data_dir(module))
         mkdir_p(plugin_docs_dir(module))
@@ -902,7 +1153,8 @@ def start_plugin(module):
         __running[module] = plugin
         logging.info(_('Started the') + ': {}'.format(plugin_n))
 
-        if plugin.LINK is not None and not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__)):
+        if (isinstance(plugin.LINK, str) and
+                not (plugin.LINK.startswith(module) or plugin.LINK.startswith(__name__))):
             plugin.LINK = module + '.' + plugin.LINK
 
         return True

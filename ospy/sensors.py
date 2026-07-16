@@ -4,6 +4,7 @@ __author__ = 'Martin Pihrt'
 
 # System imports
 from threading import Thread, Timer
+from ospy.health import heartbeat, update_details
 import traceback
 import traceback
 import time
@@ -1917,15 +1918,25 @@ class _Sensors_Timer(Thread):
 
 
     def run(self):
+        update_details('sensors', thread_name=self.name or self.__class__.__name__)
         self._sleep(2)
         while True:
             try:
                 self.check_shellys()
                 self.check_sensors()
+                enabled = len([sensor for sensor in sensors.get() if sensor.enabled])
+                responding = len([
+                    sensor for sensor in sensors.get()
+                    if sensor.enabled and sensor.response
+                ])
+                heartbeat('sensors', enabled=enabled, responding=responding,
+                          total=sensors.count())
                 self._sleep(1)
 
             except Exception:
-                log.debug('sensors.py', _('Sensors timer loop error: {}').format(traceback.format_exc()))
+                error = traceback.format_exc()
+                heartbeat('sensors', ok=False, message=error)
+                log.debug('sensors.py', _('Sensors timer loop error: {}').format(error))
                 pass
                 self._sleep(5)  
 

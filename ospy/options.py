@@ -860,8 +860,21 @@ class _Options(object):
                 from dbm import whichdb
 
                 logging.debug(_('Saved db as %s'), whichdb(OPTIONS_FILE))
+                from ospy.health import heartbeat
+                heartbeat(
+                    'database',
+                    backend=whichdb(OPTIONS_FILE) or '',
+                    path=os.path.abspath(OPTIONS_FILE)
+                )
         except Exception:
-            logging.warning(_('Saving error:\n') + traceback.format_exc())
+            error = traceback.format_exc()
+            try:
+                from ospy.health import heartbeat
+                heartbeat('database', ok=False, message=error,
+                          path=os.path.abspath(OPTIONS_FILE))
+            except Exception:
+                pass
+            logging.warning(_('Saving error:\n') + error)
 
     def save_now(self):
         """Write pending option changes immediately."""

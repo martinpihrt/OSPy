@@ -351,9 +351,11 @@ Die Zeit, die der Raspberry Pi seit dem Einschalten (oder Neustart) in Betrieb w
 ## Diagnose
 Die Schaltfläche **Diagnose** in der Fußzeile öffnet eine Administratorseite, auf der geprüft werden kann, wie OSPy und seine Plug-ins das System belasten.
 
+Die Seite ist in die Registerkarten **Systemstatus** und **Leistung und Prozesse** unterteilt. **Systemstatus** weist jedem Betriebsbereich den Zustand OK, Warnung, Fehler oder nicht konfiguriert zu. Überwacht werden der Heartbeat des Schedulers, die letzte erfolgreiche Zeitplanberechnung und der nächste Lauf, Ausgabebefehle, Sensorkommunikation, der Zugriff auf die Einstellungsdatenbank, freier Speicherplatz, Fehler aktivierter Plug-ins, E-Mail-Bereitschaft, Wetter, Internetverbindung und die neueste verfügbare Sicherung. Ein erfolgreicher Ausgabeschreibvorgang bestätigt nur, dass OSPy den angeforderten Zustand an den Treiber übergeben hat; ohne Hardware-Rückmeldung wird kein physisches Schalten des Relais bestätigt.
+
 Die Systemübersicht zeigt die aktuelle CPU-Auslastung, CPU-Temperatur, Systemlaufzeit, Load Average, CPU-Auslastung des OSPy-Prozesses, Speicherverbrauch von OSPy, Anzahl der Threads, Plattforminformationen und die Zeit der letzten Aktualisierung.
 
-Die Plug-in-Tabelle zeigt alle verfügbaren Plug-ins, ob sie laufen und aktiviert sind, die aktuelle CPU-Last, die gesamte CPU-Zeit, die Anzahl der Threads, die Startzeit, die Anzahl der Neustarts und verfügbare Aktionen. Die Daten werden automatisch aktualisiert, sodass die Seite geöffnet bleiben kann, während die Systemlast beobachtet wird.
+Die Plug-in-Tabelle zeigt alle verfügbaren Plug-ins, ob sie laufen und aktiviert sind, ihren eigenen Betriebszustand, die aktuelle CPU-Last, die gesamte CPU-Zeit, die Anzahl der Threads, die Startzeit, die Anzahl der Neustarts und verfügbare Aktionen. Ein Plug-in kann optional eine Funktion `health()` bereitstellen, die zum Beispiel `{'status': 'ok', 'summary': '...', 'details': '...'}` zurückgibt; zulässige Zustände sind `ok`, `warning`, `error` und `unknown`. Ältere Plug-ins ohne diese Funktion bleiben vollständig kompatibel und zeigen „nicht gemeldet“. Eine fehlgeschlagene oder zu lange Zustandsprüfung stoppt weder das Plug-in noch die Diagnoseseite. Die Daten werden automatisch aktualisiert, sodass die Seite geöffnet bleiben kann, während die Systemlast beobachtet wird.
 
 Standardmäßig werden Plug-ins nach aktueller CPU-Last von hoch nach niedrig sortiert. Mit **Plug-ins sortieren** kann nach Plug-in-Name oder gesamter CPU-Zeit sortiert werden, wenn eine stabile Liste benötigt wird oder langfristige CPU-Verbraucher gesucht werden.
 
@@ -533,6 +535,8 @@ Auf der Seite „Plugins“ können wir alle Erweiterungen im OSPy-System konfig
 ## Verwalten
 
 Durch Klicken auf die Schaltfläche „Verwalten“ wird das Erweiterungsmanagerfenster in OSPy geöffnet. Alle verfügbaren Erweiterungen können aktiviert, deaktiviert, aus dem Repository installiert usw. werden.
+
+Ein Plug-in kann optional eine Datei `plugin.json` mit Name, Version, Beschreibung, Autor, Homepage und Lizenz enthalten. Der Manager zeigt diese Metadaten an, wenn sie verfügbar sind. Ältere Plug-ins ohne Manifest bleiben kompatibel und OSPy liest ihren Namen aus `__init__.py`; ein ungültiges Manifest wird sicher ignoriert.
 
 ## Neues Plugin installieren
 

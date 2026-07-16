@@ -3,12 +3,19 @@
 __author__ = 'Rimco'
 
 import logging
+from ospy.health import heartbeat, update_details
 
 
 class _DummyOutputs(object):
     _last = True
 
     def __init__(self):
+        update_details(
+            'master_output',
+            backend=self.__class__.__name__,
+            physical=False,
+            feedback=False
+        )
         self.relay_output = False
 
     def __setattr__(self, key, value):
@@ -16,12 +23,26 @@ class _DummyOutputs(object):
         if value != self._last:
             logging.debug(_('Dummy Outputs Set {} to {}').format(key, value))
             self._last = value
+        if key == 'relay_output':
+            heartbeat(
+                'master_output',
+                backend=self.__class__.__name__,
+                physical=False,
+                feedback=False,
+                active=bool(value)
+            )
 
 
 class _IOOutputs(object):
     _last = True
 
     def __init__(self):
+        update_details(
+            'master_output',
+            backend=self.__class__.__name__,
+            physical=True,
+            feedback=False
+        )
         self._mapping = {}
         self._initialized = False
 
@@ -39,7 +60,25 @@ class _IOOutputs(object):
                 self.__setattr__(name, False)
 
         if key in self._mapping:
-            self._io.output(self._mapping[key], self._io.HIGH if value else self._io.LOW)
+            try:
+                self._io.output(self._mapping[key], self._io.HIGH if value else self._io.LOW)
+                heartbeat(
+                    'master_output',
+                    backend=self.__class__.__name__,
+                    physical=True,
+                    feedback=False,
+                    active=bool(value)
+                )
+            except Exception as err:
+                heartbeat(
+                    'master_output',
+                    ok=False,
+                    message=str(err),
+                    backend=self.__class__.__name__,
+                    physical=True,
+                    feedback=False
+                )
+                raise
 
 
 class _RPiOutputs(_IOOutputs):

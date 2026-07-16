@@ -19,6 +19,7 @@ import math
 from threading import Thread, Lock
 
 from ospy.options import options
+from ospy.health import heartbeat, update_details
 
 from . import i18n
    
@@ -105,6 +106,7 @@ class _Weather(Thread):
             self._sleep_time -= 1
 
     def run(self):
+        update_details('weather', thread_name=self.name or self.__class__.__name__)
         time.sleep(5)  # Some delay to allow internet to initialize
         while True:
             try:
@@ -114,10 +116,20 @@ class _Weather(Thread):
                 for function in self._callbacks:
                     function()
 
+                heartbeat(
+                    'weather',
+                    enabled=options.use_weather,
+                    status=options.weather_status,
+                    latitude=self._lat,
+                    longitude=self._lon
+                )
                 self._sleep(3600)
             except Exception:
-                pass
-                logging.warning(_('Weather error:') + ' ' + traceback.format_exc())
+                error = traceback.format_exc()
+                heartbeat('weather', ok=False, message=error,
+                          enabled=options.use_weather,
+                          status=options.weather_status)
+                logging.warning(_('Weather error:') + ' ' + error)
                 self._sleep(6*3600)
 
     def _find_location(self):

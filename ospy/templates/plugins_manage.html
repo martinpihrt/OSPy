@@ -80,6 +80,7 @@ jQuery(document).ready(function(){
     $ current_info = options.plugin_status
     $for plugin in plugins.available():
         $ running = plugin in running_list
+        $ manifest = plugins.plugin_manifest(plugin)
         <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'}">
             <div style="display: inline-block; padding: 0; float: right;">
                 <div style="display: inline-block; padding: 0; width: 130px;">
@@ -143,12 +144,26 @@ jQuery(document).ready(function(){
 
             <div class="tooltip plugin ${'' if running else 'disabled'}" style="display: inline-block; padding: 0;">
                 ${plugins.plugin_name(plugin)}
+                $if manifest.get('version'):
+                    <small> v${manifest.get('version')}</small>
                 <!-- TODO translated
                 <span class="tooltiptext">
                     $_('Installed package'): ${plugins.plugin_name_menu(plugin)}
                 </span>
                 -->
             </div>
+            $if manifest:
+                <div style="margin: 4px 0 0 150px; color: #666;">
+                    <small>
+                        $_('Manifest'): v${manifest.get('schema_version', 1)}
+                        $if manifest.get('author'):
+                            · ${manifest.get('author')}
+                        $if manifest.get('license'):
+                            · ${manifest.get('license')}
+                        $if manifest.get('homepage'):
+                            · <a href="${manifest.get('homepage')}" target="_blank" rel="noopener noreferrer">$_('Homepage')</a>
+                    </small>
+                </div>
 
             <div style="clear:both; padding: 0;"></div>
         </div>

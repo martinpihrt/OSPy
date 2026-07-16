@@ -351,9 +351,11 @@ Doba behu systému Raspberry pri zapnutí (alebo reštarte).
 ## Diagnostika
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
+Stránka je rozdelená na karty **Stav systému** a **Výkon a procesy**. **Stav systému** priraďuje každej prevádzkovej oblasti stav v poriadku, varovanie, chyba alebo nenakonfigurované. Sleduje heartbeat plánovača, posledný úspešný výpočet plánu a najbližší beh, zápisy príkazov do výstupov, komunikáciu snímačov, dostupnosť databázy nastavení, voľné miesto, chyby povolených doplnkov, pripravenosť e-mailu, počasie, internetové pripojenie a najnovšiu dostupnú zálohu. Úspešný zápis výstupu potvrdzuje, že OSPy odovzdalo požadovaný stav ovládaču; bez hardvérovej spätnej väzby nepotvrdzuje fyzické zopnutie relé.
+
 Súhrn systému zobrazuje aktuálne využitie CPU, teplotu CPU, dobu behu systému, load average, využitie CPU procesom OSPy, využitie pamäte OSPy, počet vlákien, informácie o platforme a čas posledného obnovenia.
 
-Tabuľka doplnkov zobrazuje všetky dostupné doplnky, či bežia a či sú povolené, aktuálnu záťaž CPU, celkový čas CPU, počet vlákien, čas spustenia, počet reštartov a dostupné akcie. Dáta sa obnovujú automaticky, takže stránku je možné nechať otvorenú pri sledovaní zaťaženia systému.
+Tabuľka doplnkov zobrazuje všetky dostupné doplnky, či bežia a či sú povolené, ich vlastný prevádzkový stav, aktuálnu záťaž CPU, celkový čas CPU, počet vlákien, čas spustenia, počet reštartov a dostupné akcie. Doplnok môže voliteľne poskytovať funkciu `health()`, ktorá vracia napríklad `{'status': 'ok', 'summary': '...', 'details': '...'}`; povolené stavy sú `ok`, `warning`, `error` a `unknown`. Staršie doplnky bez tejto funkcie zostávajú plne kompatibilné a zobrazujú stav „nehlásené“. Chyba alebo prekročenie časového limitu kontroly stavu nezastaví doplnok ani stránku Diagnostika. Dáta sa obnovujú automaticky, takže stránku je možné nechať otvorenú pri sledovaní zaťaženia systému.
 
 V predvolenom stave sú doplnky zoradené podľa aktuálnej záťaže CPU od najvyššej po najnižšiu. Pomocou voľby **Zoradiť doplnky** je možné prepnúť zoradenie podľa názvu doplnku alebo podľa celkového času CPU, keď je potrebný stabilný zoznam alebo hľadanie dlhodobých spotrebiteľov CPU.
 
@@ -533,6 +535,8 @@ Na stránke "Doplnky" môžeme nakonfigurovať alebo ovládať všetky rozšíre
 ## Spravovať
 
 Po kliknutí na tlačidlo "Spravovať" sa otvorí okno správcu rozšírenia v systéme OSPy. Všetky dostupné rozšírenia je možné zapínať, vypínať, inštalovať z repozitára atď...
+
+Doplnok môže obsahovať voliteľný súbor `plugin.json` s názvom, verziou, opisom, autorom, domovskou stránkou a licenciou. Správca tieto metadáta zobrazí, ak sú dostupné. Staršie doplnky bez manifestu zostávajú kompatibilné a OSPy načíta ich názov z `__init__.py`; neplatný manifest sa bezpečne ignoruje.
 
 ## Nainštalovať nový doplnok
 

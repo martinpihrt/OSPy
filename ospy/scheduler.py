@@ -24,6 +24,7 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy.outputs import outputs
 from ospy.helpers import get_external_ip
+from ospy.health import heartbeat, update_details
 
 rain_active = signal('rain_active')
 rain_not_active = signal('rain_not_active')
@@ -431,7 +432,8 @@ class _Scheduler(Thread):
 
     def run(self):
         global pom_last_30s_tick
-        
+
+        update_details('scheduler', thread_name=self.name or self.__class__.__name__)
         current_time = datetime.datetime.now()
         rain = not options.manual_mode and (rain_blocks.block_end() > datetime.datetime.now() or
                                             inputs.rain_sensed())
@@ -446,6 +448,8 @@ class _Scheduler(Thread):
         while True:
             try:
                 self._check_schedule()
+                heartbeat('scheduler', enabled=options.scheduler_enabled,
+                          manual_mode=options.manual_mode)
                 millis = int(round(time_.time() * 1000))
                 if (millis - pom_last_30s_tick) >= 30000:   # always send a tick signal after 30 seconds
                     pom_last_30s_tick = millis
@@ -454,7 +458,9 @@ class _Scheduler(Thread):
                     except:
                         pass 
             except Exception:
-                logging.warning('Scheduler error:\n' + traceback.format_exc())
+                error = traceback.format_exc()
+                heartbeat('scheduler', ok=False, message=error)
+                logging.warning('Scheduler error:\n' + error)
             time.sleep(1)
 
     @staticmethod
@@ -508,6 +514,27 @@ class _Scheduler(Thread):
 
         if not options.manual_mode:
             schedule = predicted_schedule(check_start, check_end)
+            next_interval = next(
+                (entry for entry in schedule if entry['end'] > current_time),
+                None
+            )
+            heartbeat(
+                'schedule_calculation',
+                intervals=len(schedule),
+                range_start=check_start.strftime('%Y-%m-%d %H:%M:%S'),
+                range_end=check_end.strftime('%Y-%m-%d %H:%M:%S'),
+                next_start=(
+                    next_interval['start'].strftime('%Y-%m-%d %H:%M:%S')
+                    if next_interval else ''
+                ),
+                next_program=(
+                    next_interval.get('program_name', '') if next_interval else ''
+                ),
+                next_station=(
+                    stations.get(next_interval['station']).name
+                    if next_interval else ''
+                )
+            )
             for entry in schedule:
                 if entry['start'] <= current_time < entry['end']:
                     if entry['blocked']:

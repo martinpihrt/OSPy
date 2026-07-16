@@ -8,6 +8,7 @@ import logging
 
 # Local imports
 from ospy.options import options
+from ospy.health import heartbeat, update_details
 
 from blinker import signal
 
@@ -140,6 +141,12 @@ class _Station(object):
 
 class _BaseStations(object):
     def __init__(self, count):
+        update_details(
+            'outputs',
+            backend=self.__class__.__name__,
+            physical=False,
+            feedback=False
+        )
         self._loading = True
         self.master = None
         self.master_two = None
@@ -152,12 +159,27 @@ class _BaseStations(object):
         for i in range(count):
             self._stations.append(_Station(self, i))
         self.clear()
+        if self.__class__ is _BaseStations:
+            heartbeat(
+                'outputs',
+                backend=self.__class__.__name__,
+                physical=False,
+                feedback=False,
+                active=0
+            )
 
         options.add_callback('output_count', self._resize_cb)
 
     def _activate(self):
         """This function should be used to update real outputs according to self._state."""
         logging.debug(_('Activated outputs'))
+        heartbeat(
+            'outputs',
+            backend=self.__class__.__name__,
+            physical=False,
+            feedback=False,
+            active=sum(1 for state in self._state if state)
+        )
 
     def _resize_cb(self, key, old, new):
         self.resize(new)
@@ -294,26 +316,57 @@ class _ShiftStations(_BaseStations):
         self._io.output(self._sr_lat, self._io.HIGH)
         self._io.output(self._sr_noe, self._io.LOW)
 
+        heartbeat(
+            'outputs',
+            backend=self.__class__.__name__,
+            physical=True,
+            feedback=False,
+            active=sum(1 for state in self._state if state)
+        )
         logging.debug(_('Activated shift outputs'))
         zone_change.send()
 
     def resize(self, count):
         super(_ShiftStations, self).resize(count)
-        self._activate()
+        try:
+            self._activate()
+        except Exception as err:
+            heartbeat('outputs', ok=False, message=str(err),
+                      backend=self.__class__.__name__, physical=True,
+                      feedback=False)
+            raise
 
     def activate(self, index):
         super(_ShiftStations, self).activate(index)
-        self._activate()
+        try:
+            self._activate()
+        except Exception as err:
+            heartbeat('outputs', ok=False, message=str(err),
+                      backend=self.__class__.__name__, physical=True,
+                      feedback=False)
+            raise
         station_on.send("Signaling stations ON", txt=index)
 
     def deactivate(self, index):
         super(_ShiftStations, self).deactivate(index)
-        self._activate()
+        try:
+            self._activate()
+        except Exception as err:
+            heartbeat('outputs', ok=False, message=str(err),
+                      backend=self.__class__.__name__, physical=True,
+                      feedback=False)
+            raise
         station_off.send("Signaling stations OFF", txt=index)
 
     def clear(self):
         super(_ShiftStations, self).clear()
-        self._activate()
+        try:
+            self._activate()
+        except Exception as err:
+            heartbeat('outputs', ok=False, message=str(err),
+                      backend=self.__class__.__name__, physical=True,
+                      feedback=False)
+            raise
         station_clear.send("Signaling stations clear")        
 
 
