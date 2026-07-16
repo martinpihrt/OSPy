@@ -529,6 +529,8 @@ Wtyczka może zawierać opcjonalny plik `plugin.json` z nazwą, wersją, opisem,
 
 Przed aktywacją OSPy sprawdza zadeklarowane wersje OSPy i Pythona, wymagane moduły Pythona, obsługiwane platformy, dostępność GPIO/I²C oraz konflikty z włączonymi wtyczkami, pinami GPIO lub adresami I²C. Problem blokujący uniemożliwia aktywację, a opcja Włącz wszystko pomija daną wtyczkę. Zarządzanie wtyczkami i Diagnostyka pokazują szczegóły oraz zadeklarowane uprawnienia do sieci, plików, I²C, GPIO, poczty e-mail, podprocesów lub systemu. Uprawnienia informują administratora; nie są izolowanym sandboxem systemu operacyjnego.
 
+Nowe wtyczki mogą korzystać ze wspólnego cyklu życia wątków i sygnału zatrzymania OSPy. Podczas wyłączania OSPy najpierw wysyła sygnał zatrzymania, wywołuje istniejącą funkcję `stop()` i czeka maksymalnie pięć sekund na zarejestrowane wątki. Wątki, które nadal działają, są zgłaszane jako błąd w Diagnostyce i uniemożliwiają uruchomienie drugiej kopii wtyczki. Istniejące wtyczki bez tego interfejsu pozostają zgodne.
+
 ## Zainstaluj nową wtyczkę
 
 Po kliknięciu przycisku „Zainstaluj nową wtyczkę” otworzy się okno zdalnego repozytorium, w którym możemy wybrać dostępne rozszerzenia do zainstalowania w systemie OSPy oraz zapoznać się z ogólnymi informacjami na temat rozszerzeń.

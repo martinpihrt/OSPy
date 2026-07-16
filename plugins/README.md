@@ -68,3 +68,30 @@ permission names produce warnings. Supported permission names are `network`,
 `files`, `i2c`, `gpio`, `email`, `subprocess`, and `system`. Permissions are
 declarations shown to the administrator; they are not an operating-system
 sandbox.
+
+Managed background threads
+----
+
+New plug-ins should use the shared runtime for long-running background work:
+
+    import plugins
+
+    runtime = plugins.get_runtime()
+
+    def worker():
+        while not runtime.stop_event.wait(1.0):
+            update_data()
+
+    def start():
+        runtime.start_thread(worker, name='My plug-in worker')
+
+    def stop():
+        pass
+
+OSPy sets `runtime.stop_event` before calling the existing `stop()` function
+and waits up to five seconds for registered threads. An existing
+`threading.Thread` can be registered with `runtime.register_thread(thread)` or
+`plugins.register_thread(thread)`. The target remains responsible for checking
+the stop event and releasing files, network connections, GPIO, or I2C resources.
+Threads that do not stop in time are reported in Diagnostics and prevent a
+second copy of the plug-in from starting.

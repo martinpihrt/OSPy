@@ -540,6 +540,8 @@ Ein Plug-in kann optional eine Datei `plugin.json` mit Name, Version, Beschreibu
 
 Vor der Aktivierung prüft OSPy die angegebenen OSPy- und Python-Versionen, erforderliche Python-Module, unterstützte Plattformen, die Verfügbarkeit von GPIO/I²C sowie Konflikte mit aktivierten Plug-ins, GPIO-Pins oder I²C-Adressen. Ein blockierendes Problem verhindert die Aktivierung, und „Alle aktivieren“ überspringt das betroffene Plug-in. Plug-in-Verwaltung und Diagnose zeigen Details sowie deklarierte Berechtigungen für Netzwerk, Dateien, I²C, GPIO, E-Mail, Unterprozesse oder System an. Berechtigungen informieren den Administrator; sie sind keine isolierte Betriebssystem-Sandbox.
 
+Neue Plug-ins können die gemeinsame Thread-Lebenszyklusverwaltung und das OSPy-Stoppsignal verwenden. Beim Deaktivieren sendet OSPy zuerst das Stoppsignal, ruft die vorhandene Funktion `stop()` auf und wartet bis zu fünf Sekunden auf registrierte Threads. Threads, die weiterlaufen, werden in der Diagnose als Fehler gemeldet und verhindern den Start einer zweiten Plug-in-Instanz. Bestehende Plug-ins ohne diese Schnittstelle bleiben kompatibel.
+
 ## Neues Plugin installieren
 
 Nach dem Klicken auf die Schaltfläche „Neues Plugin installieren“ öffnet sich ein Remote-Repository-Fenster, in dem wir verfügbare Erweiterungen zur Installation auf dem OSPy-System auswählen und allgemeine Informationen zu den Erweiterungen lesen können.

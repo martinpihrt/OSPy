@@ -540,6 +540,8 @@ Doplnok môže obsahovať voliteľný súbor `plugin.json` s názvom, verziou, o
 
 Pred zapnutím OSPy kontroluje deklarované verzie OSPy a Pythonu, požadované Python moduly, podporovanú platformu, dostupnosť GPIO/I²C a konflikty s už povolenými doplnkami, GPIO pinmi alebo I²C adresami. Blokujúci problém zabráni zapnutiu a voľba zapnúť všetko taký doplnok preskočí. Správa doplnkov a Diagnostika zobrazujú podrobnosti aj deklarované oprávnenia k sieti, súborom, I²C, GPIO, e-mailu, podprocesom alebo systému. Oprávnenia sú informáciou pre správcu, nie izolovaným systémovým sandboxom.
 
+Nové doplnky môžu používať spoločnú správu vlákien so stop signálom OSPy. Pri vypnutí doplnku OSPy najprv odošle stop signál, zavolá jeho existujúcu funkciu `stop()` a najviac päť sekúnd čaká na registrované vlákna. Vlákna, ktoré sa nezastavia, sa zobrazia ako chyba v Diagnostike a zabránia spusteniu druhej kópie doplnku. Existujúce doplnky bez tohto rozhrania zostávajú kompatibilné.
+
 ## Nainštalovať nový doplnok
 
 Po kliknutí na tlačidlo "Nainštalovať nový doplnok" sa otvorí okno so vzdialeným repozitárom, kde si môžeme vybrať dostupné rozšírenia pre inštaláciu do systému OSPy a prečítať si všeobecné informácie k rozšíreniam.

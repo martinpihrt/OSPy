@@ -20,6 +20,7 @@ __manifest_cache = {}
 __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
 PLUGIN_HEALTH_TIMEOUT = 1.0
+PLUGIN_THREAD_STOP_TIMEOUT = 5.0
 PLUGIN_MANIFEST_FILE = 'plugin.json'
 PLUGIN_MANIFEST_MAX_BYTES = 64 * 1024
 PLUGIN_MANIFEST_SCHEMA_VERSION = 1
@@ -63,6 +64,7 @@ def _runtime_entry(module):
             'started': 0,
             'restarts': 0,
             'threads': {},
+            'runtime': None,
             'last_error': '',
             'last_restart': '',
         })
@@ -72,7 +74,7 @@ def _now_string():
     return time.strftime('%Y-%m-%d %H:%M:%S')
 
 
-def _register_plugin_thread(module, thread):
+def _register_plugin_thread(module, thread, managed=False):
     ident = getattr(thread, 'ident', None)
     if ident is None:
         return
@@ -84,6 +86,8 @@ def _register_plugin_thread(module, thread):
             'name': getattr(thread, 'name', ''),
             'native_id': native_id,
             'started': time.time(),
+            'managed': bool(managed),
+            'thread': thread,
         }
 
 
@@ -108,6 +112,95 @@ def _track_threads_started_by(module, start_callable):
     for thread in after_threads:
         _register_plugin_thread(module, thread)
     return result
+
+
+def _caller_plugin_module():
+    my_dir = path.dirname(path.abspath(__file__))
+    for frame in reversed(traceback.extract_stack()):
+        frame_path = path.abspath(frame.filename)
+        frame_dir = path.dirname(frame_path)
+        if frame_dir.startswith(my_dir + path.sep):
+            relative = frame_dir[len(my_dir) + 1:]
+            module = relative.split(path.sep)[0]
+            if module:
+                return module
+    return None
+
+
+class PluginRuntime(object):
+    """Cooperative lifecycle helper for plug-in background threads."""
+
+    def __init__(self, module):
+        self.module = module
+        self.stop_event = threading.Event()
+        self._threads = []
+        self._lock = threading.RLock()
+
+    def register_thread(self, thread):
+        if not isinstance(thread, threading.Thread):
+            raise TypeError(_('A threading.Thread instance is required.'))
+        with self._lock:
+            if thread not in self._threads:
+                self._threads.append(thread)
+        if thread.ident is not None:
+            _register_plugin_thread(self.module, thread, managed=True)
+        return thread
+
+    def start_thread(self, target, name=None, args=(), kwargs=None, daemon=True):
+        if not callable(target):
+            raise TypeError(_('Thread target must be callable.'))
+        thread = threading.Thread(
+            target=target,
+            name=name or '{} worker'.format(self.module),
+            args=tuple(args or ()),
+            kwargs=dict(kwargs or {}),
+        )
+        thread.daemon = bool(daemon)
+        with self._lock:
+            self._threads.append(thread)
+        thread.start()
+        _register_plugin_thread(self.module, thread, managed=True)
+        return thread
+
+    def request_stop(self):
+        self.stop_event.set()
+
+    def join(self, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
+        deadline = time.time() + max(0.0, float(timeout))
+        alive = []
+        with self._lock:
+            threads = list(self._threads)
+        for thread in threads:
+            if thread is threading.current_thread() or not thread.is_alive():
+                continue
+            remaining = max(0.0, deadline - time.time())
+            if remaining:
+                thread.join(remaining)
+            if thread.is_alive():
+                alive.append(thread)
+        return alive
+
+    def threads(self):
+        with self._lock:
+            return list(self._threads)
+
+
+def get_runtime(module=None):
+    """Return the cooperative runtime for the calling plug-in."""
+    module = module or _caller_plugin_module()
+    if not module:
+        raise RuntimeError(_('Plug-in module could not be determined.'))
+    entry = _runtime_entry(module)
+    runtime = entry.get('runtime')
+    if runtime is None:
+        runtime = PluginRuntime(module)
+        entry['runtime'] = runtime
+    return runtime
+
+
+def register_thread(thread, module=None):
+    """Register an existing plug-in thread for cooperative shutdown."""
+    return get_runtime(module).register_thread(thread)
 
 
 def _plugin_health_result(value):
@@ -277,6 +370,7 @@ def plugin_diagnostics():
                     'ident': ident,
                     'native_id': native_id,
                     'alive': alive,
+                    'managed': thread_info.get('managed', False),
                     'age_seconds': max(0, int(now - thread_info.get('started', now))),
                     'cpu_seconds': round(cpu_seconds, 3) if cpu_seconds is not None else None,
                 })
@@ -310,6 +404,9 @@ def plugin_diagnostics():
                 'restarts': entry.get('restarts', 0),
                 'last_restart': entry.get('last_restart', ''),
                 'last_error': entry.get('last_error', ''),
+                'stop_requested': bool(
+                    entry.get('runtime') and entry['runtime'].stop_event.is_set()
+                ),
                 'threads': threads,
                 'thread_count': len([thread for thread in threads if thread['alive']]),
                 'cpu_seconds': cpu_seconds_value,
@@ -1303,19 +1400,83 @@ def stop_plugin(module):
     import logging
 
     plugin = __running.get(module)
+    alive_threads = []
     if plugin is not None:
         plugin_n = getattr(plugin, 'NAME', module)
+        entry = _runtime_entry(module)
+        runtime = entry.get('runtime')
+        if runtime is not None:
+            runtime.request_stop()
+        stop_deadline = time.time() + PLUGIN_THREAD_STOP_TIMEOUT
+        stop_result = {'error': ''}
+
+        def call_plugin_stop():
+            try:
+                plugin.stop()
+            except Exception:
+                stop_result['error'] = traceback.format_exc()
+
+        stop_worker = threading.Thread(
+            target=call_plugin_stop,
+            name='OSPy plug-in stop {}'.format(module),
+        )
+        stop_worker.daemon = True
+        stop_worker.start()
+        _register_plugin_thread(module, stop_worker, managed=True)
+        stop_worker.join(max(0.0, stop_deadline - time.time()))
+        if stop_worker.is_alive():
+            entry['last_error'] = _('Plug-in stop function timed out.')
+            logging.error(
+                _('Failed to stop the') + ': {} {}'.format(
+                    plugin_n, entry['last_error']
+                )
+            )
+        elif stop_result['error']:
+            entry['last_error'] = stop_result['error']
+            logging.error(
+                _('Failed to stop the') + ': {} {}'.format(
+                    plugin_n, stop_result['error']
+                )
+            )
+
         try:
-            plugin.stop()
-            logging.info(_('Stopped the') + ': {}'.format(plugin_n))
-        except Exception:
-            _runtime_entry(module)['last_error'] = traceback.format_exc()
-            logging.error(_('Failed to stop the') + ': {} {}'.format(plugin_n, traceback.format_exc()))
+            alive_threads = (
+                runtime.join(max(0.0, stop_deadline - time.time()))
+                if runtime is not None else []
+            )
+            if stop_worker.is_alive():
+                alive_threads.append(stop_worker)
+            tracked_threads = [
+                info.get('thread') for info in entry.get('threads', {}).values()
+                if info.get('thread') is not None
+            ]
+            for thread in tracked_threads:
+                if (thread is threading.current_thread() or
+                        not thread.is_alive() or thread in alive_threads):
+                    continue
+                remaining = max(0.0, stop_deadline - time.time())
+                if remaining:
+                    thread.join(remaining)
+                if thread.is_alive():
+                    alive_threads.append(thread)
+            if alive_threads:
+                thread_names = ', '.join(
+                    thread.name or str(thread.ident) for thread in alive_threads
+                )
+                entry['last_error'] = (
+                    _('Plug-in threads did not stop in time') + ': ' + thread_names
+                )
+                logging.error(entry['last_error'])
+            elif not entry.get('last_error'):
+                logging.info(_('Stopped the') + ': {}'.format(plugin_n))
         finally:
             __running.pop(module, None)
             with __profile_lock:
                 for ident in list(__thread_plugin.keys()):
-                    if __thread_plugin.get(ident) == module:
+                    thread_info = entry.get('threads', {}).get(ident, {})
+                    thread = thread_info.get('thread')
+                    if (__thread_plugin.get(ident) == module and
+                            (thread is None or not thread.is_alive())):
                         __thread_plugin.pop(ident, None)
 
     try:
@@ -1324,10 +1485,11 @@ def stop_plugin(module):
     except Exception:
         logging.error(_('Failed to clear runtime data for the plug-in') + ': {} {}'.format(module, traceback.format_exc()))
 
-    _clear_plugin_caches(module)
-    _unload_plugin_modules(module)
+    if not alive_threads:
+        _clear_plugin_caches(module)
+        _unload_plugin_modules(module)
 
-    if module not in options.enabled_plugins:
+    if module not in options.enabled_plugins and not alive_threads:
         _protect(module)
 
 
@@ -1341,6 +1503,18 @@ def start_plugin(module):
 
     plugin_n = module
     try:
+        previous_entry = _runtime_entry(module)
+        lingering_threads = [
+            info.get('thread')
+            for info in previous_entry.get('threads', {}).values()
+            if info.get('thread') is not None and info['thread'].is_alive()
+        ]
+        if lingering_threads:
+            raise RuntimeError(
+                _('Plug-in still has running threads') + ': ' +
+                ', '.join(thread.name for thread in lingering_threads)
+            )
+
         compatibility = plugin_compatibility(module)
         if not compatibility['compatible']:
             raise RuntimeError(
@@ -1352,6 +1526,10 @@ def start_plugin(module):
         _unload_plugin_modules(module)
 
         import_name = _plugin_import_name(module)
+        entry = _runtime_entry(module)
+        entry['threads'] = {}
+        entry['runtime'] = PluginRuntime(module)
+        entry['last_error'] = ''
         plugin = importlib.import_module(import_name)
         manifest = plugin_manifest(module)
         plugin_n = getattr(plugin, 'NAME', None) or manifest.get('name') or module
@@ -1361,15 +1539,13 @@ def start_plugin(module):
             plugin.MENU = manifest['menu']
         if not hasattr(plugin, 'LINK'):
             plugin.LINK = None
+        plugin.RUNTIME = entry['runtime']
 
         mkdir_p(plugin_data_dir(module))
         mkdir_p(plugin_docs_dir(module))
 
-        entry = _runtime_entry(module)
         entry['started'] = time.time()
         entry['started_text'] = _now_string()
-        entry['threads'] = {}
-        entry['last_error'] = ''
 
         _track_threads_started_by(module, plugin.start)
         __running[module] = plugin

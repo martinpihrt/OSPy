@@ -540,6 +540,8 @@ A plug-in can include an optional `plugin.json` file containing its name, versio
 
 Before activation OSPy checks declared OSPy and Python versions, required Python modules, supported platforms, GPIO/I²C availability and conflicts with enabled plug-ins, GPIO pins or I²C addresses. A blocking problem prevents activation and Enable All skips the affected plug-in. Plug-in management and Diagnostics show details and declared network, file, I²C, GPIO, e-mail, subprocess or system permissions. Permissions inform the administrator; they are not an isolated operating-system sandbox.
 
+New plug-ins can use the shared thread lifecycle and OSPy stop signal. When disabling a plug-in, OSPy first sends the stop signal, calls its existing `stop()` function and waits up to five seconds for registered threads. Threads that remain alive are reported as an error in Diagnostics and prevent a second copy of the plug-in from starting. Existing plug-ins without this interface remain compatible.
+
 ## Install New Plugin
 
 Clicking the "Install New Plugin" button opens a window with a remote repository where we can select the available extensions to install on the OSPy system and read general information about the extensions.

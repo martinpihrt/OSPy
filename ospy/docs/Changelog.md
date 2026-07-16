@@ -16,6 +16,8 @@ Added optional, backward-compatible `plugin.json` manifests. Schema version 1 pr
 
 Added pre-activation plug-in compatibility validation using `plugin.json`. OSPy now checks declared minimum and maximum OSPy/Python versions, required Python modules, supported platforms, required GPIO/I2C availability, explicit plug-in conflicts and overlapping declared GPIO pins or I2C addresses. Incompatible plug-ins are not enabled, bulk activation skips them, warnings and blocking details are shown in Plug-in management and Diagnostics, and compatibility problems contribute to System status. Declared network, file, I2C, GPIO, e-mail, subprocess and system permissions are displayed to administrators but are not presented as an operating-system sandbox. Legacy plug-ins without a manifest remain compatible.
 
+Added a common cooperative lifecycle for plug-in background threads. New plug-ins can obtain a shared runtime, start or register managed threads and use its stop event for interruptible waiting. OSPy sets the stop event before calling the existing plug-in `stop()`, waits for registered and detected plug-in threads within a bounded five-second shutdown period, reports threads that remain alive, and prevents a second plug-in instance from starting while an old thread is still running. Existing plug-ins retain their current `start()` and `stop()` interface, and Diagnostics distinguishes managed threads and displays pending stop requests.
+
 July 15 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

@@ -539,6 +539,8 @@ Po kliknutí na tlačítko "Spravovat" se otevře okno správce rozšíření v 
 Rozšíření může obsahovat volitelný soubor `plugin.json` s názvem, verzí, popisem, autorem, domovskou stránkou a licencí. Správce tato metadata zobrazí, pokud jsou dostupná. Starší rozšíření bez manifestu zůstávají kompatibilní a OSPy načte jejich název z `__init__.py`; neplatný manifest je bezpečně ignorován.
 
 Před zapnutím OSPy kontroluje deklarované verze OSPy a Pythonu, požadované Python moduly, podporovanou platformu, dostupnost GPIO/I²C a konflikty s již povolenými rozšířeními, GPIO piny nebo I²C adresami. Blokující problém zabrání zapnutí a volba zapnout vše takové rozšíření přeskočí. Správce a Diagnostika zobrazují podrobnosti i deklarovaná oprávnění k síti, souborům, I²C, GPIO, e-mailu, podprocesům nebo systému. Oprávnění jsou informací pro správce, nikoli izolovaným systémovým sandboxem.
+
+Nová rozšíření mohou používat společnou správu vláken se stop signálem OSPy. Při vypnutí rozšíření OSPy nejprve odešle stop signál, zavolá jeho stávající funkci `stop()` a nejvýše pět sekund čeká na registrovaná vlákna. Vlákna, která se nezastaví, se zobrazí jako chyba v Diagnostice a brání spuštění druhé kopie rozšíření. Stávající rozšíření bez tohoto rozhraní zůstávají kompatibilní.
   
 ## Instalovat nové rozšíření
 

@@ -274,7 +274,18 @@ jQuery(document).ready(function(){
         var openButton = plugin.link ? '<a class="button open" href="' + plugin.link + '">' + $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
         var restartButton = plugin.running ? '<button type="button" class="button upload pluginRestart" data-plugin="' + plugin.module + '">' + restartPluginLabel + '</button>' : '';
         var error = plugin.last_error ? '<details><summary>' + $:{json.dumps(_('Last error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</summary><pre>' + jQuery("<div>").text(plugin.last_error).html() + '</pre></details>' : '';
-        var threads = plugin.thread_count + ' / ' + plugin.threads.length;
+        var managedThreads = 0;
+        for (var threadIndex = 0; threadIndex < plugin.threads.length; threadIndex++) {
+            if (plugin.threads[threadIndex].managed) {
+                managedThreads++;
+            }
+        }
+        var threads = plugin.thread_count + ' / ' + plugin.threads.length +
+            '<br><small>' + $:{json.dumps(_('Managed'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+            ': ' + managedThreads + '</small>';
+        if (plugin.stop_requested) {
+            threads += '<br><small>' + $:{json.dumps(_('Stop requested'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</small>';
+        }
         var cpuCell = '<span>' + fmt(plugin.cpu_percent, ' %') + '</span> <button type="button" class="button submit pluginHistory" data-plugin="' + escapeHtml(plugin.module) + '">' + historyLabel + '</button>';
 
         return '<tr>' +
