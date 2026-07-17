@@ -21,6 +21,7 @@ _DATA_DIR = os.environ.get('OSPY_DATA_DIR', './ospy/data')
 OPTIONS_FILE = os.path.join(_DATA_DIR, 'default', 'options.db')
 OPTIONS_TMP = os.path.join(_DATA_DIR, 'tmp', 'options.db')
 OPTIONS_BACKUP = os.path.join(_DATA_DIR, 'backup', 'options.db')
+OPTIONS_WRITE_STOP_TIMEOUT = 5.0
 
 class _Options(object):
     # Using an array to preserve order
@@ -689,16 +690,34 @@ class _Options(object):
 
 
     def __del__(self):
-        if self._write_timer is not None:
-            self._write_timer.cancel()
+        self.cancel_pending_write()
+
+    def cancel_pending_write(self, timeout=OPTIONS_WRITE_STOP_TIMEOUT):
+        """Cancel and drain the delayed writer without starting a new write."""
+        lock = getattr(self, '_lock', None)
+        if lock is None:
+            return True
+
+        timer = None
+        with lock:
+            timer = self._write_timer
+            self._write_timer = None
+            if timer is not None:
+                timer.cancel()
+
+        # cancel() cannot stop a Timer whose callback has already begun. Wait
+        # until that callback leaves _write() before its directory is cleaned.
+        if (timer is not None and timer is not threading.current_thread() and
+                timer.is_alive()):
+            timer.join(max(0.0, float(timeout)))
+        return timer is None or not timer.is_alive()
 
     def flush(self):
         """Persist pending option changes synchronously during shutdown."""
-        with self._lock:
-            if self._write_timer is not None:
-                self._write_timer.cancel()
-                self._write_timer = None
+        if not self.cancel_pending_write():
+            return False
         self._write()
+        return True
 
     def add_callback(self, key, function):
         if key not in self._callbacks:

@@ -85,6 +85,7 @@ class OptionsShutdownTests(unittest.TestCase):
         instance = options_module._Options.__new__(options_module._Options)
         instance._lock = threading.RLock()
         timer = mock.Mock()
+        timer.is_alive.return_value = False
         instance._write_timer = timer
         instance._write = mock.Mock()
 
@@ -93,6 +94,21 @@ class OptionsShutdownTests(unittest.TestCase):
         timer.cancel.assert_called_once_with()
         self.assertIsNone(instance._write_timer)
         instance._write.assert_called_once_with()
+
+    def test_cleanup_waits_for_an_already_running_writer(self):
+        instance = options_module._Options.__new__(options_module._Options)
+        instance._lock = threading.RLock()
+        timer = mock.Mock()
+        timer.is_alive.return_value = True
+        instance._write_timer = timer
+
+        instance.cancel_pending_write()
+
+        timer.cancel.assert_called_once_with()
+        timer.join.assert_called_once_with(
+            options_module.OPTIONS_WRITE_STOP_TIMEOUT
+        )
+        self.assertIsNone(instance._write_timer)
 
 
 class ServerShutdownTests(unittest.TestCase):
