@@ -26,19 +26,19 @@ jobs:
 
     steps:
       - name: Check out OSPy
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: OSPy
 
       - name: Check out official OSPy plug-ins
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: martinpihrt/OSPy-plugins
           ref: master
           path: OSPy-plugins
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
