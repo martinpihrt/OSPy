@@ -95,9 +95,55 @@ class OptionsPersistenceTests(unittest.TestCase):
                 database["name"] = "Recovered settings"
                 database["last_save"] = 1.0
 
-            instance = self._new_options(root)
+            with self.assertLogs(level="WARNING"):
+                instance = self._new_options(root)
 
             self.assertEqual(instance.name, "Recovered settings")
+
+    def test_invalid_primary_value_falls_back_to_valid_backup(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-invalid-") as root:
+            default, unused_tmp, backup = self._paths(root)
+            os.makedirs(os.path.dirname(default), exist_ok=True)
+            os.makedirs(os.path.dirname(backup), exist_ok=True)
+            with shelve.open(default) as database:
+                database["name"] = "Damaged settings"
+                database["output_count"] = "many"
+            with shelve.open(backup) as database:
+                database["name"] = "Last valid settings"
+                database["last_save"] = 1.0
+
+            with self.assertLogs(level="WARNING") as captured:
+                instance = self._new_options(root)
+
+            self.assertEqual(instance.name, "Last valid settings")
+            self.assertTrue(any(
+                "output_count" in message for message in captured.output
+            ))
+
+    def test_invalid_stored_object_fields_keep_safe_defaults(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-object-") as root:
+            instance = self._new_options(root)
+
+            class StoredObject(object):
+                def __init__(self):
+                    self.count = 3
+                    self.labels = ["safe"]
+
+            stored = StoredObject()
+            storage_key = instance.cls_name(stored, 0)
+            instance._values[storage_key] = {
+                "count": "invalid",
+                "labels": {"invalid": True},
+                "unknown_field": "ignored",
+            }
+
+            with self.assertLogs(level="WARNING"):
+                instance.load(stored, 0)
+
+            self.assertEqual(stored.count, 3)
+            self.assertEqual(stored.labels, ["safe"])
+            self.assertFalse(hasattr(stored, "unknown_field"))
+            self.assertNotIn(storage_key, instance._block)
 
     def test_option_mutation_waits_for_active_database_write(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-lock-") as root:

@@ -44,7 +44,9 @@ STATS_LOCATION = './ospy/statistics/'
 STATS_DROP_POINT = 'https://pihrt.com/ospystats/php_server.php'
 STATS_VERSION = '0.1'
 STATS_RETRY_INTERVAL = 6 * 60 * 60
-SESSION_SECRET_FILE = os.path.join('ospy', 'data', 'session_secret')
+DATA_DIR = os.environ.get('OSPY_DATA_DIR', os.path.join('ospy', 'data'))
+SESSION_FILE = os.path.join(DATA_DIR, 'sessions.db')
+SESSION_SECRET_FILE = os.path.join(DATA_DIR, 'session_secret')
 SESSION_SECRET_LENGTH = 64
 
 __server = None
@@ -96,6 +98,47 @@ def configure_session_secret():
     except Exception:
         log.error('server.py', _('Could not load or create session secret, using default fallback.'))
         log.debug('server.py', traceback.format_exc())
+
+
+def _open_session_store(session_file=SESSION_FILE):
+    """Open the disposable session store, recreating it if its DB is damaged."""
+    opened = None
+    try:
+        session_dir = os.path.dirname(session_file)
+        if session_dir and not os.path.isdir(session_dir):
+            os.makedirs(session_dir)
+        opened = shelve.open(session_file)
+        for key in list(opened.keys()):
+            try:
+                opened[key]
+            except Exception as err:
+                log.error(
+                    'server.py',
+                    _('Removing unreadable session {}: {}').format(key, err)
+                )
+                del opened[key]
+        return opened
+    except Exception as err:
+        if opened is not None:
+            try:
+                opened.close()
+            except Exception:
+                pass
+        log.error(
+            'server.py',
+            _('Session database is damaged and will be recreated: {}').format(err)
+        )
+        for db_file in glob.glob(session_file + '*'):
+            try:
+                os.remove(db_file)
+            except Exception as remove_error:
+                log.error(
+                    'server.py',
+                    _('Error removing corrupted session file {}: {}').format(
+                        db_file, remove_error
+                    )
+                )
+        return shelve.open(session_file)
 
 
 class DebugLogMiddleware:
@@ -260,44 +303,18 @@ def start():
     __server.timeout = 1  # Speed-up restarting
 
     sessions = None
-    session_file = os.path.join('ospy', 'data', 'sessions.db')
+    session_file = SESSION_FILE
     log.debug('server.py', _('Opening shelve database at {}').format(session_file))
-
-    try:
-        sessions = shelve.open(session_file)
-        log.debug('server.py', _('Successfully opened shelve database.'))
-
-        # Test to see if we can read the data
-        for s in sessions:
-            try:
-                str(sessions[s])
-            except Exception as e:
-                log.error('server.py', _('Error reading session data for key {}: {}').format(s, e))
-
-    except Exception as e:
-        log.error('server.py', _('Exception occurred while opening or reading shelve database: {}').format(e))
-        if sessions is not None:
-            try:
-                sessions.close()
-            except Exception as close_e:
-                log.error('server.py', _('Error closing shelve database: {}').format(close_e))
-
-        # Remove corrupted session files
-        for db_file in glob.glob(session_file + '*'):
-            try:
-                log.debug('server.py', _('Remove corrupted session files') + ': {}'.format(db_file))
-                os.remove(db_file)
-            except Exception as rm_e:
-                log.error('server.py', _('Error removing corrupted session file {}: {}').format(db_file, rm_e))
-    
-        # Re-attempt to open the shelve database
-        try:    
-            sessions = shelve.open(session_file)
-            log.debug('server.py', _('Re-opened shelve database after cleanup.'))
-        except Exception as re_open_e:
-            log.error('server.py', _('Exception occurred while re-opening shelve database: {}').format(re_open_e))
+    sessions = _open_session_store(session_file)
+    log.debug('server.py', _('Successfully opened shelve database.'))
     
     configure_session_secret()
+
+    for recovery_message in options.recovery_messages():
+        logEV.save_events_log(
+            _('Settings recovery'), recovery_message, id='Server',
+            level='warning', category='system'
+        )
 
     session = web.session.Session(app, web.session.ShelfStore(sessions),
                                   initializer={'validated': False,
@@ -365,7 +382,7 @@ def reset_session_store(remove_files=False):
     """Close and re-open the session store while OSPy keeps running."""
     global sessions
 
-    session_file = os.path.join('ospy', 'data', 'sessions.db')
+    session_file = SESSION_FILE
     with sessions_lock:
         if sessions is not None:
             try:
@@ -382,7 +399,7 @@ def reset_session_store(remove_files=False):
                 except Exception as e:
                     log.error('server.py', _('Error removing session file {}: {}').format(db_file, e))
 
-        sessions = shelve.open(session_file)
+        sessions = _open_session_store(session_file)
         if session is not None:
             session.store = web.session.ShelfStore(sessions)
         log.info('server.py', _('Session database has been reset.'))

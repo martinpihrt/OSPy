@@ -1,5 +1,7 @@
 import threading
 import time
+import os
+import tempfile
 import unittest
 from unittest import mock
 
@@ -172,6 +174,24 @@ class ServerShutdownTests(unittest.TestCase):
                 "wait-core", "outputs", "flush", "sessions",
             ],
         )
+
+    def test_damaged_session_database_is_recreated(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sessions-damaged-") as root:
+            session_file = os.path.join(root, "sessions.db")
+            damaged_file = session_file + ".broken"
+            with open(damaged_file, "wb") as file_handle:
+                file_handle.write(b"damaged")
+            replacement = mock.Mock()
+
+            with mock.patch.object(
+                    server.shelve, "open",
+                    side_effect=[RuntimeError("damaged database"), replacement],
+            ), mock.patch.object(server.log, "error") as error_log:
+                opened = server._open_session_store(session_file)
+
+            self.assertIs(opened, replacement)
+            self.assertFalse(os.path.exists(damaged_file))
+            self.assertTrue(error_log.called)
 
 
 if __name__ == "__main__":

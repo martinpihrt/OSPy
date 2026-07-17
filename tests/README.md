@@ -38,7 +38,9 @@ The suite checks:
   role permissions, optional CSRF enforcement and audited station/run-once
   state changes;
 * loading older settings databases, adding new defaults, date conversion,
-  immediate persistence, reload and fallback to a valid database copy;
+  immediate persistence, reload, fallback to a valid database copy, rejection
+  of invalid core values and safe handling of damaged object, log and session
+  records;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable.
 * real web.py route dispatch and rendering for the main administrator pages,

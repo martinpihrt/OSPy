@@ -9,12 +9,14 @@ import logging
 import shelve
 import shutil
 import threading
+import copy
 
 from . import i18n
 from . import helpers
 import traceback
 import os
 import time
+import glob
 from functools import reduce
 
 _DATA_DIR = os.environ.get('OSPY_DATA_DIR', './ospy/data')
@@ -637,9 +639,11 @@ class _Options(object):
         self._callbacks = {}
         self._block = []
         self._lock = threading.RLock()
+        self._load_source = None
+        self._load_errors = []
 
         for info in self.OPTIONS:
-            self._values[info["key"]] = info["default"]    
+            self._values[info["key"]] = copy.deepcopy(info["default"])
 
         # UPGRADE from v2 (does not delete old files):
         if not os.path.isdir(os.path.dirname(OPTIONS_FILE)):
@@ -651,16 +655,27 @@ class _Options(object):
 
         for options_file in [OPTIONS_FILE, OPTIONS_TMP, OPTIONS_BACKUP]:
             try:
-                if os.path.isdir(os.path.dirname(options_file)):
-                    db = shelve.open(options_file)
-                    if list(db.keys()):
-                        self._values.update(self._convert_str_to_datetime(db))
-                        db.close()
+                if (os.path.isdir(os.path.dirname(options_file)) and
+                        glob.glob(options_file + '*')):
+                    loaded = self._read_candidate(options_file)
+                    if loaded:
+                        self._values.update(loaded)
+                        self._load_source = options_file
                         break
-                    else:
-                        db.close()
             except Exception as err:
-                pass
+                self._load_errors.append((options_file, str(err)))
+
+        if self._load_errors:
+            for failed_path, error in self._load_errors:
+                logging.warning(
+                    _('Ignoring invalid settings database {}: {}').format(
+                        failed_path, error
+                    )
+                )
+        if self._load_source and self._load_source != OPTIONS_FILE:
+            logging.warning(
+                _('Settings were recovered from {}.').format(self._load_source)
+            )
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -687,6 +702,91 @@ class _Options(object):
                         self.first_installation = False
         except:
             helpres.print_report('options.py', traceback.format_exc())
+
+    @staticmethod
+    def _compatible_value(default, value, key=''):
+        if key in ('weather_lat', 'weather_lon'):
+            return isinstance(value, (str, int, float)) and not isinstance(value, bool)
+        if isinstance(default, bool):
+            return isinstance(value, bool)
+        if isinstance(default, int) and not isinstance(default, bool):
+            return isinstance(value, int) and not isinstance(value, bool)
+        if isinstance(default, float):
+            return isinstance(value, (int, float)) and not isinstance(value, bool)
+        if isinstance(default, datetime):
+            return isinstance(value, datetime)
+        if isinstance(default, date):
+            return isinstance(value, date)
+        if default is None:
+            return value is None or (isinstance(value, int) and not isinstance(value, bool))
+        return isinstance(value, type(default))
+
+    def _validate_candidate(self, values):
+        if not isinstance(values, dict):
+            raise ValueError(_('Settings database does not contain a dictionary.'))
+
+        definitions = {item['key']: item for item in self.OPTIONS}
+        startup_bounds = {
+            'web_port': (1, 65535),
+            'output_count': (1, 4096),
+            'max_upload_size_mb': (0, 10240),
+        }
+        for key, value in values.items():
+            if key.startswith('Cls_'):
+                if not isinstance(value, dict):
+                    raise ValueError(
+                        _('Stored object {} is not a dictionary.').format(key)
+                    )
+                continue
+            definition = definitions.get(key)
+            if definition is None:
+                continue
+            default = definition['default']
+            if not self._compatible_value(default, value, key):
+                raise ValueError(
+                    _('Invalid value type for setting {}.').format(key)
+                )
+            if key in startup_bounds:
+                minimum, maximum = startup_bounds[key]
+                if value < minimum:
+                    raise ValueError(
+                        _('Setting {} is below its minimum.').format(key)
+                    )
+                if value > maximum:
+                    raise ValueError(
+                        _('Setting {} is above its maximum.').format(key)
+                    )
+        return values
+
+    def _read_candidate(self, options_file):
+        db = None
+        try:
+            db = shelve.open(options_file, flag='r')
+            keys = list(db.keys())
+            if not keys:
+                return None
+            raw = {key: db[key] for key in keys}
+            converted = self._convert_str_to_datetime(raw)
+            return self._validate_candidate(converted)
+        finally:
+            if db is not None:
+                db.close()
+
+    def recovery_messages(self):
+        """Return user-facing descriptions of settings recovery at startup."""
+        messages = [
+            _('Ignored invalid settings database {}: {}').format(path, error)
+            for path, error in self._load_errors
+        ]
+        if self._load_source and self._load_source != OPTIONS_FILE:
+            messages.append(
+                _('Settings were recovered from {}.').format(self._load_source)
+            )
+        if self._load_errors and self._load_source is None:
+            messages.append(
+                _('No valid settings database was found; safe defaults are being used.')
+            )
+        return messages
 
 
     def __del__(self):
@@ -952,11 +1052,33 @@ class _Options(object):
         self._block.append(cls)
         try:
             values = getattr(self, cls)
+            if not isinstance(values, dict):
+                raise ValueError(_('Stored object data is not a dictionary.'))
             for name, value in values.items():
-                setattr(obj, name, value)
+                if name.startswith('_') or not hasattr(obj, name):
+                    continue
+                try:
+                    current = getattr(obj, name)
+                    if not self._compatible_value(current, value, name):
+                        raise ValueError(
+                            _('Stored value has an incompatible type.')
+                        )
+                    setattr(obj, name, value)
+                except Exception as err:
+                    logging.warning(
+                        _('Ignoring invalid stored field {}.{}: {}').format(
+                            cls, name, err
+                        )
+                    )
         except AttributeError:
             pass
-        self._block.remove(cls)
+        except Exception as err:
+            logging.warning(
+                _('Ignoring invalid stored object {}: {}').format(cls, err)
+            )
+        finally:
+            if cls in self._block:
+                self._block.remove(cls)
 
     def save(self, obj, key=""):
         cls = self.cls_name(obj, key)

@@ -23,12 +23,52 @@ EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno
 RUN_START_FORMAT = "%(asctime)s [START  Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
 RUN_FINISH_FORMAT = "%(asctime)s [FINISH Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
 
+
+def _valid_run_record(entry):
+    if not isinstance(entry, dict) or not isinstance(entry.get('time'), datetime.datetime):
+        return False
+    data = entry.get('data')
+    if not isinstance(data, dict):
+        return False
+    required = ('uid', 'start', 'end', 'station', 'active')
+    if not all(key in data for key in required):
+        return False
+    return (
+        isinstance(data['start'], datetime.datetime) and
+        isinstance(data['end'], datetime.datetime) and
+        isinstance(data['station'], int) and
+        isinstance(data['active'], bool)
+    )
+
+
+def _valid_text_record(entry, required):
+    return (
+        isinstance(entry, dict) and
+        all(isinstance(entry.get(key), str) for key in required)
+    )
+
+
+def _clean_records(records, validator, label):
+    if not isinstance(records, list):
+        logging.warning(_('Ignoring invalid persisted {} log.').format(label))
+        return []
+    valid = [entry for entry in records if validator(entry)]
+    if len(valid) != len(records):
+        logging.warning(
+            _('Discarded {} invalid persisted {} log entries.').format(
+                len(records) - len(valid), label
+            )
+        )
+    return valid
+
 # Station log
 class _Log(logging.Handler):
     def __init__(self):
         super(_Log, self).__init__()
         self._log = {
-            'Run': options.logged_runs[:]
+            'Run': _clean_records(
+                options.logged_runs, _valid_run_record, _('watering')
+            )
         }
         self._lock = threading.RLock()
         self._plugin_time = time.time() + 3
@@ -283,24 +323,20 @@ class _Log(logging.Handler):
 class _LogEM():
     def __init__(self):
         self._logEM = {
-            'RunEM': options.logged_email[:]
+            'RunEM': _clean_records(
+                options.logged_email,
+                lambda entry: _valid_text_record(
+                    entry, ('time', 'date', 'subject', 'body', 'status')
+                ),
+                _('e-mail')
+            )
         }
         self._lock = threading.RLock()
 
 
     def finished_email(self):
-        try:
-            for option in options.OPTIONS:
-                if 'key' in option:
-                   name = option['key']
-                   if name == 'logged_email':
-                      value = options[option['key']]
-                      return(value)
-
-        except Exception:
-            print_report('log.py', traceback.format_exc())
-            pass
-            return []
+        with self._lock:
+            return list(self._logEM['RunEM'])
 
     def _save_logsEM(self):
         result = []
@@ -357,6 +393,8 @@ _LEGACY_EVENT_CATEGORIES = {
 
 def normalize_event_record(record):
     """Return a display-safe event record, including records saved by older OSPy versions."""
+    if not isinstance(record, dict):
+        return None
     result = record.copy()
     level = str(result.get('level', 'info')).lower()
     if level not in EVENT_LEVELS:
@@ -374,24 +412,20 @@ def normalize_event_record(record):
 class _LogEV():
     def __init__(self):
         self._logEM = {
-            'RunEV': options.logged_events[:]
+            'RunEV': _clean_records(
+                options.logged_events,
+                lambda entry: _valid_text_record(
+                    entry, ('time', 'date', 'subject', 'status', 'id')
+                ),
+                _('event')
+            )
         }
         self._lock = threading.RLock()
 
 
     def finished_events(self):
-        try:
-            for option in options.OPTIONS:
-                if 'key' in option:
-                   name = option['key']
-                   if name == 'logged_events':
-                      value = options[option['key']]
-                      return [normalize_event_record(event) for event in value]
-
-        except Exception:
-            print_report('log.py', traceback.format_exc())
-            pass
-            return []
+        with self._lock:
+            return [normalize_event_record(event) for event in self._logEM['RunEV']]
 
     def _save_logsEV(self):
         result = []
