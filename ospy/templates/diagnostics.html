@@ -19,6 +19,10 @@ jQuery(document).ready(function(){
     };
     var diagnosticsAlertTimer = null;
     var lastDiagnosticsAlertSignature = "";
+    var diagnosticsRequestPending = false;
+    var systemHealthRequestPending = false;
+    var diagnosticsRequestFailures = 0;
+    var systemHealthRequestFailures = 0;
 
     var systemSolutions = {
         scheduler: $:{json.dumps(_('Restart OSPy and check the event log. If the problem returns, check the scheduler thread and system load.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
@@ -241,7 +245,12 @@ jQuery(document).ready(function(){
     }
 
     function updateSystemHealth() {
+        if (systemHealthRequestPending) {
+            return;
+        }
+        systemHealthRequestPending = true;
         jQuery.getJSON("/system_health.json", function(data) {
+            systemHealthRequestFailures = 0;
             if (data.error) {
                 setStatus(data.error, "red");
                 diagnosticsErrors.system = [{
@@ -256,11 +265,15 @@ jQuery(document).ready(function(){
             renderSystemHealth(data);
             setStatus("");
         }).fail(function(xhr){
+            systemHealthRequestFailures++;
             var message = $:{json.dumps(_('System health refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
             if (xhr && xhr.status) {
                 message += " HTTP " + xhr.status + ".";
             }
             setStatus(message, "red");
+            if ((xhr && xhr.status === 408) || systemHealthRequestFailures < 3) {
+                return;
+            }
             diagnosticsErrors.system = [{
                 id: "system-health-request",
                 title: $:{json.dumps(_('System status'), ensure_ascii=False).encode('utf8').decode('utf-8')},
@@ -268,6 +281,8 @@ jQuery(document).ready(function(){
                 solution: $:{json.dumps(_('Check the OSPy connection and event log, then reload the page or restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
             }];
             scheduleDiagnosticsErrorModal();
+        }).always(function(){
+            systemHealthRequestPending = false;
         });
     }
 
@@ -511,7 +526,12 @@ jQuery(document).ready(function(){
     }
 
     function updateDiagnostics() {
+        if (diagnosticsRequestPending) {
+            return;
+        }
+        diagnosticsRequestPending = true;
         jQuery.getJSON("/diagnostics.json", function(data) {
+            diagnosticsRequestFailures = 0;
             if (data.error) {
                 setStatus(data.error, "red");
                 return;
@@ -555,6 +575,7 @@ jQuery(document).ready(function(){
                 setStatus("");
             }
         }).fail(function(xhr){
+            diagnosticsRequestFailures++;
             var message = $:{json.dumps(_('Diagnostics refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
             if (xhr && xhr.status === 403) {
                 message += " " + $:{json.dumps(_('Admin access is required.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -562,6 +583,9 @@ jQuery(document).ready(function(){
                 message += " HTTP " + xhr.status + ".";
             }
             setStatus(message, "red");
+            if ((xhr && xhr.status === 408) || diagnosticsRequestFailures < 3) {
+                return;
+            }
             diagnosticsErrors.plugins = [{
                 id: "diagnostics-request",
                 title: $:{json.dumps(_('Diagnostics'), ensure_ascii=False).encode('utf8').decode('utf-8')},
@@ -569,6 +593,8 @@ jQuery(document).ready(function(){
                 solution: $:{json.dumps(_('Check the OSPy connection and event log, then reload the page or restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
             }];
             scheduleDiagnosticsErrorModal();
+        }).always(function(){
+            diagnosticsRequestPending = false;
         });
     }
 
@@ -617,9 +643,8 @@ jQuery(document).ready(function(){
         });
     });
 
-    updateDiagnostics();
-    updateSystemHealth();
     showTab("health");
+    updateDiagnostics();
     refreshTimer = window.setInterval(updateDiagnostics, 5000);
     window.setInterval(updateSystemHealth, 10000);
 });

@@ -75,6 +75,22 @@ compatible plug-ins, skips incompatible ones, and reports both skipped reasons
 and warnings. Custom ZIP uploads use the same rules. Automatic updates never
 replace an installed plug-in with a newly available incompatible version.
 
+The complete ZIP archive is validated before any plug-in file is written. Each
+plug-in must have a directory containing `__init__.py` and a valid UTF-8
+`plugin.json` whose `id` matches the directory name. The directory may also
+contain Python modules, `README.md`, `templates`, `static`, `script`, `docs`,
+`i18n`, and `data`. Repository archives may place plug-ins below `plugins/`,
+while a custom ZIP may contain a plug-in directly at its archive root.
+
+OSPy rejects absolute and parent-directory paths, non-portable names,
+case-insensitive or Unicode-normalized duplicate paths, duplicate plug-in IDs,
+symbolic links, special or encrypted entries, and damaged archives. Limits are
+64 MiB of downloaded ZIP data, 4,096 entries, 256 plug-ins, 32 MiB per expanded
+file, 128 MiB total expanded data, and a maximum 200:1 compression ratio.
+Installation is atomic per plug-in: files are staged on the same filesystem,
+the existing `data` directory is preserved, and a failed directory swap or
+plug-in restart restores the previous files and status.
+
 Before activation OSPy checks the optional minimum and maximum OSPy/Python
 versions, required importable Python modules, supported platform and required
 I2C/GPIO support. It also compares declared GPIO pins, I2C addresses and

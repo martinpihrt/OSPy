@@ -18,6 +18,10 @@ The suite checks:
   incompatible manifests;
 * partial bulk installation, compatibility warnings and automatic-update
   blocking.
+* rejection of unsafe, damaged, encrypted, duplicate, symbolic-link,
+  oversized, excessive-entry and excessive-ratio plug-in ZIP archives;
+* atomic plug-in replacement, preservation of plug-in `data`, and restoration
+  of the previous version after a failed swap.
 
 Manifest tests use a temporary OSPy data directory and disable the plug-in
 repository background checker. The suite can therefore run while the OSPy

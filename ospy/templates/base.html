@@ -53,11 +53,63 @@ $code:
 // Global vars    
 var modal;
 var span_modal
+var globalModalEntries = {};
+var activeGlobalModalKey = null;
+var dismissedGlobalModalSignatures = {};
 var weatherMap = null;
 var weatherMarker = null;
 var weatherMapEditable = false;
 var weatherPendingLatitude = null;
 var weatherPendingLongitude = null;
+
+function renderGlobalModal() {
+    if (!modal) return;
+    var selectedKey = null;
+    var selected = null;
+    Object.keys(globalModalEntries).forEach(function(key){
+        var entry = globalModalEntries[key];
+        if (dismissedGlobalModalSignatures[key] === entry.signature) return;
+        if (!selected || entry.priority > selected.priority) {
+            selectedKey = key;
+            selected = entry;
+        }
+    });
+    if (!selected) {
+        activeGlobalModalKey = null;
+        modal.style.display = "none";
+        return;
+    }
+    activeGlobalModalKey = selectedKey;
+    jQuery("#modal-hdr").html(selected.header || "");
+    jQuery("#modal-msg").html(selected.message || "");
+    jQuery("#Modal .modal-content").toggleClass("globalErrorModal", !!selected.error);
+    modal.style.display = "block";
+}
+
+function setGlobalModal(key, priority, header, message, isError) {
+    globalModalEntries[key] = {
+        priority: priority,
+        header: header,
+        message: message,
+        error: !!isError,
+        signature: String(header || "") + "\n" + String(message || "")
+    };
+    renderGlobalModal();
+}
+
+function clearGlobalModal(key) {
+    delete globalModalEntries[key];
+    delete dismissedGlobalModalSignatures[key];
+    renderGlobalModal();
+}
+
+function dismissGlobalModal() {
+    if (activeGlobalModalKey && globalModalEntries[activeGlobalModalKey]) {
+        dismissedGlobalModalSignatures[activeGlobalModalKey] =
+            globalModalEntries[activeGlobalModalKey].signature;
+    }
+    renderGlobalModal();
+}
 
 function weatherCoordinate(value, fallback) {
     var number = Number.parseFloat(value);
@@ -236,14 +288,10 @@ function updateOStimer() {
         } 
         if((os_state > 1) || (pl_state > 0)){ // only if updates
             hdr += '<h2>' + $:{json.dumps(_('System notification'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</h2>';
-            jQuery("#modal-hdr").html(hdr); // set text to header in modal div
-            jQuery("#modal-msg").html(msg); // set modal-msg div
-            modal.style.display = "block"; // blocking pop-up window
+            setGlobalModal("updates", 10, hdr, msg, false);
         } 
         else{
-            jQuery("#modal-hdr").html("");
-            jQuery("#modal-msg").html("");
-            modal.style.display = "none";     // hide pop-up
+            clearGlobalModal("updates");
         } 
     }) 
     setTimeout(updateOStimer, 3600000); // 1 hours
@@ -273,7 +321,7 @@ jQuery(document).ready(function(){
     modal = document.getElementById("Modal");
     window.onclick = function(event) {
         if(event.target == modal) {
-            modal.style.display = "none";
+            dismissGlobalModal();
         }
     }
 
@@ -415,7 +463,7 @@ jQuery(document).ready(function(){
             $if content.page != 'login':
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="close" onclick="document.getElementById('Modal').style.display='none'">&times;</span>
+                        <span class="close" onclick="dismissGlobalModal()">&times;</span>
                         <div class="modal-hdr" id="modal-hdr"></div>
                     </div>
                     <div class="modal-body">

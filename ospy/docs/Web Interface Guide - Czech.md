@@ -351,6 +351,8 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 ## Diagnostika
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
+Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.
+
 Stránka je rozdělena na záložky **Stav systému** a **Výkon a procesy**. **Stav systému** přiřazuje každé provozní oblasti stav v pořádku, varování, chyba nebo nenakonfigurováno. Sleduje heartbeat plánovače, poslední úspěšný výpočet plánu a nejbližší běh, zápisy příkazů do výstupů, komunikaci senzorů, dostupnost databáze nastavení, volné místo, chyby povolených rozšíření, připravenost e-mailu, počasí, internetové připojení a nejnovější dostupnou zálohu. Úspěšný zápis výstupu potvrzuje, že OSPy předalo požadovaný stav ovladači; bez hardwarové zpětné vazby nepotvrzuje fyzické sepnutí relé.
 
 Souhrn systému ukazuje aktuální využití CPU, teplotu CPU, dobu běhu systému, load average, využití CPU procesem OSPy, využití paměti OSPy, počet vláken, informace o platformě a čas posledního obnovení.
@@ -551,6 +553,10 @@ Po kliknutí na tlačítko "Instalovat nové rozšíření" se otevře okno se v
 OSPy před kopírováním souborů bezpečně načte `plugin.json` přímo ze staženého ZIP archivu a u každého rozšíření zobrazí stav kompatibility i konkrétní důvody případného problému. Nekompatibilní rozšíření nelze nainstalovat ani ručně aktualizovat. Rozšíření pouze s varováním lze po zobrazení varování nainstalovat. Hromadná instalace nainstaluje kompatibilní rozšíření a nekompatibilní přeskočí s uvedením důvodu. Stejná kontrola platí pro vlastní ZIP soubory, jednotlivé a hromadné operace i aktualizace. Chybějící, neplatný nebo příliš velký `plugin.json` je při nové instalaci chybou; již nainstalovaná starší rozšíření bez manifestu mohou nadále fungovat v režimu zpětné kompatibility.
   
 ### Vlastní rozšíření (ZIP)
+OSPy ověří celý ZIP dříve, než zapíše jediný soubor rozšíření. Archiv musí obsahovat alespoň jeden adresář rozšíření se souborem `__init__.py` a platným UTF-8 souborem `plugin.json`, jehož `id` odpovídá názvu adresáře. Rozšíření může dále obsahovat Python moduly, `README.md` a adresáře `templates`, `static`, `script`, `docs`, `i18n` a `data`. Repozitářový archiv může mít rozšíření v adresáři `plugins/`; vlastní archiv může obsahovat rozšíření přímo v kořeni.
+
+Zakázány jsou absolutní cesty a cesty do nadřazeného adresáře, nepřenositelné názvy, duplicitní cesty nebo identifikátory rozšíření, symbolické odkazy, speciální či šifrované položky a poškozené archivy. Limity jsou 64 MiB stažených ZIP dat, 4 096 položek archivu, 256 rozšíření, 32 MiB na jeden rozbalený soubor, celkem 128 MiB rozbalených dat a kompresní poměr nejvýše 200:1. Instalace každého rozšíření je atomická: soubory se nejprve připraví, stávající adresář `data` se zachová a při chybě výměny nebo spuštění se obnoví předchozí verze.
+
 Správce rozšíření umožňuje do systému OSPy nainstalovat i vlastní rozšíření, které není zveřejněné ve vzdáleném repozitáři (například vaše nějaké osobní rozšíření). Pomocí tlačítka "procházet" zvolíme požadovaný soubor v našem počítači k instalaci do systému OSPy. Soubor rozšíření (zip) musí obsahovat kompletní strukturu rozšíření (init, templates, i18n, readme atd).
 
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  

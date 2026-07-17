@@ -351,6 +351,8 @@ Doba behu systému Raspberry pri zapnutí (alebo reštarte).
 ## Diagnostika
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
+Keď Diagnostika zistí chybu, otvorí červené okno s opisom problému, dostupnými podrobnosťami, možným riešením a odkazom na súvisiacu stránku. Administrátor môže rovnaké okno zapnúť aj na domovskej stránke voľbou **Nastavenia > Diagnostika > Zobrazovať chyby diagnostiky na domovskej stránke**. Chybové okno má prednosť pred upozornením na aktualizáciu. Vypnutie voľby ovplyvní iba domovskú stránku; chyby zostanú viditeľné v Diagnostike.
+
 Stránka je rozdelená na karty **Stav systému** a **Výkon a procesy**. **Stav systému** priraďuje každej prevádzkovej oblasti stav v poriadku, varovanie, chyba alebo nenakonfigurované. Sleduje heartbeat plánovača, posledný úspešný výpočet plánu a najbližší beh, zápisy príkazov do výstupov, komunikáciu snímačov, dostupnosť databázy nastavení, voľné miesto, chyby povolených doplnkov, pripravenosť e-mailu, počasie, internetové pripojenie a najnovšiu dostupnú zálohu. Úspešný zápis výstupu potvrdzuje, že OSPy odovzdalo požadovaný stav ovládaču; bez hardvérovej spätnej väzby nepotvrdzuje fyzické zopnutie relé.
 
 Súhrn systému zobrazuje aktuálne využitie CPU, teplotu CPU, dobu behu systému, load average, využitie CPU procesom OSPy, využitie pamäte OSPy, počet vlákien, informácie o platforme a čas posledného obnovenia.
@@ -551,6 +553,10 @@ Po kliknutí na tlačidlo "Nainštalovať nový doplnok" sa otvorí okno so vzdi
 Pred kopírovaním súborov OSPy bezpečne načíta `plugin.json` priamo zo stiahnutého ZIP archívu a pri každom doplnku zobrazí stav kompatibility aj konkrétne dôvody prípadného problému. Nekompatibilný doplnok nie je možné nainštalovať ani ručne aktualizovať. Doplnok iba s varovaniami možno po ich zobrazení nainštalovať. Hromadná inštalácia nainštaluje kompatibilné doplnky a nekompatibilné preskočí s uvedením dôvodu. Rovnaká kontrola platí pre vlastné ZIP súbory, jednotlivé a hromadné operácie aj aktualizácie. Chýbajúci, neplatný alebo príliš veľký `plugin.json` je pri novej inštalácii chybou; už nainštalované staršie doplnky bez manifestu môžu naďalej fungovať v režime spätnej kompatibility.
 
 ### Vlastný doplnok (ZIP)
+OSPy overí celý ZIP skôr, než zapíše jediný súbor doplnku. Archív musí obsahovať aspoň jeden adresár doplnku so súborom `__init__.py` a platným UTF-8 súborom `plugin.json`, ktorého `id` zodpovedá názvu adresára. Doplnok môže obsahovať aj Python moduly, `README.md` a adresáre `templates`, `static`, `script`, `docs`, `i18n` a `data`. Archív repozitára môže mať doplnky v adresári `plugins/`; vlastný archív môže obsahovať doplnok priamo v koreňovom adresári.
+
+Zakázané sú absolútne cesty a cesty do nadradeného adresára, neprenosné názvy, duplicitné cesty alebo identifikátory doplnkov, symbolické odkazy, špeciálne či šifrované položky a poškodené archívy. Limity sú 64 MiB stiahnutých ZIP dát, 4 096 položiek archívu, 256 doplnkov, 32 MiB na jeden rozbalený súbor, spolu 128 MiB rozbalených dát a kompresný pomer najviac 200:1. Inštalácia každého doplnku je atomická: súbory sa najprv pripravia, existujúci adresár `data` sa zachová a pri chybe výmeny alebo spustenia sa obnoví predchádzajúca verzia.
+
 Správca rozšírenia umožňuje do systému OSPy nainštalovať aj vlastné rozšírenie, ktoré nie je zverejnené vo vzdialenom repozitári (napríklad vaše nejaké osobné rozšírenie). Pomocou tlačidla "prechádzať" zvolíme požadovaný súbor v našom počítači na inštaláciu do systému OSPy. Súbor rozšírenia (zips) musí obsahovať kompletnú štruktúru rozšírenia (init, templates, i18n, readme atď).
 
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)

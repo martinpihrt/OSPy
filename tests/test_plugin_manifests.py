@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import tempfile
 import threading
 import unittest
@@ -150,6 +151,179 @@ class PluginManifestParserTests(unittest.TestCase):
 
 
 class PluginArchiveInstallationTests(unittest.TestCase):
+    def test_unsafe_parent_path_is_rejected_before_any_write(self):
+        archive = _plugin_archive({"safe_plugin": _manifest("safe_plugin")})
+        with zipfile.ZipFile(archive, "a") as zip_file:
+            zip_file.writestr(
+                "repository/plugins/safe_plugin/../outside.py", "unsafe"
+            )
+        archive.seek(0)
+
+        with mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ) as install_docs, mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            with self.assertRaises(ValueError):
+                plugins.checker.install_custom_plugin(archive)
+
+        install_docs.assert_not_called()
+        install_plugin.assert_not_called()
+
+    def test_duplicate_archive_path_is_rejected(self):
+        archive = _plugin_archive({"duplicate_plugin": _manifest("duplicate_plugin")})
+        with self.assertWarns(UserWarning):
+            with zipfile.ZipFile(archive, "a") as zip_file:
+                zip_file.writestr(
+                    "repository/plugins/duplicate_plugin/README.md", "duplicate"
+                )
+        archive.seek(0)
+
+        with self.assertRaises(ValueError):
+            plugins.checker.install_custom_plugin(archive)
+
+    def test_duplicate_plugin_identifier_is_rejected(self):
+        archive = io.BytesIO()
+        manifest = json.dumps(_manifest("duplicate_plugin"))
+        with zipfile.ZipFile(archive, "w") as zip_file:
+            for root in ("repository-one", "repository-two"):
+                base = root + "/plugins/duplicate_plugin"
+                zip_file.writestr(base + "/__init__.py", "NAME = 'Duplicate'\n")
+                zip_file.writestr(base + "/plugin.json", manifest)
+        archive.seek(0)
+
+        with self.assertRaises(ValueError):
+            plugins.checker.install_custom_plugin(archive)
+
+    def test_symbolic_link_entry_is_rejected(self):
+        archive = _plugin_archive({"link_plugin": _manifest("link_plugin")})
+        link_info = zipfile.ZipInfo(
+            "repository/plugins/link_plugin/linked-file"
+        )
+        link_info.create_system = 3
+        link_info.external_attr = (stat.S_IFLNK | 0o777) << 16
+        with zipfile.ZipFile(archive, "a") as zip_file:
+            zip_file.writestr(link_info, "../../outside")
+        archive.seek(0)
+
+        with self.assertRaises(ValueError):
+            plugins.checker.install_custom_plugin(archive)
+
+    def test_archive_size_limit_is_enforced_before_installation(self):
+        archive = _plugin_archive({"large_plugin": _manifest("large_plugin")})
+        with zipfile.ZipFile(archive, "a") as zip_file:
+            zip_file.writestr(
+                "repository/plugins/large_plugin/large.bin", b"x" * 128
+            )
+        archive.seek(0)
+
+        with mock.patch.object(
+            plugins, "PLUGIN_ZIP_MAX_TOTAL_BYTES", 64
+        ), mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            with self.assertRaises(ValueError):
+                plugins.checker.install_custom_plugin(archive)
+
+        install_plugin.assert_not_called()
+
+    def test_archive_file_count_limit_is_enforced(self):
+        archive = _plugin_archive({"many_files": _manifest("many_files")})
+        with zipfile.ZipFile(archive, "a") as zip_file:
+            zip_file.writestr("repository/plugins/many_files/extra.txt", "extra")
+        archive.seek(0)
+
+        with mock.patch.object(plugins, "PLUGIN_ZIP_MAX_FILES", 3):
+            with self.assertRaises(ValueError):
+                plugins.checker.install_custom_plugin(archive)
+
+    def test_suspicious_compression_ratio_is_rejected(self):
+        archive = _plugin_archive({"compressed_plugin": _manifest("compressed_plugin")})
+        with zipfile.ZipFile(archive, "a", compression=zipfile.ZIP_DEFLATED) as zip_file:
+            zip_file.writestr(
+                "repository/plugins/compressed_plugin/repeated.bin",
+                b"0" * 4096,
+            )
+        archive.seek(0)
+
+        with mock.patch.object(plugins, "PLUGIN_ZIP_MAX_RATIO", 2):
+            with self.assertRaises(ValueError):
+                plugins.checker.install_custom_plugin(archive)
+
+    def test_atomic_update_preserves_plugin_data(self):
+        archive = _plugin_archive({"atomic_plugin": _manifest("atomic_plugin")})
+        with tempfile.TemporaryDirectory(prefix="ospy-plugin-data-") as root:
+            target_dir = os.path.join(root, "atomic_plugin")
+            data_dir = os.path.join(target_dir, "data")
+            os.makedirs(data_dir)
+            with open(
+                os.path.join(target_dir, "__init__.py"), "w", encoding="utf-8"
+            ) as file_handle:
+                file_handle.write("NAME = 'Old version'\n")
+            with open(
+                os.path.join(data_dir, "settings.json"), "w", encoding="utf-8"
+            ) as file_handle:
+                file_handle.write('{"preserved": true}')
+
+            def test_plugin_dir(module=None):
+                return os.path.join(root, module) if module else root
+
+            with mock.patch.object(
+                plugins, "plugin_dir", side_effect=test_plugin_dir
+            ):
+                plugins.checker._install_plugin(
+                    archive,
+                    "atomic_plugin",
+                    "repository/plugins/atomic_plugin",
+                )
+
+            with open(
+                os.path.join(target_dir, "data", "settings.json"),
+                encoding="utf-8",
+            ) as file_handle:
+                self.assertEqual(file_handle.read(), '{"preserved": true}')
+            with open(
+                os.path.join(target_dir, "plugin.json"), encoding="utf-8"
+            ) as file_handle:
+                self.assertEqual(json.load(file_handle)["id"], "atomic_plugin")
+
+    def test_failed_directory_swap_restores_previous_plugin(self):
+        archive = _plugin_archive({"atomic_plugin": _manifest("atomic_plugin")})
+        with tempfile.TemporaryDirectory(prefix="ospy-plugin-atomic-") as root:
+            target_dir = os.path.join(root, "atomic_plugin")
+            os.makedirs(target_dir)
+            old_init = os.path.join(target_dir, "__init__.py")
+            with open(old_init, "w", encoding="utf-8") as file_handle:
+                file_handle.write("NAME = 'Old version'\n")
+
+            real_replace = os.replace
+            replace_calls = []
+
+            def failing_replace(source, target):
+                replace_calls.append((source, target))
+                if len(replace_calls) == 2:
+                    raise OSError("simulated swap failure")
+                return real_replace(source, target)
+
+            def test_plugin_dir(module=None):
+                return os.path.join(root, module) if module else root
+
+            with mock.patch.object(
+                plugins, "plugin_dir", side_effect=test_plugin_dir
+            ), mock.patch("os.replace", side_effect=failing_replace):
+                with self.assertRaisesRegex(OSError, "simulated swap failure"):
+                    plugins.checker._install_plugin(
+                        archive,
+                        "atomic_plugin",
+                        "repository/plugins/atomic_plugin",
+                    )
+
+            with open(old_init, encoding="utf-8") as file_handle:
+                self.assertEqual(file_handle.read(), "NAME = 'Old version'\n")
+            self.assertFalse(
+                any(name.startswith(".ospy-plugin-install-") for name in os.listdir(root))
+            )
+
     def test_archive_reports_missing_and_invalid_manifests_as_incompatible(self):
         archive = _plugin_archive({
             "missing_manifest": None,
@@ -259,6 +433,36 @@ class PluginArchiveInstallationTests(unittest.TestCase):
         self.assertTrue(
             any("future_plugin" in message for message in captured.output)
         )
+
+
+class PluginDiagnosticsCollectionTests(unittest.TestCase):
+    def setUp(self):
+        setattr(plugins, "__plugin_diagnostics_cache", {"time": 0, "data": None})
+
+    def test_simultaneous_diagnostics_requests_reuse_short_cache(self):
+        result = [{"module": "cached_plugin"}]
+        with mock.patch.object(
+            plugins, "_plugin_diagnostics_uncached", return_value=result
+        ) as collect:
+            first = plugins.plugin_diagnostics()
+            second = plugins.plugin_diagnostics()
+
+        self.assertIs(first, result)
+        self.assertIs(second, result)
+        collect.assert_called_once_with()
+
+    def test_forced_diagnostics_refresh_bypasses_cache(self):
+        with mock.patch.object(
+            plugins,
+            "_plugin_diagnostics_uncached",
+            side_effect=([{"sample": 1}], [{"sample": 2}]),
+        ) as collect:
+            first = plugins.plugin_diagnostics()
+            second = plugins.plugin_diagnostics(force=True)
+
+        self.assertEqual(first, [{"sample": 1}])
+        self.assertEqual(second, [{"sample": 2}])
+        self.assertEqual(collect.call_count, 2)
 
 
 class PluginManifestRepositoryTests(unittest.TestCase):

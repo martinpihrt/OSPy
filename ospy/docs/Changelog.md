@@ -3,6 +3,15 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 17 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Hardened plug-in ZIP installation before extraction. OSPy now rejects unsafe or non-portable paths, Unicode and case-insensitive duplicates, duplicate plug-in identifiers, symbolic links, special or encrypted entries, damaged archives, excessive compression ratios and bounded file, archive and expanded-size limits. Each plug-in is staged on the destination filesystem and installed atomically while preserving its `data` directory; a failed replacement or start restores the previous files and plug-in status. Added automated tests for rejected archives, no-write validation, data preservation and rollback, and documented the accepted ZIP structure and limits in all seven Web Interface Guides and the built-in plug-in developer and test guides.
+
+Reduced transient HTTP 408 errors during Diagnostics refresh. Overlapping browser requests are suppressed, plug-in health checks are collected concurrently within one shared timeout, and their result is briefly cached for simultaneous diagnostics endpoints. A single transient timeout remains visible as an inline refresh status but no longer opens a persistent error dialog.
+
+Added the optional **Diagnostics** setting for showing system-health errors to administrators on the Home page. The Home page uses the same red problem, details and possible-solution dialog as Diagnostics, polls without overlapping requests, and gives a health error priority over the existing update notification. Dismissing one notification no longer hides a different higher-priority notification. Added matching styles for all built-in themes and documented the option in all seven Web Interface Guides.
+
 July 16 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

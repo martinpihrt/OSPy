@@ -33,6 +33,78 @@ let plot;
 let graph_text;
 let statusTimeout;
 let statusRequest;
+let homeDiagnosticsRequest = null;
+const homeDiagnosticsModalEnabled = ${str(bool(options.show_diagnostics_modal_home)).lower()};
+
+const homeDiagnosticSolutions = {
+    scheduler: $:{json.dumps(_('Restart OSPy and check the event log. If the problem returns, check the scheduler thread and system load.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    schedule: $:{json.dumps(_('Check that automatic scheduling is enabled, manual mode is off, and at least one valid program is configured.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    outputs: $:{json.dumps(_('Check the configured output driver, power supply, wiring, GPIO or I2C connection, and any output plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    sensors: $:{json.dumps(_('Open Sensors, check the enabled sensor configuration and verify its power, network or bus connection.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    database: $:{json.dumps(_('Check free disk space and write permissions for the OSPy data directory, then restart OSPy.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    storage: $:{json.dumps(_('Free disk space by removing unnecessary backups or logs and check the storage device for errors.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    plugins: $:{json.dumps(_('Open the plug-in manager, inspect compatibility and pre-activation details, then update, configure or restart the affected plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    email: $:{json.dumps(_('Open the e-mail plug-in, verify server credentials and network access, then restart the plug-in.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    weather: $:{json.dumps(_('Check the weather location, Internet connection and weather settings, then request a new weather update.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    internet: $:{json.dumps(_('Check the network cable or Wi-Fi, gateway and DNS configuration, and Internet access from the OSPy device.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+    backup: $:{json.dumps(_('Create a new backup and verify that the backup directory is writable and has enough free space.'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+};
+
+function escapeHomeDiagnostic(value) {
+    return jQuery("<div>").text(value || "").html();
+}
+
+function renderHomeDiagnostics(data) {
+    let errors = (data.items || []).filter(function(item){
+        return item.status === "error";
+    });
+    if (!errors.length) {
+        clearGlobalModal("health");
+        return;
+    }
+    let message = '<p><b>' +
+        $:{json.dumps(_('Diagnostics detected the following errors:'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+        '</b></p><div class="globalDiagnosticsErrorList">';
+    errors.forEach(function(error){
+        let solution = homeDiagnosticSolutions[error.id] ||
+            $:{json.dumps(_('Open Diagnostics, check the event log and correct the reported cause.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        message += '<div class="globalDiagnosticsErrorItem"><h3>' +
+            escapeHomeDiagnostic(error.title || $:{json.dumps(_('Error'), ensure_ascii=False).encode('utf8').decode('utf-8')}) +
+            '</h3><p><b>' + $:{json.dumps(_('Problem'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+            ':</b> ' + escapeHomeDiagnostic(error.summary || "-") + '</p>';
+        if (error.details) {
+            message += '<p><b>' + $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                ':</b> ' + escapeHomeDiagnostic(error.details) + '</p>';
+        }
+        message += '<p class="globalDiagnosticsSolution"><b>' +
+            $:{json.dumps(_('Possible solution'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+            ':</b> ' + escapeHomeDiagnostic(solution) + '</p>';
+        if (error.link) {
+            message += '<p><a class="button open" href="' + escapeHomeDiagnostic(error.link) + '">' +
+                $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a></p>';
+        }
+        message += '</div>';
+    });
+    message += '</div>';
+    setGlobalModal(
+        "health",
+        100,
+        '<h2>' + $:{json.dumps(_('Diagnostics error'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</h2>',
+        message,
+        true
+    );
+}
+
+function updateHomeDiagnostics() {
+    if (!homeDiagnosticsModalEnabled || homeDiagnosticsRequest) return;
+    homeDiagnosticsRequest = jQuery.getJSON("/system_health.json", function(data){
+        if (!data.error) renderHomeDiagnostics(data);
+    }).fail(function(xhr){
+        if (xhr && xhr.status === 403) clearGlobalModal("health");
+    }).always(function(){
+        homeDiagnosticsRequest = null;
+    });
+}
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -513,6 +585,10 @@ function dataTimer() {
 
 
 jQuery(document).ready(function(){
+    if (homeDiagnosticsModalEnabled) {
+        updateHomeDiagnostics();
+        window.setInterval(updateHomeDiagnostics, 30000);
+    }
     if (manual_mode) { // manual mode
         manualCountdownTimer();
         jQuery("button.manual").click(function () {

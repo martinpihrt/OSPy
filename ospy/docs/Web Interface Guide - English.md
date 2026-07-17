@@ -351,6 +351,8 @@ The time the Raspberry pi system has been running since it was powered on (or re
 ## Diagnostics
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
+When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.
+
 The page is divided into **System status** and **Performance and processes** tabs. **System status** gives each operational area an OK, warning, error or not-configured state. It monitors the scheduler heartbeat, the last successful schedule calculation and next run, output command writes, sensor communication, settings database accessibility, free disk space, enabled plug-in failures, e-mail readiness, weather, internet connectivity and the newest available backup. A successful output write confirms that OSPy sent the requested state to the output driver; it does not claim that a physical relay switched unless hardware feedback is available.
 
 The system summary shows current CPU usage, CPU temperature, system uptime, load average, OSPy process CPU usage, OSPy memory usage, thread count, platform information and the last refresh time.
@@ -551,6 +553,10 @@ Clicking the "Install New Plugin" button opens a window with a remote repository
 Before copying any files, OSPy safely reads `plugin.json` directly from the downloaded ZIP archive and displays the compatibility state and specific reasons for any problem for each plug-in. An incompatible plug-in cannot be installed or updated manually. A plug-in with warnings remains installable after the warnings are shown. Bulk installation installs compatible plug-ins and skips incompatible ones while reporting the reasons. The same validation applies to custom ZIP files, individual and bulk operations, and updates. A missing, invalid, or oversized `plugin.json` is an installation error for a new installation; already installed legacy plug-ins without a manifest can continue to run in backward-compatibility mode.
 
 ### Custom plug-in (ZIP)
+OSPy validates the complete ZIP before writing any plug-in file. The archive must contain at least one plug-in directory with `__init__.py` and a valid UTF-8 `plugin.json` whose `id` matches the directory name. A plug-in may also contain Python modules, `README.md`, `templates`, `static`, `script`, `docs`, `i18n` and `data`. A repository archive may place plug-ins below `plugins/`; a custom archive may contain a plug-in directly at its top level.
+
+Absolute or parent-directory paths, non-portable names, duplicate paths or plug-in identifiers, symbolic links, special or encrypted entries and damaged archives are rejected. Limits are 64 MiB downloaded ZIP data, 4,096 archive entries, 256 plug-ins, 32 MiB per expanded file, 128 MiB total expanded data and a maximum compression ratio of 200:1. Installation is atomic for each plug-in: files are prepared first, existing `data` is preserved, and a failed replacement or start restores the previous version.
+
 The extension manager allows you to install your own extension in the OSPy system, which is not published in the remote repository (for example, your personal extension). Using the "browse" button, we select the desired file on our computer to install into the OSPy system. The extension file (zip) must contain the complete structure of the extension (init, templates, i18n, readme, etc.).
 
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)

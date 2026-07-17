@@ -340,6 +340,8 @@ Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia)
 ## Diagnostyka
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
+Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.
+
 Strona jest podzielona na karty **Stan systemu** oraz **Wydajność i procesy**. **Stan systemu** przypisuje każdemu obszarowi działania stan OK, ostrzeżenie, błąd lub nieskonfigurowany. Monitoruje heartbeat harmonogramu, ostatnie udane obliczenie planu i następne uruchomienie, zapisy poleceń wyjściowych, komunikację czujników, dostępność bazy ustawień, wolne miejsce, błędy włączonych wtyczek, gotowość poczty e-mail, pogodę, połączenie internetowe i najnowszą dostępną kopię zapasową. Udany zapis wyjścia potwierdza, że OSPy przekazało żądany stan do sterownika; bez sprzężenia zwrotnego nie potwierdza fizycznego przełączenia przekaźnika.
 
 Podsumowanie systemu pokazuje bieżące użycie CPU, temperaturę CPU, czas działania systemu, load average, użycie CPU przez proces OSPy, użycie pamięci OSPy, liczbę wątków, informacje o platformie oraz czas ostatniego odświeżenia.
@@ -540,6 +542,10 @@ Po kliknięciu przycisku „Zainstaluj nową wtyczkę” otworzy się okno zdaln
 Przed skopiowaniem plików OSPy bezpiecznie odczytuje `plugin.json` bezpośrednio z pobranego archiwum ZIP i dla każdej wtyczki wyświetla stan zgodności oraz dokładne przyczyny ewentualnego problemu. Niezgodnej wtyczki nie można zainstalować ani ręcznie zaktualizować. Wtyczkę zawierającą tylko ostrzeżenia można zainstalować po ich wyświetleniu. Instalacja zbiorcza instaluje zgodne wtyczki, a niezgodne pomija z podaniem przyczyny. Ta sama kontrola dotyczy własnych plików ZIP, operacji pojedynczych i zbiorczych oraz aktualizacji. Brakujący, nieprawidłowy lub zbyt duży plik `plugin.json` jest błędem podczas nowej instalacji; już zainstalowane starsze wtyczki bez manifestu mogą nadal działać w trybie zgodności wstecznej.
 
 ### Wtyczka niestandardowa (ZIP)
+
+OSPy sprawdza cały plik ZIP przed zapisaniem jakiegokolwiek pliku wtyczki. Archiwum musi zawierać co najmniej jeden katalog wtyczki z plikiem `__init__.py` oraz prawidłowym plikiem UTF-8 `plugin.json`, którego `id` odpowiada nazwie katalogu. Wtyczka może również zawierać moduły Python, `README.md` oraz katalogi `templates`, `static`, `script`, `docs`, `i18n` i `data`. Archiwum repozytorium może umieszczać wtyczki w `plugins/`; własne archiwum może zawierać wtyczkę bezpośrednio w katalogu głównym.
+
+Odrzucane są ścieżki bezwzględne lub prowadzące do katalogu nadrzędnego, nieprzenośne nazwy, powielone ścieżki lub identyfikatory wtyczek, dowiązania symboliczne, wpisy specjalne lub szyfrowane oraz uszkodzone archiwa. Limity wynoszą 64 MiB pobranych danych ZIP, 4096 wpisów archiwum, 256 wtyczek, 32 MiB na rozpakowany plik, łącznie 128 MiB rozpakowanych danych i maksymalny współczynnik kompresji 200:1. Instalacja jest atomowa dla każdej wtyczki: pliki są najpierw przygotowywane, istniejący katalog `data` zostaje zachowany, a błąd wymiany lub uruchomienia przywraca poprzednią wersję.
 Menedżer rozszerzeń umożliwia zainstalowanie w systemie OSPy własnego rozszerzenia, które nie jest publikowane w zdalnym repozytorium (np. Twoje rozszerzenie osobiste). Za pomocą przycisku „przeglądaj” wybieramy na naszym komputerze żądany plik do zainstalowania w systemie OSPy. Plik rozszerzenia (zip) musi zawierać pełną strukturę rozszerzenia (init, szablony, i18n, readme itp.).
 
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)

@@ -21,6 +21,8 @@ __plugin_health_workers = {}
 __manifest_cache = {}
 __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
+__plugin_diagnostics_lock = threading.RLock()
+__plugin_diagnostics_cache = {'time': 0, 'data': None}
 PLUGIN_HEALTH_TIMEOUT = 1.0
 PLUGIN_THREAD_STOP_TIMEOUT = 5.0
 PLUGIN_MANIFEST_FILE = 'plugin.json'
@@ -29,6 +31,12 @@ PLUGIN_MANIFEST_SCHEMA_VERSION = 1
 PLUGIN_PREFLIGHT_MAX_FILES = 512
 PLUGIN_PREFLIGHT_MAX_FILE_BYTES = 2 * 1024 * 1024
 PLUGIN_PREFLIGHT_MAX_TOTAL_BYTES = 16 * 1024 * 1024
+PLUGIN_ZIP_MAX_DOWNLOAD_BYTES = 64 * 1024 * 1024
+PLUGIN_ZIP_MAX_FILES = 4096
+PLUGIN_ZIP_MAX_FILE_BYTES = 32 * 1024 * 1024
+PLUGIN_ZIP_MAX_TOTAL_BYTES = 128 * 1024 * 1024
+PLUGIN_ZIP_MAX_RATIO = 200
+PLUGIN_ZIP_MAX_PLUGINS = 256
 PLUGIN_PERMISSIONS = {
     'network', 'files', 'i2c', 'gpio', 'email', 'subprocess', 'system'
 }
@@ -343,15 +351,62 @@ def plugin_health(module):
     return worker['result']
 
 
-def plugin_diagnostics():
+def _parallel_plugin_health(available_modules, running_modules):
+    """Collect running plug-in health checks within one shared timeout window."""
+    results = {}
+    workers = []
+
+    def collect(module):
+        results[module] = plugin_health(module)
+
+    for module in available_modules:
+        if module not in running_modules:
+            results[module] = plugin_health(module)
+            continue
+        worker = threading.Thread(
+            target=collect,
+            args=(module,),
+            name='OSPy diagnostics health {}'.format(module),
+        )
+        worker.daemon = True
+        workers.append((module, worker))
+        worker.start()
+
+    deadline = time.time() + PLUGIN_HEALTH_TIMEOUT + 0.25
+    for module, worker in workers:
+        worker.join(max(0.0, deadline - time.time()))
+        if worker.is_alive() or module not in results:
+            results[module] = {
+                'supported': True,
+                'status': 'warning',
+                'summary': _('Health check timed out.'),
+                'details': '',
+                'updated': time.time(),
+            }
+    return results
+
+
+def plugin_diagnostics(force=False):
+    global __plugin_diagnostics_cache
+    with __plugin_diagnostics_lock:
+        now = time.time()
+        cached = __plugin_diagnostics_cache
+        if (not force and cached.get('data') is not None and
+                now - cached.get('time', 0) < 2.0):
+            return cached['data']
+
+        data = _plugin_diagnostics_uncached()
+        __plugin_diagnostics_cache = {'time': time.time(), 'data': data}
+        return data
+
+
+def _plugin_diagnostics_uncached():
     data = []
     running_modules = running()
     available_modules = available()
     now = time.time()
     from ospy.options import options
-    health_results = {
-        module: plugin_health(module) for module in available_modules
-    }
+    health_results = _parallel_plugin_health(available_modules, running_modules)
 
     with __profile_lock:
         for module in available_modules:
@@ -583,12 +638,23 @@ class _PluginChecker(threading.Thread):
     @staticmethod
     def _download_zip(repo):
         from urllib.request import urlopen
-        from urllib.parse import quote_plus
+        from contextlib import closing
         import logging
         import io
 
-        response = urlopen(repo, timeout=30)
-        zip_data = response.read()
+        with closing(urlopen(repo, timeout=30)) as response:
+            content_length = response.headers.get('Content-Length')
+            if content_length:
+                try:
+                    content_length = int(content_length)
+                except (TypeError, ValueError):
+                    content_length = None
+            if (content_length is not None and
+                    content_length > PLUGIN_ZIP_MAX_DOWNLOAD_BYTES):
+                raise ValueError(_('Plug-in ZIP download is too large.'))
+            zip_data = response.read(PLUGIN_ZIP_MAX_DOWNLOAD_BYTES + 1)
+        if len(zip_data) > PLUGIN_ZIP_MAX_DOWNLOAD_BYTES:
+            raise ValueError(_('Plug-in ZIP download is too large.'))
         logging.debug(_('Downloaded {}').format(repo))
 
         return io.BytesIO(zip_data)
@@ -599,17 +665,111 @@ class _PluginChecker(threading.Thread):
         return self._repo_data[repo]
 
     @staticmethod
-    def zip_contents(zip_file_data, load_read_me=True):
+    def _validated_zip(zip_file_data):
+        """Open and fully validate a bounded, portable plug-in ZIP archive."""
+        import stat
+        import unicodedata
         import zipfile
+
+        try:
+            zip_file = zipfile.ZipFile(zip_file_data)
+        except (zipfile.BadZipFile, OSError, ValueError):
+            raise ValueError(_('Invalid plug-in ZIP archive.'))
+
+        try:
+            infos = zip_file.infolist()
+            if len(infos) > PLUGIN_ZIP_MAX_FILES:
+                raise ValueError(_('Plug-in ZIP contains too many files.'))
+
+            seen_paths = set()
+            total_size = 0
+            reserved_names = {
+                'con', 'prn', 'aux', 'nul',
+                'com1', 'com2', 'com3', 'com4', 'com5', 'com6', 'com7', 'com8', 'com9',
+                'lpt1', 'lpt2', 'lpt3', 'lpt4', 'lpt5', 'lpt6', 'lpt7', 'lpt8', 'lpt9',
+            }
+            for info in infos:
+                original_name = info.filename
+                name = original_name.replace('\\', '/')
+                is_directory = (
+                    info.is_dir() if hasattr(info, 'is_dir') else name.endswith('/')
+                )
+                path_name = name[:-1] if is_directory and name.endswith('/') else name
+                parts = path_name.split('/')
+                unsafe = (
+                    not path_name or original_name != name or
+                    '\x00' in path_name or name.startswith('/') or
+                    re.match(r'^[A-Za-z]:', name) or
+                    any(part in ('', '.', '..') for part in parts) or
+                    len(path_name) > 1024 or
+                    any(len(part) > 255 or part.endswith((' ', '.')) or ':' in part
+                        for part in parts) or
+                    any(part.split('.')[0].lower() in reserved_names for part in parts)
+                )
+                if unsafe:
+                    raise ValueError(
+                        _('Unsafe plug-in ZIP path: {}').format(original_name)
+                    )
+
+                normalized = unicodedata.normalize('NFC', '/'.join(parts)).casefold()
+                if normalized in seen_paths:
+                    raise ValueError(
+                        _('Duplicate plug-in ZIP path: {}').format(original_name)
+                    )
+                seen_paths.add(normalized)
+
+                mode = (info.external_attr >> 16) & 0xffff
+                if stat.S_ISLNK(mode):
+                    raise ValueError(
+                        _('Symbolic links are not allowed in plug-in ZIP files.')
+                    )
+                file_type = stat.S_IFMT(mode)
+                if file_type and not (
+                        stat.S_ISREG(mode) or stat.S_ISDIR(mode)):
+                    raise ValueError(
+                        _('Special files are not allowed in plug-in ZIP files.')
+                    )
+                if info.flag_bits & 0x1:
+                    raise ValueError(_('Encrypted plug-in ZIP files are not supported.'))
+                if is_directory:
+                    continue
+                if info.file_size > PLUGIN_ZIP_MAX_FILE_BYTES:
+                    raise ValueError(
+                        _('A file in the plug-in ZIP is too large: {}').format(original_name)
+                    )
+                total_size += info.file_size
+                if total_size > PLUGIN_ZIP_MAX_TOTAL_BYTES:
+                    raise ValueError(_('Plug-in ZIP expands to too much data.'))
+                if info.file_size and (
+                        info.compress_size == 0 or
+                        info.file_size > info.compress_size * PLUGIN_ZIP_MAX_RATIO):
+                    raise ValueError(
+                        _('Suspicious compression ratio in plug-in ZIP: {}').format(
+                            original_name
+                        )
+                    )
+
+            damaged = zip_file.testzip()
+            if damaged:
+                raise ValueError(
+                    _('Damaged file in plug-in ZIP: {}').format(damaged)
+                )
+            return zip_file
+        except Exception:
+            zip_file.close()
+            raise
+
+    @staticmethod
+    def zip_contents(zip_file_data, load_read_me=True):
         import os
         import datetime
         import hashlib
         import logging
         result = {}
+        zip_file = None
 
         try:
-
-            zip_file = zipfile.ZipFile(zip_file_data)
+            zip_file = _PluginChecker._validated_zip(zip_file_data)
 
             infos = zip_file.infolist()
             files = zip_file.namelist()
@@ -656,11 +816,7 @@ class _PluginChecker(threading.Thread):
                 )
                 is_top_level_plugin = len(init_parts) == 2
 
-                if (
-                        init_dir + '/README.md' in files or
-                        manifest_present or
-                        is_repository_plugin or
-                        is_top_level_plugin):
+                if is_repository_plugin or is_top_level_plugin:
 
                     # Check all files:
                     for zip_info in infos:
@@ -685,6 +841,12 @@ class _PluginChecker(threading.Thread):
                             logging.error(_('Failed to read plug-in README') + ': {}'.format(traceback.format_exc()))
                             read_me = ''
 
+                    if plugin_id in result:
+                        raise ValueError(
+                            _('Duplicate plug-in identifier in ZIP: {}').format(plugin_id)
+                        )
+                    if len(result) >= PLUGIN_ZIP_MAX_PLUGINS:
+                        raise ValueError(_('Plug-in ZIP contains too many plug-ins.'))
                     result[plugin_id] = {
                         'name': (
                             manifest.get('name') or
@@ -703,9 +865,14 @@ class _PluginChecker(threading.Thread):
                         'files': plugin_files
                     }
 
-        except Exception: 
+        except ValueError:
+            raise
+        except Exception:
             logging.error(_('Failed to read a plug-in zip file') + ': {}'.format(traceback.format_exc()))
-            pass
+            raise ValueError(_('Invalid plug-in ZIP archive.'))
+        finally:
+            if zip_file is not None:
+                zip_file.close()
 
         return result
 
@@ -867,118 +1034,157 @@ class _PluginChecker(threading.Thread):
     @staticmethod
     def _install_repo_docs(zip_file_data):
         import os
-        import zipfile
         from ospy.helpers import mkdir_p
 
         allowed_docs = {'README.md', 'CHANGELOG.md'}
         target_dir = plugin_dir()
         target_dir_abs = os.path.abspath(target_dir)
 
-        zip_file = zipfile.ZipFile(zip_file_data)
-        files = zip_file.namelist()
-        repo_roots = set()
-        for filename in files:
-            zip_name = filename.replace('\\', '/')
-            if not zip_name.endswith('/__init__.py'):
-                continue
-            parts = [part for part in zip_name.split('/') if part]
-            if len(parts) >= 4 and parts[1] == 'plugins':
-                repo_roots.add(parts[0])
+        zip_file = _PluginChecker._validated_zip(zip_file_data)
+        try:
+            files = zip_file.namelist()
+            repo_roots = set()
+            for filename in files:
+                zip_name = filename.replace('\\', '/')
+                if not zip_name.endswith('/__init__.py'):
+                    continue
+                parts = [part for part in zip_name.split('/') if part]
+                if len(parts) >= 4 and parts[1] == 'plugins':
+                    repo_roots.add(parts[0])
 
-        for zip_info in zip_file.infolist():
-            zip_name = zip_info.filename.replace('\\', '/')
-            parts = [part for part in zip_name.split('/') if part]
-            if len(parts) != 2 or parts[1] not in allowed_docs or parts[0] not in repo_roots:
-                continue
-            is_directory = zip_info.is_dir() if hasattr(zip_info, 'is_dir') else zip_name.endswith('/')
-            if is_directory:
-                continue
+            for zip_info in zip_file.infolist():
+                zip_name = zip_info.filename.replace('\\', '/')
+                parts = [part for part in zip_name.split('/') if part]
+                if (len(parts) != 2 or parts[1] not in allowed_docs or
+                        parts[0] not in repo_roots):
+                    continue
+                is_directory = (
+                    zip_info.is_dir() if hasattr(zip_info, 'is_dir')
+                    else zip_name.endswith('/')
+                )
+                if is_directory:
+                    continue
 
-            target_name = os.path.abspath(os.path.join(target_dir, parts[1]))
-            if os.path.commonpath([target_dir_abs, target_name]) != target_dir_abs:
-                raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_info.filename))
+                target_name = os.path.abspath(os.path.join(target_dir, parts[1]))
+                if os.path.commonpath([target_dir_abs, target_name]) != target_dir_abs:
+                    raise ValueError(
+                        _('Unsafe plug-in ZIP path: {}').format(zip_info.filename)
+                    )
 
-            mkdir_p(os.path.dirname(target_name))
-            with open(target_name, 'wb') as fh:
-                fh.write(zip_file.read(zip_info.filename))
+                mkdir_p(os.path.dirname(target_name))
+                with open(target_name, 'wb') as fh:
+                    fh.write(zip_file.read(zip_info.filename))
+        finally:
+            zip_file.close()
 
     @staticmethod
     def _install_plugin(zip_file_data, plugin, p_dir):
         import os
         import shutil
-        import zipfile
+        import tempfile
         import datetime
         import hashlib
         from ospy.helpers import mkdir_p
         from ospy.helpers import del_rw
         from ospy.options import options
 
-        # First stop it if it is running:
         enabled = plugin in options.enabled_plugins
-        if enabled:
-            stop_plugin(plugin)
-
-        # Clean the target directory and create it if needed:
         target_dir = plugin_dir(plugin)
-        if os.path.exists(target_dir):
-            old_files = os.listdir(target_dir)
-            for old_file in old_files:
-                if old_file != 'data':
-                    old_path = os.path.join(target_dir, old_file)
-                    if os.path.isdir(old_path):
-                        shutil.rmtree(old_path, onerror=del_rw)
-                    else:
-                        del_rw(None, old_path, None)
-        else:
-            mkdir_p(target_dir)
+        plugins_dir = plugin_dir()
+        mkdir_p(plugins_dir)
+        transaction_dir = tempfile.mkdtemp(
+            prefix='.ospy-plugin-install-', dir=plugins_dir
+        )
+        staged_dir = os.path.join(transaction_dir, 'new')
+        backup_dir = os.path.join(transaction_dir, 'old')
+        failed_dir = os.path.join(transaction_dir, 'failed')
+        mkdir_p(staged_dir)
 
-        # Load the zip file:
-        zip_file = zipfile.ZipFile(zip_file_data)
-        infos = zip_file.infolist()
-        target_dir_abs = os.path.abspath(target_dir)
-
-        # Version information:
+        old_status = dict(options.plugin_status)
+        had_old_plugin = os.path.exists(target_dir)
+        swapped = False
         plugin_hash = ''
         plugin_date = datetime.datetime(1970, 1, 1)
-        plugin_zip_prefix = p_dir.rstrip('/\\') + '/'
+        plugin_zip_prefix = p_dir.rstrip('/\\').replace('\\', '/') + '/'
 
-        # Extract all files:
-        for zip_info in infos:
-            zip_name = zip_info.filename
-            if zip_name.startswith(plugin_zip_prefix):
-                is_directory = zip_info.is_dir() if hasattr(zip_info, 'is_dir') else zip_name.endswith('/')
-                relative_name = zip_name[len(plugin_zip_prefix):].lstrip('/\\')
-                relative_name = os.path.normpath(relative_name)
-                if not relative_name or relative_name == '.':
-                    continue
-                if os.path.isabs(relative_name) or relative_name.startswith('..' + os.path.sep) or relative_name == '..':
-                    raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_name))
-                target_name = os.path.abspath(os.path.join(target_dir, relative_name))
-                if os.path.commonpath([target_dir_abs, target_name]) != target_dir_abs:
-                    raise ValueError(_('Unsafe plug-in ZIP path: {}').format(zip_name))
-                if relative_name:
+        try:
+            old_data = os.path.join(target_dir, 'data')
+            staged_data = os.path.join(staged_dir, 'data')
+            if os.path.isdir(old_data):
+                shutil.copytree(
+                    old_data, staged_data, symlinks=True, dirs_exist_ok=True
+                )
+
+            zip_file = _PluginChecker._validated_zip(zip_file_data)
+            try:
+                for zip_info in zip_file.infolist():
+                    zip_name = zip_info.filename.replace('\\', '/')
+                    if not zip_name.startswith(plugin_zip_prefix):
+                        continue
+                    is_directory = (
+                        zip_info.is_dir() if hasattr(zip_info, 'is_dir')
+                        else zip_name.endswith('/')
+                    )
+                    relative_name = zip_name[len(plugin_zip_prefix):].rstrip('/')
+                    if not relative_name:
+                        continue
+                    target_name = os.path.join(
+                        staged_dir, *relative_name.split('/')
+                    )
                     if is_directory:
                         mkdir_p(target_name)
-                    else:
-                        plugin_date = max(plugin_date, datetime.datetime(*zip_info.date_time))
-                        plugin_hash += hex(zip_info.CRC)
-                        contents = zip_file.read(zip_name)
-                        mkdir_p(os.path.dirname(target_name))
-                        with open(target_name, 'wb') as fh:
-                            fh.write(contents)
+                        continue
+                    plugin_date = max(
+                        plugin_date, datetime.datetime(*zip_info.date_time)
+                    )
+                    plugin_hash += hex(zip_info.CRC)
+                    mkdir_p(os.path.dirname(target_name))
+                    with zip_file.open(zip_info, 'r') as source, \
+                            open(target_name, 'wb') as target:
+                        shutil.copyfileobj(source, target, 1024 * 64)
+            finally:
+                zip_file.close()
 
-        plugin_status = dict(options.plugin_status)
-        plugin_status[plugin] = {
-            'hash': hashlib.md5(plugin_hash.encode('utf-8')).hexdigest(),
-            'date': plugin_date
-        }
-        options.plugin_status = plugin_status
-        _clear_plugin_caches(plugin)
-        _unload_plugin_modules(plugin)
+            if not os.path.isfile(os.path.join(staged_dir, '__init__.py')):
+                raise ValueError(_('Plug-in ZIP does not contain __init__.py.'))
 
-        # Start again if needed:
-        if enabled:
-            reload_plugin(plugin)
+            if enabled:
+                stop_plugin(plugin)
+            if had_old_plugin:
+                os.replace(target_dir, backup_dir)
+            os.replace(staged_dir, target_dir)
+            swapped = True
+
+            plugin_status = dict(options.plugin_status)
+            plugin_status[plugin] = {
+                'hash': hashlib.md5(plugin_hash.encode('utf-8')).hexdigest(),
+                'date': plugin_date
+            }
+            options.plugin_status = plugin_status
+            _clear_plugin_caches(plugin)
+            _unload_plugin_modules(plugin)
+
+            if enabled and not reload_plugin(plugin):
+                raise RuntimeError(
+                    _('Updated plug-in failed to start; the previous version was restored.')
+                )
+        except Exception:
+            if swapped and os.path.exists(target_dir):
+                os.replace(target_dir, failed_dir)
+            if had_old_plugin and os.path.exists(backup_dir):
+                os.replace(backup_dir, target_dir)
+            options.plugin_status = old_status
+            _clear_plugin_caches(plugin)
+            _unload_plugin_modules(plugin)
+            if enabled and had_old_plugin:
+                try:
+                    reload_plugin(plugin)
+                except Exception:
+                    pass
+            raise
+        finally:
+            if os.path.isdir(transaction_dir):
+                shutil.rmtree(transaction_dir, onerror=del_rw)
 
     def install_repo_plugin(self, repo, plugin_filter):
         import logging
@@ -1042,10 +1248,10 @@ class _PluginChecker(threading.Thread):
                 (' ' + ' | '.join(blocked_details) if blocked_details else '')
             )
 
-        self._install_repo_docs(zip_file_data)
         for plugin, info in installable:
             self._install_plugin(zip_file_data, plugin, info['dir'])
             result['installed'].append(plugin)
+        self._install_repo_docs(zip_file_data)
         return result
 
 checker = _PluginChecker()

@@ -401,6 +401,15 @@ class _Options(object):
             "max": 500
         },
         #######################################################################
+        # Diagnostics #########################################################
+        {
+            "key": "show_diagnostics_modal_home",
+            "name": _('Show diagnostic errors on the home page'),
+            "default": True,
+            "help": _('Show a red diagnostic error window to administrators on the home page. Diagnostic errors have priority over update notifications.'),
+            "category": _('Diagnostics')
+        },
+        #######################################################################
         # Logging #############################################################
         {
             "key": "run_log",
