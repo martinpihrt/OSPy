@@ -618,13 +618,14 @@ class Sensor(object):
             qdict  = web.input()
             try:
                 jqdict = json.loads(qdict['do'].lower())
-                log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
             except:
                 jqdict = {}
                 log.error('api.py', traceback.format_exc())
                 pass
 
-            if 'ip' and 'mac' in jqdict:
+            required_keys = ('name', 'ip', 'mac', 'stype', 'scom', 'fw', 'cpu')
+            if all(key in jqdict for key in required_keys):
+                log.debug('api.py',  _('Sensor input IP: {} MAC: {}.').format(jqdict['ip'], jqdict['mac'].upper()))
                 find_sens = {
                     'name':  jqdict['name'],
                     'ip':  jqdict['ip'],

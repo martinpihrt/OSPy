@@ -22,7 +22,10 @@ from ospy.options import options
 from ospy.health import heartbeat, update_details
 
 from . import i18n
-   
+
+
+WEATHER_HTTP_TIMEOUT = 15
+
 
 def _cache(cache_name):
     def cache_decorator(func):
@@ -111,8 +114,8 @@ class _Weather(Thread):
         while True:
             try:
                 if self._determine_location:
-                    self._determine_location = False
                     self._find_location()
+                    self._determine_location = False
                 for function in self._callbacks:
                     function()
 
@@ -155,16 +158,16 @@ class _Weather(Thread):
                 raise Exception(_('No location coordinates available!'))
 
         if options.location:
-            self._lat = None
-            self._lon = None
             options.weather_status = 2
             request = Request(
                 "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location),
                 headers={'User-Agent': 'OSPy/{} contact: pihrt.com'.format(options.name)}
             )
-            data = urlopen(request)
+            data = urlopen(request, timeout=WEATHER_HTTP_TIMEOUT)
             data = json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
             if not data:
+                self._lat = None
+                self._lon = None
                 options.weather_status = 0 # Weather - No location found!
                 raise Exception(_('No location found:') + ' ' + options.location)
             else:
@@ -205,14 +208,17 @@ class _Weather(Thread):
         request = Request(url)
         request.add_header('Authorization', options.stormglass_key)
         try:
-            data = urlopen(request)
-            return json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
+            data = urlopen(request, timeout=WEATHER_HTTP_TIMEOUT)
+            result = json.loads(data.read().decode(data.info().get_content_charset('utf-8')))
+            if not isinstance(result, dict) or not result or result.get('errors'):
+                raise ValueError('Invalid Stormglass response')
+            return result
         except HTTPError as e:
             if e.code == 402:
                 logging.warning(_('For the free API, it has a limit of 7 calls per day.'))
             else:
                 logging.warning(_('HTTPError: {} - {}').format(e.code, e.reason)) 
-        return {}
+            raise
 
     @_cache('stormglass_data')
     def _get_stormglass_data(self, check_date):

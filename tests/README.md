@@ -28,6 +28,9 @@ The suite checks:
 * shift-register output writes, invalid-index protection, disabled-station
   blocking, primary and secondary master relays, master delays, immediate
   stop-all behavior and scheduler recovery after an output exception;
+* sensor offline timeouts, valid-packet recovery, malformed-packet isolation,
+  weather request timeouts, location retry, coordinate preservation, response
+  validation and fallback to the last valid cached weather value;
 * API Basic authentication, brute-force locking, security-event throttling,
   role permissions, optional CSRF enforcement and audited station/run-once
   state changes;
