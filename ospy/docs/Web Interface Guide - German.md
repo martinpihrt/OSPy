@@ -341,6 +341,7 @@ Verwendung des Raspberry Pi-Prozessors. Der Verbrauch wird in % angezeigt.
 
 ## Softwareversion
 Link zum Software-Repository des Projekts und zur Revisionsnummer der installierten Software.
+Stabile Builds aus `master` verwenden die numerische Version, zum Beispiel `3.0.238`. Test-Builds aus `beta` zeigen dieselbe Revision mit dem Suffix `-beta`, zum Beispiel `3.0.238-beta`. Beim Übernehmen desselben Commits nach `master` verschwindet das Suffix, ohne dass sich die Revisionsnummer ändert.
 
 ## Externe IP
 Externe IP-Adresse für das OSPy-System (Adresse Ihres Verbindungsanbieters – Router). Getestet über pihrt.com.

@@ -52,6 +52,8 @@ The suite checks:
 * System Update channel selection, including stable `master` as the default,
   fixed `beta` selection, repository checks against the selected branch and a
   required safety backup before an update installs the selected branch;
+* branch-aware version formatting: `master` keeps the numeric version while
+  the `beta` branch adds a `-beta` suffix without changing its revision number;
 * real web.py route dispatch and rendering for the main administrator pages,
   plug-in management and installation, anonymous login redirects, role
   protection, Diagnostics JSON success and failure responses, history and

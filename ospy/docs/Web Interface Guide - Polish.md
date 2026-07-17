@@ -330,6 +330,7 @@ Korzystanie z procesora Raspberry pi. Użycie jest pokazane w %.
 
 ## Wersja oprogramowania
 Link do repozytorium oprogramowania projektu i numer wersji zainstalowanego oprogramowania.
+Stabilne kompilacje z gałęzi `master` używają wersji liczbowej, na przykład `3.0.238`. Kompilacje testowe z gałęzi `beta` pokazują tę samą rewizję z przyrostkiem `-beta`, na przykład `3.0.238-beta`. Przeniesienie tego samego commitu do `master` usuwa przyrostek bez zmiany numeru rewizji.
 
 ## Zewnętrzny adres IP
 Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - routera). Testowane na pihrt.com.

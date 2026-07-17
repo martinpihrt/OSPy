@@ -17,12 +17,32 @@ major_ver = 3
 minor_ver = 0
 old_count = 827   # update this to reset revision number.
 
+
+def _current_branch():
+    """Return the checked-out local branch, or an empty value for detached HEAD."""
+    try:
+        return subprocess.check_output(
+            ["git", "symbolic-ref", "--quiet", "--short", "HEAD"],
+            stderr=subprocess.STDOUT,
+        ).strip().decode("utf-8")
+    except Exception:
+        return ""
+
+
+def _format_version(revision_count, branch):
+    base = "%d.%d.%d" % (major_ver, minor_ver, (revision_count - old_count))
+    return base + "-beta" if branch == "beta" else base
+
 try:
     revision = int(subprocess.check_output(["git", "rev-list", "--count", "--first-parent", "HEAD"]))
-    ver_str = "%d.%d.%d" % (major_ver, minor_ver, (revision-old_count))
+    branch = _current_branch()
+    update_channel = "beta" if branch == "beta" else "stable"
+    ver_str = _format_version(revision, branch)
 except Exception:
     log.debug('version.py', _('Could not use git to determine revision!'))
     revision = 999
+    branch = ""
+    update_channel = "stable"
     ver_str = "{}.{}.{}".format(major_ver, minor_ver, revision)
     pass
 

@@ -341,6 +341,7 @@ Raspberry Pi CPU usage. Usage is shown in %.
 
 ## Software version
 Link to the project software repository and the revision number of the installed software.
+Stable builds checked out from `master` use the numeric version, for example `3.0.238`. Test builds checked out from `beta` show the same revision with the `-beta` suffix, for example `3.0.238-beta`. Promoting that commit to `master` removes the suffix without changing the revision number.
 
 ## External IP
 External IP address for the OSPy system (address of your connection provider - router). Tested via pihrt.com.

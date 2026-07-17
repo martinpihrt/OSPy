@@ -341,6 +341,7 @@ Využitie procesora Raspberry pri. Využitie je zobrazené v %.
 
 ## Verzia programu OSPy
 Odkaz na úložisko softvéru projektu a číslo revízie nainštalovaného softvéru.
+Stabilné zostavenie z vetvy `master` používa číselnú verziu, napríklad `3.0.238`. Testovacie zostavenie z vetvy `beta` zobrazuje rovnakú revíziu s príponou `-beta`, napríklad `3.0.238-beta`. Po presune rovnakého commitu do `master` prípona zmizne, ale číslo revízie sa nezmení.
 
 ## Externá IP adresa
 Externá IP adresa pre systém OSPy (adresa vášho poskytovateľa pripojenia - routera). Testované prostredníctvom služby pihrt.com.
