@@ -32,6 +32,7 @@ $var page: plugins
             $ available_list = plugins.available()
             $for plugin, info in repo_contents.items():
                 $ compatibility = info.get('compatibility', {})
+                $ is_update = plugin in available_list
                 <div class='category collapsible collapsed'>
                     <h5>
                         <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="${plugin}" data-repo="${repo}">
@@ -39,8 +40,8 @@ $var page: plugins
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${repo_index}">
                             <input type="hidden" name="plugin" value="${plugin}">
-                            <button type="submit" class="minibutton open" ${'disabled' if not compatibility.get('compatible') else ''}>
-                            $if plugin in available_list:
+                            <button type="submit" class="minibutton open" ${'disabled' if not compatibility.get('compatible') and not is_update else ''}>
+                            $if is_update:
                                 $_('Reinstall')
                             $else:
                                 $_('Install')

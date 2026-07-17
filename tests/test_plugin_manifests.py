@@ -355,6 +355,30 @@ class PluginArchiveInstallationTests(unittest.TestCase):
         install_docs.assert_not_called()
         install_plugin.assert_not_called()
 
+    def test_incompatible_update_is_installed_but_not_activated(self):
+        archive = _plugin_archive({
+            "future_plugin": _manifest(
+                "future_plugin", ospy={"min": "9999.0"}
+            ),
+        })
+
+        with mock.patch.object(
+            plugins, "available", return_value=["future_plugin"]
+        ), mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ), mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            result = plugins.checker.install_custom_plugin(
+                archive, "future_plugin"
+            )
+
+        self.assertEqual(result["installed"], ["future_plugin"])
+        self.assertIn("future_plugin", result["warnings"])
+        self.assertNotIn("future_plugin", result["blocked"])
+        install_plugin.assert_called_once()
+        self.assertFalse(install_plugin.call_args.kwargs["activate"])
+
     def test_bulk_install_skips_incompatible_and_installs_compatible_plugins(self):
         archive = _plugin_archive({
             "compatible_plugin": _manifest("compatible_plugin"),

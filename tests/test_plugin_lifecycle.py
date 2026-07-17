@@ -144,6 +144,26 @@ class PluginLifecycleIntegrationTests(unittest.TestCase):
         plugins.stop_plugin(PLUGIN)
         self.assertNotIn(PLUGIN, plugins.running())
 
+    def test_incompatible_manual_update_replaces_files_and_disables_plugin(self):
+        self._install(_archive("1.0.0"))
+        options.enabled_plugins = list(options.enabled_plugins) + [PLUGIN]
+        self.assertTrue(plugins.start_plugin(PLUGIN))
+
+        plugins.checker._install_plugin(
+            _archive("1.0.1"),
+            PLUGIN,
+            "repository/plugins/{}".format(PLUGIN),
+            activate=False,
+        )
+
+        self.assertNotIn(PLUGIN, options.enabled_plugins)
+        self.assertNotIn(PLUGIN, plugins.running())
+        with open(
+                os.path.join(self.root, PLUGIN, "plugin.json"),
+                encoding="utf-8",
+        ) as manifest_file:
+            self.assertEqual(json.load(manifest_file)["version"], "1.0.1")
+
 
 if __name__ == "__main__":
     unittest.main()

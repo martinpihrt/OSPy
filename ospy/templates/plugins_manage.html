@@ -94,21 +94,22 @@ jQuery(document).ready(function(){
 
                 <div style="display: inline-block; padding: 0; width: 140px;">
                     $if available_info is not None:
+                        $ available_compatible = available_info.get('compatibility', {}).get('compatible')
                         <form action="/plugins_install" method="post" style="display:inline" class="plugin-install-form" data-plugin="${plugin}" data-repo="${available_info['repo']}">
                             $:csrf_input()
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${available_info['repo_index']}">
                             <input type="hidden" name="plugin" value="${plugin}">
-                            <button type="submit" class="button open" ${'disabled' if not available_info.get('compatibility', {}).get('compatible') else ''}>
-                                $if not available_info.get('compatibility', {}).get('compatible'):
+                            <button type="submit" class="button open" ${'disabled' if not available_compatible and not has_update else ''}>
+                                $if has_update:
+                                    $_('Update')
+                                $elif not available_compatible:
                                     $_('Incompatible')
                                 $elif plugin in current_info and current_info[plugin]['hash'] == available_info['hash']:
                                     $if options.use_plugin_update:
                                         $_('Up-to-date')
                                     $else:
                                         $_('Not-use')
-                                $else:
-                                    $_('Update')
                             </button>
                         </form>
                     $else:

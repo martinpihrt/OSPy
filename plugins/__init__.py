@@ -1092,7 +1092,7 @@ class _PluginChecker(threading.Thread):
             zip_file.close()
 
     @staticmethod
-    def _install_plugin(zip_file_data, plugin, p_dir):
+    def _install_plugin(zip_file_data, plugin, p_dir, activate=True):
         import os
         import shutil
         import tempfile
@@ -1178,10 +1178,17 @@ class _PluginChecker(threading.Thread):
             _clear_plugin_caches(plugin)
             _unload_plugin_modules(plugin)
 
-            if enabled and not reload_plugin(plugin):
-                raise RuntimeError(
-                    _('Updated plug-in failed to start; the previous version was restored.')
-                )
+            if enabled:
+                if activate:
+                    if not reload_plugin(plugin):
+                        raise RuntimeError(
+                            _('Updated plug-in failed to start; the previous version was restored.')
+                        )
+                else:
+                    enabled_plugins = list(options.enabled_plugins)
+                    if plugin in enabled_plugins:
+                        enabled_plugins.remove(plugin)
+                        options.enabled_plugins = enabled_plugins
         except Exception:
             if swapped and os.path.exists(target_dir):
                 os.replace(target_dir, failed_dir)
@@ -1231,6 +1238,7 @@ class _PluginChecker(threading.Thread):
             'blocked': {},
             'warnings': {},
         }
+        installed_plugins = set(available())
         for plugin, info in selected.items():
             compatibility = plugin_manifest_compatibility(
                 plugin,
@@ -1240,10 +1248,15 @@ class _PluginChecker(threading.Thread):
             )
             info['compatibility'] = compatibility
             if not compatibility.get('compatible', False):
-                result['blocked'][plugin] = list(
+                reasons = list(
                     compatibility.get('errors') or
                     [_('Plug-in is incompatible with this OSPy installation.')]
                 )
+                if plugin in installed_plugins:
+                    result['warnings'][plugin] = reasons
+                    info['activate_after_install'] = False
+                else:
+                    result['blocked'][plugin] = reasons
             elif compatibility.get('warnings'):
                 result['warnings'][plugin] = list(compatibility['warnings'])
 
@@ -1270,7 +1283,12 @@ class _PluginChecker(threading.Thread):
             )
 
         for plugin, info in installable:
-            self._install_plugin(zip_file_data, plugin, info['dir'])
+            self._install_plugin(
+                zip_file_data,
+                plugin,
+                info['dir'],
+                activate=info.get('activate_after_install', True),
+            )
             result['installed'].append(plugin)
         self._install_repo_docs(zip_file_data)
         return result
