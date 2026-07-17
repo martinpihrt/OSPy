@@ -34,6 +34,7 @@ let graph_text;
 let statusTimeout;
 let statusRequest;
 let homeDiagnosticsRequest = null;
+let pendingHomeDiagnosticErrors = {};
 const homeDiagnosticsModalEnabled = ${str(bool(options.show_diagnostics_modal_home)).lower()};
 
 const homeDiagnosticSolutions = {
@@ -95,10 +96,25 @@ function renderHomeDiagnostics(data) {
     );
 }
 
+function confirmHomeDiagnostics(data) {
+    let activePendingErrors = {};
+    let displayItems = (data.items || []).filter(function(item){
+        if (item.status !== "error" || !item.confirmation_required) return true;
+
+        let signature = [item.id, item.summary || "", item.details || ""].join("\n");
+        let previous = pendingHomeDiagnosticErrors[item.id];
+        let count = previous && previous.signature === signature ? previous.count + 1 : 1;
+        activePendingErrors[item.id] = {signature: signature, count: count};
+        return count >= 2;
+    });
+    pendingHomeDiagnosticErrors = activePendingErrors;
+    return {items: displayItems};
+}
+
 function updateHomeDiagnostics() {
     if (!homeDiagnosticsModalEnabled || homeDiagnosticsRequest) return;
     homeDiagnosticsRequest = jQuery.getJSON("/system_health.json", function(data){
-        if (!data.error) renderHomeDiagnostics(data);
+        if (!data.error) renderHomeDiagnostics(confirmHomeDiagnostics(data));
     }).fail(function(xhr){
         if (xhr && xhr.status === 403) clearGlobalModal("health");
     }).always(function(){

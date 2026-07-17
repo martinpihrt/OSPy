@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 17 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Prevented transient plug-in initialization states from opening a false Diagnostics error dialog on the Home page after an OSPy restart or update. A plug-in `health()` error now has to be reported by two consecutive Home checks, while a failed start, runtime exception, incompatible manifest or failed pre-activation test is still reported immediately. The Diagnostics page continues to show every current state without delay. Added regression tests for the failure classification.
+
 Hardened plug-in ZIP installation before extraction. OSPy now rejects unsafe or non-portable paths, Unicode and case-insensitive duplicates, duplicate plug-in identifiers, symbolic links, special or encrypted entries, damaged archives, excessive compression ratios and bounded file, archive and expanded-size limits. Each plug-in is staged on the destination filesystem and installed atomically while preserving its `data` directory; a failed replacement or start restores the previous files and plug-in status. Added automated tests for rejected archives, no-write validation, data preservation and rollback, and documented the accepted ZIP structure and limits in all seven Web Interface Guides and the built-in plug-in developer and test guides.
 
 Reduced transient HTTP 408 errors during Diagnostics refresh. Overlapping browser requests are suppressed, plug-in health checks are collected concurrently within one shared timeout, and their result is briefly cached for simultaneous diagnostics endpoints. A single transient timeout remains visible as an inline refresh status but no longer opens a persistent error dialog.

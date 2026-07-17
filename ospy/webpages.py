@@ -2922,7 +2922,8 @@ def _health_time(timestamp):
         return ''
 
 
-def _health_item(item_id, title, status, summary, details='', updated='', link=''):
+def _health_item(item_id, title, status, summary, details='', updated='', link='',
+                 confirmation_required=False):
     return {
         'id': item_id,
         'title': title,
@@ -2931,7 +2932,36 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
         'details': details,
         'updated': updated,
         'link': link,
+        'confirmation_required': confirmation_required,
     }
+
+
+def _plugin_health_groups(plugin_data):
+    """Separate immediate failures from health states that can be transitional."""
+    immediate_failures = [
+        plugin for plugin in plugin_data
+        if plugin.get('enabled') and (
+            not plugin.get('running') or plugin.get('last_error') or
+            plugin.get('compatibility', {}).get('status') == 'error' or
+            plugin.get('preflight', {}).get('status') == 'error'
+        )
+    ]
+    immediate_failure_ids = {id(plugin) for plugin in immediate_failures}
+    health_failures = [
+        plugin for plugin in plugin_data
+        if plugin.get('enabled') and
+        plugin.get('health', {}).get('status') == 'error' and
+        id(plugin) not in immediate_failure_ids
+    ]
+    warnings = [
+        plugin for plugin in plugin_data
+        if plugin.get('enabled') and (
+            plugin.get('health', {}).get('status') == 'warning' or
+            plugin.get('compatibility', {}).get('status') == 'warning' or
+            plugin.get('preflight', {}).get('status') == 'warning'
+        )
+    ]
+    return immediate_failures, health_failures, warnings
 
 
 def _newest_file(paths):
@@ -3133,24 +3163,10 @@ def _system_health_data():
         plugin_data = []
         plugin_diagnostics_error = True
         log.error('webpages.py', traceback.format_exc())
-    failed_plugins = [
-        plugin for plugin in plugin_data
-        if plugin.get('enabled') and (
-            not plugin.get('running') or plugin.get('last_error') or
-            plugin.get('health', {}).get('status') == 'error' or
-            plugin.get('compatibility', {}).get('status') == 'error' or
-            plugin.get('preflight', {}).get('status') == 'error'
-        )
-    ]
-    warning_plugins = [
-        plugin for plugin in plugin_data
-        if plugin.get('enabled') and
-        (
-            plugin.get('health', {}).get('status') == 'warning' or
-            plugin.get('compatibility', {}).get('status') == 'warning' or
-            plugin.get('preflight', {}).get('status') == 'warning'
-        )
-    ]
+    immediate_failed_plugins, health_failed_plugins, warning_plugins = (
+        _plugin_health_groups(plugin_data)
+    )
+    failed_plugins = immediate_failed_plugins + health_failed_plugins
     if plugin_diagnostics_error or failed_plugins:
         plugin_status = 'error'
     elif warning_plugins:
@@ -3174,7 +3190,11 @@ def _system_health_data():
         )
     items.append(_health_item(
         'plugins', _('Plug-ins'), plugin_status, plugin_summary,
-        plugin_description, link='/plugins_manage'
+        plugin_description, link='/plugins_manage',
+        confirmation_required=(
+            plugin_status == 'error' and not plugin_diagnostics_error and
+            not immediate_failed_plugins and bool(health_failed_plugins)
+        )
     ))
 
     email_modules = [
