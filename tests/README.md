@@ -31,6 +31,10 @@ The suite checks:
   immediate persistence, reload and fallback to a valid database copy;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable.
+* real web.py route dispatch and rendering for the main administrator pages,
+  plug-in management and installation, anonymous login redirects, role
+  protection, Diagnostics JSON success and failure responses, history and
+  cache headers, and CSRF rejection before an administrator POST handler runs.
 
 Tests share a temporary OSPy data directory and disable background plug-in
 repository checks. Scheduler, API and plug-in dependencies are isolated or
