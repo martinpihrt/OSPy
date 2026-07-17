@@ -910,13 +910,18 @@ Mit der Schaltfläche „Hochladen“ können Sie OSPy einfügen und wiederherst
 
 ```bash
 *.zip folder:
+ospy-backup.json
+ospy/data/default/options.db.*
+ospy/data/backup/options.db.*
 ospy/data/events.log
-ospy/data/options.db
-ospy/data/options.db.bak
 ospy/images/stations/station1.png
 ospy/images/stations/station1_thumbnail.png
 ```
 Oder andere Senderbilder im gleichen Format.
+
+Neue Sicherungen enthalten `ospy-backup.json` mit Sicherungsformat, OSPy-Version, Erstellungszeit sowie Größe und SHA-256-Prüfsumme jeder Datei. Das Archiv enthält die OSPy-Einstellungsdatenbank, Systemereignisdaten und Stationsbilder. Private SSL-Schlüssel, Plug-in-Code und Python-Caches werden absichtlich ausgeschlossen; die Datenverzeichnisse der Plug-ins werden weiterhin durch das separate Plug-in OSPy package Backup gesichert. Vor einer Wiederherstellung weist OSPy unsichere ZIP-Pfade, Links, verschlüsselte oder doppelte Einträge, übermäßige Größe oder Komprimierung und Dateien außerhalb von `ospy/data/` und `ospy/images/stations/` zurück. Die Grenzen sind 50.000 Einträge und 512 MB entpackte Größe; eine Datei über 1 MB darf kein Kompressionsverhältnis über 200:1 haben, und das konfigurierte Upload-Limit kann niedriger sein. Jede Datei wird anhand des Manifests geprüft und in ein Staging-Verzeichnis entpackt. Danach erstellt OSPy automatisch eine Sicherheitssicherung des aktuellen Zustands, ersetzt die Daten atomar und startet neu. Ältere OSPy-Sicherungen ohne Manifest bleiben als altes reines Datenformat unterstützt und durchlaufen dieselben ZIP-Pfad- und Größenprüfungen.
+OSPy behält die zehn neuesten Systemsicherungen auf dem Gerät. Sie werden in den Optionen aufgelistet; eine ausgewählte Sicherung kann heruntergeladen und anschließend mit Hochladen wiederhergestellt werden.
+Eine Systemsicherung enthält Anmelde- und Sicherheitseinstellungen, daher müssen heruntergeladene Archive sicher aufbewahrt werden.
 
 ## SSL Zertifikat
 Wenn wir über ein eigenes Zertifikat für SSL (https)-Sicherheit (fullchain.pem und privkey.pem) verfügen, können wir es hier über das Formular hochladen.

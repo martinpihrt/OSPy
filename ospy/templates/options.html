@@ -1,4 +1,4 @@
-$def with (errorCode)
+$def with (errorCode, stored_backups=[])
 
 $var title: $_('Options')
 $var page: options
@@ -24,7 +24,12 @@ $code:
     });   
 
      jQuery("#cUpload").click(function() {
-        jQuery("#uploadForm").submit();
+        if (!jQuery("#uploadForm input[name='uploadfile']").val()) {
+            return;
+        }
+        if (confirm($:{json.dumps(_('Restore this verified backup and restart OSPy? A safety backup of the current state will be created first.'), ensure_ascii=False).encode('utf8').decode('utf-8')})) {
+            jQuery("#uploadForm").submit();
+        }
     });
 
      jQuery("#cUploadSSL").click(function() {
@@ -296,6 +301,14 @@ $code:
         output += "&nbsp;<a href='download' class='button backup' title=" + json.dumps(_('Download OSPy backup zip file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Download') + "</a>\n"
         output += "&nbsp;<input type=\"file\" name=\"uploadfile\" class='upload' accept='.zip' />\n"
         output += "&nbsp;<a id='cUpload' class='button upload' title=" + json.dumps(_('Upload OSPy recovery zip file'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Upload') + "</a>\n"
+        output += "<span class='tooltip'>" + _('System backups are verified before restoration. OSPy creates a safety backup, restores the data atomically and then restarts. SSL keys and plug-in data are not included.') + "</span>\n"
+        output += "<span class='tooltip'>" + _('A system backup contains credentials and security settings. Store downloaded backups securely.') + "</span>\n"
+        if stored_backups:
+            output += "<div class='backup-list'><b>" + _('Stored safety backups') + ":</b><ul>"
+            for backup_info in stored_backups:
+                output += "<li><a class='button backup' href='download?" + backup_info['query'] + "'>" + _('Download') + "</a> "
+                output += backup_info['display_name'] + " ({:.2f} MB, {})</li>".format(backup_info['size_mb'], backup_info['date'])
+            output += "</ul><span class='tooltip'>" + _('The ten newest system safety backups are retained on this device. Download a selected backup and use Upload to restore it.') + "</span></div>"
         output += "<span class='inputError' id='errorfn'></span>\n"
         output += "</div></form>\n"
         output += categoryCloser

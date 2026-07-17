@@ -46,6 +46,12 @@ The suite checks:
   records;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable.
+* system backup manifests, checksums, permitted content, legacy archive staging,
+  rejection of tampered, undeclared, duplicate and traversal entries, atomic
+  restoration and recovery of the previous data after a failed swap;
+* System Update channel selection, including stable `master` as the default,
+  fixed `beta` selection, repository checks against the selected branch and a
+  required safety backup before an update installs the selected branch;
 * real web.py route dispatch and rendering for the main administrator pages,
   plug-in management and installation, anonymous login redirects, role
   protection, Diagnostics JSON success and failure responses, history and

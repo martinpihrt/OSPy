@@ -899,13 +899,18 @@ Przycisk Prześlij umożliwia wstawienie i przywrócenie OSPy (na przykład podc
 
 ```bash
 *.zip folder:
+ospy-backup.json
+ospy/data/default/options.db.*
+ospy/data/backup/options.db.*
 ospy/data/events.log
-ospy/data/options.db
-ospy/data/options.db.bak
 ospy/images/stations/station1.png
 ospy/images/stations/station1_thumbnail.png
 ```
 Lub obrazy innych stacji w tym samym formacie.
+
+Nowe kopie zapasowe zawierają plik `ospy-backup.json` z formatem kopii, wersją OSPy, czasem utworzenia oraz rozmiarem i sumą SHA-256 każdego pliku. Archiwum zawiera bazę ustawień OSPy, dane dziennika zdarzeń systemowych i obrazy stacji. Prywatne klucze SSL, kod wtyczek i pamięć podręczna Pythona są celowo pomijane; katalogi danych wtyczek nadal obsługuje osobna wtyczka OSPy package Backup. Przed przywróceniem OSPy odrzuca niebezpieczne ścieżki ZIP, dowiązania, zaszyfrowane lub zduplikowane wpisy, nadmierny rozmiar albo kompresję oraz pliki poza `ospy/data/` i `ospy/images/stations/`. Limity wynoszą 50 000 wpisów i 512 MB po rozpakowaniu; plik większy niż 1 MB nie może przekraczać współczynnika kompresji 200:1, a skonfigurowany limit przesyłania może być niższy. Każdy plik jest sprawdzany według manifestu i rozpakowywany do katalogu tymczasowego. Następnie OSPy automatycznie tworzy kopię bezpieczeństwa bieżącego stanu, atomowo zastępuje dane i uruchamia się ponownie. Starsze kopie OSPy bez manifestu są nadal obsługiwane jako starszy format zawierający tylko dane i przechodzą te same kontrole ścieżek oraz rozmiaru ZIP.
+OSPy przechowuje na urządzeniu dziesięć najnowszych systemowych kopii bezpieczeństwa. Są one wyświetlane w Opcjach, skąd wybrane archiwum można pobrać, a następnie przywrócić za pomocą funkcji Prześlij.
+Kopia systemowa zawiera dane logowania i ustawienia bezpieczeństwa, dlatego pobrane archiwa należy przechowywać w bezpiecznym miejscu.
 
 ## Certyfikat SSL
 Jeśli posiadamy własny certyfikat bezpieczeństwa SSL (https) (fullchain.pem i privkey.pem) możemy go tutaj załadować za pomocą formularza.

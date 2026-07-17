@@ -13,6 +13,7 @@ from threading import Event, Thread, Timer, RLock, current_thread
 import traceback
 import mimetypes
 import shutil
+import html
 
 # Local imports
 from ospy.helpers import test_password, template_globals, check_login, save_to_options, \
@@ -29,6 +30,7 @@ from ospy import scheduler
 from ospy import autologin
 from ospy import twofactor
 from ospy import health
+from ospy import backup as system_backup
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -3564,7 +3566,15 @@ class options_page(ProtectedPage):
         qdict = web.input()
         errorCode = qdict.get('errorCode', 'none')
 
-        return self.core_render.options(errorCode)
+        stored_backups = []
+        for backup_info in system_backup.list_system_backups():
+            stored_backups.append({
+                'display_name': html.escape(backup_info['name']),
+                'query': urlencode({'file': backup_info['name']}),
+                'size_mb': backup_info['size'] / float(1024 * 1024),
+                'date': datetime.datetime.fromtimestamp(backup_info['modified']).strftime('%Y-%m-%d %H:%M:%S'),
+            })
+        return self.core_render.options(errorCode, stored_backups)
 
     def POST(self):
         from ospy.server import session
@@ -3905,57 +3915,48 @@ class download_page(ProtectedPage):
     """Download OSPy backup file with settings"""
     def GET(self):
         from ospy.server import session
-        from ospy.helpers import mkdir_p, del_rw, ASCI_convert
+        from ospy.helpers import ASCI_convert
         import os
         import time
-        import shutil
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice('/', msg)
 
-        def _read_log(path):
-            """Read file"""
-            try:
-                with open(path, 'rb') as fh:
-                    return fh.read()
-            except IOError:
-                log.debug('webpages.py', traceback.format_exc())
-                return []
-
         try:
-            ospy_root = './ospy/'
-            backup_path = ospy_root + 'backup'                                                # Where is backup zip file
-            backup_name = 'ospy_backup'
-            dir_name = ospy_root + 'data'
-            download_name = '{}_backup_{}.zip'.format(ASCI_convert(options.name).decode("utf-8"), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip
-
-            if os.path.exists(backup_path):                                                   # Deleting old folder backup
-                log.debug('webpages.py', _('Deleting folder backup.'))
-                shutil.rmtree(backup_path, onerror=del_rw)
-
-            if not os.path.exists(backup_path):                                               # Create new folder for backup
-                log.debug('webpages.py', _('Creating folder backup.'))
-                mkdir_p(backup_path)
-
-            if os.path.exists(backup_path):                                                   # Create zip backup
-                log.debug('webpages.py', _('Creating backup zip file.'))
-                shutil.make_archive(backup_path + '/' + backup_name, 'zip', root_dir=dir_name)
-
-            if os.path.exists(backup_path):
-                log.debug('webpages.py', _('File {} is created successfully.').format(download_name))
-
-                content = mimetypes.guess_type(backup_path + '/' + backup_name + '.zip')[0]
-                web.header('Content-type', content)
-                web.header('Content-Length', os.path.getsize(backup_path + '/' + backup_name + '.zip'))
-                web.header('Content-Disposition', 'attachment; filename=%s'%download_name)
-                with open(backup_path + '/' + backup_name + '.zip', 'rb') as f:
-                    return f.read()
-
+            qdict = web.input(file=None)
+            backup_path = system_backup.system_backup_path(qdict.get('file')) if qdict.get('file') else None
+            created = False
+            if qdict.get('file') and backup_path is None:
+                return self.core_render.notice('/options', _('The selected system backup was not found.'))
+            if backup_path is None:
+                download_name = '{}_backup_{}.zip'.format(ASCI_convert(options.name).decode("utf-8"), time.strftime("%d.%m.%Y_%H-%M-%S"))   # Example: ospy_backup_4.12.2020_18-40-20.zip
+                options.save_now()
+                backup_path = system_backup.create_system_backup(reason='manual')
+                created = True
+                log.info('webpages.py', _('System backup created successfully.') + ' ' + os.path.basename(backup_path))
             else:
-                log.error('webpages.py', _(u'System component is unreachable or busy. Please wait (try again later).'))
-                msg = _('System component is unreachable or busy. Please wait (try again later).')
-                return self.core_render.notice(u'/download', msg)
+                download_name = os.path.basename(backup_path)
+                log.info('webpages.py', _('Stored system backup downloaded.') + ' ' + download_name)
+            if options.run_logEV:
+                logEV.save_events_log(
+                    _('System backup'),
+                    (_('User {} created a system backup.') if created else
+                     _('User {} downloaded a stored system backup.')).format(session.get('visitor')),
+                    id='Backup', level='success', category='system'
+                )
+            web.header('Content-type', 'application/zip')
+            web.header('Content-Length', os.path.getsize(backup_path))
+            web.header('Content-Disposition', 'attachment; filename=%s' % download_name)
+
+            def stream_backup():
+                with open(backup_path, 'rb') as source:
+                    while True:
+                        chunk = source.read(64 * 1024)
+                        if not chunk:
+                            break
+                        yield chunk
+            return stream_backup()
 
         except Exception:
             log.debug('webpages.py', traceback.format_exc())
@@ -3968,22 +3969,20 @@ class upload_page(ProtectedPage):
         raise web.seeother('/')
 
     def POST(self):
-        from ospy.helpers import ospy_to_default, mkdir_p, del_rw
+        from ospy.helpers import mkdir_p, del_rw
         from ospy import server
         import os
-        from zipfile import ZipFile
-        from shutil import copytree
         import shutil
 
         if server.session['category'] != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
             return self.core_render.notice('/', msg)
 
-        ospy_root = './ospy/'
-        upload_path = ospy_root + 'upload'
+        upload_path = os.path.join('ospy', 'upload')
 
         i = web.input(uploadfile={})
 
+        restore_started = False
         try:
             if os.path.exists(upload_path):                                     # Deleting old folder upload
                 log.debug('webpages.py', _('Deleting folder upload.'))
@@ -3998,43 +3997,49 @@ class upload_page(ProtectedPage):
             # cgi.maxlen = 10 * 1024 * 1024 # 10MB
             # print cgi.maxlen
             log.debug('webpages.py', _('Uploading file {}.').format(i.uploadfile.filename))
-            upload_type = i.uploadfile.filename[-4:len(i.uploadfile.filename)]  # Only .zip file accepted
+            upload_type = os.path.splitext(i.uploadfile.filename or '')[1].lower()
             if upload_type == '.zip':                                           # Check file type
-                fout = open(upload_path + '/ospy_upload.zip', 'wb')             # Write uploaded file to upload folder
-                fout.write(read_limited_upload(i.uploadfile.file))
-                fout.close()
+                archive_path = os.path.join(upload_path, 'ospy_upload.zip')
+                with open(archive_path, 'wb') as fout:
+                    fout.write(read_limited_upload(i.uploadfile.file))
 
-                log.debug('webpages.py', _('Uploading to folder OK, now extracting zip file.'))
-
-                with ZipFile(upload_path + '/ospy_upload.zip', mode='r') as zf: # Extract zip file
-                    _safe_extract_zip(zf, ospy_root + 'upload/ospy_upload')
-                    log.debug('webpages.py', _('Extracted from zip OK.'))
+                log.debug('webpages.py', _('Validating the uploaded system backup.'))
+                staging, manifest = system_backup.stage_restore(archive_path)
+                options.save_now()
+                if options.run_logEV:
+                    logEV.save_events_log(
+                        _('System restore'),
+                        _('User {} requested restoration of a system backup.').format(server.session.get('visitor')),
+                        id='Backup', level='warning', category='system'
+                    )
+                rollback_path = system_backup.create_system_backup(reason='before restore')
+                log.info('webpages.py', _('A safety backup was created before restoration.') + ' ' + os.path.basename(rollback_path))
 
                 report_restarted()
-
-                # we delete all settings before ospy recovery
-
                 stations.clear()
                 server.stop()
+                restore_started = True
+                system_backup.apply_staged_restore(staging)
+                restart(wait=3)
 
-                ospy_to_default(del_upload=False)
-
-                log.debug('webpages.py', _('Copy extrated folders with files to data dir.'))
-                fromDirectory = os.path.join('ospy', 'upload', 'ospy_upload')
-                toDirectory = os.path.join('ospy', 'data')
-                copytree(fromDirectory, toDirectory, dirs_exist_ok=True)        # Copy from to
-
-                restart(wait=3)                                                # Restart OSPy software
-
-                msg = _('Restoring backup files sucesfully, now restarting OSPy...')
+                msg = _('The backup was verified and restored successfully. OSPy is restarting.')
+                if manifest.get('legacy'):
+                    msg += ' ' + _('A legacy backup without a manifest was restored.')
                 return self.core_render.notice('/', msg)
             else:
                 errorCode = "pw_filename"
                 return self.core_render.options(errorCode)
 
+        except (system_backup.BackupError, ValueError) as error:
+            log.warning('webpages.py', _('System backup restore was rejected: {}').format(error))
+            if restore_started:
+                restart(wait=1)
+            return self.core_render.notice('/options', _('The system backup cannot be restored: {}').format(error))
         except Exception:
             log.debug('webpages.py', traceback.format_exc())
-            return self.core_render.options()
+            if restore_started:
+                restart(wait=1)
+            return self.core_render.notice('/options', _('The system backup could not be restored. No verified data was installed.'))
 
 
 def _ssl_file_path(filename):

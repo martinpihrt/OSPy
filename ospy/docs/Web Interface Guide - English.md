@@ -910,13 +910,18 @@ The Upload button allows you to insert and restore OSPy (for example, when reins
 
 ```bash
 *.zip folder:
+ospy-backup.json
+ospy/data/default/options.db.*
+ospy/data/backup/options.db.*
 ospy/data/events.log
-ospy/data/options.db
-ospy/data/options.db.bak
 ospy/images/stations/station1.png
 ospy/images/stations/station1_thumbnail.png
 ```
 Or other station images in the same format.
+
+New backups contain `ospy-backup.json`, which records the backup format, OSPy version, creation time and a SHA-256 checksum and size for every file. The archive contains the OSPy settings database, system event data and station images. SSL private keys, plug-in code and Python caches are intentionally excluded; plug-in data directories remain covered by the separate OSPy package Backup plug-in. Before restoration, OSPy rejects invalid ZIP paths, links, encrypted or duplicate entries, excessive size or compression and any file outside `ospy/data/` and `ospy/images/stations/`. The limits are 50,000 entries and 512 MB expanded size; a file larger than 1 MB may not exceed a 200:1 compression ratio, and the configured upload limit may be lower. Every file is verified against the manifest and extracted to a staging directory. OSPy then creates an automatic pre-restore safety backup and atomically replaces the data before restarting. Older OSPy backups without a manifest remain supported as a legacy data-only format and receive the same ZIP path and size checks.
+OSPy retains the ten newest system safety backups on the device. They are listed in Options, where a selected archive can be downloaded and then restored with Upload.
+A system backup contains credentials and security settings, so downloaded archives must be stored securely.
 
 ## SSL Certificate
 If we have our own certificate for SSL (https) security (fullchain.pem and privkey.pem) we can upload it here using the form.

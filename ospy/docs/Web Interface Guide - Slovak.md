@@ -910,13 +910,18 @@ Tlačidlo Nahrať vám umožní vložiť a obnoviť systém OSPy (napríklad pri
 
 ```bash
 *.zip folder:
+ospy-backup.json
+ospy/data/default/options.db.*
+ospy/data/backup/options.db.*
 ospy/data/events.log
-ospy/data/options.db
-ospy/data/options.db.bak
 ospy/images/stations/station1.png
 ospy/images/stations/station1_thumbnail.png
 ```
 Alebo iné obrázky staníc v rovnakom formáte.
+
+Nové zálohy obsahujú súbor `ospy-backup.json`, v ktorom je uvedený formát zálohy, verzia OSPy, čas vytvorenia a veľkosť aj kontrolný súčet SHA-256 každého súboru. Archív obsahuje databázu nastavení OSPy, údaje systémového záznamu a obrázky staníc. Súkromné kľúče SSL, kód pluginov a vyrovnávacia pamäť Pythonu sú zámerne vynechané; dátové adresáre pluginov naďalej zálohuje samostatný plugin OSPy package Backup. Pred obnovou OSPy odmietne nebezpečné cesty v ZIPe, odkazy, šifrované alebo duplicitné položky, nadmernú veľkosť či kompresiu a každý súbor mimo `ospy/data/` a `ospy/images/stations/`. Limit je 50 000 položiek a 512 MB po rozbalení; súbor väčší ako 1 MB nesmie prekročiť kompresný pomer 200:1 a nastavený limit nahrávania môže byť nižší. Každý súbor sa overí podľa manifestu a rozbalí do prípravného adresára. OSPy potom automaticky vytvorí bezpečnostnú zálohu súčasného stavu, atomicky vymení údaje a reštartuje sa. Staršie zálohy OSPy bez manifestu zostávajú podporované ako pôvodný formát iba s údajmi a prechádzajú rovnakou kontrolou ciest a veľkosti ZIPu.
+OSPy uchováva v zariadení desať najnovších bezpečnostných systémových záloh. Ich zoznam je v Možnostiach, odkiaľ možno vybraný archív stiahnuť a potom obnoviť pomocou tlačidla Nahrať.
+Systémová záloha obsahuje prihlasovacie a bezpečnostné nastavenia, preto musia byť stiahnuté archívy bezpečne uložené.
 
 ## Certifikát SSL
 Pokiaľ máme svoj vlastný certifikát pre SSL (https) zabezpečenie (fullchain.pem a privkey.pem) môžeme ho tu pomocou formulára nahrať.
