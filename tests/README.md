@@ -76,3 +76,9 @@ OSPY_PLUGIN_ROOTS=/path/to/OSPy-plugins/plugins python3 -m unittest discover -s 
 
 Multiple plug-in roots can be separated with the operating system path
 separator (`:` on Linux, `;` on Windows).
+
+GitHub Actions runs the same suite automatically for pushes and pull requests
+to the `beta` and `master` branches. The workflow uses Python 3.11, checks out
+the official OSPy-plugins repository, and can also be started manually from the
+repository **Actions** page. It does not connect to a running OSPy installation
+or to irrigation hardware.
