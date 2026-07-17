@@ -10,10 +10,7 @@ import unittest
 from unittest import mock
 import zipfile
 
-
-TEST_DATA_DIR = tempfile.mkdtemp(prefix="ospy-tests-")
-os.environ["OSPY_DATA_DIR"] = TEST_DATA_DIR
-os.environ["OSPY_DISABLE_BACKGROUND_THREADS"] = "1"
+from tests.test_support import TEST_DATA_DIR
 
 from ospy import i18n  # Install the same gettext function used by a running OSPy.
 import plugins
@@ -83,11 +80,6 @@ def _manifest(plugin, **changes):
 
 
 class PluginManifestParserTests(unittest.TestCase):
-    @classmethod
-    def tearDownClass(cls):
-        options_module.options.__del__()
-        shutil.rmtree(TEST_DATA_DIR, ignore_errors=True)
-
     def test_tests_use_isolated_data_without_background_plugin_checker(self):
         self.assertTrue(
             os.path.realpath(options_module.OPTIONS_FILE).startswith(

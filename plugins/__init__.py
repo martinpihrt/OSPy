@@ -1174,6 +1174,13 @@ class _PluginChecker(threading.Thread):
             if had_old_plugin and os.path.exists(backup_dir):
                 os.replace(backup_dir, target_dir)
             options.plugin_status = old_status
+            enabled_plugins = list(options.enabled_plugins)
+            if enabled and plugin not in enabled_plugins:
+                enabled_plugins.append(plugin)
+                options.enabled_plugins = enabled_plugins
+            elif not enabled and plugin in enabled_plugins:
+                enabled_plugins.remove(plugin)
+                options.enabled_plugins = enabled_plugins
             _clear_plugin_caches(plugin)
             _unload_plugin_modules(plugin)
             if enabled and had_old_plugin:

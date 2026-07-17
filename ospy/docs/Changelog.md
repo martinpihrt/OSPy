@@ -12,6 +12,8 @@ Reduced transient HTTP 408 errors during Diagnostics refresh. Overlapping browse
 
 Added the optional **Diagnostics** setting for showing system-health errors to administrators on the Home page. The Home page uses the same red problem, details and possible-solution dialog as Diagnostics, polls without overlapping requests, and gives a health error priority over the existing update notification. Dismissing one notification no longer hides a different higher-priority notification. Added matching styles for all built-in themes and documented the option in all seven Web Interface Guides.
 
+Expanded the isolated automated test suite with scheduler coverage for rain delay, manual run-once priority, station order, output-usage limits, station delay and program-group postponement; API security coverage for Basic authentication, brute-force locking, throttled security events, role permissions, optional CSRF and audited state changes; settings-database persistence, legacy-value migration, new defaults, date conversion and fallback checks; and a complete plug-in install, activation, health, restart, update, rollback and disable lifecycle. The lifecycle test found and fixed a rollback defect where a plug-in whose new version failed to start had its previous files restored but remained disabled. Expected test failures are contained without noisy console output, and all tests continue to run against temporary data while OSPy is active. Updated the Czech translation.
+
 July 16 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

@@ -253,7 +253,6 @@ def permission(func):
             try:
 
                 log.debug('utils.py',  _('API permission granted.'))
-                print(server.session['category'])
                 assert server.session['category']!='public' ,'Bad permission'
             except:
                 # no or wrong auth provided
