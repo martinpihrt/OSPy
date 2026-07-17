@@ -2,6 +2,7 @@ import datetime
 import os
 import shelve
 import tempfile
+import threading
 import unittest
 from unittest import mock
 
@@ -97,6 +98,29 @@ class OptionsPersistenceTests(unittest.TestCase):
             instance = self._new_options(root)
 
             self.assertEqual(instance.name, "Recovered settings")
+
+    def test_option_mutation_waits_for_active_database_write(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-lock-") as root:
+            instance = self._new_options(root)
+            started = threading.Event()
+            finished = threading.Event()
+
+            def update_option():
+                started.set()
+                instance.name = "Serialized update"
+                finished.set()
+
+            with instance._lock:
+                worker = threading.Thread(target=update_option)
+                worker.start()
+                self.assertTrue(started.wait(1.0))
+                self.assertFalse(finished.wait(0.05))
+
+            worker.join(1.0)
+            self.assertFalse(worker.is_alive())
+            self.assertTrue(finished.is_set())
+            self.assertEqual(instance.name, "Serialized update")
+            instance.__del__()
 
 
 if __name__ == "__main__":

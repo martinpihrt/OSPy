@@ -635,7 +635,7 @@ class _Options(object):
         self._write_timer = None
         self._callbacks = {}
         self._block = []
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
         for info in self.OPTIONS:
             self._values[info["key"]] = info["default"]    
@@ -726,34 +726,36 @@ class _Options(object):
         if key.startswith('_'):
             super(_Options, self).__setattr__(key, value)
         else:
-            self._values[key] = value
+            with self._lock:
+                self._values[key] = value
 
-            if key in self._callbacks:
-                if value != self._callbacks[key]['last_value']:
-                    for cb in self._callbacks[key]['functions']:
-                        try:
-                            cb(key, self._callbacks[key]['last_value'], value)
-                        except Exception:
-                            logging.error('Callback failed:\n' + traceback.format_exc())
-                    self._callbacks[key]['last_value'] = value
+                if key in self._callbacks:
+                    if value != self._callbacks[key]['last_value']:
+                        for cb in self._callbacks[key]['functions']:
+                            try:
+                                cb(key, self._callbacks[key]['last_value'], value)
+                            except Exception:
+                                logging.error('Callback failed:\n' + traceback.format_exc())
+                        self._callbacks[key]['last_value'] = value
 
-            # Only write after 1 second without any more changes
-            if self._write_timer is not None:
-                self._write_timer.cancel()
-            self._write_timer = Timer(1.0, self._write)
-            self._write_timer.start()
+                # Only write after 1 second without any more changes
+                if self._write_timer is not None:
+                    self._write_timer.cancel()
+                self._write_timer = Timer(1.0, self._write)
+                self._write_timer.start()
 
     def __delattr__(self, item):
         if item.startswith('_'):
             super(_Options, self).__delattr__(item)
         else:
-            del self._values[item]
+            with self._lock:
+                del self._values[item]
 
-            # Only write after 1 second without any more changes
-            if self._write_timer is not None:
-                self._write_timer.cancel()
-            self._write_timer = Timer(1.0, self._write)
-            self._write_timer.start()
+                # Only write after 1 second without any more changes
+                if self._write_timer is not None:
+                    self._write_timer.cancel()
+                self._write_timer = Timer(1.0, self._write)
+                self._write_timer.start()
 
     # Makes it possible to use this class like options[<item>]
     __getitem__ = __getattr__

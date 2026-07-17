@@ -14,6 +14,8 @@ Added the optional **Diagnostics** setting for showing system-health errors to a
 
 Expanded the isolated automated test suite with scheduler coverage for rain delay, manual run-once priority, station order, output-usage limits, station delay and program-group postponement; API security coverage for Basic authentication, brute-force locking, throttled security events, role permissions, optional CSRF and audited state changes; settings-database persistence, legacy-value migration, new defaults, date conversion and fallback checks; and a complete plug-in install, activation, health, restart, update, rollback and disable lifecycle. The lifecycle test found and fixed a rollback defect where a plug-in whose new version failed to start had its previous files restored but remained disabled. Expected test failures are contained without noisy console output, and all tests continue to run against temporary data while OSPy is active. Updated the Czech translation.
 
+Serialized option mutations with database writes to prevent a concurrent timer save from failing with `dictionary changed size during iteration`. Added a regression test for the locking behavior.
+
 July 16 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
