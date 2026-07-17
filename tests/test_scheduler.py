@@ -54,10 +54,10 @@ class _RunOnce(object):
 
 
 class SchedulerPredictionTests(unittest.TestCase):
-    def _station(self, index, ignore_rain=False):
+    def _station(self, index, ignore_rain=False, enabled=True):
         return SimpleNamespace(
             index=index,
-            enabled=True,
+            enabled=enabled,
             usage=1.0,
             ignore_rain=ignore_rain,
         )
@@ -157,6 +157,38 @@ class SchedulerPredictionTests(unittest.TestCase):
         self.assertEqual(
             result[1]["start"], run_end + datetime.timedelta(seconds=30)
         )
+
+    def test_unlimited_usage_allows_parallel_station_runs(self):
+        now = datetime.datetime.now()
+        run_start = now + datetime.timedelta(minutes=1)
+        run_end = run_start + datetime.timedelta(minutes=5)
+
+        result = self._predict(
+            [self._station(0), self._station(1)],
+            [
+                self._program(0, [0], run_start, run_end),
+                self._program(1, [1], run_start, run_end),
+            ],
+            now,
+            now + datetime.timedelta(hours=1),
+            max_usage=0,
+        )
+
+        self.assertEqual([item["start"] for item in result], [run_start, run_start])
+
+    def test_disabled_station_is_excluded_from_schedule(self):
+        now = datetime.datetime.now()
+        run_start = now + datetime.timedelta(minutes=1)
+        run_end = run_start + datetime.timedelta(minutes=5)
+
+        result = self._predict(
+            [self._station(0, enabled=False)],
+            [self._program(0, [0], run_start, run_end)],
+            now,
+            now + datetime.timedelta(hours=1),
+        )
+
+        self.assertEqual(result, [])
 
 
 class ProgramGroupPostponementTests(unittest.TestCase):

@@ -1,5 +1,6 @@
 import json
 import os
+from types import SimpleNamespace
 import unittest
 from unittest import mock
 
@@ -232,6 +233,84 @@ class WebRouteIntegrationTests(unittest.TestCase):
 
         self.assertEqual(response.status, "403 Forbidden")
         reload_plugin.assert_not_called()
+
+    def test_stop_all_immediately_clears_stations_and_master_relay(self):
+        test_options = mock.Mock(manual_mode=True)
+        test_stations = mock.MagicMock()
+        test_stations.count.return_value = 1
+        test_outputs = SimpleNamespace(relay_output=True)
+
+        with mock.patch.multiple(
+                webpages,
+                options=test_options,
+                stations=test_stations,
+                outputs=test_outputs,
+        ), mock.patch.object(webpages.log, "finish_run") as finish_run, \
+                mock.patch.object(webpages.logEV, "save_events_log"):
+            response = self.app.request(
+                "/action?stop_all=&csrf={}".format(
+                    self.session["csrf_token"]
+                )
+            )
+
+        self.assertEqual(response.status, "303 See Other")
+        finish_run.assert_called_once_with(None)
+        test_stations.clear.assert_called_once_with()
+        self.assertFalse(test_outputs.relay_output)
+
+    def test_stop_all_clears_automatic_run_state(self):
+        test_options = mock.Mock(manual_mode=False, scheduler_enabled=True)
+        test_stations = mock.MagicMock()
+        test_stations.count.return_value = 1
+        test_programs = SimpleNamespace(run_now_program="active")
+        test_run_once = mock.Mock()
+
+        with mock.patch.multiple(
+                webpages,
+                options=test_options,
+                stations=test_stations,
+                outputs=SimpleNamespace(relay_output=True),
+                programs=test_programs,
+                run_once=test_run_once,
+        ), mock.patch.object(webpages.log, "finish_run"), \
+                mock.patch.object(webpages.logEV, "save_events_log"):
+            response = self.app.request(
+                "/action?stop_all=&csrf={}".format(
+                    self.session["csrf_token"]
+                )
+            )
+
+        self.assertEqual(response.status, "303 See Other")
+        self.assertFalse(test_options.scheduler_enabled)
+        self.assertIsNone(test_programs.run_now_program)
+        test_run_once.clear.assert_called_once_with()
+
+    def test_disabled_station_cannot_be_started_from_home(self):
+        station = SimpleNamespace(
+            enabled=False,
+            is_master=False,
+            is_master_two=False,
+            is_master_by_program=False,
+        )
+        test_stations = mock.MagicMock()
+        test_stations.count.return_value = 1
+        test_stations.get.return_value = station
+
+        with mock.patch.multiple(
+                webpages,
+                options=mock.Mock(manual_mode=True),
+                stations=test_stations,
+        ), mock.patch.object(webpages.log, "start_run") as start_run, \
+                mock.patch.object(webpages.logEV, "save_events_log"):
+            response = self.app.request(
+                "/action?sid=1&set_to=1&csrf={}".format(
+                    self.session["csrf_token"]
+                )
+            )
+
+        self.assertEqual(response.status, "303 See Other")
+        start_run.assert_not_called()
+        test_stations.activate.assert_not_called()
 
 
 if __name__ == "__main__":

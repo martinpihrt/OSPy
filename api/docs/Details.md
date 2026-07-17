@@ -208,6 +208,10 @@ Not implemented, or maybe "reset to default" for all stations?
 #### Actions
 Manually start station with id 1. Duration is specified:
 `POST` `/stations/1/?do=start`
+
+Starting a station requires a valid non-negative station identifier. Disabled
+stations and outputs configured as master relays cannot be started directly;
+these requests return `400 Bad Request`.
 ```json
 {
     "duration" : string, HH:MM:SS format 

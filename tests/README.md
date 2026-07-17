@@ -23,7 +23,11 @@ The suite checks:
 * atomic plug-in replacement, preservation of plug-in `data`, and restoration
   of the previous version after a failed swap or start;
 * scheduler behavior for rain delay, manual run-once priority, station order,
-  output-usage limits, station delay and program-group postponement;
+  sequential and parallel output usage, station delay, disabled stations and
+  program-group postponement;
+* shift-register output writes, invalid-index protection, disabled-station
+  blocking, primary and secondary master relays, master delays, immediate
+  stop-all behavior and scheduler recovery after an output exception;
 * API Basic authentication, brute-force locking, security-event throttling,
   role permissions, optional CSRF enforcement and audited station/run-once
   state changes;

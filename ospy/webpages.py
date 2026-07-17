@@ -24,6 +24,7 @@ from ospy.options import options, rain_blocks, program_level_adjustments
 from ospy.programs import programs, ProgramType
 from ospy.runonce import run_once
 from ospy.stations import stations
+from ospy.outputs import outputs
 from ospy import scheduler
 from ospy import autologin
 from ospy import twofactor
@@ -1965,6 +1966,7 @@ class action_page(ProtectedPage):
                     run_once.clear()
                 log.finish_run(None)
                 stations.clear()
+                outputs.relay_output = False
                 logEV.save_events_log(
                     _('Irrigation stopped'),
                     _('User {} stopped all stations and active programs.').format(session.get('visitor')),
@@ -2050,7 +2052,14 @@ class action_page(ProtectedPage):
         sid = get_input(qdict, 'sid', 0, int) - 1
         set_time = get_input(qdict, 'set_time', 0, int)
 
-        if set_to is not None and 0 <= sid < stations.count() and options.manual_mode:
+        station_can_start = (
+            0 <= sid < stations.count() and stations.get(sid).enabled and
+            not stations.get(sid).is_master and
+            not stations.get(sid).is_master_two and
+            not stations.get(sid).is_master_by_program
+        )
+        if (set_to is not None and 0 <= sid < stations.count() and
+                options.manual_mode and (not set_to or station_can_start)):
           if session.get('category')== 'admin' or session.get('category') == 'user':
             if set_to:  # if status is on
                 start = datetime.datetime.now()

@@ -232,22 +232,33 @@ class _BaseStations(object):
     def activate(self, index):
         if not isinstance(index, list):
             index = [index]
+        activated = []
         for i in index:
-            if i < len(self._state):
-                self._state[i] = True
-                logging.debug(_('Activated output') + ' %d', i)
-                if self._stations[i].is_master:
-                    logging.debug(_('Activated master one'))
-                    master_one_on.send()                   # send signal master ON
-                if self._stations[i].is_master_two:
-                    logging.debug(_('Activated master two'))    
-                    master_two_on.send()                   # send signal master 2 ON                            
+            if not isinstance(i, int) or not 0 <= i < len(self._state):
+                continue
+            station = self._stations[i]
+            if not station.enabled and not (
+                    station.is_master or station.is_master_two or
+                    station.is_master_by_program):
+                continue
+            activated.append(i)
+            self._state[i] = True
+            logging.debug(_('Activated output') + ' %d', i)
+            if self._stations[i].is_master:
+                logging.debug(_('Activated master one'))
+                master_one_on.send()                   # send signal master ON
+            if self._stations[i].is_master_two:
+                logging.debug(_('Activated master two'))
+                master_two_on.send()                   # send signal master 2 ON
+        return activated
                  
     def deactivate(self, index):
         if not isinstance(index, list):
             index = [index]
+        deactivated = []
         for i in index:
-            if i < len(self._state):
+            if isinstance(i, int) and 0 <= i < len(self._state):
+                deactivated.append(i)
                 self._state[i] = False
                 logging.debug(_('Deactivated output') + ' %d', i)
                 if self._stations[i].is_master:
@@ -256,12 +267,17 @@ class _BaseStations(object):
                 if self._stations[i].is_master_two:
                     logging.debug(_('Deactivated master two'))    
                     master_two_off.send()                   # send signal master 2 OFF                                    
+        return deactivated
 
     def active(self, index=None):
         if index is None:
             result = self._state[:]
         else:
-            result = self._state[index] if index < len(self._state) else False
+            result = (
+                self._state[index]
+                if isinstance(index, int) and 0 <= index < len(self._state)
+                else False
+            )
         return result
 
     def clear(self):
@@ -337,7 +353,9 @@ class _ShiftStations(_BaseStations):
             raise
 
     def activate(self, index):
-        super(_ShiftStations, self).activate(index)
+        activated = super(_ShiftStations, self).activate(index)
+        if not activated:
+            return
         try:
             self._activate()
         except Exception as err:
@@ -348,7 +366,9 @@ class _ShiftStations(_BaseStations):
         station_on.send("Signaling stations ON", txt=index)
 
     def deactivate(self, index):
-        super(_ShiftStations, self).deactivate(index)
+        deactivated = super(_ShiftStations, self).deactivate(index)
+        if not deactivated:
+            return
         try:
             self._activate()
         except Exception as err:

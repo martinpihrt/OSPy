@@ -87,6 +87,14 @@ class Stations(object):
 
         action = web.input().get('do', '').lower()
         station_id = int(station_id)
+        if not 0 <= station_id < stations.count():
+            raise badrequest()
+        if action == 'start' and (
+                not stations[station_id].enabled or
+                stations[station_id].is_master or
+                stations[station_id].is_master_two or
+                stations[station_id].is_master_by_program):
+            raise badrequest()
         if action == 'start':
             log.debug('api.py',  _('Starting station {} ({})').format(station_id, stations[station_id].name))
             stations.activate(station_id)

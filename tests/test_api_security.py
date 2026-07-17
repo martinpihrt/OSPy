@@ -9,7 +9,7 @@ from ospy import helpers
 import web
 from api import api as api_module
 from api import utils
-from api.errors import API_Unauthorized
+from api.errors import API_BadRequest, API_Unauthorized
 
 
 def _basic_header(username, password):
@@ -143,6 +143,7 @@ class ApiStateOperationTests(unittest.TestCase):
         web.ctx.clear()
         web.ctx.env = {"REMOTE_ADDR": "192.0.2.20"}
         web.ctx.method = "POST"
+        web.ctx.headers = []
         self.station = SimpleNamespace(
             index=0,
             name="Front lawn",
@@ -166,6 +167,7 @@ class ApiStateOperationTests(unittest.TestCase):
     def test_station_start_calls_controller_and_writes_audit_event(self):
         stations = mock.MagicMock()
         stations.__getitem__.return_value = self.station
+        stations.count.return_value = 1
         handler = _undecorated(api_module.Stations.POST)
         with mock.patch.object(api_module, "stations", stations), \
                 mock.patch.object(api_module.web, "input", return_value={"do": "start"}), \
@@ -178,6 +180,34 @@ class ApiStateOperationTests(unittest.TestCase):
         stations.activate.assert_called_once_with(0)
         self.assertEqual(result["name"], "Front lawn")
         self.assertEqual(save_event.call_args.kwargs["category"], "irrigation")
+
+    def test_disabled_station_cannot_be_started_through_api(self):
+        self.station.enabled = False
+        stations = mock.MagicMock()
+        stations.__getitem__.return_value = self.station
+        stations.count.return_value = 1
+        handler = _undecorated(api_module.Stations.POST)
+
+        with mock.patch.object(api_module, "stations", stations), \
+                mock.patch.object(api_module.web, "input", return_value={"do": "start"}):
+            with self.assertRaises(web.HTTPError) as raised:
+                handler(api_module.Stations(), "0")
+
+        self.assertIsInstance(raised.exception, API_BadRequest)
+        stations.activate.assert_not_called()
+
+    def test_negative_station_id_cannot_address_last_station(self):
+        stations = mock.MagicMock()
+        stations.count.return_value = 1
+        handler = _undecorated(api_module.Stations.POST)
+
+        with mock.patch.object(api_module, "stations", stations), \
+                mock.patch.object(api_module.web, "input", return_value={"do": "start"}):
+            with self.assertRaises(web.HTTPError) as raised:
+                handler(api_module.Stations(), "-1")
+
+        self.assertIsInstance(raised.exception, API_BadRequest)
+        stations.activate.assert_not_called()
 
     def test_run_once_sets_only_selected_enabled_station(self):
         second = SimpleNamespace(index=1, name="Back lawn")
