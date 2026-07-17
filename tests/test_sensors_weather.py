@@ -174,6 +174,25 @@ class SensorStateTests(unittest.TestCase):
         self.assertTrue(compatible(0, 2, "reg_output"))
         self.assertFalse(compatible(0, "invalid", "reg_output"))
 
+    def test_legacy_sensor_ip_is_accepted_and_normalized_for_packet_matching(self):
+        compatible = sensors_module.options._compatible_value
+        legacy_ip = ["192", "168", "88", "232"]
+
+        def load_legacy_ip(sensor, unused_index):
+            sensor.ip_address = legacy_ip
+
+        options_type = type(sensors_module.options)
+        with mock.patch.object(options_type, "load", side_effect=load_legacy_ip), \
+                mock.patch.object(options_type, "save"):
+            sensor = sensors_module._Sensor(SimpleNamespace(get=lambda: []), 0)
+
+        self.assertTrue(compatible(("0", "0", "0", "0"), legacy_ip, "ip_address"))
+        self.assertEqual(sensor.ip_address, ("192", "168", "88", "232"))
+        self.assertEqual(
+            sensors_module._normalize_ip_address(["192", "168", "88", "999"]),
+            ("0", "0", "0", "0"),
+        )
+
 
 class Response(object):
     def __init__(self, value):

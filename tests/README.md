@@ -29,9 +29,9 @@ The suite checks:
   blocking, primary and secondary master relays, master delays, immediate
   stop-all behavior and scheduler recovery after an output exception;
 * sensor offline timeouts, valid-packet recovery, malformed-packet isolation,
-  legacy regulation-output migration and Sensors page rendering, weather request
-  timeouts, location retry, coordinate preservation, response validation and
-  fallback to the last valid cached weather value;
+  legacy IP-address and regulation-output migration, Sensors page rendering,
+  weather request timeouts, location retry, coordinate preservation, response
+  validation and fallback to the last valid cached weather value;
 * non-blocking external-IP cache refresh without duplicate refresh workers;
 * cooperative shutdown of scheduler, sensor, weather and plug-in update workers,
   immediate output and master-relay safety, bounded core shutdown ordering and

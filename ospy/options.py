@@ -707,6 +707,19 @@ class _Options(object):
     def _compatible_value(default, value, key=''):
         if key in ('weather_lat', 'weather_lon'):
             return isinstance(value, (str, int, float)) and not isinstance(value, bool)
+        if key == 'ip_address':
+            if not isinstance(value, (list, tuple)) or len(value) != 4:
+                return False
+            try:
+                return all(
+                    not isinstance(part, bool) and
+                    isinstance(part, (str, int)) and
+                    (not isinstance(part, str) or part.isdigit()) and
+                    0 <= int(part) <= 255
+                    for part in value
+                )
+            except (TypeError, ValueError):
+                return False
         if key == 'reg_output':
             return (
                 isinstance(value, int) and not isinstance(value, bool)

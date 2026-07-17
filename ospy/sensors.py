@@ -32,6 +32,23 @@ def _normalize_reg_output(value, output_count):
     return 0
 
 
+def _normalize_ip_address(value):
+    if isinstance(value, (list, tuple)) and len(value) == 4:
+        try:
+            if not all(
+                    not isinstance(part, bool) and
+                    isinstance(part, (str, int)) and
+                    (not isinstance(part, str) or part.isdigit())
+                    for part in value):
+                return ('0', '0', '0', '0')
+            octets = tuple(str(int(part)) for part in value)
+            if all(0 <= int(part) <= 255 for part in octets):
+                return octets
+        except (TypeError, ValueError):
+            pass
+    return ('0', '0', '0', '0')
+
+
 class _Sensor(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_sensors']
 
@@ -58,7 +75,7 @@ class _Sensor(object):
         self.trigger_high_program = ["-1"]# close Program
         self.trigger_low_threshold = "10" # low threshold
         self.trigger_high_threshold = "30"# high threshold
-        self.ip_address = [0,0,0,0]     # ip address for sensor 
+        self.ip_address = ('0', '0', '0', '0')  # IP address for sensor
         self.mac_address = ""           # mac address for sensor
         self.last_battery = ""          # battery voltage
         self.last_voltage = ""          # main source voltage
@@ -168,6 +185,8 @@ class _Sensor(object):
         try:
             if key == 'reg_output':
                 value = _normalize_reg_output(value, options.output_count)
+            elif key == 'ip_address':
+                value = _normalize_ip_address(value)
 
             # Do not perform any additional logic during object initialization.
             if not hasattr(self, "SAVE_EXCLUDE"):
