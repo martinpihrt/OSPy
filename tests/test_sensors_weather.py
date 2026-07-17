@@ -105,6 +105,64 @@ class SensorStateTests(unittest.TestCase):
         self.assertEqual(sensor.last_read_value[0], 21.5)
         self.assertEqual(sensor.fw, 101)
 
+    def test_sensor_packet_recovers_shared_mac_records_after_lost_ip(self):
+        sensor = SimpleNamespace(
+            index=0,
+            ip_address=("0", "0", "0", "0"),
+            mac_address="F4:CF:A2:95:C5:48",
+            cpu_core=0,
+            rssi=0,
+            last_battery=0,
+            last_read_value=[-127] * 9,
+            soil_last_read_value=[-127] * 16,
+            last_response=0,
+            last_response_datetime="",
+            response=0,
+            fw=0,
+        )
+        second_sensor = SimpleNamespace(**vars(sensor))
+        second_sensor.index = 1
+        sensor_collection = SimpleNamespace(get=lambda: [sensor, second_sensor])
+        payload = {
+            "name": "Barrel sensor",
+            "ip": "192.168.88.232",
+            "mac": "f4:cf:a2:95:c5:48",
+            "stype": 5,
+            "scom": 0,
+            "fw": 119,
+            "cpu": 0,
+            "temp": 215,
+            "rssi": 80,
+            "batt": 123,
+        }
+        handler = undecorated(api_module.Sensor.POST)
+
+        with mock.patch.object(api_module, "sensors", sensor_collection), \
+                mock.patch.object(
+                    api_module,
+                    "options",
+                    SimpleNamespace(
+                        api_sensor_auth_required=False,
+                        no_password=True,
+                        temp_unit="C",
+                    ),
+                ), mock.patch.object(
+                    api_module.web, "input",
+                    return_value={"do": json.dumps(payload)},
+                ), mock.patch.object(helpers, "now", return_value=600), \
+                mock.patch.object(
+                    api_module, "datetime_string", return_value="2030-01-01 12:01:00"
+                ), mock.patch.object(webpages, "sensorSearch", []):
+            handler(api_module.Sensor())
+
+        self.assertEqual(sensor.ip_address, ("192", "168", "88", "232"))
+        self.assertEqual(sensor.response, 1)
+        self.assertEqual(sensor.last_response, 600)
+        self.assertEqual(sensor.last_read_value[0], 21.5)
+        self.assertEqual(second_sensor.ip_address, ("192", "168", "88", "232"))
+        self.assertEqual(second_sensor.response, 1)
+        self.assertEqual(second_sensor.last_read_value[0], 21.5)
+
     def test_malformed_sensor_packet_preserves_last_valid_state(self):
         sensor = SimpleNamespace(
             response=1,

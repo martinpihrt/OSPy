@@ -640,7 +640,12 @@ class Sensor(object):
 
                 for sensor in sensors.get():
                     ip = split_ip(jqdict['ip'])
-                    if sensor.ip_address == ip and sensor.mac_address.upper() == jqdict['mac'].upper():
+                    sensor_mac = str(sensor.mac_address).strip().upper()
+                    packet_mac = str(jqdict['mac']).strip().upper()
+                    if (sensor_mac and sensor_mac == packet_mac and
+                            ip != ('0', '0', '0', '0')):
+                        if sensor.ip_address != ip:
+                            sensor.ip_address = ip
                         read_val = []*9
                         soil_read_val = []*16
                         if 'cpu' in jqdict and jqdict['cpu'] is not None:

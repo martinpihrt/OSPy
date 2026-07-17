@@ -28,10 +28,11 @@ The suite checks:
 * shift-register output writes, invalid-index protection, disabled-station
   blocking, primary and secondary master relays, master delays, immediate
   stop-all behavior and scheduler recovery after an output exception;
-* sensor offline timeouts, valid-packet recovery, malformed-packet isolation,
-  legacy IP-address and regulation-output migration, Sensors page rendering,
-  weather request timeouts, location retry, coordinate preservation, response
-  validation and fallback to the last valid cached weather value;
+* sensor offline timeouts, valid-packet recovery, MAC-based recovery after a
+  lost or DHCP-changed IP address, malformed-packet isolation, legacy IP-address
+  and regulation-output migration, Sensors page rendering, weather request
+  timeouts, location retry, coordinate preservation, response validation and
+  fallback to the last valid cached weather value;
 * non-blocking external-IP cache refresh without duplicate refresh workers;
 * cooperative shutdown of scheduler, sensor, weather and plug-in update workers,
   immediate output and master-relay safety, bounded core shutdown ordering and
