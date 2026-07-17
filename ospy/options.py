@@ -707,6 +707,12 @@ class _Options(object):
     def _compatible_value(default, value, key=''):
         if key in ('weather_lat', 'weather_lon'):
             return isinstance(value, (str, int, float)) and not isinstance(value, bool)
+        if key == 'reg_output':
+            return (
+                isinstance(value, int) and not isinstance(value, bool)
+            ) or (
+                isinstance(value, str) and value.lstrip('-').isdigit()
+            )
         if isinstance(default, bool):
             return isinstance(value, bool)
         if isinstance(default, int) and not isinstance(default, bool):

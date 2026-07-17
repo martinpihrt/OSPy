@@ -14,7 +14,7 @@ import ast
 import hmac
 import os
 import secrets
-from threading import Lock
+from threading import Lock, Thread
 
 BRUTEFORCE_LOCK = Lock()
 BRUTEFORCE_ATTEMPTS = {}
@@ -755,6 +755,7 @@ def save_to_options(qdict):
 
 last_ip_check_time = 0
 external_ip_address = '-'
+external_ip_refresh_thread = None
 EXTERNAL_IP_LOCK = Lock()
 EXTERNAL_IP_SERVICES = (
     'https://api.ipify.org',
@@ -762,34 +763,57 @@ EXTERNAL_IP_SERVICES = (
 )
 
 
+def _refresh_external_ip():
+    """Refresh the external IP cache without blocking request or scheduler threads."""
+
+    global last_ip_check_time, external_ip_address, external_ip_refresh_thread
+
+    result_address = '-'
+    try:
+        if net_connect():
+            for service in EXTERNAL_IP_SERVICES:
+                try:
+                    result = subprocess.check_output(
+                        ['/usr/bin/curl', '-ksS', '--max-time', '8', service],
+                        stderr=subprocess.DEVNULL,
+                    ).decode('utf-8').strip()
+                    if valid_ip(result):
+                        result_address = result
+                        break
+                except (OSError, subprocess.SubprocessError, UnicodeError):
+                    continue
+    finally:
+        with EXTERNAL_IP_LOCK:
+            external_ip_address = result_address
+            last_ip_check_time = now()
+            external_ip_refresh_thread = None
+
+
 def get_external_ip():
-    """Return the externally visible IP address for this system."""
+    """Return the cached external IP and refresh stale data in the background."""
 
-    global last_ip_check_time, external_ip_address
-
-    check_time = 30 # refresh 30 seconds
+    global external_ip_refresh_thread
 
     with EXTERNAL_IP_LOCK:
-        if now() - last_ip_check_time > check_time:
-            last_ip_check_time = now()
-            external_ip_address = '-'
-            if net_connect():
-                for service in EXTERNAL_IP_SERVICES:
-                    try:
-                        result = subprocess.check_output(
-                            ['/usr/bin/curl', '-ksS', '--max-time', '8', service],
-                            stderr=subprocess.DEVNULL,
-                        ).decode('utf-8').strip()
-                        if valid_ip(result):
-                            external_ip_address = result
-                            break
-                    except (OSError, subprocess.SubprocessError, UnicodeError):
-                        continue
+        if (now() - last_ip_check_time > 30 and
+                external_ip_refresh_thread is None):
+            external_ip_refresh_thread = Thread(
+                target=_refresh_external_ip,
+                name='ExternalIPRefresh',
+            )
+            external_ip_refresh_thread.daemon = True
+            try:
+                external_ip_refresh_thread.start()
+            except RuntimeError:
+                external_ip_refresh_thread = None
+        result = external_ip_address
 
-    if valid_ip(external_ip_address):
-        return '{}'.format(external_ip_address)
-    else:
-        return '-'
+    return '{}'.format(result) if valid_ip(result) else '-'
+
+
+def external_ip_refresh_pending():
+    with EXTERNAL_IP_LOCK:
+        return external_ip_refresh_thread is not None
 
 
 ########################

@@ -1131,7 +1131,12 @@ class sensor_page(ProtectedPage):
                 if 'reg_min' in qdict:
                     sensor.reg_min = qdict['reg_min']
                 if 'reg_output' in qdict:
-                    sensor.reg_output = qdict['reg_output']
+                    try:
+                        reg_output = int(qdict['reg_output'])
+                        if 0 <= reg_output < options.output_count:
+                            sensor.reg_output = reg_output
+                    except (TypeError, ValueError):
+                        pass
                 if 'trigger_low_threshold_s' in qdict:
                     sensor.trigger_low_threshold = qdict['trigger_low_threshold_s']
                 if 'trigger_high_threshold_s' in qdict:
@@ -2990,7 +2995,7 @@ def _newest_file(paths):
 def _system_health_data():
     """Build a lightweight operational overview without active hardware tests."""
     from glob import glob
-    from ospy.helpers import get_external_ip
+    from ospy.helpers import get_external_ip, external_ip_refresh_pending
 
     now_ts = time.time()
     beats = health.snapshot()
@@ -3260,11 +3265,18 @@ def _system_health_data():
     ))
 
     external_ip = get_external_ip()
-    internet_status = 'ok' if external_ip != '-' else 'error'
+    ip_refresh_pending = external_ip == '-' and external_ip_refresh_pending()
+    internet_status = (
+        'ok' if external_ip != '-' else
+        'warning' if ip_refresh_pending else
+        'error'
+    )
     items.append(_health_item(
         'internet', _('Internet'), internet_status,
         _('Internet connectivity is available.')
-        if internet_status == 'ok' else _('Internet connectivity is not available.'),
+        if internet_status == 'ok' else
+        _('Checking...') if ip_refresh_pending else
+        _('Internet connectivity is not available.'),
         _('External IP address') + ': ' + external_ip
     ))
 

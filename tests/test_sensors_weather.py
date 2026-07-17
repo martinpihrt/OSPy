@@ -154,6 +154,26 @@ class SensorStateTests(unittest.TestCase):
         self.assertEqual(sensor.last_response, 500)
         self.assertEqual(sensor.last_read_value[0], 21.5)
 
+    def test_legacy_regulation_output_is_normalized_to_integer(self):
+        collection = SimpleNamespace(get=lambda: [])
+        options_type = type(sensors_module.options)
+        with mock.patch.object(options_type, "load"), \
+                mock.patch.object(options_type, "save"):
+            sensor = sensors_module._Sensor(collection, 0)
+            sensor.reg_output = "2"
+
+        self.assertEqual(sensor.reg_output, 2)
+        self.assertIsInstance(sensor.reg_output, int)
+        self.assertEqual(sensors_module._normalize_reg_output("invalid", 8), 0)
+        self.assertEqual(sensors_module._normalize_reg_output("99", 8), 0)
+
+    def test_numeric_legacy_regulation_output_is_accepted_for_migration(self):
+        compatible = sensors_module.options._compatible_value
+
+        self.assertTrue(compatible(0, "2", "reg_output"))
+        self.assertTrue(compatible(0, 2, "reg_output"))
+        self.assertFalse(compatible(0, "invalid", "reg_output"))
+
 
 class Response(object):
     def __init__(self, value):

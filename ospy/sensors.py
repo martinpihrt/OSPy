@@ -22,6 +22,16 @@ from ospy.stations import stations
 from ospy.scheduler import predicted_schedule, combined_schedule
 
 ### Sensors ###
+def _normalize_reg_output(value, output_count):
+    try:
+        result = int(value)
+        if 0 <= result < output_count:
+            return result
+    except (TypeError, ValueError):
+        pass
+    return 0
+
+
 class _Sensor(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_sensors']
 
@@ -145,7 +155,7 @@ class _Sensor(object):
         self.s_trigger_high_program = ["-1"]      # close Program
         self.s_trigger_low_threshold = "10"       # low threshold
         self.s_trigger_high_threshold = "30"      # high threshold
-        options.load(self, index) 
+        options.load(self, index)
 
     @property
     def index(self):
@@ -156,6 +166,9 @@ class _Sensor(object):
 
     def __setattr__(self, key, value):
         try:
+            if key == 'reg_output':
+                value = _normalize_reg_output(value, options.output_count)
+
             # Do not perform any additional logic during object initialization.
             if not hasattr(self, "SAVE_EXCLUDE"):
                 super().__setattr__(key, value)

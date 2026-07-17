@@ -448,11 +448,11 @@ $if sensors.count()>0:
                 <p>$_('Maximum run time in activate'): <span class="val">${two_digits(sensor.reg_mm) + ":" + two_digits(sensor.reg_ss)} ($_('mm:ss'))</span></p>
                 <p>$_('Minimum maintained water level'): <span class="val">${sensor.reg_min} $_('cm')</span></p>
                 <p>$_('Select Output for regulation'): <span class="val">
-                $if "-1" in sensor.reg_output:
+                $if int(sensor.reg_output) < 0:
                     $_('None')
-                $if "-1" not in sensor.reg_output:
+                $else:
                     $for station in [station for station in stations if station.enabled]:
-                        $if str(station.index) in sensor.reg_output:
+                        $if station.index == int(sensor.reg_output):
                             ${station.name} ($_('Output') ${str(station.index+1)})
                 </span></p>
 

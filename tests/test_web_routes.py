@@ -10,6 +10,7 @@ from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolati
 from ospy import i18n  # noqa: F401 - installs gettext
 from ospy import helpers
 from ospy import server
+from ospy import sensors as sensors_module
 from ospy import webpages
 from ospy.helpers import template_globals
 from ospy.urls import urls
@@ -96,6 +97,23 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 response = self.app.request(path)
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
+
+    def test_sensors_page_renders_numeric_regulation_output(self):
+        sensor_collection = SimpleNamespace(get=lambda: [])
+        options_type = type(sensors_module.options)
+        with mock.patch.object(options_type, "load"), \
+                mock.patch.object(options_type, "save"):
+            sensor = sensors_module._Sensor(sensor_collection, 0)
+        object.__setattr__(sensor, "enabled", True)
+        object.__setattr__(sensor, "sens_type", 6)
+        object.__setattr__(sensor, "multi_type", 8)
+        object.__setattr__(sensor, "reg_output", 0)
+
+        with mock.patch.object(webpages.sensors, "get", return_value=[sensor]):
+            response = self.app.request("/sensors")
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertIn(b"<!doctype html>", response.data)
 
     def test_anonymous_user_is_redirected_to_login(self):
         self.session["validated"] = False
