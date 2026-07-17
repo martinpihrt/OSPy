@@ -16,7 +16,8 @@ import json
 import datetime
 import time
 import math
-from threading import Thread, Lock
+import os
+from threading import Event, Thread, Lock, current_thread
 
 from ospy.options import options
 from ospy.health import heartbeat, update_details
@@ -85,7 +86,9 @@ class _Weather(Thread):
         options.add_callback('weather_lon', self._option_cb)            # from home page weather status (longtitude)
 
         self._sleep_time = 0
-        self.start()
+        self._stop_event = Event()
+        if os.environ.get('OSPY_DISABLE_BACKGROUND_THREADS') != '1':
+            self.start()
 
     def _option_cb(self, key, old, new):
         self._determine_location = True
@@ -102,16 +105,34 @@ class _Weather(Thread):
     def update(self):
         self._sleep_time = 0
 
+    def request_stop(self):
+        """Ask the weather worker to finish promptly."""
+        self._stop_event.set()
+        self.update()
+
+    def wait_stopped(self, timeout=5.0):
+        if self.is_alive() and self is not current_thread():
+            self.join(max(0.0, float(timeout)))
+        return not self.is_alive()
+
     def _sleep(self, secs):
+        if not hasattr(self, '_stop_event'):
+            self._stop_event = Event()
         self._sleep_time = secs
-        while self._sleep_time > 0:
-            time.sleep(1)
-            self._sleep_time -= 1
+        while self._sleep_time > 0 and not self._stop_event.is_set():
+            wait_time = min(1, self._sleep_time)
+            if self._stop_event.wait(wait_time):
+                break
+            self._sleep_time -= wait_time
+        return not self._stop_event.is_set()
 
     def run(self):
+        if not hasattr(self, '_stop_event'):
+            self._stop_event = Event()
         update_details('weather', thread_name=self.name or self.__class__.__name__)
-        time.sleep(5)  # Some delay to allow internet to initialize
-        while True:
+        if self._stop_event.wait(5):  # Some delay to allow internet to initialize
+            return
+        while not self._stop_event.is_set():
             try:
                 if self._determine_location:
                     self._find_location()

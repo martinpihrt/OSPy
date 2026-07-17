@@ -270,6 +270,9 @@ class WeatherRecoveryTests(unittest.TestCase):
 
         instance = self.weather()
         Thread.__init__(instance)
+        instance._stop_event = mock.Mock()
+        instance._stop_event.is_set.return_value = False
+        instance._stop_event.wait.return_value = False
         options = self.options()
         instance._sleep = mock.Mock(side_effect=[None, StopLoop()])
 

@@ -3,7 +3,7 @@
 __author__ = 'Martin Pihrt'
 
 # System imports
-from threading import Thread, Timer
+from threading import Event, Thread, Timer, current_thread
 from ospy.health import heartbeat, update_details
 import traceback
 import traceback
@@ -253,6 +253,7 @@ class _Sensors_Timer(Thread):
         super(_Sensors_Timer, self).__init__()
         self.status = []
         self._sleep_time = 0
+        self._stop_event = Event()
         self.daemon = True
     
     def start_status(self, name, msg, btn):
@@ -281,11 +282,26 @@ class _Sensors_Timer(Thread):
     def update(self):
         self._sleep_time = 0
 
+    def request_stop(self):
+        """Ask the sensor polling loop to finish promptly."""
+        self._stop_event.set()
+        self.update()
+
+    def wait_stopped(self, timeout=5.0):
+        if self.is_alive() and self is not current_thread():
+            self.join(max(0.0, float(timeout)))
+        return not self.is_alive()
+
     def _sleep(self, secs):
+        if not hasattr(self, '_stop_event'):
+            self._stop_event = Event()
         self._sleep_time = secs
-        while self._sleep_time > 0:
-            time.sleep(1)
-            self._sleep_time -= 1
+        while self._sleep_time > 0 and not self._stop_event.is_set():
+            wait_time = min(1, self._sleep_time)
+            if self._stop_event.wait(wait_time):
+                break
+            self._sleep_time -= wait_time
+        return not self._stop_event.is_set()
 
     def _try_send_mail(self, text, logtext, attachment=None, subject=None, eplug=0):
         try:
@@ -1918,9 +1934,12 @@ class _Sensors_Timer(Thread):
 
 
     def run(self):
+        if not hasattr(self, '_stop_event'):
+            self._stop_event = Event()
         update_details('sensors', thread_name=self.name or self.__class__.__name__)
-        self._sleep(2)
-        while True:
+        if not self._sleep(2):
+            return
+        while not self._stop_event.is_set():
             try:
                 self.check_shellys()
                 self.check_sensors()
@@ -1938,6 +1957,6 @@ class _Sensors_Timer(Thread):
                 heartbeat('sensors', ok=False, message=error)
                 log.debug('sensors.py', _('Sensors timer loop error: {}').format(error))
                 pass
-                self._sleep(5)  
+                self._sleep(5)
 
 sensors_timer = _Sensors_Timer()

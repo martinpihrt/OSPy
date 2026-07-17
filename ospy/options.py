@@ -692,6 +692,14 @@ class _Options(object):
         if self._write_timer is not None:
             self._write_timer.cancel()
 
+    def flush(self):
+        """Persist pending option changes synchronously during shutdown."""
+        with self._lock:
+            if self._write_timer is not None:
+                self._write_timer.cancel()
+                self._write_timer = None
+        self._write()
+
     def add_callback(self, key, function):
         if key not in self._callbacks:
             self._callbacks[key] = {

@@ -10,6 +10,7 @@ import os
 import glob
 import traceback
 import subprocess
+import time as time_module
 from threading import Timer, Lock
 from blinker import signal
 
@@ -52,6 +53,10 @@ sessions = None
 statistics_timer = None
 statistics_lock = Lock()
 sessions_lock = Lock()
+shutdown_lock = Lock()
+_stopping = False
+CORE_STOP_TIMEOUT = 5.0
+PLUGIN_STOP_TIMEOUT = 10.0
 
 
 def _new_stats():
@@ -382,22 +387,129 @@ def reset_session_store(remove_files=False):
             session.store = web.session.ShelfStore(sessions)
         log.info('server.py', _('Session database has been reset.'))
    
+def _safe_stop_outputs():
+    """Clear scheduled runs and force every physical output to its safe state."""
+    try:
+        from ospy.programs import programs
+        programs.run_now_program = None
+    except Exception:
+        log.error('server.py', traceback.format_exc())
+    try:
+        from ospy.runonce import run_once
+        run_once.clear()
+    except Exception:
+        log.error('server.py', traceback.format_exc())
+    try:
+        from ospy.log import log as run_log
+        run_log.finish_run(None)
+    except Exception:
+        log.error('server.py', traceback.format_exc())
+    try:
+        from ospy.stations import stations
+        stations.clear()
+    except Exception:
+        log.error('server.py', traceback.format_exc())
+    try:
+        from ospy.outputs import outputs
+        outputs.relay_output = False
+    except Exception:
+        log.error('server.py', traceback.format_exc())
+
+
+def _core_workers():
+    from ospy.weather import weather
+    return (scheduler, sensors_timer, weather, plugins.checker)
+
+
+def _request_core_stop():
+    for worker in _core_workers():
+        try:
+            worker.request_stop()
+        except Exception:
+            log.error('server.py', traceback.format_exc())
+
+
+def _wait_for_core_stop(timeout=CORE_STOP_TIMEOUT):
+    deadline = time_module.time() + max(0.0, float(timeout))
+    failed = []
+    for worker in _core_workers():
+        try:
+            remaining = max(0.0, deadline - time_module.time())
+            if not worker.wait_stopped(remaining):
+                failed.append(worker.name or worker.__class__.__name__)
+        except Exception:
+            failed.append(getattr(worker, 'name', worker.__class__.__name__))
+            log.error('server.py', traceback.format_exc())
+    return failed
+
+
 def stop():
     global __server
     global statistics_timer
-    if statistics_timer is not None:
-        statistics_timer.cancel()
-        statistics_timer = None
+    global _stopping
+
+    with shutdown_lock:
+        if _stopping:
+            return
+        _stopping = True
+
     try:
-        from ospy import webpages
-        webpages.stop_diagnostics_history()
-    except Exception:
-        log.debug('server.py', traceback.format_exc())
-    if __server is not None:
-        logEV.save_events_log(_('Server'), _('Stopping'), id='Server', level='info', category='system')
-        __server.stop()
-        __server = None
+        if statistics_timer is not None:
+            statistics_timer.cancel()
+            statistics_timer = None
+
+        try:
+            from ospy import webpages
+            webpages.stop_diagnostics_history()
+        except Exception:
+            log.debug('server.py', traceback.format_exc())
+
+        # Stop accepting web work before shutting down its dependencies.
+        if __server is not None:
+            logEV.save_events_log(_('Server'), _('Stopping'), id='Server', level='info', category='system')
+            try:
+                __server.stop()
+            except Exception:
+                log.error('server.py', traceback.format_exc())
+            __server = None
+
+        # Signal all core loops together, then make outputs safe immediately.
+        _request_core_stop()
+        _safe_stop_outputs()
+
+        try:
+            failed_plugins = plugins.stop_all_plugins(PLUGIN_STOP_TIMEOUT)
+            if failed_plugins:
+                log.error(
+                    'server.py',
+                    _('Plug-in threads did not stop in time') + ': ' +
+                    ', '.join(failed_plugins)
+                )
+        except Exception:
+            log.error('server.py', traceback.format_exc())
+
+        # A plug-in stop function may have touched an output; enforce the safe
+        # state once more after all plug-in callbacks have returned.
+        _safe_stop_outputs()
+        failed_workers = _wait_for_core_stop(CORE_STOP_TIMEOUT)
+        if failed_workers:
+            log.error(
+                'server.py',
+                _('Background threads did not stop in time') + ': ' +
+                ', '.join(failed_workers)
+            )
+        _safe_stop_outputs()
+
+        try:
+            options.flush()
+        except Exception:
+            log.error('server.py', traceback.format_exc())
         close_sessions()
+    finally:
+        # Keep stop idempotent for the lifetime of this process. Core Thread
+        # instances cannot be started for a second time; restart creates a new
+        # process through helpers.restart().
+        _stopping = True
 
 
 def flush_statistics_queue():

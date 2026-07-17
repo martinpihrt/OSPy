@@ -5,7 +5,7 @@ __author__ = 'Rimco'
 from blinker import signal
 
 # System imports
-from threading import Thread
+from threading import Event, Thread, current_thread
 import datetime
 import time
 import time as time_
@@ -409,6 +409,7 @@ class _Scheduler(Thread):
     def __init__(self):
         super(_Scheduler, self).__init__()
         self.daemon = True
+        self._stop_event = Event()
         self._reported_blocked = {}
         #options.add_callback('scheduler_enabled', self._option_cb)
         options.add_callback('manual_mode', self._option_cb)
@@ -430,8 +431,22 @@ class _Scheduler(Thread):
         if key == 'master_relay' and not new and outputs.relay_output:
             outputs.relay_output = False
 
+    def request_stop(self):
+        """Ask the scheduler loop to finish without blocking the caller."""
+        self._stop_event.set()
+
+    def wait_stopped(self, timeout=5.0):
+        """Wait for a previously requested shutdown for a bounded time."""
+        if self.is_alive() and self is not current_thread():
+            self.join(max(0.0, float(timeout)))
+        return not self.is_alive()
+
     def run(self):
         global pom_last_30s_tick
+
+        # Keep manually constructed test/legacy instances compatible.
+        if not hasattr(self, '_stop_event'):
+            self._stop_event = Event()
 
         update_details('scheduler', thread_name=self.name or self.__class__.__name__)
         current_time = datetime.datetime.now()
@@ -445,7 +460,7 @@ class _Scheduler(Thread):
             if entry['end'] > current_time and (not rain or ignore_rain) and not entry['blocked']:
                 stations.activate(entry['station'])
 
-        while True:
+        while not self._stop_event.is_set():
             try:
                 self._check_schedule()
                 heartbeat('scheduler', enabled=options.scheduler_enabled,
@@ -461,7 +476,7 @@ class _Scheduler(Thread):
                 error = traceback.format_exc()
                 heartbeat('scheduler', ok=False, message=error)
                 logging.warning('Scheduler error:\n' + error)
-            time.sleep(1)
+            self._stop_event.wait(1)
 
     @staticmethod
     def _check_schedule():

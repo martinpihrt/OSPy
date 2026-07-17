@@ -557,6 +557,7 @@ class _PluginChecker(threading.Thread):
         super(_PluginChecker, self).__init__()
         self.daemon = True
         self._sleep_time = 0
+        self._stop_event = threading.Event()
         self._lock = threading.RLock()
 
         self._repo_data = {}
@@ -569,18 +570,31 @@ class _PluginChecker(threading.Thread):
     def update(self):
         self._sleep_time = 10
 
+    def request_stop(self):
+        """Ask the repository checker to stop without waiting for it."""
+        self._stop_event.set()
+        self.update()
+
+    def wait_stopped(self, timeout=5.0):
+        if self.is_alive() and self is not threading.current_thread():
+            self.join(max(0.0, float(timeout)))
+        return not self.is_alive()
+
     def _sleep(self, secs):
         import time
         self._sleep_time = secs
-        while self._sleep_time > 0:
-            time.sleep(1)
-            self._sleep_time -= 1
+        while self._sleep_time > 0 and not self._stop_event.is_set():
+            wait_time = min(1, self._sleep_time)
+            if self._stop_event.wait(wait_time):
+                break
+            self._sleep_time -= wait_time
+        return not self._stop_event.is_set()
 
     def run(self):
         from ospy.options import options
         from ospy.log import log
         import logging
-        while True:
+        while not self._stop_event.is_set():
             try:
                 if options.use_plugin_update:
                     self.refresh(install_updates=options.auto_plugin_update and not log.active_runs())
@@ -1855,7 +1869,7 @@ def _get_urls(import_name, plugin):
 ################################################################################
 # Plugin start/stop                                                            #
 ################################################################################
-def stop_plugin(module):
+def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     from ospy.options import options
     import logging
 
@@ -1867,7 +1881,7 @@ def stop_plugin(module):
         runtime = entry.get('runtime')
         if runtime is not None:
             runtime.request_stop()
-        stop_deadline = time.time() + PLUGIN_THREAD_STOP_TIMEOUT
+        stop_deadline = time.time() + max(0.0, float(timeout))
         stop_result = {'error': ''}
 
         def call_plugin_stop():
@@ -1951,6 +1965,8 @@ def stop_plugin(module):
 
     if module not in options.enabled_plugins and not alive_threads:
         _protect(module)
+
+    return not alive_threads
 
 
 def start_plugin(module):
@@ -2054,6 +2070,27 @@ def start_enabled_plugins():
     for module in list(__running.keys()):
         if module not in options.enabled_plugins:
             stop_plugin(module)
+
+
+def stop_all_plugins(timeout=10.0):
+    """Stop every running plug-in within one shared shutdown window."""
+    modules = list(running())
+    deadline = time.time() + max(0.0, float(timeout))
+
+    # Signal all cooperative workers first so they can stop concurrently while
+    # plug-in stop() functions are called in their established order.
+    for module in modules:
+        entry = _runtime_entry(module)
+        runtime = entry.get('runtime')
+        if runtime is not None:
+            runtime.request_stop()
+
+    failed = []
+    for module in modules:
+        remaining = max(0.0, deadline - time.time())
+        if not stop_plugin(module, timeout=remaining):
+            failed.append(module)
+    return failed
 
 
 def running():
