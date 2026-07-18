@@ -343,6 +343,12 @@ Raspberry Pi CPU usage. Usage is shown in %.
 Link to the project software repository and the revision number of the installed software.
 Stable builds checked out from `master` use the numeric version, for example `3.0.238`. Test builds checked out from `beta` show the same revision with the `-beta` suffix, for example `3.0.238-beta`. Promoting that commit to `master` removes the suffix without changing the revision number.
 
+### Safe update and automatic rollback
+
+Before every update, the System Update plug-in first saves the settings and creates a verified safety backup. It then starts an external watchdog before changing any Git-tracked files. On systemd installations, the watchdog runs in a separate transient service and remains active while OSPy restarts. A detached helper process is used without systemd.
+
+The new OSPy process confirms a successful update only after the scheduler records a fresh heartbeat and the web interface starts accepting connections. If a healthy start is not confirmed within 120 seconds, the watchdog automatically restores the previous commit and original branch and restarts OSPy. If the watchdog cannot be started, the update stops before tracked files are changed. The watchdog result is also available in Diagnostics as part of the System Update plug-in health information.
+
 ## External IP
 External IP address for the OSPy system (address of your connection provider - router). Tested via pihrt.com.
 

@@ -332,6 +332,12 @@ Korzystanie z procesora Raspberry pi. Użycie jest pokazane w %.
 Link do repozytorium oprogramowania projektu i numer wersji zainstalowanego oprogramowania.
 Stabilne kompilacje z gałęzi `master` używają wersji liczbowej, na przykład `3.0.238`. Kompilacje testowe z gałęzi `beta` pokazują tę samą rewizję z przyrostkiem `-beta`, na przykład `3.0.238-beta`. Przeniesienie tego samego commitu do `master` usuwa przyrostek bez zmiany numeru rewizji.
 
+### Bezpieczna aktualizacja i automatyczne przywracanie
+
+Przed każdą aktualizacją wtyczka System Update najpierw zapisuje ustawienia i tworzy zweryfikowaną kopię bezpieczeństwa. Następnie, jeszcze przed zmianą plików śledzonych przez Git, uruchamia zewnętrzny watchdog. W instalacjach z systemd watchdog działa jako oddzielna usługa tymczasowa i pozostaje aktywny podczas ponownego uruchamiania OSPy. Bez systemd używany jest odłączony proces pomocniczy.
+
+Nowy proces OSPy potwierdza udaną aktualizację dopiero po zapisaniu świeżego sygnału heartbeat harmonogramu i rozpoczęciu przyjmowania połączeń przez interfejs WWW. Jeśli prawidłowy start nie zostanie potwierdzony w ciągu 120 sekund, watchdog automatycznie przywraca poprzedni commit i pierwotną gałąź oraz ponownie uruchamia OSPy. Jeśli watchdoga nie można uruchomić, aktualizacja kończy się przed zmianą śledzonych plików. Wynik działania watchdoga jest również dostępny w Diagnostyce w stanie wtyczki System Update.
+
 ## Zewnętrzny adres IP
 Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - routera). Testowane na pihrt.com.
 

@@ -2,6 +2,9 @@ import importlib.util
 import os
 from pathlib import Path
 import sys
+import tempfile
+import json
+import time
 from threading import Event
 import unittest
 from unittest import mock
@@ -158,12 +161,15 @@ class SystemUpdateChannelTests(unittest.TestCase):
 
         def git_value(command, timeout=30):
             if command == ["git", "rev-parse", "HEAD"]:
-                return "local-hash"
-            return "remote-hash"
+                return "a" * 40
+            if command == ["git", "rev-parse", "--verify", "origin/beta"]:
+                return "b" * 40
+            return "b" * 40
 
         with mock.patch("ospy.backup.create_system_backup", return_value="safety.zip") as create, \
                 mock.patch.object(self.module, "run_required_command", side_effect=record), \
                 mock.patch.object(self.module, "git_output", side_effect=git_value), \
+                mock.patch.object(self.module, "arm_update_watchdog", return_value={"token": "token"}) as arm, \
                 mock.patch.object(self.module, "Thread", _NoStartThread), \
                 mock.patch.object(self.module, "open", mock.mock_open()), \
                 mock.patch.object(type(core_options), "save_now") as save_now:
@@ -171,6 +177,11 @@ class SystemUpdateChannelTests(unittest.TestCase):
 
         save_now.assert_called_once_with()
         create.assert_called_once_with(reason="before system update")
+        arm.assert_called_once_with("a" * 40, "b" * 40)
+        self.assertLess(
+            required.index(["git", "fetch", "--prune", "origin"]),
+            required.index(["git", "checkout", "-B", "beta", "origin/beta"]),
+        )
         self.assertIn(["git", "checkout", "-B", "beta", "origin/beta"], required)
         self.assertIn(["git", "reset", "--hard", "origin/beta"], required)
         self.assertTrue(result)
@@ -182,6 +193,158 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn('value="beta"', template)
         self.assertIn('(beta)', template)
         self.assertIn("default", template)
+
+    def test_failed_update_restores_previous_commit_and_cancels_watchdog(self):
+        previous = "a" * 40
+        target = "b" * 40
+        commands = []
+
+        def required(command, timeout=60):
+            commands.append(command)
+            if command[:3] == ["git", "checkout", "-B"]:
+                raise RuntimeError("checkout failed")
+            return ""
+
+        def git_value(command, timeout=30):
+            if command == ["git", "rev-parse", "HEAD"]:
+                return previous
+            if command == ["git", "rev-parse", "--verify", "origin/master"]:
+                return target
+            return target
+
+        watchdog = {"token": "secret"}
+        with mock.patch("ospy.backup.create_system_backup", return_value="safety.zip"), \
+                mock.patch.object(self.module, "run_required_command", side_effect=required), \
+                mock.patch.object(self.module, "git_output", side_effect=git_value), \
+                mock.patch.object(self.module, "arm_update_watchdog", return_value=watchdog), \
+                mock.patch.object(self.module, "cancel_update_watchdog") as cancel, \
+                mock.patch.object(self.module.log, "error"), \
+                mock.patch.object(self.module, "open", mock.mock_open()), \
+                mock.patch.object(type(core_options), "save_now"):
+            result = self.module.perform_update()
+
+        self.assertIsInstance(result, str)
+        self.assertTrue(result)
+        self.assertIn(["git", "reset", "--hard", previous], commands)
+        cancel.assert_called_once_with(watchdog, status="update_failed")
+
+    def test_new_process_confirms_only_after_fresh_scheduler_heartbeat(self):
+        target = "b" * 40
+        created = time.time() - 5
+        state = {
+            "token": "secret",
+            "target_commit": target,
+            "created": created,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            state_path = Path(directory) / "state.json"
+            ack_path = Path(directory) / "ack.json"
+            self.module.WATCHDOG_STATE_FILE = str(state_path)
+            self.module.WATCHDOG_ACK_FILE = str(ack_path)
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+            with mock.patch.object(self.module, "git_output", return_value=target), \
+                    mock.patch("ospy.health.component", return_value={"last_success": created - 1}):
+                self.assertFalse(self.module.acknowledge_update_watchdog())
+            self.assertFalse(ack_path.exists())
+
+            with mock.patch.object(self.module, "git_output", return_value=target), \
+                    mock.patch("ospy.health.component", return_value={"last_success": created + 1}), \
+                    mock.patch.object(
+                        self.module.socket, "create_connection", side_effect=OSError("not listening")
+                    ):
+                self.assertFalse(self.module.acknowledge_update_watchdog())
+            self.assertFalse(ack_path.exists())
+
+            with mock.patch.object(self.module, "git_output", return_value=target), \
+                    mock.patch("ospy.health.component", return_value={"last_success": created + 1}), \
+                    mock.patch.object(self.module.socket, "create_connection") as connect:
+                self.assertTrue(self.module.acknowledge_update_watchdog())
+            connect.return_value.close.assert_called_once_with()
+            acknowledgement = json.loads(ack_path.read_text(encoding="utf-8"))
+            self.assertEqual(acknowledgement["token"], "secret")
+            self.assertEqual(acknowledgement["commit"], target)
+
+
+class SystemUpdateWatchdogProcessTests(unittest.TestCase):
+    def setUp(self):
+        plugin = _system_update_path()
+        if plugin is None:
+            raise unittest.SkipTest("System Update plug-in source is not available")
+        helper_path = plugin.parent / "update_watchdog.py"
+        spec = importlib.util.spec_from_file_location("_ospy_test_update_watchdog", str(helper_path))
+        self.helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.helper)
+
+    def _write_state(self, directory, deadline):
+        state_path = Path(directory) / "state.json"
+        ack_path = Path(directory) / "ack.json"
+        result_path = Path(directory) / "result.json"
+        repository = Path(directory) / "repository"
+        (repository / ".git").mkdir(parents=True)
+        state = {
+            "token": "secret",
+            "repository": str(repository),
+            "previous_commit": "a" * 40,
+            "previous_branch": "beta",
+            "target_commit": "b" * 40,
+            "deadline": deadline,
+            "acknowledgement": str(ack_path),
+            "result": str(result_path),
+        }
+        state_path.write_text(json.dumps(state), encoding="utf-8")
+        return state_path, ack_path, result_path, state
+
+    def test_acknowledgement_prevents_rollback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state_path, ack_path, result_path, state = self._write_state(
+                directory, time.time() + 10
+            )
+            ack_path.write_text(
+                json.dumps({"token": "secret", "status": "confirmed"}),
+                encoding="utf-8",
+            )
+            with mock.patch.object(self.helper.subprocess, "run") as run:
+                result = self.helper.monitor(str(state_path), "secret")
+
+            self.assertEqual(result, 0)
+            run.assert_not_called()
+            self.assertFalse(state_path.exists())
+            saved = json.loads(result_path.read_text(encoding="utf-8"))
+            self.assertEqual(saved["status"], "confirmed")
+
+    def test_timeout_rolls_back_and_restarts_service(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state_path, _ack_path, result_path, state = self._write_state(
+                directory, time.time() - 1
+            )
+            completed = mock.Mock(returncode=0)
+            with mock.patch.object(self.helper.subprocess, "run", return_value=completed) as run, \
+                    mock.patch.object(self.helper, "_restart_ospy") as restart:
+                result = self.helper.monitor(str(state_path), "secret")
+
+            self.assertEqual(result, 0)
+            self.assertEqual(
+                run.call_args_list[0].args[0],
+                ["git", "-C", state["repository"], "reset", "--hard", "a" * 40],
+            )
+            self.assertEqual(
+                run.call_args_list[1].args[0],
+                ["git", "-C", state["repository"], "checkout", "-B", "beta", "a" * 40],
+            )
+            restart.assert_called_once_with(state)
+            saved = json.loads(result_path.read_text(encoding="utf-8"))
+            self.assertEqual(saved["status"], "rolled_back")
+            self.assertFalse(state_path.exists())
+
+    def test_wrong_token_is_rejected_without_git_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state_path, _ack_path, _result_path, _state = self._write_state(
+                directory, time.time() - 1
+            )
+            with mock.patch.object(self.helper.subprocess, "run") as run:
+                result = self.helper.monitor(str(state_path), "wrong")
+            self.assertEqual(result, 2)
+            run.assert_not_called()
 
 
 if __name__ == "__main__":

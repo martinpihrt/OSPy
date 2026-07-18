@@ -343,6 +343,12 @@ Využitie procesora Raspberry pri. Využitie je zobrazené v %.
 Odkaz na úložisko softvéru projektu a číslo revízie nainštalovaného softvéru.
 Stabilné zostavenie z vetvy `master` používa číselnú verziu, napríklad `3.0.238`. Testovacie zostavenie z vetvy `beta` zobrazuje rovnakú revíziu s príponou `-beta`, napríklad `3.0.238-beta`. Po presune rovnakého commitu do `master` prípona zmizne, ale číslo revízie sa nezmení.
 
+### Bezpečná aktualizácia a automatický návrat
+
+Pred každou aktualizáciou doplnok System Update najprv uloží nastavenia a vytvorí overenú bezpečnostnú zálohu. Potom, ešte pred zmenou súborov sledovaných systémom Git, spustí externý watchdog. Na inštaláciách so systemd beží watchdog v samostatnej dočasnej službe a zostáva aktívny aj počas reštartu OSPy. Bez systemd sa použije oddelený pomocný proces.
+
+Nový proces OSPy potvrdí úspešnú aktualizáciu až vtedy, keď plánovač zaznamená novú odozvu heartbeat a webové rozhranie začne prijímať spojenia. Ak sa zdravé spustenie nepotvrdí do 120 sekúnd, watchdog automaticky vráti predchádzajúci commit aj pôvodnú vetvu a znova spustí OSPy. Ak watchdog nemožno spustiť, aktualizácia sa zastaví skôr, než sa zmenia sledované súbory. Výsledok watchdogu je dostupný aj v Diagnostike v stave doplnku System Update.
+
 ## Externá IP adresa
 Externá IP adresa pre systém OSPy (adresa vášho poskytovateľa pripojenia - routera). Testované prostredníctvom služby pihrt.com.
 

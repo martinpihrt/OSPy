@@ -343,6 +343,12 @@ Verwendung des Raspberry Pi-Prozessors. Der Verbrauch wird in % angezeigt.
 Link zum Software-Repository des Projekts und zur Revisionsnummer der installierten Software.
 Stabile Builds aus `master` verwenden die numerische Version, zum Beispiel `3.0.238`. Test-Builds aus `beta` zeigen dieselbe Revision mit dem Suffix `-beta`, zum Beispiel `3.0.238-beta`. Beim Übernehmen desselben Commits nach `master` verschwindet das Suffix, ohne dass sich die Revisionsnummer ändert.
 
+### Sichere Aktualisierung und automatische Wiederherstellung
+
+Vor jeder Aktualisierung speichert das Plug-in System Update zuerst die Einstellungen und erstellt eine geprüfte Sicherheitskopie. Anschließend startet es einen externen Watchdog, noch bevor von Git überwachte Dateien geändert werden. Auf systemd-Installationen läuft der Watchdog in einem getrennten temporären Dienst und bleibt während des OSPy-Neustarts aktiv. Ohne systemd wird ein abgetrennter Hilfsprozess verwendet.
+
+Der neue OSPy-Prozess bestätigt die erfolgreiche Aktualisierung erst, nachdem der Scheduler einen neuen Heartbeat aufgezeichnet hat und die Weboberfläche Verbindungen annimmt. Wird ein fehlerfreier Start nicht innerhalb von 120 Sekunden bestätigt, stellt der Watchdog automatisch den vorherigen Commit und den ursprünglichen Zweig wieder her und startet OSPy neu. Kann der Watchdog nicht gestartet werden, wird die Aktualisierung beendet, bevor überwachte Dateien geändert werden. Das Ergebnis des Watchdogs ist außerdem in der Diagnose beim Zustand des Plug-ins System Update verfügbar.
+
 ## Externe IP
 Externe IP-Adresse für das OSPy-System (Adresse Ihres Verbindungsanbieters – Router). Getestet über pihrt.com.
 
