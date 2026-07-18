@@ -46,9 +46,10 @@ The suite checks:
   records;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable.
-* system backup manifests, checksums, permitted content, legacy archive staging,
-  rejection of tampered, undeclared, duplicate and traversal entries, atomic
-  restoration and recovery of the previous data after a failed swap;
+* system backup manifests, checksums, permitted content, exclusion of active web
+  sessions, legacy archive staging, rejection of tampered, undeclared, duplicate
+  and traversal entries, invalidation of the restore request session before
+  shutdown, atomic restoration and recovery of the previous data after a failed swap;
 * System Update channel selection, including stable `master` as the default,
   fixed `beta` selection, repository checks against the selected branch and a
   required safety backup before an update installs the selected branch;

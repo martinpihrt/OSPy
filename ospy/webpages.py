@@ -4017,6 +4017,11 @@ class upload_page(ProtectedPage):
 
                 report_restarted()
                 stations.clear()
+                # The current request would otherwise try to save itself into
+                # the session shelf after server.stop() has closed that shelf.
+                # Restoring a system backup intentionally signs the browser
+                # out and lets the restarted process create a fresh session.
+                server.session.kill()
                 server.stop()
                 restore_started = True
                 system_backup.apply_staged_restore(staging)

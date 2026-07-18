@@ -1,3 +1,5 @@
+import hashlib
+import json
 import os
 from pathlib import Path
 import shutil
@@ -29,6 +31,9 @@ class SystemBackupTests(unittest.TestCase):
         shutil.rmtree(self.root, ignore_errors=True)
 
     def test_created_backup_has_manifest_checksums_and_expected_scope(self):
+        data = Path(self.root, "ospy", "data")
+        (data / "sessions.db").write_bytes(b"active session")
+        (data / "sessions.db.dat").write_bytes(b"active session backend")
         archive = backup.create_system_backup(root=self.root, reason="test")
         manifest = backup.inspect_backup(archive)
         self.assertEqual(manifest["schema_version"], 1)
@@ -41,6 +46,7 @@ class SystemBackupTests(unittest.TestCase):
                 "ospy/images/stations/1.png",
             },
         )
+        self.assertIn("active web sessions", manifest["excludes"])
 
     def test_tampered_payload_is_rejected(self):
         original = backup.create_system_backup(root=self.root)
@@ -100,12 +106,41 @@ class SystemBackupTests(unittest.TestCase):
         with zipfile.ZipFile(path, "w") as archive:
             archive.writestr("default/options.db.dat", b"legacy")
             archive.writestr("events.log", b"old event")
+            archive.writestr("sessions.db.dat", b"old active session")
         staging, manifest = backup.stage_restore(path, root=self.root)
         self.assertTrue(manifest["legacy"])
         self.assertEqual(
             Path(staging, "ospy", "data", "default", "options.db.dat").read_bytes(),
             b"legacy",
         )
+        self.assertFalse(Path(staging, "ospy", "data", "sessions.db.dat").exists())
+
+    def test_manifest_backup_from_older_version_does_not_restore_sessions(self):
+        original = backup.create_system_backup(root=self.root)
+        old_archive = os.path.join(self.root, "old-manifest.zip")
+        session_path = "ospy/data/sessions.db.dat"
+        session_data = b"previous active session"
+
+        with zipfile.ZipFile(original, "r") as source:
+            manifest = json.loads(source.read(backup.MANIFEST_NAME).decode("utf-8"))
+            manifest["files"].append({
+                "path": session_path,
+                "size": len(session_data),
+                "sha256": hashlib.sha256(session_data).hexdigest(),
+            })
+            with zipfile.ZipFile(old_archive, "w") as target:
+                for info in source.infolist():
+                    if info.filename != backup.MANIFEST_NAME:
+                        target.writestr(info, source.read(info))
+                target.writestr(session_path, session_data)
+                target.writestr(
+                    backup.MANIFEST_NAME,
+                    json.dumps(manifest, sort_keys=True).encode("utf-8"),
+                )
+
+        staging, restored_manifest = backup.stage_restore(old_archive, root=self.root)
+        self.assertFalse(restored_manifest["legacy"])
+        self.assertFalse(Path(staging, "ospy", "data", "sessions.db.dat").exists())
 
     def test_verified_restore_replaces_data_and_station_images(self):
         archive = backup.create_system_backup(root=self.root)

@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 18 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Fixed completion of a system restore. Active web sessions are no longer included in new backups and are ignored when older archives are restored; the current session is invalidated before shutdown so the completed upload request cannot write to a closed session database. Users sign in again after OSPy restarts. Persistent-data validation now accepts the legitimate boolean and runtime value representations written by programs and sensors, preventing valid restored fields from being discarded with false incompatible-type warnings. Added regression tests and updated all seven Web Interface Guides.
+
 July 17 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

@@ -726,6 +726,34 @@ class _Options(object):
             ) or (
                 isinstance(value, str) and value.lstrip('-').isdigit()
             )
+        # Historic and current OSPy code legitimately stores these object
+        # fields with more than one primitive type. They are configuration or
+        # last-observation values, not arbitrary objects. Accept their real
+        # runtime representations while keeping strict validation elsewhere.
+        if key in ('enabled', 'fixed'):
+            return isinstance(value, bool) or (
+                isinstance(value, int) and not isinstance(value, bool) and
+                value in (0, 1)
+            )
+        if key == 'fw':
+            return (
+                isinstance(value, int) and not isinstance(value, bool)
+            ) or (
+                isinstance(value, str) and value.isdigit()
+            )
+        if key == 'last_response':
+            return isinstance(value, (int, float)) and not isinstance(value, bool)
+        if key in ('last_battery', 'rssi'):
+            return isinstance(value, (str, int, float)) and not isinstance(value, bool)
+        if key == 'prev_read_value':
+            if isinstance(value, (str, int, float, bool)):
+                return True
+            if isinstance(value, list):
+                return all(
+                    isinstance(item, (str, int, float, bool))
+                    for item in value
+                )
+            return False
         if isinstance(default, bool):
             return isinstance(value, bool)
         if isinstance(default, int) and not isinstance(default, bool):

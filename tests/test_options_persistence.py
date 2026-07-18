@@ -145,6 +145,44 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertFalse(hasattr(stored, "unknown_field"))
             self.assertNotIn(storage_key, instance._block)
 
+    def test_legitimate_program_and_sensor_runtime_types_are_restored(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-runtime-") as root:
+            instance = self._new_options(root)
+
+            class StoredRuntimeValues(object):
+                def __init__(self):
+                    self.enabled = 0
+                    self.fixed = 0
+                    self.fw = 0
+                    self.last_battery = ""
+                    self.last_response = 0
+                    self.prev_read_value = -127
+                    self.rssi = ""
+
+            stored = StoredRuntimeValues()
+            storage_key = instance.cls_name(stored, 0)
+            instance._values[storage_key] = {
+                "enabled": True,
+                "fixed": True,
+                "fw": "119",
+                "last_battery": 3.31,
+                "last_response": 1234.5,
+                "prev_read_value": 21.75,
+                "rssi": -63,
+            }
+
+            with mock.patch.object(options_module.logging, "warning") as warning:
+                instance.load(stored, 0)
+
+            warning.assert_not_called()
+            self.assertIs(stored.enabled, True)
+            self.assertIs(stored.fixed, True)
+            self.assertEqual(stored.fw, "119")
+            self.assertEqual(stored.last_battery, 3.31)
+            self.assertEqual(stored.last_response, 1234.5)
+            self.assertEqual(stored.prev_read_value, 21.75)
+            self.assertEqual(stored.rssi, -63)
+
     def test_option_mutation_waits_for_active_database_write(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-lock-") as root:
             instance = self._new_options(root)

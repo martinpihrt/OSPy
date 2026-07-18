@@ -34,7 +34,7 @@ class FakeSession(dict):
         return None
 
     def kill(self):
-        self.clear()
+        self["_killed"] = True
 
 
 class WebRouteIntegrationTests(unittest.TestCase):
@@ -79,6 +79,43 @@ class WebRouteIntegrationTests(unittest.TestCase):
             "ip": "192.0.2.10",
             "csrf_token": "test-csrf-token",
         })
+
+    def test_restore_invalidates_session_before_server_shutdown(self):
+        upload = SimpleNamespace(
+            filename="backup.zip",
+            file=SimpleNamespace(read=lambda unused_size=-1: b"backup"),
+        )
+        handler = object.__new__(webpages.upload_page)
+        handler.core_render = SimpleNamespace(
+            notice=lambda unused_path, message: message,
+            options=lambda unused_error: unused_error,
+        )
+        restore_options = SimpleNamespace(
+            run_logEV=False,
+            save_now=mock.Mock(),
+        )
+        restore_stations = SimpleNamespace(clear=mock.Mock())
+
+        def assert_session_invalidated():
+            self.assertTrue(self.session.get("_killed"))
+
+        with mock.patch.object(webpages.web, "input", return_value=SimpleNamespace(uploadfile=upload)), \
+                mock.patch.object(webpages.os.path, "exists", return_value=False), \
+                mock.patch("builtins.open", mock.mock_open()), \
+                mock.patch.object(webpages, "read_limited_upload", return_value=b"backup"), \
+                mock.patch.object(webpages.system_backup, "stage_restore", return_value=("staging", {"legacy": False})), \
+                mock.patch.object(webpages.system_backup, "create_system_backup", return_value="safety.zip"), \
+                mock.patch.object(webpages.system_backup, "apply_staged_restore") as apply_restore, \
+                mock.patch.object(webpages, "options", restore_options), \
+                mock.patch.object(webpages, "report_restarted"), \
+                mock.patch.object(webpages, "stations", restore_stations), \
+                mock.patch.object(server, "stop", side_effect=assert_session_invalidated), \
+                mock.patch.object(webpages, "restart"):
+            result = handler.POST()
+
+        self.assertTrue(self.session.get("_killed"))
+        apply_restore.assert_called_once_with("staging")
+        self.assertIsInstance(result, str)
 
     def test_main_admin_pages_render_through_routes(self):
         paths_and_markers = {

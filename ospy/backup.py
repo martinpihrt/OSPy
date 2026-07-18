@@ -40,6 +40,15 @@ def _sha256_member(archive, info):
     return digest.hexdigest()
 
 
+def _is_session_store_file(name):
+    """Return whether a backup path belongs to the disposable web session DB."""
+    normalized = str(name).replace("\\", "/").lstrip("/")
+    prefix = "ospy/data/"
+    if normalized.startswith(prefix):
+        normalized = normalized[len(prefix):]
+    return normalized == "sessions.db" or normalized.startswith("sessions.db.")
+
+
 def _backup_sources(root):
     sources = []
     for relative in (os.path.join("ospy", "data"),
@@ -56,6 +65,8 @@ def _backup_sources(root):
                 if os.path.islink(path) or not os.path.isfile(path):
                     continue
                 archive_name = os.path.relpath(path, root).replace(os.sep, "/")
+                if _is_session_store_file(archive_name):
+                    continue
                 sources.append((archive_name, path))
     return sorted(sources)
 
@@ -82,7 +93,10 @@ def create_system_backup(destination=None, root=None, reason="manual"):
         "ospy_version": version.ver_str,
         "ospy_revision": version.revision,
         "files": [],
-        "excludes": ["SSL certificates", "plug-in code", "Python caches"],
+        "excludes": [
+            "SSL certificates", "plug-in code", "Python caches",
+            "active web sessions",
+        ],
     }
 
     fd, temporary = tempfile.mkstemp(prefix=".ospy-backup-", suffix=".zip",
@@ -273,7 +287,7 @@ def stage_restore(path, staging_root=None, root=None):
                 os.makedirs(data_target)
                 for info in archive.infolist():
                     name = _normalized_member(info)
-                    if info.is_dir():
+                    if info.is_dir() or _is_session_store_file(name):
                         continue
                     destination = os.path.abspath(os.path.join(data_target, *name.split("/")))
                     if os.path.commonpath([data_target, destination]) != data_target:
@@ -284,6 +298,8 @@ def stage_restore(path, staging_root=None, root=None):
             else:
                 for entry in manifest["files"]:
                     name = entry["path"]
+                    if _is_session_store_file(name):
+                        continue
                     destination = os.path.join(staging, *name.split("/"))
                     os.makedirs(os.path.dirname(destination), exist_ok=True)
                     with archive.open(name) as source, open(destination, "wb") as target:
