@@ -4,6 +4,7 @@ $code:
     days= json.dumps([_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')])
     months = json.dumps([_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')])
     logp = '1' if content.page == 'home' else '0'
+    plugin_page = plugins.plugin_page_metadata(ctx.path)
 
 <!doctype html>
 <html>
@@ -440,6 +441,11 @@ jQuery(document).ready(function(){
                             $else:
                                 <a href="/logout" id="bLogout" class="button logout" title=$:{json.dumps(_('Logout'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Logout')</a>
                     </div>
+                    </div>
+                $if plugin_page:
+                    <div class="pluginPageMeta">
+                        <span class="pluginPageMetaName">$_('Plugin'): ${plugin_page['name']}</span>
+                        <span class="pluginPageMetaVersion">$_('version'): <strong>${plugin_page['version']}</strong></span>
                     </div>
                 $:content
             </div>

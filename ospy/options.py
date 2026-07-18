@@ -140,6 +140,11 @@ class _Options(object):
             "default": False
         },
         {
+            "key": "plugin_update_channel",
+            "name": _('Plug-in update channel'),
+            "default": "master"
+        },
+        {
             "key": "ping_ip",
             "name": _('IP for DNS ping'),
             "default": "8.8.8.8",

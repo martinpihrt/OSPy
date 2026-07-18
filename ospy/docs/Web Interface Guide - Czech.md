@@ -562,6 +562,8 @@ Zakázány jsou absolutní cesty a cesty do nadřazeného adresáře, nepřenosi
 
 Správce rozšíření umožňuje do systému OSPy nainstalovat i vlastní rozšíření, které není zveřejněné ve vzdáleném repozitáři (například vaše nějaké osobní rozšíření). Pomocí tlačítka "procházet" zvolíme požadovaný soubor v našem počítači k instalaci do systému OSPy. Soubor rozšíření (zip) musí obsahovat kompletní strukturu rozšíření (init, templates, i18n, readme atd).
 
+Správce rozšíření používá ve výchozím stavu stabilní kanál `master`. Správce může přepnout na testovací kanál `beta`; zvolený kanál je viditelný ve správě i při instalaci a používá se pro seznam, ruční instalace, hromadné operace i automatické aktualizace. Testovací verze mohou obsahovat chyby. Přepnutí kanálu zahodí staženou cache předchozí větve a další kontrola načte data z nové větve. Po otevření stránky nainstalovaného rozšíření se nad jeho obsahem zobrazí název a verze načtená z `plugin.json`.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
 Na výše uvedeném umístění se nachází repozitář s dostupnými rozšířeními pro systém OSPy.
 

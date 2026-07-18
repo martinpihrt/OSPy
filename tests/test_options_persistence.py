@@ -46,6 +46,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             first.plugin_status = {
                 "example": {"date": status_date, "hash": "abc123"}
             }
+            first.plugin_update_channel = "beta"
             first.save_now()
             first.__del__()
 
@@ -57,6 +58,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(second.rain_block, rain_until)
             self.assertEqual(second.plugin_status["example"]["date"], status_date)
             self.assertEqual(second.plugin_status["example"]["hash"], "abc123")
+            self.assertEqual(second.plugin_update_channel, "beta")
 
     def test_legacy_database_keeps_values_and_adds_new_defaults(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-migration-") as root:
@@ -79,6 +81,7 @@ class OptionsPersistenceTests(unittest.TestCase):
                 instance.rain_block, datetime.datetime(2031, 2, 3, 4, 5, 6)
             )
             self.assertTrue(instance.show_diagnostics_modal_home)
+            self.assertEqual(instance.plugin_update_channel, "master")
             self.assertEqual(
                 instance._values["legacy_extension_value"], {"enabled": True}
             )

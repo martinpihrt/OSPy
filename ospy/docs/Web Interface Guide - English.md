@@ -562,6 +562,8 @@ Absolute or parent-directory paths, non-portable names, duplicate paths or plug-
 
 The extension manager allows you to install your own extension in the OSPy system, which is not published in the remote repository (for example, your personal extension). Using the "browse" button, we select the desired file on our computer to install into the OSPy system. The extension file (zip) must contain the complete structure of the extension (init, templates, i18n, readme, etc.).
 
+The plug-in manager uses the stable `master` channel by default. An administrator can switch to the test `beta` channel; the selected channel is visible in management and installation and is used for the list, manual installations, bulk operations and automatic updates. Test versions may contain errors. Switching channels discards the downloaded cache for the previous branch, and the next check loads data from the new branch. Opening an installed plug-in page displays its name and the version read from `plugin.json` above the plug-in content.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 There is a repository of available extensions for the OSPy system at the above location.
 

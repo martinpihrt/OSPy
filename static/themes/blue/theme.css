@@ -1584,6 +1584,25 @@ td.stationSchedule {
     overflow-wrap: anywhere;
 }
 
+.pluginPageMeta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 4px 0 8px;
+    padding: 6px 10px;
+    border-left: 4px solid #2e8b20;
+    background: #eef4ec;
+    color: #263326;
+    font-size: 0.9em;
+}
+
+.pluginPageMetaName { font-weight: 600; }
+.pluginPageMetaVersion { white-space: nowrap; }
+
+@media screen and (max-width: 600px) {
+    .pluginPageMeta { flex-wrap: wrap; }
+}
+
 #help_contents {
     vertical-align:top;
     display: table-cell;
@@ -1786,6 +1805,21 @@ td.stationSchedule {
         box-shadow: 0 0 12px 3px rgba(255, 193, 7, 0.9);
     }
 }
+
+.pluginUpdateChannel {
+    clear: both;
+    margin: 8px 0;
+    padding: 7px 10px;
+    border-left: 4px solid #368c24;
+    background: #eef6ec;
+    line-height: 1.8;
+}
+
+.pluginUpdateChannelLabel { font-weight: bold; margin-right: 6px; }
+.pluginUpdateChannel .minibutton.selected { box-shadow: 0 0 0 2px #24345b; }
+.pluginUpdateChannel .minibutton.warning { background: #d18400; }
+.pluginBetaWarning { margin-left: 8px; color: #9a1b25; }
+.pluginInstallChannel { margin-top: 0; }
 
 #controls .plugin.pluginUpdateAvailable,
 #controls .plugin.pluginUpdateAvailable.disabled {

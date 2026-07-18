@@ -2510,6 +2510,26 @@ class plugins_manage_page(ProtectedPage):
             plugins.checker.refresh(install_updates=False)
             raise web.seeother('/plugins_manage')
 
+        if action == 'update_channel':
+            channel = str(qdict.get('channel', '')).strip().lower()
+            if channel not in plugins.PLUGIN_UPDATE_CHANNELS:
+                return self.core_render.notice(
+                    '/plugins_manage', _('Invalid plug-in update channel.')
+                )
+            if channel != plugins.plugin_update_channel():
+                options.plugin_update_channel = channel
+                plugins.checker.clear_repository_cache()
+                plugins.checker.update()
+                logEV.save_events_log(
+                    _('Plug-in update channel changed'),
+                    _('User {} changed the plug-in update channel to {}.').format(
+                        session.get('visitor'), channel
+                    ),
+                    level='warning' if channel == 'beta' else 'info',
+                    category='system'
+                )
+            raise web.seeother('/plugins_manage')
+
         if action == 'disable_all':
             options.enabled_plugins = []
             plugins.start_enabled_plugins()
@@ -2689,8 +2709,9 @@ class plugins_install_page(ProtectedPage):
         if qdict.get('action', '') == 'install_repo':
             repo = get_input(qdict, 'repo', None, int)
             plugin = get_input(qdict, 'plugin', None)
-            if repo is not None and 0 <= repo < len(plugins.REPOS):
-                source_repo = plugins.REPOS[repo]
+            repositories = plugins.plugin_repositories()
+            if repo is not None and 0 <= repo < len(repositories):
+                source_repo = repositories[repo]
                 source_plugin = plugin if plugin else _('all plugins')
                 log.info('webpages.py', _('Installing plug-in {} from {}').format(source_plugin, source_repo))
                 try:

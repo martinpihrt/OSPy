@@ -10,6 +10,8 @@ Fixed completion of a system restore. Active web sessions are no longer included
 
 Added manifest-declared plug-in dependencies and deterministic lifecycle ordering. Required dependencies must be installed and enabled; optional dependencies act as ordering hints when both plug-ins are enabled. Providers start before consumers and stop after them, direct starts follow the same rule, missing required runtime providers prevent the consumer from starting, and dependency cycles are reported without starting their members. Repository and ZIP validation understands dependencies included in the same bulk installation while a single consumer installation still requires its provider to be installed. Added isolated dependency parsing, compatibility, ordering, shutdown and cycle tests and updated the plug-in developer and all seven Web Interface Guides.
 
+Added stable and test update channels for the official plug-in repository. Plug-in management defaults to `master`, allows an administrator to select `beta`, clearly shows the active source in both management and installation, clears downloaded repository data when the channel changes and applies the selection consistently to browsing, individual and bulk installation, manual updates, change history and automatic updates. Invalid saved channel values fail safely to `master`. Installed plug-in pages now display the manifest name and version above their content. Added automated coverage and updated the plug-in developer guide and all seven Web Interface Guides.
+
 July 17 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

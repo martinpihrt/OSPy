@@ -249,6 +249,32 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(install_response.status, "200 OK")
         self.assertIn(b"test_plugin", install_response.data)
 
+    def test_admin_can_select_beta_plugin_update_channel(self):
+        original_channel = webpages.options.plugin_update_channel
+        try:
+            webpages.options.plugin_update_channel = "master"
+            with mock.patch.object(
+                webpages.plugins.checker, "clear_repository_cache"
+            ) as clear_cache, mock.patch.object(
+                webpages.plugins.checker, "update"
+            ) as wake_checker:
+                response = self.app.request(
+                    "/plugins_manage",
+                    method="POST",
+                    data={
+                        "action": "update_channel",
+                        "channel": "beta",
+                        "csrf": self.session["csrf_token"],
+                    },
+                )
+
+            self.assertEqual(response.status, "303 See Other")
+            self.assertEqual(webpages.options.plugin_update_channel, "beta")
+            clear_cache.assert_called_once_with()
+            wake_checker.assert_called_once_with()
+        finally:
+            webpages.options.plugin_update_channel = original_channel
+
     def test_admin_post_without_csrf_is_rejected_before_handler(self):
         with mock.patch.object(helpers, "print_report"):
             response = self.app.request(

@@ -46,6 +46,9 @@ The suite checks:
   records;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
+* plug-in repository channel validation, stable `master` defaults, explicit
+  `beta` selection, custom repository compatibility and manifest version
+  display on plug-in pages;
 * required and optional plug-in dependencies, including manifest validation,
   missing or disabled providers, provider-first startup, consumer-first shutdown
   and cycle rejection;

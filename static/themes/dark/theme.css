@@ -433,6 +433,25 @@ span.stationName:last-child:after {
     padding-bottom: 6px;
 }
 
+.pluginPageMeta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 4px 0 8px;
+    padding: 6px 10px;
+    border-left: 4px solid #66b85a;
+    background: #303830;
+    color: #f1f1f1;
+    font-size: 0.9em;
+}
+
+.pluginPageMetaName { font-weight: 600; }
+.pluginPageMetaVersion { white-space: nowrap; }
+
+@media screen and (max-width: 600px) {
+    .pluginPageMeta { flex-wrap: wrap; }
+}
+
 .programGroup .program:last-child {
     border-bottom: 0;
     margin-bottom: 0;
@@ -1853,6 +1872,22 @@ td.stationSchedule {
         box-shadow: 0 0 12px 3px rgba(255, 193, 7, 0.9);
     }
 }
+
+.pluginUpdateChannel {
+    clear: both;
+    margin: 8px 0;
+    padding: 7px 10px;
+    border-left: 4px solid #6bbf59;
+    background: #253a2d;
+    color: #f2f2f2;
+    line-height: 1.8;
+}
+
+.pluginUpdateChannelLabel { font-weight: bold; margin-right: 6px; }
+.pluginUpdateChannel .minibutton.selected { box-shadow: 0 0 0 2px #ffffff; }
+.pluginUpdateChannel .minibutton.warning { background: #b66d00; }
+.pluginBetaWarning { margin-left: 8px; color: #ffc2c7; }
+.pluginInstallChannel { margin-top: 0; }
 
 #controls .plugin.pluginUpdateAvailable,
 #controls .plugin.pluginUpdateAvailable.disabled {

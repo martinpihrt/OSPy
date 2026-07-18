@@ -562,6 +562,8 @@ Zakázané sú absolútne cesty a cesty do nadradeného adresára, neprenosné n
 
 Správca rozšírenia umožňuje do systému OSPy nainštalovať aj vlastné rozšírenie, ktoré nie je zverejnené vo vzdialenom repozitári (napríklad vaše nejaké osobné rozšírenie). Pomocou tlačidla "prechádzať" zvolíme požadovaný súbor v našom počítači na inštaláciu do systému OSPy. Súbor rozšírenia (zips) musí obsahovať kompletnú štruktúru rozšírenia (init, templates, i18n, readme atď).
 
+Správca doplnkov predvolene používa stabilný kanál `master`. Správca môže prepnúť na testovací kanál `beta`; zvolený kanál je viditeľný v správe aj pri inštalácii a používa sa pre zoznam, ručné inštalácie, hromadné operácie aj automatické aktualizácie. Testovacie verzie môžu obsahovať chyby. Prepnutie kanála zahodí stiahnutú cache predchádzajúcej vetvy a ďalšia kontrola načíta údaje z novej vetvy. Po otvorení stránky nainštalovaného doplnku sa nad obsahom zobrazí názov a verzia načítaná z `plugin.json`.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 Na vyššie uvedenom umiestnení sa nachádza repozitár s dostupnými rozšíreniami pre systém OSPy.
 

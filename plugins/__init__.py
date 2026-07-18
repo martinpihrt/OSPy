@@ -40,7 +40,30 @@ PLUGIN_ZIP_MAX_PLUGINS = 256
 PLUGIN_PERMISSIONS = {
     'network', 'files', 'i2c', 'gpio', 'email', 'subprocess', 'system'
 }
-REPOS = ['https://github.com/martinpihrt/OSPy-plugins/archive/master.zip'] # repository with plugins
+PLUGIN_REPOSITORY_URL = 'https://github.com/martinpihrt/OSPy-plugins/archive/{}.zip'
+PLUGIN_UPDATE_CHANNELS = ('master', 'beta')
+_DEFAULT_REPOS = [PLUGIN_REPOSITORY_URL.format('master')]
+# Kept as a public override for custom deployments and existing integrations.
+REPOS = list(_DEFAULT_REPOS)
+
+
+def plugin_update_channel():
+    """Return the selected, validated plug-in repository channel."""
+    from ospy.options import options
+
+    channel = str(getattr(options, 'plugin_update_channel', 'master')).strip().lower()
+    return channel if channel in PLUGIN_UPDATE_CHANNELS else 'master'
+
+
+def plugin_repositories():
+    """Return repositories for the selected channel.
+
+    A custom REPOS value remains supported for installations and tests that
+    intentionally replace the official repository list.
+    """
+    if REPOS != _DEFAULT_REPOS:
+        return list(REPOS)
+    return [PLUGIN_REPOSITORY_URL.format(plugin_update_channel())]
 
 
 def _plugin_import_name(module):
@@ -610,7 +633,7 @@ class _PluginChecker(threading.Thread):
 
         with self._lock:
             self._changes_cache.clear()
-            for repo in REPOS:
+            for repo in plugin_repositories():
                 self._repo_data[repo] = self._download_zip(repo)
                 self._repo_contents[repo] = self.zip_contents(self._get_zip(repo))
 
@@ -640,7 +663,7 @@ class _PluginChecker(threading.Thread):
     def available_version(self, plugin):
         with self._lock:
             result = None
-            for repo_index, repo in enumerate(REPOS):
+            for repo_index, repo in enumerate(plugin_repositories()):
                 repo_contents = self.get_repo_contents(repo)
                 if plugin in repo_contents:
                     result = repo_contents[plugin].copy()
@@ -677,6 +700,13 @@ class _PluginChecker(threading.Thread):
         if repo not in self._repo_data:
             self._repo_data[repo] = self._download_zip(repo)
         return self._repo_data[repo]
+
+    def clear_repository_cache(self):
+        """Discard downloads and derived data after changing source channel."""
+        with self._lock:
+            self._repo_data.clear()
+            self._repo_contents.clear()
+            self._changes_cache.clear()
 
     @staticmethod
     def _validated_zip(zip_file_data):
@@ -1012,7 +1042,10 @@ class _PluginChecker(threading.Thread):
         from urllib.request import Request, urlopen
         from ospy.options import options
 
-        repo = REPOS[repo_index]
+        repositories = plugin_repositories()
+        if repo_index < 0 or repo_index >= len(repositories):
+            return []
+        repo = repositories[repo_index]
         repo_info = self._github_repo_info(repo)
         if repo_info is None:
             return []
@@ -1975,6 +2008,24 @@ def plugin_url(cls, prefix='/plugins/'):
             result = result[:-4] + '.csv'
 
         return result
+
+
+def plugin_page_metadata(request_path):
+    """Return safe identity data for the plug-in serving a request path."""
+    request_path = str(request_path or '').split('?', 1)[0]
+    parts = [part for part in request_path.strip('/').split('/') if part]
+    if not parts or parts[0] not in running():
+        return {}
+    module = parts[0]
+    manifest = plugin_manifest(module)
+    version = manifest.get('version', '')
+    if not version:
+        return {}
+    return {
+        'id': module,
+        'name': manifest.get('name') or plugin_name(module) or module,
+        'version': version,
+    }
 
 
 __urls_cache = {}

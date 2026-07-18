@@ -25,6 +25,8 @@ jQuery(document).ready(function(){
 </script>
 
 <div id="controls">
+    $ plugin_channel = plugins.plugin_update_channel()
+    $ plugin_repositories = plugins.plugin_repositories()
     <div style="display: inline-block; padding: 0; float: right;">
         $_('Enable check updates'):
         <form action="/plugins_manage" method="post" style="display:inline">
@@ -58,8 +60,19 @@ jQuery(document).ready(function(){
         <button type="submit" class="button upload">$_('Load changes')</button>
     </form>
     <span id="pluginRefreshStatus" style="margin-left: 8px;"></span>
+    <div class="pluginUpdateChannel">
+        <span class="pluginUpdateChannelLabel">$_('Plug-in update channel'):</span>
+        <form action="/plugins_manage" method="post" style="display:inline">
+            $:csrf_input()
+            <input type="hidden" name="action" value="update_channel">
+            <button type="submit" name="channel" value="master" class="minibutton ${'selected' if plugin_channel == 'master' else ''}">$_('Stable') (master)</button>
+            <button type="submit" name="channel" value="beta" class="minibutton ${'selected warning' if plugin_channel == 'beta' else ''}">$_('Test') (beta)</button>
+        </form>
+        $if plugin_channel == 'beta':
+            <strong class="pluginBetaWarning">$_('Test versions may contain errors.')</strong>
+    </div>
     <div style="clear: both; margin: 8px 0 8px 0; line-height: 1.3;">
-        <small>$_('Plugins are installed and updated from'): ${', '.join(plugins.REPOS)}</small>
+        <small>$_('Plugins are installed and updated from'): ${', '.join(plugin_repositories)}</small>
     </div>
     <form action="/plugins_manage" method="post" style="display:inline">
         $:csrf_input()

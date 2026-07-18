@@ -5,13 +5,21 @@ $var page: plugins
 
 <script src="/static/scripts/plugins_install.js"></script>
 <div id="controls">
+    $ plugin_channel = plugins.plugin_update_channel()
+    $ plugin_repositories = plugins.plugin_repositories()
+    <div class="pluginUpdateChannel pluginInstallChannel">
+        <span class="pluginUpdateChannelLabel">$_('Plug-in update channel'):</span>
+        <strong>${plugin_channel}</strong>
+        $if plugin_channel == 'beta':
+            <span class="pluginBetaWarning">$_('Test versions may contain errors.')</span>
+    </div>
     <form method="POST" enctype="multipart/form-data" action="/plugins_install?${csrf_query()}" class="plugin-custom-install-form">
     $:csrf_input()
         $_('Custom plug-in (ZIP)'):
         <input type="file" name="zipfile" />
         <button id="cSubmit" class="submit">$_('Install')</button>
     </form>
-    $for repo_index, repo in enumerate(plugins.REPOS):
+    $for repo_index, repo in enumerate(plugin_repositories):
         $ repo_contents = plugins.checker.get_repo_contents(repo)
         $ installable_count = len([info for info in repo_contents.values() if info.get('compatibility', {}).get('compatible')])
         <div style="vertical-align:middle;" class='category collapsible collapsed'>

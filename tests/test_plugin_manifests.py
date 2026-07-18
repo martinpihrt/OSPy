@@ -141,6 +141,48 @@ class PluginManifestParserTests(unittest.TestCase):
                     {},
                 )
 
+    def test_plugin_page_metadata_uses_manifest_version(self):
+        manifest = _manifest(
+            "example_plugin",
+            name="Example Plugin",
+            version="1.2.3",
+        )
+        with mock.patch.object(
+            plugins, "running", return_value=["example_plugin"]
+        ), mock.patch.object(
+            plugins, "plugin_manifest", return_value=manifest
+        ):
+            metadata = plugins.plugin_page_metadata(
+                "/example_plugin/settings?section=main"
+            )
+
+        self.assertEqual(metadata["name"], "Example Plugin")
+        self.assertEqual(metadata["version"], "1.2.3")
+        self.assertEqual(plugins.plugin_page_metadata("/plugins_manage"), {})
+
+    def test_plugin_repository_follows_validated_update_channel(self):
+        with mock.patch.object(
+            options_module, "options", mock.Mock(plugin_update_channel="beta")
+        ):
+            self.assertEqual(plugins.plugin_update_channel(), "beta")
+            self.assertEqual(
+                plugins.plugin_repositories(),
+                ["https://github.com/martinpihrt/OSPy-plugins/archive/beta.zip"],
+            )
+
+        with mock.patch.object(
+            options_module, "options", mock.Mock(plugin_update_channel="unknown")
+        ):
+            self.assertEqual(plugins.plugin_update_channel(), "master")
+            self.assertEqual(
+                plugins.plugin_repositories(),
+                ["https://github.com/martinpihrt/OSPy-plugins/archive/master.zip"],
+            )
+
+    def test_custom_plugin_repository_override_is_preserved(self):
+        with mock.patch.object(plugins, "REPOS", ["test-repository"]):
+            self.assertEqual(plugins.plugin_repositories(), ["test-repository"])
+
 
 class PluginArchiveInstallationTests(unittest.TestCase):
     def test_unsafe_parent_path_is_rejected_before_any_write(self):

@@ -551,6 +551,8 @@ OSPy sprawdza cały plik ZIP przed zapisaniem jakiegokolwiek pliku wtyczki. Arch
 Odrzucane są ścieżki bezwzględne lub prowadzące do katalogu nadrzędnego, nieprzenośne nazwy, powielone ścieżki lub identyfikatory wtyczek, dowiązania symboliczne, wpisy specjalne lub szyfrowane oraz uszkodzone archiwa. Limity wynoszą 64 MiB pobranych danych ZIP, 4096 wpisów archiwum, 256 wtyczek, 32 MiB na rozpakowany plik, łącznie 128 MiB rozpakowanych danych i maksymalny współczynnik kompresji 200:1. Instalacja jest atomowa dla każdej wtyczki: pliki są najpierw przygotowywane, istniejący katalog `data` zostaje zachowany, a błąd wymiany lub uruchomienia przywraca poprzednią wersję.
 Menedżer rozszerzeń umożliwia zainstalowanie w systemie OSPy własnego rozszerzenia, które nie jest publikowane w zdalnym repozytorium (np. Twoje rozszerzenie osobiste). Za pomocą przycisku „przeglądaj” wybieramy na naszym komputerze żądany plik do zainstalowania w systemie OSPy. Plik rozszerzenia (zip) musi zawierać pełną strukturę rozszerzenia (init, szablony, i18n, readme itp.).
 
+Menedżer wtyczek domyślnie używa stabilnego kanału `master`. Administrator może przełączyć się na testowy kanał `beta`; wybrany kanał jest widoczny w zarządzaniu i instalacji oraz jest używany dla listy, instalacji ręcznych, operacji zbiorczych i aktualizacji automatycznych. Wersje testowe mogą zawierać błędy. Zmiana kanału usuwa pobraną pamięć podręczną poprzedniej gałęzi, a następna kontrola pobiera dane z nowej gałęzi. Po otwarciu strony zainstalowanej wtyczki nad jej zawartością wyświetlana jest nazwa i wersja odczytana z `plugin.json`.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 W powyższej lokalizacji znajduje się repozytorium dostępnych rozszerzeń dla systemu OSPy.
 

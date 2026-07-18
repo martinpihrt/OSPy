@@ -78,6 +78,17 @@ compatible plug-ins, skips incompatible ones, and reports both skipped reasons
 and warnings. Custom ZIP uploads use the same rules. Automatic updates never
 replace an installed plug-in with a newly available incompatible version.
 
+Official repository channels
+----
+
+OSPy uses the stable `master` branch of the official OSPy-plugins repository
+by default. Administrators may explicitly select the test `beta` branch in
+Plug-in management. The selected channel applies consistently to repository
+browsing, individual and bulk installation, manual updates and automatic
+updates. Switching channels clears downloaded repository data before the next
+check. Plug-in pages display the manifest name and version above their content,
+so the installed version remains visible outside Plug-in management.
+
 The complete ZIP archive is validated before any plug-in file is written. Each
 plug-in must have a directory containing `__init__.py` and a valid UTF-8
 `plugin.json` whose `id` matches the directory name. The directory may also
