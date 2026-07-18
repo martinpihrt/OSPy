@@ -815,6 +815,7 @@ class _PluginChecker(threading.Thread):
                     manifest,
                     require_manifest=True,
                     manifest_error=manifest_error,
+                    check_dependency_enabled=False,
                 )
 
                 # Version information:
@@ -879,6 +880,17 @@ class _PluginChecker(threading.Thread):
                         'files': plugin_files
                     }
 
+            archive_available = set(available()).union(result.keys())
+            for plugin_id, info in result.items():
+                info['compatibility'] = plugin_manifest_compatibility(
+                    plugin_id,
+                    info.get('manifest', {}),
+                    require_manifest=True,
+                    manifest_error=info.get('manifest_error', ''),
+                    available_modules=archive_available,
+                    check_dependency_enabled=False,
+                )
+
         except ValueError:
             raise
         except Exception:
@@ -902,6 +914,9 @@ class _PluginChecker(threading.Thread):
                 return {}
 
             result = {}
+            repository_available = set(available()).union(
+                self._repo_contents[repo].keys()
+            )
             for plugin, info in self._repo_contents[repo].items():
                 current_info = info.copy()
                 current_info['compatibility'] = plugin_manifest_compatibility(
@@ -909,6 +924,8 @@ class _PluginChecker(threading.Thread):
                     current_info.get('manifest', {}),
                     require_manifest=True,
                     manifest_error=current_info.get('manifest_error', ''),
+                    available_modules=repository_available,
+                    check_dependency_enabled=False,
                 )
                 result[plugin] = current_info
             return result
@@ -1239,12 +1256,15 @@ class _PluginChecker(threading.Thread):
             'warnings': {},
         }
         installed_plugins = set(available())
+        selected_available = installed_plugins.union(selected.keys())
         for plugin, info in selected.items():
             compatibility = plugin_manifest_compatibility(
                 plugin,
                 info.get('manifest', {}),
                 require_manifest=True,
                 manifest_error=info.get('manifest_error', ''),
+                available_modules=selected_available,
+                check_dependency_enabled=False,
             )
             info['compatibility'] = compatibility
             if not compatibility.get('compatible', False):
@@ -1267,8 +1287,44 @@ class _PluginChecker(threading.Thread):
                 '; '.join(reasons)
             )
 
+        dependency_order, dependency_cycles = _plugin_dependency_order(
+            selected.keys(),
+            manifests={
+                plugin: info.get('manifest', {})
+                for plugin, info in selected.items()
+            },
+        )
+        if dependency_cycles:
+            cycle_text = ', '.join(sorted(dependency_cycles))
+            for plugin in dependency_cycles:
+                result['blocked'][plugin] = [
+                    _('Plug-in dependency cycle detected') + ': ' + cycle_text
+                ]
+
+        changed = True
+        while changed:
+            changed = False
+            for plugin, info in selected.items():
+                if plugin in result['blocked']:
+                    continue
+                blocked_requirements = [
+                    dependency['id']
+                    for dependency in info.get('manifest', {}).get(
+                        'dependencies', []
+                    )
+                    if dependency.get('required', True) and
+                    dependency['id'] in result['blocked'] and
+                    dependency['id'] not in installed_plugins
+                ]
+                if blocked_requirements:
+                    result['blocked'][plugin] = [
+                        _('Required plug-in cannot be installed') + ': ' +
+                        ', '.join(blocked_requirements)
+                    ]
+                    changed = True
+
         installable = [
-            (plugin, info) for plugin, info in selected.items()
+            (plugin, selected[plugin]) for plugin in dependency_order
             if plugin not in result['blocked']
         ]
         if not installable:
@@ -1385,11 +1441,43 @@ def _normalize_plugin_manifest(data, module=None):
             ('https://', 'http://')):
         return {}
 
-    for key in ('ospy', 'python', 'requirements', 'hardware', 'permissions',
-                'conflicts'):
+    for key in ('ospy', 'python', 'requirements', 'dependencies', 'hardware',
+                'permissions', 'conflicts'):
         value = manifest.get(key)
         if value is not None and not isinstance(value, (dict, list)):
             return {}
+
+    if 'dependencies' in manifest:
+        dependencies = manifest.get('dependencies')
+        if isinstance(dependencies, dict):
+            dependencies = dependencies.get('plugins')
+        if dependencies is None:
+            dependencies = []
+        if not isinstance(dependencies, list):
+            return {}
+        normalized_dependencies = []
+        seen_dependencies = set()
+        for dependency in dependencies:
+            if isinstance(dependency, str):
+                dependency_id = dependency.strip()
+                required = True
+            elif isinstance(dependency, dict):
+                dependency_id = dependency.get('id') or dependency.get('plugin')
+                required = dependency.get('required', True)
+                if not isinstance(dependency_id, str) or not isinstance(required, bool):
+                    return {}
+                dependency_id = dependency_id.strip()
+            else:
+                return {}
+            if (not re.match(r'^[a-z0-9][a-z0-9_]*$', dependency_id) or
+                    dependency_id in seen_dependencies):
+                return {}
+            seen_dependencies.add(dependency_id)
+            normalized_dependencies.append({
+                'id': dependency_id,
+                'required': required,
+            })
+        manifest['dependencies'] = normalized_dependencies
 
     return manifest
 
@@ -1469,7 +1557,9 @@ def _normalized_resource(value):
 
 
 def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
-                                  require_manifest=False, manifest_error=''):
+                                  require_manifest=False, manifest_error='',
+                                  available_modules=None,
+                                  check_dependency_enabled=True):
     """Validate supplied manifest data against this OSPy installation."""
     if not manifest:
         if require_manifest:
@@ -1581,6 +1671,26 @@ def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
         from ospy.options import options
         enabled_modules = list(options.enabled_plugins)
     enabled_modules = set(enabled_modules)
+    if available_modules is None:
+        available_modules = set(available())
+    else:
+        available_modules = set(available_modules)
+
+    for dependency in manifest.get('dependencies', []):
+        dependency_id = dependency['id']
+        if dependency_id == module:
+            errors.append(_('Plug-in cannot depend on itself.'))
+        elif dependency.get('required', True):
+            if dependency_id not in available_modules:
+                errors.append(
+                    _('Required plug-in is not installed') + ': ' + dependency_id
+                )
+            elif (check_dependency_enabled and
+                  dependency_id not in enabled_modules):
+                errors.append(
+                    _('Required plug-in is not enabled') + ': ' + dependency_id
+                )
+
     conflicts = manifest.get('conflicts', {})
     if isinstance(conflicts, list):
         conflicts = {'plugins': conflicts}
@@ -1887,6 +1997,45 @@ def _get_urls(import_name, plugin):
 ################################################################################
 # Plugin start/stop                                                            #
 ################################################################################
+def _plugin_dependencies(module):
+    """Return normalized plug-in dependency declarations from its manifest."""
+    return list(plugin_manifest(module).get('dependencies', []))
+
+
+def _plugin_dependency_order(modules, manifests=None):
+    """Return dependencies before consumers and the members of any cycles."""
+    modules = list(dict.fromkeys(modules))
+    module_set = set(modules)
+    visited = set()
+    visiting = []
+    cycles = set()
+    ordered = []
+
+    def dependencies(module):
+        if manifests is not None:
+            return list(manifests.get(module, {}).get('dependencies', []))
+        return _plugin_dependencies(module)
+
+    def visit(module):
+        if module in visited:
+            return
+        if module in visiting:
+            cycles.update(visiting[visiting.index(module):])
+            return
+        visiting.append(module)
+        for dependency in dependencies(module):
+            dependency_id = dependency['id']
+            if dependency_id in module_set:
+                visit(dependency_id)
+        visiting.pop()
+        visited.add(module)
+        ordered.append(module)
+
+    for module in modules:
+        visit(module)
+    return ordered, cycles
+
+
 def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     from ospy.options import options
     import logging
@@ -1987,7 +2136,7 @@ def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     return not alive_threads
 
 
-def start_plugin(module):
+def start_plugin(module, _dependency_stack=None):
     from ospy.helpers import mkdir_p
     from ospy.options import options
     import logging
@@ -1997,6 +2146,32 @@ def start_plugin(module):
 
     plugin_n = module
     try:
+        dependency_stack = list(_dependency_stack or [])
+        if module in dependency_stack:
+            raise RuntimeError(
+                _('Plug-in dependency cycle detected') + ': ' +
+                ' -> '.join(dependency_stack + [module])
+            )
+
+        for dependency in _plugin_dependencies(module):
+            dependency_id = dependency['id']
+            if (dependency_id in options.enabled_plugins and
+                    dependency_id not in __running):
+                started = start_plugin(
+                    dependency_id,
+                    _dependency_stack=dependency_stack + [module],
+                )
+                if dependency.get('required', True) and not started:
+                    raise RuntimeError(
+                        _('Required plug-in failed to start') + ': ' +
+                        dependency_id
+                    )
+            if (dependency.get('required', True) and
+                    dependency_id not in __running):
+                raise RuntimeError(
+                    _('Required plug-in is not running') + ': ' + dependency_id
+                )
+
         previous_entry = _runtime_entry(module)
         lingering_threads = [
             info.get('thread')
@@ -2080,19 +2255,53 @@ def reload_plugin(module):
 
 def start_enabled_plugins():
     from ospy.options import options
-    
-    for module in available():
-        if module in options.enabled_plugins and module not in __running:
-            start_plugin(module)
+    import logging
 
-    for module in list(__running.keys()):
-        if module not in options.enabled_plugins:
+    enabled = set(options.enabled_plugins)
+
+    # Stop consumers before providers when one or more plug-ins were disabled.
+    running_order, unused_cycles = _plugin_dependency_order(running())
+    for module in reversed(running_order):
+        required_disabled = any(
+            dependency.get('required', True) and
+            dependency['id'] not in enabled
+            for dependency in _plugin_dependencies(module)
+        )
+        if module not in enabled or required_disabled:
             stop_plugin(module)
+
+    enabled_modules = [module for module in available() if module in enabled]
+    start_order, cycles = _plugin_dependency_order(enabled_modules)
+    if cycles:
+        cycle_text = ', '.join(sorted(cycles))
+        message = _('Plug-in dependency cycle detected') + ': ' + cycle_text
+        logging.error(message)
+        for module in cycles:
+            _runtime_entry(module)['last_error'] = message
+
+    for module in start_order:
+        if module in cycles or module in __running:
+            continue
+        unavailable_required = [
+            dependency['id'] for dependency in _plugin_dependencies(module)
+            if dependency.get('required', True) and
+            dependency['id'] not in __running
+        ]
+        if unavailable_required:
+            message = (
+                _('Required plug-in is not running') + ': ' +
+                ', '.join(unavailable_required)
+            )
+            _runtime_entry(module)['last_error'] = message
+            logging.error('{}: {}'.format(module, message))
+            continue
+        start_plugin(module)
 
 
 def stop_all_plugins(timeout=10.0):
     """Stop every running plug-in within one shared shutdown window."""
-    modules = list(running())
+    modules, unused_cycles = _plugin_dependency_order(running())
+    modules.reverse()
     deadline = time.time() + max(0.0, float(timeout))
 
     # Signal all cooperative workers first so they can stop concurrently while

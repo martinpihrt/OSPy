@@ -45,6 +45,9 @@ use `NAME` and `MENU` from `__init__.py` in backward-compatibility mode.
       "requirements": [
         {"module": "smbus2", "package": "smbus2", "required": true}
       ],
+      "dependencies": [
+        {"id": "database_connector", "required": false}
+      ],
       "hardware": {
         "platforms": ["raspberry_pi", "linux"],
         "requires": ["i2c", "gpio"],
@@ -100,6 +103,16 @@ permission names produce warnings. Supported permission names are `network`,
 `files`, `i2c`, `gpio`, `email`, `subprocess`, and `system`. Permissions are
 declarations shown to the administrator; they are not an operating-system
 sandbox.
+
+The optional `dependencies` list declares other OSPy plug-ins by directory ID.
+A string or an object with `"required": true` is a required dependency: it must
+be installed and enabled before the consumer can start. An object with
+`"required": false` is an ordering dependency: the consumer remains usable
+without it, but when both plug-ins are enabled the dependency starts first.
+OSPy starts dependency providers before consumers, stops them in reverse order,
+and refuses to start dependency cycles. Repository installation considers
+required plug-ins bundled in the same bulk operation; installing only a
+consumer still requires its provider to be installed already.
 
 Managed background threads
 ----

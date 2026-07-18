@@ -45,7 +45,10 @@ The suite checks:
   of invalid core values and safe handling of damaged object, log and session
   records;
 * the complete plug-in lifecycle: install, activate, health report, restart,
-  update, preserved data, failed-start rollback and disable.
+  update, preserved data, failed-start rollback and disable;
+* required and optional plug-in dependencies, including manifest validation,
+  missing or disabled providers, provider-first startup, consumer-first shutdown
+  and cycle rejection;
 * system backup manifests, checksums, permitted content, exclusion of active web
   sessions, legacy archive staging, rejection of tampered, undeclared, duplicate
   and traversal entries, invalidation of the restore request session before

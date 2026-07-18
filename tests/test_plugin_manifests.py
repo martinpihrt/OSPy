@@ -400,6 +400,52 @@ class PluginArchiveInstallationTests(unittest.TestCase):
         self.assertEqual(install_plugin.call_count, 1)
         self.assertEqual(install_plugin.call_args.args[1], "compatible_plugin")
 
+    def test_bulk_install_orders_required_dependency_before_consumer(self):
+        archive = _plugin_archive({
+            "dependent_plugin": _manifest(
+                "dependent_plugin",
+                dependencies=[{"id": "provider_plugin", "required": True}],
+            ),
+            "provider_plugin": _manifest("provider_plugin"),
+        })
+
+        with mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ), mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            result = plugins.checker.install_custom_plugin(archive)
+
+        self.assertEqual(
+            result["installed"], ["provider_plugin", "dependent_plugin"]
+        )
+        self.assertEqual(
+            [call.args[1] for call in install_plugin.call_args_list],
+            ["provider_plugin", "dependent_plugin"],
+        )
+
+    def test_single_consumer_install_requires_installed_provider(self):
+        archive = _plugin_archive({
+            "dependent_plugin": _manifest(
+                "dependent_plugin",
+                dependencies=[{"id": "provider_plugin", "required": True}],
+            ),
+            "provider_plugin": _manifest("provider_plugin"),
+        })
+
+        with mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ) as install_docs, mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            with self.assertRaises(ValueError):
+                plugins.checker.install_custom_plugin(
+                    archive, "dependent_plugin"
+                )
+
+        install_docs.assert_not_called()
+        install_plugin.assert_not_called()
+
     def test_compatibility_warning_does_not_block_installation(self):
         archive = _plugin_archive({
             "warning_plugin": _manifest(
