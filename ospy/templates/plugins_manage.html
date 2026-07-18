@@ -65,8 +65,11 @@ jQuery(document).ready(function(){
         <form action="/plugins_manage" method="post" style="display:inline">
             $:csrf_input()
             <input type="hidden" name="action" value="update_channel">
-            <button type="submit" name="channel" value="master" class="minibutton ${'selected' if plugin_channel == 'master' else ''}">$_('Stable') (master)</button>
-            <button type="submit" name="channel" value="beta" class="minibutton ${'selected warning' if plugin_channel == 'beta' else ''}">$_('Test') (beta)</button>
+            <select name="channel" onchange="this.form.submit()" title=$:{json.dumps(_('Stable uses the tested master branch. Beta receives changes immediately and may contain defects.'), ensure_ascii=False)}>
+                <option value="master" ${'selected' if plugin_channel == 'master' else ''}>$_('Stable') (master) - $_('default')</option>
+                <option value="beta" ${'selected' if plugin_channel == 'beta' else ''}>$_('Test') (beta)</option>
+            </select>
+            <noscript><button type="submit" class="minibutton">$_('Change')</button></noscript>
         </form>
         $if plugin_channel == 'beta':
             <strong class="pluginBetaWarning">$_('Test versions may contain errors.')</strong>

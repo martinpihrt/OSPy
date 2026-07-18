@@ -246,6 +246,9 @@ class WebRouteIntegrationTests(unittest.TestCase):
 
         self.assertEqual(manage_response.status, "200 OK")
         self.assertIn(b"plugin-refresh-form", manage_response.data)
+        self.assertIn(b'name="channel"', manage_response.data)
+        self.assertIn(b'value="master"', manage_response.data)
+        self.assertIn(b'value="beta"', manage_response.data)
         self.assertEqual(install_response.status, "200 OK")
         self.assertIn(b"test_plugin", install_response.data)
 
