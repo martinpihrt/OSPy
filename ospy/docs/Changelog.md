@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Added regression coverage for a completed System Update watchdog acknowledgement that is still awaiting external file cleanup. Diagnostics must treat a matching healthy-start acknowledgement as successful instead of continuing to report the plug-in as waiting.
+
 Made the System Update test suite compatible with both the stable v1.1 plug-in and the v1.2 external-watchdog implementation. Shared update-channel tests now adapt to the available interface, while watchdog-specific tests run only when the tested plug-in provides the helper and acknowledgement functions. This removes the circular CI dependency between the OSPy and OSPy-plugins `master` and `beta` matrices without weakening watchdog validation.
 
 July 18 2026 (v3.0)

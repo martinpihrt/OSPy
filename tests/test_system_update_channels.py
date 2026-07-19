@@ -259,6 +259,7 @@ class SystemUpdateChannelTests(unittest.TestCase):
             ack_path = Path(directory) / "ack.json"
             self.module.WATCHDOG_STATE_FILE = str(state_path)
             self.module.WATCHDOG_ACK_FILE = str(ack_path)
+            self.module.WATCHDOG_RESULT_FILE = str(Path(directory) / "result.json")
             state_path.write_text(json.dumps(state), encoding="utf-8")
             with mock.patch.object(self.module, "git_output", return_value=target), \
                     mock.patch("ospy.health.component", return_value={"last_success": created - 1}):
@@ -281,6 +282,23 @@ class SystemUpdateChannelTests(unittest.TestCase):
             acknowledgement = json.loads(ack_path.read_text(encoding="utf-8"))
             self.assertEqual(acknowledgement["token"], "secret")
             self.assertEqual(acknowledgement["commit"], target)
+            self.assertFalse(state_path.exists())
+            result = json.loads(
+                Path(self.module.WATCHDOG_RESULT_FILE).read_text(encoding="utf-8")
+            )
+            self.assertEqual(result["status"], "confirmed")
+
+            # Simulate delayed external cleanup: a matching acknowledgement
+            # must still override a stale pending marker in Diagnostics.
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+
+            fake_checker = mock.Mock()
+            fake_checker.is_alive.return_value = True
+            fake_checker.status = {"can_update": False, "checking": False}
+            with mock.patch.object(self.module, "checker", fake_checker), \
+                    mock.patch.dict(self.module.plugin_options, {"use_update": True}):
+                health = self.module.health()
+            self.assertEqual(health["status"], "ok")
 
 
 class SystemUpdateWatchdogProcessTests(unittest.TestCase):
