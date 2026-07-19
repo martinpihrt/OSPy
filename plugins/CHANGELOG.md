@@ -1,5 +1,229 @@
 # OSPy-plugins Changelog
 
+July 19 2026
+-----------
+(Martin Pihrt) - System Update v1.2.1<br/>
+Fixed a stale Diagnostics warning after a successful OSPy update. A valid watchdog acknowledgement now immediately takes precedence over the pending state file, so System Update reports success even if the external watchdog has not yet removed its temporary files. After confirming the scheduler and web interface, the plug-in also records the successful result and removes its own pending marker while leaving the acknowledgement for the external helper. The acknowledgement is accepted only when its token matches the pending update.
+
+July 18 2026
+-----------
+(Martin Pihrt) - System Update v1.2.0<br/>
+Added an external update watchdog that is armed before tracked OSPy files are changed. On systemd installations it runs in an independent transient service and survives the OSPy restart; other systems use a detached helper process. The new OSPy process confirms the update only after a fresh scheduler heartbeat and a listening web interface. If confirmation is not received within 120 seconds, the watchdog resets the repository to the previous commit and branch and restarts OSPy automatically. A watchdog startup failure aborts the update before the working tree is changed, update failures immediately restore the previous revision, and manual rollback commit identifiers are now validated. Diagnostics reports watchdog state and the plug-in help and README describe the recovery process.
+
+(Martin Pihrt) - Automated plug-in tests<br/>
+Added GitHub Actions checks for pushes and pull requests to the plug-in `beta` and `master` branches. Each tested plug-in revision now runs the OSPy test suite on Python 3.11 against both OSPy `master` and OSPy `beta`, so stable compatibility and upcoming core changes are verified before promotion. Documented the stable and test branch workflow.
+
+(Martin Pihrt) - SQL logging plug-in dependencies<br/>
+Declared Database Connector as an optional ordering dependency for Air Temperature and Humidity Monitor, Current Loop Tanks Monitor, Network Ping Monitor, Pressure Monitor, Tank Monitor, UPS Monitor and Wind Speed Monitor. With both plug-ins enabled, OSPy now starts Database Connector first and stops it last, while every monitor remains usable without SQL logging. Raised the seven affected manifest versions from `1.0.1` to `1.0.2`.
+
+July 17 2026
+-----------
+(Martin Pihrt) - System Update v1.1.0<br/>
+Added explicit update channels. Stable is the default and follows the tested `master` branch; Test follows the fixed `beta` branch and receives changes immediately. Repository checks, manual and automatic updates, status, Diagnostics, e-mail and event records identify the selected channel. Switching from beta back to Stable explicitly installs `master`, even when its revision count is lower. Every update now requires a verified OSPy system safety backup before Git changes are applied, and Git command failures abort the update. Updated the plug-in help.
+
+(Martin Pihrt) - Database Connector and SQL logging plug-ins<br/>
+Added a validated table-existence query and changed Air Temperature and Humidity Monitor, Current Loop Tanks Monitor, Network Ping Monitor, Pressure Monitor, Tank Monitor, UPS Monitor and Wind Speed Monitor to create their SQL tables only when missing. Database Connector also no longer reports the harmless MySQL table-exists warning as an error if a concurrent `CREATE TABLE IF NOT EXISTS` reaches the server; genuine table-exists errors from ordinary `CREATE TABLE` statements remain visible.
+
+Raised all eight affected plug-in manifest versions from `1.0.0` to `1.0.1`. Code changes to a released plug-in must include an appropriate semantic-version increment; backward-compatible fixes use the patch component.
+
+(Martin Pihrt) - Database Connector v1.0.2<br/>
+Removed obsolete `sender` checks left in the settings and backup pages after the plug-in lifecycle migration. Test connection, connector installation, database backup, file deletion and download actions now use the running plug-in directly without raising `NameError`.
+
+July 16 2026
+-----------
+(Martin Pihrt) - System Update<br/>
+Updated System Update for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring repository-network, Git subprocess, OSPy-file, restart and e-mail access, registers its periodic checker and manual refresh worker with the shared runtime, observes bounded shutdown and clears its footer, and reports current version and commit, upstream branch, checks, update availability, updates, rollbacks, e-mail and errors through `health()`. The existing update and rollback workflow itself remains unchanged for later hardening.
+
+(Martin Pihrt) - Wind Speed Monitor<br/>
+Updated Wind Speed Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMBus, Raspberry Pi I²C addresses 0x50/0x51, local/SQL logging, e-mail and scheduler/program-control access, registers its monitor with the shared runtime, reuses one SMBus handle instead of leaking a new handle each cycle, interrupts the ten-second measurement and closes I²C during bounded shutdown, clears its footer, and reports worker, counter, speed, maximum, actions, e-mail and errors through `health()`.
+
+(Martin Pihrt) - Weather Stations<br/>
+Updated Weather Stations for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring OSPy sensor, plug-in reading and local settings access, registers its service with the shared runtime instead of leaving a completed thread behind, observes bounded shutdown, and reports display mode, configured channels, sensor count, latest refresh and unavailable values through `health()`.
+
+(Martin Pihrt) - Weather Dashboard<br/>
+Updated Weather Dashboard for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring OSPy sensor, plug-in reading and local settings access, registers its service with the shared runtime instead of leaving a completed thread behind, observes bounded shutdown, and reports mode, configured gauges, latest refresh and unavailable values through `health()`.
+
+(Martin Pihrt) - Weather-based Water Level Netatmo<br/>
+Updated Weather-based Water Level Netatmo for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring OSPy weather, Netatmo-network and irrigation-adjustment access, registers its calculation worker with the shared runtime, closes Netatmo HTTP responses, removes its callback and adjustment during bounded shutdown, applies the final Netatmo-aware adjustment instead of the earlier weather-only intermediate value, keeps credentials out of diagnostics, and reports rainfall, days, adjustment and errors through `health()`.
+
+(Martin Pihrt) - Weather-based Water Level<br/>
+Updated Weather-based Water Level for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring OSPy weather-network, irrigation-adjustment and freeze-protection access, registers its calculation worker with the shared runtime, removes its weather callback, footer and adjustment during bounded shutdown, and reports days, rainfall, water need, adjustment, freeze protection, latest calculation and errors through `health()`.
+
+(Martin Pihrt) - Weather-based Rain Delay<br/>
+Updated Weather-based Rain Delay for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring OSPy weather, Netatmo-network and rain-delay control access, registers its monitor with the shared runtime, closes Netatmo HTTP responses, removes its own rain block during bounded shutdown, keeps credentials out of diagnostics, and reports source, checks, rain detection, active delay and errors through `health()`.
+
+(Martin Pihrt) - Water Meter<br/>
+Updated Water Meter for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMBus, Raspberry Pi I²C addresses 0x50/0x51 and local settings access, registers its PCF8583 worker with the shared runtime, closes the I²C handle after errors and during bounded shutdown, and reports worker, counter, address, flow, total, latest reading and errors through `health()`.
+
+(Martin Pihrt) - Water Consumption Counter<br/>
+Updated Water Consumption Counter for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring station-event, local settings and e-mail access, registers its signal listener with the shared runtime, keeps the listener alive and disconnects all master-station signals during bounded shutdown, and reports counters, reset, latest master event, e-mail and errors through `health()`.
+
+(Martin Pihrt) - Voltage and Temperature Monitor<br/>
+Updated Voltage and Temperature Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMBus, Raspberry Pi I²C address 0x48 and local log-file access, registers its PCF8591 worker with the shared runtime, closes the I²C handle after errors and during bounded shutdown, and reports worker, converter, channels, latest reading and errors through `health()`.
+
+(Martin Pihrt) - Voice Station<br/>
+Updated Voice Station for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring audio-output, local sound-file and subprocess access, registers its playback worker with the shared runtime, disconnects station signals and terminates active audio commands during bounded shutdown, and reports worker, queue, playback, station-event and error state through `health()`.
+
+(Martin Pihrt) - Voice Notification<br/>
+Updated Voice Notification for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring optional Pygame, audio-output, local sound-file and mixer-command access, registers its playback worker with the shared runtime, stops active playback during bounded shutdown, and reports worker, Pygame, sound queue, latest cycle, playback and errors through `health()`.
+
+(Martin Pihrt) - Venetian Blind<br/>
+Updated Venetian Blind for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring blind REST-network and local command-log access, registers its status worker with the shared runtime, closes all HTTP responses, observes the common stop request with bounded shutdown, and reports worker, configured and reachable blinds, latest status update, command and errors through `health()`.
+
+(Martin Pihrt) - UPS Monitor<br/>
+Updated UPS Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring RPi.GPIO, Raspberry Pi physical pins 16 and 18, local/SQL logging, e-mail and system-shutdown access, registers its power worker with the shared runtime, observes the common stop request with bounded shutdown, returns the UPS shutdown output low during stop, and reports worker, power input, shutdown countdown and delay, latest check and errors through `health()`.
+
+(Martin Pihrt) - Thermostat<br/>
+Updated Thermostat for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring temperature-source and program/station-control access, registers its control worker with the shared runtime, observes the common stop request with bounded shutdown, preserves the ownership-safe existing program-control behavior, and reports worker, enabled zones, current temperatures, unavailable sources or setup errors, active program actions, latest cycle and errors through `health()`.
+
+(Martin Pihrt) - Temperature Switch<br/>
+Updated Temperature Switch for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring temperature-source and station-control requirements, registers its regulation worker with the shared runtime, observes the common stop request with bounded shutdown, releases only its own A/B/C station runs during stop, and reports worker, enabled channels, source availability, configured probes, valid readings, active runs and errors through `health()`.
+
+(Martin Pihrt) - Telegram Bot<br/>
+Updated Telegram Bot for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Telegram network and scheduler/station-control access, registers its asynchronous polling worker with the shared runtime, manages and disconnects its zone-change receiver, observes the common stop request with bounded shutdown, keeps tokens and chat identifiers out of diagnostics, and reports worker, token presence, connection, username, subscribed count, polling, received messages and errors through `health()`.
+
+(Martin Pihrt) - Water Tank Monitor<br/>
+Updated Water Tank Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMBus, Raspberry Pi I²C, local/SQL logging, e-mail and scheduler/station-control access, registers its sensor worker with the shared runtime, closes the SMBus handle after every reading, observes the common stop request with bounded shutdown, releases tank-regulation runs during stop, and reports worker, I²C address, level, fill, distance, volume, regulation, watering block, latest reading and errors through `health()`.
+
+(Martin Pihrt) - System Watchdog<br/>
+Updated System Watchdog for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Raspberry Pi hardware-watchdog, package-network, system-file, subprocess and service-control access, registers its service monitor with the shared runtime, observes the common stop request with bounded shutdown, and reports worker, package, service, watchdog device, latest check and errors through `health()`.
+
+(Martin Pihrt) - Astro Sunrise and Sunset<br/>
+Updated Astro Sunrise and Sunset for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring optional Astral and pytz plus dependency-installation and scheduler-control access, registers both its calculation and dependency-installation workers with the shared runtime, observes the common stop request with bounded shutdown, and reports worker, Astral availability, location, sunrise, sunset, scheduled programs, dependency installation, latest calculation and errors through `health()`.
+
+(Martin Pihrt) - Speed Monitor<br/>
+Updated Speed Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring speed-test network and local log-file access, registers its monitoring worker with the shared runtime, removes the unprotected speed test that previously ran before the worker loop, observes the common stop request with bounded shutdown, and reports worker, active test, ping, download, upload, latest successful test and errors through `health()`.
+
+(Martin Pihrt) - SMS Modem<br/>
+Updated SMS Modem for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Python Gammu, serial-modem, configuration-file, e-mail and system-control requirements, registers its polling worker with the shared runtime, observes the common stop request with bounded shutdown, corrects the webcam e-mail attachment call, keeps administrator telephone numbers out of diagnostics, and reports worker, Gammu, modem, administrator count, signal, latest check, command and errors through `health()`.
+
+(Martin Pihrt) - Shelly Cloud Integration<br/>
+Updated Shelly Cloud Integration for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Requests and cloud/local network access, registers its polling worker with the shared runtime, closes each HTTP response and its session before bounded shutdown, excludes the cloud authorization key from diagnostics and the settings JSON endpoint, and reports worker, server, configured, loaded and online devices, retry state, latest request and errors through `health()`.
+
+(Martin Pihrt) - Remote Notifications<br/>
+Updated Remote Notifications for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring HTTP network and system-state access, registers its event-monitoring worker with the shared runtime, observes the common stop request with bounded shutdown, closes HTTP responses, keeps the API key out of diagnostics, and reports worker, server, API-key presence, latest cycle, successful notification, reply and errors through `health()`.
+
+(Martin Pihrt) - Remote FTP Control<br/>
+Updated Remote FTP Control for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring FTP network, ramdisk/file and scheduler-control access, registers its polling worker with the shared runtime, closes an active FTP connection before bounded shutdown, keeps credentials out of diagnostics, and reports worker, server, directory, connection, latest command, successful transfer and errors through `health()`.
+
+(Martin Pihrt) - Direct 16 Relay Outputs<br/>
+Updated Direct 16 Relay Outputs for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring RPi.GPIO, Raspberry Pi and all sixteen physical header pins, registers its output worker with the shared runtime, observes the common stop request with bounded shutdown, drives configured outputs to their inactive level during stop, and reports worker, configured and active relays, GPIO readiness, trigger level and errors through `health()`.
+
+(Martin Pihrt) - Real Time and NTP time<br/>
+Updated Real Time and NTP time for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMBus, Raspberry Pi I²C address 0x68, NTP network and system-time subprocess access, registers its hourly synchronization worker with the shared runtime, observes the common stop request with bounded shutdown, and reports worker, NTP configuration, latest NTP and RTC values, synchronization cycle and errors through `health()`.
+
+(Martin Pihrt) - Proto<br/>
+Updated the Proto example for the new OSPy plug-in interfaces. It now includes a minimal `plugin.json` manifest, registers its example worker with the shared runtime, observes the common stop request with bounded shutdown, documents the manifest in the example structure, and demonstrates worker, counter, latest-cycle and error reporting through `health()`.
+
+(Martin Pihrt) - Pressurizer<br/>
+Updated Pressurizer for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring scheduler, station and master-relay control, registers its scheduler worker with the shared runtime, observes the common stop request with bounded shutdown, guarantees relay release during stop, and reports worker, scheduler, master station, selected stations, relay state, latest activation and errors through `health()`.
+
+(Martin Pihrt) - Pressure Monitor<br/>
+Updated Pressure Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Raspberry Pi GPIO 18, logging, e-mail and scheduler-control requirements, registers its monitoring worker with the shared runtime, manages and disconnects all five station signal receivers, performs bounded shutdown, and reports worker, configuration, pressure input, master state, latest check, safety shutdown and errors through `health()`.
+
+(Martin Pihrt) - Pool Heating<br/>
+Updated Pool Heating for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring e-mail and scheduler/station-control access, registers its regulation worker with the shared runtime, observes the common stop request with bounded shutdown, safely releases its controlled pool output during stop, and reports worker, regulation, temperatures, selected output, safety shutdown and errors through `health()`.
+
+(Martin Pihrt) - Ping Monitor<br/>
+Updated Ping Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring ICMP network, log-file, e-mail, subprocess and optional system-restart access, registers its monitoring worker with the shared runtime, replaces its uninterruptible startup delay with the common stop signal, performs bounded shutdown, and reports worker, configuration, latest check, address availability and errors through `health()`.
+
+(Martin Pihrt) - Photovoltaic Boiler<br/>
+Updated Photovoltaic Boiler for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring scheduler and station-control access, registers its regulation worker with the shared runtime, observes the common stop request with bounded shutdown, continues safely releasing its controlled output during stop, and reports worker, regulation, output, temperature, latest control cycle and errors through `health()`.
+
+(Martin Pihrt) - OSPy Backup<br/>
+Updated OSPy Backup for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring plug-in data file access, removes its unnecessary one-shot worker in favor of explicit lifecycle handling, prevents concurrent archive creation, observes the common stop request between copied plug-ins, and reports active operation, latest archive, size, success, cancellation and errors through `health()`.
+
+(Martin Pihrt) - Network Ping Monitor<br/>
+Updated Network Ping Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring ICMP network, file and system access, registers its polling worker with the shared runtime, propagates the common stop signal between timeout-bounded target checks, performs bounded shutdown, and reports worker, per-target reachability, completed cycles, partial or total outages and internal errors through `health()`.
+
+(Martin Pihrt) - MQTT Home Assistant<br/>
+Updated MQTT Home Assistant for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Paho MQTT, python-slugify, Blinker, network and system access, registers its update and short balance workers with the shared runtime, uses real MQTT connect/disconnect callbacks, resubscribes registered topics after reconnect, manages discovery receivers as one replaceable lifecycle set to prevent duplicates, performs bounded shutdown, and reports credential-free broker, discovery, subscription, receiver and publish state through `health()`.
+
+(Martin Pihrt) - Monthly Water Level<br/>
+Updated Monthly Water Level for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring scheduler-control access, registers its daily adjustment worker with the shared runtime, uses the common stop signal with bounded shutdown, continues removing its global adjustment during stop, and reports month, configured percentage, applied factor, latest update and errors through `health()`.
+
+(Martin Pihrt) - Modbus Stations<br/>
+Updated Modbus Stations for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring pyserial, Blinker, serial relay hardware, file and system access, replaces its unnecessary one-shot worker with explicit lifecycle management of three station signal receivers, prevents duplicate commands after restart, closes command serial handles, and reports dependency, receiver and communication state through `health()`.
+
+(Martin Pihrt) - Label Maker<br/>
+Updated Label Maker for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring optional Pillow and QR libraries plus file and subprocess access, removes its unnecessary one-shot worker in favor of explicit lifecycle handling, registers the real dependency-installation worker with the shared runtime, and reports selected type, relevant dependencies, generated output and latest generation result through `health()`.
+
+(Martin Pihrt) - IP Scanner<br/>
+Updated IP Scanner for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring local-network and subprocess access, registers its scanning worker with the shared runtime, propagates the common stop signal into queued host scans while retaining command timeouts, performs bounded shutdown, and reports worker, scan, interface, network, device, port-check and error state through `health()`.
+
+(Martin Pihrt) - IP Cam<br/>
+Updated IP Cam for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Requests, Pillow, network and cache-file access, registers its automatic snapshot worker with the shared runtime, uses the common stop signal with bounded shutdown, closes completed HTTP responses, and aggregates its existing per-camera diagnostics into a credential-free `health()` report.
+
+(Martin Pihrt) - CHMI<br/>
+Updated CHMI for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Requests, Pillow, optional SHMU libraries, network, file, subprocess and system access, registers both radar and dependency-installation workers with the shared runtime, uses the common stop signal with bounded shutdown, closes its HTTP session, and reports source, location, optional dependencies, radar timestamp, latest successful update and errors through `health()`.
+
+(Martin Pihrt) - E-mail Reader<br/>
+Updated E-mail Reader for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring IMAP network, e-mail, file and system-control access, registers its mailbox polling worker with the shared runtime, uses the common stop signal with bounded shutdown, closes an active IMAP session after worker errors, and reports non-secret configuration, latest mailbox check, message count and recent IMAP errors through `health()`.
+
+(Martin Pihrt) - E-mail Notifications SSL<br/>
+Updated E-mail Notifications SSL for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Blinker, SMTP SSL, e-mail and queue-file access, registers its notification and retry worker with the shared runtime, uses the common stop signal, manages five system signal receivers through start and stop to prevent duplicate notifications, and reports receiver, SMTP, queue and delivery state through `health()` without exposing credentials or recipients.
+
+(Martin Pihrt) - E-mail Notifications<br/>
+Updated E-mail Notifications for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring SMTP network, e-mail and queue-file access, registers its notification and retry worker with the shared runtime, uses the common stop signal with bounded shutdown, and reports SMTP configuration, queue size, retry mode, latest successful delivery and recent errors through `health()` without exposing credentials or recipients.
+
+(Martin Pihrt) - Database Connector<br/>
+Updated Database Connector for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring MySQL Connector, network, file and subprocess access, replaces its unnecessary one-shot worker with explicit lifecycle handling, and reports enablement, connector availability and version, configured target, and the latest real database operation through `health()`.
+
+(Martin Pihrt) - Current Loop Tanks Monitor<br/>
+Updated Current Loop Tanks Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring ADS1115 I2C, file, e-mail and system-control access, registers its measurement worker with the shared runtime, uses the common stop signal with bounded shutdown, closes the SMBus handle after measurements, and reports configured tanks, worker, address, latest successful measurement and I2C or ADC errors through `health()`.
+
+(Martin Pihrt) - Air Temperature and Humidity Monitor<br/>
+Updated Air Temperature and Humidity Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Raspberry Pi GPIO, optional SMBus and sensor access, registers its polling worker with the shared runtime, uses the common stop signal with bounded shutdown, and reports configured DHT/DS18B20 sensors, worker, latest sample and sensor errors through `health()`.
+
+(Martin Pihrt) - Button Control<br/>
+Updated Button Control for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring MCP23017 I2C and system-control requirements, registers its polling worker with the shared runtime, uses the common stop signal with bounded shutdown, closes I2C bus handles after operations, and reports enablement, worker, address, successful reads and communication errors through `health()`.
+
+(Martin Pihrt) - CLI Control<br/>
+Updated CLI Control for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring Blinker, file, network, subprocess and system access, removes the unnecessary one-shot startup thread, registers station receivers directly, disconnects them during shutdown, tracks command outcomes, and reports enablement, receiver count, configured commands and the latest result through `health()`.
+
+(Martin Pihrt) - Usage Statistics<br/>
+Updated Usage Statistics for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring file and network access, registers its hourly refresh worker with the shared runtime, uses the common stop signal with bounded shutdown, and reports worker, source URL, record count and latest successful data refresh through `health()`.
+
+(Martin Pihrt) - Signaling Examples<br/>
+Updated Signaling Examples for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring its Blinker dependency and system event access, removes the unnecessary one-shot startup thread, registers receivers directly during startup, disconnects every receiver during shutdown, and reports receiver count and the latest signal through `health()`.
+
+(Martin Pihrt) - Relay Test<br/>
+Updated Relay Test for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring relay-output control, registers and clears its bounded test worker through the shared runtime, stops without a completion race, forces the relay off during shutdown, and reports worker, relay command and duration through `health()`. Corrected the README test duration to three seconds.
+
+(Martin Pihrt) - Pulse Output Test<br/>
+Updated Pulse Output Test for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring station-output control, registers its test worker with the shared runtime, responds separately to the manual test stop and common plug-in stop signals, clears completed workers, and reports the selected output, duration, worker and output state through `health()`.
+
+(Martin Pihrt) - Door Opening<br/>
+Updated Door Opening for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring station-output control, registers its one-shot activation worker with the shared runtime, observes the common stop request before activating an output, stops safely, and reports selected output, opening time, worker state and active opening runs through `health()`.
+
+(Martin Pihrt) - Webcam Monitor<br/>
+Updated Webcam Monitor for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest declaring its Linux USB-camera, file and subprocess access, provides an explicit lifecycle stop function, and reports capture configuration, camera device, `fswebcam` and snapshot availability through `health()`. Corrected the documentation to state that `fswebcam` must be installed through the system package manager.
+
+(Martin Pihrt) - System Debug Information<br/>
+Updated System Debug Information for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest, declares debug-log file access, provides an explicit lifecycle stop function, and reports debug logging and log-file availability through `health()`.
+
+(Martin Pihrt) - System Information<br/>
+Updated System Information for the new OSPy plug-in interfaces. It now includes a `plugin.json` manifest, declares its optional Linux and I2C data sources and permissions, provides an explicit lifecycle stop function, and reports optional system-information source availability through `health()`.
+
+(Martin Pihrt) - MQTT<br/>
+Updated MQTT as the first reference plug-in for the new OSPy lifecycle and diagnostics interfaces. It now includes a `plugin.json` manifest, registers its sender startup thread with the shared plug-in runtime, uses the common stop signal, and provides `health()` information for dependency availability, configuration, MQTT client state, broker connection, recent publishing and the last runtime error.
+
+(Martin Pihrt) - LCD Display<br/>
+Updated LCD Display for the new OSPy plug-in lifecycle and diagnostics interfaces. It now includes a `plugin.json` manifest declaring its I2C dependency, registers its display thread with the shared runtime, uses the common stop signal, and provides `health()` information for worker state, detected PCF8574 address, successful display writes and recent I2C errors.
+
+(Martin Pihrt) - Documentation<br/>
+Updated active pihrt.com links in plug-in README files, help templates, and source comments after the website migration. Former `/elektronika/` article paths now use their verified `/clanky/` addresses, and the removed AutomatOSPy demonstration page now links to the related irrigation article.
+
+July 12 2026
+-----------
+(Martin Pihrt) - Usage Statistics<br/>
+Updated Usage Statistics for the anonymized public data format. The public statistics feed now uses SHA-256 installation identifiers, and the plug-in hashes its local UUID before comparison so it can still recognize and highlight the current installation without publishing the original UUID.
+
+July 11 2026
+-----------
+(Martin Pihrt) - E-mail Notifications SSL<br/>
+Added a small two-factor authentication interface for OSPy. The plug-in can now report whether its SMTP configuration is ready and send time-sensitive login verification codes immediately without placing failed or expired codes into the normal retry queue.
+
 July 10 2026
 -----------
 (Martin Pihrt) - LCD Display<br/>
