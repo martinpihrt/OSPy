@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 19 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Made the System Update test suite compatible with both the stable v1.1 plug-in and the v1.2 external-watchdog implementation. Shared update-channel tests now adapt to the available interface, while watchdog-specific tests run only when the tested plug-in provides the helper and acknowledgement functions. This removes the circular CI dependency between the OSPy and OSPy-plugins `master` and `beta` matrices without weakening watchdog validation.
+
 July 18 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

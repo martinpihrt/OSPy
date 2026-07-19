@@ -1,4 +1,5 @@
 import importlib.util
+from contextlib import ExitStack
 import os
 from pathlib import Path
 import sys
@@ -166,18 +167,31 @@ class SystemUpdateChannelTests(unittest.TestCase):
                 return "b" * 40
             return "b" * 40
 
-        with mock.patch("ospy.backup.create_system_backup", return_value="safety.zip") as create, \
-                mock.patch.object(self.module, "run_required_command", side_effect=record), \
-                mock.patch.object(self.module, "git_output", side_effect=git_value), \
-                mock.patch.object(self.module, "arm_update_watchdog", return_value={"token": "token"}) as arm, \
-                mock.patch.object(self.module, "Thread", _NoStartThread), \
-                mock.patch.object(self.module, "open", mock.mock_open()), \
-                mock.patch.object(type(core_options), "save_now") as save_now:
+        watchdog_supported = hasattr(self.module, "arm_update_watchdog")
+        with ExitStack() as stack:
+            create = stack.enter_context(mock.patch(
+                "ospy.backup.create_system_backup", return_value="safety.zip"
+            ))
+            stack.enter_context(mock.patch.object(
+                self.module, "run_required_command", side_effect=record
+            ))
+            stack.enter_context(mock.patch.object(
+                self.module, "git_output", side_effect=git_value
+            ))
+            arm = None
+            if watchdog_supported:
+                arm = stack.enter_context(mock.patch.object(
+                    self.module, "arm_update_watchdog", return_value={"token": "token"}
+                ))
+            stack.enter_context(mock.patch.object(self.module, "Thread", _NoStartThread))
+            stack.enter_context(mock.patch.object(self.module, "open", mock.mock_open()))
+            save_now = stack.enter_context(mock.patch.object(type(core_options), "save_now"))
             result = self.module.perform_update()
 
         save_now.assert_called_once_with()
         create.assert_called_once_with(reason="before system update")
-        arm.assert_called_once_with("a" * 40, "b" * 40)
+        if watchdog_supported:
+            arm.assert_called_once_with("a" * 40, "b" * 40)
         self.assertLess(
             required.index(["git", "fetch", "--prune", "origin"]),
             required.index(["git", "checkout", "-B", "beta", "origin/beta"]),
@@ -195,6 +209,8 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn("default", template)
 
     def test_failed_update_restores_previous_commit_and_cancels_watchdog(self):
+        if not hasattr(self.module, "arm_update_watchdog"):
+            self.skipTest("System Update plug-in does not provide the external watchdog")
         previous = "a" * 40
         target = "b" * 40
         commands = []
@@ -229,6 +245,8 @@ class SystemUpdateChannelTests(unittest.TestCase):
         cancel.assert_called_once_with(watchdog, status="update_failed")
 
     def test_new_process_confirms_only_after_fresh_scheduler_heartbeat(self):
+        if not hasattr(self.module, "acknowledge_update_watchdog"):
+            self.skipTest("System Update plug-in does not provide watchdog acknowledgement")
         target = "b" * 40
         created = time.time() - 5
         state = {
@@ -271,6 +289,8 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
         if plugin is None:
             raise unittest.SkipTest("System Update plug-in source is not available")
         helper_path = plugin.parent / "update_watchdog.py"
+        if not helper_path.is_file():
+            raise unittest.SkipTest("System Update watchdog helper is not available")
         spec = importlib.util.spec_from_file_location("_ospy_test_update_watchdog", str(helper_path))
         self.helper = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.helper)
