@@ -6,6 +6,7 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+System Update automatic rollback practical test.
 Updated the Czech translation catalog, including the current System Update watchdog, update-channel and diagnostics messages.
 
 Added regression coverage for a completed System Update watchdog acknowledgement that is still awaiting external file cleanup. Diagnostics must treat a matching healthy-start acknowledgement as successful instead of continuing to report the plug-in as waiting.
