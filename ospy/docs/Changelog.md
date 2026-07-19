@@ -6,7 +6,6 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
-System Update automatic rollback practical test.
 Fixed the legacy SysV OSPy service stop script so it targets only the PID recorded for OSPy. Its former executable-wide cleanup matched every `/usr/bin/python3` process and could kill unrelated Python services, including the external System Update rollback watchdog, after the 30-second stop timeout. Added regression coverage that prevents broad Python process matching from returning.
 
 Updated the Czech translation catalog, including the current System Update watchdog, update-channel and diagnostics messages.
