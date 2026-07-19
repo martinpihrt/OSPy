@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Added regression coverage for queuing the post-rollback systemd restart without waiting for a legacy SysV stop job. A successful repository rollback must not be reported as failed merely because the generated service spends its full 30-second stop interval before restarting OSPy.
+
 Fixed the legacy SysV OSPy service stop script so it targets only the PID recorded for OSPy. Its former executable-wide cleanup matched every `/usr/bin/python3` process and could kill unrelated Python services, including the external System Update rollback watchdog, after the 30-second stop timeout. Added regression coverage that prevents broad Python process matching from returning.
 
 Updated the Czech translation catalog, including the current System Update watchdog, update-channel and diagnostics messages.

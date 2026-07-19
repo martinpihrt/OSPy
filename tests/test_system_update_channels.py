@@ -445,6 +445,18 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
             self.assertEqual(result, 2)
             run.assert_not_called()
 
+    def test_systemd_restart_is_queued_without_waiting_for_slow_sysv_stop(self):
+        with mock.patch.object(self.helper.shutil, "which", return_value="/bin/systemctl"), \
+                mock.patch.object(self.helper.os.path, "isdir", return_value=True), \
+                mock.patch.object(self.helper.subprocess, "run") as run:
+            self.helper._restart_ospy({})
+
+        self.assertEqual(
+            run.call_args.args[0],
+            ["systemctl", "--no-block", "restart", "ospy.service"],
+        )
+        self.assertEqual(run.call_args.kwargs["timeout"], 10)
+
 
 class SystemUpdateLegacyServiceTests(unittest.TestCase):
     def test_sysv_stop_does_not_match_every_python_process(self):
