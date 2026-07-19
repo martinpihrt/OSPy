@@ -68,14 +68,12 @@ do_stop()
         start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
         RETVAL="$?"
         [ "$RETVAL" = 2 ] && return 2
-        # Wait for children to finish too if this is a daemon that forks
-        # and if the daemon is only ever run from this initscript.
-        # If the above conditions are not satisfied then add some other code
-        # that waits for the process to drop all resources that could be
-        # needed by services started subsequently.  A last resort is to
-        # sleep for some time.
-        start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --exec $DAEMON
-        [ "$?" = 2 ] && return 2
+        # OSPy does not fork worker processes that need to be found by their
+        # executable.  Do not add a second --exec $DAEMON cleanup here:
+        # $DAEMON is the shared /usr/bin/python3 interpreter and matching it
+        # would terminate unrelated Python services, including the external
+        # System Update rollback watchdog.  The PID-file operation above is
+        # deliberately the only process selection used for stopping OSPy.
         # Many daemons don't delete their pidfiles when they exit.
         rm -f $PIDFILE
         return "$RETVAL"

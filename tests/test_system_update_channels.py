@@ -2,6 +2,8 @@ import importlib.util
 from contextlib import ExitStack
 import os
 from pathlib import Path
+import shutil
+import subprocess
 import sys
 import tempfile
 import json
@@ -244,6 +246,62 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn(["git", "reset", "--hard", previous], commands)
         cancel.assert_called_once_with(watchdog, status="update_failed")
 
+    def test_watchdog_is_ready_before_repository_changes_are_allowed(self):
+        if not hasattr(self.module, "WATCHDOG_READY_FILE"):
+            self.skipTest("System Update plug-in does not provide a readiness handshake")
+        state = {
+            "token": "secret",
+            "unit": "ospy-update-watchdog-test",
+        }
+
+        def executable(name):
+            return {
+                "systemd-run": "/bin/systemd-run",
+                "systemctl": "/bin/systemctl",
+                "sh": "/bin/sh",
+            }.get(name)
+
+        with mock.patch.object(self.module, "_watchdog_state", return_value=state), \
+                mock.patch.object(self.module.shutil, "which", side_effect=executable), \
+                mock.patch.object(self.module.os.path, "isdir", return_value=True), \
+                mock.patch.object(self.module.os.path, "isfile", return_value=True), \
+                mock.patch.object(self.module, "run_required_command", return_value="") as run, \
+                mock.patch.object(
+                    self.module, "_read_json", return_value={"token": "secret"}
+                ), \
+                mock.patch.object(self.module, "_write_json") as write:
+            armed = self.module.arm_update_watchdog("a" * 40, "b" * 40)
+
+        self.assertEqual(armed["mode"], "systemd")
+        command = run.call_args.args[0]
+        self.assertIn(self.module.WATCHDOG_SUPERVISOR, command)
+        self.assertIn(self.module.WATCHDOG_SCRIPT, command)
+        write.assert_called_once_with(self.module.WATCHDOG_STATE_FILE, armed)
+
+    def test_watchdog_start_without_ready_signal_is_rejected(self):
+        if not hasattr(self.module, "WATCHDOG_READY_FILE"):
+            self.skipTest("System Update plug-in does not provide a readiness handshake")
+        state = {
+            "token": "secret",
+            "unit": "ospy-update-watchdog-test",
+        }
+        self.module.WATCHDOG_START_TIMEOUT = 0
+        with mock.patch.object(self.module, "_watchdog_state", return_value=state), \
+                mock.patch.object(self.module.shutil, "which", return_value="/bin/tool"), \
+                mock.patch.object(self.module.os.path, "isdir", return_value=True), \
+                mock.patch.object(self.module.os.path, "isfile", return_value=True), \
+                mock.patch.object(self.module, "run_required_command", return_value=""), \
+                mock.patch.object(self.module, "run_command") as stop, \
+                mock.patch.object(self.module, "_read_json", return_value={}), \
+                mock.patch.object(self.module.os, "remove"):
+            with self.assertRaises(RuntimeError):
+                self.module.arm_update_watchdog("a" * 40, "b" * 40)
+
+        self.assertEqual(
+            stop.call_args.args[0],
+            ["/bin/tool", "stop", "ospy-update-watchdog-test"],
+        )
+
     def test_new_process_confirms_only_after_fresh_scheduler_heartbeat(self):
         if not hasattr(self.module, "acknowledge_update_watchdog"):
             self.skipTest("System Update plug-in does not provide watchdog acknowledgement")
@@ -328,6 +386,7 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
             "deadline": deadline,
             "acknowledgement": str(ack_path),
             "result": str(result_path),
+            "ready": str(Path(directory) / "ready.json"),
         }
         state_path.write_text(json.dumps(state), encoding="utf-8")
         return state_path, ack_path, result_path, state
@@ -347,6 +406,7 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
             self.assertEqual(result, 0)
             run.assert_not_called()
             self.assertFalse(state_path.exists())
+            self.assertFalse(Path(state["ready"]).exists())
             saved = json.loads(result_path.read_text(encoding="utf-8"))
             self.assertEqual(saved["status"], "confirmed")
 
@@ -373,6 +433,7 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
             saved = json.loads(result_path.read_text(encoding="utf-8"))
             self.assertEqual(saved["status"], "rolled_back")
             self.assertFalse(state_path.exists())
+            self.assertFalse(Path(state["ready"]).exists())
 
     def test_wrong_token_is_rejected_without_git_changes(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -383,6 +444,58 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
                 result = self.helper.monitor(str(state_path), "wrong")
             self.assertEqual(result, 2)
             run.assert_not_called()
+
+
+class SystemUpdateLegacyServiceTests(unittest.TestCase):
+    def test_sysv_stop_does_not_match_every_python_process(self):
+        service = (ROOT / "service" / "ospy.sh").read_text(encoding="utf-8")
+        stop_body = service.split("do_stop()", 1)[1].split("do_reload()", 1)[0]
+        commands = [
+            line.strip() for line in stop_body.splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        ]
+        self.assertFalse(any("--exec $DAEMON" in line for line in commands))
+
+    @unittest.skipUnless(os.name == "posix" and shutil.which("sh"), "POSIX shell required")
+    def test_shell_supervisor_relaunches_a_signalled_python_helper(self):
+        plugin = _system_update_path()
+        if plugin is None:
+            raise unittest.SkipTest("System Update plug-in source is not available")
+        supervisor = plugin.parent / "update_watchdog_supervisor.sh"
+        if not supervisor.is_file():
+            raise unittest.SkipTest("System Update watchdog supervisor is not available")
+
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            state = directory / "state.json"
+            count = directory / "count"
+            fake_python = directory / "fake-python"
+            state.write_text("{}", encoding="utf-8")
+            fake_python.write_text(
+                "#!/bin/sh\n"
+                "COUNT=0\n"
+                "[ ! -f \"$WATCHDOG_TEST_COUNT\" ] || COUNT=$(cat \"$WATCHDOG_TEST_COUNT\")\n"
+                "COUNT=$((COUNT + 1))\n"
+                "printf '%s' \"$COUNT\" > \"$WATCHDOG_TEST_COUNT\"\n"
+                "[ \"$COUNT\" -ne 1 ] || exit 137\n"
+                "exit 0\n",
+                encoding="utf-8",
+            )
+            fake_python.chmod(0o755)
+            environment = dict(os.environ)
+            environment["WATCHDOG_TEST_COUNT"] = str(count)
+            completed = subprocess.run(
+                [
+                    shutil.which("sh"), str(supervisor), str(fake_python), "ignored",
+                    "--state", str(state), "--token", "secret",
+                ],
+                check=False,
+                timeout=5,
+                env=environment,
+            )
+
+            self.assertEqual(completed.returncode, 0)
+            self.assertEqual(count.read_text(encoding="utf-8"), "2")
 
 
 if __name__ == "__main__":

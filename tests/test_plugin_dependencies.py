@@ -174,10 +174,9 @@ class PluginDependencyTests(unittest.TestCase):
                 plugins.start_enabled_plugins()
 
         start.assert_not_called()
-        self.assertIn(
-            "dependency cycle",
-            plugins._runtime_entry("dependency_cycle_a")["last_error"].lower(),
-        )
+        error = plugins._runtime_entry("dependency_cycle_a")["last_error"]
+        self.assertIn("dependency_cycle_a", error)
+        self.assertIn("dependency_cycle_b", error)
 
 
 if __name__ == "__main__":
