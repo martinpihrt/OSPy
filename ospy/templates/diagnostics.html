@@ -13,6 +13,7 @@ jQuery(document).ready(function(){
     var currentHistoryPlugin = null;
     var refreshTimer = null;
     var currentSecurity = null;
+    var currentIncidents = [];
     var diagnosticsErrors = {
         system: [],
         plugins: []
@@ -22,6 +23,7 @@ jQuery(document).ready(function(){
     var diagnosticsRequestPending = false;
     var systemHealthRequestPending = false;
     var securityHealthRequestPending = false;
+    var incidentHistoryRequestPending = false;
     var diagnosticsRequestFailures = 0;
     var systemHealthRequestFailures = 0;
 
@@ -273,6 +275,86 @@ jQuery(document).ready(function(){
             scheduleDiagnosticsErrorModal();
         }).always(function(){
             systemHealthRequestPending = false;
+        });
+    }
+
+    function incidentStateLabel(status) {
+        var labels = {
+            open: $:{json.dumps(_('Active'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+            resolved: $:{json.dumps(_('Resolved'), ensure_ascii=False).encode('utf8').decode('utf-8')},
+            interrupted: $:{json.dumps(_('Interrupted by restart'), ensure_ascii=False).encode('utf8').decode('utf-8')}
+        };
+        return labels[status] || status || "-";
+    }
+
+    function renderIncidentHistory() {
+        var filter = jQuery("#incidentFilter").val() || "all";
+        var rows = "";
+        var visible = 0;
+        for (var i = 0; i < currentIncidents.length; i++) {
+            var incident = currentIncidents[i];
+            if (filter !== "all" && incident.status !== filter) {
+                continue;
+            }
+            visible++;
+            var detailParts = [];
+            if (incident.details) {
+                detailParts.push('<div><b>' +
+                    $:{json.dumps(_('Technical cause'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                    ':</b> ' + escapeHtml(incident.details) + '</div>');
+            }
+            if (incident.solution) {
+                detailParts.push('<div class="incidentSolution"><b>' +
+                    $:{json.dumps(_('Possible solution'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                    ':</b> ' + escapeHtml(incident.solution) + '</div>');
+            }
+            var details = detailParts.length ? '<details><summary>' +
+                $:{json.dumps(_('Details'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                '</summary>' + detailParts.join('') + '</details>' : '';
+            var action = incident.link ? '<a class="button open" href="' +
+                escapeHtml(incident.link) + '">' +
+                $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
+            rows += '<tr class="incidentRow incident-' + escapeHtml(incident.status) + '">' +
+                '<td><span class="incidentState incident-' + escapeHtml(incident.status) + '">' +
+                    escapeHtml(incidentStateLabel(incident.status)) + '</span></td>' +
+                '<td><span class="healthBadge health-' + escapeHtml(incident.severity) + '">' +
+                    healthLabel(incident.severity) + '</span></td>' +
+                '<td><b>' + escapeHtml(incident.title || incident.issue_id || '-') + '</b>' +
+                    '<div>' + escapeHtml(incident.summary || '-') + '</div>' + details + '</td>' +
+                '<td>' + escapeHtml(incident.opened || '-') + '</td>' +
+                '<td>' + escapeHtml(incident.last_seen || '-') + '</td>' +
+                '<td>' + escapeHtml(incident.resolved || '-') + '</td>' +
+                '<td>' + escapeHtml(incident.count || 1) + '</td>' +
+                '<td class="healthAction">' + action + '</td></tr>';
+        }
+        jQuery("#incidentHistoryRows").html(rows || '<tr><td colspan="8">' +
+            $:{json.dumps(_('No incidents match the selected filter.'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+            '</td></tr>');
+        jQuery("#incidentVisibleCount").text(visible);
+    }
+
+    function updateIncidentHistory() {
+        if (incidentHistoryRequestPending) {
+            return;
+        }
+        incidentHistoryRequestPending = true;
+        jQuery.getJSON("/diagnostics_incidents.json", function(data) {
+            if (data.error) {
+                jQuery("#incidentHistoryStatus").text(data.error);
+                return;
+            }
+            currentIncidents = data.incidents || [];
+            renderIncidentHistory();
+            jQuery("#incidentHistoryUpdated").text(data.time || "-");
+            jQuery("#incidentHistoryStatus").text("");
+        }).fail(function(xhr) {
+            var message = $:{json.dumps(_('Incident history refresh failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            if (xhr && xhr.status) {
+                message += " HTTP " + xhr.status + ".";
+            }
+            jQuery("#incidentHistoryStatus").text(message);
+        }).always(function() {
+            incidentHistoryRequestPending = false;
         });
     }
 
@@ -660,6 +742,7 @@ jQuery(document).ready(function(){
         jQuery(this).parent(".diagnosticsSection").toggleClass("expanded").toggleClass("collapsed");
     });
     jQuery("#securityProfile").on("change", renderSecurityHealth);
+    jQuery("#incidentFilter").on("change", renderIncidentHistory);
     jQuery("#historyRange").on("change", function(){
         loadHistory(currentHistoryPlugin);
     });
@@ -703,10 +786,12 @@ jQuery(document).ready(function(){
 
     updateSystemHealth();
     updateSecurityHealth();
+    updateIncidentHistory();
     updateDiagnostics();
     refreshTimer = window.setInterval(updateDiagnostics, 5000);
     window.setInterval(updateSystemHealth, 10000);
     window.setInterval(updateSecurityHealth, 60000);
+    window.setInterval(updateIncidentHistory, 30000);
 });
 </script>
 
@@ -715,7 +800,7 @@ jQuery(document).ready(function(){
     <div id="controls">
         <a href="/" class="button cancel">$_('Cancel')</a>
         <span id="systemInfoLink"></span>
-        <span id="diagnosticsStatus" style="margin-left: 8px;"></span>
+        <span id="diagnosticsStatus"></span>
     </div>
 
     <div id="systemHealthSection" class="category collapsible expanded diagnosticsSection">
@@ -802,19 +887,6 @@ jQuery(document).ready(function(){
 
     <div class="simpleblock diagnosticsCard diagnosticsScroll">
         <table id="diagnosticsPlugins" class="diagnosticsTable pluginDiagnosticsTable">
-            <colgroup>
-                <col style="width: 13%;">
-                <col style="width: 6%;">
-                <col style="width: 12%;">
-                <col style="width: 11%;">
-                <col style="width: 9%;">
-                <col style="width: 7%;">
-                <col style="width: 6%;">
-                <col style="width: 7%;">
-                <col style="width: 8%;">
-                <col style="width: 5%;">
-                <col style="width: 16%;">
-            </colgroup>
             <thead>
                 <tr>
                     <th>$_('Plugin')</th>
@@ -867,6 +939,43 @@ jQuery(document).ready(function(){
             </table>
         </div>
         <p>$_('Updated'): <span id="securityHealthUpdated">-</span><span id="securityHealthSummary"></span></p>
+    </div>
+    </div>
+
+    <div id="incidentHistorySection" class="category collapsible collapsed diagnosticsSection">
+    <h4>$_('Incident history')</h4>
+    <div class="diagnosticsSectionContent">
+        <div class="incidentHistoryControls">
+            <label for="incidentFilter"><b>$_('Show incidents')</b></label>
+            <select id="incidentFilter">
+                <option value="all">$_('All')</option>
+                <option value="open">$_('Active')</option>
+                <option value="resolved">$_('Resolved')</option>
+                <option value="interrupted">$_('Interrupted by restart')</option>
+            </select>
+            <span>$_('Displayed'): <span id="incidentVisibleCount">0</span></span>
+            <span id="incidentHistoryStatus"></span>
+        </div>
+        <div class="simpleblock diagnosticsCard diagnosticsScroll">
+            <table id="incidentHistoryTable" class="diagnosticsTable incidentHistoryTable">
+                <thead>
+                    <tr>
+                        <th>$_('State')</th>
+                        <th>$_('Severity')</th>
+                        <th>$_('Component and problem')</th>
+                        <th>$_('Opened')</th>
+                        <th>$_('Last occurrence')</th>
+                        <th>$_('Resolved')</th>
+                        <th>$_('Occurrences')</th>
+                        <th>$_('Actions')</th>
+                    </tr>
+                </thead>
+                <tbody id="incidentHistoryRows">
+                    <tr><td colspan="8">$_('loading...')</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>$_('History is limited to the 200 most recent incidents and survives an OSPy restart.') $_('Updated'): <span id="incidentHistoryUpdated">-</span></p>
     </div>
     </div>
 </div>

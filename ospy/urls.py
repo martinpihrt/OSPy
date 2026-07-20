@@ -39,6 +39,7 @@ urls = [
     '/diagnostics_history.json', 'ospy.webpages.api_diagnostics_history_json',
     '/system_health.json', 'ospy.webpages.api_system_health_json',
     '/security_health.json', 'ospy.webpages.api_security_health_json',
+    '/diagnostics_incidents.json', 'ospy.webpages.api_diagnostics_incidents_json',
     '/db_unreachable', 'ospy.webpages.db_unreachable_page',
     '/uploadSSL', 'ospy.webpages.upload_page_SSL',
     '/images', 'ospy.webpages.images_page',

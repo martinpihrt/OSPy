@@ -366,6 +366,8 @@ Stránka používá rozbalovací sekce **Stav systému**, **Výkon a procesy** a
 
 Zachycené provozní chyby jádra se zobrazují ve **Stavu systému** jako samostatné problémy. Záznam uvádí dotčenou součást, počet opakování, poslední výskyt, technickou příčinu a doporučený postup opravy. Po úspěšném opakování operace se aktivní problém automaticky odstraní; úplný traceback zůstává v záznamu událostí. Očekávané kompatibilní fallbacky se jako chyby nezobrazují.
 
+Rozbalovací sekce **Historie incidentů** uchovává nejvýše 200 posledních problémů i po restartu OSPy. Lze filtrovat všechny, aktivní, vyřešené a restartem přerušené incidenty. Opakování stejného aktivního problému zvyšuje jeho počítadlo místo vytváření duplicit; tabulka uvádí čas otevření, poslední výskyt a vyřešení. Historie je atomicky ukládána do omezeného validovaného JSON souboru a neukládá celé tracebacky.
+
 Souhrn systému ukazuje aktuální využití CPU, teplotu CPU, dobu běhu systému, load average, využití CPU procesem OSPy, využití paměti OSPy, počet vláken, informace o platformě a čas posledního obnovení.
 
 Tabulka rozšíření ukazuje všechna dostupná rozšíření, zda běží a zda jsou povolená, jejich vlastní provozní stav, aktuální zátěž CPU, celkový čas CPU, počet vláken, čas spuštění, počet restartů a dostupné akce. Rozšíření může volitelně poskytovat funkci `health()`, která vrací například `{'status': 'ok', 'summary': '...', 'details': '...'}`; povolené stavy jsou `ok`, `warning`, `error` a `unknown`. Starší rozšíření bez této funkce zůstávají plně kompatibilní a zobrazují stav „nehlášeno“. Chyba nebo překročení časového limitu kontroly stavu nezastaví rozšíření ani stránku Diagnostika. Data se obnovují automaticky, takže stránku lze nechat otevřenou při sledování zatížení systému.

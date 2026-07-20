@@ -6,7 +6,8 @@ from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolati
 from ospy import i18n  # noqa: F401 - installs gettext
 from ospy import health, webpages
 from ospy.webpages import (
-    _health_item, _plugin_health_groups, _runtime_health_items,
+    _health_item, _incident_history_data, _plugin_health_groups,
+    _runtime_health_items,
     _security_health_data,
 )
 
@@ -118,6 +119,31 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("3", rows[0]["details"])
         self.assertEqual(rows[0]["solution"], issue["solution"])
         self.assertEqual(rows[0]["link"], "/options")
+
+    def test_incident_history_data_formats_dates_and_counts_states(self):
+        incidents = [{
+            "incident_id": "incident-1",
+            "issue_id": "callback:example",
+            "title": "Callback",
+            "summary": "Failed",
+            "details": "ValueError",
+            "solution": "Correct settings",
+            "link": "/options",
+            "severity": "error",
+            "status": "resolved",
+            "opened": 1,
+            "last_seen": 2,
+            "resolved": 3,
+            "count": 2,
+        }]
+        with mock.patch.object(
+                health, "incident_history", return_value=incidents):
+            data = _incident_history_data()
+
+        self.assertEqual(data["counts"]["all"], 1)
+        self.assertEqual(data["counts"]["resolved"], 1)
+        self.assertEqual(data["incidents"][0]["count"], 2)
+        self.assertTrue(data["incidents"][0]["resolved"])
 
     def test_security_profiles_make_internet_requirements_stricter(self):
         insecure_options = SimpleNamespace(

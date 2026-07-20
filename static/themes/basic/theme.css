@@ -1517,6 +1517,83 @@ table.balanceList tr:last-child th {
 
 .healthAction { white-space: nowrap; }
 
+#diagnosticsStatus { margin-left: 8px; }
+
+.incidentHistoryControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 4px 0 8px;
+}
+
+#incidentHistoryStatus { color: #9d1c24; }
+
+#diagnostics .incidentHistoryTable {
+    min-width: 1120px;
+    table-layout: fixed;
+    font-family: inherit;
+    font-size: .86em;
+}
+
+#diagnostics .incidentHistoryTable th,
+#diagnostics .incidentHistoryTable td {
+    padding: 5px 6px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-family: inherit;
+    font-weight: normal;
+    vertical-align: top;
+}
+
+#diagnostics .incidentHistoryTable th { font-weight: 600; }
+#diagnostics .incidentHistoryTable th:nth-child(1) { width: 9%; }
+#diagnostics .incidentHistoryTable th:nth-child(2) { width: 8%; }
+#diagnostics .incidentHistoryTable th:nth-child(3) { width: 35%; }
+#diagnostics .incidentHistoryTable th:nth-child(4),
+#diagnostics .incidentHistoryTable th:nth-child(5),
+#diagnostics .incidentHistoryTable th:nth-child(6) { width: 11%; }
+#diagnostics .incidentHistoryTable th:nth-child(7) { width: 7%; }
+#diagnostics .incidentHistoryTable th:nth-child(8) { width: 8%; }
+
+.incidentState {
+    display: inline-block;
+    padding: 3px 6px;
+    border-left: 4px solid #687080;
+    border-radius: 2px;
+    background: #eceef2;
+    color: #4f5662;
+    line-height: 1.25;
+}
+
+.incidentState.incident-open {
+    border-left-color: #9d1c24;
+    background: #f9e3e5;
+    color: #7d1921;
+}
+
+.incidentState.incident-resolved {
+    border-left-color: #2f8b2f;
+    background: #e7f3e7;
+    color: #1f6322;
+}
+
+.incidentState.incident-interrupted {
+    border-left-color: #d07800;
+    background: #fff1d7;
+    color: #754600;
+}
+
+.incidentHistoryTable details { margin-top: 4px; }
+.incidentHistoryTable summary { cursor: pointer; }
+.incidentHistoryTable details div { margin-top: 4px; }
+.incidentSolution {
+    padding: 5px 7px;
+    border-left: 3px solid #d07800;
+    background: #fff7e7;
+}
+
+
 #diagnostics .pluginDiagnosticsTable {
     min-width: 1180px;
     table-layout: fixed;
@@ -1532,6 +1609,18 @@ table.balanceList tr:last-child th {
     font-weight: 600;
     line-height: 1.2;
 }
+
+#diagnostics .pluginDiagnosticsTable th:nth-child(1) { width: 13%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(2) { width: 6%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(3) { width: 12%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(4) { width: 11%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(5) { width: 9%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(6) { width: 7%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(7) { width: 6%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(8) { width: 7%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(9) { width: 8%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(10) { width: 5%; }
+#diagnostics .pluginDiagnosticsTable th:nth-child(11) { width: 16%; }
 
 #diagnostics .pluginDiagnosticsTable td {
     padding: 4px 5px;

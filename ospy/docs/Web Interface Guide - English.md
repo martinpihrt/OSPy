@@ -366,6 +366,8 @@ The page uses collapsible **System status**, **Performance and processes**, and 
 
 Caught core operational failures appear in **System status** as separate active problems. Each entry identifies the affected component, occurrence count, latest occurrence, technical cause and a recommended recovery action. A successful retry automatically clears the active problem, while the full traceback remains in the event log. Expected compatibility fallbacks are not reported as failures.
 
+The collapsible **Incident history** section retains up to 200 recent problems across OSPy restarts. It can filter all, active, resolved and restart-interrupted incidents. Repetition of the same active problem increments its count instead of creating duplicates; the table shows when it opened, last occurred and resolved. History is atomically stored in a validated size-limited JSON file and does not duplicate full tracebacks.
+
 The system summary shows current CPU usage, CPU temperature, system uptime, load average, OSPy process CPU usage, OSPy memory usage, thread count, platform information and the last refresh time.
 
 The plug-in table shows every available plug-in, whether it is running and enabled, its own operational health, current CPU load, total CPU time, thread count, start time, restart count and available actions. A plug-in can optionally provide a `health()` function returning, for example, `{'status': 'ok', 'summary': '...', 'details': '...'}`; accepted states are `ok`, `warning`, `error` and `unknown`. Older plug-ins without this function remain fully compatible and show “not reported”. A failed or timed-out health check does not stop the plug-in or the Diagnostics page. Data refreshes automatically, so the page can be left open while watching system load.

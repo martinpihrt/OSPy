@@ -174,7 +174,9 @@ class WebRouteIntegrationTests(unittest.TestCase):
     def test_non_admin_cannot_read_diagnostics_api(self):
         self.session["category"] = "user"
 
-        for path in ("/system_health.json", "/security_health.json"):
+        for path in (
+                "/system_health.json", "/security_health.json",
+                "/diagnostics_incidents.json"):
             with self.subTest(path=path):
                 response = self.app.request(path)
                 self.assertEqual(response.status, "403 Forbidden")
@@ -202,11 +204,25 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn("no-store", security_response.headers["Cache-Control"])
         self.assertIn(b'"profiles": []', security_response.data)
 
+        incident_payload = {"incidents": [], "counts": {"all": 0}}
+        with mock.patch.object(
+                webpages, "_incident_history_data",
+                return_value=incident_payload):
+            incident_response = self.app.request("/diagnostics_incidents.json")
+
+        self.assertEqual(incident_response.status, "200 OK")
+        self.assertEqual(
+            incident_response.headers["Content-Type"], "application/json"
+        )
+        self.assertIn("no-store", incident_response.headers["Cache-Control"])
+        self.assertIn(b'"incidents": []', incident_response.data)
+
     def test_diagnostics_api_errors_stay_json_responses(self):
         endpoints = (
             ("/diagnostics.json", "_diagnostics_data"),
             ("/system_health.json", "_system_health_data"),
             ("/security_health.json", "_security_health_data"),
+            ("/diagnostics_incidents.json", "_incident_history_data"),
         )
 
         for path, collector in endpoints:

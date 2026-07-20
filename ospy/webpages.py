@@ -3225,6 +3225,42 @@ def _runtime_health_items():
     return items
 
 
+def _incident_history_data():
+    """Build an administrator-safe view of the bounded incident history."""
+    incidents = health.incident_history(limit=health.INCIDENT_HISTORY_LIMIT)
+    result = []
+    for incident in incidents:
+        result.append({
+            'incident_id': incident.get('incident_id', ''),
+            'issue_id': incident.get('issue_id', ''),
+            'title': incident.get('title', ''),
+            'summary': incident.get('summary', ''),
+            'details': incident.get('details', ''),
+            'solution': incident.get('solution', ''),
+            'link': incident.get('link', ''),
+            'severity': incident.get('severity', 'error'),
+            'status': incident.get('status', 'resolved'),
+            'opened': _health_time(incident.get('opened')),
+            'last_seen': _health_time(incident.get('last_seen')),
+            'resolved': _health_time(incident.get('resolved')),
+            'count': incident.get('count', 1),
+        })
+    counts = {
+        'all': len(result),
+        'open': len([item for item in result if item['status'] == 'open']),
+        'resolved': len([item for item in result if item['status'] == 'resolved']),
+        'interrupted': len([
+            item for item in result if item['status'] == 'interrupted'
+        ]),
+    }
+    return {
+        'incidents': result,
+        'counts': counts,
+        'limit': health.INCIDENT_HISTORY_LIMIT,
+        'time': datetime_string(),
+    }
+
+
 def _system_health_data():
     """Build a lightweight operational overview without active hardware tests."""
     from glob import glob
@@ -3696,6 +3732,28 @@ class api_security_health_json(ProtectedPage):
             return json.dumps({
                 'ok': False,
                 'error': _('Security check failed.'),
+                'time': datetime_string(),
+            })
+
+
+class api_diagnostics_incidents_json(ProtectedPage):
+    """Bounded persistent core incident history for administrators."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        try:
+            return json.dumps(_incident_history_data())
+        except Exception:
+            log.error('webpages.py', traceback.format_exc())
+            return json.dumps({
+                'ok': False,
+                'error': _('Incident history refresh failed.'),
                 'time': datetime_string(),
             })
 
