@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
     var pluginHistory = {};
     var currentHistoryPlugin = null;
     var refreshTimer = null;
-    var activeTab = "health";
+    var currentSecurity = null;
     var diagnosticsErrors = {
         system: [],
         plugins: []
@@ -21,6 +21,7 @@ jQuery(document).ready(function(){
     var lastDiagnosticsAlertSignature = "";
     var diagnosticsRequestPending = false;
     var systemHealthRequestPending = false;
+    var securityHealthRequestPending = false;
     var diagnosticsRequestFailures = 0;
     var systemHealthRequestFailures = 0;
 
@@ -190,17 +191,6 @@ jQuery(document).ready(function(){
         return labels[status] || labels.unknown;
     }
 
-    function showTab(tab) {
-        activeTab = tab === "performance" ? "performance" : "health";
-        jQuery(".diagnosticsTab").removeClass("selected");
-        jQuery('.diagnosticsTab[data-tab="' + activeTab + '"]').addClass("selected");
-        jQuery("#systemHealthTab").toggle(activeTab === "health");
-        jQuery("#performanceTab").toggle(activeTab === "performance");
-        if (activeTab === "health") {
-            updateSystemHealth();
-        }
-    }
-
     function renderSystemHealth(data) {
         var rows = "";
         var items = data.items || [];
@@ -283,6 +273,73 @@ jQuery(document).ready(function(){
             scheduleDiagnosticsErrorModal();
         }).always(function(){
             systemHealthRequestPending = false;
+        });
+    }
+
+    function renderSecurityHealth() {
+        if (!currentSecurity) {
+            return;
+        }
+        var profile = jQuery("#securityProfile").val() || "home";
+        var profiles = currentSecurity.profiles || [];
+        var profileDescription = "";
+        for (var profileIndex = 0; profileIndex < profiles.length; profileIndex++) {
+            if (profiles[profileIndex].id === profile) {
+                profileDescription = profiles[profileIndex].description || "";
+                break;
+            }
+        }
+        jQuery("#securityProfileDescription").text(profileDescription);
+
+        var rows = "";
+        var items = currentSecurity.items || [];
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var status = (item.status || {})[profile] || "unknown";
+            var details = item.details ? '<div class="healthDetails">' + escapeHtml(item.details) + '</div>' : '';
+            var solution = item.solution ? '<div class="securitySolution"><b>' +
+                $:{json.dumps(_('Recommendation'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                ':</b> ' + escapeHtml(item.solution) + '</div>' : '';
+            var action = item.link ? '<a class="button open" href="' + escapeHtml(item.link) + '">' +
+                $:{json.dumps(_('Open'), ensure_ascii=False).encode('utf8').decode('utf-8')} + '</a>' : '';
+            rows += '<tr class="securityRow health-' + escapeHtml(status) + '">' +
+                '<td><b>' + escapeHtml(item.title) + '</b></td>' +
+                '<td><span class="healthBadge health-' + escapeHtml(status) + '">' +
+                healthLabel(status) + '</span></td>' +
+                '<td><div>' + escapeHtml(item.summary) + '</div>' + details + solution + '</td>' +
+                '<td class="healthAction">' + action + '</td>' +
+                '</tr>';
+        }
+        jQuery("#securityHealthRows").html(rows || '<tr><td colspan="4">-</td></tr>');
+        var summaryStatus = (currentSecurity.status || {})[profile] || "unknown";
+        jQuery("#securityHealthSummary")
+            .removeClass("health-ok health-warning health-error health-unknown")
+            .addClass("health-" + summaryStatus)
+            .text(healthLabel(summaryStatus));
+        jQuery("#securityHealthUpdated").text(currentSecurity.time || "");
+    }
+
+    function updateSecurityHealth() {
+        if (securityHealthRequestPending) {
+            return;
+        }
+        securityHealthRequestPending = true;
+        jQuery.getJSON("/security_health.json", function(data) {
+            if (data.error) {
+                jQuery("#securityStatus").text(data.error).css("color", "red");
+                return;
+            }
+            currentSecurity = data;
+            renderSecurityHealth();
+            jQuery("#securityStatus").text("");
+        }).fail(function(xhr){
+            var message = $:{json.dumps(_('Security check failed.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+            if (xhr && xhr.status) {
+                message += " HTTP " + xhr.status + ".";
+            }
+            jQuery("#securityStatus").text(message).css("color", "red");
+        }).always(function(){
+            securityHealthRequestPending = false;
         });
     }
 
@@ -599,9 +656,10 @@ jQuery(document).ready(function(){
     }
 
     jQuery("#pluginSort").on("change", renderPlugins);
-    jQuery(".diagnosticsTab").on("click", function(){
-        showTab(jQuery(this).data("tab"));
+    jQuery(".diagnosticsSection > h4").on("click", function(){
+        jQuery(this).parent(".diagnosticsSection").toggleClass("expanded").toggleClass("collapsed");
     });
+    jQuery("#securityProfile").on("change", renderSecurityHealth);
     jQuery("#historyRange").on("change", function(){
         loadHistory(currentHistoryPlugin);
     });
@@ -643,248 +701,16 @@ jQuery(document).ready(function(){
         });
     });
 
-    showTab("health");
+    updateSystemHealth();
+    updateSecurityHealth();
     updateDiagnostics();
     refreshTimer = window.setInterval(updateDiagnostics, 5000);
     window.setInterval(updateSystemHealth, 10000);
+    window.setInterval(updateSecurityHealth, 60000);
 });
 </script>
 
 <div id="diagnostics">
-    <style>
-        #historyPanel {
-            display: none;
-            width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-        .diagnosticsCard {
-            width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-        #diagnostics .diagnosticsCard .diagnosticsTable {
-            width: 100%;
-            margin: 0;
-            border: 0;
-            border-radius: 9px;
-            padding: 0;
-        }
-        #historyPanelHeader {
-            padding: 6px 8px;
-            border-bottom: 1px solid #b9c0d0;
-            font-weight: bold;
-        }
-        #historyPanelControls {
-            padding: 8px;
-        }
-        #historyPanelCanvas {
-            padding: 0 8px 8px 8px;
-        }
-        #pluginHistoryChart {
-            width: 100%;
-            height: 260px;
-            border: 1px solid #b9c0d0;
-            border-radius: 8px;
-            background: #ffffff;
-            box-sizing: border-box;
-        }
-        .pluginHistory {
-            margin-left: 6px;
-        }
-        .diagnosticsTabs {
-            display: flex;
-            gap: 8px;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-        .diagnosticsTab.selected {
-            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.65);
-        }
-        #performanceTab {
-            display: none;
-        }
-        .healthBadge {
-            display: inline-block;
-            max-width: 100%;
-            padding: 3px 6px;
-            border: 0;
-            border-left: 4px solid;
-            border-radius: 2px;
-            text-align: left;
-            font-weight: normal;
-            line-height: 1.25;
-            box-sizing: border-box;
-        }
-        .healthBadge.health-ok {
-            border-left-color: #2f8b2f;
-            background: #e7f3e7;
-            color: #1f6322;
-        }
-        .healthBadge.health-warning {
-            border-left-color: #d07800;
-            background: #fff1d7;
-            color: #754600;
-        }
-        .healthBadge.health-error {
-            border-left-color: #9d1c24;
-            background: #f9e3e5;
-            color: #7d1921;
-        }
-        .healthBadge.health-unknown {
-            border-left-color: #687080;
-            background: #eceef2;
-            color: #4f5662;
-        }
-        .healthDetails, .healthUpdated {
-            margin-top: 4px;
-            font-size: 0.9em;
-            color: #555555;
-            overflow-wrap: anywhere;
-        }
-        .healthAction {
-            white-space: nowrap;
-        }
-        #diagnostics .pluginDiagnosticsTable td {
-            overflow-wrap: anywhere;
-            word-break: break-word;
-        }
-        #diagnostics .pluginDiagnosticsTable {
-            min-width: 1180px;
-            table-layout: fixed;
-            font-family: inherit;
-            font-size: 0.82em;
-            line-height: 1.25;
-        }
-        #diagnostics .pluginDiagnosticsTable th {
-            padding: 4px 5px;
-            font-family: inherit;
-            font-size: 0.96em;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-        #diagnostics .pluginDiagnosticsTable td {
-            padding: 4px 5px;
-            font-family: inherit;
-            font-weight: normal;
-        }
-        #diagnostics .pluginDiagnosticsTable small {
-            font-family: inherit;
-            font-size: 0.86em;
-            font-weight: normal;
-            line-height: 1.2;
-        }
-        #diagnostics .diagnosticPluginName {
-            font-weight: 600;
-        }
-        #diagnostics .diagnosticState {
-            font-family: inherit;
-            font-size: 0.92em;
-        }
-        #diagnostics .diagnosticSecondary {
-            margin-top: 3px;
-            font-size: 0.86em;
-            font-weight: normal;
-            line-height: 1.2;
-        }
-        #diagnostics .pluginDiagnosticsTable summary {
-            font-family: inherit;
-            font-size: 0.9em;
-            font-weight: normal;
-        }
-        #diagnostics .pluginDiagnosticsTable .button {
-            font-family: inherit;
-            font-size: 0.88em;
-            white-space: nowrap;
-        }
-        #diagnostics .pluginDiagnosticsTable .pluginHistory {
-            margin: 3px 0 0 0;
-        }
-        #diagnostics .pluginDiagnosticsTable .pluginActions {
-            overflow-wrap: normal;
-            word-break: normal;
-        }
-        #diagnostics .pluginDiagnosticsTable details {
-            max-width: 100%;
-        }
-        #diagnostics .pluginDiagnosticsTable details pre {
-            box-sizing: border-box;
-            max-width: 100%;
-            margin: 6px 0 0 0;
-            white-space: pre-wrap;
-            overflow-wrap: anywhere;
-            word-break: break-word;
-        }
-        .diagnosticsToolbar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .diagnosticsDetailButtons {
-            display: inline-flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-left: 8px;
-        }
-        .diagnosticsErrorModalContent {
-            width: min(850px, 92%);
-        }
-        .diagnosticsErrorHeader {
-            background-color: #9d1c24 !important;
-        }
-        .diagnosticsErrorList {
-            display: grid;
-            gap: 10px;
-            padding-bottom: 12px;
-        }
-        .diagnosticsErrorItem {
-            border: 1px solid #d9a0a4;
-            border-left: 6px solid #9d1c24;
-            border-radius: 6px;
-            padding: 8px 10px;
-            background: #fff4f4;
-            color: #20242a;
-            overflow-wrap: anywhere;
-        }
-        .diagnosticsErrorItem h3 {
-            margin: 0 0 6px 0;
-            color: #7d1921;
-        }
-        .diagnosticsErrorItem p {
-            margin: 5px 0;
-        }
-        .diagnosticsSolution {
-            padding: 7px;
-            border-radius: 4px;
-            background: #fff0c7;
-        }
-        #systemHealthSummary {
-            margin-left: 8px;
-            font-weight: bold;
-        }
-        @media (max-width: 700px) {
-            #systemHealthTable thead {
-                display: none;
-            }
-            #systemHealthTable,
-            #systemHealthTable tbody,
-            #systemHealthTable tr,
-            #systemHealthTable td {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            #systemHealthTable tr {
-                padding: 8px;
-                border-bottom: 1px solid #b9c0d0;
-            }
-            #systemHealthTable td {
-                border: 0;
-                padding: 4px;
-            }
-        }
-    </style>
     <div class="title">$_('Diagnostics')</div>
     <div id="controls">
         <a href="/" class="button cancel">$_('Cancel')</a>
@@ -892,12 +718,9 @@ jQuery(document).ready(function(){
         <span id="diagnosticsStatus" style="margin-left: 8px;"></span>
     </div>
 
-    <div class="diagnosticsTabs">
-        <button type="button" class="button submit diagnosticsTab selected" data-tab="health">$_('System status')</button>
-        <button type="button" class="button submit diagnosticsTab" data-tab="performance">$_('Performance and processes')</button>
-    </div>
-
-    <div id="systemHealthTab">
+    <div id="systemHealthSection" class="category collapsible expanded diagnosticsSection">
+    <h4>$_('System status')</h4>
+    <div id="systemHealthTab" class="diagnosticsSectionContent">
         <div class="simpleblock diagnosticsCard diagnosticsScroll">
             <table id="systemHealthTable" class="diagnosticsTable">
                 <thead>
@@ -915,8 +738,11 @@ jQuery(document).ready(function(){
         </div>
         <p>$_('Updated'): <span id="systemHealthUpdated">-</span><span id="systemHealthSummary"></span></p>
     </div>
+    </div>
 
-    <div id="performanceTab">
+    <div id="performanceSection" class="category collapsible collapsed diagnosticsSection">
+    <h4>$_('Performance and processes')</h4>
+    <div id="performanceTab" class="diagnosticsSectionContent">
     <div class="simpleblock diagnosticsCard">
     <table class="diagnosticsTable diagnosticsSystem">
         <tr><th colspan="2">$_('System')</th></tr>
@@ -1008,6 +834,39 @@ jQuery(document).ready(function(){
                 <tr><td colspan="11">$_('loading...')</td></tr>
             </tbody>
         </table>
+    </div>
+    </div>
+    </div>
+
+    <div id="securityHealthSection" class="category collapsible collapsed diagnosticsSection">
+    <h4>$_('Security check')</h4>
+    <div id="securityHealthTab" class="diagnosticsSectionContent">
+        <div class="securityProfileControls">
+            <label for="securityProfile"><b>$_('Recommended profile')</b></label>
+            <select id="securityProfile">
+                <option value="home">$_('Home network')</option>
+                <option value="internet">$_('Internet access')</option>
+            </select>
+            <span>$_('The selected profile changes only the assessment and does not modify OSPy settings.')</span>
+            <span id="securityStatus"></span>
+        </div>
+        <p id="securityProfileDescription"></p>
+        <div class="simpleblock diagnosticsCard diagnosticsScroll">
+            <table id="securityHealthTable" class="diagnosticsTable">
+                <thead>
+                    <tr>
+                        <th>$_('Security control')</th>
+                        <th>$_('Status')</th>
+                        <th>$_('Details')</th>
+                        <th>$_('Actions')</th>
+                    </tr>
+                </thead>
+                <tbody id="securityHealthRows">
+                    <tr><td colspan="4">$_('loading...')</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>$_('Updated'): <span id="securityHealthUpdated">-</span><span id="securityHealthSummary"></span></p>
     </div>
     </div>
 </div>

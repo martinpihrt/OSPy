@@ -8,6 +8,8 @@ July 20 2026 (v3.0)
 (martinpihrt)<br/>
 Updated the Czech translation catalog. Added warning modal in plugins manage.
 
+Replaced the Diagnostics tab-like buttons with compact collapsible section bars matching the Log page and added a passive Security check section. Administrators can compare Home network and Internet access recommendation profiles without changing settings. The checks cover active HTTPS, anonymous access, two-factor authentication, sensor API authentication, API CSRF protection, CORS scope, default or weak sensor passwords and globally guaranteed HTTP security headers; each result includes an explanation, a recommendation and a related link, while the sensor password is never exposed. Added an administrator-only no-cache JSON endpoint, profile and route regression tests, responsive styling in all three themes and documentation in all seven Web Interface Guides.
+
 The plug-in update warning modal can now be dismissed with its header close button, by clicking outside the dialog or by pressing Escape. Keyboard activation of the close control is supported, and dismissal remains remembered for the current browser session. Made the System Update non-blocking restart regression test feature-aware so the OSPy beta CI remains compatible with the stable v1.2.2 helper while v1.2.3 continues to receive full coverage.
 
 July 19 2026 (v3.0)

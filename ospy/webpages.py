@@ -2973,6 +2973,193 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
     }
 
 
+def _security_item(item_id, title, home_status, internet_status, summary,
+                   details='', solution='', link='/options'):
+    """Return one passive security check for both recommendation profiles."""
+    return {
+        'id': item_id,
+        'title': title,
+        'status': {
+            'home': home_status,
+            'internet': internet_status,
+        },
+        'summary': summary,
+        'details': details,
+        'solution': solution,
+        'link': link,
+    }
+
+
+def _security_health_data():
+    """Describe configured security controls without changing any setting."""
+    items = []
+
+    try:
+        https_active = bool(web.config.session_parameters.secure)
+    except Exception:
+        https_active = False
+    https_configured = bool(options.use_ssl or options.use_own_ssl)
+    if https_active:
+        https_summary = _('HTTPS is active.')
+        https_details = _('Session cookies are restricted to encrypted connections.')
+        https_home = https_internet = 'ok'
+    elif https_configured:
+        https_summary = _('HTTPS is configured, but it is not active.')
+        https_details = _('Check the configured certificate and private key files, then restart OSPy.')
+        https_home, https_internet = 'warning', 'error'
+    else:
+        https_summary = _('HTTPS is disabled.')
+        https_details = _('Credentials and session data are not encrypted by OSPy during transport.')
+        https_home, https_internet = 'warning', 'error'
+    items.append(_security_item(
+        'https', _('HTTPS'), https_home, https_internet,
+        https_summary, https_details,
+        _('Enable HTTPS in Options or use a trusted HTTPS reverse proxy before exposing OSPy outside the local network.'),
+        '/options#security-options'
+    ))
+
+    anonymous = bool(options.no_password)
+    items.append(_security_item(
+        'anonymous', _('Anonymous access'),
+        'error' if anonymous else 'ok',
+        'error' if anonymous else 'ok',
+        _('Anonymous access is enabled.') if anonymous else _('A password is required to access OSPy.'),
+        _('Anyone who can reach OSPy can control it without signing in.') if anonymous else '',
+        _('Disable anonymous access and use a unique administrator password.') if anonymous else '',
+        '/options#users-options'
+    ))
+
+    two_factor_method = str(getattr(options, 'two_factor_method', 'none') or 'none')
+    two_factor = two_factor_method in ('totp', 'email')
+    items.append(_security_item(
+        'two_factor', _('Two-factor authentication'),
+        'ok' if two_factor else 'warning',
+        'ok' if two_factor else 'error',
+        _('Two-factor authentication is enabled.') if two_factor else _('Two-factor authentication is disabled.'),
+        (_('Authentication application (TOTP) is configured.')
+         if two_factor_method == 'totp' else
+         _('E-mail verification codes are configured.')
+         if two_factor_method == 'email' else
+         _('A password alone protects the administrator account.')),
+        '' if two_factor else _('Enable TOTP or e-mail verification and safely store the recovery codes.'),
+        '/options#users-options'
+    ))
+
+    sensor_auth = bool(getattr(options, 'api_sensor_auth_required', False))
+    items.append(_security_item(
+        'sensor_api_auth', _('Sensor API authentication'),
+        'ok' if sensor_auth else 'warning',
+        'ok' if sensor_auth else 'error',
+        _('Sensor reports require authentication.') if sensor_auth else _('Sensor reports do not require authentication.'),
+        (_('Only authenticated sensor clients may submit measurements.') if sensor_auth else
+         _('Legacy sensor firmware may submit measurements without credentials.')),
+        '' if sensor_auth else _('Enable sensor API authentication after confirming that every sensor supports credentials.'),
+        '/options#security-options'
+    ))
+
+    api_csrf = bool(getattr(options, 'api_csrf_required', False))
+    items.append(_security_item(
+        'api_csrf', _('API CSRF protection'),
+        'ok' if api_csrf else 'warning',
+        'ok' if api_csrf else 'error',
+        _('State-changing API requests require a CSRF token.') if api_csrf else _('API CSRF protection is disabled.'),
+        (_('Browser-based API clients must provide the OSPy CSRF token.') if api_csrf else
+         _('Older API integrations may change OSPy state without a CSRF token.')),
+        '' if api_csrf else _('Enable API CSRF protection after updating integrations that change OSPy state.'),
+        '/options#security-options'
+    ))
+
+    cors_value = getattr(options, 'api_cors_allowed_origin', '*')
+    cors_value = cors_value.strip() if isinstance(cors_value, str) else '*'
+    cors_open = cors_value == '*'
+    cors_disabled = not cors_value
+    if cors_open:
+        cors_summary = _('API CORS allows every browser origin.')
+        cors_details = _('Any web page may read permitted OSPy API responses from a browser.')
+    elif cors_disabled:
+        cors_summary = _('API CORS headers are disabled.')
+        cors_details = _('Cross-origin browser access to the OSPy API is not allowed.')
+    else:
+        cors_summary = _('API CORS is restricted to configured origins.')
+        cors_details = cors_value
+    items.append(_security_item(
+        'cors', _('API CORS'),
+        'warning' if cors_open else 'ok',
+        'error' if cors_open else 'ok',
+        cors_summary, cors_details,
+        _('Replace the wildcard with the exact trusted browser origin, or leave the setting empty if CORS is not needed.') if cors_open else '',
+        '/options#security-options'
+    ))
+
+    sensor_password = str(getattr(options, 'sensor_fw_passwd', '') or '')
+    default_sensor_password = 'fg4s5b.s,trr7sw8sgyvrDfg'
+    password_default = sensor_password == default_sensor_password
+    password_weak = (
+        len(sensor_password) < 12 or sensor_password.isdigit() or
+        sensor_password.isalpha()
+    )
+    if not sensor_password:
+        password_summary = _('The sensor password is empty.')
+        password_details = _('Sensor firmware administration is not protected by a password.')
+        password_home = password_internet = 'error'
+    elif password_default:
+        password_summary = _('The default sensor password is still configured.')
+        password_details = _('The published default value must not be treated as a secret.')
+        password_home = password_internet = 'error'
+    elif password_weak:
+        password_summary = _('The sensor password appears weak.')
+        password_details = _('Use at least 12 characters with a mixture of character types.')
+        password_home, password_internet = 'warning', 'error'
+    else:
+        password_summary = _('The sensor password is not the default and meets the basic length check.')
+        password_details = _('The password value is never displayed by Diagnostics.')
+        password_home = password_internet = 'ok'
+    items.append(_security_item(
+        'sensor_password', _('Sensor password'),
+        password_home, password_internet, password_summary, password_details,
+        '' if password_home == 'ok' else _('Set a unique sensor password in Options and configure the same value in every sensor.'),
+        '/options#sensors-options'
+    ))
+
+    # OSPy currently sets selected response headers only on individual routes.
+    # A reverse proxy may add more headers, but that cannot be verified before
+    # its response leaves this process, so report the core guarantee precisely.
+    items.append(_security_item(
+        'http_headers', _('Security HTTP headers'), 'warning', 'error',
+        _('OSPy does not add the complete recommended security header set globally.'),
+        _('A reverse proxy may provide these headers, but OSPy cannot verify that configuration itself.'),
+        _('Configure Content-Security-Policy, frame protection, MIME sniffing protection and a suitable Referrer-Policy on the HTTPS endpoint.'),
+        '/help'
+    ))
+
+    profiles = [
+        {
+            'id': 'home',
+            'name': _('Home network'),
+            'description': _('For OSPy reachable only from a trusted local network. HTTPS, two-factor authentication and strict API controls are still recommended.'),
+        },
+        {
+            'id': 'internet',
+            'name': _('Internet access'),
+            'description': _('For OSPy reachable through the Internet. HTTPS, authentication and restricted browser/API access are required.'),
+        },
+    ]
+    summaries = {}
+    for profile in ('home', 'internet'):
+        statuses = [item['status'][profile] for item in items]
+        summaries[profile] = (
+            'error' if 'error' in statuses else
+            'warning' if 'warning' in statuses else
+            'ok'
+        )
+    return {
+        'items': items,
+        'profiles': profiles,
+        'status': summaries,
+        'time': datetime_string(),
+    }
+
+
 def _plugin_health_groups(plugin_data):
     """Separate immediate failures from health states that can be transitional."""
     immediate_failures = [
@@ -3462,6 +3649,28 @@ class api_system_health_json(ProtectedPage):
             return json.dumps({
                 'ok': False,
                 'error': _('System health refresh failed.'),
+                'time': datetime_string(),
+            })
+
+
+class api_security_health_json(ProtectedPage):
+    """Passive security overview for the Diagnostics page."""
+
+    def GET(self):
+        from ospy.server import session
+
+        if session.get('category') != 'admin':
+            raise web.forbidden()
+
+        web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        try:
+            return json.dumps(_security_health_data())
+        except Exception:
+            log.error('webpages.py', traceback.format_exc())
+            return json.dumps({
+                'ok': False,
+                'error': _('Security check failed.'),
                 'time': datetime_string(),
             })
 

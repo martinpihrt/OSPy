@@ -155,10 +155,14 @@ $code:
                 maxv = " max='" + str(option['max']) + "'" if 'max' in option else ""
 
                 if category != oldcategory:
-                    category_id = (
-                        " id='weather-options'" if category == _('Weather') else
-                        (" id='diagnostics-options'" if category == _('Diagnostics') else "")
-                    )
+                    category_ids = {
+                        _('Weather'): 'weather-options',
+                        _('Diagnostics'): 'diagnostics-options',
+                        _('Users'): 'users-options',
+                        _('Security'): 'security-options',
+                        _('Sensors'): 'sensors-options',
+                    }
+                    category_id = " id='{}'".format(category_ids[category]) if category in category_ids else ""
                     output += categoryCloser + "<div" + category_id + " class='category collapsible collapsed'><h4>" + category + "</h4>"
                     categoryCloser = "</div>"
                     oldcategory = category
