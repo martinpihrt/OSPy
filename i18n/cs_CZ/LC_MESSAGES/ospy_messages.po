@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-07-20 20:51+0200\n"
-"PO-Revision-Date: 2026-07-20 20:53+0200\n"
+"POT-Creation-Date: 2026-07-20 21:26+0200\n"
+"PO-Revision-Date: 2026-07-20 21:36+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -3171,7 +3171,7 @@ msgid "The system has detected that an OSPy update is available"
 msgstr "Systém zjistil, že je k dispozici aktualizace OSPy"
 
 #: ospy/templates/base.html:273
-#: plugins/system_update/templates/system_update.html:337
+#: plugins/system_update/templates/system_update.html:182
 msgid "Local OSPy version"
 msgstr "Místní OSPy verze"
 
@@ -3180,7 +3180,7 @@ msgid "Available OSPy version"
 msgstr "Dostupná verze OSPy"
 
 #: ospy/templates/base.html:275 ospy/templates/plugins_changes.html:70
-#: ospy/templates/plugins_manage.html:210 plugins/system_update/__init__.py:243
+#: ospy/templates/plugins_manage.html:210 plugins/system_update/__init__.py:299
 msgid "Changes"
 msgstr "Změny"
 
@@ -3333,7 +3333,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/speed_monitor/templates/speed_monitor.html:278
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
-#: plugins/system_update/templates/system_update.html:302
+#: plugins/system_update/templates/system_update.html:147
 #: plugins/system_watchdog/templates/system_watchdog.html:30
 #: plugins/tank_monitor/templates/tank_monitor.html:296
 #: plugins/telegram_bot/templates/telegram_bot.html:168
@@ -3765,7 +3765,7 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/shelly_cloud_integrator/__init__.py:1485
 #: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:707
-#: plugins/system_update/__init__.py:926
+#: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:435
 #: plugins/telegram_bot/__init__.py:520
 #: plugins/temperature_switch/__init__.py:398
@@ -3809,7 +3809,7 @@ msgstr "Zastaveno"
 #: plugins/shelly_cloud_integrator/__init__.py:1485
 #: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:707
-#: plugins/system_update/__init__.py:926
+#: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:435
 #: plugins/telegram_bot/__init__.py:520
 #: plugins/temperature_switch/__init__.py:398
@@ -4069,8 +4069,8 @@ msgstr "Restart selhal."
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:160
 #: plugins/system_debug/templates/system_debug.html:91
 #: plugins/system_info/templates/system_info.html:37
-#: plugins/system_update/templates/system_update.html:449
-#: plugins/system_update/templates/system_update_help.html:36
+#: plugins/system_update/templates/system_update.html:318
+#: plugins/system_update/templates/system_update_help.html:39
 #: plugins/system_watchdog/templates/system_watchdog.html:53
 #: plugins/system_watchdog/templates/system_watchdog_help.html:16
 #: plugins/tank_monitor/templates/tank_monitor.html:625
@@ -4181,8 +4181,8 @@ msgstr "Komponenta"
 #: plugins/sms_adj/templates/sms_adj.html:156
 #: plugins/speed_monitor/templates/speed_monitor.html:339
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:157
-#: plugins/system_update/templates/system_update.html:404
-#: plugins/system_update/templates/system_update_help.html:30
+#: plugins/system_update/templates/system_update.html:255
+#: plugins/system_update/templates/system_update_help.html:33
 #: plugins/system_watchdog/templates/system_watchdog.html:34
 #: plugins/tank_monitor/templates/tank_monitor.html:615
 #: plugins/telegram_bot/templates/telegram_bot.html:173
@@ -4761,7 +4761,7 @@ msgstr "Pohyb"
 #: plugins/current_loop_tanks_monitor/__init__.py:507
 #: plugins/ip_cam/__init__.py:666 plugins/lcd_display/__init__.py:523
 #: plugins/signaling_examples/__init__.py:80
-#: plugins/system_update/__init__.py:922
+#: plugins/system_update/__init__.py:1037
 msgid "None"
 msgstr "Nepoužito"
 
@@ -5640,8 +5640,8 @@ msgstr "Kritické"
 msgid "Information"
 msgstr "Informace"
 
-#: ospy/templates/log.html:217 plugins/system_update/__init__.py:921
-#: plugins/system_update/__init__.py:941
+#: ospy/templates/log.html:217 plugins/system_update/__init__.py:1036
+#: plugins/system_update/__init__.py:1058
 msgid "Success"
 msgstr "Úspěch"
 
@@ -6249,7 +6249,7 @@ msgid "Checking for plugin updates..."
 msgstr "Kontroluji aktualizace rozšíření..."
 
 #: ospy/templates/plugins_manage.html:56 ospy/webpages.py:3547
-#: plugins/system_update/templates/system_update.html:408
+#: plugins/system_update/templates/system_update.html:259
 msgid "Checking..."
 msgstr "Kontroluji..."
 
@@ -6328,7 +6328,7 @@ msgid "Load changes"
 msgstr "Načíst aktualizace"
 
 #: ospy/templates/plugins_manage.html:141
-#: plugins/system_update/templates/system_update.html:317
+#: plugins/system_update/templates/system_update.html:162
 msgid ""
 "Stable uses the tested master branch. Beta receives changes immediately and "
 "may contain defects."
@@ -6336,13 +6336,14 @@ msgstr ""
 "Stabilní verze používá testovací větev. Beta dostává změny okamžitě a může "
 "obsahovat chyby."
 
-#: ospy/templates/plugins_manage.html:142 plugins/system_update/__init__.py:924
-#: plugins/system_update/templates/system_update.html:319
+#: ospy/templates/plugins_manage.html:142
+#: plugins/system_update/__init__.py:1039
+#: plugins/system_update/templates/system_update.html:164
 msgid "Stable"
 msgstr "Stabilní"
 
 #: ospy/templates/plugins_manage.html:142
-#: plugins/system_update/templates/system_update.html:319
+#: plugins/system_update/templates/system_update.html:164
 msgid "default"
 msgstr "výchozí"
 
@@ -6351,8 +6352,8 @@ msgstr "výchozí"
 #: plugins/cli_control/templates/cli_control.html:137
 #: plugins/database_connector/templates/database_connector.html:133
 #: plugins/speed_monitor/templates/speed_monitor.html:350
-#: plugins/system_update/__init__.py:924
-#: plugins/system_update/templates/system_update.html:320
+#: plugins/system_update/__init__.py:1039
+#: plugins/system_update/templates/system_update.html:165
 msgid "Test"
 msgstr "Test"
 
@@ -6384,7 +6385,7 @@ msgstr "Smazat vše"
 msgid "Incompatible"
 msgstr "Nekompatibilní"
 
-#: ospy/templates/plugins_manage.html:199 plugins/system_update/__init__.py:299
+#: ospy/templates/plugins_manage.html:199 plugins/system_update/__init__.py:355
 msgid "Up-to-date"
 msgstr "Aktuální"
 
@@ -6928,7 +6929,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:370
 #: plugins/pool_heating/templates/pool_heating.html:225
 #: plugins/pressure_monitor/templates/pressure_monitor.html:381
-#: plugins/system_update/templates/system_update.html:379
+#: plugins/system_update/templates/system_update.html:230
 #: plugins/tank_monitor/templates/tank_monitor.html:440
 #: plugins/ups_adj/templates/ups_adj.html:382
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:98
@@ -6940,7 +6941,7 @@ msgstr "E-mail balíček"
 #: plugins/ping_monitor/templates/ping_monitor.html:373
 #: plugins/pool_heating/templates/pool_heating.html:228
 #: plugins/pressure_monitor/templates/pressure_monitor.html:384
-#: plugins/system_update/templates/system_update.html:382
+#: plugins/system_update/templates/system_update.html:233
 #: plugins/tank_monitor/templates/tank_monitor.html:443
 #: plugins/ups_adj/templates/ups_adj.html:385
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:101
@@ -6952,7 +6953,7 @@ msgstr "E-mail notifications V1"
 #: plugins/ping_monitor/templates/ping_monitor.html:374
 #: plugins/pool_heating/templates/pool_heating.html:229
 #: plugins/pressure_monitor/templates/pressure_monitor.html:385
-#: plugins/system_update/templates/system_update.html:383
+#: plugins/system_update/templates/system_update.html:234
 #: plugins/tank_monitor/templates/tank_monitor.html:444
 #: plugins/ups_adj/templates/ups_adj.html:386
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:102
@@ -7429,8 +7430,8 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:151
 #: plugins/speed_monitor/templates/speed_monitor.html:325
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:139
-#: plugins/system_update/templates/system_update.html:388
-#: plugins/system_update/templates/system_update_help.html:28
+#: plugins/system_update/templates/system_update.html:239
+#: plugins/system_update/templates/system_update_help.html:31
 #: plugins/tank_monitor/templates/tank_monitor.html:559
 #: plugins/telegram_bot/templates/telegram_bot.html:318
 #: plugins/temperature_switch/templates/temperature_switch.html:245
@@ -9434,8 +9435,8 @@ msgid ""
 "Enable sensor API authentication after confirming that every sensor supports "
 "credentials."
 msgstr ""
-"Povolte ověřování pomocí API snímače poté, co potvrdíte, že každý senzor "
-"podporuje přihlašovací údaje."
+"Povolte u API snímačů ověřování přes přihlášení až ověříte, že každý snímač "
+"již podporuje přihlašovací údaje."
 
 #: ospy/webpages.py:3063
 msgid "API CSRF protection"
@@ -10998,7 +10999,7 @@ msgstr "Použít"
 #: plugins/proto/templates/proto.html:136
 #: plugins/speed_monitor/templates/speed_monitor.html:326
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:140
-#: plugins/system_update/templates/system_update.html:389
+#: plugins/system_update/templates/system_update.html:240
 #: plugins/tank_monitor/templates/tank_monitor.html:560
 #: plugins/telegram_bot/templates/telegram_bot.html:319
 #: plugins/temperature_switch/templates/temperature_switch.html:246
@@ -14342,7 +14343,7 @@ msgstr "Použití zápatí"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:270
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:152
-#: plugins/system_update/templates/system_update_help.html:29
+#: plugins/system_update/templates/system_update_help.html:32
 #: plugins/venetian_blind/templates/venetian_blind_help.html:13
 msgid "Show data from plugin in footer on home page."
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce."
@@ -15485,8 +15486,8 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/ping_monitor/templates/ping_monitor.html:365
 #: plugins/pool_heating/templates/pool_heating.html:219
 #: plugins/pressure_monitor/templates/pressure_monitor.html:375
-#: plugins/system_update/templates/system_update.html:373
-#: plugins/system_update/templates/system_update_help.html:26
+#: plugins/system_update/templates/system_update.html:224
+#: plugins/system_update/templates/system_update_help.html:29
 #: plugins/tank_monitor/templates/tank_monitor.html:434
 #: plugins/ups_adj/templates/ups_adj.html:376
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:92
@@ -15532,7 +15533,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16_help.html:27
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:11
 #: plugins/remote_notifications/templates/remote_notifications_help.html:12
-#: plugins/system_update/templates/system_update_help.html:15
+#: plugins/system_update/templates/system_update_help.html:18
 #: plugins/weather_stations/templates/help_page.html:9
 msgid "Plugin setup"
 msgstr "Nastavení rozšíření"
@@ -15619,7 +15620,7 @@ msgstr ""
 #: plugins/lcd_display/templates/lcd_display_help.html:55
 #: plugins/relay_16/templates/relay_16_help.html:37
 #: plugins/remote_notifications/templates/remote_notifications_help.html:23
-#: plugins/system_update/templates/system_update_help.html:31
+#: plugins/system_update/templates/system_update_help.html:34
 msgid "Status window from the plugin."
 msgstr "Stavové okno z tohoto rozšíření."
 
@@ -18362,7 +18363,7 @@ msgstr "Dešťový snímač:"
 #: plugins/pressure_monitor/__init__.py:209
 #: plugins/pressure_monitor/__init__.py:210
 #: plugins/pressure_monitor/__init__.py:278
-#: plugins/system_update/__init__.py:943
+#: plugins/system_update/__init__.py:1060
 msgid "Inactive"
 msgstr "Neaktivní"
 
@@ -18505,7 +18506,7 @@ msgstr "Restartování systému"
 
 #: plugins/lcd_display/__init__.py:1096 plugins/lcd_display/__init__.py:1098
 #: plugins/lcd_display/__init__.py:1150 plugins/lcd_display/__init__.py:1152
-#: plugins/system_update/__init__.py:647
+#: plugins/system_update/__init__.py:703
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
@@ -21943,7 +21944,7 @@ msgstr ""
 #: plugins/ping_monitor/templates/ping_monitor.html:371
 #: plugins/pool_heating/templates/pool_heating.html:226
 #: plugins/pressure_monitor/templates/pressure_monitor.html:382
-#: plugins/system_update/templates/system_update.html:380
+#: plugins/system_update/templates/system_update.html:231
 #: plugins/tank_monitor/templates/tank_monitor.html:441
 #: plugins/ups_adj/templates/ups_adj.html:383
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:99
@@ -23214,7 +23215,7 @@ msgid "Use Real Time"
 msgstr "Použít reálný čas"
 
 #: plugins/real_time/templates/real_time.html:101
-#: plugins/system_update/templates/system_update.html:308
+#: plugins/system_update/templates/system_update.html:153
 msgid "If the check box is selected, the plugin will be active."
 msgstr "Pokud je toto políčko zaškrtnuto, rozšíření bude aktivní."
 
@@ -25616,7 +25617,7 @@ msgid "Sunrise and Sunset"
 msgstr "Východ a západ slunce"
 
 #: plugins/sunrise_and_sunset/__init__.py:495
-#: plugins/system_update/__init__.py:285
+#: plugins/system_update/__init__.py:341
 msgid "Waiting to state"
 msgstr "Čekání na stav"
 
@@ -25745,12 +25746,12 @@ msgid "I run the program \"{}\" in time {}."
 msgstr "Spouštím program \"{}\" v čase {}."
 
 #: plugins/sunrise_and_sunset/__init__.py:662
-#: plugins/system_update/__init__.py:305
+#: plugins/system_update/__init__.py:361
 msgid "Plugin is not enabled"
 msgstr "Rozšíření není povoleno"
 
 #: plugins/sunrise_and_sunset/__init__.py:669
-#: plugins/system_update/__init__.py:311
+#: plugins/system_update/__init__.py:367
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
 "Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
@@ -26557,258 +26558,286 @@ msgstr "Balíček: Aktualizace systému"
 msgid "Report from OSPy SYSTEM UPDATE plugin"
 msgstr "Hlášení z OSPy AKTUALIZACE systému"
 
-#: plugins/system_update/__init__.py:108
+#: plugins/system_update/__init__.py:159
 msgid "None!"
 msgstr "Není k dispozici!"
 
-#: plugins/system_update/__init__.py:153 plugins/system_update/__init__.py:245
-#: plugins/system_update/__init__.py:250 plugins/system_update/__init__.py:267
-#: plugins/system_update/__init__.py:320 plugins/system_update/__init__.py:341
-#: plugins/system_update/__init__.py:784
+#: plugins/system_update/__init__.py:206 plugins/system_update/__init__.py:301
+#: plugins/system_update/__init__.py:306 plugins/system_update/__init__.py:323
+#: plugins/system_update/__init__.py:376 plugins/system_update/__init__.py:397
+#: plugins/system_update/__init__.py:869
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
-#: plugins/system_update/__init__.py:177
+#: plugins/system_update/__init__.py:230
 msgid "The selected update channel branch was not found"
 msgstr "Vybraná větev kanálu aktualizace nebyla nalezena"
 
-#: plugins/system_update/__init__.py:225
+#: plugins/system_update/__init__.py:281
 msgid "Error while updating revision data:\n"
 msgstr "Chyba při aktualizaci dat revize:\n"
 
-#: plugins/system_update/__init__.py:236
+#: plugins/system_update/__init__.py:292
 msgid "Up-to-date."
 msgstr "Aktuální."
 
-#: plugins/system_update/__init__.py:239
+#: plugins/system_update/__init__.py:295
 msgid "New version is available!"
 msgstr "Je k dispozici nová verze!"
 
-#: plugins/system_update/__init__.py:240 plugins/system_update/__init__.py:247
-#: plugins/system_update/__init__.py:252 plugins/system_update/__init__.py:642
-#: plugins/system_update/__init__.py:649 plugins/system_update/__init__.py:934
-#: plugins/system_update/templates/system_update.html:316
-#: plugins/system_update/templates/system_update_help.html:19
+#: plugins/system_update/__init__.py:296 plugins/system_update/__init__.py:303
+#: plugins/system_update/__init__.py:308 plugins/system_update/__init__.py:698
+#: plugins/system_update/__init__.py:705 plugins/system_update/__init__.py:1051
+#: plugins/system_update/templates/system_update.html:161
+#: plugins/system_update/templates/system_update_help.html:22
 msgid "Update channel"
 msgstr "Kanál aktualizace"
 
-#: plugins/system_update/__init__.py:241 plugins/system_update/__init__.py:248
-#: plugins/system_update/__init__.py:251
+#: plugins/system_update/__init__.py:297 plugins/system_update/__init__.py:304
+#: plugins/system_update/__init__.py:307
 msgid "Currently running revision"
 msgstr "Spuštěná verze"
 
-#: plugins/system_update/__init__.py:242 plugins/system_update/__init__.py:249
-#: plugins/system_update/__init__.py:253
+#: plugins/system_update/__init__.py:298 plugins/system_update/__init__.py:305
+#: plugins/system_update/__init__.py:309
 msgid "Available revision"
 msgstr "Dostupná verze"
 
-#: plugins/system_update/__init__.py:246 plugins/system_update/__init__.py:251
-#: plugins/system_update/__init__.py:295
+#: plugins/system_update/__init__.py:302 plugins/system_update/__init__.py:307
+#: plugins/system_update/__init__.py:351
 msgid "New OSPy version is available!"
 msgstr "Je dostupná nová verze OSPy!"
 
-#: plugins/system_update/__init__.py:284
+#: plugins/system_update/__init__.py:340
 msgid "System Update"
 msgstr "Aktualizace systému"
 
-#: plugins/system_update/__init__.py:378
+#: plugins/system_update/__init__.py:434
 msgid "The update watchdog received an invalid commit identifier."
 msgstr "Aktualizační watchdog obdržel identifikátor neplatného commitu."
 
-#: plugins/system_update/__init__.py:460 plugins/system_update/__init__.py:469
-#: plugins/system_update/__init__.py:472
+#: plugins/system_update/__init__.py:516 plugins/system_update/__init__.py:525
+#: plugins/system_update/__init__.py:528
 msgid "The external update watchdog could not be started."
 msgstr "Externí aktualizační watchdog nebyl spuštěn."
 
-#: plugins/system_update/__init__.py:494
+#: plugins/system_update/__init__.py:550
 msgid "External update watchdog armed."
 msgstr "Externí aktualizace watchdog aktivován."
 
-#: plugins/system_update/__init__.py:544
+#: plugins/system_update/__init__.py:600
 msgid "Updated OSPy start confirmed; automatic rollback cancelled."
 msgstr ""
 "Aktualizováno potvrzení spuštění OSPy; automatické vrácení verze zpět je "
 "zrušeno."
 
-#: plugins/system_update/__init__.py:565
+#: plugins/system_update/__init__.py:621
 msgid "Update watchdog confirmation error:\n"
 msgstr "Chyba potvrzení aktualizace watchdogem:\n"
 
-#: plugins/system_update/__init__.py:605
+#: plugins/system_update/__init__.py:661
 msgid "The safety backup could not be verified."
 msgstr "Bezpečnostní záloha nebyla ověřena."
 
-#: plugins/system_update/__init__.py:628
+#: plugins/system_update/__init__.py:684
 msgid "Safety backup created before update"
 msgstr "Bezpečnostní záloha vytvořena před aktualizací"
 
-#: plugins/system_update/__init__.py:641
+#: plugins/system_update/__init__.py:697
 msgid "OSPy updated successfully. Please wait while restarting..."
 msgstr "OSPy se úspěšně aktualizoval. Počkejte prosím na restartování..."
 
-#: plugins/system_update/__init__.py:648
+#: plugins/system_update/__init__.py:704
 msgid "Updated to version"
 msgstr "Aktualizováno na verzi"
 
-#: plugins/system_update/__init__.py:673
+#: plugins/system_update/__init__.py:729
 msgid "Immediate update recovery failed:\n"
 msgstr "Okamžité obnovení aktualizace selhalo:\n"
 
-#: plugins/system_update/__init__.py:675
+#: plugins/system_update/__init__.py:731
 msgid "Update error:\n"
 msgstr "Chyba aktualizace:\n"
 
-#: plugins/system_update/__init__.py:676
+#: plugins/system_update/__init__.py:732
 msgid "Update failed!"
 msgstr "Aktualizace se nezdařila!"
 
-#: plugins/system_update/__init__.py:682 plugins/system_update/__init__.py:809
+#: plugins/system_update/__init__.py:740 plugins/system_update/__init__.py:894
 msgid "No commit hash provided for rollback."
 msgstr "Pro vrácení zpět není k dispozici žádný hash potvrzení."
 
-#: plugins/system_update/__init__.py:688
+#: plugins/system_update/__init__.py:747
+msgid "Safety backup created before rollback"
+msgstr "Bezpečnostní záloha vytvořená před obnovením"
+
+#: plugins/system_update/__init__.py:760
 msgid "Rolled back to commit: "
 msgstr "Vráceno zpět k potvrzení: "
 
-#: plugins/system_update/__init__.py:691
+#: plugins/system_update/__init__.py:773
+msgid "Immediate rollback recovery failed:\n"
+msgstr "Okamžité obnovení zpětného návratu selhalo:\n"
+
+#: plugins/system_update/__init__.py:775
 msgid "Rollback error:\n"
 msgstr "Chyba při downgradu firmware OSPy:\n"
 
-#: plugins/system_update/__init__.py:728
+#: plugins/system_update/__init__.py:813
 msgid "Get all values error:\n"
 msgstr "Chyba získání všech hodnot:\n"
 
-#: plugins/system_update/__init__.py:810
+#: plugins/system_update/__init__.py:895
 msgid "No commit selected for rollback."
 msgstr "Pro vrácení zpět nebylo vybráno žádné potvrzení."
 
-#: plugins/system_update/__init__.py:814
+#: plugins/system_update/__init__.py:899
 msgid "OSPy rollback to selected version completed. Please wait..."
 msgstr "Návrat OSPy na vybranou verzi FW byl dokončen. Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:824
+#: plugins/system_update/__init__.py:910 plugins/system_update/__init__.py:941
 msgid "Rollback thread error:\n"
 msgstr "Chyba vrácení vlákna:\n"
 
-#: plugins/system_update/__init__.py:840
+#: plugins/system_update/__init__.py:928 plugins/system_update/__init__.py:929
+msgid "No verified stable release is available."
+msgstr "Není k dispozici žádné ověřené stabilní vydání."
+
+#: plugins/system_update/__init__.py:931
+msgid "OSPy rollback to the last stable release has started. Please wait..."
+msgstr "OSPy se vrátí zpět na poslední stabilní verzi. Prosím, počkejte..."
+
+#: plugins/system_update/__init__.py:955
 msgid "OSPy is now restarted. Please wait..."
 msgstr "OSPy se nyní restartuje. Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:861
+#: plugins/system_update/__init__.py:976
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:940
+#: plugins/system_update/__init__.py:1057
 msgid "Update watchdog"
 msgstr "Aktualizace watchdogu"
 
-#: plugins/system_update/__init__.py:942
+#: plugins/system_update/__init__.py:1059
 msgid "Waiting for healthy start"
 msgstr "Čekání na správné spuštění"
 
-#: plugins/system_update/__init__.py:945
+#: plugins/system_update/__init__.py:1062
 msgid "Last watchdog result"
 msgstr "Výsledek posledního běhu watchdogu"
 
-#: plugins/system_update/__init__.py:951
+#: plugins/system_update/__init__.py:1068
 msgid "Automatic rollback after a failed update did not complete."
 msgstr "Automatické vrácení po neúspěšné aktualizaci nebylo dokončeno."
 
-#: plugins/system_update/__init__.py:956
+#: plugins/system_update/__init__.py:1073
 msgid "The update watchdog is waiting for a healthy OSPy start."
 msgstr "Aktualizační watchdog čeká na správné spuštění OSPy."
 
-#: plugins/system_update/__init__.py:959
+#: plugins/system_update/__init__.py:1076
 msgid "System Update worker is not running."
 msgstr "Smyčka System Update neběží."
 
-#: plugins/system_update/__init__.py:962
+#: plugins/system_update/__init__.py:1079
 msgid "System Update checks are disabled."
 msgstr "Kontroly systémových aktualizací jsou deaktivovány."
 
-#: plugins/system_update/__init__.py:965
+#: plugins/system_update/__init__.py:1082
 msgid "System Update could not check the repository."
 msgstr "System Update nemohl zkontrolovat repozitář."
 
-#: plugins/system_update/__init__.py:968
+#: plugins/system_update/__init__.py:1085
 msgid "System Update is checking the repository."
 msgstr "System Update kontroluje repozitář."
 
-#: plugins/system_update/__init__.py:971
+#: plugins/system_update/__init__.py:1088
 msgid "A different OSPy revision is available in the selected update channel."
 msgstr "Jiná verze OSPy je dostupná ve vybraném kanálu aktualizací."
 
-#: plugins/system_update/__init__.py:974
+#: plugins/system_update/__init__.py:1091
 msgid "OSPy is up to date."
 msgstr "OSPy je aktuální."
 
 #: plugins/system_update/templates/system_update.html:3
-#: plugins/system_update/templates/system_update.html:301
+#: plugins/system_update/templates/system_update.html:146
 #: plugins/system_update/templates/system_update_help.html:3
 msgid "System update from GitHub"
 msgstr "Aktualizace systému z GitHubu"
 
-#: plugins/system_update/templates/system_update.html:190
-#: plugins/system_update/templates/system_update.html:412
+#: plugins/system_update/templates/system_update.html:13
+#: plugins/system_update/templates/system_update.html:263
 msgid "A new version of OSPy is available - update?"
 msgstr "Je nová verze, aktualizovat?"
 
-#: plugins/system_update/templates/system_update.html:191
-#: plugins/system_update/templates/system_update.html:416
+#: plugins/system_update/templates/system_update.html:14
+#: plugins/system_update/templates/system_update.html:267
 msgid "Fix detected dubious ownership?"
 msgstr "Opravit zjištěné pochybné vlastnictví?"
 
-#: plugins/system_update/templates/system_update.html:278
+#: plugins/system_update/templates/system_update.html:110
 msgid "Please select a version to rollback to!"
 msgstr "Vyberte verzi, ke které se chcete vrátit!"
 
-#: plugins/system_update/templates/system_update.html:284
+#: plugins/system_update/templates/system_update.html:116
 msgid "Are you sure you want to rollback to commit"
 msgstr "Opravdu se chcete vrátit zpět k verzi"
 
-#: plugins/system_update/templates/system_update.html:286
+#: plugins/system_update/templates/system_update.html:118
 msgid "All local changes will be lost!"
 msgstr "Všechny místní změny budou ztraceny a přepsány na starší verzi!"
 
-#: plugins/system_update/templates/system_update.html:307
-#: plugins/system_update/templates/system_update_help.html:17
+#: plugins/system_update/templates/system_update.html:130
+msgid "Are you sure you want to rollback to the last verified stable release"
+msgstr "Jste si jistý, že se chcete vrátit na poslední ověřené stabilní vydání"
+
+#: plugins/system_update/templates/system_update.html:132
+msgid "A safety backup will be created and OSPy will restart."
+msgstr "Vytvoří se bezpečnostní záloha a OSPy se restartuje."
+
+#: plugins/system_update/templates/system_update.html:152
+#: plugins/system_update/templates/system_update_help.html:20
 msgid "Use update plugin"
 msgstr "Použít rozšíření aktualizace"
 
-#: plugins/system_update/templates/system_update.html:325
+#: plugins/system_update/templates/system_update.html:170
 msgid "Remote repository"
 msgstr "Vzdálený repozitář"
 
-#: plugins/system_update/templates/system_update.html:331
+#: plugins/system_update/templates/system_update.html:176
 msgid "Remote branch"
 msgstr "Vzdálená větev"
 
-#: plugins/system_update/templates/system_update.html:343
+#: plugins/system_update/templates/system_update.html:188
 msgid "Local OSPy date"
 msgstr "Místní OSPy datum"
 
-#: plugins/system_update/templates/system_update.html:349
+#: plugins/system_update/templates/system_update.html:194
 msgid "Current commit hash"
 msgstr "Hash této OSPy verze"
 
-#: plugins/system_update/templates/system_update.html:355
-#: plugins/system_update/templates/system_update_help.html:22
+#: plugins/system_update/templates/system_update.html:200
+msgid "Target commit hash"
+msgstr "Hash cílového popisku"
+
+#: plugins/system_update/templates/system_update.html:206
+#: plugins/system_update/templates/system_update_help.html:25
 msgid "Automatic update"
 msgstr "Automatická aktualizace"
 
-#: plugins/system_update/templates/system_update.html:356
+#: plugins/system_update/templates/system_update.html:207
 msgid ""
 "If the check box is selected, the plug-in updates the system OSPy itself."
 msgstr ""
 "Pokud je toto políčko zaškrtnuto, toto rozšíření samo aktualizuje systém "
 "OSPy (při vydání nové verze provede update a následně restart OSPy)."
 
-#: plugins/system_update/templates/system_update.html:364
-#: plugins/system_update/templates/system_update_help.html:24
+#: plugins/system_update/templates/system_update.html:215
+#: plugins/system_update/templates/system_update_help.html:27
 msgid "Send E-mail if update is available"
 msgstr "Odeslat e-mail, pokud je k dispozici aktualizace"
 
-#: plugins/system_update/templates/system_update.html:365
+#: plugins/system_update/templates/system_update.html:216
 msgid ""
 "If checked, extension will send an e-mail notifying you when a new version "
 "is available. For this function required e-mail plugin."
@@ -26816,23 +26845,55 @@ msgstr ""
 "Pokud je zaškrtnuto, rozšíření odešle e-mail s upozorněním, že je k "
 "dispozici nová verze. Pro tuto funkci je vyžadováno rozšíření e-mail."
 
-#: plugins/system_update/templates/system_update.html:399
+#: plugins/system_update/templates/system_update.html:250
 msgid "Save changes"
 msgstr "Uložit změny"
 
-#: plugins/system_update/templates/system_update.html:400
+#: plugins/system_update/templates/system_update.html:251
 msgid "Restart OSPy software"
 msgstr "Restart software OSPy"
 
-#: plugins/system_update/templates/system_update.html:407
+#: plugins/system_update/templates/system_update.html:258
 msgid "Check new version"
 msgstr "Zkontrolovat novou verzi"
 
-#: plugins/system_update/templates/system_update.html:426
+#: plugins/system_update/templates/system_update.html:276
+msgid "Last verified stable release"
+msgstr "Poslední ověřené stabilní vydání"
+
+#: plugins/system_update/templates/system_update.html:278
+msgid "Release tag"
+msgstr "Popisek verze"
+
+#: plugins/system_update/templates/system_update.html:279
+msgid "Exact commit"
+msgstr "Přesný popis"
+
+#: plugins/system_update/templates/system_update.html:280
+msgid "Release date"
+msgstr "Datum verze"
+
+#: plugins/system_update/templates/system_update.html:281
+msgid "Release notes"
+msgstr "Poznámky k verzi"
+
+#: plugins/system_update/templates/system_update.html:285
+msgid "Rollback to the last stable release"
+msgstr "Návrat k poslednímu stabilnímu vydání"
+
+#: plugins/system_update/templates/system_update.html:289
+msgid ""
+"No verified stable release is available. An annotated vX.Y.Z tag reachable "
+"from master is required."
+msgstr ""
+"Není k dispozici žádné ověřené stabilní vydání. Je vyžadováno anotované vX.Y."
+"Z označení, které je dostupné v master větvi."
+
+#: plugins/system_update/templates/system_update.html:295
 msgid "Rollback to previous version"
 msgstr "Návrat k předchozí verzi"
 
-#: plugins/system_update/templates/system_update.html:444
+#: plugins/system_update/templates/system_update.html:313
 msgid "Rollback to selected version"
 msgstr "Návrat k vybrané verzi"
 
@@ -26877,10 +26938,38 @@ msgstr ""
 "změní soubory."
 
 #: plugins/system_update/templates/system_update_help.html:12
+msgid ""
+"The status page shows the exact current and target commits. A verified "
+"stable release is an annotated vX.Y.Z Git tag whose commit belongs to the "
+"master branch; its tag message is displayed as the release notes."
+msgstr ""
+"Stránka se stavem zobrazuje přesné aktuální a cílové popisy. Ověřené "
+"stabilní uvolnění je anotované popisem Git vX.Y.Z, JEHOŽ POPIS PATŘÍ DO "
+"HLAVNÍ VĚTVE; jeho popisová zpráva se zobrazuje jako poznámky k vydání."
+
+#: plugins/system_update/templates/system_update_help.html:13
+msgid ""
+"Rollback to the last verified stable release and manual commit rollback both "
+"create a verified safety backup and start the external watchdog before "
+"changing OSPy files."
+msgstr ""
+"Návrat na poslední ověřené stabilní vydání a manuální vrácení zpět vytvoří "
+"ověřenou bezpečnostní zálohu a spustí externí watchdog před změnou OSPy "
+"souborů."
+
+#: plugins/system_update/templates/system_update_help.html:14
+msgid ""
+"Release tags are created manually by the project maintainer after successful "
+"tests. The plug-in does not create release tags."
+msgstr ""
+"Označení verzí jsou ručně vytvářeny správcem projektu po úspěšných testech. "
+"Tento balíček nevytváří označování verzí."
+
+#: plugins/system_update/templates/system_update_help.html:15
 msgid "For check new version OSPy click on update status button"
 msgstr "Pro kontrolu nové verze OSPy klikněte na tlačítko aktualizovat"
 
-#: plugins/system_update/templates/system_update_help.html:13
+#: plugins/system_update/templates/system_update_help.html:16
 msgid ""
 "If new version is posible click on update OSPy button. Plugin downloading "
 "and installing new version OSPy. Next restarting OSPy service"
@@ -26889,7 +26978,7 @@ msgstr ""
 "Rozšíření stáhne a nainstaluje novou verzi OSPy. Následně provede "
 "restartování služby OSPy"
 
-#: plugins/system_update/templates/system_update_help.html:14
+#: plugins/system_update/templates/system_update_help.html:17
 msgid ""
 "This plugin allows update itself automatically the system, while allowing "
 "send an E-mail to the system administrator"
@@ -26897,7 +26986,7 @@ msgstr ""
 "Toto rozšíření umožňuje aktualizovat systém automaticky samo, zároveň "
 "umožňuje poslat E-mail správci systému"
 
-#: plugins/system_update/templates/system_update_help.html:18
+#: plugins/system_update/templates/system_update_help.html:21
 msgid ""
 "If the box is checked, the plugin checks for available system updates every "
 "hour."
@@ -26905,7 +26994,7 @@ msgstr ""
 "Pokud je políčko zaškrtnuto, plugin kontroluje dostupné aktualizace systému "
 "každou hodinu."
 
-#: plugins/system_update/templates/system_update_help.html:20
+#: plugins/system_update/templates/system_update_help.html:23
 msgid ""
 "Stable is the default channel and follows the tested master branch. Test "
 "follows the beta branch and receives changes immediately, but it may contain "
@@ -26916,7 +27005,7 @@ msgstr ""
 "pro pokročilé uživatele a může obsahovat chyby. Vybraný kanál slouží k "
 "manuálním i automatickým aktualizacím a lze jej kdykoli přepnout."
 
-#: plugins/system_update/templates/system_update_help.html:21
+#: plugins/system_update/templates/system_update_help.html:24
 msgid ""
 "If the remote beta branch does not exist, the repository check reports an "
 "error and OSPy is not changed."
@@ -26924,18 +27013,18 @@ msgstr ""
 "Pokud vzdálená větev beta neexistuje, kontrola repozitáře hlásí chybu a OSPy "
 "kanál se nezmění."
 
-#: plugins/system_update/templates/system_update_help.html:23
+#: plugins/system_update/templates/system_update_help.html:26
 msgid "If the box is checked, the plugin will update the system itself."
 msgstr ""
 "Pokud je políčko zaškrtnuto, toto rozšíření aktualizuje samo systém OSPy."
 
-#: plugins/system_update/templates/system_update_help.html:25
+#: plugins/system_update/templates/system_update_help.html:28
 msgid "For this function required E-mail plugin."
 msgstr ""
 "Toto rozšíření vyžaduje rozšíření \"E-mail notifications\" pro odesílání "
 "zpráv."
 
-#: plugins/system_update/templates/system_update_help.html:27
+#: plugins/system_update/templates/system_update_help.html:30
 msgid "The subject of the E-mail being sent."
 msgstr "Předmět odesílané zprávy v E-mailu."
 
