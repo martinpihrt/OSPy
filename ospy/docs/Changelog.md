@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Corrected the Czech Security check sensor-password warning and the System Update target commit label.
+
 Updated the Czech translation catalog with the verified stable-release, exact commit, release notes and watchdog-protected rollback interface of System Update v1.2.4.
 
 Made the verified stable-release regression tests feature-aware. OSPy CI can continue testing against the stable System Update plug-in from the plug-in `master` branch while the plug-in `beta` CI performs the full tag, interface and watchdog-protected rollback checks for v1.2.4. This preserves cross-repository stable compatibility without weakening coverage of the new beta implementation.
