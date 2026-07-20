@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Added automated coverage and all seven Web Interface Guide descriptions for verified System Update releases. Only annotated semantic tags reachable from `origin/master` qualify as stable releases; the interface exposes exact current and target commits, tag notes and watchdog-protected rollback behavior. Tests verify tag filtering, external CSS use and the required backup-watchdog-Git operation order. Updated the Czech translation catalog.
+
 Updated the Czech translation catalog. Added warning modal in plugins manage.
 
 Added a thread-safe registry for active recoverable core problems so previously silent operational failures can be shown in Diagnostics with their component, occurrence count, technical cause, last occurrence, related page and a specific recovery recommendation. Settings callbacks, settings database writes, the regular 30-second event dispatcher and auto-login token permissions now report failures and automatically clear the warning after a successful retry. Expected compatibility fallbacks remain non-alarming, and the event log retains the detailed traceback for troubleshooting.

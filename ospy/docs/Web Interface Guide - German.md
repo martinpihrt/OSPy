@@ -349,6 +349,10 @@ Vor jeder Aktualisierung speichert das Plug-in System Update zuerst die Einstell
 
 Der neue OSPy-Prozess bestätigt die erfolgreiche Aktualisierung erst, nachdem der Scheduler einen neuen Heartbeat aufgezeichnet hat und die Weboberfläche Verbindungen annimmt. Wird ein fehlerfreier Start nicht innerhalb von 120 Sekunden bestätigt, stellt der Watchdog automatisch den vorherigen Commit und den ursprünglichen Zweig wieder her und startet OSPy neu. Kann der Watchdog nicht gestartet werden, wird die Aktualisierung beendet, bevor überwachte Dateien geändert werden. Das Ergebnis des Watchdogs ist außerdem in der Diagnose beim Zustand des Plug-ins System Update verfügbar.
 
+System Update zeigt den vollständigen Commit der laufenden Version und den exakten Ziel-Commit des ausgewählten Kanals an. Als geprüftes stabiles Release wird nur ein annotierter Git-Tag im Format `vX.Y.Z` erkannt, dessen Commit von `origin/master` erreichbar ist. Die Nachricht des annotierten Tags dient als kurze Release Notes. Leichtgewichtige Tags, andere Namen und Tags außerhalb von `master` werden nicht angeboten.
+
+Beim Zurücksetzen auf das letzte geprüfte stabile Release oder manuell auf einen älteren Commit werden zuerst die Einstellungen gespeichert, eine geprüfte Sicherheitskopie erstellt und derselbe externe Watchdog wie bei einer normalen Aktualisierung gestartet. Ein stabiles Rollback wechselt den Arbeitszweig zu `master`. Release-Tags werden vom Projektbetreuer erst nach erfolgreichen Tests manuell erstellt; das Plug-in erstellt selbst keine Tags.
+
 ## Externe IP
 Externe IP-Adresse für das OSPy-System (Adresse Ihres Verbindungsanbieters – Router). Getestet über pihrt.com.
 

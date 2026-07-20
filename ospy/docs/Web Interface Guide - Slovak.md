@@ -349,6 +349,10 @@ Pred každou aktualizáciou doplnok System Update najprv uloží nastavenia a vy
 
 Nový proces OSPy potvrdí úspešnú aktualizáciu až vtedy, keď plánovač zaznamená novú odozvu heartbeat a webové rozhranie začne prijímať spojenia. Ak sa zdravé spustenie nepotvrdí do 120 sekúnd, watchdog automaticky vráti predchádzajúci commit aj pôvodnú vetvu a znova spustí OSPy. Ak watchdog nemožno spustiť, aktualizácia sa zastaví skôr, než sa zmenia sledované súbory. Výsledok watchdogu je dostupný aj v Diagnostike v stave doplnku System Update.
 
+System Update zobrazuje úplný commit práve spustenej verzie aj presný cieľový commit z vybraného kanála. Za overené stabilné vydanie považuje iba anotovaný Git tag v tvare `vX.Y.Z`, ktorého commit je súčasťou `origin/master`. Správa anotovaného tagu slúži ako stručné poznámky k vydaniu. Ľahké tagy, iné názvy a tagy mimo `master` sa neponúkajú.
+
+Návrat na posledné overené stabilné vydanie aj ručný návrat na starší commit najprv uloží nastavenia, vytvorí overenú bezpečnostnú zálohu a spustí rovnaký externý watchdog ako bežná aktualizácia. Stabilný návrat prepne pracovnú vetvu na `master`. Tag vydania vytvára správca projektu ručne až po úspešných testoch; samotný doplnok tagy nevytvára.
+
 ## Externá IP adresa
 Externá IP adresa pre systém OSPy (adresa vášho poskytovateľa pripojenia - routera). Testované prostredníctvom služby pihrt.com.
 

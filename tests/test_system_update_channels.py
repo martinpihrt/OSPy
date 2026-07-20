@@ -210,6 +210,116 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn('(beta)', template)
         self.assertIn("default", template)
 
+    def test_newest_annotated_semantic_tag_on_master_is_the_stable_release(self):
+        commands = []
+        stable_commit = "c" * 40
+
+        def git_value(command, timeout=30):
+            commands.append(command)
+            if command[:4] == ["git", "for-each-ref", "refs/tags", "--sort=-version:refname"]:
+                return "v2.0.0\nv1.4.0\nimage"
+            if command == ["git", "cat-file", "-t", "v2.0.0"]:
+                return "commit"  # Lightweight tags are not verified releases.
+            if command == ["git", "cat-file", "-t", "v1.4.0"]:
+                return "tag"
+            if command == ["git", "rev-list", "-n", "1", "v1.4.0"]:
+                return stable_commit
+            if command[-1:] == ["--format=%(creatordate:short)"]:
+                return "2026-07-20"
+            if command[-1:] == ["--format=%(contents)"]:
+                return "Verified release notes"
+            raise AssertionError(command)
+
+        with mock.patch.object(self.module, "git_output", side_effect=git_value), \
+                mock.patch.object(self.module, "run_required_command") as required:
+            release = self.module.stable_release_info()
+
+        self.assertEqual(release["tag"], "v1.4.0")
+        self.assertEqual(release["commit"], stable_commit)
+        self.assertEqual(release["notes"], "Verified release notes")
+        required.assert_called_once_with([
+            "git", "merge-base", "--is-ancestor", "v1.4.0^{commit}", "origin/master"
+        ])
+        self.assertNotIn(["git", "cat-file", "-t", "image"], commands)
+
+    def test_stable_release_interface_uses_plugin_css_without_inline_styles(self):
+        template = (self.plugin_dir / "templates" / "system_update.html").read_text(encoding="utf-8")
+        stylesheet = self.plugin_dir / "static" / "system_update.css"
+        self.assertTrue(stylesheet.is_file())
+        self.assertIn("/plugins/system_update/static/system_update.css", template)
+        self.assertNotIn("<style", template)
+        self.assertNotIn("style=", template)
+        self.assertIn("Target commit hash", template)
+        self.assertIn("rollback_stable_page", template)
+        self.assertIn("Release notes", template)
+
+    def test_manual_stable_rollback_arms_watchdog_before_git_changes(self):
+        previous = "a" * 40
+        target = "b" * 40
+        events = []
+
+        def required(command, timeout=60):
+            events.append(("git", command))
+            return ""
+
+        def backup(reason="before system update"):
+            events.append(("backup", reason))
+            return "safety.zip"
+
+        def arm(old_commit, new_commit):
+            events.append(("watchdog", old_commit, new_commit))
+            return {"previous_branch": "beta"}
+
+        with mock.patch.object(self.module, "run_required_command", side_effect=required), \
+                mock.patch.object(self.module, "git_output", return_value=previous), \
+                mock.patch.object(self.module, "create_update_safety_backup", side_effect=backup), \
+                mock.patch.object(self.module, "arm_update_watchdog", side_effect=arm), \
+                mock.patch.object(self.module, "open", mock.mock_open()), \
+                mock.patch.object(type(core_options), "save_now"):
+            result = self.module.perform_rollback_selected(
+                target, target_branch="master", target_label="v3.0.0"
+            )
+
+        self.assertTrue(result)
+        self.assertLess(
+            events.index(("backup", "before system rollback")),
+            events.index(("watchdog", previous, target)),
+        )
+        self.assertLess(
+            events.index(("watchdog", previous, target)),
+            events.index(("git", ["git", "reset", "--hard", target])),
+        )
+        self.assertIn(("git", ["git", "checkout", "-B", "master", target]), events)
+
+    def test_failed_manual_rollback_restores_previous_commit(self):
+        previous = "a" * 40
+        target = "b" * 40
+        commands = []
+
+        def required(command, timeout=60):
+            commands.append(command)
+            if command == ["git", "reset", "--hard", target]:
+                raise RuntimeError("reset failed")
+            return ""
+
+        watchdog = {"previous_branch": "beta", "token": "secret"}
+        with mock.patch.object(self.module, "run_required_command", side_effect=required), \
+                mock.patch.object(self.module, "git_output", return_value=previous), \
+                mock.patch.object(
+                    self.module, "create_update_safety_backup", return_value="safety.zip"
+                ), \
+                mock.patch.object(self.module, "arm_update_watchdog", return_value=watchdog), \
+                mock.patch.object(self.module, "cancel_update_watchdog") as cancel, \
+                mock.patch.object(self.module, "open", mock.mock_open()), \
+                mock.patch.object(self.module.log, "error"), \
+                mock.patch.object(type(core_options), "save_now"):
+            result = self.module.perform_rollback_selected(target, target_branch="master")
+
+        self.assertFalse(result)
+        self.assertIn(["git", "reset", "--hard", previous], commands)
+        self.assertIn(["git", "checkout", "-B", "beta", previous], commands)
+        cancel.assert_called_once_with(watchdog, status="rollback_failed")
+
     def test_failed_update_restores_previous_commit_and_cancels_watchdog(self):
         if not hasattr(self.module, "arm_update_watchdog"):
             self.skipTest("System Update plug-in does not provide the external watchdog")

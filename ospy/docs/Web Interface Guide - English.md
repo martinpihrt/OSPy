@@ -349,6 +349,10 @@ Before every update, the System Update plug-in first saves the settings and crea
 
 The new OSPy process confirms a successful update only after the scheduler records a fresh heartbeat and the web interface starts accepting connections. If a healthy start is not confirmed within 120 seconds, the watchdog automatically restores the previous commit and original branch and restarts OSPy. If the watchdog cannot be started, the update stops before tracked files are changed. The watchdog result is also available in Diagnostics as part of the System Update plug-in health information.
 
+System Update displays the full commit of the running revision and the exact target commit from the selected channel. It recognizes a verified stable release only as an annotated Git tag named `vX.Y.Z` whose commit is reachable from `origin/master`. The annotated tag message is used as the short release notes. Lightweight tags, other names and tags outside `master` are not offered.
+
+Rolling back to the last verified stable release or manually to an older commit first saves the settings, creates a verified safety backup and starts the same external watchdog as a normal update. A stable rollback switches the working branch to `master`. The project maintainer creates release tags manually only after successful tests; the plug-in never creates tags itself.
+
 ## External IP
 External IP address for the OSPy system (address of your connection provider - router). Tested via pihrt.com.
 

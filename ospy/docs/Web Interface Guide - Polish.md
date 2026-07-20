@@ -338,6 +338,10 @@ Przed każdą aktualizacją wtyczka System Update najpierw zapisuje ustawienia i
 
 Nowy proces OSPy potwierdza udaną aktualizację dopiero po zapisaniu świeżego sygnału heartbeat harmonogramu i rozpoczęciu przyjmowania połączeń przez interfejs WWW. Jeśli prawidłowy start nie zostanie potwierdzony w ciągu 120 sekund, watchdog automatycznie przywraca poprzedni commit i pierwotną gałąź oraz ponownie uruchamia OSPy. Jeśli watchdoga nie można uruchomić, aktualizacja kończy się przed zmianą śledzonych plików. Wynik działania watchdoga jest również dostępny w Diagnostyce w stanie wtyczki System Update.
 
+System Update wyświetla pełny commit uruchomionej wersji oraz dokładny commit docelowy z wybranego kanału. Za zweryfikowane stabilne wydanie uznaje wyłącznie opisany tag Git w formacie `vX.Y.Z`, którego commit jest osiągalny z `origin/master`. Wiadomość opisanego tagu służy jako krótkie informacje o wydaniu. Lekkie tagi, inne nazwy i tagi spoza `master` nie są oferowane.
+
+Powrót do ostatniego zweryfikowanego stabilnego wydania lub ręczny powrót do starszego commitu najpierw zapisuje ustawienia, tworzy zweryfikowaną kopię bezpieczeństwa i uruchamia ten sam zewnętrzny watchdog co zwykła aktualizacja. Stabilny powrót przełącza gałąź roboczą na `master`. Opiekun projektu tworzy tagi wydań ręcznie dopiero po pomyślnych testach; wtyczka nigdy nie tworzy tagów samodzielnie.
+
 ## Zewnętrzny adres IP
 Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - routera). Testowane na pihrt.com.
 
