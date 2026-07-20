@@ -6,9 +6,25 @@ $var page: plugins
 <script>
 jQuery(document).ready(function(){
     var updateWarningModal = jQuery("#updateWarningModal");
-    updateWarningModal.show();
+    var updateWarningStorageKey = "ospy_plugins_update_warning_acknowledged";
+    var updateWarningAcknowledged = false;
+
+    try {
+        updateWarningAcknowledged = sessionStorage.getItem(updateWarningStorageKey) === "1";
+    } catch (error) {
+        updateWarningAcknowledged = false;
+    }
+
+    if (!updateWarningAcknowledged) {
+        updateWarningModal.show();
+    }
 
     jQuery("#updateWarningAccept").on("click", function(){
+        try {
+            sessionStorage.setItem(updateWarningStorageKey, "1");
+        } catch (error) {
+            // The modal is still closed even if browser storage is unavailable.
+        }
         updateWarningModal.hide();
     });
 

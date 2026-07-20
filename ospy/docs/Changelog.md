@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 20 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updated the Czech translation catalog. Added warning modal in plugins manage.
+
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
