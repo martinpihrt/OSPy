@@ -5,6 +5,13 @@ $var page: plugins
 
 <script>
 jQuery(document).ready(function(){
+    var updateWarningModal = jQuery("#updateWarningModal");
+    updateWarningModal.show();
+
+    jQuery("#updateWarningAccept").on("click", function(){
+        updateWarningModal.hide();
+    });
+
     jQuery(".plugin-refresh-form").submit(function(){
         jQuery("#pluginRefreshStatus").text($:{json.dumps(_('Checking for plugin updates...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Checking...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
@@ -23,6 +30,32 @@ jQuery(document).ready(function(){
     });
 });
 </script>
+
+<div id="updateWarningModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="updateWarningTitle">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="updateWarningTitle">$_('Warning if you are performing updates!')</h2>
+        </div>
+        <div class="modal-body">
+            <p>$_('First, read what has changed in the system or plugins.')</p>
+            <p>
+                <strong>$_('OSPy'):</strong>
+                <a href="https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog.md" target="_blank" rel="noopener noreferrer">https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog.md</a>
+            </p>
+            <p>
+                <strong>$_('Packages'):</strong>
+                <a href="https://github.com/martinpihrt/OSPy-plugins/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">https://github.com/martinpihrt/OSPy-plugins/blob/master/CHANGELOG.md</a>
+            </p>
+            <p>$_('In the OSPy settings, create a system backup and download it to your PC.')</p>
+            <p>$_('Using the System Update plugin, first update the OSPy system and only then update the plugins themselves in Plugin Manager. Updating in the reverse order may make OSPy or the plugins unusable!')</p>
+            <p>$_('After updating, restart the system and clear your browser cache so that it loads any changes, such as CSS styles.')</p>
+            <p>$_('To clear the cache in Google Chrome, Microsoft Edge, and Opera, press Ctrl + Shift + Delete. On a Mac, press Cmd + Shift + Delete.')</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="updateWarningAccept" class="button">$_('I acknowledge')</button>
+        </div>
+    </div>
+</div>
 
 <div id="controls">
     $ plugin_channel = plugins.plugin_update_channel()
