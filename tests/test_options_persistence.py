@@ -8,7 +8,7 @@ from unittest import mock
 
 from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolation
 from ospy import i18n  # noqa: F401 - installs gettext
-from ospy import options as options_module
+from ospy import health, options as options_module
 
 
 class OptionsPersistenceTests(unittest.TestCase):
@@ -35,6 +35,67 @@ class OptionsPersistenceTests(unittest.TestCase):
         instance.__del__()
         self.addCleanup(instance.__del__)
         return instance
+
+    def test_failed_settings_callback_reports_and_then_resolves_issue(self):
+        instance = options_module._Options.__new__(options_module._Options)
+        instance._lock = threading.RLock()
+        instance._values = {"example": "old"}
+        instance._callbacks = {}
+        instance._write_timer = None
+
+        state = {"fail": True}
+
+        def callback(key, old, new):
+            if state["fail"]:
+                raise ValueError("callback rejected value")
+
+        callback_name = "{}.{}".format(
+            callback.__module__, callback.__qualname__
+        )
+        issue_id = "options_callback:" + callback_name
+        health.resolve_issue(issue_id)
+        self.addCleanup(health.resolve_issue, issue_id)
+        instance._callbacks["example"] = {
+            "functions": [callback],
+            "last_value": "old",
+        }
+
+        with self.assertLogs(level="ERROR"), \
+                mock.patch.object(options_module, "Timer") as timer:
+            instance.example = "broken"
+            timer.assert_called_once()
+
+        issue_ids = [item["id"] for item in health.active_issues()]
+        self.assertIn(issue_id, issue_ids)
+
+        state["fail"] = False
+        with mock.patch.object(options_module, "Timer"):
+            instance.example = "fixed"
+
+        self.assertNotIn(
+            issue_id, [item["id"] for item in health.active_issues()]
+        )
+
+    def test_failed_settings_write_reports_active_issue(self):
+        issue_id = "options_save"
+        health.resolve_issue(issue_id)
+        self.addCleanup(health.resolve_issue, issue_id)
+
+        with tempfile.TemporaryDirectory(prefix="ospy-options-write-error-") as root:
+            instance = self._new_options(root)
+            instance.name = "Changed"
+            with self.assertLogs(level="WARNING"), mock.patch.object(
+                options_module.shutil, "move",
+                side_effect=OSError("simulated write failure")
+            ):
+                instance.save_now()
+
+        issue = next(
+            item for item in health.active_issues()
+            if item["id"] == issue_id
+        )
+        self.assertIn("simulated write failure", issue["details"])
+        self.assertEqual(issue["link"], "/options")
 
     def test_values_and_nested_dates_survive_save_and_reload(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-roundtrip-") as root:

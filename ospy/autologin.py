@@ -6,12 +6,14 @@ import hmac
 import json
 import os
 import time
+import traceback
 from email.utils import formatdate
 from threading import Lock
 
 import web
 
 from ospy.log import log
+from ospy.health import report_issue, resolve_issue
 
 
 TOKEN_FILE = os.path.join('ospy', 'data', 'auto_login_tokens.json')
@@ -52,8 +54,21 @@ def _save_tokens(tokens):
         json.dump(tokens, token_file, sort_keys=True)
     try:
         os.chmod(tmp_file, 0o600)
-    except Exception:
-        pass
+        resolve_issue('auto_login_token_permissions')
+    except Exception as err:
+        log.error(
+            'autologin.py',
+            _('Could not restrict permissions of the auto-login token file: {}').format(err) +
+            '\n' + traceback.format_exc()
+        )
+        report_issue(
+            'auto_login_token_permissions',
+            _('Auto-login token storage'),
+            _('OSPy could not restrict access to the auto-login token file.'),
+            '{}: {}'.format(type(err).__name__, err),
+            _('Check ownership and permissions of the OSPy data directory, then revoke remembered logins and sign in again.'),
+            '/options#security-options',
+        )
     os.replace(tmp_file, TOKEN_FILE)
 
 
@@ -96,8 +111,12 @@ def clear_cookie():
             path='/',
             samesite='Lax',
         )
-    except Exception:
-        pass
+    except Exception as err:
+        log.warning(
+            'autologin.py',
+            _('Could not clear the auto-login browser cookie: {}').format(err) +
+            '\n' + traceback.format_exc()
+        )
 
 
 def _request_info():

@@ -9,6 +9,7 @@ import time
 
 _lock = threading.RLock()
 _components = {}
+_issues = {}
 
 
 def heartbeat(component, ok=True, message='', **details):
@@ -64,3 +65,45 @@ def snapshot():
             name: dict(entry, details=dict(entry.get('details', {})))
             for name, entry in _components.items()
         }
+
+
+def report_issue(issue_id, title, summary, details='', solution='', link='',
+                 severity='error'):
+    """Record an active recoverable problem for administrator diagnostics."""
+    if severity not in ('warning', 'error'):
+        severity = 'error'
+    timestamp = time.time()
+    with _lock:
+        previous = _issues.get(issue_id, {})
+        _issues[issue_id] = {
+            'id': str(issue_id),
+            'title': str(title),
+            'summary': str(summary),
+            'details': str(details or ''),
+            'solution': str(solution or ''),
+            'link': str(link or ''),
+            'severity': severity,
+            'first_seen': previous.get('first_seen', timestamp),
+            'last_seen': timestamp,
+            'count': previous.get('count', 0) + 1,
+        }
+
+
+def resolve_issue(issue_id):
+    """Remove an active issue after the affected operation succeeds again."""
+    with _lock:
+        return _issues.pop(issue_id, None) is not None
+
+
+def active_issues():
+    """Return detached active issues ordered by severity and latest occurrence."""
+    with _lock:
+        result = [dict(issue) for issue in _issues.values()]
+    return sorted(
+        result,
+        key=lambda issue: (
+            0 if issue.get('severity') == 'error' else 1,
+            -issue.get('last_seen', 0),
+            issue.get('id', ''),
+        )
+    )

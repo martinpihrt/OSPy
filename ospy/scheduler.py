@@ -24,7 +24,9 @@ from ospy.runonce import run_once
 from ospy.stations import stations
 from ospy.outputs import outputs
 from ospy.helpers import get_external_ip
-from ospy.health import heartbeat, update_details
+from ospy.health import (
+    heartbeat, report_issue, resolve_issue, update_details,
+)
 
 rain_active = signal('rain_active')
 rain_not_active = signal('rain_not_active')
@@ -470,8 +472,18 @@ class _Scheduler(Thread):
                     pom_last_30s_tick = millis
                     try:
                         report_core_30_sec_tick()
-                    except:
-                        pass 
+                        resolve_issue('core_30_second_event')
+                    except Exception as err:
+                        error = traceback.format_exc()
+                        logging.warning('30-second event handler failed:\n' + error)
+                        report_issue(
+                            'core_30_second_event',
+                            _('Background event handler'),
+                            _('A handler of the regular 30-second system event failed.'),
+                            '{}: {}'.format(type(err).__name__, err),
+                            _('Check the event log, update enabled plug-ins and restart the plug-in that handles periodic system events.'),
+                            '/plugins_manage',
+                        )
             except Exception:
                 error = traceback.format_exc()
                 heartbeat('scheduler', ok=False, message=error)

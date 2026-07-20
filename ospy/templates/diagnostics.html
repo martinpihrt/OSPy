@@ -225,7 +225,7 @@ jQuery(document).ready(function(){
                     title: items[itemIndex].title,
                     problem: items[itemIndex].summary,
                     details: items[itemIndex].details,
-                    solution: systemSolutions[items[itemIndex].id] ||
+                    solution: items[itemIndex].solution || systemSolutions[items[itemIndex].id] ||
                         $:{json.dumps(_('Open the related settings, check the event log and correct the reported cause.'), ensure_ascii=False).encode('utf8').decode('utf-8')},
                     link: items[itemIndex].link
                 });

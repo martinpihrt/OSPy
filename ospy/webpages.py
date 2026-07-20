@@ -2960,7 +2960,7 @@ def _health_time(timestamp):
 
 
 def _health_item(item_id, title, status, summary, details='', updated='', link='',
-                 confirmation_required=False):
+                 confirmation_required=False, solution=''):
     return {
         'id': item_id,
         'title': title,
@@ -2970,6 +2970,7 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
         'updated': updated,
         'link': link,
         'confirmation_required': confirmation_required,
+        'solution': solution,
     }
 
 
@@ -3200,6 +3201,28 @@ def _newest_file(paths):
         except OSError:
             continue
     return newest
+
+
+def _runtime_health_items():
+    """Convert active core issues into System status rows."""
+    items = []
+    for issue in health.active_issues():
+        occurrence_details = '{}: {}'.format(
+            _('Occurrences'), issue.get('count', 1)
+        )
+        if issue.get('details'):
+            occurrence_details = issue['details'] + '; ' + occurrence_details
+        items.append(_health_item(
+            'runtime:' + issue.get('id', ''),
+            issue.get('title') or _('Runtime problem'),
+            issue.get('severity', 'error'),
+            issue.get('summary') or _('A recoverable internal operation failed.'),
+            occurrence_details,
+            _health_time(issue.get('last_seen')),
+            issue.get('link', ''),
+            solution=issue.get('solution', ''),
+        ))
+    return items
 
 
 def _system_health_data():
@@ -3511,6 +3534,8 @@ def _system_health_data():
         'backup', _('Backup'), backup_status, backup_summary,
         backup_details, backup_updated, '/options'
     ))
+
+    items.extend(_runtime_health_items())
 
     item_statuses = [item['status'] for item in items]
     if 'error' in item_statuses:

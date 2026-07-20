@@ -4,9 +4,10 @@ from unittest import mock
 
 from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolation
 from ospy import i18n  # noqa: F401 - installs gettext
-from ospy import webpages
+from ospy import health, webpages
 from ospy.webpages import (
-    _health_item, _plugin_health_groups, _security_health_data,
+    _health_item, _plugin_health_groups, _runtime_health_items,
+    _security_health_data,
 )
 
 
@@ -58,6 +59,65 @@ class SystemHealthTests(unittest.TestCase):
         )
 
         self.assertTrue(item["confirmation_required"])
+
+    def test_runtime_issue_registry_tracks_recurrence_and_resolution(self):
+        issue_id = "test_runtime_issue"
+        health.resolve_issue(issue_id)
+        self.addCleanup(health.resolve_issue, issue_id)
+
+        health.report_issue(
+            issue_id, "Test component", "Operation failed",
+            "ValueError: invalid value", "Correct the value", "/options",
+            severity="warning",
+        )
+        health.report_issue(
+            issue_id, "Test component", "Operation failed again",
+            "ValueError: invalid value", "Correct the value", "/options",
+            severity="error",
+        )
+
+        issue = next(
+            item for item in health.active_issues()
+            if item["id"] == issue_id
+        )
+        self.assertEqual(issue["count"], 2)
+        self.assertEqual(issue["severity"], "error")
+        self.assertEqual(issue["summary"], "Operation failed again")
+        self.assertTrue(issue["first_seen"] <= issue["last_seen"])
+        self.assertTrue(health.resolve_issue(issue_id))
+        self.assertNotIn(
+            issue_id, [item["id"] for item in health.active_issues()]
+        )
+
+    def test_health_item_exposes_specific_solution(self):
+        item = _health_item(
+            "runtime:test", "Runtime", "error", "Problem",
+            solution="Specific recovery step",
+        )
+
+        self.assertEqual(item["solution"], "Specific recovery step")
+
+    def test_runtime_issue_is_rendered_as_actionable_health_row(self):
+        issue = {
+            "id": "callback:example",
+            "title": "Settings change handler",
+            "summary": "A component could not apply a changed setting.",
+            "details": "example.callback: ValueError: invalid",
+            "solution": "Verify the changed setting.",
+            "link": "/options",
+            "severity": "error",
+            "last_seen": 1,
+            "count": 3,
+        }
+        with mock.patch.object(health, "active_issues", return_value=[issue]):
+            rows = _runtime_health_items()
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["id"], "runtime:callback:example")
+        self.assertEqual(rows[0]["status"], "error")
+        self.assertIn("3", rows[0]["details"])
+        self.assertEqual(rows[0]["solution"], issue["solution"])
+        self.assertEqual(rows[0]["link"], "/options")
 
     def test_security_profiles_make_internet_requirements_stricter(self):
         insecure_options = SimpleNamespace(

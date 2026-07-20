@@ -911,10 +911,28 @@ class _Options(object):
                 if key in self._callbacks:
                     if value != self._callbacks[key]['last_value']:
                         for cb in self._callbacks[key]['functions']:
+                            callback_name = '{}.{}'.format(
+                                getattr(cb, '__module__', ''),
+                                getattr(cb, '__qualname__', getattr(cb, '__name__', repr(cb)))
+                            ).strip('.')
+                            issue_id = 'options_callback:' + callback_name
                             try:
                                 cb(key, self._callbacks[key]['last_value'], value)
-                            except Exception:
+                                from ospy.health import resolve_issue
+                                resolve_issue(issue_id)
+                            except Exception as err:
                                 logging.error('Callback failed:\n' + traceback.format_exc())
+                                from ospy.health import report_issue
+                                report_issue(
+                                    issue_id,
+                                    _('Settings change handler'),
+                                    _('A component could not apply a changed setting.'),
+                                    '{}: {}: {}'.format(
+                                        callback_name, type(err).__name__, err
+                                    ),
+                                    _('Open the event log, verify the changed setting and restart the affected component or OSPy.'),
+                                    '/options',
+                                )
                         self._callbacks[key]['last_value'] = value
 
                 # Only write after 1 second without any more changes
@@ -1057,14 +1075,24 @@ class _Options(object):
                     backend=whichdb(OPTIONS_FILE) or '',
                     path=os.path.abspath(OPTIONS_FILE)
                 )
-        except Exception:
+                from ospy.health import resolve_issue
+                resolve_issue('options_save')
+        except Exception as err:
             error = traceback.format_exc()
             try:
-                from ospy.health import heartbeat
+                from ospy.health import heartbeat, report_issue
                 heartbeat('database', ok=False, message=error,
                           path=os.path.abspath(OPTIONS_FILE))
+                report_issue(
+                    'options_save',
+                    _('Settings database write'),
+                    _('OSPy could not save changed settings to disk.'),
+                    '{}: {}'.format(type(err).__name__, err),
+                    _('Check free disk space and write permissions for the OSPy data directory, then save the settings again.'),
+                    '/options',
+                )
             except Exception:
-                pass
+                logging.error('Could not report database health:\n' + traceback.format_exc())
             logging.warning(_('Saving error:\n') + error)
 
     def save_now(self):
