@@ -8,6 +8,8 @@ July 20 2026 (v3.0)
 (martinpihrt)<br/>
 Updated the Czech translation catalog. Added warning modal in plugins manage.
 
+The plug-in update warning modal can now be dismissed with its header close button, by clicking outside the dialog or by pressing Escape. Keyboard activation of the close control is supported, and dismissal remains remembered for the current browser session. Made the System Update non-blocking restart regression test feature-aware so the OSPy beta CI remains compatible with the stable v1.2.2 helper while v1.2.3 continues to receive full coverage.
+
 July 19 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

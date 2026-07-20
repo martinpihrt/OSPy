@@ -19,13 +19,36 @@ jQuery(document).ready(function(){
         updateWarningModal.show();
     }
 
-    jQuery("#updateWarningAccept").on("click", function(){
+    function dismissUpdateWarningModal() {
         try {
             sessionStorage.setItem(updateWarningStorageKey, "1");
         } catch (error) {
             // The modal is still closed even if browser storage is unavailable.
         }
         updateWarningModal.hide();
+    }
+
+    jQuery("#updateWarningAccept, #updateWarningClose").on("click", function(){
+        dismissUpdateWarningModal();
+    });
+
+    jQuery("#updateWarningClose").on("keydown", function(event){
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            dismissUpdateWarningModal();
+        }
+    });
+
+    updateWarningModal.on("click", function(event){
+        if (event.target === this) {
+            dismissUpdateWarningModal();
+        }
+    });
+
+    jQuery(document).on("keydown.updateWarningModal", function(event){
+        if (event.key === "Escape" && updateWarningModal.is(":visible")) {
+            dismissUpdateWarningModal();
+        }
     });
 
     jQuery(".plugin-refresh-form").submit(function(){
@@ -50,6 +73,7 @@ jQuery(document).ready(function(){
 <div id="updateWarningModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="updateWarningTitle">
     <div class="modal-content">
         <div class="modal-header">
+            <span id="updateWarningClose" class="close" role="button" tabindex="0" aria-label="$_('Close')">&times;</span>
             <h2 id="updateWarningTitle">$_('Warning if you are performing updates!')</h2>
         </div>
         <div class="modal-body">

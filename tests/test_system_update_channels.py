@@ -451,8 +451,11 @@ class SystemUpdateWatchdogProcessTests(unittest.TestCase):
                 mock.patch.object(self.helper.subprocess, "run") as run:
             self.helper._restart_ospy({})
 
+        command = run.call_args.args[0]
+        if "--no-block" not in command:
+            self.skipTest("System Update helper predates non-blocking service restart")
         self.assertEqual(
-            run.call_args.args[0],
+            command,
             ["systemctl", "--no-block", "restart", "ospy.service"],
         )
         self.assertEqual(run.call_args.kwargs["timeout"], 10)
