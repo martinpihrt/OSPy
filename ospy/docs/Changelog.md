@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Made the verified stable-release regression tests feature-aware. OSPy CI can continue testing against the stable System Update plug-in from the plug-in `master` branch while the plug-in `beta` CI performs the full tag, interface and watchdog-protected rollback checks for v1.2.4. This preserves cross-repository stable compatibility without weakening coverage of the new beta implementation.
+
 Added automated coverage and all seven Web Interface Guide descriptions for verified System Update releases. Only annotated semantic tags reachable from `origin/master` qualify as stable releases; the interface exposes exact current and target commits, tag notes and watchdog-protected rollback behavior. Tests verify tag filtering, external CSS use and the required backup-watchdog-Git operation order. Updated the Czech translation catalog.
 
 Updated the Czech translation catalog. Added warning modal in plugins manage.

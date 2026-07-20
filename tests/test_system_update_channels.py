@@ -67,6 +67,12 @@ class SystemUpdateChannelTests(unittest.TestCase):
     def tearDown(self):
         self.module.plugin_options["update_channel"] = self.previous
 
+    def require_verified_stable_release_feature(self):
+        if not hasattr(self.module, "stable_release_info"):
+            self.skipTest(
+                "The tested stable System Update plug-in predates verified release tags"
+            )
+
     def test_master_is_default_and_invalid_values_fail_closed_to_stable(self):
         self.assertEqual(self.module.UPDATE_CHANNELS["stable"], "master")
         self.module.plugin_options["update_channel"] = "stable"
@@ -211,6 +217,7 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn("default", template)
 
     def test_newest_annotated_semantic_tag_on_master_is_the_stable_release(self):
+        self.require_verified_stable_release_feature()
         commands = []
         stable_commit = "c" * 40
 
@@ -243,6 +250,7 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertNotIn(["git", "cat-file", "-t", "image"], commands)
 
     def test_stable_release_interface_uses_plugin_css_without_inline_styles(self):
+        self.require_verified_stable_release_feature()
         template = (self.plugin_dir / "templates" / "system_update.html").read_text(encoding="utf-8")
         stylesheet = self.plugin_dir / "static" / "system_update.css"
         self.assertTrue(stylesheet.is_file())
@@ -254,6 +262,7 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn("Release notes", template)
 
     def test_manual_stable_rollback_arms_watchdog_before_git_changes(self):
+        self.require_verified_stable_release_feature()
         previous = "a" * 40
         target = "b" * 40
         events = []
@@ -292,6 +301,7 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertIn(("git", ["git", "checkout", "-B", "master", target]), events)
 
     def test_failed_manual_rollback_restores_previous_commit(self):
+        self.require_verified_stable_release_feature()
         previous = "a" * 40
         target = "b" * 40
         commands = []
