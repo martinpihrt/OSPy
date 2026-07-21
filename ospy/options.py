@@ -156,7 +156,14 @@ class _Options(object):
             "default": "8.8.8.8",
             "help": _('IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped.'),
             "category": _('System')
-        },          
+        },
+        {
+            "key": "sqlite_emergency_recovery",
+            "name": _('Allow emergency SQLite settings recovery'),
+            "default": False,
+            "help": _('Experimental and disabled by default. If every shelve/DBM startup database is invalid, allow OSPy to rebuild settings only from an independently verified SQLite recovery copy that also contains this enabled setting.'),
+            "category": _('System')
+        },
         {
             "key": "lang",
             "name": "", #_('System language'),
@@ -665,6 +672,8 @@ class _Options(object):
         self._lock = threading.RLock()
         self._load_source = None
         self._load_errors = []
+        self._sqlite_emergency_recovered_from = ''
+        self._sqlite_emergency_recovery_error = ''
         self._sqlite_mirror_verification = {
             'state': 'pending', 'differences': [], 'difference_count': 0,
             'checked': 0, 'error': '',
@@ -694,6 +703,29 @@ class _Options(object):
                         break
             except Exception as err:
                 self._load_errors.append((options_file, str(err)))
+
+        if loaded_values is None:
+            try:
+                emergency = self._attempt_sqlite_emergency_recovery()
+                if emergency is not None:
+                    loaded_values, source = emergency
+                    self._values.update(loaded_values)
+                    self._load_source = OPTIONS_TMP
+                    self._sqlite_emergency_recovered_from = source
+                    logging.warning(
+                        _('Settings were recovered from the verified {} SQLite copy because every shelve/DBM candidate was invalid.').format(
+                            source
+                        )
+                    )
+            except Exception as error:
+                self._sqlite_emergency_recovery_error = '{}: {}'.format(
+                    type(error).__name__, error
+                )
+                logging.warning(
+                    _('Emergency SQLite settings recovery failed; safe defaults remain active: {}').format(
+                        self._sqlite_emergency_recovery_error
+                    )
+                )
 
         if self._load_errors:
             for failed_path, error in self._load_errors:
@@ -812,6 +844,118 @@ class _Options(object):
                 'error': '{}: {}'.format(type(error).__name__, error),
             }
 
+    @staticmethod
+    def _sqlite_emergency_marker_path():
+        data_root = os.path.dirname(os.path.dirname(OPTIONS_FILE))
+        return os.path.join(data_root, 'sqlite_emergency_recovery.enabled')
+
+    @classmethod
+    def _sqlite_emergency_marker_enabled(cls):
+        path = cls._sqlite_emergency_marker_path()
+        if os.path.islink(path) or not os.path.isfile(path):
+            return False
+        try:
+            with open(path, 'r', encoding='ascii') as marker:
+                return marker.read(32).strip() == 'enabled-v1'
+        except (OSError, UnicodeError):
+            return False
+
+    @classmethod
+    def _remove_sqlite_emergency_marker(cls):
+        path = cls._sqlite_emergency_marker_path()
+        try:
+            if os.path.lexists(path):
+                os.remove(path)
+        except OSError as error:
+            logging.warning(
+                _('The emergency SQLite recovery marker could not be removed: {}').format(
+                    error
+                )
+            )
+
+    @classmethod
+    def _write_sqlite_emergency_marker(cls):
+        path = cls._sqlite_emergency_marker_path()
+        temporary = path + '.new'
+        helpers.mkdir_p(os.path.dirname(path))
+        try:
+            with open(temporary, 'w', encoding='ascii') as marker:
+                marker.write('enabled-v1\n')
+                marker.flush()
+                os.fsync(marker.fileno())
+            try:
+                os.chmod(temporary, 0o600)
+            except OSError:
+                pass
+            os.replace(temporary, path)
+        finally:
+            if os.path.exists(temporary):
+                try:
+                    os.remove(temporary)
+                except OSError:
+                    pass
+
+    def _sync_sqlite_emergency_marker(self):
+        if not self._values.get('sqlite_emergency_recovery', False):
+            self._remove_sqlite_emergency_marker()
+            return
+        if self._sqlite_mirror_verification.get('recovery_test') == 'passed':
+            try:
+                self._write_sqlite_emergency_marker()
+            except Exception as error:
+                logging.warning(
+                    _('The emergency SQLite recovery marker could not be written: {}').format(
+                        error
+                    )
+                )
+
+    def _install_emergency_recovered_shelve(self, recovered):
+        tmp_dir = os.path.dirname(OPTIONS_TMP)
+        if os.path.isdir(tmp_dir):
+            shutil.rmtree(tmp_dir)
+        helpers.mkdir_p(tmp_dir)
+        saved_at = float(recovered.get('last_save', time.time()))
+        try:
+            settings_store.write(OPTIONS_TMP, recovered, saved_at=saved_at)
+            reloaded = self._read_candidate(OPTIONS_TMP)
+            if self._settings_snapshot_checksums(reloaded) != \
+                    self._settings_snapshot_checksums(recovered):
+                raise ValueError(
+                    'Recovered shelve does not match the verified SQLite snapshot.'
+                )
+            return reloaded
+        except Exception:
+            if os.path.isdir(tmp_dir):
+                shutil.rmtree(tmp_dir)
+            raise
+
+    def _attempt_sqlite_emergency_recovery(self):
+        if not self._sqlite_emergency_marker_enabled():
+            return None
+        candidates = (
+            ('current', sqlite_mirror_store.path_for(OPTIONS_FILE)),
+            ('backup', sqlite_mirror_store.path_for(OPTIONS_BACKUP)),
+        )
+        errors = []
+        for source, mirror_path in candidates:
+            try:
+                recovered = sqlite_mirror_store.read_recovery_candidate(
+                    mirror_path
+                )
+                self._validate_candidate(recovered)
+                if recovered.get('sqlite_emergency_recovery') is not True:
+                    raise ValueError(
+                        'The SQLite copy does not contain recovery permission.'
+                    )
+                return self._install_emergency_recovered_shelve(
+                    recovered
+                ), source
+            except Exception as error:
+                errors.append('{}: {}: {}'.format(
+                    source, type(error).__name__, error
+                ))
+        raise ValueError('; '.join(errors))
+
     def _update_sqlite_recovery_tests(self):
         sqlite_status = sqlite_capability()
         if not sqlite_status.get('available'):
@@ -921,6 +1065,14 @@ class _Options(object):
     def _run_sqlite_emergency_selection_dry_run(self):
         """Record which verified SQLite candidate a future fallback would use."""
         verification = self._sqlite_mirror_verification
+        verification.update({
+            'emergency_recovery_enabled': (
+                self._sqlite_emergency_marker_enabled() and
+                self._values.get('sqlite_emergency_recovery') is True
+            ),
+            'emergency_recovery_used': self._sqlite_emergency_recovered_from,
+            'emergency_recovery_error': self._sqlite_emergency_recovery_error,
+        })
         candidates = (
             ('current', verification.get('recovery_test'),
              verification.get('recovery_count', 0)),
@@ -1082,6 +1234,18 @@ class _Options(object):
         if self._load_errors and self._load_source is None:
             messages.append(
                 _('No valid settings database was found; safe defaults are being used.')
+            )
+        if self._sqlite_emergency_recovered_from:
+            messages.append(
+                _('Emergency recovery rebuilt shelve/DBM from the verified {} SQLite copy. Review Diagnostics and create a system backup.').format(
+                    self._sqlite_emergency_recovered_from
+                )
+            )
+        elif self._sqlite_emergency_recovery_error:
+            messages.append(
+                _('Emergency SQLite recovery was enabled but failed: {}').format(
+                    self._sqlite_emergency_recovery_error
+                )
             )
         return messages
 
@@ -1251,6 +1415,12 @@ class _Options(object):
             with self._lock:
                 logging.debug(_('Saving options to disk'))
 
+                # Disabling recovery must fail closed even if the following
+                # settings save later fails. Enabling is activated only after
+                # a verified SQLite shadow has been written successfully.
+                if not self._values.get('sqlite_emergency_recovery', False):
+                    self._remove_sqlite_emergency_marker()
+
                 options_dir = os.path.dirname(OPTIONS_FILE)
                 tmp_dir = os.path.dirname(OPTIONS_TMP)
                 backup_dir = os.path.dirname(OPTIONS_BACKUP)
@@ -1366,6 +1536,8 @@ class _Options(object):
                             )
                         )
                 self._update_sqlite_recovery_tests()
+                self._sync_sqlite_emergency_marker()
+                self._run_sqlite_emergency_selection_dry_run()
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

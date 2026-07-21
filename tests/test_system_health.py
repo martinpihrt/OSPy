@@ -66,6 +66,9 @@ class SystemHealthTests(unittest.TestCase):
             "emergency_selection": "ready",
             "emergency_selection_source": "current",
             "emergency_selection_count": 25,
+            "emergency_recovery_enabled": True,
+            "emergency_recovery_used": "",
+            "emergency_recovery_error": "",
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
@@ -85,6 +88,19 @@ class SystemHealthTests(unittest.TestCase):
             "error": "damaged current shadow",
         })
         self.assertIn("no verified candidate", emergency_failure)
+
+        emergency_used = _sqlite_mirror_details({
+            "state": "verified", "count": 25, "last_save": 123.0,
+            "emergency_recovery_enabled": True,
+            "emergency_recovery_used": "backup",
+            "emergency_recovery_error": "",
+            "error": "",
+        })
+        without_recovery = _sqlite_mirror_details({
+            "state": "verified", "count": 25, "last_save": 123.0,
+            "error": "",
+        })
+        self.assertGreater(len(emergency_used), len(without_recovery))
 
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {

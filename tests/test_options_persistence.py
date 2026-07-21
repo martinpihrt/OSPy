@@ -308,6 +308,145 @@ class OptionsPersistenceTests(unittest.TestCase):
                 0,
             )
 
+    def test_emergency_recovery_marker_follows_verified_opt_in(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-marker-") as root:
+            instance = self._new_options(root)
+            marker = instance._sqlite_emergency_marker_path()
+            self.assertFalse(os.path.exists(marker))
+
+            instance.sqlite_emergency_recovery = True
+            instance.save_now()
+            self.assertTrue(os.path.isfile(marker))
+            with open(marker, "r", encoding="ascii") as marker_file:
+                self.assertEqual(marker_file.read().strip(), "enabled-v1")
+
+            instance.sqlite_emergency_recovery = False
+            instance.save_now()
+            self.assertFalse(os.path.exists(marker))
+
+    def test_marker_write_failure_never_activates_emergency_recovery(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-marker-failure-") as root:
+            instance = self._new_options(root)
+            instance.sqlite_emergency_recovery = True
+            marker = instance._sqlite_emergency_marker_path()
+            with mock.patch.object(
+                    options_module._Options,
+                    "_write_sqlite_emergency_marker",
+                    side_effect=OSError("simulated marker write failure")), \
+                    self.assertLogs(level="WARNING"):
+                instance.save_now()
+
+            self.assertFalse(os.path.exists(marker))
+            self.assertTrue(instance.sqlite_emergency_recovery)
+            with shelve.open(options_module.OPTIONS_FILE, flag="r") as database:
+                self.assertTrue(database["sqlite_emergency_recovery"])
+
+    def test_disabling_marker_fails_closed_before_settings_write(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-marker-disable-") as root:
+            instance = self._new_options(root)
+            instance.sqlite_emergency_recovery = True
+            instance.save_now()
+            marker = instance._sqlite_emergency_marker_path()
+            self.assertTrue(os.path.isfile(marker))
+
+            instance.sqlite_emergency_recovery = False
+            with mock.patch.object(
+                    options_module.settings_store, "write",
+                    side_effect=OSError("simulated settings failure")), \
+                    self.assertLogs(level="WARNING"):
+                instance.save_now()
+
+            self.assertFalse(os.path.exists(marker))
+
+    def test_marker_alone_cannot_enable_emergency_recovery(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-marker-only-") as root:
+            first = self._new_options(root)
+            first.name = "SQLite copy has no recovery permission"
+            first.save_now()
+            marker = first._sqlite_emergency_marker_path()
+            os.makedirs(os.path.dirname(marker), exist_ok=True)
+            with open(marker, "w", encoding="ascii") as marker_file:
+                marker_file.write("enabled-v1\n")
+            default, unused_temporary, backup = self._paths(root)
+            first.__del__()
+            for path in (default, backup):
+                with shelve.open(path) as database:
+                    database["output_count"] = "invalid"
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertIsNone(second._load_source)
+            self.assertNotEqual(
+                second.name, "SQLite copy has no recovery permission"
+            )
+            self.assertIn(
+                "does not contain recovery permission",
+                second._sqlite_emergency_recovery_error,
+            )
+
+    def test_opt_in_recovers_from_current_sqlite_only_after_all_shelves_fail(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-current-") as root:
+            first = self._new_options(root)
+            first.sqlite_emergency_recovery = True
+            first.name = "Verified current emergency settings"
+            first.save_now()
+            default, temporary, backup = self._paths(root)
+            first.__del__()
+            for path in (default, backup):
+                with shelve.open(path) as database:
+                    database["output_count"] = "invalid"
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Verified current emergency settings")
+            self.assertEqual(second._load_source, temporary)
+            self.assertEqual(second._sqlite_emergency_recovered_from, "current")
+            self.assertTrue(second.sqlite_emergency_recovery)
+            self.assertTrue(os.path.isdir(os.path.dirname(temporary)))
+            self.assertTrue(any(
+                "Emergency recovery" in message
+                for message in second.recovery_messages()
+            ))
+
+    def test_opt_in_falls_back_to_verified_backup_sqlite(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-backup-") as root:
+            first = self._new_options(root)
+            first.sqlite_emergency_recovery = True
+            first.name = "Verified backup emergency settings"
+            first.save_now()
+            first.name = "Damaged current emergency settings"
+            first.save_now()
+            default, temporary, backup = self._paths(root)
+            mirror_path = options_module.sqlite_mirror_store.path_for(default)
+            connection = sqlite3.connect(mirror_path)
+            try:
+                connection.execute(
+                    "UPDATE settings SET checksum = ? WHERE key = ?",
+                    ("0" * 64, "name"),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+            first.__del__()
+            for path in (default, backup):
+                with shelve.open(path) as database:
+                    database["output_count"] = "invalid"
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Verified backup emergency settings")
+            self.assertEqual(second._load_source, temporary)
+            self.assertEqual(second._sqlite_emergency_recovered_from, "backup")
+
     def test_restore_rehearsal_failure_keeps_shelve_authoritative(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-restore-failure-") as root:
             first = self._new_options(root)
@@ -453,6 +592,7 @@ class OptionsPersistenceTests(unittest.TestCase):
                 instance.rain_block, datetime.datetime(2031, 2, 3, 4, 5, 6)
             )
             self.assertTrue(instance.show_diagnostics_modal_home)
+            self.assertFalse(instance.sqlite_emergency_recovery)
             self.assertEqual(instance.plugin_update_channel, "master")
             self.assertEqual(instance.weather_provider, "stormglass")
             self.assertEqual(

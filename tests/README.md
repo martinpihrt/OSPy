@@ -71,6 +71,9 @@ The suite checks:
 * read-only emergency candidate selection with current-copy priority,
   verified-backup fallback and proof that SQLite values remain unused when
   every shelve startup candidate is invalid;
+* default-off, dual-authorized emergency SQLite recovery through a verified
+  temporary shelve rebuild, current/backup priority, atomic activation-marker
+  lifecycle and fail-closed behavior during marker or settings-write errors;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

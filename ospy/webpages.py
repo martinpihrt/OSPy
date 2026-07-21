@@ -3085,6 +3085,17 @@ def _sqlite_mirror_details(status):
             details += _('Failed')
             if status.get('emergency_selection_error'):
                 details += ' - ' + status['emergency_selection_error']
+    recovery_used = status.get('emergency_recovery_used')
+    details += '; ' + _('Automatic emergency SQLite recovery') + ': '
+    if recovery_used:
+        source_label = _('backup') if recovery_used == 'backup' else _('current')
+        details += _('Used') + ' (' + _('source') + ': ' + source_label + ')'
+    elif status.get('emergency_recovery_enabled'):
+        details += _('Enabled; used only if every shelve/DBM candidate is invalid')
+    else:
+        details += _('Disabled')
+    if status.get('emergency_recovery_error'):
+        details += ' - ' + status['emergency_recovery_error']
     return details
 
 
@@ -3549,7 +3560,9 @@ def _system_health_data():
             sqlite_mirror.get('recovery_test') in ('failed', 'error') or
             sqlite_mirror.get('backup_recovery_test') in ('failed', 'error') or
             sqlite_mirror.get('restore_rehearsal') == 'failed' or
-            sqlite_mirror.get('emergency_selection') == 'failed'):
+            sqlite_mirror.get('emergency_selection') == 'failed' or
+            sqlite_mirror.get('emergency_recovery_used') or
+            sqlite_mirror.get('emergency_recovery_error')):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
