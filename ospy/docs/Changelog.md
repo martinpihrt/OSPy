@@ -24,6 +24,8 @@ Fixed the local web.py compatibility fallback on Python 3.13 and newer, where th
 
 Fixed web.py template parsing on Python 3.14. The stricter tokenizer no longer rejects valid OSPy or plug-in templates when translated text or HTML immediately following a template expression contains an unmatched quote, and a trailing punctuation dot is no longer mistaken for attribute access. Added regression coverage and verified every OSPy and official plug-in template on Python 3.14 while retaining the Python 3.11 behavior.
 
+Removed the remaining Python 3.14 invalid-escape `SyntaxWarning` messages from Wi-Fi signal parsing, the web.py debug page and bundled Blinker documentation strings without changing their runtime behavior. The complete Python source tree now compiles with `SyntaxWarning` promoted to an error on Python 3.14.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

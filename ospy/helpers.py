@@ -1262,7 +1262,7 @@ def read_wifi_signal():
     # https://www.programcreek.com/python/?CodeExample=get+rssi
     import os
     try:
-        dBm = os.popen("/bin/cat /proc/net/wireless | awk 'NR==3 {print $4}' | sed 's/\.//'").readline().strip()
+        dBm = os.popen("/bin/cat /proc/net/wireless | awk 'NR==3 {print $4}' | sed 's/\\.//'").readline().strip()
         if dBm=="":
             return 0
         dBm = int(dBm)
