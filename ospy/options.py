@@ -1098,6 +1098,7 @@ class _Options(object):
 
                 logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
+                self._values['last_save'] = saved_at
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

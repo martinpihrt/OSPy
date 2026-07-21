@@ -83,12 +83,15 @@ class OptionsPersistenceTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="ospy-options-write-error-") as root:
             instance = self._new_options(root)
+            previous_last_save = instance.last_save
             instance.name = "Changed"
             with self.assertLogs(level="WARNING"), mock.patch.object(
                 options_module.shutil, "move",
                 side_effect=OSError("simulated write failure")
             ):
                 instance.save_now()
+
+            self.assertEqual(instance.last_save, previous_last_save)
 
         issue = next(
             item for item in health.active_issues()
@@ -109,6 +112,7 @@ class OptionsPersistenceTests(unittest.TestCase):
                         side_effect=OSError("simulated mirror failure")), \
                     self.assertLogs(level="WARNING") as captured:
                 instance.save_now()
+
             instance.__del__()
 
             reloaded = options_module._Options()
@@ -140,6 +144,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             mirror_values = options_module.sqlite_mirror_store.read(mirror_path)
             self.assertEqual(mirror_values["name"], "Test garden")
             self.assertEqual(mirror_values["rain_block"], rain_until)
+            self.assertEqual(first.last_save, mirror_values["last_save"])
             first.__del__()
 
             second = options_module._Options()
@@ -151,6 +156,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(second.plugin_status["example"]["date"], status_date)
             self.assertEqual(second.plugin_status["example"]["hash"], "abc123")
             self.assertEqual(second.plugin_update_channel, "beta")
+            self.assertEqual(second.last_save, mirror_values["last_save"])
 
     def test_legacy_database_keeps_values_and_adds_new_defaults(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-migration-") as root:
