@@ -14,6 +14,10 @@ Added automated provider, migration, normalization, rendering and calculation co
 
 Added revision-based cache invalidation to the active theme stylesheet and explicit intrinsic dimensions to Home forecast icons. After an OSPy update, browsers now load the matching CSS immediately and cannot render newly introduced SVG icons at their full document size while an older stylesheet is cached.
 
+Hardened and simplified the clean Raspberry Pi OS/Debian installation path. The installer now requires Python 3.11 or newer, clones only the stable `master` branch, preserves existing checkouts, installs core dependencies from Debian packages, keeps MQTT and multimedia support optional, and no longer downloads or executes separate Astral, MySQL Connector or log2ram archives. It renders the versioned native systemd template with absolute paths, starts OSPy, verifies service health and prints recent service output on failure. Cancelling or deferring a reboot no longer reports a successful installation as failed. Updated the clean-install guide, service instructions and all seven Web Interface Guides, and added installer syntax, safety, dependency, service and documentation regression tests.
+
+Updated the Czech translation catalog with the weather-provider selection, short-term Home forecast and related diagnostics messages.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

@@ -260,17 +260,18 @@ OSPy Průvodce webovým rozhraním v češtině
 ----
 
 # Instalace OSPy
-Doporučujeme provést čistou instalaci s nejnovější verzí Pythonu 3+. Při prvním spuštění OSPy (přihlašovací stránka) se vygenerují přihlašovací údaje (heslo) pro přihlášení do systému OSPy. po přihlášení je nutné změnit přihlašovací údaje v nastavení (stránka možností). Tyto vygenerované přihlašovací údaje jsou také uloženy v systému OSPy jako vaše přihlašovací údaje. Při příštím přihlášení se již okno s vygenerovanými přihlašovacími údaji nezobrazí.
+Doporučená čistá instalace používá Raspberry Pi OS nebo Debian 12 a Python 3.11 či novější. Instalátor vždy stahuje stabilní větev OSPy `master`. Při prvním spuštění se na přihlašovací stránce zobrazí vygenerované heslo správce; po přihlášení je ihned změňte v Nastavení.
 
 ## POMOCÍ INSTALAČNÍHO SKRIPTU
 Přihlaste se do Pi pomocí SSH. Zadejte nebo zkopírujte a vložte následující příkaz:
 Pamatujte: Příkazy na Raspberry Pi rozlišují velká a malá písmena.
-*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
-A další
 
-*sudo bash ospy_setup.sh*
+```bash
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+sudo bash ospy_setup.sh
+```
 
-Zobrazí se nabídka nastavení OSPy. Volitelné: Pomocí kláves se šipkami se můžete pohybovat mezi možnostmi. Klepnutím na mezerník vyberte nebo zrušte výběr možnosti. Ve většině případů jsou doporučeny výchozí možnosti. Klepnutím na klávesu Tab se přesunete na . Klepněte na klávesu Enter a poté pomocí kláves se šipkami vyberte umístění, kam bude OSPy nainstalováno. Dalším klepnutím na klávesu Enter nainstalujte OSPy. V závislosti na vybraných možnostech může dokončení procesu instalace trvat několik minut. Po instalaci OSPy se zobrazí dialogové okno. Klepnutím na klávesu Enter restartujte Pi. Poté, co se Pi restartuje, OSPy bude v provozu a připraven k připojení k vašemu zavlažovacímu systému OSPy a naprogramován podle vašich plánů zavlažování. Začněte v části Otevření webového rozhraní OSPy.
+Nabídka odděluje základní požadavky od volitelného MQTT a multimediálních balíčků. Lze zvolit instalaci do `/opt` nebo domovského adresáře. Existující Git instalátor nesmaže, neresetuje ani automaticky neaktualizuje. Službu vytvoří z verzované šablony systemd, spustí ji a ověří její stav; při chybě vypíše poslední záznamy služby. Restart je doporučen jen kvůli I²C nebo změně skupin. Úspěšnou instalaci otevřete na portu 8080. Podrobný bezpečný postup, ruční aktualizace a obnova přístupu jsou v dokumentu **Clean installation** v Nápovědě.
 
 ----
 

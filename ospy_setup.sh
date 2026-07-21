@@ -1,257 +1,193 @@
-
 #!/bin/bash
-set -euo pipefail
+set -Eeuo pipefail
+
 ###################################################################################################
-# script: easy install OSPy and requirements on a fresh Debian version: 12 (bookworm) Pi image
-# by: Gerard ported to ospy Martin Pihrt 06.01.2025
-# version: 1.0
-# usage:
-# 1) download:  wget https://github.com/martinpihrt/OSPy/ospy_setup/-/raw/main/ospy_setup.sh
-# 2) run: sudo bash ospy_setup.sh
+# Safe interactive installation of OSPy on Raspberry Pi OS / Debian 12 or newer.
+# Download: wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+# Run:      sudo bash ospy_setup.sh
 ###################################################################################################
 
+trap 'echo "OSPy installation failed on line ${LINENO}. Review the error above; an existing OSPy checkout was not deleted." >&2' ERR
 
-if [[ $(id -u) -gt 0 ]]
-then
-    echo "Run this command as root or sudo otherwise this script might fail"
-    exit
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Run this script as root: sudo bash ospy_setup.sh" >&2
+  exit 1
 fi
 
-if ! command -v sudo >/dev/null 2>&1; then
-  sudo() {
-    "$@"
-  }
-fi
+for required_command in apt-get getent python3 systemctl; do
+  if ! command -v "$required_command" >/dev/null 2>&1; then
+    echo "Required command not found: $required_command" >&2
+    exit 1
+  fi
+done
 
-current_user=${SUDO_USER:-$USER}
-current_user_home="$(getent passwd "$current_user" | cut -d: -f6 || true)"
+python3 - <<'PY'
+import sys
+if sys.version_info < (3, 11):
+    raise SystemExit("OSPy requires Python 3.11 or newer for this installation procedure.")
+if sys.version_info >= (3, 14):
+    print("Warning: this Python version is newer than the versions currently tested by OSPy.")
+PY
+
+current_user="${SUDO_USER:-}"
+if [ -z "$current_user" ] || ! getent passwd "$current_user" >/dev/null 2>&1; then
+  current_user="root"
+fi
+current_user_home="$(getent passwd "$current_user" | cut -d: -f6)"
 
 if ! command -v whiptail >/dev/null 2>&1; then
-  echo ===== Installing whiptail for setup menus =====
-  apt update
-  apt install whiptail -y
+  echo "===== Installing whiptail for setup menus ====="
+  apt-get update
+  apt-get install -y whiptail
 fi
 
 do_upd_sys=false
 do_i2c=false
 do_mqtt=false
 do_user_grp=false
-do_log2ram=false
-do_sql_connector=false
+do_multimedia=false
 install_location="/opt"
 
-if ! CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist  "Choose install options" 12 45 6 \
- "1" "Update system (recommended)" ON \
- "2" "Enable i2c" ON \
- "3" "Install MQTT broker" ON \
- "4" "Adjust user permissions" ON \
- "5" "Install log2ram" ON \
- "6" "Install SQL connector" ON 3>&1 1>&2 2>&3); then
-  echo "No option was selected or cancelled. Stopping script."
-  exit 1
+if ! CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist \
+  "Choose install options" 13 64 5 \
+  "1" "Upgrade installed operating-system packages" ON \
+  "2" "Enable I2C and install I2C tools" ON \
+  "3" "Install the Mosquitto MQTT broker and client" OFF \
+  "4" "Add the invoking user to available hardware groups" ON \
+  "5" "Install multimedia packages for voice plug-ins" OFF \
+  3>&1 1>&2 2>&3); then
+  echo "Installation was cancelled before any OSPy files were changed."
+  exit 0
 fi
 
-if [ -z "$CHOICES" ]; then
-  echo "No option was selected or cancelled. Stopping script."
-  exit 1
+for choice in $CHOICES; do
+  case "$choice" in
+    "1") do_upd_sys=true ;;
+    "2") do_i2c=true ;;
+    "3") do_mqtt=true ;;
+    "4") do_user_grp=true ;;
+    "5") do_multimedia=true ;;
+    *) echo "Unsupported setup choice: $choice" >&2; exit 1 ;;
+  esac
+done
+
+if whiptail --title "Location" --yesno \
+  "Install OSPy in /opt or in the $current_user home directory?" \
+  --no-button "Home directory" --yes-button "/opt" 8 60; then
+  install_location="/opt"
 else
-  for CHOICE in $CHOICES; do
-    case "$CHOICE" in
-    "1")
-      do_upd_sys=true
-      ;;
-    "2")
-      do_i2c=true
-      ;;
-    "3")
-      do_mqtt=true
-      ;;
-    "4")
-      do_user_grp=true
-      ;;
-    "5")
-      do_log2ram=true
-      ;;
-    "6")
-      do_sql_connector=true
-      ;;  
-    *)
-      echo "Unsupported item $CHOICE!" >&2
-      exit 1
-      ;;
-    esac
-  done
+  if [ -z "$current_user_home" ] || [ ! -d "$current_user_home" ]; then
+    echo "Home directory for $current_user was not found." >&2
+    exit 1
+  fi
+  install_location="$current_user_home"
 fi
 
-if (whiptail --title "Location" --yesno "Install OSPy in /opt or the $current_user homedir?" --no-button "homedir" --yes-button "opt" 8 45); then
-    echo "installing in /opt"
-    mkdir -p "/opt"
-    install_location="/opt"
-else
-    echo "installing in homedir"
-    if [ -n "$current_user_home" ]; then
-      install_location="$current_user_home"
-    else
-      install_location="/home/$current_user"
-    fi
-fi
+mkdir -p -- "$install_location"
 
-mkdir -p "$install_location"
-
-
+echo "===== Refreshing the operating-system package index ====="
+apt-get update
 if [ "$do_upd_sys" = true ]; then
-  echo ===== Updating system =====
-  sudo apt update && sudo apt upgrade -y
+  echo "===== Upgrading installed operating-system packages ====="
+  apt-get upgrade -y
 fi
 
-echo ===== Installing git =====
-sudo apt install git wget ca-certificates -y
+echo "===== Installing OSPy core requirements ====="
+apt-get install -y \
+  ca-certificates \
+  git \
+  python3 \
+  python3-cmarkgfm \
+  python3-pil \
+  python3-qrcode \
+  python3-requests \
+  wget
 
 if [ "$do_i2c" = true ]; then
-  echo ===== Installing  i2c requirements =====
-  sudo apt install python3-smbus i2c-tools -y
+  echo "===== Installing I2C requirements ====="
+  apt-get install -y i2c-tools python3-smbus
   if command -v raspi-config >/dev/null 2>&1; then
-    echo ===== Enabling  i2c interface =====
-    sudo raspi-config nonint do_i2c 0
+    raspi-config nonint do_i2c 0
   else
-    echo "raspi-config not found, skipping automatic i2c enable."
+    echo "raspi-config was not found; enable I2C manually if this is not a Raspberry Pi."
   fi
 fi
 
 if [ "$do_mqtt" = true ]; then
-  echo ===== Installing  mqtt broker and paho client =====
-  sudo apt install mosquitto -y
-  sudo apt install python3-paho-mqtt -y
+  echo "===== Installing MQTT requirements ====="
+  apt-get install -y mosquitto python3-paho-mqtt
+  systemctl enable mosquitto.service
+fi
+
+if [ "$do_multimedia" = true ]; then
+  echo "===== Installing optional multimedia packages ====="
+  apt-get install -y ffmpeg pulseaudio python3-pygame
 fi
 
 if [ "$do_user_grp" = true ]; then
-  echo ===== adding user ${current_user} to hardware groups  =====
-  if getent passwd "$current_user" >/dev/null 2>&1; then
-    for group_name in gpio i2c dialout; do
-      if getent group "$group_name" >/dev/null 2>&1; then
-        sudo usermod -aG "$group_name" "$current_user"
-      else
-        echo "Group $group_name not found, skipping."
-      fi
-    done
-  else
-    echo "User $current_user not found, skipping user permissions."
-  fi
+  echo "===== Adding $current_user to available hardware groups ====="
+  for group_name in gpio i2c dialout; do
+    if getent group "$group_name" >/dev/null 2>&1; then
+      usermod -aG "$group_name" "$current_user"
+    else
+      echo "Group $group_name is not present; skipping it."
+    fi
+  done
 fi
 
-
-echo ===== Installing cmarkgfm for OSPy core =====
-sudo apt install python3-cmarkgfm -y
-
-
-echo ===== Installing requests for OSPy core =====
-sudo apt install python3-requests -y
-
-
-echo ===== Installing packages for plugins pillow qrcode pygame ffmpeg pulseaudio=====
-sudo apt install python3-pillow -y
-sudo apt install python3-qrcode -y
-sudo apt install python3-pygame -y
-sudo apt install ffmpeg -y
-sudo apt install pulseaudio -y
-
-
-echo ===== Installing OSPy =====
-cd "$install_location"
-if [ -d "OSPy/.git" ]; then
-  echo "OSPy already exists in $install_location, leaving existing checkout unchanged."
-elif [ -e "OSPy" ]; then
-  echo "OSPy path already exists but is not a git checkout. Please check $install_location/OSPy manually."
+ospy_dir="$install_location/OSPy"
+echo "===== Installing OSPy in $ospy_dir ====="
+if [ -d "$ospy_dir/.git" ]; then
+  if ! git -C "$ospy_dir" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "$ospy_dir is not a valid Git checkout." >&2
+    exit 1
+  fi
+  echo "An existing OSPy checkout was found and left unchanged."
+elif [ -e "$ospy_dir" ]; then
+  echo "$ospy_dir already exists but is not an OSPy Git checkout." >&2
   exit 1
 else
-  sudo git clone https://github.com/martinpihrt/OSPy
+  git clone --branch master --single-branch https://github.com/martinpihrt/OSPy.git "$ospy_dir"
 fi
 
+service_template="$ospy_dir/service/ospy.service"
+if [ ! -f "$service_template" ]; then
+  echo "OSPy service template was not found: $service_template" >&2
+  exit 1
+fi
 
-echo ===== Installing Midnight Commander =====
-sudo apt install mc -y
-
-
-#echo ===== Installing webpy =====
-# from pipi.org
-#cd $install_location
-#sudo wget https://files.pythonhosted.org/packages/cd/6e/338a060bb5b52ee8229bdada422eaa5f71b13f8d33467f37f870ed2cae4b/web.py-0.62.tar.gz -O webpy.tar.gz
-#sudo tar xf webpy.tar.gz
-#sudo cp -r web.py-0.62/web OSPy
-
-
-#echo ===== Installing cheroot =====
-# from pipi.org
-#cd $install_location
-#sudo wget https://files.pythonhosted.org/packages/63/e2/f85981a51281bd30525bf664309332faa7c81782bb49e331af603421dbd1/cheroot-10.0.1.tar.gz -O cheroot.tar.gz
-#sudo tar xf cheroot.tar.gz
-#sudo cp -r cheroot-10.0.1/cheroot OSPy
-
-
-echo ===== Installing astral from plugin sunrise_and_sunset =====
-# from pipi.org
-cd "$install_location"
-sudo wget https://files.pythonhosted.org/packages/04/d1/1adbf06a38dc339e41a1666f6c7135924594c20fd46e060fb263248c564d/astral-3.2.tar.gz -O astral.tar.gz
-sudo tar xf astral.tar.gz
-sudo cp -r astral-3.2/src/astral OSPy
-
-
-echo ===== Creating and installing SystemD service =====
+echo "===== Installing the systemd service ====="
+python_path="$(command -v python3)"
 service_file="$(mktemp)"
-cat << EOF > "$service_file"
-#Service for OSPy running on a SystemD service
-#
-[Unit]
-Description=OSPy for Python3
-After=syslog.target network.target
-[Service]
-ExecStart=/usr/bin/python3 -u ${install_location}/OSPy/run.py
-Restart=on-abort
-WorkingDirectory=${install_location}/OSPy/
-SyslogIdentifier=ospy
-[Install]
-WantedBy=multi-user.target
-EOF
+cleanup() {
+  rm -f -- "$service_file"
+}
+trap cleanup EXIT
+sed \
+  -e "s|{{OSPY_DIR}}|$ospy_dir|g" \
+  -e "s|{{PYTHON}}|$python_path|g" \
+  "$service_template" > "$service_file"
+install -m 0644 "$service_file" /etc/systemd/system/ospy.service
+systemctl daemon-reload
+systemctl enable ospy.service
+systemctl restart ospy.service
 
-sudo cp "$service_file" /etc/systemd/system/ospy.service
-rm -f "$service_file"
-sudo systemctl daemon-reload
-sudo systemctl enable ospy.service
+if ! systemctl is-active --quiet ospy.service; then
+  echo "OSPy did not start. Recent service output:" >&2
+  journalctl -u ospy.service -n 40 --no-pager >&2 || true
+  exit 1
+fi
 
+echo "===== OSPy is installed and the service is running ====="
+echo "Installation directory: $ospy_dir"
+echo "Open the OSPy web interface on port 8080 and change the generated administrator password."
 
-if [ "$do_log2ram" = true ]; then
-  echo ===== Installing log2ram =====
-  user_home="$(getent passwd "$current_user" | cut -d: -f6 || true)"
-  if [ -z "$user_home" ] || [ ! -d "$user_home" ]; then
-    echo "Home directory for $current_user not found, skipping log2ram install."
-  else
-    cd "$user_home"
-    wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
-    tar xf log2ram.tar.gz
-    cd "$user_home/log2ram-master"
-    sudo ./install.sh
-    echo ===== Increasing logsize to 100M =====
-    sudo sed -i "s/40M/100M/g" /etc/log2ram.conf
-    cd ~
+if [ "$do_i2c" = true ] || [ "$do_user_grp" = true ]; then
+  if whiptail --title "Setup finished" --yesno \
+    "OSPy is running. A reboot is recommended to apply I2C or group changes. Reboot now?" \
+    --no-button "Later" --yes-button "Reboot" 10 70; then
+    reboot
   fi
 fi
 
-
-if [ "$do_sql_connector" = true ]; then
-  echo ===== Installing SQL connector =====
-  cd "$install_location"
-  wget https://files.pythonhosted.org/packages/f3/ec/3c94822a25548613949ea23444fe335ca9ad96e9155832ce57fdcf37c3c5/mysql-connector-python-9.0.0.tar.gz -O sql_connector.tar.gz
-  tar xf sql_connector.tar.gz
-  sudo cp -r mysql-connector-python-9.0.0/mysql OSPy
-  cd ~
-fi
-
-
-echo ===== Done installing OSPy and requirements. Please check the output above and reboot the Pi =====
-
-if (whiptail --title "Setup finished" --yesno "Done installing OSPy and requirements.\n\nReboot now or choose Exit to review the output of the setup " --no-button "Exit" --yes-button "Reboot" 10 65); then
-    echo "Restarting....."
-    sudo reboot
-else
-    exit 1
-fi
+exit 0

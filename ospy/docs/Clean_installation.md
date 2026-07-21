@@ -1,10 +1,10 @@
 OSPy Clean installation
 ====
-We recommend performing a clean installation with the latest version of Python 3+. Currently works with Python <= 3.11 (Raspberry Pi OS Bookworm). The first time you start the OSPy (login page), login data (password) will be generated for logging in to the OSPy system. after logging in, it is necessary to change the login details in the settings (options page). These generated credentials are also stored in the OSPy system as your credentials. The next time you log in, the window with the generated login data will no longer be displayed.
+The supported clean-installation path is Raspberry Pi OS or Debian 12 and Python 3.11 or newer. The installer always downloads the stable OSPy `master` branch. When OSPy starts for the first time, the login page displays a generated administrator password. Sign in and change it immediately in Options; the generated-password notice is not displayed again.
 
 USING THE INSTALLATION SCRIPT:
 ===========
-Log into the Pi using SSH or Wifi. Enter or copy-paste the following command:
+Log into the Pi using SSH. Enter or copy and paste the following commands:
 * Remember: Commands on the Raspberry Pi are case sensitive.
 
 ```sh
@@ -15,23 +15,20 @@ And next
 sudo bash ospy_setup.sh
 ```
 
-The OSPy setup menu will appear
-Optional: Use the arrow keys to move between options. Tap the space bar to select or de-select an option.
-In most cases the default options are recommended..
-Tap the Tab key to move to <ok>.
-Tap the Enter key then use the arrow keys to choose the location where OSPy will be installed.
-Tap the Enter key again to install OSPy.
-Depending on the options selected, the install process may take a few minutes to complete.
-A dialog box will appear when OSPy is installed.
-Tap the Enter key to reboot the Pi.
-After the Pi has rebooted OSPy will be up and running, ready to be connected to your OSPy sprinkler system and programmed with your irrigation schedules. See Opening the OSPy web interface to get started.
+The menu separates core requirements from optional integrations. Operating-system upgrade, I2C and hardware-group setup are selected by default. Mosquitto and multimedia packages for voice plug-ins are optional and disabled by default. Astral and the MySQL connector are already included in the OSPy repository and are not downloaded from separate archives.
+
+Select `/opt` or the invoking user's home directory. A new installation is cloned from the stable `master` branch. If an existing Git checkout is found, the installer never deletes, resets or updates it; it installs the current service around that checkout. A non-Git `OSPy` path stops installation and must be inspected manually.
+
+The installer creates a native systemd service from the versioned `service/ospy.service` template, reloads systemd, enables and starts OSPy, then verifies that the service is active. If startup fails, recent service output is printed and installation returns an error. A reboot is only recommended for I2C or hardware-group changes. Choosing to reboot later is a successful installation, not an error.
+
+After installation, open `http://<Raspberry-Pi-address>:8080`. Review the generated administrator password, change it immediately and make an OSPy backup after the initial configuration.
 
 
 OLDER MANUAL INSTALLATION:
 ===========
 
 ### Operating system Raspbian for Raspberry Pi
-1. Install latest operating system: "Raspbian Bullseye or next new version -  with desktop and recommended software" https://www.raspberrypi.org/downloads/raspbian/
+1. Install a supported Raspberry Pi OS or Debian 12 image: https://www.raspberrypi.com/software/operating-systems/
 2. Change password for acces from "raspberry" to own
 3. Enabling in raspi-config SSH, I²C
 4. Install OSPy using Git
@@ -71,33 +68,32 @@ Next use step "Setup"
 
 IF I CANOT LOG IN:
 ===========
-If you can't log in:
-- stop the service "sudo service ospy stop"
-- move to the "OSPy/ospy/data" folder, for example via midnight commander, and delete the contents of the "data" folder.
-- start the service "sudo service ospy start"
-- try to log in on the login page (you will see the generated new login details)
+Do not delete `ospy/data`; that would remove configuration and history. Use the local recovery script instead:
 
-[![](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/generatedlogin.png?raw=true)](https://github.com/martinpihrt/OSPy/blob/master/ospy/images/generatedlogin.png)</br>
+```bash
+cd /path/to/OSPy
+sudo systemctl stop ospy.service
+sudo python3 back_door.py
+sudo systemctl start ospy.service
+```
 
-
-We can delete the OSPy password and username by running the file in the OSPy folder (OSPy/back_door.py)
-The back_door.py file allows logging into OSPy in case we can't log in, don't know the password, or have lost access to the configured second factor. Run it only from the Raspberry Pi console or another trusted local shell. We will not lose the settings and log history in OSPy as if we used the default OSPy installation (after deleting the ospy/data and ospy/backup files). The script resets the administrator name to admin, disables passwordless access and two-factor authentication, removes the TOTP secret and backup codes, revokes remembered browser logins and active web sessions, and prepares a new generated recovery password that is shown on the login page after restarting the OSPy service. The recovery password must be changed after logging in; two-factor authentication can then be paired again in Options.
+Run it only from the Raspberry Pi console or another trusted local shell and confirm by typing `RESET`. The script resets the administrator name to `admin`, disables passwordless access and two-factor authentication, removes the TOTP secret and backup codes, revokes remembered browser logins and active web sessions, and generates a one-time recovery password. Irrigation settings, programs, plug-ins and logs remain intact. Change the recovery password immediately after signing in.
 
 
 MANUAL OSPY UPDATE
 ===========
 Using Git, without system update plugin if plugin not work. Go to the folder where the run.py file is located (cd OSPy)
 
-Execute:
+Create an OSPy backup first. Stop the service, verify that the checkout has no local changes, and accept only a fast-forward update:
+
 ```bash
-sudo git config core.filemode false
+sudo systemctl stop ospy.service
+sudo git status --short
+sudo git pull --ff-only
+sudo systemctl start ospy.service
 ```
-```bash
-sudo git reset --hard
-```
-```bash
-sudo git pull
-```
+
+If `git status --short` prints files, do not discard them automatically. Review or back up the changes before updating. The System Update plug-in remains the preferred update path because it creates a verified safety backup and uses the external rollback watchdog.
 
 ### Second option (without Git)
 (This option does *not* support automatic updating.)

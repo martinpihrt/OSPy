@@ -144,7 +144,8 @@ class WeatherProviderTests(unittest.TestCase):
             [card["icon"] for card in forecast["cards"]],
             ["clear", "rain", "storm"],
         )
-        self.assertEqual(forecast["provider"], "Open-Meteo automatic model")
+        self.assertTrue(forecast["provider"])
+        self.assertEqual(forecast["provider_url"], "https://open-meteo.com/")
         self.assertIn("40%", forecast["cards"][0]["precipitation"])
 
     def test_provider_eto_is_used_and_pressure_reads_pressure_field(self):

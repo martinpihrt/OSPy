@@ -260,17 +260,18 @@ OSPy Webinterface-Anleitung auf Deutsch
 ----
 
 # OSPy-Installation
-Wir empfehlen eine Neuinstallation mit der neuesten Version von Python 3+. Beim ersten Start von OSPy (Anmeldeseite) werden die Zugangsdaten (Passwort) für die Anmeldung am OSPy-System generiert. Nach der Anmeldung ist es notwendig, die Anmeldedaten in den Einstellungen (Optionsseite) zu ändern. Diese generierten Anmeldeinformationen werden auch im OSPy-System als Ihre Anmeldeinformationen gespeichert. Bei der nächsten Anmeldung erscheint das Fenster mit den generierten Anmeldedaten nicht mehr.
+Für eine Neuinstallation werden Raspberry Pi OS oder Debian 12 und Python 3.11 oder neuer empfohlen. Der Installer lädt immer den stabilen OSPy-Zweig `master`. Beim ersten Start zeigt die Anmeldeseite ein erzeugtes Administratorkennwort; ändern Sie es unmittelbar nach der Anmeldung in den Optionen.
 
 ## VERWENDUNG DES INSTALLATIONSSKRIPTS
 Melden Sie sich über SSH beim Pi an. Geben Sie den folgenden Befehl ein oder kopieren Sie ihn und fügen Sie ihn ein:
 Denken Sie daran: Bei Raspberry Pi-Befehlen muss die Groß-/Kleinschreibung beachtet werden.
-*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
-Und mehr
 
-*sudo bash ospy_setup.sh*
+```bash
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+sudo bash ospy_setup.sh
+```
 
-Das OSPy-Einstellungsmenü wird angezeigt. Optional: Verwenden Sie die Pfeiltasten, um zwischen den Optionen zu wechseln. Tippen Sie auf die Leertaste, um eine Option auszuwählen oder die Auswahl aufzuheben. In den meisten Fällen werden die Standardoptionen empfohlen. Tippen Sie auf die Tabulatortaste, um zu zu wechseln. Drücken Sie die Eingabetaste und wählen Sie dann mit den Pfeiltasten den Ort aus, an dem OSPy installiert werden soll. Drücken Sie erneut die Eingabetaste, um OSPy zu installieren. Abhängig von den ausgewählten Optionen kann der Installationsvorgang mehrere Minuten dauern. Nach der Installation von OSPy erscheint ein Dialogfeld. Drücken Sie die Eingabetaste, um den Pi neu zu starten. Nach dem Neustart des Pi ist OSPy betriebsbereit und bereit, sich mit Ihrem OSPy-Bewässerungssystem zu verbinden und es gemäß Ihren Bewässerungsplänen zu programmieren. Beginnen Sie im Abschnitt „Öffnen der OSPy-Webschnittstelle“.
+Das Menü trennt die Kernanforderungen von optionalen MQTT- und Multimedia-Paketen. Wählen Sie `/opt` oder das Home-Verzeichnis des aufrufenden Benutzers. Eine vorhandene Git-Installation wird niemals gelöscht, zurückgesetzt oder automatisch aktualisiert. Der Installer erstellt den Dienst aus der versionierten systemd-Vorlage, startet ihn und prüft seinen Zustand; bei einem Startfehler werden die letzten Dienstmeldungen angezeigt. Ein Neustart wird nur für I²C- oder Gruppenänderungen empfohlen. Eine erfolgreiche Installation ist über Port 8080 erreichbar. Ausführliche sichere Schritte, manuelle Aktualisierung und lokale Kontowiederherstellung stehen im Hilfedokument **Clean installation**.
 
 ----
 

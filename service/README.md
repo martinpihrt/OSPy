@@ -1,17 +1,20 @@
-Copy ospy.service to etc/systemd/system:
+The clean-installation script is the preferred way to install the service. It reads `ospy.service`, replaces `{{OSPY_DIR}}` and `{{PYTHON}}` with verified absolute paths, installs the rendered file, reloads systemd and verifies that OSPy starts.
+
+For a manual installation, render both placeholders before copying the file. Do not copy the unmodified template into `/etc/systemd/system`, because systemd cannot resolve the placeholder paths.
+
+Example for OSPy installed in `/opt/OSPy`:
 
 ```bash
-sudo cp OSPy/service/ospy.service /etc/systemd/system
+sed -e 's|{{OSPY_DIR}}|/opt/OSPy|g' \
+    -e 's|{{PYTHON}}|/usr/bin/python3|g' \
+    /opt/OSPy/service/ospy.service | sudo tee /etc/systemd/system/ospy.service >/dev/null
+sudo systemctl daemon-reload
 ```
 
-Ran:
+Enable and start OSPy:
 ```bash
-systemctl enable ospy.service
-```
-
-Started ospy:
-```bash
-systemctl start ospy
+sudo systemctl enable --now ospy.service
+sudo systemctl is-active ospy.service
 ```
 
 Emergency administrator login recovery

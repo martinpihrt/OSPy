@@ -260,17 +260,18 @@ Przewodnik po interfejsie webowym OSPy w jezyku polskim
 ----
 
 # Instalacja OSPy
-Zalecamy wykonanie czystej instalacji najnowszej wersji Pythona 3+. Przy pierwszym uruchomieniu OSPy (strona logowania) generowane są dane uwierzytelniające (hasło) umożliwiające zalogowanie się do systemu OSPy. po zalogowaniu konieczna jest zmiana danych logowania w ustawieniach (strona opcji). Wygenerowane dane uwierzytelniające są również przechowywane w systemie OSPy jako dane logowania. Przy następnym logowaniu okno z wygenerowanymi danymi do logowania nie będzie już wyświetlane.
+Zalecana czysta instalacja korzysta z Raspberry Pi OS lub Debiana 12 oraz Pythona 3.11 lub nowszego. Instalator zawsze pobiera stabilną gałąź OSPy `master`. Przy pierwszym uruchomieniu strona logowania wyświetla wygenerowane hasło administratora; po zalogowaniu należy je natychmiast zmienić w Opcjach.
 
 ## KORZYSTANIE Z SKRYPTU INSTALACYJNEGO
 Zaloguj się do Pi za pomocą SSH. Wpisz lub skopiuj i wklej następujące polecenie:
 Pamiętaj: w poleceniach Raspberry Pi rozróżniana jest wielkość liter.
-*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
-I nie tylko
 
-*sudo bash ospy_setup.sh*
+```bash
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+sudo bash ospy_setup.sh
+```
 
-Pojawi się menu ustawień OSPy. Opcjonalnie: Do poruszania się pomiędzy opcjami służą klawisze strzałek. Naciśnij spację, aby zaznaczyć lub odznaczyć opcję. W większości przypadków zalecane są opcje domyślne. Naciśnij klawisz Tab, aby przejść do . Naciśnij Enter, a następnie użyj klawiszy strzałek, aby wybrać lokalizację, w której zostanie zainstalowany OSPy. Naciśnij ponownie Enter, aby zainstalować OSPy. W zależności od wybranych opcji proces instalacji może zająć kilka minut. Po zainstalowaniu OSPy pojawi się okno dialogowe. Naciśnij Enter, aby ponownie uruchomić Pi. Po ponownym uruchomieniu Pi, OSPy będzie gotowe do podłączenia do systemu nawadniania OSPy i zaprogramowania go zgodnie z harmonogramami nawadniania. Zacznij od sekcji Otwieranie interfejsu sieciowego OSPy.
+Menu oddziela wymagania podstawowe od opcjonalnych pakietów MQTT i multimedialnych. Wybierz `/opt` albo katalog domowy użytkownika uruchamiającego skrypt. Instalator nigdy nie usuwa, nie resetuje ani automatycznie nie aktualizuje istniejącego repozytorium Git. Tworzy usługę z wersjonowanego szablonu systemd, uruchamia ją i sprawdza jej stan; w razie błędu pokazuje ostatnie komunikaty usługi. Ponowne uruchomienie jest zalecane tylko po zmianie I²C lub grup. Poprawna instalacja jest dostępna na porcie 8080. Szczegółowa bezpieczna procedura, ręczna aktualizacja i lokalne odzyskiwanie konta znajdują się w dokumencie Pomocy **Clean installation**.
 
 ----
 

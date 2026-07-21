@@ -260,17 +260,18 @@ OSPy sprievodca webovým rozhraním v slovencine
 ----
 
 # Inštalácia OSPy
-Odporúčame vykonať čistú inštaláciu s najnovšou verziou Pythonu 3+. Pri prvom spustení OSPy (prihlasovacia stránka) sa vygenerujú prihlasovacie údaje (heslo) pre prihlásenie do systému OSPy. po prihlásení je nutné zmeniť prihlasovacie údaje v nastavení (stránka možností). Tieto vygenerované prihlasovacie údaje sú tiež uložené v systéme OSP ako vaše prihlasovacie údaje. Pri ďalšom prihlásení sa už okno s vygenerovanými prihlasovacími údajmi nezobrazí.
+Na čistú inštaláciu sa odporúča Raspberry Pi OS alebo Debian 12 a Python 3.11 či novší. Inštalátor vždy stiahne stabilnú vetvu OSPy `master`. Pri prvom spustení sa na prihlasovacej stránke zobrazí vygenerované heslo správcu; po prihlásení ho ihneď zmeňte v Možnostiach.
 
 ## POMOCOU INŠTALAČNÉHO SKRIPTU
 Prihláste sa do Pi pomocou SSH. Zadajte alebo skopírujte a vložte nasledujúci príkaz:
 Pamätajte: Príkazy na Raspberry Pi rozlišujú veľké a malé písmená.
-*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
-A ďalšie
 
-*sudo bash ospy_setup.sh*
+```bash
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+sudo bash ospy_setup.sh
+```
 
-Zobrazí sa ponuka nastavenia OSPy. Voliteľné: Pomocou klávesov so šípkami sa môžete pohybovať medzi možnosťami. Kliknutím na medzerník vyberte alebo zrušte výber možnosti. Vo väčšine prípadov sa odporúčajú predvolené možnosti. Kliknutím na kláves Tab sa presuniete na . Kliknite na kláves Enter a potom pomocou klávesov so šípkami vyberte umiestnenie, kam bude OSPy nainštalované. Ďalším kliknutím na kláves Enter nainštalujte OSPy. V závislosti na vybraných možnostiach môže dokončenie procesu inštalácie trvať niekoľko minút. Po inštalácii OSPy sa zobrazí dialógové okno. Kliknutím na kláves Enter reštartujte Pi. Potom, čo sa Pi reštartuje, OSPy bude v prevádzke a pripravený na pripojenie k vášmu zavlažovaciemu systému OSPy a naprogramovaný podľa vašich plánov zavlažovania. Začnite v časti Otvorenie webového rozhrania OSPy.
+Ponuka oddeľuje základné požiadavky od voliteľných balíkov MQTT a multimédií. Vyberte `/opt` alebo domovský adresár používateľa, ktorý spustil skript. Inštalátor nikdy nevymaže, neresetuje ani automaticky neaktualizuje existujúcu Git inštaláciu. Službu vytvorí z verzovanej šablóny systemd, spustí ju a overí jej stav; pri chybe zobrazí posledné záznamy služby. Reštart sa odporúča iba po zmene I²C alebo skupín. Úspešná inštalácia je dostupná na porte 8080. Podrobný bezpečný postup, ručná aktualizácia a lokálna obnova účtu sú v dokumente Pomocníka **Clean installation**.
 
 ----
 

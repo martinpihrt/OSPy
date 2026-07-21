@@ -260,17 +260,18 @@ OSPy Web Interface Guide in English
 ----
 
 # OSPy installation
-We recommend doing a clean install with the latest version of Python 3+. When you start OSPy for the first time (login page), the credentials (password) for logging into the OSPy system are generated. after logging in, it is necessary to change the login data in the settings (options page). These generated credentials are also stored in the OSPy system as your login credentials. The next time you log in, the window with the generated login data will no longer appear.
+The recommended clean installation uses Raspberry Pi OS or Debian 12 and Python 3.11 or newer. The installer always downloads the stable OSPy `master` branch. On first start, the login page displays a generated administrator password; change it immediately in Options after signing in.
 
 ## USING THE INSTALLATION SCRIPT
 Login to the Pi using SSH. Type or copy and paste the following command:
 Remember: Raspberry Pi commands are case sensitive.
-*wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh*
-And more
 
-*sudo bash ospy_setup.sh*
+```bash
+wget https://raw.githubusercontent.com/martinpihrt/OSPy/master/ospy_setup.sh
+sudo bash ospy_setup.sh
+```
 
-The OSPy settings menu will appear. Optional: Use the arrow keys to move between the options. Tap the spacebar to select or deselect an option. In most cases, the default options are recommended. Tap the Tab key to move to . Press Enter and then use the arrow keys to select the location where OSPy will be installed. Hit Enter again to install OSPy. Depending on the options selected, the installation process may take several minutes to complete. After installing OSPy, a dialog box will appear. Press Enter to restart the Pi. After the Pi reboots, OSPy will be up and running and ready to connect to your OSPy irrigation system and program it according to your irrigation schedules. Start in the Opening the OSPy Web Interface section.
+The menu separates core requirements from optional MQTT and multimedia packages. Choose `/opt` or the invoking user's home directory. The installer never deletes, resets or automatically updates an existing Git checkout. It builds the service from the versioned systemd template, starts it and verifies its state; recent service output is shown when startup fails. A reboot is recommended only for I2C or group changes. Open a successful installation on port 8080. The **Clean installation** Help document contains the detailed safe procedure, manual update and local account recovery instructions.
 
 ----
 

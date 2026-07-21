@@ -9,6 +9,9 @@ python3 -m unittest discover -s tests -v
 
 The suite checks:
 
+* clean-installer Bash syntax, stable-branch checkout, preservation of existing
+  installations, trusted Debian dependency sources, use of the versioned
+  systemd template, service start verification and bounded restart behavior;
 * compilation of every core web.py HTML template;
 * completeness and execution of the documented `pygettext.py` command;
 * protection of the repository POT file during the extraction test;
