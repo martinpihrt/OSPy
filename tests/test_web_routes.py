@@ -180,6 +180,8 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(home_response.status, "200 OK")
         self.assertIn(b'class="weatherForecast"', home_response.data)
         self.assertIn(b"/static/images/weather/partly-cloudy.svg", home_response.data)
+        self.assertIn(b'width="42" height="42"', home_response.data)
+        self.assertIn(b"/theme.css?v=", home_response.data)
         self.assertIn(b"Open-Meteo automatic model", home_response.data)
 
     def test_sensors_page_renders_numeric_regulation_output(self):

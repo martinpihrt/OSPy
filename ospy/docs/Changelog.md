@@ -12,6 +12,8 @@ Added a non-blocking three-card forecast to the Home weather section for the cur
 
 Added automated provider, migration, normalization, rendering and calculation coverage. Updated all seven Web Interface Guides with provider selection, compatibility, API-key, attribution, cache and Home forecast behavior.
 
+Added revision-based cache invalidation to the active theme stylesheet and explicit intrinsic dimensions to Home forecast icons. After an OSPy update, browsers now load the matching CSS immediately and cannot render newly introduced SVG icons at their full document size while an older stylesheet is cached.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

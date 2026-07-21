@@ -872,7 +872,7 @@ $if options.use_weather:
                     $for card in forecast['cards']:
                         <div class="weatherForecastCard">
                             <time>${card['time']}</time>
-                            <img src="/static/images/weather/${card['icon']}.svg" alt="${card['description']}" title="${card['description']}">
+                            <img src="/static/images/weather/${card['icon']}.svg" width="42" height="42" alt="${card['description']}" title="${card['description']}">
                             <strong>${card['temperature']}</strong>
                             <span>${card['precipitation']}</span>
                         </div>
