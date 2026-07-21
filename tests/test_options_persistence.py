@@ -97,6 +97,30 @@ class OptionsPersistenceTests(unittest.TestCase):
         self.assertIn("simulated write failure", issue["details"])
         self.assertEqual(issue["link"], "/options")
 
+    def test_failed_sqlite_mirror_does_not_block_shelve_save_or_reload(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-mirror-error-") as root:
+            instance = self._new_options(root)
+            instance.name = "Saved despite mirror failure"
+            with mock.patch.object(
+                    options_module, "sqlite_capability",
+                    return_value={"available": True, "version": "3", "error": ""}), \
+                    mock.patch.object(
+                        options_module.sqlite_mirror_store, "write",
+                        side_effect=OSError("simulated mirror failure")), \
+                    self.assertLogs(level="WARNING") as captured:
+                instance.save_now()
+            instance.__del__()
+
+            reloaded = options_module._Options()
+            reloaded.__del__()
+            self.addCleanup(reloaded.__del__)
+
+            self.assertEqual(reloaded.name, "Saved despite mirror failure")
+            self.assertTrue(any(
+                "simulated mirror failure" in message
+                for message in captured.output
+            ))
+
     def test_values_and_nested_dates_survive_save_and_reload(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-roundtrip-") as root:
             first = self._new_options(root)
@@ -109,6 +133,13 @@ class OptionsPersistenceTests(unittest.TestCase):
             }
             first.plugin_update_channel = "beta"
             first.save_now()
+            mirror_path = options_module.sqlite_mirror_store.path_for(
+                options_module.OPTIONS_FILE
+            )
+            self.assertTrue(os.path.isfile(mirror_path))
+            mirror_values = options_module.sqlite_mirror_store.read(mirror_path)
+            self.assertEqual(mirror_values["name"], "Test garden")
+            self.assertEqual(mirror_values["rain_block"], rain_until)
             first.__del__()
 
             second = options_module._Options()

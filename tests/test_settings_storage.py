@@ -72,6 +72,46 @@ class SettingsStorageTests(unittest.TestCase):
 
         settings_storage.sqlite_capability(refresh=True)
 
+    def test_sqlite_mirror_round_trip_and_status(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-mirror-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            values = {
+                "name": "Mirror garden",
+                "date": datetime.date(2031, 7, 8),
+                "nested": {"values": [1, 2], "enabled": True},
+            }
+
+            written = settings_storage.sqlite_mirror_store.write(
+                path, values, saved_at=456.75
+            )
+            loaded = settings_storage.sqlite_mirror_store.read(path)
+            status = settings_storage.sqlite_mirror_store.status(path)
+
+            self.assertEqual(written["state"], "synchronized")
+            self.assertEqual(loaded["name"], values["name"])
+            self.assertEqual(loaded["date"], values["date"])
+            self.assertEqual(loaded["nested"], values["nested"])
+            self.assertEqual(loaded["last_save"], 456.75)
+            self.assertEqual(status["state"], "synchronized")
+            self.assertEqual(status["count"], len(values) + 1)
+            self.assertEqual(status["last_save"], 456.75)
+            self.assertFalse(os.path.exists(path + ".new"))
+
+    def test_damaged_sqlite_mirror_is_reported_without_becoming_a_source(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-damaged-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            with open(path, "wb") as damaged:
+                damaged.write(b"not a sqlite database")
+
+            status = settings_storage.sqlite_mirror_store.status(path)
+
+            self.assertEqual(status["state"], "error")
+            self.assertTrue(status["error"])
+            self.assertIsInstance(
+                settings_storage.settings_store,
+                settings_storage.ShelveSettingsStore,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

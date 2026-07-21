@@ -2991,6 +2991,28 @@ def _sqlite_readiness_details(capability=None):
     return details
 
 
+def _sqlite_mirror_details(status):
+    """Describe the non-authoritative SQLite transition mirror."""
+    state = status.get('state', 'pending')
+    details = _('SQLite shadow copy') + ': '
+    if state == 'synchronized':
+        details += _('Synchronized')
+        details += ' (' + _('settings') + ': {}'.format(status.get('count', 0))
+        if status.get('last_save'):
+            details += '; ' + _('saved') + ': ' + _health_time(status['last_save'])
+        details += ')'
+    elif state == 'error':
+        details += _('Failed')
+        if status.get('error'):
+            details += ' - ' + status['error']
+        details += '. ' + _('Shelve remains authoritative.')
+    elif state == 'unavailable':
+        details += _('Unavailable') + '. ' + _('Shelve remains authoritative.')
+    else:
+        details += _('Waiting for the next settings save.')
+    return details
+
+
 def _security_item(item_id, title, home_status, internet_status, summary,
                    details='', solution='', link='/options'):
     """Return one passive security check for both recommendation profiles."""
@@ -3422,12 +3444,34 @@ def _system_health_data():
         os.path.isdir(data_dir) and os.access(data_dir, os.W_OK)
     )
     sqlite_status = settings_storage.sqlite_capability()
+    if sqlite_status.get('available'):
+        sqlite_mirror = settings_storage.sqlite_mirror_store.status(
+            settings_storage.sqlite_mirror_store.path_for(
+                os.path.join(data_dir, 'default', 'options.db')
+            )
+        )
+        if database_beat.get('sqlite_mirror') == 'error':
+            sqlite_mirror = {
+                'state': 'error',
+                'error': database_beat.get('sqlite_mirror_error', ''),
+                'count': 0,
+                'last_save': 0,
+            }
+    else:
+        sqlite_mirror = {
+            'state': 'unavailable', 'error': sqlite_status.get('error', ''),
+            'count': 0, 'last_save': 0,
+        }
+    database_status = 'ok' if database_ok else 'error'
+    if database_ok and sqlite_mirror.get('state') == 'error':
+        database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
     )
     database_details += '; ' + _sqlite_readiness_details(sqlite_status)
+    database_details += '; ' + _sqlite_mirror_details(sqlite_mirror)
     items.append(_health_item(
-        'database', _('Database'), 'ok' if database_ok else 'error',
+        'database', _('Database'), database_status,
         _('The settings database and data directory are accessible.')
         if database_ok else _('The settings database or data directory is not accessible.'),
         database_details,

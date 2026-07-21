@@ -362,7 +362,9 @@ Externá IP adresa pre systém OSPy (adresa vášho poskytovateľa pripojenia - 
 Doba behu systému Raspberry pri zapnutí (alebo reštarte).
 
 ## Diagnostika
-Riadok **Databáza** navyše zobrazuje aktívne úložisko nastavení a pripravenosť SQLite. Táto prechodná verzia naďalej číta a zapisuje existujúce súbory shelve/DBM. Kontrola SQLite používa iba dočasnú databázu v pamäti; nevytvára súbor SQLite ani nemigruje používateľské údaje. Ak podpora SQLite v Pythone nie je dostupná, OSPy naďalej používa shelve/DBM a dôvod zobrazí iba ako pasívnu informáciu, nie ako poruchu systému.
+Riadok **Databáza** navyše zobrazuje aktívne úložisko nastavení a pripravenosť SQLite. Táto prechodná verzia naďalej číta a zapisuje existujúce súbory shelve/DBM. Samotná kontrola pripravenosti používa iba dočasnú databázu v pamäti a nevytvára súbor ani migráciu údajov. Ak podpora SQLite v Pythone nie je dostupná, OSPy naďalej používa shelve/DBM a dôvod zobrazí iba ako pasívnu informáciu, nie ako poruchu systému.
+
+Po každom úspešnom uložení nastavení vytvorí OSPy vedľa aktívnych súborov shelve/DBM aj overenú tieňovú kópiu `options.sqlite3`. Zapisuje ju cez dočasný súbor a atomicky ju nahradí až po úspešnej kontrole schémy, kľúčov, hodnôt a integrity. Pri spustení OSPy z tieňovej kópie nikdy nenačítava nastavenia. Zlyhanie synchronizácie ponechá autoritatívne uloženie shelve nedotknuté a zobrazí sa ako varovanie v riadku **Databáza**; chýbajúca tieňová kópia čaká na ďalšie uloženie nastavení.
 
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 

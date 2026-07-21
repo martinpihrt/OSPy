@@ -362,7 +362,9 @@ External IP address for the OSPy system (address of your connection provider - r
 The time the Raspberry pi system has been running since it was powered on (or restarted).
 
 ## Diagnostics
-The **Database** row also shows the active settings storage and SQLite readiness. This transition release continues to read and write the existing shelve/DBM files. The SQLite check uses only a temporary in-memory database; it creates no SQLite file and migrates no user data. If Python SQLite support is unavailable, OSPy continues using shelve/DBM and reports the reason as passive information rather than a system failure.
+The **Database** row also shows the active settings storage and SQLite readiness. This transition release continues to read and write the existing shelve/DBM files. The readiness check uses only a temporary in-memory database and by itself creates no file or data migration. If Python SQLite support is unavailable, OSPy continues using shelve/DBM and reports the reason as passive information rather than a system failure.
+
+After each successful settings save, OSPy creates a verified `options.sqlite3` shadow copy next to the active shelve/DBM files. It is written through a temporary file and atomically replaced only after schema, key, value and integrity checks succeed. OSPy never loads settings from the shadow during startup. A synchronization failure leaves the authoritative shelve save intact and appears as a warning in the **Database** row; a missing shadow waits for the next settings save.
 
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 

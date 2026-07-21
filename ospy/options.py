@@ -13,7 +13,9 @@ import copy
 
 from . import i18n
 from . import helpers
-from .settings_storage import settings_store
+from .settings_storage import (
+    settings_store, sqlite_capability, sqlite_mirror_store,
+)
 import traceback
 import os
 import time
@@ -1032,7 +1034,30 @@ class _Options(object):
                     shutil.rmtree(tmp_dir)
                 helpers.mkdir_p(tmp_dir)
 
-                settings_store.write(OPTIONS_TMP, self._values)
+                saved_at = settings_store.write(OPTIONS_TMP, self._values)
+                sqlite_status = sqlite_capability()
+                sqlite_mirror = {
+                    'state': 'unavailable', 'count': 0,
+                    'last_save': 0, 'error': sqlite_status.get('error', ''),
+                }
+                if sqlite_status.get('available'):
+                    try:
+                        sqlite_mirror = sqlite_mirror_store.write(
+                            sqlite_mirror_store.path_for(OPTIONS_TMP),
+                            self._values,
+                            saved_at,
+                        )
+                    except Exception as error:
+                        sqlite_mirror = {
+                            'state': 'error', 'count': 0,
+                            'last_save': 0,
+                            'error': '{}: {}'.format(type(error).__name__, error),
+                        }
+                        logging.warning(
+                            _('The SQLite settings mirror could not be updated: {}').format(
+                                sqlite_mirror['error']
+                            )
+                        )
 
                 remove_backup = True
                 try:
@@ -1081,6 +1106,10 @@ class _Options(object):
                     'database',
                     storage=settings_store.name,
                     backend=storage_backend,
+                    sqlite_mirror=sqlite_mirror.get('state', ''),
+                    sqlite_mirror_count=sqlite_mirror.get('count', 0),
+                    sqlite_mirror_last_save=sqlite_mirror.get('last_save', 0),
+                    sqlite_mirror_error=sqlite_mirror.get('error', ''),
                     path=os.path.abspath(OPTIONS_FILE)
                 )
                 from ospy.health import resolve_issue

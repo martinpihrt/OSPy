@@ -351,7 +351,9 @@ Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - rou
 Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia).
 
 ## Diagnostyka
-Wiersz **Baza danych** pokazuje również aktywny magazyn ustawień i gotowość SQLite. Ta wersja przejściowa nadal odczytuje i zapisuje istniejące pliki shelve/DBM. Kontrola SQLite używa wyłącznie tymczasowej bazy danych w pamięci; nie tworzy pliku SQLite ani nie migruje danych użytkownika. Jeśli obsługa SQLite w Pythonie jest niedostępna, OSPy nadal używa shelve/DBM, a przyczynę pokazuje tylko jako informację pasywną, a nie awarię systemu.
+Wiersz **Baza danych** pokazuje również aktywny magazyn ustawień i gotowość SQLite. Ta wersja przejściowa nadal odczytuje i zapisuje istniejące pliki shelve/DBM. Sama kontrola gotowości używa wyłącznie tymczasowej bazy danych w pamięci i nie tworzy pliku ani migracji danych. Jeśli obsługa SQLite w Pythonie jest niedostępna, OSPy nadal używa shelve/DBM, a przyczynę pokazuje tylko jako informację pasywną, a nie awarię systemu.
+
+Po każdym udanym zapisie ustawień OSPy tworzy obok aktywnych plików shelve/DBM zweryfikowaną kopię lustrzaną `options.sqlite3`. Jest ona zapisywana do pliku tymczasowego i zastępowana atomowo dopiero po pomyślnej kontroli schematu, kluczy, wartości i integralności. Podczas uruchamiania OSPy nigdy nie wczytuje ustawień z kopii lustrzanej. Błąd synchronizacji pozostawia wiążący zapis shelve bez zmian i pojawia się jako ostrzeżenie w wierszu **Baza danych**; brakująca kopia oczekuje na następny zapis ustawień.
 
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 

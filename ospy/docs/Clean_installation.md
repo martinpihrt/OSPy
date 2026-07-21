@@ -23,6 +23,8 @@ The installer creates a native systemd service from the versioned `service/ospy.
 
 The installer also verifies Python's built-in SQLite support with a temporary in-memory database and an integrity check. No SQLite server, command-line program, API key or separate Python package is installed. OSPy settings still use the existing shelve/DBM files; this check only confirms that the platform is ready for a later, separately controlled migration.
 
+After a successful settings save, OSPy also creates a verified `options.sqlite3` shadow copy beside the active shelve/DBM files. The shadow is written through a temporary file and atomically replaced only after its schema, keys, values and SQLite integrity check pass. OSPy does not read settings from this file during startup. If shadow synchronization fails, the shelve/DBM save remains valid and Diagnostics reports the failure without switching the active backend.
+
 After installation, open `http://<Raspberry-Pi-address>:8080`. Review the generated administrator password, change it immediately and make an OSPy backup after the initial configuration.
 
 

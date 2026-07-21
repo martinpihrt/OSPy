@@ -54,6 +54,8 @@ The suite checks:
 * the settings-storage interface while shelve/DBM remains active, plus an
   in-memory SQLite readiness probe that creates no database file and degrades
   safely when Python SQLite support is unavailable;
+* verified SQLite shadow-copy creation, atomic replacement, corruption
+  reporting and continued shelve save/reload when shadow synchronization fails;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

@@ -362,7 +362,9 @@ Externe IP-Adresse für das OSPy-System (Adresse Ihres Verbindungsanbieters – 
 Die Zeit, die der Raspberry Pi seit dem Einschalten (oder Neustart) in Betrieb war.
 
 ## Diagnose
-Die Zeile **Datenbank** zeigt zusätzlich den aktiven Einstellungsspeicher und die SQLite-Bereitschaft. Diese Übergangsversion liest und schreibt weiterhin die vorhandenen shelve/DBM-Dateien. Die SQLite-Prüfung verwendet nur eine temporäre Datenbank im Arbeitsspeicher; sie erstellt keine SQLite-Datei und migriert keine Benutzerdaten. Wenn die Python-SQLite-Unterstützung nicht verfügbar ist, verwendet OSPy weiterhin shelve/DBM und zeigt den Grund nur als passive Information und nicht als Systemfehler an.
+Die Zeile **Datenbank** zeigt zusätzlich den aktiven Einstellungsspeicher und die SQLite-Bereitschaft. Diese Übergangsversion liest und schreibt weiterhin die vorhandenen shelve/DBM-Dateien. Die Bereitschaftsprüfung verwendet nur eine temporäre Datenbank im Arbeitsspeicher und erstellt für sich allein weder eine Datei noch eine Datenmigration. Wenn die Python-SQLite-Unterstützung nicht verfügbar ist, verwendet OSPy weiterhin shelve/DBM und zeigt den Grund nur als passive Information und nicht als Systemfehler an.
+
+Nach jedem erfolgreichen Speichern der Einstellungen erstellt OSPy neben den aktiven shelve/DBM-Dateien eine geprüfte Schattenkopie `options.sqlite3`. Sie wird zunächst in eine temporäre Datei geschrieben und erst nach erfolgreicher Prüfung von Schema, Schlüsseln, Werten und Integrität atomar ersetzt. OSPy lädt beim Start niemals Einstellungen aus der Schattenkopie. Ein Synchronisierungsfehler lässt die maßgebliche shelve-Speicherung unverändert und wird in der Zeile **Datenbank** als Warnung angezeigt; eine fehlende Schattenkopie wartet auf das nächste Speichern der Einstellungen.
 
 Die Schaltfläche **Diagnose** in der Fußzeile öffnet eine Administratorseite, auf der geprüft werden kann, wie OSPy und seine Plug-ins das System belasten.
 

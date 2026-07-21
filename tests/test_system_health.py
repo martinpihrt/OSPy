@@ -7,7 +7,7 @@ from ospy import i18n  # noqa: F401 - installs gettext
 from ospy import health, webpages
 from ospy.webpages import (
     _health_item, _incident_history_data, _plugin_health_groups,
-    _runtime_health_items, _sqlite_readiness_details,
+    _runtime_health_items, _sqlite_mirror_details, _sqlite_readiness_details,
     _security_health_data,
 )
 
@@ -25,6 +25,20 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("3.46.1", available)
         self.assertIn("shelve/DBM", unavailable)
         self.assertIn("missing module", unavailable)
+
+    def test_sqlite_mirror_details_keep_shelve_authoritative_on_failure(self):
+        synchronized = _sqlite_mirror_details({
+            "state": "synchronized", "count": 25,
+            "last_save": 123.0, "error": "",
+        })
+        failed = _sqlite_mirror_details({
+            "state": "error", "count": 0,
+            "last_save": 0, "error": "disk full",
+        })
+
+        self.assertIn("25", synchronized)
+        self.assertIn("disk full", failed)
+        self.assertIn("Shelve", failed)
 
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {
