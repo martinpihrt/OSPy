@@ -18,6 +18,8 @@ Hardened and simplified the clean Raspberry Pi OS/Debian installation path. The 
 
 Updated the Czech translation catalog with the weather-provider selection, short-term Home forecast and related diagnostics messages.
 
+Expanded GitHub Actions compatibility testing from the Raspberry Pi OS Python 3.11 baseline to a required Python 3.11 and latest stable Python 3.14 matrix. Both jobs run the same complete OSPy and official plug-in suite, fail independently and must succeed; the clean installer now warns only for versions newer than the tested range.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

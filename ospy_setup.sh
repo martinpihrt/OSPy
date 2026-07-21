@@ -25,7 +25,7 @@ python3 - <<'PY'
 import sys
 if sys.version_info < (3, 11):
     raise SystemExit("OSPy requires Python 3.11 or newer for this installation procedure.")
-if sys.version_info >= (3, 14):
+if sys.version_info >= (3, 15):
     print("Warning: this Python version is newer than the versions currently tested by OSPy.")
 PY
 

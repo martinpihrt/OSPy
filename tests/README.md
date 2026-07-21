@@ -92,7 +92,8 @@ Multiple plug-in roots can be separated with the operating system path
 separator (`:` on Linux, `;` on Windows).
 
 GitHub Actions runs the same suite automatically for pushes and pull requests
-to the `beta` and `master` branches. The workflow uses Python 3.11, checks out
-the official OSPy-plugins repository, and can also be started manually from the
-repository **Actions** page. It does not connect to a running OSPy installation
-or to irrigation hardware.
+to the `beta` and `master` branches. Every change must pass on Python 3.11, the
+Raspberry Pi OS Bookworm baseline, and Python 3.14, the latest stable feature
+release. The workflow checks out the official OSPy-plugins repository and can
+also be started manually from the repository **Actions** page. It does not
+connect to a running OSPy installation or to irrigation hardware.
