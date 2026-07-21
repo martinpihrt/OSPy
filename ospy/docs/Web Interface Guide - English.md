@@ -362,6 +362,8 @@ External IP address for the OSPy system (address of your connection provider - r
 The time the Raspberry pi system has been running since it was powered on (or restarted).
 
 ## Diagnostics
+The **Database** row also shows the active settings storage and SQLite readiness. This transition release continues to read and write the existing shelve/DBM files. The SQLite check uses only a temporary in-memory database; it creates no SQLite file and migrates no user data. If Python SQLite support is unavailable, OSPy continues using shelve/DBM and reports the reason as passive information rather than a system failure.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.

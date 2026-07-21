@@ -31,6 +31,7 @@ from ospy import autologin
 from ospy import twofactor
 from ospy import health
 from ospy import backup as system_backup
+from ospy import settings_storage
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -2974,6 +2975,22 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
     }
 
 
+def _sqlite_readiness_details(capability=None):
+    """Describe optional SQLite readiness without changing health severity."""
+    capability = capability or settings_storage.sqlite_capability()
+    details = _('Settings storage') + ': shelve/DBM; ' + _('SQLite readiness') + ': '
+    if capability.get('available'):
+        details += _('Available')
+        if capability.get('version'):
+            details += ' (' + capability['version'] + ')'
+    else:
+        details += _('Unavailable')
+        if capability.get('error'):
+            details += ' - ' + capability['error']
+        details += '. ' + _('Shelve remains active.')
+    return details
+
+
 def _security_item(item_id, title, home_status, internet_status, summary,
                    details='', solution='', link='/options'):
     """Return one passive security check for both recommendation profiles."""
@@ -3404,13 +3421,16 @@ def _system_health_data():
         not database_beat.get('error') and bool(option_files) and
         os.path.isdir(data_dir) and os.access(data_dir, os.W_OK)
     )
+    sqlite_status = settings_storage.sqlite_capability()
+    database_details = database_beat.get('error') or (
+        _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
+    )
+    database_details += '; ' + _sqlite_readiness_details(sqlite_status)
     items.append(_health_item(
         'database', _('Database'), 'ok' if database_ok else 'error',
         _('The settings database and data directory are accessible.')
         if database_ok else _('The settings database or data directory is not accessible.'),
-        database_beat.get('error') or (
-            _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
-        ),
+        database_details,
         _health_time(
             database_beat.get('last_success') or getattr(options, 'last_save', 0)
         )

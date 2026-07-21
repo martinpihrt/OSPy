@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Introduced the first non-migrating settings-storage transition phase. OSPy still reads and writes the existing shelve/DBM settings files through a new storage interface; no SQLite settings file is created and no user data are converted. Diagnostics now passively reports the active backend and Python SQLite readiness without treating unavailable SQLite as a system failure. The clean installer verifies built-in SQLite support with an in-memory integrity check, and automated tests cover shelve compatibility, absence of SQLite filesystem writes and safe fallback when SQLite is unavailable. Updated the clean-install guide and all seven Web Interface Guides.
+
 Added a shared weather-provider layer for OSPy and weather-aware plug-ins. Options now offer the key-free Open-Meteo automatic model, CHMI ALADIN through Open-Meteo, and the existing Stormglass service. Legacy installations with a saved Stormglass key retain Stormglass while keyless installations migrate to Open-Meteo; invalid provider values are rejected, cached data remain available during temporary failures, and providers never change silently.
 
 Added a non-blocking three-card forecast to the Home weather section for the current time and approximately three and six hours ahead. It uses local SVG weather icons, shows temperature and precipitation, identifies the selected data source and last cache update, and is styled responsively in all three themes. Corrected the fallback evapotranspiration calculation to use atmospheric pressure instead of wind speed.

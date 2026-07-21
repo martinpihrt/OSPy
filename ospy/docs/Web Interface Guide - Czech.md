@@ -362,6 +362,8 @@ Externí IP adresa pro systém OSPy (adresa vašeho poskytovatele připojení - 
 Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 
 ## Diagnostika
+Řádek **Databáze** navíc zobrazuje aktivní úložiště nastavení a připravenost SQLite. Tato přechodná verze nadále čte a zapisuje stávající soubory shelve/DBM. Kontrola SQLite používá pouze dočasnou databázi v paměti; nevytváří soubor SQLite ani nepřevádí uživatelská data. Pokud podpora SQLite v Pythonu není dostupná, OSPy dál používá shelve/DBM a důvod zobrazí pouze jako pasivní informaci, nikoli jako poruchu systému.
+
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
 Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.

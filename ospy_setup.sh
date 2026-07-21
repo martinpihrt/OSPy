@@ -103,6 +103,20 @@ apt-get install -y \
   python3-requests \
   wget
 
+echo "===== Checking Python SQLite support ====="
+python3 - <<'PY'
+import sqlite3
+
+connection = sqlite3.connect(':memory:')
+try:
+    result = connection.execute('PRAGMA integrity_check').fetchone()
+    if result != ('ok',):
+        raise SystemExit('Python SQLite in-memory integrity check failed: {}'.format(result))
+    print('Python SQLite support is available: {}'.format(sqlite3.sqlite_version))
+finally:
+    connection.close()
+PY
+
 if [ "$do_i2c" = true ]; then
   echo "===== Installing I2C requirements ====="
   apt-get install -y i2c-tools python3-smbus

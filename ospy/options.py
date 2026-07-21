@@ -13,6 +13,7 @@ import copy
 
 from . import i18n
 from . import helpers
+from .settings_storage import settings_store
 import traceback
 import os
 import time
@@ -835,18 +836,11 @@ class _Options(object):
         return values
 
     def _read_candidate(self, options_file):
-        db = None
-        try:
-            db = shelve.open(options_file, flag='r')
-            keys = list(db.keys())
-            if not keys:
-                return None
-            raw = {key: db[key] for key in keys}
-            converted = self._convert_str_to_datetime(raw)
-            return self._validate_candidate(converted)
-        finally:
-            if db is not None:
-                db.close()
+        raw = settings_store.read(options_file)
+        if raw is None:
+            return None
+        converted = self._convert_str_to_datetime(raw)
+        return self._validate_candidate(converted)
 
     def recovery_messages(self):
         """Return user-facing descriptions of settings recovery at startup."""
@@ -1038,26 +1032,16 @@ class _Options(object):
                     shutil.rmtree(tmp_dir)
                 helpers.mkdir_p(tmp_dir)
 
-                from dbm.dumb import open as dumb_open
-
-                db = shelve.Shelf(dumb_open(OPTIONS_TMP))
-                db.clear()
-                db.update(self._values)
-
-                db['last_save'] = time.time()
-                db.close()
+                settings_store.write(OPTIONS_TMP, self._values)
 
                 remove_backup = True
                 try:
-                    db = shelve.open(OPTIONS_BACKUP)
-                    if time.time() - db['last_save'] < 3600:
+                    if time.time() - settings_store.last_save(OPTIONS_BACKUP) < 3600:
                         remove_backup = False
                     else:
                         logging.debug(_('Files in OPTIONS_BACKUP are older than 1 hour.'))   
-                    db.close()
                 except Exception:
                     pass
-                del db
 
                 if os.path.isdir(backup_dir) and remove_backup:
                     for i in range(10):
@@ -1090,13 +1074,13 @@ class _Options(object):
                 logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
 
-                from dbm import whichdb
-
-                logging.debug(_('Saved db as %s'), whichdb(OPTIONS_FILE))
+                storage_backend = settings_store.backend(OPTIONS_FILE)
+                logging.debug(_('Saved db as %s'), storage_backend)
                 from ospy.health import heartbeat
                 heartbeat(
                     'database',
-                    backend=whichdb(OPTIONS_FILE) or '',
+                    storage=settings_store.name,
+                    backend=storage_backend,
                     path=os.path.abspath(OPTIONS_FILE)
                 )
                 from ospy.health import resolve_issue

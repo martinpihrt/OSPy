@@ -51,6 +51,13 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn("python3-qrcode", self.installer)
         self.assertIn('"5" "Install multimedia packages for voice plug-ins" OFF', self.installer)
 
+    def test_installer_verifies_builtin_sqlite_support_in_memory(self):
+        self.assertIn("import sqlite3", self.installer)
+        self.assertIn("sqlite3.connect(':memory:')", self.installer)
+        self.assertIn("PRAGMA integrity_check", self.installer)
+        self.assertNotIn("sqlite3.db", self.installer)
+        self.assertNotIn("pip install sqlite", self.installer.lower())
+
     def test_installer_uses_and_validates_the_versioned_service_template(self):
         self.assertIn('service_template="$ospy_dir/service/ospy.service"', self.installer)
         self.assertIn('s|{{OSPY_DIR}}|$ospy_dir|g', self.installer)

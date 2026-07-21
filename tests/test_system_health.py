@@ -7,12 +7,25 @@ from ospy import i18n  # noqa: F401 - installs gettext
 from ospy import health, webpages
 from ospy.webpages import (
     _health_item, _incident_history_data, _plugin_health_groups,
-    _runtime_health_items,
+    _runtime_health_items, _sqlite_readiness_details,
     _security_health_data,
 )
 
 
 class SystemHealthTests(unittest.TestCase):
+    def test_sqlite_readiness_is_passive_and_keeps_shelve_visible(self):
+        available = _sqlite_readiness_details({
+            "available": True, "version": "3.46.1", "error": "",
+        })
+        unavailable = _sqlite_readiness_details({
+            "available": False, "version": "", "error": "missing module",
+        })
+
+        self.assertIn("shelve/DBM", available)
+        self.assertIn("3.46.1", available)
+        self.assertIn("shelve/DBM", unavailable)
+        self.assertIn("missing module", unavailable)
+
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {
             "enabled": True,

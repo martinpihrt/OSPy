@@ -51,6 +51,9 @@ The suite checks:
   immediate persistence, reload, fallback to a valid database copy, rejection
   of invalid core values and safe handling of damaged object, log and session
   records;
+* the settings-storage interface while shelve/DBM remains active, plus an
+  in-memory SQLite readiness probe that creates no database file and degrades
+  safely when Python SQLite support is unavailable;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

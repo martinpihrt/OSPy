@@ -351,6 +351,8 @@ Zewnętrzny adres IP dla systemu OSPy (adres Twojego dostawcy połączenia - rou
 Czas działania Raspberry pi od momentu włączenia (lub ponownego uruchomienia).
 
 ## Diagnostyka
+Wiersz **Baza danych** pokazuje również aktywny magazyn ustawień i gotowość SQLite. Ta wersja przejściowa nadal odczytuje i zapisuje istniejące pliki shelve/DBM. Kontrola SQLite używa wyłącznie tymczasowej bazy danych w pamięci; nie tworzy pliku SQLite ani nie migruje danych użytkownika. Jeśli obsługa SQLite w Pythonie jest niedostępna, OSPy nadal używa shelve/DBM, a przyczynę pokazuje tylko jako informację pasywną, a nie awarię systemu.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.

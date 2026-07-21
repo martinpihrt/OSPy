@@ -21,6 +21,8 @@ Select `/opt` or the invoking user's home directory. A new installation is clone
 
 The installer creates a native systemd service from the versioned `service/ospy.service` template, reloads systemd, enables and starts OSPy, then verifies that the service is active. If startup fails, recent service output is printed and installation returns an error. A reboot is only recommended for I2C or hardware-group changes. Choosing to reboot later is a successful installation, not an error.
 
+The installer also verifies Python's built-in SQLite support with a temporary in-memory database and an integrity check. No SQLite server, command-line program, API key or separate Python package is installed. OSPy settings still use the existing shelve/DBM files; this check only confirms that the platform is ready for a later, separately controlled migration.
+
 After installation, open `http://<Raspberry-Pi-address>:8080`. Review the generated administrator password, change it immediately and make an OSPy backup after the initial configuration.
 
 
