@@ -102,6 +102,10 @@ class SettingsStorageTests(unittest.TestCase):
             )
             self.assertEqual(comparison["state"], "verified")
             self.assertEqual(comparison["difference_count"], 0)
+            reconstructed = settings_storage.sqlite_mirror_store.read_verified(
+                path, loaded
+            )
+            self.assertEqual(reconstructed, loaded)
 
             changed = dict(loaded)
             changed["name"] = "Different garden"
@@ -144,6 +148,10 @@ class SettingsStorageTests(unittest.TestCase):
 
             with mock.patch("pickle.loads") as unsafe_load:
                 status = settings_storage.sqlite_mirror_store.status(path)
+                with self.assertRaises(ValueError):
+                    settings_storage.sqlite_mirror_store.read_verified(
+                        path, {"name": "Safe garden", "last_save": 789.0}
+                    )
 
             self.assertEqual(status["state"], "error")
             self.assertIn("checksum", status["error"].lower())

@@ -357,6 +357,8 @@ Po każdym udanym zapisie ustawień OSPy tworzy obok aktywnych plików shelve/DB
 
 Podczas uruchamiania OSPy porównuje wiążące wartości shelve z sumami SHA-256 zapisanymi w schemacie 2 kopii lustrzanej. Automatyczne porównanie nie deserializuje wartości pickle z kopii i nigdy nie używa ich do odzyskiwania ani uruchamiania OSPy. Zgodna kopia jest oznaczana jako zweryfikowana; brakujące, zmienione lub nieoczekiwane klucze oraz uszkodzenie sumy kontrolnej lub bazy są zgłaszane jako ostrzeżenie, a shelve pozostaje w użyciu. Kopia schematu 1 z poprzedniej fazy przejściowej nie jest odczytywana i zostaje bezpiecznie zastąpiona przy następnym zapisie ustawień.
 
+Dopiero gdy wszystkie klucze i sumy kontrolne są zgodne w jednym obrazie tylko do odczytu, OSPy wykonuje próbne dekodowanie i stosuje zwykłą walidację ustawień do zrekonstruowanych wartości SQLite. Zrekonstruowany słownik jest odrzucany i nigdy nie jest przypisywany do działającej konfiguracji. Diagnostyka informuje, czy test odczytu SQLite przeszedł; niepowodzenie pozostaje ostrzeżeniem, a uruchamianie jest kontynuowane wyłącznie z wcześniej wczytanymi ustawieniami shelve.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.

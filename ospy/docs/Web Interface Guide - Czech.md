@@ -368,6 +368,8 @@ Po každém úspěšném uložení nastavení vytvoří OSPy vedle aktivních so
 
 Při spuštění OSPy porovná autoritativní hodnoty shelve s kontrolními součty SHA-256 uloženými ve stínovém schématu 2. Při této automatické kontrole nerozbaluje hodnoty pickle ze stínové kopie a nikdy je nepoužije k obnově ani spuštění OSPy. Shodná kopie se označí jako ověřená; chybějící, změněné nebo neočekávané klíče a poškození kontrolního součtu či databáze se zobrazí jako varování, zatímco shelve zůstane v provozu. Stínová kopie schématu 1 z předchozí přechodné fáze se nečte a při dalším uložení nastavení se bezpečně nahradí.
 
+Teprve když se v jediném snímku pouze pro čtení shodují všechny klíče a kontrolní součty, provede OSPy zkušební rozbalení a na rekonstruované SQLite hodnoty použije běžnou validaci nastavení. Rekonstruovaný slovník se zahodí a nikdy se nepřiřadí běžící konfiguraci. Diagnostika uvede, zda tento test čtení SQLite prošel; selhání zůstane varováním a start pokračuje výhradně s již načteným nastavením shelve.
+
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
 Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.

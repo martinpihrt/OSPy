@@ -3003,7 +3003,11 @@ def _sqlite_mirror_details(status):
         details += ')'
         if state == 'verified' and status.get('checked'):
             details += '; ' + _('compared') + ': ' + _health_time(status['checked'])
-    elif state in ('error', 'diverged'):
+        if status.get('read_test') == 'passed':
+            details += '; ' + _('SQLite read test') + ': ' + _('Passed')
+        elif state == 'verified':
+            details += '; ' + _('SQLite read test') + ': ' + _('Waiting for the next OSPy start')
+    elif state in ('error', 'diverged', 'read_test_failed'):
         details += _('Failed')
         if status.get('error'):
             details += ' - ' + status['error']
@@ -3473,7 +3477,8 @@ def _system_health_data():
             'count': 0, 'last_save': 0,
         }
     database_status = 'ok' if database_ok else 'error'
-    if database_ok and sqlite_mirror.get('state') in ('error', 'diverged'):
+    if database_ok and sqlite_mirror.get('state') in (
+            'error', 'diverged', 'read_test_failed'):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))

@@ -271,6 +271,43 @@ class SQLiteMirrorStore(object):
         status['checked'] = time.time()
         return status
 
+    def read_verified(self, path, expected_values):
+        """Decode only a snapshot whose hashes match authoritative values."""
+        import sqlite3
+
+        expected = {
+            str(key): hashlib.sha256(
+                pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL)
+            ).hexdigest()
+            for key, value in expected_values.items()
+        }
+        connection = sqlite3.connect('file:{}?mode=ro'.format(path), uri=True)
+        try:
+            rows = {
+                key: (bytes(value), checksum)
+                for key, value, checksum in connection.execute(
+                    'SELECT key, value, checksum FROM settings'
+                )
+            }
+        finally:
+            connection.close()
+
+        if set(rows) != set(expected):
+            raise ValueError('SQLite shadow keys do not match authoritative settings.')
+        for key, (value, checksum) in rows.items():
+            actual = hashlib.sha256(value).hexdigest()
+            if actual != checksum or actual != expected[key]:
+                raise ValueError(
+                    'SQLite shadow value is not verified against shelve/DBM: {}'.format(key)
+                )
+
+        # All bytes are held in this verified snapshot before any value is
+        # decoded, so a later filesystem change cannot alter decoded input.
+        return {
+            key: pickle.loads(value)
+            for key, (value, checksum) in rows.items()
+        }
+
 
 sqlite_mirror_store = SQLiteMirrorStore()
 

@@ -712,10 +712,21 @@ class _Options(object):
                         sqlite_mirror_store.path_for(self._load_source),
                         loaded_values,
                     )
+                    if self._sqlite_mirror_verification.get('state') == 'verified':
+                        reconstructed = sqlite_mirror_store.read_verified(
+                            sqlite_mirror_store.path_for(self._load_source),
+                            loaded_values,
+                        )
+                        self._validate_candidate(reconstructed)
+                        self._sqlite_mirror_verification.update({
+                            'read_test': 'passed',
+                            'decoded_count': len(reconstructed),
+                        })
                 except Exception as error:
                     self._sqlite_mirror_verification = {
-                        'state': 'error', 'differences': [],
+                        'state': 'read_test_failed', 'differences': [],
                         'difference_count': 0, 'checked': time.time(),
+                        'read_test': 'failed',
                         'error': '{}: {}'.format(type(error).__name__, error),
                     }
             else:
@@ -724,7 +735,8 @@ class _Options(object):
                     'difference_count': 0, 'checked': time.time(),
                     'error': sqlite_status.get('error', ''),
                 }
-            if self._sqlite_mirror_verification.get('state') in ('diverged', 'error'):
+            if self._sqlite_mirror_verification.get('state') in (
+                    'diverged', 'error', 'read_test_failed'):
                 logging.warning(
                     _('The SQLite settings shadow does not match the authoritative database: {}').format(
                         self._sqlite_mirror_verification.get('error') or

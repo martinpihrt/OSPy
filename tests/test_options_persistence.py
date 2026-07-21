@@ -161,6 +161,13 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["state"], "verified"
             )
+            self.assertEqual(
+                second._sqlite_mirror_verification["read_test"], "passed"
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["decoded_count"],
+                len(mirror_values),
+            )
 
     def test_shadow_divergence_never_changes_authoritative_loaded_settings(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-divergence-") as root:
@@ -190,6 +197,31 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(second.name, "Authoritative shelve garden")
             self.assertEqual(
                 second._sqlite_mirror_verification["state"], "error"
+            )
+
+    def test_shadow_read_test_failure_never_replaces_shelve_settings(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-read-test-") as root:
+            first = self._new_options(root)
+            first.name = "Shelve remains active"
+            first.save_now()
+            first.__del__()
+
+            with mock.patch.object(
+                    options_module.sqlite_mirror_store, "read_verified",
+                    side_effect=ValueError("simulated decode rejection")), \
+                    self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Shelve remains active")
+            self.assertEqual(
+                second._sqlite_mirror_verification["state"],
+                "read_test_failed",
+            )
+            self.assertIn(
+                "simulated decode rejection",
+                second._sqlite_mirror_verification["error"],
             )
 
     def test_legacy_database_keeps_values_and_adds_new_defaults(self):

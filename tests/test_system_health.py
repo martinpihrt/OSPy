@@ -47,6 +47,12 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("changed: name", diverged)
         self.assertIn("Shelve", diverged)
 
+        read_test = _sqlite_mirror_details({
+            "state": "verified", "count": 25, "last_save": 123.0,
+            "checked": 124.0, "read_test": "passed", "error": "",
+        })
+        self.assertIn("Passed", read_test)
+
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {
             "enabled": True,

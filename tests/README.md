@@ -59,6 +59,9 @@ The suite checks:
 * checksum-only startup comparison between authoritative shelve and SQLite
   schema 2 without unpickling shadow values, divergence reporting and safe
   replacement of the preceding schema 1 shadow on the next settings save;
+* gated SQLite reconstruction only after every shadow hash matches shelve,
+  normal settings validation of the reconstructed dictionary and proof that
+  the dry-run result is never assigned to the running configuration;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit
