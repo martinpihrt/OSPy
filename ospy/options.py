@@ -1280,7 +1280,18 @@ class _Options(object):
                 logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
                 self._values['last_save'] = saved_at
+                restore_rehearsal = {
+                    key: self._sqlite_mirror_verification[key]
+                    for key in (
+                        'restore_rehearsal',
+                        'restore_rehearsal_source',
+                        'restore_rehearsal_count',
+                        'restore_rehearsal_error',
+                    )
+                    if key in self._sqlite_mirror_verification
+                }
                 self._sqlite_mirror_verification = dict(sqlite_mirror)
+                self._sqlite_mirror_verification.update(restore_rehearsal)
                 if sqlite_mirror.get('state') == 'synchronized':
                     self._sqlite_mirror_verification.update({
                         'state': 'verified', 'differences': [],

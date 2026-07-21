@@ -186,6 +186,16 @@ class OptionsPersistenceTests(unittest.TestCase):
                 second._sqlite_mirror_verification["restore_rehearsal_count"],
                 len(mirror_values),
             )
+            second.name = "Save after successful restore rehearsal"
+            second.save_now()
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal"],
+                "passed",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal_source"],
+                "current",
+            )
 
     def test_current_and_backup_sqlite_recovery_candidates_are_validated(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-pair-") as root:

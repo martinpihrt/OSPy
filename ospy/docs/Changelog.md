@@ -22,6 +22,8 @@ Added the fifth settings-storage transition phase. SQLite shadow schema 3 adds a
 
 Added the sixth settings-storage transition phase. At startup OSPy selects the first independently verified SQLite recovery candidate only for an isolated restore rehearsal, writes it into a temporary shelve/DBM directory, reopens and validates the result, compares every serialized setting and then removes the temporary directory. The active database and startup source are never modified; if the current SQLite copy is damaged, the rehearsal may test the verified backup while live settings still come from authoritative shelve. Diagnostics reports the candidate, record count and result, and any failure remains a warning. Added successful, backup-fallback and forced-failure regression tests and updated all seven Web Interface Guides.
 
+Preserved the startup SQLite restore-rehearsal result across later routine settings saves, so Diagnostics continues to show the completed rehearsal instead of silently losing its status when the shadow-copy state is refreshed.
+
 Updated the Czech translation catalog with the complete SQLite storage readiness, shadow verification, guarded read-test and recovery dry-run status messages.
 
 Added a shared weather-provider layer for OSPy and weather-aware plug-ins. Options now offer the key-free Open-Meteo automatic model, CHMI ALADIN through Open-Meteo, and the existing Stormglass service. Legacy installations with a saved Stormglass key retain Stormglass while keyless installations migrate to Open-Meteo; invalid provider values are rejected, cached data remain available during temporary failures, and providers never change silently.
