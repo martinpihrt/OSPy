@@ -3096,6 +3096,19 @@ def _sqlite_mirror_details(status):
         details += _('Disabled')
     if status.get('emergency_recovery_error'):
         details += ' - ' + status['emergency_recovery_error']
+    preferred_state = status.get('preferred_read')
+    if preferred_state:
+        details += '; ' + _('Verified SQLite read path') + ': '
+        if preferred_state == 'used':
+            details += _('Used') + ' (' + _('settings') + ': {})'.format(
+                status.get('preferred_read_count', 0)
+            )
+        elif preferred_state == 'fallback':
+            details += _('Fell back to shelve/DBM')
+            if status.get('preferred_read_error'):
+                details += ' - ' + status['preferred_read_error']
+        else:
+            details += _('Disabled')
     return details
 
 
@@ -3562,7 +3575,8 @@ def _system_health_data():
             sqlite_mirror.get('restore_rehearsal') == 'failed' or
             sqlite_mirror.get('emergency_selection') == 'failed' or
             sqlite_mirror.get('emergency_recovery_used') or
-            sqlite_mirror.get('emergency_recovery_error')):
+            sqlite_mirror.get('emergency_recovery_error') or
+            sqlite_mirror.get('preferred_read') == 'fallback'):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))

@@ -69,6 +69,9 @@ class SystemHealthTests(unittest.TestCase):
             "emergency_recovery_enabled": True,
             "emergency_recovery_used": "",
             "emergency_recovery_error": "",
+            "preferred_read": "used",
+            "preferred_read_count": 25,
+            "preferred_read_error": "",
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
@@ -101,6 +104,15 @@ class SystemHealthTests(unittest.TestCase):
             "error": "",
         })
         self.assertGreater(len(emergency_used), len(without_recovery))
+
+        preferred_fallback = _sqlite_mirror_details({
+            "state": "error", "count": 0, "last_save": 0,
+            "preferred_read": "fallback",
+            "preferred_read_count": 0,
+            "preferred_read_error": "checksum mismatch",
+            "error": "checksum mismatch",
+        })
+        self.assertIn("checksum mismatch", preferred_fallback)
 
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {

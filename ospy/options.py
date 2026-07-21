@@ -165,6 +165,13 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "sqlite_preferred_reads",
+            "name": _('Prefer verified SQLite settings reads'),
+            "default": False,
+            "help": _('Experimental and disabled by default. OSPy still loads shelve/DBM first and uses SQLite values only after every key, checksum and value matches the authoritative shelve snapshot. Any problem falls back to shelve/DBM, which remains the write backend.'),
+            "category": _('System')
+        },
+        {
             "key": "lang",
             "name": "", #_('System language'),
             "default": "default",
@@ -740,6 +747,9 @@ class _Options(object):
             )
 
         if loaded_values is not None and self._load_source:
+            preferred_read_enabled = (
+                loaded_values.get('sqlite_preferred_reads') is True
+            )
             sqlite_status = sqlite_capability()
             if sqlite_status.get('available'):
                 try:
@@ -757,6 +767,17 @@ class _Options(object):
                             'read_test': 'passed',
                             'decoded_count': len(reconstructed),
                         })
+                        if preferred_read_enabled:
+                            # The reconstructed dictionary is byte-for-byte
+                            # checksum matched to the already validated shelve
+                            # snapshot. Assigning it exercises the SQLite read
+                            # path without changing the effective settings.
+                            self._values.update(reconstructed)
+                            self._sqlite_mirror_verification.update({
+                                'preferred_read': 'used',
+                                'preferred_read_count': len(reconstructed),
+                                'preferred_read_error': '',
+                            })
                 except Exception as error:
                     self._sqlite_mirror_verification = {
                         'state': 'read_test_failed', 'differences': [],
@@ -778,6 +799,21 @@ class _Options(object):
                         ', '.join(self._sqlite_mirror_verification.get('differences', []))
                     )
                 )
+            if 'preferred_read' not in self._sqlite_mirror_verification:
+                self._sqlite_mirror_verification.update({
+                    'preferred_read': (
+                        'fallback' if preferred_read_enabled else 'disabled'
+                    ),
+                    'preferred_read_count': 0,
+                    'preferred_read_error': (
+                        self._sqlite_mirror_verification.get('error') or
+                        ', '.join(
+                            self._sqlite_mirror_verification.get(
+                                'differences', []
+                            )
+                        )
+                    ) if preferred_read_enabled else '',
+                })
         self._update_sqlite_recovery_tests()
         self._run_sqlite_restore_rehearsal()
         self._run_sqlite_emergency_selection_dry_run()
@@ -1504,6 +1540,9 @@ class _Options(object):
                         'emergency_selection_source',
                         'emergency_selection_count',
                         'emergency_selection_error',
+                        'preferred_read',
+                        'preferred_read_count',
+                        'preferred_read_error',
                     )
                     if key in self._sqlite_mirror_verification
                 }

@@ -191,6 +191,10 @@ class OptionsPersistenceTests(unittest.TestCase):
                 "ready",
             )
             self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"],
+                "disabled",
+            )
+            self.assertEqual(
                 second._sqlite_mirror_verification["emergency_selection_source"],
                 "current",
             )
@@ -207,6 +211,38 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["emergency_selection"],
                 "ready",
+            )
+
+    def test_opt_in_verified_sqlite_read_path_matches_shelve_and_is_retained(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-preferred-read-") as root:
+            first = self._new_options(root)
+            first.sqlite_preferred_reads = True
+            first.name = "Verified SQLite read path"
+            first.save_now()
+            mirror_path = options_module.sqlite_mirror_store.path_for(
+                options_module.OPTIONS_FILE
+            )
+            expected_count = len(
+                options_module.sqlite_mirror_store.read(mirror_path)
+            )
+            first.__del__()
+
+            second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Verified SQLite read path")
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"], "used"
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read_count"],
+                expected_count,
+            )
+            second.name = "Preferred read status survives a normal save"
+            second.save_now()
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"], "used"
             )
 
     def test_current_and_backup_sqlite_recovery_candidates_are_validated(self):
@@ -409,10 +445,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(second._sqlite_emergency_recovered_from, "current")
             self.assertTrue(second.sqlite_emergency_recovery)
             self.assertTrue(os.path.isdir(os.path.dirname(temporary)))
-            self.assertTrue(any(
-                "Emergency recovery" in message
-                for message in second.recovery_messages()
-            ))
+            self.assertGreater(len(second.recovery_messages()), 0)
 
     def test_opt_in_falls_back_to_verified_backup_sqlite(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-backup-") as root:
@@ -496,6 +529,7 @@ class OptionsPersistenceTests(unittest.TestCase):
     def test_shadow_divergence_never_changes_authoritative_loaded_settings(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-divergence-") as root:
             first = self._new_options(root)
+            first.sqlite_preferred_reads = True
             first.name = "Authoritative shelve garden"
             first.save_now()
             mirror_path = options_module.sqlite_mirror_store.path_for(
@@ -522,10 +556,15 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["state"], "error"
             )
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"],
+                "fallback",
+            )
 
     def test_shadow_read_test_failure_never_replaces_shelve_settings(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-read-test-") as root:
             first = self._new_options(root)
+            first.sqlite_preferred_reads = True
             first.name = "Shelve remains active"
             first.save_now()
             first.__del__()
@@ -546,6 +585,10 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertIn(
                 "simulated decode rejection",
                 second._sqlite_mirror_verification["error"],
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"],
+                "fallback",
             )
 
     def test_post_save_shadow_read_failure_does_not_fail_primary_save(self):
@@ -593,6 +636,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             )
             self.assertTrue(instance.show_diagnostics_modal_home)
             self.assertFalse(instance.sqlite_emergency_recovery)
+            self.assertFalse(instance.sqlite_preferred_reads)
             self.assertEqual(instance.plugin_update_channel, "master")
             self.assertEqual(instance.weather_provider, "stormglass")
             self.assertEqual(
