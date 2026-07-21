@@ -1,5 +1,6 @@
 import builtins
 import datetime
+import hashlib
 import os
 import sqlite3
 import tempfile
@@ -106,6 +107,10 @@ class SettingsStorageTests(unittest.TestCase):
                 path, loaded
             )
             self.assertEqual(reconstructed, loaded)
+            recovery = settings_storage.sqlite_mirror_store.read_recovery_candidate(
+                path
+            )
+            self.assertEqual(recovery, loaded)
 
             changed = dict(loaded)
             changed["name"] = "Different garden"
@@ -184,6 +189,64 @@ class SettingsStorageTests(unittest.TestCase):
 
             self.assertEqual(status["state"], "upgrade_pending")
             self.assertEqual(status["schema_version"], 1)
+
+    def test_schema_two_shadow_waits_for_safe_replacement(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-schema-two-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            value = b"schema-two-value"
+            connection = sqlite3.connect(path)
+            try:
+                connection.execute(
+                    "CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+                )
+                connection.execute(
+                    "CREATE TABLE settings ("
+                    "key TEXT PRIMARY KEY, value BLOB NOT NULL, checksum TEXT NOT NULL)"
+                )
+                connection.executemany(
+                    "INSERT INTO metadata (key, value) VALUES (?, ?)",
+                    [("schema_version", "2"), ("last_save", "234.0")],
+                )
+                connection.execute(
+                    "INSERT INTO settings (key, value, checksum) VALUES (?, ?, ?)",
+                    ("name", sqlite3.Binary(value), hashlib.sha256(value).hexdigest()),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+
+            status = settings_storage.sqlite_mirror_store.status(path)
+
+            self.assertEqual(status["state"], "upgrade_pending")
+            self.assertEqual(status["schema_version"], 2)
+
+    def test_deleted_recovery_row_fails_manifest_before_unpickling(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-deleted-row-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            settings_storage.sqlite_mirror_store.write(
+                path, {"name": "Complete garden", "enabled": True},
+                saved_at=901.0,
+            )
+            connection = sqlite3.connect(path)
+            try:
+                connection.execute("DELETE FROM settings WHERE key = ?", ("name",))
+                connection.commit()
+            finally:
+                connection.close()
+
+            with mock.patch("pickle.loads") as unsafe_load:
+                status = settings_storage.sqlite_mirror_store.status(path)
+                with self.assertRaises(ValueError):
+                    settings_storage.sqlite_mirror_store.read_recovery_candidate(
+                        path
+                    )
+
+            self.assertEqual(status["state"], "error")
+            self.assertTrue(
+                "record" in status["error"].lower() or
+                "snapshot" in status["error"].lower()
+            )
+            unsafe_load.assert_not_called()
 
 
 if __name__ == "__main__":

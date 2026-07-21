@@ -3020,6 +3020,37 @@ def _sqlite_mirror_details(status):
         details += _('Unavailable') + '. ' + _('Shelve remains authoritative.')
     else:
         details += _('Waiting for the next settings save.')
+    for label, state_key, count_key, error_key in (
+            (_('SQLite recovery test'), 'recovery_test',
+             'recovery_count', 'recovery_error'),
+            (_('Backup SQLite recovery test'), 'backup_recovery_test',
+             'backup_recovery_count', 'backup_recovery_error')):
+        recovery_state = status.get(state_key)
+        if not recovery_state:
+            continue
+        details += '; ' + label + ': '
+        if recovery_state == 'passed':
+            details += _('Passed') + ' (' + _('settings') + ': {})'.format(
+                status.get(count_key, 0)
+            )
+        elif recovery_state == 'upgrade_pending':
+            details += (
+                _('Waiting for a schema 3 backup rotation')
+                if state_key == 'backup_recovery_test' else
+                _('Waiting for a schema 3 settings save')
+            )
+        elif recovery_state == 'pending':
+            details += (
+                _('Not available yet')
+                if state_key == 'backup_recovery_test' else
+                _('Waiting for the next settings save.')
+            )
+        elif recovery_state == 'unavailable':
+            details += _('Unavailable')
+        else:
+            details += _('Failed')
+            if status.get(error_key):
+                details += ' - ' + status[error_key]
     return details
 
 
@@ -3479,6 +3510,10 @@ def _system_health_data():
     database_status = 'ok' if database_ok else 'error'
     if database_ok and sqlite_mirror.get('state') in (
             'error', 'diverged', 'read_test_failed'):
+        database_status = 'warning'
+    if database_ok and (
+            sqlite_mirror.get('recovery_test') in ('failed', 'error') or
+            sqlite_mirror.get('backup_recovery_test') in ('failed', 'error')):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))

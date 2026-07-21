@@ -51,7 +51,18 @@ class SystemHealthTests(unittest.TestCase):
             "state": "verified", "count": 25, "last_save": 123.0,
             "checked": 124.0, "read_test": "passed", "error": "",
         })
-        self.assertIn("Passed", read_test)
+        self.assertIn("25", read_test)
+        self.assertGreater(len(read_test), len(synchronized))
+
+        recovery = _sqlite_mirror_details({
+            "state": "verified", "count": 25, "last_save": 123.0,
+            "checked": 124.0, "read_test": "passed",
+            "recovery_test": "passed", "recovery_count": 25,
+            "backup_recovery_test": "failed",
+            "backup_recovery_error": "damaged backup", "error": "",
+        })
+        self.assertIn("25", recovery)
+        self.assertIn("damaged backup", recovery)
 
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {

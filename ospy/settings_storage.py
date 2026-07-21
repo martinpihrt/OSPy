@@ -14,6 +14,7 @@ import time
 import os
 import pickle
 import hashlib
+import json
 
 
 class SettingsStore(object):
@@ -84,11 +85,20 @@ settings_store = ShelveSettingsStore()
 class SQLiteMirrorStore(object):
     """Write-only transition mirror; it is never used to load OSPy settings."""
 
-    schema_version = 2
+    schema_version = 3
     filename = 'options.sqlite3'
 
     def path_for(self, shelve_path):
         return os.path.join(os.path.dirname(shelve_path), self.filename)
+
+    @staticmethod
+    def _snapshot_checksum(checksums):
+        payload = json.dumps(
+            sorted(checksums.items()),
+            ensure_ascii=False,
+            separators=(',', ':'),
+        ).encode('utf-8')
+        return hashlib.sha256(payload).hexdigest()
 
     def write(self, path, values, saved_at):
         import sqlite3
@@ -102,6 +112,10 @@ class SQLiteMirrorStore(object):
         serialized['last_save'] = pickle.dumps(
             float(saved_at), protocol=pickle.HIGHEST_PROTOCOL
         )
+        checksums = {
+            key: hashlib.sha256(value).hexdigest()
+            for key, value in serialized.items()
+        }
         try:
             if os.path.exists(temporary):
                 os.remove(temporary)
@@ -117,7 +131,7 @@ class SQLiteMirrorStore(object):
             connection.executemany(
                 'INSERT INTO settings (key, value, checksum) VALUES (?, ?, ?)',
                 [
-                    (key, sqlite3.Binary(value), hashlib.sha256(value).hexdigest())
+                    (key, sqlite3.Binary(value), checksums[key])
                     for key, value in serialized.items()
                 ]
             )
@@ -127,6 +141,8 @@ class SQLiteMirrorStore(object):
                     ('schema_version', str(self.schema_version)),
                     ('source', 'shelve/DBM'),
                     ('last_save', repr(float(saved_at))),
+                    ('record_count', str(len(serialized))),
+                    ('snapshot_checksum', self._snapshot_checksum(checksums)),
                 ]
             )
             connection.commit()
@@ -197,7 +213,7 @@ class SQLiteMirrorStore(object):
             metadata = dict(connection.execute('SELECT key, value FROM metadata'))
             count = connection.execute('SELECT COUNT(*) FROM settings').fetchone()[0]
             schema_version = int(metadata.get('schema_version', 0))
-            if schema_version == 1:
+            if schema_version in (1, 2):
                 return {
                     'state': 'upgrade_pending',
                     'schema_version': schema_version,
@@ -215,6 +231,18 @@ class SQLiteMirrorStore(object):
                     raise RuntimeError(
                         'SQLite mirror checksum verification failed: {}'.format(key)
                     )
+            checksums = dict(connection.execute(
+                'SELECT key, checksum FROM settings'
+            ))
+            expected_count = int(metadata.get('record_count', -1))
+            if expected_count != int(count):
+                raise RuntimeError(
+                    'SQLite mirror record-count verification failed.'
+                )
+            if self._snapshot_checksum(checksums) != metadata.get('snapshot_checksum'):
+                raise RuntimeError(
+                    'SQLite mirror snapshot verification failed.'
+                )
             return {
                 'state': 'synchronized',
                 'schema_version': schema_version,
@@ -303,6 +331,50 @@ class SQLiteMirrorStore(object):
 
         # All bytes are held in this verified snapshot before any value is
         # decoded, so a later filesystem change cannot alter decoded input.
+        return {
+            key: pickle.loads(value)
+            for key, (value, checksum) in rows.items()
+        }
+
+    def read_recovery_candidate(self, path):
+        """Independently verify and decode one schema 3 recovery snapshot."""
+        import sqlite3
+
+        connection = sqlite3.connect('file:{}?mode=ro'.format(path), uri=True)
+        try:
+            connection.execute('BEGIN')
+            integrity = connection.execute('PRAGMA integrity_check').fetchone()
+            if integrity != ('ok',):
+                raise ValueError(
+                    'SQLite recovery integrity check failed: {}'.format(integrity)
+                )
+            metadata = dict(connection.execute(
+                'SELECT key, value FROM metadata'
+            ))
+            if int(metadata.get('schema_version', 0)) != self.schema_version:
+                raise ValueError('SQLite recovery snapshot requires schema 3.')
+            rows = {
+                key: (bytes(value), checksum)
+                for key, value, checksum in connection.execute(
+                    'SELECT key, value, checksum FROM settings'
+                )
+            }
+        finally:
+            connection.close()
+
+        checksums = {}
+        for key, (value, checksum) in rows.items():
+            actual = hashlib.sha256(value).hexdigest()
+            if actual != checksum:
+                raise ValueError(
+                    'SQLite recovery value checksum failed: {}'.format(key)
+                )
+            checksums[key] = checksum
+        if int(metadata.get('record_count', -1)) != len(rows):
+            raise ValueError('SQLite recovery record count failed.')
+        if self._snapshot_checksum(checksums) != metadata.get('snapshot_checksum'):
+            raise ValueError('SQLite recovery snapshot checksum failed.')
+
         return {
             key: pickle.loads(value)
             for key, (value, checksum) in rows.items()

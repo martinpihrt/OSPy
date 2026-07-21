@@ -62,6 +62,9 @@ The suite checks:
 * gated SQLite reconstruction only after every shadow hash matches shelve,
   normal settings validation of the reconstructed dictionary and proof that
   the dry-run result is never assigned to the running configuration;
+* independently verifiable SQLite schema 3 manifests, deleted-row detection,
+  discarded current and backup recovery dry runs and continued authoritative
+  shelve operation when either recovery candidate fails;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

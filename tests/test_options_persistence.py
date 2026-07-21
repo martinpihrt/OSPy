@@ -148,6 +148,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(first.last_save, mirror_values["last_save"])
             self.assertEqual(first._sqlite_mirror_verification["state"], "verified")
             self.assertEqual(first._sqlite_mirror_verification["read_test"], "passed")
+            self.assertEqual(first._sqlite_mirror_verification["recovery_test"], "passed")
             first.__del__()
 
             second = options_module._Options()
@@ -170,6 +171,51 @@ class OptionsPersistenceTests(unittest.TestCase):
                 second._sqlite_mirror_verification["decoded_count"],
                 len(mirror_values),
             )
+            self.assertEqual(
+                second._sqlite_mirror_verification["recovery_test"], "passed"
+            )
+
+    def test_current_and_backup_sqlite_recovery_candidates_are_validated(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-pair-") as root:
+            instance = self._new_options(root)
+            instance.name = "Previous recovery snapshot"
+            instance.save_now()
+            instance.name = "Current recovery snapshot"
+            instance.save_now()
+
+            verification = instance._sqlite_mirror_verification
+            self.assertEqual(verification["recovery_test"], "passed")
+            self.assertEqual(verification["backup_recovery_test"], "passed")
+            self.assertGreater(verification["recovery_count"], 0)
+            self.assertGreater(verification["backup_recovery_count"], 0)
+
+            backup_values = options_module.sqlite_mirror_store.read_recovery_candidate(
+                options_module.sqlite_mirror_store.path_for(
+                    options_module.OPTIONS_BACKUP
+                )
+            )
+            self.assertEqual(backup_values["name"], "Previous recovery snapshot")
+
+    def test_recovery_dry_run_failure_does_not_fail_primary_save(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-failure-") as root:
+            instance = self._new_options(root)
+            instance.name = "Shelve survives recovery test"
+            with mock.patch.object(
+                    options_module.sqlite_mirror_store,
+                    "read_recovery_candidate",
+                    side_effect=ValueError("simulated recovery rejection")), \
+                    self.assertLogs(level="WARNING"):
+                instance.save_now()
+
+            self.assertEqual(
+                instance._sqlite_mirror_verification["recovery_test"], "failed"
+            )
+            instance.__del__()
+
+            reloaded = options_module._Options()
+            reloaded.__del__()
+            self.addCleanup(reloaded.__del__)
+            self.assertEqual(reloaded.name, "Shelve survives recovery test")
 
     def test_shadow_divergence_never_changes_authoritative_loaded_settings(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-divergence-") as root:

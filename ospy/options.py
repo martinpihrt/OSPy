@@ -743,6 +743,7 @@ class _Options(object):
                         ', '.join(self._sqlite_mirror_verification.get('differences', []))
                     )
                 )
+            self._update_sqlite_recovery_tests(self._load_source)
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -778,6 +779,68 @@ class _Options(object):
                         self.first_installation = False
         except:
             helpres.print_report('options.py', traceback.format_exc())
+
+    def _sqlite_recovery_test(self, mirror_path):
+        status = sqlite_mirror_store.status(mirror_path)
+        state = status.get('state', 'pending')
+        if state != 'synchronized':
+            return {
+                'state': state,
+                'count': status.get('count', 0),
+                'last_save': status.get('last_save', 0),
+                'error': status.get('error', ''),
+            }
+        try:
+            reconstructed = sqlite_mirror_store.read_recovery_candidate(
+                mirror_path
+            )
+            self._validate_candidate(reconstructed)
+            return {
+                'state': 'passed',
+                'count': len(reconstructed),
+                'last_save': reconstructed.get('last_save', 0),
+                'error': '',
+            }
+        except Exception as error:
+            return {
+                'state': 'failed', 'count': 0, 'last_save': 0,
+                'error': '{}: {}'.format(type(error).__name__, error),
+            }
+
+    def _update_sqlite_recovery_tests(self, active_shelve_path):
+        sqlite_status = sqlite_capability()
+        if not sqlite_status.get('available'):
+            current = backup = {
+                'state': 'unavailable', 'count': 0, 'last_save': 0,
+                'error': sqlite_status.get('error', ''),
+            }
+        else:
+            current_path = sqlite_mirror_store.path_for(active_shelve_path)
+            current = self._sqlite_recovery_test(current_path)
+            backup_path = sqlite_mirror_store.path_for(OPTIONS_BACKUP)
+            backup = (
+                current if os.path.normcase(os.path.abspath(current_path)) ==
+                os.path.normcase(os.path.abspath(backup_path)) else
+                self._sqlite_recovery_test(backup_path)
+            )
+
+        self._sqlite_mirror_verification.update({
+            'recovery_test': current.get('state', 'pending'),
+            'recovery_count': current.get('count', 0),
+            'recovery_error': current.get('error', ''),
+            'backup_recovery_test': backup.get('state', 'pending'),
+            'backup_recovery_count': backup.get('count', 0),
+            'backup_recovery_error': backup.get('error', ''),
+        })
+        for label, result in (
+                (_('SQLite recovery test'), current),
+                (_('Backup SQLite recovery test'), backup)):
+            if result.get('state') in ('failed', 'error'):
+                logging.warning(
+                    _('{} failed; shelve remains authoritative: {}').format(
+                        label, result.get('error', '')
+                    )
+                )
 
     @staticmethod
     def _compatible_value(default, value, key=''):
@@ -1169,6 +1232,7 @@ class _Options(object):
                                 self._sqlite_mirror_verification['error']
                             )
                         )
+                self._update_sqlite_recovery_tests(OPTIONS_FILE)
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

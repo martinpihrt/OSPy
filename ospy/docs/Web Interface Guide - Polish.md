@@ -359,6 +359,8 @@ Podczas uruchamiania OSPy porównuje wiążące wartości shelve z sumami SHA-25
 
 Podczas uruchamiania i po każdej udanej wymianie kopii lustrzanej OSPy wykonuje próbne dekodowanie dopiero po zgodności wszystkich kluczy i sum kontrolnych w jednym obrazie tylko do odczytu, a następnie stosuje zwykłą walidację ustawień do zrekonstruowanych wartości SQLite. Zrekonstruowany słownik jest odrzucany i nigdy nie jest przypisywany do działającej konfiguracji. Diagnostyka informuje, czy test odczytu SQLite przeszedł; niepowodzenie pozostaje ostrzeżeniem, a OSPy nadal używa wyłącznie aktywnych ustawień shelve.
 
+Schemat 3 kopii zawiera także manifest z całkowitą liczbą rekordów i sumą kontrolną pełnej posortowanej listy kluczy oraz ich sum. Pozwala to niezależnie wykryć usunięty lub dodany wiersz przed dekodowaniem. OSPy wykonuje i odrzuca pełną próbę odzyskiwania zarówno dla bieżącej kopii SQLite, jak i poprzedniej kopii w katalogu zapasowym. Diagnostyka pokazuje oba wyniki. Uszkodzony lub niedostępny kandydat odzyskiwania nigdy nie zmienia wyboru podczas uruchamiania; shelve/DBM pozostaje wiążące.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.

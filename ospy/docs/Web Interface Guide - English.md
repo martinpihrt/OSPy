@@ -370,6 +370,8 @@ At startup OSPy compares the authoritative shelve values with SHA-256 hashes sto
 
 At startup and after every successful shadow replacement, OSPy performs a dry-run decode only after every key and checksum matches a single read-only snapshot, then applies the normal settings validation to the reconstructed SQLite values. The reconstructed dictionary is discarded and never assigned to the running configuration. Diagnostics reports whether this SQLite read test passed; failure remains a warning and OSPy continues exclusively with the already active shelve settings.
 
+Shadow schema 3 also contains a manifest with the total record count and a checksum over the complete sorted key/checksum list. This independently detects removed or added rows before decoding. OSPy performs and discards a full recovery dry run for both the current SQLite shadow and the previous shadow in the backup directory. Diagnostics reports both results. A failed or unavailable recovery candidate never changes startup selection; shelve/DBM remains authoritative.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.

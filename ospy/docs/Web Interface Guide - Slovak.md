@@ -370,6 +370,8 @@ Pri spustení OSPy porovná autoritatívne hodnoty shelve s kontrolnými súčta
 
 Pri spustení a po každom úspešnom nahradení tieňovej kópie vykoná OSPy skúšobné dekódovanie až vtedy, keď sa v jedinom snímku iba na čítanie zhodujú všetky kľúče a kontrolné súčty, a na zrekonštruované hodnoty SQLite použije bežnú validáciu nastavení. Zrekonštruovaný slovník sa zahodí a nikdy sa nepriradí bežiacej konfigurácii. Diagnostika uvedie, či test čítania SQLite prešiel; zlyhanie zostane varovaním a OSPy pokračuje výhradne s už aktívnymi nastaveniami shelve.
 
+Tieňová schéma 3 obsahuje aj manifest s celkovým počtom záznamov a kontrolným súčtom nad úplným zoradeným zoznamom kľúčov a ich súčtov. Nezávisle tak pred dekódovaním odhalí odstránený alebo pridaný riadok. OSPy vykoná a zahodí úplnú skúšku obnovy pre aktuálnu SQLite kópiu aj predchádzajúcu kópiu v záložnom adresári. Diagnostika zobrazí oba výsledky. Neúspešný alebo nedostupný kandidát obnovy nikdy nezmení voľbu pri spustení; autoritatívne zostáva shelve/DBM.
+
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
 Keď Diagnostika zistí chybu, otvorí červené okno s opisom problému, dostupnými podrobnosťami, možným riešením a odkazom na súvisiacu stránku. Administrátor môže rovnaké okno zapnúť aj na domovskej stránke voľbou **Nastavenia > Diagnostika > Zobrazovať chyby diagnostiky na domovskej stránke**. Chybové okno má prednosť pred upozornením na aktualizáciu. Vypnutie voľby ovplyvní iba domovskú stránku; chyby zostanú viditeľné v Diagnostike.
