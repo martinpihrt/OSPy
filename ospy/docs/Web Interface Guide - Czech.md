@@ -366,6 +366,8 @@ Doba běhu systému Raspberry pi od zapnutí (nebo restartu).
 
 Po každém úspěšném uložení nastavení vytvoří OSPy vedle aktivních souborů shelve/DBM také ověřenou stínovou kopii `options.sqlite3`. Zapisuje ji přes dočasný soubor a atomicky ji nahradí teprve po úspěšné kontrole schématu, klíčů, hodnot a integrity. Při spuštění OSPy ze stínové kopie nikdy nenačítá nastavení. Selhání synchronizace ponechá autoritativní uložení shelve nedotčené a zobrazí se jako varování v řádku **Databáze**; chybějící stínová kopie čeká na další uložení nastavení.
 
+Při spuštění OSPy porovná autoritativní hodnoty shelve s kontrolními součty SHA-256 uloženými ve stínovém schématu 2. Při této automatické kontrole nerozbaluje hodnoty pickle ze stínové kopie a nikdy je nepoužije k obnově ani spuštění OSPy. Shodná kopie se označí jako ověřená; chybějící, změněné nebo neočekávané klíče a poškození kontrolního součtu či databáze se zobrazí jako varování, zatímco shelve zůstane v provozu. Stínová kopie schématu 1 z předchozí přechodné fáze se nečte a při dalším uložení nastavení se bezpečně nahradí.
+
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
 Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.

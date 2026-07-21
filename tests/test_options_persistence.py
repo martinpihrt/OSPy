@@ -1,6 +1,7 @@
 import datetime
 import os
 import shelve
+import sqlite3
 import tempfile
 import threading
 import unittest
@@ -157,6 +158,39 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(second.plugin_status["example"]["hash"], "abc123")
             self.assertEqual(second.plugin_update_channel, "beta")
             self.assertEqual(second.last_save, mirror_values["last_save"])
+            self.assertEqual(
+                second._sqlite_mirror_verification["state"], "verified"
+            )
+
+    def test_shadow_divergence_never_changes_authoritative_loaded_settings(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-divergence-") as root:
+            first = self._new_options(root)
+            first.name = "Authoritative shelve garden"
+            first.save_now()
+            mirror_path = options_module.sqlite_mirror_store.path_for(
+                options_module.OPTIONS_FILE
+            )
+
+            connection = sqlite3.connect(mirror_path)
+            try:
+                connection.execute(
+                    "UPDATE settings SET checksum = ? WHERE key = ?",
+                    ("0" * 64, "name"),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+            first.__del__()
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Authoritative shelve garden")
+            self.assertEqual(
+                second._sqlite_mirror_verification["state"], "error"
+            )
 
     def test_legacy_database_keeps_values_and_adds_new_defaults(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-migration-") as root:

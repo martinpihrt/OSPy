@@ -13,6 +13,7 @@ import threading
 import time
 import os
 import pickle
+import hashlib
 
 
 class SettingsStore(object):
@@ -83,7 +84,7 @@ settings_store = ShelveSettingsStore()
 class SQLiteMirrorStore(object):
     """Write-only transition mirror; it is never used to load OSPy settings."""
 
-    schema_version = 1
+    schema_version = 2
     filename = 'options.sqlite3'
 
     def path_for(self, shelve_path):
@@ -110,11 +111,15 @@ class SQLiteMirrorStore(object):
                 'CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL)'
             )
             connection.execute(
-                'CREATE TABLE settings (key TEXT PRIMARY KEY, value BLOB NOT NULL)'
+                'CREATE TABLE settings ('
+                'key TEXT PRIMARY KEY, value BLOB NOT NULL, checksum TEXT NOT NULL)'
             )
             connection.executemany(
-                'INSERT INTO settings (key, value) VALUES (?, ?)',
-                [(key, sqlite3.Binary(value)) for key, value in serialized.items()]
+                'INSERT INTO settings (key, value, checksum) VALUES (?, ?, ?)',
+                [
+                    (key, sqlite3.Binary(value), hashlib.sha256(value).hexdigest())
+                    for key, value in serialized.items()
+                ]
             )
             connection.executemany(
                 'INSERT INTO metadata (key, value) VALUES (?, ?)',
@@ -126,14 +131,22 @@ class SQLiteMirrorStore(object):
             )
             connection.commit()
             integrity = connection.execute('PRAGMA integrity_check').fetchone()
-            stored = dict(connection.execute('SELECT key, value FROM settings'))
+            stored = {
+                key: (bytes(value), checksum)
+                for key, value, checksum in connection.execute(
+                    'SELECT key, value, checksum FROM settings'
+                )
+            }
             if integrity != ('ok',):
                 raise RuntimeError('SQLite mirror integrity check failed: {}'.format(integrity))
             if set(stored) != set(serialized):
                 raise RuntimeError('SQLite mirror key verification failed.')
             for key, expected in serialized.items():
-                if bytes(stored[key]) != expected:
+                value, checksum = stored[key]
+                if value != expected:
                     raise RuntimeError('SQLite mirror value verification failed: {}'.format(key))
+                if hashlib.sha256(value).hexdigest() != checksum:
+                    raise RuntimeError('SQLite mirror checksum verification failed: {}'.format(key))
             connection.close()
             connection = None
             os.replace(temporary, path)
@@ -184,10 +197,24 @@ class SQLiteMirrorStore(object):
             metadata = dict(connection.execute('SELECT key, value FROM metadata'))
             count = connection.execute('SELECT COUNT(*) FROM settings').fetchone()[0]
             schema_version = int(metadata.get('schema_version', 0))
+            if schema_version == 1:
+                return {
+                    'state': 'upgrade_pending',
+                    'schema_version': schema_version,
+                    'count': int(count),
+                    'last_save': float(metadata.get('last_save', 0)),
+                    'error': '',
+                }
             if schema_version != self.schema_version:
                 raise RuntimeError(
                     'Unsupported SQLite mirror schema: {}'.format(schema_version)
                 )
+            for key, value, checksum in connection.execute(
+                    'SELECT key, value, checksum FROM settings'):
+                if hashlib.sha256(bytes(value)).hexdigest() != checksum:
+                    raise RuntimeError(
+                        'SQLite mirror checksum verification failed: {}'.format(key)
+                    )
             return {
                 'state': 'synchronized',
                 'schema_version': schema_version,
@@ -204,6 +231,45 @@ class SQLiteMirrorStore(object):
         finally:
             if connection is not None:
                 connection.close()
+
+    def compare(self, path, expected_values):
+        """Compare hashes without unpickling data from the SQLite mirror."""
+        status = self.status(path)
+        if status.get('state') != 'synchronized':
+            return status
+
+        import sqlite3
+
+        expected = {
+            str(key): hashlib.sha256(
+                pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL)
+            ).hexdigest()
+            for key, value in expected_values.items()
+        }
+        connection = sqlite3.connect('file:{}?mode=ro'.format(path), uri=True)
+        try:
+            stored = dict(connection.execute(
+                'SELECT key, checksum FROM settings'
+            ))
+        finally:
+            connection.close()
+
+        missing = sorted(set(expected) - set(stored))
+        unexpected = sorted(set(stored) - set(expected))
+        changed = sorted(
+            key for key in set(expected) & set(stored)
+            if expected[key] != stored[key]
+        )
+        differences = (
+            ['missing: ' + key for key in missing] +
+            ['unexpected: ' + key for key in unexpected] +
+            ['changed: ' + key for key in changed]
+        )
+        status['state'] = 'verified' if not differences else 'diverged'
+        status['differences'] = differences[:20]
+        status['difference_count'] = len(differences)
+        status['checked'] = time.time()
+        return status
 
 
 sqlite_mirror_store = SQLiteMirrorStore()

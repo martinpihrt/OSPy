@@ -56,6 +56,9 @@ The suite checks:
   safely when Python SQLite support is unavailable;
 * verified SQLite shadow-copy creation, atomic replacement, corruption
   reporting and continued shelve save/reload when shadow synchronization fails;
+* checksum-only startup comparison between authoritative shelve and SQLite
+  schema 2 without unpickling shadow values, divergence reporting and safe
+  replacement of the preceding schema 1 shadow on the next settings save;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

@@ -355,6 +355,8 @@ Wiersz **Baza danych** pokazuje również aktywny magazyn ustawień i gotowość
 
 Po każdym udanym zapisie ustawień OSPy tworzy obok aktywnych plików shelve/DBM zweryfikowaną kopię lustrzaną `options.sqlite3`. Jest ona zapisywana do pliku tymczasowego i zastępowana atomowo dopiero po pomyślnej kontroli schematu, kluczy, wartości i integralności. Podczas uruchamiania OSPy nigdy nie wczytuje ustawień z kopii lustrzanej. Błąd synchronizacji pozostawia wiążący zapis shelve bez zmian i pojawia się jako ostrzeżenie w wierszu **Baza danych**; brakująca kopia oczekuje na następny zapis ustawień.
 
+Podczas uruchamiania OSPy porównuje wiążące wartości shelve z sumami SHA-256 zapisanymi w schemacie 2 kopii lustrzanej. Automatyczne porównanie nie deserializuje wartości pickle z kopii i nigdy nie używa ich do odzyskiwania ani uruchamiania OSPy. Zgodna kopia jest oznaczana jako zweryfikowana; brakujące, zmienione lub nieoczekiwane klucze oraz uszkodzenie sumy kontrolnej lub bazy są zgłaszane jako ostrzeżenie, a shelve pozostaje w użyciu. Kopia schematu 1 z poprzedniej fazy przejściowej nie jest odczytywana i zostaje bezpiecznie zastąpiona przy następnym zapisie ustawień.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.

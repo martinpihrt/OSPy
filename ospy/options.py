@@ -662,6 +662,10 @@ class _Options(object):
         self._lock = threading.RLock()
         self._load_source = None
         self._load_errors = []
+        self._sqlite_mirror_verification = {
+            'state': 'pending', 'differences': [], 'difference_count': 0,
+            'checked': 0, 'error': '',
+        }
 
         for info in self.OPTIONS:
             self._values[info["key"]] = copy.deepcopy(info["default"])
@@ -699,6 +703,34 @@ class _Options(object):
             logging.warning(
                 _('Settings were recovered from {}.').format(self._load_source)
             )
+
+        if loaded_values is not None and self._load_source:
+            sqlite_status = sqlite_capability()
+            if sqlite_status.get('available'):
+                try:
+                    self._sqlite_mirror_verification = sqlite_mirror_store.compare(
+                        sqlite_mirror_store.path_for(self._load_source),
+                        loaded_values,
+                    )
+                except Exception as error:
+                    self._sqlite_mirror_verification = {
+                        'state': 'error', 'differences': [],
+                        'difference_count': 0, 'checked': time.time(),
+                        'error': '{}: {}'.format(type(error).__name__, error),
+                    }
+            else:
+                self._sqlite_mirror_verification = {
+                    'state': 'unavailable', 'differences': [],
+                    'difference_count': 0, 'checked': time.time(),
+                    'error': sqlite_status.get('error', ''),
+                }
+            if self._sqlite_mirror_verification.get('state') in ('diverged', 'error'):
+                logging.warning(
+                    _('The SQLite settings shadow does not match the authoritative database: {}').format(
+                        self._sqlite_mirror_verification.get('error') or
+                        ', '.join(self._sqlite_mirror_verification.get('differences', []))
+                    )
+                )
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -1058,7 +1090,6 @@ class _Options(object):
                                 sqlite_mirror['error']
                             )
                         )
-
                 remove_backup = True
                 try:
                     if time.time() - settings_store.last_save(OPTIONS_BACKUP) < 3600:
@@ -1099,6 +1130,12 @@ class _Options(object):
                 logging.debug(_('I will try moving directory TMP_DIR to OPTIONS_DIR.'))
                 shutil.move(tmp_dir, options_dir)
                 self._values['last_save'] = saved_at
+                self._sqlite_mirror_verification = dict(sqlite_mirror)
+                if sqlite_mirror.get('state') == 'synchronized':
+                    self._sqlite_mirror_verification.update({
+                        'state': 'verified', 'differences': [],
+                        'difference_count': 0, 'checked': time.time(),
+                    })
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

@@ -97,6 +97,20 @@ class SettingsStorageTests(unittest.TestCase):
             self.assertEqual(status["last_save"], 456.75)
             self.assertFalse(os.path.exists(path + ".new"))
 
+            comparison = settings_storage.sqlite_mirror_store.compare(
+                path, loaded
+            )
+            self.assertEqual(comparison["state"], "verified")
+            self.assertEqual(comparison["difference_count"], 0)
+
+            changed = dict(loaded)
+            changed["name"] = "Different garden"
+            comparison = settings_storage.sqlite_mirror_store.compare(
+                path, changed
+            )
+            self.assertEqual(comparison["state"], "diverged")
+            self.assertIn("changed: name", comparison["differences"])
+
     def test_damaged_sqlite_mirror_is_reported_without_becoming_a_source(self):
         with tempfile.TemporaryDirectory(prefix="ospy-sqlite-damaged-") as root:
             path = os.path.join(root, "options.sqlite3")
@@ -111,6 +125,57 @@ class SettingsStorageTests(unittest.TestCase):
                 settings_storage.settings_store,
                 settings_storage.ShelveSettingsStore,
             )
+
+    def test_checksum_damage_is_detected_without_unpickling_mirror_values(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-checksum-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            settings_storage.sqlite_mirror_store.write(
+                path, {"name": "Safe garden"}, saved_at=789.0
+            )
+            connection = sqlite3.connect(path)
+            try:
+                connection.execute(
+                    "UPDATE settings SET checksum = ? WHERE key = ?",
+                    ("0" * 64, "name"),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+
+            with mock.patch("pickle.loads") as unsafe_load:
+                status = settings_storage.sqlite_mirror_store.status(path)
+
+            self.assertEqual(status["state"], "error")
+            self.assertIn("checksum", status["error"].lower())
+            unsafe_load.assert_not_called()
+
+    def test_schema_one_shadow_waits_for_safe_replacement(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-sqlite-schema-one-") as root:
+            path = os.path.join(root, "options.sqlite3")
+            connection = sqlite3.connect(path)
+            try:
+                connection.execute(
+                    "CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+                )
+                connection.execute(
+                    "CREATE TABLE settings (key TEXT PRIMARY KEY, value BLOB NOT NULL)"
+                )
+                connection.executemany(
+                    "INSERT INTO metadata (key, value) VALUES (?, ?)",
+                    [("schema_version", "1"), ("last_save", "123.0")],
+                )
+                connection.execute(
+                    "INSERT INTO settings (key, value) VALUES (?, ?)",
+                    ("name", sqlite3.Binary(b"legacy")),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+
+            status = settings_storage.sqlite_mirror_store.status(path)
+
+            self.assertEqual(status["state"], "upgrade_pending")
+            self.assertEqual(status["schema_version"], 1)
 
 
 if __name__ == "__main__":

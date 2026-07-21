@@ -2995,17 +2995,23 @@ def _sqlite_mirror_details(status):
     """Describe the non-authoritative SQLite transition mirror."""
     state = status.get('state', 'pending')
     details = _('SQLite shadow copy') + ': '
-    if state == 'synchronized':
-        details += _('Synchronized')
+    if state in ('synchronized', 'verified'):
+        details += _('Verified against shelve/DBM') if state == 'verified' else _('Synchronized')
         details += ' (' + _('settings') + ': {}'.format(status.get('count', 0))
         if status.get('last_save'):
             details += '; ' + _('saved') + ': ' + _health_time(status['last_save'])
         details += ')'
-    elif state == 'error':
+        if state == 'verified' and status.get('checked'):
+            details += '; ' + _('compared') + ': ' + _health_time(status['checked'])
+    elif state in ('error', 'diverged'):
         details += _('Failed')
         if status.get('error'):
             details += ' - ' + status['error']
+        elif status.get('differences'):
+            details += ' - ' + ', '.join(status['differences'])
         details += '. ' + _('Shelve remains authoritative.')
+    elif state == 'upgrade_pending':
+        details += _('Older shadow format; it will be upgraded on the next settings save.')
     elif state == 'unavailable':
         details += _('Unavailable') + '. ' + _('Shelve remains authoritative.')
     else:
@@ -3445,11 +3451,15 @@ def _system_health_data():
     )
     sqlite_status = settings_storage.sqlite_capability()
     if sqlite_status.get('available'):
-        sqlite_mirror = settings_storage.sqlite_mirror_store.status(
+        disk_mirror = settings_storage.sqlite_mirror_store.status(
             settings_storage.sqlite_mirror_store.path_for(
                 os.path.join(data_dir, 'default', 'options.db')
             )
         )
+        verification = getattr(options, '_sqlite_mirror_verification', {})
+        sqlite_mirror = dict(verification) if verification.get('state') not in (None, 'pending') else disk_mirror
+        if disk_mirror.get('state') == 'error':
+            sqlite_mirror = disk_mirror
         if database_beat.get('sqlite_mirror') == 'error':
             sqlite_mirror = {
                 'state': 'error',
@@ -3463,7 +3473,7 @@ def _system_health_data():
             'count': 0, 'last_save': 0,
         }
     database_status = 'ok' if database_ok else 'error'
-    if database_ok and sqlite_mirror.get('state') == 'error':
+    if database_ok and sqlite_mirror.get('state') in ('error', 'diverged'):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))

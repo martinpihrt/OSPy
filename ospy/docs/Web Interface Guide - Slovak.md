@@ -366,6 +366,8 @@ Riadok **Databáza** navyše zobrazuje aktívne úložisko nastavení a priprave
 
 Po každom úspešnom uložení nastavení vytvorí OSPy vedľa aktívnych súborov shelve/DBM aj overenú tieňovú kópiu `options.sqlite3`. Zapisuje ju cez dočasný súbor a atomicky ju nahradí až po úspešnej kontrole schémy, kľúčov, hodnôt a integrity. Pri spustení OSPy z tieňovej kópie nikdy nenačítava nastavenia. Zlyhanie synchronizácie ponechá autoritatívne uloženie shelve nedotknuté a zobrazí sa ako varovanie v riadku **Databáza**; chýbajúca tieňová kópia čaká na ďalšie uloženie nastavení.
 
+Pri spustení OSPy porovná autoritatívne hodnoty shelve s kontrolnými súčtami SHA-256 uloženými v tieňovej schéme 2. Pri tomto automatickom porovnaní nedeserializuje hodnoty pickle z tieňovej kópie a nikdy ich nepoužije na obnovu ani spustenie OSPy. Zhodná kópia sa označí ako overená; chýbajúce, zmenené alebo neočakávané kľúče a poškodenie kontrolného súčtu či databázy sa zobrazia ako varovanie, zatiaľ čo shelve zostane v prevádzke. Tieňová kópia schémy 1 z predchádzajúcej prechodnej fázy sa nečíta a pri ďalšom uložení nastavení sa bezpečne nahradí.
+
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
 Keď Diagnostika zistí chybu, otvorí červené okno s opisom problému, dostupnými podrobnosťami, možným riešením a odkazom na súvisiacu stránku. Administrátor môže rovnaké okno zapnúť aj na domovskej stránke voľbou **Nastavenia > Diagnostika > Zobrazovať chyby diagnostiky na domovskej stránke**. Chybové okno má prednosť pred upozornením na aktualizáciu. Vypnutie voľby ovplyvní iba domovskú stránku; chyby zostanú viditeľné v Diagnostike.

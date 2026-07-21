@@ -366,6 +366,8 @@ The **Database** row also shows the active settings storage and SQLite readiness
 
 After each successful settings save, OSPy creates a verified `options.sqlite3` shadow copy next to the active shelve/DBM files. It is written through a temporary file and atomically replaced only after schema, key, value and integrity checks succeed. OSPy never loads settings from the shadow during startup. A synchronization failure leaves the authoritative shelve save intact and appears as a warning in the **Database** row; a missing shadow waits for the next settings save.
 
+At startup OSPy compares the authoritative shelve values with SHA-256 hashes stored in shadow schema 2. It does not unpickle shadow values during this automatic comparison and never uses them to recover or start OSPy. A matching shadow is marked verified; missing, changed or unexpected keys and checksum or database damage are reported as warnings while shelve remains in use. A schema 1 shadow from the preceding transition phase is not read and is replaced safely on the next settings save.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.

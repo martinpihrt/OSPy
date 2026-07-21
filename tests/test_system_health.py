@@ -40,6 +40,13 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("disk full", failed)
         self.assertIn("Shelve", failed)
 
+        diverged = _sqlite_mirror_details({
+            "state": "diverged", "differences": ["changed: name"],
+            "difference_count": 1, "error": "",
+        })
+        self.assertIn("changed: name", diverged)
+        self.assertIn("Shelve", diverged)
+
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {
             "enabled": True,
