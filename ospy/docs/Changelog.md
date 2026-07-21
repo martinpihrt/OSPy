@@ -24,6 +24,8 @@ Added the sixth settings-storage transition phase. At startup OSPy selects the f
 
 Preserved the startup SQLite restore-rehearsal result across later routine settings saves, so Diagnostics continues to show the completed rehearsal instead of silently losing its status when the shadow-copy state is refreshed.
 
+Added the seventh settings-storage transition phase: a read-only emergency-selection dry run records which independently verified SQLite candidate would be chosen if every shelve/DBM startup candidate were invalid. The current copy has priority and the verified backup is selected only when the current copy fails. The selected dictionary is deliberately discarded and never assigned to running options, including in the all-shelve-invalid test scenario. Diagnostics reports readiness, hypothetical source and record count, and routine saves preserve the startup result. Added current-priority, backup-fallback, all-shelve-invalid and status-retention tests and updated all seven Web Interface Guides.
+
 Updated the Czech translation catalog with the complete SQLite storage readiness, shadow verification, guarded read-test and recovery dry-run status messages.
 
 Added a shared weather-provider layer for OSPy and weather-aware plug-ins. Options now offer the key-free Open-Meteo automatic model, CHMI ALADIN through Open-Meteo, and the existing Stormglass service. Legacy installations with a saved Stormglass key retain Stormglass while keyless installations migrate to Open-Meteo; invalid provider values are rejected, cached data remain available during temporary failures, and providers never change silently.

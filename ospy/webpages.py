@@ -3067,6 +3067,24 @@ def _sqlite_mirror_details(status):
             details += _('Failed')
             if status.get('restore_rehearsal_error'):
                 details += ' - ' + status['restore_rehearsal_error']
+    emergency_state = status.get('emergency_selection')
+    if emergency_state:
+        details += '; ' + _('Emergency SQLite selection dry run') + ': '
+        if emergency_state == 'ready':
+            source = status.get('emergency_selection_source', 'current')
+            source_label = _('backup') if source == 'backup' else _('current')
+            details += _('Ready') + ' (' + _('would use') + ': ' + source_label
+            details += '; ' + _('settings') + ': {})'.format(
+                status.get('emergency_selection_count', 0)
+            )
+        elif emergency_state == 'pending':
+            details += _('Waiting for a verified SQLite recovery candidate')
+        elif emergency_state == 'unavailable':
+            details += _('Unavailable')
+        else:
+            details += _('Failed')
+            if status.get('emergency_selection_error'):
+                details += ' - ' + status['emergency_selection_error']
     return details
 
 
@@ -3530,7 +3548,8 @@ def _system_health_data():
     if database_ok and (
             sqlite_mirror.get('recovery_test') in ('failed', 'error') or
             sqlite_mirror.get('backup_recovery_test') in ('failed', 'error') or
-            sqlite_mirror.get('restore_rehearsal') == 'failed'):
+            sqlite_mirror.get('restore_rehearsal') == 'failed' or
+            sqlite_mirror.get('emergency_selection') == 'failed'):
         database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))

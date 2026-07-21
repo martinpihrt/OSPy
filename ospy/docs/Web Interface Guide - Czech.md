@@ -374,6 +374,8 @@ Stínové schéma 3 obsahuje také manifest s celkovým počtem záznamů a kont
 
 Při spuštění OSPy použije prvního nezávisle ověřeného kandidáta SQLite pouze ke zkoušce obnovy v izolovaném dočasném adresáři. Vytvoří z něj dočasnou databázi shelve/DBM, znovu ji otevře, ověří všechna nastavení a porovná jejich serializované hodnoty; poté dočasný adresář odstraní. Aktivní databáze ani zdroj nastavení při startu se nemění. Pokud je aktuální SQLite kopie poškozená, zkouška může použít ověřenou záložní kopii, zatímco běžící nastavení se stále načte z autoritativního shelve. Výsledek, zdroj a počet nastavení zobrazuje řádek **Databáze** v Diagnostice.
 
+OSPy navíc pouze nasimuluje nouzové rozhodnutí pro případ, že by byly neplatné všechny shelve/DBM databáze. Přednost má nezávisle ověřená aktuální SQLite kopie; ověřená záloha by se zvolila jen při chybě aktuální kopie. Vybraný slovník se zahodí a nikdy se nepřiřadí do běžících nastavení, takže ani tento stav zatím neaktivuje obnovu ze SQLite. Diagnostika zobrazuje připravenost, hypotetický zdroj a počet nastavení.
+
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
 Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.

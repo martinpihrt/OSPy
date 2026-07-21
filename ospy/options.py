@@ -746,8 +746,9 @@ class _Options(object):
                         ', '.join(self._sqlite_mirror_verification.get('differences', []))
                     )
                 )
-            self._update_sqlite_recovery_tests(self._load_source)
-            self._run_sqlite_restore_rehearsal(self._load_source)
+        self._update_sqlite_recovery_tests()
+        self._run_sqlite_restore_rehearsal()
+        self._run_sqlite_emergency_selection_dry_run()
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -811,7 +812,7 @@ class _Options(object):
                 'error': '{}: {}'.format(type(error).__name__, error),
             }
 
-    def _update_sqlite_recovery_tests(self, active_shelve_path):
+    def _update_sqlite_recovery_tests(self):
         sqlite_status = sqlite_capability()
         if not sqlite_status.get('available'):
             current = backup = {
@@ -819,7 +820,7 @@ class _Options(object):
                 'error': sqlite_status.get('error', ''),
             }
         else:
-            current_path = sqlite_mirror_store.path_for(active_shelve_path)
+            current_path = sqlite_mirror_store.path_for(OPTIONS_FILE)
             current = self._sqlite_recovery_test(current_path)
             backup_path = sqlite_mirror_store.path_for(OPTIONS_BACKUP)
             backup = (
@@ -875,11 +876,11 @@ class _Options(object):
             )
         return len(restored)
 
-    def _run_sqlite_restore_rehearsal(self, active_shelve_path):
+    def _run_sqlite_restore_rehearsal(self):
         verification = self._sqlite_mirror_verification
         candidates = (
             ('current', verification.get('recovery_test'),
-             sqlite_mirror_store.path_for(active_shelve_path)),
+             sqlite_mirror_store.path_for(OPTIONS_FILE)),
             ('backup', verification.get('backup_recovery_test'),
              sqlite_mirror_store.path_for(OPTIONS_BACKUP)),
         )
@@ -916,6 +917,48 @@ class _Options(object):
                     message
                 )
             )
+
+    def _run_sqlite_emergency_selection_dry_run(self):
+        """Record which verified SQLite candidate a future fallback would use."""
+        verification = self._sqlite_mirror_verification
+        candidates = (
+            ('current', verification.get('recovery_test'),
+             verification.get('recovery_count', 0)),
+            ('backup', verification.get('backup_recovery_test'),
+             verification.get('backup_recovery_count', 0)),
+        )
+        selected = next(
+            (item for item in candidates if item[1] == 'passed'), None
+        )
+        if selected is not None:
+            source, unused_state, count = selected
+            verification.update({
+                'emergency_selection': 'ready',
+                'emergency_selection_source': source,
+                'emergency_selection_count': count,
+                'emergency_selection_error': '',
+            })
+            return
+
+        states = {item[1] for item in candidates}
+        if states == {'unavailable'}:
+            state = 'unavailable'
+        elif states & {'failed', 'error'}:
+            state = 'failed'
+        else:
+            state = 'pending'
+        errors = [
+            verification.get('recovery_error', ''),
+            verification.get('backup_recovery_error', ''),
+        ]
+        verification.update({
+            'emergency_selection': state,
+            'emergency_selection_source': '',
+            'emergency_selection_count': 0,
+            'emergency_selection_error': '; '.join(
+                error for error in errors if error
+            ),
+        })
 
     @staticmethod
     def _compatible_value(default, value, key=''):
@@ -1287,6 +1330,10 @@ class _Options(object):
                         'restore_rehearsal_source',
                         'restore_rehearsal_count',
                         'restore_rehearsal_error',
+                        'emergency_selection',
+                        'emergency_selection_source',
+                        'emergency_selection_count',
+                        'emergency_selection_error',
                     )
                     if key in self._sqlite_mirror_verification
                 }
@@ -1318,7 +1365,7 @@ class _Options(object):
                                 self._sqlite_mirror_verification['error']
                             )
                         )
-                self._update_sqlite_recovery_tests(OPTIONS_FILE)
+                self._update_sqlite_recovery_tests()
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

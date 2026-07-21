@@ -68,6 +68,9 @@ The suite checks:
 * isolated SQLite-to-shelve restore rehearsals, exact round-trip comparison,
   verified-backup fallback and continued authoritative shelve operation when
   the disposable restore fails;
+* read-only emergency candidate selection with current-copy priority,
+  verified-backup fallback and proof that SQLite values remain unused when
+  every shelve startup candidate is invalid;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

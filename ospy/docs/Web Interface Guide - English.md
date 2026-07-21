@@ -374,6 +374,8 @@ Shadow schema 3 also contains a manifest with the total record count and a check
 
 At startup OSPy uses the first independently verified SQLite candidate only for a restore rehearsal in an isolated temporary directory. It creates a temporary shelve/DBM database, reopens it, validates every setting, compares the serialized values and then removes the directory. Neither the active database nor the startup settings source is changed. If the current SQLite copy is damaged, the rehearsal may use the verified backup while running settings still load from authoritative shelve. The **Database** row in Diagnostics reports the result, source and setting count.
 
+OSPy also only simulates the emergency decision that would be made if every shelve/DBM database were invalid. The independently verified current SQLite copy has priority; the verified backup would be selected only if the current copy failed. The selected dictionary is discarded and never assigned to running settings, so this state still does not activate SQLite recovery. Diagnostics reports readiness, the hypothetical source and the setting count.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.

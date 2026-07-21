@@ -186,6 +186,14 @@ class OptionsPersistenceTests(unittest.TestCase):
                 second._sqlite_mirror_verification["restore_rehearsal_count"],
                 len(mirror_values),
             )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection"],
+                "ready",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection_source"],
+                "current",
+            )
             second.name = "Save after successful restore rehearsal"
             second.save_now()
             self.assertEqual(
@@ -195,6 +203,10 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["restore_rehearsal_source"],
                 "current",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection"],
+                "ready",
             )
 
     def test_current_and_backup_sqlite_recovery_candidates_are_validated(self):
@@ -254,6 +266,46 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["restore_rehearsal_source"],
                 "backup",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection_source"],
+                "backup",
+            )
+
+    def test_invalid_shelve_candidates_only_simulate_sqlite_selection(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-emergency-dry-run-") as root:
+            first = self._new_options(root)
+            first.name = "SQLite data must remain unused"
+            first.save_now()
+            first.name = "Current SQLite data must remain unused"
+            first.save_now()
+            default, unused_temporary, backup = self._paths(root)
+            first.__del__()
+
+            for path in (default, backup):
+                with shelve.open(path) as database:
+                    database["output_count"] = "invalid"
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertIsNone(second._load_source)
+            self.assertNotEqual(
+                second.name, "Current SQLite data must remain unused"
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection"],
+                "ready",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["emergency_selection_source"],
+                "current",
+            )
+            self.assertGreater(
+                second._sqlite_mirror_verification["emergency_selection_count"],
+                0,
             )
 
     def test_restore_rehearsal_failure_keeps_shelve_authoritative(self):

@@ -363,6 +363,8 @@ Schemat 3 kopii zawiera także manifest z całkowitą liczbą rekordów i sumą 
 
 Podczas uruchamiania OSPy używa pierwszego niezależnie zweryfikowanego kandydata SQLite wyłącznie do próby odtworzenia w odizolowanym katalogu tymczasowym. Tworzy w nim tymczasową bazę shelve/DBM, ponownie ją otwiera, sprawdza wszystkie ustawienia i porównuje ich serializowane wartości, a następnie usuwa katalog. Aktywna baza ani źródło ustawień startowych nie są zmieniane. Jeśli bieżąca kopia SQLite jest uszkodzona, próba może wykorzystać zweryfikowaną kopię zapasową, podczas gdy działające ustawienia nadal są ładowane z wiążącego shelve. Wiersz **Baza danych** w Diagnostyce pokazuje wynik, źródło i liczbę ustawień.
 
+OSPy dodatkowo jedynie symuluje decyzję awaryjną na wypadek, gdyby wszystkie bazy shelve/DBM były nieprawidłowe. Pierwszeństwo ma niezależnie zweryfikowana bieżąca kopia SQLite; zweryfikowana kopia zapasowa zostałaby wybrana tylko po błędzie bieżącej kopii. Wybrany słownik jest odrzucany i nigdy nie trafia do działających ustawień, więc ten stan nadal nie uruchamia odzyskiwania z SQLite. Diagnostyka pokazuje gotowość, hipotetyczne źródło i liczbę ustawień.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.
