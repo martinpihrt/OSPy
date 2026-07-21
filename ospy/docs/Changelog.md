@@ -20,6 +20,8 @@ Updated the Czech translation catalog with the weather-provider selection, short
 
 Expanded GitHub Actions compatibility testing from the Raspberry Pi OS Python 3.11 baseline to a required Python 3.11 and latest stable Python 3.14 matrix. Both jobs run the same complete OSPy and official plug-in suite, fail independently and must succeed; the clean installer now warns only for versions newer than the tested range.
 
+Fixed the local web.py compatibility fallback on Python 3.13 and newer, where the removed standard-library `cgi` module exposed a circular package import while loading `cgi_compat`. The web API now imports only the required `FieldStorage` class, preserves the original Python 3.11 path and includes a regression test that simulates a Python installation without `cgi`.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

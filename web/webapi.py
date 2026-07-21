@@ -10,9 +10,9 @@ from io import BytesIO
 from urllib.parse import urljoin
 
 try:
-    import cgi
+    from cgi import FieldStorage as _FieldStorage
 except ModuleNotFoundError:
-    from . import cgi_compat as cgi
+    from .cgi_compat import FieldStorage as _FieldStorage
 
 from .utils import dictadd, intget, safestr, storage, storify, threadeddict
 
@@ -392,7 +392,7 @@ def InternalError(message=None):
 internalerror = InternalError
 
 
-class cgiFieldStorage(cgi.FieldStorage):
+class cgiFieldStorage(_FieldStorage):
     """
     Subclass cgi.FieldStorage, as read_binary expects fp to return
     bytes. If the headers do not contain a content-disposition with a
