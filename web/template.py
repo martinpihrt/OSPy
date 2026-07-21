@@ -288,7 +288,8 @@ class Parser:
         def attr_access():
             from token import NAME  # python token constants
 
-            if tokens.lookahead2().type == NAME:
+            next_token = tokens.lookahead2()
+            if next_token is not None and next_token.type == NAME:
                 next(tokens)  # consume dot
                 identifier()
                 extended_expr()
@@ -316,14 +317,23 @@ class Parser:
             i = iter([text])
             readline = lambda: next(i)
             end = None
-            for t in tokenize.generate_tokens(readline):
-                t = storage(type=t[0], value=t[1], begin=t[2], end=t[3])
-                if end is not None and end != t.begin:
-                    _, x1 = end
-                    _, x2 = t.begin
-                    yield storage(type=-1, value=text[x1:x2], begin=end, end=t.begin)
-                end = t.end
-                yield t
+            try:
+                for t in tokenize.generate_tokens(readline):
+                    t = storage(type=t[0], value=t[1], begin=t[2], end=t[3])
+                    if end is not None and end != t.begin:
+                        _, x1 = end
+                        _, x2 = t.begin
+                        yield storage(type=-1, value=text[x1:x2], begin=end, end=t.begin)
+                    end = t.end
+                    yield t
+            except tokenize.TokenError:
+                # The template parser tokenizes the complete remainder of the
+                # line, even though only its leading Python expression belongs
+                # to the template variable.  Python 3.14 raises TokenError for
+                # an unmatched quote in that trailing HTML/text; older Python
+                # versions simply ended the useful token stream.  Preserve the
+                # established behaviour after yielding the valid expression.
+                return
 
         class BetterIter:
             """Iterator like object with 2 support for 2 look aheads."""

@@ -38,6 +38,17 @@ def _compile_templates(test_case, templates):
 
 
 class TemplateCompilationTests(unittest.TestCase):
+    def test_expression_before_unmatched_quote_in_text_compiles(self):
+        template = web.template.Template("$def with (value)\n$value's status")
+        self.assertEqual("test's status\n", str(template(value="test")))
+
+    def test_expression_before_period_and_unmatched_quote_compiles(self):
+        template = web.template.Template("$def with (_)\n<p title='$_('status').'>")
+        self.assertEqual(
+            "<p title='status.'>\n",
+            str(template(_=lambda value: value)),
+        )
+
     def test_all_core_templates_compile(self):
         templates = sorted(TEMPLATE_ROOT.glob("*.html"))
         self.assertTrue(templates, "No OSPy templates were found.")

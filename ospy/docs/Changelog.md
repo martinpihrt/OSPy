@@ -22,6 +22,8 @@ Expanded GitHub Actions compatibility testing from the Raspberry Pi OS Python 3.
 
 Fixed the local web.py compatibility fallback on Python 3.13 and newer, where the removed standard-library `cgi` module exposed a circular package import while loading `cgi_compat`. The web API now imports only the required `FieldStorage` class, preserves the original Python 3.11 path and includes a regression test that simulates a Python installation without `cgi`.
 
+Fixed web.py template parsing on Python 3.14. The stricter tokenizer no longer rejects valid OSPy or plug-in templates when translated text or HTML immediately following a template expression contains an unmatched quote, and a trailing punctuation dot is no longer mistaken for attribute access. Added regression coverage and verified every OSPy and official plug-in template on Python 3.14 while retaining the Python 3.11 behavior.
+
 July 20 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
