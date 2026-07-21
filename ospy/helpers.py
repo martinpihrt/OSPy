@@ -729,6 +729,12 @@ def save_to_options(qdict):
         if 'category' in option:
             if key in qdict:
                 value = qdict[key]
+                allowed_values = option.get('options')
+                if allowed_values is not None:
+                    if hasattr(allowed_values, '__call__'):
+                        allowed_values = allowed_values()
+                    if value not in allowed_values:
+                        continue
                 if isinstance(option['default'], bool):
                     options[key] = True if value and value != "off" else False
                 elif isinstance(option['default'], int) or isinstance(option['default'], float):
@@ -1070,6 +1076,7 @@ def template_globals():
     from ospy import i18n
     from ospy.users import users
     from ospy.sensors import sensors, sensors_timer
+    from ospy.weather import weather
 
     result = {
         'str': str,

@@ -108,6 +108,7 @@ OSPy Webinterface-Anleitung auf Deutsch
             Zeigen Sie Bilder an Stationen
         Wetter
             Verwenden Sie Wetter
+            Wetteranbieter
             Stormglass-API-Schlüssel
             Standort
         Benutzer
@@ -697,20 +698,23 @@ Die Software wird neu gestartet und nach einigen Sekunden wird die Benutzeroberf
 Aktivieren Sie dieses Kontrollkästchen, um Senderbilder auf der Startseite und der Senderseite anzuzeigen.
 
 ## Wetter
-Der Wetterbereich bietet Zugriff auf einen Wettervorhersagedienst für Ihren Standort. Für diese Funktion müssen Sie sich auf der Website (https://stormglass.io/) registrieren.
-Je nach Wettervorhersage kann der Bewässerungszyklus automatisch angepasst werden (wenn wir eine Erweiterung wählen, die die Wettervorhersage nutzt).
-* Für die Registrierung und Nutzung des Dienstes fallen bei normaler Nutzung keine Gebühren an.
+Der Wetterbereich stellt OSPy und Erweiterungen, die die Bewässerung anpassen, gemeinsame Vorhersagedaten bereit. Alle Abnehmer verwenden den unter Optionen ausgewählten Anbieter; er muss nicht in jeder Erweiterung einzeln eingerichtet werden.
 
 ### Verwenden Sie Wetter
-Verbindung zum Stormglass-Dienst aktivieren oder deaktivieren.
+Das Abrufen von Wetterdaten beim ausgewählten Anbieter aktivieren oder deaktivieren.
+
+### Wetteranbieter
+**Open-Meteo – automatisches Modell** wählt ohne API-Schlüssel ein geeignetes verfügbares Modell. **CHMI ALADIN über Open-Meteo** fordert das ALADIN-Modell an, wo es verfügbar ist. **Stormglass** erhält den bisherigen Dienst und benötigt einen eigenen API-Schlüssel. Open-Meteo ist gemäß seinen Nutzungsbedingungen für die nichtkommerzielle Nutzung bestimmt; OSPy nennt die Quelle neben der Vorhersage.
+
+Beim Aktualisieren einer älteren Installation bleibt Stormglass ausgewählt, wenn ein Stormglass-Schlüssel gespeichert ist. Installationen ohne Schlüssel wechseln zu Open-Meteo. Bei einem vorübergehenden Dienstausfall bleiben die letzten gültigen Daten sichtbar; OSPy wechselt nicht unbemerkt zu einem anderen Anbieter.
 
 ### Storm Glass API-Schlüssel
-Zur Nutzung lokaler Wetterbedingungen ist ein Storm Glass-API-Schlüssel erforderlich.
+Nur erforderlich, wenn Stormglass als Anbieter ausgewählt ist.
 
 ### Standort
-Name der Stadt oder Postleitzahl. Wird zur Ortung mithilfe von OpenStreetMap für Wetterinformationen von Storm Glass verwendet.
+Name der Stadt oder Postleitzahl. OpenStreetMap bestimmt daraus den Standort für den ausgewählten Wetteranbieter.
 
-Mit **Auf Karte auswählen** öffnen Sie eine berührungsfreundliche Karte, klicken auf den genauen Wetterpunkt und bestätigen ihn. **Gerätestandort verwenden** kann nach Zustimmung des Benutzers die Browserposition einsetzen. Nach dem Speichern sind Breiten- und Längengrad der maßgebliche Stormglass-Standort; eine Änderung des Textfelds Standort schaltet zurück zur Namenssuche über OpenStreetMap. Die Startseite zeigt eine kompakte Standortkarte, öffnet dieselbe Karte schreibgeschützt und zeigt technische Koordinaten unter Details.
+Mit **Auf Karte auswählen** öffnen Sie eine berührungsfreundliche Karte, klicken auf den genauen Wetterpunkt und bestätigen ihn. **Gerätestandort verwenden** kann nach Zustimmung des Benutzers die Browserposition einsetzen. Nach dem Speichern sind Breiten- und Längengrad der maßgebliche Wetterstandort; eine Änderung des Textfelds Standort schaltet zurück zur Namenssuche über OpenStreetMap. Unter dem Koordinatenstatus zeigt die Startseite drei Vorhersagekarten für jetzt, ungefähr +3 und +6 Stunden mit lokalen Symbolen, Temperatur und Niederschlag. Details nennen Datenquelle und Aktualisierungszeit.
 
 ## Benutzer
 Um die Sicherheit zu erhöhen, empfehlen wir, das OSPy-Systemkennwort und den Benutzernamen vom Standardwert „admin“ zu ändern. Bei Bedarf können Sie die Passwortanforderung auch deaktivieren.

@@ -164,14 +164,27 @@ class _Options(object):
             "key": "use_weather",
             "name": _('Use Weather'),
             "default": False,
-            "help": _('Enabling or disabling connection to service Stormglass.io.'),
+            "help": _('Enable or disable weather downloads from the selected provider.'),
+            "category": _('Weather')
+        },
+        {
+            "key": "weather_provider",
+            "name": _('Weather data provider'),
+            "default": "open_meteo",
+            "options": ("open_meteo", "chmi", "stormglass"),
+            "option_names": {
+                "open_meteo": _('Open-Meteo automatic model'),
+                "chmi": _('CHMI ALADIN via Open-Meteo'),
+                "stormglass": _('Stormglass')
+            },
+            "help": _('Select the forecast source used by OSPy and all weather-aware plug-ins. Open-Meteo does not require an API key for non-commercial use.'),
             "category": _('Weather')
         },
         {
             "key": "stormglass_key",
             "name": _('Storm Glass API key'),
             "default": "",
-            "help": _('To make use of local weather conditions, a Storm Glass API key is needed.'),
+            "help": _('Required only when Stormglass is selected as the weather provider.'),
             "category": _('Weather')
         },
         {
@@ -658,6 +671,7 @@ class _Options(object):
                     shutil.copy(old_options, OPTIONS_FILE)
                     break
 
+        loaded_values = None
         for options_file in [OPTIONS_FILE, OPTIONS_TMP, OPTIONS_BACKUP]:
             try:
                 if (os.path.isdir(os.path.dirname(options_file)) and
@@ -665,6 +679,7 @@ class _Options(object):
                     loaded = self._read_candidate(options_file)
                     if loaded:
                         self._values.update(loaded)
+                        loaded_values = loaded
                         self._load_source = options_file
                         break
             except Exception as err:
@@ -688,6 +703,15 @@ class _Options(object):
                 self._values[coordinate_key] = str(coordinate)
             elif not isinstance(coordinate, str):
                 self._values[coordinate_key] = ''
+
+        # Preserve existing Stormglass installations. New installations and
+        # existing installations without a key use the key-free provider.
+        if loaded_values is not None and 'weather_provider' not in loaded_values:
+            self._values['weather_provider'] = (
+                'stormglass' if loaded_values.get('stormglass_key') else 'open_meteo'
+            )
+        if self._values.get('weather_provider') not in ('open_meteo', 'chmi', 'stormglass'):
+            self._values['weather_provider'] = 'open_meteo'
 
         self._values.pop('auto_login_key', None)
 

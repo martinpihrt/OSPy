@@ -1,6 +1,6 @@
 import datetime
 import json
-from threading import Thread
+from threading import Lock, Thread
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -275,6 +275,9 @@ class WeatherRecoveryTests(unittest.TestCase):
         instance._determine_location = True
         instance._callbacks = []
         instance._result_cache = {}
+        instance._forecast_snapshot = []
+        instance._forecast_updated = 0
+        instance._lock = Lock()
         return instance
 
     def options(self, **updates):
@@ -285,6 +288,7 @@ class WeatherRecoveryTests(unittest.TestCase):
             "weather_lon": "14.0",
             "weather_status": 1,
             "weather_cache": {},
+            "weather_provider": "stormglass",
             "stormglass_key": "test-key",
             "use_weather": True,
             "name": "Test OSPy",
@@ -379,7 +383,9 @@ class WeatherRecoveryTests(unittest.TestCase):
                     instance,
                     "_find_location",
                     side_effect=[TimeoutError("timeout"), None],
-                ) as find_location, mock.patch.object(weather_module, "heartbeat"), \
+                ) as find_location, mock.patch.object(
+                    instance, "_refresh_home_forecast"
+                ), mock.patch.object(weather_module, "heartbeat"), \
                 mock.patch.object(weather_module, "update_details"), \
                 mock.patch.object(weather_module.logging, "warning"):
             with self.assertRaises(StopLoop):

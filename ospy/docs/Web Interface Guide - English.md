@@ -108,6 +108,7 @@ OSPy Web Interface Guide in English
             Show pictures at stations
         Weather Section
             Use Weather
+            Weather provider
             Stormglass API key
             Location
         Users Section
@@ -697,20 +698,23 @@ The software restarts and after a few seconds the interface is displayed in the 
 Check this box to display station images on the homepage and stations page.
 
 ## Weather Section
-The weather section provides access to a weather forecast service for your location. You must register for this feature on the website (https://stormglass.io/).
-According to the weather forecast, the watering cycle can be adjusted automatically (if we choose an extension that uses the weather forecast).
-* Registration and use of the service is not charged for normal use.
+The weather section supplies shared forecast data to OSPy and to plug-ins that adjust watering. Every consumer uses the provider selected in Options, so the service does not need to be configured separately in each plug-in.
 
 ### Use Weather
-Enable or disable connection to the Stormglass service.
+Enable or disable weather retrieval from the selected provider.
+
+### Weather provider
+**Open-Meteo automatic model** selects a suitable available model without an API key. **CHMI ALADIN via Open-Meteo** requests the ALADIN model where it is available. **Stormglass** preserves the original service and requires its own API key. Open-Meteo is intended for non-commercial use under its service terms and OSPy attributes it beside the forecast.
+
+When an older installation is upgraded, a saved Stormglass key keeps Stormglass selected. Installations without a key migrate to Open-Meteo. During a temporary service failure the last valid data remain visible; OSPy does not silently switch to a different provider.
 
 ### Storm Glass API key
-A Storm Glass API key is required to use local weather conditions.
+Required only when Stormglass is selected as the provider.
 
 ### Location
-City name or zip code. Used to locate using OpenStreetMap for weather information from Storm Glass.
+City name or zip code. OpenStreetMap resolves it for the selected weather provider.
 
-Use **Select on map** to open a touch-friendly map, click the exact weather point, and confirm it. **Use device location** can place the marker from the browser after the user grants permission. The selected latitude and longitude become the authoritative Stormglass location after Options are saved; editing the text Location field switches back to OpenStreetMap name search. The Home page shows a compact location card, opens the same map in read-only mode, and keeps technical coordinates under Details.
+Use **Select on map** to open a touch-friendly map, click the exact weather point, and confirm it. **Use device location** can place the marker from the browser after the user grants permission. The selected latitude and longitude become the authoritative weather location after Options are saved; editing the text Location field switches back to OpenStreetMap name search. Below the coordinate status, Home shows three forecast cards for now, approximately +3 and +6 hours with local icons, temperature and precipitation. Details identify the data provider and last update time.
 
 ## Users Section
 To increase security, we recommend changing the OSPy system password and username from the default "admin". You can also disable the password requirement if needed.

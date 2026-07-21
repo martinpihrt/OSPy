@@ -33,6 +33,10 @@ The suite checks:
   and regulation-output migration, Sensors page rendering, weather request
   timeouts, location retry, coordinate preservation, response validation and
   fallback to the last valid cached weather value;
+* weather-provider selection and migration, Open-Meteo automatic and CHMI
+  ALADIN request normalization, Stormglass compatibility, provider-supplied
+  evapotranspiration, pressure fallback calculation and cached Home forecast
+  cards without live network access during page rendering;
 * non-blocking external-IP cache refresh without duplicate refresh workers;
 * cooperative shutdown of scheduler, sensor, weather and plug-in update workers,
   immediate output and master-relay safety, bounded core shutdown ordering and

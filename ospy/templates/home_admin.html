@@ -855,6 +855,7 @@ $if options.show_plugin_data or options.show_sensor_data:
     </div>
 
 $if options.use_weather:
+    $ forecast = weather.get_home_forecast()
     <section class="weatherLocationCard" aria-labelledby="weatherLocationTitle">
         <div class="weatherLocationCardHeader">
             <h3 id="weatherLocationTitle">$_('Weather location'):</h3>
@@ -866,6 +867,18 @@ $if options.use_weather:
                 <span class="weatherLocationState weatherLocationStateError">$_('Weather location is not configured correctly.')</span>
         </div>
         $if options.weather_status == 1 and options.weather_lat and options.weather_lon:
+            $if forecast['cards']:
+                <div class="weatherForecast" aria-label="$_('Short-term weather forecast')">
+                    $for card in forecast['cards']:
+                        <div class="weatherForecastCard">
+                            <time>${card['time']}</time>
+                            <img src="/static/images/weather/${card['icon']}.svg" alt="${card['description']}" title="${card['description']}">
+                            <strong>${card['temperature']}</strong>
+                            <span>${card['precipitation']}</span>
+                        </div>
+                </div>
+            $else:
+                <div class="weatherForecastUnavailable">$_('Forecast data is not available yet.')</div>
             <div class="weatherLocationButtons">
                 <button type="button" class="button upload" onclick="openWeatherMap(false)">$_('Show map')</button>
                 <a href="/options#weather-options" class="button backup">$_('Change location')</a>
@@ -874,7 +887,9 @@ $if options.use_weather:
                 <summary>$_('Details')</summary>
                 <div>$_('Latitude'): $options.weather_lat</div>
                 <div>$_('Longitude'): $options.weather_lon</div>
-                <div>$_('Weather data source'): Stormglass</div>
+                <div>$_('Weather data source'): <a href="${forecast['provider_url']}" target="_blank" rel="noopener">${forecast['provider']}</a></div>
+                $if forecast['updated']:
+                    <div>$_('Forecast updated'): ${forecast['updated']}</div>
             </details>
         $else:
             <a href="/options#weather-options" class="button backup">$_('Set location')</a>

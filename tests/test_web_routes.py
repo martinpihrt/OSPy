@@ -12,6 +12,7 @@ from ospy import helpers
 from ospy import server
 from ospy import sensors as sensors_module
 from ospy import webpages
+from ospy.weather import weather
 from ospy.helpers import template_globals
 from ospy.urls import urls
 
@@ -134,6 +135,52 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 response = self.app.request(path)
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
+
+    def test_weather_provider_selector_and_cached_forecast_render(self):
+        options_response = self.app.request("/options")
+        self.assertEqual(options_response.status, "200 OK")
+        self.assertIn(b"name='weather_provider'", options_response.data)
+        self.assertIn(b"value='open_meteo'", options_response.data)
+        self.assertIn(b"value='chmi'", options_response.data)
+        self.assertIn(b"value='stormglass'", options_response.data)
+
+        original = {
+            key: webpages.options._values[key]
+            for key in (
+                "use_weather", "weather_status", "weather_lat", "weather_lon",
+                "weather_location_mode", "location",
+            )
+        }
+        webpages.options._values.update({
+            "use_weather": True,
+            "weather_status": 1,
+            "weather_lat": "50.0",
+            "weather_lon": "14.0",
+            "weather_location_mode": "coordinates",
+            "location": "Test location",
+        })
+        forecast = {
+            "cards": [{
+                "time": "15:00",
+                "temperature": "22.0 °C",
+                "precipitation": "0.2 mm · 30%",
+                "icon": "partly-cloudy",
+                "description": "Partly cloudy",
+            }],
+            "provider": "Open-Meteo automatic model",
+            "provider_url": "https://open-meteo.com/",
+            "updated": "2026-07-21 14:00",
+        }
+        try:
+            with mock.patch.object(weather, "get_home_forecast", return_value=forecast):
+                home_response = self.app.request("/")
+        finally:
+            webpages.options._values.update(original)
+
+        self.assertEqual(home_response.status, "200 OK")
+        self.assertIn(b'class="weatherForecast"', home_response.data)
+        self.assertIn(b"/static/images/weather/partly-cloudy.svg", home_response.data)
+        self.assertIn(b"Open-Meteo automatic model", home_response.data)
 
     def test_sensors_page_renders_numeric_regulation_output(self):
         sensor_collection = SimpleNamespace(get=lambda: [])

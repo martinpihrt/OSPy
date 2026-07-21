@@ -108,6 +108,7 @@ Przewodnik po interfejsie webowym OSPy w jezyku polskim
             Pokaż zdjęcia na stacjach
         Pogoda
             Użyj Pogody
+            Dostawca pogody
             Klucz API Stormglass
             Lokalizacja
         Użytkownicy
@@ -686,20 +687,23 @@ Oprogramowanie uruchomi się ponownie i po kilku sekundach wyświetli się inter
 Zaznacz to pole, aby wyświetlać obrazy stacji na stronie głównej i stronie stacji.
 
 ## Pogoda
-Sekcja pogody zapewnia dostęp do usługi prognozy pogody dla Twojej lokalizacji. Aby skorzystać z tej funkcji, należy zarejestrować się na stronie internetowej (https://stormglass.io/).
-Zgodnie z prognozą pogody cykl nawadniania można dostosować automatycznie (jeśli wybierzemy rozszerzenie korzystające z prognozy pogody).
-* Rejestracja i korzystanie z usługi nie są pobierane za normalne użytkowanie.
+Sekcja pogody dostarcza wspólne dane prognozy dla OSPy i rozszerzeń dostosowujących nawadnianie. Wszystkie odbiorniki używają dostawcy wybranego w Ustawieniach, więc nie trzeba konfigurować go osobno w każdym rozszerzeniu.
 
 ### Użyj Pogody
-Włącz lub wyłącz połączenie z usługą Stormglass.
+Włącz lub wyłącz pobieranie pogody od wybranego dostawcy.
+
+### Dostawca pogody
+**Open-Meteo – model automatyczny** wybiera odpowiedni dostępny model bez klucza API. **CHMI ALADIN przez Open-Meteo** wymusza model ALADIN tam, gdzie jest dostępny. **Stormglass** zachowuje dotychczasową usługę i wymaga własnego klucza API. Open-Meteo jest przeznaczone do użytku niekomercyjnego zgodnie z warunkami usługi, a OSPy wskazuje źródło obok prognozy.
+
+Po aktualizacji starszej instalacji zapisany klucz Stormglass pozostawia wybraną usługę Stormglass. Instalacja bez klucza przechodzi na Open-Meteo. Podczas chwilowej awarii usługi ostatnie poprawne dane pozostają widoczne; OSPy nie przełącza się bez wiedzy użytkownika na innego dostawcę.
 
 ### Klucz API Storm Glass
-Do korzystania z lokalnych warunków pogodowych wymagany jest klucz API Storm Glass.
+Wymagany tylko po wybraniu Stormglass jako dostawcy.
 
 ### Lokalizacja
-Nazwa miasta lub kod pocztowy. Służy do lokalizacji za pomocą OpenStreetMap w celu uzyskania informacji o pogodzie ze Storm Glass.
+Nazwa miasta lub kod pocztowy. OpenStreetMap ustala lokalizację dla wybranego dostawcy pogody.
 
-Przycisk **Wybierz na mapie** otwiera mapę dostosowaną do obsługi dotykowej; kliknij dokładny punkt pogody i potwierdź wybór. **Użyj lokalizacji urządzenia** może ustawić znacznik z przeglądarki po udzieleniu zgody. Po zapisaniu Ustawień szerokość i długość geograficzna są nadrzędną lokalizacją Stormglass; ręczna zmiana tekstowego pola Lokalizacja przywraca wyszukiwanie nazwy przez OpenStreetMap. Strona główna pokazuje zwartą kartę lokalizacji, otwiera tę samą mapę tylko do odczytu, a współrzędne umieszcza w Szczegółach.
+Przycisk **Wybierz na mapie** otwiera mapę dostosowaną do obsługi dotykowej; kliknij dokładny punkt pogody i potwierdź wybór. **Użyj lokalizacji urządzenia** może ustawić znacznik z przeglądarki po udzieleniu zgody. Po zapisaniu Ustawień szerokość i długość geograficzna są nadrzędną lokalizacją pogody; ręczna zmiana pola Lokalizacja przywraca wyszukiwanie nazwy przez OpenStreetMap. Pod stanem współrzędnych strona główna pokazuje trzy karty prognozy: teraz, około +3 i +6 godzin, z lokalnymi ikonami, temperaturą i opadem. Szczegóły podają źródło danych i czas aktualizacji.
 
 ## Użytkownicy
 Aby zwiększyć bezpieczeństwo, zalecamy zmianę hasła systemowego OSPy i nazwy użytkownika z domyślnego „admin”. W razie potrzeby możesz także wyłączyć wymaganie hasła.

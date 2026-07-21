@@ -108,6 +108,7 @@ OSPy sprievodca webovým rozhraním v slovencine
             Zobrazenie obrázkov na staniciach
         Počasie
             Použiť počasie
+            Poskytovateľ počasia
             Stormglass API kľúč
             Poloha
         Užívatelia
@@ -697,20 +698,23 @@ Software sa reštartuje a po niekoľkých sekundách sa rozhranie zobrazí vo zv
 Zaškrtnutím tohto políčka zobrazíte obrázky staníc na domovskej stránke a na stránke staníc.
 
 ## Počasie
-Sekcia počasia umožňuje prístup k službe predpovede počasia pre vašu polohu. Musíte sa zaregistrovať pre túto funkciu na webe (https://stormglass.io/).
-Podľa predpovede počasia je možné zavlažovací cyklus automaticky upraviť (ak zvolíme rozšírenie, ktoré používa predpoveď počasia).
-* Registrácia a použitie služby nie je pre bežné použitie spoplatnené.
+Sekcia počasia poskytuje spoločné údaje predpovede pre OSPy aj rozšírenia, ktoré upravujú zavlažovanie. Všetci odberatelia používajú poskytovateľa vybraného v Nastaveniach, takže ho netreba nastavovať osobitne v každom rozšírení.
 
 ### Použiť počasie
-Povolenie alebo zakázanie pripojenia k službe Stormglass.
+Povolí alebo zakáže načítanie počasia od vybraného poskytovateľa.
+
+### Poskytovateľ počasia
+**Open-Meteo – automatický model** vyberie vhodný dostupný model bez API kľúča. **ČHMÚ ALADIN cez Open-Meteo** vynúti model ALADIN tam, kde je dostupný. **Stormglass** zachováva pôvodnú službu a vyžaduje vlastný API kľúč. Open-Meteo je určené na nekomerčné použitie podľa podmienok služby a OSPy uvádza zdroj pri predpovedi.
+
+Po aktualizácii staršej inštalácie zostane pri uloženom kľúči vybraný Stormglass. Inštalácia bez kľúča prejde na Open-Meteo. Pri dočasnom výpadku služby zostanú zobrazené posledné platné údaje; OSPy sa bez vedomia používateľa neprepne k inému poskytovateľovi.
 
 ### Storm Glass API kľúč
-Na využitie miestnych poveternostných podmienok je nutný kľúč rozhrania Storm Glass API.
+Je potrebný iba pri výbere poskytovateľa Stormglass.
 
 ### Poloha
-Názov mesta alebo PSČ. Slúži na určenie polohy pomocou OpenStreetMap pre informácie o počasí zo služby Storm Glass.
+Názov mesta alebo PSČ. OpenStreetMap podľa neho určí polohu pre vybraného poskytovateľa počasia.
 
-Tlačidlom **Vybrať na mape** otvoríte mapu vhodnú aj na dotykové ovládanie, kliknete na presný bod počasia a výber potvrdíte. **Použiť polohu zariadenia** môže po súhlase používateľa umiestniť značku podľa prehliadača. Po uložení Nastavení sú zemepisná šírka a dĺžka rozhodujúcou polohou Stormglass; ručná zmena textového poľa Poloha prepne späť na vyhľadanie názvu cez OpenStreetMap. Domovská stránka zobrazí kompaktnú kartu, rovnakú mapu otvorí iba na prezeranie a súradnice ponechá v Podrobnostiach.
+Tlačidlom **Vybrať na mape** otvoríte mapu vhodnú aj na dotykové ovládanie, kliknete na presný bod počasia a výber potvrdíte. **Použiť polohu zariadenia** môže po súhlase používateľa umiestniť značku podľa prehliadača. Po uložení Nastavení sú zemepisná šírka a dĺžka rozhodujúcou polohou počasia; ručná zmena poľa Poloha prepne späť na vyhľadanie názvu cez OpenStreetMap. Pod stavom súradníc domovská stránka zobrazí tri karty predpovede pre aktuálny čas, približne +3 a +6 hodín s miestnymi ikonami, teplotou a zrážkami. Podrobnosti uvádzajú zdroj údajov a čas aktualizácie.
 
 ## Užívatelia
 Pre zvýšenie bezpečnosti odporúčame zmeniť systémové heslo pre OSPy a užívateľské meno z východiskového "admin". V prípade potreby môžete tiež požiadavku na heslo deaktivovať.

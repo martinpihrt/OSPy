@@ -3515,6 +3515,10 @@ def _system_health_data():
 
     weather_beat = beats.get('weather', {})
     weather_age = now_ts - weather_beat.get('last_success', 0)
+    from ospy.weather import provider_name
+    weather_details = _('Weather data provider') + ': ' + provider_name()
+    if weather_beat.get('error'):
+        weather_details += '; ' + weather_beat.get('error', '')
     if not options.use_weather:
         weather_status = 'unknown'
         weather_summary = _('Weather service is disabled.')
@@ -3529,7 +3533,7 @@ def _system_health_data():
         weather_summary = _('Weather service is responding.')
     items.append(_health_item(
         'weather', _('Weather'), weather_status, weather_summary,
-        weather_beat.get('error', ''),
+        weather_details,
         _health_time(weather_beat.get('last_success')), '/options#weather-options'
     ))
 

@@ -137,6 +137,10 @@ $code:
                 if hasattr(enum, '__call__'):
                     enum = enum()
 
+                enum_names = option.get('option_names', {})
+                if hasattr(enum_names, '__call__'):
+                    enum_names = enum_names()
+
                 multi_enum = option.get('multi_options')
                 if hasattr(multi_enum, '__call__'):
                     multi_enum = multi_enum()
@@ -215,7 +219,7 @@ $code:
                         output += _('None available')
                     for e in enum:
                         sel = " selected='selected'" if value == e else ""
-                        output += "<option value='" + e + "'" + sel + ">" + e + "</option>"
+                        output += "<option value='" + e + "'" + sel + ">" + enum_names.get(e, e) + "</option>"
                     output += "</select>\n"
                 elif multi_enum is not None:
                     output += "<div style='display: inline-block'>\n"
@@ -250,7 +254,7 @@ $code:
                     output += "<input id='weather_lon' name='weather_lon' type='hidden' value='" + u"{}".format(options.weather_lon) + "'>\n"
                     output += "<input id='weather_location_mode' name='weather_location_mode' type='hidden' value='" + u"{}".format(options.weather_location_mode) + "'>\n"
                     output += "<input id='weather_map_selected' name='weather_map_selected' type='hidden' value='0'>\n"
-                    output += "<span class='tooltip'>" + _('Choose the exact point used for Stormglass weather data.') + "</span></div>\n"
+                    output += "<span class='tooltip'>" + _('Choose the exact point used by the selected weather provider.') + "</span></div>\n"
                 
                 if name == 'admin_user':
                     output += "<div class='option' title=" + json.dumps(_('Re-enter the current password.'), ensure_ascii=False).encode('utf8').decode('utf-8') + "><span class='label'>" + _('Current password') + ":</span>\n" 

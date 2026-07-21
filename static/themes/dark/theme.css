@@ -620,6 +620,14 @@ span.stationName:last-child:after {
 .weatherLocationState {margin:0;}
 .weatherLocationStateOk {color:#7bd37f;}
 .weatherLocationStateError {color:#ff8b93;}
+.weatherForecast {display:grid; grid-template-columns:repeat(3, minmax(90px, 150px)); gap:9px; margin-top:10px;}
+.weatherForecastCard {display:grid; grid-template-columns:42px 1fr; grid-template-rows:auto auto auto; align-items:center; column-gap:8px; box-sizing:border-box; min-width:0; padding:8px 10px; border:1px solid #65708e; border-radius:9px; background:rgba(255,255,255,.09);}
+.weatherForecastCard time {grid-column:2; font-size:12px; color:#c8ccda;}
+.weatherForecastCard img {grid-column:1; grid-row:1 / span 3; width:42px; height:42px;}
+.weatherForecastCard strong {grid-column:2; font-size:15px; white-space:nowrap;}
+.weatherForecastCard span {grid-column:2; font-size:11px; white-space:nowrap;}
+.weatherForecastUnavailable {margin-top:9px; color:#c8ccda; font-size:12px;}
+@media (max-width:600px) {.weatherForecast {grid-template-columns:repeat(3, minmax(0, 1fr)); gap:5px;}.weatherForecastCard {display:flex; flex-direction:column; gap:2px; padding:7px 3px; text-align:center;}.weatherForecastCard img {width:38px; height:38px;}.weatherForecastCard strong {font-size:13px;}.weatherForecastCard span {font-size:9px;}}
 .weatherLocationButtons {display:flex; flex-wrap:wrap; gap:7px; margin-top:10px;}
 .weatherLocationDetails {margin-top:12px;}
 .weatherLocationDetails summary {cursor:pointer; font-weight:bold;}

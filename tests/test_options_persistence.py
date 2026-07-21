@@ -129,6 +129,7 @@ class OptionsPersistenceTests(unittest.TestCase):
                 database["name"] = "Legacy garden"
                 database["weather_lat"] = 50.1234
                 database["weather_lon"] = 14.5678
+                database["stormglass_key"] = "legacy-weather-key"
                 database["rain_block"] = "DATETIME:2031-02-03 04:05:06"
                 database["legacy_extension_value"] = {"enabled": True}
                 database["auto_login_key"] = "obsolete-secret"
@@ -143,10 +144,34 @@ class OptionsPersistenceTests(unittest.TestCase):
             )
             self.assertTrue(instance.show_diagnostics_modal_home)
             self.assertEqual(instance.plugin_update_channel, "master")
+            self.assertEqual(instance.weather_provider, "stormglass")
             self.assertEqual(
                 instance._values["legacy_extension_value"], {"enabled": True}
             )
             self.assertNotIn("auto_login_key", instance._values)
+
+    def test_legacy_weather_without_stormglass_key_uses_open_meteo(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-weather-provider-migration-") as root:
+            default, unused_tmp, unused_backup = self._paths(root)
+            os.makedirs(os.path.dirname(default), exist_ok=True)
+            with shelve.open(default) as database:
+                database["name"] = "Key-free legacy garden"
+                database["use_weather"] = True
+
+            instance = self._new_options(root)
+
+            self.assertEqual(instance.weather_provider, "open_meteo")
+
+    def test_invalid_stored_weather_provider_fails_safe(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-weather-provider-invalid-") as root:
+            default, unused_tmp, unused_backup = self._paths(root)
+            os.makedirs(os.path.dirname(default), exist_ok=True)
+            with shelve.open(default) as database:
+                database["weather_provider"] = "untrusted-provider"
+
+            instance = self._new_options(root)
+
+            self.assertEqual(instance.weather_provider, "open_meteo")
 
     def test_empty_primary_database_falls_back_to_valid_backup(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-fallback-") as root:
