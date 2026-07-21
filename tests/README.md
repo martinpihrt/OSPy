@@ -77,6 +77,9 @@ The suite checks:
 * default-off verified SQLite read preference that first loads authoritative
   shelve, requires complete key/checksum/value parity, safely falls back on
   divergence or decode failure and never changes the shelve write backend;
+* default-off strict dual-write commit policy that atomically rejects and
+  removes an uncommitted temporary directory when SQLite cannot be written or
+  verified, while preserving the previous shelve settings and timestamp;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

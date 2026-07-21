@@ -172,6 +172,13 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "sqlite_strict_dual_write",
+            "name": _('Require verified SQLite for settings commits'),
+            "default": False,
+            "help": _('Experimental and disabled by default. When enabled, a settings save is committed only if both the shelve/DBM database and its SQLite shadow are written and verified successfully. On SQLite failure the temporary save is discarded and the previous active settings remain unchanged.'),
+            "category": _('System')
+        },
+        {
             "key": "lang",
             "name": "", #_('System language'),
             "default": "default",
@@ -1108,6 +1115,9 @@ class _Options(object):
             ),
             'emergency_recovery_used': self._sqlite_emergency_recovered_from,
             'emergency_recovery_error': self._sqlite_emergency_recovery_error,
+            'strict_dual_write_enabled': (
+                self._values.get('sqlite_strict_dual_write') is True
+            ),
         })
         candidates = (
             ('current', verification.get('recovery_test'),
@@ -1489,6 +1499,16 @@ class _Options(object):
                                 sqlite_mirror['error']
                             )
                         )
+                if (self._values.get('sqlite_strict_dual_write') is True and
+                        sqlite_mirror.get('state') != 'synchronized'):
+                    if os.path.isdir(tmp_dir):
+                        shutil.rmtree(tmp_dir)
+                    raise RuntimeError(
+                        _('Strict SQLite dual-write verification failed: {}').format(
+                            sqlite_mirror.get('error') or
+                            sqlite_mirror.get('state', 'unknown')
+                        )
+                    )
                 remove_backup = True
                 try:
                     if time.time() - settings_store.last_save(OPTIONS_BACKUP) < 3600:

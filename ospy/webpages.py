@@ -3109,6 +3109,12 @@ def _sqlite_mirror_details(status):
                 details += ' - ' + status['preferred_read_error']
         else:
             details += _('Disabled')
+    details += '; ' + _('Settings commit policy') + ': '
+    details += (
+        _('Strict verified shelve/DBM and SQLite dual-write')
+        if status.get('strict_dual_write_enabled') else
+        _('Compatible shelve/DBM commit with optional SQLite shadow')
+    )
     return details
 
 

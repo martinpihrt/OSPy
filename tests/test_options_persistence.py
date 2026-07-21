@@ -126,6 +126,51 @@ class OptionsPersistenceTests(unittest.TestCase):
                 for message in captured.output
             ))
 
+    def test_strict_dual_write_rejects_save_when_sqlite_fails(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-strict-write-") as root:
+            instance = self._new_options(root)
+            instance.sqlite_strict_dual_write = True
+            instance.name = "Last verified dual-write settings"
+            instance.save_now()
+            committed_last_save = instance.last_save
+
+            instance.name = "Uncommitted settings"
+            with mock.patch.object(
+                    options_module.sqlite_mirror_store, "write",
+                    side_effect=OSError("simulated strict SQLite failure")), \
+                    self.assertLogs(level="WARNING"):
+                instance.save_now()
+
+            self.assertEqual(instance.last_save, committed_last_save)
+            self.assertFalse(os.path.isdir(os.path.dirname(options_module.OPTIONS_TMP)))
+            instance.__del__()
+
+            reloaded = options_module._Options()
+            reloaded.__del__()
+            self.addCleanup(reloaded.__del__)
+            self.assertEqual(reloaded.name, "Last verified dual-write settings")
+            self.assertTrue(reloaded.sqlite_strict_dual_write)
+
+    def test_strict_dual_write_supports_verified_sqlite_reads(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-strict-read-") as root:
+            first = self._new_options(root)
+            first.sqlite_strict_dual_write = True
+            first.sqlite_preferred_reads = True
+            first.name = "Strict dual-write round trip"
+            first.save_now()
+            first.__del__()
+
+            second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+            self.assertEqual(second.name, "Strict dual-write round trip")
+            self.assertEqual(
+                second._sqlite_mirror_verification["preferred_read"], "used"
+            )
+            self.assertTrue(
+                second._sqlite_mirror_verification["strict_dual_write_enabled"]
+            )
+
     def test_values_and_nested_dates_survive_save_and_reload(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-roundtrip-") as root:
             first = self._new_options(root)
@@ -637,6 +682,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertTrue(instance.show_diagnostics_modal_home)
             self.assertFalse(instance.sqlite_emergency_recovery)
             self.assertFalse(instance.sqlite_preferred_reads)
+            self.assertFalse(instance.sqlite_strict_dual_write)
             self.assertEqual(instance.plugin_update_channel, "master")
             self.assertEqual(instance.weather_provider, "stormglass")
             self.assertEqual(

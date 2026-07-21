@@ -72,6 +72,7 @@ class SystemHealthTests(unittest.TestCase):
             "preferred_read": "used",
             "preferred_read_count": 25,
             "preferred_read_error": "",
+            "strict_dual_write_enabled": True,
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
