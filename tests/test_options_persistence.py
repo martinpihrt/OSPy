@@ -146,6 +146,8 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(mirror_values["name"], "Test garden")
             self.assertEqual(mirror_values["rain_block"], rain_until)
             self.assertEqual(first.last_save, mirror_values["last_save"])
+            self.assertEqual(first._sqlite_mirror_verification["state"], "verified")
+            self.assertEqual(first._sqlite_mirror_verification["read_test"], "passed")
             first.__del__()
 
             second = options_module._Options()
@@ -223,6 +225,28 @@ class OptionsPersistenceTests(unittest.TestCase):
                 "simulated decode rejection",
                 second._sqlite_mirror_verification["error"],
             )
+
+    def test_post_save_shadow_read_failure_does_not_fail_primary_save(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-save-read-test-") as root:
+            instance = self._new_options(root)
+            instance.name = "Primary save remains valid"
+            with mock.patch.object(
+                    options_module.sqlite_mirror_store, "read_verified",
+                    side_effect=ValueError("simulated post-save rejection")), \
+                    self.assertLogs(level="WARNING"):
+                instance.save_now()
+
+            self.assertEqual(instance.name, "Primary save remains valid")
+            self.assertEqual(
+                instance._sqlite_mirror_verification["state"],
+                "read_test_failed",
+            )
+            instance.__del__()
+
+            reloaded = options_module._Options()
+            reloaded.__del__()
+            self.addCleanup(reloaded.__del__)
+            self.assertEqual(reloaded.name, "Primary save remains valid")
 
     def test_legacy_database_keeps_values_and_adds_new_defaults(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-migration-") as root:

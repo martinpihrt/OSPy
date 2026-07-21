@@ -1148,6 +1148,27 @@ class _Options(object):
                         'state': 'verified', 'differences': [],
                         'difference_count': 0, 'checked': time.time(),
                     })
+                    try:
+                        reconstructed = sqlite_mirror_store.read_verified(
+                            sqlite_mirror_store.path_for(OPTIONS_FILE),
+                            self._values,
+                        )
+                        self._validate_candidate(reconstructed)
+                        self._sqlite_mirror_verification.update({
+                            'read_test': 'passed',
+                            'decoded_count': len(reconstructed),
+                        })
+                    except Exception as error:
+                        self._sqlite_mirror_verification.update({
+                            'state': 'read_test_failed',
+                            'read_test': 'failed',
+                            'error': '{}: {}'.format(type(error).__name__, error),
+                        })
+                        logging.warning(
+                            _('The SQLite settings read test failed; shelve remains authoritative: {}').format(
+                                self._sqlite_mirror_verification['error']
+                            )
+                        )
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)

@@ -368,7 +368,7 @@ After each successful settings save, OSPy creates a verified `options.sqlite3` s
 
 At startup OSPy compares the authoritative shelve values with SHA-256 hashes stored in shadow schema 2. It does not unpickle shadow values during this automatic comparison and never uses them to recover or start OSPy. A matching shadow is marked verified; missing, changed or unexpected keys and checksum or database damage are reported as warnings while shelve remains in use. A schema 1 shadow from the preceding transition phase is not read and is replaced safely on the next settings save.
 
-Only after every key and checksum matches a single read-only snapshot, OSPy performs a dry-run decode and applies the normal settings validation to the reconstructed SQLite values. The reconstructed dictionary is discarded and never assigned to the running configuration. Diagnostics reports whether this SQLite read test passed; failure remains a warning and startup continues exclusively with the already loaded shelve settings.
+At startup and after every successful shadow replacement, OSPy performs a dry-run decode only after every key and checksum matches a single read-only snapshot, then applies the normal settings validation to the reconstructed SQLite values. The reconstructed dictionary is discarded and never assigned to the running configuration. Diagnostics reports whether this SQLite read test passed; failure remains a warning and OSPy continues exclusively with the already active shelve settings.
 
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
