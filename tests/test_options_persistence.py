@@ -174,6 +174,18 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertEqual(
                 second._sqlite_mirror_verification["recovery_test"], "passed"
             )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal"],
+                "passed",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal_source"],
+                "current",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal_count"],
+                len(mirror_values),
+            )
 
     def test_current_and_backup_sqlite_recovery_candidates_are_validated(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-pair-") as root:
@@ -195,6 +207,69 @@ class OptionsPersistenceTests(unittest.TestCase):
                 )
             )
             self.assertEqual(backup_values["name"], "Previous recovery snapshot")
+
+    def test_restore_rehearsal_uses_backup_when_current_shadow_is_damaged(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-restore-backup-") as root:
+            first = self._new_options(root)
+            first.name = "Previous SQLite recovery snapshot"
+            first.save_now()
+            first.name = "Authoritative current shelve settings"
+            first.save_now()
+            mirror_path = options_module.sqlite_mirror_store.path_for(
+                options_module.OPTIONS_FILE
+            )
+            connection = sqlite3.connect(mirror_path)
+            try:
+                connection.execute(
+                    "UPDATE settings SET checksum = ? WHERE key = ?",
+                    ("0" * 64, "name"),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+            first.__del__()
+
+            with self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(
+                second.name, "Authoritative current shelve settings"
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal"],
+                "passed",
+            )
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal_source"],
+                "backup",
+            )
+
+    def test_restore_rehearsal_failure_keeps_shelve_authoritative(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-restore-failure-") as root:
+            first = self._new_options(root)
+            first.name = "Shelve survives restore rehearsal"
+            first.save_now()
+            first.__del__()
+
+            with mock.patch.object(
+                    options_module._Options, "_sqlite_restore_rehearsal",
+                    side_effect=ValueError("simulated disposable restore failure")), \
+                    self.assertLogs(level="WARNING"):
+                second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertEqual(second.name, "Shelve survives restore rehearsal")
+            self.assertEqual(
+                second._sqlite_mirror_verification["restore_rehearsal"],
+                "failed",
+            )
+            self.assertIn(
+                "simulated disposable restore failure",
+                second._sqlite_mirror_verification["restore_rehearsal_error"],
+            )
 
     def test_recovery_dry_run_failure_does_not_fail_primary_save(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-recovery-failure-") as root:

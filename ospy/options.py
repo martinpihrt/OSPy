@@ -10,6 +10,9 @@ import shelve
 import shutil
 import threading
 import copy
+import hashlib
+import pickle
+import tempfile
 
 from . import i18n
 from . import helpers
@@ -744,6 +747,7 @@ class _Options(object):
                     )
                 )
             self._update_sqlite_recovery_tests(self._load_source)
+            self._run_sqlite_restore_rehearsal(self._load_source)
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -841,6 +845,77 @@ class _Options(object):
                         label, result.get('error', '')
                     )
                 )
+
+    @staticmethod
+    def _settings_snapshot_checksums(values):
+        return {
+            str(key): hashlib.sha256(
+                pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL)
+            ).hexdigest()
+            for key, value in values.items()
+        }
+
+    def _sqlite_restore_rehearsal(self, mirror_path):
+        """Rebuild and verify a disposable shelve database from SQLite."""
+        reconstructed = sqlite_mirror_store.read_recovery_candidate(mirror_path)
+        self._validate_candidate(reconstructed)
+        saved_at = float(reconstructed.get('last_save', time.time()))
+        with tempfile.TemporaryDirectory(
+                prefix='ospy-sqlite-restore-rehearsal-') as root:
+            rehearsal_path = os.path.join(root, 'options.db')
+            settings_store.write(
+                rehearsal_path, reconstructed, saved_at=saved_at
+            )
+            restored = settings_store.read(rehearsal_path)
+            self._validate_candidate(restored)
+        if self._settings_snapshot_checksums(restored) != \
+                self._settings_snapshot_checksums(reconstructed):
+            raise ValueError(
+                'Disposable shelve restore does not match the SQLite snapshot.'
+            )
+        return len(restored)
+
+    def _run_sqlite_restore_rehearsal(self, active_shelve_path):
+        verification = self._sqlite_mirror_verification
+        candidates = (
+            ('current', verification.get('recovery_test'),
+             sqlite_mirror_store.path_for(active_shelve_path)),
+            ('backup', verification.get('backup_recovery_test'),
+             sqlite_mirror_store.path_for(OPTIONS_BACKUP)),
+        )
+        selected = next(
+            (item for item in candidates if item[1] == 'passed'), None
+        )
+        if selected is None:
+            verification.update({
+                'restore_rehearsal': 'pending',
+                'restore_rehearsal_source': '',
+                'restore_rehearsal_count': 0,
+                'restore_rehearsal_error': '',
+            })
+            return
+        source, unused_state, mirror_path = selected
+        try:
+            count = self._sqlite_restore_rehearsal(mirror_path)
+            verification.update({
+                'restore_rehearsal': 'passed',
+                'restore_rehearsal_source': source,
+                'restore_rehearsal_count': count,
+                'restore_rehearsal_error': '',
+            })
+        except Exception as error:
+            message = '{}: {}'.format(type(error).__name__, error)
+            verification.update({
+                'restore_rehearsal': 'failed',
+                'restore_rehearsal_source': source,
+                'restore_rehearsal_count': 0,
+                'restore_rehearsal_error': message,
+            })
+            logging.warning(
+                _('SQLite restore rehearsal failed; shelve remains authoritative: {}').format(
+                    message
+                )
+            )
 
     @staticmethod
     def _compatible_value(default, value, key=''):

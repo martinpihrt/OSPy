@@ -65,6 +65,9 @@ The suite checks:
 * independently verifiable SQLite schema 3 manifests, deleted-row detection,
   discarded current and backup recovery dry runs and continued authoritative
   shelve operation when either recovery candidate fails;
+* isolated SQLite-to-shelve restore rehearsals, exact round-trip comparison,
+  verified-backup fallback and continued authoritative shelve operation when
+  the disposable restore fails;
 * the complete plug-in lifecycle: install, activate, health report, restart,
   update, preserved data, failed-start rollback and disable;
 * plug-in repository channel validation, stable `master` defaults, explicit

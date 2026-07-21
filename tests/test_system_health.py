@@ -60,9 +60,20 @@ class SystemHealthTests(unittest.TestCase):
             "recovery_test": "passed", "recovery_count": 25,
             "backup_recovery_test": "failed",
             "backup_recovery_error": "damaged backup", "error": "",
+            "restore_rehearsal": "passed",
+            "restore_rehearsal_source": "current",
+            "restore_rehearsal_count": 25,
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
+
+        rehearsal_failure = _sqlite_mirror_details({
+            "state": "verified", "count": 25, "last_save": 123.0,
+            "restore_rehearsal": "failed",
+            "restore_rehearsal_error": "temporary restore mismatch",
+            "error": "",
+        })
+        self.assertIn("temporary restore mismatch", rehearsal_failure)
 
     def test_plugin_health_error_requires_confirmation(self):
         plugin = {

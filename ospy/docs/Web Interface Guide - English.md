@@ -372,6 +372,8 @@ At startup and after every successful shadow replacement, OSPy performs a dry-ru
 
 Shadow schema 3 also contains a manifest with the total record count and a checksum over the complete sorted key/checksum list. This independently detects removed or added rows before decoding. OSPy performs and discards a full recovery dry run for both the current SQLite shadow and the previous shadow in the backup directory. Diagnostics reports both results. A failed or unavailable recovery candidate never changes startup selection; shelve/DBM remains authoritative.
 
+At startup OSPy uses the first independently verified SQLite candidate only for a restore rehearsal in an isolated temporary directory. It creates a temporary shelve/DBM database, reopens it, validates every setting, compares the serialized values and then removes the directory. Neither the active database nor the startup settings source is changed. If the current SQLite copy is damaged, the rehearsal may use the verified backup while running settings still load from authoritative shelve. The **Database** row in Diagnostics reports the result, source and setting count.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.
