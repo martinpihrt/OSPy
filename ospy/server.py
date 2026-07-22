@@ -343,6 +343,7 @@ def start():
 
     log.debug('server.py', _('Starting scheduler and plugins...'))
     scheduler.start()
+    plugins.initialize_plugin_permission_approvals()
     plugins.start_enabled_plugins()
     from ospy import webpages
     webpages.start_diagnostics_history()

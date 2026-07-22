@@ -12,6 +12,7 @@ import threading
 import importlib
 import os
 import time
+import logging
 
 __running = {}
 __plugin_runtime = {}
@@ -40,11 +41,174 @@ PLUGIN_ZIP_MAX_PLUGINS = 256
 PLUGIN_PERMISSIONS = {
     'network', 'files', 'i2c', 'gpio', 'email', 'subprocess', 'system'
 }
+PLUGIN_PERMISSION_APPROVAL_MIN_OSPY = '3.0.294'
 PLUGIN_REPOSITORY_URL = 'https://github.com/martinpihrt/OSPy-plugins/archive/{}.zip'
 PLUGIN_UPDATE_CHANNELS = ('master', 'beta')
 _DEFAULT_REPOS = [PLUGIN_REPOSITORY_URL.format('master')]
 # Kept as a public override for custom deployments and existing integrations.
 REPOS = list(_DEFAULT_REPOS)
+_permission_approval_lock = threading.RLock()
+
+
+def _declared_plugin_permissions(manifest):
+    """Return a stable, normalized set of permissions from one manifest."""
+    if not isinstance(manifest, dict):
+        return []
+    return sorted(set(
+        _normalized_resource(item)
+        for item in _manifest_list(manifest.get('permissions'))
+        if _normalized_resource(item)
+    ))
+
+
+def plugin_permission_label(permission):
+    """Return a translated, administrator-facing permission label."""
+    labels = {
+        'network': _('Network access'),
+        'files': _('File system access'),
+        'i2c': _('I2C hardware access'),
+        'gpio': _('GPIO hardware access'),
+        'email': _('E-mail sending'),
+        'subprocess': _('External process execution'),
+        'system': _('OSPy system control'),
+    }
+    normalized = str(permission or '').strip().lower()
+    label = labels.get(normalized, normalized or _('Unknown permission'))
+    return '{} ({})'.format(label, normalized) if normalized else label
+
+
+def _permission_labels(permissions):
+    return [plugin_permission_label(item) for item in permissions]
+
+
+def _stored_permission_approvals():
+    from ospy.options import options
+
+    stored = getattr(options, 'plugin_permission_approvals', {})
+    return dict(stored) if isinstance(stored, dict) else {}
+
+
+def initialize_plugin_permission_approvals():
+    """Grandfather plug-ins present when OSPy first gains approval support.
+
+    This one-time migration deliberately covers every already installed plug-in,
+    including disabled ones. Upgrading OSPy therefore cannot stop an existing
+    installation. Plug-ins installed afterwards must be approved normally.
+    """
+    from ospy.options import options
+
+    if getattr(options, 'plugin_permission_approval_initialized', False):
+        return False
+
+    with _permission_approval_lock:
+        approvals = _stored_permission_approvals()
+        timestamp = time.time()
+        for module in available():
+            manifest = plugin_manifest(module)
+            permissions = _declared_plugin_permissions(manifest)
+            approvals[module] = {
+                'permissions': permissions,
+                'approved_at': timestamp,
+                'approved_by': 'OSPy upgrade migration',
+                'source': 'existing-installation',
+                'plugin_version': str(manifest.get('version', '')),
+                'feature_version': PLUGIN_PERMISSION_APPROVAL_MIN_OSPY,
+            }
+        options.plugin_permission_approvals = approvals
+        options.plugin_permission_approval_initialized = True
+        if not options.save_now():
+            logging.warning(
+                _('The initial plug-in permission approvals could not be saved. They remain active until OSPy restarts.')
+            )
+    return True
+
+
+def plugin_permission_approval(module, manifest=None):
+    """Describe whether all currently declared permissions are approved."""
+    from ospy.options import options
+
+    manifest = plugin_manifest(module) if manifest is None else manifest
+    requested = _declared_plugin_permissions(manifest)
+    if not requested:
+        return {
+            'approved': True, 'requested': [], 'approved_permissions': [],
+            'missing': [], 'requested_labels': [], 'missing_labels': [],
+            'entry': {}, 'migration_pending': False,
+        }
+
+    # Before the one-time startup migration runs, preserve the historical
+    # behavior. The server completes migration before starting plug-ins.
+    if not getattr(options, 'plugin_permission_approval_initialized', False):
+        return {
+            'approved': True, 'requested': requested,
+            'approved_permissions': requested, 'missing': [], 'entry': {},
+            'requested_labels': _permission_labels(requested),
+            'missing_labels': [], 'migration_pending': True,
+        }
+
+    entry = _stored_permission_approvals().get(module, {})
+    approved_permissions = (
+        entry.get('permissions', []) if isinstance(entry, dict) else []
+    )
+    approved_permissions = sorted(set(
+        str(item).strip().lower() for item in approved_permissions
+        if isinstance(item, str) and str(item).strip()
+    ))
+    missing = sorted(set(requested) - set(approved_permissions))
+    return {
+        'approved': not missing,
+        'requested': requested,
+        'approved_permissions': approved_permissions,
+        'missing': missing,
+        'requested_labels': _permission_labels(requested),
+        'missing_labels': _permission_labels(missing),
+        'entry': dict(entry) if isinstance(entry, dict) else {},
+        'migration_pending': False,
+    }
+
+
+def approve_plugin_permissions(module, manifest=None, approved_by='administrator',
+                               source='administrator'):
+    """Persist administrator approval for the manifest's permission set."""
+    from ospy.options import options
+
+    manifest = plugin_manifest(module) if manifest is None else manifest
+    permissions = _declared_plugin_permissions(manifest)
+    with _permission_approval_lock:
+        previous = _stored_permission_approvals()
+        approvals = dict(previous)
+        approvals[module] = {
+            'permissions': permissions,
+            'approved_at': time.time(),
+            'approved_by': str(approved_by or 'administrator')[:200],
+            'source': str(source or 'administrator')[:80],
+            'plugin_version': str(manifest.get('version', ''))[:80],
+            'feature_version': PLUGIN_PERMISSION_APPROVAL_MIN_OSPY,
+        }
+        options.plugin_permission_approvals = approvals
+        if not options.save_now():
+            options.plugin_permission_approvals = previous
+            raise RuntimeError(
+                _('Plug-in permission approval could not be saved.')
+            )
+    return plugin_permission_approval(module, manifest)
+
+
+def revoke_plugin_permissions(module):
+    """Forget approval for one plug-in without changing its files."""
+    from ospy.options import options
+
+    with _permission_approval_lock:
+        previous = _stored_permission_approvals()
+        approvals = dict(previous)
+        removed = approvals.pop(module, None) is not None
+        options.plugin_permission_approvals = approvals
+        if removed and not options.save_now():
+            options.plugin_permission_approvals = previous
+            raise RuntimeError(
+                _('Revoked plug-in permission approval could not be saved.')
+            )
+    return removed
 
 
 def plugin_update_channel():
@@ -438,6 +602,7 @@ def _plugin_diagnostics_uncached():
             manifest = plugin_manifest(module)
             compatibility = plugin_compatibility(module)
             preflight = plugin_preflight(module)
+            permission_approval = plugin_permission_approval(module, manifest)
             threads = []
             total_cpu = 0.0
             cpu_known = False
@@ -481,6 +646,7 @@ def _plugin_diagnostics_uncached():
                 'version': manifest.get('version', ''),
                 'compatibility': compatibility,
                 'preflight': preflight,
+                'permission_approval': permission_approval,
                 'running': module in running_modules,
                 'enabled': module in options.enabled_plugins,
                 'link': link,
@@ -655,6 +821,18 @@ class _PluginChecker(threading.Thread):
                                 plugin
                             ) + ': ' +
                             '; '.join(compatibility.get('errors', []))
+                        )
+                        continue
+                    permission_approval = plugin_permission_approval(
+                        plugin, update.get('manifest', {})
+                    )
+                    if not permission_approval['approved']:
+                        logging.warning(
+                            _('Automatic update skipped because new plug-in permissions require approval') +
+                            ': {}: {}'.format(
+                                plugin,
+                                ', '.join(permission_approval['missing']),
+                            )
                         )
                         continue
                     logging.info(_('Updating the {} plug-in.').format(plugin))
@@ -1264,12 +1442,19 @@ class _PluginChecker(threading.Thread):
             if os.path.isdir(transaction_dir):
                 shutil.rmtree(transaction_dir, onerror=del_rw)
 
-    def install_repo_plugin(self, repo, plugin_filter):
+    def install_repo_plugin(self, repo, plugin_filter, approve_permissions=False,
+                            approved_by='administrator'):
         import logging
         logging.info(_('Installing plug-in from repository {} plugin {}').format(repo, plugin_filter if plugin_filter else _('all plugins')))
-        return self.install_custom_plugin(self._get_zip(repo), plugin_filter)
+        return self.install_custom_plugin(
+            self._get_zip(repo), plugin_filter,
+            approve_permissions=approve_permissions,
+            approved_by=approved_by,
+        )
 
-    def install_custom_plugin(self, zip_file_data, plugin_filter=None):
+    def install_custom_plugin(self, zip_file_data, plugin_filter=None,
+                              approve_permissions=False,
+                              approved_by='administrator'):
         contents = self.zip_contents(zip_file_data, False)
         if not contents:
             raise ValueError(_('No installable plug-ins were found in the ZIP file.'))
@@ -1287,6 +1472,7 @@ class _PluginChecker(threading.Thread):
             'installed': [],
             'blocked': {},
             'warnings': {},
+            'permissions_approved': [],
         }
         installed_plugins = set(available())
         selected_available = installed_plugins.union(selected.keys())
@@ -1312,6 +1498,17 @@ class _PluginChecker(threading.Thread):
                     result['blocked'][plugin] = reasons
             elif compatibility.get('warnings'):
                 result['warnings'][plugin] = list(compatibility['warnings'])
+
+            permission_approval = plugin_permission_approval(
+                plugin, info.get('manifest', {})
+            )
+            info['permission_approval'] = permission_approval
+            if (not permission_approval['approved'] and
+                    not approve_permissions):
+                result['blocked'].setdefault(plugin, []).append(
+                    _('Plug-in permission approval is required') + ': ' +
+                    ', '.join(permission_approval['missing'])
+                )
 
         if plugin_filter is not None and result['blocked']:
             reasons = result['blocked'][plugin_filter]
@@ -1372,12 +1569,28 @@ class _PluginChecker(threading.Thread):
             )
 
         for plugin, info in installable:
-            self._install_plugin(
-                zip_file_data,
-                plugin,
-                info['dir'],
-                activate=info.get('activate_after_install', True),
-            )
+            from ospy.options import options
+            approvals_before = _stored_permission_approvals()
+            permission_approval = info.get('permission_approval', {})
+            try:
+                if (approve_permissions and
+                        not permission_approval.get('approved', False)):
+                    approve_plugin_permissions(
+                        plugin, info.get('manifest', {}),
+                        approved_by=approved_by,
+                        source='installation',
+                    )
+                    result['permissions_approved'].append(plugin)
+                self._install_plugin(
+                    zip_file_data,
+                    plugin,
+                    info['dir'],
+                    activate=info.get('activate_after_install', True),
+                )
+            except Exception:
+                options.plugin_permission_approvals = approvals_before
+                options.save_now()
+                raise
             result['installed'].append(plugin)
         self._install_repo_docs(zip_file_data)
         return result
@@ -2197,6 +2410,13 @@ def start_plugin(module, _dependency_stack=None):
 
     plugin_n = module
     try:
+        permission_approval = plugin_permission_approval(module)
+        if not permission_approval['approved']:
+            raise RuntimeError(
+                _('Plug-in permission approval is required') + ': ' +
+                ', '.join(permission_approval['missing'])
+            )
+
         dependency_stack = list(_dependency_stack or [])
         if module in dependency_stack:
             raise RuntimeError(

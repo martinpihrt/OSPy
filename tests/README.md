@@ -88,6 +88,11 @@ The suite checks:
 * required and optional plug-in dependencies, including manifest validation,
   missing or disabled providers, provider-first startup, consumer-first shutdown
   and cycle rejection;
+* administrator approval of declared plug-in permissions from OSPy 3.0.294,
+  including one-time grandfathering of all installed plug-ins, blocking before
+  code import, renewed approval for an expanded permission set, automatic-update
+  blocking, synchronous fail-closed persistence and approval rollback after a
+  failed installation;
 * system backup manifests, checksums, permitted content, exclusion of active web
   sessions, legacy archive staging, rejection of tampered, undeclared, duplicate
   and traversal entries, invalidation of the restore request session before

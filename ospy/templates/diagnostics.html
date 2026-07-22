@@ -123,6 +123,10 @@ jQuery(document).ready(function(){
     function pluginErrorSolution(plugin) {
         var compatibility = plugin.compatibility || {};
         var preflight = plugin.preflight || {};
+        var permissionApproval = plugin.permission_approval || {approved: true};
+        if (!permissionApproval.approved) {
+            return $:{json.dumps(_('Open the plug-in manager and approve the newly requested permissions after reviewing them.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        }
         if (compatibility.status === "error") {
             return $:{json.dumps(_('Open the plug-in manager and resolve the listed OSPy version, Python dependency, hardware, GPIO, I2C or plug-in conflict.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
         }
@@ -145,6 +149,7 @@ jQuery(document).ready(function(){
             var health = plugin.health || {};
             var compatibility = plugin.compatibility || {};
             var preflight = plugin.preflight || {};
+            var permissionApproval = plugin.permission_approval || {approved: true};
             var detailParts = [];
             var hasError = false;
 
@@ -163,6 +168,13 @@ jQuery(document).ready(function(){
             if (preflight.status === "error") {
                 hasError = true;
                 detailParts = detailParts.concat(preflight.errors || []);
+            }
+            if (!permissionApproval.approved) {
+                hasError = true;
+                detailParts.push(
+                    $:{json.dumps(_('Plug-in permission approval is required'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
+                    ': ' + (permissionApproval.missing_labels || permissionApproval.missing || []).join(', ')
+                );
             }
             if (plugin.last_error) {
                 hasError = true;

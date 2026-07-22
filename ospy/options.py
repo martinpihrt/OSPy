@@ -172,6 +172,16 @@ class _Options(object):
             "default": "master"
         },
         {
+            "key": "plugin_permission_approvals",
+            "name": _('Plug-in permission approvals'),
+            "default": {}
+        },
+        {
+            "key": "plugin_permission_approval_initialized",
+            "name": _('Plug-in permission approval migration completed'),
+            "default": False
+        },
+        {
             "key": "ping_ip",
             "name": _('IP for DNS ping'),
             "default": "8.8.8.8",

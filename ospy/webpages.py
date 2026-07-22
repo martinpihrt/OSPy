@@ -2549,7 +2549,9 @@ class plugins_manage_page(ProtectedPage):
                     plugin, enabled_candidates
                 )
                 preflight = plugins.plugin_preflight(plugin)
-                if compatibility['compatible'] and preflight['passed']:
+                permission_approval = plugins.plugin_permission_approval(plugin)
+                if (compatibility['compatible'] and preflight['passed'] and
+                        permission_approval['approved']):
                     if plugin not in options.enabled_plugins:
                         options.enabled_plugins.append(plugin)
                 else:
@@ -2592,6 +2594,33 @@ class plugins_manage_page(ProtectedPage):
                 enable = False
 
             if enable:
+                permission_approval = plugins.plugin_permission_approval(plugin)
+                if not permission_approval['approved']:
+                    if qdict.get('approve_permissions', '0') == '1':
+                        try:
+                            plugins.approve_plugin_permissions(
+                                plugin,
+                                approved_by=session.get('visitor'),
+                                source='activation',
+                            )
+                        except RuntimeError as err:
+                            return self.core_render.notice(
+                                '/plugins_manage', str(err)
+                            )
+                        logEV.save_events_log(
+                            _('Plug-in permissions approved'),
+                            _('User {} approved permissions for plug-in {}: {}.').format(
+                                session.get('visitor'), plugin,
+                                ', '.join(permission_approval['requested_labels']),
+                            ),
+                            level='warning', category='security'
+                        )
+                    else:
+                        return self.core_render.notice(
+                            '/plugins_manage',
+                            _('Plug-in permission approval is required') + ': ' +
+                            ', '.join(permission_approval['missing_labels'])
+                        )
                 preflight = plugins.plugin_preflight(plugin)
                 if not preflight['passed']:
                     return self.core_render.notice(
@@ -2642,6 +2671,43 @@ class plugins_manage_page(ProtectedPage):
 
             raise web.seeother('/plugins_manage')
 
+        elif action == 'approve_permissions' and plugin is not None and plugin in plugins.available():
+            try:
+                permission_approval = plugins.approve_plugin_permissions(
+                    plugin,
+                    approved_by=session.get('visitor'),
+                    source='manager',
+                )
+            except RuntimeError as err:
+                return self.core_render.notice('/plugins_manage', str(err))
+            logEV.save_events_log(
+                _('Plug-in permissions approved'),
+                _('User {} approved permissions for plug-in {}: {}.').format(
+                    session.get('visitor'), plugin,
+                    ', '.join(permission_approval['requested_labels']),
+                ),
+                level='warning', category='security'
+            )
+            raise web.seeother('/plugins_manage')
+
+        elif action == 'revoke_permissions' and plugin is not None and plugin in plugins.available():
+            if plugin in options.enabled_plugins:
+                options.enabled_plugins.remove(plugin)
+                options.enabled_plugins = options.enabled_plugins
+                plugins.start_enabled_plugins()
+            try:
+                plugins.revoke_plugin_permissions(plugin)
+            except RuntimeError as err:
+                return self.core_render.notice('/plugins_manage', str(err))
+            logEV.save_events_log(
+                _('Plug-in permissions revoked'),
+                _('User {} revoked permissions for plug-in {}. The plug-in was disabled.').format(
+                    session.get('visitor'), plugin
+                ),
+                level='warning', category='security'
+            )
+            raise web.seeother('/plugins_manage')
+
         elif action == 'auto_update':
             options.auto_plugin_update = qdict.get('enabled', '0') == '1'
             plugins.checker.update()
@@ -2668,6 +2734,12 @@ class plugins_install_page(ProtectedPage):
             messages.append(
                 _('Installed plug-ins') + ': ' + ', '.join(installed)
             )
+        permissions_approved = result.get('permissions_approved', [])
+        if permissions_approved:
+            messages.append(
+                _('Plug-in permissions approved') + ': ' +
+                ', '.join(permissions_approved)
+            )
         if blocked:
             details = []
             for plugin, reasons in sorted(blocked.items()):
@@ -2685,6 +2757,19 @@ class plugins_install_page(ProtectedPage):
                 _('Compatibility warnings') + ': ' + ' | '.join(details)
             )
         return ' | '.join(messages)
+
+    @staticmethod
+    def _log_permission_approvals(result, visitor, source):
+        for plugin in result.get('permissions_approved', []):
+            approval = plugins.plugin_permission_approval(plugin)
+            logEV.save_events_log(
+                _('Plug-in permissions approved'),
+                _('User {} approved permissions for plug-in {} during installation from {}: {}.').format(
+                    visitor, plugin, source,
+                    ', '.join(approval.get('requested_labels', [])),
+                ),
+                level='warning', category='security'
+            )
 
     def GET(self):
         from ospy.server import session
@@ -2716,7 +2801,16 @@ class plugins_install_page(ProtectedPage):
                 source_plugin = plugin if plugin else _('all plugins')
                 log.info('webpages.py', _('Installing plug-in {} from {}').format(source_plugin, source_repo))
                 try:
-                    result = plugins.checker.install_repo_plugin(source_repo, plugin)
+                    result = plugins.checker.install_repo_plugin(
+                        source_repo, plugin,
+                        approve_permissions=(
+                            qdict.get('approve_permissions', '0') == '1'
+                        ),
+                        approved_by=session.get('visitor'),
+                    )
+                    self._log_permission_approvals(
+                        result, session.get('visitor'), source_repo
+                    )
                     logEV.save_events_log(
                         _('Plug-in installation completed'),
                         _('User {} installed {} from {}.').format(
@@ -2752,7 +2846,14 @@ class plugins_install_page(ProtectedPage):
             log.info('webpages.py', _('Installing custom plug-in from uploaded ZIP: {}').format(filename))
             try:
                 result = plugins.checker.install_custom_plugin(
-                    io.BytesIO(read_limited_upload(zip_file_data))
+                    io.BytesIO(read_limited_upload(zip_file_data)),
+                    approve_permissions=(
+                        qdict.get('approve_permissions', '0') == '1'
+                    ),
+                    approved_by=session.get('visitor'),
+                )
+                self._log_permission_approvals(
+                    result, session.get('visitor'), filename
                 )
                 logEV.save_events_log(
                     _('Plug-in installation completed'),
@@ -3393,7 +3494,8 @@ def _plugin_health_groups(plugin_data):
         if plugin.get('enabled') and (
             not plugin.get('running') or plugin.get('last_error') or
             plugin.get('compatibility', {}).get('status') == 'error' or
-            plugin.get('preflight', {}).get('status') == 'error'
+            plugin.get('preflight', {}).get('status') == 'error' or
+            not plugin.get('permission_approval', {}).get('approved', True)
         )
     ]
     immediate_failure_ids = {id(plugin) for plugin in immediate_failures}

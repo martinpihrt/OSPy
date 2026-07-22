@@ -115,6 +115,28 @@ permission names produce warnings. Supported permission names are `network`,
 declarations shown to the administrator; they are not an operating-system
 sandbox.
 
+Administrative permission approval
+----
+
+OSPy 3.0.294 and newer require an administrator to approve the complete
+declared permission set before newly installed plug-in code can start. The
+approval is keyed by plug-in `id` and stores the normalized permission names,
+plug-in version, time, source and approving administrator. An unchanged or
+smaller set remains approved across updates. Adding any permission requires a
+new explicit approval; manual installation shows an approve action and
+automatic update skips that version. Revoking approval disables the plug-in.
+
+On the first start after upgrading to this feature, OSPy performs a one-time
+backward-compatible migration that approves every plug-in already present on
+disk, including disabled plug-ins. This prevents promotion from `beta` to
+`master` from unexpectedly disabling existing installations. Plug-ins with no
+declared permissions need no approval. Approval is persisted synchronously
+before installation or activation; a failed settings write blocks execution,
+and a failed plug-in installation restores the preceding approval.
+
+This is an administrative consent and audit mechanism. It deliberately does
+not attempt operating-system process isolation or restrict Python imports.
+
 The optional `dependencies` list declares other OSPy plug-ins by directory ID.
 A string or an object with `"required": true` is a required dependency: it must
 be installed and enabled before the consumer can start. An object with

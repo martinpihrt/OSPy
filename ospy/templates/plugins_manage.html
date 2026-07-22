@@ -170,6 +170,7 @@ jQuery(document).ready(function(){
     $for plugin in plugins.available():
         $ running = plugin in running_list
         $ manifest = plugins.plugin_manifest(plugin)
+        $ permission_approval = plugins.plugin_permission_approval(plugin, manifest)
         $ compatibility = plugins.plugin_compatibility(plugin)
         $ preflight = plugins.plugin_preflight(plugin)
         $ available_info = plugins.checker.available_version(plugin)
@@ -184,13 +185,18 @@ jQuery(document).ready(function(){
                 <div style="display: inline-block; padding: 0; width: 140px;">
                     $if available_info is not None:
                         $ available_compatible = available_info.get('compatibility', {}).get('compatible')
+                        $ available_permission_approval = plugins.plugin_permission_approval(plugin, available_info.get('manifest', {}))
                         <form action="/plugins_install" method="post" style="display:inline" class="plugin-install-form" data-plugin="${plugin}" data-repo="${available_info['repo']}">
                             $:csrf_input()
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${available_info['repo_index']}">
                             <input type="hidden" name="plugin" value="${plugin}">
+                            $if not available_permission_approval.get('approved'):
+                                <input type="hidden" name="approve_permissions" value="1">
                             <button type="submit" class="button open" ${'disabled' if not available_compatible and not has_update else ''}>
-                                $if has_update:
+                                $if has_update and not available_permission_approval.get('approved'):
+                                    $_('Approve and update')
+                                $elif has_update:
                                     $_('Update')
                                 $elif not available_compatible:
                                     $_('Incompatible')
@@ -228,7 +234,7 @@ jQuery(document).ready(function(){
                     <input type="hidden" name="action" value="enable">
                     <input type="hidden" name="plugin" value="${plugin}">
                     <input type="hidden" name="enable" value="${'0' if running else '1'}">
-                    <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if running else 'off'}" ${'disabled' if not running and (not compatibility.get('compatible') or not preflight.get('passed')) else ''}>
+                    <button type="submit" class="button cDisable toggle pluginManageToggle ${'on' if running else 'off'}" ${'disabled' if not running and (not compatibility.get('compatible') or not preflight.get('passed') or not permission_approval.get('approved')) else ''}>
                         <span class='toggleleft'>$_('On')</span>
                         <span class='togglesep'>&nbsp;</span>
                         <span class='toggleright'>$_('Off')</span>
@@ -277,6 +283,35 @@ jQuery(document).ready(function(){
                             <li class="statusWarning">${item}</li>
                         </ul>
                     </details>
+            </div>
+            <div class="pluginStatusPanel pluginPermissionPanel pluginStatus-${'ok' if permission_approval.get('approved') else 'warning'}">
+                <div class="pluginStatusHeader">
+                    <span class="pluginStatusBadge pluginStatus-${'ok' if permission_approval.get('approved') else 'warning'}">$_('Permission approval')</span>
+                    $if permission_approval.get('approved'):
+                        <strong>$_('Approved')</strong>
+                    $else:
+                        <strong>$_('Approval required')</strong>
+                    $if permission_approval.get('requested'):
+                        <small>$_('Declared permissions'): ${', '.join(permission_approval.get('requested_labels'))}</small>
+                    $else:
+                        <small>$_('No permissions declared')</small>
+                    $if permission_approval.get('entry', {}).get('source') == 'existing-installation':
+                        <small>$_('Preserved during the OSPy 3.0.294 upgrade')</small>
+                </div>
+                $if not permission_approval.get('approved'):
+                    <form action="/plugins_manage" method="post" class="pluginPermissionAction">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="approve_permissions">
+                        <input type="hidden" name="plugin" value="${plugin}">
+                        <button type="submit" class="button open">$_('Approve permissions')</button>
+                    </form>
+                $elif permission_approval.get('requested'):
+                    <form action="/plugins_manage" method="post" class="pluginPermissionAction" onsubmit="return confirm($:{json.dumps(_('Revoking permissions also disables this plug-in. Continue?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                        $:csrf_input()
+                        <input type="hidden" name="action" value="revoke_permissions">
+                        <input type="hidden" name="plugin" value="${plugin}">
+                        <button type="submit" class="button danger">$_('Revoke approval')</button>
+                    </form>
             </div>
             <div class="pluginStatusPanel pluginStatus-${preflight.get('status', 'error')}">
                 <div class="pluginStatusHeader">

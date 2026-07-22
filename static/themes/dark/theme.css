@@ -2226,6 +2226,31 @@ td.stationSchedule {
 #controls .pluginStatusPanel li.statusError { color: #ffb3b3; }
 #controls .pluginStatusPanel li.statusWarning { color: #ffd27a; }
 
+#controls .pluginPermissionPanel .pluginStatusHeader { padding-right: 145px; }
+#controls .pluginPermissionAction { float: right; margin-top: -27px; }
+
+.pluginPermissionUploadApproval {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 8px;
+    font-weight: bold;
+}
+
+.pluginInstallPermissionStatus {
+    margin-top: 6px;
+    padding: 4px 7px;
+    border-left: 4px solid #d28a20;
+    background: #3b3324;
+    color: #ffd27a;
+}
+
+.pluginInstallPermissionStatus.status-ok {
+    border-left-color: #52a552;
+    background: #253a2d;
+    color: #bfe5bf;
+}
+
 .pluginInstallCompatibility {
     box-sizing: border-box;
     margin: 6px 10px;
@@ -2346,6 +2371,8 @@ td.stationSchedule {
         clear: both;
         margin-left: 0;
     }
+    #controls .pluginPermissionPanel .pluginStatusHeader { padding-right: 0; }
+    #controls .pluginPermissionAction { float: none; margin-top: 7px; }
 }
 
 /******** Navigation Styles for width < 1024px  ********/

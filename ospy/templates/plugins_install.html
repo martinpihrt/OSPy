@@ -17,6 +17,13 @@ $var page: plugins
     $:csrf_input()
         $_('Custom plug-in (ZIP)'):
         <input type="file" name="zipfile" />
+        <label class="pluginPermissionUploadApproval">
+            <span>$_('Approve permissions declared in this ZIP')</span>
+            <span class="optionSwitch">
+                <input type="checkbox" name="approve_permissions" value="1">
+                <span class="optionSlider"></span>
+            </span>
+        </label>
         <button id="cSubmit" class="submit">$_('Install')</button>
     </form>
     $for repo_index, repo in enumerate(plugin_repositories):
@@ -28,7 +35,8 @@ $var page: plugins
                     $:csrf_input()
                     <input type="hidden" name="action" value="install_repo">
                     <input type="hidden" name="repo" value="${repo_index}">
-                    <button type="submit" class="minibutton open" ${'disabled' if not installable_count else ''}>$_('Install all compatible')</button>
+                    <input type="hidden" name="approve_permissions" value="1">
+                    <button type="submit" class="minibutton open" ${'disabled' if not installable_count else ''}>$_('Approve and install all compatible')</button>
                 </form>
                 ${repo}
             </h4>
@@ -41,6 +49,7 @@ $var page: plugins
             $for plugin, info in repo_contents.items():
                 $ compatibility = info.get('compatibility', {})
                 $ is_update = plugin in available_list
+                $ permission_approval = plugins.plugin_permission_approval(plugin, info.get('manifest', {}))
                 <div class='category collapsible collapsed'>
                     <h5>
                         <form action="/plugins_install" method="post" style="float:right;" class="plugin-install-form" data-plugin="${plugin}" data-repo="${repo}">
@@ -48,9 +57,15 @@ $var page: plugins
                             <input type="hidden" name="action" value="install_repo">
                             <input type="hidden" name="repo" value="${repo_index}">
                             <input type="hidden" name="plugin" value="${plugin}">
+                            $if not permission_approval.get('approved'):
+                                <input type="hidden" name="approve_permissions" value="1">
                             <button type="submit" class="minibutton open" ${'disabled' if not compatibility.get('compatible') and not is_update else ''}>
-                            $if is_update:
+                            $if is_update and not permission_approval.get('approved'):
+                                $_('Approve and reinstall')
+                            $elif is_update:
                                 $_('Reinstall')
+                            $elif not permission_approval.get('approved'):
+                                $_('Approve and install')
                             $else:
                                 $_('Install')
                             </button>
@@ -70,6 +85,15 @@ $var page: plugins
                             </ul>
                         $if compatibility.get('permissions'):
                             <div><small>$_('Permissions'): ${', '.join(compatibility.get('permissions'))}</small></div>
+                        <div class="pluginInstallPermissionStatus status-${'ok' if permission_approval.get('approved') else 'warning'}">
+                            <small>
+                            $if permission_approval.get('approved'):
+                                $_('Declared permissions are approved.')
+                            $else:
+                                $_('Installation requires approval of'):
+                                ${', '.join(permission_approval.get('missing_labels'))}
+                            </small>
+                        </div>
                     </div>
                     <div style="margin-left: 10px;">
                         $:{info['read_me']}
