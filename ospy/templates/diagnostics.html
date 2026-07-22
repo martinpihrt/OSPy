@@ -4,6 +4,121 @@ $var title: $_('Diagnostics')
 $var page: diagnostics
 
 <script>
+window.ospyDiagramLabels = {
+    programsDescription: $:{json.dumps(_('A program is converted into scheduled runs, checked against current restrictions, and then operates the master and station outputs.'), ensure_ascii=False)},
+    startDecisionDescription: $:{json.dumps(_('Every requested run must pass the system, mode, rain, sensor, and station availability checks before an output is energized.'), ensure_ascii=False)},
+    masterDescription: $:{json.dumps(_('A station assigned to a master observes the configured lead and lag delays while OSPy coordinates both outputs.'), ensure_ascii=False)},
+    weatherDescription: $:{json.dumps(_('The selected weather provider is normalized into one cached data model used by water-level calculations, programs, Home, and plug-ins.'), ensure_ascii=False)},
+    sensorsDescription: $:{json.dumps(_('Measurements are discovered or received, validated, stored, evaluated against rules, and may stop irrigation or create notifications.'), ensure_ascii=False)},
+    pluginsDescription: $:{json.dumps(_('A plug-in must pass its manifest, compatibility, permission, and pre-activation checks before ordered startup and health monitoring.'), ensure_ascii=False)},
+    updateDescription: $:{json.dumps(_('An update is fetched from the selected channel, checked, installed, restarted, and confirmed by the watchdog or rolled back.'), ensure_ascii=False)},
+    storageDescription: $:{json.dumps(_('Settings use verified atomic SQLite writes with a synchronized shelve/DBM fallback and recovery path.'), ensure_ascii=False)},
+    backupDescription: $:{json.dumps(_('Backup creation and restore validate the complete archive, preserve a safety copy, restart OSPy, and verify the result.'), ensure_ascii=False)},
+    programDefinition: $:{json.dumps(_('Program definition'), ensure_ascii=False)},
+    scheduleCalculation: $:{json.dumps(_('Calculate schedule'), ensure_ascii=False)},
+    runAllowed: $:{json.dumps(_('Run allowed?'), ensure_ascii=False)},
+    blockedRun: $:{json.dumps(_('Record blocked run'), ensure_ascii=False)},
+    runQueue: $:{json.dumps(_('Run queue'), ensure_ascii=False)},
+    masterStation: $:{json.dumps(_('Optional master station'), ensure_ascii=False)},
+    stationOutput: $:{json.dumps(_('Station output'), ensure_ascii=False)},
+    runLog: $:{json.dumps(_('Finished-run log'), ensure_ascii=False)},
+    runRequest: $:{json.dumps(_('Run request'), ensure_ascii=False)},
+    systemEnabled: $:{json.dumps(_('System enabled?'), ensure_ascii=False)},
+    correctMode: $:{json.dumps(_('Mode permits the run?'), ensure_ascii=False)},
+    rainBlocking: $:{json.dumps(_('Rain blocking active?'), ensure_ascii=False)},
+    sensorBlocking: $:{json.dumps(_('Sensor blocking active?'), ensure_ascii=False)},
+    stationAvailable: $:{json.dumps(_('Station enabled and available?'), ensure_ascii=False)},
+    runRejected: $:{json.dumps(_('Reject and log run'), ensure_ascii=False)},
+    startStation: $:{json.dumps(_('Start station'), ensure_ascii=False)},
+    stationRun: $:{json.dumps(_('Station run request'), ensure_ascii=False)},
+    masterAssigned: $:{json.dumps(_('Master assigned?'), ensure_ascii=False)},
+    masterPreDelay: $:{json.dumps(_('Master lead delay'), ensure_ascii=False)},
+    masterOn: $:{json.dumps(_('Master ON'), ensure_ascii=False)},
+    stationOn: $:{json.dumps(_('Station ON'), ensure_ascii=False)},
+    stationOff: $:{json.dumps(_('Station OFF'), ensure_ascii=False)},
+    masterPostDelay: $:{json.dumps(_('Master lag delay'), ensure_ascii=False)},
+    masterOff: $:{json.dumps(_('Master OFF'), ensure_ascii=False)},
+    runWithoutMaster: $:{json.dumps(_('Run without master'), ensure_ascii=False)},
+    weatherProvider: $:{json.dumps(_('Selected weather provider'), ensure_ascii=False)},
+    normalizeWeather: $:{json.dumps(_('Normalize and validate data'), ensure_ascii=False)},
+    weatherCache: $:{json.dumps(_('Weather cache'), ensure_ascii=False)},
+    waterLevelAdjustment: $:{json.dumps(_('Water-level adjustment'), ensure_ascii=False)},
+    weatherConsumers: $:{json.dumps(_('Programs, Home, and plug-ins'), ensure_ascii=False)},
+    cachedFallback: $:{json.dumps(_('Use last valid cached data'), ensure_ascii=False)},
+    sensorDiscovery: $:{json.dumps(_('Discover or configure sensor'), ensure_ascii=False)},
+    receiveMeasurement: $:{json.dumps(_('Receive measurement'), ensure_ascii=False)},
+    validMeasurement: $:{json.dumps(_('Measurement valid?'), ensure_ascii=False)},
+    rejectMeasurement: $:{json.dumps(_('Reject invalid measurement'), ensure_ascii=False)},
+    updateSensor: $:{json.dumps(_('Update sensor state and history'), ensure_ascii=False)},
+    sensorRules: $:{json.dumps(_('Evaluate thresholds and rules'), ensure_ascii=False)},
+    continueIrrigation: $:{json.dumps(_('Continue irrigation'), ensure_ascii=False)},
+    sensorAction: $:{json.dumps(_('Stop or block affected stations'), ensure_ascii=False)},
+    logAndNotify: $:{json.dumps(_('Log and optional notification'), ensure_ascii=False)},
+    pluginArchive: $:{json.dumps(_('Repository or ZIP package'), ensure_ascii=False)},
+    compatibilityCheck: $:{json.dumps(_('Compatibility check'), ensure_ascii=False)},
+    permissionApproval: $:{json.dumps(_('Administrator permission approval'), ensure_ascii=False)},
+    preactivationTest: $:{json.dumps(_('Pre-activation test'), ensure_ascii=False)},
+    dependencyOrder: $:{json.dumps(_('Dependency and startup order'), ensure_ascii=False)},
+    startPlugin: $:{json.dumps(_('Start plug-in'), ensure_ascii=False)},
+    safeStop: $:{json.dumps(_('Managed safe stop'), ensure_ascii=False)},
+    installationBlocked: $:{json.dumps(_('Block installation or activation'), ensure_ascii=False)},
+    updateChannel: $:{json.dumps(_('Stable or beta channel'), ensure_ascii=False)},
+    fetchRevision: $:{json.dumps(_('Fetch target revision'), ensure_ascii=False)},
+    updateChecks: $:{json.dumps(_('Compatibility and automated checks'), ensure_ascii=False)},
+    safeOutputShutdown: $:{json.dumps(_('Stop outputs and prepare update'), ensure_ascii=False)},
+    installCommit: $:{json.dumps(_('Install exact commit'), ensure_ascii=False)},
+    restartOSPy: $:{json.dumps(_('Restart OSPy'), ensure_ascii=False)},
+    healthyStart: $:{json.dumps(_('Healthy start confirmed?'), ensure_ascii=False)},
+    confirmUpdate: $:{json.dumps(_('Confirm update'), ensure_ascii=False)},
+    automaticRollback: $:{json.dumps(_('Return to previous commit'), ensure_ascii=False)},
+    settingsChange: $:{json.dumps(_('Settings change'), ensure_ascii=False)},
+    validateSettings: $:{json.dumps(_('Validate complete settings'), ensure_ascii=False)},
+    sqlitePrimary: $:{json.dumps(_('SQLite primary database'), ensure_ascii=False)},
+    atomicWrite: $:{json.dumps(_('Atomic dual write'), ensure_ascii=False)},
+    checksumVerification: $:{json.dumps(_('Checksums and read-back valid?'), ensure_ascii=False)},
+    shelveFallback: $:{json.dumps(_('Synchronized shelve/DBM fallback'), ensure_ascii=False)},
+    verifiedSnapshot: $:{json.dumps(_('Verified settings snapshot'), ensure_ascii=False)},
+    automaticRecovery: $:{json.dumps(_('Use verified recovery candidate'), ensure_ascii=False)},
+    createBackup: $:{json.dumps(_('Create system backup'), ensure_ascii=False)},
+    collectBackupData: $:{json.dumps(_('Collect settings, manifests, and data'), ensure_ascii=False)},
+    validateBackup: $:{json.dumps(_('Backup complete and valid?'), ensure_ascii=False)},
+    downloadArchive: $:{json.dumps(_('Download ZIP archive'), ensure_ascii=False)},
+    uploadBackup: $:{json.dumps(_('Upload backup archive'), ensure_ascii=False)},
+    verifyRestore: $:{json.dumps(_('Restore archive valid?'), ensure_ascii=False)},
+    createSafetyBackup: $:{json.dumps(_('Create safety backup'), ensure_ascii=False)},
+    applyRestore: $:{json.dumps(_('Apply verified restore'), ensure_ascii=False)},
+    restartAndVerify: $:{json.dumps(_('Restart and verify OSPy'), ensure_ascii=False)},
+    rejectArchive: $:{json.dumps(_('Reject archive without changes'), ensure_ascii=False)},
+    yes: $:{json.dumps(_('Yes'), ensure_ascii=False)},
+    no: $:{json.dumps(_('No'), ensure_ascii=False)},
+    blocked: $:{json.dumps(_('Blocked'), ensure_ascii=False)},
+    clear: $:{json.dumps(_('Clear'), ensure_ascii=False)},
+    normal: $:{json.dumps(_('Normal'), ensure_ascii=False)},
+    threshold: $:{json.dumps(_('Threshold exceeded'), ensure_ascii=False)},
+    ifConfigured: $:{json.dumps(_('If configured'), ensure_ascii=False)},
+    withoutMaster: $:{json.dumps(_('Without master'), ensure_ascii=False)},
+    onError: $:{json.dumps(_('On error'), ensure_ascii=False)},
+    invalid: $:{json.dumps(_('Invalid'), ensure_ascii=False)},
+    valid: $:{json.dumps(_('Valid'), ensure_ascii=False)},
+    incompatible: $:{json.dumps(_('Incompatible'), ensure_ascii=False)},
+    compatible: $:{json.dumps(_('Compatible'), ensure_ascii=False)},
+    notApproved: $:{json.dumps(_('Not approved'), ensure_ascii=False)},
+    approved: $:{json.dumps(_('Approved'), ensure_ascii=False)},
+    failed: $:{json.dumps(_('Failed'), ensure_ascii=False)},
+    passed: $:{json.dumps(_('Passed'), ensure_ascii=False)},
+    shutdown: $:{json.dumps(_('Shutdown'), ensure_ascii=False)},
+    openRelatedPage: $:{json.dumps(_('Open related page'), ensure_ascii=False)},
+    rendererUnavailable: $:{json.dumps(_('The local diagram renderer is not available.'), ensure_ascii=False)},
+    renderFailed: $:{json.dumps(_('The diagram could not be rendered'), ensure_ascii=False)},
+    pngFailed: $:{json.dumps(_('The PNG image could not be created.'), ensure_ascii=False)},
+    wideView: $:{json.dumps(_('Full-width view'), ensure_ascii=False)},
+    exitWideView: $:{json.dumps(_('Exit full-width view'), ensure_ascii=False)}
+};
+</script>
+<script defer src="/static/scripts/mermaid-10.9.6.min.js"></script>
+<script defer src="/static/scripts/diagnostics-diagrams.js"></script>
+
+<script>
 jQuery(document).ready(function(){
     var csrfToken = "${csrf_token()}";
     var restartPluginLabel = $:{json.dumps(_('Restart plugin'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -964,6 +1079,51 @@ jQuery(document).ready(function(){
             </table>
         </div>
         <p>$_('Updated'): <span id="securityHealthUpdated">-</span><span id="securityHealthSummary"></span></p>
+    </div>
+    </div>
+
+    <div id="systemDiagramSection" class="category collapsible collapsed diagnosticsSection">
+    <h4>$_('How OSPy works')</h4>
+    <div class="diagnosticsSectionContent">
+        <div class="simpleblock diagnosticsCard systemDiagramCard">
+            <div class="systemDiagramControls">
+                <label for="diagramTopic"><b>$_('Diagram topic')</b></label>
+                <select id="diagramTopic">
+                    <option value="programs">$_('Program and scheduler')</option>
+                    <option value="startDecision">$_('Station start decision')</option>
+                    <option value="master">$_('Master station sequence')</option>
+                    <option value="weather">$_('Weather data flow')</option>
+                    <option value="sensors">$_('Sensor data and rules')</option>
+                    <option value="plugins">$_('Plug-in lifecycle')</option>
+                    <option value="update">$_('Safe OSPy update')</option>
+                    <option value="storage">$_('Settings storage and recovery')</option>
+                    <option value="backup">$_('Backup and restore')</option>
+                </select>
+                <span class="systemDiagramButtons">
+                    <button type="button" id="diagramZoomOut" class="button neutral" title="$_('Zoom out')" aria-label="$_('Zoom out')">−</button>
+                    <button type="button" id="diagramZoomReset" class="button neutral" title="$_('Reset zoom')"><span id="diagramZoomValue">100 %</span></button>
+                    <button type="button" id="diagramZoomIn" class="button neutral" title="$_('Zoom in')" aria-label="$_('Zoom in')">+</button>
+                    <button type="button" id="diagramWide" class="button open">$_('Full-width view')</button>
+                    <button type="button" id="diagramPrint" class="button open">$_('Print')</button>
+                    <button type="button" id="diagramDownloadSvg" class="button open">$_('SVG')</button>
+                    <button type="button" id="diagramDownloadPng" class="button open">$_('PNG')</button>
+                </span>
+            </div>
+            <p id="diagramDescription" class="systemDiagramDescription"></p>
+            <div class="systemDiagramLegend" aria-label="$_('Diagram legend')">
+                <span class="diagramLegendItem diagramLegendProcess">$_('Processing')</span>
+                <span class="diagramLegendItem diagramLegendDecision">$_('Decision')</span>
+                <span class="diagramLegendItem diagramLegendWait">$_('Waiting or delay')</span>
+                <span class="diagramLegendItem diagramLegendSuccess">$_('Success')</span>
+                <span class="diagramLegendItem diagramLegendError">$_('Blocked or error')</span>
+                <span class="diagramLegendItem diagramLegendOptional">$_('Optional')</span>
+            </div>
+            <div id="diagramRenderError" class="systemDiagramError" role="alert"></div>
+            <div id="ospyDiagramCanvas" class="systemDiagramCanvas" aria-live="polite"></div>
+            <p class="systemDiagramHint">$_('Select a topic to see the processing flow. Nodes with a dotted outline open the related OSPy page.')
+                <a id="diagramRelatedHelp" class="button open" href="/help">$_('Open related help')</a>
+            </p>
+        </div>
     </div>
     </div>
 

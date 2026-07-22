@@ -2774,3 +2774,56 @@ td.stationSchedule {
 #diagnostics .pluginRestart {
     white-space: nowrap;
 }
+
+
+/* Interactive OSPy flow diagrams in Diagnostics. */
+.systemDiagramCard { position: relative; padding: 10px; overflow: visible; }
+.systemDiagramControls { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.systemDiagramControls select { min-width: 240px; max-width: 100%; }
+.systemDiagramButtons { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-left: auto; }
+.systemDiagramButtons .button { margin: 0; }
+.systemDiagramDescription { margin: 10px 2px; }
+.systemDiagramLegend { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.diagramLegendItem { display: inline-block; padding: 3px 7px; border-left: 4px solid; border-radius: 2px; color: #17233b; }
+.diagramLegendProcess { background: #e7f0ff; border-color: #2f5e9e; }
+.diagramLegendDecision { background: #fff3cd; border-color: #b77900; }
+.diagramLegendWait { background: #fff0d9; border-color: #d48200; }
+.diagramLegendSuccess { background: #e4f4e4; border-color: #2e8b32; }
+.diagramLegendError { background: #fde6e8; border-color: #b51f2e; }
+.diagramLegendOptional { background: #eceff4; border-color: #6d7788; }
+.systemDiagramCanvas { box-sizing: border-box; min-height: 390px; max-width: 100%; padding: 10px; overflow: auto; border: 1px solid #aeb7c8; border-radius: 7px; background: #fff; text-align: center; }
+.systemDiagramCanvas svg { display: block; margin: 0 auto; transition: width .15s ease; }
+.systemDiagramCanvas .ospyDiagramLinkedNode { cursor: pointer; }
+.systemDiagramCanvas .ospyDiagramLinkedNode > rect,
+.systemDiagramCanvas .ospyDiagramLinkedNode > polygon,
+.systemDiagramCanvas .ospyDiagramLinkedNode > path { stroke-dasharray: 6 3; }
+.systemDiagramCanvas .ospyDiagramLinkedNode:focus { outline: 3px solid #4f67d8; outline-offset: 3px; }
+.systemDiagramHint { margin: 9px 0 0; }
+.systemDiagramHint .button { margin-left: 7px; }
+.systemDiagramError { display: none; margin: 8px 0; padding: 7px; border-left: 4px solid #b51f2e; background: #fde6e8; color: #591018; }
+body.diagramWideBody { overflow: hidden; }
+#systemDiagramSection.diagramWideMode { position: fixed; z-index: 1200; inset: 8px; margin: 0; padding: 0 8px 8px; overflow: auto; border: 3px solid #2e3959; border-radius: 9px; background: #fff; color: #111; }
+#systemDiagramSection.diagramWideMode > h4 { position: sticky; z-index: 2; top: 0; margin: 0 -8px 5px; }
+#systemDiagramSection.diagramWideMode .diagnosticsSectionContent { display: block !important; }
+#systemDiagramSection.diagramWideMode .systemDiagramCanvas { min-height: calc(100vh - 235px); }
+
+@media only screen and (max-width: 800px) {
+    .systemDiagramControls { align-items: stretch; }
+    .systemDiagramControls label,
+    .systemDiagramControls select,
+    .systemDiagramButtons { width: 100%; }
+    .systemDiagramButtons { margin-left: 0; }
+    .systemDiagramCanvas { min-height: 300px; padding: 4px; }
+}
+
+@media print {
+    body.diagramPrintMode * { visibility: hidden !important; }
+    body.diagramPrintMode #systemDiagramSection,
+    body.diagramPrintMode #systemDiagramSection * { visibility: visible !important; }
+    body.diagramPrintMode #systemDiagramSection { position: absolute; inset: 0; width: 100%; margin: 0; padding: 0; border: 0; background: #fff; }
+    body.diagramPrintMode #systemDiagramSection .diagnosticsSectionContent { display: block !important; }
+    body.diagramPrintMode .systemDiagramControls,
+    body.diagramPrintMode .systemDiagramHint { display: none !important; }
+    body.diagramPrintMode .systemDiagramCanvas { min-height: 0; overflow: visible; border: 0; }
+    body.diagramPrintMode .systemDiagramCanvas svg { width: 100% !important; max-width: 100% !important; }
+}
