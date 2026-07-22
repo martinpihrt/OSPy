@@ -382,6 +382,8 @@ The experimental **Prefer verified SQLite settings reads** option in **Settings 
 
 The experimental **Require verified SQLite for settings commits** option in **Settings storage** is disabled by default. When enabled, a new settings directory may replace active data only after both its temporary shelve/DBM database and SQLite copy are written and independently verified. If SQLite is unavailable or writing or verification fails, OSPy removes the complete uncommitted temporary directory, preserves the previous active settings and last-save timestamp, and reports a settings-write problem. Disabling restores compatible shelve-first behavior. A successful strict commit can be read through the verified SQLite path, but shelve/DBM remains the persistence and backup format. Diagnostics reports the active commit policy.
 
+Diagnostics keeps non-authoritative **SQLite migration evidence**: consecutive successful starts using verified reads and consecutive strict dual-writes. A failure resets only the relevant streak and records its time and reason. The separately and atomically written status file contains no settings and is never used for startup, recovery or storage selection.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.

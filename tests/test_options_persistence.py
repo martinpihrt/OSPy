@@ -169,6 +169,16 @@ class OptionsPersistenceTests(unittest.TestCase):
 
             self.assertEqual(instance.last_save, committed_last_save)
             self.assertFalse(os.path.isdir(os.path.dirname(options_module.OPTIONS_TMP)))
+            self.assertEqual(
+                instance._sqlite_mirror_verification["migration_evidence"]
+                ["strict_write_streak"],
+                0,
+            )
+            self.assertIn(
+                "simulated strict SQLite failure",
+                instance._sqlite_mirror_verification["migration_evidence"]
+                ["last_error"],
+            )
             instance.__del__()
 
             reloaded = options_module._Options()
@@ -196,6 +206,9 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertTrue(
                 second._sqlite_mirror_verification["strict_dual_write_enabled"]
             )
+            evidence = second._sqlite_mirror_verification["migration_evidence"]
+            self.assertGreaterEqual(evidence["verified_start_streak"], 1)
+            self.assertGreaterEqual(evidence["strict_write_streak"], 1)
 
     def test_values_and_nested_dates_survive_save_and_reload(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-roundtrip-") as root:

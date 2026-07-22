@@ -383,6 +383,102 @@ class SQLiteMirrorStore(object):
 
 sqlite_mirror_store = SQLiteMirrorStore()
 
+
+class SQLiteMigrationEvidence(object):
+    """Non-authoritative counters proving experimental paths over time."""
+
+    filename = 'sqlite_migration_evidence.json'
+    version = 1
+
+    def __init__(self):
+        self._lock = threading.RLock()
+
+    def path_for(self, shelve_path):
+        data_root = os.path.dirname(os.path.dirname(shelve_path))
+        return os.path.join(data_root, self.filename)
+
+    def _empty(self):
+        return {
+            'version': self.version,
+            'verified_start_streak': 0,
+            'strict_write_streak': 0,
+            'last_verified_start': 0,
+            'last_strict_write': 0,
+            'last_failure': 0,
+            'last_failure_event': '',
+            'last_error': '',
+        }
+
+    def read(self, path):
+        result = self._empty()
+        try:
+            with open(path, 'r', encoding='utf-8') as source:
+                stored = json.load(source)
+            if not isinstance(stored, dict) or stored.get('version') != self.version:
+                return result
+            for key in ('verified_start_streak', 'strict_write_streak'):
+                value = stored.get(key, 0)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    result[key] = value
+            for key in ('last_verified_start', 'last_strict_write', 'last_failure'):
+                value = stored.get(key, 0)
+                if isinstance(value, (int, float)) and not isinstance(value, bool) and value >= 0:
+                    result[key] = float(value)
+            for key in ('last_failure_event', 'last_error'):
+                value = stored.get(key, '')
+                if isinstance(value, str):
+                    result[key] = value[:1000]
+        except (OSError, ValueError, TypeError):
+            pass
+        return result
+
+    def record(self, path, event, success, error=''):
+        if event not in ('verified_start', 'strict_write'):
+            raise ValueError('Unsupported SQLite migration evidence event.')
+        with self._lock:
+            values = self.read(path)
+            timestamp = time.time()
+            streak_key = (
+                'verified_start_streak'
+                if event == 'verified_start' else 'strict_write_streak'
+            )
+            time_key = (
+                'last_verified_start'
+                if event == 'verified_start' else 'last_strict_write'
+            )
+            if success:
+                values[streak_key] += 1
+                values[time_key] = timestamp
+            else:
+                values[streak_key] = 0
+                values['last_failure'] = timestamp
+                values['last_failure_event'] = event
+                values['last_error'] = str(error)[:1000]
+
+            temporary = path + '.new'
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            try:
+                with open(temporary, 'w', encoding='utf-8') as target:
+                    json.dump(values, target, ensure_ascii=False,
+                              indent=2, sort_keys=True)
+                    target.flush()
+                    os.fsync(target.fileno())
+                try:
+                    os.chmod(temporary, 0o600)
+                except OSError:
+                    pass
+                os.replace(temporary, path)
+            finally:
+                if os.path.exists(temporary):
+                    try:
+                        os.remove(temporary)
+                    except OSError:
+                        pass
+            return dict(values)
+
+
+sqlite_migration_evidence = SQLiteMigrationEvidence()
+
 _sqlite_capability_cache = None
 _sqlite_capability_lock = threading.RLock()
 

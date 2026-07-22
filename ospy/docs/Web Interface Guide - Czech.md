@@ -382,6 +382,8 @@ Experimentální volba **Upřednostnit ověřené čtení nastavení ze SQLite**
 
 Experimentální volba **Vyžadovat ověřené SQLite pro potvrzení nastavení** v kategorii **Úložiště nastavení** je ve výchozím stavu vypnutá. Po zapnutí smí nový adresář nastavení nahradit aktivní data pouze tehdy, když se v dočasném adresáři úspěšně zapíše a nezávisle ověří shelve/DBM i jeho SQLite kopie. Pokud SQLite není dostupné nebo zápis či ověření selže, OSPy odstraní celý nepotvrzený dočasný adresář, zachová předchozí aktivní nastavení i čas posledního uložení a ohlásí chybu zápisu. Vypnutí obnoví kompatibilní chování s prioritou shelve. Úspěšný přísný zápis lze číst ověřenou SQLite cestou, ale shelve/DBM zůstává formátem ukládání a záloh. Aktivní politiku potvrzení zobrazuje Diagnostika.
 
+Diagnostika uchovává neautoritativní **důkaz migrace SQLite**: počty po sobě jdoucích úspěšných startů s ověřeným čtením a přísných dvojitých zápisů. Chyba vynuluje pouze příslušnou řadu a uloží čas a důvod. Samostatný atomicky zapisovaný soubor neobsahuje nastavení a nikdy se nepoužívá ke spuštění, obnově ani rozhodování o úložišti.
+
 Tlačítko **Diagnostika** v patičce otevře administrátorskou stránku pro kontrolu, jak OSPy a jeho rozšíření využívají systém.
 
 Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dostupnými podrobnostmi, možným řešením a odkazem na související stránku. Administrátor může stejné okno zapnout také na domovské stránce volbou **Nastavení > Diagnostika > Zobrazovat chyby diagnostiky na domovské stránce**. Chybové okno má přednost před upozorněním na aktualizaci. Vypnutí volby se týká pouze domovské stránky; chyby zůstávají viditelné v Diagnostice.

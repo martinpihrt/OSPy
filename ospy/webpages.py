@@ -3115,6 +3115,22 @@ def _sqlite_mirror_details(status):
         if status.get('strict_dual_write_enabled') else
         _('Compatible shelve/DBM commit with optional SQLite shadow')
     )
+    evidence = status.get('migration_evidence') or {}
+    details += '; ' + _('SQLite migration evidence') + ': '
+    details += _('verified starts') + ': {}'.format(
+        evidence.get('verified_start_streak', 0)
+    )
+    details += '; ' + _('strict writes') + ': {}'.format(
+        evidence.get('strict_write_streak', 0)
+    )
+    if evidence.get('last_failure'):
+        details += '; ' + _('last failure') + ': ' + _health_time(
+            evidence['last_failure']
+        )
+        if evidence.get('last_error'):
+            details += ' - ' + evidence['last_error']
+    elif evidence.get('record_error'):
+        details += '; ' + _('status write failed') + ': ' + evidence['record_error']
     return details
 
 

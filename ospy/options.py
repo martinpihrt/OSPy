@@ -18,6 +18,7 @@ from . import i18n
 from . import helpers
 from .settings_storage import (
     settings_store, sqlite_capability, sqlite_mirror_store,
+    sqlite_migration_evidence,
 )
 import traceback
 import os
@@ -824,6 +825,7 @@ class _Options(object):
         self._update_sqlite_recovery_tests()
         self._run_sqlite_restore_rehearsal()
         self._run_sqlite_emergency_selection_dry_run()
+        self._record_sqlite_verified_start()
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -1159,6 +1161,44 @@ class _Options(object):
         })
 
     @staticmethod
+    def _sqlite_migration_evidence_path():
+        return sqlite_migration_evidence.path_for(OPTIONS_FILE)
+
+    def _record_sqlite_migration_evidence(self, event, success, error=''):
+        try:
+            evidence = sqlite_migration_evidence.record(
+                self._sqlite_migration_evidence_path(), event, success, error
+            )
+        except Exception as record_error:
+            evidence = sqlite_migration_evidence.read(
+                self._sqlite_migration_evidence_path()
+            )
+            evidence['record_error'] = '{}: {}'.format(
+                type(record_error).__name__, record_error
+            )
+            logging.warning(
+                _('SQLite migration evidence could not be saved: {}').format(
+                    evidence['record_error']
+                )
+            )
+        self._sqlite_mirror_verification['migration_evidence'] = evidence
+
+    def _record_sqlite_verified_start(self):
+        if self._values.get('sqlite_preferred_reads') is not True:
+            self._sqlite_mirror_verification['migration_evidence'] = \
+                sqlite_migration_evidence.read(
+                    self._sqlite_migration_evidence_path()
+                )
+            return
+        success = (
+            self._sqlite_mirror_verification.get('preferred_read') == 'used'
+        )
+        self._record_sqlite_migration_evidence(
+            'verified_start', success,
+            self._sqlite_mirror_verification.get('preferred_read_error', ''),
+        )
+
+    @staticmethod
     def _compatible_value(default, value, key=''):
         if key in ('weather_lat', 'weather_lon'):
             return isinstance(value, (str, int, float)) and not isinstance(value, bool)
@@ -1457,8 +1497,12 @@ class _Options(object):
 
     def _write(self):
         """This function saves the current data to disk. Use a timer to limit the call rate."""
+        strict_attempt = False
         try:
             with self._lock:
+                strict_attempt = (
+                    self._values.get('sqlite_strict_dual_write') is True
+                )
                 logging.debug(_('Saving options to disk'))
 
                 # Disabling recovery must fail closed even if the following
@@ -1597,6 +1641,15 @@ class _Options(object):
                 self._update_sqlite_recovery_tests()
                 self._sync_sqlite_emergency_marker()
                 self._run_sqlite_emergency_selection_dry_run()
+                if strict_attempt:
+                    self._record_sqlite_migration_evidence(
+                        'strict_write', True
+                    )
+                else:
+                    self._sqlite_mirror_verification['migration_evidence'] = \
+                        sqlite_migration_evidence.read(
+                            self._sqlite_migration_evidence_path()
+                        )
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)
@@ -1615,6 +1668,11 @@ class _Options(object):
                 resolve_issue('options_save')
         except Exception as err:
             error = traceback.format_exc()
+            if strict_attempt:
+                self._record_sqlite_migration_evidence(
+                    'strict_write', False,
+                    '{}: {}'.format(type(err).__name__, err),
+                )
             try:
                 from ospy.health import heartbeat, report_issue
                 heartbeat('database', ok=False, message=error,

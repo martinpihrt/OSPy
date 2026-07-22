@@ -8,6 +8,8 @@ July 22 2026 (v3.0)
 (martinpihrt)<br/>
 Moved the three experimental SQLite controls from the general System section into a dedicated collapsible **Settings storage** card in Options. The controls remain separate during beta validation so emergency recovery, verified reads and strict dual-write commits can each be disabled independently without changing stored data. Updated all seven Web Interface Guides and added a regression test that keeps only these three controls in the dedicated category.
 
+Added persistent, non-authoritative SQLite migration evidence. OSPy now atomically records consecutive successful starts through the verified SQLite read path and consecutive successful strict dual-write commits; a failure resets only the affected streak and preserves its time and reason. Diagnostics displays both streaks and the last failure. The evidence file contains no settings and cannot influence startup, recovery or backend selection. Added atomic persistence, corrupt-status fallback and integration regression tests and updated all seven Web Interface Guides.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

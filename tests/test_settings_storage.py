@@ -12,6 +12,39 @@ from ospy import settings_storage
 
 
 class SettingsStorageTests(unittest.TestCase):
+    def test_migration_evidence_counts_successes_and_resets_failed_path(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-storage-evidence-") as root:
+            path = os.path.join(root, "sqlite_migration_evidence.json")
+            evidence = settings_storage.SQLiteMigrationEvidence()
+
+            first = evidence.record(path, "verified_start", True)
+            second = evidence.record(path, "verified_start", True)
+            written = evidence.record(path, "strict_write", True)
+            failed = evidence.record(
+                path, "strict_write", False, "simulated disk failure"
+            )
+
+            self.assertEqual(first["verified_start_streak"], 1)
+            self.assertEqual(second["verified_start_streak"], 2)
+            self.assertEqual(written["strict_write_streak"], 1)
+            self.assertEqual(failed["verified_start_streak"], 2)
+            self.assertEqual(failed["strict_write_streak"], 0)
+            self.assertEqual(failed["last_failure_event"], "strict_write")
+            self.assertEqual(failed["last_error"], "simulated disk failure")
+            self.assertFalse(os.path.exists(path + ".new"))
+
+    def test_invalid_migration_evidence_is_non_authoritative(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-storage-evidence-bad-") as root:
+            path = os.path.join(root, "sqlite_migration_evidence.json")
+            with open(path, "w", encoding="utf-8") as target:
+                target.write("not-json")
+
+            status = settings_storage.SQLiteMigrationEvidence().read(path)
+
+            self.assertEqual(status["verified_start_streak"], 0)
+            self.assertEqual(status["strict_write_streak"], 0)
+            self.assertEqual(status["last_error"], "")
+
     def test_shelve_store_round_trip_preserves_existing_value_types(self):
         with tempfile.TemporaryDirectory(prefix="ospy-storage-") as root:
             path = os.path.join(root, "options.db")
