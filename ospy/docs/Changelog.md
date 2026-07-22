@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 22 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Moved the three experimental SQLite controls from the general System section into a dedicated collapsible **Settings storage** card in Options. The controls remain separate during beta validation so emergency recovery, verified reads and strict dual-write commits can each be disabled independently without changing stored data. Updated all seven Web Interface Guides and added a regression test that keeps only these three controls in the dedicated category.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

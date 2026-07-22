@@ -162,21 +162,21 @@ class _Options(object):
             "name": _('Allow emergency SQLite settings recovery'),
             "default": False,
             "help": _('Experimental and disabled by default. If every shelve/DBM startup database is invalid, allow OSPy to rebuild settings only from an independently verified SQLite recovery copy that also contains this enabled setting.'),
-            "category": _('System')
+            "category": _('Settings storage')
         },
         {
             "key": "sqlite_preferred_reads",
             "name": _('Prefer verified SQLite settings reads'),
             "default": False,
             "help": _('Experimental and disabled by default. OSPy still loads shelve/DBM first and uses SQLite values only after every key, checksum and value matches the authoritative shelve snapshot. Any problem falls back to shelve/DBM, which remains the write backend.'),
-            "category": _('System')
+            "category": _('Settings storage')
         },
         {
             "key": "sqlite_strict_dual_write",
             "name": _('Require verified SQLite for settings commits'),
             "default": False,
             "help": _('Experimental and disabled by default. When enabled, a settings save is committed only if both the shelve/DBM database and its SQLite shadow are written and verified successfully. On SQLite failure the temporary save is discarded and the previous active settings remain unchanged.'),
-            "category": _('System')
+            "category": _('Settings storage')
         },
         {
             "key": "lang",

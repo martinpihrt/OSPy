@@ -37,6 +37,32 @@ class OptionsPersistenceTests(unittest.TestCase):
         self.addCleanup(instance.__del__)
         return instance
 
+    def test_sqlite_controls_have_a_dedicated_settings_category(self):
+        definitions = {
+            item["key"]: item for item in options_module._Options.OPTIONS
+        }
+        storage_category = definitions["sqlite_emergency_recovery"]["category"]
+        self.assertEqual(
+            definitions["sqlite_preferred_reads"]["category"],
+            storage_category,
+        )
+        self.assertEqual(
+            definitions["sqlite_strict_dual_write"]["category"],
+            storage_category,
+        )
+        self.assertNotEqual(definitions["name"]["category"], storage_category)
+        self.assertEqual(
+            {
+                item["key"] for item in options_module._Options.OPTIONS
+                if item.get("category") == storage_category
+            },
+            {
+                "sqlite_emergency_recovery",
+                "sqlite_preferred_reads",
+                "sqlite_strict_dual_write",
+            },
+        )
+
     def test_failed_settings_callback_reports_and_then_resolves_issue(self):
         instance = options_module._Options.__new__(options_module._Options)
         instance._lock = threading.RLock()
