@@ -13,6 +13,25 @@ from ospy import health, options as options_module
 
 
 class OptionsPersistenceTests(unittest.TestCase):
+    def test_system_selects_keep_internal_values_and_translate_labels(self):
+        definitions = {
+            item["key"]: item for item in options_module._Options.OPTIONS
+        }
+        self.assertEqual(definitions["theme"]["default"], "basic")
+        self.assertIn("basic", definitions["theme"]["option_names"])
+        self.assertEqual(
+            definitions["station_image_source"]["default"],
+            "Station images",
+        )
+        self.assertIn(
+            "Station images",
+            definitions["station_image_source"]["option_names"],
+        )
+        self.assertEqual(definitions["scroll_top_position"]["default"], "right")
+        self.assertIn(
+            "right", definitions["scroll_top_position"]["option_names"]
+        )
+
     def _paths(self, root):
         return (
             os.path.join(root, "default", "options.db"),

@@ -373,6 +373,8 @@ Eksperymentalna opcja **Wymagaj zweryfikowanego SQLite do zatwierdzania ustawie�
 
 Diagnostyka zachowuje nieautorytatywny **dowód migracji SQLite**: liczbę kolejnych udanych uruchomień ze zweryfikowanym odczytem oraz kolejnych ścisłych podwójnych zapisów. Błąd zeruje tylko odpowiednią serię i zapisuje czas oraz przyczynę. Osobny, atomowo zapisywany plik stanu nie zawiera ustawień i nigdy nie służy do uruchamiania, odzyskiwania ani wyboru magazynu.
 
+Podczas wczesnego uruchamiania język interfejsu jest nadal najpierw odczytywany z prawidłowej bazy shelve/DBM. Gdy zweryfikowane odczyty SQLite są włączone, bootstrap porównuje każdy klucz i sumę kontrolną z dokładnie tym obrazem shelve i odczytuje z SQLite tylko wartość `lang` dopiero po pełnej zgodności. Brakująca, starsza, różna lub uszkodzona kopia SQLite zawsze bezpiecznie używa języka z shelve. Sprawdzenie brakującej bazy nie tworzy pustego pliku.
+
 Przycisk **Diagnostyka** w stopce otwiera stronę administratora do sprawdzania, jak OSPy i jego wtyczki wykorzystują system.
 
 Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostępnymi szczegółami, możliwym rozwiązaniem i odsyłaczem do odpowiedniej strony. Administrator może włączyć to samo okno na stronie głównej przez **Opcje > Diagnostyka > Pokazuj błędy diagnostyczne na stronie głównej**. Okno błędu ma pierwszeństwo przed powiadomieniem o aktualizacji. Wyłączenie tej opcji dotyczy tylko strony głównej; błędy pozostają widoczne w Diagnostyce.

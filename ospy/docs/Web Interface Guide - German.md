@@ -384,6 +384,8 @@ Die experimentelle Option **Geprüftes SQLite für Einstellungs-Commits verlange
 
 Die Diagnose speichert einen nicht maßgeblichen **SQLite-Migrationsnachweis**: aufeinanderfolgende erfolgreiche Starts mit geprüftem Lesen und aufeinanderfolgende strenge Doppel-Schreibvorgänge. Ein Fehler setzt nur die betroffene Serie zurück und speichert Zeitpunkt und Ursache. Die separat atomisch geschriebene Statusdatei enthält keine Einstellungen und wird nie für Start, Wiederherstellung oder Speicherwahl verwendet.
 
+Beim frühen Start wird die Sprache der Oberfläche weiterhin zuerst aus einer gültigen shelve/DBM-Datenbank geladen. Sind geprüfte SQLite-Lesevorgänge aktiviert, vergleicht der Bootstrap jeden Schlüssel und jede Prüfsumme mit genau diesem shelve-Abbild und liest den einzelnen Wert `lang` erst nach vollständiger Übereinstimmung aus SQLite. Eine fehlende, ältere, abweichende oder beschädigte SQLite-Kopie verwendet immer sicher die Sprache aus shelve. Die Prüfung einer fehlenden Datenbank erzeugt keine leere Datei.
+
 Die Schaltfläche **Diagnose** in der Fußzeile öffnet eine Administratorseite, auf der geprüft werden kann, wie OSPy und seine Plug-ins das System belasten.
 
 Wenn die Diagnose einen Fehler erkennt, öffnet sie ein rotes Fenster mit Problembeschreibung, verfügbaren Details, einem Lösungsvorschlag und einem Link zur zugehörigen Seite. Administratoren können dasselbe Fenster über **Optionen > Diagnose > Diagnosefehler auf der Startseite anzeigen** auch auf der Startseite aktivieren. Das Fehlerfenster hat Vorrang vor der Aktualisierungsbenachrichtigung. Das Deaktivieren dieser Option betrifft nur die Startseite; die Fehler bleiben in der Diagnose sichtbar.

@@ -140,6 +140,15 @@ class SettingsStorageTests(unittest.TestCase):
                 path, loaded
             )
             self.assertEqual(reconstructed, loaded)
+            with mock.patch.object(
+                    settings_storage.pickle, "loads",
+                    wraps=settings_storage.pickle.loads) as decode:
+                language_value = \
+                    settings_storage.sqlite_mirror_store.read_verified_value(
+                        path, "name", loaded
+                    )
+            self.assertEqual(language_value, loaded["name"])
+            self.assertEqual(decode.call_count, 1)
             recovery = settings_storage.sqlite_mirror_store.read_recovery_candidate(
                 path
             )

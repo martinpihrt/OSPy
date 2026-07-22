@@ -10,6 +10,10 @@ Moved the three experimental SQLite controls from the general System section int
 
 Added persistent, non-authoritative SQLite migration evidence. OSPy now atomically records consecutive successful starts through the verified SQLite read path and consecutive successful strict dual-write commits; a failure resets only the affected streak and preserves its time and reason. Diagnostics displays both streaks and the last failure. The evidence file contains no settings and cannot influence startup, recovery or backend selection. Added atomic persistence, corrupt-status fallback and integration regression tests and updated all seven Web Interface Guides.
 
+Prepared the early interface-language bootstrap for a future SQLite-primary mode without changing the current authority. It still opens shelve/DBM first and, only when verified SQLite reads are enabled, verifies the complete SQLite key and checksum set against that exact snapshot before decoding the single `lang` value. Any missing, legacy, divergent, corrupt or invalid SQLite copy falls back to the shelve language. Missing settings databases are now opened read-only and can no longer create an empty shelve file during the language probe. Added verified-read, corruption-fallback, disabled-path and no-file-creation tests and updated all seven Web Interface Guides.
+
+Localized the displayed choices for the web theme, station-image source and back-to-top position. Their stable English internal values remain unchanged in the settings database for full compatibility across language changes and existing installations. Added a regression test for the value/label separation and updated all seven Web Interface Guides.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

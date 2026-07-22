@@ -49,6 +49,11 @@ class _Options(object):
             "name": _('System theme'),
             "default": "basic",
             "options": helpers.themes,
+            "option_names": {
+                "basic": _('Basic'),
+                "blue": _('Blue'),
+                "dark": _('Dark'),
+            },
             "help": _('Determines the look of the GUI.'),
             "category": _('System')
         },
@@ -101,6 +106,11 @@ class _Options(object):
             "name": _('Station picture source'),
             "default": "Station images",
             "options": ["Station images", "IP Cam JPG", "IP Cam GIF"],
+            "option_names": {
+                "Station images": _('Station images'),
+                "IP Cam JPG": _('IP Cam JPG'),
+                "IP Cam GIF": _('IP Cam GIF'),
+            },
             "help": _('Choose whether station pictures on the home page use uploaded station images or cached images from the IP Cam plug-in. This is used only when station pictures are enabled.'),
             "category": _('System')
         },
@@ -123,6 +133,10 @@ class _Options(object):
             "name": _('Back to top position'),
             "default": "right",
             "options": ["left", "right"],
+            "option_names": {
+                "left": _('Left'),
+                "right": _('Right'),
+            },
             "help": _('Choose whether the back to top button is shown at the bottom left or bottom right of the page.'),
             "category": _('System')
         },

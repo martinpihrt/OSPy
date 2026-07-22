@@ -5,30 +5,56 @@ __author__ = u'Martin Pihrt'
 import os
 import locale
 import gettext
-import shelve
 import sys
 import traceback
 
 from ospy.helpers import print_report
+from ospy.settings_storage import (
+    settings_store, sqlite_capability, sqlite_mirror_store,
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.environ.get(
+    'OSPY_DATA_DIR', os.path.join(BASE_DIR, 'ospy', 'data')
+)
 OPTIONS_FILES = [
-    os.path.join(BASE_DIR, 'ospy', 'data', 'default', 'options.db'),
-    os.path.join(BASE_DIR, 'ospy', 'data', 'tmp', 'options.db'),
-    os.path.join(BASE_DIR, 'ospy', 'data', 'backup', 'options.db'),
+    os.path.join(DATA_DIR, 'default', 'options.db'),
+    os.path.join(DATA_DIR, 'tmp', 'options.db'),
+    os.path.join(DATA_DIR, 'backup', 'options.db'),
 ]
+
+
+def _valid_saved_language(value):
+    return (
+        isinstance(value, str) and
+        1 <= len(value) <= 32 and
+        all(character.isalnum() or character in ('_', '-') for character in value)
+    )
 
 
 def load_saved_language():
     for options_file in OPTIONS_FILES:
         try:
-            if os.path.isdir(os.path.dirname(options_file)):
-                db = shelve.open(options_file)
+            values = settings_store.read(options_file)
+            if not values or not _valid_saved_language(values.get('lang')):
+                continue
+            shelve_language = values['lang']
+            if (values.get('sqlite_preferred_reads') is True and
+                    sqlite_capability().get('available')):
                 try:
-                    if list(db.keys()) and 'lang' in db:
-                        return db['lang']
-                finally:
-                    db.close()
+                    mirror_path = sqlite_mirror_store.path_for(options_file)
+                    comparison = sqlite_mirror_store.compare(
+                        mirror_path, values
+                    )
+                    if comparison.get('state') == 'verified':
+                        sqlite_language = sqlite_mirror_store.read_verified_value(
+                            mirror_path, 'lang', values
+                        )
+                        if _valid_saved_language(sqlite_language):
+                            return sqlite_language
+                except Exception:
+                    pass
+            return shelve_language
         except Exception:
             pass
     return 'default'

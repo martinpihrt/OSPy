@@ -299,8 +299,8 @@ class SQLiteMirrorStore(object):
         status['checked'] = time.time()
         return status
 
-    def read_verified(self, path, expected_values):
-        """Decode only a snapshot whose hashes match authoritative values."""
+    def _verified_serialized(self, path, expected_values):
+        """Return serialized rows only after complete snapshot verification."""
         import sqlite3
 
         expected = {
@@ -329,12 +329,25 @@ class SQLiteMirrorStore(object):
                     'SQLite shadow value is not verified against shelve/DBM: {}'.format(key)
                 )
 
+        return rows
+
+    def read_verified(self, path, expected_values):
+        """Decode only a snapshot whose hashes match authoritative values."""
+        rows = self._verified_serialized(path, expected_values)
+
         # All bytes are held in this verified snapshot before any value is
         # decoded, so a later filesystem change cannot alter decoded input.
         return {
             key: pickle.loads(value)
             for key, (value, checksum) in rows.items()
         }
+
+    def read_verified_value(self, path, key, expected_values):
+        """Decode one value after verifying the complete SQLite snapshot."""
+        rows = self._verified_serialized(path, expected_values)
+        if key not in rows:
+            raise KeyError(key)
+        return pickle.loads(rows[key][0])
 
     def read_recovery_candidate(self, path):
         """Independently verify and decode one schema 3 recovery snapshot."""

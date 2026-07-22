@@ -384,6 +384,8 @@ The experimental **Require verified SQLite for settings commits** option in **Se
 
 Diagnostics keeps non-authoritative **SQLite migration evidence**: consecutive successful starts using verified reads and consecutive strict dual-writes. A failure resets only the relevant streak and records its time and reason. The separately and atomically written status file contains no settings and is never used for startup, recovery or storage selection.
 
+During early startup, the interface language is still loaded first from a valid shelve/DBM database. When verified SQLite reads are enabled, the bootstrap compares every key and checksum with that exact shelve snapshot and reads only the `lang` value from SQLite after a complete match. A missing, older, different or damaged SQLite copy always falls back safely to the shelve language. Checking a missing database does not create an empty file.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.
