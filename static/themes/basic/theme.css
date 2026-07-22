@@ -1499,6 +1499,35 @@ table.balanceList tr:last-child th {
     overflow-wrap: anywhere;
 }
 
+.translationCoverage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em;
+    margin-top: 0.3em;
+}
+
+.translationCoverageItem {
+    border-left: 3px solid #777;
+    padding: 0.2em 0.45em;
+    background: #eeeeee;
+    white-space: nowrap;
+}
+
+.translationCoverageItem.health-ok {
+    border-left-color: #2f8a28;
+    background: #e8f4e7;
+}
+
+.translationCoverageItem.health-warning {
+    border-left-color: #d68a00;
+    background: #fff2d8;
+}
+
+.translationCoverageItem.health-error {
+    border-left-color: #b7192e;
+    background: #f9e1e5;
+}
+
 .securityProfileControls {
     display: flex;
     align-items: center;

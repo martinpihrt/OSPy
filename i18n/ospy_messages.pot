@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-07-22 06:59+0200\n"
+"POT-Creation-Date: 2026-07-22 08:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -782,8 +782,8 @@ msgstr ""
 #: ospy/options.py:51 ospy/options.py:64 ospy/options.py:71 ospy/options.py:78
 #: ospy/options.py:85 ospy/options.py:94 ospy/options.py:101
 #: ospy/options.py:108 ospy/options.py:121 ospy/options.py:128
-#: ospy/options.py:135 ospy/options.py:147 ospy/options.py:179
-#: ospy/options.py:221 ospy/templates/diagnostics.html:833
+#: ospy/options.py:135 ospy/options.py:147 ospy/options.py:189
+#: ospy/options.py:196 ospy/templates/diagnostics.html:845
 #: plugins/email_notifications/__init__.py:107
 #: plugins/email_notifications/__init__.py:128
 #: plugins/email_notifications/__init__.py:144
@@ -935,232 +935,240 @@ msgid "Plug-in update channel"
 msgstr ""
 
 #: ospy/options.py:176
+msgid "Plug-in permission approvals"
+msgstr ""
+
+#: ospy/options.py:181
+msgid "Plug-in permission approval migration completed"
+msgstr ""
+
+#: ospy/options.py:186
 msgid "IP for DNS ping"
 msgstr ""
 
-#: ospy/options.py:178
+#: ospy/options.py:188
 msgid "IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped."
 msgstr ""
 
-#: ospy/options.py:183 ospy/webpages.py:3130
+#: ospy/options.py:200 ospy/webpages.py:3231
 msgid "Settings storage mode"
 msgstr ""
 
-#: ospy/options.py:187 ospy/webpages.py:3125 ospy/webpages.py:3131
+#: ospy/options.py:204 ospy/webpages.py:3226 ospy/webpages.py:3232
 msgid "Compatible"
 msgstr ""
 
-#: ospy/options.py:188 ospy/webpages.py:3126
+#: ospy/options.py:205 ospy/webpages.py:3227
 msgid "Verification"
 msgstr ""
 
-#: ospy/options.py:189 ospy/webpages.py:3127
+#: ospy/options.py:206 ospy/webpages.py:3228
 msgid "SQLite primary (beta)"
 msgstr ""
 
-#: ospy/options.py:190 ospy/webpages.py:3128
+#: ospy/options.py:207 ospy/webpages.py:3229
 msgid "Custom advanced settings"
 msgstr ""
 
-#: ospy/options.py:192
+#: ospy/options.py:209
 msgid "Compatible keeps shelve/DBM authoritative with an optional SQLite shadow. Verification enables all three guarded SQLite checks. SQLite primary (beta) is accepted only after Diagnostics reports readiness and keeps a synchronized shelve/DBM fallback. Custom preserves an individually selected combination of the advanced controls below."
 msgstr ""
 
-#: ospy/options.py:193 ospy/options.py:200 ospy/options.py:207
-#: ospy/options.py:214 ospy/templates/options.html:168 ospy/webpages.py:2981
+#: ospy/options.py:210 ospy/options.py:217 ospy/options.py:224
+#: ospy/options.py:231 ospy/templates/options.html:168 ospy/webpages.py:3082
 msgid "Settings storage"
 msgstr ""
 
-#: ospy/options.py:197
+#: ospy/options.py:214
 msgid "Allow emergency SQLite settings recovery"
 msgstr ""
 
-#: ospy/options.py:199
+#: ospy/options.py:216
 msgid "Experimental and disabled by default. If every shelve/DBM startup database is invalid, allow OSPy to rebuild settings only from an independently verified SQLite recovery copy that also contains this enabled setting."
 msgstr ""
 
-#: ospy/options.py:204
+#: ospy/options.py:221
 msgid "Prefer verified SQLite settings reads"
 msgstr ""
 
-#: ospy/options.py:206
+#: ospy/options.py:223
 msgid "Experimental and disabled by default. OSPy still loads shelve/DBM first and uses SQLite values only after every key, checksum and value matches the authoritative shelve snapshot. Any problem falls back to shelve/DBM, which remains the write backend."
 msgstr ""
 
-#: ospy/options.py:211
+#: ospy/options.py:228
 msgid "Require verified SQLite for settings commits"
 msgstr ""
 
-#: ospy/options.py:213
+#: ospy/options.py:230
 msgid "Experimental and disabled by default. When enabled, a settings save is committed only if both the shelve/DBM database and its SQLite shadow are written and verified successfully. On SQLite failure the temporary save is discarded and the previous active settings remain unchanged."
 msgstr ""
 
-#: ospy/options.py:227
+#: ospy/options.py:237
 msgid "Use Weather"
 msgstr ""
 
-#: ospy/options.py:229
+#: ospy/options.py:239
 msgid "Enable or disable weather downloads from the selected provider."
 msgstr ""
 
-#: ospy/options.py:230 ospy/options.py:243 ospy/options.py:250
-#: ospy/options.py:257 ospy/templates/options.html:163 ospy/webpages.py:3804
+#: ospy/options.py:240 ospy/options.py:253 ospy/options.py:260
+#: ospy/options.py:267 ospy/templates/options.html:163 ospy/webpages.py:3906
 #: plugins/weather_based_rain_delay/__init__.py:100
 msgid "Weather"
 msgstr ""
 
-#: ospy/options.py:234 ospy/webpages.py:3788
+#: ospy/options.py:244 ospy/webpages.py:3890
 msgid "Weather data provider"
 msgstr ""
 
-#: ospy/options.py:238 ospy/weather.py:47 ospy/weather.py:50
+#: ospy/options.py:248 ospy/weather.py:47 ospy/weather.py:50
 msgid "Open-Meteo automatic model"
 msgstr ""
 
-#: ospy/options.py:239 ospy/weather.py:48
+#: ospy/options.py:249 ospy/weather.py:48
 msgid "CHMI ALADIN via Open-Meteo"
 msgstr ""
 
-#: ospy/options.py:240 ospy/weather.py:49
+#: ospy/options.py:250 ospy/weather.py:49
 msgid "Stormglass"
 msgstr ""
 
-#: ospy/options.py:242
+#: ospy/options.py:252
 msgid "Select the forecast source used by OSPy and all weather-aware plug-ins. Open-Meteo does not require an API key for non-commercial use."
 msgstr ""
 
-#: ospy/options.py:247
+#: ospy/options.py:257
 msgid "Storm Glass API key"
 msgstr ""
 
-#: ospy/options.py:249
+#: ospy/options.py:259
 msgid "Required only when Stormglass is selected as the weather provider."
 msgstr ""
 
-#: ospy/options.py:254 plugins/sunrise_and_sunset/__init__.py:710
+#: ospy/options.py:264 plugins/sunrise_and_sunset/__init__.py:710
 msgid "Location"
 msgstr ""
 
-#: ospy/options.py:256
+#: ospy/options.py:266
 msgid "City name or zip code. Used to determine location via OpenStreetMap for weather information."
 msgstr ""
 
-#: ospy/options.py:261
+#: ospy/options.py:271
 msgid "Weather location mode"
 msgstr ""
 
-#: ospy/options.py:268
+#: ospy/options.py:278
 msgid "Disable security"
 msgstr ""
 
-#: ospy/options.py:270
+#: ospy/options.py:280
 msgid "Allow anonymous users to access the system without a password."
 msgstr ""
 
-#: ospy/options.py:271 ospy/options.py:278 ospy/templates/options.html:165
+#: ospy/options.py:281 ospy/options.py:288 ospy/templates/options.html:165
 msgid "Users"
 msgstr ""
 
-#: ospy/options.py:275
+#: ospy/options.py:285
 msgid "Administrator name"
 msgstr ""
 
-#: ospy/options.py:277
+#: ospy/options.py:287
 msgid "Administrator login name for login to the OSPy."
 msgstr ""
 
-#: ospy/options.py:282
+#: ospy/options.py:292
 msgid "Two-factor authentication method"
 msgstr ""
 
-#: ospy/options.py:287
+#: ospy/options.py:297
 msgid "Two-factor authentication secret"
 msgstr ""
 
-#: ospy/options.py:292
+#: ospy/options.py:302
 msgid "Two-factor backup codes"
 msgstr ""
 
-#: ospy/options.py:299
+#: ospy/options.py:309
 msgid "Use HTTPS access"
 msgstr ""
 
-#: ospy/options.py:301
+#: ospy/options.py:311
 msgid "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:302 ospy/options.py:309 ospy/options.py:316
-#: ospy/options.py:323 ospy/options.py:330 ospy/options.py:337
-#: ospy/options.py:344 ospy/options.py:351 ospy/templates/options.html:166
+#: ospy/options.py:312 ospy/options.py:319 ospy/options.py:326
+#: ospy/options.py:333 ospy/options.py:340 ospy/options.py:347
+#: ospy/options.py:354 ospy/options.py:361 ospy/templates/options.html:166
 msgid "Security"
 msgstr ""
 
-#: ospy/options.py:306
+#: ospy/options.py:316
 msgid "Domain name"
 msgstr ""
 
-#: ospy/options.py:308
+#: ospy/options.py:318
 msgid "Domain name for generating SSL certificate via Lets Encrypt certification authority. Example: home.sprinkler.com"
 msgstr ""
 
-#: ospy/options.py:313
+#: ospy/options.py:323
 msgid "Use Own HTTPS access"
 msgstr ""
 
-#: ospy/options.py:315
+#: ospy/options.py:325
 msgid "SSL certificate via own file without certification authority (effective after reboot.)"
 msgstr ""
 
-#: ospy/options.py:320
+#: ospy/options.py:330
 msgid "API CORS allowed origin"
 msgstr ""
 
-#: ospy/options.py:322
+#: ospy/options.py:332
 msgid "Allowed browser origin for API CORS requests. Use * to allow any origin, enter one origin such as https://example.com, enter multiple origins separated by commas, or leave empty to disable CORS headers. This affects browser-based API clients only."
 msgstr ""
 
-#: ospy/options.py:327
+#: ospy/options.py:337
 msgid "Enable API JSONP"
 msgstr ""
 
-#: ospy/options.py:329
+#: ospy/options.py:339
 msgid "Allow legacy API JSONP responses via the callback query parameter. Keep disabled unless an old integration requires JSONP, because normal API clients should use JSON with CORS instead."
 msgstr ""
 
-#: ospy/options.py:334
+#: ospy/options.py:344
 msgid "Require sensor API auth"
 msgstr ""
 
-#: ospy/options.py:336
+#: ospy/options.py:346
 msgid "Require HTTP Basic authentication for sensor reports sent to /api/sensor. Keep disabled for older sensor firmware that cannot send credentials."
 msgstr ""
 
-#: ospy/options.py:341
+#: ospy/options.py:351
 msgid "Require API CSRF token"
 msgstr ""
 
-#: ospy/options.py:343
+#: ospy/options.py:353
 msgid "Require a CSRF token for state-changing API requests. Keep disabled for older integrations that use only HTTP Basic authentication."
 msgstr ""
 
-#: ospy/options.py:348
+#: ospy/options.py:358
 msgid "Maximum upload size"
 msgstr ""
 
-#: ospy/options.py:350
+#: ospy/options.py:360
 msgid "Maximum uploaded file size in MB for backup restore, SSL files, station images, and custom sensor firmware. Use 0 for no application limit."
 msgstr ""
 
-#: ospy/options.py:359
+#: ospy/options.py:369
 msgid "Password FW"
 msgstr ""
 
-#: ospy/options.py:361
+#: ospy/options.py:371
 msgid "Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)"
 msgstr ""
 
-#: ospy/options.py:362 ospy/options.py:369 ospy/templates/base.html:433
-#: ospy/templates/options.html:167 ospy/webpages.py:3617
+#: ospy/options.py:372 ospy/options.py:379 ospy/templates/base.html:433
+#: ospy/templates/options.html:167 ospy/webpages.py:3719
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:237
 #: plugins/email_notifications/__init__.py:238
@@ -1171,550 +1179,550 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: ospy/options.py:366
+#: ospy/options.py:376
 msgid "Sensor HTTP timeout"
 msgstr ""
 
-#: ospy/options.py:368
+#: ospy/options.py:378
 msgid "Timeout in seconds for HTTP requests sent from OSPy to sensors."
 msgstr ""
 
-#: ospy/options.py:377
+#: ospy/options.py:387
 msgid "Maximum usage"
 msgstr ""
 
-#: ospy/options.py:379
+#: ospy/options.py:389
 msgid "Determines how station runs are combined. 0 means no limit. 1 means one station at a time when each station has usage 1. This also affects when the pause between stations is inserted."
 msgstr ""
 
-#: ospy/options.py:380 ospy/options.py:387 ospy/options.py:396
-#: ospy/options.py:405
+#: ospy/options.py:390 ospy/options.py:397 ospy/options.py:406
+#: ospy/options.py:415
 msgid "Station Handling"
 msgstr ""
 
-#: ospy/options.py:384
+#: ospy/options.py:394
 msgid "Number of outputs"
 msgstr ""
 
-#: ospy/options.py:386
+#: ospy/options.py:396
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr ""
 
-#: ospy/options.py:393
+#: ospy/options.py:403
 msgid "Pause between stations"
 msgstr ""
 
-#: ospy/options.py:395
+#: ospy/options.py:405
 msgid "Pause inserted between sequential station runs when the scheduler cannot run them at the same time, in seconds between 0 and 3600. This does not shift a station against the master station. Example: with maximum usage 1 and station usage 1, value 30 starts the next station 30 seconds after the previous station ends."
 msgstr ""
 
-#: ospy/options.py:402
+#: ospy/options.py:412
 msgid "Minimum runtime"
 msgstr ""
 
-#: ospy/options.py:404
+#: ospy/options.py:414
 msgid "Skip the pause between stations when the previous run was shorter than this value, in seconds between 0 and 86400. Example: with pause 30 and minimum runtime 10, a station that ran only 5 seconds will not force the 30 second pause."
 msgstr ""
 
-#: ospy/options.py:413
+#: ospy/options.py:423
 msgid "Activate relay"
 msgstr ""
 
-#: ospy/options.py:415
+#: ospy/options.py:425
 msgid "Also activate the relay as master output."
 msgstr ""
 
-#: ospy/options.py:416 ospy/options.py:423 ospy/options.py:432
-#: ospy/options.py:441 ospy/options.py:450
+#: ospy/options.py:426 ospy/options.py:433 ospy/options.py:442
+#: ospy/options.py:451 ospy/options.py:460
 msgid "Configure Master"
 msgstr ""
 
-#: ospy/options.py:420
+#: ospy/options.py:430
 msgid "Master start offset"
 msgstr ""
 
-#: ospy/options.py:422
+#: ospy/options.py:432
 msgid "Time offset for starting master station 1 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts the master 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:429
+#: ospy/options.py:439
 msgid "Master stop offset"
 msgstr ""
 
-#: ospy/options.py:431
+#: ospy/options.py:441
 msgid "Time offset for stopping master station 1 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops the master 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:438
+#: ospy/options.py:448
 msgid "Master two start offset"
 msgstr ""
 
-#: ospy/options.py:440
+#: ospy/options.py:450
 msgid "Time offset for starting master station 2 relative to the station start, in seconds between -1800 and +1800. Negative values start the master earlier; positive values start it later. Example: -10 starts master 2 10 seconds before the station, +10 starts it 10 seconds after the station."
 msgstr ""
 
-#: ospy/options.py:447
+#: ospy/options.py:457
 msgid "Master two stop offset"
 msgstr ""
 
-#: ospy/options.py:449
+#: ospy/options.py:459
 msgid "Time offset for stopping master station 2 relative to the station end, in seconds between -1800 and +1800. Negative values stop the master earlier; positive values keep it running longer. Example: -5 stops master 2 5 seconds before the station ends, +20 stops it 20 seconds after the station ends."
 msgstr ""
 
-#: ospy/options.py:458
+#: ospy/options.py:468
 msgid "Use rain sensor"
 msgstr ""
 
-#: ospy/options.py:460
+#: ospy/options.py:470
 msgid "Use rain sensor."
 msgstr ""
 
-#: ospy/options.py:461 ospy/options.py:468 ospy/options.py:475
-#: ospy/options.py:482 plugins/lcd_display/templates/lcd_display.html:300
+#: ospy/options.py:471 ospy/options.py:478 ospy/options.py:485
+#: ospy/options.py:492 plugins/lcd_display/templates/lcd_display.html:300
 #: plugins/lcd_display/templates/lcd_display_help.html:40
 msgid "Rain Sensor"
 msgstr ""
 
-#: ospy/options.py:465
+#: ospy/options.py:475
 #: plugins/pressure_monitor/templates/pressure_monitor.html:337
 msgid "Normally open"
 msgstr ""
 
-#: ospy/options.py:467
+#: ospy/options.py:477
 msgid "Rain sensor default."
 msgstr ""
 
-#: ospy/options.py:472
+#: ospy/options.py:482
 msgid "Set rain delay"
 msgstr ""
 
-#: ospy/options.py:474
+#: ospy/options.py:484
 msgid "When the rain sensor is activated, the rain delay is set (this is suitable, for example, for blocking programs for a longer time than provided by the rain sensor)."
 msgstr ""
 
-#: ospy/options.py:479
+#: ospy/options.py:489
 msgid "Rain delay time"
 msgstr ""
 
-#: ospy/options.py:481
+#: ospy/options.py:491
 msgid "Rain delay time (in hours), between 0 and 500."
 msgstr ""
 
-#: ospy/options.py:490
+#: ospy/options.py:500
 msgid "Show diagnostic errors on the home page"
 msgstr ""
 
-#: ospy/options.py:492
+#: ospy/options.py:502
 msgid "Show a red diagnostic error window to administrators on the home page. Diagnostic errors have priority over update notifications."
 msgstr ""
 
-#: ospy/options.py:493 ospy/templates/base.html:464
-#: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:730
-#: ospy/templates/diagnostics.html:799 ospy/templates/options.html:164
+#: ospy/options.py:503 ospy/templates/base.html:464
+#: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:742
+#: ospy/templates/diagnostics.html:811 ospy/templates/options.html:164
 msgid "Diagnostics"
 msgstr ""
 
-#: ospy/options.py:499
+#: ospy/options.py:509
 msgid "Enable run log"
 msgstr ""
 
-#: ospy/options.py:501
+#: ospy/options.py:511
 msgid "Log all runs - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:502 ospy/options.py:509 ospy/options.py:518
-#: ospy/options.py:525 ospy/options.py:534 ospy/options.py:541
-#: ospy/options.py:550 ospy/options.py:559 ospy/options.py:566
+#: ospy/options.py:512 ospy/options.py:519 ospy/options.py:528
+#: ospy/options.py:535 ospy/options.py:544 ospy/options.py:551
+#: ospy/options.py:560 ospy/options.py:569 ospy/options.py:576
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
 #: ospy/templates/log.html:191 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 msgid "Logging"
 msgstr ""
 
-#: ospy/options.py:506
+#: ospy/options.py:516
 msgid "Max run entries"
 msgstr ""
 
-#: ospy/options.py:508
+#: ospy/options.py:518
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:515
+#: ospy/options.py:525
 msgid "Enable email log"
 msgstr ""
 
-#: ospy/options.py:517
+#: ospy/options.py:527
 msgid "Log all emails - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:522
+#: ospy/options.py:532
 msgid "Max email entries"
 msgstr ""
 
-#: ospy/options.py:524
+#: ospy/options.py:534
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:531
+#: ospy/options.py:541
 msgid "Enable events log"
 msgstr ""
 
-#: ospy/options.py:533
+#: ospy/options.py:543
 msgid "Log all events - note that repetitive writing to an SD card can shorten its lifespan."
 msgstr ""
 
-#: ospy/options.py:538
+#: ospy/options.py:548
 msgid "Max events entries"
 msgstr ""
 
-#: ospy/options.py:540
+#: ospy/options.py:550
 msgid "Number of events entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:547
+#: ospy/options.py:557
 msgid "Max sensor entries"
 msgstr ""
 
-#: ospy/options.py:549
+#: ospy/options.py:559
 msgid "Number of sensor entries to save to disk, 0=no limit."
 msgstr ""
 
-#: ospy/options.py:556
+#: ospy/options.py:566
 msgid "Enable debug log"
 msgstr ""
 
-#: ospy/options.py:558
+#: ospy/options.py:568
 msgid "Log all internal events (for debugging purposes)."
 msgstr ""
 
-#: ospy/options.py:563
+#: ospy/options.py:573
 msgid "Enable web log"
 msgstr ""
 
-#: ospy/options.py:565
+#: ospy/options.py:575
 msgid "Logging of internal events from the web server (for debugging it is necessary to enable the debug log and then restart OSPy). Deteriorates page loading speed."
 msgstr ""
 
-#: ospy/options.py:572
+#: ospy/options.py:582
 msgid "Shift register speed"
 msgstr ""
 
-#: ospy/options.py:574
+#: ospy/options.py:584
 msgid "This setting controls the clock speed for the shift register (74HC595) that controls the output relay. In some cases, it is advisable to reduce the speed to 10us. If the checkbox is not selected, the default speed is used. Otherwise, the speed will be reduced. (If you have no problems with timing, ignore this option.) False = maximum, clock according to the system (typically 0.5–2 MHz). True = approx. 100 kHz (safe for 74HC595 even with longer cables). Commonly recommended safe speed: around 50–200 kHz, i.e. approximately 5–20 µs delay between clock pulses."
 msgstr ""
 
-#: ospy/options.py:575 plugins/system_info/__init__.py:78
+#: ospy/options.py:585 plugins/system_info/__init__.py:78
 msgid "Hardware"
 msgstr ""
 
-#: ospy/options.py:581
+#: ospy/options.py:591
 msgid "New installation generated password hash"
 msgstr ""
 
-#: ospy/options.py:586
+#: ospy/options.py:596
 msgid "New installation"
 msgstr ""
 
-#: ospy/options.py:591
+#: ospy/options.py:601
 #: plugins/button_control/templates/button_control.html:116
 msgid "Enable scheduler"
 msgstr ""
 
-#: ospy/options.py:596 plugins/mqtt_home_assistant/__init__.py:1030
+#: ospy/options.py:606 plugins/mqtt_home_assistant/__init__.py:1030
 msgid "Manual operation"
 msgstr ""
 
-#: ospy/options.py:601
+#: ospy/options.py:611
 msgid "Image resolution"
 msgstr ""
 
-#: ospy/options.py:606
+#: ospy/options.py:616
 msgid "Level adjustment set by the user (fraction)"
 msgstr ""
 
-#: ospy/options.py:611
+#: ospy/options.py:621
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr ""
 
-#: ospy/options.py:616
+#: ospy/options.py:626
 msgid "Rain blocks (rain delays) set by plug-ins (datetime dictionary)"
 msgstr ""
 
-#: ospy/options.py:621
+#: ospy/options.py:631
 msgid "C/F"
 msgstr ""
 
-#: ospy/options.py:626
+#: ospy/options.py:636
 msgid "Current password hash"
 msgstr ""
 
-#: ospy/options.py:631
+#: ospy/options.py:641
 msgid "Current password salt"
 msgstr ""
 
-#: ospy/options.py:636
+#: ospy/options.py:646
 msgid "Current password decryption time"
 msgstr ""
 
-#: ospy/options.py:641
+#: ospy/options.py:651
 msgid "The runs that have been logged"
 msgstr ""
 
-#: ospy/options.py:646
+#: ospy/options.py:656
 msgid "The email that have been logged"
 msgstr ""
 
-#: ospy/options.py:651
+#: ospy/options.py:661
 msgid "The events that have been logged"
 msgstr ""
 
-#: ospy/options.py:656
+#: ospy/options.py:666
 msgid "ETo and rain value cache"
 msgstr ""
 
-#: ospy/options.py:661
+#: ospy/options.py:671
 msgid "Location latitude"
 msgstr ""
 
-#: ospy/options.py:666
+#: ospy/options.py:676
 msgid "Location longtitude"
 msgstr ""
 
-#: ospy/options.py:671
+#: ospy/options.py:681
 msgid "Weather status"
 msgstr ""
 
-#: ospy/options.py:676
+#: ospy/options.py:686
 msgid "Graph histories"
 msgstr ""
 
-#: ospy/options.py:681 ospy/templates/graph_sensor.html:270
+#: ospy/options.py:691 ospy/templates/graph_sensor.html:270
 #: plugins/air_temp_humi/templates/air_temp_humi.html:563
 msgid "Show also errors"
 msgstr ""
 
-#: ospy/options.py:686
+#: ospy/options.py:696
 msgid "Filter for logs - event: server"
 msgstr ""
 
-#: ospy/options.py:691
+#: ospy/options.py:701
 msgid "Filter for logs - event: rain sensor"
 msgstr ""
 
-#: ospy/options.py:696
+#: ospy/options.py:706
 msgid "Filter for logs - event: rain delay"
 msgstr ""
 
-#: ospy/options.py:701
+#: ospy/options.py:711
 msgid "Filter for logs - event: internet not found"
 msgstr ""
 
-#: ospy/options.py:706
+#: ospy/options.py:716
 msgid "Filter for logs - event: user login"
 msgstr ""
 
-#: ospy/options.py:711
+#: ospy/options.py:721
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:759
+#: ospy/options.py:769
 msgid "SQLite-primary startup failed; using the shelve/DBM fallback: {}"
 msgstr ""
 
-#: ospy/options.py:787
+#: ospy/options.py:797
 msgid "Settings were recovered from the verified {} SQLite copy because every shelve/DBM candidate was invalid."
 msgstr ""
 
-#: ospy/options.py:796
+#: ospy/options.py:806
 msgid "Emergency SQLite settings recovery failed; safe defaults remain active: {}"
 msgstr ""
 
-#: ospy/options.py:804
+#: ospy/options.py:814
 msgid "Ignoring invalid settings database {}: {}"
 msgstr ""
 
-#: ospy/options.py:811 ospy/options.py:1537
+#: ospy/options.py:821 ospy/options.py:1547
 msgid "Settings were recovered from {}."
 msgstr ""
 
-#: ospy/options.py:868
+#: ospy/options.py:878
 msgid "The SQLite settings shadow does not match the authoritative database: {}"
 msgstr ""
 
-#: ospy/options.py:980
+#: ospy/options.py:990
 msgid "The SQLite-primary marker could not be removed: {}"
 msgstr ""
 
-#: ospy/options.py:1033
+#: ospy/options.py:1043
 msgid "The SQLite-primary marker could not be written: {}"
 msgstr ""
 
-#: ospy/options.py:1062
+#: ospy/options.py:1072
 msgid "The emergency SQLite recovery marker could not be removed: {}"
 msgstr ""
 
-#: ospy/options.py:1098
+#: ospy/options.py:1108
 msgid "The emergency SQLite recovery marker could not be written: {}"
 msgstr ""
 
-#: ospy/options.py:1176 ospy/webpages.py:3035
+#: ospy/options.py:1186 ospy/webpages.py:3136
 msgid "SQLite recovery test"
 msgstr ""
 
-#: ospy/options.py:1177 ospy/webpages.py:3037
+#: ospy/options.py:1187 ospy/webpages.py:3138
 msgid "Backup SQLite recovery test"
 msgstr ""
 
-#: ospy/options.py:1180
+#: ospy/options.py:1190
 msgid "{} failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1251
+#: ospy/options.py:1261
 msgid "SQLite restore rehearsal failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1332
+#: ospy/options.py:1342
 msgid "SQLite migration evidence could not be saved: {}"
 msgstr ""
 
-#: ospy/options.py:1394
+#: ospy/options.py:1404
 msgid "SQLite primary cannot be enabled until Diagnostics reports readiness."
 msgstr ""
 
-#: ospy/options.py:1486
+#: ospy/options.py:1496
 msgid "Settings database does not contain a dictionary."
 msgstr ""
 
-#: ospy/options.py:1498
+#: ospy/options.py:1508
 msgid "Stored object {} is not a dictionary."
 msgstr ""
 
-#: ospy/options.py:1507
+#: ospy/options.py:1517
 msgid "Invalid value type for setting {}."
 msgstr ""
 
-#: ospy/options.py:1513
+#: ospy/options.py:1523
 msgid "Setting {} is below its minimum."
 msgstr ""
 
-#: ospy/options.py:1517
+#: ospy/options.py:1527
 msgid "Setting {} is above its maximum."
 msgstr ""
 
-#: ospy/options.py:1531
+#: ospy/options.py:1541
 msgid "Ignored invalid settings database {}: {}"
 msgstr ""
 
-#: ospy/options.py:1541
+#: ospy/options.py:1551
 msgid "No valid settings database was found; safe defaults are being used."
 msgstr ""
 
-#: ospy/options.py:1545
+#: ospy/options.py:1555
 msgid "Emergency recovery rebuilt shelve/DBM from the verified {} SQLite copy. Review Diagnostics and create a system backup."
 msgstr ""
 
-#: ospy/options.py:1551
+#: ospy/options.py:1561
 msgid "Emergency SQLite recovery was enabled but failed: {}"
 msgstr ""
 
-#: ospy/options.py:1557
+#: ospy/options.py:1567
 msgid "Settings were loaded from SQLite primary; synchronized shelve/DBM remains available as fallback."
 msgstr ""
 
-#: ospy/options.py:1561
+#: ospy/options.py:1571
 msgid "SQLite-primary startup failed and shelve/DBM was used: {}"
 msgstr ""
 
-#: ospy/options.py:1652
+#: ospy/options.py:1662
 msgid "Settings change handler"
 msgstr ""
 
-#: ospy/options.py:1653
+#: ospy/options.py:1663
 msgid "A component could not apply a changed setting."
 msgstr ""
 
-#: ospy/options.py:1657
+#: ospy/options.py:1667
 msgid "Open the event log, verify the changed setting and restart the affected component or OSPy."
 msgstr ""
 
-#: ospy/options.py:1738
+#: ospy/options.py:1748
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:1776
+#: ospy/options.py:1786
 msgid "The SQLite settings mirror could not be updated: {}"
 msgstr ""
 
-#: ospy/options.py:1785
+#: ospy/options.py:1795
 msgid "Strict SQLite dual-write verification failed: {}"
 msgstr ""
 
-#: ospy/options.py:1795
+#: ospy/options.py:1805
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:1802
+#: ospy/options.py:1812
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1808
+#: ospy/options.py:1818
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1813
+#: ospy/options.py:1823
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1818
+#: ospy/options.py:1828
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1824
+#: ospy/options.py:1834
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1827
+#: ospy/options.py:1837
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1871
+#: ospy/options.py:1881
 msgid "The SQLite settings read test failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1891
+#: ospy/options.py:1901
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:1920
+#: ospy/options.py:1930
 msgid "Settings database write"
 msgstr ""
 
-#: ospy/options.py:1921
+#: ospy/options.py:1931
 msgid "OSPy could not save changed settings to disk."
 msgstr ""
 
-#: ospy/options.py:1923
+#: ospy/options.py:1933
 msgid "Check free disk space and write permissions for the OSPy data directory, then save the settings again."
 msgstr ""
 
-#: ospy/options.py:1928
+#: ospy/options.py:1938
 msgid ""
 "Saving error:\n"
 msgstr ""
 
-#: ospy/options.py:1969
+#: ospy/options.py:1979
 msgid "Stored object data is not a dictionary."
 msgstr ""
 
-#: ospy/options.py:1977
+#: ospy/options.py:1987
 msgid "Stored value has an incompatible type."
 msgstr ""
 
-#: ospy/options.py:1982
+#: ospy/options.py:1992
 msgid "Ignoring invalid stored field {}.{}: {}"
 msgstr ""
 
-#: ospy/options.py:1990
+#: ospy/options.py:2000
 msgid "Ignoring invalid stored object {}: {}"
 msgstr ""
 
@@ -2566,7 +2574,7 @@ msgstr ""
 #: ospy/sensors.py:1542 ospy/sensors.py:1646 ospy/sensors.py:1656
 #: ospy/sensors.py:1666 ospy/sensors.py:1676 ospy/sensors.py:1869
 #: ospy/templates/sensors.html:785 ospy/templates/sensors.html:881
-#: ospy/webpages.py:3567
+#: ospy/webpages.py:3669
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:73
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:117
 #: plugins/email_notifications_ssl/__init__.py:402
@@ -2593,7 +2601,7 @@ msgstr ""
 #: ospy/sensors.py:1544 ospy/sensors.py:1648 ospy/sensors.py:1658
 #: ospy/sensors.py:1668 ospy/sensors.py:1678 ospy/sensors.py:1871
 #: ospy/templates/sensors.html:787 ospy/templates/sensors.html:859
-#: ospy/webpages.py:3567
+#: ospy/webpages.py:3669
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:71
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:115
 #: plugins/email_notifications_ssl/__init__.py:404
@@ -2993,67 +3001,67 @@ msgstr ""
 msgid "Starting scheduler and plugins..."
 msgstr ""
 
-#: ospy/server.py:350
+#: ospy/server.py:351
 msgid "Starting sensors timer..."
 msgstr ""
 
-#: ospy/server.py:356 ospy/server.py:357
+#: ospy/server.py:357 ospy/server.py:358
 msgid "OSPy is ready"
 msgstr ""
 
-#: ospy/server.py:358
+#: ospy/server.py:359
 msgid "Starting"
 msgstr ""
 
-#: ospy/server.py:358 ospy/server.py:372 ospy/server.py:486
+#: ospy/server.py:359 ospy/server.py:373 ospy/server.py:487
 msgid "Server"
 msgstr ""
 
-#: ospy/server.py:371
+#: ospy/server.py:372
 msgid "OSPy is closing, saving sessions."
 msgstr ""
 
-#: ospy/server.py:372 ospy/server.py:486
+#: ospy/server.py:373 ospy/server.py:487
 msgid "Stopping"
 msgstr ""
 
-#: ospy/server.py:373
+#: ospy/server.py:374
 msgid "Closing shelve database."
 msgstr ""
 
-#: ospy/server.py:376
+#: ospy/server.py:377
 msgid "Shelve database closed successfully."
 msgstr ""
 
-#: ospy/server.py:378
+#: ospy/server.py:379
 msgid "Error closing shelve database: {}"
 msgstr ""
 
-#: ospy/server.py:391
+#: ospy/server.py:392
 msgid "Error closing session database before reset: {}"
 msgstr ""
 
-#: ospy/server.py:398
+#: ospy/server.py:399
 msgid "Removed session file: {}"
 msgstr ""
 
-#: ospy/server.py:400
+#: ospy/server.py:401
 msgid "Error removing session file {}: {}"
 msgstr ""
 
-#: ospy/server.py:405
+#: ospy/server.py:406
 msgid "Session database has been reset."
 msgstr ""
 
-#: ospy/server.py:502 plugins/__init__.py:2159
+#: ospy/server.py:503 plugins/__init__.py:2372
 msgid "Plug-in threads did not stop in time"
 msgstr ""
 
-#: ospy/server.py:515
+#: ospy/server.py:516
 msgid "Background threads did not stop in time"
 msgstr ""
 
-#: ospy/server.py:574
+#: ospy/server.py:575
 msgid "Creating statistics..."
 msgstr ""
 
@@ -3215,7 +3223,7 @@ msgid "Available OSPy version"
 msgstr ""
 
 #: ospy/templates/base.html:275 ospy/templates/plugins_changes.html:70
-#: ospy/templates/plugins_manage.html:210
+#: ospy/templates/plugins_manage.html:216
 #: plugins/system_update/__init__.py:299
 msgid "Changes"
 msgstr ""
@@ -3395,7 +3403,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:447 ospy/templates/diagnostics.html:892
+#: ospy/templates/base.html:447 ospy/templates/diagnostics.html:904
 msgid "Plugin"
 msgstr ""
 
@@ -3407,13 +3415,13 @@ msgstr ""
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:457 ospy/templates/diagnostics.html:836
+#: ospy/templates/base.html:457 ospy/templates/diagnostics.html:848
 #: plugins/lcd_display/templates/lcd_display.html:273
 #: plugins/lcd_display/templates/lcd_display_help.html:37
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:835
+#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:847
 msgid "CPU Usage"
 msgstr ""
 
@@ -3435,7 +3443,7 @@ msgstr ""
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:462 ospy/templates/diagnostics.html:839
+#: ospy/templates/base.html:462 ospy/templates/diagnostics.html:851
 msgid "Working"
 msgstr ""
 
@@ -3445,7 +3453,7 @@ msgid "Weather location"
 msgstr ""
 
 #: ospy/templates/base.html:484 ospy/templates/base.html:494
-#: ospy/templates/diagnostics.html:986 ospy/templates/plugins_manage.html:76
+#: ospy/templates/diagnostics.html:998 ospy/templates/plugins_manage.html:76
 #: plugins/venetian_blind/templates/venetian_blind.html:51
 msgid "Close"
 msgstr ""
@@ -3532,7 +3540,7 @@ msgstr ""
 msgid "Diagnostics detected the following errors:"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:94 ospy/templates/diagnostics.html:190
+#: ospy/templates/diagnostics.html:94 ospy/templates/diagnostics.html:202
 #: ospy/templates/home_admin.html:73 ospy/templates/log.html:217
 #: ospy/templates/log_sensor.html:92 ospy/templates/log_sensor.html:112
 #: plugins/database_connector/__init__.py:85
@@ -3548,55 +3556,64 @@ msgstr ""
 msgid "Problem"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:98 ospy/templates/diagnostics.html:312
-#: ospy/templates/diagnostics.html:619 ospy/templates/diagnostics.html:815
-#: ospy/templates/diagnostics.html:932 ospy/templates/home_admin.html:77
+#: ospy/templates/diagnostics.html:98 ospy/templates/diagnostics.html:324
+#: ospy/templates/diagnostics.html:631 ospy/templates/diagnostics.html:827
+#: ospy/templates/diagnostics.html:944 ospy/templates/home_admin.html:77
 #: ospy/templates/home_admin.html:887 ospy/templates/home_user.html:787
-#: ospy/templates/plugins_manage.html:272
-#: ospy/templates/plugins_manage.html:289
+#: ospy/templates/plugins_manage.html:278
+#: ospy/templates/plugins_manage.html:324
 msgid "Details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:103 ospy/templates/diagnostics.html:308
+#: ospy/templates/diagnostics.html:103 ospy/templates/diagnostics.html:320
 #: ospy/templates/home_admin.html:81
 msgid "Possible solution"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:108 ospy/templates/diagnostics.html:206
-#: ospy/templates/diagnostics.html:316 ospy/templates/diagnostics.html:386
-#: ospy/templates/diagnostics.html:633 ospy/templates/home_admin.html:85
-#: ospy/templates/plugins_manage.html:181
+#: ospy/templates/diagnostics.html:108 ospy/templates/diagnostics.html:218
+#: ospy/templates/diagnostics.html:328 ospy/templates/diagnostics.html:398
+#: ospy/templates/diagnostics.html:645 ospy/templates/home_admin.html:85
+#: ospy/templates/plugins_manage.html:182
 #: plugins/venetian_blind/templates/venetian_blind.html:49
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:390
 #: plugins/wind_monitor/__init__.py:1002
 msgid "Open"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:127
+#: ospy/templates/diagnostics.html:128
+msgid "Open the plug-in manager and approve the newly requested permissions after reviewing them."
+msgstr ""
+
+#: ospy/templates/diagnostics.html:131
 msgid "Open the plug-in manager and resolve the listed OSPy version, Python dependency, hardware, GPIO, I2C or plug-in conflict."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:130
+#: ospy/templates/diagnostics.html:134
 msgid "Update or reinstall the plug-in. If the test still fails, inspect the listed Python source error."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:133
+#: ospy/templates/diagnostics.html:137
 msgid "Check compatibility and the pre-activation test in the plug-in manager, then enable or restart the plug-in."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:135
+#: ospy/templates/diagnostics.html:139
 msgid "Open the plug-in, verify its configuration and required hardware or network service, then restart it after correcting the cause."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:153
+#: ospy/templates/diagnostics.html:158
 msgid "Enabled plug-in is not running."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:176
+#: ospy/templates/diagnostics.html:175 ospy/webpages.py:2621
+#: plugins/__init__.py:1509 plugins/__init__.py:2416
+msgid "Plug-in permission approval is required"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:188
 msgid "The enabled plug-in needs attention."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:188 ospy/webpages.py:4823
+#: ospy/templates/diagnostics.html:200 ospy/webpages.py:4925
 #: plugins/ip_cam/__init__.py:186 plugins/mqtt/__init__.py:487
 #: plugins/mqtt_home_assistant/__init__.py:292
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
@@ -3607,13 +3624,13 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:189 ospy/templates/log.html:217
+#: ospy/templates/diagnostics.html:201 ospy/templates/log.html:217
 #: ospy/templates/programs.html:193
 #: plugins/relay_16/templates/relay_16_help.html:15
 msgid "Warning"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:191 plugins/real_time/__init__.py:245
+#: ospy/templates/diagnostics.html:203 plugins/real_time/__init__.py:245
 #: plugins/real_time/__init__.py:246
 #: plugins/remote_ftp_control/__init__.py:199
 #: plugins/remote_notifications/__init__.py:293
@@ -3621,32 +3638,32 @@ msgstr ""
 msgid "Not configured"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:203
+#: ospy/templates/diagnostics.html:215
 msgid "Last successful activity"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:231
+#: ospy/templates/diagnostics.html:243
 msgid "Open the related settings, check the event log and correct the reported cause."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:250 ospy/templates/diagnostics.html:271
-#: ospy/templates/diagnostics.html:807
+#: ospy/templates/diagnostics.html:262 ospy/templates/diagnostics.html:283
+#: ospy/templates/diagnostics.html:819
 msgid "System status"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:252
+#: ospy/templates/diagnostics.html:264
 msgid "Check the OSPy event log and restart OSPy if the status cannot be loaded."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:261 ospy/webpages.py:3985
+#: ospy/templates/diagnostics.html:273 ospy/webpages.py:4087
 msgid "System health refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:273 ospy/templates/diagnostics.html:732
+#: ospy/templates/diagnostics.html:285 ospy/templates/diagnostics.html:744
 msgid "Check the OSPy connection and event log, then reload the page or restart OSPy."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:283 ospy/templates/diagnostics.html:952
+#: ospy/templates/diagnostics.html:295 ospy/templates/diagnostics.html:964
 #: ospy/templates/home_admin.html:677 ospy/templates/home_user.html:586
 #: ospy/templates/options.html:293 ospy/templates/twofactor.html:61
 #: ospy/templates/twofactor.html:80 plugins/lcd_display/__init__.py:506
@@ -3657,52 +3674,52 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:284 ospy/templates/diagnostics.html:953
-#: ospy/templates/diagnostics.html:968
+#: ospy/templates/diagnostics.html:296 ospy/templates/diagnostics.html:965
+#: ospy/templates/diagnostics.html:980
 msgid "Resolved"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:285 ospy/templates/diagnostics.html:954
+#: ospy/templates/diagnostics.html:297 ospy/templates/diagnostics.html:966
 msgid "Interrupted by restart"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:303
+#: ospy/templates/diagnostics.html:315
 msgid "Technical cause"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:331
+#: ospy/templates/diagnostics.html:343
 msgid "No incidents match the selected filter."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:351 ospy/webpages.py:4029
+#: ospy/templates/diagnostics.html:363 ospy/webpages.py:4131
 msgid "Incident history refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:383
+#: ospy/templates/diagnostics.html:395
 msgid "Recommendation"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:418 ospy/webpages.py:4007
+#: ospy/templates/diagnostics.html:430 ospy/webpages.py:4109
 msgid "Security check failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:536
+#: ospy/templates/diagnostics.html:548
 msgid "No data yet."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:536
+#: ospy/templates/diagnostics.html:548
 msgid "samples"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:548
+#: ospy/templates/diagnostics.html:560
 msgid "Not enough history data yet."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:607 ospy/webpages.py:3963
+#: ospy/templates/diagnostics.html:619 ospy/webpages.py:4065
 msgid "Diagnostics history refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:612 plugins/air_temp_humi/__init__.py:411
+#: ospy/templates/diagnostics.html:624 plugins/air_temp_humi/__init__.py:411
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:429
 #: plugins/chmi/__init__.py:435
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -3751,7 +3768,7 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:612 plugins/air_temp_humi/__init__.py:411
+#: ospy/templates/diagnostics.html:624 plugins/air_temp_humi/__init__.py:411
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:429
 #: plugins/chmi/__init__.py:435
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -3796,14 +3813,14 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:613 ospy/templates/home_admin.html:266
+#: ospy/templates/diagnostics.html:625 ospy/templates/home_admin.html:266
 #: ospy/templates/home_admin.html:687 ospy/templates/home_public.html:161
 #: ospy/templates/home_user.html:178 ospy/templates/home_user.html:596
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
 #: ospy/templates/log.html:191 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/twofactor.html:41 ospy/templates/twofactor.html:47
-#: ospy/webpages.py:3107 ospy/webpages.py:3122
+#: ospy/webpages.py:3208 ospy/webpages.py:3223
 #: plugins/air_temp_humi/__init__.py:412
 #: plugins/email_notifications/__init__.py:338
 #: plugins/email_notifications/__init__.py:464
@@ -3825,12 +3842,12 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:613 ospy/templates/home_admin.html:687
+#: ospy/templates/diagnostics.html:625 ospy/templates/home_admin.html:687
 #: ospy/templates/home_user.html:596 ospy/templates/log.html:114
 #: ospy/templates/log.html:156 ospy/templates/log.html:191
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 ospy/templates/program.html:390
-#: ospy/webpages.py:3601 ospy/webpages.py:3735
+#: ospy/webpages.py:3703 ospy/webpages.py:3837
 #: plugins/air_temp_humi/__init__.py:412
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 #: plugins/email_notifications/__init__.py:464
@@ -3846,7 +3863,7 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:635 plugins/air_temp_humi/__init__.py:420
+#: ospy/templates/diagnostics.html:647 plugins/air_temp_humi/__init__.py:420
 #: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:446
 #: plugins/current_loop_tanks_monitor/__init__.py:515
 #: plugins/database_connector/__init__.py:120
@@ -3877,50 +3894,50 @@ msgstr ""
 msgid "Last error"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:643
+#: ospy/templates/diagnostics.html:655
 msgid "Managed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:646
+#: ospy/templates/diagnostics.html:658
 msgid "Stop requested"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:690
+#: ospy/templates/diagnostics.html:702
 #: plugins/system_info/templates/system_info.html:3
 #: plugins/system_info/templates/system_info.html:19
 msgid "System Information"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:692
+#: ospy/templates/diagnostics.html:704
 msgid "System Information plug-in is not running."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:707 ospy/webpages.py:3744
+#: ospy/templates/diagnostics.html:719 ospy/webpages.py:3846
 msgid "Plug-ins"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:709
+#: ospy/templates/diagnostics.html:721
 msgid "Check the OSPy event log and restart OSPy if plug-in diagnostics cannot be read."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:718 ospy/webpages.py:3933
+#: ospy/templates/diagnostics.html:730 ospy/webpages.py:4035
 msgid "Diagnostics refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:720
+#: ospy/templates/diagnostics.html:732
 msgid "Admin access is required."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:776 ospy/templates/plugins_changes.html:23
+#: ospy/templates/diagnostics.html:788 ospy/templates/plugins_changes.html:23
 #: ospy/templates/plugins_manage.html:67
 msgid "Working..."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:781 ospy/webpages.py:3891
+#: ospy/templates/diagnostics.html:793 ospy/webpages.py:3993
 msgid "Restart failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:801 ospy/templates/edit.html:153
+#: ospy/templates/diagnostics.html:813 ospy/templates/edit.html:153
 #: ospy/templates/graph_sensor.html:289 ospy/templates/log_sensor.html:12
 #: ospy/templates/log_sensor.html:156 ospy/templates/options.html:353
 #: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:660
@@ -4095,13 +4112,13 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:813
+#: ospy/templates/diagnostics.html:825
 #: plugins/mqtt_home_assistant/__init__.py:840
 msgid "Component"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:814 ospy/templates/diagnostics.html:893
-#: ospy/templates/diagnostics.html:931 ospy/templates/log.html:226
+#: ospy/templates/diagnostics.html:826 ospy/templates/diagnostics.html:905
+#: ospy/templates/diagnostics.html:943 ospy/templates/log.html:226
 #: ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:531
 #: plugins/button_control/templates/button_control.html:145
@@ -4173,159 +4190,159 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:816 ospy/templates/diagnostics.html:902
-#: ospy/templates/diagnostics.html:933 ospy/templates/diagnostics.html:970
+#: ospy/templates/diagnostics.html:828 ospy/templates/diagnostics.html:914
+#: ospy/templates/diagnostics.html:945 ospy/templates/diagnostics.html:982
 msgid "Actions"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:820 ospy/templates/diagnostics.html:906
-#: ospy/templates/diagnostics.html:937 ospy/templates/diagnostics.html:974
+#: ospy/templates/diagnostics.html:832 ospy/templates/diagnostics.html:918
+#: ospy/templates/diagnostics.html:949 ospy/templates/diagnostics.html:986
 #: ospy/templates/home_admin.html:818 ospy/templates/home_public.html:508
 #: ospy/templates/home_user.html:724
 msgid "loading..."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:824 ospy/templates/diagnostics.html:851
-#: ospy/templates/diagnostics.html:941 ospy/templates/diagnostics.html:978
+#: ospy/templates/diagnostics.html:836 ospy/templates/diagnostics.html:863
+#: ospy/templates/diagnostics.html:953 ospy/templates/diagnostics.html:990
 msgid "Updated"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:829
+#: ospy/templates/diagnostics.html:841
 msgid "Performance and processes"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:840
+#: ospy/templates/diagnostics.html:852
 msgid "Load"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:843
+#: ospy/templates/diagnostics.html:855
 msgid "OSPy CPU"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:844
+#: ospy/templates/diagnostics.html:856
 msgid "OSPy memory"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:847 ospy/templates/diagnostics.html:899
+#: ospy/templates/diagnostics.html:859 ospy/templates/diagnostics.html:911
 msgid "Threads"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:848 plugins/system_info/__init__.py:53
+#: ospy/templates/diagnostics.html:860 plugins/system_info/__init__.py:53
 msgid "Platform"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:857
+#: ospy/templates/diagnostics.html:869
 msgid "Sort plugins"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:859
+#: ospy/templates/diagnostics.html:871
 msgid "By CPU load"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:860
+#: ospy/templates/diagnostics.html:872
 msgid "By plug-in name"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:861
+#: ospy/templates/diagnostics.html:873
 msgid "By total CPU time"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:864
+#: ospy/templates/diagnostics.html:876
 msgid "Expand all details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:865
+#: ospy/templates/diagnostics.html:877
 msgid "Collapse all details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:874 ospy/templates/twofactor.html:99
+#: ospy/templates/diagnostics.html:886 ospy/templates/twofactor.html:99
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:44
 msgid "Back"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:875
+#: ospy/templates/diagnostics.html:887
 msgid "History range"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:877
+#: ospy/templates/diagnostics.html:889
 #: plugins/wind_monitor/templates/wind_monitor.html:362
 msgid "1 hour"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:878
+#: ospy/templates/diagnostics.html:890
 msgid "24 hours"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:879
+#: ospy/templates/diagnostics.html:891
 msgid "7 days"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:894
+#: ospy/templates/diagnostics.html:906
 msgid "Health"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:895 ospy/templates/plugins_changes.html:53
-#: ospy/templates/plugins_install.html:63
-#: ospy/templates/plugins_manage.html:265
+#: ospy/templates/diagnostics.html:907 ospy/templates/plugins_changes.html:53
+#: ospy/templates/plugins_install.html:78
+#: ospy/templates/plugins_manage.html:271
 msgid "Compatibility"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:896 ospy/templates/plugins_manage.html:283
+#: ospy/templates/diagnostics.html:908 ospy/templates/plugins_manage.html:318
 msgid "Pre-activation test"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:897
+#: ospy/templates/diagnostics.html:909
 msgid "CPU now"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:898
+#: ospy/templates/diagnostics.html:910
 msgid "CPU total"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:900
+#: ospy/templates/diagnostics.html:912
 #: plugins/database_connector/__init__.py:110
 #: plugins/labelmaker/__init__.py:461 plugins/modbus_stations/__init__.py:142
 #: plugins/ospy_backup/__init__.py:89
 msgid "Started"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:901
+#: ospy/templates/diagnostics.html:913
 msgid "Restarts"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:914
+#: ospy/templates/diagnostics.html:926
 msgid "Security check"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:917
+#: ospy/templates/diagnostics.html:929
 msgid "Recommended profile"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:919 ospy/webpages.py:3364
+#: ospy/templates/diagnostics.html:931 ospy/webpages.py:3465
 msgid "Home network"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:920 ospy/webpages.py:3369
+#: ospy/templates/diagnostics.html:932 ospy/webpages.py:3470
 msgid "Internet access"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:922
+#: ospy/templates/diagnostics.html:934
 msgid "The selected profile changes only the assessment and does not modify OSPy settings."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:930
+#: ospy/templates/diagnostics.html:942
 msgid "Security control"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:946
+#: ospy/templates/diagnostics.html:958
 msgid "Incident history"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:949
+#: ospy/templates/diagnostics.html:961
 msgid "Show incidents"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:951 ospy/templates/graph_sensor.html:200
+#: ospy/templates/diagnostics.html:963 ospy/templates/graph_sensor.html:200
 #: ospy/templates/graph_sensor.html:262
 #: plugins/air_temp_humi/templates/air_temp_humi.html:232
 #: plugins/air_temp_humi/templates/air_temp_humi.html:555
@@ -4348,11 +4365,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:956
+#: ospy/templates/diagnostics.html:968
 msgid "Displayed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:963
+#: ospy/templates/diagnostics.html:975
 #: ospy/templates/sensors_firmware.html:136
 #: plugins/email_reader/__init__.py:405
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:176
@@ -4369,31 +4386,31 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:964
+#: ospy/templates/diagnostics.html:976
 msgid "Severity"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:965
+#: ospy/templates/diagnostics.html:977
 msgid "Component and problem"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:966
+#: ospy/templates/diagnostics.html:978
 msgid "Opened"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:967
+#: ospy/templates/diagnostics.html:979
 msgid "Last occurrence"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:969 ospy/webpages.py:3436
+#: ospy/templates/diagnostics.html:981 ospy/webpages.py:3538
 msgid "Occurrences"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:978
+#: ospy/templates/diagnostics.html:990
 msgid "History is limited to the 200 most recent incidents and survives an OSPy restart."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:988 ospy/templates/home_admin.html:93
+#: ospy/templates/diagnostics.html:1000 ospy/templates/home_admin.html:93
 msgid "Diagnostics error"
 msgstr ""
 
@@ -4528,7 +4545,7 @@ msgstr ""
 msgid "Delete this image?"
 msgstr ""
 
-#: ospy/templates/edit.html:151 ospy/templates/plugins_manage.html:220
+#: ospy/templates/edit.html:151 ospy/templates/plugins_manage.html:226
 #: ospy/templates/program.html:622 ospy/templates/program.html:649
 #: ospy/templates/programs.html:221
 #: plugins/database_connector/templates/database_connector_backup.html:45
@@ -5038,7 +5055,7 @@ msgstr ""
 #: ospy/templates/home_user.html:659 ospy/templates/home_user.html:669
 #: ospy/templates/plugins_manage.html:112
 #: ospy/templates/plugins_manage.html:125
-#: ospy/templates/plugins_manage.html:234 ospy/templates/program.html:395
+#: ospy/templates/plugins_manage.html:240 ospy/templates/program.html:395
 #: ospy/templates/program.html:416 ospy/templates/program.html:460
 #: ospy/templates/program.html:515 ospy/templates/programs.html:175
 #: ospy/templates/sensors.html:75
@@ -5210,7 +5227,7 @@ msgstr ""
 #: ospy/templates/home_user.html:659 ospy/templates/home_user.html:669
 #: ospy/templates/plugins_manage.html:110
 #: ospy/templates/plugins_manage.html:123
-#: ospy/templates/plugins_manage.html:232 ospy/templates/program.html:393
+#: ospy/templates/plugins_manage.html:238 ospy/templates/program.html:393
 #: ospy/templates/program.html:414 ospy/templates/program.html:458
 #: ospy/templates/program.html:513 ospy/templates/programs.html:173
 #: ospy/templates/sensors.html:73
@@ -5808,7 +5825,7 @@ msgstr ""
 msgid "File type is not zip, please retry."
 msgstr ""
 
-#: ospy/templates/options.html:91 ospy/webpages.py:4709 ospy/webpages.py:4739
+#: ospy/templates/options.html:91 ospy/webpages.py:4811 ospy/webpages.py:4841
 msgid "File name is not fullchain.pem or privkey.pem, please retry."
 msgstr ""
 
@@ -6069,12 +6086,12 @@ msgid "Install or update plugin from this source?"
 msgstr ""
 
 #: ospy/templates/plugins_changes.html:40
-#: ospy/templates/plugins_manage.html:194
+#: ospy/templates/plugins_manage.html:200
 msgid "Update"
 msgstr ""
 
 #: ospy/templates/plugins_changes.html:44
-#: ospy/templates/plugins_install.html:36
+#: ospy/templates/plugins_install.html:44
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:42
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:340
 msgid "Source"
@@ -6117,40 +6134,60 @@ msgstr ""
 msgid "Custom plug-in (ZIP)"
 msgstr ""
 
-#: ospy/templates/plugins_install.html:20
-#: ospy/templates/plugins_install.html:55
+#: ospy/templates/plugins_install.html:21
+msgid "Approve permissions declared in this ZIP"
+msgstr ""
+
+#: ospy/templates/plugins_install.html:27
+#: ospy/templates/plugins_install.html:70
 #: plugins/database_connector/templates/database_connector.html:139
 msgid "Install"
 msgstr ""
 
-#: ospy/templates/plugins_install.html:31
-msgid "Install all compatible"
+#: ospy/templates/plugins_install.html:39
+msgid "Approve and install all compatible"
 msgstr ""
 
-#: ospy/templates/plugins_install.html:37
+#: ospy/templates/plugins_install.html:45
 msgid "Compatible plug-ins"
 msgstr ""
 
-#: ospy/templates/plugins_install.html:53
+#: ospy/templates/plugins_install.html:64
+msgid "Approve and reinstall"
+msgstr ""
+
+#: ospy/templates/plugins_install.html:66
 msgid "Reinstall"
 msgstr ""
 
-#: ospy/templates/plugins_install.html:72
-#: ospy/templates/plugins_manage.html:268
+#: ospy/templates/plugins_install.html:68
+msgid "Approve and install"
+msgstr ""
+
+#: ospy/templates/plugins_install.html:87
+#: ospy/templates/plugins_manage.html:274
 msgid "Permissions"
+msgstr ""
+
+#: ospy/templates/plugins_install.html:91
+msgid "Declared permissions are approved."
+msgstr ""
+
+#: ospy/templates/plugins_install.html:93
+msgid "Installation requires approval of"
 msgstr ""
 
 #: ospy/templates/plugins_manage.html:55
 msgid "Checking for plugin updates..."
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:56 ospy/webpages.py:3820
+#: ospy/templates/plugins_manage.html:56 ospy/webpages.py:3922
 #: plugins/system_update/templates/system_update.html:259
 msgid "Checking..."
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:61 ospy/webpages.py:2716
-#: plugins/__init__.py:1269
+#: ospy/templates/plugins_manage.html:61 ospy/webpages.py:2801
+#: plugins/__init__.py:1448
 msgid "all plugins"
 msgstr ""
 
@@ -6257,44 +6294,84 @@ msgstr ""
 msgid "Delete All"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:196
+#: ospy/templates/plugins_manage.html:198
+msgid "Approve and update"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:202
 msgid "Incompatible"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:199
+#: ospy/templates/plugins_manage.html:205
 #: plugins/system_update/__init__.py:355
 msgid "Up-to-date"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:201
+#: ospy/templates/plugins_manage.html:207
 msgid "Not-use"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:205
+#: ospy/templates/plugins_manage.html:211
 msgid "No update"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:216
+#: ospy/templates/plugins_manage.html:222
 msgid "Delete this plugin?"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:244
+#: ospy/templates/plugins_manage.html:250
 msgid "Update available"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:247
+#: ospy/templates/plugins_manage.html:253
 msgid "Installed package"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:254
+#: ospy/templates/plugins_manage.html:260
 msgid "Manifest"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:260
+#: ospy/templates/plugins_manage.html:266
 msgid "Homepage"
 msgstr ""
 
-#: ospy/templates/plugins_manage.html:285
+#: ospy/templates/plugins_manage.html:289
+msgid "Permission approval"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:291
+msgid "Approved"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:293
+msgid "Approval required"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:295
+msgid "Declared permissions"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:297
+msgid "No permissions declared"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:299
+msgid "Preserved during the OSPy 3.0.294 upgrade"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:306
+msgid "Approve permissions"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:309
+msgid "Revoking permissions also disables this plug-in. Continue?"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:313
+msgid "Revoke approval"
+msgstr ""
+
+#: ospy/templates/plugins_manage.html:320
 msgid "Python files"
 msgstr ""
 
@@ -7968,7 +8045,7 @@ msgstr ""
 msgid "HTTP"
 msgstr ""
 
-#: ospy/templates/sensors_firmware.html:216 ospy/webpages.py:3241
+#: ospy/templates/sensors_firmware.html:216 ospy/webpages.py:3342
 msgid "HTTPS"
 msgstr ""
 
@@ -8208,7 +8285,7 @@ msgstr ""
 msgid "Code sent by e-mail"
 msgstr ""
 
-#: ospy/templates/twofactor.html:49 ospy/webpages.py:3264
+#: ospy/templates/twofactor.html:49 ospy/webpages.py:3365
 msgid "Two-factor authentication is disabled."
 msgstr ""
 
@@ -8575,13 +8652,13 @@ msgstr ""
 #: ospy/webpages.py:2028 ospy/webpages.py:2042 ospy/webpages.py:2056
 #: ospy/webpages.py:2116 ospy/webpages.py:2134 ospy/webpages.py:2160
 #: ospy/webpages.py:2335 ospy/webpages.py:2432 ospy/webpages.py:2461
-#: ospy/webpages.py:2472 ospy/webpages.py:2503 ospy/webpages.py:2693
-#: ospy/webpages.py:2705 ospy/webpages.py:3872 ospy/webpages.py:4041
-#: ospy/webpages.py:4113 ospy/webpages.py:4149 ospy/webpages.py:4169
-#: ospy/webpages.py:4398 ospy/webpages.py:4407 ospy/webpages.py:4478
-#: ospy/webpages.py:4486 ospy/webpages.py:4552 ospy/webpages.py:4571
-#: ospy/webpages.py:4626 ospy/webpages.py:4780 ospy/webpages.py:5236
-#: ospy/webpages.py:5320
+#: ospy/webpages.py:2472 ospy/webpages.py:2503 ospy/webpages.py:2778
+#: ospy/webpages.py:2790 ospy/webpages.py:3974 ospy/webpages.py:4143
+#: ospy/webpages.py:4215 ospy/webpages.py:4251 ospy/webpages.py:4271
+#: ospy/webpages.py:4500 ospy/webpages.py:4509 ospy/webpages.py:4580
+#: ospy/webpages.py:4588 ospy/webpages.py:4654 ospy/webpages.py:4673
+#: ospy/webpages.py:4728 ospy/webpages.py:4882 ospy/webpages.py:5338
+#: ospy/webpages.py:5422
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
@@ -8926,115 +9003,136 @@ msgstr ""
 msgid "User {} disabled all plug-ins."
 msgstr ""
 
-#: ospy/webpages.py:2560
+#: ospy/webpages.py:2562
 msgid "Plug-ins enabled"
 msgstr ""
 
-#: ospy/webpages.py:2561
+#: ospy/webpages.py:2563
 msgid "User {} enabled all available plug-ins."
 msgstr ""
 
-#: ospy/webpages.py:2568
+#: ospy/webpages.py:2570
 msgid "Some incompatible plug-ins were not enabled"
 msgstr ""
 
-#: ospy/webpages.py:2582
+#: ospy/webpages.py:2584
 msgid "Plug-ins deleted"
 msgstr ""
 
-#: ospy/webpages.py:2583
+#: ospy/webpages.py:2585
 msgid "User {} deleted all plug-ins."
 msgstr ""
 
-#: ospy/webpages.py:2599 plugins/__init__.py:2241
+#: ospy/webpages.py:2611 ospy/webpages.py:2684 ospy/webpages.py:2740
+#: ospy/webpages.py:2766
+msgid "Plug-in permissions approved"
+msgstr ""
+
+#: ospy/webpages.py:2612 ospy/webpages.py:2685
+msgid "User {} approved permissions for plug-in {}: {}."
+msgstr ""
+
+#: ospy/webpages.py:2628 plugins/__init__.py:2461
 msgid "Plug-in pre-activation test failed"
 msgstr ""
 
-#: ospy/webpages.py:2608
+#: ospy/webpages.py:2637
 msgid "Plug-in cannot be enabled"
 msgstr ""
 
-#: ospy/webpages.py:2625
+#: ospy/webpages.py:2654
 msgid "Plug-in deleted"
 msgstr ""
 
-#: ospy/webpages.py:2626
+#: ospy/webpages.py:2655
 msgid "User {} deleted plug-in {}."
 msgstr ""
 
-#: ospy/webpages.py:2629
+#: ospy/webpages.py:2658
 msgid "Plug-in enabled"
 msgstr ""
 
-#: ospy/webpages.py:2630
+#: ospy/webpages.py:2659
 msgid "User {} enabled plug-in {}."
 msgstr ""
 
-#: ospy/webpages.py:2633
+#: ospy/webpages.py:2662
 msgid "Plug-in disabled"
 msgstr ""
 
-#: ospy/webpages.py:2634
+#: ospy/webpages.py:2663
 msgid "User {} disabled plug-in {}."
 msgstr ""
 
-#: ospy/webpages.py:2669
+#: ospy/webpages.py:2703
+msgid "Plug-in permissions revoked"
+msgstr ""
+
+#: ospy/webpages.py:2704
+msgid "User {} revoked permissions for plug-in {}. The plug-in was disabled."
+msgstr ""
+
+#: ospy/webpages.py:2735
 msgid "Installed plug-ins"
 msgstr ""
 
-#: ospy/webpages.py:2676
+#: ospy/webpages.py:2748
 msgid "Skipped incompatible plug-ins"
 msgstr ""
 
-#: ospy/webpages.py:2685
+#: ospy/webpages.py:2757
 msgid "Compatibility warnings"
 msgstr ""
 
-#: ospy/webpages.py:2717
+#: ospy/webpages.py:2767
+msgid "User {} approved permissions for plug-in {} during installation from {}: {}."
+msgstr ""
+
+#: ospy/webpages.py:2802
 msgid "Installing plug-in {} from {}"
 msgstr ""
 
-#: ospy/webpages.py:2721 ospy/webpages.py:2758
+#: ospy/webpages.py:2815 ospy/webpages.py:2859
 msgid "Plug-in installation completed"
 msgstr ""
 
-#: ospy/webpages.py:2722 ospy/webpages.py:2759
+#: ospy/webpages.py:2816 ospy/webpages.py:2860
 msgid "User {} installed {} from {}."
 msgstr ""
 
-#: ospy/webpages.py:2736 ospy/webpages.py:2773
+#: ospy/webpages.py:2830 ospy/webpages.py:2874
 msgid "Plug-in installation failed"
 msgstr ""
 
-#: ospy/webpages.py:2737 ospy/webpages.py:2774
+#: ospy/webpages.py:2831 ospy/webpages.py:2875
 msgid "Plug-in installation from {} failed: {}"
 msgstr ""
 
-#: ospy/webpages.py:2744
+#: ospy/webpages.py:2838
 msgid "Invalid plug-in repository index: {}"
 msgstr ""
 
-#: ospy/webpages.py:2751
+#: ospy/webpages.py:2845
 msgid "uploaded ZIP"
 msgstr ""
 
-#: ospy/webpages.py:2752
+#: ospy/webpages.py:2846
 msgid "Installing custom plug-in from uploaded ZIP: {}"
 msgstr ""
 
-#: ospy/webpages.py:2832
+#: ospy/webpages.py:2933
 msgid "Plug-in diagnostics history sampling failed."
 msgstr ""
 
-#: ospy/webpages.py:2927
+#: ospy/webpages.py:3028
 msgid "Plug-in diagnostics refresh failed."
 msgstr ""
 
-#: ospy/webpages.py:2981
+#: ospy/webpages.py:3082
 msgid "SQLite readiness"
 msgstr ""
 
-#: ospy/webpages.py:2983 plugins/labelmaker/__init__.py:466
+#: ospy/webpages.py:3084 plugins/labelmaker/__init__.py:466
 #: plugins/network_ping_monitor/__init__.py:177
 #: plugins/network_ping_monitor/__init__.py:232
 #: plugins/network_ping_monitor/__init__.py:246
@@ -9054,8 +9152,8 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: ospy/webpages.py:2987 ospy/webpages.py:3031 ospy/webpages.py:3060
-#: ospy/webpages.py:3094 plugins/network_ping_monitor/__init__.py:172
+#: ospy/webpages.py:3088 ospy/webpages.py:3132 ospy/webpages.py:3161
+#: ospy/webpages.py:3195 plugins/network_ping_monitor/__init__.py:172
 #: plugins/network_ping_monitor/__init__.py:232
 #: plugins/network_ping_monitor/__init__.py:246
 #: plugins/network_ping_monitor/__init__.py:424
@@ -9064,1303 +9162,1351 @@ msgstr ""
 msgid "Unavailable"
 msgstr ""
 
-#: ospy/webpages.py:2990
+#: ospy/webpages.py:3091
 msgid "Shelve remains active."
 msgstr ""
 
-#: ospy/webpages.py:2998
+#: ospy/webpages.py:3099
 msgid "SQLite settings database"
 msgstr ""
 
-#: ospy/webpages.py:3000
+#: ospy/webpages.py:3101
 msgid "SQLite shadow copy"
 msgstr ""
 
-#: ospy/webpages.py:3005
+#: ospy/webpages.py:3106
 msgid "Verified SQLite primary snapshot"
 msgstr ""
 
-#: ospy/webpages.py:3007
+#: ospy/webpages.py:3108
 msgid "Verified against shelve/DBM"
 msgstr ""
 
-#: ospy/webpages.py:3010
+#: ospy/webpages.py:3111
 msgid "Synchronized"
 msgstr ""
 
-#: ospy/webpages.py:3011 ospy/webpages.py:3044 ospy/webpages.py:3072
-#: ospy/webpages.py:3088 ospy/webpages.py:3114
+#: ospy/webpages.py:3112 ospy/webpages.py:3145 ospy/webpages.py:3173
+#: ospy/webpages.py:3189 ospy/webpages.py:3215
 msgid "settings"
 msgstr ""
 
-#: ospy/webpages.py:3013
+#: ospy/webpages.py:3114
 msgid "saved"
 msgstr ""
 
-#: ospy/webpages.py:3016
+#: ospy/webpages.py:3117
 msgid "compared"
 msgstr ""
 
-#: ospy/webpages.py:3018 ospy/webpages.py:3020
+#: ospy/webpages.py:3119 ospy/webpages.py:3121
 msgid "SQLite read test"
 msgstr ""
 
-#: ospy/webpages.py:3018 ospy/webpages.py:3044 ospy/webpages.py:3071
+#: ospy/webpages.py:3119 ospy/webpages.py:3145 ospy/webpages.py:3172
 msgid "Passed"
 msgstr ""
 
-#: ospy/webpages.py:3020
+#: ospy/webpages.py:3121
 msgid "Waiting for the next OSPy start"
 msgstr ""
 
-#: ospy/webpages.py:3022 ospy/webpages.py:3062 ospy/webpages.py:3078
-#: ospy/webpages.py:3096
+#: ospy/webpages.py:3123 ospy/webpages.py:3163 ospy/webpages.py:3179
+#: ospy/webpages.py:3197
 msgid "Failed"
 msgstr ""
 
-#: ospy/webpages.py:3027 ospy/webpages.py:3031
+#: ospy/webpages.py:3128 ospy/webpages.py:3132
 msgid "Shelve remains authoritative."
 msgstr ""
 
-#: ospy/webpages.py:3029
+#: ospy/webpages.py:3130
 msgid "Older shadow format; it will be upgraded on the next settings save."
 msgstr ""
 
-#: ospy/webpages.py:3033 ospy/webpages.py:3057
+#: ospy/webpages.py:3134 ospy/webpages.py:3158
 msgid "Waiting for the next settings save."
 msgstr ""
 
-#: ospy/webpages.py:3049
+#: ospy/webpages.py:3150
 msgid "Waiting for a schema 3 backup rotation"
 msgstr ""
 
-#: ospy/webpages.py:3051
+#: ospy/webpages.py:3152
 msgid "Waiting for a schema 3 settings save"
 msgstr ""
 
-#: ospy/webpages.py:3055
+#: ospy/webpages.py:3156
 msgid "Not available yet"
 msgstr ""
 
-#: ospy/webpages.py:3067
+#: ospy/webpages.py:3168
 msgid "SQLite restore rehearsal"
 msgstr ""
 
-#: ospy/webpages.py:3070 ospy/webpages.py:3086 ospy/webpages.py:3102
+#: ospy/webpages.py:3171 ospy/webpages.py:3187 ospy/webpages.py:3203
 msgid "backup"
 msgstr ""
 
-#: ospy/webpages.py:3070 ospy/webpages.py:3086 ospy/webpages.py:3102
+#: ospy/webpages.py:3171 ospy/webpages.py:3187 ospy/webpages.py:3203
 msgid "current"
 msgstr ""
 
-#: ospy/webpages.py:3071 ospy/webpages.py:3103
+#: ospy/webpages.py:3172 ospy/webpages.py:3204
 #: plugins/chmi/templates/chmi_help.html:19
 msgid "source"
 msgstr ""
 
-#: ospy/webpages.py:3076 ospy/webpages.py:3092
+#: ospy/webpages.py:3177 ospy/webpages.py:3193
 msgid "Waiting for a verified SQLite recovery candidate"
 msgstr ""
 
-#: ospy/webpages.py:3083
+#: ospy/webpages.py:3184
 msgid "Emergency SQLite selection dry run"
 msgstr ""
 
-#: ospy/webpages.py:3087
+#: ospy/webpages.py:3188
 msgid "would use"
 msgstr ""
 
-#: ospy/webpages.py:3087 ospy/webpages.py:3168
+#: ospy/webpages.py:3188 ospy/webpages.py:3269
 #: plugins/water_meter/__init__.py:391
 msgid "Ready"
 msgstr ""
 
-#: ospy/webpages.py:3100
+#: ospy/webpages.py:3201
 msgid "Automatic emergency SQLite recovery"
 msgstr ""
 
-#: ospy/webpages.py:3103 ospy/webpages.py:3114
+#: ospy/webpages.py:3204 ospy/webpages.py:3215
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:114
 msgid "Used"
 msgstr ""
 
-#: ospy/webpages.py:3105
+#: ospy/webpages.py:3206
 msgid "Enabled; used only if every shelve/DBM candidate is invalid"
 msgstr ""
 
-#: ospy/webpages.py:3112
+#: ospy/webpages.py:3213
 msgid "Verified SQLite read path"
 msgstr ""
 
-#: ospy/webpages.py:3118 ospy/webpages.py:3143
+#: ospy/webpages.py:3219 ospy/webpages.py:3244
 msgid "Fell back to shelve/DBM"
 msgstr ""
 
-#: ospy/webpages.py:3132
+#: ospy/webpages.py:3233
 msgid "Settings commit policy"
 msgstr ""
 
-#: ospy/webpages.py:3134
+#: ospy/webpages.py:3235
 msgid "Strict verified shelve/DBM and SQLite dual-write"
 msgstr ""
 
-#: ospy/webpages.py:3136
+#: ospy/webpages.py:3237
 msgid "Compatible shelve/DBM commit with optional SQLite shadow"
 msgstr ""
 
-#: ospy/webpages.py:3139
+#: ospy/webpages.py:3240
 msgid "SQLite-primary startup"
 msgstr ""
 
-#: ospy/webpages.py:3141
+#: ospy/webpages.py:3242
 msgid "Active; shelve/DBM fallback synchronized"
 msgstr ""
 
-#: ospy/webpages.py:3146
+#: ospy/webpages.py:3247
 msgid "Waiting for restart"
 msgstr ""
 
-#: ospy/webpages.py:3148
+#: ospy/webpages.py:3249
 msgid "SQLite migration evidence"
 msgstr ""
 
-#: ospy/webpages.py:3149 ospy/webpages.py:3173
+#: ospy/webpages.py:3250 ospy/webpages.py:3274
 msgid "verified starts"
 msgstr ""
 
-#: ospy/webpages.py:3152 ospy/webpages.py:3177
+#: ospy/webpages.py:3253 ospy/webpages.py:3278
 msgid "strict writes"
 msgstr ""
 
-#: ospy/webpages.py:3156
+#: ospy/webpages.py:3257
 msgid "last failure"
 msgstr ""
 
-#: ospy/webpages.py:3162
+#: ospy/webpages.py:3263
 msgid "status write failed"
 msgstr ""
 
-#: ospy/webpages.py:3165
+#: ospy/webpages.py:3266
 msgid "SQLite primary beta readiness"
 msgstr ""
 
-#: ospy/webpages.py:3170
+#: ospy/webpages.py:3271
 msgid "Collecting evidence"
 msgstr ""
 
-#: ospy/webpages.py:3172
+#: ospy/webpages.py:3273
 msgid "Blocked"
 msgstr ""
 
-#: ospy/webpages.py:3182
+#: ospy/webpages.py:3283
 msgid "verification mode is not active"
 msgstr ""
 
-#: ospy/webpages.py:3183
+#: ospy/webpages.py:3284
 msgid "current SQLite shadow is not verified"
 msgstr ""
 
-#: ospy/webpages.py:3184
+#: ospy/webpages.py:3285
 msgid "SQLite read test has not passed"
 msgstr ""
 
-#: ospy/webpages.py:3185
+#: ospy/webpages.py:3286
 msgid "current SQLite recovery test has not passed"
 msgstr ""
 
-#: ospy/webpages.py:3186
+#: ospy/webpages.py:3287
 msgid "backup SQLite recovery test has not passed"
 msgstr ""
 
-#: ospy/webpages.py:3187
+#: ospy/webpages.py:3288
 msgid "SQLite restore rehearsal has not passed"
 msgstr ""
 
-#: ospy/webpages.py:3188
+#: ospy/webpages.py:3289
 msgid "emergency SQLite selection is not ready"
 msgstr ""
 
-#: ospy/webpages.py:3189
+#: ospy/webpages.py:3290
 msgid "emergency SQLite recovery is not enabled"
 msgstr ""
 
-#: ospy/webpages.py:3190
+#: ospy/webpages.py:3291
 msgid "verified SQLite read path was not used"
 msgstr ""
 
-#: ospy/webpages.py:3191
+#: ospy/webpages.py:3292
 msgid "strict SQLite dual-write is not enabled"
 msgstr ""
 
-#: ospy/webpages.py:3229
+#: ospy/webpages.py:3330
 msgid "HTTPS is active."
 msgstr ""
 
-#: ospy/webpages.py:3230
+#: ospy/webpages.py:3331
 msgid "Session cookies are restricted to encrypted connections."
 msgstr ""
 
-#: ospy/webpages.py:3233
+#: ospy/webpages.py:3334
 msgid "HTTPS is configured, but it is not active."
 msgstr ""
 
-#: ospy/webpages.py:3234
+#: ospy/webpages.py:3335
 msgid "Check the configured certificate and private key files, then restart OSPy."
 msgstr ""
 
-#: ospy/webpages.py:3237
+#: ospy/webpages.py:3338
 msgid "HTTPS is disabled."
 msgstr ""
 
-#: ospy/webpages.py:3238
+#: ospy/webpages.py:3339
 msgid "Credentials and session data are not encrypted by OSPy during transport."
 msgstr ""
 
-#: ospy/webpages.py:3243
+#: ospy/webpages.py:3344
 msgid "Enable HTTPS in Options or use a trusted HTTPS reverse proxy before exposing OSPy outside the local network."
 msgstr ""
 
-#: ospy/webpages.py:3249
+#: ospy/webpages.py:3350
 msgid "Anonymous access"
 msgstr ""
 
-#: ospy/webpages.py:3252
+#: ospy/webpages.py:3353
 msgid "A password is required to access OSPy."
 msgstr ""
 
-#: ospy/webpages.py:3252
+#: ospy/webpages.py:3353
 msgid "Anonymous access is enabled."
 msgstr ""
 
-#: ospy/webpages.py:3253
+#: ospy/webpages.py:3354
 msgid "Anyone who can reach OSPy can control it without signing in."
 msgstr ""
 
-#: ospy/webpages.py:3254
+#: ospy/webpages.py:3355
 msgid "Disable anonymous access and use a unique administrator password."
 msgstr ""
 
-#: ospy/webpages.py:3261
+#: ospy/webpages.py:3362
 msgid "Two-factor authentication"
 msgstr ""
 
-#: ospy/webpages.py:3264
+#: ospy/webpages.py:3365
 msgid "Two-factor authentication is enabled."
 msgstr ""
 
-#: ospy/webpages.py:3265
+#: ospy/webpages.py:3366
 msgid "Authentication application (TOTP) is configured."
 msgstr ""
 
-#: ospy/webpages.py:3267
+#: ospy/webpages.py:3368
 msgid "E-mail verification codes are configured."
 msgstr ""
 
-#: ospy/webpages.py:3269
+#: ospy/webpages.py:3370
 msgid "A password alone protects the administrator account."
 msgstr ""
 
-#: ospy/webpages.py:3270
+#: ospy/webpages.py:3371
 msgid "Enable TOTP or e-mail verification and safely store the recovery codes."
 msgstr ""
 
-#: ospy/webpages.py:3276
+#: ospy/webpages.py:3377
 msgid "Sensor API authentication"
 msgstr ""
 
-#: ospy/webpages.py:3279
+#: ospy/webpages.py:3380
 msgid "Sensor reports do not require authentication."
 msgstr ""
 
-#: ospy/webpages.py:3279
+#: ospy/webpages.py:3380
 msgid "Sensor reports require authentication."
 msgstr ""
 
-#: ospy/webpages.py:3280
+#: ospy/webpages.py:3381
 msgid "Only authenticated sensor clients may submit measurements."
 msgstr ""
 
-#: ospy/webpages.py:3281
+#: ospy/webpages.py:3382
 msgid "Legacy sensor firmware may submit measurements without credentials."
 msgstr ""
 
-#: ospy/webpages.py:3282
+#: ospy/webpages.py:3383
 msgid "Enable sensor API authentication after confirming that every sensor supports credentials."
 msgstr ""
 
-#: ospy/webpages.py:3288
+#: ospy/webpages.py:3389
 msgid "API CSRF protection"
 msgstr ""
 
-#: ospy/webpages.py:3291
+#: ospy/webpages.py:3392
 msgid "API CSRF protection is disabled."
 msgstr ""
 
-#: ospy/webpages.py:3291
+#: ospy/webpages.py:3392
 msgid "State-changing API requests require a CSRF token."
 msgstr ""
 
-#: ospy/webpages.py:3292
+#: ospy/webpages.py:3393
 msgid "Browser-based API clients must provide the OSPy CSRF token."
 msgstr ""
 
-#: ospy/webpages.py:3293
+#: ospy/webpages.py:3394
 msgid "Older API integrations may change OSPy state without a CSRF token."
 msgstr ""
 
-#: ospy/webpages.py:3294
+#: ospy/webpages.py:3395
 msgid "Enable API CSRF protection after updating integrations that change OSPy state."
 msgstr ""
 
-#: ospy/webpages.py:3303
+#: ospy/webpages.py:3404
 msgid "API CORS allows every browser origin."
 msgstr ""
 
-#: ospy/webpages.py:3304
+#: ospy/webpages.py:3405
 msgid "Any web page may read permitted OSPy API responses from a browser."
 msgstr ""
 
-#: ospy/webpages.py:3306
+#: ospy/webpages.py:3407
 msgid "API CORS headers are disabled."
 msgstr ""
 
-#: ospy/webpages.py:3307
+#: ospy/webpages.py:3408
 msgid "Cross-origin browser access to the OSPy API is not allowed."
 msgstr ""
 
-#: ospy/webpages.py:3309
+#: ospy/webpages.py:3410
 msgid "API CORS is restricted to configured origins."
 msgstr ""
 
-#: ospy/webpages.py:3312
+#: ospy/webpages.py:3413
 msgid "API CORS"
 msgstr ""
 
-#: ospy/webpages.py:3316
+#: ospy/webpages.py:3417
 msgid "Replace the wildcard with the exact trusted browser origin, or leave the setting empty if CORS is not needed."
 msgstr ""
 
-#: ospy/webpages.py:3328
+#: ospy/webpages.py:3429
 msgid "The sensor password is empty."
 msgstr ""
 
-#: ospy/webpages.py:3329
+#: ospy/webpages.py:3430
 msgid "Sensor firmware administration is not protected by a password."
 msgstr ""
 
-#: ospy/webpages.py:3332
+#: ospy/webpages.py:3433
 msgid "The default sensor password is still configured."
 msgstr ""
 
-#: ospy/webpages.py:3333
+#: ospy/webpages.py:3434
 msgid "The published default value must not be treated as a secret."
 msgstr ""
 
-#: ospy/webpages.py:3336
+#: ospy/webpages.py:3437
 msgid "The sensor password appears weak."
 msgstr ""
 
-#: ospy/webpages.py:3337
+#: ospy/webpages.py:3438
 msgid "Use at least 12 characters with a mixture of character types."
 msgstr ""
 
-#: ospy/webpages.py:3340
+#: ospy/webpages.py:3441
 msgid "The sensor password is not the default and meets the basic length check."
 msgstr ""
 
-#: ospy/webpages.py:3341
+#: ospy/webpages.py:3442
 msgid "The password value is never displayed by Diagnostics."
 msgstr ""
 
-#: ospy/webpages.py:3344
+#: ospy/webpages.py:3445
 msgid "Sensor password"
 msgstr ""
 
-#: ospy/webpages.py:3346
+#: ospy/webpages.py:3447
 msgid "Set a unique sensor password in Options and configure the same value in every sensor."
 msgstr ""
 
-#: ospy/webpages.py:3354
+#: ospy/webpages.py:3455
 msgid "Security HTTP headers"
 msgstr ""
 
-#: ospy/webpages.py:3355
+#: ospy/webpages.py:3456
 msgid "OSPy does not add the complete recommended security header set globally."
 msgstr ""
 
-#: ospy/webpages.py:3356
+#: ospy/webpages.py:3457
 msgid "A reverse proxy may provide these headers, but OSPy cannot verify that configuration itself."
 msgstr ""
 
-#: ospy/webpages.py:3357
+#: ospy/webpages.py:3458
 msgid "Configure Content-Security-Policy, frame protection, MIME sniffing protection and a suitable Referrer-Policy on the HTTPS endpoint."
 msgstr ""
 
-#: ospy/webpages.py:3365
+#: ospy/webpages.py:3466
 msgid "For OSPy reachable only from a trusted local network. HTTPS, two-factor authentication and strict API controls are still recommended."
 msgstr ""
 
-#: ospy/webpages.py:3370
+#: ospy/webpages.py:3471
 msgid "For OSPy reachable through the Internet. HTTPS, authentication and restricted browser/API access are required."
 msgstr ""
 
-#: ospy/webpages.py:3442
+#: ospy/webpages.py:3544
 msgid "Runtime problem"
 msgstr ""
 
-#: ospy/webpages.py:3444
+#: ospy/webpages.py:3546
 msgid "A recoverable internal operation failed."
 msgstr ""
 
-#: ospy/webpages.py:3504
+#: ospy/webpages.py:3606
 msgid "Scheduler is running and responding."
 msgstr ""
 
-#: ospy/webpages.py:3505
+#: ospy/webpages.py:3607
 msgid "Scheduler is not responding."
 msgstr ""
 
-#: ospy/webpages.py:3509
+#: ospy/webpages.py:3611
 msgid "Scheduler is running, but automatic scheduling is disabled."
 msgstr ""
 
-#: ospy/webpages.py:3511 plugins/lcd_display/__init__.py:622
+#: ospy/webpages.py:3613 plugins/lcd_display/__init__.py:622
 #: plugins/mqtt_home_assistant/__init__.py:1029
 msgid "Scheduler"
 msgstr ""
 
-#: ospy/webpages.py:3521
+#: ospy/webpages.py:3623
 msgid "Manual mode is active; automatic schedule calculation is paused."
 msgstr ""
 
-#: ospy/webpages.py:3524
+#: ospy/webpages.py:3626
 msgid "The schedule was calculated successfully."
 msgstr ""
 
-#: ospy/webpages.py:3527
+#: ospy/webpages.py:3629
 msgid "No recent successful schedule calculation was recorded."
 msgstr ""
 
-#: ospy/webpages.py:3534
+#: ospy/webpages.py:3636
 msgid "Planned intervals"
 msgstr ""
 
-#: ospy/webpages.py:3538
+#: ospy/webpages.py:3640
 msgid "Next run"
 msgstr ""
 
-#: ospy/webpages.py:3540
+#: ospy/webpages.py:3642
 msgid "Schedule calculation"
 msgstr ""
 
-#: ospy/webpages.py:3552
+#: ospy/webpages.py:3654
 msgid "The last output write failed."
 msgstr ""
 
-#: ospy/webpages.py:3555
+#: ospy/webpages.py:3657
 msgid "The last output command was written successfully."
 msgstr ""
 
-#: ospy/webpages.py:3558
+#: ospy/webpages.py:3660
 msgid "Physical output feedback is not available on this system."
 msgstr ""
 
-#: ospy/webpages.py:3560
+#: ospy/webpages.py:3662
 msgid "Backend"
 msgstr ""
 
-#: ospy/webpages.py:3561
+#: ospy/webpages.py:3663
 msgid "Active outputs"
 msgstr ""
 
-#: ospy/webpages.py:3566
+#: ospy/webpages.py:3668
 msgid "Master relay"
 msgstr ""
 
-#: ospy/webpages.py:3571
+#: ospy/webpages.py:3673
 msgid "OSPy can confirm the command write, but not the physical relay state."
 msgstr ""
 
-#: ospy/webpages.py:3575
+#: ospy/webpages.py:3677
 msgid "Output hardware"
 msgstr ""
 
-#: ospy/webpages.py:3590
+#: ospy/webpages.py:3692
 msgid "No sensors are enabled."
 msgstr ""
 
-#: ospy/webpages.py:3593
+#: ospy/webpages.py:3695
 msgid "The sensor processing loop is not responding."
 msgstr ""
 
-#: ospy/webpages.py:3596
+#: ospy/webpages.py:3698
 msgid "Some enabled sensors are not responding."
 msgstr ""
 
-#: ospy/webpages.py:3599
+#: ospy/webpages.py:3701
 msgid "All enabled sensors are responding."
 msgstr ""
 
-#: ospy/webpages.py:3602
+#: ospy/webpages.py:3704
 msgid "Responding"
 msgstr ""
 
-#: ospy/webpages.py:3603
+#: ospy/webpages.py:3705
 msgid "Not responding"
 msgstr ""
 
-#: ospy/webpages.py:3613
+#: ospy/webpages.py:3715
 msgid "Last sensor communication"
 msgstr ""
 
-#: ospy/webpages.py:3671
+#: ospy/webpages.py:3773
 msgid "Last saved"
 msgstr ""
 
-#: ospy/webpages.py:3679 plugins/database_connector/__init__.py:112
+#: ospy/webpages.py:3781 plugins/database_connector/__init__.py:112
 msgid "Database"
 msgstr ""
 
-#: ospy/webpages.py:3680
+#: ospy/webpages.py:3782
 msgid "The settings database and data directory are accessible."
 msgstr ""
 
-#: ospy/webpages.py:3681
+#: ospy/webpages.py:3783
 msgid "The settings database or data directory is not accessible."
 msgstr ""
 
-#: ospy/webpages.py:3697
+#: ospy/webpages.py:3799
 msgid "Free disk space"
 msgstr ""
 
-#: ospy/webpages.py:3700
+#: ospy/webpages.py:3802
 msgid "Used disk space"
 msgstr ""
 
-#: ospy/webpages.py:3705
+#: ospy/webpages.py:3807
 msgid "Disk space could not be read."
 msgstr ""
 
-#: ospy/webpages.py:3708
+#: ospy/webpages.py:3810
 msgid "Storage"
 msgstr ""
 
-#: ospy/webpages.py:3729
+#: ospy/webpages.py:3831
 msgid "Plug-in status could not be read."
 msgstr ""
 
-#: ospy/webpages.py:3731
+#: ospy/webpages.py:3833
 msgid "Some enabled plug-ins need attention."
 msgstr ""
 
-#: ospy/webpages.py:3733
+#: ospy/webpages.py:3835
 msgid "All enabled plug-ins are running."
 msgstr ""
 
-#: ospy/webpages.py:3736
+#: ospy/webpages.py:3838
 msgid "Problems"
 msgstr ""
 
-#: ospy/webpages.py:3759
+#: ospy/webpages.py:3861
 msgid "No e-mail plug-in is enabled."
 msgstr ""
 
-#: ospy/webpages.py:3763
+#: ospy/webpages.py:3865
 msgid "An enabled e-mail plug-in is not running."
 msgstr ""
 
-#: ospy/webpages.py:3769
+#: ospy/webpages.py:3871
 msgid "The e-mail plug-in is running and configured."
 msgstr ""
 
-#: ospy/webpages.py:3775
+#: ospy/webpages.py:3877
 msgid "The e-mail plug-in is running."
 msgstr ""
 
-#: ospy/webpages.py:3776
+#: ospy/webpages.py:3878
 msgid "Configuration is not actively tested."
 msgstr ""
 
-#: ospy/webpages.py:3778
+#: ospy/webpages.py:3880
 msgid "E-mail"
 msgstr ""
 
-#: ospy/webpages.py:3793
+#: ospy/webpages.py:3895
 msgid "Weather service is disabled."
 msgstr ""
 
-#: ospy/webpages.py:3796
+#: ospy/webpages.py:3898
 msgid "Weather data has not been updated successfully."
 msgstr ""
 
-#: ospy/webpages.py:3799
+#: ospy/webpages.py:3901
 msgid "Weather location or data is not ready."
 msgstr ""
 
-#: ospy/webpages.py:3802
+#: ospy/webpages.py:3904
 msgid "Weather service is responding."
 msgstr ""
 
-#: ospy/webpages.py:3817
+#: ospy/webpages.py:3919
 msgid "Internet"
 msgstr ""
 
-#: ospy/webpages.py:3818
+#: ospy/webpages.py:3920
 msgid "Internet connectivity is available."
 msgstr ""
 
-#: ospy/webpages.py:3821
+#: ospy/webpages.py:3923
 msgid "Internet connectivity is not available."
 msgstr ""
 
-#: ospy/webpages.py:3822
+#: ospy/webpages.py:3924
 msgid "External IP address"
 msgstr ""
 
-#: ospy/webpages.py:3831
+#: ospy/webpages.py:3933
 msgid "A backup file is available."
 msgstr ""
 
-#: ospy/webpages.py:3839
+#: ospy/webpages.py:3941
 msgid "No backup file was found."
 msgstr ""
 
-#: ospy/webpages.py:3843
+#: ospy/webpages.py:3945
 #: plugins/database_connector/templates/database_connector_backup.html:23
 #: plugins/ospy_backup/templates/ospy_backup.html:31
 msgid "Backup"
 msgstr ""
 
-#: ospy/webpages.py:3886
+#: ospy/webpages.py:3988
 msgid "Unknown action."
 msgstr ""
 
-#: ospy/webpages.py:3891
+#: ospy/webpages.py:3993
 msgid "Restart OK"
 msgstr ""
 
-#: ospy/webpages.py:3893
+#: ospy/webpages.py:3995
 msgid "Plug-in restarted"
 msgstr ""
 
-#: ospy/webpages.py:3893 ospy/webpages.py:3904
+#: ospy/webpages.py:3995 ospy/webpages.py:4006
 msgid "Plug-in restart failed"
 msgstr ""
 
-#: ospy/webpages.py:3894
+#: ospy/webpages.py:3996
 msgid "User {} restarted plug-in {}."
 msgstr ""
 
-#: ospy/webpages.py:3896 ospy/webpages.py:3905
+#: ospy/webpages.py:3998 ospy/webpages.py:4007
 msgid "Plug-in {} could not be restarted."
 msgstr ""
 
-#: ospy/webpages.py:3910
+#: ospy/webpages.py:4012
 msgid "Plugin is not running."
 msgstr ""
 
-#: ospy/webpages.py:4201
+#: ospy/webpages.py:4303
 msgid "Changing language web={} options={}"
 msgstr ""
 
-#: ospy/webpages.py:4232
+#: ospy/webpages.py:4334
 msgid "Password changed"
 msgstr ""
 
-#: ospy/webpages.py:4233
+#: ospy/webpages.py:4335
 msgid "User {} changed the administrator password."
 msgstr ""
 
-#: ospy/webpages.py:4252
+#: ospy/webpages.py:4354
 msgid "Remembered logins revoked"
 msgstr ""
 
-#: ospy/webpages.py:4253
+#: ospy/webpages.py:4355
 msgid "User {} revoked all remembered logins."
 msgstr ""
 
-#: ospy/webpages.py:4262
+#: ospy/webpages.py:4364
 msgid "System restart requested"
 msgstr ""
 
-#: ospy/webpages.py:4263
+#: ospy/webpages.py:4365
 msgid "User {} requested a Linux system restart."
 msgstr ""
 
-#: ospy/webpages.py:4269
+#: ospy/webpages.py:4371
 msgid "The system (Linux) will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:4274
+#: ospy/webpages.py:4376
 msgid "OSPy restart requested"
 msgstr ""
 
-#: ospy/webpages.py:4275
+#: ospy/webpages.py:4377
 msgid "User {} requested an OSPy restart."
 msgstr ""
 
-#: ospy/webpages.py:4281
+#: ospy/webpages.py:4383
 msgid "The OSPy will now restart (restart started by the user in the OSPy settings), please wait for the page to reload."
 msgstr ""
 
-#: ospy/webpages.py:4286
+#: ospy/webpages.py:4388
 msgid "System shutdown requested"
 msgstr ""
 
-#: ospy/webpages.py:4287
+#: ospy/webpages.py:4389
 msgid "User {} requested a Linux system shutdown."
 msgstr ""
 
-#: ospy/webpages.py:4293
+#: ospy/webpages.py:4395
 msgid "The system (Linux) is now shutting down... The system must be switched on again by the user (switching off and on your HW device)."
 msgstr ""
 
-#: ospy/webpages.py:4332
+#: ospy/webpages.py:4434
 msgid "The new settings storage mode could not be saved."
 msgstr ""
 
-#: ospy/webpages.py:4337
+#: ospy/webpages.py:4439
 msgid "SQLite primary could not be activated safely."
 msgstr ""
 
-#: ospy/webpages.py:4349
+#: ospy/webpages.py:4451
 msgid "The settings storage transition was rejected: {}"
 msgstr ""
 
-#: ospy/webpages.py:4354
+#: ospy/webpages.py:4456
 msgid "Settings storage mode changed"
 msgstr ""
 
-#: ospy/webpages.py:4355
+#: ospy/webpages.py:4457
 msgid "User {} changed settings storage mode from {} to {}. Safety backup: {}"
 msgstr ""
 
-#: ospy/webpages.py:4367
+#: ospy/webpages.py:4469
 msgid "The settings storage mode was changed safely. OSPy is restarting."
 msgstr ""
 
-#: ospy/webpages.py:4374
+#: ospy/webpages.py:4476
 msgid "System settings updated"
 msgstr ""
 
-#: ospy/webpages.py:4375
+#: ospy/webpages.py:4477
 msgid "User {} saved the system settings."
 msgstr ""
 
-#: ospy/webpages.py:4381
+#: ospy/webpages.py:4483
 msgid "Changing language -> restarting."
 msgstr ""
 
-#: ospy/webpages.py:4385
+#: ospy/webpages.py:4487
 msgid "A language change has been made in the settings, the OSPy will now restart and load the selected language."
 msgstr ""
 
-#: ospy/webpages.py:4447
+#: ospy/webpages.py:4549
 msgid "Station settings updated"
 msgstr ""
 
-#: ospy/webpages.py:4448
+#: ospy/webpages.py:4550
 msgid "User {} saved settings for {} stations."
 msgstr ""
 
-#: ospy/webpages.py:4498
+#: ospy/webpages.py:4600
 msgid "Select a valid report type."
 msgstr ""
 
-#: ospy/webpages.py:4501
+#: ospy/webpages.py:4603
 msgid "Enter a short report title."
 msgstr ""
 
-#: ospy/webpages.py:4504
+#: ospy/webpages.py:4606
 msgid "The report title is too long."
 msgstr ""
 
-#: ospy/webpages.py:4507
+#: ospy/webpages.py:4609
 msgid "Describe the problem, idea, or question."
 msgstr ""
 
-#: ospy/webpages.py:4510
+#: ospy/webpages.py:4612
 msgid "The report description is too long."
 msgstr ""
 
-#: ospy/webpages.py:4559
+#: ospy/webpages.py:4661
 msgid "System component is unreachable or busy. Please wait (try again later)."
 msgstr ""
 
-#: ospy/webpages.py:4579
+#: ospy/webpages.py:4681
 msgid "The selected system backup was not found."
 msgstr ""
 
-#: ospy/webpages.py:4585
+#: ospy/webpages.py:4687
 msgid "System backup created successfully."
 msgstr ""
 
-#: ospy/webpages.py:4588
+#: ospy/webpages.py:4690
 msgid "Stored system backup downloaded."
 msgstr ""
 
-#: ospy/webpages.py:4591
+#: ospy/webpages.py:4693
 msgid "System backup"
 msgstr ""
 
-#: ospy/webpages.py:4592
+#: ospy/webpages.py:4694
 msgid "User {} created a system backup."
 msgstr ""
 
-#: ospy/webpages.py:4593
+#: ospy/webpages.py:4695
 msgid "User {} downloaded a stored system backup."
 msgstr ""
 
-#: ospy/webpages.py:4636
+#: ospy/webpages.py:4738
 msgid "Deleting folder upload."
 msgstr ""
 
-#: ospy/webpages.py:4640
+#: ospy/webpages.py:4742
 msgid "Creating folder upload."
 msgstr ""
 
-#: ospy/webpages.py:4647
+#: ospy/webpages.py:4749
 msgid "Uploading file {}."
 msgstr ""
 
-#: ospy/webpages.py:4654
+#: ospy/webpages.py:4756
 msgid "Validating the uploaded system backup."
 msgstr ""
 
-#: ospy/webpages.py:4659
+#: ospy/webpages.py:4761
 msgid "System restore"
 msgstr ""
 
-#: ospy/webpages.py:4660
+#: ospy/webpages.py:4762
 msgid "User {} requested restoration of a system backup."
 msgstr ""
 
-#: ospy/webpages.py:4664
+#: ospy/webpages.py:4766
 msgid "A safety backup was created before restoration."
 msgstr ""
 
-#: ospy/webpages.py:4678
+#: ospy/webpages.py:4780
 msgid "The backup was verified and restored successfully. OSPy is restarting."
 msgstr ""
 
-#: ospy/webpages.py:4680
+#: ospy/webpages.py:4782
 msgid "A legacy backup without a manifest was restored."
 msgstr ""
 
-#: ospy/webpages.py:4687
+#: ospy/webpages.py:4789
 msgid "System backup restore was rejected: {}"
 msgstr ""
 
-#: ospy/webpages.py:4690
+#: ospy/webpages.py:4792
 msgid "The system backup cannot be restored: {}"
 msgstr ""
 
-#: ospy/webpages.py:4695
+#: ospy/webpages.py:4797
 msgid "The system backup could not be restored. No verified data was installed."
 msgstr ""
 
-#: ospy/webpages.py:4720
+#: ospy/webpages.py:4822
 msgid "Could not set private key permissions."
 msgstr ""
 
-#: ospy/webpages.py:4786
+#: ospy/webpages.py:4888
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:4842
+#: ospy/webpages.py:4944
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:5084
+#: ospy/webpages.py:5186
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:5094 ospy/webpages.py:5167
+#: ospy/webpages.py:5196 ospy/webpages.py:5269
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:5103 ospy/webpages.py:5154
+#: ospy/webpages.py:5205 ospy/webpages.py:5256
 msgid "Unit not set"
 msgstr ""
 
-#: ospy/webpages.py:5180
+#: ospy/webpages.py:5282
 msgid "Index {} is out of range for pluginStn list."
 msgstr ""
 
-#: plugins/__init__.py:177
+#: plugins/__init__.py:67
+msgid "Network access"
+msgstr ""
+
+#: plugins/__init__.py:68
+msgid "File system access"
+msgstr ""
+
+#: plugins/__init__.py:69
+msgid "I2C hardware access"
+msgstr ""
+
+#: plugins/__init__.py:70
+msgid "GPIO hardware access"
+msgstr ""
+
+#: plugins/__init__.py:71
+msgid "E-mail sending"
+msgstr ""
+
+#: plugins/__init__.py:72
+msgid "External process execution"
+msgstr ""
+
+#: plugins/__init__.py:73
+msgid "OSPy system control"
+msgstr ""
+
+#: plugins/__init__.py:76
+msgid "Unknown permission"
+msgstr ""
+
+#: plugins/__init__.py:121
+msgid "The initial plug-in permission approvals could not be saved. They remain active until OSPy restarts."
+msgstr ""
+
+#: plugins/__init__.py:192
+msgid "Plug-in permission approval could not be saved."
+msgstr ""
+
+#: plugins/__init__.py:209
+msgid "Revoked plug-in permission approval could not be saved."
+msgstr ""
+
+#: plugins/__init__.py:341
 msgid "A threading.Thread instance is required."
 msgstr ""
 
-#: plugins/__init__.py:187
+#: plugins/__init__.py:351
 msgid "Thread target must be callable."
 msgstr ""
 
-#: plugins/__init__.py:228
+#: plugins/__init__.py:392
 msgid "Plug-in module could not be determined."
 msgstr ""
 
-#: plugins/__init__.py:300 plugins/__init__.py:323
+#: plugins/__init__.py:464 plugins/__init__.py:487
 msgid "Not reported"
 msgstr ""
 
-#: plugins/__init__.py:313
+#: plugins/__init__.py:477
 msgid "Not running"
 msgstr ""
 
-#: plugins/__init__.py:347
+#: plugins/__init__.py:511
 msgid "Health check failed."
 msgstr ""
 
-#: plugins/__init__.py:366 plugins/__init__.py:405
+#: plugins/__init__.py:530 plugins/__init__.py:569
 msgid "Health check timed out."
 msgstr ""
 
-#: plugins/__init__.py:572
+#: plugins/__init__.py:738
 msgid "Invalid value for"
 msgstr ""
 
-#: plugins/__init__.py:626
+#: plugins/__init__.py:792
 msgid "Failed to update the plug-ins information"
 msgstr ""
 
-#: plugins/__init__.py:654
+#: plugins/__init__.py:820
 msgid "Automatic update skipped for incompatible plug-in {}"
 msgstr ""
 
-#: plugins/__init__.py:660
+#: plugins/__init__.py:831
+msgid "Automatic update skipped because new plug-in permissions require approval"
+msgstr ""
+
+#: plugins/__init__.py:838
 msgid "Updating the {} plug-in."
 msgstr ""
 
-#: plugins/__init__.py:691 plugins/__init__.py:694
+#: plugins/__init__.py:869 plugins/__init__.py:872
 msgid "Plug-in ZIP download is too large."
 msgstr ""
 
-#: plugins/__init__.py:695
+#: plugins/__init__.py:873
 msgid "Downloaded {}"
 msgstr ""
 
-#: plugins/__init__.py:721 plugins/__init__.py:928
+#: plugins/__init__.py:899 plugins/__init__.py:1106
 msgid "Invalid plug-in ZIP archive."
 msgstr ""
 
-#: plugins/__init__.py:726
+#: plugins/__init__.py:904
 msgid "Plug-in ZIP contains too many files."
 msgstr ""
 
-#: plugins/__init__.py:755 plugins/__init__.py:1135
+#: plugins/__init__.py:933 plugins/__init__.py:1313
 msgid "Unsafe plug-in ZIP path: {}"
 msgstr ""
 
-#: plugins/__init__.py:761
+#: plugins/__init__.py:939
 msgid "Duplicate plug-in ZIP path: {}"
 msgstr ""
 
-#: plugins/__init__.py:768
+#: plugins/__init__.py:946
 msgid "Symbolic links are not allowed in plug-in ZIP files."
 msgstr ""
 
-#: plugins/__init__.py:774
+#: plugins/__init__.py:952
 msgid "Special files are not allowed in plug-in ZIP files."
 msgstr ""
 
-#: plugins/__init__.py:777
+#: plugins/__init__.py:955
 msgid "Encrypted plug-in ZIP files are not supported."
 msgstr ""
 
-#: plugins/__init__.py:782
+#: plugins/__init__.py:960
 msgid "A file in the plug-in ZIP is too large: {}"
 msgstr ""
 
-#: plugins/__init__.py:786
+#: plugins/__init__.py:964
 msgid "Plug-in ZIP expands to too much data."
 msgstr ""
 
-#: plugins/__init__.py:791
+#: plugins/__init__.py:969
 msgid "Suspicious compression ratio in plug-in ZIP: {}"
 msgstr ""
 
-#: plugins/__init__.py:799
+#: plugins/__init__.py:977
 msgid "Damaged file in plug-in ZIP: {}"
 msgstr ""
 
-#: plugins/__init__.py:833 plugins/__init__.py:1538
+#: plugins/__init__.py:1011 plugins/__init__.py:1751
 msgid "Plug-in manifest is too large."
 msgstr ""
 
-#: plugins/__init__.py:839 plugins/__init__.py:1542 plugins/__init__.py:1895
+#: plugins/__init__.py:1017 plugins/__init__.py:1755 plugins/__init__.py:2108
 msgid "Plug-in manifest is invalid."
 msgstr ""
 
-#: plugins/__init__.py:841
+#: plugins/__init__.py:1019
 msgid "Plug-in manifest is missing."
 msgstr ""
 
-#: plugins/__init__.py:886
+#: plugins/__init__.py:1064
 msgid "Failed to read plug-in README"
 msgstr ""
 
-#: plugins/__init__.py:891
+#: plugins/__init__.py:1069
 msgid "Duplicate plug-in identifier in ZIP: {}"
 msgstr ""
 
-#: plugins/__init__.py:894
+#: plugins/__init__.py:1072
 msgid "Plug-in ZIP contains too many plug-ins."
 msgstr ""
 
-#: plugins/__init__.py:927
+#: plugins/__init__.py:1105
 msgid "Failed to read a plug-in zip file"
 msgstr ""
 
-#: plugins/__init__.py:942
+#: plugins/__init__.py:1120
 msgid "Failed to get contents of {}:"
 msgstr ""
 
-#: plugins/__init__.py:996
+#: plugins/__init__.py:1174
 msgid "Failed to check local plug-in status"
 msgstr ""
 
-#: plugins/__init__.py:1093
+#: plugins/__init__.py:1271
 msgid "Failed to get plug-in changes"
 msgstr ""
 
-#: plugins/__init__.py:1213
+#: plugins/__init__.py:1391
 msgid "Plug-in ZIP does not contain __init__.py."
 msgstr ""
 
-#: plugins/__init__.py:1235
+#: plugins/__init__.py:1413
 msgid "Updated plug-in failed to start; the previous version was restored."
 msgstr ""
 
-#: plugins/__init__.py:1269
+#: plugins/__init__.py:1448
 msgid "Installing plug-in from repository {} plugin {}"
 msgstr ""
 
-#: plugins/__init__.py:1275
+#: plugins/__init__.py:1460
 msgid "No installable plug-ins were found in the ZIP file."
 msgstr ""
 
-#: plugins/__init__.py:1278
+#: plugins/__init__.py:1463
 msgid "Requested plug-in was not found in the ZIP file"
 msgstr ""
 
-#: plugins/__init__.py:1306
+#: plugins/__init__.py:1492
 msgid "Plug-in is incompatible with this OSPy installation."
 msgstr ""
 
-#: plugins/__init__.py:1319
+#: plugins/__init__.py:1516
 msgid "Plug-in cannot be installed"
 msgstr ""
 
-#: plugins/__init__.py:1334 plugins/__init__.py:2203 plugins/__init__.py:2328
+#: plugins/__init__.py:1531 plugins/__init__.py:2423 plugins/__init__.py:2548
 msgid "Plug-in dependency cycle detected"
 msgstr ""
 
-#: plugins/__init__.py:1354
+#: plugins/__init__.py:1551
 msgid "Required plug-in cannot be installed"
 msgstr ""
 
-#: plugins/__init__.py:1370
+#: plugins/__init__.py:1567
 msgid "No compatible plug-ins are available for installation."
 msgstr ""
 
-#: plugins/__init__.py:1546
+#: plugins/__init__.py:1759
 msgid "Failed to read plug-in manifest"
 msgstr ""
 
-#: plugins/__init__.py:1599
+#: plugins/__init__.py:1812
 msgid "A valid plugin.json manifest is required for installation."
 msgstr ""
 
-#: plugins/__init__.py:1605
+#: plugins/__init__.py:1818
 msgid "Cannot be installed."
 msgstr ""
 
-#: plugins/__init__.py:1613
+#: plugins/__init__.py:1826
 msgid "Legacy, without manifest."
 msgstr ""
 
-#: plugins/__init__.py:1626
+#: plugins/__init__.py:1839
 msgid "OSPy version {} is outside the supported range."
 msgstr ""
 
-#: plugins/__init__.py:1633
+#: plugins/__init__.py:1846
 msgid "Python version {} is outside the supported range."
 msgstr ""
 
-#: plugins/__init__.py:1646 plugins/__init__.py:1649
+#: plugins/__init__.py:1859 plugins/__init__.py:1862
 msgid "Invalid Python requirement declaration."
 msgstr ""
 
-#: plugins/__init__.py:1656
+#: plugins/__init__.py:1869
 msgid "Python module {} is not installed."
 msgstr ""
 
-#: plugins/__init__.py:1675
+#: plugins/__init__.py:1888
 msgid "This plug-in does not support platform {}."
 msgstr ""
 
-#: plugins/__init__.py:1683
+#: plugins/__init__.py:1896
 msgid "Required GPIO hardware is not available."
 msgstr ""
 
-#: plugins/__init__.py:1691
+#: plugins/__init__.py:1904
 msgid "Required I2C support is not available."
 msgstr ""
 
-#: plugins/__init__.py:1700
+#: plugins/__init__.py:1913
 msgid "Unknown plug-in permissions"
 msgstr ""
 
-#: plugins/__init__.py:1715
+#: plugins/__init__.py:1928
 msgid "Plug-in cannot depend on itself."
 msgstr ""
 
-#: plugins/__init__.py:1719
+#: plugins/__init__.py:1932
 msgid "Required plug-in is not installed"
 msgstr ""
 
-#: plugins/__init__.py:1724
+#: plugins/__init__.py:1937
 msgid "Required plug-in is not enabled"
 msgstr ""
 
-#: plugins/__init__.py:1736
+#: plugins/__init__.py:1949
 msgid "Conflicting plug-ins are enabled"
 msgstr ""
 
-#: plugins/__init__.py:1758
+#: plugins/__init__.py:1971
 msgid "Conflicting plug-in is enabled"
 msgstr ""
 
-#: plugins/__init__.py:1772
+#: plugins/__init__.py:1985
 msgid "GPIO conflict with {}"
 msgstr ""
 
-#: plugins/__init__.py:1776
+#: plugins/__init__.py:1989
 msgid "I2C conflict with {}"
 msgstr ""
 
-#: plugins/__init__.py:1784
+#: plugins/__init__.py:1997
 msgid "Compatibility problems found."
 msgstr ""
 
-#: plugins/__init__.py:1786
+#: plugins/__init__.py:1999
 msgid "Compatible with warnings."
 msgstr ""
 
-#: plugins/__init__.py:1786
+#: plugins/__init__.py:1999
 msgid "Compatible."
 msgstr ""
 
-#: plugins/__init__.py:1814
+#: plugins/__init__.py:2027
 msgid "Plug-in directory is outside the plug-in root."
 msgstr ""
 
-#: plugins/__init__.py:1816
+#: plugins/__init__.py:2029
 msgid "Plug-in directory does not exist."
 msgstr ""
 
-#: plugins/__init__.py:1818
+#: plugins/__init__.py:2031
 msgid "Plug-in directory is invalid."
 msgstr ""
 
-#: plugins/__init__.py:1822
+#: plugins/__init__.py:2035
 msgid "Plug-in entry file __init__.py is missing."
 msgstr ""
 
-#: plugins/__init__.py:1831
+#: plugins/__init__.py:2044
 msgid "Symbolic link directory was not checked"
 msgstr ""
 
-#: plugins/__init__.py:1843
+#: plugins/__init__.py:2056
 msgid "Plug-in contains too many Python files."
 msgstr ""
 
-#: plugins/__init__.py:1848
+#: plugins/__init__.py:2061
 msgid "Symbolic link file was not checked"
 msgstr ""
 
-#: plugins/__init__.py:1857
+#: plugins/__init__.py:2070
 msgid "Python file is too large"
 msgstr ""
 
-#: plugins/__init__.py:1862
+#: plugins/__init__.py:2075
 msgid "Plug-in Python sources are too large."
 msgstr ""
 
-#: plugins/__init__.py:1872
+#: plugins/__init__.py:2085
 msgid "Python source check failed"
 msgstr ""
 
-#: plugins/__init__.py:1889
+#: plugins/__init__.py:2102
 msgid "Required plug-in function is missing"
 msgstr ""
 
-#: plugins/__init__.py:1902
+#: plugins/__init__.py:2115
 msgid "Failed."
 msgstr ""
 
-#: plugins/__init__.py:1904
+#: plugins/__init__.py:2117
 msgid "Passed with warnings."
 msgstr ""
 
-#: plugins/__init__.py:1905
+#: plugins/__init__.py:2118
 msgid "Passed."
 msgstr ""
 
-#: plugins/__init__.py:1947
+#: plugins/__init__.py:2160
 msgid "Failed to read in NAME plugin"
 msgstr ""
 
-#: plugins/__init__.py:1975
+#: plugins/__init__.py:2188
 msgid "Failed to read in MENU name plugin"
 msgstr ""
 
-#: plugins/__init__.py:2120
+#: plugins/__init__.py:2333
 msgid "Plug-in stop function timed out."
 msgstr ""
 
-#: plugins/__init__.py:2122 plugins/__init__.py:2129
+#: plugins/__init__.py:2335 plugins/__init__.py:2342
 msgid "Failed to stop the"
 msgstr ""
 
-#: plugins/__init__.py:2163
+#: plugins/__init__.py:2376
 msgid "Stopped the"
 msgstr ""
 
-#: plugins/__init__.py:2178
+#: plugins/__init__.py:2391
 msgid "Failed to clear runtime data for the plug-in"
 msgstr ""
 
-#: plugins/__init__.py:2217
+#: plugins/__init__.py:2437
 msgid "Required plug-in failed to start"
 msgstr ""
 
-#: plugins/__init__.py:2223 plugins/__init__.py:2343
+#: plugins/__init__.py:2443 plugins/__init__.py:2563
 msgid "Required plug-in is not running"
 msgstr ""
 
-#: plugins/__init__.py:2234
+#: plugins/__init__.py:2454
 msgid "Plug-in still has running threads"
 msgstr ""
 
-#: plugins/__init__.py:2248
+#: plugins/__init__.py:2468
 msgid "Plug-in compatibility check failed"
 msgstr ""
 
-#: plugins/__init__.py:2279
+#: plugins/__init__.py:2499
 msgid "Started the"
 msgstr ""
 
-#: plugins/__init__.py:2289
+#: plugins/__init__.py:2509
 msgid "Failed to load the"
 msgstr ""
 
-#: plugins/__init__.py:2380
+#: plugins/__init__.py:2600
 msgid "The plug-in"
 msgstr ""
 
-#: plugins/__init__.py:2380
+#: plugins/__init__.py:2600
 msgid "is not running."
 msgstr ""
 

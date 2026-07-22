@@ -400,6 +400,8 @@ When Diagnostics reports an error, it opens a red window with the problem, avail
 
 The page uses collapsible **System status**, **Performance and processes**, and **Security check** sections. Select a dark section bar to expand or collapse it. **System status** gives each operational area an OK, warning, error or not-configured state. It monitors the scheduler heartbeat, the last successful schedule calculation and next run, output command writes, sensor communication, settings database accessibility, free disk space, enabled plug-in failures, e-mail readiness, weather, internet connectivity and the newest available backup. A successful output write confirms that OSPy sent the requested state to the output driver; it does not claim that a physical relay switched unless hardware feedback is available.
 
+The **Languages** row compares every translation catalog with the current template and shows each language's translated percentage and exact missing-string count. A complete translation is green, coverage of at least 80% is yellow, and lower coverage is red. This is information for translation maintainers only: language status does not change overall system health or open the Diagnostics error window.
+
 **Security check** passively assesses HTTPS, anonymous access, two-factor authentication, sensor API authentication, API CSRF protection, CORS, the sensor password and recommended HTTP response headers. It never displays the sensor password and does not change any setting. The **Home network** profile treats selected compatibility compromises as warnings, while **Internet access** requires encrypted, authenticated and restricted access. Every finding explains the current state, a recommendation and a link to the related settings. A reverse proxy may add HTTP security headers after the response leaves OSPy; Diagnostics reports only what OSPy itself can guarantee.
 
 Caught core operational failures appear in **System status** as separate active problems. Each entry identifies the affected component, occurrence count, latest occurrence, technical cause and a recommended recovery action. A successful retry automatically clears the active problem, while the full traceback remains in the event log. Expected compatibility fallbacks are not reported as failures.
@@ -715,6 +717,8 @@ You will return to the home page. The system reboots, but no reboot indication i
 ### Show plugins on home
 If we want to display measured data from the extension (wind, temperature, level...) under the graph on the initial (home page) check the box. If we don't want to display the data from the extension, we uncheck the box.
 * Warning: in order for the data to be displayed correctly, it is necessary to have the extension enabled and set correctly.
+
+A plug-in can use `showOnTimeline` to associate a live value with a specific station. OSPy refreshes it every three seconds beside the status of the running station, including master stations and manual mode. The value disappears after the station stops or the plug-in clears it; display data never changes output control or scheduling.
 
 ### Show sensors on home
 If we want to display the measured data from the sensors under the graph on the initial (home page), we check the box. If we don't want to display the data from the sensors, we uncheck the box.

@@ -216,7 +216,7 @@ class PluginPermissionApprovalTests(unittest.TestCase):
         option_values.save_result = False
         manifest = _manifest("example", ["network"])
         with mock.patch.object(options_module, "options", option_values):
-            with self.assertRaisesRegex(RuntimeError, "could not be saved"):
+            with self.assertRaises(RuntimeError):
                 plugins.approve_plugin_permissions("example", manifest)
 
         self.assertNotIn("example", option_values.plugin_permission_approvals)

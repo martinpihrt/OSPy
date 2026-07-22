@@ -16,6 +16,7 @@ let displayScheduleTimeout;
 let graph_text;
 let statusTimeout;
 let statusRequest;
+let timelinePluginData = {};
 
 function displaySchedule(schedule) {
     if (displayScheduleTimeout != null) {
@@ -111,7 +112,6 @@ function scheduleMarkerMouseout() {
 
 function updateStatus(status) {
     let updateInterval = 30000;
-    let pluginStn = $:{json.dumps(pluginStn, ensure_ascii=False)};
     for (let s=0; s<status.length; s++) {
         let station = status[s];
         let display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -124,11 +124,6 @@ function updateStatus(status) {
                 if (seconds < 10) {seconds = "0"+seconds;}
                 if (station.status == "on") {
                      display = minutes+":"+seconds;
-                         if (typeof pluginStn !== 'undefined' && pluginStn.length) {
-                             if (pluginStn[s]){
-                                 display = display + ", " +  pluginStn[s][1] + " " + pluginStn[s][0];
-                             }
-                     }
                 }
                 updateInterval = 1000;
                 break;
@@ -162,6 +157,9 @@ function updateStatus(status) {
                 break;
             default:
                 display = $:{json.dumps(_('Off'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+        }
+        if (station.status == "on" && timelinePluginData[station.station]) {
+            display += ", " + timelinePluginData[station.station];
         }
         jQuery("td#status" + station.station)
             .text(display)
@@ -358,6 +356,13 @@ function dataTimer() {
     jQuery.getJSON("/plugindata", function(piVals) {
         let i;
         let pluginHtml = "";
+        timelinePluginData = {};
+        for (i = 0; i < (piVals.sdata || []).length; i++) {
+            let timelineItem = piVals.sdata[i];
+            if (timelineItem.length >= 2 && timelineItem[1] !== "" && timelineItem[1] !== null) {
+                timelinePluginData[String(timelineItem[0])] = String(timelineItem[1]);
+            }
+        }
         for(i = 0; i < piVals.fdata.length; i++) { // we update all data from plugins
             let item = piVals.fdata[i];
             let label = jQuery("<span>").text(item.label).html();

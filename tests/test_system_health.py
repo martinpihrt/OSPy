@@ -9,7 +9,7 @@ from ospy import health, webpages
 from ospy.webpages import (
     _health_item, _incident_history_data, _plugin_health_groups,
     _runtime_health_items, _sqlite_mirror_details, _sqlite_readiness_details,
-    _security_health_data,
+    _security_health_data, _translation_health_item,
 )
 
 
@@ -197,6 +197,28 @@ class SystemHealthTests(unittest.TestCase):
         )
 
         self.assertTrue(item["confirmation_required"])
+
+    def test_translation_health_is_informational_and_keeps_language_rows(self):
+        coverage = {
+            "status": "error",
+            "total": 100,
+            "updated": 1,
+            "languages": [{
+                "locale": "cs_CZ", "name": "Czech", "translated": 70,
+                "missing": 30, "percent": 70.0, "status": "error",
+                "error": "",
+            }],
+        }
+        with mock.patch.object(
+                webpages, "translation_coverage", return_value=coverage):
+            item = _translation_health_item()
+
+        self.assertEqual(item["id"], "translations")
+        self.assertEqual(item["status"], "error")
+        self.assertFalse(item["alert"])
+        self.assertFalse(item["affects_summary"])
+        self.assertEqual(item["language_coverage"], coverage["languages"])
+        self.assertIn("100", item["details"])
 
     def test_runtime_issue_registry_tracks_recurrence_and_resolution(self):
         issue_id = "test_runtime_issue"

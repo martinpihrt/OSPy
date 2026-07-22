@@ -400,6 +400,8 @@ Když Diagnostika zjistí chybu, otevře červené okno s popisem problému, dos
 
 Stránka používá rozbalovací sekce **Stav systému**, **Výkon a procesy** a **Kontrola zabezpečení**. Klepnutím na tmavý pruh se sekce rozbalí nebo sbalí. **Stav systému** přiřazuje každé provozní oblasti stav v pořádku, varování, chyba nebo nenakonfigurováno. Sleduje heartbeat plánovače, poslední úspěšný výpočet plánu a nejbližší běh, zápisy příkazů do výstupů, komunikaci senzorů, dostupnost databáze nastavení, volné místo, chyby povolených rozšíření, připravenost e-mailu, počasí, internetové připojení a nejnovější dostupnou zálohu. Úspěšný zápis výstupu potvrzuje, že OSPy předalo požadovaný stav ovladači; bez hardwarové zpětné vazby nepotvrzuje fyzické sepnutí relé.
 
+Řádek **Jazyky** porovnává každý překladový katalog s aktuální šablonou a u každého jazyka ukazuje procento přeložených a přesný počet chybějících řetězců. Úplný překlad je zelený, pokrytí od 80 % je žluté a nižší pokrytí červené. Jde pouze o informaci pro správce překladů: stav jazyků nemění celkový stav systému ani neotevírá chybové okno Diagnostiky.
+
 **Kontrola zabezpečení** pasivně vyhodnocuje HTTPS, anonymní přístup, dvoufaktorové ověřování, autentizaci senzorového API, ochranu API proti CSRF, CORS, heslo senzorů a doporučené bezpečnostní HTTP hlavičky. Heslo senzoru nikdy nezobrazuje a nemění žádné nastavení. Profil **Domácí síť** hodnotí vybrané kompromisy kvůli kompatibilitě jako varování, zatímco profil **Přístup z internetu** vyžaduje šifrovaný, ověřený a omezený přístup. Každý nález obsahuje aktuální stav, doporučení a odkaz na související nastavení. Reverzní proxy může bezpečnostní HTTP hlavičky doplnit až poté, co odpověď opustí OSPy; Diagnostika uvádí pouze to, co může zaručit samotné OSPy.
 
 Zachycené provozní chyby jádra se zobrazují ve **Stavu systému** jako samostatné problémy. Záznam uvádí dotčenou součást, počet opakování, poslední výskyt, technickou příčinu a doporučený postup opravy. Po úspěšném opakování operace se aktivní problém automaticky odstraní; úplný traceback zůstává v záznamu událostí. Očekávané kompatibilní fallbacky se jako chyby nezobrazují.
@@ -715,6 +717,8 @@ Vrátíte se na domovskou stránku. Systém se restartuje, ale ve webovém rozhr
 ### Zobrazit rozšíření na home
 Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data z rozšíření (vítr, teplota, hladina...) zaškrtneme políčko. V případě, že nechceme zobrazovat data z rozšíření zrušíme zaškrtnutí.
 * Upozornění: aby se data zobrazovala v pořádku je nezbytné mít rozšíření povolené a správně nastavené.
+
+Rozšíření může pomocí `showOnTimeline` přiřadit živou hodnotu ke konkrétní stanici. OSPy ji každé tři sekundy obnovuje vedle stavu právě běžící stanice, včetně hlavních stanic a ručního režimu. Po zastavení stanice nebo vyprázdnění hodnoty údaj zmizí; zobrazení nemění řízení výstupů ani plánování.
 
 ### Zobrazit snímače na home
 Pokud chceme na úvodní (domácí stránce) zobrazovat pod grafem naměřená data ze snímačů zaškrtneme políčko. V případě, že nechceme zobrazovat data ze snímačů zrušíme zaškrtnutí.

@@ -211,6 +211,19 @@ jQuery(document).ready(function(){
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             var details = item.details ? '<div class="healthDetails">' + escapeHtml(item.details) + '</div>' : '';
+            if (item.language_coverage && item.language_coverage.length) {
+                details += '<div class="translationCoverage">';
+                for (var languageIndex = 0; languageIndex < item.language_coverage.length; languageIndex++) {
+                    var language = item.language_coverage[languageIndex];
+                    details += '<span class="translationCoverageItem health-' + escapeHtml(language.status) + '" ' +
+                        'title="' + escapeHtml(language.name + ' (' + language.locale + ')') + '">' +
+                        '<b>' + escapeHtml(language.name) + '</b> ' +
+                        escapeHtml(String(language.percent)) + ' % · ' +
+                        $:{json.dumps(_('Missing'), ensure_ascii=False).encode('utf8').decode('utf-8')} + ': ' +
+                        escapeHtml(String(language.missing)) + '</span>';
+                }
+                details += '</div>';
+            }
             var updated = item.updated ? '<div class="healthUpdated">' +
                 $:{json.dumps(_('Last successful activity'), ensure_ascii=False).encode('utf8').decode('utf-8')} +
                 ': ' + escapeHtml(item.updated) + '</div>' : '';
@@ -233,7 +246,7 @@ jQuery(document).ready(function(){
 
         diagnosticsErrors.system = [];
         for (var itemIndex = 0; itemIndex < items.length; itemIndex++) {
-            if (items[itemIndex].status === "error") {
+            if (items[itemIndex].status === "error" && items[itemIndex].alert !== false) {
                 diagnosticsErrors.system.push({
                     id: "system:" + (items[itemIndex].id || itemIndex),
                     title: items[itemIndex].title,

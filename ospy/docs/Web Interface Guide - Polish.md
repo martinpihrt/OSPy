@@ -389,6 +389,8 @@ Gdy Diagnostyka wykryje błąd, otwiera czerwone okno z opisem problemu, dostęp
 
 Strona korzysta z rozwijanych sekcji **Stan systemu**, **Wydajność i procesy** oraz **Kontrola zabezpieczeń**. Kliknięcie ciemnego paska rozwija lub zwija sekcję. **Stan systemu** przypisuje każdemu obszarowi działania stan OK, ostrzeżenie, błąd lub nieskonfigurowany. Monitoruje heartbeat harmonogramu, ostatnie udane obliczenie planu i następne uruchomienie, zapisy poleceń wyjściowych, komunikację czujników, dostępność bazy ustawień, wolne miejsce, błędy włączonych wtyczek, gotowość poczty e-mail, pogodę, połączenie internetowe i najnowszą dostępną kopię zapasową. Udany zapis wyjścia potwierdza, że OSPy przekazało żądany stan do sterownika; bez sprzężenia zwrotnego nie potwierdza fizycznego przełączenia przekaźnika.
 
+Wiersz **Języki** porównuje każdy katalog tłumaczeń z aktualnym szablonem i pokazuje dla każdego języka procent przetłumaczonych oraz dokładną liczbę brakujących ciągów. Pełne tłumaczenie jest zielone, pokrycie co najmniej 80% żółte, a niższe czerwone. Jest to wyłącznie informacja dla opiekunów tłumaczeń: stan języków nie zmienia ogólnego stanu systemu ani nie otwiera okna błędu Diagnostyki.
+
 **Kontrola zabezpieczeń** pasywnie ocenia HTTPS, dostęp anonimowy, uwierzytelnianie dwuskładnikowe, uwierzytelnianie API czujników, ochronę API przed CSRF, CORS, hasło czujników oraz zalecane nagłówki bezpieczeństwa HTTP. Nigdy nie wyświetla hasła czujnika i nie zmienia żadnego ustawienia. Profil **Sieć domowa** traktuje wybrane kompromisy zgodności jako ostrzeżenia, natomiast **Dostęp z Internetu** wymaga szyfrowanego, uwierzytelnionego i ograniczonego dostępu. Każdy wynik zawiera bieżący stan, zalecenie i odsyłacz do odpowiednich ustawień. Odwrotny serwer proxy może dodać nagłówki bezpieczeństwa po opuszczeniu OSPy przez odpowiedź; Diagnostyka podaje tylko to, co może zagwarantować samo OSPy.
 
 Przechwycone błędy operacyjne rdzenia są wyświetlane w **Stanie systemu** jako osobne aktywne problemy. Każdy wpis podaje dotknięty komponent, liczbę wystąpień, ostatnie wystąpienie, przyczynę techniczną i zalecany sposób naprawy. Udana ponowna próba automatycznie usuwa aktywny problem, a pełny traceback pozostaje w dzienniku zdarzeń. Oczekiwane mechanizmy zgodności nie są zgłaszane jako błędy.
@@ -704,6 +706,8 @@ Powrócisz do strony głównej. System uruchamia się ponownie, ale w interfejsi
 ### Pokaż wtyczki na stronie głównej
 Jeśli chcemy wyświetlić zmierzone dane z rozszerzenia (wiatr, temperatura, poziom...) pod wykresem na stronie początkowej (strona główna) zaznacz pole. Jeśli nie chcemy wyświetlać danych z rozszerzenia, odznaczamy to pole.
 * Uwaga: aby dane wyświetlały się poprawnie konieczne jest włączenie i prawidłowe ustawienie rozszerzenia.
+
+Wtyczka może użyć `showOnTimeline`, aby przypisać wartość na żywo do konkretnej stacji. OSPy odświeża ją co trzy sekundy obok stanu działającej stacji, również dla stacji głównych i trybu ręcznego. Wartość znika po zatrzymaniu stacji lub wyczyszczeniu jej przez wtyczkę; wyświetlane dane nie zmieniają sterowania wyjściami ani harmonogramu.
 
 ### Pokaż czujniki w domu
 Jeżeli chcemy wyświetlić zmierzone dane z czujników pod wykresem na stronie początkowej (strona główna) zaznaczamy pole. Jeżeli nie chcemy wyświetlać danych z czujników odznaczamy to pole.

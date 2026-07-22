@@ -54,6 +54,22 @@ class TemplateCompilationTests(unittest.TestCase):
         self.assertTrue(templates, "No OSPy templates were found.")
         _compile_templates(self, templates)
 
+    def test_home_pages_refresh_station_plugin_data_by_station_id(self):
+        for name in ("home_admin.html", "home_user.html", "home_public.html"):
+            source = (TEMPLATE_ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(template=name):
+                self.assertIn("timelinePluginData", source)
+                self.assertIn("piVals.sdata", source)
+                self.assertIn("timelineItem[0]", source)
+                self.assertIn("station.station", source)
+                self.assertNotIn("let pluginStn =", source)
+
+        for name in ("home_admin.html", "home_user.html"):
+            source = (TEMPLATE_ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(manual_template=name):
+                self.assertIn("manualPlugin${station.index}", source)
+                self.assertIn("stationPluginLive", source)
+
     def test_configured_plugin_templates_compile(self):
         for plugin_root in _configured_plugin_roots():
             with self.subTest(plugin_root=str(plugin_root)):

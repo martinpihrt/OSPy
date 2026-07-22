@@ -106,6 +106,11 @@ The suite checks:
   plug-in management and installation, anonymous login redirects, role
   protection, Diagnostics JSON success and failure responses, history and
   cache headers, and CSRF rejection before an administrator POST handler runs.
+* translation-catalog completeness parsing, including fuzzy and missing
+  strings, per-language colour thresholds, missing catalogs and cache
+  invalidation without modifying POT, PO or MO files.
+* live `showOnTimeline` station values on administrator, user and public Home
+  pages, including station-ID mapping, periodic refresh and manual-mode rows.
 
 Tests share a temporary OSPy data directory and disable background plug-in
 repository checks. Scheduler, API and plug-in dependencies are isolated or

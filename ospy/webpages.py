@@ -32,6 +32,8 @@ from ospy import twofactor
 from ospy import health
 from ospy import backup as system_backup
 from ospy import settings_storage
+from ospy import i18n as i18n_module
+from ospy.translation_status import translation_coverage
 import plugins
 from blinker import signal
 from ospy.users import users
@@ -3062,7 +3064,8 @@ def _health_time(timestamp):
 
 
 def _health_item(item_id, title, status, summary, details='', updated='', link='',
-                 confirmation_required=False, solution=''):
+                 confirmation_required=False, solution='', alert=True,
+                 affects_summary=True):
     return {
         'id': item_id,
         'title': title,
@@ -3073,6 +3076,8 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
         'link': link,
         'confirmation_required': confirmation_required,
         'solution': solution,
+        'alert': bool(alert),
+        'affects_summary': bool(affects_summary),
     }
 
 
@@ -3552,6 +3557,42 @@ def _runtime_health_items():
     return items
 
 
+def _translation_health_item():
+    """Build a non-operational health row for translation completeness."""
+    try:
+        coverage = translation_coverage(
+            i18n_module.localedir, i18n_module.languages
+        )
+        complete = len([
+            item for item in coverage['languages'] if item['missing'] == 0
+        ])
+        if coverage['status'] == 'ok':
+            summary = _('All language catalogs are complete.')
+        elif coverage['status'] == 'warning':
+            summary = _('Some language catalogs have untranslated strings.')
+        else:
+            summary = _('Some language catalogs are less than 80 percent complete.')
+
+        details = '{}: {}; {}: {}/{}'.format(
+            _('Source strings'), coverage['total'],
+            _('Complete languages'), complete, len(coverage['languages'])
+        )
+
+        item = _health_item(
+            'translations', _('Languages'), coverage['status'], summary,
+            details, _health_time(coverage.get('updated')), '/help',
+            alert=False, affects_summary=False,
+        )
+        item['language_coverage'] = coverage['languages']
+        return item
+    except Exception as err:
+        return _health_item(
+            'translations', _('Languages'), 'error',
+            _('Translation completeness could not be calculated.'), str(err),
+            link='/help', alert=False, affects_summary=False,
+        )
+
+
 def _incident_history_data():
     """Build an administrator-safe view of the bounded incident history."""
     incidents = health.incident_history(limit=health.INCIDENT_HISTORY_LIMIT)
@@ -3810,6 +3851,8 @@ def _system_health_data():
         'storage', _('Storage'), storage_status, storage_summary, storage_details
     ))
 
+    items.append(_translation_health_item())
+
     plugin_diagnostics_error = False
     try:
         plugin_data = plugins.plugin_diagnostics()
@@ -3948,7 +3991,9 @@ def _system_health_data():
 
     items.extend(_runtime_health_items())
 
-    item_statuses = [item['status'] for item in items]
+    item_statuses = [
+        item['status'] for item in items if item.get('affects_summary', True)
+    ]
     if 'error' in item_statuses:
         summary_status = 'error'
     elif 'warning' in item_statuses:
@@ -5304,7 +5349,7 @@ class api_plugin_data(ProtectedPage):
                     })
                 # plugin data in timeline
                 for v in pluginStn:
-                    if len(v) < 2:
+                    if len(v) < 2 or v[1] in ('', None):
                         continue
                     found = False
                     for i, (station_id, _) in enumerate(station_data):
