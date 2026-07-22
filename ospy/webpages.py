@@ -3580,7 +3580,7 @@ def _translation_health_item():
 
         item = _health_item(
             'translations', _('Languages'), coverage['status'], summary,
-            details, _health_time(coverage.get('updated')), '/help',
+            details, _health_time(coverage.get('updated')), '/help#2',
             alert=False, affects_summary=False,
         )
         item['language_coverage'] = coverage['languages']
@@ -3589,7 +3589,7 @@ def _translation_health_item():
         return _health_item(
             'translations', _('Languages'), 'error',
             _('Translation completeness could not be calculated.'), str(err),
-            link='/help', alert=False, affects_summary=False,
+            link='/help#2', alert=False, affects_summary=False,
         )
 
 
@@ -3986,7 +3986,7 @@ def _system_health_data():
         backup_updated = ''
     items.append(_health_item(
         'backup', _('Backup'), backup_status, backup_summary,
-        backup_details, backup_updated, '/options'
+        backup_details, backup_updated, '/options#backup-options'
     ))
 
     items.extend(_runtime_health_items())

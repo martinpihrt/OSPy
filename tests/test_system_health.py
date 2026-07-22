@@ -217,6 +217,7 @@ class SystemHealthTests(unittest.TestCase):
         self.assertEqual(item["status"], "error")
         self.assertFalse(item["alert"])
         self.assertFalse(item["affects_summary"])
+        self.assertEqual(item["link"], "/help#2")
         self.assertEqual(item["language_coverage"], coverage["languages"])
         self.assertIn("100", item["details"])
 

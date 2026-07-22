@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 22 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Diagnostics Open actions now link Languages directly to help section 2 and Backup directly to the expanded System Backup card in Options instead of opening the top of either page. Added regression coverage for both navigation targets.
+
 Added a read-only **Languages** row to Diagnostics. It compares every configured language catalog with the current translation template and displays the translated percentage and exact missing-string count for each language. Complete catalogs are green, catalogs with at least 80 percent coverage are yellow, and catalogs below 80 percent are red. Translation completeness is informational: it does not change the overall system-health result and never opens the diagnostic error modal. Catalog parsing is cached by file revision, modifies no POT, PO or MO file, and is covered by parser, threshold, missing-catalog and cache-invalidation tests. Updated all seven Web Interface Guides.
 
 Completed the existing `showOnTimeline` live-data path. Administrator, user and public Home pages now refresh station-associated plug-in values from `/plugindata` instead of embedding a stale page-load snapshot, match values by station identifier rather than plug-in-list position, and display them beside every active station including masters. Manual-mode administrator and user station rows receive the same live values. Empty or stopped values disappear on the next refresh, and existing footer plug-in data remains unchanged. Added rendering regression coverage and updated all seven Web Interface Guides.

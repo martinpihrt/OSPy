@@ -70,6 +70,11 @@ class TemplateCompilationTests(unittest.TestCase):
                 self.assertIn("manualPlugin${station.index}", source)
                 self.assertIn("stationPluginLive", source)
 
+    def test_options_exposes_direct_backup_section_link(self):
+        source = (TEMPLATE_ROOT / "options.html").read_text(encoding="utf-8")
+        self.assertIn("id='backup-options'", source)
+        self.assertIn("window.location.hash", source)
+
     def test_configured_plugin_templates_compile(self):
         for plugin_root in _configured_plugin_roots():
             with self.subTest(plugin_root=str(plugin_root)):
