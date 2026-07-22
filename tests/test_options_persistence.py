@@ -83,6 +83,15 @@ class OptionsPersistenceTests(unittest.TestCase):
             },
         )
 
+    def test_each_visible_options_category_is_one_contiguous_card(self):
+        category_runs = []
+        for definition in options_module._Options.OPTIONS:
+            category = definition.get("category")
+            if category and (not category_runs or category_runs[-1] != category):
+                category_runs.append(category)
+
+        self.assertEqual(len(category_runs), len(set(category_runs)))
+
     def test_legacy_storage_controls_infer_summary_mode(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-storage-mode-") as root:
             default, unused_temporary, unused_backup = self._paths(root)

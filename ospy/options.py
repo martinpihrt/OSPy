@@ -179,6 +179,13 @@ class _Options(object):
             "category": _('System')
         },
         {
+            "key": "lang",
+            "name": "", #_('System language'),
+            "default": "default",
+            "help": "", #_('Language localizations for this OpenSprinkler system. (effective after reboot.)'),
+            "category": _('System')
+        },
+        {
             "key": "settings_storage_mode",
             "name": _('Settings storage mode'),
             "default": "compatible",
@@ -212,13 +219,6 @@ class _Options(object):
             "default": False,
             "help": _('Experimental and disabled by default. When enabled, a settings save is committed only if both the shelve/DBM database and its SQLite shadow are written and verified successfully. On SQLite failure the temporary save is discarded and the previous active settings remain unchanged.'),
             "category": _('Settings storage')
-        },
-        {
-            "key": "lang",
-            "name": "", #_('System language'),
-            "default": "default",
-            "help": "", #_('Language localizations for this OpenSprinkler system. (effective after reboot.)'),
-            "category": _('System')
         },
         #######################################################################
         # Weather  ############################################################
