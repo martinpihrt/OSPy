@@ -73,9 +73,11 @@ class SystemHealthTests(unittest.TestCase):
             "preferred_read_count": 25,
             "preferred_read_error": "",
             "strict_dual_write_enabled": True,
+            "settings_storage_mode": "verification",
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
+        self.assertIn("Verification", recovery)
 
         rehearsal_failure = _sqlite_mirror_details({
             "state": "verified", "count": 25, "last_save": 123.0,

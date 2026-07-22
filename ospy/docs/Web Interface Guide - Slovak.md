@@ -386,6 +386,8 @@ Diagnostika uchováva neautoritatívny **dôkaz migrácie SQLite**: počty po se
 
 Jazyk rozhrania sa pri skorom štarte naďalej najprv načíta z platnej databázy shelve/DBM. Ak je povolené overené čítanie SQLite, bootstrap porovná všetky kľúče a kontrolné súčty s týmto presným shelve snímkom a až po úplnej zhode načíta zo SQLite jedinú hodnotu `lang`. Chýbajúca, staršia, rozdielna alebo poškodená SQLite kópia vždy bezpečne použije jazyk zo shelve. Kontrola chýbajúcej databázy sama nevytvorí prázdny súbor.
 
+Selektor **Režim úložiska nastavení** združuje bezpečné prechodové voľby. **Kompatibilný** ponechá shelve/DBM ako hlavné úložisko a SQLite ako voliteľnú tieňovú kópiu. **Overovací** zapne núdzovú obnovu, overené čítanie a prísny dvojitý zápis; ani tento režim nerobí zo SQLite hlavnú databázu. Jednotlivé prepínače zostávajú dostupné na pokročilé riadenie a ich zmiešaná kombinácia sa automaticky označí ako **Vlastné pokročilé nastavenia**. Staršie inštalácie odvodia režim z uložených prepínačov bez zmeny ich hodnôt.
+
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
 Keď Diagnostika zistí chybu, otvorí červené okno s opisom problému, dostupnými podrobnosťami, možným riešením a odkazom na súvisiacu stránku. Administrátor môže rovnaké okno zapnúť aj na domovskej stránke voľbou **Nastavenia > Diagnostika > Zobrazovať chyby diagnostiky na domovskej stránke**. Chybové okno má prednosť pred upozornením na aktualizáciu. Vypnutie voľby ovplyvní iba domovskú stránku; chyby zostanú viditeľné v Diagnostike.

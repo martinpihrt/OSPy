@@ -76,11 +76,50 @@ class OptionsPersistenceTests(unittest.TestCase):
                 if item.get("category") == storage_category
             },
             {
+                "settings_storage_mode",
                 "sqlite_emergency_recovery",
                 "sqlite_preferred_reads",
                 "sqlite_strict_dual_write",
             },
         )
+
+    def test_legacy_storage_controls_infer_summary_mode(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-storage-mode-") as root:
+            default, unused_temporary, unused_backup = self._paths(root)
+            os.makedirs(os.path.dirname(default), exist_ok=True)
+            with shelve.open(default) as database:
+                database["sqlite_emergency_recovery"] = True
+                database["sqlite_preferred_reads"] = True
+                database["sqlite_strict_dual_write"] = True
+
+            instance = self._new_options(root)
+
+            self.assertEqual(instance.settings_storage_mode, "verification")
+
+    def test_storage_mode_applies_profiles_and_preserves_custom_controls(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-storage-profile-") as root:
+            instance = self._new_options(root)
+
+            instance.apply_settings_storage_mode("verification")
+            self.assertEqual(instance.settings_storage_mode, "verification")
+            self.assertTrue(all(
+                instance._values[key]
+                for key in instance.SETTINGS_STORAGE_CONTROL_KEYS
+            ))
+
+            instance.sqlite_preferred_reads = False
+            instance.refresh_settings_storage_mode()
+            self.assertEqual(instance.settings_storage_mode, "custom")
+            self.assertTrue(instance.sqlite_emergency_recovery)
+            self.assertFalse(instance.sqlite_preferred_reads)
+            self.assertTrue(instance.sqlite_strict_dual_write)
+
+            instance.apply_settings_storage_mode("compatible")
+            self.assertEqual(instance.settings_storage_mode, "compatible")
+            self.assertFalse(any(
+                instance._values[key]
+                for key in instance.SETTINGS_STORAGE_CONTROL_KEYS
+            ))
 
     def test_failed_settings_callback_reports_and_then_resolves_issue(self):
         instance = options_module._Options.__new__(options_module._Options)
@@ -741,6 +780,7 @@ class OptionsPersistenceTests(unittest.TestCase):
             self.assertFalse(instance.sqlite_emergency_recovery)
             self.assertFalse(instance.sqlite_preferred_reads)
             self.assertFalse(instance.sqlite_strict_dual_write)
+            self.assertEqual(instance.settings_storage_mode, "compatible")
             self.assertEqual(instance.plugin_update_channel, "master")
             self.assertEqual(instance.weather_provider, "stormglass")
             self.assertEqual(

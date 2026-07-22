@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-07-22 05:43+0200\n"
-"PO-Revision-Date: 2026-07-22 05:46+0200\n"
+"POT-Creation-Date: 2026-07-22 06:01+0200\n"
+"PO-Revision-Date: 2026-07-22 06:04+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -725,10 +725,10 @@ msgstr ""
 "Jedinečný název tohoto OpenSprinkler systému (nepoužívejte diakritiku s "
 "ohledem na LCD rozšíření)."
 
-#: ospy/options.py:45 ospy/options.py:53 ospy/options.py:60 ospy/options.py:67
-#: ospy/options.py:74 ospy/options.py:83 ospy/options.py:90 ospy/options.py:97
-#: ospy/options.py:105 ospy/options.py:112 ospy/options.py:119
-#: ospy/options.py:127 ospy/options.py:159 ospy/options.py:187
+#: ospy/options.py:45 ospy/options.py:58 ospy/options.py:65 ospy/options.py:72
+#: ospy/options.py:79 ospy/options.py:88 ospy/options.py:95 ospy/options.py:102
+#: ospy/options.py:115 ospy/options.py:122 ospy/options.py:129
+#: ospy/options.py:141 ospy/options.py:173 ospy/options.py:201
 #: ospy/templates/diagnostics.html:833
 #: plugins/email_notifications/__init__.py:107
 #: plugins/email_notifications/__init__.py:128
@@ -741,66 +741,92 @@ msgstr "Systém"
 msgid "System theme"
 msgstr "Šablona webu"
 
-#: ospy/options.py:52
+#: ospy/options.py:53
+msgid "Basic"
+msgstr "Základní"
+
+#: ospy/options.py:54 plugins/chmi/templates/chmi_log.html:30
+#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:60
+#: plugins/weather_dashboard/templates/weather_dashboard_page.html:446
+msgid "Blue"
+msgstr "Modrá"
+
+#: ospy/options.py:55
+msgid "Dark"
+msgstr "Tmavé"
+
+#: ospy/options.py:57
 msgid "Determines the look of the GUI."
 msgstr "Určuje vzhled GUI."
 
-#: ospy/options.py:57
+#: ospy/options.py:62
 msgid "24-hour clock"
 msgstr "24-hodinový čas"
 
-#: ospy/options.py:59
+#: ospy/options.py:64
 msgid "Display times in 24 hour format (as opposed to AM/PM style.)"
 msgstr "Zobrazení času ve 24 hodinovém formátu (na rozdíl od AM/PM stylu.)"
 
-#: ospy/options.py:64
+#: ospy/options.py:69
 msgid "HTTP IP addr"
 msgstr "HTTP IP adresa"
 
-#: ospy/options.py:66
+#: ospy/options.py:71
 msgid ""
 "IP Address used for HTTP server socket.  IPv4 or IPv6 address (effective "
 "after reboot.)"
 msgstr ""
 "IP adresa pro HTTP server. IPv4 nebo IPv6 adresa (projeví se až po restartu.)"
 
-#: ospy/options.py:71
+#: ospy/options.py:76
 msgid "HTTP/S port"
 msgstr "Port HTTP/S"
 
-#: ospy/options.py:73
+#: ospy/options.py:78
 msgid "HTTP/S port (effective after reboot.)"
 msgstr "HTTP/S port (projeví se až po restartu.)"
 
-#: ospy/options.py:80
+#: ospy/options.py:85
 msgid "Show plugins on home"
 msgstr "Zobrazit rozšíření na home"
 
-#: ospy/options.py:82
+#: ospy/options.py:87
 msgid "Show data from plugins on home page."
 msgstr "Zobrazit data z rozšíření na domovské stránce."
 
-#: ospy/options.py:87
+#: ospy/options.py:92
 msgid "Show sensors on home"
 msgstr "Zobrazit snímače na home"
 
-#: ospy/options.py:89
+#: ospy/options.py:94
 msgid "Show data from sensors on home page."
 msgstr "Zobrazit data ze snímačů na domovské stránce."
 
-#: ospy/options.py:94
+#: ospy/options.py:99
 msgid "Show pictures at stations"
 msgstr "Zobrazit obrázky na stanicích"
 
-#: ospy/options.py:96
+#: ospy/options.py:101
 msgid "Show pictures of stations on the homepage."
 msgstr "Zobrazit obrázky stanic na domovské stránce."
 
-#: ospy/options.py:101
+#: ospy/options.py:106
 msgid "Station picture source"
 msgstr "Zdroj obrazků u stanic"
 
-#: ospy/options.py:104
+#: ospy/options.py:110
+msgid "Station images"
+msgstr "Obrázky stanic"
+
+#: ospy/options.py:111
+msgid "IP Cam JPG"
+msgstr "IP kamery JPG"
+
+#: ospy/options.py:112
+msgid "IP Cam GIF"
+msgstr "IP kamery GIF"
+
+#: ospy/options.py:114
 msgid ""
 "Choose whether station pictures on the home page use uploaded station images "
 "or cached images from the IP Cam plug-in. This is used only when station "
@@ -810,20 +836,20 @@ msgstr ""
 "stanic nebo cachované obrázky z IP Cam plug-inu. Používá se pouze při "
 "zapnutí obrázků u stanic."
 
-#: ospy/options.py:109
+#: ospy/options.py:119
 msgid "Show icons instead of text"
 msgstr "Zobrazení ikon místo textu"
 
-#: ospy/options.py:111
+#: ospy/options.py:121
 msgid "When activated, in header menu will display icons instead of text."
 msgstr ""
 "Pokud je aktivováno, v nabídce záhlaví OSPy se místo textu zobrazí ikony."
 
-#: ospy/options.py:116
+#: ospy/options.py:126
 msgid "Show back to top button"
 msgstr "Tlačítko zpátky nahoru"
 
-#: ospy/options.py:118
+#: ospy/options.py:128
 msgid ""
 "Show a button for scrolling back to the top of the page after the page is "
 "scrolled down."
@@ -831,11 +857,19 @@ msgstr ""
 "Zobrazit tlačítko pro posun zpět na začátek stránky poté, co se stránka "
 "posune dolů."
 
-#: ospy/options.py:123
+#: ospy/options.py:133
 msgid "Back to top position"
 msgstr "Zpět nahoru pozice"
 
-#: ospy/options.py:126
+#: ospy/options.py:137
+msgid "Left"
+msgstr "Vlevo"
+
+#: ospy/options.py:138
+msgid "Right"
+msgstr "Vpravo"
+
+#: ospy/options.py:140
 msgid ""
 "Choose whether the back to top button is shown at the bottom left or bottom "
 "right of the page."
@@ -843,32 +877,32 @@ msgstr ""
 "Zvolit, zda se tlačítko zpět nahoru zobrazí vlevo dole nebo vpravo dole na "
 "stránce."
 
-#: ospy/options.py:131
+#: ospy/options.py:145
 msgid "Enabled plug-ins"
 msgstr "Povolit rozšíření"
 
-#: ospy/options.py:136
+#: ospy/options.py:150
 msgid "Plug-in status"
 msgstr "Stav rozšíření"
 
-#: ospy/options.py:141
+#: ospy/options.py:155
 msgid "Automatic plug-in updates"
 msgstr "Automatická aktualizace rozšíření"
 
-#: ospy/options.py:146
+#: ospy/options.py:160
 msgid "Enable plug-in check status updates"
 msgstr "Povolení aktualizací pro rozšíření"
 
-#: ospy/options.py:151 ospy/templates/plugins_install.html:11
+#: ospy/options.py:165 ospy/templates/plugins_install.html:11
 #: ospy/templates/plugins_manage.html:137
 msgid "Plug-in update channel"
 msgstr "Kanál pro aktualizace balíčku"
 
-#: ospy/options.py:156
+#: ospy/options.py:170
 msgid "IP for DNS ping"
 msgstr "IP pro ping DNS"
 
-#: ospy/options.py:158
+#: ospy/options.py:172
 msgid ""
 "IP address for pinging a DNS server that is outside the internal network. If "
 "ping is not available, all network operations (log, user downloads, "
@@ -878,11 +912,11 @@ msgstr ""
 "příkaz ping není k dispozici, všechny síťové operace (logy, stahování "
 "uživatelů, certifikát) budou přeskočeny."
 
-#: ospy/options.py:163
+#: ospy/options.py:177
 msgid "Allow emergency SQLite settings recovery"
 msgstr "Obnova nastavení z SQLite"
 
-#: ospy/options.py:165
+#: ospy/options.py:179
 msgid ""
 "Experimental and disabled by default. If every shelve/DBM startup database "
 "is invalid, allow OSPy to rebuild settings only from an independently "
@@ -892,16 +926,16 @@ msgstr ""
 "DBM startovací databáze neplatné, OSPy obnoví nastavení pouze z nezávisle "
 "ověřené SQLite záložní kopie, která také obsahuje toto záložní nastavení."
 
-#: ospy/options.py:166 ospy/options.py:173 ospy/options.py:180
+#: ospy/options.py:180 ospy/options.py:187 ospy/options.py:194
 #: ospy/templates/options.html:168 ospy/webpages.py:2981
 msgid "Settings storage"
 msgstr "Ukládání nastavení"
 
-#: ospy/options.py:170
+#: ospy/options.py:184
 msgid "Prefer verified SQLite settings reads"
 msgstr "Preferovat načtení nastavení z SQLite"
 
-#: ospy/options.py:172
+#: ospy/options.py:186
 msgid ""
 "Experimental and disabled by default. OSPy still loads shelve/DBM first and "
 "uses SQLite values only after every key, checksum and value matches the "
@@ -913,11 +947,11 @@ msgstr ""
 "a hodnota odpovídají autoritativnímu shelve snapshotu. Jakýkoli problém se "
 "vrací k shelve/DBM, což zůstává backendem zápisu."
 
-#: ospy/options.py:177
+#: ospy/options.py:191
 msgid "Require verified SQLite for settings commits"
 msgstr "Vyžadovat ověřený SQLite"
 
-#: ospy/options.py:179
+#: ospy/options.py:193
 msgid ""
 "Experimental and disabled by default. When enabled, a settings save is "
 "committed only if both the shelve/DBM database and its SQLite shadow are "
@@ -929,37 +963,37 @@ msgstr ""
 "databáze shelve/DBM, tak její stínové kopie SQLite. Při selhání SQLite je "
 "dočasné uložení zahazeno. Předchozí aktivní nastavení zůstávají nezměněna."
 
-#: ospy/options.py:193
+#: ospy/options.py:207
 msgid "Use Weather"
 msgstr "Použít počasí"
 
-#: ospy/options.py:195
+#: ospy/options.py:209
 msgid "Enable or disable weather downloads from the selected provider."
 msgstr "Povolit nebo zakázat stahování počasí od vybraného poskytovatele."
 
-#: ospy/options.py:196 ospy/options.py:209 ospy/options.py:216
-#: ospy/options.py:223 ospy/templates/options.html:163 ospy/webpages.py:3734
+#: ospy/options.py:210 ospy/options.py:223 ospy/options.py:230
+#: ospy/options.py:237 ospy/templates/options.html:163 ospy/webpages.py:3734
 #: plugins/weather_based_rain_delay/__init__.py:100
 msgid "Weather"
 msgstr "Počasí"
 
-#: ospy/options.py:200 ospy/webpages.py:3718
+#: ospy/options.py:214 ospy/webpages.py:3718
 msgid "Weather data provider"
 msgstr "Poskytovatel meteorologických dat"
 
-#: ospy/options.py:204 ospy/weather.py:47 ospy/weather.py:50
+#: ospy/options.py:218 ospy/weather.py:47 ospy/weather.py:50
 msgid "Open-Meteo automatic model"
 msgstr "Open-Meteo automatický model"
 
-#: ospy/options.py:205 ospy/weather.py:48
+#: ospy/options.py:219 ospy/weather.py:48
 msgid "CHMI ALADIN via Open-Meteo"
 msgstr "CHMI ALADIN přes Open-Meteo"
 
-#: ospy/options.py:206 ospy/weather.py:49
+#: ospy/options.py:220 ospy/weather.py:49
 msgid "Stormglass"
 msgstr "Stormglass"
 
-#: ospy/options.py:208
+#: ospy/options.py:222
 msgid ""
 "Select the forecast source used by OSPy and all weather-aware plug-ins. Open-"
 "Meteo does not require an API key for non-commercial use."
@@ -967,21 +1001,21 @@ msgstr ""
 "Vyberte zdroj předpovědi používaný OSPy a všechny balíčky s ohledem na "
 "počasí. Open-Meteo nevyžaduje API klíč pro nekomerční použití."
 
-#: ospy/options.py:213
+#: ospy/options.py:227
 msgid "Storm Glass API key"
 msgstr "Klíč rozhraní API Storm Glass"
 
-#: ospy/options.py:215
+#: ospy/options.py:229
 msgid "Required only when Stormglass is selected as the weather provider."
 msgstr ""
 "Je vyžadováno pouze tehdy, když je Stormglass vybrán jako poskytovatel "
 "počasí."
 
-#: ospy/options.py:220 plugins/sunrise_and_sunset/__init__.py:710
+#: ospy/options.py:234 plugins/sunrise_and_sunset/__init__.py:710
 msgid "Location"
 msgstr "Umístění"
 
-#: ospy/options.py:222
+#: ospy/options.py:236
 msgid ""
 "City name or zip code. Used to determine location via OpenStreetMap for "
 "weather information."
@@ -989,47 +1023,47 @@ msgstr ""
 "Název města nebo PSČ. Používá se k určení místa prostřednictvím "
 "OpenStreetMap pro informace o počasí."
 
-#: ospy/options.py:227
+#: ospy/options.py:241
 msgid "Weather location mode"
 msgstr "Režim polohy počasí"
 
-#: ospy/options.py:234
+#: ospy/options.py:248
 msgid "Disable security"
 msgstr "Bez hesla"
 
-#: ospy/options.py:236
+#: ospy/options.py:250
 msgid "Allow anonymous users to access the system without a password."
 msgstr "Povolit anonymním uživatelům přístup do systému bez hesla."
 
-#: ospy/options.py:237 ospy/options.py:244 ospy/templates/options.html:165
+#: ospy/options.py:251 ospy/options.py:258 ospy/templates/options.html:165
 msgid "Users"
 msgstr "Uživatelé"
 
-#: ospy/options.py:241
+#: ospy/options.py:255
 msgid "Administrator name"
 msgstr "Jméno správce"
 
-#: ospy/options.py:243
+#: ospy/options.py:257
 msgid "Administrator login name for login to the OSPy."
 msgstr "Přihlašovací jméno správce pro přihlášení k OSPy."
 
-#: ospy/options.py:248
+#: ospy/options.py:262
 msgid "Two-factor authentication method"
 msgstr "Metoda dvoufaktorového ověřování"
 
-#: ospy/options.py:253
+#: ospy/options.py:267
 msgid "Two-factor authentication secret"
 msgstr "Metoda dvoufaktorového ověřování - tajný kód"
 
-#: ospy/options.py:258
+#: ospy/options.py:272
 msgid "Two-factor backup codes"
 msgstr "Dvoufaktorové záložní kódy"
 
-#: ospy/options.py:265
+#: ospy/options.py:279
 msgid "Use HTTPS access"
 msgstr "Použít HTTPS"
 
-#: ospy/options.py:267
+#: ospy/options.py:281
 msgid ""
 "Read HELP/Web Interface Guide. SSL certificate via Lets Encrypt "
 "certification authority (effective after reboot.)"
@@ -1038,17 +1072,17 @@ msgstr ""
 "generován prostřednictvím certifikační autority (po instalaci je nutné "
 "restartování OSPy)."
 
-#: ospy/options.py:268 ospy/options.py:275 ospy/options.py:282
-#: ospy/options.py:289 ospy/options.py:296 ospy/options.py:303
-#: ospy/options.py:310 ospy/options.py:317 ospy/templates/options.html:166
+#: ospy/options.py:282 ospy/options.py:289 ospy/options.py:296
+#: ospy/options.py:303 ospy/options.py:310 ospy/options.py:317
+#: ospy/options.py:324 ospy/options.py:331 ospy/templates/options.html:166
 msgid "Security"
 msgstr "Bezpečnost"
 
-#: ospy/options.py:272
+#: ospy/options.py:286
 msgid "Domain name"
 msgstr "Jméno domény"
 
-#: ospy/options.py:274
+#: ospy/options.py:288
 msgid ""
 "Domain name for generating SSL certificate via Lets Encrypt certification "
 "authority. Example: home.sprinkler.com"
@@ -1056,11 +1090,11 @@ msgstr ""
 "Jméno domény, které bylo použito pro generování certifikátu SSL "
 "prostřednictvím certifikační autority. Příklad: home.sprinkler.com"
 
-#: ospy/options.py:279
+#: ospy/options.py:293
 msgid "Use Own HTTPS access"
 msgstr "Použít vlastní HTTPS"
 
-#: ospy/options.py:281
+#: ospy/options.py:295
 msgid ""
 "SSL certificate via own file without certification authority (effective "
 "after reboot.)"
@@ -1069,11 +1103,11 @@ msgstr ""
 "vložení souborů fullchain.pem a privkey.pem do složky ssl v umístění OSPy je "
 "nutný restart OSPy.)"
 
-#: ospy/options.py:286
+#: ospy/options.py:300
 msgid "API CORS allowed origin"
 msgstr "API CORS povolený původ"
 
-#: ospy/options.py:288
+#: ospy/options.py:302
 msgid ""
 "Allowed browser origin for API CORS requests. Use * to allow any origin, "
 "enter one origin such as https://example.com, enter multiple origins "
@@ -1086,11 +1120,11 @@ msgstr ""
 "deaktivaci CORS hlaviček. To se týká pouze klientů API založených na "
 "prohlížeči."
 
-#: ospy/options.py:293
+#: ospy/options.py:307
 msgid "Enable API JSONP"
 msgstr "Povolit API JSONP"
 
-#: ospy/options.py:295
+#: ospy/options.py:309
 msgid ""
 "Allow legacy API JSONP responses via the callback query parameter. Keep "
 "disabled unless an old integration requires JSONP, because normal API "
@@ -1100,11 +1134,11 @@ msgstr ""
 "Nechte to vypnuté, pokud stará integrace nevyžaduje JSONP, protože běžní API "
 "klienti by měli používat JSON s CORS místo toho."
 
-#: ospy/options.py:300
+#: ospy/options.py:314
 msgid "Require sensor API auth"
 msgstr "Vyžadovat ověření pro API snímačů"
 
-#: ospy/options.py:302
+#: ospy/options.py:316
 msgid ""
 "Require HTTP Basic authentication for sensor reports sent to /api/sensor. "
 "Keep disabled for older sensor firmware that cannot send credentials."
@@ -1113,11 +1147,11 @@ msgstr ""
 "sensor. Nechte zapnuté pro starší firmware senzorů (pokud neposílají "
 "přihlašovací údaje.)"
 
-#: ospy/options.py:307
+#: ospy/options.py:321
 msgid "Require API CSRF token"
 msgstr "Vžadovat API CSRF token"
 
-#: ospy/options.py:309
+#: ospy/options.py:323
 msgid ""
 "Require a CSRF token for state-changing API requests. Keep disabled for "
 "older integrations that use only HTTP Basic authentication."
@@ -1125,11 +1159,11 @@ msgstr ""
 "Vyžadujte CSRF token pro požadavky na změnu stavu API. U starších integrací, "
 "které používají pouze HTTP Basic autentizaci, nechte vypnuté."
 
-#: ospy/options.py:314
+#: ospy/options.py:328
 msgid "Maximum upload size"
 msgstr "Maximální velikost uploadovaného souboru"
 
-#: ospy/options.py:316
+#: ospy/options.py:330
 msgid ""
 "Maximum uploaded file size in MB for backup restore, SSL files, station "
 "images, and custom sensor firmware. Use 0 for no application limit."
@@ -1138,11 +1172,11 @@ msgstr ""
 "obrazy stanic a vlastní firmware senzorů. Použijte 0 pro neomezený limit "
 "aplikací."
 
-#: ospy/options.py:325
+#: ospy/options.py:339
 msgid "Password FW"
 msgstr "Heslo FW"
 
-#: ospy/options.py:327
+#: ospy/options.py:341
 msgid ""
 "Password for uploading firmware from OSPy to sensor (for all used sensors - "
 "the same password must be used in sensor options.)"
@@ -1151,7 +1185,7 @@ msgstr ""
 "- stejné heslo musí být použito i v nastavení snímače). Výchozí heslo je: "
 "\"fg4s5b.s,trr7sw8sgyvrDfg\"."
 
-#: ospy/options.py:328 ospy/options.py:335 ospy/templates/base.html:433
+#: ospy/options.py:342 ospy/options.py:349 ospy/templates/base.html:433
 #: ospy/templates/options.html:167 ospy/webpages.py:3552
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:237
@@ -1163,20 +1197,20 @@ msgstr ""
 msgid "Sensors"
 msgstr "Snímače"
 
-#: ospy/options.py:332
+#: ospy/options.py:346
 msgid "Sensor HTTP timeout"
 msgstr "HTTP timeout pro snímače"
 
-#: ospy/options.py:334
+#: ospy/options.py:348
 msgid "Timeout in seconds for HTTP requests sent from OSPy to sensors."
 msgstr ""
 "Timeout za několik sekund pro HTTP požadavky odesílané z OSPy na senzory."
 
-#: ospy/options.py:343
+#: ospy/options.py:357
 msgid "Maximum usage"
 msgstr "Maximální využití"
 
-#: ospy/options.py:345
+#: ospy/options.py:359
 msgid ""
 "Determines how station runs are combined. 0 means no limit. 1 means one "
 "station at a time when each station has usage 1. This also affects when the "
@@ -1186,24 +1220,24 @@ msgstr ""
 "jednu stanici najednou, pokud má každá stanice využití 1. Toto nastavení "
 "také ovlivňuje, kdy se vloží pauza mezi stanicemi."
 
-#: ospy/options.py:346 ospy/options.py:353 ospy/options.py:362
-#: ospy/options.py:371
+#: ospy/options.py:360 ospy/options.py:367 ospy/options.py:376
+#: ospy/options.py:385
 msgid "Station Handling"
 msgstr "Nastavení stanic"
 
-#: ospy/options.py:350
+#: ospy/options.py:364
 msgid "Number of outputs"
 msgstr "Počet výstupů"
 
-#: ospy/options.py:352
+#: ospy/options.py:366
 msgid "The number of outputs available (8 + 8*extensions)"
 msgstr "Celkový počet výstupů k dispozici je (8 výstupů + x rozšíření.)"
 
-#: ospy/options.py:359
+#: ospy/options.py:373
 msgid "Pause between stations"
 msgstr "Pauza mezi stanicemi"
 
-#: ospy/options.py:361
+#: ospy/options.py:375
 msgid ""
 "Pause inserted between sequential station runs when the scheduler cannot run "
 "them at the same time, in seconds between 0 and 3600. This does not shift a "
@@ -1216,11 +1250,11 @@ msgstr ""
 "hlavní stanici. Příklad: při maximálním využití 1 a využití stanice 1 "
 "hodnota 30 spustí další stanici 30 sekund po skončení předchozí stanice."
 
-#: ospy/options.py:368
+#: ospy/options.py:382
 msgid "Minimum runtime"
 msgstr "Min čas běhu"
 
-#: ospy/options.py:370
+#: ospy/options.py:384
 msgid ""
 "Skip the pause between stations when the previous run was shorter than this "
 "value, in seconds between 0 and 86400. Example: with pause 30 and minimum "
@@ -1231,24 +1265,24 @@ msgstr ""
 "hodnota, v sekundách mezi 0 a 86400. Příklad: při pauze 30 a minimální době "
 "běhu stanice 10 a ta běžela pouze 5 sekund, nevynutí 30 sekundovou pauzu."
 
-#: ospy/options.py:379
+#: ospy/options.py:393
 msgid "Activate relay"
 msgstr "Aktivovat relé"
 
-#: ospy/options.py:381
+#: ospy/options.py:395
 msgid "Also activate the relay as master output."
 msgstr "Aktivovat také relé jako hlavní výstup."
 
-#: ospy/options.py:382 ospy/options.py:389 ospy/options.py:398
-#: ospy/options.py:407 ospy/options.py:416
+#: ospy/options.py:396 ospy/options.py:403 ospy/options.py:412
+#: ospy/options.py:421 ospy/options.py:430
 msgid "Configure Master"
 msgstr "Nastavení hl. stanice"
 
-#: ospy/options.py:386
+#: ospy/options.py:400
 msgid "Master start offset"
 msgstr "Posun startu hlavní stanice"
 
-#: ospy/options.py:388
+#: ospy/options.py:402
 msgid ""
 "Time offset for starting master station 1 relative to the station start, in "
 "seconds between -1800 and +1800. Negative values start the master earlier; "
@@ -1260,11 +1294,11 @@ msgstr ""
 "hodnoty později. Příklad: -10 spustí hlavní stanici 10 sekund před stanicí, "
 "+10 ji spustí 10 sekund po stanici."
 
-#: ospy/options.py:395
+#: ospy/options.py:409
 msgid "Master stop offset"
 msgstr "Posun vypnutí hlavní stanice"
 
-#: ospy/options.py:397
+#: ospy/options.py:411
 msgid ""
 "Time offset for stopping master station 1 relative to the station end, in "
 "seconds between -1800 and +1800. Negative values stop the master earlier; "
@@ -1277,11 +1311,11 @@ msgstr ""
 "hodnoty ji nechají běžet déle. Příklad: -5 vypne hlavní stanici 5 sekund "
 "před koncem stanice, +20 ji vypne 20 sekund po konci stanice."
 
-#: ospy/options.py:404
+#: ospy/options.py:418
 msgid "Master two start offset"
 msgstr "Posun startu hlavní stanice 2"
 
-#: ospy/options.py:406
+#: ospy/options.py:420
 msgid ""
 "Time offset for starting master station 2 relative to the station start, in "
 "seconds between -1800 and +1800. Negative values start the master earlier; "
@@ -1293,11 +1327,11 @@ msgstr ""
 "hodnoty později. Příklad: -10 spustí hlavní stanici 10 sekund před stanicí, "
 "+10 ji spustí 10 sekund po stanici."
 
-#: ospy/options.py:413
+#: ospy/options.py:427
 msgid "Master two stop offset"
 msgstr "Posun vypnutí hlavní stanice 2"
 
-#: ospy/options.py:415
+#: ospy/options.py:429
 msgid ""
 "Time offset for stopping master station 2 relative to the station end, in "
 "seconds between -1800 and +1800. Negative values stop the master earlier; "
@@ -1309,34 +1343,34 @@ msgstr ""
 "hodnoty ji nechají běžet déle. Příklad: -5 vypne hlavní stanici 5 sekund "
 "před koncem stanice, +20 ji vypne 20 sekund po konci stanice."
 
-#: ospy/options.py:424
+#: ospy/options.py:438
 msgid "Use rain sensor"
 msgstr "Používat senzor"
 
-#: ospy/options.py:426
+#: ospy/options.py:440
 msgid "Use rain sensor."
 msgstr "Používat děšťový senzor."
 
-#: ospy/options.py:427 ospy/options.py:434 ospy/options.py:441
-#: ospy/options.py:448 plugins/lcd_display/templates/lcd_display.html:300
+#: ospy/options.py:441 ospy/options.py:448 ospy/options.py:455
+#: ospy/options.py:462 plugins/lcd_display/templates/lcd_display.html:300
 #: plugins/lcd_display/templates/lcd_display_help.html:40
 msgid "Rain Sensor"
 msgstr "Dešťový snímač"
 
-#: ospy/options.py:431
+#: ospy/options.py:445
 #: plugins/pressure_monitor/templates/pressure_monitor.html:337
 msgid "Normally open"
 msgstr "V klidu rozpojen"
 
-#: ospy/options.py:433
+#: ospy/options.py:447
 msgid "Rain sensor default."
 msgstr "Dešťový snímač má bez deště kontakt rozpojen."
 
-#: ospy/options.py:438
+#: ospy/options.py:452
 msgid "Set rain delay"
 msgstr "Nastavit zpoždění deště"
 
-#: ospy/options.py:440
+#: ospy/options.py:454
 msgid ""
 "When the rain sensor is activated, the rain delay is set (this is suitable, "
 "for example, for blocking programs for a longer time than provided by the "
@@ -1346,19 +1380,19 @@ msgstr ""
 "například pro blokování programů na delší dobu, než poskytuje dešťový "
 "senzor)."
 
-#: ospy/options.py:445
+#: ospy/options.py:459
 msgid "Rain delay time"
 msgstr "Doba zpoždění deště"
 
-#: ospy/options.py:447
+#: ospy/options.py:461
 msgid "Rain delay time (in hours), between 0 and 500."
 msgstr "Doba zpoždění deště (v hodinách), mezi 0 a 500."
 
-#: ospy/options.py:456
+#: ospy/options.py:470
 msgid "Show diagnostic errors on the home page"
 msgstr "Diagnostické chyby"
 
-#: ospy/options.py:458
+#: ospy/options.py:472
 msgid ""
 "Show a red diagnostic error window to administrators on the home page. "
 "Diagnostic errors have priority over update notifications."
@@ -1366,17 +1400,17 @@ msgstr ""
 "Zobrazit na domovské stránce červené okno diagnostické chyby správcům. "
 "Diagnostické chyby mají přednost před oznámeními o aktualizacích."
 
-#: ospy/options.py:459 ospy/templates/base.html:464
+#: ospy/options.py:473 ospy/templates/base.html:464
 #: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:730
 #: ospy/templates/diagnostics.html:799 ospy/templates/options.html:164
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: ospy/options.py:465
+#: ospy/options.py:479
 msgid "Enable run log"
 msgstr "Aktivovat záznam"
 
-#: ospy/options.py:467
+#: ospy/options.py:481
 msgid ""
 "Log all runs - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -1384,28 +1418,28 @@ msgstr ""
 "Zaznamenávat všechny běhy stanic - berte na vědomí, že opakující se psaní na "
 "SD kartu může zkrátit její životnost."
 
-#: ospy/options.py:468 ospy/options.py:475 ospy/options.py:484
-#: ospy/options.py:491 ospy/options.py:500 ospy/options.py:507
-#: ospy/options.py:516 ospy/options.py:525 ospy/options.py:532
+#: ospy/options.py:482 ospy/options.py:489 ospy/options.py:498
+#: ospy/options.py:505 ospy/options.py:514 ospy/options.py:521
+#: ospy/options.py:530 ospy/options.py:539 ospy/options.py:546
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
 #: ospy/templates/log.html:191 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 msgid "Logging"
 msgstr "Protokolování"
 
-#: ospy/options.py:472
+#: ospy/options.py:486
 msgid "Max run entries"
 msgstr "Max záznamů"
 
-#: ospy/options.py:474
+#: ospy/options.py:488
 msgid "Number of run entries to save to disk, 0=no limit."
 msgstr "Počet záznamů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:481
+#: ospy/options.py:495
 msgid "Enable email log"
 msgstr "Aktivovat záznam E-mailů"
 
-#: ospy/options.py:483
+#: ospy/options.py:497
 msgid ""
 "Log all emails - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -1413,19 +1447,19 @@ msgstr ""
 "Zaznamenávat všechny E-maily - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:488
+#: ospy/options.py:502
 msgid "Max email entries"
 msgstr "Max záznamů E-mailu"
 
-#: ospy/options.py:490
+#: ospy/options.py:504
 msgid "Number of email entries to save to disk, 0=no limit."
 msgstr "Počet záznamů E-mailů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:497
+#: ospy/options.py:511
 msgid "Enable events log"
 msgstr "Aktivovat záznam událostí"
 
-#: ospy/options.py:499
+#: ospy/options.py:513
 msgid ""
 "Log all events - note that repetitive writing to an SD card can shorten its "
 "lifespan."
@@ -1433,35 +1467,35 @@ msgstr ""
 "Zaznamenávat všechny události - berte na vědomí, že opakující se psaní na SD "
 "kartu může zkrátit její životnost."
 
-#: ospy/options.py:504
+#: ospy/options.py:518
 msgid "Max events entries"
 msgstr "Max záznamů událostí"
 
-#: ospy/options.py:506
+#: ospy/options.py:520
 msgid "Number of events entries to save to disk, 0=no limit."
 msgstr "Počet záznamů událostí v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:513
+#: ospy/options.py:527
 msgid "Max sensor entries"
 msgstr "Max záznamů snímačů"
 
-#: ospy/options.py:515
+#: ospy/options.py:529
 msgid "Number of sensor entries to save to disk, 0=no limit."
 msgstr "Počet záznamů ze snímačů v logu na disku, 0 = bez omezení."
 
-#: ospy/options.py:522
+#: ospy/options.py:536
 msgid "Enable debug log"
 msgstr "Povolit ladění"
 
-#: ospy/options.py:524
+#: ospy/options.py:538
 msgid "Log all internal events (for debugging purposes)."
 msgstr "Zaznamenávat všechny interní události (pro účely ladění)."
 
-#: ospy/options.py:529
+#: ospy/options.py:543
 msgid "Enable web log"
 msgstr "Povolit webový debug"
 
-#: ospy/options.py:531
+#: ospy/options.py:545
 msgid ""
 "Logging of internal events from the web server (for debugging it is "
 "necessary to enable the debug log and then restart OSPy). Deteriorates page "
@@ -1470,11 +1504,11 @@ msgstr ""
 "Logování interních událostí z webového serveru (pro ladění je nutné povolit "
 "log ladění a poté restartovat OSPy). Zhoršuje rychlost načítání stránky."
 
-#: ospy/options.py:538
+#: ospy/options.py:552
 msgid "Shift register speed"
 msgstr "Rychlost posuvného registru"
 
-#: ospy/options.py:540
+#: ospy/options.py:554
 msgid ""
 "This setting controls the clock speed for the shift register (74HC595) that "
 "controls the output relay. In some cases, it is advisable to reduce the "
@@ -1494,120 +1528,120 @@ msgstr ""
 "doporučovaná bezpečná rychlost: kolem 50–200 kHz, tj. zpoždění mezi "
 "hodinovými impulsy přibližně 5–20 μs."
 
-#: ospy/options.py:541 plugins/system_info/__init__.py:78
+#: ospy/options.py:555 plugins/system_info/__init__.py:78
 msgid "Hardware"
 msgstr "Hardware"
 
-#: ospy/options.py:547
+#: ospy/options.py:561
 msgid "New installation generated password hash"
 msgstr "Nová instalace vygenerovaná hodnota hash hesla"
 
-#: ospy/options.py:552
+#: ospy/options.py:566
 msgid "New installation"
 msgstr "Nová instalace"
 
-#: ospy/options.py:557 plugins/button_control/templates/button_control.html:116
+#: ospy/options.py:571 plugins/button_control/templates/button_control.html:116
 msgid "Enable scheduler"
 msgstr "Aktivovat plánovač"
 
-#: ospy/options.py:562 plugins/mqtt_home_assistant/__init__.py:1030
+#: ospy/options.py:576 plugins/mqtt_home_assistant/__init__.py:1030
 msgid "Manual operation"
 msgstr "Ruční ovládání"
 
-#: ospy/options.py:567
+#: ospy/options.py:581
 msgid "Image resolution"
 msgstr "Rozlišení obrázku"
 
-#: ospy/options.py:572
+#: ospy/options.py:586
 msgid "Level adjustment set by the user (fraction)"
 msgstr "Nastavení úrovně nastavení uživatelem (zlomek)"
 
-#: ospy/options.py:577
+#: ospy/options.py:591
 msgid "Rain block (rain delay) set by the user (datetime)"
 msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
-#: ospy/options.py:582
+#: ospy/options.py:596
 msgid "Rain blocks (rain delays) set by plug-ins (datetime dictionary)"
 msgstr "Déšťové bloky (dešťové zpoždění) nastavené plug-iny (slovník datetime)"
 
-#: ospy/options.py:587
+#: ospy/options.py:601
 msgid "C/F"
 msgstr "C/F"
 
-#: ospy/options.py:592
+#: ospy/options.py:606
 msgid "Current password hash"
 msgstr "Aktuální heslo hash"
 
-#: ospy/options.py:597
+#: ospy/options.py:611
 msgid "Current password salt"
 msgstr "Aktuální heslo salt"
 
-#: ospy/options.py:602
+#: ospy/options.py:616
 msgid "Current password decryption time"
 msgstr "Aktuální heslo šifrovací čas"
 
-#: ospy/options.py:607
+#: ospy/options.py:621
 msgid "The runs that have been logged"
 msgstr "Záznamy, které byly zaznamenány do logu"
 
-#: ospy/options.py:612
+#: ospy/options.py:626
 msgid "The email that have been logged"
 msgstr "E-maily, které byly zaznamenány"
 
-#: ospy/options.py:617
+#: ospy/options.py:631
 msgid "The events that have been logged"
 msgstr "Události, které byly zaznamenány"
 
-#: ospy/options.py:622
+#: ospy/options.py:636
 msgid "ETo and rain value cache"
 msgstr "Vyrovnávací paměť pro ETo a srážky"
 
-#: ospy/options.py:627
+#: ospy/options.py:641
 msgid "Location latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/options.py:632
+#: ospy/options.py:646
 msgid "Location longtitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/options.py:637
+#: ospy/options.py:651
 msgid "Weather status"
 msgstr "Stav počasí"
 
-#: ospy/options.py:642
+#: ospy/options.py:656
 msgid "Graph histories"
 msgstr "Graf historie"
 
-#: ospy/options.py:647 ospy/templates/graph_sensor.html:270
+#: ospy/options.py:661 ospy/templates/graph_sensor.html:270
 #: plugins/air_temp_humi/templates/air_temp_humi.html:563
 msgid "Show also errors"
 msgstr "Zobrazit také chyby"
 
-#: ospy/options.py:652
+#: ospy/options.py:666
 msgid "Filter for logs - event: server"
 msgstr "Filtr protokolů - událost: server"
 
-#: ospy/options.py:657
+#: ospy/options.py:671
 msgid "Filter for logs - event: rain sensor"
 msgstr "Filtr protokolů - událost: dešťový snímač"
 
-#: ospy/options.py:662
+#: ospy/options.py:676
 msgid "Filter for logs - event: rain delay"
 msgstr "Filtr protokolů - událost: zpoždění deště"
 
-#: ospy/options.py:667
+#: ospy/options.py:681
 msgid "Filter for logs - event: internet not found"
 msgstr "Filtr protokolů - událost: internet nebyl nalezen"
 
-#: ospy/options.py:672
+#: ospy/options.py:686
 msgid "Filter for logs - event: user login"
 msgstr "Filtr protokolů - událost: přihlášení uživatele"
 
-#: ospy/options.py:677
+#: ospy/options.py:691
 msgid "Timestamp of the last database save"
 msgstr "Časové razítko posledního uložení databáze"
 
-#: ospy/options.py:731
+#: ospy/options.py:745
 msgid ""
 "Settings were recovered from the verified {} SQLite copy because every "
 "shelve/DBM candidate was invalid."
@@ -1615,85 +1649,85 @@ msgstr ""
 "Nastavení byla obnovena z ověřené kopie {} SQLite, protože všechny verze "
 "shelve/DBM jsou neplatné."
 
-#: ospy/options.py:740
+#: ospy/options.py:754
 msgid ""
 "Emergency SQLite settings recovery failed; safe defaults remain active: {}"
 msgstr ""
 "Obnova nouzových nastavení SQLite selhala; bezpečné výchozí nastavení "
 "zůstávají aktivní: {}"
 
-#: ospy/options.py:748
+#: ospy/options.py:762
 msgid "Ignoring invalid settings database {}: {}"
 msgstr "Ignorování neplatných databázových nastavení {}: {}"
 
-#: ospy/options.py:754 ospy/options.py:1318
+#: ospy/options.py:768 ospy/options.py:1332
 msgid "Settings were recovered from {}."
 msgstr "Nastavení bylo získáno z {}."
 
-#: ospy/options.py:805
+#: ospy/options.py:819
 msgid ""
 "The SQLite settings shadow does not match the authoritative database: {}"
 msgstr "Stínová kopie nastavení SQLite neodpovídá autoritativní databázi: {}"
 
-#: ospy/options.py:916
+#: ospy/options.py:930
 msgid "The emergency SQLite recovery marker could not be removed: {}"
 msgstr "Nouzový SQLite recovery marker nebylo možné odstranit: {}"
 
-#: ospy/options.py:952
+#: ospy/options.py:966
 msgid "The emergency SQLite recovery marker could not be written: {}"
 msgstr "Nouzový SQLite recovery marker nemohl být zapsán: {}"
 
-#: ospy/options.py:1030 ospy/webpages.py:3024
+#: ospy/options.py:1044 ospy/webpages.py:3024
 msgid "SQLite recovery test"
 msgstr "Test obnovy SQLite"
 
-#: ospy/options.py:1031 ospy/webpages.py:3026
+#: ospy/options.py:1045 ospy/webpages.py:3026
 msgid "Backup SQLite recovery test"
 msgstr "Zálohovací SQLite obnovovací test"
 
-#: ospy/options.py:1034
+#: ospy/options.py:1048
 msgid "{} failed; shelve remains authoritative: {}"
 msgstr "{} neuspěl; shelve zůstává autoritativní: {}"
 
-#: ospy/options.py:1105
+#: ospy/options.py:1119
 msgid "SQLite restore rehearsal failed; shelve remains authoritative: {}"
 msgstr "SQLite obnovovací zkouška selhala; shelve zůstává autoritativní: {}"
 
-#: ospy/options.py:1180
+#: ospy/options.py:1194
 msgid "SQLite migration evidence could not be saved: {}"
 msgstr "Důkazy o migraci SQLite nebyly uloženy: {}"
 
-#: ospy/options.py:1268
+#: ospy/options.py:1282
 msgid "Settings database does not contain a dictionary."
 msgstr "Databáze nastavení neobsahuje slovník."
 
-#: ospy/options.py:1280
+#: ospy/options.py:1294
 msgid "Stored object {} is not a dictionary."
 msgstr "Uložený objekt {} není slovník."
 
-#: ospy/options.py:1289
+#: ospy/options.py:1303
 msgid "Invalid value type for setting {}."
 msgstr "Neplatný typ hodnoty pro nastavení {}."
 
-#: ospy/options.py:1295
+#: ospy/options.py:1309
 msgid "Setting {} is below its minimum."
 msgstr "Nastavení {} je pod jeho minimem."
 
-#: ospy/options.py:1299
+#: ospy/options.py:1313
 msgid "Setting {} is above its maximum."
 msgstr "Nastavení {} je nad jeho maximum."
 
-#: ospy/options.py:1313
+#: ospy/options.py:1327
 msgid "Ignored invalid settings database {}: {}"
 msgstr "Ignorováno neplatné nastavení databáze {}: {}"
 
-#: ospy/options.py:1322
+#: ospy/options.py:1336
 msgid "No valid settings database was found; safe defaults are being used."
 msgstr ""
 "Nebyla nalezena žádná platná databáze nastavení; Používají se bezpečné "
 "výchozí nastavení."
 
-#: ospy/options.py:1326
+#: ospy/options.py:1340
 msgid ""
 "Emergency recovery rebuilt shelve/DBM from the verified {} SQLite copy. "
 "Review Diagnostics and create a system backup."
@@ -1701,19 +1735,19 @@ msgstr ""
 "Nouzové obnovení shelve/DBM z ověřené kopie {} SQLite. Prověřte diagnostiku "
 "a vytvořte zálohu systému."
 
-#: ospy/options.py:1332
+#: ospy/options.py:1346
 msgid "Emergency SQLite recovery was enabled but failed: {}"
 msgstr "Nouzové obnovení SQLite bylo povoleno, ale selhalo: {}"
 
-#: ospy/options.py:1423
+#: ospy/options.py:1437
 msgid "Settings change handler"
 msgstr "Obslužná rutina změny nastavení"
 
-#: ospy/options.py:1424
+#: ospy/options.py:1438
 msgid "A component could not apply a changed setting."
 msgstr "Komponenta nemohla aplikovat změněné nastavení."
 
-#: ospy/options.py:1428
+#: ospy/options.py:1442
 msgid ""
 "Open the event log, verify the changed setting and restart the affected "
 "component or OSPy."
@@ -1721,63 +1755,63 @@ msgstr ""
 "Otevřete event log, ověřte změněné nastavení a restartujte postiženou "
 "komponentu nebo OSPy."
 
-#: ospy/options.py:1506
+#: ospy/options.py:1520
 msgid "Saving options to disk"
 msgstr "Ukládání nastavení na disk"
 
-#: ospy/options.py:1542
+#: ospy/options.py:1556
 msgid "The SQLite settings mirror could not be updated: {}"
 msgstr "Nastavení SQLite zrcadlo systému nebylo možné aktualizovat: {}"
 
-#: ospy/options.py:1551
+#: ospy/options.py:1565
 msgid "Strict SQLite dual-write verification failed: {}"
 msgstr "Přísné ověření SQLite pro dvojitý zápis selhalo: {}"
 
-#: ospy/options.py:1561
+#: ospy/options.py:1575
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr "Soubory v OPTIONS_BACKUP jsou starší než 1 hodina."
 
-#: ospy/options.py:1568
+#: ospy/options.py:1582
 msgid "I will try to delete the BACKUP_DIR."
 msgstr "Pokusím se smazat BACKUP_DIR."
 
-#: ospy/options.py:1574
+#: ospy/options.py:1588
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr "Pokusím se smazat adresář BACKUP_DIR."
 
-#: ospy/options.py:1579
+#: ospy/options.py:1593
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr "Pokusím se přesunout adresář OPTIONS_DIR do BACKUP_DIR."
 
-#: ospy/options.py:1584
+#: ospy/options.py:1598
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr "Pokusím se smazat OPTIONS_DIR."
 
-#: ospy/options.py:1590
+#: ospy/options.py:1604
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr "Pokusím se odstranit adresář OPTIONS_DIR."
 
-#: ospy/options.py:1593
+#: ospy/options.py:1607
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr "Pokusím se přesunout adresář TMP_DIR do OPTIONS_DIR."
 
-#: ospy/options.py:1637
+#: ospy/options.py:1651
 msgid "The SQLite settings read test failed; shelve remains authoritative: {}"
 msgstr "Test čtení nastavení SQLite selhal; shelve zůstává autoritativní: {}"
 
-#: ospy/options.py:1655
+#: ospy/options.py:1669
 msgid "Saved db as %s"
 msgstr "Uložená databáze jako %s"
 
-#: ospy/options.py:1682
+#: ospy/options.py:1696
 msgid "Settings database write"
 msgstr "Zápis do databáze nastavení"
 
-#: ospy/options.py:1683
+#: ospy/options.py:1697
 msgid "OSPy could not save changed settings to disk."
 msgstr "OSPy nemohl uložit změněná nastavení na disk."
 
-#: ospy/options.py:1685
+#: ospy/options.py:1699
 msgid ""
 "Check free disk space and write permissions for the OSPy data directory, "
 "then save the settings again."
@@ -1785,23 +1819,23 @@ msgstr ""
 "Zkontrolujte volné místo na disku a oprávnění pro zápis do datového adresáře "
 "OSPy, pak znovu uložte nastavení."
 
-#: ospy/options.py:1690
+#: ospy/options.py:1704
 msgid "Saving error:\n"
 msgstr "Chyba ukládání:\n"
 
-#: ospy/options.py:1730
+#: ospy/options.py:1744
 msgid "Stored object data is not a dictionary."
 msgstr "Uložená objektová data nejsou slovník."
 
-#: ospy/options.py:1738
+#: ospy/options.py:1752
 msgid "Stored value has an incompatible type."
 msgstr "Uložená hodnota má nekompatibilní typ."
 
-#: ospy/options.py:1743
+#: ospy/options.py:1757
 msgid "Ignoring invalid stored field {}.{}: {}"
 msgstr "Ignorování neplatných uložených polí {}.{}: {}"
 
-#: ospy/options.py:1751
+#: ospy/options.py:1765
 msgid "Ignoring invalid stored object {}: {}"
 msgstr "Ignorování neplatných uložených objektů {}: {}"
 
@@ -12815,12 +12849,6 @@ msgstr "Červená"
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:470
 msgid "Green"
 msgstr "Zelená"
-
-#: plugins/chmi/templates/chmi_log.html:30
-#: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:60
-#: plugins/weather_dashboard/templates/weather_dashboard_page.html:446
-msgid "Blue"
-msgstr "Modrá"
 
 #: plugins/chmi/templates/chmi_log.html:31
 msgid "Color"

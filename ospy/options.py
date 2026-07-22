@@ -33,6 +33,12 @@ OPTIONS_BACKUP = os.path.join(_DATA_DIR, 'backup', 'options.db')
 OPTIONS_WRITE_STOP_TIMEOUT = 5.0
 
 class _Options(object):
+    SETTINGS_STORAGE_CONTROL_KEYS = (
+        'sqlite_emergency_recovery',
+        'sqlite_preferred_reads',
+        'sqlite_strict_dual_write',
+    )
+
     # Using an array to preserve order
     OPTIONS = [
         #######################################################################
@@ -171,6 +177,19 @@ class _Options(object):
             "default": "8.8.8.8",
             "help": _('IP address for pinging a DNS server that is outside the internal network. If ping is not available, all network operations (log, user downloads, certificates) are skipped.'),
             "category": _('System')
+        },
+        {
+            "key": "settings_storage_mode",
+            "name": _('Settings storage mode'),
+            "default": "compatible",
+            "options": ("compatible", "verification", "custom"),
+            "option_names": {
+                "compatible": _('Compatible'),
+                "verification": _('Verification'),
+                "custom": _('Custom advanced settings'),
+            },
+            "help": _('Compatible keeps shelve/DBM authoritative with an optional SQLite shadow. Verification enables all three guarded SQLite checks. Custom preserves an individually selected combination of the advanced controls below.'),
+            "category": _('Settings storage')
         },
         {
             "key": "sqlite_emergency_recovery",
@@ -768,6 +787,8 @@ class _Options(object):
                 _('Settings were recovered from {}.').format(self._load_source)
             )
 
+        self._normalize_settings_storage_mode(loaded_values)
+
         if loaded_values is not None and self._load_source:
             preferred_read_enabled = (
                 loaded_values.get('sqlite_preferred_reads') is True
@@ -1134,6 +1155,9 @@ class _Options(object):
             'strict_dual_write_enabled': (
                 self._values.get('sqlite_strict_dual_write') is True
             ),
+            'settings_storage_mode': self._values.get(
+                'settings_storage_mode', 'compatible'
+            ),
         })
         candidates = (
             ('current', verification.get('recovery_test'),
@@ -1210,6 +1234,48 @@ class _Options(object):
         self._record_sqlite_migration_evidence(
             'verified_start', success,
             self._sqlite_mirror_verification.get('preferred_read_error', ''),
+        )
+
+    @classmethod
+    def settings_storage_mode_for(cls, values):
+        enabled = tuple(
+            values.get(key) is True
+            for key in cls.SETTINGS_STORAGE_CONTROL_KEYS
+        )
+        if enabled == (False, False, False):
+            return 'compatible'
+        if enabled == (True, True, True):
+            return 'verification'
+        return 'custom'
+
+    def _normalize_settings_storage_mode(self, loaded_values=None):
+        derived = self.settings_storage_mode_for(self._values)
+        stored = self._values.get('settings_storage_mode')
+        if (loaded_values is None or
+                'settings_storage_mode' not in loaded_values or
+                stored not in ('compatible', 'verification', 'custom') or
+                (stored != 'custom' and stored != derived)):
+            self._values['settings_storage_mode'] = derived
+
+    def apply_settings_storage_mode(self, mode):
+        if mode == 'compatible':
+            enabled = False
+        elif mode == 'verification':
+            enabled = True
+        elif mode == 'custom':
+            self.settings_storage_mode = self.settings_storage_mode_for(
+                self._values
+            )
+            return
+        else:
+            raise ValueError('Unsupported settings storage mode.')
+        self.settings_storage_mode = mode
+        for key in self.SETTINGS_STORAGE_CONTROL_KEYS:
+            self[key] = enabled
+
+    def refresh_settings_storage_mode(self):
+        self.settings_storage_mode = self.settings_storage_mode_for(
+            self._values
         )
 
     @staticmethod

@@ -14,6 +14,8 @@ Prepared the early interface-language bootstrap for a future SQLite-primary mode
 
 Localized the displayed choices for the web theme, station-image source and back-to-top position. Their stable English internal values remain unchanged in the settings database for full compatibility across language changes and existing installations. Added a regression test for the value/label separation and updated all seven Web Interface Guides.
 
+Added a summary **Settings storage mode** selector without enabling SQLite-primary operation. Compatible mode keeps all experimental controls off, Verification enables emergency recovery, verified reads and strict dual-write together, and any manually mixed switch combination is represented as Custom advanced settings. Existing installations infer the summary mode from their saved controls without changing them. Diagnostics reports the selected mode, the three advanced switches remain independently available, and tests cover legacy inference, profile application, custom combinations and rendering. Updated all seven Web Interface Guides.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

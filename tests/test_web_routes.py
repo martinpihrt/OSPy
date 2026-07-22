@@ -184,6 +184,15 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b"/theme.css?v=", home_response.data)
         self.assertIn(b"Open-Meteo automatic model", home_response.data)
 
+    def test_settings_storage_mode_selector_renders_safe_profiles(self):
+        response = self.app.request("/options")
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertIn(b"name='settings_storage_mode'", response.data)
+        self.assertIn(b"value='compatible'", response.data)
+        self.assertIn(b"value='verification'", response.data)
+        self.assertIn(b"value='custom'", response.data)
+
     def test_sensors_page_renders_numeric_regulation_output(self):
         sensor_collection = SimpleNamespace(get=lambda: [])
         options_type = type(sensors_module.options)

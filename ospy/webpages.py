@@ -3109,6 +3109,14 @@ def _sqlite_mirror_details(status):
                 details += ' - ' + status['preferred_read_error']
         else:
             details += _('Disabled')
+    storage_mode = status.get('settings_storage_mode', 'compatible')
+    storage_mode_labels = {
+        'compatible': _('Compatible'),
+        'verification': _('Verification'),
+        'custom': _('Custom advanced settings'),
+    }
+    details += '; ' + _('Settings storage mode') + ': ' + \
+        storage_mode_labels.get(storage_mode, _('Compatible'))
     details += '; ' + _('Settings commit policy') + ': '
     details += (
         _('Strict verified shelve/DBM and SQLite dual-write')
@@ -4102,6 +4110,7 @@ class options_page(ProtectedPage):
         changing_language = False
 
         qdict = web.input()
+        previous_storage_mode = options.settings_storage_mode
 
         location_changed = qdict.get('location', options.location) != options.location
         map_selected = qdict.get('weather_map_selected', '0') == '1'
@@ -4237,6 +4246,12 @@ class options_page(ProtectedPage):
                 raise web.seeother('/')
 
         save_to_options(qdict)
+        if 'settings_storage_mode' in qdict:
+            requested_storage_mode = qdict['settings_storage_mode']
+            if requested_storage_mode != previous_storage_mode:
+                options.apply_settings_storage_mode(requested_storage_mode)
+            else:
+                options.refresh_settings_storage_mode()
         report_option_change()
         logEV.save_events_log(
             _('System settings updated'),

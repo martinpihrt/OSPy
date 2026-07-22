@@ -386,6 +386,8 @@ Diagnostics keeps non-authoritative **SQLite migration evidence**: consecutive s
 
 During early startup, the interface language is still loaded first from a valid shelve/DBM database. When verified SQLite reads are enabled, the bootstrap compares every key and checksum with that exact shelve snapshot and reads only the `lang` value from SQLite after a complete match. A missing, older, different or damaged SQLite copy always falls back safely to the shelve language. Checking a missing database does not create an empty file.
 
+The **Settings storage mode** selector groups the safe transition controls. **Compatible** keeps shelve/DBM authoritative with SQLite as an optional shadow. **Verification** enables emergency recovery, verified reads and strict dual-write; it still does not make SQLite the primary database. The individual switches remain available for advanced control, and a mixed combination is automatically labelled **Custom advanced settings**. Existing installations derive the mode from their saved switches without changing their values.
+
 The **Diagnostics** button in the footer opens an administrator page for checking how OSPy and its plug-ins are using the system.
 
 When Diagnostics reports an error, it opens a red window with the problem, available details, a possible solution and a link to the related page. Administrators can also show the same window on the Home page by enabling **Options > Diagnostics > Show diagnostic errors on the home page**. This error window has priority over the update notification. Disabling the option affects only the Home page; errors remain visible in Diagnostics.
