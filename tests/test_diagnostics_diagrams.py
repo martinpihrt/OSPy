@@ -19,6 +19,17 @@ TOPICS = (
     'twoFactor',
     'securityTokens',
     'apiSecurity',
+    'irrigationPriority',
+    'rainWaterBalance',
+    'outputHardware',
+    'userRoles',
+    'eventsIncidents',
+    'notifications',
+    'startupShutdown',
+    'pluginPermissions',
+    'sensorLifecycle',
+    'networkExposure',
+    'cleanInstallation',
 )
 
 
@@ -45,6 +56,10 @@ class DiagnosticsDiagramTests(unittest.TestCase):
         self.assertIn("window.print()", script)
         self.assertIn("storeTokenHashOnly", script)
         self.assertIn("corsBrowserReadRule", script)
+        self.assertIn("commandAcceptedByDriver", script)
+        self.assertIn("stopPluginsInReverseOrder", script)
+        self.assertIn("downloadStableMasterCheckout", script)
+        self.assertIn("sqliteMemoryIntegrityCheck", script)
 
     def test_pinned_mermaid_bundle_and_license_are_present(self):
         bundle = ROOT / 'static' / 'scripts' / 'mermaid-10.9.6.min.js'
