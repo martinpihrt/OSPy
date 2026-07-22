@@ -228,6 +228,147 @@
                     edge('apply', 'restart')
                 ],
                 links: {create: '/options#systemBackupSection', upload: '/options#systemBackupSection', restart: '/diagnostics'}
+            },
+            webSecurity: {
+                description: text('webSecurityDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('request', 'process', text('browserRequest')),
+                    node('https', 'decision', text('httpsActive')),
+                    node('transport', 'success', text('encryptedTransport')),
+                    node('anonymous', 'decision', text('authenticationRequired')),
+                    node('login', 'process', text('verifyCredentials')),
+                    node('lockout', 'decision', text('bruteForceAllowed')),
+                    node('secondFactor', 'optional', text('secondFactorCheck')),
+                    node('role', 'decision', text('roleAllowsPage')),
+                    node('csrf', 'decision', text('csrfRequiredForChange')),
+                    node('allow', 'success', text('serveAuthorizedPage')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('warning', 'error', text('unencryptedOrAnonymous'))
+                ],
+                edges: [
+                    edge('request', 'https'), edge('https', 'transport', text('yes')),
+                    edge('https', 'warning', text('no')), edge('transport', 'anonymous'),
+                    edge('warning', 'anonymous'), edge('anonymous', 'login', text('yes')),
+                    edge('anonymous', 'role', text('no')), edge('login', 'lockout'),
+                    edge('lockout', 'reject', text('blocked')), edge('lockout', 'secondFactor', text('allowed')),
+                    edge('secondFactor', 'role'), edge('role', 'reject', text('no')),
+                    edge('role', 'csrf', text('yes')), edge('csrf', 'reject', text('invalid')),
+                    edge('csrf', 'allow', text('valid'))
+                ],
+                links: {https: '/options', login: '/login', secondFactor: '/twofactor', role: '/options', reject: '/log'}
+            },
+            https: {
+                description: text('httpsDescription'),
+                help: '/help#9',
+                nodes: [
+                    node('setting', 'process', text('httpsConfiguration')),
+                    node('source', 'decision', text('certificateSource')),
+                    node('own', 'optional', text('ownCertificate')),
+                    node('letsencrypt', 'optional', "Let's Encrypt"),
+                    node('files', 'decision', text('certificateFilesValid')),
+                    node('listener', 'process', text('startHttpsListener')),
+                    node('handshake', 'decision', text('tlsHandshakeValid')),
+                    node('encrypted', 'success', text('encryptedConnection')),
+                    node('proxy', 'optional', text('reverseProxyHeaders')),
+                    node('fallback', 'error', text('httpsFallbackWarning')),
+                    node('browserError', 'error', text('browserCertificateWarning'))
+                ],
+                edges: [
+                    edge('setting', 'source'), edge('source', 'own'), edge('source', 'letsencrypt'),
+                    edge('own', 'files'), edge('letsencrypt', 'files'),
+                    edge('files', 'listener', text('valid')), edge('files', 'fallback', text('invalid')),
+                    edge('listener', 'handshake'), edge('handshake', 'encrypted', text('yes')),
+                    edge('handshake', 'browserError', text('no')), edge('encrypted', 'proxy', text('optional'))
+                ],
+                links: {setting: '/options', files: '/options', fallback: '/diagnostics'}
+            },
+            twoFactor: {
+                description: text('twoFactorDescription'),
+                help: '/help#2',
+                nodes: [
+                    node('password', 'process', text('usernameAndPassword')),
+                    node('primary', 'decision', text('primaryCredentialsValid')),
+                    node('enabled', 'decision', text('twoFactorEnabled')),
+                    node('method', 'decision', text('selectedSecondFactor')),
+                    node('totp', 'optional', text('totpCodeAndClock')),
+                    node('email', 'optional', text('emailOneTimeCode')),
+                    node('backup', 'optional', text('oneTimeBackupCode')),
+                    node('verify', 'decision', text('secondFactorValid')),
+                    node('session', 'success', text('createAuthenticatedSession')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('revoke', 'process', text('revokeRememberedLogins'))
+                ],
+                edges: [
+                    edge('password', 'primary'), edge('primary', 'reject', text('no')),
+                    edge('primary', 'enabled', text('yes')), edge('enabled', 'session', text('no')),
+                    edge('enabled', 'method', text('yes')), edge('method', 'totp'),
+                    edge('method', 'email'), edge('method', 'backup'),
+                    edge('totp', 'verify'), edge('email', 'verify'), edge('backup', 'verify'),
+                    edge('verify', 'session', text('yes')), edge('verify', 'reject', text('no')),
+                    edge('revoke', 'password')
+                ],
+                links: {password: '/login', enabled: '/twofactor', email: '/plugins/email_notifications_ssl', reject: '/log', revoke: '/options'}
+            },
+            securityTokens: {
+                description: text('securityTokensDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('page', 'process', text('authenticatedFormPage')),
+                    node('sessionToken', 'process', text('sessionCookie')),
+                    node('csrfToken', 'process', text('csrfFormToken')),
+                    node('submit', 'process', text('stateChangingRequest')),
+                    node('sessionValid', 'decision', text('sessionStillValid')),
+                    node('csrfValid', 'decision', text('csrfTokenMatches')),
+                    node('apply', 'success', text('applyAndAuditChange')),
+                    node('reject', 'error', text('rejectExpiredOrInvalidToken')),
+                    node('fullLogin', 'process', text('successfulFullLogin')),
+                    node('remember', 'optional', text('randomRememberMeToken')),
+                    node('hash', 'process', text('storeTokenHashOnly')),
+                    node('cookie', 'wait', text('secureRememberMeCookie')),
+                    node('restore', 'decision', text('tokenValidAndUserAllowed')),
+                    node('revoke', 'error', text('expireOrRevokeToken'))
+                ],
+                edges: [
+                    edge('page', 'sessionToken'), edge('page', 'csrfToken'),
+                    edge('sessionToken', 'submit'), edge('csrfToken', 'submit'),
+                    edge('submit', 'sessionValid'), edge('sessionValid', 'reject', text('no')),
+                    edge('sessionValid', 'csrfValid', text('yes')), edge('csrfValid', 'reject', text('no')),
+                    edge('csrfValid', 'apply', text('yes')), edge('fullLogin', 'remember'),
+                    edge('remember', 'hash'), edge('remember', 'cookie'),
+                    edge('cookie', 'restore'), edge('hash', 'restore'),
+                    edge('restore', 'sessionToken', text('yes')), edge('restore', 'revoke', text('no'))
+                ],
+                links: {page: '/options', fullLogin: '/login', revoke: '/options', reject: '/login'}
+            },
+            apiSecurity: {
+                description: text('apiSecurityDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('request', 'process', text('apiOrSensorRequest')),
+                    node('sensor', 'decision', text('sensorEndpoint')),
+                    node('authRequired', 'decision', text('sensorAuthRequired')),
+                    node('basic', 'process', text('httpBasicAuthentication')),
+                    node('throttle', 'decision', text('bruteForceAllowed')),
+                    node('role', 'decision', text('apiRoleAllowsOperation')),
+                    node('change', 'decision', text('stateChangingApiRequest')),
+                    node('csrf', 'decision', text('apiCsrfTokenValid')),
+                    node('cors', 'optional', text('corsBrowserReadRule')),
+                    node('execute', 'success', text('executeAndAuditApiAction')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('sensorData', 'success', text('acceptSensorMeasurement'))
+                ],
+                edges: [
+                    edge('request', 'sensor'), edge('sensor', 'authRequired', text('yes')),
+                    edge('sensor', 'basic', text('no')), edge('authRequired', 'basic', text('yes')),
+                    edge('authRequired', 'sensorData', text('no')), edge('basic', 'throttle'),
+                    edge('throttle', 'reject', text('blocked')), edge('throttle', 'role', text('allowed')),
+                    edge('role', 'reject', text('no')), edge('role', 'change', text('yes')),
+                    edge('change', 'csrf', text('yes')), edge('change', 'cors', text('no')),
+                    edge('csrf', 'reject', text('invalid')), edge('csrf', 'execute', text('valid')),
+                    edge('cors', 'execute'), edge('role', 'sensorData', text('sensor'))
+                ],
+                links: {request: '/help#7', authRequired: '/options', csrf: '/options', cors: '/options', reject: '/log', sensorData: '/sensors'}
             }
         };
     }
