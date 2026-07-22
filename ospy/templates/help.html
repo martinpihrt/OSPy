@@ -8,6 +8,9 @@ $var page: help
 
 <div id="help">
     <div class="title">$_('Help')</div>
+    <button id="helpPdfExport" class="helpPdfExport" type="button" title=$:{json.dumps(_('Export help to PDF'), ensure_ascii=False)} aria-label=$:{json.dumps(_('Export help to PDF'), ensure_ascii=False)}>
+        <img src="/static/images/pdf.svg" alt="">
+    </button>
     <div id="help_container" class="simpleblock">
         <div id="help_menu">
             $for index, doc_entry in enumerate(docs):

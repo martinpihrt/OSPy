@@ -4694,6 +4694,21 @@ class help_page(ProtectedPage):
 
         docs = get_help_files()
 
+        pdf_id = get_input(qdict, 'pdf')
+        if pdf_id is not None:
+            try:
+                pdf_index = int(pdf_id)
+                if pdf_index < 0:
+                    raise ValueError('Negative help article index')
+                doc_entry = docs[pdf_index]
+                if len(doc_entry) > 2:
+                    return self.core_render.help_print(
+                        doc_entry[1], get_help_file(pdf_index)
+                    )
+            except (IndexError, TypeError, ValueError):
+                pass
+            return self.core_render.notice('/help', _('The selected help article is not available.'))
+
         if session.get('category') == 'admin':
             return self.core_render.help(docs)
         elif session.get('category')== 'user':

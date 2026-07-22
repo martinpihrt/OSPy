@@ -1193,6 +1193,7 @@ We can then search for these devices in OSPy in the sensor/search section. In OS
 
 #  Help page
 On the page "Help page" we find documentation for all extensions, system OSPs, system changes, API access, web interface.
+The floating PDF icon opens a print-ready copy of the currently displayed article without OSPy navigation. Use the browser print dialog to save the article as a PDF file.
 
 ## OSPy
 ### Readme

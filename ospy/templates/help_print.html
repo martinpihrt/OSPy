@@ -1,0 +1,16 @@
+$def with (article_title, rendered)
+
+$var title: $_(u'Help')
+$var page: help
+
+<script>
+document.body.classList.add('helpPrintPage');
+jQuery(window).on('load', function() {
+    window.setTimeout(function() { window.print(); }, 400);
+});
+</script>
+
+<div id="helpPrintDocument" class="helpPrintDocument">
+    <h1 class="helpPrintDocTitle">$article_title</h1>
+    <div class="helpPrintDoc">$:rendered</div>
+</div>

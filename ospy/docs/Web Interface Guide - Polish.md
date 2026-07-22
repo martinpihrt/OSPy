@@ -1182,6 +1182,7 @@ Możemy następnie wyszukać te urządzenia w OSPy w sekcji czujnik/wyszukiwanie
 
 #  Pomoc
 Na stronie "Pomoc" znajdziemy dokumentację wszystkich rozszerzeń, systemowych OSP, zmian systemowych, dostępu do API, interfejsu webowego.
+Pływająca ikona PDF otwiera wersję do druku aktualnie wyświetlanego artykułu bez nawigacji OSPy. W oknie drukowania przeglądarki można zapisać artykuł jako plik PDF.
 
 ## OSPy
 ### Readme

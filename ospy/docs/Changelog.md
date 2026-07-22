@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 22 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Added a floating PDF icon to administrator and user Help pages. It opens a print-ready copy of the currently selected Markdown help article and invokes the browser print dialog so that article can be saved as a PDF without adding server-side PDF dependencies. Added print layout styling for all three themes and regression coverage.
+
 Run-once audit events now list the actual selected station names instead of only their count. This removes the misleading case where a run of station 09 was logged as irrigation for "1 station" and could be read as station 1. Added route-level regression coverage.
 
 Diagnostics Open actions now link Languages directly to help section 2 and Backup directly to the expanded System Backup card in Options instead of opening the top of either page. Added regression coverage for both navigation targets.

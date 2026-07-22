@@ -136,6 +136,17 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
 
+    def test_help_pdf_renders_only_the_selected_article(self):
+        with mock.patch.object(
+                webpages, 'get_help_file',
+                return_value='<h1>Selected article</h1>'):
+            response = self.app.request('/help?pdf=1')
+
+        self.assertEqual(response.status, '200 OK')
+        self.assertIn(b'id="helpPrintDocument"', response.data)
+        self.assertIn(b'Selected article', response.data)
+        self.assertNotIn(b'id="help_menu"', response.data)
+
     def test_run_once_audit_lists_selected_station_names_not_their_count(self):
         first = SimpleNamespace(index=0, name="01. Front lawn")
         ninth = SimpleNamespace(index=8, name="09. Hand hose")

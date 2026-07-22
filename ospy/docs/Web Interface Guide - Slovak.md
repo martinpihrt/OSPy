@@ -1193,6 +1193,7 @@ Tieto zariadenia môžeme následne vyhľadať v OSPy v časti snímača/vyhľad
 
 #  Pomocník
 Na stránke "Pomocník" nájdeme dokumentáciu ku všetkým rozšíreniam, OSPy systému, zmeny v systéme, prístup pomocou API, webové rozhranie.
+Plávajúca ikona PDF otvorí tlačovú verziu práve zobrazeného článku bez navigácie OSPy. V tlačovom dialógu prehliadača možno článok uložiť ako súbor PDF.
 
 ## OSPy
 ### Readme

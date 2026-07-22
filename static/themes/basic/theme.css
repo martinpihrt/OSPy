@@ -2049,6 +2049,56 @@ td.stationSchedule {
     overflow-x: auto;
 }
 
+.helpPdfExport {
+    position: sticky;
+    z-index: 20;
+    top: 10px;
+    float: right;
+    width: 46px;
+    height: 46px;
+    margin: -38px 8px 8px;
+    padding: 6px;
+    border: 2px solid #2E3959;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .25);
+}
+
+.helpPdfExport:hover,
+.helpPdfExport:focus { background: #f5f5f5; }
+.helpPdfExport img { display: block; width: 100%; height: 100%; }
+
+.helpPrintDocument { background: #fff; color: #111; }
+.helpPrintSection { break-inside: auto; }
+.helpPrintGroup { margin-top: 1.4em; border-bottom: 2px solid #333; }
+.helpPrintDocTitle { margin-top: 1.2em; break-after: avoid; }
+.helpPrintDoc img { max-width: 100%; height: auto; }
+.helpPrintDoc pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.helpPrintDoc table { max-width: 100%; border-collapse: collapse; }
+
+@media print {
+    body.helpPrintPage { margin: 0; background: #fff; color: #000; }
+    body.helpPrintPage #pluginMenu,
+    body.helpPrintPage .header,
+    body.helpPrintPage #status,
+    body.helpPrintPage .graph-container,
+    body.helpPrintPage .footer { display: none !important; }
+    body.helpPrintPage .content,
+    body.helpPrintPage .body,
+    body.helpPrintPage .panel {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: #fff !important;
+    }
+    body.helpPrintPage .helpPrintDocument { font-size: 10pt; }
+    body.helpPrintPage a { color: #000; text-decoration: none; }
+}
+
 .help_link_1 {
     margin-top: 10pt;
     font-size: 16pt;

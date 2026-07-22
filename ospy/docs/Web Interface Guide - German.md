@@ -1193,6 +1193,7 @@ Wir können dann in OSPy im Bereich Sensor/Suche nach diesen Geräten suchen. In
 
 #  Hilfe
 Auf der Seite „Hilfe“ finden wir Dokumentationen zu allen Erweiterungen, System-OSPs, Systemänderungen, API-Zugriff, Webinterface.
+Das schwebende PDF-Symbol öffnet eine druckfertige Kopie des aktuell angezeigten Artikels ohne OSPy-Navigation. Im Druckdialog des Browsers kann der Artikel als PDF-Datei gespeichert werden.
 
 ## OSPy
 ### Readme
