@@ -3139,6 +3139,42 @@ def _sqlite_mirror_details(status):
             details += ' - ' + evidence['last_error']
     elif evidence.get('record_error'):
         details += '; ' + _('status write failed') + ': ' + evidence['record_error']
+    readiness = status.get('primary_readiness') or {}
+    if readiness:
+        details += '; ' + _('SQLite primary beta readiness') + ': '
+        readiness_state = readiness.get('state')
+        if readiness_state == 'ready':
+            details += _('Ready')
+        elif readiness_state == 'collecting':
+            details += _('Collecting evidence')
+        else:
+            details += _('Blocked')
+        details += ' (' + _('verified starts') + ': {}/{}'.format(
+            readiness.get('verified_starts', 0),
+            readiness.get('required_verified_starts', 0),
+        )
+        details += '; ' + _('strict writes') + ': {}/{})'.format(
+            readiness.get('strict_writes', 0),
+            readiness.get('required_strict_writes', 0),
+        )
+        blocker_labels = {
+            'verification_mode': _('verification mode is not active'),
+            'current_shadow': _('current SQLite shadow is not verified'),
+            'read_test': _('SQLite read test has not passed'),
+            'current_recovery': _('current SQLite recovery test has not passed'),
+            'backup_recovery': _('backup SQLite recovery test has not passed'),
+            'restore_rehearsal': _('SQLite restore rehearsal has not passed'),
+            'emergency_selection': _('emergency SQLite selection is not ready'),
+            'emergency_recovery': _('emergency SQLite recovery is not enabled'),
+            'verified_read': _('verified SQLite read path was not used'),
+            'strict_write': _('strict SQLite dual-write is not enabled'),
+        }
+        blockers = [
+            blocker_labels.get(code, code)
+            for code in readiness.get('blockers', [])
+        ]
+        if blockers:
+            details += ' - ' + ', '.join(blockers)
     return details
 
 

@@ -12,6 +12,39 @@ from ospy import settings_storage
 
 
 class SettingsStorageTests(unittest.TestCase):
+    def test_sqlite_primary_readiness_requires_checks_and_evidence(self):
+        status = {
+            "settings_storage_mode": "verification",
+            "state": "verified",
+            "read_test": "passed",
+            "recovery_test": "passed",
+            "backup_recovery_test": "passed",
+            "restore_rehearsal": "passed",
+            "emergency_selection": "ready",
+            "emergency_recovery_enabled": True,
+            "preferred_read": "used",
+            "strict_dual_write_enabled": True,
+            "migration_evidence": {
+                "verified_start_streak": 5,
+                "strict_write_streak": 20,
+            },
+        }
+
+        ready = settings_storage.sqlite_primary_readiness(status)
+        self.assertEqual(ready["state"], "ready")
+        self.assertEqual(ready["blockers"], [])
+        self.assertEqual(ready["collecting"], [])
+
+        status["migration_evidence"]["verified_start_streak"] = 4
+        collecting = settings_storage.sqlite_primary_readiness(status)
+        self.assertEqual(collecting["state"], "collecting")
+        self.assertEqual(collecting["collecting"], ["verified_starts"])
+
+        status["backup_recovery_test"] = "failed"
+        blocked = settings_storage.sqlite_primary_readiness(status)
+        self.assertEqual(blocked["state"], "blocked")
+        self.assertIn("backup_recovery", blocked["blockers"])
+
     def test_migration_evidence_counts_successes_and_resets_failed_path(self):
         with tempfile.TemporaryDirectory(prefix="ospy-storage-evidence-") as root:
             path = os.path.join(root, "sqlite_migration_evidence.json")

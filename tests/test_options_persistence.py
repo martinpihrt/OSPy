@@ -248,16 +248,19 @@ class OptionsPersistenceTests(unittest.TestCase):
     def test_strict_dual_write_supports_verified_sqlite_reads(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-strict-read-") as root:
             first = self._new_options(root)
+            first.sqlite_emergency_recovery = True
             first.sqlite_strict_dual_write = True
             first.sqlite_preferred_reads = True
             first.name = "Strict dual-write round trip"
+            first.save_now()
+            first.name = "Strict dual-write round trip with backup"
             first.save_now()
             first.__del__()
 
             second = options_module._Options()
             second.__del__()
             self.addCleanup(second.__del__)
-            self.assertEqual(second.name, "Strict dual-write round trip")
+            self.assertEqual(second.name, "Strict dual-write round trip with backup")
             self.assertEqual(
                 second._sqlite_mirror_verification["preferred_read"], "used"
             )
@@ -267,6 +270,9 @@ class OptionsPersistenceTests(unittest.TestCase):
             evidence = second._sqlite_mirror_verification["migration_evidence"]
             self.assertGreaterEqual(evidence["verified_start_streak"], 1)
             self.assertGreaterEqual(evidence["strict_write_streak"], 1)
+            readiness = second._sqlite_mirror_verification["primary_readiness"]
+            self.assertFalse(readiness["blockers"], readiness)
+            self.assertIn(readiness["state"], ("collecting", "ready"))
 
     def test_values_and_nested_dates_survive_save_and_reload(self):
         with tempfile.TemporaryDirectory(prefix="ospy-options-roundtrip-") as root:

@@ -18,7 +18,7 @@ from . import i18n
 from . import helpers
 from .settings_storage import (
     settings_store, sqlite_capability, sqlite_mirror_store,
-    sqlite_migration_evidence,
+    sqlite_migration_evidence, sqlite_primary_readiness,
 )
 import traceback
 import os
@@ -861,6 +861,7 @@ class _Options(object):
         self._run_sqlite_restore_rehearsal()
         self._run_sqlite_emergency_selection_dry_run()
         self._record_sqlite_verified_start()
+        self._update_sqlite_primary_readiness()
 
         for coordinate_key in ('weather_lat', 'weather_lon'):
             coordinate = self._values.get(coordinate_key, '')
@@ -1236,6 +1237,10 @@ class _Options(object):
             self._sqlite_mirror_verification.get('preferred_read_error', ''),
         )
 
+    def _update_sqlite_primary_readiness(self):
+        self._sqlite_mirror_verification['primary_readiness'] = \
+            sqlite_primary_readiness(self._sqlite_mirror_verification)
+
     @classmethod
     def settings_storage_mode_for(cls, values):
         enabled = tuple(
@@ -1580,6 +1585,9 @@ class _Options(object):
         strict_attempt = False
         try:
             with self._lock:
+                # Keep the summary profile consistent even when a component
+                # changes one of the advanced controls outside the web form.
+                self._normalize_settings_storage_mode(self._values)
                 strict_attempt = (
                     self._values.get('sqlite_strict_dual_write') is True
                 )
@@ -1730,6 +1738,7 @@ class _Options(object):
                         sqlite_migration_evidence.read(
                             self._sqlite_migration_evidence_path()
                         )
+                self._update_sqlite_primary_readiness()
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)
@@ -1753,6 +1762,7 @@ class _Options(object):
                     'strict_write', False,
                     '{}: {}'.format(type(err).__name__, err),
                 )
+                self._update_sqlite_primary_readiness()
             try:
                 from ospy.health import heartbeat, report_issue
                 heartbeat('database', ok=False, message=error,

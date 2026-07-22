@@ -492,6 +492,55 @@ class SQLiteMigrationEvidence(object):
 
 sqlite_migration_evidence = SQLiteMigrationEvidence()
 
+
+SQLITE_PRIMARY_REQUIRED_STARTS = 5
+SQLITE_PRIMARY_REQUIRED_WRITES = 20
+
+
+def sqlite_primary_readiness(status):
+    """Evaluate evidence for a future opt-in SQLite-primary beta mode."""
+    evidence = status.get('migration_evidence') or {}
+    starts = int(evidence.get('verified_start_streak', 0) or 0)
+    writes = int(evidence.get('strict_write_streak', 0) or 0)
+    blockers = []
+    if status.get('settings_storage_mode') != 'verification':
+        blockers.append('verification_mode')
+    if status.get('state') != 'verified':
+        blockers.append('current_shadow')
+    if status.get('read_test') != 'passed':
+        blockers.append('read_test')
+    if status.get('recovery_test') != 'passed':
+        blockers.append('current_recovery')
+    if status.get('backup_recovery_test') != 'passed':
+        blockers.append('backup_recovery')
+    if status.get('restore_rehearsal') != 'passed':
+        blockers.append('restore_rehearsal')
+    if status.get('emergency_selection') != 'ready':
+        blockers.append('emergency_selection')
+    if not status.get('emergency_recovery_enabled'):
+        blockers.append('emergency_recovery')
+    if status.get('preferred_read') != 'used':
+        blockers.append('verified_read')
+    if not status.get('strict_dual_write_enabled'):
+        blockers.append('strict_write')
+
+    collecting = []
+    if starts < SQLITE_PRIMARY_REQUIRED_STARTS:
+        collecting.append('verified_starts')
+    if writes < SQLITE_PRIMARY_REQUIRED_WRITES:
+        collecting.append('strict_writes')
+
+    state = 'blocked' if blockers else ('collecting' if collecting else 'ready')
+    return {
+        'state': state,
+        'blockers': blockers,
+        'collecting': collecting,
+        'verified_starts': starts,
+        'required_verified_starts': SQLITE_PRIMARY_REQUIRED_STARTS,
+        'strict_writes': writes,
+        'required_strict_writes': SQLITE_PRIMARY_REQUIRED_WRITES,
+    }
+
 _sqlite_capability_cache = None
 _sqlite_capability_lock = threading.RLock()
 

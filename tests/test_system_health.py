@@ -1,3 +1,4 @@
+import builtins
 import unittest
 from types import SimpleNamespace
 from unittest import mock
@@ -74,10 +75,21 @@ class SystemHealthTests(unittest.TestCase):
             "preferred_read_error": "",
             "strict_dual_write_enabled": True,
             "settings_storage_mode": "verification",
+            "primary_readiness": {
+                "state": "ready",
+                "blockers": [],
+                "collecting": [],
+                "verified_starts": 5,
+                "required_verified_starts": 5,
+                "strict_writes": 20,
+                "required_strict_writes": 20,
+            },
         })
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
-        self.assertIn("Verification", recovery)
+        self.assertIn(builtins._("Verification"), recovery)
+        self.assertIn("5/5", recovery)
+        self.assertIn("20/20", recovery)
 
         rehearsal_failure = _sqlite_mirror_details({
             "state": "verified", "count": 25, "last_save": 123.0,

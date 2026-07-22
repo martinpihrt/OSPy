@@ -388,6 +388,8 @@ Jazyk rozhrania sa pri skorom štarte naďalej najprv načíta z platnej databá
 
 Selektor **Režim úložiska nastavení** združuje bezpečné prechodové voľby. **Kompatibilný** ponechá shelve/DBM ako hlavné úložisko a SQLite ako voliteľnú tieňovú kópiu. **Overovací** zapne núdzovú obnovu, overené čítanie a prísny dvojitý zápis; ani tento režim nerobí zo SQLite hlavnú databázu. Jednotlivé prepínače zostávajú dostupné na pokročilé riadenie a ich zmiešaná kombinácia sa automaticky označí ako **Vlastné pokročilé nastavenia**. Staršie inštalácie odvodia režim z uložených prepínačov bez zmeny ich hodnôt.
 
+Diagnostika navyše vyhodnocuje pasívnu kontrolu **Pripravenosť SQLite primary beta**. Stav Pripravené vyžaduje režim Overovací, overenú aktuálnu tieňovú kópiu, úspešné testy čítania a obnovy aktuálnej aj záložnej kópie, úspešnú skúšku obnovy a núdzového výberu, zapnutú núdzovú obnovu, overené čítanie a prísny dvojitý zápis a najmenej päť po sebe idúcich overených štartov a dvadsať prísnych zápisov. Dovtedy Diagnostika zobrazuje zber dôkazov alebo konkrétne blokujúce kontroly. Táto kontrola nikdy automaticky neprepne úložisko; hlavným zostáva shelve/DBM.
+
 Tlačidlo **Diagnostika** v päte otvorí administrátorskú stránku na kontrolu, ako OSPy a jeho doplnky využívajú systém.
 
 Keď Diagnostika zistí chybu, otvorí červené okno s opisom problému, dostupnými podrobnosťami, možným riešením a odkazom na súvisiacu stránku. Administrátor môže rovnaké okno zapnúť aj na domovskej stránke voľbou **Nastavenia > Diagnostika > Zobrazovať chyby diagnostiky na domovskej stránke**. Chybové okno má prednosť pred upozornením na aktualizáciu. Vypnutie voľby ovplyvní iba domovskú stránku; chyby zostanú viditeľné v Diagnostike.

@@ -16,6 +16,8 @@ Localized the displayed choices for the web theme, station-image source and back
 
 Added a summary **Settings storage mode** selector without enabling SQLite-primary operation. Compatible mode keeps all experimental controls off, Verification enables emergency recovery, verified reads and strict dual-write together, and any manually mixed switch combination is represented as Custom advanced settings. Existing installations infer the summary mode from their saved controls without changing them. Diagnostics reports the selected mode, the three advanced switches remain independently available, and tests cover legacy inference, profile application, custom combinations and rendering. Updated all seven Web Interface Guides.
 
+Added a passive SQLite-primary beta-readiness gate without changing the active backend. Diagnostics now requires the complete verification profile and successful shadow, read, recovery, backup, restore-rehearsal and emergency-selection checks, plus five consecutive verified starts and twenty strict dual-write commits. It distinguishes blocking checks from evidence still being collected and cannot switch storage automatically; shelve/DBM remains authoritative. Storage-mode normalization now also covers controls changed outside the web form. Added readiness, localization and integration regression tests and updated all seven Web Interface Guides.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
