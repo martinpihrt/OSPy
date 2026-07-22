@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import sqlite3
 import stat
 import tempfile
 import unittest
@@ -12,6 +13,7 @@ import zipfile
 from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolation
 
 from ospy import backup
+from ospy.settings_storage import sqlite_mirror_store
 
 
 class SystemBackupTests(unittest.TestCase):
@@ -22,6 +24,11 @@ class SystemBackupTests(unittest.TestCase):
         data.mkdir(parents=True)
         images.mkdir(parents=True)
         (data / "options.db.dat").write_bytes(b"settings")
+        sqlite_mirror_store.write(
+            str(data / "options.sqlite3"),
+            {"settings_storage_mode": "compatible", "name": "Backup test"},
+            123.0,
+        )
         (Path(self.root, "ospy", "data") / "events.log").write_text(
             "event", encoding="utf-8"
         )
@@ -36,17 +43,64 @@ class SystemBackupTests(unittest.TestCase):
         (data / "sessions.db.dat").write_bytes(b"active session backend")
         archive = backup.create_system_backup(root=self.root, reason="test")
         manifest = backup.inspect_backup(archive)
-        self.assertEqual(manifest["schema_version"], 1)
+        self.assertEqual(manifest["schema_version"], 2)
         self.assertEqual(manifest["reason"], "test")
         self.assertEqual(
             {entry["path"] for entry in manifest["files"]},
             {
                 "ospy/data/default/options.db.dat",
+                "ospy/data/default/options.sqlite3",
                 "ospy/data/events.log",
                 "ospy/images/stations/1.png",
             },
         )
+        self.assertEqual(
+            manifest["settings_storage"]["authoritative_backend"],
+            "shelve/DBM",
+        )
+        self.assertEqual(
+            manifest["settings_storage"]["settings_mode"], "compatible"
+        )
+        snapshot = manifest["settings_storage"]["sqlite_snapshot"]
+        self.assertTrue(snapshot["included"])
+        self.assertEqual(snapshot["schema_version"], 3)
+        self.assertEqual(snapshot["settings_count"], 3)
         self.assertIn("active web sessions", manifest["excludes"])
+
+    def test_sqlite_snapshot_is_logically_verified_during_restore_staging(self):
+        original = backup.create_system_backup(root=self.root)
+        extracted = tempfile.mkdtemp(prefix="ospy-backup-corrupt-sqlite-")
+        self.addCleanup(shutil.rmtree, extracted, True)
+        with zipfile.ZipFile(original, "r") as source:
+            source.extractall(extracted)
+
+        sqlite_path = Path(extracted, "ospy", "data", "default", "options.sqlite3")
+        with sqlite3.connect(str(sqlite_path)) as connection:
+            connection.execute(
+                "UPDATE settings SET value = ? WHERE key = ?",
+                (sqlite3.Binary(b"damaged"), "name"),
+            )
+            connection.commit()
+
+        manifest_path = Path(extracted, backup.MANIFEST_NAME)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        member = "ospy/data/default/options.sqlite3"
+        changed = sqlite_path.read_bytes()
+        for entry in manifest["files"]:
+            if entry["path"] == member:
+                entry["size"] = len(changed)
+                entry["sha256"] = hashlib.sha256(changed).hexdigest()
+        manifest_path.write_text(
+            json.dumps(manifest, sort_keys=True), encoding="utf-8"
+        )
+
+        tampered = os.path.join(self.root, "logical-sqlite-damage.zip")
+        with zipfile.ZipFile(tampered, "w") as archive:
+            for path in Path(extracted).rglob("*"):
+                if path.is_file():
+                    archive.write(path, path.relative_to(extracted).as_posix())
+        with self.assertRaises(backup.BackupError):
+            backup.stage_restore(tampered, root=self.root)
 
     def test_tampered_payload_is_rejected(self):
         original = backup.create_system_backup(root=self.root)
@@ -123,6 +177,8 @@ class SystemBackupTests(unittest.TestCase):
 
         with zipfile.ZipFile(original, "r") as source:
             manifest = json.loads(source.read(backup.MANIFEST_NAME).decode("utf-8"))
+            manifest["schema_version"] = 1
+            manifest.pop("settings_storage", None)
             manifest["files"].append({
                 "path": session_path,
                 "size": len(session_data),

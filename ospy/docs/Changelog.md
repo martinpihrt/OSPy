@@ -18,6 +18,8 @@ Added a summary **Settings storage mode** selector without enabling SQLite-prima
 
 Added a passive SQLite-primary beta-readiness gate without changing the active backend. Diagnostics now requires the complete verification profile and successful shadow, read, recovery, backup, restore-rehearsal and emergency-selection checks, plus five consecutive verified starts and twenty strict dual-write commits. It distinguishes blocking checks from evidence still being collected and cannot switch storage automatically; shelve/DBM remains authoritative. Storage-mode normalization now also covers controls changed outside the web form. Added readiness, localization and integration regression tests and updated all seven Web Interface Guides.
 
+Introduced backup manifest format 2 as the prerequisite for an optional SQLite-primary mode. A live system backup now flushes pending settings and holds the settings lock, copies SQLite through its transactional Backup API, independently verifies the resulting schema-3 snapshot and records the authoritative backend, storage mode, SQLite schema and setting count. Restore repeats logical SQLite verification after extraction in addition to ZIP checksums and rejects inconsistent metadata or content. Manifest format 1 and legacy data-only backups remain supported. Added compatibility, snapshot and tampering regression tests and updated all seven Web Interface Guides.
+
 July 21 2026 (v3.0)
 -----------
 (martinpihrt)<br/>

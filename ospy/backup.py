@@ -12,9 +12,11 @@ import tempfile
 import time
 import uuid
 import zipfile
+from contextlib import contextmanager
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+SUPPORTED_SCHEMA_VERSIONS = (1, SCHEMA_VERSION)
 MANIFEST_NAME = "ospy-backup.json"
 MAX_FILES = 50000
 MAX_EXPANDED_SIZE = 512 * 1024 * 1024
@@ -71,6 +73,93 @@ def _backup_sources(root):
     return sorted(sources)
 
 
+@contextmanager
+def _settings_snapshot_guard(root):
+    """Drain and block live settings writes while their files are archived."""
+    guarded = False
+    live_options = None
+    try:
+        expected = os.path.abspath(os.path.join(root, "ospy", "data"))
+        actual = os.path.abspath(os.environ.get("OSPY_DATA_DIR", "./ospy/data"))
+        if os.path.normcase(expected) == os.path.normcase(actual):
+            from ospy.options import options
+            if not options.flush():
+                raise BackupError(_("Pending settings could not be saved before backup."))
+            live_options = options
+            live_options._lock.acquire()
+            guarded = True
+        yield
+    finally:
+        if guarded:
+            live_options._lock.release()
+
+
+def _sqlite_backup_snapshot(source, destination):
+    """Create and independently verify one transactionally consistent copy."""
+    import sqlite3
+    from ospy.settings_storage import sqlite_mirror_store
+
+    source_connection = sqlite3.connect(
+        "file:{}?mode=ro".format(os.path.abspath(source)), uri=True
+    )
+    target_connection = sqlite3.connect(destination)
+    try:
+        source_connection.backup(target_connection)
+        target_connection.commit()
+        integrity = target_connection.execute("PRAGMA integrity_check").fetchone()
+        if integrity != ("ok",):
+            raise BackupError(_("The SQLite backup snapshot failed its integrity check."))
+    finally:
+        target_connection.close()
+        source_connection.close()
+
+    recovered = sqlite_mirror_store.read_recovery_candidate(destination)
+    return {
+        "included": True,
+        "path": "ospy/data/default/{}".format(sqlite_mirror_store.filename),
+        "schema_version": sqlite_mirror_store.schema_version,
+        "settings_count": len(recovered),
+    }
+
+
+def _settings_storage_manifest(root, sources, snapshot_root):
+    from ospy.settings_storage import sqlite_mirror_store
+
+    storage = {
+        "authoritative_backend": "shelve/DBM",
+        "settings_mode": "compatible",
+        "sqlite_snapshot": {"included": False},
+    }
+    shelve_path = os.path.join(root, "ospy", "data", "default", "options.db")
+    try:
+        from ospy.settings_storage import settings_store
+        values = settings_store.read(shelve_path) or {}
+        mode = values.get("settings_storage_mode", "compatible")
+        if mode in ("compatible", "verification", "custom", "sqlite_primary"):
+            storage["settings_mode"] = mode
+        if mode == "sqlite_primary":
+            storage["authoritative_backend"] = "SQLite"
+    except Exception:
+        # A backup can still preserve a legacy or partially damaged shelve
+        # database. Restore-time validation decides whether it can be used.
+        pass
+
+    sqlite_path = sqlite_mirror_store.path_for(shelve_path)
+    if os.path.isfile(sqlite_path):
+        snapshot_path = os.path.join(snapshot_root, sqlite_mirror_store.filename)
+        storage["sqlite_snapshot"] = _sqlite_backup_snapshot(
+            sqlite_path, snapshot_path
+        )
+        archive_name = storage["sqlite_snapshot"]["path"]
+        sources = [
+            (name, snapshot_path if name == archive_name else path)
+            for name, path in sources
+        ]
+    elif storage["authoritative_backend"] == "SQLite":
+        raise BackupError(_("SQLite is authoritative but no settings database is available for backup."))
+    return storage, sources
+
+
 def create_system_backup(destination=None, root=None, reason="manual"):
     """Create a self-describing backup and return its absolute path."""
     root = _root(root)
@@ -84,46 +173,52 @@ def create_system_backup(destination=None, root=None, reason="manual"):
     destination = os.path.abspath(destination)
     os.makedirs(os.path.dirname(destination), exist_ok=True)
 
-    sources = _backup_sources(root)
-    from ospy import version
-    manifest = {
-        "schema_version": SCHEMA_VERSION,
-        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "reason": str(reason),
-        "ospy_version": version.ver_str,
-        "ospy_revision": version.revision,
-        "files": [],
-        "excludes": [
-            "SSL certificates", "plug-in code", "Python caches",
-            "active web sessions",
-        ],
-    }
-
     fd, temporary = tempfile.mkstemp(prefix=".ospy-backup-", suffix=".zip",
                                      dir=os.path.dirname(destination))
     os.close(fd)
     try:
-        with zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED,
-                             allowZip64=True) as archive:
-            for archive_name, path in sources:
-                digest = hashlib.sha256()
-                size = 0
-                with open(path, "rb") as source, archive.open(archive_name, "w") as target:
-                    while True:
-                        chunk = source.read(64 * 1024)
-                        if not chunk:
-                            break
-                        target.write(chunk)
-                        digest.update(chunk)
-                        size += len(chunk)
-                manifest["files"].append({
-                    "path": archive_name,
-                    "size": size,
-                    "sha256": digest.hexdigest(),
-                })
-            archive.writestr(MANIFEST_NAME, json.dumps(
-                manifest, ensure_ascii=False, indent=2, sort_keys=True
-            ).encode("utf-8"))
+        with _settings_snapshot_guard(root):
+            with tempfile.TemporaryDirectory(prefix="ospy-backup-snapshot-") as snapshot_root:
+                sources = _backup_sources(root)
+                storage, sources = _settings_storage_manifest(
+                    root, sources, snapshot_root
+                )
+                from ospy import version
+                manifest = {
+                    "schema_version": SCHEMA_VERSION,
+                    "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "reason": str(reason),
+                    "ospy_version": version.ver_str,
+                    "ospy_revision": version.revision,
+                    "settings_storage": storage,
+                    "files": [],
+                    "excludes": [
+                        "SSL certificates", "plug-in code", "Python caches",
+                        "active web sessions",
+                    ],
+                }
+
+                with zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED,
+                                     allowZip64=True) as archive:
+                    for archive_name, path in sources:
+                        digest = hashlib.sha256()
+                        size = 0
+                        with open(path, "rb") as source, archive.open(archive_name, "w") as target:
+                            while True:
+                                chunk = source.read(64 * 1024)
+                                if not chunk:
+                                    break
+                                target.write(chunk)
+                                digest.update(chunk)
+                                size += len(chunk)
+                        manifest["files"].append({
+                            "path": archive_name,
+                            "size": size,
+                            "sha256": digest.hexdigest(),
+                        })
+                    archive.writestr(MANIFEST_NAME, json.dumps(
+                        manifest, ensure_ascii=False, indent=2, sort_keys=True
+                    ).encode("utf-8"))
         inspect_backup(temporary)
         os.replace(temporary, destination)
         _prune_system_backups(backup_dir, keep=10)
@@ -242,7 +337,8 @@ def inspect_backup(path):
             manifest = json.loads(archive.read(manifest_info).decode("utf-8"))
         except (ValueError, UnicodeDecodeError) as error:
             raise BackupError(_("The backup manifest is invalid.")) from error
-        if not isinstance(manifest, dict) or manifest.get("schema_version") != SCHEMA_VERSION:
+        if (not isinstance(manifest, dict) or
+                manifest.get("schema_version") not in SUPPORTED_SCHEMA_VERSIONS):
             raise BackupError(_("The backup format is not supported by this OSPy version."))
         file_entries = manifest.get("files")
         if not isinstance(file_entries, list) or not file_entries:
@@ -268,8 +364,53 @@ def inspect_backup(path):
                    if not info.is_dir() and name != MANIFEST_NAME.casefold()}
         if payload != declared:
             raise BackupError(_("The backup contains files not declared in its manifest."))
+        if manifest.get("schema_version") >= 2:
+            storage = manifest.get("settings_storage")
+            if not isinstance(storage, dict):
+                raise BackupError(_("The backup settings-storage metadata is invalid."))
+            if storage.get("authoritative_backend") not in ("shelve/DBM", "SQLite"):
+                raise BackupError(_("The backup settings backend is invalid."))
+            if storage.get("settings_mode") not in (
+                    "compatible", "verification", "custom", "sqlite_primary"):
+                raise BackupError(_("The backup settings-storage mode is invalid."))
+            snapshot = storage.get("sqlite_snapshot")
+            if not isinstance(snapshot, dict) or not isinstance(snapshot.get("included"), bool):
+                raise BackupError(_("The backup SQLite snapshot metadata is invalid."))
+            if snapshot.get("included"):
+                if snapshot.get("path") != "ospy/data/default/options.sqlite3":
+                    raise BackupError(_("The backup SQLite snapshot path is invalid."))
+                if snapshot["path"].casefold() not in declared:
+                    raise BackupError(_("The backup SQLite snapshot is missing."))
+                if not isinstance(snapshot.get("schema_version"), int):
+                    raise BackupError(_("The backup SQLite schema version is invalid."))
+                if not isinstance(snapshot.get("settings_count"), int):
+                    raise BackupError(_("The backup SQLite settings count is invalid."))
+            elif storage.get("authoritative_backend") == "SQLite":
+                raise BackupError(_("An SQLite-primary backup does not contain its settings database."))
         manifest["legacy"] = False
         return manifest
+
+
+def _validate_staged_settings_storage(staging, manifest):
+    if manifest.get("legacy") or manifest.get("schema_version", 0) < 2:
+        return
+    storage = manifest["settings_storage"]
+    snapshot = storage["sqlite_snapshot"]
+    if not snapshot.get("included"):
+        return
+    from ospy.settings_storage import sqlite_mirror_store
+    path = os.path.join(staging, *snapshot["path"].split("/"))
+    try:
+        values = sqlite_mirror_store.read_recovery_candidate(path)
+    except Exception as error:
+        raise BackupError(_("The backup SQLite settings snapshot is invalid: {}").format(error))
+    if snapshot.get("schema_version") != sqlite_mirror_store.schema_version:
+        raise BackupError(_("The backup SQLite schema is not supported."))
+    if snapshot.get("settings_count") != len(values):
+        raise BackupError(_("The backup SQLite settings count does not match."))
+    mode = values.get("settings_storage_mode", "compatible")
+    if mode != storage.get("settings_mode"):
+        raise BackupError(_("The backup settings-storage mode does not match its database."))
 
 
 def stage_restore(path, staging_root=None, root=None):
@@ -304,6 +445,7 @@ def stage_restore(path, staging_root=None, root=None):
                     os.makedirs(os.path.dirname(destination), exist_ok=True)
                     with archive.open(name) as source, open(destination, "wb") as target:
                         shutil.copyfileobj(source, target)
+        _validate_staged_settings_storage(staging, manifest)
         return staging, manifest
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)
