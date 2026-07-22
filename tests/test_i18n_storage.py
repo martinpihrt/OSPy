@@ -87,6 +87,38 @@ class I18nStorageBootstrapTests(unittest.TestCase):
             self.assertEqual(language, "sk_SK")
             comparison.assert_not_called()
 
+    def test_sqlite_primary_marker_loads_language_without_shelve_comparison(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-i18n-primary-") as root:
+            path = self._settings_path(root)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            values = {
+                "lang": "de_DE",
+                "settings_storage_mode": "sqlite_primary",
+                "sqlite_emergency_recovery": True,
+                "sqlite_preferred_reads": True,
+                "sqlite_strict_dual_write": True,
+            }
+            i18n.sqlite_mirror_store.write(
+                i18n.sqlite_mirror_store.path_for(path), values, 123.0
+            )
+            marker = os.path.join(root, "sqlite_primary.enabled")
+            with open(marker, "w", encoding="ascii") as target:
+                target.write("enabled-v1\n")
+
+            with mock.patch.object(i18n, "OPTIONS_FILES", [path]), \
+                    mock.patch.object(i18n, "SQLITE_PRIMARY_MARKER", marker), \
+                    mock.patch.object(
+                        i18n, "sqlite_capability",
+                        return_value={"available": True, "version": "3", "error": ""}
+                    ), \
+                    mock.patch.object(
+                        i18n.settings_store, "read"
+                    ) as shelve_read:
+                language = i18n.load_saved_language()
+
+            self.assertEqual(language, "de_DE")
+            shelve_read.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

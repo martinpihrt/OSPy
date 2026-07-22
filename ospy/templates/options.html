@@ -220,7 +220,11 @@ $code:
                         output += _('None available')
                     for e in enum:
                         sel = " selected='selected'" if value == e else ""
-                        output += "<option value='" + e + "'" + sel + ">" + enum_names.get(e, e) + "</option>"
+                        disabled = ""
+                        if name == 'settings_storage_mode' and e == 'sqlite_primary' and value != e:
+                            if not options.sqlite_primary_ready:
+                                disabled = " disabled='disabled'"
+                        output += "<option value='" + e + "'" + sel + disabled + ">" + enum_names.get(e, e) + "</option>"
                     output += "</select>\n"
                 elif multi_enum is not None:
                     output += "<div style='display: inline-block'>\n"

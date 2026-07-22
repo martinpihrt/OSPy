@@ -185,13 +185,97 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b"Open-Meteo automatic model", home_response.data)
 
     def test_settings_storage_mode_selector_renders_safe_profiles(self):
-        response = self.app.request("/options")
+        verification = webpages.options._sqlite_mirror_verification
+        original = dict(verification)
+        verification["primary_readiness"] = {"state": "blocked"}
+        try:
+            response = self.app.request("/options")
+        finally:
+            verification.clear()
+            verification.update(original)
 
         self.assertEqual(response.status, "200 OK")
         self.assertIn(b"name='settings_storage_mode'", response.data)
         self.assertIn(b"value='compatible'", response.data)
         self.assertIn(b"value='verification'", response.data)
+        self.assertIn(b"value='sqlite_primary'", response.data)
+        self.assertIn(
+            b"value='sqlite_primary' disabled='disabled'", response.data
+        )
         self.assertIn(b"value='custom'", response.data)
+
+    def test_sqlite_primary_transition_creates_backup_saves_and_restarts(self):
+        calls = []
+        transition_options = SimpleNamespace(
+            settings_storage_mode="verification",
+            location="",
+            weather_location_mode="search",
+            apply_settings_storage_mode=lambda mode: calls.append(("mode", mode)),
+            save_now=lambda: calls.append(("save", None)) or True,
+            _sqlite_primary_marker_enabled=lambda: True,
+        )
+        handler = object.__new__(webpages.options_page)
+        handler.core_render = SimpleNamespace(
+            notice=lambda path, message: (path, message),
+        )
+
+        def create_backup(reason):
+            calls.append(("backup", reason))
+            return "C:/backup/safety.zip"
+
+        with mock.patch.object(webpages.web, "input", return_value={
+                "settings_storage_mode": "sqlite_primary",
+            }), \
+                mock.patch.object(webpages, "options", transition_options), \
+                mock.patch.object(webpages, "save_to_options"), \
+                mock.patch.object(webpages.system_backup, "create_system_backup", side_effect=create_backup), \
+                mock.patch.object(webpages.logEV, "save_events_log"), \
+                mock.patch.object(webpages, "report_restarted"), \
+                mock.patch.object(webpages, "restart") as restart:
+            result = handler.POST()
+
+        self.assertEqual([
+            ("backup", "before settings storage transition"),
+            ("mode", "sqlite_primary"),
+            ("save", None),
+        ], calls)
+        restart.assert_called_once_with(wait=3)
+        self.assertEqual("/", result[0])
+
+    def test_rejected_sqlite_primary_transition_keeps_ospy_running(self):
+        modes = []
+
+        def apply_mode(mode):
+            modes.append(mode)
+            if mode == "sqlite_primary":
+                raise ValueError("not ready")
+
+        transition_options = SimpleNamespace(
+            settings_storage_mode="verification",
+            location="",
+            weather_location_mode="search",
+            apply_settings_storage_mode=apply_mode,
+            save_now=mock.Mock(return_value=True),
+            _sqlite_primary_marker_enabled=lambda: False,
+        )
+        handler = object.__new__(webpages.options_page)
+        handler.core_render = SimpleNamespace(
+            notice=lambda path, message: (path, message),
+        )
+
+        with mock.patch.object(webpages.web, "input", return_value={
+                "settings_storage_mode": "sqlite_primary",
+            }), \
+                mock.patch.object(webpages, "options", transition_options), \
+                mock.patch.object(webpages, "save_to_options"), \
+                mock.patch.object(webpages.system_backup, "create_system_backup", return_value="safety.zip"), \
+                mock.patch.object(webpages, "restart") as restart:
+            result = handler.POST()
+
+        self.assertEqual(["sqlite_primary", "verification"], modes)
+        restart.assert_not_called()
+        self.assertEqual("/options", result[0])
+        self.assertIn("not ready", result[1])
 
     def test_sensors_page_renders_numeric_regulation_output(self):
         sensor_collection = SimpleNamespace(get=lambda: [])

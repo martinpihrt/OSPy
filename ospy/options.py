@@ -182,13 +182,14 @@ class _Options(object):
             "key": "settings_storage_mode",
             "name": _('Settings storage mode'),
             "default": "compatible",
-            "options": ("compatible", "verification", "custom"),
+            "options": ("compatible", "verification", "sqlite_primary", "custom"),
             "option_names": {
                 "compatible": _('Compatible'),
                 "verification": _('Verification'),
+                "sqlite_primary": _('SQLite primary (beta)'),
                 "custom": _('Custom advanced settings'),
             },
-            "help": _('Compatible keeps shelve/DBM authoritative with an optional SQLite shadow. Verification enables all three guarded SQLite checks. Custom preserves an individually selected combination of the advanced controls below.'),
+            "help": _('Compatible keeps shelve/DBM authoritative with an optional SQLite shadow. Verification enables all three guarded SQLite checks. SQLite primary (beta) is accepted only after Diagnostics reports readiness and keeps a synchronized shelve/DBM fallback. Custom preserves an individually selected combination of the advanced controls below.'),
             "category": _('Settings storage')
         },
         {
@@ -722,6 +723,9 @@ class _Options(object):
         self._load_errors = []
         self._sqlite_emergency_recovered_from = ''
         self._sqlite_emergency_recovery_error = ''
+        self._sqlite_primary_used = False
+        self._sqlite_primary_fallback_error = ''
+        self._active_settings_backend = 'shelve/DBM'
         self._sqlite_mirror_verification = {
             'state': 'pending', 'differences': [], 'difference_count': 0,
             'checked': 0, 'error': '',
@@ -739,7 +743,26 @@ class _Options(object):
                     break
 
         loaded_values = None
-        for options_file in [OPTIONS_FILE, OPTIONS_TMP, OPTIONS_BACKUP]:
+        if self._sqlite_primary_marker_enabled():
+            try:
+                mirror_path = sqlite_mirror_store.path_for(OPTIONS_FILE)
+                loaded_values = self._read_sqlite_primary_candidate(mirror_path)
+                self._values.update(loaded_values)
+                self._load_source = mirror_path
+                self._sqlite_primary_used = True
+                self._active_settings_backend = 'SQLite'
+            except Exception as error:
+                self._sqlite_primary_fallback_error = '{}: {}'.format(
+                    type(error).__name__, error
+                )
+                logging.warning(
+                    _('SQLite-primary startup failed; using the shelve/DBM fallback: {}').format(
+                        self._sqlite_primary_fallback_error
+                    )
+                )
+
+        for options_file in ([] if loaded_values is not None else
+                             [OPTIONS_FILE, OPTIONS_TMP, OPTIONS_BACKUP]):
             try:
                 if (os.path.isdir(os.path.dirname(options_file)) and
                         glob.glob(options_file + '*')):
@@ -782,7 +805,8 @@ class _Options(object):
                         failed_path, error
                     )
                 )
-        if self._load_source and self._load_source != OPTIONS_FILE:
+        if (self._load_source and self._load_source != OPTIONS_FILE and
+                not self._sqlite_primary_used):
             logging.warning(
                 _('Settings were recovered from {}.').format(self._load_source)
             )
@@ -796,13 +820,17 @@ class _Options(object):
             sqlite_status = sqlite_capability()
             if sqlite_status.get('available'):
                 try:
+                    mirror_path = (
+                        self._load_source if self._sqlite_primary_used else
+                        sqlite_mirror_store.path_for(self._load_source)
+                    )
                     self._sqlite_mirror_verification = sqlite_mirror_store.compare(
-                        sqlite_mirror_store.path_for(self._load_source),
+                        mirror_path,
                         loaded_values,
                     )
                     if self._sqlite_mirror_verification.get('state') == 'verified':
                         reconstructed = sqlite_mirror_store.read_verified(
-                            sqlite_mirror_store.path_for(self._load_source),
+                            mirror_path,
                             loaded_values,
                         )
                         self._validate_candidate(reconstructed)
@@ -924,6 +952,88 @@ class _Options(object):
                 'state': 'failed', 'count': 0, 'last_save': 0,
                 'error': '{}: {}'.format(type(error).__name__, error),
             }
+
+    @staticmethod
+    def _sqlite_primary_marker_path():
+        data_root = os.path.dirname(os.path.dirname(OPTIONS_FILE))
+        return os.path.join(data_root, 'sqlite_primary.enabled')
+
+    @classmethod
+    def _sqlite_primary_marker_enabled(cls):
+        path = cls._sqlite_primary_marker_path()
+        if os.path.islink(path) or not os.path.isfile(path):
+            return False
+        try:
+            with open(path, 'r', encoding='ascii') as marker:
+                return marker.read(32).strip() == 'enabled-v1'
+        except (OSError, UnicodeError):
+            return False
+
+    @classmethod
+    def _remove_sqlite_primary_marker(cls):
+        path = cls._sqlite_primary_marker_path()
+        try:
+            if os.path.lexists(path):
+                os.remove(path)
+        except OSError as error:
+            logging.warning(
+                _('The SQLite-primary marker could not be removed: {}').format(
+                    error
+                )
+            )
+
+    @classmethod
+    def _write_sqlite_primary_marker(cls):
+        path = cls._sqlite_primary_marker_path()
+        temporary = path + '.new'
+        helpers.mkdir_p(os.path.dirname(path))
+        try:
+            with open(temporary, 'w', encoding='ascii') as marker:
+                marker.write('enabled-v1\n')
+                marker.flush()
+                os.fsync(marker.fileno())
+            try:
+                os.chmod(temporary, 0o600)
+            except OSError:
+                pass
+            os.replace(temporary, path)
+        finally:
+            if os.path.exists(temporary):
+                try:
+                    os.remove(temporary)
+                except OSError:
+                    pass
+
+    def _read_sqlite_primary_candidate(self, mirror_path):
+        recovered = sqlite_mirror_store.read_recovery_candidate(mirror_path)
+        recovered = self._convert_str_to_datetime(recovered)
+        self._validate_candidate(recovered)
+        if recovered.get('settings_storage_mode') != 'sqlite_primary':
+            raise ValueError('SQLite does not contain the primary storage mode.')
+        if not all(
+                recovered.get(key) is True
+                for key in self.SETTINGS_STORAGE_CONTROL_KEYS):
+            raise ValueError('SQLite-primary safety controls are not enabled.')
+        return recovered
+
+    def _sync_sqlite_primary_marker(self):
+        if self._values.get('settings_storage_mode') != 'sqlite_primary':
+            self._remove_sqlite_primary_marker()
+            return
+        readiness = self._sqlite_mirror_verification.get(
+            'primary_readiness', {}
+        )
+        if readiness.get('state') != 'ready':
+            self._remove_sqlite_primary_marker()
+            return
+        try:
+            self._write_sqlite_primary_marker()
+        except Exception as error:
+            logging.warning(
+                _('The SQLite-primary marker could not be written: {}').format(
+                    error
+                )
+            )
 
     @staticmethod
     def _sqlite_emergency_marker_path():
@@ -1159,6 +1269,9 @@ class _Options(object):
             'settings_storage_mode': self._values.get(
                 'settings_storage_mode', 'compatible'
             ),
+            'active_settings_backend': self._active_settings_backend,
+            'sqlite_primary_used': self._sqlite_primary_used,
+            'sqlite_primary_fallback_error': self._sqlite_primary_fallback_error,
         })
         candidates = (
             ('current', verification.get('recovery_test'),
@@ -1250,6 +1363,8 @@ class _Options(object):
         if enabled == (False, False, False):
             return 'compatible'
         if enabled == (True, True, True):
+            if values.get('settings_storage_mode') == 'sqlite_primary':
+                return 'sqlite_primary'
             return 'verification'
         return 'custom'
 
@@ -1258,7 +1373,9 @@ class _Options(object):
         stored = self._values.get('settings_storage_mode')
         if (loaded_values is None or
                 'settings_storage_mode' not in loaded_values or
-                stored not in ('compatible', 'verification', 'custom') or
+                stored not in (
+                    'compatible', 'verification', 'sqlite_primary', 'custom'
+                ) or
                 (stored != 'custom' and stored != derived)):
             self._values['settings_storage_mode'] = derived
 
@@ -1266,6 +1383,16 @@ class _Options(object):
         if mode == 'compatible':
             enabled = False
         elif mode == 'verification':
+            enabled = True
+        elif mode == 'sqlite_primary':
+            self._update_sqlite_primary_readiness()
+            readiness = self._sqlite_mirror_verification.get(
+                'primary_readiness', {}
+            )
+            if readiness.get('state') != 'ready':
+                raise ValueError(
+                    _('SQLite primary cannot be enabled until Diagnostics reports readiness.')
+                )
             enabled = True
         elif mode == 'custom':
             self.settings_storage_mode = self.settings_storage_mode_for(
@@ -1282,6 +1409,12 @@ class _Options(object):
         self.settings_storage_mode = self.settings_storage_mode_for(
             self._values
         )
+
+    @property
+    def sqlite_primary_ready(self):
+        return self._sqlite_mirror_verification.get(
+            'primary_readiness', {}
+        ).get('state') == 'ready'
 
     @staticmethod
     def _compatible_value(default, value, key=''):
@@ -1398,7 +1531,8 @@ class _Options(object):
             _('Ignored invalid settings database {}: {}').format(path, error)
             for path, error in self._load_errors
         ]
-        if self._load_source and self._load_source != OPTIONS_FILE:
+        if (self._load_source and self._load_source != OPTIONS_FILE and
+                not self._sqlite_primary_used):
             messages.append(
                 _('Settings were recovered from {}.').format(self._load_source)
             )
@@ -1416,6 +1550,16 @@ class _Options(object):
             messages.append(
                 _('Emergency SQLite recovery was enabled but failed: {}').format(
                     self._sqlite_emergency_recovery_error
+                )
+            )
+        if self._sqlite_primary_used:
+            messages.append(
+                _('Settings were loaded from SQLite primary; synchronized shelve/DBM remains available as fallback.')
+            )
+        elif self._sqlite_primary_fallback_error:
+            messages.append(
+                _('SQLite-primary startup failed and shelve/DBM was used: {}').format(
+                    self._sqlite_primary_fallback_error
                 )
             )
         return messages
@@ -1598,6 +1742,8 @@ class _Options(object):
                 # a verified SQLite shadow has been written successfully.
                 if not self._values.get('sqlite_emergency_recovery', False):
                     self._remove_sqlite_emergency_marker()
+                if self._values.get('settings_storage_mode') != 'sqlite_primary':
+                    self._remove_sqlite_primary_marker()
 
                 options_dir = os.path.dirname(OPTIONS_FILE)
                 tmp_dir = os.path.dirname(OPTIONS_TMP)
@@ -1739,6 +1885,7 @@ class _Options(object):
                             self._sqlite_migration_evidence_path()
                         )
                 self._update_sqlite_primary_readiness()
+                self._sync_sqlite_primary_marker()
 
                 storage_backend = settings_store.backend(OPTIONS_FILE)
                 logging.debug(_('Saved db as %s'), storage_backend)
@@ -1755,6 +1902,7 @@ class _Options(object):
                 )
                 from ospy.health import resolve_issue
                 resolve_issue('options_save')
+                return True
         except Exception as err:
             error = traceback.format_exc()
             if strict_attempt:
@@ -1778,13 +1926,14 @@ class _Options(object):
             except Exception:
                 logging.error('Could not report database health:\n' + traceback.format_exc())
             logging.warning(_('Saving error:\n') + error)
+            return False
 
     def save_now(self):
         """Write pending option changes immediately."""
         if self._write_timer is not None:
             self._write_timer.cancel()
             self._write_timer = None
-        self._write()
+        return self._write()
 
     def get_categories(self):
         result = []

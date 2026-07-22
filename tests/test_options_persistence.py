@@ -121,6 +121,70 @@ class OptionsPersistenceTests(unittest.TestCase):
                 for key in instance.SETTINGS_STORAGE_CONTROL_KEYS
             ))
 
+    def test_sqlite_primary_requires_readiness_and_falls_back_to_shelve(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-primary-") as root:
+            instance = self._new_options(root)
+            with self.assertRaises(ValueError):
+                instance.apply_settings_storage_mode("sqlite_primary")
+
+            instance.apply_settings_storage_mode("verification")
+            instance.name = "SQLite primary round trip"
+            instance.save_now()
+            instance.save_now()
+            instance.__del__()
+
+            verifier = options_module._Options()
+            verifier.__del__()
+            self.addCleanup(verifier.__del__)
+            evidence_path = verifier._sqlite_migration_evidence_path()
+            for unused_index in range(5):
+                options_module.sqlite_migration_evidence.record(
+                    evidence_path, "verified_start", True
+                )
+            for unused_index in range(20):
+                options_module.sqlite_migration_evidence.record(
+                    evidence_path, "strict_write", True
+                )
+            verifier._sqlite_mirror_verification["migration_evidence"] = \
+                options_module.sqlite_migration_evidence.read(evidence_path)
+            verifier._update_sqlite_primary_readiness()
+            self.assertEqual(
+                verifier._sqlite_mirror_verification["primary_readiness"]["state"],
+                "ready",
+            )
+
+            verifier.apply_settings_storage_mode("sqlite_primary")
+            self.assertTrue(verifier.save_now())
+            self.assertTrue(verifier._sqlite_primary_marker_enabled())
+
+            primary = options_module._Options()
+            primary.__del__()
+            self.addCleanup(primary.__del__)
+            self.assertTrue(primary._sqlite_primary_used)
+            self.assertEqual(primary._active_settings_backend, "SQLite")
+            self.assertEqual(primary.name, "SQLite primary round trip")
+
+            mirror_path = options_module.sqlite_mirror_store.path_for(
+                options_module.OPTIONS_FILE
+            )
+            connection = sqlite3.connect(mirror_path)
+            try:
+                connection.execute(
+                    "UPDATE settings SET checksum = ? WHERE key = ?",
+                    ("0" * 64, "name"),
+                )
+                connection.commit()
+            finally:
+                connection.close()
+
+            fallback = options_module._Options()
+            fallback.__del__()
+            self.addCleanup(fallback.__del__)
+            self.assertFalse(fallback._sqlite_primary_used)
+            self.assertEqual(fallback._active_settings_backend, "shelve/DBM")
+            self.assertTrue(fallback._sqlite_primary_fallback_error)
+            self.assertEqual(fallback.name, "SQLite primary round trip")
+
     def test_failed_settings_callback_reports_and_then_resolves_issue(self):
         instance = options_module._Options.__new__(options_module._Options)
         instance._lock = threading.RLock()

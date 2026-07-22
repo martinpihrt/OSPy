@@ -27,6 +27,12 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("shelve/DBM", unavailable)
         self.assertIn("missing module", unavailable)
 
+        primary = _sqlite_readiness_details(
+            {"available": True, "version": "3.46.1", "error": ""},
+            "SQLite",
+        )
+        self.assertIn("SQLite", primary)
+
     def test_sqlite_mirror_details_keep_shelve_authoritative_on_failure(self):
         synchronized = _sqlite_mirror_details({
             "state": "synchronized", "count": 25,
@@ -55,7 +61,7 @@ class SystemHealthTests(unittest.TestCase):
         self.assertIn("25", read_test)
         self.assertGreater(len(read_test), len(synchronized))
 
-        recovery = _sqlite_mirror_details({
+        recovery_status = {
             "state": "verified", "count": 25, "last_save": 123.0,
             "checked": 124.0, "read_test": "passed",
             "recovery_test": "passed", "recovery_count": 25,
@@ -84,12 +90,27 @@ class SystemHealthTests(unittest.TestCase):
                 "strict_writes": 20,
                 "required_strict_writes": 20,
             },
-        })
+        }
+        recovery = _sqlite_mirror_details(recovery_status)
         self.assertIn("25", recovery)
         self.assertIn("damaged backup", recovery)
         self.assertIn(builtins._("Verification"), recovery)
         self.assertIn("5/5", recovery)
         self.assertIn("20/20", recovery)
+
+        primary_status = dict(recovery_status)
+        primary_status.update({
+            "state": "verified",
+            "settings_storage_mode": "sqlite_primary",
+            "sqlite_primary_used": True,
+            "active_settings_backend": "SQLite",
+        })
+        primary_details = _sqlite_mirror_details(primary_status)
+        self.assertIn(builtins._("SQLite primary (beta)"), primary_details)
+        self.assertIn(
+            builtins._("Active; shelve/DBM fallback synchronized"),
+            primary_details,
+        )
 
         rehearsal_failure = _sqlite_mirror_details({
             "state": "verified", "count": 25, "last_save": 123.0,

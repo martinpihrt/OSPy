@@ -1,6 +1,10 @@
 OSPy Průvodce webovým rozhraním v češtině
 ====
 
+## SQLite jako primární úložiště (beta)
+
+Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, zpřístupní Nastavení v poli **Režim ukládání nastavení** volbu **SQLite primární (beta)**. OSPy před přechodem do tohoto režimu i návratem z něj vytvoří úplnou systémovou zálohu, společně potvrdí ověřenou SQLite a shelve/DBM kopii a restartuje se. Při dalším startu SQLite před použitím jako zdroje nastavení nezávisle ověří; synchronizovaná shelve/DBM kopie zůstává okamžitou zálohou. Chybějící aktivační marker, poškozená databáze, neshoda kontrolního součtu či schématu nebo neplatné nastavení bezpečně ponechá OSPy na shelve/DBM a problém zobrazí Diagnostika. K automatickému přepnutí nikdy nedojde a návrat do režimu **Ověřovací** je kdykoli dostupný stejným postupem se zálohou a restartem.
+
     Instalace OSPy
     Přihlásit se
     Domácí stránka

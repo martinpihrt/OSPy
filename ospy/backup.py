@@ -129,6 +129,7 @@ def _settings_storage_manifest(root, sources, snapshot_root):
         "authoritative_backend": "shelve/DBM",
         "settings_mode": "compatible",
         "sqlite_snapshot": {"included": False},
+        "primary_marker": "",
     }
     shelve_path = os.path.join(root, "ospy", "data", "default", "options.db")
     try:
@@ -157,6 +158,19 @@ def _settings_storage_manifest(root, sources, snapshot_root):
         ]
     elif storage["authoritative_backend"] == "SQLite":
         raise BackupError(_("SQLite is authoritative but no settings database is available for backup."))
+    if storage["authoritative_backend"] == "SQLite":
+        marker_name = "ospy/data/sqlite_primary.enabled"
+        marker_path = os.path.join(root, *marker_name.split("/"))
+        try:
+            if os.path.islink(marker_path):
+                raise OSError("symbolic link")
+            with open(marker_path, "r", encoding="ascii") as marker:
+                enabled = marker.read(32).strip() == "enabled-v1"
+        except (OSError, UnicodeError):
+            enabled = False
+        if not enabled:
+            raise BackupError(_("SQLite primary is active but its activation marker is invalid."))
+        storage["primary_marker"] = marker_name
     return storage, sources
 
 
@@ -387,6 +401,12 @@ def inspect_backup(path):
                     raise BackupError(_("The backup SQLite settings count is invalid."))
             elif storage.get("authoritative_backend") == "SQLite":
                 raise BackupError(_("An SQLite-primary backup does not contain its settings database."))
+            if storage.get("authoritative_backend") == "SQLite":
+                marker = storage.get("primary_marker")
+                if marker != "ospy/data/sqlite_primary.enabled":
+                    raise BackupError(_("The SQLite-primary backup marker metadata is invalid."))
+                if marker.casefold() not in declared:
+                    raise BackupError(_("The SQLite-primary backup marker is missing."))
         manifest["legacy"] = False
         return manifest
 
@@ -411,6 +431,15 @@ def _validate_staged_settings_storage(staging, manifest):
     mode = values.get("settings_storage_mode", "compatible")
     if mode != storage.get("settings_mode"):
         raise BackupError(_("The backup settings-storage mode does not match its database."))
+    if storage.get("authoritative_backend") == "SQLite":
+        marker_path = os.path.join(staging, *storage["primary_marker"].split("/"))
+        try:
+            with open(marker_path, "r", encoding="ascii") as marker:
+                marker_enabled = marker.read(32).strip() == "enabled-v1"
+        except (OSError, UnicodeError):
+            marker_enabled = False
+        if not marker_enabled:
+            raise BackupError(_("The backup SQLite-primary activation marker is invalid."))
 
 
 def stage_restore(path, staging_root=None, root=None):

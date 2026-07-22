@@ -1,6 +1,10 @@
 OSPy vodic za web interfejs na srpskom jeziku
 ====
 
+## SQLite kao primarno skladište (beta)
+
+Kada Dijagnostika prikaže **Spremnost SQLite primary beta: Spremno**, Opcije omogućavaju izbor **SQLite primarno (beta)** u polju **Režim skladišta podešavanja**. Pre ulaska u ovaj režim i izlaska iz njega OSPy pravi potpunu sistemsku rezervnu kopiju, zajedno potvrđuje proverene SQLite i shelve/DBM kopije i ponovo se pokreće. Pri sledećem pokretanju SQLite se nezavisno proverava pre upotrebe kao izvora podešavanja; sinhronizovana shelve/DBM kopija ostaje neposredna rezerva. Marker aktivacije koji nedostaje, oštećena baza, nepodudaranje kontrolnog zbira ili šeme ili nevažeće podešavanje bezbedno zadržava OSPy na shelve/DBM i prijavljuje se u Dijagnostici. Prebacivanje nikada nije automatsko, a povratak na režim **Provera** uvek je dostupan istim postupkom rezervne kopije i ponovnog pokretanja.
+
     Инсталација OSPy
     Логин
     Почетна страница

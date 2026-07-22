@@ -1,6 +1,10 @@
 OSPy Web Interface Guide in English
 ====
 
+## SQLite primary beta
+
+When Diagnostics reports **SQLite primary beta readiness: Ready**, Options enables **SQLite primary (beta)** in **Settings storage mode**. OSPy creates a complete system backup before entering or leaving this mode, commits the verified SQLite and shelve/DBM copies together, and restarts. On the next start it independently verifies SQLite before using it as the settings source; the synchronized shelve/DBM copy remains the immediate fallback. A missing marker, damaged database, checksum or schema mismatch, or invalid setting safely keeps OSPy on shelve/DBM and is reported in Diagnostics. No automatic switch occurs, and returning to **Verification** is available at any time through the same backup-and-restart procedure.
+
     OSPy installation
     Logging in
     Home page

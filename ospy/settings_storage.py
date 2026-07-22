@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Settings storage backends and optional database capability checks.
-
-Shelve/DBM remains the only active settings backend.  The SQLite probe is
-deliberately read/write-free: it opens an in-memory database only so a future
-migration can be prepared without changing existing installations.
-"""
+"""Settings storage, verified SQLite snapshots and migration safeguards."""
 
 import shelve
 import threading
@@ -83,7 +78,7 @@ settings_store = ShelveSettingsStore()
 
 
 class SQLiteMirrorStore(object):
-    """Write-only transition mirror; it is never used to load OSPy settings."""
+    """Verified SQLite settings store used as a shadow or guarded primary."""
 
     schema_version = 3
     filename = 'options.sqlite3'
@@ -135,11 +130,16 @@ class SQLiteMirrorStore(object):
                     for key, value in serialized.items()
                 ]
             )
+            source_label = (
+                'SQLite primary'
+                if values.get('settings_storage_mode') == 'sqlite_primary'
+                else 'shelve/DBM'
+            )
             connection.executemany(
                 'INSERT INTO metadata (key, value) VALUES (?, ?)',
                 [
                     ('schema_version', str(self.schema_version)),
-                    ('source', 'shelve/DBM'),
+                    ('source', source_label),
                     ('last_save', repr(float(saved_at))),
                     ('record_count', str(len(serialized))),
                     ('snapshot_checksum', self._snapshot_checksum(checksums)),
@@ -503,7 +503,8 @@ def sqlite_primary_readiness(status):
     starts = int(evidence.get('verified_start_streak', 0) or 0)
     writes = int(evidence.get('strict_write_streak', 0) or 0)
     blockers = []
-    if status.get('settings_storage_mode') != 'verification':
+    if status.get('settings_storage_mode') not in (
+            'verification', 'sqlite_primary'):
         blockers.append('verification_mode')
     if status.get('state') != 'verified':
         blockers.append('current_shadow')

@@ -102,6 +102,36 @@ class SystemBackupTests(unittest.TestCase):
         with self.assertRaises(backup.BackupError):
             backup.stage_restore(tampered, root=self.root)
 
+    def test_sqlite_primary_backup_records_authoritative_backend(self):
+        settings_path = str(
+            Path(self.root, "ospy", "data", "default", "options.db")
+        )
+        values = {
+            "settings_storage_mode": "sqlite_primary",
+            "sqlite_emergency_recovery": True,
+            "sqlite_preferred_reads": True,
+            "sqlite_strict_dual_write": True,
+        }
+        from ospy.settings_storage import settings_store
+        saved_at = settings_store.write(settings_path, values, saved_at=456.0)
+        sqlite_mirror_store.write(
+            sqlite_mirror_store.path_for(settings_path), values, saved_at
+        )
+        Path(
+            self.root, "ospy", "data", "sqlite_primary.enabled"
+        ).write_text("enabled-v1\n", encoding="ascii")
+
+        archive = backup.create_system_backup(root=self.root)
+        manifest = backup.inspect_backup(archive)
+        self.assertEqual(
+            manifest["settings_storage"]["authoritative_backend"], "SQLite"
+        )
+        staging, restored = backup.stage_restore(archive, root=self.root)
+        self.addCleanup(shutil.rmtree, staging, True)
+        self.assertEqual(
+            restored["settings_storage"]["settings_mode"], "sqlite_primary"
+        )
+
     def test_tampered_payload_is_rejected(self):
         original = backup.create_system_backup(root=self.root)
         tampered = os.path.join(self.root, "tampered.zip")

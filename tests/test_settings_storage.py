@@ -35,6 +35,13 @@ class SettingsStorageTests(unittest.TestCase):
         self.assertEqual(ready["blockers"], [])
         self.assertEqual(ready["collecting"], [])
 
+        status["settings_storage_mode"] = "sqlite_primary"
+        self.assertEqual(
+            settings_storage.sqlite_primary_readiness(status)["state"],
+            "ready",
+        )
+        status["settings_storage_mode"] = "verification"
+
         status["migration_evidence"]["verified_start_streak"] = 4
         collecting = settings_storage.sqlite_primary_readiness(status)
         self.assertEqual(collecting["state"], "collecting")

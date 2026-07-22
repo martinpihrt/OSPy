@@ -2975,10 +2975,10 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
     }
 
 
-def _sqlite_readiness_details(capability=None):
+def _sqlite_readiness_details(capability=None, active_backend='shelve/DBM'):
     """Describe optional SQLite readiness without changing health severity."""
     capability = capability or settings_storage.sqlite_capability()
-    details = _('Settings storage') + ': shelve/DBM; ' + _('SQLite readiness') + ': '
+    details = _('Settings storage') + ': ' + active_backend + '; ' + _('SQLite readiness') + ': '
     if capability.get('available'):
         details += _('Available')
         if capability.get('version'):
@@ -2994,9 +2994,20 @@ def _sqlite_readiness_details(capability=None):
 def _sqlite_mirror_details(status):
     """Describe the non-authoritative SQLite transition mirror."""
     state = status.get('state', 'pending')
-    details = _('SQLite shadow copy') + ': '
+    details = (
+        _('SQLite settings database')
+        if status.get('settings_storage_mode') == 'sqlite_primary' else
+        _('SQLite shadow copy')
+    ) + ': '
     if state in ('synchronized', 'verified'):
-        details += _('Verified against shelve/DBM') if state == 'verified' else _('Synchronized')
+        if state == 'verified':
+            details += (
+                _('Verified SQLite primary snapshot')
+                if status.get('sqlite_primary_used') else
+                _('Verified against shelve/DBM')
+            )
+        else:
+            details += _('Synchronized')
         details += ' (' + _('settings') + ': {}'.format(status.get('count', 0))
         if status.get('last_save'):
             details += '; ' + _('saved') + ': ' + _health_time(status['last_save'])
@@ -3113,6 +3124,7 @@ def _sqlite_mirror_details(status):
     storage_mode_labels = {
         'compatible': _('Compatible'),
         'verification': _('Verification'),
+        'sqlite_primary': _('SQLite primary (beta)'),
         'custom': _('Custom advanced settings'),
     }
     details += '; ' + _('Settings storage mode') + ': ' + \
@@ -3123,6 +3135,15 @@ def _sqlite_mirror_details(status):
         if status.get('strict_dual_write_enabled') else
         _('Compatible shelve/DBM commit with optional SQLite shadow')
     )
+    if storage_mode == 'sqlite_primary':
+        details += '; ' + _('SQLite-primary startup') + ': '
+        if status.get('sqlite_primary_used'):
+            details += _('Active; shelve/DBM fallback synchronized')
+        elif status.get('sqlite_primary_fallback_error'):
+            details += _('Fell back to shelve/DBM') + ' - ' + \
+                status['sqlite_primary_fallback_error']
+        else:
+            details += _('Waiting for restart')
     evidence = status.get('migration_evidence') or {}
     details += '; ' + _('SQLite migration evidence') + ': '
     details += _('verified starts') + ': {}'.format(
@@ -3644,10 +3665,15 @@ def _system_health_data():
             sqlite_mirror.get('emergency_recovery_error') or
             sqlite_mirror.get('preferred_read') == 'fallback'):
         database_status = 'warning'
+    if database_ok and sqlite_mirror.get('sqlite_primary_fallback_error'):
+        database_status = 'warning'
     database_details = database_beat.get('error') or (
         _('Last saved') + ': ' + _health_time(getattr(options, 'last_save', 0))
     )
-    database_details += '; ' + _sqlite_readiness_details(sqlite_status)
+    database_details += '; ' + _sqlite_readiness_details(
+        sqlite_status,
+        sqlite_mirror.get('active_settings_backend', 'shelve/DBM'),
+    )
     database_details += '; ' + _sqlite_mirror_details(sqlite_mirror)
     items.append(_health_item(
         'database', _('Database'), database_status,
@@ -4147,6 +4173,9 @@ class options_page(ProtectedPage):
 
         qdict = web.input()
         previous_storage_mode = options.settings_storage_mode
+        requested_storage_mode = qdict.get(
+            'settings_storage_mode', previous_storage_mode
+        )
 
         location_changed = qdict.get('location', options.location) != options.location
         map_selected = qdict.get('weather_map_selected', '0') == '1'
@@ -4281,10 +4310,62 @@ class options_page(ProtectedPage):
                 server.start()
                 raise web.seeother('/')
 
-        save_to_options(qdict)
+        save_qdict = dict(qdict)
+        if requested_storage_mode != previous_storage_mode:
+            # The guarded transition below owns the storage-mode change. All
+            # other form values may be persisted normally first.
+            save_qdict['settings_storage_mode'] = previous_storage_mode
+        save_to_options(save_qdict)
         if 'settings_storage_mode' in qdict:
-            requested_storage_mode = qdict['settings_storage_mode']
             if requested_storage_mode != previous_storage_mode:
+                if ('sqlite_primary' in (
+                        requested_storage_mode, previous_storage_mode)):
+                    try:
+                        safety_backup = system_backup.create_system_backup(
+                            reason='before settings storage transition'
+                        )
+                        options.apply_settings_storage_mode(
+                            requested_storage_mode
+                        )
+                        if not options.save_now():
+                            raise RuntimeError(
+                                _('The new settings storage mode could not be saved.')
+                            )
+                        if (requested_storage_mode == 'sqlite_primary' and
+                                not options._sqlite_primary_marker_enabled()):
+                            raise RuntimeError(
+                                _('SQLite primary could not be activated safely.')
+                            )
+                    except Exception as error:
+                        try:
+                            options.apply_settings_storage_mode(
+                                previous_storage_mode
+                            )
+                            options.save_now()
+                        except Exception:
+                            log.error('webpages.py', traceback.format_exc())
+                        return self.core_render.notice(
+                            '/options',
+                            _('The settings storage transition was rejected: {}').format(
+                                error
+                            )
+                        )
+                    logEV.save_events_log(
+                        _('Settings storage mode changed'),
+                        _('User {} changed settings storage mode from {} to {}. Safety backup: {}').format(
+                            session.get('visitor'), previous_storage_mode,
+                            requested_storage_mode,
+                            os.path.basename(safety_backup),
+                        ),
+                        level='warning',
+                        category='configuration'
+                    )
+                    report_restarted()
+                    restart(wait=3)
+                    return self.core_render.notice(
+                        '/',
+                        _('The settings storage mode was changed safely. OSPy is restarting.')
+                    )
                 options.apply_settings_storage_mode(requested_storage_mode)
             else:
                 options.refresh_settings_storage_mode()

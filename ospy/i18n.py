@@ -22,6 +22,7 @@ OPTIONS_FILES = [
     os.path.join(DATA_DIR, 'tmp', 'options.db'),
     os.path.join(DATA_DIR, 'backup', 'options.db'),
 ]
+SQLITE_PRIMARY_MARKER = os.path.join(DATA_DIR, 'sqlite_primary.enabled')
 
 
 def _valid_saved_language(value):
@@ -33,6 +34,28 @@ def _valid_saved_language(value):
 
 
 def load_saved_language():
+    try:
+        marker_enabled = (
+            not os.path.islink(SQLITE_PRIMARY_MARKER) and
+            os.path.isfile(SQLITE_PRIMARY_MARKER)
+        )
+        if marker_enabled:
+            with open(SQLITE_PRIMARY_MARKER, 'r', encoding='ascii') as marker:
+                marker_enabled = marker.read(32).strip() == 'enabled-v1'
+        if marker_enabled and sqlite_capability().get('available'):
+            values = sqlite_mirror_store.read_recovery_candidate(
+                sqlite_mirror_store.path_for(OPTIONS_FILES[0])
+            )
+            if (values.get('settings_storage_mode') == 'sqlite_primary' and
+                    values.get('sqlite_emergency_recovery') is True and
+                    values.get('sqlite_preferred_reads') is True and
+                    values.get('sqlite_strict_dual_write') is True and
+                    _valid_saved_language(values.get('lang'))):
+                return values['lang']
+    except Exception:
+        # The regular shelve/DBM language path is the safe fallback.
+        pass
+
     for options_file in OPTIONS_FILES:
         try:
             values = settings_store.read(options_file)
