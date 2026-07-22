@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 22 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Run-once audit events now list the actual selected station names instead of only their count. This removes the misleading case where a run of station 09 was logged as irrigation for "1 station" and could be read as station 1. Added route-level regression coverage.
+
 Diagnostics Open actions now link Languages directly to help section 2 and Backup directly to the expanded System Backup card in Options instead of opening the top of either page. Added regression coverage for both navigation targets.
 
 Added a read-only **Languages** row to Diagnostics. It compares every configured language catalog with the current translation template and displays the translated percentage and exact missing-string count for each language. Complete catalogs are green, catalogs with at least 80 percent coverage are yellow, and catalogs below 80 percent are red. Translation completeness is informational: it does not change the overall system-health result and never opens the diagnostic error modal. Catalog parsing is cached by file revision, modifies no POT, PO or MO file, and is covered by parser, threshold, missing-catalog and cache-invalidation tests. Updated all seven Web Interface Guides.

@@ -136,6 +136,31 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
 
+    def test_run_once_audit_lists_selected_station_names_not_their_count(self):
+        first = SimpleNamespace(index=0, name="01. Front lawn")
+        ninth = SimpleNamespace(index=8, name="09. Hand hose")
+        test_stations = mock.Mock()
+        test_stations.enabled_stations.return_value = [first, ninth]
+        handler = object.__new__(webpages.runonce_page)
+
+        with mock.patch.object(
+                webpages.web, "input",
+                return_value={"mm0": "0", "ss0": "0", "mm8": "0", "ss8": "19"}), \
+                mock.patch.object(webpages, "stations", test_stations), \
+                mock.patch.object(webpages.run_once, "set") as set_run_once, \
+                mock.patch.object(webpages, "report_program_toggle"), \
+                mock.patch.object(webpages.logEV, "save_events_log") as save_event, \
+                mock.patch.object(
+                    webpages.web, "seeother", side_effect=RuntimeError("redirect")
+                ):
+            with self.assertRaisesRegex(RuntimeError, "redirect"):
+                handler.POST()
+
+        set_run_once.assert_called_once_with({0: 0, 8: 19})
+        message = save_event.call_args.args[1]
+        self.assertIn("09. Hand hose", message)
+        self.assertNotIn("for 1 stations", message)
+
     def test_weather_provider_selector_and_cached_forecast_render(self):
         options_response = self.app.request("/options")
         self.assertEqual(options_response.status, "200 OK")

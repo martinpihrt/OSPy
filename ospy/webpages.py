@@ -2449,11 +2449,14 @@ class runonce_page(ProtectedPage):
         if session.get('category')== 'admin' or session.get('category') == 'user':
             run_once.set(station_seconds)
             report_program_toggle()
-            active_stations = len([seconds for seconds in station_seconds.values() if seconds > 0])
+            active_station_names = [
+                station.name for station in stations.enabled_stations()
+                if station_seconds.get(station.index, 0) > 0
+            ]
             logEV.save_events_log(
                 _('Run-once program changed'),
-                _('User {} scheduled one-time irrigation for {} stations.').format(
-                    session.get('visitor'), active_stations),
+                _('User {} scheduled one-time irrigation for: {}.').format(
+                    session.get('visitor'), ', '.join(active_station_names)),
                 id='Programs',
                 level='info',
                 category='irrigation'
