@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 22 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Updated the Czech translation catalog for the latest Diagnostics diagrams, Help PDF export and related interface strings.
+
 Added a collapsible **How OSPy works** section to Diagnostics with nine localized interactive flow diagrams covering programs and scheduling, station-start decisions, master sequencing, weather, sensors, the plug-in lifecycle, safe updates, settings storage and recovery, and backup and restore. The pinned Mermaid 10.9.6 renderer and MIT license are stored locally, use strict rendering, and require no Internet connection. The interface provides a topic selector, color legend, related-page links, keyboard-accessible linked nodes, zoom, full-width view, printing, and SVG/PNG export in all three themes. Added dependency-integrity, rendering-configuration, topic, theme and export regression tests and updated all seven Web Interface Guides.
 
 Corrected the floating Help PDF icon so its red document badge clearly displays the complete `PDF` abbreviation.
