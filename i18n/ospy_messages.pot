@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-07-22 17:06+0200\n"
+"POT-Creation-Date: 2026-07-23 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -783,7 +783,7 @@ msgstr ""
 #: ospy/options.py:85 ospy/options.py:94 ospy/options.py:101
 #: ospy/options.py:108 ospy/options.py:121 ospy/options.py:128
 #: ospy/options.py:135 ospy/options.py:147 ospy/options.py:189
-#: ospy/options.py:196 ospy/templates/diagnostics.html:973
+#: ospy/options.py:196 ospy/templates/diagnostics.html:1174
 #: plugins/email_notifications/__init__.py:107
 #: plugins/email_notifications/__init__.py:128
 #: plugins/email_notifications/__init__.py:144
@@ -954,7 +954,7 @@ msgstr ""
 msgid "Settings storage mode"
 msgstr ""
 
-#: ospy/options.py:204 ospy/templates/diagnostics.html:104
+#: ospy/options.py:204 ospy/templates/diagnostics.html:305
 #: ospy/webpages.py:3234 ospy/webpages.py:3240
 msgid "Compatible"
 msgstr ""
@@ -1318,8 +1318,8 @@ msgid "Show a red diagnostic error window to administrators on the home page. Di
 msgstr ""
 
 #: ospy/options.py:503 ospy/templates/base.html:464
-#: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:870
-#: ospy/templates/diagnostics.html:939 ospy/templates/options.html:164
+#: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:1071
+#: ospy/templates/diagnostics.html:1140 ospy/templates/options.html:164
 msgid "Diagnostics"
 msgstr ""
 
@@ -2314,8 +2314,8 @@ msgstr ""
 #: ospy/sensors.py:1088 ospy/sensors.py:1286 ospy/sensors.py:1358
 #: ospy/sensors.py:1384 ospy/sensors.py:1793 ospy/sensors.py:1806
 #: ospy/sensors.py:1822 ospy/sensors.py:1836 ospy/sensors.py:1849
-#: ospy/templates/user.html:45 ospy/templates/user.html:69
-#: ospy/templates/users.html:36
+#: ospy/templates/diagnostics.html:292 ospy/templates/user.html:45
+#: ospy/templates/user.html:69 ospy/templates/users.html:36
 msgid "Sensor"
 msgstr ""
 
@@ -3403,7 +3403,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:447 ospy/templates/diagnostics.html:1032
+#: ospy/templates/base.html:447 ospy/templates/diagnostics.html:1233
 msgid "Plugin"
 msgstr ""
 
@@ -3415,13 +3415,13 @@ msgstr ""
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:457 ospy/templates/diagnostics.html:976
+#: ospy/templates/base.html:457 ospy/templates/diagnostics.html:1177
 #: plugins/lcd_display/templates/lcd_display.html:273
 #: plugins/lcd_display/templates/lcd_display_help.html:37
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:975
+#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:1176
 msgid "CPU Usage"
 msgstr ""
 
@@ -3443,7 +3443,7 @@ msgstr ""
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:462 ospy/templates/diagnostics.html:979
+#: ospy/templates/base.html:462 ospy/templates/diagnostics.html:1180
 msgid "Working"
 msgstr ""
 
@@ -3453,7 +3453,7 @@ msgid "Weather location"
 msgstr ""
 
 #: ospy/templates/base.html:484 ospy/templates/base.html:494
-#: ospy/templates/diagnostics.html:1171 ospy/templates/plugins_manage.html:76
+#: ospy/templates/diagnostics.html:1388 ospy/templates/plugins_manage.html:76
 #: plugins/venetian_blind/templates/venetian_blind.html:51
 msgid "Close"
 msgstr ""
@@ -3519,307 +3519,1107 @@ msgid "Backup creation and restore validate the complete archive, preserve a saf
 msgstr ""
 
 #: ospy/templates/diagnostics.html:17
-msgid "Program definition"
+msgid "A web request passes transport, authentication, brute-force, second-factor, role, and CSRF checks before OSPy serves or changes protected data."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:18
-msgid "Calculate schedule"
+msgid "HTTPS uses the selected certificate source to establish an encrypted connection; invalid files or trust failures are reported without pretending that the transport is secure."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:19
-msgid "Run allowed?"
+msgid "After the password, the administrator confirms a TOTP, e-mail, or one-time backup code before OSPy creates the authenticated session."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:20
-msgid "Record blocked run"
+msgid "Session and CSRF tokens protect web actions, while optional remember-me tokens store only a hash and can expire or be revoked."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:21
-msgid "Run queue"
+msgid "API and sensor requests apply configured Basic authentication, throttling, roles, CSRF, and browser CORS rules before data are accepted or an action is executed."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:22
-msgid "Optional master station"
+msgid "Scheduled, manual, and run-once requests share a prioritized queue that respects output capacity, group order, and station delays."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:23
-msgid "Station output"
+msgid "Rain sensing, rain delay, normalized forecasts, and the stored water balance decide whether a weather-aware run is skipped or receives an adjusted duration."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:24
-msgid "Finished-run log"
+msgid "An output request is mapped through the configured backend, polarity, and master sequence; driver acknowledgement does not by itself prove that a physical relay switched."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:25
-msgid "Run request"
+msgid "Anonymous, operator, and administrator roles are checked for every protected route and action, independently of authentication and CSRF validation."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:26
-msgid "System enabled?"
+msgid "Operational events, active recoverable problems, diagnostic modals, persistent incidents, and technical debug tracebacks form separate but connected reporting layers."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:27
-msgid "Mode permits the run?"
+msgid "Configured events are composed into localized notifications, enriched with optional station and sensor data, and sent through the selected provider with bounded retry and error logging."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:28
-msgid "Rain blocking active?"
+msgid "OSPy starts settings, safe outputs, core workers, and dependency-ordered plug-ins before reporting readiness; shutdown reverses that process and leaves outputs off."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:29
-msgid "Sensor blocking active?"
+msgid "Declared plug-in permissions are compared with the approved set, reviewed when they change, persisted with an audit event, and checked before any plug-in code starts."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:30
-msgid "Station enabled and available?"
+msgid "A sensor is discovered, identified independently of its changing IP address, validated, monitored for stale data, evaluated against rules, and recorded with any resulting action."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:31
-msgid "Reject and log run"
+msgid "Local and Internet clients reach OSPy through different network boundaries; Internet exposure should combine a restricted firewall or VPN, trusted HTTPS, and strong authentication."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:32
-msgid "Start station"
+msgid "A clean installation validates the platform, preserves existing checkouts, installs the stable master branch and selected dependencies, verifies SQLite and systemd, and confirms the first secure login."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:33
-msgid "Station run request"
+msgid "Program definition"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:34
-msgid "Master assigned?"
+msgid "Calculate schedule"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:35
-msgid "Master lead delay"
+msgid "Run allowed?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:36
-msgid "Master ON"
+msgid "Record blocked run"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:37
-msgid "Station ON"
+msgid "Run queue"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:38
-msgid "Station OFF"
+msgid "Optional master station"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:39
-msgid "Master lag delay"
+msgid "Station output"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:40
-msgid "Master OFF"
+msgid "Finished-run log"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:41
-msgid "Run without master"
+msgid "Run request"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:42
-msgid "Selected weather provider"
+msgid "System enabled?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:43
-msgid "Normalize and validate data"
+msgid "Mode permits the run?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:44
-msgid "Weather cache"
+msgid "Rain blocking active?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:45
-msgid "Water-level adjustment"
+msgid "Sensor blocking active?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:46
-msgid "Programs, Home, and plug-ins"
+msgid "Station enabled and available?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:47
-msgid "Use last valid cached data"
+msgid "Reject and log run"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:48
-msgid "Discover or configure sensor"
+msgid "Start station"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:49
-msgid "Receive measurement"
+msgid "Station run request"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:50
-msgid "Measurement valid?"
+msgid "Master assigned?"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:51
-msgid "Reject invalid measurement"
+msgid "Master lead delay"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:52
-msgid "Update sensor state and history"
+msgid "Master ON"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:53
-msgid "Evaluate thresholds and rules"
+msgid "Station ON"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:54
-msgid "Continue irrigation"
+msgid "Station OFF"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:55
-msgid "Stop or block affected stations"
+msgid "Master lag delay"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:56
-msgid "Log and optional notification"
+msgid "Master OFF"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:57
-msgid "Repository or ZIP package"
+msgid "Run without master"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:58
-msgid "Compatibility check"
+msgid "Selected weather provider"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:59
+msgid "Normalize and validate data"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:60
+msgid "Weather cache"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:61
+msgid "Water-level adjustment"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:62
+msgid "Programs, Home, and plug-ins"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:63
+msgid "Use last valid cached data"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:64
+msgid "Discover or configure sensor"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:65
+msgid "Receive measurement"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:66
+msgid "Measurement valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:67
+msgid "Reject invalid measurement"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:68
+msgid "Update sensor state and history"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:69
+msgid "Evaluate thresholds and rules"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:70
+msgid "Continue irrigation"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:71
+msgid "Stop or block affected stations"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:72
+msgid "Log and optional notification"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:73
+msgid "Repository or ZIP package"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:74
+msgid "Compatibility check"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:75
 msgid "Administrator permission approval"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:60 ospy/templates/diagnostics.html:1036
+#: ospy/templates/diagnostics.html:76 ospy/templates/diagnostics.html:1237
 #: ospy/templates/plugins_manage.html:318
 msgid "Pre-activation test"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:61
+#: ospy/templates/diagnostics.html:77
 msgid "Dependency and startup order"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:62
+#: ospy/templates/diagnostics.html:78
 msgid "Start plug-in"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:63
+#: ospy/templates/diagnostics.html:79
 msgid "Managed safe stop"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:64
+#: ospy/templates/diagnostics.html:80
 msgid "Block installation or activation"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:65
+#: ospy/templates/diagnostics.html:81
 msgid "Stable or beta channel"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:66
+#: ospy/templates/diagnostics.html:82
 msgid "Fetch target revision"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:67
+#: ospy/templates/diagnostics.html:83
 msgid "Compatibility and automated checks"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:68
+#: ospy/templates/diagnostics.html:84
 msgid "Stop outputs and prepare update"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:69
+#: ospy/templates/diagnostics.html:85
 msgid "Install exact commit"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:70
+#: ospy/templates/diagnostics.html:86
 msgid "Restart OSPy"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:71
+#: ospy/templates/diagnostics.html:87
 msgid "Healthy start confirmed?"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:72
+#: ospy/templates/diagnostics.html:88
 msgid "Confirm update"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:73
+#: ospy/templates/diagnostics.html:89
 msgid "Return to previous commit"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:74
+#: ospy/templates/diagnostics.html:90
 msgid "Settings change"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:75
+#: ospy/templates/diagnostics.html:91
 msgid "Validate complete settings"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:76
+#: ospy/templates/diagnostics.html:92
 msgid "SQLite primary database"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:77
+#: ospy/templates/diagnostics.html:93
 msgid "Atomic dual write"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:78
+#: ospy/templates/diagnostics.html:94
 msgid "Checksums and read-back valid?"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:79
+#: ospy/templates/diagnostics.html:95
 msgid "Synchronized shelve/DBM fallback"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:80
+#: ospy/templates/diagnostics.html:96
 msgid "Verified settings snapshot"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:81
+#: ospy/templates/diagnostics.html:97
 msgid "Use verified recovery candidate"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:82
+#: ospy/templates/diagnostics.html:98
 msgid "Create system backup"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:83
+#: ospy/templates/diagnostics.html:99
 msgid "Collect settings, manifests, and data"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:84
+#: ospy/templates/diagnostics.html:100
 msgid "Backup complete and valid?"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:85
+#: ospy/templates/diagnostics.html:101
 msgid "Download ZIP archive"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:86
+#: ospy/templates/diagnostics.html:102
 msgid "Upload backup archive"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:87
+#: ospy/templates/diagnostics.html:103
 msgid "Restore archive valid?"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:88
+#: ospy/templates/diagnostics.html:104
 msgid "Create safety backup"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:89
+#: ospy/templates/diagnostics.html:105
 msgid "Apply verified restore"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:90
+#: ospy/templates/diagnostics.html:106
 msgid "Restart and verify OSPy"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:91
+#: ospy/templates/diagnostics.html:107
 msgid "Reject archive without changes"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:92 ospy/templates/sensors.html:96
+#: ospy/templates/diagnostics.html:108
+msgid "Browser request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:109
+msgid "HTTPS active?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:110
+msgid "Encrypted transport"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:111
+msgid "Authentication required?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:112
+msgid "Verify username and password"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:113
+msgid "Attempt allowed by brute-force protection?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:114
+msgid "Optional second-factor check"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:115
+msgid "Role permits this page or action?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:116
+msgid "Valid CSRF token for a change?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:117
+msgid "Serve page or apply action"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:118
+msgid "Reject and record security event"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:119
+msgid "Unencrypted or anonymous-access warning"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:120
+msgid "HTTPS configuration"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:121
+msgid "Certificate source"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:122
+msgid "Own certificate files"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:123
+msgid "Certificate and private key valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:124
+msgid "Start HTTPS listener"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:125
+msgid "TLS handshake and trust valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:126
+msgid "Encrypted browser connection"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:127
+msgid "Optional reverse proxy and security headers"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:128
+msgid "HTTPS unavailable: report insecure fallback"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:129
+msgid "Browser rejects or warns about certificate"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:130
+msgid "Username and password"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:131
+msgid "Primary credentials valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:132
+msgid "Two-factor authentication enabled?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:133
+msgid "Selected second-factor method"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:134
+msgid "TOTP code and correct system time"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:135
+msgid "Short-lived code sent by e-mail"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:136
+msgid "One-time backup code"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:137
+msgid "Second factor valid and unexpired?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:138
+msgid "Create authenticated session"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:139
+msgid "Changing 2FA revokes remembered logins"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:140
+msgid "Authenticated form page"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:141
+msgid "Session cookie"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:142
+msgid "Per-session CSRF form token"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:143
+msgid "State-changing form request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:144
+msgid "Session still valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:145
+msgid "CSRF token matches?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:146
+msgid "Apply and audit change"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:147
+msgid "Reject expired or invalid token"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:148
+msgid "Successful password and 2FA login"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:149
+msgid "Random remember-me selector and secret"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:150
+msgid "Store only the secret hash"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:151
+msgid "Protected remember-me cookie"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:152
+msgid "Token valid and user still permitted?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:153
+msgid "Expire or revoke remembered token"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:154
+msgid "API or sensor request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:155
+msgid "Sensor reporting endpoint?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:156
+msgid "Sensor API authentication required?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:157
+msgid "HTTP Basic authentication"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:158
+msgid "Authenticated role permits operation?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:159
+msgid "State-changing API request?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:160
+msgid "API CSRF token valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:161
+msgid "CORS controls browser read access, not authentication"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:162
+msgid "Execute and audit API action"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:163
+msgid "Accept validated sensor measurement"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:164
+msgid "Scheduled program runs"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:165
+msgid "Manual-mode runs"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:166
+msgid "Run-once requests"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:167
+msgid "Merge eligible runs into the queue"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:168
+msgid "Select the next run by priority"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:169
+msgid "Output-usage capacity available?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:170
+msgid "Apply station and group delays"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:171
+msgid "Wait or postpone the conflicting run"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:172
+msgid "Start eligible stations"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:173
+msgid "Finish, release capacity, and continue"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:174
+msgid "Weather-aware program request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:175
+msgid "Rain sensor is wet?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:176
+msgid "Manual rain delay active?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:177
+msgid "Normalized weather and precipitation forecast"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:178
+msgid "Update stored water balance"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:179
+msgid "Irrigation still needed?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:180
+msgid "Calculate adjusted duration factor"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:181
+msgid "Skip run and record the reason"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:182
+msgid "Schedule the adjusted run duration"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:183
+msgid "Store balance and calculation result"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:184
+msgid "Station output request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:185
+msgid "Resolve station-to-output mapping"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:186
+msgid "Apply master lead and lag sequence"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:187
+msgid "Selected output backend"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:188
+msgid "Shift register"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:189
+msgid "Plug-in or remote output"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:190
+msgid "Active-low or inverted output?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:191
+msgid "Write requested electrical state"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:192
+msgid "Command accepted by output driver"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:193
+msgid "Optional physical relay feedback"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:194
+msgid "Fail safely with outputs off"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:195
+msgid "Protected page or action request"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:196
+msgid "Authenticated session present?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:197
+msgid "Anonymous visitor"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:198
+msgid "Current user role"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:199
+msgid "Administrator role"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:200
+msgid "Operator or user role"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:201
+msgid "Public role"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:202
+msgid "Route policy permits this role?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:203
+msgid "Allow operation within role scope"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:204
+msgid "Deny access and record the attempt"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:205
+msgid "System operation or captured failure"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:206
+msgid "Categorized event with severity"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:207
+msgid "Persistent operational Events log"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:208
+msgid "Recoverable core problem?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:209
+msgid "Active core-problem registry"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:210
+msgid "Diagnostic error modal for administrators"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:211
+msgid "Persistent incident history"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:212
+msgid "Later retry successful?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:213
+msgid "Resolve the active incident"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:214
+msgid "Technical debug log and traceback"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:215
+msgid "Station, sensor, security, or system event"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:216
+msgid "Notification enabled for this event?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:217
+msgid "Selected notification provider ready?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:218
+msgid "Compose localized message"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:219
+msgid "Add configured station, sensor, and water-meter data"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:220
+msgid "Open authenticated TLS SMTP connection"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:221
+msgid "Message accepted by mail server?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:222
+msgid "Record successful notification"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:223
+msgid "Bounded retry queue"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:224
+msgid "Record delivery failure and reason"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:225
+msgid "System service starts OSPy"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:226
+msgid "Load and validate settings source"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:227
+msgid "Initialize output backend with outputs off"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:228
+msgid "Start scheduler, sensors, weather, and web workers"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:229
+msgid "Resolve plug-in dependency order"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:230
+msgid "Start plug-ins and collect health"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:231
+msgid "Web listener, scheduler, and watchdog ready"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:232
+msgid "Report startup failure with outputs safe"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:233
+msgid "Restart or shutdown requested"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:234
+msgid "Stop irrigation and master outputs"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:235
+msgid "Stop plug-ins in reverse dependency order"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:236
+msgid "Stop and join managed workers"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:237
+msgid "Confirm outputs off and end process"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:238
+msgid "Permissions declared in plugin.json"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:239
+msgid "Exact permission set already approved?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:240
+msgid "New or changed permissions requested?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:241
+msgid "Administrator reviews each permission meaning"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:242
+msgid "Administrator approves the complete set?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:243
+msgid "Persist approval and security audit event"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:244
+msgid "Import and start plug-in code"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:245
+msgid "Block installation, update, or activation"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:246
+msgid "Revocation disables the plug-in"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:247
+msgid "Discover or create sensor configuration"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:248
+msgid "Identify by MAC while accepting a changing IP"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:249
+msgid "Poll or receive a measurement"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:250
+msgid "Measurement and sensor identity valid?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:251
+msgid "Update value, signal, battery, and last response"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:252
+msgid "Response within the expected interval?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:253
+msgid "Threshold or program rule matched?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:254
+msgid "Sensor is healthy and responding"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:255
+msgid "Block, stop, or start the configured action"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:256
+msgid "Store history, event, and optional notification"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:257
+msgid "Mark sensor as not responding"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:258
+msgid "Browser or integration client"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:259
+msgid "Client on the trusted home network?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:260
+msgid "Local LAN access"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:261
+msgid "Traffic arriving from the Internet"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:262
+msgid "Firewall, VPN, and exposed-port policy"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:263
+msgid "Restricted reverse proxy or VPN path"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:264
+msgid "HTTPS with a trusted certificate?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:265
+msgid "OSPy web listener"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:266
+msgid "Strong login and two-factor authentication?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:267
+msgid "Restricted authenticated access"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:268
+msgid "Unsafe public HTTP or anonymous exposure"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:269
+msgid "Supported Linux and Python version?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:270
+msgid "Choose install directory and optional package groups"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:271
+msgid "Existing OSPy Git checkout found?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:272
+msgid "Stop without deleting, resetting, or updating it"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:273
+msgid "Download the stable master branch"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:274
+msgid "Install core and selected optional dependencies"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:275
+msgid "Built-in SQLite in-memory integrity check passes?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:276
+msgid "Build and install the validated systemd service"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:277
+msgid "Configure user groups and optional I2C"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:278
+msgid "Start service and verify its state?"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:279
+msgid "Open port 8080, sign in, and change the generated password"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:280
+msgid "Show service output and correct the reported failure"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:281
+msgid "Next"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:282
+msgid "Retry"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:283
+msgid "Retry limit reached"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:284
+msgid "Technical details"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:285
+msgid "Later revoked"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:286
+msgid "Unsafe open port"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:287
+msgid "Restricted"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:288
+msgid "Supported"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:289
+msgid "Unsupported"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:290
+msgid "Allowed"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:291 ospy/templates/diagnostics.html:1336
+msgid "Optional"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:293 ospy/templates/sensors.html:96
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
@@ -3864,7 +4664,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:93 ospy/templates/sensors.html:96
+#: ospy/templates/diagnostics.html:294 ospy/templates/sensors.html:96
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
@@ -3910,152 +4710,152 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:94 ospy/webpages.py:3281
+#: ospy/templates/diagnostics.html:295 ospy/webpages.py:3281
 msgid "Blocked"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:95
+#: ospy/templates/diagnostics.html:296
 msgid "Clear"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:96 ospy/templates/home_admin.html:684
+#: ospy/templates/diagnostics.html:297 ospy/templates/home_admin.html:684
 #: ospy/templates/home_user.html:593
 msgid "Normal"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:97
+#: ospy/templates/diagnostics.html:298
 msgid "Threshold exceeded"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:98
+#: ospy/templates/diagnostics.html:299
 msgid "If configured"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:99
+#: ospy/templates/diagnostics.html:300
 msgid "Without master"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:100
+#: ospy/templates/diagnostics.html:301
 msgid "On error"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:101
+#: ospy/templates/diagnostics.html:302
 msgid "Invalid"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:102
+#: ospy/templates/diagnostics.html:303
 msgid "Valid"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:103 ospy/templates/plugins_manage.html:202
+#: ospy/templates/diagnostics.html:304 ospy/templates/plugins_manage.html:202
 msgid "Incompatible"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:105
+#: ospy/templates/diagnostics.html:306
 msgid "Not approved"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:106 ospy/templates/plugins_manage.html:291
+#: ospy/templates/diagnostics.html:307 ospy/templates/plugins_manage.html:291
 msgid "Approved"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:107 ospy/webpages.py:3131
+#: ospy/templates/diagnostics.html:308 ospy/webpages.py:3131
 #: ospy/webpages.py:3171 ospy/webpages.py:3187 ospy/webpages.py:3205
 msgid "Failed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:108 ospy/webpages.py:3127
+#: ospy/templates/diagnostics.html:309 ospy/webpages.py:3127
 #: ospy/webpages.py:3153 ospy/webpages.py:3180
 msgid "Passed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:109 ospy/templates/options.html:300
+#: ospy/templates/diagnostics.html:310 ospy/templates/options.html:300
 msgid "Shutdown"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:110
+#: ospy/templates/diagnostics.html:311
 msgid "Open related page"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:111
+#: ospy/templates/diagnostics.html:312
 msgid "The local diagram renderer is not available."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:112
+#: ospy/templates/diagnostics.html:313
 msgid "The diagram could not be rendered"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:113
+#: ospy/templates/diagnostics.html:314
 msgid "The PNG image could not be created."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:114 ospy/templates/diagnostics.html:1106
+#: ospy/templates/diagnostics.html:315 ospy/templates/diagnostics.html:1323
 msgid "Full-width view"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:115
+#: ospy/templates/diagnostics.html:316
 msgid "Exit full-width view"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:124
+#: ospy/templates/diagnostics.html:325
 msgid "Restart plugin"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:125
+#: ospy/templates/diagnostics.html:326
 #: plugins/weather_based_water_level/__init__.py:79
 #: plugins/weather_based_water_level/__init__.py:85
 msgid "History"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:146 ospy/templates/home_admin.html:42
+#: ospy/templates/diagnostics.html:347 ospy/templates/home_admin.html:42
 msgid "Restart OSPy and check the event log. If the problem returns, check the scheduler thread and system load."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:147 ospy/templates/home_admin.html:43
+#: ospy/templates/diagnostics.html:348 ospy/templates/home_admin.html:43
 msgid "Check that automatic scheduling is enabled, manual mode is off, and at least one valid program is configured."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:148 ospy/templates/home_admin.html:44
+#: ospy/templates/diagnostics.html:349 ospy/templates/home_admin.html:44
 msgid "Check the configured output driver, power supply, wiring, GPIO or I2C connection, and any output plug-in."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:149 ospy/templates/home_admin.html:45
+#: ospy/templates/diagnostics.html:350 ospy/templates/home_admin.html:45
 msgid "Open Sensors, check the enabled sensor configuration and verify its power, network or bus connection."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:150 ospy/templates/home_admin.html:46
+#: ospy/templates/diagnostics.html:351 ospy/templates/home_admin.html:46
 msgid "Check free disk space and write permissions for the OSPy data directory, then restart OSPy."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:151 ospy/templates/home_admin.html:47
+#: ospy/templates/diagnostics.html:352 ospy/templates/home_admin.html:47
 msgid "Free disk space by removing unnecessary backups or logs and check the storage device for errors."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:152 ospy/templates/home_admin.html:48
+#: ospy/templates/diagnostics.html:353 ospy/templates/home_admin.html:48
 msgid "Open the plug-in manager, inspect compatibility and pre-activation details, then update, configure or restart the affected plug-in."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:153 ospy/templates/home_admin.html:49
+#: ospy/templates/diagnostics.html:354 ospy/templates/home_admin.html:49
 msgid "Open the e-mail plug-in, verify server credentials and network access, then restart the plug-in."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:154 ospy/templates/home_admin.html:50
+#: ospy/templates/diagnostics.html:355 ospy/templates/home_admin.html:50
 msgid "Check the weather location, Internet connection and weather settings, then request a new weather update."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:155 ospy/templates/home_admin.html:51
+#: ospy/templates/diagnostics.html:356 ospy/templates/home_admin.html:51
 msgid "Check the network cable or Wi-Fi, gateway and DNS configuration, and Internet access from the OSPy device."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:156 ospy/templates/home_admin.html:52
+#: ospy/templates/diagnostics.html:357 ospy/templates/home_admin.html:52
 msgid "Create a new backup and verify that the backup directory is writable and has enough free space."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:198 ospy/templates/home_admin.html:68
+#: ospy/templates/diagnostics.html:399 ospy/templates/home_admin.html:68
 msgid "Diagnostics detected the following errors:"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:209 ospy/templates/diagnostics.html:317
+#: ospy/templates/diagnostics.html:410 ospy/templates/diagnostics.html:518
 #: ospy/templates/home_admin.html:74 ospy/templates/log.html:217
 #: ospy/templates/log_sensor.html:92 ospy/templates/log_sensor.html:112
 #: plugins/database_connector/__init__.py:85
@@ -4067,27 +4867,27 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:210 ospy/templates/home_admin.html:75
+#: ospy/templates/diagnostics.html:411 ospy/templates/home_admin.html:75
 msgid "Problem"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:213 ospy/templates/diagnostics.html:452
-#: ospy/templates/diagnostics.html:759 ospy/templates/diagnostics.html:955
-#: ospy/templates/diagnostics.html:1072 ospy/templates/home_admin.html:78
+#: ospy/templates/diagnostics.html:414 ospy/templates/diagnostics.html:653
+#: ospy/templates/diagnostics.html:960 ospy/templates/diagnostics.html:1156
+#: ospy/templates/diagnostics.html:1273 ospy/templates/home_admin.html:78
 #: ospy/templates/home_admin.html:896 ospy/templates/home_user.html:796
 #: ospy/templates/plugins_manage.html:278
 #: ospy/templates/plugins_manage.html:324
 msgid "Details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:218 ospy/templates/diagnostics.html:448
+#: ospy/templates/diagnostics.html:419 ospy/templates/diagnostics.html:649
 #: ospy/templates/home_admin.html:82
 msgid "Possible solution"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:223 ospy/templates/diagnostics.html:346
-#: ospy/templates/diagnostics.html:456 ospy/templates/diagnostics.html:526
-#: ospy/templates/diagnostics.html:773 ospy/templates/home_admin.html:86
+#: ospy/templates/diagnostics.html:424 ospy/templates/diagnostics.html:547
+#: ospy/templates/diagnostics.html:657 ospy/templates/diagnostics.html:727
+#: ospy/templates/diagnostics.html:974 ospy/templates/home_admin.html:86
 #: ospy/templates/plugins_manage.html:182
 #: plugins/venetian_blind/templates/venetian_blind.html:49
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:390
@@ -4095,40 +4895,40 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:243
+#: ospy/templates/diagnostics.html:444
 msgid "Open the plug-in manager and approve the newly requested permissions after reviewing them."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:246
+#: ospy/templates/diagnostics.html:447
 msgid "Open the plug-in manager and resolve the listed OSPy version, Python dependency, hardware, GPIO, I2C or plug-in conflict."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:249
+#: ospy/templates/diagnostics.html:450
 msgid "Update or reinstall the plug-in. If the test still fails, inspect the listed Python source error."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:252
+#: ospy/templates/diagnostics.html:453
 msgid "Check compatibility and the pre-activation test in the plug-in manager, then enable or restart the plug-in."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:254
+#: ospy/templates/diagnostics.html:455
 msgid "Open the plug-in, verify its configuration and required hardware or network service, then restart it after correcting the cause."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:273
+#: ospy/templates/diagnostics.html:474
 msgid "Enabled plug-in is not running."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:290 ospy/webpages.py:2626
+#: ospy/templates/diagnostics.html:491 ospy/webpages.py:2626
 #: plugins/__init__.py:1509 plugins/__init__.py:2416
 msgid "Plug-in permission approval is required"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:303
+#: ospy/templates/diagnostics.html:504
 msgid "The enabled plug-in needs attention."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:315 ospy/webpages.py:4988
+#: ospy/templates/diagnostics.html:516 ospy/webpages.py:4988
 #: plugins/ip_cam/__init__.py:186 plugins/mqtt/__init__.py:487
 #: plugins/mqtt_home_assistant/__init__.py:292
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
@@ -4139,13 +4939,13 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:316 ospy/templates/log.html:217
+#: ospy/templates/diagnostics.html:517 ospy/templates/log.html:217
 #: ospy/templates/programs.html:193
 #: plugins/relay_16/templates/relay_16_help.html:15
 msgid "Warning"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:318 plugins/real_time/__init__.py:245
+#: ospy/templates/diagnostics.html:519 plugins/real_time/__init__.py:245
 #: plugins/real_time/__init__.py:246
 #: plugins/remote_ftp_control/__init__.py:199
 #: plugins/remote_notifications/__init__.py:293
@@ -4153,37 +4953,37 @@ msgstr ""
 msgid "Not configured"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:337
+#: ospy/templates/diagnostics.html:538
 #: plugins/weather_based_water_level/__init__.py:290
 msgid "Missing"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:343
+#: ospy/templates/diagnostics.html:544
 msgid "Last successful activity"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:371
+#: ospy/templates/diagnostics.html:572
 msgid "Open the related settings, check the event log and correct the reported cause."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:390 ospy/templates/diagnostics.html:411
-#: ospy/templates/diagnostics.html:947
+#: ospy/templates/diagnostics.html:591 ospy/templates/diagnostics.html:612
+#: ospy/templates/diagnostics.html:1148
 msgid "System status"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:392
+#: ospy/templates/diagnostics.html:593
 msgid "Check the OSPy event log and restart OSPy if the status cannot be loaded."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:401 ospy/webpages.py:4135
+#: ospy/templates/diagnostics.html:602 ospy/webpages.py:4135
 msgid "System health refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:413 ospy/templates/diagnostics.html:872
+#: ospy/templates/diagnostics.html:614 ospy/templates/diagnostics.html:1073
 msgid "Check the OSPy connection and event log, then reload the page or restart OSPy."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:423 ospy/templates/diagnostics.html:1137
+#: ospy/templates/diagnostics.html:624 ospy/templates/diagnostics.html:1354
 #: ospy/templates/home_admin.html:686 ospy/templates/home_user.html:595
 #: ospy/templates/options.html:293 ospy/templates/twofactor.html:61
 #: ospy/templates/twofactor.html:80 plugins/lcd_display/__init__.py:506
@@ -4194,52 +4994,52 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:424 ospy/templates/diagnostics.html:1138
-#: ospy/templates/diagnostics.html:1153
+#: ospy/templates/diagnostics.html:625 ospy/templates/diagnostics.html:1355
+#: ospy/templates/diagnostics.html:1370
 msgid "Resolved"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:425 ospy/templates/diagnostics.html:1139
+#: ospy/templates/diagnostics.html:626 ospy/templates/diagnostics.html:1356
 msgid "Interrupted by restart"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:443
+#: ospy/templates/diagnostics.html:644
 msgid "Technical cause"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:471
+#: ospy/templates/diagnostics.html:672
 msgid "No incidents match the selected filter."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:491 ospy/webpages.py:4179
+#: ospy/templates/diagnostics.html:692 ospy/webpages.py:4179
 msgid "Incident history refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:523
+#: ospy/templates/diagnostics.html:724
 msgid "Recommendation"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:558 ospy/webpages.py:4157
+#: ospy/templates/diagnostics.html:759 ospy/webpages.py:4157
 msgid "Security check failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:676
+#: ospy/templates/diagnostics.html:877
 msgid "No data yet."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:676
+#: ospy/templates/diagnostics.html:877
 msgid "samples"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:688
+#: ospy/templates/diagnostics.html:889
 msgid "Not enough history data yet."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:747 ospy/webpages.py:4113
+#: ospy/templates/diagnostics.html:948 ospy/webpages.py:4113
 msgid "Diagnostics history refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:752 plugins/air_temp_humi/__init__.py:411
+#: ospy/templates/diagnostics.html:953 plugins/air_temp_humi/__init__.py:411
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:429
 #: plugins/chmi/__init__.py:435
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -4288,7 +5088,7 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:752 plugins/air_temp_humi/__init__.py:411
+#: ospy/templates/diagnostics.html:953 plugins/air_temp_humi/__init__.py:411
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:429
 #: plugins/chmi/__init__.py:435
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -4334,7 +5134,7 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:753 ospy/templates/home_admin.html:261
+#: ospy/templates/diagnostics.html:954 ospy/templates/home_admin.html:261
 #: ospy/templates/home_admin.html:696 ospy/templates/home_public.html:156
 #: ospy/templates/home_user.html:173 ospy/templates/home_user.html:605
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
@@ -4364,7 +5164,7 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:753 ospy/templates/home_admin.html:696
+#: ospy/templates/diagnostics.html:954 ospy/templates/home_admin.html:696
 #: ospy/templates/home_user.html:605 ospy/templates/log.html:114
 #: ospy/templates/log.html:156 ospy/templates/log.html:191
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
@@ -4386,7 +5186,7 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:775 plugins/air_temp_humi/__init__.py:420
+#: ospy/templates/diagnostics.html:976 plugins/air_temp_humi/__init__.py:420
 #: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:446
 #: plugins/current_loop_tanks_monitor/__init__.py:515
 #: plugins/database_connector/__init__.py:120
@@ -4417,50 +5217,50 @@ msgstr ""
 msgid "Last error"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:783
+#: ospy/templates/diagnostics.html:984
 msgid "Managed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:786
+#: ospy/templates/diagnostics.html:987
 msgid "Stop requested"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:830
+#: ospy/templates/diagnostics.html:1031
 #: plugins/system_info/templates/system_info.html:3
 #: plugins/system_info/templates/system_info.html:19
 msgid "System Information"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:832
+#: ospy/templates/diagnostics.html:1033
 msgid "System Information plug-in is not running."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:847 ospy/webpages.py:3892
+#: ospy/templates/diagnostics.html:1048 ospy/webpages.py:3892
 msgid "Plug-ins"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:849
+#: ospy/templates/diagnostics.html:1050
 msgid "Check the OSPy event log and restart OSPy if plug-in diagnostics cannot be read."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:858 ospy/webpages.py:4083
+#: ospy/templates/diagnostics.html:1059 ospy/webpages.py:4083
 msgid "Diagnostics refresh failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:860
+#: ospy/templates/diagnostics.html:1061
 msgid "Admin access is required."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:916 ospy/templates/plugins_changes.html:23
+#: ospy/templates/diagnostics.html:1117 ospy/templates/plugins_changes.html:23
 #: ospy/templates/plugins_manage.html:67
 msgid "Working..."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:921 ospy/webpages.py:4041
+#: ospy/templates/diagnostics.html:1122 ospy/webpages.py:4041
 msgid "Restart failed."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:941 ospy/templates/edit.html:153
+#: ospy/templates/diagnostics.html:1142 ospy/templates/edit.html:153
 #: ospy/templates/graph_sensor.html:289 ospy/templates/log_sensor.html:12
 #: ospy/templates/log_sensor.html:156 ospy/templates/options.html:353
 #: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:660
@@ -4635,13 +5435,13 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:953
+#: ospy/templates/diagnostics.html:1154
 #: plugins/mqtt_home_assistant/__init__.py:840
 msgid "Component"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:954 ospy/templates/diagnostics.html:1033
-#: ospy/templates/diagnostics.html:1071 ospy/templates/log.html:226
+#: ospy/templates/diagnostics.html:1155 ospy/templates/diagnostics.html:1234
+#: ospy/templates/diagnostics.html:1272 ospy/templates/log.html:226
 #: ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:531
 #: plugins/button_control/templates/button_control.html:145
@@ -4712,261 +5512,321 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:956 ospy/templates/diagnostics.html:1042
-#: ospy/templates/diagnostics.html:1073 ospy/templates/diagnostics.html:1155
+#: ospy/templates/diagnostics.html:1157 ospy/templates/diagnostics.html:1243
+#: ospy/templates/diagnostics.html:1274 ospy/templates/diagnostics.html:1372
 msgid "Actions"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:960 ospy/templates/diagnostics.html:1046
-#: ospy/templates/diagnostics.html:1077 ospy/templates/diagnostics.html:1159
+#: ospy/templates/diagnostics.html:1161 ospy/templates/diagnostics.html:1247
+#: ospy/templates/diagnostics.html:1278 ospy/templates/diagnostics.html:1376
 #: ospy/templates/home_admin.html:827 ospy/templates/home_public.html:513
 #: ospy/templates/home_user.html:733
 msgid "loading..."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:964 ospy/templates/diagnostics.html:991
-#: ospy/templates/diagnostics.html:1081 ospy/templates/diagnostics.html:1163
+#: ospy/templates/diagnostics.html:1165 ospy/templates/diagnostics.html:1192
+#: ospy/templates/diagnostics.html:1282 ospy/templates/diagnostics.html:1380
 msgid "Updated"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:969
+#: ospy/templates/diagnostics.html:1170
 msgid "Performance and processes"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:980
+#: ospy/templates/diagnostics.html:1181
 msgid "Load"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:983
+#: ospy/templates/diagnostics.html:1184
 msgid "OSPy CPU"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:984
+#: ospy/templates/diagnostics.html:1185
 msgid "OSPy memory"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:987 ospy/templates/diagnostics.html:1039
+#: ospy/templates/diagnostics.html:1188 ospy/templates/diagnostics.html:1240
 msgid "Threads"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:988 plugins/system_info/__init__.py:53
+#: ospy/templates/diagnostics.html:1189 plugins/system_info/__init__.py:53
 msgid "Platform"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:997
+#: ospy/templates/diagnostics.html:1198
 msgid "Sort plugins"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:999
+#: ospy/templates/diagnostics.html:1200
 msgid "By CPU load"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1000
+#: ospy/templates/diagnostics.html:1201
 msgid "By plug-in name"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1001
+#: ospy/templates/diagnostics.html:1202
 msgid "By total CPU time"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1004
+#: ospy/templates/diagnostics.html:1205
 msgid "Expand all details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1005
+#: ospy/templates/diagnostics.html:1206
 msgid "Collapse all details"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1014 ospy/templates/twofactor.html:99
+#: ospy/templates/diagnostics.html:1215 ospy/templates/twofactor.html:99
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:44
 msgid "Back"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1015
+#: ospy/templates/diagnostics.html:1216
 msgid "History range"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1017
+#: ospy/templates/diagnostics.html:1218
 #: plugins/wind_monitor/templates/wind_monitor.html:362
 msgid "1 hour"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1018
+#: ospy/templates/diagnostics.html:1219
 msgid "24 hours"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1019
+#: ospy/templates/diagnostics.html:1220
 msgid "7 days"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1034
+#: ospy/templates/diagnostics.html:1235
 msgid "Health"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1035 ospy/templates/plugins_changes.html:53
+#: ospy/templates/diagnostics.html:1236 ospy/templates/plugins_changes.html:53
 #: ospy/templates/plugins_install.html:78
 #: ospy/templates/plugins_manage.html:271
 msgid "Compatibility"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1037
+#: ospy/templates/diagnostics.html:1238
 msgid "CPU now"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1038
+#: ospy/templates/diagnostics.html:1239
 msgid "CPU total"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1040
+#: ospy/templates/diagnostics.html:1241
 #: plugins/database_connector/__init__.py:110
 #: plugins/labelmaker/__init__.py:461 plugins/modbus_stations/__init__.py:142
 #: plugins/ospy_backup/__init__.py:89
 msgid "Started"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1041
+#: ospy/templates/diagnostics.html:1242
 msgid "Restarts"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1054
+#: ospy/templates/diagnostics.html:1255
 msgid "Security check"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1057
+#: ospy/templates/diagnostics.html:1258
 msgid "Recommended profile"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1059 ospy/webpages.py:3473
+#: ospy/templates/diagnostics.html:1260 ospy/webpages.py:3473
 msgid "Home network"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1060 ospy/webpages.py:3478
+#: ospy/templates/diagnostics.html:1261 ospy/webpages.py:3478
 msgid "Internet access"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1062
+#: ospy/templates/diagnostics.html:1263
 msgid "The selected profile changes only the assessment and does not modify OSPy settings."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1070
+#: ospy/templates/diagnostics.html:1271
 msgid "Security control"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1086
+#: ospy/templates/diagnostics.html:1287
 msgid "How OSPy works"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1090
+#: ospy/templates/diagnostics.html:1291
 msgid "Diagram topic"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1092
+#: ospy/templates/diagnostics.html:1293
 msgid "Program and scheduler"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1093
+#: ospy/templates/diagnostics.html:1294
 msgid "Station start decision"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1094
+#: ospy/templates/diagnostics.html:1295
 msgid "Master station sequence"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1095
+#: ospy/templates/diagnostics.html:1296
 msgid "Weather data flow"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1096
+#: ospy/templates/diagnostics.html:1297
 msgid "Sensor data and rules"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1097
+#: ospy/templates/diagnostics.html:1298
 msgid "Plug-in lifecycle"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1098
+#: ospy/templates/diagnostics.html:1299
 msgid "Safe OSPy update"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1099
+#: ospy/templates/diagnostics.html:1300
 msgid "Settings storage and recovery"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1100
+#: ospy/templates/diagnostics.html:1301
 msgid "Backup and restore"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1103
+#: ospy/templates/diagnostics.html:1302
+msgid "Web access and authorization"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1303
+msgid "HTTPS and certificates"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1304
+msgid "Login and two-factor authentication"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1305
+msgid "Sessions and security tokens"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1306
+msgid "API and sensor security"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1307
+msgid "Irrigation priority and concurrency"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1308
+msgid "Rain and water balance"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1309
+msgid "Output hardware path"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1310
+msgid "Users and role permissions"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1311
+msgid "Events, incidents, and debug logging"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1312
+msgid "Notifications and e-mail delivery"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1313
+msgid "OSPy startup and shutdown"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1314
+msgid "Plug-in permission approval"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1315
+msgid "Complete sensor lifecycle"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1316
+msgid "Network access and Internet exposure"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1317
+msgid "Clean OSPy installation"
+msgstr ""
+
+#: ospy/templates/diagnostics.html:1320
 msgid "Zoom out"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1104
+#: ospy/templates/diagnostics.html:1321
 msgid "Reset zoom"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1105
+#: ospy/templates/diagnostics.html:1322
 msgid "Zoom in"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1107
+#: ospy/templates/diagnostics.html:1324
 msgid "Print"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1108
+#: ospy/templates/diagnostics.html:1325
 msgid "SVG"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1109
+#: ospy/templates/diagnostics.html:1326
 msgid "PNG"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1113
+#: ospy/templates/diagnostics.html:1330
 msgid "Diagram legend"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1114
+#: ospy/templates/diagnostics.html:1331
 msgid "Processing"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1115
+#: ospy/templates/diagnostics.html:1332
 msgid "Decision"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1116
+#: ospy/templates/diagnostics.html:1333
 msgid "Waiting or delay"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1117 ospy/templates/log.html:217
+#: ospy/templates/diagnostics.html:1334 ospy/templates/log.html:217
 #: plugins/system_update/__init__.py:1036
 #: plugins/system_update/__init__.py:1058
 msgid "Success"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1118
+#: ospy/templates/diagnostics.html:1335
 msgid "Blocked or error"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1119
-msgid "Optional"
-msgstr ""
-
-#: ospy/templates/diagnostics.html:1123
+#: ospy/templates/diagnostics.html:1340
 msgid "Select a topic to see the processing flow. Nodes with a dotted outline open the related OSPy page."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1124
+#: ospy/templates/diagnostics.html:1341
 msgid "Open related help"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1131
+#: ospy/templates/diagnostics.html:1348
 msgid "Incident history"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1134
+#: ospy/templates/diagnostics.html:1351
 msgid "Show incidents"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1136 ospy/templates/graph_sensor.html:200
+#: ospy/templates/diagnostics.html:1353 ospy/templates/graph_sensor.html:200
 #: ospy/templates/graph_sensor.html:262
 #: plugins/air_temp_humi/templates/air_temp_humi.html:232
 #: plugins/air_temp_humi/templates/air_temp_humi.html:555
@@ -4989,11 +5849,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1141
+#: ospy/templates/diagnostics.html:1358
 msgid "Displayed"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1148
+#: ospy/templates/diagnostics.html:1365
 #: ospy/templates/sensors_firmware.html:136
 #: plugins/email_reader/__init__.py:405
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:176
@@ -5010,31 +5870,31 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1149
+#: ospy/templates/diagnostics.html:1366
 msgid "Severity"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1150
+#: ospy/templates/diagnostics.html:1367
 msgid "Component and problem"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1151
+#: ospy/templates/diagnostics.html:1368
 msgid "Opened"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1152
+#: ospy/templates/diagnostics.html:1369
 msgid "Last occurrence"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1154 ospy/webpages.py:3546
+#: ospy/templates/diagnostics.html:1371 ospy/webpages.py:3546
 msgid "Occurrences"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1163
+#: ospy/templates/diagnostics.html:1380
 msgid "History is limited to the 200 most recent incidents and survives an OSPy restart."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:1173 ospy/templates/home_admin.html:94
+#: ospy/templates/diagnostics.html:1390 ospy/templates/home_admin.html:94
 msgid "Diagnostics error"
 msgstr ""
 

@@ -228,6 +228,432 @@
                     edge('apply', 'restart')
                 ],
                 links: {create: '/options#systemBackupSection', upload: '/options#systemBackupSection', restart: '/diagnostics'}
+            },
+            webSecurity: {
+                description: text('webSecurityDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('request', 'process', text('browserRequest')),
+                    node('https', 'decision', text('httpsActive')),
+                    node('transport', 'success', text('encryptedTransport')),
+                    node('anonymous', 'decision', text('authenticationRequired')),
+                    node('login', 'process', text('verifyCredentials')),
+                    node('lockout', 'decision', text('bruteForceAllowed')),
+                    node('secondFactor', 'optional', text('secondFactorCheck')),
+                    node('role', 'decision', text('roleAllowsPage')),
+                    node('csrf', 'decision', text('csrfRequiredForChange')),
+                    node('allow', 'success', text('serveAuthorizedPage')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('warning', 'error', text('unencryptedOrAnonymous'))
+                ],
+                edges: [
+                    edge('request', 'https'), edge('https', 'transport', text('yes')),
+                    edge('https', 'warning', text('no')), edge('transport', 'anonymous'),
+                    edge('warning', 'anonymous'), edge('anonymous', 'login', text('yes')),
+                    edge('anonymous', 'role', text('no')), edge('login', 'lockout'),
+                    edge('lockout', 'reject', text('blocked')), edge('lockout', 'secondFactor', text('allowed')),
+                    edge('secondFactor', 'role'), edge('role', 'reject', text('no')),
+                    edge('role', 'csrf', text('yes')), edge('csrf', 'reject', text('invalid')),
+                    edge('csrf', 'allow', text('valid'))
+                ],
+                links: {https: '/options', login: '/login', secondFactor: '/twofactor', role: '/options', reject: '/log'}
+            },
+            https: {
+                description: text('httpsDescription'),
+                help: '/help#9',
+                nodes: [
+                    node('setting', 'process', text('httpsConfiguration')),
+                    node('source', 'decision', text('certificateSource')),
+                    node('own', 'optional', text('ownCertificate')),
+                    node('letsencrypt', 'optional', "Let's Encrypt"),
+                    node('files', 'decision', text('certificateFilesValid')),
+                    node('listener', 'process', text('startHttpsListener')),
+                    node('handshake', 'decision', text('tlsHandshakeValid')),
+                    node('encrypted', 'success', text('encryptedConnection')),
+                    node('proxy', 'optional', text('reverseProxyHeaders')),
+                    node('fallback', 'error', text('httpsFallbackWarning')),
+                    node('browserError', 'error', text('browserCertificateWarning'))
+                ],
+                edges: [
+                    edge('setting', 'source'), edge('source', 'own'), edge('source', 'letsencrypt'),
+                    edge('own', 'files'), edge('letsencrypt', 'files'),
+                    edge('files', 'listener', text('valid')), edge('files', 'fallback', text('invalid')),
+                    edge('listener', 'handshake'), edge('handshake', 'encrypted', text('yes')),
+                    edge('handshake', 'browserError', text('no')), edge('encrypted', 'proxy', text('optional'))
+                ],
+                links: {setting: '/options', files: '/options', fallback: '/diagnostics'}
+            },
+            twoFactor: {
+                description: text('twoFactorDescription'),
+                help: '/help#2',
+                nodes: [
+                    node('password', 'process', text('usernameAndPassword')),
+                    node('primary', 'decision', text('primaryCredentialsValid')),
+                    node('enabled', 'decision', text('twoFactorEnabled')),
+                    node('method', 'decision', text('selectedSecondFactor')),
+                    node('totp', 'optional', text('totpCodeAndClock')),
+                    node('email', 'optional', text('emailOneTimeCode')),
+                    node('backup', 'optional', text('oneTimeBackupCode')),
+                    node('verify', 'decision', text('secondFactorValid')),
+                    node('session', 'success', text('createAuthenticatedSession')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('revoke', 'process', text('revokeRememberedLogins'))
+                ],
+                edges: [
+                    edge('password', 'primary'), edge('primary', 'reject', text('no')),
+                    edge('primary', 'enabled', text('yes')), edge('enabled', 'session', text('no')),
+                    edge('enabled', 'method', text('yes')), edge('method', 'totp'),
+                    edge('method', 'email'), edge('method', 'backup'),
+                    edge('totp', 'verify'), edge('email', 'verify'), edge('backup', 'verify'),
+                    edge('verify', 'session', text('yes')), edge('verify', 'reject', text('no')),
+                    edge('revoke', 'password')
+                ],
+                links: {password: '/login', enabled: '/twofactor', email: '/plugins/email_notifications_ssl', reject: '/log', revoke: '/options'}
+            },
+            securityTokens: {
+                description: text('securityTokensDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('page', 'process', text('authenticatedFormPage')),
+                    node('sessionToken', 'process', text('sessionCookie')),
+                    node('csrfToken', 'process', text('csrfFormToken')),
+                    node('submit', 'process', text('stateChangingRequest')),
+                    node('sessionValid', 'decision', text('sessionStillValid')),
+                    node('csrfValid', 'decision', text('csrfTokenMatches')),
+                    node('apply', 'success', text('applyAndAuditChange')),
+                    node('reject', 'error', text('rejectExpiredOrInvalidToken')),
+                    node('fullLogin', 'process', text('successfulFullLogin')),
+                    node('remember', 'optional', text('randomRememberMeToken')),
+                    node('hash', 'process', text('storeTokenHashOnly')),
+                    node('cookie', 'wait', text('secureRememberMeCookie')),
+                    node('restore', 'decision', text('tokenValidAndUserAllowed')),
+                    node('revoke', 'error', text('expireOrRevokeToken'))
+                ],
+                edges: [
+                    edge('page', 'sessionToken'), edge('page', 'csrfToken'),
+                    edge('sessionToken', 'submit'), edge('csrfToken', 'submit'),
+                    edge('submit', 'sessionValid'), edge('sessionValid', 'reject', text('no')),
+                    edge('sessionValid', 'csrfValid', text('yes')), edge('csrfValid', 'reject', text('no')),
+                    edge('csrfValid', 'apply', text('yes')), edge('fullLogin', 'remember'),
+                    edge('remember', 'hash'), edge('remember', 'cookie'),
+                    edge('cookie', 'restore'), edge('hash', 'restore'),
+                    edge('restore', 'sessionToken', text('yes')), edge('restore', 'revoke', text('no'))
+                ],
+                links: {page: '/options', fullLogin: '/login', revoke: '/options', reject: '/login'}
+            },
+            apiSecurity: {
+                description: text('apiSecurityDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('request', 'process', text('apiOrSensorRequest')),
+                    node('sensor', 'decision', text('sensorEndpoint')),
+                    node('authRequired', 'decision', text('sensorAuthRequired')),
+                    node('basic', 'process', text('httpBasicAuthentication')),
+                    node('throttle', 'decision', text('bruteForceAllowed')),
+                    node('role', 'decision', text('apiRoleAllowsOperation')),
+                    node('change', 'decision', text('stateChangingApiRequest')),
+                    node('csrf', 'decision', text('apiCsrfTokenValid')),
+                    node('cors', 'optional', text('corsBrowserReadRule')),
+                    node('execute', 'success', text('executeAndAuditApiAction')),
+                    node('reject', 'error', text('rejectAndAudit')),
+                    node('sensorData', 'success', text('acceptSensorMeasurement'))
+                ],
+                edges: [
+                    edge('request', 'sensor'), edge('sensor', 'authRequired', text('yes')),
+                    edge('sensor', 'basic', text('no')), edge('authRequired', 'basic', text('yes')),
+                    edge('authRequired', 'sensorData', text('no')), edge('basic', 'throttle'),
+                    edge('throttle', 'reject', text('blocked')), edge('throttle', 'role', text('allowed')),
+                    edge('role', 'reject', text('no')), edge('role', 'change', text('yes')),
+                    edge('change', 'csrf', text('yes')), edge('change', 'cors', text('no')),
+                    edge('csrf', 'reject', text('invalid')), edge('csrf', 'execute', text('valid')),
+                    edge('cors', 'execute'), edge('role', 'sensorData', text('sensor'))
+                ],
+                links: {request: '/help#7', authRequired: '/options', csrf: '/options', cors: '/options', reject: '/log', sensorData: '/sensors'}
+            },
+            irrigationPriority: {
+                description: text('irrigationPriorityDescription'),
+                help: '/help#8',
+                nodes: [
+                    node('scheduled', 'process', text('scheduledProgramRuns')),
+                    node('manual', 'optional', text('manualModeRuns')),
+                    node('runonce', 'optional', text('runOnceRuns')),
+                    node('queue', 'process', text('mergeRunQueue')),
+                    node('priority', 'decision', text('selectRunPriority')),
+                    node('capacity', 'decision', text('outputUsageAvailable')),
+                    node('delay', 'wait', text('stationAndGroupDelay')),
+                    node('postpone', 'wait', text('postponeConflictingRun')),
+                    node('start', 'success', text('startEligibleStations')),
+                    node('finish', 'process', text('releaseCapacityAndContinue'))
+                ],
+                edges: [
+                    edge('scheduled', 'queue'), edge('manual', 'queue'), edge('runonce', 'queue'),
+                    edge('queue', 'priority'), edge('priority', 'capacity'),
+                    edge('capacity', 'delay', text('yes')), edge('capacity', 'postpone', text('no')),
+                    edge('postpone', 'capacity'), edge('delay', 'start'), edge('start', 'finish'),
+                    edge('finish', 'priority', text('next'))
+                ],
+                links: {scheduled: '/programs', manual: '/', runonce: '/runonce', postpone: '/programs', start: '/'}
+            },
+            rainWaterBalance: {
+                description: text('rainWaterBalanceDescription'),
+                help: '/help#9',
+                nodes: [
+                    node('program', 'process', text('weatherAwareProgram')),
+                    node('rainSensor', 'decision', text('rainSensorWet')),
+                    node('rainDelay', 'decision', text('manualRainDelayActive')),
+                    node('forecast', 'process', text('normalizedWeatherForecast')),
+                    node('balance', 'process', text('updateWaterBalance')),
+                    node('need', 'decision', text('irrigationNeeded')),
+                    node('factor', 'process', text('calculateDurationFactor')),
+                    node('skip', 'error', text('skipAndRecordReason')),
+                    node('schedule', 'success', text('scheduleAdjustedDuration')),
+                    node('history', 'process', text('storeBalanceAndResult'))
+                ],
+                edges: [
+                    edge('program', 'rainSensor'), edge('rainSensor', 'skip', text('yes')),
+                    edge('rainSensor', 'rainDelay', text('no')), edge('rainDelay', 'skip', text('yes')),
+                    edge('rainDelay', 'forecast', text('no')), edge('forecast', 'balance'),
+                    edge('balance', 'need'), edge('need', 'skip', text('no')),
+                    edge('need', 'factor', text('yes')), edge('factor', 'schedule'),
+                    edge('schedule', 'history'), edge('skip', 'history')
+                ],
+                links: {program: '/programs', rainSensor: '/options', rainDelay: '/', forecast: '/options#weatherSection', history: '/log'}
+            },
+            outputHardware: {
+                description: text('outputHardwareDescription'),
+                help: '/help#9',
+                nodes: [
+                    node('request', 'process', text('stationOutputRequest')),
+                    node('mapping', 'process', text('resolveOutputMapping')),
+                    node('master', 'optional', text('applyMasterSequence')),
+                    node('backend', 'decision', text('selectedOutputBackend')),
+                    node('gpio', 'optional', 'GPIO'),
+                    node('shift', 'optional', text('shiftRegister')),
+                    node('remote', 'optional', text('pluginOrRemoteOutput')),
+                    node('invert', 'decision', text('activeLowOutput')),
+                    node('write', 'process', text('writeRequestedState')),
+                    node('ack', 'success', text('commandAcceptedByDriver')),
+                    node('feedback', 'optional', text('optionalPhysicalFeedback')),
+                    node('safeOff', 'error', text('safeOutputsOff'))
+                ],
+                edges: [
+                    edge('request', 'mapping'), edge('mapping', 'master'), edge('master', 'backend'),
+                    edge('backend', 'gpio'), edge('backend', 'shift'), edge('backend', 'remote'),
+                    edge('gpio', 'invert'), edge('shift', 'invert'), edge('remote', 'invert'),
+                    edge('invert', 'write'), edge('write', 'ack'), edge('ack', 'feedback'),
+                    edge('write', 'safeOff', text('failed'))
+                ],
+                links: {request: '/stations', mapping: '/options', ack: '/diagnostics', safeOff: '/diagnostics'}
+            },
+            userRoles: {
+                description: text('userRolesDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('request', 'process', text('protectedPageOrAction')),
+                    node('session', 'decision', text('authenticatedSessionPresent')),
+                    node('anonymous', 'optional', text('anonymousVisitor')),
+                    node('role', 'decision', text('currentUserRole')),
+                    node('admin', 'optional', text('administratorRole')),
+                    node('user', 'optional', text('operatorRole')),
+                    node('public', 'optional', text('publicRole')),
+                    node('policy', 'decision', text('routePolicyAllowsRole')),
+                    node('csrf', 'decision', text('csrfRequiredForChange')),
+                    node('allow', 'success', text('allowScopedOperation')),
+                    node('reject', 'error', text('denyAndAuditAccess'))
+                ],
+                edges: [
+                    edge('request', 'session'), edge('session', 'role', text('yes')),
+                    edge('session', 'anonymous', text('no')), edge('anonymous', 'public'),
+                    edge('role', 'admin'), edge('role', 'user'), edge('role', 'public'),
+                    edge('admin', 'policy'), edge('user', 'policy'), edge('public', 'policy'),
+                    edge('policy', 'reject', text('no')), edge('policy', 'csrf', text('yes')),
+                    edge('csrf', 'reject', text('invalid')), edge('csrf', 'allow', text('valid'))
+                ],
+                links: {request: '/login', admin: '/options', user: '/', policy: '/help#7', reject: '/log'}
+            },
+            eventsIncidents: {
+                description: text('eventsIncidentsDescription'),
+                help: '/help#5',
+                nodes: [
+                    node('operation', 'process', text('systemOperationOrFailure')),
+                    node('event', 'process', text('categorizedOperationalEvent')),
+                    node('eventLog', 'success', text('persistentEventsLog')),
+                    node('problem', 'decision', text('recoverableCoreProblem')),
+                    node('registry', 'error', text('activeProblemRegistry')),
+                    node('modal', 'error', text('diagnosticErrorModal')),
+                    node('incident', 'process', text('persistentIncidentHistory')),
+                    node('retry', 'decision', text('laterRetrySuccessful')),
+                    node('resolved', 'success', text('resolveActiveIncident')),
+                    node('debug', 'optional', text('technicalDebugTraceback'))
+                ],
+                edges: [
+                    edge('operation', 'event'), edge('event', 'eventLog'),
+                    edge('operation', 'problem'), edge('problem', 'registry', text('yes')),
+                    edge('problem', 'debug', text('technicalDetails')), edge('registry', 'modal'),
+                    edge('registry', 'incident'), edge('incident', 'retry'),
+                    edge('retry', 'resolved', text('yes')), edge('retry', 'registry', text('no')),
+                    edge('resolved', 'incident')
+                ],
+                links: {eventLog: '/log', registry: '/diagnostics', modal: '/diagnostics', incident: '/diagnostics', debug: '/plugins/system_debug'}
+            },
+            notifications: {
+                description: text('notificationsDescription'),
+                help: '/help#1',
+                nodes: [
+                    node('trigger', 'process', text('notificationTrigger')),
+                    node('enabled', 'decision', text('notificationEnabledForEvent')),
+                    node('provider', 'decision', text('notificationProviderReady')),
+                    node('compose', 'process', text('composeLocalizedMessage')),
+                    node('sections', 'optional', text('addStationSensorAndMeterData')),
+                    node('connect', 'process', text('secureSmtpConnection')),
+                    node('send', 'decision', text('messageAcceptedByServer')),
+                    node('success', 'success', text('recordNotificationSuccess')),
+                    node('retry', 'wait', text('boundedRetryQueue')),
+                    node('error', 'error', text('recordNotificationFailure'))
+                ],
+                edges: [
+                    edge('trigger', 'enabled'), edge('enabled', 'provider', text('yes')),
+                    edge('enabled', 'error', text('no')), edge('provider', 'compose', text('yes')),
+                    edge('provider', 'error', text('no')), edge('compose', 'sections'),
+                    edge('sections', 'connect'), edge('connect', 'send'),
+                    edge('send', 'success', text('yes')), edge('send', 'retry', text('no')),
+                    edge('retry', 'connect', text('retry')), edge('retry', 'error', text('exhausted'))
+                ],
+                links: {trigger: '/log', provider: '/plugins/email_notifications_ssl', success: '/log', error: '/log'}
+            },
+            startupShutdown: {
+                description: text('startupShutdownDescription'),
+                help: '/help#3',
+                nodes: [
+                    node('service', 'process', text('systemServiceStartsOSPy')),
+                    node('settings', 'decision', text('loadAndValidateSettings')),
+                    node('outputs', 'process', text('initializeOutputsSafeOff')),
+                    node('core', 'process', text('startCoreWorkers')),
+                    node('dependencies', 'process', text('resolvePluginDependencyOrder')),
+                    node('plugins', 'process', text('startAndCheckPlugins')),
+                    node('ready', 'success', text('webSchedulerAndWatchdogReady')),
+                    node('failure', 'error', text('safeStartupFailure')),
+                    node('shutdown', 'process', text('shutdownRequested')),
+                    node('irrigation', 'process', text('stopIrrigationAndMasters')),
+                    node('reverse', 'process', text('stopPluginsInReverseOrder')),
+                    node('threads', 'wait', text('joinManagedWorkers')),
+                    node('off', 'success', text('outputsOffAndProcessEnds'))
+                ],
+                edges: [
+                    edge('service', 'settings'), edge('settings', 'outputs', text('valid')),
+                    edge('settings', 'failure', text('invalid')), edge('outputs', 'core'),
+                    edge('core', 'dependencies'), edge('dependencies', 'plugins'),
+                    edge('plugins', 'ready'), edge('ready', 'shutdown'),
+                    edge('failure', 'outputs'), edge('shutdown', 'irrigation'),
+                    edge('irrigation', 'reverse'), edge('reverse', 'threads'), edge('threads', 'off')
+                ],
+                links: {service: '/diagnostics', settings: '/options', plugins: '/plugins_manage', ready: '/diagnostics', shutdown: '/options'}
+            },
+            pluginPermissions: {
+                description: text('pluginPermissionsDescription'),
+                help: '/help#1',
+                nodes: [
+                    node('manifest', 'process', text('manifestPermissionDeclaration')),
+                    node('compare', 'decision', text('permissionSetAlreadyApproved')),
+                    node('changed', 'decision', text('newPermissionsRequested')),
+                    node('review', 'wait', text('administratorReviewsMeanings')),
+                    node('approve', 'decision', text('administratorApprovesSet')),
+                    node('persist', 'process', text('persistApprovalAndAudit')),
+                    node('preflight', 'decision', text('preactivationTest')),
+                    node('start', 'success', text('importAndStartPlugin')),
+                    node('block', 'error', text('blockInstallUpdateOrActivation')),
+                    node('revoke', 'error', text('revocationDisablesPlugin'))
+                ],
+                edges: [
+                    edge('manifest', 'compare'), edge('compare', 'preflight', text('yes')),
+                    edge('compare', 'changed', text('no')), edge('changed', 'review', text('yes')),
+                    edge('changed', 'block', text('invalid')), edge('review', 'approve'),
+                    edge('approve', 'persist', text('yes')), edge('approve', 'block', text('no')),
+                    edge('persist', 'preflight'), edge('preflight', 'start', text('passed')),
+                    edge('preflight', 'block', text('failed')), edge('persist', 'revoke', text('laterRevoked'))
+                ],
+                links: {manifest: '/plugins_manage', review: '/plugins_manage', start: '/diagnostics', block: '/plugins_manage', revoke: '/plugins_manage'}
+            },
+            sensorLifecycle: {
+                description: text('sensorLifecycleDescription'),
+                help: '/help#20',
+                nodes: [
+                    node('discover', 'process', text('discoverOrCreateSensor')),
+                    node('identity', 'process', text('identifyByMacAndCurrentIp')),
+                    node('receive', 'process', text('pollOrReceiveMeasurement')),
+                    node('validate', 'decision', text('measurementAndIdentityValid')),
+                    node('state', 'process', text('updateValueSignalAndLastResponse')),
+                    node('stale', 'decision', text('responseWithinExpectedInterval')),
+                    node('rules', 'decision', text('thresholdOrProgramRuleMatched')),
+                    node('normal', 'success', text('sensorHealthy')),
+                    node('action', 'error', text('blockStopOrStartConfiguredAction')),
+                    node('history', 'optional', text('storeHistoryEventAndNotification')),
+                    node('offline', 'error', text('markSensorNotResponding'))
+                ],
+                edges: [
+                    edge('discover', 'identity'), edge('identity', 'receive'),
+                    edge('receive', 'validate'), edge('validate', 'state', text('yes')),
+                    edge('validate', 'history', text('no')), edge('state', 'stale'),
+                    edge('stale', 'offline', text('no')), edge('stale', 'rules', text('yes')),
+                    edge('rules', 'normal', text('no')), edge('rules', 'action', text('yes')),
+                    edge('action', 'history'), edge('normal', 'history'), edge('offline', 'history')
+                ],
+                links: {discover: '/sensors?search', identity: '/sensors', state: '/sensors', action: '/programs', history: '/log'}
+            },
+            networkExposure: {
+                description: text('networkExposureDescription'),
+                help: '/help#7',
+                nodes: [
+                    node('client', 'process', text('browserOrIntegrationClient')),
+                    node('location', 'decision', text('clientOnTrustedHomeNetwork')),
+                    node('lan', 'optional', text('localLanAccess')),
+                    node('internet', 'error', text('internetExposure')),
+                    node('firewall', 'decision', text('firewallAndPortPolicy')),
+                    node('proxy', 'optional', text('reverseProxyOrVpn')),
+                    node('tls', 'decision', text('httpsAndTrustedCertificate')),
+                    node('listener', 'process', text('ospyWebListener')),
+                    node('auth', 'decision', text('strongLoginAndTwoFactor')),
+                    node('allow', 'success', text('restrictedAuthenticatedAccess')),
+                    node('risk', 'error', text('publicHttpOrAnonymousRisk'))
+                ],
+                edges: [
+                    edge('client', 'location'), edge('location', 'lan', text('yes')),
+                    edge('location', 'internet', text('no')), edge('lan', 'listener'),
+                    edge('internet', 'firewall'), edge('firewall', 'risk', text('openUnsafe')),
+                    edge('firewall', 'proxy', text('restricted')), edge('proxy', 'tls'),
+                    edge('tls', 'risk', text('no')), edge('tls', 'listener', text('yes')),
+                    edge('listener', 'auth'), edge('auth', 'allow', text('yes')),
+                    edge('auth', 'risk', text('no'))
+                ],
+                links: {firewall: '/help#7', proxy: '/help#7', tls: '/options', auth: '/twofactor', risk: '/diagnostics'}
+            },
+            cleanInstallation: {
+                description: text('cleanInstallationDescription'),
+                help: '/help#0',
+                nodes: [
+                    node('platform', 'decision', text('supportedLinuxAndPython')),
+                    node('menu', 'process', text('chooseInstallDirectoryAndPackages')),
+                    node('existing', 'decision', text('existingGitCheckout')),
+                    node('preserve', 'error', text('stopWithoutDeletingExistingInstall')),
+                    node('download', 'process', text('downloadStableMasterCheckout')),
+                    node('dependencies', 'process', text('installCoreAndSelectedDependencies')),
+                    node('sqlite', 'decision', text('sqliteMemoryIntegrityCheck')),
+                    node('service', 'process', text('installValidatedSystemdService')),
+                    node('hardware', 'optional', text('configureGroupsAndOptionalI2c')),
+                    node('start', 'decision', text('startAndVerifyService')),
+                    node('login', 'success', text('openPortAndChangeGeneratedPassword')),
+                    node('diagnose', 'error', text('showServiceFailureAndDiagnostics'))
+                ],
+                edges: [
+                    edge('platform', 'menu', text('supported')), edge('platform', 'diagnose', text('unsupported')),
+                    edge('menu', 'existing'), edge('existing', 'preserve', text('yes')),
+                    edge('existing', 'download', text('no')), edge('download', 'dependencies'),
+                    edge('dependencies', 'sqlite'), edge('sqlite', 'service', text('passed')),
+                    edge('sqlite', 'diagnose', text('failed')), edge('service', 'hardware'),
+                    edge('hardware', 'start'), edge('start', 'login', text('yes')),
+                    edge('start', 'diagnose', text('no'))
+                ],
+                links: {platform: '/help#0', preserve: '/help#0', service: '/diagnostics', login: '/login', diagnose: '/diagnostics'}
             }
         };
     }

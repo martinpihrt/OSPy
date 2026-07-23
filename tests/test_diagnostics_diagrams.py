@@ -14,6 +14,22 @@ TOPICS = (
     'update',
     'storage',
     'backup',
+    'webSecurity',
+    'https',
+    'twoFactor',
+    'securityTokens',
+    'apiSecurity',
+    'irrigationPriority',
+    'rainWaterBalance',
+    'outputHardware',
+    'userRoles',
+    'eventsIncidents',
+    'notifications',
+    'startupShutdown',
+    'pluginPermissions',
+    'sensorLifecycle',
+    'networkExposure',
+    'cleanInstallation',
 )
 
 
@@ -38,13 +54,19 @@ class DiagnosticsDiagramTests(unittest.TestCase):
         self.assertIn("downloadBlob(svgBlob(), 'svg')", script)
         self.assertIn("canvas.toBlob", script)
         self.assertIn("window.print()", script)
+        self.assertIn("storeTokenHashOnly", script)
+        self.assertIn("corsBrowserReadRule", script)
+        self.assertIn("commandAcceptedByDriver", script)
+        self.assertIn("stopPluginsInReverseOrder", script)
+        self.assertIn("downloadStableMasterCheckout", script)
+        self.assertIn("sqliteMemoryIntegrityCheck", script)
 
     def test_pinned_mermaid_bundle_and_license_are_present(self):
         bundle = ROOT / 'static' / 'scripts' / 'mermaid-10.9.6.min.js'
         license_file = ROOT / 'static' / 'scripts' / 'mermaid-LICENSE.txt'
         self.assertGreater(bundle.stat().st_size, 1_000_000)
         self.assertEqual(
-            hashlib.sha256(bundle.read_bytes()).hexdigest(),
+            hashlib.sha256(bundle.read_bytes().replace(b'\r\n', b'\n')).hexdigest(),
             'eda3a0ad572bbe69a318c1be0163e8233dd824f3f12939e5168feba207767151',
         )
         self.assertIn('MIT License', license_file.read_text(encoding='utf-8'))
