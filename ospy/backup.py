@@ -83,6 +83,9 @@ def _settings_snapshot_guard(root):
         actual = os.path.abspath(os.environ.get("OSPY_DATA_DIR", "./ospy/data"))
         if os.path.normcase(expected) == os.path.normcase(actual):
             from ospy.options import options
+            from ospy.log import flush_persistent_logs
+            if not flush_persistent_logs():
+                raise BackupError(_("Pending logs could not be saved before backup."))
             if not options.flush():
                 raise BackupError(_("Pending settings could not be saved before backup."))
             live_options = options

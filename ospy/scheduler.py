@@ -5,6 +5,7 @@ __author__ = 'Rimco'
 from blinker import signal
 
 # System imports
+from queue import Full, Queue
 from threading import Event, Thread, current_thread
 import datetime
 import time
@@ -37,38 +38,131 @@ rain_delay_remove = signal('rain_delay_remove')
 core_30_sec_tick = signal('core_30_sec_tick')
 
 
+class _SchedulerSignalDispatcher(Thread):
+    """Deliver plug-in events without blocking the scheduler loop."""
+
+    def __init__(self):
+        super(_SchedulerSignalDispatcher, self).__init__(
+            name='OSPy scheduler notifications'
+        )
+        self.daemon = True
+        self._queue = Queue(maxsize=256)
+        self.start()
+
+    def submit(self, event, description, sender=None, **kwargs):
+        kwargs.setdefault('occurred_at', datetime.datetime.now())
+        try:
+            self._queue.put_nowait((event, sender, description, kwargs))
+            update_details(
+                'scheduler',
+                notification_queue=self._queue.qsize(),
+                notification_pending=self._queue.unfinished_tasks,
+            )
+            return True
+        except Full:
+            message = _('Scheduler notification queue is full')
+            update_details(
+                'scheduler',
+                notification_queue=self._queue.qsize(),
+                notification_error=message,
+            )
+            logging.error(message)
+            return False
+
+    def run(self):
+        while True:
+            event, sender, description, kwargs = self._queue.get()
+            notification_error = ''
+            update_details(
+                'scheduler',
+                notification_active=description,
+                notification_active_since=time.time(),
+                notification_pending=self._queue.unfinished_tasks,
+            )
+            try:
+                event.send(sender, **kwargs)
+            except Exception:
+                error = traceback.format_exc()
+                notification_error = '{}: {}'.format(
+                    description, error.splitlines()[-1]
+                )
+                logging.error('{}:\n{}'.format(description, error))
+            finally:
+                self._queue.task_done()
+                update_details(
+                    'scheduler',
+                    notification_queue=self._queue.qsize(),
+                    notification_pending=self._queue.unfinished_tasks,
+                    notification_active='',
+                    notification_active_since=0,
+                    notification_error=notification_error,
+                )
+
+    def wait_empty(self, timeout=2.0):
+        deadline = time.time() + max(0.0, timeout)
+        while self._queue.unfinished_tasks and time.time() < deadline:
+            time.sleep(0.01)
+        return self._queue.unfinished_tasks == 0
+
+
+_scheduler_signal_dispatcher = _SchedulerSignalDispatcher()
+
+
+def _send_scheduler_signal(event, description, sender=None, **kwargs):
+    return _scheduler_signal_dispatcher.submit(
+        event, description, sender=sender, **kwargs
+    )
+
+
 def report_rain_delay_set():      # send rain delay setuped signal
     remaining = abs(rain_blocks.seconds_left())
     m, s = divmod(remaining, 60)
     h, m = divmod(m, 60)
-    rain_delay_set.send(txt='{}:{}:{}'.format(int(h), int(m), int(s)))
+    _send_scheduler_signal(
+        rain_delay_set,
+        _('Rain delay notification failed'),
+        txt='{}:{}:{}'.format(int(h), int(m), int(s)),
+    )
     logEV.save_events_log(_('Rain delay'), _('Rain delay has set a delay {} hours {} minutes {} seconds').format(int(h), int(m), int(s)), id='RainDelay', level='warning', category='irrigation')
 
 def report_rain_delay_remove():   # send rain delay removed signal
-    rain_delay_remove.send() 
+    _send_scheduler_signal(
+        rain_delay_remove, _('Rain delay removal notification failed')
+    )
     logEV.save_events_log(_('Rain delay'), _('Rain delay has now been removed'), id='RainDelay', level='success', category='irrigation')
 
 def report_rain():
-    rain_active.send()            # send rain signal
+    _send_scheduler_signal(
+        rain_active, _('Rain activation notification failed')
+    )
     logEV.save_events_log(_('Rain sensor'), _('Activated'), id='RainSensor', level='warning', category='sensors')
     if options.rain_set_delay:    # if rain delay enabled set these delay
         options.rain_block = datetime.datetime.now() + datetime.timedelta(hours=options.rain_sensor_delay)
         logEV.save_events_log(_('Rain delay'), _('Rain sensor has set a delay {} hours').format(options.rain_sensor_delay), id='RainDelay', level='warning', category='irrigation')
 
 def report_no_rain():
-    rain_not_active.send()        # send not rain signal
+    _send_scheduler_signal(
+        rain_not_active, _('Rain deactivation notification failed')
+    )
     logEV.save_events_log(_('Rain sensor'), _('Deactivated'), id=u'RainSensor', level='success', category='sensors')
 
 def report_internet_available():
-    internet_available.send()     # send internet available signal
+    _send_scheduler_signal(
+        internet_available, _('Internet availability notification failed')
+    )
     logEV.save_events_log(_('Connection'), _('Internet is available (external IP)'), id='Internet', level='success', category='system')
 
 def report_internet_not_available():
-    internet_not_available.send() # send internet not available signal
+    _send_scheduler_signal(
+        internet_not_available,
+        _('Internet unavailability notification failed'),
+    )
     logEV.save_events_log(_('Connection'), _('Internet is not available (external IP)'), id='Internet', level='warning', category='system')
 
 def report_core_30_sec_tick():
-    core_30_sec_tick.send()       # send core_30_sec_tick signal
+    _send_scheduler_signal(
+        core_30_sec_tick, _('Periodic system notification failed')
+    )
 
 
 def _blocked_reason_text(reason):

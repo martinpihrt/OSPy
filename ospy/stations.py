@@ -5,6 +5,10 @@ __author__ = 'Rimco'
 # System imports
 import datetime
 import logging
+import traceback
+import time
+from queue import Queue, Full
+from threading import RLock, Thread
 
 # Local imports
 from ospy.options import options
@@ -20,6 +24,82 @@ master_two_off = signal('master_two_off')
 station_off = signal('station_off')
 station_on = signal('station_on')
 station_clear = signal('station_clear')
+
+
+class _OutputSignalDispatcher(Thread):
+    """Keep plug-in notifications out of the safety-critical output path."""
+
+    def __init__(self):
+        super(_OutputSignalDispatcher, self).__init__(
+            name='OSPy output notifications'
+        )
+        self.daemon = True
+        self._queue = Queue(maxsize=256)
+        self.start()
+
+    def submit(self, event, sender=None, description='', **kwargs):
+        kwargs.setdefault('occurred_at', datetime.datetime.now())
+        try:
+            self._queue.put_nowait(
+                (event, sender, description, kwargs)
+            )
+            update_details(
+                'outputs',
+                notification_queue=self._queue.qsize(),
+                notification_pending=self._queue.unfinished_tasks,
+            )
+            return True
+        except Full:
+            message = _('Output notification queue is full')
+            update_details(
+                'outputs',
+                notification_queue=self._queue.qsize(),
+                notification_error=message,
+            )
+            logging.error(message)
+            return False
+
+    def run(self):
+        while True:
+            event, sender, description, kwargs = self._queue.get()
+            update_details(
+                'outputs',
+                notification_active=description,
+                notification_active_since=time.time(),
+                notification_pending=self._queue.unfinished_tasks,
+            )
+            notification_error = ''
+            try:
+                event.send(sender, **kwargs)
+            except Exception:
+                error = traceback.format_exc()
+                notification_error = '{}: {}'.format(
+                    description, error.splitlines()[-1]
+                )
+                update_details(
+                    'outputs',
+                    notification_error=notification_error,
+                )
+                logging.error('{}:\n{}'.format(description, error))
+            finally:
+                self._queue.task_done()
+                update_details(
+                    'outputs',
+                    notification_queue=self._queue.qsize(),
+                    notification_pending=self._queue.unfinished_tasks,
+                    notification_active='',
+                    notification_active_since=0,
+                    notification_error=notification_error,
+                )
+
+    def wait_empty(self, timeout=2.0):
+        deadline = time.time() + max(0.0, timeout)
+        while self._queue.unfinished_tasks and time.time() < deadline:
+            time.sleep(0.01)
+        return self._queue.unfinished_tasks == 0
+
+
+_output_signal_dispatcher = _OutputSignalDispatcher()
 
 
 class _Station(object):
@@ -141,6 +221,7 @@ class _Station(object):
 
 class _BaseStations(object):
     def __init__(self, count):
+        self._command_lock = RLock()
         update_details(
             'outputs',
             backend=self.__class__.__name__,
@@ -185,33 +266,40 @@ class _BaseStations(object):
         self.resize(new)
 
     def resize(self, count):
-        while len(self._stations) < count:
-            self._stations.append(_Station(self, len(self._stations)))
-            self._state.append(False)
+        with self._output_command_lock():
+            while len(self._stations) < count:
+                self._stations.append(_Station(self, len(self._stations)))
+                self._state.append(False)
 
-        if count < len(self._stations):
-            if self.master is not None:
-                if self.master >= count:
-                    self.master = None
+            if count < len(self._stations):
+                if self.master is not None:
+                    if self.master >= count:
+                        self.master = None
 
-            if self.master_two is not None:
-                if self.master_two >= count:
-                    self.master_two = None
+                if self.master_two is not None:
+                    if self.master_two >= count:
+                        self.master_two = None
 
-            if self.master_by_program is not None:
-                if self.master_by_program >= count:
-                    self.master_by_program = None
+                if self.master_by_program is not None:
+                    if self.master_by_program >= count:
+                        self.master_by_program = None
 
-            # Make sure we turn them off before they become unreachable
-            for index in range(count, len(self._stations)):
-                self._state[index] = False
-            self._activate()
+                # Make sure we turn them off before they become unreachable
+                for index in range(count, len(self._stations)):
+                    self._state[index] = False
+                self._activate()
 
-            while len(self._stations) > count:
-                del self._stations[-1]
-                del self._state[-1]
+                while len(self._stations) > count:
+                    del self._stations[-1]
+                    del self._state[-1]
 
         logging.debug(_('Resized to') + ' %d', count)
+
+    def _output_command_lock(self):
+        """Return the shared lock, including for legacy/test instances."""
+        if not hasattr(self, '_command_lock'):
+            self._command_lock = RLock()
+        return self._command_lock
 
     def count(self):
         return len(self._stations)
@@ -228,62 +316,92 @@ class _BaseStations(object):
 
     __getitem__ = get
 
+    @staticmethod
+    def _send_output_signal(event, description, sender=None, **kwargs):
+        """Notify plug-ins without allowing one receiver to stop output control."""
+        return _output_signal_dispatcher.submit(
+            event, sender=sender, description=description, **kwargs
+        )
 
-    def activate(self, index):
-        if not isinstance(index, list):
-            index = [index]
-        activated = []
-        for i in index:
-            if not isinstance(i, int) or not 0 <= i < len(self._state):
-                continue
-            station = self._stations[i]
-            if not station.enabled and not (
-                    station.is_master or station.is_master_two or
-                    station.is_master_by_program):
-                continue
-            activated.append(i)
-            self._state[i] = True
-            logging.debug(_('Activated output') + ' %d', i)
+    def _emit_master_on(self, activated):
+        for i in activated:
             if self._stations[i].is_master:
                 logging.debug(_('Activated master one'))
-                master_one_on.send()                   # send signal master ON
+                self._send_output_signal(
+                    master_one_on, _('Master one ON notification failed')
+                )
             if self._stations[i].is_master_two:
                 logging.debug(_('Activated master two'))
-                master_two_on.send()                   # send signal master 2 ON
-        return activated
+                self._send_output_signal(
+                    master_two_on, _('Master two ON notification failed')
+                )
+
+    def _emit_master_off(self, deactivated):
+        for i in deactivated:
+            if self._stations[i].is_master:
+                logging.debug(_('Deactivated master one'))
+                self._send_output_signal(
+                    master_one_off, _('Master one OFF notification failed')
+                )
+            if self._stations[i].is_master_two:
+                logging.debug(_('Deactivated master two'))
+                self._send_output_signal(
+                    master_two_off, _('Master two OFF notification failed')
+                )
+
+    def activate(self, index):
+        with self._output_command_lock():
+            if not isinstance(index, list):
+                index = [index]
+            activated = []
+            for i in index:
+                if not isinstance(i, int) or not 0 <= i < len(self._state):
+                    continue
+                station = self._stations[i]
+                if not station.enabled and not (
+                        station.is_master or station.is_master_two or
+                        station.is_master_by_program):
+                    continue
+                activated.append(i)
+                self._state[i] = True
+                logging.debug(_('Activated output') + ' %d', i)
+            if activated and self.__class__ is _BaseStations:
+                self._activate()
+                self._emit_master_on(activated)
+            return activated
                  
     def deactivate(self, index):
-        if not isinstance(index, list):
-            index = [index]
-        deactivated = []
-        for i in index:
-            if isinstance(i, int) and 0 <= i < len(self._state):
-                deactivated.append(i)
-                self._state[i] = False
-                logging.debug(_('Deactivated output') + ' %d', i)
-                if self._stations[i].is_master:
-                    logging.debug(_('Deactivated master one'))
-                    master_one_off.send()                   # send signal master OFF
-                if self._stations[i].is_master_two:
-                    logging.debug(_('Deactivated master two'))    
-                    master_two_off.send()                   # send signal master 2 OFF                                    
-        return deactivated
+        with self._output_command_lock():
+            if not isinstance(index, list):
+                index = [index]
+            deactivated = []
+            for i in index:
+                if isinstance(i, int) and 0 <= i < len(self._state):
+                    deactivated.append(i)
+                    self._state[i] = False
+                    logging.debug(_('Deactivated output') + ' %d', i)
+            if deactivated and self.__class__ is _BaseStations:
+                self._activate()
+                self._emit_master_off(deactivated)
+            return deactivated
 
     def active(self, index=None):
-        if index is None:
-            result = self._state[:]
-        else:
-            result = (
-                self._state[index]
-                if isinstance(index, int) and 0 <= index < len(self._state)
-                else False
-            )
-        return result
+        with self._output_command_lock():
+            if index is None:
+                result = self._state[:]
+            else:
+                result = (
+                    self._state[index]
+                    if isinstance(index, int) and 0 <= index < len(self._state)
+                    else False
+                )
+            return result
 
     def clear(self):
-        for i in range(len(self._state)):
-            self._state[i] = False
-        logging.debug(_('Cleared all outputs'))
+        with self._output_command_lock():
+            for i in range(len(self._state)):
+                self._state[i] = False
+            logging.debug(_('Cleared all outputs'))
 
     def __setattr__(self, key, value):
         super(_BaseStations, self).__setattr__(key, value)
@@ -340,54 +458,77 @@ class _ShiftStations(_BaseStations):
             active=sum(1 for state in self._state if state)
         )
         logging.debug(_('Activated shift outputs'))
-        zone_change.send()
+        self._send_output_signal(
+            zone_change,
+            _('Output state notification failed'),
+        )
 
     def resize(self, count):
-        super(_ShiftStations, self).resize(count)
-        try:
-            self._activate()
-        except Exception as err:
-            heartbeat('outputs', ok=False, message=str(err),
-                      backend=self.__class__.__name__, physical=True,
-                      feedback=False)
-            raise
+        with self._output_command_lock():
+            super(_ShiftStations, self).resize(count)
+            try:
+                self._activate()
+            except Exception as err:
+                heartbeat('outputs', ok=False, message=str(err),
+                          backend=self.__class__.__name__, physical=True,
+                          feedback=False)
+                raise
 
     def activate(self, index):
-        activated = super(_ShiftStations, self).activate(index)
-        if not activated:
-            return
-        try:
-            self._activate()
-        except Exception as err:
-            heartbeat('outputs', ok=False, message=str(err),
-                      backend=self.__class__.__name__, physical=True,
-                      feedback=False)
-            raise
-        station_on.send("Signaling stations ON", txt=index)
+        with self._output_command_lock():
+            activated = super(_ShiftStations, self).activate(index)
+            if not activated:
+                return
+            try:
+                self._activate()
+            except Exception as err:
+                heartbeat('outputs', ok=False, message=str(err),
+                          backend=self.__class__.__name__, physical=True,
+                          feedback=False)
+                raise
+            self._emit_master_on(activated)
+            self._send_output_signal(
+                station_on,
+                _('Station ON notification failed'),
+                sender="Signaling stations ON",
+                txt=index,
+            )
 
     def deactivate(self, index):
-        deactivated = super(_ShiftStations, self).deactivate(index)
-        if not deactivated:
-            return
-        try:
-            self._activate()
-        except Exception as err:
-            heartbeat('outputs', ok=False, message=str(err),
-                      backend=self.__class__.__name__, physical=True,
-                      feedback=False)
-            raise
-        station_off.send("Signaling stations OFF", txt=index)
+        with self._output_command_lock():
+            deactivated = super(_ShiftStations, self).deactivate(index)
+            if not deactivated:
+                return
+            try:
+                self._activate()
+            except Exception as err:
+                heartbeat('outputs', ok=False, message=str(err),
+                          backend=self.__class__.__name__, physical=True,
+                          feedback=False)
+                raise
+            self._emit_master_off(deactivated)
+            self._send_output_signal(
+                station_off,
+                _('Station OFF notification failed'),
+                sender="Signaling stations OFF",
+                txt=index,
+            )
 
     def clear(self):
-        super(_ShiftStations, self).clear()
-        try:
-            self._activate()
-        except Exception as err:
-            heartbeat('outputs', ok=False, message=str(err),
-                      backend=self.__class__.__name__, physical=True,
-                      feedback=False)
-            raise
-        station_clear.send("Signaling stations clear")        
+        with self._output_command_lock():
+            super(_ShiftStations, self).clear()
+            try:
+                self._activate()
+            except Exception as err:
+                heartbeat('outputs', ok=False, message=str(err),
+                          backend=self.__class__.__name__, physical=True,
+                          feedback=False)
+                raise
+            self._send_output_signal(
+                station_clear,
+                _('Station clear notification failed'),
+                sender="Signaling stations clear",
+            )
 
 
 class _RPiStations(_ShiftStations):
