@@ -3642,6 +3642,7 @@ def _system_health_data():
     items = []
 
     scheduler_beat = beats.get('scheduler', {})
+    scheduler_details = scheduler_beat.get('details', {})
     scheduler_age = now_ts - scheduler_beat.get('last_success', 0)
     scheduler_alive = scheduler.scheduler.is_alive()
     scheduler_ok = scheduler_alive and scheduler_age <= 5
@@ -3653,9 +3654,44 @@ def _system_health_data():
     if scheduler_ok and not options.scheduler_enabled:
         scheduler_status = 'warning'
         scheduler_summary = _('Scheduler is running, but automatic scheduling is disabled.')
+    scheduler_notification_pending = int(
+        scheduler_details.get('notification_pending', 0) or 0
+    )
+    scheduler_notification_since = float(
+        scheduler_details.get('notification_active_since', 0) or 0
+    )
+    scheduler_notification_stalled = bool(
+        scheduler_notification_since and
+        now_ts - scheduler_notification_since > 10
+    )
+    if (scheduler_details.get('notification_error') or
+            scheduler_notification_stalled or
+            scheduler_notification_pending > 10):
+        scheduler_status = 'warning'
+        scheduler_summary = _(
+            'The scheduler is running; a plug-in notification requires attention.'
+        )
+    scheduler_description = scheduler_beat.get('error', '')
+    scheduler_description += (
+        ('; ' if scheduler_description else '') +
+        '{}: {}'.format(
+            _('Pending plug-in notifications'),
+            scheduler_notification_pending,
+        )
+    )
+    if scheduler_details.get('notification_active'):
+        scheduler_description += '; {}: {}'.format(
+            _('Current plug-in notification'),
+            scheduler_details['notification_active'],
+        )
+    if scheduler_details.get('notification_error'):
+        scheduler_description += '; {}: {}'.format(
+            _('Plug-in notification error'),
+            scheduler_details['notification_error'],
+        )
     items.append(_health_item(
         'scheduler', _('Scheduler'), scheduler_status, scheduler_summary,
-        scheduler_beat.get('error', ''),
+        scheduler_description,
         _health_time(scheduler_beat.get('last_success'))
     ))
 
@@ -3693,9 +3729,25 @@ def _system_health_data():
     master_output_beat = beats.get('master_output', {})
     master_output_details = master_output_beat.get('details', {})
     output_physical = bool(output_details.get('physical'))
+    notification_pending = int(
+        output_details.get('notification_pending', 0) or 0
+    )
+    notification_active_since = float(
+        output_details.get('notification_active_since', 0) or 0
+    )
+    notification_stalled = bool(
+        notification_active_since and
+        now_ts - notification_active_since > 10
+    )
     if output_beat.get('error') or master_output_beat.get('error'):
         output_status = 'error'
         output_summary = _('The last output write failed.')
+    elif (output_details.get('notification_error') or
+          notification_stalled or notification_pending > 10):
+        output_status = 'warning'
+        output_summary = _(
+            'Output control is working, but a plug-in notification is delayed.'
+        )
     elif output_physical and output_beat.get('last_success'):
         output_status = 'ok'
         output_summary = _('The last output command was written successfully.')
@@ -3716,6 +3768,19 @@ def _system_health_data():
     if not output_details.get('feedback'):
         output_description += '; ' + _(
             'OSPy can confirm the command write, but not the physical relay state.'
+        )
+    output_description += '; {}: {}'.format(
+        _('Pending plug-in notifications'), notification_pending
+    )
+    if output_details.get('notification_active'):
+        output_description += '; {}: {}'.format(
+            _('Current plug-in notification'),
+            output_details['notification_active'],
+        )
+    if output_details.get('notification_error'):
+        output_description += '; {}: {}'.format(
+            _('Plug-in notification error'),
+            output_details['notification_error'],
         )
     items.append(_health_item(
         'outputs', _('Output hardware'), output_status, output_summary,

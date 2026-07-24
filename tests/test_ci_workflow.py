@@ -23,6 +23,12 @@ class ContinuousIntegrationWorkflowTests(unittest.TestCase):
         self.assertIn("uses: actions/checkout@v6", self.workflow)
         self.assertIn("uses: actions/setup-python@v6", self.workflow)
         self.assertIn("repository: martinpihrt/OSPy-plugins", self.workflow)
+        self.assertIn(
+            "ref: ${{ github.event_name == 'pull_request' "
+            "&& github.base_ref || github.ref_name }}",
+            self.workflow,
+        )
+        self.assertNotIn("          ref: master", self.workflow)
         self.assertIn("OSPY_PLUGIN_ROOTS:", self.workflow)
         self.assertNotIn("web.py==", self.workflow)
 

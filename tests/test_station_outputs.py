@@ -1,6 +1,7 @@
 import datetime
 from contextlib import nullcontext
-from threading import Thread
+from threading import Event, Thread
+import time
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -100,6 +101,87 @@ class StationOutputSafetyTests(unittest.TestCase):
             if pin == controller._sr_dat
         ]
         self.assertEqual(data_writes[-4:], [MemoryIO.LOW] * 4)
+
+    def test_slow_master_callback_cannot_delay_physical_shutdown(self):
+        controller = memory_shift_stations(enabled=(True, True))
+        controller._stations[1].is_master = True
+        controller.activate(1)
+        stations_module._output_signal_dispatcher.wait_empty()
+
+        callback_started = Event()
+        callback_release = Event()
+
+        def slow_callback(unused_sender, **unused_kwargs):
+            callback_started.set()
+            callback_release.wait(1)
+
+        stations_module.master_one_off.connect(
+            slow_callback, weak=False
+        )
+        try:
+            started = time.time()
+            controller.deactivate(1)
+            elapsed = time.time() - started
+
+            self.assertFalse(controller.active(1))
+            self.assertLess(elapsed, 0.2)
+            self.assertTrue(callback_started.wait(1))
+        finally:
+            callback_release.set()
+            stations_module._output_signal_dispatcher.wait_empty()
+            stations_module.master_one_off.disconnect(slow_callback)
+
+    def test_output_commands_are_serialized_across_threads(self):
+        controller = memory_shift_stations(enabled=(True,))
+        first_write_started = Event()
+        release_first_write = Event()
+        original_activate = controller._activate
+        calls = []
+
+        def blocking_activate():
+            calls.append(controller.active())
+            if len(calls) == 1:
+                first_write_started.set()
+                release_first_write.wait(1)
+            original_activate()
+
+        controller._activate = blocking_activate
+        activate_thread = Thread(target=controller.activate, args=(0,))
+        deactivate_thread = Thread(target=controller.deactivate, args=(0,))
+        activate_thread.start()
+        self.assertTrue(first_write_started.wait(1))
+        deactivate_thread.start()
+        time.sleep(0.05)
+
+        self.assertTrue(deactivate_thread.is_alive())
+        self.assertTrue(controller._state[0])
+
+        release_first_write.set()
+        activate_thread.join(1)
+        deactivate_thread.join(1)
+        self.assertFalse(controller.active(0))
+
+    def test_slow_scheduler_notification_cannot_delay_scheduler(self):
+        callback_started = Event()
+        callback_release = Event()
+
+        def slow_callback(unused_sender, **unused_kwargs):
+            callback_started.set()
+            callback_release.wait(1)
+
+        scheduler.rain_active.connect(slow_callback, weak=False)
+        try:
+            started = time.time()
+            with mock.patch.object(scheduler.logEV, 'save_events_log'):
+                scheduler.report_rain()
+            elapsed = time.time() - started
+
+            self.assertLess(elapsed, 0.2)
+            self.assertTrue(callback_started.wait(1))
+        finally:
+            callback_release.set()
+            scheduler._scheduler_signal_dispatcher.wait_empty()
+            scheduler.rain_active.disconnect(slow_callback)
 
 
 class _Station(object):

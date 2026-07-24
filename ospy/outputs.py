@@ -3,6 +3,7 @@
 __author__ = 'Rimco'
 
 import logging
+from threading import RLock
 from ospy.health import heartbeat, update_details
 
 
@@ -10,6 +11,7 @@ class _DummyOutputs(object):
     _last = True
 
     def __init__(self):
+        object.__setattr__(self, '_command_lock', RLock())
         update_details(
             'master_output',
             backend=self.__class__.__name__,
@@ -19,24 +21,31 @@ class _DummyOutputs(object):
         self.relay_output = False
 
     def __setattr__(self, key, value):
-        super(_DummyOutputs, self).__setattr__(key, value)
-        if value != self._last:
-            logging.debug(_('Dummy Outputs Set {} to {}').format(key, value))
-            self._last = value
-        if key == 'relay_output':
-            heartbeat(
-                'master_output',
-                backend=self.__class__.__name__,
-                physical=False,
-                feedback=False,
-                active=bool(value)
-            )
+        if key == '_command_lock':
+            object.__setattr__(self, key, value)
+            return
+        if not hasattr(self, '_command_lock'):
+            object.__setattr__(self, '_command_lock', RLock())
+        with self._command_lock:
+            super(_DummyOutputs, self).__setattr__(key, value)
+            if value != self._last:
+                logging.debug(_('Dummy Outputs Set {} to {}').format(key, value))
+                self._last = value
+            if key == 'relay_output':
+                heartbeat(
+                    'master_output',
+                    backend=self.__class__.__name__,
+                    physical=False,
+                    feedback=False,
+                    active=bool(value)
+                )
 
 
 class _IOOutputs(object):
     _last = True
 
     def __init__(self):
+        object.__setattr__(self, '_command_lock', RLock())
         update_details(
             'master_output',
             backend=self.__class__.__name__,
@@ -47,6 +56,15 @@ class _IOOutputs(object):
         self._initialized = False
 
     def __setattr__(self, key, value):
+        if key == '_command_lock':
+            object.__setattr__(self, key, value)
+            return
+        if not hasattr(self, '_command_lock'):
+            object.__setattr__(self, '_command_lock', RLock())
+        with self._command_lock:
+            self._set_output_attribute(key, value)
+
+    def _set_output_attribute(self, key, value):
         super(_IOOutputs, self).__setattr__(key, value)
 
         if value != self._last:

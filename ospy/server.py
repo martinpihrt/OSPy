@@ -519,6 +519,8 @@ def stop():
         _safe_stop_outputs()
 
         try:
+            from ospy.log import flush_persistent_logs
+            flush_persistent_logs()
             options.flush()
         except Exception:
             log.error('server.py', traceback.format_exc())

@@ -6,6 +6,7 @@ __author__ = 'Rimco'
 
 # System imports
 import datetime
+import atexit
 import logging
 import traceback
 from os import path
@@ -22,6 +23,65 @@ EVENT_FILE = './ospy/data/events.log'
 EVENT_FORMAT = "%(asctime)s [%(levelname)s %(event_type)s] %(filename)s:%(lineno)d: %(message)s"
 RUN_START_FORMAT = "%(asctime)s [START  Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
 RUN_FINISH_FORMAT = "%(asctime)s [FINISH Run] Program %(program)d - Station %(station)d: From %(start)s to %(end)s"
+
+
+class _LogPersistenceWorker(threading.Thread):
+    """Coalesce persistent log snapshots outside scheduler/request threads."""
+
+    def __init__(self):
+        super(_LogPersistenceWorker, self).__init__(
+            name='OSPy log persistence'
+        )
+        self.daemon = True
+        self._condition = threading.Condition()
+        self._pending = {}
+        self._active = False
+        self.start()
+
+    def submit(self, attribute, value, target=None):
+        target = target or options
+        key = (id(target), attribute)
+        with self._condition:
+            self._pending[key] = (target, attribute, value)
+            self._condition.notify()
+
+    def run(self):
+        while True:
+            with self._condition:
+                while not self._pending:
+                    self._condition.wait()
+                unused_key, item = self._pending.popitem()
+                self._active = True
+            target, attribute, value = item
+            try:
+                setattr(target, attribute, value)
+            except Exception:
+                print(
+                    'Could not persist {}:\n{}'.format(
+                        attribute, traceback.format_exc()
+                    ),
+                    file=sys.stderr,
+                )
+            finally:
+                with self._condition:
+                    self._active = False
+                    self._condition.notify_all()
+
+    def wait_empty(self, timeout=2.0):
+        deadline = time.time() + max(0.0, timeout)
+        with self._condition:
+            while (self._pending or self._active) and time.time() < deadline:
+                self._condition.wait(max(0.0, deadline - time.time()))
+            return not self._pending and not self._active
+
+
+_log_persistence_worker = _LogPersistenceWorker()
+atexit.register(_log_persistence_worker.wait_empty, 5.0)
+
+
+def flush_persistent_logs(timeout=5.0):
+    """Wait for queued log snapshots before backup or orderly shutdown."""
+    return _log_persistence_worker.wait_empty(timeout)
 
 
 def _valid_run_record(entry):
@@ -83,10 +143,14 @@ class _Log(logging.Handler):
 
     def _save_logs(self):
         from ospy.programs import programs, ProgramType
-        result = []
-        if options.run_log or any(program.type == ProgramType.WEEKLY_WEATHER for program in programs.get()):
-            result = self._log['Run']
-        options.logged_runs = result
+        with self._lock:
+            result = []
+            if options.run_log or any(program.type == ProgramType.WEEKLY_WEATHER for program in programs.get()):
+                result = list(self._log['Run'])
+        # Never acquire the options lock while holding the log lock.  The
+        # options writer emits log records while it owns its own lock, so the
+        # opposite order can deadlock the scheduler and every web request.
+        _log_persistence_worker.submit('logged_runs', result)
 
 
     @staticmethod
@@ -128,7 +192,7 @@ class _Log(logging.Handler):
             return  # We cannot prune
 
         if event_type == 'Run':
-            self.clear_runs(False)
+            return
         else:
             # Delete everything older than 1 day
             current_time = datetime.datetime.now()
@@ -156,7 +220,7 @@ class _Log(logging.Handler):
             fmt_dict['end'] = fmt_dict['end'].strftime("%Y-%m-%d %H:%M:%S")
 
             self._save_log(RUN_START_FORMAT % fmt_dict, logging.DEBUG, 'Run')
-            self._prune('Run')
+        self.clear_runs(False)
 
     def finish_run(self, interval):
         """Indicates a certain run has been stopped. Use interval=None to stop all active runs.
@@ -183,13 +247,15 @@ class _Log(logging.Handler):
                     if uid is not None:
                         break
 
-            self._prune('Run')
+        self.clear_runs(False)
 
     def active_runs(self):
-        return [run['data'].copy() for run in self._log['Run'] if run['data']['active']]
+        with self._lock:
+            return [run['data'].copy() for run in self._log['Run'] if run['data']['active']]
 
     def finished_runs(self):
-        return [run['data'].copy() for run in self._log['Run'] if not run['data']['active']]
+        with self._lock:
+            return [run['data'].copy() for run in self._log['Run'] if not run['data']['active']]
 
     def log_event(self, event_type, message, level=logging.INFO, format_msg=True):
         if threading.current_thread().__class__.__name__ != '_MainThread' and time.time() < self._plugin_time:
@@ -251,37 +317,42 @@ class _Log(logging.Handler):
             else:
                 return  # We should not prune in this case
 
-            # determine the start of the first active run:
-            first_start = min([datetime.datetime.now()] + [interval['start'] for interval in self.active_runs()])
-            min_eto = datetime.date.today() + datetime.timedelta(days=1)
-            for program in programs.get():
-                if program.type == ProgramType.WEEKLY_WEATHER:
-                    for station in program.stations:
-                        min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + list(stations.get(station).balance.keys())))
+            with self._lock:
+                # determine the start of the first active run:
+                first_start = min(
+                    [datetime.datetime.now()] +
+                    [entry['data']['start'] for entry in self._log['Run']
+                     if entry['data']['active']]
+                )
+                min_eto = datetime.date.today() + datetime.timedelta(days=1)
+                for program in programs.get():
+                    if program.type == ProgramType.WEEKLY_WEATHER:
+                        for station in program.stations:
+                            min_eto = min(min_eto, min([datetime.date.today() - datetime.timedelta(days=7)] + list(stations.get(station).balance.keys())))
 
-            # Now try to remove as much as we can
-            for index in reversed(range(len(self._log['Run']) - minimum)):
-                interval = self._log['Run'][index]['data']
+                # Now try to remove as much as we can
+                for index in reversed(range(len(self._log['Run']) - minimum)):
+                    interval = self._log['Run'][index]['data']
 
-                delete = False
-                if index < len(self._log['Run']) - minimum:
-                    delete = True
-
-                # Assume long intervals to be a hiccup of the system:
-                elif interval['end'] - interval['start'] > datetime.timedelta(hours=12):
-                    delete = True
-
-                # Check if there is any impact on the current state:
-                if not interval['blocked'] and \
-                        (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
-                                                                           options.master_off_delay,
-                                                                           60):
                     delete = False
-                elif not interval['blocked'] and interval['end'].date() >= min_eto:
-                    delete = False
+                    if index < len(self._log['Run']) - minimum:
+                        delete = True
 
-                if delete:
-                    del self._log['Run'][index]
+                    # Assume long intervals to be a hiccup of the system:
+                    elif interval['end'] - interval['start'] > datetime.timedelta(hours=12):
+                        delete = True
+
+                    # Check if there is any impact on the current state:
+                    if not interval['blocked'] and \
+                            (first_start - interval['end']).total_seconds() <= max(options.station_delay + options.min_runtime,
+                                                                               options.master_off_delay,
+                                                                               60):
+                        delete = False
+                    elif not interval['blocked'] and interval['end'].date() >= min_eto:
+                        delete = False
+
+                    if delete:
+                        del self._log['Run'][index]
 
             self._save_logs()
 
@@ -291,10 +362,8 @@ class _Log(logging.Handler):
     def clear_all_runs(self, all_entries=True):
         try:
             print_report('log.py', _('I will try to delete all records of running programs and stations'))
-            minimum = 0
-
-            for index in reversed(range(len(self._log['Run']) - minimum)):
-                del self._log['Run'][index]
+            with self._lock:
+                self._log['Run'] = []
 
             self._save_logs()
 
@@ -339,10 +408,9 @@ class _LogEM():
             return list(self._logEM['RunEM'])
 
     def _save_logsEM(self):
-        result = []
-        if options.run_logEM:
-            result = self._logEM['RunEM']
-        options.logged_email = result
+        with self._lock:
+            result = list(self._logEM['RunEM']) if options.run_logEM else []
+        _log_persistence_worker.submit('logged_email', result)
 
     def clear_email(self, all_entries=True):
         if all_entries or not options.run_logEM:  # User request or logging is disabled
@@ -352,9 +420,9 @@ class _LogEM():
         else:
             return  # We should not prune in this case
 
-        for index in reversed(range(len(self._logEM['RunEM']) - minimum)):
-            interval = self._logEM['RunEM'][index]
-            del self._logEM['RunEM'][index]
+        with self._lock:
+            for index in reversed(range(len(self._logEM['RunEM']) - minimum)):
+                del self._logEM['RunEM'][index]
 
         self._save_logsEM()
 
@@ -371,9 +439,7 @@ class _LogEM():
                 'body': body_print,
                 'status': status_print
             })
-        
-            self._save_logsEM()     # save email
-            self.clear_email(False) # count only options.run_entriesEM
+        self.clear_email(False)  # prune and persist without lock inversion
 
 
 # events log
@@ -428,10 +494,9 @@ class _LogEV():
             return [normalize_event_record(event) for event in self._logEM['RunEV']]
 
     def _save_logsEV(self):
-        result = []
-        if options.run_logEV:
-            result = self._logEM['RunEV']
-        options.logged_events = result
+        with self._lock:
+            result = list(self._logEM['RunEV']) if options.run_logEV else []
+        _log_persistence_worker.submit('logged_events', result)
 
     def clear_events(self, all_entries=True):
         if all_entries or not options.run_logEV:  # User request or logging is disabled
@@ -441,9 +506,9 @@ class _LogEV():
         else:
             return  # We should not prune in this case
 
-        for index in reversed(range(len(self._logEM['RunEV']) - minimum)):
-            interval = self._logEM['RunEV'][index]
-            del self._logEM['RunEV'][index]
+        with self._lock:
+            for index in reversed(range(len(self._logEM['RunEV']) - minimum)):
+                del self._logEM['RunEV'][index]
 
         self._save_logsEV()
 
@@ -474,9 +539,7 @@ class _LogEV():
                 'level': level_print,
                 'category': category_print
             })
-        
-            self._save_logsEV()     # save events
-            self.clear_events(False) # count only options.run_entriesEV            
+        self.clear_events(False)  # prune and persist without lock inversion
 
 
 log   = _Log()
