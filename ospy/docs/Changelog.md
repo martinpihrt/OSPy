@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 24 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
+Updated the Czech translation.
+
 Eliminated a lock-order deadlock between watering-run logs and the settings database that could become visible during verified SQLite dual-write: the scheduler, settings writer and HTTPS request threads could wait on one another, freezing the web interface while an output remained active. Run, e-mail and event logs now copy their data under their own lock and coalesce persistent snapshots in a dedicated worker after releasing that lock. Physical station and master output writes complete before any plug-in notification; station commands and the separate master-relay output are serialized around only the short hardware write. Output notifications and scheduler-originated rain, rain-delay, Internet and periodic notifications use separate bounded workers, so slow SMTP, MQTT, database or other plug-in callbacks cannot delay schedule processing or relay shutdown. Diagnostics reports pending, delayed and failed plug-in notifications for both outputs and the scheduler. Added regression tests for lock ordering, serialized hardware commands, non-blocking physical master shutdown and non-blocking scheduler notifications, plus repository-wide safety checks for all official plug-ins.
 
 July 22 2026 (v3.0)
