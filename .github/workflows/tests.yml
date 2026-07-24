@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: martinpihrt/OSPy-plugins
-          ref: master
+          ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
           path: OSPy-plugins
 
       - name: Set up Python
