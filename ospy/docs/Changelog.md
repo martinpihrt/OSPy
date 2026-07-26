@@ -3,6 +3,13 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 26 2026 (v3.0)
+-----------
+(martinpihrt)<br/>
+Updated the Czech translation.
+
+Plug-in Weather-based Water Level v1.1.0. Added a calculation-method selector with the backward-compatible multi-day weather balance, configurable Zimmerman calculation and full FAO-56 ETo mode using OSPy's weather-provider or fallback ETo. Added method-specific settings and calculation details, safe neutral/stale-result handling, method-aware diagnostics, responsive external CSS, formulas and operating guidance in the plug-in help and README, and automated formula regression tests. Corrected the original method's relative-humidity handling by converting OSPy's normalized 0–1 value to percent before applying the humidity factor.
+
 July 24 2026 (v3.0)
 -----------
 (martinpihrt)<br/>
