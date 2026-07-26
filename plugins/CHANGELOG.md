@@ -1,7 +1,62 @@
 # OSPy-plugins Changelog
 
+July 26 2026
+------------
+(Martin Pihrt) - Weather-based Water Level v1.1.0<br/>
+Added a calculation-method selector with the backward-compatible multi-day weather balance, configurable Zimmerman calculation and full FAO-56 ETo mode using OSPy's weather-provider or fallback ETo. Added method-specific settings and calculation details, safe neutral/stale-result handling, method-aware diagnostics, responsive external CSS, formulas and operating guidance in the plug-in help and README, and automated formula regression tests. Corrected the original method's relative-humidity handling by converting OSPy's normalized 0–1 value to percent before applying the humidity factor.
+
+July 24 2026
+-----------
+(Martin Pihrt) - Astro Sunrise and Sunset v1.0.1<br/>
+Removed the duplicate manual location, region, time-zone and coordinate fields. A selected Astral city still has priority; when no city is selected, the plug-in now uses the weather location managed by OSPy and the host system time zone. Missing OSPy weather/location settings are shown with a direct settings link and as a health warning.
+
+(Martin Pihrt) - Water Consumption Counter v1.2.4 and E-mail Notifications SSL v1.1.4<br/>
+Removed the redundant plug-in version rendered inside both settings pages. OSPy already displays the authoritative version from `plugin.json` in its common plug-in information bar.
+
+(Martin Pihrt) - CHMI v1.0.1<br/>
+Removed the redundant location/map row from the CHMI settings page. CHMI now exclusively uses the validated location managed by OSPy weather settings; disabling weather also disables local radar evaluation even if old coordinates remain stored. When weather or its location is unavailable, the plug-in shows a direct link to the OSPy weather settings and reports the missing prerequisite through health diagnostics.
+
+(Martin Pihrt) - Water Consumption Counter v1.2.3, E-mail Notifications SSL v1.1.3, Air Temperature and Humidity Monitor v1.0.3, MQTT v1.0.1 and LCD Display v1.0.1<br/>
+Moved virtual master-counter persistence and optional e-mail delivery out of OSPy's synchronous output callback into the plug-in worker, preserving the original output-event timestamp while preventing SMTP or settings storage from delaying the scheduler. Water Consumption Counter now refreshes its settings overview every two seconds without a page reload and checkpoints each running master total every ten seconds, limiting data loss if a final master-OFF event is interrupted. E-mail Notifications SSL now checks whether every optional data-provider plug-in is actually running before reading it; disabled tank, temperature, current-loop, water-counter or Shelly providers are skipped without aborting the remaining e-mail. Air Temperature and Humidity Monitor now quietly skips optional SQL logging while Database Connector is stopped instead of repeatedly reporting a plug-in proxy exception. MQTT no longer leaves module-import signal receivers behind, and both MQTT and LCD Display disconnect their receivers during plug-in shutdown so restarting either plug-in cannot create stale or duplicate callbacks.
+
+July 22 2026
+-----------
+(Martin Pihrt) - E-mail Notifications SSL v1.1.2 and Water Consumption Counter v1.2.1<br/>
+Added exactly one empty line between independent HTML e-mail sections. Completed-run e-mails now briefly wait for the master OFF counter update, and the virtual water-meter report uses the station-duration estimate as a display-only fallback when that update is not yet available, preventing a misleading zero master-run consumption.
+
+(Martin Pihrt) - E-mail Notifications SSL v1.1.1<br/>
+Removed inconsistent blank space between generated e-mail sections. Section headings now use one controlled line break, sensor blocks no longer append an extra empty line, the local OSPy address is emitted without a margin-bearing paragraph, and the final MIME body no longer wraps generated block content in an invalid outer paragraph.
+
+(Martin Pihrt) - Water Consumption Counter v1.2.0 and E-mail Notifications SSL v1.1.0<br/>
+Changed Home timeline values to show increasing virtual consumption without repeating the configured flow, with automatic cubic-meter formatting from 1000 liters. Added a read-only completed-run report and extended the SSL e-mail plug-in's existing water-counter option to include master consumption during the station run, total master consumption and completed station consumption. Missing or unavailable counter data never blocks the remaining e-mail. Moved the SSL switch styling from the template to a versioned static CSS file and exposed its plug-in version on the settings page.
+
+(Martin Pihrt) - Water Consumption Counter v1.1.1<br/>
+Added the standard blue rounded border around the plug-in interface.
+
+(Martin Pihrt) - Declared permission approval documentation<br/>
+Documented the OSPy 3.0.294 administrator-approval rules for permissions declared in `plugin.json`, including backward-compatible approval of already installed plug-ins, renewed approval only when an update adds permissions and automatic-update blocking until review. No plug-in code, manifest or version was changed.
+
+(Martin Pihrt) - Water Consumption Counter v1.1.0<br/>
+Reworked the settings page into a responsive overview with separate master totals, current-run values, configured flow, active station summaries, e-mail settings and collapsible activity history. Added live `showOnTimeline` publishing: each active master displays the total estimated consumption since the last reset, while every running station assigned to a master displays only its estimated consumption for the current run and the applicable flow rate. Moved all plug-in styling into a versioned static stylesheet and retained the existing settings, counters, reset and e-mail behavior. The manifest requires OSPy 3.0.296, which contains station-ID based live timeline refresh, so older stable installations are prompted to update OSPy before installing this plug-in revision.
+
+July 21 2026
+-----------
+(Martin Pihrt) - Automated plug-in tests<br/>
+Expanded required GitHub Actions compatibility testing to Python 3.11 and the latest stable Python 3.14. Every plug-in revision is now tested in four combinations covering both Python versions and both OSPy `master` and OSPy `beta`; all combinations must pass before promotion to the stable channel.
+
+July 20 2026
+-----------
+(Martin Pihrt) - System Update v1.2.4<br/>
+Added verified stable releases based on annotated semantic Git tags (`vX.Y.Z`) reachable from `origin/master`. The status page now shows the exact running and target commits, stable tag, date and tag release notes. Added a dedicated rollback to the latest verified stable release and hardened manual commit rollback with settings persistence, a verified safety backup, external watchdog protection, immediate recovery on failure and a single restart. Stable rollback revalidates repository tags server-side and checks out `master`; lightweight, malformed and non-master tags are ignored. Manual rollback now uses full commit identifiers while displaying a compact hash. Moved all System Update page styling from its HTML template into plug-in static CSS and added regression coverage for tag validation, presentation and rollback ordering.
+
 July 19 2026
 -----------
+(Martin Pihrt) - System Update v1.2.3<br/>
+Fixed a false `rollback_failed` result on legacy SysV installations. Their generated systemd restart job can spend 30 seconds stopping OSPy, exactly matching the former watchdog subprocess timeout; systemd still completed the restart after the client timed out, but the successful repository rollback was reported as failed. The watchdog now submits a non-blocking systemd restart job, or starts the SysV restart command as a detached process when systemd is unavailable, after recording the successful rollback.
+
+(Martin Pihrt) - System Update v1.2.2<br/>
+Fixed automatic rollback on OSPy installations managed by the legacy SysV init script. That script can terminate every `/usr/bin/python3` process during restart, including the Python watchdog helper. The watchdog now runs below a non-Python shell supervisor that relaunches a helper killed by the legacy cleanup while recovery remains pending. A token-bound readiness marker must also be received before any Git-tracked OSPy files are changed; a transient service that exits or never loads its recovery state causes the update to stop. Added regression coverage for readiness, supervisor relaunch and safe PID-only SysV shutdown.
+
 (Martin Pihrt) - System Update v1.2.1<br/>
 Fixed a stale Diagnostics warning after a successful OSPy update. A valid watchdog acknowledgement now immediately takes precedence over the pending state file, so System Update reports success even if the external watchdog has not yet removed its temporary files. After confirming the scheduler and web interface, the plug-in also records the successful result and removes its own pending marker while leaving the acknowledgement for the external helper. The acknowledgement is accepted only when its token matches the pending update.
 
