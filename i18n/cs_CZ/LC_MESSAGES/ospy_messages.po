@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-07-26 16:18+0200\n"
-"PO-Revision-Date: 2026-07-26 16:27+0200\n"
+"POT-Creation-Date: 2026-07-27 07:20+0200\n"
+"PO-Revision-Date: 2026-07-27 07:43+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -2033,7 +2033,6 @@ msgstr "Týdenní (rozšířené)"
 #: plugins/speed_monitor/templates/speed_monitor.html:361
 #: plugins/tank_monitor/templates/tank_monitor.html:640
 #: plugins/ups_adj/templates/ups_adj.html:437
-#: plugins/wind_monitor/templates/wind_monitor.html:570
 msgid "Custom"
 msgstr "Vlastní"
 
@@ -2128,10 +2127,11 @@ msgstr "Vlastní plánovač opakování každý(é)"
 #: plugins/ups_adj/templates/ups_adj.html:434
 #: plugins/ups_adj/templates/ups_adj.html:435
 #: plugins/weather_based_water_level_netatmo/__init__.py:188
-#: plugins/wind_monitor/templates/wind_monitor.html:237
-#: plugins/wind_monitor/templates/wind_monitor.html:240
-#: plugins/wind_monitor/templates/wind_monitor.html:567
-#: plugins/wind_monitor/templates/wind_monitor.html:568
+#: plugins/wind_monitor/templates/wind_monitor.html:33
+#: plugins/wind_monitor/templates/wind_monitor.html:36
+#: plugins/wind_monitor/templates/wind_monitor.html:157
+#: plugins/wind_monitor/templates/wind_monitor.html:158
+#: plugins/wind_monitor/templates/wind_monitor.html:160
 msgid "days"
 msgstr "dny"
 
@@ -2599,7 +2599,7 @@ msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 #: ospy/sensors.py:639 plugins/button_control/__init__.py:294
 #: plugins/current_loop_tanks_monitor/__init__.py:572
 #: plugins/pressure_monitor/__init__.py:432
-#: plugins/tank_monitor/__init__.py:993 plugins/wind_monitor/__init__.py:508
+#: plugins/tank_monitor/__init__.py:993 plugins/wind_monitor/__init__.py:707
 msgid "Stoping stations in scheduler"
 msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 
@@ -2823,7 +2823,7 @@ msgstr "Oznámení snímače"
 #: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/temperature_switch/templates/temperature_switch.html:240
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
-#: plugins/wind_monitor/templates/wind_monitor.html:469
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:83
 msgid "Output"
 msgstr "Výstup"
 
@@ -3703,7 +3703,7 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:294
 #: plugins/button_control/templates/button_control.html:65
-#: plugins/chmi/templates/chmi.html:307
+#: plugins/chmi/templates/chmi.html:195
 #: plugins/cli_control/templates/cli_control.html:95
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:240
 #: plugins/database_connector/templates/database_connector.html:86
@@ -3759,7 +3759,8 @@ msgstr "Konfigurace snímačů"
 #: plugins/weather_stations/templates/canvas_page.html:87
 #: plugins/weather_stations/templates/settings_page.html:323
 #: plugins/webcam/templates/webcam.html:67
-#: plugins/wind_monitor/templates/wind_monitor.html:291
+#: plugins/wind_monitor/templates/wind_monitor.html:115
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:18
 msgid "Help"
 msgstr "Nápověda"
 
@@ -5110,7 +5111,7 @@ msgstr "Volba"
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/chmi/__init__.py:437
+#: ospy/templates/sensors.html:446 plugins/chmi/__init__.py:440
 #: plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5154,7 +5155,7 @@ msgstr "Ano"
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/chmi/__init__.py:437
+#: ospy/templates/sensors.html:446 plugins/chmi/__init__.py:440
 #: plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5420,7 +5421,7 @@ msgstr "Možné řešení"
 #: ospy/templates/plugins_manage.html:182
 #: plugins/venetian_blind/templates/venetian_blind.html:49
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:390
-#: plugins/wind_monitor/__init__.py:1002
+#: plugins/wind_monitor/__init__.py:1288
 msgid "Open"
 msgstr "Otevřít"
 
@@ -5596,8 +5597,8 @@ msgid "Diagnostics history refresh failed."
 msgstr "Obnova diagnostické historie selhala."
 
 #: ospy/templates/diagnostics.html:953 plugins/air_temp_humi/__init__.py:422
-#: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:431
-#: plugins/chmi/__init__.py:440
+#: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:434
+#: plugins/chmi/__init__.py:443
 #: plugins/current_loop_tanks_monitor/__init__.py:506
 #: plugins/database_connector/__init__.py:110
 #: plugins/door_opening/__init__.py:158
@@ -5638,13 +5639,13 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/weather_based_water_level_netatmo/__init__.py:601
 #: plugins/weather_dashboard/__init__.py:573
 #: plugins/weather_stations/__init__.py:406
-#: plugins/wind_monitor/__init__.py:999
+#: plugins/wind_monitor/__init__.py:1285
 msgid "Stopped"
 msgstr "Zastaveno"
 
 #: ospy/templates/diagnostics.html:953 plugins/air_temp_humi/__init__.py:422
-#: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:431
-#: plugins/chmi/__init__.py:440
+#: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:434
+#: plugins/chmi/__init__.py:443
 #: plugins/current_loop_tanks_monitor/__init__.py:506
 #: plugins/door_opening/__init__.py:158
 #: plugins/email_notifications/__init__.py:461
@@ -5684,7 +5685,7 @@ msgstr "Zastaveno"
 #: plugins/weather_based_water_level_netatmo/__init__.py:601
 #: plugins/weather_dashboard/__init__.py:573
 #: plugins/weather_stations/__init__.py:406
-#: plugins/wind_monitor/__init__.py:999
+#: plugins/wind_monitor/__init__.py:1285
 msgid "Running"
 msgstr "Běží"
 
@@ -5696,7 +5697,7 @@ msgstr "Běží"
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
 #: ospy/templates/twofactor.html:41 ospy/templates/twofactor.html:47
 #: ospy/webpages.py:3216 ospy/webpages.py:3231
-#: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:434
+#: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:437
 #: plugins/email_notifications/__init__.py:338
 #: plugins/email_notifications/__init__.py:464
 #: plugins/email_notifications_ssl/__init__.py:550
@@ -5723,7 +5724,7 @@ msgstr "Zakázáno"
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 ospy/templates/program.html:390
 #: ospy/webpages.py:3812 ospy/webpages.py:3948
-#: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:434
+#: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:437
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 #: plugins/email_notifications/__init__.py:464
 #: plugins/email_notifications_ssl/__init__.py:769
@@ -5740,7 +5741,7 @@ msgid "Enabled"
 msgstr "Povoleno"
 
 #: ospy/templates/diagnostics.html:976 plugins/air_temp_humi/__init__.py:431
-#: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:451
+#: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:454
 #: plugins/current_loop_tanks_monitor/__init__.py:515
 #: plugins/database_connector/__init__.py:120
 #: plugins/email_notifications/__init__.py:471
@@ -5830,7 +5831,7 @@ msgstr "Restart selhal."
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:137
 #: plugins/button_control/templates/button_control.html:155
 #: plugins/button_control/templates/button_control_help.html:124
-#: plugins/chmi/templates/chmi.html:537
+#: plugins/chmi/templates/chmi.html:430
 #: plugins/chmi/templates/chmi_help.html:424
 #: plugins/chmi/templates/chmi_log.html:22
 #: plugins/chmi/templates/chmi_log.html:47
@@ -5984,10 +5985,10 @@ msgstr "Restart selhal."
 #: plugins/weather_stations/templates/settings_page.html:322
 #: plugins/webcam/templates/webcam.html:123
 #: plugins/webcam/templates/webcam_help.html:14
-#: plugins/wind_monitor/templates/wind_monitor.html:555
-#: plugins/wind_monitor/templates/wind_monitor_help.html:23
-#: plugins/wind_monitor/templates/wind_monitor_log.html:30
-#: plugins/wind_monitor/templates/wind_monitor_log.html:73
+#: plugins/wind_monitor/templates/wind_monitor_help.html:22
+#: plugins/wind_monitor/templates/wind_monitor_log.html:32
+#: plugins/wind_monitor/templates/wind_monitor_log.html:76
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:114
 msgid "Cancel"
 msgstr "Zpět"
 
@@ -6001,7 +6002,7 @@ msgstr "Komponenta"
 #: ospy/templates/log_user.html:87
 #: plugins/air_temp_humi/templates/air_temp_humi.html:531
 #: plugins/button_control/templates/button_control.html:145
-#: plugins/chmi/templates/chmi.html:526
+#: plugins/chmi/templates/chmi.html:419
 #: plugins/cli_control/templates/cli_control.html:141
 #: plugins/cli_control/templates/cli_control_log.html:18
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:662
@@ -6063,7 +6064,7 @@ msgstr "Komponenta"
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:33
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:157
 #: plugins/webcam/templates/webcam.html:106
-#: plugins/wind_monitor/templates/wind_monitor.html:544
+#: plugins/wind_monitor/templates/wind_monitor.html:133
 msgid "Status"
 msgstr "Stav"
 
@@ -6142,7 +6143,7 @@ msgid "History range"
 msgstr "Rozmezí"
 
 #: ospy/templates/diagnostics.html:1218
-#: plugins/wind_monitor/templates/wind_monitor.html:362
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:63
 msgid "1 hour"
 msgstr "1 hodina"
 
@@ -6405,8 +6406,8 @@ msgstr "Zobrazené incidenty"
 #: plugins/tank_monitor/templates/tank_monitor.html:639
 #: plugins/ups_adj/templates/ups_adj.html:187
 #: plugins/ups_adj/templates/ups_adj.html:436
-#: plugins/wind_monitor/templates/wind_monitor.html:243
-#: plugins/wind_monitor/templates/wind_monitor.html:569
+#: plugins/wind_monitor/templates/wind_monitor.html:39
+#: plugins/wind_monitor/templates/wind_monitor.html:159
 msgid "All"
 msgstr "Vše"
 
@@ -6498,7 +6499,8 @@ msgstr "Nainstalujte to!"
 #: plugins/voice_notification/templates/voice_notification.html:157
 #: plugins/voice_station/templates/voice_station.html:185
 #: plugins/webcam/templates/webcam.html:122
-#: plugins/wind_monitor/templates/wind_monitor_log.html:29
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:15
+#: plugins/wind_monitor/templates/wind_monitor_log.html:31
 msgid "Refresh"
 msgstr "Obnovit"
 
@@ -6950,7 +6952,6 @@ msgstr "Shelly nástěnný displej"
 #: plugins/speed_monitor/templates/speed_monitor.html:67
 #: plugins/tank_monitor/templates/tank_monitor.html:67
 #: plugins/ups_adj/templates/ups_adj.html:22
-#: plugins/wind_monitor/templates/wind_monitor.html:76
 msgid "Reason"
 msgstr "Statistika"
 
@@ -6961,9 +6962,9 @@ msgstr "Statistika"
 #: plugins/email_reader/__init__.py:947 plugins/email_reader/__init__.py:1008
 #: plugins/tank_monitor/__init__.py:1311 plugins/tank_monitor/__init__.py:1359
 #: plugins/tank_monitor/templates/tank_monitor_log.html:37
-#: plugins/wind_monitor/__init__.py:623 plugins/wind_monitor/__init__.py:805
-#: plugins/wind_monitor/__init__.py:891 plugins/wind_monitor/__init__.py:927
-#: plugins/wind_monitor/templates/wind_monitor_log.html:43
+#: plugins/wind_monitor/__init__.py:822 plugins/wind_monitor/__init__.py:1055
+#: plugins/wind_monitor/__init__.py:1141 plugins/wind_monitor/__init__.py:1177
+#: plugins/wind_monitor/templates/wind_monitor_log.html:45
 msgid "Actual"
 msgstr "Aktuální"
 
@@ -6998,8 +6999,8 @@ msgstr "Hodnota"
 #: plugins/ups_adj/templates/ups_adj.html:432
 #: plugins/weather_based_water_level/__init__.py:98
 #: plugins/weather_based_water_level/__init__.py:110
-#: plugins/wind_monitor/templates/wind_monitor.html:231
-#: plugins/wind_monitor/templates/wind_monitor.html:565
+#: plugins/wind_monitor/templates/wind_monitor.html:27
+#: plugins/wind_monitor/templates/wind_monitor.html:155
 msgid "Today"
 msgstr "Dnes"
 
@@ -7016,7 +7017,7 @@ msgstr "Typ aktivace"
 #: plugins/speed_monitor/templates/speed_monitor.html:361
 #: plugins/tank_monitor/templates/tank_monitor.html:640
 #: plugins/ups_adj/templates/ups_adj.html:437
-#: plugins/wind_monitor/templates/wind_monitor.html:570
+#: plugins/wind_monitor/templates/wind_monitor.html:160
 msgid "Range"
 msgstr "Rozsah"
 
@@ -7029,7 +7030,7 @@ msgstr "Rozsah"
 #: plugins/speed_monitor/templates/speed_monitor.html:364
 #: plugins/tank_monitor/templates/tank_monitor.html:643
 #: plugins/ups_adj/templates/ups_adj.html:440
-#: plugins/wind_monitor/templates/wind_monitor.html:573
+#: plugins/wind_monitor/templates/wind_monitor.html:163
 msgid "From"
 msgstr "Od"
 
@@ -7042,7 +7043,7 @@ msgstr "Od"
 #: plugins/speed_monitor/templates/speed_monitor.html:365
 #: plugins/tank_monitor/templates/tank_monitor.html:644
 #: plugins/ups_adj/templates/ups_adj.html:441
-#: plugins/wind_monitor/templates/wind_monitor.html:574
+#: plugins/wind_monitor/templates/wind_monitor.html:164
 msgid "To"
 msgstr "Do"
 
@@ -7055,7 +7056,7 @@ msgstr "Do"
 #: plugins/speed_monitor/templates/speed_monitor.html:366
 #: plugins/tank_monitor/templates/tank_monitor.html:645
 #: plugins/ups_adj/templates/ups_adj.html:442
-#: plugins/wind_monitor/templates/wind_monitor.html:575
+#: plugins/wind_monitor/templates/wind_monitor.html:165
 msgid "Filtering"
 msgstr "Filtrování"
 
@@ -7068,7 +7069,7 @@ msgstr "Filtrování"
 #: plugins/speed_monitor/templates/speed_monitor.html:367
 #: plugins/tank_monitor/templates/tank_monitor.html:646
 #: plugins/ups_adj/templates/ups_adj.html:443
-#: plugins/wind_monitor/templates/wind_monitor.html:576
+#: plugins/wind_monitor/templates/wind_monitor.html:166
 msgid "Reset"
 msgstr "Reset"
 
@@ -7106,7 +7107,7 @@ msgstr "Filtr rok"
 #: plugins/speed_monitor/templates/speed_monitor.html:369
 #: plugins/tank_monitor/templates/tank_monitor.html:648
 #: plugins/ups_adj/templates/ups_adj.html:445
-#: plugins/wind_monitor/templates/wind_monitor.html:578
+#: plugins/wind_monitor/templates/wind_monitor.html:168
 msgid "No records found for selected range."
 msgstr "Nebyly nalezeny žádné záznamy ve vybraném rozsahu."
 
@@ -7241,7 +7242,6 @@ msgstr "Celkem"
 #: plugins/speed_monitor/templates/speed_monitor.html:81
 #: plugins/tank_monitor/templates/tank_monitor.html:81
 #: plugins/ups_adj/templates/ups_adj.html:36
-#: plugins/wind_monitor/templates/wind_monitor.html:90
 msgid "Previous Value"
 msgstr "Předchozí hodnota"
 
@@ -7481,15 +7481,15 @@ msgstr "žádný záznam"
 #: plugins/ups_adj/templates/ups_adj_log.html:36
 #: plugins/ups_adj/templates/ups_adj_log.html:39
 #: plugins/venetian_blind/templates/venetian_blind_log.html:9
-#: plugins/wind_monitor/templates/wind_monitor_log.html:17
-#: plugins/wind_monitor/templates/wind_monitor_log.html:20
+#: plugins/wind_monitor/templates/wind_monitor_log.html:19
+#: plugins/wind_monitor/templates/wind_monitor_log.html:22
 msgid "Total number of records"
 msgstr "Celkový počet záznamů"
 
 #: ospy/templates/log.html:116 ospy/templates/log.html:158
 #: ospy/templates/log_sensor.html:32 ospy/templates/log_sensor.html:55
 #: ospy/templates/log_user.html:20 ospy/templates/log_user.html:49
-#: ospy/templates/log_user.html:79 plugins/chmi/templates/chmi.html:310
+#: ospy/templates/log_user.html:79 plugins/chmi/templates/chmi.html:198
 #: plugins/chmi/templates/chmi_log.html:20
 #: plugins/cli_control/templates/cli_control.html:98
 #: plugins/cli_control/templates/cli_control_log.html:10
@@ -7550,7 +7550,7 @@ msgstr "Vymazat vše!"
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:51
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:76
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:92
-#: plugins/wind_monitor/templates/wind_monitor_log.html:35
+#: plugins/wind_monitor/templates/wind_monitor_log.html:37
 msgid "Date"
 msgstr "Datum"
 
@@ -7608,7 +7608,7 @@ msgstr "E-mail"
 #: plugins/ping_monitor/templates/ping_monitor_log.html:35
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:39
 #: plugins/ups_adj/templates/ups_adj_log.html:58
-#: plugins/wind_monitor/templates/wind_monitor_log.html:39
+#: plugins/wind_monitor/templates/wind_monitor_log.html:41
 msgid "Time"
 msgstr "Čas"
 
@@ -8883,8 +8883,8 @@ msgstr "Vyberte výrobce snímače."
 msgid "Shelly"
 msgstr "Shelly"
 
-#: ospy/templates/sensor.html:310 plugins/chmi/__init__.py:342
-#: plugins/chmi/templates/chmi.html:397
+#: ospy/templates/sensor.html:310 plugins/chmi/__init__.py:343
+#: plugins/chmi/templates/chmi.html:285
 msgid "Pihrt"
 msgstr "Pihrt"
 
@@ -9018,7 +9018,6 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:440
 #: plugins/ups_adj/templates/ups_adj.html:382
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:133
-#: plugins/wind_monitor/templates/wind_monitor.html:438
 msgid "E-mail plug-ins"
 msgstr "E-mail balíček"
 
@@ -9030,7 +9029,7 @@ msgstr "E-mail balíček"
 #: plugins/tank_monitor/templates/tank_monitor.html:443
 #: plugins/ups_adj/templates/ups_adj.html:385
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:135
-#: plugins/wind_monitor/templates/wind_monitor.html:441
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:88
 msgid "E-mail notifications V1"
 msgstr "E-mail notifications V1"
 
@@ -9042,7 +9041,7 @@ msgstr "E-mail notifications V1"
 #: plugins/tank_monitor/templates/tank_monitor.html:444
 #: plugins/ups_adj/templates/ups_adj.html:386
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:136
-#: plugins/wind_monitor/templates/wind_monitor.html:442
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:88
 msgid "E-mail notifications V2 SSL"
 msgstr "E-mail notifications V2 SSL"
 
@@ -9095,7 +9094,6 @@ msgstr "Nízký program(y)"
 #: ospy/templates/sensor.html:1142 ospy/templates/sensor.html:1165
 #: ospy/templates/sensor.html:1182 ospy/templates/sensor.html:1205
 #: ospy/templates/sensor.html:1222
-#: plugins/wind_monitor/templates/wind_monitor.html:490
 msgid "Mark the required programs to run."
 msgstr "Označte program(y) pro spuštění."
 
@@ -9368,7 +9366,6 @@ msgstr ""
 #: plugins/button_control/templates/button_control.html:136
 #: plugins/pressure_monitor/templates/pressure_monitor.html:352
 #: plugins/tank_monitor/templates/tank_monitor.html:402
-#: plugins/wind_monitor/templates/wind_monitor.html:462
 msgid "Stop this run stations in scheduler"
 msgstr "Zastavit tyto stanice v plánovači"
 
@@ -9504,7 +9501,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 
 #: ospy/templates/sensor.html:922
 #: plugins/air_temp_humi/templates/air_temp_humi.html:522
-#: plugins/chmi/templates/chmi.html:517
+#: plugins/chmi/templates/chmi.html:410
 #: plugins/door_opening/templates/door_opening.html:87
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:270
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:201
@@ -9526,7 +9523,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:131
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:163
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:50
-#: plugins/wind_monitor/templates/wind_monitor.html:535
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:33
 msgid "Show in footer"
 msgstr "Zobrazit v zápatí na hl. stránce"
 
@@ -9675,7 +9672,7 @@ msgid "weeks"
 msgstr "týdny"
 
 #: ospy/templates/sensors.html:13 ospy/templates/sensors.html:436
-#: plugins/chmi/__init__.py:311
+#: plugins/chmi/__init__.py:312
 #: plugins/weather_based_rain_delay/__init__.py:135
 #: plugins/weather_based_rain_delay/__init__.py:137
 msgid "hours"
@@ -10051,7 +10048,7 @@ msgstr "Otevřít adresář"
 #: ospy/templates/sensors_firmware.html:124
 #: ospy/templates/sensors_firmware.html:149
 #: plugins/air_temp_humi/__init__.py:427 plugins/button_control/__init__.py:234
-#: plugins/chmi/__init__.py:442 plugins/chmi/__init__.py:445
+#: plugins/chmi/__init__.py:445 plugins/chmi/__init__.py:448
 #: plugins/cli_control/__init__.py:84 plugins/cli_control/__init__.py:85
 #: plugins/current_loop_tanks_monitor/__init__.py:511
 #: plugins/database_connector/__init__.py:113
@@ -10243,7 +10240,7 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:229
 #: plugins/air_temp_humi/templates/air_temp_humi.html:540
 #: plugins/button_control/templates/button_control.html:154
-#: plugins/chmi/templates/chmi.html:536
+#: plugins/chmi/templates/chmi.html:429
 #: plugins/cli_control/templates/cli_control.html:151
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:94
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:670
@@ -10293,7 +10290,7 @@ msgstr ""
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:502
 #: plugins/weather_stations/templates/settings_page.html:321
 #: plugins/webcam/templates/webcam.html:121
-#: plugins/wind_monitor/templates/wind_monitor.html:554
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:113
 msgid "Submit"
 msgstr "POTVRDIT"
 
@@ -11417,7 +11414,7 @@ msgstr "Dostupné"
 #: plugins/network_ping_monitor/__init__.py:246
 #: plugins/network_ping_monitor/__init__.py:424
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:390
-#: plugins/water_meter/__init__.py:391 plugins/wind_monitor/__init__.py:1002
+#: plugins/water_meter/__init__.py:391 plugins/wind_monitor/__init__.py:1288
 msgid "Unavailable"
 msgstr "Nedostupné"
 
@@ -12527,7 +12524,7 @@ msgstr "Zdravotní prohlídka neuspěla."
 msgid "Health check timed out."
 msgstr "Zdravotní prohlídka vypršela."
 
-#: plugins/__init__.py:738
+#: plugins/__init__.py:738 plugins/wind_monitor/__init__.py:570
 msgid "Invalid value for"
 msgstr "Neplatná hodnota pro"
 
@@ -12929,12 +12926,12 @@ msgstr "DS"
 #: plugins/air_temp_humi/__init__.py:1131
 #: plugins/air_temp_humi/__init__.py:1198
 #: plugins/air_temp_humi/__init__.py:1235
-#: plugins/air_temp_humi/__init__.py:1276 plugins/wind_monitor/__init__.py:945
+#: plugins/air_temp_humi/__init__.py:1276 plugins/wind_monitor/__init__.py:1195
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
 #: plugins/air_temp_humi/__init__.py:422 plugins/button_control/__init__.py:230
-#: plugins/chmi/__init__.py:431
+#: plugins/chmi/__init__.py:434
 #: plugins/current_loop_tanks_monitor/__init__.py:506
 #: plugins/door_opening/__init__.py:158
 #: plugins/email_notifications/__init__.py:461
@@ -13024,7 +13021,7 @@ msgstr "Nepoužívá se"
 #: plugins/air_temp_humi/__init__.py:850
 #: plugins/pressure_monitor/__init__.py:576
 #: plugins/tank_monitor/__init__.py:882 plugins/ups_adj/__init__.py:510
-#: plugins/wind_monitor/__init__.py:630
+#: plugins/wind_monitor/__init__.py:829
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
@@ -13040,7 +13037,7 @@ msgstr "Nelze importovat balíček: database connector."
 #: plugins/network_ping_monitor/__init__.py:340
 #: plugins/pressure_monitor/__init__.py:564
 #: plugins/tank_monitor/__init__.py:917 plugins/ups_adj/__init__.py:496
-#: plugins/wind_monitor/__init__.py:613
+#: plugins/wind_monitor/__init__.py:812
 msgid "Saving to SQL database."
 msgstr "Ukládání do SQL databáze."
 
@@ -13053,10 +13050,10 @@ msgstr "Odstranění tabulky airtemp z databáze."
 #: plugins/air_temp_humi/__init__.py:1048
 #: plugins/button_control/__init__.py:454
 #: plugins/button_control/__init__.py:468
-#: plugins/button_control/__init__.py:480 plugins/chmi/__init__.py:1090
-#: plugins/chmi/__init__.py:1105 plugins/chmi/__init__.py:1132
-#: plugins/chmi/__init__.py:1145 plugins/chmi/__init__.py:1157
-#: plugins/chmi/__init__.py:1277 plugins/database_connector/__init__.py:397
+#: plugins/button_control/__init__.py:480 plugins/chmi/__init__.py:1064
+#: plugins/chmi/__init__.py:1079 plugins/chmi/__init__.py:1106
+#: plugins/chmi/__init__.py:1119 plugins/chmi/__init__.py:1131
+#: plugins/chmi/__init__.py:1251 plugins/database_connector/__init__.py:397
 #: plugins/database_connector/__init__.py:409
 #: plugins/database_connector/__init__.py:460
 #: plugins/database_connector/__init__.py:472
@@ -13140,11 +13137,11 @@ msgstr "air_temp_humi -> settings_page POST"
 msgid "air_temp_humi -> help_page GET"
 msgstr "air_temp_humi -> help_page GET"
 
-#: plugins/air_temp_humi/__init__.py:1031 plugins/chmi/__init__.py:1074
+#: plugins/air_temp_humi/__init__.py:1031 plugins/chmi/__init__.py:1048
 #: plugins/modbus_stations/__init__.py:727 plugins/ping_monitor/__init__.py:509
 #: plugins/pressure_monitor/__init__.py:672
 #: plugins/speed_monitor/__init__.py:385 plugins/tank_monitor/__init__.py:966
-#: plugins/ups_adj/__init__.py:583 plugins/wind_monitor/__init__.py:731
+#: plugins/ups_adj/__init__.py:583 plugins/wind_monitor/__init__.py:951
 msgid "Deleted all log files OK"
 msgstr "Odstraněny všechny soubory protokolu OK"
 
@@ -13163,7 +13160,7 @@ msgid "&deg;C or %"
 msgstr "&deg;C nebo %"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:297
-#: plugins/chmi/templates/chmi.html:311
+#: plugins/chmi/templates/chmi.html:199
 #: plugins/cli_control/templates/cli_control.html:99
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:243
 #: plugins/modbus_stations/templates/modbus_stations.html:69
@@ -13174,7 +13171,6 @@ msgstr "&deg;C nebo %"
 #: plugins/speed_monitor/templates/speed_monitor.html:282
 #: plugins/tank_monitor/templates/tank_monitor.html:299
 #: plugins/ups_adj/templates/ups_adj.html:306
-#: plugins/wind_monitor/templates/wind_monitor.html:294
 msgid "Show logs"
 msgstr "Zobrazit záznam"
 
@@ -13191,7 +13187,7 @@ msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:235
 #: plugins/tank_monitor/templates/tank_monitor.html:496
 #: plugins/ups_adj/templates/ups_adj.html:321
-#: plugins/wind_monitor/templates/wind_monitor.html:310
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:52
 msgid "Enable local logging"
 msgstr "Povolit místní záznam"
 
@@ -13201,7 +13197,6 @@ msgstr "Povolit místní záznam"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:304
 #: plugins/tank_monitor/templates/tank_monitor.html:497
 #: plugins/ups_adj/templates/ups_adj.html:322
-#: plugins/wind_monitor/templates/wind_monitor.html:311
 msgid ""
 "The measured data will be saved locally in a json file. This option rapidly "
 "reduces the lifespan of the SD/USB card of the Raspberry Pi system!"
@@ -13214,7 +13209,7 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:312
 #: plugins/tank_monitor/templates/tank_monitor.html:505
 #: plugins/ups_adj/templates/ups_adj.html:330
-#: plugins/wind_monitor/templates/wind_monitor.html:328
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:54
 msgid "Enable SQL logging"
 msgstr "Povolit SQL záznam"
 
@@ -13234,7 +13229,6 @@ msgstr ""
 #: plugins/pressure_monitor/templates/pressure_monitor.html:317
 #: plugins/tank_monitor/templates/tank_monitor.html:510
 #: plugins/ups_adj/templates/ups_adj.html:336
-#: plugins/wind_monitor/templates/wind_monitor.html:333
 msgid "requires database connector plugin"
 msgstr "vyžaduje rozšíření database connector"
 
@@ -13250,8 +13244,8 @@ msgstr "vyžaduje rozšíření database connector"
 #: plugins/tank_monitor/templates/tank_monitor_log.html:28
 #: plugins/ups_adj/templates/ups_adj.html:337
 #: plugins/ups_adj/templates/ups_adj_log.html:47
-#: plugins/wind_monitor/templates/wind_monitor.html:334
-#: plugins/wind_monitor/templates/wind_monitor_log.html:28
+#: plugins/wind_monitor/templates/wind_monitor_log.html:30
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:54
 msgid "Delete SQL table"
 msgstr "Smazat tabulku SQL"
 
@@ -13260,7 +13254,6 @@ msgstr "Smazat tabulku SQL"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:322
 #: plugins/tank_monitor/templates/tank_monitor.html:515
 #: plugins/ups_adj/templates/ups_adj.html:341
-#: plugins/wind_monitor/templates/wind_monitor.html:319
 msgid "Show data from"
 msgstr "Zobrazit data z"
 
@@ -13270,7 +13263,6 @@ msgstr "Zobrazit data z"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:324
 #: plugins/tank_monitor/templates/tank_monitor.html:517
 #: plugins/ups_adj/templates/ups_adj.html:343
-#: plugins/wind_monitor/templates/wind_monitor.html:321
 msgid ""
 "Choose from where the displayed data in the log and graph will be loaded."
 msgstr "Zvolte, odkud se budou načítat zobrazená data v logu a grafu."
@@ -13280,7 +13272,6 @@ msgstr "Zvolte, odkud se budou načítat zobrazená data v logu a grafu."
 #: plugins/pressure_monitor/templates/pressure_monitor.html:325
 #: plugins/tank_monitor/templates/tank_monitor.html:518
 #: plugins/ups_adj/templates/ups_adj.html:344
-#: plugins/wind_monitor/templates/wind_monitor.html:322
 msgid "Local file"
 msgstr "Místní soubor"
 
@@ -13289,12 +13280,12 @@ msgstr "Místní soubor"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:326
 #: plugins/tank_monitor/templates/tank_monitor.html:519
 #: plugins/ups_adj/templates/ups_adj.html:345
-#: plugins/wind_monitor/templates/wind_monitor.html:323
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:53
 msgid "Database file"
 msgstr "Databázový soubor"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:346
-#: plugins/chmi/templates/chmi.html:506
+#: plugins/chmi/templates/chmi.html:399
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:214
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:274
 #: plugins/pressure_monitor/templates/pressure_monitor.html:331
@@ -13302,7 +13293,7 @@ msgstr "Databázový soubor"
 #: plugins/tank_monitor/templates/tank_monitor.html:524
 #: plugins/ups_adj/templates/ups_adj.html:350
 #: plugins/volt_temp_da/templates/volt_temp_da.html:91
-#: plugins/wind_monitor/templates/wind_monitor.html:370
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:69
 msgid "Maximum number of log records"
 msgstr "Maximální počet záznamů"
 
@@ -13323,7 +13314,6 @@ msgstr ""
 #: plugins/speed_monitor/templates/speed_monitor.html:319
 #: plugins/tank_monitor/templates/tank_monitor.html:530
 #: plugins/volt_temp_da/templates/volt_temp_da.html:103
-#: plugins/wind_monitor/templates/wind_monitor.html:376
 msgid "Interval for logging"
 msgstr "Opakovat záznam po"
 
@@ -13440,7 +13430,7 @@ msgid "Use"
 msgstr "Použít"
 
 #: plugins/air_temp_humi/templates/air_temp_humi.html:523
-#: plugins/chmi/templates/chmi.html:518
+#: plugins/chmi/templates/chmi.html:411
 #: plugins/door_opening/templates/door_opening.html:88
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:271
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:202
@@ -13456,7 +13446,6 @@ msgstr "Použít"
 #: plugins/ups_adj/templates/ups_adj.html:397
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:132
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:164
-#: plugins/wind_monitor/templates/wind_monitor.html:536
 msgid "Show data from plugin in footer on home page"
 msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 
@@ -13465,7 +13454,6 @@ msgstr "Zobrazit data z tohoto rozšíření v zápatí na domovské stránce"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:425
 #: plugins/tank_monitor/templates/tank_monitor.html:630
 #: plugins/ups_adj/templates/ups_adj.html:427
-#: plugins/wind_monitor/templates/wind_monitor.html:560
 msgid "The chart from local file"
 msgstr "Graf z místního souboru"
 
@@ -13474,7 +13462,6 @@ msgstr "Graf z místního souboru"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:427
 #: plugins/tank_monitor/templates/tank_monitor.html:632
 #: plugins/ups_adj/templates/ups_adj.html:429
-#: plugins/wind_monitor/templates/wind_monitor.html:562
 msgid "The chart from database"
 msgstr "Graf z databáze"
 
@@ -13518,7 +13505,6 @@ msgstr "sběrnici (adresa 0x03)"
 #: plugins/pressure_monitor/templates/pressure_monitor_help.html:10
 #: plugins/tank_monitor/templates/tank_monitor_help.html:12
 #: plugins/ups_adj/templates/ups_adj_help.html:11
-#: plugins/wind_monitor/templates/wind_monitor_help.html:19
 msgid ""
 "If logging is enabled, a graph with measured data will be displayed at the "
 "bottom of the screen"
@@ -13651,7 +13637,7 @@ msgstr "Rozšíření monitor teploty a vlhkosti - záznam"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:11
 #: plugins/tank_monitor/templates/tank_monitor_log.html:11
 #: plugins/ups_adj/templates/ups_adj_log.html:30
-#: plugins/wind_monitor/templates/wind_monitor_log.html:11
+#: plugins/wind_monitor/templates/wind_monitor_log.html:13
 msgid "Log from local file"
 msgstr "Záznam z místního souboru"
 
@@ -13662,7 +13648,7 @@ msgstr "Záznam z místního souboru"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:13
 #: plugins/tank_monitor/templates/tank_monitor_log.html:13
 #: plugins/ups_adj/templates/ups_adj_log.html:32
-#: plugins/wind_monitor/templates/wind_monitor_log.html:13
+#: plugins/wind_monitor/templates/wind_monitor_log.html:15
 msgid "Log from database"
 msgstr "Záznam z databáze"
 
@@ -13672,7 +13658,7 @@ msgstr "Záznam z databáze"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:24
 #: plugins/tank_monitor/templates/tank_monitor_log.html:24
 #: plugins/ups_adj/templates/ups_adj_log.html:43
-#: plugins/wind_monitor/templates/wind_monitor_log.html:24
+#: plugins/wind_monitor/templates/wind_monitor_log.html:26
 msgid "Download local log"
 msgstr "Stáhnout místní záznam"
 
@@ -13682,7 +13668,7 @@ msgstr "Stáhnout místní záznam"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:25
 #: plugins/tank_monitor/templates/tank_monitor_log.html:25
 #: plugins/ups_adj/templates/ups_adj_log.html:44
-#: plugins/wind_monitor/templates/wind_monitor_log.html:25
+#: plugins/wind_monitor/templates/wind_monitor_log.html:27
 msgid "Delete all local logs"
 msgstr "Smazat všechny místní záznamy"
 
@@ -13692,7 +13678,7 @@ msgstr "Smazat všechny místní záznamy"
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:27
 #: plugins/tank_monitor/templates/tank_monitor_log.html:27
 #: plugins/ups_adj/templates/ups_adj_log.html:46
-#: plugins/wind_monitor/templates/wind_monitor_log.html:27
+#: plugins/wind_monitor/templates/wind_monitor_log.html:29
 msgid "Download database log"
 msgstr "Stáhnout záznam z databáze"
 
@@ -13700,7 +13686,7 @@ msgstr "Stáhnout záznam z databáze"
 #: plugins/network_ping_monitor/templates/network_ping_monitor_log.html:41
 #: plugins/pressure_monitor/templates/pressure_monitor_log.html:37
 #: plugins/ups_adj/templates/ups_adj_log.html:56
-#: plugins/wind_monitor/templates/wind_monitor_log.html:37
+#: plugins/wind_monitor/templates/wind_monitor_log.html:39
 msgid "Id"
 msgstr "Id"
 
@@ -13715,7 +13701,7 @@ msgstr "Id"
 #: plugins/tank_monitor/templates/tank_monitor_log.html:34
 #: plugins/ups_adj/templates/ups_adj_log.html:60
 #: plugins/venetian_blind/templates/venetian_blind_log.html:15
-#: plugins/wind_monitor/templates/wind_monitor_log.html:41
+#: plugins/wind_monitor/templates/wind_monitor_log.html:43
 msgid "Date Time"
 msgstr "Datum Čas"
 
@@ -14177,157 +14163,157 @@ msgstr ""
 "nový program a přidat jej do spuštěných programů, tuto možnost necháme "
 "vypnutou."
 
-#: plugins/chmi/__init__.py:39
+#: plugins/chmi/__init__.py:40
 msgid "Package: CHMI radar"
 msgstr "Balíček: Meteoradar ČHMÚ"
 
-#: plugins/chmi/__init__.py:152 plugins/chmi/templates/chmi.html:3
-#: plugins/chmi/templates/chmi.html:305
+#: plugins/chmi/__init__.py:153 plugins/chmi/templates/chmi.html:3
+#: plugins/chmi/templates/chmi.html:193
 msgid "CHMI meteoradar"
 msgstr "Meteoradar ČHMÚ"
 
-#: plugins/chmi/__init__.py:170 plugins/chmi/__init__.py:171
+#: plugins/chmi/__init__.py:171 plugins/chmi/__init__.py:172
 msgid "Failed to download radar data."
 msgstr "Stažení radarových dat se nezdařilo."
 
-#: plugins/chmi/__init__.py:172 plugins/chmi/__init__.py:362
-#: plugins/chmi/__init__.py:369
+#: plugins/chmi/__init__.py:173 plugins/chmi/__init__.py:365
+#: plugins/chmi/__init__.py:372
 msgid "Waiting 10 minutes for next update..."
 msgstr "Čekání 10 minut na další aktualizaci..."
 
-#: plugins/chmi/__init__.py:187
+#: plugins/chmi/__init__.py:188
 msgid ""
 "The merging of the images (radar and outline of the Czech Republic) went OK."
 msgstr "Sloučení snímků (radar a obrys ČR) proběhlo v pořádku."
 
-#: plugins/chmi/__init__.py:190
+#: plugins/chmi/__init__.py:191
 msgid "Image cannot be saved."
 msgstr "Obrázek nelze uložit."
 
-#: plugins/chmi/__init__.py:193
+#: plugins/chmi/__init__.py:194
 msgid "Converting the image to RGB..."
 msgstr "Převod obrazu do RGB..."
 
-#: plugins/chmi/__init__.py:200
+#: plugins/chmi/__init__.py:201
 msgid "Image width: {} px ({} degrees of longitude)"
 msgstr "Šířka obrázku: {} px ({} stupňů zeměpisné délky)"
 
-#: plugins/chmi/__init__.py:201
+#: plugins/chmi/__init__.py:202
 msgid "Image height: {} px ({} degrees of latitude)"
 msgstr "Výška obrázku: {} px ({} stupňů zeměpisné šířky)"
 
-#: plugins/chmi/__init__.py:202
+#: plugins/chmi/__init__.py:203
 msgid "1 vertical pixel is equal {} degrees of longitude"
 msgstr "1 svislý pixel se rovná {} stupňům zeměpisné délky"
 
-#: plugins/chmi/__init__.py:203
+#: plugins/chmi/__init__.py:204
 msgid "1 horizontal pixel is equal {} degrees of latitude"
 msgstr "1 vodorovný pixel se rovná {} stupňům zeměpisné šířky"
 
-#: plugins/chmi/__init__.py:212
+#: plugins/chmi/__init__.py:213
 msgid "Loading cities database..."
 msgstr "Načítání databáze měst..."
 
-#: plugins/chmi/__init__.py:225
+#: plugins/chmi/__init__.py:226
 msgid "City and hardware map processing is disabled for the SHMU radar source."
 msgstr "Zpracování map měst a hardwaru je pro radarový zdroj SHMU zakázáno."
 
-#: plugins/chmi/__init__.py:238
+#: plugins/chmi/__init__.py:239
 msgid "Analyzing if is raining in the cities..."
 msgstr "Analýza, jestli ve městech prší..."
 
-#: plugins/chmi/__init__.py:264
+#: plugins/chmi/__init__.py:265
 msgid "In city {} ({}) it is probably raining right now"
 msgstr "Ve městě {} ({}) pravděpodobně právě teď prší"
 
-#: plugins/chmi/__init__.py:293 plugins/chmi/templates/chmi.html:11
+#: plugins/chmi/__init__.py:294 plugins/chmi/templates/chmi.html:13
 msgid "RGB in my location is R:{}, G:{}, B:{}"
 msgstr "RGB v mé lokalitě je R:{}, G:{}, B:{}"
 
-#: plugins/chmi/__init__.py:297
+#: plugins/chmi/__init__.py:298
 msgid ""
 "In my location latitude {} longitude {} it is probably raining right now."
 msgstr ""
 "V mém umístění zeměpisná šířka {} zeměpisná délka {} pravděpodobně právě teď "
 "prší."
 
-#: plugins/chmi/__init__.py:298 plugins/chmi/__init__.py:317
-#: plugins/chmi/templates/chmi.html:12
+#: plugins/chmi/__init__.py:299 plugins/chmi/__init__.py:318
+#: plugins/chmi/templates/chmi.html:14
 msgid "Rain detection area: {} of {} pixels ({}%) are above the threshold."
 msgstr "Oblast detekce deště: {} z {} pixelů ({} %) je nad prahem."
 
-#: plugins/chmi/__init__.py:311
+#: plugins/chmi/__init__.py:312
 msgid "Detected Rain"
 msgstr "Detekován déšť"
 
-#: plugins/chmi/__init__.py:311
+#: plugins/chmi/__init__.py:312
 #: plugins/weather_based_rain_delay/__init__.py:135
 #: plugins/weather_based_rain_delay/__init__.py:137
 #: plugins/weather_based_rain_delay/__init__.py:152
 msgid "Adding delay of"
 msgstr "Přidání zpoždění"
 
-#: plugins/chmi/__init__.py:313
+#: plugins/chmi/__init__.py:314
 msgid "Probably raining right now"
 msgstr "Pravděpodobně právě teď prší"
 
-#: plugins/chmi/__init__.py:316
+#: plugins/chmi/__init__.py:317
 msgid "In my location latitude {} longitude {} it is probably not rain."
 msgstr "V mé lokalitě zeměpisná šířka {} zeměpisná délka {} asi není déšť."
 
-#: plugins/chmi/__init__.py:318
+#: plugins/chmi/__init__.py:319
 msgid "Probably not rain"
 msgstr "Asi neprší"
 
-#: plugins/chmi/__init__.py:321
+#: plugins/chmi/__init__.py:322
 msgid "Location is not set!"
 msgstr "Umístění není nastaveno!"
 
-#: plugins/chmi/__init__.py:338 plugins/chmi/templates/chmi.html:395
+#: plugins/chmi/__init__.py:339 plugins/chmi/templates/chmi.html:283
 msgid "Laskakit"
 msgstr "Laskakit"
 
-#: plugins/chmi/__init__.py:340 plugins/chmi/templates/chmi.html:396
+#: plugins/chmi/__init__.py:341 plugins/chmi/templates/chmi.html:284
 msgid "TMEP"
 msgstr "TMEP"
 
-#: plugins/chmi/__init__.py:343
+#: plugins/chmi/__init__.py:344
 msgid "I am sending JSON with cities to the {} map of the Czech Republic..."
 msgstr "Posílám JSON s městy na {} mapu České republiky..."
 
-#: plugins/chmi/__init__.py:347
+#: plugins/chmi/__init__.py:348
 msgid "I will try to send to {} post data {}"
 msgstr "Pokusím se poslat {} post data {}"
 
-#: plugins/chmi/__init__.py:350
+#: plugins/chmi/__init__.py:351
 msgid "HTTP {}"
 msgstr "HTTP {}"
 
-#: plugins/chmi/__init__.py:352
+#: plugins/chmi/__init__.py:353
 msgid ""
 "HTTP {}: I cannot connect to the board map of the Czech Republic at the URL "
 "http://{}/"
 msgstr ""
 "HTTP {}: Nemohu se připojit k mapě České republiky na adrese http://{}/"
 
-#: plugins/chmi/__init__.py:356
+#: plugins/chmi/__init__.py:357
 msgid ""
 "I cannot connect to the map board of the Czech Republic at the URL http://{}/"
 msgstr "Nemohu se připojit k desce České republiky na adrese http://{}/"
 
-#: plugins/chmi/__init__.py:358
+#: plugins/chmi/__init__.py:359
 msgid "Sending data to the hardware map is disabled."
 msgstr "Odesílání dat na hardwarovou mapu je zakázáno."
 
-#: plugins/chmi/__init__.py:360
+#: plugins/chmi/__init__.py:363
 msgid "Looks like it is not raining in any city."
 msgstr "Vypadá to, že v žádném městě neprší."
 
-#: plugins/chmi/__init__.py:366 plugins/chmi/__init__.py:368
+#: plugins/chmi/__init__.py:369 plugins/chmi/__init__.py:371
 msgid "Failed to load rain radar bitmap."
 msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
 
-#: plugins/chmi/__init__.py:376 plugins/real_time/__init__.py:144
+#: plugins/chmi/__init__.py:379 plugins/real_time/__init__.py:144
 #: plugins/weather_based_rain_delay/__init__.py:177
 #: plugins/weather_based_water_level/__init__.py:442
 #: plugins/weather_based_water_level/__init__.py:443
@@ -14336,113 +14322,113 @@ msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
 msgid "Plug-in is disabled."
 msgstr "Rozšíření je zakázáno."
 
-#: plugins/chmi/__init__.py:381 plugins/chmi/__init__.py:644
-#: plugins/chmi/__init__.py:1014 plugins/chmi/__init__.py:1089
-#: plugins/chmi/__init__.py:1104 plugins/chmi/__init__.py:1131
-#: plugins/chmi/__init__.py:1144 plugins/chmi/__init__.py:1156
-#: plugins/chmi/__init__.py:1226 plugins/chmi/__init__.py:1276
+#: plugins/chmi/__init__.py:384 plugins/chmi/__init__.py:647
+#: plugins/chmi/__init__.py:988 plugins/chmi/__init__.py:1063
+#: plugins/chmi/__init__.py:1078 plugins/chmi/__init__.py:1105
+#: plugins/chmi/__init__.py:1118 plugins/chmi/__init__.py:1130
+#: plugins/chmi/__init__.py:1200 plugins/chmi/__init__.py:1250
 msgid "CHMI plug-in"
 msgstr "Rozšíření ČHMÚ"
 
-#: plugins/chmi/__init__.py:432
+#: plugins/chmi/__init__.py:435
 msgid "Radar source"
 msgstr "Radarový zdroj"
 
-#: plugins/chmi/__init__.py:433
+#: plugins/chmi/__init__.py:436
 msgid "OSPy weather"
 msgstr "Počasí OSPy"
 
-#: plugins/chmi/__init__.py:436
+#: plugins/chmi/__init__.py:439
 msgid "Location configured"
 msgstr "Konfigurace polohy"
 
-#: plugins/chmi/__init__.py:439 plugins/labelmaker/__init__.py:463
+#: plugins/chmi/__init__.py:442 plugins/labelmaker/__init__.py:463
 msgid "Dependency installation"
 msgstr "Instalace závislostí"
 
-#: plugins/chmi/__init__.py:442
+#: plugins/chmi/__init__.py:445
 msgid "Last radar timestamp"
 msgstr "Poslední časové razítko radaru"
 
-#: plugins/chmi/__init__.py:443
+#: plugins/chmi/__init__.py:446
 msgid "Last successful radar update"
 msgstr "Poslední úspěšná aktualizace radaru"
 
-#: plugins/chmi/__init__.py:449 plugins/labelmaker/__init__.py:475
+#: plugins/chmi/__init__.py:452 plugins/labelmaker/__init__.py:475
 msgid "Missing Python modules"
 msgstr "Chybějící moduly Pythonu"
 
-#: plugins/chmi/__init__.py:455
+#: plugins/chmi/__init__.py:458
 msgid "CHMI radar is disabled."
 msgstr "Radar CHMI je deaktivován."
 
-#: plugins/chmi/__init__.py:461
+#: plugins/chmi/__init__.py:464
 msgid "CHMI radar worker is stopped."
 msgstr "Smyčka radaru CHMI je zastavena."
 
-#: plugins/chmi/__init__.py:467
+#: plugins/chmi/__init__.py:470
 msgid "SHMU radar dependencies are missing."
 msgstr "Chybí radarové závislosti SHMU."
 
-#: plugins/chmi/__init__.py:473 plugins/chmi/templates/chmi.html:423
+#: plugins/chmi/__init__.py:476 plugins/chmi/templates/chmi.html:316
 #: plugins/sunrise_and_sunset/__init__.py:536
 #: plugins/sunrise_and_sunset/__init__.py:807
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:108
 msgid "Enable weather and set the location in OSPy settings."
 msgstr "Povolte počasí a nastavte polohu v nastavení OSPy."
 
-#: plugins/chmi/__init__.py:487
+#: plugins/chmi/__init__.py:490
 msgid "Waiting for the first radar update."
 msgstr "Čekám na první radarovou aktualizaci."
 
-#: plugins/chmi/__init__.py:492
+#: plugins/chmi/__init__.py:495
 msgid "Radar data is available."
 msgstr "Radarová data jsou k dispozici."
 
-#: plugins/chmi/__init__.py:607
+#: plugins/chmi/__init__.py:610
 msgid "SHMU dependency installation is already running."
 msgstr "Instalace závislostí SHMU už běží."
 
-#: plugins/chmi/__init__.py:621
+#: plugins/chmi/__init__.py:624
 msgid "SHMU radar dependencies are already installed."
 msgstr "Radarové závislosti SHMU jsou již nainstalovány."
 
-#: plugins/chmi/__init__.py:624
+#: plugins/chmi/__init__.py:627
 msgid ""
 "Installing SHMU radar dependencies. This operation can take several minutes."
 msgstr ""
 "Instalace závislostí na radaru SHMU. Tato operace může trvat několik minut."
 
-#: plugins/chmi/__init__.py:627 plugins/chmi/__init__.py:630
+#: plugins/chmi/__init__.py:630 plugins/chmi/__init__.py:633
 #: plugins/labelmaker/__init__.py:306 plugins/mqtt/__init__.py:242
 #: plugins/sunrise_and_sunset/__init__.py:890
 msgid "Running command"
 msgstr "Běžící příkaz"
 
-#: plugins/chmi/__init__.py:639
+#: plugins/chmi/__init__.py:642
 msgid "SHMU radar dependencies were installed successfully."
 msgstr "Radarové závislosti SHMU byly úspěšně instalovány."
 
-#: plugins/chmi/__init__.py:640
+#: plugins/chmi/__init__.py:643
 msgid ""
 "Set your location coordinates in the OSPy options so rain detection works "
 "correctly."
 msgstr ""
 "Nastavte si souřadnice polohy v OSPy, aby detekce deště fungovala správně."
 
-#: plugins/chmi/__init__.py:642
+#: plugins/chmi/__init__.py:645
 msgid "SHMU radar dependency installation failed. Missing modules"
 msgstr "Instalace závislé na radaru SHMU selhala. Chybějící moduly"
 
-#: plugins/chmi/__init__.py:653
+#: plugins/chmi/__init__.py:656
 msgid "forecast +{} min"
 msgstr "předpověď +{} min"
 
-#: plugins/chmi/__init__.py:656
+#: plugins/chmi/__init__.py:659
 msgid "now"
 msgstr "nyní"
 
-#: plugins/chmi/__init__.py:677
+#: plugins/chmi/__init__.py:680
 msgid ""
 "SHMU radar source requires python3-h5py and python3-numpy. Install them and "
 "restart OSPy."
@@ -14450,71 +14436,79 @@ msgstr ""
 "Zdrojový kód SHMU radaru vyžaduje python3-h5py a python3-numpy. Nainstalujte "
 "je a restartujte OSPy."
 
-#: plugins/chmi/__init__.py:712 plugins/chmi/__init__.py:749
-#: plugins/chmi/__init__.py:955
+#: plugins/chmi/__init__.py:715 plugins/chmi/__init__.py:752
+#: plugins/chmi/__init__.py:929
 msgid "Downloading a file: {}"
 msgstr "Stažení souboru: {}"
 
-#: plugins/chmi/__init__.py:756 plugins/chmi/__init__.py:963
+#: plugins/chmi/__init__.py:759 plugins/chmi/__init__.py:937
 msgid "HTTP {}: I can not download the file."
 msgstr "HTTP {}: Nemohu stáhnout soubor."
 
-#: plugins/chmi/__init__.py:935
+#: plugins/chmi/__init__.py:909
 msgid "Radar animation cache contains {} frame(s)."
 msgstr "Cache radarové animace obsahuje {} snímků."
 
-#: plugins/chmi/__init__.py:961
+#: plugins/chmi/__init__.py:935
 msgid "HTTP {}: downloaded file is not a valid PNG image."
 msgstr "HTTP {}: stažený soubor není platný PNG obraz."
 
-#: plugins/chmi/__init__.py:964 plugins/chmi/__init__.py:970
+#: plugins/chmi/__init__.py:938 plugins/chmi/__init__.py:944
 msgid "I will try to download a file that is 10 minutes older."
 msgstr "Pokusím se stáhnout soubor, který je o 10 minut starší."
 
-#: plugins/chmi/__init__.py:1060 plugins/chmi/templates/chmi.html:445
+#: plugins/chmi/__init__.py:1034 plugins/chmi/templates/chmi.html:338
 #: plugins/tank_monitor/__init__.py:1060
 #: plugins/tank_monitor/templates/tank_monitor.html:383
 msgid "Removing Rain Delay"
 msgstr "Odebrání zpoždění při dešti"
 
-#: plugins/chmi/__init__.py:1091 plugins/chmi/__init__.py:1278
+#: plugins/chmi/__init__.py:1065 plugins/chmi/__init__.py:1252
 msgid "chmi -> settings_page GET"
 msgstr "chmi -> settings_page GET"
 
-#: plugins/chmi/__init__.py:1106
+#: plugins/chmi/__init__.py:1080
 msgid "chmi -> settings_page POST"
 msgstr "chmi -> settings_page POST"
 
-#: plugins/chmi/__init__.py:1133
+#: plugins/chmi/__init__.py:1107
 msgid "chmi -> download_page GET"
 msgstr "chmi -> download_page GET"
 
-#: plugins/chmi/__init__.py:1146
+#: plugins/chmi/__init__.py:1120
 msgid "chmi -> help_page GET"
 msgstr "chmi -> help_page GET"
 
-#: plugins/chmi/__init__.py:1158
+#: plugins/chmi/__init__.py:1132
 msgid "chmi -> log_page GET"
 msgstr "chmi -> log_page GET"
 
-#: plugins/chmi/__init__.py:1291
+#: plugins/chmi/__init__.py:1265
 msgid "RAIN IN LOCATION"
 msgstr "V LOKACI PRŠÍ"
 
-#: plugins/chmi/__init__.py:1294
+#: plugins/chmi/__init__.py:1268
 msgid "NOT RAIN IN LOCATION"
 msgstr "V LOKACI NEPRŠÍ"
 
-#: plugins/chmi/__init__.py:1296
+#: plugins/chmi/__init__.py:1270
 msgid "ENABLE WEATHER AND SET THE LOCATION IN OSPY"
 msgstr "ZAPNĚTE POČASÍ A NASTAVTE POLOHU V OSPY"
 
-#: plugins/chmi/templates/chmi.html:31
+#: plugins/chmi/templates/chmi.html:15
+msgid "Rain is detected at my location in this frame."
+msgstr "Déšť je detekován na mé pozici v tomto snímku."
+
+#: plugins/chmi/templates/chmi.html:16
+msgid "Rain is not detected at my location in this frame."
+msgstr "Déšť není na mé pozici v tomto snímku detekován."
+
+#: plugins/chmi/templates/chmi.html:35
 #: plugins/database_connector/templates/database_connector.html:60
 msgid "IP map address is not valid!"
 msgstr "IP adresa není platná!"
 
-#: plugins/chmi/templates/chmi.html:306
+#: plugins/chmi/templates/chmi.html:194
 msgid ""
 "The measurement time is primarily given in UTC world time "
 "(UTC=UT=GMT=SELC-2h = CET-1h)."
@@ -14522,7 +14516,7 @@ msgstr ""
 "Doba měření se primárně udává ve světovém čase UTC (UTC=UT=GMT=SELC-2h = "
 "CET-1h)."
 
-#: plugins/chmi/templates/chmi.html:312
+#: plugins/chmi/templates/chmi.html:200
 #: plugins/cli_control/templates/cli_control.html:100
 #: plugins/modbus_stations/templates/modbus_stations_log.html:12
 #: plugins/ping_monitor/templates/ping_monitor.html:283
@@ -14532,11 +14526,11 @@ msgstr ""
 msgid "Delete all logs"
 msgstr "Smazat všechny logy"
 
-#: plugins/chmi/templates/chmi.html:318
+#: plugins/chmi/templates/chmi.html:206
 msgid "Radar data source"
 msgstr "Zdroj radarových dat"
 
-#: plugins/chmi/templates/chmi.html:319
+#: plugins/chmi/templates/chmi.html:207
 msgid ""
 "Select the meteorological radar data source. CHMI uses Czech PNG radar "
 "images, SHMU uses Slovak OpenData HDF radar composites."
@@ -14544,33 +14538,33 @@ msgstr ""
 "Vyberte meteorologický radarový zdroj dat. CHMI používá české PNG radarové "
 "snímky, SHMU používá slovenské OpenData HDF radarové kompozity."
 
-#: plugins/chmi/templates/chmi.html:321
+#: plugins/chmi/templates/chmi.html:209
 msgid "CHMI Czech Republic"
 msgstr "CHMI Česká republika"
 
-#: plugins/chmi/templates/chmi.html:322
+#: plugins/chmi/templates/chmi.html:210
 msgid "SHMU Slovakia"
 msgstr "SHMU Slovensko"
 
-#: plugins/chmi/templates/chmi.html:328
+#: plugins/chmi/templates/chmi.html:216
 msgid "SHMU radar libraries"
 msgstr "Knihovny radarů SHMU"
 
-#: plugins/chmi/templates/chmi.html:329
+#: plugins/chmi/templates/chmi.html:217
 msgid "SHMU radar needs h5py and numpy for reading HDF radar files."
 msgstr "SHMU radar potřebuje h5py a numpy pro čtení HDF radarových souborů."
 
-#: plugins/chmi/templates/chmi.html:330
+#: plugins/chmi/templates/chmi.html:218
 msgid "Missing modules"
 msgstr "Chybějící moduly"
 
-#: plugins/chmi/templates/chmi.html:332 plugins/chmi/templates/chmi.html:335
+#: plugins/chmi/templates/chmi.html:220 plugins/chmi/templates/chmi.html:223
 #: plugins/labelmaker/templates/labelmaker.html:149
 #: plugins/labelmaker/templates/labelmaker.html:152
 msgid "Installing, please wait..."
 msgstr "Instaluji, prosím počkejte..."
 
-#: plugins/chmi/templates/chmi.html:333 plugins/chmi/templates/chmi.html:336
+#: plugins/chmi/templates/chmi.html:221 plugins/chmi/templates/chmi.html:224
 #: plugins/labelmaker/templates/labelmaker.html:150
 #: plugins/labelmaker/templates/labelmaker.html:153
 #: plugins/mqtt/templates/mqtt.html:79
@@ -14579,7 +14573,7 @@ msgstr "Instaluji, prosím počkejte..."
 msgid "Install libraries"
 msgstr "Instalační knihovny"
 
-#: plugins/chmi/templates/chmi.html:338
+#: plugins/chmi/templates/chmi.html:226
 msgid ""
 "After installation set your location coordinates in the OSPy options so rain "
 "detection works correctly."
@@ -14587,19 +14581,19 @@ msgstr ""
 "Po instalaci nastavte souřadnice polohy v OSPy, aby detekce deště fungovala "
 "správně."
 
-#: plugins/chmi/templates/chmi.html:342
+#: plugins/chmi/templates/chmi.html:230
 msgid "Use radar"
 msgstr "Použit radar"
 
-#: plugins/chmi/templates/chmi.html:343
+#: plugins/chmi/templates/chmi.html:231
 msgid "When the box is checked, the extension will be active."
 msgstr "Když je políčko zaškrtnuto, rozšíření bude aktivní."
 
-#: plugins/chmi/templates/chmi.html:351
+#: plugins/chmi/templates/chmi.html:239
 msgid "Send to HW map"
 msgstr "Odeslat na HW mapu"
 
-#: plugins/chmi/templates/chmi.html:352
+#: plugins/chmi/templates/chmi.html:240
 msgid ""
 "When enabled, detected rainy cities will be sent to the external hardware "
 "map."
@@ -14607,19 +14601,19 @@ msgstr ""
 "Po zapnutí budou detekovaná deštivá města odeslána na mapu externího "
 "hardwaru."
 
-#: plugins/chmi/templates/chmi.html:360
+#: plugins/chmi/templates/chmi.html:248
 msgid "Where it is raining"
 msgstr "Kde prší"
 
-#: plugins/chmi/templates/chmi.html:361
+#: plugins/chmi/templates/chmi.html:249
 msgid "Show in the status window where it is raining on the map."
 msgstr "Vypisovat v okně, kde na mapě zrovna prší."
 
-#: plugins/chmi/templates/chmi.html:369
+#: plugins/chmi/templates/chmi.html:257
 msgid "Animate radar map"
 msgstr "Animovaná radarová mapa"
 
-#: plugins/chmi/templates/chmi.html:370
+#: plugins/chmi/templates/chmi.html:258
 msgid ""
 "When enabled, recent radar images are kept in RAM and animated on the "
 "settings page."
@@ -14627,11 +14621,11 @@ msgstr ""
 "Když je zapnutý, nedávné radarové snímky jsou uloženy v RAM a animovány na "
 "stránce nastavení."
 
-#: plugins/chmi/templates/chmi.html:378
+#: plugins/chmi/templates/chmi.html:266
 msgid "Show on home page"
 msgstr "Zobrazit na domovské stránce"
 
-#: plugins/chmi/templates/chmi.html:379
+#: plugins/chmi/templates/chmi.html:267
 msgid ""
 "When enabled, a small animated CHMI radar widget is shown on the OSPy home "
 "page."
@@ -14639,49 +14633,49 @@ msgstr ""
 "Po zapnutí se na domovské stránce OSPy zobrazí malý animovaný CHMI radarový "
 "widget."
 
-#: plugins/chmi/templates/chmi.html:387
+#: plugins/chmi/templates/chmi.html:275
 msgid "Map IP address"
 msgstr "IP adresa mapy"
 
-#: plugins/chmi/templates/chmi.html:388
+#: plugins/chmi/templates/chmi.html:276
 msgid "IP address for map."
 msgstr "IP adresa pro mapu."
 
-#: plugins/chmi/templates/chmi.html:392
+#: plugins/chmi/templates/chmi.html:280
 msgid "Map board type"
 msgstr "Typ mapové desky"
 
-#: plugins/chmi/templates/chmi.html:394
+#: plugins/chmi/templates/chmi.html:282
 msgid "Mark used your board hardware."
 msgstr "Vyberte typ HW desky."
 
-#: plugins/chmi/templates/chmi.html:402
+#: plugins/chmi/templates/chmi.html:290
 msgid "State in my location"
 msgstr "Stav v mé pozici"
 
-#: plugins/chmi/templates/chmi.html:408
+#: plugins/chmi/templates/chmi.html:296
 msgid "Meteo map"
 msgstr "Meteo mapa"
 
-#: plugins/chmi/templates/chmi.html:409
+#: plugins/chmi/templates/chmi.html:297
 msgid "A downloaded map from the Meteo Institute is displayed here."
 msgstr "Zde je zobrazena stažená mapa z Meteo Institutu."
 
-#: plugins/chmi/templates/chmi.html:422
+#: plugins/chmi/templates/chmi.html:315
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:107
 msgid "Weather location is not available."
 msgstr "Poloha počasí není k dispozici."
 
-#: plugins/chmi/templates/chmi.html:424
+#: plugins/chmi/templates/chmi.html:317
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:109
 msgid "Open weather settings"
 msgstr "Nastavení Open weather"
 
-#: plugins/chmi/templates/chmi.html:433
+#: plugins/chmi/templates/chmi.html:326
 msgid "Use a rain delay"
 msgstr "Použít zpoždění deště"
 
-#: plugins/chmi/templates/chmi.html:434
+#: plugins/chmi/templates/chmi.html:327
 msgid ""
 "If enabled, rain detected at the location configured in OSPy weather "
 "settings activates a rain delay."
@@ -14689,23 +14683,23 @@ msgstr ""
 "Pokud je povoleno, déšť detekovaný na místě nastaveném v nastavení počasí "
 "OSPy aktivuje zpoždění deště."
 
-#: plugins/chmi/templates/chmi.html:442
+#: plugins/chmi/templates/chmi.html:335
 msgid "Delay time"
 msgstr "Doba zpoždění"
 
-#: plugins/chmi/templates/chmi.html:443
+#: plugins/chmi/templates/chmi.html:336
 msgid "Delay time in hours."
 msgstr "Doba zpoždění v hodinách."
 
-#: plugins/chmi/templates/chmi.html:444
+#: plugins/chmi/templates/chmi.html:337
 msgid "(in hours)"
 msgstr "(v hodinách)"
 
-#: plugins/chmi/templates/chmi.html:449
+#: plugins/chmi/templates/chmi.html:342
 msgid "Intensity threshold"
 msgstr "Práh intenzity"
 
-#: plugins/chmi/templates/chmi.html:450
+#: plugins/chmi/templates/chmi.html:343
 msgid ""
 "Intensity threshold for activate rain delay in my location. Enabled channels "
 "are evaluated with OR logic. This means that when enabled red exceeds 50, or "
@@ -14717,38 +14711,38 @@ msgstr ""
 "červené překročí 50, zelená překročí 100, nebo modrá aktivovaná 200, je "
 "detekován déšť."
 
-#: plugins/chmi/templates/chmi.html:453
+#: plugins/chmi/templates/chmi.html:346
 #: plugins/labelmaker/templates/labelmaker.html:211
 msgid "RED"
 msgstr "ČERVENÁ"
 
-#: plugins/chmi/templates/chmi.html:454
+#: plugins/chmi/templates/chmi.html:347
 msgid "Use red channel for rain detection."
 msgstr "Používat červený kanál pro detekci deště."
 
-#: plugins/chmi/templates/chmi.html:461
+#: plugins/chmi/templates/chmi.html:354
 #: plugins/labelmaker/templates/labelmaker.html:212
 msgid "GREEN"
 msgstr "ZELENÁ"
 
-#: plugins/chmi/templates/chmi.html:462
+#: plugins/chmi/templates/chmi.html:355
 msgid "Use green channel for rain detection."
 msgstr "Používat zelený kanál pro detekci deště."
 
-#: plugins/chmi/templates/chmi.html:469
+#: plugins/chmi/templates/chmi.html:362
 #: plugins/labelmaker/templates/labelmaker.html:213
 msgid "BLUE"
 msgstr "MODRÁ"
 
-#: plugins/chmi/templates/chmi.html:470
+#: plugins/chmi/templates/chmi.html:363
 msgid "Use blue channel for rain detection."
 msgstr "Používat modrý kanál pro detekci deště."
 
-#: plugins/chmi/templates/chmi.html:480
+#: plugins/chmi/templates/chmi.html:373
 msgid "Detection radius"
 msgstr "Detekční poloměr"
 
-#: plugins/chmi/templates/chmi.html:481
+#: plugins/chmi/templates/chmi.html:374
 msgid ""
 "Pixel radius around my location used for rain detection. A larger radius is "
 "less sensitive to one bad pixel."
@@ -14756,11 +14750,11 @@ msgstr ""
 "Pixelový poloměr kolem mé polohy použitý pro detekci deště. Větší poloměr je "
 "méně citlivý na jeden špatný pixel."
 
-#: plugins/chmi/templates/chmi.html:486
+#: plugins/chmi/templates/chmi.html:379
 msgid "Minimum rainy pixels"
 msgstr "Minimální počet deštivých pixelů"
 
-#: plugins/chmi/templates/chmi.html:487
+#: plugins/chmi/templates/chmi.html:380
 msgid ""
 "Minimum percentage of pixels in the detection area that must exceed the "
 "intensity threshold before rain delay is activated."
@@ -14768,7 +14762,7 @@ msgstr ""
 "Minimální procento pixelů v detekční oblasti, které musí překročit práh "
 "intenzity před aktivací zpoždění deště."
 
-#: plugins/chmi/templates/chmi.html:497
+#: plugins/chmi/templates/chmi.html:390
 #: plugins/cli_control/templates/cli_control.html:115
 #: plugins/modbus_stations/templates/modbus_stations.html:84
 #: plugins/ping_monitor/templates/ping_monitor.html:297
@@ -14779,16 +14773,15 @@ msgstr ""
 msgid "Enable logging"
 msgstr "Povolit záznam"
 
-#: plugins/chmi/templates/chmi.html:508
+#: plugins/chmi/templates/chmi.html:401
 #: plugins/pressure_monitor/templates/pressure_monitor.html:332
 #: plugins/speed_monitor/templates/speed_monitor.html:314
 #: plugins/ups_adj/templates/ups_adj.html:351
 #: plugins/volt_temp_da/templates/volt_temp_da.html:93
-#: plugins/wind_monitor/templates/wind_monitor.html:371
 msgid "0 = unlimited"
 msgstr "0 = bez omezení"
 
-#: plugins/chmi/templates/chmi.html:535
+#: plugins/chmi/templates/chmi.html:428
 msgid "Download now"
 msgstr "Stáhnout nyní data"
 
@@ -16420,7 +16413,6 @@ msgstr "Nádrž % nebo litry"
 #: plugins/speed_monitor/templates/speed_monitor.html:79
 #: plugins/tank_monitor/templates/tank_monitor.html:79
 #: plugins/ups_adj/templates/ups_adj.html:34
-#: plugins/wind_monitor/templates/wind_monitor.html:88
 msgid "Actual Value"
 msgstr "Skutečná hodnota"
 
@@ -16930,7 +16922,6 @@ msgstr ""
 "aktivuje"
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:550
-#: plugins/wind_monitor/templates/wind_monitor.html:452
 msgid "Stoping stations"
 msgstr "Zastavit stanice"
 
@@ -17406,7 +17397,7 @@ msgid "min cm, max cm, actual ping, volume"
 msgstr "min cm, max cm, aktuální ping, objem"
 
 #: plugins/database_connector/templates/database_connector_help.html:21
-#: plugins/wind_monitor/__init__.py:33
+#: plugins/wind_monitor/__init__.py:42
 msgid "Package: Wind Speed Monitor"
 msgstr "Balíček: Monitor rychlosti větru"
 
@@ -17710,6 +17701,7 @@ msgstr "Nejsou k dispozici žádné snímače"
 #: plugins/email_notifications_ssl/__init__.py:1098
 #: plugins/email_notifications_ssl/__init__.py:1138
 #: plugins/email_notifications_ssl/__init__.py:1150
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:88
 msgid "E-mail plug-in"
 msgstr "Rošíření E-mail"
 
@@ -17937,7 +17929,7 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/tank_monitor/templates/tank_monitor.html:434
 #: plugins/ups_adj/templates/ups_adj.html:376
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:131
-#: plugins/wind_monitor/templates/wind_monitor.html:432
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:87
 msgid "E-mail subject"
 msgstr "Předmět E-mailu"
 
@@ -18154,7 +18146,7 @@ msgstr "od Shelly.com"
 #: plugins/lcd_display/__init__.py:823 plugins/lcd_display/__init__.py:828
 #: plugins/lcd_display/__init__.py:833 plugins/lcd_display/__init__.py:838
 #: plugins/lcd_display/__init__.py:843 plugins/lcd_display/__init__.py:848
-#: plugins/wind_monitor/__init__.py:985
+#: plugins/wind_monitor/__init__.py:1267
 msgid "Any error"
 msgstr "Nějaká chyba"
 
@@ -18789,31 +18781,31 @@ msgstr "Rychlost větru"
 
 #: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:321
 #: plugins/email_reader/__init__.py:1024 plugins/email_reader/__init__.py:1025
-#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:206
-#: plugins/wind_monitor/__init__.py:211 plugins/wind_monitor/__init__.py:307
-#: plugins/wind_monitor/__init__.py:324 plugins/wind_monitor/__init__.py:325
-#: plugins/wind_monitor/__init__.py:981
-#: plugins/wind_monitor/templates/wind_monitor_log.html:51
-#: plugins/wind_monitor/templates/wind_monitor_log.html:52
-#: plugins/wind_monitor/templates/wind_monitor_log.html:63
-#: plugins/wind_monitor/templates/wind_monitor_log.html:64
+#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:348
+#: plugins/wind_monitor/__init__.py:353 plugins/wind_monitor/__init__.py:459
+#: plugins/wind_monitor/__init__.py:476 plugins/wind_monitor/__init__.py:477
+#: plugins/wind_monitor/__init__.py:1260 plugins/wind_monitor/__init__.py:1261
+#: plugins/wind_monitor/templates/wind_monitor_log.html:53
+#: plugins/wind_monitor/templates/wind_monitor_log.html:54
+#: plugins/wind_monitor/templates/wind_monitor_log.html:65
+#: plugins/wind_monitor/templates/wind_monitor_log.html:66
 msgid "km/h"
 msgstr "km/h"
 
 #: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:323
-#: plugins/speed_monitor/__init__.py:111 plugins/wind_monitor/__init__.py:206
-#: plugins/wind_monitor/__init__.py:208
+#: plugins/speed_monitor/__init__.py:111 plugins/wind_monitor/__init__.py:348
+#: plugins/wind_monitor/__init__.py:350
 msgid "Speed"
 msgstr "Rychlost"
 
 #: plugins/email_reader/__init__.py:321 plugins/email_reader/__init__.py:324
-#: plugins/wind_monitor/__init__.py:211 plugins/wind_monitor/__init__.py:213
+#: plugins/wind_monitor/__init__.py:353 plugins/wind_monitor/__init__.py:355
 msgid "Maximal speed"
 msgstr "Maximální rychlost"
 
 #: plugins/email_reader/__init__.py:323 plugins/email_reader/__init__.py:324
 #: plugins/email_reader/__init__.py:1027 plugins/email_reader/__init__.py:1028
-#: plugins/wind_monitor/__init__.py:208 plugins/wind_monitor/__init__.py:213
+#: plugins/wind_monitor/__init__.py:350 plugins/wind_monitor/__init__.py:355
 msgid "m/sec"
 msgstr "m/s"
 
@@ -19109,9 +19101,9 @@ msgstr "Minimum"
 #: plugins/tank_monitor/__init__.py:772 plugins/tank_monitor/__init__.py:955
 #: plugins/tank_monitor/__init__.py:1310 plugins/tank_monitor/__init__.py:1358
 #: plugins/tank_monitor/templates/tank_monitor_log.html:36
-#: plugins/wind_monitor/__init__.py:622 plugins/wind_monitor/__init__.py:804
-#: plugins/wind_monitor/__init__.py:890 plugins/wind_monitor/__init__.py:926
-#: plugins/wind_monitor/templates/wind_monitor_log.html:42
+#: plugins/wind_monitor/__init__.py:821 plugins/wind_monitor/__init__.py:1054
+#: plugins/wind_monitor/__init__.py:1140 plugins/wind_monitor/__init__.py:1176
+#: plugins/wind_monitor/templates/wind_monitor_log.html:44
 msgid "Maximum"
 msgstr "Maximum"
 
@@ -19129,7 +19121,7 @@ msgstr "email_reader -> settings_page GET"
 
 #: plugins/email_reader/__init__.py:1083 plugins/ping_monitor/__init__.py:599
 #: plugins/pressurizer/__init__.py:374 plugins/speed_monitor/__init__.py:447
-#: plugins/tank_monitor/__init__.py:1095 plugins/wind_monitor/__init__.py:706
+#: plugins/tank_monitor/__init__.py:1095 plugins/wind_monitor/__init__.py:926
 msgid "Options has updated."
 msgstr "Nastavení bylo aktualizováno."
 
@@ -20897,16 +20889,16 @@ msgstr "Nádrže se  smyčkou"
 #: plugins/lcd_display/__init__.py:894
 #: plugins/lcd_display/templates/lcd_display.html:390
 #: plugins/lcd_display/templates/lcd_display_help.html:50
-#: plugins/wind_monitor/__init__.py:172
+#: plugins/wind_monitor/__init__.py:271
 msgid "Wind Speed"
 msgstr "Rychlost větru"
 
-#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:309
-#: plugins/wind_monitor/__init__.py:983
-#: plugins/wind_monitor/templates/wind_monitor_log.html:54
-#: plugins/wind_monitor/templates/wind_monitor_log.html:55
-#: plugins/wind_monitor/templates/wind_monitor_log.html:66
-#: plugins/wind_monitor/templates/wind_monitor_log.html:67
+#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:461
+#: plugins/wind_monitor/__init__.py:1263 plugins/wind_monitor/__init__.py:1264
+#: plugins/wind_monitor/templates/wind_monitor_log.html:56
+#: plugins/wind_monitor/templates/wind_monitor_log.html:57
+#: plugins/wind_monitor/templates/wind_monitor_log.html:68
+#: plugins/wind_monitor/templates/wind_monitor_log.html:69
 msgid "m/s"
 msgstr "m/s"
 
@@ -20922,7 +20914,7 @@ msgstr "Nebyl nalezen žádný řadič PCF8574."
 #: plugins/lcd_display/__init__.py:943 plugins/lcd_display/__init__.py:945
 #: plugins/system_info/__init__.py:265 plugins/system_info/__init__.py:311
 #: plugins/volt_temp_da/__init__.py:106 plugins/water_meter/__init__.py:93
-#: plugins/wind_monitor/__init__.py:137
+#: plugins/wind_monitor/__init__.py:234
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
@@ -21241,6 +21233,7 @@ msgid "Re-find"
 msgstr "Znovu najít"
 
 #: plugins/lcd_display/templates/lcd_display.html:424
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:29
 msgid "address"
 msgstr "adresu"
 
@@ -24367,7 +24360,6 @@ msgstr "Odeslat E-mailem soubor statistik (csv)."
 #: plugins/tank_monitor/templates/tank_monitor.html:417
 #: plugins/tank_monitor/templates/tank_monitor.html:426
 #: plugins/ups_adj/templates/ups_adj.html:368
-#: plugins/wind_monitor/templates/wind_monitor.html:424
 msgid "For this function required E-mail plugin"
 msgstr ""
 "Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
@@ -24399,7 +24391,6 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:441
 #: plugins/ups_adj/templates/ups_adj.html:383
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:134
-#: plugins/wind_monitor/templates/wind_monitor.html:439
 msgid "Select E-mail plug-in for sending E-mail"
 msgstr "Vyberte rozšíření pro odesílání e-mailů"
 
@@ -29700,7 +29691,7 @@ msgid "Unkown FW version in CPU (Atmega 328)"
 msgstr "Neznámá verze FW v CPU (Atmega 328)"
 
 #: plugins/tank_monitor/__init__.py:904 plugins/ups_adj/__init__.py:483
-#: plugins/wind_monitor/__init__.py:600
+#: plugins/wind_monitor/__init__.py:799
 msgid "Saving to log  files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
@@ -31532,6 +31523,8 @@ msgstr "Test na žaluzii {}, pozice {}."
 #: plugins/venetian_blind/templates/venetian_blind.html:35
 #: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:115
 #: plugins/weather_stations/templates/canvas_page.html:86
+#: plugins/wind_monitor/templates/wind_monitor.html:114
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:12
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -32267,7 +32260,6 @@ msgstr "sběrnici a připojeno"
 
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:8
 #: plugins/water_meter/templates/water_meter_help.html:8
-#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "This plugin needs an enabled"
 msgstr "Toto rozšíření potřebuje povolenou"
 
@@ -32527,7 +32519,7 @@ msgstr "Rozšíření vodoměr je zakázáno."
 msgid "Setup PCF8583 as event counter is OK"
 msgstr "Nastavení PCF8583 jako čítač událostí je v pořádku"
 
-#: plugins/water_meter/__init__.py:270 plugins/wind_monitor/__init__.py:438
+#: plugins/water_meter/__init__.py:270 plugins/wind_monitor/__init__.py:620
 msgid "Setup PCF8583 as event counter - FAULT"
 msgstr "Nastavení PCF8583 jako čítače událostí - CHYBA"
 
@@ -32565,7 +32557,6 @@ msgid "Use Water Meter"
 msgstr "Použit vodoměr"
 
 #: plugins/water_meter/templates/water_meter.html:90
-#: plugins/wind_monitor/templates/wind_monitor.html:382
 msgid "address 0x50"
 msgstr "adresa 0x50"
 
@@ -32595,12 +32586,10 @@ msgid "Water meter - help"
 msgstr "Rozšíření vodoměr - nápověda"
 
 #: plugins/water_meter/templates/water_meter_help.html:8
-#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "address 0x50 or 0x51."
 msgstr "adrese 0x50 nebo 0x51."
 
 #: plugins/water_meter/templates/water_meter_help.html:8
-#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "bus and connected counter PCF8583 on"
 msgstr "sběrnici a připojený čítač PCF8583 na"
 
@@ -34177,434 +34166,510 @@ msgstr ""
 "Pokud fswebcam není nainstalováno, nainstalujte ho ze správce systémových "
 "balíčků"
 
-#: plugins/wind_monitor/__init__.py:45
+#: plugins/wind_monitor/__init__.py:59
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
 msgstr "Zpráva z rozšíření OSPy WIND SPEED MONITOR"
 
-#: plugins/wind_monitor/__init__.py:206 plugins/wind_monitor/__init__.py:208
+#: plugins/wind_monitor/__init__.py:324
+msgid "Wind measurement was rejected as implausible."
+msgstr "Měření větru bylo odmítnuto jako nepravděpodobné."
+
+#: plugins/wind_monitor/__init__.py:348 plugins/wind_monitor/__init__.py:350
 msgid "Pulses"
 msgstr "Pulsy"
 
-#: plugins/wind_monitor/__init__.py:206 plugins/wind_monitor/__init__.py:208
+#: plugins/wind_monitor/__init__.py:348 plugins/wind_monitor/__init__.py:350
 msgid "pulses/sec"
 msgstr "impulsy/s"
 
-#: plugins/wind_monitor/__init__.py:216
+#: plugins/wind_monitor/__init__.py:358
 msgid "Wind speed > 150 km/h (42 m/sec)"
 msgstr "Rychlost větru > 150 km/h (42 m/s)"
 
-#: plugins/wind_monitor/__init__.py:222
+#: plugins/wind_monitor/__init__.py:374
 msgid "Sending E-mail with notification."
 msgstr "Odeslat E-mail s oznámením."
 
-#: plugins/wind_monitor/__init__.py:264
+#: plugins/wind_monitor/__init__.py:416
 msgid "Deleting maximal speed after selected interval."
 msgstr "Odstranění maximální rychlosti po zvoleném intervalu."
 
-#: plugins/wind_monitor/__init__.py:277
+#: plugins/wind_monitor/__init__.py:429
 msgid "Speed was exceeded! Event # {}/{}."
 msgstr "Rychlost byla překročena! Událost # {}/{}."
 
-#: plugins/wind_monitor/__init__.py:283
+#: plugins/wind_monitor/__init__.py:435
 msgid "The program will now start and setup block for {} hours."
 msgstr "Program se nyní spustí a nastaví blok na {} hodin."
 
-#: plugins/wind_monitor/__init__.py:291
+#: plugins/wind_monitor/__init__.py:443
 msgid "Run now program # {}."
 msgstr "Spustit nyní program # {}."
 
-#: plugins/wind_monitor/__init__.py:296
+#: plugins/wind_monitor/__init__.py:448
 msgid ""
 "The number of exceedances in the set interval has not been exceeded, I reset "
 "the counter."
 msgstr ""
 "Počet překročení v nastaveném intervalu nebyl překročen, resetuji počítadlo."
 
-#: plugins/wind_monitor/__init__.py:301
+#: plugins/wind_monitor/__init__.py:453
 msgid "The program has now been unblocked."
 msgstr "Program byl nyní odblokován."
 
-#: plugins/wind_monitor/__init__.py:319
+#: plugins/wind_monitor/__init__.py:471
 msgid "Wind speed monitor plug-in is disabled."
 msgstr "Rozšíření monitor rychlosti větru je zakázáno."
 
-#: plugins/wind_monitor/__init__.py:324 plugins/wind_monitor/__init__.py:325
+#: plugins/wind_monitor/__init__.py:476 plugins/wind_monitor/__init__.py:477
 msgid ""
 "System detected error: wind speed monitor. All stations set to OFF. Wind is"
 msgstr ""
 "Chyba zjištěná systémem: monitor rychlosti větru. Všechny stanice jsou naní "
 "nastaveny na VYPNUTO. Vítr je"
 
-#: plugins/wind_monitor/__init__.py:324 plugins/wind_monitor/__init__.py:436
-#: plugins/wind_monitor/__init__.py:438 plugins/wind_monitor/__init__.py:439
-#: plugins/wind_monitor/__init__.py:475 plugins/wind_monitor/__init__.py:478
-#: plugins/wind_monitor/__init__.py:615 plugins/wind_monitor/__init__.py:684
-#: plugins/wind_monitor/__init__.py:741 plugins/wind_monitor/__init__.py:792
-#: plugins/wind_monitor/__init__.py:828 plugins/wind_monitor/__init__.py:878
-#: plugins/wind_monitor/__init__.py:966
+#: plugins/wind_monitor/__init__.py:476 plugins/wind_monitor/__init__.py:612
+#: plugins/wind_monitor/__init__.py:620 plugins/wind_monitor/__init__.py:621
+#: plugins/wind_monitor/__init__.py:669 plugins/wind_monitor/__init__.py:677
+#: plugins/wind_monitor/__init__.py:814 plugins/wind_monitor/__init__.py:892
+#: plugins/wind_monitor/__init__.py:961 plugins/wind_monitor/__init__.py:1042
+#: plugins/wind_monitor/__init__.py:1078 plugins/wind_monitor/__init__.py:1128
+#: plugins/wind_monitor/__init__.py:1216
 msgid "Wind speed monitor plug-in"
 msgstr "Rozšíření monitor rychlosti větru"
 
-#: plugins/wind_monitor/__init__.py:339 plugins/wind_monitor/__init__.py:344
+#: plugins/wind_monitor/__init__.py:491 plugins/wind_monitor/__init__.py:496
 msgid "Wind Speed monitor plug-in"
 msgstr "Rozšíření monitor rychlosti větru"
 
-#: plugins/wind_monitor/__init__.py:436
+#: plugins/wind_monitor/__init__.py:610
+msgid "PCF8583 event-counter mode was not confirmed."
+msgstr "PCF8583 režim počítadla událostí nebyl potvrzen."
+
+#: plugins/wind_monitor/__init__.py:612
 msgid "Setup PCF8583 as event counter - OK"
 msgstr "Nastavení PCF8583 jako čítače událostí - OK"
 
-#: plugins/wind_monitor/__init__.py:473
+#: plugins/wind_monitor/__init__.py:667
 msgid "I2C bus is busy, wind counter read skipped."
 msgstr "I2C sběrnice je obsazená, čtení větrného čítače přeskočeno."
 
-#: plugins/wind_monitor/__init__.py:663
+#: plugins/wind_monitor/__init__.py:867
 msgid "Maximal speed has reseted."
 msgstr "Maximální rychlost se resetovala."
 
-#: plugins/wind_monitor/__init__.py:682 plugins/wind_monitor/__init__.py:739
+#: plugins/wind_monitor/__init__.py:890 plugins/wind_monitor/__init__.py:959
 msgid "Deleting the windmonitor table from the database."
 msgstr "Odstranění tabulky windmonitor z databáze."
 
-#: plugins/wind_monitor/__init__.py:701
+#: plugins/wind_monitor/__init__.py:921
 msgid "Wind monitor is enabled."
 msgstr "Rozšíření monitor rychlosti větru je povoleno."
 
-#: plugins/wind_monitor/__init__.py:704 plugins/wind_monitor/__init__.py:1020
+#: plugins/wind_monitor/__init__.py:924 plugins/wind_monitor/__init__.py:1314
 msgid "Wind monitor is disabled."
 msgstr "Rozšíření monitor rychlosti větru je zakázáno."
 
-#: plugins/wind_monitor/__init__.py:1017
+#: plugins/wind_monitor/__init__.py:976
+msgid "Wind diagnostic log was deleted."
+msgstr "Záznam diagnostiky větru byl smazán."
+
+#: plugins/wind_monitor/__init__.py:1231
+msgid "Rising"
+msgstr "Vzestup"
+
+#: plugins/wind_monitor/__init__.py:1232
+msgid "Falling"
+msgstr "Klesání"
+
+#: plugins/wind_monitor/__init__.py:1233
+msgid "Steady"
+msgstr "Stabilní"
+
+#: plugins/wind_monitor/__init__.py:1234
+#: plugins/wind_monitor/templates/wind_monitor.html:125
+msgid "Waiting for trend data"
+msgstr "Čekání na trendová data"
+
+#: plugins/wind_monitor/__init__.py:1265
+msgid "Measurement is active."
+msgstr "Měření je aktivní."
+
+#: plugins/wind_monitor/__init__.py:1265
+msgid "Measurement is inactive."
+msgstr "Měření je neaktivní."
+
+#: plugins/wind_monitor/__init__.py:1269
+msgid "Wind monitor data is unavailable."
+msgstr "Data z monitoru větru nejsou dostupná."
+
+#: plugins/wind_monitor/__init__.py:1311
 msgid "Wind monitor worker is not running."
 msgstr "Smyčka monitoru větru neběží."
 
-#: plugins/wind_monitor/__init__.py:1023
+#: plugins/wind_monitor/__init__.py:1317
 msgid "Wind counter is not available."
 msgstr "Počítadlo větru není k dispozici."
 
-#: plugins/wind_monitor/__init__.py:1026
+#: plugins/wind_monitor/__init__.py:1320
 msgid "Wind monitor reported an error."
 msgstr "Monitor větru hlásil chybu."
 
-#: plugins/wind_monitor/__init__.py:1029
+#: plugins/wind_monitor/__init__.py:1323
 msgid "Wind monitor is reading the counter."
 msgstr "Monitor větru ukazuje počítadlo."
 
 #: plugins/wind_monitor/templates/wind_monitor.html:3
-#: plugins/wind_monitor/templates/wind_monitor.html:290
-msgid "Wind Speed Monitor settings"
-msgstr "Rozšíření monitor rychlosti větru nastavení"
+#: plugins/wind_monitor/templates/wind_monitor.html:112
+msgid "Wind Speed Monitor"
+msgstr "Monitor rychlosti větru"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:76
-msgid "(m/s or km/h)"
-msgstr "(m/s nebo km/h)"
+#: plugins/wind_monitor/templates/wind_monitor.html:116
+msgid "Measurement log"
+msgstr "Záznam měření"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:104
-msgid "Wind m/s or km/h"
-msgstr "Vítr m/s nebo km/h"
+#: plugins/wind_monitor/templates/wind_monitor.html:117
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:19
+msgid "Diagnostic log"
+msgstr "Diagnostický záznam"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:295
-msgid "Reset max speed"
-msgstr "Smazat max rychlost"
+#: plugins/wind_monitor/templates/wind_monitor.html:118
+msgid "Reset maximum speed"
+msgstr "Resetovat maximální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:301
-msgid "Use wind monitor"
-msgstr "Použít měření větru"
+#: plugins/wind_monitor/templates/wind_monitor.html:123
+msgid "Current speed"
+msgstr "Aktuální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:302
-msgid "If the box is checked, wind monitor be enabled."
-msgstr "Pokud je políčko zaškrtnuté, je zapnutý monitor větru."
+#: plugins/wind_monitor/templates/wind_monitor.html:128
+msgid "Maximum speed"
+msgstr "Maximální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:329
+#: plugins/wind_monitor/templates/wind_monitor.html:130
+msgid "Measured at"
+msgstr "Měřeno od"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:135
+msgid "Last measurement"
+msgstr "Poslední měření"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:140
+msgid "Raw pulses"
+msgstr "Surové pulsy"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:141
+msgid "Actual measurement interval"
+msgstr "Skutečný interval měření"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:142
+msgid "Action confirmation"
+msgstr "Potvrzení akce"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:143
+msgid "The last measurement was rejected by the plausibility filter."
+msgstr "Poslední měření bylo odmítnuto filtrem pravděpodobnosti."
+
+#: plugins/wind_monitor/templates/wind_monitor.html:147
+msgid "Activity status"
+msgstr "Stav činnosti"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:153
+msgid "Wind history"
+msgstr "Historie větru"
+
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:3
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:9
+msgid "Wind Speed Monitor diagnostic log"
+msgstr "Diagnostický záznam monitoru větru"
+
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:11
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:17
+msgid "Overview"
+msgstr "Přehled"
+
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:13
+msgid "Download diagnostic log"
+msgstr "Stáhnout diagnostický záznam"
+
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:14
+msgid "Delete diagnostic log"
+msgstr "Smazat diagnostický záznam"
+
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:18
 msgid ""
-"The measured data will be stored in the database. This option requires the "
-"database connector extension to be installed and configured. The button will "
-"delete the windmonitor table from the database, thus deleting all saved data "
-"from this extension! This promotion is non-refundable!"
+"I2C diagnostic logging is enabled. Disable it after the problem has been "
+"captured."
 msgstr ""
-"Naměřená data budou uložena do databáze. Tato možnost vyžaduje, aby bylo "
-"nainstalované a nakonfigurované rozšíření databázové spojení. Tlačítko smaže "
-"tabulku windmonitor z databáze, čímž smaže všechna uložená data z tohoto "
-"rozšíření! Tato akce je nevratná!"
+"I2C diagnostické logování je zapnuté. Vypněte ho poté, co je problém "
+"zachycen."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:338
-msgid "Save to log if maximal speed change"
-msgstr "Uložit do logu, pokud se změní maximální rychlost"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:339
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:20
 msgid ""
-"If the wind speed changes above the stored maximum and there is no time for "
-"save log to file, log this value immediately"
+"I2C diagnostic logging is disabled. It can be enabled in the plug-in "
+"settings."
 msgstr ""
-"Pokud se rychlost větru změní nad uložené maximum a není ještě čas na "
-"uložení protokolu do souboru, okamžitě zalogujte tuto hodnotu"
+"I2C diagnostické logování je deaktivováno. Lze ho povolit v nastavení tohoto "
+"balíčku."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:347
-msgid "Delete max speed after selected interval"
-msgstr "Odstranit maximální rychlost po zvoleném intervalu"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:348
-msgid ""
-"If the box is checked, the maximum measured speed is reset after selected "
-"interval (log is not deleted)"
-msgstr ""
-"Pokud je políčko zaškrtnuto, maximální naměřená rychlost se po zvoleném "
-"intervalu resetuje (log se nemaže)"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:356
-msgid "Delete max speed interval"
-msgstr "Interval pro smazání maximální rychlosti"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:357
-#: plugins/wind_monitor/templates/wind_monitor.html:358
-msgid "Select interval for reseting maximal speed"
-msgstr "Vyberte interval pro resetování maximální rychlosti"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:359
-msgid "1 minute"
-msgstr "1 minuta"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:360
-msgid "10 minutes"
-msgstr "10 minut"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:361
-msgid "30 minutes"
-msgstr "30 minut"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:363
-msgid "2 hours"
-msgstr "2 hodiny"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:364
-msgid "10 hours"
-msgstr "10 hodin"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:365
-msgid "1 day"
-msgstr "1 den"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:377
-msgid "In minutes (Minimum is 1)"
-msgstr "V minutách (minimum je 1)"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:383
-msgid "If the box is checked, wind monitor is on address 0x50."
-msgstr "Pokud je políčko zaškrtnuté, je monitor větru na adrese 0x50."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:391
-msgid "Number of pulses per rotation"
-msgstr "Počet impulsů na otáčku"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:392
-msgid "pulses/rotation"
-msgstr "pulsy/otáčka"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:397
-msgid "Number of wind speed per rotation in m/s"
-msgstr "Rychlost větru na otáčku v m/s"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:398
-msgid "Wind speed set in meter/second"
-msgstr "Rychlost větru nastavená v metrech za sekundu"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:403
-msgid "Display in km/h"
-msgstr "Zobrazení v km/h"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:404
-msgid "If the box is checked, the speed is in km/h"
-msgstr "Pokud je políčko zaškrtnuté, rychlost je v km/h"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:412
-msgid "Max wind speed for stop stations in m/s"
-msgstr "Maximální rychlost větru pro zastavení stanic v m/s"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:413
-msgid "If the wind speed exceeds this value, the station will stop"
-msgstr "Pokud rychlost větru překročí tuto hodnotu, stanice se zastaví"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:423
-msgid "Send E-mail if stop"
-msgstr "Odeslat E-mail, pokud je stop"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:433
-msgid "Subject for E-mail from this wind monitor"
-msgstr "Předmět pro E-mail z tohoto monitoru větru"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:453
-msgid "Stoping selected stations in scheduler if stations has run"
-msgstr "Zastavení vybraných stanic v plánovači, pokud jsou stanice spuštěny"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:461
-msgid "Stoping this stations"
-msgstr "Zastavit tyto stanice"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:466
-msgid "If wind speed is bigger stop this selected stations"
-msgstr ""
-"Pokud je rychlost větru větší než nastavená zastavit tyto vybrané stanice"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:479
-msgid "Run program when exceeded"
-msgstr "Spustit program při překročení"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:480
-msgid ""
-"When the set speed is exceeded, start the selected program and close the "
-"window blinds, for example."
-msgstr ""
-"Při překročení nastavené rychlosti spustit vybraný program a zatáhnout "
-"například žaluzie."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:488
-msgid "Running program"
-msgstr "Spuštěný program"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:497
-msgid "Maximum wind speed for starting the program in m/s"
-msgstr "Maximální rychlost větru pro spuštění programu v m/s"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:498
-msgid "If this set speed is exceeded, another condition will be activated."
-msgstr ""
-"Pokud je tato nastavená rychlost překročena, aktivuje se další podmínka."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:503
-msgid "Number of event repetitions for the action"
-msgstr "Počet opakování událostí pro akci"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:504
-msgid ""
-"If the maximum wind speed is repeatedly exceeded in a given time period (it "
-"is set in the box below), the program will be started."
-msgstr ""
-"Pokud je v daném časovém období opakovaně překračována maximální rychlost "
-"větru (je nastavena v rámečku níže), program se spustí."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:509
-msgid "Repeatedly exceeded in these interval"
-msgstr "Opakovaně překročeno v těchto intervalech"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:510
-msgid ""
-"In this time period, the number of set exceeded events (time in minutes) is "
-"measured."
-msgstr ""
-"V tomto časovém období se měří počet nastavených překročených událostí (čas "
-"v minutách)."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:515
-msgid "Ignore other events for a while"
-msgstr "Chvíli ignorovat jiné události"
-
-#: plugins/wind_monitor/templates/wind_monitor.html:516
-msgid ""
-"If the program has been started, the next possible start will be triggered "
-"by an event only after this set time (in hours)."
-msgstr ""
-"Pokud byl program spuštěn, další možné spuštění bude vyvoláno událostí až po "
-"tomto nastaveném čase (v hodinách)."
-
-#: plugins/wind_monitor/templates/wind_monitor.html:526
-msgid "Wind speed state (measuring every 10 sec)"
-msgstr "Aktuální rychlost větru (zobrazuje se každých 10 sekund)"
+#: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:21
+msgid "The newest bounded diagnostic records are shown below."
+msgstr "Nejnovější ohraničené diagnostické záznamy jsou uvedeny níže."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:3
-#: plugins/wind_monitor/templates/wind_monitor_help.html:7
+#: plugins/wind_monitor/templates/wind_monitor_help.html:9
 msgid "Wind Speed Monitor settings - help"
 msgstr "Rozšíření monitor rychlosti větru - nápověda"
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:8
-msgid ""
-"This plugin checked wind speed, if station is switched on and actual wind "
-"speed is > wind speed value in options, switches off all selected stations "
-"in scheduler and sends E-mail with error. Preventing for fault watering "
-"while wind."
-msgstr ""
-"Toto rozšíření kontroluje rychlost větru, pokud je stanice zapnutá a "
-"skutečná rychlost větru je > nastavená maximální rychlost větru, vypne "
-"všechny vybrané stanice v plánovači a pošle E-mail s chybou. Slouží jako "
-"prevence chybného zavlažování při větru."
-
 #: plugins/wind_monitor/templates/wind_monitor_help.html:10
-msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
-msgstr "(1m/s = 3,6 km/h nebo 1m/s = 2,237 míle/h)."
+msgid ""
+"The plug-in measures wind with a PCF8583 event counter at I2C address 0x50 "
+"or 0x51. It can stop selected stations, send an e-mail or run a program when "
+"confirmed wind thresholds are exceeded."
+msgstr ""
+"Balíček měří rychlost větru pomocí čítače událostí PCF8583 na adrese I2C "
+"0x50 nebo 0x51. Může zastavit vybrané stanice, poslat e-mail nebo spustit "
+"program, pokud jsou překročeny potvrzené úrovně větru."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:11
 msgid ""
-"Measurement cycle: the counter is cleared, 10 seconds are waited, from the "
-"counter read the number of pulses in 10 seconds"
+"Each measurement resets the counter, waits approximately ten seconds and "
+"divides the pulse count by the actual monotonic elapsed time. This prevents "
+"I2C lock waiting from incorrectly increasing the calculated wind speed."
 msgstr ""
-"Cyklus měření: počítadlo je vymazáno, čeká se 10 sekund, z počítadla načteme "
-"počet impulzů za 10 sekund"
+"Každé měření resetuje počítadlo, počká přibližně deset sekund a vydělí počet "
+"pulzů skutečným monotónním uplynulým časem. To zabraňuje tomu, aby čekání na "
+"zámek I2C nesprávně zvýšilo vypočítanou rychlost větru."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:12
 msgid ""
-"Formula for calculation: pulse = number of measured pulses from the "
-"counter/10. Result in m/s = (pulse/(set number of pulses per revolution * "
-"1.0)) * set wind speed in m/s"
+"The PCF8583 counter bytes are read directly from registers 0x01 to 0x03 and "
+"every BCD digit is validated. A failed setup, short read or invalid digit is "
+"rejected."
 msgstr ""
-"Vzorec pro výpočet: puls = počet naměřených impulsů z počítadla/10. Výsledek "
-"v m/s = (puls/(nastavený počet impulzů na otáčku * 1,0)) * nastavená "
-"rychlost větru v m/s"
+"PCF8583 čítače se čtou přímo z registrů 0x01 do 0x03 a každá číslice BCD je "
+"ověřena. Neúspěšné nastavení, krátké čtení nebo neplatná číslice je "
+"zamítnuta."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:13
 msgid ""
-"Rounding to 2 places: result in m/s = round (result in m/s * 1.0, 2). If we "
-"want the result in km/h to 2 decimal places: result in km/h = round (result "
-"in m/s * 3.6, 2)"
+"The plausibility filter rejects speeds above the configured maximum accepted "
+"speed. Rejected values do not change the current or maximum speed and cannot "
+"be logged or trigger an automatic action."
 msgstr ""
-"Zaokrouhlování na 2 místa: výsledek v m/s = round(výsledek v m/s * 1,0, 2). "
-"Pokud chceme výsledek v km/h na 2 desetinná místa: výsledek v km/h = "
-"round(výsledek v m/s * 3,6, 2)"
+"Filtr pravděpodobnosti odmítá rychlosti nad nastavenou maximální povolenou "
+"rychlost. Odmítnuté hodnoty nemění aktuální ani maximální rychlost a nelze "
+"je zaznamenat ani spustit automatickou akci."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:14
 msgid ""
-"Current value measurement: the current wind value is measured continuously "
-"(the records in counter), but the result is processed and displayed after 10 "
-"seconds"
+"Station stopping and e-mail notification require the configured number of "
+"consecutive accepted threshold exceedances. Program actions retain their "
+"separate exceedance count and time interval."
 msgstr ""
-"Měření aktuální hodnoty: aktuální hodnota větru se měří nepřetržitě (záznamy "
-"jsou v čítači), ale výsledek je zpracován a zobrazen po 10 sekundách"
+"Zastavení stanice a e-mailové oznámení vyžadují nakonfigurovaný počet po "
+"sobě jdoucích přijatých překročení prahu. Programové akce si zachovávají "
+"samostatný počet překročení a časový interval."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:15
 msgid ""
-"Maximal speed measurement: if the current speed is higher than the previous "
-"maximal speed, save to log (if enabled log) is performed and the new maximal "
-"wind speed is saved"
+"The trend compares older and newer samples from approximately the last "
+"minute. The arrow shows rising, falling or steady wind after enough samples "
+"have been collected."
 msgstr ""
-"Měření maximální rychlosti : pokud je aktuální rychlost vyšší než předchozí "
-"maximální rychlost, provede se uložení do logu (je-li povoleno) a uloží se "
-"nová maximální rychlost větru"
+"Trend porovnává starší a novější vzorky přibližně z poslední chvíle. Šipka "
+"ukazuje stoupání, klesání nebo stálý vítr po naměření dostatečného množství "
+"vzorků."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:16
 msgid ""
-"Switching off the station in case of exceeding the maximum set speed: wind "
-"in m/s maximal setup speed -> stop station"
+"I2C diagnostic logging records setup, retries, raw counter bytes, actual "
+"elapsed time, pulse rate, calculated speed and rejection reason. The file is "
+"size limited and rotated automatically. Enable it only while investigating a "
+"problem."
 msgstr ""
-"Vypnutí stanice v případě překročení maximální nastavené rychlosti: vítr v m/"
-"s > maximální nastavená rychlost v nastavení -> zastaví se stanice"
+"I2C záznamy o diagnostickém záznamu, nastavení záznamů, opakovaných "
+"záznamech, surových dat z čítačů, skutečném uplynulém čase, tepové "
+"frekvenci, vypočítané rychlosti a důvodu odmítnutí. Soubor je omezen "
+"velikostí a automaticky se otáčí. Zapněte ho pouze při vyšetřování problému."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:17
 msgid ""
-"Error message at maximal wind speed: if the wind has a speed higher than 150 "
-"km/h (42 m/sec), measurement is not guaranteed an error is displayed"
-msgstr ""
-"Chybová zpráva při maximální rychlosti větru: pokud má vítr rychlost vyšší "
-"než 150 km/h (42 m/s), není zaručeno měření -> zobrazí se chyba"
+"Decimal calibration and threshold values accept both a decimal point and a "
+"decimal comma."
+msgstr "Formulář akceptuje jak desetinnou tečku, tak i desetinnou čárku."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:18
 msgid ""
-"Measurement accuracy very much depends on the setting of the following "
-"parameters (Number of pulses/sec, wind speed per rotation m/sec)"
+"One meter per second equals 3.6 kilometers per hour. Measurement accuracy "
+"depends on the pulses-per-rotation and speed-per-rotation calibration."
 msgstr ""
-"Přesnost měření do značné míry závisí na nastavení následujících parametrů "
-"(počet impulzů/s, rychlost větru na otáčku v m/s)"
+"Jeden metr za sekundu odpovídá 3,6 kilometru za hodinu. Přesnost měření "
+"závisí na kalibraci pulzů na otáčku a rychlosti na otáčku."
 
 #: plugins/wind_monitor/templates/wind_monitor_log.html:3
-#: plugins/wind_monitor/templates/wind_monitor_log.html:6
+#: plugins/wind_monitor/templates/wind_monitor_log.html:9
 msgid "Wind Speed Monitor - log"
 msgstr "Rozšíření monitor rychlosti větru - záznam"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:3
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:15
+msgid "Wind Speed Monitor settings"
+msgstr "Rozšíření monitor rychlosti větru nastavení"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:26
+msgid "Measurement"
+msgstr "Měření"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:28
+msgid "Use wind monitor"
+msgstr "Použít měření větru"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:30
+msgid "Number of pulses per rotation"
+msgstr "Počet impulsů na otáčku"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:31
+msgid "Wind speed per rotation"
+msgstr "Rychlost větru na otočku"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:32
+msgid "Display in km/h"
+msgstr "Zobrazení v km/h"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:35
+msgid ""
+"Decimal values may be entered with either a decimal point or a decimal comma."
+msgstr "Desetinné hodnoty lze zapisovat buď desetinnou tečkou, nebo čárkou."
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:39
+msgid "Measurement validation"
+msgstr "Validace měření"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:41
+msgid "Filter implausible measurements"
+msgstr "Měření nepravděpodobných filtrů"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:42
+msgid "Maximum accepted wind speed"
+msgstr "Maximální povolená rychlost větru"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:43
+msgid "Consecutive measurements for a safety action"
+msgstr "Souvislá měření pro bezpečnostní opatření"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:44
+msgid "Enable I2C diagnostic logging"
+msgstr "Povolit I2C diagnostický záznam"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:46
+msgid ""
+"Rejected measurements are excluded from maximum values, graphs, logs and "
+"automatic actions. Diagnostic logging is bounded and should normally remain "
+"disabled."
+msgstr ""
+"Odmítnutá měření jsou vyloučena z maximálních hodnot, grafů, logaritmů a "
+"automatických akcí. Diagnostické logování je omezené a mělo by normálně "
+"zůstat vypnuté."
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:50
+msgid "Measurement logging"
+msgstr "Záznam měření"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:53
+msgid "Display data from"
+msgstr "Data z"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:53
+msgid "SQL database"
+msgstr "SQL databáze"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:55
+msgid "Save when maximum speed changes"
+msgstr "Uložit, když se změní maximální rychlost"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:56
+msgid "Reset maximum speed after an interval"
+msgstr "Resetovat maximální rychlost po určité době"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:58
+msgid "Maximum reset interval"
+msgstr "Maximální interval resetu"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:60
+msgid "1 minute"
+msgstr "1 minuta"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:61
+msgid "10 minutes"
+msgstr "10 minut"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:62
+msgid "30 minutes"
+msgstr "30 minut"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:64
+msgid "2 hours"
+msgstr "2 hodiny"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:65
+msgid "10 hours"
+msgstr "10 hodin"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:66
+msgid "1 day"
+msgstr "1 den"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:70
+msgid "Logging interval"
+msgstr "Interval záznamu"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:75
+msgid "Station protection"
+msgstr "Ochrana stanic"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:77
+msgid "Maximum wind speed for stopping stations"
+msgstr "Maximální rychlost větru pro zastavovení stanic"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:78
+msgid "Stop selected stations"
+msgstr "Zastavit vybrané stanice"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:80
+msgid "Stations to stop"
+msgstr "Stanice k zastavení"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:86
+msgid "Send e-mail when stations are stopped"
+msgstr "Posílat e-mail, když jsou stanice zastaveny"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:93
+msgid "Program action"
+msgstr "Programová činnost"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:95
+msgid "Run program when exceeded"
+msgstr "Spustit program při překročení"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:97
+msgid "Program to run"
+msgstr "Program k spuštění"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:103
+msgid "Wind speed for starting the program"
+msgstr "Rychlost větru pro zahájení programu"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:104
+msgid "Number of exceedances"
+msgstr "Počet překročení"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:105
+msgid "Exceedance interval"
+msgstr "Překročení intervalu"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:106
+msgid "Ignore further events"
+msgstr "Ignorovat další události"
 
 #: setup.py:24
 msgid "Checking {}"
@@ -34773,6 +34838,205 @@ msgstr "Chyba při úklidu session: {}"
 #: web/session.py:522
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
+
+#~ msgid "(m/s or km/h)"
+#~ msgstr "(m/s nebo km/h)"
+
+#~ msgid "Wind m/s or km/h"
+#~ msgstr "Vítr m/s nebo km/h"
+
+#~ msgid "If the box is checked, wind monitor be enabled."
+#~ msgstr "Pokud je políčko zaškrtnuté, je zapnutý monitor větru."
+
+#~ msgid ""
+#~ "The measured data will be stored in the database. This option requires "
+#~ "the database connector extension to be installed and configured. The "
+#~ "button will delete the windmonitor table from the database, thus deleting "
+#~ "all saved data from this extension! This promotion is non-refundable!"
+#~ msgstr ""
+#~ "Naměřená data budou uložena do databáze. Tato možnost vyžaduje, aby bylo "
+#~ "nainstalované a nakonfigurované rozšíření databázové spojení. Tlačítko "
+#~ "smaže tabulku windmonitor z databáze, čímž smaže všechna uložená data z "
+#~ "tohoto rozšíření! Tato akce je nevratná!"
+
+#~ msgid ""
+#~ "If the wind speed changes above the stored maximum and there is no time "
+#~ "for save log to file, log this value immediately"
+#~ msgstr ""
+#~ "Pokud se rychlost větru změní nad uložené maximum a není ještě čas na "
+#~ "uložení protokolu do souboru, okamžitě zalogujte tuto hodnotu"
+
+#~ msgid ""
+#~ "If the box is checked, the maximum measured speed is reset after selected "
+#~ "interval (log is not deleted)"
+#~ msgstr ""
+#~ "Pokud je políčko zaškrtnuto, maximální naměřená rychlost se po zvoleném "
+#~ "intervalu resetuje (log se nemaže)"
+
+#~ msgid "Delete max speed interval"
+#~ msgstr "Interval pro smazání maximální rychlosti"
+
+#~ msgid "Select interval for reseting maximal speed"
+#~ msgstr "Vyberte interval pro resetování maximální rychlosti"
+
+#~ msgid "In minutes (Minimum is 1)"
+#~ msgstr "V minutách (minimum je 1)"
+
+#~ msgid "If the box is checked, wind monitor is on address 0x50."
+#~ msgstr "Pokud je políčko zaškrtnuté, je monitor větru na adrese 0x50."
+
+#~ msgid "pulses/rotation"
+#~ msgstr "pulsy/otáčka"
+
+#~ msgid "Number of wind speed per rotation in m/s"
+#~ msgstr "Rychlost větru na otáčku v m/s"
+
+#~ msgid "Wind speed set in meter/second"
+#~ msgstr "Rychlost větru nastavená v metrech za sekundu"
+
+#~ msgid "If the box is checked, the speed is in km/h"
+#~ msgstr "Pokud je políčko zaškrtnuté, rychlost je v km/h"
+
+#~ msgid "If the wind speed exceeds this value, the station will stop"
+#~ msgstr "Pokud rychlost větru překročí tuto hodnotu, stanice se zastaví"
+
+#~ msgid "Send E-mail if stop"
+#~ msgstr "Odeslat E-mail, pokud je stop"
+
+#~ msgid "Subject for E-mail from this wind monitor"
+#~ msgstr "Předmět pro E-mail z tohoto monitoru větru"
+
+#~ msgid "Stoping selected stations in scheduler if stations has run"
+#~ msgstr "Zastavení vybraných stanic v plánovači, pokud jsou stanice spuštěny"
+
+#~ msgid "Stoping this stations"
+#~ msgstr "Zastavit tyto stanice"
+
+#~ msgid "If wind speed is bigger stop this selected stations"
+#~ msgstr ""
+#~ "Pokud je rychlost větru větší než nastavená zastavit tyto vybrané stanice"
+
+#~ msgid ""
+#~ "When the set speed is exceeded, start the selected program and close the "
+#~ "window blinds, for example."
+#~ msgstr ""
+#~ "Při překročení nastavené rychlosti spustit vybraný program a zatáhnout "
+#~ "například žaluzie."
+
+#~ msgid "Running program"
+#~ msgstr "Spuštěný program"
+
+#~ msgid "If this set speed is exceeded, another condition will be activated."
+#~ msgstr ""
+#~ "Pokud je tato nastavená rychlost překročena, aktivuje se další podmínka."
+
+#~ msgid "Number of event repetitions for the action"
+#~ msgstr "Počet opakování událostí pro akci"
+
+#~ msgid ""
+#~ "If the maximum wind speed is repeatedly exceeded in a given time period "
+#~ "(it is set in the box below), the program will be started."
+#~ msgstr ""
+#~ "Pokud je v daném časovém období opakovaně překračována maximální rychlost "
+#~ "větru (je nastavena v rámečku níže), program se spustí."
+
+#~ msgid "Repeatedly exceeded in these interval"
+#~ msgstr "Opakovaně překročeno v těchto intervalech"
+
+#~ msgid ""
+#~ "In this time period, the number of set exceeded events (time in minutes) "
+#~ "is measured."
+#~ msgstr ""
+#~ "V tomto časovém období se měří počet nastavených překročených událostí "
+#~ "(čas v minutách)."
+
+#~ msgid ""
+#~ "If the program has been started, the next possible start will be "
+#~ "triggered by an event only after this set time (in hours)."
+#~ msgstr ""
+#~ "Pokud byl program spuštěn, další možné spuštění bude vyvoláno událostí až "
+#~ "po tomto nastaveném čase (v hodinách)."
+
+#~ msgid "Wind speed state (measuring every 10 sec)"
+#~ msgstr "Aktuální rychlost větru (zobrazuje se každých 10 sekund)"
+
+#~ msgid ""
+#~ "This plugin checked wind speed, if station is switched on and actual wind "
+#~ "speed is > wind speed value in options, switches off all selected "
+#~ "stations in scheduler and sends E-mail with error. Preventing for fault "
+#~ "watering while wind."
+#~ msgstr ""
+#~ "Toto rozšíření kontroluje rychlost větru, pokud je stanice zapnutá a "
+#~ "skutečná rychlost větru je > nastavená maximální rychlost větru, vypne "
+#~ "všechny vybrané stanice v plánovači a pošle E-mail s chybou. Slouží jako "
+#~ "prevence chybného zavlažování při větru."
+
+#~ msgid "(1m/s = 3,6 km/h or 1m/s = 2,237 mile/h)."
+#~ msgstr "(1m/s = 3,6 km/h nebo 1m/s = 2,237 míle/h)."
+
+#~ msgid ""
+#~ "Measurement cycle: the counter is cleared, 10 seconds are waited, from "
+#~ "the counter read the number of pulses in 10 seconds"
+#~ msgstr ""
+#~ "Cyklus měření: počítadlo je vymazáno, čeká se 10 sekund, z počítadla "
+#~ "načteme počet impulzů za 10 sekund"
+
+#~ msgid ""
+#~ "Formula for calculation: pulse = number of measured pulses from the "
+#~ "counter/10. Result in m/s = (pulse/(set number of pulses per revolution * "
+#~ "1.0)) * set wind speed in m/s"
+#~ msgstr ""
+#~ "Vzorec pro výpočet: puls = počet naměřených impulsů z počítadla/10. "
+#~ "Výsledek v m/s = (puls/(nastavený počet impulzů na otáčku * 1,0)) * "
+#~ "nastavená rychlost větru v m/s"
+
+#~ msgid ""
+#~ "Rounding to 2 places: result in m/s = round (result in m/s * 1.0, 2). If "
+#~ "we want the result in km/h to 2 decimal places: result in km/h = round "
+#~ "(result in m/s * 3.6, 2)"
+#~ msgstr ""
+#~ "Zaokrouhlování na 2 místa: výsledek v m/s = round(výsledek v m/s * 1,0, "
+#~ "2). Pokud chceme výsledek v km/h na 2 desetinná místa: výsledek v km/h = "
+#~ "round(výsledek v m/s * 3,6, 2)"
+
+#~ msgid ""
+#~ "Current value measurement: the current wind value is measured "
+#~ "continuously (the records in counter), but the result is processed and "
+#~ "displayed after 10 seconds"
+#~ msgstr ""
+#~ "Měření aktuální hodnoty: aktuální hodnota větru se měří nepřetržitě "
+#~ "(záznamy jsou v čítači), ale výsledek je zpracován a zobrazen po 10 "
+#~ "sekundách"
+
+#~ msgid ""
+#~ "Maximal speed measurement: if the current speed is higher than the "
+#~ "previous maximal speed, save to log (if enabled log) is performed and the "
+#~ "new maximal wind speed is saved"
+#~ msgstr ""
+#~ "Měření maximální rychlosti : pokud je aktuální rychlost vyšší než "
+#~ "předchozí maximální rychlost, provede se uložení do logu (je-li povoleno) "
+#~ "a uloží se nová maximální rychlost větru"
+
+#~ msgid ""
+#~ "Switching off the station in case of exceeding the maximum set speed: "
+#~ "wind in m/s maximal setup speed -> stop station"
+#~ msgstr ""
+#~ "Vypnutí stanice v případě překročení maximální nastavené rychlosti: vítr "
+#~ "v m/s > maximální nastavená rychlost v nastavení -> zastaví se stanice"
+
+#~ msgid ""
+#~ "Error message at maximal wind speed: if the wind has a speed higher than "
+#~ "150 km/h (42 m/sec), measurement is not guaranteed an error is displayed"
+#~ msgstr ""
+#~ "Chybová zpráva při maximální rychlosti větru: pokud má vítr rychlost "
+#~ "vyšší než 150 km/h (42 m/s), není zaručeno měření -> zobrazí se chyba"
+
+#~ msgid ""
+#~ "Measurement accuracy very much depends on the setting of the following "
+#~ "parameters (Number of pulses/sec, wind speed per rotation m/sec)"
+#~ msgstr ""
+#~ "Přesnost měření do značné míry závisí na nastavení následujících "
+#~ "parametrů (počet impulzů/s, rychlost větru na otáčku v m/s)"
 
 #~ msgid "Water level adjustment was not changed."
 #~ msgstr "Úprava hladiny vody se nezměnila."
@@ -35894,9 +36158,6 @@ msgstr "Chyba při čištění: {}"
 #~ msgid "Only test! not use"
 #~ msgstr "Pouze test! nepoužívat"
 
-#~ msgid "Maximum Water level"
-#~ msgstr "Maximální hladina"
-
 #~ msgid "Minimum Water level"
 #~ msgstr "Minimální hladina"
 
@@ -36756,9 +37017,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "Maximum detected speed is 150 km/h (42 m/sec)."
 #~ msgstr "Maximální zjištěná rychlost je 150 km / h (42 m / s)."
-
-#~ msgid "Number of wind speed per rotation"
-#~ msgstr "Počet otáček větru na otáčku"
 
 #~ msgid "Wind speed state (every 10 sec)"
 #~ msgstr "Rychlost větru (měření 10 vteřin)"
