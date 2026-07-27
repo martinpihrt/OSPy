@@ -1,5 +1,13 @@
 # OSPy-plugins Changelog
 
+July 27 2026
+------------
+(Martin Pihrt) - CHMI v1.0.2<br/>
+Corrected the animated radar location readout so every displayed frame shows the exact RGB value of the location pixel even when it is below the rain threshold. Added a color sample, per-frame rain/no-rain result and the surrounding detection-area statistics. The city-wide “no rain in any city” message is now produced only when “Where it is raining” analysis is enabled. Moved CHMI page styling from the template to a dedicated CSS file and added radar-pixel regression tests.
+
+(Martin Pihrt) - Wind Speed Monitor v1.1.0<br/>
+Split the plug-in into a live overview and a dedicated settings page. The overview now refreshes current speed, maximum, status and a one-minute rising/steady/falling trend through JSON without reloading, while retaining the selectable history graph. Fixed decimal calibration and threshold fields so both decimal points and commas are accepted. Reworked PCF8583 measurement to validate event-counter mode and BCD digits, read registers 0x01–0x03 directly, and divide pulses by the actual monotonic measurement duration instead of an assumed ten seconds, preventing shared-I2C wait time from producing false speed spikes. Added an enabled-by-default configurable plausibility ceiling, consecutive confirmation for station/e-mail safety actions, rejected-reading isolation, bounded rotating I2C diagnostic logging with display/download/delete controls, expanded health details, external responsive CSS, updated help/README, and automated calculation and validation tests.
+
 July 26 2026
 ------------
 (Martin Pihrt) - Weather-based Water Level v1.1.0<br/>
