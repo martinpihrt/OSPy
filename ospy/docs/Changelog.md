@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 28 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Updated the Czech translation.
+
 Expanded the Home forecast to use the provider's day/night value and the complete WMO weather-code set. Stormglass daylight is calculated from the configured coordinates and date instead of fixed clock hours. Added dedicated moon variants for clear, mainly clear and partly cloudy nights, plus separate icons and descriptions for drizzle, freezing drizzle, freezing rain, snow grains, rain showers, snow showers and thunderstorms with hail.
 
 Made Plugin Manager open without waiting for a GitHub repository download. Repository checks are now queued to the existing background worker automatically when the page opens; a live summary at the top reports loading, failure, all-current state, or the number and directly linked names of available updates. Cached repository metadata remains readable while a new ZIP is downloading, the Home update-status API no longer waits for that download lock, repeated plug-in pre-activation scans are cached until installation or update, and the manual check action is asynchronous. Added day/night and complete WMO mapping tests, non-blocking repository and worker-wakeup tests, web-route coverage, and updated all seven Web Interface Guides.
