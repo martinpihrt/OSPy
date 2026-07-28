@@ -196,6 +196,43 @@ def approve_plugin_permissions(module, manifest=None, approved_by='administrator
     return plugin_permission_approval(module, manifest)
 
 
+def approve_all_plugin_permissions(approved_by='administrator',
+                                   source='manager-bulk'):
+    """Approve the current manifests of all installed plug-ins in one write."""
+    from ospy.options import options
+
+    with _permission_approval_lock:
+        previous = _stored_permission_approvals()
+        approvals = dict(previous)
+        approved = []
+        timestamp = time.time()
+        for module in available():
+            manifest = plugin_manifest(module)
+            permission_approval = plugin_permission_approval(module, manifest)
+            if permission_approval.get('approved'):
+                continue
+            approvals[module] = {
+                'permissions': _declared_plugin_permissions(manifest),
+                'approved_at': timestamp,
+                'approved_by': str(approved_by or 'administrator')[:200],
+                'source': str(source or 'manager-bulk')[:80],
+                'plugin_version': str(manifest.get('version', ''))[:80],
+                'feature_version': PLUGIN_PERMISSION_APPROVAL_MIN_OSPY,
+            }
+            approved.append(module)
+
+        if not approved:
+            return []
+
+        options.plugin_permission_approvals = approvals
+        if not options.save_now():
+            options.plugin_permission_approvals = previous
+            raise RuntimeError(
+                _('Plug-in permission approval could not be saved.')
+            )
+    return approved
+
+
 def revoke_plugin_permissions(module):
     """Forget approval for one plug-in without changing its files."""
     from ospy.options import options
@@ -1552,21 +1589,77 @@ class _PluginChecker(threading.Thread):
             approved_by=approved_by,
         )
 
+    def install_available_updates(self, approve_permissions=False,
+                                  approved_by='administrator'):
+        """Install only changed plug-ins that are already installed."""
+        from ospy.options import options
+
+        with self._lock:
+            repository_info = self.cached_available_versions()
+            installed = set(available())
+            current_status = options.plugin_status
+            updates_by_repo = {}
+            for plugin in sorted(installed):
+                info = repository_info.get(plugin)
+                if not isinstance(info, dict):
+                    continue
+                current = current_status.get(plugin, {})
+                current_hash = (
+                    current.get('hash') if isinstance(current, dict) else None
+                )
+                if current_hash == info.get('hash'):
+                    continue
+                repo = info.get('repo')
+                if repo:
+                    updates_by_repo.setdefault(repo, []).append(plugin)
+
+            combined = {
+                'installed': [],
+                'blocked': {},
+                'warnings': {},
+                'permissions_approved': [],
+            }
+            for repo, selected_plugins in updates_by_repo.items():
+                result = self.install_custom_plugin(
+                    self._get_zip(repo),
+                    plugin_filter=selected_plugins,
+                    approve_permissions=approve_permissions,
+                    approved_by=approved_by,
+                )
+                combined['installed'].extend(result.get('installed', []))
+                combined['permissions_approved'].extend(
+                    result.get('permissions_approved', [])
+                )
+                combined['blocked'].update(result.get('blocked', {}))
+                combined['warnings'].update(result.get('warnings', {}))
+            return combined
+
     def install_custom_plugin(self, zip_file_data, plugin_filter=None,
                               approve_permissions=False,
                               approved_by='administrator'):
         contents = self.zip_contents(zip_file_data, False)
         if not contents:
             raise ValueError(_('No installable plug-ins were found in the ZIP file.'))
-        if plugin_filter is not None and plugin_filter not in contents:
+        single_filter = isinstance(plugin_filter, str)
+        if plugin_filter is None:
+            selected_plugins = None
+        elif single_filter:
+            selected_plugins = {plugin_filter}
+        else:
+            selected_plugins = set(plugin_filter)
+        missing_plugins = (
+            sorted(selected_plugins - set(contents))
+            if selected_plugins is not None else []
+        )
+        if missing_plugins:
             raise ValueError(
                 _('Requested plug-in was not found in the ZIP file') +
-                ': ' + str(plugin_filter)
+                ': ' + ', '.join(missing_plugins)
             )
 
         selected = {
             plugin: info for plugin, info in contents.items()
-            if plugin_filter is None or plugin == plugin_filter
+            if selected_plugins is None or plugin in selected_plugins
         }
         result = {
             'installed': [],
@@ -1610,7 +1703,7 @@ class _PluginChecker(threading.Thread):
                     ', '.join(permission_approval['missing'])
                 )
 
-        if plugin_filter is not None and result['blocked']:
+        if single_filter and result['blocked']:
             reasons = result['blocked'][plugin_filter]
             raise ValueError(
                 _('Plug-in cannot be installed') + ': ' +

@@ -2473,7 +2473,10 @@ def _plugin_manager_update_snapshot():
     repository_info = plugins.checker.cached_available_versions()
     current_info = options.plugin_status
     updates = []
+    permission_approval_count = 0
     for plugin in plugins.available():
+        if not plugins.plugin_permission_approval(plugin).get('approved'):
+            permission_approval_count += 1
         available_info = repository_info.get(plugin)
         if available_info is None:
             continue
@@ -2496,6 +2499,7 @@ def _plugin_manager_update_snapshot():
         'loaded': bool(state.get('last_success')) or bool(repository_info),
         'updates': updates,
         'update_count': len(updates),
+        'permission_approval_count': permission_approval_count,
         'repository_info': repository_info,
     }
 
@@ -2580,6 +2584,56 @@ class plugins_manage_page(ProtectedPage):
                 level='warning',
                 category='system'
             )
+
+        elif action == 'approve_all_permissions':
+            try:
+                approved_plugins = plugins.approve_all_plugin_permissions(
+                    approved_by=session.get('visitor'),
+                    source='manager-bulk',
+                )
+            except RuntimeError as err:
+                return self.core_render.notice('/plugins_manage', str(err))
+            if approved_plugins:
+                logEV.save_events_log(
+                    _('Plug-in permissions approved'),
+                    _('User {} approved permissions for all installed plug-ins requiring approval: {}.').format(
+                        session.get('visitor'), ', '.join(approved_plugins)
+                    ),
+                    level='warning', category='security'
+                )
+            raise web.seeother('/plugins_manage')
+
+        elif action == 'update_all':
+            source = ', '.join(plugins.plugin_repositories())
+            try:
+                result = plugins.checker.install_available_updates(
+                    approve_permissions=True,
+                    approved_by=session.get('visitor'),
+                )
+                plugins_install_page._log_permission_approvals(
+                    result, session.get('visitor'), source
+                )
+            except (RuntimeError, ValueError) as err:
+                logEV.save_events_log(
+                    _('Plug-in installation failed'),
+                    _('Plug-in update from {} failed: {}').format(source, err),
+                    level='error', category='system'
+                )
+                return self.core_render.notice('/plugins_manage', str(err))
+
+            installed = result.get('installed', [])
+            if installed:
+                logEV.save_events_log(
+                    _('Plug-in installation completed'),
+                    _('User {} updated all available plug-ins from {}: {}.').format(
+                        session.get('visitor'), source, ', '.join(installed)
+                    ),
+                    level='success', category='system'
+                )
+            message = plugins_install_page._result_message(result)
+            if message:
+                return self.core_render.notice('/plugins_manage', message)
+            raise web.seeother('/plugins_manage')
 
         elif action == 'enable_all':
             skipped_plugins = []

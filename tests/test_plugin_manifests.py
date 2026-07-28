@@ -183,6 +183,49 @@ class PluginManifestParserTests(unittest.TestCase):
         with mock.patch.object(plugins, "REPOS", ["test-repository"]):
             self.assertEqual(plugins.plugin_repositories(), ["test-repository"])
 
+    def test_bulk_permission_approval_uses_one_persistent_write(self):
+        original_initialized = (
+            options_module.options.plugin_permission_approval_initialized
+        )
+        original_approvals = options_module.options.plugin_permission_approvals
+        options_module.options.plugin_permission_approval_initialized = True
+        options_module.options.plugin_permission_approvals = {}
+        manifests = {
+            "first_plugin": _manifest(
+                "first_plugin", permissions=["network"]
+            ),
+            "second_plugin": _manifest(
+                "second_plugin", permissions=["files", "gpio"]
+            ),
+        }
+        try:
+            with mock.patch.object(
+                plugins, "available", return_value=list(manifests)
+            ), mock.patch.object(
+                plugins, "plugin_manifest",
+                side_effect=lambda module: manifests[module],
+            ), mock.patch.object(
+                options_module._Options, "save_now", return_value=True
+            ) as save_now:
+                approved = plugins.approve_all_plugin_permissions(
+                    approved_by="admin"
+                )
+        finally:
+            stored = dict(options_module.options.plugin_permission_approvals)
+            options_module.options.plugin_permission_approval_initialized = (
+                original_initialized
+            )
+            options_module.options.plugin_permission_approvals = (
+                original_approvals
+            )
+
+        self.assertEqual(set(approved), set(manifests))
+        self.assertEqual(stored["first_plugin"]["permissions"], ["network"])
+        self.assertEqual(
+            stored["second_plugin"]["permissions"], ["files", "gpio"]
+        )
+        save_now.assert_called_once_with()
+
 
 class PluginArchiveInstallationTests(unittest.TestCase):
     def test_unsafe_parent_path_is_rejected_before_any_write(self):
@@ -441,6 +484,85 @@ class PluginArchiveInstallationTests(unittest.TestCase):
         install_docs.assert_called_once()
         self.assertEqual(install_plugin.call_count, 1)
         self.assertEqual(install_plugin.call_args.args[1], "compatible_plugin")
+
+    def test_selected_plugin_list_updates_only_requested_plugins(self):
+        archive = _plugin_archive({
+            "first_plugin": _manifest("first_plugin"),
+            "second_plugin": _manifest("second_plugin"),
+            "unselected_plugin": _manifest("unselected_plugin"),
+        })
+
+        with mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ), mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            result = plugins.checker.install_custom_plugin(
+                archive, ["first_plugin", "second_plugin"]
+            )
+
+        self.assertEqual(
+            set(result["installed"]), {"first_plugin", "second_plugin"}
+        )
+        self.assertEqual(
+            {call.args[1] for call in install_plugin.call_args_list},
+            {"first_plugin", "second_plugin"},
+        )
+
+    def test_update_all_selects_only_changed_installed_plugins(self):
+        checker = object.__new__(plugins._PluginChecker)
+        checker._lock = threading.RLock()
+        repository_info = {
+            "changed_plugin": {
+                "hash": "new-hash",
+                "repo": "test-repository",
+            },
+            "current_plugin": {
+                "hash": "same-hash",
+                "repo": "test-repository",
+            },
+            "not_installed": {
+                "hash": "new-hash",
+                "repo": "test-repository",
+            },
+        }
+        original_status = options_module.options.plugin_status
+        options_module.options.plugin_status = {
+            "changed_plugin": {"hash": "old-hash"},
+            "current_plugin": {"hash": "same-hash"},
+        }
+        try:
+            with mock.patch.object(
+                checker, "cached_available_versions",
+                return_value=repository_info,
+            ), mock.patch.object(
+                plugins, "available",
+                return_value=["changed_plugin", "current_plugin"],
+            ), mock.patch.object(
+                checker, "_get_zip", return_value=io.BytesIO()
+            ), mock.patch.object(
+                checker, "install_custom_plugin",
+                return_value={
+                    "installed": ["changed_plugin"],
+                    "blocked": {},
+                    "warnings": {},
+                    "permissions_approved": [],
+                },
+            ) as install_plugins:
+                result = checker.install_available_updates(
+                    approve_permissions=True,
+                    approved_by="admin",
+                )
+        finally:
+            options_module.options.plugin_status = original_status
+
+        self.assertEqual(result["installed"], ["changed_plugin"])
+        install_plugins.assert_called_once_with(
+            mock.ANY,
+            plugin_filter=["changed_plugin"],
+            approve_permissions=True,
+            approved_by="admin",
+        )
 
     def test_bulk_install_orders_required_dependency_before_consumer(self):
         archive = _plugin_archive({

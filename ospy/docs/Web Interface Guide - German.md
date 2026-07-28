@@ -626,6 +626,8 @@ Der Plug-in-Manager verwendet standardmäßig den stabilen Kanal `master`. Ein A
 
 Die Manager-Seite öffnet sich, ohne auf GitHub zu warten. Die Repository-Daten werden im Hintergrund geladen; die Zusammenfassung oben zeigt den Prüffortschritt, einen Fehler, den aktuellen Zustand oder Anzahl und Namen verfügbarer Aktualisierungen. Jeder Aktualisierungsname führt direkt zum betroffenen Plug-in.
 
+Kompatibilität, Berechtigungsfreigabe, Manifest-Metadaten und der Test vor der Aktivierung sind bei jedem Plug-in unter **Technische Details** eingeklappt. Eine Repository-Prüfung startet automatisch nur, wenn noch keine Repository-Daten verfügbar sind; das einfache Aktivieren oder Deaktivieren eines Plug-ins wiederholt sie nicht. **Alle Berechtigungen freigeben** speichert nach einer Bestätigung die aktuell deklarierten Berechtigungen aller installierten Plug-ins. **Alle aktualisieren** bestätigt die angezeigte Quelle und aktualisiert nur installierte Plug-ins, für die eine neue Version erkannt wurde.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 Am oben genannten Speicherort befindet sich ein Repository mit verfügbaren Erweiterungen für das OSPy-System.
 

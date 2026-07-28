@@ -5,14 +5,18 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 
 July 28 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Expanded the Home forecast to use the provider's day/night value and the complete WMO weather-code set. Stormglass daylight is calculated from the configured coordinates and date instead of fixed clock hours. Added dedicated moon variants for clear, mainly clear and partly cloudy nights, plus separate icons and descriptions for drizzle, freezing drizzle, freezing rain, snow grains, rain showers, snow showers and thunderstorms with hail.
 
 Made Plugin Manager open without waiting for a GitHub repository download. Repository checks are now queued to the existing background worker automatically when the page opens; a live summary at the top reports loading, failure, all-current state, or the number and directly linked names of available updates. Cached repository metadata remains readable while a new ZIP is downloading, the Home update-status API no longer waits for that download lock, repeated plug-in pre-activation scans are cached until installation or update, and the manual check action is asynchronous. Added day/night and complete WMO mapping tests, non-blocking repository and worker-wakeup tests, web-route coverage, and updated all seven Web Interface Guides.
 
+Compacted each Plugin Manager row by placing manifest metadata, compatibility, permission approval and the pre-activation test inside one collapsed technical-details section with a concise status summary. Returning to the manager after enabling, disabling or approving a plug-in no longer starts another repository download when cached data already exists. Added bulk approval of all currently declared permissions and a source-confirmed Update All action that updates only installed plug-ins with detected changes, reuses the downloaded repository archive, and never installs unrelated repository plug-ins. Added bulk-selection, update filtering and web-route regression tests and updated all seven Web Interface Guides.
+
+Standardized the author credit in the current and archived changelog from the account name to **Martin Pihrt**.
+
 July 27 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Updated the Czech translation.
 
 Plug-in CHMI v1.0.2
@@ -23,21 +27,21 @@ Split the plug-in into a live overview and a dedicated settings page. The overvi
 
 July 26 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Updated the Czech translation.
 
 Plug-in Weather-based Water Level v1.1.0. Added a calculation-method selector with the backward-compatible multi-day weather balance, configurable Zimmerman calculation and full FAO-56 ETo mode using OSPy's weather-provider or fallback ETo. Added method-specific settings and calculation details, safe neutral/stale-result handling, method-aware diagnostics, responsive external CSS, formulas and operating guidance in the plug-in help and README, and automated formula regression tests. Corrected the original method's relative-humidity handling by converting OSPy's normalized 0–1 value to percent before applying the humidity factor.
 
 July 24 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Updated the Czech translation.
 
 Eliminated a lock-order deadlock between watering-run logs and the settings database that could become visible during verified SQLite dual-write: the scheduler, settings writer and HTTPS request threads could wait on one another, freezing the web interface while an output remained active. Run, e-mail and event logs now copy their data under their own lock and coalesce persistent snapshots in a dedicated worker after releasing that lock. Physical station and master output writes complete before any plug-in notification; station commands and the separate master-relay output are serialized around only the short hardware write. Output notifications and scheduler-originated rain, rain-delay, Internet and periodic notifications use separate bounded workers, so slow SMTP, MQTT, database or other plug-in callbacks cannot delay schedule processing or relay shutdown. Diagnostics reports pending, delayed and failed plug-in notifications for both outputs and the scheduler. Added regression tests for lock ordering, serialized hardware commands, non-blocking physical master shutdown and non-blocking scheduler notifications, plus repository-wide safety checks for all official plug-ins.
 
 July 22 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Expanded **How OSPy works** from fourteen to twenty-five localized interactive diagrams. Added irrigation priority and concurrency, rain and water-balance decisions, the output-hardware command path and its physical-feedback limitation, user-role authorization, Events/incidents/debug layers, notification delivery, ordered startup and shutdown, detailed plug-in permission approval, the complete sensor lifecycle, safe LAN/Internet exposure, and the guarded clean-installation process. The installation diagram follows the real stable-branch installer through platform and Python checks, non-destructive existing-checkout handling, dependencies, SQLite integrity, the versioned systemd service, first startup and generated-password replacement. Updated all seven Web Interface Guides and expanded regression coverage.
 
 Expanded **How OSPy works** from nine to fourteen interactive diagrams. Five new localized security topics explain the protected web-request and role-authorization path, HTTPS certificate selection and TLS failures, password and two-factor login with TOTP/e-mail/backup codes, session/CSRF/remember-me token lifecycles, and API plus sensor authentication with throttling, roles, optional CSRF and CORS. Related nodes link directly to Login, Options, 2FA, Events, Sensors and the e-mail plug-in. Added regression coverage, made the pinned Mermaid integrity check stable across Windows and Linux line endings, and updated all seven Web Interface Guides.
@@ -80,7 +84,7 @@ Introduced backup manifest format 2 as the prerequisite for an optional SQLite-p
 
 July 21 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Introduced the first non-migrating settings-storage transition phase. OSPy still reads and writes the existing shelve/DBM settings files through a new storage interface; no SQLite settings file is created and no user data are converted. Diagnostics now passively reports the active backend and Python SQLite readiness without treating unavailable SQLite as a system failure. The clean installer verifies built-in SQLite support with an in-memory integrity check, and automated tests cover shelve compatibility, absence of SQLite filesystem writes and safe fallback when SQLite is unavailable. Updated the clean-install guide and all seven Web Interface Guides.
 
 Added the second settings-storage transition phase: every successful shelve/DBM save now produces a non-authoritative SQLite shadow copy through a temporary file. OSPy atomically replaces it only after schema, key, serialized-value and SQLite integrity verification, and never reads it during startup. Shadow failure cannot block or invalidate the authoritative shelve save; Diagnostics reports synchronized, pending, unavailable or failed shadow state and keeps a shadow-only failure at warning severity. Added round-trip, corruption, atomic cleanup and forced-failure regression tests and updated all storage documentation.
@@ -131,7 +135,7 @@ Removed the remaining Python 3.14 invalid-escape `SyntaxWarning` messages from W
 
 July 20 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Corrected the Czech Security check sensor-password warning and the System Update target commit label.
 
 Updated the Czech translation catalog with the verified stable-release, exact commit, release notes and watchdog-protected rollback interface of System Update v1.2.4.
@@ -154,7 +158,7 @@ The plug-in update warning modal can now be dismissed with its header close butt
 
 July 19 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added regression coverage for queuing the post-rollback systemd restart without waiting for a legacy SysV stop job. A successful repository rollback must not be reported as failed merely because the generated service spends its full 30-second stop interval before restarting OSPy.
 
 Fixed the legacy SysV OSPy service stop script so it targets only the PID recorded for OSPy. Its former executable-wide cleanup matched every `/usr/bin/python3` process and could kill unrelated Python services, including the external System Update rollback watchdog, after the 30-second stop timeout. Added regression coverage that prevents broad Python process matching from returning.
@@ -167,7 +171,7 @@ Made the System Update test suite compatible with both the stable v1.1 plug-in a
 
 July 18 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added automated boot-failure recovery tests for System Update. The external watchdog is verified independently of the OSPy runtime, including scheduler and web-listener acknowledgement, timeout rollback, branch restoration, service restart, invalid-token rejection and immediate recovery when Git update steps fail.
 
 Fixed completion of a system restore. Active web sessions are no longer included in new backups and are ignored when older archives are restored; the current session is invalidated before shutdown so the completed upload request cannot write to a closed session database. Users sign in again after OSPy restarts. Persistent-data validation now accepts the legitimate boolean and runtime value representations written by programs and sensors, preventing valid restored fields from being discarded with false incompatible-type warnings. Added regression tests and updated all seven Web Interface Guides.
@@ -178,7 +182,7 @@ Added stable and test update channels for the official plug-in repository. Plug-
 
 July 17 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added branch-aware version labels for the new update channels. Builds checked out on `master` keep the normal numeric version, while the same revision on the `beta` branch is displayed with a `-beta` suffix throughout OSPy. Fast-forward promotion to `master` removes the suffix without changing the revision number. Added tests for master, beta, other branches and detached or unavailable Git state, and updated all seven Web Interface Guides.
 
 Added GitHub Actions continuous integration for pushes and pull requests to the `beta` and `master` branches, with optional manual execution. The isolated Python 3.11 job uses the Node.js 24-compatible official GitHub actions, checks out the official OSPy-plugins repository, installs the normal OSPy Python dependencies and runs the complete automated test suite without contacting a running OSPy installation or irrigation hardware. Documented the hosted test behavior in the automated test guide. Updated the Czech OSPy translation.
@@ -213,7 +217,7 @@ Serialized option mutations with database writes to prevent a concurrent timer s
 
 July 16 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Updated active pihrt.com article links after the website migration from the former `/elektronika/` paths to the verified `/clanky/` addresses. The OSPy README and sensor firmware documentation now point to the current articles.
 
 Extended the administrator Diagnostics page with separate **System status** and **Performance and processes** tabs. The new operational overview uses in-memory heartbeats from the scheduler, schedule calculation, sensor loop, weather loop and station-output writes, and also summarizes database accessibility, free disk space, enabled plug-in failures, e-mail readiness, internet connectivity and available backup files. Statuses are shown as OK, warning, error or not configured, with timestamps and direct links to the relevant settings pages. Output diagnostics explicitly distinguish a successful command write from unavailable physical relay feedback.
@@ -252,7 +256,7 @@ Isolated the automated test environment from a concurrently running OSPy service
 
 July 15 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Expanded the user-facing Events log without changing the existing technical debug log. Event records now carry a backward-compatible severity and category, use colored textual severity badges, and can be filtered with a single category selector for irrigation, configuration, users and security, system and plug-ins, or sensors and conditions. Date and time columns no longer wrap, old saved records are normalized for display, and `events.csv` now includes Level and Category. Added operational and audit events for manual irrigation actions, blocked scheduled runs and their reasons, program and station configuration, login and two-factor failures with write throttling, user and password administration, system restart and shutdown requests, plug-in management and restart failures, and configured sensor events. Fixed previously saved program-group events being hidden by the old fixed checkbox filters. Documented the expanded Events log in all seven language Web Interface Guides.
 
 Extended the Events log to authenticated API activity. Failed and temporarily blocked API authentication attempts are throttled and recorded as user/security warnings or errors, while state-changing API requests record station and program control, program and station configuration, system-option changes, station-log clearing, run-once scheduling, and restart or shutdown requests in their corresponding categories. Routine reads and successful per-request Basic authentication are intentionally not logged, preventing normal API polling from flooding persistent storage. Updated all seven language Web Interface Guides.
@@ -261,7 +265,7 @@ Updated the Czech OSPy translation.
 
 July 14 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Fixed the Options page failing to open after the weather location picker update on systems where weather was disabled and latitude/longitude still contained the historical empty-dictionary defaults. Weather coordinates now use empty-string defaults, legacy saved dictionary values are normalized when settings are loaded, and the Options template safely formats coordinate values before adding them to the HTML.
 
 Added a protected Feedback page linked by a new header button next to the OSPy system name. Signed-in administrators and users can prepare a bug report, improvement suggestion, or question; OSPy validates the form and opens a prefilled GitHub issue for review and submission under the user's GitHub account, without storing a GitHub access token. Reports can optionally include a previewed set of non-identifying OSPy version, operating-system, architecture, distribution, and Python details reused from anonymous usage statistics; system names, operator names, IP addresses, and usage-statistics identifiers are excluded. The page also links directly to existing GitHub Issues and GitHub Discussions. The form is CSRF-protected, uses a no-referrer policy, and supports all three themes and mobile layouts.
@@ -270,7 +274,7 @@ Updated the Czech OSPy translation. Restyled the Feedback system-information opt
 
 July 12 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Separated 2FA setup into method-specific cards and explicit send, verify-and-activate, and disable actions so refreshing or revisiting setup cannot accidentally change the active method. Active TOTP and e-mail methods are now identified in Options, backup codes end with a Done action instead of another Save, and authenticator account labels start with the OSPy site name. The Home weather location card is now compact, transparent, and styled like the other dark-blue bordered sections.
 
 Plug-in CPU history is now sampled in memory every minute by a background thread while OSPy is running, instead of collecting samples only while the Diagnostics page is open. Opening a 1-hour, 24-hour, or 7-day graph therefore immediately shows the available history since OSPy started; the samples are intentionally discarded on restart. The history panel now uses the shared rounded OSPy card style, including the correct border color for each theme and an exact full-width border-box layout.
@@ -279,7 +283,7 @@ Restored the visible rounded corners of the Diagnostics system and plug-in table
 
 July 11 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added optional two-factor authentication for the main administrator account. Settings now offer one mutually exclusive method: a TOTP authenticator application paired with a QR code, or a short-lived code sent immediately through the running E-mail Notifications SSL plug-in. Password verification and second-factor verification use separate session states, login and QR requests are CSRF-protected, legacy URL password authentication cannot bypass the second factor, remembered browser tokens are issued only after the second factor succeeds and are revoked when the method changes, attempts and challenge lifetime are limited, and one-time backup codes provide account recovery. TOTP verification uses the Python standard library; QR rendering is installed through the normal `python setup.py install` flow rather than a web-triggered package installer. Documented setup, operation, recovery, and dependency handling in all seven language Web Interface Guides. The local back_door.py recovery script now also disables 2FA, removes its secret and backup codes, and invalidates remembered and active web sessions so the generated recovery login works after losing the second factor; the main and service README files now document this emergency procedure. The same README files now document the standalone pre-start relay_test.py hardware-board test, including service shutdown, its all-relays behavior, load-disconnection warning, Ctrl+C cleanup, and normal OSPy restart. Replaced the inline program-group postponement date row with a focused modal date/time dialog, live old/new run preview, native mobile date/time controls, and responsive full-width mobile actions without changing postponement scheduling behavior. Log clearing now returns to the section that initiated the action, and changing event filters keeps the Events section open instead of reopening the Station log.
 
 Added an interactive, mobile-friendly weather location picker to Options using a locally bundled Leaflet 1.9.4 library and correctly attributed OpenStreetMap tiles. Administrators can click an exact point or explicitly request the browser device location, review coordinates, and save them through the existing CSRF-protected Options form with server-side latitude/longitude validation. Manual coordinates are now authoritative for Stormglass and form part of its cache key, while editing the text location switches back to Nominatim search. Fixed the weather thread incorrectly forcing a successful location status after lookup failures. Replaced the technical Home weather line with a responsive location card, internal read-only map, admin edit shortcut, status, and collapsible coordinate details. Updated all seven language Web Interface Guides.
@@ -288,27 +292,27 @@ Updated the Czech OSPy translation. 2FA login is not 100% finished and will stil
 
 July 10 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added in-memory CPU history to the Diagnostics page. Each plug-in now keeps a rolling one-week CPU usage history in RAM only, the CPU column includes a History button, and the diagnostics page can show a chart for the selected plug-in with 1 hour, 24 hour, and 7 day filters without writing diagnostic samples to disk. Added a secure one-time program group postponement action: an administrator can move each enabled program's nearest group run to a new date and start time while preserving run order, durations, and relative gaps without changing later regular schedules. Postponements survive service restarts, continue to respect scheduler, rain, station-delay, and output-usage rules, can be safely cancelled, and are protected by CSRF verification and server-side validation. Documented group postponement in all language Web Interface Guides. Fixed a race during remembered browser login that could randomly cause a redirect loop until the OSPy service was restarted, and prevented concurrent requests from recording the same remembered login multiple times in the event log. Updated the Czech OSPy translation.
 
 July 09 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Improved the Diagnostics page layout with a wider system summary, clearer labels, grid lines in the plug-in table, and a corrected restart button label for plug-in restarts. Added a plug-in sort selector with CPU load as the default order, plus sorting by plug-in name or total CPU time. Diagnostics refresh errors are now cleared after a successful refresh, and the live diagnostics API reports controlled JSON errors instead of leaving the page with a stale warning. Added Diagnostics documentation to all Web Interface Guides, expanded the i18n README with step-by-step Poedit instructions, changed `pygettext.py` so HTML templates are scanned only for `_()` translation calls, preventing normal HTML/CSS markup from breaking POT generation, and updated the Czech OSPy translation. Refined the Programs page so program dividers sit below each program's action buttons, the run-order overview uses an orange dashed style distinct from action buttons, and run-order tooltips are available by keyboard focus or touch as well as mouse hover.
 
 July 08 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added an admin Diagnostics page linked from the footer, with live-refreshing system/process metrics, plug-in thread CPU diagnostics, links to plug-in pages and System Information when available, and a CSRF-protected restart action for running plug-ins. Fixed IP Cam home pictures so large cached JPG/GIF files stay as small station thumbnails while the click-through viewer opens a bounded preview. Hardened station image handling by replacing the old web-triggered `sudo pip install Pillow` command with a fixed `apt-get install -y python3-pil` call without shell execution, and by validating uploaded images through Pillow with decompression-bomb protection and safer error handling.
 
 July 07 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Fixed plug-in repository document synchronization during plug-in install and update. OSPy now detects the real root of the GitHub plug-in archive and copies the repository README and CHANGELOG into the local `plugins` directory, so the Help page shows the current plug-in changelog after plug-in updates.
 
 July 06 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added a station picture source option for the home page so the existing station image display can continue using uploaded station images or, when selected, cached IP Cam JPG/GIF images through the core image endpoint with fallback to station images. If the IP Cam plug-in is not installed or has no cached image for a station, the home page falls back to the normal station image. The core image endpoint now handles this fallback directly, so the home page does not depend on the IP Cam plug-in route being available.
 Clarified SSL certificate selection in all web interface manuals and the clean installation guide: a local own certificate now has priority, Let’s Encrypt is used otherwise, and enabling both HTTPS options no longer causes a silent HTTP fallback.
 Improved home page countdown refresh reliability by adding timeouts and automatic retry to station status polling, and by calculating countdown timers from the real target time so they recover after browser throttling or a stalled request.
@@ -318,10 +322,10 @@ Added the plug-in repository changelog to the Help page Plug-ins section when `p
 
 July 04 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Added graph range buttons and date/time filtering to sensor graph pages, matching the graphical filtering controls used by plug-in charts. Synchronized the English, German, Polish, Russian, Serbian, and Slovak Web Interface Guide documents with the detailed Czech guide while preserving existing UI labels such as button names.
 
 July 03 2026 (v3.0)
 -----------
-(martinpihrt)<br/>
+(Martin Pihrt)<br/>
 Czech and Slovak language update. Fixed live home page plug-in data refresh so values are rebuilt from current plug-in runtime data instead of being updated by stale list positions. This prevents data from one plug-in being shown under another plug-in after a plug-in hides or clears its home/footer data. Updated the Thermostat plug-in so stopping a selected program also cancels matching Run-Now activity and turns off active stations belonging to that program. The Thermostat status log now clears the old disabled message when the plug-in is enabled again. Improved the login page reset session action so it closes, removes, and reopens the session database while OSPy is running, which can recover from a stuck session store without restarting OSPy. Improved the Programs page with a compact per-group run-order overview based on the scheduler output, added a divider below group action buttons, and replaced remaining checkboxes in the program editor with switch-style controls. Refined the program run-order overview with a label, a divider below the overview, and a non-green block color so it is visually distinct from action buttons.

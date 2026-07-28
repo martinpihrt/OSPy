@@ -615,6 +615,8 @@ Menedżer wtyczek domyślnie używa stabilnego kanału `master`. Administrator m
 
 Strona menedżera otwiera się bez oczekiwania na GitHub. Dane repozytorium są ładowane w tle, a podsumowanie u góry pokazuje postęp sprawdzania, błąd, aktualny stan albo liczbę i nazwy dostępnych aktualizacji. Każda nazwa aktualizacji prowadzi bezpośrednio do odpowiedniej wtyczki.
 
+Zgodność, zatwierdzenie uprawnień, metadane manifestu i test przed aktywacją są zwinięte dla każdej wtyczki w sekcji **Szczegóły techniczne**. Kontrola repozytorium uruchamia się automatycznie tylko wtedy, gdy nie ma jeszcze danych repozytorium; samo włączenie lub wyłączenie wtyczki jej nie powtarza. **Zatwierdź wszystkie uprawnienia** po jednym potwierdzeniu zapisuje aktualnie zadeklarowane uprawnienia wszystkich zainstalowanych wtyczek. **Aktualizuj wszystko** potwierdza wyświetlone źródło i aktualizuje tylko zainstalowane wtyczki, dla których wykryto nową wersję.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 W powyższej lokalizacji znajduje się repozytorium dostępnych rozszerzeń dla systemu OSPy.
 

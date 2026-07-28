@@ -458,6 +458,14 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(manage_response.status, "200 OK")
         self.assertIn(b'id="pluginRefreshButton"', manage_response.data)
         self.assertIn(b'id="pluginUpdateSummary"', manage_response.data)
+        self.assertIn(
+            b'name="action" value="approve_all_permissions"',
+            manage_response.data,
+        )
+        self.assertIn(
+            b'name="action" value="update_all"', manage_response.data
+        )
+        self.assertIn(b"initialRepositoryLoaded", manage_response.data)
         blocking_sync.assert_not_called()
         self.assertIn(b'id="updateWarningClose"', manage_response.data)
         self.assertIn(b'event.target === this', manage_response.data)
@@ -466,6 +474,55 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b'value="beta"', manage_response.data)
         self.assertEqual(install_response.status, "200 OK")
         self.assertIn(b"test_plugin", install_response.data)
+
+    def test_plugin_manager_bulk_actions_use_safe_helpers(self):
+        original_status = webpages.options.plugin_status
+        webpages.options.plugin_status = {}
+        try:
+            with mock.patch.object(
+                webpages.plugins, "approve_all_plugin_permissions",
+                return_value=["first_plugin"],
+            ) as approve_all:
+                approval_response = self.app.request(
+                    "/plugins_manage",
+                    method="POST",
+                    data={
+                        "action": "approve_all_permissions",
+                        "csrf": self.session["csrf_token"],
+                    },
+                )
+
+            update_result = {
+                "installed": ["first_plugin"],
+                "blocked": {},
+                "warnings": {},
+                "permissions_approved": [],
+            }
+            with mock.patch.object(
+                webpages.plugins.checker, "install_available_updates",
+                return_value=update_result,
+            ) as update_all, mock.patch.object(
+                webpages.plugins, "plugin_repositories",
+                return_value=["test-repository"],
+            ):
+                update_response = self.app.request(
+                    "/plugins_manage",
+                    method="POST",
+                    data={
+                        "action": "update_all",
+                        "csrf": self.session["csrf_token"],
+                    },
+                )
+        finally:
+            webpages.options.plugin_status = original_status
+
+        self.assertEqual(approval_response.status, "303 See Other")
+        approve_all.assert_called_once()
+        self.assertEqual(update_response.status, "200 OK")
+        update_all.assert_called_once_with(
+            approve_permissions=True,
+            approved_by="Test administrator",
+        )
 
     def test_plugin_update_api_queues_background_refresh(self):
         original = webpages.options.use_plugin_update

@@ -2200,6 +2200,31 @@ td.stationSchedule {
     font-weight: bold;
 }
 
+#controls .pluginTechnicalDetails {
+    box-sizing: border-box;
+    margin: 7px 0 0 150px;
+    color: #20242a;
+    font-size: 0.88em;
+}
+
+#controls .pluginTechnicalDetails > summary {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 5px 9px;
+    border: 1px solid #c8ccd2;
+    border-radius: 5px;
+    background-color: #eef0f3;
+    cursor: pointer;
+}
+
+#controls .pluginTechnicalDetailsLabel { font-weight: bold; }
+#controls .pluginTechnicalDetailsContent { padding-top: 1px; }
+#controls .pluginTechnicalDetails .pluginMetadata,
+#controls .pluginTechnicalDetails .pluginStatusPanel { margin-left: 0; }
+
 #controls .pluginMetadata,
 #controls .pluginStatusPanel {
     box-sizing: border-box;
@@ -2369,6 +2394,7 @@ td.stationSchedule {
 }
 
 @media only screen and (max-width: 800px) {
+    #controls .pluginTechnicalDetails,
     #controls .pluginMetadata,
     #controls .pluginStatusPanel {
         clear: both;

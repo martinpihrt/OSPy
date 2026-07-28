@@ -626,6 +626,8 @@ Správce rozšíření používá ve výchozím stavu stabilní kanál `master`.
 
 Stránka správce se otevře bez čekání na GitHub. Data repozitáře se načtou na pozadí a souhrn nahoře ukazuje průběh kontroly, chybu, stav „vše aktuální“ nebo počet a názvy dostupných aktualizací. Každý název aktualizace odkazuje přímo na dotčené rozšíření.
 
+Kompatibilita, schválení oprávnění, manifest a test před spuštěním jsou u každého rozšíření sbalené v části **Technické podrobnosti**. Kontrola repozitáře se automaticky spustí jen tehdy, když ještě nejsou dostupná žádná data; běžné zapnutí nebo vypnutí rozšíření ji neopakuje. **Schválit všechna oprávnění** jedním potvrzením uloží aktuálně deklarovaná oprávnění všech nainstalovaných rozšíření. **Aktualizovat vše** po potvrzení zobrazeného zdroje aktualizuje pouze nainstalovaná rozšíření, pro která byla zjištěna nová verze.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
 Na výše uvedeném umístění se nachází repozitář s dostupnými rozšířeními pro systém OSPy.
 

@@ -10,6 +10,7 @@ jQuery(document).ready(function(){
     var updateWarningAcknowledged = false;
     var refreshStarted = false;
     var initialGeneration = ${update_snapshot.get('generation', 0)};
+    var initialRepositoryLoaded = ${json.dumps(bool(update_snapshot.get('loaded'))).lower()};
     var csrfToken = "${csrf_token()}";
     var refreshUrl = "/plugins_updates.json";
     var statusChecking = $:{json.dumps(_('Checking for plugin updates...'), ensure_ascii=False)};
@@ -155,7 +156,8 @@ jQuery(document).ready(function(){
         if (${json.dumps(bool(update_snapshot.get('checking') or update_snapshot.get('queued'))).lower()}) {
             refreshStarted = true;
             pollRefreshStatus();
-        } else if (!(new URLSearchParams(window.location.search)).has("refresh_done")) {
+        } else if (!initialRepositoryLoaded &&
+                   !(new URLSearchParams(window.location.search)).has("refresh_done")) {
             requestPluginRefresh();
         }
     }
@@ -169,6 +171,10 @@ jQuery(document).ready(function(){
         }
         jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Working...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
         return true;
+    });
+
+    jQuery(".plugin-approve-all-form").submit(function(){
+        return confirm($:{json.dumps(_('Approve all currently declared permissions for all installed plugins?'), ensure_ascii=False)});
     });
 });
 </script>
@@ -288,6 +294,16 @@ jQuery(document).ready(function(){
         <input type="hidden" name="action" value="delete_all">
         <button type="submit" class="button danger">$_('Delete All')</button>
     </form>
+    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-approve-all-form">
+        $:csrf_input()
+        <input type="hidden" name="action" value="approve_all_permissions">
+        <button type="submit" class="button open" ${'disabled' if not update_snapshot.get('permission_approval_count') else ''}>$_('Approve all permissions')</button>
+    </form>
+    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-install-form" data-plugin=$:{json.dumps(_('all available updates'), ensure_ascii=False)} data-repo=$:{json.dumps(', '.join(plugin_repositories), ensure_ascii=False)}>
+        $:csrf_input()
+        <input type="hidden" name="action" value="update_all">
+        <button type="submit" class="button upload" ${'disabled' if not update_snapshot.get('update_count') else ''}>$_('Update all')</button>
+    </form>
     $ running_list = plugins.running()
     $ current_info = options.plugin_status
     $for plugin in plugins.available():
@@ -377,6 +393,24 @@ jQuery(document).ready(function(){
                 </span>
                 -->
             </div>
+            <details class="pluginTechnicalDetails">
+                <summary>
+                    <span class="pluginTechnicalDetailsLabel">$_('Technical details')</span>
+                    <span class="pluginStatusBadge pluginStatus-${compatibility.get('status', 'legacy')}">$_('Compatibility')</span>
+                    <span class="pluginStatusBadge pluginStatus-${'ok' if permission_approval.get('approved') else 'warning'}">
+                        $if permission_approval.get('approved'):
+                            $_('Permissions approved')
+                        $else:
+                            $_('Approval required')
+                    </span>
+                    <span class="pluginStatusBadge pluginStatus-${preflight.get('status', 'error')}">
+                        $if preflight.get('passed'):
+                            $_('Test passed')
+                        $else:
+                            $_('Test failed')
+                    </span>
+                </summary>
+                <div class="pluginTechnicalDetailsContent">
             $if manifest:
                 <div class="pluginMetadata">
                     <small>
@@ -453,6 +487,8 @@ jQuery(document).ready(function(){
                         </ul>
                     </details>
             </div>
+                </div>
+            </details>
 
             <div style="clear:both; padding: 0;"></div>
         </div>

@@ -626,6 +626,8 @@ The plug-in manager uses the stable `master` channel by default. An administrato
 
 The manager page opens without waiting for GitHub. Repository data is loaded in the background, while the summary at the top shows checking progress, an error, an up-to-date result, or the number and names of available updates. Each update name links directly to the affected plug-in.
 
+Compatibility, permission approval, manifest metadata and the pre-activation test are collapsed under **Technical details** for each plug-in. A repository check starts automatically only when no repository data is available yet; simply enabling or disabling a plug-in does not repeat it. **Approve all permissions** stores the currently declared permissions of all installed plug-ins after one confirmation. **Update all** confirms the displayed source and updates only installed plug-ins for which a new version was detected.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 There is a repository of available extensions for the OSPy system at the above location.
 

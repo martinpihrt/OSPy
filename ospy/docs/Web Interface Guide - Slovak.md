@@ -626,6 +626,8 @@ Správca doplnkov predvolene používa stabilný kanál `master`. Správca môž
 
 Stránka správcu sa otvorí bez čakania na GitHub. Údaje repozitára sa načítajú na pozadí a súhrn hore zobrazuje priebeh kontroly, chybu, aktuálny stav alebo počet a názvy dostupných aktualizácií. Každý názov aktualizácie vedie priamo na príslušný doplnok.
 
+Kompatibilita, schválenie oprávnení, údaje manifestu a test pred aktiváciou sú pri každom doplnku zbalené v časti **Technické podrobnosti**. Kontrola repozitára sa automaticky spustí iba vtedy, keď ešte nie sú dostupné údaje repozitára; obyčajné zapnutie alebo vypnutie doplnku ju neopakuje. **Schváliť všetky oprávnenia** po jednom potvrdení uloží aktuálne deklarované oprávnenia všetkých nainštalovaných doplnkov. **Aktualizovať všetko** potvrdí zobrazený zdroj a aktualizuje iba nainštalované doplnky, pre ktoré bola zistená nová verzia.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 Na vyššie uvedenom umiestnení sa nachádza repozitár s dostupnými rozšíreniami pre systém OSPy.
 
