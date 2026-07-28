@@ -4,6 +4,7 @@
 # urls is used by web.py. When a GET request is received, the corresponding class is executed.
 
 import api
+import api.v1
 import plugins
 
 urls = [
@@ -27,7 +28,8 @@ urls = [
     '/status.json', 'ospy.webpages.api_status_json',
     '/log.json', 'ospy.webpages.api_log_json',
     '/balance.json', 'ospy.webpages.api_balance_json',
-    '/api', api.get_app(),     # in apy.py api/stations, api/programs, api/options, api/logs, api/system, api/sensors, api/sensor, api/user, api/balances, api/pluginfooter
+    '/api/v1', api.v1.get_app(),
+    '/api', api.get_app(),     # Existing API remains available for backwards compatibility.
     '/plugins', plugins.get_app(),
     '/plugindata', 'ospy.webpages.api_plugin_data',
     '/update_status', 'ospy.webpages.api_update_status',

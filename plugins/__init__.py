@@ -2341,6 +2341,65 @@ def plugin_preflight(module):
     return result
 
 
+def plugin_mobile_capabilities(module):
+    """Return the optional, JSON-only mobile contract exposed by a plug-in."""
+    manifest = plugin_manifest(module)
+    declared = manifest.get('mobile', {})
+    if not isinstance(declared, dict):
+        declared = {}
+    plugin = __running.get(module)
+    methods = {
+        'status': 'mobile_status',
+        'cards': 'mobile_cards',
+        'settings_schema': 'mobile_settings_schema',
+        'settings': 'mobile_settings',
+        'action': 'mobile_action',
+    }
+    available_methods = {
+        key: bool(plugin is not None and callable(getattr(plugin, name, None)))
+        for key, name in methods.items()
+    }
+    actions = declared.get('actions', [])
+    if not isinstance(actions, list):
+        actions = []
+    return {
+        'api_version': int(declared.get('api_version', 1) or 1),
+        'available': any(available_methods.values()),
+        'methods': available_methods,
+        'actions': sorted(set(str(action) for action in actions if action)),
+    }
+
+
+def plugin_mobile_call(module, capability, *args, **kwargs):
+    """Invoke one declared mobile method without accepting arbitrary functions."""
+    method_names = {
+        'status': 'mobile_status',
+        'cards': 'mobile_cards',
+        'settings_schema': 'mobile_settings_schema',
+        'settings': 'mobile_settings',
+        'action': 'mobile_action',
+    }
+    if capability not in method_names:
+        raise ValueError('Unknown mobile plug-in capability.')
+    if module not in running():
+        raise RuntimeError('The plug-in is not running.')
+    plugin = get(module)
+    method = getattr(plugin, method_names[capability], None)
+    if not callable(method):
+        raise RuntimeError('The plug-in does not provide this mobile capability.')
+    if capability == 'action':
+        declared = plugin_mobile_capabilities(module).get('actions', [])
+        action = args[0] if args else kwargs.get('action')
+        if action not in declared:
+            raise ValueError('The plug-in action is not declared in plugin.json.')
+    result = method(*args, **kwargs)
+    try:
+        json.dumps(result)
+    except (TypeError, ValueError):
+        raise ValueError('The plug-in mobile response is not valid JSON data.')
+    return result
+
+
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):

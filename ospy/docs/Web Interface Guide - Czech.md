@@ -1,6 +1,11 @@
 OSPy Průvodce webovým rozhraním v češtině
 ====
 
+## Nativní mobilní API
+
+Viz úplná [dokumentace Mobile API v1](../../api/docs/Mobile_API_v1.md), která
+je dostupná také v Nápovědě OSPy v části **API**.
+
 ## SQLite jako primární úložiště (beta)
 
 Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, zpřístupní Nastavení v poli **Režim ukládání nastavení** volbu **SQLite primární (beta)**. OSPy před přechodem do tohoto režimu i návratem z něj vytvoří úplnou systémovou zálohu, společně potvrdí ověřenou SQLite a shelve/DBM kopii a restartuje se. Při dalším startu SQLite před použitím jako zdroje nastavení nezávisle ověří; synchronizovaná shelve/DBM kopie zůstává okamžitou zálohou. Chybějící aktivační marker, poškozená databáze, neshoda kontrolního součtu či schématu nebo neplatné nastavení bezpečně ponechá OSPy na shelve/DBM a problém zobrazí Diagnostika. K automatickému přepnutí nikdy nedojde a návrat do režimu **Ověřovací** je kdykoli dostupný stejným postupem se zálohou a restartem.
