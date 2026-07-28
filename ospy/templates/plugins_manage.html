@@ -1,4 +1,4 @@
-$def with ()
+$def with (repository_info, update_snapshot)
 
 $var title: $_('Manage Plugins')
 $var page: plugins
@@ -8,6 +8,16 @@ jQuery(document).ready(function(){
     var updateWarningModal = jQuery("#updateWarningModal");
     var updateWarningStorageKey = "ospy_plugins_update_warning_acknowledged";
     var updateWarningAcknowledged = false;
+    var refreshStarted = false;
+    var initialGeneration = ${update_snapshot.get('generation', 0)};
+    var csrfToken = "${csrf_token()}";
+    var refreshUrl = "/plugins_updates.json";
+    var statusChecking = $:{json.dumps(_('Checking for plugin updates...'), ensure_ascii=False)};
+    var statusCurrent = $:{json.dumps(_('All installed plugins are up to date.'), ensure_ascii=False)};
+    var statusAvailable = $:{json.dumps(_('Plugin updates are available.'), ensure_ascii=False)};
+    var statusFailed = $:{json.dumps(_('Plugin update check failed.'), ensure_ascii=False)};
+    var statusDisabled = $:{json.dumps(_('Plugin update checking is disabled.'), ensure_ascii=False)};
+    var statusNotLoaded = $:{json.dumps(_('Plugin update information has not been loaded yet.'), ensure_ascii=False)};
 
     try {
         updateWarningAcknowledged = sessionStorage.getItem(updateWarningStorageKey) === "1";
@@ -51,11 +61,104 @@ jQuery(document).ready(function(){
         }
     });
 
-    jQuery(".plugin-refresh-form").submit(function(){
-        jQuery("#pluginRefreshStatus").text($:{json.dumps(_('Checking for plugin updates...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
-        jQuery(this).find("button[type='submit']").prop("disabled", true).text($:{json.dumps(_('Checking...'), ensure_ascii=False).encode('utf8').decode('utf-8')});
-        return true;
-    });
+    function renderRefreshStatus(data) {
+        var summary = jQuery("#pluginUpdateSummary");
+        var title = jQuery("#pluginUpdateSummaryTitle");
+        var detail = jQuery("#pluginUpdateSummaryDetail");
+        summary.removeClass("isChecking isCurrent hasUpdates hasError isDisabled");
+        detail.empty();
+
+        if (!data.enabled) {
+            summary.addClass("isDisabled");
+            title.text(statusDisabled);
+        } else if (data.checking || data.queued) {
+            summary.addClass("isChecking");
+            title.text(statusChecking);
+            detail.text($:{json.dumps(_('Please wait; repository data is loading in the background.'), ensure_ascii=False)});
+        } else if (data.error) {
+            summary.addClass("hasError");
+            title.text(statusFailed);
+            detail.text(data.error);
+        } else if (!data.loaded) {
+            summary.addClass("isChecking");
+            title.text(statusNotLoaded);
+        } else if (data.update_count > 0) {
+            summary.addClass("hasUpdates");
+            title.text(statusAvailable + " " + data.update_count);
+            jQuery.each(data.updates, function(index, update) {
+                var link = jQuery("<a></a>")
+                    .attr("href", "#" + update.id)
+                    .text(update.name);
+                detail.append(link);
+            });
+        } else {
+            summary.addClass("isCurrent");
+            title.text(statusCurrent);
+        }
+    }
+
+    function pollRefreshStatus() {
+        jQuery.getJSON(refreshUrl)
+            .done(function(data) {
+                renderRefreshStatus(data);
+                if (data.checking || data.queued) {
+                    window.setTimeout(pollRefreshStatus, 1000);
+                } else if (refreshStarted && !data.error &&
+                           data.generation > initialGeneration) {
+                    window.location.replace("/plugins_manage?refresh_done=" +
+                        data.generation + "#pluginUpdateSummary");
+                } else {
+                    jQuery("#pluginRefreshButton").prop("disabled", false);
+                }
+            })
+            .fail(function() {
+                jQuery("#pluginUpdateSummary")
+                    .removeClass("isChecking isCurrent hasUpdates isDisabled")
+                    .addClass("hasError");
+                jQuery("#pluginUpdateSummaryTitle").text(statusFailed);
+                jQuery("#pluginRefreshButton").prop("disabled", false);
+            });
+    }
+
+    function requestPluginRefresh() {
+        refreshStarted = true;
+        jQuery("#pluginRefreshButton").prop("disabled", true);
+        renderRefreshStatus({
+            enabled: true,
+            checking: true,
+            queued: true,
+            error: "",
+            loaded: false,
+            update_count: 0,
+            updates: []
+        });
+        jQuery.ajax({
+            url: refreshUrl,
+            method: "POST",
+            dataType: "json",
+            data: {csrf: csrfToken}
+        }).done(function(data) {
+            renderRefreshStatus(data);
+            window.setTimeout(pollRefreshStatus, 500);
+        }).fail(function() {
+            jQuery("#pluginUpdateSummary")
+                .removeClass("isChecking isCurrent hasUpdates isDisabled")
+                .addClass("hasError");
+            jQuery("#pluginUpdateSummaryTitle").text(statusFailed);
+            jQuery("#pluginRefreshButton").prop("disabled", false);
+        });
+    }
+
+    jQuery("#pluginRefreshButton").on("click", requestPluginRefresh);
+
+    if (${json.dumps(bool(options.use_plugin_update)).lower()}) {
+        if (${json.dumps(bool(update_snapshot.get('checking') or update_snapshot.get('queued'))).lower()}) {
+            refreshStarted = true;
+            pollRefreshStatus();
+        } else if (!(new URLSearchParams(window.location.search)).has("refresh_done")) {
+            requestPluginRefresh();
+        }
+    }
 
     jQuery(".plugin-install-form").submit(function(){
         var plugin = jQuery(this).data("plugin") || $:{json.dumps(_('all plugins'), ensure_ascii=False).encode('utf8').decode('utf-8')};
@@ -127,12 +230,32 @@ jQuery(document).ready(function(){
         </form>
     </div>
     <a href="/plugins_install" class="button add">$_('Install new plugin')</a>
-    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-refresh-form">
-        $:csrf_input()
-        <input type="hidden" name="action" value="refresh">
-        <button type="submit" class="button upload">$_('Load changes')</button>
-    </form>
-    <span id="pluginRefreshStatus" style="margin-left: 8px;"></span>
+    <button type="button" id="pluginRefreshButton" class="button upload"$:{' disabled="disabled"' if not update_snapshot.get('enabled') else ''}>$_('Check now')</button>
+    <div id="pluginUpdateSummary" class="pluginUpdateSummary ${'isDisabled' if not update_snapshot.get('enabled') else ('isChecking' if update_snapshot.get('checking') or update_snapshot.get('queued') or not update_snapshot.get('loaded') else ('hasError' if update_snapshot.get('error') else ('hasUpdates' if update_snapshot.get('update_count') else 'isCurrent')))}" aria-live="polite">
+        <strong id="pluginUpdateSummaryTitle">
+            $if not update_snapshot.get('enabled'):
+                $_('Plugin update checking is disabled.')
+            $elif update_snapshot.get('checking') or update_snapshot.get('queued'):
+                $_('Checking for plugin updates...')
+            $elif update_snapshot.get('error'):
+                $_('Plugin update check failed.')
+            $elif not update_snapshot.get('loaded'):
+                $_('Plugin update information has not been loaded yet.')
+            $elif update_snapshot.get('update_count'):
+                $_('Plugin updates are available.'): ${update_snapshot.get('update_count')}
+            $else:
+                $_('All installed plugins are up to date.')
+        </strong>
+        <span id="pluginUpdateSummaryDetail" class="pluginUpdateSummaryDetail">
+            $if update_snapshot.get('checking') or update_snapshot.get('queued'):
+                $_('Please wait; repository data is loading in the background.')
+            $elif update_snapshot.get('error'):
+                ${update_snapshot.get('error')}
+            $elif update_snapshot.get('update_count'):
+                $for update in update_snapshot.get('updates', []):
+                    <a href="#${update['id']}">${update['name']}</a>
+        </span>
+    </div>
     <div class="pluginUpdateChannel">
         <span class="pluginUpdateChannelLabel">$_('Plug-in update channel'):</span>
         <form action="/plugins_manage" method="post" style="display:inline">
@@ -173,7 +296,7 @@ jQuery(document).ready(function(){
         $ permission_approval = plugins.plugin_permission_approval(plugin, manifest)
         $ compatibility = plugins.plugin_compatibility(plugin)
         $ preflight = plugins.plugin_preflight(plugin)
-        $ available_info = plugins.checker.available_version(plugin)
+        $ available_info = repository_info.get(plugin)
         $ has_update = available_info is not None and (plugin not in current_info or current_info[plugin]['hash'] != available_info['hash'])
         <div id="${plugin}" class="controlBlock plugin ${'' if running else 'disabled'} ${'pluginUpdateAvailable' if has_update else ''}">
             <div style="display: inline-block; padding: 0; float: right;">

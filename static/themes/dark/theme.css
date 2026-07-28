@@ -51,6 +51,38 @@ button#tooltip {height:24px;}
     white-space:normal;
     overflow-wrap:break-word;
 }
+
+.pluginUpdateSummary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    margin: 9px 0;
+    padding: 9px 12px;
+    border: 1px solid #65708e;
+    border-left: 5px solid #8b96aa;
+    border-radius: 8px;
+    background: #2b3347;
+}
+.pluginUpdateSummary.isChecking { border-left-color: #f0b429; background: #403a29; }
+.pluginUpdateSummary.isCurrent { border-left-color: #58b84d; background: #253b2a; }
+.pluginUpdateSummary.hasUpdates { border-left-color: #f0b429; background: #443a1f; }
+.pluginUpdateSummary.hasError { border-left-color: #e25862; background: #47282c; }
+.pluginUpdateSummary.isDisabled { color: #c8ccda; }
+.pluginUpdateSummary.isChecking #pluginUpdateSummaryTitle::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border: 2px solid #f0b429;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: pluginSummarySpin .8s linear infinite;
+}
+.pluginUpdateSummaryDetail { display: inline-flex; flex-wrap: wrap; gap: 5px 10px; }
+.pluginUpdateSummaryDetail a { color: #8fc7ff; text-decoration: underline; font-weight: bold; }
+@keyframes pluginSummarySpin { to { transform: rotate(360deg); } }
 td.stationNumber, td.stationShow, td.stationIgnore, td.activateMaster {text-align:center}
 td.stationName {text-align:left; padding-left:1em;}
 .piDatFooter {background-color:DarkGray; color:black; font-size:12pt; margin-bottom:10px; padding:0px 4px 0px 4px;}

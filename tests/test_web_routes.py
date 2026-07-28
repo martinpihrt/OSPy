@@ -443,7 +443,9 @@ class WebRouteIntegrationTests(unittest.TestCase):
         }
         with mock.patch.object(webpages.plugins, "available", return_value=[]), \
                 mock.patch.object(webpages.plugins, "REPOS", ["test-repository"]), \
-                mock.patch.object(webpages.plugins.checker, "sync_installed_statuses"), \
+                mock.patch.object(
+                    webpages.plugins.checker, "sync_installed_statuses"
+                ) as blocking_sync, \
                 mock.patch.object(webpages.plugins.checker, "update"), \
                 mock.patch.object(
                     webpages.plugins.checker,
@@ -454,7 +456,9 @@ class WebRouteIntegrationTests(unittest.TestCase):
             install_response = self.app.request("/plugins_install")
 
         self.assertEqual(manage_response.status, "200 OK")
-        self.assertIn(b"plugin-refresh-form", manage_response.data)
+        self.assertIn(b'id="pluginRefreshButton"', manage_response.data)
+        self.assertIn(b'id="pluginUpdateSummary"', manage_response.data)
+        blocking_sync.assert_not_called()
         self.assertIn(b'id="updateWarningClose"', manage_response.data)
         self.assertIn(b'event.target === this', manage_response.data)
         self.assertIn(b'name="channel"', manage_response.data)
@@ -462,6 +466,43 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b'value="beta"', manage_response.data)
         self.assertEqual(install_response.status, "200 OK")
         self.assertIn(b"test_plugin", install_response.data)
+
+    def test_plugin_update_api_queues_background_refresh(self):
+        original = webpages.options.use_plugin_update
+        webpages.options.use_plugin_update = True
+        try:
+            with mock.patch.object(
+                    webpages.plugins, "available", return_value=[]), \
+                    mock.patch.object(
+                        webpages.plugins.checker,
+                        "cached_available_versions",
+                        return_value={},
+                    ), mock.patch.object(
+                        webpages.plugins.checker,
+                        "refresh_status",
+                        return_value={
+                            "checking": False,
+                            "queued": False,
+                            "generation": 4,
+                            "last_success": 100,
+                            "last_error": "",
+                        },
+                    ), mock.patch.object(
+                        webpages.plugins.checker, "update"
+                    ) as queue_refresh:
+                response = self.app.request(
+                    "/plugins_updates.json",
+                    method="POST",
+                    data={"csrf": self.session["csrf_token"]},
+                )
+        finally:
+            webpages.options.use_plugin_update = original
+
+        self.assertEqual(response.status, "200 OK")
+        payload = json.loads(response.data.decode("utf-8"))
+        self.assertTrue(payload["enabled"])
+        self.assertEqual(payload["generation"], 4)
+        queue_refresh.assert_called_once_with()
 
     def test_admin_can_select_beta_plugin_update_channel(self):
         original_channel = webpages.options.plugin_update_channel

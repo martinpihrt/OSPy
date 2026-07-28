@@ -2467,6 +2467,39 @@ class runonce_page(ProtectedPage):
             return self.core_render.notice('/', msg)
 
 
+def _plugin_manager_update_snapshot():
+    """Return update metadata without waiting for a repository download."""
+    state = plugins.checker.refresh_status()
+    repository_info = plugins.checker.cached_available_versions()
+    current_info = options.plugin_status
+    updates = []
+    for plugin in plugins.available():
+        available_info = repository_info.get(plugin)
+        if available_info is None:
+            continue
+        installed = current_info.get(plugin)
+        installed_hash = (
+            installed.get('hash') if isinstance(installed, dict) else None
+        )
+        if installed_hash != available_info.get('hash'):
+            updates.append({
+                'id': plugin,
+                'name': plugins.plugin_name(plugin),
+            })
+    return {
+        'enabled': bool(options.use_plugin_update),
+        'checking': bool(state.get('checking')),
+        'queued': bool(state.get('queued')),
+        'generation': int(state.get('generation', 0)),
+        'last_success': int(state.get('last_success', 0)),
+        'error': state.get('last_error', ''),
+        'loaded': bool(state.get('last_success')) or bool(repository_info),
+        'updates': updates,
+        'update_count': len(updates),
+        'repository_info': repository_info,
+    }
+
+
 class plugins_manage_page(ProtectedPage):
     """Manage plugins page."""
 
@@ -2479,7 +2512,6 @@ class plugins_manage_page(ProtectedPage):
 
         qdict = web.input()
         changes = get_input(qdict, 'changes', None)
-        plugins.checker.sync_installed_statuses()
 
         if changes is not None and changes in plugins.available():
             available_info = plugins.checker.available_version(changes)
@@ -2499,7 +2531,10 @@ class plugins_manage_page(ProtectedPage):
                 current_info[changes]['date'] = _format_display_datetime(current_info[changes].get('date', ''))
             return self.core_render.plugins_changes(changes, change_list, available_info, current_info)
 
-        return self.core_render.plugins_manage()
+        update_snapshot = _plugin_manager_update_snapshot()
+        return self.core_render.plugins_manage(
+            update_snapshot['repository_info'], update_snapshot
+        )
 
     def POST(self):
         from ospy.server import session
@@ -2513,7 +2548,7 @@ class plugins_manage_page(ProtectedPage):
         plugin = get_input(qdict, 'plugin', None)
 
         if action == 'refresh':
-            plugins.checker.refresh(install_updates=False)
+            plugins.checker.update()
             raise web.seeother('/plugins_manage')
 
         if action == 'update_channel':
@@ -5456,6 +5491,36 @@ class api_plugin_data(ProtectedPage):
         web.header('Content-Type', 'application/json')
         return json.dumps(data)
 
+class api_plugin_updates_json(ProtectedPage):
+    """Non-blocking plug-in repository refresh and status API."""
+
+    @staticmethod
+    def _authorized():
+        from ospy.server import session
+        return session.get('category') == 'admin'
+
+    @staticmethod
+    def _response():
+        snapshot = _plugin_manager_update_snapshot()
+        snapshot.pop('repository_info', None)
+        web.header('Content-Type', 'application/json')
+        web.header('Cache-Control', 'no-store')
+        return json.dumps(snapshot)
+
+    def GET(self):
+        if not self._authorized():
+            web.forbidden()
+        return self._response()
+
+    def POST(self):
+        if not self._authorized():
+            web.forbidden()
+        verify_csrf(web.input())
+        if options.use_plugin_update:
+            plugins.checker.update()
+        return self._response()
+
+
 class api_update_status(ProtectedPage):
     """Simple plugins update and ospy system update status API"""
 
@@ -5474,19 +5539,11 @@ class api_update_status(ProtectedPage):
         os_curr  = '0.0.0'
         os_change  = ''
 
-        running_list = plugins.running()
-        current_info = options.plugin_status
-
         if options.use_plugin_update:
-            plugins.checker.sync_installed_statuses()
-            current_info = options.plugin_status
-            for plugin in plugins.available():
-                running = plugin in running_list
-                available_info = plugins.checker.available_version(plugin)
-                if available_info is not None:
-                    if plugin in current_info and current_info[plugin]['hash'] != available_info['hash']:
-                        pl_data.append((must_update, plugins.plugin_name(plugin)))
-                        must_update += 1
+            update_snapshot = _plugin_manager_update_snapshot()
+            for update in update_snapshot['updates']:
+                pl_data.append((must_update, update['name']))
+                must_update += 1
             data["plugin_name"]   = pl_data                   # name of plugins where must be updated
             data["plugins_state"] = must_update               # status whether it is necessary to update the plugins (count plugins)
         else:

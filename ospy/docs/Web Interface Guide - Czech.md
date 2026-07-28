@@ -624,6 +624,8 @@ Správce rozšíření umožňuje do systému OSPy nainstalovat i vlastní rozš
 
 Správce rozšíření používá ve výchozím stavu stabilní kanál `master`. Správce může přepnout na testovací kanál `beta`; zvolený kanál je viditelný ve správě i při instalaci a používá se pro seznam, ruční instalace, hromadné operace i automatické aktualizace. Testovací verze mohou obsahovat chyby. Přepnutí kanálu zahodí staženou cache předchozí větve a další kontrola načte data z nové větve. Po otevření stránky nainstalovaného rozšíření se nad jeho obsahem zobrazí název a verze načtená z `plugin.json`.
 
+Stránka správce se otevře bez čekání na GitHub. Data repozitáře se načtou na pozadí a souhrn nahoře ukazuje průběh kontroly, chybu, stav „vše aktuální“ nebo počet a názvy dostupných aktualizací. Každý název aktualizace odkazuje přímo na dotčené rozšíření.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)  
 Na výše uvedeném umístění se nachází repozitář s dostupnými rozšířeními pro systém OSPy.
 
@@ -760,6 +762,8 @@ Je nutný pouze při výběru poskytovatele Stormglass.
 Název města nebo PSČ. Slouží k určení polohy pomocí OpenStreetMap pro vybraného poskytovatele počasí.
 
 Tlačítkem **Vybrat na mapě** otevřete mapu vhodnou i pro dotykové ovládání, kliknete na přesný bod pro počasí a výběr potvrdíte. **Použít polohu zařízení** může po souhlasu uživatele umístit značku podle prohlížeče. Po uložení Nastavení jsou vybraná zeměpisná šířka a délka rozhodující polohou počasí; ruční změna textového pole Umístění přepne zpět na hledání názvu přes OpenStreetMap. Domovská stránka pod stavem souřadnic zobrazuje tři předpovědní karty pro aktuální čas, přibližně +3 a +6 hodin s místními ikonami, teplotou a srážkami. Podrobnosti uvádějí zdroj dat a čas poslední aktualizace.
+
+Ikony předpovědi pokrývají všechny stavy počasí WMO, včetně mlhy, mrholení, mrznoucích srážek, dešťových a sněhových přeháněk, bouřek a krup. Jasno, převážně jasno a polojasno používají podle denní/noční hodnoty poskytovatele samostatnou variantu se sluncem nebo měsícem.
 
 ## Uživatelé
 Pro zvýšení bezpečnosti doporučujeme změnit systémové heslo pro OSPy a uživatelské jméno z výchozího "admin". V případě potřeby můžete také požadavek na heslo deaktivovat.

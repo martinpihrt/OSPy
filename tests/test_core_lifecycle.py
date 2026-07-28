@@ -81,6 +81,48 @@ class CooperativeWorkerTests(unittest.TestCase):
         instance._stop_event = threading.Event()
         self._assert_sleep_is_interruptible(instance)
 
+    def test_plugin_checker_refresh_request_wakes_background_worker(self):
+        instance = plugins._PluginChecker.__new__(plugins._PluginChecker)
+        threading.Thread.__init__(instance)
+        instance._sleep_time = 3600
+        instance._stop_event = threading.Event()
+        instance._wake_event = threading.Event()
+        instance._refresh_state_lock = threading.RLock()
+        instance._refresh_state = {
+            "checking": False,
+            "queued": False,
+            "last_success": 0,
+            "last_error": "",
+            "generation": 0,
+        }
+
+        instance.update()
+
+        self.assertTrue(instance._wake_event.is_set())
+        self.assertTrue(instance.refresh_status()["queued"])
+
+    def test_plugin_repository_snapshot_does_not_wait_for_download_lock(self):
+        instance = plugins._PluginChecker.__new__(plugins._PluginChecker)
+        instance._lock = threading.Lock()
+        instance._refresh_state_lock = threading.RLock()
+        instance._refresh_state = {
+            "checking": True,
+            "queued": False,
+            "last_success": 0,
+            "last_error": "",
+            "generation": 0,
+        }
+        instance._published_versions = {
+            "example": {"hash": "cached", "repo": "cached-repository"}
+        }
+        instance._lock.acquire()
+        try:
+            snapshot = instance.cached_available_versions()
+        finally:
+            instance._lock.release()
+
+        self.assertEqual(snapshot["example"]["hash"], "cached")
+
 
 class OptionsShutdownTests(unittest.TestCase):
     def test_flush_cancels_pending_timer_and_writes_immediately(self):

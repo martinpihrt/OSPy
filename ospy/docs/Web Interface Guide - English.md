@@ -624,6 +624,8 @@ The extension manager allows you to install your own extension in the OSPy syste
 
 The plug-in manager uses the stable `master` channel by default. An administrator can switch to the test `beta` channel; the selected channel is visible in management and installation and is used for the list, manual installations, bulk operations and automatic updates. Test versions may contain errors. Switching channels discards the downloaded cache for the previous branch, and the next check loads data from the new branch. Opening an installed plug-in page displays its name and the version read from `plugin.json` above the plug-in content.
 
+The manager page opens without waiting for GitHub. Repository data is loaded in the background, while the summary at the top shows checking progress, an error, an up-to-date result, or the number and names of available updates. Each update name links directly to the affected plug-in.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 There is a repository of available extensions for the OSPy system at the above location.
 
@@ -760,6 +762,8 @@ Required only when Stormglass is selected as the provider.
 City name or zip code. OpenStreetMap resolves it for the selected weather provider.
 
 Use **Select on map** to open a touch-friendly map, click the exact weather point, and confirm it. **Use device location** can place the marker from the browser after the user grants permission. The selected latitude and longitude become the authoritative weather location after Options are saved; editing the text Location field switches back to OpenStreetMap name search. Below the coordinate status, Home shows three forecast cards for now, approximately +3 and +6 hours with local icons, temperature and precipitation. Details identify the data provider and last update time.
+
+Forecast icons cover all WMO weather states, including fog, drizzle, freezing precipitation, rain and snow showers, thunderstorms and hail. Clear, mainly clear and partly cloudy conditions use separate sun or moon variants according to the provider's day/night value.
 
 ## Users Section
 To increase security, we recommend changing the OSPy system password and username from the default "admin". You can also disable the password requirement if needed.

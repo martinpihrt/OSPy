@@ -20,6 +20,8 @@ __thread_plugin = {}
 __diagnostic_sample = {}
 __plugin_health_workers = {}
 __manifest_cache = {}
+__preflight_cache = {}
+__preflight_cache_lock = threading.RLock()
 __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
 __plugin_diagnostics_lock = threading.RLock()
@@ -239,6 +241,8 @@ def _clear_plugin_caches(module):
     __name_cache.pop(module, None)
     __name_cache_menu.pop(module, None)
     __manifest_cache.pop(module, None)
+    with __preflight_cache_lock:
+        __preflight_cache.pop(module, None)
 
     for key in list(__urls_cache.keys()):
         if key == module or getattr(key, '__name__', '').endswith('.' + module):
@@ -747,22 +751,37 @@ class _PluginChecker(threading.Thread):
         self.daemon = True
         self._sleep_time = 0
         self._stop_event = threading.Event()
+        self._wake_event = threading.Event()
         self._lock = threading.RLock()
 
         self._repo_data = {}
         self._repo_contents = {}
         self._changes_cache = {}
+        self._refresh_state_lock = threading.RLock()
+        self._refresh_state = {
+            'checking': False,
+            'queued': False,
+            'last_success': 0,
+            'last_error': '',
+            'generation': 0,
+        }
 
         if os.environ.get('OSPY_DISABLE_BACKGROUND_THREADS') != '1':
             self.start()
 
     def update(self):
-        self._sleep_time = 10
+        self._ensure_refresh_tracking()
+        with self._refresh_state_lock:
+            self._refresh_state['queued'] = True
+        # Repository downloads must never run in a web request.
+        self._wake_event.set()
 
     def request_stop(self):
         """Ask the repository checker to stop without waiting for it."""
         self._stop_event.set()
-        self.update()
+        if hasattr(self, '_wake_event'):
+            self._wake_event.set()
+        self._sleep_time = 0
 
     def wait_stopped(self, timeout=5.0):
         if self.is_alive() and self is not threading.current_thread():
@@ -771,10 +790,16 @@ class _PluginChecker(threading.Thread):
 
     def _sleep(self, secs):
         import time
+        if not hasattr(self, '_wake_event'):
+            self._wake_event = threading.Event()
         self._sleep_time = secs
         while self._sleep_time > 0 and not self._stop_event.is_set():
             wait_time = min(1, self._sleep_time)
-            if self._stop_event.wait(wait_time):
+            if self._wake_event.wait(wait_time):
+                self._wake_event.clear()
+                self._sleep_time = 0
+                break
+            if self._stop_event.is_set():
                 break
             self._sleep_time -= wait_time
         return not self._stop_event.is_set()
@@ -793,7 +818,77 @@ class _PluginChecker(threading.Thread):
             finally:
                 self._sleep(3600)
 
+    def _ensure_refresh_tracking(self):
+        """Initialize state lazily for lightweight test checker instances."""
+        if not hasattr(self, '_refresh_state_lock'):
+            self._refresh_state_lock = threading.RLock()
+        if not hasattr(self, '_refresh_state'):
+            self._refresh_state = {
+                'checking': False,
+                'queued': False,
+                'last_success': 0,
+                'last_error': '',
+                'generation': 0,
+            }
+
+    def refresh_status(self):
+        self._ensure_refresh_tracking()
+        with self._refresh_state_lock:
+            return dict(self._refresh_state)
+
+    def cached_available_versions(self):
+        """Return repository metadata immediately without waiting on downloads."""
+        if not self._lock.acquire(False):
+            self._ensure_refresh_tracking()
+            with self._refresh_state_lock:
+                published = getattr(self, '_published_versions', {})
+                return {
+                    plugin: info.copy()
+                    for plugin, info in published.items()
+                }
+        try:
+            result = {}
+            for repo_index, repo in enumerate(plugin_repositories()):
+                contents = self._repo_contents.get(repo, {})
+                for plugin, info in contents.items():
+                    if plugin not in result:
+                        item = info.copy()
+                        item['repo_index'] = repo_index
+                        item['repo'] = repo
+                        result[plugin] = item
+            self._ensure_refresh_tracking()
+            with self._refresh_state_lock:
+                self._published_versions = {
+                    plugin: info.copy()
+                    for plugin, info in result.items()
+                }
+            return result
+        finally:
+            self._lock.release()
+
     def refresh(self, install_updates=False):
+        self._ensure_refresh_tracking()
+        with self._refresh_state_lock:
+            self._refresh_state['checking'] = True
+            self._refresh_state['queued'] = False
+            self._refresh_state['last_error'] = ''
+        try:
+            self._refresh_repository(install_updates=install_updates)
+        except Exception as err:
+            with self._refresh_state_lock:
+                self._refresh_state['last_error'] = '{}: {}'.format(
+                    type(err).__name__, err
+                )
+            raise
+        else:
+            with self._refresh_state_lock:
+                self._refresh_state['last_success'] = time.time()
+        finally:
+            with self._refresh_state_lock:
+                self._refresh_state['checking'] = False
+                self._refresh_state['generation'] += 1
+
+    def _refresh_repository(self, install_updates=False):
         from ospy.options import options
         import logging
 
@@ -885,6 +980,11 @@ class _PluginChecker(threading.Thread):
             self._repo_data.clear()
             self._repo_contents.clear()
             self._changes_cache.clear()
+        self._ensure_refresh_tracking()
+        with self._refresh_state_lock:
+            self._published_versions = {}
+            self._refresh_state['last_success'] = 0
+            self._refresh_state['last_error'] = ''
 
     @staticmethod
     def _validated_zip(zip_file_data):
@@ -2012,7 +2112,7 @@ def plugin_compatibility(module, enabled_modules=None):
     )
 
 
-def plugin_preflight(module):
+def _plugin_preflight_uncached(module):
     """Statically validate a plug-in without importing or executing its code."""
     base_dir = os.path.realpath(plugin_dir(module))
     plugin_root = os.path.realpath(plugin_dir())
@@ -2123,6 +2223,29 @@ def plugin_preflight(module):
         'checked_files': checked_files,
         'total_bytes': total_bytes,
     }
+
+
+def plugin_preflight(module):
+    """Return a cached static validation result until plug-in files change."""
+    base_dir = os.path.realpath(plugin_dir(module))
+    with __preflight_cache_lock:
+        cached = __preflight_cache.get(module)
+        if cached is not None and cached.get('base_dir') == base_dir:
+            return {
+                key: list(value) if isinstance(value, list) else value
+                for key, value in cached['result'].items()
+            }
+
+    result = _plugin_preflight_uncached(module)
+    with __preflight_cache_lock:
+        __preflight_cache[module] = {
+            'base_dir': base_dir,
+            'result': {
+                key: list(value) if isinstance(value, list) else value
+                for key, value in result.items()
+            },
+        }
+    return result
 
 
 def available():

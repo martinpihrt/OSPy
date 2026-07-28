@@ -332,7 +332,6 @@ class _Weather(Thread):
                         weather_code = 2
                     else:
                         weather_code = 3
-                    local_hour = datetime.datetime.fromtimestamp(hr_timestamp).hour
                     result.append({
                         'time': hr_timestamp,
                         'temperature': hr_data['airTemperature']['sg'],                     # [C]
@@ -342,7 +341,7 @@ class _Weather(Thread):
                         'precipitation': precipitation,                                     # [mm/h]
                         'windSpeed': hr_data['windSpeed']['sg'],                            # [m/s]
                         'weatherCode': weather_code,
-                        'isDay': 6 <= local_hour < 20,
+                        'isDay': self._is_daylight(hr_timestamp),
                         'precipitationProbability': None,
                         'provider': 'stormglass',
                     })
@@ -483,34 +482,74 @@ class _Weather(Thread):
                 self._forecast_updated = time.time()
 
     @staticmethod
-    def _forecast_icon(code):
+    def _forecast_icon(code, is_day=True):
         if code == 0:
-            return 'clear'
-        if code in (1, 2):
-            return 'partly-cloudy'
+            return 'clear' if is_day else 'clear-night'
+        if code == 1:
+            return 'mainly-clear' if is_day else 'mainly-clear-night'
+        if code == 2:
+            return 'partly-cloudy' if is_day else 'partly-cloudy-night'
         if code == 3:
             return 'cloudy'
         if code in (45, 48):
             return 'fog'
-        if code in (71, 73, 75, 77, 85, 86):
-            return 'snow'
-        if code >= 95:
-            return 'storm'
-        if code in (51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82):
+        if code in (51, 53, 55):
+            return 'drizzle'
+        if code in (56, 57):
+            return 'freezing-drizzle'
+        if code in (61, 63, 65):
             return 'rain'
+        if code in (66, 67):
+            return 'freezing-rain'
+        if code in (71, 73, 75):
+            return 'snow'
+        if code == 77:
+            return 'snow-grains'
+        if code in (80, 81, 82):
+            return 'showers'
+        if code in (85, 86):
+            return 'snow-showers'
+        if code == 95:
+            return 'storm'
+        if code in (96, 99):
+            return 'storm-hail'
         return 'cloudy'
 
     @staticmethod
     def _forecast_description(icon):
         return {
             'clear': _('Clear sky'),
+            'clear-night': _('Clear night'),
+            'mainly-clear': _('Mainly clear'),
+            'mainly-clear-night': _('Mainly clear night'),
             'partly-cloudy': _('Partly cloudy'),
+            'partly-cloudy-night': _('Partly cloudy night'),
             'cloudy': _('Cloudy'),
             'fog': _('Fog'),
+            'drizzle': _('Drizzle'),
+            'freezing-drizzle': _('Freezing drizzle'),
             'rain': _('Rain'),
+            'freezing-rain': _('Freezing rain'),
             'snow': _('Snow'),
+            'snow-grains': _('Snow grains'),
+            'showers': _('Rain showers'),
+            'snow-showers': _('Snow showers'),
             'storm': _('Thunderstorm'),
+            'storm-hail': _('Thunderstorm with hail'),
         }.get(icon, _('Cloudy'))
+
+    def _is_daylight(self, timestamp):
+        """Determine daylight from the configured coordinates and local time."""
+        local_time = datetime.datetime.fromtimestamp(timestamp)
+        year_start = datetime.datetime(local_time.year, 1, 1)
+        fractional_day = (
+            (360.0 / 365.25) *
+            (local_time - year_start).total_seconds() / 86400.0
+        )
+        unused_radiation, clear_sky = self._calc_radiation(
+            0.0, fractional_day, local_time.hour
+        )
+        return clear_sky > 0
 
     def get_home_forecast(self):
         """Return three non-blocking cached forecast cards for Home."""
@@ -538,7 +577,10 @@ class _Weather(Thread):
                 continue
             used_times.add(item['time'])
             weather_code = item.get('weatherCode', 3)
-            icon = self._forecast_icon(int(3 if weather_code is None else weather_code))
+            icon = self._forecast_icon(
+                int(3 if weather_code is None else weather_code),
+                bool(item.get('isDay', True)),
+            )
             temperature = item['temperature']
             unit = getattr(options, 'temp_unit', 'C')
             if unit == 'F':

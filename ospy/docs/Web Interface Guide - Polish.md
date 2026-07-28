@@ -613,6 +613,8 @@ Menedżer rozszerzeń umożliwia zainstalowanie w systemie OSPy własnego rozsze
 
 Menedżer wtyczek domyślnie używa stabilnego kanału `master`. Administrator może przełączyć się na testowy kanał `beta`; wybrany kanał jest widoczny w zarządzaniu i instalacji oraz jest używany dla listy, instalacji ręcznych, operacji zbiorczych i aktualizacji automatycznych. Wersje testowe mogą zawierać błędy. Zmiana kanału usuwa pobraną pamięć podręczną poprzedniej gałęzi, a następna kontrola pobiera dane z nowej gałęzi. Po otwarciu strony zainstalowanej wtyczki nad jej zawartością wyświetlana jest nazwa i wersja odczytana z `plugin.json`.
 
+Strona menedżera otwiera się bez oczekiwania na GitHub. Dane repozytorium są ładowane w tle, a podsumowanie u góry pokazuje postęp sprawdzania, błąd, aktualny stan albo liczbę i nazwy dostępnych aktualizacji. Każda nazwa aktualizacji prowadzi bezpośrednio do odpowiedniej wtyczki.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 W powyższej lokalizacji znajduje się repozytorium dostępnych rozszerzeń dla systemu OSPy.
 
@@ -749,6 +751,8 @@ Wymagany tylko po wybraniu Stormglass jako dostawcy.
 Nazwa miasta lub kod pocztowy. OpenStreetMap ustala lokalizację dla wybranego dostawcy pogody.
 
 Przycisk **Wybierz na mapie** otwiera mapę dostosowaną do obsługi dotykowej; kliknij dokładny punkt pogody i potwierdź wybór. **Użyj lokalizacji urządzenia** może ustawić znacznik z przeglądarki po udzieleniu zgody. Po zapisaniu Ustawień szerokość i długość geograficzna są nadrzędną lokalizacją pogody; ręczna zmiana pola Lokalizacja przywraca wyszukiwanie nazwy przez OpenStreetMap. Pod stanem współrzędnych strona główna pokazuje trzy karty prognozy: teraz, około +3 i +6 godzin, z lokalnymi ikonami, temperaturą i opadem. Szczegóły podają źródło danych i czas aktualizacji.
+
+Ikony prognozy obejmują wszystkie stany pogody WMO, w tym mgłę, mżawkę, opady marznące, przelotny deszcz i śnieg, burze oraz grad. Dla nieba bezchmurnego, przeważnie bezchmurnego i częściowo zachmurzonego stosowane są oddzielne warianty ze słońcem lub księżycem zgodnie z wartością dnia/nocy dostawcy.
 
 ## Użytkownicy
 Aby zwiększyć bezpieczeństwo, zalecamy zmianę hasła systemowego OSPy i nazwy użytkownika z domyślnego „admin”. W razie potrzeby możesz także wyłączyć wymaganie hasła.

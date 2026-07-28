@@ -1,6 +1,7 @@
 import datetime
 import threading
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
 from urllib.parse import parse_qs, urlparse
@@ -130,6 +131,7 @@ class WeatherProviderTests(unittest.TestCase):
                 "precipitation": float(offset) / 10,
                 "precipitationProbability": 40.0,
                 "weatherCode": code,
+                "isDay": offset != 0,
             }
             for offset, code in ((0, 0), (3, 61), (6, 95))
         ]
@@ -142,11 +144,80 @@ class WeatherProviderTests(unittest.TestCase):
         self.assertEqual(len(forecast["cards"]), 3)
         self.assertEqual(
             [card["icon"] for card in forecast["cards"]],
-            ["clear", "rain", "storm"],
+            ["clear-night", "rain", "storm"],
         )
         self.assertTrue(forecast["provider"])
         self.assertEqual(forecast["provider_url"], "https://open-meteo.com/")
         self.assertIn("40%", forecast["cards"][0]["precipitation"])
+
+    def test_all_wmo_weather_codes_have_specific_icons(self):
+        expected = {
+            0: "clear",
+            1: "mainly-clear",
+            2: "partly-cloudy",
+            3: "cloudy",
+            45: "fog",
+            48: "fog",
+            51: "drizzle",
+            53: "drizzle",
+            55: "drizzle",
+            56: "freezing-drizzle",
+            57: "freezing-drizzle",
+            61: "rain",
+            63: "rain",
+            65: "rain",
+            66: "freezing-rain",
+            67: "freezing-rain",
+            71: "snow",
+            73: "snow",
+            75: "snow",
+            77: "snow-grains",
+            80: "showers",
+            81: "showers",
+            82: "showers",
+            85: "snow-showers",
+            86: "snow-showers",
+            95: "storm",
+            96: "storm-hail",
+            99: "storm-hail",
+        }
+        for code, icon in expected.items():
+            with self.subTest(code=code):
+                self.assertEqual(
+                    weather_module._Weather._forecast_icon(code, True), icon
+                )
+        icon_root = (
+            Path(weather_module.__file__).resolve().parents[1] /
+            "static" / "images" / "weather"
+        )
+        expected_icons = set(expected.values()) | {
+            "clear-night", "mainly-clear-night", "partly-cloudy-night"
+        }
+        for icon in expected_icons:
+            with self.subTest(asset=icon):
+                self.assertTrue((icon_root / (icon + ".svg")).is_file())
+
+    def test_clear_and_cloudy_night_codes_use_night_icons(self):
+        self.assertEqual(
+            weather_module._Weather._forecast_icon(0, False), "clear-night"
+        )
+        self.assertEqual(
+            weather_module._Weather._forecast_icon(1, False),
+            "mainly-clear-night",
+        )
+        self.assertEqual(
+            weather_module._Weather._forecast_icon(2, False),
+            "partly-cloudy-night",
+        )
+
+    def test_stormglass_daylight_uses_location_instead_of_fixed_hours(self):
+        instance = self.instance()
+        instance._tz_offset = 2
+        midnight = datetime.datetime(2026, 7, 15, 3, 0).timestamp()
+        noon = datetime.datetime(2026, 7, 15, 12, 0).timestamp()
+
+        self.assertFalse(instance._is_daylight(midnight))
+        self.assertTrue(instance._is_daylight(noon))
 
     def test_provider_eto_is_used_and_pressure_reads_pressure_field(self):
         instance = self.instance()

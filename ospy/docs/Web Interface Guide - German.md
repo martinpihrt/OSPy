@@ -624,6 +624,8 @@ Mit dem Erweiterungsmanager können Sie Ihre eigene Erweiterung im OSPy-System i
 
 Der Plug-in-Manager verwendet standardmäßig den stabilen Kanal `master`. Ein Administrator kann zum Testkanal `beta` wechseln; der gewählte Kanal wird in Verwaltung und Installation angezeigt und für Liste, manuelle Installationen, Sammelaktionen und automatische Aktualisierungen verwendet. Testversionen können Fehler enthalten. Beim Kanalwechsel wird der Download-Cache des vorherigen Zweigs verworfen; die nächste Prüfung lädt Daten aus dem neuen Zweig. Beim Öffnen einer installierten Plug-in-Seite werden oberhalb des Inhalts Name und die aus `plugin.json` gelesene Version angezeigt.
 
+Die Manager-Seite öffnet sich, ohne auf GitHub zu warten. Die Repository-Daten werden im Hintergrund geladen; die Zusammenfassung oben zeigt den Prüffortschritt, einen Fehler, den aktuellen Zustand oder Anzahl und Namen verfügbarer Aktualisierungen. Jeder Aktualisierungsname führt direkt zum betroffenen Plug-in.
+
 ### Github (https://github.com/martinpihrt/OSPy-plugins/archive/master.zip)
 Am oben genannten Speicherort befindet sich ein Repository mit verfügbaren Erweiterungen für das OSPy-System.
 
@@ -760,6 +762,8 @@ Nur erforderlich, wenn Stormglass als Anbieter ausgewählt ist.
 Name der Stadt oder Postleitzahl. OpenStreetMap bestimmt daraus den Standort für den ausgewählten Wetteranbieter.
 
 Mit **Auf Karte auswählen** öffnen Sie eine berührungsfreundliche Karte, klicken auf den genauen Wetterpunkt und bestätigen ihn. **Gerätestandort verwenden** kann nach Zustimmung des Benutzers die Browserposition einsetzen. Nach dem Speichern sind Breiten- und Längengrad der maßgebliche Wetterstandort; eine Änderung des Textfelds Standort schaltet zurück zur Namenssuche über OpenStreetMap. Unter dem Koordinatenstatus zeigt die Startseite drei Vorhersagekarten für jetzt, ungefähr +3 und +6 Stunden mit lokalen Symbolen, Temperatur und Niederschlag. Details nennen Datenquelle und Aktualisierungszeit.
+
+Die Vorhersagesymbole decken alle WMO-Wetterzustände ab, darunter Nebel, Nieselregen, gefrierenden Niederschlag, Regen- und Schneeschauer, Gewitter und Hagel. Klar, überwiegend klar und teilweise bewölkt verwenden je nach Tag-/Nachtwert des Anbieters eigene Sonnen- oder Mondvarianten.
 
 ## Benutzer
 Um die Sicherheit zu erhöhen, empfehlen wir, das OSPy-Systemkennwort und den Benutzernamen vom Standardwert „admin“ zu ändern. Bei Bedarf können Sie die Passwortanforderung auch deaktivieren.
