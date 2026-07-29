@@ -77,6 +77,21 @@ def _safe_value(value):
     return str(value)
 
 
+def _safe_attribute(value, key, default=None):
+    try:
+        return getattr(value, key)
+    except Exception:
+        return default
+
+
+def _warning(code, component, message):
+    return {
+        "code": code,
+        "component": component,
+        "message": message,
+    }
+
+
 def _station_id(index):
     return "station-{}".format(index)
 
@@ -143,13 +158,25 @@ def _sensor_data(sensor):
         "send_email", "show_in_footer", "ip_address",
     )
     result = {
-        "id": "sensor-{}".format(sensor.index),
-        "legacy_index": sensor.index,
-        "number": sensor.index + 1,
+        "id": "sensor-{}".format(_safe_attribute(sensor, "index", 0)),
+        "legacy_index": _safe_attribute(sensor, "index", 0),
+        "number": _safe_attribute(sensor, "index", 0) + 1,
     }
+    field_errors = []
     for key in keys:
-        if hasattr(sensor, key):
+        try:
             result[key] = _safe_value(getattr(sensor, key))
+        except AttributeError:
+            continue
+        except Exception as error:
+            result[key] = None
+            field_errors.append({
+                "field": key,
+                "code": "sensor_field_unavailable",
+                "message": "{}: {}".format(type(error).__name__, error),
+            })
+    if field_errors:
+        result["field_errors"] = field_errors
     return result
 
 
@@ -448,26 +475,68 @@ class Overview(object):
     @endpoint
     @require_scope("read")
     def GET(self):
-        active = [_station_data(item) for item in stations if item.active]
-        forecast = weather.get_home_forecast()
+        warnings = []
+        active = []
+        for item in stations:
+            try:
+                if item.active:
+                    active.append(_station_data(item))
+            except Exception as error:
+                warnings.append(_warning(
+                    "station_status_unavailable",
+                    "stations",
+                    "{}: {}".format(type(error).__name__, error),
+                ))
+        try:
+            forecast = weather.get_home_forecast()
+        except Exception as error:
+            forecast = {
+                "available": False,
+                "cards": [],
+                "provider": "",
+                "updated": None,
+            }
+            warnings.append(_warning(
+                "weather_unavailable",
+                "weather",
+                "{}: {}".format(type(error).__name__, error),
+            ))
+        try:
+            adjustment = level_adjustments.total_adjustment()
+        except Exception as error:
+            adjustment = None
+            warnings.append(_warning(
+                "level_adjustment_unavailable",
+                "irrigation",
+                "{}: {}".format(type(error).__name__, error),
+            ))
         return respond({
             "instance": {
                 "id": mobile_store.instance_id(),
-                "name": getattr(options, "name", "OSPy"),
+                "name": _safe_attribute(options, "name", "OSPy"),
                 "version": version.ver_str,
             },
             "irrigation": {
-                "scheduler_enabled": bool(options.scheduler_enabled),
-                "manual_mode": bool(options.manual_mode),
-                "rain_block": bool(options.rain_block),
-                "rain_delay": _safe_value(options.rain_delay),
-                "level_adjustment": level_adjustments.total_adjustment(),
+                "scheduler_enabled": bool(_safe_attribute(
+                    options, "scheduler_enabled", False
+                )),
+                "manual_mode": bool(_safe_attribute(
+                    options, "manual_mode", False
+                )),
+                "rain_block": bool(_safe_attribute(
+                    options, "rain_block", False
+                )),
+                "rain_delay": _safe_value(_safe_attribute(
+                    options, "rain_delay", None
+                )),
+                "level_adjustment": adjustment,
                 "active_stations": active,
             },
             "weather": forecast,
             "notifications": {
                 "unread": mobile_store.unread_notification_count(),
             },
+            "warnings": warnings,
             "updated": datetime.datetime.now().astimezone().isoformat(),
         })
 

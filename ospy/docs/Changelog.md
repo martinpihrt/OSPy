@@ -3,6 +3,11 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 29 2026 (v3.0)
+-----------
+(Martin Pihrt)<br/>
+Made the mobile API Home and Sensors resources resilient to optional subsystem failures. A weather-provider, water-level calculation, station-property or individual sensor-field error no longer discards the complete JSON response; valid data remains available and the affected resource reports a structured warning or field error. Added regression tests and documented the partial-response contract for native clients.
+
 July 28 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

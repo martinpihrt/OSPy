@@ -174,7 +174,10 @@ ends run-now and run-once scheduling and switches off the master relay.
 returns the installation identity and version, scheduler/manual/rain state,
 water-level adjustment, active stations and remaining time, cached Home weather
 cards and the unread-notification count. It does not perform network weather
-downloads.
+downloads. Optional subsystem failures do not discard the complete Home
+snapshot: the affected value is empty or unavailable and `warnings` contains
+stable `code`, `component` and diagnostic `message` fields. Clients should show
+the warning without hiding the still-valid irrigation controls and state.
 
 ### Stations and master
 
@@ -245,7 +248,10 @@ plan. Stop All cancels it.
 `GET /sensors` and `/sensors/{id}` return the common identity, communication,
 value, response, battery, RSSI, firmware and logging fields supplied by the
 sensor type. `/sensors/{id}/history?offset=0&limit=100` returns bounded history
-where available. `PUT /sensors/{id}` changes only common safe fields: name,
+where available. If a legacy or temporarily unavailable sensor property raises
+an error, the sensor and its remaining properties are still returned. That
+property is `null` and `field_errors` identifies the field, stable error code
+and diagnostic message. `PUT /sensors/{id}` changes only common safe fields: name,
 enabled state, sample rate and log/e-mail/Home switches. Type-specific
 calibration remains in the web interface.
 

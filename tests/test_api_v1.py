@@ -93,6 +93,45 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         activate.assert_called_once_with(0)
 
+    def test_overview_keeps_working_when_weather_provider_fails(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch(
+                "api.v1.api.weather.get_home_forecast",
+                side_effect=RuntimeError("provider timeout")):
+            response = self._request("/overview", token)
+        self.assertEqual(response.status, "200 OK")
+        data = self._json(response)["data"]
+        self.assertFalse(data["weather"]["available"])
+        self.assertEqual(data["weather"]["cards"], [])
+        self.assertIn(
+            "weather_unavailable",
+            [item["code"] for item in data["warnings"]],
+        )
+        self.assertIn("irrigation", data)
+
+    def test_sensors_keep_working_when_optional_field_fails(self):
+        class BrokenSensor(object):
+            index = 7
+            name = "Test sensor"
+            enabled = True
+
+            @property
+            def last_read_value(self):
+                raise RuntimeError("temporary sensor failure")
+
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch("api.v1.api.sensors", [BrokenSensor()]):
+            response = self._request("/sensors", token)
+        self.assertEqual(response.status, "200 OK")
+        data = self._json(response)["data"]
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["name"], "Test sensor")
+        self.assertIsNone(data[0]["last_read_value"])
+        self.assertEqual(
+            data[0]["field_errors"][0]["code"],
+            "sensor_field_unavailable",
+        )
+
     def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
         from api.v1.security import refresh
         token, original = self._token(("read",), role="user")
