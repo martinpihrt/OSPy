@@ -36,7 +36,7 @@ from .stream import event_stream
 API_VERSION = "1.0.0"
 API_FEATURES = [
     "overview", "irrigation_control", "stations", "master", "programs",
-    "run_once", "sensors",
+    "schedule", "run_once", "sensors",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse",
 ]
@@ -137,7 +137,7 @@ def _station_data(station):
 
 
 def _program_data(program):
-    return {
+    result = {
         "id": "program-{}".format(program.index),
         "legacy_index": program.index,
         "number": program.index + 1,
@@ -152,6 +152,127 @@ def _program_data(program):
         "schedule": _safe_value(program.schedule),
         "manual": bool(program.manual),
         "start": _iso(program.start),
+    }
+    result["station_details"] = [
+        {
+            "id": _station_id(index),
+            "legacy_index": index,
+            "number": index + 1,
+            "name": stations[index].name,
+        }
+        for index in program.stations
+        if 0 <= index < stations.count()
+    ]
+    result["editor"] = _program_editor(program)
+    return result
+
+
+def _program_editor(program):
+    """Return a stable, labelled view of the native OSPy scheduling fields."""
+    data = _safe_value(program.type_data)
+    editor = {
+        "schema_version": 1,
+        "type": int(program.type),
+        "type_name": ProgramType.NAMES.get(program.type, ""),
+        "fields": {},
+    }
+    try:
+        if program.type in (ProgramType.DAYS_SIMPLE, ProgramType.REPEAT_SIMPLE):
+            editor["fields"] = {
+                "start_minute": int(data[0]),
+                "duration_minutes": int(data[1]),
+                "pause_minutes": int(data[2]),
+                "repeat_count": int(data[3]),
+            }
+            if program.type == ProgramType.DAYS_SIMPLE:
+                editor["fields"]["days"] = [int(item) for item in data[4]]
+            else:
+                editor["fields"]["repeat_days"] = int(data[4])
+                editor["fields"]["start_date"] = _iso(data[5])
+        elif program.type == ProgramType.DAYS_ADVANCED:
+            editor["fields"] = {
+                "intervals": data[0],
+                "days": [int(item) for item in data[1]],
+            }
+        elif program.type == ProgramType.REPEAT_ADVANCED:
+            editor["fields"] = {
+                "intervals": data[0],
+                "repeat_days": int(data[1]),
+                "start_date": _iso(data[2]),
+            }
+        elif program.type == ProgramType.WEEKLY_ADVANCED:
+            editor["fields"] = {"intervals": data[0]}
+        elif program.type == ProgramType.WEEKLY_WEATHER:
+            editor["fields"] = {
+                "irrigation_min": int(data[0]),
+                "irrigation_max": int(data[1]),
+                "run_max": int(data[2]),
+                "pause_minutes": int(data[3]),
+                "priority_intervals": data[4],
+            }
+        else:
+            editor["fields"] = {
+                "start": _iso(program.start),
+                "modulo": int(getattr(program, "modulo", 0)),
+                "manual": bool(program.manual),
+                "intervals": _safe_value(program.schedule),
+            }
+    except (IndexError, TypeError, ValueError):
+        editor["valid"] = False
+        editor["fields"] = {}
+    else:
+        editor["valid"] = True
+    return editor
+
+
+def _timeline_item(interval, now):
+    station_index = int(interval.get("station", -1))
+    start = interval.get("start")
+    end = interval.get("end")
+    active = interval.get("active")
+    blocked = interval.get("blocked", False)
+    if blocked:
+        state = "blocked"
+    elif active is True:
+        state = "running"
+    elif isinstance(end, datetime.datetime) and end <= now:
+        state = "completed"
+    else:
+        state = "upcoming"
+    duration = 0
+    remaining = 0
+    progress = 0.0
+    if isinstance(start, datetime.datetime) and isinstance(end, datetime.datetime):
+        duration = max(0, int((end - start).total_seconds()))
+        if state == "running":
+            remaining = max(0, int((end - now).total_seconds()))
+            if duration:
+                progress = min(
+                    1.0, max(0.0, (now - start).total_seconds() / duration)
+                )
+    station = stations[station_index] if 0 <= station_index < stations.count() else None
+    return {
+        "id": str(interval.get("uid", "")),
+        "state": state,
+        "start": _iso(start),
+        "end": _iso(end),
+        "original_start": _iso(interval.get("original_start")),
+        "duration_seconds": duration,
+        "remaining_seconds": remaining,
+        "progress": round(progress, 4),
+        "blocked": bool(blocked),
+        "blocked_reason": str(blocked) if blocked not in (True, False) else "",
+        "manual": bool(interval.get("manual", False)),
+        "program_id": (
+            "program-{}".format(interval.get("program"))
+            if isinstance(interval.get("program"), int) and interval.get("program") >= 0
+            else None
+        ),
+        "program_name": str(interval.get("program_name", "")),
+        "station_id": _station_id(station_index) if station is not None else None,
+        "station_number": station_index + 1 if station is not None else None,
+        "station_name": station.name if station is not None else "",
+        "is_master": bool(station and (station.is_master or station.is_master_two)),
     }
 
 
@@ -1082,15 +1203,63 @@ class Logs(object):
     def GET(self, kind):
         if kind == "runs":
             items = log.finished_runs()
+            now = datetime.datetime.now()
+            normalized = [
+                _timeline_item(item, now)
+                for item in reversed(items)
+                if isinstance(item, dict)
+            ]
         elif kind == "events":
             items = logEV.finished_events()
+            normalized = [_safe_value(item) for item in reversed(items)]
         elif kind == "emails":
             items = logEM.finished_email()
+            normalized = [_safe_value(item) for item in reversed(items)]
         else:
             raise APIError(404, "unknown_log", "The requested log does not exist.")
-        normalized = [_safe_value(item) for item in reversed(items)]
         page, meta = _paginate(normalized)
         return respond(page, meta=meta)
+
+
+class Schedule(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        from ospy.scheduler import combined_schedule
+
+        values = web.input(date=None, hours=None)
+        now = datetime.datetime.now()
+        if values.date:
+            try:
+                selected = datetime.date.fromisoformat(str(values.date))
+            except ValueError:
+                raise APIError(
+                    422, "invalid_date", "The schedule date is not valid."
+                )
+            start = datetime.datetime.combine(selected, datetime.time.min)
+            end = start + datetime.timedelta(days=1)
+        else:
+            try:
+                hours = int(values.hours or 24)
+            except (TypeError, ValueError):
+                raise APIError(
+                    422, "invalid_hours", "The schedule range is not valid."
+                )
+            hours = max(1, min(168, hours))
+            start = now
+            end = start + datetime.timedelta(hours=hours)
+        items = [
+            _timeline_item(interval, now)
+            for interval in combined_schedule(start, end)
+            if isinstance(interval, dict)
+        ]
+        items.sort(key=lambda item: item.get("start") or "")
+        return respond({
+            "from": _iso(start),
+            "to": _iso(end),
+            "updated": _iso(now),
+            "items": items,
+        })
 
 
 class Diagnostics(object):
@@ -1528,6 +1697,7 @@ URLS = (
     "/weather/current", WeatherCurrent,
     "/weather/forecast", WeatherForecast,
     "/weather/status", WeatherStatus,
+    "/schedule", Schedule,
     "/logs/([^/]+)", Logs,
     "/diagnostics/([^/]+)", Diagnostics,
     "/notifications", Notifications,

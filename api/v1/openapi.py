@@ -57,6 +57,7 @@ def document(server_url="/api/v1"):
     add("/weather/current", ["GET"], "Current weather", "read")
     add("/weather/forecast", ["GET"], "Weather forecast", "read")
     add("/weather/status", ["GET"], "Weather provider status", "read")
+    add("/schedule", ["GET"], "Normalized watering timeline", "read")
     add("/logs/{kind}", ["GET"], "Paginated run, event or e-mail log", "read")
     add("/diagnostics/{section}", ["GET"], "Diagnostics section", "read")
     add("/notifications", ["GET"], "Mobile notifications", "read")

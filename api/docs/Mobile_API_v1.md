@@ -133,7 +133,7 @@ by the server even if a larger value is requested.
 | Devices | `GET /auth/devices`, `DELETE /auth/devices/{id}` |
 | Home | `GET /overview`, `GET/PUT /irrigation` |
 | Stations | `GET/PUT /stations`, `GET/PUT /stations/{id}`, `POST /stations/{id}/actions/start|stop`, `POST /stations/actions/stop-all` |
-| Programs | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop` |
+| Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET /schedule` |
 | Run-once | `GET/PUT /run-once`, `POST /run-once/actions/start` |
 | Sensors | `GET /sensors`, `GET/PUT /sensors/{id}`, `GET /sensors/{id}/history` |
 | Weather | `GET /weather/current`, `/weather/forecast`, `/weather/status` |
@@ -154,6 +154,7 @@ by the server even if a larger value is requested.
 - `/stations/{id}/actions/start|stop` and `/stations/actions/stop-all`.
 - `/programs`, `/programs/{id}/actions/run|stop`.
 - `/run-once` and `/run-once/actions/start`.
+- `/schedule` — normalized read-only irrigation timeline.
 - `/sensors`, `/sensors/{id}`, `/sensors/{id}/history`.
 - `/weather/current`, `/weather/forecast`, `/weather/status`.
 - `/logs/runs`, `/logs/events`, `/logs/emails`, with `offset` and `limit`.
@@ -238,7 +239,9 @@ live-state fields are rejected instead of being silently stored.
 ### Programs
 
 `GET /programs` and `/programs/{id}` return the OSPy type, `type_data`,
-stations, calculated schedule and summary. `POST /programs` creates a program;
+stations, calculated schedule and summary. Every item also contains
+`station_details` with stable station IDs and names and an `editor` object
+describing fields suitable for a native editor. `POST /programs` creates a program;
 `PUT /programs/{id}` updates it and `DELETE` removes it. Creation requires
 `name`, `stations`, `type` and `type_data`. To preserve every scheduling
 variant, read a program of the intended type and send the same shape after
@@ -260,6 +263,36 @@ Program types and `type_data` are deliberately the same scheduling model as
 OSPy. For custom programs, `start` may be an ISO 8601 date-time and `schedule`
 contains the explicit schedule. Invalid station indices are discarded and an
 invalid program shape returns `invalid_program`.
+
+The `editor` object is intentionally additive. Its `kind` identifies the
+native form (`simple`, `advanced`, `weather` or `custom`), while `fields`
+contains the decoded scheduling values for that kind. Clients that do not
+recognize a future kind can still display the program and send the unchanged
+`type_data` returned by the API. Enabling or disabling an existing program is
+a normal partial update:
+
+```http
+PUT /api/v1/programs/program-2
+Content-Type: application/json
+
+{"enabled":false}
+```
+
+### Scheduler timeline
+
+`GET /schedule?hours=24` returns a normalized, read-only view of the combined
+OSPy schedule. `hours` accepts `1..168` and defaults to 24. A calendar day can
+instead be selected with `date=YYYY-MM-DD`. Each item includes:
+
+- stable `station_id`, station number and name;
+- `program_id`, program name and manual/program origin;
+- `start`, `end`, duration, remaining seconds and progress;
+- stable `state` (`upcoming`, `running`, `completed` or `blocked`);
+- `blocked` and `master` flags.
+
+The endpoint does not modify programs. Clients should refresh it after
+`program.*`, `station.*`, `stations.changed` or `conditions.changed` events.
+Unknown future fields and states are additive.
 
 ### Run-once
 
@@ -304,7 +337,9 @@ not start a fresh sensor measurement.
 
 `/logs/runs`, `/logs/events` and `/logs/emails` accept `offset` and `limit`
 (`1..500`). Results are newest first. Metadata contains `total`, `has_more`,
-`offset` and `limit`. Reads never clear a log.
+`offset` and `limit`. Reads never clear a log. Station-run entries use the
+same normalized station/program/time fields as `/schedule`, so a client does
+not need to interpret Python tuples from the legacy web log.
 
 ### Diagnostics
 
@@ -382,6 +417,18 @@ health and mobile capabilities. `/plugins/{id}/mobile` returns only available
 JSON contributions. `POST /plugins/{id}/actions/{declared_action}` rejects
 actions absent from the manifest. Plug-ins cannot inject mobile HTML or call
 arbitrary methods through the API.
+
+The response of `/plugins/{id}/mobile` can contain `status`, `cards`,
+`settings_schema` and `settings`. A card has a stable `kind` such as
+`metrics`, `status` or `chart`; a chart carries one or more named series made
+of numeric `value` points and optional display `time`. Native clients must
+ignore card kinds and fields they do not understand.
+
+Current official read-only adapters expose native operating data for Air
+Temperature and Humidity Monitor, CHMI, Current Loop Tanks Monitor, Tank
+Monitor, UPS Monitor, Water Consumption Counter and Wind Speed Monitor.
+Existing web pages and plug-in settings remain independent; an adapter failure
+affects only that plug-in card.
 
 `PUT /plugins/{id}` accepts only `{"enabled":true}` or
 `{"enabled":false}` and requires the `plugins` scope. Enabling uses the normal

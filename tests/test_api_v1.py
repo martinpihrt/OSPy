@@ -63,6 +63,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("delete", document["paths"]["/auth/devices/{device_id}"])
         self.assertIn("put", document["paths"]["/irrigation"])
         self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
+        self.assertIn("/schedule", document["paths"])
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")
@@ -274,6 +275,47 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertTrue(result["running"])
         self.assertEqual(result["remaining_seconds"], -1)
 
+    def test_schedule_returns_normalized_mobile_timeline(self):
+        import datetime
+
+        token, unused_refresh = self._token(("read",), role="user")
+        now = datetime.datetime.now()
+        interval = {
+            "uid": "test-run",
+            "station": 0,
+            "program": 0,
+            "program_name": "Morning",
+            "start": now - datetime.timedelta(minutes=5),
+            "original_start": now - datetime.timedelta(minutes=5),
+            "end": now + datetime.timedelta(minutes=5),
+            "active": True,
+            "blocked": False,
+            "manual": False,
+        }
+        with mock.patch(
+                "ospy.scheduler.combined_schedule",
+                return_value=[interval]):
+            response = self._request("/schedule?hours=24", token)
+        self.assertEqual(response.status, "200 OK")
+        data = self._json(response)["data"]
+        self.assertEqual(data["items"][0]["state"], "running")
+        self.assertEqual(data["items"][0]["station_id"], "station-0")
+        self.assertEqual(data["items"][0]["program_id"], "program-0")
+        self.assertGreater(data["items"][0]["progress"], 0)
+
+    def test_program_editor_describes_simple_schedule(self):
+        from api.v1 import api
+        from ospy.programs import ProgramType
+
+        program = mock.Mock()
+        program.type = ProgramType.DAYS_SIMPLE
+        program.type_data = [360, 20, 5, 1, [0, 2, 4]]
+        result = api._program_editor(program)
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["fields"]["start_minute"], 360)
+        self.assertEqual(result["fields"]["duration_minutes"], 20)
+        self.assertEqual(result["fields"]["days"], [0, 2, 4])
+
     def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
         from api.v1.security import refresh
         token, original = self._token(("read",), role="user")
@@ -465,6 +507,9 @@ class MobileAPIDocumentationTests(unittest.TestCase):
                 "two_factor_required",
                 "refresh_expires_in",
                 "next_cursor",
-                "operation_id"):
+                "operation_id",
+                "station_details",
+                "Scheduler timeline",
+                "mobile_cards()"):
             self.assertIn(required_term, text)
         self.assertIn('PUT /plugins/{id}', text)

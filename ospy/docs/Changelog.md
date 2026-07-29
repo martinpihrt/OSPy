@@ -6,6 +6,13 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 29 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Extended Mobile API v1 and the Android client with a normalized scheduler
+timeline, richer program descriptions and native program editing, separate
+event and station logs, and optional read-only operating cards and charts for
+official plug-ins. Home now uses the live irrigation timeline instead of
+duplicating the Weather screen. Added live refresh hints, regression tests and
+the complete wire contract to the API reference.
+
 Extended Mobile API v1 with a control-scoped global irrigation resource for
 the scheduler, manual mode and rain delay. Sensor responses now retain their
 legacy raw fields while adding a stable typed `display` contract containing the
