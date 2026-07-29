@@ -8,6 +8,10 @@ July 29 2026 (v3.0)
 (Martin Pihrt)<br/>
 Made the mobile API Home and Sensors resources resilient to optional subsystem failures. A weather-provider, water-level calculation, station-property or individual sensor-field error no longer discards the complete JSON response; valid data remains available and the affected resource reports a structured warning or field error. Added regression tests and documented the partial-response contract for native clients.
 
+Corrected the mobile Home rain state to report only an active rain block and added its remaining seconds. Directly started stations now report an unknown remaining time instead of a misleading zero. Sensor enumeration uses a finite passive snapshot, preventing the legacy collection's non-terminating sequence behavior from freezing OSPy. Serialized plug-in import and protection so the background checker cannot replace a starting plug-in with a stopped proxy. Plugin Manager now accepts only valid Python package directories and ignores runtime data or rotated log files such as `diagnostic.log.1`.
+
+Expanded the Mobile API v1 reference with exact current request and response examples for discovery, login, Home, stations, programs, run-once, sensors, weather, logs, diagnostics, plug-ins, notification cursors and asynchronous operations. Documented stable versus localized fields, the `remaining_seconds` states, pagination, partial sensor fields and validation errors.
+
 July 28 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

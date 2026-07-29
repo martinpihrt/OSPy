@@ -15,7 +15,7 @@ from ospy.backup import (
     stage_restore, system_backup_path,
 )
 from ospy.log import log, logEM, logEV
-from ospy.options import level_adjustments, options
+from ospy.options import level_adjustments, options, rain_blocks
 from ospy.programs import ProgramType, programs
 from ospy.runonce import run_once
 from ospy.sensors import sensors
@@ -110,14 +110,18 @@ def _parse_id(value, prefix, count):
 
 
 def _station_data(station):
+    running = bool(station.active)
+    remaining = int(station.remaining_seconds or 0)
+    if running and remaining == 0:
+        remaining = -1
     return {
         "id": _station_id(station.index),
         "legacy_index": station.index,
         "number": station.index + 1,
         "name": station.name,
         "enabled": bool(station.enabled),
-        "running": bool(station.active),
-        "remaining_seconds": int(station.remaining_seconds or 0),
+        "running": running,
+        "remaining_seconds": remaining,
         "is_master": bool(station.is_master),
         "is_master_two": bool(station.is_master_two),
         "is_program_master": bool(station.is_master_by_program),
@@ -178,6 +182,19 @@ def _sensor_data(sensor):
     if field_errors:
         result["field_errors"] = field_errors
     return result
+
+
+def _sensor_snapshot():
+    """Return a finite, passive snapshot of the configured sensors.
+
+    The legacy sensor collection implements ``__getitem__`` but returns
+    ``None`` instead of raising ``IndexError`` after its last item.  Iterating
+    over that object directly therefore never terminates.
+    """
+    getter = getattr(sensors, "get", None)
+    if callable(getter):
+        return list(getter() or [])
+    return list(sensors)
 
 
 def _paginate(items):
@@ -477,6 +494,15 @@ class Overview(object):
     def GET(self):
         warnings = []
         active = []
+        try:
+            rain_block_seconds = max(0, int(rain_blocks.seconds_left()))
+        except Exception as error:
+            rain_block_seconds = 0
+            warnings.append(_warning(
+                "rain_status_unavailable",
+                "irrigation",
+                "{}: {}".format(type(error).__name__, error),
+            ))
         for item in stations:
             try:
                 if item.active:
@@ -523,9 +549,8 @@ class Overview(object):
                 "manual_mode": bool(_safe_attribute(
                     options, "manual_mode", False
                 )),
-                "rain_block": bool(_safe_attribute(
-                    options, "rain_block", False
-                )),
+                "rain_block": rain_block_seconds > 0,
+                "rain_block_seconds": rain_block_seconds,
                 "rain_delay": _safe_value(_safe_attribute(
                     options, "rain_delay", None
                 )),
@@ -720,7 +745,7 @@ class Sensors(object):
     @endpoint
     @require_scope("read")
     def GET(self):
-        return respond([_sensor_data(item) for item in sensors])
+        return respond([_sensor_data(item) for item in _sensor_snapshot()])
 
 
 class Sensor(object):

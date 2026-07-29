@@ -25,6 +25,7 @@ __preflight_cache_lock = threading.RLock()
 __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
 __plugin_diagnostics_lock = threading.RLock()
+__plugin_module_lock = threading.RLock()
 __plugin_diagnostics_cache = {'time': 0, 'data': None}
 PLUGIN_HEALTH_TIMEOUT = 1.0
 PLUGIN_THREAD_STOP_TIMEOUT = 5.0
@@ -2403,6 +2404,13 @@ def plugin_mobile_call(module, capability, *args, **kwargs):
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):
+        # Runtime data, log rotations and accidentally created files must never
+        # become plug-ins merely because they live below plugins/.
+        if (
+                not is_pkg or
+                re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', module) is None or
+                not path.isfile(path.join(plugin_dir(module), '__init__.py'))):
+            continue
         _protect(module)
         if plugin_name(module) is not None:
             plugins.append(module)
@@ -2744,15 +2752,17 @@ def start_plugin(module, _dependency_stack=None):
                 '; '.join(compatibility['errors'])
             )
 
-        _clear_plugin_caches(module)
-        _unload_plugin_modules(module)
-
         import_name = _plugin_import_name(module)
         entry = _runtime_entry(module)
         entry['threads'] = {}
         entry['runtime'] = PluginRuntime(module)
         entry['last_error'] = ''
-        plugin = importlib.import_module(import_name)
+        # Keep the checker/available() protection wrapper from being inserted
+        # between unloading and importing a plug-in during OSPy startup.
+        with __plugin_module_lock:
+            _clear_plugin_caches(module)
+            _unload_plugin_modules(module)
+            plugin = importlib.import_module(import_name)
         manifest = plugin_manifest(module)
         plugin_n = getattr(plugin, 'NAME', None) or manifest.get('name') or module
         if not getattr(plugin, 'NAME', None):
@@ -2892,7 +2902,8 @@ class _PluginWrapper(types.ModuleType):
 
 
 def _protect(module):
-    import_name = _plugin_import_name(module)
-    if import_name not in sys.modules:
-        sys.modules[import_name] = _PluginWrapper(module)
-        setattr(sys.modules[__name__], module, _PluginWrapper(module))
+    with __plugin_module_lock:
+        import_name = _plugin_import_name(module)
+        if import_name not in sys.modules:
+            sys.modules[import_name] = _PluginWrapper(module)
+            setattr(sys.modules[__name__], module, _PluginWrapper(module))

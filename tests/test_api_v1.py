@@ -132,6 +132,59 @@ class MobileAPIV1Tests(unittest.TestCase):
             "sensor_field_unavailable",
         )
 
+    def test_sensors_use_finite_snapshot_instead_of_legacy_iteration(self):
+        class Sensor(object):
+            index = 0
+            name = "Passive sensor"
+            enabled = True
+
+        class LegacySensors(object):
+            def get(self):
+                return [Sensor()]
+
+            def __getitem__(self, index):
+                raise AssertionError("The API must not iterate this collection")
+
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch("api.v1.api.sensors", LegacySensors()):
+            response = self._request("/sensors", token)
+        self.assertEqual(response.status, "200 OK")
+        data = self._json(response)["data"]
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["name"], "Passive sensor")
+
+    def test_overview_reports_only_an_active_rain_block(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch(
+                "api.v1.api.rain_blocks.seconds_left",
+                return_value=0):
+            response = self._request("/overview", token)
+        irrigation = self._json(response)["data"]["irrigation"]
+        self.assertFalse(irrigation["rain_block"])
+        self.assertEqual(irrigation["rain_block_seconds"], 0)
+
+    def test_directly_active_station_has_unknown_remaining_time(self):
+        from api.v1 import api
+
+        station = mock.Mock()
+        station.index = 0
+        station.name = "Manual output"
+        station.enabled = True
+        station.active = True
+        station.remaining_seconds = 0
+        station.is_master = False
+        station.is_master_two = False
+        station.is_master_by_program = False
+        station.ignore_rain = False
+        station.usage = 0
+        station.precipitation = 0
+        station.capacity = 0
+        station.eto_factor = 1
+
+        result = api._station_data(station)
+        self.assertTrue(result["running"])
+        self.assertEqual(result["remaining_seconds"], -1)
+
     def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
         from api.v1.security import refresh
         token, original = self._token(("read",), role="user")
@@ -253,3 +306,17 @@ class MobileAPIDocumentationTests(unittest.TestCase):
             with open(filename, encoding="utf-8") as source:
                 text = source.read()
             self.assertIn("../../api/docs/Mobile_API_v1.md", text, filename)
+
+    def test_mobile_api_reference_documents_current_wire_contracts(self):
+        with open("api/docs/Mobile_API_v1.md", encoding="utf-8") as source:
+            text = source.read()
+        for required_term in (
+                "rain_block_seconds",
+                "remaining_seconds",
+                "activates_master",
+                "sensor_field_unavailable",
+                "two_factor_required",
+                "refresh_expires_in",
+                "next_cursor",
+                "operation_id"):
+            self.assertIn(required_term, text)

@@ -78,6 +78,31 @@ class PluginLifecycleIntegrationTests(unittest.TestCase):
         )
         self.plugin_dir_patch.start()
 
+    def test_available_ignores_runtime_data_and_log_files(self):
+        module = "available_test_plugin"
+        directory = os.path.join(self.root, module)
+        os.makedirs(directory)
+        with open(os.path.join(directory, "__init__.py"), "w", encoding="utf-8") as source:
+            source.write("NAME = 'Available Test Plugin'\n")
+        os.makedirs(os.path.join(self.root, "data"))
+        with mock.patch.object(
+                plugins.pkgutil, "iter_modules",
+                return_value=[
+                    (None, module, True),
+                    (None, "data", True),
+                    (None, "diagnostic.log.1", False),
+                ]), mock.patch.object(
+                    plugins, "plugin_name",
+                    side_effect=lambda candidate: (
+                        "Available Test Plugin"
+                        if candidate == module else None
+                    )):
+            self.assertEqual(plugins.available(), [module])
+        sys.modules.pop("plugins." + module, None)
+        if hasattr(plugins, module):
+            delattr(plugins, module)
+        plugins.__dict__.get("__name_cache", {}).pop(module, None)
+
     def _cleanup(self):
         enabled = list(options.enabled_plugins)
         if PLUGIN in enabled:

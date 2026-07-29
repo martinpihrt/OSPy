@@ -384,6 +384,350 @@ so the HTTP handler does not block the scheduler. A completed operation does
 not imply that a requested OSPy restart has already finished; after restart,
 reconnect through `/server` and `/overview`.
 
+## Current v1 wire contracts and examples
+
+This section documents the fields sent by the current API implementation
+(`api_version` `1.0.0`). Examples omit fields that are not important to the
+particular operation. Additive fields may be returned at any time, so clients
+must ignore fields they do not recognize.
+
+### Discovery response
+
+Request:
+
+```http
+GET /api/v1/server
+```
+
+Response:
+
+```json
+{
+  "data": {
+    "instance_id": "8b32011d-d345-4af2-817d-c6150ed5c5ad",
+    "name": "Home",
+    "ospy_version": "3.0.312-beta",
+    "release_date": "2026-07-29",
+    "api_version": "1.0.0",
+    "time": "2026-07-29T11:30:00+02:00",
+    "authentication": {
+      "type": "bearer",
+      "access_token_seconds": 900,
+      "two_factor_supported": true
+    }
+  },
+  "meta": {"request_id": "req-..."}
+}
+```
+
+The application should store `instance_id` as the server identity. The name,
+address and OSPy version can change without creating a new installation.
+
+### Login response
+
+A successful `POST /auth/login` returns HTTP `201`:
+
+```json
+{
+  "data": {
+    "access_token": "short-lived-token",
+    "expires_in": 900,
+    "refresh_token": "rotating-long-lived-token",
+    "refresh_expires_in": 2592000,
+    "token_type": "Bearer",
+    "role": "admin",
+    "scopes": ["read", "control", "configuration", "plugins",
+               "backup", "update", "system"],
+    "device_id": "device-..."
+  },
+  "meta": {"request_id": "req-..."}
+}
+```
+
+When another factor is required, HTTP `401` uses the stable error code
+`two_factor_required`. For e-mail 2FA, `error.details.challenge_id` must be
+included with the code in the repeated login request. Never persist the access
+token as a password substitute; persist only the rotating refresh token in
+protected storage.
+
+### Home snapshot
+
+Request:
+
+```http
+GET /api/v1/overview
+Authorization: Bearer ACCESS_TOKEN
+```
+
+Response shape:
+
+```json
+{
+  "data": {
+    "instance": {
+      "id": "8b32011d-d345-4af2-817d-c6150ed5c5ad",
+      "name": "Home",
+      "version": "3.0.312-beta"
+    },
+    "irrigation": {
+      "scheduler_enabled": true,
+      "manual_mode": false,
+      "rain_block": false,
+      "rain_block_seconds": 0,
+      "rain_delay": null,
+      "level_adjustment": 0.85,
+      "active_stations": []
+    },
+    "weather": {
+      "available": true,
+      "cards": [],
+      "provider": "CHMI ALADIN via Open-Meteo",
+      "updated": "2026-07-29 11:01"
+    },
+    "notifications": {"unread": 0},
+    "warnings": [],
+    "updated": "2026-07-29T11:30:00+02:00"
+  },
+  "meta": {"request_id": "req-..."}
+}
+```
+
+`rain_block` means that rain protection is currently blocking irrigation. It
+does not mean merely that a rain-delay value or rain sensor exists.
+`rain_block_seconds` is the non-negative time until the active block expires.
+Each `active_stations` item has the same contract as an item from `/stations`.
+
+### Station object and actions
+
+```json
+{
+  "id": "station-0",
+  "legacy_index": 0,
+  "number": 1,
+  "name": "Front lawn",
+  "enabled": true,
+  "running": true,
+  "remaining_seconds": 275,
+  "is_master": false,
+  "is_master_two": false,
+  "is_program_master": false,
+  "activates_master": true,
+  "activates_master_two": false,
+  "ignore_rain": false,
+  "usage": 12.5,
+  "precipitation": 10.0,
+  "capacity": 100.0,
+  "eto_factor": 1.0
+}
+```
+
+`remaining_seconds` is:
+
+- `0` for a stopped station;
+- a positive countdown for a scheduled/program run;
+- `-1` when the output is running without a known end, for example after a
+  direct manual API start.
+
+Start or stop a station with an empty JSON body:
+
+```http
+POST /api/v1/stations/station-0/actions/start
+Authorization: Bearer ACCESS_TOKEN
+Content-Type: application/json
+
+{}
+```
+
+The response is the updated station object. Start may return HTTP `409` with
+`station_unavailable` for a disabled or master output. Stop All accepts `{}` at
+`POST /stations/actions/stop-all` and returns
+`{"data":{"stopped":true},"meta":{...}}`.
+
+### Program and run-once responses
+
+Program objects include:
+
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `id`, `legacy_index`, `number` | string/integer | Stable API ID and legacy/visible indices |
+| `name`, `enabled` | string/boolean | User name and enabled state |
+| `stations` | integer array | Zero-based station indices used by OSPy |
+| `type`, `type_data` | integer/array | Native OSPy scheduling model |
+| `manual`, `start`, `schedule` | mixed | Complete scheduling definition |
+| `summary` | string | Human-readable summary; never use it for control logic |
+
+`POST /programs/{id}/actions/run` and `/stop` accept `{}` and return:
+
+```json
+{"data":{"id":"program-0","action":"run","accepted":true},"meta":{...}}
+```
+
+`PUT /run-once` sends a mapping of typed station IDs to seconds. Values are
+clamped to `0..86400`. The separate start call returns HTTP `202`.
+
+### Sensor object, partial fields and history
+
+The sensor list is a passive finite snapshot; reading it never starts a new
+measurement. A typical object is:
+
+```json
+{
+  "id": "sensor-0",
+  "legacy_index": 0,
+  "number": 1,
+  "name": "Tank temperature",
+  "enabled": true,
+  "sens_type": 5,
+  "com_type": 1,
+  "last_read_value": 19.4,
+  "last_response_datetime": "2026-07-29T11:28:31",
+  "last_battery": 12.7,
+  "rssi": 44,
+  "fw": "1.19",
+  "sample_rate": 60
+}
+```
+
+Sensor types have different properties. Missing optional attributes may be
+absent or `null`. `field_errors` is omitted when every available property was
+read successfully. If reading one property fails, it contains:
+
+```json
+{
+  "field": "battery",
+  "code": "sensor_field_unavailable",
+  "message": "TypeError: ..."
+}
+```
+
+The remaining sensor and other sensors are still valid. A client must not retry
+the complete list in a tight loop because of one `field_errors` entry.
+
+History request and metadata:
+
+```http
+GET /api/v1/sensors/sensor-0/history?offset=0&limit=100
+```
+
+```json
+{
+  "data": [],
+  "meta": {
+    "offset": 0,
+    "limit": 100,
+    "total": 0,
+    "has_more": false,
+    "request_id": "req-..."
+  }
+}
+```
+
+### Weather, logs and diagnostics
+
+`GET /weather/forecast` returns the cached Home forecast object, including
+`available`, `cards`, `provider`, `provider_url` and `updated`. Card fields
+currently include `time`, `temperature`, `precipitation`, `icon` and
+`description`. Values intended for display can already contain units.
+`GET /weather/forecast?date=2026-07-29` instead returns cached hourly provider
+data for that date. Neither request downloads weather data synchronously.
+
+Log entries preserve the OSPy log fields. Event entries normally contain
+`date`, `time`, `subject`, `status`, `id`, `level` and `category`. `level` and
+`category` are stable machine values; `subject` and `status` are display text
+and may follow the selected OSPy language.
+
+Diagnostic summary responses contain a stable top-level `status` and an
+`items` array. Each item commonly supplies `id`, `title`, `status`, `summary`,
+`details`, `solution`, `updated`, `link`, `confirmation_required`, `alert` and
+`affects_summary`. Use only `status` (`ok`, `warning`, `error`, `critical` or
+an explicitly documented additive value) for colours and decisions. Titles,
+summaries, details and solutions are localized display text.
+
+### Plug-in response
+
+```json
+{
+  "id": "wind_monitor",
+  "name": "Wind Speed Monitor",
+  "version": "1.1.2",
+  "enabled": true,
+  "running": true,
+  "health": {"status": "ok", "summary": "Wind monitoring is active."},
+  "mobile": {
+    "api_version": 1,
+    "available": false,
+    "methods": {
+      "status": false,
+      "cards": false,
+      "settings_schema": false,
+      "settings": false,
+      "action": false
+    },
+    "actions": []
+  }
+}
+```
+
+The list shows installed plug-in packages only. Files and runtime data below
+the plug-in root are not resources. A stopped plug-in can still be listed, but
+calling one of its mobile functions returns an error. Mobile actions require
+both a manifest declaration and the `plugins` scope.
+
+### Notification and change cursors
+
+`GET /notifications` returns an array in `data`. Metadata contains `unread`,
+`next_cursor`, `has_more` and `request_id`. Pass the last `next_cursor` on the
+next request. Acknowledgement changes server-side unread state; disabling
+Android display notifications is a separate client preference and does not
+acknowledge server notifications.
+
+`GET /changes?after=42` returns all currently retained events after ID 42 and
+sets `meta.last_event_id`. SSE delivers the same event objects. Event data is a
+hint to refresh the affected resource, not a replacement for the authoritative
+resource response.
+
+### Asynchronous operation response
+
+Backup creation, restore and update actions return HTTP `202`:
+
+```json
+{
+  "data": {
+    "id": "4a6a28f33c364a7cb5f458fe729d7964",
+    "kind": "backup",
+    "status": "pending",
+    "progress": 0,
+    "result": {},
+    "error": "",
+    "created": "2026-07-29T11:30:00+02:00",
+    "updated": "2026-07-29T11:30:00+02:00"
+  },
+  "meta": {"request_id": "req-..."}
+}
+```
+
+Poll the returned `id` as `operation_id` in
+`GET /operations/{operation_id}`. Current states are `pending`, `running`, `completed` and
+`failed`; clients should also tolerate additive intermediate states. A failed
+operation keeps the polling HTTP request itself successful and reports its
+reason in `data.error`.
+
+### Validation error example
+
+```json
+{
+  "error": {
+    "code": "read_only_field",
+    "message": "The station field cannot be changed through the mobile API.",
+    "details": {"field": "running"},
+    "request_id": "req-..."
+  }
+}
+```
+
+Client logic must branch on `error.code`, not on the English `message`. Show
+the message to the user and include `request_id` in a support report.
+
 ## Client implementation checklist
 
 1. Let the user verify `/server` before sending a password.
