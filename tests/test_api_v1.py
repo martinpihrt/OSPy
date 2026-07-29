@@ -62,6 +62,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("delete", document["paths"]["/programs/{program_id}"])
         self.assertIn("delete", document["paths"]["/auth/devices/{device_id}"])
         self.assertIn("put", document["paths"]["/irrigation"])
+        self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")
@@ -360,6 +361,62 @@ class MobileAPIV1Tests(unittest.TestCase):
             "example", "action", "refresh", {"value": 1}
         )
 
+    def test_plugin_enable_uses_normal_lifecycle(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(
+            ("read", "plugins"), role="admin"
+        )
+        previous = list(api.options.enabled_plugins)
+        try:
+            api.options.enabled_plugins = []
+            with mock.patch(
+                    "api.v1.api.plugins.plugin_names",
+                    return_value=["example"]), mock.patch(
+                    "api.v1.api.plugins.plugin_permission_approval",
+                    return_value={"approved": True, "missing": []}), mock.patch(
+                    "api.v1.api.plugins.plugin_compatibility",
+                    return_value={"compatible": True, "errors": []}), mock.patch(
+                    "api.v1.api.plugins.start_enabled_plugins"), mock.patch(
+                    "api.v1.api.plugins.running",
+                    return_value=["example"]), mock.patch(
+                    "api.v1.api.plugins.plugin_manifest",
+                    return_value={"name": "Example", "version": "1.0.0"}), mock.patch(
+                    "api.v1.api.plugins.plugin_diagnostics",
+                    return_value=[]), mock.patch(
+                    "api.v1.api.plugins.plugin_mobile_capabilities",
+                    return_value={}), mock.patch(
+                    "api.v1.api.logEV.save_events_log"), mock.patch(
+                    "api.v1.api.event_stream.publish"):
+                response = self._request(
+                    "/plugins/example", token,
+                    method="PUT", data={"enabled": True},
+                )
+            self.assertEqual(response.status, "200 OK")
+            self.assertTrue(self._json(response)["data"]["enabled"])
+            self.assertIn("example", api.options.enabled_plugins)
+        finally:
+            api.options.enabled_plugins = previous
+
+    def test_plugin_enable_never_approves_permissions(self):
+        token, unused_refresh = self._token(
+            ("read", "plugins"), role="admin"
+        )
+        with mock.patch(
+                "api.v1.api.plugins.plugin_names",
+                return_value=["example"]), mock.patch(
+                "api.v1.api.plugins.plugin_permission_approval",
+                return_value={"approved": False, "missing": ["network"]}):
+            response = self._request(
+                "/plugins/example", token,
+                method="PUT", data={"enabled": True},
+            )
+        self.assertEqual(response.status, "409 Conflict")
+        self.assertEqual(
+            self._json(response)["error"]["code"],
+            "plugin_permission_approval_required",
+        )
+
 
 class MobilePluginContractTests(unittest.TestCase):
     def test_unknown_mobile_capability_is_rejected(self):
@@ -410,3 +467,4 @@ class MobileAPIDocumentationTests(unittest.TestCase):
                 "next_cursor",
                 "operation_id"):
             self.assertIn(required_term, text)
+        self.assertIn('PUT /plugins/{id}', text)

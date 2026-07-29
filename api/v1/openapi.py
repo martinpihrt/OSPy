@@ -64,7 +64,9 @@ def document(server_url="/api/v1"):
     add("/changes", ["GET"], "Replayable incremental changes", "read")
     add("/stream", ["GET"], "Server-sent event stream", "read")
     add("/plugins", ["GET"], "List plug-ins and health", "read")
-    add("/plugins/{plugin_id}", ["GET"], "Plug-in detail and health", "read")
+    add("/plugins/{plugin_id}", ["GET", "PUT"], "Read or enable/disable one plug-in", {
+        "GET": "read", "PUT": "plugins",
+    })
     add("/plugins/{plugin_id}/mobile", ["GET"], "Plug-in mobile contribution", "read")
     add("/plugins/{plugin_id}/actions/{action}", ["POST"], "Declared plug-in mobile action", "plugins")
     add("/backups", ["GET", "POST"], "List or create backups", "backup")

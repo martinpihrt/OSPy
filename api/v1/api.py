@@ -1228,6 +1228,67 @@ class Plugin(object):
             "mobile": plugins.plugin_mobile_capabilities(plugin_id),
         })
 
+    @endpoint
+    @require_scope("plugins")
+    def PUT(self, plugin_id):
+        if plugin_id not in plugins.plugin_names():
+            raise APIError(404, "not_found", "The plug-in is not installed.")
+        payload = json_body()
+        if set(payload) != {"enabled"} or not isinstance(payload["enabled"], bool):
+            raise APIError(
+                422, "invalid_plugin_configuration",
+                "The plug-in request must contain one boolean enabled field.",
+            )
+
+        enabled = payload["enabled"]
+        enabled_plugins = list(options.enabled_plugins)
+        if enabled:
+            approval = plugins.plugin_permission_approval(plugin_id)
+            if not approval["approved"]:
+                raise APIError(
+                    409, "plugin_permission_approval_required",
+                    "The plug-in permissions must be approved in the OSPy web interface.",
+                    {"missing": approval["missing"]},
+                )
+            compatibility = plugins.plugin_compatibility(
+                plugin_id, enabled_plugins + [plugin_id]
+            )
+            if not compatibility["compatible"]:
+                raise APIError(
+                    409, "incompatible_plugin",
+                    "The plug-in is not compatible with this OSPy installation.",
+                    {"errors": compatibility["errors"]},
+                )
+            if plugin_id not in enabled_plugins:
+                enabled_plugins.append(plugin_id)
+        elif plugin_id in enabled_plugins:
+            enabled_plugins.remove(plugin_id)
+
+        options.enabled_plugins = enabled_plugins
+        plugins.start_enabled_plugins()
+        running = plugin_id in plugins.running()
+        if enabled and not running:
+            raise APIError(
+                409, "plugin_start_failed",
+                "The plug-in could not be started. Open OSPy Diagnostics for details.",
+            )
+
+        logEV.save_events_log(
+            _('Plug-in enabled') if enabled else _('Plug-in disabled'),
+            (
+                _('User {} enabled plug-in {}.') if enabled else
+                _('User {} disabled plug-in {}.')
+            ).format(_actor(), plugin_id),
+            level='info' if enabled else 'warning',
+            category='system',
+        )
+        result = self.GET.__wrapped__(self, plugin_id)
+        event_stream.publish(
+            "plugin.configured",
+            {"plugin": plugin_id, "enabled": enabled, "running": running},
+        )
+        return result
+
 
 class PluginMobile(object):
     @endpoint

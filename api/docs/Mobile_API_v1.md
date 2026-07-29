@@ -383,6 +383,26 @@ JSON contributions. `POST /plugins/{id}/actions/{declared_action}` rejects
 actions absent from the manifest. Plug-ins cannot inject mobile HTML or call
 arbitrary methods through the API.
 
+`PUT /plugins/{id}` accepts only `{"enabled":true}` or
+`{"enabled":false}` and requires the `plugins` scope. Enabling uses the normal
+OSPy lifecycle, dependency ordering, compatibility check, pre-activation test
+and existing administrator permission approval. The mobile API never approves
+new plug-in permissions by itself. A missing approval, incompatibility or start
+failure returns HTTP 409 with a stable error code. Disabling stops the plug-in
+through the same lifecycle used by the web plug-in manager.
+
+The common sensor enable switch uses the existing configuration endpoint:
+
+```http
+PUT /api/v1/sensors/sensor-0
+Content-Type: application/json
+
+{"enabled":false}
+```
+
+It requires the `configuration` scope and returns the complete updated sensor
+object. Other safe common sensor fields remain available as described above.
+
 ## Backups, updates and system actions
 
 These administrator operations return an operation identifier. Follow
