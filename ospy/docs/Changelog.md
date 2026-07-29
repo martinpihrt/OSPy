@@ -6,6 +6,12 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 29 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Extended Mobile API v1 with a control-scoped global irrigation resource for
+the scheduler, manual mode and rain delay. Sensor responses now retain their
+legacy raw fields while adding a stable typed `display` contract containing the
+relevant reading, unit, connection, firmware, communication and address data.
+Updated the detailed API reference and regression coverage for both contracts.
+
 Made plug-in settings safe across live plug-in module replacement and serialized plug-in start, stop and reload operations within one OSPy process. This prevents stale `PluginOptions` instances from failing with `super(type, obj)` and prevents concurrent requests from starting the same plug-in twice.
 
 Made the mobile API Home and Sensors resources resilient to optional subsystem failures. A weather-provider, water-level calculation, station-property or individual sensor-field error no longer discards the complete JSON response; valid data remains available and the affected resource reports a structured warning or field error. Added regression tests and documented the partial-response contract for native clients.

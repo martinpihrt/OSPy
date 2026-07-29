@@ -61,6 +61,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("post", document["paths"]["/programs"])
         self.assertIn("delete", document["paths"]["/programs/{program_id}"])
         self.assertIn("delete", document["paths"]["/auth/devices/{device_id}"])
+        self.assertIn("put", document["paths"]["/irrigation"])
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")
@@ -113,7 +114,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         class BrokenSensor(object):
             index = 7
             name = "Test sensor"
-            enabled = True
+            enabled = 1
 
             @property
             def last_read_value(self):
@@ -152,6 +153,67 @@ class MobileAPIV1Tests(unittest.TestCase):
         data = self._json(response)["data"]
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]["name"], "Passive sensor")
+
+    def test_sensor_display_exposes_one_typed_reading(self):
+        class Sensor(object):
+            index = 0
+            name = "Tank level"
+            enabled = 1
+            manufacturer = 0
+            sens_type = 6
+            multi_type = 8
+            com_type = 0
+            last_read_value = [23.6, -127, -127, -127, 1, 0, 0, 0, 73]
+            response = True
+            fw = 119
+            ip_address = ("192", "168", "1", "25")
+
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch("api.v1.api.sensors", [Sensor()]):
+            response = self._request("/sensors", token)
+        display = self._json(response)["data"][0]["display"]
+        self.assertTrue(self._json(response)["data"][0]["enabled"])
+        self.assertEqual(display["type"], "multi")
+        self.assertEqual(display["subtype"], "ultrasonic")
+        self.assertEqual(display["reading"]["value"], 73)
+        self.assertEqual(display["reading"]["unit"], "cm")
+        self.assertEqual(display["firmware"], "1.19")
+        self.assertEqual(display["ip_address"], "192.168.1.25")
+
+    def test_irrigation_control_requires_control_scope(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        response = self._request(
+            "/irrigation", token, method="PUT",
+            data={"scheduler_enabled": True},
+        )
+        self.assertEqual(response.status, "403 Forbidden")
+
+    def test_irrigation_control_updates_scheduler_and_manual_mode(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(
+            ("read", "control"), role="user"
+        )
+        scheduler_before = api.options.scheduler_enabled
+        manual_before = api.options.manual_mode
+        try:
+            with mock.patch(
+                    "api.v1.api.logEV.save_events_log"), mock.patch(
+                    "api.v1.api.event_stream.publish"):
+                response = self._request(
+                    "/irrigation", token, method="PUT",
+                    data={
+                        "scheduler_enabled": True,
+                        "manual_mode": True,
+                    },
+                )
+            self.assertEqual(response.status, "200 OK")
+            data = self._json(response)["data"]
+            self.assertTrue(data["scheduler_enabled"])
+            self.assertTrue(data["manual_mode"])
+        finally:
+            api.options.scheduler_enabled = scheduler_before
+            api.options.manual_mode = manual_before
 
     def test_overview_reports_only_an_active_rain_block(self):
         token, unused_refresh = self._token(("read",), role="user")
@@ -312,7 +374,9 @@ class MobileAPIDocumentationTests(unittest.TestCase):
             text = source.read()
         for required_term in (
                 "rain_block_seconds",
+                "rain_delay_hours",
                 "remaining_seconds",
+                '"display"',
                 "activates_master",
                 "sensor_field_unavailable",
                 "two_factor_required",

@@ -29,6 +29,9 @@ def document(server_url="/api/v1"):
     add("/auth/devices", ["GET"], "List paired devices", "read")
     add("/auth/devices/{device_id}", ["DELETE"], "Revoke a paired device", "read")
     add("/overview", ["GET"], "Home-screen aggregate", "read")
+    add("/irrigation", ["GET", "PUT"], "Read or control global irrigation settings", {
+        "GET": "read", "PUT": "control",
+    })
     add("/stations", ["GET", "PUT"], "List or configure stations and master outputs", {
         "GET": "read", "PUT": "configuration",
     })

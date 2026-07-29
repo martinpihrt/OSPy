@@ -35,7 +35,8 @@ from .stream import event_stream
 
 API_VERSION = "1.0.0"
 API_FEATURES = [
-    "overview", "stations", "master", "programs", "run_once", "sensors",
+    "overview", "irrigation_control", "stations", "master", "programs",
+    "run_once", "sensors",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse",
 ]
@@ -156,10 +157,12 @@ def _program_data(program):
 
 def _sensor_data(sensor):
     keys = (
-        "name", "enabled", "sens_type", "com_type", "last_read_value",
+        "name", "enabled", "manufacturer", "sens_type", "multi_type",
+        "com_type", "last_read_value",
         "last_response", "last_response_datetime", "last_battery", "rssi",
         "response", "fw", "sample_rate", "log_samples", "log_event",
-        "send_email", "show_in_footer", "ip_address",
+        "send_email", "show_in_footer", "ip_address", "mac_address",
+        "last_voltage",
     )
     result = {
         "id": "sensor-{}".format(_safe_attribute(sensor, "index", 0)),
@@ -179,9 +182,127 @@ def _sensor_data(sensor):
                 "code": "sensor_field_unavailable",
                 "message": "{}: {}".format(type(error).__name__, error),
             })
+    result["enabled"] = bool(result.get("enabled"))
+    result["response"] = bool(result.get("response"))
     if field_errors:
         result["field_errors"] = field_errors
+    result["display"] = _sensor_display_data(result)
     return result
+
+
+_SENSOR_TYPES = (
+    "none", "dry_contact", "leak_detector", "moisture", "motion",
+    "temperature", "multi", "multi_contact",
+)
+_MULTI_SENSOR_TYPES = (
+    "temperature_ds1", "temperature_ds2", "temperature_ds3",
+    "temperature_ds4", "dry_contact", "leak_detector", "moisture",
+    "motion", "ultrasonic", "soil_moisture",
+)
+_SENSOR_COMMUNICATION = ("wifi_lan", "radio")
+
+
+def _sensor_firmware_version(value):
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return None
+    if number <= 0:
+        return None
+    digits = str(number).zfill(3)
+    return "{}.{}".format(digits[0], digits[1:])
+
+
+def _sensor_reading(result):
+    values = result.get("last_read_value")
+    sensor_type = result.get("sens_type")
+    multi_type = result.get("multi_type")
+    unit = ""
+    state = ""
+    index = None
+
+    if sensor_type == 1:
+        index, state = 4, "contact"
+    elif sensor_type == 2:
+        index, unit = 5, "l/s"
+    elif sensor_type == 3:
+        index, unit = 6, "%"
+    elif sensor_type == 4:
+        index, state = 7, "motion"
+    elif sensor_type == 5:
+        index, unit = 0, str(_safe_attribute(options, "temp_unit", "C"))
+    elif sensor_type == 6 and isinstance(multi_type, int):
+        if 0 <= multi_type <= 3:
+            index, unit = multi_type, str(
+                _safe_attribute(options, "temp_unit", "C")
+            )
+        elif multi_type == 4:
+            index, state = 4, "contact"
+        elif multi_type == 5:
+            index, unit = 5, "l/s"
+        elif multi_type == 6:
+            index, unit = 6, "%"
+        elif multi_type == 7:
+            index, state = 7, "motion"
+        elif multi_type == 8:
+            index, unit = 8, "cm"
+
+    if not isinstance(values, list) or index is None or index >= len(values):
+        return {"status": "unavailable", "value": None, "unit": unit}
+    value = values[index]
+    if value == "":
+        return {"status": "pending", "value": None, "unit": unit}
+    if value == -127 or value == -127.0:
+        return {"status": "probe_error", "value": value, "unit": unit}
+    reading = {"status": "ok", "value": _safe_value(value), "unit": unit}
+    try:
+        numeric_state = int(value)
+    except (TypeError, ValueError):
+        numeric_state = None
+    if state == "contact" and numeric_state is not None:
+        reading["state"] = "closed" if numeric_state == 1 else "open"
+    elif state == "motion" and numeric_state is not None:
+        reading["state"] = "motion" if numeric_state == 1 else "no_motion"
+    return reading
+
+
+def _sensor_display_data(result):
+    sensor_type = result.get("sens_type")
+    multi_type = result.get("multi_type")
+    communication = result.get("com_type")
+    type_code = (
+        _SENSOR_TYPES[sensor_type]
+        if isinstance(sensor_type, int) and
+        0 <= sensor_type < len(_SENSOR_TYPES)
+        else "unknown"
+    )
+    subtype_code = (
+        _MULTI_SENSOR_TYPES[multi_type]
+        if type_code == "multi" and isinstance(multi_type, int) and
+        0 <= multi_type < len(_MULTI_SENSOR_TYPES)
+        else ""
+    )
+    communication_code = (
+        _SENSOR_COMMUNICATION[communication]
+        if isinstance(communication, int) and
+        0 <= communication < len(_SENSOR_COMMUNICATION)
+        else "unknown"
+    )
+    address = result.get("ip_address")
+    return {
+        "type": type_code,
+        "subtype": subtype_code,
+        "communication": communication_code,
+        "reading": _sensor_reading(result),
+        "connected": bool(result.get("response")),
+        "firmware": _sensor_firmware_version(result.get("fw")),
+        "battery_unit": "V",
+        "signal_unit": "%" if result.get("manufacturer") == 0 else "dBm",
+        "ip_address": (
+            ".".join(str(part) for part in address)
+            if isinstance(address, list) and len(address) == 4 else ""
+        ),
+    }
 
 
 def _sensor_snapshot():
@@ -229,6 +350,40 @@ def _stop_all():
         ),
         level="warning", category="irrigation",
     )
+
+
+def _irrigation_data():
+    try:
+        rain_block_seconds = max(0, int(rain_blocks.seconds_left()))
+    except Exception:
+        rain_block_seconds = 0
+    active = []
+    for station in stations:
+        try:
+            if station.active:
+                active.append(_station_data(station))
+        except Exception:
+            continue
+    return {
+        "scheduler_enabled": bool(_safe_attribute(
+            options, "scheduler_enabled", False
+        )),
+        "manual_mode": bool(_safe_attribute(options, "manual_mode", False)),
+        "rain_block": rain_block_seconds > 0,
+        "rain_block_seconds": rain_block_seconds,
+        "rain_delay": _safe_value(_safe_attribute(options, "rain_delay", None)),
+        "active_stations": active,
+    }
+
+
+def _required_boolean(payload, key):
+    value = payload.get(key)
+    if not isinstance(value, bool):
+        raise APIError(
+            422, "invalid_irrigation_setting",
+            "{} must be a JSON boolean.".format(key),
+        )
+    return value
 
 
 def _notification(event_type, severity, code, title, message, data=None):
@@ -564,6 +719,69 @@ class Overview(object):
             "warnings": warnings,
             "updated": datetime.datetime.now().astimezone().isoformat(),
         })
+
+
+class Irrigation(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        return respond(_irrigation_data())
+
+    @endpoint
+    @require_scope("control")
+    def PUT(self):
+        payload = json_body()
+        allowed = {
+            "scheduler_enabled", "manual_mode", "rain_delay_hours",
+        }
+        unknown = sorted(set(payload) - allowed)
+        if unknown:
+            raise APIError(
+                422, "unknown_irrigation_setting",
+                "The irrigation setting is not supported.",
+                {"fields": unknown},
+            )
+        if not payload:
+            raise APIError(
+                422, "empty_irrigation_settings",
+                "At least one irrigation setting is required.",
+            )
+
+        changed = {}
+        if "scheduler_enabled" in payload:
+            value = _required_boolean(payload, "scheduler_enabled")
+            options.scheduler_enabled = value
+            changed["scheduler_enabled"] = value
+        if "manual_mode" in payload:
+            value = _required_boolean(payload, "manual_mode")
+            options.manual_mode = value
+            changed["manual_mode"] = value
+        if "rain_delay_hours" in payload:
+            hours = payload["rain_delay_hours"]
+            if isinstance(hours, bool) or not isinstance(hours, (int, float)):
+                raise APIError(
+                    422, "invalid_rain_delay",
+                    "rain_delay_hours must be a number.",
+                )
+            hours = max(0.0, min(24.0 * 365.0, float(hours)))
+            if hours == 0:
+                rain_blocks.clear()
+            options.rain_block = (
+                datetime.datetime.now() + datetime.timedelta(hours=hours)
+            )
+            from ospy.scheduler import stop_onrain
+            stop_onrain()
+            changed["rain_delay_hours"] = hours
+
+        event_stream.publish("irrigation.settings_changed", changed)
+        logEV.save_events_log(
+            "Irrigation settings changed through mobile API",
+            "API user {} changed irrigation settings from IP {}: {}.".format(
+                _actor(), _remote_ip(), ", ".join(sorted(changed))
+            ),
+            level="info", category="irrigation",
+        )
+        return respond(_irrigation_data())
 
 
 class Stations(object):
@@ -1223,6 +1441,7 @@ URLS = (
     "/auth/devices", Devices,
     "/auth/devices/(.+)", Device,
     "/overview", Overview,
+    "/irrigation", Irrigation,
     "/stations", Stations,
     "/stations/actions/stop-all", StopAll,
     "/stations/([^/]+)", Station,

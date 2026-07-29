@@ -131,7 +131,7 @@ by the server even if a larger value is requested.
 | Discovery | `GET /`, `/server`, `/capabilities`, `/openapi.json` |
 | Authentication | `POST /auth/login`, `/auth/refresh`, `/auth/logout` |
 | Devices | `GET /auth/devices`, `DELETE /auth/devices/{id}` |
-| Home | `GET /overview` |
+| Home | `GET /overview`, `GET/PUT /irrigation` |
 | Stations | `GET/PUT /stations`, `GET/PUT /stations/{id}`, `POST /stations/{id}/actions/start|stop`, `POST /stations/actions/stop-all` |
 | Programs | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop` |
 | Run-once | `GET/PUT /run-once`, `POST /run-once/actions/start` |
@@ -178,6 +178,33 @@ downloads. Optional subsystem failures do not discard the complete Home
 snapshot: the affected value is empty or unavailable and `warnings` contains
 stable `code`, `component` and diagnostic `message` fields. Clients should show
 the warning without hiding the still-valid irrigation controls and state.
+
+Clients should refresh this lightweight resource periodically while Home is
+visible (the official Android client uses ten seconds), immediately after a
+control action, and after an irrigation SSE event. The response's `updated`
+value is the server-side snapshot time and should be shown as the last
+successful refresh.
+
+### Global irrigation controls
+
+`GET /irrigation` returns `scheduler_enabled`, `manual_mode`, `rain_block`,
+`rain_block_seconds`, `rain_delay` and the current `active_stations`.
+
+`PUT /irrigation` requires the `control` scope and accepts one or more fields:
+
+```json
+{"scheduler_enabled":true}
+```
+
+```json
+{"manual_mode":false,"rain_delay_hours":24}
+```
+
+The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to
+`0..8760`; zero clears all active rain-delay blocks, matching the web Home
+control. A positive delay immediately applies the normal OSPy rain safety
+rules. The response is the updated irrigation object. Unknown fields return
+HTTP `422`.
 
 ### Stations and master
 
@@ -247,7 +274,11 @@ plan. Stop All cancels it.
 
 `GET /sensors` and `/sensors/{id}` return the common identity, communication,
 value, response, battery, RSSI, firmware and logging fields supplied by the
-sensor type. `/sensors/{id}/history?offset=0&limit=100` returns bounded history
+sensor type. They retain legacy raw fields and also provide a stable `display`
+object containing one relevant typed reading, its unit, connection state,
+formatted firmware, communication code and IP address. Mobile clients should
+render `display` and reserve raw fields for advanced diagnostics.
+`/sensors/{id}/history?offset=0&limit=100` returns bounded history
 where available. If a legacy or temporarily unavailable sensor property raises
 an error, the sensor and its remaining properties are still returned. That
 property is `null` and `field_errors` identifies the field, stable error code
@@ -587,6 +618,33 @@ measurement. A typical object is:
   "sample_rate": 60
 }
 ```
+
+For multi-value sensors, `last_read_value` remains the original sensor array.
+The same response therefore includes a normalized block such as:
+
+```json
+{
+  "display": {
+    "type": "multi",
+    "subtype": "ultrasonic",
+    "communication": "wifi_lan",
+    "reading": {"status":"ok","value":73,"unit":"cm"},
+    "connected": true,
+    "firmware": "1.19",
+    "battery_unit": "V",
+    "signal_unit": "%",
+    "ip_address": "192.168.1.25"
+  }
+}
+```
+
+`display.reading.status` is `ok`, `pending`, `probe_error` or `unavailable`.
+Binary readings additionally contain a stable `state`: `open`, `closed`,
+`motion` or `no_motion`. Type and subtype codes include
+`temperature_ds1` through `temperature_ds4`, `dry_contact`, `leak_detector`,
+`moisture`, `motion`, `ultrasonic` and `soil_moisture`. Communication is
+`wifi_lan`, `radio` or `unknown`. These are untranslated machine values; the
+client provides localized labels.
 
 Sensor types have different properties. Missing optional attributes may be
 absent or `null`. `field_errors` is omitted when every available property was
