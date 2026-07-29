@@ -6,6 +6,8 @@ Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https:/
 July 29 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Made plug-in settings safe across live plug-in module replacement and serialized plug-in start, stop and reload operations within one OSPy process. This prevents stale `PluginOptions` instances from failing with `super(type, obj)` and prevents concurrent requests from starting the same plug-in twice.
+
 Made the mobile API Home and Sensors resources resilient to optional subsystem failures. A weather-provider, water-level calculation, station-property or individual sensor-field error no longer discards the complete JSON response; valid data remains available and the affected resource reports a structured warning or field error. Added regression tests and documented the partial-response contract for native clients.
 
 Corrected the mobile Home rain state to report only an active rain block and added its remaining seconds. Directly started stations now report an unknown remaining time instead of a misleading zero. Sensor enumeration uses a finite passive snapshot, preventing the legacy collection's non-terminating sequence behavior from freezing OSPy. Serialized plug-in import and protection so the background checker cannot replace a starting plug-in with a stopped proxy. Plugin Manager now accepts only valid Python package directories and ignores runtime data or rotated log files such as `diagnostic.log.1`.

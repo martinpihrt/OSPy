@@ -26,6 +26,7 @@ __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
 __plugin_diagnostics_lock = threading.RLock()
 __plugin_module_lock = threading.RLock()
+_plugin_lifecycle_lock = threading.RLock()
 __plugin_diagnostics_cache = {'time': 0, 'data': None}
 PLUGIN_HEALTH_TIMEOUT = 1.0
 PLUGIN_THREAD_STOP_TIMEOUT = 5.0
@@ -715,7 +716,11 @@ def _plugin_diagnostics_uncached():
 ################################################################################
 class PluginOptions(dict):
     def __init__(self, plugin, defaults):
-        super(PluginOptions, self).__init__(iter(defaults.items()))
+        # Call dict directly.  A plug-in update can reload this module while an
+        # older PluginOptions instance is still referenced by a stopping worker.
+        # In that case super(PluginOptions, self) resolves PluginOptions to the
+        # newly loaded class and rejects the old instance.
+        dict.__init__(self, iter(defaults.items()))
         self._defaults = defaults.copy()
 
         from ospy.options import options
@@ -750,7 +755,8 @@ class PluginOptions(dict):
 
     def __setitem__(self, key, value):
         try:
-            super(PluginOptions, self).__setitem__(key, value)
+            # Keep assignments valid across a live module/class replacement.
+            dict.__setitem__(self, key, value)
             if hasattr(self, '_plugin'):
                 from ospy.options import options
 
@@ -1459,6 +1465,15 @@ class _PluginChecker(threading.Thread):
 
     @staticmethod
     def _install_plugin(zip_file_data, plugin, p_dir, activate=True):
+        # Keep the stop, file swap and restart transaction atomic with respect
+        # to background reconciliation and web lifecycle requests.
+        with _plugin_lifecycle_lock:
+            return _PluginChecker._install_plugin_locked(
+                zip_file_data, plugin, p_dir, activate
+            )
+
+    @staticmethod
+    def _install_plugin_locked(zip_file_data, plugin, p_dir, activate=True):
         import os
         import shutil
         import tempfile
@@ -2583,7 +2598,7 @@ def _plugin_dependency_order(modules, manifests=None):
     return ordered, cycles
 
 
-def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
+def _stop_plugin_locked(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     from ospy.options import options
     import logging
 
@@ -2683,7 +2698,13 @@ def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     return not alive_threads
 
 
-def start_plugin(module, _dependency_stack=None):
+def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
+    """Stop one plug-in without racing another lifecycle operation."""
+    with _plugin_lifecycle_lock:
+        return _stop_plugin_locked(module, timeout)
+
+
+def _start_plugin_locked(module, _dependency_stack=None):
     from ospy.helpers import mkdir_p
     from ospy.options import options
     import logging
@@ -2801,12 +2822,19 @@ def start_plugin(module, _dependency_stack=None):
         return False
 
 
+def start_plugin(module, _dependency_stack=None):
+    """Start one plug-in at most once within this OSPy process."""
+    with _plugin_lifecycle_lock:
+        return _start_plugin_locked(module, _dependency_stack)
+
+
 def reload_plugin(module):
-    entry = _runtime_entry(module)
-    entry['restarts'] = entry.get('restarts', 0) + 1
-    entry['last_restart'] = _now_string()
-    stop_plugin(module)
-    return start_plugin(module)
+    with _plugin_lifecycle_lock:
+        entry = _runtime_entry(module)
+        entry['restarts'] = entry.get('restarts', 0) + 1
+        entry['last_restart'] = _now_string()
+        stop_plugin(module)
+        return start_plugin(module)
 
 
 def start_enabled_plugins():

@@ -4,6 +4,9 @@ import os
 import shutil
 import sys
 import tempfile
+import threading
+import time
+import types
 import unittest
 from unittest import mock
 import warnings
@@ -188,6 +191,76 @@ class PluginLifecycleIntegrationTests(unittest.TestCase):
                 encoding="utf-8",
         ) as manifest_file:
             self.assertEqual(json.load(manifest_file)["version"], "1.0.1")
+
+    def test_plugin_options_assignment_survives_class_replacement(self):
+        old_class = plugins.PluginOptions
+        old_options = dict.__new__(old_class)
+        dict.__init__(old_options, {"pulses": 2.0})
+
+        replacement = type("PluginOptions", (dict,), {})
+        with mock.patch.object(plugins, "PluginOptions", replacement):
+            old_options["pulses"] = 2.5
+
+        self.assertEqual(old_options["pulses"], 2.5)
+
+    def test_concurrent_start_requests_start_plugin_once(self):
+        options.enabled_plugins = list(options.enabled_plugins) + [PLUGIN]
+        starts = []
+        results = []
+
+        def start():
+            starts.append(time.time())
+            time.sleep(0.05)
+
+        plugin = types.SimpleNamespace(
+            NAME="Lifecycle Test Plugin",
+            MENU=None,
+            LINK=None,
+            start=start,
+            stop=lambda: None,
+        )
+        ready = threading.Barrier(3)
+
+        def start_request():
+            ready.wait()
+            results.append(plugins.start_plugin(PLUGIN))
+
+        patches = [
+            mock.patch.object(
+                plugins, "plugin_permission_approval",
+                return_value={"approved": True, "missing": []},
+            ),
+            mock.patch.object(plugins, "_plugin_dependencies", return_value=[]),
+            mock.patch.object(
+                plugins, "plugin_preflight",
+                return_value={"passed": True, "errors": []},
+            ),
+            mock.patch.object(
+                plugins, "plugin_compatibility",
+                return_value={"compatible": True, "errors": []},
+            ),
+            mock.patch.object(plugins, "_clear_plugin_caches"),
+            mock.patch.object(plugins, "_unload_plugin_modules"),
+            mock.patch.object(plugins.importlib, "import_module", return_value=plugin),
+            mock.patch.object(plugins, "plugin_manifest", return_value={}),
+        ]
+        for patcher in patches:
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
+        workers = [
+            threading.Thread(target=start_request),
+            threading.Thread(target=start_request),
+        ]
+        for worker in workers:
+            worker.start()
+        ready.wait()
+        for worker in workers:
+            worker.join(2.0)
+
+        self.assertFalse(any(worker.is_alive() for worker in workers))
+        self.assertEqual(results, [True, True])
+        self.assertEqual(len(starts), 1)
 
 
 if __name__ == "__main__":
