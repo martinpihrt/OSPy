@@ -344,8 +344,8 @@ def _stop_all():
     outputs.relay_output = False
     event_stream.publish("irrigation.stop_all", {"actor": _actor()})
     logEV.save_events_log(
-        "Irrigation stopped through mobile API",
-        "API user {} stopped all stations and active programs from IP {}.".format(
+        _("Irrigation stopped through mobile API"),
+        _("API user {} stopped all stations and active programs from IP {}.").format(
             _actor(), _remote_ip()
         ),
         level="warning", category="irrigation",
@@ -469,8 +469,8 @@ def _connect_hooks():
 
         def notify_rain(sender=None, **kwargs):
             _notification(
-                "rain", "warning", "rain_active", "Rain is active",
-                "OSPy is applying the configured rain protection.",
+                "rain", "warning", "rain_active", _("Rain is active"),
+                _("OSPy is applying the configured rain protection."),
                 {"details": _safe_value(kwargs)},
             )
 
@@ -481,12 +481,12 @@ def _connect_hooks():
                 station = stations[int(sender)]
                 if station.is_master or station.is_master_two:
                     return
-                title = "Irrigation completed"
-                message = "Station {} has stopped.".format(station.name)
+                title = _("Irrigation completed")
+                message = _("Station {} has stopped.").format(station.name)
                 data = {"station": _station_data(station)}
             except Exception:
-                title = "Irrigation state changed"
-                message = "An irrigation output has stopped."
+                title = _("Irrigation state changed")
+                message = _("An irrigation output has stopped.")
                 data = {"sender": _safe_value(sender)}
             _notification(
                 "irrigation", "info", "station_stopped", title, message, data
@@ -519,8 +519,11 @@ def _connect_hooks():
                         if code not in _health_problem_codes:
                             _notification(
                                 "diagnostics", "error", code,
-                                str(item.get("title", "OSPy diagnostics")),
-                                str(item.get("summary", "A system problem was detected.")),
+                                str(item.get("title", _("OSPy diagnostics"))),
+                                str(item.get(
+                                    "summary",
+                                    _("A system problem was detected."),
+                                )),
                                 {
                                     "details": _safe_value(item.get("details", "")),
                                     "solution": _safe_value(item.get("solution", "")),
@@ -769,14 +772,13 @@ class Irrigation(object):
             options.rain_block = (
                 datetime.datetime.now() + datetime.timedelta(hours=hours)
             )
-            from ospy.scheduler import stop_onrain
-            stop_onrain()
+            helpers.stop_onrain()
             changed["rain_delay_hours"] = hours
 
         event_stream.publish("irrigation.settings_changed", changed)
         logEV.save_events_log(
-            "Irrigation settings changed through mobile API",
-            "API user {} changed irrigation settings from IP {}: {}.".format(
+            _("Irrigation settings changed through mobile API"),
+            _("API user {} changed irrigation settings from IP {}: {}.").format(
                 _actor(), _remote_ip(), ", ".join(sorted(changed))
             ),
             level="info", category="irrigation",
@@ -838,11 +840,19 @@ class StationAction(object):
         else:
             raise APIError(404, "unknown_action", "The station action is not supported.")
         event_stream.publish("station." + action, _station_data(station))
+        if action == "start":
+            event_title = _("Station start through mobile API")
+            event_status = _(
+                "API user {} requested start for station {} from IP {}."
+            ).format(_actor(), station.name, _remote_ip())
+        else:
+            event_title = _("Station stop through mobile API")
+            event_status = _(
+                "API user {} requested stop for station {} from IP {}."
+            ).format(_actor(), station.name, _remote_ip())
         logEV.save_events_log(
-            "Station {} through mobile API".format(action),
-            "API user {} requested {} for station {} from IP {}.".format(
-                _actor(), action, station.name, _remote_ip()
-            ),
+            event_title,
+            event_status,
             level="info", category="irrigation",
         )
         return respond(_station_data(station))

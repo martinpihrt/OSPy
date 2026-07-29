@@ -228,8 +228,8 @@ def login(payload):
         username, role, scopes, refresh["device_id"], refresh["id"]
     )
     logEV.save_events_log(
-        "Mobile device paired",
-        "User {} paired mobile device {} from IP {}.".format(
+        _("Mobile device paired"),
+        _("User {} paired mobile device {} from IP {}.").format(
             username, device.get("name", "Android"), getattr(web.ctx, "ip", "-")
         ),
         id="Login", level="info", category="security",

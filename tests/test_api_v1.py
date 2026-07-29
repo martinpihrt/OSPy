@@ -215,6 +215,32 @@ class MobileAPIV1Tests(unittest.TestCase):
             api.options.scheduler_enabled = scheduler_before
             api.options.manual_mode = manual_before
 
+    def test_irrigation_control_sets_configurable_rain_delay(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(
+            ("read", "control"), role="user"
+        )
+        rain_block_before = api.options.rain_block
+        try:
+            with mock.patch(
+                    "api.v1.api.helpers.stop_onrain") as stop_onrain, mock.patch(
+                    "api.v1.api.rain_blocks.seconds_left",
+                    return_value=5400), mock.patch(
+                    "api.v1.api.logEV.save_events_log"), mock.patch(
+                    "api.v1.api.event_stream.publish"):
+                response = self._request(
+                    "/irrigation", token, method="PUT",
+                    data={"rain_delay_hours": 1.5},
+                )
+            self.assertEqual(response.status, "200 OK")
+            data = self._json(response)["data"]
+            self.assertTrue(data["rain_block"])
+            self.assertEqual(data["rain_block_seconds"], 5400)
+            stop_onrain.assert_called_once_with()
+        finally:
+            api.options.rain_block = rain_block_before
+
     def test_overview_reports_only_an_active_rain_block(self):
         token, unused_refresh = self._token(("read",), role="user")
         with mock.patch(

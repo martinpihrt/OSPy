@@ -204,7 +204,9 @@ The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to
 `0..8760`; zero clears all active rain-delay blocks, matching the web Home
 control. A positive delay immediately applies the normal OSPy rain safety
 rules. The response is the updated irrigation object. Unknown fields return
-HTTP `422`.
+HTTP `422`. A client can therefore offer any duration in that range and use
+`rain_block_seconds` from `GET /irrigation` or `GET /overview` for a live
+countdown until the delay expires.
 
 ### Stations and master
 

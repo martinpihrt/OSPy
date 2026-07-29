@@ -20,8 +20,8 @@ PYGETTEXT_INPUTS = (
     "plugins/*/templates/*.html",
     "setup.py",
     "back_door.py",
-    "api/api.py",
-    "api/utils.py",
+    "api/*.py",
+    "api/v1/*.py",
     "web/session.py",
 )
 HTML_GETTEXT_RE = re.compile(r"(?<![\w.])_\s*\(")
@@ -84,6 +84,10 @@ def _digest(filename):
 
 
 class PygettextTests(unittest.TestCase):
+    def test_documented_inputs_include_versioned_mobile_api(self):
+        self.assertIn("api/*.py", PYGETTEXT_INPUTS)
+        self.assertIn("api/v1/*.py", PYGETTEXT_INPUTS)
+
     def test_documented_input_paths_cover_all_translation_sources(self):
         missing = sorted(
             _project_translation_sources() - _expanded_documented_inputs(),
@@ -129,6 +133,8 @@ class PygettextTests(unittest.TestCase):
             generated = output.read_text(encoding="utf-8")
             self.assertIn('msgid "Diagnostics"', generated)
             self.assertIn('msgid "Plug-in manifest is invalid."', generated)
+            self.assertIn('msgid "Mobile device paired"', generated)
+            self.assertIn('msgid "Rain is active"', generated)
             self.assertIn(
                 'msgid "WARNING: This local recovery script resets the OSPy administrator login."',
                 generated,
