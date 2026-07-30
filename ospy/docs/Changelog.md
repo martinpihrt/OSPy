@@ -3,6 +3,15 @@ OSPy Changelog
 
 Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
 
+July 30 2026 (v3.0)
+-----------
+(Martin Pihrt)<br/>
+Corrected the Mobile API daily schedule so `date=today` returns only intervals
+overlapping the current local day and cannot include old completed scheduler
+history. Expanded the plug-in mobile-data contract with stable metric IDs,
+bounded current images, chart legends and time-range guidance, and added
+regression coverage for the daily timeline.
+
 July 29 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

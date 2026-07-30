@@ -303,6 +303,44 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertEqual(data["items"][0]["program_id"], "program-0")
         self.assertGreater(data["items"][0]["progress"], 0)
 
+    def test_schedule_today_excludes_finished_runs_outside_today(self):
+        import datetime
+
+        token, unused_refresh = self._token(("read",), role="user")
+        now = datetime.datetime.now()
+        yesterday = now - datetime.timedelta(days=1)
+        old_interval = {
+            "uid": "old-run",
+            "station": 0,
+            "program": 0,
+            "program_name": "Old",
+            "start": yesterday.replace(hour=8, minute=0),
+            "original_start": yesterday.replace(hour=8, minute=0),
+            "end": yesterday.replace(hour=8, minute=30),
+            "active": False,
+            "blocked": False,
+            "manual": False,
+        }
+        current_interval = {
+            "uid": "today-run",
+            "station": 0,
+            "program": 0,
+            "program_name": "Today",
+            "start": now - datetime.timedelta(minutes=5),
+            "original_start": now - datetime.timedelta(minutes=5),
+            "end": now + datetime.timedelta(minutes=5),
+            "active": True,
+            "blocked": False,
+            "manual": False,
+        }
+        with mock.patch(
+                "ospy.scheduler.combined_schedule",
+                return_value=[old_interval, current_interval]):
+            response = self._request("/schedule?date=today", token)
+        self.assertEqual(response.status, "200 OK")
+        items = self._json(response)["data"]["items"]
+        self.assertEqual([item["id"] for item in items], ["today-run"])
+
     def test_program_editor_describes_simple_schedule(self):
         from api.v1 import api
         from ospy.programs import ProgramType

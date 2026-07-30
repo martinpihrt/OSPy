@@ -1231,7 +1231,11 @@ class Schedule(object):
         now = datetime.datetime.now()
         if values.date:
             try:
-                selected = datetime.date.fromisoformat(str(values.date))
+                selected = (
+                    now.date()
+                    if str(values.date).lower() == "today"
+                    else datetime.date.fromisoformat(str(values.date))
+                )
             except ValueError:
                 raise APIError(
                     422, "invalid_date", "The schedule date is not valid."
@@ -1248,11 +1252,23 @@ class Schedule(object):
             hours = max(1, min(168, hours))
             start = now
             end = start + datetime.timedelta(hours=hours)
-        items = [
-            _timeline_item(interval, now)
-            for interval in combined_schedule(start, end)
-            if isinstance(interval, dict)
-        ]
+        # ``combined_schedule`` also contains the complete finished-run log
+        # while the requested range crosses the current time.  Filter every
+        # returned interval here so the mobile API can never leak old history
+        # into a current/day timeline.
+        intervals = []
+        for interval in combined_schedule(start, end):
+            if not isinstance(interval, dict):
+                continue
+            interval_start = interval.get("start")
+            interval_end = interval.get("end")
+            if not isinstance(interval_start, datetime.datetime):
+                continue
+            if not isinstance(interval_end, datetime.datetime):
+                interval_end = interval_start
+            if interval_start < end and interval_end > start:
+                intervals.append(interval)
+        items = [_timeline_item(interval, now) for interval in intervals]
         items.sort(key=lambda item: item.get("start") or "")
         return respond({
             "from": _iso(start),

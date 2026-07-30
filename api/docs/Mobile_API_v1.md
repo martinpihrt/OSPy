@@ -282,7 +282,11 @@ Content-Type: application/json
 
 `GET /schedule?hours=24` returns a normalized, read-only view of the combined
 OSPy schedule. `hours` accepts `1..168` and defaults to 24. A calendar day can
-instead be selected with `date=YYYY-MM-DD`. Each item includes:
+instead be selected with `date=YYYY-MM-DD`; `date=today` selects the current
+local OSPy day and is the recommended source for the mobile Home timeline.
+Intervals outside the requested half-open time range are always discarded,
+including old completed runs returned by legacy scheduler history. Each item
+includes:
 
 - stable `station_id`, station number and name;
 - `program_id`, program name and manual/program origin;
@@ -293,6 +297,13 @@ instead be selected with `date=YYYY-MM-DD`. Each item includes:
 The endpoint does not modify programs. Clients should refresh it after
 `program.*`, `station.*`, `stations.changed` or `conditions.changed` events.
 Unknown future fields and states are additive.
+
+The mobile Home screen should render the result as one compact chronological
+timeline rather than as an unbounded history. It may retain a small number of
+the most recent completed items, then show every running item and the next
+upcoming or blocked items. `progress` is a floating-point value in the
+inclusive `0..1` range. `remaining_seconds` is authoritative while an item is
+running. A blocked item can include `blocked_reason`, for example rain delay.
 
 ### Run-once
 
@@ -423,6 +434,29 @@ The response of `/plugins/{id}/mobile` can contain `status`, `cards`,
 `metrics`, `status` or `chart`; a chart carries one or more named series made
 of numeric `value` points and optional display `time`. Native clients must
 ignore card kinds and fields they do not understand.
+
+Metrics may include a stable, language-neutral `id` in addition to their
+display `label`, `value` and optional `unit`. Clients should use `id` for
+localized presentation and fall back to `label` for newer plug-ins. Series use
+the same rule and should provide a visible legend and the first/last point
+time. Disabled sensors must not create empty or misleading series.
+
+A card may also carry one bounded current image:
+
+```json
+{
+  "image": {
+    "mime_type": "image/png",
+    "data_base64": "iVBORw0KGgo...",
+    "updated": "2026-07-30T08:15:00+02:00"
+  }
+}
+```
+
+This is intended for current operating imagery such as the latest radar
+frame, not for video or unbounded history. The Android client decodes it
+locally and continues rendering the remaining metrics when the optional image
+is absent or invalid.
 
 Current official read-only adapters expose native operating data for Air
 Temperature and Humidity Monitor, CHMI, Current Loop Tanks Monitor, Tank
