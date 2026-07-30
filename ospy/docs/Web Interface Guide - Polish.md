@@ -1,6 +1,12 @@
 Przewodnik po interfejsie webowym OSPy w jezyku polskim
 ====
 
+## Natywne API mobilne
+
+Zobacz pełną
+[dokumentację Mobile API v1](../../api/docs/Mobile_API_v1.md), dostępną także
+w Pomocy OSPy w sekcji **API**.
+
 ## SQLite jako magazyn główny (beta)
 
 Gdy Diagnostyka zgłosi **Gotowość SQLite primary beta: Gotowe**, Opcje udostępnią pozycję **SQLite jako główny (beta)** w polu **Tryb magazynu ustawień**. Przed wejściem do tego trybu i wyjściem z niego OSPy tworzy pełną kopię zapasową systemu, zatwierdza razem zweryfikowane kopie SQLite i shelve/DBM, a następnie uruchamia się ponownie. Przy kolejnym starcie SQLite jest niezależnie weryfikowane przed użyciem jako źródło ustawień; zsynchronizowana kopia shelve/DBM pozostaje natychmiastowym zabezpieczeniem. Brak znacznika aktywacji, uszkodzona baza, niezgodna suma kontrolna lub schemat albo nieprawidłowe ustawienie bezpiecznie pozostawia OSPy na shelve/DBM i jest zgłaszane w Diagnostyce. Przełączenie nigdy nie następuje automatycznie, a powrót do trybu **Weryfikacja** jest zawsze dostępny przez tę samą procedurę kopii zapasowej i restartu.

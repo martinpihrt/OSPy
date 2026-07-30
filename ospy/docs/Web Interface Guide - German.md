@@ -1,6 +1,12 @@
 OSPy Webinterface-Anleitung auf Deutsch
 ====
 
+## Native Mobile-API
+
+Siehe die vollständige
+[Mobile API v1-Dokumentation](../../api/docs/Mobile_API_v1.md), die auch in
+der OSPy-Hilfe unter **API** verfügbar ist.
+
 ## SQLite als Primärspeicher (Beta)
 
 Sobald die Diagnose **SQLite-Primary-Beta-Bereitschaft: Bereit** meldet, aktiviert Optionen unter **Einstellungsspeichermodus** die Auswahl **SQLite primär (Beta)**. OSPy erstellt vor dem Wechsel in diesen Modus und vor dem Verlassen eine vollständige Systemsicherung, bestätigt die geprüften SQLite- und shelve/DBM-Kopien gemeinsam und startet neu. Beim nächsten Start wird SQLite unabhängig geprüft, bevor es als Einstellungsquelle verwendet wird; die synchronisierte shelve/DBM-Kopie bleibt der sofortige Rückfall. Ein fehlender Aktivierungsmarker, eine beschädigte Datenbank, eine abweichende Prüfsumme oder ein ungültiges Schema beziehungsweise eine ungültige Einstellung lässt OSPy sicher bei shelve/DBM und wird in der Diagnose gemeldet. Es erfolgt niemals ein automatischer Wechsel; die Rückkehr zu **Prüfung** ist jederzeit über dasselbe Sicherungs- und Neustartverfahren möglich.

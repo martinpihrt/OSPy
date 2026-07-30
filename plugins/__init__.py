@@ -25,6 +25,8 @@ __preflight_cache_lock = threading.RLock()
 __profile_lock = threading.RLock()
 __plugin_health_lock = threading.RLock()
 __plugin_diagnostics_lock = threading.RLock()
+__plugin_module_lock = threading.RLock()
+_plugin_lifecycle_lock = threading.RLock()
 __plugin_diagnostics_cache = {'time': 0, 'data': None}
 PLUGIN_HEALTH_TIMEOUT = 1.0
 PLUGIN_THREAD_STOP_TIMEOUT = 5.0
@@ -714,7 +716,11 @@ def _plugin_diagnostics_uncached():
 ################################################################################
 class PluginOptions(dict):
     def __init__(self, plugin, defaults):
-        super(PluginOptions, self).__init__(iter(defaults.items()))
+        # Call dict directly.  A plug-in update can reload this module while an
+        # older PluginOptions instance is still referenced by a stopping worker.
+        # In that case super(PluginOptions, self) resolves PluginOptions to the
+        # newly loaded class and rejects the old instance.
+        dict.__init__(self, iter(defaults.items()))
         self._defaults = defaults.copy()
 
         from ospy.options import options
@@ -749,7 +755,8 @@ class PluginOptions(dict):
 
     def __setitem__(self, key, value):
         try:
-            super(PluginOptions, self).__setitem__(key, value)
+            # Keep assignments valid across a live module/class replacement.
+            dict.__setitem__(self, key, value)
             if hasattr(self, '_plugin'):
                 from ospy.options import options
 
@@ -1458,6 +1465,15 @@ class _PluginChecker(threading.Thread):
 
     @staticmethod
     def _install_plugin(zip_file_data, plugin, p_dir, activate=True):
+        # Keep the stop, file swap and restart transaction atomic with respect
+        # to background reconciliation and web lifecycle requests.
+        with _plugin_lifecycle_lock:
+            return _PluginChecker._install_plugin_locked(
+                zip_file_data, plugin, p_dir, activate
+            )
+
+    @staticmethod
+    def _install_plugin_locked(zip_file_data, plugin, p_dir, activate=True):
         import os
         import shutil
         import tempfile
@@ -2341,9 +2357,75 @@ def plugin_preflight(module):
     return result
 
 
+def plugin_mobile_capabilities(module):
+    """Return the optional, JSON-only mobile contract exposed by a plug-in."""
+    manifest = plugin_manifest(module)
+    declared = manifest.get('mobile', {})
+    if not isinstance(declared, dict):
+        declared = {}
+    plugin = __running.get(module)
+    methods = {
+        'status': 'mobile_status',
+        'cards': 'mobile_cards',
+        'settings_schema': 'mobile_settings_schema',
+        'settings': 'mobile_settings',
+        'action': 'mobile_action',
+    }
+    available_methods = {
+        key: bool(plugin is not None and callable(getattr(plugin, name, None)))
+        for key, name in methods.items()
+    }
+    actions = declared.get('actions', [])
+    if not isinstance(actions, list):
+        actions = []
+    return {
+        'api_version': int(declared.get('api_version', 1) or 1),
+        'available': any(available_methods.values()),
+        'methods': available_methods,
+        'actions': sorted(set(str(action) for action in actions if action)),
+    }
+
+
+def plugin_mobile_call(module, capability, *args, **kwargs):
+    """Invoke one declared mobile method without accepting arbitrary functions."""
+    method_names = {
+        'status': 'mobile_status',
+        'cards': 'mobile_cards',
+        'settings_schema': 'mobile_settings_schema',
+        'settings': 'mobile_settings',
+        'action': 'mobile_action',
+    }
+    if capability not in method_names:
+        raise ValueError('Unknown mobile plug-in capability.')
+    if module not in running():
+        raise RuntimeError('The plug-in is not running.')
+    plugin = get(module)
+    method = getattr(plugin, method_names[capability], None)
+    if not callable(method):
+        raise RuntimeError('The plug-in does not provide this mobile capability.')
+    if capability == 'action':
+        declared = plugin_mobile_capabilities(module).get('actions', [])
+        action = args[0] if args else kwargs.get('action')
+        if action not in declared:
+            raise ValueError('The plug-in action is not declared in plugin.json.')
+    result = method(*args, **kwargs)
+    try:
+        json.dumps(result)
+    except (TypeError, ValueError):
+        raise ValueError('The plug-in mobile response is not valid JSON data.')
+    return result
+
+
 def available():
     plugins = []
     for imp, module, is_pkg in pkgutil.iter_modules(['plugins']):
+        # Runtime data, log rotations and accidentally created files must never
+        # become plug-ins merely because they live below plugins/.
+        if (
+                not is_pkg or
+                re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', module) is None or
+                not path.isfile(path.join(plugin_dir(module), '__init__.py'))):
+            continue
         _protect(module)
         if plugin_name(module) is not None:
             plugins.append(module)
@@ -2516,7 +2598,7 @@ def _plugin_dependency_order(modules, manifests=None):
     return ordered, cycles
 
 
-def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
+def _stop_plugin_locked(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     from ospy.options import options
     import logging
 
@@ -2616,7 +2698,13 @@ def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
     return not alive_threads
 
 
-def start_plugin(module, _dependency_stack=None):
+def stop_plugin(module, timeout=PLUGIN_THREAD_STOP_TIMEOUT):
+    """Stop one plug-in without racing another lifecycle operation."""
+    with _plugin_lifecycle_lock:
+        return _stop_plugin_locked(module, timeout)
+
+
+def _start_plugin_locked(module, _dependency_stack=None):
     from ospy.helpers import mkdir_p
     from ospy.options import options
     import logging
@@ -2685,15 +2773,17 @@ def start_plugin(module, _dependency_stack=None):
                 '; '.join(compatibility['errors'])
             )
 
-        _clear_plugin_caches(module)
-        _unload_plugin_modules(module)
-
         import_name = _plugin_import_name(module)
         entry = _runtime_entry(module)
         entry['threads'] = {}
         entry['runtime'] = PluginRuntime(module)
         entry['last_error'] = ''
-        plugin = importlib.import_module(import_name)
+        # Keep the checker/available() protection wrapper from being inserted
+        # between unloading and importing a plug-in during OSPy startup.
+        with __plugin_module_lock:
+            _clear_plugin_caches(module)
+            _unload_plugin_modules(module)
+            plugin = importlib.import_module(import_name)
         manifest = plugin_manifest(module)
         plugin_n = getattr(plugin, 'NAME', None) or manifest.get('name') or module
         if not getattr(plugin, 'NAME', None):
@@ -2732,12 +2822,19 @@ def start_plugin(module, _dependency_stack=None):
         return False
 
 
+def start_plugin(module, _dependency_stack=None):
+    """Start one plug-in at most once within this OSPy process."""
+    with _plugin_lifecycle_lock:
+        return _start_plugin_locked(module, _dependency_stack)
+
+
 def reload_plugin(module):
-    entry = _runtime_entry(module)
-    entry['restarts'] = entry.get('restarts', 0) + 1
-    entry['last_restart'] = _now_string()
-    stop_plugin(module)
-    return start_plugin(module)
+    with _plugin_lifecycle_lock:
+        entry = _runtime_entry(module)
+        entry['restarts'] = entry.get('restarts', 0) + 1
+        entry['last_restart'] = _now_string()
+        stop_plugin(module)
+        return start_plugin(module)
 
 
 def start_enabled_plugins():
@@ -2833,7 +2930,8 @@ class _PluginWrapper(types.ModuleType):
 
 
 def _protect(module):
-    import_name = _plugin_import_name(module)
-    if import_name not in sys.modules:
-        sys.modules[import_name] = _PluginWrapper(module)
-        setattr(sys.modules[__name__], module, _PluginWrapper(module))
+    with __plugin_module_lock:
+        import_name = _plugin_import_name(module)
+        if import_name not in sys.modules:
+            sys.modules[import_name] = _PluginWrapper(module)
+            setattr(sys.modules[__name__], module, _PluginWrapper(module))

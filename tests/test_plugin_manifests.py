@@ -748,6 +748,39 @@ class PluginManifestRepositoryTests(unittest.TestCase):
                     ):
                         self._validate_manifest(plugin_dir)
 
+    def test_official_mobile_adapters_declare_contract_and_functions(self):
+        expected = {
+            "air_temp_humi",
+            "chmi",
+            "current_loop_tanks_monitor",
+            "tank_monitor",
+            "ups_adj",
+            "water_consumption_counter",
+            "wind_monitor",
+        }
+        roots = _configured_official_plugin_roots()
+        if not roots:
+            self.skipTest("No official plug-in root is configured.")
+        plugin_dirs = {
+            plugin_dir.name: plugin_dir
+            for root in roots
+            for plugin_dir in _plugin_directories(root)
+        }
+        self.assertFalse(expected - set(plugin_dirs))
+
+        for module in sorted(expected):
+            with self.subTest(plugin=module):
+                plugin_dir = plugin_dirs[module]
+                manifest = json.loads(
+                    (plugin_dir / plugins.PLUGIN_MANIFEST_FILE).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                self.assertEqual(manifest.get("mobile", {}).get("api_version"), 1)
+                source = (plugin_dir / "__init__.py").read_text(encoding="utf-8")
+                self.assertIn("def mobile_status(", source)
+                self.assertIn("def mobile_cards(", source)
+
 
 if __name__ == "__main__":
     unittest.main()
