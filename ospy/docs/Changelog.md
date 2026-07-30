@@ -1,34 +1,44 @@
 OSPy Changelog
 ====
 
-Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).
+Older changelog entries are archived in [Changelog_old_to_2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
+
+OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
 July 30 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
-Corrected the Mobile API daily schedule so `date=today` returns only intervals
-overlapping the current local day and cannot include old completed scheduler
-history. Expanded the plug-in mobile-data contract with stable metric IDs,
-bounded current images, chart legends and time-range guidance, and added
-regression coverage for the daily timeline.
+Corrected the Mobile API daily schedule so `date=today` returns only intervals overlapping the current local day and cannot include old completed scheduler history. Expanded the plug-in mobile-data contract with stable metric IDs, bounded current images, chart legends and time-range guidance, and added regression coverage for the daily timeline.
+
+**First version mobile app (for OSPy ver 3.0.311+)**<br/>
+The application communicates directly with your own OSPy installation via a secure and versioned JSON API. It does not use an intermediate server or cloud service.
+
+Main functions:
+• connection to multiple OSPy installations, such as Cottage, House or Greenhouse
+• overview of the current status of the irrigation system
+• start and stop individual stations
+• immediate shutdown of all stations
+• control of the scheduler, manual mode and rain delay
+• display and launch of irrigation programs
+• monitoring of sensors and their current values
+• switching on and off of supported sensors
+• overview of weather and forecasts
+• display of system events and records
+• overview of diagnostics and system status
+• overview of installed extensions
+• switching on and off of supported extensions
+• notifications of important events
+• support for HTTPS and two-step verification
+• ability to connect to a local installation with its own certificate
+
+To use the application, a compatible OSPy installation with an active **Mobile API v1 is required**.
 
 July 29 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
-Extended Mobile API v1 and the Android client with a normalized scheduler
-timeline, richer program descriptions and native program editing, separate
-event and station logs, and optional read-only operating cards and charts for
-official plug-ins. Home now uses the live irrigation timeline instead of
-duplicating the Weather screen. Added live refresh hints, regression tests and
-the complete wire contract to the API reference.
+Extended Mobile API v1 and the Android client with a normalized scheduler timeline, richer program descriptions and native program editing, separate event and station logs, and optional read-only operating cards and charts for official plug-ins. Home now uses the live irrigation timeline instead of duplicating the Weather screen. Added live refresh hints, regression tests and the complete wire contract to the API reference.
 
-Extended Mobile API v1 with a control-scoped global irrigation resource for
-the scheduler, manual mode and rain delay. Sensor responses now retain their
-legacy raw fields while adding a stable typed `display` contract containing the
-relevant reading, unit, connection, firmware, communication and address data.
-Updated the detailed API reference and regression coverage for both contracts.
-
-Made plug-in settings safe across live plug-in module replacement and serialized plug-in start, stop and reload operations within one OSPy process. This prevents stale `PluginOptions` instances from failing with `super(type, obj)` and prevents concurrent requests from starting the same plug-in twice.
+Extended Mobile API v1 with a control-scoped global irrigation resource for the scheduler, manual mode and rain delay. Sensor responses now retain their legacy raw fields while adding a stable typed `display` contract containing the relevant reading, unit, connection, firmware, communication and address data. Updated the detailed API reference and regression coverage for both contracts. Made plug-in settings safe across live plug-in module replacement and serialized plug-in start, stop and reload operations within one OSPy process. This prevents stale `PluginOptions` instances from failing with `super(type, obj)` and prevents concurrent requests from starting the same plug-in twice.
 
 Made the mobile API Home and Sensors resources resilient to optional subsystem failures. A weather-provider, water-level calculation, station-property or individual sensor-field error no longer discards the complete JSON response; valid data remains available and the affected resource reports a structured warning or field error. Added regression tests and documented the partial-response contract for native clients.
 
