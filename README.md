@@ -5,6 +5,9 @@ OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation sy
 ## For first installation and other visit 
 [Clean installation](https://github.com/martinpihrt/OSPy/tree/master/ospy/docs/Clean_installation.md)
 
+## Mobile App [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile)
+
+
 ## Emergency administrator login recovery
 If the administrator password is unknown or access to the configured two-factor method has been lost, run the local recovery script from the OSPy directory on the Raspberry Pi or another trusted local shell:
 
