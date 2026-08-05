@@ -435,6 +435,60 @@ The response of `/plugins/{id}/mobile` can contain `status`, `cards`,
 of numeric `value` points and optional display `time`. Native clients must
 ignore card kinds and fields they do not understand.
 
+Chart-capable plug-ins accept a bounded history request:
+
+```http
+GET /api/v1/plugins/air_temp_humi/mobile?from=2026-08-05T00:00:00&to=2026-08-06T00:00:00&max_points=400
+Authorization: Bearer ACCESS_TOKEN
+```
+
+`from` and `to` are inclusive ISO 8601 timestamps. They may contain a UTC
+offset; timestamps without an offset use the OSPy host's local time.
+`max_points` is limited to 20-2000 points per series and defaults to 400.
+Without an explicit range the server returns the current local day. Invalid
+timestamps, an end before the start, or an invalid point limit return HTTP
+400 with `invalid_history_range`.
+
+The same parameters are passed only to plug-ins that declare them. Older
+`mobile_cards()` implementations continue to work unchanged. Official graph
+adapters select the same local or SQL history source as their web page,
+filter the requested interval and reduce long series while retaining bucket
+minima and maxima. This prevents an old local `graph.json` from being shown
+when SQL history is selected.
+
+Example chart card response:
+
+```json
+{
+  "id": "temperatures",
+  "title": "Temperature sensors",
+  "series": [
+    {
+      "id": "sensor-0",
+      "label": "GREENHOUSE",
+      "unit": "°C",
+      "points": [
+        {"time": "2026-08-05T08:00:00", "value": 21.4},
+        {"time": "2026-08-05T08:10:00", "value": 21.8}
+      ]
+    }
+  ],
+  "history": {
+    "from": "2026-08-05T00:00:00",
+    "to": "2026-08-06T00:00:00",
+    "max_points": 400,
+    "source": "sql",
+    "last_available": "2026-08-05T08:10:00",
+    "returned_points": 2
+  }
+}
+```
+
+`last_available` describes the newest valid record in the selected history
+source, even if the requested interval contains no points. Clients can use it
+with an empty `series[].points` array to distinguish "no data in this period"
+from an unavailable plug-in.
+
 Metrics may include a stable, language-neutral `id` in addition to their
 display `label`, `value` and optional `unit`. Clients should use `id` for
 localized presentation and fall back to `label` for newer plug-ins. Series use

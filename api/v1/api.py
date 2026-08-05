@@ -1479,13 +1479,62 @@ class PluginMobile(object):
     @endpoint
     @require_scope("read")
     def GET(self, plugin_id):
+        query = web.input()
+        from_time = query.get("from") or None
+        to_time = query.get("to") or None
+        try:
+            max_points = int(query.get("max_points", 400))
+        except (TypeError, ValueError):
+            raise APIError(
+                422, "invalid_history_range",
+                "max_points must be an integer between 20 and 2000.",
+            )
+        if max_points < 20 or max_points > 2000:
+            raise APIError(
+                422, "invalid_history_range",
+                "max_points must be an integer between 20 and 2000.",
+            )
+
+        def parse_boundary(value):
+            if not value:
+                return None
+            try:
+                return datetime.datetime.fromisoformat(
+                    value[:-1] + "+00:00" if value.endswith("Z") else value
+                )
+            except (TypeError, ValueError):
+                raise APIError(
+                    422, "invalid_history_range",
+                    "History boundaries must use ISO 8601 date-time values.",
+                )
+
+        parsed_from = parse_boundary(from_time)
+        parsed_to = parse_boundary(to_time)
+        if parsed_from is not None and parsed_to is not None:
+            try:
+                invalid_order = parsed_from >= parsed_to
+            except TypeError:
+                raise APIError(
+                    422, "invalid_history_range",
+                    "History boundaries must use the same timezone form.",
+                )
+            if invalid_order:
+                raise APIError(
+                    422, "invalid_history_range",
+                    "The history start must be earlier than its end.",
+                )
+
         result = {"capabilities": plugins.plugin_mobile_capabilities(plugin_id)}
         for capability, key in (
                 ("status", "status"), ("cards", "cards"),
                 ("settings_schema", "settings_schema"),
                 ("settings", "settings")):
             try:
-                result[key] = plugins.plugin_mobile_call(plugin_id, capability)
+                result[key] = plugins.plugin_mobile_call(
+                    plugin_id, capability,
+                    from_time=from_time, to_time=to_time,
+                    max_points=max_points,
+                )
             except Exception:
                 result[key] = None
         return respond(_safe_value(result))

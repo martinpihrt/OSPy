@@ -441,6 +441,37 @@ class MobileAPIV1Tests(unittest.TestCase):
             "example", "action", "refresh", {"value": 1}
         )
 
+    def test_plugin_mobile_forwards_valid_history_range(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        with mock.patch(
+                "api.v1.api.plugins.plugin_mobile_capabilities",
+                return_value={}), mock.patch(
+                "api.v1.api.plugins.plugin_mobile_call",
+                return_value=[]) as mobile_call:
+            response = self._request(
+                "/plugins/example/mobile?from=2026-08-05T00%3A00%3A00"
+                "&to=2026-08-06T00%3A00%3A00&max_points=321",
+                token,
+            )
+        self.assertEqual(response.status, "200 OK")
+        self.assertEqual(mobile_call.call_count, 4)
+        mobile_call.assert_any_call(
+            "example", "cards",
+            from_time="2026-08-05T00:00:00",
+            to_time="2026-08-06T00:00:00",
+            max_points=321,
+        )
+
+    def test_plugin_mobile_rejects_invalid_history_range(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        response = self._request(
+            "/plugins/example/mobile?from=invalid&max_points=400", token
+        )
+        self.assertEqual(response.status, "422 Unprocessable Entity")
+        self.assertEqual(
+            self._json(response)["error"]["code"], "invalid_history_range"
+        )
+
     def test_plugin_enable_uses_normal_lifecycle(self):
         from api.v1 import api
 
@@ -511,6 +542,22 @@ class MobilePluginContractTests(unittest.TestCase):
         json.dumps(result)
         self.assertEqual(result["api_version"], 1)
         self.assertFalse(result["available"])
+
+    def test_optional_mobile_arguments_are_filtered_for_legacy_method(self):
+        import plugins
+
+        class LegacyPlugin(object):
+            @staticmethod
+            def mobile_cards():
+                return [{"id": "legacy"}]
+
+        with mock.patch.object(plugins, "running", return_value=["legacy"]), \
+                mock.patch.object(plugins, "get", return_value=LegacyPlugin()):
+            result = plugins.plugin_mobile_call(
+                "legacy", "cards", from_time="2026-08-05T00:00:00",
+                to_time="2026-08-06T00:00:00", max_points=400,
+            )
+        self.assertEqual(result, [{"id": "legacy"}])
 
 
 
