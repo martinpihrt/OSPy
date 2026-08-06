@@ -69,6 +69,32 @@ def document(server_url="/api/v1"):
         "GET": "read", "PUT": "plugins",
     })
     add("/plugins/{plugin_id}/mobile", ["GET"], "Plug-in mobile contribution", "read")
+    paths["/plugins/{plugin_id}/mobile"]["get"]["parameters"] = [
+        {
+            "name": "from",
+            "in": "query",
+            "description": "Inclusive ISO 8601 start of the requested history interval.",
+            "required": False,
+            "schema": {"type": "string", "format": "date-time"},
+        },
+        {
+            "name": "to",
+            "in": "query",
+            "description": "Inclusive ISO 8601 end of the requested history interval.",
+            "required": False,
+            "schema": {"type": "string", "format": "date-time"},
+        },
+        {
+            "name": "max_points",
+            "in": "query",
+            "description": "Maximum number of returned points per series (20-2000).",
+            "required": False,
+            "schema": {
+                "type": "integer", "minimum": 20, "maximum": 2000,
+                "default": 400,
+            },
+        },
+    ]
     add("/plugins/{plugin_id}/actions/{action}", ["POST"], "Declared plug-in mobile action", "plugins")
     add("/backups", ["GET", "POST"], "List or create backups", "backup")
     add("/backups/{backup_id}/download", ["GET"], "Download a backup", "backup")

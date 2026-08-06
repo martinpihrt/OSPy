@@ -13,6 +13,7 @@ import importlib
 import os
 import time
 import logging
+import inspect
 
 __running = {}
 __plugin_runtime = {}
@@ -2408,7 +2409,25 @@ def plugin_mobile_call(module, capability, *args, **kwargs):
         action = args[0] if args else kwargs.get('action')
         if action not in declared:
             raise ValueError('The plug-in action is not declared in plugin.json.')
-    result = method(*args, **kwargs)
+    # Mobile API v1 may add optional query parameters over time.  Filter them
+    # for older plug-ins whose mobile methods do not accept keyword arguments,
+    # so an OSPy update never breaks an otherwise valid legacy contribution.
+    call_kwargs = kwargs
+    if kwargs:
+        try:
+            signature = inspect.signature(method)
+            accepts_all = any(
+                parameter.kind == inspect.Parameter.VAR_KEYWORD
+                for parameter in signature.parameters.values()
+            )
+            if not accepts_all:
+                call_kwargs = {
+                    key: value for key, value in kwargs.items()
+                    if key in signature.parameters
+                }
+        except (TypeError, ValueError):
+            call_kwargs = kwargs
+    result = method(*args, **call_kwargs)
     try:
         json.dumps(result)
     except (TypeError, ValueError):
