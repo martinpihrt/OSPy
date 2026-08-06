@@ -291,7 +291,7 @@ The manifest fragment is:
 
 `GET /plugins` lists all installed plug-ins, run/enable state, compatibility, health and mobile capabilities. `/plugins/{id}/mobile` returns only available JSON contributions. `POST /plugins/{id}/actions/{declared_action}` rejects actions absent from the manifest. Plug-ins cannot inject mobile HTML or call arbitrary methods through the API.
 
-The response of `/plugins/{id}/mobile` can contain `status`, `cards`, `settings_schema` and `settings`. A card has a stable `kind` such as `metrics`, `status` or `chart`; a chart carries one or more named series made of numeric `value` points and optional display `time`. Native clients must ignore card kinds and fields they do not understand.
+The response of `/plugins/{id}/mobile` can contain `status`, `cards`, `settings_schema` and `settings`. A card has a stable `kind` such as `metrics`, `status` or `chart`; a chart carries one or more named series made of numeric `value` points and optional display `time`. Native clients must ignore card kinds and fields they do not understand. A client must show history-range controls only for a `chart` card, a card with explicit `history` metadata, or a card containing at least one real series point. An absent `series` field or an empty compatibility placeholder is not a graph and must not produce empty history controls.
 
 Chart-capable plug-ins accept a bounded history request:
 
@@ -352,7 +352,7 @@ A card may also carry one bounded current image:
 
 This is intended for current operating imagery such as the latest radar frame, not for video or unbounded history. The Android client decodes it locally and continues rendering the remaining metrics when the optional image is absent or invalid.
 
-Current official read-only adapters expose native operating data for Air Temperature and Humidity Monitor, Astro Sunrise and Sunset, CHMI, Current Loop Tanks Monitor, Real Time and NTP, Shelly Cloud Integration, System Information, Tank Monitor, UPS Monitor, Water Consumption Counter, Weather-based Water Level and Wind Speed Monitor. Existing web pages and plug-in settings remain independent; an adapter failure affects only that plug-in card.
+Current official read-only adapters expose native operating data for Air Temperature and Humidity Monitor, Astro Sunrise and Sunset, CHMI, Current Loop Tanks Monitor, E-mail Notifications SSL, Home Assistant MQTT, LCD Display, Monthly Water Level, OSPy Package Backup, Real Time and NTP, Shelly Cloud Integration, System Debug Information, System Information, System Update, Tank Monitor, Thermostat, UPS Monitor, Usage Statistics, Water Consumption Counter, Weather-based Water Level and Wind Speed Monitor. Existing web pages and plug-in settings remain independent; an adapter failure affects only that plug-in card.
 
 The official read-only adapters provide the following data without exposing configuration or arbitrary plug-in functions:
 
@@ -362,11 +362,20 @@ The official read-only adapters provide the following data without exposing conf
 | `sunrise_and_sunset` | Today's dawn, sunrise, solar noon, sunset and dusk, the current moon phase and age, and a 24-hour daylight timeline. |
 | `chmi` | Current rain decision, radar source, latest radar timestamp and the most recent bounded radar image including the map outline when the source provides it. |
 | `current_loop_tanks_monitor` | Current enabled tank measurements and bounded level history from the configured local or SQL source. |
+| `email_notifications_ssl` | Current mail-service readiness and enabled notification groups without the SMTP server, account, recipients, password or other credentials. |
+| `lcd_display` | Display type, I2C address, worker state and last successful display update without writing to the display. |
+| `monthly_water_level` | Current monthly irrigation adjustment and the month used for the calculation. |
+| `mqtt_home_assistant` | Current MQTT/Home Assistant connection and publication state without the broker address, user name, password or topic configuration. |
+| `ospy_backup` | Plug-in backup scheduling and last-backup status. Creating, listing and downloading complete OSPy backups remains available through the scoped core backup endpoints. |
 | `real_time` | Current OSPy time, the last successful synchronization cycle and the latest available NTP and RTC values. |
 | `shelly_cloud_integrator` | Cached Shelly device name, model, address, online state, battery, voltage, RSSI, temperature, humidity, illuminance, outputs and power readings. The adapter never contacts Shelly Cloud itself and never exposes credentials or controls. |
+| `system_debug` | Current debug-log state, size and entry count without returning the debug-log contents in the plug-in overview. |
 | `system_info` | Lightweight read-only platform, Python, uptime, CPU temperature and load, memory, local IP and MAC information. Expensive hardware scans are not run by a mobile request. |
+| `system_update` | Selected OSPy update channel, current and available versions and update-worker state. Installing an OSPy update remains an explicit scoped core update action. |
 | `tank_monitor` | Current enabled tank measurements and bounded level history from the configured local or SQL source. |
+| `thermostat` | Current thermostat operating state, measured temperature, target and controlled output state without changing thermostat settings. |
 | `ups_adj` | Current UPS condition and bounded UPS history from the configured local or SQL source, including state transitions during point reduction. |
+| `usage_statistics` | Current anonymous-statistics enable state and last submission result without exposing the configured destination URL. |
 | `water_consumption_counter` | Current and total consumption for master 1 and master 2 with distinct labels and automatic litre/cubic-metre units. |
 | `weather_based_water_level` | The selected calculation method, calculation time, resulting irrigation adjustment and the inputs and intermediate values available for the active multi-day, Zimmerman or FAO-56 ETo method. No weather-method settings are exposed. |
 | `wind_monitor` | Current speed, trend and bounded wind history from the configured local or SQL source. |
@@ -395,11 +404,11 @@ These administrator operations return an operation identifier. Follow `/operatio
 - `GET /backups/{filename}/download` returns `application/zip`.
 - `POST /backups/{filename}/restore` validates, stages and restores it, then schedules restart.
 
-Existing ZIP path, checksum, size, schema and SQLite/shelve validation remains authoritative. The mobile API does not weaken restore checks.
+`GET /backups` returns an array whose items contain `name`, byte `size` and Unix `modified` time. The file name from this response must be URL-encoded as one path segment for download or restore. The download response is raw ZIP bytes rather than the normal JSON envelope and uses `Content-Disposition: attachment`; a native client must stream or write these bytes to a user-selected file and must not attempt to decode them as JSON. Existing ZIP path, checksum, size, schema and SQLite/shelve validation remains authoritative. The mobile API does not weaken restore checks.
 
 ### Update and system endpoints
 
-`GET /updates` returns System Update health. `/updates/actions/check|apply| rollback` requires the running System Update plug-in. System actions are `/system/actions/restart-ospy`, `/reboot` and `/poweroff`.
+`GET /updates` returns System Update health. `/updates/actions/check|apply|rollback` requires the running System Update plug-in. `POST /updates/actions/apply` installs from the channel already selected in System Update; it does not silently change stable/beta selection. The mobile client should ask for confirmation, display the asynchronous operation state and reconnect after the controlled restart. System actions are `/system/actions/restart-ospy`, `/reboot` and `/poweroff`.
 
 Long operations return HTTP `202` with an operation object. Poll `GET /operations/{id}` until `status` is `completed` or `failed`; fields include `kind`, `progress`, `result`, `error`, `created` and `updated`.
 
