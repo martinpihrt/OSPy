@@ -7,6 +7,8 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 August 6 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Updated the Czech translation.
+
 Expanded the documented Mobile API v1 plug-in telemetry contract for system, display, e-mail, MQTT, thermostat, statistics, backup and update plug-ins. Clarified that empty series are not charts, documented the exact backup-list and raw ZIP-download contract, and described safe installation of the already selected System Update channel for native clients.
 
 Corrected the Home timeline status for a station started directly through Mobile API v1. A physically active station without a scheduler interval is now shown as **On** instead of the contradictory green **Off** row. Clarified the live plug-in mobile-data contract, current chart-point behavior and dynamic water-meter units in the Mobile API reference, and added regression coverage.
