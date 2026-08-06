@@ -753,9 +753,14 @@ class PluginManifestRepositoryTests(unittest.TestCase):
             "air_temp_humi",
             "chmi",
             "current_loop_tanks_monitor",
+            "real_time",
+            "shelly_cloud_integrator",
+            "sunrise_and_sunset",
+            "system_info",
             "tank_monitor",
             "ups_adj",
             "water_consumption_counter",
+            "weather_based_water_level",
             "wind_monitor",
         }
         roots = _configured_official_plugin_roots()

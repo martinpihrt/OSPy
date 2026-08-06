@@ -70,6 +70,13 @@ class TemplateCompilationTests(unittest.TestCase):
                 self.assertIn("manualPlugin${station.index}", source)
                 self.assertIn("stationPluginLive", source)
 
+    def test_home_pages_show_directly_activated_station_as_on(self):
+        for name in ("home_admin.html", "home_user.html", "home_public.html"):
+            source = (TEMPLATE_ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(template=name):
+                self.assertIn('display = station.status == "on"', source)
+                self.assertIn("json.dumps(_('On')", source)
+
     def test_options_exposes_direct_backup_section_link(self):
         source = (TEMPLATE_ROOT / "options.html").read_text(encoding="utf-8")
         self.assertIn("id='backup-options'", source)

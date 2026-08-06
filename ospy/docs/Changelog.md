@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+August 6 2026 (v3.0)
+-----------
+(Martin Pihrt)<br/>
+Corrected the Home timeline status for a station started directly through Mobile API v1. A physically active station without a scheduler interval is now shown as **On** instead of the contradictory green **Off** row. Clarified the live plug-in mobile-data contract, current chart-point behavior and dynamic water-meter units in the Mobile API reference, and added regression coverage.
+
 July 30 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
