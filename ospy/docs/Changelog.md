@@ -9,6 +9,8 @@ August 7 2026 (v3.0)
 (Martin Pihrt)<br/>
 Extended plug-in compatibility manifests with selectable I2C resources. Plug-ins that can use one of several addresses are now installed from the official repository or a custom ZIP when a distinct assignment exists, instead of being treated as if they occupied every alternative simultaneously. Added helpers that select a free address during activation and return a translated validation error before settings can assign an address already used by another enabled plug-in. Added manifest, allocation, stored-option and fallback regression coverage, updated the plug-in developer and test guides, and documented the behavior in all seven Web Interface Guides.
 
+Wind Speed Monitor v1.1.8 and Water Meter v1.0.2 now display a selectable-I2C address conflict as a red status bar directly on the settings page instead of opening a standalone HTTP 400 error page. Rejected submissions keep all preceding settings and expose the message with alert semantics for assistive technology. Updated both plug-in README and in-app help documents, the plug-in changelog and all seven Web Interface Guides.
+
 August 6 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

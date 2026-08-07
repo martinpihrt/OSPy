@@ -125,7 +125,7 @@ sandbox.
 
 A scalar entry in `hardware.i2c` declares an address that the plug-in always uses. A selectable entry declares one resource with several `alternatives`, the `PluginOptions` key that selects it, the stored `option_values` for each address, and a `default`. Compatibility validation assigns selectable claims to distinct addresses, so two plug-ins offering `0x50` and `0x51` can coexist when each uses a different address. At activation a plug-in can call `select_plugin_i2c_address()` to keep its preferred address or choose a free alternative. Before saving a user selection it must call `plugin_i2c_address_error()` and reject a non-empty translated error; this prevents two enabled plug-ins from being configured to the same address.
 
-OSPy treats the Water Meter and Wind Speed Monitor declarations as one selectable I2C resource each. Both plug-ins can therefore be installed from the repository or a custom ZIP and run together when they use different addresses. Activation selects a free alternative when necessary, and either settings page rejects an address already used by another enabled plug-in.
+OSPy treats the Water Meter and Wind Speed Monitor declarations as one selectable I2C resource each. Both plug-ins can therefore be installed from the repository or a custom ZIP and run together when they use different addresses. Activation selects a free alternative when necessary, and either settings page rejects an address already used by another enabled plug-in, preserves the previous settings and displays the conflict in a red status bar.
 
 Administrative permission approval
 ----
