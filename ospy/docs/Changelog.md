@@ -7,6 +7,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 August 7 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Water Meter v1.1.1 fixes an enabled meter remaining at zero after a PCF8583 setup or block-read failure. It reads exactly three counter bytes from registers `0x01–0x03`, closes and retries the bus automatically, safely reinitializes after settings changes and displays the active I2C error on the overview. Updated both README files, in-app help and all seven Web Interface Guides.
+
+(Martin Pihrt)<br/>
 Water Meter v1.1.0 now uses uninterrupted one-second flow measurements and separates its responsive live overview from configuration. It adds current `l/s` and equivalent `l/min`, current-minute/current-hour/total consumption, local JSON and optional SQL logging, selectable history source, seconds-based interval, zero-flow filtering, bounded or unlimited retention, CSV download, a flow graph, an optional Home value and mobile API v1 cards with bounded history. Updated both README files, in-app help and all seven Web Interface Guides.
 
 (Martin Pihrt)<br/>

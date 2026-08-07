@@ -2,6 +2,9 @@
 
 August 7 2026
 -------------
+(Martin Pihrt) - Water Meter v1.1.1<br/>
+Documented explicit three-byte PCF8583 reads from registers 0x01-0x03, automatic bus close and initialization retry after setup or measurement failure, safe worker-thread reinitialization after settings changes, and visible I2C errors on the overview.
+
 (Martin Pihrt) - Water Meter v1.1.0<br/>
 Documented uninterrupted one-second flow measurements, the separate responsive overview and settings pages, current/minute/hour/total values, local JSON and optional SQL logging, selectable graph/log source, seconds-based interval, zero-flow filtering, bounded or unlimited retention, CSV download, flow graph, optional Home `l/s (l/min)` value and mobile API v1 cards with bounded history.
 
