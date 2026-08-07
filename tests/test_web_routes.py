@@ -94,6 +94,7 @@ class WebRouteIntegrationTests(unittest.TestCase):
         restore_options = SimpleNamespace(
             run_logEV=False,
             save_now=mock.Mock(),
+            suspend_writes=mock.Mock(return_value=True),
         )
         restore_stations = SimpleNamespace(clear=mock.Mock())
 
@@ -115,6 +116,7 @@ class WebRouteIntegrationTests(unittest.TestCase):
             result = handler.POST()
 
         self.assertTrue(self.session.get("_killed"))
+        restore_options.suspend_writes.assert_called_once_with()
         apply_restore.assert_called_once_with("staging")
         self.assertIsInstance(result, str)
 

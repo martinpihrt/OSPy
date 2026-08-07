@@ -160,7 +160,7 @@ The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to `0..
 
 Station JSON includes `id`, `legacy_index`, visible number, name, enabled and running state, remaining seconds, master roles, rain behaviour, usage, precipitation, capacity and ETo factor. Live state, number and identifiers are read-only. Direct start is rejected for disabled or master outputs.
 
-A directly started station runs until a matching `stop` or `stop-all` request. It reports `running: true` and `remaining_seconds: -1`, because there is no fixed scheduler interval to count down. OSPy Home displays this live output as **On** even though the station has no scheduler-run reason.
+A station can be started directly only while manual mode is enabled. The API creates the same manual run record as the OSPy web interface, so station history and configured master outputs follow the run. It continues until a matching `stop` or `stop-all` request.
 
 Stop All follows the web safety sequence: disable scheduler processing, clear run-now and run-once state, finish the run log, clear physical outputs and switch off the additional relay output. The action is audited.
 
@@ -556,7 +556,7 @@ Content-Type: application/json
 {}
 ```
 
-The response is the updated station object. Start may return HTTP `409` with `station_unavailable` for a disabled or master output. Stop All accepts `{}` at `POST /stations/actions/stop-all` and returns `{"data":{"stopped":true},"meta":{...}}`.
+The response is the updated station object. Start may return HTTP `409` with `manual_mode_required` when manual mode is disabled or `station_unavailable` for a disabled or master output. Stop All accepts `{}` at `POST /stations/actions/stop-all` and returns `{"data":{"stopped":true},"meta":{...}}`.
 
 ### Program and run-once responses
 
