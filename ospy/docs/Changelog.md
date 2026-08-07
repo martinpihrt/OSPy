@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+August 7 2026 (v3.0)
+-----------
+(Martin Pihrt)<br/>
+Extended plug-in compatibility manifests with selectable I2C resources. Plug-ins that can use one of several addresses are now installed from the official repository or a custom ZIP when a distinct assignment exists, instead of being treated as if they occupied every alternative simultaneously. Added helpers that select a free address during activation and return a translated validation error before settings can assign an address already used by another enabled plug-in. Added manifest, allocation, stored-option and fallback regression coverage, updated the plug-in developer and test guides, and documented the behavior in all seven Web Interface Guides.
+
 August 6 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

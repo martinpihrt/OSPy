@@ -1,5 +1,10 @@
 # OSPy-plugins Changelog
 
+August 7 2026
+-------------
+(Martin Pihrt) - Wind Speed Monitor v1.1.7 and Water Meter v1.0.1<br/>
+Declared PCF8583 addresses 0x50 and 0x51 as selectable alternatives instead of two simultaneously occupied I2C resources. Both plug-ins can now be installed from the official repository or a custom ZIP and run together on distinct addresses. During activation each plug-in keeps its preferred address when available or selects the free alternative; both settings pages reject an address already used by another enabled plug-in. Updated the repository, plug-in README and in-app help documentation.
+
 July 27 2026
 ------------
 (Martin Pihrt) - CHMI v1.0.2<br/>

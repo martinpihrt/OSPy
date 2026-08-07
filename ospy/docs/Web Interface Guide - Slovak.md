@@ -621,6 +621,8 @@ Po kliknutí na tlačidlo "Nainštalovať nový doplnok" sa otvorí okno so vzdi
 
 Pred kopírovaním súborov OSPy bezpečne načíta `plugin.json` priamo zo stiahnutého ZIP archívu a pri každom doplnku zobrazí stav kompatibility aj konkrétne dôvody prípadného problému. Nekompatibilný doplnok nie je možné nainštalovať ani ručne aktualizovať. Doplnok iba s varovaniami možno po ich zobrazení nainštalovať. Hromadná inštalácia nainštaluje kompatibilné doplnky a nekompatibilné preskočí s uvedením dôvodu. Rovnaká kontrola platí pre vlastné ZIP súbory, jednotlivé a hromadné operácie aj aktualizácie. Chýbajúci, neplatný alebo príliš veľký `plugin.json` je pri novej inštalácii chybou; už nainštalované staršie doplnky bez manifestu môžu naďalej fungovať v režime spätnej kompatibility.
 
+Ak môže I2C doplnok používať jednu z viacerých alternatívnych adries, kontrola kompatibility chápe deklaráciu ako jeden voliteľný prostriedok, nie ako súčasné obsadenie všetkých adries. Inštalácia z repozitára aj vlastného ZIPu je povolená, ak zostáva dostupná odlišná adresa. Pri aktivácii si doplnok ponechá uprednostnenú adresu alebo vyberie voľnú alternatívu. Jeho nastavenia odmietnu adresu, ktorú už používa iný povolený doplnok, a zachovajú predchádzajúcu voľbu.
+
 ### Vlastný doplnok (ZIP)
 OSPy overí celý ZIP skôr, než zapíše jediný súbor doplnku. Archív musí obsahovať aspoň jeden adresár doplnku so súborom `__init__.py` a platným UTF-8 súborom `plugin.json`, ktorého `id` zodpovedá názvu adresára. Doplnok môže obsahovať aj Python moduly, `README.md` a adresáre `templates`, `static`, `script`, `docs`, `i18n` a `data`. Archív repozitára môže mať doplnky v adresári `plugins/`; vlastný archív môže obsahovať doplnok priamo v koreňovom adresári.
 

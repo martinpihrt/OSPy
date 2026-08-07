@@ -1903,6 +1903,40 @@ def _normalize_plugin_manifest(data, module=None):
         if value is not None and not isinstance(value, (dict, list)):
             return {}
 
+    hardware = manifest.get('hardware')
+    if isinstance(hardware, dict) and 'i2c' in hardware:
+        i2c_entries = hardware.get('i2c')
+        if not isinstance(i2c_entries, list):
+            return {}
+        for entry in i2c_entries:
+            if not isinstance(entry, dict):
+                continue
+            alternatives = entry.get('alternatives')
+            option = entry.get('option')
+            option_values = entry.get('option_values')
+            default = _normalized_resource(entry.get('default'))
+            if (not isinstance(alternatives, list) or not alternatives or
+                    not isinstance(option, str) or not option.strip() or
+                    not isinstance(option_values, dict)):
+                return {}
+            normalized_alternatives = [
+                _normalized_resource(item) for item in alternatives
+            ]
+            normalized_option_values = {
+                _normalized_resource(address): value
+                for address, value in option_values.items()
+            }
+            if (any(not item for item in normalized_alternatives) or
+                    len(set(normalized_alternatives)) != len(normalized_alternatives) or
+                    len(normalized_option_values) != len(option_values) or
+                    default not in normalized_alternatives or
+                    set(normalized_option_values) != set(normalized_alternatives)):
+                return {}
+            entry['alternatives'] = normalized_alternatives
+            entry['option'] = option.strip()
+            entry['option_values'] = normalized_option_values
+            entry['default'] = default
+
     if 'dependencies' in manifest:
         dependencies = manifest.get('dependencies')
         if isinstance(dependencies, dict):
@@ -2010,6 +2044,148 @@ def _normalized_resource(value):
     if isinstance(value, int):
         return str(value)
     return str(value).strip().lower()
+
+
+def _i2c_manifest_resources(manifest):
+    """Return fixed and selectable I2C resource declarations."""
+    fixed = set()
+    selectable = []
+    for entry in _manifest_list(_hardware_manifest(manifest).get('i2c')):
+        if isinstance(entry, dict):
+            alternatives = tuple(
+                _normalized_resource(item)
+                for item in _manifest_list(entry.get('alternatives'))
+                if _normalized_resource(item)
+            )
+            if alternatives:
+                selectable.append({
+                    'alternatives': alternatives,
+                    'option': str(entry.get('option', '')).strip(),
+                    'option_values': dict(entry.get('option_values', {})),
+                    'default': _normalized_resource(entry.get('default')),
+                })
+        else:
+            resource = _normalized_resource(entry)
+            if resource:
+                fixed.add(resource)
+    return fixed, selectable
+
+
+def _selected_i2c_resources(module, manifest=None, option_overrides=None):
+    """Resolve the I2C addresses currently selected by one plug-in."""
+    from ospy.options import options
+
+    manifest = manifest if manifest is not None else plugin_manifest(module)
+    fixed, selectable = _i2c_manifest_resources(manifest)
+    storage_key = 'plugin_' + module
+    stored = options[storage_key] if storage_key in options else {}
+    stored = stored if isinstance(stored, dict) else {}
+    overrides = option_overrides if isinstance(option_overrides, dict) else {}
+    selected = set(fixed)
+    for declaration in selectable:
+        option = declaration['option']
+        value = overrides.get(option, stored.get(option, None))
+        address = None
+        if value is not None:
+            for candidate, candidate_value in declaration['option_values'].items():
+                if value == candidate_value and type(value) is type(candidate_value):
+                    address = _normalized_resource(candidate)
+                    break
+        selected.add(address or declaration['default'])
+    return selected
+
+
+def plugin_i2c_address_conflict(module, address, enabled_modules=None):
+    """Return the enabled plug-in using address, or an empty string."""
+    from ospy.options import options
+
+    normalized = _normalized_resource(address)
+    if enabled_modules is None:
+        enabled_modules = list(options.enabled_plugins)
+    for other in sorted(set(enabled_modules) - {module}):
+        if normalized in _selected_i2c_resources(other):
+            return other
+    return ''
+
+
+def plugin_i2c_address_error(module, address, enabled_modules=None):
+    """Return a localized conflict message for a selected I2C address."""
+    other = plugin_i2c_address_conflict(module, address, enabled_modules)
+    if not other:
+        return ''
+    other_manifest = plugin_manifest(other)
+    other_name = other_manifest.get('name') or other
+    return _('I2C address {} is already used by {}.').format(
+        _normalized_resource(address), other_name
+    )
+
+
+def select_plugin_i2c_address(module, preferred=None, enabled_modules=None):
+    """Choose the preferred or first free declared selectable I2C address."""
+    manifest = plugin_manifest(module)
+    fixed, selectable = _i2c_manifest_resources(manifest)
+    if len(selectable) != 1:
+        return ''
+    choices = list(selectable[0]['alternatives'])
+    preferred = _normalized_resource(preferred)
+    if preferred in choices:
+        choices.remove(preferred)
+        choices.insert(0, preferred)
+    for address in choices:
+        if (address not in fixed and
+                not plugin_i2c_address_conflict(module, address, enabled_modules)):
+            return address
+    return ''
+
+
+def _selectable_i2c_assignment(selectable, unavailable):
+    """Return whether every selectable I2C claim can receive a unique address."""
+    choices = [item[1] for item in sorted(selectable, key=lambda item: len(item[1]))]
+    unavailable = set(unavailable)
+    address_owner = {}
+    assigned_address = {}
+
+    for start in range(len(choices)):
+        queue = [start]
+        queue_index = 0
+        visited_claims = {start}
+        visited_addresses = set()
+        parent_claim = {}
+        free_claim = None
+        free_address = None
+
+        while queue_index < len(queue) and free_address is None:
+            claim = queue[queue_index]
+            queue_index += 1
+            for address in choices[claim]:
+                if address in unavailable or address in visited_addresses:
+                    continue
+                visited_addresses.add(address)
+                owner = address_owner.get(address)
+                if owner is None:
+                    free_claim = claim
+                    free_address = address
+                    break
+                if owner not in visited_claims:
+                    visited_claims.add(owner)
+                    parent_claim[owner] = claim
+                    queue.append(owner)
+
+        if free_address is None:
+            return False
+
+        claim = free_claim
+        address = free_address
+        while True:
+            previous_address = assigned_address.get(claim)
+            assigned_address[claim] = address
+            address_owner[address] = claim
+            if claim == start:
+                break
+            claim = parent_claim[claim]
+            address = previous_address
+
+    return True
 
 
 def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
@@ -2163,10 +2339,12 @@ def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
         _normalized_resource(item)
         for item in _manifest_list(hardware.get('gpio'))
     }
-    i2c = {
-        _normalized_resource(item)
-        for item in _manifest_list(hardware.get('i2c'))
-    }
+    i2c, selectable_i2c = _i2c_manifest_resources(manifest)
+    selectable_i2c_claims = [
+        (module, declaration['alternatives'])
+        for declaration in selectable_i2c
+    ]
+    fixed_i2c = dict((address, module) for address in i2c)
     for other in sorted(enabled_modules - {module}):
         other_manifest = plugin_manifest(other)
         if not other_manifest:
@@ -2184,10 +2362,7 @@ def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
             _normalized_resource(item)
             for item in _manifest_list(other_hardware.get('gpio'))
         }
-        other_i2c = {
-            _normalized_resource(item)
-            for item in _manifest_list(other_hardware.get('i2c'))
-        }
+        other_i2c, other_selectable_i2c = _i2c_manifest_resources(other_manifest)
         shared_gpio = sorted(gpio.intersection(other_gpio))
         shared_i2c = sorted(i2c.intersection(other_i2c))
         if shared_gpio:
@@ -2198,6 +2373,23 @@ def plugin_manifest_compatibility(module, manifest, enabled_modules=None,
             errors.append(
                 _('I2C conflict with {}').format(other) + ': ' + ', '.join(shared_i2c)
             )
+        for address in other_i2c:
+            fixed_i2c.setdefault(address, other)
+        selectable_i2c_claims.extend(
+            (other, declaration['alternatives'])
+            for declaration in other_selectable_i2c
+        )
+
+    if (selectable_i2c_claims and
+            not _selectable_i2c_assignment(selectable_i2c_claims, fixed_i2c)):
+        details = [
+            '{} ({})'.format(owner, ', '.join(addresses))
+            for owner, addresses in selectable_i2c_claims
+        ]
+        errors.append(
+            _('No non-conflicting I2C address is available for selectable resources') +
+            ': ' + '; '.join(details)
+        )
 
     status = 'error' if errors else ('warning' if warnings else 'ok')
     return {
