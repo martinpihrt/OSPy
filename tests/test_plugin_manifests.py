@@ -933,6 +933,7 @@ class PluginManifestRepositoryTests(unittest.TestCase):
             "tank_monitor",
             "ups_adj",
             "water_consumption_counter",
+            "water_meter",
             "weather_based_water_level",
             "wind_monitor",
         }

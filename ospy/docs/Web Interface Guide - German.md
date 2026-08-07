@@ -1313,6 +1313,7 @@ Alle *.md-Dateien im docs-Verzeichnis werden auf der Seite „Hilfe“ angezeigt
 * Remote FTP Control (vereinfachte Fernsteuerung von OSPy über einen Server mit PHP und FTP)
 * Systemaktualisierung (verwenden Sie diese Erweiterung, um das OSPy-System einfach über GIThub anstelle von Systembefehlen zu aktualisieren)
 * Wasserzähler (Durchflussmessung mittels Wasserzähler mit Impulsausgang über den I2C-Bus)
+  Water Meter v1.1.0 misst kontinuierlich in Ein-Sekunden-Intervallen und aktualisiert die separate Übersicht jede Sekunde. Die Übersicht zeigt aktuelle l/s, entsprechende l/min, Verbrauch der aktuellen Minute und Stunde, Gesamtverbrauch und ein Durchflussdiagramm. Die Einstellungen steuern lokale JSON- und optionale SQL-Protokollierung, die angezeigte Quelle, das Intervall in Sekunden, das Auslassen von Nulldurchfluss und die maximale Datensatzanzahl, wobei 0 unbegrenzt bedeutet. Der optionale Home-Wert zeigt `aktuelle l/s (aktuelle l/min)`, und Mobile API v1 liefert Live-Karten und einen begrenzten Verlauf aus der ausgewählten Quelle.
 * Webcam-Monitor (nimmt Fotos von der USB-Webcam auf)
 * Wetterbasierter Wasserstand Netatmo (Einstellen der Wassermenge für die Bewässerung von der Netatmo-Wetterstation)
 * Direkte 16 Relaisausgänge (mit dieser Erweiterung können wir 16 Relais (Stationen) steuern, die direkt an den Raspberry Pi angeschlossen sind, einige andere Erweiterungen sind jedoch nicht verfügbar.)

@@ -1313,6 +1313,7 @@ Všetky * .md súbory v adresári docs budú viditeľné na stránke "Pomocník"
 * Remote FTP Control (zjednodušené vzdialené ovládanie OSPy pomocou servera s PHP a FTP)
 * System Update (pomocou tohto rozšírenia je možné jednoducho aktualizovať systém OSPy z GIThubu namiesto systémových príkazov)
 * Water Meter (meranie prietoku pomocou vodomeru s pulzným výstupom pomocou I2C zbernice)
+  Water Meter v1.1.0 meria nepretržite v sekundových intervaloch a samostatný prehľad obnovuje každú sekundu. Prehľad zobrazuje aktuálne l/s, zodpovedajúce l/min, spotrebu v aktuálnej minúte a hodine, celkovú spotrebu a graf prietoku. Nastavenia riadia lokálne JSON a voliteľné SQL protokolovanie, zobrazovaný zdroj, interval v sekundách, vynechanie nulového prietoku a maximálny počet záznamov, kde 0 znamená bez obmedzenia. Voliteľná hodnota na Home zobrazuje `aktuálne l/s (aktuálne l/min)` a mobilné API v1 poskytuje živé karty a obmedzenú históriu z vybraného zdroja.
 * Webcam Monitor (vytvára fotografie z USB webkamery)
 * Weather-based Water Level Netatmo (nastavenie množstva vody na zavlažovanie z meteostanice Netatmo)
 * Direct 16 Relay Outputs (pomocou tohto rozšírenia môžeme ovládať 16 relé (staníc) pripojených priamo k Raspberry Pi, avšak niektoré ostatné rozšírenia nebudú dostupné)
