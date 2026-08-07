@@ -726,6 +726,7 @@ class _Options(object):
     def __init__(self):
         self._values = {}
         self._write_timer = None
+        self._writes_suspended = False
         self._callbacks = {}
         self._block = []
         self._lock = threading.RLock()
@@ -1429,7 +1430,18 @@ class _Options(object):
     @staticmethod
     def _compatible_value(default, value, key=''):
         if key in ('weather_lat', 'weather_lon'):
-            return isinstance(value, (str, int, float)) and not isinstance(value, bool)
+            # Backward compatibility: older OSPy versions could store missing
+            # coordinates as an empty dict/list/tuple or None. These values are
+            # normalized to an empty string later during startup.
+            if isinstance(value, (str, int, float)) and not isinstance(value, bool):
+                return True
+            if value is None:
+                return True
+            if isinstance(value, dict) and not value:
+                return True
+            if isinstance(value, (list, tuple)) and not value:
+                return True
+            return False
         if key == 'ip_address':
             if not isinstance(value, (list, tuple)) or len(value) != 4:
                 return False
@@ -1598,6 +1610,17 @@ class _Options(object):
             timer.join(max(0.0, float(timeout)))
         return timer is None or not timer.is_alive()
 
+    def suspend_writes(self, timeout=OPTIONS_WRITE_STOP_TIMEOUT):
+        """Stop all settings writes until this process is restarted."""
+        # Set the latch while holding the same lock used by _write().  If a
+        # delayed writer is already inside _write(), this waits until that
+        # pre-restore write is finished.  Once the latch is set, no new timer
+        # can persist stale in-memory settings over restored files.
+        with self._lock:
+            self._writes_suspended = True
+
+        return self.cancel_pending_write(timeout)
+
     def flush(self):
         """Persist pending option changes synchronously during shutdown."""
         if not self.cancel_pending_write():
@@ -1669,11 +1692,15 @@ class _Options(object):
                                 )
                         self._callbacks[key]['last_value'] = value
 
-                # Only write after 1 second without any more changes
-                if self._write_timer is not None:
-                    self._write_timer.cancel()
-                self._write_timer = Timer(1.0, self._write)
-                self._write_timer.start()
+                # Only write after 1 second without any more changes.
+                # During system restore, in-memory values may still change
+                # while the old process is shutting down, but those stale
+                # values must never overwrite the restored settings files.
+                if not self._writes_suspended:
+                    if self._write_timer is not None:
+                        self._write_timer.cancel()
+                    self._write_timer = Timer(1.0, self._write)
+                    self._write_timer.start()
 
     def __delattr__(self, item):
         if item.startswith('_'):
@@ -1682,11 +1709,12 @@ class _Options(object):
             with self._lock:
                 del self._values[item]
 
-                # Only write after 1 second without any more changes
-                if self._write_timer is not None:
-                    self._write_timer.cancel()
-                self._write_timer = Timer(1.0, self._write)
-                self._write_timer.start()
+                # Only write after 1 second without any more changes.
+                if not self._writes_suspended:
+                    if self._write_timer is not None:
+                        self._write_timer.cancel()
+                    self._write_timer = Timer(1.0, self._write)
+                    self._write_timer.start()
 
     # Makes it possible to use this class like options[<item>]
     __getitem__ = __getattr__
@@ -1739,6 +1767,10 @@ class _Options(object):
         strict_attempt = False
         try:
             with self._lock:
+                if self._writes_suspended:
+                    logging.debug(_('Options write ignored because writes are suspended.'))
+                    return True
+
                 # Keep the summary profile consistent even when a component
                 # changes one of the advanced controls outside the web form.
                 self._normalize_settings_storage_mode(self._values)
@@ -1940,9 +1972,8 @@ class _Options(object):
 
     def save_now(self):
         """Write pending option changes immediately."""
-        if self._write_timer is not None:
-            self._write_timer.cancel()
-            self._write_timer = None
+        if not self.cancel_pending_write():
+            return False
         return self._write()
 
     def get_categories(self):

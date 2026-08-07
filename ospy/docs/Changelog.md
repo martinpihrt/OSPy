@@ -7,6 +7,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 August 7 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>
+Fixed legacy backup restoration where older backups storing weather_lat or weather_lon as empty dictionaries were rejected as invalid settings, causing OSPy to start as a clean installation after restore.
+
+(Martin Pihrt)<br/>
 Water Meter v1.1.1 fixes an enabled meter remaining at zero after a PCF8583 setup or block-read failure. It reads exactly three counter bytes from registers `0x01–0x03`, closes and retries the bus automatically, safely reinitializes after settings changes and displays the active I2C error on the overview. Updated both README files, in-app help and all seven Web Interface Guides.
 
 (Martin Pihrt)<br/>

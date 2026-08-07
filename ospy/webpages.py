@@ -4991,6 +4991,17 @@ class upload_page(ProtectedPage):
                 server.session.kill()
                 server.stop()
                 restore_started = True
+
+                # The stopped process still holds the pre-restore options in
+                # memory.  Shutdown callbacks (and restart's stations.clear())
+                # may modify them and would normally schedule a delayed write.
+                # Freeze all options persistence before replacing the files so
+                # stale in-memory data cannot overwrite the restored backup.
+                if not options.suspend_writes():
+                    raise system_backup.BackupError(
+                        _('Pending settings writer could not be stopped before restoration.')
+                    )
+
                 system_backup.apply_staged_restore(staging)
                 restart(wait=3)
 
