@@ -16,6 +16,7 @@ The suite checks:
 * completeness and execution of the documented `pygettext.py` command;
 * protection of the repository POT file during the extraction test;
 * manifest parser acceptance and rejection rules;
+* selectable I2C manifest declarations, distinct-address assignment, stored option mapping and free-alternative selection for enabled plug-ins;
 * every `plugin.json` found in the installed OSPy `plugins` directory;
 * archive installation blocking before file writes for missing, invalid or
   incompatible manifests;

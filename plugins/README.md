@@ -52,7 +52,15 @@ use `NAME` and `MENU` from `__init__.py` in backward-compatibility mode.
         "platforms": ["raspberry_pi", "linux"],
         "requires": ["i2c", "gpio"],
         "gpio": [17, 27],
-        "i2c": ["0x20"]
+        "i2c": [
+          "0x20",
+          {
+            "alternatives": ["0x50", "0x51"],
+            "option": "address",
+            "option_values": {"0x50": false, "0x51": true},
+            "default": "0x50"
+          }
+        ]
       },
       "permissions": ["network", "files", "i2c", "gpio", "email"],
       "conflicts": {
@@ -114,6 +122,12 @@ permission names produce warnings. Supported permission names are `network`,
 `files`, `i2c`, `gpio`, `email`, `subprocess`, and `system`. Permissions are
 declarations shown to the administrator; they are not an operating-system
 sandbox.
+
+A scalar entry in `hardware.i2c` declares an address that the plug-in always uses. A selectable entry declares one resource with several `alternatives`, the `PluginOptions` key that selects it, the stored `option_values` for each address, and a `default`. Compatibility validation assigns selectable claims to distinct addresses, so two plug-ins offering `0x50` and `0x51` can coexist when each uses a different address. At activation a plug-in can call `select_plugin_i2c_address()` to keep its preferred address or choose a free alternative. Before saving a user selection it must call `plugin_i2c_address_error()` and reject a non-empty translated error; this prevents two enabled plug-ins from being configured to the same address.
+
+OSPy treats the Water Meter and Wind Speed Monitor declarations as one selectable I2C resource each. Both plug-ins can therefore be installed from the repository or a custom ZIP and run together when they use different addresses. Activation selects a free alternative when necessary, and either settings page rejects an address already used by another enabled plug-in, preserves the previous settings and displays the conflict in a red status bar.
+
+Water Meter v1.1.1 uses uninterrupted one-second measurements and separates its live overview from configuration. It supports local JSON and optional SQL history with selectable source, seconds-based interval, zero-flow filtering, bounded or unlimited records, CSV download and a flow graph. Its optional Home value shows current `l/s` with equivalent `l/min`, while mobile API v1 provides live consumption cards and bounded history. PCF8583 data is read explicitly from registers `0x01–0x03`; initialization and measurement failures close and retry the bus and are shown on the overview.
 
 Administrative permission approval
 ----

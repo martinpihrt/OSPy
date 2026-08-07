@@ -620,6 +620,8 @@ Clicking the "Install New Plugin" button opens a window with a remote repository
 
 Before copying any files, OSPy safely reads `plugin.json` directly from the downloaded ZIP archive and displays the compatibility state and specific reasons for any problem for each plug-in. An incompatible plug-in cannot be installed or updated manually. A plug-in with warnings remains installable after the warnings are shown. Bulk installation installs compatible plug-ins and skips incompatible ones while reporting the reasons. The same validation applies to custom ZIP files, individual and bulk operations, and updates. A missing, invalid, or oversized `plugin.json` is an installation error for a new installation; already installed legacy plug-ins without a manifest can continue to run in backward-compatibility mode.
 
+If an I2C plug-in can use one of several alternative addresses, compatibility checking treats the declaration as one selectable resource rather than as all addresses being occupied at once. Repository and custom-ZIP installation is allowed when a distinct address remains available. On activation the plug-in keeps its preferred address or selects a free alternative. Its settings reject an address already used by another enabled plug-in, preserve the previous settings and display the conflict in a red status bar without leaving the page.
+
 ### Custom plug-in (ZIP)
 OSPy validates the complete ZIP before writing any plug-in file. The archive must contain at least one plug-in directory with `__init__.py` and a valid UTF-8 `plugin.json` whose `id` matches the directory name. A plug-in may also contain Python modules, `README.md`, `templates`, `static`, `script`, `docs`, `i18n` and `data`. A repository archive may place plug-ins below `plugins/`; a custom archive may contain a plug-in directly at its top level.
 
@@ -1310,6 +1312,7 @@ All * .md files in the docs directory will be visible on the "Help page" page. *
 * Remote FTP Control (simplified remote control of OSPy using a server with PHP and FTP)
 * System Update (use this extension to easily update the OSPy system from GIThub instead of system commands)
 * Water Meter (flow measurement using a water meter with pulse output using the I2C bus)
+  Water Meter v1.1.1 measures continuously in one-second intervals and refreshes its separate overview every second. The overview shows current l/s, equivalent l/min, current-minute/current-hour/total consumption and a flow graph. Settings control local JSON and optional SQL logging, the displayed source, interval in seconds, zero-flow filtering, and a maximum record count where 0 is unlimited. The optional Home value displays `current l/s (current l/min)`, and mobile API v1 supplies live cards and bounded history from the selected source. The counter is read explicitly from PCF8583 registers 0x01–0x03; setup and measurement failures close and retry the bus and are shown on the overview.
 * Webcam Monitor (takes photos from USB webcam)
 * Weather-based Water Level Netatmo (setting the amount of water for irrigation from the Netatmo weather station)
 * Direct 16 Relay Outputs (using this extension we can control 16 relays (stations) connected directly to the Raspberry Pi, but some other extensions will not be available)

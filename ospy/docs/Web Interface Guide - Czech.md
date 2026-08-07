@@ -620,6 +620,8 @@ Po kliknutí na tlačítko "Instalovat nové rozšíření" se otevře okno se v
 
 OSPy před kopírováním souborů bezpečně načte `plugin.json` přímo ze staženého ZIP archivu a u každého rozšíření zobrazí stav kompatibility i konkrétní důvody případného problému. Nekompatibilní rozšíření nelze nainstalovat ani ručně aktualizovat. Rozšíření pouze s varováním lze po zobrazení varování nainstalovat. Hromadná instalace nainstaluje kompatibilní rozšíření a nekompatibilní přeskočí s uvedením důvodu. Stejná kontrola platí pro vlastní ZIP soubory, jednotlivé a hromadné operace i aktualizace. Chybějící, neplatný nebo příliš velký `plugin.json` je při nové instalaci chybou; již nainstalovaná starší rozšíření bez manifestu mohou nadále fungovat v režimu zpětné kompatibility.
   
+Pokud může I2C rozšíření používat jednu z několika alternativních adres, kontrola kompatibility chápe deklaraci jako jeden volitelný prostředek, nikoli jako současné obsazení všech adres. Instalace z repozitáře i vlastního ZIPu je povolena, pokud zůstává dostupná odlišná adresa. Při aktivaci si rozšíření ponechá upřednostněnou adresu nebo vybere volnou alternativu. Jeho nastavení odmítne adresu, kterou již používá jiné aktivní rozšíření, zachová všechna předchozí nastavení a zobrazí konflikt v červeném stavovém pruhu bez opuštění stránky.
+
 ### Vlastní rozšíření (ZIP)
 OSPy ověří celý ZIP dříve, než zapíše jediný soubor rozšíření. Archiv musí obsahovat alespoň jeden adresář rozšíření se souborem `__init__.py` a platným UTF-8 souborem `plugin.json`, jehož `id` odpovídá názvu adresáře. Rozšíření může dále obsahovat Python moduly, `README.md` a adresáře `templates`, `static`, `script`, `docs`, `i18n` a `data`. Repozitářový archiv může mít rozšíření v adresáři `plugins/`; vlastní archiv může obsahovat rozšíření přímo v kořeni.
 
@@ -1310,6 +1312,7 @@ Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověd
 * Remote FTP Control (zjednodušené vzdálené ovládání OSPy pomocí serveru s PHP a FTP)
 * System Update (pomocí tohoto rozšíření lze jednoduše aktualizovat systém OSPy z GIThubu namísto systémových příkazů)
 * Water Meter (měření průtoku pomocí vodoměru s pulsním výstupem pomocí I2C sběrnice)
+  Water Meter v1.1.1 měří nepřetržitě v sekundových intervalech a samostatný přehled obnovuje každou sekundu. Přehled zobrazuje aktuální l/s, odpovídající l/min, spotřebu v aktuální minutě a hodině, celkovou spotřebu a graf průtoku. Nastavení řídí lokální JSON a volitelné SQL logování, zobrazovaný zdroj, interval v sekundách, vynechání nulového průtoku a maximální počet záznamů, kde 0 znamená bez omezení. Volitelná hodnota na Home zobrazuje `aktuální l/s (aktuální l/min)` a mobilní API v1 poskytuje živé karty a omezenou historii z vybraného zdroje. Čítač se čte přímo z registrů PCF8583 0x01–0x03; chyba inicializace nebo měření zavře sběrnici, automaticky opakuje inicializaci a zobrazí chybu v přehledu.
 * Webcam Monitor (pořizuje fotografie z USB webkamery)
 * Weather-based Water Level Netatmo (nastavení množství vody pro zavlažování z meteostanice Netatmo)
 * Direct 16 Relay Outputs (pomocí tohoto rozšíření můžeme ovládat 16 relé (stanic) připojených přímo k Raspberry Pi, ovšem některá ostatní rozšíření nebudou dostupná)

@@ -141,6 +141,149 @@ class PluginManifestParserTests(unittest.TestCase):
                     {},
                 )
 
+    def test_selectable_i2c_manifest_is_validated_and_normalized(self):
+        manifest = _manifest(
+            "selector_plugin",
+            hardware={
+                "requires": ["i2c"],
+                "i2c": [{
+                    "alternatives": ["0X50", "0x51"],
+                    "option": "address",
+                    "option_values": {"0x50": False, "0x51": True},
+                    "default": "0X50",
+                }],
+            },
+        )
+        normalized = plugins._normalize_plugin_manifest(
+            manifest, "selector_plugin"
+        )
+
+        declaration = normalized["hardware"]["i2c"][0]
+        self.assertEqual(declaration["alternatives"], ["0x50", "0x51"])
+        self.assertEqual(declaration["default"], "0x50")
+
+        manifest["hardware"]["i2c"][0]["option_values"].pop("0x51")
+        self.assertEqual(
+            plugins._normalize_plugin_manifest(manifest, "selector_plugin"),
+            {},
+        )
+
+    def test_selectable_i2c_addresses_share_distinct_alternatives(self):
+        selectable = _manifest(
+            "selector_plugin",
+            hardware={
+                "i2c": [{
+                    "alternatives": ["0x50", "0x51"],
+                    "option": "address",
+                    "option_values": {"0x50": False, "0x51": True},
+                    "default": "0x50",
+                }],
+            },
+        )
+        other_selectable = _manifest(
+            "other_selector",
+            hardware={
+                "i2c": [{
+                    "alternatives": ["0x50", "0x51"],
+                    "option": "address",
+                    "option_values": {"0x50": False, "0x51": True},
+                    "default": "0x50",
+                }],
+            },
+        )
+        fixed = _manifest("fixed_plugin", hardware={"i2c": ["0x50"]})
+
+        with mock.patch.object(
+            plugins,
+            "plugin_manifest",
+            side_effect=lambda module: {
+                "other_selector": other_selectable,
+                "fixed_plugin": fixed,
+            }.get(module, {}),
+        ):
+            compatible = plugins.plugin_manifest_compatibility(
+                "selector_plugin",
+                selectable,
+                enabled_modules=["other_selector"],
+            )
+            exhausted = plugins.plugin_manifest_compatibility(
+                "selector_plugin",
+                selectable,
+                enabled_modules=["other_selector", "fixed_plugin"],
+            )
+
+        self.assertTrue(compatible["compatible"])
+        self.assertFalse(exhausted["compatible"])
+        self.assertTrue(any(
+            "selectable" in error.lower() for error in exhausted["errors"]
+        ))
+
+    def test_selected_i2c_address_uses_option_mapping(self):
+        manifest = _manifest(
+            "selector_plugin",
+            hardware={
+                "i2c": [{
+                    "alternatives": ["0x50", "0x51"],
+                    "option": "address",
+                    "option_values": {"0x50": False, "0x51": True},
+                    "default": "0x50",
+                }],
+            },
+        )
+
+        self.assertEqual(
+            plugins._selected_i2c_resources(
+                "selector_plugin", manifest, {"address": True}
+            ),
+            {"0x51"},
+        )
+        self.assertEqual(
+            plugins._selected_i2c_resources("selector_plugin", manifest, {}),
+            {"0x50"},
+        )
+
+    def test_select_plugin_i2c_address_uses_free_alternative(self):
+        def selectable_manifest(plugin):
+            return _manifest(
+                plugin,
+                hardware={
+                    "i2c": [{
+                        "alternatives": ["0x50", "0x51"],
+                        "option": "address",
+                        "option_values": {"0x50": False, "0x51": True},
+                        "default": "0x50",
+                    }],
+                },
+            )
+
+        storage_key = "plugin_other_selector"
+        had_original = storage_key in options_module.options
+        original = options_module.options[storage_key] if had_original else None
+        options_module.options[storage_key] = {"address": True}
+        try:
+            with mock.patch.object(
+                plugins,
+                "plugin_manifest",
+                side_effect=lambda module: selectable_manifest(module),
+            ):
+                self.assertEqual(
+                    plugins.plugin_i2c_address_conflict(
+                        "selector_plugin", "0x51", ["other_selector"]
+                    ),
+                    "other_selector",
+                )
+                self.assertEqual(
+                    plugins.select_plugin_i2c_address(
+                        "selector_plugin", "0x51", ["other_selector"]
+                    ),
+                    "0x50",
+                )
+        finally:
+            if not had_original:
+                del options_module.options[storage_key]
+            else:
+                options_module.options[storage_key] = original
+
     def test_plugin_page_metadata_uses_manifest_version(self):
         manifest = _manifest(
             "example_plugin",
@@ -228,6 +371,36 @@ class PluginManifestParserTests(unittest.TestCase):
 
 
 class PluginArchiveInstallationTests(unittest.TestCase):
+    def test_selectable_i2c_plugins_install_together_from_zip(self):
+        def manifest(plugin):
+            return _manifest(
+                plugin,
+                hardware={
+                    "i2c": [{
+                        "alternatives": ["0x50", "0x51"],
+                        "option": "address",
+                        "option_values": {"0x50": False, "0x51": True},
+                        "default": "0x50",
+                    }],
+                },
+            )
+
+        archive = _plugin_archive({
+            "wind_monitor": manifest("wind_monitor"),
+            "water_meter": manifest("water_meter"),
+        })
+        with mock.patch.object(
+            plugins.checker, "_install_repo_docs"
+        ), mock.patch.object(
+            plugins.checker, "_install_plugin"
+        ) as install_plugin:
+            result = plugins.checker.install_custom_plugin(archive)
+
+        self.assertEqual(
+            set(result["installed"]), {"wind_monitor", "water_meter"}
+        )
+        self.assertEqual(install_plugin.call_count, 2)
+
     def test_unsafe_parent_path_is_rejected_before_any_write(self):
         archive = _plugin_archive({"safe_plugin": _manifest("safe_plugin")})
         with zipfile.ZipFile(archive, "a") as zip_file:
@@ -760,6 +933,7 @@ class PluginManifestRepositoryTests(unittest.TestCase):
             "tank_monitor",
             "ups_adj",
             "water_consumption_counter",
+            "water_meter",
             "weather_based_water_level",
             "wind_monitor",
         }
