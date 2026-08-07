@@ -214,8 +214,10 @@ class PluginManifestParserTests(unittest.TestCase):
 
         self.assertTrue(compatible["compatible"])
         self.assertFalse(exhausted["compatible"])
+        self.assertTrue(exhausted["errors"])
         self.assertTrue(any(
-            "selectable" in error.lower() for error in exhausted["errors"]
+            "I2C" in error and "0x50" in error and "0x51" in error
+            for error in exhausted["errors"]
         ))
 
     def test_selected_i2c_address_uses_option_mapping(self):
