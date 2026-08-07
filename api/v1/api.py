@@ -597,22 +597,63 @@ def _connect_hooks():
 
         rain_active.connect(notify_rain, weak=False)
 
-        def notify_station_finished(sender=None, **kwargs):
-            try:
-                station = stations[int(sender)]
-                if station.is_master or station.is_master_two:
-                    return
-                title = _("Irrigation completed")
-                message = _("Station {} has stopped.").format(station.name)
-                data = {"station": _station_data(station)}
-            except Exception:
-                title = _("Irrigation state changed")
-                message = _("An irrigation output has stopped.")
-                data = {"sender": _safe_value(sender)}
-            _notification(
-                "irrigation", "info", "station_stopped", title, message, data
-            )
+        def signal_stations(sender, kwargs):
+            value = kwargs.get("txt", sender)
+            values = value if isinstance(value, (list, tuple, set)) else [value]
+            result = []
+            recognized = False
+            for item in values:
+                try:
+                    station = stations[int(item)]
+                except (TypeError, ValueError, IndexError):
+                    continue
+                recognized = True
+                if (station.is_master or station.is_master_two or
+                        station.is_master_by_program):
+                    continue
+                result.append(station)
+            return result, recognized
 
+        notified_running = set()
+        notified_running_lock = threading.Lock()
+
+        def notify_station_started(sender=None, **kwargs):
+            matched, unused_recognized = signal_stations(sender, kwargs)
+            with notified_running_lock:
+                fresh = [
+                    station for station in matched
+                    if station.index not in notified_running
+                ]
+                notified_running.update(station.index for station in fresh)
+            for station in fresh:
+                _notification(
+                    "irrigation", "info", "station_started",
+                    _("Started"),
+                    "{}: {}".format(_("Station started manually"), station.name),
+                    {"station": _station_data(station)},
+                )
+
+        def notify_station_finished(sender=None, **kwargs):
+            matched, recognized = signal_stations(sender, kwargs)
+            with notified_running_lock:
+                for station in matched:
+                    notified_running.discard(station.index)
+            for station in matched:
+                _notification(
+                    "irrigation", "info", "station_stopped",
+                    _("Irrigation completed"),
+                    _("Station {} has stopped.").format(station.name),
+                    {"station": _station_data(station)},
+                )
+            if not matched and not recognized:
+                _notification(
+                    "irrigation", "info", "station_stopped",
+                    _("Irrigation state changed"),
+                    _("An irrigation output has stopped."),
+                    {"sender": _safe_value(sender)},
+                )
+
+        station_on.connect(notify_station_started, weak=False)
         station_off.connect(notify_station_finished, weak=False)
 
         def schedule_health_check(sender=None, **kwargs):
@@ -953,11 +994,37 @@ class StationAction(object):
         index = _parse_id(station_id, "station", stations.count())
         station = stations[index]
         if action == "start":
-            if not station.enabled or station.is_master or station.is_master_two:
+            if not options.manual_mode:
+                raise APIError(
+                    409, "manual_mode_required",
+                    "Manual mode must be enabled before starting a station.",
+                )
+            if (not station.enabled or station.is_master or
+                    station.is_master_two or station.is_master_by_program):
                 raise APIError(409, "station_unavailable", "This station cannot be started directly.")
+            start = datetime.datetime.now()
+            interval = {
+                "active": True,
+                "program": -1,
+                "station": index,
+                "program_name": _("Manual"),
+                "fixed": True,
+                "cut_off": 0,
+                "manual": True,
+                "blocked": False,
+                "start": start,
+                "original_start": start,
+                "end": start + datetime.timedelta(days=3650),
+                "uid": "{}-Manual-{}".format(start, index),
+                "usage": station.usage,
+            }
+            log.start_run(interval)
             stations.activate(index)
         elif action == "stop":
             stations.deactivate(index)
+            for interval in log.active_runs():
+                if interval["station"] == index:
+                    log.finish_run(interval)
         else:
             raise APIError(404, "unknown_action", "The station action is not supported.")
         event_stream.publish("station." + action, _station_data(station))

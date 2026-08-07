@@ -87,14 +87,65 @@ class MobileAPIV1Tests(unittest.TestCase):
         )
 
     def test_control_token_uses_station_control_path(self):
+        from api.v1 import api
+
         token, unused_refresh = self._token(("read", "control"), role="user")
-        with mock.patch("api.v1.api.stations.activate", return_value=[0]) as activate:
+        manual_before = api.options.manual_mode
+        try:
+            api.options.manual_mode = True
+            with mock.patch(
+                    "api.v1.api.stations.activate", return_value=[0]) as activate, \
+                    mock.patch("api.v1.api.log.start_run") as start_run:
+                response = self._request(
+                    "/stations/station-0/actions/start", token,
+                    method="POST", data={},
+                )
+            self.assertEqual(response.status, "200 OK")
+            activate.assert_called_once_with(0)
+            interval = start_run.call_args.args[0]
+            self.assertEqual(interval["station"], 0)
+            self.assertTrue(interval["manual"])
+            self.assertEqual(interval["program"], -1)
+        finally:
+            api.options.manual_mode = manual_before
+
+    def test_station_start_requires_manual_mode(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read", "control"), role="user")
+        manual_before = api.options.manual_mode
+        try:
+            api.options.manual_mode = False
+            with mock.patch("api.v1.api.stations.activate") as activate:
+                response = self._request(
+                    "/stations/station-0/actions/start", token,
+                    method="POST", data={},
+                )
+            self.assertEqual(response.status, "409 Conflict")
+            self.assertEqual(
+                self._json(response)["error"]["code"],
+                "manual_mode_required",
+            )
+            activate.assert_not_called()
+        finally:
+            api.options.manual_mode = manual_before
+
+    def test_station_stop_finishes_its_manual_run(self):
+        token, unused_refresh = self._token(("read", "control"), role="user")
+        other = {"station": 1}
+        selected = {"station": 0}
+        with mock.patch("api.v1.api.stations.deactivate") as deactivate, \
+                mock.patch(
+                    "api.v1.api.log.active_runs",
+                    side_effect=[[other, selected], [], []],
+                ), mock.patch("api.v1.api.log.finish_run") as finish_run:
             response = self._request(
-                "/stations/station-0/actions/start", token,
+                "/stations/station-0/actions/stop", token,
                 method="POST", data={},
             )
         self.assertEqual(response.status, "200 OK")
-        activate.assert_called_once_with(0)
+        deactivate.assert_called_once_with(0)
+        finish_run.assert_called_once_with(selected)
 
     def test_overview_keeps_working_when_weather_provider_fails(self):
         token, unused_refresh = self._token(("read",), role="user")
