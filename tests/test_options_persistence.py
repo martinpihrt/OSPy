@@ -200,6 +200,7 @@ class OptionsPersistenceTests(unittest.TestCase):
         instance._values = {"example": "old"}
         instance._callbacks = {}
         instance._write_timer = None
+        instance._writes_suspended = False
 
         state = {"fail": True}
 
