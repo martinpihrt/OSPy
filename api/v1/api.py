@@ -170,10 +170,20 @@ def _program_data(program):
 def _program_editor(program):
     """Return a stable, labelled view of the native OSPy scheduling fields."""
     data = _safe_value(program.type_data)
+    kinds = {
+        ProgramType.DAYS_SIMPLE: "days_simple",
+        ProgramType.DAYS_ADVANCED: "days_advanced",
+        ProgramType.REPEAT_SIMPLE: "repeat_simple",
+        ProgramType.REPEAT_ADVANCED: "repeat_advanced",
+        ProgramType.WEEKLY_ADVANCED: "weekly_advanced",
+        ProgramType.CUSTOM: "custom",
+        ProgramType.WEEKLY_WEATHER: "weekly_weather",
+    }
     editor = {
         "schema_version": 1,
         "type": int(program.type),
         "type_name": ProgramType.NAMES.get(program.type, ""),
+        "kind": kinds.get(program.type, "unsupported"),
         "fields": {},
     }
     try:
@@ -207,7 +217,7 @@ def _program_editor(program):
                 "irrigation_min": int(data[0]),
                 "irrigation_max": int(data[1]),
                 "run_max": int(data[2]),
-                "pause_minutes": int(data[3]),
+                "pause_ratio": float(data[3]),
                 "priority_intervals": data[4],
             }
         else:
@@ -1762,7 +1772,6 @@ def _update_program(program, payload, require_schedule):
             )
         program.enabled = payload["enabled"]
         return
-    from api.api import Programs as LegacyPrograms
     if require_schedule:
         required = {"name", "stations", "type", "type_data"}
         missing = sorted(required.difference(payload))
@@ -1784,35 +1793,200 @@ def _update_program(program, payload, require_schedule):
         "schedule": payload.get("schedule", base["schedule"]),
     }
     try:
-        merged["type"] = int(merged["type"])
-        if merged["type"] == ProgramType.CUSTOM:
-            start = merged.get("start")
-            if isinstance(start, str):
-                normalized = start.strip()
-                if normalized.endswith("Z"):
-                    normalized = normalized[:-1] + "+00:00"
-                parsed = datetime.datetime.fromisoformat(normalized)
-                if parsed.tzinfo is not None:
-                    parsed = parsed.astimezone().replace(tzinfo=None)
-                merged["start"] = parsed.timestamp()
-            elif isinstance(start, datetime.datetime):
-                parsed = start
-                if parsed.tzinfo is not None:
-                    parsed = parsed.astimezone().replace(tzinfo=None)
-                merged["start"] = parsed.timestamp()
-        program.type = merged["type"]
-        LegacyPrograms()._dict_to_program(program, merged)
-        program.name = str(merged["name"])
-        program.enabled = bool(merged["enabled"])
-        program.stations = [
-            int(item) for item in merged["stations"]
-            if 0 <= int(item) < stations.count()
-        ]
+        candidate = programs.create_program()
+        _apply_program_definition(candidate, merged)
     except Exception as error:
         raise APIError(
             422, "invalid_program", "The program definition is not valid.",
             {"reason": str(error)},
         )
+    # Commit only after the complete schedule has been parsed and built on a
+    # detached program. A rejected request must not rename, convert or otherwise
+    # partly modify the live program.
+    for key in (
+            "name", "_stations", "enabled", "_schedule", "_station_schedule",
+            "_modulo", "_manual", "_start", "type", "type_data"):
+        program.__dict__[key] = candidate.__dict__[key]
+
+
+def _program_date(value):
+    if isinstance(value, datetime.datetime):
+        return value.date()
+    if isinstance(value, datetime.date):
+        return value
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("start_date must use YYYY-MM-DD")
+    try:
+        return datetime.date.fromisoformat(value.strip())
+    except ValueError:
+        raise ValueError("start_date must use YYYY-MM-DD")
+
+
+def _program_datetime(value):
+    if isinstance(value, datetime.datetime):
+        result = value
+    elif isinstance(value, datetime.date):
+        result = datetime.datetime.combine(value, datetime.time.min)
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
+        result = datetime.datetime.fromtimestamp(value)
+    elif isinstance(value, str) and value.strip():
+        normalized = value.strip()
+        if normalized.endswith("Z"):
+            normalized = normalized[:-1] + "+00:00"
+        result = datetime.datetime.fromisoformat(normalized)
+    else:
+        raise ValueError("start must be an ISO 8601 date and time")
+    if result.tzinfo is not None:
+        result = result.astimezone().replace(tzinfo=None)
+    return result
+
+
+def _program_intervals(value, field="intervals"):
+    if not isinstance(value, list):
+        raise ValueError("{} must be a list".format(field))
+    result = []
+    for interval in value:
+        if not isinstance(interval, list) or len(interval) != 2:
+            raise ValueError("{} must contain [start, end] pairs".format(field))
+        start, end = int(interval[0]), int(interval[1])
+        if start < 0 or end <= start:
+            raise ValueError("{} contains an invalid interval".format(field))
+        result.append([start, end])
+    return result
+
+
+def _program_priorities(value):
+    if not isinstance(value, list):
+        raise ValueError("priority_intervals must be a list")
+    result = []
+    for item in value:
+        if not isinstance(item, list) or len(item) != 2:
+            raise ValueError("priority_intervals must contain [minute, priority] pairs")
+        minute, priority = int(item[0]), int(item[1])
+        if minute < 0 or priority < 0:
+            raise ValueError("priority_intervals contains an invalid value")
+        result.append([minute, priority])
+    if not result:
+        raise ValueError("priority_intervals must not be empty")
+    return result
+
+
+def _program_days(value):
+    if not isinstance(value, list) or not value:
+        raise ValueError("at least one selected day is required")
+    result = []
+    for item in value:
+        day = int(item)
+        if day < 0 or day > 6:
+            raise ValueError("selected day must be between 0 and 6")
+        if day not in result:
+            result.append(day)
+    return result
+
+
+def _apply_program_definition(program, definition):
+    name = definition.get("name")
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("name must not be empty")
+    enabled = definition.get("enabled")
+    if not isinstance(enabled, bool):
+        raise ValueError("enabled must be a JSON boolean")
+    station_values = definition.get("stations")
+    if not isinstance(station_values, list):
+        raise ValueError("stations must be a list")
+    station_indices = []
+    for value in station_values:
+        index = int(value)
+        if index < 0 or index >= stations.count():
+            raise ValueError("station index {} does not exist".format(index))
+        if index not in station_indices:
+            station_indices.append(index)
+
+    program_type = int(definition.get("type"))
+    data = definition.get("type_data")
+    if not isinstance(data, list):
+        raise ValueError("type_data must be a list")
+    if program_type == ProgramType.DAYS_SIMPLE:
+        if len(data) != 5 or not isinstance(data[4], list) or not data[4]:
+            raise ValueError("selected-days simple schedule requires five values and at least one day")
+        start_minute = int(data[0])
+        duration = int(data[1])
+        pause = int(data[2])
+        repetitions = int(data[3])
+        if start_minute < 0 or start_minute >= 1440 or duration <= 0 or pause < 0 or repetitions < 0:
+            raise ValueError("simple schedule contains an invalid time or duration")
+        program.set_days_simple(
+            start_minute, duration, pause, repetitions, _program_days(data[4]),
+        )
+    elif program_type == ProgramType.DAYS_ADVANCED:
+        if len(data) != 2 or not isinstance(data[1], list) or not data[1]:
+            raise ValueError("selected-days advanced schedule requires intervals and days")
+        program.set_days_advanced(
+            _program_intervals(data[0]), _program_days(data[1]),
+        )
+    elif program_type == ProgramType.REPEAT_SIMPLE:
+        if len(data) != 6:
+            raise ValueError("repeating simple schedule requires six values")
+        start_minute = int(data[0])
+        duration = int(data[1])
+        pause = int(data[2])
+        repetitions = int(data[3])
+        repeat_days = int(data[4])
+        if start_minute < 0 or start_minute >= 1440 or duration <= 0 or pause < 0 or repetitions < 0 or repeat_days <= 0:
+            raise ValueError("repeating simple schedule contains an invalid value")
+        program.set_repeat_simple(
+            start_minute, duration, pause, repetitions, repeat_days,
+            _program_date(data[5]),
+        )
+    elif program_type == ProgramType.REPEAT_ADVANCED:
+        if len(data) != 3:
+            raise ValueError("repeating advanced schedule requires three values")
+        repeat_days = int(data[1])
+        if repeat_days <= 0:
+            raise ValueError("repeat_days must be greater than zero")
+        program.set_repeat_advanced(
+            _program_intervals(data[0]), repeat_days, _program_date(data[2]),
+        )
+    elif program_type == ProgramType.WEEKLY_ADVANCED:
+        if len(data) != 1:
+            raise ValueError("weekly advanced schedule requires intervals")
+        program.set_weekly_advanced(_program_intervals(data[0]))
+    elif program_type == ProgramType.CUSTOM:
+        schedule = definition.get("schedule")
+        if schedule is None and len(data) == 1:
+            schedule = data[0]
+        modulo = int(definition.get("modulo"))
+        if modulo <= 0:
+            raise ValueError("modulo must be greater than zero")
+        manual = definition.get("manual")
+        if not isinstance(manual, bool):
+            raise ValueError("manual must be a JSON boolean")
+        program._modulo = modulo
+        program._manual = manual
+        program._start = _program_datetime(definition.get("start"))
+        program.schedule = _program_intervals(schedule, "schedule")
+    elif program_type == ProgramType.WEEKLY_WEATHER:
+        if len(data) != 5 or not isinstance(data[4], list) or not data[4]:
+            raise ValueError("weather schedule requires five values and priority intervals")
+        irrigation_min = int(data[0])
+        irrigation_max = int(data[1])
+        run_max = int(data[2])
+        pause_ratio = float(data[3])
+        if (irrigation_min < 0 or irrigation_max <= 0 or run_max <= 0 or
+                pause_ratio < 0 or pause_ratio > 1):
+            raise ValueError("weather schedule contains an invalid value")
+        if irrigation_min > irrigation_max:
+            raise ValueError("irrigation_min must not exceed irrigation_max")
+        program.set_weekly_weather(
+            irrigation_min, irrigation_max, run_max, pause_ratio,
+            _program_priorities(data[4]),
+        )
+    else:
+        raise ValueError("program type {} is not supported".format(program_type))
+
+    program.name = name.strip()
+    program.enabled = enabled
+    program.stations = station_indices
 
 
 URLS = (

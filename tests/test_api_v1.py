@@ -401,6 +401,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         program.type_data = [360, 20, 5, 1, [0, 2, 4]]
         result = api._program_editor(program)
         self.assertTrue(result["valid"])
+        self.assertEqual(result["kind"], "days_simple")
         self.assertEqual(result["fields"]["start_minute"], 360)
         self.assertEqual(result["fields"]["duration_minutes"], 20)
         self.assertEqual(result["fields"]["days"], [0, 2, 4])
@@ -431,6 +432,85 @@ class MobileAPIV1Tests(unittest.TestCase):
             )
         self.assertEqual(getattr(context.exception, "code", ""), "invalid_program")
         self.assertFalse(program.enabled)
+
+    def test_program_full_update_is_committed_only_after_validation(self):
+        from api.v1 import api
+        from ospy.programs import programs, ProgramType
+
+        program = programs.create_program()
+        program.name = "Original"
+        program.enabled = False
+        program.set_weekly_advanced([[60, 90]])
+        original = (program.name, program.enabled, program.type, program.type_data)
+        with self.assertRaises(Exception) as context:
+            api._update_program(program, {
+                "name": "Partly changed",
+                "enabled": True,
+                "stations": [],
+                "type": ProgramType.DAYS_SIMPLE,
+                "type_data": [360, 10, 0, 0, []],
+            }, require_schedule=False)
+        self.assertEqual(getattr(context.exception, "code", ""), "invalid_program")
+        self.assertEqual(
+            (program.name, program.enabled, program.type, program.type_data),
+            original,
+        )
+
+    def test_program_days_simple_definition_is_created_without_type_conversion(self):
+        from api.v1 import api
+        from ospy.programs import programs, ProgramType
+
+        program = programs.create_program()
+        program.group_id = "greenhouse"
+        program.fixed = 1
+        api._update_program(program, {
+            "name": "Mobile program",
+            "enabled": True,
+            "stations": [],
+            "type": ProgramType.DAYS_SIMPLE,
+            "type_data": [360, 10, 0, 0, [0, 2, 4]],
+        }, require_schedule=True)
+        self.assertEqual(program.name, "Mobile program")
+        self.assertEqual(program.type, ProgramType.DAYS_SIMPLE)
+        self.assertEqual(program.type_data, [360, 10, 0, 0, [0, 2, 4]])
+        self.assertTrue(program.schedule)
+        self.assertEqual(program.group_id, "greenhouse")
+        self.assertEqual(program.fixed, 1)
+
+    def test_program_definitions_preserve_every_supported_type(self):
+        from api.v1 import api
+        from ospy.programs import programs, ProgramType
+
+        definitions = {
+            ProgramType.DAYS_SIMPLE: [360, 10, 0, 0, [0, 2]],
+            ProgramType.DAYS_ADVANCED: [[[60, 70]], [1, 3]],
+            ProgramType.REPEAT_SIMPLE: [360, 10, 0, 0, 2, "2026-08-08"],
+            ProgramType.REPEAT_ADVANCED: [[[60, 70]], 2, "2026-08-08"],
+            ProgramType.WEEKLY_ADVANCED: [[[60, 70]]],
+            ProgramType.CUSTOM: [[[60, 70]]],
+            ProgramType.WEEKLY_WEATHER: [5, 10, 5, 0.5, [[360, 1]]],
+        }
+        for program_type, type_data in definitions.items():
+            program = programs.create_program()
+            definition = {
+                "name": "Type {}".format(program_type),
+                "enabled": False,
+                "stations": [],
+                "type": program_type,
+                "type_data": type_data,
+                "modulo": 1440,
+                "manual": False,
+                "start": "2026-08-08T00:00:00",
+                "schedule": [[60, 70]],
+            }
+            api._apply_program_definition(program, definition)
+            self.assertEqual(program.type, program_type)
+            editor = api._program_editor(program)
+            self.assertTrue(editor["valid"])
+            self.assertNotEqual(editor["kind"], "unsupported")
+            if program_type == ProgramType.WEEKLY_WEATHER:
+                self.assertEqual(program.type_data[3], 0.5)
+                self.assertEqual(editor["fields"]["pause_ratio"], 0.5)
 
     def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
         from api.v1.security import refresh

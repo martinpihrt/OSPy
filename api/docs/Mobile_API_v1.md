@@ -188,9 +188,21 @@ Program creation example:
 }
 ```
 
-Program types and `type_data` are deliberately the same scheduling model as OSPy. For custom programs, `start` may be an ISO 8601 date-time and `schedule` contains the explicit schedule. Invalid station indices are discarded and an invalid program shape returns `invalid_program`.
+Program types and `type_data` are deliberately the same scheduling model as OSPy. A client must preserve the returned type and use its corresponding shape:
 
-The `editor` object is intentionally additive. Its `kind` identifies the native form (`simple`, `advanced`, `weather` or `custom`), while `fields` contains the decoded scheduling values for that kind. Clients that do not recognize a future kind can still display the program and send the unchanged `type_data` returned by the API. Enabling or disabling an existing program is a normal partial update:
+| `type` | `editor.kind` | `type_data` |
+| --- | --- | --- |
+| `0` | `days_simple` | `[start_minute, duration_minutes, pause_minutes, repeat_count, days]` |
+| `1` | `days_advanced` | `[intervals, days]` |
+| `2` | `repeat_simple` | `[start_minute, duration_minutes, pause_minutes, repeat_count, repeat_days, start_date]` |
+| `3` | `repeat_advanced` | `[intervals, repeat_days, start_date]` |
+| `4` | `weekly_advanced` | `[intervals]` |
+| `5` | `custom` | `[intervals]`; also send `start`, `modulo`, `manual` and `schedule` |
+| `6` | `weekly_weather` | `[irrigation_min, irrigation_max, run_max, pause_ratio, priority_intervals]` |
+
+Normal intervals are `[start_minute, end_minute]` pairs. Weather priority intervals are `[minute, priority]` pairs and `pause_ratio` is a decimal from `0.0` to `1.0` (`0.5` means 50%). Days are zero-based Monday through Sunday (`0..6`), dates use `YYYY-MM-DD`, and custom `start` uses ISO 8601 date-time syntax. Invalid station indices, values or shapes return `invalid_program`; `error.details.reason` supplies a diagnostic reason while clients should localize the stable error code and the affected field.
+
+The `editor` object is intentionally additive. Its stable `kind` identifies the exact native form listed above, while `fields` contains the decoded scheduling values for that kind. Clients that do not recognize a future kind must keep it read-only or send its unchanged definition; they must never convert it to `custom`. Enabling or disabling an existing program is a normal partial update:
 
 ```http
 PUT /api/v1/programs/program-2
@@ -199,7 +211,7 @@ Content-Type: application/json
 {"enabled":false}
 ```
 
-This `enabled`-only update is atomic and does not deserialize or rebuild the program schedule. A rejected value therefore cannot leave the live program partially changed. Program creation still uses `POST /programs` with the complete `name`, `stations`, `type` and `type_data` definition shown above; `enabled` may be included explicitly.
+This `enabled`-only update is atomic and does not rebuild the program schedule. Full creation and update requests are also built and validated on a detached program and committed only after the complete schedule succeeds, so a rejected request cannot rename, convert or otherwise partially change the live program. Program creation still uses `POST /programs` with the complete `name`, `stations`, `type` and `type_data` definition shown above; `enabled` may be included explicitly.
 
 ### Scheduler timeline
 

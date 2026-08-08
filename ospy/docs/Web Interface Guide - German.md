@@ -500,77 +500,115 @@ Beim Speichern eines Programms prüft OSPy die erlaubten Programme und sucht nac
 ## Zeitplantyp
 Der Zeitplanertyp ermöglicht die Auswahl des geeigneten Programmtyps entsprechend unseren Anforderungen (ausgewählte Tage, Wiederholung, wöchentlich, benutzerdefiniert und Programme basierend auf der Wettervorhersage).
 
+Beim Wechsel des Typs ändern sich sowohl die sichtbaren Felder als auch die Art, wie OSPy den Zeitplan aufbaut. Prüfen Sie deshalb nach einem Typwechsel vor dem Speichern alle Werte. In grafischen Zeitplänen markiert der erste Klick den Anfang und der zweite das Ende eines Intervalls; mit dem Kreuz an einem vorhandenen Intervall wird es entfernt. Alle Zeiten beziehen sich auf die lokale Zeit des OSPy-Systems.
+
 ### Ausgewählte Tage (einfach)
+Führt denselben einfachen Zeitplan an jedem ausgewählten Wochentag aus. Wählen Sie mindestens einen Tag und konfigurieren Sie den ersten Lauf.
 
 #### Startzeit
+Zeitpunkt, zu dem der erste Lauf an jedem ausgewählten Tag beginnt.
 
 #### Dauer
+Dauer eines Laufs jeder ausgewählten Station in Minuten.
 
 #### Wiederholen
+Aktiviert nach dem ersten Lauf weitere Läufe am selben ausgewählten Tag.
 
 #### Wiederholungen
+Anzahl zusätzlicher Läufe nach dem ersten. Der Wert `2` ergibt insgesamt drei Läufe.
 
 #### Pause
+Anzahl der Minuten zwischen dem Ende eines Laufs und dem Beginn der nächsten Wiederholung.
 
 ### Ausgewählte Tage (verlängert)
+Führt frei gezeichnete Intervalle an jedem ausgewählten Wochentag aus. Dieser Typ eignet sich für mehrere unabhängige Start- und Endzeiten an einem Tag.
 
 #### Planer
+Fügen Sie in der grafischen 24-Stunden-Zeile ein oder mehrere Start-/Endintervalle hinzu. Dieselben Intervalle gelten für jeden ausgewählten Wochentag.
 
 ### Wiederholen (einfach)
+Führt einen einfachen Zeitplan alle festgelegten Tage aus; der Zyklus wird durch ein Startdatum und nicht durch feste Wochentage verankert.
 
 #### Wasserintervall
+Anzahl der Tage zwischen aktiven Tagen. `1` bedeutet täglich, `2` jeden zweiten Tag.
 
 #### Beginnend in
+Anzahl der Tage ab heute bis zum ersten aktiven Datum. `0` startet den Zyklus heute.
 
 #### Startzeit
+Zeitpunkt des ersten Laufs an jedem aktiven Tag.
 
 #### Dauer
+Dauer eines Laufs jeder ausgewählten Station in Minuten.
 
 #### Wiederholen
+Aktiviert weitere Läufe am selben aktiven Tag.
 
 #### Wiederholungen
+Anzahl zusätzlicher Läufe nach dem ersten Lauf.
 
 #### Pause
+Verzögerung in Minuten zwischen den wiederholten Läufen.
 
 ### Wiederholen (erweitert)
+Wiederholt einen grafischen Tageszeitplan in einem festen Abstand von mehreren Tagen.
 
 #### Wasserintervall
+Anzahl der Tage zwischen den Ausführungen des gezeichneten Zeitplans.
 
 #### Beginnend in
+Verzögerung in Tagen ab heute bis zu dem Datum, das den Wiederholungszyklus verankert.
 
 #### Planer
+Zeichnen Sie alle Start-/Endintervalle eines aktiven Tages. OSPy wiederholt die vollständige Intervallgruppe nach dem gewählten Wasserintervall.
 
 ### Wöchentlich (erweitert)
+Definiert für jeden Wochentag einen eigenen grafischen Zeitplan und wiederholt den vollständigen Plan alle sieben Tage.
 
 #### Montag-Sonntag
+Zeichnen Sie Intervalle direkt in die Zeile des gewünschten Wochentags. Ein Tag kann mehrere Intervalle enthalten oder leer bleiben.
 
 ### Benutzerdefiniert
+Definiert einen ausdrücklichen mehrtägigen Wiederholungszyklus. Verwenden Sie ihn, wenn die einfachen und erweiterten Muster die gewünschte Reihenfolge nicht abbilden können.
 
 #### Wasserintervall
+Länge des Wiederholungszyklus in Tagen. Nach dem letzten Zyklustag beginnt der Zeitplan wieder mit Tag 1.
 
 #### Beginnend in
+Anzahl der Tage ab heute, bevor Tag 1 des benutzerdefinierten Zyklus beginnt.
 
 #### Tag 1 - Tag 7
+Zeichnen Sie auf den angezeigten Zyklustagen unabhängige Start-/Endintervalle. Ein Intervall wird als Minuten seit dem Beginn von Tag 1 gespeichert.
 
 ### Wöchentlich (Wettervorhersage)
+Plant die Bewässerung anhand der Wasserbilanz der Stationen und der Wettervorhersage. Die eingetragenen Zeitpunkte sind Ausführungsmöglichkeiten; OSPy kann sie auslassen oder verkürzen, wenn das berechnete Defizit keine Bewässerung erfordert.
 
 #### Bewässerung min
+Mindestdefizit in Millimetern, ab dem die Bewässerung beginnen darf.
 
 #### Bewässerung max
+Maximale Wassermenge in Millimetern, die einer Station zu einem bevorzugten Ausführungszeitpunkt zugeführt werden darf.
 
 #### Lauf max
+Maximale Wassermenge in Millimetern, die ohne Unterbrechung zugeführt werden darf, bevor OSPy eine Pause einfügt.
 
 #### Pausenverhältnis
+Pausenlänge als Prozentsatz der vorherigen ununterbrochenen Laufzeit. `50 %` erzeugt beispielsweise eine halb so lange Pause wie der Lauf.
 
 #### Bevorzugte Ausführungsmomente
+Sortierte Liste wöchentlicher Möglichkeiten, zu denen die wetterabhängige Bewässerung laufen darf. Mindestens ein Zeitpunkt ist erforderlich.
 
 #### Tag
+Wochentag der bevorzugten Ausführungsmöglichkeit.
 
 #### Startzeit
+Lokale Uhrzeit, zu der OSPy diese Möglichkeit bewertet und gegebenenfalls startet.
 
 #### Priorität
+Relative Bevorzugung zwischen den Zeitpunkten. Ein höherer Wert bevorzugt diesen Zeitpunkt, wenn die Bewässerung verschoben werden kann.
 
 #### Hinzufügen – Löschen
+Fügt einen weiteren bevorzugten Zeitpunkt hinzu oder entfernt die ausgewählte Zeile. Werden alle Zeilen gelöscht, bleibt keine Ausführungsmöglichkeit übrig.
 
 ## Keine Anpassungen
 An diesem Programm werden keine Änderungen vorgenommen (z. B. Verkürzung oder Verlängerung der Zeit).
