@@ -8,6 +8,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLER = os.path.join(ROOT, "ospy_setup.sh")
 SERVICE = os.path.join(ROOT, "service", "ospy.service")
+CLEAN_GUIDE = os.path.join(ROOT, "ospy", "docs", "Clean_installation.md")
 
 
 class CleanInstallationTests(unittest.TestCase):
@@ -17,6 +18,8 @@ class CleanInstallationTests(unittest.TestCase):
             cls.installer = source.read()
         with open(SERVICE, "r", encoding="utf-8") as source:
             cls.service = source.read()
+        with open(CLEAN_GUIDE, "r", encoding="utf-8") as source:
+            cls.clean_guide = source.read()
 
     def test_installer_has_valid_bash_syntax(self):
         if os.name == "nt":
@@ -80,14 +83,150 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertNotIn("{{", rendered)
         self.assertNotIn("}}", rendered)
 
+    def test_installer_offers_all_remote_access_modes(self):
+        expected_modes = (
+            '"lan"',
+            '"cloudflare"',
+            '"cloudflare-quick"',
+            '"tailscale-serve"',
+            '"tailscale-funnel"',
+        )
+        for mode in expected_modes:
+            with self.subTest(mode=mode):
+                self.assertIn(mode, self.installer)
+
+        self.assertIn("OSPy remote access - explanation", self.installer)
+        self.assertIn("Local network only", self.installer)
+        self.assertIn("Cloudflare Tunnel", self.installer)
+        self.assertIn("Cloudflare Quick Tunnel", self.installer)
+        self.assertIn("Tailscale Serve", self.installer)
+        self.assertIn("Tailscale Funnel", self.installer)
+
+    def test_remote_access_keeps_ospy_origin_local_http(self):
+        self.assertIn("http://127.0.0.1:8080", self.installer)
+        self.assertIn("http://<Raspberry-Pi-IP>:8080", self.installer)
+
+        # Tunnel modes terminate HTTPS outside OSPy and proxy to the local HTTP origin.
+        self.assertNotIn("certbot certonly", self.installer)
+        self.assertNotIn("openssl req", self.installer)
+        self.assertNotIn("ufw allow 8080", self.installer)
+        self.assertNotIn("iptables -A INPUT", self.installer)
+
+    def test_cloudflare_managed_tunnel_is_installed_safely(self):
+        self.assertIn("https://pkg.cloudflare.com/cloudflare-main.gpg", self.installer)
+        self.assertIn("https://pkg.cloudflare.com/cloudflared", self.installer)
+        self.assertIn("apt-get install -y cloudflared", self.installer)
+
+        self.assertIn('cloudflare_token=""', self.installer)
+        self.assertIn("--passwordbox", self.installer)
+        self.assertIn('cloudflared service install "$cloudflare_token"', self.installer)
+        self.assertIn("systemctl restart cloudflared.service", self.installer)
+        self.assertIn("systemctl is-active --quiet cloudflared.service", self.installer)
+
+        # The token must not be printed back to the terminal or written to a project file.
+        self.assertNotIn('echo "$cloudflare_token"', self.installer)
+        self.assertNotIn('printf "%s" "$cloudflare_token"', self.installer)
+        self.assertNotIn('> "$ospy_dir/cloudflare_token"', self.installer)
+
+    def test_cloudflare_quick_tunnel_is_clearly_test_only_and_persistent_service(self):
+        self.assertIn("trycloudflare.com", self.installer)
+        self.assertIn("testing or temporary access", self.installer)
+        self.assertIn(
+            "tunnel --no-autoupdate --url http://127.0.0.1:8080",
+            self.installer,
+        )
+        self.assertIn("/etc/systemd/system/ospy-cloudflared-quick.service", self.installer)
+        self.assertIn("Restart=on-failure", self.installer)
+        self.assertIn("systemctl enable --now ospy-cloudflared-quick.service", self.installer)
+        self.assertIn("journalctl -u ospy-cloudflared-quick.service", self.installer)
+
+    def test_tailscale_modes_install_daemon_and_use_local_origin(self):
+        self.assertIn("https://tailscale.com/install.sh", self.installer)
+        self.assertIn("systemctl enable --now tailscaled.service", self.installer)
+        self.assertIn("tailscale up", self.installer)
+
+        self.assertIn(
+            "tailscale serve --bg http://127.0.0.1:8080",
+            self.installer,
+        )
+        self.assertIn(
+            "tailscale funnel --bg http://127.0.0.1:8080",
+            self.installer,
+        )
+        self.assertIn("tailscale serve status", self.installer)
+        self.assertIn("tailscale funnel status", self.installer)
+
+    def test_installer_distinguishes_private_and_public_tailscale_modes(self):
+        self.assertIn("Tailscale Serve (private)", self.installer)
+        self.assertIn("Tailscale Funnel (public)", self.installer)
+        self.assertIn(
+            "Only permitted members/devices of your Tailscale network can access it.",
+            self.installer,
+        )
+        self.assertIn(
+            "Funnel then publishes OSPy to the public Internet",
+            self.installer,
+        )
+
+    def test_remote_access_failures_do_not_delete_existing_configuration(self):
+        self.assertNotIn("rm -rf /etc/cloudflared", self.installer)
+        self.assertNotIn("rm -rf /var/lib/tailscale", self.installer)
+        self.assertIn(
+            "Existing Cloudflare configuration was not deleted.",
+            self.installer,
+        )
+
+    def test_remote_access_documentation_matches_installer(self):
+        required_sections = (
+            "REMOTE ACCESS OPTIONS",
+            "## 1. Local network only",
+            "## 2. Cloudflare Tunnel",
+            "## 3. Cloudflare Quick Tunnel",
+            "## 4. Tailscale Serve",
+            "## 5. Tailscale Funnel",
+            "WHICH REMOTE MODE SHOULD I CHOOSE?",
+            "OSPY HTTPS AND TUNNEL HTTPS",
+        )
+        for heading in required_sections:
+            with self.subTest(heading=heading):
+                self.assertIn(heading, self.clean_guide)
+
+        self.assertIn("http://127.0.0.1:8080", self.clean_guide)
+        self.assertIn("Cloudflare Access", self.clean_guide)
+        self.assertIn("trycloudflare.com", self.clean_guide)
+        self.assertIn("tailscale serve --bg http://127.0.0.1:8080", self.clean_guide)
+        self.assertIn("tailscale funnel --bg http://127.0.0.1:8080", self.clean_guide)
+        self.assertIn("Local network only", self.clean_guide)
+        self.assertIn("Cloudflare Tunnel", self.clean_guide)
+        self.assertIn("Tailscale Serve", self.clean_guide)
+        self.assertIn("Tailscale Funnel", self.clean_guide)
+
+    def test_documentation_explains_domain_and_https_requirements(self):
+        self.assertIn("COST AND DOMAIN REQUIREMENTS", self.clean_guide)
+        self.assertIn(
+            "does not require buying a separate TLS certificate",
+            self.clean_guide,
+        )
+        self.assertIn(
+            "A custom public hostname requires a domain",
+            self.clean_guide,
+        )
+        self.assertIn(
+            "Cloudflare Quick Tunnel does not require an account or domain",
+            self.clean_guide,
+        )
+        self.assertIn(
+            "Tailscale Serve and Tailscale Funnel",
+            self.clean_guide,
+        )
+
     def test_installation_documentation_matches_safe_installer_behavior(self):
         docs_root = Path(ROOT) / "ospy" / "docs"
-        clean_guide = (docs_root / "Clean_installation.md").read_text(encoding="utf-8")
         self.assertIn("git clone", self.installer)
-        self.assertIn("stable OSPy `master` branch", clean_guide)
-        self.assertIn("git pull --ff-only", clean_guide)
-        self.assertNotIn("git reset --hard", clean_guide)
-        self.assertIn("Do not delete `ospy/data`", clean_guide)
+        self.assertIn("stable OSPy `master` branch", self.clean_guide)
+        self.assertIn("git pull --ff-only", self.clean_guide)
+        self.assertNotIn("git reset --hard", self.clean_guide)
+        self.assertIn("Do not delete `ospy/data`", self.clean_guide)
 
         guides = sorted(docs_root.glob("Web Interface Guide - *.md"))
         self.assertEqual(len(guides), 7)

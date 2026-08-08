@@ -4,6 +4,17 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+
+## August 8 2026 (v3.0)
+-----------
+(Martin Pihrt)<br/>
+Extended the clean OSPy installer with selectable remote-access modes. The installer can now keep OSPy local-only, configure a managed Cloudflare Tunnel with a custom domain, create a temporary Cloudflare Quick Tunnel without a domain, provide private HTTPS access through Tailscale Serve, or publish OSPy through Tailscale Funnel. Each mode includes an interactive explanation of its security model, account/domain requirements, HTTPS termination and public/private exposure. Cloudflare and Tailscale act as reverse proxies to the local `http://127.0.0.1:8080` OSPy service, so OSPy does not require its own TLS certificate when a tunnel is used. Added automatic `cloudflared`/Tailscale installation, systemd startup, tunnel-status reporting and safe handling of existing configurations.
+
+Updated the clean-installation documentation with detailed descriptions of all remote-access modes, HTTPS and certificate behavior, domain and account requirements, Cloudflare Access guidance, test-only Quick Tunnel behavior, Tailscale Serve/Funnel differences and a selection table for choosing the appropriate mode.
+
+While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy also shows the current Quick Tunnel address as a clickable **Cloudflare Quick Tunnel** link in the footer. If the service is missing, inactive, unreadable or no valid Quick Tunnel address is available, the footer does not show the link.
+
+
 August 7 2026 (v3.0)
 -----------
 (Martin Pihrt)<br/>

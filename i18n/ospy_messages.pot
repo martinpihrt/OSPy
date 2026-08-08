@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-08-07 12:42+0200\n"
+"POT-Creation-Date: 2026-08-08 05:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -291,67 +291,83 @@ msgstr ""
 msgid "OSPy is applying the configured rain protection."
 msgstr ""
 
-#: api/v1/api.py:605
+#: api/v1/api.py:631 ospy/templates/diagnostics.html:1241
+#: plugins/database_connector/__init__.py:110
+#: plugins/labelmaker/__init__.py:461 plugins/modbus_stations/__init__.py:142
+#: plugins/ospy_backup/__init__.py:89
+msgid "Started"
+msgstr ""
+
+#: api/v1/api.py:632 ospy/webpages.py:2097
+msgid "Station started manually"
+msgstr ""
+
+#: api/v1/api.py:644
 msgid "Irrigation completed"
 msgstr ""
 
-#: api/v1/api.py:606
+#: api/v1/api.py:645
 msgid "Station {} has stopped."
 msgstr ""
 
-#: api/v1/api.py:609
+#: api/v1/api.py:651
 msgid "Irrigation state changed"
 msgstr ""
 
-#: api/v1/api.py:610
+#: api/v1/api.py:652
 msgid "An irrigation output has stopped."
 msgstr ""
 
-#: api/v1/api.py:643
+#: api/v1/api.py:684
 msgid "OSPy diagnostics"
 msgstr ""
 
-#: api/v1/api.py:646
+#: api/v1/api.py:687
 msgid "A system problem was detected."
 msgstr ""
 
-#: api/v1/api.py:901
+#: api/v1/api.py:942
 msgid "Irrigation settings changed through mobile API"
 msgstr ""
 
-#: api/v1/api.py:902
+#: api/v1/api.py:943
 msgid "API user {} changed irrigation settings from IP {}: {}."
 msgstr ""
 
-#: api/v1/api.py:965
+#: api/v1/api.py:1010 ospy/templates/home_admin.html:698
+#: ospy/templates/home_user.html:607 ospy/webpages.py:2080
+msgid "Manual"
+msgstr ""
+
+#: api/v1/api.py:1032
 msgid "Station start through mobile API"
 msgstr ""
 
-#: api/v1/api.py:966
+#: api/v1/api.py:1033
 msgid "API user {} requested start for station {} from IP {}."
 msgstr ""
 
-#: api/v1/api.py:970
+#: api/v1/api.py:1037
 msgid "Station stop through mobile API"
 msgstr ""
 
-#: api/v1/api.py:971
+#: api/v1/api.py:1038
 msgid "API user {} requested stop for station {} from IP {}."
 msgstr ""
 
-#: api/v1/api.py:1462 ospy/webpages.py:2752
+#: api/v1/api.py:1529 ospy/webpages.py:2752
 msgid "Plug-in enabled"
 msgstr ""
 
-#: api/v1/api.py:1462 ospy/webpages.py:2756
+#: api/v1/api.py:1529 ospy/webpages.py:2756
 msgid "Plug-in disabled"
 msgstr ""
 
-#: api/v1/api.py:1464 ospy/webpages.py:2753
+#: api/v1/api.py:1531 ospy/webpages.py:2753
 msgid "User {} enabled plug-in {}."
 msgstr ""
 
-#: api/v1/api.py:1465 ospy/webpages.py:2757
+#: api/v1/api.py:1532 ospy/webpages.py:2757
 msgid "User {} disabled plug-in {}."
 msgstr ""
 
@@ -624,7 +640,7 @@ msgid ". days "
 msgstr ""
 
 #: ospy/helpers.py:276 ospy/helpers.py:293 ospy/helpers.py:396
-#: ospy/helpers.py:440 ospy/helpers.py:441 ospy/helpers.py:1351
+#: ospy/helpers.py:440 ospy/helpers.py:441 ospy/helpers.py:1352
 #: ospy/templates/sensors.html:84 ospy/templates/sensors_search.html:56
 #: ospy/templates/sensors_search.html:61 ospy/templates/sensors_search.html:67
 #: plugins/ip_scanner/templates/ip_scanner.html:133
@@ -775,67 +791,67 @@ msgstr ""
 msgid "CSRF token verification failed from IP {}."
 msgstr ""
 
-#: ospy/helpers.py:1329
+#: ospy/helpers.py:1330
 msgid "256MB"
 msgstr ""
 
-#: ospy/helpers.py:1331
+#: ospy/helpers.py:1332
 msgid "512MB"
 msgstr ""
 
-#: ospy/helpers.py:1333
+#: ospy/helpers.py:1334
 msgid "1GB"
 msgstr ""
 
-#: ospy/helpers.py:1335
+#: ospy/helpers.py:1336
 msgid "2GB"
 msgstr ""
 
-#: ospy/helpers.py:1337
+#: ospy/helpers.py:1338
 msgid "4GB"
 msgstr ""
 
-#: ospy/helpers.py:1339
+#: ospy/helpers.py:1340
 msgid "8GB"
 msgstr ""
 
-#: ospy/helpers.py:1354
+#: ospy/helpers.py:1355
 msgid "Raspberry Pi 5 with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1356
+#: ospy/helpers.py:1357
 msgid "Raspberry Pi 4B with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1358
+#: ospy/helpers.py:1359
 msgid "Raspberry Pi 2B with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1360
+#: ospy/helpers.py:1361
 msgid "Raspberry Pi 3A with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1362
+#: ospy/helpers.py:1363
 msgid "Raspberry Pi 3B with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1364
+#: ospy/helpers.py:1365
 msgid "Raspberry Pi 3B+ with at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1366
+#: ospy/helpers.py:1367
 msgid "Raspberry Pi Zero 2 W at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1368
+#: ospy/helpers.py:1369
 msgid "Raspberry Pi Zero at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1370
+#: ospy/helpers.py:1371
 msgid "Raspberry Pi Zero W at least {} RAM!"
 msgstr ""
 
-#: ospy/helpers.py:1372
+#: ospy/helpers.py:1373
 msgid "Raspberry Pi 400 at least {} RAM!"
 msgstr ""
 
@@ -1260,7 +1276,7 @@ msgstr ""
 msgid "Password for uploading firmware from OSPy to sensor (for all used sensors - the same password must be used in sensor options.)"
 msgstr ""
 
-#: ospy/options.py:372 ospy/options.py:379 ospy/templates/base.html:433
+#: ospy/options.py:372 ospy/options.py:379 ospy/templates/base.html:434
 #: ospy/templates/options.html:167 ospy/webpages.py:3917
 #: plugins/cli_control/templates/cli_control_help.html:12
 #: plugins/email_notifications/__init__.py:237
@@ -1409,7 +1425,7 @@ msgstr ""
 msgid "Show a red diagnostic error window to administrators on the home page. Diagnostic errors have priority over update notifications."
 msgstr ""
 
-#: ospy/options.py:503 ospy/templates/base.html:464
+#: ospy/options.py:503 ospy/templates/base.html:467
 #: ospy/templates/diagnostics.html:3 ospy/templates/diagnostics.html:1071
 #: ospy/templates/diagnostics.html:1140 ospy/templates/options.html:164
 msgid "Diagnostics"
@@ -1618,204 +1634,208 @@ msgstr ""
 msgid "Timestamp of the last database save"
 msgstr ""
 
-#: ospy/options.py:769
+#: ospy/options.py:770
 msgid "SQLite-primary startup failed; using the shelve/DBM fallback: {}"
 msgstr ""
 
-#: ospy/options.py:797
+#: ospy/options.py:798
 msgid "Settings were recovered from the verified {} SQLite copy because every shelve/DBM candidate was invalid."
 msgstr ""
 
-#: ospy/options.py:806
+#: ospy/options.py:807
 msgid "Emergency SQLite settings recovery failed; safe defaults remain active: {}"
 msgstr ""
 
-#: ospy/options.py:814
+#: ospy/options.py:815
 msgid "Ignoring invalid settings database {}: {}"
 msgstr ""
 
-#: ospy/options.py:821 ospy/options.py:1547
+#: ospy/options.py:822 ospy/options.py:1559
 msgid "Settings were recovered from {}."
 msgstr ""
 
-#: ospy/options.py:878
+#: ospy/options.py:879
 msgid "The SQLite settings shadow does not match the authoritative database: {}"
 msgstr ""
 
-#: ospy/options.py:990
+#: ospy/options.py:991
 msgid "The SQLite-primary marker could not be removed: {}"
 msgstr ""
 
-#: ospy/options.py:1043
+#: ospy/options.py:1044
 msgid "The SQLite-primary marker could not be written: {}"
 msgstr ""
 
-#: ospy/options.py:1072
+#: ospy/options.py:1073
 msgid "The emergency SQLite recovery marker could not be removed: {}"
 msgstr ""
 
-#: ospy/options.py:1108
+#: ospy/options.py:1109
 msgid "The emergency SQLite recovery marker could not be written: {}"
 msgstr ""
 
-#: ospy/options.py:1186 ospy/webpages.py:3233
+#: ospy/options.py:1187 ospy/webpages.py:3233
 msgid "SQLite recovery test"
 msgstr ""
 
-#: ospy/options.py:1187 ospy/webpages.py:3235
+#: ospy/options.py:1188 ospy/webpages.py:3235
 msgid "Backup SQLite recovery test"
 msgstr ""
 
-#: ospy/options.py:1190
+#: ospy/options.py:1191
 msgid "{} failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1261
+#: ospy/options.py:1262
 msgid "SQLite restore rehearsal failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1342
+#: ospy/options.py:1343
 msgid "SQLite migration evidence could not be saved: {}"
 msgstr ""
 
-#: ospy/options.py:1404
+#: ospy/options.py:1405
 msgid "SQLite primary cannot be enabled until Diagnostics reports readiness."
 msgstr ""
 
-#: ospy/options.py:1496
+#: ospy/options.py:1508
 msgid "Settings database does not contain a dictionary."
 msgstr ""
 
-#: ospy/options.py:1508
+#: ospy/options.py:1520
 msgid "Stored object {} is not a dictionary."
 msgstr ""
 
-#: ospy/options.py:1517
+#: ospy/options.py:1529
 msgid "Invalid value type for setting {}."
 msgstr ""
 
-#: ospy/options.py:1523
+#: ospy/options.py:1535
 msgid "Setting {} is below its minimum."
 msgstr ""
 
-#: ospy/options.py:1527
+#: ospy/options.py:1539
 msgid "Setting {} is above its maximum."
 msgstr ""
 
-#: ospy/options.py:1541
+#: ospy/options.py:1553
 msgid "Ignored invalid settings database {}: {}"
 msgstr ""
 
-#: ospy/options.py:1551
+#: ospy/options.py:1563
 msgid "No valid settings database was found; safe defaults are being used."
 msgstr ""
 
-#: ospy/options.py:1555
+#: ospy/options.py:1567
 msgid "Emergency recovery rebuilt shelve/DBM from the verified {} SQLite copy. Review Diagnostics and create a system backup."
 msgstr ""
 
-#: ospy/options.py:1561
+#: ospy/options.py:1573
 msgid "Emergency SQLite recovery was enabled but failed: {}"
 msgstr ""
 
-#: ospy/options.py:1567
+#: ospy/options.py:1579
 msgid "Settings were loaded from SQLite primary; synchronized shelve/DBM remains available as fallback."
 msgstr ""
 
-#: ospy/options.py:1571
+#: ospy/options.py:1583
 msgid "SQLite-primary startup failed and shelve/DBM was used: {}"
 msgstr ""
 
-#: ospy/options.py:1662
+#: ospy/options.py:1685
 msgid "Settings change handler"
 msgstr ""
 
-#: ospy/options.py:1663
+#: ospy/options.py:1686
 msgid "A component could not apply a changed setting."
 msgstr ""
 
-#: ospy/options.py:1667
+#: ospy/options.py:1690
 msgid "Open the event log, verify the changed setting and restart the affected component or OSPy."
 msgstr ""
 
-#: ospy/options.py:1748
+#: ospy/options.py:1771
+msgid "Options write ignored because writes are suspended."
+msgstr ""
+
+#: ospy/options.py:1780
 msgid "Saving options to disk"
 msgstr ""
 
-#: ospy/options.py:1786
+#: ospy/options.py:1818
 msgid "The SQLite settings mirror could not be updated: {}"
 msgstr ""
 
-#: ospy/options.py:1795
+#: ospy/options.py:1827
 msgid "Strict SQLite dual-write verification failed: {}"
 msgstr ""
 
-#: ospy/options.py:1805
+#: ospy/options.py:1837
 msgid "Files in OPTIONS_BACKUP are older than 1 hour."
 msgstr ""
 
-#: ospy/options.py:1812
+#: ospy/options.py:1844
 msgid "I will try to delete the BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1818
+#: ospy/options.py:1850
 msgid "I will try deleting directory BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1823
+#: ospy/options.py:1855
 msgid "I will try moving directory OPTIONS_DIR to BACKUP_DIR."
 msgstr ""
 
-#: ospy/options.py:1828
+#: ospy/options.py:1860
 msgid "I will try to delete the OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1834
+#: ospy/options.py:1866
 msgid "I will try deleting directory OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1837
+#: ospy/options.py:1869
 msgid "I will try moving directory TMP_DIR to OPTIONS_DIR."
 msgstr ""
 
-#: ospy/options.py:1881
+#: ospy/options.py:1913
 msgid "The SQLite settings read test failed; shelve remains authoritative: {}"
 msgstr ""
 
-#: ospy/options.py:1901
+#: ospy/options.py:1933
 msgid "Saved db as %s"
 msgstr ""
 
-#: ospy/options.py:1930
+#: ospy/options.py:1962
 msgid "Settings database write"
 msgstr ""
 
-#: ospy/options.py:1931
+#: ospy/options.py:1963
 msgid "OSPy could not save changed settings to disk."
 msgstr ""
 
-#: ospy/options.py:1933
+#: ospy/options.py:1965
 msgid "Check free disk space and write permissions for the OSPy data directory, then save the settings again."
 msgstr ""
 
-#: ospy/options.py:1938
+#: ospy/options.py:1970
 msgid ""
 "Saving error:\n"
 msgstr ""
 
-#: ospy/options.py:1979
+#: ospy/options.py:2010
 msgid "Stored object data is not a dictionary."
 msgstr ""
 
-#: ospy/options.py:1987
+#: ospy/options.py:2018
 msgid "Stored value has an incompatible type."
 msgstr ""
 
-#: ospy/options.py:1992
+#: ospy/options.py:2023
 msgid "Ignoring invalid stored field {}.{}: {}"
 msgstr ""
 
-#: ospy/options.py:2000
+#: ospy/options.py:2031
 msgid "Ignoring invalid stored object {}: {}"
 msgstr ""
 
@@ -3358,101 +3378,101 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: ospy/templates/base.html:180
+#: ospy/templates/base.html:181
 msgid "Selected coordinates will be saved when you save Options."
 msgstr ""
 
-#: ospy/templates/base.html:187
+#: ospy/templates/base.html:188
 msgid "Location access is not supported by this browser."
 msgstr ""
 
-#: ospy/templates/base.html:190
+#: ospy/templates/base.html:191
 msgid "Waiting for device location..."
 msgstr ""
 
-#: ospy/templates/base.html:195
+#: ospy/templates/base.html:196
 msgid "The device location could not be obtained."
 msgstr ""
 
-#: ospy/templates/base.html:222 ospy/templates/base.html:244
+#: ospy/templates/base.html:223 ospy/templates/base.html:245
 msgid "am"
 msgstr ""
 
-#: ospy/templates/base.html:222 ospy/templates/base.html:244
+#: ospy/templates/base.html:223 ospy/templates/base.html:245
 msgid "pm"
 msgstr ""
 
-#: ospy/templates/base.html:272
+#: ospy/templates/base.html:273
 msgid "The system has detected that an OSPy update is available"
 msgstr ""
 
-#: ospy/templates/base.html:273
+#: ospy/templates/base.html:274
 #: plugins/system_update/templates/system_update.html:182
 msgid "Local OSPy version"
 msgstr ""
 
-#: ospy/templates/base.html:274
+#: ospy/templates/base.html:275
 msgid "Available OSPy version"
 msgstr ""
 
-#: ospy/templates/base.html:275 ospy/templates/plugins_changes.html:70
+#: ospy/templates/base.html:276 ospy/templates/plugins_changes.html:70
 #: ospy/templates/plugins_manage.html:355
 #: plugins/system_update/__init__.py:299
 msgid "Changes"
 msgstr ""
 
-#: ospy/templates/base.html:276
+#: ospy/templates/base.html:277
 msgid "Update system"
 msgstr ""
 
-#: ospy/templates/base.html:279
+#: ospy/templates/base.html:280
 msgid "The system has detected that plugins updates are available"
 msgstr ""
 
-#: ospy/templates/base.html:280
+#: ospy/templates/base.html:281
 msgid "Number of available updates for plugins"
 msgstr ""
 
-#: ospy/templates/base.html:287
+#: ospy/templates/base.html:288
 msgid "Open plugins"
 msgstr ""
 
-#: ospy/templates/base.html:291
+#: ospy/templates/base.html:292
 msgid "System notification"
 msgstr ""
 
-#: ospy/templates/base.html:371
+#: ospy/templates/base.html:372
 msgid "Manage"
 msgstr ""
 
-#: ospy/templates/base.html:378
+#: ospy/templates/base.html:379
 msgid "Own name for this OpenSprinkler controler. Used for orientation between multiple systems."
 msgstr ""
 
-#: ospy/templates/base.html:381
+#: ospy/templates/base.html:382
 msgid "Report a problem or suggest an improvement"
 msgstr ""
 
-#: ospy/templates/base.html:381 ospy/templates/feedback.html:3
+#: ospy/templates/base.html:382 ospy/templates/feedback.html:3
 #: ospy/templates/feedback.html:17
 msgid "Feedback"
 msgstr ""
 
-#: ospy/templates/base.html:382
+#: ospy/templates/base.html:383
 msgid "OSPy - OpenSprinkler Python"
 msgstr ""
 
-#: ospy/templates/base.html:402 ospy/templates/base.html:404
+#: ospy/templates/base.html:403 ospy/templates/base.html:405
 #: ospy/templates/home_admin.html:3 ospy/templates/home_public.html:3
 #: ospy/templates/home_user.html:3
 msgid "Home"
 msgstr ""
 
-#: ospy/templates/base.html:406 ospy/templates/base.html:408
+#: ospy/templates/base.html:407 ospy/templates/base.html:409
 msgid "Define Programs"
 msgstr ""
 
-#: ospy/templates/base.html:408 ospy/templates/programs.html:3
+#: ospy/templates/base.html:409 ospy/templates/programs.html:3
 #: ospy/templates/programs_user.html:3 ospy/webpages.py:2276
 #: ospy/webpages.py:2300
 #: plugins/button_control/templates/button_control.html:119
@@ -3460,53 +3480,53 @@ msgstr ""
 msgid "Programs"
 msgstr ""
 
-#: ospy/templates/base.html:411 ospy/templates/base.html:413
+#: ospy/templates/base.html:412 ospy/templates/base.html:414
 msgid "Define Run Once Program"
 msgstr ""
 
-#: ospy/templates/base.html:413
+#: ospy/templates/base.html:414
 msgid "Run Once"
 msgstr ""
 
-#: ospy/templates/base.html:415 ospy/templates/base.html:417
+#: ospy/templates/base.html:416 ospy/templates/base.html:418
 msgid "Access Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:417
+#: ospy/templates/base.html:418
 msgid "Plugins"
 msgstr ""
 
-#: ospy/templates/base.html:419 ospy/templates/base.html:421
+#: ospy/templates/base.html:420 ospy/templates/base.html:422
 msgid "View Log"
 msgstr ""
 
-#: ospy/templates/base.html:421 ospy/templates/log.html:3
+#: ospy/templates/base.html:422 ospy/templates/log.html:3
 #: ospy/templates/log_user.html:3
 #: plugins/usage_statistics/templates/usage_statistics.html:157
 #: plugins/venetian_blind/templates/venetian_blind.html:37
 msgid "Log"
 msgstr ""
 
-#: ospy/templates/base.html:423 ospy/templates/base.html:425
+#: ospy/templates/base.html:424 ospy/templates/base.html:426
 #: ospy/templates/options.html:3
 msgid "Options"
 msgstr ""
 
-#: ospy/templates/base.html:427 ospy/templates/base.html:429
+#: ospy/templates/base.html:428 ospy/templates/base.html:430
 #: ospy/templates/stations.html:9
 msgid "Configure Stations"
 msgstr ""
 
-#: ospy/templates/base.html:429 ospy/templates/stations.html:3
+#: ospy/templates/base.html:430 ospy/templates/stations.html:3
 #: plugins/mqtt_home_assistant/__init__.py:861
 msgid "Stations"
 msgstr ""
 
-#: ospy/templates/base.html:431 ospy/templates/base.html:433
+#: ospy/templates/base.html:432 ospy/templates/base.html:434
 msgid "Configure Sensors"
 msgstr ""
 
-#: ospy/templates/base.html:435 ospy/templates/base.html:437
+#: ospy/templates/base.html:436 ospy/templates/base.html:438
 #: ospy/templates/help.html:3 ospy/templates/help.html:10
 #: ospy/templates/help_print.html:3 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:9
@@ -3574,87 +3594,91 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: ospy/templates/base.html:440 ospy/templates/base.html:442
+#: ospy/templates/base.html:441 ospy/templates/base.html:443
 #: ospy/webpages.py:1927
 msgid "Logout"
 msgstr ""
 
-#: ospy/templates/base.html:447 ospy/templates/diagnostics.html:1233
+#: ospy/templates/base.html:448 ospy/templates/diagnostics.html:1233
 msgid "Plugin"
 msgstr ""
 
-#: ospy/templates/base.html:448 ospy/templates/base.html:459
+#: ospy/templates/base.html:449 ospy/templates/base.html:460
 msgid "version"
 msgstr ""
 
-#: ospy/templates/base.html:457
+#: ospy/templates/base.html:458
 msgid "Click to toggle"
 msgstr ""
 
-#: ospy/templates/base.html:457 ospy/templates/diagnostics.html:1177
+#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:1177
 #: plugins/lcd_display/templates/lcd_display.html:273
 #: plugins/lcd_display/templates/lcd_display_help.html:37
 msgid "CPU Temp"
 msgstr ""
 
-#: ospy/templates/base.html:458 ospy/templates/diagnostics.html:1176
+#: ospy/templates/base.html:459 ospy/templates/diagnostics.html:1176
 msgid "CPU Usage"
 msgstr ""
 
-#: ospy/templates/base.html:459
+#: ospy/templates/base.html:460
 msgid "Click for redirecting to github software"
 msgstr ""
 
-#: ospy/templates/base.html:459
+#: ospy/templates/base.html:460
 msgid "Software"
 msgstr ""
 
-#: ospy/templates/base.html:460
+#: ospy/templates/base.html:461
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:211
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:219
 msgid "Local IP"
 msgstr ""
 
-#: ospy/templates/base.html:461
+#: ospy/templates/base.html:462
 msgid "External IP"
 msgstr ""
 
-#: ospy/templates/base.html:462 ospy/templates/diagnostics.html:1180
+#: ospy/templates/base.html:464
+msgid "Cloudflare Quick Tunnel"
+msgstr ""
+
+#: ospy/templates/base.html:465 ospy/templates/diagnostics.html:1180
 msgid "Working"
 msgstr ""
 
-#: ospy/templates/base.html:483 ospy/templates/home_admin.html:875
+#: ospy/templates/base.html:486 ospy/templates/home_admin.html:875
 #: ospy/templates/home_user.html:778
 msgid "Weather location"
 msgstr ""
 
-#: ospy/templates/base.html:484 ospy/templates/base.html:494
+#: ospy/templates/base.html:487 ospy/templates/base.html:497
 #: ospy/templates/diagnostics.html:1388 ospy/templates/plugins_manage.html:185
 #: plugins/venetian_blind/templates/venetian_blind.html:51
 msgid "Close"
 msgstr ""
 
-#: ospy/templates/base.html:486
+#: ospy/templates/base.html:489
 msgid "Click the exact place on the map and confirm your selection."
 msgstr ""
 
-#: ospy/templates/base.html:489
+#: ospy/templates/base.html:492
 msgid "Coordinates"
 msgstr ""
 
-#: ospy/templates/base.html:493
+#: ospy/templates/base.html:496
 msgid "Device location usually requires HTTPS or localhost."
 msgstr ""
 
-#: ospy/templates/base.html:493
+#: ospy/templates/base.html:496
 msgid "Use device location"
 msgstr ""
 
-#: ospy/templates/base.html:495
+#: ospy/templates/base.html:498
 msgid "Use this location"
 msgstr ""
 
-#: ospy/templates/base.html:499
+#: ospy/templates/base.html:502
 msgid "Back to top"
 msgstr ""
 
@@ -5104,7 +5128,7 @@ msgstr ""
 msgid "The enabled plug-in needs attention."
 msgstr ""
 
-#: ospy/templates/diagnostics.html:516 ospy/webpages.py:5142
+#: ospy/templates/diagnostics.html:516 ospy/webpages.py:5153
 #: plugins/ip_cam/__init__.py:186 plugins/mqtt/__init__.py:500
 #: plugins/mqtt_home_assistant/__init__.py:292
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
@@ -5795,13 +5819,6 @@ msgstr ""
 
 #: ospy/templates/diagnostics.html:1239
 msgid "CPU total"
-msgstr ""
-
-#: ospy/templates/diagnostics.html:1241
-#: plugins/database_connector/__init__.py:110
-#: plugins/labelmaker/__init__.py:461 plugins/modbus_stations/__init__.py:142
-#: plugins/ospy_backup/__init__.py:89
-msgid "Started"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:1242
@@ -6892,11 +6909,6 @@ msgstr ""
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
-#: ospy/templates/home_admin.html:698 ospy/templates/home_user.html:607
-#: ospy/webpages.py:2080
-msgid "Manual"
-msgstr ""
-
 #: ospy/templates/home_admin.html:701 ospy/templates/home_user.html:610
 msgid "Enable or disable the scheduler running"
 msgstr ""
@@ -7502,7 +7514,7 @@ msgstr ""
 msgid "File type is not zip, please retry."
 msgstr ""
 
-#: ospy/templates/options.html:91 ospy/webpages.py:5028 ospy/webpages.py:5058
+#: ospy/templates/options.html:91 ospy/webpages.py:5039 ospy/webpages.py:5069
 msgid "File name is not fullchain.pem or privkey.pem, please retry."
 msgstr ""
 
@@ -10338,8 +10350,8 @@ msgstr ""
 #: ospy/webpages.py:4417 ospy/webpages.py:4453 ospy/webpages.py:4473
 #: ospy/webpages.py:4702 ospy/webpages.py:4711 ospy/webpages.py:4782
 #: ospy/webpages.py:4790 ospy/webpages.py:4871 ospy/webpages.py:4890
-#: ospy/webpages.py:4945 ospy/webpages.py:5099 ospy/webpages.py:5585
-#: ospy/webpages.py:5661
+#: ospy/webpages.py:4945 ospy/webpages.py:5110 ospy/webpages.py:5596
+#: ospy/webpages.py:5672
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
@@ -10553,10 +10565,6 @@ msgstr ""
 
 #: ospy/webpages.py:2052
 msgid "User {} changed the temperature unit to {}."
-msgstr ""
-
-#: ospy/webpages.py:2097
-msgid "Station started manually"
 msgstr ""
 
 #: ospy/webpages.py:2098
@@ -11759,51 +11767,55 @@ msgstr ""
 msgid "A safety backup was created before restoration."
 msgstr ""
 
-#: ospy/webpages.py:4997
+#: ospy/webpages.py:5002
+msgid "Pending settings writer could not be stopped before restoration."
+msgstr ""
+
+#: ospy/webpages.py:5008
 msgid "The backup was verified and restored successfully. OSPy is restarting."
 msgstr ""
 
-#: ospy/webpages.py:4999
+#: ospy/webpages.py:5010
 msgid "A legacy backup without a manifest was restored."
 msgstr ""
 
-#: ospy/webpages.py:5006
+#: ospy/webpages.py:5017
 msgid "System backup restore was rejected: {}"
 msgstr ""
 
-#: ospy/webpages.py:5009
+#: ospy/webpages.py:5020
 msgid "The system backup cannot be restored: {}"
 msgstr ""
 
-#: ospy/webpages.py:5014
+#: ospy/webpages.py:5025
 msgid "The system backup could not be restored. No verified data was installed."
 msgstr ""
 
-#: ospy/webpages.py:5039
+#: ospy/webpages.py:5050
 msgid "Could not set private key permissions."
 msgstr ""
 
-#: ospy/webpages.py:5105
+#: ospy/webpages.py:5116
 msgid "Try-ing generating SSL certificate..."
 msgstr ""
 
-#: ospy/webpages.py:5161
+#: ospy/webpages.py:5172
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:5403
+#: ospy/webpages.py:5414
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:5413 ospy/webpages.py:5486
+#: ospy/webpages.py:5424 ospy/webpages.py:5497
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:5422 ospy/webpages.py:5473
+#: ospy/webpages.py:5433 ospy/webpages.py:5484
 msgid "Unit not set"
 msgstr ""
 
-#: ospy/webpages.py:5499
+#: ospy/webpages.py:5510
 msgid "Index {} is out of range for pluginStn list."
 msgstr ""
 

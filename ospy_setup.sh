@@ -48,8 +48,13 @@ do_user_grp=false
 do_multimedia=false
 install_location="/opt"
 
+remote_mode="lan"
+remote_url=""
+remote_warning=""
+cloudflare_token=""
+
 if ! CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist \
-  "Choose install options" 13 64 5 \
+  "Choose install options" 13 72 5 \
   "1" "Upgrade installed operating-system packages" ON \
   "2" "Enable I2C and install I2C tools" ON \
   "3" "Install the Mosquitto MQTT broker and client" OFF \
@@ -71,9 +76,9 @@ for choice in $CHOICES; do
   esac
 done
 
-if whiptail --title "Location" --yesno \
+if whiptail --title "Installation location" --yesno \
   "Install OSPy in /opt or in the $current_user home directory?" \
-  --no-button "Home directory" --yes-button "/opt" 8 60; then
+  --no-button "Home directory" --yes-button "/opt" 8 64; then
   install_location="/opt"
 else
   if [ -z "$current_user_home" ] || [ ! -d "$current_user_home" ]; then
@@ -82,6 +87,154 @@ else
   fi
   install_location="$current_user_home"
 fi
+
+REMOTE_HELP=$(cat <<'EOF'
+OSPy always runs locally on port 8080. The remote-access modes below place a secure
+reverse proxy/tunnel in front of OSPy. Local LAN access remains available at:
+
+    http://<Raspberry-Pi-IP>:8080
+
+When Cloudflare Tunnel, Tailscale Serve or Tailscale Funnel is used, OSPy itself should
+normally stay on HTTP. The tunnel service provides the external HTTPS/TLS connection.
+
+1) LOCAL NETWORK ONLY
+   No remote-access software is configured.
+   OSPy is reachable only from networks that can directly reach the Raspberry Pi.
+   No public HTTPS address is created.
+
+2) CLOUDFLARE TUNNEL
+   Recommended when OSPy should have a normal public HTTPS address such as:
+       https://ospi.example.com
+
+   Cloudflare provides the public HTTPS endpoint and TLS certificate. cloudflared on
+   the Raspberry Pi makes an outbound encrypted tunnel to Cloudflare and forwards
+   requests locally to http://127.0.0.1:8080.
+
+   No public IP address and no router port forwarding are required.
+   Requires a Cloudflare account, a domain in Cloudflare DNS and a Tunnel token.
+   Cloudflare Access can optionally be placed in front of OSPy for another login layer.
+
+3) CLOUDFLARE QUICK TUNNEL
+   Test/demo mode. No Cloudflare account and no own domain are required.
+   A temporary public HTTPS address under trycloudflare.com is generated automatically.
+   The address can change after the service is restarted. Cloudflare documents Quick
+   Tunnels as development/testing only, not as a production remote-access method.
+
+4) TAILSCALE SERVE
+   Recommended for private administrator access.
+   OSPy is exposed over HTTPS only inside your Tailscale network (tailnet).
+   Devices/users must be members of the tailnet and permitted by its access rules.
+   No public IP address, own domain or router port forwarding is required.
+   Requires a Tailscale account and login of this Raspberry Pi into the tailnet.
+
+5) TAILSCALE FUNNEL
+   Creates a public HTTPS address under your tailnet's *.ts.net name.
+   Visitors do not need Tailscale. OSPy is therefore exposed to the public Internet.
+   No own domain or router port forwarding is required.
+   Requires Tailscale, MagicDNS/HTTPS and permission to use Funnel in the tailnet.
+EOF
+)
+
+whiptail --title "OSPy remote access - explanation" --scrolltext \
+  --msgbox "$REMOTE_HELP" 22 76
+
+if ! remote_mode=$(whiptail --title "OSPy remote access" --menu \
+  "Choose how OSPy should be reachable after installation." \
+  18 76 6 \
+  "lan"               "Local network only (HTTP :8080)" \
+  "cloudflare"        "Cloudflare Tunnel - public, own domain" \
+  "cloudflare-quick"  "Cloudflare Quick Tunnel - temporary public URL" \
+  "tailscale-serve"   "Tailscale Serve - private tailnet HTTPS" \
+  "tailscale-funnel"  "Tailscale Funnel - public *.ts.net HTTPS" \
+  3>&1 1>&2 2>&3); then
+  echo "Installation was cancelled during remote-access selection."
+  exit 0
+fi
+
+case "$remote_mode" in
+  lan)
+    whiptail --title "Local network only" --msgbox \
+      "No remote-access service will be installed.
+
+After installation use:
+http://<Raspberry-Pi-IP>:8080
+
+This is the safest choice when remote Internet access is not needed." 13 72
+    ;;
+
+  cloudflare)
+    whiptail --title "Cloudflare Tunnel" --scrolltext --msgbox \
+      "Before continuing, create a remotely-managed Cloudflare Tunnel in your Cloudflare account.
+
+Configure a Public Hostname, for example:
+  ospi.example.com
+
+Set its service/origin to:
+  HTTP
+  http://localhost:8080
+
+Then copy the tunnel token from the Cloudflare installation command.
+
+The installer will install cloudflared from Cloudflare's official Debian repository and register it as a systemd service. OSPy itself remains on local HTTP; Cloudflare supplies public HTTPS and the certificate.
+
+The token is required on the next screen." 22 76
+
+    if ! cloudflare_token=$(whiptail --title "Cloudflare Tunnel token" --passwordbox \
+      "Paste the Cloudflare Tunnel token.
+
+Paste only the token, not the complete 'cloudflared service install ...' command." \
+      13 76 3>&1 1>&2 2>&3); then
+      echo "Installation was cancelled while entering the Cloudflare token."
+      exit 0
+    fi
+
+    if [ -z "$cloudflare_token" ]; then
+      whiptail --title "Cloudflare Tunnel" --msgbox \
+        "No tunnel token was entered. The installer will use Local network only instead." 9 74
+      remote_mode="lan"
+    fi
+    ;;
+
+  cloudflare-quick)
+    whiptail --title "Cloudflare Quick Tunnel" --scrolltext --msgbox \
+      "This mode creates a temporary public HTTPS URL such as:
+https://random-words.trycloudflare.com
+
+No Cloudflare account or own domain is required.
+
+The installer creates a dedicated systemd service so the tunnel starts automatically. The generated address is not guaranteed to remain the same after a restart. Use this mode only for testing or temporary access." 18 76
+    ;;
+
+  tailscale-serve)
+    whiptail --title "Tailscale Serve" --scrolltext --msgbox \
+      "This mode installs Tailscale and connects the Raspberry Pi to your tailnet.
+
+If the Pi is not already authenticated, 'tailscale up' will print a login URL. Open that URL in a browser and approve the Raspberry Pi.
+
+OSPy will then be reverse-proxied from:
+  http://127.0.0.1:8080
+
+to a private HTTPS address under your *.ts.net name.
+
+Only permitted members/devices of your Tailscale network can access it. This is the recommended mode when OSPy remote administration is only for you or your team." 21 76
+    ;;
+
+  tailscale-funnel)
+    whiptail --title "Tailscale Funnel" --scrolltext --msgbox \
+      "This mode installs Tailscale and connects the Raspberry Pi to your tailnet.
+
+If the Pi is not already authenticated, 'tailscale up' will print a login URL. Open it and approve the Raspberry Pi.
+
+Funnel then publishes OSPy to the public Internet using HTTPS under the Raspberry Pi's *.ts.net name. Visitors do not need Tailscale.
+
+Tailscale may require you to enable HTTPS/MagicDNS/Funnel permission in the web consent page. Funnel is public, so use a strong OSPy administrator password." 21 76
+    ;;
+
+  *)
+    echo "Unsupported remote-access mode: $remote_mode" >&2
+    exit 1
+    ;;
+esac
 
 mkdir -p -- "$install_location"
 
@@ -170,17 +323,19 @@ if [ ! -f "$service_template" ]; then
   exit 1
 fi
 
-echo "===== Installing the systemd service ====="
+echo "===== Installing the OSPy systemd service ====="
 python_path="$(command -v python3)"
 service_file="$(mktemp)"
 cleanup() {
   rm -f -- "$service_file"
 }
 trap cleanup EXIT
+
 sed \
   -e "s|{{OSPY_DIR}}|$ospy_dir|g" \
   -e "s|{{PYTHON}}|$python_path|g" \
   "$service_template" > "$service_file"
+
 install -m 0644 "$service_file" /etc/systemd/system/ospy.service
 systemctl daemon-reload
 systemctl enable ospy.service
@@ -192,14 +347,225 @@ if ! systemctl is-active --quiet ospy.service; then
   exit 1
 fi
 
+install_cloudflared() {
+  echo "===== Installing Cloudflare cloudflared ====="
+  apt-get install -y curl
+  install -d -m 0755 /usr/share/keyrings
+  curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
+    -o /usr/share/keyrings/cloudflare-main.gpg
+  printf '%s\n' \
+    'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' \
+    > /etc/apt/sources.list.d/cloudflared.list
+  apt-get update
+  apt-get install -y cloudflared
+}
+
+install_tailscale() {
+  echo "===== Installing Tailscale ====="
+  apt-get install -y curl
+
+  if ! command -v tailscale >/dev/null 2>&1; then
+    curl -fsSL https://tailscale.com/install.sh | sh
+  else
+    echo "Tailscale is already installed."
+  fi
+
+  systemctl enable --now tailscaled.service
+}
+
+ensure_tailscale_connected() {
+  if tailscale status >/dev/null 2>&1; then
+    echo "Tailscale is already connected."
+    return 0
+  fi
+
+  echo
+  echo "===== Tailscale authentication required ====="
+  echo "Open the login URL printed below in a browser and approve this Raspberry Pi."
+  echo
+  tailscale up
+}
+
+tailscale_https_name() {
+  tailscale status --json 2>/dev/null | python3 -c '
+import json, sys
+try:
+    data = json.load(sys.stdin)
+    name = data.get("Self", {}).get("DNSName", "").rstrip(".")
+    if name:
+        print("https://" + name)
+except Exception:
+    pass
+' || true
+}
+
+echo "===== Configuring remote access ====="
+
+case "$remote_mode" in
+  lan)
+    echo "Remote access: Local network only."
+    ;;
+
+  cloudflare)
+    install_cloudflared
+
+    echo "===== Registering Cloudflare Tunnel as a system service ====="
+    if cloudflared service install "$cloudflare_token"; then
+      systemctl enable cloudflared.service >/dev/null 2>&1 || true
+      systemctl restart cloudflared.service
+
+      if systemctl is-active --quiet cloudflared.service; then
+        echo "Cloudflare Tunnel service is running."
+        remote_url="Use the Public Hostname configured in your Cloudflare dashboard."
+      else
+        remote_warning="cloudflared was installed but its systemd service is not active. Check: journalctl -u cloudflared -n 50"
+      fi
+    else
+      remote_warning="cloudflared could not register the managed tunnel. An existing cloudflared service may already be installed, or the token may be invalid. Existing Cloudflare configuration was not deleted."
+    fi
+    ;;
+
+  cloudflare-quick)
+    install_cloudflared
+
+    if systemctl is-active --quiet cloudflared.service; then
+      remote_warning="A managed cloudflared.service is already active. The installer did not start a second Quick Tunnel. Existing Cloudflare configuration was left unchanged."
+    else
+      cloudflared_path="$(command -v cloudflared)"
+
+      cat > /etc/systemd/system/ospy-cloudflared-quick.service <<EOF
+[Unit]
+Description=OSPy Cloudflare Quick Tunnel
+Documentation=https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/
+After=network-online.target ospy.service
+Wants=network-online.target
+Requires=ospy.service
+
+[Service]
+Type=simple
+ExecStart=$cloudflared_path tunnel --no-autoupdate --url http://127.0.0.1:8080
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+      systemctl daemon-reload
+      systemctl enable --now ospy-cloudflared-quick.service
+
+      if systemctl is-active --quiet ospy-cloudflared-quick.service; then
+        echo "Cloudflare Quick Tunnel is running."
+        sleep 3
+        remote_url="$(
+          journalctl -u ospy-cloudflared-quick.service -n 80 --no-pager 2>/dev/null \
+            | grep -Eo 'https://[A-Za-z0-9-]+\.trycloudflare\.com' \
+            | tail -n 1 || true
+        )"
+
+        if [ -z "$remote_url" ]; then
+          remote_url="Run: journalctl -u ospy-cloudflared-quick.service -n 50 --no-pager"
+        fi
+      else
+        remote_warning="Cloudflare Quick Tunnel service did not start. Check: journalctl -u ospy-cloudflared-quick.service -n 50"
+      fi
+    fi
+    ;;
+
+  tailscale-serve)
+    install_tailscale
+    ensure_tailscale_connected
+
+    echo "===== Enabling private Tailscale Serve access ====="
+    if tailscale serve --bg http://127.0.0.1:8080; then
+      remote_url="$(tailscale_https_name)"
+      [ -n "$remote_url" ] || remote_url="Run: tailscale serve status"
+    else
+      remote_warning="Tailscale Serve could not be enabled automatically. Tailscale may have printed a web consent URL. Complete the requested tailnet setup, then run: sudo tailscale serve --bg http://127.0.0.1:8080"
+    fi
+    ;;
+
+  tailscale-funnel)
+    install_tailscale
+    ensure_tailscale_connected
+
+    echo "===== Enabling public Tailscale Funnel access ====="
+    if tailscale funnel --bg http://127.0.0.1:8080; then
+      remote_url="$(tailscale_https_name)"
+      [ -n "$remote_url" ] || remote_url="Run: tailscale funnel status"
+    else
+      remote_warning="Tailscale Funnel could not be enabled automatically. Complete any HTTPS, MagicDNS or Funnel permission requested by Tailscale, then run: sudo tailscale funnel --bg http://127.0.0.1:8080"
+    fi
+    ;;
+esac
+
+echo
 echo "===== OSPy is installed and the service is running ====="
 echo "Installation directory: $ospy_dir"
-echo "Open the OSPy web interface on port 8080 and change the generated administrator password."
+echo "Local web interface: http://<Raspberry-Pi-IP>:8080"
+echo
+
+case "$remote_mode" in
+  lan)
+    echo "Remote-access mode: Local network only"
+    ;;
+  cloudflare)
+    echo "Remote-access mode: Cloudflare Tunnel"
+    ;;
+  cloudflare-quick)
+    echo "Remote-access mode: Cloudflare Quick Tunnel"
+    ;;
+  tailscale-serve)
+    echo "Remote-access mode: Tailscale Serve (private)"
+    ;;
+  tailscale-funnel)
+    echo "Remote-access mode: Tailscale Funnel (public)"
+    ;;
+esac
+
+if [ -n "$remote_url" ]; then
+  echo "Remote HTTPS address/status: $remote_url"
+fi
+
+if [ -n "$remote_warning" ]; then
+  echo
+  echo "WARNING: $remote_warning"
+fi
+
+echo
+echo "Open the OSPy web interface and change the generated administrator password immediately."
+
+FINAL_MESSAGE="OSPy is installed and running.
+
+Local access:
+http://<Raspberry-Pi-IP>:8080
+
+Remote mode: $remote_mode"
+
+if [ -n "$remote_url" ]; then
+  FINAL_MESSAGE="$FINAL_MESSAGE
+
+Remote HTTPS:
+$remote_url"
+fi
+
+if [ -n "$remote_warning" ]; then
+  FINAL_MESSAGE="$FINAL_MESSAGE
+
+Warning:
+$remote_warning"
+fi
+
+FINAL_MESSAGE="$FINAL_MESSAGE
+
+Change the generated OSPy administrator password immediately after the first login."
+
+whiptail --title "OSPy setup finished" --scrolltext --msgbox "$FINAL_MESSAGE" 20 76 || true
 
 if [ "$do_i2c" = true ] || [ "$do_user_grp" = true ]; then
-  if whiptail --title "Setup finished" --yesno \
-    "OSPy is running. A reboot is recommended to apply I2C or group changes. Reboot now?" \
-    --no-button "Later" --yes-button "Reboot" 10 70; then
+  if whiptail --title "Reboot recommended" --yesno \
+    "OSPy is running. A reboot is recommended to apply I2C or hardware-group changes. Reboot now?" \
+    --no-button "Later" --yes-button "Reboot" 10 74; then
     reboot
   fi
 fi
