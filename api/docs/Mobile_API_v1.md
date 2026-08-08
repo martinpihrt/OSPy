@@ -80,7 +80,7 @@ Errors use:
 
 Dates use ISO 8601. Station, program and sensor identifiers are typed strings such as `station-0`; `legacy_index` is also returned where useful. A client should discover supported functionality from `/capabilities`, not from the OSPy version text.
 
-Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413`, `422`, `429`, `500` and `503`. Stable error codes include `missing_token`, `invalid_token`, `insufficient_scope`, `invalid_json`, `not_found`, `station_unavailable`, `empty_run_once`, `two_factor_required` and `update_plugin_unavailable`.
+Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413`, `422`, `429`, `500` and `503`. Stable error codes include `missing_token`, `invalid_token`, `invalid_refresh_token`, `insufficient_scope`, `invalid_json`, `invalid_program`, `not_found`, `station_unavailable`, `empty_run_once`, `two_factor_required` and `update_plugin_unavailable`.
 
 `X-Request-ID` may be supplied by the client (maximum 100 characters) and is returned in the response header and error body. Include it when reporting a failed request. JSON bodies are limited to 1 MiB. Pagination limits are bounded by the server even if a larger value is requested.
 
@@ -188,9 +188,21 @@ Program creation example:
 }
 ```
 
-Program types and `type_data` are deliberately the same scheduling model as OSPy. For custom programs, `start` may be an ISO 8601 date-time and `schedule` contains the explicit schedule. Invalid station indices are discarded and an invalid program shape returns `invalid_program`.
+Program types and `type_data` are deliberately the same scheduling model as OSPy. A client must preserve the returned type and use its corresponding shape:
 
-The `editor` object is intentionally additive. Its `kind` identifies the native form (`simple`, `advanced`, `weather` or `custom`), while `fields` contains the decoded scheduling values for that kind. Clients that do not recognize a future kind can still display the program and send the unchanged `type_data` returned by the API. Enabling or disabling an existing program is a normal partial update:
+| `type` | `editor.kind` | `type_data` |
+| --- | --- | --- |
+| `0` | `days_simple` | `[start_minute, duration_minutes, pause_minutes, repeat_count, days]` |
+| `1` | `days_advanced` | `[intervals, days]` |
+| `2` | `repeat_simple` | `[start_minute, duration_minutes, pause_minutes, repeat_count, repeat_days, start_date]` |
+| `3` | `repeat_advanced` | `[intervals, repeat_days, start_date]` |
+| `4` | `weekly_advanced` | `[intervals]` |
+| `5` | `custom` | `[intervals]`; also send `start`, `modulo`, `manual` and `schedule` |
+| `6` | `weekly_weather` | `[irrigation_min, irrigation_max, run_max, pause_ratio, priority_intervals]` |
+
+Normal intervals are `[start_minute, end_minute]` pairs. Weather priority intervals are `[minute, priority]` pairs and `pause_ratio` is a decimal from `0.0` to `1.0` (`0.5` means 50%). Days are zero-based Monday through Sunday (`0..6`), dates use `YYYY-MM-DD`, and custom `start` uses ISO 8601 date-time syntax. Invalid station indices, values or shapes return `invalid_program`; `error.details.reason` supplies a diagnostic reason while clients should localize the stable error code and the affected field.
+
+The `editor` object is intentionally additive. Its stable `kind` identifies the exact native form listed above, while `fields` contains the decoded scheduling values for that kind. Clients that do not recognize a future kind must keep it read-only or send its unchanged definition; they must never convert it to `custom`. Enabling or disabling an existing program is a normal partial update:
 
 ```http
 PUT /api/v1/programs/program-2
@@ -198,6 +210,8 @@ Content-Type: application/json
 
 {"enabled":false}
 ```
+
+This `enabled`-only update is atomic and does not rebuild the program schedule. Full creation and update requests are also built and validated on a detached program and committed only after the complete schedule succeeds, so a rejected request cannot rename, convert or otherwise partially change the live program. Program creation still uses `POST /programs` with the complete `name`, `stations`, `type` and `type_data` definition shown above; `enabled` may be included explicitly.
 
 ### Scheduler timeline
 
@@ -247,6 +261,8 @@ History returns an array plus `offset`, `limit`, `total` and `has_more` metadata
 ### Notifications
 
 `GET /notifications?unread=1&limit=100&cursor=ID` returns persistent newest-first notifications. Acknowledge one with `POST /notifications/{id}/ack` or all with `/notifications/all/ack`. The bounded notification database is separate from authoritative OSPy settings. Initial events include active rain protection and a stopped irrigation station. Diagnostics errors are converted to notifications only after at least one mobile device has been paired. The health calculation runs outside the scheduler signal so notification work cannot delay irrigation.
+
+Notification `type` and `code` fields are stable machine values. Native clients should choose a localized title and message from `code` and structured `data` (for example the station name for `station_started` or `station_stopped`). Server-supplied `title` and `message` are display fallbacks and must not be parsed to determine behavior.
 
 ## Live changes
 
@@ -728,7 +744,7 @@ Poll the returned `id` as `operation_id` in `GET /operations/{operation_id}`. Cu
 }
 ```
 
-Client logic must branch on `error.code`, not on the English `message`. Show the message to the user and include `request_id` in a support report.
+Client logic must branch on `error.code`, not on the English `message`. Localize recognized codes in the client and use a localized generic fallback for unknown codes; retain the server message for diagnostics rather than exposing an untranslated technical string. Include `request_id` in a support report.
 
 ## Client implementation checklist
 

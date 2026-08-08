@@ -499,77 +499,115 @@ Při uložení programu OSPy kontroluje povolené programy a hledá překryvy pl
 ## Typ plánovače
 Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku (vybrané dny, opakování, týdenní, vlastní a programy založené na předpovědi počasí).
 
+Změnou typu se změní zobrazená pole i způsob, kterým OSPy sestavuje plán. Po změně typu proto před uložením zkontrolujte všechny hodnoty. V grafickém plánovači prvním kliknutím označíte začátek a druhým konec intervalu; křížkem u existujícího intervalu jej odstraníte. Časy se vyhodnocují v místním čase systému OSPy.
+
 ### Vybrané dny (Jednoduchý)
+Spouští stejný jednoduchý plán ve všech označených dnech týdne. Vyberte jeden nebo více dnů a nastavte první spuštění.
    
 #### Čas startu
+Čas, kdy v každém vybraném dni začne první běh programu.
     
 #### Trvání
+Doba jednoho běhu každé vybrané stanice v minutách.
  
 #### Opakovat
+Zapne další běhy ve stejném vybraném dni po dokončení prvního běhu.
     
 #### Opakování
+Počet dalších běhů po prvním. Hodnota `2` tedy znamená celkem tři běhy.
     
 #### Pauza
+Počet minut mezi koncem jednoho běhu a začátkem dalšího opakování.
 
 ### Vybrané dny (Rozšířené)
+Spouští ručně zakreslené intervaly ve všech vybraných dnech týdne. Hodí se pro několik navzájem nezávislých časů spuštění a zastavení během dne.
     
 #### Plánovač
+V grafickém řádku 24 hodin vytvořte jeden nebo více intervalů začátek/konec. Stejné intervaly se použijí pro každý označený den týdne.
 
 ### Opakování (Jednoduché)
+Spouští jednoduchý plán po zadaném počtu dnů; cyklus je ukotven počátečním datem, nikoli pevnými dny týdne.
     
 #### Interval zavlažování
+Počet dnů mezi aktivními dny. Hodnota `1` znamená každý den, `2` každý druhý den.
 
 #### Start ve dni
+Počet dnů od dneška do prvního aktivního dne. Hodnota `0` zahájí cyklus dnes.
 
 #### Čas startu
+Čas prvního běhu v každém aktivním dni.
 
 #### Trvání
+Doba jednoho běhu každé vybrané stanice v minutách.
 
 #### Opakovat
+Zapne další běhy ve stejném aktivním dni.
 
 #### Opakování
+Počet dalších běhů po prvním běhu.
 
 #### Pauza
+Prodleva v minutách mezi jednotlivými opakovanými běhy.
     
 ### Opakování (Rozšířené)
+Opakuje grafický denní plán v pevném intervalu několika dnů.
     
 #### Interval zavlažování
+Počet dnů mezi provedeními zakresleného plánu.
   
 #### Start ve dni
+Posun od dneška v počtu dnů k datu, které ukotví opakovací cyklus.
 
 #### Plánovač
+Zakreslete všechny intervaly začátek/konec pro jeden aktivní den. OSPy celou sadu zopakuje po zadaném intervalu zavlažování.
     
 ### Týdenní (Rozšířené)
+Umožňuje vytvořit samostatný grafický plán pro každý den týdne a celou sadu opakuje po sedmi dnech.
 
 #### Pondělí-Neděle
+Intervaly zakreslujte přímo do řádku požadovaného dne. Každý den může obsahovat několik intervalů nebo zůstat prázdný.
 
 ### Vlastní
+Vytváří přesně určený vícedenní opakovací cyklus. Použijte jej, pokud požadované pořadí nelze vyjádřit jednoduchými ani rozšířenými typy.
 
 #### Interval zavlažování
+Délka opakovacího cyklu ve dnech. Po posledním dni cyklu se plán vrátí na Den 1.
 
 #### Start ve dni
+Počet dnů od dneška, po kterých začne Den 1 vlastního cyklu.
 
 #### Den 1 - Den 7
+V zobrazených dnech cyklu zakreslete nezávislé intervaly začátek/konec. Intervaly se ukládají jako minuty od začátku Dne 1.
 
 ### Týdenní (Předpověď počasí)
+Plánuje zavlažování podle vodní bilance stanic a předpovědi počasí. Zadané okamžiky jsou pouze příležitosti; OSPy je může vynechat nebo zkrátit, pokud vypočtený deficit zavlažování nevyžaduje.
     
 #### Minimální zavlažování
+Minimální deficit vody v milimetrech, od kterého je dovoleno zavlažování spustit.
 
 #### Maximální zavlažování
+Největší množství vody v milimetrech, které lze dodat jedné stanici při jednom upřednostněném okamžiku.
 
 #### Maximální dávka
+Největší množství vody v milimetrech, které lze dodat nepřetržitě před vložením pauzy.
 
 #### Poměr pauzy
+Délka pauzy v procentech předchozího nepřetržitého běhu. Například `50 %` vloží pauzu o poloviční délce běhu.
 
 #### Upřednostnění okamžiku provedení
+Seřazený seznam týdenních příležitostí, ve kterých může program podle počasí běžet. Je nutné zadat alespoň jeden okamžik.
 
 #### Den
+Den týdne pro danou příležitost ke spuštění.
 
 #### Čas startu
+Místní čas, kdy OSPy vyhodnotí a případně zahájí danou příležitost.
 
 #### Přednost
+Relativní preference mezi okamžiky. Vyšší hodnota upřednostní daný okamžik, pokud lze zavlažování odložit.
 
 #### Přidat - Smazat
+Přidá další upřednostněný okamžik nebo odstraní vybraný řádek. Po smazání všech řádků nezůstane žádná příležitost ke spuštění.
 
 ## Žádné úpravy
 Na tento program nebudou použity žádné úpravy (například zkrácení, nebo prodloužení doby)
@@ -1272,20 +1310,24 @@ Pro moderní webové prohlížeče se doporučuje, aby rozhraní API bylo postav
 Mapování metod HTTP/s.
 
 ## Rozšíření
-Základní struktura všech rozšíření je následující:
+Aktuální základní struktura rozšíření je následující:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Statické soubory budou automaticky zpřístupněny na následujícím místě: /plugins/název_pluginu/static/...
-Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověda". *
+Uvedené adresáře a soubor `README.md` jsou volitelné. Nová nebo aktualizovaná rozšíření distribuovaná k instalaci musí obsahovat `__init__.py` a platný UTF-8 soubor `plugin.json`, jehož `id` odpovídá názvu adresáře. Již nainstalovaná starší rozšíření bez manifestu zůstávají podporována v režimu zpětné kompatibility.
+
+Statické soubory jsou dostupné pod `/plugins/plugin_name/static/...`. Soubory skriptů jsou dostupné pod `/plugins/plugin_name/script/...`; stránka rozšíření může načíst vlastní JavaScript pro volání API OSPy a úpravu zobrazení. Všechny soubory `*.md` v adresáři `docs` se zobrazují v Nápovědě. Soubor `README.md`, pokud existuje, je první položkou Nápovědy a může být použit také jako popis rozšíření.
 
 ### Dostupná rozšíření:
 

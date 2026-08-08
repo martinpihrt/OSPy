@@ -499,77 +499,115 @@ When saving a program, OSPy checks the allowed programs and looks for overlaps o
 ## Schedule type
 Scheduler type allows to choose the suitable program type according to our requirement (selected days, repeat, weekly, custom and programs based on weather forecast).
 
+Changing the type changes both the visible fields and the way OSPy builds the schedule. Review all values before saving after changing a type. In graphical schedules, click once to mark the beginning and again to mark the end; use the cross on an existing interval to remove it. Times are interpreted in the local time of the OSPy system.
+
 ### Selected days (Simple)
+Runs the same simple schedule on each selected weekday. Select one or more weekdays and set the first run below.
 
 #### Start time
+The time at which the first run starts on every selected day.
 
 #### Duration
+The number of minutes for one run of each selected station.
 
 #### Repeat
+Enables additional runs on the same selected day after the first run.
 
 #### Repetitions
+The number of additional runs after the first one. For example, `2` produces three runs in total.
 
 #### Pause
+The number of minutes between the end of one run and the beginning of the next repetition.
 
 ### Selected days (Advanced)
+Runs user-drawn intervals on each selected weekday. This type is suitable for several unrelated start and stop times in one day.
 
 #### Schedule
+Use the 24-hour graphical row to add one or more start/end intervals. The same intervals are copied to every selected weekday.
 
 ### Repeating (Simple)
+Runs a simple schedule every configured number of days, anchored to a chosen start date instead of fixed weekdays.
 
 #### Water interval
+The number of days between active days. `1` means every day, `2` every other day.
 
 #### Starting in
+The number of days from today to the first active date. `0` starts the cycle today.
 
 #### Start time
+The time of the first run on each active day.
 
 #### Duration
+The number of minutes for one run of each selected station.
 
 #### Repeat
+Enables additional runs on the same active day.
 
 #### Repetitions
+The number of additional runs after the first one.
 
 #### Pause
+The delay in minutes between repeated runs.
 
 ### Repeating (Advanced)
+Repeats a graphical daily schedule at a fixed interval of days.
 
 #### Water interval
+The number of days between executions of the drawn schedule.
 
 #### Starting in
+The delay in days from today to the date that anchors the repeating cycle.
 
 #### Schedule
+Draw all start/end intervals for one active day. OSPy repeats this complete set after the selected water interval.
 
 ### Weekly (Advanced)
+Defines an independent graphical schedule for every weekday and repeats the complete schedule every seven days.
 
 #### Monday-Sunday
+Draw intervals directly in the row for the required weekday. Each day may contain several intervals or remain empty.
 
 ### Custom
+Defines an explicit multi-day repeating cycle. Use it when the predefined simple and advanced patterns cannot express the required sequence.
 
 #### Water interval
+The length of the repeating cycle in days. After the last cycle day, scheduling returns to Day 1.
 
 #### Starting in
+The number of days from today before Day 1 of the custom cycle begins.
 
 #### Day 1 - Day 7
+Draw start/end intervals independently on the displayed cycle days. An interval is stored as minutes from the beginning of Day 1.
 
 ### Weekly (Weather based)
+Plans irrigation from station water balance and the weather forecast. The listed moments are opportunities; OSPy may skip or shorten them when the calculated deficit does not require watering.
 
 #### Irrigation min
+The minimum water deficit in millimetres at which irrigation is allowed to start.
 
 #### Irrigation max
+The maximum amount in millimetres that may be supplied to a station at one preferred execution moment.
 
 #### Run max
+The maximum amount in millimetres that may be supplied continuously before OSPy inserts a pause.
 
 #### Pause ratio
+The pause length as a percentage of the preceding continuous run time. For example, `50%` adds a pause half as long as the run.
 
 #### Preferred Execution Moments
+The ordered list of weekly opportunities when weather-based irrigation may run. At least one moment is required.
 
 #### Day
+The weekday of the preferred execution opportunity.
 
 #### Start time
+The local time at which OSPy evaluates and may start this opportunity.
 
 #### Priority
+The relative preference between opportunities. A higher value makes the moment preferable when watering can be deferred.
 
 #### Add - Delete
+Adds another preferred moment or removes the selected row. Deleting every row leaves no opportunity to run.
 
 ## No adjustments
 No modifications will be applied to this program (for example shortening or extending the time)
@@ -1272,20 +1310,24 @@ For modern web browsers, it is recommended that the API be built on the CRUD pri
 HTTP/s method mapping.
 
 ## Plug-ins
-The basic structure of all extensions is as follows:
+The current basic structure of a plug-in is:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Static files will be automatically made available at the following location: /plugins/plugin_name/static/...
-All * .md files in the docs directory will be visible on the "Help page" page. *
+The directories and `README.md` are optional. New or updated plug-ins distributed for installation must contain `__init__.py` and a valid UTF-8 `plugin.json` whose `id` matches the directory name. Already installed legacy plug-ins without a manifest remain supported in backward-compatibility mode.
+
+Static files are available below `/plugins/plugin_name/static/...`. Script files are available below `/plugins/plugin_name/script/...`; a plug-in page can load its JavaScript to call OSPy APIs and update the display. Every `*.md` file in `docs` is shown in Help. `README.md`, when present, is the first Help entry and may also be used as the plug-in description.
 
 ### Available Extensions:
 

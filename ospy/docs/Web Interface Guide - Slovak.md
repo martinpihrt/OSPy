@@ -500,77 +500,115 @@ Pri uložení programu OSPy kontroluje povolené programy a hľadá prekryvy pl�
 ## Typ plánovača
 Typ plánovača umožňuje zvoliť vhodný typ programu podľa našej požiadavky (vybrané dni, opakovania, týždenné, vlastné a programy založené na predpovedi počasia).
 
+Zmenou typu sa zmenia zobrazené polia aj spôsob, akým OSPy zostavuje plán. Po zmene typu preto pred uložením skontrolujte všetky hodnoty. V grafickom plánovači prvým kliknutím označíte začiatok a druhým koniec intervalu; krížikom pri existujúcom intervale ho odstránite. Časy sa vyhodnocujú v miestnom čase systému OSPy.
+
 ### Vybrané dni (Jednoduchý)
+Spúšťa rovnaký jednoduchý plán vo všetkých označených dňoch týždňa. Vyberte jeden alebo viac dní a nastavte prvé spustenie.
 
 #### Čas štartu
+Čas, keď sa v každom vybranom dni začne prvý beh programu.
 
 #### Trvanie
+Trvanie jedného behu každej vybranej stanice v minútach.
 
 #### Opakovať
+Zapne ďalšie behy v rovnakom vybranom dni po dokončení prvého behu.
 
 #### Opakovanie
+Počet ďalších behov po prvom. Hodnota `2` teda znamená celkom tri behy.
 
 #### Pauza
+Počet minút medzi koncom jedného behu a začiatkom ďalšieho opakovania.
 
 ### Vybrané dni (Rozšírené)
+Spúšťa ručne zakreslené intervaly vo všetkých vybraných dňoch týždňa. Hodí sa pre viac nezávislých časov spustenia a zastavenia počas dňa.
 
 #### Plánovač
+V grafickom 24-hodinovom riadku vytvorte jeden alebo viac intervalov začiatok/koniec. Rovnaké intervaly sa použijú pre každý označený deň.
 
 ### Opakovanie (Jednoduché)
+Spúšťa jednoduchý plán po zadanom počte dní; cyklus je ukotvený počiatočným dátumom, nie pevnými dňami týždňa.
 
 #### Interval zavlažovania
+Počet dní medzi aktívnymi dňami. Hodnota `1` znamená každý deň, `2` každý druhý deň.
 
 #### Štart v dňoch
+Počet dní od dneška do prvého aktívneho dňa. Hodnota `0` začne cyklus dnes.
 
 #### Čas štartu
+Čas prvého behu v každom aktívnom dni.
 
 #### Trvanie
+Trvanie jedného behu každej vybranej stanice v minútach.
 
 #### Opakovať
+Zapne ďalšie behy v rovnakom aktívnom dni.
 
 #### Opakovanie
+Počet ďalších behov po prvom behu.
 
 #### Pauza
+Oneskorenie v minútach medzi jednotlivými opakovanými behmi.
 
 ### Opakovanie (Rozšírené)
+Opakuje grafický denný plán v pevnom intervale niekoľkých dní.
 
 #### Interval zavlažovania
+Počet dní medzi vykonaniami zakresleného plánu.
 
 #### Štart v dňoch
+Posun od dneška v počte dní k dátumu, ktorý ukotví opakovací cyklus.
 
 #### Plánovač
+Zakreslite všetky intervaly začiatok/koniec pre jeden aktívny deň. OSPy celú súpravu zopakuje po zadanom intervale zavlažovania.
 
 ### Týždenný (Rozšírené)
+Umožňuje vytvoriť samostatný grafický plán pre každý deň týždňa a celú súpravu opakuje každých sedem dní.
 
 #### Pondelok-Nedeľa
+Intervaly zakresľujte priamo do riadka požadovaného dňa. Každý deň môže obsahovať viac intervalov alebo zostať prázdny.
 
 ### Vlastné
+Vytvára presne určený viacdňový opakovací cyklus. Použite ho, ak požadované poradie nemožno vyjadriť jednoduchými ani rozšírenými typmi.
 
 #### Interval zavlažovania
+Dĺžka opakovacieho cyklu v dňoch. Po poslednom dni cyklu sa plán vráti na Deň 1.
 
 #### Štart v dňoch
+Počet dní od dneška, po ktorých začne Deň 1 vlastného cyklu.
 
 #### Deň 1 - Deň 7
+V zobrazených dňoch cyklu zakreslite nezávislé intervaly začiatok/koniec. Intervaly sa ukladajú ako minúty od začiatku Dňa 1.
 
 ### Týždenný (Predpoveď počasia)
+Plánuje zavlažovanie podľa vodnej bilancie staníc a predpovede počasia. Zadané okamihy sú iba príležitosti; OSPy ich môže vynechať alebo skrátiť, ak vypočítaný deficit zavlažovanie nevyžaduje.
 
 #### Minimálne zavlažovanie
+Minimálny deficit vody v milimetroch, od ktorého je povolené zavlažovanie spustiť.
 
 #### Maximálne zavlažovanie
+Najväčšie množstvo vody v milimetroch, ktoré možno dodať jednej stanici pri jednom uprednostnenom okamihu.
 
 #### Maximálna dávka
+Najväčšie množstvo vody v milimetroch, ktoré možno dodať nepretržite pred vložením pauzy.
 
 #### Pomer pauzy
+Dĺžka pauzy v percentách predchádzajúceho nepretržitého behu. Napríklad `50 %` vloží pauzu s polovičným trvaním behu.
 
 #### Uprednostnené momenty vykonávania
+Zoradený zoznam týždenných príležitostí, v ktorých môže program podľa počasia bežať. Je potrebné zadať aspoň jeden okamih.
 
 #### Deň
+Deň týždňa pre danú príležitosť na spustenie.
 
 #### Čas štartu
+Miestny čas, keď OSPy vyhodnotí a prípadne začne danú príležitosť.
 
 #### Prednosť
+Relatívna preferencia medzi okamihmi. Vyššia hodnota uprednostní daný okamih, ak možno zavlažovanie odložiť.
 
 #### Pridať - Zmazať
+Pridá ďalší uprednostnený okamih alebo odstráni vybraný riadok. Po odstránení všetkých riadkov nezostane žiadna príležitosť na spustenie.
 
 ## Žiadne úpravy
 Na tento program nebudú použité žiadne úpravy (napríklad skrátenie, alebo predĺženie doby)
@@ -1273,20 +1311,24 @@ Pre moderné webové prehliadače sa odporúča, aby rozhranie API bolo postaven
 Mapovanie metód HTTP/s.
 
 ## Doplnky
-Základná štruktúra všetkých rozšírení je nasledovná:
+Aktuálna základná štruktúra doplnku je nasledovná:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Statické súbory budú automaticky sprístupnené na nasledujúcom mieste: /plugins/názov_pluginu/static/...
-Všetky * .md súbory v adresári docs budú viditeľné na stránke "Pomocník". *
+Uvedené adresáre a súbor `README.md` sú voliteľné. Nové alebo aktualizované doplnky distribuované na inštaláciu musia obsahovať `__init__.py` a platný UTF-8 súbor `plugin.json`, ktorého `id` zodpovedá názvu adresára. Už nainštalované staršie doplnky bez manifestu zostávajú podporované v režime spätnej kompatibility.
+
+Statické súbory sú dostupné pod `/plugins/plugin_name/static/...`. Súbory skriptov sú dostupné pod `/plugins/plugin_name/script/...`; stránka doplnku môže načítať vlastný JavaScript na volanie API OSPy a úpravu zobrazenia. Všetky súbory `*.md` v adresári `docs` sa zobrazujú v Pomocníkovi. Súbor `README.md`, ak existuje, je prvou položkou Pomocníka a môže sa použiť aj ako opis doplnku.
 
 ### Dostupné rozšírenia:
 

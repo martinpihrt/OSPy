@@ -489,77 +489,115 @@ Podczas zapisywania programu OSPy sprawdza dozwolone programy i szuka nakładani
 ## Typ harmonogramu
 Typ harmonogramu pozwala wybrać odpowiedni typ programu zgodnie z naszymi wymaganiami (wybrane dni, powtórzenia, tygodniowe, niestandardowe i programy oparte na prognozie pogody).
 
+Zmiana typu powoduje zmianę widocznych pól oraz sposobu, w jaki OSPy buduje harmonogram. Po zmianie typu przed zapisaniem należy sprawdzić wszystkie wartości. W harmonogramie graficznym pierwsze kliknięcie wyznacza początek, a drugie koniec przedziału; krzyżyk przy istniejącym przedziale usuwa go. Czasy są interpretowane według lokalnego czasu systemu OSPy.
+
 ### Wybrane dni (proste)
+Uruchamia ten sam prosty harmonogram w każdym wybranym dniu tygodnia. Wybierz co najmniej jeden dzień i ustaw pierwsze uruchomienie.
 
 #### Czas rozpoczęcia
+Czas rozpoczęcia pierwszego uruchomienia w każdym wybranym dniu.
 
 #### Czas trwania
+Czas jednego uruchomienia każdej wybranej stacji, podany w minutach.
 
 #### Powtórz
+Włącza dodatkowe uruchomienia w tym samym dniu po zakończeniu pierwszego.
 
 #### Powtórzenia
+Liczba dodatkowych uruchomień po pierwszym. Wartość `2` oznacza łącznie trzy uruchomienia.
 
 #### Pauza
+Liczba minut między końcem jednego uruchomienia a początkiem następnego powtórzenia.
 
 ### Wybrane dni (przedłużone)
+Uruchamia ręcznie narysowane przedziały w każdym wybranym dniu tygodnia. Ten typ nadaje się do kilku niezależnych czasów rozpoczęcia i zakończenia w ciągu dnia.
 
 #### Harmonogram
+W graficznym wierszu 24-godzinnym dodaj jeden lub więcej przedziałów początku/końca. Te same przedziały są stosowane we wszystkich wybranych dniach.
 
 ### Powtórzenie (proste)
+Uruchamia prosty harmonogram co określoną liczbę dni; cykl jest zakotwiczony datą początkową, a nie stałymi dniami tygodnia.
 
 #### Przerwa wodna
+Liczba dni między aktywnymi dniami. `1` oznacza codziennie, `2` co drugi dzień.
 
 #### Rozpoczęcie w
+Liczba dni od dzisiaj do pierwszej aktywnej daty. `0` rozpoczyna cykl dzisiaj.
 
 #### Czas rozpoczęcia
+Czas pierwszego uruchomienia w każdym aktywnym dniu.
 
 #### Czas trwania
+Czas jednego uruchomienia każdej wybranej stacji, podany w minutach.
 
 #### Powtórz
+Włącza dodatkowe uruchomienia w tym samym aktywnym dniu.
 
 #### Powtórzenia
+Liczba dodatkowych uruchomień po pierwszym.
 
 #### Pauza
+Opóźnienie w minutach między powtarzanymi uruchomieniami.
 
 ### Powtórzenie (rozszerzone)
+Powtarza graficzny harmonogram dzienny w stałym odstępie liczby dni.
 
 #### Przerwa wodna
+Liczba dni między wykonaniami narysowanego harmonogramu.
 
 #### Rozpoczęcie w
+Opóźnienie w dniach od dzisiaj do daty zakotwiczającej cykl powtarzania.
 
 #### Harmonogram
+Narysuj wszystkie przedziały początku/końca jednego aktywnego dnia. OSPy powtórzy cały zestaw po wybranym odstępie dni.
 
 ### Co tydzień (rozszerzony)
+Definiuje niezależny harmonogram graficzny dla każdego dnia tygodnia i powtarza cały plan co siedem dni.
 
 #### poniedziałek-niedziela
+Rysuj przedziały bezpośrednio w wierszu właściwego dnia. Każdy dzień może zawierać kilka przedziałów albo pozostać pusty.
 
 ### Niestandardowe
+Definiuje dokładny, wielodniowy cykl powtarzania. Użyj go, gdy prosty lub rozszerzony typ nie może opisać wymaganej kolejności.
 
 #### Przerwa wodna
+Długość cyklu powtarzania w dniach. Po ostatnim dniu cyklu harmonogram wraca do Dnia 1.
 
 #### Rozpoczęcie w
+Liczba dni od dzisiaj do rozpoczęcia Dnia 1 niestandardowego cyklu.
 
 #### Dzień 1 - Dzień 7
+Narysuj niezależne przedziały początku/końca w wyświetlonych dniach cyklu. Przedział jest zapisywany jako liczba minut od początku Dnia 1.
 
 ### Co tydzień (prognoza pogody)
+Planuje nawadnianie na podstawie bilansu wodnego stacji i prognozy pogody. Wpisane momenty są możliwościami wykonania; OSPy może je pominąć lub skrócić, gdy obliczony niedobór nie wymaga nawadniania.
 
 #### Nawadnianie min
+Minimalny niedobór wody w milimetrach, od którego wolno rozpocząć nawadnianie.
 
 #### Nawadnianie maks
+Maksymalna ilość wody w milimetrach, którą można dostarczyć jednej stacji w jednym preferowanym momencie wykonania.
 
 #### Uruchom maks
+Maksymalna ilość wody w milimetrach, którą można dostarczać bez przerwy, zanim OSPy wstawi pauzę.
 
 #### Stosunek pauzy
+Długość pauzy jako procent czasu poprzedniego ciągłego uruchomienia. Na przykład `50%` dodaje pauzę o połowę krótszą od uruchomienia.
 
 #### Preferowane momenty wykonania
+Uporządkowana lista tygodniowych możliwości uruchomienia nawadniania pogodowego. Wymagany jest co najmniej jeden moment.
 
 #### Dzień
+Dzień tygodnia preferowanej możliwości wykonania.
 
 #### Czas rozpoczęcia
+Lokalny czas, w którym OSPy ocenia i ewentualnie rozpoczyna tę możliwość.
 
 #### Priorytet
+Względna preferencja między momentami. Wyższa wartość faworyzuje dany moment, gdy nawadnianie można odłożyć.
 
 #### Dodaj - Usuń
+Dodaje kolejny preferowany moment albo usuwa wybrany wiersz. Usunięcie wszystkich wierszy pozostawia program bez możliwości uruchomienia.
 
 ## Żadnych dostosowań
 Żadne modyfikacje nie zostaną zastosowane w tym programie (na przykład skrócenie lub wydłużenie czasu)
@@ -1262,20 +1300,24 @@ W przypadku nowoczesnych przeglądarek internetowych zaleca się zbudowanie inte
 Mapowanie metody HTTP/s.
 
 ## Wtyczki
-Podstawowa struktura wszystkich rozszerzeń jest następująca:
+Aktualna podstawowa struktura wtyczki jest następująca:
 
-wtyczki
-+ nazwa_wtyczki
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Pliki statyczne zostaną automatycznie udostępnione w następującej lokalizacji: /plugins/nazwa_wtyczki/static/...
-Wszystkie pliki *.md w katalogu dokumentów będą widoczne na stronie „Pomoc”. *
+Wymienione katalogi i plik `README.md` są opcjonalne. Nowe lub aktualizowane wtyczki rozpowszechniane do instalacji muszą zawierać `__init__.py` oraz prawidłowy plik UTF-8 `plugin.json`, którego `id` odpowiada nazwie katalogu. Już zainstalowane starsze wtyczki bez manifestu pozostają obsługiwane w trybie zgodności wstecznej.
+
+Pliki statyczne są dostępne pod `/plugins/plugin_name/static/...`. Pliki skryptów są dostępne pod `/plugins/plugin_name/script/...`; strona wtyczki może wczytać własny JavaScript, aby wywoływać API OSPy i aktualizować widok. Wszystkie pliki `*.md` w katalogu `docs` są wyświetlane w Pomocy. Plik `README.md`, jeśli istnieje, jest pierwszą pozycją Pomocy i może być również używany jako opis wtyczki.
 
 ### Dostępne rozszerzenia:
 
