@@ -9,6 +9,7 @@ from ospy import remote_access
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_TEMPLATE = ROOT / "ospy" / "templates" / "base.html"
+HELPERS = ROOT / "ospy" / "helpers.py"
 CLEAN_INSTALLATION = ROOT / "ospy" / "docs" / "Clean_installation.md"
 
 
@@ -165,7 +166,7 @@ class RemoteAccessTests(unittest.TestCase):
 
     def test_base_template_shows_only_a_valid_quick_tunnel_result(self):
         source = BASE_TEMPLATE.read_text(encoding="utf-8")
-        self.assertIn(
+        self.assertNotIn(
             "from ospy.remote_access import get_cloudflare_quick_url",
             source,
         )
@@ -178,6 +179,14 @@ class RemoteAccessTests(unittest.TestCase):
         self.assertIn('href="${cloudflare_quick_url}"', source)
         self.assertIn('target="_blank"', source)
         self.assertIn('rel="noopener noreferrer"', source)
+
+    def test_template_globals_exposes_cloudflare_quick_helper(self):
+        source = HELPERS.read_text(encoding="utf-8")
+        self.assertIn(
+            "from ospy.remote_access import get_cloudflare_quick_url",
+            source,
+        )
+        self.assertIn("result.update(locals())", source)
 
 
     def test_clean_installation_documents_footer_link_behavior(self):
