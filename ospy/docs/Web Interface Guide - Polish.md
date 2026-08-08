@@ -1262,20 +1262,24 @@ W przypadku nowoczesnych przeglądarek internetowych zaleca się zbudowanie inte
 Mapowanie metody HTTP/s.
 
 ## Wtyczki
-Podstawowa struktura wszystkich rozszerzeń jest następująca:
+Aktualna podstawowa struktura wtyczki jest następująca:
 
-wtyczki
-+ nazwa_wtyczki
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Pliki statyczne zostaną automatycznie udostępnione w następującej lokalizacji: /plugins/nazwa_wtyczki/static/...
-Wszystkie pliki *.md w katalogu dokumentów będą widoczne na stronie „Pomoc”. *
+Wymienione katalogi i plik `README.md` są opcjonalne. Nowe lub aktualizowane wtyczki rozpowszechniane do instalacji muszą zawierać `__init__.py` oraz prawidłowy plik UTF-8 `plugin.json`, którego `id` odpowiada nazwie katalogu. Już zainstalowane starsze wtyczki bez manifestu pozostają obsługiwane w trybie zgodności wstecznej.
+
+Pliki statyczne są dostępne pod `/plugins/plugin_name/static/...`. Pliki skryptów są dostępne pod `/plugins/plugin_name/script/...`; strona wtyczki może wczytać własny JavaScript, aby wywoływać API OSPy i aktualizować widok. Wszystkie pliki `*.md` w katalogu `docs` są wyświetlane w Pomocy. Plik `README.md`, jeśli istnieje, jest pierwszą pozycją Pomocy i może być również używany jako opis wtyczki.
 
 ### Dostępne rozszerzenia:
 

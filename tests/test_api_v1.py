@@ -405,6 +405,33 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertEqual(result["fields"]["duration_minutes"], 20)
         self.assertEqual(result["fields"]["days"], [0, 2, 4])
 
+    def test_program_enabled_partial_update_does_not_rebuild_schedule(self):
+        from api.v1 import api
+
+        class Program(object):
+            enabled = False
+
+        program = Program()
+        with mock.patch(
+                "api.api.Programs._dict_to_program",
+                side_effect=AssertionError("schedule must not be rebuilt")):
+            api._update_program(program, {"enabled": True}, require_schedule=False)
+        self.assertTrue(program.enabled)
+
+    def test_program_enabled_partial_update_rejects_non_boolean_atomically(self):
+        from api.v1 import api
+
+        class Program(object):
+            enabled = False
+
+        program = Program()
+        with self.assertRaises(Exception) as context:
+            api._update_program(
+                program, {"enabled": "true"}, require_schedule=False
+            )
+        self.assertEqual(getattr(context.exception, "code", ""), "invalid_program")
+        self.assertFalse(program.enabled)
+
     def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
         from api.v1.security import refresh
         token, original = self._token(("read",), role="user")

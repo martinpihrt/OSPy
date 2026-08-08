@@ -1272,20 +1272,24 @@ Pro moderní webové prohlížeče se doporučuje, aby rozhraní API bylo postav
 Mapování metod HTTP/s.
 
 ## Rozšíření
-Základní struktura všech rozšíření je následující:
+Aktuální základní struktura rozšíření je následující:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Statické soubory budou automaticky zpřístupněny na následujícím místě: /plugins/název_pluginu/static/...
-Všechny * .md soubory v adresáři docs budou viditelné na stránce "Nápověda". *
+Uvedené adresáře a soubor `README.md` jsou volitelné. Nová nebo aktualizovaná rozšíření distribuovaná k instalaci musí obsahovat `__init__.py` a platný UTF-8 soubor `plugin.json`, jehož `id` odpovídá názvu adresáře. Již nainstalovaná starší rozšíření bez manifestu zůstávají podporována v režimu zpětné kompatibility.
+
+Statické soubory jsou dostupné pod `/plugins/plugin_name/static/...`. Soubory skriptů jsou dostupné pod `/plugins/plugin_name/script/...`; stránka rozšíření může načíst vlastní JavaScript pro volání API OSPy a úpravu zobrazení. Všechny soubory `*.md` v adresáři `docs` se zobrazují v Nápovědě. Soubor `README.md`, pokud existuje, je první položkou Nápovědy a může být použit také jako popis rozšíření.
 
 ### Dostupná rozšíření:
 

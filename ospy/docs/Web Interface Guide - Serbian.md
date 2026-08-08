@@ -1246,20 +1246,24 @@ set_weekly_weather  irrigation_min, irrigation_max, run_max, pause_min, pems
 ХТТП/с мапирање метода.
 
 ## Плугинс
-The basic structure of all extensions is as follows:
+Актуелна основна структура додатка изгледа овако:
 
-додаци
-+ име_додатка
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ РЕАДМЕ.мд
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Static files will be automatically made available at the following location: /plugins/plugin_name/static/...
-All *.md files in the docs directory will be visible on the "Помоћ" page. *
+Наведени директоријуми и датотека `README.md` нису обавезни. Нови или ажурирани додаци који се дистрибуирају за инсталацију морају да садрже `__init__.py` и исправну UTF-8 датотеку `plugin.json`, чији `id` одговара називу директоријума. Већ инсталирани старији додаци без манифеста и даље су подржани у режиму повратне компатибилности.
+
+Статичке датотеке су доступне под `/plugins/plugin_name/static/...`. Датотеке скрипти су доступне под `/plugins/plugin_name/script/...`; страница додатка може да учита сопствени JavaScript за позивање OSPy API-ја и ажурирање приказа. Све `*.md` датотеке у директоријуму `docs` приказују се у Помоћи. Датотека `README.md`, ако постоји, прва је ставка Помоћи и може се користити и као опис додатка.
 
 ### Доступни екстензије:
 

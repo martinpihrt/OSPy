@@ -1273,20 +1273,24 @@ Für moderne Webbrowser wird empfohlen, die API nach dem CRUD-Prinzip mit JSON a
 HTTP/s-Methodenzuordnung.
 
 ## Plugins
-Der Grundaufbau aller Erweiterungen ist wie folgt:
+Die aktuelle Grundstruktur eines Plug-ins ist:
 
-Plugins
-+ Plugin-Name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Statische Dateien werden automatisch am folgenden Speicherort verfügbar gemacht: /plugins/plugin_name/static/...
-Alle *.md-Dateien im docs-Verzeichnis werden auf der Seite „Hilfe“ angezeigt. *
+Die aufgeführten Verzeichnisse und `README.md` sind optional. Neue oder aktualisierte Plug-ins, die zur Installation verteilt werden, müssen `__init__.py` und eine gültige UTF-8-Datei `plugin.json` enthalten, deren `id` dem Verzeichnisnamen entspricht. Bereits installierte ältere Plug-ins ohne Manifest werden im Abwärtskompatibilitätsmodus weiterhin unterstützt.
+
+Statische Dateien sind unter `/plugins/plugin_name/static/...` verfügbar. Skriptdateien sind unter `/plugins/plugin_name/script/...` verfügbar; eine Plug-in-Seite kann eigenes JavaScript laden, um OSPy-APIs aufzurufen und die Anzeige zu aktualisieren. Alle `*.md`-Dateien in `docs` werden in der Hilfe angezeigt. `README.md` ist, sofern vorhanden, der erste Hilfeeintrag und kann auch als Plug-in-Beschreibung verwendet werden.
 
 ### Verfügbare Erweiterungen:
 

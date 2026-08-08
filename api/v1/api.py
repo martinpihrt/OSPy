@@ -1747,9 +1747,22 @@ def _update_station(station, payload):
 
 
 def _update_program(program, payload, require_schedule):
-    from api.api import Programs as LegacyPrograms
     if not isinstance(payload, dict):
         raise APIError(422, "invalid_program", "The program must be an object.")
+    # Enabling and disabling is the most common mobile edit. Do not feed this
+    # partial update through the legacy program deserializer: that code rebuilds
+    # the schedule field by field and can leave the live program half-mutated
+    # when one of the scheduling values is invalid or JSON-normalized.
+    if not require_schedule and set(payload) == {"enabled"}:
+        if not isinstance(payload["enabled"], bool):
+            raise APIError(
+                422, "invalid_program",
+                "The enabled program field must be a JSON boolean.",
+                {"field": "enabled"},
+            )
+        program.enabled = payload["enabled"]
+        return
+    from api.api import Programs as LegacyPrograms
     if require_schedule:
         required = {"name", "stations", "type", "type_data"}
         missing = sorted(required.difference(payload))

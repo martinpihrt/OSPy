@@ -1272,20 +1272,24 @@ For modern web browsers, it is recommended that the API be built on the CRUD pri
 HTTP/s method mapping.
 
 ## Plug-ins
-The basic structure of all extensions is as follows:
+The current basic structure of a plug-in is:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Static files will be automatically made available at the following location: /plugins/plugin_name/static/...
-All * .md files in the docs directory will be visible on the "Help page" page. *
+The directories and `README.md` are optional. New or updated plug-ins distributed for installation must contain `__init__.py` and a valid UTF-8 `plugin.json` whose `id` matches the directory name. Already installed legacy plug-ins without a manifest remain supported in backward-compatibility mode.
+
+Static files are available below `/plugins/plugin_name/static/...`. Script files are available below `/plugins/plugin_name/script/...`; a plug-in page can load its JavaScript to call OSPy APIs and update the display. Every `*.md` file in `docs` is shown in Help. `README.md`, when present, is the first Help entry and may also be used as the plug-in description.
 
 ### Available Extensions:
 

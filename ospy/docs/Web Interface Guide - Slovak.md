@@ -1273,20 +1273,24 @@ Pre moderné webové prehliadače sa odporúča, aby rozhranie API bolo postaven
 Mapovanie metód HTTP/s.
 
 ## Doplnky
-Základná štruktúra všetkých rozšírení je nasledovná:
+Aktuálna základná štruktúra doplnku je nasledovná:
 
-plugins
-+ plugin_name
-  + data
-  + docs
-  + static
-  + script
-  + templates
-  + __init__.py
-  \ README.md
+```text
+plugins/
+└── plugin_name/
+    ├── data/
+    ├── docs/
+    ├── static/
+    ├── script/
+    ├── templates/
+    ├── __init__.py
+    ├── plugin.json
+    └── README.md
+```
 
-Statické súbory budú automaticky sprístupnené na nasledujúcom mieste: /plugins/názov_pluginu/static/...
-Všetky * .md súbory v adresári docs budú viditeľné na stránke "Pomocník". *
+Uvedené adresáre a súbor `README.md` sú voliteľné. Nové alebo aktualizované doplnky distribuované na inštaláciu musia obsahovať `__init__.py` a platný UTF-8 súbor `plugin.json`, ktorého `id` zodpovedá názvu adresára. Už nainštalované staršie doplnky bez manifestu zostávajú podporované v režime spätnej kompatibility.
+
+Statické súbory sú dostupné pod `/plugins/plugin_name/static/...`. Súbory skriptov sú dostupné pod `/plugins/plugin_name/script/...`; stránka doplnku môže načítať vlastný JavaScript na volanie API OSPy a úpravu zobrazenia. Všetky súbory `*.md` v adresári `docs` sa zobrazujú v Pomocníkovi. Súbor `README.md`, ak existuje, je prvou položkou Pomocníka a môže sa použiť aj ako opis doplnku.
 
 ### Dostupné rozšírenia:
 

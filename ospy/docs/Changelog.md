@@ -14,6 +14,13 @@ Updated the clean-installation documentation with detailed descriptions of all r
 
 While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy also shows the current Quick Tunnel address as a clickable **Cloudflare Quick Tunnel** link in the footer. If the service is missing, inactive, unreadable or no valid Quick Tunnel address is available, the footer does not show the link.
 
+(Martin Pihrt)<br/>
+Fixed the Mobile API v1 program enable/disable partial update so it changes only the boolean `enabled` field and never rebuilds or partially mutates the live schedule. Non-boolean values are rejected before any change. Added regression coverage for both the successful atomic update and rejected invalid input, and clarified program creation and partial-update behavior in the Mobile API reference.
+
+Updated the Android mobile client to preserve the newest rotating refresh token when installation metadata is edited, localize structured API, authentication and network failures, render server notifications from stable notification codes, probe saved installations concurrently at startup, create and configure new irrigation programs, and localize System Update plug-in metrics and state values.
+
+Corrected missing, fuzzy or meaningfully incorrect irrigation-notification translations in the German, Polish, Russian, Slovak and Serbian source catalogs. Updated all seven Web Interface Guides to match the current plug-in directory structure, including `plugin.json`, static and script routes, Help discovery and legacy-manifest compatibility. Expanded the Mobile API reference with client-side error and notification localization guidance.
+
 
 August 7 2026 (v3.0)
 -----------
