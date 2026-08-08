@@ -12,6 +12,8 @@ Extended the clean OSPy installer with selectable remote-access modes. The insta
 
 Updated the clean-installation documentation with detailed descriptions of all remote-access modes, HTTPS and certificate behavior, domain and account requirements, Cloudflare Access guidance, test-only Quick Tunnel behavior, Tailscale Serve/Funnel differences and a selection table for choosing the appropriate mode.
 
+While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy also shows the current Quick Tunnel address as a clickable **Cloudflare Quick Tunnel** link in the footer. If the service is missing, inactive, unreadable or no valid Quick Tunnel address is available, the footer does not show the link.
+
 
 August 7 2026 (v3.0)
 -----------

@@ -253,6 +253,8 @@ The address can be shown with:
 sudo journalctl -u ospy-cloudflared-quick.service -n 50 --no-pager
 ```
 
+While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy also shows the current Quick Tunnel address as a clickable **Cloudflare Quick Tunnel** link in the footer. If the service is missing, inactive, unreadable or no valid Quick Tunnel address is available, the footer does not show the link.
+
 Cloudflare documents Quick Tunnels as a development/testing feature, not as a production hosting method. The generated hostname can change when the tunnel is recreated or restarted.
 
 Cloudflare documentation:

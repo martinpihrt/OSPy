@@ -12,6 +12,7 @@ The suite checks:
 * clean-installer Bash syntax, stable-branch checkout, preservation of existing installations, trusted Debian dependency sources, use of the versioned systemd template, service start verification and bounded restart behavior;
 * installer remote-access selection and safety for **Local network only**, **Cloudflare Tunnel**, **Cloudflare Quick Tunnel**, **Tailscale Serve** and **Tailscale Funnel**, including the local `http://127.0.0.1:8080` origin, private/public mode distinction, Cloudflare token handling, official tunnel installation sources, systemd startup, and protection of existing Cloudflare/Tailscale configuration;
 * remote-access documentation consistency between `ospy_setup.sh` and `ospy/docs/Clean_installation.md`, including HTTPS termination, domain requirements, temporary Quick Tunnel behavior, Cloudflare Access guidance, Tailscale Serve/Funnel commands and the remote-mode selection guide;
+* Cloudflare Quick Tunnel footer discovery, including service-file and active-service detection, strict `https://*.trycloudflare.com` validation, bounded `journalctl` access, short caching, fail-closed error handling, conditional clickable-link rendering and matching clean-installation documentation;
 * compilation of every core web.py HTML template;
 * completeness and execution of the documented `pygettext.py` command;
 * protection of the repository POT file during the extraction test;
@@ -54,7 +55,7 @@ The suite checks:
 
 Tests share a temporary OSPy data directory and disable background plug-in repository checks. Scheduler, API and plug-in dependencies are isolated or replaced with deterministic in-memory test objects. The suite can therefore run while the OSPy service is active without opening its options database, starting update checks, accessing weather services, changing real programs or touching GPIO.
 
-The clean-installation tests are static/offline checks. They do not create a real Cloudflare or Tailscale account, open a tunnel, modify DNS, contact a tailnet or expose the test runner to the Internet. They verify the installer commands, safety guards, service configuration and documentation without requiring credentials or external services.
+The clean-installation and remote-access tests are static/offline checks. They do not create a real Cloudflare or Tailscale account, open a tunnel, modify DNS, contact a tailnet or expose the test runner to the Internet. Quick Tunnel footer tests mock the local `systemctl` and `journalctl` calls, so CI does not depend on systemd or Cloudflare being available.
 
 To additionally compile all plug-in templates and require and validate a manifest for every plug-in in the separate official OSPy-plugins repository, provide its `plugins` directory:
 
