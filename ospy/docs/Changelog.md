@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 9 2026 (v3.0 beta)
+-----------
+(Martin Pihrt)<br/>
+Energy Meter v1.0.0 adds multi-meter electricity and photovoltaic monitoring with direct local Shelly RPC as the recommended source and Shelly Cloud Integration as an optional source. It records L1–L3 and total import/export, preserves counter baselines across restart and meter replacement, calculates daily/monthly/yearly energy, tariffs, cost, feed-in income, house consumption, self-consumption, independence and solar savings, and provides local JSON or optional SQL history, CSV, responsive graphs, Home data, diagnostics and mobile API cards. Shelly Cloud Integration v1.0.3 now exposes active returned-energy counters for three-phase meters. Updated the plug-in lists and Energy Meter behavior in all seven Web Interface Guides without modifying gettext catalogs.
+
 
 ## August 8 2026 (v3.0)
 -----------

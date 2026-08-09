@@ -368,7 +368,7 @@ A card may also carry one bounded current image:
 
 This is intended for current operating imagery such as the latest radar frame, not for video or unbounded history. The Android client decodes it locally and continues rendering the remaining metrics when the optional image is absent or invalid.
 
-Current official read-only adapters expose native operating data for Air Temperature and Humidity Monitor, Astro Sunrise and Sunset, CHMI, Current Loop Tanks Monitor, E-mail Notifications SSL, Home Assistant MQTT, LCD Display, Monthly Water Level, OSPy Package Backup, Real Time and NTP, Shelly Cloud Integration, System Debug Information, System Information, System Update, Tank Monitor, Thermostat, UPS Monitor, Usage Statistics, Water Consumption Counter, Weather-based Water Level and Wind Speed Monitor. Existing web pages and plug-in settings remain independent; an adapter failure affects only that plug-in card.
+Current official read-only adapters expose native operating data for Air Temperature and Humidity Monitor, Astro Sunrise and Sunset, CHMI, Current Loop Tanks Monitor, E-mail Notifications SSL, Energy Meter, Home Assistant MQTT, LCD Display, Monthly Water Level, OSPy Package Backup, Real Time and NTP, Shelly Cloud Integration, System Debug Information, System Information, System Update, Tank Monitor, Thermostat, UPS Monitor, Usage Statistics, Water Consumption Counter, Weather-based Water Level and Wind Speed Monitor. Existing web pages and plug-in settings remain independent; an adapter failure affects only that plug-in card.
 
 The official read-only adapters provide the following data without exposing configuration or arbitrary plug-in functions:
 
@@ -378,6 +378,7 @@ The official read-only adapters provide the following data without exposing conf
 | `sunrise_and_sunset` | Today's dawn, sunrise, solar noon, sunset and dusk, the current moon phase and age, and a 24-hour daylight timeline. |
 | `chmi` | Current rain decision, radar source, latest radar timestamp and the most recent bounded radar image including the map outline when the source provides it. |
 | `current_loop_tanks_monitor` | Current enabled tank measurements and bounded level history from the configured local or SQL source. |
+| `energy_meter` | Current power for every configured electricity meter, today’s grid import/export and measured solar totals, plus bounded power history from the selected local or SQL source. |
 | `email_notifications_ssl` | Current mail-service readiness and enabled notification groups without the SMTP server, account, recipients, password or other credentials. |
 | `lcd_display` | Display type, I2C address, worker state and last successful display update without writing to the display. |
 | `monthly_water_level` | Current monthly irrigation adjustment and the month used for the calculation. |

@@ -928,6 +928,7 @@ class PluginManifestRepositoryTests(unittest.TestCase):
             "air_temp_humi",
             "chmi",
             "current_loop_tanks_monitor",
+            "energy_meter",
             "real_time",
             "shelly_cloud_integrator",
             "sunrise_and_sunset",

@@ -237,6 +237,7 @@ Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, 
             Remote FTP Control
             System Update
             Water Meter
+            Elektroměr
             Webcam Monitor
             Weather-based Water Level Netatmo
             Direct 16 Relay Outputs
@@ -1355,6 +1356,8 @@ Statické soubory jsou dostupné pod `/plugins/plugin_name/static/...`. Soubory 
 * System Update (pomocí tohoto rozšíření lze jednoduše aktualizovat systém OSPy z GIThubu namísto systémových příkazů)
 * Water Meter (měření průtoku pomocí vodoměru s pulsním výstupem pomocí I2C sběrnice)
   Water Meter v1.1.1 měří nepřetržitě v sekundových intervalech a samostatný přehled obnovuje každou sekundu. Přehled zobrazuje aktuální l/s, odpovídající l/min, spotřebu v aktuální minutě a hodině, celkovou spotřebu a graf průtoku. Nastavení řídí lokální JSON a volitelné SQL logování, zobrazovaný zdroj, interval v sekundách, vynechání nulového průtoku a maximální počet záznamů, kde 0 znamená bez omezení. Volitelná hodnota na Home zobrazuje `aktuální l/s (aktuální l/min)` a mobilní API v1 poskytuje živé karty a omezenou historii z vybraného zdroje. Čítač se čte přímo z registrů PCF8583 0x01–0x03; chyba inicializace nebo měření zavře sběrnici, automaticky opakuje inicializaci a zobrazí chybu v přehledu.
+* Elektroměr
+  Elektroměr v1.0.0 sleduje libovolný počet třífázových elektroměrů Shelly Pro 3EM a Shelly 3EM-63T Gen3. Výchozí a doporučené připojení čte zařízení přímo v místní síti podle IP adresy nebo DNS názvu bez cloudu a internetu; alternativně lze použít data z běžícího a nastaveného rozšíření Shelly Cloud Integration. Každý elektroměr má roli přípojka sítě, výroba FVE, samostatná spotřeba nebo pomocné měření a lze obrátit směr. Přehled odděluje odběr a dodávku do sítě, zobrazuje L1–L3 a součet, dnešek, včerejšek, měsíc a rok, náklady, příjem za přetoky, historii, grafy a CSV. Při současném měření sítě a FVE vypočítá spotřebu domu, vlastní spotřebu, energetickou soběstačnost a úsporu; samotnou dodávku do sítě nikdy nevydává za výrobu. Atomicky uložené čítače navazují po restartu OSPy a bezpečně rozpoznají reset nebo výměnu elektroměru. Ceny a časové tarify se zapisují do každého intervalu, historie může být v lokálním JSON, SQL přes Database Connector nebo v obou úložištích a data jsou dostupná na Home, v diagnostice a v mobilním API.
 * Webcam Monitor (pořizuje fotografie z USB webkamery)
 * Weather-based Water Level Netatmo (nastavení množství vody pro zavlažování z meteostanice Netatmo)
 * Direct 16 Relay Outputs (pomocí tohoto rozšíření můžeme ovládat 16 relé (stanic) připojených přímo k Raspberry Pi, ovšem některá ostatní rozšíření nebudou dostupná)

@@ -237,6 +237,7 @@ When Diagnostics reports **SQLite primary beta readiness: Ready**, Options enabl
             Remote FTP Control
             System Update
             Water Meter
+            Energy Meter
             Webcam Monitor
             Weather-based Water Level Netatmo
             Direct 16 Relay Outputs
@@ -1355,6 +1356,8 @@ Static files are available below `/plugins/plugin_name/static/...`. Script files
 * System Update (use this extension to easily update the OSPy system from GIThub instead of system commands)
 * Water Meter (flow measurement using a water meter with pulse output using the I2C bus)
   Water Meter v1.1.1 measures continuously in one-second intervals and refreshes its separate overview every second. The overview shows current l/s, equivalent l/min, current-minute/current-hour/total consumption and a flow graph. Settings control local JSON and optional SQL logging, the displayed source, interval in seconds, zero-flow filtering, and a maximum record count where 0 is unlimited. The optional Home value displays `current l/s (current l/min)`, and mobile API v1 supplies live cards and bounded history from the selected source. The counter is read explicitly from PCF8583 registers 0x01–0x03; setup and measurement failures close and retry the bus and are shown on the overview.
+* Energy Meter
+  Energy Meter v1.0.0 monitors any number of Shelly Pro 3EM and Shelly 3EM-63T Gen3 three-phase meters. The default and recommended connection reads a device directly on the local network by IP address or DNS name without cloud or Internet access; a configured and running Shelly Cloud Integration plug-in can alternatively provide cached data. Every meter has a Grid, Solar production, Load or Auxiliary role and its direction can be inverted. The overview separates grid import and export, shows L1–L3 and totals, today, yesterday, month and year, cost, feed-in income, history, graphs and CSV. With Grid and Solar meters it calculates house consumption, self-consumption, energy independence and savings; grid export alone is never labelled as production. Atomically stored counters continue after an OSPy restart and safely recognize a reset or meter replacement. Prices and time tariffs are stored with every interval, history can use local JSON, SQL through Database Connector or both, and data is available on Home, in diagnostics and through the mobile API.
 * Webcam Monitor (takes photos from USB webcam)
 * Weather-based Water Level Netatmo (setting the amount of water for irrigation from the Netatmo weather station)
 * Direct 16 Relay Outputs (using this extension we can control 16 relays (stations) connected directly to the Raspberry Pi, but some other extensions will not be available)

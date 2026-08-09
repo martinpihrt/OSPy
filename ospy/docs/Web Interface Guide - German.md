@@ -238,6 +238,7 @@ Sobald die Diagnose **SQLite-Primary-Beta-Bereitschaft: Bereit** meldet, aktivie
             Remote FTP Control
             System Update
             Water Meter
+            Energy Meter
             Webcam Monitor
             Weather-based Water Level Netatmo
             Direct 16 Relay Outputs
@@ -1356,6 +1357,8 @@ Statische Dateien sind unter `/plugins/plugin_name/static/...` verfügbar. Skrip
 * Systemaktualisierung (verwenden Sie diese Erweiterung, um das OSPy-System einfach über GIThub anstelle von Systembefehlen zu aktualisieren)
 * Wasserzähler (Durchflussmessung mittels Wasserzähler mit Impulsausgang über den I2C-Bus)
   Water Meter v1.1.1 misst kontinuierlich in Ein-Sekunden-Intervallen und aktualisiert die separate Übersicht jede Sekunde. Die Übersicht zeigt aktuelle l/s, entsprechende l/min, Verbrauch der aktuellen Minute und Stunde, Gesamtverbrauch und ein Durchflussdiagramm. Die Einstellungen steuern lokale JSON- und optionale SQL-Protokollierung, die angezeigte Quelle, das Intervall in Sekunden, das Auslassen von Nulldurchfluss und die maximale Datensatzanzahl, wobei 0 unbegrenzt bedeutet. Der optionale Home-Wert zeigt `aktuelle l/s (aktuelle l/min)`, und Mobile API v1 liefert Live-Karten und einen begrenzten Verlauf aus der ausgewählten Quelle. Der Zähler wird direkt aus den PCF8583-Registern 0x01–0x03 gelesen; Einrichtungs- oder Messfehler schließen den Bus, starten die Initialisierung erneut und werden in der Übersicht angezeigt.
+* Energy Meter
+  Energy Meter v1.0.0 überwacht eine beliebige Anzahl dreiphasiger Shelly Pro 3EM- und Shelly 3EM-63T Gen3-Zähler. Die standardmäßige und empfohlene Verbindung liest ein Gerät direkt im lokalen Netzwerk über IP-Adresse oder DNS-Namen ohne Cloud- oder Internetzugriff; alternativ kann ein konfiguriertes und laufendes Shelly Cloud Integration-Plug-in zwischengespeicherte Daten bereitstellen. Jeder Zähler erhält die Rolle Netzanschluss, Solarerzeugung, Verbraucher oder Hilfszähler und seine Richtung kann umgekehrt werden. Die Übersicht trennt Netzbezug und Einspeisung, zeigt L1–L3 und Summen, heute, gestern, Monat und Jahr, Kosten, Einspeisevergütung, Verlauf, Diagramme und CSV. Mit Netz- und Solarzähler berechnet sie Hausverbrauch, Eigenverbrauch, Energieunabhängigkeit und Einsparung; eine Netzeinspeisung allein wird niemals als Erzeugung bezeichnet. Atomar gespeicherte Zählerstände werden nach einem OSPy-Neustart fortgeführt und erkennen einen Reset oder Zählertausch sicher. Preise und Zeittarife werden mit jedem Intervall gespeichert, der Verlauf kann lokales JSON, SQL über Database Connector oder beide Speicher verwenden und die Daten stehen auf Home, in der Diagnose und über die mobile API bereit.
 * Webcam-Monitor (nimmt Fotos von der USB-Webcam auf)
 * Wetterbasierter Wasserstand Netatmo (Einstellen der Wassermenge für die Bewässerung von der Netatmo-Wetterstation)
 * Direkte 16 Relaisausgänge (mit dieser Erweiterung können wir 16 Relais (Stationen) steuern, die direkt an den Raspberry Pi angeschlossen sind, einige andere Erweiterungen sind jedoch nicht verfügbar.)
