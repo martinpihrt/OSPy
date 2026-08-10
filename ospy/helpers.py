@@ -1061,7 +1061,7 @@ def template_globals():
     from urllib.parse import quote_plus
     from web import ctx
 
-    from ospy.remote_access import get_cloudflare_quick_url
+    from ospy.remote_access import get_cloudflare_quick_url, get_cloudflare_remote_access
     from ospy.inputs import inputs
     from ospy.log import log
     from ospy.options import level_adjustments, options, rain_blocks, program_level_adjustments

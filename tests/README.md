@@ -10,9 +10,9 @@ python3 -m unittest discover -s tests -v
 The suite checks:
 
 * clean-installer Bash syntax, stable-branch checkout, preservation of existing installations, trusted Debian dependency sources, use of the versioned systemd template, service start verification and bounded restart behavior;
-* installer remote-access selection and safety for **Local network only**, **Cloudflare Tunnel**, **Cloudflare Quick Tunnel**, **Tailscale Serve** and **Tailscale Funnel**, including the local `http://127.0.0.1:8080` origin, private/public mode distinction, Cloudflare token handling, official tunnel installation sources, systemd startup, and protection of existing Cloudflare/Tailscale configuration;
+* installer remote-access selection and safety for **Local network only**, **Cloudflare Tunnel**, **Cloudflare Quick Tunnel**, **Tailscale Serve** and **Tailscale Funnel**, including automatic local HTTP/HTTPS origin detection, Quick Tunnel `--no-tls-verify` for local HTTPS, private/public mode distinction, managed public-hostname validation, Cloudflare token handling, official tunnel installation sources, systemd startup, and protection of existing Cloudflare/Tailscale configuration;
 * remote-access documentation consistency between `ospy_setup.sh` and `ospy/docs/Clean_installation.md`, including HTTPS termination, domain requirements, temporary Quick Tunnel behavior, Cloudflare Access guidance, Tailscale Serve/Funnel commands and the remote-mode selection guide;
-* Cloudflare Quick Tunnel footer discovery, including service-file and active-service detection, strict `https://*.trycloudflare.com` validation, bounded `journalctl` access, short caching, fail-closed error handling, conditional clickable-link rendering and matching clean-installation documentation;
+* managed and Quick Cloudflare footer discovery, including active-service detection, strict stored production HTTPS URLs, managed-mode priority, strict `https://*.trycloudflare.com` journal validation, bounded commands, short Quick Tunnel caching, fail-closed error handling, conditional clickable-link rendering and matching clean-installation documentation;
 * compilation of every core web.py HTML template;
 * completeness and execution of the documented `pygettext.py` command;
 * protection of the repository POT file during the extraction test;

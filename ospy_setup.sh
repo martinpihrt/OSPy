@@ -51,7 +51,53 @@ install_location="/opt"
 remote_mode="lan"
 remote_url=""
 remote_warning=""
+remote_note=""
 cloudflare_token=""
+cloudflare_hostname=""
+cloudflare_public_url_file="/etc/ospy/cloudflare_public_url"
+
+normalize_cloudflare_hostname() {
+  python3 - "$1" <<'PY_HOSTNAME'
+import re
+import sys
+from urllib.parse import urlsplit
+
+value = sys.argv[1].strip()
+if not value:
+    raise SystemExit(1)
+
+if "://" in value:
+    parsed = urlsplit(value)
+    try:
+        port = parsed.port
+    except ValueError:
+        raise SystemExit(1)
+    if (parsed.scheme.lower() != "https" or parsed.username or parsed.password or
+            port is not None or parsed.query or parsed.fragment or
+            parsed.path not in ("", "/")):
+        raise SystemExit(1)
+    hostname = parsed.hostname or ""
+else:
+    hostname = value.rstrip(".")
+    if any(character in hostname for character in "/?#:@"):
+        raise SystemExit(1)
+
+try:
+    hostname = hostname.encode("idna").decode("ascii").lower().rstrip(".")
+except UnicodeError:
+    raise SystemExit(1)
+
+if not 3 <= len(hostname) <= 253 or "." not in hostname:
+    raise SystemExit(1)
+
+label_re = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
+labels = hostname.split(".")
+if any(not label_re.fullmatch(label) for label in labels):
+    raise SystemExit(1)
+
+print(hostname)
+PY_HOSTNAME
+}
 
 if ! CHOICES=$(whiptail --title " OSPy setup " --separate-output --checklist \
   "Choose install options" 13 72 5 \
@@ -90,12 +136,11 @@ fi
 
 REMOTE_HELP=$(cat <<'EOF'
 OSPy always runs locally on port 8080. The remote-access modes below place a secure
-reverse proxy/tunnel in front of OSPy. Local LAN access remains available at:
+reverse proxy/tunnel in front of OSPy. OSPy normally uses local HTTP, but an existing
+installation may already be configured for local HTTPS. Cloudflare modes can work with
+either local protocol; the installer detects the active OSPy origin after startup.
 
-    http://<Raspberry-Pi-IP>:8080
-
-When Cloudflare Tunnel, Tailscale Serve or Tailscale Funnel is used, OSPy itself should
-normally stay on HTTP. The tunnel service provides the external HTTPS/TLS connection.
+The tunnel service provides the external HTTPS/TLS connection.
 
 1) LOCAL NETWORK ONLY
    No remote-access software is configured.
@@ -104,14 +149,16 @@ normally stay on HTTP. The tunnel service provides the external HTTPS/TLS connec
 
 2) CLOUDFLARE TUNNEL
    Recommended when OSPy should have a normal public HTTPS address such as:
-       https://ospi.example.com
+       https://ospy.example.com
 
    Cloudflare provides the public HTTPS endpoint and TLS certificate. cloudflared on
    the Raspberry Pi makes an outbound encrypted tunnel to Cloudflare and forwards
-   requests locally to http://127.0.0.1:8080.
+   requests locally to OSPy on 127.0.0.1:8080 using HTTP or HTTPS as detected.
 
    No public IP address and no router port forwarding are required.
-   Requires a Cloudflare account, a domain in Cloudflare DNS and a Tunnel token.
+   Requires a Cloudflare account, a domain in Cloudflare DNS, a public hostname and a
+   Tunnel token. The installer stores only the public HTTPS URL for the OSPy footer;
+   it does not store the Tunnel token in the OSPy project.
    Cloudflare Access can optionally be placed in front of OSPy for another login layer.
 
 3) CLOUDFLARE QUICK TUNNEL
@@ -166,32 +213,55 @@ This is the safest choice when remote Internet access is not needed." 13 72
     whiptail --title "Cloudflare Tunnel" --scrolltext --msgbox \
       "Before continuing, create a remotely-managed Cloudflare Tunnel in your Cloudflare account.
 
-Configure a Public Hostname, for example:
-  ospi.example.com
+Choose the public hostname that will be used for OSPy, for example:
+  ospy.example.com
 
-Set its service/origin to:
-  HTTP
-  http://localhost:8080
+Copy the Tunnel token from the Cloudflare installation command. You can create the Published application route before or after this installer finishes.
 
-Then copy the tunnel token from the Cloudflare installation command.
+After OSPy starts, the installer detects whether the local origin is HTTP or HTTPS and prints the exact origin URL to use in Cloudflare. If HTTPS is detected and OSPy uses a self-signed/local certificate, enable Cloudflare's No TLS Verify setting for that Published application.
 
-The installer will install cloudflared from Cloudflare's official Debian repository and register it as a systemd service. OSPy itself remains on local HTTP; Cloudflare supplies public HTTPS and the certificate.
+The installer stores only the public HTTPS URL for the OSPy footer. The Tunnel token is not written to the OSPy project." 24 76
 
-The token is required on the next screen." 22 76
+    while true; do
+      if ! cloudflare_hostname_raw=$(whiptail --title "Cloudflare public hostname" --inputbox \
+        "Enter the public hostname for OSPy.
 
-    if ! cloudflare_token=$(whiptail --title "Cloudflare Tunnel token" --passwordbox \
-      "Paste the Cloudflare Tunnel token.
+Example:
+ospy.example.com
+
+You may also paste https://ospy.example.com" \
+        14 76 3>&1 1>&2 2>&3); then
+        echo "Installation was cancelled while entering the Cloudflare public hostname."
+        exit 0
+      fi
+
+      if cloudflare_hostname=$(normalize_cloudflare_hostname "$cloudflare_hostname_raw"); then
+        break
+      fi
+
+      whiptail --title "Cloudflare public hostname" --msgbox \
+        "The hostname is not valid. Enter a DNS hostname such as ospy.example.com, without a path, port, query string or wildcard." 11 76
+    done
+
+    if systemctl is-active --quiet cloudflared.service; then
+      whiptail --title "Cloudflare Tunnel" --msgbox \
+        "An active managed cloudflared.service already exists. Its current tunnel credentials will be left unchanged, so a Tunnel token is not required for this run. The public hostname entered above will be stored for the OSPy footer." 12 76
+    else
+      if ! cloudflare_token=$(whiptail --title "Cloudflare Tunnel token" --passwordbox \
+        "Paste the Cloudflare Tunnel token.
 
 Paste only the token, not the complete 'cloudflared service install ...' command." \
-      13 76 3>&1 1>&2 2>&3); then
-      echo "Installation was cancelled while entering the Cloudflare token."
-      exit 0
-    fi
+        13 76 3>&1 1>&2 2>&3); then
+        echo "Installation was cancelled while entering the Cloudflare token."
+        exit 0
+      fi
 
-    if [ -z "$cloudflare_token" ]; then
-      whiptail --title "Cloudflare Tunnel" --msgbox \
-        "No tunnel token was entered. The installer will use Local network only instead." 9 74
-      remote_mode="lan"
+      if [ -z "$cloudflare_token" ]; then
+        whiptail --title "Cloudflare Tunnel" --msgbox \
+          "No tunnel token was entered. The installer will use Local network only instead." 9 74
+        remote_mode="lan"
+        cloudflare_hostname=""
+      fi
     fi
     ;;
 
@@ -202,7 +272,9 @@ https://random-words.trycloudflare.com
 
 No Cloudflare account or own domain is required.
 
-The installer creates a dedicated systemd service so the tunnel starts automatically. The generated address is not guaranteed to remain the same after a restart. Use this mode only for testing or temporary access." 18 76
+The installer creates a dedicated systemd service so the tunnel starts automatically. After OSPy starts, it detects whether the local origin on port 8080 uses HTTP or HTTPS. HTTPS origins use --no-tls-verify only for the local cloudflared-to-OSPy connection.
+
+The generated address is not guaranteed to remain the same after a restart. Use this mode only for testing or temporary access." 21 76
     ;;
 
   tailscale-serve)
@@ -360,6 +432,22 @@ install_cloudflared() {
   apt-get install -y cloudflared
 }
 
+detect_ospy_origin() {
+  if curl -sS --connect-timeout 2 --max-time 4 \
+      --output /dev/null http://127.0.0.1:8080/ 2>/dev/null; then
+    printf '%s\n' 'http://127.0.0.1:8080'
+    return 0
+  fi
+
+  if curl -ksS --connect-timeout 2 --max-time 4 \
+      --output /dev/null https://127.0.0.1:8080/ 2>/dev/null; then
+    printf '%s\n' 'https://127.0.0.1:8080'
+    return 0
+  fi
+
+  return 1
+}
+
 install_tailscale() {
   echo "===== Installing Tailscale ====="
   apt-get install -y curl
@@ -408,20 +496,46 @@ case "$remote_mode" in
 
   cloudflare)
     install_cloudflared
+    ospy_origin="$(detect_ospy_origin || true)"
+    managed_service_ready=false
 
-    echo "===== Registering Cloudflare Tunnel as a system service ====="
-    if cloudflared service install "$cloudflare_token"; then
-      systemctl enable cloudflared.service >/dev/null 2>&1 || true
-      systemctl restart cloudflared.service
-
-      if systemctl is-active --quiet cloudflared.service; then
-        echo "Cloudflare Tunnel service is running."
-        remote_url="Use the Public Hostname configured in your Cloudflare dashboard."
-      else
-        remote_warning="cloudflared was installed but its systemd service is not active. Check: journalctl -u cloudflared -n 50"
-      fi
+    if systemctl is-active --quiet cloudflared.service; then
+      echo "An active managed cloudflared.service already exists; leaving its tunnel credentials unchanged."
+      managed_service_ready=true
     else
-      remote_warning="cloudflared could not register the managed tunnel. An existing cloudflared service may already be installed, or the token may be invalid. Existing Cloudflare configuration was not deleted."
+      echo "===== Registering Cloudflare Tunnel as a system service ====="
+      if cloudflared service install "$cloudflare_token"; then
+        systemctl enable cloudflared.service >/dev/null 2>&1 || true
+        systemctl restart cloudflared.service
+
+        if systemctl is-active --quiet cloudflared.service; then
+          managed_service_ready=true
+        else
+          remote_warning="cloudflared was installed but its systemd service is not active. Check: journalctl -u cloudflared -n 50"
+        fi
+      else
+        remote_warning="cloudflared could not register the managed tunnel. An existing inactive cloudflared service may already be installed, or the token may be invalid. Existing Cloudflare configuration was not deleted."
+      fi
+    fi
+
+    if [ "$managed_service_ready" = true ]; then
+      echo "Cloudflare Tunnel service is running."
+      remote_url="https://$cloudflare_hostname"
+      install -d -m 0755 "$(dirname "$cloudflare_public_url_file")"
+      printf '%s\n' "$remote_url" > "$cloudflare_public_url_file"
+      chmod 0644 "$cloudflare_public_url_file"
+
+      if [ -n "$ospy_origin" ]; then
+        remote_note="Cloudflare Published application origin: $ospy_origin"
+        echo "$remote_note"
+        if [[ "$ospy_origin" == https://* ]]; then
+          remote_note="$remote_note
+For a self-signed/local OSPy certificate, enable No TLS Verify in the Cloudflare Published application TLS settings."
+          echo "For a self-signed/local OSPy certificate, enable No TLS Verify in the Cloudflare Published application TLS settings."
+        fi
+      else
+        remote_warning="Cloudflare Tunnel is running, but OSPy did not respond on local HTTP or HTTPS port 8080. Check the OSPy service before creating the Published application route."
+      fi
     fi
     ;;
 
@@ -432,18 +546,32 @@ case "$remote_mode" in
       remote_warning="A managed cloudflared.service is already active. The installer did not start a second Quick Tunnel. Existing Cloudflare configuration was left unchanged."
     else
       cloudflared_path="$(command -v cloudflared)"
+      ospy_origin="$(detect_ospy_origin || true)"
 
-      cat > /etc/systemd/system/ospy-cloudflared-quick.service <<EOF
+      if [ -z "$ospy_origin" ]; then
+        remote_warning="Cloudflare Quick Tunnel was not started because OSPy did not respond on http://127.0.0.1:8080 or https://127.0.0.1:8080. Check the OSPy service and port 8080."
+      else
+        cloudflared_origin_options="--url $ospy_origin"
+
+        if [[ "$ospy_origin" == https://* ]]; then
+          cloudflared_origin_options="$cloudflared_origin_options --no-tls-verify"
+          echo "Detected OSPy HTTPS origin: $ospy_origin"
+          echo "Certificate verification is disabled only for the local cloudflared-to-OSPy connection."
+        else
+          echo "Detected OSPy HTTP origin: $ospy_origin"
+        fi
+
+        cat > /etc/systemd/system/ospy-cloudflared-quick.service <<EOF
 [Unit]
 Description=OSPy Cloudflare Quick Tunnel
-Documentation=https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/
+Documentation=https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/
 After=network-online.target ospy.service
 Wants=network-online.target
 Requires=ospy.service
 
 [Service]
 Type=simple
-ExecStart=$cloudflared_path tunnel --no-autoupdate --url http://127.0.0.1:8080
+ExecStart=$cloudflared_path tunnel --no-autoupdate $cloudflared_origin_options
 Restart=on-failure
 RestartSec=5s
 
@@ -451,23 +579,24 @@ RestartSec=5s
 WantedBy=multi-user.target
 EOF
 
-      systemctl daemon-reload
-      systemctl enable --now ospy-cloudflared-quick.service
+        systemctl daemon-reload
+        systemctl enable --now ospy-cloudflared-quick.service
 
-      if systemctl is-active --quiet ospy-cloudflared-quick.service; then
-        echo "Cloudflare Quick Tunnel is running."
-        sleep 3
-        remote_url="$(
-          journalctl -u ospy-cloudflared-quick.service -n 80 --no-pager 2>/dev/null \
-            | grep -Eo 'https://[A-Za-z0-9-]+\.trycloudflare\.com' \
-            | tail -n 1 || true
-        )"
+        if systemctl is-active --quiet ospy-cloudflared-quick.service; then
+          echo "Cloudflare Quick Tunnel is running."
+          sleep 3
+          remote_url="$(
+            journalctl -u ospy-cloudflared-quick.service -n 80 --no-pager 2>/dev/null \
+              | grep -Eo 'https://[A-Za-z0-9-]+\.trycloudflare\.com' \
+              | tail -n 1 || true
+          )"
 
-        if [ -z "$remote_url" ]; then
-          remote_url="Run: journalctl -u ospy-cloudflared-quick.service -n 50 --no-pager"
+          if [ -z "$remote_url" ]; then
+            remote_url="Run: journalctl -u ospy-cloudflared-quick.service -n 50 --no-pager"
+          fi
+        else
+          remote_warning="Cloudflare Quick Tunnel service did not start. Check: journalctl -u ospy-cloudflared-quick.service -n 50"
         fi
-      else
-        remote_warning="Cloudflare Quick Tunnel service did not start. Check: journalctl -u ospy-cloudflared-quick.service -n 50"
       fi
     fi
     ;;
@@ -527,6 +656,11 @@ if [ -n "$remote_url" ]; then
   echo "Remote HTTPS address/status: $remote_url"
 fi
 
+if [ -n "$remote_note" ]; then
+  echo
+  printf '%s\n' "$remote_note"
+fi
+
 if [ -n "$remote_warning" ]; then
   echo
   echo "WARNING: $remote_warning"
@@ -547,6 +681,12 @@ if [ -n "$remote_url" ]; then
 
 Remote HTTPS:
 $remote_url"
+fi
+
+if [ -n "$remote_note" ]; then
+  FINAL_MESSAGE="$FINAL_MESSAGE
+
+$remote_note"
 fi
 
 if [ -n "$remote_warning" ]; then

@@ -102,11 +102,13 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn("Tailscale Serve", self.installer)
         self.assertIn("Tailscale Funnel", self.installer)
 
-    def test_remote_access_keeps_ospy_origin_local_http(self):
+    def test_remote_access_keeps_cloudflare_origin_on_loopback(self):
         self.assertIn("http://127.0.0.1:8080", self.installer)
+        self.assertIn("https://127.0.0.1:8080", self.installer)
         self.assertIn("http://<Raspberry-Pi-IP>:8080", self.installer)
+        self.assertIn("detect_ospy_origin()", self.installer)
 
-        # Tunnel modes terminate HTTPS outside OSPy and proxy to the local HTTP origin.
+        # Cloudflare must reach only the local OSPy origin; the installer never opens port 8080.
         self.assertNotIn("certbot certonly", self.installer)
         self.assertNotIn("openssl req", self.installer)
         self.assertNotIn("ufw allow 8080", self.installer)
@@ -118,21 +120,44 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn("apt-get install -y cloudflared", self.installer)
 
         self.assertIn('cloudflare_token=""', self.installer)
+        self.assertIn('cloudflare_hostname=""', self.installer)
+        self.assertIn('cloudflare_public_url_file="/etc/ospy/cloudflare_public_url"', self.installer)
+        self.assertIn("Cloudflare public hostname", self.installer)
+        self.assertIn("normalize_cloudflare_hostname", self.installer)
+        self.assertIn("a Tunnel token is not required for this run", self.installer)
         self.assertIn("--passwordbox", self.installer)
         self.assertIn('cloudflared service install "$cloudflare_token"', self.installer)
         self.assertIn("systemctl restart cloudflared.service", self.installer)
         self.assertIn("systemctl is-active --quiet cloudflared.service", self.installer)
+        self.assertIn('remote_url="https://$cloudflare_hostname"', self.installer)
+        self.assertIn("printf '%s\\n' \"$remote_url\" > \"$cloudflare_public_url_file\"", self.installer)
+        self.assertIn("No TLS Verify", self.installer)
 
         # The token must not be printed back to the terminal or written to a project file.
         self.assertNotIn('echo "$cloudflare_token"', self.installer)
         self.assertNotIn('printf "%s" "$cloudflare_token"', self.installer)
         self.assertNotIn('> "$ospy_dir/cloudflare_token"', self.installer)
+        self.assertNotIn('> "$cloudflare_public_url_file" <<< "$cloudflare_token"', self.installer)
 
-    def test_cloudflare_quick_tunnel_is_clearly_test_only_and_persistent_service(self):
+    def test_managed_hostname_is_user_supplied_not_site_specific(self):
+        self.assertIn('remote_url="https://$cloudflare_hostname"', self.installer)
+        self.assertIn("ospy.example.com", self.installer)
+
+    def test_cloudflare_quick_tunnel_is_clearly_test_only_and_detects_origin(self):
         self.assertIn("trycloudflare.com", self.installer)
         self.assertIn("testing or temporary access", self.installer)
         self.assertIn(
-            "tunnel --no-autoupdate --url http://127.0.0.1:8080",
+            "--output /dev/null http://127.0.0.1:8080/",
+            self.installer,
+        )
+        self.assertIn(
+            "--output /dev/null https://127.0.0.1:8080/",
+            self.installer,
+        )
+        self.assertIn('cloudflared_origin_options="--url $ospy_origin"', self.installer)
+        self.assertIn("--no-tls-verify", self.installer)
+        self.assertIn(
+            "ExecStart=$cloudflared_path tunnel --no-autoupdate $cloudflared_origin_options",
             self.installer,
         )
         self.assertIn("/etc/systemd/system/ospy-cloudflared-quick.service", self.installer)
@@ -192,8 +217,12 @@ class CleanInstallationTests(unittest.TestCase):
                 self.assertIn(heading, self.clean_guide)
 
         self.assertIn("http://127.0.0.1:8080", self.clean_guide)
+        self.assertIn("https://127.0.0.1:8080", self.clean_guide)
+        self.assertIn("/etc/ospy/cloudflare_public_url", self.clean_guide)
+        self.assertIn("No TLS Verify", self.clean_guide)
         self.assertIn("Cloudflare Access", self.clean_guide)
         self.assertIn("trycloudflare.com", self.clean_guide)
+        self.assertIn("no Server-Sent Events support", self.clean_guide)
         self.assertIn("tailscale serve --bg http://127.0.0.1:8080", self.clean_guide)
         self.assertIn("tailscale funnel --bg http://127.0.0.1:8080", self.clean_guide)
         self.assertIn("Local network only", self.clean_guide)

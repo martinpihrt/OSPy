@@ -109,19 +109,21 @@ If an existing Git checkout is found, the installer never deletes, resets or aut
 REMOTE ACCESS OPTIONS
 ===========
 
-OSPy normally serves its web interface on port `8080`.
+OSPy serves its web interface on port `8080`. A normal new installation uses local HTTP, while an existing OSPy installation may already be configured for local HTTPS.
 
-Regardless of the selected tunnel mode, local LAN access remains:
+Typical local LAN access is:
 
 ```text
 http://<Raspberry-Pi-address>:8080
 ```
 
-Cloudflare Tunnel, Tailscale Serve and Tailscale Funnel act as reverse proxies in front of this local HTTP service. In those modes OSPy normally **does not need its own HTTPS certificate**. The external service provides HTTPS/TLS and forwards requests to:
+If OSPy's own HTTPS is enabled, the local URL is instead similar to:
 
 ```text
-http://127.0.0.1:8080
+https://<Raspberry-Pi-address>:8080
 ```
+
+Cloudflare Tunnel and Cloudflare Quick Tunnel can use either local protocol. The installer probes `127.0.0.1:8080` after OSPy starts and uses the detected HTTP or HTTPS origin. The public side remains HTTPS in both cases.
 
 No router port forwarding is required for any of the tunnel modes below.
 
@@ -151,7 +153,7 @@ This mode does not automatically add HTTPS.
 Recommended when OSPy should be reachable through a normal public hostname such as:
 
 ```text
-https://ospi.example.com
+https://ospy.example.com
 ```
 
 Architecture:
@@ -167,17 +169,17 @@ Cloudflare
     v
 cloudflared on Raspberry Pi
     |
-    | local HTTP
+    | local HTTP or HTTPS on loopback
     v
 http://127.0.0.1:8080
+        or
+https://127.0.0.1:8080
     |
     v
 OSPy
 ```
 
-Cloudflare manages the public HTTPS connection and certificate. OSPy remains on local HTTP.
-
-A public IPv4 address, DDNS and router port forwarding are not required.
+Cloudflare manages the public HTTPS connection and certificate. A public IPv4 address, DDNS and router port forwarding are not required.
 
 ### Requirements
 
@@ -186,34 +188,51 @@ Before running the OSPy installer with this option:
 1. Have a Cloudflare account.
 2. Have a domain using Cloudflare DNS.
 3. Create a remotely-managed Cloudflare Tunnel in the Cloudflare dashboard.
-4. Add a Public Hostname, for example:
+4. Choose the public hostname for OSPy, for example:
 
 ```text
-ospi.example.com
+ospy.example.com
 ```
 
-5. Set the origin/service to:
+5. Copy the Tunnel token from the Cloudflare installation command.
 
-```text
-HTTP
-http://localhost:8080
-```
-
-6. Copy the Tunnel token from the Cloudflare installation command.
-
-The OSPy installer asks only for the token. Paste the token itself, not the complete command.
+The OSPy installer asks for both the public hostname and the Tunnel token on a new managed-tunnel installation. The hostname can also be entered as `https://ospy.example.com`; it is normalized and stored as HTTPS. Paste only the token itself, not the complete `cloudflared service install ...` command. If an active managed `cloudflared.service` already exists, the installer leaves its credentials unchanged and does not require the token again; it only updates the stored public hostname metadata.
 
 The installer then:
 
 - installs `cloudflared` from Cloudflare's official Debian package repository;
-- registers the tunnel as `cloudflared.service`;
-- enables the service at boot;
-- starts the tunnel.
+- registers the tunnel as `cloudflared.service` or leaves an already-active managed service unchanged;
+- detects whether OSPy responds locally over HTTP or HTTPS;
+- prints the exact local origin URL to use for the Cloudflare Published application route;
+- stores only the public HTTPS URL in:
+
+```text
+/etc/ospy/cloudflare_public_url
+```
+
+This file contains only a public URL such as `https://ospy.example.com`. The Tunnel token is not written to the OSPy project or to this URL file.
+
+Configure the Cloudflare Published application route to the origin printed by the installer. Typical HTTP origin:
+
+```text
+http://127.0.0.1:8080
+```
+
+If OSPy already uses local HTTPS, use:
+
+```text
+https://127.0.0.1:8080
+```
+
+For a self-signed or locally issued OSPy certificate, enable **No TLS Verify** in the Published application's TLS settings. This disables certificate verification only for the local `cloudflared -> OSPy` HTTPS hop; the browser still connects to the public hostname using normal Cloudflare HTTPS.
+
+While `cloudflared.service` is active and `/etc/ospy/cloudflare_public_url` contains a valid HTTPS hostname, OSPy shows that address as a clickable **Cloudflare Tunnel** link in the footer. The managed tunnel has display priority over a Quick Tunnel if both services are temporarily active.
 
 Cloudflare documentation:
 
 - https://developers.cloudflare.com/tunnel/setup/
 - https://developers.cloudflare.com/tunnel/downloads/
+- https://developers.cloudflare.com/tunnel/advanced/origin-parameters/
 
 ### Security
 
@@ -229,13 +248,21 @@ This option is intended for testing and temporary access.
 
 No Cloudflare account and no own domain are required.
 
-The installer starts:
+After OSPy starts, the installer probes both local protocols. For a normal HTTP origin it starts the equivalent of:
 
 ```sh
 cloudflared tunnel --url http://127.0.0.1:8080
 ```
 
-as a dedicated systemd service:
+If OSPy is configured for local HTTPS, it uses the equivalent of:
+
+```sh
+cloudflared tunnel --url https://127.0.0.1:8080 --no-tls-verify
+```
+
+`--no-tls-verify` applies only to the local `cloudflared -> OSPy` connection and allows a self-signed/local OSPy certificate. The generated public `trycloudflare.com` endpoint still uses normal HTTPS.
+
+The command runs as a dedicated systemd service:
 
 ```text
 ospy-cloudflared-quick.service
@@ -253,9 +280,9 @@ The address can be shown with:
 sudo journalctl -u ospy-cloudflared-quick.service -n 50 --no-pager
 ```
 
-While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy also shows the current Quick Tunnel address as a clickable **Cloudflare Quick Tunnel** link in the footer. If the service is missing, inactive, unreadable or no valid Quick Tunnel address is available, the footer does not show the link.
+While `ospy-cloudflared-quick.service` is installed and active and a valid `https://*.trycloudflare.com` address is present in its journal, OSPy shows the current address as a clickable **Cloudflare Quick Tunnel** link in the footer. If a configured managed `cloudflared.service` is also active, the footer shows the managed **Cloudflare Tunnel** URL instead. If neither mode has a valid active URL, the footer does not show a Cloudflare link.
 
-Cloudflare documents Quick Tunnels as a development/testing feature, not as a production hosting method. The generated hostname can change when the tunnel is recreated or restarted.
+Cloudflare documents Quick Tunnels as a development/testing feature, not as a production hosting method. The generated hostname can change when the tunnel is recreated or restarted. Quick Tunnels also have service limitations, including no Server-Sent Events support; OSPy's polling fallback remains available, but use a managed Tunnel for normal production access.
 
 Cloudflare documentation:
 
@@ -385,19 +412,27 @@ There are two different HTTPS designs.
 
 ## Recommended with Cloudflare/Tailscale
 
-Keep OSPy itself on HTTP:
+For a new tunnel-based installation, keeping OSPy itself on local HTTP is the simplest design:
 
 ```text
 http://127.0.0.1:8080
 ```
 
-The browser sees HTTPS because Cloudflare or Tailscale terminates TLS:
+The browser sees HTTPS because Cloudflare or Tailscale terminates the public TLS connection:
 
 ```text
 Browser --HTTPS--> Cloudflare/Tailscale --local HTTP--> OSPy
 ```
 
 Do **not** enable OSPy's own HTTPS only because a tunnel is being used. The tunnel already provides the external TLS layer.
+
+An existing OSPy installation that already uses HTTPS does not have to be converted back to HTTP for Cloudflare. The installer detects:
+
+```text
+https://127.0.0.1:8080
+```
+
+and Cloudflare can use that as the Published application origin. If the local OSPy certificate is self-signed or does not match `127.0.0.1`, enable **No TLS Verify** for that Cloudflare origin.
 
 ## Direct OSPy HTTPS without a tunnel
 
@@ -497,7 +532,7 @@ After installation, local access is:
 http://<Raspberry-Pi-address>:8080
 ```
 
-If a tunnel mode was selected, the installer also prints the remote address or a command that shows its status.
+If a tunnel mode was selected, the installer also prints the remote address or a command that shows its status. For a managed Cloudflare Tunnel it stores the configured public URL in `/etc/ospy/cloudflare_public_url`, which allows the active public address to be shown in the OSPy footer without storing or exposing the Tunnel token.
 
 On the first login:
 

@@ -13,6 +13,8 @@ Extended Mobile API v1 with push discovery, registration, preference, test and u
 
 System download backups now create and verify a transactionally consistent SQLite snapshot of the Mobile API database instead of copying a potentially active database file directly. The backup manifest records its schema and credential-bearing status. Restoring the backup therefore safely preserves mobile pairing, hashed refresh tokens, relay configuration and push signing secrets; downloaded backup archives must be protected as sensitive credentials.
 
+Improved Cloudflare remote-access installation and footer discovery. Cloudflare Quick Tunnel now probes the running local OSPy service and selects `http://127.0.0.1:8080` or `https://127.0.0.1:8080 --no-tls-verify`, preventing a local HTTPS installation from producing a 502 response. Managed Cloudflare Tunnel setup requests and validates the user's public hostname, stores only its normalized HTTPS URL in `/etc/ospy/cloudflare_public_url`, never stores the Tunnel token in OSPy and preserves an already active `cloudflared.service`. The footer recognizes both managed and Quick services, gives a valid active managed URL priority and otherwise safely falls back to the current strict `https://*.trycloudflare.com` address. Updated the clean-installation guide and offline regression coverage; all hostnames in source and documentation remain generic user-supplied examples.
+
 ## August 9 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>
