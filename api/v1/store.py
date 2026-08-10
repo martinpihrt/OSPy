@@ -13,6 +13,10 @@ import uuid
 
 SCHEMA_VERSION = 2
 DEFAULT_REFRESH_LIFETIME = 30 * 24 * 60 * 60
+# A mobile process can be terminated after OSPy has rotated a refresh token but
+# before Android has durably stored the replacement (for example during a
+# Google Play update). Permit exactly one retry of that just-replaced token.
+REFRESH_RECOVERY_GRACE = 5 * 60
 MAX_NOTIFICATIONS = 1000
 MAX_OPERATIONS = 500
 PUSH_CATEGORIES = (
@@ -289,10 +293,17 @@ class MobileStore(object):
                 """,
                 (_token_hash(token),),
             ).fetchone()
+            recovery_retry = bool(
+                row is not None and row["replaced_by"] and
+                row["revoked"] is not None and
+                now - row["revoked"] <= REFRESH_RECOVERY_GRACE and
+                abs(row["last_used"] - row["revoked"]) < 0.001
+            )
             if (
-                row is None or row["revoked"] is not None or
-                row["device_revoked"] is not None or row["expires"] <= now or
-                row["replaced_by"]
+                row is None or row["device_revoked"] is not None or
+                row["expires"] <= now or
+                (row["revoked"] is not None and not recovery_retry) or
+                (row["replaced_by"] and not recovery_retry)
             ):
                 return None
             replacement_id = str(uuid.uuid4())
@@ -311,10 +322,22 @@ class MobileStore(object):
                     replacement_expires, now,
                 ),
             )
-            connection.execute(
-                "UPDATE refresh_tokens SET revoked=?, replaced_by=?, last_used=? WHERE id=?",
-                (now, replacement_id, now, row["id"]),
-            )
+            if recovery_retry:
+                # Mark the recovery attempt as consumed without extending the
+                # original grace window. A second replay is rejected.
+                connection.execute(
+                    "UPDATE refresh_tokens SET replaced_by=?, last_used=? WHERE id=?",
+                    (
+                        replacement_id,
+                        max(now, row["revoked"] + 1.0),
+                        row["id"],
+                    ),
+                )
+            else:
+                connection.execute(
+                    "UPDATE refresh_tokens SET revoked=?, replaced_by=?, last_used=? WHERE id=?",
+                    (now, replacement_id, now, row["id"]),
+                )
             return {
                 "id": replacement_id,
                 "token": replacement_token,

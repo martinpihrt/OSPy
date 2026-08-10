@@ -19,7 +19,7 @@ Public endpoints are `GET /`, `/server`, `/capabilities` and `/openapi.json`. `/
 2. Send the administrator or user name, password and a device description to `POST /api/v1/auth/login`.
 3. When administrator two-factor authentication is enabled, include a TOTP or backup code. E-mail 2FA returns a challenge identifier and sends a code; send both in the repeated login request.
 4. Store the returned refresh token only in protected operating-system storage, such as Android Keystore. Access tokens are short-lived and belong in memory.
-5. Rotate the refresh token with `POST /api/v1/auth/refresh`. Reuse of an old rotated token is rejected. `POST /auth/logout` or deleting a paired device revokes access.
+5. Rotate the refresh token with `POST /api/v1/auth/refresh`. A just-replaced token has one recovery retry within five minutes so a process terminated before durable storage can recover; later or repeated reuse is rejected. `POST /auth/logout` or deleting a paired device revokes access immediately.
 
 Pairing is deliberately unavailable while OSPy has no administrator password. Tokens contain scopes. Read-only clients cannot operate stations; system, backup, update and plug-in administration require their separate administrator scopes.
 
@@ -103,7 +103,7 @@ Content-Type: application/json
 
 Omit the second-factor fields when 2FA is disabled. With e-mail 2FA, the first request returns `two_factor_required`, sends a code and supplies `challenge_id`; repeat the login with the challenge and code.
 
-The result contains the access and refresh tokens, expiry times, role, scopes and device ID. Refresh through `POST /auth/refresh` with `{"refresh_token":"..."}`. Persist the replacement before deleting the old token. `POST /auth/logout` revokes the current token session. `GET /auth/devices` lists paired devices and `DELETE /auth/devices/{device_id}` revokes one.
+The result contains the access and refresh tokens, expiry times, role, scopes and device ID. Refresh through `POST /auth/refresh` with `{"refresh_token":"..."}`. Persist the replacement before deleting the old token. If the client is terminated after rotation but before that durable write, the same old token can recover exactly once during the next five minutes; this recovery does not apply to logout, explicit device revocation or expired tokens. `POST /auth/logout` revokes the current token session. `GET /auth/devices` lists paired devices and `DELETE /auth/devices/{device_id}` revokes one.
 
 ### Scopes
 
@@ -119,7 +119,7 @@ The result contains the access and refresh tokens, expiry times, role, scopes an
 
 The user role may receive `read` and `control`; the administrator may receive every scope. Sensor accounts cannot pair a mobile device.
 
-When a device pairs again with its existing device ID, its former refresh-token session is revoked. Refresh is one-time rotation: after a successful refresh, the old refresh token and access token no longer authorize requests. A client must persist the returned replacement refresh token before continuing.
+When a device pairs again with its existing device ID, its former refresh-token session is revoked. Refresh uses one-time rotation and the client must persist the returned replacement before continuing. To survive operating-system or application-update termination between the response and durable storage, a just-replaced refresh token has one recovery retry for five minutes; consuming it produces a new replacement, and any further replay is rejected. The old access token no longer authorizes requests, and explicit logout or device revocation never receives this recovery allowance.
 
 ## Response format
 

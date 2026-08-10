@@ -556,14 +556,38 @@ class MobileAPIV1Tests(unittest.TestCase):
                 self.assertEqual(program.type_data[3], 0.5)
                 self.assertEqual(editor["fields"]["pause_ratio"], 0.5)
 
-    def test_refresh_token_is_rotated_and_old_token_is_rejected(self):
+    def test_refresh_token_rotation_allows_one_crash_recovery_retry(self):
         from api.v1.security import refresh
         token, original = self._token(("read",), role="user")
         replacement = refresh(original["token"])
         self.assertNotEqual(replacement["refresh_token"], original["token"])
+        recovered = refresh(original["token"])
+        self.assertNotEqual(recovered["refresh_token"], original["token"])
+        self.assertNotEqual(
+            recovered["refresh_token"], replacement["refresh_token"]
+        )
         with self.assertRaises(Exception) as context:
             refresh(original["token"])
         self.assertEqual(getattr(context.exception, "code", ""), "invalid_refresh_token")
+
+    def test_refresh_token_recovery_retry_expires_with_grace_window(self):
+        from api.v1.store import (
+            DEFAULT_REFRESH_LIFETIME, REFRESH_RECOVERY_GRACE, mobile_store,
+        )
+        original = mobile_store.issue_refresh_token(
+            "mobile-test", "user", ("read",), "grace-device", "Phone"
+        )
+        issued = original["expires"] - DEFAULT_REFRESH_LIFETIME
+        with mock.patch("api.v1.store.time.time", return_value=issued + 1):
+            self.assertIsNotNone(
+                mobile_store.rotate_refresh_token(original["token"])
+            )
+        with mock.patch(
+                "api.v1.store.time.time",
+                return_value=issued + REFRESH_RECOVERY_GRACE + 2):
+            self.assertIsNone(
+                mobile_store.rotate_refresh_token(original["token"])
+            )
 
     def test_pairing_same_device_revokes_previous_session(self):
         from api.v1.security import issue_access_token, verify_access_token
