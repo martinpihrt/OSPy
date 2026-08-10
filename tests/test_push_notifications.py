@@ -78,6 +78,44 @@ class PushNotificationTests(unittest.TestCase):
         self.store.revoke_device(self.device_id)
         self.assertIsNone(self.store.push_subscription(self.device_id))
 
+    def test_active_device_cannot_be_permanently_deleted(self):
+        self.assertFalse(self.store.delete_revoked_device(self.device_id))
+        self.assertTrue(any(
+            item["id"] == self.device_id for item in self.store.devices()
+        ))
+
+    def test_revoked_device_can_be_permanently_deleted(self):
+        self.store.revoke_device(self.device_id)
+        self.assertTrue(self.store.delete_revoked_device(self.device_id))
+        self.assertFalse(any(
+            item["id"] == self.device_id for item in self.store.devices()
+        ))
+
+    def test_all_revoked_devices_can_be_deleted_together(self):
+        second = self.store.issue_refresh_token(
+            "push-test", "admin", ["read"], "second-device", "Old phone"
+        )
+        self.store.revoke_device(self.device_id)
+        self.store.revoke_device(second["device_id"])
+        active = self.store.issue_refresh_token(
+            "push-test", "admin", ["read"], "active-device", "Current phone"
+        )
+        self.assertEqual(self.store.delete_all_revoked_devices(), 2)
+        self.assertEqual(
+            [item["id"] for item in self.store.devices()],
+            [active["device_id"]],
+        )
+
+    def test_default_relay_url_is_ready_but_push_is_disabled(self):
+        from api.v1.store import DEFAULT_PUSH_RELAY_URL, MobileStore
+
+        default_data = os.path.join(self.temp.name, "default-relay")
+        with mock.patch.dict(
+                os.environ, {"OSPY_DATA_DIR": default_data}):
+            config = MobileStore().push_config()
+        self.assertFalse(config["enabled"])
+        self.assertEqual(config["relay_url"], DEFAULT_PUSH_RELAY_URL)
+
     def test_category_mapping_keeps_station_events_separate(self):
         from api.v1.push import notification_category
 

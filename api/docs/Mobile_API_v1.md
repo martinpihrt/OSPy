@@ -33,7 +33,7 @@ Periodic `/overview`, `/changes` and SSE synchronization remains the fallback wh
 OSPy event -> bounded asynchronous queue -> HTTPS push relay -> FCM -> Android application
 ```
 
-The administrator configures the relay in **Options → Mobile applications**. Push is disabled by default and cannot be enabled without a valid HTTPS relay URL. Plain HTTP is accepted only for a loopback development relay. A relay failure never blocks the scheduler, station output or the request that created the event. The administration page records the last successful and failed delivery without showing secrets.
+The administrator configures the relay in **Options → Mobile applications**. Push is disabled by default; the relay field is prefilled with the official OSPy relay URL and remains editable for administrators who operate their own compatible relay. Push cannot be enabled without a valid HTTPS relay URL. Plain HTTP is accepted only for a loopback development relay. A relay failure never blocks the scheduler, station output or the request that created the event. The administration page records the last successful and failed delivery without showing secrets.
 
 OSPy does not store an FCM registration token, Firebase service-account file or Firebase private key. The mobile application registers its FCM token directly with the relay. The relay returns an opaque `subscription_id` and a random, installation-scoped `send_secret`; the application sends those two values to its paired OSPy installation:
 
@@ -103,7 +103,9 @@ Content-Type: application/json
 
 Omit the second-factor fields when 2FA is disabled. With e-mail 2FA, the first request returns `two_factor_required`, sends a code and supplies `challenge_id`; repeat the login with the challenge and code.
 
-The result contains the access and refresh tokens, expiry times, role, scopes and device ID. Refresh through `POST /auth/refresh` with `{"refresh_token":"..."}`. Persist the replacement before deleting the old token. If the client is terminated after rotation but before that durable write, the same old token can recover exactly once during the next five minutes; this recovery does not apply to logout, explicit device revocation or expired tokens. `POST /auth/logout` revokes the current token session. `GET /auth/devices` lists paired devices and `DELETE /auth/devices/{device_id}` revokes one.
+The result contains the access and refresh tokens, expiry times, role, scopes and device ID. A client should persist one randomly generated device ID with the saved installation and send it again whenever that installation is re-authenticated. OSPy then revokes the former token session and updates the same device record instead of inserting another row. A different phone or a fresh application installation generates a new ID. Refresh through `POST /auth/refresh` with `{"refresh_token":"..."}`. Persist the replacement before deleting the old token. If the client is terminated after rotation but before that durable write, the same old token can recover exactly once during the next five minutes; this recovery does not apply to logout, explicit device revocation or expired tokens. `POST /auth/logout` revokes the current token session. `GET /auth/devices` lists paired devices and `DELETE /auth/devices/{device_id}` revokes one.
+
+The OSPy administration page deliberately separates revocation from permanent deletion. An active device must first be revoked so its refresh tokens and push subscription are invalidated safely. The resulting revoked record can then be permanently deleted on its own, or the administrator can delete all revoked records in one cleanup action. Neither deletion action removes an active device.
 
 ### Scopes
 

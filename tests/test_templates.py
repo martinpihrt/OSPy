@@ -90,6 +90,14 @@ class TemplateCompilationTests(unittest.TestCase):
         self.assertIn("id='mobile-applications-options'", source)
         self.assertIn("href='/mobile_devices'", source)
 
+    def test_mobile_device_records_require_revocation_before_deletion(self):
+        source = (TEMPLATE_ROOT / "mobile_devices.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("$if not device['revoked']:", source)
+        self.assertIn('name="action" value="delete_revoked"', source)
+        self.assertIn('name="action" value="delete_all_revoked"', source)
+
     def test_configured_plugin_templates_compile(self):
         for plugin_root in _configured_plugin_roots():
             with self.subTest(plugin_root=str(plugin_root)):

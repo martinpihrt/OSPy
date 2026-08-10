@@ -17,6 +17,9 @@ DEFAULT_REFRESH_LIFETIME = 30 * 24 * 60 * 60
 # before Android has durably stored the replacement (for example during a
 # Google Play update). Permit exactly one retry of that just-replaced token.
 REFRESH_RECOVERY_GRACE = 5 * 60
+DEFAULT_PUSH_RELAY_URL = (
+    "https://ospy-push-relay-668635864569.europe-west1.run.app"
+)
 MAX_NOTIFICATIONS = 1000
 MAX_OPERATIONS = 500
 PUSH_CATEGORIES = (
@@ -192,9 +195,12 @@ class MobileStore(object):
             )
 
     def push_config(self):
+        relay_url = self.meta(
+            "push_relay_url", lambda: DEFAULT_PUSH_RELAY_URL
+        ).strip()
         return {
             "enabled": self.meta("push_enabled", lambda: "0") == "1",
-            "relay_url": self.meta("push_relay_url", lambda: "").strip(),
+            "relay_url": relay_url or DEFAULT_PUSH_RELAY_URL,
         }
 
     def set_push_config(self, enabled, relay_url):
@@ -398,6 +404,30 @@ class MobileStore(object):
             connection.execute(
                 "DELETE FROM push_subscriptions WHERE device_id=?", (device_id,)
             )
+
+    def delete_revoked_device(self, device_id):
+        """Permanently delete one already-revoked device and its token history."""
+        with self._lock, self._connect() as connection:
+            row = connection.execute(
+                "SELECT revoked FROM devices WHERE id=?", (device_id,)
+            ).fetchone()
+            if row is None or row["revoked"] is None:
+                return False
+            connection.execute("DELETE FROM devices WHERE id=?", (device_id,))
+            return True
+
+    def delete_all_revoked_devices(self):
+        """Permanently delete all revoked devices and return their count."""
+        with self._lock, self._connect() as connection:
+            row = connection.execute(
+                "SELECT COUNT(*) AS count FROM devices WHERE revoked IS NOT NULL"
+            ).fetchone()
+            count = int(row["count"])
+            if count:
+                connection.execute(
+                    "DELETE FROM devices WHERE revoked IS NOT NULL"
+                )
+            return count
 
     def devices(self, username=None):
         query = "SELECT * FROM devices"

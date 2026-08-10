@@ -602,6 +602,12 @@ class MobileAPIV1Tests(unittest.TestCase):
             "mobile-test", "user", ("read",), "same-device", "Phone"
         )
         self.assertNotEqual(first["id"], second["id"])
+        self.assertEqual(first["device_id"], second["device_id"])
+        matching_devices = [
+            item for item in mobile_store.devices()
+            if item["id"] == "same-device"
+        ]
+        self.assertEqual(len(matching_devices), 1)
         with self.assertRaises(Exception) as context:
             verify_access_token(first_access)
         self.assertEqual(getattr(context.exception, "code", ""), "invalid_token")

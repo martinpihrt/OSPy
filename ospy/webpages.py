@@ -1382,8 +1382,30 @@ class mobile_devices_page(ProtectedPage):
             )
             raise web.seeother('/mobile_devices?status=service_saved')
 
+        if action == 'delete_all_revoked':
+            count = mobile_store.delete_all_revoked_devices()
+            if count:
+                logEV.save_events_log(
+                    _('Revoked mobile device records deleted'),
+                    _('Administrator {} permanently deleted {} revoked mobile device records.').format(
+                        session.get('visitor'), count),
+                    id='Mobile', level='warning', category='security'
+                )
+            raise web.seeother('/mobile_devices?status=revoked_devices_deleted')
+
         if device_id not in devices:
             raise web.seeother('/mobile_devices?status=device_missing')
+
+        if action == 'delete_revoked':
+            if not mobile_store.delete_revoked_device(device_id):
+                raise web.seeother('/mobile_devices?status=device_not_revoked')
+            logEV.save_events_log(
+                _('Revoked mobile device record deleted'),
+                _('Administrator {} permanently deleted revoked mobile device {}.').format(
+                    session.get('visitor'), devices[device_id]['name']),
+                id='Mobile', level='warning', category='security'
+            )
+            raise web.seeother('/mobile_devices?status=device_deleted')
 
         subscription = mobile_store.push_subscription(device_id)
         if action == 'save_device':

@@ -7,9 +7,11 @@ OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation sy
 
 ## Mobile App [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile)
 
-Paired phones and immediate push notifications are managed in **Options → Mobile applications**. OSPy sends signed, installation-scoped events asynchronously to a separately deployed HTTPS push relay; the relay delivers them through Firebase Cloud Messaging. Firebase credentials and FCM device tokens are never stored in OSPy. See the [Mobile API v1 push notification reference](api/docs/Mobile_API_v1.md#immediate-push-notifications).
+Paired phones and immediate push notifications are managed in **Options → Mobile applications**. Push delivery is disabled by default; the editable relay field is prefilled with the official OSPy relay URL. OSPy sends signed, installation-scoped events asynchronously to the HTTPS relay, which delivers them through Firebase Cloud Messaging. Firebase credentials and FCM device tokens are never stored in OSPy. See the [Mobile API v1 push notification reference](api/docs/Mobile_API_v1.md#immediate-push-notifications).
 
 Refresh-token rotation includes a single short recovery retry for a mobile process terminated between receiving and durably saving its replacement token, such as during a Google Play application update. This preserves saved connections without weakening explicit logout or administrator device revocation.
+
+The Android application keeps a persistent device identity for every saved installation. Signing in again to the same installation replaces that device's token session and reuses its OSPy record instead of creating a duplicate. An application reinstall or a genuinely new phone creates a new identity. In OSPy administration, an active device must first be revoked; revoked records can then be permanently deleted individually or together.
 
 ## Emergency administrator login recovery
 If the administrator password is unknown or access to the configured two-factor method has been lost, run the local recovery script from the OSPy directory on the Raspberry Pi or another trusted local shell:

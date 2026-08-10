@@ -352,6 +352,15 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertNotIn(b'id="mobile-devices"', response.data)
 
+    def test_mobile_device_cleanup_requires_csrf_before_handler(self):
+        with mock.patch.object(helpers, "print_report"):
+            response = self.app.request(
+                "/mobile_devices", method="POST",
+                data={"action": "delete_all_revoked"},
+            )
+
+        self.assertEqual(response.status, "403 Forbidden")
+
     def test_login_page_renders_for_anonymous_user(self):
         self.session["validated"] = False
         self.session["category"] = "public"

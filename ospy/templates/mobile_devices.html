@@ -16,6 +16,9 @@ $code:
         'test_unavailable': _('The test notification could not be queued. Check the relay and device settings.'),
         'push_removed': _('Push notifications were unregistered for the device.'),
         'device_revoked': _('The mobile device was revoked.'),
+        'device_deleted': _('The revoked mobile device record was deleted.'),
+        'revoked_devices_deleted': _('All revoked mobile device records were deleted.'),
+        'device_not_revoked': _('Only a revoked mobile device record can be deleted.'),
     }
     category_names = {
         'station_started': _('Station started'),
@@ -140,9 +143,22 @@ $code:
                                     <input type="hidden" name="device_id" value="${device['id']}">
                                     <button type="submit" class="button danger">$_('Revoke device')</button>
                                 </form>
+                            $else:
+                                <form action="/mobile_devices" method="post" onsubmit="return confirm($:{json.dumps(_('Permanently delete this revoked mobile device record?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="delete_revoked">
+                                    <input type="hidden" name="device_id" value="${device['id']}">
+                                    <button type="submit" class="button danger">$_('Delete record')</button>
+                                </form>
                         </td>
                     </tr>
             </table>
+            $if any(device['revoked'] for device in devices):
+                <form action="/mobile_devices" method="post" onsubmit="return confirm($:{json.dumps(_('Permanently delete all revoked mobile device records?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                    $:csrf_input()
+                    <input type="hidden" name="action" value="delete_all_revoked">
+                    <button type="submit" class="button danger">$_('Delete all revoked records')</button>
+                </form>
     </div>
 
     <div id="controls">

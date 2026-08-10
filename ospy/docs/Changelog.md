@@ -4,6 +4,13 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 11 2026 (v3.0 beta)
+-----------
+(Martin Pihrt)<br/>
+Prepared duplicate-free mobile re-authentication for Android 0.3.18 (25). The Android client now sends the persistent identity of a saved installation when pairing again, reuses the same identity when the same normalized address and user are added again, and offers a localized **Sign in again** action. OSPy replaces the old token session and updates the existing paired-device row. Application updates and renewed login therefore keep one device record, while an application reinstall or a genuinely new phone creates a new identity.
+
+Added safe cleanup of paired-device history. Active devices still have to be revoked first so their refresh tokens and push subscription are invalidated. An administrator can then permanently delete one revoked record or all revoked records together; forged deletion requests cannot remove active devices. The push relay field is now prefilled with the official OSPy relay URL while push delivery remains disabled by default and the value remains editable. Added storage, API and template regression coverage and updated the root and API documentation. New gettext source calls are documented for translation and the existing `.pot`, `.po` and `.mo` catalogs are left unchanged.
+
 ## August 10 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>
