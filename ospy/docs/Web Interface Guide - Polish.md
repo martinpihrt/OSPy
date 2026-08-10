@@ -238,6 +238,7 @@ Gdy Diagnostyka zgłosi **Gotowość SQLite primary beta: Gotowe**, Opcje udost�
             Remote FTP Control
             System Update
             Water Meter
+            Energy Meter
             Webcam Monitor
             Weather-based Water Level Netatmo
             Direct 16 Relay Outputs
@@ -1345,6 +1346,8 @@ Pliki statyczne są dostępne pod `/plugins/plugin_name/static/...`. Pliki skryp
 * Aktualizacja systemu (użyj tego rozszerzenia, aby łatwo zaktualizować system OSPy z GIThub zamiast poleceń systemowych)
 * Wodomierz (pomiar przepływu wodomierzem z wyjściem impulsowym z wykorzystaniem magistrali I2C)
   Water Meter v1.1.1 mierzy w sposób ciągły w jednosekundowych odstępach i odświeża oddzielny przegląd co sekundę. Przegląd pokazuje bieżące l/s, odpowiadające l/min, zużycie w bieżącej minucie i godzinie, zużycie całkowite oraz wykres przepływu. Ustawienia sterują lokalnym rejestrowaniem JSON i opcjonalnym SQL, wyświetlanym źródłem, odstępem w sekundach, pomijaniem zerowego przepływu i maksymalną liczbą rekordów, gdzie 0 oznacza brak limitu. Opcjonalna wartość Home pokazuje `bieżące l/s (bieżące l/min)`, a mobilne API v1 udostępnia karty na żywo i ograniczoną historię z wybranego źródła. Licznik jest odczytywany bezpośrednio z rejestrów PCF8583 0x01–0x03; błąd konfiguracji lub pomiaru zamyka magistralę, automatycznie ponawia inicjalizację i jest widoczny w przeglądzie.
+* Energy Meter
+  Energy Meter v1.0.1 monitoruje dowolną liczbę trójfazowych liczników Shelly Pro 3EM i Shelly 3EM-63T Gen3. Domyślne i zalecane połączenie odczytuje urządzenie bezpośrednio w sieci lokalnej według adresu IP lub nazwy DNS bez chmury i dostępu do Internetu; alternatywnie dane z pamięci podręcznej może dostarczać skonfigurowana i uruchomiona wtyczka Shelly Cloud Integration. Każdy licznik otrzymuje rolę przyłącza sieciowego, produkcji solarnej, odbiornika lub licznika pomocniczego, a jego kierunek można odwrócić. Przegląd rozdziela pobór z sieci i oddawanie do sieci, pokazuje L1–L3 i sumy, dziś, wczoraj, miesiąc i rok, koszty, przychód z oddawania energii, historię, wykresy i CSV. Przy licznikach sieci i fotowoltaiki oblicza zużycie domu, autokonsumpcję, niezależność energetyczną i oszczędność; samo oddawanie energii do sieci nigdy nie jest oznaczane jako produkcja. Atomowo zapisane liczniki kontynuują pracę po restarcie OSPy i bezpiecznie rozpoznają reset lub wymianę licznika. Ceny i taryfy czasowe są zapisywane w każdym przedziale, historia może korzystać z lokalnego JSON, SQL przez Database Connector albo obu magazynów, a dane są dostępne na Home, w diagnostyce i przez mobilne API.
 * Monitor kamery internetowej (robi zdjęcia z kamery internetowej USB)
 * Poziom wody Netatmo zależny od pogody (ustawianie ilości wody do nawadniania ze stacji pogodowej Netatmo)
 * Direct 16 wyjść przekaźnikowych (za pomocą tego rozszerzenia możemy sterować 16 przekaźnikami (stacjami) podłączonymi bezpośrednio do Raspberry Pi, ale niektóre inne rozszerzenia nie będą dostępne)
