@@ -7,6 +7,12 @@ Zobacz pełną
 [dokumentację Mobile API v1](../../api/docs/Mobile_API_v1.md), dostępną także
 w Pomocy OSPy w sekcji **API**.
 
+## Aplikacje mobilne i natychmiastowe powiadomienia
+
+W **Opcje → Aplikacje mobilne**, pomiędzy kartami **Użytkownicy** i **Bezpieczeństwo**, administrator konfiguruje adres HTTPS przekaźnika push i włącza natychmiastowe powiadomienia. Strona korzysta z tej samej listy sparowanych urządzeń co mobilne API i pokazuje użytkownika, rolę, wersję aplikacji, czas sparowania i ostatniej aktywności, stan push oraz ostatnie udane lub nieudane doręczenie. Dla każdego telefonu można wybrać kategorie: uruchomienie stacji, zatrzymanie stacji, deszcz, diagnostyka, aktualizacje i inne zdarzenia. Można wysłać test, wyrejestrować push albo unieważnić całe urządzenie wraz z tokenami logowania.
+
+OSPy nie przechowuje kluczy Firebase ani tokenu FCM telefonu. Aplikacja mobilna rejestruje token FCM bezpośrednio w przekaźniku; OSPy otrzymuje tylko niejawny identyfikator subskrypcji i sekret podpisu ograniczony do instalacji. Podpisane zdarzenia wysyła oddzielny ograniczony proces roboczy, dlatego brak Internetu lub przekaźnika nie opóźnia harmonogramu ani zaworów. Push jest domyślnie wyłączony i wymaga HTTPS. Okresowa synchronizacja przy otwartej aplikacji pozostaje mechanizmem zapasowym. Dokładny kontrakt opisuje [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite jako magazyn główny (beta)
 
 Gdy Diagnostyka zgłosi **Gotowość SQLite primary beta: Gotowe**, Opcje udostępnią pozycję **SQLite jako główny (beta)** w polu **Tryb magazynu ustawień**. Przed wejściem do tego trybu i wyjściem z niego OSPy tworzy pełną kopię zapasową systemu, zatwierdza razem zweryfikowane kopie SQLite i shelve/DBM, a następnie uruchamia się ponownie. Przy kolejnym starcie SQLite jest niezależnie weryfikowane przed użyciem jako źródło ustawień; zsynchronizowana kopia shelve/DBM pozostaje natychmiastowym zabezpieczeniem. Brak znacznika aktywacji, uszkodzona baza, niezgodna suma kontrolna lub schemat albo nieprawidłowe ustawienie bezpiecznie pozostawia OSPy na shelve/DBM i jest zgłaszane w Diagnostyce. Przełączenie nigdy nie następuje automatycznie, a powrót do trybu **Weryfikacja** jest zawsze dostępny przez tę samą procedurę kopii zapasowej i restartu.

@@ -6,6 +6,12 @@ OSPy Web Interface Guide in English
 See the complete [Mobile API v1 reference](../../api/docs/Mobile_API_v1.md),
 also available in OSPy Help under **API**.
 
+## Mobile applications and immediate notifications
+
+In **Options → Mobile applications**, between **Users** and **Security**, an administrator configures the HTTPS push relay and enables immediate notifications. The page uses the same paired-device list as the mobile API and shows each phone's user, role, application version, pairing and last-active times, push status, and last successful or failed delivery. Categories can be selected for station start, station stop, rain, diagnostics, updates and other events. The administrator can send a test, unregister push, or revoke the complete device including its login tokens.
+
+OSPy stores neither Firebase keys nor the phone's FCM token. The mobile application registers the FCM token directly with the relay; OSPy receives only an opaque subscription identifier and an installation-scoped signing secret. Signed events are sent through a separate bounded worker, so an unavailable Internet connection or relay cannot delay the scheduler or valves. Push is disabled by default and requires HTTPS. Periodic synchronization while the app is open remains the fallback. See the exact contract in [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite primary beta
 
 When Diagnostics reports **SQLite primary beta readiness: Ready**, Options enables **SQLite primary (beta)** in **Settings storage mode**. OSPy creates a complete system backup before entering or leaving this mode, commits the verified SQLite and shelve/DBM copies together, and restarts. On the next start it independently verifies SQLite before using it as the settings source; the synchronized shelve/DBM copy remains the immediate fallback. A missing marker, damaged database, checksum or schema mismatch, or invalid setting safely keeps OSPy on shelve/DBM and is reported in Diagnostics. No automatic switch occurs, and returning to **Verification** is available at any time through the same backup-and-restart procedure.

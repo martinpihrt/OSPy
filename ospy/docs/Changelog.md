@@ -4,6 +4,15 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 10 2026 (v3.0 beta)
+-----------
+(Martin Pihrt)<br/>
+Added complete OSPy-side support for immediate native mobile push notifications. Options now contains a **Mobile applications** card between **Users** and **Security**, with an administrator page for the HTTPS relay, paired-device status, per-device notification categories, test delivery, push unregistration and full device revocation. Added installation-scoped subscriptions linked to the existing paired-device database, redacted administration/API responses, automatic cleanup on revocation and authenticated HMAC-SHA256 relay requests without storing Firebase credentials or FCM tokens in OSPy. Notification delivery uses a bounded daemon queue and records delivery results, so a relay or Internet outage cannot block irrigation scheduling or output control.
+
+Extended Mobile API v1 with push discovery, registration, preference, test and unregister endpoints and advertised the `push_notifications` capability. Documented the exact mobile/relay registration flow, category identifiers, signed Cloud Run relay contract and security boundaries. Added API, storage, signature, revocation and template regression tests and updated the root/API README files and all seven Web Interface Guides. Gettext source calls were added for the new interface; `.pot`, `.po` and `.mo` catalogs were intentionally left unchanged for the translation workflow.
+
+System download backups now create and verify a transactionally consistent SQLite snapshot of the Mobile API database instead of copying a potentially active database file directly. The backup manifest records its schema and credential-bearing status. Restoring the backup therefore safely preserves mobile pairing, hashed refresh tokens, relay configuration and push signing secrets; downloaded backup archives must be protected as sensitive credentials.
+
 ## August 9 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>

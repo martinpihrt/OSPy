@@ -6,6 +6,12 @@ OSPy Průvodce webovým rozhraním v češtině
 Viz úplná [dokumentace Mobile API v1](../../api/docs/Mobile_API_v1.md), která
 je dostupná také v Nápovědě OSPy v části **API**.
 
+## Mobilní aplikace a okamžité notifikace
+
+V **Nastavení → Mobilní aplikace**, mezi kartami **Uživatelé** a **Zabezpečení**, správce nastaví HTTPS adresu push relay a zapne okamžité notifikace. Stránka používá stejný seznam zařízení jako mobilní API a u každého telefonu ukazuje uživatele, roli, verzi aplikace, čas spárování a poslední aktivity, stav push a poslední úspěšné či neúspěšné doručení. Lze zvolit oznámení o spuštění a zastavení stanice, dešti, diagnostice, aktualizacích a ostatních událostech, odeslat test, odregistrovat push nebo zrušit celé zařízení včetně přihlašovacích tokenů.
+
+OSPy neukládá Firebase klíče ani FCM token telefonu. Mobilní aplikace zaregistruje FCM token přímo u relay a OSPy dostane pouze identifikátor předplatného a instalační podpisový klíč. Události se odesílají podepsané v samostatném omezeném pracovním vlákně; nedostupný Internet nebo relay proto nezdržuje plánovač ani ventily. Push je ve výchozím stavu vypnutý a vyžaduje HTTPS. Periodická synchronizace v otevřené aplikaci zůstává záložním mechanismem. Přesný kontrakt je v [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite jako primární úložiště (beta)
 
 Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, zpřístupní Nastavení v poli **Režim ukládání nastavení** volbu **SQLite primární (beta)**. OSPy před přechodem do tohoto režimu i návratem z něj vytvoří úplnou systémovou zálohu, společně potvrdí ověřenou SQLite a shelve/DBM kopii a restartuje se. Při dalším startu SQLite před použitím jako zdroje nastavení nezávisle ověří; synchronizovaná shelve/DBM kopie zůstává okamžitou zálohou. Chybějící aktivační marker, poškozená databáze, neshoda kontrolního součtu či schématu nebo neplatné nastavení bezpečně ponechá OSPy na shelve/DBM a problém zobrazí Diagnostika. K automatickému přepnutí nikdy nedojde a návrat do režimu **Ověřovací** je kdykoli dostupný stejným postupem se zálohou a restartem.

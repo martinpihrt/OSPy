@@ -29,7 +29,8 @@ from .responses import (
 from .security import (
     current_identity, login, refresh, require_scope, verify_access_token,
 )
-from .store import mobile_store
+from .push import push_dispatcher
+from .store import PUSH_CATEGORIES, mobile_store
 from .stream import event_stream
 
 
@@ -38,7 +39,7 @@ API_FEATURES = [
     "overview", "irrigation_control", "stations", "master", "programs",
     "schedule", "run_once", "sensors",
     "weather", "logs", "diagnostics", "notifications", "plugins",
-    "backup", "update", "system", "sse",
+    "backup", "update", "system", "sse", "push_notifications",
 ]
 _hooks_lock = threading.Lock()
 _hooks_ready = False
@@ -530,6 +531,16 @@ def _notification(event_type, severity, code, title, message, data=None):
         "message": message,
         "data": data or {},
     })
+    push_dispatcher.enqueue_notification({
+        "id": notification_id,
+        "event_type": event_type,
+        "severity": severity,
+        "code": code,
+        "title": title,
+        "message": message,
+        "data": data or {},
+    })
+    return notification_id
 
 
 def _start_operation(kind, worker):
@@ -607,6 +618,31 @@ def _connect_hooks():
 
         rain_active.connect(notify_rain, weak=False)
 
+        def notify_rain_inactive(sender=None, **kwargs):
+            _notification(
+                "rain", "info", "rain_inactive", _("Rain is no longer active"),
+                _("OSPy rain sensor protection is no longer active."),
+                {"details": _safe_value(kwargs)},
+            )
+
+        def notify_rain_delay_set(sender=None, **kwargs):
+            _notification(
+                "rain", "info", "rain_delay_set", _("Rain delay is active"),
+                _("OSPy is applying the configured rain delay."),
+                {"details": _safe_value(kwargs)},
+            )
+
+        def notify_rain_delay_removed(sender=None, **kwargs):
+            _notification(
+                "rain", "info", "rain_delay_removed", _("Rain delay ended"),
+                _("The configured OSPy rain delay is no longer active."),
+                {"details": _safe_value(kwargs)},
+            )
+
+        rain_not_active.connect(notify_rain_inactive, weak=False)
+        rain_delay_set.connect(notify_rain_delay_set, weak=False)
+        rain_delay_remove.connect(notify_rain_delay_removed, weak=False)
+
         def signal_stations(sender, kwargs):
             value = kwargs.get("txt", sender)
             values = value if isinstance(value, (list, tuple, set)) else [value]
@@ -639,7 +675,7 @@ def _connect_hooks():
                 _notification(
                     "irrigation", "info", "station_started",
                     _("Started"),
-                    "{}: {}".format(_("Station started manually"), station.name),
+                    _("Station {} has started.").format(station.name),
                     {"station": _station_data(station)},
                 )
 
@@ -814,8 +850,125 @@ class Device(object):
         }
         if device_id not in allowed:
             raise APIError(404, "not_found", "The paired device does not exist.")
+        push_dispatcher.unregister(device_id)
         mobile_store.revoke_device(device_id)
         return respond({"revoked": True, "device_id": device_id})
+
+
+def _push_categories(payload, default=None):
+    values = payload.get("categories", default)
+    if not isinstance(values, list) or not values:
+        raise APIError(
+            422, "invalid_push_categories",
+            "At least one push notification category must be selected.",
+        )
+    categories = sorted(set(str(value) for value in values))
+    invalid = sorted(set(categories).difference(PUSH_CATEGORIES))
+    if invalid:
+        raise APIError(
+            422, "invalid_push_categories",
+            "One or more push notification categories are not supported.",
+            {"invalid": invalid, "allowed": list(PUSH_CATEGORIES)},
+        )
+    return categories
+
+
+def _push_enabled(payload, default=True):
+    value = payload.get("enabled", default)
+    if not isinstance(value, bool):
+        raise APIError(
+            422, "invalid_push_enabled", "enabled must be a JSON boolean."
+        )
+    return value
+
+
+class PushSubscription(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        identity = _identity()
+        config = mobile_store.push_config()
+        return respond({
+            "enabled": config["enabled"],
+            "configured": bool(config["relay_url"]),
+            "relay_url": config["relay_url"],
+            "categories": list(PUSH_CATEGORIES),
+            "subscription": mobile_store.push_subscription(identity["device_id"]),
+        })
+
+    @endpoint
+    @require_scope("read")
+    def POST(self):
+        identity = _identity()
+        payload = json_body()
+        subscription_id = str(payload.get("subscription_id", "")).strip()
+        send_secret = str(payload.get("send_secret", "")).strip()
+        if not 16 <= len(subscription_id) <= 512:
+            raise APIError(
+                422, "invalid_subscription_id",
+                "subscription_id must contain between 16 and 512 characters.",
+            )
+        if not 32 <= len(send_secret) <= 256:
+            raise APIError(
+                422, "invalid_send_secret",
+                "send_secret must contain between 32 and 256 characters.",
+            )
+        try:
+            subscription = mobile_store.save_push_subscription(
+                identity["device_id"], subscription_id, send_secret,
+                _push_enabled(payload),
+                _push_categories(payload, list(PUSH_CATEGORIES)),
+            )
+        except ValueError:
+            raise APIError(
+                409, "push_subscription_conflict",
+                "The push subscription is already assigned to another device.",
+            )
+        return respond(subscription, status=201)
+
+    @endpoint
+    @require_scope("read")
+    def PUT(self):
+        identity = _identity()
+        payload = json_body()
+        current = mobile_store.push_subscription(identity["device_id"])
+        if current is None:
+            raise APIError(
+                404, "push_subscription_not_found",
+                "This device does not have a push subscription.",
+            )
+        return respond(mobile_store.update_push_preferences(
+            identity["device_id"],
+            _push_enabled(payload, current["enabled"]),
+            _push_categories(payload, current["categories"]),
+        ))
+
+    @endpoint
+    @require_scope("read")
+    def DELETE(self):
+        identity = _identity()
+        removed = push_dispatcher.unregister(identity["device_id"])
+        return respond({"unregistered": removed})
+
+
+class PushTest(object):
+    @endpoint
+    @require_scope("read")
+    def POST(self):
+        device_id = _identity()["device_id"]
+        if mobile_store.push_subscription(device_id) is None:
+            raise APIError(
+                404, "push_subscription_not_found",
+                "This device does not have a push subscription.",
+            )
+        if not push_dispatcher.enqueue_test(
+                device_id, _("Push notification test"),
+                _("This is a test notification from OSPy.")):
+            raise APIError(
+                503, "push_service_unavailable",
+                "Push notifications are disabled or the relay is not configured.",
+            )
+        return respond({"queued": True}, status=202)
 
 
 class Overview(object):
@@ -1999,6 +2152,8 @@ URLS = (
     "/auth/logout", Logout,
     "/auth/devices", Devices,
     "/auth/devices/(.+)", Device,
+    "/push", PushSubscription,
+    "/push/test", PushTest,
     "/overview", Overview,
     "/irrigation", Irrigation,
     "/stations", Stations,

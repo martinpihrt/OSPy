@@ -61,6 +61,8 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("post", document["paths"]["/programs"])
         self.assertIn("delete", document["paths"]["/programs/{program_id}"])
         self.assertIn("delete", document["paths"]["/auth/devices/{device_id}"])
+        self.assertIn("post", document["paths"]["/push"])
+        self.assertIn("post", document["paths"]["/push/test"])
         self.assertIn("put", document["paths"]["/irrigation"])
         self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
         self.assertIn("/schedule", document["paths"])
@@ -69,6 +71,48 @@ class MobileAPIV1Tests(unittest.TestCase):
         response = self._request("/stations")
         self.assertEqual(response.status, "401 Unauthorized")
         self.assertEqual(self._json(response)["error"]["code"], "missing_token")
+
+    def test_device_can_register_update_and_remove_push_subscription(self):
+        token, refresh = self._token(("read",), role="user")
+        response = self._request(
+            "/push", token, method="POST", data={
+                "subscription_id": "subscription-identifier-12345",
+                "send_secret": "s" * 48,
+                "enabled": True,
+                "categories": ["rain", "station_started"],
+            },
+        )
+        self.assertEqual(response.status, "201 Created")
+        subscription = self._json(response)["data"]
+        self.assertEqual(subscription["device_id"], refresh["device_id"])
+        self.assertNotIn("send_secret", subscription)
+
+        response = self._request(
+            "/push", token, method="PUT", data={
+                "enabled": False,
+                "categories": ["diagnostics"],
+            },
+        )
+        self.assertEqual(response.status, "200 OK")
+        self.assertFalse(self._json(response)["data"]["enabled"])
+
+        response = self._request("/push", token, method="DELETE")
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue(self._json(response)["data"]["unregistered"])
+
+    def test_push_registration_rejects_unknown_category(self):
+        token, unused_refresh = self._token(("read",), role="user")
+        response = self._request(
+            "/push", token, method="POST", data={
+                "subscription_id": "subscription-identifier-12345",
+                "send_secret": "s" * 48,
+                "categories": ["not-a-category"],
+            },
+        )
+        self.assertEqual(response.status, "422 Unprocessable Entity")
+        self.assertEqual(
+            self._json(response)["error"]["code"], "invalid_push_categories"
+        )
 
     def test_read_token_lists_stations_but_cannot_control(self):
         token, unused_refresh = self._token(("read",), role="user")

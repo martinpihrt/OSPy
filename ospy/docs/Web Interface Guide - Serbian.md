@@ -7,6 +7,12 @@ Pogledajte potpunu
 [Mobile API v1 dokumentaciju](../../api/docs/Mobile_API_v1.md), dostupnu i u
 OSPy pomoći u odeljku **API**.
 
+## Mobilne aplikacije i trenutna obaveštenja
+
+U **Opcije → Mobilne aplikacije**, između kartica **Korisnici** i **Bezbednost**, administrator podešava HTTPS adresu push relay servisa i uključuje trenutna obaveštenja. Stranica koristi isti spisak uparenih uređaja kao mobilni API i prikazuje korisnika, ulogu, verziju aplikacije, vreme uparivanja i poslednje aktivnosti, push status i poslednju uspešnu ili neuspešnu isporuku. Za svaki telefon mogu se izabrati kategorije pokretanja i zaustavljanja stanice, kiše, dijagnostike, ažuriranja i ostalih događaja. Moguće je poslati test, odjaviti push ili opozvati ceo uređaj zajedno sa tokenima za prijavu.
+
+OSPy ne čuva Firebase ključeve niti FCM token telefona. Mobilna aplikacija registruje FCM token direktno kod relay servisa; OSPy dobija samo neproziran identifikator pretplate i tajnu za potpis ograničenu na instalaciju. Potpisani događaji šalju se kroz poseban ograničen radni proces, pa nedostupni Internet ili relay ne odlažu planer ni ventile. Push je podrazumevano isključen i zahteva HTTPS. Periodična sinhronizacija dok je aplikacija otvorena ostaje rezervni mehanizam. Tačan ugovor je opisan u [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite kao primarno skladište (beta)
 
 Kada Dijagnostika prikaže **Spremnost SQLite primary beta: Spremno**, Opcije omogućavaju izbor **SQLite primarno (beta)** u polju **Režim skladišta podešavanja**. Pre ulaska u ovaj režim i izlaska iz njega OSPy pravi potpunu sistemsku rezervnu kopiju, zajedno potvrđuje proverene SQLite i shelve/DBM kopije i ponovo se pokreće. Pri sledećem pokretanju SQLite se nezavisno proverava pre upotrebe kao izvora podešavanja; sinhronizovana shelve/DBM kopija ostaje neposredna rezerva. Marker aktivacije koji nedostaje, oštećena baza, nepodudaranje kontrolnog zbira ili šeme ili nevažeće podešavanje bezbedno zadržava OSPy na shelve/DBM i prijavljuje se u Dijagnostici. Prebacivanje nikada nije automatsko, a povratak na režim **Provera** uvek je dostupan istim postupkom rezervne kopije i ponovnog pokretanja.

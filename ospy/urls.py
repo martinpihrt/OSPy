@@ -50,6 +50,7 @@ urls = [
     '/img_view/(new|[0-9]+)', 'ospy.webpages.image_view_page',
     '/users', 'ospy.webpages.users_page',
     '/user/(new|[0-9]+)', 'ospy.webpages.user_page',
+    '/mobile_devices', 'ospy.webpages.mobile_devices_page',
     '/sensors', 'ospy.webpages.sensors_page',
     '/sensor/(new|[0-9]+)', 'ospy.webpages.sensor_page',
     '/firmware', 'ospy.webpages.sensors_firmware',

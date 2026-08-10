@@ -125,6 +125,53 @@ def _sqlite_backup_snapshot(source, destination):
     }
 
 
+def _mobile_api_snapshot(root, sources, snapshot_root):
+    """Replace the live Mobile API database with a consistent SQLite snapshot."""
+    source_path = os.path.join(root, "ospy", "data", "api_v1.sqlite3")
+    result = {
+        "included": False,
+        "path": "ospy/data/api_v1.sqlite3",
+        "schema_version": None,
+        "contains_credentials": False,
+    }
+    if not os.path.exists(source_path):
+        return result, sources
+    if os.path.islink(source_path) or not os.path.isfile(source_path):
+        raise BackupError(_("The Mobile API database path is not a regular file."))
+
+    import sqlite3
+
+    snapshot_path = os.path.join(snapshot_root, "api_v1.sqlite3")
+    source_connection = sqlite3.connect(
+        "file:{}?mode=ro".format(os.path.abspath(source_path)), uri=True
+    )
+    target_connection = sqlite3.connect(snapshot_path)
+    try:
+        source_connection.execute("PRAGMA busy_timeout=10000")
+        source_connection.backup(target_connection)
+        target_connection.commit()
+        integrity = target_connection.execute("PRAGMA integrity_check").fetchone()
+        if integrity != ("ok",):
+            raise BackupError(_("The Mobile API backup snapshot failed its integrity check."))
+        row = target_connection.execute(
+            "SELECT value FROM meta WHERE key='schema_version'"
+        ).fetchone()
+        result["schema_version"] = int(row[0]) if row is not None else None
+    except (sqlite3.Error, TypeError, ValueError) as error:
+        raise BackupError(_("The Mobile API database could not be backed up safely.")) from error
+    finally:
+        target_connection.close()
+        source_connection.close()
+
+    result["included"] = True
+    result["contains_credentials"] = True
+    sources = [
+        (name, snapshot_path if name == result["path"] else path)
+        for name, path in sources
+    ]
+    return result, sources
+
+
 def _settings_storage_manifest(root, sources, snapshot_root):
     from ospy.settings_storage import sqlite_mirror_store
 
@@ -200,6 +247,9 @@ def create_system_backup(destination=None, root=None, reason="manual"):
                 storage, sources = _settings_storage_manifest(
                     root, sources, snapshot_root
                 )
+                mobile_api, sources = _mobile_api_snapshot(
+                    root, sources, snapshot_root
+                )
                 from ospy import version
                 manifest = {
                     "schema_version": SCHEMA_VERSION,
@@ -208,6 +258,7 @@ def create_system_backup(destination=None, root=None, reason="manual"):
                     "ospy_version": version.ver_str,
                     "ospy_revision": version.revision,
                     "settings_storage": storage,
+                    "mobile_api": mobile_api,
                     "files": [],
                     "excludes": [
                         "SSL certificates", "plug-in code", "Python caches",
@@ -445,6 +496,42 @@ def _validate_staged_settings_storage(staging, manifest):
             raise BackupError(_("The backup SQLite-primary activation marker is invalid."))
 
 
+def _validate_staged_mobile_api(staging, manifest):
+    """Verify the credential-bearing Mobile API SQLite snapshot before restore."""
+    mobile_api = manifest.get("mobile_api")
+    if not isinstance(mobile_api, dict) or not mobile_api.get("included"):
+        return
+    if mobile_api.get("path") != "ospy/data/api_v1.sqlite3":
+        raise BackupError(_("The Mobile API backup manifest is invalid."))
+
+    import sqlite3
+
+    path = os.path.join(staging, "ospy", "data", "api_v1.sqlite3")
+    if os.path.islink(path) or not os.path.isfile(path):
+        raise BackupError(_("The Mobile API database is missing from the staged backup."))
+    connection = None
+    try:
+        connection = sqlite3.connect(
+            "file:{}?mode=ro".format(os.path.abspath(path)), uri=True
+        )
+        integrity = connection.execute("PRAGMA integrity_check").fetchone()
+        if integrity != ("ok",):
+            raise BackupError(_("The staged Mobile API database failed its integrity check."))
+        row = connection.execute(
+            "SELECT value FROM meta WHERE key='schema_version'"
+        ).fetchone()
+        schema_version = int(row[0]) if row is not None else None
+        if schema_version != mobile_api.get("schema_version"):
+            raise BackupError(_("The staged Mobile API database does not match the backup manifest."))
+    except BackupError:
+        raise
+    except (sqlite3.Error, TypeError, ValueError) as error:
+        raise BackupError(_("The staged Mobile API database is invalid.")) from error
+    finally:
+        if connection is not None:
+            connection.close()
+
+
 def stage_restore(path, staging_root=None, root=None):
     """Validate and extract a backup into a private staging directory."""
     root = _root(root)
@@ -478,6 +565,7 @@ def stage_restore(path, staging_root=None, root=None):
                     with archive.open(name) as source, open(destination, "wb") as target:
                         shutil.copyfileobj(source, target)
         _validate_staged_settings_storage(staging, manifest)
+        _validate_staged_mobile_api(staging, manifest)
         return staging, manifest
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)

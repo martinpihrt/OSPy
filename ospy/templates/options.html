@@ -159,6 +159,14 @@ $code:
                 maxv = " max='" + str(option['max']) + "'" if 'max' in option else ""
 
                 if category != oldcategory:
+                    if oldcategory == _('Users') and category == _('Security'):
+                        output += categoryCloser
+                        output += "<div id='mobile-applications-options' class='category collapsible collapsed'><h4>" + _('Mobile applications') + "</h4>"
+                        output += "<div class='option' title=" + json.dumps(_('Manage paired phones and immediate push notifications.'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">"
+                        output += "<span class='label'>" + _('Paired mobile devices') + ":</span>"
+                        output += "&nbsp;<a href='/mobile_devices' class='button backup'>" + _('Configure') + "</a>"
+                        output += "<span class='tooltip'>" + _('Manage paired phones, notification categories and the push relay connection.') + "</span></div></div>"
+                        categoryCloser = ""
                     category_ids = {
                         _('Weather'): 'weather-options',
                         _('Diagnostics'): 'diagnostics-options',

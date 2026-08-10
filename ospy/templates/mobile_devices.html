@@ -1,0 +1,151 @@
+$def with (devices, config, dispatcher, categories, status='')
+
+$var title: $_('Mobile applications')
+$var page: options
+
+$code:
+    messages = {
+        'service_saved': _('Push notification settings were saved.'),
+        'invalid_relay': _('Enter a valid HTTPS push relay URL.'),
+        'missing_relay': _('Enter the push relay URL before enabling push notifications.'),
+        'device_missing': _('The selected mobile device no longer exists.'),
+        'push_missing': _('This device has not registered for push notifications yet.'),
+        'categories_missing': _('Select at least one notification category.'),
+        'device_saved': _('Mobile device notification settings were saved.'),
+        'test_queued': _('The test notification was queued for delivery.'),
+        'test_unavailable': _('The test notification could not be queued. Check the relay and device settings.'),
+        'push_removed': _('Push notifications were unregistered for the device.'),
+        'device_revoked': _('The mobile device was revoked.'),
+    }
+    category_names = {
+        'station_started': _('Station started'),
+        'station_stopped': _('Station stopped'),
+        'rain': _('Rain and rain delay'),
+        'diagnostics': _('Diagnostics and failures'),
+        'updates': _('Updates'),
+        'other': _('Other notifications'),
+    }
+    role_names = {
+        'public': _('Public'),
+        'user': _('User'),
+        'admin': _('Administrator'),
+        'sensor': _('Sensor'),
+    }
+
+<style>
+    .mobile-device-table { width: 100%; border-collapse: collapse; }
+    .mobile-device-table th, .mobile-device-table td { padding: 0.55em; vertical-align: top; text-align: left; }
+    .mobile-device-actions form { display: inline-block; margin: 0.15em; }
+    .mobile-category { display: inline-block; margin: 0.15em 0.7em 0.15em 0; white-space: nowrap; }
+    .mobile-muted { opacity: 0.75; }
+    @media (max-width: 800px) {
+        .mobile-device-table, .mobile-device-table tbody, .mobile-device-table tr, .mobile-device-table td { display: block; }
+        .mobile-device-table th { display: none; }
+        .mobile-device-table tr { margin-bottom: 1em; padding: 0.5em; border: 1px solid #999; }
+    }
+</style>
+
+<div id="mobile-devices">
+    <div class="title">$_('Mobile applications')</div>
+
+    $if status in messages:
+        <div class="message">${messages[status]}</div>
+
+    <div class="category expanded">
+        <h4>$_('Push notification service')</h4>
+        <form action="/mobile_devices" method="post">
+            $:csrf_input()
+            <input type="hidden" name="action" value="save_service">
+            <div class="option">
+                <span class="label">$_('Enable push notifications'):</span>
+                <label class="optionSwitch"><input type="checkbox" name="enabled"${' checked' if config['enabled'] else ''}><span class="optionSlider"></span></label>
+                <span class="tooltip">$_('Events are sent asynchronously, so a relay outage cannot delay irrigation control.')</span>
+            </div>
+            <div class="option">
+                <span class="label">$_('Push relay URL'):</span>
+                <input type="url" name="relay_url" size="55" value="${config['relay_url']}" placeholder="https://example.run.app">
+                <span class="tooltip">$_('Use the HTTPS address of your OSPy push relay. Firebase credentials remain only in the relay.')</span>
+            </div>
+            <div class="option">
+                <span class="label">$_('Service status'):</span>
+                <strong>${_('Enabled') if dispatcher['enabled'] and dispatcher['configured'] else _('Not configured') if not dispatcher['configured'] else _('Disabled')}</strong>
+                <span class="mobile-muted"> — $_('Queued'): ${dispatcher['queue_size']}, $_('Sent'): ${dispatcher['sent']}, $_('Failed'): ${dispatcher['failed']}, $_('Dropped'): ${dispatcher['dropped']}</span>
+            </div>
+            <button type="submit" class="button submit">$_('Save')</button>
+        </form>
+    </div>
+
+    <div class="category expanded">
+        <h4>$_('Paired mobile devices')</h4>
+        $if not devices:
+            <p>$_('No mobile devices are paired with this OSPy installation.')</p>
+        $else:
+            <table class="stationList mobile-device-table">
+                <tr>
+                    <th>$_('Device')</th>
+                    <th>$_('User and application')</th>
+                    <th>$_('Push notifications')</th>
+                    <th>$_('Actions')</th>
+                </tr>
+                $for device in devices:
+                    <tr>
+                        <td>
+                            <strong>${device['name']}</strong><br>
+                            <span class="mobile-muted">$_('Paired'): ${device['created']}<br>$_('Last active'): ${device['last_seen']}</span>
+                            $if device['revoked']:
+                                <br><strong>$_('Revoked')</strong>
+                        </td>
+                        <td>
+                            ${device['username']} (${role_names.get(device['role'], device['role'])})<br>
+                            $_('Application version'): ${device['app_version'] or '-'}
+                        </td>
+                        <td>
+                            $if device['push']:
+                                <form action="/mobile_devices" method="post">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="save_device">
+                                    <input type="hidden" name="device_id" value="${device['id']}">
+                                    <label class="mobile-category"><input type="checkbox" name="enabled"${' checked' if device['push']['enabled'] else ''}> $_('Enabled')</label><br>
+                                    $for category in categories:
+                                        <label class="mobile-category"><input type="checkbox" name="categories" value="${category}"${' checked' if category in device['push']['categories'] else ''}> ${category_names[category]}</label>
+                                    <br><button type="submit" class="button submit">$_('Save')</button>
+                                </form>
+                                <div class="mobile-muted">
+                                    $_('Registered'): ${device['push']['registered']}<br>
+                                    $_('Last successful delivery'): ${device['push']['last_success'] or '-'}<br>
+                                    $if device['push']['last_failure']:
+                                        $_('Last failed delivery'): ${device['push']['last_failure']} — ${device['push'].get('failure_display', device['push']['failure_reason'])}
+                                </div>
+                            $else:
+                                <span class="mobile-muted">$_('The mobile application has not registered push notifications for this installation.')</span>
+                        </td>
+                        <td class="mobile-device-actions">
+                            $if device['push'] and not device['revoked']:
+                                <form action="/mobile_devices" method="post">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="test">
+                                    <input type="hidden" name="device_id" value="${device['id']}">
+                                    <button type="submit" class="button">$_('Send test')</button>
+                                </form>
+                                <form action="/mobile_devices" method="post" onsubmit="return confirm($:{json.dumps(_('Unregister push notifications for this device?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="unregister">
+                                    <input type="hidden" name="device_id" value="${device['id']}">
+                                    <button type="submit" class="button danger">$_('Unregister push')</button>
+                                </form>
+                            $if not device['revoked']:
+                                <form action="/mobile_devices" method="post" onsubmit="return confirm($:{json.dumps(_('Revoke this device, its login tokens and push notifications?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="revoke">
+                                    <input type="hidden" name="device_id" value="${device['id']}">
+                                    <button type="submit" class="button danger">$_('Revoke device')</button>
+                                </form>
+                        </td>
+                    </tr>
+            </table>
+    </div>
+
+    <div id="controls">
+        <a href="/options#mobile-applications-options" class="button cancel">$_('Back to options')</a>
+    </div>
+</div>

@@ -82,6 +82,14 @@ class TemplateCompilationTests(unittest.TestCase):
         self.assertIn("id='backup-options'", source)
         self.assertIn("window.location.hash", source)
 
+    def test_options_places_mobile_applications_between_users_and_security(self):
+        source = (TEMPLATE_ROOT / "options.html").read_text(encoding="utf-8")
+        self.assertIn(
+            "oldcategory == _('Users') and category == _('Security')", source
+        )
+        self.assertIn("id='mobile-applications-options'", source)
+        self.assertIn("href='/mobile_devices'", source)
+
     def test_configured_plugin_templates_compile(self):
         for plugin_root in _configured_plugin_roots():
             with self.subTest(plugin_root=str(plugin_root)):

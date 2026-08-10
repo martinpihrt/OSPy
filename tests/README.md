@@ -46,9 +46,11 @@ The suite checks:
 * required and optional plug-in dependencies, including manifest validation, missing or disabled providers, provider-first startup, consumer-first shutdown and cycle rejection;
 * administrator approval of declared plug-in permissions from OSPy 3.0.294, including one-time grandfathering of all installed plug-ins, blocking before code import, renewed approval for an expanded permission set, automatic-update blocking, synchronous fail-closed persistence and approval rollback after a failed installation;
 * system backup manifests, checksums, permitted content, exclusion of active web sessions, legacy archive staging, rejection of tampered, undeclared, duplicate and traversal entries, invalidation of the restore request session before shutdown, atomic restoration and recovery of the previous data after a failed swap;
+* transactionally consistent Mobile API SQLite snapshots in system backups, including manifest schema and credential-sensitivity metadata;
 * System Update channel selection, including stable `master` as the default, fixed `beta` selection, repository checks against the selected branch and a required safety backup before an update installs the selected branch;
 * branch-aware version formatting: `master` keeps the numeric version while the `beta` branch adds a `-beta` suffix without changing its revision number;
 * real web.py route dispatch and rendering for the main administrator pages, plug-in management and installation, anonymous login redirects, role protection, Diagnostics JSON success and failure responses, history and cache headers, and CSRF rejection before an administrator POST handler runs;
+* mobile push subscription registration and preference validation, secret-redacted API responses, HMAC-SHA256 relay signing, category mapping, device-revocation cleanup and compilation of the Mobile applications administration page;
 * translation-catalog completeness parsing, including fuzzy and missing strings, per-language colour thresholds, missing catalogs and cache invalidation without modifying POT, PO or MO files;
 * live `showOnTimeline` station values on administrator, user and public Home pages, including station-ID mapping, periodic refresh and manual-mode rows;
 * run-once audit events list the actual selected station names instead of an ambiguous count that could be mistaken for a station number.

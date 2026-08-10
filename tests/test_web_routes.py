@@ -341,6 +341,17 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(response.status, "303 See Other")
         self.assertTrue(response.headers["Location"].endswith("/login"))
 
+    def test_mobile_devices_page_renders_for_admin_and_rejects_user(self):
+        response = self.app.request("/mobile_devices")
+        self.assertEqual(response.status, "200 OK")
+        self.assertIn(b'id="mobile-devices"', response.data)
+        self.assertIn(b'name="relay_url"', response.data)
+
+        self.session["category"] = "user"
+        response = self.app.request("/mobile_devices")
+        self.assertEqual(response.status, "200 OK")
+        self.assertNotIn(b'id="mobile-devices"', response.data)
+
     def test_login_page_renders_for_anonymous_user(self):
         self.session["validated"] = False
         self.session["category"] = "public"

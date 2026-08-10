@@ -28,6 +28,8 @@ def document(server_url="/api/v1"):
     add("/auth/logout", ["POST"], "Revoke the current token", "read")
     add("/auth/devices", ["GET"], "List paired devices", "read")
     add("/auth/devices/{device_id}", ["DELETE"], "Revoke a paired device", "read")
+    add("/push", ["GET", "POST", "PUT", "DELETE"], "Manage this device push subscription", "read")
+    add("/push/test", ["POST"], "Queue a test push notification for this device", "read")
     add("/overview", ["GET"], "Home-screen aggregate", "read")
     add("/irrigation", ["GET", "PUT"], "Read or control global irrigation settings", {
         "GET": "read", "PUT": "control",

@@ -32,6 +32,13 @@ class SystemBackupTests(unittest.TestCase):
         (Path(self.root, "ospy", "data") / "events.log").write_text(
             "event", encoding="utf-8"
         )
+        connection = sqlite3.connect(str(Path(self.root, "ospy", "data", "api_v1.sqlite3")))
+        try:
+            connection.execute("CREATE TABLE meta(key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+            connection.execute("INSERT INTO meta(key, value) VALUES('schema_version', '2')")
+            connection.commit()
+        finally:
+            connection.close()
         (images / "1.png").write_bytes(b"image")
 
     def tearDown(self):
@@ -51,6 +58,7 @@ class SystemBackupTests(unittest.TestCase):
                 "ospy/data/default/options.db.dat",
                 "ospy/data/default/options.sqlite3",
                 "ospy/data/events.log",
+                "ospy/data/api_v1.sqlite3",
                 "ospy/images/stations/1.png",
             },
         )
@@ -66,6 +74,12 @@ class SystemBackupTests(unittest.TestCase):
         self.assertEqual(snapshot["schema_version"], 3)
         self.assertEqual(snapshot["settings_count"], 3)
         self.assertIn("active web sessions", manifest["excludes"])
+        self.assertEqual(manifest["mobile_api"], {
+            "included": True,
+            "path": "ospy/data/api_v1.sqlite3",
+            "schema_version": 2,
+            "contains_credentials": True,
+        })
 
     def test_sqlite_snapshot_is_logically_verified_during_restore_staging(self):
         original = backup.create_system_backup(root=self.root)
@@ -95,6 +109,43 @@ class SystemBackupTests(unittest.TestCase):
         )
 
         tampered = os.path.join(self.root, "logical-sqlite-damage.zip")
+        with zipfile.ZipFile(tampered, "w") as archive:
+            for path in Path(extracted).rglob("*"):
+                if path.is_file():
+                    archive.write(path, path.relative_to(extracted).as_posix())
+        with self.assertRaises(backup.BackupError):
+            backup.stage_restore(tampered, root=self.root)
+
+    def test_mobile_api_snapshot_is_logically_verified_during_restore_staging(self):
+        original = backup.create_system_backup(root=self.root)
+        extracted = tempfile.mkdtemp(prefix="ospy-backup-corrupt-mobile-api-")
+        self.addCleanup(shutil.rmtree, extracted, True)
+        with zipfile.ZipFile(original, "r") as source:
+            source.extractall(extracted)
+
+        database_path = Path(extracted, "ospy", "data", "api_v1.sqlite3")
+        connection = sqlite3.connect(str(database_path))
+        try:
+            connection.execute(
+                "UPDATE meta SET value='999' WHERE key='schema_version'"
+            )
+            connection.commit()
+        finally:
+            connection.close()
+
+        manifest_path = Path(extracted, backup.MANIFEST_NAME)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        member = "ospy/data/api_v1.sqlite3"
+        changed = database_path.read_bytes()
+        for entry in manifest["files"]:
+            if entry["path"] == member:
+                entry["size"] = len(changed)
+                entry["sha256"] = hashlib.sha256(changed).hexdigest()
+        manifest_path.write_text(
+            json.dumps(manifest, sort_keys=True), encoding="utf-8"
+        )
+
+        tampered = os.path.join(self.root, "logical-mobile-api-damage.zip")
         with zipfile.ZipFile(tampered, "w") as archive:
             for path in Path(extracted).rglob("*"):
                 if path.is_file():

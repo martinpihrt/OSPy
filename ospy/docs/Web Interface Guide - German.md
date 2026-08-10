@@ -7,6 +7,12 @@ Siehe die vollständige
 [Mobile API v1-Dokumentation](../../api/docs/Mobile_API_v1.md), die auch in
 der OSPy-Hilfe unter **API** verfügbar ist.
 
+## Mobile Anwendungen und sofortige Benachrichtigungen
+
+Unter **Optionen → Mobile Anwendungen**, zwischen **Benutzer** und **Sicherheit**, konfiguriert ein Administrator das HTTPS-Push-Relay und aktiviert sofortige Benachrichtigungen. Die Seite verwendet dieselbe Liste gekoppelter Geräte wie die mobile API und zeigt Benutzer, Rolle, App-Version, Kopplungszeit, letzte Aktivität, Push-Status sowie die letzte erfolgreiche oder fehlgeschlagene Zustellung. Kategorien für Stationsstart, Stationsstopp, Regen, Diagnose, Aktualisierungen und sonstige Ereignisse sind pro Telefon wählbar. Außerdem können ein Test gesendet, Push abgemeldet oder das gesamte Gerät einschließlich seiner Anmeldetoken widerrufen werden.
+
+OSPy speichert weder Firebase-Schlüssel noch den FCM-Token des Telefons. Die mobile App registriert den FCM-Token direkt beim Relay; OSPy erhält nur eine undurchsichtige Abonnement-ID und ein installationsbezogenes Signiergeheimnis. Signierte Ereignisse werden in einem separaten begrenzten Worker versendet, sodass ein Ausfall von Internet oder Relay weder Zeitplaner noch Ventile verzögert. Push ist standardmäßig deaktiviert und erfordert HTTPS. Die periodische Synchronisierung bei geöffneter App bleibt als Rückfall erhalten. Der genaue Vertrag steht in [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite als Primärspeicher (Beta)
 
 Sobald die Diagnose **SQLite-Primary-Beta-Bereitschaft: Bereit** meldet, aktiviert Optionen unter **Einstellungsspeichermodus** die Auswahl **SQLite primär (Beta)**. OSPy erstellt vor dem Wechsel in diesen Modus und vor dem Verlassen eine vollständige Systemsicherung, bestätigt die geprüften SQLite- und shelve/DBM-Kopien gemeinsam und startet neu. Beim nächsten Start wird SQLite unabhängig geprüft, bevor es als Einstellungsquelle verwendet wird; die synchronisierte shelve/DBM-Kopie bleibt der sofortige Rückfall. Ein fehlender Aktivierungsmarker, eine beschädigte Datenbank, eine abweichende Prüfsumme oder ein ungültiges Schema beziehungsweise eine ungültige Einstellung lässt OSPy sicher bei shelve/DBM und wird in der Diagnose gemeldet. Es erfolgt niemals ein automatischer Wechsel; die Rückkehr zu **Prüfung** ist jederzeit über dasselbe Sicherungs- und Neustartverfahren möglich.

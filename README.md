@@ -7,6 +7,7 @@ OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation sy
 
 ## Mobile App [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile)
 
+Paired phones and immediate push notifications are managed in **Options → Mobile applications**. OSPy sends signed, installation-scoped events asynchronously to a separately deployed HTTPS push relay; the relay delivers them through Firebase Cloud Messaging. Firebase credentials and FCM device tokens are never stored in OSPy. See the [Mobile API v1 push notification reference](api/docs/Mobile_API_v1.md#immediate-push-notifications).
 
 ## Emergency administrator login recovery
 If the administrator password is unknown or access to the configured two-factor method has been lost, run the local recovery script from the OSPy directory on the Raspberry Pi or another trusted local shell:

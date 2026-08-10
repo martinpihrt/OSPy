@@ -1311,6 +1311,117 @@ class users_page(ProtectedPage):
         raise web.seeother('/users')
 
 
+class mobile_devices_page(ProtectedPage):
+    """Configure paired mobile devices and push delivery."""
+
+    @staticmethod
+    def _admin_only():
+        from ospy.server import session
+        return session.get('category') == 'admin'
+
+    def GET(self):
+        if not self._admin_only():
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice('/', msg)
+
+        from api.v1.push import push_dispatcher
+        from api.v1.store import PUSH_CATEGORIES, mobile_store
+
+        devices = mobile_store.devices_with_push()
+        for device in devices:
+            push = device.get('push')
+            if not push or not push.get('failure_reason'):
+                continue
+            reason = push['failure_reason']
+            if reason.startswith('relay_http_'):
+                push['failure_display'] = _('Relay returned HTTP status {}.').format(
+                    reason[len('relay_http_'):])
+            elif reason.startswith('relay_connection_'):
+                push['failure_display'] = _('Connection to the push relay failed ({}).').format(
+                    reason[len('relay_connection_'):])
+            else:
+                push['failure_display'] = _('Push relay delivery failed ({}).').format(
+                    reason[len('relay_error_'):] if reason.startswith('relay_error_') else reason)
+
+        return self.core_render.mobile_devices(
+            devices,
+            mobile_store.push_config(),
+            push_dispatcher.status(),
+            PUSH_CATEGORIES,
+            web.input().get('status', ''),
+        )
+
+    def POST(self):
+        from ospy.server import session
+        if not self._admin_only():
+            msg = _('You do not have access to this section, ask your system administrator for access.')
+            return self.core_render.notice('/', msg)
+
+        from api.v1.push import push_dispatcher, validate_relay_url
+        from api.v1.store import PUSH_CATEGORIES, mobile_store
+
+        qdict = web.input(categories=[])
+        action = qdict.get('action', '')
+        devices = {item['id']: item for item in mobile_store.devices()}
+        device_id = qdict.get('device_id', '')
+
+        if action == 'save_service':
+            try:
+                relay_url = validate_relay_url(qdict.get('relay_url', ''))
+            except ValueError:
+                raise web.seeother('/mobile_devices?status=invalid_relay')
+            enabled = qdict.get('enabled', 'off') == 'on'
+            if enabled and not relay_url:
+                raise web.seeother('/mobile_devices?status=missing_relay')
+            mobile_store.set_push_config(enabled, relay_url)
+            logEV.save_events_log(
+                _('Mobile application settings changed'),
+                _('Administrator {} changed push notification relay settings.').format(
+                    session.get('visitor')),
+                id='Mobile', level='info', category='configuration'
+            )
+            raise web.seeother('/mobile_devices?status=service_saved')
+
+        if device_id not in devices:
+            raise web.seeother('/mobile_devices?status=device_missing')
+
+        subscription = mobile_store.push_subscription(device_id)
+        if action == 'save_device':
+            if subscription is None:
+                raise web.seeother('/mobile_devices?status=push_missing')
+            categories = sorted(set(qdict.get('categories', [])))
+            if not categories or any(item not in PUSH_CATEGORIES for item in categories):
+                raise web.seeother('/mobile_devices?status=categories_missing')
+            mobile_store.update_push_preferences(
+                device_id, qdict.get('enabled', 'off') == 'on', categories
+            )
+            raise web.seeother('/mobile_devices?status=device_saved')
+
+        if action == 'test':
+            queued = push_dispatcher.enqueue_test(
+                device_id, _('Push notification test'),
+                _('This is a test notification from OSPy.'))
+            status = 'test_queued' if queued else 'test_unavailable'
+            raise web.seeother('/mobile_devices?status=' + status)
+
+        if action == 'unregister':
+            push_dispatcher.unregister(device_id)
+            raise web.seeother('/mobile_devices?status=push_removed')
+
+        if action == 'revoke':
+            push_dispatcher.unregister(device_id)
+            mobile_store.revoke_device(device_id)
+            logEV.save_events_log(
+                _('Mobile device revoked'),
+                _('Administrator {} revoked mobile device {}.').format(
+                    session.get('visitor'), devices[device_id]['name']),
+                id='Mobile', level='warning', category='security'
+            )
+            raise web.seeother('/mobile_devices?status=device_revoked')
+
+        raise web.seeother('/mobile_devices')
+
+
 class user_page(ProtectedPage):
     """Open page to allow user modification. /user """
     def GET(self, index):

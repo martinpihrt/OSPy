@@ -25,6 +25,63 @@ Pairing is deliberately unavailable while OSPy has no administrator password. To
 
 The v1 API does not use the browser session cookie and does not accept a CSRF token as authentication. A browser origin is not granted CORS access by default. Native clients authenticate only with the Bearer token. Login uses the same brute-force protection and audit log as the web login. Passwords, 2FA codes and refresh tokens must never be placed in a URL.
 
+## Immediate push notifications
+
+Periodic `/overview`, `/changes` and SSE synchronization remains the fallback while the application is open. Immediate background notification delivery uses this path:
+
+```text
+OSPy event -> bounded asynchronous queue -> HTTPS push relay -> FCM -> Android application
+```
+
+The administrator configures the relay in **Options → Mobile applications**. Push is disabled by default and cannot be enabled without a valid HTTPS relay URL. Plain HTTP is accepted only for a loopback development relay. A relay failure never blocks the scheduler, station output or the request that created the event. The administration page records the last successful and failed delivery without showing secrets.
+
+OSPy does not store an FCM registration token, Firebase service-account file or Firebase private key. The mobile application registers its FCM token directly with the relay. The relay returns an opaque `subscription_id` and a random, installation-scoped `send_secret`; the application sends those two values to its paired OSPy installation:
+
+```http
+POST /api/v1/push
+Authorization: Bearer ACCESS_TOKEN
+Content-Type: application/json
+
+{
+  "subscription_id": "opaque-relay-subscription-id",
+  "send_secret": "at-least-32-random-characters",
+  "enabled": true,
+  "categories": ["station_started", "station_stopped", "rain", "diagnostics"]
+}
+```
+
+`subscription_id` must contain 16–512 characters and `send_secret` 32–256 characters. The response deliberately omits `send_secret`. One relay subscription can belong to only one paired device. Re-registering the same device replaces its secret and preferences.
+
+`GET /push` returns relay availability, the supported categories and the current device's redacted subscription. `PUT /push` changes `enabled` and `categories`; at least one category is required, so use `enabled:false` to pause all delivery. `DELETE /push` unregisters the current device. `POST /push/test` queues an explicit test and returns HTTP `202`. Revoking a paired device also removes its local push subscription and queues relay cleanup.
+
+Supported category identifiers are:
+
+| Identifier | Events |
+| --- | --- |
+| `station_started` | A station starts |
+| `station_stopped` | A station stops |
+| `rain` | Rain sensor and rain-delay changes |
+| `diagnostics` | Component and system health failures/recovery |
+| `updates` | Update availability and results |
+| `other` | Test and uncategorized notifications |
+
+### OSPy-to-relay request contract
+
+For each eligible device OSPy sends `POST {relay_url}/v1/send` with canonical UTF-8 JSON (object keys sorted, compact separators) and these headers:
+
+```text
+Content-Type: application/json; charset=utf-8
+X-OSPy-Subscription: <subscription_id>
+X-OSPy-Timestamp: <Unix seconds>
+X-OSPy-Signature: <lowercase hex HMAC-SHA256>
+```
+
+The signature input is exactly `timestamp + "\n" + request_body`, signed with the per-subscription `send_secret`. The relay must reject stale timestamps, invalid signatures and a subscription/secret mismatch. A send body contains `instance_id`, `notification_id`, `event_type`, `severity`, stable `code`, fallback `title` and `message`, and structured `data`. The Android application should localize known stable codes and use the fallback text only for unknown codes.
+
+OSPy unregisters remotely with signed `DELETE {relay_url}/v1/subscriptions/{subscription_id}` and body `{"instance_id":"..."}`. The relay should treat deletion as idempotent. It should send Android data messages with high priority for time-sensitive irrigation or alarm events, apply authorization and rate limits when creating subscriptions, keep FCM tokens private, and remove tokens that FCM reports as permanently invalid.
+
+The normal OSPy system download backup includes a transactionally consistent snapshot of `ospy/data/api_v1.sqlite3`. Restoring it preserves paired-device records, hashed refresh tokens, relay configuration and push signing secrets. Active browser sessions remain excluded. Treat every downloaded backup as sensitive credential material and store it securely.
+
 ### Login, refresh and device revocation
 
 ```http
@@ -91,6 +148,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Discovery | `GET /`, `/server`, `/capabilities`, `/openapi.json` |
 | Authentication | `POST /auth/login`, `/auth/refresh`, `/auth/logout` |
 | Devices | `GET /auth/devices`, `DELETE /auth/devices/{id}` |
+| Push notifications | `GET/POST/PUT/DELETE /push`, `POST /push/test` |
 | Home | `GET /overview`, `GET/PUT /irrigation` |
 | Stations | `GET/PUT /stations`, `GET/PUT /stations/{id}`, `POST /stations/{id}/actions/start|stop`, `POST /stations/actions/stop-all` |
 | Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET /schedule` |

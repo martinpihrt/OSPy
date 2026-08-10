@@ -7,6 +7,12 @@ Pozrite si úplnú
 [dokumentáciu Mobile API v1](../../api/docs/Mobile_API_v1.md), ktorá je
 dostupná aj v Pomoci OSPy v časti **API**.
 
+## Mobilné aplikácie a okamžité notifikácie
+
+V **Nastavenia → Mobilné aplikácie**, medzi kartami **Používatelia** a **Zabezpečenie**, správca nastaví HTTPS adresu push relay a zapne okamžité notifikácie. Stránka používa rovnaký zoznam spárovaných zariadení ako mobilné API a pri každom telefóne zobrazuje používateľa, rolu, verziu aplikácie, čas spárovania a poslednej aktivity, stav push a posledné úspešné alebo neúspešné doručenie. Možno vybrať kategórie spustenia a zastavenia stanice, dažďa, diagnostiky, aktualizácií a ostatných udalostí, odoslať test, odregistrovať push alebo zrušiť celé zariadenie vrátane prihlasovacích tokenov.
+
+OSPy neukladá Firebase kľúče ani FCM token telefónu. Mobilná aplikácia zaregistruje FCM token priamo pri relay; OSPy dostane iba nepriehľadný identifikátor predplatného a podpisový kľúč obmedzený na inštaláciu. Podpísané udalosti sa odosielajú v samostatnom obmedzenom pracovnom vlákne, takže nedostupný Internet alebo relay nezdržuje plánovač ani ventily. Push je predvolene vypnutý a vyžaduje HTTPS. Periodická synchronizácia pri otvorenej aplikácii zostáva záložným mechanizmom. Presný kontrakt je v [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
+
 ## SQLite ako primárne úložisko (beta)
 
 Keď Diagnostika oznámi **Pripravenosť SQLite primary beta: Pripravené**, Nastavenia sprístupnia v poli **Režim úložiska nastavení** voľbu **SQLite primárne (beta)**. OSPy pred vstupom do tohto režimu aj návratom z neho vytvorí úplnú systémovú zálohu, spoločne potvrdí overenú SQLite a shelve/DBM kópiu a reštartuje sa. Pri ďalšom štarte SQLite pred použitím ako zdroja nastavení nezávisle overí; synchronizovaná shelve/DBM kópia zostáva okamžitou zálohou. Chýbajúci aktivačný marker, poškodená databáza, nezhoda kontrolného súčtu či schémy alebo neplatné nastavenie bezpečne ponechá OSPy na shelve/DBM a problém zobrazí Diagnostika. K automatickému prepnutiu nikdy nedôjde a návrat do režimu **Overovací** je kedykoľvek dostupný rovnakým postupom so zálohou a reštartom.

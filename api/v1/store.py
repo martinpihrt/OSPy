@@ -11,10 +11,14 @@ import time
 import uuid
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 DEFAULT_REFRESH_LIFETIME = 30 * 24 * 60 * 60
 MAX_NOTIFICATIONS = 1000
 MAX_OPERATIONS = 500
+PUSH_CATEGORIES = (
+    "station_started", "station_stopped", "rain", "diagnostics",
+    "updates", "other",
+)
 
 
 class _ClosingConnection(sqlite3.Connection):
@@ -131,6 +135,20 @@ class MobileStore(object):
                     created REAL NOT NULL,
                     updated REAL NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS push_subscriptions (
+                    device_id TEXT PRIMARY KEY REFERENCES devices(id) ON DELETE CASCADE,
+                    subscription_id TEXT NOT NULL UNIQUE,
+                    send_secret TEXT NOT NULL,
+                    enabled INTEGER NOT NULL DEFAULT 1,
+                    categories TEXT NOT NULL,
+                    registered REAL NOT NULL,
+                    updated REAL NOT NULL,
+                    last_success REAL,
+                    last_failure REAL,
+                    failure_reason TEXT NOT NULL DEFAULT ''
+                );
+                CREATE INDEX IF NOT EXISTS push_subscriptions_enabled
+                    ON push_subscriptions(enabled);
                 """
             )
             connection.execute(
@@ -158,6 +176,38 @@ class MobileStore(object):
                 "INSERT INTO meta(key, value) VALUES(?, ?)", (key, value)
             )
             return value
+
+    def set_meta(self, key, value):
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO meta(key, value) VALUES(?, ?)
+                ON CONFLICT(key) DO UPDATE SET value=excluded.value
+                """,
+                (str(key), str(value)),
+            )
+
+    def push_config(self):
+        return {
+            "enabled": self.meta("push_enabled", lambda: "0") == "1",
+            "relay_url": self.meta("push_relay_url", lambda: "").strip(),
+        }
+
+    def set_push_config(self, enabled, relay_url):
+        with self._lock, self._connect() as connection:
+            connection.executemany(
+                """
+                INSERT INTO meta(key, value) VALUES(?, ?)
+                ON CONFLICT(key) DO UPDATE SET value=excluded.value
+                """,
+                (
+                    ("push_enabled", "1" if enabled else "0"),
+                    (
+                        "push_relay_url",
+                        str(relay_url or "").strip().rstrip("/"),
+                    ),
+                ),
+            )
 
     def instance_id(self):
         return self.meta("instance_id", lambda: str(uuid.uuid4()))
@@ -322,6 +372,9 @@ class MobileStore(object):
                 "UPDATE refresh_tokens SET revoked=? WHERE device_id=? AND revoked IS NULL",
                 (now, device_id),
             )
+            connection.execute(
+                "DELETE FROM push_subscriptions WHERE device_id=?", (device_id,)
+            )
 
     def devices(self, username=None):
         query = "SELECT * FROM devices"
@@ -345,6 +398,151 @@ class MobileStore(object):
             }
             for row in rows
         ]
+
+    @staticmethod
+    def _push_row(row, include_secret=False):
+        if row is None:
+            return None
+        result = {
+            "device_id": row["device_id"],
+            "subscription_id": row["subscription_id"],
+            "enabled": bool(row["enabled"]),
+            "categories": json.loads(row["categories"] or "[]"),
+            "registered": _iso_timestamp(row["registered"]),
+            "updated": _iso_timestamp(row["updated"]),
+            "last_success": _iso_timestamp(row["last_success"]),
+            "last_failure": _iso_timestamp(row["last_failure"]),
+            "failure_reason": row["failure_reason"],
+        }
+        if include_secret:
+            result["send_secret"] = row["send_secret"]
+        return result
+
+    def push_subscription(self, device_id, include_secret=False):
+        with self._lock, self._connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM push_subscriptions WHERE device_id=?", (device_id,)
+            ).fetchone()
+        return self._push_row(row, include_secret)
+
+    def save_push_subscription(
+            self, device_id, subscription_id, send_secret, enabled=True,
+            categories=None):
+        categories = sorted(set(
+            PUSH_CATEGORIES if categories is None else categories
+        ))
+        if not categories or any(item not in PUSH_CATEGORIES for item in categories):
+            raise ValueError("Invalid push category")
+        now = time.time()
+        categories_json = json.dumps(categories, separators=(",", ":"))
+        with self._lock, self._connect() as connection:
+            device = connection.execute(
+                "SELECT revoked FROM devices WHERE id=?", (device_id,)
+            ).fetchone()
+            if device is None or device["revoked"] is not None:
+                raise KeyError("Device does not exist or is revoked")
+            owner = connection.execute(
+                "SELECT device_id FROM push_subscriptions WHERE subscription_id=?",
+                (str(subscription_id),),
+            ).fetchone()
+            if owner is not None and owner["device_id"] != device_id:
+                raise ValueError("Push subscription is already assigned")
+            connection.execute(
+                """
+                INSERT INTO push_subscriptions(
+                    device_id, subscription_id, send_secret, enabled, categories,
+                    registered, updated, last_success, last_failure, failure_reason
+                ) VALUES(?, ?, ?, ?, ?, ?, ?, NULL, NULL, '')
+                ON CONFLICT(device_id) DO UPDATE SET
+                    subscription_id=excluded.subscription_id,
+                    send_secret=excluded.send_secret,
+                    enabled=excluded.enabled,
+                    categories=excluded.categories,
+                    updated=excluded.updated,
+                    last_failure=NULL,
+                    failure_reason=''
+                """,
+                (
+                    device_id, str(subscription_id), str(send_secret),
+                    1 if enabled else 0, categories_json, now, now,
+                ),
+            )
+        return self.push_subscription(device_id)
+
+    def update_push_preferences(self, device_id, enabled, categories):
+        categories = sorted(set(categories or []))
+        if not categories or any(item not in PUSH_CATEGORIES for item in categories):
+            raise ValueError("Invalid push category")
+        with self._lock, self._connect() as connection:
+            cursor = connection.execute(
+                """
+                UPDATE push_subscriptions
+                SET enabled=?, categories=?, updated=?
+                WHERE device_id=?
+                """,
+                (
+                    1 if enabled else 0,
+                    json.dumps(categories, separators=(",", ":")),
+                    time.time(), device_id,
+                ),
+            )
+            if cursor.rowcount < 1:
+                raise KeyError("Push subscription does not exist")
+        return self.push_subscription(device_id)
+
+    def delete_push_subscription(self, device_id):
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                "DELETE FROM push_subscriptions WHERE device_id=?", (device_id,)
+            )
+
+    def push_subscriptions(self, category=None, include_secret=False):
+        query = """
+            SELECT p.* FROM push_subscriptions p
+            JOIN devices d ON d.id=p.device_id
+            WHERE p.enabled=1 AND d.revoked IS NULL
+        """
+        with self._lock, self._connect() as connection:
+            rows = connection.execute(query).fetchall()
+        items = [self._push_row(row, include_secret) for row in rows]
+        if category:
+            items = [item for item in items if category in item["categories"]]
+        return items
+
+    def devices_with_push(self):
+        devices = self.devices()
+        subscriptions = {
+            item["device_id"]: item for item in self.push_subscriptions()
+        }
+        # Disabled subscriptions are intentionally included in administration.
+        with self._lock, self._connect() as connection:
+            rows = connection.execute("SELECT * FROM push_subscriptions").fetchall()
+        subscriptions.update({
+            row["device_id"]: self._push_row(row) for row in rows
+        })
+        for device in devices:
+            device["push"] = subscriptions.get(device["id"])
+        return devices
+
+    def record_push_result(self, device_id, success, reason=""):
+        now = time.time()
+        with self._lock, self._connect() as connection:
+            if success:
+                connection.execute(
+                    """
+                    UPDATE push_subscriptions
+                    SET last_success=?, failure_reason='' WHERE device_id=?
+                    """,
+                    (now, device_id),
+                )
+            else:
+                connection.execute(
+                    """
+                    UPDATE push_subscriptions
+                    SET last_failure=?, failure_reason=? WHERE device_id=?
+                    """,
+                    (now, str(reason or "")[:240], device_id),
+                )
 
     def create_login_challenge(self, username, nonce, code_hash, expires):
         challenge_id = str(uuid.uuid4())
