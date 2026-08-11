@@ -12,6 +12,8 @@ V **Nastavení → Mobilní aplikace**, mezi kartami **Uživatelé** a **Zabezpe
 
 OSPy neukládá Firebase klíče ani FCM token telefonu. Mobilní aplikace zaregistruje FCM token přímo u relay a OSPy dostane pouze identifikátor předplatného a instalační podpisový klíč. Události se odesílají podepsané v samostatném omezeném pracovním vlákně; nedostupný Internet nebo relay proto nezdržuje plánovač ani ventily. Push je ve výchozím stavu vypnutý a vyžaduje HTTPS. Periodická synchronizace v otevřené aplikaci zůstává záložním mechanismem. Přesný kontrakt je v [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
 
+Společný footer OSPy obsahuje přímý odkaz na oficiální aplikaci pro Android v Google Play.
+
 ## SQLite jako primární úložiště (beta)
 
 Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, zpřístupní Nastavení v poli **Režim ukládání nastavení** volbu **SQLite primární (beta)**. OSPy před přechodem do tohoto režimu i návratem z něj vytvoří úplnou systémovou zálohu, společně potvrdí ověřenou SQLite a shelve/DBM kopii a restartuje se. Při dalším startu SQLite před použitím jako zdroje nastavení nezávisle ověří; synchronizovaná shelve/DBM kopie zůstává okamžitou zálohou. Chybějící aktivační marker, poškozená databáze, neshoda kontrolního součtu či schématu nebo neplatné nastavení bezpečně ponechá OSPy na shelve/DBM a problém zobrazí Diagnostika. K automatickému přepnutí nikdy nedojde a návrat do režimu **Ověřovací** je kdykoli dostupný stejným postupem se zálohou a restartem.

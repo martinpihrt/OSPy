@@ -90,6 +90,17 @@ class TemplateCompilationTests(unittest.TestCase):
         self.assertIn("id='mobile-applications-options'", source)
         self.assertIn("href='/mobile_devices'", source)
 
+    def test_footer_links_to_official_android_application(self):
+        source = (TEMPLATE_ROOT / "base.html").read_text(encoding="utf-8")
+        self.assertIn('id="mobile_app"', source)
+        self.assertIn(
+            'href="https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile"',
+            source,
+        )
+        self.assertIn("$_('OSPy mobile app on Google Play')", source)
+        self.assertIn('target="_blank"', source)
+        self.assertIn('rel="noopener noreferrer"', source)
+
     def test_mobile_device_records_require_revocation_before_deletion(self):
         source = (TEMPLATE_ROOT / "mobile_devices.html").read_text(
             encoding="utf-8"
