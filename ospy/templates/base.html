@@ -380,6 +380,8 @@ jQuery(document).ready(function(){
             <div class="headerTitleRow">
                 $if content.page != 'login' and session.get('category') in ('admin', 'user'):
                     <a href="/feedback" class="headerFeedbackButton${' here' if content.page == 'feedback' else ''}" title=$:{json.dumps(_('Report a problem or suggest an improvement'), ensure_ascii=False)}>$_('Feedback')</a>
+                $if content.page != 'login' and not options.no_password and session.get('visitor') not in (None, 'Unknown'):
+                    <a href="/twofactor" class="headerFeedbackButton${' here' if content.page == 'twofactor' else ''}" title=$:{json.dumps(_('Configure two-factor security for your account'), ensure_ascii=False)}>$_('Account security')</a>
                 <span class="headerSystemName">${options.name if options.name != _('OSPy - OpenSprinkler Python') else ""}</span>
             </div>
             <p id="Userinfo">

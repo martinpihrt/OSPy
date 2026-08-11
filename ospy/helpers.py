@@ -995,8 +995,14 @@ def check_login(redirect=False):
 
     if 'pw' in qdict and 'nm' in qdict: # password and user name
         if test_password(qdict['pw'], qdict['nm']):
-            if (qdict['nm'] == options.admin_user and
-                    getattr(options, 'two_factor_method', 'none') != 'none'):
+            two_factor_method = getattr(options, 'two_factor_method', 'none')
+            if qdict['nm'] != options.admin_user:
+                account = users.find_by_name(qdict['nm'])
+                two_factor_method = (
+                    getattr(account, 'two_factor_method', 'none')
+                    if account is not None else 'none'
+                )
+            if two_factor_method != 'none':
                 server.session['category'] = 'public'
                 server.session['visitor'] = 'Unknown'
                 if redirect:

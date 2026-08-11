@@ -9,6 +9,10 @@ OSPy pomoći u odeljku **API**.
 
 ## Mobilne aplikacije i trenutna obaveštenja
 
+Uobičajena komunikacija aplikacije i push isporuka koriste odvojene puteve. Tokom normalnog rada Android aplikacija se povezuje na lokalnu ili udaljenu adresu sačuvanu za instalaciju, proverava HTTPS, prijavljuje se tokenima Mobile API v1 vezanim za instalaciju, čita trenutno stanje i šalje dozvoljene komande direktno u OSPy.
+
+Za push OSPy ne čeka da se aplikacija poveže. Odgovarajući događaj ulazi u ograničeni red u pozadini; OSPy potpisuje HTTPS zahtev ka relay servisu, relay ga proverava i traži od Firebase Cloud Messaging da probudi Android i prikaže sistemsko obaveštenje. Greška relay ili FCM servisa ne blokira navodnjavanje.
+
 U **Opcije → Mobilne aplikacije**, između kartica **Korisnici** i **Bezbednost**, administrator podešava HTTPS adresu push relay servisa i uključuje trenutna obaveštenja. Push je podrazumevano isključen, ali je izmenljivo polje relay servisa unapred popunjeno zvaničnom OSPy relay adresom. Stranica koristi isti spisak uparenih uređaja kao mobilni API i prikazuje korisnika, ulogu, verziju aplikacije, vreme uparivanja i poslednje aktivnosti, push status i poslednju uspešnu ili neuspešnu isporuku. Za svaki telefon mogu se izabrati kategorije pokretanja i zaustavljanja stanice, kiše, dijagnostike, ažuriranja i ostalih događaja. Moguće je poslati test, odjaviti push ili opozvati ceo uređaj zajedno sa tokenima za prijavu. Aktivni uređaj mora prvo biti opozvan pre trajnog brisanja zapisa; opozvani zapisi mogu se brisati pojedinačno ili svi zajedno. Ponovno prijavljivanje sa iste sačuvane Android instalacije koristi njen postojeći identitet i zamenjuje tokene bez dodavanja novog reda.
 
 OSPy ne čuva Firebase ključeve niti FCM token telefona. Mobilna aplikacija registruje FCM token direktno kod relay servisa; OSPy dobija samo neproziran identifikator pretplate i tajnu za potpis ograničenu na instalaciju. Potpisani događaji šalju se kroz poseban ograničen radni proces, pa nedostupni Internet ili relay ne odlažu planer ni ventile. Push je podrazumevano isključen i zahteva HTTPS. Periodična sinhronizacija dok je aplikacija otvorena ostaje rezervni mehanizam. Tačan ugovor je opisan u [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
@@ -832,7 +836,9 @@ OSPy проверава цео ZIP пре уписивања било које �
 У поље означено са "Потврди лозинку" унесите исту нову лозинку као у поље "Нова лозинка".
 
 ### Додатни корисници
-Након клика на дугме, отвориће се страница на којој можемо креирати и евентуално уређивати нове кориснике за приступ систему.
+Прилагодљива администрација приказује уграђеног главног администратора и све додатне налоге са улогом, напоменом и стањем 2FA. Администратор може да креира, измени или избрише додатни налог и да ресетује његов 2FA. При измени празно поље нове лозинке задржава постојећу лозинку.
+
+Уграђени главни администратор и даље користи постојећа глобална OSPy 2FA подешавања. Сваки додатни налог може независно да подеси TOTP или проверу е-поштом преко **Безбедности налога** у заглављу странице. Стари налози остају важећи и после ажурирања имају искључен 2FA. Администратор може да ресетује изгубљено 2FA упаривање, али не види тајну нити резервне кодове корисника.
 
 ## Безбедност
 

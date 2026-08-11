@@ -20,6 +20,13 @@ class _User(object):
         self.password_time = 0    # current password decryption time (brute force)
         self.category = 0         # selector (public, user, admin)
         self.notes = ""           # notes for user
+        # Per-user two-factor settings.  These defaults intentionally match an
+        # older saved user record, so installations can be upgraded without a
+        # data migration.  The built-in administrator keeps using the existing
+        # global options.two_factor_* settings.
+        self.two_factor_method = "none"
+        self.two_factor_secret = ""
+        self.two_factor_backup_codes = []
 
         options.load(self, index) 
 
@@ -92,6 +99,13 @@ class _Users(object):
 
     def count(self):
         return len(self._users)
+
+    def find_by_name(self, name):
+        """Return the additional user with *name*, or None when it is absent."""
+        for user in self._users:
+            if user.name == name:
+                return user
+        return None
 
     def get(self, index=None):
         try:

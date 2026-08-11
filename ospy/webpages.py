@@ -1300,6 +1300,7 @@ class users_page(ProtectedPage):
             deleted_count = users.count()
             while users.count() > 0:
                 users.remove_users(users.count()-1)
+            autologin.revoke_all()
             logEV.save_events_log(
                 _('All users deleted'),
                 _('Administrator {} deleted all {} users.').format(
@@ -1480,8 +1481,12 @@ class user_page(ProtectedPage):
         if qdict.get('action', '') == 'delete':
             try:
                 user_index = int(index)
-                user_name = users.get(user_index).name
+                deleted_user = users.get(user_index)
+                if deleted_user is None:
+                    raise ValueError('Unknown user')
+                user_name = deleted_user.name
                 users.remove_users(user_index)
+                autologin.revoke_all()
                 logEV.save_events_log(
                     _('User deleted'),
                     _('Administrator {} deleted user {}.').format(
@@ -1490,7 +1495,7 @@ class user_page(ProtectedPage):
                     level='warning',
                     category='security'
                 )
-            except ValueError:
+            except (ValueError, TypeError, IndexError, AttributeError):
                 pass
             raise web.seeother('/users')
 
@@ -1501,49 +1506,73 @@ class user_page(ProtectedPage):
         except ValueError:
             user = users.create_users()
 
-        user.name = ''
-        password = ''
+        if user is None:
+            raise web.seeother('/users')
 
-        if session.get('category') == 'admin':
-            user.name = qdict['name']
-            password = qdict['password']
-            user.category = qdict['category']
-            user.notes = qdict['notes']
+        action = qdict.get('action', 'save')
+        if action == 'reset_two_factor' and user.index >= 0:
+            user.two_factor_method = twofactor.METHOD_NONE
+            user.two_factor_secret = ''
+            user.two_factor_backup_codes = []
+            autologin.revoke_all()
+            logEV.save_events_log(
+                _('User two-factor authentication reset'),
+                _('Administrator {} reset two-factor authentication for user {}.').format(
+                    session.get('visitor'), user.name),
+                id='Login', level='warning', category='security'
+            )
+            raise web.seeother('/user/{}?errorCode=two_factor_reset'.format(user.index))
 
-        if user.name == '' and user.index < 0:
+        name = str(qdict.get('name', '')).strip()
+        password = str(qdict.get('password', ''))
+        category = str(qdict.get('category', ''))
+        notes = str(qdict.get('notes', ''))[:150]
+
+        if name == '':
             errorCode = qdict.get('errorCode', 'uname')
             return self.core_render.user(user, errorCode)
 
-        if len(user.name) < 5:
+        if len(name) < 5:
             errorCode = qdict.get('errorCode', 'unamelen')
             return self.core_render.user(user, errorCode)
 
-        if password == user.name:
+        if category not in ('0', '1', '2', '3'):
+            errorCode = qdict.get('errorCode', 'ucategory')
+            return self.core_render.user(user, errorCode)
+
+        if password and password == name:
             errorCode = qdict.get('errorCode', 'upassuname')
             return self.core_render.user(user, errorCode)
 
-        if password == '':
+        if user.index < 0 and password == '':
             errorCode = qdict.get('errorCode', 'upass')
             return self.core_render.user(user, errorCode)
 
-        if len(password) < 5:
-            errorCode = qdict.get('errorCode', 'unamepass')
+        if password and len(password) < 8:
+            errorCode = qdict.get('errorCode', 'upasslen')
             return self.core_render.user(user, errorCode)
 
-        if user.name == options.admin_user:
+        if name == options.admin_user:
             errorCode = qdict.get('errorCode', 'unameis')
             return self.core_render.user(user, errorCode)
 
-        for x in range(users.count()):
-            isuser = users.get(x)
-            if user.name == isuser.name and user.index < 0:
+        for existing_user in users.get():
+            if name == existing_user.name and existing_user is not user:
                 errorCode = qdict.get('errorCode', 'unameis')
                 return self.core_render.user(user, errorCode)
 
-        if user.index < 0 and session['category'] == 'admin':
+        is_new_user = user.index < 0
+        old_name = user.name
+        user.name = name
+        user.category = category
+        user.notes = notes
+        if password:
             salt = password_salt()
             user.password_salt = salt
-            user.password_hash = password_hash(password, salt) # actual user hash+salt for saving
+            user.password_hash = password_hash(password, salt)
+            autologin.revoke_all()
+
+        if is_new_user:
             users.add_users(user)
             logEV.save_events_log(
                 _('User created'),
@@ -1552,6 +1581,15 @@ class user_page(ProtectedPage):
                 id='Login',
                 level='info',
                 category='security'
+            )
+        else:
+            if old_name != name:
+                autologin.revoke_all()
+            logEV.save_events_log(
+                _('User updated'),
+                _('Administrator {} updated user {} with category {}.').format(
+                    session.get('visitor'), user.name, user.category),
+                id='Login', level='info', category='security'
             )
 
         raise web.seeother('/users')
@@ -1757,6 +1795,54 @@ class image_view_page(ProtectedPage):
         return self.core_render.view(img_url)
 
 
+def _two_factor_account(username):
+    """Return None for the built-in administrator or an additional user object."""
+    if username == options.admin_user:
+        return None
+    return users.find_by_name(username)
+
+
+def _two_factor_method(username):
+    account = _two_factor_account(username)
+    if username == options.admin_user:
+        method = options.two_factor_method
+    elif account is not None:
+        method = getattr(account, 'two_factor_method', twofactor.METHOD_NONE)
+    else:
+        method = twofactor.METHOD_NONE
+    return method if method in twofactor.VALID_METHODS else twofactor.METHOD_NONE
+
+
+def _two_factor_secret(username):
+    account = _two_factor_account(username)
+    if username == options.admin_user:
+        return options.two_factor_secret
+    return getattr(account, 'two_factor_secret', '') if account is not None else ''
+
+
+def _two_factor_backup_codes(username):
+    account = _two_factor_account(username)
+    if username == options.admin_user:
+        return list(options.two_factor_backup_codes or [])
+    return list(getattr(account, 'two_factor_backup_codes', []) or []) if account is not None else []
+
+
+def _set_two_factor_settings(username, method, secret, backup_codes):
+    """Persist 2FA for one account while retaining legacy built-in admin storage."""
+    account = _two_factor_account(username)
+    if username == options.admin_user:
+        options.two_factor_method = method
+        options.two_factor_secret = secret
+        options.two_factor_backup_codes = list(backup_codes or [])
+        return True
+    if account is None:
+        return False
+    account.two_factor_method = method
+    account.two_factor_secret = secret
+    account.two_factor_backup_codes = list(backup_codes or [])
+    return True
+
+
 class login_page(WebPage):
     """Login page"""
 
@@ -1823,8 +1909,14 @@ class login_page(WebPage):
 
             method = server.session.get('two_factor_method')
             code = qdict.get('two_factor_code', '')
+            pending_user = server.session.get('two_factor_user')
+            if (pending_user != options.admin_user and
+                    _two_factor_account(pending_user) is None):
+                _clear_two_factor_login()
+                my_signin.note = _('The user account no longer exists. Please sign in again.')
+                return self.core_render.login(my_signin, None, False, None, None)
             if method == twofactor.METHOD_TOTP:
-                valid = twofactor.verify_totp(options.two_factor_secret, code)
+                valid = twofactor.verify_totp(_two_factor_secret(pending_user), code)
             else:
                 valid = twofactor.verify_email_code(
                     code,
@@ -1833,9 +1925,11 @@ class login_page(WebPage):
                     server.session.get('two_factor_expires', 0))
             if not valid:
                 valid, remaining_codes = twofactor.consume_backup_code(
-                    code, options.two_factor_backup_codes)
+                    code, _two_factor_backup_codes(pending_user))
                 if valid:
-                    options.two_factor_backup_codes = remaining_codes
+                    _set_two_factor_settings(
+                        pending_user, _two_factor_method(pending_user),
+                        _two_factor_secret(pending_user), remaining_codes)
             if not valid:
                 server.session['two_factor_attempts'] = attempts + 1
                 _save_security_failure(
@@ -1882,9 +1976,7 @@ class login_page(WebPage):
             else:
                 return self.core_render.login(my_signin, None, False, None, None)
         else:
-            method = (options.two_factor_method
-                      if server.session.get('visitor') == options.admin_user
-                      else twofactor.METHOD_NONE)
+            method = _two_factor_method(server.session.get('visitor'))
             if method in (twofactor.METHOD_TOTP, twofactor.METHOD_EMAIL):
                 server.session['two_factor_pending'] = True
                 server.session['two_factor_user'] = server.session.get('visitor')
@@ -1935,12 +2027,29 @@ def _clear_two_factor_login():
             pass
 
 
+def _current_two_factor_identity():
+    """Return (username, is_primary) for the signed-in account."""
+    from ospy import server
+    username = server.session.get('visitor', '')
+    if username == options.admin_user:
+        return username, True
+    if users.find_by_name(username) is not None:
+        return username, False
+    # Preserve the previous no-password administrator behaviour.  There is no
+    # additional account object in that mode, so the legacy admin settings are
+    # still the only meaningful target.
+    if options.no_password and server.session.get('category') == 'admin':
+        return options.admin_user, True
+    return None, False
+
+
 class twofactor_page(ProtectedPage):
-    """Configure two-factor authentication for administrator accounts."""
+    """Configure two-factor authentication for the signed-in account."""
 
     def GET(self):
         from ospy import server
-        if server.session.get('category') != 'admin':
+        username, is_primary = _current_two_factor_identity()
+        if not username:
             raise web.seeother('/')
         if not server.session.get('two_factor_setup_secret'):
             server.session['two_factor_setup_secret'] = twofactor.generate_secret()
@@ -1950,13 +2059,15 @@ class twofactor_page(ProtectedPage):
         if backup_codes:
             del server.session['two_factor_new_backup_codes']
         return self.core_render.twofactor(
-            options.two_factor_method, server.session.get('two_factor_setup_secret'),
+            _two_factor_method(username), server.session.get('two_factor_setup_secret'),
             email_available, email_message, qr_available, None, backup_codes,
-            bool(server.session.get('two_factor_setup_email_hash')), None, None)
+            bool(server.session.get('two_factor_setup_email_hash')), None, None,
+            username, is_primary)
 
     def POST(self):
         from ospy import server
-        if server.session.get('category') != 'admin':
+        username, is_primary = _current_two_factor_identity()
+        if not username:
             raise web.seeother('/')
         qdict = web.input()
         action = qdict.get('action', '')
@@ -1965,7 +2076,9 @@ class twofactor_page(ProtectedPage):
         setup_secret = server.session.get('two_factor_setup_secret') or twofactor.generate_secret()
         server.session['two_factor_setup_secret'] = setup_secret
 
-        method = options.two_factor_method
+        method = _two_factor_method(username)
+        secret = _two_factor_secret(username)
+        backup_hashes = _two_factor_backup_codes(username)
         if action == 'verify_totp':
             if twofactor.qr_png('test') is None:
                 error = _('QR code support is not installed. Run python setup.py install and restart OSPy.')
@@ -1973,7 +2086,7 @@ class twofactor_page(ProtectedPage):
                 error = _('Enter the current code from the authenticator application to finish pairing.')
             else:
                 method = twofactor.METHOD_TOTP
-                options.two_factor_secret = setup_secret
+                secret = setup_secret
         elif action == 'send_email':
             available, status_message = twofactor.email_plugin_status()
             if available:
@@ -2004,17 +2117,23 @@ class twofactor_page(ProtectedPage):
             error = _('Unknown two-factor authentication method.')
 
         if error is None and action in ('verify_totp', 'verify_email', 'disable'):
-            old_method = options.two_factor_method
-            options.two_factor_method = method
+            old_method = _two_factor_method(username)
             if method != twofactor.METHOD_TOTP:
-                options.two_factor_secret = ''
+                secret = ''
             if method == twofactor.METHOD_NONE:
-                options.two_factor_backup_codes = []
+                backup_hashes = []
             elif method != old_method:
                 backup_codes = twofactor.generate_backup_codes()
-                options.two_factor_backup_codes = [twofactor.hash_backup_code(code) for code in backup_codes]
+                backup_hashes = [twofactor.hash_backup_code(code) for code in backup_codes]
                 server.session['two_factor_new_backup_codes'] = backup_codes
+            if not _set_two_factor_settings(username, method, secret, backup_hashes):
+                raise web.seeother('/')
             autologin.revoke_all()
+            logEV.save_events_log(
+                _('Two-factor authentication changed'),
+                _('User {} changed two-factor authentication to {}.').format(username, method),
+                id='Login', level='warning', category='security'
+            )
             server.session['two_factor_setup_secret'] = twofactor.generate_secret()
             for key in ('two_factor_setup_email_nonce', 'two_factor_setup_email_hash',
                         'two_factor_setup_email_expires'):
@@ -2026,25 +2145,27 @@ class twofactor_page(ProtectedPage):
 
         email_available, email_message = twofactor.email_plugin_status()
         return self.core_render.twofactor(
-            options.two_factor_method, setup_secret, email_available, email_message,
+            _two_factor_method(username), setup_secret, email_available, email_message,
             twofactor.qr_png('test') is not None, error, None,
             bool(server.session.get('two_factor_setup_email_hash')), notice,
             'email' if action in ('send_email', 'verify_email') else
-            ('totp' if action == 'verify_totp' else options.two_factor_method))
+            ('totp' if action == 'verify_totp' else _two_factor_method(username)),
+            username, is_primary)
 
 
 class twofactor_qr_page(ProtectedPage):
     def GET(self):
         from ospy import server
         verify_csrf(web.input())
-        if server.session.get('category') != 'admin':
+        username, unused_is_primary = _current_two_factor_identity()
+        if not username:
             raise web.notfound()
         secret = server.session.get('two_factor_setup_secret')
         if not secret:
             raise web.notfound()
         site_name = str(options.name or '').strip()
         issuer = 'OSPy' + ((' ' + site_name) if site_name else '')
-        data = twofactor.qr_png(twofactor.provisioning_uri(secret, options.admin_user, issuer))
+        data = twofactor.qr_png(twofactor.provisioning_uri(secret, username, issuer))
         if data is None:
             raise web.notfound()
         web.header('Content-Type', 'image/png')

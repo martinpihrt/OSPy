@@ -130,6 +130,8 @@ class WebRouteIntegrationTests(unittest.TestCase):
             "/stations": b"<!doctype html>",
             "/help": b"<!doctype html>",
             "/diagnostics": b"<!doctype html>",
+            "/users": b"<!doctype html>",
+            "/user/new": b"<!doctype html>",
         }
 
         for path, marker in paths_and_markers.items():
@@ -137,6 +139,35 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 response = self.app.request(path)
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
+
+    def test_main_administrator_two_factor_page_renders(self):
+        self.session['visitor'] = webpages.options.admin_user
+        response = self.app.request('/twofactor')
+
+        self.assertEqual(response.status, '200 OK')
+        self.assertIn(b'class="panel twoFactorPanel"', response.data)
+        self.assertIn(webpages.options.admin_user.encode('utf-8'), response.data)
+
+    def test_additional_user_two_factor_page_uses_own_account(self):
+        account = webpages.users.create_users()
+        account.name = 'route-operator'
+        account.category = '1'
+        account.two_factor_method = 'none'
+        webpages.users.add_users(account)
+        try:
+            self.session['visitor'] = account.name
+            self.session['category'] = 'user'
+            response = self.app.request('/twofactor')
+        finally:
+            index = next(
+                item.index for item in webpages.users.get()
+                if item.name == 'route-operator'
+            )
+            webpages.users.remove_users(index)
+
+        self.assertEqual(response.status, '200 OK')
+        self.assertIn(b'route-operator', response.data)
+        self.assertIn(b'class="panel twoFactorPanel"', response.data)
 
     def test_help_pdf_renders_only_the_selected_article(self):
         with mock.patch.object(

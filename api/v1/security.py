@@ -15,6 +15,7 @@ from ospy import server, twofactor
 from ospy.helpers import bruteforce_blocked, test_password
 from ospy.log import logEV
 from ospy.options import options
+from ospy.users import users
 
 from .responses import APIError
 from .store import mobile_store
@@ -147,20 +148,32 @@ def _validate_password(username, password):
 
 
 def _verify_second_factor(username, role, payload):
-    if username != getattr(options, "admin_user", "admin") or role != "admin":
-        return
-    method = str(getattr(options, "two_factor_method", "none") or "none")
+    if username == getattr(options, "admin_user", "admin"):
+        account = None
+        method = str(getattr(options, "two_factor_method", "none") or "none")
+        secret = getattr(options, "two_factor_secret", "")
+        backup_codes = list(getattr(options, "two_factor_backup_codes", []) or [])
+    else:
+        account = users.find_by_name(username)
+        if account is None:
+            return
+        method = str(getattr(account, "two_factor_method", "none") or "none")
+        secret = getattr(account, "two_factor_secret", "")
+        backup_codes = list(getattr(account, "two_factor_backup_codes", []) or [])
     if method == twofactor.METHOD_NONE:
         return
     code = str(payload.get("two_factor_code", "") or "").strip()
     if method == twofactor.METHOD_TOTP:
-        if twofactor.verify_totp(options.two_factor_secret, code):
+        if twofactor.verify_totp(secret, code):
             return
         valid, remaining = twofactor.consume_backup_code(
-            code, options.two_factor_backup_codes
+            code, backup_codes
         )
         if valid:
-            options.two_factor_backup_codes = remaining
+            if account is None:
+                options.two_factor_backup_codes = remaining
+            else:
+                account.two_factor_backup_codes = remaining
             return
         raise APIError(
             401, "two_factor_required",

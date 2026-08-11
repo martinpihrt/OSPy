@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Two-factor authentication helpers for the main OSPy administrator."""
+"""Two-factor authentication helpers for OSPy user accounts."""
 
 import base64
 import hashlib

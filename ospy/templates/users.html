@@ -1,56 +1,95 @@
 $def with ()
 
-$var title: $_(u'A list of users')
+$var title: $_('Users')
 $var page: users
 
-<div id="users">
-    <div id="controls">
-        <a href="/user/new" class="button add">$_(u'Add a New User')</a>
-        <form action="/users" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_(u'Delete all users?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
-            $:csrf_input()
-            <input type="hidden" name="action" value="delete_all">
-            <button type="submit" class="button deleteAll danger">$_(u'Delete All users')</button>
-        </form>
-    </div> 
-    <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">  
-        <table class="stationList" style="background: #F5F5F5;">  
-            <tr style="background-color:#FFFFE0;">
-                <td style="width: 140px"><b>$_(u'ID')</b></td> 
-                <td style="width: 140px"><b>$_(u'User Name')</b></td>
-                <td style="width: 140px"><b>$_(u'Category')</b></td>
-                <td style="width: 140px"><b>$_(u'User Note')</b></td>
-                <td style="width: 250px"><b>$_(u'Edit User')</b></td>
-            <tr>   
-            $for user in users.get():            
-                <tr>
-                <td> 
-                ${user.index+1}
-                </td>
-                <td> 
-                ${user.name}   
-                </td>
-                <td>
-                ${_(u'Public') if user.category=="0" else ''}
-                ${_(u'User') if user.category=="1" else ''}
-                ${_(u'Administrator') if user.category=="2" else ''}
-                ${_(u'Sensor') if user.category=="3" else ''}                                       
-                </td>    
-                <td> 
-                ${user.notes}
-                </td>
-                <td>  
-                <a href="/user/${user.index}" class="button cModify"> $_(u'Edit User') </a>
-                <form action="/user/${user.index}" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_(u'Delete this user?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
-                    $:csrf_input()
-                    <input type="hidden" name="action" value="delete">
-                    <button type="submit" class="button cDelete danger"> $_(u'Delete User')</button>
-                </form>
-                </td>              
-                </tr> 
-        </table>          
-    </div>         
-</div>
+$code:
+    role_labels = {
+        '0': _('Public'),
+        '1': _('User'),
+        '2': _('Administrator'),
+        '3': _('Sensor'),
+    }
+    method_labels = {
+        'none': _('Disabled'),
+        'totp': _('Authenticator application (TOTP)'),
+        'email': _('Code sent by e-mail'),
+    }
+    protected_count = 1 if options.two_factor_method != 'none' else 0
+    for listed_user in users.get():
+        if listed_user.two_factor_method != 'none':
+            protected_count += 1
 
-<div id="controls">
-    <a href="options" class="button add">$_('Back to options')</a>
-</div>    
+<div id="users" class="usersPage">
+    <div class="usersPageHeader">
+        <div>
+            <div class="title">$_('Users')</div>
+            <p class="usersIntro">$_('Manage additional accounts, permissions, passwords and individual two-factor security.')</p>
+        </div>
+        <a href="/user/new" class="button add">$_('Add user')</a>
+    </div>
+
+    <div class="usersSummary" aria-label="$_('User account summary')">
+        <div class="usersSummaryItem"><strong>${users.count() + 1}</strong><span>$_('Total accounts')</span></div>
+        <div class="usersSummaryItem"><strong>$protected_count</strong><span>$_('Accounts protected by 2FA')</span></div>
+    </div>
+
+    <div class="usersTableWrap">
+        <table class="usersTable">
+            <thead>
+                <tr>
+                    <th>$_('Account')</th>
+                    <th>$_('Role')</th>
+                    <th>$_('Two-factor security')</th>
+                    <th>$_('Notes')</th>
+                    <th class="usersActionsColumn">$_('Actions')</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="usersPrimaryRow">
+                    <td data-label="$_('Account')"><strong>$options.admin_user</strong><br><span class="userBadge userBadgePrimary">$_('Main administrator')</span></td>
+                    <td data-label="$_('Role')"><span class="userBadge userBadgeAdmin">$_('Administrator')</span></td>
+                    <td data-label="$_('Two-factor security')"><span class="userSecurityStatus ${'active' if options.two_factor_method != 'none' else 'inactive'}">${method_labels.get(options.two_factor_method, _('Disabled'))}</span></td>
+                    <td data-label="$_('Notes')"><span class="usersMuted">$_('Built-in OSPy administrator account')</span></td>
+                    <td data-label="$_('Actions')" class="usersActions">
+                        $if session.get('visitor') == options.admin_user:
+                            <a href="/twofactor" class="button backup">$_('Configure 2FA')</a>
+                        $else:
+                            <span class="usersMuted">$_('Managed by the main administrator')</span>
+                    </td>
+                </tr>
+                $for user in users.get():
+                    <tr>
+                        <td data-label="$_('Account')"><strong>${user.name}</strong></td>
+                        <td data-label="$_('Role')"><span class="userBadge userBadgeRole${user.category}">${role_labels.get(user.category, _('Unknown'))}</span></td>
+                        <td data-label="$_('Two-factor security')">
+                            <span class="userSecurityStatus ${'active' if user.two_factor_method != 'none' else 'inactive'}">${method_labels.get(user.two_factor_method, _('Disabled'))}</span>
+                        </td>
+                        <td data-label="$_('Notes')">${user.notes or '-'}</td>
+                        <td data-label="$_('Actions')" class="usersActions">
+                            <a href="/user/${user.index}" class="button cModify">$_('Edit')</a>
+                            $if session.get('visitor') == user.name:
+                                <a href="/twofactor" class="button backup">$_('My 2FA')</a>
+                            <form action="/user/${user.index}" method="post" onsubmit="return confirm($:{json.dumps(_('Delete this user?'), ensure_ascii=False)});">
+                                $:csrf_input()
+                                <input type="hidden" name="action" value="delete">
+                                <button type="submit" class="button cDelete danger">$_('Delete')</button>
+                            </form>
+                        </td>
+                    </tr>
+                $if users.count() == 0:
+                    <tr><td colspan="5" class="usersEmpty">$_('No additional users have been created yet.')</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="usersFooterActions">
+        <a href="/options" class="button cancel">$_('Back to options')</a>
+        $if users.count() > 0:
+            <form action="/users" method="post" onsubmit="return confirm($:{json.dumps(_('Delete all additional users?'), ensure_ascii=False)});">
+                $:csrf_input()
+                <input type="hidden" name="action" value="delete_all">
+                <button type="submit" class="button deleteAll danger">$_('Delete all additional users')</button>
+            </form>
+    </div>
+</div>

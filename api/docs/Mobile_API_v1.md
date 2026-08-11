@@ -101,7 +101,7 @@ Content-Type: application/json
 }
 ```
 
-Omit the second-factor fields when 2FA is disabled. With e-mail 2FA, the first request returns `two_factor_required`, sends a code and supplies `challenge_id`; repeat the login with the challenge and code.
+Omit the second-factor fields when 2FA is disabled. The built-in administrator uses the original global OSPy 2FA settings, while every additional account uses its own independent method, secret and backup codes. With e-mail 2FA, the first request returns `two_factor_required`, sends a code and supplies `challenge_id`; repeat the login with the challenge and code.
 
 The result contains the access and refresh tokens, expiry times, role, scopes and device ID. A client should persist one randomly generated device ID with the saved installation and send it again whenever that installation is re-authenticated. OSPy then revokes the former token session and updates the same device record instead of inserting another row. A different phone or a fresh application installation generates a new ID. Refresh through `POST /auth/refresh` with `{"refresh_token":"..."}`. Persist the replacement before deleting the old token. If the client is terminated after rotation but before that durable write, the same old token can recover exactly once during the next five minutes; this recovery does not apply to logout, explicit device revocation or expired tokens. `POST /auth/logout` revokes the current token session. `GET /auth/devices` lists paired devices and `DELETE /auth/devices/{device_id}` revokes one.
 

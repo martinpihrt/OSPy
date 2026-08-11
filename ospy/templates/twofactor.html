@@ -1,7 +1,7 @@
-$def with (current_method, setup_secret, email_available, email_message, qr_available, error, backup_codes=None, email_pending=False, notice=None, selected_method=None)
+$def with (current_method, setup_secret, email_available, email_message, qr_available, error, backup_codes=None, email_pending=False, notice=None, selected_method=None, account_name='', primary_account=True)
 
 $var title: $_('Two-factor security')
-$var page: options
+$var page: twofactor
 
 $code:
     selected_method = selected_method or ('email' if email_pending else current_method)
@@ -21,7 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="panel twoFactorPanel">
     <div class="title">$_('Two-factor security')</div>
-    <p>$_('Choose exactly one verification method for the main administrator account. Changing the method revokes all remembered browser logins.')</p>
+    <p><b>$_('Account'):</b> $account_name</p>
+    $if primary_account:
+        <p>$_('Choose exactly one verification method for the main administrator account. Changing the method revokes all remembered browser logins.')</p>
+    $else:
+        <p>$_('Choose exactly one verification method for your account. Each OSPy user has independent two-factor settings. Changing the method revokes all remembered browser logins.')</p>
 
     $if error:
         <p class="twoFactorMessage twoFactorError"><b>$error</b></p>
@@ -33,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <h4>$_('Backup codes')</h4>
             <p><b>$_('Save these one-time codes now. They will not be displayed again.')</b></p>
             <pre>${'\n'.join(backup_codes)}</pre>
-            <a class="button submit" href="/options">$_('Done')</a>
+            <a class="button submit" href="${'/options' if primary_account else '/'}">$_('Done')</a>
         </div>
     $else:
         <fieldset class="twoFactorSelector">
@@ -96,5 +100,5 @@ document.addEventListener('DOMContentLoaded', function () {
                     </form>
         </section>
 
-        <a class="button cancel" href="/options">$_('Back')</a>
+        <a class="button cancel" href="${'/options' if primary_account else '/'}">$_('Back')</a>
 </div>

@@ -9,6 +9,10 @@ w Pomocy OSPy w sekcji **API**.
 
 ## Aplikacje mobilne i natychmiastowe powiadomienia
 
+Zwykła komunikacja aplikacji i dostarczanie push to oddzielne ścieżki. Podczas normalnej pracy aplikacja Android łączy się z lokalnym lub zdalnym adresem zapisanym dla instalacji, sprawdza HTTPS, uwierzytelnia się tokenami Mobile API v1 przypisanymi do instalacji, odczytuje stan i wysyła do OSPy dozwolone polecenia.
+
+Dla push OSPy nie czeka na połączenie aplikacji. Pasujące zdarzenie trafia do ograniczonej kolejki w tle; OSPy podpisuje żądanie HTTPS do relay, relay je sprawdza i zleca Firebase Cloud Messaging obudzenie Androida oraz pokazanie powiadomienia systemowego. Błąd relay lub FCM nie blokuje nawadniania.
+
 W **Opcje → Aplikacje mobilne**, pomiędzy kartami **Użytkownicy** i **Bezpieczeństwo**, administrator konfiguruje adres HTTPS przekaźnika push i włącza natychmiastowe powiadomienia. Strona korzysta z tej samej listy sparowanych urządzeń co mobilne API i pokazuje użytkownika, rolę, wersję aplikacji, czas sparowania i ostatniej aktywności, stan push oraz ostatnie udane lub nieudane doręczenie. Dla każdego telefonu można wybrać kategorie: uruchomienie stacji, zatrzymanie stacji, deszcz, diagnostyka, aktualizacje i inne zdarzenia. Można wysłać test, wyrejestrować push albo unieważnić całe urządzenie wraz z tokenami logowania.
 
 OSPy nie przechowuje kluczy Firebase ani tokenu FCM telefonu. Aplikacja mobilna rejestruje token FCM bezpośrednio w przekaźniku; OSPy otrzymuje tylko niejawny identyfikator subskrypcji i sekret podpisu ograniczony do instalacji. Podpisane zdarzenia wysyła oddzielny ograniczony proces roboczy, dlatego brak Internetu lub przekaźnika nie opóźnia harmonogramu ani zaworów. Push jest domyślnie wyłączony, ale edytowalne pole przekaźnika jest wstępnie wypełnione oficjalnym adresem OSPy i wymaga HTTPS. Aktywne urządzenie trzeba najpierw odwołać, zanim jego rekord będzie można trwale usunąć; odwołane rekordy można usuwać pojedynczo lub wszystkie naraz. Ponowne logowanie z tej samej zapisanej instalacji Androida zachowuje jej tożsamość i zastępuje tokeny bez tworzenia kolejnego wiersza. Okresowa synchronizacja przy otwartej aplikacji pozostaje mechanizmem zapasowym. Dokładny kontrakt opisuje [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
@@ -839,7 +843,9 @@ Wpisz nowe hasło w polu „Nowe hasło”.
 W polu „Potwierdź hasło” wpisz takie samo nowe hasło jak w polu „Nowe hasło”.
 
 ### Dodatkowi użytkownicy
-Po kliknięciu przycisku otworzy się strona, na której możemy utworzyć i ewentualnie edytować nowych użytkowników uzyskujących dostęp do systemu.
+Responsywna administracja użytkownikami pokazuje wbudowanego głównego administratora oraz wszystkie dodatkowe konta z rolą, notatką i stanem 2FA. Administrator może utworzyć, edytować lub usunąć konto oraz zresetować jego 2FA. Podczas edycji puste pole nowego hasła zachowuje dotychczasowe hasło.
+
+Wbudowany główny administrator nadal korzysta z dotychczasowych globalnych ustawień 2FA OSPy. Każde dodatkowe konto może niezależnie skonfigurować TOTP lub weryfikację e-mail przez **Zabezpieczenia konta** w nagłówku strony. Starsze konta pozostają ważne i rozpoczynają z wyłączonym 2FA. Administrator może zresetować utracone powiązanie 2FA, ale nie widzi sekretu ani kodów zapasowych użytkownika.
 
 ## Bezpieczeństwo
 

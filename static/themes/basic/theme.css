@@ -2835,6 +2835,76 @@ td.stationSchedule {
 }
 
 
++/* Responsive user and account-security administration. */
+.usersPage, .userEditorPage { max-width: 1400px; }
+.usersPageHeader { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin:4px 0 14px; }
+.usersPageHeader .title { margin:0; }
+.usersIntro { margin:5px 0 0; color:#50596d; }
+.usersSummary { display:flex; flex-wrap:wrap; gap:12px; margin:10px 0 16px; }
+.usersSummaryItem { display:flex; flex-direction:column; min-width:150px; padding:12px 16px; border:1px solid #aeb7c8; border-radius:9px; background:#f7f9fc; }
+.usersSummaryItem strong { color:#2e3959; font-size:20pt; line-height:1; }
+.usersSummaryItem span { margin-top:5px; color:#50596d; }
+.usersTableWrap { overflow-x:auto; border:2px solid #2e3959; border-radius:10px; background:#fff; }
+.usersTable { width:100%; border-collapse:collapse; }
+.usersTable th, .usersTable td { padding:12px 14px; border-bottom:1px solid #c7ccd7; text-align:left; vertical-align:top; }
+.usersTable th { background:#eef1f6; color:#202942; }
+.usersTable tbody tr:last-child td { border-bottom:0; }
+.usersPrimaryRow { background:#fbf8e8; }
+.usersActionsColumn { min-width:250px; }
+.usersActions { display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+.usersActions form, .usersFooterActions form { display:inline; margin:0; }
+.userBadge, .userSecurityStatus { display:inline-block; padding:3px 8px; border-radius:999px; font-size:9pt; font-weight:bold; }
+.userBadge { background:#e8edf5; color:#29344e; }
+.userBadgePrimary { margin-top:5px; background:#fff0b7; color:#694c00; }
+.userBadgeAdmin, .userBadgeRole2 { background:#e3e9ff; color:#243d99; }
+.userBadgeRole1 { background:#e3f3e2; color:#226526; }
+.userBadgeRole3 { background:#e9e5f4; color:#553a79; }
+.userSecurityStatus.active { background:#dff2df; color:#246b29; }
+.userSecurityStatus.inactive { background:#eceef2; color:#596172; }
+.usersMuted { color:#677084; }
+.usersEmpty { padding:28px !important; color:#677084; text-align:center !important; }
+.usersFooterActions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; }
+.userFormMessage { margin:10px 0; padding:10px 12px; border-left:5px solid; border-radius:5px; }
+.userFormError { border-color:#a51f28; background:#fde7e9; color:#7b151d; }
+.userFormSuccess { border-color:#397f19; background:#e5f4df; color:#285d15; }
+.userEditorForm { display:grid; gap:14px; }
+.userFormCard { box-sizing:border-box; margin:0; padding:16px; border:2px solid #2e3959; border-radius:10px; background:#fff; }
+.userFormCard h3 { margin:0 0 12px; }
+.userFieldGrid { display:grid; grid-template-columns:repeat(2, minmax(220px, 1fr)); gap:15px; }
+.userField { display:flex; flex-direction:column; gap:5px; }
+.userField > span { font-weight:bold; }
+.userField input, .userField textarea { box-sizing:border-box; width:100%; max-width:620px; padding:8px; }
+.userField small, .userRoleCard small { color:#5c6578; }
+.userFieldWide { grid-column:1 / -1; }
+.userRoleSelector { display:grid; grid-template-columns:repeat(2, minmax(240px, 1fr)); gap:10px; }
+.userRoleSelector legend { padding:0 7px; font-size:13pt; font-weight:bold; }
+.userRoleCard { display:flex; align-items:flex-start; gap:9px; padding:12px; border:1px solid #b6bdcc; border-radius:8px; background:#f8f9fb; cursor:pointer; }
+.userRoleCard:has(input:checked) { border-color:#397f19; background:#edf7e9; box-shadow:0 0 0 1px #397f19; }
+.userRoleCard input { margin-top:3px; }
+.userRoleCard span { display:flex; flex-direction:column; gap:4px; }
+.userFormActions { display:flex; flex-wrap:wrap; gap:8px; }
+.userDangerZone { margin-top:16px; padding:14px; border:2px solid #9b252d; border-radius:10px; background:#fff5f5; }
+.userDangerZone h3 { margin-top:0; color:#7d1921; }
+
+@media only screen and (max-width: 760px) {
+    .usersPageHeader, .usersFooterActions { align-items:stretch; flex-direction:column; }
+    .usersPageHeader > .button, .usersFooterActions .button { box-sizing:border-box; width:100%; min-height:42px; text-align:center; }
+    .usersSummaryItem { box-sizing:border-box; flex:1 1 130px; min-width:0; }
+    .usersTableWrap { overflow:visible; border:0; background:transparent; }
+    .usersTable, .usersTable thead, .usersTable tbody, .usersTable tr, .usersTable td { display:block; }
+    .usersTable thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+    .usersTable tr { margin-bottom:12px; padding:8px; border:2px solid #2e3959; border-radius:9px; background:#fff; }
+    .usersTable td { display:grid; grid-template-columns:minmax(100px, 35%) 1fr; gap:8px; padding:8px; border-bottom:1px solid #d5d9e1; }
+    .usersTable td::before { content:attr(data-label); font-weight:bold; color:#303a54; }
+    .usersTable td:last-child { border-bottom:0; }
+    .usersActions { display:grid; grid-template-columns:minmax(100px, 35%) 1fr !important; }
+    .usersActions > * { grid-column:2; }
+    .userFieldGrid, .userRoleSelector { grid-template-columns:1fr; }
+    .userFieldWide { grid-column:auto; }
+    .userFormActions { flex-direction:column; }
+    .userFormActions .button { box-sizing:border-box; width:100%; min-height:42px; text-align:center; }
+}
+
 /* Interactive OSPy flow diagrams in Diagnostics. */
 .systemDiagramCard { position: relative; padding: 10px; overflow: visible; }
 .systemDiagramControls { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }

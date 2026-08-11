@@ -7,6 +7,11 @@ $code:
     languages = i18n.languages
     langKeys = list(i18n.languages.keys())
     langKeys.sort()
+    current_two_factor_method = options.two_factor_method
+    if session.get('visitor') != options.admin_user:
+        current_two_factor_account = users.find_by_name(session.get('visitor', ''))
+        if current_two_factor_account is not None:
+            current_two_factor_method = current_two_factor_account.two_factor_method
 
 <script>
     var errorCode = "${errorCode}";
@@ -296,11 +301,11 @@ $code:
         output += categoryCloser + "<div class='category collapsible collapsed'><h4>" + _('Two-factor security') + "</h4>\n"
         output += "<div class='option'><span class='label'>" + _('Login verification') + ":</span>"
         output += "&nbsp;<a href='/twofactor' class='button backup'>" + _('Configure') + "</a>"
-        if options.two_factor_method != 'none':
-            activeMethod = 'QR (TOTP)' if options.two_factor_method == 'totp' else 'E-mail'
+        if current_two_factor_method != 'none':
+            activeMethod = 'QR (TOTP)' if current_two_factor_method == 'totp' else 'E-mail'
             output += "&nbsp;<strong>" + _('Active') + ": " + activeMethod + "</strong>"
             output += "&nbsp;<button type='submit' class='danger' name='action' value='disable' formaction='/twofactor?" + csrf_query() + "' formmethod='post'>" + _('Disable') + "</button>"
-        output += "<span class='tooltip'>" + _('Configure an authenticator application or e-mail verification for the main administrator account.') + "</span></div></div>\n"
+        output += "<span class='tooltip'>" + _('Configure an authenticator application or e-mail verification for your account.') + "</span></div></div>\n"
         output += "<div class='category collapsible collapsed'><h4>" + _('System Restart') + "</h4>\n"
         output += "<div class='option'>"
         output += "&nbsp;<button id='cRestart' class='restart danger' title=" + json.dumps(_('Restart OSPy software!'), ensure_ascii=False).encode('utf8').decode('utf-8') + ">" + _('Restart') + "</button>"

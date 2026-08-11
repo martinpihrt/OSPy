@@ -9,6 +9,10 @@ dostupná aj v Pomoci OSPy v časti **API**.
 
 ## Mobilné aplikácie a okamžité notifikácie
 
+Bežná komunikácia aplikácie a doručovanie push sú dve oddelené cesty. Pri bežnej prevádzke sa Android aplikácia spojí s miestnou alebo vzdialenou adresou uloženou pri inštalácii, overí HTTPS, prihlási sa inštalačnými tokenmi Mobile API v1, načíta aktuálny stav a posiela povolené príkazy priamo do OSPy.
+
+Pri push doručení OSPy nečaká na pripojenie aplikácie. Zodpovedajúcu udalosť vloží do obmedzeného frontu na pozadí, podpíše HTTPS požiadavku pre relay, relay ju overí a požiada Firebase Cloud Messaging o prebudenie Androidu a zobrazenie systémovej notifikácie. Chyba relay alebo FCM nezablokuje zavlažovanie.
+
 V **Nastavenia → Mobilné aplikácie**, medzi kartami **Používatelia** a **Zabezpečenie**, správca nastaví HTTPS adresu push relay a zapne okamžité notifikácie. Push zostáva predvolene vypnutý, ale upraviteľné pole relay je vopred vyplnené oficiálnou adresou OSPy relay. Stránka používa rovnaký zoznam spárovaných zariadení ako mobilné API a pri každom telefóne zobrazuje používateľa, rolu, verziu aplikácie, čas spárovania a poslednej aktivity, stav push a posledné úspešné alebo neúspešné doručenie. Možno vybrať kategórie spustenia a zastavenia stanice, dažďa, diagnostiky, aktualizácií a ostatných udalostí, odoslať test, odregistrovať push alebo zrušiť celé zariadenie vrátane prihlasovacích tokenov. Aktívne zariadenie sa musí pred trvalým odstránením záznamu najprv odvolať; odvolané záznamy možno odstrániť jednotlivo alebo všetky naraz. Opätovné prihlásenie z rovnakej uloženej inštalácie Androidu použije jej pôvodnú identitu a nahradí tokeny bez pridania ďalšieho riadka.
 
 OSPy neukladá Firebase kľúče ani FCM token telefónu. Mobilná aplikácia zaregistruje FCM token priamo pri relay; OSPy dostane iba nepriehľadný identifikátor predplatného a podpisový kľúč obmedzený na inštaláciu. Podpísané udalosti sa odosielajú v samostatnom obmedzenom pracovnom vlákne, takže nedostupný Internet alebo relay nezdržuje plánovač ani ventily. Push je predvolene vypnutý a vyžaduje HTTPS. Periodická synchronizácia pri otvorenej aplikácii zostáva záložným mechanizmom. Presný kontrakt je v [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
@@ -850,7 +854,9 @@ Zadajte nové heslo do poľa označeného "Nové heslo".
 Do poľa označeného "Potvrďte heslo" zadajte rovnaké nové heslo ako v poli "Nové heslo".
 
 ### Ďalši užívateľia
-Po kliknutí na tlačidlo sa otvorí stránka, kde môžeme vytvárať a prípadne upravovať nových užívateľov pre prístup do systému.
+Responzívna správa používateľov zobrazuje vstavaného hlavného správcu aj všetky ďalšie účty vrátane roly, poznámky a stavu 2FA. Správca môže ďalší účet vytvoriť, upraviť, odstrániť alebo mu resetovať 2FA. Pri úprave prázdne pole nového hesla zachová pôvodné heslo.
+
+Vstavaný hlavný správca naďalej používa pôvodné globálne nastavenie 2FA OSPy. Každý ďalší účet si môže nezávisle nastaviť TOTP alebo overenie e-mailom cez **Zabezpečenie účtu** v záhlaví stránky. Staršie účty zostávajú platné a po aktualizácii majú 2FA vypnuté. Správca môže stratené spárovanie 2FA resetovať, ale nevidí tajný kľúč ani záložné kódy používateľa.
 
 ## Zabezpečenie
 

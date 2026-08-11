@@ -289,6 +289,8 @@
                 nodes: [
                     node('password', 'process', text('usernameAndPassword')),
                     node('primary', 'decision', text('primaryCredentialsValid')),
+                    node('account', 'decision', text('accountType')),
+                    node('settings', 'process', text('loadAccountTwoFactor')),
                     node('enabled', 'decision', text('twoFactorEnabled')),
                     node('method', 'decision', text('selectedSecondFactor')),
                     node('totp', 'optional', text('totpCodeAndClock')),
@@ -301,14 +303,66 @@
                 ],
                 edges: [
                     edge('password', 'primary'), edge('primary', 'reject', text('no')),
-                    edge('primary', 'enabled', text('yes')), edge('enabled', 'session', text('no')),
+                    edge('primary', 'account', text('yes')),
+                    edge('account', 'settings', text('perAccountSettings')),
+                    edge('settings', 'enabled'), edge('enabled', 'session', text('no')),
                     edge('enabled', 'method', text('yes')), edge('method', 'totp'),
                     edge('method', 'email'), edge('method', 'backup'),
                     edge('totp', 'verify'), edge('email', 'verify'), edge('backup', 'verify'),
                     edge('verify', 'session', text('yes')), edge('verify', 'reject', text('no')),
                     edge('revoke', 'password')
                 ],
-                links: {password: '/login', enabled: '/twofactor', email: '/plugins/email_notifications_ssl', reject: '/log', revoke: '/options'}
+                links: {password: '/login', account: '/users', enabled: '/twofactor', email: '/plugins/email_notifications_ssl', reject: '/log', revoke: '/options'}
+            },
+            mobileCommunication: {
+                description: text('mobileCommunicationDescription'),
+                help: '/help#2',
+                nodes: [
+                    node('installation', 'process', text('savedMobileInstallation')),
+                    node('network', 'decision', text('ospyAddressReachable')),
+                    node('tls', 'decision', text('httpsCertificateTrusted')),
+                    node('credentials', 'process', text('mobileAccessTokens')),
+                    node('api', 'process', text('mobileApiRequest')),
+                    node('authorization', 'decision', text('mobileRequestAuthorized')),
+                    node('state', 'success', text('readStateOrRunAction')),
+                    node('refresh', 'process', text('updateMobileScreen')),
+                    node('retry', 'wait', text('mobileRetryAndMessage')),
+                    node('reject', 'error', text('mobileConnectionRejected'))
+                ],
+                edges: [
+                    edge('installation', 'network'), edge('network', 'retry', text('no')),
+                    edge('network', 'tls', text('yes')), edge('tls', 'retry', text('no')),
+                    edge('tls', 'credentials', text('yes')), edge('credentials', 'api'),
+                    edge('api', 'authorization'), edge('authorization', 'reject', text('no')),
+                    edge('authorization', 'state', text('yes')), edge('state', 'refresh'),
+                    edge('retry', 'network', text('retry'))
+                ],
+                links: {installation: '/mobile_devices', api: '/api/v1', authorization: '/mobile_devices', state: '/', reject: '/log'}
+            },
+            mobilePush: {
+                description: text('mobilePushDescription'),
+                help: '/help#2',
+                nodes: [
+                    node('event', 'process', text('ospyPushEvent')),
+                    node('subscription', 'decision', text('matchingPushSubscription')),
+                    node('queue', 'wait', text('boundedPushQueue')),
+                    node('sign', 'process', text('signRelayRequest')),
+                    node('relay', 'process', text('httpsPushRelay')),
+                    node('validate', 'decision', text('relayValidatesRequest')),
+                    node('fcm', 'process', text('firebaseCloudMessaging')),
+                    node('android', 'process', text('androidBackgroundDelivery')),
+                    node('notification', 'success', text('systemNotificationImmediately')),
+                    node('open', 'optional', text('openSavedInstallation')),
+                    node('drop', 'error', text('recordPushFailure'))
+                ],
+                edges: [
+                    edge('event', 'subscription'), edge('subscription', 'drop', text('no')),
+                    edge('subscription', 'queue', text('yes')), edge('queue', 'sign'),
+                    edge('sign', 'relay'), edge('relay', 'validate'),
+                    edge('validate', 'drop', text('no')), edge('validate', 'fcm', text('yes')),
+                    edge('fcm', 'android'), edge('android', 'notification'), edge('notification', 'open')
+                ],
+                links: {event: '/log', subscription: '/mobile_devices', relay: '/mobile_devices', notification: '/mobile_devices', drop: '/diagnostics'}
             },
             securityTokens: {
                 description: text('securityTokensDescription'),

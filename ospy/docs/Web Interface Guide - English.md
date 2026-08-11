@@ -8,6 +8,10 @@ also available in OSPy Help under **API**.
 
 ## Mobile applications and immediate notifications
 
+Normal application communication and push delivery are separate paths. For normal operation, the Android application connects to the local or remote address saved for an installation, verifies HTTPS, authenticates with installation-scoped Mobile API v1 tokens, reads current state and sends permitted commands directly to OSPy. The application displays connection progress and retries recoverable network failures without replacing the saved installation.
+
+For push delivery, OSPy does not wait for the application to connect. A matching event enters a bounded background queue, OSPy signs an installation-scoped HTTPS request to the relay, the relay validates it and asks Firebase Cloud Messaging to wake Android and display the system notification. Tapping the notification opens the related saved installation. Relay or FCM failure is recorded without blocking irrigation.
+
 In **Options → Mobile applications**, between **Users** and **Security**, an administrator configures the HTTPS push relay and enables immediate notifications. Push remains disabled by default, while the editable relay field is prefilled with the official OSPy relay URL. The page uses the same paired-device list as the mobile API and shows each phone's user, role, application version, pairing and last-active times, push status, and last successful or failed delivery. Categories can be selected for station start, station stop, rain, diagnostics, updates and other events. The administrator can send a test, unregister push, or revoke the complete device including its login tokens. An active device must be revoked before its record can be permanently deleted; revoked records can be deleted individually or all together. Signing in again from the same saved Android installation reuses its identity and replaces its tokens instead of adding another row.
 
 OSPy stores neither Firebase keys nor the phone's FCM token. The mobile application registers the FCM token directly with the relay; OSPy receives only an opaque subscription identifier and an installation-scoped signing secret. Signed events are sent through a separate bounded worker, so an unavailable Internet connection or relay cannot delay the scheduler or valves. Push is disabled by default and requires HTTPS. Periodic synchronization while the app is open remains the fallback. See the exact contract in [Mobile API v1](../../api/docs/Mobile_API_v1.md#immediate-push-notifications).
@@ -849,7 +853,9 @@ Enter the new password in the field marked "New password".
 In the field marked "Confirm password", enter the same new password as in the field "New password".
 
 ### Aditional users
-After clicking the button, a page will open where we can create and possibly edit new users to access the system.
+The responsive user administration lists the built-in administrator and all additional accounts with their roles, notes, and 2FA status. Administrators can create, edit, delete, or reset 2FA for an additional account. Changing an existing user does not require changing its password; entering a new password replaces it, while an empty field keeps it unchanged.
+
+The built-in administrator continues to use the original OSPy 2FA settings. Every additional account can independently configure TOTP or e-mail verification through **Account security** in the page header. Existing accounts from older OSPy versions remain valid and start with 2FA disabled. Pairing, backup codes, and remembered-login revocation are isolated to the selected account settings; an administrator can reset another user’s lost 2FA but cannot display its secret or backup codes.
 
 ## Security Section
 

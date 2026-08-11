@@ -1,88 +1,106 @@
 $def with (user, errorCode)
 
-$var title: $_('Modify User')
+$var title: ${_('Add user') if user.index < 0 else _('Edit user')}
 $var page: user
 
-<script>
-    var errorCode = "${errorCode}";
-    jQuery(document).ready(function(){
-        jQuery("#cSubmit").click(function() {
-            jQuery("#userForm").submit();
-        });
-    jQuery("button#cCancel").click(function(){
-        window.location="/users";
-        });
-
-    switch (errorCode) {
-        case "uname":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Username not entered! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;
-        case "unamelen":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Username has not minimal lenght! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;     
-        case "upasslen":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Password has not minimal lenght! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;            
-        case "upass":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Password not entered! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break; 
-        case "upassuname":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Password and name cannot be the same! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;  
-        case "unameis":
-            jQuery("#errorHint").text($:{json.dumps(_('Error: Username already exists, use another name! Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')}).css('color', 'red');
-        break;                      
+$code:
+    errors = {
+        'uname': _('Enter a user name.'),
+        'unamelen': _('The user name must contain at least 5 characters.'),
+        'upasslen': _('The password must contain at least 8 characters.'),
+        'upass': _('Enter a password for the new user.'),
+        'upassuname': _('The password and user name cannot be the same.'),
+        'unameis': _('This user name already exists. Choose another name.'),
+        'ucategory': _('Choose a valid user role.'),
     }
-    });
-</script>
+    method_labels = {
+        'none': _('Disabled'),
+        'totp': _('Authenticator application (TOTP)'),
+        'email': _('Code sent by e-mail'),
+    }
+    current_method = user.two_factor_method
 
-<div id="users">
-        <div class="title">${_('Add a New User') if user.index < 0 else _('Edit User') + (' #') + str(user.index+1)}</div>
-        <div style="display: inline-block; box-sizing: border-box; vertical-align: top; min-width: 50%">
-            <p>$_('Public')$_('= only a viewer with restricted settings.')</p> 
-            <p>$_('User')$_('= instructed user with limited settings.')</p>
-            <p>$_('Administrator')$_('= system administrator without restrictions.')</p>
-            <p>$_('Sensor')$_('= only for data input from sensors with restricted settings.')</p><br>
-            <form name="userForm" id="userForm" action="?${csrf_query()}" method="post">
-            $:csrf_input()
-                <input type="hidden" name="index" value="${user.index}">
-                <table class="optionList" style="background: #F5F5F5;">
-                    <tr>
-                        <td style='text-transform: none;'>$_(u'New User Name'):</td>
-                        <td title=$:{json.dumps(_(u'Type new User Name for new user'), ensure_ascii=False).encode('utf8').decode('utf-8')}>  
-                            <input name="name" type="text" minlength="5" value="${user.name}" style="width: 140px">    
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td style='text-transform: none;'>$_(u'New User Password'):</td>
-                        <td title=$:{json.dumps(_(u'Type new User Password for new user'), ensure_ascii=False).encode('utf8').decode('utf-8')}>  
-                            <input name="password" type="password" minlength="5" required value="" style="width: 140px">  
-                        </td>
-                    </tr>  
-                    <tr>
-                        <td style='text-transform: none;'>$_(u'User Category'):</td>
-                        <td title=$:{json.dumps(_(u'Select permissions for the new user'), ensure_ascii=False).encode('utf8').decode('utf-8')}>  
-                            <select name="category" width="140" style="width: 140px" size="1">
-                                <option value="0" ${"selected" if user.category=='0' else ""}>$_(u'Public')</option>
-                                <option value="1" ${"selected" if user.category=='1' else ""}>$_(u'User')</option>
-                                <option value="2" ${"selected" if user.category=='2' else ""}>$_(u'Administrator')</option>
-                                <option value="3" ${"selected" if user.category=='3' else ""}>$_(u'Sensor')</option>
-                            </select> 
-                        </td>
-                    </tr>  
-                    <tr>
-                        <td style='text-transform: none;'>$_(u'Notes about user'):</td>
-                        <td title=$:{json.dumps(_(u'Here we can make our notes'), ensure_ascii=False).encode('utf8').decode('utf-8')}>  
-                            <textarea style="font-family: monospace;" rows="1" cols="20" name="notes" maxlength="150">${user.notes}</textarea>
-                        </td>
-                    </tr>                                                                                  
-                </table>         
+<div id="users" class="userEditorPage">
+    <div class="usersPageHeader">
+        <div>
+            <div class="title">${_('Add user') if user.index < 0 else _('Edit user')}</div>
+            <p class="usersIntro">${_('Create an additional OSPy account and choose its permissions.') if user.index < 0 else _('Update this account without changing settings that were not submitted.')}</p>
+        </div>
+    </div>
+
+    $if errorCode in errors:
+        <div class="userFormMessage userFormError" role="alert"><b>${errors[errorCode]}</b></div>
+    $if errorCode == 'two_factor_reset':
+        <div class="userFormMessage userFormSuccess" role="status"><b>$_('Two-factor authentication was reset for this user.')</b></div>
+
+    <form id="userForm" class="userEditorForm" method="post" action="?${csrf_query()}">
+        $:csrf_input()
+        <input type="hidden" name="action" value="save">
+
+        <section class="userFormCard">
+            <h3>$_('Account details')</h3>
+            <div class="userFieldGrid">
+                <label class="userField">
+                    <span>$_('User name')</span>
+                    <input name="name" type="text" minlength="5" maxlength="80" value="${user.name}" autocomplete="username" required>
+                    <small>$_('Use at least 5 characters. User names must be unique.')</small>
+                </label>
+                <label class="userField">
+                    <span>${_('Password') if user.index < 0 else _('New password')}</span>
+                    <input name="password" type="password" minlength="8" autocomplete="new-password" ${'required' if user.index < 0 else ''}>
+                    <small>${_('Use at least 8 characters.') if user.index < 0 else _('Leave blank to keep the current password.')}</small>
+                </label>
+                <label class="userField userFieldWide">
+                    <span>$_('Notes')</span>
+                    <textarea rows="3" name="notes" maxlength="150">${user.notes}</textarea>
+                    <small>$_('Optional note visible only in user administration.')</small>
+                </label>
+            </div>
+        </section>
+
+        <fieldset class="userFormCard userRoleSelector">
+            <legend>$_('Role and permissions')</legend>
+            <label class="userRoleCard">
+                <input type="radio" name="category" value="0" ${'checked' if user.category in ('0', 0) else ''}>
+                <span><strong>$_('Public')</strong><small>$_('Viewer with restricted access and no configuration permissions.')</small></span>
+            </label>
+            <label class="userRoleCard">
+                <input type="radio" name="category" value="1" ${'checked' if user.category == '1' else ''}>
+                <span><strong>$_('User')</strong><small>$_('Operator with access to normal irrigation controls and selected pages.')</small></span>
+            </label>
+            <label class="userRoleCard">
+                <input type="radio" name="category" value="2" ${'checked' if user.category == '2' else ''}>
+                <span><strong>$_('Administrator')</strong><small>$_('Full configuration access. Use this role only for trusted people.')</small></span>
+            </label>
+            <label class="userRoleCard">
+                <input type="radio" name="category" value="3" ${'checked' if user.category == '3' else ''}>
+                <span><strong>$_('Sensor')</strong><small>$_('Restricted account intended for legacy sensor data input.')</small></span>
+            </label>
+        </fieldset>
+
+        $if user.index >= 0:
+            <section class="userFormCard userSecurityCard">
+                <h3>$_('Two-factor security')</h3>
+                <p><span class="userSecurityStatus ${'active' if current_method != 'none' else 'inactive'}">${method_labels.get(current_method, _('Disabled'))}</span></p>
+                <p>$_('Two-factor settings belong to this account. The user pairs an authenticator or e-mail verification after signing in.')</p>
+                $if session.get('visitor') == user.name:
+                    <a class="button backup" href="/twofactor">$_('Configure my 2FA')</a>
+            </section>
+
+        <div class="userFormActions">
+            <button type="submit" class="button submit">$_('Save user')</button>
+            <a href="/users" class="button cancel">$_('Cancel')</a>
+        </div>
+    </form>
+
+    $if user.index >= 0 and current_method != 'none':
+        <section class="userDangerZone">
+            <h3>$_('Security reset')</h3>
+            <p>$_('Reset this user’s two-factor pairing and backup codes. The user can pair 2FA again after signing in.')</p>
+            <form method="post" action="?${csrf_query()}" onsubmit="return confirm($:{json.dumps(_('Reset two-factor authentication for this user?'), ensure_ascii=False)});">
+                $:csrf_input()
+                <input type="hidden" name="action" value="reset_two_factor">
+                <button type="submit" class="button danger">$_('Reset user 2FA')</button>
             </form>
-        </div>     
-</div>
-
-<div id="controls">
-    <button id="cSubmit" class="submit"><b>$_('Save')</b></button>
-    <button id="cCancel" class="cancel danger">$_('Cancel')</button>
-    <span id="errorHint"></span>
+        </section>
 </div>
