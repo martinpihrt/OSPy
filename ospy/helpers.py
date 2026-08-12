@@ -926,7 +926,7 @@ def _upgrade_user_password_hash(user, password):
 
 def test_password(password, username):
     from ospy.options import options
-    from ospy.users import users
+    from ospy.users import users, category_key
     from ospy import server
 
     if not _bruteforce_wait(username):
@@ -951,22 +951,23 @@ def test_password(password, username):
                     _upgrade_user_password_hash(user, password)
                 options.password_time = 0 
                 _bruteforce_success(username)
-                if user.category == '0':   # public
+                user_category = category_key(user.category)
+                if user_category == '0':   # public
                     server.session['category'] = 'public'
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
                     return True
-                elif user.category == '1': # user
+                elif user_category == '1': # user
                     server.session['category'] = 'user'
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))                    
                     return True
-                elif user.category == '2': # admin
+                elif user_category == '2': # admin
                     server.session['category'] = 'admin'  
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))                    
                     return True
-                elif user.category == '3': # sensor
+                elif user_category == '3': # sensor
                     server.session['category'] = 'sensor'  
                     server.session['visitor']  =  user.name
                     print_report('helpers.py', _('Logged in {}, as operator {}').format(server.session['visitor'], server.session['category']))
@@ -1081,7 +1082,7 @@ def template_globals():
     from ospy.webpages import pluginScripts
     from ospy.webpages import sensorSearch
     from ospy import i18n
-    from ospy.users import users
+    from ospy.users import users, category_key
     from ospy.sensors import sensors, sensors_timer
     from ospy.weather import weather
 

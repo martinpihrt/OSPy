@@ -8,6 +8,12 @@ import logging
 import traceback
 
 
+def category_key(value):
+    """Return the stable persisted key for a legacy or current user role."""
+    value = str(value)
+    return value if value in ('0', '1', '2', '3') else ''
+
+
 class _User(object):
     SAVE_EXCLUDE = ['SAVE_EXCLUDE', 'index', '_users']
 

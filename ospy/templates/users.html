@@ -10,6 +10,8 @@ $code:
         '2': _('Administrator'),
         '3': _('Sensor'),
     }
+    def listed_role(user):
+        return category_key(user.category)
     method_labels = {
         'none': _('Disabled'),
         'totp': _('Authenticator application (TOTP)'),
@@ -59,9 +61,10 @@ $code:
                     </td>
                 </tr>
                 $for user in users.get():
+                    $ role = listed_role(user)
                     <tr>
                         <td data-label="$_('Account')"><strong>${user.name}</strong></td>
-                        <td data-label="$_('Role')"><span class="userBadge userBadgeRole${user.category}">${role_labels.get(user.category, _('Unknown'))}</span></td>
+                        <td data-label="$_('Role')"><span class="userBadge userBadgeRole${role}">${role_labels.get(role, _('Unknown'))}</span></td>
                         <td data-label="$_('Two-factor security')">
                             <span class="userSecurityStatus ${'active' if user.two_factor_method != 'none' else 'inactive'}">${method_labels.get(user.two_factor_method, _('Disabled'))}</span>
                         </td>

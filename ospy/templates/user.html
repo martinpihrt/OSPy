@@ -61,19 +61,19 @@ $code:
         <fieldset class="userFormCard userRoleSelector">
             <legend>$_('Role and permissions')</legend>
             <label class="userRoleCard">
-                <input type="radio" name="category" value="0" ${'checked' if user.category in ('0', 0) else ''}>
+                <input type="radio" name="category" value="0" ${'checked' if category_key(user.category) == '0' else ''}>
                 <span><strong>$_('Public')</strong><small>$_('Viewer with restricted access and no configuration permissions.')</small></span>
             </label>
             <label class="userRoleCard">
-                <input type="radio" name="category" value="1" ${'checked' if user.category == '1' else ''}>
+                <input type="radio" name="category" value="1" ${'checked' if category_key(user.category) == '1' else ''}>
                 <span><strong>$_('User')</strong><small>$_('Operator with access to normal irrigation controls and selected pages.')</small></span>
             </label>
             <label class="userRoleCard">
-                <input type="radio" name="category" value="2" ${'checked' if user.category == '2' else ''}>
+                <input type="radio" name="category" value="2" ${'checked' if category_key(user.category) == '2' else ''}>
                 <span><strong>$_('Administrator')</strong><small>$_('Full configuration access. Use this role only for trusted people.')</small></span>
             </label>
             <label class="userRoleCard">
-                <input type="radio" name="category" value="3" ${'checked' if user.category == '3' else ''}>
+                <input type="radio" name="category" value="3" ${'checked' if category_key(user.category) == '3' else ''}>
                 <span><strong>$_('Sensor')</strong><small>$_('Restricted account intended for legacy sensor data input.')</small></span>
             </label>
         </fieldset>

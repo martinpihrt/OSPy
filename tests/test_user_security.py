@@ -7,7 +7,7 @@ from ospy import i18n  # noqa: F401 - installs gettext
 from ospy import server
 from ospy import twofactor
 from ospy import webpages
-from ospy.users import _User
+from ospy.users import _User, category_key
 from api.v1 import security as api_security
 from api.v1.responses import APIError
 
@@ -58,6 +58,12 @@ class UserSecurityTests(unittest.TestCase):
         self.assertEqual(user.two_factor_method, twofactor.METHOD_NONE)
         self.assertEqual(user.two_factor_secret, '')
         self.assertEqual(user.two_factor_backup_codes, [])
+
+    def test_legacy_numeric_and_current_string_roles_share_stable_keys(self):
+        for role in range(4):
+            self.assertEqual(category_key(role), str(role))
+            self.assertEqual(category_key(str(role)), str(role))
+        self.assertEqual(category_key('invalid'), '')
 
     def test_additional_user_has_independent_two_factor_settings(self):
         account = SimpleNamespace(

@@ -169,6 +169,26 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b'route-operator', response.data)
         self.assertIn(b'class="panel twoFactorPanel"', response.data)
 
+    def test_users_page_labels_legacy_numeric_public_role(self):
+        account = webpages.users.create_users()
+        account.name = 'legacy-public'
+        account.category = 0
+        account.two_factor_method = 'none'
+        webpages.users.add_users(account)
+        try:
+            response = self.app.request('/users')
+        finally:
+            index = next(
+                item.index for item in webpages.users.get()
+                if item.name == 'legacy-public'
+            )
+            webpages.users.remove_users(index)
+
+        self.assertEqual(response.status, '200 OK')
+        self.assertIn(b'legacy-public', response.data)
+        self.assertIn(b'userBadgeRole0', response.data)
+        self.assertNotIn(b'Unknown', response.data)
+
     def test_help_pdf_renders_only_the_selected_article(self):
         with mock.patch.object(
                 webpages, 'get_help_file',

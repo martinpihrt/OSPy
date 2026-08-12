@@ -161,7 +161,7 @@ def _split_cookie(value):
 
 def _current_user_category(username):
     from ospy.options import options
-    from ospy.users import users
+    from ospy.users import users, category_key
 
     if username == options.admin_user:
         return 'admin'
@@ -174,7 +174,7 @@ def _current_user_category(username):
     }
     for user in users.get():
         if user.name == username:
-            return categories.get(user.category)
+            return categories.get(category_key(user.category))
     return None
 
 
