@@ -179,6 +179,50 @@ class MobileAPIV1Tests(unittest.TestCase):
         finally:
             api.options.manual_mode = manual_before
 
+    def test_station_start_accepts_a_bounded_manual_duration(self):
+        import datetime
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read", "control"), role="user")
+        manual_before = api.options.manual_mode
+        try:
+            api.options.manual_mode = True
+            with mock.patch(
+                    "api.v1.api.stations.activate", return_value=[0]), \
+                    mock.patch("api.v1.api.log.start_run") as start_run:
+                response = self._request(
+                    "/stations/station-0/actions/start", token,
+                    method="POST", data={"duration_seconds": 125},
+                )
+            self.assertEqual(response.status, "200 OK")
+            interval = start_run.call_args.args[0]
+            self.assertEqual(
+                interval["end"] - interval["start"],
+                datetime.timedelta(seconds=125),
+            )
+        finally:
+            api.options.manual_mode = manual_before
+
+    def test_station_start_rejects_invalid_manual_duration(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read", "control"), role="user")
+        manual_before = api.options.manual_mode
+        try:
+            api.options.manual_mode = True
+            for value in (0, 60000, True, "60"):
+                response = self._request(
+                    "/stations/station-0/actions/start", token,
+                    method="POST", data={"duration_seconds": value},
+                )
+                self.assertEqual(response.status, "422 Unprocessable Entity")
+                self.assertEqual(
+                    self._json(response)["error"]["code"],
+                    "invalid_station_duration",
+                )
+        finally:
+            api.options.manual_mode = manual_before
+
     def test_station_stop_finishes_its_manual_run(self):
         token, unused_refresh = self._token(("read", "control"), role="user")
         other = {"station": 1}

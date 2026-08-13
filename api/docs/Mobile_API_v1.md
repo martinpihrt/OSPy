@@ -224,7 +224,7 @@ The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to `0..
 
 Station JSON includes `id`, `legacy_index`, visible number, name, enabled and running state, remaining seconds, master roles, rain behaviour, usage, precipitation, capacity and ETo factor. Live state, number and identifiers are read-only. Direct start is rejected for disabled or master outputs.
 
-A station can be started directly only while manual mode is enabled. The API creates the same manual run record as the OSPy web interface, so station history and configured master outputs follow the run. It continues until a matching `stop` or `stop-all` request.
+A station can be started directly only while manual mode is enabled. The API creates the same manual run record as the OSPy web interface, so station history and configured master outputs follow the run. An empty start request continues until a matching `stop` or `stop-all` request. A start request can instead include `duration_seconds` from `1` to `59999`; the station then stops automatically after that duration.
 
 Stop All follows the web safety sequence: disable scheduler processing, clear run-now and run-once state, finish the run log, clear physical outputs and switch off the additional relay output. The action is audited.
 
@@ -644,7 +644,7 @@ Response shape:
 - a positive countdown for a scheduled/program run;
 - `-1` when the output is running without a known end, for example after a direct manual API start.
 
-Start or stop a station with an empty JSON body:
+Start or stop a station without a time limit using an empty JSON body:
 
 ```http
 POST /api/v1/stations/station-0/actions/start
@@ -654,7 +654,17 @@ Content-Type: application/json
 {}
 ```
 
-The response is the updated station object. Start may return HTTP `409` with `manual_mode_required` when manual mode is disabled or `station_unavailable` for a disabled or master output. Stop All accepts `{}` at `POST /stations/actions/stop-all` and returns `{"data":{"stopped":true},"meta":{...}}`.
+For a bounded manual run, send the duration in seconds:
+
+```http
+POST /api/v1/stations/station-0/actions/start
+Authorization: Bearer ACCESS_TOKEN
+Content-Type: application/json
+
+{"duration_seconds":125}
+```
+
+The response is the updated station object and subsequent station responses expose the positive countdown through `remaining_seconds`. Start may return HTTP `409` with `manual_mode_required` when manual mode is disabled or `station_unavailable` for a disabled or master output. An invalid duration returns HTTP `422` with code `invalid_station_duration`. Stop All accepts `{}` at `POST /stations/actions/stop-all` and returns `{"data":{"stopped":true},"meta":{...}}`.
 
 ### Program and run-once responses
 

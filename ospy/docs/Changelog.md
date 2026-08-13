@@ -9,6 +9,8 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 (Martin Pihrt)<br/>
 Extended Mobile API v1 and the Android client with the same user water-level adjustment and one-time program-group postponement controls as the OSPy web interface. Program responses and atomic create/update requests now preserve validated `group_id`, `/program-groups` exposes membership, next runs and active postponements, and dedicated control endpoints create or cancel postponements using the scheduler's existing safety rules. Fixed serialization of real scheduled group runs so `/program-groups` no longer returns an internal server error when a group has a forthcoming run. Fixed concurrent mobile authentication so normal refresh-token rotation no longer revokes short-lived access tokens already used by foreground, notification and push-registration requests, while logout, renewed pairing and device revocation still invalidate access immediately. Updated OpenAPI, the complete Mobile API reference, root/API documentation, Android README and all five Android translations, increased the Android application to 0.3.21 (28), and added server and client regression coverage.
 
+Added an optional bounded duration to direct Mobile API station starts. Android can now start a station indefinitely with a short tap or open a localized minutes-and-seconds dialog with a long press; timed runs stop through the normal scheduler path and expose a live remaining-time countdown. Updated OpenAPI and the Mobile API reference and added duration validation regression tests.
+
 ## August 11 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>

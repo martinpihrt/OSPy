@@ -41,6 +41,25 @@ def document(server_url="/api/v1"):
         "GET": "read", "PUT": "configuration",
     })
     add("/stations/{station_id}/actions/{action}", ["POST"], "Start or stop a station", "control")
+    paths["/stations/{station_id}/actions/{action}"]["post"]["requestBody"] = {
+        "required": False,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "duration_seconds": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 59999,
+                            "description": "Optional bounded duration for a start action. Omit it to run until stopped.",
+                        }
+                    },
+                    "additionalProperties": False,
+                }
+            }
+        },
+    }
     add("/stations/actions/stop-all", ["POST"], "Stop every station and active schedule", "control")
     add("/programs", ["GET", "POST"], "List or create programs", {
         "GET": "read", "POST": "configuration",

@@ -1256,6 +1256,16 @@ class StationAction(object):
         index = _parse_id(station_id, "station", stations.count())
         station = stations[index]
         if action == "start":
+            payload = json_body(required=False)
+            duration_seconds = payload.get("duration_seconds")
+            if duration_seconds is not None:
+                if (isinstance(duration_seconds, bool) or
+                        not isinstance(duration_seconds, int) or
+                        duration_seconds < 1 or duration_seconds > 59999):
+                    raise APIError(
+                        422, "invalid_station_duration",
+                        "duration_seconds must be an integer from 1 to 59999.",
+                    )
             if not options.manual_mode:
                 raise APIError(
                     409, "manual_mode_required",
@@ -1265,6 +1275,9 @@ class StationAction(object):
                     station.is_master_two or station.is_master_by_program):
                 raise APIError(409, "station_unavailable", "This station cannot be started directly.")
             start = datetime.datetime.now()
+            end = (start + datetime.timedelta(seconds=duration_seconds)
+                   if duration_seconds is not None else
+                   start + datetime.timedelta(days=3650))
             interval = {
                 "active": True,
                 "program": -1,
@@ -1276,7 +1289,7 @@ class StationAction(object):
                 "blocked": False,
                 "start": start,
                 "original_start": start,
-                "end": start + datetime.timedelta(days=3650),
+                "end": end,
                 "uid": "{}-Manual-{}".format(start, index),
                 "usage": station.usage,
             }
