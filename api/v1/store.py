@@ -262,8 +262,8 @@ class MobileStore(object):
             connection.execute(
                 """
                 UPDATE refresh_tokens
-                SET revoked=?
-                WHERE device_id=? AND revoked IS NULL
+                SET revoked=?, replaced_by=NULL
+                WHERE device_id=?
                 """,
                 (now, device_id),
             )
@@ -359,7 +359,7 @@ class MobileStore(object):
         with self._lock, self._connect() as connection:
             row = connection.execute(
                 """
-                SELECT r.id, r.scopes, r.expires, r.revoked,
+                SELECT r.id, r.scopes, r.expires, r.revoked, r.replaced_by,
                        d.id AS device_id, d.username, d.role, d.revoked AS device_revoked
                 FROM refresh_tokens r
                 JOIN devices d ON d.id=r.device_id
@@ -368,7 +368,8 @@ class MobileStore(object):
                 (token_id, device_id),
             ).fetchone()
             if (
-                row is None or row["revoked"] is not None or
+                row is None or
+                (row["revoked"] is not None and row["replaced_by"] is None) or
                 row["device_revoked"] is not None or row["expires"] <= now
             ):
                 return None
@@ -385,10 +386,14 @@ class MobileStore(object):
 
     def revoke_refresh_token(self, token_id):
         with self._lock, self._connect() as connection:
-            connection.execute(
-                "UPDATE refresh_tokens SET revoked=? WHERE id=? AND revoked IS NULL",
-                (time.time(), token_id),
-            )
+            row = connection.execute(
+                "SELECT device_id FROM refresh_tokens WHERE id=?", (token_id,)
+            ).fetchone()
+            if row is not None:
+                connection.execute(
+                    "UPDATE refresh_tokens SET revoked=?, replaced_by=NULL WHERE device_id=?",
+                    (time.time(), row["device_id"]),
+                )
 
     def revoke_device(self, device_id):
         now = time.time()

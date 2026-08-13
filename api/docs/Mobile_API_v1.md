@@ -19,7 +19,7 @@ Public endpoints are `GET /`, `/server`, `/capabilities` and `/openapi.json`. `/
 2. Send the administrator or user name, password and a device description to `POST /api/v1/auth/login`.
 3. When administrator two-factor authentication is enabled, include a TOTP or backup code. E-mail 2FA returns a challenge identifier and sends a code; send both in the repeated login request.
 4. Store the returned refresh token only in protected operating-system storage, such as Android Keystore. Access tokens are short-lived and belong in memory.
-5. Rotate the refresh token with `POST /api/v1/auth/refresh`. A just-replaced token has one recovery retry within five minutes so a process terminated before durable storage can recover; later or repeated reuse is rejected. `POST /auth/logout` or deleting a paired device revokes access immediately.
+5. Rotate the refresh token with `POST /api/v1/auth/refresh`. A just-replaced token has one recovery retry within five minutes so a process terminated before durable storage can recover; later or repeated reuse is rejected. Access tokens already issued for that device session remain valid only until their normal short expiry, so concurrent foreground, notification and push-registration requests do not invalidate one another during rotation. `POST /auth/logout`, pairing the same device again or deleting a paired device revokes access immediately.
 
 Pairing is deliberately unavailable while OSPy has no administrator password. Tokens contain scopes. Read-only clients cannot operate stations; system, backup, update and plug-in administration require their separate administrator scopes.
 
@@ -121,7 +121,7 @@ The OSPy administration page deliberately separates revocation from permanent de
 
 The user role may receive `read` and `control`; the administrator may receive every scope. Sensor accounts cannot pair a mobile device.
 
-When a device pairs again with its existing device ID, its former refresh-token session is revoked. Refresh uses one-time rotation and the client must persist the returned replacement before continuing. To survive operating-system or application-update termination between the response and durable storage, a just-replaced refresh token has one recovery retry for five minutes; consuming it produces a new replacement, and any further replay is rejected. The old access token no longer authorizes requests, and explicit logout or device revocation never receives this recovery allowance.
+When a device pairs again with its existing device ID, its former refresh-token session is revoked. Refresh uses one-time rotation and the client must persist the returned replacement before continuing. To survive operating-system or application-update termination between the response and durable storage, a just-replaced refresh token has one recovery retry for five minutes; consuming it produces a new replacement, and any further replay is rejected. Normal rotation does not revoke access tokens that are already in flight; they remain usable only until their original short expiry. Explicit logout, renewed pairing and device revocation invalidate the affected access session and never receive the recovery allowance.
 
 ## Response format
 
@@ -153,7 +153,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Push notifications | `GET/POST/PUT/DELETE /push`, `POST /push/test` |
 | Home | `GET /overview`, `GET/PUT /irrigation` |
 | Stations | `GET/PUT /stations`, `GET/PUT /stations/{id}`, `POST /stations/{id}/actions/start|stop`, `POST /stations/actions/stop-all` |
-| Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET /schedule` |
+| Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET /program-groups`, `POST /program-groups/{id}/postponements`, `DELETE /program-groups/{id}/postponements/{postponement_id}`, `GET /schedule` |
 | Run-once | `GET/PUT /run-once`, `POST /run-once/actions/start` |
 | Sensors | `GET /sensors`, `GET/PUT /sensors/{id}`, `GET /sensors/{id}/history` |
 | Weather | `GET /weather/current`, `/weather/forecast`, `/weather/status` |
@@ -195,7 +195,7 @@ Clients should refresh this lightweight resource periodically while Home is visi
 
 ### Global irrigation controls
 
-`GET /irrigation` returns `scheduler_enabled`, `manual_mode`, `rain_block`, `rain_block_seconds`, `rain_delay` and the current `active_stations`.
+`GET /irrigation` returns `scheduler_enabled`, `manual_mode`, `rain_block`, `rain_block_seconds`, `rain_delay`, the effective fractional `level_adjustment`, the separately configured fractional `user_level_adjustment`, the convenient `level_adjustment_percent` and the current `active_stations`.
 
 `PUT /irrigation` requires the `control` scope and accepts one or more fields:
 
@@ -207,7 +207,11 @@ Clients should refresh this lightweight resource periodically while Home is visi
 {"manual_mode":false,"rain_delay_hours":24}
 ```
 
-The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to `0..8760`; zero clears all active rain-delay blocks, matching the web Home control. A positive delay immediately applies the normal OSPy rain safety rules. The response is the updated irrigation object. Unknown fields return HTTP `422`. A client can therefore offer any duration in that range and use `rain_block_seconds` from `GET /irrigation` or `GET /overview` for a live countdown until the delay expires.
+```json
+{"level_adjustment_percent":85}
+```
+
+The two mode fields must be JSON booleans. `rain_delay_hours` is clamped to `0..8760`; zero clears all active rain-delay blocks, matching the web Home control. A positive delay immediately applies the normal OSPy rain safety rules. `level_adjustment_percent` accepts `0..1000` and changes only the user adjustment; the returned effective value also includes weather and plug-in adjustments. The response is the updated irrigation object. Unknown fields return HTTP `422`. A client can therefore offer any rain duration in that range and use `rain_block_seconds` from `GET /irrigation` or `GET /overview` for a live countdown until the delay expires.
 
 ### Stations and master
 
@@ -234,7 +238,7 @@ Bulk configuration uses `{"stations":[{"id":"station-0",...}]}`. Unknown or live
 
 ### Programs
 
-`GET /programs` and `/programs/{id}` return the OSPy type, `type_data`, stations, calculated schedule and summary. Every item also contains `station_details` with stable station IDs and names and an `editor` object describing fields suitable for a native editor. `POST /programs` creates a program; `PUT /programs/{id}` updates it and `DELETE` removes it. Creation requires `name`, `stations`, `type` and `type_data`. To preserve every scheduling variant, read a program of the intended type and send the same shape after editing. `/programs/{id}/actions/run|stop` requires `control`.
+`GET /programs` and `/programs/{id}` return the OSPy type, `type_data`, stations, calculated schedule, summary, `group_id` and localized `group_name`. Every item also contains `station_details` with stable station IDs and names and an `editor` object describing fields suitable for a native editor. `POST /programs` creates a program; `PUT /programs/{id}` updates it and `DELETE` removes it. Creation requires `name`, `stations`, `type` and `type_data`; omitted `group_id` selects `default`, while an unknown group is rejected atomically. To preserve every scheduling variant, read a program of the intended type and send the same shape after editing. `/programs/{id}/actions/run|stop` requires `control`.
 
 Program creation example:
 
@@ -243,10 +247,27 @@ Program creation example:
   "name": "Morning lawn",
   "enabled": true,
   "stations": [0, 1],
+  "group_id": "default",
   "type": 0,
   "type_data": [360, 30, 0, 0, [0, 1, 2, 3, 4]]
 }
 ```
+
+### Program groups and postponement
+
+`GET /program-groups` returns every configured group with its ID, name, member program IDs, enabled count, next scheduled occurrence per program and an optional active `postponement`. The response is suitable both for grouping program cards and for showing the source and target window before cancellation.
+
+To move the next occurrence of every enabled program in a group to a shared later anchor, send an ISO 8601 local date and time. OSPy applies the same validation as the web Programs page: the target must be later than the original group run, in the future and no more than 30 days away, and only one active postponement may exist for a group.
+
+```http
+POST /api/v1/program-groups/default/postponements
+Authorization: Bearer ACCESS_TOKEN
+Content-Type: application/json
+
+{"target_start":"2026-08-14T08:30:00"}
+```
+
+Cancel with `DELETE /program-groups/{group_id}/postponements/{postponement_id}`. Cancellation before the source time restores the normal occurrence; cancellation after the source time keeps the original occurrence suppressed, matching the scheduler's safe web behavior. Both actions require `control`.
 
 Program types and `type_data` are deliberately the same scheduling model as OSPy. A client must preserve the returned type and use its corresponding shape:
 

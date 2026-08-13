@@ -64,6 +64,11 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("post", document["paths"]["/push"])
         self.assertIn("post", document["paths"]["/push/test"])
         self.assertIn("put", document["paths"]["/irrigation"])
+        self.assertIn("/program-groups", document["paths"])
+        self.assertIn(
+            "post",
+            document["paths"]["/program-groups/{group_id}/postponements"],
+        )
         self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
         self.assertIn("/schedule", document["paths"])
 
@@ -338,6 +343,50 @@ class MobileAPIV1Tests(unittest.TestCase):
         finally:
             api.options.rain_block = rain_block_before
 
+    def test_irrigation_control_sets_user_level_adjustment(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(
+            ("read", "control"), role="user"
+        )
+        level_before = api.options.level_adjustment
+        try:
+            with mock.patch(
+                    "api.v1.api.level_adjustments.total_adjustment",
+                    return_value=0.75), mock.patch(
+                    "api.v1.api.logEV.save_events_log"), mock.patch(
+                    "api.v1.api.event_stream.publish"):
+                response = self._request(
+                    "/irrigation", token, method="PUT",
+                    data={"level_adjustment_percent": 75},
+                )
+            self.assertEqual(response.status, "200 OK")
+            data = self._json(response)["data"]
+            self.assertEqual(data["level_adjustment_percent"], 75.0)
+            self.assertEqual(data["user_level_adjustment"], 0.75)
+            self.assertEqual(data["level_adjustment"], 0.75)
+            self.assertEqual(api.options.level_adjustment, 0.75)
+        finally:
+            api.options.level_adjustment = level_before
+
+    def test_irrigation_control_rejects_invalid_level_atomically(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(
+            ("read", "control"), role="user"
+        )
+        level_before = api.options.level_adjustment
+        response = self._request(
+            "/irrigation", token, method="PUT",
+            data={"level_adjustment_percent": -1},
+        )
+        self.assertEqual(response.status, "422 Unprocessable Entity")
+        self.assertEqual(
+            self._json(response)["error"]["code"],
+            "invalid_level_adjustment",
+        )
+        self.assertEqual(api.options.level_adjustment, level_before)
+
     def test_overview_reports_only_an_active_rain_block(self):
         token, unused_refresh = self._token(("read",), role="user")
         with mock.patch(
@@ -505,21 +554,142 @@ class MobileAPIV1Tests(unittest.TestCase):
         from ospy.programs import programs, ProgramType
 
         program = programs.create_program()
+        groups_before = api.options.program_groups
+        api.options.program_groups = groups_before + [{
+            "id": "greenhouse", "name": "Greenhouse", "collapsed": False,
+        }]
         program.group_id = "greenhouse"
         program.fixed = 1
-        api._update_program(program, {
-            "name": "Mobile program",
-            "enabled": True,
-            "stations": [],
-            "type": ProgramType.DAYS_SIMPLE,
-            "type_data": [360, 10, 0, 0, [0, 2, 4]],
-        }, require_schedule=True)
-        self.assertEqual(program.name, "Mobile program")
-        self.assertEqual(program.type, ProgramType.DAYS_SIMPLE)
-        self.assertEqual(program.type_data, [360, 10, 0, 0, [0, 2, 4]])
-        self.assertTrue(program.schedule)
-        self.assertEqual(program.group_id, "greenhouse")
-        self.assertEqual(program.fixed, 1)
+        try:
+            api._update_program(program, {
+                "name": "Mobile program",
+                "enabled": True,
+                "stations": [],
+                "type": ProgramType.DAYS_SIMPLE,
+                "type_data": [360, 10, 0, 0, [0, 2, 4]],
+            }, require_schedule=True)
+            self.assertEqual(program.name, "Mobile program")
+            self.assertEqual(program.type, ProgramType.DAYS_SIMPLE)
+            self.assertEqual(program.type_data, [360, 10, 0, 0, [0, 2, 4]])
+            self.assertTrue(program.schedule)
+            self.assertEqual(program.group_id, "greenhouse")
+            self.assertEqual(program.fixed, 1)
+        finally:
+            api.options.program_groups = groups_before
+
+    def test_program_update_moves_program_to_existing_group_atomically(self):
+        from api.v1 import api
+        from ospy.programs import programs, ProgramType
+
+        groups_before = api.options.program_groups
+        api.options.program_groups = groups_before + [{
+            "id": "orchard", "name": "Orchard", "collapsed": False,
+        }]
+        program = programs.create_program()
+        program.name = "Morning"
+        program.enabled = True
+        program.set_days_simple(360, 10, 0, 0, [0])
+        try:
+            api._update_program(program, {
+                "group_id": "orchard",
+            }, require_schedule=False)
+            self.assertEqual(program.group_id, "orchard")
+
+            with self.assertRaises(Exception) as context:
+                api._update_program(program, {
+                    "name": "Must not commit",
+                    "group_id": "missing-group",
+                }, require_schedule=False)
+            self.assertEqual(getattr(context.exception, "code", ""), "invalid_program")
+            self.assertEqual(program.name, "Morning")
+            self.assertEqual(program.group_id, "orchard")
+            self.assertEqual(program.type, ProgramType.DAYS_SIMPLE)
+        finally:
+            api.options.program_groups = groups_before
+
+    def test_program_groups_endpoint_exposes_membership_and_next_runs(self):
+        import datetime
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read",), role="user")
+        groups_before = api.options.program_groups
+        api.options.program_groups = [{
+            "id": "default", "name": "Default", "collapsed": False,
+        }]
+        occurrence = {
+            "program": mock.Mock(index=0),
+            "number": 1,
+            "name": "Morning",
+            "start": datetime.datetime(2026, 8, 14, 6, 0),
+            "end": datetime.datetime(2026, 8, 14, 6, 10),
+            "minutes": 10,
+        }
+        try:
+            with mock.patch(
+                    "api.v1.api.programs.programs_in_group",
+                    return_value=[]), mock.patch(
+                    "api.v1.api.helpers.program_group_run_sequence",
+                    return_value=[occurrence]), mock.patch(
+                    "api.v1.api.programs.group_postponement",
+                    return_value=None):
+                response = self._request("/program-groups", token)
+            self.assertEqual(response.status, "200 OK")
+            group = self._json(response)["data"][0]
+            self.assertEqual(group["id"], "default")
+            self.assertEqual(group["next_runs"][0]["program_id"], "program-0")
+            self.assertEqual(group["next_runs"][0]["duration_minutes"], 10)
+        finally:
+            api.options.program_groups = groups_before
+
+    def test_program_group_postponement_endpoints_use_control_scope(self):
+        import datetime
+
+        token, unused_refresh = self._token(
+            ("read", "control"), role="user"
+        )
+        item = {
+            "id": "postponement-1",
+            "group_id": "default",
+            "created": datetime.datetime(2026, 8, 13, 10, 0),
+            "source_start": datetime.datetime(2026, 8, 14, 6, 0),
+            "source_end": datetime.datetime(2026, 8, 14, 6, 10),
+            "target_start": datetime.datetime(2026, 8, 14, 8, 0),
+            "target_end": datetime.datetime(2026, 8, 14, 8, 10),
+            "shift_seconds": 7200,
+            "runs": [{"program": 0, "station": 0}],
+        }
+        with mock.patch(
+                "api.v1.api.programs.create_group_postponement",
+                return_value=item) as create, mock.patch(
+                "api.v1.api.event_stream.publish"), mock.patch(
+                "api.v1.api.logEV.save_events_log"), mock.patch(
+                "api.v1.api.threading.Timer"):
+            response = self._request(
+                "/program-groups/default/postponements", token,
+                method="POST", data={"target_start": "2026-08-14T08:00:00"},
+            )
+        self.assertEqual(response.status, "201 Created")
+        self.assertEqual(
+            self._json(response)["data"]["id"], "postponement-1"
+        )
+        create.assert_called_once_with(
+            "default", datetime.datetime(2026, 8, 14, 8, 0)
+        )
+
+        with mock.patch(
+                "api.v1.api.programs.cancel_group_postponement",
+                return_value=item), mock.patch(
+                "api.v1.api.event_stream.publish"), mock.patch(
+                "api.v1.api.logEV.save_events_log"), mock.patch(
+                "api.v1.api.threading.Timer"):
+            response = self._request(
+                "/program-groups/default/postponements/postponement-1",
+                token, method="DELETE",
+            )
+        self.assertEqual(response.status, "200 OK")
+        self.assertEqual(
+            self._json(response)["data"]["cancelled"], "postponement-1"
+        )
 
     def test_program_definitions_preserve_every_supported_type(self):
         from api.v1 import api
@@ -569,6 +739,35 @@ class MobileAPIV1Tests(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             refresh(original["token"])
         self.assertEqual(getattr(context.exception, "code", ""), "invalid_refresh_token")
+
+    def test_access_token_remains_valid_after_normal_refresh_rotation(self):
+        from api.v1.security import refresh, verify_access_token
+
+        access, original = self._token(("read",), role="user")
+        refresh(original["token"])
+        identity = verify_access_token(access)
+        self.assertEqual(identity["device_id"], original["device_id"])
+
+    def test_logout_still_invalidates_access_token(self):
+        from api.v1.security import verify_access_token
+        from api.v1.store import mobile_store
+
+        access, original = self._token(("read",), role="user")
+        mobile_store.revoke_refresh_token(original["id"])
+        with self.assertRaises(Exception) as context:
+            verify_access_token(access)
+        self.assertEqual(getattr(context.exception, "code", ""), "invalid_token")
+
+    def test_logout_invalidates_access_token_even_after_refresh_rotation(self):
+        from api.v1.security import verify_access_token
+        from api.v1.store import mobile_store
+
+        access, original = self._token(("read",), role="user")
+        replacement = mobile_store.rotate_refresh_token(original["token"])
+        mobile_store.revoke_refresh_token(replacement["id"])
+        with self.assertRaises(Exception) as context:
+            verify_access_token(access)
+        self.assertEqual(getattr(context.exception, "code", ""), "invalid_token")
 
     def test_refresh_token_recovery_retry_expires_with_grace_window(self):
         from api.v1.store import (

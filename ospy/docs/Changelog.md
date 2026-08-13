@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 13 2026 (v3.0 beta)
+-----------
+(Martin Pihrt)<br/>
+Extended Mobile API v1 and the Android client with the same user water-level adjustment and one-time program-group postponement controls as the OSPy web interface. Program responses and atomic create/update requests now preserve validated `group_id`, `/program-groups` exposes membership, next runs and active postponements, and dedicated control endpoints create or cancel postponements using the scheduler's existing safety rules. Fixed concurrent mobile authentication so normal refresh-token rotation no longer revokes short-lived access tokens already used by foreground, notification and push-registration requests, while logout, renewed pairing and device revocation still invalidate access immediately. Updated OpenAPI, the complete Mobile API reference, root/API documentation, Android README and all five Android translations, increased the Android application to 0.3.21 (28), and added server and client regression coverage.
+
 ## August 11 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>

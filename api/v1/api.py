@@ -37,7 +37,8 @@ from .stream import event_stream
 API_VERSION = "1.0.0"
 API_FEATURES = [
     "overview", "irrigation_control", "stations", "master", "programs",
-    "schedule", "run_once", "sensors",
+    "schedule", "run_once", "sensors", "program_groups",
+    "program_group_postponement",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse", "push_notifications",
 ]
@@ -138,6 +139,10 @@ def _station_data(station):
 
 
 def _program_data(program):
+    group_id = getattr(program, "group_id", "default")
+    group = next((
+        item for item in programs.program_groups() if item["id"] == group_id
+    ), None)
     result = {
         "id": "program-{}".format(program.index),
         "legacy_index": program.index,
@@ -153,6 +158,8 @@ def _program_data(program):
         "schedule": _safe_value(program.schedule),
         "manual": bool(program.manual),
         "start": _iso(program.start),
+        "group_id": group_id,
+        "group_name": group["name"] if group is not None else "",
     }
     result["station_details"] = [
         {
@@ -504,7 +511,75 @@ def _irrigation_data():
         "rain_block": rain_block_seconds > 0,
         "rain_block_seconds": rain_block_seconds,
         "rain_delay": _safe_value(_safe_attribute(options, "rain_delay", None)),
+        "level_adjustment": _safe_level_adjustment(),
+        "user_level_adjustment": float(_safe_attribute(
+            options, "level_adjustment", 1.0
+        )),
+        "level_adjustment_percent": round(100.0 * float(_safe_attribute(
+            options, "level_adjustment", 1.0
+        )), 2),
         "active_stations": active,
+    }
+
+
+def _safe_level_adjustment():
+    try:
+        return float(level_adjustments.total_adjustment())
+    except Exception:
+        return None
+
+
+def _postponement_data(item):
+    if item is None:
+        return None
+    return {
+        "id": item["id"],
+        "group_id": item["group_id"],
+        "created": _iso(item.get("created")),
+        "source_start": _iso(item["source_start"]),
+        "source_end": _iso(item["source_end"]),
+        "target_start": _iso(item["target_start"]),
+        "target_end": _iso(item["target_end"]),
+        "shift_seconds": float(item["shift_seconds"]),
+        "program_count": len(set(
+            run.get("program") for run in item.get("runs", [])
+        )),
+        "station_count": len(set(
+            run.get("station") for run in item.get("runs", [])
+        )),
+    }
+
+
+def _program_group_data(group):
+    group_programs = programs.programs_in_group(group["id"])
+    try:
+        sequence = helpers.program_group_run_sequence(
+            group["id"], days=30, include_temporarily_blocked=True
+        )
+    except Exception:
+        sequence = []
+    return {
+        "id": group["id"],
+        "name": group["name"],
+        "collapsed": bool(group.get("collapsed", False)),
+        "program_ids": [
+            "program-{}".format(program.index) for program in group_programs
+        ],
+        "program_count": len(group_programs),
+        "enabled_program_count": len([
+            program for program in group_programs if program.enabled
+        ]),
+        "next_runs": [{
+            "program_id": "program-{}".format(item["program"].index),
+            "program_number": item["number"],
+            "program_name": item["name"],
+            "start": _iso(item["start"]),
+            "end": _iso(item["end"]),
+            "duration_minutes": item["minutes"],
+        } for item in sequence],
+        "postponement": _postponement_data(
+            programs.group_postponement(group["id"])
+        ),
     }
 
 
@@ -1038,6 +1113,14 @@ class Overview(object):
                     options, "rain_delay", None
                 )),
                 "level_adjustment": adjustment,
+                "user_level_adjustment": float(_safe_attribute(
+                    options, "level_adjustment", 1.0
+                )),
+                "level_adjustment_percent": round(
+                    100.0 * float(_safe_attribute(
+                        options, "level_adjustment", 1.0
+                    )), 2
+                ),
                 "active_stations": active,
             },
             "weather": forecast,
@@ -1061,6 +1144,7 @@ class Irrigation(object):
         payload = json_body()
         allowed = {
             "scheduler_enabled", "manual_mode", "rain_delay_hours",
+            "level_adjustment_percent",
         }
         unknown = sorted(set(payload) - allowed)
         if unknown:
@@ -1099,6 +1183,21 @@ class Irrigation(object):
             )
             helpers.stop_onrain()
             changed["rain_delay_hours"] = hours
+        if "level_adjustment_percent" in payload:
+            percent = payload["level_adjustment_percent"]
+            if isinstance(percent, bool) or not isinstance(percent, (int, float)):
+                raise APIError(
+                    422, "invalid_level_adjustment",
+                    "level_adjustment_percent must be a number.",
+                )
+            percent = float(percent)
+            if percent < 0 or percent > 1000:
+                raise APIError(
+                    422, "invalid_level_adjustment",
+                    "level_adjustment_percent must be between 0 and 1000.",
+                )
+            options.level_adjustment = percent / 100.0
+            changed["level_adjustment_percent"] = percent
 
         event_stream.publish("irrigation.settings_changed", changed)
         logEV.save_events_log(
@@ -1274,6 +1373,73 @@ class ProgramAction(object):
             raise APIError(404, "unknown_action", "The program action is not supported.")
         event_stream.publish("program." + action, {"id": "program-{}".format(index)})
         return respond({"id": "program-{}".format(index), "action": action, "accepted": True})
+
+
+class ProgramGroups(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        programs.ensure_groups()
+        return respond([
+            _program_group_data(group) for group in programs.program_groups()
+        ])
+
+
+class ProgramGroupPostponements(object):
+    @endpoint
+    @require_scope("control")
+    def POST(self, group_id):
+        payload = json_body()
+        try:
+            target_start = _program_datetime(payload.get("target_start"))
+            postponement = programs.create_group_postponement(
+                group_id, target_start
+            )
+        except (TypeError, ValueError) as error:
+            raise APIError(
+                422, "invalid_group_postponement",
+                str(error) or "The postponement is not valid.",
+            )
+        result = _postponement_data(postponement)
+        event_stream.publish("program_group.postponed", result)
+        group = programs.program_group(group_id)
+        logEV.save_events_log(
+            _("Programs"),
+            _("User {} postponed program group {} from {} to {}").format(
+                _actor(), group["name"],
+                postponement["source_start"].strftime("%Y-%m-%d %H:%M"),
+                postponement["target_start"].strftime("%Y-%m-%d %H:%M"),
+            ),
+            level="info", category="configuration",
+        )
+        threading.Timer(0.1, programs.calculate_balances).start()
+        return respond(result, status=201)
+
+
+class ProgramGroupPostponement(object):
+    @endpoint
+    @require_scope("control")
+    def DELETE(self, group_id, postponement_id):
+        postponement = programs.cancel_group_postponement(
+            group_id, postponement_id
+        )
+        if postponement is None:
+            raise APIError(
+                404, "group_postponement_not_found",
+                "The program group postponement was not found.",
+            )
+        result = _postponement_data(postponement)
+        event_stream.publish("program_group.postponement_cancelled", result)
+        group = programs.program_group(group_id)
+        logEV.save_events_log(
+            _("Programs"),
+            _("User {} cancelled postponement of program group {}").format(
+                _actor(), group["name"]
+            ),
+            level="info", category="configuration",
+        )
+        threading.Timer(0.1, programs.calculate_balances).start()
+        return respond({"cancelled": postponement_id, "postponement": result})
 
 
 class RunOnce(object):
@@ -1944,6 +2110,7 @@ def _update_program(program, payload, require_schedule):
         "manual": payload.get("manual", base["manual"]),
         "start": payload.get("start", base["start"]),
         "schedule": payload.get("schedule", base["schedule"]),
+        "group_id": payload.get("group_id", base["group_id"]),
     }
     try:
         candidate = programs.create_program()
@@ -1958,7 +2125,8 @@ def _update_program(program, payload, require_schedule):
     # partly modify the live program.
     for key in (
             "name", "_stations", "enabled", "_schedule", "_station_schedule",
-            "_modulo", "_manual", "_start", "type", "type_data"):
+            "_modulo", "_manual", "_start", "type", "type_data",
+            "group_id"):
         program.__dict__[key] = candidate.__dict__[key]
 
 
@@ -2055,6 +2223,11 @@ def _apply_program_definition(program, definition):
         if index not in station_indices:
             station_indices.append(index)
 
+    group_id = str(definition.get("group_id", "default"))
+    if not any(
+            group["id"] == group_id for group in programs.program_groups()):
+        raise ValueError("program group {} does not exist".format(group_id))
+
     program_type = int(definition.get("type"))
     data = definition.get("type_data")
     if not isinstance(data, list):
@@ -2140,6 +2313,7 @@ def _apply_program_definition(program, definition):
     program.name = name.strip()
     program.enabled = enabled
     program.stations = station_indices
+    program.group_id = group_id
 
 
 URLS = (
@@ -2163,6 +2337,9 @@ URLS = (
     "/programs", Programs,
     "/programs/([^/]+)", Program,
     "/programs/([^/]+)/actions/([^/]+)", ProgramAction,
+    "/program-groups", ProgramGroups,
+    "/program-groups/([^/]+)/postponements", ProgramGroupPostponements,
+    "/program-groups/([^/]+)/postponements/([^/]+)", ProgramGroupPostponement,
     "/run-once", RunOnce,
     "/run-once/actions/start", RunOnceStart,
     "/sensors", Sensors,

@@ -49,6 +49,9 @@ def document(server_url="/api/v1"):
         "GET": "read", "PUT": "configuration", "DELETE": "configuration",
     })
     add("/programs/{program_id}/actions/{action}", ["POST"], "Run or stop a program", "control")
+    add("/program-groups", ["GET"], "List program groups, next runs and active postponements", "read")
+    add("/program-groups/{group_id}/postponements", ["POST"], "Postpone the next run of a program group", "control")
+    add("/program-groups/{group_id}/postponements/{postponement_id}", ["DELETE"], "Cancel a program group postponement", "control")
     add("/run-once", ["GET", "PUT"], "Read or configure run-once durations", "control")
     add("/run-once/actions/start", ["POST"], "Start run-once irrigation", "control")
     add("/sensors", ["GET"], "List sensors", "read")

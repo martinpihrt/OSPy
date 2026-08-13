@@ -17,6 +17,8 @@ Refresh-token rotation includes a single short recovery retry for a mobile proce
 
 The Android application keeps a persistent device identity for every saved installation. Signing in again to the same installation replaces that device's token session and reuses its OSPy record instead of creating a duplicate. An application reinstall or a genuinely new phone creates a new identity. In OSPy administration, an active device must first be revoked; revoked records can then be permanently deleted individually or together.
 
+The native Android controls also use Mobile API v1 for user water-level adjustment, program-group assignment and one-time postponement of a group's next scheduled runs. Refresh-token rotation keeps concurrent foreground and notification requests connected without weakening explicit logout, renewed pairing or administrator device revocation.
+
 The built-in administrator retains the original OSPy two-factor settings. Additional accounts are managed on the responsive **Options → Users** page and can independently enable TOTP or e-mail verification from **Account security** after signing in. Existing additional accounts remain compatible and start with 2FA disabled; administrators can reset a lost user pairing without seeing its secret or backup codes.
 
 ## Emergency administrator login recovery

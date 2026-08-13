@@ -9,6 +9,8 @@ Mobile login applies the same account-specific 2FA as the web interface. The bui
 
 The native API also supports installation-scoped immediate push delivery through `GET/POST/PUT/DELETE /api/v1/push` and `POST /api/v1/push/test`. Push is disabled by default and the administrator may edit the prefilled official relay URL. OSPy keeps no Firebase credential or FCM token: it signs an asynchronous request to the configured HTTPS relay. A client that sends the persistent ID of an existing device during login replaces that device's token session without creating a duplicate paired-device row. See [Immediate push notifications](docs/Mobile_API_v1.md#immediate-push-notifications) for the mobile registration flow, relay contract and security boundaries.
 
+Mobile API v1 exposes the user and effective water-level adjustments through `/irrigation`, preserves and validates `group_id` in complete and partial program updates, lists native program groups through `/program-groups` and supports creating or cancelling the same one-time group postponements as the OSPy Programs page. Refresh-token rotation is safe for concurrent mobile clients: access tokens already issued for the same rotating session remain valid until their short expiry, while logout, renewed pairing and device revocation still invalidate access immediately.
+
 The proposal is to have a proper, modern web-API built on the CRUD principle using JSON as data-container format.
 In HTML terms that means using the POST/GET/PUT/DELETE methods that mostly resemble Create, Read, Update and Delete.
 For more - [RFC-2616](HTTP Method definitions http://tools.ietf.org/html/rfc2616.html#section-9).
