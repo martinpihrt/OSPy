@@ -617,7 +617,6 @@ class MobileAPIV1Tests(unittest.TestCase):
             "id": "default", "name": "Default", "collapsed": False,
         }]
         occurrence = {
-            "program": mock.Mock(index=0),
             "number": 1,
             "name": "Morning",
             "start": datetime.datetime(2026, 8, 14, 6, 0),

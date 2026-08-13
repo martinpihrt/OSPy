@@ -570,7 +570,7 @@ def _program_group_data(group):
             program for program in group_programs if program.enabled
         ]),
         "next_runs": [{
-            "program_id": "program-{}".format(item["program"].index),
+            "program_id": "program-{}".format(int(item["number"]) - 1),
             "program_number": item["number"],
             "program_name": item["name"],
             "start": _iso(item["start"]),
