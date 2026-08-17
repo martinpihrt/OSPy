@@ -178,6 +178,17 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b'class="panel twoFactorPanel"', response.data)
         self.assertIn(webpages.options.admin_user.encode('utf-8'), response.data)
 
+    def test_program_editor_includes_hover_help_for_all_rule_groups(self):
+        response = self.app.request('/program/new')
+
+        self.assertEqual(response.status, '200 OK')
+        self.assertIn(b'var programHelpItems = [', response.data)
+        self.assertIn(b'input[name=\'sun_offset_minutes\']', response.data)
+        self.assertIn(b'button.calendarMonth', response.data)
+        self.assertIn(b'textarea[name=\'excluded_periods\']', response.data)
+        self.assertIn(b'jQuery("#advanced_controls").attr("title"', response.data)
+        self.assertIn(b'class="programStationOption"', response.data)
+
     def test_additional_user_two_factor_page_uses_own_account(self):
         account = webpages.users.create_users()
         account.name = 'route-operator'

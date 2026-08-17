@@ -303,6 +303,41 @@ jQuery(document).ready(function(){
     check_type();
     jQuery("#simple_repeat").change(check_repeat);
     check_repeat();
+    var programHelpItems = [
+        ["input[name='name']", $:{json.dumps(_('Enter a unique name that identifies this program in schedules and logs.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["select[name='group_id']", $:{json.dumps(_('Select the program group used for organization and group controls.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#enabled", $:{json.dumps(_('Enable automatic scheduling for this program or keep it saved but inactive.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#schedule_type", $:{json.dumps(_('Select how OSPy calculates the days and start times for this program.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["button.weekday", $:{json.dumps(_('Select the weekdays on which this program is allowed to run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#intervalSelector", $:{json.dumps(_('Select the number of days between successive program cycles.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#intervalDelaySelector", $:{json.dumps(_('Select the number of days to wait before the first cycle starts.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='simple_hour']", $:{json.dumps(_('Enter the hour and minute when the first run should start.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='simple_duration']", $:{json.dumps(_('Enter how many minutes each selected station should run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#simple_repeat", $:{json.dumps(_('Enable additional runs after the first run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='simple_rcount']", $:{json.dumps(_('Enter the number of additional runs after the first run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='simple_pause']", $:{json.dumps(_('Enter the delay in minutes between the end of one run and the start of the next run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='sun_offset_minutes']", $:{json.dumps(_('Enter a negative value to start before, or a positive value to start after, sunrise or sunset.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='sun_earliest']", $:{json.dumps(_('Enter the earliest clock time at which the calculated solar run may start.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='sun_latest']", $:{json.dumps(_('Enter the latest clock time at which the calculated solar run may start.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["select[name='sun_window_policy']", $:{json.dumps(_('Choose whether a solar run outside the allowed time window is moved to the nearest limit or skipped.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["button.calendarMonth", $:{json.dumps(_('Select every month in which this program may run.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["button.calendarSeason", $:{json.dumps(_('Use a season shortcut to select its three months, or select the whole year.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["select[name='day_parity']", $:{json.dumps(_('Allow all calendar dates, only odd-numbered dates, or only even-numbered dates.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["input[name='month_days']", $:{json.dumps(_('Enter comma-separated days of the month from 1 to 31, or leave the field empty for every day.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["#exclude_holidays", $:{json.dumps(_('Enable this option to prevent automatic runs on public holidays in the selected country.'), ensure_ascii=False).encode('utf8').decode('utf-8')}],
+        ["textarea[name='excluded_periods']", $:{json.dumps(_('Enter one excluded date or date range per line. Exact dates use YYYY-MM-DD and annual dates use MM-DD.'), ensure_ascii=False).encode('utf8').decode('utf-8')}]
+    ];
+    jQuery.each(programHelpItems, function(_, item) {
+        jQuery(item[0]).each(function() {
+            jQuery(this).closest(".option").attr("title", item[1]);
+        });
+    });
+    jQuery(".programStationOption").attr("title", $:{json.dumps(_('Select whether this station is included in the program.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#advanced_controls").attr("title", $:{json.dumps(_('Click once in the time grid to select a start, then click later in the same row to select the end. Use the red cross to remove an interval.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#weekly_controls").attr("title", $:{json.dumps(_('Create intervals for each weekday by clicking a start and then an end in the same row. Use the red cross to remove an interval.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#custom_controls").attr("title", $:{json.dumps(_('Create intervals for each day of the selected cycle by clicking a start and then an end in the same row.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#weather_pems").attr("title", $:{json.dumps(_('Add preferred execution moments and assign a priority from 1, least preferred, to 10, most preferred.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
+    jQuery("#weather_pem_add").attr("title", $:{json.dumps(_('Add another preferred execution moment.'), ensure_ascii=False).encode('utf8').decode('utf-8')});
     jQuery("button.programSwitch").click(function(){
         var target = jQuery(jQuery(this).attr("data-target"));
         var checked = !target.prop("checked");
@@ -479,7 +514,7 @@ function update_calendar_months() {
             </div>
             <div style="display: inline-block; box-sizing: border-box; vertical-align: top;">
             $for station in stations.enabled_stations():
-                <div style="padding: 0; white-space: nowrap;">
+                <div class="programStationOption" style="padding: 0; white-space: nowrap;">
                     <div class="program_label">${station.name}:</div>
                     <div style="display: inline-block;">
                         <button id="station${station.index}" class="station toggle narrow ${'on' if station.index in program.stations else 'off'}">
