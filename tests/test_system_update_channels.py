@@ -88,6 +88,13 @@ class SystemUpdateChannelTests(unittest.TestCase):
         self.assertEqual(self.module.selected_branch(), "beta")
         self.assertEqual(self.module.selected_remote_branch(), "origin/beta")
 
+    def test_watchdog_allows_slow_sequential_plugin_startup(self):
+        self.assertGreaterEqual(self.module.WATCHDOG_TIMEOUT, 300)
+        help_template = (
+            self.plugin_dir / "templates" / "system_update_help.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("within five minutes", help_template)
+
     def test_repository_check_reads_the_selected_remote_branch(self):
         self.module.plugin_options["update_channel"] = "beta"
         checker = object.__new__(self.module.StatusChecker)
