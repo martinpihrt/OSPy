@@ -5710,6 +5710,8 @@ class api_log_json(ProtectedPage):
     def _convert(self, interval):
             duration = (interval['end'] - interval['start']).total_seconds()
             minutes, seconds = divmod(duration, 60)
+            blocked = interval.get('blocked', False)
+            blocked_text = scheduler.blocked_reason_text(blocked) if blocked else ''
             return {
                 'program': interval['program'],
                 'program_name': interval['program_name'],
@@ -5717,7 +5719,9 @@ class api_log_json(ProtectedPage):
                 'manual': interval.get('manual', False),
                 'fixed': True,
                 'cut_off': interval['cut_off'],
-                'blocked': interval.get('blocked', False),
+                'blocked': blocked,
+                'blocked_text': blocked_text,
+                'blocked_label': (_('Blocked') + ': ' + blocked_text) if blocked else '',
                 'station': interval['station'],
                 'date': interval['start'].strftime("%Y-%m-%d"),
                 'start': interval['start'].strftime("%H:%M:%S"),

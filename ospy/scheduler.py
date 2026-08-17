@@ -165,7 +165,7 @@ def report_core_30_sec_tick():
     )
 
 
-def _blocked_reason_text(reason):
+def blocked_reason_text(reason):
     reasons = {
         'disabled scheduler': _('the scheduler is disabled'),
         'rain delay': _('a rain delay is active'),
@@ -674,7 +674,7 @@ class _Scheduler(Thread):
                                 _('Program {} for station {} was not started because {}.').format(
                                     entry.get('program_name', '-'),
                                     stations.get(entry['station']).name,
-                                    _blocked_reason_text(entry['blocked'])
+                                    blocked_reason_text(entry['blocked'])
                                 ),
                                 id='Programs',
                                 level='warning',

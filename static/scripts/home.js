@@ -75,7 +75,8 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (blocked by " + log[l].blocked + ")";
+                var blockedText = log[l].blocked_label || log[l].blocked_text || log[l].blocked;
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + blockedText + ")";
             } else {
                 log[l].label = toClock(log[l].start, timeFormat) + " for " + toClock(log[l].duration, 1);
             }

@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import builtins
@@ -266,7 +267,8 @@ class WebRouteIntegrationTests(unittest.TestCase):
             key: webpages.options._values[key]
             for key in (
                 "use_weather", "weather_status", "weather_lat", "weather_lon",
-                "weather_location_mode", "location",
+                "weather_location_mode", "location", "weather_country_code",
+                "weather_region",
             )
         }
         webpages.options._values.update({
@@ -276,6 +278,8 @@ class WebRouteIntegrationTests(unittest.TestCase):
             "weather_lon": "14.0",
             "weather_location_mode": "coordinates",
             "location": "Test location",
+            "weather_country_code": "CZ",
+            "weather_region": "Plzeňský kraj",
         })
         forecast = {
             "cards": [{
@@ -301,6 +305,37 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertIn(b'width="42" height="42"', home_response.data)
         self.assertIn(b"/theme.css?v=", home_response.data)
         self.assertIn(b"Open-Meteo automatic model", home_response.data)
+        self.assertIn(b"CZ", home_response.data)
+        self.assertIn("Plzeňský kraj".encode("utf-8"), home_response.data)
+
+    def test_log_json_includes_localized_blocked_reasons(self):
+        start = datetime.datetime(2027, 1, 1, 8, 0)
+        for reason in ("service_outage", "disabled scheduler"):
+            with self.subTest(reason=reason):
+                interval = {
+                    "program": 0,
+                    "program_name": "Garden",
+                    "active": None,
+                    "manual": False,
+                    "cut_off": 0,
+                    "blocked": reason,
+                    "station": 0,
+                    "start": start,
+                    "end": start + datetime.timedelta(minutes=30),
+                }
+
+                result = webpages.api_log_json._convert(None, interval)
+
+                self.assertEqual(reason, result["blocked"])
+                self.assertEqual(
+                    webpages.scheduler.blocked_reason_text(reason),
+                    result["blocked_text"],
+                )
+                self.assertNotEqual(reason, result["blocked_text"])
+                self.assertEqual(
+                    _('Blocked') + ': ' + result["blocked_text"],
+                    result["blocked_label"],
+                )
 
     def test_settings_storage_mode_selector_renders_safe_profiles(self):
         verification = webpages.options._sqlite_mirror_verification

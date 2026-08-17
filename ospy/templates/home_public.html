@@ -88,7 +88,8 @@ function displayProgram() {
                 log[l].start -= 24*60;
             }
             if (log[l].blocked) {
-                log[l].label = toClock(log[l].start, timeFormat) + " (" + $:{json.dumps(_('blocked by'), ensure_ascii=False).encode('utf8').decode('utf-8')}  + " " + log[l].blocked + ")";
+                let blockedText = log[l].blocked_label || log[l].blocked_text || log[l].blocked;
+                log[l].label = toClock(log[l].start, timeFormat) + " (" + blockedText + ")";
             } else {
                 log[l].label = toClock(log[l].start, timeFormat) + " " + $:{json.dumps(_('For'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + toClock(log[l].duration, 1);
             }

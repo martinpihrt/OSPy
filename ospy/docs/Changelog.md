@@ -12,6 +12,9 @@ Extended the existing program editor and scheduler with native calendar rules: a
 (Martin Pihrt)<br/>
 Added compatibility with the `CountryHoliday` API provided by Debian's `python3-holidays` 0.10.1 package. Newer releases continue to use `country_holidays`; an unsupported or damaged holiday library now marks the calendar unavailable and logs the error instead of breaking the program editor.
 
+(Martin Pihrt)<br/>
+Localized blocked-run reasons on the Home timeline, including disabled scheduler and service outage, while retaining stable machine codes in the JSON response. Weather location details on the administrator and user Home pages now also show the detected country code and region when available.
+
 (Daniel Hošek)<br/>
 Fixed the Home water-balance calculation so enabled weather data from the selected Open-Meteo, CHMI or Stormglass provider is used without requiring the removed legacy Dark Sky API key. Daily evapotranspiration, recorded rain and forecast rain now reach station balances again; provider failures continue to use the existing logged fallback path. Balance API failures are now logged and returned as an explicit server error, and all Home page variants show an in-page error instead of silently leaving an empty chart. Updated the water-balance explanation in all seven Web Interface Guides.
 
