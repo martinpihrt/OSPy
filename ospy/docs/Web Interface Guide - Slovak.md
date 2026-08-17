@@ -31,7 +31,7 @@ Keď Diagnostika oznámi **Pripravenosť SQLite primary beta: Pripravené**, Nas
         Plánovač - Ručne
         Povolené - Zakázané
         Zastaviť všetky stanice
-        Štatistika zavlažovania (graf)
+        Graf vodnej bilancie
         Potlačené oneskorením pri daždi
         Zistený dážď
         Teplota CPU
@@ -349,8 +349,10 @@ Tlačidlo pre povolenie, alebo zakázanie behu OSPy programu (pri zakázané nep
 ## Zastaviť všetky stanice
 Tlačidlo „Zastaviť všetky stanice“ slúži na okamžité zrušenie spusteného zavlažovacieho programu alebo aktívnej stanice.
 
-## Štatistika zavlažovania (graf)
-Ak je v plánovači nastavený aspoň jeden program, v spodnej časti obrazovky bude nakreslený graf s množstvom vody dodanej pre každú stanicu (programy).
+## Graf vodnej bilancie
+Pre každú povolenú stanicu zaradenú do zavlažovacieho programu zobrazuje graf v spodnej časti domovskej stránky priebežnú vodnú bilanciu. Každý deň započítava evapotranspiráciu (ETo) upravenú ETo faktorom stanice, dážď, ak ho stanica nemá ignorovať, a dokončené alebo naplánované zavlažovanie. Podrobnosti bodu rozlišujú ETo, dážď, príspevky jednotlivých programov a výsledný súčet pre minulé aj predpovedané dni.
+
+Ak je zapnutá možnosť **Používať počasie**, ETo a dážď pochádzajú od zvoleného poskytovateľa Open-Meteo, ČHMÚ ALADIN alebo Stormglass. API kľúč je potrebný iba pre Stormglass; Open-Meteo ani ČHMÚ nesmú závisieť od starého kľúča Dark Sky. Pri vypnutom počasí sa použije ETo faktor stanice a nulový dážď. Ak sa údaje bilancie nepodarí načítať, domovská stránka zobrazí viditeľné chybové hlásenie a OSPy zapíše technické podrobnosti do denníka namiesto toho, aby graf bez vysvetlenia zostal prázdny.
 
 ## Potlačené oneskorením pri daždi
 Ak je aktivované oneskorenie pri daždi, zobrazí sa „Blokované systémom“ a všetky stanice (okrem tých, ktoré boli nastavené tak, aby ignorovali dážď na stránke Stanice) budú po určitú dobu blokované.

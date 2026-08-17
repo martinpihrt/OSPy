@@ -8,6 +8,7 @@ from shutil import copyfile
 import datetime
 import time
 import json
+import logging
 import web
 from threading import Event, Thread, Timer, RLock, current_thread
 import traceback
@@ -5599,6 +5600,7 @@ class api_balance_json(ProtectedPage):
 
     def GET(self):
         statuslist = []
+        web.header('Content-Type', 'application/json')
         try:
             epoch = datetime.date(1970, 1, 1)
 
@@ -5607,10 +5609,13 @@ class api_balance_json(ProtectedPage):
                     statuslist.append({
                         'station': station.name,
                         'balances': {int((key - epoch).total_seconds()): value for key, value in station.balance.items()}})
-        except:
-            pass
+        except Exception:
+            logging.error(_('Could not load water balance data') + ':\n' + traceback.format_exc())
+            web.ctx.status = '500 Internal Server Error'
+            return json.dumps({
+                'error': _('Could not load water balance data. Please try again.')
+            })
 
-        web.header('Content-Type', 'application/json')
         return json.dumps(statuslist, indent=2)
 
 

@@ -31,7 +31,7 @@ Gdy Diagnostyka zgłosi **Gotowość SQLite primary beta: Gotowe**, Opcje udost�
         Harmonogram — ręczny
         Włączone - wyłączone
         Zatrzymaj wszystkie stacje
-        Statystyka nawadniania (wykres)
+        Wykres bilansu wodnego
         Pomijane przez opóźnienie spowodowane deszczem
         Wykryty deszcz
         CPU temp
@@ -338,8 +338,10 @@ Przycisk umożliwiający włączenie lub wyłączenie działania programu OSPy (
 ## Zatrzymaj wszystkie stacje
 Przycisk „Zatrzymaj wszystkie stacje” służy do natychmiastowego anulowania trwającego programu nawadniania lub aktywnej stacji.
 
-## Statystyka nawadniania (wykres)
-Jeśli w harmonogramie ustawiony jest przynajmniej jeden program, na dole ekranu zostanie narysowany wykres z ilością wody dostarczonej dla każdej stacji (programów).
+## Wykres bilansu wodnego
+Dla każdej włączonej stacji używanej przez program nawadniania wykres u dołu strony głównej pokazuje bieżący bilans wodny. Każdy dzień uwzględnia ewapotranspirację (ETo) skorygowaną współczynnikiem ETo stacji, deszcz, o ile stacja go nie ignoruje, oraz zakończone lub zaplanowane nawadnianie. Szczegóły punktu rozróżniają ETo, deszcz, wkład poszczególnych programów i wynikową sumę dla dni historycznych oraz prognozowanych.
+
+Gdy opcja **Użyj pogody** jest włączona, ETo i deszcz pochodzą od wybranego dostawcy Open-Meteo, CHMI ALADIN lub Stormglass. Klucz API jest wymagany tylko dla Stormglass; Open-Meteo i CHMI nie mogą zależeć od starego klucza Dark Sky. Przy wyłączonej pogodzie używany jest współczynnik ETo stacji i zerowa wartość deszczu. Jeśli danych bilansu nie można wczytać, strona główna wyświetla widoczny komunikat o błędzie, a OSPy zapisuje szczegóły techniczne w dzienniku zamiast pozostawiać pusty wykres bez wyjaśnienia.
 
 ## Pomijane przez opóźnienie spowodowane deszczem
 Jeśli włączone jest opóźnienie deszczu, wyświetli się „Stłumione przez opóźnienie deszczu”, a wszystkie stacje (z wyjątkiem tych, które na stronie Stacje ustawione są na ignorowanie deszczu) zostaną zablokowane na pewien czas.

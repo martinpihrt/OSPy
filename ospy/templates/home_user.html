@@ -405,6 +405,24 @@ function draw_graph(result) {
     });
 }
 
+function load_balance_graph() {
+    let fallbackMessage = $:{json.dumps(_('Could not load water balance data. Please try again.'), ensure_ascii=False).encode('utf8').decode('utf-8')};
+    return jQuery.ajax({
+        url: "/balance.json",
+        dataType: "json",
+        cache: false,
+        timeout: 10000
+    }).done(function(result) {
+        jQuery("#graph-error").hide();
+        create_graph(result);
+    }).fail(function(xhr) {
+        let message = xhr && xhr.responseJSON && xhr.responseJSON.error
+            ? xhr.responseJSON.error : fallbackMessage;
+        jQuery("#graph-empty").hide();
+        jQuery("#graph-error").text(message).show();
+    });
+}
+
 function create_graph(result) {
     plot = draw_graph(result);
     let point_count = 0;
@@ -481,7 +499,7 @@ function create_graph(result) {
     });
 
     jQuery('#clearSelection').off('click').on('click', function(){
-        jQuery.getJSON("/balance.json", create_graph)
+        load_balance_graph();
     });
 }
 
@@ -572,7 +590,7 @@ jQuery(document).ready(function(){
     });
 
     if (jQuery("#graph-placeholder").length > 0) {
-        setTimeout(function() {jQuery.getJSON("/balance.json", create_graph)}, 500);
+        setTimeout(load_balance_graph, 500);
     }    
 
     $if (options.show_plugin_data and pluginFtr or options.show_sensor_data):
@@ -757,6 +775,7 @@ $if not options.manual_mode and any((station.enabled and any(station.index in pr
     <div id="graph-container" class="graph-container">
         <div id="legend-placeholder" style="display:none;"></div>
         <div id="legend-visible" style="float: right; width: auto;"></div>
+        <div id="graph-error" role="alert" style="display:none; color:#a00000; margin-bottom:8px;"></div>
         <div id="graph-empty" style="display:none;">$_('No chart data available.')</div>
         <div id="graph-placeholder" class="graph-placeholder" style="overflow: hidden;"></div>
         <div style="clear: both;"></div>

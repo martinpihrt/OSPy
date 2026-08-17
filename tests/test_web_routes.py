@@ -81,6 +81,32 @@ class WebRouteIntegrationTests(unittest.TestCase):
             "csrf_token": "test-csrf-token",
         })
 
+    def test_balance_api_reports_and_logs_serialization_failure(self):
+        with mock.patch.object(
+                webpages.stations, "get", side_effect=RuntimeError("changed during iteration")
+        ), mock.patch.object(webpages.logging, "error") as log_error:
+            response = self.app.request("/balance.json")
+
+        self.assertEqual(response.status, "500 Internal Server Error")
+        self.assertEqual(response.headers["Content-Type"], "application/json")
+        self.assertEqual(
+            json.loads(response.data.decode("utf-8")),
+            {"error": "Could not load water balance data. Please try again."},
+        )
+        log_error.assert_called_once()
+
+    def test_all_home_pages_show_balance_request_errors(self):
+        for template_name in ("home_admin.html", "home_user.html", "home_public.html"):
+            with self.subTest(template=template_name):
+                with open(
+                        os.path.join(TEMPLATE_ROOT, template_name),
+                        "r", encoding="utf-8"
+                ) as template_file:
+                    source = template_file.read()
+                self.assertIn("function load_balance_graph()", source)
+                self.assertIn("#graph-error", source)
+                self.assertIn(".fail(function(xhr)", source)
+
     def test_restore_invalidates_session_before_server_shutdown(self):
         upload = SimpleNamespace(
             filename="backup.zip",

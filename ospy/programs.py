@@ -1154,7 +1154,7 @@ class _Programs(object):
                     }
                 try:
                     if not station.balance[calc_day]['valid'] or calc_day >= now.date() - datetime.timedelta(days=1):
-                        if options.use_weather and options.darksky_key:
+                        if options.use_weather:
                             station.balance[calc_day]['eto'] = station.eto_factor * weather.get_eto(calc_day)
                             station.balance[calc_day]['rain'] = 0.0 if station.ignore_rain else weather.get_rain(calc_day)
                             station.balance[calc_day]['valid'] = True

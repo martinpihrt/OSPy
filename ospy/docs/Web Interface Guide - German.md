@@ -31,7 +31,7 @@ Sobald die Diagnose **SQLite-Primary-Beta-Bereitschaft: Bereit** meldet, aktivie
         Planer – Handbuch
         Aktiviert – Deaktiviert
         Stoppen Sie alle Stationen
-        Bewässerungsstatistik (Grafik)
+        Wasserbilanzdiagramm
         Unterdrückt durch Regenverzögerung
         Regen erkannt
         CPU Temp
@@ -349,8 +349,10 @@ Schaltfläche zum Aktivieren oder Deaktivieren der Ausführung des OSPy-Programm
 ## Stoppen Sie alle Stationen
 Mit der Taste „Stoppen Sie alle Stationen“ können Sie ein laufendes Bewässerungsprogramm oder eine aktive Station sofort abbrechen.
 
-## Bewässerungsstatistik (Grafik)
-Wenn mindestens ein Programm im Zeitplaner eingestellt ist, wird am unteren Bildschirmrand eine Grafik mit der für jede Station (Programme) gelieferten Wassermenge gezeichnet.
+## Wasserbilanzdiagramm
+Für jede aktivierte Station, die in einem Bewässerungsprogramm verwendet wird, zeigt das Diagramm unten auf der Homepage die laufende Wasserbilanz. Jeder Tag berücksichtigt die mit dem ETo-Faktor der Station angepasste Evapotranspiration (ETo), Regen, sofern die Station ihn nicht ignoriert, sowie abgeschlossene oder geplante Bewässerung. Die Punktdetails unterscheiden ETo, Regen, die Beiträge einzelner Programme und die resultierende Summe für vergangene und vorhergesagte Tage.
+
+Wenn **Wetter verwenden** aktiviert ist, stammen ETo und Regen vom ausgewählten Anbieter Open-Meteo, CHMI ALADIN oder Stormglass. Ein API-Schlüssel ist nur für Stormglass erforderlich; Open-Meteo und CHMI dürfen nicht von einem alten Dark-Sky-Schlüssel abhängen. Bei deaktiviertem Wetter werden der ETo-Faktor der Station und kein Regen verwendet. Können die Bilanzdaten nicht geladen werden, zeigt die Homepage eine sichtbare Fehlermeldung an und OSPy schreibt die technischen Einzelheiten in das Protokoll, anstatt das Diagramm stillschweigend leer zu lassen.
 
 ## Unterdrückt durch Regenverzögerung
 Wenn die Regenverzögerung aktiviert ist, wird „Unterdrückt durch Regenverzögerung“ angezeigt und alle Stationen (außer denen, die auf der Seite „Stationen“ so eingestellt sind, dass sie Regen ignorieren) werden für einen bestimmten Zeitraum gesperrt.

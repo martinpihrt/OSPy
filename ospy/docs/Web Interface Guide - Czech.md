@@ -30,7 +30,7 @@ Jakmile Diagnostika oznámí **Připravenost SQLite primary beta: Připraven**, 
         Plánovač - Ručně
         Povoleno - Zakázáno
         Zastavit všechny stanice
-        Statistika zavlažování (graf)
+        Graf vodní bilance
         Potlačeno zpožděním při dešti 
         Detekován déšť
         Teplota CPU
@@ -348,8 +348,10 @@ Tlačítko pro povolení, nebo zakázání běhu OSPy programu (při zakázáno 
 ## Zastavit všechny stanice
 Tlačítko „Zastavit všechny stanice“ slouží pro okamžité zrušení spuštěného zavlažovacího programu nebo aktivní stanice.
 
-## Statistika zavlažování (graf)
-Pokud je v plánovači nastaven alespoň jeden program, ve spodní části obrazovky bude nakreslen graf s množstvím vody dodané pro každou stanici (programy).
+## Graf vodní bilance
+Pro každou povolenou stanici zařazenou do zavlažovacího programu zobrazuje graf ve spodní části domovské stránky průběžnou vodní bilanci. Každý den započítává evapotranspiraci (ETo) upravenou ETo faktorem stanice, déšť, pokud jej stanice nemá ignorovat, a dokončené nebo naplánované zavlažování. Podrobnosti bodu rozlišují ETo, déšť, příspěvky jednotlivých programů a výsledný součet pro minulé i předpovězené dny.
+
+Je-li zapnuta volba **Používat počasí**, pochází ETo a déšť ze zvoleného poskytovatele Open-Meteo, ČHMÚ ALADIN nebo Stormglass. API klíč je nutný pouze pro Stormglass; Open-Meteo ani ČHMÚ nesmějí záviset na starém klíči Dark Sky. Při vypnutém počasí se použije ETo faktor stanice a nulový déšť. Pokud se data bilance nepodaří načíst, domovská stránka zobrazí viditelnou chybovou hlášku a OSPy zapíše technické podrobnosti do logu, místo aby graf beze slova zůstal prázdný.
 
 ## Potlačeno zpožděním při dešti 
 Je-li aktivováno zpoždění při dešti, zobrazí se „Potlačeno dešťovým zpožděním“ a všechny stanice (kromě těch, které byly nastaveny tak, aby ignorovaly déšť na stránce Stanice) budou po určitou dobu blokovány.

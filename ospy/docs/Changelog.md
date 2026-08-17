@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 17 2026 (v3.0 beta)
+-----------
+(Daniel Hošek)<br/>
+Fixed the Home water-balance calculation so enabled weather data from the selected Open-Meteo, CHMI or Stormglass provider is used without requiring the removed legacy Dark Sky API key. Daily evapotranspiration, recorded rain and forecast rain now reach station balances again; provider failures continue to use the existing logged fallback path. Balance API failures are now logged and returned as an explicit server error, and all Home page variants show an in-page error instead of silently leaving an empty chart. Updated the water-balance explanation in all seven Web Interface Guides.
+
 ## August 13 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>

@@ -30,7 +30,7 @@ When Diagnostics reports **SQLite primary beta readiness: Ready**, Options enabl
         Schedule - Manual
         Enabled - Disabled
         Stop All Stations
-        Water balance Graph
+        Water balance graph
         Suppressed by Rain Delay
         Rain sensed
         CPU Temp
@@ -348,8 +348,10 @@ Button for enabling or disabling the running of the OSPy program (when disabled,
 ## Stop All Stations
 The "Stop All Stations" button is used to immediately cancel a running irrigation program or an active station.
 
-## Water balance Graph
-If at least one program is configured in the scheduler, a graph showing the amount of water supplied for each station/program is drawn at the bottom of the screen.
+## Water balance graph
+For every enabled station used by an irrigation program, the graph at the bottom of Home shows the running water balance. Each day combines evapotranspiration (ETo) adjusted by the station ETo factor, rain unless the station is configured to ignore it, and completed or planned irrigation. Point details distinguish ETo, rain, individual program contributions and the resulting total for historical and forecast days.
+
+When **Use Weather** is enabled, ETo and rain come from the selected Open-Meteo, CHMI ALADIN or Stormglass provider. A provider API key is required only for Stormglass; Open-Meteo and CHMI must not depend on a legacy Dark Sky key. With weather disabled, the station ETo factor and zero rain are used. If the balance data cannot be loaded, Home shows a visible error and OSPy records the technical details in the log instead of silently leaving an empty chart.
 
 ## Suppressed by Rain Delay
 If the rain delay is enabled, "Suppressed by Rain Delay" will be displayed and all stations (except those set to ignore rain on the Stations page) will be blocked for a period of time.
