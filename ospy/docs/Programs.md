@@ -14,6 +14,9 @@ Each program can be of one of these types. In the end, every program can also be
 | REPEAT_ADVANCED |list of intervals [start, end]|repeat days     |                |               |                |              |
 | WEEKLY_ADVANCED |list of intervals [start, end]|                |                |               |                |              |
 | CUSTOM          |list of intervals [start, end]|                |                |               |                |              |
+| WEEKLY_WEATHER  |irrigation min                |irrigation max  |run max         |pause ratio    |priority moments|              |
+| SUNRISE         |duration                      |repeat pause    |repeat times    |list days to run|               |              |
+| SUNSET          |duration                      |repeat pause    |repeat times    |list days to run|               |              |
 
 
     set_days_simple start_min, duration_min, pause_min, repeat_times, [days] 
@@ -21,6 +24,32 @@ Each program can be of one of these types. In the end, every program can also be
     set_days_advanced [schedule], [days] 
     set_repeat_advanced [schedule], repeat_days, start_date 
     set_weekly_advanced [schedule] 
+    set_solar program_type, duration_min, pause_min, repeat_times, [days]
+
+Calendar rules
+----
+
+Every recurring program has additive calendar rules. Existing programs load with all months enabled, no parity or day-of-month restriction, no holiday exclusion and no excluded periods, so upgrading does not change their schedule.
+
+`allowed_months` stores month numbers `1..12`; the editor also provides spring, summer, autumn, winter and all-year shortcuts. `day_parity` is `all`, `odd` or `even` and refers to the calendar day number, not the weekday or the program occurrence number. `month_days` is an optional list from `1..31`; a day that does not exist in a particular month is simply never generated. These selectors are combined with the program's normal weekday or repeat rules.
+
+Program exclusions are persisted as exact ISO dates in `excluded_dates` and as inclusive ranges in `excluded_ranges`. Exact ranges use `YYYY-MM-DD..YYYY-MM-DD`. Annual ranges use `MM-DD..MM-DD` and may cross New Year, for example `12-20..01-10`. An excluded occurrence remains visible in schedule prediction with the stable `calendar_excluded` block reason instead of silently disappearing.
+
+When `exclude_holidays` is enabled, OSPy uses the Python `holidays` package and a two-letter country code. The country is detected from the configured weather coordinates through OpenStreetMap. An administrator may set **Options → Weather → Holiday country override** when a different calendar is required or automatic detection is unavailable. No weather API key is required for holiday calculation. The editor does not allow holiday exclusion when the library or country is unavailable. If an existing opted-in program is loaded after the package was removed or before an older installation ran the updated installer, its occurrences receive `holiday_calendar_unavailable`; the scheduler and unrelated programs continue normally.
+
+Service outages
+----
+
+Administrators create and remove global service outages on the Programs page. Each outage contains a name and a local half-open time interval `[start, end)`. An overlapping automatic occurrence remains in the predicted schedule with the `service_outage` block reason. Manual **Run Now** remains available, allowing an administrator to make a deliberate service test. Outages are stored in `options.calendar_service_outages` and survive a service restart.
+
+Sunrise and sunset programs
+----
+
+`SUNRISE` and `SUNSET` are native program types, but astronomical calculation remains owned by the existing **Sunrise and Sunset** plug-in. OSPy offers these types only while the plug-in is running, Astral calculation is enabled and the plug-in has a valid location. The plug-in exposes `program_sun_times_available()` and `program_sun_times(day)`; the core does not duplicate Astral or replace the plug-in.
+
+The program stores a signed offset in minutes, a minimum and maximum allowed local start time and a window policy. `clamp` moves an out-of-window solar time to the nearest boundary; `skip` omits that occurrence. Duration, pause, repetitions and selected weekdays work like a simple selected-days program. Calendar filters and service outages are evaluated after the astronomical start is calculated. If the provider later becomes unavailable, OSPy does not guess a clock time and generates no automatic solar occurrence until the provider recovers; the saved definition is retained.
+
+Mobile API v1 returns all common values in the additive `calendar` object and decodes solar `type_data` through `editor.kind` values `sunrise` and `sunset`. Clients that do not support these additions must preserve them unchanged.
 
 Program group postponement
 ----

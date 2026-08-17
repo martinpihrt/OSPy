@@ -516,6 +516,16 @@ Typ plánovače umožňuje zvolit vhodný typ programu podle našeho požadavku 
 
 Změnou typu se změní zobrazená pole i způsob, kterým OSPy sestavuje plán. Po změně typu proto před uložením zkontrolujte všechny hodnoty. V grafickém plánovači prvním kliknutím označíte začátek a druhým konec intervalu; křížkem u existujícího intervalu jej odstraníte. Časy se vyhodnocují v místním čase systému OSPy.
 
+## Kalendářní pravidla
+Každý stávající opakovaný program lze dále omezit kalendářními pravidly. **Povolené měsíce** lze označit jednotlivě nebo zkratkou pro jaro, léto, podzim, zimu a celý rok. **Parita kalendářního dne** povolí všechny, liché nebo sudé datumy a do pole **Dny v měsíci** lze zadat vybraná čísla od 1 do 31. Pravidla se kombinují s běžnými dny týdne nebo intervalem opakování; výchozí hodnoty zachovávají původní plán.
+
+Do pole **Zakázané termíny** se zadává jedna položka na řádek: přesné datum (`RRRR-MM-DD`), včetně krajních dnů přesný rozsah (`RRRR-MM-DD..RRRR-MM-DD`) nebo každoročně opakovaný rozsah (`MM-DD..MM-DD`). Roční rozsah může přecházet přes Nový rok. Zablokovaný běh zůstane v plánu viditelný s uvedeným důvodem. Volba **Nespouštět o státních svátcích** používá místně nainstalovaný kalendář svátků. Zemi OSPy zjistí z polohy počasí; jiný dvoupísmenný kód lze zadat v **Nastavení → Počasí → Vlastní země pro svátky**. Pokud knihovna nebo země nejsou dostupné, bezpečně se zablokují pouze programy, které vyloučení svátků požadují; OSPy i ostatní programy běží dál.
+
+V části **Servisní odstávky** na stránce Programy lze vytvořit pojmenovaný globální interval začátku a konce. Překrývající se automatické běhy se zobrazí jako blokované, ale **Spustit nyní** zůstane dostupné pro záměrnou servisní zkoušku. Odstávky zůstanou uložené i po restartu OSPy.
+
+### Východ a západ Slunce
+Typy programu podle východu a západu Slunce jsou dostupné pouze tehdy, když je zapnutý stávající plugin **Sunrise and Sunset**, je aktivní jeho výpočet Astral a je k dispozici platná poloha. Program může začít před vypočteným jevem nebo po něm pomocí kladného či záporného posunu v minutách. Nejčasnější a nejpozdější povolený čas výsledek omezí; běh mimo okno lze přesunout na nejbližší hranici nebo přeskočit. Nadále platí trvání, pauza, opakování, vybrané dny týdne i všechna kalendářní pravidla. Při nedostupném pluginu OSPy nehádá pevný čas a uložený program zachová do obnovení poskytovatele.
+
 ### Vybrané dny (Jednoduchý)
 Spouští stejný jednoduchý plán ve všech označených dnech týdne. Vyberte jeden nebo více dnů a nastavte první spuštění.
    

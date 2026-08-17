@@ -323,6 +323,7 @@ apt-get install -y \
   git \
   python3 \
   python3-cmarkgfm \
+  python3-holidays \
   python3-pil \
   python3-qrcode \
   python3-requests \

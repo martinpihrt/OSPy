@@ -2513,6 +2513,32 @@ class programs_page(ProtectedPage):
             Timer(0.1, programs.calculate_balances).start()
             report_program_toggle()
 
+        elif action == 'add_service_outage':
+            from ospy import calendar_rules
+            try:
+                start = datetime.datetime.strptime(
+                    qdict.get('outage_start', ''), '%Y-%m-%dT%H:%M')
+                end = datetime.datetime.strptime(
+                    qdict.get('outage_end', ''), '%Y-%m-%dT%H:%M')
+                name = qdict.get('outage_name', '').strip()
+                if not name:
+                    raise ValueError
+                calendar_rules.add_service_outage(name, start, end)
+            except (TypeError, ValueError):
+                return self.core_render.notice(
+                    '/programs', _('The service outage settings are invalid.'))
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+
+        elif action == 'remove_service_outage':
+            from ospy import calendar_rules
+            if not calendar_rules.remove_service_outage(
+                    qdict.get('outage_id', '')):
+                return self.core_render.notice(
+                    '/programs', _('The service outage was not found.'))
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+
         elif action == 'postpone_group':
             group_id = qdict.get('group_id', '')
             target_value = qdict.get('target_start', '')
@@ -2587,6 +2613,7 @@ class program_page(ProtectedPage):
 
     def POST(self, index):
         from ospy.server import session
+        from ospy import calendar_rules
 
         if session.get('category') != 'admin':
             msg = _('You do not have access to this section, ask your system administrator for access.')
@@ -2601,7 +2628,87 @@ class program_page(ProtectedPage):
             program = programs.create_program()
             is_new_program = True
 
-        qdict['schedule_type'] = int(qdict['schedule_type'])
+        try:
+            qdict['schedule_type'] = int(qdict['schedule_type'])
+            if qdict['schedule_type'] not in ProgramType.FRIENDLY_NAMES:
+                raise ValueError
+
+            raw_months = json.loads(qdict.get('allowed_months', '[]'))
+            if not isinstance(raw_months, list) or not raw_months:
+                raise ValueError
+            allowed_months = calendar_rules.normalized_months(raw_months)
+            if len(allowed_months) != len(set(raw_months)):
+                raise ValueError
+
+            month_days = []
+            for value in qdict.get('month_days', '').replace(',', ' ').split():
+                day = int(value)
+                if day < 1 or day > 31:
+                    raise ValueError
+                month_days.append(day)
+            month_days = sorted(set(month_days))
+
+            day_parity = qdict.get('day_parity', 'all')
+            if day_parity not in calendar_rules.DAY_PARITIES:
+                raise ValueError
+            excluded_dates, excluded_ranges = calendar_rules.parse_excluded_periods(
+                qdict.get('excluded_periods', ''))
+
+            exclude_holidays = qdict.get('exclude_holidays', 'off') == 'on'
+            if exclude_holidays and not calendar_rules.holidays_available():
+                return self.core_render.notice(
+                    '/programs', _('Public holiday support is not installed.'))
+            if exclude_holidays and not calendar_rules.holiday_country_code():
+                return self.core_render.notice(
+                    '/programs', _('Holiday country is not known. Configure weather location or a country override.'))
+            if (exclude_holidays and
+                    not calendar_rules.holiday_calendar_available()):
+                return self.core_render.notice(
+                    '/programs', _('The public holiday calendar is unavailable for the selected country.'))
+
+            solar_type = qdict['schedule_type'] in (
+                ProgramType.SUNRISE, ProgramType.SUNSET)
+            if (solar_type and
+                    not calendar_rules.solar_provider_status()['available'] and
+                    (is_new_program or program.type != qdict['schedule_type'])):
+                return self.core_render.notice(
+                    '/programs', _('Sunrise and sunset programs require the enabled Sunrise and Sunset plugin.'))
+
+            solar_days = json.loads(qdict.get('days', '[]'))
+            if solar_type:
+                if (not isinstance(solar_days, list) or not solar_days or
+                        any(isinstance(day, bool) or int(day) < 0 or int(day) > 6
+                            for day in solar_days)):
+                    raise ValueError
+                solar_days = sorted(set(int(day) for day in solar_days))
+                solar_duration = int(qdict.get('simple_duration', 0))
+                solar_pause = int(qdict.get('simple_pause', 0))
+                solar_repetitions = (
+                    int(qdict.get('simple_rcount', 0))
+                    if qdict.get('simple_repeat', 'off') == 'on' else 0)
+                if (solar_duration <= 0 or solar_pause < 0 or
+                        solar_repetitions < 0 or solar_repetitions > 9):
+                    raise ValueError
+
+            sun_offset_minutes = int(qdict.get('sun_offset_minutes', 0))
+            if sun_offset_minutes < -720 or sun_offset_minutes > 720:
+                raise ValueError
+
+            def time_minutes(value):
+                parsed = datetime.datetime.strptime(value, '%H:%M').time()
+                return parsed.hour * 60 + parsed.minute
+
+            sun_earliest_minute = time_minutes(qdict.get('sun_earliest', '00:00'))
+            sun_latest_minute = time_minutes(qdict.get('sun_latest', '23:59'))
+            if sun_latest_minute < sun_earliest_minute:
+                return self.core_render.notice(
+                    '/programs', _('Latest start time must not be earlier than earliest start time.'))
+            sun_window_policy = qdict.get('sun_window_policy', 'clamp')
+            if sun_window_policy not in calendar_rules.SUN_WINDOW_POLICIES:
+                raise ValueError
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+            return self.core_render.notice(
+                '/programs', _('The program calendar settings are invalid.'))
 
         program.name = qdict['name']
         program.stations = json.loads(qdict['stations'])
@@ -2657,6 +2764,26 @@ class program_page(ProtectedPage):
             program.manual = False
             program.start = repeat_start_date
             program.schedule = json.loads(qdict['custom_schedule_data'])
+
+        elif qdict['schedule_type'] in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            program.set_solar(
+                qdict['schedule_type'],
+                solar_duration,
+                solar_pause,
+                solar_repetitions,
+                solar_days,
+            )
+
+        program.allowed_months = allowed_months
+        program.day_parity = day_parity
+        program.month_days = month_days
+        program.exclude_holidays = exclude_holidays
+        program.excluded_dates = excluded_dates
+        program.excluded_ranges = excluded_ranges
+        program.sun_offset_minutes = sun_offset_minutes
+        program.sun_earliest_minute = sun_earliest_minute
+        program.sun_latest_minute = sun_latest_minute
+        program.sun_window_policy = sun_window_policy
 
         if 'control_master' in qdict:
             program.control_master = int(qdict['control_master'])
@@ -4739,6 +4866,8 @@ class options_page(ProtectedPage):
         location_changed = qdict.get('location', options.location) != options.location
         map_selected = qdict.get('weather_map_selected', '0') == '1'
         location_mode = qdict.get('weather_location_mode', 'search')
+        if location_changed or map_selected:
+            options.weather_country_code = ''
         if location_changed and not map_selected:
             location_mode = 'search'
         if location_mode == 'coordinates':

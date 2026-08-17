@@ -23,10 +23,10 @@ The suite checks:
 * partial bulk installation, compatibility warnings and automatic-update blocking;
 * rejection of unsafe, damaged, encrypted, duplicate, symbolic-link, oversized, excessive-entry and excessive-ratio plug-in ZIP archives;
 * atomic plug-in replacement, preservation of plug-in `data`, and restoration of the previous version after a failed swap or start;
-* scheduler behavior for rain delay, manual run-once priority, station order, sequential and parallel output usage, station delay, disabled stations and program-group postponement;
+* scheduler behavior for rain delay, manual run-once priority, station order, sequential and parallel output usage, station delay, disabled stations, program-group postponement, month/day/parity calendar selectors, excluded periods, service outages and sunrise/sunset offsets and time windows;
 * shift-register output writes, invalid-index protection, disabled-station blocking, primary and secondary master relays, master delays, immediate stop-all behavior and scheduler recovery after an output exception;
 * sensor offline timeouts, valid-packet recovery, MAC-based recovery after a lost or DHCP-changed IP address, malformed-packet isolation, legacy IP-address and regulation-output migration, Sensors page rendering, weather request timeouts, location retry, coordinate preservation, response validation and fallback to the last valid cached weather value;
-* weather-provider selection and migration, Open-Meteo automatic and CHMI ALADIN request normalization, Stormglass compatibility, provider-supplied evapotranspiration, pressure fallback calculation and cached Home forecast cards without live network access during page rendering;
+* weather-provider selection and migration, Open-Meteo automatic and CHMI ALADIN request normalization, Stormglass compatibility, provider-supplied evapotranspiration, pressure fallback calculation, country detection for holiday calendars and cached Home forecast cards without live network access during page rendering;
 * non-blocking external-IP cache refresh without duplicate refresh workers;
 * cooperative shutdown of scheduler, sensor, weather and plug-in update workers, immediate output and master-relay safety, bounded core shutdown ordering and synchronous persistence of pending settings;
 * API Basic authentication, brute-force locking, security-event throttling, role permissions, optional CSRF enforcement and audited station/run-once state changes;

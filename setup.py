@@ -197,6 +197,9 @@ if __name__ == '__main__':
             # https://pypi.org/project/requests/
             install_package('requests', None, None, pip='requests')
 
+            # https://pypi.org/project/holidays/
+            install_package('holidays', None, None, pip='holidays')
+
             # QR codes used while pairing a TOTP authenticator application.
             install_package('qrcode', None, None, pip='qrcode[pil]')
 

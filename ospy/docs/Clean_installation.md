@@ -73,6 +73,8 @@ Missing groups are skipped safely.
 
 A reboot or a new login session is recommended before the changed group membership is used.
 
+The core requirements installed on every clean installation include `python3-holidays`. OSPy uses it locally for optional public-holiday exclusions in program calendar rules; the country is detected from the configured weather location or selected with the holiday-country override. Astronomical program times remain supplied by the optional Sunrise and Sunset plug-in.
+
 ### 5. Install multimedia packages for voice plug-ins
 
 Default: **OFF**

@@ -238,7 +238,7 @@ Bulk configuration uses `{"stations":[{"id":"station-0",...}]}`. Unknown or live
 
 ### Programs
 
-`GET /programs` and `/programs/{id}` return the OSPy type, `type_data`, stations, calculated schedule, summary, `group_id` and localized `group_name`. Every item also contains `station_details` with stable station IDs and names and an `editor` object describing fields suitable for a native editor. `POST /programs` creates a program; `PUT /programs/{id}` updates it and `DELETE` removes it. Creation requires `name`, `stations`, `type` and `type_data`; omitted `group_id` selects `default`, while an unknown group is rejected atomically. To preserve every scheduling variant, read a program of the intended type and send the same shape after editing. `/programs/{id}/actions/run|stop` requires `control`.
+`GET /programs` and `/programs/{id}` return the OSPy type, `type_data`, stations, calculated schedule, summary, `group_id` and localized `group_name`. Every item also contains `station_details` with stable station IDs and names, an `editor` object describing fields suitable for a native editor and an additive `calendar` object. `POST /programs` creates a program; `PUT /programs/{id}` updates it and `DELETE` removes it. Creation requires `name`, `stations`, `type` and `type_data`; omitted `group_id` selects `default`, while an unknown group is rejected atomically. To preserve every scheduling variant, read a program of the intended type and send the same shape after editing. `/programs/{id}/actions/run|stop` requires `control`.
 
 Program creation example:
 
@@ -280,8 +280,32 @@ Program types and `type_data` are deliberately the same scheduling model as OSPy
 | `4` | `weekly_advanced` | `[intervals]` |
 | `5` | `custom` | `[intervals]`; also send `start`, `modulo`, `manual` and `schedule` |
 | `6` | `weekly_weather` | `[irrigation_min, irrigation_max, run_max, pause_ratio, priority_intervals]` |
+| `7` | `sunrise` | `[duration_minutes, pause_minutes, repeat_count, days]` |
+| `8` | `sunset` | `[duration_minutes, pause_minutes, repeat_count, days]` |
 
 Normal intervals are `[start_minute, end_minute]` pairs. Weather priority intervals are `[minute, priority]` pairs and `pause_ratio` is a decimal from `0.0` to `1.0` (`0.5` means 50%). Days are zero-based Monday through Sunday (`0..6`), dates use `YYYY-MM-DD`, and custom `start` uses ISO 8601 date-time syntax. Invalid station indices, values or shapes return `invalid_program`; `error.details.reason` supplies a diagnostic reason while clients should localize the stable error code and the affected field.
+
+The `calendar` object is valid for every recurring type and may be omitted to retain the current values. It contains:
+
+```json
+{
+  "allowed_months": [3, 4, 5],
+  "day_parity": "odd",
+  "month_days": [1, 15, 31],
+  "exclude_holidays": true,
+  "excluded_dates": ["2026-05-01"],
+  "excluded_ranges": [
+    {"start": "2026-08-01", "end": "2026-08-14", "annual": false},
+    {"start": "12-20", "end": "01-10", "annual": true}
+  ],
+  "sun_offset_minutes": -30,
+  "sun_earliest_minute": 300,
+  "sun_latest_minute": 540,
+  "sun_window_policy": "skip"
+}
+```
+
+`allowed_months` uses `1..12`, `day_parity` is `all`, `odd` or `even`, and `month_days` is empty or contains `1..31`. Exact and range exclusions are inclusive; annual ranges may cross New Year. Solar offsets use `-720..720` minutes, allowed start limits use local minutes `0..1439`, and the policy is `clamp` or `skip`. Creating a sunrise/sunset type requires the compatible Sunrise and Sunset plug-in to be running and configured. A client that does not implement calendar or solar editing must preserve the returned values unchanged.
 
 The `editor` object is intentionally additive. Its stable `kind` identifies the exact native form listed above, while `fields` contains the decoded scheduling values for that kind. Clients that do not recognize a future kind must keep it read-only or send its unchanged definition; they must never convert it to `custom`. Enabling or disabling an existing program is a normal partial update:
 
@@ -306,7 +330,7 @@ This `enabled`-only update is atomic and does not rebuild the program schedule. 
 
 The endpoint does not modify programs. Clients should refresh it after `program.*`, `station.*`, `stations.changed` or `conditions.changed` events. Unknown future fields and states are additive.
 
-The mobile Home screen should render the result as one compact chronological timeline rather than as an unbounded history. It may retain a small number of the most recent completed items, then show every running item and the next upcoming or blocked items. `progress` is a floating-point value in the inclusive `0..1` range. `remaining_seconds` is authoritative while an item is running. A blocked item can include `blocked_reason`, for example rain delay.
+The mobile Home screen should render the result as one compact chronological timeline rather than as an unbounded history. It may retain a small number of the most recent completed items, then show every running item and the next upcoming or blocked items. `progress` is a floating-point value in the inclusive `0..1` range. `remaining_seconds` is authoritative while an item is running. A blocked item can include `blocked_reason`. Calendar-aware stable values are `calendar_excluded`, `public_holiday`, `holiday_calendar_unavailable` and `service_outage`; clients should localize these codes just like the existing rain and scheduler reasons.
 
 ### Run-once
 

@@ -506,6 +506,16 @@ Typ harmonogramu pozwala wybrać odpowiedni typ programu zgodnie z naszymi wymag
 
 Zmiana typu powoduje zmianę widocznych pól oraz sposobu, w jaki OSPy buduje harmonogram. Po zmianie typu przed zapisaniem należy sprawdzić wszystkie wartości. W harmonogramie graficznym pierwsze kliknięcie wyznacza początek, a drugie koniec przedziału; krzyżyk przy istniejącym przedziale usuwa go. Czasy są interpretowane według lokalnego czasu systemu OSPy.
 
+## Reguły kalendarza
+Każdy istniejący program cykliczny można dodatkowo ograniczyć regułami kalendarza. **Dozwolone miesiące** wybiera się pojedynczo albo skrótami: wiosna, lato, jesień, zima i cały rok. **Parzystość dnia kalendarzowego** dopuszcza wszystkie, nieparzyste lub parzyste daty, a pole **Dni miesiąca** przyjmuje wartości od 1 do 31. Reguły łączą się ze zwykłymi dniami tygodnia lub interwałem powtarzania; ustawienia domyślne zachowują dotychczasowy harmonogram.
+
+W polu **Wykluczone terminy** wpisuje się po jednej pozycji w wierszu: dokładną datę (`RRRR-MM-DD`), dokładny zakres włącznie (`RRRR-MM-DD..RRRR-MM-DD`) albo coroczny zakres (`MM-DD..MM-DD`). Zakres roczny może przechodzić przez Nowy Rok. Zablokowane uruchomienie pozostaje widoczne w harmonogramie wraz z powodem. **Nie uruchamiaj w święta państwowe** używa lokalnie zainstalowanego kalendarza świąt. OSPy wykrywa kraj z lokalizacji pogody; inny dwuliterowy kod można podać w **Opcje → Pogoda → Nadpisanie kraju świąt**. Jeśli biblioteka lub kraj są niedostępne, bezpiecznie blokowane są tylko programy z włączonym wykluczaniem świąt; OSPy i pozostałe programy działają dalej.
+
+Sekcja **Przerwy serwisowe** na stronie Programy tworzy nazwane globalne przedziały początku i końca. Nakładające się uruchomienia automatyczne są pokazane jako zablokowane, natomiast **Uruchom teraz** pozostaje dostępne do świadomego testu serwisowego. Przerwy są zachowane po restarcie OSPy.
+
+### Wschód i zachód słońca
+Programy oparte na wschodzie lub zachodzie są dostępne tylko wtedy, gdy istniejąca wtyczka **Sunrise and Sunset** jest włączona, obliczenia Astral są aktywne i dostępna jest prawidłowa lokalizacja. Dodatnie lub ujemne przesunięcie minut uruchamia program po albo przed obliczonym zdarzeniem. Najwcześniejszy i najpóźniejszy dozwolony czas ograniczają wynik; uruchomienie poza oknem można przesunąć do najbliższej granicy albo pominąć. Nadal obowiązują czas trwania, pauza, powtórzenia, dni tygodnia i reguły kalendarza. Gdy wtyczka jest niedostępna, OSPy nie zgaduje stałej godziny i zachowuje program do czasu powrotu dostawcy.
+
 ### Wybrane dni (proste)
 Uruchamia ten sam prosty harmonogram w każdym wybranym dniu tygodnia. Wybierz co najmniej jeden dzień i ustaw pierwsze uruchomienie.
 

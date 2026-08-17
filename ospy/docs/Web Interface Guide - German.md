@@ -517,6 +517,16 @@ Der Zeitplanertyp ermöglicht die Auswahl des geeigneten Programmtyps entspreche
 
 Beim Wechsel des Typs ändern sich sowohl die sichtbaren Felder als auch die Art, wie OSPy den Zeitplan aufbaut. Prüfen Sie deshalb nach einem Typwechsel vor dem Speichern alle Werte. In grafischen Zeitplänen markiert der erste Klick den Anfang und der zweite das Ende eines Intervalls; mit dem Kreuz an einem vorhandenen Intervall wird es entfernt. Alle Zeiten beziehen sich auf die lokale Zeit des OSPy-Systems.
 
+## Kalenderregeln
+Jedes vorhandene wiederkehrende Programm kann durch Kalenderregeln weiter eingeschränkt werden. **Zulässige Monate** lassen sich einzeln oder über die Kurzbefehle Frühling, Sommer, Herbst, Winter und ganzes Jahr wählen. Die **Parität des Kalendertags** erlaubt alle, ungerade oder gerade Datumswerte; unter **Tage des Monats** können Werte von 1 bis 31 angegeben werden. Diese Regeln werden mit Wochentagen oder Wiederholungsintervallen kombiniert. Die Standardwerte erhalten den bisherigen Zeitplan.
+
+Unter **Ausgeschlossene Termine** steht pro Zeile ein genaues Datum (`JJJJ-MM-TT`), ein inklusiver genauer Bereich (`JJJJ-MM-TT..JJJJ-MM-TT`) oder ein jährlich wiederkehrender Bereich (`MM-TT..MM-TT`). Ein Jahresbereich darf den Jahreswechsel überschreiten. Ein blockierter Lauf bleibt mit seinem Grund im Zeitplan sichtbar. **An Feiertagen nicht ausführen** verwendet den lokal installierten Feiertagskalender. OSPy erkennt das Land anhand des Wetterstandorts; unter **Optionen → Wetter → Feiertagsland überschreiben** kann ein anderer zweibuchstabiger Ländercode eingetragen werden. Fehlen Bibliothek oder Land, werden nur Programme mit aktivierter Feiertagsregel sicher blockiert; OSPy und andere Programme laufen weiter.
+
+Im Abschnitt **Wartungsunterbrechungen** der Programmseite werden benannte globale Start-/Endintervalle angelegt. Überschneidende automatische Läufe erscheinen als blockiert; **Jetzt ausführen** bleibt für einen bewussten Servicetest verfügbar. Unterbrechungen bleiben nach einem OSPy-Neustart gespeichert.
+
+### Sonnenaufgang und Sonnenuntergang
+Die entsprechenden Programmtypen stehen nur zur Verfügung, wenn das vorhandene Plugin **Sunrise and Sunset** aktiviert, seine Astral-Berechnung eingeschaltet und ein gültiger Standort vorhanden ist. Ein positiver oder negativer Minutenversatz startet vor oder nach dem berechneten Ereignis. Früheste und späteste zulässige Zeit begrenzen das Ergebnis; ein Lauf außerhalb des Fensters wird an die nächste Grenze verschoben oder übersprungen. Dauer, Pause, Wiederholungen, Wochentage und Kalenderregeln gelten weiterhin. Bei nicht verfügbarem Plugin erfindet OSPy keine feste Uhrzeit und behält das Programm bis zur Wiederherstellung des Anbieters.
+
 ### Ausgewählte Tage (einfach)
 Führt denselben einfachen Zeitplan an jedem ausgewählten Wochentag aus. Wählen Sie mindestens einen Tag und konfigurieren Sie den ersten Lauf.
 

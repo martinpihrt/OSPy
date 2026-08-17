@@ -211,6 +211,8 @@ class _Weather(Thread):
                 self._lat = latitude
                 self._lon = longitude
                 options.weather_status = 1
+                if not str(getattr(options, 'weather_country_code', '') or '').strip():
+                    self._update_country_code(latitude, longitude)
                 if (selected_provider() == 'stormglass' and
                         options.stormglass_key and options.use_weather):
                     url = "https://api.stormglass.io/v2/elevation/point?lat=%s&lng=%s" % self.get_lat_lon()
@@ -227,7 +229,7 @@ class _Weather(Thread):
         if options.location:
             options.weather_status = 2
             request = Request(
-                "https://nominatim.openstreetmap.org/search?q=%s&format=json" % quote_plus(options.location),
+                "https://nominatim.openstreetmap.org/search?q=%s&format=json&addressdetails=1" % quote_plus(options.location),
                 headers={'User-Agent': 'OSPy/{} contact: pihrt.com'.format(options.name)}
             )
             data = urlopen(request, timeout=WEATHER_HTTP_TIMEOUT)
@@ -242,6 +244,10 @@ class _Weather(Thread):
                 self._lon = float(data[0]['lon'])
                 options.weather_lat = str(float(data[0]['lat']))
                 options.weather_lon = str(float(data[0]['lon']))
+                address = data[0].get('address', {}) if isinstance(data[0], dict) else {}
+                country_code = str(address.get('country_code', '') or '').upper()
+                if len(country_code) == 2 and country_code.isalpha():
+                    options.weather_country_code = country_code
                 options.weather_status = 1 # found
                 if (selected_provider() == 'stormglass' and
                         options.stormglass_key and options.use_weather):
@@ -258,6 +264,25 @@ class _Weather(Thread):
             self._lat = None
             self._lon = None
             options.weather_status = 0
+
+    @staticmethod
+    def _update_country_code(latitude, longitude):
+        """Best-effort reverse lookup used only when stored coordinates change."""
+        try:
+            request = Request(
+                "https://nominatim.openstreetmap.org/reverse?lat={}&lon={}&format=json&addressdetails=1".format(
+                    latitude, longitude),
+                headers={'User-Agent': 'OSPy/{} contact: pihrt.com'.format(options.name)}
+            )
+            response = urlopen(request, timeout=WEATHER_HTTP_TIMEOUT)
+            data = json.loads(response.read().decode(
+                response.info().get_content_charset('utf-8')))
+            address = data.get('address', {}) if isinstance(data, dict) else {}
+            country_code = str(address.get('country_code', '') or '').upper()
+            if len(country_code) == 2 and country_code.isalpha():
+                options.weather_country_code = country_code
+        except Exception:
+            logging.debug(_('Country could not be determined from the weather coordinates.'))
 
     def get_lat_lon(self):
         if self._lat is None or self._lon is None:

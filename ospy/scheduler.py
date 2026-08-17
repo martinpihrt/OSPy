@@ -172,6 +172,10 @@ def _blocked_reason_text(reason):
         'rain sensor': _('the rain sensor is active'),
         'cut-off': _('the calculated duration is below the minimum runtime'),
         'scheduler error': _('the scheduler could not create a valid schedule'),
+        'calendar_excluded': _('the date is excluded by the program calendar'),
+        'public_holiday': _('the date is a configured public holiday'),
+        'holiday_calendar_unavailable': _('the public holiday calendar is unavailable'),
+        'service_outage': _('a configured service outage is active'),
     }
     return reasons.get(reason, str(reason))
 
@@ -273,7 +277,7 @@ def predicted_schedule(start_time, end_time):
                     'cut_off': 0,
                     'control_master': program.control_master,
                     'manual': True,
-                    'blocked': False,
+                    'blocked': interval.get('calendar_blocked', False),
                     'start': interval['start'],
                     'original_start': interval['start'],
                     'end': interval['end'],
@@ -307,7 +311,7 @@ def predicted_schedule(start_time, end_time):
                     'cut_off': program.cut_off/100.0,
                     'control_master': program.control_master,
                     'manual': program.manual,
-                    'blocked': False,
+                    'blocked': interval.get('calendar_blocked', False),
                     'start': interval['start'],
                     'original_start': interval['start'],
                     'end': interval['end'],
@@ -341,11 +345,12 @@ def predicted_schedule(start_time, end_time):
 
         last_end = datetime.datetime(2000, 1, 1)
         for interval in schedule:
-            if last_end > interval['start']:
-                time_delta = last_end - interval['start']
-                interval['start'] += time_delta
-                interval['end'] += time_delta
-            last_end = interval['end']
+            if not interval['blocked']:
+                if last_end > interval['start']:
+                    time_delta = last_end - interval['start']
+                    interval['start'] += time_delta
+                    interval['end'] += time_delta
+                last_end = interval['end']
 
             new_interval = {
                 'station': station
@@ -383,6 +388,8 @@ def predicted_schedule(start_time, end_time):
 
     # Try to add each interval
     for interval in all_intervals:
+        if interval['blocked']:
+            continue
         if not interval['manual'] and not options.scheduler_enabled:
             interval['blocked'] = 'disabled scheduler'
             continue

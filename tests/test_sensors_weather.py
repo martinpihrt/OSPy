@@ -287,6 +287,7 @@ class WeatherRecoveryTests(unittest.TestCase):
             "weather_lat": "50.0",
             "weather_lon": "14.0",
             "weather_status": 1,
+            "weather_country_code": "",
             "weather_cache": {},
             "weather_provider": "stormglass",
             "stormglass_key": "test-key",
@@ -325,6 +326,20 @@ class WeatherRecoveryTests(unittest.TestCase):
 
         self.assertEqual((instance._lat, instance._lon), (49.8175, 15.473))
         self.assertEqual(options.weather_status, 1)
+
+    def test_location_stores_country_code_for_holiday_calendar(self):
+        instance = self.weather()
+        options = self.options(weather_provider="open_meteo")
+        response = Response([{
+            "lat": "50.0755", "lon": "14.4378",
+            "address": {"country_code": "cz"},
+        }])
+
+        with mock.patch.object(weather_module, "options", options), \
+                mock.patch.object(weather_module, "urlopen", return_value=response):
+            instance._find_location()
+
+        self.assertEqual("CZ", options.weather_country_code)
 
     def test_stormglass_rejects_error_payload_and_uses_timeout(self):
         options = self.options()

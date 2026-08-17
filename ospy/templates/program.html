@@ -212,7 +212,8 @@ function addScheduleClick(e) {
 
 function check_type() {
     var schedule_type = jQuery("#schedule_type").val();
-    if (schedule_type == DAYS_SIMPLE || schedule_type == DAYS_ADVANCED) {
+    var solar = schedule_type == SUNRISE || schedule_type == SUNSET;
+    if (schedule_type == DAYS_SIMPLE || schedule_type == DAYS_ADVANCED || solar) {
         jQuery("#days_controls").show()
     } else {
         jQuery("#days_controls").hide()
@@ -222,7 +223,7 @@ function check_type() {
     } else {
         jQuery("#repeat_controls").hide()
     }
-    if (schedule_type == REPEAT_SIMPLE || schedule_type == DAYS_SIMPLE) {
+    if (schedule_type == REPEAT_SIMPLE || schedule_type == DAYS_SIMPLE || solar) {
         jQuery("#simple_controls").show()
     } else {
         jQuery("#simple_controls").hide()
@@ -251,6 +252,8 @@ function check_type() {
         jQuery("#weather_pems").hide()
         jQuery("#adjustment_controls").show()
     }
+    jQuery(".simple_start").toggle(!solar);
+    jQuery("#solar_controls").toggle(solar);
     jQuery(".addStartMarker, .newStart").remove();
 }
 
@@ -309,6 +312,20 @@ jQuery(document).ready(function(){
             .toggleClass("off", !checked);
         return false;
     });
+    jQuery("button.calendarMonth").click(function(){
+        jQuery(this).toggleClass("on off");
+        update_calendar_months();
+        return false;
+    });
+    jQuery("button.calendarSeason").click(function(){
+        var months = jQuery(this).attr("data-months").split(',').map(Number);
+        jQuery("button.calendarMonth").each(function(){
+            var selected = months.indexOf(parseInt(jQuery(this).attr("data-month"))) >= 0;
+            jQuery(this).toggleClass("on", selected).toggleClass("off", !selected);
+        });
+        update_calendar_months();
+        return false;
+    });
 
     jQuery("#intervalSelector").click(function() {
         var dayInterval = parseInt(jQuery("#intervalSelector .intervalSelect.distance0").text());
@@ -363,6 +380,13 @@ jQuery(document).ready(function(){
     });
 
 });
+
+function update_calendar_months() {
+    var months = jQuery("button.calendarMonth.on").map(function() {
+        return parseInt(jQuery(this).attr("data-month"));
+    }).get();
+    jQuery("#allowed_months").val(JSON.stringify(months));
+}
 </script>
 <div id="programs">
     <div class="title">${_('Add a New Program') if program.index < 0 else _('Edit Program') + (' #') + str(program.index+1)}</div>
@@ -399,10 +423,14 @@ jQuery(document).ready(function(){
                 <div class='option' style="white-space: nowrap">
                     <span class="program_label">$_('Schedule type'):</span>
                     <select id="schedule_type" name="schedule_type" style="width: 150px">
+                        $ solar_status = calendar_rules.solar_provider_status()
                         $for value in sorted(ProgramType.FRIENDLY_NAMES.keys()):
-                            <option value="${value}" ${'selected' if program.type == value else ''}>${ProgramType.FRIENDLY_NAMES[value]}</option>
+                            $ solar_type = value in (ProgramType.SUNRISE, ProgramType.SUNSET)
+                            <option value="${value}" ${'selected' if program.type == value else ''} ${'disabled' if solar_type and not solar_status['available'] and program.type != value else ''}>${ProgramType.FRIENDLY_NAMES[value]}</option>
                     </select>
                 </div>
+                $if not solar_status['available']:
+                    <div class="option warning">$_('Sunrise and sunset programs require the enabled Sunrise and Sunset plugin.')</div>
                 <br>
 
 
@@ -496,7 +524,7 @@ jQuery(document).ready(function(){
         </div>
 
         <div class="simpleblock" id="simple_controls" style="display: none;">
-            <div class='option' style="white-space: nowrap">
+            <div class='option simple_start' style="white-space: nowrap">
                 <span class="program_label">$_('Start time'):</span>
                 <input name="simple_hour" type="number" maxlength="2" value="${two_digits(program.start_min()/60)}" style="width: 60px" min="0" max="23"> :
                 <input name="simple_minute" type="number" maxlength="2" value="${two_digits(program.start_min()%60)}" style="width: 60px" min="0" max="59">
@@ -524,6 +552,81 @@ jQuery(document).ready(function(){
                 <span class="program_label">$_('Pause'):</span>
                 <input name="simple_pause" type="number" maxlength="1" value="${program.pause_min()}" style="width: 60px" min="1" max="1440">
                 $_('minute(s)')
+            </div>
+        </div>
+
+        <div class="simpleblock" id="solar_controls" style="display: none;">
+            <div class='option' style="white-space: nowrap">
+                <span class="program_label">$_('Sun time offset'):</span>
+                <input name="sun_offset_minutes" type="number" min="-720" max="720" value="${program.sun_offset_minutes}" style="width: 75px">
+                $_('minute(s)')
+            </div>
+            <div class='option' style="white-space: nowrap">
+                <span class="program_label">$_('Earliest start time'):</span>
+                <input name="sun_earliest" type="time" value="${two_digits(int(program.sun_earliest_minute/60))}:${two_digits(program.sun_earliest_minute%60)}">
+            </div>
+            <div class='option' style="white-space: nowrap">
+                <span class="program_label">$_('Latest start time'):</span>
+                <input name="sun_latest" type="time" value="${two_digits(int(program.sun_latest_minute/60))}:${two_digits(program.sun_latest_minute%60)}">
+            </div>
+            <div class='option' style="white-space: nowrap">
+                <span class="program_label">$_('Outside allowed time'):</span>
+                <select name="sun_window_policy">
+                    <option value="clamp" ${'selected' if program.sun_window_policy == 'clamp' else ''}>$_('Move to the nearest allowed time')</option>
+                    <option value="skip" ${'selected' if program.sun_window_policy == 'skip' else ''}>$_('Skip this run')</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="simpleblock" id="calendar_controls">
+            <h3>$_('Calendar rules')</h3>
+            <input type="hidden" id="allowed_months" name="allowed_months" value="${calendar_rules.normalized_months(program.allowed_months)}">
+            <div class='option'>
+                <span class="program_label">$_('Allowed months'):</span>
+                <div style="display: inline-block;">
+                    $for month in range(1, 13):
+                        <button type="button" class="calendarMonth pushon ${'on' if month in calendar_rules.normalized_months(program.allowed_months) else 'off'}" data-month="${month}">${month}</button>
+                </div>
+            </div>
+            <div class='option'>
+                <span class="program_label">$_('Season'):</span>
+                <button type="button" class="calendarSeason button" data-months="3,4,5">$_('Spring')</button>
+                <button type="button" class="calendarSeason button" data-months="6,7,8">$_('Summer')</button>
+                <button type="button" class="calendarSeason button" data-months="9,10,11">$_('Autumn')</button>
+                <button type="button" class="calendarSeason button" data-months="12,1,2">$_('Winter')</button>
+                <button type="button" class="calendarSeason button" data-months="1,2,3,4,5,6,7,8,9,10,11,12">$_('All year')</button>
+            </div>
+            <div class='option'>
+                <span class="program_label">$_('Calendar day parity'):</span>
+                <select name="day_parity">
+                    <option value="all" ${'selected' if program.day_parity == 'all' else ''}>$_('All days')</option>
+                    <option value="odd" ${'selected' if program.day_parity == 'odd' else ''}>$_('Odd days')</option>
+                    <option value="even" ${'selected' if program.day_parity == 'even' else ''}>$_('Even days')</option>
+                </select>
+            </div>
+            <div class='option'>
+                <span class="program_label">$_('Days of month'):</span>
+                <input name="month_days" type="text" value="${', '.join(str(day) for day in calendar_rules.normalized_month_days(program.month_days))}" placeholder="1, 15, 31">
+                <span>$_('Leave empty to allow every day of the month.')</span>
+            </div>
+            <div class='option'>
+                <span class="program_label">$_('Public holidays'):</span>
+                <input id="exclude_holidays" name="exclude_holidays" type="checkbox" ${'checked' if program.exclude_holidays else ''}>
+                <label for="exclude_holidays">$_('Do not run on public holidays')</label>
+                $ country_code = calendar_rules.holiday_country_code()
+                $if country_code:
+                    <span>(${_('country')}: ${country_code})</span>
+                $else:
+                    <span class="warning">$_('Holiday country is not known. Configure weather location or a country override.')</span>
+                $if not calendar_rules.holidays_available():
+                    <span class="warning">$_('Public holiday support is not installed.')</span>
+                $elif country_code and not calendar_rules.holiday_calendar_available():
+                    <span class="warning">$_('The public holiday calendar is unavailable for the selected country.')</span>
+            </div>
+            <div class='option'>
+                <span class="program_label">$_('Excluded dates'):</span>
+                <textarea name="excluded_periods" rows="5" style="min-width: 280px" placeholder="2026-12-24&#10;2026-08-01..2026-08-14&#10;12-20..01-10">${calendar_rules.excluded_periods_text(program)}</textarea>
+                <span>$_('Enter one date or range per line. Annual ranges use MM-DD..MM-DD.')</span>
             </div>
         </div>
 

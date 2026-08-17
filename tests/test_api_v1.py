@@ -585,6 +585,39 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertEqual(result["fields"]["duration_minutes"], 20)
         self.assertEqual(result["fields"]["days"], [0, 2, 4])
 
+    def test_program_api_preserves_calendar_rules(self):
+        from api.v1 import api
+        from ospy.programs import programs, ProgramType
+
+        program = programs.create_program()
+        api._apply_program_definition(program, {
+            "name": "Seasonal",
+            "enabled": True,
+            "stations": [],
+            "type": ProgramType.DAYS_SIMPLE,
+            "type_data": [360, 10, 0, 0, [0]],
+            "calendar": {
+                "allowed_months": [4, 5, 6],
+                "day_parity": "odd",
+                "month_days": [1, 15],
+                "exclude_holidays": True,
+                "excluded_dates": ["2027-05-01"],
+                "excluded_ranges": [{
+                    "start": "12-20", "end": "01-10", "annual": True,
+                }],
+                "sun_offset_minutes": -30,
+                "sun_earliest_minute": 300,
+                "sun_latest_minute": 540,
+                "sun_window_policy": "skip",
+            },
+        })
+        result = api._program_data(program)["calendar"]
+        self.assertEqual([4, 5, 6], result["allowed_months"])
+        self.assertEqual("odd", result["day_parity"])
+        self.assertEqual([1, 15], result["month_days"])
+        self.assertTrue(result["exclude_holidays"])
+        self.assertTrue(result["excluded_ranges"][0]["annual"])
+
     def test_program_enabled_partial_update_does_not_rebuild_schedule(self):
         from api.v1 import api
 
@@ -788,6 +821,8 @@ class MobileAPIV1Tests(unittest.TestCase):
             ProgramType.WEEKLY_ADVANCED: [[[60, 70]]],
             ProgramType.CUSTOM: [[[60, 70]]],
             ProgramType.WEEKLY_WEATHER: [5, 10, 5, 0.5, [[360, 1]]],
+            ProgramType.SUNRISE: [10, 5, 1, [0, 2]],
+            ProgramType.SUNSET: [10, 5, 1, [1, 3]],
         }
         for program_type, type_data in definitions.items():
             program = programs.create_program()
@@ -802,7 +837,13 @@ class MobileAPIV1Tests(unittest.TestCase):
                 "start": "2026-08-08T00:00:00",
                 "schedule": [[60, 70]],
             }
-            api._apply_program_definition(program, definition)
+            if program_type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+                with mock.patch.object(
+                        api.calendar_rules, "solar_provider_status",
+                        return_value={"available": True, "reason": ""}):
+                    api._apply_program_definition(program, definition)
+            else:
+                api._apply_program_definition(program, definition)
             self.assertEqual(program.type, program_type)
             editor = api._program_editor(program)
             self.assertTrue(editor["valid"])

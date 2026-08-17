@@ -1,5 +1,6 @@
 import json
 import os
+import builtins
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -91,7 +92,8 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(response.headers["Content-Type"], "application/json")
         self.assertEqual(
             json.loads(response.data.decode("utf-8")),
-            {"error": "Could not load water balance data. Please try again."},
+            {"error": builtins._(
+                "Could not load water balance data. Please try again.")},
         )
         log_error.assert_called_once()
 
@@ -150,6 +152,7 @@ class WebRouteIntegrationTests(unittest.TestCase):
         paths_and_markers = {
             "/": b"<!doctype html>",
             "/programs": b"<!doctype html>",
+            "/program/new": b"Calendar rules",
             "/runonce": b"<!doctype html>",
             "/log": b"<!doctype html>",
             "/options": b"<!doctype html>",

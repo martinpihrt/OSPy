@@ -271,6 +271,23 @@ class _Options(object):
             "name": _('Weather location mode'),
             "default": "search"
         },
+        {
+            "key": "weather_country_code",
+            "name": _('Detected weather country code'),
+            "default": ""
+        },
+        {
+            "key": "holiday_country_override",
+            "name": _('Holiday country override'),
+            "default": "",
+            "help": _('Optional two-letter country code used for public holidays. Leave empty to use the country detected from the weather location.'),
+            "category": _('Weather')
+        },
+        {
+            "key": "calendar_service_outages",
+            "name": _('Program service outages'),
+            "default": []
+        },
         #######################################################################
         # Users ############################################################
         {

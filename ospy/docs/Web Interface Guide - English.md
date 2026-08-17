@@ -516,6 +516,16 @@ Scheduler type allows to choose the suitable program type according to our requi
 
 Changing the type changes both the visible fields and the way OSPy builds the schedule. Review all values before saving after changing a type. In graphical schedules, click once to mark the beginning and again to mark the end; use the cross on an existing interval to remove it. Times are interpreted in the local time of the OSPy system.
 
+## Calendar rules
+Every existing recurring program can be further restricted by calendar rules. **Allowed months** can be selected individually or with spring, summer, autumn, winter and all-year shortcuts. **Calendar day parity** allows all, odd or even dates, and **Days of month** accepts selected values from 1 to 31. These rules are combined with the normal weekdays or repeat interval; leaving their default values preserves the original schedule.
+
+**Excluded dates** accepts one item per line: an exact date (`YYYY-MM-DD`), an exact inclusive range (`YYYY-MM-DD..YYYY-MM-DD`) or an annual inclusive range (`MM-DD..MM-DD`). Annual ranges may cross New Year. A blocked occurrence remains visible in the schedule with its reason. **Do not run on public holidays** uses the locally installed holiday calendar. OSPy detects the country from the weather location; **Options → Weather → Holiday country override** can supply another two-letter country code. If the library or country is unavailable, only programs that requested holiday exclusion are safely blocked; OSPy itself and other programs continue running.
+
+The **Service outages** section on the Programs page creates named global start/end intervals. Overlapping automatic runs are shown as blocked, while **Run Now** remains available for a deliberate service test. Outages are saved across OSPy restarts.
+
+### Sunrise and sunset
+The Sunrise based and Sunset based program types are available only while the existing **Sunrise and Sunset** plug-in is enabled, its Astral calculation is active and a valid location is available. The program can start before or after the calculated event with a signed minute offset. An earliest and latest allowed time limit the result; an out-of-window run can be moved to the nearest boundary or skipped. Duration, pause, repetitions, selected weekdays and all calendar rules still apply. OSPy never guesses a fixed time when the plug-in is unavailable and retains the saved program until the provider recovers.
+
 ### Selected days (Simple)
 Runs the same simple schedule on each selected weekday. Select one or more weekdays and set the first run below.
 

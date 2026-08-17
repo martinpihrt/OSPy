@@ -187,7 +187,7 @@ function updateGroupPostponementPreview(input, sourceStart, sourceEnd, groupId) 
                         $else:
                             $_('None')
                         </span></p>
-                    $if len(program.schedule) > 0:
+                    $if len(program.schedule) > 0 or program.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
                         <p class="stationList">$:{program.details()}</p>
                     $if program_conflicts:
                         <p class="stationList warning"><b>$_('Warning'):</b>
@@ -233,5 +233,44 @@ function updateGroupPostponementPreview(input, sourceStart, sourceEnd, groupId) 
                     </p>
                     </div>
             </details>
+
+        <details class="controlBlock programGroup" open>
+            <summary><b>$_('Service outages')</b></summary>
+            <p>$_('Automatic program runs that overlap a service outage are shown as blocked. Manual runs remain available.')</p>
+            $ outages = [item for item in (options.calendar_service_outages or []) if isinstance(item, dict)]
+            $if outages:
+                <table>
+                    <tr>
+                        <th>$_('Name')</th>
+                        <th>$_('Start')</th>
+                        <th>$_('End')</th>
+                        <th></th>
+                    </tr>
+                    $for outage in outages:
+                        <tr>
+                            <td>${outage.get('name', '')}</td>
+                            <td>${str(outage.get('start', '')).replace('T', ' ')}</td>
+                            <td>${str(outage.get('end', '')).replace('T', ' ')}</td>
+                            <td>
+                                <form action="/programs" method="post" style="display:inline" onsubmit="return confirmProgramDelete($:{json.dumps(_('Delete this service outage?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+                                    $:csrf_input()
+                                    <input type="hidden" name="action" value="remove_service_outage">
+                                    <input type="hidden" name="outage_id" value="${outage.get('id', '')}">
+                                    <button type="submit" class="button cDelete danger">$_('Delete')</button>
+                                </form>
+                            </td>
+                        </tr>
+                </table>
+            $else:
+                <p>$_('No service outages are configured.')</p>
+            <form action="/programs" method="post">
+                $:csrf_input()
+                <input type="hidden" name="action" value="add_service_outage">
+                <label>$_('Name'): <input name="outage_name" type="text" required></label>
+                <label>$_('Start'): <input name="outage_start" type="datetime-local" required></label>
+                <label>$_('End'): <input name="outage_end" type="datetime-local" required></label>
+                <button type="submit" class="button add">$_('Add service outage')</button>
+            </form>
+        </details>
     </div>
 </div>

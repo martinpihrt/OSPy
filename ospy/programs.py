@@ -38,8 +38,8 @@ class ProgramType(object):
         WEEKLY_ADVANCED: _('Weekly (Advanced)'),
         CUSTOM: _('Custom'),
         WEEKLY_WEATHER: _('Weekly (Weather based)'),
-        SUNRISE: _('Sunrise (Astral based) TODO'),
-        SUNSET: _('Sunset (Astral based) TODO'),
+        SUNRISE: _('Sunrise based'),
+        SUNSET: _('Sunset based'),
     }
 
 ProgramType.NAMES = {getattr(ProgramType, x): x for x in dir(ProgramType) if not x.startswith('_') and isinstance(getattr(ProgramType, x), int)}
@@ -67,6 +67,20 @@ class _Program(object):
         self.fixed = 0
         self.cut_off = 0
         self.control_master = 0
+
+        # Calendar selectors are common to every recurring program.  Their
+        # defaults preserve the behaviour of every database created before
+        # calendar-aware scheduling was introduced.
+        self.allowed_months = list(range(1, 13))
+        self.day_parity = 'all'
+        self.month_days = []
+        self.exclude_holidays = False
+        self.excluded_dates = []
+        self.excluded_ranges = []
+        self.sun_offset_minutes = 0
+        self.sun_earliest_minute = 0
+        self.sun_latest_minute = 1439
+        self.sun_window_policy = 'clamp'
 
         self._schedule = []
         self._station_schedule = {}
@@ -246,6 +260,16 @@ class _Program(object):
         return self._start
 
     def start_now(self):
+        if (not self._schedule and
+                self.type in (ProgramType.SUNRISE, ProgramType.SUNSET)):
+            duration = max(1, int(self.duration_min()))
+            pause = max(0, int(self.pause_min()))
+            repeats = max(0, int(self.repeat_times()))
+            self._schedule = [
+                [repeat * (duration + pause),
+                 repeat * (duration + pause) + duration]
+                for repeat in range(repeats + 1)
+            ]
         first_offset = datetime.timedelta(minutes=self._schedule[0][0])
         self._manual = True
         self._schedule = [interval for interval in self.typed_schedule() if interval[1] <= 1440]
@@ -290,12 +314,24 @@ class _Program(object):
             result = _('Advanced weekly schedule')
         elif self.type == ProgramType.WEEKLY_WEATHER:
             result = _('Weather based schedule on') + ' ' + ' '.join([self._day_str(x) for x in set([int(y/1440) for y, z in self.type_data[-1]])])
+        elif self.type == ProgramType.SUNRISE:
+            result = _('Sunrise based schedule on') + ' ' + ' '.join(
+                [self._day_str(x) for x in self.days()])
+        elif self.type == ProgramType.SUNSET:
+            result = _('Sunset based schedule on') + ' ' + ' '.join(
+                [self._day_str(x) for x in self.days()])
         return result
 
     def details(self):
         result = _('Unknown schedule')
 
-        if len(self._schedule) == 0:
+        if self.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            reference = _('Sunrise') if self.type == ProgramType.SUNRISE else _('Sunset')
+            result = _('Starting relative to') + " <span class='val'>{}</span>".format(reference)
+            result += " <span class='val'>{:+d}</span> ".format(int(self.sun_offset_minutes)) + _('minutes')
+            result += "<br>" + _('For') + " <span class='val'>{}</span> ".format(
+                self.duration_min()) + _('minutes')
+        elif len(self._schedule) == 0:
             result = _('Empty schedule')
         elif self.type == ProgramType.REPEAT_SIMPLE or self.type == ProgramType.DAYS_SIMPLE:
             start_time = minute_time_str(self.type_data[0])
@@ -477,6 +513,23 @@ class _Program(object):
         self._schedule = new_schedule
         self.update_station_schedule()
 
+    def set_solar(self, program_type, duration_min, pause_min, repeat_times, days):
+        if program_type not in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            raise ValueError('invalid_solar_program_type')
+        self._modulo = 7 * 1440
+        self._manual = False
+        self._start = datetime.datetime.combine(
+            datetime.date.today() - datetime.timedelta(
+                days=datetime.date.today().weekday()),
+            datetime.time.min)
+        self.type = program_type
+        self.type_data = [
+            int(duration_min), int(pause_min), int(repeat_times),
+            sorted(set(int(day) for day in days if 0 <= int(day) <= 6)),
+        ]
+        self._schedule = []
+        self.update_station_schedule()
+
     # The following functions provide easy access to data of different types, returns default if not available
 
     def start_min(self):
@@ -486,18 +539,24 @@ class _Program(object):
             return 6*60
 
     def duration_min(self):
+        if self.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            return self.type_data[0]
         if self.type == ProgramType.DAYS_SIMPLE or self.type == ProgramType.REPEAT_SIMPLE:
             return self.type_data[1]
         else:
             return 30
 
     def pause_min(self):
+        if self.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            return self.type_data[1]
         if self.type == ProgramType.DAYS_SIMPLE or self.type == ProgramType.REPEAT_SIMPLE:
             return self.type_data[2]
         else:
             return 30
 
     def repeat_times(self):
+        if self.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            return self.type_data[2]
         if self.type == ProgramType.DAYS_SIMPLE or self.type == ProgramType.REPEAT_SIMPLE:
             return self.type_data[3]
         else:
@@ -510,6 +569,8 @@ class _Program(object):
             return self.type_data[1]
         elif self.type == ProgramType.WEEKLY_WEATHER:
             return list(set([int(y/1440) for y, z in self.type_data[-1]]))
+        elif self.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            return self.type_data[3]
         else:
             return []
 
@@ -637,6 +698,13 @@ class _Program(object):
         return result
 
     def active_intervals(self, date_time_start, date_time_end, station):
+        from ospy import calendar_rules
+
+        if (not self.manual and
+                self.type in (ProgramType.SUNRISE, ProgramType.SUNSET)):
+            return self._solar_active_intervals(
+                date_time_start, date_time_end, station)
+
         if station in self._station_schedule:
             schedule = self._station_schedule[station]
         else:
@@ -664,9 +732,22 @@ class _Program(object):
                 if start >= date_time_end:
                     break
 
+                if not self.manual and not calendar_rules.date_is_eligible(
+                        self, start.date()):
+                    continue
+
+                blocked = False
+                if not self.manual:
+                    blocked = (
+                        calendar_rules.excluded_date_reason(self, start.date()) or
+                        calendar_rules.service_outage_reason(
+                            self, start, end, station)
+                    )
+
                 result.append({
                     'start': start,
-                    'end': end
+                    'end': end,
+                    'calendar_blocked': blocked,
                 })
 
             if self.manual:
@@ -674,6 +755,60 @@ class _Program(object):
 
             current_date_time += datetime.timedelta(minutes=self.modulo)
 
+        return result
+
+    def _solar_active_intervals(self, date_time_start, date_time_end, station):
+        from ospy import calendar_rules
+
+        reference = (
+            'sunrise' if self.type == ProgramType.SUNRISE else 'sunset'
+        )
+        duration = max(1, int(self.duration_min()))
+        pause = max(0, int(self.pause_min()))
+        repeats = max(0, int(self.repeat_times()))
+        earliest = max(0, min(1439, int(self.sun_earliest_minute)))
+        latest = max(0, min(1439, int(self.sun_latest_minute)))
+        if latest < earliest:
+            latest = earliest
+        policy = (
+            self.sun_window_policy
+            if self.sun_window_policy in calendar_rules.SUN_WINDOW_POLICIES
+            else 'clamp'
+        )
+        result = []
+        day = date_time_start.date() - datetime.timedelta(days=1)
+        last_day = date_time_end.date() + datetime.timedelta(days=1)
+        while day <= last_day:
+            if day.weekday() not in self.days() or not calendar_rules.date_is_eligible(self, day):
+                day += datetime.timedelta(days=1)
+                continue
+            value = calendar_rules.solar_time(day, reference)
+            if value is None:
+                day += datetime.timedelta(days=1)
+                continue
+            minute = value.hour * 60 + value.minute + int(self.sun_offset_minutes)
+            if minute < earliest or minute > latest:
+                if policy == 'skip':
+                    day += datetime.timedelta(days=1)
+                    continue
+                minute = max(earliest, min(latest, minute))
+            start = datetime.datetime.combine(day, datetime.time.min) + datetime.timedelta(minutes=minute)
+            for repeat in range(repeats + 1):
+                interval_start = start + datetime.timedelta(minutes=repeat * (duration + pause))
+                interval_end = interval_start + datetime.timedelta(minutes=duration)
+                if interval_end <= date_time_start or interval_start >= date_time_end:
+                    continue
+                blocked = (
+                    calendar_rules.excluded_date_reason(self, day) or
+                    calendar_rules.service_outage_reason(
+                        self, interval_start, interval_end, station)
+                )
+                result.append({
+                    'start': interval_start,
+                    'end': interval_end,
+                    'calendar_blocked': blocked,
+                })
+            day += datetime.timedelta(days=1)
         return result
 
     def __setattr__(self, key, value):
@@ -1064,9 +1199,20 @@ class _Programs(object):
         if 0 <= index < len(self._programs):
             source = self._programs[index]
             program = self.create_program()
-            for attr in ['name', 'stations', 'enabled', 'group_id', 'fixed', 'cut_off', 'control_master',
-                         'type', 'type_data', 'modulo', 'manual', 'start', 'schedule']:
-                setattr(program, attr, copy.deepcopy(getattr(source, attr)))
+            for attr in [
+                    'name', 'enabled', 'group_id', 'fixed',
+                    'cut_off', 'control_master', 'type', 'type_data',
+                    'allowed_months', 'day_parity', 'month_days',
+                    'exclude_holidays', 'excluded_dates', 'excluded_ranges',
+                    'sun_offset_minutes', 'sun_earliest_minute',
+                    'sun_latest_minute', 'sun_window_policy']:
+                program.__dict__[attr] = copy.deepcopy(getattr(source, attr))
+            program.__dict__['_stations'] = copy.deepcopy(source.stations)
+            program.__dict__['_modulo'] = source.modulo
+            program.__dict__['_manual'] = source.manual
+            program.__dict__['_start'] = copy.deepcopy(source.start)
+            program.__dict__['_schedule'] = copy.deepcopy(source.schedule)
+            program.update_station_schedule()
             program.name = '{} {}'.format(source.name, _('copy'))
             if group_id is not None:
                 program.group_id = group_id
@@ -1251,7 +1397,8 @@ class _Programs(object):
             if program.type != ProgramType.WEEKLY_ADVANCED:
                 if program.type != ProgramType.CUSTOM:
                     if program.type != ProgramType.WEEKLY_WEATHER:
-                        if len(program.schedule) > 0:
+                        if (len(program.schedule) > 0 or
+                                program.type in (ProgramType.SUNRISE, ProgramType.SUNSET)):
                             run_now_p = _Program(self, index)  # Create a copy using the information saved in options
                             run_now_p.start_now()
                             self.run_now_program = run_now_p

@@ -6,6 +6,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 
 ## August 17 2026 (v3.0 beta)
 -----------
+(Martin Pihrt)<br/>
+Extended the existing program editor and scheduler with native calendar rules: allowed months and season shortcuts, odd/even calendar dates, selected days of month, exact and annual excluded periods, public-holiday exclusions and persistent global service outages. Weather location lookup now retains the detected country for the locally installed `holidays` library, with an optional administrator override. Added native sunrise and sunset program types that obtain astronomical values from the enabled Sunrise and Sunset plug-in, support signed offsets, earliest/latest start windows and clamp-or-skip behavior, and retain their saved definition when the provider is unavailable. Manual Run Now remains available during calendar blocks and service outages. Extended Mobile API v1, installer dependencies, regression tests, the program reference, root documentation and all seven Web Interface Guides. New interface text uses the existing gettext calls; `.pot`, `.po` and `.mo` files were intentionally left unchanged.
+
 (Daniel Hošek)<br/>
 Fixed the Home water-balance calculation so enabled weather data from the selected Open-Meteo, CHMI or Stormglass provider is used without requiring the removed legacy Dark Sky API key. Daily evapotranspiration, recorded rain and forecast rain now reach station balances again; provider failures continue to use the existing logged fallback path. Balance API failures are now logged and returned as an explicit server error, and all Home page variants show an in-page error instead of silently leaving an empty chart. Updated the water-balance explanation in all seven Web Interface Guides.
 

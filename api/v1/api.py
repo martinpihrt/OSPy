@@ -9,7 +9,7 @@ import time
 import web
 
 import plugins
-from ospy import helpers, server, version
+from ospy import calendar_rules, helpers, server, version
 from ospy.backup import (
     apply_staged_restore, create_system_backup, list_system_backups,
     stage_restore, system_backup_path,
@@ -38,7 +38,7 @@ API_VERSION = "1.0.0"
 API_FEATURES = [
     "overview", "irrigation_control", "stations", "master", "programs",
     "schedule", "run_once", "sensors", "program_groups",
-    "program_group_postponement",
+    "program_group_postponement", "program_calendar", "solar_programs",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse", "push_notifications",
 ]
@@ -160,6 +160,26 @@ def _program_data(program):
         "start": _iso(program.start),
         "group_id": group_id,
         "group_name": group["name"] if group is not None else "",
+        "calendar": {
+            "allowed_months": calendar_rules.normalized_months(
+                getattr(program, "allowed_months", None)),
+            "day_parity": str(getattr(program, "day_parity", "all")),
+            "month_days": calendar_rules.normalized_month_days(
+                getattr(program, "month_days", None)),
+            "exclude_holidays": bool(getattr(program, "exclude_holidays", False)),
+            "excluded_dates": _safe_value(
+                getattr(program, "excluded_dates", [])),
+            "excluded_ranges": _safe_value(
+                getattr(program, "excluded_ranges", [])),
+            "sun_offset_minutes": int(
+                getattr(program, "sun_offset_minutes", 0)),
+            "sun_earliest_minute": int(
+                getattr(program, "sun_earliest_minute", 0)),
+            "sun_latest_minute": int(
+                getattr(program, "sun_latest_minute", 1439)),
+            "sun_window_policy": str(
+                getattr(program, "sun_window_policy", "clamp")),
+        },
     }
     result["station_details"] = [
         {
@@ -186,6 +206,8 @@ def _program_editor(program):
         ProgramType.WEEKLY_ADVANCED: "weekly_advanced",
         ProgramType.CUSTOM: "custom",
         ProgramType.WEEKLY_WEATHER: "weekly_weather",
+        ProgramType.SUNRISE: "sunrise",
+        ProgramType.SUNSET: "sunset",
     }
     editor = {
         "schema_version": 1,
@@ -227,6 +249,16 @@ def _program_editor(program):
                 "run_max": int(data[2]),
                 "pause_ratio": float(data[3]),
                 "priority_intervals": data[4],
+            }
+        elif program.type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+            editor["fields"] = {
+                "duration_minutes": int(data[0]),
+                "pause_minutes": int(data[1]),
+                "repeat_count": int(data[2]),
+                "days": [int(item) for item in data[3]],
+                "reference": (
+                    "sunrise" if program.type == ProgramType.SUNRISE
+                    else "sunset"),
             }
         else:
             editor["fields"] = {
@@ -2151,6 +2183,7 @@ def _update_program(program, payload, require_schedule):
         "start": payload.get("start", base["start"]),
         "schedule": payload.get("schedule", base["schedule"]),
         "group_id": payload.get("group_id", base["group_id"]),
+        "calendar": payload.get("calendar", base["calendar"]),
     }
     try:
         candidate = programs.create_program()
@@ -2166,7 +2199,10 @@ def _update_program(program, payload, require_schedule):
     for key in (
             "name", "_stations", "enabled", "_schedule", "_station_schedule",
             "_modulo", "_manual", "_start", "type", "type_data",
-            "group_id"):
+            "group_id", "allowed_months", "day_parity", "month_days",
+            "exclude_holidays", "excluded_dates", "excluded_ranges",
+            "sun_offset_minutes", "sun_earliest_minute",
+            "sun_latest_minute", "sun_window_policy"):
         program.__dict__[key] = candidate.__dict__[key]
 
 
@@ -2347,6 +2383,20 @@ def _apply_program_definition(program, definition):
             irrigation_min, irrigation_max, run_max, pause_ratio,
             _program_priorities(data[4]),
         )
+    elif program_type in (ProgramType.SUNRISE, ProgramType.SUNSET):
+        if len(data) != 4:
+            raise ValueError(_("Solar schedule requires four values."))
+        duration = int(data[0])
+        pause = int(data[1])
+        repetitions = int(data[2])
+        if duration <= 0 or pause < 0 or repetitions < 0:
+            raise ValueError(_("Solar schedule contains an invalid value."))
+        if not calendar_rules.solar_provider_status()["available"]:
+            raise ValueError(_("Sunrise and sunset provider is not available."))
+        program.set_solar(
+            program_type, duration, pause, repetitions,
+            _program_days(data[3]),
+        )
     else:
         raise ValueError("program type {} is not supported".format(program_type))
 
@@ -2354,6 +2404,53 @@ def _apply_program_definition(program, definition):
     program.enabled = enabled
     program.stations = station_indices
     program.group_id = group_id
+
+    calendar = definition.get("calendar", {})
+    if not isinstance(calendar, dict):
+        raise ValueError(_("Calendar must be an object."))
+    allowed_months = calendar.get("allowed_months", list(range(1, 13)))
+    normalized_months = calendar_rules.normalized_months(allowed_months)
+    if (not isinstance(allowed_months, list) or not allowed_months or
+            len(normalized_months) != len(set(allowed_months))):
+        raise ValueError(_("Allowed months must contain unique values from 1 to 12."))
+    month_days = calendar.get("month_days", [])
+    normalized_days = calendar_rules.normalized_month_days(month_days)
+    if (not isinstance(month_days, list) or
+            len(normalized_days) != len(set(month_days))):
+        raise ValueError(_("Days of month must contain unique values from 1 to 31."))
+    parity = str(calendar.get("day_parity", "all"))
+    if parity not in calendar_rules.DAY_PARITIES:
+        raise ValueError(_("Calendar day parity is invalid."))
+    excluded_lines = list(calendar.get("excluded_dates", []) or [])
+    for item in calendar.get("excluded_ranges", []) or []:
+        if not isinstance(item, dict):
+            raise ValueError(_("Excluded ranges must contain objects."))
+        excluded_lines.append("{}..{}".format(
+            item.get("start", ""), item.get("end", "")))
+    excluded_dates, excluded_ranges = calendar_rules.parse_excluded_periods(
+        "\n".join(str(item) for item in excluded_lines))
+    exclude_holidays = calendar.get("exclude_holidays", False)
+    if not isinstance(exclude_holidays, bool):
+        raise ValueError(_("Public holiday exclusion must be a JSON boolean."))
+    sun_offset = int(calendar.get("sun_offset_minutes", 0))
+    sun_earliest = int(calendar.get("sun_earliest_minute", 0))
+    sun_latest = int(calendar.get("sun_latest_minute", 1439))
+    sun_policy = str(calendar.get("sun_window_policy", "clamp"))
+    if (sun_offset < -720 or sun_offset > 720 or
+            sun_earliest < 0 or sun_earliest > 1439 or
+            sun_latest < sun_earliest or sun_latest > 1439 or
+            sun_policy not in calendar_rules.SUN_WINDOW_POLICIES):
+        raise ValueError(_("Solar calendar settings are invalid."))
+    program.allowed_months = normalized_months
+    program.day_parity = parity
+    program.month_days = normalized_days
+    program.exclude_holidays = exclude_holidays
+    program.excluded_dates = excluded_dates
+    program.excluded_ranges = excluded_ranges
+    program.sun_offset_minutes = sun_offset
+    program.sun_earliest_minute = sun_earliest
+    program.sun_latest_minute = sun_latest
+    program.sun_window_policy = sun_policy
 
 
 URLS = (
