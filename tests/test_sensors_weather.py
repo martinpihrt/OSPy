@@ -288,6 +288,7 @@ class WeatherRecoveryTests(unittest.TestCase):
             "weather_lon": "14.0",
             "weather_status": 1,
             "weather_country_code": "",
+            "weather_region": "",
             "weather_cache": {},
             "weather_provider": "stormglass",
             "stormglass_key": "test-key",
@@ -332,7 +333,9 @@ class WeatherRecoveryTests(unittest.TestCase):
         options = self.options(weather_provider="open_meteo")
         response = Response([{
             "lat": "50.0755", "lon": "14.4378",
-            "address": {"country_code": "cz"},
+            "address": {
+                "country_code": "cz", "state": "Hlavní město Praha",
+            },
         }])
 
         with mock.patch.object(weather_module, "options", options), \
@@ -340,6 +343,7 @@ class WeatherRecoveryTests(unittest.TestCase):
             instance._find_location()
 
         self.assertEqual("CZ", options.weather_country_code)
+        self.assertEqual("Hlavní město Praha", options.weather_region)
 
     def test_stormglass_rejects_error_payload_and_uses_timeout(self):
         options = self.options()

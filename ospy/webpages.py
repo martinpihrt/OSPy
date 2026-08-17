@@ -4868,6 +4868,7 @@ class options_page(ProtectedPage):
         location_mode = qdict.get('weather_location_mode', 'search')
         if location_changed or map_selected:
             options.weather_country_code = ''
+            options.weather_region = ''
         if location_changed and not map_selected:
             location_mode = 'search'
         if location_mode == 'coordinates':

@@ -277,6 +277,11 @@ class _Options(object):
             "default": ""
         },
         {
+            "key": "weather_region",
+            "name": _('Detected weather region'),
+            "default": ""
+        },
+        {
             "key": "holiday_country_override",
             "name": _('Holiday country override'),
             "default": "",

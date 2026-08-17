@@ -611,8 +611,13 @@ function update_calendar_months() {
             </div>
             <div class='option'>
                 <span class="program_label">$_('Public holidays'):</span>
-                <input id="exclude_holidays" name="exclude_holidays" type="checkbox" ${'checked' if program.exclude_holidays else ''}>
-                <label for="exclude_holidays">$_('Do not run on public holidays')</label>
+                <input id="exclude_holidays" name="exclude_holidays" type="checkbox" ${'checked' if program.exclude_holidays else ''} style="display:none;">
+                <button type="button" class="programSwitch button toggle narrow ${'on' if program.exclude_holidays else 'off'}" data-target="#exclude_holidays">
+                    <span class="toggleleft">$_('On')</span>
+                    <span class="togglesep">&nbsp;</span>
+                    <span class="toggleright">$_('Off')</span>
+                </button>
+                <span>$_('Do not run on public holidays')</span>
                 $ country_code = calendar_rules.holiday_country_code()
                 $if country_code:
                     <span>(${_('country')}: ${country_code})</span>
