@@ -1,4 +1,5 @@
 import datetime
+import sys
 import unittest
 from types import SimpleNamespace
 from unittest import mock
@@ -126,6 +127,34 @@ class ProgramCalendarTests(unittest.TestCase):
         program.exclude_holidays = False
         self.assertFalse(calendar_rules.excluded_date_reason(
             program, datetime.date(2027, 1, 1)))
+
+    def test_legacy_holidays_country_holiday_api_is_supported(self):
+        new_year = datetime.date(2027, 1, 1)
+        factory = mock.Mock(return_value={new_year: "New Year's Day"})
+        legacy_holidays = SimpleNamespace(CountryHoliday=factory)
+        fake_options = SimpleNamespace(
+            holiday_country_override="CZ", weather_country_code="",
+        )
+        calendar_rules._HOLIDAY_CACHE.clear()
+        with mock.patch.dict(sys.modules, {"holidays": legacy_holidays}), \
+                mock.patch.object(calendar_rules, "options", fake_options):
+            self.assertTrue(calendar_rules.holiday_calendar_available(new_year))
+            self.assertTrue(calendar_rules.is_public_holiday(new_year))
+            self.assertEqual("New Year's Day", calendar_rules.holiday_name(new_year))
+        factory.assert_called_once_with("CZ", years=[2027])
+        calendar_rules._HOLIDAY_CACHE.clear()
+
+    def test_unsupported_holidays_api_does_not_break_program_page(self):
+        fake_options = SimpleNamespace(
+            holiday_country_override="CZ", weather_country_code="",
+        )
+        calendar_rules._HOLIDAY_CACHE.clear()
+        with mock.patch.dict(sys.modules, {"holidays": SimpleNamespace()}), \
+                mock.patch.object(calendar_rules, "options", fake_options), \
+                mock.patch.object(calendar_rules.logging, "warning"):
+            self.assertFalse(calendar_rules.holiday_calendar_available(
+                datetime.date(2027, 1, 1)))
+        calendar_rules._HOLIDAY_CACHE.clear()
 
 
 if __name__ == "__main__":

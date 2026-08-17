@@ -8,6 +8,7 @@ translated by the web/API layers through the normal OSPy gettext catalogue.
 """
 
 import datetime
+import logging
 import uuid
 
 from ospy.options import options
@@ -181,10 +182,21 @@ def _holiday_calendar(day):
     if key not in _HOLIDAY_CACHE:
         try:
             import holidays
-            _HOLIDAY_CACHE[key] = holidays.country_holidays(
-                country, years=[day.year])
-        except (ImportError, KeyError, NotImplementedError, TypeError, ValueError):
-            return None
+            country_factory = getattr(holidays, "country_holidays", None)
+            if callable(country_factory):
+                calendar = country_factory(country, years=[day.year])
+            else:
+                country_factory = getattr(holidays, "CountryHoliday", None)
+                if not callable(country_factory):
+                    raise AttributeError(
+                        _('Public holiday support is not installed.'))
+                calendar = country_factory(country, years=[day.year])
+            _HOLIDAY_CACHE[key] = calendar
+        except Exception as error:
+            _HOLIDAY_CACHE[key] = None
+            logging.warning(
+                _('Public holiday support is not installed.') +
+                ' {}: {}'.format(country, error))
     return _HOLIDAY_CACHE.get(key)
 
 

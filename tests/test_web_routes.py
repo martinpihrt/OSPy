@@ -152,7 +152,7 @@ class WebRouteIntegrationTests(unittest.TestCase):
         paths_and_markers = {
             "/": b"<!doctype html>",
             "/programs": b"<!doctype html>",
-            "/program/new": b"Calendar rules",
+            "/program/new": b'id="calendar_controls"',
             "/runonce": b"<!doctype html>",
             "/log": b"<!doctype html>",
             "/options": b"<!doctype html>",
