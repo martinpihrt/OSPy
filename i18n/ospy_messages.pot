@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-08-17 20:23+0200\n"
+"POT-Creation-Date: 2026-08-17 22:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -366,8 +366,8 @@ msgstr ""
 msgid "API user {} changed irrigation settings from IP {}: {}."
 msgstr ""
 
-#: api/v1/api.py:1317 ospy/templates/home_admin.html:716
-#: ospy/templates/home_user.html:625 ospy/webpages.py:2335
+#: api/v1/api.py:1317 ospy/templates/home_admin.html:717
+#: ospy/templates/home_user.html:626 ospy/webpages.py:2335
 msgid "Manual"
 msgstr ""
 
@@ -723,6 +723,11 @@ msgstr ""
 msgid "The staged backup contains no restorable OSPy data."
 msgstr ""
 
+#: ospy/calendar_rules.py:192 ospy/calendar_rules.py:198
+#: ospy/templates/program.html:662 ospy/webpages.py:2660
+msgid "Public holiday support is not installed."
+msgstr ""
+
 #: ospy/helpers.py:55
 msgid "Deleting {}."
 msgstr ""
@@ -795,8 +800,8 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-#: ospy/helpers.py:289 ospy/templates/home_admin.html:728
-#: ospy/templates/home_public.html:466 ospy/templates/home_user.html:637
+#: ospy/helpers.py:289 ospy/templates/home_admin.html:729
+#: ospy/templates/home_public.html:467 ospy/templates/home_user.html:638
 #: ospy/templates/mobile_devices.html:33 ospy/templates/user.html:69
 #: ospy/templates/users.html:9
 msgid "User"
@@ -2063,7 +2068,7 @@ msgid "Could not create weather based schedule:"
 msgstr ""
 
 #: ospy/programs.py:283 ospy/templates/program.html:54
-#: ospy/templates/program.html:700
+#: ospy/templates/program.html:735
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:51
 msgid "Day"
 msgstr ""
@@ -2202,10 +2207,10 @@ msgid "Starting relative to"
 msgstr ""
 
 #: ospy/programs.py:332 ospy/programs.py:341
-#: ospy/templates/home_admin.html:198 ospy/templates/home_admin.html:341
-#: ospy/templates/home_admin.html:793 ospy/templates/home_public.html:93
-#: ospy/templates/home_user.html:110 ospy/templates/home_user.html:253
-#: ospy/templates/home_user.html:702
+#: ospy/templates/home_admin.html:199 ospy/templates/home_admin.html:342
+#: ospy/templates/home_admin.html:794 ospy/templates/home_public.html:94
+#: ospy/templates/home_user.html:111 ospy/templates/home_user.html:254
+#: ospy/templates/home_user.html:703
 msgid "For"
 msgstr ""
 
@@ -2249,7 +2254,7 @@ msgstr ""
 msgid "to max"
 msgstr ""
 
-#: ospy/programs.py:865 ospy/templates/program.html:406
+#: ospy/programs.py:865 ospy/templates/program.html:441
 msgid "Group"
 msgstr ""
 
@@ -3865,8 +3870,8 @@ msgstr ""
 msgid "Working"
 msgstr ""
 
-#: ospy/templates/base.html:492 ospy/templates/home_admin.html:894
-#: ospy/templates/home_user.html:797
+#: ospy/templates/base.html:492 ospy/templates/home_admin.html:895
+#: ospy/templates/home_user.html:798
 msgid "Weather location"
 msgstr ""
 
@@ -5233,6 +5238,7 @@ msgid "No"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:321 ospy/webpages.py:3752
+#: ospy/webpages.py:5724
 msgid "Blocked"
 msgstr ""
 
@@ -5240,8 +5246,8 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:323 ospy/templates/home_admin.html:707
-#: ospy/templates/home_user.html:616
+#: ospy/templates/diagnostics.html:323 ospy/templates/home_admin.html:708
+#: ospy/templates/home_user.html:617
 msgid "Normal"
 msgstr ""
 
@@ -5398,7 +5404,7 @@ msgstr ""
 #: ospy/templates/diagnostics.html:440 ospy/templates/diagnostics.html:679
 #: ospy/templates/diagnostics.html:986 ospy/templates/diagnostics.html:1182
 #: ospy/templates/diagnostics.html:1299 ospy/templates/home_admin.html:78
-#: ospy/templates/home_admin.html:920 ospy/templates/home_user.html:820
+#: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
 #: ospy/templates/plugins_manage.html:435
 #: ospy/templates/plugins_manage.html:481
 msgid "Details"
@@ -5507,7 +5513,7 @@ msgid "Check the OSPy connection and event log, then reload the page or restart 
 msgstr ""
 
 #: ospy/templates/diagnostics.html:650 ospy/templates/diagnostics.html:1382
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 #: ospy/templates/options.html:306 ospy/templates/twofactor.html:65
 #: ospy/templates/twofactor.html:84 plugins/lcd_display/__init__.py:510
 #: plugins/lcd_display/__init__.py:543
@@ -5658,9 +5664,9 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:261
-#: ospy/templates/home_admin.html:719 ospy/templates/home_public.html:156
-#: ospy/templates/home_user.html:173 ospy/templates/home_user.html:628
+#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:262
+#: ospy/templates/home_admin.html:720 ospy/templates/home_public.html:157
+#: ospy/templates/home_user.html:174 ospy/templates/home_user.html:629
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
 #: ospy/templates/log.html:191 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
@@ -5692,12 +5698,12 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:719
-#: ospy/templates/home_user.html:628 ospy/templates/log.html:114
+#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:720
+#: ospy/templates/home_user.html:629 ospy/templates/log.html:114
 #: ospy/templates/log.html:156 ospy/templates/log.html:191
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 ospy/templates/mobile_devices.html:74
-#: ospy/templates/mobile_devices.html:111 ospy/templates/program.html:414
+#: ospy/templates/mobile_devices.html:111 ospy/templates/program.html:449
 #: ospy/webpages.py:4283 ospy/webpages.py:4419
 #: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:438
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
@@ -5795,7 +5801,7 @@ msgstr ""
 #: ospy/templates/diagnostics.html:1168 ospy/templates/edit.html:153
 #: ospy/templates/graph_sensor.html:289 ospy/templates/log_sensor.html:12
 #: ospy/templates/log_sensor.html:156 ospy/templates/options.html:366
-#: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:768
+#: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:803
 #: ospy/templates/programs.html:107 ospy/templates/programs.html:119
 #: ospy/templates/runonce.html:108 ospy/templates/sensor.html:1346
 #: ospy/templates/stations.html:99 ospy/templates/user.html:92
@@ -6054,8 +6060,8 @@ msgstr ""
 
 #: ospy/templates/diagnostics.html:1187 ospy/templates/diagnostics.html:1273
 #: ospy/templates/diagnostics.html:1304 ospy/templates/diagnostics.html:1404
-#: ospy/templates/home_admin.html:850 ospy/templates/home_public.html:536
-#: ospy/templates/home_user.html:756
+#: ospy/templates/home_admin.html:851 ospy/templates/home_public.html:537
+#: ospy/templates/home_user.html:757
 msgid "loading..."
 msgstr ""
 
@@ -6574,7 +6580,7 @@ msgid "Delete this image?"
 msgstr ""
 
 #: ospy/templates/edit.html:151 ospy/templates/plugins_manage.html:365
-#: ospy/templates/program.html:730 ospy/templates/program.html:757
+#: ospy/templates/program.html:765 ospy/templates/program.html:792
 #: ospy/templates/programs.html:221 ospy/templates/programs.html:259
 #: ospy/templates/users.html:79
 #: plugins/database_connector/templates/database_connector_backup.html:45
@@ -6680,7 +6686,7 @@ msgstr ""
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
 #: ospy/templates/options.html:192 ospy/templates/options.html:194
 #: ospy/templates/options.html:205 ospy/templates/options.html:207
-#: ospy/templates/program.html:455 ospy/templates/programs.html:188
+#: ospy/templates/program.html:490 ospy/templates/programs.html:188
 #: ospy/templates/programs_user.html:38 ospy/templates/sensor.html:347
 #: ospy/templates/sensor.html:458 ospy/templates/sensor.html:477
 #: ospy/templates/sensor.html:501 ospy/templates/sensor.html:509
@@ -6887,8 +6893,8 @@ msgstr ""
 msgid "Shelly Wall Display"
 msgstr ""
 
-#: ospy/templates/graph_sensor.html:35 ospy/templates/home_admin.html:432
-#: ospy/templates/home_public.html:227 ospy/templates/home_user.html:344
+#: ospy/templates/graph_sensor.html:35 ospy/templates/home_admin.html:433
+#: ospy/templates/home_public.html:228 ospy/templates/home_user.html:345
 #: plugins/air_temp_humi/templates/air_temp_humi.html:67
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:37
 #: plugins/ping_monitor/templates/ping_monitor.html:67
@@ -6926,8 +6932,8 @@ msgid "Value"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:188 ospy/templates/graph_sensor.html:258
-#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
-#: ospy/templates/home_user.html:734
+#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
+#: ospy/templates/home_user.html:735
 #: plugins/air_temp_humi/templates/air_temp_humi.html:220
 #: plugins/air_temp_humi/templates/air_temp_humi.html:551
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:190
@@ -7080,128 +7086,123 @@ msgstr ""
 msgid "Open Diagnostics, check the event log and correct the reported cause."
 msgstr ""
 
-#: ospy/templates/home_admin.html:196 ospy/templates/home_public.html:91
-#: ospy/templates/home_user.html:108
-msgid "blocked by"
-msgstr ""
-
-#: ospy/templates/home_admin.html:222 ospy/templates/home_admin.html:266
-#: ospy/templates/home_admin.html:782 ospy/templates/home_admin.html:792
-#: ospy/templates/home_public.html:117 ospy/templates/home_public.html:161
-#: ospy/templates/home_user.html:134 ospy/templates/home_user.html:178
-#: ospy/templates/home_user.html:691 ospy/templates/home_user.html:701
+#: ospy/templates/home_admin.html:223 ospy/templates/home_admin.html:267
+#: ospy/templates/home_admin.html:783 ospy/templates/home_admin.html:793
+#: ospy/templates/home_public.html:118 ospy/templates/home_public.html:162
+#: ospy/templates/home_user.html:135 ospy/templates/home_user.html:179
+#: ospy/templates/home_user.html:692 ospy/templates/home_user.html:702
 #: ospy/templates/plugins_manage.html:221
 #: ospy/templates/plugins_manage.html:234
-#: ospy/templates/plugins_manage.html:379 ospy/templates/program.html:419
-#: ospy/templates/program.html:444 ospy/templates/program.html:488
-#: ospy/templates/program.html:543 ospy/templates/program.html:618
+#: ospy/templates/plugins_manage.html:379 ospy/templates/program.html:454
+#: ospy/templates/program.html:479 ospy/templates/program.html:523
+#: ospy/templates/program.html:578 ospy/templates/program.html:653
 #: ospy/templates/programs.html:175 ospy/templates/sensors.html:75
 #: plugins/shelly_cloud_integrator/__init__.py:1580
 msgid "Off"
 msgstr ""
 
-#: ospy/templates/home_admin.html:239 ospy/templates/home_admin.html:767
-#: ospy/templates/home_public.html:134 ospy/templates/home_user.html:151
-#: ospy/templates/home_user.html:676
+#: ospy/templates/home_admin.html:240 ospy/templates/home_admin.html:768
+#: ospy/templates/home_public.html:135 ospy/templates/home_user.html:152
+#: ospy/templates/home_user.html:677
 msgid "On (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:242 ospy/templates/home_admin.html:773
-#: ospy/templates/home_public.html:137 ospy/templates/home_user.html:154
-#: ospy/templates/home_user.html:682
+#: ospy/templates/home_admin.html:243 ospy/templates/home_admin.html:774
+#: ospy/templates/home_public.html:138 ospy/templates/home_user.html:155
+#: ospy/templates/home_user.html:683
 msgid "On (Master Two)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:246 ospy/templates/home_admin.html:769
-#: ospy/templates/home_public.html:141 ospy/templates/home_user.html:158
-#: ospy/templates/home_user.html:678
+#: ospy/templates/home_admin.html:247 ospy/templates/home_admin.html:770
+#: ospy/templates/home_public.html:142 ospy/templates/home_user.html:159
+#: ospy/templates/home_user.html:679
 msgid "Off (Master)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:249 ospy/templates/home_admin.html:775
-#: ospy/templates/home_public.html:144 ospy/templates/home_user.html:161
-#: ospy/templates/home_user.html:684
+#: ospy/templates/home_admin.html:250 ospy/templates/home_admin.html:776
+#: ospy/templates/home_public.html:145 ospy/templates/home_user.html:162
+#: ospy/templates/home_user.html:685
 msgid "Off (Master Two)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:255 ospy/templates/home_public.html:150
-#: ospy/templates/home_user.html:167
+#: ospy/templates/home_admin.html:256 ospy/templates/home_public.html:151
+#: ospy/templates/home_user.html:168
 msgid "Suppressed by Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:258 ospy/templates/home_public.html:153
-#: ospy/templates/home_user.html:170
+#: ospy/templates/home_admin.html:259 ospy/templates/home_public.html:154
+#: ospy/templates/home_user.html:171
 msgid "Suppressed by Rain Sensor"
 msgstr ""
 
-#: ospy/templates/home_admin.html:265 ospy/templates/home_admin.html:782
-#: ospy/templates/home_admin.html:792 ospy/templates/home_public.html:160
-#: ospy/templates/home_user.html:177 ospy/templates/home_user.html:691
-#: ospy/templates/home_user.html:701 ospy/templates/plugins_manage.html:219
+#: ospy/templates/home_admin.html:266 ospy/templates/home_admin.html:783
+#: ospy/templates/home_admin.html:793 ospy/templates/home_public.html:161
+#: ospy/templates/home_user.html:178 ospy/templates/home_user.html:692
+#: ospy/templates/home_user.html:702 ospy/templates/plugins_manage.html:219
 #: ospy/templates/plugins_manage.html:232
-#: ospy/templates/plugins_manage.html:377 ospy/templates/program.html:417
-#: ospy/templates/program.html:442 ospy/templates/program.html:486
-#: ospy/templates/program.html:541 ospy/templates/program.html:616
+#: ospy/templates/plugins_manage.html:377 ospy/templates/program.html:452
+#: ospy/templates/program.html:477 ospy/templates/program.html:521
+#: ospy/templates/program.html:576 ospy/templates/program.html:651
 #: ospy/templates/programs.html:173 ospy/templates/sensors.html:73
 #: plugins/shelly_cloud_integrator/__init__.py:1580
 msgid "On"
 msgstr ""
 
-#: ospy/templates/home_admin.html:327 ospy/templates/home_admin.html:783
-#: ospy/templates/home_user.html:239 ospy/templates/home_user.html:692
+#: ospy/templates/home_admin.html:328 ospy/templates/home_admin.html:784
+#: ospy/templates/home_user.html:240 ospy/templates/home_user.html:693
 #: plugins/email_reader/__init__.py:422 plugins/telegram_bot/__init__.py:200
 #: plugins/telegram_bot/__init__.py:281
 msgid "Forever"
 msgstr ""
 
-#: ospy/templates/home_admin.html:331 ospy/templates/home_admin.html:783
-#: ospy/templates/home_user.html:243 ospy/templates/home_user.html:692
+#: ospy/templates/home_admin.html:332 ospy/templates/home_admin.html:784
+#: ospy/templates/home_user.html:244 ospy/templates/home_user.html:693
 msgid "in"
 msgstr ""
 
-#: ospy/templates/home_admin.html:378 ospy/templates/home_user.html:290
+#: ospy/templates/home_admin.html:379 ospy/templates/home_user.html:291
 msgid "Enter percentage adjustment"
 msgstr ""
 
-#: ospy/templates/home_admin.html:381 ospy/templates/home_user.html:293
+#: ospy/templates/home_admin.html:382 ospy/templates/home_user.html:294
 msgid "Percentage must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:393 ospy/templates/home_user.html:305
+#: ospy/templates/home_admin.html:394 ospy/templates/home_user.html:306
 msgid "Enter hours to delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:396 ospy/templates/home_user.html:308
+#: ospy/templates/home_admin.html:397 ospy/templates/home_user.html:309
 msgid "Delay must be a positive value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:432 ospy/templates/home_public.html:227
-#: ospy/templates/home_user.html:344
+#: ospy/templates/home_admin.html:433 ospy/templates/home_public.html:228
+#: ospy/templates/home_user.html:345
 msgid "(mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:438 ospy/templates/home_public.html:233
-#: ospy/templates/home_user.html:350
+#: ospy/templates/home_admin.html:439 ospy/templates/home_public.html:234
+#: ospy/templates/home_user.html:351
 #: plugins/weather_based_water_level/__init__.py:692
 msgid "ETo"
 msgstr ""
 
-#: ospy/templates/home_admin.html:439 ospy/templates/home_public.html:234
-#: ospy/templates/home_user.html:351 ospy/weather.py:568
+#: ospy/templates/home_admin.html:440 ospy/templates/home_public.html:235
+#: ospy/templates/home_user.html:352 ospy/weather.py:568
 #: plugins/weather_based_water_level/__init__.py:689
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:52
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:92
 msgid "Rain"
 msgstr ""
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_admin.html:738
-#: ospy/templates/home_public.html:241 ospy/templates/home_public.html:476
-#: ospy/templates/home_user.html:358 ospy/templates/home_user.html:647
+#: ospy/templates/home_admin.html:447 ospy/templates/home_admin.html:739
+#: ospy/templates/home_public.html:242 ospy/templates/home_public.html:477
+#: ospy/templates/home_user.html:359 ospy/templates/home_user.html:648
 msgid "Total"
 msgstr ""
 
-#: ospy/templates/home_admin.html:449 ospy/templates/home_public.html:244
-#: ospy/templates/home_user.html:361
+#: ospy/templates/home_admin.html:450 ospy/templates/home_public.html:245
+#: ospy/templates/home_user.html:362
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
 #: plugins/ping_monitor/templates/ping_monitor.html:81
 #: plugins/pressure_monitor/templates/pressure_monitor.html:81
@@ -7212,183 +7213,193 @@ msgstr ""
 msgid "Previous Value"
 msgstr ""
 
-#: ospy/templates/home_admin.html:462 ospy/templates/home_public.html:257
-#: ospy/templates/home_user.html:374
+#: ospy/templates/home_admin.html:463 ospy/templates/home_public.html:258
+#: ospy/templates/home_user.html:375
 msgid "Water balance (mm)"
 msgstr ""
 
-#: ospy/templates/home_admin.html:497 ospy/templates/home_public.html:292
-#: ospy/templates/home_user.html:409 ospy/webpages.py:5746
+#: ospy/templates/home_admin.html:498 ospy/templates/home_public.html:293
+#: ospy/templates/home_user.html:410 ospy/webpages.py:5750
 msgid "Could not load water balance data. Please try again."
 msgstr ""
 
-#: ospy/templates/home_admin.html:653 ospy/templates/home_user.html:562
+#: ospy/templates/home_admin.html:654 ospy/templates/home_user.html:563
 msgid "Timer values wrong:"
 msgstr ""
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 msgid "% Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 msgid "Add or subtract the total program run time in % of time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 #: plugins/weather_based_water_level/__init__.py:335
 msgid "Water Level"
 msgstr ""
 
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 msgid "Rain Delay"
 msgstr ""
 
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 msgid "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 
-#: ospy/templates/home_admin.html:713 ospy/templates/home_user.html:622
+#: ospy/templates/home_admin.html:714 ospy/templates/home_user.html:623
 msgid "Rain sensed"
 msgstr ""
 
-#: ospy/templates/home_admin.html:716 ospy/templates/home_user.html:625
+#: ospy/templates/home_admin.html:717 ospy/templates/home_user.html:626
 msgid "Schedule"
 msgstr ""
 
-#: ospy/templates/home_admin.html:716 ospy/templates/home_user.html:625
+#: ospy/templates/home_admin.html:717 ospy/templates/home_user.html:626
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr ""
 
-#: ospy/templates/home_admin.html:719 ospy/templates/home_user.html:628
+#: ospy/templates/home_admin.html:720 ospy/templates/home_user.html:629
 msgid "Enable or disable the scheduler running"
 msgstr ""
 
-#: ospy/templates/home_admin.html:724 ospy/templates/home_public.html:462
-#: ospy/templates/home_user.html:633
+#: ospy/templates/home_admin.html:725 ospy/templates/home_public.html:463
+#: ospy/templates/home_user.html:634
 msgid "Water Level adjustments"
 msgstr ""
 
-#: ospy/templates/home_admin.html:745 ospy/templates/home_public.html:483
-#: ospy/templates/home_user.html:654
+#: ospy/templates/home_admin.html:746 ospy/templates/home_public.html:484
+#: ospy/templates/home_user.html:655
 msgid "Programs adjustments by sensors"
 msgstr ""
 
-#: ospy/templates/home_admin.html:784 ospy/templates/home_admin.html:794
-#: ospy/templates/home_user.html:693 ospy/templates/home_user.html:703
+#: ospy/templates/home_admin.html:785 ospy/templates/home_admin.html:795
+#: ospy/templates/home_user.html:694 ospy/templates/home_user.html:704
 msgid "Type time for run in minutes"
 msgstr ""
 
-#: ospy/templates/home_admin.html:787 ospy/templates/home_admin.html:797
-#: ospy/templates/home_user.html:696 ospy/templates/home_user.html:706
+#: ospy/templates/home_admin.html:788 ospy/templates/home_admin.html:798
+#: ospy/templates/home_user.html:697 ospy/templates/home_user.html:707
 msgid "Type time for run in seconds"
 msgstr ""
 
-#: ospy/templates/home_admin.html:803 ospy/templates/home_admin.html:859
-#: ospy/templates/home_user.html:712 ospy/templates/home_user.html:765
+#: ospy/templates/home_admin.html:804 ospy/templates/home_admin.html:860
+#: ospy/templates/home_user.html:713 ospy/templates/home_user.html:766
 #: plugins/mqtt_home_assistant/__init__.py:1054
 #: plugins/mqtt_home_assistant/__init__.py:1055
 msgid "Stop All Stations"
 msgstr ""
 
-#: ospy/templates/home_admin.html:803 ospy/templates/home_user.html:712
+#: ospy/templates/home_admin.html:804 ospy/templates/home_user.html:713
 msgid "Press to stop all running stations"
-msgstr ""
-
-#: ospy/templates/home_admin.html:824 ospy/templates/home_public.html:510
-#: ospy/templates/home_user.html:733
-msgid " Prev Day"
-msgstr ""
-
-#: ospy/templates/home_admin.html:824 ospy/templates/home_public.html:510
-#: ospy/templates/home_user.html:733
-msgid "Switch to previous day"
 msgstr ""
 
 #: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
 #: ospy/templates/home_user.html:734
+msgid " Prev Day"
+msgstr ""
+
+#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
+#: ospy/templates/home_user.html:734
+msgid "Switch to previous day"
+msgstr ""
+
+#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
+#: ospy/templates/home_user.html:735
 msgid "Switch to today"
 msgstr ""
 
-#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
-#: ospy/templates/home_user.html:735
+#: ospy/templates/home_admin.html:827 ospy/templates/home_public.html:513
+#: ospy/templates/home_user.html:736
 msgid "Next Day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
-#: ospy/templates/home_user.html:735
+#: ospy/templates/home_admin.html:827 ospy/templates/home_public.html:513
+#: ospy/templates/home_user.html:736
 msgid "Switch to next day"
 msgstr ""
 
-#: ospy/templates/home_admin.html:846 ospy/templates/home_public.html:532
-#: ospy/templates/home_user.html:752
+#: ospy/templates/home_admin.html:847 ospy/templates/home_public.html:533
+#: ospy/templates/home_user.html:753
 msgid "Click for view."
 msgstr ""
 
-#: ospy/templates/home_admin.html:859 ospy/templates/home_user.html:765
+#: ospy/templates/home_admin.html:860 ospy/templates/home_user.html:766
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 
-#: ospy/templates/home_admin.html:876 ospy/templates/home_user.html:779
+#: ospy/templates/home_admin.html:877 ospy/templates/home_user.html:780
 msgid "No chart data available."
 msgstr ""
 
-#: ospy/templates/home_admin.html:879 ospy/templates/home_public.html:558
-#: ospy/templates/home_user.html:782
+#: ospy/templates/home_admin.html:880 ospy/templates/home_public.html:559
+#: ospy/templates/home_user.html:783
 msgid "Clear selection"
 msgstr ""
 
-#: ospy/templates/home_admin.html:879 ospy/templates/home_public.html:558
-#: ospy/templates/home_user.html:782
+#: ospy/templates/home_admin.html:880 ospy/templates/home_public.html:559
+#: ospy/templates/home_user.html:783
 msgid "Deselecting the selected area in the chart"
 msgstr ""
 
-#: ospy/templates/home_admin.html:895 ospy/templates/home_user.html:798
+#: ospy/templates/home_admin.html:896 ospy/templates/home_user.html:799
 msgid "Selected map point"
 msgstr ""
 
-#: ospy/templates/home_admin.html:898 ospy/templates/home_user.html:801
+#: ospy/templates/home_admin.html:899 ospy/templates/home_user.html:802
 msgid "Coordinates are set"
 msgstr ""
 
-#: ospy/templates/home_admin.html:900 ospy/templates/home_user.html:803
+#: ospy/templates/home_admin.html:901 ospy/templates/home_user.html:804
 msgid "Weather location is not configured correctly."
 msgstr ""
 
-#: ospy/templates/home_admin.html:904 ospy/templates/home_user.html:807
+#: ospy/templates/home_admin.html:905 ospy/templates/home_user.html:808
 msgid "Short-term weather forecast"
 msgstr ""
 
-#: ospy/templates/home_admin.html:914 ospy/templates/home_user.html:817
+#: ospy/templates/home_admin.html:915 ospy/templates/home_user.html:818
 msgid "Forecast data is not available yet."
 msgstr ""
 
-#: ospy/templates/home_admin.html:916 ospy/templates/home_user.html:818
+#: ospy/templates/home_admin.html:917 ospy/templates/home_user.html:819
 msgid "Show map"
 msgstr ""
 
-#: ospy/templates/home_admin.html:917
+#: ospy/templates/home_admin.html:918
 msgid "Change location"
 msgstr ""
 
-#: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
+#: ospy/templates/home_admin.html:922 ospy/templates/home_user.html:822
 #: plugins/sunrise_and_sunset/__init__.py:551
 msgid "Latitude"
 msgstr ""
 
-#: ospy/templates/home_admin.html:922 ospy/templates/home_user.html:822
+#: ospy/templates/home_admin.html:923 ospy/templates/home_user.html:823
 #: plugins/sunrise_and_sunset/__init__.py:552
 msgid "Longitude"
 msgstr ""
 
-#: ospy/templates/home_admin.html:923 ospy/templates/home_user.html:823
+#: ospy/templates/home_admin.html:927 ospy/templates/home_user.html:827
+#: ospy/templates/program.html:658
+msgid "country"
+msgstr ""
+
+#: ospy/templates/home_admin.html:929 ospy/templates/home_user.html:829
+#: plugins/sunrise_and_sunset/__init__.py:549
+msgid "Region"
+msgstr ""
+
+#: ospy/templates/home_admin.html:930 ospy/templates/home_user.html:830
 msgid "Weather data source"
 msgstr ""
 
-#: ospy/templates/home_admin.html:925 ospy/templates/home_user.html:825
+#: ospy/templates/home_admin.html:932 ospy/templates/home_user.html:832
 msgid "Forecast updated"
 msgstr ""
 
-#: ospy/templates/home_admin.html:928
+#: ospy/templates/home_admin.html:935
 msgid "Set location"
 msgstr ""
 
@@ -7524,7 +7535,7 @@ msgid "Station"
 msgstr ""
 
 #: ospy/templates/log.html:136 ospy/templates/log_user.html:27
-#: ospy/templates/program.html:533 plugins/email_notifications/__init__.py:149
+#: ospy/templates/program.html:568 plugins/email_notifications/__init__.py:149
 #: plugins/email_notifications/__init__.py:153
 #: plugins/email_notifications_ssl/__init__.py:218
 #: plugins/email_notifications_ssl/__init__.py:223
@@ -7953,7 +7964,7 @@ msgid "Sent"
 msgstr ""
 
 #: ospy/templates/mobile_devices.html:77
-#: ospy/templates/mobile_devices.html:114 ospy/templates/program.html:767
+#: ospy/templates/mobile_devices.html:114 ospy/templates/program.html:802
 #: ospy/templates/sensor.html:1345
 msgid "Save"
 msgstr ""
@@ -8695,16 +8706,128 @@ msgstr ""
 msgid "Modify Program"
 msgstr ""
 
-#: ospy/templates/program.html:392
+#: ospy/templates/program.html:307
+msgid "Enter a unique name that identifies this program in schedules and logs."
+msgstr ""
+
+#: ospy/templates/program.html:308
+msgid "Select the program group used for organization and group controls."
+msgstr ""
+
+#: ospy/templates/program.html:309
+msgid "Enable automatic scheduling for this program or keep it saved but inactive."
+msgstr ""
+
+#: ospy/templates/program.html:310
+msgid "Select how OSPy calculates the days and start times for this program."
+msgstr ""
+
+#: ospy/templates/program.html:311
+msgid "Select the weekdays on which this program is allowed to run."
+msgstr ""
+
+#: ospy/templates/program.html:312
+msgid "Select the number of days between successive program cycles."
+msgstr ""
+
+#: ospy/templates/program.html:313
+msgid "Select the number of days to wait before the first cycle starts."
+msgstr ""
+
+#: ospy/templates/program.html:314
+msgid "Enter the hour and minute when the first run should start."
+msgstr ""
+
+#: ospy/templates/program.html:315
+msgid "Enter how many minutes each selected station should run."
+msgstr ""
+
+#: ospy/templates/program.html:316
+msgid "Enable additional runs after the first run."
+msgstr ""
+
+#: ospy/templates/program.html:317
+msgid "Enter the number of additional runs after the first run."
+msgstr ""
+
+#: ospy/templates/program.html:318
+msgid "Enter the delay in minutes between the end of one run and the start of the next run."
+msgstr ""
+
+#: ospy/templates/program.html:319
+msgid "Enter a negative value to start before, or a positive value to start after, sunrise or sunset."
+msgstr ""
+
+#: ospy/templates/program.html:320
+msgid "Enter the earliest clock time at which the calculated solar run may start."
+msgstr ""
+
+#: ospy/templates/program.html:321
+msgid "Enter the latest clock time at which the calculated solar run may start."
+msgstr ""
+
+#: ospy/templates/program.html:322
+msgid "Choose whether a solar run outside the allowed time window is moved to the nearest limit or skipped."
+msgstr ""
+
+#: ospy/templates/program.html:323
+msgid "Select every month in which this program may run."
+msgstr ""
+
+#: ospy/templates/program.html:324
+msgid "Use a season shortcut to select its three months, or select the whole year."
+msgstr ""
+
+#: ospy/templates/program.html:325
+msgid "Allow all calendar dates, only odd-numbered dates, or only even-numbered dates."
+msgstr ""
+
+#: ospy/templates/program.html:326
+msgid "Enter comma-separated days of the month from 1 to 31, or leave the field empty for every day."
+msgstr ""
+
+#: ospy/templates/program.html:327
+msgid "Enable this option to prevent automatic runs on public holidays in the selected country."
+msgstr ""
+
+#: ospy/templates/program.html:328
+msgid "Enter one excluded date or date range per line. Exact dates use YYYY-MM-DD and annual dates use MM-DD."
+msgstr ""
+
+#: ospy/templates/program.html:335
+msgid "Select whether this station is included in the program."
+msgstr ""
+
+#: ospy/templates/program.html:336
+msgid "Click once in the time grid to select a start, then click later in the same row to select the end. Use the red cross to remove an interval."
+msgstr ""
+
+#: ospy/templates/program.html:337
+msgid "Create intervals for each weekday by clicking a start and then an end in the same row. Use the red cross to remove an interval."
+msgstr ""
+
+#: ospy/templates/program.html:338
+msgid "Create intervals for each day of the selected cycle by clicking a start and then an end in the same row."
+msgstr ""
+
+#: ospy/templates/program.html:339
+msgid "Add preferred execution moments and assign a priority from 1, least preferred, to 10, most preferred."
+msgstr ""
+
+#: ospy/templates/program.html:340
+msgid "Add another preferred execution moment."
+msgstr ""
+
+#: ospy/templates/program.html:427
 msgid "Edit Program"
 msgstr ""
 
-#: ospy/templates/program.html:392 ospy/templates/programs.html:43
+#: ospy/templates/program.html:427 ospy/templates/programs.html:43
 #: ospy/templates/programs.html:80
 msgid "Add a New Program"
 msgstr ""
 
-#: ospy/templates/program.html:401 ospy/templates/programs.html:244
+#: ospy/templates/program.html:436 ospy/templates/programs.html:244
 #: ospy/templates/programs.html:269 ospy/templates/sensors.html:78
 #: ospy/templates/stations.html:16
 #: plugins/energy_meter/templates/energy_meter_settings.html:74
@@ -8716,95 +8839,95 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ospy/templates/program.html:424
+#: ospy/templates/program.html:459
 msgid "Schedule type"
 msgstr ""
 
-#: ospy/templates/program.html:433 ospy/webpages.py:2675
+#: ospy/templates/program.html:468 ospy/webpages.py:2675
 msgid "Sunrise and sunset programs require the enabled Sunrise and Sunset plugin."
 msgstr ""
 
-#: ospy/templates/program.html:438
+#: ospy/templates/program.html:473
 msgid "Do not apply any adjustments to intervals of this program."
 msgstr ""
 
-#: ospy/templates/program.html:439
+#: ospy/templates/program.html:474
 msgid "No adjustments"
 msgstr ""
 
-#: ospy/templates/program.html:447
+#: ospy/templates/program.html:482
 msgid "Skip the program if the total adjustment is lower than this percentage."
 msgstr ""
 
-#: ospy/templates/program.html:448
+#: ospy/templates/program.html:483
 msgid "Cut-off"
 msgstr ""
 
-#: ospy/templates/program.html:452
+#: ospy/templates/program.html:487
 msgid "Select master station 1/2. All stations that have Activate Master 1/2 by program set will activate master station 1/2 according to this assignment in this program."
 msgstr ""
 
-#: ospy/templates/program.html:453
+#: ospy/templates/program.html:488
 msgid "Activate Master"
 msgstr ""
 
-#: ospy/templates/program.html:455 ospy/templates/stations.html:69
+#: ospy/templates/program.html:490 ospy/templates/stations.html:69
 #: ospy/templates/stations.html:75
 msgid "Activate Master 1"
 msgstr ""
 
-#: ospy/templates/program.html:455 ospy/templates/stations.html:72
+#: ospy/templates/program.html:490 ospy/templates/stations.html:72
 #: ospy/templates/stations.html:75
 msgid "Activate Master 2"
 msgstr ""
 
-#: ospy/templates/program.html:463
+#: ospy/templates/program.html:498
 msgid "Start sprinkling if the deficit is at least this value."
 msgstr ""
 
-#: ospy/templates/program.html:464
+#: ospy/templates/program.html:499
 msgid "Irrigation min"
 msgstr ""
 
-#: ospy/templates/program.html:467
+#: ospy/templates/program.html:502
 msgid "If sprinkling, never sprinkle more than this amount per station per execution moment."
 msgstr ""
 
-#: ospy/templates/program.html:468
+#: ospy/templates/program.html:503
 msgid "Irrigation max"
 msgstr ""
 
-#: ospy/templates/program.html:471
+#: ospy/templates/program.html:506
 msgid "If sprinkling, never sprinkle more than this amount continuously."
 msgstr ""
 
-#: ospy/templates/program.html:472
+#: ospy/templates/program.html:507
 msgid "Run max"
 msgstr ""
 
-#: ospy/templates/program.html:475
+#: ospy/templates/program.html:510
 msgid "If the run max limit is reached, how long should the break afterwards be (as a percentage of the time it was running)."
 msgstr ""
 
-#: ospy/templates/program.html:476
+#: ospy/templates/program.html:511
 msgid "Pause ratio"
 msgstr ""
 
-#: ospy/templates/program.html:498
+#: ospy/templates/program.html:533
 #: plugins/energy_meter/templates/energy_meter_settings.html:12
 #: plugins/energy_meter/templates/energy_meter_settings.html:113
 msgid "Days"
 msgstr ""
 
-#: ospy/templates/program.html:510
+#: ospy/templates/program.html:545
 msgid "Water interval"
 msgstr ""
 
-#: ospy/templates/program.html:518
+#: ospy/templates/program.html:553
 msgid "Starting in"
 msgstr ""
 
-#: ospy/templates/program.html:528 ospy/templates/program.html:701
+#: ospy/templates/program.html:563 ospy/templates/program.html:736
 #: plugins/email_notifications/__init__.py:148
 #: plugins/email_notifications/__init__.py:152
 #: plugins/email_notifications_ssl/__init__.py:217
@@ -8812,160 +8935,152 @@ msgstr ""
 msgid "Start time"
 msgstr ""
 
-#: ospy/templates/program.html:535 ospy/templates/program.html:554
-#: ospy/templates/program.html:562
+#: ospy/templates/program.html:570 ospy/templates/program.html:589
+#: ospy/templates/program.html:597
 msgid "minute(s)"
 msgstr ""
 
-#: ospy/templates/program.html:538
+#: ospy/templates/program.html:573
 msgid "Repeat"
 msgstr ""
 
-#: ospy/templates/program.html:547
+#: ospy/templates/program.html:582
 msgid "Repetitions"
 msgstr ""
 
-#: ospy/templates/program.html:549
+#: ospy/templates/program.html:584
 msgid "time(s)"
 msgstr ""
 
-#: ospy/templates/program.html:552
+#: ospy/templates/program.html:587
 msgid "Pause"
 msgstr ""
 
-#: ospy/templates/program.html:560
+#: ospy/templates/program.html:595
 msgid "Sun time offset"
 msgstr ""
 
-#: ospy/templates/program.html:565
+#: ospy/templates/program.html:600
 msgid "Earliest start time"
 msgstr ""
 
-#: ospy/templates/program.html:569
+#: ospy/templates/program.html:604
 msgid "Latest start time"
 msgstr ""
 
-#: ospy/templates/program.html:573
+#: ospy/templates/program.html:608
 msgid "Outside allowed time"
 msgstr ""
 
-#: ospy/templates/program.html:575
+#: ospy/templates/program.html:610
 msgid "Move to the nearest allowed time"
 msgstr ""
 
-#: ospy/templates/program.html:576
+#: ospy/templates/program.html:611
 msgid "Skip this run"
 msgstr ""
 
-#: ospy/templates/program.html:582
+#: ospy/templates/program.html:617
 msgid "Calendar rules"
 msgstr ""
 
-#: ospy/templates/program.html:585
+#: ospy/templates/program.html:620
 msgid "Allowed months"
 msgstr ""
 
-#: ospy/templates/program.html:592
+#: ospy/templates/program.html:627
 msgid "Season"
 msgstr ""
 
-#: ospy/templates/program.html:593
+#: ospy/templates/program.html:628
 msgid "Spring"
 msgstr ""
 
-#: ospy/templates/program.html:594
+#: ospy/templates/program.html:629
 msgid "Summer"
 msgstr ""
 
-#: ospy/templates/program.html:595
+#: ospy/templates/program.html:630
 msgid "Autumn"
 msgstr ""
 
-#: ospy/templates/program.html:596
+#: ospy/templates/program.html:631
 msgid "Winter"
 msgstr ""
 
-#: ospy/templates/program.html:597
+#: ospy/templates/program.html:632
 msgid "All year"
 msgstr ""
 
-#: ospy/templates/program.html:600
+#: ospy/templates/program.html:635
 msgid "Calendar day parity"
 msgstr ""
 
-#: ospy/templates/program.html:602
+#: ospy/templates/program.html:637
 msgid "All days"
 msgstr ""
 
-#: ospy/templates/program.html:603
+#: ospy/templates/program.html:638
 msgid "Odd days"
 msgstr ""
 
-#: ospy/templates/program.html:604
+#: ospy/templates/program.html:639
 msgid "Even days"
 msgstr ""
 
-#: ospy/templates/program.html:608
+#: ospy/templates/program.html:643
 msgid "Days of month"
 msgstr ""
 
-#: ospy/templates/program.html:610
+#: ospy/templates/program.html:645
 msgid "Leave empty to allow every day of the month."
 msgstr ""
 
-#: ospy/templates/program.html:613
+#: ospy/templates/program.html:648
 msgid "Public holidays"
 msgstr ""
 
-#: ospy/templates/program.html:620
+#: ospy/templates/program.html:655
 msgid "Do not run on public holidays"
 msgstr ""
 
-#: ospy/templates/program.html:623
-msgid "country"
-msgstr ""
-
-#: ospy/templates/program.html:625 ospy/webpages.py:2663
+#: ospy/templates/program.html:660 ospy/webpages.py:2663
 msgid "Holiday country is not known. Configure weather location or a country override."
 msgstr ""
 
-#: ospy/templates/program.html:627 ospy/webpages.py:2660
-msgid "Public holiday support is not installed."
-msgstr ""
-
-#: ospy/templates/program.html:629 ospy/webpages.py:2667
+#: ospy/templates/program.html:664 ospy/webpages.py:2667
 msgid "The public holiday calendar is unavailable for the selected country."
 msgstr ""
 
-#: ospy/templates/program.html:632
+#: ospy/templates/program.html:667
 msgid "Excluded dates"
 msgstr ""
 
-#: ospy/templates/program.html:634
+#: ospy/templates/program.html:669
 msgid "Enter one date or range per line. Annual ranges use MM-DD..MM-DD."
 msgstr ""
 
-#: ospy/templates/program.html:651
+#: ospy/templates/program.html:686
 msgid "Schedule:"
 msgstr ""
 
-#: ospy/templates/program.html:696
+#: ospy/templates/program.html:731
 msgid "Preferred Execution Moments"
 msgstr ""
 
-#: ospy/templates/program.html:702
+#: ospy/templates/program.html:737
 msgid "Priority"
 msgstr ""
 
-#: ospy/templates/program.html:703
+#: ospy/templates/program.html:738
 msgid "Add"
 msgstr ""
 
-#: ospy/templates/program.html:723 ospy/templates/program.html:750
+#: ospy/templates/program.html:758 ospy/templates/program.html:785
 msgid " (Least preferred)"
 msgstr ""
 
-#: ospy/templates/program.html:725 ospy/templates/program.html:752
+#: ospy/templates/program.html:760 ospy/templates/program.html:787
 msgid " (Most preferred)"
 msgstr ""
 
@@ -11160,7 +11275,7 @@ msgstr ""
 #: ospy/webpages.py:4835 ospy/webpages.py:4855 ospy/webpages.py:5087
 #: ospy/webpages.py:5096 ospy/webpages.py:5167 ospy/webpages.py:5175
 #: ospy/webpages.py:5256 ospy/webpages.py:5275 ospy/webpages.py:5330
-#: ospy/webpages.py:5495 ospy/webpages.py:5985 ospy/webpages.py:6061
+#: ospy/webpages.py:5495 ospy/webpages.py:5989 ospy/webpages.py:6065
 msgid "You do not have access to this section, ask your system administrator for access."
 msgstr ""
 
@@ -12697,23 +12812,23 @@ msgstr ""
 msgid "Upload SSL file %s"
 msgstr ""
 
-#: ospy/webpages.py:5743
+#: ospy/webpages.py:5747
 msgid "Could not load water balance data"
 msgstr ""
 
-#: ospy/webpages.py:5803
+#: ospy/webpages.py:5807
 msgid "Label not set"
 msgstr ""
 
-#: ospy/webpages.py:5813 ospy/webpages.py:5886
+#: ospy/webpages.py:5817 ospy/webpages.py:5890
 msgid "Value not set"
 msgstr ""
 
-#: ospy/webpages.py:5822 ospy/webpages.py:5873
+#: ospy/webpages.py:5826 ospy/webpages.py:5877
 msgid "Unit not set"
 msgstr ""
 
-#: ospy/webpages.py:5899
+#: ospy/webpages.py:5903
 msgid "Index {} is out of range for pluginStn list."
 msgstr ""
 
@@ -26776,10 +26891,6 @@ msgstr ""
 msgid "Found city"
 msgstr ""
 
-#: plugins/sunrise_and_sunset/__init__.py:549
-msgid "Region"
-msgstr ""
-
 #: plugins/sunrise_and_sunset/__init__.py:550
 msgid "Timezone"
 msgstr ""
@@ -27837,7 +27948,7 @@ msgid "This plugin also allows you to restore a previous version of the OSPy sof
 msgstr ""
 
 #: plugins/system_update/templates/system_update_help.html:10
-msgid "Before changing OSPy files, the plug-in starts an external watchdog. The updated process confirms a healthy start after the scheduler responds and the web interface is listening. If confirmation is not received within two minutes, the previous commit is restored and OSPy is restarted automatically."
+msgid "Before changing OSPy files, the plug-in starts an external watchdog. The updated process confirms a healthy start after the scheduler responds and the web interface is listening. If confirmation is not received within five minutes, the previous commit is restored and OSPy is restarted automatically."
 msgstr ""
 
 #: plugins/system_update/templates/system_update_help.html:11

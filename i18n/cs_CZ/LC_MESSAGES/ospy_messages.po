@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-08-17 20:23+0200\n"
-"PO-Revision-Date: 2026-08-17 21:25+0200\n"
+"POT-Creation-Date: 2026-08-17 22:09+0200\n"
+"PO-Revision-Date: 2026-08-17 22:17+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -369,8 +369,8 @@ msgstr "Nastavení zavlažování změněno pomocí mobilního API"
 msgid "API user {} changed irrigation settings from IP {}: {}."
 msgstr "API uživatel {} změnil nastavení zavlažování z IP {}: {}."
 
-#: api/v1/api.py:1317 ospy/templates/home_admin.html:716
-#: ospy/templates/home_user.html:625 ospy/webpages.py:2335
+#: api/v1/api.py:1317 ospy/templates/home_admin.html:717
+#: ospy/templates/home_user.html:626 ospy/webpages.py:2335
 msgid "Manual"
 msgstr "Ručně"
 
@@ -749,6 +749,11 @@ msgstr "Fázovaná databáze Mobile API je neplatná."
 msgid "The staged backup contains no restorable OSPy data."
 msgstr "Postupná záloha neobsahuje žádná obnovitelná data OSPy."
 
+#: ospy/calendar_rules.py:192 ospy/calendar_rules.py:198
+#: ospy/templates/program.html:662 ospy/webpages.py:2660
+msgid "Public holiday support is not installed."
+msgstr "Podpora státních svátků není instalována."
+
 #: ospy/helpers.py:55
 msgid "Deleting {}."
 msgstr "Odstranění {}."
@@ -821,8 +826,8 @@ msgstr "Operátor"
 msgid "Administrator"
 msgstr "Správce"
 
-#: ospy/helpers.py:289 ospy/templates/home_admin.html:728
-#: ospy/templates/home_public.html:466 ospy/templates/home_user.html:637
+#: ospy/helpers.py:289 ospy/templates/home_admin.html:729
+#: ospy/templates/home_public.html:467 ospy/templates/home_user.html:638
 #: ospy/templates/mobile_devices.html:33 ospy/templates/user.html:69
 #: ospy/templates/users.html:9
 msgid "User"
@@ -2334,7 +2339,7 @@ msgid "Could not create weather based schedule:"
 msgstr "Nelze vytvořit plán založený na počasí:"
 
 #: ospy/programs.py:283 ospy/templates/program.html:54
-#: ospy/templates/program.html:700
+#: ospy/templates/program.html:735
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:51
 msgid "Day"
 msgstr "Den"
@@ -2472,10 +2477,10 @@ msgstr "Západ"
 msgid "Starting relative to"
 msgstr "Začínající vzhledem k"
 
-#: ospy/programs.py:332 ospy/programs.py:341 ospy/templates/home_admin.html:198
-#: ospy/templates/home_admin.html:341 ospy/templates/home_admin.html:793
-#: ospy/templates/home_public.html:93 ospy/templates/home_user.html:110
-#: ospy/templates/home_user.html:253 ospy/templates/home_user.html:702
+#: ospy/programs.py:332 ospy/programs.py:341 ospy/templates/home_admin.html:199
+#: ospy/templates/home_admin.html:342 ospy/templates/home_admin.html:794
+#: ospy/templates/home_public.html:94 ospy/templates/home_user.html:111
+#: ospy/templates/home_user.html:254 ospy/templates/home_user.html:703
 msgid "For"
 msgstr "Doba"
 
@@ -2519,7 +2524,7 @@ msgstr "Od min"
 msgid "to max"
 msgstr "do max"
 
-#: ospy/programs.py:865 ospy/templates/program.html:406
+#: ospy/programs.py:865 ospy/templates/program.html:441
 msgid "Group"
 msgstr "Skupina"
 
@@ -4162,8 +4167,8 @@ msgstr "Cloudflare tunel"
 msgid "Working"
 msgstr "V provozu"
 
-#: ospy/templates/base.html:492 ospy/templates/home_admin.html:894
-#: ospy/templates/home_user.html:797
+#: ospy/templates/base.html:492 ospy/templates/home_admin.html:895
+#: ospy/templates/home_user.html:798
 msgid "Weather location"
 msgstr "Poloha počasí"
 
@@ -5666,6 +5671,7 @@ msgid "No"
 msgstr "Ne"
 
 #: ospy/templates/diagnostics.html:321 ospy/webpages.py:3752
+#: ospy/webpages.py:5724
 msgid "Blocked"
 msgstr "Zablokováno"
 
@@ -5673,8 +5679,8 @@ msgstr "Zablokováno"
 msgid "Clear"
 msgstr "Není"
 
-#: ospy/templates/diagnostics.html:323 ospy/templates/home_admin.html:707
-#: ospy/templates/home_user.html:616
+#: ospy/templates/diagnostics.html:323 ospy/templates/home_admin.html:708
+#: ospy/templates/home_user.html:617
 msgid "Normal"
 msgstr "Normální"
 
@@ -5875,7 +5881,7 @@ msgstr "Problém"
 #: ospy/templates/diagnostics.html:440 ospy/templates/diagnostics.html:679
 #: ospy/templates/diagnostics.html:986 ospy/templates/diagnostics.html:1182
 #: ospy/templates/diagnostics.html:1299 ospy/templates/home_admin.html:78
-#: ospy/templates/home_admin.html:920 ospy/templates/home_user.html:820
+#: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
 #: ospy/templates/plugins_manage.html:435
 #: ospy/templates/plugins_manage.html:481
 msgid "Details"
@@ -6014,7 +6020,7 @@ msgstr ""
 "restartujte OSPy."
 
 #: ospy/templates/diagnostics.html:650 ospy/templates/diagnostics.html:1382
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 #: ospy/templates/options.html:306 ospy/templates/twofactor.html:65
 #: ospy/templates/twofactor.html:84 plugins/lcd_display/__init__.py:510
 #: plugins/lcd_display/__init__.py:543 plugins/pressure_monitor/__init__.py:212
@@ -6161,9 +6167,9 @@ msgstr "Zastaveno"
 msgid "Running"
 msgstr "Běží"
 
-#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:261
-#: ospy/templates/home_admin.html:719 ospy/templates/home_public.html:156
-#: ospy/templates/home_user.html:173 ospy/templates/home_user.html:628
+#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:262
+#: ospy/templates/home_admin.html:720 ospy/templates/home_public.html:157
+#: ospy/templates/home_user.html:174 ospy/templates/home_user.html:629
 #: ospy/templates/log.html:114 ospy/templates/log.html:156
 #: ospy/templates/log.html:191 ospy/templates/log_user.html:18
 #: ospy/templates/log_user.html:47 ospy/templates/log_user.html:77
@@ -6194,12 +6200,12 @@ msgstr "Běží"
 msgid "Disabled"
 msgstr "Zakázáno"
 
-#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:719
-#: ospy/templates/home_user.html:628 ospy/templates/log.html:114
+#: ospy/templates/diagnostics.html:980 ospy/templates/home_admin.html:720
+#: ospy/templates/home_user.html:629 ospy/templates/log.html:114
 #: ospy/templates/log.html:156 ospy/templates/log.html:191
 #: ospy/templates/log_user.html:18 ospy/templates/log_user.html:47
 #: ospy/templates/log_user.html:77 ospy/templates/mobile_devices.html:74
-#: ospy/templates/mobile_devices.html:111 ospy/templates/program.html:414
+#: ospy/templates/mobile_devices.html:111 ospy/templates/program.html:449
 #: ospy/webpages.py:4283 ospy/webpages.py:4419
 #: plugins/air_temp_humi/__init__.py:423 plugins/chmi/__init__.py:438
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
@@ -6300,7 +6306,7 @@ msgstr "Restart selhal."
 #: ospy/templates/diagnostics.html:1168 ospy/templates/edit.html:153
 #: ospy/templates/graph_sensor.html:289 ospy/templates/log_sensor.html:12
 #: ospy/templates/log_sensor.html:156 ospy/templates/options.html:366
-#: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:768
+#: ospy/templates/plugins_changes.html:33 ospy/templates/program.html:803
 #: ospy/templates/programs.html:107 ospy/templates/programs.html:119
 #: ospy/templates/runonce.html:108 ospy/templates/sensor.html:1346
 #: ospy/templates/stations.html:99 ospy/templates/user.html:92
@@ -6559,8 +6565,8 @@ msgstr "Akce"
 
 #: ospy/templates/diagnostics.html:1187 ospy/templates/diagnostics.html:1273
 #: ospy/templates/diagnostics.html:1304 ospy/templates/diagnostics.html:1404
-#: ospy/templates/home_admin.html:850 ospy/templates/home_public.html:536
-#: ospy/templates/home_user.html:756
+#: ospy/templates/home_admin.html:851 ospy/templates/home_public.html:537
+#: ospy/templates/home_user.html:757
 msgid "loading..."
 msgstr "nahrávám..."
 
@@ -7107,7 +7113,7 @@ msgid "Delete this image?"
 msgstr "Smazat tento obrázek?"
 
 #: ospy/templates/edit.html:151 ospy/templates/plugins_manage.html:365
-#: ospy/templates/program.html:730 ospy/templates/program.html:757
+#: ospy/templates/program.html:765 ospy/templates/program.html:792
 #: ospy/templates/programs.html:221 ospy/templates/programs.html:259
 #: ospy/templates/users.html:79
 #: plugins/database_connector/templates/database_connector_backup.html:45
@@ -7227,7 +7233,7 @@ msgstr "Pohyb"
 #: ospy/templates/graph_sensor.html:6 ospy/templates/log_sensor.html:6
 #: ospy/templates/options.html:192 ospy/templates/options.html:194
 #: ospy/templates/options.html:205 ospy/templates/options.html:207
-#: ospy/templates/program.html:455 ospy/templates/programs.html:188
+#: ospy/templates/program.html:490 ospy/templates/programs.html:188
 #: ospy/templates/programs_user.html:38 ospy/templates/sensor.html:347
 #: ospy/templates/sensor.html:458 ospy/templates/sensor.html:477
 #: ospy/templates/sensor.html:501 ospy/templates/sensor.html:509
@@ -7434,8 +7440,8 @@ msgstr "Shelly HT"
 msgid "Shelly Wall Display"
 msgstr "Shelly nástěnný displej"
 
-#: ospy/templates/graph_sensor.html:35 ospy/templates/home_admin.html:432
-#: ospy/templates/home_public.html:227 ospy/templates/home_user.html:344
+#: ospy/templates/graph_sensor.html:35 ospy/templates/home_admin.html:433
+#: ospy/templates/home_public.html:228 ospy/templates/home_user.html:345
 #: plugins/air_temp_humi/templates/air_temp_humi.html:67
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:37
 #: plugins/ping_monitor/templates/ping_monitor.html:67
@@ -7472,8 +7478,8 @@ msgid "Value"
 msgstr "Hodnota"
 
 #: ospy/templates/graph_sensor.html:188 ospy/templates/graph_sensor.html:258
-#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
-#: ospy/templates/home_user.html:734
+#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
+#: ospy/templates/home_user.html:735
 #: plugins/air_temp_humi/templates/air_temp_humi.html:220
 #: plugins/air_temp_humi/templates/air_temp_humi.html:551
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:190
@@ -7628,128 +7634,123 @@ msgstr ""
 "Otevřete diagnostiku, zkontrolujte záznam událostí a opravte hlášenou "
 "příčinu."
 
-#: ospy/templates/home_admin.html:196 ospy/templates/home_public.html:91
-#: ospy/templates/home_user.html:108
-msgid "blocked by"
-msgstr "zablokováno"
-
-#: ospy/templates/home_admin.html:222 ospy/templates/home_admin.html:266
-#: ospy/templates/home_admin.html:782 ospy/templates/home_admin.html:792
-#: ospy/templates/home_public.html:117 ospy/templates/home_public.html:161
-#: ospy/templates/home_user.html:134 ospy/templates/home_user.html:178
-#: ospy/templates/home_user.html:691 ospy/templates/home_user.html:701
+#: ospy/templates/home_admin.html:223 ospy/templates/home_admin.html:267
+#: ospy/templates/home_admin.html:783 ospy/templates/home_admin.html:793
+#: ospy/templates/home_public.html:118 ospy/templates/home_public.html:162
+#: ospy/templates/home_user.html:135 ospy/templates/home_user.html:179
+#: ospy/templates/home_user.html:692 ospy/templates/home_user.html:702
 #: ospy/templates/plugins_manage.html:221
 #: ospy/templates/plugins_manage.html:234
-#: ospy/templates/plugins_manage.html:379 ospy/templates/program.html:419
-#: ospy/templates/program.html:444 ospy/templates/program.html:488
-#: ospy/templates/program.html:543 ospy/templates/program.html:618
+#: ospy/templates/plugins_manage.html:379 ospy/templates/program.html:454
+#: ospy/templates/program.html:479 ospy/templates/program.html:523
+#: ospy/templates/program.html:578 ospy/templates/program.html:653
 #: ospy/templates/programs.html:175 ospy/templates/sensors.html:75
 #: plugins/shelly_cloud_integrator/__init__.py:1580
 msgid "Off"
 msgstr "Vyp"
 
-#: ospy/templates/home_admin.html:239 ospy/templates/home_admin.html:767
-#: ospy/templates/home_public.html:134 ospy/templates/home_user.html:151
-#: ospy/templates/home_user.html:676
+#: ospy/templates/home_admin.html:240 ospy/templates/home_admin.html:768
+#: ospy/templates/home_public.html:135 ospy/templates/home_user.html:152
+#: ospy/templates/home_user.html:677
 msgid "On (Master)"
 msgstr "Zap (hlavní)"
 
-#: ospy/templates/home_admin.html:242 ospy/templates/home_admin.html:773
-#: ospy/templates/home_public.html:137 ospy/templates/home_user.html:154
-#: ospy/templates/home_user.html:682
+#: ospy/templates/home_admin.html:243 ospy/templates/home_admin.html:774
+#: ospy/templates/home_public.html:138 ospy/templates/home_user.html:155
+#: ospy/templates/home_user.html:683
 msgid "On (Master Two)"
 msgstr "Zap (hlavní 2)"
 
-#: ospy/templates/home_admin.html:246 ospy/templates/home_admin.html:769
-#: ospy/templates/home_public.html:141 ospy/templates/home_user.html:158
-#: ospy/templates/home_user.html:678
+#: ospy/templates/home_admin.html:247 ospy/templates/home_admin.html:770
+#: ospy/templates/home_public.html:142 ospy/templates/home_user.html:159
+#: ospy/templates/home_user.html:679
 msgid "Off (Master)"
 msgstr "Vyp (hlavní)"
 
-#: ospy/templates/home_admin.html:249 ospy/templates/home_admin.html:775
-#: ospy/templates/home_public.html:144 ospy/templates/home_user.html:161
-#: ospy/templates/home_user.html:684
+#: ospy/templates/home_admin.html:250 ospy/templates/home_admin.html:776
+#: ospy/templates/home_public.html:145 ospy/templates/home_user.html:162
+#: ospy/templates/home_user.html:685
 msgid "Off (Master Two)"
 msgstr "Vyp (hlavní 2)"
 
-#: ospy/templates/home_admin.html:255 ospy/templates/home_public.html:150
-#: ospy/templates/home_user.html:167
+#: ospy/templates/home_admin.html:256 ospy/templates/home_public.html:151
+#: ospy/templates/home_user.html:168
 msgid "Suppressed by Rain Delay"
 msgstr "Potlačeno dešťovým zpožděním"
 
-#: ospy/templates/home_admin.html:258 ospy/templates/home_public.html:153
-#: ospy/templates/home_user.html:170
+#: ospy/templates/home_admin.html:259 ospy/templates/home_public.html:154
+#: ospy/templates/home_user.html:171
 msgid "Suppressed by Rain Sensor"
 msgstr "Potlačeno dešťovým senzorem"
 
-#: ospy/templates/home_admin.html:265 ospy/templates/home_admin.html:782
-#: ospy/templates/home_admin.html:792 ospy/templates/home_public.html:160
-#: ospy/templates/home_user.html:177 ospy/templates/home_user.html:691
-#: ospy/templates/home_user.html:701 ospy/templates/plugins_manage.html:219
+#: ospy/templates/home_admin.html:266 ospy/templates/home_admin.html:783
+#: ospy/templates/home_admin.html:793 ospy/templates/home_public.html:161
+#: ospy/templates/home_user.html:178 ospy/templates/home_user.html:692
+#: ospy/templates/home_user.html:702 ospy/templates/plugins_manage.html:219
 #: ospy/templates/plugins_manage.html:232
-#: ospy/templates/plugins_manage.html:377 ospy/templates/program.html:417
-#: ospy/templates/program.html:442 ospy/templates/program.html:486
-#: ospy/templates/program.html:541 ospy/templates/program.html:616
+#: ospy/templates/plugins_manage.html:377 ospy/templates/program.html:452
+#: ospy/templates/program.html:477 ospy/templates/program.html:521
+#: ospy/templates/program.html:576 ospy/templates/program.html:651
 #: ospy/templates/programs.html:173 ospy/templates/sensors.html:73
 #: plugins/shelly_cloud_integrator/__init__.py:1580
 msgid "On"
 msgstr "Zap"
 
-#: ospy/templates/home_admin.html:327 ospy/templates/home_admin.html:783
-#: ospy/templates/home_user.html:239 ospy/templates/home_user.html:692
+#: ospy/templates/home_admin.html:328 ospy/templates/home_admin.html:784
+#: ospy/templates/home_user.html:240 ospy/templates/home_user.html:693
 #: plugins/email_reader/__init__.py:422 plugins/telegram_bot/__init__.py:200
 #: plugins/telegram_bot/__init__.py:281
 msgid "Forever"
 msgstr "Navždy"
 
-#: ospy/templates/home_admin.html:331 ospy/templates/home_admin.html:783
-#: ospy/templates/home_user.html:243 ospy/templates/home_user.html:692
+#: ospy/templates/home_admin.html:332 ospy/templates/home_admin.html:784
+#: ospy/templates/home_user.html:244 ospy/templates/home_user.html:693
 msgid "in"
 msgstr "v čase"
 
-#: ospy/templates/home_admin.html:378 ospy/templates/home_user.html:290
+#: ospy/templates/home_admin.html:379 ospy/templates/home_user.html:291
 msgid "Enter percentage adjustment"
 msgstr "Vložte procenta pro úpravu množství vody"
 
-#: ospy/templates/home_admin.html:381 ospy/templates/home_user.html:293
+#: ospy/templates/home_admin.html:382 ospy/templates/home_user.html:294
 msgid "Percentage must be a positive value"
 msgstr "Hodnota procent musí být kladné číslo"
 
-#: ospy/templates/home_admin.html:393 ospy/templates/home_user.html:305
+#: ospy/templates/home_admin.html:394 ospy/templates/home_user.html:306
 msgid "Enter hours to delay"
 msgstr "Vložte počet hodin pro zpoždění"
 
-#: ospy/templates/home_admin.html:396 ospy/templates/home_user.html:308
+#: ospy/templates/home_admin.html:397 ospy/templates/home_user.html:309
 msgid "Delay must be a positive value"
 msgstr "Hodnota zpoždění musí být kladné číslo"
 
-#: ospy/templates/home_admin.html:432 ospy/templates/home_public.html:227
-#: ospy/templates/home_user.html:344
+#: ospy/templates/home_admin.html:433 ospy/templates/home_public.html:228
+#: ospy/templates/home_user.html:345
 msgid "(mm)"
 msgstr "(mm)"
 
-#: ospy/templates/home_admin.html:438 ospy/templates/home_public.html:233
-#: ospy/templates/home_user.html:350
+#: ospy/templates/home_admin.html:439 ospy/templates/home_public.html:234
+#: ospy/templates/home_user.html:351
 #: plugins/weather_based_water_level/__init__.py:692
 msgid "ETo"
 msgstr "ETo"
 
-#: ospy/templates/home_admin.html:439 ospy/templates/home_public.html:234
-#: ospy/templates/home_user.html:351 ospy/weather.py:568
+#: ospy/templates/home_admin.html:440 ospy/templates/home_public.html:235
+#: ospy/templates/home_user.html:352 ospy/weather.py:568
 #: plugins/weather_based_water_level/__init__.py:689
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:52
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:92
 msgid "Rain"
 msgstr "Déšť"
 
-#: ospy/templates/home_admin.html:446 ospy/templates/home_admin.html:738
-#: ospy/templates/home_public.html:241 ospy/templates/home_public.html:476
-#: ospy/templates/home_user.html:358 ospy/templates/home_user.html:647
+#: ospy/templates/home_admin.html:447 ospy/templates/home_admin.html:739
+#: ospy/templates/home_public.html:242 ospy/templates/home_public.html:477
+#: ospy/templates/home_user.html:359 ospy/templates/home_user.html:648
 msgid "Total"
 msgstr "Celkem"
 
-#: ospy/templates/home_admin.html:449 ospy/templates/home_public.html:244
-#: ospy/templates/home_user.html:361
+#: ospy/templates/home_admin.html:450 ospy/templates/home_public.html:245
+#: ospy/templates/home_user.html:362
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:51
 #: plugins/ping_monitor/templates/ping_monitor.html:81
 #: plugins/pressure_monitor/templates/pressure_monitor.html:81
@@ -7760,187 +7761,197 @@ msgstr "Celkem"
 msgid "Previous Value"
 msgstr "Předchozí hodnota"
 
-#: ospy/templates/home_admin.html:462 ospy/templates/home_public.html:257
-#: ospy/templates/home_user.html:374
+#: ospy/templates/home_admin.html:463 ospy/templates/home_public.html:258
+#: ospy/templates/home_user.html:375
 msgid "Water balance (mm)"
 msgstr "Vodní bilance (mm)"
 
-#: ospy/templates/home_admin.html:497 ospy/templates/home_public.html:292
-#: ospy/templates/home_user.html:409 ospy/webpages.py:5746
+#: ospy/templates/home_admin.html:498 ospy/templates/home_public.html:293
+#: ospy/templates/home_user.html:410 ospy/webpages.py:5750
 msgid "Could not load water balance data. Please try again."
 msgstr "Nepodařilo se načíst data o bilanci vody. Zkuste to prosím znovu."
 
-#: ospy/templates/home_admin.html:653 ospy/templates/home_user.html:562
+#: ospy/templates/home_admin.html:654 ospy/templates/home_user.html:563
 msgid "Timer values wrong:"
 msgstr "Časovač má vloženu nesprávnou hodnotu:"
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 msgid "% Level"
 msgstr "% množství"
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 msgid "Add or subtract the total program run time in % of time"
 msgstr "Přidání nebo odečtení celkové doby běhu programů v % času"
 
-#: ospy/templates/home_admin.html:707 ospy/templates/home_user.html:616
+#: ospy/templates/home_admin.html:708 ospy/templates/home_user.html:617
 #: plugins/weather_based_water_level/__init__.py:335
 msgid "Water Level"
 msgstr "% doby programu"
 
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 msgid "Rain Delay"
 msgstr "Zpoždění při dešti"
 
-#: ospy/templates/home_admin.html:709 ospy/templates/home_user.html:618
+#: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 msgid ""
 "Settings the time countdown (rain delay) and block programs during this time"
 msgstr ""
 "Nastavit dobu odpočítávání (dešťového zpoždění) a blokovat po tuto dobu "
 "programy"
 
-#: ospy/templates/home_admin.html:713 ospy/templates/home_user.html:622
+#: ospy/templates/home_admin.html:714 ospy/templates/home_user.html:623
 msgid "Rain sensed"
 msgstr "Detekován déšť"
 
-#: ospy/templates/home_admin.html:716 ospy/templates/home_user.html:625
+#: ospy/templates/home_admin.html:717 ospy/templates/home_user.html:626
 msgid "Schedule"
 msgstr "Plánovač"
 
-#: ospy/templates/home_admin.html:716 ospy/templates/home_user.html:625
+#: ospy/templates/home_admin.html:717 ospy/templates/home_user.html:626
 msgid "Switching from scheduler to manual mode and vice versa"
 msgstr "Přepnutí z plánovače do manuálního režimu a naopak"
 
-#: ospy/templates/home_admin.html:719 ospy/templates/home_user.html:628
+#: ospy/templates/home_admin.html:720 ospy/templates/home_user.html:629
 msgid "Enable or disable the scheduler running"
 msgstr "Povolit nebo zakázat provoz plánovače"
 
-#: ospy/templates/home_admin.html:724 ospy/templates/home_public.html:462
-#: ospy/templates/home_user.html:633
+#: ospy/templates/home_admin.html:725 ospy/templates/home_public.html:463
+#: ospy/templates/home_user.html:634
 msgid "Water Level adjustments"
 msgstr "Nastavení úrovně vody"
 
-#: ospy/templates/home_admin.html:745 ospy/templates/home_public.html:483
-#: ospy/templates/home_user.html:654
+#: ospy/templates/home_admin.html:746 ospy/templates/home_public.html:484
+#: ospy/templates/home_user.html:655
 msgid "Programs adjustments by sensors"
 msgstr "Nastavení programů snímači"
 
-#: ospy/templates/home_admin.html:784 ospy/templates/home_admin.html:794
-#: ospy/templates/home_user.html:693 ospy/templates/home_user.html:703
+#: ospy/templates/home_admin.html:785 ospy/templates/home_admin.html:795
+#: ospy/templates/home_user.html:694 ospy/templates/home_user.html:704
 msgid "Type time for run in minutes"
 msgstr "Vložte dobu pro spuštění v minutách"
 
-#: ospy/templates/home_admin.html:787 ospy/templates/home_admin.html:797
-#: ospy/templates/home_user.html:696 ospy/templates/home_user.html:706
+#: ospy/templates/home_admin.html:788 ospy/templates/home_admin.html:798
+#: ospy/templates/home_user.html:697 ospy/templates/home_user.html:707
 msgid "Type time for run in seconds"
 msgstr "Vložte dobu pro spuštění v sekundách"
 
-#: ospy/templates/home_admin.html:803 ospy/templates/home_admin.html:859
-#: ospy/templates/home_user.html:712 ospy/templates/home_user.html:765
+#: ospy/templates/home_admin.html:804 ospy/templates/home_admin.html:860
+#: ospy/templates/home_user.html:713 ospy/templates/home_user.html:766
 #: plugins/mqtt_home_assistant/__init__.py:1054
 #: plugins/mqtt_home_assistant/__init__.py:1055
 msgid "Stop All Stations"
 msgstr "Zastavit všechny stanice"
 
-#: ospy/templates/home_admin.html:803 ospy/templates/home_user.html:712
+#: ospy/templates/home_admin.html:804 ospy/templates/home_user.html:713
 msgid "Press to stop all running stations"
 msgstr "Stisknutím tlačítka zastavíte všechny běžící stanice"
 
-#: ospy/templates/home_admin.html:824 ospy/templates/home_public.html:510
-#: ospy/templates/home_user.html:733
+#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
+#: ospy/templates/home_user.html:734
 msgid " Prev Day"
 msgstr " Včera"
 
-#: ospy/templates/home_admin.html:824 ospy/templates/home_public.html:510
-#: ospy/templates/home_user.html:733
+#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
+#: ospy/templates/home_user.html:734
 msgid "Switch to previous day"
 msgstr "Přepnout na předchozí den"
 
-#: ospy/templates/home_admin.html:825 ospy/templates/home_public.html:511
-#: ospy/templates/home_user.html:734
+#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
+#: ospy/templates/home_user.html:735
 msgid "Switch to today"
 msgstr "Přepnout na dnešek"
 
-#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
-#: ospy/templates/home_user.html:735
+#: ospy/templates/home_admin.html:827 ospy/templates/home_public.html:513
+#: ospy/templates/home_user.html:736
 msgid "Next Day"
 msgstr "Zítra"
 
-#: ospy/templates/home_admin.html:826 ospy/templates/home_public.html:512
-#: ospy/templates/home_user.html:735
+#: ospy/templates/home_admin.html:827 ospy/templates/home_public.html:513
+#: ospy/templates/home_user.html:736
 msgid "Switch to next day"
 msgstr "Přepnout na další den"
 
-#: ospy/templates/home_admin.html:846 ospy/templates/home_public.html:532
-#: ospy/templates/home_user.html:752
+#: ospy/templates/home_admin.html:847 ospy/templates/home_public.html:533
+#: ospy/templates/home_user.html:753
 msgid "Click for view."
 msgstr "Klikněte pro zobrazení."
 
-#: ospy/templates/home_admin.html:859 ospy/templates/home_user.html:765
+#: ospy/templates/home_admin.html:860 ospy/templates/home_user.html:766
 msgid "Press to stop all running stations and turn off the scheduler!"
 msgstr ""
 "Stisknutím tlačítka zastavíte všechny běžící stanice a vypnete plánovač!"
 
-#: ospy/templates/home_admin.html:876 ospy/templates/home_user.html:779
+#: ospy/templates/home_admin.html:877 ospy/templates/home_user.html:780
 msgid "No chart data available."
 msgstr "Žádná data pro graf nejsou k dispozici."
 
-#: ospy/templates/home_admin.html:879 ospy/templates/home_public.html:558
-#: ospy/templates/home_user.html:782
+#: ospy/templates/home_admin.html:880 ospy/templates/home_public.html:559
+#: ospy/templates/home_user.html:783
 msgid "Clear selection"
 msgstr "Zrušit výběr"
 
-#: ospy/templates/home_admin.html:879 ospy/templates/home_public.html:558
-#: ospy/templates/home_user.html:782
+#: ospy/templates/home_admin.html:880 ospy/templates/home_public.html:559
+#: ospy/templates/home_user.html:783
 msgid "Deselecting the selected area in the chart"
 msgstr "Odznačit vybranou oblast v grafu"
 
-#: ospy/templates/home_admin.html:895 ospy/templates/home_user.html:798
+#: ospy/templates/home_admin.html:896 ospy/templates/home_user.html:799
 msgid "Selected map point"
 msgstr "Vybraný bod na mapě"
 
-#: ospy/templates/home_admin.html:898 ospy/templates/home_user.html:801
+#: ospy/templates/home_admin.html:899 ospy/templates/home_user.html:802
 msgid "Coordinates are set"
 msgstr "Souřadnice jsou nastaveny"
 
-#: ospy/templates/home_admin.html:900 ospy/templates/home_user.html:803
+#: ospy/templates/home_admin.html:901 ospy/templates/home_user.html:804
 msgid "Weather location is not configured correctly."
 msgstr "Poloha počasí není správně nastavena."
 
-#: ospy/templates/home_admin.html:904 ospy/templates/home_user.html:807
+#: ospy/templates/home_admin.html:905 ospy/templates/home_user.html:808
 msgid "Short-term weather forecast"
 msgstr "Krátkodobá předpověď počasí"
 
-#: ospy/templates/home_admin.html:914 ospy/templates/home_user.html:817
+#: ospy/templates/home_admin.html:915 ospy/templates/home_user.html:818
 msgid "Forecast data is not available yet."
 msgstr "Předpovědní data zatím nejsou dostupná."
 
-#: ospy/templates/home_admin.html:916 ospy/templates/home_user.html:818
+#: ospy/templates/home_admin.html:917 ospy/templates/home_user.html:819
 msgid "Show map"
 msgstr "Zobrazit mapu"
 
-#: ospy/templates/home_admin.html:917
+#: ospy/templates/home_admin.html:918
 msgid "Change location"
 msgstr "Změna místa"
 
-#: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
+#: ospy/templates/home_admin.html:922 ospy/templates/home_user.html:822
 #: plugins/sunrise_and_sunset/__init__.py:551
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
-#: ospy/templates/home_admin.html:922 ospy/templates/home_user.html:822
+#: ospy/templates/home_admin.html:923 ospy/templates/home_user.html:823
 #: plugins/sunrise_and_sunset/__init__.py:552
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
-#: ospy/templates/home_admin.html:923 ospy/templates/home_user.html:823
+#: ospy/templates/home_admin.html:927 ospy/templates/home_user.html:827
+#: ospy/templates/program.html:658
+msgid "country"
+msgstr "země"
+
+#: ospy/templates/home_admin.html:929 ospy/templates/home_user.html:829
+#: plugins/sunrise_and_sunset/__init__.py:549
+msgid "Region"
+msgstr "Kraj"
+
+#: ospy/templates/home_admin.html:930 ospy/templates/home_user.html:830
 msgid "Weather data source"
 msgstr "Zdroj meteorologických dat"
 
-#: ospy/templates/home_admin.html:925 ospy/templates/home_user.html:825
+#: ospy/templates/home_admin.html:932 ospy/templates/home_user.html:832
 msgid "Forecast updated"
 msgstr "Aktualizace předpovědi"
 
-#: ospy/templates/home_admin.html:928
+#: ospy/templates/home_admin.html:935
 msgid "Set location"
 msgstr "Nastavit umístění"
 
@@ -8079,7 +8090,7 @@ msgid "Station"
 msgstr "Stanice"
 
 #: ospy/templates/log.html:136 ospy/templates/log_user.html:27
-#: ospy/templates/program.html:533 plugins/email_notifications/__init__.py:149
+#: ospy/templates/program.html:568 plugins/email_notifications/__init__.py:149
 #: plugins/email_notifications/__init__.py:153
 #: plugins/email_notifications_ssl/__init__.py:218
 #: plugins/email_notifications_ssl/__init__.py:223
@@ -8523,7 +8534,7 @@ msgid "Sent"
 msgstr "Odeslán"
 
 #: ospy/templates/mobile_devices.html:77 ospy/templates/mobile_devices.html:114
-#: ospy/templates/program.html:767 ospy/templates/sensor.html:1345
+#: ospy/templates/program.html:802 ospy/templates/sensor.html:1345
 msgid "Save"
 msgstr "Uložit"
 
@@ -9317,16 +9328,178 @@ msgstr "Python soubory"
 msgid "Modify Program"
 msgstr "Upravit program"
 
-#: ospy/templates/program.html:392
+#: ospy/templates/program.html:307
+msgid "Enter a unique name that identifies this program in schedules and logs."
+msgstr ""
+"Zadejte jedinečný název, který tento program identifikuje do rozpisů a "
+"záznamů."
+
+#: ospy/templates/program.html:308
+msgid "Select the program group used for organization and group controls."
+msgstr "Vyberte skupinu programů používanou pro organizaci a řízení skupin."
+
+#: ospy/templates/program.html:309
+msgid ""
+"Enable automatic scheduling for this program or keep it saved but inactive."
+msgstr ""
+"Povolit automatické plánování tohoto programu nebo ho nechat uložený a "
+"neaktivní."
+
+#: ospy/templates/program.html:310
+msgid "Select how OSPy calculates the days and start times for this program."
+msgstr "Vyberte, jak OSPy počítá dny a začátky tohoto programu."
+
+#: ospy/templates/program.html:311
+msgid "Select the weekdays on which this program is allowed to run."
+msgstr "Vyberte všední dny, ve kterých je tento program povolen běžet."
+
+#: ospy/templates/program.html:312
+msgid "Select the number of days between successive program cycles."
+msgstr "Vyberte počet dní mezi po sobě jdoucími cykly programu."
+
+#: ospy/templates/program.html:313
+msgid "Select the number of days to wait before the first cycle starts."
+msgstr "Vyberte počet dní, které musíte čekat, než začne první cyklus."
+
+#: ospy/templates/program.html:314
+msgid "Enter the hour and minute when the first run should start."
+msgstr "Zadejte hodinu a minutu, kdy by měl začít první běh."
+
+#: ospy/templates/program.html:315
+msgid "Enter how many minutes each selected station should run."
+msgstr "Zadejte délku minut každé vybrané stanice."
+
+#: ospy/templates/program.html:316
+msgid "Enable additional runs after the first run."
+msgstr "Povolit další běhy po prvním běhu."
+
+#: ospy/templates/program.html:317
+msgid "Enter the number of additional runs after the first run."
+msgstr "Zadejte počet dalších běhů po prvním běhu."
+
+#: ospy/templates/program.html:318
+msgid ""
+"Enter the delay in minutes between the end of one run and the start of the "
+"next run."
+msgstr ""
+"Zadejte zpoždění v minutách mezi koncem jednoho běhu a začátkem dalšího běhu."
+
+#: ospy/templates/program.html:319
+msgid ""
+"Enter a negative value to start before, or a positive value to start after, "
+"sunrise or sunset."
+msgstr ""
+"Zadejte zápornou hodnotu, která začne před, nebo kladnou hodnotu, která "
+"začne po východu nebo západu slunce."
+
+#: ospy/templates/program.html:320
+msgid ""
+"Enter the earliest clock time at which the calculated solar run may start."
+msgstr "Zadejte nejranější hodinový čas, kdy může vypočtený solární běh začít."
+
+#: ospy/templates/program.html:321
+msgid ""
+"Enter the latest clock time at which the calculated solar run may start."
+msgstr "Zadejte nejnovější hodinový čas, kdy může vypočtený solární běh začít."
+
+#: ospy/templates/program.html:322
+msgid ""
+"Choose whether a solar run outside the allowed time window is moved to the "
+"nearest limit or skipped."
+msgstr ""
+"Zvolit, zda se provoz východ nebo západ slunce mimo povolené časové okno "
+"přesune na nejbližší limit, nebo přeskočí."
+
+#: ospy/templates/program.html:323
+msgid "Select every month in which this program may run."
+msgstr "Vyberte každý měsíc, ve kterém tento program běží."
+
+#: ospy/templates/program.html:324
+msgid ""
+"Use a season shortcut to select its three months, or select the whole year."
+msgstr ""
+"Použijte zkratku sezóny pro výběr jeho tří měsíců, nebo zvolte celý rok."
+
+#: ospy/templates/program.html:325
+msgid ""
+"Allow all calendar dates, only odd-numbered dates, or only even-numbered "
+"dates."
+msgstr "Povolit všechny kalendářní dny, pouze sudé nebo liché dny."
+
+#: ospy/templates/program.html:326
+msgid ""
+"Enter comma-separated days of the month from 1 to 31, or leave the field "
+"empty for every day."
+msgstr ""
+"Zadávejte dny měsíce oddělené čárkami od 1 do 31, nebo nechte pole prázdné "
+"pro každý den."
+
+#: ospy/templates/program.html:327
+msgid ""
+"Enable this option to prevent automatic runs on public holidays in the "
+"selected country."
+msgstr ""
+"Povolte tuto možnost, abyste zabránili automatickému spuštění ve státní "
+"svátky ve vybrané zemi."
+
+#: ospy/templates/program.html:328
+msgid ""
+"Enter one excluded date or date range per line. Exact dates use YYYY-MM-DD "
+"and annual dates use MM-DD."
+msgstr ""
+"Zadejte jedno vyloučené datum nebo časové rozmezí na každý řádek. Přesná "
+"data se používají YYYY-MM-DD a roční data MM-DD."
+
+#: ospy/templates/program.html:335
+msgid "Select whether this station is included in the program."
+msgstr "Vyberte, zda je tato stanice zahrnuta do programu."
+
+#: ospy/templates/program.html:336
+msgid ""
+"Click once in the time grid to select a start, then click later in the same "
+"row to select the end. Use the red cross to remove an interval."
+msgstr ""
+"Klikněte jednou v časové mřížce pro výběr začátku, pak klikněte později ve "
+"stejné řadě pro výběr konce. Použijte červený křížek k odstranění intervalu."
+
+#: ospy/templates/program.html:337
+msgid ""
+"Create intervals for each weekday by clicking a start and then an end in the "
+"same row. Use the red cross to remove an interval."
+msgstr ""
+"Vytvořte intervaly pro každý všední den kliknutím na začátek a pak konec ve "
+"stejném řádku. Použijte červený křížek k odstranění intervalu."
+
+#: ospy/templates/program.html:338
+msgid ""
+"Create intervals for each day of the selected cycle by clicking a start and "
+"then an end in the same row."
+msgstr ""
+"Vytvořte intervaly pro každý den vybraného cyklu kliknutím na začátek a pak "
+"konec ve stejném řádku."
+
+#: ospy/templates/program.html:339
+msgid ""
+"Add preferred execution moments and assign a priority from 1, least "
+"preferred, to 10, most preferred."
+msgstr ""
+"Přidat preferované momenty provedení a přiřadit prioritu od 1, nejméně "
+"preferované, k 10, nejvíce preferované."
+
+#: ospy/templates/program.html:340
+msgid "Add another preferred execution moment."
+msgstr "Přidejte další moment preferovaného provedení."
+
+#: ospy/templates/program.html:427
 msgid "Edit Program"
 msgstr "Upravit program"
 
-#: ospy/templates/program.html:392 ospy/templates/programs.html:43
+#: ospy/templates/program.html:427 ospy/templates/programs.html:43
 #: ospy/templates/programs.html:80
 msgid "Add a New Program"
 msgstr "Přidat nový program"
 
-#: ospy/templates/program.html:401 ospy/templates/programs.html:244
+#: ospy/templates/program.html:436 ospy/templates/programs.html:244
 #: ospy/templates/programs.html:269 ospy/templates/sensors.html:78
 #: ospy/templates/stations.html:16
 #: plugins/energy_meter/templates/energy_meter_settings.html:74
@@ -9338,34 +9511,34 @@ msgstr "Přidat nový program"
 msgid "Name"
 msgstr "Jméno"
 
-#: ospy/templates/program.html:424
+#: ospy/templates/program.html:459
 msgid "Schedule type"
 msgstr "Typ plánovače"
 
-#: ospy/templates/program.html:433 ospy/webpages.py:2675
+#: ospy/templates/program.html:468 ospy/webpages.py:2675
 msgid ""
 "Sunrise and sunset programs require the enabled Sunrise and Sunset plugin."
 msgstr ""
 "Programy pro východ a západ slunce vyžadují povolený balíček Sunrise and "
 "Sunset."
 
-#: ospy/templates/program.html:438
+#: ospy/templates/program.html:473
 msgid "Do not apply any adjustments to intervals of this program."
 msgstr "V intervalech tohoto programu nepoužívat žádné úpravy."
 
-#: ospy/templates/program.html:439
+#: ospy/templates/program.html:474
 msgid "No adjustments"
 msgstr "Žádné úpravy"
 
-#: ospy/templates/program.html:447
+#: ospy/templates/program.html:482
 msgid "Skip the program if the total adjustment is lower than this percentage."
 msgstr "Přeskočit program, pokud by celková úprava byla nižší než procento."
 
-#: ospy/templates/program.html:448
+#: ospy/templates/program.html:483
 msgid "Cut-off"
 msgstr "Odříznout"
 
-#: ospy/templates/program.html:452
+#: ospy/templates/program.html:487
 msgid ""
 "Select master station 1/2. All stations that have Activate Master 1/2 by "
 "program set will activate master station 1/2 according to this assignment in "
@@ -9375,29 +9548,29 @@ msgstr ""
 "hlavní 1/2 podle programu, aktivují hlavní stanici 1/2 podle tohoto "
 "přiřazení v tomto programu."
 
-#: ospy/templates/program.html:453
+#: ospy/templates/program.html:488
 msgid "Activate Master"
 msgstr "Aktivovat hlavní"
 
-#: ospy/templates/program.html:455 ospy/templates/stations.html:69
+#: ospy/templates/program.html:490 ospy/templates/stations.html:69
 #: ospy/templates/stations.html:75
 msgid "Activate Master 1"
 msgstr "ZAP hlavní 1"
 
-#: ospy/templates/program.html:455 ospy/templates/stations.html:72
+#: ospy/templates/program.html:490 ospy/templates/stations.html:72
 #: ospy/templates/stations.html:75
 msgid "Activate Master 2"
 msgstr "ZAP hlavní 2"
 
-#: ospy/templates/program.html:463
+#: ospy/templates/program.html:498
 msgid "Start sprinkling if the deficit is at least this value."
 msgstr "Začít zavlažovat, pokud je deficit alespoň touto hodnotou."
 
-#: ospy/templates/program.html:464
+#: ospy/templates/program.html:499
 msgid "Irrigation min"
 msgstr "Minimální zavlažování"
 
-#: ospy/templates/program.html:467
+#: ospy/templates/program.html:502
 msgid ""
 "If sprinkling, never sprinkle more than this amount per station per "
 "execution moment."
@@ -9405,20 +9578,20 @@ msgstr ""
 "Při zavlažovaní nikdy nezavlažovat více než je toto množství na stanici v "
 "danou dobu."
 
-#: ospy/templates/program.html:468
+#: ospy/templates/program.html:503
 msgid "Irrigation max"
 msgstr "Maximální zavlažování"
 
-#: ospy/templates/program.html:471
+#: ospy/templates/program.html:506
 msgid "If sprinkling, never sprinkle more than this amount continuously."
 msgstr ""
 "Při zavlažování nikdy nezavlažovat nepřetržitě více než je toto množství."
 
-#: ospy/templates/program.html:472
+#: ospy/templates/program.html:507
 msgid "Run max"
 msgstr "Maximální dávka"
 
-#: ospy/templates/program.html:475
+#: ospy/templates/program.html:510
 msgid ""
 "If the run max limit is reached, how long should the break afterwards be (as "
 "a percentage of the time it was running)."
@@ -9426,25 +9599,25 @@ msgstr ""
 "Je-li dosaženo maximální dávky tak zde určíme jak dlouho by měla být "
 "přestávka (v procentech délky času běhu)."
 
-#: ospy/templates/program.html:476
+#: ospy/templates/program.html:511
 msgid "Pause ratio"
 msgstr "Poměr pauzy"
 
-#: ospy/templates/program.html:498
+#: ospy/templates/program.html:533
 #: plugins/energy_meter/templates/energy_meter_settings.html:12
 #: plugins/energy_meter/templates/energy_meter_settings.html:113
 msgid "Days"
 msgstr "Dny"
 
-#: ospy/templates/program.html:510
+#: ospy/templates/program.html:545
 msgid "Water interval"
 msgstr "Interval zavlažování"
 
-#: ospy/templates/program.html:518
+#: ospy/templates/program.html:553
 msgid "Starting in"
 msgstr "Start ve dni"
 
-#: ospy/templates/program.html:528 ospy/templates/program.html:701
+#: ospy/templates/program.html:563 ospy/templates/program.html:736
 #: plugins/email_notifications/__init__.py:148
 #: plugins/email_notifications/__init__.py:152
 #: plugins/email_notifications_ssl/__init__.py:217
@@ -9452,120 +9625,116 @@ msgstr "Start ve dni"
 msgid "Start time"
 msgstr "Čas startu"
 
-#: ospy/templates/program.html:535 ospy/templates/program.html:554
-#: ospy/templates/program.html:562
+#: ospy/templates/program.html:570 ospy/templates/program.html:589
+#: ospy/templates/program.html:597
 msgid "minute(s)"
 msgstr "minut(a/y)"
 
-#: ospy/templates/program.html:538
+#: ospy/templates/program.html:573
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ospy/templates/program.html:547
+#: ospy/templates/program.html:582
 msgid "Repetitions"
 msgstr "Opakování"
 
-#: ospy/templates/program.html:549
+#: ospy/templates/program.html:584
 msgid "time(s)"
 msgstr "počet opakování"
 
-#: ospy/templates/program.html:552
+#: ospy/templates/program.html:587
 msgid "Pause"
 msgstr "Pauza"
 
-#: ospy/templates/program.html:560
+#: ospy/templates/program.html:595
 msgid "Sun time offset"
 msgstr "Posun vůči východu/západu"
 
-#: ospy/templates/program.html:565
+#: ospy/templates/program.html:600
 msgid "Earliest start time"
 msgstr "Nejdřívější čas spuštění"
 
-#: ospy/templates/program.html:569
+#: ospy/templates/program.html:604
 msgid "Latest start time"
 msgstr "Nejpozdější čas spuštění"
 
-#: ospy/templates/program.html:573
+#: ospy/templates/program.html:608
 msgid "Outside allowed time"
 msgstr "Mimo povolený čas"
 
-#: ospy/templates/program.html:575
+#: ospy/templates/program.html:610
 msgid "Move to the nearest allowed time"
 msgstr "Přesun do nejbližšího povoleného času"
 
-#: ospy/templates/program.html:576
+#: ospy/templates/program.html:611
 msgid "Skip this run"
 msgstr "Přeskočit tento běh"
 
-#: ospy/templates/program.html:582
+#: ospy/templates/program.html:617
 msgid "Calendar rules"
 msgstr "Kalendářní pravidla"
 
-#: ospy/templates/program.html:585
+#: ospy/templates/program.html:620
 msgid "Allowed months"
 msgstr "Povolené měsíce"
 
-#: ospy/templates/program.html:592
+#: ospy/templates/program.html:627
 msgid "Season"
 msgstr "Sezóna"
 
-#: ospy/templates/program.html:593
+#: ospy/templates/program.html:628
 msgid "Spring"
 msgstr "Jaro"
 
-#: ospy/templates/program.html:594
+#: ospy/templates/program.html:629
 msgid "Summer"
 msgstr "Léto"
 
-#: ospy/templates/program.html:595
+#: ospy/templates/program.html:630
 msgid "Autumn"
 msgstr "Podzim"
 
-#: ospy/templates/program.html:596
+#: ospy/templates/program.html:631
 msgid "Winter"
 msgstr "Zima"
 
-#: ospy/templates/program.html:597
+#: ospy/templates/program.html:632
 msgid "All year"
 msgstr "Celý rok"
 
-#: ospy/templates/program.html:600
+#: ospy/templates/program.html:635
 msgid "Calendar day parity"
 msgstr "Parita kalendářních dnů"
 
-#: ospy/templates/program.html:602
+#: ospy/templates/program.html:637
 msgid "All days"
 msgstr "Všechny dny"
 
-#: ospy/templates/program.html:603
+#: ospy/templates/program.html:638
 msgid "Odd days"
 msgstr "Liché dny"
 
-#: ospy/templates/program.html:604
+#: ospy/templates/program.html:639
 msgid "Even days"
 msgstr "Sudé dny"
 
-#: ospy/templates/program.html:608
+#: ospy/templates/program.html:643
 msgid "Days of month"
 msgstr "Dny v měsíci"
 
-#: ospy/templates/program.html:610
+#: ospy/templates/program.html:645
 msgid "Leave empty to allow every day of the month."
 msgstr "Nechte prázdné pro každý den v měsíci."
 
-#: ospy/templates/program.html:613
+#: ospy/templates/program.html:648
 msgid "Public holidays"
 msgstr "Státní svátky"
 
-#: ospy/templates/program.html:620
+#: ospy/templates/program.html:655
 msgid "Do not run on public holidays"
 msgstr "Nespouštět o státních svátcích"
 
-#: ospy/templates/program.html:623
-msgid "country"
-msgstr "země"
-
-#: ospy/templates/program.html:625 ospy/webpages.py:2663
+#: ospy/templates/program.html:660 ospy/webpages.py:2663
 msgid ""
 "Holiday country is not known. Configure weather location or a country "
 "override."
@@ -9573,45 +9742,41 @@ msgstr ""
 "Svátky Vaší země nejsou známy. Nastavte polohu počasí nebo kód Vašeho "
 "regionu."
 
-#: ospy/templates/program.html:627 ospy/webpages.py:2660
-msgid "Public holiday support is not installed."
-msgstr "Podpora státních svátků není instalována."
-
-#: ospy/templates/program.html:629 ospy/webpages.py:2667
+#: ospy/templates/program.html:664 ospy/webpages.py:2667
 msgid "The public holiday calendar is unavailable for the selected country."
 msgstr "Kalendář státních svátků není pro vybranou zemi dostupný."
 
-#: ospy/templates/program.html:632
+#: ospy/templates/program.html:667
 msgid "Excluded dates"
 msgstr "Vyloučené datumy"
 
-#: ospy/templates/program.html:634
+#: ospy/templates/program.html:669
 msgid "Enter one date or range per line. Annual ranges use MM-DD..MM-DD."
 msgstr ""
 "Zadejte jedno datum nebo rozsah na každý řádek. Rozsahy používají MM-DD... "
 "MM-DD."
 
-#: ospy/templates/program.html:651
+#: ospy/templates/program.html:686
 msgid "Schedule:"
 msgstr "Plánovač:"
 
-#: ospy/templates/program.html:696
+#: ospy/templates/program.html:731
 msgid "Preferred Execution Moments"
 msgstr "Upřednostnění okamžiku provedení"
 
-#: ospy/templates/program.html:702
+#: ospy/templates/program.html:737
 msgid "Priority"
 msgstr "Přednost"
 
-#: ospy/templates/program.html:703
+#: ospy/templates/program.html:738
 msgid "Add"
 msgstr "Přidat"
 
-#: ospy/templates/program.html:723 ospy/templates/program.html:750
+#: ospy/templates/program.html:758 ospy/templates/program.html:785
 msgid " (Least preferred)"
 msgstr " (Nejméně upřednostněné)"
 
-#: ospy/templates/program.html:725 ospy/templates/program.html:752
+#: ospy/templates/program.html:760 ospy/templates/program.html:787
 msgid " (Most preferred)"
 msgstr " (Nejvíce upřednostněné)"
 
@@ -12020,7 +12185,7 @@ msgstr "Session.pages velikost je >20, mazání."
 #: ospy/webpages.py:4835 ospy/webpages.py:4855 ospy/webpages.py:5087
 #: ospy/webpages.py:5096 ospy/webpages.py:5167 ospy/webpages.py:5175
 #: ospy/webpages.py:5256 ospy/webpages.py:5275 ospy/webpages.py:5330
-#: ospy/webpages.py:5495 ospy/webpages.py:5985 ospy/webpages.py:6061
+#: ospy/webpages.py:5495 ospy/webpages.py:5989 ospy/webpages.py:6065
 msgid ""
 "You do not have access to this section, ask your system administrator for "
 "access."
@@ -13643,23 +13808,23 @@ msgstr "Zkouším vygenerovat certifikát SSL..."
 msgid "Upload SSL file %s"
 msgstr "Nahrán soubor SSL %s"
 
-#: ospy/webpages.py:5743
+#: ospy/webpages.py:5747
 msgid "Could not load water balance data"
 msgstr "Nepodařilo se načíst data o bilanci vody"
 
-#: ospy/webpages.py:5803
+#: ospy/webpages.py:5807
 msgid "Label not set"
 msgstr "Popisek není nastaven"
 
-#: ospy/webpages.py:5813 ospy/webpages.py:5886
+#: ospy/webpages.py:5817 ospy/webpages.py:5890
 msgid "Value not set"
 msgstr "Hodnota nastavena"
 
-#: ospy/webpages.py:5822 ospy/webpages.py:5873
+#: ospy/webpages.py:5826 ospy/webpages.py:5877
 msgid "Unit not set"
 msgstr "Jednotky nastaveny"
 
-#: ospy/webpages.py:5899
+#: ospy/webpages.py:5903
 msgid "Index {} is out of range for pluginStn list."
 msgstr "Index {} je mimo rozsah pro seznam pluginStn."
 
@@ -29908,10 +30073,6 @@ msgstr "Čekání na stav"
 msgid "Found city"
 msgstr "Nalezené město"
 
-#: plugins/sunrise_and_sunset/__init__.py:549
-msgid "Region"
-msgstr "Kraj"
-
 #: plugins/sunrise_and_sunset/__init__.py:550
 msgid "Timezone"
 msgstr "Časová zóna"
@@ -31184,12 +31345,12 @@ msgstr ""
 msgid ""
 "Before changing OSPy files, the plug-in starts an external watchdog. The "
 "updated process confirms a healthy start after the scheduler responds and "
-"the web interface is listening. If confirmation is not received within two "
+"the web interface is listening. If confirmation is not received within five "
 "minutes, the previous commit is restored and OSPy is restarted automatically."
 msgstr ""
 "Před změnou souborů OSPy balíček spustí externí hlídací watchdog. "
 "Aktualizovaný proces potvrzuje zdravý start poté, co plánovač odpoví a "
-"webové rozhraní poslouchá. Pokud potvrzení není obdrženo do dvou minut, OSPy "
+"webové rozhraní poslouchá. Pokud potvrzení není obdrženo do pěti minut, OSPy "
 "se vrátí na předchozí verzi a automaticky se restartuje."
 
 #: plugins/system_update/templates/system_update_help.html:11
@@ -36987,6 +37148,9 @@ msgstr "Chyba při úklidu session: {}"
 #: web/session.py:522
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
+
+#~ msgid "blocked by"
+#~ msgstr "zablokováno"
 
 #~ msgid "Sunrise (Astral based) TODO"
 #~ msgstr "Východ slunce (balíček astral) TODO"
