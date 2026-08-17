@@ -9,6 +9,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 (Daniel Hošek)<br/>
 Fixed the Home water-balance calculation so enabled weather data from the selected Open-Meteo, CHMI or Stormglass provider is used without requiring the removed legacy Dark Sky API key. Daily evapotranspiration, recorded rain and forecast rain now reach station balances again; provider failures continue to use the existing logged fallback path. Balance API failures are now logged and returned as an explicit server error, and all Home page variants show an in-page error instead of silently leaving an empty chart. Updated the water-balance explanation in all seven Web Interface Guides.
 
+(Martin Pihrt)<br/>
+Extended the Mobile API run log with an OSPy-local calendar-date filter so the Android Home screen can show Yesterday from actual completed station history while Today and Tomorrow remain schedule views. The Android controls now use switch-style Scheduler and Operating mode selectors, and scheduler-disabled timeline reasons are localized instead of displaying the raw API value. Updated every supported Android language, Mobile API documentation and regression coverage.
+
 ## August 13 2026 (v3.0 beta)
 -----------
 (Martin Pihrt)<br/>

@@ -333,7 +333,7 @@ History returns an array plus `offset`, `limit`, `total` and `has_more` metadata
 
 ### Logs
 
-`/logs/runs`, `/logs/events` and `/logs/emails` accept `offset` and `limit` (`1..500`). Results are newest first. Metadata contains `total`, `has_more`, `offset` and `limit`. Reads never clear a log. Station-run entries use the same normalized station/program/time fields as `/schedule`, so a client does not need to interpret Python tuples from the legacy web log.
+`/logs/runs`, `/logs/events` and `/logs/emails` accept `offset` and `limit` (`1..500`). Results are newest first. Metadata contains `total`, `has_more`, `offset` and `limit`. Reads never clear a log. Station-run entries use the same normalized station/program/time fields as `/schedule`, so a client does not need to interpret Python tuples from the legacy web log. `/logs/runs?date=YYYY-MM-DD` filters the real completed-run history to one OSPy-local calendar day before pagination; `date=today` is also accepted. The Android Home screen uses this run-log view for Yesterday, while Today and Tomorrow continue to use `/schedule` predictions.
 
 ### Diagnostics
 

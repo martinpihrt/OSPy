@@ -1613,6 +1613,33 @@ class Logs(object):
         if kind == "runs":
             items = log.finished_runs()
             now = datetime.datetime.now()
+            selected_value = web.input(date=None).date
+            if selected_value:
+                try:
+                    selected = (
+                        now.date()
+                        if str(selected_value).lower() == "today"
+                        else datetime.date.fromisoformat(str(selected_value))
+                    )
+                except ValueError:
+                    raise APIError(
+                        422, "invalid_date", "The run-log date is not valid."
+                    )
+                start = datetime.datetime.combine(
+                    selected, datetime.time.min
+                )
+                end = start + datetime.timedelta(days=1)
+                items = [
+                    item for item in items
+                    if isinstance(item, dict) and
+                    isinstance(item.get("start"), datetime.datetime) and
+                    item["start"] < end and
+                    (
+                        item.get("end")
+                        if isinstance(item.get("end"), datetime.datetime)
+                        else item["start"]
+                    ) > start
+                ]
             normalized = [
                 _timeline_item(item, now)
                 for item in reversed(items)

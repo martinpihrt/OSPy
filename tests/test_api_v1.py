@@ -529,6 +529,48 @@ class MobileAPIV1Tests(unittest.TestCase):
         items = self._json(response)["data"]["items"]
         self.assertEqual([item["id"] for item in items], ["today-run"])
 
+    def test_run_log_date_returns_only_completed_history_for_that_day(self):
+        import datetime
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read",), role="user")
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        yesterday_start = datetime.datetime.combine(
+            yesterday, datetime.time(hour=8)
+        )
+        today_start = yesterday_start + datetime.timedelta(days=1)
+
+        def run(uid, start):
+            return {
+                "uid": uid,
+                "station": 0,
+                "program": 0,
+                "program_name": "Morning",
+                "start": start,
+                "original_start": start,
+                "end": start + datetime.timedelta(minutes=30),
+                "active": False,
+                "blocked": False,
+                "manual": False,
+            }
+
+        with mock.patch.object(
+                api.log, "finished_runs",
+                return_value=[run("yesterday-run", yesterday_start),
+                              run("today-run", today_start)]):
+            response = self._request(
+                "/logs/runs?date={}&limit=500".format(yesterday.isoformat()),
+                token,
+            )
+
+        self.assertEqual(response.status, "200 OK")
+        payload = self._json(response)
+        self.assertEqual(
+            [item["id"] for item in payload["data"]],
+            ["yesterday-run"],
+        )
+        self.assertEqual(payload["meta"]["total"], 1)
+
     def test_program_editor_describes_simple_schedule(self):
         from api.v1 import api
         from ospy.programs import ProgramType
