@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-08-17 22:09+0200\n"
-"PO-Revision-Date: 2026-08-17 22:17+0200\n"
+"POT-Creation-Date: 2026-08-19 17:41+0200\n"
+"PO-Revision-Date: 2026-08-19 18:24+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -1157,8 +1157,8 @@ msgid ""
 "pictures are enabled."
 msgstr ""
 "Zvolte, zda obrázky stanic na domovské stránce používají nahrané obrázky "
-"stanic nebo cachované obrázky z IP Cam plug-inu. Používá se pouze při "
-"zapnutí obrázků u stanic."
+"stanic nebo cachované obrázky z IP Cam balíčku. Používá se pouze při zapnutí "
+"obrázků u stanic."
 
 #: ospy/options.py:125
 msgid "Show icons instead of text"
@@ -1956,7 +1956,7 @@ msgstr "Dešťové zpoždění nastaveno uživatelem (čas datum)"
 
 #: ospy/options.py:648
 msgid "Rain blocks (rain delays) set by plug-ins (datetime dictionary)"
-msgstr "Déšťové bloky (dešťové zpoždění) nastavené plug-iny (slovník datetime)"
+msgstr "Déšťové bloky (dešťové zpoždění) nastavené balíčky (slovník datetime)"
 
 #: ospy/options.py:653
 msgid "C/F"
@@ -2404,9 +2404,9 @@ msgstr "Vlastní plánovač opakování každý(é)"
 #: plugins/weather_based_water_level_netatmo/__init__.py:188
 #: plugins/wind_monitor/templates/wind_monitor.html:88
 #: plugins/wind_monitor/templates/wind_monitor.html:91
-#: plugins/wind_monitor/templates/wind_monitor.html:225
-#: plugins/wind_monitor/templates/wind_monitor.html:226
-#: plugins/wind_monitor/templates/wind_monitor.html:228
+#: plugins/wind_monitor/templates/wind_monitor.html:231
+#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:234
 msgid "days"
 msgstr "dny"
 
@@ -2643,6 +2643,7 @@ msgstr "Oznámení o dostupnosti internetu selhalo"
 
 #: ospy/scheduler.py:153 ospy/scheduler.py:160
 #: plugins/energy_meter/templates/energy_meter_help.html:11
+#: plugins/rs485_communication/templates/rs485_communication_help.html:58
 msgid "Connection"
 msgstr "Připojení"
 
@@ -2924,7 +2925,7 @@ msgstr "Aktualizace záznamu snímače do souboru bylo úspěšné."
 #: ospy/sensors.py:639 plugins/button_control/__init__.py:294
 #: plugins/current_loop_tanks_monitor/__init__.py:624
 #: plugins/pressure_monitor/__init__.py:432
-#: plugins/tank_monitor/__init__.py:1037 plugins/wind_monitor/__init__.py:738
+#: plugins/tank_monitor/__init__.py:1037 plugins/wind_monitor/__init__.py:827
 msgid "Stoping stations in scheduler"
 msgstr "Bylo provedeno zastavení spuštěných stanic v plánovači"
 
@@ -3155,7 +3156,7 @@ msgstr "Oznámení snímače"
 #: plugins/temperature_switch/templates/temperature_switch.html:180
 #: plugins/temperature_switch/templates/temperature_switch.html:240
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:98
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:85
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:96
 msgid "Output"
 msgstr "Výstup"
 
@@ -3656,7 +3657,7 @@ msgstr "Visitor je prázdný, nastavuji jej na Neznámý návštěvník."
 
 #: ospy/server.py:344
 msgid "Starting scheduler and plugins..."
-msgstr "Spuštění plánovače a pluginů..."
+msgstr "Spuštění plánovače a balíčků..."
 
 #: ospy/server.py:351
 msgid "Starting sensors timer..."
@@ -4068,6 +4069,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/relay_16/templates/relay_16.html:67
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:71
 #: plugins/remote_notifications/templates/remote_notifications.html:77
+#: plugins/rs485_communication/templates/rs485_communication.html:78
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:39
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
 #: plugins/signaling_examples/templates/signaling_examples.html:31
@@ -4097,8 +4099,8 @@ msgstr "Konfigurace snímačů"
 #: plugins/weather_stations/templates/canvas_page.html:87
 #: plugins/weather_stations/templates/settings_page.html:323
 #: plugins/webcam/templates/webcam.html:67
-#: plugins/wind_monitor/templates/wind_monitor.html:183
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:20
+#: plugins/wind_monitor/templates/wind_monitor.html:187
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:27
 msgid "Help"
 msgstr "Nápověda"
 
@@ -5604,6 +5606,7 @@ msgstr "Volba"
 #: plugins/remote_ftp_control/__init__.py:201
 #: plugins/remote_notifications/__init__.py:292
 #: plugins/remote_notifications/__init__.py:294
+#: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1470
 #: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
 #: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
@@ -5649,6 +5652,7 @@ msgstr "Ano"
 #: plugins/remote_ftp_control/__init__.py:201
 #: plugins/remote_notifications/__init__.py:292
 #: plugins/remote_notifications/__init__.py:294
+#: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1470
 #: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
 #: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
@@ -5871,6 +5875,7 @@ msgstr "Diagnostika odhalila následující chyby:"
 #: plugins/mqtt_home_assistant/__init__.py:1390
 #: plugins/mqtt_home_assistant/__init__.py:1424
 #: plugins/mqtt_home_assistant/__init__.py:1460
+#: plugins/rs485_communication/__init__.py:341
 msgid "Error"
 msgstr "Chyba"
 
@@ -5898,7 +5903,7 @@ msgstr "Možné řešení"
 #: ospy/templates/plugins_manage.html:321
 #: plugins/venetian_blind/templates/venetian_blind.html:49
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:582
-#: plugins/wind_monitor/__init__.py:1327
+#: plugins/wind_monitor/__init__.py:1471
 msgid "Open"
 msgstr "Otevřít"
 
@@ -5959,6 +5964,7 @@ msgstr "Povolený balíček vyžaduje pozornost."
 #: plugins/ip_cam/__init__.py:186 plugins/mqtt/__init__.py:500
 #: plugins/mqtt_home_assistant/__init__.py:292
 #: plugins/ping_monitor/templates/ping_monitor_log.html:70
+#: plugins/rs485_communication/__init__.py:339
 #: plugins/thermostat/__init__.py:501 plugins/ups_adj/__init__.py:138
 #: plugins/ups_adj/__init__.py:296 plugins/ups_adj/__init__.py:422
 #: plugins/ups_adj/templates/ups_adj_log.html:71
@@ -5981,6 +5987,7 @@ msgid "Not configured"
 msgstr "Nenastaveno"
 
 #: ospy/templates/diagnostics.html:564
+#: plugins/rs485_communication/__init__.py:1040
 msgid "Missing"
 msgstr "Chybí"
 
@@ -6098,6 +6105,7 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/real_time/__init__.py:242 plugins/relay/__init__.py:98
 #: plugins/relay_16/__init__.py:246 plugins/remote_ftp_control/__init__.py:197
 #: plugins/remote_notifications/__init__.py:291
+#: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1468
 #: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
@@ -6117,7 +6125,7 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/weather_based_water_level_netatmo/__init__.py:601
 #: plugins/weather_dashboard/__init__.py:619
 #: plugins/weather_stations/__init__.py:406
-#: plugins/wind_monitor/__init__.py:1324
+#: plugins/wind_monitor/__init__.py:1438
 msgid "Stopped"
 msgstr "Zastaveno"
 
@@ -6142,6 +6150,7 @@ msgstr "Zastaveno"
 #: plugins/real_time/__init__.py:242 plugins/relay/__init__.py:98
 #: plugins/relay_16/__init__.py:246 plugins/remote_ftp_control/__init__.py:197
 #: plugins/remote_notifications/__init__.py:291
+#: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1468
 #: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
@@ -6163,7 +6172,7 @@ msgstr "Zastaveno"
 #: plugins/weather_based_water_level_netatmo/__init__.py:601
 #: plugins/weather_dashboard/__init__.py:619
 #: plugins/weather_stations/__init__.py:406
-#: plugins/wind_monitor/__init__.py:1324
+#: plugins/wind_monitor/__init__.py:1438
 msgid "Running"
 msgstr "Běží"
 
@@ -6191,7 +6200,9 @@ msgstr "Běží"
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:209
 #: plugins/network_ping_monitor/templates/network_ping_monitor.html:226
 #: plugins/pressure_monitor/__init__.py:219
-#: plugins/pressure_monitor/__init__.py:220 plugins/system_debug/__init__.py:52
+#: plugins/pressure_monitor/__init__.py:220
+#: plugins/rs485_communication/__init__.py:337
+#: plugins/system_debug/__init__.py:52
 #: plugins/telegram_bot/templates/telegram_bot.html:145
 #: plugins/telegram_bot/templates/telegram_bot.html:184
 #: plugins/thermostat/__init__.py:442
@@ -6216,6 +6227,7 @@ msgstr "Zakázáno"
 #: plugins/energy_meter/templates/energy_meter_settings.html:109
 #: plugins/ip_cam/__init__.py:668 plugins/ip_cam/__init__.py:670
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/lcd_display/__init__.py:637
+#: plugins/rs485_communication/__init__.py:1036
 #: plugins/system_debug/__init__.py:52
 #: plugins/thermostat/templates/thermostat.html:109
 #: plugins/volt_temp_da/templates/volt_temp_da.html:73
@@ -6245,6 +6257,8 @@ msgstr "Povoleno"
 #: plugins/proto/__init__.py:177 plugins/real_time/__init__.py:259
 #: plugins/relay_16/__init__.py:258 plugins/remote_ftp_control/__init__.py:209
 #: plugins/remote_notifications/__init__.py:306
+#: plugins/rs485_communication/__init__.py:1056
+#: plugins/rs485_communication/templates/rs485_communication.html:101
 #: plugins/shelly_cloud_integrator/__init__.py:1489
 #: plugins/sms_adj/__init__.py:198 plugins/speed_monitor/__init__.py:206
 #: plugins/sunrise_and_sunset/__init__.py:789
@@ -6401,6 +6415,7 @@ msgstr "Restart selhal."
 #: plugins/remote_ftp_control/templates/remote_ftp_control_help.html:39
 #: plugins/remote_notifications/templates/remote_notifications.html:115
 #: plugins/remote_notifications/templates/remote_notifications_help.html:48
+#: plugins/rs485_communication/templates/rs485_communication.html:195
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:56
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_help.html:30
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:128
@@ -6473,10 +6488,10 @@ msgstr "Restart selhal."
 #: plugins/weather_stations/templates/settings_page.html:322
 #: plugins/webcam/templates/webcam.html:123
 #: plugins/webcam/templates/webcam_help.html:14
-#: plugins/wind_monitor/templates/wind_monitor_help.html:24
+#: plugins/wind_monitor/templates/wind_monitor_help.html:29
 #: plugins/wind_monitor/templates/wind_monitor_log.html:32
 #: plugins/wind_monitor/templates/wind_monitor_log.html:76
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:116
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:127
 msgid "Cancel"
 msgstr "Zpět"
 
@@ -6552,7 +6567,7 @@ msgstr "Komponenta"
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:33
 #: plugins/weather_based_water_level_netatmo/templates/weather_based_water_level_netatmo.html:157
 #: plugins/webcam/templates/webcam.html:106
-#: plugins/wind_monitor/templates/wind_monitor.html:201
+#: plugins/wind_monitor/templates/wind_monitor.html:205
 msgid "Status"
 msgstr "Stav"
 
@@ -6611,7 +6626,7 @@ msgstr "Podle zatížení CPU"
 
 #: ospy/templates/diagnostics.html:1227
 msgid "By plug-in name"
-msgstr "Podle názvu pluginu"
+msgstr "Podle názvu balíčku"
 
 #: ospy/templates/diagnostics.html:1228
 msgid "By total CPU time"
@@ -6627,6 +6642,7 @@ msgstr "Sbalit všechny podrobnosti"
 
 #: ospy/templates/diagnostics.html:1241 ospy/templates/twofactor.html:103
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:44
+#: plugins/rs485_communication/templates/rs485_communication_help.html:116
 msgid "Back"
 msgstr "Zpět"
 
@@ -6635,7 +6651,7 @@ msgid "History range"
 msgstr "Rozmezí"
 
 #: ospy/templates/diagnostics.html:1244
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:65
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:76
 msgid "1 hour"
 msgstr "1 hodina"
 
@@ -6902,7 +6918,7 @@ msgstr "Zobrazené incidenty"
 #: plugins/ups_adj/templates/ups_adj.html:436
 #: plugins/water_meter/templates/water_meter.html:90
 #: plugins/wind_monitor/templates/wind_monitor.html:94
-#: plugins/wind_monitor/templates/wind_monitor.html:227
+#: plugins/wind_monitor/templates/wind_monitor.html:233
 msgid "All"
 msgstr "Vše"
 
@@ -7288,6 +7304,7 @@ msgstr "Pohyb"
 #: ospy/templates/stations.html:75 plugins/cli_control/__init__.py:83
 #: plugins/current_loop_tanks_monitor/__init__.py:507
 #: plugins/ip_cam/__init__.py:666 plugins/lcd_display/__init__.py:527
+#: plugins/rs485_communication/templates/rs485_communication.html:158
 #: plugins/signaling_examples/__init__.py:80
 #: plugins/system_update/__init__.py:1037
 msgid "None"
@@ -7460,9 +7477,9 @@ msgstr "Statistika"
 #: plugins/email_reader/__init__.py:947 plugins/email_reader/__init__.py:1008
 #: plugins/tank_monitor/__init__.py:1355 plugins/tank_monitor/__init__.py:1403
 #: plugins/tank_monitor/templates/tank_monitor_log.html:37
-#: plugins/wind_monitor/__init__.py:853 plugins/wind_monitor/__init__.py:1094
-#: plugins/wind_monitor/__init__.py:1180 plugins/wind_monitor/__init__.py:1216
-#: plugins/wind_monitor/__init__.py:1374 plugins/wind_monitor/__init__.py:1403
+#: plugins/wind_monitor/__init__.py:942 plugins/wind_monitor/__init__.py:1204
+#: plugins/wind_monitor/__init__.py:1290 plugins/wind_monitor/__init__.py:1326
+#: plugins/wind_monitor/__init__.py:1505 plugins/wind_monitor/__init__.py:1541
 #: plugins/wind_monitor/templates/wind_monitor_log.html:45
 msgid "Actual"
 msgstr "Aktuální"
@@ -7500,7 +7517,7 @@ msgstr "Hodnota"
 #: plugins/weather_based_water_level/__init__.py:98
 #: plugins/weather_based_water_level/__init__.py:110
 #: plugins/wind_monitor/templates/wind_monitor.html:82
-#: plugins/wind_monitor/templates/wind_monitor.html:223
+#: plugins/wind_monitor/templates/wind_monitor.html:229
 msgid "Today"
 msgstr "Dnes"
 
@@ -7517,7 +7534,7 @@ msgstr "Typ aktivace"
 #: plugins/speed_monitor/templates/speed_monitor.html:361
 #: plugins/tank_monitor/templates/tank_monitor.html:640
 #: plugins/ups_adj/templates/ups_adj.html:437
-#: plugins/wind_monitor/templates/wind_monitor.html:228
+#: plugins/wind_monitor/templates/wind_monitor.html:234
 msgid "Range"
 msgstr "Rozsah"
 
@@ -7531,7 +7548,7 @@ msgstr "Rozsah"
 #: plugins/speed_monitor/templates/speed_monitor.html:364
 #: plugins/tank_monitor/templates/tank_monitor.html:643
 #: plugins/ups_adj/templates/ups_adj.html:440
-#: plugins/wind_monitor/templates/wind_monitor.html:231
+#: plugins/wind_monitor/templates/wind_monitor.html:237
 msgid "From"
 msgstr "Od"
 
@@ -7545,7 +7562,7 @@ msgstr "Od"
 #: plugins/speed_monitor/templates/speed_monitor.html:365
 #: plugins/tank_monitor/templates/tank_monitor.html:644
 #: plugins/ups_adj/templates/ups_adj.html:441
-#: plugins/wind_monitor/templates/wind_monitor.html:232
+#: plugins/wind_monitor/templates/wind_monitor.html:238
 msgid "To"
 msgstr "Do"
 
@@ -7558,7 +7575,7 @@ msgstr "Do"
 #: plugins/speed_monitor/templates/speed_monitor.html:366
 #: plugins/tank_monitor/templates/tank_monitor.html:645
 #: plugins/ups_adj/templates/ups_adj.html:442
-#: plugins/wind_monitor/templates/wind_monitor.html:233
+#: plugins/wind_monitor/templates/wind_monitor.html:239
 msgid "Filtering"
 msgstr "Filtrování"
 
@@ -7571,7 +7588,7 @@ msgstr "Filtrování"
 #: plugins/speed_monitor/templates/speed_monitor.html:367
 #: plugins/tank_monitor/templates/tank_monitor.html:646
 #: plugins/ups_adj/templates/ups_adj.html:443
-#: plugins/wind_monitor/templates/wind_monitor.html:234
+#: plugins/wind_monitor/templates/wind_monitor.html:240
 msgid "Reset"
 msgstr "Reset"
 
@@ -7611,7 +7628,7 @@ msgstr "Filtr rok"
 #: plugins/tank_monitor/templates/tank_monitor.html:648
 #: plugins/ups_adj/templates/ups_adj.html:445
 #: plugins/water_meter/templates/water_meter.html:91
-#: plugins/wind_monitor/templates/wind_monitor.html:236
+#: plugins/wind_monitor/templates/wind_monitor.html:242
 msgid "No records found for selected range."
 msgstr "Nebyly nalezeny žádné záznamy ve vybraném rozsahu."
 
@@ -8547,6 +8564,7 @@ msgid "No mobile devices are paired with this OSPy installation."
 msgstr "S touto OSPy instalací nejsou spárována žádná mobilní zařízení."
 
 #: ospy/templates/mobile_devices.html:88
+#: plugins/rs485_communication/templates/rs485_communication.html:90
 msgid "Device"
 msgstr "Zařízení"
 
@@ -8903,7 +8921,7 @@ msgid ""
 "data are not included."
 msgstr ""
 "Zálohy systému se před obnovou ověřují. OSPy vytvoří bezpečnostní zálohu, "
-"atomárně obnoví data a poté restartuje. SSL klíče a data z pluginů nejsou "
+"atomárně obnoví data a poté restartuje. SSL klíče a data z balíčků nejsou "
 "zahrnuta."
 
 #: ospy/templates/options.html:331
@@ -8964,7 +8982,7 @@ msgstr "Potvrdit změny"
 
 #: ospy/templates/plugins_changes.html:3 ospy/templates/plugins_changes.html:30
 msgid "Plugin changes"
-msgstr "Změny v pluginu"
+msgstr "Změny v balíčku"
 
 #: ospy/templates/plugins_changes.html:19
 #: ospy/templates/plugins_manage.html:168
@@ -9096,7 +9114,7 @@ msgstr "Prosím, počkejte; Data z repozitáře se načítají na pozadí."
 #: ospy/templates/plugins_manage.html:166 ospy/webpages.py:3277
 #: plugins/__init__.py:1602
 msgid "all plugins"
-msgstr "všechny pluginy"
+msgstr "všechny balíčky"
 
 #: ospy/templates/plugins_manage.html:177
 msgid "Approve all currently declared permissions for all installed plugins?"
@@ -9133,7 +9151,7 @@ msgid ""
 "update the plugins themselves in Plugin Manager. Updating in the reverse "
 "order may make OSPy or the plugins unusable!"
 msgstr ""
-"Pomocí pluginu System Update nejprve aktualizujte systém OSPy a teprve poté "
+"Pomocí balíčku System Update nejprve aktualizujte systém OSPy a teprve poté "
 "aktualizujte samotné balíčky ve správce balíčků. Aktualizace v opačném "
 "pořadí mohou způsobit, že OSPy nebo balíčky budou nefunkční!"
 
@@ -10160,7 +10178,7 @@ msgstr "E-mail balíček"
 #: plugins/tank_monitor/templates/tank_monitor.html:443
 #: plugins/ups_adj/templates/ups_adj.html:385
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:135
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:90
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:101
 msgid "E-mail notifications V1"
 msgstr "E-mail notifications V1"
 
@@ -10172,7 +10190,7 @@ msgstr "E-mail notifications V1"
 #: plugins/tank_monitor/templates/tank_monitor.html:444
 #: plugins/ups_adj/templates/ups_adj.html:386
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:136
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:90
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:101
 msgid "E-mail notifications V2 SSL"
 msgstr "E-mail notifications V2 SSL"
 
@@ -10654,7 +10672,7 @@ msgstr "Zadejte popisek pro identifikaci sondy"
 #: plugins/venetian_blind/templates/venetian_blind_setup.html:131
 #: plugins/weather_based_rain_delay/templates/weather_based_rain_delay.html:163
 #: plugins/weather_based_water_level/templates/weather_based_water_level.html:50
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:35
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:45
 msgid "Show in footer"
 msgstr "Zobrazit v zápatí na hl. stránce"
 
@@ -11231,6 +11249,9 @@ msgstr "Otevřít adresář"
 #: plugins/remote_notifications/__init__.py:297
 #: plugins/remote_notifications/__init__.py:301
 #: plugins/remote_notifications/__init__.py:303
+#: plugins/rs485_communication/__init__.py:371
+#: plugins/rs485_communication/__init__.py:1038
+#: plugins/rs485_communication/__init__.py:1039
 #: plugins/shelly_cloud_integrator/__init__.py:1481
 #: plugins/shelly_cloud_integrator/__init__.py:1485
 #: plugins/sms_adj/__init__.py:189 plugins/sms_adj/__init__.py:193
@@ -11410,6 +11431,7 @@ msgstr ""
 #: plugins/relay_16/templates/relay_16.html:125
 #: plugins/remote_ftp_control/templates/remote_ftp_control.html:119
 #: plugins/remote_notifications/templates/remote_notifications.html:113
+#: plugins/rs485_communication/templates/rs485_communication.html:194
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:127
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:363
 #: plugins/signaling_examples/templates/signaling_examples.html:58
@@ -11435,7 +11457,7 @@ msgstr ""
 #: plugins/weather_dashboard/templates/weather_dashboard_page.html:502
 #: plugins/weather_stations/templates/settings_page.html:321
 #: plugins/webcam/templates/webcam.html:121
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:115
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:126
 msgid "Submit"
 msgstr "POTVRDIT"
 
@@ -12659,7 +12681,7 @@ msgstr "Povoleny balíčky"
 
 #: ospy/webpages.py:3039
 msgid "User {} enabled all available plug-ins."
-msgstr "Uživatel {} povolil všechny dostupné pluginy."
+msgstr "Uživatel {} povolil všechny dostupné balíčky."
 
 #: ospy/webpages.py:3046
 msgid "Some incompatible plug-ins were not enabled"
@@ -12721,7 +12743,7 @@ msgstr ""
 
 #: ospy/webpages.py:3278
 msgid "Installing plug-in {} from {}"
-msgstr "Instalace plug-in {} z {}"
+msgstr "Instalace balíčku {} z {}"
 
 #: ospy/webpages.py:3292 ospy/webpages.py:3336
 msgid "User {} installed {} from {}."
@@ -12733,7 +12755,7 @@ msgstr "Instalace balíčku z {} selhala: {}"
 
 #: ospy/webpages.py:3314
 msgid "Invalid plug-in repository index: {}"
-msgstr "Index neplatného repozitáře plug-inů: {}"
+msgstr "Index neplatného repozitáře balíčků: {}"
 
 #: ospy/webpages.py:3321
 msgid "uploaded ZIP"
@@ -12771,6 +12793,7 @@ msgstr "SQLite readiness"
 #: plugins/ping_monitor/templates/ping_monitor_log.html:50
 #: plugins/ping_monitor/templates/ping_monitor_log.html:55
 #: plugins/ping_monitor/templates/ping_monitor_log.html:60
+#: plugins/rs485_communication/__init__.py:1040
 #: plugins/voice_notification/__init__.py:566
 msgid "Available"
 msgstr "Dostupné"
@@ -12782,7 +12805,7 @@ msgstr "Dostupné"
 #: plugins/network_ping_monitor/__init__.py:246
 #: plugins/network_ping_monitor/__init__.py:424
 #: plugins/volt_temp_da/__init__.py:359 plugins/water_meter/__init__.py:582
-#: plugins/water_meter/__init__.py:583 plugins/wind_monitor/__init__.py:1327
+#: plugins/water_meter/__init__.py:583 plugins/wind_monitor/__init__.py:1471
 msgid "Unavailable"
 msgstr "Nedostupné"
 
@@ -13310,7 +13333,7 @@ msgstr "Plánovač běží, ale automatické plánování je zakázáno."
 
 #: ospy/webpages.py:4142
 msgid "The scheduler is running; a plug-in notification requires attention."
-msgstr "Plánovač běží; oznámení o pluginu vyžaduje pozornost."
+msgstr "Plánovač běží; oznámení o balíčku vyžaduje pozornost."
 
 #: ospy/webpages.py:4149 ospy/webpages.py:4244
 msgid "Pending plug-in notifications"
@@ -13904,7 +13927,7 @@ msgstr "Zdravotní prohlídka neuspěla."
 msgid "Health check timed out."
 msgstr "Zdravotní prohlídka vypršela."
 
-#: plugins/__init__.py:787 plugins/wind_monitor/__init__.py:584
+#: plugins/__init__.py:787 plugins/wind_monitor/__init__.py:670
 msgid "Invalid value for"
 msgstr "Neplatná hodnota pro"
 
@@ -13965,7 +13988,7 @@ msgstr "Šifrované balíčky v ZIP souboru nejsou podporovány."
 
 #: plugins/__init__.py:1105
 msgid "A file in the plug-in ZIP is too large: {}"
-msgstr "Soubor v ZIP pluginu je příliš velký: {}"
+msgstr "Soubor v ZIP balíčku je příliš velký: {}"
 
 #: plugins/__init__.py:1109
 msgid "Plug-in ZIP expands to too much data."
@@ -14315,7 +14338,7 @@ msgstr "DS"
 #: plugins/air_temp_humi/__init__.py:1205
 #: plugins/air_temp_humi/__init__.py:1272
 #: plugins/air_temp_humi/__init__.py:1309
-#: plugins/air_temp_humi/__init__.py:1350 plugins/wind_monitor/__init__.py:1234
+#: plugins/air_temp_humi/__init__.py:1350 plugins/wind_monitor/__init__.py:1344
 msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
@@ -14337,6 +14360,7 @@ msgstr "Rozšíření monitor teploty a vlhkosti"
 #: plugins/real_time/__init__.py:242 plugins/relay/__init__.py:98
 #: plugins/relay_16/__init__.py:246 plugins/remote_ftp_control/__init__.py:197
 #: plugins/remote_notifications/__init__.py:291
+#: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1468
 #: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
@@ -14420,7 +14444,7 @@ msgstr "Nepoužívá se"
 #: plugins/air_temp_humi/__init__.py:924
 #: plugins/pressure_monitor/__init__.py:576
 #: plugins/tank_monitor/__init__.py:926 plugins/ups_adj/__init__.py:552
-#: plugins/wind_monitor/__init__.py:860
+#: plugins/wind_monitor/__init__.py:949
 msgid "Creating default graph log files OK"
 msgstr "Vytváření výchozích souborů protokolu grafu OK"
 
@@ -14436,7 +14460,7 @@ msgstr "Nelze importovat balíček: database connector."
 #: plugins/network_ping_monitor/__init__.py:340
 #: plugins/pressure_monitor/__init__.py:564
 #: plugins/tank_monitor/__init__.py:961 plugins/ups_adj/__init__.py:538
-#: plugins/water_meter/__init__.py:417 plugins/wind_monitor/__init__.py:843
+#: plugins/water_meter/__init__.py:417 plugins/wind_monitor/__init__.py:932
 msgid "Saving to SQL database."
 msgstr "Ukládání do SQL databáze."
 
@@ -14542,7 +14566,7 @@ msgstr "air_temp_humi -> help_page GET"
 #: plugins/modbus_stations/__init__.py:727 plugins/ping_monitor/__init__.py:509
 #: plugins/pressure_monitor/__init__.py:672
 #: plugins/speed_monitor/__init__.py:385 plugins/tank_monitor/__init__.py:1010
-#: plugins/ups_adj/__init__.py:625 plugins/wind_monitor/__init__.py:990
+#: plugins/ups_adj/__init__.py:625 plugins/wind_monitor/__init__.py:1100
 msgid "Deleted all log files OK"
 msgstr "Odstraněny všechny soubory protokolu OK"
 
@@ -14584,7 +14608,7 @@ msgstr "Povolte toto rozšíření a pak povolte dht, ds18b20 a protokolování"
 #: plugins/tank_monitor/templates/tank_monitor.html:496
 #: plugins/ups_adj/templates/ups_adj.html:321
 #: plugins/water_meter/templates/water_meter_settings.html:23
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:54
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:65
 msgid "Enable local logging"
 msgstr "Povolit místní záznam"
 
@@ -14607,7 +14631,7 @@ msgstr ""
 #: plugins/tank_monitor/templates/tank_monitor.html:505
 #: plugins/ups_adj/templates/ups_adj.html:330
 #: plugins/water_meter/templates/water_meter_settings.html:24
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:56
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:67
 msgid "Enable SQL logging"
 msgstr "Povolit SQL záznam"
 
@@ -14645,7 +14669,7 @@ msgstr "vyžaduje rozšíření database connector"
 #: plugins/water_meter/templates/water_meter_log.html:15
 #: plugins/water_meter/templates/water_meter_settings.html:24
 #: plugins/wind_monitor/templates/wind_monitor_log.html:30
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:56
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:67
 msgid "Delete SQL table"
 msgstr "Smazat tabulku SQL"
 
@@ -14681,7 +14705,7 @@ msgstr "Místní soubor"
 #: plugins/pressure_monitor/templates/pressure_monitor.html:326
 #: plugins/tank_monitor/templates/tank_monitor.html:519
 #: plugins/ups_adj/templates/ups_adj.html:345
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:55
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:66
 msgid "Database file"
 msgstr "Databázový soubor"
 
@@ -14695,7 +14719,7 @@ msgstr "Databázový soubor"
 #: plugins/ups_adj/templates/ups_adj.html:350
 #: plugins/volt_temp_da/templates/volt_temp_da.html:91
 #: plugins/water_meter/templates/water_meter_settings.html:27
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:71
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:82
 msgid "Maximum number of log records"
 msgstr "Maximální počet záznamů"
 
@@ -15722,6 +15746,8 @@ msgid "Failed to load rain radar bitmap."
 msgstr "Nepodařilo se načíst rastrový obrázek dešťového radaru."
 
 #: plugins/chmi/__init__.py:380 plugins/real_time/__init__.py:144
+#: plugins/rs485_communication/__init__.py:76
+#: plugins/rs485_communication/__init__.py:947
 #: plugins/weather_based_rain_delay/__init__.py:177
 #: plugins/weather_based_water_level/__init__.py:442
 #: plugins/weather_based_water_level/__init__.py:443
@@ -17952,7 +17978,7 @@ msgid ""
 "Without a sensor connected (on inputs 1 to 4), the plugin must display a "
 "voltage of 0V."
 msgstr ""
-"Bez připojeného senzoru (na vstupech 1 až 4) musí plugin zobrazovat napětí "
+"Bez připojeného senzoru (na vstupech 1 až 4) musí balíček zobrazovat napětí "
 "0V."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:22
@@ -17969,13 +17995,13 @@ msgid ""
 "0.7 V)."
 msgstr ""
 "Připojíme senzor (aniž bychom jej ponořili do vody, tedy mimo nádrž) a "
-"uvidíme, jaké napětí plugin ukazuje (příklad: uvidíme něco kolem 0,7 V)."
+"uvidíme, jaké napětí balíček ukazuje (příklad: uvidíme něco kolem 0,7 V)."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:24
 msgid ""
 "We will enter this voltage in the plugin settings in the \"minimum voltage\" "
 "section."
-msgstr "Toto napětí zadáme v nastavení pluginu v sekci \"minimální napětí\"."
+msgstr "Toto napětí zadáme v nastavení balíčku v sekci \"minimální napětí\"."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:25
 msgid ""
@@ -17983,13 +18009,13 @@ msgid ""
 "voltage the plugin shows (example: we will see something around 3.2 V)."
 msgstr ""
 "Poté senzor vložíme do plné nádrže \"až na dno\" a uvidíme, jaké napětí "
-"plugin ukáže (příklad: uvidíme něco kolem 3,2 V)."
+"balíček ukáže (příklad: uvidíme něco kolem 3,2 V)."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:26
 msgid ""
 "We will enter this voltage in the plugin settings in the \"maximum voltage\" "
 "section."
-msgstr "Toto napětí zadáme v nastavení pluginu v sekci \"maximální napětí\"."
+msgstr "Toto napětí zadáme v nastavení balíčku v sekci \"maximální napětí\"."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:27
 msgid ""
@@ -18012,7 +18038,7 @@ msgid ""
 "This completes the calibration. The plugin will then recalculate the tank "
 "level and volume."
 msgstr ""
-"Tím je kalibrace dokončena. Plugin poté přepočítá hladinu a objem nádrže."
+"Tím je kalibrace dokončena. Balíček poté přepočítá hladinu a objem nádrže."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:30
 #: plugins/pressure_monitor/__init__.py:277
@@ -18031,7 +18057,7 @@ msgstr ""
 "Napájí se 24V přímo z této desky a není potřeba připojovat žádný další "
 "zdroj! Zkrat vstupní svorky na desce - například vstup 1 + a - nepoškodí "
 "obvod (desku). Maximální proud je nastaven na 20mA. Pro kontrolu můžeme "
-"nechat nepoužitý vstup připojený k + a - (v pluginu uvidíme maximální napětí "
+"nechat nepoužitý vstup připojený k + a - (v balíčku uvidíme maximální napětí "
 "cca 3,5V). Nebo můžeme připojit LED libovolné barvy mezi + a - (LED If=20mA)."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:32
@@ -18230,7 +18256,7 @@ msgid ""
 "Create tanks charts from a plugin on the home page. You always need to "
 "restart OSPy afterwards for this option."
 msgstr ""
-"Vytvářet grafy nádrží pomocí pluginu na domovské stránce OSPy. Pro tuto "
+"Vytvářet grafy nádrží pomocí balíčku na domovské stránce OSPy. Pro tuto "
 "možnost je vždy nutné restartovat OSPy."
 
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:290
@@ -18826,7 +18852,7 @@ msgid "min cm, max cm, actual ping, volume"
 msgstr "min cm, max cm, aktuální ping, objem"
 
 #: plugins/database_connector/templates/database_connector_help.html:21
-#: plugins/wind_monitor/__init__.py:49
+#: plugins/wind_monitor/__init__.py:50
 msgid "Package: Wind Speed Monitor"
 msgstr "Balíček: Monitor rychlosti větru"
 
@@ -19011,7 +19037,7 @@ msgstr "Množství vody v zásobníku"
 #: plugins/email_notifications/__init__.py:182
 #: plugins/email_notifications_ssl/__init__.py:267
 msgid "Cannot import plugin: tank monitor."
-msgstr "Nelze importovat plugin: monitor tanku."
+msgstr "Nelze importovat balíček: monitor tanku."
 
 #: plugins/email_notifications/__init__.py:195
 msgid "Measured from day"
@@ -19048,7 +19074,7 @@ msgstr "Čítač spotřeby vody"
 #: plugins/email_notifications/__init__.py:217
 #: plugins/email_notifications_ssl/__init__.py:139
 msgid "Cannot import plugin: water consumption counter."
-msgstr "Nelze importovat plugin: počítadlo spotřeby vody."
+msgstr "Nelze importovat balíček: počítadlo spotřeby vody."
 
 #: plugins/email_notifications/__init__.py:224
 #: plugins/email_notifications/__init__.py:225
@@ -19065,7 +19091,7 @@ msgstr "Teplota DS1-DS6"
 #: plugins/mqtt_home_assistant/__init__.py:1162
 #: plugins/mqtt_home_assistant/__init__.py:1389
 msgid "Cannot import plugin: air temp humi."
-msgstr "Nelze importovat plugin: air temp humi."
+msgstr "Nelze importovat balíček: air temp humi."
 
 #: plugins/email_notifications/__init__.py:250
 #: plugins/email_notifications/__init__.py:283
@@ -19136,7 +19162,7 @@ msgstr "Nejsou k dispozici žádné snímače"
 #: plugins/email_notifications_ssl/__init__.py:1119
 #: plugins/email_notifications_ssl/__init__.py:1159
 #: plugins/email_notifications_ssl/__init__.py:1171
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:90
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:101
 msgid "E-mail plug-in"
 msgstr "Rošíření E-mail"
 
@@ -19359,7 +19385,7 @@ msgstr "Komu chceme odeslat E-mail"
 #: plugins/tank_monitor/templates/tank_monitor.html:434
 #: plugins/ups_adj/templates/ups_adj.html:376
 #: plugins/water_consumption_counter/templates/water_consumption_counter.html:131
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:89
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:100
 msgid "E-mail subject"
 msgstr "Předmět E-mailu"
 
@@ -19576,7 +19602,7 @@ msgstr "od Shelly.com"
 #: plugins/lcd_display/__init__.py:823 plugins/lcd_display/__init__.py:828
 #: plugins/lcd_display/__init__.py:833 plugins/lcd_display/__init__.py:838
 #: plugins/lcd_display/__init__.py:843 plugins/lcd_display/__init__.py:848
-#: plugins/wind_monitor/__init__.py:1306
+#: plugins/wind_monitor/__init__.py:1418
 msgid "Any error"
 msgstr "Nějaká chyba"
 
@@ -20215,17 +20241,17 @@ msgstr "OSPy odeslal stav větru a soubor se záznamem (pokud soubor existuje)."
 
 #: plugins/email_reader/__init__.py:317
 #: plugins/weather_based_water_level/__init__.py:691
-#: plugins/wind_monitor/__init__.py:1401
+#: plugins/wind_monitor/__init__.py:1539
 msgid "Wind speed"
 msgstr "Rychlost větru"
 
 #: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:321
 #: plugins/email_reader/__init__.py:1024 plugins/email_reader/__init__.py:1025
-#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:355
-#: plugins/wind_monitor/__init__.py:360 plugins/wind_monitor/__init__.py:466
-#: plugins/wind_monitor/__init__.py:483 plugins/wind_monitor/__init__.py:484
-#: plugins/wind_monitor/__init__.py:1299 plugins/wind_monitor/__init__.py:1300
-#: plugins/wind_monitor/__init__.py:1369 plugins/wind_monitor/__init__.py:1397
+#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:431
+#: plugins/wind_monitor/__init__.py:441 plugins/wind_monitor/__init__.py:547
+#: plugins/wind_monitor/__init__.py:564 plugins/wind_monitor/__init__.py:565
+#: plugins/wind_monitor/__init__.py:1411 plugins/wind_monitor/__init__.py:1412
+#: plugins/wind_monitor/__init__.py:1500 plugins/wind_monitor/__init__.py:1528
 #: plugins/wind_monitor/templates/wind_monitor_log.html:53
 #: plugins/wind_monitor/templates/wind_monitor_log.html:54
 #: plugins/wind_monitor/templates/wind_monitor_log.html:65
@@ -20234,20 +20260,20 @@ msgid "km/h"
 msgstr "km/h"
 
 #: plugins/email_reader/__init__.py:320 plugins/email_reader/__init__.py:323
-#: plugins/speed_monitor/__init__.py:111 plugins/wind_monitor/__init__.py:355
-#: plugins/wind_monitor/__init__.py:357
+#: plugins/speed_monitor/__init__.py:111 plugins/wind_monitor/__init__.py:431
+#: plugins/wind_monitor/__init__.py:433
 msgid "Speed"
 msgstr "Rychlost"
 
 #: plugins/email_reader/__init__.py:321 plugins/email_reader/__init__.py:324
-#: plugins/wind_monitor/__init__.py:360 plugins/wind_monitor/__init__.py:362
+#: plugins/wind_monitor/__init__.py:441 plugins/wind_monitor/__init__.py:443
 msgid "Maximal speed"
 msgstr "Maximální rychlost"
 
 #: plugins/email_reader/__init__.py:323 plugins/email_reader/__init__.py:324
 #: plugins/email_reader/__init__.py:1027 plugins/email_reader/__init__.py:1028
-#: plugins/wind_monitor/__init__.py:357 plugins/wind_monitor/__init__.py:362
-#: plugins/wind_monitor/__init__.py:1369 plugins/wind_monitor/__init__.py:1397
+#: plugins/wind_monitor/__init__.py:433 plugins/wind_monitor/__init__.py:443
+#: plugins/wind_monitor/__init__.py:1500 plugins/wind_monitor/__init__.py:1528
 msgid "m/sec"
 msgstr "m/s"
 
@@ -20544,9 +20570,9 @@ msgstr "Minimum"
 #: plugins/tank_monitor/__init__.py:999 plugins/tank_monitor/__init__.py:1354
 #: plugins/tank_monitor/__init__.py:1402
 #: plugins/tank_monitor/templates/tank_monitor_log.html:36
-#: plugins/wind_monitor/__init__.py:852 plugins/wind_monitor/__init__.py:1093
-#: plugins/wind_monitor/__init__.py:1179 plugins/wind_monitor/__init__.py:1215
-#: plugins/wind_monitor/__init__.py:1374 plugins/wind_monitor/__init__.py:1405
+#: plugins/wind_monitor/__init__.py:941 plugins/wind_monitor/__init__.py:1203
+#: plugins/wind_monitor/__init__.py:1289 plugins/wind_monitor/__init__.py:1325
+#: plugins/wind_monitor/__init__.py:1505 plugins/wind_monitor/__init__.py:1543
 #: plugins/wind_monitor/templates/wind_monitor_log.html:44
 msgid "Maximum"
 msgstr "Maximum"
@@ -20565,7 +20591,7 @@ msgstr "email_reader -> settings_page GET"
 
 #: plugins/email_reader/__init__.py:1083 plugins/ping_monitor/__init__.py:599
 #: plugins/pressurizer/__init__.py:374 plugins/speed_monitor/__init__.py:447
-#: plugins/tank_monitor/__init__.py:1139 plugins/wind_monitor/__init__.py:965
+#: plugins/tank_monitor/__init__.py:1139 plugins/wind_monitor/__init__.py:1075
 msgid "Options has updated."
 msgstr "Nastavení bylo aktualizováno."
 
@@ -21100,7 +21126,7 @@ msgstr "Dodávka do sítě celkem"
 #: plugins/water_meter/templates/water_meter.html:74
 #: plugins/weather_dashboard/templates/weather_dashboard_canvas_page.html:115
 #: plugins/weather_stations/templates/canvas_page.html:86
-#: plugins/wind_monitor/templates/wind_monitor.html:182
+#: plugins/wind_monitor/templates/wind_monitor.html:186
 #: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:12
 msgid "Settings"
 msgstr "Nastavení"
@@ -21203,7 +21229,7 @@ msgstr "Elektroměr nápověda"
 #: plugins/energy_meter/templates/energy_meter_settings.html:28
 #: plugins/water_meter/templates/water_meter_settings.html:13
 #: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:11
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:19
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:26
 msgid "Overview"
 msgstr "Přehled"
 
@@ -21821,7 +21847,7 @@ msgid ""
 "the plug-in data folder."
 msgstr ""
 "Používání JPEG obrázkových stažení ukládá nejnovější úspěšný snímek jako N."
-"jpg do datové složky pluginu."
+"jpg do datové složky balíčku."
 
 #: plugins/ip_cam/templates/ip_cam_help.html:40
 msgid ""
@@ -21859,7 +21885,7 @@ msgid ""
 "N.jpg in the plug-in data folder."
 msgstr ""
 "Snímek okamžitě stáhne vybraný JPEG a uloží ho jako N.jpg do datové složky "
-"pluginu."
+"balíčku."
 
 #: plugins/ip_cam/templates/ip_cam_help.html:47
 msgid ""
@@ -21912,9 +21938,9 @@ msgid ""
 msgstr ""
 "Když je OSPy nastaven na zobrazení obrazů stanice a zdrojem obrazu stanice "
 "je volba IP kamera JPG nebo IP kamera GIF, základní obrazový endpoint čte "
-"uložené obrázky z IP kamer. Pokud plugin IP kamery není nainstalován nebo "
+"uložené obrázky z IP kamer. Pokud balíček IP kamery není nainstalován nebo "
 "neexistuje žádný uložený soubor, OSPy se vrací k normálnímu nahranému "
-"obrazku ze stanic, když chybí tak k výchozímu chybí snímek."
+"obrázku ze stanic, když chybí tak k výchozímu chybí snímek."
 
 #: plugins/ip_cam/templates/ip_cam_help.html:54
 msgid "HTTP status troubleshooting"
@@ -22024,7 +22050,7 @@ msgid ""
 "folder and used for previews."
 msgstr ""
 "Když je tato možnost povolena, JPEG obrázky se stahují do datové složky "
-"pluginu a používají se pro náhledy."
+"balíčku a používají se pro náhledy."
 
 #: plugins/ip_cam/templates/ip_cam_setup.html:222
 msgid "Use GIF image creating"
@@ -22281,7 +22307,7 @@ msgid ""
 "This plugin scans the local network range used by OSPy and shows discovered "
 "devices."
 msgstr ""
-"Tento plugin skenuje lokální síťový rozsah používaný OSPy a zobrazuje "
+"Tento balíček skenuje lokální síťový rozsah používaný OSPy a zobrazuje "
 "objevená zařízení."
 
 #: plugins/ip_scanner/templates/ip_scanner.html:193
@@ -22345,7 +22371,7 @@ msgstr "Chybějící balíček v Pythonu"
 #: plugins/voice_notification/__init__.py:118 plugins/webcam/__init__.py:111
 msgid "Install it from the system package manager and restart this plug-in."
 msgstr ""
-"Nainstalujte ho ze správce systémových balíčků a restartujte tento plug-in."
+"Nainstalujte ho ze správce systémových balíčků a restartujte tento balíček."
 
 #: plugins/labelmaker/__init__.py:271 plugins/mqtt/__init__.py:213
 #: plugins/sunrise_and_sunset/__init__.py:940
@@ -22658,8 +22684,8 @@ msgid ""
 "EAN-13 barcodes are generated directly by the plug-in and do not require "
 "python-barcode."
 msgstr ""
-"Čárové kódy EAN-13 jsou generovány přímo plug-inem a nevyžadují python-"
-"čárový kód."
+"Čárové kódy EAN-13 jsou generovány přímo balíčkem a nevyžadují python-čárový "
+"kód."
 
 #: plugins/labelmaker/templates/labelmaker_help.html:16
 msgid ""
@@ -22832,12 +22858,12 @@ msgstr "Nádrže se  smyčkou"
 #: plugins/lcd_display/__init__.py:894
 #: plugins/lcd_display/templates/lcd_display.html:390
 #: plugins/lcd_display/templates/lcd_display_help.html:50
-#: plugins/wind_monitor/__init__.py:278
+#: plugins/wind_monitor/__init__.py:341
 msgid "Wind Speed"
 msgstr "Rychlost větru"
 
-#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:468
-#: plugins/wind_monitor/__init__.py:1302 plugins/wind_monitor/__init__.py:1303
+#: plugins/lcd_display/__init__.py:902 plugins/wind_monitor/__init__.py:549
+#: plugins/wind_monitor/__init__.py:1414 plugins/wind_monitor/__init__.py:1415
 #: plugins/wind_monitor/templates/wind_monitor_log.html:56
 #: plugins/wind_monitor/templates/wind_monitor_log.html:57
 #: plugins/wind_monitor/templates/wind_monitor_log.html:68
@@ -22857,7 +22883,7 @@ msgstr "Nebyl nalezen žádný řadič PCF8574."
 #: plugins/lcd_display/__init__.py:943 plugins/lcd_display/__init__.py:945
 #: plugins/system_info/__init__.py:294 plugins/system_info/__init__.py:340
 #: plugins/volt_temp_da/__init__.py:106 plugins/water_meter/__init__.py:149
-#: plugins/water_meter/__init__.py:152 plugins/wind_monitor/__init__.py:241
+#: plugins/water_meter/__init__.py:152 plugins/wind_monitor/__init__.py:269
 msgid "Could not import smbus."
 msgstr "Nelze importovat SMBus."
 
@@ -23194,7 +23220,7 @@ msgstr "Znovu najít"
 #: plugins/lcd_display/templates/lcd_display.html:424
 #: plugins/water_meter/templates/water_meter.html:85
 #: plugins/water_meter/templates/water_meter_settings.html:18
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:31
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:39
 msgid "address"
 msgstr "adresa"
 
@@ -23378,6 +23404,7 @@ msgstr "Balíček modbus stanice není aktivní."
 
 #: plugins/modbus_stations/__init__.py:143
 #: plugins/modbus_stations/templates/modbus_stations.html:99
+#: plugins/rs485_communication/templates/rs485_communication.html:125
 msgid "Serial port"
 msgstr "Sériový port"
 
@@ -23550,6 +23577,9 @@ msgstr ""
 "rozšíření systémové informace. Příklad: /dev/ttyUSB0."
 
 #: plugins/modbus_stations/templates/modbus_stations.html:105
+#: plugins/rs485_communication/__init__.py:1041
+#: plugins/rs485_communication/templates/rs485_communication.html:136
+#: plugins/rs485_communication/templates/rs485_communication_help.html:69
 msgid "Communication speed"
 msgstr "Rychlost komunikace"
 
@@ -24406,10 +24436,10 @@ msgid ""
 "the secondary is working properly. You must this OSPy switch to manual mode! "
 "MQTT core is required for this feature."
 msgstr ""
-"MQTT plugin umožňuje běh více sekundárních OSPy controlerů se spuštěným "
+"MQTT balíček umožňuje běh více sekundárních OSPy controlerů se spuštěným "
 "řídicím OSPy systémem. To znamená, že jeden systém OSPy může fungovat jako "
 "řídicí ovladač pro sekundární systémy, které také používají OSPy a mají "
-"nainstalovaný plugin mqtt. Řídící OSPy posílá seznam se stavy zapnutí/"
+"nainstalovaný balíček mqtt. Řídící OSPy posílá seznam se stavy zapnutí/"
 "vypnutí všech stanic. Sekundární systém obdrží seznam a zkontroluje, zda je "
 "nutné zapnout jednu z jeho stanic nebo ji vypnout a provést potřebné změny. "
 "Všechny zavlažovací plány jsou nastaveny na hlavním systému a zaznamenává "
@@ -24520,7 +24550,7 @@ msgstr ""
 "sekundární OSPy systém, který má také 8 fyzických stanic. V systému řízení "
 "OSPy nastavte v záložce nastavení celkem 16 stanic. Plánovač bude ovládat "
 "všech 16 stanic prostřednictvím nastavených programů. Spusťte na řídícím "
-"OSPy systému plugin \"MQTT\" a nastavte jej (server, uživatel, heslo, port) "
+"OSPy systému balíček \"MQTT\" a nastavte jej (server, uživatel, heslo, port) "
 "pro připojení k MQTT serveru (broker). Na řídícím OSPy nebude použito ruční "
 "ovládání přes MQTT! Dále zkontrolujte zda máte povoleno \"MQTT použít zóny\" "
 "pro sdílení stavu stanic."
@@ -24570,14 +24600,14 @@ msgid ""
 msgstr ""
 "K dispozici je celkem 8 fyzických stanic. Na sekundárním systému OSPy "
 "nastavte v záložce nastavení celkem 8 stanic. Spusťte na řídícím OSPy "
-"systému plugin \"MQTT\" a nastavte jej (server, uživatel, heslo, port) pro "
+"systému balíček \"MQTT\" a nastavte jej (server, uživatel, heslo, port) pro "
 "připojení k MQTT serveru (message broker). Ruční ovládání MQTT bude použito "
 "na sekundárním systému OSPy! Vyplňte téma Zóny pro příjem zpráv se stavy "
 "stanic. S řídicím systémem chceme ovládat tento sekundární systém ze stanice "
 "1 ze stanice 9. Vyplníme tedy číslo první stanice číslem 9. Dále vyplňte "
 "počet ovládaných stanic z řídicího systému. Řídící systém bude řídit stanice "
 "9-16. Zadáme tedy počet stanic k číslu 8. Přepneme sekundární systém OSPY na "
-"ruční ovládání na hlavní obrazovce! Můžeme také použít plugin pro odesílání "
+"ruční ovládání na hlavní obrazovce! Můžeme také použít balíček pro odesílání "
 "e-mailů z podřízeného systému (jako kontrola zpětné vazby o provozu "
 "zařízení)."
 
@@ -24691,7 +24721,7 @@ msgid ""
 "In OSPy, we start the plugin and fill in the login data (then we restart "
 "OSPy)."
 msgstr ""
-"V OSPy spustíme plugin a vyplníme přihlašovací údaje (poté restartujeme "
+"V OSPy spustíme balíček a vyplníme přihlašovací údaje (poté restartujeme "
 "OSPy)."
 
 #: plugins/mqtt/templates/mqtt_help.html:74
@@ -24720,7 +24750,7 @@ msgid ""
 "reply on the broker about receiving the message. On the home page of OSPy, "
 "the station started for 20 seconds."
 msgstr ""
-"Přijatá zpráva je vidět v pluginu. Současně vidíme odpověď makléře o přijetí "
+"Přijatá zpráva je vidět v balíčku. Současně vidíme odpověď makléře o přijetí "
 "zprávy. Na domovské stránce OSPy se stanice spustila na 20 sekund."
 
 #: plugins/mqtt/templates/mqtt_help.html:84
@@ -24791,7 +24821,7 @@ msgstr "Zpráva k tématu:"
 
 #: plugins/mqtt_home_assistant/__init__.py:296
 msgid "Plugin could not initalize client:"
-msgstr "Plugin nemohl initalizovat klienta:"
+msgstr "Balíček nemohl initalizovat klienta:"
 
 #: plugins/mqtt_home_assistant/__init__.py:312
 msgid "Append topic callback"
@@ -24958,7 +24988,7 @@ msgstr "Nelze nastavit výchozí hodnoty zařízení."
 
 #: plugins/mqtt_home_assistant/__init__.py:1345
 msgid "Cannot update data from plugins."
-msgstr "Nelze aktualizovat data z pluginů."
+msgstr "Nelze aktualizovat data z balíčků."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:3
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:113
@@ -25067,7 +25097,7 @@ msgid ""
 "The refresh interval is used for loading data from other plugins (for "
 "example airtemp humi). Range is 10 to 1000 seconds."
 msgstr ""
-"Interval obnovy se používá pro načítání dat z jiných pluginů (například "
+"Interval obnovy se používá pro načítání dat z jiných balíčků (například "
 "airtemp humi). Rozsah je 10 až 1000 sekund."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant.html:220
@@ -25277,7 +25307,7 @@ msgstr ""
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:39
 msgid "On OSPy - MQTT HASS plugin setup"
-msgstr "Na OSPy - nastavení MQTT HASS pluginu"
+msgstr "Na OSPy - nastavení MQTT HASS balíčku"
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:41
 msgid ""
@@ -25385,7 +25415,7 @@ msgstr ""
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:61
 msgid "For each MQTT HASS plugin use different Topic prefix and Name prefix."
 msgstr ""
-"Pro každý MQTT HASS plugin použijte jinou předponu Topic a předponu Name."
+"Pro každý MQTT HASS balíček použijte jinou předponu Topic a předponu Name."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:64
 msgid "Home Assistant - available OSPy Devices and Entities"
@@ -25394,7 +25424,7 @@ msgstr "Home Assistant - dostupná zařízení a entity OSPy"
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:65
 msgid "Devices and associated Entities made available with this plugin are:"
 msgstr ""
-"Zařízení a přidružené subjekty zpřístupněné pomocí tohoto pluginu jsou:"
+"Zařízení a přidružené subjekty zpřístupněné pomocí tohoto balíčku jsou:"
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:67
 msgid ""
@@ -25435,7 +25465,7 @@ msgid ""
 "and humidity plugin."
 msgstr ""
 "Entity pro rozšíření teploty a vlhkosti, pokud jsou povoleny: DHT teplota, "
-"DHT vlhkost a teplotní senzory DS1 na DS6 z pluginu pro teplotu a vlhkost "
+"DHT vlhkost a teplotní senzory DS1 na DS6 z balíčku pro teplotu a vlhkost "
 "vzduchu."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:72
@@ -25452,7 +25482,7 @@ msgid ""
 "volume from the ultrasonic tank monitor plugin."
 msgstr ""
 "Entity rozšíření vodní nádrže, pokud jsou povoleny: procento úrovně nádrže a "
-"objem nádrže z pluginu ultrazvukového monitoru nádrže."
+"objem nádrže z balíčku ultrazvukového monitoru nádrže."
 
 #: plugins/mqtt_home_assistant/templates/mqtt_home_assistant_help.html:74
 msgid ""
@@ -25469,8 +25499,8 @@ msgid ""
 "or not responding."
 msgstr ""
 "Stav dostupnosti zařízení je zveřejněn, aby Home Assistant mohl zobrazit "
-"nedostupné entity, když je stanice, senzor nebo volitelný plugin deaktivován "
-"nebo nereaguje."
+"nedostupné entity, když je stanice, senzor nebo volitelný balíček "
+"deaktivován nebo nereaguje."
 
 #: plugins/network_ping_monitor/__init__.py:25
 msgid "Package: Network Ping Monitor"
@@ -25877,7 +25907,7 @@ msgstr "Čekání."
 #: plugins/pool_heating/__init__.py:190
 #: plugins/temperature_switch/__init__.py:154
 msgid "The plug-in is not running."
-msgstr "Plug-in neběží."
+msgstr "Balíček neběží."
 
 #: plugins/photovoltaic_boiler/__init__.py:181
 #: plugins/pool_heating/__init__.py:204
@@ -26898,12 +26928,13 @@ msgid "Activating relay."
 msgstr "Aktivace relé."
 
 #: plugins/pressurizer/__init__.py:204 plugins/pressurizer/__init__.py:219
-msgid "Waiting"
-msgstr "Čekám"
-
-#: plugins/pressurizer/__init__.py:204 plugins/pressurizer/__init__.py:219
 msgid "second."
 msgstr "vteřin."
+
+#: plugins/pressurizer/__init__.py:204 plugins/pressurizer/__init__.py:219
+#: plugins/rs485_communication/__init__.py:338
+msgid "Waiting"
+msgstr "Čekám"
 
 #: plugins/pressurizer/__init__.py:212
 msgid "Deactivating relay."
@@ -26915,7 +26946,7 @@ msgstr "Připraven."
 
 #: plugins/pressurizer/__init__.py:230
 msgid "Scheduler is disabled or plugin is disabled."
-msgstr "Plánovač je zakázaný nebo je vypnutý plugin."
+msgstr "Plánovač je zakázaný nebo je vypnutý balíček."
 
 #: plugins/pressurizer/__init__.py:289
 msgid "Pressurizer enabled"
@@ -27260,7 +27291,7 @@ msgstr "Základní struktura je následující:"
 
 #: plugins/proto/templates/proto_help.html:11
 msgid "plugins"
-msgstr "plugins"
+msgstr "balíčky"
 
 #: plugins/proto/templates/proto_help.html:12
 msgid "+ plugin_name"
@@ -27331,7 +27362,7 @@ msgid ""
 "A web.py template that provides a user interface for the plugin. It includes "
 "both Python code and web page markup. Location:"
 msgstr ""
-"Šablona web.py, která poskytuje uživatelské rozhraní pro plugin. Zahrnuje "
+"Šablona web.py, která poskytuje uživatelské rozhraní pro balíček. Zahrnuje "
 "kód Pythonu i tagy webových stránek. Umístění:"
 
 #: plugins/proto/templates/proto_help.html:26
@@ -27425,7 +27456,7 @@ msgstr ""
 
 #: plugins/proto/templates/proto_help.html:46
 msgid "Github plugins repository"
-msgstr "Úložiště pluginů Github"
+msgstr "Úložiště balíčků na Github"
 
 #: plugins/pulse/__init__.py:20
 msgid "Package: Pulse Output Test"
@@ -28521,7 +28552,7 @@ msgid ""
 "Note: For this plugin we need a public web server with PHP support and "
 "access to SQL database into which data is written from this plugin."
 msgstr ""
-"Poznámka: Pro tento plugin potřebujeme veřejný webový server s podporou PHP "
+"Poznámka: Pro tento balíček potřebujeme veřejný webový server s podporou PHP "
 "a přístupem k databázi SQL, do které jsou data zapsána z tohoto rozšíření."
 
 #: plugins/remote_notifications/templates/remote_notifications_help.html:30
@@ -28558,6 +28589,609 @@ msgstr "pass=\"heslo do SQL serveru\""
 #: plugins/remote_notifications/templates/remote_notifications_help.html:43
 msgid "db=\"ospy\" name of table on the SQL server"
 msgstr "db=\"ospy\" název tabulky na serveru SQL"
+
+#: plugins/rs485_communication/__init__.py:30
+msgid "Package: RS485 Communication"
+msgstr "Balíček: RS485 Komunikace"
+
+#: plugins/rs485_communication/__init__.py:136
+msgid "The serial port path is too long."
+msgstr "Cesta k sériovému portu je příliš dlouhá."
+
+#: plugins/rs485_communication/__init__.py:138
+msgid "The serial port path contains invalid characters."
+msgstr "Cesta k sériovému portu obsahuje neplatné znaky."
+
+#: plugins/rs485_communication/__init__.py:144
+msgid "The serial port must be auto or an absolute device path."
+msgstr "Sériový port musí být auto nebo absolutní cesta k zařízení."
+
+#: plugins/rs485_communication/__init__.py:231
+msgid "Unable to enumerate serial ports: {}"
+msgstr "Nelze vypsat sériové porty: {}"
+
+#: plugins/rs485_communication/__init__.py:325
+msgid "Unknown serial error."
+msgstr "Neznámá sériová chyba."
+
+#: plugins/rs485_communication/__init__.py:340
+msgid "Communicating"
+msgstr "Komunikace"
+
+#: plugins/rs485_communication/__init__.py:342
+msgid "Dependency error"
+msgstr "Chyba závislosti"
+
+#: plugins/rs485_communication/__init__.py:436
+#: plugins/rs485_communication/__init__.py:698
+#: plugins/rs485_communication/__init__.py:946
+#: plugins/rs485_communication/__init__.py:949
+msgid "RS485 Communication plug-in is disabled."
+msgstr "RS485 komunikační balíček je deaktivován."
+
+#: plugins/rs485_communication/__init__.py:438
+#: plugins/rs485_communication/__init__.py:958
+msgid ""
+"Python serial module is not installed. Install pyserial and restart OSPy."
+msgstr ""
+"Python sériový modul není nainstalován. Nainstalujte pyserial a restartujte "
+"OSPy."
+
+#: plugins/rs485_communication/__init__.py:442
+#: plugins/rs485_communication/__init__.py:1094
+#: plugins/rs485_communication/__init__.py:1168
+msgid "Waveshare CH343G adapter was not found."
+msgstr "Adaptér Waveshare CH343G nebyl nalezen."
+
+#: plugins/rs485_communication/__init__.py:483
+msgid "Sending data on {}."
+msgstr "Posílám data na {}."
+
+#: plugins/rs485_communication/__init__.py:489
+#: plugins/rs485_communication/__init__.py:507
+#: plugins/rs485_communication/__init__.py:563
+#: plugins/rs485_communication/__init__.py:589
+#: plugins/rs485_communication/__init__.py:987
+msgid "Adapter is ready on {}."
+msgstr "Adaptér je připraven na {}."
+
+#: plugins/rs485_communication/__init__.py:492
+msgid "RS485 write error: {}"
+msgstr "Chyba zápisu RS485: {}"
+
+#: plugins/rs485_communication/__init__.py:499
+#: plugins/rs485_communication/__init__.py:772
+msgid "RS485 read size"
+msgstr "Velikost čtení RS485"
+
+#: plugins/rs485_communication/__init__.py:503
+msgid "Receiving data on {}."
+msgstr "Přijímám data {}."
+
+#: plugins/rs485_communication/__init__.py:510
+msgid "RS485 read error: {}"
+msgstr "Chyba čtení RS485: {}"
+
+#: plugins/rs485_communication/__init__.py:530
+msgid "RS485 response length"
+msgstr "Délka odezvy RS485"
+
+#: plugins/rs485_communication/__init__.py:533
+msgid "RS485 transaction delay is too long."
+msgstr "Zpoždění transakcí RS485 je příliš dlouhé."
+
+#: plugins/rs485_communication/__init__.py:534
+msgid "RS485 maximum read size"
+msgstr "Maximální velikost čtení RS485"
+
+#: plugins/rs485_communication/__init__.py:539
+#: plugins/rs485_communication/__init__.py:585
+msgid "Communication in progress on {}."
+msgstr "Probíhá komunikace na {}."
+
+#: plugins/rs485_communication/__init__.py:566
+msgid "RS485 transaction error: {}"
+msgstr "Chyba přenosu RS485: {}"
+
+#: plugins/rs485_communication/__init__.py:580
+#: plugins/rs485_communication/__init__.py:790
+msgid "RS485 callback must be callable."
+msgstr "RS485 callback musí být volatelný."
+
+#: plugins/rs485_communication/__init__.py:592
+msgid "RS485 callback error: {}"
+msgstr "Chyba zpětného volání RS485: {}"
+
+#: plugins/rs485_communication/__init__.py:623
+msgid ""
+"RS485 data must be bytes, bytearray, string, or an iterable of byte values."
+msgstr ""
+"Data RS485 musí být bajty, bajtové pole, řetězec nebo iterable byte hodnot."
+
+#: plugins/rs485_communication/__init__.py:625
+msgid "RS485 frame is too large."
+msgstr "Rámec RS485 je příliš velký."
+
+#: plugins/rs485_communication/__init__.py:633
+msgid "{} is invalid."
+msgstr "{} je neplatné."
+
+#: plugins/rs485_communication/__init__.py:635
+msgid "{} must be between {} and {} bytes."
+msgstr "{} musí být mezi {} a {} bajty."
+
+#: plugins/rs485_communication/__init__.py:664
+msgid "Timed out waiting for RS485 queue job {}."
+msgstr "Vypršel čas čekání na RS485 queue job {}."
+
+#: plugins/rs485_communication/__init__.py:702
+msgid "RS485 worker is not running."
+msgstr "Pracovník RS485 neběží."
+
+#: plugins/rs485_communication/__init__.py:712
+msgid "RS485 queue is full."
+msgstr "RS485 fronta je plná."
+
+#: plugins/rs485_communication/__init__.py:930
+msgid "RS485 queue operation failed: {}"
+msgstr "Operace fronty RS485 selhala: {}"
+
+#: plugins/rs485_communication/__init__.py:998
+msgid "RS485 worker error: {}"
+msgstr "Chyba pracovníka RS485: {}"
+
+#: plugins/rs485_communication/__init__.py:1003
+msgid "RS485 worker has stopped."
+msgstr "Pracovník RS485 přestal fungovat."
+
+#: plugins/rs485_communication/__init__.py:1018
+msgid "RS485 worker is stopping."
+msgstr "Pracovník RS485 zastavuje."
+
+#: plugins/rs485_communication/__init__.py:1023
+msgid "The RS485 worker did not stop within the timeout."
+msgstr "Pracovník RS485 nezastavil během timeoutu."
+
+#: plugins/rs485_communication/__init__.py:1037
+#: plugins/rs485_communication/templates/rs485_communication.html:87
+msgid "Configured port"
+msgstr "Konfigurovaný port"
+
+#: plugins/rs485_communication/__init__.py:1038
+#: plugins/rs485_communication/templates/rs485_communication.html:89
+msgid "Active port"
+msgstr "Aktivní port"
+
+#: plugins/rs485_communication/__init__.py:1039
+#: plugins/rs485_communication/templates/rs485_communication.html:88
+msgid "Detected port"
+msgstr "Detekovaný port"
+
+#: plugins/rs485_communication/__init__.py:1040
+msgid "Serial dependency"
+msgstr "Sériová závislost"
+
+#: plugins/rs485_communication/__init__.py:1042
+#: plugins/rs485_communication/templates/rs485_communication.html:95
+msgid "Transactions"
+msgstr "Převody"
+
+#: plugins/rs485_communication/__init__.py:1043
+msgid "TX bytes"
+msgstr "TX bajty"
+
+#: plugins/rs485_communication/__init__.py:1044
+msgid "RX bytes"
+msgstr "RX bajty"
+
+#: plugins/rs485_communication/__init__.py:1045
+msgid "Queue waiting"
+msgstr "Čekání ve frontě"
+
+#: plugins/rs485_communication/__init__.py:1046
+msgid "Queue peak"
+msgstr "Špička ve frontě"
+
+#: plugins/rs485_communication/__init__.py:1047
+msgid "Queue completed"
+msgstr "Fronta dokončena"
+
+#: plugins/rs485_communication/__init__.py:1048
+msgid "Queue errors"
+msgstr "Chyby ve frontě"
+
+#: plugins/rs485_communication/__init__.py:1049
+#: plugins/rs485_communication/templates/rs485_communication.html:93
+msgid "Last communication"
+msgstr "Poslední komunikace"
+
+#: plugins/rs485_communication/__init__.py:1052
+#: plugins/rs485_communication/templates/rs485_communication.html:91
+msgid "USB ID"
+msgstr "USB ID"
+
+#: plugins/rs485_communication/__init__.py:1054
+msgid "Device description"
+msgstr "Popis zařízení"
+
+#: plugins/rs485_communication/__init__.py:1059
+msgid "RS485 Communication is disabled."
+msgstr "Komunikace RS485 je zakázána."
+
+#: plugins/rs485_communication/__init__.py:1061
+msgid "RS485 worker is stopped."
+msgstr "Pracovník RS485 je zastaven."
+
+#: plugins/rs485_communication/__init__.py:1063
+msgid "Python serial module is not installed."
+msgstr "Python sériový modul není nainstalován."
+
+#: plugins/rs485_communication/__init__.py:1082
+msgid "Test failed: Python serial module is not installed."
+msgstr "Test neuspěl: Python sériový modul není nainstalován."
+
+#: plugins/rs485_communication/__init__.py:1099
+#: plugins/rs485_communication/__init__.py:1107
+msgid "Serial port is not open."
+msgstr "Sériový port není otevřený."
+
+#: plugins/rs485_communication/__init__.py:1119
+msgid "Test OK: adapter found and serial port {} can be opened."
+msgstr "Test v pořádku: adaptér nalezen a sériový port {} lze otevřít."
+
+#: plugins/rs485_communication/__init__.py:1128
+msgid "Adapter test failed: {}"
+msgstr "Test adaptéru neuspěl: {}"
+
+#: plugins/rs485_communication/__init__.py:1149
+#: plugins/rs485_communication/__init__.py:1195
+msgid "RS485 Communication plug-in"
+msgstr "RS485 komunikační balíček"
+
+#: plugins/rs485_communication/__init__.py:1150
+#: plugins/rs485_communication/__init__.py:1196
+msgid ""
+"An internal error was found in the system, see the error log for more "
+"information."
+msgstr ""
+"V systému byla nalezena interní chyba, více informací najdete v chybovém "
+"záznamu."
+
+#: plugins/rs485_communication/__init__.py:1159
+msgid "Unknown RS485 settings action."
+msgstr "Neznámá akce nastavení RS485."
+
+#: plugins/rs485_communication/__init__.py:1164
+msgid "Waveshare CH343G adapter found on {}."
+msgstr "Adaptér Waveshare CH343G nalezený na {}."
+
+#: plugins/rs485_communication/__init__.py:1189
+msgid "RS485 Communication settings updated successfully."
+msgstr "Nastavení komunikace RS485 bylo úspěšně aktualizováno."
+
+#: plugins/rs485_communication/templates/rs485_communication.html:3
+#: plugins/rs485_communication/templates/rs485_communication.html:77
+msgid "RS485 Communication"
+msgstr "Komunikace RS485"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:82
+msgid "Adapter status"
+msgstr "Stav adaptéru"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:92
+msgid "Last adapter test"
+msgstr "Poslední test adaptéru"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:94
+msgid "TX / RX bytes"
+msgstr "TX / RX bajty"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:96
+msgid "RS485 queue waiting"
+msgstr "Čekání na frontu RS485"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:97
+msgid "RS485 queue current"
+msgstr "Fronta v RS485 aktuálně"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:98
+msgid "Queue completed / errors / peak"
+msgstr "Fronta dokončena / chyby / špička"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:99
+msgid "Last queue wait"
+msgstr "Poslední čekání ve frontě"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:100
+msgid "Last client plug-in"
+msgstr "Poslední přístup klienta"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:110
+msgid "Find adapter"
+msgstr "Hledání adaptéru"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:111
+msgid "Test adapter"
+msgstr "Test adapteru"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:116
+msgid "Enable RS485 worker"
+msgstr "Povolit RS485"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:117
+msgid ""
+"When enabled, this plug-in owns the serial port and provides synchronized "
+"RS485 access to other OSPy plug-ins."
+msgstr ""
+"Po zapnutí tento balíček přistupuje k sériovému portu a poskytuje "
+"synchronizovaný přístup RS485 dalším OSPy balíčkům."
+
+#: plugins/rs485_communication/templates/rs485_communication.html:126
+msgid ""
+"Use auto for automatic Waveshare CH343G detection, or enter a fixed Linux "
+"serial device path."
+msgstr ""
+"Použijte automatickou detekci Waveshare CH343G nebo zadejte pevnou Linuxovou "
+"sériovou cestu zařízení."
+
+#: plugins/rs485_communication/templates/rs485_communication.html:129
+msgid "Automatic Waveshare CH343G detection"
+msgstr "Automatická detekce CH343G přes Waveshare"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:137
+msgid ""
+"RS485 baud rate. All devices on one RS485 bus normally use the same serial "
+"format."
+msgstr ""
+"RS485 baud. Všechna zařízení na jedné sběrnici RS485 obvykle používají "
+"stejný sériový formát."
+
+#: plugins/rs485_communication/templates/rs485_communication.html:138
+msgid "baud"
+msgstr "baud"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:146
+msgid "Data bits"
+msgstr "Datové bity"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:155
+msgid "Parity"
+msgstr "Parita"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:159
+msgid "Even"
+msgstr "Sudá"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:160
+msgid "Odd"
+msgstr "Lichá"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:161
+msgid "Mark"
+msgstr "Mark"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:162
+msgid "Space"
+msgstr "Prostor"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:167
+msgid "Stop bits"
+msgstr "Stop bity"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:176
+msgid "Read timeout"
+msgstr "Limit čtení"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:177
+#: plugins/rs485_communication/templates/rs485_communication.html:181
+msgid "s"
+msgstr "s"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:180
+msgid "Write timeout"
+msgstr "Limit zápisu"
+
+#: plugins/rs485_communication/templates/rs485_communication.html:184
+msgid "Status log"
+msgstr "Stavový záznam"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:3
+#: plugins/rs485_communication/templates/rs485_communication_help.html:30
+msgid "RS485 Communication - help"
+msgstr "RS485 komunikace – nápověda"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:32
+msgid ""
+"This plug-in provides one shared RS485 serial interface for OSPy and other "
+"plug-ins. It is designed primarily for the Waveshare industrial USB TO RS485 "
+"(B) adapter with the CH343G USB chip."
+msgstr ""
+"Tento balíček poskytuje jedno sdílené sériové rozhraní RS485 pro OSPy a "
+"další balíčky. Je navržen především pro průmyslový USB - RS485 adaptér "
+"Waveshare s USB čipem CH343G."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:34
+msgid "Waveshare industrial USB to RS485 adapter"
+msgstr "Průmyslový USB adaptér Waveshare na RS485"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:35
+msgid ""
+"The adapter uses a WCH CH343G USB interface and an SP485EEN RS485 "
+"transceiver. It converts USB to a two-way, half-duplex RS485 connection and "
+"controls the transmit/receive direction automatically in hardware."
+msgstr ""
+"Adaptér využívá USB rozhraní WCH CH343G a přijímač SP485EEN RS485. Převádí "
+"USB na obousměrné, poloduplexní připojení RS485 a automaticky řídí směr "
+"vysílání/přijmu."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:37
+msgid ""
+"RS485 terminals: A+, B- and GND; USB-A host connection and 5 V USB power."
+msgstr "Svorky RS485: A+, B- a GND; USB-A konektor. 5V napájení se nevyužívá."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:38
+msgid "Supported communication speed: 300 baud to 3 Mbps."
+msgstr "Podporovaná rychlost komunikace: 300 baud až 3 Mbps."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:39
+msgid ""
+"Approximate RS485 reach: up to 1.2 km at a suitably low speed and with "
+"correct bus wiring."
+msgstr ""
+"Přibližný dosah RS485 je až 1,2 km při vhodně nízké rychlosti a s vhodným "
+"zapojením na sběrnici."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:40
+msgid ""
+"Point-to-multipoint operation for up to 32 nodes; a repeater is recommended "
+"by the vendor for 16 or more nodes."
+msgstr ""
+"Multipoint spojení až pro 32 zařízení. Výrobce doporučuje opakovač pro 16 a "
+"více zařízení na RS485."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:41
+msgid ""
+"Automatic direction control, built-in 120 ohm matching resistor, resettable "
+"fuse, TVS surge protection and ESD protection."
+msgstr ""
+"Automatické řízení směru, vestavěný 120 ohmový rezistor s odpovídajícím "
+"napětím, resetovatelná pojistka, přepěťová ochrana TVS a ochrana proti ESD."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:42
+msgid "PWR, TXD and RXD LEDs indicate power and communication activity."
+msgstr "LED diody PWR, TXD a RXD indikují napájení a komunikační aktivitu."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:44
+msgid "Product information and specifications on RPishop.cz"
+msgstr "Informace o produktu a specifikace na RPishop.cz"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:60
+msgid "Connect the USB adapter to the Raspberry Pi."
+msgstr "Připojte USB adaptér k Raspberry Pi."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:61
+msgid "Connect RS485 A+ to A / D+ / 485+ of the target device."
+msgstr "Připojte RS485 A+ k A / D+ / 485+ cílového zařízení."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:62
+msgid "Connect RS485 B- to B / D- / 485- of the target device."
+msgstr "Připojte RS485 B- k B / D- / 485- cílového zařízení."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:63
+msgid ""
+"Connect GND when required by the installation and the target device "
+"documentation."
+msgstr ""
+"Připojte GND, když to vyžaduje instalace a dokumentace cílového zařízení."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:66
+msgid "Port selection"
+msgstr "Výběr portu"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:67
+msgid ""
+"The default value auto searches specifically for a WCH CH343G adapter. On "
+"Raspberry Pi it normally appears as /dev/ttyACM0. You can also enter a fixed "
+"path manually, including a /dev/serial/by-id path."
+msgstr ""
+"Výchozí hodnota automaticky vyhledává adaptér WCH CH343G. Na Raspberry Pi se "
+"obvykle zobrazuje jako /dev/ttyACM0. Můžete také ručně zadat pevnou cestu, "
+"včetně /dev/serial/id cesty."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:70
+msgid ""
+"The selected baud rate and serial format apply to the complete physical bus. "
+"All devices connected to the same A/B pair normally have to use the same "
+"values. The default 4800 8N1 matches the documented factory setting of the "
+"ZTS-3000-FSJT wind sensor."
+msgstr ""
+"Zvolená přenosová rychlost a sériový formát platí pro celou fyzickou "
+"sběrnici. Všechna zařízení připojená ke stejnému páru A/B obvykle musí "
+"používat stejné hodnoty. Výchozí 4800 8N1 odpovídá zdokumentovaným továrním "
+"nastavením větrného senzoru ZTS-3000-FSJT."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:71
+msgid ""
+"Saving a new speed changes how OSPy opens the USB adapter; it does not "
+"change a slave device. A device-specific plug-in must first send the "
+"documented configuration command and then switch the bus to the same speed."
+msgstr ""
+"Uložení nové rychlosti se změní hned jak OSPy otevře USB adaptér. Nemění to "
+"podřízené zařízení. Balíček musí nejprve odeslat zdokumentovaný konfigurační "
+"příkaz a poté přepnout sběrnici na stejnou rychlost."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:71
+#: plugins/rs485_communication/templates/rs485_communication_help.html:75
+msgid "Important"
+msgstr "Důležité"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:73
+msgid "Adapter test"
+msgstr "Test adaptéru"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:74
+msgid ""
+"The Test adapter button verifies that the USB serial adapter is detected and "
+"that OSPy can open the selected serial port with the configured parameters. "
+"The test intentionally sends no arbitrary bytes to the live RS485 bus."
+msgstr ""
+"Tlačítko Test adaptéru ověřuje, že USB sériový adaptér je detekován a že "
+"OSPy dokáže otevřít vybraný sériový port s nakonfigurovanými parametry. Test "
+"záměrně neposílá žádné libovolné bajty na živou sběrnici RS485."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:75
+msgid ""
+"A successful adapter test does not prove A/B wiring or communication with a "
+"slave device. A complete RS485 line test requires a responding device or a "
+"second RS485 adapter."
+msgstr ""
+"Úspěšný test adaptéru neprokazuje zapojení A/B nebo komunikaci s podřízeným "
+"zařízením. Kompletní test RS485 linky vyžaduje odpovídající zařízení nebo "
+"druhý adaptér RS485."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:77
+msgid "RS485 queue"
+msgstr "RS485 fronta"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:78
+msgid ""
+"All dependent plug-ins should use the public rs485_queue object. Requests "
+"are processed in FIFO order by one worker, so two plug-ins cannot transmit "
+"on the half-duplex RS485 bus at the same time."
+msgstr ""
+"Všechny závislé balíčky by měly používat veřejný rs485_queue objekt. "
+"Požadavky jsou zpracovávány v pořadí FIFO jedním pracovníkem, takže dva "
+"balíčky nemohou přenášet současně na poloduplexní sběrnici RS485."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:80
+msgid "Synchronous transaction"
+msgstr "Synchronní přenos"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:89
+msgid "Asynchronous queued transaction"
+msgstr "Asynchronní frontový přenos"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:99
+msgid "Atomic multi-step protocol"
+msgstr "Vícestupňový protokol"
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:100
+msgid ""
+"Use call() when one protocol operation needs several writes and reads. The "
+"callback runs entirely inside the RS485 worker and remains atomic with "
+"respect to other queued plug-ins."
+msgstr ""
+"Použijte call(), když jedna protokolová operace vyžaduje několik zápisů a "
+"čtení. Callback běží zcela samostatně uvnitř RS485 workeru."
+
+#: plugins/rs485_communication/templates/rs485_communication_help.html:114
+msgid ""
+"The settings page shows the current queue depth, active queue client, "
+"completed/error counters, peak queue depth and the last queue waiting time."
+msgstr ""
+"Stránka nastavení ukazuje aktuální hloubku fronty, aktivního klienta fronty, "
+"čítače dokončených přenosů nebo chyb, maximální hloubku fronty a poslední "
+"čekací dobu fronty."
 
 #: plugins/shelly_cloud_integrator/__init__.py:32
 msgid "Package: Shelly Cloud Integration"
@@ -30005,7 +30639,7 @@ msgid ""
 "This plugin monitors and logs the speed of the Internet connection after a "
 "certain set interval"
 msgstr ""
-"Tento plugin monitoruje a zaznamenává rychlost připojení k internetu po "
+"Tento balíček monitoruje a zaznamenává rychlost připojení k internetu po "
 "určitém nastaveném intervalu"
 
 #: plugins/speed_monitor/templates/speed_monitor_help.html:9
@@ -30181,7 +30815,7 @@ msgstr "Rozšíření není povoleno"
 #: plugins/system_update/__init__.py:367
 msgid "Error: restart this plugin! Show in homepage footer have enabled."
 msgstr ""
-"Chyba: restartujte tento plugin! Zobrazení v zápatí domovské stránce je "
+"Chyba: restartujte tento balíček! Zobrazení v zápatí domovské stránce je "
 "povoleno."
 
 #: plugins/sunrise_and_sunset/__init__.py:767
@@ -30635,7 +31269,7 @@ msgid ""
 "Plugin adds display of sunrise and sunset times in the homepage schedule "
 "(javascript injection)."
 msgstr ""
-"Plugin přidává zobrazení časů východu a západu slunce v plánu domovské "
+"Balíček přidává zobrazení časů východu a západu slunce v plánu domovské "
 "stránky (javascript injection)."
 
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_help.html:77
@@ -31415,7 +32049,7 @@ msgid ""
 "If the box is checked, the plugin checks for available system updates every "
 "hour."
 msgstr ""
-"Pokud je políčko zaškrtnuto, plugin kontroluje dostupné aktualizace systému "
+"Pokud je políčko zaškrtnuto, balíček kontroluje dostupné aktualizace systému "
 "každou hodinu."
 
 #: plugins/system_update/templates/system_update_help.html:23
@@ -31735,7 +32369,7 @@ msgid "Unkown FW version in CPU (Atmega 328)"
 msgstr "Neznámá verze FW v CPU (Atmega 328)"
 
 #: plugins/tank_monitor/__init__.py:948 plugins/ups_adj/__init__.py:525
-#: plugins/wind_monitor/__init__.py:830
+#: plugins/wind_monitor/__init__.py:919
 msgid "Saving to log  files OK"
 msgstr "Ukládání do souborů protokolu OK"
 
@@ -32356,7 +32990,7 @@ msgstr "Zatím nedetekováno"
 #: plugins/telegram_bot/templates/telegram_bot.html:149
 #: plugins/telegram_bot/templates/telegram_bot.html:201
 msgid "Save token and enable the plugin first"
-msgstr "Nejprve uložte token a povolte plugin"
+msgstr "Nejprve uložte token a povolte balíček"
 
 #: plugins/telegram_bot/templates/telegram_bot.html:167
 msgid ""
@@ -32539,11 +33173,11 @@ msgid ""
 "Paste the token into the Telegram Bot plugin, enable the plugin, and submit "
 "the form."
 msgstr ""
-"Vložte token do pluginu Telegram Bot, povolte plugin a odešlete formulář."
+"Vložte token do balíčku Telegram Bot, povolte balíček a odešlete formulář."
 
 #: plugins/telegram_bot/templates/telegram_bot_help.html:16
 msgid "The plugin connects automatically; OSPy restart is not required."
-msgstr "Plugin se připojuje automaticky; Restart OSPy není nutný."
+msgstr "Balíček se připojuje automaticky. Restart OSPy není nutný."
 
 #: plugins/telegram_bot/templates/telegram_bot_help.html:17
 msgid ""
@@ -32590,7 +33224,7 @@ msgid ""
 "The plugin uses the official Telegram Bot API directly and does not install "
 "python-telegram-bot automatically."
 msgstr ""
-"Plugin používá oficiální API Telegram Bot přímo a neinstaluje python-"
+"Balíček používá oficiální API Telegram Bot přímo a neinstaluje python-"
 "telegram-bot automaticky."
 
 #: plugins/temperature_switch/__init__.py:23
@@ -33040,7 +33674,7 @@ msgid ""
 "stops selected OSPy programs when the configured temperature limits are "
 "reached."
 msgstr ""
-"Termostat plugin kontroluje vybrané zdroje teploty a spouští nebo zastavuje "
+"Balíček termostat kontroluje vybrané zdroje teploty a spouští nebo zastavuje "
 "vybrané OSPy programy, když jsou dosaženy nastavené teplotní limity."
 
 #: plugins/thermostat/templates/thermostat_help.html:9
@@ -33059,7 +33693,7 @@ msgid ""
 "Shelly Cloud values when the related plugin is configured."
 msgstr ""
 "Teplotu lze číst z DS sond Air Temperature, OSPy senzorů nebo Shelly Cloud, "
-"když je příslušný plugin nastaven."
+"když je příslušný balíček nastaven."
 
 #: plugins/thermostat/templates/thermostat_help.html:11
 msgid ""
@@ -34577,7 +35211,7 @@ msgstr "Pro vodoměr není k dispozici žádná nekonfliktní I2C adresa."
 msgid "Setup PCF8583 as event counter is OK"
 msgstr "Nastavení PCF8583 jako čítač událostí je v pořádku"
 
-#: plugins/water_meter/__init__.py:340 plugins/wind_monitor/__init__.py:651
+#: plugins/water_meter/__init__.py:340 plugins/wind_monitor/__init__.py:740
 msgid "Setup PCF8583 as event counter - FAULT"
 msgstr "Nastavení PCF8583 jako čítače událostí - CHYBA"
 
@@ -34666,7 +35300,7 @@ msgid "Current hour"
 msgstr "Aktuální hodina"
 
 #: plugins/water_meter/templates/water_meter.html:76
-#: plugins/wind_monitor/templates/wind_monitor.html:184
+#: plugins/wind_monitor/templates/wind_monitor.html:188
 msgid "Measurement log"
 msgstr "Záznam měření"
 
@@ -34683,17 +35317,17 @@ msgid "Measured from"
 msgstr "Měřeno od"
 
 #: plugins/water_meter/templates/water_meter.html:83
-#: plugins/wind_monitor/templates/wind_monitor.html:203
+#: plugins/wind_monitor/templates/wind_monitor.html:207
 msgid "Last measurement"
 msgstr "Poslední měření"
 
 #: plugins/water_meter/templates/water_meter.html:85
-#: plugins/wind_monitor/templates/wind_monitor.html:208
+#: plugins/wind_monitor/templates/wind_monitor.html:213
 msgid "Raw pulses"
 msgstr "Surové pulsy"
 
 #: plugins/water_meter/templates/water_meter.html:86
-#: plugins/wind_monitor/templates/wind_monitor.html:215
+#: plugins/wind_monitor/templates/wind_monitor.html:221
 msgid "Activity status"
 msgstr "Stav činnosti"
 
@@ -34717,7 +35351,7 @@ msgstr ""
 "litrech za minutu."
 
 #: plugins/water_meter/templates/water_meter_help.html:10
-#: plugins/wind_monitor/templates/wind_monitor_help.html:11
+#: plugins/wind_monitor/templates/wind_monitor_help.html:16
 msgid ""
 "The two I2C addresses are alternatives. If the preferred address is occupied "
 "during activation, OSPy selects the free alternative. The settings page "
@@ -34806,7 +35440,7 @@ msgid "Water Meter settings"
 msgstr "Rozšíření vodoměr nastavení"
 
 #: plugins/water_meter/templates/water_meter_settings.html:16
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:28
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:35
 msgid "Measurement"
 msgstr "Měření"
 
@@ -34827,22 +35461,22 @@ msgstr ""
 "Desetinné hodnoty mohou obsahovat tečku nebo čárku."
 
 #: plugins/water_meter/templates/water_meter_settings.html:22
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:52
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:63
 msgid "Measurement logging"
 msgstr "Záznam měření"
 
 #: plugins/water_meter/templates/water_meter_settings.html:25
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:55
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:66
 msgid "Display data from"
 msgstr "Data z"
 
 #: plugins/water_meter/templates/water_meter_settings.html:25
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:55
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:66
 msgid "SQL database"
 msgstr "SQL databáze"
 
 #: plugins/water_meter/templates/water_meter_settings.html:26
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:72
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:83
 msgid "Logging interval"
 msgstr "Interval záznamu"
 
@@ -36495,171 +37129,204 @@ msgstr ""
 "Pokud fswebcam není nainstalováno, nainstalujte ho ze správce systémových "
 "balíčků"
 
-#: plugins/wind_monitor/__init__.py:66
+#: plugins/wind_monitor/__init__.py:71
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
 msgstr "Zpráva z rozšíření OSPy WIND SPEED MONITOR"
 
-#: plugins/wind_monitor/__init__.py:331
+#: plugins/wind_monitor/__init__.py:197
+msgid "RS485 Communication plug-in is required for the RS485 signal source."
+msgstr "Pro zdroj signálu RS485 je vyžadován komunikační balíček RS485."
+
+#: plugins/wind_monitor/__init__.py:200
+msgid ""
+"Enable the RS485 Communication plug-in before using the RS485 signal source."
+msgstr "Před použitím zdroje signálu RS485 povolte komunikační balíček RS485."
+
+#: plugins/wind_monitor/__init__.py:202
+msgid "The RS485 Communication worker is not running."
+msgstr "Komunikační pracovník RS485 neběží."
+
+#: plugins/wind_monitor/__init__.py:204
+msgid "Python serial support required by RS485 Communication is unavailable."
+msgstr "Podpora Pythonu vyžadovaná pro komunikaci RS485 není dostupná."
+
+#: plugins/wind_monitor/__init__.py:313
+msgid "RS485 wind sensor read failed: {}"
+msgstr "Měření větrného senzoru na RS485 selhalo: {}"
+
+#: plugins/wind_monitor/__init__.py:407
 msgid "Wind measurement was rejected as implausible."
 msgstr "Měření větru bylo odmítnuto jako nepravděpodobné."
 
-#: plugins/wind_monitor/__init__.py:355 plugins/wind_monitor/__init__.py:357
+#: plugins/wind_monitor/__init__.py:435 plugins/wind_monitor/__init__.py:1531
+#: plugins/wind_monitor/templates/wind_monitor.html:214
+msgid "Wind force"
+msgstr "Síla větru"
+
+#: plugins/wind_monitor/__init__.py:437
 msgid "pulses/sec"
 msgstr "impulsy/s"
 
-#: plugins/wind_monitor/__init__.py:355 plugins/wind_monitor/__init__.py:357
-#: plugins/wind_monitor/__init__.py:1410
+#: plugins/wind_monitor/__init__.py:437 plugins/wind_monitor/__init__.py:1534
 msgid "Pulses"
 msgstr "Pulsy"
 
-#: plugins/wind_monitor/__init__.py:365
+#: plugins/wind_monitor/__init__.py:446
 msgid "Wind speed > 150 km/h (42 m/sec)"
 msgstr "Rychlost větru > 150 km/h (42 m/s)"
 
-#: plugins/wind_monitor/__init__.py:381
+#: plugins/wind_monitor/__init__.py:462
 msgid "Sending E-mail with notification."
 msgstr "Odeslat E-mail s oznámením."
 
-#: plugins/wind_monitor/__init__.py:423
+#: plugins/wind_monitor/__init__.py:504
 msgid "Deleting maximal speed after selected interval."
 msgstr "Odstranění maximální rychlosti po zvoleném intervalu."
 
-#: plugins/wind_monitor/__init__.py:436
+#: plugins/wind_monitor/__init__.py:517
 msgid "Speed was exceeded! Event # {}/{}."
 msgstr "Rychlost byla překročena! Událost # {}/{}."
 
-#: plugins/wind_monitor/__init__.py:442
+#: plugins/wind_monitor/__init__.py:523
 msgid "The program will now start and setup block for {} hours."
 msgstr "Program se nyní spustí a nastaví blok na {} hodin."
 
-#: plugins/wind_monitor/__init__.py:450
+#: plugins/wind_monitor/__init__.py:531
 msgid "Run now program # {}."
 msgstr "Spustit nyní program # {}."
 
-#: plugins/wind_monitor/__init__.py:455
+#: plugins/wind_monitor/__init__.py:536
 msgid ""
 "The number of exceedances in the set interval has not been exceeded, I reset "
 "the counter."
 msgstr ""
 "Počet překročení v nastaveném intervalu nebyl překročen, resetuji počítadlo."
 
-#: plugins/wind_monitor/__init__.py:460
+#: plugins/wind_monitor/__init__.py:541
 msgid "The program has now been unblocked."
 msgstr "Program byl nyní odblokován."
 
-#: plugins/wind_monitor/__init__.py:478
+#: plugins/wind_monitor/__init__.py:559
 msgid "Wind speed monitor plug-in is disabled."
 msgstr "Rozšíření monitor rychlosti větru je zakázáno."
 
-#: plugins/wind_monitor/__init__.py:483 plugins/wind_monitor/__init__.py:484
+#: plugins/wind_monitor/__init__.py:564 plugins/wind_monitor/__init__.py:565
 msgid ""
 "System detected error: wind speed monitor. All stations set to OFF. Wind is"
 msgstr ""
 "Chyba zjištěná systémem: monitor rychlosti větru. Všechny stanice jsou naní "
 "nastaveny na VYPNUTO. Vítr je"
 
-#: plugins/wind_monitor/__init__.py:483 plugins/wind_monitor/__init__.py:643
-#: plugins/wind_monitor/__init__.py:651 plugins/wind_monitor/__init__.py:652
-#: plugins/wind_monitor/__init__.py:700 plugins/wind_monitor/__init__.py:708
-#: plugins/wind_monitor/__init__.py:845 plugins/wind_monitor/__init__.py:923
-#: plugins/wind_monitor/__init__.py:1000 plugins/wind_monitor/__init__.py:1081
-#: plugins/wind_monitor/__init__.py:1117 plugins/wind_monitor/__init__.py:1167
-#: plugins/wind_monitor/__init__.py:1255
+#: plugins/wind_monitor/__init__.py:564 plugins/wind_monitor/__init__.py:732
+#: plugins/wind_monitor/__init__.py:740 plugins/wind_monitor/__init__.py:741
+#: plugins/wind_monitor/__init__.py:789 plugins/wind_monitor/__init__.py:797
+#: plugins/wind_monitor/__init__.py:934 plugins/wind_monitor/__init__.py:1014
+#: plugins/wind_monitor/__init__.py:1110 plugins/wind_monitor/__init__.py:1191
+#: plugins/wind_monitor/__init__.py:1227 plugins/wind_monitor/__init__.py:1277
+#: plugins/wind_monitor/__init__.py:1365
 msgid "Wind speed monitor plug-in"
 msgstr "Rozšíření monitor rychlosti větru"
 
-#: plugins/wind_monitor/__init__.py:498 plugins/wind_monitor/__init__.py:503
+#: plugins/wind_monitor/__init__.py:579 plugins/wind_monitor/__init__.py:584
 msgid "Wind Speed monitor plug-in"
 msgstr "Rozšíření monitor rychlosti větru"
 
-#: plugins/wind_monitor/__init__.py:520
+#: plugins/wind_monitor/__init__.py:602
 msgid "No non-conflicting I2C address is available for Wind Speed Monitor."
 msgstr "Pro Wind Speed Monitor není k dispozici žádná nekonfliktní I2C adresa."
 
-#: plugins/wind_monitor/__init__.py:641
+#: plugins/wind_monitor/__init__.py:730
 msgid "PCF8583 event-counter mode was not confirmed."
 msgstr "PCF8583 režim počítadla událostí nebyl potvrzen."
 
-#: plugins/wind_monitor/__init__.py:643
+#: plugins/wind_monitor/__init__.py:732
 msgid "Setup PCF8583 as event counter - OK"
 msgstr "Nastavení PCF8583 jako čítače událostí - OK"
 
-#: plugins/wind_monitor/__init__.py:698
+#: plugins/wind_monitor/__init__.py:787
 msgid "I2C bus is busy, wind counter read skipped."
 msgstr "I2C sběrnice je obsazená, čtení větrného čítače přeskočeno."
 
-#: plugins/wind_monitor/__init__.py:898
+#: plugins/wind_monitor/__init__.py:989
 msgid "Maximal speed has reseted."
 msgstr "Maximální rychlost se resetovala."
 
-#: plugins/wind_monitor/__init__.py:921 plugins/wind_monitor/__init__.py:998
+#: plugins/wind_monitor/__init__.py:1012 plugins/wind_monitor/__init__.py:1108
 msgid "Deleting the windmonitor table from the database."
 msgstr "Odstranění tabulky windmonitor z databáze."
 
-#: plugins/wind_monitor/__init__.py:960
+#: plugins/wind_monitor/__init__.py:1044 plugins/wind_monitor/__init__.py:1047
+msgid "The RS485 device address must be a number from 1 to 247."
+msgstr "Adresa zařízení RS485 musí být od 1 do 247."
+
+#: plugins/wind_monitor/__init__.py:1070
 msgid "Wind monitor is enabled."
 msgstr "Rozšíření monitor rychlosti větru je povoleno."
 
-#: plugins/wind_monitor/__init__.py:963 plugins/wind_monitor/__init__.py:1353
+#: plugins/wind_monitor/__init__.py:1073 plugins/wind_monitor/__init__.py:1479
 msgid "Wind monitor is disabled."
 msgstr "Rozšíření monitor rychlosti větru je zakázáno."
 
-#: plugins/wind_monitor/__init__.py:1015
+#: plugins/wind_monitor/__init__.py:1125
 msgid "Wind diagnostic log was deleted."
 msgstr "Záznam diagnostiky větru byl smazán."
 
-#: plugins/wind_monitor/__init__.py:1270
+#: plugins/wind_monitor/__init__.py:1380
 msgid "Rising"
 msgstr "Vzestup"
 
-#: plugins/wind_monitor/__init__.py:1271
+#: plugins/wind_monitor/__init__.py:1381
 msgid "Falling"
 msgstr "Klesání"
 
-#: plugins/wind_monitor/__init__.py:1272
+#: plugins/wind_monitor/__init__.py:1382
 msgid "Steady"
 msgstr "Stabilní"
 
-#: plugins/wind_monitor/__init__.py:1273
-#: plugins/wind_monitor/templates/wind_monitor.html:193
+#: plugins/wind_monitor/__init__.py:1383
+#: plugins/wind_monitor/templates/wind_monitor.html:197
 msgid "Waiting for trend data"
 msgstr "Čekání na trendová data"
 
-#: plugins/wind_monitor/__init__.py:1304
+#: plugins/wind_monitor/__init__.py:1416
 msgid "Measurement is active."
 msgstr "Měření je aktivní."
 
-#: plugins/wind_monitor/__init__.py:1304
+#: plugins/wind_monitor/__init__.py:1416
 msgid "Measurement is inactive."
 msgstr "Měření je neaktivní."
 
-#: plugins/wind_monitor/__init__.py:1308
+#: plugins/wind_monitor/__init__.py:1420
 msgid "Wind monitor data is unavailable."
 msgstr "Data z monitoru větru nejsou dostupná."
 
-#: plugins/wind_monitor/__init__.py:1350
+#: plugins/wind_monitor/__init__.py:1476
 msgid "Wind monitor worker is not running."
 msgstr "Smyčka monitoru větru neběží."
 
-#: plugins/wind_monitor/__init__.py:1356
+#: plugins/wind_monitor/__init__.py:1485
 msgid "Wind counter is not available."
 msgstr "Počítadlo větru není k dispozici."
 
-#: plugins/wind_monitor/__init__.py:1359
+#: plugins/wind_monitor/__init__.py:1488
 msgid "Wind monitor reported an error."
 msgstr "Monitor větru hlásil chybu."
 
-#: plugins/wind_monitor/__init__.py:1362
+#: plugins/wind_monitor/__init__.py:1491
+msgid "Wind monitor is reading the RS485 sensor."
+msgstr "Monitor větru čte senzor RS485."
+
+#: plugins/wind_monitor/__init__.py:1493
 msgid "Wind monitor is reading the counter."
 msgstr "Monitor větru ukazuje počítadlo."
 
-#: plugins/wind_monitor/__init__.py:1383
+#: plugins/wind_monitor/__init__.py:1514
 #: plugins/wind_monitor/templates/wind_monitor.html:3
-#: plugins/wind_monitor/templates/wind_monitor.html:180
+#: plugins/wind_monitor/templates/wind_monitor.html:184
 msgid "Wind Speed Monitor"
 msgstr "Monitor rychlosti větru"
 
-#: plugins/wind_monitor/__init__.py:1407
+#: plugins/wind_monitor/__init__.py:1545
 msgid "Trend"
 msgstr "Trend"
 
@@ -36667,40 +37334,45 @@ msgstr "Trend"
 msgid "(m/s or km/h)"
 msgstr "(m/s nebo km/h)"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:185
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:21
+#: plugins/wind_monitor/templates/wind_monitor.html:189
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:28
 msgid "Diagnostic log"
 msgstr "Diagnostický záznam"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:186
+#: plugins/wind_monitor/templates/wind_monitor.html:190
 msgid "Reset maximum speed"
 msgstr "Resetovat maximální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:191
+#: plugins/wind_monitor/templates/wind_monitor.html:195
 msgid "Current speed"
 msgstr "Aktuální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:196
+#: plugins/wind_monitor/templates/wind_monitor.html:200
 msgid "Maximum speed"
 msgstr "Maximální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:198
+#: plugins/wind_monitor/templates/wind_monitor.html:202
 msgid "Measured at"
 msgstr "Poslední změna"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:209
+#: plugins/wind_monitor/templates/wind_monitor.html:212
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:38
+msgid "Signal source"
+msgstr "Zdroj signálu"
+
+#: plugins/wind_monitor/templates/wind_monitor.html:215
 msgid "Actual measurement interval"
 msgstr "Skutečný interval měření"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:210
+#: plugins/wind_monitor/templates/wind_monitor.html:216
 msgid "Action confirmation"
 msgstr "Potvrzení akce"
 
-#: plugins/wind_monitor/templates/wind_monitor.html:211
+#: plugins/wind_monitor/templates/wind_monitor.html:217
 msgid "The last measurement was rejected by the plausibility filter."
 msgstr "Poslední měření bylo odmítnuto filtrem pravděpodobnosti."
 
-#: plugins/wind_monitor/templates/wind_monitor.html:221
+#: plugins/wind_monitor/templates/wind_monitor.html:227
 msgid "Wind history"
 msgstr "Historie větru"
 
@@ -36719,19 +37391,19 @@ msgstr "Smazat diagnostický záznam"
 
 #: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:18
 msgid ""
-"I2C diagnostic logging is enabled. Disable it after the problem has been "
-"captured."
+"Measurement diagnostic logging is enabled. Disable it after the problem has "
+"been captured."
 msgstr ""
-"I2C diagnostické logování je zapnuté. Vypněte ho poté, co je problém "
-"zachycen."
+"Je povoleno diagnostické zaznamenávání měření. Vypněte ho poté, co je "
+"problém zachycen."
 
 #: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:20
 msgid ""
-"I2C diagnostic logging is disabled. It can be enabled in the plug-in "
+"Measurement diagnostic logging is disabled. It can be enabled in the plug-in "
 "settings."
 msgstr ""
-"I2C diagnostické logování je deaktivováno. Lze ho povolit v nastavení tohoto "
-"balíčku."
+"Diagnostické zaznamenávání měření je deaktivováno. Lze jej povolit v "
+"nastavení balíčku."
 
 #: plugins/wind_monitor/templates/wind_monitor_diagnostic.html:21
 msgid "The newest bounded diagnostic records are shown below."
@@ -36744,15 +37416,67 @@ msgstr "Rozšíření monitor rychlosti větru - nápověda"
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:10
 msgid ""
-"The plug-in measures wind with a PCF8583 event counter at I2C address 0x50 "
-"or 0x51. It can stop selected stations, send an e-mail or run a program when "
-"confirmed wind thresholds are exceeded."
+"The plug-in measures wind from either the original PCF8583 event counter at "
+"I2C address 0x50 or 0x51, or a ZTS-3000-FSJT wind sensor using Modbus RTU "
+"over the shared RS485 Communication plug-in. It can stop selected stations, "
+"send an e-mail or run a program when confirmed wind thresholds are exceeded."
 msgstr ""
-"Balíček měří rychlost větru pomocí čítače událostí PCF8583 na adrese I2C "
-"0x50 nebo 0x51. Může zastavit vybrané stanice, poslat e-mail nebo spustit "
-"program, pokud jsou překročeny potvrzené úrovně větru."
+"Balíček měří vítr buď z původního čítače PCF8583 na adrese I2C 0x50 nebo "
+"0x51, nebo z větrného senzoru ZTS-3000-FSJT pomocí Modbus RTU přes sdílený "
+"komunikační balíček RS485. Může zastavit vybrané stanice, poslat e-mail nebo "
+"spustit program, pokud jsou překročeny nastavené úrovně větru."
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:11
+msgid ""
+"The original source is a PCF8583 pulse counter connected to the Raspberry Pi "
+"I2C bus; it is not a direct Raspberry Pi GPIO pulse input. Pulses-per-"
+"rotation and speed-per-rotation calibration apply only to this source."
+msgstr ""
+"Původním zdrojem je PCF8583 pulzní čítač připojený k sběrnici Raspberry Pi "
+"I2C. Kalibrace pulzů na rotaci a rychlosti na otáčku platí pouze pro tento "
+"zdroj."
 
 #: plugins/wind_monitor/templates/wind_monitor_help.html:12
+msgid ""
+"When the RS485 source is selected and measurement is enabled, the RS485 "
+"Communication plug-in must be installed, enabled and running. It is not "
+"required for the PCF8583 source. Wind Monitor sends its transactions through "
+"the shared FIFO queue and never opens the serial port directly."
+msgstr ""
+"Když je vybrán zdroj RS485 a měření je povoleno, musí být nainstalován, "
+"nastaven a aktivován balíček RS485. Není to vyžadováno pro PCF8583 zdroj. "
+"Wind Monitor posílá své transakce přes sdílenou FIFO frontu a nikdy neotevře "
+"sériový port přímo."
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:13
+msgid ""
+"The ZTS-3000-FSJT is queried at input register 0 with Modbus function 03. "
+"The returned wind-speed register has a resolution of 0.1 m/s and the second "
+"register contains wind force. Every response is checked for address, "
+"function, length and Modbus CRC before it is accepted."
+msgstr ""
+"ZTS-3000-FSJT je dotazován na vstupním registru 0 pomocí Modbus funkce 03. "
+"Vrácený registr rychlosti větru má rozlišení 0,1 m/s a druhý registr "
+"obsahuje sílu větru. Každá odpověď je před přijetím kontrolována na adresu, "
+"funkci, délku a Modbus CRC."
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:14
+msgid ""
+"The sensor factory settings documented by its manufacturer are Modbus "
+"address 1, 4800 baud and 8N1. Configure communication speed and framing in "
+"RS485 Communication because all devices on one RS485 bus share those serial "
+"settings. Configure the sensor address in Wind Monitor."
+msgstr ""
+"Tovární nastavení senzoru dokumentované výrobcem jsou Modbus adresa 1, 4800 "
+"baudů a 8N1. Nastavte rychlost komunikace a rámec v RS485 balíčku, protože "
+"všechna zařízení na jedné sběrnici RS485 sdílejí tato sériová nastavení. "
+"Nastavte adresu senzoru ve Wind Monitoru."
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:15
+msgid "ZTS-3000-FSJT RS485 wind speed sensor — product page"
+msgstr "Snímač rychlosti větru ZTS-3000-FSJT RS485 — produktová stránka"
+
+#: plugins/wind_monitor/templates/wind_monitor_help.html:17
 msgid ""
 "Each measurement resets the counter, waits approximately ten seconds and "
 "divides the pulse count by the actual monotonic elapsed time. This prevents "
@@ -36762,7 +37486,7 @@ msgstr ""
 "pulzů skutečným monotónním uplynulým časem. To zabraňuje tomu, aby čekání na "
 "zámek I2C nesprávně zvýšilo vypočítanou rychlost větru."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:13
+#: plugins/wind_monitor/templates/wind_monitor_help.html:18
 msgid ""
 "The PCF8583 counter bytes are read directly from registers 0x01 to 0x03 and "
 "every BCD digit is validated. A failed setup, short read or invalid digit is "
@@ -36772,7 +37496,7 @@ msgstr ""
 "ověřena. Neúspěšné nastavení, krátké čtení nebo neplatná číslice je "
 "zamítnuta."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:14
+#: plugins/wind_monitor/templates/wind_monitor_help.html:19
 msgid ""
 "The plausibility filter rejects speeds above the configured maximum accepted "
 "speed. Rejected values do not change the current or maximum speed and cannot "
@@ -36782,7 +37506,7 @@ msgstr ""
 "rychlost. Odmítnuté hodnoty nemění aktuální ani maximální rychlost a nelze "
 "je zaznamenat ani spustit automatickou akci."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:15
+#: plugins/wind_monitor/templates/wind_monitor_help.html:20
 msgid ""
 "Station stopping and e-mail notification require the configured number of "
 "consecutive accepted threshold exceedances. Program actions retain their "
@@ -36792,7 +37516,7 @@ msgstr ""
 "sobě jdoucích přijatých překročení prahu. Programové akce si zachovávají "
 "samostatný počet překročení a časový interval."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:16
+#: plugins/wind_monitor/templates/wind_monitor_help.html:21
 msgid ""
 "The trend compares older and newer samples from approximately the last "
 "minute. The arrow shows rising, falling or steady wind after enough samples "
@@ -36802,7 +37526,7 @@ msgstr ""
 "ukazuje stoupání, klesání nebo stálý vítr po naměření dostatečného množství "
 "vzorků."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:17
+#: plugins/wind_monitor/templates/wind_monitor_help.html:22
 msgid ""
 "The mobile application translates the trend states into the matching "
 "localized arrow and refreshes the expanded operating data automatically."
@@ -36810,25 +37534,29 @@ msgstr ""
 "Mobilní aplikace převádí trendové stavy do odpovídající lokalizované šipky a "
 "automaticky obnovuje rozšířená provozní data."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:18
+#: plugins/wind_monitor/templates/wind_monitor_help.html:23
 msgid ""
-"I2C diagnostic logging records setup, retries, raw counter bytes, actual "
-"elapsed time, pulse rate, calculated speed and rejection reason. The file is "
-"size limited and rotated automatically. Enable it only while investigating a "
+"Measurement diagnostic logging records the selected source and its raw data. "
+"For PCF8583 it includes setup, retries, counter bytes, actual elapsed time "
+"and pulse rate; for RS485 it includes the device address, complete Modbus "
+"response, decoded speed, wind force and protocol errors. The file is size "
+"limited and rotated automatically. Enable it only while investigating a "
 "problem."
 msgstr ""
-"I2C záznamy o diagnostickém záznamu, nastavení záznamů, opakovaných "
-"záznamech, surových dat z čítačů, skutečném uplynulém čase, tepové "
-"frekvenci, vypočítané rychlosti a důvodu odmítnutí. Soubor je omezen "
-"velikostí a automaticky se otáčí. Zapněte ho pouze při vyšetřování problému."
+"Diagnostický záznam měření zaznamenává vybraný zdroj a jeho surová data. Pro "
+"PCF8583 zahrnuje nastavení, opakované pokusy, čítače bajtů, skutečný "
+"uplynulý čas a tepovou frekvenci. Pro RS485 zahrnuje adresu zařízení, "
+"kompletní odezvu Modbus, dekódovanou rychlost, sílu větru a chyby protokolu. "
+"Soubor je omezen velikostí a automaticky se rotuje. Zapněte ho pouze při "
+"vyšetřování problému."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:19
+#: plugins/wind_monitor/templates/wind_monitor_help.html:24
 msgid ""
 "Decimal calibration and threshold values accept both a decimal point and a "
 "decimal comma."
 msgstr "Formulář akceptuje jak desetinnou tečku, tak i desetinnou čárku."
 
-#: plugins/wind_monitor/templates/wind_monitor_help.html:20
+#: plugins/wind_monitor/templates/wind_monitor_help.html:25
 msgid ""
 "One meter per second equals 3.6 kilometers per hour. Measurement accuracy "
 "depends on the pulses-per-rotation and speed-per-rotation calibration."
@@ -36842,52 +37570,83 @@ msgid "Wind Speed Monitor - log"
 msgstr "Rozšíření monitor rychlosti větru - záznam"
 
 #: plugins/wind_monitor/templates/wind_monitor_settings.html:3
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:15
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:22
 msgid "Wind Speed Monitor settings"
 msgstr "Rozšíření monitor rychlosti větru nastavení"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:30
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:37
 msgid "Use wind monitor"
 msgstr "Použít měření větru"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:32
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:38
+msgid "PCF8583 pulse counter (I2C)"
+msgstr "PCF8583 pulzní čítač (I2C)"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:38
+msgid "ZTS-3000-FSJT wind sensor (RS485)"
+msgstr "ZTS-3000-FSJT větrný senzor (RS485)"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:40
 msgid "Number of pulses per rotation"
 msgstr "Počet impulsů na otáčku"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:33
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:41
 msgid "Wind speed per rotation"
 msgstr "Rychlost větru na otočku"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:34
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:42
+msgid "RS485 device address"
+msgstr "Adresa zařízení RS485"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:43
+msgid ""
+"Communication speed and 8N1 framing are configured in the RS485 "
+"Communication plug-in."
+msgstr ""
+"Rychlost komunikace a rámce 8N1 jsou konfigurovány v komunikačním balíčku "
+"RS485."
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:43
+msgid "RS485 line settings"
+msgstr "RS485 nastavení"
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:44
 msgid "Display in km/h"
 msgstr "Zobrazení v km/h"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:37
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:47
 msgid ""
 "Decimal values may be entered with either a decimal point or a decimal comma."
 msgstr "Desetinné hodnoty lze zapisovat buď desetinnou tečkou, nebo čárkou."
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:41
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:48
+msgid ""
+"The RS485 Communication plug-in must be installed, enabled and running only "
+"when this source is selected. The ZTS-3000-FSJT factory settings are address "
+"1, 4800 baud and 8N1."
+msgstr "Tovární nastavení ZTS-3000-FSJT jsou: adresa 1, 4800 baud a 8N1."
+
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:52
 msgid "Measurement validation"
 msgstr "Validace měření"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:43
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:54
 msgid "Filter implausible measurements"
 msgstr "Měření nepravděpodobných filtrů"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:44
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:55
 msgid "Maximum accepted wind speed"
 msgstr "Maximální povolená rychlost větru"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:45
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:56
 msgid "Consecutive measurements for a safety action"
 msgstr "Souvislá měření pro bezpečnostní opatření"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:46
-msgid "Enable I2C diagnostic logging"
-msgstr "Povolit I2C diagnostický záznam"
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:57
+msgid "Enable measurement diagnostic logging"
+msgstr "Povolit diagnostické zaznamenávání měření"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:48
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:59
 msgid ""
 "Rejected measurements are excluded from maximum values, graphs, logs and "
 "automatic actions. Diagnostic logging is bounded and should normally remain "
@@ -36897,87 +37656,87 @@ msgstr ""
 "automatických akcí. Diagnostické záznamy mají omezený počet záznamů a mělo "
 "by normálně zůstat vypnuté."
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:57
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:68
 msgid "Save when maximum speed changes"
 msgstr "Uložit, když se změní maximální rychlost"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:58
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:69
 msgid "Reset maximum speed after an interval"
 msgstr "Resetovat maximální rychlost po určité době"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:60
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:71
 msgid "Maximum reset interval"
 msgstr "Maximální interval resetu"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:62
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:73
 msgid "1 minute"
 msgstr "1 minuta"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:63
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:74
 msgid "10 minutes"
 msgstr "10 minut"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:64
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:75
 msgid "30 minutes"
 msgstr "30 minut"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:66
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:77
 msgid "2 hours"
 msgstr "2 hodiny"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:67
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:78
 msgid "10 hours"
 msgstr "10 hodin"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:68
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:79
 msgid "1 day"
 msgstr "1 den"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:77
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:88
 msgid "Station protection"
 msgstr "Ochrana stanic"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:79
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:90
 msgid "Maximum wind speed for stopping stations"
 msgstr "Maximální rychlost větru pro zastavovení stanic"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:80
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:91
 msgid "Stop selected stations"
 msgstr "Zastavit vybrané stanice"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:82
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:93
 msgid "Stations to stop"
 msgstr "Stanice k zastavení"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:88
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:99
 msgid "Send e-mail when stations are stopped"
 msgstr "Poslat E-mail, když se stanice vypnou"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:95
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:106
 msgid "Program action"
 msgstr "Programová činnost"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:97
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:108
 msgid "Run program when exceeded"
 msgstr "Spustit program při překročení"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:99
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:110
 msgid "Program to run"
 msgstr "Program k spuštění"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:105
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:116
 msgid "Wind speed for starting the program"
 msgstr "Rychlost větru pro zahájení programu"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:106
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:117
 msgid "Number of exceedances"
 msgstr "Počet překročení"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:107
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:118
 msgid "Exceedance interval"
 msgstr "Překročení intervalu"
 
-#: plugins/wind_monitor/templates/wind_monitor_settings.html:108
+#: plugins/wind_monitor/templates/wind_monitor_settings.html:119
 msgid "Ignore further events"
 msgstr "Ignorovat další události"
 
@@ -38156,13 +38915,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "CLI Control plug-in error in help_page GET:\n"
 #~ msgstr "Chyba v rozšíření CLI Control v help_page GET:\n"
-
-#~ msgid ""
-#~ "An internal error was found in the system, see the error log for more "
-#~ "information. "
-#~ msgstr ""
-#~ "V systému byla nalezena interní chyba, více informací naleznete v error "
-#~ "logu. "
 
 #~ msgid "The error is in part: cli_control -> help_page GET"
 #~ msgstr "Chyba je v části: cli_control -> help_page GET"
