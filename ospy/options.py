@@ -1498,9 +1498,11 @@ class _Options(object):
             ) or (
                 isinstance(value, str) and value.isdigit()
             )
-        if key == 'last_response':
+        if key in (
+                'last_response', 'last_log_samples', 'last_low_report',
+                'last_good_report', 'last_high_report'):
             return isinstance(value, (int, float)) and not isinstance(value, bool)
-        if key in ('last_battery', 'rssi'):
+        if key in ('last_battery', 'last_voltage', 'rssi'):
             return isinstance(value, (str, int, float)) and not isinstance(value, bool)
         if key == 'prev_read_value':
             if isinstance(value, (str, int, float, bool)):

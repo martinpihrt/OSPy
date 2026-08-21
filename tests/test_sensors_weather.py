@@ -232,6 +232,22 @@ class SensorStateTests(unittest.TestCase):
         self.assertTrue(compatible(0, 2, "reg_output"))
         self.assertFalse(compatible(0, "invalid", "reg_output"))
 
+    def test_runtime_sensor_observation_types_are_accepted_on_restart(self):
+        compatible = sensors_module.options._compatible_value
+
+        self.assertTrue(compatible("", 230.4, "last_voltage"))
+        self.assertTrue(compatible("", 230, "last_voltage"))
+        self.assertTrue(compatible("", "", "last_voltage"))
+        self.assertFalse(compatible("", True, "last_voltage"))
+        self.assertFalse(compatible("", [], "last_voltage"))
+        for key in (
+                "last_response", "last_log_samples", "last_low_report",
+                "last_good_report", "last_high_report"):
+            self.assertTrue(compatible(0, 1724231745.25, key))
+            self.assertTrue(compatible(0, 1724231745, key))
+            self.assertFalse(compatible(0, True, key))
+            self.assertFalse(compatible(0, "1724231745", key))
+
     def test_legacy_sensor_ip_is_accepted_and_normalized_for_packet_matching(self):
         compatible = sensors_module.options._compatible_value
         legacy_ip = ["192", "168", "88", "232"]
