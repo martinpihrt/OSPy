@@ -5,6 +5,8 @@ API Readme
 
 Native clients should use the versioned JSON API at `/api/v1`. Its complete reference is [Mobile API v1](docs/Mobile_API_v1.md), is available in OSPy Help as **Mobile API v1**, and has a machine-readable description at `/api/v1/openapi.json`. It uses Bearer access tokens, rotating device refresh tokens, scopes, 2FA and Server-Sent Events. The endpoints described below are the older API and remain available for backward compatibility.
 
+Monitoring plug-ins can expose cached measurements through the internal, JSON-safe [plug-in provider contract v1](docs/Provider_Contract_v1.md). The contract is read-only in Stage 1 and is intended for Automation Rules and Irrigation Safety; it does not replace existing plug-in pages or Mobile API contributions.
+
 Mobile login applies the same account-specific 2FA as the web interface. The built-in administrator retains the original global settings; each additional user can independently use TOTP, e-mail verification and one-time backup codes.
 
 The native API also supports installation-scoped immediate push delivery through `GET/POST/PUT/DELETE /api/v1/push` and `POST /api/v1/push/test`. Push is disabled by default and the administrator may edit the prefilled official relay URL. OSPy keeps no Firebase credential or FCM token: it signs an asynchronous request to the configured HTTPS relay. A client that sends the persistent ID of an existing device during login replaces that device's token session without creating a duplicate paired-device row. See [Immediate push notifications](docs/Mobile_API_v1.md#immediate-push-notifications) for the mobile registration flow, relay contract and security boundaries.

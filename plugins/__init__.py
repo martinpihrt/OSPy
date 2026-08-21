@@ -1898,10 +1898,19 @@ def _normalize_plugin_manifest(data, module=None):
         return {}
 
     for key in ('ospy', 'python', 'requirements', 'dependencies', 'hardware',
-                'permissions', 'conflicts'):
+                'permissions', 'conflicts', 'provider'):
         value = manifest.get(key)
         if value is not None and not isinstance(value, (dict, list)):
             return {}
+
+    provider = manifest.get('provider')
+    if provider is not None:
+        if not isinstance(provider, dict):
+            return {}
+        contract = provider.get('contract')
+        if contract != 'ospy.provider.v1':
+            return {}
+        manifest['provider'] = {'contract': contract}
 
     hardware = manifest.get('hardware')
     if isinstance(hardware, dict) and 'i2c' in hardware:
@@ -2625,6 +2634,58 @@ def plugin_mobile_call(module, capability, *args, **kwargs):
     except (TypeError, ValueError):
         raise ValueError('The plug-in mobile response is not valid JSON data.')
     return result
+
+
+def plugin_provider_capabilities(module):
+    """Return a validated common provider declaration from a running plug-in."""
+    from ospy.provider_contracts import validate_capabilities
+
+    if plugin_manifest(module).get('provider', {}).get('contract') != 'ospy.provider.v1':
+        raise RuntimeError('The plug-in does not declare provider contract v1.')
+    if module not in running():
+        raise RuntimeError('The plug-in is not running.')
+    method = getattr(get(module), 'provider_capabilities', None)
+    if not callable(method):
+        raise RuntimeError('The plug-in does not provide data-provider capabilities.')
+    return validate_capabilities(method(), expected_provider_id=module)
+
+
+def plugin_provider_snapshot(module):
+    """Return a validated read-only snapshot from a running provider plug-in."""
+    from ospy.provider_contracts import validate_snapshot
+
+    if plugin_manifest(module).get('provider', {}).get('contract') != 'ospy.provider.v1':
+        raise RuntimeError('The plug-in does not declare provider contract v1.')
+    if module not in running():
+        raise RuntimeError('The plug-in is not running.')
+    method = getattr(get(module), 'provider_snapshot', None)
+    if not callable(method):
+        raise RuntimeError('The plug-in does not provide a data snapshot.')
+    return validate_snapshot(method(), expected_provider_id=module)
+
+
+def plugin_provider_modules():
+    """List running plug-ins implementing both sides of provider contract v1."""
+    result = []
+    for module in running():
+        plugin = get(module)
+        if (plugin_manifest(module).get('provider', {}).get('contract') == 'ospy.provider.v1' and
+                callable(getattr(plugin, 'provider_capabilities', None)) and
+                callable(getattr(plugin, 'provider_snapshot', None))):
+            result.append(module)
+    return sorted(result)
+
+
+def plugin_provider_snapshots():
+    """Collect provider snapshots without allowing one provider to break others."""
+    snapshots = {}
+    errors = {}
+    for module in plugin_provider_modules():
+        try:
+            snapshots[module] = plugin_provider_snapshot(module)
+        except Exception as error:
+            errors[module] = '{}: {}'.format(type(error).__name__, error)
+    return {'providers': snapshots, 'errors': errors}
 
 
 def available():

@@ -4,7 +4,12 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
-## August 17 2026 (v3.0 beta)
+## August 21 2026
+-----------
+(Martin Pihrt)<br/>
+Added the internal read-only `ospy.provider.v1` contract for monitoring plug-ins. OSPy now validates stable JSON formats for values, events, actions and alerts, discovers declared providers, isolates provider failures and collects detached cached snapshots for future Automation Rules and Irrigation Safety stages. Added the contract reference and automated validation, type, timestamp and failure-isolation tests. Existing plug-in behavior is unchanged.
+
+## August 17 2026
 -----------
 (Martin Pihrt)<br/>
 Extended the existing program editor and scheduler with native calendar rules: allowed months and season shortcuts, odd/even calendar dates, selected days of month, exact and annual excluded periods, public-holiday exclusions and persistent global service outages. Weather location lookup now retains the detected country for the locally installed `holidays` library, with an optional administrator override. Added native sunrise and sunset program types that obtain astronomical values from the enabled Sunrise and Sunset plug-in, support signed offsets, earliest/latest start windows and clamp-or-skip behavior, and retain their saved definition when the provider is unavailable. Manual Run Now remains available during calendar blocks and service outages. Extended Mobile API v1, installer dependencies, regression tests, the program reference, root documentation and all seven Web Interface Guides. New interface text uses the existing gettext calls; `.pot`, `.po` and `.mo` files were intentionally left unchanged.
@@ -24,14 +29,14 @@ Fixed the Home water-balance calculation so enabled weather data from the select
 (Martin Pihrt)<br/>
 Extended the Mobile API run log with an OSPy-local calendar-date filter so the Android Home screen can show Yesterday from actual completed station history while Today and Tomorrow remain schedule views. The Android controls now use switch-style Scheduler and Operating mode selectors, and scheduler-disabled timeline reasons are localized instead of displaying the raw API value. Updated every supported Android language, Mobile API documentation and regression coverage.
 
-## August 13 2026 (v3.0 beta)
+## August 13 2026
 -----------
 (Martin Pihrt)<br/>
 Extended Mobile API v1 and the Android client with the same user water-level adjustment and one-time program-group postponement controls as the OSPy web interface. Program responses and atomic create/update requests now preserve validated `group_id`, `/program-groups` exposes membership, next runs and active postponements, and dedicated control endpoints create or cancel postponements using the scheduler's existing safety rules. Fixed serialization of real scheduled group runs so `/program-groups` no longer returns an internal server error when a group has a forthcoming run. Fixed concurrent mobile authentication so normal refresh-token rotation no longer revokes short-lived access tokens already used by foreground, notification and push-registration requests, while logout, renewed pairing and device revocation still invalidate access immediately. Updated OpenAPI, the complete Mobile API reference, root/API documentation, Android README and all five Android translations, increased the Android application to 0.3.21 (28), and added server and client regression coverage.
 
 Added an optional bounded duration to direct Mobile API station starts. Android can now start a station indefinitely with a short tap or open a localized minutes-and-seconds dialog with a long press; timed runs stop through the normal scheduler path and expose a live remaining-time countdown. Updated OpenAPI and the Mobile API reference and added duration validation regression tests.
 
-## August 11 2026 (v3.0 beta)
+## August 11 2026
 -----------
 (Martin Pihrt)<br/>
 Modernized additional-user administration with a responsive account overview, role and 2FA badges, accessible account forms, safer destructive actions and a protected per-user security reset. Fixed existing-user password changes, optional password preservation during editing, duplicate-name validation, role validation, error reporting and partial writes after failed validation. The original built-in administrator and its global 2FA storage remain unchanged for backward compatibility; every additional user now has independent optional TOTP or e-mail verification and backup codes, while older records load with 2FA disabled without migration. The signed-in account can configure its own security from the common header, and additional administrators can no longer modify the built-in administrator's 2FA. Changing passwords, account identity or 2FA revokes remembered browser logins. Added regression coverage and updated all seven Web Interface Guides.
@@ -44,7 +49,7 @@ Added a localized link to the official OSPy Android application in Google Play t
 
 Added safe cleanup of paired-device history. Active devices still have to be revoked first so their refresh tokens and push subscription are invalidated. An administrator can then permanently delete one revoked record or all revoked records together; forged deletion requests cannot remove active devices. The push relay field is now prefilled with the official OSPy relay URL while push delivery remains disabled by default and the value remains editable. Added storage, API and template regression coverage and updated the root and API documentation. New gettext source calls are documented for translation and the existing `.pot`, `.po` and `.mo` catalogs are left unchanged.
 
-## August 10 2026 (v3.0 beta)
+## August 10 2026
 -----------
 (Martin Pihrt)<br/>
 Added complete OSPy-side support for immediate native mobile push notifications. Options now contains a **Mobile applications** card between **Users** and **Security**, with an administrator page for the HTTPS relay, paired-device status, per-device notification categories, test delivery, push unregistration and full device revocation. Added installation-scoped subscriptions linked to the existing paired-device database, redacted administration/API responses, automatic cleanup on revocation and authenticated HMAC-SHA256 relay requests without storing Firebase credentials or FCM tokens in OSPy. Notification delivery uses a bounded daemon queue and records delivery results, so a relay or Internet outage cannot block irrigation scheduling or output control.
@@ -57,7 +62,7 @@ System download backups now create and verify a transactionally consistent SQLit
 
 Improved Cloudflare remote-access installation and footer discovery. Cloudflare Quick Tunnel now probes the running local OSPy service and selects `http://127.0.0.1:8080` or `https://127.0.0.1:8080 --no-tls-verify`, preventing a local HTTPS installation from producing a 502 response. Managed Cloudflare Tunnel setup requests and validates the user's public hostname, stores only its normalized HTTPS URL in `/etc/ospy/cloudflare_public_url`, never stores the Tunnel token in OSPy and preserves an already active `cloudflared.service`. The footer recognizes both managed and Quick services, gives a valid active managed URL priority and otherwise safely falls back to the current strict `https://*.trycloudflare.com` address. Updated the clean-installation guide and offline regression coverage; all hostnames in source and documentation remain generic user-supplied examples.
 
-## August 9 2026 (v3.0 beta)
+## August 9 2026
 -----------
 (Martin Pihrt)<br/>
 Energy Meter v1.0.1 adds multi-meter electricity and photovoltaic monitoring with direct local Shelly RPC as the recommended source and Shelly Cloud Integration as an optional source. It records L1–L3 and total import/export, preserves counter baselines across restart and meter replacement, calculates daily/monthly/yearly energy, tariffs, cost, feed-in income, house consumption, self-consumption, independence and solar savings, and provides local JSON or optional SQL history, CSV, responsive graphs, Home data, diagnostics and mobile API cards. Version 1.0.1 also fixes web template block indentation so settings and empty history render completely, keeps the OSPy footer outside the history table and aligns the framing with Wind Speed Monitor. Shelly Cloud Integration v1.0.3 now exposes active returned-energy counters for three-phase meters. Updated the plug-in lists and Energy Meter behavior in all seven Web Interface Guides without modifying gettext catalogs.
