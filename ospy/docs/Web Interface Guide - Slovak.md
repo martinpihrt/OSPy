@@ -303,6 +303,11 @@ Po kliknutí na tlačidlo "Odhlásiť sa" sa užívateľ odhlási zo systému.
 
 ----
 
+# Doplnok Pravidlá automatizácie
+Voliteľný doplnok **Automation Rules** vytvára grafické monitorovacie pravidlá z hodnôt uložených vo vyrovnávacej pamäti doplnkov Water Meter, Pressure Monitor, Tank Monitor a Current Loop Tanks Monitor. Pravidlo môže vyžadovať všetky podmienky (AND) alebo aspoň jednu podmienku (OR), čakať na trvalé splnenie, opakovať upozornenie a oznámiť návrat do normálu. Testovací režim iba zaznamenáva rozhodnutia; tlačidlo **Otestovať oznámenia** skutočne overí vybrané kanály Home, prehliadač, e-mail, Telegram a mobilný push. História akcií zobrazuje výsledky vyhodnotenia aj doručenia. Automation Rules priamo neovláda výstupy zavlažovania.
+
+----
+
 # Dvojfázové zabezpečenie (2FA)
 Dvojfázové overenie chráni hlavný administrátorský účet druhým krokom po zadaní hesla. Otvorte **Nastavenia → Dvojfázové zabezpečenie → Konfigurovať** a vyberte práve jednu metódu: **Autentifikačná aplikácia (TOTP)**, **Kód odoslaný e-mailom** alebo **Vypnuté**. Obe metódy nemôžu byť aktívne súčasne.
 

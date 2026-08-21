@@ -302,6 +302,11 @@ Po kliknutí na tlačítko "Odhlásit se" se uživatel odhlásí ze systému.
 
 ----
 
+# Plugin Pravidla automatizace
+Volitelný plugin **Automation Rules** vytváří grafická monitorovací pravidla z hodnot uložených v mezipaměti pluginů Water Meter, Pressure Monitor, Tank Monitor a Current Loop Tanks Monitor. Pravidlo může vyžadovat všechny podmínky (AND) nebo alespoň jednu podmínku (OR), čekat na trvalé splnění, opakovat upozornění a oznámit návrat do normálu. Testovací režim pouze zaznamenává rozhodnutí; tlačítko **Otestovat oznámení** skutečně ověří vybrané kanály Home, prohlížeč, e-mail, Telegram a mobilní push. Historie akcí zobrazuje výsledky vyhodnocení i doručení. Automation Rules přímo neovládá výstupy zavlažování.
+
+----
+
 # Dvoufázové zabezpečení (2FA)
 Dvoufázové ověření chrání hlavní administrátorský účet druhým krokem po zadání hesla. Otevřete **Nastavení → Dvoufázové zabezpečení → Nastavit** a zvolte právě jednu možnost: **Autentizační aplikace (TOTP)**, **Kód zaslaný e-mailem**, nebo **Vypnuto**. Obě metody nelze používat současně.
 

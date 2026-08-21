@@ -302,6 +302,11 @@ After clicking the "Logging out" button, the user logs out of the system.
 
 ----
 
+# Automation Rules plug-in
+The optional **Automation Rules** plug-in creates graphical monitoring rules from cached values supplied by Water Meter, Pressure Monitor, Tank Monitor and Current Loop Tanks Monitor. A rule can require all conditions (AND) or at least one condition (OR), wait until a condition remains true, repeat an alert and report recovery. Test mode records decisions without sending anything; **Test notifications** explicitly verifies the selected Home, browser, e-mail, Telegram and mobile push channels. The action history shows evaluation and delivery results. Automation Rules does not directly control irrigation outputs.
+
+----
+
 # Two-factor security (2FA)
 Two-factor authentication protects the main administrator account with a second verification step after the password. Open **Options → Two-factor security → Configure** and choose exactly one method: **Authenticator application (TOTP)**, **Code sent by e-mail**, or **Disabled**. The two methods cannot be active at the same time.
 

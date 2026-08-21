@@ -21,6 +21,8 @@ The native Android controls also use Mobile API v1 for user water-level adjustme
 
 Existing irrigation programs support calendar-aware scheduling: allowed months and season shortcuts, odd/even calendar dates, selected days of month, exact or annual excluded ranges, public holidays and global service outages. Native sunrise and sunset program types use the enabled **Sunrise and Sunset** plug-in as their astronomical provider and add an offset, earliest/latest start window and clamp-or-skip policy. Existing programs retain their previous behavior until one of these rules is enabled. See [OSPy Programs](ospy/docs/Programs.md).
 
+The optional **Automation Rules** plug-in builds graphical AND/OR conditions over cached values supplied by Water Meter, Pressure Monitor, Tank Monitor and Current Loop Tanks Monitor. It supports confirmation and repeat intervals, recovery messages, a safe test mode, action history and notifications on OSPy Home, in an open browser, by e-mail, Telegram and native mobile push. Automation Rules is monitoring-only and does not directly control irrigation outputs.
+
 The built-in administrator retains the original OSPy two-factor settings. Additional accounts are managed on the responsive **Options → Users** page and can independently enable TOTP or e-mail verification from **Account security** after signing in. Existing additional accounts remain compatible and start with 2FA disabled; administrators can reset a lost user pairing without seeing its secret or backup codes.
 
 ## Emergency administrator login recovery

@@ -30,6 +30,8 @@ def notification_category(event_type, code):
         return "diagnostics"
     if event_type == "updates" or str(code).startswith("update_"):
         return "updates"
+    if event_type == "automation" or str(code).startswith("automation_rule_"):
+        return "automation"
     return "other"
 
 

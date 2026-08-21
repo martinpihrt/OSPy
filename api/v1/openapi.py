@@ -125,6 +125,7 @@ def document(server_url="/api/v1"):
     add("/backups/{backup_id}/restore", ["POST"], "Stage and restore a backup", "backup")
     add("/updates", ["GET"], "Update status", "read")
     add("/updates/actions/{action}", ["POST"], "Check, apply or roll back an update", "update")
+    add("/service-outages", ["GET"], "List service outages", "read")
     add("/system/actions/{action}", ["POST"], "Restart OSPy, reboot or power off", "system")
     add("/operations/{operation_id}", ["GET"], "Long-running operation status", "read")
 

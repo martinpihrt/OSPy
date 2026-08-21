@@ -46,7 +46,7 @@ Content-Type: application/json
   "subscription_id": "opaque-relay-subscription-id",
   "send_secret": "at-least-32-random-characters",
   "enabled": true,
-  "categories": ["station_started", "station_stopped", "rain", "diagnostics"]
+  "categories": ["station_started", "station_stopped", "rain", "diagnostics", "automation"]
 }
 ```
 
@@ -63,6 +63,7 @@ Supported category identifiers are:
 | `rain` | Rain sensor and rain-delay changes |
 | `diagnostics` | Component and system health failures/recovery |
 | `updates` | Update availability and results |
+| `automation` | Automation Rules trigger, reminder, recovery and test events |
 | `other` | Test and uncategorized notifications |
 
 ### OSPy-to-relay request contract
@@ -164,7 +165,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Plug-ins | `GET /plugins`, `/plugins/{id}`, `/plugins/{id}/mobile`, `POST /plugins/{id}/actions/{action}` |
 | Backups | `GET/POST /backups`, `GET /backups/{id}/download`, `POST /backups/{id}/restore` |
 | Updates | `GET /updates`, `POST /updates/actions/check|apply|rollback` |
-| System | `POST /system/actions/restart-ospy|reboot|poweroff` |
+| System | `GET /service-outages`, `POST /system/actions/restart-ospy|reboot|poweroff` |
 | Operations | `GET /operations/{id}` |
 
 ## Main resources
@@ -181,7 +182,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 - `/diagnostics/summary|components|incidents|security|translations`.
 - `/notifications`, acknowledgement of one item or `all`.
 - `/plugins`, plug-in health and optional mobile contributions.
-- `/backups`, `/updates`, `/system/actions/*` and `/operations/{id}`.
+- `/backups`, `/updates`, `/service-outages`, `/system/actions/*` and `/operations/{id}`.
 
 State-changing calls use `POST` or `PUT` with a JSON object. OSPy applies the same station and scheduler safety rules as the web interface. Stop All also ends run-now and run-once scheduling and switches off the master relay.
 
@@ -369,6 +370,8 @@ History returns an array plus `offset`, `limit`, `total` and `has_more` metadata
 
 Notification `type` and `code` fields are stable machine values. Native clients should choose a localized title and message from `code` and structured `data` (for example the station name for `station_started` or `station_stopped`). Server-supplied `title` and `message` are display fallbacks and must not be parsed to determine behavior.
 
+Automation Rules uses notification type `automation`, codes `automation_rule_triggered`, `automation_rule_repeated`, `automation_rule_cleared` and `automation_rule_notification_test`, and includes `rule_id`, `rule_name` and `event` in structured `data`.
+
 ## Live changes
 
 `GET /api/v1/stream` is a Server-Sent Events endpoint. Clients reconnect using `Last-Event-ID`. If SSE is unavailable, use `/changes?after={event_id}`. The stream is replayable within a bounded in-memory window; the client should refresh `/overview` after a long disconnect.
@@ -531,6 +534,8 @@ These administrator operations return an operation identifier. Follow `/operatio
 ### Update and system endpoints
 
 `GET /updates` returns System Update health. `/updates/actions/check|apply|rollback` requires the running System Update plug-in. `POST /updates/actions/apply` installs from the channel already selected in System Update; it does not silently change stable/beta selection. The mobile client should ask for confirmation, display the asynchronous operation state and reconnect after the controlled restart. System actions are `/system/actions/restart-ospy`, `/reboot` and `/poweroff`.
+
+`GET /service-outages` is a read-only list of the service outages configured on the OSPy Programs page. Each item contains stable `id`, display `name`, local ISO 8601 `start` and `end`, `scope` and a Boolean `active` value calculated by OSPy. Mobile clients may display this list but create and delete outages only through the authoritative web interface.
 
 Long operations return HTTP `202` with an operation object. Poll `GET /operations/{id}` until `status` is `completed` or `failed`; fields include `kind`, `progress`, `result`, `error`, `created` and `updated`.
 

@@ -71,6 +71,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         )
         self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
         self.assertIn("/schedule", document["paths"])
+        self.assertIn("/service-outages", document["paths"])
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")
@@ -79,6 +80,8 @@ class MobileAPIV1Tests(unittest.TestCase):
 
     def test_device_can_register_update_and_remove_push_subscription(self):
         token, refresh = self._token(("read",), role="user")
+        response = self._request("/push", token)
+        self.assertIn("automation", self._json(response)["data"]["categories"])
         response = self._request(
             "/push", token, method="POST", data={
                 "subscription_id": "subscription-identifier-12345",
@@ -118,6 +121,29 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertEqual(
             self._json(response)["error"]["code"], "invalid_push_categories"
         )
+
+    def test_read_scope_lists_service_outages(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read",), role="user")
+        previous = api.options.calendar_service_outages
+        try:
+            api.options.calendar_service_outages = [{
+                    "id": "maintenance-1",
+                    "name": "Pump maintenance",
+                    "start": "2026-08-22T08:00",
+                    "end": "2026-08-22T10:00",
+                    "scope": "all",
+            }]
+            response = self._request("/service-outages", token)
+            self.assertEqual(response.status, "200 OK")
+            outage = self._json(response)["data"][0]
+            self.assertEqual(outage["id"], "maintenance-1")
+            self.assertEqual(outage["name"], "Pump maintenance")
+            self.assertEqual(outage["scope"], "all")
+            self.assertIn("active", outage)
+        finally:
+            api.options.calendar_service_outages = previous
 
     def test_read_token_lists_stations_but_cannot_control(self):
         token, unused_refresh = self._token(("read",), role="user")

@@ -41,6 +41,7 @@ API_FEATURES = [
     "program_group_postponement", "program_calendar", "solar_programs",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse", "push_notifications",
+    "service_outages",
 ]
 _hooks_lock = threading.Lock()
 _hooks_ready = False
@@ -2077,6 +2078,35 @@ class Updates(object):
         return respond(result)
 
 
+def _service_outages_data():
+    now = datetime.datetime.now()
+    result = []
+    for source in getattr(options, "calendar_service_outages", []) or []:
+        if not isinstance(source, dict):
+            continue
+        try:
+            start = _program_datetime(source.get("start"))
+            end = _program_datetime(source.get("end"))
+        except (TypeError, ValueError, OverflowError):
+            continue
+        result.append({
+            "id": str(source.get("id", "")),
+            "name": str(source.get("name", "")),
+            "start": start.isoformat(timespec="minutes"),
+            "end": end.isoformat(timespec="minutes"),
+            "scope": str(source.get("scope", "all") or "all"),
+            "active": start <= now < end,
+        })
+    return sorted(result, key=lambda item: (item["start"], item["id"]))
+
+
+class ServiceOutages(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        return respond(_service_outages_data())
+
+
 class UpdateAction(object):
     @endpoint
     @require_scope("update")
@@ -2501,6 +2531,7 @@ URLS = (
     "/backups/([^/]+)/restore", BackupRestore,
     "/updates", Updates,
     "/updates/actions/([^/]+)", UpdateAction,
+    "/service-outages", ServiceOutages,
     "/system/actions/([^/]+)", SystemAction,
     "/operations/([^/]+)", Operation,
 )

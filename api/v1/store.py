@@ -24,7 +24,7 @@ MAX_NOTIFICATIONS = 1000
 MAX_OPERATIONS = 500
 PUSH_CATEGORIES = (
     "station_started", "station_stopped", "rain", "diagnostics",
-    "updates", "other",
+    "updates", "automation", "other",
 )
 
 

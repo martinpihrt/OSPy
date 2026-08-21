@@ -1425,3 +1425,8 @@ Dla TOTP uruchom raz `python setup.py install`, jeśli brakuje obsługi QR. Zesk
 Weryfikacja e-mail jest dostępna tylko wtedy, gdy **E-mail Notifications SSL** jest zainstalowany, uruchomiony oraz ma skonfigurowany serwer SMTP, konto, hasło i odbiorcę. Podczas włączania OSPy natychmiast wysyła kod potwierdzający. Kody logowania są ważne pięć minut i nigdy nie trafiają do kolejki ponownych wysyłek wtyczki.
 
 Po włączeniu zapisz bezpiecznie wyświetlone jednorazowe kody zapasowe. Każdy może raz zastąpić drugi składnik, po czym zostaje usunięty; kody nie są ponownie wyświetlane. Zmiana lub wyłączenie 2FA unieważnia wszystkie zapamiętane logowania przeglądarek. W przypadku utraty telefonu lub braku e-maila użyj kodu zapasowego; bez niego trzeba przywrócić kopię konfiguracji albo lokalnie zresetować 2FA na urządzeniu OSPy.
+
+----
+
+# Wtyczka Automation Rules
+Opcjonalna wtyczka **Automation Rules** tworzy graficzne reguły monitorowania z buforowanych wartości dostarczanych przez Water Meter, Pressure Monitor, Tank Monitor i Current Loop Tanks Monitor. Reguła może wymagać wszystkich warunków (AND) albo co najmniej jednego warunku (OR), czekać na trwałe spełnienie, powtarzać alarm i zgłaszać powrót do normy. Tryb testowy zapisuje decyzje bez wysyłania wiadomości; **Testuj powiadomienia** jawnie sprawdza wybrane kanały Home, przeglądarkę, e-mail, Telegram i mobilne push. Historia akcji pokazuje wyniki oceny i dostarczenia. Automation Rules nie steruje bezpośrednio wyjściami nawadniania.

@@ -9,6 +9,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 (Martin Pihrt)<br/>
 Added the internal read-only `ospy.provider.v1` contract for monitoring plug-ins. OSPy now validates stable JSON formats for values, events, actions and alerts, discovers declared providers, isolates provider failures and collects detached cached snapshots for future Automation Rules and Irrigation Safety stages. Added the contract reference and automated validation, type, timestamp and failure-isolation tests. Existing plug-in behavior is unchanged.
 
+(Martin Pihrt)<br/>
+Added a dedicated `automation` mobile push category and a read-only Mobile API endpoint for configured service outages. The native application can now filter and localize Automation Rules events independently, display the actual rule name and show active, scheduled and ended outages in its System tab. Added the Automation Rules overview to the root README and all seven Web Interface Guides. Existing `.pot`, `.po` and `.mo` files were not modified.
+
 ## August 17 2026
 -----------
 (Martin Pihrt)<br/>

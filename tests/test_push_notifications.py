@@ -128,6 +128,10 @@ class PushNotificationTests(unittest.TestCase):
             "station_stopped",
         )
         self.assertEqual(notification_category("rain", "rain_active"), "rain")
+        self.assertEqual(
+            notification_category("automation", "automation_rule_triggered"),
+            "automation",
+        )
 
 
 if __name__ == "__main__":

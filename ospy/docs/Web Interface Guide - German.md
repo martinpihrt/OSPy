@@ -303,6 +303,11 @@ Nach dem Klicken auf die Schaltfläche „Abmelden“ meldet sich der Benutzer v
 
 ----
 
+# Automation-Rules-Plug-in
+Das optionale Plug-in **Automation Rules** erstellt grafische Überwachungsregeln aus zwischengespeicherten Werten von Water Meter, Pressure Monitor, Tank Monitor und Current Loop Tanks Monitor. Eine Regel kann alle Bedingungen (AND) oder mindestens eine Bedingung (OR) verlangen, eine dauerhafte Erfüllung abwarten, Warnungen wiederholen und die Rückkehr zum Normalzustand melden. Der Testmodus zeichnet Entscheidungen auf, ohne Nachrichten zu senden; **Benachrichtigungen testen** prüft ausdrücklich die gewählten Kanäle Home, Browser, E-Mail, Telegram und mobilen Push. Der Aktionsverlauf zeigt Auswertungs- und Zustellergebnisse. Automation Rules steuert die Bewässerungsausgänge nicht direkt.
+
+----
+
 # Zwei-Faktor-Sicherheit (2FA)
 Die Zwei-Faktor-Authentifizierung schützt das Hauptadministratorkonto durch einen zweiten Prüfschritt nach dem Passwort. Öffnen Sie **Optionen → Zwei-Faktor-Sicherheit → Konfigurieren** und wählen Sie genau eine Methode: **Authentifizierungs-App (TOTP)**, **Code per E-Mail** oder **Deaktiviert**. Beide Methoden können nicht gleichzeitig aktiv sein.
 
