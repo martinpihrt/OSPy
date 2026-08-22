@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-08-22 11:41+0200\n"
-"PO-Revision-Date: 2026-08-22 11:55+0200\n"
+"POT-Creation-Date: 2026-08-22 13:41+0200\n"
+"PO-Revision-Date: 2026-08-22 14:06+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -794,9 +794,12 @@ msgstr ". dnů "
 #: ospy/helpers.py:440 ospy/helpers.py:441 ospy/helpers.py:1360
 #: ospy/templates/sensors.html:84 ospy/templates/sensors_search.html:56
 #: ospy/templates/sensors_search.html:61 ospy/templates/sensors_search.html:67
-#: ospy/templates/users.html:67 plugins/automation_rules/__init__.py:329
-#: plugins/automation_rules/__init__.py:334
-#: plugins/automation_rules/__init__.py:335
+#: ospy/templates/users.html:67 plugins/automation_rules/__init__.py:415
+#: plugins/automation_rules/__init__.py:420
+#: plugins/automation_rules/__init__.py:421
+#: plugins/automation_rules/__init__.py:425
+#: plugins/automation_rules/__init__.py:426
+#: plugins/automation_rules/__init__.py:706
 #: plugins/ip_scanner/templates/ip_scanner.html:133
 #: plugins/shelly_cloud_integrator/__init__.py:225
 #: plugins/shelly_cloud_integrator/__init__.py:284
@@ -819,7 +822,7 @@ msgid "Access"
 msgstr "Přístup"
 
 #: ospy/helpers.py:285
-#: plugins/automation_rules/templates/automation_rules.html:100
+#: plugins/automation_rules/templates/automation_rules.html:105
 msgid "Operator"
 msgstr "Operátor"
 
@@ -860,11 +863,12 @@ msgstr "Nahraný soubor je větší než maximální konfigurovaná velikost."
 
 #: ospy/helpers.py:688 ospy/programs.py:62 ospy/templates/log.html:137
 #: ospy/templates/log_user.html:28 ospy/templates/sensors.html:475
+#: plugins/automation_rules/__init__.py:344
 #: plugins/email_notifications/__init__.py:146
 #: plugins/email_notifications/__init__.py:150
 #: plugins/email_notifications_ssl/__init__.py:215
 #: plugins/email_notifications_ssl/__init__.py:220
-#: plugins/mqtt_home_assistant/__init__.py:849 plugins/sms_adj/__init__.py:483
+#: plugins/mqtt_home_assistant/__init__.py:849
 #: plugins/thermostat/templates/thermostat.html:150
 #: plugins/thermostat/templates/thermostat.html:155
 msgid "Program"
@@ -1257,7 +1261,7 @@ msgstr "Linux nebo root úložiště vyžaduje okamžitou pozornost."
 
 #: ospy/linux_health.py:494 ospy/linux_health.py:521
 #: ospy/templates/log.html:217 ospy/webpages.py:4555
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 msgid "Critical"
 msgstr "Kritické"
 
@@ -1288,7 +1292,7 @@ msgstr "Kontroly Linuxu a úložiště odhalily věci, které vyžadují pozorno
 #: ospy/linux_health.py:505 ospy/linux_health.py:520
 #: ospy/templates/diagnostics.html:543 ospy/templates/log.html:217
 #: ospy/templates/programs.html:193 ospy/webpages.py:4554
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 #: plugins/relay_16/templates/relay_16_help.html:15
 msgid "Warning"
 msgstr "Varování"
@@ -1322,7 +1326,7 @@ msgstr "V pořádku"
 
 #: ospy/linux_health.py:522 ospy/linux_health.py:526
 #: ospy/templates/log.html:217 ospy/webpages.py:4556 ospy/webpages.py:4557
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 msgid "Information"
 msgstr "Informace"
 
@@ -3142,7 +3146,7 @@ msgstr "Baterie"
 #: ospy/sensors.py:499 ospy/sensors.py:507 ospy/sensors.py:1640
 #: ospy/templates/graph_sensor.html:9 ospy/templates/log_sensor.html:9
 #: ospy/templates/log_sensor.html:78 ospy/templates/sensor.html:440
-#: ospy/templates/sensors.html:850 plugins/automation_rules/__init__.py:192
+#: ospy/templates/sensors.html:850 plugins/automation_rules/__init__.py:199
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
@@ -3154,7 +3158,6 @@ msgid "Voltage"
 msgstr "Napětí"
 
 #: ospy/sensors.py:500 ospy/sensors.py:508 ospy/templates/log_sensor.html:79
-#: plugins/sms_adj/__init__.py:275
 msgid "Signal"
 msgstr "Signál"
 
@@ -3264,7 +3267,7 @@ msgstr "Snímač: {} nyní odpovídá"
 #: ospy/sensors.py:1207 ospy/sensors.py:1222 ospy/sensors.py:1287
 #: ospy/sensors.py:1359 ospy/sensors.py:1385 ospy/sensors.py:1404
 #: ospy/sensors.py:1420 ospy/sensors.py:1494 ospy/sensors.py:1519
-#: plugins/automation_rules/__init__.py:255
+#: plugins/automation_rules/__init__.py:262
 msgid "Sensor {}"
 msgstr "Snímač {}"
 
@@ -3306,7 +3309,7 @@ msgstr "Vlhkost {}%"
 #: ospy/templates/sensors.html:63 ospy/templates/sensors_search.html:53
 #: plugins/air_temp_humi/__init__.py:249 plugins/air_temp_humi/__init__.py:296
 #: plugins/air_temp_humi/__init__.py:356
-#: plugins/automation_rules/__init__.py:191
+#: plugins/automation_rules/__init__.py:198
 #: plugins/email_reader/__init__.py:894
 #: plugins/mqtt_home_assistant/__init__.py:1124
 #: plugins/mqtt_home_assistant/__init__.py:1133
@@ -3448,6 +3451,8 @@ msgstr "Oznámení snímače"
 #: ospy/templates/sensors.html:752 plugins/air_temp_humi/__init__.py:331
 #: plugins/air_temp_humi/__init__.py:344
 #: plugins/air_temp_humi/templates/air_temp_humi.html:425
+#: plugins/automation_rules/__init__.py:347
+#: plugins/automation_rules/__init__.py:351
 #: plugins/button_control/templates/button_control.html:140
 #: plugins/current_loop_tanks_monitor/__init__.py:313
 #: plugins/current_loop_tanks_monitor/__init__.py:339
@@ -3774,7 +3779,7 @@ msgstr "%RV"
 
 #: ospy/sensors.py:1748 ospy/templates/sensors.html:828
 #: plugins/air_temp_humi/__init__.py:297 plugins/air_temp_humi/__init__.py:529
-#: plugins/automation_rules/__init__.py:193
+#: plugins/automation_rules/__init__.py:200
 #: plugins/email_notifications_ssl/__init__.py:524
 #: plugins/email_reader/__init__.py:895 plugins/lcd_display/__init__.py:826
 #: plugins/mqtt_home_assistant/__init__.py:1120
@@ -3806,7 +3811,7 @@ msgstr "FV výkon 3"
 msgid "Lux"
 msgstr "Lux"
 
-#: ospy/sensors.py:1777 plugins/automation_rules/__init__.py:194
+#: ospy/sensors.py:1777 plugins/automation_rules/__init__.py:201
 #: plugins/email_notifications_ssl/__init__.py:544
 #: plugins/lcd_display/__init__.py:846
 #: plugins/shelly_cloud_integrator/__init__.py:1675
@@ -4039,7 +4044,7 @@ msgstr "Chyba při odstraňování session souboru {}: {}"
 msgid "Session database has been reset."
 msgstr "Databáze relací byla resetována."
 
-#: ospy/server.py:503 plugins/__init__.py:2942
+#: ospy/server.py:503 plugins/__init__.py:2974
 msgid "Plug-in threads did not stop in time"
 msgstr "Vlákna balíčku nezastavila včas"
 
@@ -4367,7 +4372,7 @@ msgstr "Konfigurace snímačů"
 #: ospy/templates/help_print.html:3 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:294
-#: plugins/automation_rules/templates/automation_rules.html:16
+#: plugins/automation_rules/templates/automation_rules.html:17
 #: plugins/button_control/templates/button_control.html:65
 #: plugins/chmi/templates/chmi.html:195
 #: plugins/cli_control/templates/cli_control.html:95
@@ -4404,7 +4409,6 @@ msgstr "Konfigurace snímačů"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:52
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
 #: plugins/signaling_examples/templates/signaling_examples.html:31
-#: plugins/sms_adj/templates/sms_adj.html:67
 #: plugins/speed_monitor/templates/speed_monitor.html:278
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
@@ -5908,7 +5912,7 @@ msgstr "Omezené"
 msgid "Supported"
 msgstr "Podporováno"
 
-#: ospy/templates/diagnostics.html:315 plugins/automation_rules/__init__.py:323
+#: ospy/templates/diagnostics.html:315 plugins/automation_rules/__init__.py:407
 msgid "Unsupported"
 msgstr "Nepodporováno"
 
@@ -5924,9 +5928,11 @@ msgstr "Volba"
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:492
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/__init__.py:746 plugins/chmi/__init__.py:485
+#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:615
+#: plugins/automation_rules/__init__.py:618
+#: plugins/automation_rules/__init__.py:1224
+#: plugins/automation_rules/__init__.py:1225
+#: plugins/automation_rules/__init__.py:1226 plugins/chmi/__init__.py:485
 #: plugins/chmi/__init__.py:488 plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5947,9 +5953,7 @@ msgstr "Volba"
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
-#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
-#: plugins/speed_monitor/__init__.py:196
+#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -5972,9 +5976,11 @@ msgstr "Ano"
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:492
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/__init__.py:746 plugins/chmi/__init__.py:485
+#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:615
+#: plugins/automation_rules/__init__.py:618
+#: plugins/automation_rules/__init__.py:1224
+#: plugins/automation_rules/__init__.py:1225
+#: plugins/automation_rules/__init__.py:1227 plugins/chmi/__init__.py:485
 #: plugins/chmi/__init__.py:488 plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5996,9 +6002,7 @@ msgstr "Ano"
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
-#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
-#: plugins/speed_monitor/__init__.py:196
+#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -6018,7 +6022,7 @@ msgid "No"
 msgstr "Ne"
 
 #: ospy/templates/diagnostics.html:321 ospy/webpages.py:3754
-#: ospy/webpages.py:5751
+#: ospy/webpages.py:5751 plugins/automation_rules/__init__.py:409
 msgid "Blocked"
 msgstr "Zablokováno"
 
@@ -6212,8 +6216,8 @@ msgstr "Diagnostika odhalila následující chyby:"
 #: ospy/templates/diagnostics.html:436 ospy/templates/diagnostics.html:544
 #: ospy/templates/home_admin.html:74 ospy/templates/log.html:217
 #: ospy/templates/log_sensor.html:92 ospy/templates/log_sensor.html:112
-#: plugins/automation_rules/__init__.py:324
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/__init__.py:408
+#: plugins/automation_rules/templates/automation_rules.html:162
 #: plugins/database_connector/__init__.py:85
 #: plugins/ip_cam/templates/ip_cam.html:174
 #: plugins/mqtt_home_assistant/__init__.py:1334
@@ -6234,7 +6238,7 @@ msgstr "Problém"
 #: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
 #: ospy/templates/plugins_manage.html:435
 #: ospy/templates/plugins_manage.html:481
-#: plugins/automation_rules/templates/automation_rules.html:68
+#: plugins/automation_rules/templates/automation_rules.html:72
 msgid "Details"
 msgstr "Detaily"
 
@@ -6300,7 +6304,7 @@ msgid "Enabled plug-in is not running."
 msgstr "Povolený balíček neběží."
 
 #: ospy/templates/diagnostics.html:517 ospy/webpages.py:3098
-#: plugins/__init__.py:1719 plugins/__init__.py:2992
+#: plugins/__init__.py:1719 plugins/__init__.py:3024
 msgid "Plug-in permission approval is required"
 msgstr "Je vyžadováno schválení povolení balíčku"
 
@@ -6359,8 +6363,8 @@ msgstr ""
 #: ospy/templates/diagnostics.html:650 ospy/templates/diagnostics.html:1382
 #: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 #: ospy/templates/options.html:306 ospy/templates/twofactor.html:65
-#: ospy/templates/twofactor.html:84 plugins/automation_rules/__init__.py:354
-#: plugins/automation_rules/__init__.py:502 plugins/lcd_display/__init__.py:510
+#: ospy/templates/twofactor.html:84 plugins/automation_rules/__init__.py:445
+#: plugins/automation_rules/__init__.py:631 plugins/lcd_display/__init__.py:510
 #: plugins/lcd_display/__init__.py:543 plugins/pressure_monitor/__init__.py:212
 #: plugins/pressure_monitor/__init__.py:213
 #: plugins/pressure_monitor/__init__.py:278
@@ -6413,7 +6417,7 @@ msgid "Diagnostics history refresh failed."
 msgstr "Obnova diagnostické historie selhala."
 
 #: ospy/templates/diagnostics.html:979 plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/chmi/__init__.py:491
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -6439,7 +6443,7 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:435
@@ -6462,7 +6466,7 @@ msgid "Stopped"
 msgstr "Zastaveno"
 
 #: ospy/templates/diagnostics.html:979 plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/chmi/__init__.py:491
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -6485,7 +6489,7 @@ msgstr "Zastaveno"
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:435
@@ -6521,8 +6525,8 @@ msgstr "Běží"
 #: ospy/templates/users.html:54 ospy/templates/users.html:69
 #: ospy/webpages.py:3689 ospy/webpages.py:3704
 #: plugins/air_temp_humi/__init__.py:423
-#: plugins/automation_rules/__init__.py:478
-#: plugins/automation_rules/templates/automation_rules.html:63
+#: plugins/automation_rules/__init__.py:598
+#: plugins/automation_rules/templates/automation_rules.html:67
 #: plugins/chmi/__init__.py:482 plugins/email_notifications/__init__.py:338
 #: plugins/email_notifications/__init__.py:464
 #: plugins/email_notifications_ssl/__init__.py:550
@@ -6556,9 +6560,9 @@ msgstr "Zakázáno"
 #: ospy/templates/mobile_devices.html:112 ospy/templates/program.html:449
 #: ospy/webpages.py:4285 ospy/webpages.py:4421
 #: plugins/air_temp_humi/__init__.py:423
-#: plugins/automation_rules/__init__.py:491
-#: plugins/automation_rules/templates/automation_rules.html:76
-#: plugins/automation_rules/templates/automation_rules.html:77
+#: plugins/automation_rules/__init__.py:614
+#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:82
 #: plugins/chmi/__init__.py:482
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 #: plugins/email_notifications/__init__.py:464
@@ -6583,7 +6587,7 @@ msgid "Enabled"
 msgstr "Povoleno"
 
 #: ospy/templates/diagnostics.html:1002 plugins/air_temp_humi/__init__.py:431
-#: plugins/automation_rules/__init__.py:757
+#: plugins/automation_rules/__init__.py:1245
 #: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:502
 #: plugins/current_loop_tanks_monitor/__init__.py:515
 #: plugins/database_connector/__init__.py:120
@@ -6605,7 +6609,7 @@ msgstr "Povoleno"
 #: plugins/rs485_communication/__init__.py:1056
 #: plugins/rs485_communication/templates/rs485_communication.html:101
 #: plugins/shelly_cloud_integrator/__init__.py:1618
-#: plugins/sms_adj/__init__.py:198 plugins/speed_monitor/__init__.py:206
+#: plugins/speed_monitor/__init__.py:206
 #: plugins/sunrise_and_sunset/__init__.py:789
 #: plugins/system_watchdog/__init__.py:164 plugins/tank_monitor/__init__.py:456
 #: plugins/telegram_bot/__init__.py:556
@@ -6768,8 +6772,6 @@ msgstr "Restart selhal."
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:364
 #: plugins/signaling_examples/templates/signaling_examples.html:59
 #: plugins/signaling_examples/templates/signaling_examples_help.html:17
-#: plugins/sms_adj/templates/sms_adj.html:166
-#: plugins/sms_adj/templates/sms_adj_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor.html:349
 #: plugins/speed_monitor/templates/speed_monitor_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:12
@@ -6892,7 +6894,6 @@ msgstr "Komponenta"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:47
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:113
 #: plugins/signaling_examples/templates/signaling_examples.html:42
-#: plugins/sms_adj/templates/sms_adj.html:156
 #: plugins/speed_monitor/templates/speed_monitor.html:339
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:136
 #: plugins/system_update/templates/system_update.html:255
@@ -6990,7 +6991,7 @@ msgid "Collapse all details"
 msgstr "Sbalit všechny podrobnosti"
 
 #: ospy/templates/diagnostics.html:1241 ospy/templates/twofactor.html:103
-#: plugins/automation_rules/templates/automation_rules_help.html:24
+#: plugins/automation_rules/templates/automation_rules_help.html:28
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:44
 #: plugins/rs485_communication/templates/rs485_communication_help.html:116
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:6
@@ -7297,7 +7298,7 @@ msgid "State"
 msgstr "Stav"
 
 #: ospy/templates/diagnostics.html:1394
-#: plugins/automation_rules/templates/automation_rules.html:127
+#: plugins/automation_rules/templates/automation_rules.html:159
 msgid "Severity"
 msgstr "Závažnost"
 
@@ -7484,7 +7485,7 @@ msgstr "Smazat tento obrázek?"
 #: ospy/templates/program.html:765 ospy/templates/program.html:792
 #: ospy/templates/programs.html:221 ospy/templates/programs.html:259
 #: ospy/templates/users.html:79
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:186
 #: plugins/database_connector/templates/database_connector_backup.html:45
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:62
 #: plugins/ospy_backup/templates/ospy_backup.html:53
@@ -7575,7 +7576,7 @@ msgstr "Graf vzorků snímače"
 #: ospy/templates/sensor.html:440 ospy/templates/sensors.html:63
 #: ospy/templates/sensors.html:64 ospy/templates/sensors.html:850
 #: ospy/templates/sensors_search.html:51
-#: plugins/automation_rules/__init__.py:190
+#: plugins/automation_rules/__init__.py:197
 msgid "Moisture"
 msgstr "Vlhkost"
 
@@ -7870,8 +7871,8 @@ msgid "Previous"
 msgstr "Předchozí"
 
 #: ospy/templates/graph_sensor.html:62 ospy/templates/log_sensor.html:70
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:104
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Value"
 msgstr "Hodnota"
@@ -8474,7 +8475,7 @@ msgid "Start Time"
 msgstr "Čas startu"
 
 #: ospy/templates/log.html:135 ospy/templates/log_user.html:26
-#: ospy/templates/stations.html:15
+#: ospy/templates/stations.html:15 plugins/automation_rules/__init__.py:335
 #: plugins/cli_control/templates/cli_control.html:124
 #: plugins/email_notifications/__init__.py:147
 #: plugins/email_notifications/__init__.py:151
@@ -8516,7 +8517,7 @@ msgstr "E-mail"
 #: ospy/templates/log_sensor.html:37 ospy/templates/log_sensor.html:61
 #: ospy/templates/log_user.html:55 ospy/templates/log_user.html:85
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:39
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 #: plugins/chmi/templates/chmi_log.html:27 plugins/email_reader/__init__.py:893
 #: plugins/email_reader/__init__.py:962 plugins/email_reader/__init__.py:1022
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:126
@@ -8874,13 +8875,14 @@ msgid "Updates"
 msgstr "Aktualizace"
 
 #: ospy/templates/mobile_devices.html:29
-#: plugins/automation_rules/__init__.py:143
-#: plugins/automation_rules/__init__.py:554
-#: plugins/automation_rules/__init__.py:571
-#: plugins/automation_rules/__init__.py:783
+#: plugins/automation_rules/__init__.py:150
+#: plugins/automation_rules/__init__.py:683
+#: plugins/automation_rules/__init__.py:936
+#: plugins/automation_rules/__init__.py:1013
+#: plugins/automation_rules/__init__.py:1271
 #: plugins/automation_rules/templates/automation_rules.html:3
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:15
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:16
 msgid "Automation Rules"
 msgstr "Automatizační pravidla"
 
@@ -8925,12 +8927,12 @@ msgid "Dropped"
 msgstr "Vyřazen"
 
 #: ospy/templates/mobile_devices.html:76
-#: plugins/automation_rules/__init__.py:322
+#: plugins/automation_rules/__init__.py:406
 msgid "Queued"
 msgstr "Fronta"
 
 #: ospy/templates/mobile_devices.html:76
-#: plugins/automation_rules/__init__.py:322
+#: plugins/automation_rules/__init__.py:406
 #: plugins/email_notifications/__init__.py:602
 #: plugins/email_notifications_ssl/__init__.py:1045
 #: plugins/water_consumption_counter/__init__.py:367
@@ -9601,7 +9603,7 @@ msgid "default"
 msgstr "výchozí"
 
 #: ospy/templates/plugins_manage.html:272
-#: plugins/automation_rules/__init__.py:332
+#: plugins/automation_rules/__init__.py:418
 #: plugins/cli_control/templates/cli_control.html:133
 #: plugins/cli_control/templates/cli_control.html:137
 #: plugins/database_connector/templates/database_connector.html:133
@@ -11228,9 +11230,13 @@ msgstr "hodin"
 
 #: ospy/templates/sensors.html:15
 #: plugins/air_temp_humi/templates/air_temp_humi.html:446
-#: plugins/automation_rules/templates/automation_rules.html:34
-#: plugins/automation_rules/templates/automation_rules.html:122
-#: plugins/automation_rules/templates/automation_rules.html:125
+#: plugins/automation_rules/__init__.py:945
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:38
+#: plugins/automation_rules/templates/automation_rules.html:141
+#: plugins/automation_rules/templates/automation_rules.html:142
+#: plugins/automation_rules/templates/automation_rules.html:154
+#: plugins/automation_rules/templates/automation_rules.html:157
 #: plugins/email_reader/__init__.py:765
 #: plugins/energy_meter/templates/energy_meter_settings.html:48
 #: plugins/ip_cam/templates/ip_cam_setup.html:237
@@ -11603,8 +11609,8 @@ msgstr "Otevřít adresář"
 #: ospy/templates/sensors_firmware.html:124
 #: ospy/templates/sensors_firmware.html:149
 #: plugins/air_temp_humi/__init__.py:427
-#: plugins/automation_rules/__init__.py:752
-#: plugins/automation_rules/__init__.py:754
+#: plugins/automation_rules/__init__.py:1240
+#: plugins/automation_rules/__init__.py:1242
 #: plugins/button_control/__init__.py:234 plugins/chmi/__init__.py:493
 #: plugins/chmi/__init__.py:496 plugins/cli_control/__init__.py:84
 #: plugins/cli_control/__init__.py:85
@@ -11659,8 +11665,7 @@ msgstr "Otevřít adresář"
 #: plugins/rs485_communication/__init__.py:1039
 #: plugins/shelly_cloud_integrator/__init__.py:1610
 #: plugins/shelly_cloud_integrator/__init__.py:1614
-#: plugins/sms_adj/__init__.py:189 plugins/sms_adj/__init__.py:193
-#: plugins/sms_adj/__init__.py:195 plugins/speed_monitor/__init__.py:202
+#: plugins/speed_monitor/__init__.py:202
 #: plugins/sunrise_and_sunset/__init__.py:771
 #: plugins/sunrise_and_sunset/__init__.py:774
 #: plugins/sunrise_and_sunset/__init__.py:777
@@ -11842,7 +11847,6 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:127
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:363
 #: plugins/signaling_examples/templates/signaling_examples.html:58
-#: plugins/sms_adj/templates/sms_adj.html:165
 #: plugins/speed_monitor/templates/speed_monitor.html:348
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:154
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
@@ -13108,7 +13112,7 @@ msgstr "Uživatel {} smazal všechny balíčky."
 msgid "User {} approved permissions for plug-in {}: {}."
 msgstr "Uživatel {} schválil oprávnění pro balíček {}: {}."
 
-#: ospy/webpages.py:3105 plugins/__init__.py:3037
+#: ospy/webpages.py:3105 plugins/__init__.py:3069
 msgid "Plug-in pre-activation test failed"
 msgstr "Test spuštění balíčku selhal"
 
@@ -13208,9 +13212,9 @@ msgid "Available"
 msgstr "Dostupné"
 
 #: ospy/webpages.py:3569 ospy/webpages.py:3613 ospy/webpages.py:3642
-#: ospy/webpages.py:3676 plugins/automation_rules/__init__.py:323
-#: plugins/automation_rules/__init__.py:480
-#: plugins/automation_rules/__init__.py:500
+#: ospy/webpages.py:3676 plugins/automation_rules/__init__.py:407
+#: plugins/automation_rules/__init__.py:600
+#: plugins/automation_rules/__init__.py:629
 #: plugins/energy_meter/templates/energy_meter.html:115
 #: plugins/network_ping_monitor/__init__.py:172
 #: plugins/network_ping_monitor/__init__.py:232
@@ -13320,8 +13324,8 @@ msgid "would use"
 msgstr "použil bych"
 
 #: ospy/webpages.py:3669 ospy/webpages.py:3750
-#: plugins/automation_rules/__init__.py:488
-#: plugins/automation_rules/templates/automation_rules.html:67
+#: plugins/automation_rules/__init__.py:608
+#: plugins/automation_rules/templates/automation_rules.html:71
 #: plugins/water_meter/__init__.py:654
 msgid "Ready"
 msgstr "Připraven"
@@ -13923,9 +13927,9 @@ msgstr "Balíček E-mail běží."
 msgid "Configuration is not actively tested."
 msgstr "Konfigurace není aktivně testována."
 
-#: ospy/webpages.py:4464 plugins/automation_rules/__init__.py:318
-#: plugins/automation_rules/__init__.py:451
-#: plugins/automation_rules/templates/automation_rules.html:142
+#: ospy/webpages.py:4464 plugins/automation_rules/__init__.py:402
+#: plugins/automation_rules/__init__.py:542
+#: plugins/automation_rules/templates/automation_rules.html:174
 #: plugins/wind_monitor/templates/wind_monitor_settings.html:104
 msgid "E-mail"
 msgstr "E-mail"
@@ -14492,7 +14496,7 @@ msgstr "Balíček není kompatibilní s touto instalací OSPy."
 msgid "Plug-in cannot be installed"
 msgstr "Balíček nelze nainstalovat"
 
-#: plugins/__init__.py:1741 plugins/__init__.py:2999 plugins/__init__.py:3133
+#: plugins/__init__.py:1741 plugins/__init__.py:3031 plugins/__init__.py:3165
 msgid "Plug-in dependency cycle detected"
 msgstr "Detekován závislostní cyklus balíčku"
 
@@ -14656,59 +14660,59 @@ msgstr "Prošlo s varováním."
 msgid "Passed."
 msgstr "Prošlo."
 
-#: plugins/__init__.py:2730
+#: plugins/__init__.py:2762
 msgid "Failed to read in NAME plugin"
 msgstr "Nepodařilo se přečíst NAME v balíčku"
 
-#: plugins/__init__.py:2758
+#: plugins/__init__.py:2790
 msgid "Failed to read in MENU name plugin"
 msgstr "Nepodařilo se přečíst MENU name v balíčku"
 
-#: plugins/__init__.py:2903
+#: plugins/__init__.py:2935
 msgid "Plug-in stop function timed out."
 msgstr "Funkce zastavení balíčku vypršela."
 
-#: plugins/__init__.py:2905 plugins/__init__.py:2912
+#: plugins/__init__.py:2937 plugins/__init__.py:2944
 msgid "Failed to stop the"
 msgstr "Nepodařilo se zastavit"
 
-#: plugins/__init__.py:2946
+#: plugins/__init__.py:2978
 msgid "Stopped the"
 msgstr "Zastaven"
 
-#: plugins/__init__.py:2961
+#: plugins/__init__.py:2993
 msgid "Failed to clear runtime data for the plug-in"
 msgstr "Nepodařilo se vymazat runtime data pro balíček"
 
-#: plugins/__init__.py:3013
+#: plugins/__init__.py:3045
 msgid "Required plug-in failed to start"
 msgstr "Vyžadovaný balíček se nepodařilo spustit"
 
-#: plugins/__init__.py:3019 plugins/__init__.py:3148
+#: plugins/__init__.py:3051 plugins/__init__.py:3180
 msgid "Required plug-in is not running"
 msgstr "Vyžadovaný balíček neběží"
 
-#: plugins/__init__.py:3030
+#: plugins/__init__.py:3062
 msgid "Plug-in still has running threads"
 msgstr "Balíček má stále běžící vlákna"
 
-#: plugins/__init__.py:3044
+#: plugins/__init__.py:3076
 msgid "Plug-in compatibility check failed"
 msgstr "Kontrola kompatibility balíčku selhala"
 
-#: plugins/__init__.py:3077
+#: plugins/__init__.py:3109
 msgid "Started the"
 msgstr "Spuštěn"
 
-#: plugins/__init__.py:3087
+#: plugins/__init__.py:3119
 msgid "Failed to load the"
 msgstr "Nepodařilo se načíst"
 
-#: plugins/__init__.py:3185
+#: plugins/__init__.py:3217
 msgid "The plug-in"
 msgstr "Balíček"
 
-#: plugins/__init__.py:3185
+#: plugins/__init__.py:3217
 msgid "is not running."
 msgstr "neběží."
 
@@ -14764,7 +14768,7 @@ msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr "Rozšíření monitor teploty a vlhkosti"
 
 #: plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/current_loop_tanks_monitor/__init__.py:506
 #: plugins/door_opening/__init__.py:158
@@ -14784,7 +14788,7 @@ msgstr "Rozšíření monitor teploty a vlhkosti"
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:435
 #: plugins/telegram_bot/__init__.py:539
@@ -15368,7 +15372,6 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:17
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/relay_16/templates/relay_16_help.html:10
-#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -15384,7 +15387,6 @@ msgstr "pro další informace"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:17
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
-#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -15583,23 +15585,23 @@ msgstr "DS5"
 msgid "DS6"
 msgstr "DS6"
 
-#: plugins/automation_rules/__init__.py:27
+#: plugins/automation_rules/__init__.py:29
 msgid "Package: Automation Rules"
 msgstr "Balíček: Automatizační pravidla"
 
-#: plugins/automation_rules/__init__.py:84
+#: plugins/automation_rules/__init__.py:91
 msgid "An invalid automation rule was skipped."
 msgstr "Neplatné pravidlo automatizace bylo přeskočeno."
 
-#: plugins/automation_rules/__init__.py:188
+#: plugins/automation_rules/__init__.py:195
 msgid "Contact state"
 msgstr "Kontaktní stav"
 
-#: plugins/automation_rules/__init__.py:189
+#: plugins/automation_rules/__init__.py:196
 msgid "Motion detected"
 msgstr "Detekce pohybu"
 
-#: plugins/automation_rules/__init__.py:195
+#: plugins/automation_rules/__init__.py:202
 #: plugins/current_loop_tanks_monitor/__init__.py:683
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:256
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
@@ -15619,46 +15621,46 @@ msgstr "Detekce pohybu"
 msgid "Volume"
 msgstr "Objem"
 
-#: plugins/automation_rules/__init__.py:200
+#: plugins/automation_rules/__init__.py:207
 msgid "Contact input {}"
 msgstr "Kontaktní vstup {}"
 
-#: plugins/automation_rules/__init__.py:201
+#: plugins/automation_rules/__init__.py:208
 msgid "Soil moisture probe {}"
 msgstr "Sonda pro měření vlhkosti půdy {}"
 
-#: plugins/automation_rules/__init__.py:202
+#: plugins/automation_rules/__init__.py:209
 msgid "Output {}"
 msgstr "Výstup {}"
 
-#: plugins/automation_rules/__init__.py:203
+#: plugins/automation_rules/__init__.py:210
 msgid "Temperature {}"
 msgstr "Teplota {}"
 
-#: plugins/automation_rules/__init__.py:204
+#: plugins/automation_rules/__init__.py:211
 msgid "Power {}"
 msgstr "Výkon {}"
 
-#: plugins/automation_rules/__init__.py:205
+#: plugins/automation_rules/__init__.py:212
 msgid "PV power {}"
 msgstr "FV výkon {}"
 
-#: plugins/automation_rules/__init__.py:240 plugins/water_meter/__init__.py:680
+#: plugins/automation_rules/__init__.py:247 plugins/water_meter/__init__.py:680
 #: plugins/water_meter/templates/water_meter.html:3
 #: plugins/water_meter/templates/water_meter.html:72
 msgid "Water Meter"
 msgstr "Vodoměr"
 
-#: plugins/automation_rules/__init__.py:241
+#: plugins/automation_rules/__init__.py:248
 msgid "Pressure Monitor"
 msgstr "Monitor tlaku"
 
-#: plugins/automation_rules/__init__.py:242
+#: plugins/automation_rules/__init__.py:249
 #: plugins/tank_monitor/__init__.py:614
 msgid "Water Tank Monitor"
 msgstr "Monitor vodní nádrže"
 
-#: plugins/automation_rules/__init__.py:243
+#: plugins/automation_rules/__init__.py:250
 #: plugins/current_loop_tanks_monitor/__init__.py:666
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
@@ -15669,241 +15671,319 @@ msgstr "Monitor vodní nádrže"
 msgid "Current Loop Tanks Monitor"
 msgstr "Monitor 4 nádrží s proudovou smyčkou"
 
-#: plugins/automation_rules/__init__.py:244
+#: plugins/automation_rules/__init__.py:251
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:109
 #: plugins/pool_heating/templates/pool_heating.html:108
 msgid "OSPy Sensors"
 msgstr "Snímače OSPy"
 
-#: plugins/automation_rules/__init__.py:245
+#: plugins/automation_rules/__init__.py:252
 msgid "Date and time"
 msgstr "Datum a čas"
 
-#: plugins/automation_rules/__init__.py:246
+#: plugins/automation_rules/__init__.py:253
 msgid "OSPy status"
 msgstr "Status OSPy"
 
-#: plugins/automation_rules/__init__.py:251
+#: plugins/automation_rules/__init__.py:258
 msgid "OSPy local time"
 msgstr "OSPy lokální čas"
 
-#: plugins/automation_rules/__init__.py:253
+#: plugins/automation_rules/__init__.py:260
 msgid "OSPy system"
 msgstr "OSPy systém"
 
-#: plugins/automation_rules/__init__.py:259
+#: plugins/automation_rules/__init__.py:266
 msgid "Main resource"
 msgstr "Hlavní stanice"
 
-#: plugins/automation_rules/__init__.py:260
+#: plugins/automation_rules/__init__.py:267
 msgid "Tank {}"
 msgstr "Nádrž {}"
 
-#: plugins/automation_rules/__init__.py:266
+#: plugins/automation_rules/__init__.py:273
 msgid "Flow in liters per second"
 msgstr "Průtok v litrech za sekundu"
 
-#: plugins/automation_rules/__init__.py:267
+#: plugins/automation_rules/__init__.py:274
 msgid "Flow in liters per minute"
 msgstr "Průtok v litrech za minutu"
 
-#: plugins/automation_rules/__init__.py:268
+#: plugins/automation_rules/__init__.py:275
 msgid "Volume in the current minute"
 msgstr "Objem v aktuální minutě"
 
-#: plugins/automation_rules/__init__.py:269
+#: plugins/automation_rules/__init__.py:276
 msgid "Volume in the current hour"
 msgstr "Objem v aktuální hodině"
 
-#: plugins/automation_rules/__init__.py:270
+#: plugins/automation_rules/__init__.py:277
 msgid "Total volume"
 msgstr "Celkový objem"
 
-#: plugins/automation_rules/__init__.py:271
+#: plugins/automation_rules/__init__.py:278
 msgid "Pressure present"
 msgstr "Přítomný tlak"
 
-#: plugins/automation_rules/__init__.py:272
+#: plugins/automation_rules/__init__.py:279
 #: plugins/pressure_monitor/__init__.py:276
 msgid "Master active"
 msgstr "Hlavní aktivní"
 
-#: plugins/automation_rules/__init__.py:273
+#: plugins/automation_rules/__init__.py:280
 #: plugins/mqtt_home_assistant/__init__.py:1048
 #: plugins/tank_monitor/__init__.py:438
 msgid "Water level"
 msgstr "Hladina vody"
 
-#: plugins/automation_rules/__init__.py:274
+#: plugins/automation_rules/__init__.py:281
 #: plugins/tank_monitor/__init__.py:441 plugins/tank_monitor/__init__.py:630
 msgid "Tank fill"
 msgstr "Naplnění nádrže"
 
-#: plugins/automation_rules/__init__.py:275
+#: plugins/automation_rules/__init__.py:282
 #: plugins/tank_monitor/__init__.py:444 plugins/tank_monitor/__init__.py:633
 msgid "Sensor distance"
 msgstr "Vzdálenost snímače"
 
-#: plugins/automation_rules/__init__.py:276
+#: plugins/automation_rules/__init__.py:283
 msgid "Volume in liters"
 msgstr "Objem v litrech"
 
-#: plugins/automation_rules/__init__.py:277
+#: plugins/automation_rules/__init__.py:284
 msgid "Volume in cubic meters"
 msgstr "Objem v metrech krychlových"
 
-#: plugins/automation_rules/__init__.py:278
+#: plugins/automation_rules/__init__.py:285
 msgid "Sensor voltage"
 msgstr "Napětí senzoru"
 
-#: plugins/automation_rules/__init__.py:279
+#: plugins/automation_rules/__init__.py:286
 msgid "Current date"
 msgstr "Aktuální datum"
 
-#: plugins/automation_rules/__init__.py:280
+#: plugins/automation_rules/__init__.py:287
 msgid "Current time"
 msgstr "Aktuální čas"
 
-#: plugins/automation_rules/__init__.py:281
+#: plugins/automation_rules/__init__.py:288
 msgid "Day of week"
 msgstr "Den v týdnu"
 
-#: plugins/automation_rules/__init__.py:282
+#: plugins/automation_rules/__init__.py:289
 msgid "Month"
 msgstr "Měsíc"
 
-#: plugins/automation_rules/__init__.py:283
+#: plugins/automation_rules/__init__.py:290
 msgid "Day of month"
 msgstr "Den v měsíci"
 
-#: plugins/automation_rules/__init__.py:284 plugins/pressurizer/__init__.py:290
+#: plugins/automation_rules/__init__.py:291 plugins/pressurizer/__init__.py:290
 msgid "Scheduler enabled"
 msgstr "Plánovač povolen"
 
-#: plugins/automation_rules/__init__.py:285 plugins/lcd_display/__init__.py:624
+#: plugins/automation_rules/__init__.py:292 plugins/lcd_display/__init__.py:624
 msgid "Manual mode"
 msgstr "Manuální režim"
 
-#: plugins/automation_rules/__init__.py:286
+#: plugins/automation_rules/__init__.py:293
 msgid "Scheduled mode"
 msgstr "Režim plánovače"
 
-#: plugins/automation_rules/__init__.py:287
+#: plugins/automation_rules/__init__.py:294
 msgid "Water level adjustment"
 msgstr "Úprava hladiny vody"
 
-#: plugins/automation_rules/__init__.py:288
+#: plugins/automation_rules/__init__.py:295
 msgid "Rain delay remaining"
 msgstr "Zbývá zpoždění deště"
 
-#: plugins/automation_rules/__init__.py:289
+#: plugins/automation_rules/__init__.py:296
 msgid "Rain sensor enabled"
 msgstr "Senzor deště povolen"
 
-#: plugins/automation_rules/__init__.py:290
+#: plugins/automation_rules/__init__.py:297
 msgid "Rain sensor active"
 msgstr "Aktivní senzor deště"
 
-#: plugins/automation_rules/__init__.py:291
+#: plugins/automation_rules/__init__.py:298
 msgid "OSPy update available"
 msgstr "Aktualizace OSPy k dispozici"
 
-#: plugins/automation_rules/__init__.py:292
+#: plugins/automation_rules/__init__.py:299
 msgid "Plug-in update available"
 msgstr "Dostupná aktualizace balíčku"
 
-#: plugins/automation_rules/__init__.py:293
+#: plugins/automation_rules/__init__.py:300
 msgid "Available plug-in updates"
 msgstr "Dostupné aktualizace balíčků"
 
-#: plugins/automation_rules/__init__.py:294
+#: plugins/automation_rules/__init__.py:301
 msgid "Any update available"
 msgstr "Je k dispozici nějaká aktualizace"
 
-#: plugins/automation_rules/__init__.py:304
+#: plugins/automation_rules/__init__.py:311
 msgid "Unable to read provider capabilities"
 msgstr "Nemožné číst schopnosti poskytovatele"
 
-#: plugins/automation_rules/__init__.py:310
+#: plugins/automation_rules/__init__.py:327
+msgid "Every running program"
+msgstr "Každý běžící program"
+
+#: plugins/automation_rules/__init__.py:334
+#: plugins/automation_rules/__init__.py:697
+msgid "Stop selected station"
+msgstr "Zastavit spuštěnou stanici"
+
+#: plugins/automation_rules/__init__.py:337
+#: plugins/automation_rules/__init__.py:698
+msgid "Stop all outputs"
+msgstr "Zastavit všechny výstupy"
+
+#: plugins/automation_rules/__init__.py:340
+#: plugins/automation_rules/__init__.py:699
+#: plugins/button_control/templates/button_control.html:117
+msgid "Disable scheduler"
+msgstr "Zakázat plánovač"
+
+#: plugins/automation_rules/__init__.py:343
+#: plugins/automation_rules/__init__.py:700
+msgid "Stop running program"
+msgstr "Zastavit spuštěný program"
+
+#: plugins/automation_rules/__init__.py:346
+#: plugins/automation_rules/__init__.py:701
+msgid "Turn output on"
+msgstr "Zapnout výstup"
+
+#: plugins/automation_rules/__init__.py:348
+msgid "Duration in seconds"
+msgstr "Doba trvání v sekundách"
+
+#: plugins/automation_rules/__init__.py:350
+#: plugins/automation_rules/__init__.py:702
+msgid "Turn output off"
+msgstr "Vypnout výstup"
+
+#: plugins/automation_rules/__init__.py:353
+#: plugins/automation_rules/__init__.py:703
+msgid "Set water level adjustment"
+msgstr "Nastavit úpravu hladiny vody"
+
+#: plugins/automation_rules/__init__.py:355
+msgid "Water level percent"
+msgstr "Procento hladiny vody"
+
+#: plugins/automation_rules/__init__.py:366
+msgid "Provider default"
+msgstr "Výchozí nastavení poskytovatele"
+
+#: plugins/automation_rules/__init__.py:374
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:103
+msgid "Resource"
+msgstr "Zdroje"
+
+#: plugins/automation_rules/__init__.py:376
+msgid "Parameters (JSON object)"
+msgstr "Parametry (objekt JSON)"
+
+#: plugins/automation_rules/__init__.py:380
+msgid "Unable to read provider actions"
+msgstr "Nelze číst akce poskytovatele"
+
+#: plugins/automation_rules/__init__.py:393
 msgid "Repeated"
 msgstr "Opakování"
 
-#: plugins/automation_rules/__init__.py:310
-#: plugins/automation_rules/__init__.py:484
-#: plugins/automation_rules/templates/automation_rules.html:65
+#: plugins/automation_rules/__init__.py:393
+#: plugins/automation_rules/__init__.py:604
+#: plugins/automation_rules/templates/automation_rules.html:69
 msgid "Triggered"
 msgstr "Spuštěno"
 
-#: plugins/automation_rules/__init__.py:311
+#: plugins/automation_rules/__init__.py:394
 msgid "Returned to normal"
 msgstr "Vráceno do normálu"
 
-#: plugins/automation_rules/__init__.py:312
+#: plugins/automation_rules/__init__.py:395
 msgid "Test matched"
 msgstr "Test prošel"
 
-#: plugins/automation_rules/__init__.py:313
+#: plugins/automation_rules/__init__.py:396
 msgid "Test did not match"
 msgstr "Test neprošel"
 
-#: plugins/automation_rules/__init__.py:314
+#: plugins/automation_rules/__init__.py:397
 msgid "Test notification"
 msgstr "Test oznámení"
 
-#: plugins/automation_rules/__init__.py:317
-#: plugins/automation_rules/__init__.py:450
-#: plugins/automation_rules/templates/automation_rules.html:140
+#: plugins/automation_rules/__init__.py:398
+msgid "Incident unlocked"
+msgstr "Incident odemčen"
+
+#: plugins/automation_rules/__init__.py:401
+#: plugins/automation_rules/__init__.py:541
+#: plugins/automation_rules/templates/automation_rules.html:172
 msgid "OSPy Home window"
 msgstr "OSPy domácí stránka"
 
-#: plugins/automation_rules/__init__.py:317
-#: plugins/automation_rules/__init__.py:450
-#: plugins/automation_rules/templates/automation_rules.html:141
+#: plugins/automation_rules/__init__.py:401
+#: plugins/automation_rules/__init__.py:541
+#: plugins/automation_rules/templates/automation_rules.html:173
 msgid "Browser notification"
 msgstr "Oznámení v prohlížeči"
 
-#: plugins/automation_rules/__init__.py:318
-#: plugins/automation_rules/__init__.py:451
-#: plugins/automation_rules/templates/automation_rules.html:143
+#: plugins/automation_rules/__init__.py:402
+#: plugins/automation_rules/__init__.py:542
+#: plugins/automation_rules/templates/automation_rules.html:175
 msgid "Telegram"
 msgstr "Telegram"
 
-#: plugins/automation_rules/__init__.py:319
-#: plugins/automation_rules/__init__.py:452
-#: plugins/automation_rules/templates/automation_rules.html:144
+#: plugins/automation_rules/__init__.py:403
+#: plugins/automation_rules/__init__.py:543
+#: plugins/automation_rules/templates/automation_rules.html:176
 msgid "Push notification"
 msgstr "Push notifikace"
 
-#: plugins/automation_rules/__init__.py:322
+#: plugins/automation_rules/__init__.py:406
 msgid "Test only"
 msgstr "Pouze test"
 
-#: plugins/automation_rules/__init__.py:330
+#: plugins/automation_rules/__init__.py:409
+msgid "Simulated"
+msgstr "Simulované"
+
+#: plugins/automation_rules/__init__.py:410
+msgid "Executed"
+msgstr "Popraven"
+
+#: plugins/automation_rules/__init__.py:416
 msgid "Notification test"
 msgstr "Test oznámení"
 
-#: plugins/automation_rules/__init__.py:332
+#: plugins/automation_rules/__init__.py:418
 msgid "Live"
 msgstr "Živě"
 
-#: plugins/automation_rules/__init__.py:344
+#: plugins/automation_rules/__init__.py:435
 msgid "Automation Rules test notification: {}"
 msgstr "Oznámení o testu automatizačních pravidel: {}"
 
-#: plugins/automation_rules/__init__.py:346
+#: plugins/automation_rules/__init__.py:437
 msgid "Automation rule returned to normal: {}"
 msgstr "Pravidlo automatizace se vrátilo do normálu: {}"
 
-#: plugins/automation_rules/__init__.py:348
+#: plugins/automation_rules/__init__.py:439
 msgid "Automation rule is still active: {}"
 msgstr "Pravidlo automatizace je stále aktivní: {}"
 
-#: plugins/automation_rules/__init__.py:349
+#: plugins/automation_rules/__init__.py:440
 msgid "Automation rule was triggered: {}"
 msgstr "Bylo spuštěno pravidlo automatizace: {}"
 
-#: plugins/automation_rules/__init__.py:354
-#: plugins/automation_rules/__init__.py:504 plugins/lcd_display/__init__.py:512
+#: plugins/automation_rules/__init__.py:445
+#: plugins/automation_rules/__init__.py:633 plugins/lcd_display/__init__.py:512
 #: plugins/lcd_display/__init__.py:541 plugins/pressure_monitor/__init__.py:209
 #: plugins/pressure_monitor/__init__.py:210
 #: plugins/pressure_monitor/__init__.py:278
@@ -15911,282 +15991,581 @@ msgstr "Bylo spuštěno pravidlo automatizace: {}"
 msgid "Inactive"
 msgstr "Neaktivní"
 
-#: plugins/automation_rules/__init__.py:373
-#: plugins/automation_rules/__init__.py:416
-#: plugins/automation_rules/templates/automation_rules.html:108
+#: plugins/automation_rules/__init__.py:464
+#: plugins/automation_rules/__init__.py:507
+#: plugins/automation_rules/templates/automation_rules.html:113
 msgid "is in range"
 msgstr "je v rozsahu"
 
-#: plugins/automation_rules/__init__.py:373
-#: plugins/automation_rules/__init__.py:416
-#: plugins/automation_rules/templates/automation_rules.html:109
+#: plugins/automation_rules/__init__.py:464
+#: plugins/automation_rules/__init__.py:507
+#: plugins/automation_rules/templates/automation_rules.html:114
 msgid "is outside range"
 msgstr "je mimo dosah"
 
-#: plugins/automation_rules/__init__.py:374
-#: plugins/automation_rules/__init__.py:417
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:110
+#: plugins/automation_rules/__init__.py:465
+#: plugins/automation_rules/__init__.py:508
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:115
 msgid "is active"
 msgstr "je aktivní"
 
-#: plugins/automation_rules/__init__.py:374
-#: plugins/automation_rules/__init__.py:417
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:111
+#: plugins/automation_rules/__init__.py:465
+#: plugins/automation_rules/__init__.py:508
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:116
 msgid "is inactive"
 msgstr "je neaktivní"
 
-#: plugins/automation_rules/__init__.py:387
+#: plugins/automation_rules/__init__.py:478
 msgid "value unavailable"
 msgstr "hodnota je nedostupná"
 
-#: plugins/automation_rules/__init__.py:447
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:538
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "AND"
 msgstr "A"
 
-#: plugins/automation_rules/__init__.py:447
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:538
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "OR"
 msgstr "NEBO"
 
-#: plugins/automation_rules/__init__.py:457
+#: plugins/automation_rules/__init__.py:548
 msgid "no notification channel"
-msgstr "Žádný kanál upozornění není aktivní"
+msgstr "žádný kanál upozornění není aktivní"
 
-#: plugins/automation_rules/__init__.py:458
+#: plugins/automation_rules/__init__.py:550
+msgid "stop station"
+msgstr "zastavit stanici"
+
+#: plugins/automation_rules/__init__.py:551
+msgid "stop all outputs"
+msgstr "zastavit všechny výstupy"
+
+#: plugins/automation_rules/__init__.py:552
+msgid "disable scheduler"
+msgstr "zakázat plánovač"
+
+#: plugins/automation_rules/__init__.py:553
+msgid "stop program"
+msgstr "zastavit program"
+
+#: plugins/automation_rules/__init__.py:554
+msgid "turn output off"
+msgstr "vypnout výstup"
+
+#: plugins/automation_rules/__init__.py:554
+msgid "turn output on"
+msgstr "zapnout výstup"
+
+#: plugins/automation_rules/__init__.py:555
+msgid "set water level"
+msgstr "nastvit hladinu vody"
+
+#: plugins/automation_rules/__init__.py:556
+msgid "run provider action"
+msgstr "akce poskytovatele běhu"
+
+#: plugins/automation_rules/__init__.py:560
 msgid "notify via"
-msgstr "Upozornit přes"
+msgstr "upozornit přes"
 
-#: plugins/automation_rules/__init__.py:476
+#: plugins/automation_rules/__init__.py:562
+msgid "perform"
+msgstr "provést"
+
+#: plugins/automation_rules/__init__.py:564
+msgid "lock incident"
+msgstr "uzamknout incident"
+
+#: plugins/automation_rules/__init__.py:596
 msgid "Automation disabled"
 msgstr "Automatizace deaktivována"
 
-#: plugins/automation_rules/__init__.py:486
+#: plugins/automation_rules/__init__.py:606
 msgid "Conditions active"
 msgstr "Aktivní stavy"
 
-#: plugins/automation_rules/__init__.py:493
+#: plugins/automation_rules/__init__.py:616
 msgid "Rule state"
 msgstr "Stav pravidel"
 
-#: plugins/automation_rules/__init__.py:498
+#: plugins/automation_rules/__init__.py:617
+msgid "Incident locked"
+msgstr "Incident uzamčen"
+
+#: plugins/automation_rules/__init__.py:619
+msgid "Configured control actions"
+msgstr "Konfigurované řídicí akce"
+
+#: plugins/automation_rules/__init__.py:621
+#: plugins/automation_rules/__init__.py:1236
+msgid "Active output cycles"
+msgstr "Aktivní výstupní cykly"
+
+#: plugins/automation_rules/__init__.py:627
 msgid "Not evaluated"
 msgstr "Nehodnocena"
 
-#: plugins/automation_rules/__init__.py:512
-#: plugins/automation_rules/__init__.py:751
+#: plugins/automation_rules/__init__.py:641
+#: plugins/automation_rules/__init__.py:1239
 msgid "Last evaluation"
 msgstr "Poslední hodnocení"
 
-#: plugins/automation_rules/__init__.py:600
+#: plugins/automation_rules/__init__.py:704
+msgid "Provider action"
+msgstr "Opatření poskytovatele"
+
+#: plugins/automation_rules/__init__.py:740
+msgid "Output cycle stopped"
+msgstr "Výstupní cyklus byl zastaven"
+
+#: plugins/automation_rules/__init__.py:741
+msgid "completed"
+msgstr "dokončeno"
+
+#: plugins/automation_rules/__init__.py:776
+#: plugins/automation_rules/__init__.py:987
+msgid "The selected output is already controlled by another cycle."
+msgstr "Vybraný výstup je již řízen dalším cyklem."
+
+#: plugins/automation_rules/__init__.py:787
+msgid "Output cycle started"
+msgstr "Zahájení výstupního cyklu"
+
+#: plugins/automation_rules/__init__.py:799
+msgid "rule disabled"
+msgstr "pravidlo zakázáno"
+
+#: plugins/automation_rules/__init__.py:801
+msgid "automation disabled"
+msgstr "automatizace deaktivována"
+
+#: plugins/automation_rules/__init__.py:803
+msgid "test mode enabled"
+msgstr "testovací režim zapnut"
+
+#: plugins/automation_rules/__init__.py:805
+msgid "control actions disabled"
+msgstr "ovládací akce deaktivovány"
+
+#: plugins/automation_rules/__init__.py:807
+msgid "manual mode disabled"
+msgstr "manuální režim zakázán"
+
+#: plugins/automation_rules/__init__.py:809
+msgid "condition unavailable"
+msgstr "stav nedostupný"
+
+#: plugins/automation_rules/__init__.py:811
+msgid "condition no longer matches"
+msgstr "stav už neodpovídá"
+
+#: plugins/automation_rules/__init__.py:813
+#: plugins/automation_rules/__init__.py:832
+msgid "maximum cycle duration reached"
+msgstr "maximální doba cyklu dosažena"
+
+#: plugins/automation_rules/__init__.py:828
+msgid "Output cycle pause"
+msgstr "Pauza výstupního cyklu"
+
+#: plugins/automation_rules/__init__.py:845
+msgid "Automation output cycle failed"
+msgstr "Výstupní cyklus automatizace selhal"
+
+#: plugins/automation_rules/__init__.py:855
+msgid "Output cycle started another run"
+msgstr "Výstupní cyklus spustil další běh"
+
+#: plugins/automation_rules/__init__.py:865
+msgid "rule removed or disabled"
+msgstr "pravidlo odstraněno nebo zakázáno"
+
+#: plugins/automation_rules/__init__.py:879
+msgid "Selected station does not exist."
+msgstr "Vybrané stanice neexistují."
+
+#: plugins/automation_rules/__init__.py:880
+msgid "stopped by another action"
+msgstr "zastaveno další akcí"
+
+#: plugins/automation_rules/__init__.py:884
+msgid "all outputs stopped"
+msgstr "všechny výstupy zastavit"
+
+#: plugins/automation_rules/__init__.py:893
+msgid "Unable to switch off the master relay."
+msgstr "Nemohu vypnout hlavní výstup."
+
+#: plugins/automation_rules/__init__.py:895
+msgid "All outputs stopped"
+msgstr "Všechny výstupy zastavit"
+
+#: plugins/automation_rules/__init__.py:898
+msgid "Scheduler disabled"
+msgstr "Plánovač deaktivován"
+
+#: plugins/automation_rules/__init__.py:914
+msgid "Stopped active program runs"
+msgstr "Zastavení běžících programů"
+
+#: plugins/automation_rules/__init__.py:918
+#: plugins/automation_rules/__init__.py:927
+msgid "Selected output does not exist."
+msgstr "Vybrané výstupy neexistují."
+
+#: plugins/automation_rules/__init__.py:919
+msgid "output switched off"
+msgstr "výstup vypnutý"
+
+#: plugins/automation_rules/__init__.py:925
+msgid "Manual mode is required before an automation can turn on an output."
+msgstr "Je vyžadován manuální režim, než může automatizace spustit výstup."
+
+#: plugins/automation_rules/__init__.py:931
+msgid "The selected output cannot be started directly."
+msgstr "Vybraný výstup nelze spustit přímo."
+
+#: plugins/automation_rules/__init__.py:952
+msgid "This OSPy version does not support provider actions."
+msgstr "Tato verze OSPy nepodporuje akce poskytovatele."
+
+#: plugins/automation_rules/__init__.py:959
+msgid "Provider action failed."
+msgstr "Zásah poskytovatele selhal."
+
+#: plugins/automation_rules/__init__.py:962
+msgid "Unsupported control action."
+msgstr "Nepodporovaná kontrolní akce."
+
+#: plugins/automation_rules/__init__.py:980
+msgid "Control actions are disabled."
+msgstr "Ovládací akce jsou deaktivovány."
+
+#: plugins/automation_rules/__init__.py:1003
+msgid "Automation control action failed"
+msgstr "Automatické řízení neselhalo"
+
+#: plugins/automation_rules/__init__.py:1042
 msgid "Automation notification failed"
 msgstr "Oznámení o automatizaci selhalo"
 
-#: plugins/automation_rules/__init__.py:710
+#: plugins/automation_rules/__init__.py:1151
+msgid "The incident cannot be unlocked while a condition is unavailable."
+msgstr "Incident nelze odemknout, dokud není podmínka dostupná."
+
+#: plugins/automation_rules/__init__.py:1154
+msgid "The incident cannot be unlocked while its conditions are still active."
+msgstr "Incident nelze odemknout, dokud jsou jeho podmínky stále aktivní."
+
+#: plugins/automation_rules/__init__.py:1186
 msgid "Automation Rules evaluation failed"
 msgstr "Hodnocení automatizačních pravidel neúspěšné"
 
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/templates/automation_rules.html:27
+#: plugins/automation_rules/__init__.py:1211
+msgid "plug-in stopped"
+msgstr "balíček zastaven"
+
+#: plugins/automation_rules/__init__.py:1224
 #: plugins/automation_rules/templates/automation_rules.html:28
+#: plugins/automation_rules/templates/automation_rules.html:29
 #: plugins/venetian_blind/__init__.py:205
 msgid "Automation enabled"
 msgstr "Automatizace povolena"
 
-#: plugins/automation_rules/__init__.py:746
-#: plugins/automation_rules/templates/automation_rules.html:30
+#: plugins/automation_rules/__init__.py:1225
 #: plugins/automation_rules/templates/automation_rules.html:31
+#: plugins/automation_rules/templates/automation_rules.html:32
 msgid "Test mode"
 msgstr "Testovací režim"
 
-#: plugins/automation_rules/__init__.py:747
+#: plugins/automation_rules/__init__.py:1226
+#: plugins/automation_rules/templates/automation_rules.html:34
+#: plugins/automation_rules/templates/automation_rules.html:35
+msgid "Control actions enabled"
+msgstr "Ovládací akce povoleny"
+
+#: plugins/automation_rules/__init__.py:1228
 msgid "Saved rules"
 msgstr "Uložit pravidla"
 
-#: plugins/automation_rules/__init__.py:748
+#: plugins/automation_rules/__init__.py:1229
 msgid "Evaluated rules"
 msgstr "Hodnocená pravidla"
 
-#: plugins/automation_rules/__init__.py:749
+#: plugins/automation_rules/__init__.py:1230
 msgid "Active rules"
 msgstr "Aktivní pravidla"
 
-#: plugins/automation_rules/__init__.py:750
+#: plugins/automation_rules/__init__.py:1231
 msgid "Provider errors"
 msgstr "Chyby poskytovatele"
 
-#: plugins/automation_rules/__init__.py:753
+#: plugins/automation_rules/__init__.py:1232
+msgid "Executed control actions"
+msgstr "Prováděné řídicí akce"
+
+#: plugins/automation_rules/__init__.py:1233
+msgid "Control action errors"
+msgstr "Chyby v řízení"
+
+#: plugins/automation_rules/__init__.py:1234
+msgid "Locked incidents"
+msgstr "Uzamčené incidenty"
+
+#: plugins/automation_rules/__init__.py:1237
+msgid "Output cycles started"
+msgstr "Zahájení výstupních cyklů"
+
+#: plugins/automation_rules/__init__.py:1238
+msgid "Output cycles stopped"
+msgstr "Výstupní cykly byly zastaveny"
+
+#: plugins/automation_rules/__init__.py:1241
 msgid "Last action"
 msgstr "Poslední akce"
 
-#: plugins/automation_rules/__init__.py:759
+#: plugins/automation_rules/__init__.py:1247
 msgid "Automation Rules worker is stopped."
 msgstr "Pracovník s automatizačními pravidly je zastaven."
 
-#: plugins/automation_rules/__init__.py:762
+#: plugins/automation_rules/__init__.py:1250
 msgid "Automation Rules are disabled."
 msgstr "Automatizační pravidla jsou deaktivována."
 
-#: plugins/automation_rules/__init__.py:765
+#: plugins/automation_rules/__init__.py:1253
 msgid "Automation Rules evaluation failed."
 msgstr "Hodnocení automatizačních pravidel neprošlo."
 
-#: plugins/automation_rules/__init__.py:769
+#: plugins/automation_rules/__init__.py:1257
 msgid "Automation Rules are waiting for the first evaluation."
 msgstr "Automatizační pravidla čekají na první hodnocení."
 
-#: plugins/automation_rules/__init__.py:773
+#: plugins/automation_rules/__init__.py:1261
 msgid "One or more automation providers reported an error."
 msgstr "Jeden nebo více poskytovatelů automatizace hlásilo chybu."
 
-#: plugins/automation_rules/__init__.py:775
+#: plugins/automation_rules/__init__.py:1263
 msgid "Automation Rules are responding."
 msgstr "Automatizační pravidla reagují."
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:1412
+msgid "Only an administrator can change control action settings."
+msgstr "Pouze administrátor může měnit nastavení kontrolních akcí."
+
+#: plugins/automation_rules/__init__.py:1423
+msgid "automation settings changed"
+msgstr "změna nastavení automatizace"
+
+#: plugins/automation_rules/__init__.py:1429
+msgid "Only an administrator can configure control actions."
+msgstr "Pouze administrátor může nastavit řídicí akce."
+
+#: plugins/automation_rules/__init__.py:1430
+msgid "rule configuration changed"
+msgstr "změna konfigurace pravidel"
+
+#: plugins/automation_rules/__init__.py:1442
+msgid "rule deleted"
+msgstr "pravidlo odstraněno"
+
+#: plugins/automation_rules/__init__.py:1455
+msgid "Only an administrator can unlock an incident."
+msgstr "Pouze administrátor může odemknout incident."
+
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notification permission was not granted."
 msgstr "Povolení k notifikacím v prohlížeči nebylo uděleno."
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notifications are enabled. A test notification was sent."
 msgstr "Oznámení v prohlížeči jsou zapnutá. Bylo odesláno oznámení o testu."
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notifications are working."
 msgstr "Upozornění v prohlížeči fungují."
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Remove condition"
 msgstr "Odebrat podmínku"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
+msgid "Remove control action"
+msgstr "Odebrat řídicí akci"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Select"
 msgstr "Vybrat"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid ""
 "The browser granted permission but could not display the test notification."
 msgstr "Prohlížeč udělil povolení, ale nemohl zobrazit testovací oznámení."
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "start..end"
 msgstr "začátek.. konec"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Provider"
 msgstr "Poskytovatel"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:98
-msgid "Resource"
-msgstr "Zdroje"
-
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:102
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:107
 msgid "equals"
 msgstr "rovná se"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:103
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:108
 msgid "does not equal"
 msgstr "nerovná se"
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:119
 #: plugins/weather_based_water_level/__init__.py:682
 #: plugins/weather_based_water_level/__init__.py:684
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:37
 msgid "Limit"
 msgstr "Limit"
 
-#: plugins/automation_rules/templates/automation_rules.html:16
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:135
+msgid "Control action"
+msgstr "Řídicí akce"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:136
+msgid "Target"
+msgstr "Cíl"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:137
+msgid "Action value"
+msgstr "Akční hodnota"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Cycle while conditions match"
+msgstr "Cyklus, dokud se podmínky shodují"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Output mode"
+msgstr "Výstupní režim"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Run once"
+msgstr "Jednorázový"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:141
+msgid "Pause between runs"
+msgstr "Pauza mezi běhy"
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:142
+msgid "Maximum cycling time"
+msgstr "Maximální doba cyklování"
+
+#: plugins/automation_rules/templates/automation_rules.html:17
 msgid "Open a detailed description of Automation Rules and its settings."
 msgstr "Otevřít podrobný popis automatizačních pravidel a jejich nastavení."
 
-#: plugins/automation_rules/templates/automation_rules.html:19
+#: plugins/automation_rules/templates/automation_rules.html:20
 msgid "The automation rule is invalid. Check all required fields and values."
 msgstr ""
 "Automatizační pravidlo je neplatné. Zkontrolujte všechna požadovaná pole a "
 "hodnoty."
 
-#: plugins/automation_rules/templates/automation_rules.html:22
+#: plugins/automation_rules/templates/automation_rules.html:23
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:23
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:20
 msgid "General settings"
 msgstr "Hlavní nastavení"
 
-#: plugins/automation_rules/templates/automation_rules.html:27
+#: plugins/automation_rules/templates/automation_rules.html:28
 msgid "Enable or disable evaluation of all automation rules."
 msgstr "Povolte nebo vypněte vyhodnocení všech automatizačních pravidel."
 
-#: plugins/automation_rules/templates/automation_rules.html:30
+#: plugins/automation_rules/templates/automation_rules.html:31
 msgid "Evaluate rules and record decisions without sending any notifications."
 msgstr ""
 "Vyhodnotit pravidla a zaznamenat rozhodnutí bez zasílání jakýchkoli oznámení."
 
-#: plugins/automation_rules/templates/automation_rules.html:33
+#: plugins/automation_rules/templates/automation_rules.html:34
+msgid ""
+"Allow live rules to execute their configured control actions. Keep disabled "
+"until every rule has been tested."
+msgstr ""
+"Umožnit živým pravidlům provádět jejich konfigurované řídicí akce. Nechte "
+"vypnuté, dokud nebudou všechna pravidla otestována."
+
+#: plugins/automation_rules/templates/automation_rules.html:37
 msgid "Evaluation interval"
 msgstr "Interval hodnocení"
 
-#: plugins/automation_rules/templates/automation_rules.html:33
+#: plugins/automation_rules/templates/automation_rules.html:37
 msgid "How often provider values are read and all enabled rules are evaluated."
 msgstr ""
 "Jak často se čtou hodnoty poskytovatelů a jak často jsou vyhodnocovány "
 "všechna povolená pravidla."
 
-#: plugins/automation_rules/templates/automation_rules.html:34
+#: plugins/automation_rules/templates/automation_rules.html:38
 msgid "Enter an interval from 5 to 3600 seconds."
 msgstr "Zadejte interval od 5 do 3600 sekund."
 
-#: plugins/automation_rules/templates/automation_rules.html:36
+#: plugins/automation_rules/templates/automation_rules.html:40
 msgid "History limit"
 msgstr "Omezení historie"
 
-#: plugins/automation_rules/templates/automation_rules.html:36
+#: plugins/automation_rules/templates/automation_rules.html:40
 msgid "Maximum number of action history records retained by the plug-in."
 msgstr "Maximální počet záznamů o historii akcí, které si balíček uchovává."
 
-#: plugins/automation_rules/templates/automation_rules.html:37
+#: plugins/automation_rules/templates/automation_rules.html:41
 msgid "Enter how many of the newest history records should be kept."
 msgstr ""
 "Zadejte, kolik nejnovějších historických záznamů by mělo být uchováváno."
 
-#: plugins/automation_rules/templates/automation_rules.html:40
+#: plugins/automation_rules/templates/automation_rules.html:44
 msgid ""
-"Test mode records decisions but does not send notifications. Disable it only "
-"after testing every rule."
+"Test mode records decisions and simulates control actions without changing "
+"OSPy or hardware. Disable test mode and separately enable control actions "
+"only after testing every rule."
 msgstr ""
-"Testovací režim zaznamenává rozhodnutí, ale neposílá oznámení. Vypněte ho až "
-"po otestování všech pravidel."
+"Testovací režim zaznamenává rozhodnutí a simuluje řídicí akce bez změny OSPy "
+"nebo hardwaru. Vypněte testovací režim a samostatně povolte ovládací akce až "
+"po otestování každého pravidla."
 
-#: plugins/automation_rules/templates/automation_rules.html:41
+#: plugins/automation_rules/templates/automation_rules.html:45
 msgid "Save the general Automation Rules settings."
 msgstr "Uložit obecná nastavení automatizačních pravidel."
 
-#: plugins/automation_rules/templates/automation_rules.html:41
+#: plugins/automation_rules/templates/automation_rules.html:45
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:104
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:36
 msgid "Save settings"
 msgstr "Uložit nastavení"
 
-#: plugins/automation_rules/templates/automation_rules.html:42
+#: plugins/automation_rules/templates/automation_rules.html:46
 msgid ""
 "Ask this browser for permission and immediately display a test notification."
 msgstr ""
 "Požádejte tento prohlížeč o povolení a okamžitě zobrazte oznámení o testu."
 
-#: plugins/automation_rules/templates/automation_rules.html:42
+#: plugins/automation_rules/templates/automation_rules.html:46
 msgid "Enable and test browser notifications"
 msgstr "Povolit a otestovat oznámení v prohlížeči"
 
-#: plugins/automation_rules/templates/automation_rules.html:47
+#: plugins/automation_rules/templates/automation_rules.html:51
 msgid "Rules"
 msgstr "Pravidla"
 
-#: plugins/automation_rules/templates/automation_rules.html:49
+#: plugins/automation_rules/templates/automation_rules.html:53
 msgid ""
 "No running provider with available values was found. Enable a supported "
 "monitoring plug-in first."
@@ -16194,93 +16573,93 @@ msgstr ""
 "Nebyl nalezen žádný běžící poskytovatel s dostupnými hodnotami. Nejprve "
 "povolte podporovaný monitorovací balíček (vodoměr, měření tlaku, hladiny)..."
 
-#: plugins/automation_rules/templates/automation_rules.html:55
+#: plugins/automation_rules/templates/automation_rules.html:59
 msgid "Expand or collapse this automation rule."
 msgstr "Rozbalit nebo sbalit toto pravidlo automatizace."
 
-#: plugins/automation_rules/templates/automation_rules.html:57
+#: plugins/automation_rules/templates/automation_rules.html:61
 msgid "New rule"
 msgstr "Nové pravidlo"
 
-#: plugins/automation_rules/templates/automation_rules.html:76
+#: plugins/automation_rules/templates/automation_rules.html:81
 msgid "Enable or disable evaluation of this rule."
 msgstr "Povolte nebo vypněte hodnocení tohoto pravidla."
 
-#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:86
 msgid "A clear name used in history and notification messages."
 msgstr "Jméno používané v historii a notifikacích."
 
-#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:86
 msgid "Rule name"
 msgstr "Název pravidla"
 
-#: plugins/automation_rules/templates/automation_rules.html:82
+#: plugins/automation_rules/templates/automation_rules.html:87
 msgid "Enter a unique descriptive name for this rule."
 msgstr "Zadejte jedinečný popisný název pro toto pravidlo."
 
-#: plugins/automation_rules/templates/automation_rules.html:84
+#: plugins/automation_rules/templates/automation_rules.html:89
 msgid "Choose whether every condition or at least one condition must be true."
 msgstr ""
 "Zvolit, zda musí být splněna každá podmínka, nebo alespoň jedna podmínka."
 
-#: plugins/automation_rules/templates/automation_rules.html:84
+#: plugins/automation_rules/templates/automation_rules.html:89
 msgid "Condition matching"
 msgstr "Párování podmínek"
 
-#: plugins/automation_rules/templates/automation_rules.html:85
+#: plugins/automation_rules/templates/automation_rules.html:90
 msgid "AND requires all conditions. OR requires at least one condition."
 msgstr "A vyžaduje všechny podmínky. NEBO vyžaduje alespoň jednu podmínku."
 
-#: plugins/automation_rules/templates/automation_rules.html:86
+#: plugins/automation_rules/templates/automation_rules.html:91
 msgid "All conditions (AND)"
 msgstr "Všechny podmínky (A)"
 
-#: plugins/automation_rules/templates/automation_rules.html:87
+#: plugins/automation_rules/templates/automation_rules.html:92
 msgid "At least one condition (OR)"
 msgstr "Alespoň jedna podmínka (NEBO)"
 
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Monitoring plug-in that supplies the value for this condition."
 msgstr "Monitorovací balíček, který poskytuje hodnotu pro tento stav."
 
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Select the monitoring plug-in that supplies data."
 msgstr "Vyberte monitorovací balíček, který poskytuje data."
 
-#: plugins/automation_rules/templates/automation_rules.html:98
+#: plugins/automation_rules/templates/automation_rules.html:103
 msgid ""
 "Device, tank, meter or other monitored resource exposed by the provider."
 msgstr ""
 "Zařízení, nádrž, měřič nebo jiný monitorovaný zdroj vystavený poskytovatelem."
 
-#: plugins/automation_rules/templates/automation_rules.html:98
+#: plugins/automation_rules/templates/automation_rules.html:103
 msgid "Select which provider resource should be checked."
 msgstr "Vyberte zdroj poskytovatele, který by měl být zkontrolován."
 
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:104
 msgid "Measured or calculated value that the rule should evaluate."
 msgstr "Změřená nebo vypočítaná hodnota, kterou by mělo pravidlo vyhodnotit."
 
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:104
 msgid "Select the value to compare in this condition."
 msgstr "Vyberte hodnotu pro srovnání v tomto stavu."
 
-#: plugins/automation_rules/templates/automation_rules.html:100
+#: plugins/automation_rules/templates/automation_rules.html:105
 msgid "Comparison used to decide whether this condition is true."
 msgstr "Srovnání použité k rozhodnutí, zda je tato podmínka pravdivá."
 
-#: plugins/automation_rules/templates/automation_rules.html:101
+#: plugins/automation_rules/templates/automation_rules.html:106
 msgid "Select how the current value is compared with the limit."
 msgstr "Vyberte, jak se aktuální hodnota porovnává s limitem."
 
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:119
 msgid ""
 "Enter one limit, or enter a range as start..end, for example 08:00..18:00."
 msgstr ""
 "Zadejte jeden limit, nebo zadejte rozsah jako start.. konec, například "
 "08:00..18:00."
 
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:119
 msgid ""
 "Threshold, expected value or range used by the selected comparison. Enter "
 "ranges as start..end."
@@ -16288,46 +16667,122 @@ msgstr ""
 "Práh, očekávaná hodnota nebo rozsah použitý při vybraném porovnání. "
 "Zadávejte rozsahy jako začátek... konec."
 
-#: plugins/automation_rules/templates/automation_rules.html:115
+#: plugins/automation_rules/templates/automation_rules.html:120
 msgid "Remove this condition from the rule."
 msgstr "Tuto podmínku z pravidla vyřadit."
 
-#: plugins/automation_rules/templates/automation_rules.html:118
+#: plugins/automation_rules/templates/automation_rules.html:123
 msgid ""
 "Add another condition to this rule. A rule can contain up to 20 conditions."
 msgstr ""
 "Přidejte k tomuto pravidlu další podmínku. Pravidlo může obsahovat až 20 "
 "podmínek."
 
-#: plugins/automation_rules/templates/automation_rules.html:118
+#: plugins/automation_rules/templates/automation_rules.html:123
 msgid "Add condition"
 msgstr "Přidat podmínku"
 
-#: plugins/automation_rules/templates/automation_rules.html:121
-msgid "Conditions must remain true for"
-msgstr "Podmínky musí zůstat pravdivé pro"
+#: plugins/automation_rules/templates/automation_rules.html:126
+#: plugins/automation_rules/templates/automation_rules.html:200
+msgid "Control actions"
+msgstr "Řídicí akce"
 
-#: plugins/automation_rules/templates/automation_rules.html:121
+#: plugins/automation_rules/templates/automation_rules.html:127
+msgid ""
+"Control actions normally run once when the rule is first triggered. An "
+"output action may instead cycle for a bounded time while every required "
+"condition remains available and matched. Repeated notifications never start "
+"another action."
+msgstr ""
+"Řídicí akce obvykle běží jednou, když je pravidlo poprvé spuštěno. Výstupní "
+"akce může místo toho cyklovat po omezenou dobu, dokud všechny požadované "
+"podmínky zůstanou dostupné a splněné. Opakovaná oznámení už nikdy "
+"nespouštějí další akci."
+
+#: plugins/automation_rules/templates/automation_rules.html:135
+msgid "Operation performed once when this rule is triggered."
+msgstr "Operace provedená jednou, když je toto pravidlo aktivováno."
+
+#: plugins/automation_rules/templates/automation_rules.html:136
+msgid "Station, output, program or provider resource affected by this action."
+msgstr ""
+"Stanice, výstup, program nebo zdroj poskytovatele ovlivněný touto akcí."
+
+#: plugins/automation_rules/templates/automation_rules.html:137
+msgid ""
+"Duration, percentage or JSON parameters required by the selected action."
+msgstr "Délka, procento nebo parametry JSON požadované vybranou akcí."
+
+#: plugins/automation_rules/templates/automation_rules.html:138
+msgid "Remove this control action from the rule."
+msgstr "Odstrani tuto kontrolní akci z pravidla."
+
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid ""
+"Run the output once, or repeatedly alternate the configured run and pause "
+"while the rule conditions remain true."
+msgstr ""
+"Spusť výstup jednou, nebo opakovaně střídat konfigurovaný běh a pauzu, dokud "
+"podmínky pravidla zůstanou platné."
+
+#: plugins/automation_rules/templates/automation_rules.html:141
+msgid "How long the output remains off before the next cyclic run."
+msgstr "Jak dlouho zůstává výstup vypnutý před dalším cyklickým během."
+
+#: plugins/automation_rules/templates/automation_rules.html:142
+msgid ""
+"Safety limit for the complete cycle. The output is stopped when this time "
+"expires."
+msgstr ""
+"Bezpečnostní limit pro celý cyklus. Výstup je zastaven, jakmile tato doba "
+"vyprší."
+
+#: plugins/automation_rules/templates/automation_rules.html:146
+msgid "Add another control action. A rule can contain up to 20 actions."
+msgstr "Přidejte další ovládací akci. Pravidlo může obsahovat až 20 akcí."
+
+#: plugins/automation_rules/templates/automation_rules.html:146
+msgid "Add control action"
+msgstr "Přidat řídicí akci"
+
+#: plugins/automation_rules/templates/automation_rules.html:147
+msgid ""
+"Keep the incident active after conditions return to normal until an "
+"administrator explicitly unlocks it."
+msgstr ""
+"Udržujte incident aktivní i poté, co se podmínky vrátí do normálu, dokud ho "
+"administrátor výslovně neodemkne."
+
+#: plugins/automation_rules/templates/automation_rules.html:147
+#: plugins/automation_rules/templates/automation_rules.html:148
+msgid "Lock incident until acknowledged"
+msgstr "Incident se zámkem, dokud není potvrzen"
+
+#: plugins/automation_rules/templates/automation_rules.html:153
+msgid "Conditions must remain true for"
+msgstr "Podmínky musí zůstat pravdivé"
+
+#: plugins/automation_rules/templates/automation_rules.html:153
 msgid ""
 "Delay activation until the matching conditions remain true continuously for "
 "this time."
 msgstr "Aktivace odložte, dokud podmínky shody nepřetrvávají po tuto dobu."
 
-#: plugins/automation_rules/templates/automation_rules.html:122
+#: plugins/automation_rules/templates/automation_rules.html:154
 msgid "Use zero to activate immediately, or enter a delay in seconds."
 msgstr ""
 "Použijte nulu pro okamžité aktivování, nebo zadejte zpoždění během několika "
 "sekund."
 
-#: plugins/automation_rules/templates/automation_rules.html:124
+#: plugins/automation_rules/templates/automation_rules.html:156
 msgid "Repeat notification after"
 msgstr "Opakované oznámení"
 
-#: plugins/automation_rules/templates/automation_rules.html:124
+#: plugins/automation_rules/templates/automation_rules.html:156
 msgid "Repeat notifications while the incident remains active."
 msgstr "Opakovat oznámení, dokud je incident stále aktivní."
 
-#: plugins/automation_rules/templates/automation_rules.html:125
+#: plugins/automation_rules/templates/automation_rules.html:157
 msgid ""
 "Use zero to disable repeated notifications, or enter the repeat interval in "
 "seconds."
@@ -16335,42 +16790,42 @@ msgstr ""
 "Použijte nulu k deaktivaci opakovaných upozornění nebo zadejte interval "
 "opakování během několika sekund."
 
-#: plugins/automation_rules/templates/automation_rules.html:127
+#: plugins/automation_rules/templates/automation_rules.html:159
 msgid "Importance assigned to history entries and notification messages."
 msgstr "Důležitost je přiřazena záznamům v historii a notifikacím."
 
-#: plugins/automation_rules/templates/automation_rules.html:128
+#: plugins/automation_rules/templates/automation_rules.html:160
 msgid "Select the severity of incidents created by this rule."
 msgstr "Vyberte závažnost incidentů způsobených tímto pravidlem."
 
-#: plugins/automation_rules/templates/automation_rules.html:133
+#: plugins/automation_rules/templates/automation_rules.html:165
 msgid "Send another notification after an active incident returns to normal."
 msgstr "Poslat další oznámení poté, co se aktivní incident vrátí do normálu."
 
-#: plugins/automation_rules/templates/automation_rules.html:133
-#: plugins/automation_rules/templates/automation_rules.html:134
+#: plugins/automation_rules/templates/automation_rules.html:165
+#: plugins/automation_rules/templates/automation_rules.html:166
 msgid "Notify when normal again"
 msgstr "Upozorňit, až se zase vrátí do normálu"
 
-#: plugins/automation_rules/templates/automation_rules.html:139
-#: plugins/automation_rules/templates/automation_rules.html:166
-#: plugins/automation_rules/templates/automation_rules_help.html:22
+#: plugins/automation_rules/templates/automation_rules.html:171
+#: plugins/automation_rules/templates/automation_rules.html:200
+#: plugins/automation_rules/templates/automation_rules_help.html:26
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:290
 msgid "Notifications"
 msgstr "Oznámení"
 
-#: plugins/automation_rules/templates/automation_rules.html:140
+#: plugins/automation_rules/templates/automation_rules.html:172
 msgid "Show a dismissible warning window directly on the OSPy Home page."
 msgstr "Zobrazit varovné okno pro odmítnutí přímo na domovské stránce OSPy."
 
-#: plugins/automation_rules/templates/automation_rules.html:141
+#: plugins/automation_rules/templates/automation_rules.html:173
 msgid ""
 "Display a desktop notification in this browser when the OSPy page is open."
 msgstr ""
 "Zobrazit upozornění na ploše v tomto prohlížeči, když je otevřená stránka "
 "OSPy."
 
-#: plugins/automation_rules/templates/automation_rules.html:142
+#: plugins/automation_rules/templates/automation_rules.html:174
 msgid ""
 "Send the event through an installed and configured e-mail notification plug-"
 "in."
@@ -16378,31 +16833,31 @@ msgstr ""
 "Odeslat událost přes nainstalovaný a nakonfigurovaný e-mailový notifikační "
 "balíček."
 
-#: plugins/automation_rules/templates/automation_rules.html:143
+#: plugins/automation_rules/templates/automation_rules.html:175
 msgid ""
 "Send the event through the installed and configured Telegram Bot plug-in."
 msgstr ""
 "Odeslat událost přes nainstalovaný a konfigurovaný balíček Telegram Bot."
 
-#: plugins/automation_rules/templates/automation_rules.html:144
+#: plugins/automation_rules/templates/automation_rules.html:176
 msgid ""
 "Send the event to registered mobile devices through OSPy push notifications."
 msgstr ""
 "Odeslat událost na registrovaná mobilní zařízení přes OSPy push notifikace."
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Add rule"
 msgstr "Přidat pravidlo"
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Save rule"
 msgstr "Uložit pravidlo"
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Save this rule and its conditions."
 msgstr "Uložit toto pravidlo a jeho podmínky."
 
-#: plugins/automation_rules/templates/automation_rules.html:150
+#: plugins/automation_rules/templates/automation_rules.html:182
 msgid ""
 "Evaluate the saved rule once and record the result without sending "
 "notifications."
@@ -16410,15 +16865,15 @@ msgstr ""
 "Vyhodnotit uložené pravidlo jednou a zaznamenat výsledek bez posílání "
 "oznámení."
 
-#: plugins/automation_rules/templates/automation_rules.html:150
+#: plugins/automation_rules/templates/automation_rules.html:182
 msgid "Test saved rule"
 msgstr "Test uložených pravidel"
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid "Send a real test message through the enabled notification channels?"
 msgstr "Poslat skutečnou testovací zprávu přes povolené kanály oznámení?"
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid ""
 "Send one real test message through every notification channel currently "
 "enabled in this rule. Conditions and delays are ignored."
@@ -16426,51 +16881,68 @@ msgstr ""
 "Poslat jednu testovací zprávu přes všechny kanály notifikací, které jsou v "
 "tomto pravidle aktuálně povolené. Podmínky a zpoždění jsou ignorovány."
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid "Test notifications"
 msgstr "Test oznámení"
 
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid "Acknowledge and unlock incident"
+msgstr "Potvrdit a odemknout incident"
+
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid ""
+"Acknowledge and unlock this incident? Outputs and settings changed by its "
+"actions are not restored automatically."
+msgstr ""
+"Potvrdit a odemknout tento incident? Výstupy a nastavení změněné jeho akcemi "
+"nejsou automaticky obnoveny."
+
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid ""
+"Acknowledge this incident and allow the rule to create a new incident later."
+msgstr "Uznat tento incident a nechat pravidlo později vytvořit nový incident."
+
+#: plugins/automation_rules/templates/automation_rules.html:186
 msgid "Delete this rule?"
 msgstr "Smazat toto pravidlo?"
 
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:186
 msgid "Permanently delete this automation rule."
 msgstr "Toto pravidlo automatizace trvale smazat."
 
-#: plugins/automation_rules/templates/automation_rules.html:158
+#: plugins/automation_rules/templates/automation_rules.html:192
 msgid "Action history"
 msgstr "Historie akcí"
 
-#: plugins/automation_rules/templates/automation_rules.html:161
+#: plugins/automation_rules/templates/automation_rules.html:195
 msgid "Clear history"
 msgstr "Smazat historii"
 
-#: plugins/automation_rules/templates/automation_rules.html:161
+#: plugins/automation_rules/templates/automation_rules.html:195
 msgid "Permanently remove all Automation Rules action history."
 msgstr "Trvale odstranit veškerou historii akcí automatizačních pravidel."
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Mode"
 msgstr "Režim"
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Result"
 msgstr "Výsledek"
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Rule"
 msgstr "Pravidlo"
 
-#: plugins/automation_rules/templates/automation_rules.html:173
+#: plugins/automation_rules/templates/automation_rules.html:207
 msgid "No automation action has been recorded yet."
 msgstr "Zatím nebyla zaznamenána žádná automatizační akce."
 
-#: plugins/automation_rules/templates/automation_rules.html:177
+#: plugins/automation_rules/templates/automation_rules.html:211
 msgid "Diagnostics events"
 msgstr "Diagnostické události"
 
-#: plugins/automation_rules/templates/automation_rules.html:178
+#: plugins/automation_rules/templates/automation_rules.html:212
 msgid "Recent diagnostic events reported by the Automation Rules worker."
 msgstr ""
 "Nedávné diagnostické události hlášené pracovníkem automatizačních pravidel."
@@ -16600,13 +17072,73 @@ msgstr ""
 #: plugins/automation_rules/templates/automation_rules_help.html:20
 msgid ""
 "A missing or unhealthy provider cannot match a condition and does not clear "
-"an already active incident. This plug-in does not execute irrigation control "
-"actions."
+"an already active incident."
 msgstr ""
-"Chybějící nebo nefunkční poskytovatel nemůže odpovídat podmínce a nevymaže "
-"již aktivní incident. Tento balíček neprovádí akce pro řízení zavlažování."
+"Chybějící nebo nezdravý poskytovatel nemůže odpovídat stavu a neodstraní již "
+"probíhající incident."
 
 #: plugins/automation_rules/templates/automation_rules_help.html:21
+msgid ""
+"Control actions can stop selected stations, stop every current output, "
+"disable the scheduler, stop a selected or every running program, turn a "
+"specific output off, turn a specific output on for a required limited "
+"duration, change the global water-level adjustment, or call an action "
+"declared by another provider. Add a separate action row for every selected "
+"station or output."
+msgstr ""
+"Řídicí akce mohou zastavit vybrané stanice, zastavit všechny aktuální "
+"výstupy, deaktivovat plánovač, zastavit vybraný nebo každý běžící program, "
+"vypnout konkrétní výstup, zapnout konkrétní výstup na požadovanou omezenou "
+"dobu, změnit globální úpravu hladiny vody nebo vyvolat akci deklarovanou "
+"jiným poskytovatelem. Přidejte samostatný akční řádek pro každou vybranou "
+"stanici nebo výstup."
+
+#: plugins/automation_rules/templates/automation_rules_help.html:22
+msgid ""
+"Control actions have a separate global switch that is disabled by default. "
+"Test mode only simulates actions. Live actions run once when an incident is "
+"first triggered and are never repeated by reminder notifications or reversed "
+"by a recovery notification. Turning an output on requires manual mode and "
+"cannot directly start a master or disabled output."
+msgstr ""
+"Akce řízení mají samostatný globální přepínač, který je ve výchozím "
+"nastavení vypnutý. Testovací režim pouze simuluje akci. Živé akce se spustí "
+"jednou, když je incident poprvé spuštěn, a nikdy se neopakují připomínkami "
+"ani nejsou zrušeny oznámením o obnovení. Zapnutí výstupu vyžaduje manuální "
+"režim a nelze přímo spustit hlavní výstup nebo zakázat výstup."
+
+#: plugins/automation_rules/templates/automation_rules_help.html:23
+msgid ""
+"An output-on action can run once or cycle for a bounded time. Cyclic mode "
+"alternates the configured run duration and off pause until the maximum "
+"cycling time is reached, but only while the rule conditions remain available "
+"and matched. A false or unavailable condition, disabled rule or automation, "
+"test mode, disabled control actions, disabled manual mode, rule edit, plug-"
+"in stop or restart cancels the cycle and leaves the output off. One output "
+"cannot be controlled by two cycles at the same time."
+msgstr ""
+"Výstupní akce může proběhnout jednou nebo cyklovat po omezenou dobu. "
+"Cyklický režim střídá nastavenou délku zapnutí a pauzu mimo cyklus až do "
+"dosažení maximálního cyklického času, ale pouze dokud jsou podmínky pravidel "
+"dostupné a platné. Falešná nebo nedostupná podmínka, deaktivované pravidlo "
+"nebo automatizace, testovací režim, deaktivované řídicí akce, deaktivovaný "
+"manuální režim, úprava pravidel, zastavení nebo restart pomocí balíčku zruší "
+"cyklus a nechá výstup vypnutý. Jeden výstup nelze ovládat dvěma cykly "
+"současně."
+
+#: plugins/automation_rules/templates/automation_rules_help.html:24
+msgid ""
+"Lock incident until acknowledged keeps an incident active after its "
+"conditions return to normal. Only an administrator can unlock it, and only "
+"after every condition is available and no longer active. Unlocking does not "
+"restore settings or outputs changed by an action."
+msgstr ""
+"Zamčený incident, dokud není potvrzen, udržuje incident aktivní i poté, co "
+"se jeho stav vrátí do normálu. Odemknout ho může pouze administrátor, a to "
+"až poté, co jsou všechny podmínky dostupné a přestanou být aktivní. Odemčení "
+"neobnoví nastavení ani výstupy změněné akcí."
+
+#: plugins/automation_rules/templates/automation_rules_help.html:25
 msgid ""
 "The native mobile API shows one card for every saved rule. Each card reports "
 "whether automation and the rule are enabled, whether the rule is ready, "
@@ -16622,7 +17154,7 @@ msgstr ""
 "Otevření mobilního zobrazení přečte hodnoty poskytovatele v cache bez změny "
 "stavu pravidla nebo incidentu."
 
-#: plugins/automation_rules/templates/automation_rules_help.html:23
+#: plugins/automation_rules/templates/automation_rules_help.html:27
 msgid ""
 "Every live notification includes each evaluated value, comparison and "
 "configured limit. Home notifications appear in OSPy. Browser notifications "
@@ -16639,7 +17171,7 @@ msgstr ""
 "balíčky. Push používá spárovaná mobilní zařízení a nakonfigurovaný OSPy push "
 "relay."
 
-#: plugins/automation_rules/templates/automation_rules_help.html:24
+#: plugins/automation_rules/templates/automation_rules_help.html:28
 msgid "Return to the Automation Rules settings page."
 msgstr "Vratit se na stránku nastavení automatizačních pravidel."
 
@@ -16877,10 +17409,6 @@ msgstr "Vypnutí operačního systému"
 #: plugins/button_control/templates/button_control.html:115
 msgid "Stop stations"
 msgstr "Zastavit stanice"
-
-#: plugins/button_control/templates/button_control.html:117
-msgid "Disable scheduler"
-msgstr "Zakázat plánovač"
 
 #: plugins/button_control/templates/button_control.html:123
 msgid "Run program"
@@ -17893,7 +18421,7 @@ msgid "Configured commands"
 msgstr "Konfigurované příkazy"
 
 #: plugins/cli_control/__init__.py:83 plugins/modbus_stations/__init__.py:153
-#: plugins/remote_ftp_control/__init__.py:206 plugins/sms_adj/__init__.py:195
+#: plugins/remote_ftp_control/__init__.py:206
 msgid "Last command"
 msgstr "Poslední příkaz"
 
@@ -19108,15 +19636,6 @@ msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
 #: plugins/email_reader/__init__.py:576 plugins/email_reader/__init__.py:584
 #: plugins/email_reader/__init__.py:592 plugins/email_reader/__init__.py:604
 #: plugins/modbus_stations/templates/modbus_stations_log.html:17
-#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:349
-#: plugins/sms_adj/__init__.py:354 plugins/sms_adj/__init__.py:366
-#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:380
-#: plugins/sms_adj/__init__.py:385 plugins/sms_adj/__init__.py:393
-#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:407
-#: plugins/sms_adj/__init__.py:413 plugins/sms_adj/__init__.py:421
-#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:441
-#: plugins/sms_adj/__init__.py:461 plugins/sms_adj/__init__.py:469
-#: plugins/sms_adj/__init__.py:476 plugins/sms_adj/__init__.py:498
 #: plugins/venetian_blind/templates/venetian_blind_log.html:16
 msgid "Command"
 msgstr "Příkaz"
@@ -27566,7 +28085,7 @@ msgstr "Rozšíření FVE bojler"
 #: plugins/relay_16/__init__.py:220 plugins/remote_ftp_control/__init__.py:186
 #: plugins/remote_notifications/__init__.py:280
 #: plugins/shelly_cloud_integrator/__init__.py:1580
-#: plugins/sms_adj/__init__.py:167 plugins/speed_monitor/__init__.py:182
+#: plugins/speed_monitor/__init__.py:182
 #: plugins/sunrise_and_sunset/__init__.py:689
 #: plugins/system_watchdog/__init__.py:139 plugins/tank_monitor/__init__.py:411
 #: plugins/telegram_bot/__init__.py:509
@@ -28856,7 +29375,6 @@ msgid "Example Number Entry Fields"
 msgstr "Příklad polí pro zadávání čísel"
 
 #: plugins/proto/templates/proto.html:115
-#: plugins/sms_adj/templates/sms_adj.html:90
 msgid "Number 1"
 msgstr "Číslo 1"
 
@@ -28866,7 +29384,6 @@ msgid "Here is help for these options)"
 msgstr "Zde je nápověda pro tyto možnosti"
 
 #: plugins/proto/templates/proto.html:126
-#: plugins/sms_adj/templates/sms_adj.html:96
 msgid "Number 2"
 msgstr "Číslo 2"
 
@@ -32053,284 +32570,6 @@ msgstr ""
 #: plugins/signaling_examples/templates/signaling_examples_help.html:9
 msgid "Example signals"
 msgstr "Příklady signálů"
-
-#: plugins/sms_adj/__init__.py:26
-msgid "Package: SMS Modem"
-msgstr "Balíček: SMS modem"
-
-#: plugins/sms_adj/__init__.py:112
-msgid "SMS Modem plug-in is enabled"
-msgstr "Rozšíření SMS modem je povoleno"
-
-#: plugins/sms_adj/__init__.py:117
-msgid "Gammu is not installed."
-msgstr "Gammu není nainstalován."
-
-#: plugins/sms_adj/__init__.py:118
-msgid ""
-"Install required packages from the system package manager and restart this "
-"plug-in."
-msgstr ""
-"Nainstalujte potřebné balíčky ze správce systémových balíčků a restartujte "
-"tento balíček."
-
-#: plugins/sms_adj/__init__.py:123
-msgid "Saving Gammu config to /root/.gammurc..."
-msgstr "Ukládání Gammu config do /root/.gammurc..."
-
-#: plugins/sms_adj/__init__.py:133
-msgid "Could not save Gammu config."
-msgstr "Nepodařilo se uložit konfiguraci Gammu."
-
-#: plugins/sms_adj/__init__.py:139
-msgid "SMS Modem plug-in is disabled"
-msgstr "Rozšíření SMS modem je zakázáno"
-
-#: plugins/sms_adj/__init__.py:146
-msgid "SMS Modem plug-in"
-msgstr "Rozšíření SMS"
-
-#: plugins/sms_adj/__init__.py:183
-msgid "SMS modem enabled"
-msgstr "SMS modem povolen"
-
-#: plugins/sms_adj/__init__.py:184
-msgid "Configured administrators"
-msgstr "Konfigurovaní administrátoři"
-
-#: plugins/sms_adj/__init__.py:185
-msgid "Gammu executable available"
-msgstr "Gammu spustitelný soubor je k dispozici"
-
-#: plugins/sms_adj/__init__.py:186
-msgid "Modem connected"
-msgstr "Připojený modem"
-
-#: plugins/sms_adj/__init__.py:187
-msgid "Signal strength"
-msgstr "Síla signálu"
-
-#: plugins/sms_adj/__init__.py:191
-msgid "Last modem check"
-msgstr "Poslední kontrola modemu"
-
-#: plugins/sms_adj/__init__.py:202
-msgid "SMS Modem worker is not running."
-msgstr "Smyčka SMS modemu neběží."
-
-#: plugins/sms_adj/__init__.py:208
-msgid "SMS modem control is disabled."
-msgstr "Ovládání SMS modemu je vypnuté."
-
-#: plugins/sms_adj/__init__.py:220
-msgid "SMS modem is not connected."
-msgstr "SMS modem není připojený."
-
-#: plugins/sms_adj/__init__.py:225
-msgid "SMS Modem is responding."
-msgstr "SMS modem reaguje."
-
-#: plugins/sms_adj/__init__.py:234
-msgid "Error: No module named gammu"
-msgstr "Chyba: Žádný modul s názvem gammu"
-
-#: plugins/sms_adj/__init__.py:237
-msgid "Python Gammu module is not available."
-msgstr "Modul Python Gammu není dostupný."
-
-#: plugins/sms_adj/__init__.py:257
-msgid "Checking SMS..."
-msgstr "Kontrola SMS..."
-
-#: plugins/sms_adj/__init__.py:259
-msgid "Error: Phone (modem) not connected."
-msgstr "Chyba: Telefon (modem) není připojen."
-
-#: plugins/sms_adj/__init__.py:262
-msgid "Phone modem is not connected."
-msgstr "Modem telefonu není připojený."
-
-#: plugins/sms_adj/__init__.py:298
-msgid "SMS from admin"
-msgstr "SMS od správce"
-
-#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:354
-#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:385
-#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:413
-#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:461
-#: plugins/sms_adj/__init__.py:476
-msgid "is processed"
-msgstr "je zpracován"
-
-#: plugins/sms_adj/__init__.py:349 plugins/sms_adj/__init__.py:366
-#: plugins/sms_adj/__init__.py:380 plugins/sms_adj/__init__.py:393
-#: plugins/sms_adj/__init__.py:407 plugins/sms_adj/__init__.py:421
-#: plugins/sms_adj/__init__.py:441 plugins/sms_adj/__init__.py:469
-#: plugins/sms_adj/__init__.py:498
-msgid "was processed and confirmation was sent as SMS to"
-msgstr "je zpracován a potvrzení bylo odesláno jako SMS"
-
-#: plugins/sms_adj/__init__.py:351 plugins/sms_adj/__init__.py:368
-#: plugins/sms_adj/__init__.py:382 plugins/sms_adj/__init__.py:471
-#: plugins/sms_adj/__init__.py:501
-msgid "Received SMS was deleted"
-msgstr "Přijatá SMS byla odstraněna"
-
-#: plugins/sms_adj/__init__.py:395
-msgid "Received SMS was deleted and system is now reboot"
-msgstr "Přijatá SMS byla odstraněna a systém je nyní restartován"
-
-#: plugins/sms_adj/__init__.py:409
-msgid "Received SMS was deleted and system is now poweroff"
-msgstr "Přijatá SMS byla odstraněna a systém je nyní vypínán"
-
-#: plugins/sms_adj/__init__.py:426
-msgid "Received SMS was deleted, update was performed and program will restart"
-msgstr ""
-"Přijatá SMS byla odstraněna, aktualizace byla provedena a program OSPy se "
-"restartuje"
-
-#: plugins/sms_adj/__init__.py:428
-msgid "Received SMS was deleted, but could not perform update"
-msgstr ""
-"Přijatá SMS byla odstraněna, ale nemohl jsem provést aktualizaci systému OSPy"
-
-#: plugins/sms_adj/__init__.py:446
-msgid "SMS plug-in send image file from webcam."
-msgstr "Rozšíření SMS odeslalo obrazový soubor z webové kamery."
-
-#: plugins/sms_adj/__init__.py:451
-msgid ""
-"Received SMS was deleted, but could not send email with photo from webcam"
-msgstr ""
-"Přijatá SMS byla smazána, ale nemohla odeslat E-mail s fotografií z webové "
-"kamery"
-
-#: plugins/sms_adj/__init__.py:483
-msgid "now run"
-msgstr "nyní spuštěno"
-
-#: plugins/sms_adj/__init__.py:505
-msgid "Received command"
-msgstr "Přijatý příkaz"
-
-#: plugins/sms_adj/__init__.py:505
-msgid "is not defined!"
-msgstr "není definována!"
-
-#: plugins/sms_adj/__init__.py:509
-msgid "Received SMS was deleted - SMS was read"
-msgstr "Přijatá SMS byla odstraněna - SMS byla přečtena"
-
-#: plugins/sms_adj/__init__.py:512
-msgid "Received SMS was deleted - SMS was not from admin"
-msgstr "Přijatá SMS byla odstraněna - SMS nebyla od správce"
-
-#: plugins/sms_adj/__init__.py:521
-#: plugins/water_consumption_counter/__init__.py:368
-msgid "Email was sent"
-msgstr "E-mail byl odeslán"
-
-#: plugins/sms_adj/__init__.py:523
-#: plugins/water_consumption_counter/__init__.py:373
-#: plugins/water_consumption_counter/__init__.py:377
-#: plugins/water_consumption_counter/__init__.py:379
-#: plugins/water_consumption_counter/__init__.py:418
-#: plugins/water_consumption_counter/__init__.py:456
-msgid "Email was not sent"
-msgstr "E-mail nebyl odeslán"
-
-#: plugins/sms_adj/templates/sms_adj.html:3
-msgid "SMS settings"
-msgstr "Rozšíření SMS nastavení"
-
-#: plugins/sms_adj/templates/sms_adj.html:66
-msgid "SMS Settings"
-msgstr "Rozšíření SMS nastavení"
-
-#: plugins/sms_adj/templates/sms_adj.html:72
-msgid "Use SMS modem"
-msgstr "Použit SMS modem"
-
-#: plugins/sms_adj/templates/sms_adj.html:81
-msgid "Signal strength in the status window"
-msgstr "Síla signálu ve stavovém okně"
-
-#: plugins/sms_adj/templates/sms_adj.html:102
-msgid "Command for info"
-msgstr "Příkaz pro informace"
-
-#: plugins/sms_adj/templates/sms_adj.html:108
-msgid "Command for stop irrigation"
-msgstr "Příkaz pro zastavení zavlažování"
-
-#: plugins/sms_adj/templates/sms_adj.html:114
-msgid "Command for start irrigation"
-msgstr "Příkaz pro zahájení zavlažování"
-
-#: plugins/sms_adj/templates/sms_adj.html:120
-msgid "Command for reboot system"
-msgstr "Příkaz pro restart systému"
-
-#: plugins/sms_adj/templates/sms_adj.html:126
-msgid "Command for poweroff system"
-msgstr "Příkaz pro vypnutí systému"
-
-#: plugins/sms_adj/templates/sms_adj.html:132
-msgid "Command for update OSPi from GITHUB"
-msgstr "Příkaz pro aktualizaci OSPy z GITHUBu"
-
-#: plugins/sms_adj/templates/sms_adj.html:138
-msgid "Command for send foto from webcam"
-msgstr "Příkaz pro odeslání fotografie z webové kamery"
-
-#: plugins/sms_adj/templates/sms_adj.html:140
-msgid "For this function required email and webcam plugin"
-msgstr ""
-"Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
-
-#: plugins/sms_adj/templates/sms_adj.html:144
-msgid "Command for help"
-msgstr "Příkaz pro nápovědu"
-
-#: plugins/sms_adj/templates/sms_adj.html:146
-msgid "Send SMS with all available commands"
-msgstr "Odeslat SMS se všemi dostupnými příkazy"
-
-#: plugins/sms_adj/templates/sms_adj.html:150
-msgid "Command for run now program"
-msgstr "Příkaz pro spuštění jednorázového programu"
-
-#: plugins/sms_adj/templates/sms_adj.html:152
-msgid "Example: runxx = run now program xx if exists"
-msgstr "Příklad: runxx = spustit nyní program xx, pokud existuje"
-
-#: plugins/sms_adj/templates/sms_adj_help.html:3
-msgid "SMS settings - help"
-msgstr "SMS nastavení - nápověda"
-
-#: plugins/sms_adj/templates/sms_adj_help.html:7
-msgid "SMS Settings - help"
-msgstr "SMS nastavení - nápověda"
-
-#: plugins/sms_adj/templates/sms_adj_help.html:8
-msgid ""
-"For this plugin is needed to SMS modem with the telephone service provider"
-msgstr ""
-"Pro toto rozšíření je potřeba SMS modem s poskytovatelem telefonních služeb"
-
-#: plugins/sms_adj/templates/sms_adj_help.html:9
-msgid ""
-"This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin "
-"installs Gammu and Python-Gammu in to the system himself"
-msgstr ""
-"Toto rozšíření potřebuje Gammu. Pokud není nainstalováno Gammu a Python-"
-"Gammu, rozšíření ho nainstaluje samo (Gammu a Python-Gammu) do systému"
-
-#: plugins/sms_adj/templates/sms_adj_help.html:10
-#: plugins/webcam/templates/webcam_help.html:10
-msgid "On first use please wait for status"
-msgstr "Při prvním použití počkejte na stav"
 
 #: plugins/speed_monitor/__init__.py:27
 msgid "Package: Internet Speed Monitor"
@@ -37127,6 +37366,18 @@ msgstr "Rozšíření spotřeba vody"
 msgid "Email logging is disabled in options..."
 msgstr "V možnostech je zakázáno protokolování E-mailů..."
 
+#: plugins/water_consumption_counter/__init__.py:368
+msgid "Email was sent"
+msgstr "E-mail byl odeslán"
+
+#: plugins/water_consumption_counter/__init__.py:373
+#: plugins/water_consumption_counter/__init__.py:377
+#: plugins/water_consumption_counter/__init__.py:379
+#: plugins/water_consumption_counter/__init__.py:418
+#: plugins/water_consumption_counter/__init__.py:456
+msgid "Email was not sent"
+msgstr "E-mail nebyl odeslán"
+
 #: plugins/water_consumption_counter/__init__.py:385
 msgid "Master station 1 running, please wait..."
 msgstr "Hlavní stanice 1 běží, počkejte prosím..."
@@ -39256,6 +39507,10 @@ msgstr ""
 "Pokud fswebcam není nainstalováno, nainstalujte ho ze správce systémových "
 "balíčků"
 
+#: plugins/webcam/templates/webcam_help.html:10
+msgid "On first use please wait for status"
+msgstr "Při prvním použití počkejte na stav"
+
 #: plugins/wind_monitor/__init__.py:76
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
 msgstr "Zpráva z rozšíření OSPy WIND SPEED MONITOR"
@@ -40164,6 +40419,197 @@ msgstr "Chyba při úklidu session: {}"
 msgid "Error while cleaning: {}"
 msgstr "Chyba při čištění: {}"
 
+#~ msgid "Package: SMS Modem"
+#~ msgstr "Balíček: SMS modem"
+
+#~ msgid "SMS Modem plug-in is enabled"
+#~ msgstr "Rozšíření SMS modem je povoleno"
+
+#~ msgid "Gammu is not installed."
+#~ msgstr "Gammu není nainstalován."
+
+#~ msgid ""
+#~ "Install required packages from the system package manager and restart "
+#~ "this plug-in."
+#~ msgstr ""
+#~ "Nainstalujte potřebné balíčky ze správce systémových balíčků a "
+#~ "restartujte tento balíček."
+
+#~ msgid "Saving Gammu config to /root/.gammurc..."
+#~ msgstr "Ukládání Gammu config do /root/.gammurc..."
+
+#~ msgid "Could not save Gammu config."
+#~ msgstr "Nepodařilo se uložit konfiguraci Gammu."
+
+#~ msgid "SMS Modem plug-in is disabled"
+#~ msgstr "Rozšíření SMS modem je zakázáno"
+
+#~ msgid "SMS Modem plug-in"
+#~ msgstr "Rozšíření SMS"
+
+#~ msgid "Configured administrators"
+#~ msgstr "Konfigurovaní administrátoři"
+
+#~ msgid "Gammu executable available"
+#~ msgstr "Gammu spustitelný soubor je k dispozici"
+
+#~ msgid "Modem connected"
+#~ msgstr "Připojený modem"
+
+#~ msgid "Signal strength"
+#~ msgstr "Síla signálu"
+
+#~ msgid "Last modem check"
+#~ msgstr "Poslední kontrola modemu"
+
+#~ msgid "SMS Modem worker is not running."
+#~ msgstr "Smyčka SMS modemu neběží."
+
+#~ msgid "SMS modem control is disabled."
+#~ msgstr "Ovládání SMS modemu je vypnuté."
+
+#~ msgid "SMS modem is not connected."
+#~ msgstr "SMS modem není připojený."
+
+#~ msgid "SMS Modem is responding."
+#~ msgstr "SMS modem reaguje."
+
+#~ msgid "Error: No module named gammu"
+#~ msgstr "Chyba: Žádný modul s názvem gammu"
+
+#~ msgid "Python Gammu module is not available."
+#~ msgstr "Modul Python Gammu není dostupný."
+
+#~ msgid "Checking SMS..."
+#~ msgstr "Kontrola SMS..."
+
+#~ msgid "Error: Phone (modem) not connected."
+#~ msgstr "Chyba: Telefon (modem) není připojen."
+
+#~ msgid "Phone modem is not connected."
+#~ msgstr "Modem telefonu není připojený."
+
+#~ msgid "SMS from admin"
+#~ msgstr "SMS od správce"
+
+#~ msgid "is processed"
+#~ msgstr "je zpracován"
+
+#~ msgid "was processed and confirmation was sent as SMS to"
+#~ msgstr "je zpracován a potvrzení bylo odesláno jako SMS"
+
+#~ msgid "Received SMS was deleted"
+#~ msgstr "Přijatá SMS byla odstraněna"
+
+#~ msgid "Received SMS was deleted and system is now reboot"
+#~ msgstr "Přijatá SMS byla odstraněna a systém je nyní restartován"
+
+#~ msgid "Received SMS was deleted and system is now poweroff"
+#~ msgstr "Přijatá SMS byla odstraněna a systém je nyní vypínán"
+
+#~ msgid ""
+#~ "Received SMS was deleted, update was performed and program will restart"
+#~ msgstr ""
+#~ "Přijatá SMS byla odstraněna, aktualizace byla provedena a program OSPy se "
+#~ "restartuje"
+
+#~ msgid "Received SMS was deleted, but could not perform update"
+#~ msgstr ""
+#~ "Přijatá SMS byla odstraněna, ale nemohl jsem provést aktualizaci systému "
+#~ "OSPy"
+
+#~ msgid "SMS plug-in send image file from webcam."
+#~ msgstr "Rozšíření SMS odeslalo obrazový soubor z webové kamery."
+
+#~ msgid ""
+#~ "Received SMS was deleted, but could not send email with photo from webcam"
+#~ msgstr ""
+#~ "Přijatá SMS byla smazána, ale nemohla odeslat E-mail s fotografií z "
+#~ "webové kamery"
+
+#~ msgid "now run"
+#~ msgstr "nyní spuštěno"
+
+#~ msgid "Received command"
+#~ msgstr "Přijatý příkaz"
+
+#~ msgid "is not defined!"
+#~ msgstr "není definována!"
+
+#~ msgid "Received SMS was deleted - SMS was read"
+#~ msgstr "Přijatá SMS byla odstraněna - SMS byla přečtena"
+
+#~ msgid "Received SMS was deleted - SMS was not from admin"
+#~ msgstr "Přijatá SMS byla odstraněna - SMS nebyla od správce"
+
+#~ msgid "SMS settings"
+#~ msgstr "Rozšíření SMS nastavení"
+
+#~ msgid "SMS Settings"
+#~ msgstr "Rozšíření SMS nastavení"
+
+#~ msgid "Use SMS modem"
+#~ msgstr "Použit SMS modem"
+
+#~ msgid "Signal strength in the status window"
+#~ msgstr "Síla signálu ve stavovém okně"
+
+#~ msgid "Command for info"
+#~ msgstr "Příkaz pro informace"
+
+#~ msgid "Command for stop irrigation"
+#~ msgstr "Příkaz pro zastavení zavlažování"
+
+#~ msgid "Command for start irrigation"
+#~ msgstr "Příkaz pro zahájení zavlažování"
+
+#~ msgid "Command for reboot system"
+#~ msgstr "Příkaz pro restart systému"
+
+#~ msgid "Command for poweroff system"
+#~ msgstr "Příkaz pro vypnutí systému"
+
+#~ msgid "Command for update OSPi from GITHUB"
+#~ msgstr "Příkaz pro aktualizaci OSPy z GITHUBu"
+
+#~ msgid "Command for send foto from webcam"
+#~ msgstr "Příkaz pro odeslání fotografie z webové kamery"
+
+#~ msgid "For this function required email and webcam plugin"
+#~ msgstr ""
+#~ "Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
+
+#~ msgid "Command for help"
+#~ msgstr "Příkaz pro nápovědu"
+
+#~ msgid "Send SMS with all available commands"
+#~ msgstr "Odeslat SMS se všemi dostupnými příkazy"
+
+#~ msgid "Command for run now program"
+#~ msgstr "Příkaz pro spuštění jednorázového programu"
+
+#~ msgid "Example: runxx = run now program xx if exists"
+#~ msgstr "Příklad: runxx = spustit nyní program xx, pokud existuje"
+
+#~ msgid "SMS settings - help"
+#~ msgstr "SMS nastavení - nápověda"
+
+#~ msgid "SMS Settings - help"
+#~ msgstr "SMS nastavení - nápověda"
+
+#~ msgid ""
+#~ "For this plugin is needed to SMS modem with the telephone service provider"
+#~ msgstr ""
+#~ "Pro toto rozšíření je potřeba SMS modem s poskytovatelem telefonních "
+#~ "služeb"
+
+#~ msgid ""
+#~ "This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin "
+#~ "installs Gammu and Python-Gammu in to the system himself"
+#~ msgstr ""
+#~ "Toto rozšíření potřebuje Gammu. Pokud není nainstalováno Gammu a Python-"
+#~ "Gammu, rozšíření ho nainstaluje samo (Gammu a Python-Gammu) do systému"
+
 #~ msgid "Power line is not restore in time -> shutdown system!"
 #~ msgstr "Napájení nebylo obnoveno ve stanoveném čase -> vypnutí systému!"
 
@@ -40288,9 +40734,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "= instructed user with limited settings."
 #~ msgstr "= instruovaný uživatel s omezeným nastavením."
-
-#~ msgid "= system administrator without restrictions."
-#~ msgstr "= správce systému bez omezení."
 
 #~ msgid "= only for data input from sensors with restricted settings."
 #~ msgstr "= pouze pro vstup dat ze snímačů s omezeným nastavením."
@@ -40448,9 +40891,6 @@ msgstr "Chyba při čištění: {}"
 #~ msgstr ""
 #~ "Při překročení nastavené rychlosti spustit vybraný program a zatáhnout "
 #~ "například žaluzie."
-
-#~ msgid "Running program"
-#~ msgstr "Spuštěný program"
 
 #~ msgid "If this set speed is exceeded, another condition will be activated."
 #~ msgstr ""
@@ -42499,9 +42939,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "Station output was turned on."
 #~ msgstr "Stanice byla zapnuta."
-
-#~ msgid "Station output was turned off."
-#~ msgstr "Stanice byla vypnuta."
 
 #~ msgid "OSPy is restarting. You will be redirected as soon as possible..."
 #~ msgstr "OSPy se restartuje. Budete přesměrováni co nejdříve..."

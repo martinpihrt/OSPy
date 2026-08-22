@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-08-22 11:41+0200\n"
+"POT-Creation-Date: 2026-08-22 13:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -768,9 +768,12 @@ msgstr ""
 #: ospy/helpers.py:440 ospy/helpers.py:441 ospy/helpers.py:1360
 #: ospy/templates/sensors.html:84 ospy/templates/sensors_search.html:56
 #: ospy/templates/sensors_search.html:61 ospy/templates/sensors_search.html:67
-#: ospy/templates/users.html:67 plugins/automation_rules/__init__.py:329
-#: plugins/automation_rules/__init__.py:334
-#: plugins/automation_rules/__init__.py:335
+#: ospy/templates/users.html:67 plugins/automation_rules/__init__.py:415
+#: plugins/automation_rules/__init__.py:420
+#: plugins/automation_rules/__init__.py:421
+#: plugins/automation_rules/__init__.py:425
+#: plugins/automation_rules/__init__.py:426
+#: plugins/automation_rules/__init__.py:706
 #: plugins/ip_scanner/templates/ip_scanner.html:133
 #: plugins/shelly_cloud_integrator/__init__.py:225
 #: plugins/shelly_cloud_integrator/__init__.py:284
@@ -793,7 +796,7 @@ msgid "Access"
 msgstr ""
 
 #: ospy/helpers.py:285
-#: plugins/automation_rules/templates/automation_rules.html:100
+#: plugins/automation_rules/templates/automation_rules.html:105
 msgid "Operator"
 msgstr ""
 
@@ -834,11 +837,12 @@ msgstr ""
 
 #: ospy/helpers.py:688 ospy/programs.py:62 ospy/templates/log.html:137
 #: ospy/templates/log_user.html:28 ospy/templates/sensors.html:475
+#: plugins/automation_rules/__init__.py:344
 #: plugins/email_notifications/__init__.py:146
 #: plugins/email_notifications/__init__.py:150
 #: plugins/email_notifications_ssl/__init__.py:215
 #: plugins/email_notifications_ssl/__init__.py:220
-#: plugins/mqtt_home_assistant/__init__.py:849 plugins/sms_adj/__init__.py:483
+#: plugins/mqtt_home_assistant/__init__.py:849
 #: plugins/thermostat/templates/thermostat.html:150
 #: plugins/thermostat/templates/thermostat.html:155
 msgid "Program"
@@ -1226,7 +1230,7 @@ msgstr ""
 
 #: ospy/linux_health.py:494 ospy/linux_health.py:521
 #: ospy/templates/log.html:217 ospy/webpages.py:4555
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 msgid "Critical"
 msgstr ""
 
@@ -1249,7 +1253,7 @@ msgstr ""
 #: ospy/linux_health.py:505 ospy/linux_health.py:520
 #: ospy/templates/diagnostics.html:543 ospy/templates/log.html:217
 #: ospy/templates/programs.html:193 ospy/webpages.py:4554
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 #: plugins/relay_16/templates/relay_16_help.html:15
 msgid "Warning"
 msgstr ""
@@ -1277,7 +1281,7 @@ msgstr ""
 
 #: ospy/linux_health.py:522 ospy/linux_health.py:526
 #: ospy/templates/log.html:217 ospy/webpages.py:4556 ospy/webpages.py:4557
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/templates/automation_rules.html:162
 msgid "Information"
 msgstr ""
 
@@ -2845,7 +2849,7 @@ msgstr ""
 #: ospy/sensors.py:499 ospy/sensors.py:507 ospy/sensors.py:1640
 #: ospy/templates/graph_sensor.html:9 ospy/templates/log_sensor.html:9
 #: ospy/templates/log_sensor.html:78 ospy/templates/sensor.html:440
-#: ospy/templates/sensors.html:850 plugins/automation_rules/__init__.py:192
+#: ospy/templates/sensors.html:850 plugins/automation_rules/__init__.py:199
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:257
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:273
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:289
@@ -2857,7 +2861,6 @@ msgid "Voltage"
 msgstr ""
 
 #: ospy/sensors.py:500 ospy/sensors.py:508 ospy/templates/log_sensor.html:79
-#: plugins/sms_adj/__init__.py:275
 msgid "Signal"
 msgstr ""
 
@@ -2967,7 +2970,7 @@ msgstr ""
 #: ospy/sensors.py:1207 ospy/sensors.py:1222 ospy/sensors.py:1287
 #: ospy/sensors.py:1359 ospy/sensors.py:1385 ospy/sensors.py:1404
 #: ospy/sensors.py:1420 ospy/sensors.py:1494 ospy/sensors.py:1519
-#: plugins/automation_rules/__init__.py:255
+#: plugins/automation_rules/__init__.py:262
 msgid "Sensor {}"
 msgstr ""
 
@@ -3009,7 +3012,7 @@ msgstr ""
 #: ospy/templates/sensors.html:63 ospy/templates/sensors_search.html:53
 #: plugins/air_temp_humi/__init__.py:249 plugins/air_temp_humi/__init__.py:296
 #: plugins/air_temp_humi/__init__.py:356
-#: plugins/automation_rules/__init__.py:191
+#: plugins/automation_rules/__init__.py:198
 #: plugins/email_reader/__init__.py:894
 #: plugins/mqtt_home_assistant/__init__.py:1124
 #: plugins/mqtt_home_assistant/__init__.py:1133
@@ -3151,6 +3154,8 @@ msgstr ""
 #: ospy/templates/sensors.html:752 plugins/air_temp_humi/__init__.py:331
 #: plugins/air_temp_humi/__init__.py:344
 #: plugins/air_temp_humi/templates/air_temp_humi.html:425
+#: plugins/automation_rules/__init__.py:347
+#: plugins/automation_rules/__init__.py:351
 #: plugins/button_control/templates/button_control.html:140
 #: plugins/current_loop_tanks_monitor/__init__.py:313
 #: plugins/current_loop_tanks_monitor/__init__.py:339
@@ -3477,7 +3482,7 @@ msgstr ""
 
 #: ospy/sensors.py:1748 ospy/templates/sensors.html:828
 #: plugins/air_temp_humi/__init__.py:297 plugins/air_temp_humi/__init__.py:529
-#: plugins/automation_rules/__init__.py:193
+#: plugins/automation_rules/__init__.py:200
 #: plugins/email_notifications_ssl/__init__.py:524
 #: plugins/email_reader/__init__.py:895 plugins/lcd_display/__init__.py:826
 #: plugins/mqtt_home_assistant/__init__.py:1120
@@ -3509,7 +3514,7 @@ msgstr ""
 msgid "Lux"
 msgstr ""
 
-#: ospy/sensors.py:1777 plugins/automation_rules/__init__.py:194
+#: ospy/sensors.py:1777 plugins/automation_rules/__init__.py:201
 #: plugins/email_notifications_ssl/__init__.py:544
 #: plugins/lcd_display/__init__.py:846
 #: plugins/shelly_cloud_integrator/__init__.py:1675
@@ -3729,7 +3734,7 @@ msgstr ""
 msgid "Session database has been reset."
 msgstr ""
 
-#: ospy/server.py:503 plugins/__init__.py:2942
+#: ospy/server.py:503 plugins/__init__.py:2974
 msgid "Plug-in threads did not stop in time"
 msgstr ""
 
@@ -4051,7 +4056,7 @@ msgstr ""
 #: ospy/templates/help_print.html:3 ospy/templates/help_user.html:3
 #: ospy/templates/help_user.html:9
 #: plugins/air_temp_humi/templates/air_temp_humi.html:294
-#: plugins/automation_rules/templates/automation_rules.html:16
+#: plugins/automation_rules/templates/automation_rules.html:17
 #: plugins/button_control/templates/button_control.html:65
 #: plugins/chmi/templates/chmi.html:195
 #: plugins/cli_control/templates/cli_control.html:95
@@ -4088,7 +4093,6 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:52
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
 #: plugins/signaling_examples/templates/signaling_examples.html:31
-#: plugins/sms_adj/templates/sms_adj.html:67
 #: plugins/speed_monitor/templates/speed_monitor.html:278
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
@@ -5455,7 +5459,7 @@ msgid "Supported"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:315
-#: plugins/automation_rules/__init__.py:323
+#: plugins/automation_rules/__init__.py:407
 msgid "Unsupported"
 msgstr ""
 
@@ -5471,9 +5475,11 @@ msgstr ""
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:492
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/__init__.py:746 plugins/chmi/__init__.py:485
+#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:615
+#: plugins/automation_rules/__init__.py:618
+#: plugins/automation_rules/__init__.py:1224
+#: plugins/automation_rules/__init__.py:1225
+#: plugins/automation_rules/__init__.py:1226 plugins/chmi/__init__.py:485
 #: plugins/chmi/__init__.py:488 plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5494,9 +5500,7 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
-#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
-#: plugins/speed_monitor/__init__.py:196
+#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -5520,9 +5524,11 @@ msgstr ""
 #: ospy/templates/sensors.html:99 ospy/templates/sensors.html:100
 #: ospy/templates/sensors.html:101 ospy/templates/sensors.html:434
 #: ospy/templates/sensors.html:435 ospy/templates/sensors.html:437
-#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:492
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/__init__.py:746 plugins/chmi/__init__.py:485
+#: ospy/templates/sensors.html:446 plugins/automation_rules/__init__.py:615
+#: plugins/automation_rules/__init__.py:618
+#: plugins/automation_rules/__init__.py:1224
+#: plugins/automation_rules/__init__.py:1225
+#: plugins/automation_rules/__init__.py:1227 plugins/chmi/__init__.py:485
 #: plugins/chmi/__init__.py:488 plugins/door_opening/__init__.py:159
 #: plugins/ip_cam/templates/ip_cam.html:158 plugins/ip_scanner/__init__.py:381
 #: plugins/ip_scanner/templates/ip_scanner.html:118
@@ -5544,9 +5550,7 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1036
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
-#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
-#: plugins/speed_monitor/__init__.py:196
+#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -5567,7 +5571,7 @@ msgid "No"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:321 ospy/webpages.py:3754
-#: ospy/webpages.py:5751
+#: ospy/webpages.py:5751 plugins/automation_rules/__init__.py:409
 msgid "Blocked"
 msgstr ""
 
@@ -5717,8 +5721,8 @@ msgstr ""
 #: ospy/templates/diagnostics.html:436 ospy/templates/diagnostics.html:544
 #: ospy/templates/home_admin.html:74 ospy/templates/log.html:217
 #: ospy/templates/log_sensor.html:92 ospy/templates/log_sensor.html:112
-#: plugins/automation_rules/__init__.py:324
-#: plugins/automation_rules/templates/automation_rules.html:130
+#: plugins/automation_rules/__init__.py:408
+#: plugins/automation_rules/templates/automation_rules.html:162
 #: plugins/database_connector/__init__.py:85
 #: plugins/ip_cam/templates/ip_cam.html:174
 #: plugins/mqtt_home_assistant/__init__.py:1334
@@ -5739,7 +5743,7 @@ msgstr ""
 #: ospy/templates/home_admin.html:921 ospy/templates/home_user.html:821
 #: ospy/templates/plugins_manage.html:435
 #: ospy/templates/plugins_manage.html:481
-#: plugins/automation_rules/templates/automation_rules.html:68
+#: plugins/automation_rules/templates/automation_rules.html:72
 msgid "Details"
 msgstr ""
 
@@ -5785,7 +5789,7 @@ msgid "Enabled plug-in is not running."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:517 ospy/webpages.py:3098
-#: plugins/__init__.py:1719 plugins/__init__.py:2992
+#: plugins/__init__.py:1719 plugins/__init__.py:3024
 msgid "Plug-in permission approval is required"
 msgstr ""
 
@@ -5834,8 +5838,8 @@ msgstr ""
 #: ospy/templates/diagnostics.html:650 ospy/templates/diagnostics.html:1382
 #: ospy/templates/home_admin.html:710 ospy/templates/home_user.html:619
 #: ospy/templates/options.html:306 ospy/templates/twofactor.html:65
-#: ospy/templates/twofactor.html:84 plugins/automation_rules/__init__.py:354
-#: plugins/automation_rules/__init__.py:502
+#: ospy/templates/twofactor.html:84 plugins/automation_rules/__init__.py:445
+#: plugins/automation_rules/__init__.py:631
 #: plugins/lcd_display/__init__.py:510 plugins/lcd_display/__init__.py:543
 #: plugins/pressure_monitor/__init__.py:212
 #: plugins/pressure_monitor/__init__.py:213
@@ -5889,7 +5893,7 @@ msgid "Diagnostics history refresh failed."
 msgstr ""
 
 #: ospy/templates/diagnostics.html:979 plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/chmi/__init__.py:491
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -5917,7 +5921,7 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154
@@ -5940,7 +5944,7 @@ msgid "Stopped"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:979 plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/chmi/__init__.py:491
 #: plugins/current_loop_tanks_monitor/__init__.py:506
@@ -5964,7 +5968,7 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_update/__init__.py:1041
 #: plugins/system_watchdog/__init__.py:154
@@ -6000,8 +6004,8 @@ msgstr ""
 #: ospy/templates/users.html:54 ospy/templates/users.html:69
 #: ospy/webpages.py:3689 ospy/webpages.py:3704
 #: plugins/air_temp_humi/__init__.py:423
-#: plugins/automation_rules/__init__.py:478
-#: plugins/automation_rules/templates/automation_rules.html:63
+#: plugins/automation_rules/__init__.py:598
+#: plugins/automation_rules/templates/automation_rules.html:67
 #: plugins/chmi/__init__.py:482 plugins/email_notifications/__init__.py:338
 #: plugins/email_notifications/__init__.py:464
 #: plugins/email_notifications_ssl/__init__.py:550
@@ -6035,9 +6039,9 @@ msgstr ""
 #: ospy/templates/mobile_devices.html:112 ospy/templates/program.html:449
 #: ospy/webpages.py:4285 ospy/webpages.py:4421
 #: plugins/air_temp_humi/__init__.py:423
-#: plugins/automation_rules/__init__.py:491
-#: plugins/automation_rules/templates/automation_rules.html:76
-#: plugins/automation_rules/templates/automation_rules.html:77
+#: plugins/automation_rules/__init__.py:614
+#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:82
 #: plugins/chmi/__init__.py:482
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:107
 #: plugins/email_notifications/__init__.py:464
@@ -6063,7 +6067,7 @@ msgid "Enabled"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:1002 plugins/air_temp_humi/__init__.py:431
-#: plugins/automation_rules/__init__.py:757
+#: plugins/automation_rules/__init__.py:1245
 #: plugins/button_control/__init__.py:238 plugins/chmi/__init__.py:502
 #: plugins/current_loop_tanks_monitor/__init__.py:515
 #: plugins/database_connector/__init__.py:120
@@ -6086,7 +6090,7 @@ msgstr ""
 #: plugins/rs485_communication/__init__.py:1056
 #: plugins/rs485_communication/templates/rs485_communication.html:101
 #: plugins/shelly_cloud_integrator/__init__.py:1618
-#: plugins/sms_adj/__init__.py:198 plugins/speed_monitor/__init__.py:206
+#: plugins/speed_monitor/__init__.py:206
 #: plugins/sunrise_and_sunset/__init__.py:789
 #: plugins/system_watchdog/__init__.py:164
 #: plugins/tank_monitor/__init__.py:456 plugins/telegram_bot/__init__.py:556
@@ -6245,8 +6249,6 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:364
 #: plugins/signaling_examples/templates/signaling_examples.html:59
 #: plugins/signaling_examples/templates/signaling_examples_help.html:17
-#: plugins/sms_adj/templates/sms_adj.html:166
-#: plugins/sms_adj/templates/sms_adj_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor.html:349
 #: plugins/speed_monitor/templates/speed_monitor_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:12
@@ -6369,7 +6371,6 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:47
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:113
 #: plugins/signaling_examples/templates/signaling_examples.html:42
-#: plugins/sms_adj/templates/sms_adj.html:156
 #: plugins/speed_monitor/templates/speed_monitor.html:339
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:136
 #: plugins/system_update/templates/system_update.html:255
@@ -6467,7 +6468,7 @@ msgid "Collapse all details"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:1241 ospy/templates/twofactor.html:103
-#: plugins/automation_rules/templates/automation_rules_help.html:24
+#: plugins/automation_rules/templates/automation_rules_help.html:28
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:44
 #: plugins/rs485_communication/templates/rs485_communication_help.html:116
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:6
@@ -6768,7 +6769,7 @@ msgid "State"
 msgstr ""
 
 #: ospy/templates/diagnostics.html:1394
-#: plugins/automation_rules/templates/automation_rules.html:127
+#: plugins/automation_rules/templates/automation_rules.html:159
 msgid "Severity"
 msgstr ""
 
@@ -6933,7 +6934,7 @@ msgstr ""
 #: ospy/templates/program.html:765 ospy/templates/program.html:792
 #: ospy/templates/programs.html:221 ospy/templates/programs.html:259
 #: ospy/templates/users.html:79
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:186
 #: plugins/database_connector/templates/database_connector_backup.html:45
 #: plugins/ip_cam/templates/ip_cam_snapshots.html:62
 #: plugins/ospy_backup/templates/ospy_backup.html:53
@@ -7010,7 +7011,7 @@ msgstr ""
 #: ospy/templates/sensor.html:440 ospy/templates/sensors.html:63
 #: ospy/templates/sensors.html:64 ospy/templates/sensors.html:850
 #: ospy/templates/sensors_search.html:51
-#: plugins/automation_rules/__init__.py:190
+#: plugins/automation_rules/__init__.py:197
 msgid "Moisture"
 msgstr ""
 
@@ -7306,8 +7307,8 @@ msgid "Previous"
 msgstr ""
 
 #: ospy/templates/graph_sensor.html:62 ospy/templates/log_sensor.html:70
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:104
 #: plugins/tank_monitor/templates/tank_monitor_debug_log.html:29
 msgid "Value"
 msgstr ""
@@ -7901,7 +7902,7 @@ msgid "Start Time"
 msgstr ""
 
 #: ospy/templates/log.html:135 ospy/templates/log_user.html:26
-#: ospy/templates/stations.html:15
+#: ospy/templates/stations.html:15 plugins/automation_rules/__init__.py:335
 #: plugins/cli_control/templates/cli_control.html:124
 #: plugins/email_notifications/__init__.py:147
 #: plugins/email_notifications/__init__.py:151
@@ -7943,7 +7944,7 @@ msgstr ""
 #: ospy/templates/log_sensor.html:37 ospy/templates/log_sensor.html:61
 #: ospy/templates/log_user.html:55 ospy/templates/log_user.html:85
 #: plugins/air_temp_humi/templates/air_temp_humi_log.html:39
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 #: plugins/chmi/templates/chmi_log.html:27
 #: plugins/email_reader/__init__.py:893 plugins/email_reader/__init__.py:962
 #: plugins/email_reader/__init__.py:1022
@@ -8294,13 +8295,14 @@ msgid "Updates"
 msgstr ""
 
 #: ospy/templates/mobile_devices.html:29
-#: plugins/automation_rules/__init__.py:143
-#: plugins/automation_rules/__init__.py:554
-#: plugins/automation_rules/__init__.py:571
-#: plugins/automation_rules/__init__.py:783
+#: plugins/automation_rules/__init__.py:150
+#: plugins/automation_rules/__init__.py:683
+#: plugins/automation_rules/__init__.py:936
+#: plugins/automation_rules/__init__.py:1013
+#: plugins/automation_rules/__init__.py:1271
 #: plugins/automation_rules/templates/automation_rules.html:3
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:15
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:16
 msgid "Automation Rules"
 msgstr ""
 
@@ -8337,12 +8339,12 @@ msgid "Dropped"
 msgstr ""
 
 #: ospy/templates/mobile_devices.html:76
-#: plugins/automation_rules/__init__.py:322
+#: plugins/automation_rules/__init__.py:406
 msgid "Queued"
 msgstr ""
 
 #: ospy/templates/mobile_devices.html:76
-#: plugins/automation_rules/__init__.py:322
+#: plugins/automation_rules/__init__.py:406
 #: plugins/email_notifications/__init__.py:602
 #: plugins/email_notifications_ssl/__init__.py:1045
 #: plugins/water_consumption_counter/__init__.py:367
@@ -8960,7 +8962,7 @@ msgid "default"
 msgstr ""
 
 #: ospy/templates/plugins_manage.html:272
-#: plugins/automation_rules/__init__.py:332
+#: plugins/automation_rules/__init__.py:418
 #: plugins/cli_control/templates/cli_control.html:133
 #: plugins/cli_control/templates/cli_control.html:137
 #: plugins/database_connector/templates/database_connector.html:133
@@ -10410,9 +10412,13 @@ msgstr ""
 
 #: ospy/templates/sensors.html:15
 #: plugins/air_temp_humi/templates/air_temp_humi.html:446
-#: plugins/automation_rules/templates/automation_rules.html:34
-#: plugins/automation_rules/templates/automation_rules.html:122
-#: plugins/automation_rules/templates/automation_rules.html:125
+#: plugins/automation_rules/__init__.py:945
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:38
+#: plugins/automation_rules/templates/automation_rules.html:141
+#: plugins/automation_rules/templates/automation_rules.html:142
+#: plugins/automation_rules/templates/automation_rules.html:154
+#: plugins/automation_rules/templates/automation_rules.html:157
 #: plugins/email_reader/__init__.py:765
 #: plugins/energy_meter/templates/energy_meter_settings.html:48
 #: plugins/ip_cam/templates/ip_cam_setup.html:237
@@ -10764,8 +10770,8 @@ msgstr ""
 #: ospy/templates/sensors_firmware.html:124
 #: ospy/templates/sensors_firmware.html:149
 #: plugins/air_temp_humi/__init__.py:427
-#: plugins/automation_rules/__init__.py:752
-#: plugins/automation_rules/__init__.py:754
+#: plugins/automation_rules/__init__.py:1240
+#: plugins/automation_rules/__init__.py:1242
 #: plugins/button_control/__init__.py:234 plugins/chmi/__init__.py:493
 #: plugins/chmi/__init__.py:496 plugins/cli_control/__init__.py:84
 #: plugins/cli_control/__init__.py:85
@@ -10820,8 +10826,7 @@ msgstr ""
 #: plugins/rs485_communication/__init__.py:1039
 #: plugins/shelly_cloud_integrator/__init__.py:1610
 #: plugins/shelly_cloud_integrator/__init__.py:1614
-#: plugins/sms_adj/__init__.py:189 plugins/sms_adj/__init__.py:193
-#: plugins/sms_adj/__init__.py:195 plugins/speed_monitor/__init__.py:202
+#: plugins/speed_monitor/__init__.py:202
 #: plugins/sunrise_and_sunset/__init__.py:771
 #: plugins/sunrise_and_sunset/__init__.py:774
 #: plugins/sunrise_and_sunset/__init__.py:777
@@ -10992,7 +10997,6 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:127
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:363
 #: plugins/signaling_examples/templates/signaling_examples.html:58
-#: plugins/sms_adj/templates/sms_adj.html:165
 #: plugins/speed_monitor/templates/speed_monitor.html:348
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:154
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
@@ -12161,7 +12165,7 @@ msgstr ""
 msgid "User {} approved permissions for plug-in {}: {}."
 msgstr ""
 
-#: ospy/webpages.py:3105 plugins/__init__.py:3037
+#: ospy/webpages.py:3105 plugins/__init__.py:3069
 msgid "Plug-in pre-activation test failed"
 msgstr ""
 
@@ -12259,9 +12263,9 @@ msgid "Available"
 msgstr ""
 
 #: ospy/webpages.py:3569 ospy/webpages.py:3613 ospy/webpages.py:3642
-#: ospy/webpages.py:3676 plugins/automation_rules/__init__.py:323
-#: plugins/automation_rules/__init__.py:480
-#: plugins/automation_rules/__init__.py:500
+#: ospy/webpages.py:3676 plugins/automation_rules/__init__.py:407
+#: plugins/automation_rules/__init__.py:600
+#: plugins/automation_rules/__init__.py:629
 #: plugins/energy_meter/templates/energy_meter.html:115
 #: plugins/network_ping_monitor/__init__.py:172
 #: plugins/network_ping_monitor/__init__.py:232
@@ -12371,8 +12375,8 @@ msgid "would use"
 msgstr ""
 
 #: ospy/webpages.py:3669 ospy/webpages.py:3750
-#: plugins/automation_rules/__init__.py:488
-#: plugins/automation_rules/templates/automation_rules.html:67
+#: plugins/automation_rules/__init__.py:608
+#: plugins/automation_rules/templates/automation_rules.html:71
 #: plugins/water_meter/__init__.py:654
 msgid "Ready"
 msgstr ""
@@ -12927,9 +12931,9 @@ msgstr ""
 msgid "Configuration is not actively tested."
 msgstr ""
 
-#: ospy/webpages.py:4464 plugins/automation_rules/__init__.py:318
-#: plugins/automation_rules/__init__.py:451
-#: plugins/automation_rules/templates/automation_rules.html:142
+#: ospy/webpages.py:4464 plugins/automation_rules/__init__.py:402
+#: plugins/automation_rules/__init__.py:542
+#: plugins/automation_rules/templates/automation_rules.html:174
 #: plugins/wind_monitor/templates/wind_monitor_settings.html:104
 msgid "E-mail"
 msgstr ""
@@ -13469,7 +13473,7 @@ msgstr ""
 msgid "Plug-in cannot be installed"
 msgstr ""
 
-#: plugins/__init__.py:1741 plugins/__init__.py:2999 plugins/__init__.py:3133
+#: plugins/__init__.py:1741 plugins/__init__.py:3031 plugins/__init__.py:3165
 msgid "Plug-in dependency cycle detected"
 msgstr ""
 
@@ -13633,59 +13637,59 @@ msgstr ""
 msgid "Passed."
 msgstr ""
 
-#: plugins/__init__.py:2730
+#: plugins/__init__.py:2762
 msgid "Failed to read in NAME plugin"
 msgstr ""
 
-#: plugins/__init__.py:2758
+#: plugins/__init__.py:2790
 msgid "Failed to read in MENU name plugin"
 msgstr ""
 
-#: plugins/__init__.py:2903
+#: plugins/__init__.py:2935
 msgid "Plug-in stop function timed out."
 msgstr ""
 
-#: plugins/__init__.py:2905 plugins/__init__.py:2912
+#: plugins/__init__.py:2937 plugins/__init__.py:2944
 msgid "Failed to stop the"
 msgstr ""
 
-#: plugins/__init__.py:2946
+#: plugins/__init__.py:2978
 msgid "Stopped the"
 msgstr ""
 
-#: plugins/__init__.py:2961
+#: plugins/__init__.py:2993
 msgid "Failed to clear runtime data for the plug-in"
 msgstr ""
 
-#: plugins/__init__.py:3013
+#: plugins/__init__.py:3045
 msgid "Required plug-in failed to start"
 msgstr ""
 
-#: plugins/__init__.py:3019 plugins/__init__.py:3148
+#: plugins/__init__.py:3051 plugins/__init__.py:3180
 msgid "Required plug-in is not running"
 msgstr ""
 
-#: plugins/__init__.py:3030
+#: plugins/__init__.py:3062
 msgid "Plug-in still has running threads"
 msgstr ""
 
-#: plugins/__init__.py:3044
+#: plugins/__init__.py:3076
 msgid "Plug-in compatibility check failed"
 msgstr ""
 
-#: plugins/__init__.py:3077
+#: plugins/__init__.py:3109
 msgid "Started the"
 msgstr ""
 
-#: plugins/__init__.py:3087
+#: plugins/__init__.py:3119
 msgid "Failed to load the"
 msgstr ""
 
-#: plugins/__init__.py:3185
+#: plugins/__init__.py:3217
 msgid "The plug-in"
 msgstr ""
 
-#: plugins/__init__.py:3185
+#: plugins/__init__.py:3217
 msgid "is not running."
 msgstr ""
 
@@ -13742,7 +13746,7 @@ msgid "Air Temperature and Humidity Monitor plug-in"
 msgstr ""
 
 #: plugins/air_temp_humi/__init__.py:422
-#: plugins/automation_rules/__init__.py:744
+#: plugins/automation_rules/__init__.py:1223
 #: plugins/button_control/__init__.py:230 plugins/chmi/__init__.py:479
 #: plugins/current_loop_tanks_monitor/__init__.py:506
 #: plugins/door_opening/__init__.py:158
@@ -13763,7 +13767,7 @@ msgstr ""
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1035
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
+#: plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_watchdog/__init__.py:154
 #: plugins/tank_monitor/__init__.py:435 plugins/telegram_bot/__init__.py:539
@@ -14295,7 +14299,6 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:17
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/relay_16/templates/relay_16_help.html:10
-#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -14311,7 +14314,6 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:17
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
-#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:13
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -14498,23 +14500,23 @@ msgstr ""
 msgid "DS6"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:27
+#: plugins/automation_rules/__init__.py:29
 msgid "Package: Automation Rules"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:84
+#: plugins/automation_rules/__init__.py:91
 msgid "An invalid automation rule was skipped."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:188
+#: plugins/automation_rules/__init__.py:195
 msgid "Contact state"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:189
+#: plugins/automation_rules/__init__.py:196
 msgid "Motion detected"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:195
+#: plugins/automation_rules/__init__.py:202
 #: plugins/current_loop_tanks_monitor/__init__.py:683
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:256
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:272
@@ -14534,47 +14536,47 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:200
+#: plugins/automation_rules/__init__.py:207
 msgid "Contact input {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:201
+#: plugins/automation_rules/__init__.py:208
 msgid "Soil moisture probe {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:202
+#: plugins/automation_rules/__init__.py:209
 msgid "Output {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:203
+#: plugins/automation_rules/__init__.py:210
 msgid "Temperature {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:204
+#: plugins/automation_rules/__init__.py:211
 msgid "Power {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:205
+#: plugins/automation_rules/__init__.py:212
 msgid "PV power {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:240
+#: plugins/automation_rules/__init__.py:247
 #: plugins/water_meter/__init__.py:680
 #: plugins/water_meter/templates/water_meter.html:3
 #: plugins/water_meter/templates/water_meter.html:72
 msgid "Water Meter"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:241
+#: plugins/automation_rules/__init__.py:248
 msgid "Pressure Monitor"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:242
+#: plugins/automation_rules/__init__.py:249
 #: plugins/tank_monitor/__init__.py:614
 msgid "Water Tank Monitor"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:243
+#: plugins/automation_rules/__init__.py:250
 #: plugins/current_loop_tanks_monitor/__init__.py:666
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:3
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor.html:238
@@ -14585,243 +14587,321 @@ msgstr ""
 msgid "Current Loop Tanks Monitor"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:244
+#: plugins/automation_rules/__init__.py:251
 #: plugins/photovoltaic_boiler/templates/photovoltaic_boiler.html:109
 #: plugins/pool_heating/templates/pool_heating.html:108
 msgid "OSPy Sensors"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:245
+#: plugins/automation_rules/__init__.py:252
 msgid "Date and time"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:246
+#: plugins/automation_rules/__init__.py:253
 msgid "OSPy status"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:251
+#: plugins/automation_rules/__init__.py:258
 msgid "OSPy local time"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:253
+#: plugins/automation_rules/__init__.py:260
 msgid "OSPy system"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:259
+#: plugins/automation_rules/__init__.py:266
 msgid "Main resource"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:260
+#: plugins/automation_rules/__init__.py:267
 msgid "Tank {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:266
+#: plugins/automation_rules/__init__.py:273
 msgid "Flow in liters per second"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:267
+#: plugins/automation_rules/__init__.py:274
 msgid "Flow in liters per minute"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:268
+#: plugins/automation_rules/__init__.py:275
 msgid "Volume in the current minute"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:269
+#: plugins/automation_rules/__init__.py:276
 msgid "Volume in the current hour"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:270
+#: plugins/automation_rules/__init__.py:277
 msgid "Total volume"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:271
+#: plugins/automation_rules/__init__.py:278
 msgid "Pressure present"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:272
+#: plugins/automation_rules/__init__.py:279
 #: plugins/pressure_monitor/__init__.py:276
 msgid "Master active"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:273
+#: plugins/automation_rules/__init__.py:280
 #: plugins/mqtt_home_assistant/__init__.py:1048
 #: plugins/tank_monitor/__init__.py:438
 msgid "Water level"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:274
+#: plugins/automation_rules/__init__.py:281
 #: plugins/tank_monitor/__init__.py:441 plugins/tank_monitor/__init__.py:630
 msgid "Tank fill"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:275
+#: plugins/automation_rules/__init__.py:282
 #: plugins/tank_monitor/__init__.py:444 plugins/tank_monitor/__init__.py:633
 msgid "Sensor distance"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:276
+#: plugins/automation_rules/__init__.py:283
 msgid "Volume in liters"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:277
+#: plugins/automation_rules/__init__.py:284
 msgid "Volume in cubic meters"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:278
+#: plugins/automation_rules/__init__.py:285
 msgid "Sensor voltage"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:279
+#: plugins/automation_rules/__init__.py:286
 msgid "Current date"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:280
+#: plugins/automation_rules/__init__.py:287
 msgid "Current time"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:281
+#: plugins/automation_rules/__init__.py:288
 msgid "Day of week"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:282
+#: plugins/automation_rules/__init__.py:289
 msgid "Month"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:283
+#: plugins/automation_rules/__init__.py:290
 msgid "Day of month"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:284
+#: plugins/automation_rules/__init__.py:291
 #: plugins/pressurizer/__init__.py:290
 msgid "Scheduler enabled"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:285
+#: plugins/automation_rules/__init__.py:292
 #: plugins/lcd_display/__init__.py:624
 msgid "Manual mode"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:286
+#: plugins/automation_rules/__init__.py:293
 msgid "Scheduled mode"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:287
+#: plugins/automation_rules/__init__.py:294
 msgid "Water level adjustment"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:288
+#: plugins/automation_rules/__init__.py:295
 msgid "Rain delay remaining"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:289
+#: plugins/automation_rules/__init__.py:296
 msgid "Rain sensor enabled"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:290
+#: plugins/automation_rules/__init__.py:297
 msgid "Rain sensor active"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:291
+#: plugins/automation_rules/__init__.py:298
 msgid "OSPy update available"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:292
+#: plugins/automation_rules/__init__.py:299
 msgid "Plug-in update available"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:293
+#: plugins/automation_rules/__init__.py:300
 msgid "Available plug-in updates"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:294
+#: plugins/automation_rules/__init__.py:301
 msgid "Any update available"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:304
+#: plugins/automation_rules/__init__.py:311
 msgid "Unable to read provider capabilities"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:310
-msgid "Repeated"
+#: plugins/automation_rules/__init__.py:327
+msgid "Every running program"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:310
-#: plugins/automation_rules/__init__.py:484
-#: plugins/automation_rules/templates/automation_rules.html:65
-msgid "Triggered"
+#: plugins/automation_rules/__init__.py:334
+#: plugins/automation_rules/__init__.py:697
+msgid "Stop selected station"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:311
-msgid "Returned to normal"
+#: plugins/automation_rules/__init__.py:337
+#: plugins/automation_rules/__init__.py:698
+msgid "Stop all outputs"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:312
-msgid "Test matched"
+#: plugins/automation_rules/__init__.py:340
+#: plugins/automation_rules/__init__.py:699
+#: plugins/button_control/templates/button_control.html:117
+msgid "Disable scheduler"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:313
-msgid "Test did not match"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:314
-msgid "Test notification"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:317
-#: plugins/automation_rules/__init__.py:450
-#: plugins/automation_rules/templates/automation_rules.html:140
-msgid "OSPy Home window"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:317
-#: plugins/automation_rules/__init__.py:450
-#: plugins/automation_rules/templates/automation_rules.html:141
-msgid "Browser notification"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:318
-#: plugins/automation_rules/__init__.py:451
-#: plugins/automation_rules/templates/automation_rules.html:143
-msgid "Telegram"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:319
-#: plugins/automation_rules/__init__.py:452
-#: plugins/automation_rules/templates/automation_rules.html:144
-msgid "Push notification"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:322
-msgid "Test only"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:330
-msgid "Notification test"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:332
-msgid "Live"
-msgstr ""
-
-#: plugins/automation_rules/__init__.py:344
-msgid "Automation Rules test notification: {}"
+#: plugins/automation_rules/__init__.py:343
+#: plugins/automation_rules/__init__.py:700
+msgid "Stop running program"
 msgstr ""
 
 #: plugins/automation_rules/__init__.py:346
-msgid "Automation rule returned to normal: {}"
+#: plugins/automation_rules/__init__.py:701
+msgid "Turn output on"
 msgstr ""
 
 #: plugins/automation_rules/__init__.py:348
+msgid "Duration in seconds"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:350
+#: plugins/automation_rules/__init__.py:702
+msgid "Turn output off"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:353
+#: plugins/automation_rules/__init__.py:703
+msgid "Set water level adjustment"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:355
+msgid "Water level percent"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:366
+msgid "Provider default"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:374
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:103
+msgid "Resource"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:376
+msgid "Parameters (JSON object)"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:380
+msgid "Unable to read provider actions"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:393
+msgid "Repeated"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:393
+#: plugins/automation_rules/__init__.py:604
+#: plugins/automation_rules/templates/automation_rules.html:69
+msgid "Triggered"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:394
+msgid "Returned to normal"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:395
+msgid "Test matched"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:396
+msgid "Test did not match"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:397
+msgid "Test notification"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:398
+msgid "Incident unlocked"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:401
+#: plugins/automation_rules/__init__.py:541
+#: plugins/automation_rules/templates/automation_rules.html:172
+msgid "OSPy Home window"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:401
+#: plugins/automation_rules/__init__.py:541
+#: plugins/automation_rules/templates/automation_rules.html:173
+msgid "Browser notification"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:402
+#: plugins/automation_rules/__init__.py:542
+#: plugins/automation_rules/templates/automation_rules.html:175
+msgid "Telegram"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:403
+#: plugins/automation_rules/__init__.py:543
+#: plugins/automation_rules/templates/automation_rules.html:176
+msgid "Push notification"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:406
+msgid "Test only"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:409
+msgid "Simulated"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:410
+msgid "Executed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:416
+msgid "Notification test"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:418
+msgid "Live"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:435
+msgid "Automation Rules test notification: {}"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:437
+msgid "Automation rule returned to normal: {}"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:439
 msgid "Automation rule is still active: {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:349
+#: plugins/automation_rules/__init__.py:440
 msgid "Automation rule was triggered: {}"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:354
-#: plugins/automation_rules/__init__.py:504
+#: plugins/automation_rules/__init__.py:445
+#: plugins/automation_rules/__init__.py:633
 #: plugins/lcd_display/__init__.py:512 plugins/lcd_display/__init__.py:541
 #: plugins/pressure_monitor/__init__.py:209
 #: plugins/pressure_monitor/__init__.py:210
@@ -14830,509 +14910,868 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:373
-#: plugins/automation_rules/__init__.py:416
-#: plugins/automation_rules/templates/automation_rules.html:108
+#: plugins/automation_rules/__init__.py:464
+#: plugins/automation_rules/__init__.py:507
+#: plugins/automation_rules/templates/automation_rules.html:113
 msgid "is in range"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:373
-#: plugins/automation_rules/__init__.py:416
-#: plugins/automation_rules/templates/automation_rules.html:109
+#: plugins/automation_rules/__init__.py:464
+#: plugins/automation_rules/__init__.py:507
+#: plugins/automation_rules/templates/automation_rules.html:114
 msgid "is outside range"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:374
-#: plugins/automation_rules/__init__.py:417
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:110
+#: plugins/automation_rules/__init__.py:465
+#: plugins/automation_rules/__init__.py:508
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:115
 msgid "is active"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:374
-#: plugins/automation_rules/__init__.py:417
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:111
+#: plugins/automation_rules/__init__.py:465
+#: plugins/automation_rules/__init__.py:508
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:116
 msgid "is inactive"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:387
+#: plugins/automation_rules/__init__.py:478
 msgid "value unavailable"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:447
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:538
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "AND"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:447
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:538
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "OR"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:457
+#: plugins/automation_rules/__init__.py:548
 msgid "no notification channel"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:458
+#: plugins/automation_rules/__init__.py:550
+msgid "stop station"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:551
+msgid "stop all outputs"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:552
+msgid "disable scheduler"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:553
+msgid "stop program"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:554
+msgid "turn output off"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:554
+msgid "turn output on"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:555
+msgid "set water level"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:556
+msgid "run provider action"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:560
 msgid "notify via"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:476
+#: plugins/automation_rules/__init__.py:562
+msgid "perform"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:564
+msgid "lock incident"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:596
 msgid "Automation disabled"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:486
+#: plugins/automation_rules/__init__.py:606
 msgid "Conditions active"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:493
+#: plugins/automation_rules/__init__.py:616
 msgid "Rule state"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:498
+#: plugins/automation_rules/__init__.py:617
+msgid "Incident locked"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:619
+msgid "Configured control actions"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:621
+#: plugins/automation_rules/__init__.py:1236
+msgid "Active output cycles"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:627
 msgid "Not evaluated"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:512
-#: plugins/automation_rules/__init__.py:751
+#: plugins/automation_rules/__init__.py:641
+#: plugins/automation_rules/__init__.py:1239
 msgid "Last evaluation"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:600
+#: plugins/automation_rules/__init__.py:704
+msgid "Provider action"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:740
+msgid "Output cycle stopped"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:741
+msgid "completed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:776
+#: plugins/automation_rules/__init__.py:987
+msgid "The selected output is already controlled by another cycle."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:787
+msgid "Output cycle started"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:799
+msgid "rule disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:801
+msgid "automation disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:803
+msgid "test mode enabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:805
+msgid "control actions disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:807
+msgid "manual mode disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:809
+msgid "condition unavailable"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:811
+msgid "condition no longer matches"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:813
+#: plugins/automation_rules/__init__.py:832
+msgid "maximum cycle duration reached"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:828
+msgid "Output cycle pause"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:845
+msgid "Automation output cycle failed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:855
+msgid "Output cycle started another run"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:865
+msgid "rule removed or disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:879
+msgid "Selected station does not exist."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:880
+msgid "stopped by another action"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:884
+msgid "all outputs stopped"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:893
+msgid "Unable to switch off the master relay."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:895
+msgid "All outputs stopped"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:898
+msgid "Scheduler disabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:914
+msgid "Stopped active program runs"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:918
+#: plugins/automation_rules/__init__.py:927
+msgid "Selected output does not exist."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:919
+msgid "output switched off"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:925
+msgid "Manual mode is required before an automation can turn on an output."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:931
+msgid "The selected output cannot be started directly."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:952
+msgid "This OSPy version does not support provider actions."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:959
+msgid "Provider action failed."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:962
+msgid "Unsupported control action."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:980
+msgid "Control actions are disabled."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1003
+msgid "Automation control action failed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1042
 msgid "Automation notification failed"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:710
+#: plugins/automation_rules/__init__.py:1151
+msgid "The incident cannot be unlocked while a condition is unavailable."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1154
+msgid "The incident cannot be unlocked while its conditions are still active."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1186
 msgid "Automation Rules evaluation failed"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:745
-#: plugins/automation_rules/templates/automation_rules.html:27
+#: plugins/automation_rules/__init__.py:1211
+msgid "plug-in stopped"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1224
 #: plugins/automation_rules/templates/automation_rules.html:28
+#: plugins/automation_rules/templates/automation_rules.html:29
 #: plugins/venetian_blind/__init__.py:205
 msgid "Automation enabled"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:746
-#: plugins/automation_rules/templates/automation_rules.html:30
+#: plugins/automation_rules/__init__.py:1225
 #: plugins/automation_rules/templates/automation_rules.html:31
+#: plugins/automation_rules/templates/automation_rules.html:32
 msgid "Test mode"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:747
+#: plugins/automation_rules/__init__.py:1226
+#: plugins/automation_rules/templates/automation_rules.html:34
+#: plugins/automation_rules/templates/automation_rules.html:35
+msgid "Control actions enabled"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1228
 msgid "Saved rules"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:748
+#: plugins/automation_rules/__init__.py:1229
 msgid "Evaluated rules"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:749
+#: plugins/automation_rules/__init__.py:1230
 msgid "Active rules"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:750
+#: plugins/automation_rules/__init__.py:1231
 msgid "Provider errors"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:753
+#: plugins/automation_rules/__init__.py:1232
+msgid "Executed control actions"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1233
+msgid "Control action errors"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1234
+msgid "Locked incidents"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1237
+msgid "Output cycles started"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1238
+msgid "Output cycles stopped"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1241
 msgid "Last action"
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:759
+#: plugins/automation_rules/__init__.py:1247
 msgid "Automation Rules worker is stopped."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:762
+#: plugins/automation_rules/__init__.py:1250
 msgid "Automation Rules are disabled."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:765
+#: plugins/automation_rules/__init__.py:1253
 msgid "Automation Rules evaluation failed."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:769
+#: plugins/automation_rules/__init__.py:1257
 msgid "Automation Rules are waiting for the first evaluation."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:773
+#: plugins/automation_rules/__init__.py:1261
 msgid "One or more automation providers reported an error."
 msgstr ""
 
-#: plugins/automation_rules/__init__.py:775
+#: plugins/automation_rules/__init__.py:1263
 msgid "Automation Rules are responding."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/__init__.py:1412
+msgid "Only an administrator can change control action settings."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1423
+msgid "automation settings changed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1429
+msgid "Only an administrator can configure control actions."
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1430
+msgid "rule configuration changed"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1442
+msgid "rule deleted"
+msgstr ""
+
+#: plugins/automation_rules/__init__.py:1455
+msgid "Only an administrator can unlock an incident."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notification permission was not granted."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notifications are enabled. A test notification was sent."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Browser notifications are working."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Remove condition"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
+msgid "Remove control action"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "Select"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "The browser granted permission but could not display the test notification."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
+#: plugins/automation_rules/templates/automation_rules.html:11
 msgid "start..end"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Provider"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:98
-msgid "Resource"
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:102
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:107
 msgid "equals"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:103
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:108
 msgid "does not equal"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:10
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:119
 #: plugins/weather_based_water_level/__init__.py:682
 #: plugins/weather_based_water_level/__init__.py:684
 #: plugins/weather_based_water_level/templates/weather_based_water_level_details.html:37
 msgid "Limit"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:16
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:135
+msgid "Control action"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:136
+msgid "Target"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:137
+msgid "Action value"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Cycle while conditions match"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Output mode"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Run once"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:141
+msgid "Pause between runs"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:11
+#: plugins/automation_rules/templates/automation_rules.html:142
+msgid "Maximum cycling time"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:17
 msgid "Open a detailed description of Automation Rules and its settings."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:19
+#: plugins/automation_rules/templates/automation_rules.html:20
 msgid "The automation rule is invalid. Check all required fields and values."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:22
+#: plugins/automation_rules/templates/automation_rules.html:23
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:23
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:20
 msgid "General settings"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:27
+#: plugins/automation_rules/templates/automation_rules.html:28
 msgid "Enable or disable evaluation of all automation rules."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:30
+#: plugins/automation_rules/templates/automation_rules.html:31
 msgid "Evaluate rules and record decisions without sending any notifications."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:33
-msgid "Evaluation interval"
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:33
-msgid "How often provider values are read and all enabled rules are evaluated."
-msgstr ""
-
 #: plugins/automation_rules/templates/automation_rules.html:34
-msgid "Enter an interval from 5 to 3600 seconds."
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:36
-msgid "History limit"
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:36
-msgid "Maximum number of action history records retained by the plug-in."
+msgid "Allow live rules to execute their configured control actions. Keep disabled until every rule has been tested."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules.html:37
-msgid "Enter how many of the newest history records should be kept."
+msgid "Evaluation interval"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:37
+msgid "How often provider values are read and all enabled rules are evaluated."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:38
+msgid "Enter an interval from 5 to 3600 seconds."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules.html:40
-msgid "Test mode records decisions but does not send notifications. Disable it only after testing every rule."
+msgid "History limit"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:40
+msgid "Maximum number of action history records retained by the plug-in."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules.html:41
+msgid "Enter how many of the newest history records should be kept."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:44
+msgid "Test mode records decisions and simulates control actions without changing OSPy or hardware. Disable test mode and separately enable control actions only after testing every rule."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:45
 msgid "Save the general Automation Rules settings."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:41
+#: plugins/automation_rules/templates/automation_rules.html:45
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:104
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:36
 msgid "Save settings"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:42
+#: plugins/automation_rules/templates/automation_rules.html:46
 msgid "Ask this browser for permission and immediately display a test notification."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:42
+#: plugins/automation_rules/templates/automation_rules.html:46
 msgid "Enable and test browser notifications"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:47
+#: plugins/automation_rules/templates/automation_rules.html:51
 msgid "Rules"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:49
+#: plugins/automation_rules/templates/automation_rules.html:53
 msgid "No running provider with available values was found. Enable a supported monitoring plug-in first."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:55
+#: plugins/automation_rules/templates/automation_rules.html:59
 msgid "Expand or collapse this automation rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:57
+#: plugins/automation_rules/templates/automation_rules.html:61
 msgid "New rule"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:76
+#: plugins/automation_rules/templates/automation_rules.html:81
 msgid "Enable or disable evaluation of this rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:86
 msgid "A clear name used in history and notification messages."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:81
+#: plugins/automation_rules/templates/automation_rules.html:86
 msgid "Rule name"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:82
+#: plugins/automation_rules/templates/automation_rules.html:87
 msgid "Enter a unique descriptive name for this rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:84
+#: plugins/automation_rules/templates/automation_rules.html:89
 msgid "Choose whether every condition or at least one condition must be true."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:84
+#: plugins/automation_rules/templates/automation_rules.html:89
 msgid "Condition matching"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:85
+#: plugins/automation_rules/templates/automation_rules.html:90
 msgid "AND requires all conditions. OR requires at least one condition."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:86
+#: plugins/automation_rules/templates/automation_rules.html:91
 msgid "All conditions (AND)"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:87
+#: plugins/automation_rules/templates/automation_rules.html:92
 msgid "At least one condition (OR)"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Monitoring plug-in that supplies the value for this condition."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:97
+#: plugins/automation_rules/templates/automation_rules.html:102
 msgid "Select the monitoring plug-in that supplies data."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:98
+#: plugins/automation_rules/templates/automation_rules.html:103
 msgid "Device, tank, meter or other monitored resource exposed by the provider."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:98
+#: plugins/automation_rules/templates/automation_rules.html:103
 msgid "Select which provider resource should be checked."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:104
 msgid "Measured or calculated value that the rule should evaluate."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:99
+#: plugins/automation_rules/templates/automation_rules.html:104
 msgid "Select the value to compare in this condition."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:100
+#: plugins/automation_rules/templates/automation_rules.html:105
 msgid "Comparison used to decide whether this condition is true."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:101
+#: plugins/automation_rules/templates/automation_rules.html:106
 msgid "Select how the current value is compared with the limit."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:119
 msgid "Enter one limit, or enter a range as start..end, for example 08:00..18:00."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:114
+#: plugins/automation_rules/templates/automation_rules.html:119
 msgid "Threshold, expected value or range used by the selected comparison. Enter ranges as start..end."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:115
+#: plugins/automation_rules/templates/automation_rules.html:120
 msgid "Remove this condition from the rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:118
+#: plugins/automation_rules/templates/automation_rules.html:123
 msgid "Add another condition to this rule. A rule can contain up to 20 conditions."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:118
+#: plugins/automation_rules/templates/automation_rules.html:123
 msgid "Add condition"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:121
-msgid "Conditions must remain true for"
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:121
-msgid "Delay activation until the matching conditions remain true continuously for this time."
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:122
-msgid "Use zero to activate immediately, or enter a delay in seconds."
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:124
-msgid "Repeat notification after"
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:124
-msgid "Repeat notifications while the incident remains active."
-msgstr ""
-
-#: plugins/automation_rules/templates/automation_rules.html:125
-msgid "Use zero to disable repeated notifications, or enter the repeat interval in seconds."
+#: plugins/automation_rules/templates/automation_rules.html:126
+#: plugins/automation_rules/templates/automation_rules.html:200
+msgid "Control actions"
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules.html:127
+msgid "Control actions normally run once when the rule is first triggered. An output action may instead cycle for a bounded time while every required condition remains available and matched. Repeated notifications never start another action."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:135
+msgid "Operation performed once when this rule is triggered."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:136
+msgid "Station, output, program or provider resource affected by this action."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:137
+msgid "Duration, percentage or JSON parameters required by the selected action."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:138
+msgid "Remove this control action from the rule."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:140
+msgid "Run the output once, or repeatedly alternate the configured run and pause while the rule conditions remain true."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:141
+msgid "How long the output remains off before the next cyclic run."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:142
+msgid "Safety limit for the complete cycle. The output is stopped when this time expires."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:146
+msgid "Add another control action. A rule can contain up to 20 actions."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:146
+msgid "Add control action"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:147
+msgid "Keep the incident active after conditions return to normal until an administrator explicitly unlocks it."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:147
+#: plugins/automation_rules/templates/automation_rules.html:148
+msgid "Lock incident until acknowledged"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:153
+msgid "Conditions must remain true for"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:153
+msgid "Delay activation until the matching conditions remain true continuously for this time."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:154
+msgid "Use zero to activate immediately, or enter a delay in seconds."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:156
+msgid "Repeat notification after"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:156
+msgid "Repeat notifications while the incident remains active."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:157
+msgid "Use zero to disable repeated notifications, or enter the repeat interval in seconds."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:159
 msgid "Importance assigned to history entries and notification messages."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:128
+#: plugins/automation_rules/templates/automation_rules.html:160
 msgid "Select the severity of incidents created by this rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:133
+#: plugins/automation_rules/templates/automation_rules.html:165
 msgid "Send another notification after an active incident returns to normal."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:133
-#: plugins/automation_rules/templates/automation_rules.html:134
+#: plugins/automation_rules/templates/automation_rules.html:165
+#: plugins/automation_rules/templates/automation_rules.html:166
 msgid "Notify when normal again"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:139
-#: plugins/automation_rules/templates/automation_rules.html:166
-#: plugins/automation_rules/templates/automation_rules_help.html:22
+#: plugins/automation_rules/templates/automation_rules.html:171
+#: plugins/automation_rules/templates/automation_rules.html:200
+#: plugins/automation_rules/templates/automation_rules_help.html:26
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_setup.html:290
 msgid "Notifications"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:140
+#: plugins/automation_rules/templates/automation_rules.html:172
 msgid "Show a dismissible warning window directly on the OSPy Home page."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:141
+#: plugins/automation_rules/templates/automation_rules.html:173
 msgid "Display a desktop notification in this browser when the OSPy page is open."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:142
+#: plugins/automation_rules/templates/automation_rules.html:174
 msgid "Send the event through an installed and configured e-mail notification plug-in."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:143
+#: plugins/automation_rules/templates/automation_rules.html:175
 msgid "Send the event through the installed and configured Telegram Bot plug-in."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:144
+#: plugins/automation_rules/templates/automation_rules.html:176
 msgid "Send the event to registered mobile devices through OSPy push notifications."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Add rule"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Save rule"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:148
+#: plugins/automation_rules/templates/automation_rules.html:180
 msgid "Save this rule and its conditions."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:150
+#: plugins/automation_rules/templates/automation_rules.html:182
 msgid "Evaluate the saved rule once and record the result without sending notifications."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:150
+#: plugins/automation_rules/templates/automation_rules.html:182
 msgid "Test saved rule"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid "Send a real test message through the enabled notification channels?"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid "Send one real test message through every notification channel currently enabled in this rule. Conditions and delays are ignored."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:151
+#: plugins/automation_rules/templates/automation_rules.html:183
 msgid "Test notifications"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid "Acknowledge and unlock incident"
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid "Acknowledge and unlock this incident? Outputs and settings changed by its actions are not restored automatically."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:185
+msgid "Acknowledge this incident and allow the rule to create a new incident later."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules.html:186
 msgid "Delete this rule?"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:152
+#: plugins/automation_rules/templates/automation_rules.html:186
 msgid "Permanently delete this automation rule."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:158
+#: plugins/automation_rules/templates/automation_rules.html:192
 msgid "Action history"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:161
+#: plugins/automation_rules/templates/automation_rules.html:195
 msgid "Clear history"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:161
+#: plugins/automation_rules/templates/automation_rules.html:195
 msgid "Permanently remove all Automation Rules action history."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Mode"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Result"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:166
+#: plugins/automation_rules/templates/automation_rules.html:200
 msgid "Rule"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:173
+#: plugins/automation_rules/templates/automation_rules.html:207
 msgid "No automation action has been recorded yet."
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:177
+#: plugins/automation_rules/templates/automation_rules.html:211
 msgid "Diagnostics events"
 msgstr ""
 
-#: plugins/automation_rules/templates/automation_rules.html:178
+#: plugins/automation_rules/templates/automation_rules.html:212
 msgid "Recent diagnostic events reported by the Automation Rules worker."
 msgstr ""
 
@@ -15390,18 +15829,34 @@ msgid "Test mode is enabled by default. It records what would happen but does no
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules_help.html:20
-msgid "A missing or unhealthy provider cannot match a condition and does not clear an already active incident. This plug-in does not execute irrigation control actions."
+msgid "A missing or unhealthy provider cannot match a condition and does not clear an already active incident."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules_help.html:21
-msgid "The native mobile API shows one card for every saved rule. Each card reports whether automation and the rule are enabled, whether the rule is ready, triggered, waiting on active conditions or unavailable, and whether every individual condition is active, inactive, unavailable or not evaluated. Opening the mobile view reads cached provider values without changing rule or incident state."
+msgid "Control actions can stop selected stations, stop every current output, disable the scheduler, stop a selected or every running program, turn a specific output off, turn a specific output on for a required limited duration, change the global water-level adjustment, or call an action declared by another provider. Add a separate action row for every selected station or output."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules_help.html:22
+msgid "Control actions have a separate global switch that is disabled by default. Test mode only simulates actions. Live actions run once when an incident is first triggered and are never repeated by reminder notifications or reversed by a recovery notification. Turning an output on requires manual mode and cannot directly start a master or disabled output."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules_help.html:23
-msgid "Every live notification includes each evaluated value, comparison and configured limit. Home notifications appear in OSPy. Browser notifications require explicit permission and an open OSPy page; the permission button immediately displays a test and uses a Service Worker fallback where required. E-mail and Telegram use their existing configured plug-ins. Push uses paired mobile devices and the configured OSPy push relay."
+msgid "An output-on action can run once or cycle for a bounded time. Cyclic mode alternates the configured run duration and off pause until the maximum cycling time is reached, but only while the rule conditions remain available and matched. A false or unavailable condition, disabled rule or automation, test mode, disabled control actions, disabled manual mode, rule edit, plug-in stop or restart cancels the cycle and leaves the output off. One output cannot be controlled by two cycles at the same time."
 msgstr ""
 
 #: plugins/automation_rules/templates/automation_rules_help.html:24
+msgid "Lock incident until acknowledged keeps an incident active after its conditions return to normal. Only an administrator can unlock it, and only after every condition is available and no longer active. Unlocking does not restore settings or outputs changed by an action."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules_help.html:25
+msgid "The native mobile API shows one card for every saved rule. Each card reports whether automation and the rule are enabled, whether the rule is ready, triggered, waiting on active conditions or unavailable, and whether every individual condition is active, inactive, unavailable or not evaluated. Opening the mobile view reads cached provider values without changing rule or incident state."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules_help.html:27
+msgid "Every live notification includes each evaluated value, comparison and configured limit. Home notifications appear in OSPy. Browser notifications require explicit permission and an open OSPy page; the permission button immediately displays a test and uses a Service Worker fallback where required. E-mail and Telegram use their existing configured plug-ins. Push uses paired mobile devices and the configured OSPy push relay."
+msgstr ""
+
+#: plugins/automation_rules/templates/automation_rules_help.html:28
 msgid "Return to the Automation Rules settings page."
 msgstr ""
 
@@ -15638,10 +16093,6 @@ msgstr ""
 
 #: plugins/button_control/templates/button_control.html:115
 msgid "Stop stations"
-msgstr ""
-
-#: plugins/button_control/templates/button_control.html:117
-msgid "Disable scheduler"
 msgstr ""
 
 #: plugins/button_control/templates/button_control.html:123
@@ -16508,7 +16959,7 @@ msgid "Configured commands"
 msgstr ""
 
 #: plugins/cli_control/__init__.py:83 plugins/modbus_stations/__init__.py:153
-#: plugins/remote_ftp_control/__init__.py:206 plugins/sms_adj/__init__.py:195
+#: plugins/remote_ftp_control/__init__.py:206
 msgid "Last command"
 msgstr ""
 
@@ -17127,15 +17578,6 @@ msgstr ""
 #: plugins/email_reader/__init__.py:576 plugins/email_reader/__init__.py:584
 #: plugins/email_reader/__init__.py:592 plugins/email_reader/__init__.py:604
 #: plugins/modbus_stations/templates/modbus_stations_log.html:17
-#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:349
-#: plugins/sms_adj/__init__.py:354 plugins/sms_adj/__init__.py:366
-#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:380
-#: plugins/sms_adj/__init__.py:385 plugins/sms_adj/__init__.py:393
-#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:407
-#: plugins/sms_adj/__init__.py:413 plugins/sms_adj/__init__.py:421
-#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:441
-#: plugins/sms_adj/__init__.py:461 plugins/sms_adj/__init__.py:469
-#: plugins/sms_adj/__init__.py:476 plugins/sms_adj/__init__.py:498
 #: plugins/venetian_blind/templates/venetian_blind_log.html:16
 msgid "Command"
 msgstr ""
@@ -24511,7 +24953,7 @@ msgstr ""
 #: plugins/remote_ftp_control/__init__.py:186
 #: plugins/remote_notifications/__init__.py:280
 #: plugins/shelly_cloud_integrator/__init__.py:1580
-#: plugins/sms_adj/__init__.py:167 plugins/speed_monitor/__init__.py:182
+#: plugins/speed_monitor/__init__.py:182
 #: plugins/sunrise_and_sunset/__init__.py:689
 #: plugins/system_watchdog/__init__.py:139
 #: plugins/tank_monitor/__init__.py:411 plugins/telegram_bot/__init__.py:509
@@ -25634,7 +26076,6 @@ msgid "Example Number Entry Fields"
 msgstr ""
 
 #: plugins/proto/templates/proto.html:115
-#: plugins/sms_adj/templates/sms_adj.html:90
 msgid "Number 1"
 msgstr ""
 
@@ -25644,7 +26085,6 @@ msgid "Here is help for these options)"
 msgstr ""
 
 #: plugins/proto/templates/proto.html:126
-#: plugins/sms_adj/templates/sms_adj.html:96
 msgid "Number 2"
 msgstr ""
 
@@ -28516,267 +28956,6 @@ msgstr ""
 
 #: plugins/signaling_examples/templates/signaling_examples_help.html:9
 msgid "Example signals"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:26
-msgid "Package: SMS Modem"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:112
-msgid "SMS Modem plug-in is enabled"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:117
-msgid "Gammu is not installed."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:118
-msgid "Install required packages from the system package manager and restart this plug-in."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:123
-msgid "Saving Gammu config to /root/.gammurc..."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:133
-msgid "Could not save Gammu config."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:139
-msgid "SMS Modem plug-in is disabled"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:146
-msgid "SMS Modem plug-in"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:183
-msgid "SMS modem enabled"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:184
-msgid "Configured administrators"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:185
-msgid "Gammu executable available"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:186
-msgid "Modem connected"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:187
-msgid "Signal strength"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:191
-msgid "Last modem check"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:202
-msgid "SMS Modem worker is not running."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:208
-msgid "SMS modem control is disabled."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:220
-msgid "SMS modem is not connected."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:225
-msgid "SMS Modem is responding."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:234
-msgid "Error: No module named gammu"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:237
-msgid "Python Gammu module is not available."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:257
-msgid "Checking SMS..."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:259
-msgid "Error: Phone (modem) not connected."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:262
-msgid "Phone modem is not connected."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:298
-msgid "SMS from admin"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:354
-#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:385
-#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:413
-#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:461
-#: plugins/sms_adj/__init__.py:476
-msgid "is processed"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:349 plugins/sms_adj/__init__.py:366
-#: plugins/sms_adj/__init__.py:380 plugins/sms_adj/__init__.py:393
-#: plugins/sms_adj/__init__.py:407 plugins/sms_adj/__init__.py:421
-#: plugins/sms_adj/__init__.py:441 plugins/sms_adj/__init__.py:469
-#: plugins/sms_adj/__init__.py:498
-msgid "was processed and confirmation was sent as SMS to"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:351 plugins/sms_adj/__init__.py:368
-#: plugins/sms_adj/__init__.py:382 plugins/sms_adj/__init__.py:471
-#: plugins/sms_adj/__init__.py:501
-msgid "Received SMS was deleted"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:395
-msgid "Received SMS was deleted and system is now reboot"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:409
-msgid "Received SMS was deleted and system is now poweroff"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:426
-msgid "Received SMS was deleted, update was performed and program will restart"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:428
-msgid "Received SMS was deleted, but could not perform update"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:446
-msgid "SMS plug-in send image file from webcam."
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:451
-msgid "Received SMS was deleted, but could not send email with photo from webcam"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:483
-msgid "now run"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:505
-msgid "Received command"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:505
-msgid "is not defined!"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:509
-msgid "Received SMS was deleted - SMS was read"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:512
-msgid "Received SMS was deleted - SMS was not from admin"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:521
-#: plugins/water_consumption_counter/__init__.py:368
-msgid "Email was sent"
-msgstr ""
-
-#: plugins/sms_adj/__init__.py:523
-#: plugins/water_consumption_counter/__init__.py:373
-#: plugins/water_consumption_counter/__init__.py:377
-#: plugins/water_consumption_counter/__init__.py:379
-#: plugins/water_consumption_counter/__init__.py:418
-#: plugins/water_consumption_counter/__init__.py:456
-msgid "Email was not sent"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:3
-msgid "SMS settings"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:66
-msgid "SMS Settings"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:72
-msgid "Use SMS modem"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:81
-msgid "Signal strength in the status window"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:102
-msgid "Command for info"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:108
-msgid "Command for stop irrigation"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:114
-msgid "Command for start irrigation"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:120
-msgid "Command for reboot system"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:126
-msgid "Command for poweroff system"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:132
-msgid "Command for update OSPi from GITHUB"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:138
-msgid "Command for send foto from webcam"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:140
-msgid "For this function required email and webcam plugin"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:144
-msgid "Command for help"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:146
-msgid "Send SMS with all available commands"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:150
-msgid "Command for run now program"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj.html:152
-msgid "Example: runxx = run now program xx if exists"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj_help.html:3
-msgid "SMS settings - help"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj_help.html:7
-msgid "SMS Settings - help"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj_help.html:8
-msgid "For this plugin is needed to SMS modem with the telephone service provider"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj_help.html:9
-msgid "This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin installs Gammu and Python-Gammu in to the system himself"
-msgstr ""
-
-#: plugins/sms_adj/templates/sms_adj_help.html:10
-#: plugins/webcam/templates/webcam_help.html:10
-msgid "On first use please wait for status"
 msgstr ""
 
 #: plugins/speed_monitor/__init__.py:27
@@ -32884,6 +33063,18 @@ msgstr ""
 msgid "Email logging is disabled in options..."
 msgstr ""
 
+#: plugins/water_consumption_counter/__init__.py:368
+msgid "Email was sent"
+msgstr ""
+
+#: plugins/water_consumption_counter/__init__.py:373
+#: plugins/water_consumption_counter/__init__.py:377
+#: plugins/water_consumption_counter/__init__.py:379
+#: plugins/water_consumption_counter/__init__.py:418
+#: plugins/water_consumption_counter/__init__.py:456
+msgid "Email was not sent"
+msgstr ""
+
 #: plugins/water_consumption_counter/__init__.py:385
 msgid "Master station 1 running, please wait..."
 msgstr ""
@@ -34837,6 +35028,10 @@ msgstr ""
 
 #: plugins/webcam/templates/webcam_help.html:9
 msgid "If fswebcam is not installed, install it from the system package manager"
+msgstr ""
+
+#: plugins/webcam/templates/webcam_help.html:10
+msgid "On first use please wait for status"
 msgstr ""
 
 #: plugins/wind_monitor/__init__.py:76
