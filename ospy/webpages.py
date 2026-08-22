@@ -31,6 +31,7 @@ from ospy import scheduler
 from ospy import autologin
 from ospy import twofactor
 from ospy import health
+from ospy import linux_health
 from ospy import backup as system_backup
 from ospy import settings_storage
 from ospy import i18n as i18n_module
@@ -3539,7 +3540,7 @@ def _health_time(timestamp):
 
 def _health_item(item_id, title, status, summary, details='', updated='', link='',
                  confirmation_required=False, solution='', alert=True,
-                 affects_summary=True):
+                 affects_summary=True, status_label=''):
     return {
         'id': item_id,
         'title': title,
@@ -3552,6 +3553,7 @@ def _health_item(item_id, title, status, summary, details='', updated='', link='
         'solution': solution,
         'alert': bool(alert),
         'affects_summary': bool(affects_summary),
+        'status_label': status_label,
     }
 
 
@@ -4529,6 +4531,31 @@ def _system_health_data():
     ))
 
     items.extend(_runtime_health_items())
+
+    try:
+        operating_system = linux_health.snapshot()
+    except Exception as error:
+        operating_system = {
+            'status': 'unknown',
+            'summary': _('Operating system health check failed safely.'),
+            'details': '{}: {}'.format(type(error).__name__, error),
+            'solution': _('Check the OSPy event log and operating system permissions.'),
+            'updated': 0,
+        }
+    items.append(_health_item(
+        'operating_system', _('Operating system health'),
+        operating_system.get('status', 'unknown'),
+        operating_system.get('summary', ''),
+        operating_system.get('details', ''),
+        _health_time(operating_system.get('updated', 0)),
+        solution=operating_system.get('solution', ''),
+        status_label={
+            'ok': _('OK'),
+            'warning': _('Warning'),
+            'error': _('Critical'),
+            'unknown': _('Information'),
+        }.get(operating_system.get('status', 'unknown'), _('Information')),
+    ))
 
     item_statuses = [
         item['status'] for item in items if item.get('affects_summary', True)

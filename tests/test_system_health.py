@@ -198,6 +198,13 @@ class SystemHealthTests(unittest.TestCase):
 
         self.assertTrue(item["confirmation_required"])
 
+    def test_health_item_supports_specific_status_label(self):
+        item = _health_item(
+            "linux", "Linux", "error", "Failure", status_label="Critical")
+
+        self.assertEqual(item["status"], "error")
+        self.assertEqual(item["status_label"], "Critical")
+
     def test_translation_health_is_informational_and_keeps_language_rows(self):
         coverage = {
             "status": "error",

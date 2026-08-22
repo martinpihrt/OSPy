@@ -23,6 +23,8 @@ Existing irrigation programs support calendar-aware scheduling: allowed months a
 
 The optional **Automation Rules** plug-in builds graphical AND/OR conditions over cached values supplied by Water Meter, Pressure Monitor, Tank Monitor and Current Loop Tanks Monitor. It supports confirmation and repeat intervals, recovery messages, a safe test mode, action history and notifications on OSPy Home, in an open browser, by e-mail, Telegram and native mobile push. Automation Rules is monitoring-only and does not directly control irrigation outputs.
 
+The administrator **Diagnostics → System status** card includes a cached background **Operating system health** check for Linux and the root storage device. It verifies the root mount mode, disk space, inodes, a small synchronized write/read probe, accessible EXT4 metadata, Raspberry Pi undervoltage and throttling, temperature, memory, load, failed systemd services and bounded kernel-log evidence of MMC, I/O, EXT4, read-only remount, panic, lockup or out-of-memory failures. Missing commands or permissions are contained and reported without stopping OSPy; the check never runs `fsck` or another repair command on the mounted filesystem.
+
 The built-in administrator retains the original OSPy two-factor settings. Additional accounts are managed on the responsive **Options → Users** page and can independently enable TOTP or e-mail verification from **Account security** after signing in. Existing additional accounts remain compatible and start with 2FA disabled; administrators can reset a lost user pairing without seeing its secret or backup codes.
 
 ## Emergency administrator login recovery

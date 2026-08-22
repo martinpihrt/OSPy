@@ -574,7 +574,7 @@ jQuery(document).ready(function(){
             rows += '<tr class="healthRow health-' + escapeHtml(item.status) + '">' +
                 '<td><b>' + escapeHtml(item.title) + '</b></td>' +
                 '<td><span class="healthBadge health-' + escapeHtml(item.status) + '">' +
-                healthLabel(item.status) + '</span></td>' +
+                escapeHtml(item.status_label || healthLabel(item.status)) + '</span></td>' +
                 '<td><div>' + escapeHtml(item.summary) + '</div>' + details + updated + '</td>' +
                 '<td class="healthAction">' + action + '</td>' +
                 '</tr>';
