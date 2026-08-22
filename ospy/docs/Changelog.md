@@ -7,6 +7,9 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 ## August 22 2026
 -----------
 (Martin Pihrt)<br/>
+Added a validated provider-action execution entry point for actions explicitly declared through `ospy.provider.v1`. Automation Rules 1.1 can use it without directly importing provider internals; undeclared actions, stopped providers, non-object parameters and non-JSON results are rejected. Updated the Automation Rules overview in the root README and all seven Web Interface Guides without modifying gettext catalogs.
+
+(Martin Pihrt)<br/>
 Added a cached background **Operating system health** row at the bottom of Diagnostics → System status. The failure-contained Linux check verifies the root filesystem mount mode, disk space, inodes, a small synchronized write/read probe, accessible EXT4 metadata and SD identity, Raspberry Pi undervoltage and throttling, CPU temperature, memory, load, failed systemd services and bounded kernel evidence of MMC, I/O, EXT4, read-only remount, panic, lockup and out-of-memory failures. Missing commands, insufficient journal or device permissions, timeouts and unexpected exceptions are isolated and reported without blocking the web request or stopping OSPy. The check is read-only apart from its temporary write probe, never invokes sudo or filesystem repair, runs at most every ten minutes and documents safe offline fsck guidance. Added regression tests, root documentation and all seven Web Interface Guides; gettext catalogs were not modified.
 
 ## August 21 2026

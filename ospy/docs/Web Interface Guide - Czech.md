@@ -303,7 +303,7 @@ Po kliknutí na tlačítko "Odhlásit se" se uživatel odhlásí ze systému.
 ----
 
 # Plugin Pravidla automatizace
-Volitelný plugin **Automation Rules** vytváří grafická monitorovací pravidla z hodnot uložených v mezipaměti pluginů Water Meter, Pressure Monitor, Tank Monitor a Current Loop Tanks Monitor. Pravidlo může vyžadovat všechny podmínky (AND) nebo alespoň jednu podmínku (OR), čekat na trvalé splnění, opakovat upozornění a oznámit návrat do normálu. Testovací režim pouze zaznamenává rozhodnutí; tlačítko **Otestovat oznámení** skutečně ověří vybrané kanály Home, prohlížeč, e-mail, Telegram a mobilní push. Historie akcí zobrazuje výsledky vyhodnocení i doručení. Automation Rules přímo neovládá výstupy zavlažování.
+Volitelný plugin **Automation Rules** vytváří grafická pravidla AND/OR z hodnot monitorovacích pluginů, povolených snímačů OSPy Pihrt nebo Shelly, místního data a času a systémových stavů OSPy určených pouze ke čtení. Pravidlo může čekat na trvalé splnění podmínek, opakovat upozornění a oznámit návrat do normálu přes Home, prohlížeč, e-mail, Telegram nebo mobilní push. Samostatný, ve výchozím stavu vypnutý přepínač řízení povoluje chráněné jednorázové akce: zastavení vybraných stanic, všech výstupů nebo běžících programů, vypnutí plánovače, časově omezené zapnutí konkrétního výstupu v ručním režimu, změnu globální úrovně vody nebo vyvolání akce výslovně deklarované jiným poskytovatelem. Testovací režim akce pouze simuluje a ukládá výsledky. Volitelné uzamčení incidentu vyžaduje potvrzení správce až poté, co jsou všechny podmínky dostupné a neaktivní; odemknutí nikdy nevrací provedenou akci zpět.
 
 ----
 

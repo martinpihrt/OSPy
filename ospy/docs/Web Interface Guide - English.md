@@ -303,7 +303,7 @@ After clicking the "Logging out" button, the user logs out of the system.
 ----
 
 # Automation Rules plug-in
-The optional **Automation Rules** plug-in creates graphical monitoring rules from cached values supplied by Water Meter, Pressure Monitor, Tank Monitor and Current Loop Tanks Monitor. A rule can require all conditions (AND) or at least one condition (OR), wait until a condition remains true, repeat an alert and report recovery. Test mode records decisions without sending anything; **Test notifications** explicitly verifies the selected Home, browser, e-mail, Telegram and mobile push channels. The action history shows evaluation and delivery results. Automation Rules does not directly control irrigation outputs.
+The optional **Automation Rules** plug-in creates graphical AND/OR rules from cached monitoring plug-in values, enabled Pihrt or Shelly OSPy sensors, local date/time and read-only OSPy operating states. A rule can wait until conditions remain true, repeat an alert and report recovery through Home, browser, e-mail, Telegram or mobile push. A separate default-off control switch enables guarded one-shot actions that stop selected stations, all outputs or running programs, disable the scheduler, operate a specific output for a mandatory bounded duration in manual mode, change the global water-level adjustment or call an action explicitly declared by another provider. Test mode only simulates actions and records results. Optional incident locking requires administrator acknowledgement after all conditions become available and inactive; unlocking never reverses an executed action.
 
 ----
 

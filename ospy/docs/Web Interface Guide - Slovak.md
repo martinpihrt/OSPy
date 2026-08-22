@@ -304,7 +304,7 @@ Po kliknutí na tlačidlo "Odhlásiť sa" sa užívateľ odhlási zo systému.
 ----
 
 # Doplnok Pravidlá automatizácie
-Voliteľný doplnok **Automation Rules** vytvára grafické monitorovacie pravidlá z hodnôt uložených vo vyrovnávacej pamäti doplnkov Water Meter, Pressure Monitor, Tank Monitor a Current Loop Tanks Monitor. Pravidlo môže vyžadovať všetky podmienky (AND) alebo aspoň jednu podmienku (OR), čakať na trvalé splnenie, opakovať upozornenie a oznámiť návrat do normálu. Testovací režim iba zaznamenáva rozhodnutia; tlačidlo **Otestovať oznámenia** skutočne overí vybrané kanály Home, prehliadač, e-mail, Telegram a mobilný push. História akcií zobrazuje výsledky vyhodnotenia aj doručenia. Automation Rules priamo neovláda výstupy zavlažovania.
+Voliteľný doplnok **Automation Rules** vytvára grafické pravidlá AND/OR z hodnôt monitorovacích doplnkov, povolených snímačov OSPy Pihrt alebo Shelly, miestneho dátumu a času a systémových stavov OSPy určených iba na čítanie. Pravidlo môže čakať na trvalé splnenie podmienok, opakovať upozornenie a oznámiť návrat do normálu cez Home, prehliadač, e-mail, Telegram alebo mobilný push. Samostatný, predvolene vypnutý prepínač riadenia povoľuje chránené jednorazové akcie: zastavenie vybraných staníc, všetkých výstupov alebo bežiacich programov, vypnutie plánovača, časovo obmedzené zapnutie konkrétneho výstupu v ručnom režime, zmenu globálnej úrovne vody alebo vyvolanie akcie výslovne deklarovanej iným poskytovateľom. Testovací režim akcie iba simuluje a ukladá výsledky. Voliteľné uzamknutie incidentu vyžaduje potvrdenie správcu až po sprístupnení a deaktivovaní všetkých podmienok; odomknutie nikdy nevráti vykonanú akciu späť.
 
 ----
 

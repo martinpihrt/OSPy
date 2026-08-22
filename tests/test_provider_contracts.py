@@ -142,6 +142,32 @@ class ProviderContractTests(unittest.TestCase):
         self.assertIn('broken_provider', collected['errors'])
         self.assertNotIn('broken_provider', collected['providers'])
 
+    def test_provider_action_must_be_declared_and_returns_detached_json(self):
+        provider = mock.Mock()
+        declaration = capabilities('action_provider')
+        declaration['actions'] = [{
+            'id': 'close_valve', 'risk': 'safety',
+            'parameters': {'force': 'boolean'},
+        }]
+        provider.provider_capabilities.return_value = declaration
+        provider.provider_execute_action.return_value = {
+            'status': 'ok', 'data': {'closed': True},
+        }
+        with mock.patch.object(plugins, 'running', return_value=['action_provider']), \
+                mock.patch.object(plugins, 'plugin_manifest', return_value={
+                    'provider': {'contract': 'ospy.provider.v1'},
+                }), \
+                mock.patch.object(plugins, 'get', return_value=provider):
+            result = plugins.plugin_provider_execute_action(
+                'action_provider', 'close_valve', 'tank-1', {'force': True})
+            with self.assertRaises(RuntimeError):
+                plugins.plugin_provider_execute_action(
+                    'action_provider', 'undeclared', 'tank-1', {})
+
+        self.assertEqual(result['status'], 'ok')
+        provider.provider_execute_action.assert_called_once_with(
+            'close_valve', resource_id='tank-1', parameters={'force': True})
+
 
 if __name__ == '__main__':
     unittest.main()

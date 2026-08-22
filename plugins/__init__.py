@@ -2664,6 +2664,38 @@ def plugin_provider_snapshot(module):
     return validate_snapshot(method(), expected_provider_id=module)
 
 
+def plugin_provider_execute_action(module, action_id, resource_id='', parameters=None):
+    """Execute one explicitly declared provider action on a running plug-in.
+
+    Providers opt in by declaring the action in ``provider_capabilities`` and
+    implementing ``provider_execute_action``.  The returned result must be a
+    detached JSON object so callers cannot receive live provider state.
+    """
+    capabilities = plugin_provider_capabilities(module)
+    action_id = str(action_id or '').strip().lower()
+    declared = next((item for item in capabilities.get('actions', [])
+                     if item.get('id') == action_id), None)
+    if declared is None:
+        raise RuntimeError('The provider action is not declared.')
+    method = getattr(get(module), 'provider_execute_action', None)
+    if not callable(method):
+        raise RuntimeError('The plug-in does not implement provider actions.')
+    parameters = {} if parameters is None else parameters
+    if not isinstance(parameters, dict):
+        raise ValueError('Provider action parameters must be an object.')
+    resource_id = str(resource_id or '').strip().lower()
+    result = method(action_id, resource_id=resource_id,
+                    parameters=json.loads(json.dumps(
+                        parameters, allow_nan=False)))
+    try:
+        result = json.loads(json.dumps(result, allow_nan=False))
+    except (TypeError, ValueError):
+        raise ValueError('The provider action result is not valid JSON data.')
+    if not isinstance(result, dict):
+        raise ValueError('The provider action result must be an object.')
+    return result
+
+
 def plugin_provider_modules():
     """List running plug-ins implementing both sides of provider contract v1."""
     result = []
