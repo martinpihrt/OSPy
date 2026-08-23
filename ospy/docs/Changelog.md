@@ -11,6 +11,9 @@ Expanded the Automation Rules overview in the root README and all seven Web Inte
 
 Documented guarded Automation Rules actions supplied by Venetian Blind, Water Tank Monitor, Current Loop Tanks Monitor and OSPy Backup in the root README and all seven Web Interface Guides.
 
+(Martin Pihrt)<br/>
+Machine-translated the German, Polish, Russian and Serbian language catalogs from English. This was only a bulk mechanical translation: the resulting wording was not linguistically or contextually reviewed and was not syntax-checked or tested in a running OSPy interface. Incorrect terminology, grammar or text placement may therefore remain and should be reported or corrected by native speakers.
+
 ## August 22 2026
 -----------
 (Martin Pihrt)<br/>
