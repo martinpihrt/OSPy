@@ -4,13 +4,20 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 23 2026
+-----------
+(Martin Pihrt)<br/>
+Expanded the Automation Rules overview in the root README and all seven Web Interface Guides with bounded output cycles, complete cycle-transition history and the first concrete provider action supplied by Water Meter 1.2.1.
+
+Documented guarded Automation Rules actions supplied by Venetian Blind, Water Tank Monitor, Current Loop Tanks Monitor and OSPy Backup in the root README and all seven Web Interface Guides.
+
 ## August 22 2026
 -----------
 (Martin Pihrt)<br/>
-Added a validated provider-action execution entry point for actions explicitly declared through `ospy.provider.v1`. Automation Rules 1.1 can use it without directly importing provider internals; undeclared actions, stopped providers, non-object parameters and non-JSON results are rejected. Updated the Automation Rules overview in the root README and all seven Web Interface Guides without modifying gettext catalogs.
+Added a validated provider-action execution entry point for actions explicitly declared through `ospy.provider.v1`. Automation Rules 1.1 can use it without directly importing provider internals; undeclared actions, stopped providers, non-object parameters and non-JSON results are rejected. Updated the Automation Rules overview in the root README and all seven Web Interface Guides.
 
 (Martin Pihrt)<br/>
-Added a cached background **Operating system health** row at the bottom of Diagnostics → System status. The failure-contained Linux check verifies the root filesystem mount mode, disk space, inodes, a small synchronized write/read probe, accessible EXT4 metadata and SD identity, Raspberry Pi undervoltage and throttling, CPU temperature, memory, load, failed systemd services and bounded kernel evidence of MMC, I/O, EXT4, read-only remount, panic, lockup and out-of-memory failures. Missing commands, insufficient journal or device permissions, timeouts and unexpected exceptions are isolated and reported without blocking the web request or stopping OSPy. The check is read-only apart from its temporary write probe, never invokes sudo or filesystem repair, runs at most every ten minutes and documents safe offline fsck guidance. Added regression tests, root documentation and all seven Web Interface Guides; gettext catalogs were not modified.
+Added a cached background **Operating system health** row at the bottom of Diagnostics → System status. The failure-contained Linux check verifies the root filesystem mount mode, disk space, inodes, a small synchronized write/read probe, accessible EXT4 metadata and SD identity, Raspberry Pi undervoltage and throttling, CPU temperature, memory, load, failed systemd services and bounded kernel evidence of MMC, I/O, EXT4, read-only remount, panic, lockup and out-of-memory failures. Missing commands, insufficient journal or device permissions, timeouts and unexpected exceptions are isolated and reported without blocking the web request or stopping OSPy. The check is read-only apart from its temporary write probe, never invokes sudo or filesystem repair, runs at most every ten minutes and documents safe offline fsck guidance. Added regression tests, root documentation and all seven Web Interface Guides.
 
 ## August 21 2026
 -----------
@@ -76,7 +83,7 @@ Improved Cloudflare remote-access installation and footer discovery. Cloudflare 
 ## August 9 2026
 -----------
 (Martin Pihrt)<br/>
-Energy Meter v1.0.1 adds multi-meter electricity and photovoltaic monitoring with direct local Shelly RPC as the recommended source and Shelly Cloud Integration as an optional source. It records L1–L3 and total import/export, preserves counter baselines across restart and meter replacement, calculates daily/monthly/yearly energy, tariffs, cost, feed-in income, house consumption, self-consumption, independence and solar savings, and provides local JSON or optional SQL history, CSV, responsive graphs, Home data, diagnostics and mobile API cards. Version 1.0.1 also fixes web template block indentation so settings and empty history render completely, keeps the OSPy footer outside the history table and aligns the framing with Wind Speed Monitor. Shelly Cloud Integration v1.0.3 now exposes active returned-energy counters for three-phase meters. Updated the plug-in lists and Energy Meter behavior in all seven Web Interface Guides without modifying gettext catalogs.
+Energy Meter v1.0.1 adds multi-meter electricity and photovoltaic monitoring with direct local Shelly RPC as the recommended source and Shelly Cloud Integration as an optional source. It records L1–L3 and total import/export, preserves counter baselines across restart and meter replacement, calculates daily/monthly/yearly energy, tariffs, cost, feed-in income, house consumption, self-consumption, independence and solar savings, and provides local JSON or optional SQL history, CSV, responsive graphs, Home data, diagnostics and mobile API cards. Version 1.0.1 also fixes web template block indentation so settings and empty history render completely, keeps the OSPy footer outside the history table and aligns the framing with Wind Speed Monitor. Shelly Cloud Integration v1.0.3 now exposes active returned-energy counters for three-phase meters. Updated the plug-in lists and Energy Meter behavior in all seven Web Interface Guides.
 
 
 ## August 8 2026 (v3.0)
