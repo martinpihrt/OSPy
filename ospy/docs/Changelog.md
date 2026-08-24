@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 24 2026
+-----------
+(Tomas Szepesi)<br/>
+Slovak translation update (not 100% complete yet).
+
 ## August 23 2026
 -----------
 (Martin Pihrt)<br/>
